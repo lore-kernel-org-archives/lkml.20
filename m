@@ -1,365 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FE14E2F08
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1E53D3D1B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789674155; cv=none; b=fH1ZQrSSjFQmPGP0UVajPVVj+TT4rwviDMezJGz5cB0dxmQKEaAqPfkFxdGtlDKJhwrfk6SAOI3oZHJYvbjN37mlnH+W7aoLy0p+8NwvaOidm2mem9qTMZCws0Zl06g1tm//SZ431/iZyklNsuG4OA91KA+b8t35TvLaFhIZpwA=
+	t=1789674159; cv=none; b=f/jSsXBHjl0exEUEIxO+xL/MvoMqqP2+9VPYYe4g98cldWBCfIkQgs7H9QAcIRLKlLc84u08Z0xpLQAVdy3opxufZ4s58uKqzy4JhzXsSPsBIZHn9DSh8L85RdUr1OuJXYIOPFiJbrnUxKnH8pk1EcmCkQ9HBumfMjBUkZ+DhMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789674155; c=relaxed/simple;
-	bh=foYHm2o2+MQYrdR+mpSr7B5iCKdVj48EFsHR+MXZsH4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mwvS5gj1mClDK9fo6dUX+Xin+ZhlWOkdmLF6MlCf+O7I0oKqJdCQ3Q6tX/SQ1QQV/HVv/b5bQol0X15pAVC5HqRe6cHLwgP8tu5+MyV6rS9kudff6WDshmJ1/uQFVIHExHQ3V5hdOvKnOEK9uVyOdHqmPwmZ2J6xc95vH/bWbeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UVdfF1p3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789674159; c=relaxed/simple;
+	bh=uhUM/M81d4CXxPFscOxT5I7bnlNnmvtxKPyzZsjpw54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OYiQMaTB7vTc2lZArg8+JmQtA/LEOBYAEWeJBTNCI80msQBeZxuIeSPqD7+4K2Bu4ovA7dgx8uKGtsIeFiB8xxAU2q5pu46ThW76PCBIg1RgNbnj49Skb+5OW8ZWQdecb5gyU/bqpOxjLy+An/Dj8uPhBhWeKbDOInR9D5shKa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=epaa0SpA; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UVdfF1p3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375411F0089A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789674152;
-	bh=2BCWfhhEYgzD7DaQHesnxgyG/gcGvwv95EZYwth9a3Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UVdfF1p34mesS2N1qg/fL8ehSvSlAW6xkIbzgseznGO1lLVxamIM+z7SwM11kLNSG
-	 vO4khuUnVDuwav7wzRfjyXPGojkun6RPBE0paOhFl1o/ZLVOcbcI7ROrjLP16Un/A/
-	 pxz+CHvOTHIYQWvxCp0xvSscHvaS3H8PdmCDITLgjTrX1xZv8W4n6eTp3GyikS8C4O
-	 LVUwwmdKoJ1vDgCLt7DPv/ZDwXEjmV4SoHB2Qqig8Pk7r2s6/SQmRObiWOBEbupE6n
-	 zbJ65ZILkcPACJ556/WAugn5r2AGNN4VCB7Da9wjYhOj/Z+AO9sJmHGuyIrNJUntuz
-	 Tzq6qIUOhjogg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1594109e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:42:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxZiBux2FJ06U2CzgzJAg0FVlSpKxMJ1yBuSUxCT0f10OPf9u2MuxzlYcXYZzt7Cdb9lq+37MT+z5N6S2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntA6rhjEBZbqyBLyhnOTrnNly5+DKr2NUz69R/nKtvkLaNnWJO
-	15NxTp5HYkYW/Ix+VCUBR18AVZdVh4ZmZnVcMdY7ej1TkYeKz9xaxPgjbLNBbi7D7ih2NUaQc3W
-	zVp/2q9iR0OVy2SE+qIByEC20XolIDT4=
-X-Received: by 2002:a05:6512:1194:b0:5ae:ba7a:1789 with SMTP id
- 2adb3069b0e04-5b8b6600b10mr2624216e87.13.1789674150487; Thu, 17 Sep 2026
- 12:42:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="epaa0SpA"
+Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93bd580489dso56978885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789674155; x=1790278955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MkY2/FLZ13vCVvKQ7BjBhJgp4fsJ4DBBdsauFSxn6kY=;
+        b=epaa0SpAQ/f9XlNGGIUuEqj8OQnsjH7BXYyc+bqM4Bqay3bgBlFJUscWrEwDEDDQUq
+         1Brrd/k77XO2njTZk3spOcIunAhGLpTyT3NMUIm7ksFdfkPnNZTcvsfC0s/5cWb+51Yj
+         axyGHM14lxS1UJTM16TIB71J+FaujhQHOxCHdguCkeEEJH+bBu3jTX0Bc2lzlSu8mXY2
+         H7K/eMJ/KSx7ZYAri1TRsnj9xrhKdvVnfzpB/DTf0rsRJdEZX9BkirXaNL8VVjGtDUxv
+         eDB7PtuEHMJvek/NpYJaI8EAdGpkW5Ia0r1eDEUjxl5R7BvkqZjBt17O4OQ33oz2nKVA
+         Jqsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789674155; x=1790278955;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MkY2/FLZ13vCVvKQ7BjBhJgp4fsJ4DBBdsauFSxn6kY=;
+        b=d4sdMcVzhQ36ZfDgvaBnoUnUzSg+kunXoawuzRypMclP0BT2LSpIyoN0pjuL2Y8j2G
+         Sx+LndmtSmiP7j63vjL6FnCQVUB1n+Hq+W0UiQq7IKa7JlLuIYruuArT0zxql2qTNiTQ
+         ytmGBsqjia+1icfNoEhhukB/yLoD7HmaBiW9Mw+ZVqQ4hcmEyixGYAPOi0CyKXg2PRl2
+         a2hCXvNwhv5lqv3RYbNOcfYG8DBDVC4x77cB4VZ5H+5++lnk8ZqItDR5BFvqZ/8LDhkN
+         2Snoee3LHNImqiHltY/bXHUZKFJhdhu+npqhuGn1IWOUxUePCYwPxv/oW2CL7udWVkYs
+         4EvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1qYYLzEhfnX6e/6J6Z9nvTMz7XPUak4ILZ35UgXDB+nlNvjUnwCZI6TBNH8QjPNQCYTv8jyiadhJBbD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOxDQCHlHLy4cFJi3kQY5BZosZ9bKNituzQSplAPQ32mbSi9a9
+	HaIVGw4cfK8ZEbm3ndBCXSKyxbaL8uA1TDw1wJEeDIzxOrqjjUPtKykkvpliVBLhzg==
+X-Gm-Gg: AYBFou0JhsRhhcmE09IjoMvZrZJs0ygsbJCiHuBPdXP85NiQSA4Ej7KoFBAOt0GolRI
+	W6nnpVc/L09E2wbCviDHkyAnbXU/fyMN3F40SJzDJ89q7ArzEEj/buYLSIV0hAV9SN+CSxqTauO
+	+Q2i/4Jba2YGJJdEDUAIYYK9dYa+hwbEQ803azMQdaH8PMz3LDA81gInfVkPtW7ax34qF6HtOdM
+	GPRigS4KlQzhhtKIi5RQSTGxeC+9G6ciQovY4vW1Uc3affd4+BjblbKu+G7Nv8fcjo5FpChls2u
+	wfRKDybc5Y2mt2l+DOl5YJnpFtUqUbB3R/It59hKK/6uezG3L3EoQb7lKwAhyLkC3WrYL3zofYG
+	ABmdtj1QsEs4+StxgvMn2/Fcz8j2v3EJwJJTHay92006uKo+DzusJLcs2AFH60oN/foStJZO+Hc
+	CZTH6RyFVsyX0VGzMgMbfEp6f0OFjXvGCGX+itQk2jks1bvJ2ooRXzg+Mn9zpYi1x8naw3EHHPv
+	OYeLoCvtYXbUu8l59HWaHH2g91DFacKdlUcxi6XgqwBh2RKrFyWPLT6Y10ht1LR634cbxDTeNx+
+	IqLSviPiX+bX3U7tj4CdECoBW8qsKbejrGOs
+X-Received: by 2002:a05:620a:438b:b0:93a:1b82:4962 with SMTP id af79cd13be357-93bb79b5b59mr1444714885a.47.1789674155573;
+        Thu, 17 Sep 2026 12:42:35 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b780cfa78sm524335685a.2.2026.09.17.12.42.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 12:42:34 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>,
+	Myeonghun Pak <mhun512@gmail.com>
+Subject: [PATCH] NFC: st21nfca: Release the I2C IRQ before freeing its resources
+Date: Thu, 17 Sep 2026 15:42:33 -0400
+Message-ID: <20260917194233.65921-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904212000.4167880-1-briannorris@chromium.org> <20260904141215.5.Ib0272869f8b1178426106d911441c449ac299048@changeid>
-In-Reply-To: <20260904141215.5.Ib0272869f8b1178426106d911441c449ac299048@changeid>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 17 Sep 2026 21:41:05 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hsceFpdp7mW+cLDn+KTuyNSNzZO6ZtDLMcFG7311qOdg@mail.gmail.com>
-X-Gm-Features: AcwNN1WCL5grxwwX4Lp0R-9BaaiZJw5zDg8kY2f408iKFbGK6nYFbJ3kzC6Mzgs
-Message-ID: <CAJZ5v0hsceFpdp7mW+cLDn+KTuyNSNzZO6ZtDLMcFG7311qOdg@mail.gmail.com>
-Subject: Re: [PATCH 05/11] PM: core: Document struct dev_pm_info with kerneldoc
-To: Brian Norris <briannorris@chromium.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org, 
-	Len Brown <lenb@kernel.org>, Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org, 
-	Pavel Machek <pavel@kernel.org>, Doug Anderson <dianders@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 11:20=E2=80=AFPM Brian Norris <briannorris@chromium.=
-org> wrote:
->
-> Documentation/power/runtime_pm.rst includes several descriptions of
-> dev_pm_info fields, but many of them are wrong these days, as the types
-> or behaviors have changed. This is a prime reason for keeping docs
-> closer to the code where possible.
->
-> Adapt and rewrite some of these descriptions, and add them to
-> include/linux/pm.h directly. Then pull these docs into the generated
-> HTML.
->
-> Tested with `make htmldocs`.
->
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
+The threaded IRQ handler accesses pending_skb and passes received frames
+through phy->hdev. During removal, st21nfca_hci_remove() frees the HCI
+device and the LLC state, and pending_skb is also freed before devres
+releases the IRQ. A pending or concurrent interrupt can therefore access
+freed memory. The HCI probe failure path likewise frees pending_skb while
+the IRQ is still registered.
 
-All of the previous patches and this one look fine to me and I'm going
-to pick them up right away.
+Release the managed IRQ before removing the HCI device, waiting for the
+threaded handler to finish. Also release it before freeing pending_skb
+when HCI probing fails, while keeping earlier failures on the path that
+has no registered IRQ to release.
 
-And thank you for doing this work!  It's been on my todo list for quite a w=
-hile.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-> ---
->
->  Documentation/power/runtime_pm.rst | 101 ++---------------------------
->  include/linux/pm.h                 |  93 ++++++++++++++++++++++++++
->  2 files changed, 98 insertions(+), 96 deletions(-)
->
-> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
-time_pm.rst
-> index 380dad7590a9..39fdeeda7a1e 100644
-> --- a/Documentation/power/runtime_pm.rst
-> +++ b/Documentation/power/runtime_pm.rst
-> @@ -203,103 +203,12 @@ rules:
->  3. Runtime PM Device Fields
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
->
-> -The following device runtime PM fields are present in 'struct dev_pm_inf=
-o', as
-> -defined in include/linux/pm.h:
-> +Device PM fields are found in 'struct dev_pm_info', as defined in
-> +include/linux/pm.h. Many of those fields track runtime PM configuration =
-and
-> +state.
->
-> -  `struct timer_list suspend_timer;`
-> -    - timer used for scheduling (delayed) suspend and autosuspend reques=
-ts
-> -
-> -  `unsigned long timer_expires;`
-> -    - timer expiration time, in jiffies (if this is different from zero,=
- the
-> -      timer is running and will expire at that time, otherwise the timer=
- is not
-> -      running)
-> -
-> -  `struct work_struct work;`
-> -    - work structure used for queuing up requests (i.e. work items in pm=
-_wq)
-> -
-> -  `wait_queue_head_t wait_queue;`
-> -    - wait queue used if any of the helper functions needs to wait for a=
-nother
-> -      one to complete
-> -
-> -  `spinlock_t lock;`
-> -    - lock used for synchronization
-> -
-> -  `atomic_t usage_count;`
-> -    - the usage counter of the device
-> -
-> -  `atomic_t child_count;`
-> -    - the count of 'active' children of the device
-> -
-> -  `unsigned int ignore_children;`
-> -    - if set, the value of child_count is ignored (but still updated)
-> -
-> -  `unsigned int disable_depth;`
-> -    - used for disabling the helper functions (they work normally if thi=
-s is
-> -      equal to zero); the initial value of it is 1 (i.e. runtime PM is
-> -      initially disabled for all devices)
-> -
-> -  `int runtime_error;`
-> -    - if set, there was a fatal error (one of the callbacks returned err=
-or code
-> -      as described in Section 2), so the helper functions will not work =
-until
-> -      this flag is cleared; this is the error code returned by the faili=
-ng
-> -      callback
-> -
-> -  `unsigned int idle_notification;`
-> -    - if set, ->runtime_idle() is being executed
-> -
-> -  `unsigned int request_pending;`
-> -    - if set, there's a pending request (i.e. a work item queued up into=
- pm_wq)
-> -
-> -  `enum rpm_request request;`
-> -    - type of request that's pending (valid if request_pending is set)
-> -
-> -  `unsigned int deferred_resume;`
-> -    - set if ->runtime_resume() is about to be run while ->runtime_suspe=
-nd() is
-> -      being executed for that device and it is not practical to wait for=
- the
-> -      suspend to complete; means "start a resume as soon as you've suspe=
-nded"
-> -
-> -  `enum rpm_status runtime_status;`
-> -    - the runtime PM status of the device; this field's initial value is
-> -      RPM_SUSPENDED, which means that each device is initially regarded =
-by the
-> -      PM core as 'suspended', regardless of its real hardware status
-> -
-> -  `enum rpm_status last_status;`
-> -    - the last runtime PM status of the device captured before disabling=
- runtime
-> -      PM for it (invalid initially and when disable_depth is 0)
-> -
-> -  `unsigned int runtime_auto;`
-> -    - if set, indicates that the user space has allowed the device drive=
-r to
-> -      power manage the device at run time via the /sys/devices/.../power=
-/control
-> -      `interface;` it may only be modified with the help of the
-> -      pm_runtime_allow() and pm_runtime_forbid() helper functions
-> -
-> -  `unsigned int no_callbacks;`
-> -    - indicates that the device does not use the runtime PM callbacks (s=
-ee
-> -      Section 8); it may be modified only by the pm_runtime_no_callbacks=
-()
-> -      helper function
-> -
-> -  `unsigned int irq_safe;`
-> -    - indicates that the ->runtime_suspend() and ->runtime_resume() call=
-backs
-> -      will be invoked with the spinlock held and interrupts disabled
-> -
-> -  `unsigned int use_autosuspend;`
-> -    - indicates that the device's driver supports delayed autosuspend (s=
-ee
-> -      Section 9); it may be modified only by the
-> -      pm_runtime{_dont}_use_autosuspend() helper functions
-> -
-> -  `unsigned int timer_autosuspends;`
-> -    - indicates that the PM core should attempt to carry out an autosusp=
-end
-> -      when the timer expires rather than a normal suspend
-> -
-> -  `int autosuspend_delay;`
-> -    - the delay time (in milliseconds) to be used for autosuspend
-> -
-> -  `unsigned long last_busy;`
-> -    - the time (in jiffies) when the pm_runtime_mark_last_busy() helper
-> -      function was last called for this device; used in calculating inac=
-tivity
-> -      periods for autosuspend
-> -
-> -All of the above fields are members of the 'power' member of 'struct dev=
-ice'.
-> +.. kernel-doc:: include/linux/pm.h
-> +   :identifiers: dev_pm_info
->
->  4. Runtime PM Device Helper Functions
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> diff --git a/include/linux/pm.h b/include/linux/pm.h
-> index afcaaa37a812..ef3f1310e749 100644
-> --- a/include/linux/pm.h
-> +++ b/include/linux/pm.h
-> @@ -663,6 +663,99 @@ struct pm_subsys_data {
->  #define DPM_FLAG_SMART_SUSPEND         BIT(2)
->  #define DPM_FLAG_MAY_SKIP_RESUME       BIT(3)
->
-> +/**
-> + * struct dev_pm_info - Device power management information.
-> + *
-> + * @power_state: Legacy power state (mostly unused in modern kernels).
-> + * @can_wakeup: Device is capable of generating wakeup signals.
-> + * @async_suspend: Device can be suspended and resumed asynchronously.
-> + * @in_dpm_list: Device is on the dpm_list.
-> + * @is_prepared: Device's ->prepare() callback has run successfully.
-> + * @is_suspended: Device is suspended during a system sleep transition.
-> + * @is_noirq_suspended: Device's noirq suspend callback has run successf=
-ully.
-> + * @is_late_suspended: Device's late suspend callback has run successful=
-ly.
-> + * @no_pm: Device does not participate in power management transitions.
-> + * @early_init: Device was initialized before standard PM initialization=
-.
-> + * @direct_complete: Device can skip suspend/resume callbacks and remain
-> + *   runtime-suspended during system sleep.
-> + * @driver_flags: Driver flags (e.g. %DPM_FLAG_SMART_SUSPEND) set at pro=
-be time.
-> + * @lock: Spinlock used for synchronizing PM state transitions and runti=
-me PM
-> + *   operations.
-> + * @entry: List head for device power management lists.
-> + * @completion: Completion for synchronization during asynchronous syste=
-m
-> + *   suspend/resume.
-> + * @wakeup: Wakeup source object associated with the device.
-> + * @work_in_progress: Asynchronous PM operation in progress.
-> + * @wakeup_path: Device is in the wakeup path or can wake the system up.
-> + * @syscore: Device participates in syscore power management operations.
-> + * @no_pm_callbacks: Device has no PM callbacks; handled by parent or su=
-bsystem.
-> + * @smart_suspend: Driver requested smart-suspend behavior.
-> + * @must_resume: Device must be resumed during system resume.
-> + * @may_skip_resume: Set by subsystems to indicate driver resume callbac=
-ks may
-> + *   be skipped.
-> + * @out_band_wakeup: Out-of-band wakeup is supported.
-> + * @strict_midlayer: Middle layer code does not want callbacks invoked v=
-ia
-> + *   pm_runtime_force_suspend() / pm_runtime_force_resume().
-> + * @should_wakeup: Wakeup flag when system sleep is not enabled.
-> + * @suspend_timer: High-resolution timer used for scheduling delayed run=
-time
-> + *   suspend and autosuspend requests.
-> + * @timer_expires: Timer expiration time in nanoseconds monotonic time
-> + *   (runtime PM).
-> + * @work: Work structure used for queuing up requests into pm_wq (runtim=
-e PM).
-> + * @wait_queue: Wait queue used if any helper functions need to wait for=
- another
-> + *   state change to complete (runtime PM).
-> + * @wakeirq: Dedicated wakeup interrupt for the device.
-> + * @usage_count: Device runtime PM usage counter.
-> + * @child_count: Count of active children of the device (runtime PM).
-> + * @disable_depth: Disable counter for runtime PM (runtime PM is enabled=
- when
-> + *   this is 0; initial value is 1).
-> + * @idle_notification: Set if ->runtime_idle() is being executed.
-> + * @request_pending: Set if a work item is queued into pm_wq (runtime PM=
-).
-> + * @deferred_resume: Set if ->runtime_resume() should run as soon as
-> + *   ->runtime_suspend() completes.
-> + * @needs_force_resume: Indicates the device was forced into suspend by
-> + *   pm_runtime_force_suspend() and must be resumed by
-> + *   pm_runtime_force_resume().
-> + * @runtime_auto: User space has allowed the driver to power manage the =
-device
-> + *   at runtime via sysfs control attribute; also can be set by
-> + *   pm_runtime_allow() or pm_runtime_forbid().
-> + * @ignore_children: If set, the value of child_count is ignored for run=
-time
-> + *   suspend and idle decisions.
-> + * @no_callbacks: Indicates the device does not use runtime PM callbacks=
-.
-> + * @irq_safe: Indicates runtime PM callbacks will be invoked with the sp=
-inlock
-> + *   held and interrupts disabled.
-> + * @use_autosuspend: Indicates the device driver supports delayed runtim=
-e
-> + *   autosuspend.
-> + * @timer_autosuspends: Indicates the runtime PM core should attempt an
-> + *   autosuspend rather than a normal suspend when the timer expires.
-> + * @memalloc_noio: Indicates memory allocation during runtime PM transit=
-ions
-> + *   must avoid I/O (GFP_NOIO).
-> + * @links_count: Number of device links that require runtime PM coordina=
-tion.
-> + * @request: Type of pending runtime PM request (valid if request_pendin=
-g is
-> + *   set).
-> + * @runtime_status: Runtime PM status of the device.
-> + * @last_status: Last status captured before disabling runtime PM, or
-> + *   %RPM_BLOCKED / %RPM_INVALID.
-> + * @runtime_error: Fatal error code returned by a failing callback, bloc=
-king
-> + *   helpers until cleared.
-> + * @autosuspend_delay: Delay time in milliseconds to be used for runtime
-> + *   autosuspend.
-> + * @last_busy: Timestamp in nanoseconds when pm_runtime_mark_last_busy()=
- was
-> + *   last called. Used in calculating inactivity periods for autosuspend=
-.
-> + * @active_time: Accumulated time in nanoseconds spent in %RPM_ACTIVE st=
-ate.
-> + * @suspended_time: Accumulated time in nanoseconds spent in %RPM_SUSPEN=
-DED
-> + *   state.
-> + * @accounting_timestamp: Timestamp in nanoseconds of the last runtime P=
-M state
-> + *   accounting update.
-> + * @subsys_data: Subsystem-specific power management data.
-> + * @set_latency_tolerance: Callback for setting latency tolerance.
-> + * @qos: Per-device PM Quality of Service (QoS) constraints.
-> + * @detach_power_off: Indicates device should be detached from PM domain=
- on
-> + *   power off.
-> + *
-> + * Device power management information stored in the "power" member of s=
-truct
-> + * device.
-> + */
->  struct dev_pm_info {
->         pm_message_t            power_state;
->         bool                    can_wakeup:1;
-> --
-> 2.55.0.979.g7e5102b832-goog
->
+Fixes: 68957303f44a ("NFC: ST21NFCA: Add driver for STMicroelectronics ST21NFCA NFC Chip")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/nfc/st21nfca/i2c.c |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nfc/st21nfca/i2c.c b/drivers/nfc/st21nfca/i2c.c
+index a4c93ff7c5b0..894eb100ab5f 100644
+--- a/drivers/nfc/st21nfca/i2c.c
++++ b/drivers/nfc/st21nfca/i2c.c
+@@ -551,10 +551,12 @@ static int st21nfca_hci_i2c_probe(struct i2c_client *client)
+ 			       &phy->hdev,
+ 			       &phy->se_status);
+ 	if (r)
+-		goto out_free;
++		goto out_free_irq;
+ 
+ 	return 0;
+ 
++out_free_irq:
++	devm_free_irq(&client->dev, client->irq, phy);
+ out_free:
+ 	kfree_skb(phy->pending_skb);
+ 	return r;
+@@ -564,6 +566,7 @@ static void st21nfca_hci_i2c_remove(struct i2c_client *client)
+ {
+ 	struct st21nfca_i2c_phy *phy = i2c_get_clientdata(client);
+ 
++	devm_free_irq(&client->dev, client->irq, phy);
+ 	st21nfca_hci_remove(phy->hdev);
+ 
+ 	if (phy->powered)
+-- 
+2.47.1
