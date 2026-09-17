@@ -1,163 +1,123 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B327151FCC4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651046; cv=pass; b=CC+cIWlnetNVFfkRG4YkXx0FAetAOEVKvqhnkax7FNljmefCRZeWMhj1Sh+tceJ1c1d4xlNC3WMxt9xx48EtLVCMRG1uqLK9XOsQKLRTb/dj3ilH/ji8EGDa5s4ZZq8JjA9LSobo2uZqHwchrhrsfz5QcX11Hur/F7ZhdSAyQ54=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651046; c=relaxed/simple;
-	bh=kO4HLKikSv+g/tlkono8w2r9mfJw0DOnYzMEnSqFOZQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PXi0ZN/RP/LNRKCvm8gwa3+35U7cGSa3rhZ8XeF0ml7WLK/eMiy+YIhurFzTOg0viG4ZvOxHk5pU0qc5isINw62YDDSfpL14NeRjbqMT6px1CDnjuDe9w5/lsMPgVg89AvITmvlXrSJ2EK31hd9TcFKGOPztSGFtvMarrqazLdE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ckfnxtz2; arc=pass smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83944E2F1A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789651122; cv=none; b=jzosUKk4kWDjpbB/Kc6vQR0rP3e1VjEBeOf16Te8DgO2LkvnewXLtu1di+oiZZkUUyw5uwkj1JHxr7Uc8q8NICYIXIxJn/Et2A0FRFgPjVwQI5sOvCw+VpUbPuHvekdlP4KunbFxk+nStXzLbZ/9BD/oy3bPsZ4Ny49Hn2QZA00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789651122; c=relaxed/simple;
+	bh=JIdSHvL9oprg5aNzX7e1SVuXsPcrZDPL7qdxY/kXG6U=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=iyRR6N4qTC6goumCKI1rQU5A6RIVZCEEuCy6Bs6Q3am87qXdeoduOtHejPKU4y5jGEq9mZVn15EJ1YtFMwf3V0586VH+Tx3XSvbCU8A42aNPe0CiCObBmstumopvDkXhtW9jx62nlkGEpFAVgXIpO/zLAyrE9zGPmt2GQ4Soppw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kpyQsR85; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ckfnxtz2"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso1848e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:17:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789651042; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gJzhVNE9LqYOAImRk+9yUYm8mV2o2aDTlklWN8Syn0RO9aStJUIQiipH4QhcYXrbK1
-         iRnrQM3HVnuv1zkcM3yac36Cw5lMUmvBePHpamzW0/DegNxhARdvfX6Kiwdmt0v3G+Zm
-         BnkqSYOpACdvGJWbembSG3z1jksObxD129B8qV9xQXpZmiMDfcLtf6pv2ra5U6iVNuQO
-         fwRZCEJuIvCY4tGab7m0eZUNjmWWOfzMmed+akORy4nMHgvpJa7wYwTxlQE6t+kiv+Ol
-         /K9zHu3XGX5PuLIkz/TgIw6yl9U6kUHiKzR0ge2jDz57i6EilyGa+re/goLDfy/10063
-         qrjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
-        fh=6B9i0RHT9D6F/QzJYdPopbWCddz+UWyzCf02QKgDf3k=;
-        b=SghsApwIfhhroo1j1hOnCyqcxK24qqUmmV+hLMrS1iEF6prOAlpOC0uHflCtu1f+Ie
-         Lj/8VmdtATyOE2MLMS+4xp0mxMNZmGbfq8lqB6kR/zO6G2Fw68hfigip6I9sRdrBry0m
-         s4yyjA6G97Eyfi4lXaMmntwNT7+HQ/eNtynyJQnNK57AEbkZooCrZx2Yj9s070+n/3Ot
-         LlDvOoFu2u7NZYy20EW/H7uv7OaYJt59z84MB3WV1VHUjLmdr4z8+HeUGQJCD8dlJ0s2
-         Mv2b1eJsN5WxFRmgd4Am0I+tB9XFq0HAyHJB/iEh6q1Yl5O6bwZi5e1ZZnnWuR4xe3/c
-         pMxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kpyQsR85"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fdc579daso8227885ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789651042; x=1790255842; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
-        b=ckfnxtz2wGezph2qLayTqSjlDtfsqRO8GHSC0w7wIxNZHmVm7ha5M95vnusVcyL+sJ
-         b9nIfsSPmBHDlQ7Mwxix/hDUSkysGfD85T2p0qqldo4lEwGKsAj+tRFg1Zzavzb9FUaZ
-         IzV4+JnTWkvMZDAv7uBbEWBdXY5EIoazjG/qRZ3emYT96M4s7eYJhqI2kviyt9bLK83W
-         qXEQfD1Q34401WnQK2DMEq+1iOZAjJgytem3QWH4DogmglY1I3Ood9SEgU+tygQDdAGA
-         fV1AgX0FJOmRz0qecHVwebdw8k7ZUYZWSRG44DeWwCo3TY8xKsy/xPSKS4PwOejVEwpa
-         fs7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789651042; x=1790255842;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=gmail.com; s=20251104; t=1789651119; x=1790255919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:subject
+         :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=yvMJselGvAoMrhysUaGitx662yndDSgH+0mQM9lz22E=;
-        b=DtdgMaTEqZu69w0jEf7AeIKg4H5obu0wc61Ot/JNkZeMNBfHpR6hcj+q0pFej9Q+9X
-         kXN/22EOqBX/mR2Yu2bnaX5kM1hVF8e/MpI4Aixe9VpWjVXNsxFsqxJC6eVKMTREhyLX
-         2/A5hUzPgMiaLWXkXB+8BuZmB+Q3h1S6r9mBpw8ORORXpHn+3lFGcV8M9/Nlgf/g5wIO
-         /N8nw474UNz1DPjZASrn8Nu+k+3kqqB0kDNIit0J35cex2i4y+vThKIde0ogambCa5uw
-         wPLBPeeDMH1Vi5MesX2XWEpHaqwYNIk8mp6F5sPwW7eIYBYltP/+OTyTxzfWyaVbnJSb
-         YlnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzo5LtH3LYGrqw/4JyuIuZOM+2YDLwAaWsJzmnC2mUvFXjBgOY8vPQb+QvOHyWLiJpzTBIk2Blzm4LCtlU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/PRdwOtJ8iTJbmIQAQezgN4yhcM8zIiBzmyjWkDmS05iOPjkD
-	DpmmU7aHeKkvNaFE2jnqbsUVZ1hTGIgcOsAwSMO2bk8+VhyYNF476FysQF8joGLweX5+QStV0qW
-	sz8XP0zDlNjzIGvjy6nFE/WMCDKeUojU228fdjC2I
-X-Gm-Gg: AYBFou3nEDbus1hZ9xqtscmDL58uIxr0XraK7GYtjAn7vjUvKkmvixVLivpXw3Gf8mH
-	WjUEDpdRsUFBk3BoVNw60e4QIcCRXvVYDtjB5Hz5Whse6Ex16G+HXtoS8Fwzp+9+L8ST6ZEPCzy
-	e5Brh0mohxiSpTdVTVUYBqH8ELveAedKRINEqfUSoGQZBvCcUTbzyX0VGRN56DYoiqVyGo+7hM/
-	g1JrEb+87BvpIRs29AlflK+T64ycdkDREImpWTbWwsBTHRjkbtWU9YgZcr+6QZQ/b6ym53VaPrh
-	C1RXqK2qCuhez1Z3HdckeLS6SoVKyqGEBYiINhsilqMEjX5n2f6k3ABrR+tUlXmF4tCCHrlzy9x
-	vnVVcZQhmvFRlhQ==
-X-Received: by 2002:ac2:4c50:0:b0:5b2:8963:e5d4 with SMTP id
- 2adb3069b0e04-5b8bff1d051mr39681e87.5.1789651041084; Thu, 17 Sep 2026
- 06:17:21 -0700 (PDT)
+        bh=ZeESk94qNmJ1gRJ9w7jilQfXoVBP62w9Mug3Fo9w8SA=;
+        b=kpyQsR85X70xovRJWnMVFumoR2brJ9iPOl8O+nW146mysSYAnisL5GG5p+UAQx602W
+         JhujbWyKi7LuOm91ncpzt16cJn9ilHj8HOnsvhQjln2Xfagc6YicIO0/T0wiF6gowp5E
+         dwSjkZUUvh5OBHjPdJAGgZ03W0j4i4PEBq9UoCk95hHvwa7yRl8s7WPZHgZk/G/sE1sN
+         e/V02sHVgtCUFTd6jPhB/zYikswH0Xqhe6Fbs9BCKuFh6cqS5JR20W7gBR5SrVqOZ2Qa
+         IzPNYsn7Krf/7iyN6JznuKGq+nBk8eAyyt5btFgGdOTGTj9q4N7Z43eGoDWUp6hOH0eb
+         vM6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789651119; x=1790255919;
+        h=content-transfer-encoding:content-type:in-reply-to:from:subject
+         :references:cc:to:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZeESk94qNmJ1gRJ9w7jilQfXoVBP62w9Mug3Fo9w8SA=;
+        b=XmpZi43E1aq2wySumAlVWS3WEvblDCopTTLRpoCVikl6fSMpgNMS6YCmShgjjSZAM+
+         K1P3fkg9BebP9EigmAjkeo5yTHy/U5iY3ngBn/IOQxbdcFmf7CSaC3egBhOmHjb+taBc
+         qtPSscPbCWWypnKp5TjYJJyXkpa3yR3PlnJpZUcAA9Sd+oEZV5FKcB37UIe1+Up9R2LM
+         v40urDtlREg+hRE6tEBLQkKu+Da2Vh//aeI1u4D9QUVaY5bYYmd0xRVlhBcY02a/2Qj8
+         EdBGxN+b1YqcyGKtOT+SFP0Oue/rxVqoEl3gilDwZ1VzpCYbfxneMiEai30W77fbCZZB
+         tIQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbjobrp1RxNz+6giTaIu270rt7mT6eSGweyBW2EMnpCsDVIx8AVTOLQh288+mhPf9OnUaqLTC92XUWZ+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksXl+BzI+xLbvMWxyv5+AZzvN06rz5ku6sZSTCDOnA8TnRlHZ3
+	AST2DBbey7u1TxtETBTOHaQmZb7T6IWhCzFbtnZWpl/Ors4NKR3bMYXS
+X-Gm-Gg: AYBFou2S/kLlx7WLSyRD1I6Z4BjFef5kX5+EO9ihsrXKnfkTIb9SHLCC9OuFtHp4a8e
+	5V/vPhT5IqI1oVUffb+mkadlP7YIzCiuIuNKcHxZzK75eXGkeoap2Q1lQJekp/DJ3Dq9IJcxKkq
+	xBMemqrCh4XboPoIXrgwY/AEAgBvwY5DkQzsgUdiXIBQjYBsUR0Lp/09AyjVAMR9Ijl0a29cDVC
+	csi9mDSc4HU6K02qzpDI2VS0AEhJH2eL/NFJ7aZuWTWtDg4aQC0AsWVjVHD3D6c+qMAnxgbsx82
+	+OKe741ZqQasANJnUmIIwKjbQCtcp/7Wl4K2ow90gskEOBPtsCFoWjjwq86JnTHrkrWuEFUUIow
+	tb4WbreyhP5swRVwrRax/EaKN3BnVTxhjSvLuQZlUEqe++I16TqOOcajEZzzySC+YZWtJa9S5Ed
+	wiJ4lPRFKYL2vUXtadEMHOgysL2c3nQClS1/yZIcxjZF1OMgE36vRnKxpS8N3ReIeSRHdX+U0=
+X-Received: by 2002:a17:903:22cb:b0:2d7:1cee:3682 with SMTP id d9443c01a7336-2dd8dbf3be9mr141300615ad.5.1789651118937;
+        Thu, 17 Sep 2026 06:18:38 -0700 (PDT)
+Received: from [127.0.0.1] ([103.152.226.188])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8fe00sm26670345ad.12.2026.09.17.06.18.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 06:18:38 -0700 (PDT)
+Message-ID: <887eff66-35f3-4703-8ff7-c0c959621b69@gmail.com>
+Date: Thu, 17 Sep 2026 21:18:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915160141.3543048-1-suzuki.poulose@arm.com> <20260915160141.3543048-21-suzuki.poulose@arm.com>
-In-Reply-To: <20260915160141.3543048-21-suzuki.poulose@arm.com>
-From: Fuad Tabba <tabba@google.com>
-Date: Thu, 17 Sep 2026 14:16:44 +0100
-X-Gm-Features: AcwNN1VtWWKyrr6h6sFHMUccgZH0Chs5OMidTNSOoiZ_fDx_6ZmQhtU1SR2DO2Y
-Message-ID: <CA+EHjTwYqTFzGdNPproWW5L6j5pNqmuWeFuu9HbHa8LBLPvY2A@mail.gmail.com>
-Subject: Re: [PATCH v18 20/23] KVM: arm64: CCA: Don't expose unsupported
- capabilities for realm guests
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: =?UTF-8?B?TW96aWxsYSBUaHVuZGVyYmlyZCDmtYvor5XniYg=?=
+To: suleiman@google.com
+Cc: andrealmeid@igalia.com, bsegall@google.com, dave@stgolabs.net,
+ dietmar.eggemann@arm.com, dvhart@infradead.org, jstultz@google.com,
+ juri.lelli@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, qyousef@google.com,
+ rostedt@goodmis.org, soolaugust@gmail.com, ssouhlal@FreeBSD.org,
+ tglx@kernel.org, vincent.guittot@linaro.org, vschneid@redhat.com
+References: <20260917043339.2093426-8-suleiman@google.com>
+Subject: Re: [RFC PATCH 07/12] futex: Make FUTEX_*_PING use Proxy Execution.
+From: Jihan LIN <linjh22s@gmail.com>
+In-Reply-To: <20260917043339.2093426-8-suleiman@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Suzuki,
+Hi Suleiman,
 
-On Tue, 15 Sep 2026 17:01:38 +0100, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-[...]
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-[...]
-> +static inline bool kvm_realm_ext_allowed(long ext)
-> +{
-> +        switch (ext) {
-> +        case KVM_CAP_ARM_PSCI:
-> +        case KVM_CAP_ARM_PSCI_0_2:
-> +        case KVM_CAP_NR_VCPUS:
-> +        case KVM_CAP_MAX_VCPUS:
-> +        case KVM_CAP_MAX_VCPU_ID:
-> +        case KVM_CAP_MSI_DEVID:
-> +        case KVM_CAP_ARM_VM_IPA_SIZE:
-> +        case KVM_CAP_ARM_SVE:
-> +        case KVM_CAP_ONE_REG:
-> +        case KVM_CAP_ARM_PTRAUTH_ADDRESS:
-> +        case KVM_CAP_ARM_PTRAUTH_GENERIC:
-> +        case KVM_CAP_SYNC_MMU:
-> +                return true;
-> +        }
-> +        return false;
-> +}
+Thanks for your RFC series.
 
-I'd keep KVM_CAP_IRQCHIP in this list. api.rst has it advertising
-KVM_IRQ_LINE as well as KVM_CREATE_IRQCHIP, so the cap means in-kernel
-irqchip rather than GICv2, and the GICv2 case is already rejected by
-patch 18 in kvm_vgic_create(). It also keeps the two protected lists
-the same where the support is the same. And could this live in
-kvm_rmi.h, next to where kvm_pkvm_ext_allowed() lives in kvm_pkvm.h,
-rather than in arm.c?
-
-[...]
-> +static inline bool kvm_arch_vm_ioctl_allowed(struct kvm *kvm, unsigned int ioctl)
-> +{
-> +        long ext;
-> +        int r;
+> diff --git a/kernel/futex/ping.c b/kernel/futex/ping.c
+> index ebcd3c4a7793..689f149f7150 100644
+> --- a/kernel/futex/ping.c
+> +++ b/kernel/futex/ping.c
+> @@ -370,6 +370,9 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
+>  
+>  		queued = false;
+>  		while (1) {
+> +			set_task_blocked_on(current, &q.ping_state->ping_mutex,
+> +					    BO_T_PING_FUTEX);
 > +
-> +        r = kvm_get_cap_for_kvm_ioctl(ioctl, &ext);
-> +        if (WARN_ON_ONCE(r < 0))
-> +                return false;
+>  			set_current_state(TASK_INTERRUPTIBLE|TASK_FREEZABLE);
+>  			if (!queued) {
+> 
 
-You told Sashiko my fix covers this one [1], but that fix changes
-kvm_pkvm_ioctl_allowed(), which this patch deletes, so the `if (r <
-0)` has to go into this copy too. The guard you posted for the second
-finding still leaves the WARN reachable on pKVM and Realm hosts, which
-is the case the fix removed.
+A userspace deadlock seems to turn into a kernel lockup.
+Consider threads A and B on CPU0, unlocked PING futexes F1 and F2, with
+the following ordering:
 
-nit: kvm_arch_ is the prefix generic KVM uses for the hooks it calls
-into the arch. For two static helpers in arm.c, kvm_vm_ext_allowed()
-and kvm_vm_ioctl_allowed() would avoid the collision, and the same for
-kvm_arch_vm_ext_allowed() above.
+  A: CAS(F1, gettid(A))
+  B: CAS(F2, gettid(B))
+  A: futex(&F2, FUTEX_LOCK_PING) <-- T1
+  B: futex(&F1, FUTEX_LOCK_PING) <-- T2
 
-Cheers,
-/fuad
+Since futex_lock_ping_atomic() only checks self-lock, both tasks end
+up blocked on each other after T2. And task_is_blocked() is true for both
+tasks, try_to_block_task() would keep them on runqueue with
+tsk->is_blocked set.  So if pick_next_task() picks A or B,
+find_proxy_task() will stuck walking on A -> B -> A -> ... with rq->lock.
 
-[1] https://lore.kernel.org/all/20260914093838.1082637-1-fuad.tabba@linux.dev/
+Could we handle cycles in find_proxy_task(), or add a chain walk for
+deadlock detection for FUTEX_LOCK_PING like rtmutex?
+
+Best regards,
+Jihan
