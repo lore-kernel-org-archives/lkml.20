@@ -1,169 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8422030594E;
-	Thu, 17 Sep 2026 00:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B7131AF2D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604695; cv=none; b=MhZBZlu+AraoI1EX7SLcIv4iVLGlUjx2kDAx/FTZfllDwXFk/aFv5CSzo4ayu0WEv5ZIwj6blo8J1tW7V+d8gs6uR0F24qSHI6mKQaJG3iKP855a3sw60MjA3bjgBajPrgAtQJ/0hXI+0liK0PW2m1rJnkRYdNX8wGTYXtoitkg=
+	t=1789604763; cv=none; b=eqmEr/8pax+XDixB0L1MaoLDlw+ZrMFfGgeACXQ7aGt/40RbnMZAzg01C0md0832HN+vmlloeamcp1gom4jsU8+lpF/rWi4JwZEfUoq/CFopGzOdjHsg1RIUkNRUb9udnfrcAeXpqfQqrGyvvr4izBB80/AtImhaVW4BA75W5WI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604695; c=relaxed/simple;
-	bh=5qz+sS7mC18t17f2GbV+JzJ6dja2oPZFU5/+qXA9LLU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D9ofcjXTPM8p2gSzxYMyQ0h/wNoQgSejCEh9MwqeuG5hZr7BB59g6ZXGTtkvQtIvwWev9rCC2mCSAveHKe9PEOYM0fp3TIEo+CLLZ79GSxnds8ZuIXHeWzlvRUosmb6nOraxv5xZN7uIHLFfmycnARu1wosb7PVouZ2Jb1OJRPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DnUgvymp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789604763; c=relaxed/simple;
+	bh=5b/u82wL27/Fu9PH2a97FNdOABh4pOizTMteEoxSlJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JJELVTGeu1KDkJmRmugmSic4uFeMPjd2iGd32fDjPI8irignNSokJKMizkV26f7+WOuxmoClOKodLs30rA6DK7bPg6YiXCCMaZwbybSFQFFvHD358/22TNf2NU0IdtLNk4/r6L8hPcHPIUVZokfcPc/x45RRWSxPGZyFN0MWdBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j7IQBgPL; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DnUgvymp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648E21F000FF;
-	Thu, 17 Sep 2026 00:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604694;
-	bh=BK543tMrE/YgjQmqF2LPnVo5G74ZNutS7/2Y0dU3VkQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DnUgvympQHCXXIEOs8nmCKM0+ooaq6EGOq7sOhBRrw97WQ2QDMj6X05Ng8+7RA5t3
-	 fC7bnJmukkaHhu4H7lp3vQYdRHUlb4YJ+/WL6fz4STVbo0EdaNWDXvb7WYdttgu7XI
-	 W09+ZyB2uCnbxIyi6lbaxqhwHNv7WLsD3QwlzUAN89UL4UbCwrZEJptGHzU64bIbf6
-	 WrNGZhgsK31RWhaZZ0lneBD1ywU/1G909vQHCfos9NF5bo2N8EqqxHD2nxxfqrSnbY
-	 tDzj9sOaDBrCGCZLN7RF3f89pOgmI1YiEQxLYpMpanxj9b197Ovd5xnNbUC6hEzO2a
-	 fndvE+SkobnSg==
-Subject: Re: [PATCH net-next v2] net: usb: asix: reject a truncated Data
- header in rx_fixup
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, dev@lynxeye.de,
- andriy.shevchenko@linux.intel.com, kartikey406@gmail.com,
- enelsonmoore@gmail.com, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 00:24:52 +0000
-Message-ID: <178960469295.22033.14261478886981268855@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB000193C798F98A11C73C3E9DC8BB2=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB000193C798F98A11C73C3E9DC8BB2=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j7IQBgPL"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c6so225416b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:26:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789604762; x=1790209562; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
+        b=j7IQBgPLjn9sH0nV2YvmCk6T2O2+TXlNsEyPEGYiRAwXEDeUO4+RwOQLwZnua0Bgk+
+         oO4B1NnOarcDEGX5DywGc7yhbfC/15WtUOrEIvt8iGp9pJq7p4RXMITE0onw3QS3zoo0
+         8X+xPaA/cKJk5OVZX6Z/SzS2J+mUMUHI93b70jbiMsbuzSCVDrzy3hrVbceTBaJfVO4C
+         rsWKGiYiJUl6oLibqw8Mbbe5Xg/9beBxjp3Np5KHkItCZ9C36gKe86M2GPkMPwvgPbOM
+         BX3uJIShx5bfXFvg6XLIbO2Wh2HxmU+8KDrDZLIX8i/6/RM1VRYs+j68uuIN97ZJHkJA
+         tncg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789604762; x=1790209562;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
+        b=sQ7NHNwmFApaOutuuc5Iu80RvjfSjbLh2D72ogApXs5E9alGjIf5f9LuA6jZquTogA
+         3saqvHO+d/Cw5T50A1T3gMqC9N4oROgaKcdKvnFPdVL0ecLkA3IACnPRGSNHb2vSTDIw
+         j+p/EnkTbx+23QIertekNnP+QxAY3Jk8ZSufoZOtKE87lZFV+6aY7XXJmqcqwQKjAmnj
+         Lpz+teFrqd9Gkg/KQUwUG39XL3CRI/r29aVReFb2+Fr4CHnRlAKViKZc72gYQxWvthuH
+         khp0+rFuFAG7CcZVvKue/7RrYsv5XbwfPhiaFhzEuTkhINd3YrFGRfMt5C868VZcRb2C
+         vGsQ==
+X-Gm-Message-State: AFuF++lw19a9GP+I7FE/7oKnp0iOqqa3FGbGQW4Jt7GnNJGE+45FUN7z
+	//RMSSg5Aazn08Es+3zSqpvQLUnQIs8aeX1laoGtpma2C7ek5/+z9G+M
+X-Gm-Gg: AYBFou1+p5b+i/o7L53nk03r53GeF2yDWGK77Wf23bkxc5GXbOOQxOcavyk/eN1mDcc
+	UiN39S55K2fQ9683cTgyMBX6bUPTuj/wnT23sNTFgsMhd54KDHUGf3BF1CVIpQbFU87L6/eBobD
+	H5TacSimVsG4iY8dNcsqHi7QSPZbDySOul3GnD+RMcregpI03rhLtHB1U38u5jTMrlU3jwe2XfV
+	URGDzuc7buffzhZLV+sWdLacILSRTatU8MgqXbjRWUH0cFs1pXYMpt9X/gBQtve4GOPkVuA7b09
+	nKlmN/a1AnGAkqkM/YHV6Ct1OI9iZpDc8Ui4xPWLAASb8bo9Mvz7HlectgMkrc5pPdOy+Cu29K6
+	Up6Ie1wJY/UCnwh/q3IzGORofLWmXpp/udVmxpY0/K/3xOMCFXP892BeC7o79PwsCT0+rB60c/+
+	ZvqGyMh+GBm5LutUdINb736VsPfkSLx/0cFI3CkTXxeqalg79UPzzqetKv1B88ieRUbRE3nqTBH
+	6u5ZDSyLCkG
+X-Received: by 2002:a05:6a00:440a:b0:870:c2db:da40 with SMTP id d2e1a72fcca58-87239a9dce3mr9776123b3a.24.1789604761569;
+        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-872025dd04csm1926956b3a.60.2026.09.16.17.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 17:26:00 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	mikew@google.com, priyankag@google.com, wim@linux-watchdog.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] watchdog: sp5100_tco: Fix pci_dev reference leak in
+ sp5100_tco_init()
+Message-ID: <8df16733-9a20-45eb-89b5-c396244f0062@roeck-us.net>
+References: <20260916170511.2086199-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916170511.2086199-1-vulab@iscas.ac.cn>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Wed, Sep 16, 2026 at 05:05:11PM +0000, Wentao Liang wrote:
+> sp5100_tco_init() stores the PCI device matched by for_each_pci_dev()
+> in the global sp5100_tco_pci and keeps its reference for the lifetime
+> of the driver, but neither sp5100_tco_exit() nor the error paths of
+> sp5100_tco_init() call pci_dev_put(), leaking the reference on driver
+> registration failure and on every module load/unload cycle.
+> 
+> Drop the reference when the platform driver or device registration
+> fails and when the module is unloaded.
+> 
+> Fixes: 15e28bf13008 ("watchdog: Add support for sp5100 chipset TCO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
+Applied.
 
-- [High] The fix is incomplete: the sibling four-byte Data-header read in
-  the same function is still allowed to read one byte past skb->len,…
-
-Pre-existing issues:
-- [Low] Missing lower bound on the device-supplied frame length in
-  asix_rx_fixup_internal() (drivers/net/usb/asix_common.c:190-214).
-
---
-
-net: usb: asix: reject a truncated Data header in rx_fixup
-
-This adds a bounds check in asix_rx_fixup_internal() before the four-byte
-Data header read in the "start a new frame" branch, so a three-byte tail
-no longer pushes offset past skb->len and wraps the copy_length clamp.
-On a short header the parser state is reset and the URB skb is dropped.
-
-> diff --git a/drivers/net/usb/asix_common.c b/drivers/net/usb/asix_common.c
-> index 4f03f4e57655d..8c5f863efe7d6 100644
-> --- a/drivers/net/usb/asix_common.c
-> +++ b/drivers/net/usb/asix_common.c
-> @@ -179,6 +179,13 @@ int asix_rx_fixup_internal(struct usbnet *dev, struct sk_buff *skb,
->  				rx->split_head = false;
->  				offset += sizeof(u16);
->  			} else {
-> +				if (offset + sizeof(u32) > skb->len) {
-> +					netdev_err(dev->net, "asix_rx_fixup() Short Data header, offset %d, len %d\n",
-> +						   offset, skb->len);
-> +					reset_asix_rx_fixup_info(rx);
-> +					return 0;
-> +				}
-> +
-
-[Severity: High]
-This guard only covers the header read inside the loop.  Does the other
-four-byte header read in the same function, the resynchronisation read
-before the loop, still go one byte past skb->len under the same
-device-supplied odd skb->len?
-
-drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
-	if (rx->remaining && (rx->remaining + sizeof(u32) <= skb->len)) {
-		offset = ((rx->remaining + 1) & 0xfffe);
-		rx->header = get_unaligned_le32(skb->data + offset);
-		offset = 0;
-	...
-}
-
-The predicate uses the unrounded rx->remaining, but the read happens at
-the even-rounded offset.  For odd rx->remaining that offset is
-rx->remaining + 1, so the read consumes bytes
-[rx->remaining + 1 .. rx->remaining + 4].
-
-With rx->remaining == 5 and a following URB of skb->len == 9 the test
-passes (5 + 4 <= 9), offset becomes 6, and bytes 6..9 are read while the
-last valid index is 8.
-
-Is odd rx->remaining reachable?  rx->remaining is set to
-size - copy_length with copy_length = skb->len - offset, and offset only
-ever advances by sizeof(u16), sizeof(u32) or (copy_length + 1) & 0xfffe,
-so an odd-sized frame spanning a URB boundary leaves an odd remainder.
-
-The byte that gets read past the data then feeds the size versus
-complement verdict that decides whether the in-flight rx->ax_skb is kept
-or thrown away, so a good partial frame can be discarded or a real
-desynchronisation accepted.
-
-Would matching the two sites be enough here, e.g.
-
-	if (rx->remaining &&
-	    (((rx->remaining + 1) & 0xfffe) + sizeof(u32) <= skb->len)) {
-
-so that the pre-loop predicate describes the offset the read actually
-uses?
-
->  				rx->header = get_unaligned_le32(skb->data +
->  								offset);
->  				offset += sizeof(u32);
-
-[Severity: Low]
-This is a pre-existing issue and not something this patch introduces, but
-while looking at the header validation just below this read: is there a
-lower bound on the device-supplied frame length?
-
-drivers/net/usb/asix_common.c:asix_rx_fixup_internal() {
-	size = (u16)(rx->header & 0x7ff);
-	if (size != ((~rx->header >> 16) & 0x7ff)) {
-	...
-	if (size > dev->net->mtu + ETH_HLEN + VLAN_HLEN) {
-	...
-	rx->ax_skb = netdev_alloc_skb_ip_align(dev->net, size);
-	rx->remaining = size;
-}
-
-A header of 0x07FF0000 gives size == 0 and (~header >> 16) & 0x7ff == 0,
-so the complement test passes and only the upper bound is checked.  Any
-size in 1..13 passes too.
-
-The resulting runt ax_skb goes straight to usbnet_skb_return(), and since
-asix sets FLAG_MULTI_PACKET the skb->len < ETH_HLEN filter in rx_process()
-is not applied, so eth_type_trans() -> eth_skb_pull_mac() dereferences
-(struct ethhdr *)skb->data and takes h_dest and h_proto from bytes that
-were never written.
-
-For the record, this does not hang the parser: offset already advances by
-sizeof(u32) (or sizeof(u16) in the split-head path) in the same iteration
-that reads the header, so a size == 0 stream still terminates the loop.
-
-Would a size < ETH_HLEN rejection alongside the existing upper-bound check
-be appropriate?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB000193C798F98A11C73C3E9DC8BB2%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+Thanks,
+Guenter
