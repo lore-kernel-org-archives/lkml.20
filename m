@@ -1,104 +1,89 @@
-Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2509B372EE4;
-	Thu, 17 Sep 2026 23:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789687289; cv=pass; b=WhGXvxNys2QDLBWT9b/K02dhTV2dcMnI7fmq2Uz1fKEfhICZImSODDBQYMB92AuKqRegP+SxsYVw0ocaZVmcn58rY3c9KpxGk2dGghdiPjl10UHPNP+ESw2Gd/+EW1TZxlH2Bgm0fo+0bKJCNHVHcGGmO109oWfYghItM11d9Ds=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789687289; c=relaxed/simple;
-	bh=LkK2pFSWkVKdoqi6VQoP7k8BLHvLrWGp7jYouKvh8Fs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PVz7tMaBfeC97YxqpLOOLkEp22mvhwzw1+NdSc0zWSiX5ugfl8qvxvo3rAp2gxpUkb+EVHE1xRi4wJlTU+O/BHHEEMLsFdd6yl+0bnBW9c57wnSC0NqFQWo/ViXRF/K12QQaB6npJcNBJtLVvjgPCfEv5XbtXqKdGlXrxIYkSM4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chanakanlabs.com; spf=pass smtp.mailfrom=chanakanlabs.com; dkim=pass (1024-bit key) header.d=chanakanlabs.com header.i=me@chanakanlabs.com header.b=N7ngPiSM; arc=pass smtp.client-ip=165.173.182.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chanakanlabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chanakanlabs.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3954A2040
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789687322; cv=none; b=Bk/NeJ2XA5VG7MK0vDz6AMHRTq11S2RHuknsyTDjKu74L6IlNu41FiYrLet+6tpnQqzesFseTjdH3E4FBS0OLlRBrrW29RTQRgBB1kSMkTAL4oxvtj27XSIN2ZomBgSjSEEXdQxU4TOf12GOOb2v0W6sLZmZdKAU9S5cqueoHkE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789687322; c=relaxed/simple;
+	bh=1HMJSpEe/iM0dqvznJTng//tA16N6zarxHYP228CtsA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=n2dLDQDwEdLM4yjAZnkZ7fJBNgkkrbxQubTmxxdP4qHmwfI5n0PL4YE/DBqj/Gsp57jYaWYMEUdvwhKayhYUV586LyR/EJvmRNPQbN42A2QNej+6dyJ84GvaKb8UKjm5QxJzACPaLD3hCFBgBEFuP9C5sw4R3+7uEq3iD7ri3TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=Drx2nWgk; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chanakanlabs.com header.i=me@chanakanlabs.com header.b="N7ngPiSM"
-ARC-Seal: i=1; a=rsa-sha256; t=1789687275; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LFiIhtm4oPVKXTty5qLjk9Q2X8cwuWje0rIU3q+mf5LqfjRB+oK541E7Lb4eKH5j8X1dwnU3i/wDN6QwgDauvRSk9M6iPqdGgZ1BS2S1mID/86EtXWGSCoBPD83hfjPQR61WBtuKvEWdg0uWSGajrvKq36BkP5VIFv5OUWtCh7Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789687275; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QFWV3MLLCIO5BlrPbqnOm469lr1dLRDnafWCOeZnAPs=; 
-	b=kxiF4oYVs10mDgRt/qe3Vme6a0UigG0W+Om8EBmdG6yamHNMg8S55MqSP81hmLqlw78GGn4pgaZfhBbViFxYvnuUtx2M27umUNXlIyeFSp2LSKKhIR6PGJzXHZ0u1qvU4GsLBqF3t5ub1RJwd3edSxn+o2OyIxbz+2FvPiMUa6E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=chanakanlabs.com;
-	spf=pass  smtp.mailfrom=me@chanakanlabs.com;
-	dmarc=pass header.from=<me@chanakanlabs.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789687275;
-	s=zmail; d=chanakanlabs.com; i=me@chanakanlabs.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=QFWV3MLLCIO5BlrPbqnOm469lr1dLRDnafWCOeZnAPs=;
-	b=N7ngPiSM/c0A+lItT5o/wYI0ecpUl/lX/47L5Obn6iOv89lBYdNt3jYvJiSWS6HY
-	3IC+KQRf9H2WQz7DWgV7LCg/DrPiFdzBXIHO7uyU9cBtsApoRF4IWnhVQnWQP0MNdne
-	8CdxQdwYbxpsAbdHroRzrTGRtaeSOOftV04g2law=
-Received: by smtp.zohomail.com with SMTPS id 1789687272578948.040234208764;
-	Thu, 17 Sep 2026 16:21:12 -0700 (PDT)
-From: Chanakan Moongthin <me@chanakanlabs.com>
-To: linux-scsi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	johannes.thumshirn@wdc.com,
-	bvanassche@acm.org,
-	Chanakan Moongthin <me@chanakanlabs.com>
-Subject: [PATCH] scsi: Honor TRY_VPD_PAGES during initial scan
-Date: Fri, 18 Sep 2026 06:20:27 +0700
-Message-ID: <20260917232027.4265-1-me@chanakanlabs.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="Drx2nWgk"
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 68HNLIMQ3490347
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 17 Sep 2026 16:21:19 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 68HNLIMQ3490347
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1789687279;
+	bh=/FYw270vTOngW6ke0HkG10bI8MAN7U8uC56DgiLggcI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=Drx2nWgkn3kDyfL/XaOAQr3MKJLVYhKvjitAdD8IzHWY/FXZEU4hW1tStH1PJ9cgH
+	 1B+orRDNhTndhGTxIjjlkTixIsQ+INcJCC3KKXDn8kw2TgZVYPbKQ8Ri4KZyRpwOg5
+	 BSQOmYArr6wZGk3IbDpQUhyeTk3/HBTqHdXIT0rnXhgpZFr0JCkSp54cpudlP1cyiS
+	 UrIkAyACOyz/udiSUE2WijCvBjiOHIdaM7gIfR0E5JibDwGqj0ZR5txuC1xCEwbBir
+	 C43TTniYrIGztNFjwDRnl2PwtFCsebxB/5wLzsSylhANZE/uK4CGLHN2PAeU4OD4ys
+	 mX+fBx+TQ1ErQ==
+Date: Thu, 17 Sep 2026 16:21:13 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Thorsten Blum <blum@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Jarkko Sakkinen <jarkko.sakkinen@intel.com>
+CC: "H. Peter Anvin" <hpa@linux.intel.com>, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_x86/realmode=3A_Pad_the_embe?=
+ =?US-ASCII?Q?dded_real-mode_blob_to_a_page_boundary?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260917114928.213178-3-blum@kernel.org>
+References: <20260917114928.213178-3-blum@kernel.org>
+Message-ID: <A263DA22-65F1-497D-96BD-D9ED0D0E36A4@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The scsi_device_supports_vpd() helper treats try_vpd_pages as an
-explicit override for the device SCSI level. However, scsi_add_lun()
-only calls scsi_attach_vpd() when the reported SCSI level is at least
-SCSI_3.
+On September 17, 2026 4:49:27 AM PDT, Thorsten Blum <blum@kernel=2Eorg> wro=
+te:
+>setup_real_mode() copies the page-aligned size of the embedded real-mode
+>blob into low memory=2E However, real_mode_blob ends immediately before
+>real_mode_relocs, so the copy includes relocation data and potentially
+>other =2Einit=2Edata contents when the size of realmode=2Ebin is not
+>page-aligned=2E
+>
+>Pad real_mode_blob to a page boundary so the copy contains only the
+>real-mode binary and its padding=2E
+>
+>Fixes: 084ee1c641a0 ("x86, realmode: Relocator for realmode code")
+>Signed-off-by: Thorsten Blum <blum@kernel=2Eorg>
+>---
+> arch/x86/realmode/rmpiggy=2ES | 1 +
+> 1 file changed, 1 insertion(+)
+>
+>diff --git a/arch/x86/realmode/rmpiggy=2ES b/arch/x86/realmode/rmpiggy=2E=
+S
+>index c8fef76743f6=2E=2Ece5350241238 100644
+>--- a/arch/x86/realmode/rmpiggy=2ES
+>+++ b/arch/x86/realmode/rmpiggy=2ES
+>@@ -12,6 +12,7 @@
+>=20
+> SYM_DATA_START(real_mode_blob)
+> 	=2Eincbin	"arch/x86/realmode/rm/realmode=2Ebin"
+>+	=2Ebalign PAGE_SIZE
+> SYM_DATA_END_LABEL(real_mode_blob, SYM_L_GLOBAL, real_mode_blob_end)
+>=20
+> SYM_DATA_START(real_mode_relocs)
 
-This prevents VPD pages from being cached during initial discovery for
-devices that report SCSI-2 but are explicitly flagged with
-TRY_VPD_PAGES. The sd driver then cannot read the cached Block Device
-Characteristics VPD page, leaving such disks marked rotational until a
-manual SCSI rescan.
-
-Call scsi_attach_vpd() unconditionally from scsi_add_lun(). The existing
-scsi_device_supports_vpd() check remains responsible for deciding whether
-VPD pages may be queried.
-
-On a VMware PVSCSI guest with
-scsi_mod.default_dev_flags=0x10000000, the baseline kernel reported
-rotational=1 at boot and changed to rotational=0 after rescan. With this
-change, rotational=0 was reported during initial discovery.
-
-Fixes: 7fb019c46eee ("scsi: sd: Switch to using scsi_device VPD pages")
-Assisted-by: LLM
-Signed-off-by: Chanakan Moongthin <me@chanakanlabs.com>
----
- drivers/scsi/scsi_scan.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/scsi/scsi_scan.c b/drivers/scsi/scsi_scan.c
-index 0f0f243c2561..a9264a3acaf1 100644
---- a/drivers/scsi/scsi_scan.c
-+++ b/drivers/scsi/scsi_scan.c
-@@ -1122,8 +1122,7 @@ static int scsi_add_lun(struct scsi_device *sdev, unsigned char *inq_result,
- 	if (hostt->sdev_configure)
- 		scsi_realloc_sdev_budget_map(sdev, sdev->queue_depth);
- 
--	if (sdev->scsi_level >= SCSI_3)
--		scsi_attach_vpd(sdev);
-+	scsi_attach_vpd(sdev);
- 
- 	scsi_cdl_check(sdev);
- 
-
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
--- 
-2.47.3
-
+Acked-by: H=2E Peter Anvin <hpa@zytor=2Ecom>
