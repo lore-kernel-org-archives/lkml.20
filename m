@@ -1,104 +1,168 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-m49239.qiye.163.com (mail-m49239.qiye.163.com [45.254.49.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E7E4B8285;
-	Thu, 17 Sep 2026 10:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB79A4BA9F2;
+	Thu, 17 Sep 2026 10:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639500; cv=none; b=BbXmA6d28VagtEhJBxSjF2/heC7cipffvkP52Hhzjt2+6mjkHyeD863kn3MY7STYWhWMzI5xVJ4ILy04RtGrKM6wjhnCwssG16ZTT3x32cKd/Bn7R1AAm+CIVKXHT43P1xN7Kp+JCYxX6sw8WDy7BRl6kBvSaVLxIRAYreUgf4A=
+	t=1789639504; cv=none; b=rAaYBUNWDB7d/ZLXF0jjyXe5eA86bGvwPS5m5bWoxuBl7WDSx74szl1xLZ6YxkRKcN6DGDVNu1dMztJRUqLzolNmvJLLvIFOR+ZbfmKfwIi5jyc+2PrHbsoO1plC4n70U4kxNlZ46ad9+7hg7z0LFza1H20l6oESQOpqSWZ1jsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639500; c=relaxed/simple;
-	bh=Ak7fvPogaLyU9xIV3FE8AiWefrYMu//zBqTl4UnO6Ck=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s9i3aAlEW9sMqCghOmxoEaCpBS/PT9DCxDnbRzdTA1CE9YSJpoCD15aGBkprI/jMl1IT8TzajxiMm4lionOFIXtpDDFoZ6+B/TYrWQQ5Iaz2p1q8r//ZVIZssZIUsQqU9h1RrSBKuXwbNBJtmyyUfOZNs0S5CVpTfk5rYFKcfUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAnlT81u6tqx0B+CA--.291S2;
-	Thu, 17 Sep 2026 18:04:37 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: angelogioacchino.delregno@collabora.com
-Cc: bin.liu@mediatek.com,
-	hverkuil@kernel.org,
-	irui.wang@mediatek.com,
-	kyrie.wu@mediatek.com,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1789639504; c=relaxed/simple;
+	bh=XN48dGpTYdwidGnJPBmKoAFR+QOJxwtxfRmPsyJBTi4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=OrFtuf3NBOlCebNutDZ+pO/uQWcoovr6UbY5E9mSI45PRhW+iXmXrqZW9FKNsw+0TDDmY+kmLrJKv+xg5QkgE+OqWVFnTzv3qhl/BchmvjdOZn2vjoY/KDbsrPSQ9KFpA8UmolntpDPOWszFn8cksbM222geJNy0qiZrU5o74+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fKyMcQn2; arc=none smtp.client-ip=45.254.49.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fKyMcQn2"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e203484a;
+	Thu, 17 Sep 2026 16:48:59 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	matthias.bgg@gmail.com,
-	mchehab@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mtk-jpeg: Fix runtime PM leak in mtk_jpegenc_worker()
-Date: Thu, 17 Sep 2026 10:04:37 +0000
-Message-Id: <20260917100437.2145943-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	Shawn Lin <shawn.lin@linux.dev>
+Subject: [PATCH 2/3] docs: mmc: fix stale async request documentation
+Date: Thu, 17 Sep 2026 16:48:36 +0800
+Message-Id: <1789634917-143165-3-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
+References: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
+X-HM-Tid: 0aa0ae8e091003a4kunm476cf0c8983b4
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRodTVZLTElLTk1PQk
+	kYH09WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=fKyMcQn2a1i8eSBRL8iadsMOe058dmz/CjwIAPtZRS3ADpHyZtDolBmEUq3rfX31tqeq3O8cH6Iwya6aaDzTGbYbSouYESTOw+kuxLBrAPPTbMc6Z6AoTDVoyY/EJbWWIJcU6wyrdPCQplwImmQLDSFlQ8x1kI8UigJ7YYkwOV4=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=loyEuDZ5PGTOg02RYKxKU5VNnLeScMXNhADO2TWHIGA=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAnlT81u6tqx0B+CA--.291S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4xtrWfJF47Xry8JrWxCrg_yoW8AFWxpr
-	WYqa4jyrWDWw4Dt3yUAw17XFyYk34Fgr1UWr4fC3WkZws3J3Wft34UZFyxtFWIvr97ua48
-	Jw40q397Gr4jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUqdHjUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3Y+CQABsg
 
-pm_runtime_get_sync() leaves the device's runtime PM usage count
-incremented even when it fails, and a failed clk_prepare_enable()
-drops the reference as well.  mtk_jpegenc_worker() jumps to enc_end
-in both cases, which does not call pm_runtime_put(), so the
-reference taken by the successful resume is leaked.
+From: Shawn Lin <shawn.lin@linux.dev>
 
-Use pm_runtime_resume_and_get() for the resume failure and release
-the reference explicitly when the clock cannot be enabled, as
-mtk_jpegdec_worker() already does.
+mmc-async-req.rst still documents interfaces that no longer exist:
 
-Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+ - mmc_start_req() was renamed to mmc_start_areq() by commit c3399ef55d8e
+  ("mmc: core: rename mmc_start_req() to *areq()") and then removed together
+  with the rest of the asynchronous request machinery when the block driver
+  switched to blk-mq, by commits 81196976ed94 ("mmc: block: Add blk-mq support")
+  and 126b62700386 ("mmc: core: Remove code no longer needed after the switch to blk-mq").
+
+ - mmc_blk_issue_rw_rq() was removed by commit 0fbfd1251830
+   ("mmc: block: Remove code no longer needed after the switch to blk-mq"),
+   and was replaced by mmc_blk_mq_issue_rw_rq().
+
+ - The is_first_req argument of the ->pre_req() callback was dropped by
+   commit d3c6aac3bdfe ("mmc: delete is_first_req parameter from pre-request callback"),
+   so the "Optimize for the first request" section is obsolete as well.
+
+ - The Linaro wiki page holding the IOZone/mmc_test measurements no longer exists.
+
+Update the document to describe the current request lifecycle: mmc_pre_req(),
+mmc_start_request(), mmc_wait_for_req() and mmc_post_req()), and drop the sections
+describing the long-gone interfaces and the dead link.
+
+Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
 ---
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index ed1d5858c942..23691f695b56 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1622,7 +1622,7 @@ static void mtk_jpegenc_worker(struct work_struct *work)
- 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+ Documentation/driver-api/mmc/mmc-async-req.rst | 64 ++++++--------------------
+ 1 file changed, 13 insertions(+), 51 deletions(-)
+
+diff --git a/Documentation/driver-api/mmc/mmc-async-req.rst b/Documentation/driver-api/mmc/mmc-async-req.rst
+index 0f7197c..d9d4ac7 100644
+--- a/Documentation/driver-api/mmc/mmc-async-req.rst
++++ b/Documentation/driver-api/mmc/mmc-async-req.rst
+@@ -23,7 +23,7 @@ MMC request.
+ MMC block driver
+ ================
  
- 	mtk_jpegenc_set_hw_param(ctx, hw_id, src_buf, dst_buf);
--	ret = pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
-+	ret = pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
- 	if (ret < 0) {
- 		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
- 			__func__, __LINE__);
-@@ -1633,6 +1633,7 @@ static void mtk_jpegenc_worker(struct work_struct *work)
- 	if (ret) {
- 		dev_err(jpeg->dev, "%s : %d, jpegenc clk_prepare_enable fail\n",
- 			__func__, __LINE__);
-+		pm_runtime_put(comp_jpeg[hw_id]->dev);
- 		goto enc_end;
- 	}
+-The mmc_blk_issue_rw_rq() in the MMC block driver is made non-blocking.
++The mmc_blk_mq_issue_rw_rq() in the MMC block driver is made non-blocking.
  
+ The increase in throughput is proportional to the time it takes to
+ prepare (major part of preparations are dma_map_sg() and dma_unmap_sg())
+@@ -34,21 +34,20 @@ platform. In power save mode, when clocks run on a lower frequency, the DMA
+ preparation may cost even more. As long as these slower preparations are run
+ in parallel with the transfer performance won't be affected.
+ 
+-Details on measurements from IOZone and mmc_test
+-================================================
++MMC core API
++============
+ 
+-https://wiki.linaro.org/WorkingGroups/Kernel/Specs/StoragePerfMMC-async-req
++The preparation of a request is separated from starting the transfer, so
++that a host can prepare a request while another one is still in progress:
+ 
+-MMC core API extension
+-======================
+-
+-There is one new public function mmc_start_req().
+-
+-It starts a new MMC command request for a host. The function isn't
+-truly non-blocking. If there is an ongoing async request it waits
+-for completion of that request and starts the new one and returns. It
+-doesn't wait for the new request to complete. If there is no ongoing
+-request it starts the new request and returns immediately.
++ * mmc_pre_req() prepares a request before it is started. It may be called
++   while another request is running on the host.
++ * mmc_start_request() starts a prepared request without waiting for it to
++   complete. mmc_wait_for_req() starts a request and waits for it to
++   complete as well.
++ * mmc_post_req() releases the resources allocated by mmc_pre_req() after
++   the request has completed. It may likewise run while another request is
++   active.
+ 
+ MMC host extensions
+ ===================
+@@ -59,40 +58,3 @@ to before and after the actual mmc_host_ops.request() function is called.
+ 
+ In the DMA case pre_req() may do dma_map_sg() and prepare the DMA
+ descriptor, and post_req() runs the dma_unmap_sg().
+-
+-Optimize for the first request
+-==============================
+-
+-The first request in a series of requests can't be prepared in parallel
+-with the previous transfer, since there is no previous request.
+-
+-The argument is_first_req in pre_req() indicates that there is no previous
+-request. The host driver may optimize for this scenario to minimize
+-the performance loss. A way to optimize for this is to split the current
+-request in two chunks, prepare the first chunk and start the request,
+-and finally prepare the second chunk and start the transfer.
+-
+-Pseudocode to handle is_first_req scenario with minimal prepare overhead::
+-
+-  if (is_first_req && req->size > threshold)
+-     /* start MMC transfer for the complete transfer size */
+-     mmc_start_command(MMC_CMD_TRANSFER_FULL_SIZE);
+-
+-     /*
+-      * Begin to prepare DMA while cmd is being processed by MMC.
+-      * The first chunk of the request should take the same time
+-      * to prepare as the "MMC process command time".
+-      * If prepare time exceeds MMC cmd time
+-      * the transfer is delayed, guesstimate max 4k as first chunk size.
+-      */
+-      prepare_1st_chunk_for_dma(req);
+-      /* flush pending desc to the DMAC (dmaengine.h) */
+-      dma_issue_pending(req->dma_desc);
+-
+-      prepare_2nd_chunk_for_dma(req);
+-      /*
+-       * The second issue_pending should be called before MMC runs out
+-       * of the first chunk. If the MMC runs out of the first data chunk
+-       * before this call, the transfer is delayed.
+-       */
+-      dma_issue_pending(req->dma_desc);
 -- 
-2.34.1
+2.7.4
 
