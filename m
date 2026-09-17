@@ -1,113 +1,141 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013FF2BEC23
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630255; cv=pass; b=Ry2suGQvVEqU3tvgHrY0/1hjAtYajZneZ0EAEz0+2EjrYGP5PcJKkEWEQiNftyjNCse+ElKilUTfqEcCd4lqGTFlRuizA8LBmgzzlY4UqCuGVo7JUFoqu4hL7zEYmN/9q06xcPQ2pA46AIzf44WoMdyc6Q60qX/ax9hlk9hKb9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630255; c=relaxed/simple;
-	bh=t8ItZmTqSLECprYaxWqsWjLGwssGonbSk9ASbhpQUek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MMWNAF7blpxqH9bVpJNFJL9Z9LWFPTVFKNziTgBOMomFTmigduti0+V0Wfvs96yiKdalsgK1uiHYV/JSSPs2p3ngFVgVozQCgy+v2cwzTh8mQRTkF3ts4l9ABX6tVXZbU8D+cg1aEFZfo7BOzhIpVSFkbOkaUpsMnOqBDyBvWHI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=OxSN03mf; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DAD372673
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789630298; cv=none; b=F9H23GgxkpB+EXm2z4wJiAm2mYZJgS5sbA2AxBrV3wk4y7ICzzt5Sw1Gy2MzaZBjijkHNkYu37nfn2ewmF4gZ+AsM+ROf76eEoeDINwQ2IHS/vXDx6F9TRTZ9oxCh7SzkPvf16ZpUweJVNkqIcHS0ZEpaz5aWDeaSjwy900Qmhw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789630298; c=relaxed/simple;
+	bh=aalPA+YRmodnwncx7vuTjRQb/Aq0fSpOz9DM5u9UYQE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dk8jHfuA0iHlAQJqyS3kF2VmoPdqPn9gmmLTy2BqWGrrJHFdjdYaLwfNnDdbKnwHqu8mI+zNW2vCDV4ezgTrNZQTwLdmlPeTx8jVFYo2hgIoYCaO3vcI/FHqOZ7HCZ+xwHfY4Wbv3WY6wuYcjYQuauNpBhVUQeBKEKxmWt5Dv7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Rfzwbpe8; arc=none smtp.client-ip=91.218.175.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="OxSN03mf"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so180345e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:30:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789630251; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N+cSVpDNhAsFz9/O61KyT92CxEvDliYj3ZWx14wz1YUy2y/TFTs+wBJcPelnZYk6gJ
-         WtctrphlQbXIxv6GhJw0ZDbX0Y1uuxGiw1W+4UhCLBN0InExQ/HEWafEmQmyjrkHnw3h
-         4x/zXYSoRkDmllMaFtQjdRgT50uB4/hY/tO0hqA289EvwguA0mAbcQXHVHUiqR1JlLBh
-         5lXCQtsbxFWdyLvoqqL+qu77SeTH9NHjI1yb8w3VM+3P3vbCBFv8hhljmK/g4GaPrS9A
-         uAsGSlyRqpK845SQ+j8d5Yr+ARiDQn6QHXjlsV5HFuiWZQnT9ZapAqFRfjWg6H5j271U
-         0gCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=t8ItZmTqSLECprYaxWqsWjLGwssGonbSk9ASbhpQUek=;
-        fh=BlmySEk47iFi1+2WabxTJuewncrJuIBMXqXzEa0ZKmQ=;
-        b=sal9+jmYzknH4MZFp+4Jok5woQkOdpiXtIDvr162vPeHFN19ZDJbiGTPV62iJ+A5cA
-         o00SE9rG3akGSc+8A6uL6da69EqjHZS6LTgEeZ4sCABQFOQCjVHnzZjp7dXSCCxw8wt/
-         nG5RCXZoAa2gs7dFZ7TXmIxnM31heyH+5D/uMV8Seu+IUx91klvGGUbpEEAHxs1JWaam
-         O1JPJCDD2BC3G2YM0PGNJuqnnYaAggAi1+Ml3kZIXthrv0ASehhSAUIWt/9ON1whow6E
-         sG73S0mh/p8UTLePcN8z6EJwbG8bVwuTeLXckaAEbNq/He3VW60tLaMk++hzeFR4NHm9
-         nfuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789630251; x=1790235051; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t8ItZmTqSLECprYaxWqsWjLGwssGonbSk9ASbhpQUek=;
-        b=OxSN03mfy+BV+dKcS0K3CeZx/hIXsY2B7LfXaWWRDwS02cXMQLWBe6nMvtUGIzJBAw
-         9AZpbIdRELdJw+cmk80USygid4O5K6ONahjsFbafhTRUOIpH2hmk9zaJVFwskYPr8zH+
-         a1pJCHAzbhAMAqJPAI1s3FSLl7+nnJWU1DhGc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789630251; x=1790235051;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=t8ItZmTqSLECprYaxWqsWjLGwssGonbSk9ASbhpQUek=;
-        b=UGQ2RGJbNXE6wn6A1GoiOXXB6V8hZpsGlpNGRpj0Z4Il/hnKEW83mj0qJdKy1sjXg0
-         88sRJs6bh7hiqCrSSJDyuBd7S0uo4+1GFF2q6vJ5B7Jvy5LExKbInJnG5zjHRJY+uIlJ
-         P2AS1ab5Sy0f3Aa9/ugrW2PtQJnsd5140gxfzeyh1du74MF7wX+bhespTZcr/HtJdHE/
-         S+u/tKdnpufNb9zrYLxqd62FRwBnp7dyY9w7Um6KTWKGygcTiY2L9Jn+stwxYna3gr87
-         JwtrRQ7plPL7+5O1aloox9WHvE2XclyLRIkdUsxDPbwwHdftNQvq9Hxj8RWs21taHJav
-         hiQA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6fK/7MmPdurjducR6aaFjsGcomxDogXTwj1Hl7SNjD7GAeaO/CWQhW7dlujgWkCF/FQFj4FwzBln1U2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVgzDvzYGMSGkJMfCWxKDL6WhfroT1STTOqYm/1u42A2s0BYq3
-	sKQfv6uPwG7fU9JwPvo61kd0jbwHOUkP3g+YVKPDDAPBeI0LZMmMVeYeeG3M2DR2kc0BG0oIVP2
-	dTv54JajFZdWMkXA9LMwvieXWCjJ3M0XZNFM5drmS0X2L5Z+spgk2d8wpKw==
-X-Gm-Gg: AYBFou1wKcUHouLX9EFDl/Lr47/6Jo6/aT0P3LdR7pLghq1T9xIOcGL3SF6BpNZayEK
-	Gf7yHGpz/u6sxhCPGjOFwjsRTngkoDL1b/x0fQy1cKUuabj24mZIeZotR+mgBfodTZyriVbGf/i
-	MK7OJyZ55whrmFlFKQ6j5SgriFHgKBAEhhDi1qIbp3PBv5tJW4M7Q+yKuHXooDDuvuWNI4eTWNW
-	AbrYt84ji/gGJzOyRGQj+OwI7npnE2wER6EffUBYL1JmPPIRDRo1c2bqSHQG6qyea8znf/DCHiS
-	hm4U4ZjyXkM+hrsVA9nWgnYcUEQE2uvD6Qbxgrf/t0pBlGHgiW/pxvXsEeCKRXaxrg==
-X-Received: by 2002:ac2:5282:0:b0:5b8:b419:b89 with SMTP id
- 2adb3069b0e04-5b8ba5f11aamr486023e87.16.1789630250975; Thu, 17 Sep 2026
- 00:30:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Rfzwbpe8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aalPA+YRmodnwncx7vuTjRQb/Aq0fSpOz9DM5u9UYQE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789630293; v=1; x=1790235093;
+ b=Rfzwbpe8yyVr9rj9qFOOkFMkU5Ub8czdj3NZdqoEMD32nh5ej9Yzkalix658YVMzO2Hy0mLW
+ 1JopZ4l798pdinxvGgcRzqfl3plBPL+He5SqIUPJGbwgVGuyFn02JQQSXmurSe2CnvTwQviuKwE
+ qEYm7+6lUhvsYYsA8nrAyq5o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id c1cd059ca47fcf9d;
+	Thu, 17 Sep 2026 07:31:31 +0000
+X-Mizu-Trace-ID: c1cd059ca47fcf9d
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 15:31:23 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
+	yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
+Message-ID: <aquWKJoP5JLP8Ci7@fedora>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+ <aqrHjfHwyEtRIr5S@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
- <20260913-codex-rtw-rx-v2-v2-4-f09c964e0b96@khu.ac.kr> <0f0a4af91524425982d37b32ac8326d4@realtek.com>
-In-Reply-To: <0f0a4af91524425982d37b32ac8326d4@realtek.com>
-From: =?UTF-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghOyekOqzte2VmeqzvA==?=
-	=?UTF-8?B?KQ==?= <5mghybrid@khu.ac.kr>
-Date: Thu, 17 Sep 2026 16:30:37 +0900
-X-Gm-Features: AcwNN1VXCiXPDOFzekvIqwLj-GP089oEzBglJCf8-OL0LXoLtZEOcEn6ywKSXBM
-Message-ID: <CAH1Bc_yh5vM5jj-AUQdw5G9afgE0-kBHLr-+Obcj5Am2S_WLhQ@mail.gmail.com>
-Subject: Re: [PATCH rtw-next v2 4/4] wifi: rtl8xxxu: test RX ownership and
- recovery across failures
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Jes Sorensen <Jes.Sorensen@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqrHjfHwyEtRIr5S@cmpxchg.org>
 
-Hi Ping-Ke,
+On 09/16/26 at 12:45pm, Johannes Weiner wrote:
+> On Wed, Sep 16, 2026 at 06:19:07PM +0800, Baoquan He wrote:
+> > xswap is a swap device with no backing storage. Swapped-out pages live                                
+> > in zswap. Its cluster_info[] array lives in a VM_SPARSE vmalloc area,                                 
+> > and the area is grown and shrunk on demand as swap usage changes.                                     
+> >                                                                                                       
+> > The problem being solved is the static size of compressed swap. Both   
+> > zram and zswap need the size fixed in advance, and neither gives memory 
+> > back when the workload shrinks. The solution should be a device whose
+> > size can scale up/down as per usage. xswap does that by mapping the
+> > metadata lazily instead of reserving it for the whole range.
+> > 
+> > Design   
+> > ------                           
+> > - si->cluster_info[] stays a plain array. Access is still
+> >   &si->cluster_info[offset / SWAPFILE_CLUSTER]: no per-access branch, no 
+> >   RCU discipline, no tear-down state machine, no NULL return.              
+> > - Only an initial chunk is mapped at creation. The rest of the address     
+> >   space is reserved, not allocated, so an idle device costs nothing.
+> > - Growth is driven by allocation. When no free cluster is left and the       
+> >   address space has room, the next chunk is mapped and added to the free  
+> >   list. No userspace involvement.
+> > - Shrink is driven by frees. The free tail is scanned, and whole chunks
+> >   are unmapped once the mapped range is at most half in use and several
+> >   chunks can go. One chunk is left mapped as slack, so the next                                       
+> >   allocation does not map it straight back. A ceiling lowered below the                               
+> >   mapped range skips the half-in-use rule and is enforced at once.
+> 
+> If the swap maintainers prefer the VM_SPARSE route, I'm happy to defer
+> to them on that.
+> 
+> However, from the cgroup and zswap camp, two stipulations that I
+> reasoned out in the other thread[1]:
 
-Thanks for the comments.
+> 
+> 1. You must not charge compression space as swap space to the cgroup.
 
-For v3, I'll leave the KUnit patch and its test-only hooks out of this
-series and keep the driver fixes focused.
+Hmm, I don't have a stance on this. However, isn't this an issue
+zswap/zram have been doing? It feels like an independent issue which
+should be done separately?
 
-I'll validate the revised code with targeted fault injection on hardware,
-including startup failures, RX recovery, mixed normal/error traffic and
-shutdown. Separating the regression-test infrastructure from the
-functional fixes should make the driver changes easier to review while
-still directly exercising the affected failure paths.
+> 
+> 2. You must make the compression space large enough to be outside the
+>    range where users can hit space limits before hitting memory limits.
 
-I'll report the validation coverage and any paths I could not exercise
-in the v3 cover letter.
+We may need a way to define 'large enough' at first. From my limited
+understanding, take zstd (the best compression ratio) as an exmaple,
+the ratio is about 30%, 2xRAM as si->max is enough. Unless we want to
+swap to the backing disk with huge content which is much much bigger
+than RAM when xswap is ful. I am wondering if there is a actual scenario 
+and concrete number.
 
-Thanks,
-Wooseok
+I am not against a large enough si->max size, that's very easy to change
+in code, just one line of adjustment. Just a concrete number and reasonable
+description is needed. I think this can be done later with a separate
+patch with a convincing log if someone can provide?
+
+static int xswap_create(int prio)
+{ 
+	...
+        ram = totalram_pages();
+        maxpages = min_t(unsigned long, ram * 2, swapfile_maximum_size);
+	...
+}
+
+> 
+>    That also means not allowing setups where this is possible.
+
+And the limit is only an optional knob. If the admin does not set it,
+the device grows to the full address space, so there is no space limit
+to hit at all. It already behaves the way you want by default. The knob
+is only for admins who want a ceiling, they can use it or not. I hope
+this would not be a problem for your use case.                                                  
+
+> 
+>    I'm fine with fixing the zeroed page flood issue separately, as
+>    Kairui proposed.
+> 
+> So if you're willing to fix the cgroup charging, and if you're willing
+> to drop the sizing interface for a statically sized space that is
+> sufficiently large, I think we can find common ground.
+
+Thanks for the input, I am open to discuss either of them further.
+
+> 
+> [1] https://lore.kernel.org/linux-mm/aqLi6cIjD2wJwk0B@cmpxchg.org/
+> 
