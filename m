@@ -1,146 +1,222 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010001.outbound.protection.outlook.com [40.93.198.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799F34CEE44
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669175; cv=none; b=X+kuz++oR8p8uDGNI3l2twne08QxhxUK5DLp+0L0To29S9WpC+Crkey3rXuESxHV8JvJBoXVzI3193/tny6+juhAoYZoc8HkzVkaXL+eWGDyHLqBNsnPCw03YnKUMhhsoZ9lNq0br2cNt5ZJSSGCLuJJ5m+RIlvng4KtrmKV8+M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669175; c=relaxed/simple;
-	bh=Yk+dsBCvOCH3KYRJfgG+xXG8w0PVzLsSfAJEvJo42do=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZtwE6PDZeF2FmHn2rJEZBx+wnWyWavf3eW/7bMXawiM3SG/S2j+mdKPWvTwWYWgMEdkb8LgHa0D2d+2csu/83nRG5syKCrMEfDttICD5qCTEp75D8MO0S6RBCVHJso+K1200HSlAZr384TGPhw6xULf/zDFj/sgtzpKIIW5i25A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eQ1kgs5Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vg4WZEBk; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543E14CEE44;
+	Thu, 17 Sep 2026 18:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789669183; cv=fail; b=QI5hTVHcVzN//umA39/w7hMUEfw//vv0d63ervAuCKBwIeKgHOeIn5O3KkL766Om4mK2BuCmKrt6I04q1cYQrSZ86bRzMobL/5lUvjw03UxjH5+0AgdT6GijwQE+/Ht6kSeSafuA1o8NEOte0VhBZx7QCJ3Pp+9jZaWFebSkVc4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789669183; c=relaxed/simple;
+	bh=w+wfVhn6e0NwI762456HiyiI9bmfsAbWS0EPI0Jv3Eo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=UT5fNG4PlF7YDDQVBhV6zW1FRizpZ8DH+SRszvcs0B6qoG8BubANqPg7g6NfCCIGrV3M0vNg1MvvvtrvUppL9RHEIn2Q5euI+hM41OLMwNSeYbjEp3YiWrrsLYqf1Gg7mF/csWDGMauP3BcJTOrUz61wrvyslqFD3InbZY0P8Po=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YeKCDUS8; arc=fail smtp.client-ip=40.93.198.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eQ1kgs5Y";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vg4WZEBk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789669173;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-	b=eQ1kgs5YRkdxVIaL8ISyVhLYqxwnhIWVNc+ATVOyF08s/9kHlYq80n7gJMTsIl93IhQuHd
-	8vzivDZmumQlGpTI+o2bVdoggHuU1HXS9iWUgwudbCYFIQpieuUdUpzxAV2fa0z7WAIfdX
-	0QrOX1jze9Ul4pD9RVq9Y7HbsUypM90=
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-526-UUSYQxxcOomL5ufjX_EI4w-1; Thu, 17 Sep 2026 14:19:32 -0400
-X-MC-Unique: UUSYQxxcOomL5ufjX_EI4w-1
-X-Mimecast-MFC-AGG-ID: UUSYQxxcOomL5ufjX_EI4w_1789669171
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-79630cb8723so340571137.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:19:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789669171; x=1790273971; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-        b=Vg4WZEBk9FPzRD5wJvsm7ZKp33KpWqTyEz3KShV1o6tSIJwJyyedZl5AFH5MWBr82u
-         ncUdV+UCLyT04cpr5T5K+194PiZsDUf2oKhq/mXEcuLoZO6/PIVokc2gkmIZh2qGdEnu
-         uZpJOJwTWUd3CKSRubUa5lhCMHydtUmiWdn1jT82WM0pRlTLbp8W4RzpuD3257mbZP3y
-         IjdZIrYhGmze+NC1aEoTqBqpj/DkflTyTyhFOIFJos0uEgtco7XVmmtOF3ETQ1sqwU24
-         cUsyjA4GRWPPE2JNF7ot3nbiatxTS5b5DvXtL9lksccFvB3HTwolVP2PRgJrSkCSuh7W
-         gdog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669171; x=1790273971;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-        b=WaH1+3pw5aYyfmRSLPqgl9kkfF4vDEvDFnptiFojUEAQJ8PMNnJcMXVkDz2a9+OGfo
-         gbYD2chbwDuLaYd3YXfMCovR1KO27JrUij0+1pOa+Ifr0T9F5jdJJiauEMKuCfZPc+7f
-         9d7rE3y3znmAjRORvnptlL+j9//pa0F34GbQ4aK90b09itOAeas35Z71pgwLfbhBz/vW
-         fYml/7r7fJkbU51kKpOVufM4Ry4vGR2tSlxl38XUyjKmvAtkvzwGznyGaYH8GmQaP6O7
-         lGD75POE3vaFBj4H+zcU5r8MA7UxIbfBoK/W1qWD0cxyQmlyHTvW0LiJZtmiI8WuJwRT
-         dkMg==
-X-Forwarded-Encrypted: i=1; AKwUvBztcPTP4xi/dTbJBtKqtJDxg2aoCfFLStabVb0x4JFql/2aXF5oXhnhdY0KK/yAip7XMLGsF2WrAup+Mes=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC5ofVBu4TN2Jeo1Y6+BDKcNtlGmtMyhMOSLwppiptZ5KxcJFN
-	37j00ESXk0Tc4IIW5XG4r2O1XifUocCPdhrqxXUsDZgpFOfmM2YsHx7bsjAsZM+zs46gZNtyNac
-	QSCxDG0zKq5XfxFa0qqK9J2j0sJ1530lHT1PxUO3veXOxhgtXkaVLlEHoj0kAN0qVnQ==
-X-Gm-Gg: AYBFou0GLfmxPghjtwWrjldCHqHMjhkQXQh2yoXd7YqSA+kG9kVD0MFOyJ6/9ApMiRO
-	KGruGzE8N6SQU7346f5B/XnF4m2g8jIqBpWYfY/dv8XxYiPvo9grDdsheJSPlFjQtAPv5f2JedL
-	icNk+0R1oXyYX+FJLq3yoh/oXd2IdsMatOg3ecdboBpB/31NIRT3MpmYYGk7ZC6krd8TODAvRbW
-	W1sCOcUM+FdME3PedG7Xd+Aicx+0M7n9TmAIbhUIy6F1RLAWuxk7nX8+5yzjw06ZnPuiznmmpIp
-	W8F+fkiCjOR5vzdkhLXyFLCVvtYWkuk6eQ1pESzOBbC7AdB6Lrd8oLdrQ74AiJ7JnIikuRDt
-X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627693137.3.1789669171519;
-        Thu, 17 Sep 2026 11:19:31 -0700 (PDT)
-X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627685137.3.1789669170960;
-        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e292ee59sm4120534137.6.2026.09.17.11.19.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
-Message-ID: <d43ff56c010c83fc4cbef634e7a632940f5d20f7.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Fix gem reference leak in validate_init()
-From: lyude@redhat.com
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: bskeggs@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, nouveau@lists.freedesktop.org, simona@ffwll.ch, 
-	tzimmermann@suse.de, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 14:19:29 -0400
-In-Reply-To: <20260916180202.2090231-1-vulab@iscas.ac.cn>
-References: <20260916180202.2090231-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YeKCDUS8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w5lCxjsXHfIMoEMcZNZfDnbYzATPT3kjNvhdtVkPIZfwkX2Cp02a0PNvgApB1dprbUVfKbwlmIJEhYXuzN8lofT2bOsjdBaPpqbh1QuX2m7dQ7zbSJ92d2ryuD++BfBRUmf4hxBZnEwGsGgH+nRNaCdKlIGTOPto3fDSmZW4xEyT3uauEDiW0UhFt87FfwGKv/s9Py/gx/hE3pYlqAbNWvDXQXogpVkTfcx+aCY4W1vKHDHIiB4768MG7m9ZTb7EGKZPDfUugh17s0t8za+9cgq7F3E1eMwu1iVyvNeYmBhRbn2DrIQl+aFu854aLt2cgtWGctn1a9P6Uh80b5sOHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hAf0uAoq5I+Si6ZWcvQnrX0sPSZ80hnbVtiheEFYhv8=;
+ b=OQD/baZWdu63sRykmK40JYysnTXipqp7Wuo5LYPhSVR2z50UtMAsK1ff8QfXbaPF0dWKHFEbVYPpz6KK+rM7vD+x7ByzGjoxMyQzRCaEJyRPgbVFkMzkP/jnO8c6Zkly3Y+RfMdi2xuMFERC8Ur51qJkpT7TNaRvi4ksxuZbkruwWvnF7SwjeiJ8kYjxzPSThQPdb9bscCQ6ffR+TCQz8JklwZYTukDC6TSJsO+boteMLcXM5quwcIyEWHxnQd1B14KMC9eMHCG+YO2BwGJHl93XjV7wnIFXEBjeMLKlg+5pwN3XB7guIrtVweDbCiA1s2WLrDYl23uf9LUEr0THSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hAf0uAoq5I+Si6ZWcvQnrX0sPSZ80hnbVtiheEFYhv8=;
+ b=YeKCDUS8/aK/K+zzN3MRcV4jCHEs6FuYcbQNmV/Gw/4M9Li4Rg8C53Hk45OXgUOMGEYFQvzaQ/NpJ11kVdD2EwyVQFObeot2AAcjed/FVaLbP2UGHJ6O6O0GFn1hNGG6bWy68gqgEynJyb95IvfFMc+U+OGfyDxaHTI+Izb0Qe8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by SA1PR12MB8857.namprd12.prod.outlook.com (2603:10b6:806:38d::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Thu, 17 Sep
+ 2026 18:19:31 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
+ 18:19:28 +0000
+Message-ID: <7c153a10-b847-427a-851a-c75bb4db71db@amd.com>
+Date: Thu, 17 Sep 2026 13:19:24 -0500
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v5 11/16] fs/resctrl: Introduce kmode_cpus/kmode_cpus_list
+ per rdtgroup
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <0ad1110a1fa2c041d71f50b0d756815676c4dee6.1787772750.git.babu.moger@amd.com>
+ <ef8804d5-f20c-49a1-87cf-ab39437a5f0d@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <ef8804d5-f20c-49a1-87cf-ab39437a5f0d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0P221CA0047.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:610:11d::28) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SA1PR12MB8857:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1052702-3c88-4661-d42a-08df14e835bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|11063799006|56012099006|10067099003|4143699003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	aWcgtuzCrNd0uvXW+0NcPUp+eoZ4ISR9T//ts8IFdlpcxn9QSsZEaQdzfrF2Jya7Kircybr6KQEqO8Q72xzMCQvdrI6J7aNf9d7MO4aAqSvt63nvU/qe1O4pUnKhwEEtSLyUQdDcFMUFXKxJbVOiaD+ZXECkAy9d+SQw4u/s4hh7WLFUoM7ZgiKNRaThLRiUsXlFDO3g3SwSsUShbwvs+tW6z1o4xKjCPQ2uj97DOprrewkRTUGxvnOPsxk/GmBAjbs8AcpdSU3geOnmBtOxsVUHsu+1Vu5By+dfWkWsZ55qJmUdo7n7aNufg4Ikmn0eVG6P5QDC341LnRJw9V90I4mJG0ry/+OcBW6u6KfmEI7DuqhMbXqozBnVUrEgoMDqNoH1rOy81dmSSIXx1YkYjTVTqkp0F0asHW2eORYfqb15H8TKunc9TpRDcwE9gSb6o2GaEppcwvepu/GeQ0lxUU1LVyg6f4doe3VzUeimwaAMP6VebW8cLQaBBrF6f/M/pB1erwOzYW4hDmw1yaCh9XeZQGnqMvulv4fruyXbCddTNKbcxJf9q0ugFYlGc9ynG7QguN1fs4Cmiw2j31rJsVG8pmqNsy2BnPvwg5ce474jtYCpckiboVOBedx8S2tNwv6nqeGwPyifpSDIYTxEJqqbHlzAWWEchtPks8mhh4M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(11063799006)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QVMyWUlkZHY2WjRUMlg2QnR6OFEwaEFSSmNLZlVCUUdsdWZDWWN3NWVRblpY?=
+ =?utf-8?B?dWpET0V6R3psSEJXME9LbS9WSEEveER1d29KUCtQV05mdnpPb1RMbEV5OEJN?=
+ =?utf-8?B?akxvaC9zMExPbHR5a0VqTk5CRjlIelZWNjdrQmhTS2dYYlRjUzRCanV4Zmht?=
+ =?utf-8?B?eFI4bk0xQ01XRThRc0RTNG9Bd3UvWWMyOVlORWE3WFNTOVlFOXBCMnBsUEhk?=
+ =?utf-8?B?MFpjK2ZPeEZLQlo1SXhzMWcwT2h0NklhU09hb2VnVTVEZzBsMjYwUUIyUHla?=
+ =?utf-8?B?Y2JLTm5ETGE4ci9xTGlhck5BZk03c0drYUJuTWcyTlh1THhzbHpOdVJXS1VF?=
+ =?utf-8?B?V0dzaFRUZ3pjSWNIQnByd3lqRnplMDZxb2NBYi8yR00ySTZUSmN1N2gyYiti?=
+ =?utf-8?B?R2h6amsyNUVnMVVjc1dmSHJRUU1KK2owOUh2THgzTGNKTXZDVFlhWmNSeE9T?=
+ =?utf-8?B?Y1h2RVBnQnZyOGNIN1BSZUVpem12WXpVOHdtME5NaEdCWW13TCt1cEVGdnVv?=
+ =?utf-8?B?L2w1M0RQaTlLN3dEL0hIYUZLYUhqNUg2NXZsTXZvU0pDMWovRUMrYWhpeWhZ?=
+ =?utf-8?B?ZWZPWURQTmVSRXZEYjJaL0QveEU0TEsvNmYxdTh6RmRBYWFCZ2tDLzN4WW84?=
+ =?utf-8?B?Vm1pcjlZRlNPNUlSVGxIa2x0dUFKckkzaEpuOGFuVWg2WVlXS2d0REs5K05N?=
+ =?utf-8?B?TWlvcWhNbWk5WFF5UUJVNkg5aEJ1SVhnRkV1TW14QnI2T0tsK3ZuUnd5Ly9a?=
+ =?utf-8?B?dHlBVTJxeTc2dXBydUNKSjhJRFFaN0x6MGU1ZmViNTQxM2lTWFUrNUMralZF?=
+ =?utf-8?B?c1dyWXNHdGdkZXFib0x6bEwzeXdvYVJqTExXR3luREFSbC9ZN0lGSE83N1Jt?=
+ =?utf-8?B?ZUp4WVdrZEVkRGlFRndPc1ZoOS9pNmpyNU5WV3VrTndxYjFVMUlXbFZ3dTFI?=
+ =?utf-8?B?YWNJMXluZDg5aUdvVzR6d2RGc3RTdHB6N1o5emR0TWxMRUJLZTFnL1A0MytR?=
+ =?utf-8?B?NXJKTVBYbnBLWUc2eXQ5VmNSWXdVRmhKUFN0dUw5ZjhFZFhKUnBlUzJOdmdB?=
+ =?utf-8?B?eVgzSnRUUDhDY1E3a1YxUWpoamxWdVZRUzJIRUhkRkdQbHBSQndJOFd2Q0c2?=
+ =?utf-8?B?akljeXcyU2dONzhKN0x5WDJmcFRKMVVIWE1BbUpDQlZ6czdMbTlmMk5Tbk9r?=
+ =?utf-8?B?M0UvUDJPMGhLMXVQNzNPVlh3SHV3M2F4NTFsUXoyZDRNVC91UkhIOU9zMHBG?=
+ =?utf-8?B?NDZUekNQU24yQU1SZlkxNHgxcnZ1di9YVzlDOUtRT1ZPY0hOWk5YQWxXbnRI?=
+ =?utf-8?B?Q2Z6bDRMZUdEeEFIYkc4bW5xZldQdGRNd0VaMHE3eEVybU50TmVPVGJYajlF?=
+ =?utf-8?B?TkJkNmhpeFpwZTBGemFLOUVablZLS053YVNSRlRPZW1BeSs4c0lIVDh2YVVS?=
+ =?utf-8?B?Zk9uUUFaV0dwWXRVQngvelVOTXI1QzFqb3dwL0Q2MnVJYnUvL0RVY0s5MUZ5?=
+ =?utf-8?B?ZEkydHNXcjFPdUs5UERMdU43VFBHRDNUdVNsUmdDekhSeERsWi8xQUIzR1Bs?=
+ =?utf-8?B?UXhrWmhTY3VsT3lkYi9Lbk83R1ZEUWFrT21qL2FObEhsazduSmVDYjFsVGdO?=
+ =?utf-8?B?OVd6Q3VIZXJESkdWZDRyZEhPUUFBNGtuRmsxS2IwOVkyVzBKWW9nM1FEREJ5?=
+ =?utf-8?B?aXNQcXdiODNoSHJITzJTd2RmT2tjdjlvbFJRa0tjNzlCRWhyY1VxL2VCQzZL?=
+ =?utf-8?B?aWRXRUJWNzlHVm1xNkIrK3pLc29MUU9sdlNhK2hxb3paYWdHVkwvRHJvL21n?=
+ =?utf-8?B?SERMRkdEeW9aSEcrYVM4Rm5pQjg3Ti9EUFg5UTdRc2I4WUhRY3gwZVU0MXdO?=
+ =?utf-8?B?VURHL0xtMllHOCtFUlpXQXdnbGJrRjVGRHlFQlpIL2JUZVppUjNUSVk5dFNv?=
+ =?utf-8?B?TTZ1T2ZMQnF5WmRDSDlsVFBrVXppUDNEMFVDaTdpOGtROVVhc2dQaU5mcGJC?=
+ =?utf-8?B?T2srM0s5alBlSnR2cWhRN0FSRHZTWEZNZDZ4N0dPVUVuK3BHU1JYdXlLUXpY?=
+ =?utf-8?B?ekRCeWdLckQzM1FOeHJNVmhMbjcwTkQxMFlheG93VG5MTjZ3NzJ3enVOYyt6?=
+ =?utf-8?B?RjRKczR4WGpDbUJMODV2Z2VValNYRXF4QXUyMkVzK1p5Ykxpa254U2s0SmNt?=
+ =?utf-8?B?L2IxR081UzViNHIzM3poMmZyR3pNQkEzVVdOU0RSbldHb3RNMVJPNjB6T01W?=
+ =?utf-8?B?QmhWSXgvaFRabGU2RHNUTHhXL1k4dTZ6cURwVVVhM2Zublp4dms5OUhjTG1D?=
+ =?utf-8?Q?UKaasG3RNzb+PU0vHj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1052702-3c88-4661-d42a-08df14e835bc
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:19:27.8021
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3IRoFakl1DerF4OxRiEpD/I8BS4hartufcpYQsagTd5IfJIETvxS+GIJQp7/RJOm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8857
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Hi Reinette,
 
-Will push to drm-misc-fixes in a bit
+On 9/16/26 00:34, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 8/26/26 12:32 PM, Babu Moger wrote:
+>>   fs/resctrl/internal.h |  5 +++++
+>>   fs/resctrl/rdtgroup.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+>>   2 files changed, 48 insertions(+)
+>>
+>> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+>> index b56f95625072..01f9f596f9b1 100644
+>> --- a/fs/resctrl/internal.h
+>> +++ b/fs/resctrl/internal.h
+>> @@ -216,6 +216,9 @@ struct mongroup {
+>>    * @mon:			mongroup related data
+>>    * @mode:			mode of resource group
+>>    * @mba_mbps_event:		input monitoring event id when mba_sc is enabled
+>> + * @kmode:			true if this group has an active kernel-mode
+>> + *				association
+> 
+> This really just seems specific to the global per-CPU kernel mode. Why is
+> it necessary? Is resctrl_kcfg.active.k_rdtgrp not sufficient by itself? (more below)
 
-On Wed, 2026-09-16 at 18:02 +0000, Wentao Liang wrote:
-> On the ttm_bo_reserve() failure and "vma not found" error paths, the
-> loop breaks without adding the looked-up object to any validate list,
-> so the reference taken by drm_gem_object_lookup() is never released;
-> validate_fini() only walks the spliced lists.=C2=A0 Drop the reference
-> before breaking out on both paths.
->=20
-> Fixes: 19ca10d82e33bcfe ("drm/nouveau/gem: lookup VMAs for buffers
-> referenced by pushbuf ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> index 20dba02d6175..c2601b559947 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> @@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan,
-> struct drm_file *file_priv,
-> =C2=A0			if (unlikely(ret)) {
-> =C2=A0				if (ret !=3D -ERESTARTSYS)
-> =C2=A0					NV_PRINTK(err, cli, "fail
-> reserve\n");
-> +				drm_gem_object_put(gem);
-> =C2=A0				break;
-> =C2=A0			}
-> =C2=A0		}
-> @@ -522,6 +523,7 @@ validate_init(struct nouveau_channel *chan,
-> struct drm_file *file_priv,
-> =C2=A0			struct nouveau_vma *vma =3D
-> nouveau_vma_find(nvbo, vmm);
-> =C2=A0			if (!vma) {
-> =C2=A0				NV_PRINTK(err, cli, "vma not
-> found!\n");
-> +				drm_gem_object_put(gem);
-> =C2=A0				ret =3D -EINVAL;
-> =C2=A0				break;
-> =C2=A0			}
+I think we can do it by checking the
+rdtgrp == resctrl_kcfg.active.k_rdtgrp
 
+> 
+>> + * @kmode_cpu_mask:		CPUs in this group's kernel-mode association
+>>    * @plr:			pseudo-locked region
+>>    */
+>>   struct rdtgroup {
+>> @@ -229,6 +232,8 @@ struct rdtgroup {
+>>   	struct mongroup			mon;
+>>   	enum rdtgrp_mode		mode;
+>>   	enum resctrl_event_id		mba_mbps_event;
+>> +	bool				kmode;
+>> +	struct cpumask			kmode_cpu_mask;
+>>   	struct pseudo_lock_region	*plr;
+>>   };
+>>   
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index d2fff8adf915..06e74b027044 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -389,6 +389,32 @@ static int rdtgroup_cpus_show(struct kernfs_open_file *of,
+>>   	return ret;
+>>   }
+>>   
+>> +/*
+>> + * Display CPU masks for the kernel-mode associated resource group.
+>> + * Supports both "kmode_cpus" (bitmap format) and "kmode_cpus_list"
+>> + * (range list format); the output format is selected accordingly.
+>> + *
+>> + * Returns -ENOENT on error.
+>> + */
+>> +static int rdtgroup_kmode_cpus_show(struct kernfs_open_file *of,
+>> +				    struct seq_file *s, void *v)
+>> +{
+>> +	struct rdtgroup *rdtgrp;
+>> +	int ret = 0;
+>> +
+>> +	rdtgrp = rdtgroup_kn_lock_live(of->kn);
+>> +
+>> +	if (rdtgrp && rdtgrp->kmode) {
+> 
+> First, it would be helpful to explain why the second test is needed since it
+> is not obvious that a resource group may get re-assigned while a user has this
+> file open.
+> 
+> Second, could a check of rdtgrp->kmode be replaced with a comparison between
+> rdtgrp and resctrl_kcfg.active.k_rdtgrp ? If so, why is rdtgrp::kmode needed?
+> I think one part of this is how this series blurs between a generic
+> "kernel mode" and the specific only-supported global per-CPU kernel mode
+> that makes it difficult to know what state can be used.
+
+ok. We can check rdtgrp == resctrl_kcfg.active.k_rdtgrp
+
+Thanks
+Babu
