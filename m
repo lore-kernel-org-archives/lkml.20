@@ -1,183 +1,184 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461314E77E6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675384; cv=pass; b=tzDaNTHOCyBZcHhzRMgRzT5/4wzgfN1T0NL2DDenbVzpQN1vGdger6v4sBzo8lFd7z+Nw/23RGA09fHwQL2h9LreabCoHwZKL0/r0dwLTr2gIX495BtbJ9vWDGpJOkv6xc+qEn+gnfTWSkpqYoNUrT1ntyZBJmo1VXabd9yCbVg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675384; c=relaxed/simple;
-	bh=GpHjDtqu+AzW6bYVn14IR7601Ha7EtaAYwvYSeYG9jc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OHgHd/T8RsCf7Vr2JiLFM2wfNHOkwgc7oCkGQHFGIzJJbQSRui0h5TKLMVAp0B7za+03PJG9TY/oVK5hbDIIMH4pSpws5DF4kNsHRRLizKDzU6cJPG+XJAacqhcWub46W2Q1Tai27NzHvF/looCwWylli1m0agzhhiraMmxiFDY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RfRoG1si; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0884E4C40
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789675418; cv=none; b=TBk2K11PjlZ88C6nL2lX6cbtDtanPg8BuWrNfH4fAWwl7h03iAtKfhLqxwyImbMzam2SR0DoTXo5zvj69BeniN0izzEju7WOv1fR+Yc26BycItn2q7G51DFtngNGcHGU+XIXGYlJvKUG9NWZOC8QcpHlMLHSibe4Eosco9F4W90=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789675418; c=relaxed/simple;
+	bh=cy6gryX7xvTwXYc9D0rs04mwUAH67g0vEJ9EZm2av0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eCpQyStBBrUeQ3b23VDSuckckB1Ofx/pNeZFhh0161hN9ONyTclanbdzFp99VJkV17HSIusjiz1BgQSV4PGg0su37b/KUroV1rrQyTmcGpI0r5ujdKru1BgzLPnAcHUxwje4Nx4iXuk+6pGxvk9hzL5sYRsnLS27VNWmfPEBgbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I/UKgliG; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RfRoG1si"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so206545e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:03:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789675380; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VgADOMQtnnN60528SJbkg4QQmvvW0k1r1uPEyeBarz8imYmw0WZsKasEAF+k94tDhT
-         g9lHwKfkO1bC4tzu30DDuelvyvlmzCvdn2OXjNu/bDpfT8XPA456IEYD5kep8QYA6UlA
-         QaWlV91qzYdb2ts9QfL7k+kfkX9WnHGYLc/YKv+LpxhCs0/assTc1vbGPntOXDkZGOjE
-         6El3A2SR6cCty1B2pNgk+WxNQKIW8g6aXTtD1SUWLIVY842mvApgikd2GH2Kp56g9Gz9
-         FlSW3aQZNW91+n5gGi/VOV9LduDL1t3HMoaBSZmrIM+Ko5jXsjS22nvIMTrYgWsHak92
-         m8FQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=25a39fQthoJQenvf3ilsmj4we8U0R1UDFLTQO2djkUo=;
-        fh=YT3EElmNBvIS7VeDXFa94CV5O55sLErewyEwBT7P4mM=;
-        b=AMmT4z0yd7IJ21pBCfwrilILE3RBKYVWSFaPMGsA7bnkajwQwz7Eow6hf8zHo160fl
-         FFLyPBdTYgyaIdBJLFbgXNqKUEoSiJroCpcEZOCJ8H+0A8jXBU0LQLY4i5Uh+E/bHZsq
-         INVybSBOUncZIOs1q5oUQbdjOPxR/tEGOyRcV0nEDHD8t7EyRs0FKiuyQ48GlcPNlAFJ
-         VPBScHlVaT3QYC4DTsAucXTCxA0ty91TxYIOXCo6fwN4zFDmpdLNxxnR2GeKQ4hr+0DE
-         8KYBb40GkHAzdBW7HXN/qbT/aTDkWHPNNGfYMZDwAQrZhNlsOmW4G2phUn2UXDPAYolT
-         D7kQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I/UKgliG"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1408417a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789675380; x=1790280180; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=25a39fQthoJQenvf3ilsmj4we8U0R1UDFLTQO2djkUo=;
-        b=RfRoG1sioHwQsGYSkcve3ZDGfErdmSWrgCWHA2JlCBaobnXxnBfdr0TKVq27LK2zIZ
-         UOvE17R6vYGLa6zQAttig93toa0GDEpwxIgGBTum0FIhjWQ2ZvB9dyNYwvdV/otOI5vm
-         A3ZFMmlVd6uq3DhAGMGK/mu80sINzK4rP2D3RMyU2gORKLRV1tGre9kz1kts6W1QAYaT
-         9XuABFIURZMRzl1KZihvHVFw9CQ9VbWSNQiQyhE/Rv/Yb9DXy8oRagR/6b1gegQS3v8y
-         YYEboH4Y45Pq3GkmJCdeXvha1ezGt4n7sH0US7ujlIUX6kFFOMpc2oolhcFXbjqXk/zG
-         N+qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789675380; x=1790280180;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789675417; x=1790280217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=25a39fQthoJQenvf3ilsmj4we8U0R1UDFLTQO2djkUo=;
-        b=0vKkaM3GooSZAMpWFtzK1vntICU1fm6vjoA3Mcfsmz6ePULMu0YD9eA5LWOkEPmu/k
-         ELpPJe8aShW7R5WTQ3l6MCkcBI8D4/SiyYkOmFT7wHu53eGn1nDgBs51Xwqoyzkb5Hup
-         59GoO8NFjNg30eK2IwgcQS9PxqKNwi8WVeqLUETJcRe5IgzrVui+lnG088JehhFsX4w3
-         ex7HVdYaOia+BjlXloF1Muydt0cFsEtKgzfRfxODDAiwzaEFg7CK4ZPDqDChIUaVMqio
-         pFZw5xZXYAC9r9A2bNfIlh3QDk+ZyHUlrL/b0DWK/K7qtk5cEms68IqfjgxQndBGrSB0
-         FDww==
-X-Forwarded-Encrypted: i=1; AKwUvBzqXXaXcujTCjqnt4MWfSxz3DAfRCQ6Ncm0jNEuuoRg5XQNL2LdEEJGgUrT3ZAGiVUHzBvBwzqCmmBmg1s=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/bl0aVQD34W4GMgutgfSWIqu0Q+phyhu7Qe5q5GaaZPrRawV0
-	uC3IkOwBrx8z1ffOcRRrYH4gqsd3I+Uw7L/MO8a2elN6TV4oBXanuq0R9jiStV2FMb5SZDQbEmm
-	LVPIL02cD/wMfNNeQbT7Uvu8YzOSvOSonWLMl31yf
-X-Gm-Gg: AYBFou0Ui9QxIVeoRjoaPhNsDWRMMukfVC31QLOOcoH+xx0n/skYtRLqKKV5dyaDYdO
-	vHPcrpkccL4NyZoI2Hz4qKCy5DoUNRCyWd2KEGWgJLbnf7cLCmZXkeEUYQOL7iL/KmK4C1ey6SU
-	z9tGUsssVTEZUMOOcKkm3NLVPRK9YxR+QvozRB+htIqxIPZfGFdDImQoNruBlVNC6dP+f+MWl1m
-	n1Una9zkJ3pCAnFeczSs63zZok3qrf/55Vblzu4aV1Sn2Cetqhwv4w2RgJco08nv75ImcZQv97N
-	/HQ09GWbAzyZ1CnEM+sD5p4p6KYo05GVsSdS4vme6e3TqELBlnOCrmKzZEj2RhXy0QQ4dzVsJC7
-	vN+ZkPNkiRwG6Dd3XHwqZlnOnnlYNRZs+wt+bPt+TH75sBhuDut7fZkApf35tTWQMeKqkSHQ=
-X-Received: by 2002:a05:600c:a013:b0:49e:6891:27a8 with SMTP id
- 5b1f17b1804b1-49fc574a9bcmr72735e9.25.1789675379819; Thu, 17 Sep 2026
- 13:02:59 -0700 (PDT)
+        bh=2YXZn9qln3Av2anrhIoMlqHVX55tm+WemDQSfecUoeU=;
+        b=I/UKgliGA0zdPZUgZnEH2FtFVlvhgZEzVd6bDnPPn6fZf9f2o/JmlkMQsQXaJHCPYI
+         YM8eaknmTDycUpAPeS9DyZKn1oLVjSE42XY9jV4+OFfkEyULuxBLSQKSdLCKVJIU8Jyo
+         QWr8EQRY0mK+Hv5JNsRe38nxfo1T4UhA6h1Vlnk47CfJUELaLRAJ4mMFLmbhqUm5HKO5
+         nHU0BvJ9rRe0wKhI0Z8+OCk8kChGzvubNusqTM1betPxaCW+JffIq4LnTXmjPHfN+yOT
+         Mk78xKjJpnYZ4AJzL5IphwUcmidgBMqgSYa8aAgaJaSas+1R2uomAFYY02YgYQ6btP+e
+         w+fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789675417; x=1790280217;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2YXZn9qln3Av2anrhIoMlqHVX55tm+WemDQSfecUoeU=;
+        b=2o4XjDU6s+obTxtlJxcyTzmpLs8iAw9WilpVnY0yPhe0GFDxztB4mMC/bXwxBuyQ0Q
+         PzBKklWBOCoKdMZ11wWOdzco8MwCxgx5+zw6YyMKyyo47tFO8GeQ9lvGQGkXO9c5azKe
+         NHUJic04TIUvspcwyNC6pkYY9OUCKIVhB6jSGHoU6qX3sXPfLYSFE1Yz5UpJxdaCWMh8
+         z1aOFhxcl9dDe8Bsweo+k/qKDHEqw6dnyJz1IWtSgSYF4dTMtHYk0QkugUL3XLMZxCin
+         JaHaKHBveY+4FYJfnm2azcbHxMfUCD0+4B1nV9o4hXlCTSOeugJI4MexYg9a+ndWVAh8
+         DgrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/Ate+2abglTSFCKdyduSxO0U5D09f1FmLuQYpbfDtczNwGzu9rTyf7LjeTQphGQTqgR6IYeR42oAbJ+g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXIvPU3Y5E66TyxXHm82M4JB/naiSaSccZ3psVMPHLyYDVlEey
+	78jr1aGa6ha0tJjdNhbAZWHVMtxfim+AalFSpXKndzQsizIeWk95x/YC
+X-Gm-Gg: AYBFou3dj6poS8n+gZqwQY9DdcsGpRWoZ7Ku7kkohOh4lvLlbHeAWEPfbCHLvbmJ1B8
+	Kt12a//+zJM7JPUtp8Ak/MnW7lu9SHdfOf+mgy8jscN3BBRNnEQRCn9G5/VebEl3yaU6748Iw+O
+	MxUO5R2LIWCdTh49ZNNIK7YW+8vE8aRJhpP7feU5s+vAI2VqxkZTCDLHuGm7nppApyXZp8gFtLF
+	HjP8O4D/vtuT6rHDmL2CDXXsrO79I3bSsMUMNE8TUJENx3xOFDr3FY3Rj6/Eh5PbRg1ZJMO+k/Q
+	HYqvEBi1hT3kL8Qb/HXizUtEAecRHbXyJlbqFZJTEBQuuiZIJ4pmhblUHl344x8cZf0PNRaWp+d
+	nypOQ88DhW0m4Nb7jTf0zldIp2mWjRIRmCh8eAeU3BXbpv2RyAPUqELmc3LXpnYkpQU9AQ0muv+
+	wvZWp44a3QyNDjMUEetI2/z0m8dF9oiTOqh7rX1O9eAzbdTLYn4FWqNXUNCxuyJAaVcRz46DXto
+	eqm/TfOP+4WZnI/91Xa4ntGU/F0QM+bevl5QcF5yi1nJF0G
+X-Received: by 2002:a05:6a21:140a:b0:3d3:aed2:6f29 with SMTP id adf61e73a8af0-3dd72702d34mr6589700637.29.1789675416705;
+        Thu, 17 Sep 2026 13:03:36 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aa1e38sm18263572eec.16.2026.09.17.13.03.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 13:03:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <94109b63-7886-4bd3-8879-5c6740c69964@roeck-us.net>
+Date: Thu, 17 Sep 2026 13:03:35 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <CAHk-=wjwtJQPW+MRAkQCcSGA1EZWehxBTUiEUUhdACCNHSKvTQ@mail.gmail.com>
- <aqwkk7FcQ0XWeqJW@gremlin> <aqxCNyxYRzN2Oher@gremlin>
-In-Reply-To: <aqxCNyxYRzN2Oher@gremlin>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Thu, 17 Sep 2026 13:02:48 -0700
-X-Gm-Features: AcwNN1XUt93HLe1Zu-oZLdknUZyAU05hxj4P7Ko_JzOHOx4U0fnT6yaI1XKYaw4
-Message-ID: <CAKwvOd=zbE8MZXCNCBJNpd2WWn7f+AOfxYcmCp7e-8uFSM+D9g@mail.gmail.com>
-Subject: Re: [PATCH v3 00/20] kbuild: significantly speed up kernel builds
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] hwmon: (nct6683) Enable pwm control on ASRock B850
+ Steel Legend WiFi
+To: Fabio Baltieri <fabio.baltieri@gmail.com>,
+ Johan Dahlin <jdahlin@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260825092546.669450-1-jdahlin@gmail.com>
+ <20260825092546.669450-6-jdahlin@gmail.com> <aqwk3JIvOLD3rB_T@google.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <aqwk3JIvOLD3rB_T@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 12:42=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
->
-> On Thu, Sep 17, 2026 at 06:36:18PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Sep 17, 2026 at 10:15:26AM -0700, Linus Torvalds wrote:
-> > > On Thu, 17 Sept 2026 at 09:06, Lorenzo Stoakes (ARM) <ljs@kernel.org>=
- wrote:
-> > > >
-> > > >                 =3D=3D defconfig FULL build =3D=3D
-> > > >
-> > > >                         before    after     delta
-> > > >                       ----------------------------------
-> > > > Threadripper, gcc        32.5s    26.3s     -6.1s (-19%)
-> > > > Threadripper, clang      34.5s    27.2s     -7.3s (-21%)
-> > > > EPYC, gcc                28.7s    20.6s     -8.1s (-28%)
-> > > > EPYC, clang              39.8s    32.2s     -7.6s (-19%)
-> > > > M2, gcc                 519.3s   512.4s     -6.9s (-1%)
-> > > > M2, clang               634.5s   569.4s    -65.1s (-10%)
-> > >
-> > > There's something odd going on with that M2 gcc build. Why is it such
-> > > an odd duck?
-> >
-> > Ugh dear lord I think the LLM somehow corrupted the numbers... Let me
-> > re-run those myself locally and come back with the actual times!
->
-> OK numbers are in:
->
-> M2, gcc                 564.7s   512.1s    -52.6s (-9%)
-> M2, clang               615.1s   564.1s    -51.0s (-8%)
->
-> From the v1:
->
-> M2, gcc                 564.0s   512.4s    -51.6s (-9%)
-> M2, clang               616.1s   569.4s    -46.7s (-8%)
->
-> (Tested as per the cover letter pre-reqs, i.e. applying dependent series
-> first etc.)
->
-> Not sure on the -5s delta on the clang build :) that might have been me
+On 9/17/26 10:35, Fabio Baltieri wrote:
+> Hi,
+> 
+> On Tue, Aug 25, 2026 at 11:25:46AM +0200, Johan Dahlin wrote:
+>> Fan control has been measured on this board: with a fan in manual mode the
+>> applied pwm value tracks what is written, and the fan responds
+>> proportionally from 337 RPM at pwm 60 to 933 RPM at pwm 255.
+>>
+>> Allow pwm writes on this board.
+>>
+>> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
+>> ---
+>>   drivers/hwmon/nct6683.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
+>> index 6825e6c3af34..df28055b1a1c 100644
+>> --- a/drivers/hwmon/nct6683.c
+>> +++ b/drivers/hwmon/nct6683.c
+>> @@ -972,7 +972,8 @@ SENSOR_TEMPLATE(pwm, "pwm%d", S_IRUGO, show_pwm, store_pwm, 0);
+>>    */
+>>   static bool nct6683_has_fan_control(struct nct6683_data *data)
+>>   {
+>> -	return data->customer_id == NCT6683_CUSTOMER_ID_MITAC;
+>> +	return data->customer_id == NCT6683_CUSTOMER_ID_MITAC ||
+>> +	       data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8;
+>>   }
+>>   
+>>   /*
+> 
+> Thanks for the patches, I tried this on an ASRock BC-250, also NCT6686D,
+> and it works fine there as well. The board id is
+> NCT6683_CUSTOMER_ID_AMD and all it needed was:
+> 
+> -              data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8;
+> +              data->customer_id == NCT6683_CUSTOMER_ID_ASROCK8 ||
+> +              data->customer_id == NCT6683_CUSTOMER_ID_AMD;
+> 
+> Maybe you can add that as well once you send the v2 of this? (and a
+> Tested-by: Fabio Baltieri <fabio.baltieri@gmail.com>). Or I'm happy to
+> send a followup myself once this gets merged, whatever you prefer.
+> 
+> Either way I feel like this list is going to grow, maybe a
+> 
+> switch (data->customer_id) {
+> ...
+> 
+> would work out better long term here.
+> 
+Or maybe add a boolean have_fan_control or similar to struct nct6683_data,
+populate it in the probe function, and just use it.
 
-Clang is faster on Thursdays.
-
-> being more disciplined this time to not use the laptop at the same time.
->
-> But broadly in line with the original numbers.
->
-> >
-> > >
-> > >              Linus
-> >
-> > --
-> > Cheers, Lorenzo
->
-> --
-> Cheers, Lorenzo
-
-
-
---=20
 Thanks,
-~Nick Desaulniers
+Guenter
+
