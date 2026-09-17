@@ -1,151 +1,116 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A7435EEA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:59:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57332233933;
+	Fri, 18 Sep 2026 09:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725543; cv=none; b=SPwZzWBEv67icH5/1guLgSbaD+wRe7438icz6ZSFLuEeHY5ClJEn/YrcESxtPPbTbnFkRqp4LPhoyyZgCK9da1diRa7Y0Y7JRY92l0S8NM3ZrzYIlAMU12jqV5U7x3y7rRgrQQy57BLw00Or+y8Wumlf6ggXeqfI4+0KypkFhYU=
+	t=1789725571; cv=none; b=SOHj1SloJhyxSP8N09YcUm5zK3wSTBZX0COPg6GxSlocUTWo3VZ91EngQYyDH1dKywfWTKcFgaZLKrW37e+f/RX7hKyox0jWzpE5siGuNlfQ4xQj5OBrvAFvU0Qv3PoRFLtmRuk2H/I8BSbZjtKDXtzDVKefqOXieBLUQXeyDTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725543; c=relaxed/simple;
-	bh=n0HXg7tXmsbGXZGGamFcz9YHIqQEGL8QRvKLk1jFEB4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M6WQ8VH9bOVdC3jnBp/XHKwK5oEcn+cNcatCIHBxYgTGTT+ZD60KgBUMLzmqDlcrrD9ZLshUoOy4RV/7OxHP9H5R8UACFsYTUVWQRsrTkO+SbBCrEjx97XjB6wuGY0WNSi03otujfjiFs70ZV4v/rZ8OJCgwkIs0lIEOeP62Qs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJVbkk0u; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789725571; c=relaxed/simple;
+	bh=/zRSak1lAxIbHDbqXIouf1cZlAlyfRMZrnChjylsPLE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mT8a0g2zOi8EHReRy1jpTv3HJBVhyFiKG4mw0stHVFdeGYuSOI1WEBVF+i86BYF0vrSlMonD1lxk6gDAZWpNkUFrv64mHBzUWbaHkyQafKGT/Cp/9kVJG4t8e0YsdtBk1mQ6yRZIaZSQmds4m9Whlf3plMERhmLe08RJvIKWknk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Puu3U2cZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJVbkk0u"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso628723a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:59:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789725542; x=1790330342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uiB0cahIV1Yxwv3/Yp5e9hUqE3ZJJdbygUJdBb1agB8=;
-        b=KJVbkk0uZHd7P6lZhHKT3mrc0S7s8f1HXTqtAt0Qvh8mHtmOtWykgoLD8vnJCVaE+L
-         NBQSAtTleY6sJFSmcj+MV7jmZ9bWJqTt5Uj+9E3lyaiftUuwZmxvgqTs0VyqG9VKW2/R
-         5wdKAitp9FKiE0eT0z3pGuf3bCO5WyMUcvVcvENV5sK0mpY3X0dWWIRWF9N2qJBwf4F+
-         leG/HIUyPximkVesf0xB+Apfqcpfi2osLOWpTyABn1ej40G9dcgYZsBcHxT8Gc+kRcmr
-         oZGL0QLWlXNhgbW64MuuiMcPc8rRfxOS+9jB91iiEw06X5owOuHshEcfFDOwgPPdUUoY
-         oVqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789725542; x=1790330342;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uiB0cahIV1Yxwv3/Yp5e9hUqE3ZJJdbygUJdBb1agB8=;
-        b=Wj1Hd5zMwnC1DQ5GXDtDtEZs5uoc2/MN7ImV2u689SKa9m0XvkhmSeScRa13w7ycI2
-         iTnjEhERV3Ri5NqXeyqLbR0g4DL6j9uPzoob7lv2JPC9YXbehtwnFoNGxMSxwzggQqnM
-         /WFa9MbOsJZvWS2AfICmPkFLVoEdmG8ApLQQyGe3s5qSCTzHRuuP9xIKVumeescJfnY7
-         TRj2v6BL0DxXmcwXtS6DcxTg/1h4mEg4jMBSkoXXna9hmrQblAgDX8+TsGBwd9DLDSzT
-         +Q6pKlobUfbyIWcrIZTaGuoBLu1Q3A9q6Q1Ty/JcTtasfTlEbyc95ueuRdwaX4g7f6Z+
-         WoNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQJSTmpMaFboLeSADkKCV8zoLop4LDCP6UMqIfFe8924IxKkIX5JnjQOZmIKptiIwpP0LP0mvkeMs+hZg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0Z01vdxhjWnUDpVvJgcFdEAesQlrLoQEteEjtpRJHWzdbxhQ0
-	YvHnUU31ms6UTKux5QN7EuhuODfQf+LNNYd5XrcKFkC3MoGgfOQeVsEa
-X-Gm-Gg: AYBFou1OYKtjjvc9/fJ/oTjhiM0oVcf4wTcU6S7cMf58BzL1+Xyq4vXN8oI91gicmjJ
-	xbRGSf9gL0ZqRZaOzbnMkZG+pY4R/p5c9a2I5bESKtosBGKPYK1gZ55akEcanEKjKtrvu2OT+eo
-	orrX8jkQx04V5fNe2sUKANOXhMRho9SgNrS4ipUwwIvuCKZRDcSNe9RTvuoeaLWA4AjToipyATK
-	Nu0qVpbaE+dessdbtREUlS5yEhxG6BE8aF2YxNDcyrwGLq5LVOCKD18JQnrLPjP5TnGh3zAbW9e
-	l1L4Bz2/kYrapmXk7zKovxF8zsRSRVL1wO84SzQ0oxr3T/LU2N2zhtkvwnsNMO2LVFj2tXZS1qN
-	tTOAx1TVmC38ZSxXjfnjmHSfv37eKkG2jztDLyTOJRa1AU0BzN2mjCuySXdJCf74m/RtLGFpVAP
-	lu5ACg/PMnyv4E2+Gz/lm145lrNjcUi92Mwmkr7UOFjLTgJg/x35JnM869gUTv76CMxDPMhsyy1
-	HjpT/cC8cZm2en2
-X-Received: by 2002:a17:90b:2ecb:b0:39e:4c81:6c9a with SMTP id 98e67ed59e1d1-39e54fafb06mr5161757a91.32.1789725541791;
-        Fri, 18 Sep 2026 02:59:01 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e59abb3dbsm2567700a91.11.2026.09.18.02.58.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:59:01 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Valentin Caron <valentin.caron@foss.st.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Antonio Borneo <antonio.borneo@foss.st.com>,
-	linux-rtc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] rtc: stm32: fix clock leak on pinctrl probe failure
-Date: Fri, 18 Sep 2026 16:58:53 +0700
-Message-Id: <20260918095853.1348694-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Puu3U2cZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B94A1F000FF;
+	Fri, 18 Sep 2026 09:59:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789725570;
+	bh=lgMv2zbGxpMjSU1Q12TUieC/fHlr4upj7o7tSr9up10=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Puu3U2cZYIyWJMi7D+z6178AnlTL7FE1Zy1y55J+Pia2TSVMLauoTfBUy3vOIOQM3
+	 yZJsMkBSz1D+q4Flx42onJbGinBIvq5VvndXAbuS3PH/cJfBC/K/jH6uGH1HiTG6pU
+	 xvUIgrRf1/dOcfUvWmcLdVbitzNEyYjprAlng8K9Q849ic28eYBoCSSTIwN4F6NWfG
+	 yOGOgW0Iww8zFBfqyrGj9A4v0o/Vp/TqK2HT6icehU0pAkXgm9ytw6/NjKouPe6lcp
+	 pAdI4rtS+fjoaKLLiqeVKHEI6EknVvq30GsAcOoxFrMOCPRAlopNG20bkVoovw16sH
+	 q0qXzqrb4epvg==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrei Simion <andrei.simion@microchip.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Support Opensource <support.opensource@diasemi.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Oder Chiou <oder_chiou@realtek.com>, Shenghao Ding <shenghao-ding@ti.com>, 
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+ Sen Wang <sen@ti.com>, Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-sound@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com, linux-mediatek@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-omap@vger.kernel.org
+In-Reply-To: <20260917054001.15728-1-hemanth.selam@gmail.com>
+References: <20260917054001.15728-1-hemanth.selam@gmail.com>
+Subject: Re: [PATCH v4] ASoC: fix typos in comments
+Message-Id: <178966626559.285745.8708474287640144157.b4-ty@b4>
+Date: Thu, 17 Sep 2026 18:31:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1073; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=/zRSak1lAxIbHDbqXIouf1cZlAlyfRMZrnChjylsPLE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqrQt5bTHOE1BAdFm/GOH5MgfjjkzvnxEiNN/fC
+ VdR/OVoCgaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaq0LeQAKCRAk1otyXVSH
+ 0LA+B/95jFomfKKBgRBZ3Svo7TgDki1UIX7cgIQ3816/CKGuiu8nh3Qj36vZl+2xsX8R4e6+9Aj
+ FyFv4gZ2anBe2u8QdnAsP1otAPXZVsvagmbp6t6jIDEQkerLsiUjesAuDdtyIN/DBaM7gdf10mc
+ kyDJIx4iGPlf9g1vCp0GeKX+Ysb8mxeV3P4mo6X11U4ELBOvokDC21053xBWBlaWUwLlnM0zll0
+ 8yJKNt6Hbr8Wp9GyAomW7NaLzuPRIT5jJAToWs7+G+epN/ObyezHBTEDGKNYe/9/0SSaAMtALzb
+ oWKiqNIa3OLge9jH+LeFUk9plwFWNOeCWrH4DdpbGb76GqfX
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-A failing devm_pinctrl_register_and_init() or pinctrl_enable() in
-stm32_rtc_probe() returns directly instead of going through err:,
-leaking rtc_ck/pclk -- and since -EPROBE_DEFER is routine here, each
-deferred retry leaks another.
+On Thu, 17 Sep 2026 11:10:01 +0530, Hemanth Selam wrote:
+> ASoC: fix typos in comments
 
-Route both through err:, and move the pinctrl setup earlier (right
-after stm32_rtc_init(), before the RTC device/IRQ are registered) so
-disabling the clocks there doesn't race a still-live IRQ.
+Applied to
 
-Fixes: 16ad2bc09efb ("rtc: stm32: add pinctrl and pinmux interfaces")
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/20260914135401.373D91F000FF@smtp.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
-Changes in v2:
-- Sashiko found that routing the pinctrl failures through err: (as v1
-  did) disables the clocks while the still-registered RTC device and
-  alarm IRQ are live. Moved the pinctrl setup earlier instead of just
-  moving where the leak was plugged.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
- drivers/rtc/rtc-stm32.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+Thanks!
 
-diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index d4ebf3eb54aa..457f66663ba5 100644
---- a/drivers/rtc/rtc-stm32.c
-+++ b/drivers/rtc/rtc-stm32.c
-@@ -1137,6 +1137,20 @@ static int stm32_rtc_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err;
- 
-+	stm32_rtc_clean_outs(rtc);
-+
-+	ret = devm_pinctrl_register_and_init(&pdev->dev, &stm32_rtc_pdesc, rtc, &pctl);
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "pinctrl register failed");
-+		goto err;
-+	}
-+
-+	ret = pinctrl_enable(pctl);
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "pinctrl enable failed");
-+		goto err;
-+	}
-+
- 	rtc->irq_alarm = platform_get_irq(pdev, 0);
- 	if (rtc->irq_alarm <= 0) {
- 		ret = rtc->irq_alarm;
-@@ -1172,16 +1186,6 @@ static int stm32_rtc_probe(struct platform_device *pdev)
- 		goto err;
- 	}
- 
--	stm32_rtc_clean_outs(rtc);
--
--	ret = devm_pinctrl_register_and_init(&pdev->dev, &stm32_rtc_pdesc, rtc, &pctl);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "pinctrl register failed");
--
--	ret = pinctrl_enable(pctl);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "pinctrl enable failed");
--
- 	/*
- 	 * If INITS flag is reset (calendar year field set to 0x00), calendar
- 	 * must be initialized
--- 
-2.25.1
+[1/1] ASoC: fix typos in comments
+      https://git.kernel.org/broonie/sound/c/a603fe4e0003
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
