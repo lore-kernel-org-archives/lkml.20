@@ -1,108 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE6E5172E9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0734D5172DD;
 	Thu, 17 Sep 2026 16:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664286; cv=none; b=UYqculujt1dKgXloQsdwxRqS25kOsWylMOIgSgpfOHvxPVeMmgunIFhpChqxbr5P0/u9B9OA2i3R3DYOo3yr2duSrY8VFO45tVSNoLIq7snvVfDKZETrQxDtTUxjQU1LhzUs8MszGya85F60/EZrS0p5Dh6YG1K00CxCqpXxfxY=
+	t=1789664287; cv=none; b=QPQ6r0VybFl/OsT8Zb5mwRTlEJO1pWexhVbiHWVrnB5J+UC5yqvPuIp0hZoBzpEA3AcUv5OY+b947sThAHbvmTKYp+jQkom1uZU+hWx0by/HnAeYRLo4TNziZmGDCnjWysv1ogO+rP3JVRX2BwYAL9hzhKl9lJ+Lp3eM8pvHvgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664286; c=relaxed/simple;
-	bh=KU+UbWVWGVDzP2/5478+tNX+uvyBl8kvMYviNDdFHKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p7t1QfL1P72HTyI6pQcuMgKaOZQvNpkFMm3wHLWB9vGmDZCKCU0SBAekhrhGVhDE2deq9WAulX7Vj5VvHeWUrbcVSr5l/fkEr0X41kbDEMDigna2sUf1FTcoKC0+9cGp97Xh0bN+PYB4zZkcetyZ+54xrqySFxVhlNZQ+KVh80g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FijdV8dz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789664287; c=relaxed/simple;
+	bh=n/b+TkHJhF+tCoFn9I9g+htfnz1uHmfohwh9wRCjPDU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=I4RMA4zfiJ9JQ1hfCzkLyi4BJhyBzL6HX3WUl98Jt2JnJhUhQqwApg4jtZmM1JVrtUBKd6bf0317bBDZA+wCJktgBANlcqTtPmeyfyCmjNcC5cdxbkFCIIvXgzst0Qqbh0ndGZLu9GJ5OLuNnJmYdZN0lnPa2MTNtp6d5I6IT5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LL3uY252; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FijdV8dz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D021F00898;
-	Thu, 17 Sep 2026 16:58:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LL3uY252"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF6C01F000FF;
+	Thu, 17 Sep 2026 16:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789664285;
-	bh=G6M1hxOvYoy7f6OFIyTNAjYyoJ8doAT9R3t/RnO+5wE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FijdV8dzZR2foaEFvspQUWKw1vTW1Az7WPXaE1AnyErCZpDibf9TS+0SVBRczfVXq
-	 51yGbrxoI2hkrwpUKheNe44X5at4kUaTkptcr34f9l29GQUmKr49sxZmE7zWmdFj70
-	 ToWvPKEy6RdQZV38xRki41NcNNA311huD54DX91tIdQzds9LtsNYVkVPU7JAIpchh1
-	 Xrmfo/xCNNmjhgEgtJM6k6/Aswi959TzbgjltpBsIQweHbEBmQpWA8M3jMptitEsEc
-	 XNV5BKRrbk6whmGYeGr5yQ9CznqcLlvEj6OFEM+Ge0XByu2XWAR4v26+LVunA5ljIs
-	 CrIqaoayngHTQ==
-Date: Thu, 17 Sep 2026 09:58:04 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 20/20] kbuild: compress the kernel with pigz if
- available
-Message-ID: <202609170955.C6EABD8C@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
+	bh=n/b+TkHJhF+tCoFn9I9g+htfnz1uHmfohwh9wRCjPDU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LL3uY2524Sa23BQKAZLTNnfnFot4uLjZ4uvBbirjVjjGk6jvoEslDoe90Zfl2Z4oz
+	 r3HoF8YbbXcYyZcXZKR+YK4LzaCjxIe7dVMGSFw37/fHX4JBnKm7P8DPHoSpiOpsvo
+	 isPW2pwpOmiJbXT/QCPUmNgKs8fjWnlGFeru8TF3k2J49KiGaOn3Lzdcr2xEundrs8
+	 PgxomivVexSRDZKME60JtVvbTZklN4Q8RQ9KcBQ1N94zA/V8KMc9C1BIiK7fjSX/tO
+	 qoHVwMcO2KdJJGjU0OQOOnOZ8TMSSi9ELp0vqg0FOFnghhPH4BME9lFeOjE5KNYHIx
+	 PPVKDB/J8eo5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 9/9] scsi: Enable async shutdown support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Jeffery" <djeffery@redhat.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>, driver-core@lists.linux.dev
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, "John Garry" <john.g.garry@oracle.com>, linux-kernel@vger.kernel.org, "John
+ Meneghini" <jmeneghi@redhat.com>, Maurizio <mlombard@redhat.com>, "Bjorn
+ Helgaas" <helgaas@kernel.org>, "Jeremy Allison" <jallison@ciq.com>, linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org, "Laurence
+ Oberman" <loberman@redhat.com>, "Stuart Hayes" <stuart.w.hayes@gmail.com>, "Bart
+ Van Assche" <bvanassche@acm.org>, "Pasha Tatashin" <tatashin@google.com>, kexec@lists.infradead.org, "Ewan
+ Milne" <emilne@redhat.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Tarun
+ Sahu" <tarunsahu@google.com>
+In-Reply-To: <20260917163744.191748-10-djeffery@redhat.com>
+References: <20260917163744.191748-1-djeffery@redhat.com>
+ <20260917163744.191748-10-djeffery@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 16:58:04 +0000
+Message-Id: <20260917165804.AF6C01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
 
-On Thu, Sep 17, 2026 at 05:06:30PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  Documentation/kbuild/kbuild.rst   | 17 +++++++++++++++++
->  Documentation/process/changes.rst |  8 ++++++++
->  Makefile                          |  5 ++++-
->  kernel/Makefile                   |  6 +++++-
->  scripts/Makefile.lib              |  4 ++--
->  scripts/jobserver-exec            |  3 ++-
->  tools/lib/python/jobserver.py     | 13 +++++++++++++
->  7 files changed, 51 insertions(+), 5 deletions(-)
+> Like scsi's async suspend support, allow scsi devices to be shut down
+> asynchronously to reduce system shutdown time.
+>=20
+> Signed-off-by: David Jeffery <djeffery@redhat.com>
+> Signed-off-by: Stuart Hayes <stuart.w.hayes@gmail.com>
 
-Awesome; I love it. (I may send a follow-up to improve the PARALLELISM
-token so things can define the fallback instead of the hard-coded "1",
-but there is only one place I found where that might be useful, and it
-will be totally separate from this.)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163744.1917=
+48-1-djeffery@redhat.com?part=3D9
 
--- 
-Kees Cook
