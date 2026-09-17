@@ -1,93 +1,74 @@
-Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB46381E95
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DD33A875E;
+	Thu, 17 Sep 2026 03:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617369; cv=none; b=HIzM6BUrmapXcLkDsTt9l2LGzozUl/W84CH8qRtD3s018+CEbiXoPSdnSwoUFA3uQ1TF2a8qFhi5otSkG5ogmAklrdj95p4oMyaKGZutmsBy/SWPay6f0IZBrsH0BAAx8Pnd61dk/RGJUizr1Ub9s/hHpLiCtQPCeNOLbQFzguo=
+	t=1789617406; cv=none; b=P9Y01O+nTnUUjpwAqfFL21NQplxU58QhqIG2aOCvZV/DDiwy5aDEsFVdSYfWjN4mjtt6LRDpUDsEsCW9Hqokrs9ezLo0kG8wqkp/WUeAL7dQwoH2sdQNZA90Q4WatgLafpmLu1ILs5q/fG91P6QkvhAqOwxr0UvF1szZEbZgw6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617369; c=relaxed/simple;
-	bh=HUl8bRaU0gbRRqk2r/mBcfDPY8VXOzcdedIQhAftkok=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=r/ZxlJy1SrIjO7LCoXcXHzlxm4t96GwTnhUo0hF4Wu75K1nLSuRMfg45g+/9Doc4j1nbyu14QpUKQaby8kAhi0qeSiRQRev5fI3Xn0k8dZdXRQj+Rs6PZpqD4byCA6ox3deWJ+aoqnnu6XO2/264YPVTC4lRczc5HfGkyZp6ceM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=riX5qEG3; arc=none smtp.client-ip=91.218.175.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789617406; c=relaxed/simple;
+	bh=V9apvguckonBUFoZkOgRC8OEVq+mcYokc6e8jZMQp4w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LH74Dpuh57j8yT8AT0c2EsbgCf4pAU0+AxDMUGfVQU5zFWBDu6vrcMhh6M/mP7kq16GWJPYaaV/gxj/hR/0y6MM73tFv1IB5Tq5IZeFC+mGtuX+wkkQG4NH8rM3e7y37u+zAPr8+RPOhMavaRolmORk9ytVgDU6Pdu+5+Jzu42g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=fTYCLd/b; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="riX5qEG3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HUl8bRaU0gbRRqk2r/mBcfDPY8VXOzcdedIQhAftkok=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789617364; v=1; x=1790222164;
- b=riX5qEG3NAfL/qYOy2XvUhmnk0yL9gBz+Z+3bjqu5Rqfl43d2rrXgKhM7zol0bYkNTkYJ0fY
- Fi2BaEg+DnvrpX5g2/2Ijj9R4jL2e0VOMDaajzb198DyXFvFq/GB9wRFy1OcMl6Qz8sQwYnV55o
- jjjUPDgHlNWc34FKJL2cKb6I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 2f3142f7717fb54d;
-	Thu, 17 Sep 2026 03:56:04 +0000
-X-Mizu-Trace-ID: 2f3142f7717fb54d
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="fTYCLd/b"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 10FDA1001F5;
+	Thu, 17 Sep 2026 05:56:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789617400;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=aulBUN1tA6kZl7+XoEHv5GG7KpCshb3srvdgPwEckPM=;
+	b=fTYCLd/b8tZaj1yEk4+fsOJXwg9sE1xiH+ukXXaNflaaPVgY5VDF0EelJK2TUmgIEEe48x
+	S4TPBF1LiO+6E/iIq8AI8Y7cICuem9O4Kc4ln0s8kBwprNKMZB7SXMiGPSZ2mkIEXm8PAh
+	QtyfPHHn0BItAZpJ6gTN/3CfluNSlZj6W+Tih3wueUBtcqCoJH7JVvBpv/2ed+NiiGVMy3
+	R8Cyci3GmmhYmvD/WHnBxykEQiOzY10AXAQc3rIZX6/I6z3HAn6Yxp/okG7HHZs8QGouqa
+	iPDC3VpZtvg2yQwoNoxs2tcqFDZT1EoPxyTmKo/Tr8pZqI5wT+E4tjwX3HkOow==
+Message-ID: <f4dbeaac-ab10-4980-9fc5-533907be223c@nabladev.com>
+Date: Thu, 17 Sep 2026 05:56:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH] mm: filemap: move lruvec accounting outside the xarray
- lock
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260916125122.2696271-1-usama.arif@linux.dev>
-Date: Thu, 17 Sep 2026 11:55:47 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- jack@suse.cz,
- linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- willy@infradead.org,
- david@kernel.org,
- hannes@cmpxchg.org,
- mhocko@kernel.org,
- roman.gushchin@linux.dev,
- riel@surriel.com,
- shakeel.butt@linux.dev,
- kernel-team@meta.com
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917024805.517030-1-marex@nabladev.com>
+ <20260917024805.517030-3-marex@nabladev.com> <aqtfcREBJLMzS0gn@SMW015318>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <aqtfcREBJLMzS0gn@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <E7CB9AC2-059E-447E-B248-DC383D346457@linux.dev>
-References: <20260916125122.2696271-1-usama.arif@linux.dev>
-To: Usama Arif <usama.arif@linux.dev>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+X-Last-TLS-Session-Version: TLSv1.3
 
+On 9/17/26 5:33 AM, Frank Li wrote:
 
+Hello Frank,
 
-> On Sep 16, 2026, at 20:51, Usama Arif <usama.arif@linux.dev> wrote:
+>> +	reg_panel_vcc: regulator-panel-vcc {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-min-microvolt = <3300000>;
+>> +		regulator-max-microvolt = <3300000>;
+>> +		regulator-name = "PANEL_VCC";
+>> +		gpio = <&i2c2_gpio_expander_20 17 0>;
 > 
-> __filemap_add_folio() inserts a folio and updates mapping->nrpages
-> while holding mapping->i_pages.xa_lock with interrupts disabled. The
-> XArray insertion and nrpages update require the lock, but the lruvec
-> statistic updates do not. With CONFIG_MEMCG, those calls also update
-> per-CPU memcg and lruvec counters and notify cgroup rstat, extending the
-> critical section.
+> 						  ^^^ use predefined macro
 > 
-> Move the lruvec accounting after a successful XArray insertion and
-> after xas_unlock_irq(). The page-cache references pin the folio, while
-> the folio lock keeps folio->mapping stable and prevents removal until
-> accounting is complete. This moves one lruvec update for ordinary folios
-> and a second for PMD-mappable folios out of the serialized section.
-> 
-> In a 30-second system-wide perf lock contention -ab capture on a
-> production host, the hottest caller-stack record attributed to
-> __filemap_add_folio() had 20,867 contentions and 557.930 ms total wait.
-> That was 14% of the 3.998 seconds of aggregate lock wait in the
-> capture. Moving lruvec accuting outside of critical section should
-> help optimize it.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
+> use gpios = <...>
+Is this all, or shall I fix something else before I do V4 ? I feel like 
+I am already flooding the list too much.
