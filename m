@@ -1,86 +1,488 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9E44E5335;
-	Thu, 17 Sep 2026 16:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4769B4E73A9;
+	Thu, 17 Sep 2026 16:09:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661390; cv=none; b=Gx20iKynJ95I+zoTwZrJVOTQ6JI3ovvrhaBkx54fJgQIz3ep3Ohse7r3g/zqgeJF1tGsS9P6XiX1TfGnMcSLPUf6kzmoYjhU2cTzsO9EnpCVolQyXW2cY6SnDb+e6o43rZ3l/UMV1JRDoXZGHq/rEc7HFFIz+ICJz+bJpKD+qzM=
+	t=1789661397; cv=none; b=kmf6HU4Z7mgF5cg0lmSyiAj6UwmJk9eLX6iJselhx/VvsOL/HisXRsRyQXDVHvET5LdafSCmbmfPh2c7hRMWHUhpguUY41eFUkMpahIIo9bxOoZ+o0A6PxsuyXz411GyW1b4pVYstpzpwv/F6g9s8IM3HBXSK1I/tewTUywvWNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661390; c=relaxed/simple;
-	bh=kOhxTu0JtznoHG97ZCyaU49bLhLPqMOmAJHA+Lh+Ntg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Nib7GAqC1NHmrr5SUFOvHLSj+iQ0lO2wqM61nznpIjb4eB/okmN35+OMD7CuwzGqPm/hv9pAYVA9OpnyzRfoZfTRt1ojEHjwBpnrETW6g339AW2vIJjyXAj/BuTmHFwG1HG8ejSWeqbkNLwyagmeHauuLpg62tcQV0AtVpPr1HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHdkDHEKxqTi+ECA--.153S2;
-	Fri, 18 Sep 2026 00:09:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	pawell@cadence.com,
-	peter.chen@nxp.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: cdns3: cdnsp-pci: Fix PCI function reference leak in cdnsp_pci_probe()
-Date: Thu, 17 Sep 2026 16:09:43 +0000
-Message-Id: <20260917160943.2161796-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789661397; c=relaxed/simple;
+	bh=rqaxbRFTNtA+FfHVG7vWIuOFobBK2/fgyWI6HaVRe4E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LB8V9FkngYyGQIH+K3ZaAlmSZDI/Oxb2356UMwUKeDp77Hjatxb/lFvnbOLzhwZ+vm3BCOdhclsDmwhUxYMmBs7EzHkkghpa1FPwX6ZpXnH/ALqJULJOmNj4GrSkYp1MWlViebO7Fe30DtidtpNoHwY7JqkCH1ujMkLislag+cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjkJclNf; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjkJclNf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B84D1F00893;
+	Thu, 17 Sep 2026 16:09:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789661396;
+	bh=pIdXVDKtxt18Mak5g7MMon/porCKqzoMryJNJA9avpM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=XjkJclNfpn1Huwi+qn0H1ZkvhnpZDvGve9OoMIe38GyUGgH8MasxAAJZhTPoGMnOu
+	 itF+yDGufhxfWZZzIhCNJ1y64gg/DrOfAadC/4rO0epEaARURQh1TEIUHj3gxjhWbH
+	 Z3t2dBMBX+p/5F3Yr+HcgvC1AnHyF6dZecHtNTxWX8SxGn4a2uWLkJvoBiVnmtKXg5
+	 YbRE6GszaQlhb+KavsODqraZ9T2kQ+tDv7DXZDfia9N9bvQU8gVq9ykVKzOYYrDQqB
+	 4snkfEKfftHYPoUJrbzGfE4sFsQfdSqev2VDrQtHVdE2iiLzJujhGt/rJTnNl5LHiS
+	 d550Nio8DzuQg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:06:25 +0100
+Subject: [PATCH v3 15/20] objtool: cache relocations, do less work,
+ eliminate relocation hash
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHdkDHEKxqTi+ECA--.153S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Wr1rXr1fGr45uFyDCryfWFg_yoWfKFg_uw
-	4ru3ZaqFy7uF9rKw1xGryavrWIk3ZIvF1kWa12qryfCFZIkr1kXry3Zr95G3W7uw48GF1D
-	Kw1vgw45WrsrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
-	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjfUY9a9DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcNA2qr9tg91QAAsJ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-build-speedup-v3-15-9ecf4163ff36@kernel.org>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12860; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=rqaxbRFTNtA+FfHVG7vWIuOFobBK2/fgyWI6HaVRe4E=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLW8P/f8OntZev3jsGrQm+EbWXye/VjRdoiffPIZSEPZ
+ G8vDMiK6ihlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEYpYwMrydmrbnvJG7TeKt
+ Ipdn32u+fXwx9cbml1a9/bMv7ZYwCepgZPg/vUAzKkG84oCJZPId8ZuO6l9v+bFpiUy/Ynl034w
+ tG9kA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-cdnsp_get_second_fun() returns a device obtained with pci_get_device(),
-which takes a reference to it. The error paths release it through the
-put_pci label, but the successful return does not, so the reference is
-leaked for every successfully probed device.
+Instruction relocations are looked up by destination in objtool via a hash
+which is keyed on a 16-byte (OFFSET_STRIDE) window within the section being
+walked.
 
-Release it on the success path too.
+It iterates through each 16-byte window, looking up relocations over
+several passes, before moving on to the next 16-byte window, caching only
+when a relocation is not found saving further lookups in this case.
 
-Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Improve upon this by introducing a per-section relocation cache storing the
+first relocation at or after each 64-byte window of data (an empirically
+determined index range), indexed by chunk.
+
+The lookup is implemented an array lookup and touches no shared state, so
+can be used from multiple threads.
+
+This relies upon the entries within a section being sorted, which is the
+case for all sections supplied to objtool by the link step during the
+kernel build.
+
+With this in place the relocation hash is unnecessary and removed. This
+saves ~90 MiB in peak memory usage for an allmodconfig build.
+
+If anything is processed out of order, fall back to a linear scan.
+
+DWARF sections are a special case - their relocations are never looked up
+by destination at all and only need to be on their symbol's list for
+elf_update_sym_relocs().
+
+This is meaningful in practice as on an x86-64 kernel build with
+CONFIG_DEBUG_INFO set objtool processing of vmlinux.o is dominated by DWARF
+section processing.
+
+For an allmodconfig build ~9 million relocations were hashed, and ~8.2
+million of those were DWARF sections, which added overhead on cache miss
+and pollution of the hash table. This is now eliminated.
+
+The output of objtool before and after this change was confirmed to be
+byte-for-byte identical both for x86_64 defconfig and allmodconfig with
+gcc and clang.
+
+objtool on the gcc allmodconfig vmlinux.o goes from 10.5s to 9.0s, clang
+from 9.8s to 8.3s and gcc defconfig from 2.08s to 1.79s, with peak memory
+down ~90 MiB on allmodconfig.
+
+objtool on vmlinux.o is on the serial tail of every build that links
+vmlinux, no-op builds are unchanged.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig, touch mm/vma.c, gcc        8.3s     8.2s    -0.14s (-2%)
+  x86 defconfig, touch mm/vma.c, clang      7.6s     7.3s    -0.25s (-3%)
+  x86 defconfig, clean, gcc                28.9s    28.6s    -0.22s (-1%)
+  x86 defconfig, clean, clang              29.4s    29.1s    -0.28s (-1%)
+  x86 allmodconfig, touch mm/vma.c, gcc    29.4s    28.0s     -1.4s (-5%)
+  x86 allmodconfig, touch mm/vma.c, clang  27.9s    26.2s     -1.7s (-6%)
+
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/usb/cdns3/cdnsp-pci.c | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/objtool/elf.c                 | 204 ++++++++++++++++++++++++++++--------
+ tools/objtool/include/objtool/elf.h |  10 +-
+ 2 files changed, 162 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
-index 566d94e49102..061a2c43e986 100644
---- a/drivers/usb/cdns3/cdnsp-pci.c
-+++ b/drivers/usb/cdns3/cdnsp-pci.c
-@@ -162,6 +162,8 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
- 	if (pci_dev_run_wake(pdev))
- 		pm_runtime_put_noidle(&pdev->dev);
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index a791f4ea6ec1..8524d287621b 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -316,45 +316,165 @@ struct symbol *find_global_symbol_by_name(const struct elf *elf, const char *nam
+ 	return NULL;
+ }
  
-+	pci_dev_put(func);
+-/* If there are multiple matches, return the first one in the range */
+-struct reloc *find_reloc_by_dest_range(const struct elf *elf, struct section *sec,
++static bool is_dwarf_section(struct section *sec)
++{
++	return !strncmp(sec->name, ".debug_", 7);
++}
 +
- 	return 0;
++/* Index the first relocation at or after each 64 byte window of the base. */
++#define RELOC_CACHE_INDEX_SHIFT	6
++
++static unsigned long reloc_cache_index(unsigned long offset)
++{
++	return offset >> RELOC_CACHE_INDEX_SHIFT;
++}
++
++static void reloc_cache_free(struct section *rsec)
++{
++	free(rsec->reloc_cache);
++	rsec->reloc_cache = NULL;
++	rsec->nr_cache_windows = 0;
++	rsec->nr_indexed = 0;
++	rsec->sorted = false;
++}
++
++/* Grow the index to cover the base section, new windows start past the end. */
++static int reloc_cache_resize(struct section *rsec)
++{
++	const unsigned int nr_windows = reloc_cache_index(sec_size(rsec->base)) + 1;
++	unsigned int *cache;
++
++	if (nr_windows <= rsec->nr_cache_windows)
++		return 0;
++
++	cache = realloc(rsec->reloc_cache, nr_windows * sizeof(*cache));
++	if (!cache) {
++		ERROR_GLIBC("realloc");
++		return -1;
++	}
++
++	while (rsec->nr_cache_windows < nr_windows)
++		cache[rsec->nr_cache_windows++] = rsec->nr_indexed;
++	rsec->reloc_cache = cache;
++
++	return 0;
++}
++
++/*
++ * Index the next relocation. It must follow the previous one in position and
++ * offset, otherwise the section is scanned from now on.
++ */
++static int reloc_cache_add(struct section *rsec, unsigned int reloc_idx)
++{
++	const unsigned long offset = reloc_offset(&rsec->relocs[reloc_idx]);
++	const unsigned long window = reloc_cache_index(offset);
++	unsigned long first_window = 0;
++
++	if (reloc_idx != rsec->nr_indexed)
++		goto unsorted;
++
++	if (reloc_idx) {
++		const unsigned long prev = reloc_offset(&rsec->relocs[reloc_idx - 1]);
++
++		if (offset < prev)
++			goto unsorted;
++		first_window = reloc_cache_index(prev) + 1;
++	}
++
++	if (reloc_cache_resize(rsec))
++		return -1;
++	if (window >= rsec->nr_cache_windows)
++		goto unsorted;
++
++	while (first_window <= window)
++		rsec->reloc_cache[first_window++] = reloc_idx;
++	rsec->nr_indexed = reloc_idx + 1;
++
++	return 0;
++
++unsorted:
++	reloc_cache_free(rsec);
++	return 0;
++}
++
++static int init_reloc_cache(struct section *rsec)
++{
++	const unsigned int nr_relocs = sec_num_entries(rsec);
++	unsigned int reloc_idx;
++
++	rsec->sorted = true;
++	for (reloc_idx = 0; reloc_idx < nr_relocs; reloc_idx++) {
++		if (reloc_cache_add(rsec, reloc_idx))
++			return -1;
++		if (!rsec->sorted)
++			break;
++	}
++
++	return 0;
++}
++
++static bool reloc_in_range(struct reloc *reloc, unsigned long offset,
++			   unsigned int len)
++{
++	return reloc_offset(reloc) >= offset && reloc_offset(reloc) < offset + len;
++}
++
++/* The index gives a lower bound, scan on from there. */
++static struct reloc *find_reloc_sorted(struct section *rsec,
+ 				       unsigned long offset, unsigned int len)
+ {
+-	struct reloc *reloc, *r = NULL;
+-	struct section *rsec;
+-	unsigned long o;
++	const unsigned long cache_idx = reloc_cache_index(offset);
++	unsigned int reloc_idx;
  
- free_cdnsp:
+-	rsec = sec->rsec;
+-	if (!rsec)
++	if (cache_idx >= rsec->nr_cache_windows)
+ 		return NULL;
+ 
+-	for_offset_range(o, offset, offset + len) {
+-		elf_hash_for_each_possible(elf, reloc, reloc, hash,
+-					   sec_offset_hash(rsec, o)) {
+-			if (reloc->sec != rsec)
+-				continue;
++	for (reloc_idx = rsec->reloc_cache[cache_idx];
++	     reloc_idx < rsec->nr_indexed; reloc_idx++) {
++		struct reloc *reloc = &rsec->relocs[reloc_idx];
+ 
+-			if (reloc_offset(reloc) >= offset &&
+-			    reloc_offset(reloc) < offset + len) {
+-				if (!r || reloc_offset(reloc) < reloc_offset(r))
+-					r = reloc;
+-			}
+-		}
+-		if (r && (reloc_offset(r) & OFFSET_STRIDE_MASK) == o)
+-			return r;
++		if (reloc_offset(reloc) >= offset)
++			return reloc_in_range(reloc, offset, len) ? reloc : NULL;
+ 	}
+ 
+-	return r;
++	return NULL;
+ }
+ 
+-struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, unsigned long offset)
++/* Out of order sections, only ever DWARF or one objtool grew that way. */
++static struct reloc *find_reloc_linear(struct section *rsec,
++				       unsigned long offset, unsigned int len)
+ {
+-	return find_reloc_by_dest_range(elf, sec, offset, 1);
++	struct reloc *reloc, *first = NULL;
++
++	for_each_reloc(rsec, reloc) {
++		if (!reloc->sec || !reloc_in_range(reloc, offset, len))
++			continue;
++
++		if (!first || reloc_offset(reloc) < reloc_offset(first))
++			first = reloc;
++	}
++
++	return first;
+ }
+ 
+-static bool is_dwarf_section(struct section *sec)
++/* If there are multiple matches, return the first one in the range. */
++struct reloc *find_reloc_by_dest_range(const struct elf *elf, struct section *sec,
++				       unsigned long offset, unsigned int len)
+ {
+-	return !strncmp(sec->name, ".debug_", 7);
++	struct section *rsec = sec->rsec;
++
++	if (!rsec)
++		return NULL;
++
++	if (rsec->sorted)
++		return find_reloc_sorted(rsec, offset, len);
++
++	return find_reloc_linear(rsec, offset, len);
++}
++
++struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, unsigned long offset)
++{
++	return find_reloc_by_dest_range(elf, sec, offset, 1);
+ }
+ 
+ static int read_sections(struct elf *elf)
+@@ -1071,7 +1191,8 @@ struct reloc *elf_init_reloc(struct elf *elf, struct section *rsec,
+ 	set_reloc_type(elf, reloc, type);
+ 	set_reloc_addend(elf, reloc, addend);
+ 
+-	elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
++	if (rsec->sorted && reloc_cache_add(rsec, reloc_idx))
++		return NULL;
+ 	set_sym_next_reloc(reloc, sym->relocs);
+ 	sym->relocs = reloc;
+ 
+@@ -1125,16 +1246,13 @@ struct reloc *elf_init_reloc_data_sym(struct elf *elf, struct section *sec,
+ 
+ static int read_relocs(struct elf *elf)
+ {
+-	unsigned long nr_reloc, max_reloc = 0;
++	unsigned long nr_reloc, max_reloc = 0, nr_linear = 0;
+ 	struct section *rsec;
+ 	struct reloc *reloc;
+ 	unsigned int symndx;
+ 	struct symbol *sym;
+ 	int i;
+ 
+-	if (!elf_alloc_hash(reloc, elf->num_relocs))
+-		return -1;
+-
+ 	list_for_each_entry(rsec, &elf->sections, list) {
+ 		if (!is_reloc_sec(rsec))
+ 			continue;
+@@ -1168,19 +1286,26 @@ static int read_relocs(struct elf *elf)
+ 				return -1;
+ 			}
+ 
+-			elf_hash_add(reloc, &reloc->hash, reloc_hash(reloc));
+ 			set_sym_next_reloc(reloc, sym->relocs);
+ 			sym->relocs = reloc;
+ 
+ 			nr_reloc++;
+ 		}
+ 		max_reloc = max(max_reloc, nr_reloc);
++
++		/* DWARF relocs are never looked up, so are not worth indexing. */
++		if (is_dwarf_section(rsec->base))
++			continue;
++		if (init_reloc_cache(rsec))
++			return -1;
++		if (!rsec->sorted)
++			nr_linear += nr_reloc;
+ 	}
+ 
+ 	if (opts.stats) {
+ 		printf("max_reloc: %lu\n", max_reloc);
+ 		printf("num_relocs: %lu\n", elf->num_relocs);
+-		printf("reloc_bits: %d\n", elf->reloc_bits);
++		printf("num_relocs_linear: %lu\n", nr_linear);
+ 	}
+ 
+ 	return 0;
+@@ -1327,8 +1452,7 @@ struct elf *elf_create_file(GElf_Ehdr *ehdr, const char *name)
+ 	if (!elf_alloc_hash(section,		1000) ||
+ 	    !elf_alloc_hash(section_name,	1000) ||
+ 	    !elf_alloc_hash(symbol,		10000) ||
+-	    !elf_alloc_hash(symbol_name,	10000) ||
+-	    !elf_alloc_hash(reloc,		100000))
++	    !elf_alloc_hash(symbol_name,	10000))
+ 		return NULL;
+ 
+ 	null		= elf_create_section(elf, NULL, 0, 0, SHT_NULL, 0, 0);
+@@ -1508,6 +1632,8 @@ struct section *elf_create_section(struct elf *elf, const char *name,
+ 	sec->sh.sh_type = type;
+ 	sec->sh.sh_addralign = align;
+ 	sec->sh.sh_flags = flags;
++	/* Relocations objtool adds are indexed as they come. */
++	sec->sorted = type == SHT_RELA;
+ 
+ 	if (name) {
+ 		sec->name = strdup(name);
+@@ -1633,16 +1759,6 @@ static int elf_alloc_reloc(struct elf *elf, struct section *rsec)
+ 	}
+ 
+ 	memcpy(new_relocs, old_relocs, nr_relocs_old * sizeof(struct reloc));
+-
+-	for (int i = 0; i < nr_relocs_old; i++) {
+-		struct reloc *old = &old_relocs[i];
+-		struct reloc *new = &new_relocs[i];
+-		u32 key = reloc_hash(old);
+-
+-		elf_hash_del(reloc, &old->hash, key);
+-		elf_hash_add(reloc, &new->hash, key);
+-	}
+-
+ 	free(old_relocs);
+ done:
+ 	rsec->relocs = new_relocs;
+diff --git a/tools/objtool/include/objtool/elf.h b/tools/objtool/include/objtool/elf.h
+index a82517a76a0f..ba18e188fc5f 100644
+--- a/tools/objtool/include/objtool/elf.h
++++ b/tools/objtool/include/objtool/elf.h
+@@ -59,6 +59,8 @@ struct section {
+ 	const char *name;
+ 	int idx;
+ 	bool _changed, text, rodata, noinstr, init, truncate;
++	bool sorted;
++	unsigned int *reloc_cache, nr_cache_windows, nr_indexed;
+ 	struct reloc *relocs;
+ 	unsigned long nr_alloc_relocs;
+ 	struct section *twin;
+@@ -106,7 +108,6 @@ struct symbol {
+ };
+ 
+ struct reloc {
+-	struct elf_hash_node hash;
+ 	struct section *sec;
+ 	struct symbol *sym;
+ 	unsigned long _sym_next_reloc;
+@@ -127,13 +128,11 @@ struct elf {
+ 	int symbol_name_bits;
+ 	int section_bits;
+ 	int section_name_bits;
+-	int reloc_bits;
+ 
+ 	struct elf_hash_node **symbol_hash;
+ 	struct elf_hash_node **symbol_name_hash;
+ 	struct elf_hash_node **section_hash;
+ 	struct elf_hash_node **section_name_hash;
+-	struct elf_hash_node **reloc_hash;
+ 
+ 	struct section *section_data;
+ 	struct symbol *symbol_data;
+@@ -575,9 +574,4 @@ static inline u32 sec_offset_hash(struct section *sec, unsigned long offset)
+ 	return ol;
+ }
+ 
+-static inline u32 reloc_hash(struct reloc *reloc)
+-{
+-	return sec_offset_hash(reloc->sec, reloc_offset(reloc));
+-}
+-
+ #endif /* _OBJTOOL_ELF_H */
+
 -- 
-2.34.1
+2.55.0
 
