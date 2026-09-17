@@ -1,329 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4064250E5B5;
-	Thu, 17 Sep 2026 16:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC37C3370EC;
+	Thu, 17 Sep 2026 16:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661463; cv=none; b=jyqUa6gpDs+Ei1+tNCbKGIzaLve/TjABHzUmb+MTcgtPKWAoafziMIys2xWTDOjrOwGsZht39wYmxbzyDnAT5Q95C2/bW7S15FSwaMs3+/qIMPk0UQQjXlOyIxW/MiP5stM+ztKK7OMQQVZSpp/X4PZ75RiBfnCp5H9EY1+CAwM=
+	t=1789661488; cv=none; b=C3EoOm1NARQPH374r6D+2r9XSLKGbG/llwFXeGx2+a5dA+DTXVIR/QgBDfKOw9Ee595CmsnY1A1/YkvbnP2k1qLCNUzx7jbyzj9ch+Iq8iM+sRgmACOL/q9PptGrdBOjWhLraFb3cl4v/Ipai+E6aiRFXb78JiQ9Wbupj3Y0+O4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661463; c=relaxed/simple;
-	bh=oEqv26NNp6DC+I1JyUl1cIrGQ+RyNw07N7F7X92kUw8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MzHg4ZzYSPJD3grSota+1p2xobjHyJzvKe1Qze7LtRZCsBnOyCU4GZYxlXLt0Vrd5CzGdbNGzZwQ/79Sunj3nXlffXgxUCksKzLgBrZnAjL++FlopZ2J95S64AVauXazGbhBHzM5kseVS4UJjVxo75M6/MBuY1yDI5VFdThVulI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1E2m9xP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789661488; c=relaxed/simple;
+	bh=ArXTOPKWVCATv1fOfsoP2J6QBP1TeCp6Y1pnym5RlvM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bcragbTUmnUEpIHV4ZQi5jqeM7DCQ6FWRXo3eJAX0rdy9MsQNow/sFjvcn4UiDcurCj60s0XQhTn0GqEJjidm4/SLqN9ha/jE41R8FAY67YTP0q7ZJynak99++cbT2uWrGDroyYXX9BFc2d6c9xk0xWV7WtMpR/TSOzMmmtfNow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jfnxw57I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1E2m9xP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202C21F000FF;
-	Thu, 17 Sep 2026 16:10:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jfnxw57I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605401F000FF;
+	Thu, 17 Sep 2026 16:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789661461;
-	bh=zRS8A68HtauULKqM669Tk32r1+W1FP4YJiATZSr8tbY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=F1E2m9xPSuxmyz+NzAE+hfwooNNJ6UWahNsEskV3Vi7ws3jsEMKSCxCEVXCHESlr7
-	 inIqCePqowrK38M9njm6VSZGSl1stDGpAf2J3nZI1FCvkxyPVH7SYEaPMZMKbMbsdZ
-	 HmPM4F35utA4agtvqryVuZYZalKb7yFdnsYXMZlWtkZgl5FCS8Brml6QSTXwhVXrzu
-	 RNr/7hwpw1dxi8CXQkyy/rzRA1/FxyVbXCsGjKYaZgaJ9Z2Oo1MYE1LEozZxSH/UU2
-	 jvIi8mwqk3lwDaTSp9uaxGhd8bDwo1tPfeQ+Fbo6G3A/7OUJXD3LKyhkVqqL9kEnC9
-	 e6LMEu4cMPLMQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:06:30 +0100
-Subject: [PATCH v3 20/20] kbuild: compress the kernel with pigz if
- available
+	s=k20260515; t=1789661486;
+	bh=Ebsh1KMx217fm158u7uy5sWFmLM+nujOSFOT3DBKvTQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jfnxw57IHeUaAY+x7hQqS2llkegFEAZwuBKAMKOMQFqR9ACyrvF7o693hrVAngWop
+	 MOwEzQilTcj6fREzhuGH7+od+yHMnYnMrlHKW9/GRSlfi7aKvvehWcrwAqwkYFYtBW
+	 qdqK1//cpCqQnHI+QXyM4FpEP99aDbfyPDhSLhrupnPl7rqyMDUHrRGVZX28DZCWQE
+	 j7myKMRy1OXBxJxhS9OUSJPHjZzn5Pzhol1JlxykLv7j6CYDT2cPzrlNJG0WQrYB/9
+	 UBSRj1GiD5RseX0jI7rMACUl4WgyURUkkp7dnyrRZStqAE++yJYfdiyZf8JLYKnOFc
+	 XuG8MwUhgrjOw==
+Subject: Re: [PATCH net-next v16 1/6] net: dsa: add devlink flash_update
+ callback to dsa_switch_ops
+From: netdev-bot+sashiko@kernel.org
+To: daniel@makrotopia.org
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Date: Thu, 17 Sep 2026 16:11:24 +0000
+Message-ID: <178966148491.22033.3197063094980170397@kernel.org>
+In-Reply-To: =?utf-8?q?=3C38abd1efa0da34be260c5799a18df401b7494a0a=2E1789477?=
+ =?utf-8?q?568=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+References: =?utf-8?q?=3C38abd1efa0da34be260c5799a18df401b7494a0a=2E17894775?=
+ =?utf-8?q?68=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10146; i=ljs@kernel.org;
- h=from:subject:message-id; bh=oEqv26NNp6DC+I1JyUl1cIrGQ+RyNw07N7F7X92kUw8=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCDBMKzOziPy24eti9mPTj2yKdPhg87fcUNzAa1aIy
- doLhkuZO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRqnuMDB+ab8/ULXUUV+OL
- /HmyTLBM9WLX7o2sx+ueMmcXsD9mq2H4K6Dgvin1+uutN2xflfTpbKyVC/2zpUj3iEGYvm+HvlE
- jJwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The gzip step of a kernel build is very lengthy, especially for larger
-builds such as allmodconfig.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-gzip itself cannot be run in parallel, however an alternative tool exists
-that can, providing the same feature set as gzip itself - pigz - which
-works as a drop-in replacement.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-On a 128-core Threadripper, gzip -9 of a 36 MiB x86-64 vmlinux.bin takes
-1.6s, and with pigz it takes 0.09s, so the performance increase is
-significant.
+- [Low] Installing `.flash_update = dsa_devlink_flash_update`
+  unconditionally in the single shared `dsa_devlink_ops` removes the…
 
-Therefore introduce the KPGZIP build variable which specifies the
-compressor to use for the kernel image and default it to pigz if available,
-or KGZIP otherwise (which itself defaults to gzip).
+--
 
-Modules, packaging and the embedded kernel configuration (CONFIG_IKCONFIG)
-continue to use KGZIP which defaults to a single-threaded gzip instance.
+net: dsa: add devlink flash_update callback to dsa_switch_ops
 
-Module compression is run in parallel by make, so pigz offers no benefit
-there, packaging sits outside the build and the embedded configuration is
-too small to matter.
+This adds a devlink_flash_update callback to dsa_switch_ops and a
+trampoline in net/dsa/devlink.c that forwards to it, returning
+-EOPNOTSUPP when the driver does not implement the callback. The
+.flash_update op is installed unconditionally in the shared
+dsa_devlink_ops table.
 
-pigz is executed using scripts/jobserver-exec, which reserves the job slots
-make has free - necessary, as otherwise pigz would just grab unbounded
-CPUs.
+> diff --git a/net/dsa/devlink.c b/net/dsa/devlink.c
+> index ed342f345692b..25311a87cbc56 100644
+> --- a/net/dsa/devlink.c
+> +++ b/net/dsa/devlink.c
+> @@ -20,6 +20,18 @@ static int dsa_devlink_info_get(struct devlink *dl,
+>  	return -EOPNOTSUPP;
+>  }
+>  
+> +static int dsa_devlink_flash_update(struct devlink *dl,
+> +				    struct devlink_flash_update_params *params,
+> +				    struct netlink_ext_ack *extack)
+> +{
+> +	struct dsa_switch *ds = dsa_devlink_to_ds(dl);
+> +
+> +	if (!ds->ops->devlink_flash_update)
+> +		return -EOPNOTSUPP;
+> +
+> +	return ds->ops->devlink_flash_update(ds, params, extack);
+> +}
+> +
 
-The kernel image compression step is always performed at the end of the
-build so should typically have all job slots available.
+[ ... ]
 
-pigz always provides byte-for-byte identical output across runs regardless
-of thread count, but pigz and gzip are not guaranteed to generate the same
-binary output, so reproducible builds must use the same tools consistently.
+> @@ -169,6 +181,7 @@ dsa_devlink_sb_occ_tc_port_bind_get(struct devlink_port *dlp,
+>  
+>  static const struct devlink_ops dsa_devlink_ops = {
+>  	.info_get			= dsa_devlink_info_get,
+> +	.flash_update			= dsa_devlink_flash_update,
 
-Also update Documentation/kbuild/kbuild.rst to describe KPGZIP and
-Documentation/process/changes.rst to list the optional pigz dependency.
+[Severity: Low]
+This isn't a bug as such, since the commit message states the trade-off,
+but is the full extent of the behaviour change on switches without the
+callback covered?
 
-While there, add entries for the other compressor programs.
+Since dsa_devlink_ops is shared by every DSA switch, the core gate in
+devlink_nl_flash_update_doit() now always passes:
 
-Every x86 build ends with the compression of vmlinux.bin, 36MB for
-defconfig and over 200MB for allmodconfig, no-op builds are unchanged.
+net/devlink/dev.c:devlink_nl_flash_update_doit() {
+	if (!devlink->ops->flash_update)
+		return -EOPNOTSUPP;
+	...
+	file_name = nla_data(nla_file_name);
+	ret = request_firmware_direct(&params.fw, file_name, devlink->dev);
+	...
+	devlink_flash_update_begin_notify(devlink);
+	ret = devlink->ops->flash_update(devlink, &params, info->extack);
+	devlink_flash_update_end_notify(devlink);
+}
 
-Whole build, 128-thread Threadripper 9980X, best of N runs:
+So on a switch that does not set ds->ops->devlink_flash_update, a flash
+request now reads the entire userspace-named file from the firmware search
+paths into kernel memory before dsa_devlink_flash_update() gets to return
+-EOPNOTSUPP.
 
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, touch mm/vma.c, gcc        7.7s     6.0s     -1.7s (-22%)
-  x86 defconfig, touch mm/vma.c, clang      6.9s     5.4s     -1.5s (-21%)
-  x86 defconfig, clean, gcc                28.2s    26.3s     -1.8s (-6%)
-  x86 defconfig, clean, clang              28.7s    27.2s     -1.5s (-5%)
-  x86 allmodconfig, touch mm/vma.c, gcc    23.7s    15.4s     -8.3s (-35%)
-  x86 allmodconfig, touch mm/vma.c, clang  22.5s    15.6s     -7.0s (-31%)
-  x86 allmodconfig, clean, gcc            294.1s   278.6s     -15.5s (-5%)
-  x86 allmodconfig, clean, clang          283.9s   266.8s     -17.1s (-6%)
+Beyond the -ENOENT versus -EOPNOTSUPP change already described, does this
+also mean that on such switches a flash request becomes a file-existence
+probe of the firmware search paths, performs an unbounded read of a
+/lib/firmware file into kernel memory, and emits a FLASH_UPDATE /
+FLASH_UPDATE_END pair to devlink monitors for an operation that can never
+succeed?
 
-Suggested-by: Kees Cook <kees@kernel.org>
-Link: https://zlib.net/pigz/
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/kbuild/kbuild.rst   | 17 +++++++++++++++++
- Documentation/process/changes.rst |  8 ++++++++
- Makefile                          |  5 ++++-
- kernel/Makefile                   |  6 +++++-
- scripts/Makefile.lib              |  4 ++--
- scripts/jobserver-exec            |  3 ++-
- tools/lib/python/jobserver.py     | 13 +++++++++++++
- 7 files changed, 51 insertions(+), 5 deletions(-)
+For reference, path traversal is not a concern here:
+_request_firmware() rejects names containing ".." via
+name_contains_dotdot(), and the operation requires CAP_NET_ADMIN.
 
-diff --git a/Documentation/kbuild/kbuild.rst b/Documentation/kbuild/kbuild.rst
-index 5a9013bacfb7..e71a692a559a 100644
---- a/Documentation/kbuild/kbuild.rst
-+++ b/Documentation/kbuild/kbuild.rst
-@@ -110,6 +110,23 @@ HOSTLDLIBS
- ----------
- Additional libraries to link against when building host programs.
- 
-+KGZIP
-+-----
-+The gzip program used for compressed modules, packaging and the embedded
-+kernel configuration. Defaults to gzip.
-+
-+KPGZIP
-+------
-+The gzip program used for the compressed kernel image. Defaults to pigz (a
-+parallel implementation of gzip), run under scripts/jobserver-exec so that it
-+uses the job slots make has free, if pigz is installed, otherwise to
-+``KGZIP``. Set ``KPGZIP=`` on the make command line to use another program.
-+
-+KBZIP2, KLZOP, LZMA, LZ4, XZ, ZSTD
-+----------------------------------
-+The compressor programs for the other formats. Each defaults to the program
-+of the same name.
-+
- .. _userkbuildflags:
- 
- USERCFLAGS
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 0aa232b117b5..28f2ca63318e 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -55,6 +55,7 @@ nfs-utils              1.0.5            showmount --version
- openssl & libcrypto    1.0.0            openssl version
- pahole                 1.26             pahole --version
- pcmciautils            004              pccardctl -V
-+pigz (optional)        2.4              pigz --version
- PPP                    2.4.0            pppd --version
- procps                 3.2.0            ps --version
- Python                 3.9.x            python3 --version
-@@ -206,6 +207,13 @@ GNU AWK
- GNU AWK is needed if you want kernel builds to generate address range data for
- builtin modules (CONFIG_BUILTIN_MODULE_RANGES).
- 
-+pigz (optional)
-+---------------
-+
-+pigz is a parallel implementation of gzip. If it is installed the compressed
-+kernel image is produced with it rather than with gzip, see ``KPGZIP`` in
-+Documentation/kbuild/kbuild.rst.
-+
- System utilities
- ****************
- 
-diff --git a/Makefile b/Makefile
-index ede9cfeffd56..d50bcb480134 100644
---- a/Makefile
-+++ b/Makefile
-@@ -568,6 +568,9 @@ LZMA		= lzma
- LZ4		= lz4
- XZ		= xz
- ZSTD		= zstd
-+# The kernel image is compressed with pigz, on the job slots make has free,
-+# if it is installed. Everything else uses KGZIP.
-+KPGZIP		:= $(if $(shell command -v pigz 2>/dev/null),$(PYTHON3) $(abs_srctree)/scripts/jobserver-exec pigz -p %PARALLELISM%,$(KGZIP))
- TAR		= tar
- 
- CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
-@@ -648,7 +651,7 @@ export RUSTC RUSTDOC RUSTFMT RUSTC_OR_CLIPPY_QUIET RUSTC_OR_CLIPPY BINDGEN LLVM_
- export HOSTRUSTC KBUILD_HOSTRUSTFLAGS
- export CPP AR NM STRIP OBJCOPY OBJDUMP READELF PAHOLE RESOLVE_BTFIDS LEX YACC AWK INSTALLKERNEL
- export PERL PYTHON3 CHECK CHECKFLAGS MAKE UTS_MACHINE HOSTCXX
--export KGZIP KBZIP2 KLZOP LZMA LZ4 XZ ZSTD TAR
-+export KGZIP KPGZIP KBZIP2 KLZOP LZMA LZ4 XZ ZSTD TAR
- export KBUILD_HOSTCXXFLAGS KBUILD_HOSTLDFLAGS KBUILD_HOSTLDLIBS KBUILD_PROCMACROLDFLAGS LDFLAGS_MODULE
- export KBUILD_USERCFLAGS KBUILD_USERLDFLAGS
- 
-diff --git a/kernel/Makefile b/kernel/Makefile
-index 1e1a31673577..c64c82c96b40 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
-@@ -153,9 +153,13 @@ obj-$(CONFIG_SCF_TORTURE_TEST) += scftorture.o
- 
- $(obj)/configs.o: $(obj)/config_data.gz
- 
-+# .config is small, so it is compressed with gzip rather than the image compressor.
-+quiet_cmd_gzip_config = GZIP    $@
-+      cmd_gzip_config = cat $(real-prereqs) | $(KGZIP) -n -f -9 > $@
-+
- targets += config_data config_data.gz
- $(obj)/config_data.gz: $(obj)/config_data FORCE
--	$(call if_changed,gzip)
-+	$(call if_changed,gzip_config)
- 
- filechk_cat = cat $<
- 
-diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index 2f447bc25e7b..8936925d4d50 100644
---- a/scripts/Makefile.lib
-+++ b/scripts/Makefile.lib
-@@ -332,11 +332,11 @@ quiet_cmd_ar = AR      $@
- quiet_cmd_objcopy = OBJCOPY $@
- cmd_objcopy = $(OBJCOPY) $(OBJCOPYFLAGS) $(OBJCOPYFLAGS_$(@F)) $< $@
- 
--# Gzip
-+# Gzip, for the kernel image
- # ---------------------------------------------------------------------------
- 
- quiet_cmd_gzip = GZIP    $@
--      cmd_gzip = cat $(real-prereqs) | $(KGZIP) -n -f -9 > $@
-+      cmd_gzip = cat $(real-prereqs) | $(KPGZIP) -n -f -9 > $@
- 
- # Bzip2
- # ---------------------------------------------------------------------------
-diff --git a/scripts/jobserver-exec b/scripts/jobserver-exec
-index 21b319e6c9a5..89119acb1b9e 100755
---- a/scripts/jobserver-exec
-+++ b/scripts/jobserver-exec
-@@ -4,7 +4,8 @@
- """
- Determines how many parallel tasks "make" is expecting, as it is
- not exposed via any special variables, reserves them all, runs a subprocess
--with PARALLELISM environment variable set, and releases the jobs back again.
-+with PARALLELISM environment variable set and any %PARALLELISM% in its
-+arguments replaced by the count, and releases the jobs back again.
- 
- See:
-     https://www.gnu.org/software/make/manual/html_node/POSIX-Jobserver.html#POSIX-Jobserver
-diff --git a/tools/lib/python/jobserver.py b/tools/lib/python/jobserver.py
-index 0b1ffdf9f7a3..7e94635bf7d9 100755
---- a/tools/lib/python/jobserver.py
-+++ b/tools/lib/python/jobserver.py
-@@ -29,6 +29,10 @@ $claim child to do the actual work.
- The end goal here is to keep the total number of build tasks under the
- limit established by the initial ``make -j$n_proc`` call.
- 
-+A command that takes its thread count on the command line rather than from
-+the environment can use the ``%PARALLELISM%`` token in its arguments, which
-+is replaced by the count, or by 1 when there is no jobserver.
-+
- See:
-     https://www.gnu.org/software/make/manual/html_node/POSIX-Jobserver.html#POSIX-Jobserver
- """
-@@ -38,6 +42,8 @@ import os
- import subprocess
- import sys
- 
-+PARALLELISM_TOKEN = "%PARALLELISM%"
-+
- def warn(text, *args):
-     print(f'WARNING: {text}', *args, file = sys.stderr)
- 
-@@ -182,6 +188,9 @@ class JobserverExec:
-         Run a command setting PARALLELISM env variable to the number of
-         available job slots (claim) + 1, e.g. it will reserve claim slots
-         to do the actual build work, plus one to monitor its children.
-+
-+        Any %PARALLELISM% in the command's arguments is replaced by the same
-+        number, or by 1 when there is no jobserver.
-         """
-         self.open()             # Ensure that self.claim is set
- 
-@@ -192,4 +201,8 @@ class JobserverExec:
-         if self.claim:
-             os.environ["PARALLELISM"] = str(self.claim)
- 
-+        if not isinstance(cmd, str):
-+            parallelism = str(self.claim or 1)
-+            cmd = [arg.replace(PARALLELISM_TOKEN, parallelism) for arg in cmd]
-+
-         return subprocess.call(cmd, *args, **pwargs)
+Would it be worth mentioning the firmware read and the notifications for
+switches without the callback in the commit message, in addition to the
+errno change?
+
+>  	.sb_pool_get			= dsa_devlink_sb_pool_get,
+>  	.sb_pool_set			= dsa_devlink_sb_pool_set,
+>  	.sb_port_pool_get		= dsa_devlink_sb_port_pool_get,
 
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1789477568.git.daniel%40makrotopia.org
