@@ -1,187 +1,111 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC6B515965
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC064EDCAC;
+	Thu, 17 Sep 2026 16:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664125; cv=none; b=rqH8Rrci9Edxq1Q13TSEPYgppz/rgq9R4kft0MlQ1uygdK4dRiG8olUxa2OlP8m6rhsVoW2rgDLxwNDaexYXfrOikpL3pY4hxDYzMi2k8og+pUVJm/ENAphEYtrD1+4gKrpGmPFpq+ZEC3ckL3w+OxHJKQ4D0j6L1vGH5CDqhQs=
+	t=1789664146; cv=none; b=sKGfc1VQ7Hqpjja4M9c7kNlgIJM6arlC07C0SGw+94sbXTr7eR8Q7SaC6PS/QwJbuAWkqrjAYqQqy1YgWIWcHDz5aC5B96Wgv5F6zXgpIS9cnkDm1ecklYbaB9FMYYoohW/k2o4jc4gJLIQBSgMR5P2n30S5VdVFhV6kB52dMhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664125; c=relaxed/simple;
-	bh=uFM67cPKfLWYr1cknpbN9X9bmeZeaeA+iW34fETQrrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WZd8geJjSUlG1vF0MTxtzZXS52zbQI5JkLeac3orTNAbm2bq0O0GyaTR4CyfMz3mZA1kc9A+OlLgmWccPjZsOlyJwvsvMq42RUxVjmOm80HXombOy9IZjRvUgPOI//Li/ynGZ7XnAgeCuBj90bwU3fcMeTlPxMJtSK1k9HadLVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MW18vsR0; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789664146; c=relaxed/simple;
+	bh=aWceE8YCDQTZLXjvs2oWn+fK7kFnCIQzMI9JUWzQi5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cxDCNVQJe+PmVwABEKwx1l5IKgVcNCVfOVHYu+eIkc6Sist52g5LtHdy6paL9THPFzQR0bj+Vx3B5jekgSyPMIb4kLXp2oFYXjpqTJKWyFcDk6WKLsjoDFnJSJfUo7RxbcgmclyE5qQGfo7Tt0U6iu/YXXR4qKplJDJVKiOP/Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9OE8qLz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MW18vsR0"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbfe95bccso414935e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664119; x=1790268919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZZbqUQvpZjEYHw5MtCigN0b4pNyWyct+Z4yS5FcKJMw=;
-        b=MW18vsR0iglh15TqKDzSqW15Bd2M4tdv8AtJYDouPS5lI2ibF04w2biaJeB2EsKjDn
-         lAJLPw/AfjMmC0nkx2wGTl488idH4UjJrdG5IQd6Ilx3vF37VRpKcQJ3ZXlmoXHv9MNb
-         ESEVIqhpYxeo/j6oTgfjESz/DhxOA1T/E9D3mfY0XjSNFIIZ6TbUfJwW1GNu7Sk4Hgj5
-         DUgjGSlgOdlbHb9lQnVpmUCG4vESkCab/QnNTlEGFFpXy4UhfGd3bV6r4/hh+mVLImd0
-         LwrxsiKTJDLjV9Z1QytkcjjM55DNLxZjVOjGMYryoi9iqT7DCBbLDY+69XujnkKexFNy
-         1Wcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664119; x=1790268919;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZZbqUQvpZjEYHw5MtCigN0b4pNyWyct+Z4yS5FcKJMw=;
-        b=tEBOEimpQyW2cPx1AjAlyv4GUxjv93VqBagaMAIqK4hHkEKFUY0BLKy+A/MzHq+CAE
-         v7I9WVTM7DJ7QH8tQ5ZY4qzmSy/R0MN/sJg+mMyZkNKLyCwlOdXib/56denYRA/DeZNI
-         rKafAYWRTilkiBuVrSC6NnH67pYKzlW52aIVvYvAbNcrw/CDcKO27Gp3oKsQAuuyLiKF
-         N/NcehrGBVf/xGeqEmG7KPDoA6YwfCnpXM+UFewEVrurcj9VJ1UmU6Sd17BGE4aS7mcX
-         V3puTQHeBZcxZV/6vzXg4aCJE35rVocLej0bYRf4nOp/sASsRGelRKmjLshQYmXQNLUn
-         uNDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0sUbGoZjEzi3orQIFuSPBG/4pUBL9DkKi3vhyoYW/bWP11DZWreMtu4DHoJ/gASWejMG+rY+Nc5+vlio=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzhv1UZYIJfdIapB9DDtgsDrSZXKCoBoMeopfKAvbRiYJNkD8I
-	VosjZipqAqnT1J/pI5yFapRk2liUzJma7f0CbL99hX+ZPwSDDSZ1vgaX
-X-Gm-Gg: AYBFou0eexyXx1mp3KdPI2FvhpZVgQLQLi3K6vaBeLFFpbHFw4/QwfxDUJPeVVoROtp
-	H2q4mC80ELnR0LU8bK2YC3vUo5bojSp8NUfjjGYX4IN4gn4OrIkDVrroG45ajaOABVTxI6VwhbY
-	W8C0bI/LgX50VXTwSE2a5/flo30k5Myxr0t2keZVcfdTNUocyHgyhZtTmRbK5nv2OG+xF6KaOkr
-	rkOXl+Nalz8Gwx0TJzxvXzMuhZuCwutFkizTORjemM6nUv/yFIiNGz0UUMO/nbxJhXig8Hz2/RH
-	OggA/Wvx530DjULf5Y9iTtKeZ/7f7GqSmMqMqr4eqrARL/kKwN2PEM5ZvGATyl9dvzhqMNQeWqr
-	J1o6MSAhPBT0X76XKafwubqDTzkQ60LqvvuVNzXEgvf6XlamgKFgp5nN33CTqdtAvUfLsFNI9by
-	7+xsQV/ydWH7OVus3p3AJlhozzIx7B/4u8zdnLosYI/+XHpcXsnOb3jhluhoRm4TWk+uaKByysc
-	VkRwbRhVZvK8pcveFcHxg==
-X-Received: by 2002:a05:600c:4e89:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49eac4112e9mr83259075e9.0.1789664119289;
-        Thu, 17 Sep 2026 09:55:19 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2356d1sm112722895e9.6.2026.09.17.09.55.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:55:18 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: arighi@nvidia.com
-Cc: bsegall@google.com,
-	christian.loehle@arm.com,
-	corbet@lwn.net,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	leitao@debian.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ltrager@nvidia.com,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	pauld@redhat.com,
-	peterz@infradead.org,
-	rdunlap@infradead.org,
-	rostedt@goodmis.org,
-	skhan@linuxfoundation.org,
-	srikar@linux.ibm.com,
-	sshegde@linux.ibm.com,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com,
-	vsethi@nvidia.com,
-	will@kernel.org
-Subject: Re: [PATCH 1/2] sched/fair: Honor asymmetric SMT priority in idle selection
-Date: Thu, 17 Sep 2026 19:55:15 +0300
-Message-ID: <20260917165515.17479-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917140707.3807229-2-arighi@nvidia.com>
-References: <20260917140707.3807229-2-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9OE8qLz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45EB21F00893;
+	Thu, 17 Sep 2026 16:55:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789664145;
+	bh=kimfGEK+WeQrCTnIb5ePzNtWXHK0EcqiD+euMxaQ0do=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=T9OE8qLzP1qfh6XFbx+1FEoAjXMXA5nopSdvlfyoaHtqeRG7yuIX6hvGsZ2fZDZHC
+	 LlZHivU+VHSNOyLlTJD9LcDm74HSY0oBYS6V98tfaqWPsGPg0x3pT212aZxB1cTj2h
+	 H5i+iwmISzuUJTFqG0ROiZDclaI7Dsm5HDgAJBJ1MUlStbHa5H1eEUO5Q0pdnLLmRn
+	 bfDIUKXG/xV9fr8ZZBBKeo2cOSk+IR2Blsw1i4L2ofdwxlH5VeRL80zT4LC59Fh7Zv
+	 2QJ/t3AdkTEG0yssMOFKDF+buK2RR78k+s/SfH4SFxaON89u5sImLoK7VX3+tMuq4b
+	 4hANaNhRy05TA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 0461BCE1716; Thu, 17 Sep 2026 09:55:45 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:55:44 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <5734196a-22ab-428e-9565-d7ba787d3eb1@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <aqqONH8flTIpOUqT@localhost.localdomain>
+ <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+ <aqqpRoTfywUuTgoC@localhost.localdomain>
+ <aqqsAUVV8a1yrQzX@localhost.localdomain>
+ <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
+ <aqq0cwvRDsorGwgc@localhost.localdomain>
+ <8b73e1b3-0580-4ba9-b2e0-6363e429808d@paulmck-laptop>
+ <aqvZwfUVsiEI7q7y@localhost.localdomain>
+ <8fea176a-0ca0-4a70-8cf9-8240a22359e4@paulmck-laptop>
+ <c51591e0e96c837bcd762c207e5e1869.josef@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c51591e0e96c837bcd762c207e5e1869.josef@toxicpanda.com>
 
+On Thu, Sep 17, 2026 at 04:35:19PM +0000, Josef Bacik wrote:
+> On Thu, 17 Sep 2026 08:40:10 -0700, Paul E. McKenney wrote:
+> > On Thu, Sep 17, 2026 at 02:14:57PM +0200, Frederic Weisbecker wrote:
+> > > You're right. So we'll indeed need to reuse the deferred qs points here.
+> >
+> > Except this is getting a bit involved.
+> >
+> > Don't get me wrong, if Josef is happy to take this on, far be it from me
+> > to stand in his way.  But if not, we should be willing to treat this
+> > optimization as a follow-on effort, whether by Josef or someone else.
+> 
+> Follow-on works for me. For what it's worth 03/13 is already fairly
+> close to what Frederic describes, just outside the core flavor: no
+> task-list scan (the GP waits per CPU for a pass through __schedule() or
+> an EQS), the irq-exit preemption path checks the interrupted IP and
+> queues the task as a holdout before the switch, and the holdout is keyed
+> on where the task was interrupted so nothing is needed from the
+> trampoline tail. Moving that IP check into the tick / rcu_exp_handler() /
+> deferred-QS paths and reusing the blocked-tasks list is something I'm
+> happy to look at once this has settled.
+> 
+> v4 will pick up Alexei's ask (reader emitted by the BPF JIT around the
+> fentry and fexit regions rather than in the glue) and the idle-CPU hole
+> Sashiko found.
 
-Hi Andrea,
+Even better!  ;-)
 
-Hope I ain't got anything wrong, I'm a bit sick.
-
-> POWER7 uses SD_ASYM_PACKING at the shared-capacity SMT level to order
-> hardware threads, and NVIDIA Olympus benefits from the same policy. Idle
-> CPU selection does not consult that order, so a task can wake on an
-> arbitrary sibling and remain there until load balancing corrects the
-> placement. On these systems, that initial choice can prevent the core
-> from entering its preferred lower-thread resource mode and cause a large
-> and persistent performance loss.
-
-> When idle selection finds an available CPU in an SMT core, choose the
-> highest-priority available sibling. On SMT2 Olympus this only changes
-> selection on fully idle cores. A partially idle core has only one
-> available CPU. On wider SMT systems such as POWER7, it also fills
-> available siblings in priority order while the core is partially busy.
-
-> Apply the preference to idle-core and idle-CPU scans,
-> asymmetric-capacity scans, target, previous, recently-used CPU fast
-> paths and the slow path. Inspect the lowest scheduling domain directly,
-> but require both CPUs to share its span because isolcpus can split
-> hardware siblings across scheduling domains.
-
-> Keep physical-core capacity selection independent from SMT sibling
-> ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
-> maximum capacities, then SD_ASYM_PACKING selects the preferred available
-> sibling inside the chosen core, whose siblings continue to share equal
-> capacity.
-
-
-> +/*
-> + * Redirect a CPU to a higher-priority available sibling in its SMT domain,
-> + * subject to task affinity.
-> + */
-> +static inline int select_idle_smt_cpu(struct task_struct *p, int cpu)
-> +{
-> +	struct sched_domain *sd;
-> +	int best = cpu;
-> +	int sibling;
-> +
-> +	if (!sched_smt_active())
-> +		return cpu;
-> +
-> +	sd = rcu_dereference_all(cpu_rq(cpu)->sd);
-> +	if (!sd || !(sd->flags & SD_SHARE_CPUCAPACITY) ||
-> +	    !(sd->flags & SD_ASYM_PACKING))
-> +		return cpu;
-> +
-> +	for_each_cpu_and(sibling, sched_domain_span(sd), p->cpus_ptr) {
-> +		if (sibling == best || !choose_idle_cpu(sibling, p))
-> +			continue;
-> +
-> +		if (sched_asym_prefer(sibling, best))
-> +			best = sibling;
-> +	}
-> +
-> +	return best;
-> +}
-
-> @@ -9061,14 +9099,18 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
->  
->  		if (!has_idle_core && cpus_share_cache(prev, target)) {
->  			i = select_idle_smt(p, sd, prev);
-> -			if ((unsigned int)i < nr_cpumask_bits)
-> -				return i;
-> +			if ((unsigned int)i < nr_cpumask_bits) {
-> +				target = i;
-> +				goto select_smt_priority;
-> +			}
->  		}
->  	}
-
-The sched_smt_active() check on select_idle_smt_cpu seems to be redundant on here.
-
-We could remove this
-By moving the check on select_idle_smt_cpu() to goto block and
-adding one check before the select_idle_smt_cpu() on select_task_rq_fair(). And just calling
-select_idle_smt_cpu() on here.
-
-I also have a question, do we need select_idle_smt() call on here? If yes then why? I was really confused while reading.
-
-Thanks,
-Kayra :_:
-
-
+							Thanx, Paul
