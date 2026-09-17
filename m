@@ -1,132 +1,118 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40397480974;
-	Thu, 17 Sep 2026 07:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630144; cv=none; b=oktE6EzFZWKWq7IUjCYlVhUJToGvd1mu0vVgXk+yNqybuYmCwbjM55qOYRrwjjXfv/UQN7yXxv3oUAV4H8i/C/c5L0FwGZp+7+YGu7zoV44R8ydSEwXuBrCYX5vQX510Qg+wbK7CPzEpk6DRZQwTsLx5NAg32krVBqxcpmcv5tg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630144; c=relaxed/simple;
-	bh=UWLEgWf3IFhAhJ2ecK1fJP+oT6/NXMuKZGX97AOPIJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IsLOta3ZO+OjB6Lbo+Zdd11bEWq50+UQeAzpMVNAlE99NjrwgyMjYH4RvRKFuqEtcPdS//UbADEHYQkVaEFppTCsx8J4ojNwRGVKeEVmJHidXMwvJJcWWej6mVSt7BhTFQyFGQIo0tT9Yz9J5MOMpUg15mYZZwQZ1Xnj6PyoUH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UkhNciO+; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF11442B15
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789630183; cv=pass; b=FaUYmL4Ck904+V+XZ9CMhTMx7l9Cu17FBg/vfV/QM1P9tRz+iyM1jbFKyfkZw1z1Kho9B2EHyDj+VOwPKnkiUl3TWPV5z7LjUE7YPY9zmJLjICH21oq75Etj6wXsLZt7lbIUHWCPlVV6a12tY8HaM0NvNlJ+5sNisrQsCf+hVOk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789630183; c=relaxed/simple;
+	bh=X3UbFhQzAa0Mw9xO9LHhTOOuDgL3VifHPJjvSa1lfcg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TznOOIdxnt7ygN4NEKcWiYnSaRWQgRWe5iamYOkKETveu4jlPgpdYhWSKBK3QrybTHUrQJz2pRtMDFxtl9KxG9mapS5KN7dVBvjUl9VWtmMpIE4CIDeQCiwc3Htbm4wIRTUKyayUHySiIXBsyD3qgiHxszTyxdQOZn39a55I5h0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=cxNQd89N; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UkhNciO+"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H62Vhn543281;
-	Thu, 17 Sep 2026 07:28:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=VdNZZv1a826Zdg6V+tiU51bjXhpyBdIlBXrzq/0An
-	zI=; b=UkhNciO+SQ7+z/ksp+QUUc1mUfgD+jgXjuGYomU+qD9XtvHCyQixNZ+Is
-	k7QeoiXvbq0FcRuolmxkySQbP5lFtqcX7W65AbGekR5tXZbaYQN1jHoVviiK93JP
-	rV4jpAqvLV+pjiO45dXB/2rBetrYQ65+tpNMUOzxclvE/fnDgwUoNClsKpfIzh6z
-	5wIiUNQCZ7fmx6pfNbTUcSsIAE/9L5ts+Vy0YbbCU4nS+3M2oV3viPy1V5Se7fMa
-	9yKdOpNL6NsJl7nUJkDl9v5i3S899YMedgrtc2kB87QKfaYzgqLltrzPPGOnWtfZ
-	3mzVsq+ypWHVEl/la0a+Bw2oClziQ==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5e8mvk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 07:28:47 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H652MO2723209;
-	Thu, 17 Sep 2026 07:28:46 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3yrccv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 07:28:46 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68H7ShWr43778482
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 07:28:43 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E988720043;
-	Thu, 17 Sep 2026 07:28:42 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CEE9420040;
-	Thu, 17 Sep 2026 07:28:40 +0000 (GMT)
-Received: from mac.bl1-in.ibm.com (unknown [9.123.14.178])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 17 Sep 2026 07:28:40 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amit Machhiwal <amachhiw@linux.ibm.com>
-Subject: [PATCH v2] KVM: PPC: Book3S HV: Free the queue pages in error path
-Date: Thu, 17 Sep 2026 12:58:38 +0530
-Message-ID: <20260917072839.78857-1-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="cxNQd89N"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74dbc7359so363917e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:29:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789630177; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sRpGxzP1p2Kc2T7zvl5IEbaZAN39Ay1j71SJ9jQsGb0u5pL6u7n/CtwpDDxvZip/mc
+         1qaIe9fycmHphzG+RrQD7OtA/sEvsm3H0RVBO/OWdUcW6lEL5u3c82yk+vh2dmatDFqY
+         TrPxbzULfq6Caud9aSwnVtSizr9FeCGh0mocNsp3EBSZKQG2bTz/Flkk4hxr5+5OYXQD
+         2xSX61NkkOe5PBk3kvYOThkEDrciOFmumw7WW28kjQqT3WJlqHXm8AirI9AkMhM11nsU
+         cFY0n0p5WOs4L7gSWUkyi55I4o+4H1lOMEElzaW1SDGCMKSXkv7Z4eVDMLlR3o/ERoni
+         /sgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=X3UbFhQzAa0Mw9xO9LHhTOOuDgL3VifHPJjvSa1lfcg=;
+        fh=Sm92D7T7VSPx0qQeHSrz/EBA8rTPd5z4dP4YMI/xVX0=;
+        b=KR8Zl6WTe22J0TnFyCTbwOorjjDFPX+XDjRZDyyPNI8EHkWBYebtmkBu7Hk6jIItOu
+         kkhZqq2Ybn/7i1+/ld8l523DYcf2jN/VOcyw2Fepvbd+ziB0V+fiFXsyaPlRsm5nt/Vz
+         8CxeraNX+Rv9B/9jhnZFv5cvNwztfZPiHU54maMIOuDtMZwuCiJ1vpZMWtf3yx/3D8ei
+         ozoqHxoszjjDKx7abIgmlrZP3DwkI+luRtL7WUjKs3cqeAFpQ5kfdqIiX8FwpQXs8ejJ
+         336gXWzQBm3/xqYf/MNxLpv8CBBKH1z0o5zn5CqF58gyQ14HJ1sQllK08cjGq+vxuk2U
+         6Vrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=khu.ac.kr; s=google; t=1789630177; x=1790234977; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X3UbFhQzAa0Mw9xO9LHhTOOuDgL3VifHPJjvSa1lfcg=;
+        b=cxNQd89NvK+k3yIjLO1S9ZnG5qaOMDvvaBihJjHm1piYUN+TJ9J4hZoJDCu/jN4BH1
+         MGzz4e3nC3Jl3GpJCsYFygqtbDkK5RuivAzm5HhiEqqColzXOTVe2Y/XBxCsb4EDeVLg
+         5CMREmOaTTN/FXt9Rnk5dwC8pq0H+B0Sf31Ts=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789630177; x=1790234977;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=X3UbFhQzAa0Mw9xO9LHhTOOuDgL3VifHPJjvSa1lfcg=;
+        b=e5tvzoHe0AKVjWc6liTwspfH7Ro/YPQuY4vgd9X8UtlHfmDv6IELwZzmOSRoouJicP
+         Z42/2wQDQT3/nwAvfn4JRTuinvMkt2fl6Vg6ldi1mQPbkQd4EdMqOLHvyJo0mpuFUsLv
+         ROu+2HCZBfVmnzoy1nVIWu8vlB+gbJXuVOmhqKQIv+3MMAobqxBbPaJs//XTz8xzr83L
+         ByUJ2MoDyNf8Q4kh99WGr02vrQM+4/I4BlyWn3ZdX/9Dr6Z3Eoqph7bRcnMaON+vOtkG
+         omOYgcmuKVT7uDsdy8+qT0YKsPYoCoKLx1faVesgvMK5wa3VOkvSnw+Z2J7kzy+uQuib
+         dm4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzxf2K5odZU0QfHmcVB5hNmbU6pd+6ybzIBObeET9IdtUayuFCKRUMo3uiKgZ+oE+3W0hhxa1zGuMtUpw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrvz61ihMKCZbZoz51heVjzz29DRzayv/ODGouy34CjtJCFKwx
+	5AubBQAi5v3G0HdaE8zCQj5TPdkGeic5ugfZMkWWpqZvsFs0LxiqwvBONqiMTiXzvdisBFzbZMi
+	bvlGXqDIQXCCYpwh/KtszwaPWrVUb9VEVs2+6tV6T/Q==
+X-Gm-Gg: AYBFou03ncRaFw3PIKO6gLw2LiH/WXJKqCp0qLg+Ps2XQPBYMZu5Eg/XAJ66la18d35
+	RqMRquLmht91ff/3aLiVsWH7O3+jKAnJ82c2vy93V2cWijrXv5Yl9V5442za0wbYQgvq9svVXBr
+	UFZ43+j0Jdh85A7RC9Q+QLCRLp5lzZRIzF3lo9Us6FpK+/qMWRZozDqw1uQeYEBV22yazfkJ2I4
+	1Z4SHg/pffYsARu1MsiQKiY+dP06ot2GNeO2VwJ4HDFa+UjIUwDYJ329Awk3kbfMwzMPhLZqQOa
+	RjJRjAM5Wrdp2TtJqhMZfixuadBLOr78mG2LT3Fyu5jeYBFeJji+R5I=
+X-Received: by 2002:a05:6512:3da1:b0:5b6:4ae:d87 with SMTP id
+ 2adb3069b0e04-5b8b66214c5mr1564777e87.27.1789630177213; Thu, 17 Sep 2026
+ 00:29:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA5MyBTYWx0ZWRfXw7hnuAm4E65q
- JSmTvKoOSI8qMOmDs5I4MXgsETUhwXhYNrTLOJSux4CJAItuyxsdDb4IO83Grzf3EYXzvmmmaJ9
- C4ABghCsSC8YgT8JiScvJEbQHXJeIeK9Gu8AT3a2ziHZMSOa+wV6B+wp6cds0XGBFn4tokFMClJ
- oPZM1fd4osCqzkQnHDVXvAaK+uByMmt6kRbmlmQQDUlmm+rePcIpeVzaNMdnVPxy5WJtGPqZ53n
- C8Jx389Lj7KPOlEQ/4kMRihBUchNjL2JltvNMMLCcfVwBwjQQ4fmiXybdsC2uS4uMWVdBe+0SG6
- OArfEGYM3FJXtDyimXTRO/35rU+MvqNBUmTseya4C1ps/VnYi2Ntgbitn8nOkLt/qDehd2bKG6X
- eb7jxtImxEYv4bZC3b6QPyzdEAWf8OmPa6S4BysXdNa2sGtRr4z0vBLH4ba9ZnIEVKLnMe8KHcS
- 45fXnbwnisYcIeHzg/Q==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aab96af cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=GyUfv2pc0mdjDTKTsuAA:9
-X-Proofpoint-ORIG-GUID: AL1Y_dS7VFRyjEFhCF7oHHc8uiPmkCst
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA5MyBTYWx0ZWRfXyRd7tDtax9ow
- 9nGsB3yBWHYlSfdxvHYTDluLjC2aHcRV7lClAAQFPNolwdJsESV8vYhK7nA+3nezCO38udEDRpk
- f6rMAF2RbkAq4j8eB6j/FGIAstgjY68=
-X-Proofpoint-GUID: bCDU_DTWZv1kYWNumuMnMrWK46snfZlx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170093
+References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
+ <20260913-codex-rtw-rx-v2-v2-3-f09c964e0b96@khu.ac.kr> <2b956e6e0c5945e596d5825ace0c6203@realtek.com>
+In-Reply-To: <2b956e6e0c5945e596d5825ace0c6203@realtek.com>
+From: =?UTF-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghOyekOqzte2VmeqzvA==?=
+	=?UTF-8?B?KQ==?= <5mghybrid@khu.ac.kr>
+Date: Thu, 17 Sep 2026 16:29:24 +0900
+X-Gm-Features: AcwNN1Udp1Uc2lpIVknPTI_jVxQzzmyOYan5TRYTMh9qrixvJkqLEg9-rrQ_nxc
+Message-ID: <CAH1Bc_ybPZtieaMkuUdbpv-STvJTqTxbFZgVbifNdbADt21C9Q@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v2 3/4] wifi: rtl8xxxu: preserve RX requests
+ across recoverable transfer errors
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Jes Sorensen <Jes.Sorensen@gmail.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-If the xive_native_configure_queue() call fails, the qpage allocated is
-not freed, which results in wasted memory. Fix this by freeing the qpage
-in the error path.
+Hi Ping-Ke,
 
-Fixes: 5af50993850a ("KVM: PPC: Book3S HV: Native usage of the XIVE interrupt controller")
-Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
-v2:
-1. Move call to free_pages() after error message. (Amit)
+Thanks for the review.
 
- arch/powerpc/kvm/book3s_xive.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Yes, the additional delay is part of the reason for the separate retry
+path. For v3, I'll merge the common queueing code into one helper with a
+retry flag, so the locking, shutdown check and list insertion are shared.
 
-diff --git a/arch/powerpc/kvm/book3s_xive.c b/arch/powerpc/kvm/book3s_xive.c
-index 89a1b8c21ab4..0f8f851a3f8f 100644
---- a/arch/powerpc/kvm/book3s_xive.c
-+++ b/arch/powerpc/kvm/book3s_xive.c
-@@ -961,9 +961,11 @@ static int xive_provision_queue(struct kvm_vcpu *vcpu, u8 prio)
- 	 */
- 	rc = xive_native_configure_queue(xc->vp_id, q, prio, qpage,
- 					 xive->q_order, true);
--	if (rc)
-+	if (rc) {
- 		pr_err("Failed to configure queue %d for VCPU %d\n",
- 		       prio, xc->server_num);
-+		free_pages((unsigned long)qpage, xive->q_page_order);
-+	}
- 	return rc;
- }
- 
--- 
-2.55.0
+I'd like to keep the retry list and delayed work separate from normal
+pending requests, though. Putting failed requests directly on the normal
+pending list can let normal completions bypass the error backoff, while
+delaying the shared submission work can also delay replenishment of
+normal RX requests. Keeping the two lists preserves the existing normal
+RX scheduling while removing the duplicated queueing code.
 
+For the Fixes tag, the issue is that a finite burst of completion errors
+can shrink the RX URB pool until the remaining requests no longer reach
+the resubmission threshold. RX can then remain stopped even after the
+errors have ended. I'll make that failure mode more explicit in the
+commit message and validate the revised path with fault injection for v3.
+
+Thanks,
+Wooseok
