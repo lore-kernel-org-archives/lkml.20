@@ -1,80 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CD242C508;
-	Thu, 17 Sep 2026 21:56:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E2F4A92E3;
+	Thu, 17 Sep 2026 21:57:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789682220; cv=none; b=eemZ9L06jO6sTQukKiMGeWo6U9SCAHv7va1W1fo4aINOgSYckC3LV8H5xNEILXZREgx0ksMppNQGCkKzcY/T1liDRMw6f10aGE1Nu+H9NcPtAOsERcoFPWzdV5lr1iFsB7NMtvrpYHnT3Z9qVzMxPYSy35Ovi/qTqyrRljS0OZY=
+	t=1789682270; cv=none; b=d3a0nRG8zRBrvgGiho5g6XOrcgb7dLfqO7W+GpRhmJWxBdVvEtB9bYDBjDN8Od5mGS1sCR7vyTvsIgPDNTUwtcpcbH9jRz/fVZi3qLye6N1kPMz79Nt9zsEoPdTqx93EFlt21YIOsMQiNTmt+B+Jm0DulhHRQ14c4P2ywIboLjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789682220; c=relaxed/simple;
-	bh=vvN1do1b5vxeWmLcBK5HgVMxtBO1ML3wxGKsgO4thWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cAmL7a0f/0zPC+atJPRMtWdb0Yvd84NajFNf/c72fGi0HCgZUAfYvK58bGXNnccIP/oyZmKXxagJ0k1laS1pE7MBUb680ji+t/q2MYswCthAG0z+PtjQ3/RWcf4sj3CJ3+BwGOMkwa9Ih9uhOjX5mYeQngoaTK6XXBs8HcXRDvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bE+Lz4Bp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789682270; c=relaxed/simple;
+	bh=1UbTHhCjmKSqIfWbQRayVQA9agGfATUyD8RKjyYblu4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kVIZ0Fl56dz5UR07O8JzOzNglAR6c70LQSDmK0rtWc3dJ0WKzzDtkrlKEHs8PQ/z5LhvxIT5BG4nNgquPZhouWl9fjMhNHiskhKBSGsddWSEd6ll9sgetuuA5VILSJNKtQ2uM1adAf4/1wGrRU7XezXd3+CqA2zjuiZUg7yYqPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=SlSV3GrU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bE+Lz4Bp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 681611F000FF;
-	Thu, 17 Sep 2026 21:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789682215;
-	bh=kuBtV4+7ALBPAyy2nomafqxqzWcbcsqKb3dSOrzTp7c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bE+Lz4BpzH5TSV1jWou2OBtlqHsC//L3WyTj9bXi6va6c8nZfLJ4ol68JuU+o3r2M
-	 TAu2icEvroIVO5OuYcPgJYCAhNQXTzOAIclO3FED1OglGnXQvoVgXQi9NkcPaNCm7C
-	 NxCHhu8wntvOtj4LO509qvBQvss+eZM34/jEYGD2HXc7uGKovRY4ujMtUk30a4EgKF
-	 zPD0eqlpLObbbLfAP2BCbHPLwLZz0rgjBIedFlBVM78LXQPEzVbz5SKMMk3kZSKLLI
-	 Ww16aNzudepZDNF3jG6O0DxZCUHUXGJHhXcE+1AZc6MCWnHl/xvccdOs6+sET6/9Sd
-	 Dca8d8QUwinxQ==
-Date: Thu, 17 Sep 2026 16:56:53 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: m.szyprowski@samsung.com, hpa@zytor.com, chenhuacai@kernel.org,
-	pasha.tatashin@soleen.com, devicetree@vger.kernel.org,
-	linux-mm@kvack.org, tglx@kernel.org, robin.murphy@arm.com,
-	kernel@xen0n.name, mingo@redhat.com, saravanak@kernel.org,
-	loongarch@lists.linux.dev, dave.hansen@linux.intel.com,
-	will@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
-	iommu@lists.linux.dev, mark.rutland@arm.com, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org, pjw@kernel.org,
-	linux-kernel@vger.kernel.org, baoquan.he@linux.dev,
-	aou@eecs.berkeley.edu, kexec@lists.infradead.org,
-	pratyush@kernel.org, linux-arm-kernel@lists.infradead.org,
-	ruirui.yang@linux.dev, catalin.marinas@arm.com, bp@alien8.de,
-	palmer@dabbelt.com, x86@kernel.org
-Subject: Re: [PATCH v6 08/10] of: reserved_mem: mark /reserved-memory entries
- with MEMBLOCK_NODUMP
-Message-ID: <178968221332.3991643.14928206071521736133.robh@kernel.org>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-9-chenwandun1@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="SlSV3GrU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A811F000FF;
+	Thu, 17 Sep 2026 21:57:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789682268;
+	bh=qGh/RcyyMvxZRhh0cS/raCPqx192hVwJtSPLUi51+yo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SlSV3GrUa7u740KQ4CZlB60JnMtupY8Ev4iwtRzGS52me7gHQv7TgCjcHrghNsYjK
+	 EL3mwxqFkiXwPjYJs16VBTBuPxA3tfqe/kgirceityizCFXUp0PV27U84rh34GgJHA
+	 jlqzkTV3WU9ulgb48/LCg3RjasB0BrcLCyX4m8pg=
+Date: Thu, 17 Sep 2026 14:57:47 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: SJ Park <sj@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Brendan Higgins
+ <brendan.higgins@linux.dev>, David Gow <davidgow@davidgow.net>, David
+ Hildenbrand <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Lorenzo
+ Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport
+ <rppt@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Suren
+ Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ damon@lists.linux.dev, kunit-dev@googlegroups.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 00/10] mm/damon: improve readability, clarity and test
+ coverage
+Message-Id: <20260917145747.03fa94dcc327d43e84bef650@linux-foundation.org>
+In-Reply-To: <20260917142210.90829-1-sj@kernel.org>
+References: <20260917142210.90829-1-sj@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902073116.802752-9-chenwandun1@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 17 Sep 2026 07:21:58 -0700 SJ Park <sj@kernel.org> wrote:
 
-On Wed, 02 Sep 2026 15:31:14 +0800, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
-> kdump can omit them from the vmcore.
-> 
-> The marking is guarded by CONFIG_CRASH_DUMP so non-kdump kernels do not
-> pay the cost of splitting memblock.memory entries at NODUMP boundaries.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> ---
->  drivers/of/fdt.c             |  1 +
->  drivers/of/of_private.h      |  1 +
->  drivers/of/of_reserved_mem.c | 15 +++++++++++++++
->  3 files changed, 17 insertions(+)
-> 
+> Yet another batch of miscellaneous DAMON minor improvements.  Mostly
+> focused on readability and clarity of code and document, and unit/self
+> test coverage.  No user-visible behavioral change is intended.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-
+Thanks, all queued up in mm-new.
