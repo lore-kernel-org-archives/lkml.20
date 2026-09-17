@@ -1,88 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85584585989;
-	Thu, 17 Sep 2026 15:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EB14B44D8;
+	Thu, 17 Sep 2026 15:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657487; cv=none; b=XjJueW23LawNGjNtokl6zmCkmJXll1wcLUkqcb7WMyMsuvM2yEUXkX+SeJlqkoBsFlhNMMCKHXVwvigQRD0gZ/0USBA6kWCaMEwO631+lcIUG/HAVHPPLgEwaODaCJWB4/dLiUGj9slF2BAnPW+yWG69jpFT6u8076xlwVtYvUE=
+	t=1789657506; cv=none; b=lpdSuew+ygluk8xki+oUSY7h8mqSzRk2qwwA6fF9xDsCeXIxOk3OcqCzeTPEDG23Ub8pO+mGCj+RNR7JeIt7OvCG9In162S7jq11jjz7IhNlBAEIbruamIhsWVlsNFEJzPgiyxmoIcd6h3TaPM6BzaDN4rKr87+EV3IKUhHesOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657487; c=relaxed/simple;
-	bh=gEqQ7udERlY5WEVQ8KerG8FZgNUI/m67FqyuSdT1Org=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SvaukuiryCZAt+hhT0rSQCQkpfVe3uEwVZnNKDsLvpdv7FTo2PBxXN4W7dFfzOSusg3gXz838+ATrhsOOUqIwugx6EYYI+6OBe2DjYzYbvv2h8t6r2U66kb3cf9sL8u2HaY8GXc4CtJgJ3LZAPni3KiKNqFndQo1LyfW39Usg08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cJ7yCHmJ; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cJ7yCHmJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789657473; x=1821193473;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=gEqQ7udERlY5WEVQ8KerG8FZgNUI/m67FqyuSdT1Org=;
-  b=cJ7yCHmJyR6CG7WTuGLnBCgNzDjHK6pJpJysqMCCQlxNygTUBa7uvOiB
-   IJj8MVjpx0mbYBf/2IBJFZPjnFYWYZTkSHa9FafpMPDF1t8rEVrj2vNgs
-   Cxe0L7wa8as7iQ8iJxOgzAZ5mofi9L9r3McyOFIGnWQc1FOTWQo3xebUq
-   oeACIvlXNWjo9VsPSwsbz7Vlfy4slY+idIrkNDAOct9bhkyATOgbbZ7uV
-   p46216jNLfF0RQ3TDDLfsCuPB7culMbTwZmj1dZJFg3cpEBD94eMFsERb
-   UigS3LZNOjTAgLKkuMcYrmssgAWu/q/NGON3S32UUA4eB0IkK+707po5K
-   Q==;
-X-CSE-ConnectionGUID: 0qPWfSieSCeN9+GMdI8Zhw==
-X-CSE-MsgGUID: lOnThV5PSAqJw/bIMKGFZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92597518"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92597518"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:04:24 -0700
-X-CSE-ConnectionGUID: Rsh6lF3oT3GHCKjXZArINw==
-X-CSE-MsgGUID: 6nZrAugRTumnJz+Z8+Nlsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279078841"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:04:21 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: David E Box <david.e.box@intel.com>, Hans de Goede <hansg@kernel.org>, 
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, 
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-In-Reply-To: <20260819173804.1184250-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-References: <20260819173804.1184250-1-sathyanarayanan.kuppuswamy@linux.intel.com>
-Subject: Re: [PATCH v1] platform/x86/intel/pmc: Add rugged Panther Lake
- support to intel_pmc_core
-Message-Id: <178965745740.22350.4851475547797127227.b4-ty@b4>
-Date: Thu, 17 Sep 2026 18:04:17 +0300
+	s=arc-20240116; t=1789657506; c=relaxed/simple;
+	bh=iUYMy/jPtd7swNRgdrUkgdWM4CgSi5DsQrBEn4Ousgo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=auj7wBnRKy3WqOlQE6DrgLQwPM/5j1pYha1PVsjFMUn3SjntZrhFtD4hT8+6iMnEaSo9UX7TCugO27BRTHEFnkYqR957GPh+NqnUps/FTmyICExyodfE99va55aomGrPg6lg0Sa54UmXDK26jwp7cXeoL+8WkV8dNwwfUngXDQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH8z2EAaxqASKDCA--.5391S2;
+	Thu, 17 Sep 2026 23:04:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: hare@suse.de,
+	himanshu.madhani@oracle.com,
+	kashyap.desai@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	sumit.saxena@broadcom.com,
+	thenzl@redhat.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference count in mpi3mr_sastopochg_evt_bh()
+Date: Thu, 17 Sep 2026 15:04:36 +0000
+Message-Id: <20260917150436.2158151-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH8z2EAaxqASKDCA--.5391S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw48WrWfJF1fArWDWrWDCFg_yoW8JF43pa
+	n29a4Yyrs5WayIyw4xGF45WFyIy3ZFyrWrKayUKwn0gF4Fkry3CFy5CryDuFykAF97Xr1v
+	vr1DJryfZF1UtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xF
+	xVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
+	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
+	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0D
+	YxBIdaVFxhVjvjDU0xZFpf9x07UWCJPUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAaqwABs0
 
-On Wed, 19 Aug 2026 10:38:04 -0700, Kuppuswamy Sathyanarayanan wrote:
+mpi3mr_get_tgtdev_by_handle() takes a reference on the target device
+and the loop drops it with mpi3mr_tgtdev_put() at the end of every
+iteration. The MPI3_EVENT_SAS_TOPO_PHY_RC_TARG_NOT_RESPONDING branch
+drops the same reference a second time before breaking out, so the
+reference is put twice and the kref can be released prematurely.
 
-> Add rugged Panther Lake support to intel_pmc_core driver.
+Drop the redundant put and let the loop release the reference once.
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+Fixes: 13ef29ea4aa0 ("scsi: mpi3mr: Add support for device add/remove event handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpi3mr/mpi3mr_os.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
-
-The list of commits applied:
-[1/1] platform/x86/intel/pmc: Add rugged Panther Lake support to intel_pmc_core
-      commit: 15961651876bbb63547785454e49c8a2e30ae2eb
-
---
- i.
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
+index 0c974f2627d1..5ff5720f2491 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_os.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
+@@ -1869,7 +1869,6 @@ static void mpi3mr_sastopochg_evt_bh(struct mpi3mr_ioc *mrioc,
+ 			if (tgtdev->host_exposed)
+ 				mpi3mr_remove_tgtdev_from_host(mrioc, tgtdev);
+ 			mpi3mr_tgtdev_del_from_list(mrioc, tgtdev, false);
+-			mpi3mr_tgtdev_put(tgtdev);
+ 			break;
+ 		case MPI3_EVENT_SAS_TOPO_PHY_RC_RESPONDING:
+ 		case MPI3_EVENT_SAS_TOPO_PHY_RC_PHY_CHANGED:
+-- 
+2.34.1
 
