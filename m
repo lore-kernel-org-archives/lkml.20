@@ -1,41 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E312E4F473B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:33:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C848CD55
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:33:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648442; cv=none; b=QvKRzGaiH+8s0O5Q2dlBPyu+i/Xek4lymKZhjzbSGWl9jeyUGTSx/i4PejwlLLjxc63SsO9JApuB3S7dh4HvLNCxIbiacPKPP1nQUYDXUC+VvQnzSmwD1D9+0U0enKY3TiJjoLkpGvI3bNxk+KZv/O0h1SL5LPg/6WXeD2oJr8c=
+	t=1789648448; cv=none; b=R2F3b9AFcLMsVtcSamMYJXz41Amu/rsm1g9YAk7TdJwKm+SVvvEMUbwT3nMHnwIXOsGPvKDkhvGOCQDmHPCScFYSi6owiLiJub0XLbwl/4483tGfKcyRCSd8TWGL01qu36ju+aEDMwXwJ5l9FOKXgp+Fpz8gOi/aUxwCDC1M43E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648442; c=relaxed/simple;
-	bh=wCAbH6+evR/IyGG1vLF13wRmGIFvXzlzEuaaOwiKKf4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hyfx4kInI8+kGtnZJwHG76ldCHndCF2Ex2MkGj77vRflGgfqIK4QTrDw9FgBc0rw6mvyabC7kEZ5nVeOVJFQWfvg0UZT/P9lsF7rz81idn37xd20w7VoGBikjYKgGBmwDv3nW7Ex/OVkl1s6veX3ES9aGmGwX408drzv+zFtCzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=m+mXPUJ0; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1789648448; c=relaxed/simple;
+	bh=aJVJGqAxRDrukH3Sf8Wf633FJCiWUOMYXyKmSTk8psc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qOkfTR//Zv6vfguMAolbl8w3h09uQl4BuvswiNJuQQ4gC5Xv10hzhr7Sx00iV2S90/siRwj59IS/Ufxc6lGC2uV7ajhyR5x+zpJ4TCAv0CLeqnmGYsePVxYFfCAx9cl7wHR2nJX41iRJY5v4lqTYam3+DnpjVQKwVkHWM1yiPQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PMVym+np; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="m+mXPUJ0"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PMVym+np"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789648434;
-	bh=wCAbH6+evR/IyGG1vLF13wRmGIFvXzlzEuaaOwiKKf4=;
-	h=From:Subject:Date:To:Cc:From;
-	b=m+mXPUJ0Lb906Ck2Ci5NN+8ZLSfbIuJRRr8Bq2ctnw/L46iHraKOBk6m1MIcVH4ju
-	 gSDOtbVnpBEee2RPAA+yKQ+jlUfNCw8NfEWfHH4LTzlPIlkHBxoGc+p9NSZSD+0rey
-	 DFvKEpJ+44zeTi2ad78X0NnSf5OtvJVCcLk365M7keZUEhL0BAryodQkQ0yDvi84QJ
-	 bJFH5BPRcDwO3F9TSk6jykYTdlJdqAqdCYVfkmY27+22s1Fio3nz2GBeX80jYKRlcc
-	 dk05/+vl5r0chbnCvmNLcr5dUdWbHfNZM2M6xjg+4IQEkwYKSJqvpFNwXrX2SuAwSD
-	 cWIdh3OqgBa4w==
+	s=mail; t=1789648436;
+	bh=aJVJGqAxRDrukH3Sf8Wf633FJCiWUOMYXyKmSTk8psc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=PMVym+npNkzn/YnoZkk2K045nv22SIaInlPRspHzByEei6WmbA3fpC1ywBnnLWi3z
+	 Sd8SbIcXKPmvjz6mB9InzfPzF6E2vYCui7PvURB0XCRvS6t67nj3Ld180sHU3Zplm1
+	 /5HEL3LPulZctjvXmUfCR6TdX6aze0tQ1JpsBH5HsmdGnzAUKDnr7B88IuwnzRxV5J
+	 JZtHxdn44SKx2KzkGtZtEYb84Mnc7PAPhdJuyWtuooNBR2eC0ADcMfy/Hlq0tjVf6X
+	 hQZzTKa7QQr1Wpee770lL9fvPSCFoJQjSN1bF0ao6vEf0TLUzfCFMBJTRXN8Fsn9pe
+	 dICrZt0uFem1Q==
 Received: from fedora-21.home (unknown [100.64.0.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E2F717E09B5;
-	Thu, 17 Sep 2026 14:33:54 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F297D17E0D43;
+	Thu, 17 Sep 2026 14:33:55 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH 0/4] drm/panthor: Fix partial unmaps, again
-Date: Thu, 17 Sep 2026 14:33:42 +0200
-Message-Id: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
+Date: Thu, 17 Sep 2026 14:33:45 +0200
+Subject: [PATCH 3/4] drm/panthor: Consolidate the is-huge-page-mapping test
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,10 +44,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QqDMAxFf0XyvEDbqUx/ZfgQtqgBV0taRRD/f
- cG3c+Dce0JmFc7QVyco75JljSb+UcFnpjgxytccggut63yLiWKZV8VRDmMtQgtu8UcJqQnuWY/
- B+1cNtk/KFt3f7+G6/jFL53lrAAAA
-X-Change-ID: 20260916-panthor-fix-partial-unmap-a52034f21184
+Message-Id: <20260917-panthor-fix-partial-unmap-v1-3-c7008f15fea3@collabora.com>
+References: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
+In-Reply-To: <20260917-panthor-fix-partial-unmap-v1-0-c7008f15fea3@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Akash Goel <akash.goel@arm.com>
@@ -57,36 +56,121 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789648434; l=1028;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789648434; l=4892;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=wCAbH6+evR/IyGG1vLF13wRmGIFvXzlzEuaaOwiKKf4=;
- b=CNgI8SVGSjZd40UrnVuhyhOhrZI8KjUCYB7YZ+CqDvDfODP4EEExVY0P8OiNnN6pnqIGruxba
- XRGX10CowgcD8MuqRO2InukJlHfDg5DYnL11vdVadGYfSr/quKVYLS2
+ bh=aJVJGqAxRDrukH3Sf8Wf633FJCiWUOMYXyKmSTk8psc=;
+ b=ZeMKwZBDEOsY/YkZUiqu6zw+QTNEw8GXV/jgm0fdnWGXrJq/+KyIQN/AGkOwdDYTKoG1CQogC
+ fm1/V5LMhlaCfbRcKC0v6G8WqMGnK0kZlT+6jp9w61F98FYYO2vk99P
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 
-The first patch is just a theoretical perf improvement to avoid
-unnecessary unmap+map caused by false positive returned by
-iova_mapped_as_huge_page(). The second patch is a fix for a real
-bug when iova_mapped_as_huge_page() is called on an imported BO.
-The last 2 patches are just consolidating the logic to make things
-clearer.
+Right now the logic to determine whether a given VA in the drm_gpuva
+being unmapped is a huge page mapping or not is scattered
+in two functions: unmap_hugepage_align() and
+iova_mapped_as_huge_page(). This makes it harder to reason about the
+logic being implemented for very little gain (some simple checks being
+done twice), so let's consolidate all the checks related to huge page
+mapping testing in iova_mapped_as_huge_page() and leave
+unmap_hugepage_align() as a simple user of this helper that aligns the
+area to unmap based on the return of iova_mapped_as_huge_page().
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
-Boris Brezillon (4):
-      drm/panthor: Avoid false positives in iova_mapped_as_huge_page()
-      drm/panthor: Fix iova_mapped_as_huge_page() for imported BOs
-      drm/panthor: Consolidate the is-huge-page-mapping test
-      drm/panthor: Actually check huge-page mapping on sparse regions
+ drivers/gpu/drm/panthor/panthor_mmu.c | 57 +++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 29 deletions(-)
 
- drivers/gpu/drm/panthor/panthor_mmu.c | 100 ++++++++++++++++++++++++----------
- 1 file changed, 71 insertions(+), 29 deletions(-)
----
-base-commit: 5535d5e61a77ad79118ea7665ce1c14f857f0f12
-change-id: 20260916-panthor-fix-partial-unmap-a52034f21184
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 6cef954e2cba..d2897099763e 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -2301,10 +2301,11 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+ 	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
+ 	pgoff_t bo_offset;
+ 
+-	/* If the 2M-aligned VA is outside the mapping being tested, we know
+-	 * it's not a huge map.
++	/* If the 2M section being tested is crossing the mapping boundary
++	 * we know it's not a huge map.
+ 	 */
+-	if (aligned_va < mapping->va.addr)
++	if (aligned_va < mapping->va.addr ||
++	    aligned_va + SZ_2M > mapping->va.addr + mapping->va.range)
+ 		return false;
+ 
+ 	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
+@@ -2337,10 +2338,21 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+ 		return false;
+ 	} else {
+ 		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
++		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
++		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+ 
+-		/* In case of shmem backing, we know we can only have a huge mapping
+-		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+-		 * check if it's not the case.
++		/* If the unmapped VMA stands for a sparse mapping, always
++		 * assume the backing storage is a THP, since the overhead of
++		 * unmapping 2MiB worth of 4KiB pages and remapping some of
++		 * them is offset by the logic of working out whether it's
++		 * the opposite case right below.
++		 */
++		if (is_sparse)
++			return true;
++
++		/* In case of shmem backing, we know we can only have a huge
++		 * mapping if the bo_offset is 2M aligned, meaning we can skip
++		 * the folio size check if it's not the case.
+ 		 */
+ 		if (!IS_ALIGNED(bo_offset, SZ_2M))
+ 			return false;
+@@ -2353,36 +2365,23 @@ static void
+ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+ 		     u64 *unmap_start, u64 *unmap_range)
+ {
+-	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
+-	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+-	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
+-
+-	unmap_end = *unmap_start + *unmap_range;
+-	aligned_unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+-	aligned_unmap_end = ALIGN(unmap_end, SZ_2M);
++	u64 unmap_end = *unmap_start + *unmap_range;
+ 
+ 	/* If we're dealing with a huge page, make sure the unmap region is
+-	 * aligned on the start of the page. If the unmapped VMA stands for
+-	 * a sparse mapping, always assume the backing storage is a THP, since
+-	 * the overhead of unmapping 2MiB worth of 4KiB pages and remapping
+-	 * some of them is offset by the logic of working out whether it's
+-	 * the opposite case right below. This also holds true for op->next.
++	 * aligned on the start of the page.
+ 	 */
+-	if (op->prev && aligned_unmap_start < *unmap_start &&
+-	    op->prev->va.addr <= aligned_unmap_start &&
+-	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
+-		*unmap_range += *unmap_start - aligned_unmap_start;
+-		*unmap_start = aligned_unmap_start;
+-	}
++	if (op->prev && !IS_ALIGNED(*unmap_start, SZ_2M) &&
++	    iova_mapped_as_huge_page(op->unmap->va, *unmap_start))
++		*unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+ 
+ 	/* If we're dealing with a huge page, make sure the unmap region is
+ 	 * aligned on the end of the page.
+ 	 */
+-	if (op->next && aligned_unmap_end > unmap_end &&
+-	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
+-	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
+-		*unmap_range += aligned_unmap_end - unmap_end;
+-	}
++	if (op->next && !IS_ALIGNED(unmap_end, SZ_2M) &&
++	    iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))
++		unmap_end = ALIGN(unmap_end, SZ_2M);
++
++	*unmap_range = unmap_end - *unmap_start;
+ }
+ 
+ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
 
-Best regards,
---  
-Boris Brezillon <boris.brezillon@collabora.com>
+-- 
+2.55.0
 
