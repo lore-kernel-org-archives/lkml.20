@@ -1,89 +1,121 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3954A2040
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED13B4A64E6
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789687322; cv=none; b=Bk/NeJ2XA5VG7MK0vDz6AMHRTq11S2RHuknsyTDjKu74L6IlNu41FiYrLet+6tpnQqzesFseTjdH3E4FBS0OLlRBrrW29RTQRgBB1kSMkTAL4oxvtj27XSIN2ZomBgSjSEEXdQxU4TOf12GOOb2v0W6sLZmZdKAU9S5cqueoHkE=
+	t=1789687346; cv=none; b=YPOnO8MutmlN9H6jIbOD0ir2xcTqeiXoehRGPCMaOgdJ8NKxunusXa1fi2hl6vqgDtjNM7pnuvfQoilHPlKmBs5YQGrMSFutIT5RIY6Mhp2cvNdvkPWzDP0sNwjZtczi36FahFpsBZF5eUeyJ2z09YOSsmqX94k6UvjljeM1bVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789687322; c=relaxed/simple;
-	bh=1HMJSpEe/iM0dqvznJTng//tA16N6zarxHYP228CtsA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=n2dLDQDwEdLM4yjAZnkZ7fJBNgkkrbxQubTmxxdP4qHmwfI5n0PL4YE/DBqj/Gsp57jYaWYMEUdvwhKayhYUV586LyR/EJvmRNPQbN42A2QNej+6dyJ84GvaKb8UKjm5QxJzACPaLD3hCFBgBEFuP9C5sw4R3+7uEq3iD7ri3TE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=Drx2nWgk; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1789687346; c=relaxed/simple;
+	bh=q9ai3u+xzNMr1zOSo2EmbJ2Ccm2KuiIsF+R2+/dhNcw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tiqZYAjy7XPUGgSEF8WaU5FxuF72khn6inLKsLkaP2vKkBa3/MwP8ocqhq+KZPGoLfqKUwX3gBQplFEGbaEOxVCDsPCMV0gr/uHn+KezrPs7X+lL44VKidx5ecru4SkpvxB6JUlY6oyYF6DQ+fYIiAIgv+lgaMtRz+oF/bn/8Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMyDXfFP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="Drx2nWgk"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 68HNLIMQ3490347
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Thu, 17 Sep 2026 16:21:19 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 68HNLIMQ3490347
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026082801; t=1789687279;
-	bh=/FYw270vTOngW6ke0HkG10bI8MAN7U8uC56DgiLggcI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=Drx2nWgkn3kDyfL/XaOAQr3MKJLVYhKvjitAdD8IzHWY/FXZEU4hW1tStH1PJ9cgH
-	 1B+orRDNhTndhGTxIjjlkTixIsQ+INcJCC3KKXDn8kw2TgZVYPbKQ8Ri4KZyRpwOg5
-	 BSQOmYArr6wZGk3IbDpQUhyeTk3/HBTqHdXIT0rnXhgpZFr0JCkSp54cpudlP1cyiS
-	 UrIkAyACOyz/udiSUE2WijCvBjiOHIdaM7gIfR0E5JibDwGqj0ZR5txuC1xCEwbBir
-	 C43TTniYrIGztNFjwDRnl2PwtFCsebxB/5wLzsSylhANZE/uK4CGLHN2PAeU4OD4ys
-	 mX+fBx+TQ1ErQ==
-Date: Thu, 17 Sep 2026 16:21:13 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Thorsten Blum <blum@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Jarkko Sakkinen <jarkko.sakkinen@intel.com>
-CC: "H. Peter Anvin" <hpa@linux.intel.com>, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_x86/realmode=3A_Pad_the_embe?=
- =?US-ASCII?Q?dded_real-mode_blob_to_a_page_boundary?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260917114928.213178-3-blum@kernel.org>
-References: <20260917114928.213178-3-blum@kernel.org>
-Message-ID: <A263DA22-65F1-497D-96BD-D9ED0D0E36A4@zytor.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMyDXfFP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90DC41F00899
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789687341;
+	bh=tMZh1YMYCYrRC2uuwUki1Jazz5iXTgol+eU8SrrfkyY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UMyDXfFPJ6TD7VAJu/Wo9nOwx21vOAIJyHqkxfySfMaGoz3L5SRzIRuYI6+hBq5Fn
+	 VDxtPogqxAZqT8pWf20ID37n7+Tnf1ShUmnTeR6Ws4U8ye+c5hV8nmnvdP/9SIaRz1
+	 oVrxtZYf9D25VxY16SDLIkJw+KxWNVDWByqc7Bv821rdlnEV0ad0v/0J10dcDSxlBx
+	 DUjrmnzdOgwZ5WBE8l1Rg98I3/mY5h/CmE2mnXbu9SnLwfE2Q9/STmdY1xkpDSRuvq
+	 QubDsA6jFihfX+X0r3Vgzg14qdy25FbeEj7HpBIQnOY9UhbIVFC0VzepoarsGjndoF
+	 thgumBxMGF03g==
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910399d8b09so1953316d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:22:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOIir7MNLfmspOlvCOitikktdpmi8gKYb/fiXufy8kwKvRbOWyzo1e7/vvtBM+fTl3O66j6LT8U3mg7lU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJzelLSi7/agjsD/0YCLyPCdLOf7iU2ebYT/yrpJu9Ve06cGKp
+	jhXtX66+H/cg4qvyYTiEBp+iLvushN2qR7XYZKujbXEs5A26S5uScJGgJtYm+eYRRs5VPR8E/VR
+	+uPMqjDwDudvEOlEQTVp/GLAocxBl+Go=
+X-Received: by 2002:a05:620a:294a:b0:93b:da60:a557 with SMTP id
+ af79cd13be357-93bdc6d5b3amr95981185a.19.1789687340744; Thu, 17 Sep 2026
+ 16:22:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com> <20260917052933.188679-2-jiangwenxiaomi@gmail.com>
+In-Reply-To: <20260917052933.188679-2-jiangwenxiaomi@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 18 Sep 2026 07:22:09 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xujxpH6OuuUao2=TAjTMKhr77ufW6OoZuk-VB=YPd6fw@mail.gmail.com>
+X-Gm-Features: AcwNN1WjNP8GdpSkB1mGsUq58TKlHY6lfOfrir1kzagtl_zxNQgmPbeTkRXOdwM
+Message-ID: <CAGsJ_4xujxpH6OuuUao2=TAjTMKhr77ufW6OoZuk-VB=YPd6fw@mail.gmail.com>
+Subject: Re: [PATCH v8 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, chleroy@kernel.org, 
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On September 17, 2026 4:49:27 AM PDT, Thorsten Blum <blum@kernel=2Eorg> wro=
-te:
->setup_real_mode() copies the page-aligned size of the embedded real-mode
->blob into low memory=2E However, real_mode_blob ends immediately before
->real_mode_relocs, so the copy includes relocation data and potentially
->other =2Einit=2Edata contents when the size of realmode=2Ebin is not
->page-aligned=2E
+On Thu, Sep 17, 2026 at 1:29=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmail.com=
+> wrote:
 >
->Pad real_mode_blob to a page boundary so the copy contains only the
->real-mode binary and its padding=2E
+> From: Wen Jiang <jiangwen6@xiaomi.com>
 >
->Fixes: 084ee1c641a0 ("x86, realmode: Relocator for realmode code")
->Signed-off-by: Thorsten Blum <blum@kernel=2Eorg>
->---
-> arch/x86/realmode/rmpiggy=2ES | 1 +
-> 1 file changed, 1 insertion(+)
+> vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
+> set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
+> helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
+> unavailable on CONFIG_HUGETLB_PAGE=3Dn kernels and couples mm/vmalloc.c t=
+o
+> HugeTLB internals it does not otherwise need.
 >
->diff --git a/arch/x86/realmode/rmpiggy=2ES b/arch/x86/realmode/rmpiggy=2E=
-S
->index c8fef76743f6=2E=2Ece5350241238 100644
->--- a/arch/x86/realmode/rmpiggy=2ES
->+++ b/arch/x86/realmode/rmpiggy=2ES
->@@ -12,6 +12,7 @@
->=20
-> SYM_DATA_START(real_mode_blob)
-> 	=2Eincbin	"arch/x86/realmode/rm/realmode=2Ebin"
->+	=2Ebalign PAGE_SIZE
-> SYM_DATA_END_LABEL(real_mode_blob, SYM_L_GLOBAL, real_mode_blob_end)
->=20
-> SYM_DATA_START(real_mode_relocs)
+> Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
+> pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
+> __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
+> depend on CONFIG_HUGETLB_PAGE.
+>
+> There is no caller yet: mm/vmalloc.c is converted later in this series,
+> once the generic fallbacks are in place.
+>
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 
-Acked-by: H=2E Peter Anvin <hpa@zytor=2Ecom>
+I tried to apply the patch to mm-new, but it doesn't apply.
+
+% git am raw
+Applying: arm64/mm: add pte_set_huge() and pte_clear_huge()
+error: patch failed: arch/arm64/mm/mmu.c:1872
+error: arch/arm64/mm/mmu.c: patch does not apply
+Patch failed at 0001 arm64/mm: add pte_set_huge() and pte_clear_huge()
+hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
+% patch -p1 < raw
+patching file 'arch/arm64/include/asm/pgtable.h'
+patching file 'arch/arm64/mm/mmu.c'
+1 out of 1 hunks failed--saving rejects to 'arch/arm64/mm/mmu.c.rej'
+
+
+[...]
+
+> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> +                 pgprot_t prot, unsigned long size)
+> +{
+> +       unsigned long pfn =3D __phys_to_pfn(phys);
+> +       pte_t new_pte =3D pte_mkcont(pfn_pte(pfn, prot));
+
+Maybe we can drop the `new_` prefix.
+
+> +       unsigned int nr =3D size >> PAGE_SHIFT;
+> +
+> +       VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
+> +       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+
+Do we also need to check that `addr` is aligned?
+
+Best Regards
+Barry
