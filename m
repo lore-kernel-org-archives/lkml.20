@@ -1,83 +1,63 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E89A955820A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06025A5121;
+	Thu, 17 Sep 2026 14:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657016; cv=none; b=Fm2nuAx65U+pPfmaqziE6L/R7XjBFI/cL0kXo4LOeji6iFU1JvV5xJdmKzcYrP0/DBbVtenEuU4HFRJnqRTjQpOK4CIwFvZAtY3G2ZBg0I+nU7xA4h6oCxOfFjWmTDhfx8uJLAhRSTu8lBy0iDkPEhKB2HDUdcSk8ZDWznXUqSE=
+	t=1789657020; cv=none; b=a/xP47xt9RkBhNqZ+SXlhlPxpKZTko5SAh/w1QHqiCZN80iM1ZjSACndUCY+1rV9RXhDR9YRzhxIHdwDu41re7ZMHj+KFpb4oWtDXRnp3V5i5prMDf6MfCZHXZVk1VTMRBeyKs+eIRRX1YldUzuwxR9mggl8NuGa0nIjoYPK3wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657016; c=relaxed/simple;
-	bh=u2/TSWpxe41vfNNykjOzkfh2PggVplqWQaKV/Iwvjkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZF+0kNG4/gZUWvuaMJgVlhFbqo6KnWtKw22ApW4MNk5okMKxei36UFIeyKEfNesF7y5jxJnxgim6UDgesK3sHdlCPFeDBmy0ga2ep3IgM7Hb7qSNaW0/IMEfLYBIfVzsdU2fnA5SPWy0nRQyEJXFTADk272sGNK0mFFOMaIvn7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pJZTWcC3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789657020; c=relaxed/simple;
+	bh=GbWu6D//pleUKG4KsB5vWUuB7L5XpKl8uA++urGCcvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vAroqTTNSMxkY0gMB7VdxCnGfV9lGKXLCxUN80AG32jBM+IpumhdNTxX7TxLLFmqa/b2yLZDXaWzKtTo5rVM0u8WDXfUFpmSji3So9tExDNVeNQjArF3yi9anbE0wKjk6602BzahvFkrphAhIS4zNKGZAsJ5UQkY+UVq9jSknj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=v7DAdW/g; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pJZTWcC3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 19E082008;
-	Thu, 17 Sep 2026 07:56:37 -0700 (PDT)
-Received: from e134344.cambridge.arm.com (unknown [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3B9EB3F86F;
-	Thu, 17 Sep 2026 07:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789657000; bh=u2/TSWpxe41vfNNykjOzkfh2PggVplqWQaKV/Iwvjkg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pJZTWcC3qLI4PbTSiaE1hVkqZ127fjuB9Cu9o6gfui5tmS5VuOINoyXH8rJzPlgvS
-	 uya6HPBlvw76OVRkz445MJ4pj4PMRhoNSo7ewbx6gpTm0h5hQ+wYJ7pWaxA4d0pGI/
-	 SccKbZ4S3fCJjL/ZZseRXMArTNVdFRETmhNXlNg8=
-From: Ben Horgan <ben.horgan@arm.com>
-To: ben.horgan@arm.com
-Cc: james.morse@arm.com,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	dave.martin@arm.com,
-	andre.przywara@arm.com,
-	Gavin Shan <gshan@redhat.com>
-Subject: [PATCH v2 08/12] arm_mpam: resctrl: Correct check that existing class is L3
-Date: Thu, 17 Sep 2026 15:56:13 +0100
-Message-ID: <20260917145617.2202986-9-ben.horgan@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917145617.2202986-1-ben.horgan@arm.com>
-References: <20260917145617.2202986-1-ben.horgan@arm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="v7DAdW/g"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=2CCjRSePQK87rby+Jo+8UB7gqMUek6+WZFLJ8cqsPxc=; b=v7DAdW/grCSGofGdk47k0YE6TF
+	VrgoTQek/r/FKfCyEHbAvXKc/ou8tbRAekvDuvJri0SHr5r2mbGo27ZpkXX4jb//NrCyncYwLIvBf
+	oFy3slC3zawvslDoI9jiQkkngI81GAkTpcJ19ZyCoev+mr/GMw9K4lKygYKsNY87b3zU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x7DXM-005hBY-O1; Thu, 17 Sep 2026 16:56:32 +0200
+Date: Thu, 17 Sep 2026 16:56:32 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv2 net-next] net: fec_mpc52xx: remove dead resource size
+ check
+Message-ID: <1ce3192c-d052-4936-9567-8a1d9b13f54a@lunn.ch>
+References: <20260916223228.271815-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916223228.271815-1-rosenp@gmail.com>
 
-The class used to back mbm_total_bytes can be either at the L3 or the
-memory. If a platform had candidate classes at both the memory and the L3
-then, as the check for whether the existing class is L3 or not in
-counter_update_class() is broken, the class that will be chosen depends on
-which order the classes are considered and so the probe order.
+On Wed, Sep 16, 2026 at 03:32:28PM -0700, Rosen Penev wrote:
+> The check bails out if the FEC register resource is smaller than
+> sizeof(struct mpc52xx_fec), but every in-tree device tree describes
+> the FEC node as a 0x400 byte region, which is exactly the size of the
+> struct, so the condition can never be true.
 
-Fix the check.
+We generally don't fully trust DT blobs.
 
-Fixes: 1458c4f05335 ("arm_mpam: resctrl: Add support for csu counters")
-Tested-by: Gavin Shan <gshan@redhat.com>
-Signed-off-by: Ben Horgan <ben.horgan@arm.com>
----
- drivers/resctrl/mpam_resctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Does this test do any actual harm in its current state?
+Why remove it?
 
-diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 9d223057953a..b825bd90d4bd 100644
---- a/drivers/resctrl/mpam_resctrl.c
-+++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1076,7 +1076,7 @@ static void counter_update_class(enum resctrl_event_id evt_id,
- 	struct mpam_class *existing_class = mpam_resctrl_counters[evt_id].class;
- 
- 	if (existing_class) {
--		if (class->level == 3) {
-+		if (existing_class->level == 3) {
- 			pr_debug("Existing class is L3 - L3 wins\n");
- 			return;
- 		}
--- 
-2.43.0
-
+	Andrew
