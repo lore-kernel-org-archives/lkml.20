@@ -1,150 +1,393 @@
-Received: from mail-qt1-f227.google.com (mail-qt1-f227.google.com [209.85.160.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3408599A38
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E1259D617;
+	Thu, 17 Sep 2026 16:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661222; cv=none; b=WQnA/uwaWkQUgd3fHe4AuZTNzaMu+xUTMu/xblD9Bf3Aa0KOTJ8hr1S7XzxqamjjqB0zX5EPmRTepJnycPce9Xlou8kFhG/VY3E6wOiffIrDxKb/yu/9Ja7+0uPqd3PiiyYIRMTkbtd8OUZyX8Qsh5TAPcxcPOemf6HvUn3vymU=
+	t=1789661226; cv=none; b=VM59R6f2qBrEtag05UpLvp0+NWx+Je9ah6SJ+bGCRbJ604ihamgVAxQMWqwuLFFXrKVu8Zd/D7r+CQknDAc1TRP+bnjnRdAodgftmYy5Ep8CbOV28jYnHFmc8yNO0znlizkZLdReHleL51RNtj4kcTVwN4cmPkxTiOGASnHSDTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661222; c=relaxed/simple;
-	bh=zu99EUyKu04qHSXSnN2pGp746UHvgDIIaYO80aLOXlA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EU2pNNlvD/G8CNIl7Zuiw3IpGwhJKllTLFvtMOSZCKqGduh4RWLhl/jCQioLxzWMna5UFUz1flaQY7gAxZYeklKl2yn9573iUJmvlgrldAghjqQgUh0R0v534UZ63/+8hNqDjX36MwkgZDjaMUL/4hC2WXSxH6lA/CWYpnHFF9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=FkHwAoiJ; arc=none smtp.client-ip=209.85.160.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789661226; c=relaxed/simple;
+	bh=zbRPUYikjG0pj4tnd7o4NOVhRtKN6z8Aq2ACsXCdP64=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AqfwLt67vjf5xCglUFNJ/THSStrRYqTngXwG6Scc/BdU9/flPDxlgTSX3cKAx51XGEXUEI17tcOqh45Qeohh5mjeNg8kHNv17tPkKNk2IA/evLHpQxu8QIM5If5DPNbAarKVFg97CeJX+RM/kIaRaxqXkIWfR46gOHi+/QyLGS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mg8IhnFh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="FkHwAoiJ"
-Received: by mail-qt1-f227.google.com with SMTP id d75a77b69052e-5312314b3c3so78871cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:07:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789661219; x=1790266019;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5vgy7pM/Q+yzgmJx8Y4gFH5AEXLaNEKRG3IPtSFZXZg=;
-        b=uDJDWi4R/Xc9sNJpNyDHiwNnslhGmBXTizv7BGYpm/yNdBFx/kU6Ivv3fjy6nhQ+Yn
-         nSOvOE+mk123XprwXlfsYvo8stqhn1s2cHdom/tBGSnwPh/7pYyXlVfazqdneem+VeK3
-         V+Hj9KAb65Oc+KSuaa3Qo4Ac4EAqPLVCiqBtayAAH98PjnrJS++8bV/c+shkPv5Fyh5e
-         2+VTq334OVYfWd0lTeJ0N4hZQ38kKsomPfExBJsLyJop/r3tEdx0EXLsovVAiXKp6rGo
-         0k8MshFu/AVuKC3h8U9/WchquOt/BhSH7BhIBedvWQp+AhnWdEe9zqAqnhxSRtCAE9IK
-         A0gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxda/HOIT9Dk0RZfwlwJJbOtLq66Isues9bafi3TlSSu9bVurE5Wrf7XiS7YhqWUBfJ/FuPDsuauhggHVI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kErf9CHOvQG0We5xJBDotiFR2d2n2POIQfKk6Yh9KlPPdDKnpZ
-	yw47+FT0lBICzCM4+ZYQhPXI1goeqZgkkf/yaiMWVFKwvG6Ehnnp9UTi3Qc0Gq9hHMeyXXlsR4M
-	HhR8O4d/zoehCBWSXzovhgVk9K5sW0Lh8D8D5kk9anMjy35QShMT6wauBOiKFTNt+kq/ygfOKgI
-	XozY0KLyUCWAJv8SX97zhFWNJfvDDrWl92M+9PnHRDOi9Y4CdTitkgSwuv8Do4lBahGB3z5MFOn
-	C5GzOpKC+ht0Z3AYIrNkqWE
-X-Gm-Gg: AYBFou0kcCKvevpWg5bobDLSlOvXWhoT+NcO/pXW9aLaVEmCWIslxdr1E2Br+UuUcTN
-	J5438jhoDERSJjv52u/XfAZBczn4qQfKaHhyUtO6z6b6kYH5FyWRVzoD+dcVefkee81jqJPsH7J
-	+fiG1PGMY1Dr38a/6zVceyZvfp+AmakP/Fs3yBmcgCtO5n2cQ1bdyT+HKJs413pKSynXfJS1GZJ
-	9Bd6gD+IssjZrW0BhOq1jwqBOrAc/1bYK0KhNGLvBmiXj7Zow/PeeUqYu+w0B+XM0G6D5xvgMOu
-	HrrwO54X9IsVBwKlobE9IMbuGz5Fj5SlBhaZ0wWtyjsoMiSHi50+eCH0QxuLDFDD3xy/aizfRuq
-	FMjBBIIBkfzvuC4MYvFbDUDgY8Exj2j3kj5DEMjfUVNIknrPUVrXP3WvyJi3+DG9/l9JELj6iWJ
-	GeYbNd1YELbM3gBs2Xva3SkXpIioKrNDQ5nxOUrNZhIZQ=
-X-Received: by 2002:a05:6214:4809:b0:912:43f5:2b30 with SMTP id 6a1803df08f44-91243f52edfmr69987136d6.8.1789661218992;
-        Thu, 17 Sep 2026 09:06:58 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91252c8232fsm16766d6.15.2026.09.17.09.06.57
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 17 Sep 2026 09:06:58 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d9057fab9eso16309625ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:06:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789661217; x=1790266017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5vgy7pM/Q+yzgmJx8Y4gFH5AEXLaNEKRG3IPtSFZXZg=;
-        b=FkHwAoiJ9CLPePd/Llx683SDkGTuDQtqaJ6TMv493sevpdoHO90d0wB0t099vvgyTC
-         NCvZp0MWU4coKOGDn15YxqBcTul3iU6x96hMJSvplanct+iBPrrEdCsJtibgBjrxH/bW
-         RiL+w0F34HfRtmOLbk5oDVFRvdwliT1A+eZe8=
-X-Forwarded-Encrypted: i=1; AKwUvBz/8o1c5IDdxGUSgpjAqesUDDQw1avBljNCo7vo9rSHXWbgNqbrGl8H+DWK4xxvVGZKhp1r3527n1Ldcsc=@vger.kernel.org
-X-Received: by 2002:a17:902:d2c8:b0:2dd:278c:5eb with SMTP id d9443c01a7336-2dd8e3f5a13mr153455075ad.14.1789661216887;
-        Thu, 17 Sep 2026 09:06:56 -0700 (PDT)
-X-Received: by 2002:a17:902:d2c8:b0:2dd:278c:5eb with SMTP id d9443c01a7336-2dd8e3f5a13mr153454615ad.14.1789661216485;
-        Thu, 17 Sep 2026 09:06:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8ed77sm28778555ad.4.2026.09.17.09.06.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 09:06:55 -0700 (PDT)
-Message-ID: <d0611a8b-e7a5-4ffb-aa7a-86b14196b6d7@broadcom.com>
-Date: Thu, 17 Sep 2026 09:06:53 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mg8IhnFh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802531F00898;
+	Thu, 17 Sep 2026 16:06:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789661224;
+	bh=kGOn+Eyh5EbYfN97Nj1fX4pq3G8j0Vy2K55dfmdAeOE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Mg8IhnFhS8aIkv0q/rQJPKAhsa2w+W2pYG1h64/1iqZSRo2w8VYKqiy96zx7AOs2F
+	 D3dIvgx8P1jFZLbH6SKV+MnaM/NVapns9xpyl+vSv3YTNt8cKIL3wKE4e3/+jry4z4
+	 0YMfROA20c5xMFoHBinlTFXP+bJhI1hrv/77N9/7ay94PBMyazDd1hqyE5k+8Zb9Zk
+	 PsdBVMzvqZZoqWFjmyvXL9qsPU2tXf8fw6sqdkxcGZ/Fe4n0GV3CrVPfkjOj7u9+65
+	 uhzUgQv19Tc27fxjaPv/8DQ7COIKBHVq9D2pDKrnFeXMMVRLUffBvfDT+3DR7WUGbL
+	 FmJO+8ux5DXug==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 17 Sep 2026 17:06:12 +0100
+Subject: [PATCH v3 02/20] kallsyms: index symbols by token to speed up
+ table compression
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/13] PCI: brcmstb: Declare and assign quirk
- 32BIT_PCI_OPS
-To: Jim Quinlan <james.quinlan@broadcom.com>, linux-pci@vger.kernel.org,
- Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- bcm-kernel-feedback-list@broadcom.com, jim2101024@gmail.com
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
- <20260911233541.1650895-8-james.quinlan@broadcom.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260911233541.1650895-8-james.quinlan@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Message-Id: <20260917-build-speedup-v3-2-9ecf4163ff36@kernel.org>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10123; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=zbRPUYikjG0pj4tnd7o4NOVhRtKN6z8Aq2ACsXCdP64=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLW8P+tac2rXKc+N6ws94vJu/TKuOhH25jcLRzKV1zn3
+ v829A1bRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACYisY3hD5f6A4merwl9vkGZ
+ +e/8H75wPFVzr2qPmdeD8kl7/YS1jBgZbtxgTOrwubTtyY6HqVOyorq/MB/ctjzDyq1TZaXVvE1
+ cTAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 9/11/26 16:35, Jim Quinlan wrote:
-> Declare a new quirk that indicates SoCs where the config-space accesses are
-> restricted to 32bit R/W.
-> 
-> Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
+The kallsyms program compresses symbols by figuring out the most commonly
+used substrings in all of the input symbols then uses special character
+codes to represent them.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+For instance, 0xf7 might end up representing "write_", then every single
+symbol that contains "write_" can use 0xf7 as a shorthand and save 5 bytes
+each time.
+
+'Special' character codes are any byte value that is not used in any
+symbol, either due to being an invalid character, or not being present in
+any symbol (e.g. if no symbol contains 'z', then 'z' can be used as special
+character).
+
+It does this by first figuring out which special characters are available
+in insert_real_symbols_in_table(), then iterating through every available
+special character, counting how many times each pair of adjacent characters
+appear in symbols in build_initial_token_table().
+
+These adjacent pairs are known as 'tokens'.
+
+Token counts are initially obtained by build_initial_token_table(), then
+optimize_result() calls find_best_token() to determine the token that
+appeared the most number of times and assigns it the next special
+character.
+
+Finally, optimize_result() calls compress_symbols() to replace every token
+in every symbol with its special character, which updates token_profit[] as
+it does so.
+
+This process is repeated for each remaining available special character,
+with tokens now perhaps containing previously assigned special
+characters (e.g. if 'wr' was assigned 0x80, then the token representing
+'wri' would be '\x80i').
+
+This compresses that token by 50% in each symbol it appears in (two bytes
+are now represented by one) and thus by repeatedly doing this kallsyms
+obtains good symbol compression.
+
+However, compress_symbols() is seriously inefficient - it iterates through
+EVERY symbol for EVERY special character assignment, i.e. ~256 *
+nr_symbols.
+
+Modern x86-64 kernels, for instance, have ~158,000 symbols, so millions of
+iterations are performed, most of which are entirely unnecessary (tokens
+don't appear in most symbols).
+
+In practice kallsyms spends half its runtime doing this, two or three times
+per vmlinux link step.
+
+Fix this by tracking which symbols each token appears in token_syms[], and
+only compress symbols which actually need to be updated.
+
+Each time a token is compressed that token can no longer appear in any
+symbol, so that token_syms[] entry can be freed.
+
+However new token_syms[] entries must be created for each new token
+containing the assigned special character, but this is bounded by the
+number of replacements in the symbol which is very small.
+
+In testing on an x86-64 platform using clang, each kallsyms invocation
+dropped from 0.59s to 0.33s with CONFIG_KALLSYMS_ALL set and from 0.38s to
+0.22s without it set.
+
+The data was carefully checked and verified to be byte-for-byte identical
+for six symbol sets (two vmlinux passes, vmlinux.o, three userspace
+binaries) with all option combinations.
+
+As part of this change, additionally refactor the code to be a little
+easier to follow.
+
+kallsyms runs two or three times on the serial tail of every build that
+links vmlinux, no-op builds do not link and are unchanged.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig, touch mm/vma.c, gcc       11.1s    10.6s    -0.53s (-5%)
+  x86 defconfig, touch mm/vma.c, clang     11.1s    10.5s    -0.64s (-6%)
+  x86 defconfig, clean, gcc                32.3s    31.3s     -1.0s (-3%)
+  x86 defconfig, clean, clang              34.2s    33.3s    -0.89s (-3%)
+  x86 allmodconfig, touch mm/vma.c, gcc    39.7s    38.7s     -1.0s (-3%)
+  x86 allmodconfig, touch mm/vma.c, clang  40.3s    39.1s     -1.3s (-3%)
+
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ scripts/kallsyms.c | 138 +++++++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 124 insertions(+), 14 deletions(-)
+
+diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
+index 494852ade6d8..350d118c3b9e 100644
+--- a/scripts/kallsyms.c
++++ b/scripts/kallsyms.c
+@@ -58,12 +58,47 @@ static unsigned int table_size, table_cnt;
+ static int all_symbols;
+ static int pc_relative;
+ 
++/* A dynamic array of symbols, encoded by symbol index. */
++struct sym_arr {
++	unsigned int *sym_indexes;
++	unsigned int cnt, cap;
++};
++
+ static int token_profit[0x10000];
++static struct sym_arr token_syms[0x10000];
+ 
+ /* the table that holds the result of the compression */
+ static unsigned char best_table[256][2];
+ static unsigned char best_table_len[256];
+ 
++static unsigned int sym_arr_last(const struct sym_arr *arr)
++{
++	return arr->cnt ? arr->sym_indexes[arr->cnt - 1] : UINT_MAX;
++}
++
++static void sym_arr_maybe_expand(struct sym_arr *arr)
++{
++	if (arr->cap > arr->cnt)
++		return;
++
++	arr->cap = arr->cap ? arr->cap * 2 : 16;
++	arr->sym_indexes = xrealloc(arr->sym_indexes,
++				    arr->cap * sizeof(*arr->sym_indexes));
++}
++
++static void sym_arr_add(struct sym_arr *arr, unsigned int sym_idx)
++{
++	sym_arr_maybe_expand(arr);
++	arr->sym_indexes[arr->cnt++] = sym_idx;
++}
++
++static void sym_arr_free(struct sym_arr *arr)
++{
++	free(arr->sym_indexes);
++	arr->sym_indexes = NULL;
++	arr->cnt = 0;
++	arr->cap = 0;
++}
+ 
+ static void usage(void)
+ {
+@@ -458,6 +493,15 @@ static void write_src(void)
+ 	printf("\n");
+ }
+ 
++static unsigned int token_index(unsigned char first, unsigned char second)
++{
++	return first + (second << 8);
++}
++
++static unsigned int sym_token_index(const unsigned char *symbol, int first_idx)
++{
++	return token_index(symbol[first_idx], symbol[first_idx + 1]);
++}
+ 
+ /* table lookup compression functions */
+ 
+@@ -467,7 +511,7 @@ static void learn_symbol(const unsigned char *symbol, int len)
+ 	int i;
+ 
+ 	for (i = 0; i < len - 1; i++)
+-		token_profit[ symbol[i] + (symbol[i + 1] << 8) ]++;
++		token_profit[sym_token_index(symbol, i)]++;
+ }
+ 
+ /* decrease the count for all the possible tokens in a symbol */
+@@ -476,16 +520,76 @@ static void forget_symbol(const unsigned char *symbol, int len)
+ 	int i;
+ 
+ 	for (i = 0; i < len - 1; i++)
+-		token_profit[ symbol[i] + (symbol[i + 1] << 8) ]--;
++		token_profit[sym_token_index(symbol, i)]--;
++}
++
++static void token_add_symbol(unsigned int token_idx, unsigned int sym_idx)
++{
++	struct sym_arr *arr = &token_syms[token_idx];
++
++	/* Symbol indexes kept in sorted order, check for duplicate. */
++	if (sym_arr_last(arr) == sym_idx)
++		return;
++
++	sym_arr_add(arr, sym_idx);
++}
++
++static void symbol_index_all_tokens(const unsigned char *symbol, int len,
++				    unsigned int sym_idx)
++{
++	int i;
++
++	for (i = 0; i < len - 1; i++) {
++		const unsigned int token_idx = sym_token_index(symbol, i);
++
++		token_add_symbol(token_idx, sym_idx);
++	}
++}
++
++/*
++ * The symbol just got compressed. The only parts of the symbol that changed
++ * meaningfully are those containing the newly assigned compressed char, so
++ * index those.
++ */
++static void symbol_index_new_tokens(const unsigned char *symbol, int len,
++				    unsigned int sym_idx, int compressed_chr)
++{
++	int i;
++
++	for (i = 0; i < len - 1; i++) {
++		const unsigned int token_idx = sym_token_index(symbol, i);
++
++		if (symbol[i] == compressed_chr ||
++		    symbol[i + 1] == compressed_chr)
++			token_add_symbol(token_idx, sym_idx);
++	}
+ }
+ 
+-/* do the initial token count */
+ static void build_initial_token_table(void)
+ {
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < table_cnt; i++)
+ 		learn_symbol(table[i]->sym, table[i]->len);
++
++	/*
++	 * The initial occurrence counts tell us exactly how much memory should
++	 * be reserved for each token's symbol array.
++	 */
++	for (i = 0; i < ARRAY_SIZE(token_syms); i++) {
++		const int nr_syms = token_profit[i];
++
++		if (!nr_syms)
++			continue;
++
++		token_syms[i].cap = nr_syms;
++		token_syms[i].sym_indexes =
++			xmalloc(nr_syms * sizeof(unsigned int));
++	}
++
++	/* For every symbol, index every token -> symbol it is present in. */
++	for (i = 0; i < table_cnt; i++)
++		symbol_index_all_tokens(table[i]->sym, table[i]->len, i);
+ }
+ 
+ static unsigned char *find_token(unsigned char *str, int len,
+@@ -502,27 +606,30 @@ static unsigned char *find_token(unsigned char *str, int len,
+ 
+ /* replace a given token in all the valid symbols. Use the sampled symbols
+  * to update the counts */
+-static void compress_symbols(const unsigned char *str, int idx)
++static void compress_symbols(const unsigned char *str, int compressed_chr)
+ {
+-	unsigned int i, len, size;
++	const unsigned int token_idx = sym_token_index(str, 0);
++	struct sym_arr *arr = &token_syms[token_idx];
++	unsigned int sym_idx, j, len, size;
+ 	unsigned char *p1, *p2;
+ 
+-	for (i = 0; i < table_cnt; i++) {
++	/* Iterate through all symbols this token is found in and compress. */
++	for (j = 0; j < arr->cnt; j++) {
++		sym_idx = arr->sym_indexes[j];
+ 
+-		len = table[i]->len;
+-		p1 = table[i]->sym;
++		len = table[sym_idx]->len;
++		p1 = table[sym_idx]->sym;
+ 
+-		/* find the token on the symbol */
+ 		p2 = find_token(p1, len, str);
+ 		if (!p2) continue;
+ 
+ 		/* decrease the counts for this symbol's tokens */
+-		forget_symbol(table[i]->sym, len);
++		forget_symbol(table[sym_idx]->sym, len);
+ 
+ 		size = len;
+ 
+ 		do {
+-			*p2 = idx;
++			*p2 = compressed_chr;
+ 			p2++;
+ 			size -= (p2 - p1);
+ 			memmove(p2, p2 + 1, size);
+@@ -536,11 +643,14 @@ static void compress_symbols(const unsigned char *str, int idx)
+ 
+ 		} while (p2);
+ 
+-		table[i]->len = len;
++		table[sym_idx]->len = len;
+ 
+-		/* increase the counts for this symbol's new tokens */
+-		learn_symbol(table[i]->sym, len);
++		learn_symbol(table[sym_idx]->sym, len);
++		symbol_index_new_tokens(table[sym_idx]->sym, len, sym_idx,
++					compressed_chr);
+ 	}
++
++	sym_arr_free(arr); /* No symbol contains this token any more. */
+ }
+ 
+ /* search the token with the maximum profit */
+
 -- 
-Florian
+2.55.0
+
