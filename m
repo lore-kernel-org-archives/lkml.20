@@ -1,90 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAAE4A206D;
-	Thu, 17 Sep 2026 09:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E581C4B0C88
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637743; cv=none; b=oaIk2TV+iT9fMgxD7HxqPmc+RoerSZCb4lDIY/3ksZ8pdsRkAt5B+QUiu9vPVpRQlSimBRvrC3FWu4pBv3bgQRin3uJi7XQDhgBDGW28A5X5rMRIm3JQJzl04eilgG5DArgoitNlXw9H/u2B0GW7OvpszWPfQSK4SoAS+V/5e3I=
+	t=1789637760; cv=none; b=YHi1iOzrb8BsY3H3+0rFa7B1ezxmwpJ6svuuWHcOjpfFWlTC5RZY6aTadNTygJ5y6WAPMc/E6XezAVDJrwH+h5lX1TU3Ya/sJlAdmoGpVdeSrSM8Rwnzcc9ztjdGfCBAIfohzp/BtPkYYahbtxAwMWp0L7E6ZHlF15mDVj0YupA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637743; c=relaxed/simple;
-	bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OgRIwb9s1aKyzPedhDWMTUYygbo+rKJus3EXCLLnBPvkDm6zP/6uzUeTNtk5U5xzuNt65DUVLxG/V+YL4eJJ0eglFX3eHltR7wwmhGv+lHUKn8Mt4BuOJSQsEFHdGo4VYCl7LsXHoBSiHxIVtI7kqjlB8DQYaNXYgwPhfGpVKWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nuDHQyhY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789637760; c=relaxed/simple;
+	bh=Oz8G4IOR6Gmqkd7yD6cQD3SSfjx7S8ayJRM3R9p6+sQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=XCq8UyK+ovak6wp0lO23ojTj8HRHWuR5hBv5W0tAfOb6OxxEswZzxNieqyyxKGmJ6Jmd5QAF9f+Jv3UiPuHCt9AWrv0lQZ7L6Zzrl1XcUmmpOx6M7gNXAZ79utdI9Y5BtErYTbdFBGM0ZXPecTA4q5lIkHRl67HVL2a6EGOvw/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oxhzcLRD; arc=none smtp.client-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nuDHQyhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080C1F000FF;
-	Thu, 17 Sep 2026 09:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789637728;
-	bh=y3Bksu4nsuzmvX3mOHjIHS2i6H1vZRzqxHYcTA5sqo0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nuDHQyhY1tFTfXzEcitVxdNcIWBaKVfVhqNf/PPt6+RICZxO4y9vXAo15zeRHhez6
-	 ZYVtQKn8riSQngpHGpuvoqTIMQxO95EUJ/hKjGCAHck4llBQZhW1tq21dhIBWkcvAP
-	 /nTO/yOm1UgB303s24+yuGBfuCNIwlsAvMX5mookX/A0fGLQpCzs7pOzWc0r0+T1u5
-	 UZFgKi5Vwb4PDZOKr4oWG+LRz5ColAj14EU7RTeDMkD00mm/XRdvYXIakeaRD32e+E
-	 LWkp6xawGWqxVp5lQzX8rfxwm3Cc8s75wy9erACQQTK5tB+1SB72DqWFqQUpQdsVsZ
-	 xl6dVuwb7jaFw==
-From: Christian Brauner <brauner@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] super: make iterate_supers_type() deletion-safe
-Date: Thu, 17 Sep 2026 11:34:54 +0200
-Message-ID: <20260917-ablegen-mitgearbeitet-syntaktisch-7dbfdb681783@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909193034.7467-1-kmehltretter@gmail.com>
-References: <20260909193034.7467-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oxhzcLRD"
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c29bc25836fso87641566b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789637745; x=1790242545; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vsyxKzqLMpsUXo8Lic/w3Wn8v7CPcrVQjEJhvbshmVE=;
+        b=oxhzcLRDRuX/gBo8vy0TKlSVL5ziY2v+kKlqu6Lb/KuleKdEBO8I3J+wv6nkrJbiXQ
+         vbPNjpLX6bQLTKGZWCcQjw+9UEF6Xceakc1L5R//WszwchnJB+34Kfq2zKLRpFpilLRS
+         XW3gYnxLFUCAIukeJNtZ4ZwgTu/nLrv6P3G3hl5IwEShcVD/890hy3mqAr7C6yjA0GYR
+         dCPh4LJvm5+AfZoxU/A2h9IahBGWAYbu7NMBY4q5FWV8jKAoYQqx7BzjkHjY1k++s3BR
+         2vhkWj9NyFIdj5Rzwr+mfEFi3b/fKWbehFFLktr0aqRSp7teY4QhtgT9zYwzhclfGIy4
+         MIPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789637745; x=1790242545;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vsyxKzqLMpsUXo8Lic/w3Wn8v7CPcrVQjEJhvbshmVE=;
+        b=Hcy1iQun/Ycys/knZlRiwqwQyhS1VoxvMYSknnh4trKIfTRAgdA3NKZup/inFs8EJg
+         +g1PmTGshflv/V/sRp3sTa+3QvQFVLGcKEHdGUnyfi2MK/4aHkRTZu6GryA3XnD/ZpfT
+         Xo16thFCPR8UAj7Yi7QMlARYPxRYGdYkDKowG1RjYfIYxA3jyMlNGDrhVmB9SFfj1JMT
+         +XeJjfjiT66fNnRfP+R/FfEFeItOWne6QgOWXsCQY3A+6CwLRKEZUeGQzPEmc610oP8/
+         P7Y8bpm/vAaxP7HDcaBCumeR5OGGtgpH6VQZrGXb2FnSu8R9GWHl/zO3WKENE6LzvymT
+         g5Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHU7Kaj0hzTi5dAT31Jakeg1flobveuQ/na6Ato5hSdhqwpSXBr/TftkyRXOdESnu5FkHtpxvYwMxC3dA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzPiR+S9BCABMQKGVHaxAuZZaM01lAuQf92pfbI8YqybixtRlq
+	E++p00wXFfuJ9FVGLBCoFL1B6z2gXki7UhnrZWKcEOPPSWyeq0FfKU/9NeG1zSHPB1WogN6zAI7
+	X8pXetZUmXICgVQ2MfA==
+X-Received: from ejoy22.prod.google.com ([2002:a17:906:4496:b0:c29:c42c:f427])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:9343:b0:c29:5712:a420 with SMTP id a640c23a62f3a-c29e51dc1e5mr387979866b.5.1789637744642;
+ Thu, 17 Sep 2026 02:35:44 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:35:43 +0000
+In-Reply-To: <20260915164000.124340-1-sagartaunk@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20260915164000.124340-1-sagartaunk@proton.me>
+Message-ID: <aqu0bzgMAUQe_LZ6@google.com>
+Subject: Re: [PATCH v2] rust: net: netlink: validate attribute length before
+ casting to `c_int`
+From: Alice Ryhl <aliceryhl@google.com>
+To: Sagar Taunk <sagartaunk@proton.me>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1576; i=brauner@kernel.org; h=from:subject:message-id; bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3hLFzhMTtFnpRn7DMd7l9c+VKrU99n28G661fVJMq 0jmK7/vHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMxkWT4X5fjxsGZNO+VcuFb u3XX61ad4DNzm3PM0a747vwlH2aeFmJk+Nkyc+EmlSO6/t079R8bFU92u+/huVxY1m7LnWMBVS2 OnAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
 
-On Wed, 09 Sep 2026 21:30:34 +0200, Karl Mehltretter wrote:
-> iterate_supers_type() drops sb_lock while invoking the callback and keeps
-> only a passive reference to the current superblock. That reference keeps
-> the object allocated, but does not keep its s_instances node linked.
+On Tue, Sep 15, 2026 at 04:40:10PM +0000, Sagar Taunk wrote:
+> `put()` trusted an unchecked `as` cast from `usize` to `c_int`.
+> When the length exceeds `i32::MAX` that cast wraps around to a
+> negative value.
 > 
-> After the iterator releases s_umount, final teardown can unlink the current
-> s_instances node. The iterator then advances through a reinitialized node.
-> With the current hlist it stops without visiting the remaining superblocks.
-> The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-> the cursor lifetime has been unsafe since the helper was introduced.
+> This ultimately resulted in a kernel panic when the reinterpreted
+> value via `__nla_reserve()` and `skb_put()` became enormous.
 > 
-> [...]
+> Validate payload and header both fit together in a `u16`, rejecting
+> any payload that wouldn't leave room for `NLA_HDRLEN`.
+> 
+> Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
 
-I'm moving this into vfs-7.4.misc for now but will bump it to vfs.fixes once
-I'm confident this is safe.
+This should include a Fixes: tag if it leads to a kernel panic.
 
----
+Can you also update the subject to [PATCH net vX] according to the
+guidelines in: Documentation/process/maintainer-netdev.rst
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+The patch itself LGTM.
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] super: make iterate_supers_type() deletion-safe
-      https://git.kernel.org/vfs/vfs/c/d1ac530407a3
+Alice
