@@ -1,58 +1,66 @@
-Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C7037C926
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458A137F002;
+	Thu, 17 Sep 2026 01:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610339; cv=none; b=nBWFB+u4jklcXF1hNeX0A0SeSMsRdfMl8pVPx1nkHKXKtM0s3x6/95is4q8eOWUv4oBTrMdPKqbiApI2WFLSIwWeIW5MqJye2WakyqcEfe7ETqRi3v7MwCwLq235k8Qj3Clrve/8eR8AuQ32IbFSIl8PGaN1IsSFqNwX5gCPZrY=
+	t=1789610380; cv=none; b=u6CGcoNOhYGgNGu+jGVBezBDnjBCpmOrUIIhLXIVuzVcDImbheZoBkS4b89MX2zxYrPeNKoFzgo1e9X1bd9v5XHXnlgqQwO/OU3ClT6w29mdKDPklgCJ4dI7YN89yQ4TPIVaDIXYzrm+On8VnegBl1dcBjVB45gWqNIBzKlzKcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610339; c=relaxed/simple;
-	bh=COPF3YEMiQ3Yab0KaIhKYX8PYpi8LggU23AZSVaYTms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dpAA8J9OPe7FFzvdjAJyGLh4tSXGp4dSxFWPtrNQe3k3YlpW6OYCYyiAeV1r02S+rV75lejN1sF4WeCzdBXT7hWJEUUUTjuKOOjmuxx5sxDfGfEu6w7qqxRpz3s1E5mojpqoEiipd+xtXDktoJT5GMDmWC+XJTE94AGyGXxr4UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FfJDNnpa; arc=none smtp.client-ip=91.218.175.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789610380; c=relaxed/simple;
+	bh=2VrXQEM8vPAmtcfocG1nlF85piyJ7bLm8MT+F6WdEkc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=t5s7CNz4X9oYSvnTMWahhado5sN9iqH1VPt42miArCp3ZYtSTrUA9GyoQtUvEqOul9uL7BwL64upohRyhxLjppD0K2rpmADrgrAlEOfzDTSj5HakDi9j9/v+54qX0gnqMpfSozcIju4tMx2Fio6iSxGv/0qK3ACr6WaFBPxgJ4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hhuOxuO7; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FfJDNnpa"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=COPF3YEMiQ3Yab0KaIhKYX8PYpi8LggU23AZSVaYTms=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789610335; v=1; x=1790215135;
- b=FfJDNnpa7b7fu9rvwqMgIOlZtwaEqx/C4UyEoYZhDnviEUkIw1yh3YsIQ1KzlR59Mg+3j1Wx
- /4uCZTq/YsZzXgqWoKME/30Ow0pZaxCLteEyjHnNyC1cdNFyh2FwFG6JQscGaJJ77/gR5qM7hLO
- bjo3kewFKi3WnIy30g9DIP6k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6a091610fe011f4e;
-	Thu, 17 Sep 2026 01:58:55 +0000
-X-Mizu-Trace-ID: 6a091610fe011f4e
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v7 4/4] selftests/bpf: Add a test for arena fault-in under memory.max
-Date: Thu, 17 Sep 2026 09:55:09 +0800
-Message-ID: <20260917015618.7488-5-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917015618.7488-1-jiayuan.chen@linux.dev>
-References: <20260917015618.7488-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hhuOxuO7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789610378; x=1821146378;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2VrXQEM8vPAmtcfocG1nlF85piyJ7bLm8MT+F6WdEkc=;
+  b=hhuOxuO7jRPI22XEs5EdVLXSYw1ArnSPIxaUH3ZZ5gwL9jk0jlaX207y
+   uG4rRQvuQ/5q8S8p+SFgKX9mmZdRauAEjmPlB1ZH4I33b1QyZYjgaNoA7
+   97C+QQKi6kzQdS174SKq50dINL+hLcCZ1JlP6dNt6NrPAQZPjLOouNfaC
+   6pMW9t6K33TU5LwW0aGeOvWQufkvNRaBn7PcfAwZ6lR2E6iLZFstAMnwV
+   Qbf4YgKVUM+n4j0hWkwI3p3N7MIqAfJeCa06AdVLeHu5JKUUpr/B0zL/E
+   UyQMtQ8iaVWdWA5aY90zHjGvIZ7yVKyMWkJyHTHaWW/ImUd/OP3qFAHqI
+   g==;
+X-CSE-ConnectionGUID: AW9FpDnUQRyViEB3kAwgsA==
+X-CSE-MsgGUID: 6NFHF1xzTBGr4lqMPlFgkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107498522"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="107498522"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 18:59:37 -0700
+X-CSE-ConnectionGUID: Ispg4ayTRai08EeH6rTnkg==
+X-CSE-MsgGUID: f7NEaC6KQz27ABApBYqI7A==
+X-ExtLoop1: 1
+Received: from spr.sh.intel.com ([10.112.229.196])
+  by fmviesa003.fm.intel.com with ESMTP; 16 Sep 2026 18:59:33 -0700
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [PATCH 00/12] perf/x86/intel: PEBS data-source fixes and OMR updates
+Date: Thu, 17 Sep 2026 09:52:22 +0800
+Message-Id: <20260917015234.981153-1-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,283 +69,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A child joins a memcg, fills it with 128M of clean page cache by reading
-a sparse temp file (the way the cgroup selftests do), caps memory.max 8M
-above its usage and then faults 64M of arena in, which only fits by
-reclaiming that cache.
+This series fixes several recently identified PEBS data-source issues on
+both P-cores and E-cores.
 
-With the fix the arena fault-in reclaims, every fault succeeds and the
-child exits 0. Without it the allocation cannot reclaim, fails once the
-headroom is used up, and the child dies with SIGSEGV on a valid arena
-address, so the test fails.
+On the P-core side, some memory events that can not provide valid PEBS
+data-source information, like MEM_INST_RETIRED.STLB_MISS_LOADS, are
+marked as data-source capable, which can lead to incorrect decoding
+results.
 
-  # test_progs -v -t arena_memcg
-  serial_test_arena_memcg:PASS:child faulted the arena in
-  #8       arena_memcg:OK
+On the E-core side, MEM_UOPS_RETIRED.STORE_LATENCY event isn't set the
+STORE direction flag, causing store operations to be decoded as loads.
 
-  # without the fix
-  child killed by signal 11
-  serial_test_arena_memcg:FAIL:child faulted the arena in
+The last three patches add support for precise OMR events and rename the
+DMR/NVL sysfs attribute from offcore_rsp to offmodule_rsp so the
+interface matches the underlying OMR events and avoids user confusion.
 
-The page cache must be reclaimable, so the temp file has to live on a
-disk-backed filesystem, not tmpfs - the same assumption the cgroup
-selftests make.
+Patch layout:
+- Patches 01-04: Fix E-core memory operation decoding.
+- Patches 05-06: Remove events without valid PEBS data-source support
+  from the PEBS constraint tables.
+- Patch 07: Fix two incorrect snoop-state decodings for Panther Cove.
+- Patch 08: Remove dead code from NVL data-source initialization.
+- Patch 09: Update Panther Cove event constraints.
+- Patch 10: Add precise OMR event support for DMR/NVL.
+- Patches 11-12: Rename the DMR/NVL offcore_rsp sysfs attribute to
+  offmodule_rsp.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-To sashiko:
-- The non-arm64 1<<44 map_extra is copied from the existing arena tests.
-- waitpid() without an EINTR retry is copied from the existing tests.
-- fork() then work without exec follows the existing tests (the
-  SIGEV_THREAD watchdog is test_progs-wide).
-- Not skipping on EOPNOTSUPP (unsupported arena JIT) follows most of the
-  existing arena tests; only arena_direct_value/arena_spin_lock skip.
-- cgroup.memory=nobpf would charge the arena pages to the root memcg, so
-  the limit would not bind and the test would pass either way; CI does
-  not configure it.
-- The test SKIPs when the working directory cannot host the reserve: it
-  detects tmpfs (shmem pages are not reclaimable without swap) and a
-  filesystem without O_TMPFILE support. The cgroup selftests make the
-  same assumption about the working directory.
----
- .../selftests/bpf/prog_tests/arena_memcg.c    | 196 ++++++++++++++++++
- .../testing/selftests/bpf/progs/arena_memcg.c |  23 ++
- 2 files changed, 219 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/arena_memcg.c
- create mode 100644 tools/testing/selftests/bpf/progs/arena_memcg.c
+Tests:
+- Run below commands on ARL and PTL, data source can be correctly
+  parsed for both P-core and E-core.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/arena_memcg.c b/tools/testing/selftests/bpf/prog_tests/arena_memcg.c
-new file mode 100644
-index 0000000000000..c76a7eb2f01d9
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/arena_memcg.c
-@@ -0,0 +1,196 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+#include <test_progs.h>
-+#include <fcntl.h>
-+#include <linux/magic.h>
-+#include <sys/vfs.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+#include <sys/user.h>
-+#ifndef PAGE_SIZE /* on some archs it comes in sys/user.h */
-+#define PAGE_SIZE getpagesize()
-+#endif
-+
-+#include "cgroup_helpers.h"
-+#include "arena_memcg.skel.h"
-+
-+#define CG_PATH		"/arena_memcg"
-+
-+/* Reclaimable page cache the child builds up before it gets capped. */
-+#define RECLAIMABLE	(128 * 1024 * 1024)
-+/* Headroom left under memory.max, far less than the arena we fault in. */
-+#define HEADROOM	(8 * 1024 * 1024)
-+/* Arena to fault in; it only fits by reclaiming the page cache. */
-+#define ARENA_FAULT	(64 * 1024 * 1024)
-+/* Child exit code for "this environment cannot host the test". */
-+#define CHILD_UNSUPPORTED	9
-+
-+static void dump_memcg(void)
-+{
-+	char buf[512];
-+
-+	if (!read_cgroup_file(CG_PATH, "memory.max", buf, sizeof(buf)))
-+		fprintf(stderr, "memory.max: %s", buf);
-+	if (!read_cgroup_file(CG_PATH, "memory.peak", buf, sizeof(buf)))
-+		fprintf(stderr, "memory.peak: %s", buf);
-+	if (!read_cgroup_file(CG_PATH, "memory.events", buf, sizeof(buf)))
-+		fprintf(stderr, "memory.events:\n%s", buf);
-+}
-+
-+/*
-+ * Fill the page cache with @size bytes of clean, reclaimable pages by
-+ * reading a sparse temp file, the way the cgroup selftests do. Returns the
-+ * fd, which must stay open: closing it drops the cache. Returns -EOPNOTSUPP
-+ * if the working directory cannot back such a file, -1 on error.
-+ */
-+static int alloc_pagecache(size_t size)
-+{
-+	struct statfs stfs;
-+	char buf[4096];
-+	size_t off;
-+	int fd;
-+
-+	fd = open(".", O_TMPFILE | O_RDWR | O_EXCL, 0600);
-+	if (fd < 0)
-+		return errno == EOPNOTSUPP ? -EOPNOTSUPP : -1;
-+	/* tmpfs hands out shmem pages, which are not reclaimable without swap */
-+	if (fstatfs(fd, &stfs) || stfs.f_type == TMPFS_MAGIC) {
-+		close(fd);
-+		return -EOPNOTSUPP;
-+	}
-+	if (ftruncate(fd, size))
-+		goto err;
-+	for (off = 0; off < size; off += sizeof(buf))
-+		if (read(fd, buf, sizeof(buf)) < 0)
-+			goto err;
-+	return fd;
-+err:
-+	close(fd);
-+	return -1;
-+}
-+
-+void serial_test_arena_memcg(void)
-+{
-+	int cgroup_fd = -1, status, err;
-+	const long ps = PAGE_SIZE;
-+	char buf[64];
-+	pid_t pid;
-+
-+	err = setup_cgroup_environment();
-+	if (!ASSERT_OK(err, "setup_cgroup_environment"))
-+		goto out;
-+
-+	cgroup_fd = create_and_get_cgroup(CG_PATH);
-+	if (!ASSERT_OK_FD(cgroup_fd, "create_and_get_cgroup"))
-+		goto out;
-+
-+	/* No memory controller -> nothing to test. */
-+	if (read_cgroup_file(CG_PATH, "memory.current", buf, sizeof(buf))) {
-+		fprintf(stderr, "%s:SKIP:no memory controller or other env error\n",
-+			__func__);
-+		test__skip();
-+		goto out;
-+	}
-+
-+	pid = fork();
-+	if (!ASSERT_GE(pid, 0, "fork"))
-+		goto out;
-+	if (pid == 0) {
-+		struct arena_memcg *cskel;
-+		__u32 i, npages;
-+		char *base;
-+		size_t sz;
-+		long cur;
-+		int fd;
-+
-+		/*
-+		 * Everything runs in the child: the arena vma is VM_DONTCOPY so
-+		 * it does not survive fork(), and only the child should be under
-+		 * the limit. The work dir belongs to the parent, so use the
-+		 * _parent() helpers; errors come back as an exit code, ASSERT_*
-+		 * does not reach the parent from here.
-+		 */
-+
-+		/* Step 1: join the memcg, so what follows is charged to it. */
-+		snprintf(buf, sizeof(buf), "%d", getpid());
-+		if (write_cgroup_file_parent(CG_PATH, "cgroup.procs", buf))
-+			_exit(2);
-+
-+		/*
-+		 * Step 2: load the arena. A map is charged to whoever creates
-+		 * it, hence joining first.
-+		 */
-+		cskel = arena_memcg__open_and_load();
-+		if (!cskel)
-+			_exit(3);
-+		base = bpf_map__initial_value(cskel->maps.arena, &sz);
-+		if (!base)
-+			_exit(4);
-+		npages = ARENA_FAULT / ps;
-+		if (npages > bpf_map__max_entries(cskel->maps.arena))
-+			_exit(5);
-+
-+		/* Step 3: make RECLAIMABLE bytes of clean page cache. */
-+		fd = alloc_pagecache(RECLAIMABLE);
-+		if (fd == -EOPNOTSUPP)
-+			_exit(CHILD_UNSUPPORTED);
-+		if (fd < 0)
-+			_exit(6);
-+
-+		/*
-+		 * Step 4: set memory.max to what we use now plus HEADROOM. The
-+		 * page cache is already inside the limit, so only HEADROOM is
-+		 * left.
-+		 */
-+		if (read_cgroup_file_parent(CG_PATH, "memory.current", buf, sizeof(buf)))
-+			_exit(7);
-+		cur = strtol(buf, NULL, 10);
-+		snprintf(buf, sizeof(buf), "%ld", cur + HEADROOM);
-+		if (write_cgroup_file_parent(CG_PATH, "memory.max", buf))
-+			_exit(8);
-+
-+		/*
-+		 * Step 5: fault ARENA_FAULT of arena in, much more than
-+		 * HEADROOM. Once it hits memory.max every further page has to
-+		 * come from reclaiming the page cache. With the fix the
-+		 * fault-in reclaims and all of it succeeds; without it the
-+		 * allocation cannot reclaim and we die on a valid address.
-+		 */
-+		for (i = 0; i < npages; i++)
-+			base[(size_t)i * ps] = 1;
-+		_exit(0); /* fd deliberately kept open until here */
-+	}
-+
-+	if (!ASSERT_EQ(waitpid(pid, &status, 0), pid, "waitpid"))
-+		goto out;
-+
-+	/* The working directory cannot hold a reclaimable page cache. */
-+	if (WIFEXITED(status) && WEXITSTATUS(status) == CHILD_UNSUPPORTED) {
-+		fprintf(stderr, "%s:SKIP:no disk-backed O_TMPFILE in cwd\n", __func__);
-+		test__skip();
-+		goto out;
-+	}
-+
-+	/* A non-zero exit means the child failed to set up; the code says where. */
-+	if (WIFEXITED(status) && WEXITSTATUS(status)) {
-+		ASSERT_OK(WEXITSTATUS(status), "child setup");
-+		goto out;
-+	}
-+
-+	/*
-+	 * With the fix the arena fault-in reclaims the page cache and every
-+	 * fault succeeds, so the child exits 0. Without it the allocation
-+	 * cannot reclaim, fails once the headroom is used up, and the child
-+	 * dies with SIGSEGV on a valid arena address.
-+	 */
-+	if (!ASSERT_TRUE(WIFEXITED(status) && !WEXITSTATUS(status),
-+			 "child faulted the arena in")) {
-+		if (WIFSIGNALED(status))
-+			fprintf(stderr, "child killed by signal %d\n", WTERMSIG(status));
-+		dump_memcg();
-+	}
-+out:
-+	if (cgroup_fd >= 0)
-+		close(cgroup_fd);
-+	cleanup_cgroup_environment();
-+}
-diff --git a/tools/testing/selftests/bpf/progs/arena_memcg.c b/tools/testing/selftests/bpf/progs/arena_memcg.c
-new file mode 100644
-index 0000000000000..aff73757e7941
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/arena_memcg.c
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include "bpf_arena_common.h"
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARENA);
-+	__uint(map_flags, BPF_F_MMAPABLE);
-+	/*
-+	 * Number of pages. Must cover ARENA_FAULT on the smallest page size
-+	 * (64M/4K = 16384) yet stay under the 4G arena limit on 64K pages
-+	 * (50000*64K = 3.2G).
-+	 */
-+	__uint(max_entries, 50000);
-+#ifdef __TARGET_ARCH_arm64
-+	__ulong(map_extra, 0x1ull << 32); /* start of mmap() region */
-+#else
-+	__ulong(map_extra, 0x1ull << 44); /* start of mmap() region */
-+#endif
-+} arena SEC(".maps");
-+
-+char _license[] SEC("license") = "GPL";
+  P-core:
+  1. perf record -e cpu_core/MEM_TRANS_RETIRED.LOAD_LATENCY_GT_4/p -d \
+     	-c 1000 -a -- sleep 1 && perf script -F data_src 
+
+     output:
+     "10268100142 |OP LOAD|LVL L1 hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A"
+
+  2. perf record -e cpu_core/MEM_TRANS_RETIRED.STORE_SAMPLE/p -d \
+    	-c 1000 -a -- sleep 1 && perf script -F data_src
+
+     output:
+     "10268100144 |OP STORE|LVL L1 hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A"
+
+  3. perf record -e cpu_core/MEM_INST_RETIRED.STLB_MISS_LOADS/p -d \
+        -c 1000 -a -- sleep 1 && perf script -F data_src
+
+     output:
+     "1e05080021 |OP N/A|LVL N/A|SNP N/A|TLB N/A|LCK N/A|BLK  N/A"
+
+  E-core:
+  1. perf record -e \ 
+      cpu_atom/event=0xd0,umask=0x5,ldlat=0x4,name=MEM_UOPS_RETIRED.LOAD_LATENCY_GT_4/p \
+      -d -c 1000 -a -- sleep 1 && perf script -F data_src
+
+     output:
+     "10268100142 |OP LOAD|LVL L1 hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A"
+
+  2. perf record -e \
+      cpu_atom/event=0xd0,umask=0x6,name=MEM_UOPS_RETIRED.STORE_LATENCY/p \
+      -d -c 1000 -a -- sleep 1 && perf script -F data_src
+  
+     output:
+     "10668080084 |OP STORE|LVL L3 miss|SNP N/A|TLB L1 or L2 hit|LCK No|BLK  N/A"
+- Run below precise OMR events on PTL P-core, records can be captured
+  successfully.
+
+  1. perf record -e cpu_core/MEM_LOAD_L2_MISS_RETIRED.L3_HIT_SAME_CBB/p \
+     	-c 1000 -a -- sleep 1
+
+  2. perf record -e cpu_core/MEM_STORE_L2_MISS_RETIRED.L2_OTHER_MODULE.SAME_CBB.HITM.SNP_FWD/p \
+        -c 1000 -a -- sleep 1
+     
+
+Dapeng Mi (12):
+  perf/x86/intel: Fix GRT PEBS load/store direction for latency events
+  perf/x86/intel: Fix CMT PEBS load/store direction for latency events
+  perf/x86/intel: Fix DKT PEBS load/store direction for latency events
+  perf/x86/intel: Update arw_latency_data() mem-op direction handling
+  perf/x86/intel: Remove incorrect LionCove PEBS data-source constraints
+  perf/x86/intel: Remove incorrect PantherCove PEBS data-source
+    constraints
+  perf/x86/intel: Correct Panther cove data source snoop states
+  perf/x86/intel: Delete dead NVL PEBS data-source init call
+  perf/x86/intel: Constrain PantherCove UOPS_DISPATCHED events
+  perf/x86/intel: Add precise OMR event support for DMR/NVL
+  perf/x86/intel: Rename DMR offcore_rsp attribute to offmodule_rsp
+  perf/x86/intel: Rename NVL offcore_rsp attribute to offmodule_rsp
+
+ arch/x86/events/intel/core.c | 55 ++++++++++++++++++++++++---
+ arch/x86/events/intel/ds.c   | 74 +++++++++++++++++-------------------
+ arch/x86/events/perf_event.h |  4 --
+ 3 files changed, 83 insertions(+), 50 deletions(-)
+
+
+base-commit: 68aca309e49c589f1922f4c5af2370e4df093175
 -- 
-2.43.0
+2.34.1
 
