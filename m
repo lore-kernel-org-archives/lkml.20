@@ -1,139 +1,248 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0872C4C10C3;
-	Thu, 17 Sep 2026 15:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC1E28BAB9;
+	Thu, 17 Sep 2026 15:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659525; cv=none; b=oVdUyIaCSkHUEmRwk9+bCepgrXxbsgtMLsQHtXk3M5Ot5wNSP4e+LkXrcpgyhVVROSnYilbGW/tDF+XMMXfNPioey8KAAFekHICJijuh3z/Emd0zXQVb6HdW3myIMpgqEfBUMb+Vw85axpBHyQ3kMCqfKsJev/jwpfiqDQ8tuvQ=
+	t=1789659528; cv=none; b=qXgVGnYMgP5Hgs9OK5JGbAgNJUUznwGeRP3A5RckR2Iq3frZowkgCmFhDpPNP7eBdFIK/xFLtFjGoUXQTKQ7yjHDE0KMjF2bHgoZfAgDS6GAVJh1qHytGEiNWbSjP3KA8ZVQ6LL59Xvy5nbQSKaAwssu3/WQD+m180w6AN0qDOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659525; c=relaxed/simple;
-	bh=1oYRZuFvI7S5Ss30nbv/q/igQt3wf8fSuSjrcbba7rg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jhB3zXsXxEuRWamrKilu2Yq4QFsOne0uEG0n034XIZhHStOtEJTIOPNCow7WisNJaVWbsWMxQKPfFYnM2JG/C0uF4aXgJL4Kch8OT05E2troTPAyD3iK1ShiRfTYCBMoLKWFM9V9pMjV77UR2tz5Y8JOfsRLSYgIQVHpWs3MXq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=UDmSO912; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789659528; c=relaxed/simple;
+	bh=0+ETC/SQiQDsuGPxUQtzMM9WtX+4Fn5g3v5BL2aB3OQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=KvOFKCPsj92wesZWYeAbtN35aGC//RkXA2X4XdcBLyHJIHRsnwXLMnOosGbHh4zWuSpStZ8Xt4549wJQN3g8GhRdCvwFzXnBoCgyJCUQDym9QWHyAHc5CSW5JT8jZCirk7/ZmUv9TEfb7CmMne9ik+GklxqH5upCOyKXXH3ABa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jv6+NfE3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="UDmSO912"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789659510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=90vRHS/V2op7RmcBd44fFmnN4zQU+VelDx0s5M+vwFw=;
-	b=UDmSO912lz9HQIXGCfg1yANuGdAl9lisdAlTwjkdN52BTL27JaASmhbir4+lN8FzD+7t6F
-	UFliOcP0E7lWYww8TLKU6t1JZ9F0WzwbFDHrUWmLt+pi5g6IBNG++hpOLjc9775sBH2E+2
-	tJ5I6csVmDJ5Nuzr5m8n26m/IQ26cv8fkJE6yifECQrwg2+4Gfu+hTR9PPj1C0TvhPSoz8
-	tA3C/8ePY3bigrOFQXS3tPwJBBR29WazqK/65Zmconhor/0ClgkRm5hQ32hzrcihK01sC4
-	inEIEAJrWsYeVDsyaXbX72Nk7NERHhfwxg+SqQR8ausCS+kkzx6+ehDwJlTEQw==
-Date: Thu, 17 Sep 2026 17:37:36 +0200
-Subject: [PATCH 2/3] spi: Parse the rx-sample-delay-ns peripheral property
- in the core
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jv6+NfE3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67D31F008A3;
+	Thu, 17 Sep 2026 15:38:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789659520;
+	bh=fPAmSlcW5N7C7Idgx6/XWyCPw21zadIulLcJz5dlKpU=;
+	h=Date:From:To:Cc:Subject;
+	b=Jv6+NfE3POuamKyNSgazDhW/i+w8kLLRqCCzJgwKZPacnYWPzfP9UfJhlj4zWLC/8
+	 rNxqdVRXXstH+FjNBy66f4kQ/aQEG+sQCNtQjGsY3pAA68mYoeC7qrkwQzbrhiUQ1d
+	 zIO3cH8k4Es7pZsE40CA01jFDr+P5JmTXg1NRdXzUgB7yYWHqh1TWycw6Ln1f0VM9P
+	 2Pp6af9FINlB2DWpus94VZz9DKG5EgNcNJu51dHYfP157MZZ+ZwOaOGZXczxkFLKkU
+	 4kKbgj+K/Vmmj01eAYlpFRxX7yQFURXybtIrD6BlPrB0o4rUywZewtQbLpOhwM4Xia
+	 IjtXSgKaGAyAw==
+Date: Thu, 17 Sep 2026 16:38:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	"Martin K. Petersen" <mkp@kernel.org>, ZHOU Jiaxiang <me@fxti.xyz>
+Subject: linux-next: manual merge of the block tree with the scsi-fixes tree
+Message-ID: <aqwJe4SYbqZ2Kt6m@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-spi-sample-delay-cleanup-v1-2-0e4eddbfb1ce@kontron.de>
-References: <20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de>
-In-Reply-To: <20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3132;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=YuOQ2sqjfzq8/kx5BwZr8fKOIcuHnw/CDnFbgOkUBAA=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWsNZ+nkJ7MO8nvOX/1zqUXqnznvJu3/ztG453VwFsOzG
- vl1GR6XO0pZGMS4GGTFFFmk+C1e25rF+sgfq46CmcPKBDKEgYtTACbinsnI8FHI621ifKffP4+s
- Ko9XVzzU4tY4XZhYmGc0xbX/hafJPIa/8uH+R0W3Sm3O+9Oj1ygh6Nll+HMS24qphVwOCxYX/9v
- NAwA=
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0sz8gFN6MxOXEQy1"
+Content-Disposition: inline
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-"rx-sample-delay-ns" is documented in spi-peripheral-props.yaml as a
-generic SPI peripheral property, but the core never looks at it. Only
-spi-dw reads it from the peripheral node as the binding describes, and
-any other driver wanting to act on it would have to duplicate that.
+--0sz8gFN6MxOXEQy1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add spi_device.rx_sample_delay_ns and parse the property once, in
-__spi_add_device(), which covers every way a device can be instantiated
-and runs before ->setup().
+Hi all,
 
-Use device_property_read_u32() rather than adding this to
-of_spi_parse_dt(). spi-dw already uses the fwnode accessor, so the
-property works today on ACPI and software node platforms such as the
-ones served by spi-dw-pci, and parsing it only in the device tree path
-would quietly drop it there.
+Today's linux-next merge of the block tree got a conflict in:
 
-No functional change, since nothing reads the new field yet.
+  block/blk-zoned.c
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- drivers/spi/spi.c       | 9 +++++++++
- include/linux/spi/spi.h | 9 +++++++++
- 2 files changed, 18 insertions(+)
+between commit:
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 5b5b3bc5f0d8..9e3c24ed8f9f 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -929,6 +929,15 @@ static int __spi_add_device(struct spi_device *spi, struct spi_device *parent)
- 		}
- 	}
- 
-+	/*
-+	 * Peripheral properties the core handles on behalf of controller
-+	 * drivers are parsed here, rather than in the firmware specific
-+	 * instantiation paths, so that device tree, ACPI and software nodes
-+	 * are covered alike, and early enough for ->setup() to act on them.
-+	 */
-+	device_property_read_u32(&spi->dev, "rx-sample-delay-ns",
-+				 &spi->rx_sample_delay_ns);
-+
- 	/*
- 	 * Drivers may modify this initial i/o setup, but will
- 	 * normally rely on the device being setup.  Devices
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index 88d17fce02dc..fb4baa0d3398 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -169,6 +169,12 @@ extern void spi_transfer_cs_change_delay_exec(struct spi_message *msg,
-  * @cs_inactive: delay to be introduced by the controller after CS is
-  *	deasserted. If @cs_change_delay is used from @spi_transfer, then the
-  *	two delays will be added up.
-+ * @rx_sample_delay_ns: Delay in nanoseconds by which the controller should
-+ *	postpone sampling the incoming data, relative to the sampling point it
-+ *	uses by default. Describes the board rather than the device, namely the
-+ *	flight time of the clock and data signals between controller and
-+ *	device, and comes from the "rx-sample-delay-ns" property. Zero when the
-+ *	property is absent.
-  * @chip_select: Array of physical chipselect, spi->chipselect[i] gives
-  *	the corresponding physical CS for logical CS i.
-  * @num_chipselect: Number of physical chipselects used.
-@@ -235,6 +241,9 @@ struct spi_device {
- 	struct spi_delay	cs_hold;
- 	struct spi_delay	cs_inactive;
- 
-+	/* Additional delay before the incoming data is sampled, in ns */
-+	u32			rx_sample_delay_ns;
-+
- 	u8			chip_select[SPI_DEVICE_CS_CNT_MAX];
- 	u8			num_chipselect;
- 
+  7c431d61b69a3 ("scsi: block: Fix zones_cond out-of-bounds write on zone r=
+eport")
 
--- 
-2.55.0
+=66rom the scsi-fixes tree and commit:
 
+  670a7da6359f2 ("block: refactor disk_revalidate_zone_resources()")
+
+=66rom the block tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+Note that I'm very unconvinced by this merge.
+
+diff --cc block/blk-zoned.c
+index 475aa16bc41a5,ec510d66dfe2b..0000000000000
+--- a/block/blk-zoned.c
++++ b/block/blk-zoned.c
+@@@ -2014,46 -2192,18 +2192,20 @@@ struct blk_revalidate_zone_args=20
+  	sector_t	sector;
+  };
+ =20
+- static int disk_revalidate_zone_resources(struct gendisk *disk,
+- 				struct blk_revalidate_zone_args *args)
++ static int disk_init_revalidate_args(struct gendisk *disk,
++ 				     struct blk_revalidate_zone_args *args)
+  {
+- 	struct queue_limits *lim =3D &disk->queue->limits;
+- 	unsigned long long nr_zones;
+- 	unsigned int pool_size;
+- 	int ret =3D 0;
+-=20
+  	args->disk =3D disk;
+- 	nr_zones =3D DIV_ROUND_UP_ULL(get_capacity(disk), lim->chunk_sectors);
+- 	if (nr_zones > UINT_MAX) {
+- 		pr_warn("%s: Too many zones (%llu)\n", disk->disk_name, nr_zones);
++ 	args->nr_zones =3D disk_get_nr_zones(disk, args->capacity);
+++	if (args->nr_zones > UINT_MAX)
+ +		return -EINVAL;
+- 	}
+- 	args->nr_zones =3D nr_zones;
+ =20
+  	/* Cached zone conditions: 1 byte per zone */
+- 	args->zones_cond =3D kzalloc(args->nr_zones, GFP_NOIO);
+- 	if (!args->zones_cond)
++ 	args->zones_state =3D kzalloc(args->nr_zones, GFP_NOIO);
++ 	if (!args->zones_state)
+  		return -ENOMEM;
+ =20
+- 	if (!disk_need_zone_resources(disk))
+- 		return 0;
+-=20
+- 	/*
+- 	 * If the device has no limit on the maximum number of open and active
+- 	 * zones, use BLK_ZONE_WPLUG_DEFAULT_POOL_SIZE.
+- 	 */
+- 	pool_size =3D max(lim->max_open_zones, lim->max_active_zones);
+- 	if (!pool_size)
+- 		pool_size =3D
+- 			min(BLK_ZONE_WPLUG_DEFAULT_POOL_SIZE, args->nr_zones);
+-=20
+- 	if (!disk->zone_wplugs_hash) {
+- 		ret =3D disk_alloc_zone_resources(disk, pool_size);
+- 		if (ret)
+- 			kfree(args->zones_cond);
+- 	}
+-=20
+- 	return ret;
++ 	return 0;
+  }
+ =20
+  /*
+@@@ -2131,48 -2307,54 +2309,47 @@@ unfreeze
+  	return ret;
+  }
+ =20
+- static int blk_revalidate_zone_cond(struct blk_zone *zone, unsigned int i=
+dx,
++ static void disk_drop_zone_wplug(struct blk_zone_wplug *zwplug, void *dat=
+a)
++ {
++ 	unsigned long flags;
++=20
++ 	spin_lock_irqsave(&zwplug->lock, flags);
++ 	disk_zone_wplug_abort(zwplug);
++ 	disk_mark_zone_wplug_dead(zwplug);
++ 	spin_unlock_irqrestore(&zwplug->lock, flags);
++ }
++=20
++ static int disk_revalidate_capacity(struct gendisk *disk,
+  				    struct blk_revalidate_zone_args *args)
+  {
+- 	enum blk_zone_cond cond =3D zone->cond;
+ -	struct queue_limits *lim =3D &disk->queue->limits;
+ -	sector_t zone_sectors =3D lim->chunk_sectors;
++ 	unsigned int nr_zones;
++ 	int ret =3D -ENODEV;
+ =20
+- 	if (idx >=3D args->nr_zones) {
+- 		pr_warn("%s: Zone report index %u exceeds zone count %u\n",
+- 			args->disk->disk_name, idx, args->nr_zones);
+- 		return -EINVAL;
+ -	/* Checks that the device driver indicated a valid zone size. */
+ -	if (!zone_sectors || !is_power_of_2(zone_sectors)) {
+ -		pr_warn("%s: Invalid non power of two zone size (%llu)\n",
+ -			disk->disk_name, zone_sectors);
+ -		goto drop_all_zwplugs;
+ -	}
+ -
++ 	args->capacity =3D get_capacity(disk);
++ 	nr_zones =3D disk_get_nr_zones(disk, args->capacity);
++ 	if (!args->capacity || !nr_zones)
++ 		goto drop_all_zwplugs;
+++	if (args->capacity >=3D args->nr_zones)
+++		goto drop_all_zwplugs;
++=20
++ 	/*
++ 	 * Check if the capacity has changed. If it did, assume that the device
++ 	 * was reformatted and that all sequential zones are now empty. So drop
++ 	 * all zone write plug.
++ 	 */
++ 	if (disk->nr_zones && disk->nr_zones !=3D nr_zones) {
++ 		pr_warn("%s: Number of zones changed (%u -> %u)\n",
++ 			disk->disk_name, disk->nr_zones, nr_zones);
++ 		ret =3D 0;
++ 		goto drop_all_zwplugs;
+  	}
+ =20
+- 	/* Check that the zone condition is consistent with the zone type. */
+- 	switch (cond) {
+- 	case BLK_ZONE_COND_NOT_WP:
+- 		if (zone->type !=3D BLK_ZONE_TYPE_CONVENTIONAL)
+- 			goto invalid_condition;
+- 		break;
+- 	case BLK_ZONE_COND_IMP_OPEN:
+- 	case BLK_ZONE_COND_EXP_OPEN:
+- 	case BLK_ZONE_COND_CLOSED:
+- 	case BLK_ZONE_COND_EMPTY:
+- 	case BLK_ZONE_COND_FULL:
+- 	case BLK_ZONE_COND_OFFLINE:
+- 	case BLK_ZONE_COND_READONLY:
+- 		if (zone->type !=3D BLK_ZONE_TYPE_SEQWRITE_REQ)
+- 			goto invalid_condition;
+- 		break;
+- 	default:
+- 		pr_warn("%s: Invalid zone condition 0x%X\n",
+- 			args->disk->disk_name, cond);
+- 		return -ENODEV;
+- 	}
+-=20
+- 	blk_zone_set_cond(args->zones_cond, idx, cond);
+-=20
+  	return 0;
+ =20
+- invalid_condition:
+- 	pr_warn("%s: Invalid zone condition 0x%x for type 0x%x\n",
+- 		args->disk->disk_name, cond, zone->type);
++ drop_all_zwplugs:
++ 	disk_for_all_zone_wplugs(disk, disk_drop_zone_wplug, NULL);
+ =20
+- 	return -ENODEV;
++ 	return ret;
+  }
+ =20
+  static int blk_revalidate_conv_zone(struct blk_zone *zone, unsigned int i=
+dx,
+
+--0sz8gFN6MxOXEQy1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsCXsACgkQJNaLcl1U
+h9BNKgf/WEpUjE5HjrhOXr1nSNjqVV9bINvNUVS9APOu2J1DRhHawYfWi9b8EeEP
+jpQEFZhtgYxpWWYqWN+Sc7DTIu0homsCnyCjDkdx2JDadArTKi647AbEdcFZElcn
+qO2ttzgBAAKb9SsbkLwDZ34GSJUvNLfNiIv3Wjh9ai+Qhi4yvHSo6S06oLo/wXh2
+4plEUZaAjR++YQKz1IBImXtSTmcv67zscb+hXv5wFxs5jspak2gluXSi3zvCn80h
+zCjelgtJSarfBaxP2OvVlvoUtlGSUb0U0teAgq1+VRQv+3F/RUgSmdTwk2pRAn4s
+PLn9qDRP7YwKOwvgAAXuDuYi6YMZIA==
+=UhE+
+-----END PGP SIGNATURE-----
+
+--0sz8gFN6MxOXEQy1--
