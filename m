@@ -1,88 +1,107 @@
-Received: from r3-18.sinamail.sina.com.cn (r3-18.sinamail.sina.com.cn [202.108.3.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD014A2A42
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EA34A262C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635711; cv=none; b=mbyyCk+kpb7whrLjv9O6mRdqiFQCaqpeU50or9zeAHHY+GnOP6tCv0Gcu5HtD60ccxTkYfMH3lAcSfb1/SFU9YmbSnCNbMezSuv1eMLkjzk99IM/65yt3he/Joj3dQ9rqBuu/fZgKzY8VIdlEdgzlHh5Yb3k5AVWVKFFbdFsVvY=
+	t=1789635719; cv=none; b=lA5kh3Aom3Pq5dHD8MKhylaSVGndrkAnZORfR1yfL7pDAEYABhIrBzpAZTpGu7NmSOqgm+Dz25ihn7nUKL+E0UFB6pJzvS5Cb0qi8rQBSAifDU8TucXSvBsso5MbW93iQKLn7Yiyv+EgkzURdr3IgWn4kxhXgeXuLnqfLR/Usp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635711; c=relaxed/simple;
-	bh=eMFfAmWTJtjV3qMHcY9lbqkSOgI/TwKr56yiKasgMpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U23VxWHzLgDrb6jqZKmuvMkvb8zKe1TABeID/uEwTB7D2kHfC73JDjkPcTnswDTHKpnh+dkVjiW+cH9JaWhbeC5M8TuorzelFd9w3ACvqjZM5ZKhclg7H5yz7SsVLVIuoDF77bAlc7dOZLBG3xvyxxtwhgVE6SZoAAeZVazAn48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=tuNPQFSc; arc=none smtp.client-ip=202.108.3.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789635719; c=relaxed/simple;
+	bh=lv4i38JX0MPSPwizFOnHmQ/33Dj376/NZ6pziKSZq4A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=alDeyON/sT9podsnpzwNHxye/Q3/Xm928DYZi0UQp33khdYGR8NLJuPaFqF3m3bN+6HMYK1o5xJ9BcAtFM5vvZo0Kd2rd16zzUlqBIgVXgB8yY4/QQX0xCcFKXhLsKZDOLuwxu1xpI/tzGmx8zDmRnyMsCe7oM2IvLAnrvmaJB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nIefJ/yP; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="tuNPQFSc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789635706;
-	bh=NcwYxhPcpxAsUj9xa2/K9JyuHTiKOPnpcuy8/K6Jhtk=;
-	h=From:Subject:Date:Message-ID;
-	b=tuNPQFScIDInS9stMSfGQBcRopNjOeI3RedvXOzLl8wOKGlIvzYyzMpA70eA/YNmy
-	 9IIj5Gwb0lP83/tqPioBGa2fqvOTgU5sy+qvpQfKywgoc0rIkFecXlArKMkLSV23iV
-	 8r8GuuRoHEfHhFP5fjXlCbz8N7nRGRn7uWXOo4Gs=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AABAC6E00004619; Thu, 17 Sep 2026 17:01:35 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 5770544456597
-X-SMAIL-UIID: 5A0FE6DDE2FA40869E5835FD91BD883E-20260917-170135-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-use-after-free Read in ecryptfs_destroy_mount_crypt_stat
-Date: Thu, 17 Sep 2026 17:01:34 +0800
-Message-ID: <20260917090134.1003642-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6aab8055.71f81b7d.278072.0015.GAE@google.com>
-References: <6aab8055.71f81b7d.278072.0015.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nIefJ/yP"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 29CC6C63440;
+	Thu, 17 Sep 2026 09:02:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C99245FAA3;
+	Thu, 17 Sep 2026 09:01:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9FF5311C7B07A;
+	Thu, 17 Sep 2026 11:01:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789635708; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=eHBcWKK2OCT4aC468J13A1lKQqBlusqG57MbldRj4DI=;
+	b=nIefJ/yPjRhUmv7Mc0T7kgv5gugg2+oXtkuB3ag5fPS1WN2WC29Teq5zNPPlIXrWi11olH
+	Rsgw4sfhFwlbbuWiCi1uPoBlia846xN4eq2mXCFBK/5Xii+Hxb85zq4IgK8d66xJ7XU1QL
+	1eeI1crcrqeHtzzr2P+7OXzQbP0gcWnUZ0ev4FYG+YR01t3byvdIIGbM6C7O2xVXY6I93D
+	f2rsmjYsNK1gp0kEJkeExAWlz6E/2Q+qEP8uWhH3Y7blxyywosm2ie87m3cxuyflmhwfO7
+	j0sylzhJfNANo3y9C95w0BYDqvkBOFfcUhoRhvXd6Xr9xy0amIQ3GAErHaBB9A==
+From: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>
+Date: Thu, 17 Sep 2026 11:01:34 +0200
+Subject: [PATCH v6] ARM: dts: am335x-bonegreen-eco: Enable 1GHz OPP by
+ increasing vdd_mpu voltage
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260917-fix_tps65219-v6-1-0544b735edb8@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAG2sq2oC/33MywrCMBCF4VeRrI1kpknauvI9RCRXDWgjTSmK9
+ N0d3XhDl2eG77+yEvoUClvOrqwPYyopdzT0fMbc3nS7wJOnzVCgAhCax3TeDqeiFULLvdcIEjy
+ ii4zIqQ/0f+TWG9r7VIbcXx71Ee/XH6ERueCm9lo0TmKNcWVzHg6pW7h8ZPfUWL1wwA9eEQ+yt
+ cZKJ8CFby7/cUlct9qIqJRXvvnm6skRmg+uiDfWUllCHSvzzqdpugFAi18CZwEAAA==
+X-Change-ID: 20251106-fix_tps65219-dd62141d22cf
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Davis <afd@ti.com>, Bajjuri Praneeth <praneeth@ti.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ "Kory Maincent (TI)" <kory.maincent@bootlin.com>
+X-Mailer: b4 0.16.1-dev-17221
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Edward Aadm Davis <eadavis@sina.com>
+The vdd_mpu regulator maximum voltage was previously limited to 1.2985V,
+which prevented the CPU from reaching the 1GHz operating point. This
+limitation was put in place because voltage changes were not working
+correctly, causing the board to stall when attempting higher frequencies.
 
-#syz test: upstream 238650ef6c7c
+With the recent TPS65219 PMIC driver fixes that properly implement the
+LOCK register handling, voltage transitions now work reliably. Increase
+the maximum voltage to 1.3515V to allow the full 1GHz OPP to be used.
 
-diff --git a/fs/ecryptfs/main.c b/fs/ecryptfs/main.c
-index 5f37cddb956f..6b82c077c0d6 100644
---- a/fs/ecryptfs/main.c
-+++ b/fs/ecryptfs/main.c
-@@ -441,7 +441,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
- 	const char *err = "Getting sb failed";
- 	struct inode *inode;
- 	struct path path;
--	int rc;
-+	int rc, active;
- 
- 	if (!fc->source) {
- 		rc = -EINVAL;
-@@ -468,6 +468,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
- 		goto out;
- 	}
- 
-+	active = atomic_read(&s->s_active);
- 	rc = super_setup_bdi(s);
- 	if (rc)
- 		goto out1;
-@@ -562,7 +563,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
- out1:
- 	deactivate_locked_super(s);
- out:
--	if (sbi)
-+	if (sbi && active > 1)
- 		ecryptfs_destroy_mount_crypt_stat(&sbi->mount_crypt_stat);
- 
- 	printk(KERN_ERR "%s; rc = [%d]\n", err, rc);
+Reviewed-by: Shree Ramamoorthy <s-ramamoorthy@ti.com>
+Signed-off-by: Kory Maincent (TI) <kory.maincent@bootlin.com>
+---
+I was pinged that the following series was not fully merged: the devicetree
+change did not land upstream.
+https://lore.kernel.org/r/20251218-fix_tps65219-v5-0-8bb511417f3a@bootlin.com
+---
+ arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
+index d21118cdb6c2c..f00abfdd2cbd4 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-bonegreen-eco.dts
+@@ -63,7 +63,7 @@ regulators {
+ 			buck1: buck1 {
+ 				regulator-name = "vdd_mpu";
+ 				regulator-min-microvolt = <925000>;
+-				regulator-max-microvolt = <1298500>;
++				regulator-max-microvolt = <1351500>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+
+---
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+change-id: 20251106-fix_tps65219-dd62141d22cf
+
+Best regards,
+--  
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
