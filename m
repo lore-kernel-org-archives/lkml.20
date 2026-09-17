@@ -1,135 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026BB4EC659
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246344F7984;
+	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655802; cv=none; b=Lm/BHrBQo4i5P78IcB9yNUkx3Uf7rDAYH5Pa7BhmQlVFB9sqAEYhAfnE3VdoFrNJAvB+nuPvHZMBE97LOuVuezGQ0d/1kkrs0zQlYNKdCBptXxiZmsQzh5wYMpa7S3tS7fen5Vz11n3PU510DIQhC3zqZGhn6vUSkn11k7Wxuo4=
+	t=1789655818; cv=none; b=Z7uZc8mJoBc3j1OntEyfgYO/sCpdc02WORi8Hap/p6xo4L/RXdeR6lRufgP3rAMhcG08RaYx0GoRu5p2uLj/0RGPcYm5LUycoI9n9e57liiTViLSoSC0yRx4bOHvl5qcd2cI+sefPClXMICSV9HZgnt+Lx2P3HOUxPxLD/Zf1wQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655802; c=relaxed/simple;
-	bh=qXfADDzsfmD+8zF+G8Ti+6sPkyfTJNIlgRnwzG3jmII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rimzJ36KiTKaYlRL1f3IRsABOkrd7IW+RQ3OVdt04yw7Z7snP8efHxXKCTT8Wy7cV7sWHZoQVOLWTk41zrNkxu0jHkWxRWFAbYe2OboJ6Rmxv3LNR+EMzvLaVJsTL8ivNx+hdEg2AtXU8aokAy9NKSrwT3wHICkLqYqdkN8fheA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B7neBrWG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789655818; c=relaxed/simple;
+	bh=nszi45kXm73Y7NgYq5onAqIMX+LJwX1ohh2P6iyEr3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KQDUsLQXquSna2ZL65OndxRZCGJxrL+BD/EFeWiNpsLyKFZyWbkkwJvL/jHp6ZwUOJ8v7cgBmMhI9LE3FbweCrAmB8ndPK88ErTENMieXjf8yFvBsklF/Xh/IKnxA/0pYWdPcD9JQSBZH9GJ4uEUapL7vC7CSSkcglrsYfU51GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkU8BSbq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B7neBrWG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2B9A1F0089B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:36:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkU8BSbq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6501F000FF;
+	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789655800;
-	bh=YJ9By9xlanJ7LT/vqhWLGY4bzMDNOpTYeD6ECVxBkSM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=B7neBrWGA7q0fAr6Y8IPM384lbYMzPvuWg0Efy5OAPCJcpdSr+3oBybuQ8nkAd4En
-	 Vxjc6CBcTPX585O7Pw4hOO4oEUOEzMVMbxVfLf9BQdX5PfNDgku4H/zP/fJeOvmNRV
-	 ydn7x5ZipZgmtJ07/QIifOn4S0ZRCrH7wyiTBUVzDwc+QU0JpG1MJWz2lJi+P7mu0w
-	 jmDufHcNczReAgPqCLFaq+TFTqTnCYvhwnGLNf9lppieH0V1b9ivZ1KJwaJaiZ/HXZ
-	 DggqWa8QnBUbyDr+rBLEjyz6cFxi+IojaB3zEYJBI6rVMUtgd59b6GYXB06ONrM7kd
-	 DjhkBVtX/TIJg==
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e2ff27eso646205e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:36:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw/SZ88nlIXlw8RgTUCg6DNO4Rcj45pWXPpzmAxfjGdCkonu6UQVFqT0Iu+MYCKQH/zCgovmb9Thc4djBU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkPAsW+OaBYtAEPou9Y63luTOU51Ce0MobFZgOgl+3224yWGWW
-	Jc2LQgeW6hKSqi5Ky7umpchlnKl3MHECh8zicHbqXfTfgMdKzhrYrNTOPSymelkcOplb0J+VHpm
-	uzdNPe2rY8QXbEBA7HFbseAohDmy/ZLQ=
-X-Received: by 2002:a05:6102:50ab:b0:7a1:b6c2:56df with SMTP id
- ada2fe7eead31-7a1b6c27177mr4845476137.10.1789655799951; Thu, 17 Sep 2026
- 07:36:39 -0700 (PDT)
+	s=k20260515; t=1789655816;
+	bh=wbTtNovbZeKMcq+Fme6uVDAlmL8EXwA2kL/1U7fmOOo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZkU8BSbqtg1MvUzQghAYB/EEHMgRjbmvz4b+h7ap4WJKOXkkw6YlL1KSpf89Pscy2
+	 B5MATM+0LGHT1dnDxFBe4wfPtHYfOSf7T53E0t9bXlItT0WbAMRG30PzpaLqBxR36c
+	 QY6O+jKe1JJhnyXPwMr7nfEFYroUK02zY7xPtZF90lnTpihTk/Yj5oJ69BhBNyzdkr
+	 R7MbKadAsopryAllSVRFaBnzduAg3DQ1IdcqfXACOjrHXZ+Qv7p6Ag2hDNp7KX0TCn
+	 abRJPKkJldCyee3eei/CSyRZ9rEdrendzzVBzrO/NgOqNtAXeFnj+60nqQz203ZETa
+	 2s/9349+QT/5Q==
+Date: Thu, 17 Sep 2026 07:36:55 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ jeff@garzik.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ pabeni@redhat.com, stephen@networkplumber.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: cxgb: Fix skb reference leak in
+ espibug_workaround_t204()
+Message-ID: <20260917073655.5d7c9ecb@kernel.org>
+In-Reply-To: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+References: <20260917105425.2147804-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904073844.2740931-1-saranya.gopal@intel.com>
-In-Reply-To: <20260904073844.2740931-1-saranya.gopal@intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 17 Sep 2026 16:35:13 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0hLxKdg_4Fs2uJAq20=jd=6PrFKW55xGc=83JWYk7_S8A@mail.gmail.com>
-X-Gm-Features: AcwNN1UnHgaYXwQ_ob6pRJUfKwZEiwXBier1kCP2NyWNC_JSXhs9r5sdKCmW2nI
-Message-ID: <CAJZ5v0hLxKdg_4Fs2uJAq20=jd=6PrFKW55xGc=83JWYk7_S8A@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: s2idle: Add _Ixx GPE wake indicator support
-To: Saranya Gopal <saranya.gopal@intel.com>
-Cc: linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rafael.j.wysocki@intel.com, 
-	Mario Limonciello <superm1@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 9:38=E2=80=AFAM Saranya Gopal <saranya.gopal@intel.c=
-om> wrote:
->
-> ACPI 6.6 defines _Ixx indicator objects under \_GPE to mark GPEs that
-> should remain wake-enabled in s2idle without a _PRW association.
-> To support them, add new function acpi_setup_ixx_gpes() that looks for
-> _Ixx objects for all GPEs in the FADT 0/1 blocks and if it finds any, it
-> marks the corresponding GPE as wake-capable, in which case the GPE is
-> also enabled so long as it has a handler method because marking it as
-> wake-capable causes acpi_update_all_gpes() to skip it. Since that only
-> needs to be done if suspend-to-idle is enabled, make acpi_s2idle_setup()
-> call that new function.
->
-> For now, this is limited to x86 systems and it assumes that the GPEs
-> with _Ixx will not cause spurious wakeups to occur while suspended.
->
-> Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
+On Thu, 17 Sep 2026 10:54:25 +0000 Wentao Liang wrote:
+> The timer handler takes an extra reference with skb_get() before handing
+> the skb to t1_sge_tx(), so that the skb survives until the DMA has
+> completed. When the command queue is full, t1_sge_tx() returns
+> NETDEV_TX_BUSY without queueing the skb, and the return value is
+> ignored, so the extra reference is never dropped.
 
-Applied as 7.4 material, thanks!
+You have sent way too many patches at once. We have a hard limit of 
+15 patches per person, but really if you're sending low value garbage
+you should not send more than 8. So that you can apply the feedback
+you receive to later postings.
 
-> ---
->  drivers/acpi/x86/s2idle.c | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
->
-> diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
-> index b6b1dd76a06b..ac49f9e75fae 100644
-> --- a/drivers/acpi/x86/s2idle.c
-> +++ b/drivers/acpi/x86/s2idle.c
-> @@ -24,6 +24,31 @@
->
->  #ifdef CONFIG_SUSPEND
->
-> +static void acpi_setup_ixx_gpes(void)
-> +{
-> +       acpi_handle gpe_root;
-> +       unsigned int i;
-> +       char gpe_nr_str[5];
-> +
-> +       if (ACPI_FAILURE(acpi_get_handle(NULL, "\\_GPE", &gpe_root)))
-> +               return;
-> +
-> +       for (i =3D 0; i <=3D 0xff; i++) {
-> +               scnprintf(gpe_nr_str, sizeof(gpe_nr_str), "_I%02X", i);
-> +               if (!acpi_has_method(gpe_root, gpe_nr_str))
-> +                       continue;
-> +               /*
-> +                * Enable the GPE if it has a handler method because mark=
-ing it
-> +                * as wake-capable causes acpi_update_all_gpes() to skip =
-it.
-> +                */
-> +               if (ACPI_FAILURE(acpi_enable_gpe_cond(NULL, i, ACPI_GPE_D=
-ISPATCH_METHOD)))
-> +                       continue;
-> +               acpi_mark_gpe_for_wake(NULL, i);
-> +               acpi_set_gpe_wake_mask(NULL, i, ACPI_GPE_ENABLE);
-> +               pm_pr_dbg("ACPI: GPE 0x%02x armed for wake via %s\n", i, =
-gpe_nr_str);
-> +       }
-> +}
-> +
->  static bool sleep_no_lps0 __read_mostly;
->  module_param(sleep_no_lps0, bool, 0644);
->  MODULE_PARM_DESC(sleep_no_lps0, "Do not use the special LPS0 device inte=
-rface");
-> @@ -649,6 +674,7 @@ void __init acpi_s2idle_setup(void)
->  {
->         acpi_scan_add_handler(&lps0_handler);
->         s2idle_set_ops(&acpi_s2idle_ops_lps0);
-> +       acpi_setup_ixx_gpes();
->  }
->
->  int acpi_register_lps0_dev(struct acpi_s2idle_dev_ops *arg)
-> --
-> 2.34.1
->
->
+You may repost new version of the patches to which you receive feedback.
+But I don't want to see any new patches from @iscas.ac.cn for
+drivers/net and net/ for a month.
+
+Please tell your coworkers/friends.
+-- 
+pv-bot: 15cnt
