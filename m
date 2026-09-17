@@ -1,264 +1,333 @@
-Received: from mail-oo1-f79.google.com (mail-oo1-f79.google.com [209.85.161.79])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFE53FC5AE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.79
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624408; cv=none; b=YOKbWVx31jRs8GEd4ylnbUX10/yNV62GRtP85El4LsjclNb6SPlqTvP4ntxuK+ndX9YZJcqvOZovQh2jl5EfpnX+Hz8aUb16YBCXArA8iJt+zKe8Jwyx2oMg9XiJgBhTlriV0ejTUWUGXz6KGdi+gYZUaDQRD+mjAB4VNQJAbV8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624408; c=relaxed/simple;
-	bh=XkVG5NjY+O6gUgUJOTBFJE7DZl05c0v2rG1fmZ/0u4E=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gHn57SlqoZzeDLB65W7rrdy+W45t9wm4Ma7lqKGJY2fMEKKtwKdJZekw02P+i+7N9aTGaP51SQagyrKBqkVTj48rD0088z5zoSnmJ0vo7VFmriFV9Ydu97LDCqfyjmyLxCt28h2MsgaqWCQHzNePVDn5wJ134oRpeKp6VgsPlis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f79.google.com with SMTP id 006d021491bc7-6b0e7370be1so521481eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:53:26 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F42277818
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789624481; cv=pass; b=h7nWNOdOAhgHnZ/WnihPxiidgqh9OM32UXN3GsdJY6b23IMqW6pl/pcdez6XTlykzb55l8myIWYeLz7kOI/yUBvSbIrQst4bw54iUQazg3/fx/tFrPlD6WawlPY4iyu1JnXdnLJ0e1yZCvH6pbVkjpkpk1nUJdvERqXr6PLIG/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789624481; c=relaxed/simple;
+	bh=aZ9SeR3phIMgV3BYgxn90OwcFOc2AJJCVlqwZ4QWULk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NNCQhol3htdkUdlrHm3BqzRK/z7BPN097Em0wu9UN88yEUlEwG+RglFAgqVzkQCRqnhcmsUw/bl6b1SpiFns5GsdfzdNoH6PFJBk/3s+hWLCLOs7Xx9EtSZteXs3s03m3GO+iuzDdGnt+7XzH/+upU7MGv8Yxl6VYiVHFbG2waE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ExkrfvVL; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ExkrfvVL"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5919af2eeso3894451fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:54:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789624478; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MtykqRtFedhhW94oJ8kwFqWK+Czm7CDTw4iqyBV+VVcy0HkX3iCkL/VTi3wcsxRhMq
+         i13B+tWGGKlMiIMUAi0vZ73jxylQHEtNgUNHBKYgYDAeI9BsEVLbatO7o054DT4cX6HW
+         /iT5UV7ECHX6Bjz/X5UU48d6rH0ASBM7c9O8pJSwaLXKcmHWpPzTVMFUdZawJrujUtdn
+         +gA32kVey+L98cJcQdZ0ayHya3660RTMybnnWknRZERB3JQ/DTKseG9K5s86F7YeEer0
+         TqSdUaU3WsPC0SSZY87MQOP6Lx6Y50ioaztNXnZ+KOqTEi4sMUkLPNi/dZiM3iwh4kil
+         q5cg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Loxv+QhHSvLuHlVpy8FfAmdK0Orcs+Qj7V2Brl/51zo=;
+        fh=J6T5uLQIx0MjkepPY5DTnM9+IO5gNPKj7d/GF3ZsG0o=;
+        b=oziIDoe7tmx9ho2FhvbmLUcYeEG37VHxJlKkmNnru91hotBWWj/2TpCs0jVn2nlqR1
+         OsEijCyteixgeLl0Fa7IQLqRMehAWII0dwPglaPLG3ojLsa65RbdSbTW/lw7+Thpf82g
+         VB7ddw1KB+tC0e8miJKSaum2EtyJLcASU7SpJL0tlZbcEI4L+UdVSoHa+mYUc/Xo6k7M
+         XxeEawsfSTO7I/6WevRSE3y/Dtcd1hr88HOvbVVG6yPMi3BM02Us9CFfw40g6f6kq0hR
+         fE8UbQQjSRHe2v4d6oxJRXrCqwIwBLZGiG3p67r3+AB2Eu4T9lzZuoe8EvgeV0LK31SU
+         mOKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789624478; x=1790229278; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Loxv+QhHSvLuHlVpy8FfAmdK0Orcs+Qj7V2Brl/51zo=;
+        b=ExkrfvVLESVYhTjGFLig3lY2GMnIZlD571sRoFKYfHAIy6Q+hQi0a6qO8mjjACFS8Y
+         4JuD8qtpd+5YrxuZKkBe6T+CW0wfwm+x61PCvMfdEBZ7QTY6oaIfN2ExYZkqFMV6gP1x
+         Squhkouh7NZy5qolYnpdIUHx91yQqxvoGDUXNd6UCwJuA0VjY88JDepxn6l2SqO8grzN
+         vUbOB0SaBqfEEitOBp4z88fjdxm9d2yclhAJYvhIm2rwE0Z1u/Vw2lgwM3a1h+ZszpaF
+         BjuWm6tc37PdLzXIBgguuwfVgQPlaSubiKProbRQveNOZ8TwvP1sBhxSAg3LUZkSpcrb
+         H1aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789624405; x=1790229205;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1789624478; x=1790229278;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SEBd5Iukoqb77pKkBIu0zapO4TqrobQyg7PyGeW4Cw4=;
-        b=DqW+d7C4498rkOuQ9fJQbLsRrzFJzpRtTuPBW3HBvwIqPVt2BncEajhhxLmz8/0208
-         lZwPDD/O+741aNqNQSA2teZrm5iNxuf8CBS0uG7l1CBotUs8QywKnm1jS6y6+BiFuZmx
-         KZfUQcgHl+/pcl3A1GVi4Fh6fSPVczepX3zHmrBUMH4erE20AGx3blidsNhIFVYglWRY
-         60kIj7cZibYyWrryEbNngsaINVr3soxoHq5ubtXMroozlqSud7rlP7xVS+NgK+Fb3xWr
-         42bkAQ+Cy+r9jW1p2T4899zJH4NaDweVVz3+9gSKXeEz7E+7FKuxuR6P/U7q1Eyzc60s
-         g+Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBzi4UQRSyYRh8Vq2YdUvZzAM0pg1X5qtlr3n7AJNU9bnCORMXDi7Mvckog2e7HrYuN704+JI3ef+gdVcvg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUW6kdyZA0R39TXW5PcbegGrAioXZ/pm14IDJ6n9M5ZbPfYgSL
-	FlX4v43r2/Yt5OJo1TM2YEGSLF/1060xlkSYEsjpULK2zpqCAS4XSfe2315UC25k+yaEaS1ZKZw
-	vlpJzdiJohpgPrCkPWdzK5lfCpeRVrelPeF+ikdUn3EVOIsRgwujdjGbHJJs=
+        bh=Loxv+QhHSvLuHlVpy8FfAmdK0Orcs+Qj7V2Brl/51zo=;
+        b=exc0tdTPDrfFgNdrAC3yAlwGwzhqLULHKpJ+4x2nuu6CWFrafXmo/ep8GI08jWz0d+
+         PPYypXU8INfgaydaQD2as5gAFLtqWOPYA0pOHJmta7Jhb24U5CY+x0KAZ3Mq7u4VdxxD
+         qrdTFfovsCY5DGp4UNd8yDiBiwsDslqto5qtV7nhztMiY/duFBJ+Ncqr5gt8bJVye2Df
+         JectpUSvxKgTLHGLiabmwrjoZczbC4t+OsccspMEIvSUBA2cZo7BL9Hrh/lAd/YnMLoF
+         Q/+Renk2diA/DbEwI8yTs6Ogo9OrDnuPessq9RZBA60hqugbjaCWSP35yHRYfAItYnwt
+         /iyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCuLU4uX6nOUDo8AaXEI0BF6GBJQVV+gChubYpriCXumq/PR2axdY87aKgtm8FNZqd1Bew/6aTjvXwrQ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxhJZfCEKWl3iKySf6LAI41h31H0sbIKZ7lcMAFnZuq1AaD5CC
+	6t4uIxa+7l3IaXF8dM5bgUFHtOmqzp2L9eWicsBqiL2w17Wpbk3QBBQSu6OvhvObSkXw85agk3O
+	Npk1tGcY6tX6i18C6Euaw3SUhgmHxYbg=
+X-Gm-Gg: AYBFou2M4kK8CK4KeYmQDoatp/ybeVZTBZ8p7TYWkZ1yDAiwvgdin9ARfC0BrHFTkhY
+	GNow34sBuKDt+YlNOduGHp5iJNf3C3hE+eiLshuE7jMeS6olkd57p0DC37mTxr3oP3d+F2/bk+4
+	6fXc3o3AQ/zmGmupcTt2SDFmX44DNE3a51wYc3gdxwJfUfm5fhY8W49yWWc9xAHoIEhVQAL2wr+
+	MxmuB8Wc3N4ccI0mRXDzYBufzEXOEjbBwxZWPi50pPaakvmTgQLsPnRH1Q9IwqeYBWlb5TLvcVF
+	iEdMxhFF+49tTyhNy+p1oy9vgK/cMS6US6ffAR+/2bnr/kakcrzjJt9ok/r1It22RJY=
+X-Received: by 2002:a05:651c:1502:b0:3a3:7681:6d58 with SMTP id
+ 38308e7fff4ca-3a5dc9f3bcemr9547401fa.16.1789624477503; Wed, 16 Sep 2026
+ 22:54:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:198c:b0:6b1:a146:1297 with SMTP id
- 006d021491bc7-6c8fba8181emr1449050eaf.1.1789624405332; Wed, 16 Sep 2026
- 22:53:25 -0700 (PDT)
-Date: Wed, 16 Sep 2026 22:53:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab8055.71f81b7d.278072.0015.GAE@google.com>
-Subject: [syzbot] [ecryptfs?] KASAN: slab-use-after-free Read in ecryptfs_destroy_mount_crypt_stat
-From: syzbot <syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260902112121.2125383-1-r772577952@gmail.com>
+In-Reply-To: <20260902112121.2125383-1-r772577952@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Thu, 17 Sep 2026 14:54:20 +0900
+X-Gm-Features: AcwNN1WD2-Nx19sNxSzkTzJTuC6ajr8ZESmiVDKvdEkAcL3pR5ww_y0VMIQv66k
+Message-ID: <CAKFNMomt1ORpeCrVyNEzJNB6aRv-1v2bdCxqB_d6YZk3XFwX4Q@mail.gmail.com>
+Subject: Re: [PATCH v2] nilfs2: force clear dirty state when restoring from
+ the shadow map
+To: slava@dubeyko.com
+Cc: Jiaming Zhang <r772577952@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, Sep 2, 2026 at 8:21=E2=80=AFPM Jiaming Zhang wrote:
+>
+> When garbage collection fails, nilfs2 rolls the DAT metadata file's page
+> cache back to a shadow copy taken before GC started.
+> nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
+> cache, then nilfs_copy_back_pages() overwrites them with the saved
+> contents and warns if one is still dirty:
+>
+>         /* overwrite existing folio in the destination cache */
+>         WARN_ON(folio_test_dirty(dfolio));
+>
+> nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
+> which is safe here because the rollback runs with the log writer
+> stopped, so nothing else can dirty the cache while it runs.  The same
+> helper is also used when writeback finds dirty folios after the
+> filesystem has degraded to read-only, where it does run concurrently
+> with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
+> folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
+> folio if any of its buffer heads is busy.  The rollback caller shares
+> that helper, so its clearing step can now return with a folio still
+> dirty.
+>
+> A DAT folio can hold a busy buffer head without anyone modifying the
+> folio: nilfs_mdt_read_block() submits read-ahead for the blocks
+> following the one it was asked for and waits only for the first, so the
+> read-ahead buffers are still locked when it returns.  With a block size
+> smaller than the page size, a locked read-ahead buffer can share a folio
+> with a block that GC dirtied and keep the whole folio dirty past the
+> clearing step.
+>
+> Add a force flag to nilfs_clear_dirty_pages() and
+> nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
+> in the two calls from nilfs_mdt_restore_from_shadow_map().  The
+> read-only fallback callers keep passing false, so that commit still
+> protects them and the WARN_ON() is left alone.
+>
+> Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is refer=
+enced")
+> Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOe=
+wQoAi_V5yY0dTtg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+> Assisted-by: Claude Code:claude-opus-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+> ---
+> Changes in v2:
+> - Keep the WARN_ON() in nilfs_copy_back_pages() untouched.
+> - Add a bool force argument to nilfs_clear_dirty_pages() and
+>   nilfs_clear_folio_dirty(), and set it to true in the two calls from
+>   nilfs_mdt_restore_from_shadow_map().
+>
+> v1: https://lore.kernel.org/lkml/20260901134430.1292467-1-r772577952@gmai=
+l.com/
 
-syzbot found the following issue on:
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-HEAD commit:    238650ef6c7c Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15684915580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=baa24e4b7e349e388442
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13684915580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=122fdbf9580000
+Viacheslav, could you please apply this directly to your tree?
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-238650ef.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/7608108a1c05/vmlinux-238650ef.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/4d6d01769695/bzImage-238650ef.xz
+Both the patch contents and the test results were exactly as expected.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+Thanks,
+Ryusuke Konishi
 
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
-R13: 00007f6210a25fac R14: 00007f6210a25fa0 R15: 00007f6210a25fa0
- </TASK>
-==================================================================
-BUG: KASAN: slab-use-after-free in ecryptfs_destroy_mount_crypt_stat+0x28f/0x360 fs/ecryptfs/crypto.c:137
-Read of size 4 at addr ffff88802b378610 by task syz.0.20/5927
-
-CPU: 2 UID: 0 PID: 5927 Comm: syz.0.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- ecryptfs_destroy_mount_crypt_stat+0x28f/0x360 fs/ecryptfs/crypto.c:137
- ecryptfs_get_tree+0x10b6/0x15b0 fs/ecryptfs/main.c:566
- vfs_get_tree+0x92/0x320 fs/super.c:1933
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f621079e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff0780ea08 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007f6210a25fa0 RCX: 00007f621079e159
-RDX: 0000200000000480 RSI: 0000200000000000 RDI: 0000200000000400
-RBP: 00007fff0780ea70 R08: 0000200000000500 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
-R13: 00007f6210a25fac R14: 00007f6210a25fa0 R15: 00007f6210a25fa0
- </TASK>
-
-Allocated by task 5927:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- ecryptfs_init_fs_context+0x6b/0x200 fs/ecryptfs/main.c:617
- alloc_fs_context+0x60c/0xf40 fs/fs_context.c:295
- do_new_mount fs/namespace.c:3828 [inline]
- path_mount+0xdbd/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5927:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kmem_cache_free+0x127/0x6c0 mm/slub.c:6635
- ecryptfs_kill_block_super+0x81/0xa0 fs/ecryptfs/main.c:586
- deactivate_locked_super+0xbd/0x140 fs/super.c:589
- ecryptfs_get_tree+0x10e9/0x15b0 fs/ecryptfs/main.c:563
- vfs_get_tree+0x92/0x320 fs/super.c:1933
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802b378600
- which belongs to the cache ecryptfs_sb_cache of size 280
-The buggy address is located 16 bytes inside of
- freed 280-byte region [ffff88802b378600, ffff88802b378718)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b378
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff888024ddadc0 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000200150015 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff888024ddadc0 dead000000000100 dead000000000122
-head: 0000000000000000 0000000200150015 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5924, tgid 5924 (syz.0.17), ts 74770264892
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
- ecryptfs_init_fs_context+0x6b/0x200 fs/ecryptfs/main.c:617
- alloc_fs_context+0x60c/0xf40 fs/fs_context.c:295
- do_new_mount fs/namespace.c:3828 [inline]
- path_mount+0xdbd/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5862 tgid 5862 ts 74382051531 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_lru_noprof+0x265/0x6a0 mm/slub.c:5029
- __d_alloc+0x35/0xa50 fs/dcache.c:1907
- d_alloc+0x4a/0x1e0 fs/dcache.c:1986
- lookup_one_qstr_excl+0x171/0x250 fs/namei.c:1806
- __start_dirop fs/namei.c:2920 [inline]
- start_dirop+0x59/0xb0 fs/namei.c:2942
- simple_start_creating+0xf9/0x110 fs/libfs.c:2308
- debugfs_start_creating.part.0+0x9f/0x180 fs/debugfs/inode.c:397
- debugfs_start_creating fs/debugfs/inode.c:368 [inline]
- __debugfs_create_file+0x86/0x4d0 fs/debugfs/inode.c:431
- debugfs_create_file_full+0x41/0x60 fs/debugfs/inode.c:463
- cfg80211_debugfs_rdev_add+0xce/0x250 net/wireless/debugfs.c:138
- wiphy_register+0x242d/0x3110 net/wireless/core.c:1184
- ieee80211_register_hw+0x3053/0x4580 net/mac80211/main.c:1626
-
-Memory state around the buggy address:
- ffff88802b378500: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802b378580: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88802b378600: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                         ^
- ffff88802b378680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88802b378700: fb fb fb fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+>
+>  fs/nilfs2/inode.c |  2 +-
+>  fs/nilfs2/mdt.c   |  6 +++---
+>  fs/nilfs2/page.c  | 50 +++++++++++++++++++++++++++--------------------
+>  fs/nilfs2/page.h  |  4 ++--
+>  4 files changed, 35 insertions(+), 27 deletions(-)
+>
+> diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+> index 34e6096069ad..64437aed8390 100644
+> --- a/fs/nilfs2/inode.c
+> +++ b/fs/nilfs2/inode.c
+> @@ -163,7 +163,7 @@ static int nilfs_writepages(struct address_space *map=
+ping,
+>         int err =3D 0;
+>
+>         if (sb_rdonly(inode->i_sb)) {
+> -               nilfs_clear_dirty_pages(mapping);
+> +               nilfs_clear_dirty_pages(mapping, false);
+>                 return -EROFS;
+>         }
+>
+> diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
+> index 2a435349fd21..b50c88b65183 100644
+> --- a/fs/nilfs2/mdt.c
+> +++ b/fs/nilfs2/mdt.c
+> @@ -405,7 +405,7 @@ static int nilfs_mdt_write_folio(struct folio *folio,
+>                  * have dirty folios that try to be flushed in background=
+.
+>                  * So, here we simply discard this dirty folio.
+>                  */
+> -               nilfs_clear_folio_dirty(folio);
+> +               nilfs_clear_folio_dirty(folio, false);
+>                 folio_unlock(folio);
+>                 return -EROFS;
+>         }
+> @@ -648,10 +648,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode=
+ *inode)
+>         if (mi->mi_palloc_cache)
+>                 nilfs_palloc_clear_cache(inode);
+>
+> -       nilfs_clear_dirty_pages(inode->i_mapping);
+> +       nilfs_clear_dirty_pages(inode->i_mapping, true);
+>         nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping)=
+;
+>
+> -       nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping);
+> +       nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
+>         nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
+>                               NILFS_I(shadow->inode)->i_assoc_inode->i_ma=
+pping);
+>
+> diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
+> index cf4f1c6798f5..857926da9f21 100644
+> --- a/fs/nilfs2/page.c
+> +++ b/fs/nilfs2/page.c
+> @@ -369,8 +369,9 @@ void nilfs_copy_back_pages(struct address_space *dmap=
+,
+>  /**
+>   * nilfs_clear_dirty_pages - discard dirty pages in address space
+>   * @mapping: address space with dirty pages for discarding
+> + * @force: whether to clear the dirty state regardless of busy buffer he=
+ads
+>   */
+> -void nilfs_clear_dirty_pages(struct address_space *mapping)
+> +void nilfs_clear_dirty_pages(struct address_space *mapping, bool force)
+>  {
+>         struct folio_batch fbatch;
+>         unsigned int i;
+> @@ -391,7 +392,7 @@ void nilfs_clear_dirty_pages(struct address_space *ma=
+pping)
+>                          * was acquired.  Skip processing in that case.
+>                          */
+>                         if (likely(folio->mapping =3D=3D mapping))
+> -                               nilfs_clear_folio_dirty(folio);
+> +                               nilfs_clear_folio_dirty(folio, force);
+>
+>                         folio_unlock(folio);
+>                 }
+> @@ -403,13 +404,16 @@ void nilfs_clear_dirty_pages(struct address_space *=
+mapping)
+>  /**
+>   * nilfs_clear_folio_dirty - discard dirty folio
+>   * @folio: dirty folio that will be discarded
+> + * @force: whether to clear the states regardless of busy buffer heads
+>   *
+>   * nilfs_clear_folio_dirty() clears working states including dirty state=
+ for
+> - * the folio and its buffers.  If the folio has buffers, clear only if i=
+t is
+> - * confirmed that none of the buffer heads are busy (none have valid
+> - * references and none are locked).
+> + * the folio and its buffers.  If the folio has buffers and force is fal=
+se,
+> + * clear only if it is confirmed that none of the buffer heads are busy =
+(none
+> + * have valid references and none are locked).  If force is true, the st=
+ates
+> + * are cleared unconditionally, the caller should guarantee that the fol=
+io is
+> + * not being modified concurrently.
+>   */
+> -void nilfs_clear_folio_dirty(struct folio *folio)
+> +void nilfs_clear_folio_dirty(struct folio *folio, bool force)
+>  {
+>         struct buffer_head *bh, *head;
+>
+> @@ -422,24 +426,28 @@ void nilfs_clear_folio_dirty(struct folio *folio)
+>                          BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
+>                          BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected)=
+ |
+>                          BIT(BH_Delay));
+> -               bool busy, invalidated =3D false;
+> +
+> +               if (!force) {
+> +                       bool busy, invalidated =3D false;
+>
+>  recheck_buffers:
+> -               busy =3D false;
+> -               bh =3D head;
+> -               do {
+> -                       if (atomic_read(&bh->b_count) | buffer_locked(bh)=
+) {
+> -                               busy =3D true;
+> -                               break;
+> +                       busy =3D false;
+> +                       bh =3D head;
+> +                       do {
+> +                               if (atomic_read(&bh->b_count) |
+> +                                   buffer_locked(bh)) {
+> +                                       busy =3D true;
+> +                                       break;
+> +                               }
+> +                       } while (bh =3D bh->b_this_page, bh !=3D head);
+> +
+> +                       if (busy) {
+> +                               if (invalidated)
+> +                                       return;
+> +                               invalidate_bh_lrus();
+> +                               invalidated =3D true;
+> +                               goto recheck_buffers;
+>                         }
+> -               } while (bh =3D bh->b_this_page, bh !=3D head);
+> -
+> -               if (busy) {
+> -                       if (invalidated)
+> -                               return;
+> -                       invalidate_bh_lrus();
+> -                       invalidated =3D true;
+> -                       goto recheck_buffers;
+>                 }
+>
+>                 bh =3D head;
+> diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
+> index 136cd1c143c9..c3ba3468af5c 100644
+> --- a/fs/nilfs2/page.h
+> +++ b/fs/nilfs2/page.h
+> @@ -41,8 +41,8 @@ void nilfs_folio_bug(struct folio *);
+>
+>  int nilfs_copy_dirty_pages(struct address_space *, struct address_space =
+*);
+>  void nilfs_copy_back_pages(struct address_space *, struct address_space =
+*);
+> -void nilfs_clear_folio_dirty(struct folio *folio);
+> -void nilfs_clear_dirty_pages(struct address_space *mapping);
+> +void nilfs_clear_folio_dirty(struct folio *folio, bool force);
+> +void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
+>  unsigned int nilfs_page_count_clean_buffers(struct folio *folio,
+>                 unsigned int from, unsigned int to);
+>  unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
+> --
+> 2.43.0
+>
