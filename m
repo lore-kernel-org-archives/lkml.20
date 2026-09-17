@@ -1,83 +1,91 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC38C4F0555
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F30E5437E1;
+	Thu, 17 Sep 2026 13:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652757; cv=none; b=a6CJQ6XtDF+vJ1e4RyBKPKqPPlOj3tBW2wL15Ld/Kvj5FIUmofWRupq2UQy3d+pGDqa4beWhlZojDarpNUUvluqNNpmiwWH9aHqni+2m/JlRJmkXyNakZmGOyV34sbH3jqJWvtuSC+/2Fl+2NhQ7uFoTSpDREqrEq5ZZY/QKQuI=
+	t=1789652799; cv=none; b=qgy+EjN2cywBe3XHSAs0Aoy2lB2sL/HVzRapYnl0HjKcPwKjkTSxWO76AqFH+xn0jvaLvQVEWa9I+ovy30BNO9q5yrrEU3Ut3P2S4OLI5yJszRXUSiMHHERAFOqO8xZpfecUC4h4NVeWMXVfDjlynBMkDFncDv7o9MUu1FEnhL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652757; c=relaxed/simple;
-	bh=0aBjkdR4UR77mZaQN03FPwAVBbGKW4UBYvZBXBGWdgo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BbyEFa6H3KlV+8nNpH7dbphw9nWA6S09eLfpnNefL9ddfyaVuqDOK1x3tDl9UFMDLAyeagZiwFC3T9nc63t5wXXI4niG1gvpsWT8XCH9F5ewCwYFUa+scynJQPJn4KugAacKoWuEFTlKyQvDMt4muV+KwKZRThRss1IzmetWrLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=HONMuTmU; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="HONMuTmU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789652735; x=1789911935;
-	bh=uY8GV1Tb1njnq5CRvS7gPHrkYnM3Z+LEuT/WlGlwG4I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=HONMuTmU0oltMLUvOPvveuEtkqEDI7P5ti4AxuTKYiQ18leknWf4oPaspdvTXX/1a
-	 mFO2Vqtpp4h3bBUJkI1QUo+jjxIiY94HKj5kUrSvf1YigueqvB5C/N0XshsJwzHvgT
-	 Os/onKGenaHHJR8v2oboQQPp/qQaWtq75ei1/QYCIu96dvfFYWeZ5KQ3TLtSN+l1sY
-	 TzcQ3ThprVeBg5uWdu8Jm/t7twoCJTfYtUiWAhRqyJDyxe+ezAyPWoTZYoMREeLM2n
-	 VhzFkLyJJ+r3xz2rF0+08Bj4qsm7UQXie5OuivwGt4dyqjCeesfOLBIgrD5uaPn2HH
-	 faA47rfLwU1Uw==
-Date: Thu, 17 Sep 2026 13:45:30 +0000
-To: Alice Ryhl <aliceryhl@google.com>
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: net: netlink: validate attribute length before casting to `c_int`
-Message-ID: <OFpa5lCrCbU3qGep0CtUhaT89qRwVqHY_LWoHC27noLYmjqgp8kAvHrnng6MEzqlqF3zvapYJrpFBpfjf9XiNfxtR-GwhnFMeIj94mKfKCE=@proton.me>
-In-Reply-To: <aqu0bzgMAUQe_LZ6@google.com>
-References: <20260915164000.124340-1-sagartaunk@proton.me> <aqu0bzgMAUQe_LZ6@google.com>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: b0745fc7f76395deb99f3859023ec5869fa0b10c
+	s=arc-20240116; t=1789652799; c=relaxed/simple;
+	bh=EtliLkwSx0v6AfsHNx6DymF6ue055oDkMqBSjAKzOYs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=na0HrBxQKzMTSV4e8m01r+oN/246EWVMFsL0xG1P+QgMiFNVAYWZeYceqvzDpBI9LS2p1TvpfwTFBODctc4fcgzyNMGRWGQYiVSmRRpGj8PF6UPvrJRvmwITtHnl/TcthVAlngiPnmXIoQEiFEGUFIBWGGW6Hema4+IR1oTaGcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH7zkz76tq6sCBCA--.4006S2;
+	Thu, 17 Sep 2026 21:46:27 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bivvy.bi@rock-chips.com
+Cc: heiko@sntech.de,
+	kishon@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	neil.armstrong@linaro.org,
+	vkoul@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] phy: rockchip: inno-dsidphy: Fix runtime PM leak in inno_dsidphy_power_on()
+Date: Thu, 17 Sep 2026 13:46:27 +0000
+Message-Id: <20260917134627.2153845-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH7zkz76tq6sCBCA--.4006S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrur18ZrykKw4kCr43Gry8Zrb_yoWkXFc_K3
+	4fXwnrZa10vF4ruan8t3s3u34qyF1qgw4xWa1Iya43Aayqyw1FqFWfuwnxAFyDXF47Cr47
+	Gw1qva47CrZxKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbg8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
+	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
+	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
+	U5o5l5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qrrRnFrgABsQ
 
-Thanks for the review. Also,I wanted to ask what do I put in the `Fixes` ta=
-g?=20
-Like the commit which introduces it or explain the problem there?
+inno_dsidphy_power_on() resumes the device with pm_runtime_get_sync(),
+but the default case of the mode switch returns -EINVAL without
+dropping that reference.  The matching pm_runtime_put() lives in
+inno_dsidphy_power_off(), which the PHY core does not run when
+power_on() fails.
 
-Thanks,=20
-Sagar Taunk
+Release the runtime PM reference before returning.
 
+Fixes: b7535a3bc0ba ("phy/rockchip: Add support for Innosilicon MIPI/LVDS/TTL PHY")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Thursday, September 17th, 2026 at 3:05 PM, Alice Ryhl <aliceryhl@google.=
-com> wrote:
+diff --git a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
+index 30d5e5ddff4a..5a7962af946b 100644
+--- a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
+@@ -672,6 +672,7 @@ static int inno_dsidphy_power_on(struct phy *phy)
+ 		inno_dsidphy_lvds_mode_enable(inno);
+ 		break;
+ 	default:
++		pm_runtime_put(inno->dev);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.34.1
 
-> On Tue, Sep 15, 2026 at 04:40:10PM +0000, Sagar Taunk wrote:
-> > `put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-> > When the length exceeds `i32::MAX` that cast wraps around to a
-> > negative value.
-> >
-> > This ultimately resulted in a kernel panic when the reinterpreted
-> > value via `__nla_reserve()` and `skb_put()` became enormous.
-> >
-> > Validate payload and header both fit together in a `u16`, rejecting
-> > any payload that wouldn't leave room for `NLA_HDRLEN`.
-> >
-> > Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
->=20
-> This should include a Fixes: tag if it leads to a kernel panic.
->=20
-> Can you also update the subject to [PATCH net vX] according to the
-> guidelines in: Documentation/process/maintainer-netdev.rst
->=20
-> The patch itself LGTM.
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
->=20
-> Alice
-> 
