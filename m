@@ -1,107 +1,120 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E71C49B446
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495C549BD87
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789679210; cv=none; b=cY/Y/iY7FFjXLnHSg/QIvlDu7pqacHFn2ulTjutbDD1rhciHxKOiK/dn9Aw39pihLydbMD8Diq9/Lqu7uV3pe1QDtASrK/jhcx+zzy4TIt/whJCr6+v+L6MAjTTw6BCl3JIFFX2LziyPowtacYdW19A3nj5DtfiDOyV4Wsn0Z/E=
+	t=1789679283; cv=none; b=e+o1D8EGqXitkOq86QBAz7Z+5GrJ0xq6wKyV8+wQeMc2lT/ZZQMhEKXPO4+4BgCQCLAFdXX7YZ0LyKRe63ctcXIZBgnsQSlkwjLboqA4jJiDqPOgb/PKU3gU+0ZCi/uzgmkqvv9suzCvFxnA+CvwjkNLx8CSTGAzn/ja2iRrCRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789679210; c=relaxed/simple;
-	bh=HvdkJ/FnzyzxhIRWpbHKeoBcBq03AZPrsWZYmOz5CAs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fgE3idMvSHTHzMicMlC4xuYACv42ZybwfHRntp5ggN8yl0m5cXLGr78jcHQg1lup86HeG2dndyZsTJDPwerkcljs8yktaU7cm0biZcUzbkFLZVDvNrAaUN9g/7DljUSexhLxyx3q4djPvrne5/9fLWMgwKbBZkcuw+VyHcRoxUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBoZp6Rj; arc=none smtp.client-ip=74.125.231.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789679283; c=relaxed/simple;
+	bh=YBHy4H5pEv93Axkd43WZrvXj62IMTH6uADxqp4QjJ0o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JKkYww402o2rZF/OjmPv+rMsvgA5rlhi//4/gWke6pNncdxHXqz/lZUUp0egCYuGnoGnbLFeE+JqQxGXoU5MLLPyNKlExWnzYO8UIdykf1avSZySw/uwCEcpYuqUKDRS4yj8EuWvP82tCZSqtm0WcnbgL0jm6BlReAItsCx5VG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ynz22d6t; arc=none smtp.client-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBoZp6Rj"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c9a4910efeso28303b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:06:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ynz22d6t"
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c293e9cd02fso4427766b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:08:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789679207; x=1790284007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UhGqQvEgqcceDfwacv9AFFFJVljDY2FHfHQZ/xmKpow=;
-        b=lBoZp6RjM/W3pmMw9EnkPietdw9V5oyHAbw2RFTBbE8VwDTG3lUNSNhJ+BSC1qWI26
-         YYPCU4zo2lojubhabEmZbNuz2fDSYlyhRg3y4HuNt9Vng8o4jcQV0y9V1enmTKTIbIpv
-         smxoZBNVWMRbFVHnE3vLVyqtikfxsY34Tdw+CPNPX0K10yfKqc+wJoc8j3LnzvYfnLjT
-         75awwiBDm2DfsLz8O867Rv8O/QGdwCQs1lHgyr29JXfz6BB64pZEGJZfqlKXZnI9zTsM
-         5T4OeItRruo9VYdSd+F8Kt1pjpZ0c6QlR2RO/RMtxyXyCd5t74r6rA58Bc36ozz52EZ0
-         Pe6A==
+        d=google.com; s=20251104; t=1789679280; x=1790284080; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GZplDPDarrgfYfltWJB0WdogIU9Jf5wB1DpwTrdaw1c=;
+        b=Ynz22d6tnRIHNp1ws8ZevSUR9PkEretu29eQk45WjHhehr+GNssDGp1Mv7GbEhgTKx
+         f4u/9TAK0GUqrciYUGXIp8l6wjlmv5/QAmD76G0aRIh9Q1a+TMADmKGHsZf9wsiiOSXB
+         XUTl1NdI3cT+zkiaaBD+47/oSc0SUbpaL39y23iX2BI6WL/RcVT4g8bD8lflLzvn3TVo
+         MA3loYv7WFvFK9noWzF9Gv1q/Jot1pRQ0evFnaRWEOD5V+Xr6wN7qF//NC+tVRY6Ctrj
+         rBPJabsBoSFAjNRHtWh868eUoBd66NkijOjZpqptidGGjTHnApRfjQJr/5S20Fz6etRC
+         sCbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789679207; x=1790284007;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789679280; x=1790284080;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UhGqQvEgqcceDfwacv9AFFFJVljDY2FHfHQZ/xmKpow=;
-        b=0HDjWiyei1MNNgGw5lloopQ3RyNq3BMqUBcLr88/HK84+dgOlAcKdKYnKZvLJX7T+H
-         JoJH0Sfz+quYhwevKTAgXyoNEP7PVDIoalgKjKowh54ZWoftl5J4E0PfNKwv48JbPFeU
-         VQpLn+2IjB2x/pJpiwiFk+IylGlUO2DZ0kNxMdCQhMEjwOe8wnNlG/OMF7YLbhBVhuaP
-         4d9fS3jJfU37vRFIy9m9D8X3LndlIJ4fAKinGOCshANVa3hHAywZbrWpZh1/w4gHtg9G
-         XRoRzge+9eRl2gX0LFCBNIlzrqPAX9t1BIDorRr1PLiXJpv83s3As76xdTrHHOT7hOz5
-         UQeA==
-X-Forwarded-Encrypted: i=1; AKwUvByPpj0MAJ0j71d6qUn7j505r8pz604UX8PcP69bonPEr9mfvx/b3ljpTMRKgJ6+7XW2o8N9yyRfRo6O86c=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2nMUhiaWIg7axCQwB+3YnRVSKK0vZ+ATPZLppqq4sy5cs1O/b
-	9zTjkA23gzyLR0fCS7bVpflq0Ipjy7ilBtzuTSuQDQMEp5jWZBeb6Y0t
-X-Gm-Gg: AYBFou2XwZAdemgnj0w5RRPM4PP4nU8NyN8IMAIL/yQ30ViKYe6W51kVUEdG4UqHSr1
-	2jlIKQLv4w6p+GYfQRmno3gElvKp/tFjqtfS9suuj3eqBslhELQ9DXH+WYs+1RJ7/nzt1WZxs3+
-	/eUu3Iwww9LFNQ+a1kq2xwv30H3t5x9kvuOOnjBb5NXdJ70qdsjnU3XBJONQ6laTARyhzKDUcpl
-	TsWzDih+csOKZspDwPh0t86SCbFYgOkk4DsPWUpW1nc3Uw+TUkryA0fqHJU9jHuCkCP2oXPEq5D
-	joV/gIpypklch3tSUa/Ml2r3HMW5N3SSxtwrlD3jKR6r1KTyvypTmsOHW3eZtVxgqc5kSfzHmkF
-	C63Sf86er0pnjISGca1xKqXlzyu6SKYZdEss6+b9GFC2oSRnFHgfV8ISGGgT0DHtgDpSAUN8c8S
-	uUUWuSt0ULLcfq74a3ZYB0CW3k5W6KOILy8tLJER6sLubM4ZNW1OmHrSKgSaQoCgsFF7HipEZS+
-	TgLfP7GZo97S+s=
-X-Received: by 2002:a05:6808:c175:b0:49b:33c8:4b75 with SMTP id 5614622812f47-4ccf6a67699mr616748b6e.5.1789679207257;
-        Thu, 17 Sep 2026 14:06:47 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6cd41d0asm3431836b6e.10.2026.09.17.14.06.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 14:06:45 -0700 (PDT)
-Message-ID: <bc93ea43-0650-4a3f-919d-6e0272d24073@gmail.com>
-Date: Thu, 17 Sep 2026 16:06:43 -0500
+        bh=GZplDPDarrgfYfltWJB0WdogIU9Jf5wB1DpwTrdaw1c=;
+        b=WTIVqtNJzhI5E9rodUnMPlTHxGPRXloukMBSM5b98/5xDB5Ih71PfJCn4QPKlxFhx4
+         gIHE6XwbIfdWJ7cDUy5cJXTiPweFQTbazQfJU111zbCJGUqJXsJrLzE4CpMCULHG7jjz
+         NosRFnICd1TJRwlAq9wcHGl6A1rCS+odl0kEQhJCuDUtG39ZVIMLmiM08bgt+K7FFpD7
+         9RdZr7hfkwte20macP7eFgiOgQOqqmOVb0LMgQGewQApZZIE4GWjD9P3MetxvFQBwkSr
+         fz0guVTaco1prrMLY6ONjQKi63RkoZn81KLQWjvBFMrVgYsslEsmgOK8CasvfAjHGRe5
+         2whQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxag3GnDdwetGwqAdsQctu90cd+xqcag0YlEM1ezr/b+TbV+juz7v6oP0/O6iflgtKK0l3JFZD/gGn96ds=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqmcflA7HZrUNpXHF7ViQHLZBXDhriUVBFufXa3TkPFKqpbQMx
+	zJ/KBOCRUsxdwUm34waPpbN0hS5KeFg9GygqRTj2ZLNmWWWwLDD7mGEXHeI+/YOj1o+Enw5f426
+	K6jjNUbDxsFgIjv4syw==
+X-Received: from edbdc23.prod.google.com ([2002:a05:6402:3117:b0:6a3:65f2:cb6])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:c111:b0:c26:1691:b368 with SMTP id a640c23a62f3a-c2a157fab8amr38402066b.33.1789679280144;
+ Thu, 17 Sep 2026 14:08:00 -0700 (PDT)
+Date: Thu, 17 Sep 2026 21:07:59 +0000
+In-Reply-To: <20260904171610.3342398-1-tarunsahu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
- driver
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
- <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-2-d35d2ac3d6f0@gmail.com>
- <aqpnpT6hU5Z0s1TZ@ashevche-desk.local>
- <71a6ed12-f089-404a-85ec-546e03b4db3e@gmail.com>
-Content-Language: en-US
-In-Reply-To: <71a6ed12-f089-404a-85ec-546e03b4db3e@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260904171610.3342398-1-tarunsahu@google.com>
+Message-ID: <9huzse37io28.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 0/3] Convert manual kfree(dev) to put_device()
+From: tarunsahu@google.com
+To: Russell King <linux@armlinux.org.uk>, Geoff Levand <geoff@infradead.org>, 
+	Masakazu Mokuno <mokuno@sm.sony.co.jp>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Paul Mackerras <paulus@ozlabs.org>, helgaas@kernel.org, Nicholas Piggin <npiggin@gmail.com>, 
+	sourabhjain@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/17/26 4:01 PM, Ryan Brue wrote:
-> On 9/16/26 4:55 AM, Andy Shevchenko wrote:
->> Why not add this device support into that driver?
-> Please see [1].
+
+Hello, This is the gentle remind for picking up this series.
+
+Please, let me know if it needs any improvements.
+
+~Tarun
+
+Tarun Sahu <tarunsahu@google.com> writes:
+
+> Hello,
 >
-My apologies for double-replying, I forgot my link here.
-
-[1] 
-https://lore.kernel.org/all/2d1b80f2-53f6-4ed6-81bf-e35c0a9efb26@gmail.com/
-
-Best regards,
-Ryan
+> As per the kernel-doc guidelines, Devices that are tried to register
+> with device_register or to add using device_add, must use put_device
+> on their failure path (not kfree). This series contains 3 patches
+> for updating such instances. Same for kobject_init_and_add or
+> kobject_add, call kobject_put instead of kfree in case of error.
+>
+> V4 <- V3
+> 1. Added Fixes tags
+> 2. update commit msg as per the suggestion on v3
+>
+> V3 <- V2
+> 1. Updated the commit msg of each patch to mention about the kernel-doc
+>    guidelines.
+>
+> V2 <- V1
+> 1. Removed patch [1] as it is part of another series [2] already.
+>
+> [1]: https://lore.kernel.org/all/20260810162814.1398016-4-tarunsahu@google.com/
+> [2]: https://lore.kernel.org/all/20260724171945.2812749-5-shubhrajyoti.datta@amd.com/
+>
+> Tarun Sahu (3):
+>   ARM: locomo: Fix device reference leak on registration failure
+>   firmware: edd: Fix kobject reference leak on registration failure
+>   powerpc/ps3: use put_device() on device_register() failure in
+>     ps3_system_bus_device_register
+>
+>  arch/arm/common/locomo.c                 | 13 ++--
+>  arch/powerpc/platforms/ps3/device-init.c | 83 ++++++++++++++----------
+>  arch/powerpc/platforms/ps3/system-bus.c  |  2 +
+>  drivers/firmware/edd.c                   |  2 +-
+>  4 files changed, 59 insertions(+), 41 deletions(-)
+>
+>
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> -- 
+> 2.55.0.979.g7e5102b832-goog
