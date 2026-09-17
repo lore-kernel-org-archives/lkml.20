@@ -1,166 +1,95 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A64D48FF82
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00A34F393C;
+	Thu, 17 Sep 2026 21:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789679609; cv=none; b=RfYIqWNkx1BVsmOzYdieXTKMrK2D3FsrFMi1xJEsY8xPH++YpT3IF2/M5Bzq5lolvKrPSI87jDisasnz9Aeu6iJLhI5kXLitYBF8tCiDfXgBP9XlJVXSzcgg/OSzpMDAOyZUIU4EMjAZPSFjFMVYdYBARrFAgORGEjmNw1jS8gM=
+	t=1789679615; cv=none; b=KkDwOLrelzikp36aPHtAqlhxe/sPxWFGJNacRc39GgPMirJrCqDzU7mTy6ocyUGw8EYLiIZtTgZ+DIJeBcREo0iUcDBnOg4M0QBADCL3mDuV6tFQ64TNDFLf/V+GWQVLhwYdtIID7cFWbsFtBHLP7SyTSzqKfdbz/EyN3/D/q7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789679609; c=relaxed/simple;
-	bh=7UGxLQujhSpBzmaGFRnJ8f4QGXjD260xVATTJpQHlCg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AaZfVkuhnmq9JZF7ONBh+ERdJmo7KXOHuweR/0x47pM+WUlsl84yXwTkLD8q2n9gLpHLiK0GoGYYOr0aC27janw4ZLnyDAngmLvw211NhYphFFQcKHO4MZRWJvUdLbDtJmyBoPYW+nv5pCj+jOOQe+lf9GzgYCeUwZsp/AchxJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MQMXeZWF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HpAZbBo1; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789679615; c=relaxed/simple;
+	bh=kGVdJvoxUqY161AWw5rv7MApOBp2g1zfoUmphBeETxo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DPTmZos2LhuUEXyOkJnCXKSfvkrbFZFMip4Pp5W1CfDPk7hOmLalWcRv/bBHnpYMnc9yMQvLxohS3zbdjo9Ts3k8Bm9ObZj3cRMzXfXPUlzTJt7cFv8E7tq5Wv3EP5L0gq5RrC5u8WSvA2Qr6KDinQrwXXHdCQC3m1guwOtDEcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OoBz9QjM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MQMXeZWF";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HpAZbBo1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789679606;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+1WRQ3xpv0F4/rm47tzzwq3oGBSMX7i9LTQrQwZCVGM=;
-	b=MQMXeZWFbLboTxEJis/dS8C0xV2jvDyKajOCc1zoxFtk2PlYwyRKaGoY2p5vn1gWsfw+F8
-	z+3QMFKJZ4YdH2/l46Z8XUkC8XoMjwgF/nUVakuSBuKelUHcejZ+wYDrEjyADtpIK4wFx2
-	1BBeHasY3Rx7johVZjxCrgP7l/Bg7Mg=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-12-Hneo24HHO8C02ns2XlGLBg-1; Thu, 17 Sep 2026 17:13:24 -0400
-X-MC-Unique: Hneo24HHO8C02ns2XlGLBg-1
-X-Mimecast-MFC-AGG-ID: Hneo24HHO8C02ns2XlGLBg_1789679604
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-936708f129aso13576685a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:13:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789679604; x=1790284404; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+1WRQ3xpv0F4/rm47tzzwq3oGBSMX7i9LTQrQwZCVGM=;
-        b=HpAZbBo1JUMmB6xmc9TE3p2pNB1Fq/+hlLjtc1pAlhE2VCK+KybJJ13UWCvfNTZ9X2
-         3xXSm/4wQuhLc0SPYnKOYnm+Z6S2iaivsA71RlvJ7GpvF1gaUYv2SNmRGhM1D4cOv/kr
-         C86mHpNc2fuewevr6WpiKocdlCKjG6P+nCaFwAwRpCoN/HwNhGk1erZ0VwtE35xsngmx
-         9ygahByC+n1ShScFnJfY09Xo9KxjKdYEol+aFRhSTO596mHGKCBFxp0LOiXtQWeA2V+e
-         N1MZyxtSN5occB433z5tmygrm5cEZb9/uhGttMpfSUl/mrXL1O+H4dyouy08TXcZ9EnH
-         WE1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789679604; x=1790284404;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+1WRQ3xpv0F4/rm47tzzwq3oGBSMX7i9LTQrQwZCVGM=;
-        b=jighsn8qsYLS6SCHWlLhua2FClZ5SGO+pCTrgWcR1FLRFf0QBeRaYcpuI/LMMxgvm1
-         YYEduJre8yPS6R1rRBs4iB8dC24LKz5g6KL3RtbZUDS8cIS6xSvOhFtPYpohVGQPppnW
-         jzN5UTNnN17kxyxVbGwjOAD0fGbunpn/WQ6W1KTHQsUVbhL9iYlhObRlsYtrTN71SDp5
-         yns4eQiAtvsYFheomNQHecc4jbNJkrdf7VQ+TUCcb5ozH8/w0fTG6Q6vBoMHd7nF8df8
-         Qe2AfnnXlVfgJP/zkJzqaOd3wP/ZRAUJnxyXXnNBuk+b06HkmZrg7bkKYXDgn14kFbr2
-         LX5A==
-X-Forwarded-Encrypted: i=1; AKwUvBySiZuEenkXQxfjyiIAFSHf0dnqoI5/gD7+z4zQEMU2XVokBFTX/rYu5F7UWD8XPuAM/OsuuIDNVglIKXE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLX30c77VUrFKZe/PLqIiQ2eJ/T51EgQE0tLWmyXTd2Z3oD/Op
-	/EbRznW7G7tFKtctokNsxlY8msrU4JJTcG16PhCNo6lql25IFfelRSe9/c9YW8228EPHq6riefC
-	Zgcmv9n1f9yd1RfFkT72ahYfI3XxA7nju/ZdYIPgp+JRkbhAeOLzo/leeD1tHPPZ1ow==
-X-Gm-Gg: AYBFou1AiZgd+vfI7Sk2eE6Xl5eDjtkjV5cpPUUjLjPElbEE7I0mcqf8VrglveIa1Wl
-	mt4wxmHS4WV67mRZMLn4x+XaoEvSOI8EGJR4NBxi1ox3JgdzZVE2kbYJx36Vxs5hW2445RjaL/4
-	+CAlp0qBY27pEqtUa2oVxP2qGde8dic2g+EsU1f6sEPyL9u/Dtff2RczMn9/gS+7BAM34YWZKYM
-	MyLa68MzPlZJZcULesLb/mBUEz7sfyGizcjUd5Soc1UsB+0Q0vFc9rLkHhsmmfbe637X5Qm8r37
-	PaS23OreVdtv6w0vacrezeBYmXPX9HVwxwJzJn+GJDWl5FMtHhnbuXnFlV3fsIab2UGXYi28
-X-Received: by 2002:a05:620a:4103:b0:938:e23a:2ce9 with SMTP id af79cd13be357-93bdc6d5f01mr40255685a.16.1789679603891;
-        Thu, 17 Sep 2026 14:13:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:4103:b0:938:e23a:2ce9 with SMTP id af79cd13be357-93bdc6d5f01mr40251785a.16.1789679603464;
-        Thu, 17 Sep 2026 14:13:23 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7821d231sm558697385a.21.2026.09.17.14.13.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:13:22 -0700 (PDT)
-Message-ID: <d6d916ceab76de14541a087c092cecf895c82164.camel@redhat.com>
-Subject: Re: [PATCH v2 3/4] drm/nouveau/device: don't use the pstate cursor
- after the loop
-From: lyude@redhat.com
-To: Francesco Magazzu <postadelmaga@gmail.com>, Danilo Krummrich
-	 <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Karol Herbst <kherbst@redhat.com>
-Date: Thu, 17 Sep 2026 17:13:21 -0400
-In-Reply-To: <20260712123616.1180830-4-postadelmaga@gmail.com>
-References: <20260712123616.1180830-1-postadelmaga@gmail.com>
-	 <20260712123616.1180830-4-postadelmaga@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OoBz9QjM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5BDD1F000FF;
+	Thu, 17 Sep 2026 21:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789679614;
+	bh=kF7pWfsNzscDhCQmWCGtRrGt0EXytORuUEtbPZ5JJbc=;
+	h=From:To:Cc:Subject:Date;
+	b=OoBz9QjMxCv/h94jF5EMNghAmGoZ8PP3UCK7x+JAUKxXnGwuMtYKI+/KGSzIjJA/n
+	 NQBqJQevocU41Vx1YYO5cvNPJ28xgRoomt78Me+rYwcVrEIAOXqSXEhoojVEBBeYny
+	 xCxc+EXHabPy+K/XsvX5JMQQmv9pRgfzXDNBmO3ZzEXKh06FnD5Hdgi2U+0z1zyru0
+	 C3QVgKyjZM8Ehkn+94xHzIM8CrcZUiYoXve36Wldc7qpUOe72QJwKCSyeVXhQ8xnKE
+	 J8GWOK/r5BRdL4JpE+9y8BjW3BvAcKtQez7AiejD/R0shHOTaR2vaXpVvX+mjfw6Jb
+	 +UjrWfjN5HY7A==
+From: Kees Cook <kees@kernel.org>
+To: Ed Brindley <kernel@maidavale.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Denis Pauk <pauk.denis@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH] hwmon: asus_wmi_sensors: Fix info[] allocation type
+Date: Thu, 17 Sep 2026 14:13:33 -0700
+Message-Id: <20260917211332.i.711-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1694; i=kees@kernel.org; h=from:subject:message-id; bh=18GCQhkkQo5tyjqZXkwL1mgT1HN111jiRWL1i7Isy94=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlrwv9eFupMkF+T2hzru3z//YkzjuytV2S9W5+5bu+it 3yJq3P2d5SyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAEyE4z3D/6wpp5245KOCHx1c W8h+3y7wd77GAY99pxYL93LVeZYZbmH4n2Md5r2HcULuke+KR4qO2lxa9vXJ7l3Sk2yTLRQaN8V LMQEA
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+From: Kees Cook <kees+treewide@kernel.org>
 
-On Sun, 2026-07-12 at 14:36 +0200, Francesco Magazzu wrote:
-> nvkm_control_mthd_pstate_attr() looks up the pstate at the index
-> supplied
-> by userspace by walking clk->states, and then keeps using the
-> list_for_each_entry cursor after the loop.=C2=A0 This is not triggerable
-> today:
-> the function already rejects args->v0.state >=3D clk->state_nr before
-> the
-> loop, and clk->state_nr is kept in sync with the number of entries on
-> clk->states, so the lookup always breaks on a real entry.
->=20
-> Should the loop ever run to completion, the cursor would point at the
-> list
-> head rather than at a pstate, and the pstate->base.domain[] read and
-> the
-> walk of pstate->list that follow would read past it.=C2=A0 Rather than
-> leave
-> that trap in place, track whether the entry was found and return -
-> EINVAL if
-> it was not, like the other lookup failures in this function.
->=20
-> No functional change.
->=20
-> Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c | 8 +++++++-
-> =C2=A01 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> index f2e9a0626..28702741a 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-> @@ -74,6 +74,7 @@ nvkm_control_mthd_pstate_attr(struct nvkm_control
-> *ctrl, void *data, u32 size)
-> =C2=A0	const struct nvkm_domain *domain;
-> =C2=A0	struct nvkm_pstate *pstate;
-> =C2=A0	struct nvkm_cstate *cstate;
-> +	bool found =3D false;
-> =C2=A0	int i =3D 0, j =3D -1;
-> =C2=A0	u32 lo, hi;
-> =C2=A0	int ret =3D -ENOSYS;
-> @@ -104,10 +105,15 @@ nvkm_control_mthd_pstate_attr(struct
-> nvkm_control *ctrl, void *data, u32 size)
-> =C2=A0
-> =C2=A0	if (args->v0.state !=3D
-> NVIF_CONTROL_PSTATE_ATTR_V0_STATE_CURRENT) {
-> =C2=A0		list_for_each_entry(pstate, &clk->states, head) {
-> -			if (i++ =3D=3D args->v0.state)
-> +			if (i++ =3D=3D args->v0.state) {
-> +				found =3D true;
-> =C2=A0				break;
-> +			}
-> =C2=A0		}
-> =C2=A0
-> +		if (!found)
-> +			return -EINVAL;
-> +
-> =C2=A0		lo =3D pstate->base.domain[domain->name];
-> =C2=A0		hi =3D lo;
-> =C2=A0		list_for_each_entry(cstate, &pstate->list, head) {
+In preparation for making the devm_kmalloc family of allocators type
+aware, we need to make sure that the returned type from the allocation
+matches the type of the variable being assigned. (Before, the allocator
+would always return "void *", which can be implicitly cast to any
+pointer type.)
+
+The assigned type of "sensor_data->wmi.info[type]" is
+"const struct asus_wmi_sensor_info **", but the converted allocation
+type would be "const struct asus_wmi_sensor_info ***", as the size was
+taken from "*sensor_data->wmi.info", which is one level of indirection
+too many. Luckily both element types are pointers of the same size. Take
+the size from the element type of the assignment target.
+
+Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
+drivers/hwmon/asus_wmi_sensors.o
+
+Assisted-by: LLM coccinelle
+Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+---
+Cc: Ed Brindley <kernel@maidavale.org>
+Cc: Denis Pauk <pauk.denis@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: <linux-hwmon@vger.kernel.org>
+---
+ drivers/hwmon/asus_wmi_sensors.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/hwmon/asus_wmi_sensors.c b/drivers/hwmon/asus_wmi_sensors.c
+index c2dd7ff882f2..621e3506972d 100644
+--- a/drivers/hwmon/asus_wmi_sensors.c
++++ b/drivers/hwmon/asus_wmi_sensors.c
+@@ -573,7 +573,7 @@ static int asus_wmi_configure_sensor_setup(struct device *dev,
+ 
+ 		sensor_data->wmi.info[type] = devm_kcalloc(dev,
+ 							   nr_count[type],
+-							   sizeof(*sensor_data->wmi.info),
++							   sizeof(*sensor_data->wmi.info[type]),
+ 							   GFP_KERNEL);
+ 		if (!sensor_data->wmi.info[type])
+ 			return -ENOMEM;
+-- 
+2.34.1
 
