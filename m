@@ -1,76 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A6C51A135;
-	Thu, 17 Sep 2026 16:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663650; cv=none; b=op0xPG6Q9DoOiozdqUF+bXaLXwqBfdofLyN1iQ6X0PKtC1n1tT25KytWR7VC17eVy7+/kXRsW1CjeHHgGbLyMy2twpvHD4jnGtiTFrC09TMzhlRE6l0Obt8R/UeysWEQlm1aITGOvdatTEvNaMb/5RL2kZuALRvUxUuiuss1qPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663650; c=relaxed/simple;
-	bh=6yFF79F5pQkgMedudQVjJc80KoLUU5S3vMNtZZ0tn1M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uFTcvyhTWG/GAUCYg8bHHrTbw3R5A5ZLLS0oj7GnY5gIN7Jx8mI5rgz/Lb2B/u4P4xMAmfLPZBCJgBl8vArpTOO+LewvPVpC1Rn4Q/rerlYEQ7uTez7cUsyVPZrej5o+KLrqLarXWQXRuCcw1diFW/9ak1dDzqfr5dqAG1+hDg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFidRq4c; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901114F4D0B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789663664; cv=pass; b=RanArJxdNZUinAplkReB1X4EwRTZQZpWILXItuqoOcvFG81A8VJHs69kTYqMwkGXXrpAVRluyd/PR5oWHkUNdX2S/wE/khV3JRQ+2Gs6hNeJZWojNp3fYXcPVMie7jDEUSWLUYObxf+hrEDbKsgAPmwf9PJyN2skN6j4CaVWK+A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789663664; c=relaxed/simple;
+	bh=OXoyJpegabl0ocESy43SWOAVnutZsDrl9ix8aJurgKM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UhA1+v81Aa6B0GyWGoAP0Ev9Rdp8a3C5dEDWREQMlfbWxu0Pzu1YRvVxOSSt8xH1UHioe/mFavV0hDqlMJ+LMxEhg03PcgHnD+/qDVYikboBtNBXh1wE+rKj2oaWaM1SHs6XKebPkUUaw/TXYi6qG+cdARMD/kd+/e6LfxdAUys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eATgGJvg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dKGKnJD3; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFidRq4c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4481F000FF;
-	Thu, 17 Sep 2026 16:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663648;
-	bh=6yFF79F5pQkgMedudQVjJc80KoLUU5S3vMNtZZ0tn1M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OFidRq4co7W/H4Q0PKxuKIDlbFLlFG4EOXi0FBxtNdm5DxmCLDlC1qroW1vy6HFlK
-	 6T98+/Ok2N0TlOBnQor2u4TRrCt6bIMfVoC7ssd8Z7BdWBvVAnP+VpPXjKIMvsb8bx
-	 52qI60Xn2w+0bWMxkvfYILOzj6gS26Y9+aNCYJ1yA7aBePmOYUC/Siah6LOe80j4q2
-	 wAEco4ALy5CtxFCaQpQjw/T1m/s6py1rAty3kkZs/V1+UuikPq/p0VSKwqPLjUOyal
-	 E/YRAtHW12iVoWT6HgDemLlvqw0yoy9nGTsQaBhQMmCAb2f/wciXEDMmFmmYIJjb9y
-	 fnhXmmI8QIumg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/9] driver core: async device shutdown infrastructure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, driver-core@lists.linux.dev, "David
- Jeffery" <djeffery@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, "Bjorn Helgaas" <helgaas@kernel.org>, "Ewan
- Milne" <emilne@redhat.com>, linux-scsi@vger.kernel.org, Maurizio <mlombard@redhat.com>, "Bart
- Van Assche" <bvanassche@acm.org>, kexec@lists.infradead.org, linux-pci@vger.kernel.org, "Laurence
- Oberman" <loberman@redhat.com>, "Jeremy Allison" <jallison@ciq.com>, "Pasha
- Tatashin" <tatashin@google.com>, linux-kernel@vger.kernel.org, "John Garry" <john.g.garry@oracle.com>, "Tarun
- Sahu" <tarunsahu@google.com>, "Stuart Hayes" <stuart.w.hayes@gmail.com>, "John
- Meneghini" <jmeneghi@redhat.com>
-In-Reply-To: <20260917163744.191748-7-djeffery@redhat.com>
-References: <20260917163744.191748-1-djeffery@redhat.com>
- <20260917163744.191748-7-djeffery@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:47:27 +0000
-Message-Id: <20260917164727.DE4481F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eATgGJvg";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dKGKnJD3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789663661;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ghsNMjszr/YVVrzwI9L3VChkEhVa9VAV3CWSeRoOujg=;
+	b=eATgGJvglDB/e/XNDRrzgW5WKOMEpiB7LymnGtDf3t8cuHmDceHF6yh3kS+B4K+hNcO7ms
+	+q7mwqmlMk4xTiF2LCi9CdNZxB2HVauHdvJoBImez5qV++TOb0SpSxrRysTv9oeZ9rPF7n
+	RqubMsnYYyb9IE5olgw4ULYsdRg071o=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-14-ADKdDGDeN-aFrcj25hgTuA-1; Thu, 17 Sep 2026 12:47:39 -0400
+X-MC-Unique: ADKdDGDeN-aFrcj25hgTuA-1
+X-Mimecast-MFC-AGG-ID: ADKdDGDeN-aFrcj25hgTuA_1789663658
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c295b027ee0so120927466b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:47:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789663658; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l/yZ5XMUlakNYny+qu1fm47TCToAxjVbg/EY421C26L84BLLIb5yAeEzMCIxoOlpOg
+         GnYWWTBJAg7dE6OR47VFUW2Dyr/uGmCAQuypWqc9ILCXcgFICzpoUxPeMCBweWbaQzUk
+         I7Hgm1ctEgaxQcxTljk9/3yITDc4ms3Avg7h6oWpDUfBRfuP4k92v4preotEq2WZdnup
+         VAr33C/Y+yA+LI2yHJp6pH6B8QkJZUVzQ+ZMXPBHGfHFdidJnFFDIqN+w7DWFKP+wbF4
+         eGBbAGSR8k6oLnyQ5LdYcDwcC3+uhZWUg1T0+H6bZBpbBFYFKQ2XKKq+jWWBxfCqxEnE
+         ykvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ghsNMjszr/YVVrzwI9L3VChkEhVa9VAV3CWSeRoOujg=;
+        fh=ndVilZL3gJ4XO50CA2eUOwg5MOpYK6eD1hGjMwHSIMI=;
+        b=KFthHoo5AigQL3A7sTl0Yx9HSwt+tHILFyYlNFod80OM+aCJd88zw9Y/eWQ2+Sfkq1
+         BsF9CWZtCKFfwPnxC6UPjGHjrrHTwvki0VGxZvlV564JF5lbchBalU9/7eTBNQgv7fy2
+         BOIAstJtGwrVv/k2o5c0eNb73HC69H8cd2zN98XiZL7noVfM43fejx7Yix2CmsT7Iw51
+         622v2H3PguXsoksmMvPJnscX6FpUWQNl4wr9Ay19dIXsU0dOtTyczf0Gl7sm4VM0JVy0
+         TuR5EL3kpjkWc/1fT6820OGaPvZBT32984vNvl8a06IUP+2xzwHtcjZPdJFtGq0JlyBh
+         c9wQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789663658; x=1790268458; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ghsNMjszr/YVVrzwI9L3VChkEhVa9VAV3CWSeRoOujg=;
+        b=dKGKnJD38WiZGeDo9G7w61tJE8iA6+vSv3+VhV/+0BSAMznrhvPVqnGGKYQ4PLBA6I
+         0x6n1uxTHhGhrERHIq4n2fwx7oBAGeJ0UH2xKBLCAHlcgYVJbSGdqkRY1bIrFojj6Vu2
+         1xzNeV3ObTyMCYkO5MWwX8CYgFeVi4bWCgXmC4n+onP+bI4+jZOOu0utxMpLFY4bJHAr
+         EnjiwLBgjs87fs6PxCZOmw1IRvyMdPyrIn9tJRRP/SWbFlBMtaD4DAF8BTLubz0gyLzg
+         wVbhbv7VzQr/+jzG98EbBOOsFR5Vdnw7E8gs5KXES7CruX20+ZZXuAPdluYPVbk+dg7Y
+         c55A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789663658; x=1790268458;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ghsNMjszr/YVVrzwI9L3VChkEhVa9VAV3CWSeRoOujg=;
+        b=tfyp5fZLs36X/OoCPAfwOh6KqSoB1mNbKRiixkR5r2wSziQhbGbAIu1mBJX4LfqfYW
+         /oM9KiWBEZrkjAFOkwygQMThroZx7o2cuOxhzg1CbuddyYl8RDXAiRNYScRMtUqcagHo
+         c+h98USy1xKAuWxr/VxEiqScN8uorNAmymr0Raa/Y8CKCmWJPHmI5GeUwZ+BOa58ux6+
+         cFrGJWqeO6wANAm1HWkNUpyP0Kag9bRLyTlyKpjxTZEmwlVZXQVO93mSwOHOh41YDR/C
+         TE7qqaHX1oMeeshcwLTfubaNRkV5TKURpGdGah1bdfWisGKN1HTm4HvQ4qn38X+Z1gBI
+         B4pA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZtSnJdsl6ugzLlFYBRNSufWlwd8bHO9QqOV4fNZqs5EvJu7GDTZLEwoxHOgizU9cGnEfof6etUgcBABQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2ObvnLoWWVmB44fkCzUZH8V7TaMMmvrR51iCo5A7EK8umdtfK
+	TJdTE0k+Qa+5DgYBp7nQhT1zYOaFVQgP9hVhnACdLKtWeK0wtHikBH1dF45GSJLnG/n0qzsCmey
+	igg1E4tHifr/Hgr/BvVL5l0mTUi9t1JVB5/DtmxNWQsZztcnWblnQirYTCYUZ3GkremRSSl0ImI
+	mcGbaBBfqadx8dT7oSnrOxQZxDuwXmLv8wshel9dpTPGKejI4KwpHqYw==
+X-Gm-Gg: AYBFou3gyLr9iLrOWzAq/FIWGgYQx0P+G0RnEtkWHv5IFglE8K1g4l4EO5QrGm42tPm
+	S6xMcs0uK1iHp6qW+PjWqCsqxDw/aBQ9KWeGk8mfYapO95/jkDQsFGs232vEVgYVvB16OHemWEO
+	lFuF3h0yphCrIaPzeb17Waw4XTol9X59DZxjGmh7jGMilirkJvrP4Z69C+bRzoH1XZhYgQygZSe
+	7HspVnIh0kMfhTOaBhZVZUiAYoYSrgN0BccHCB0kNlSlBBfIXxOlRKbU/KptjaYKpNqf/yXqy7Z
+	kEY=
+X-Received: by 2002:a17:907:1c29:b0:c25:fdbc:52df with SMTP id a640c23a62f3a-c29e5244c19mr627702466b.10.1789663657739;
+        Thu, 17 Sep 2026 09:47:37 -0700 (PDT)
+X-Received: by 2002:a17:907:1c29:b0:c25:fdbc:52df with SMTP id
+ a640c23a62f3a-c29e5244c19mr627698766b.10.1789663657315; Thu, 17 Sep 2026
+ 09:47:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1788351089.git.rrobaina@redhat.com> <4ada9fcbb93af8d5c1c9bfe2c83d94fc10bfe327.1788351089.git.rrobaina@redhat.com>
+ <CA+=Fv5T4826T2sd0Gbh-nfZsqcWK_phdBKy4BLWOvDTt92t5Eg@mail.gmail.com>
+In-Reply-To: <CA+=Fv5T4826T2sd0Gbh-nfZsqcWK_phdBKy4BLWOvDTt92t5Eg@mail.gmail.com>
+From: Ricardo Robaina <rrobaina@redhat.com>
+Date: Thu, 17 Sep 2026 13:47:26 -0300
+X-Gm-Features: AcwNN1UQ-9H3EW5aAPKYI2mYiHxV9kMvBFdM8jP3WAhZbefwH7qcxYHE69PGYDs
+Message-ID: <CAABTaaAUBzp1uaLve2piMhEB1R5po5n5+Sy+U0mbbe70Ak-SUw@mail.gmail.com>
+Subject: Re: [PATCH v2 02/13] alpha: pass pt_regs to audit_syscall_entry()
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org, 
+	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-um@lists.infradead.org, bpf@vger.kernel.org, paul@paul-moore.com, 
+	eparis@redhat.com, sgrubb@redhat.com, oleg@redhat.com, 
+	richard.henderson@linaro.org, mattst88@gmail.com, linux@armlinux.org.uk, 
+	catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org, monstr@monstr.eu, 
+	tsbogend@alpha.franken.de, jonas@southpole.se, 
+	stefan.kristiansson@saunalahti.fi, shorne@gmail.com, 
+	James.Bottomley@hansenpartnership.com, deller@gmx.de, 
+	ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
+	davem@davemloft.net, andreas@gaisler.com, richard@nod.at, 
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, chris@zankel.net, 
+	jcmvbkbc@gmail.com, tglx@kernel.org, peterz@infradead.org, luto@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Patterned after async suspend, allow devices to mark themselves as wanting
-> to perform async shutdown. Devices using async shutdown wait only for the=
-ir
-> dependencies to shutdown before executing their shutdown routine.
->=20
-> Sync shutdown devices are shut down one at a time and will only wait for =
-an
-> async shutdown device if the async device is a dependency.
->=20
-> Enabled by default, async shutdown can be explicitly enabled or disabled
-> by using the kernel parameter "core.async_shutdown=3D<bool>"
->=20
-> Signed-off-by: David Jeffery <djeffery@redhat.com>
-> Signed-off-by: Stuart Hayes <stuart.w.hayes@gmail.com>
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+On Fri, Sep 4, 2026 at 2:21=E2=80=AFPM Magnus Lindholm <linmag7@gmail.com> =
+wrote:
+>
+> Hi Ricardo,
+>
+> On Wed, Sep 2, 2026 at 4:44=E2=80=AFPM Ricardo Robaina <rrobaina@redhat.c=
+om> wrote:
+> >
+> > audit_syscall_entry() now takes a pointer to pt_regs and extracts
+> > the syscall arguments itself via syscall_get_arguments(). Drop the
+> > individual argument registers from the call and pass regs instead.
+> >
+> > Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+> > ---
+> >  arch/alpha/kernel/ptrace.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/arch/alpha/kernel/ptrace.c b/arch/alpha/kernel/ptrace.c
+> > index fc8f6cedbb28..8a39c0473297 100644
+> > --- a/arch/alpha/kernel/ptrace.c
+> > +++ b/arch/alpha/kernel/ptrace.c
+> > @@ -496,8 +496,7 @@ asmlinkage unsigned long syscall_trace_enter(void)
+> >         }
+> >
+> >  #ifdef CONFIG_AUDITSYSCALL
+> > -       audit_syscall_entry(syscall_get_nr(current, regs),
+> > -               regs->r16, regs->r17, regs->r18, regs->r19);
+> > +       audit_syscall_entry(syscall_get_nr(current, regs), regs);
+> >  #endif
+> >         return syscall_get_nr(current, regs);
+> >  }
+> > --
+> > 2.55.0
+> >
+> This doesn't apply on top of my "alpha: enable GENERIC_ENTRY" series
+>
+> https://lore.kernel.org/linux-alpha/20260902184058.198679-1-linmag7@gmail=
+.com/T/#t
+>
+> That series moves alpha's syscall entry onto the generic entry
+> framework and removes syscall_trace_enter() and its direct
+> audit_syscall_entry() call entirely - verified with git am against
+> GENERIC_ENTRY applied, it fails at exactly this hunk.
+> You don't need a replacement alpha patch, though. Once GENERIC_ENTRY
+> lands, alpha's syscall entry goes through
+> syscall_enter_from_user_mode_randomize_stack(), which already calls
+> syscall_enter_audit() as part of the shared entry helpers
+> (include/linux/entry-common.h). I applied patch 1/13 alone on top of
+> GENERIC_ENTRY and confirmed alpha's entry path already routes through
+> the updated __audit_syscall_entry() - no alpha-specific code needed.
+> So for alpha, you can drop this patch in the next revision rather
+> than rebase it.
+>
+> Regards
+> Magnus
+>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Hi Magnus,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163744.1917=
-48-1-djeffery@redhat.com?part=3D6
+Thanks for reviewing this patch! Ok, I'll drop this patch from the series.
+
+Thanks!
+-Ricardo
 
