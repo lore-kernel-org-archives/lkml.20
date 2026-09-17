@@ -1,226 +1,131 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136E1440A19;
-	Thu, 17 Sep 2026 06:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C6F3ACA48;
+	Thu, 17 Sep 2026 06:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627835; cv=none; b=f01lBYF5WT1WE3m9locyRFKK12akHoaCIBg6F2LPS/A9LcGvDyeySFrrfCB48NHzFNKFwTsaMzDTaHoHHqiFIqGxqoEyXinU5BpaJzDvnPN/H/PhFPHpSUdJBipGvqMqULq1KBVbKOb8mYvdbDiX5E3zI2vuTB9n/jv0EU7l0aA=
+	t=1789627886; cv=none; b=bfWN0YK0dZeA7fCL2RmtoYVBO1Yb3TY5UpBRdXUlFmK5ayNJ71q66lpbvhLPcaW0OHOYWqf8yL8jmObIDUjM5n9c+QRha8R4mUVVwmfmNeqXcGVcPGjy+G1OmDDeFiZev+1sd1Q9LKkpebUWw64b50jX91jttfEC0H7N5lxZaDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627835; c=relaxed/simple;
-	bh=brNwFc7lJ4BF+lEULw3lKPrx9lBppOwG+zdBdOV5nuA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s5mGg26xIJC+L8gIZHHRgWYJoKvjWKA9UWs9ees+by1QbnobvGJ2ZS2gC37eAB5wmoXRfsjL7P6DWXGoeNh0EjX8BgMfhBj66ukTRmiBmJioVg+CSq3bie+3+UqntveiVHo7kzqXmAzPZ+8tpqndKnkXRB8EXtJxEEq5fdg08Fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wblOtbjC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TBLLsnlz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gQhVQK0B; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SJHCDlh/; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789627886; c=relaxed/simple;
+	bh=1VM8O98SlwbQ6tslRntdjAgACRGyZkBHs6CWdV+Uoi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IbaKrl5IVGy1NY+li1PnlpFYAicqcfSquhu7ThVzkE3VtGSAnOxWyZcgk5kIfiPjMWtSkH6MS8bTTRe2UCMb/n8wt5zQInQfIkfSrLYOAhamO4+pn+LtlkwlmMYwsGmQhSc0N4k5h3y+1HuuwFgNFM7t2WGASy/FqYUv9avEJ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfgmtCRp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wblOtbjC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TBLLsnlz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gQhVQK0B";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SJHCDlh/"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B125221D61;
-	Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789627827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
-	b=wblOtbjCE//IH8attoEp0g1epeDKUawS9gJsxjU/mZksVZaIIjFa35XNjOEGbuP8lETKD9
-	HdvOpHBY+IDduP8LVq1GbmSSWI2RUS821kUGhMUjDKBK029GYomo0szb5xWQqVFaZEbQgM
-	LSd5fRCEZXJP5tOHOLC87mOLBAxSoj8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789627827;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
-	b=TBLLsnlzTwp22yCsGddbv3GJf2nk7s1WWVswpygffnN943EoX7lRNw8v988EXxYW78JsIy
-	JfE5eB3WCk6L7DDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789627823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
-	b=gQhVQK0BrtfaZD8x15/rUb9ZH2/3ksZsfnFmF2eEdbA202P7ncRcVZ6lECeWNaI09eeFnL
-	FbjIo9YT6INisB6b1pLT8rN3amrbO6OmzV8YWdbKZeEgOOut8V7SGnbMq6xpgIUi0UFTjs
-	BBvOSANYXQTa5ltrU1Xs4RW2H8JGxOM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789627823;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
-	b=SJHCDlh/43hkJkJteA7inZN1LtAZxNeSyLHyu2F5N7OqTCmZZKk3m7tXH080OTSXfHSvgL
-	hA6WvG0AUyU+B4AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 617E0134B3;
-	Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id P/zaAq+Nq2pieAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 06:50:23 +0000
-Message-ID: <2d89b88f-863c-4e8d-839c-5e800b4c4902@suse.de>
-Date: Thu, 17 Sep 2026 08:50:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfgmtCRp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E201F000FF;
+	Thu, 17 Sep 2026 06:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789627884;
+	bh=Zk7akdSG+Lt4kXVv0DNDCRRXidxhfe8oAyzsOC/t6g4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VfgmtCRpAvVbXe7/1HGMr3VdOTboOboBfMHkAF5G99vlKXKhKGOJv1D2xb9XMDDKt
+	 k6ofxrkFjri2YH0fDIYKR+P1yRX/L01W4GKj1t/4H0lVXyl6yXMr5BJEWJGcO041sF
+	 M8Nl8IP8EvwKP8KFhRWtoZo417856nhCE3W7oQhjbnm+DSL0Xuov4RAaCSVFSidMgv
+	 w1BRu/Fa8TugQ9cEbu5m7+Me43bXt+NTi+9flladeallexFNnaWATulAPVSbVkWLLd
+	 MG8zyEPH3oetj1DOM6Mt1Q6L1SXVuoaGmAe5ymv8WmwxM5GHj1RgLZohwj5POqrWgR
+	 kD8q1BsrqOA1Q==
+Date: Thu, 17 Sep 2026 08:51:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
+	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Maud Spierings <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, 
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+Message-ID: <20260917-mutant-chamois-of-competence-46ca77@quoll>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] firmware/sysfb: Fix device reference count leak in
- sysfb_disable()
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- Wentao Liang <vulab@iscas.ac.cn>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "javierm@redhat.com" <javierm@redhat.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260916073815.1972045-1-vulab@iscas.ac.cn>
- <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.993];
-	MIME_GOOD(-0.10)[text/plain];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,iscas.ac.cn:email,amd.com:email,suse.de:email,suse.de:mid]
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
 
-Hi
+On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
+> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+> 
+> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+> functions as both a PHY provider for the controller and as a clock
+> provider for the variable pixel clock (hdmi_pclk), which it generates
+> from its refoclk.
+> 
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 
-Am 16.09.26 um 23:06 schrieb Deucher, Alexander:
-> Public
->
->> -----Original Message-----
->> From: Wentao Liang <vulab@iscas.ac.cn>
->> Sent: Wednesday, September 16, 2026 3:38 AM
->> To: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Cc: dri-devel@lists.freedesktop.org; javierm@redhat.com; linux-
->> kernel@vger.kernel.org; tzimmermann@suse.de; Wentao Liang
->> <vulab@iscas.ac.cn>; stable@vger.kernel.org
->> Subject: [PATCH] firmware/sysfb: Fix device reference count leak in
->> sysfb_disable()
->>
->> In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which calls
->> screen_info_pci_dev(si) and returns a pointer to &pdev->dev with an acquired
->> reference count. However, sysfb_disable() does not release this reference
->> before returning, leading to a device reference leak.
->>
->> Fix this by checking if parent is not an ERR_PTR and calling
->> put_device(parent) before releasing the mutex.
->>
->> Fixes: b49420d6a1ae ("video/aperture: optionally match the device in
->> sysfb_disable()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
->> ---
->>   drivers/firmware/sysfb.c | 9 ++++++---
->>   1 file changed, 6 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c index
->> 8833582c1883..11c5ce128a6c 100644
->> --- a/drivers/firmware/sysfb.c
->> +++ b/drivers/firmware/sysfb.c
->> @@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
->>
->>        mutex_lock(&disable_lock);
->>        parent = sysfb_parent_dev(si);
->> -     if (!dev || !parent || dev == parent) {
->> -             sysfb_unregister();
->> -             disabled = true;
->> +     if (!IS_ERR(parent)) {
-> Are there cases where sysfb_unregister() would need to be called even if parent returns an error?
+While I appreciate other people looking at this, I don't think review
+here applies. It was a blanket tag, given to the entire series, with
+exception that it is from newbie, thus I want to ask: was this binding
+REALLY reviewed by Joshua?
 
-It could be seen as a defensive measure. Usually we want to unregister 
-the system framebuffer only if the native driver's device equals the 
-parent. But if we fail to retrieve a parent, it might be better to 
-unregister unconditionally.  Otherwise the sysfb driver might interfere 
-with the native driver.
-
-I think that would be a good idea.
-
-Best regards
-Thomas
+Are the rest of the patches actually reviewed or just "looks good to
+me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
+of doing review.
 
 
->
-> Alex
->
->> +             if (!dev || !parent || dev == parent) {
->> +                     sysfb_unregister();
->> +                     disabled = true;
->> +             }
->> +             put_device(parent);
->>        }
->>        mutex_unlock(&disable_lock);
->>   }
->> --
->> 2.34.1
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f838fcc238ec7db0a8e794234bdceec36cb6d9e7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
+> @@ -0,0 +1,49 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: StarFive JH7110 Innosilicon INNO HDMI PHY
+> +
+> +maintainers:
+> +  - Michal Wilczynski <m.wilczynski@samsung.com>
+> +
+> +description:
+> +  The PHY portion of the StarFive JH7110 INNO HDMI IP.
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jh7110-inno-hdmi-phy
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Reference oscillator.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+This barely counts as a resource, so usual question: no resources here?
+no MMIO? Even the user of this phy is the block itself.
 
+This makes me wonder if this should be a device node in the first place
+(instead folded into the parent).
+
+
+Best regards,
+Krzysztof
 
