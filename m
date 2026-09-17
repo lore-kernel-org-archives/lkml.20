@@ -1,377 +1,226 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A58A447805
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136E1440A19;
+	Thu, 17 Sep 2026 06:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627745; cv=none; b=GlNr48VmyQGzH7SXsVWxfNY6h3wcTTR8c9pRGL1u0EmE3Ii4WPkM0PVZ9ugUa919TNzj0umKRV/vFvdehHnRpoVonCkkDIWBXSYTFTzqPhbyweABFkngPrufIXvZgoivyJ5JR2WJ0sn6arXoL7DrrQAj4HP3IEiRRQ5gp11oCMw=
+	t=1789627835; cv=none; b=f01lBYF5WT1WE3m9locyRFKK12akHoaCIBg6F2LPS/A9LcGvDyeySFrrfCB48NHzFNKFwTsaMzDTaHoHHqiFIqGxqoEyXinU5BpaJzDvnPN/H/PhFPHpSUdJBipGvqMqULq1KBVbKOb8mYvdbDiX5E3zI2vuTB9n/jv0EU7l0aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627745; c=relaxed/simple;
-	bh=uLP7EXQwdqW1Wf3X8HQiEkF/eLPer5ndJSlhzhjcnEI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=uyoNzoBhnrYv7MhTAqburG8gFOnJ6iBD3YdtTKQ9J1iFeEfNts9HpIcojOZ+Df5WgbbVvkHKtyjiLQxxmHw3FqseQ/C25VgP4zsU+2c8Mqw2/KT4s2z94SBOj7K42K/RWdlTSQgFAGFjS+JupzkzOWCFNizSxdl0/jT47pcAKeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cbf700ddccso183557b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:49:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789627742; x=1790232542;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SrjWaV4YmLkNWDi0qJu8YfAg3wjnBV6El9eP+RYwtSc=;
-        b=yLUbnyyTa+DiAUC2amMcBb6sKJ7qBNVFhhmsq8LdJ28dLtxEwjBV1hQBChm+iehuDr
-         MCyhAFVGF+up0KRbBxNFlwudR8ZtUtKhrsSN5MQKfET52E0sbG8Tt0eQRO+TzpJASmfM
-         XX+wQmjwgpsLJPBGoJqGSYM7awW0w/HPOFTWo75VA0OHZwyGrUPDqMyx+6mNFuLl3mOh
-         4+XECjibB/8AeROlsf4Fi3S5GHZo6xfNx5ENH9T9BGrG7KGomS68hVdspqTA2rQuc3I3
-         wfXaFJq+MEbqTXCRkle47stLMOwiiERG6jV7mGEACt9EyQPFZPzaeeoO7zSJQri12gVE
-         +oQg==
-X-Forwarded-Encrypted: i=1; AKwUvBztULNtt5Y5Y1curk1EKB5JM/MzEjLJ+DBJZ1ICYKYkWYvb759dCBrqkyqSae83f9IaGrqOgq8dDFgtrFs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nq84q7dPrAqb/8Mgx0hCqc0rSaN/x3pSJFSsQMg+qYbchVRH4a
-	VuMEqSa82BclJG4YkcW9rjD4lGkyyWioe8uud19pTWaz39dOLQdwJKbw8G3SsZnkLNktIsx7MUC
-	8Z1dn/9UX1vgy0nFJ+m185/UlvqGrd9OByEqiYrF3050s3MBsB1rnCp9/lwQ=
+	s=arc-20240116; t=1789627835; c=relaxed/simple;
+	bh=brNwFc7lJ4BF+lEULw3lKPrx9lBppOwG+zdBdOV5nuA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s5mGg26xIJC+L8gIZHHRgWYJoKvjWKA9UWs9ees+by1QbnobvGJ2ZS2gC37eAB5wmoXRfsjL7P6DWXGoeNh0EjX8BgMfhBj66ukTRmiBmJioVg+CSq3bie+3+UqntveiVHo7kzqXmAzPZ+8tpqndKnkXRB8EXtJxEEq5fdg08Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wblOtbjC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=TBLLsnlz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gQhVQK0B; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SJHCDlh/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wblOtbjC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TBLLsnlz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gQhVQK0B";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SJHCDlh/"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B125221D61;
+	Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789627827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+	b=wblOtbjCE//IH8attoEp0g1epeDKUawS9gJsxjU/mZksVZaIIjFa35XNjOEGbuP8lETKD9
+	HdvOpHBY+IDduP8LVq1GbmSSWI2RUS821kUGhMUjDKBK029GYomo0szb5xWQqVFaZEbQgM
+	LSd5fRCEZXJP5tOHOLC87mOLBAxSoj8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789627827;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+	b=TBLLsnlzTwp22yCsGddbv3GJf2nk7s1WWVswpygffnN943EoX7lRNw8v988EXxYW78JsIy
+	JfE5eB3WCk6L7DDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789627823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+	b=gQhVQK0BrtfaZD8x15/rUb9ZH2/3ksZsfnFmF2eEdbA202P7ncRcVZ6lECeWNaI09eeFnL
+	FbjIo9YT6INisB6b1pLT8rN3amrbO6OmzV8YWdbKZeEgOOut8V7SGnbMq6xpgIUi0UFTjs
+	BBvOSANYXQTa5ltrU1Xs4RW2H8JGxOM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789627823;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9fYHboSVW8fHJcZFTTtzAscQSNcUswBho2XC+wgFeyw=;
+	b=SJHCDlh/43hkJkJteA7inZN1LtAZxNeSyLHyu2F5N7OqTCmZZKk3m7tXH080OTSXfHSvgL
+	hA6WvG0AUyU+B4AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 617E0134B3;
+	Thu, 17 Sep 2026 06:50:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id P/zaAq+Nq2pieAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 06:50:23 +0000
+Message-ID: <2d89b88f-863c-4e8d-839c-5e800b4c4902@suse.de>
+Date: Thu, 17 Sep 2026 08:50:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8183:b0:6c2:21ab:ec92 with SMTP id
- 006d021491bc7-6c7d1fc9f2amr5106163eaf.30.1789627742459; Wed, 16 Sep 2026
- 23:49:02 -0700 (PDT)
-Date: Wed, 16 Sep 2026 23:49:02 -0700
-In-Reply-To: <6aab45f1.70721e1c.396df2.be74SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab8d5e.71f81b7d.278072.0018.GAE@google.com>
-Subject: Re: [syzbot] [wireless?] INFO: task hung in ieee80211_register_hw (8)
-From: syzbot <syzbot+c92af8613ad38696ff09@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] firmware/sysfb: Fix device reference count leak in
+ sysfb_disable()
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Wentao Liang <vulab@iscas.ac.cn>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "javierm@redhat.com" <javierm@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260916073815.1972045-1-vulab@iscas.ac.cn>
+ <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <BN9PR12MB5146B7A8975825C3623CFF97F7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWO(0.00)[2];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,iscas.ac.cn:email,amd.com:email,suse.de:email,suse.de:mid]
 
-Hello,
+Hi
 
-syzbot has tested the proposed patch but the reproducer is still triggering=
- an issue:
-INFO: task hung in addrconf_dad_work
+Am 16.09.26 um 23:06 schrieb Deucher, Alexander:
+> Public
+>
+>> -----Original Message-----
+>> From: Wentao Liang <vulab@iscas.ac.cn>
+>> Sent: Wednesday, September 16, 2026 3:38 AM
+>> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Cc: dri-devel@lists.freedesktop.org; javierm@redhat.com; linux-
+>> kernel@vger.kernel.org; tzimmermann@suse.de; Wentao Liang
+>> <vulab@iscas.ac.cn>; stable@vger.kernel.org
+>> Subject: [PATCH] firmware/sysfb: Fix device reference count leak in
+>> sysfb_disable()
+>>
+>> In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which calls
+>> screen_info_pci_dev(si) and returns a pointer to &pdev->dev with an acquired
+>> reference count. However, sysfb_disable() does not release this reference
+>> before returning, leading to a device reference leak.
+>>
+>> Fix this by checking if parent is not an ERR_PTR and calling
+>> put_device(parent) before releasing the mutex.
+>>
+>> Fixes: b49420d6a1ae ("video/aperture: optionally match the device in
+>> sysfb_disable()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>> ---
+>>   drivers/firmware/sysfb.c | 9 ++++++---
+>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c index
+>> 8833582c1883..11c5ce128a6c 100644
+>> --- a/drivers/firmware/sysfb.c
+>> +++ b/drivers/firmware/sysfb.c
+>> @@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
+>>
+>>        mutex_lock(&disable_lock);
+>>        parent = sysfb_parent_dev(si);
+>> -     if (!dev || !parent || dev == parent) {
+>> -             sysfb_unregister();
+>> -             disabled = true;
+>> +     if (!IS_ERR(parent)) {
+> Are there cases where sysfb_unregister() would need to be called even if parent returns an error?
 
-INFO: task kworker/u8:11:3317 blocked for more than 149 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:kworker/u8:11   state:D stack:23784 pid:3317  tgid:3317  ppid:2      t=
-ask_flags:0x4208060 flags:0x00080000
-Workqueue: ipv6_addrconf addrconf_dad_work
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5526 [inline]
- __schedule+0x17db/0x58f0 kernel/sched/core.c:7276
- __schedule_loop kernel/sched/core.c:7353 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7368
- schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7425
- __mutex_lock_common kernel/locking/mutex.c:726 [inline]
- __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
- rtnl_net_lock include/linux/rtnetlink.h:134 [inline]
- addrconf_dad_work+0x116/0x15c0 net/ipv6/addrconf.c:4235
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+It could be seen as a defensive measure. Usually we want to unregister 
+the system framebuffer only if the native driver's device equals the 
+parent. But if we fail to retrieve a parent, it might be better to 
+unregister unconditionally.  Otherwise the sysfb driver might interfere 
+with the native driver.
 
-Showing all locks held in the system:
-locks held by kthreadd/2: 1, last CPU#1:
- #0: ffffffff8eeac370 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_lock_acquir=
-e include/linux/srcu.h:198 [inline]
- #0: ffffffff8eeac370 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_read_lock+0=
-x27/0x60 include/linux/srcu.h:305
-locks held by kworker/0:0/9: 4, on CPU#0:
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_lo=
-ck_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_re=
-ad_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
-s_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
-s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
-quire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
-ck include/linux/rcupdate.h:849 [inline]
- #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
-_work kernel/workqueue.c:3361 [inline]
- #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
-eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff88807ee51440 (&wg->static_identity.lock){++++}-{4:4}, at: wg_noise=
-_handshake_consume_initiation+0x1a2/0x9b0 drivers/net/wireguard/noise.c:598
- #3: ffff8880296de640 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
-e_consume_initiation+0x59c/0x9b0 drivers/net/wireguard/noise.c:632
-locks held by kworker/0:1/10: 2, last CPU#0:
- #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: rcu_=
-lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: rcu_=
-read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: proc=
-ess_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: proc=
-ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
-}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
-}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
-}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
-}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
-locks held by kworker/u8:0/12: 3, last CPU#0:
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff8880580f07a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: class_wiphy_const=
-ructor include/net/cfg80211.h:6906 [inline]
- #2: ffff8880580f07a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: cfg80211_wiphy_wo=
-rk+0xb4/0x420 net/wireless/core.c:526
-locks held by kworker/1:0/25: 3, last CPU#1:
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_lo=
-ck_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_re=
-ad_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
-s_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
-s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
-quire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
-ck include/linux/rcupdate.h:849 [inline]
- #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
-_work kernel/workqueue.c:3361 [inline]
- #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
-eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff8880296de640 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
-e_begin_session+0x36/0xbf0 drivers/net/wireguard/noise.c:822
-locks held by kworker/1:1/30: 2, last CPU#1:
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_lo=
-ck_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_re=
-ad_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
-s_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
-s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
-quire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
-ck include/linux/rcupdate.h:849 [inline]
- #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
-_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
-eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
-locks held by khungtaskd/32: 1, last CPU#1:
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire inc=
-lude/linux/rcupdate.h:309 [inline]
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock includ=
-e/linux/rcupdate.h:849 [inline]
- #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks=
-+0x2e/0x180 kernel/locking/lockdep.c:6871
-locks held by kworker/u8:2/43: 4, last CPU#1:
- #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: rcu_lo=
-ck_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: rcu_re=
-ad_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: proces=
-s_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: proces=
-s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
-.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
-.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
-.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
-.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:347=
-9
- #2: ffff888032a25440 (&wg->static_identity.lock){++++}-{4:4}, at: wg_noise=
-_handshake_create_initiation+0x12e/0x810 drivers/net/wireguard/noise.c:529
- #3: ffff8880296d8d18 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
-e_create_initiation+0x13f/0x810 drivers/net/wireguard/noise.c:530
-locks held by kworker/u8:3/50: 3, last CPU#0:
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
-t_dw)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:30=
-9 [inline]
- #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
-t_dw)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [=
-inline]
- #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
-t_dw)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [in=
-line]
- #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
-t_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/=
-workqueue.c:3479
- #2: ffff88807bd00258 (&devlink->lock_key#7){+.+.}-{4:4}, at: nsim_dev_trap=
-_report_work+0x57/0xb40 drivers/net/netdevsim/dev.c:834
-locks held by kworker/u8:5/60: 2, last CPU#0:
- #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_lock=
-_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_read=
-_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_=
-one_work kernel/workqueue.c:3361 [inline]
- #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_=
-scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
-}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
-}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
-}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
-}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
-locks held by kworker/0:2/89: 3, last CPU#0:
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_lo=
-ck_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_re=
-ad_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
-s_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
-s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
-quire include/linux/rcupdate.h:309 [inline]
- #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
-ck include/linux/rcupdate.h:849 [inline]
- #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
-_work kernel/workqueue.c:3361 [inline]
- #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
-=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
-ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
-igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
- + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
-eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff88807bef5c58 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
-e_begin_session+0x36/0xbf0 drivers/net/wireguard/noise.c:822
-locks held by kworker/u8:6/447: 3, last CPU#1:
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
-read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_one_work kernel/workqueue.c:3361 [inline]
- #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
-ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: process_one_work kernel/workqueue.c:3361 [inline]
- #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
-t: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
- #2: ffff8880582507a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: class_wiphy_const=
-ructor include/net/cfg80211.h:6906 [inline]
- #2: ffff8880582507a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: cfg80211_wiphy_wo=
-rk+0xb4/0x420 net/wireless/core.c:526
-locks held by kworker/u8:7/1012: 3, last CPU#0:
+I think that would be a good idea.
+
+Best regards
+Thomas
 
 
-Tested on:
+>
+> Alex
+>
+>> +             if (!dev || !parent || dev == parent) {
+>> +                     sysfb_unregister();
+>> +                     disabled = true;
+>> +             }
+>> +             put_device(parent);
+>>        }
+>>        mutex_unlock(&disable_lock);
+>>   }
+>> --
+>> 2.34.1
 
-commit:         7bc21b74 selftests: net: gro: fix OOB access when unde..
-git tree:       net-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D1153b925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D95af895ed08a9be=
-e
-dashboard link: https://syzkaller.appspot.com/bug?extid=3Dc92af8613ad38696f=
-f09
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D14b6dbf95800=
-00
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
