@@ -1,42 +1,75 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011026.outbound.protection.outlook.com [40.107.130.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1592053FD32;
-	Thu, 17 Sep 2026 13:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652325; cv=none; b=OVbDHA5+BTxCCyyUdrvZSAYckNQ6wKUPoDG41mpvymkhobqDnnvaMpOJhS3aFtJNE2Jb75bWAx8T7tRhsu11kRu7gC1HlQyal6XFwILJuzjFrJzrD80cgFG4h3kwlGkVplx32/Fap8I4lupNZv7sa09Mwg9deY3aaPPN3gJPbrE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B9B53ECE6;
+	Thu, 17 Sep 2026 13:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789652325; cv=fail; b=dPPcUBzEtzWMqnX39HWT4+7UtO/DAZVSv0Zk+Rd9JQyHHtiC1NTdCrLwHwuRSaED3OVy7WFoXhAC7mImMHUICuufUvhh9hLhR+efAbOlqT1tiyMxGQXCJnmmEU2tpNJ2OOXBexp6gfpEdE7Lxz6g9qKL366/jxTgzPqsNmDRK0M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789652325; c=relaxed/simple;
-	bh=xVKPGG+qhVYA5OOsvuxOa0KAMCyYJOJGQ6hLq9Cu44Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LYH/KN2pz1Nr5radjiie6L9o8EM/pGIfQV6DyFYQrgW7zwHukoSiTerTViVROnzO9HedIHxYQ2lx8sB2lfDZjVQM+01E1dSkjrpznVp18Dq4UD+p0aGttE85Zt3y5kVZ28G4gmStE1aIO+QJLZlzI7nv887Aiwq+8cYFCya9OG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=e7+GH8PW; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	bh=RuAcuwz8SinYNo1kAV8kOtlLiGrTc+MN4uPp07m5PWc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=oS8t1QBqmXwqXhj9Zfg37BrmQ2AJf0jhvGWutFJziJFc+yRw98R2Wt7qW/ZqkPCoL3l5ku93tHWh62XeMBGVMH6StveXkc7TXSxJB3DrHZdEn+k07txH4N4AlaTTesGTLIJ9c9VvkcF1D4zvKbRTLLJZqNWrFMg6c7I0gkkmOFo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=Cl2FPN/q; arc=fail smtp.client-ip=40.107.130.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="e7+GH8PW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789652309; bh=xVKPGG+qhVYA5OOsvuxOa0KAMCyYJOJGQ6hLq9Cu44Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=e7+GH8PWVyTRgrM1EvlTkoBgsV1vupylH7bxbpE+Flz2rZu/X+EeqGD6nJY5kjIPz
-	 oegP7iEUv9E3aJBQhu+w6ZagMsFpvKeo0+KqKcJvML4EWTs3Xnt7z5iazI51Of8Iox
-	 w/AMHIcuENa10L5XeEb+ZJXzzQ11LfQRY2KSwr2RQtUwsjwEFU+ZewXmu1K+COHRM2
-	 ziLDDxMwsxrJPsICsc8l72uTLKz9kJSWUHFg93fCE7pUkxIBmuV0unlwqB5+gMpo3t
-	 hourrrcA0WV49qexQNo1uouJKV7X3TjnXgJVEiP1fBfP3GvbzBLmQQaO6WHN84Vy2h
-	 iFZfY99je+Cpg==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aabed54-ea3f-7f0000032729-7f00000194ec-1
-	for <multiple-recipients>; Thu, 17 Sep 2026 15:38:28 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 15:38:28 +0200 (CEST)
-From: Nicolas Schier <n.schier@fritz.com>
-Date: Thu, 17 Sep 2026 15:38:20 +0200
-Subject: [PATCH 1/4] kconfig: tests: Reset KCONFIG_WARN_CHANGED_INPUT by
- default
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="Cl2FPN/q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TJthUzAbOkqcnKBEAiWFdSqpvdPKyMur3VvF+QQM8Dl4xyOTY4YJCBvL5wmQwqDRCNwYM3DctNtrLexlkDAjfTHc31Np3/H0zr3GuD0HZQ3j9rayJ8ipHBKe/nhE7KKXPTW5SgFQN2hcVneI9QJDOS2dHchaY+EQQ5fTQ40VsCQpNpOGrtFEsHaKvgxDUVc+5Kfl54DuqEvFZjPNz1OFrwcFUFT/yd++M/jd2HKL6QcyKrVsUciDws14YOddCgPId5WUvuDdFW1LTfyGrT1Jat7L04OD35v61kbgAV2Gy3B2elOkWfmzG4vZzdByQOyBD/1gWbnpq1/lXqwJ/UU16w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XOHJ3r/ViNiuirnadsigf3mPM7LbgfWUo84CVhVhaVM=;
+ b=eiUFgtR36ZlMcxrvSI15B0xUwOLHn8Lv+Vf0mS7cp0lxx3iDe90bhTPptyLiBEflQRoFFA4OxxTDswK0l9UsHaeIW5Era79nhZ2iZ1rAjO8hpwAqBQr17sctWkh/4BWe9WnjsscOxQOUG6Su7nAD68jMGxLc+PY0JylI3PMiRAUnbuVgUPfpO7deBDma4dneviBy4GCIAtSgfleLS1uoH12ephCvoX8iRr1FdEiyLx9LOjvsQ52wtD82/lj/j76t/LejvoKyi3Je5w0tB33itbcNCvCay8PhlUzPZzCpmdMqZ9vmVLvk2c/++kcY5jm8VvWSQeUq5oza1rr+YdOt7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=analog.com smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XOHJ3r/ViNiuirnadsigf3mPM7LbgfWUo84CVhVhaVM=;
+ b=Cl2FPN/qHFCs/OBCp2HLXOQmwDIm7tLKpXUtgM3b7vuGU6rvUQH68GQP51Gro8ahD0ASxVWKLasIvNW7lJOTMnqBICXI4fdyr4lfNIqa4CBj401mVbTeX1Q/hiJTZg8C6pQpo5aivFPJLxRMS9Aaw6usM1r206+jvBFrzGjv9sQ=
+Received: from AM8P190CA0013.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::18)
+ by MI9PR02MB290967.eurprd02.prod.outlook.com (2603:10a6:290:bc::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 13:38:31 +0000
+Received: from AM2PEPF00070CF2.eurprd02.prod.outlook.com
+ (2603:10a6:20b:219:cafe::58) by AM8P190CA0013.outlook.office365.com
+ (2603:10a6:20b:219::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 13:38:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ AM2PEPF00070CF2.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 13:38:31 +0000
+Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.39; Thu, 17 Sep
+ 2026 15:38:20 +0200
+Received: from se-mail10w.axis.com (10.20.40.10) by SE-MAILARCH01W.axis.com
+ (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.61; Thu, 17 Sep
+ 2026 15:38:19 +0200
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Thu, 17 Sep 2026 15:38:19 +0200
+Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id DFCBD2792;
+	Thu, 17 Sep 2026 15:38:19 +0200 (CEST)
+Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
+	id D305C305CB1A; Thu, 17 Sep 2026 15:38:19 +0200 (CEST)
+From: Kanak Shilledar <kanak.shilledar@axis.com>
+Date: Thu, 17 Sep 2026 15:38:17 +0200
+Subject: [PATCH v4 2/5] iio: imu: inv_icm42607: Simplify IIO channel macros
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,78 +78,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-kconfig-tests-minor-updates-v1-1-286e5c985244@fritz.com>
-References: <20260917-kconfig-tests-minor-updates-v1-0-286e5c985244@fritz.com>
-In-Reply-To: <20260917-kconfig-tests-minor-updates-v1-0-286e5c985244@fritz.com>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Julian Braha <julianbraha@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
- Ulf Magnusson <ulfalizer@gmail.com>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolas Schier <n.schier@fritz.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1556; i=n.schier@fritz.com;
- h=from:subject:message-id; bh=xVKPGG+qhVYA5OOsvuxOa0KAMCyYJOJGQ6hLq9Cu44Y=;
- b=owEBbQKS/ZANAwAIAYjGvJyImm24AcsmYgBqq+1Safsdyl5QoKAnTNwR2ug/SGFtawz6+nag2
- LgaVmyz31qJAjMEAAEIAB0WIQQO/4WJ63TpgecLpGmIxryciJptuAUCaqvtUgAKCRCIxryciJpt
- uC3pD/4p1l3iykqwW/RTfSjexJlJYflYqjc83WuNkTrB4/xvU4lh2ITNZv4D0Kzs4yqeQKtX5WE
- wqfIQZbuLMlVyAHNQLxyFAHGrrg1y5icxvOfSubhdvppSERyprbxonTF1ZRG130RvzIvfs5w5vg
- 4yJFejPv/3klhgIWK95r+M4e9in/nTrNPpl6u55CZSeGarv/vCcreCzpM0dk2tgEQ7QKgHTe/ID
- yuVClGGc/OobvnfKN8kA7MgSSmuvHqatnbp3rMWDXQln+iZ+Jl5WXsAGB1DhEM6zcz6Xq7ETdup
- BTqfz7wDH93TWxdta9Y4QfrCleo8lbRhrXDxwrVqvIL8YQn91Pnq4zSkm2O+5NKmWM0IzdC/oQd
- nm5nBsOkEl7cBlAkYuX1zI0jcL9hcPEeJtZS8bD16NILIz4W5j/Vb1M90XWqsgbVYJgj+BHRER+
- 0epjPL4K8KFeCxuKa3oWlvocClAQVRqCfmZyZRclsGxvYuwDEoHNpEgbPEFyZx36H2wzjPBhEdl
- uswdPHdt609Xm2xJRve5cRMR3Qp4aQscKPt7D0u0um+8f8HhPrwhQaiS/xZ1EiXiGCIiIAWkkxp
- rzICnVQCPjRYkOyHAbpC4+h+h/imVOS/5P8HK5x1jBSIe8jq8+tR6KKrixjK82cBP056qW43fCK
- hfFoi5oVxB+r2nw==
-X-Developer-Key: i=n.schier@fritz.com; a=openpgp;
- fpr=7CF67EF8868721AFE53D73FDBDE3A6CC4E333CC8
-X-purgate-ID: 149429::1789652308-044F8720-41EB1842/0/0
-X-purgate-type: clean
-X-purgate-size: 1558
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 06CC8A048F  external: no
+Message-ID: <20260917-b4-inv_icm42370p-v4-2-fd9373f123c9@axis.com>
+References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
+In-Reply-To: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
+To: Henrik Grimler <henrik.grimler@axis.com>, Jonathan Cameron
+	<jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Jean-Baptiste
+ Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
+	<joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>
+CC: Kanak Shilledar <kanak.shilledar@axis.com>, <kernel@axis.com>,
+	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4421;
+ i=kanak.shilledar@axis.com; h=from:subject:message-id;
+ bh=RuAcuwz8SinYNo1kAV8kOtlLiGrTc+MN4uPp07m5PWc=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsha/da7tMIyrmJVTOkOoavcnj+zt9zsyrywwH6pzbv/u
+ 0VPnJHQ7ShlYRDjYpAVU2Q5Z7Q9en/yP9050k6XYOawMoEMYeDiFICJvHvJyHCl6XNBXLrBqR/N
+ C3baX/eVqF92Leu544Kn5VslFp6ctvoXw/+ctJ9qwRqNu7dffXzuefBk45m3m11Tptxbx7s9rWr
+ NfHY2AA==
+X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
+ fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM2PEPF00070CF2:EE_|MI9PR02MB290967:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5306208-a2ac-482f-fe88-08df14c0f693
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|32650700020|376014|7416014|1800799024|82310400026|23010399003|56012099006|11063799006|10067099003|921020|18002099003|22082099003|3613699012;
+X-Microsoft-Antispam-Message-Info:
+	uDGMSTemKzc6mmVDqJZBR+3AlHBTwym60qTowLxHnyqkB7Xs5DPaLXo9LlN/w/3yLUXzaQ+6ym7yhRBzvhO1hiQ4Q+REvPqSxG8vV5+XltYuFeKznakGTe2CtCnQo9Igbk0BYA7Bnr/voL3WEu4KLJ3bWlGBldcBV0gpstzSwFg242Z9A75sY5Ejc/HsuD6guU4kBgxUgJ6n3U3oQBLPqWjFanGqCZsVXZqBXVGVR+LVYTvia31VR5qcWHBYAFNzuGuL4uDWIOp03sn0e/QlPROHkmntsEs9wCRSWdVRMDxco8MT9zp9gCOsWl60ril0RAUQbFYEaSBcmQxds37ptYd0ICvubH/HJREDga2gKGc8C/aW00OHxNV3szfIVnNgKfeeTzYrOIVgENZXsJIgwZ/uBsoXXTN79MSbIFs4Tw5L1eQRS8u9IKi4AJAutkki7amHtxfvl/Jn9R1ip4oNdNBfiqa04IoAk8KIscVlLEzOhU/wy/oexngM64DaDtI30UHreCKhppO9YMNTGFzh2YhccN8y4wK/ntx9eQzT2loVPDpi9OT+JerwDnNzGyeEZvASNC4Awg9spIjyw4vdC6XerawfEyrlHf+bp83WngVWEPacjK+y7zs/QN9LJDeBORTRETT1SPrERuKTBpAqZzKIjVlHHH9l9RE6q7dSSm3ptLv1a9iYvdE8WE424PXh9rwHJqXKL2Mdb1AjAayNEcwGOqJES+EZfxQH13ybnrlbx+g6K3SGzp0LxzoPCHD9vyx+7dKfuggGUR6RyANI7g==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(32650700020)(376014)(7416014)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(921020)(18002099003)(22082099003)(3613699012);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5LHBFIemVQtGXG1JcNuyBYKQ9thYd2WctKDwa5CcpFwmM0gaDC/34m5dtiMZCQUfVy7b3aEI4T+k5jQmCclZiiWofm5LH/Sf+TEnxOyH48xDiTPbtNX1Gml/OhfSlRkBA9LWsZS+/M6wZAOCkut5OxqyMVxCQ4W8ZdtgwK9HQygQ6h7cv2hVrznQPqk+ZX9GDMCTBp3elMmRAPM1Dor6Rt+5i74u1GC8VhWiEGCjGOGvxzhhiHYaMASTYEYIIb6Y202eocAs1GiseARM4BqglmVWR2lThe+P7+CoThByyqlYXYG6dWKn8u2otsQ+Nm9/uJ3/1REnKT37l+onZojw+dImnMc6EOCjy2aNfiLeb6BoMNOOMxwm3O/yHkvNjf5Hark+hBj8TE9o4cEsP6+utRYcK5aUzxEZ1d5fI1wiZ8Z3bTAtlaR9zQpbh0AXUMxy
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 13:38:31.2579
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5306208-a2ac-482f-fe88-08df14c0f693
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM2PEPF00070CF2.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR02MB290967
 
-Reset KCONFIG_WARN_CHANGED_INPUT by default for all kconfig tests but
-those which set it explicitly.
+The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
+parameter of _ext_info, drop it and just point the .ext_info field to
+the respective inv_icm42607_*_ext_infos. This reduces the repetitive
+calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
+struct and makes the code more easy to follow.
 
-This fixes the 'warn_changed_input' test on systems with
-KCONFIG_WARN_CHANGED_INPUT=1 and ensures a cleaner test environment.
-
-Fixes: 645323a7f4e5 ("kconfig: add optional warnings for changed input values")
-Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
- scripts/kconfig/tests/conftest.py | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 23 ++++++++++-------------
+ drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 23 ++++++++++-------------
+ 2 files changed, 20 insertions(+), 26 deletions(-)
 
-diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
-index 66f95e4ed58c..e92f0cf1421a 100644
---- a/scripts/kconfig/tests/conftest.py
-+++ b/scripts/kconfig/tests/conftest.py
-@@ -34,6 +34,9 @@ class Conf:
-         """
-         # the directory of the test being run
-         self._test_dir = os.path.dirname(str(request.fspath))
-+        self.default_env = {
-+            "KCONFIG_WARN_CHANGED_INPUT": "",
-+        }
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+index 0b3f035c2da0c..8f61bc9014526 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
  
-     # runners
-     def _run_conf(self, mode, dot_config=None, out_file='.config',
-@@ -57,6 +60,11 @@ class Conf:
-         # Override 'srctree' environment to make the test as the top directory
-         extra_env['srctree'] = self._test_dir
+-#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_ACCEL_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ACCEL,							\
+ 	.modified = 1,								\
+@@ -34,9 +34,14 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_accel_ext_infos,				\
+ }
  
-+        # Set default environment variables, if not set by caller
-+        for var in self.default_env:
-+            if not var in extra_env:
-+                extra_env[var] = self.default_env[var]
++static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
++	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
++	{ }
++};
 +
-         # Clear KCONFIG_DEFCONFIG_LIST to keep unit tests from being affected
-         # by the user's environment.
-         extra_env['KCONFIG_DEFCONFIG_LIST'] = ''
+ enum inv_icm42607_accel_scan {
+ 	INV_ICM42607_ACCEL_SCAN_X,
+ 	INV_ICM42607_ACCEL_SCAN_Y,
+@@ -44,18 +49,10 @@ enum inv_icm42607_accel_scan {
+ 	INV_ICM42607_ACCEL_SCAN_TEMP,
+ };
+ 
+-static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
+-	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
+-	{ }
+-};
+-
+ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y,
+-				inv_icm42607_accel_ext_infos),
+-	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z,
+-				inv_icm42607_accel_ext_infos),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y),
++	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
+ };
+ 
+diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+index 5b4683c2dd1e4..8e8d36461e515 100644
+--- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
++++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+@@ -17,7 +17,7 @@
+ #include "inv_icm42607.h"
+ #include "inv_icm42607_temp.h"
+ 
+-#define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)			\
++#define INV_ICM42607_GYRO_CHAN(_modifier, _index)				\
+ {										\
+ 	.type = IIO_ANGL_VEL,							\
+ 	.modified = 1,								\
+@@ -34,9 +34,14 @@
+ 		.storagebits = 16,						\
+ 		.endianness = IIO_BE,						\
+ 	},									\
+-	.ext_info = _ext_info,							\
++	.ext_info = inv_icm42607_gyro_ext_infos,				\
+ }
+ 
++static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
++	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
++	{ }
++};
++
+ enum inv_icm42607_gyro_scan {
+ 	INV_ICM42607_GYRO_SCAN_X,
+ 	INV_ICM42607_GYRO_SCAN_Y,
+@@ -44,18 +49,10 @@ enum inv_icm42607_gyro_scan {
+ 	INV_ICM42607_GYRO_SCAN_TEMP,
+ };
+ 
+-static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
+-	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
+-	{ }
+-};
+-
+ static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y,
+-			       inv_icm42607_gyro_ext_infos),
+-	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
+-			       inv_icm42607_gyro_ext_infos),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y),
++	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z),
+ 	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
+ };
+ 
 
 -- 
-2.55.0
+2.43.0
 
