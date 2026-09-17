@@ -1,168 +1,98 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC044E020F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657717; cv=pass; b=kmmcaFCOSBUsDWsoZ7ay6uK0cXTG5afvBQ5lF62mxUtcivJODVHCUclsbvRkRhB24ZXnVJfbSPblMwHSz5YAAWMSHhv6VLt6zv2rZmeCemdDXBOO25MVpPbIQfRGs0vSQF7mSqw6dL9az9meVDN5x5Ivs1gXvjWiwjJk8XOiLYY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657717; c=relaxed/simple;
-	bh=w+7+J7eoxN0duh2hWV+22S5S3+5YdCbqPocAFCKgN+A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cAQEYyDDTez7UY1ffCaRNhWVuiUf286itnJFaA4ujeANqTbGdxxoV0EDWiYJEZXLs3hphVOACCseYM8AB/WL8Re0WolLwlXkBEL7IqCdBNclI5+3WBQQ6LcFi0QgmF7pPzvjOiQcFH9Vj2WBwYbwopqhtII6buosDv8OHQdQp3Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hL0egtNn; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hL0egtNn"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efe7so154337766b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:08:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789657707; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n+CLtpN9sXt94GSCFE1jcAlRH+JfU5cfU1P0bl5Chr0GWuJpKbDbqX7LnDOZlRQgwL
-         ES3wAbN9jg8kP7gDl5C/kyOPps2KQEcX1dS+vFCTcVaanPE1ymqqWKMIyhdKYzX5lT7F
-         6h+bhDznTt+rCsiAdG/FZnvqzER2GdWoqg7IcBtCKaU/l4pvK/0RULSM8aem5Ni87sYv
-         xL2FR3BT29TQSZNIEIF8d3UCgc9hoE3OgBFhkPLdh/gD2NfksekUHwch4/SByQ3euSTB
-         SxtA6wFT5qp3+Nq3xuFeICuUeZSmVSV3ZOEsFaGku4WpzETeest6lLvGd8bBbbpUAYHK
-         ACVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PBwimhxw7BcNYF6pIJGNqZmsQ73mi3G/bxEaGRjaqjU=;
-        fh=OuFxzCjDaTORmPKmjQ+z8E+nz3TQyNM/yWmiEH2YPaM=;
-        b=MRJlSOnaIqScUmye+Ym20qm61AxOu4HVHhmo663mFUYh5sY0n2f1i+S1+lDAY6lX5w
-         v5tYiQcVlJB2QzhI9hXeBSALz39eTkP9YMGYHygEQ9IAJ4LFGnOY/tjcHHK8g9DKsP6q
-         q9WWwsUx05+ClNY0bQlUjzh/ym4//PKH3p3wSb9YTXBc1TjgdxaDxlKWzAXLwRvTNQQN
-         as6AOEisVoUVwIVfBpDRrCtb2OCkRCnN4Dq3nPF7FNXlrhzkV3g2+t5RpraVU1N9vh/b
-         Zw0NhuBafXd2DBaZI4ub/jaVLWcxzTPXqrx+AVQXAAYUVZarUPSF3InDmF7cmnU1YNMl
-         vz9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789657707; x=1790262507; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PBwimhxw7BcNYF6pIJGNqZmsQ73mi3G/bxEaGRjaqjU=;
-        b=hL0egtNn1+npbrnJsshXZ7qaURN6+lioNzlSxdWUW6r8tOryNBcBAzwaLZ3/qM7X8P
-         y5G/vs/oN0fbJfjSv8djmQRw5y82Xna1qedfj0UpSNMyFLBrzkP3p42Zlt7IgWl7Zner
-         85VrBjdRR+9UKoC7qefdiH+QpupAYwDwSENHezXK+OtELsn8edRFv/qWJ/msaxspYgNv
-         9mmOv7B17lIDjAS3P5hbj3K+2ICkoF8RQ8qAQqckGk5Uwotrc8cnnjMomGpQpf+6oplm
-         SYUQX+fowDeY29fJ1Q3uzECvXOVRvnm89mmMDKp7Wl0sWNflC5GSsUAvrzb47cnZ5MYo
-         ZLPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789657707; x=1790262507;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PBwimhxw7BcNYF6pIJGNqZmsQ73mi3G/bxEaGRjaqjU=;
-        b=q7maAq5xLCDgWFELn703i6VaBAk1baD+AvCgoV3d5pluiRH13OjZXtpeYL8z6lhEvg
-         S0/ddhoqsCMJ+4DAHFBFFXkl1QD5iqUoxnTNJMd7q/BkuQnJoEG1/26vhJEXh5Q91rgW
-         nj75mFXLzJ+EEFkdXVzFviuzz2SM/h1oAR9S5fuLap/NqBCRIYcQokt7Z6eBRnfm3VmP
-         aWBobPNaSka38QCigXtNm0TJRRnp3HLHs+ddTqWUS/nl/yXnPCpuxuX4wUlj+ZdB1Kd4
-         HJHCBZSGCT7uoYw+l0DT4Tv7DP+JNkkL7AsxeIR3DdSvAuz3ehtaa4cGgZYkxdjaHwjS
-         LQIw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdYZOMIIdSF4yX1al2vmmbr1KkhO8HDpi77UERPxr56YFNWaSEdeDhrBJFQfQNTpMD9eoWANez5p2Adqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltbo7E0qgrBUptGVeT7LiXcHMp0U3ITVYIdnZjAT7ACVBzVRz9
-	jz9s1i20th2EpLaEkGmJHrP85PX2rfXnKoiEPhwXdgxD+zDAp5Zbw9CXtQ7pzAj3Sobcwgh+mE5
-	/Q6G/j4N5os++39o6eqcL91YFb+HWNcS6Uw5Vd5eQOA==
-X-Gm-Gg: AYBFou0NfeZZPn4W0Xcw5vTwnbEbOzVSCEuxGiVh64PySRDbTOlRG/P2t9w110s90g1
-	Gcc+JWWLqh2cKrIgnBVVOcHyM6UaDpdc91cOLf+P3OvldqvhvMo7MqLrpa2qcQlkcAaFQqsFYQi
-	uOC1oTwr/tRlXyKpr18aWerisJd6gm2AF8ggqg8H/6AjL2/V/Uj0hMEAFsCDed7vMmKBWQBizhQ
-	EHzOPavlLNO1h8qR0oQ5yDjdf80WtAE7PsyyG4enEGrL3mag2b+WlWBHRYtDwoIskkNHjQxu0Ve
-	p+VlPU/7vTjAv5Nb8tWWIlHY9+UCQFGKXOK0Q3+IeQtUY6NPe/w/bZi57rsxF6HbVOGontqqfHv
-	dFeuLbbVraoii
-X-Received: by 2002:a17:907:3cd4:b0:c25:5faf:b207 with SMTP id
- a640c23a62f3a-c29e51cc690mr486783666b.3.1789657706744; Thu, 17 Sep 2026
- 08:08:26 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D346C49738C;
+	Thu, 17 Sep 2026 15:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789657729; cv=none; b=iQYFMpGVsI7oaDc88w6NvMvZbwbRT4NtbQx+nMfz0O1p1N2YIevr2RtJFZCAKeLPJicwfK+ovnPrui1pFl+oJRHq/hyFLF33ByQwpnU/ZdwRLxAQEu5ipvexO1a3imx2NTMaUm69xOdBME6asvNtfZof9tuFmatycixSX69kkBU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789657729; c=relaxed/simple;
+	bh=HL6Zyrvk/Y/WyDqiJ48ToVnwB/+jTB5/lG8lYnw0P+0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h+Rf+XojE8NUc1feIvA4ak+zx8d8+gFTUJUVVprMlGmGeCPiL3LMdcC7QYPB5s6UBu2PsEiK5R2pQHotBVsrcy3Dpt91xu62o6TDja3rFqfXEK2xCfcOcIQTCKZ82l2cHnkCEq+/xqdRynPHc1bSOleufyjGAdKtKZqrsm8c1YY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHtD5zAqxqHDWDCA--.5410S2;
+	Thu, 17 Sep 2026 23:08:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: kashyap.desai@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	sumit.saxena@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference leak in mpi3mr_get_port_id_by_rphy()
+Date: Thu, 17 Sep 2026 15:08:35 +0000
+Message-Id: <20260917150835.2158315-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916100116.701206-1-christian.loehle@arm.com>
- <20260916100116.701206-3-christian.loehle@arm.com> <CAKfTPtCAaACP8A=AKGO3PdhZtA9SRM6e3ym+5d=Qfp-VpDa38g@mail.gmail.com>
- <f3912746-90f8-46de-a690-a840afa4a1d1@arm.com>
-In-Reply-To: <f3912746-90f8-46de-a690-a840afa4a1d1@arm.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 17 Sep 2026 17:08:15 +0200
-X-Gm-Features: AcwNN1UepS9H8J-Bx__-3vHGPLcD0Z6dVcwXht08n9bPIhFs2o7jwKFujrXfDt0
-Message-ID: <CAKfTPtAexsLhEb3hEnWvhFo3Z0+CsN41WQ8gfW+waLvxJQrb+A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path candidates
-To: Christian Loehle <christian.loehle@arm.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Valentin Schneider <vschneid@redhat.com>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>, Beata Michalska <beata.michalska@arm.com>, 
-	Elif Topuz <elif.topuz@arm.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Shubhang Kaushik <sh@gentwo.org>, 
-	Christoph Lameter <cl@gentwo.org>, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHtD5zAqxqHDWDCA--.5410S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF1DKrWxurW5tryDJr4kXrb_yoW8Gw1rpF
+	s7Wa45ArZ8WFWxAr4kGF45XFWa9a4xJ3y3Gay0kwnY9a1FkFW3AryYgryqvF10yFZ7XFy8
+	Zr47XF9rZw4Ut3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xF
+	xVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
+	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_
+	Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0D
+	YxBIdaVFxhVjvjDU0xZFpf9x07bbXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAdrwAAs2
 
-On Thu, 17 Sept 2026 at 16:22, Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> On 9/17/26 15:08, Vincent Guittot wrote:
-> > On Wed, 16 Sept 2026 at 12:01, Christian Loehle
-> > <christian.loehle@arm.com> wrote:
-> >>
-> >> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
-> >> slow-path selectors can choose the same CPU before either task is enqueued.
-> >>
-> >> Use reservoir sampling in the tie branch, resetting the candidate count
-> >> when a lower advertised exit latency is found. Use the per-CPU scheduler
-> >> PRNG and reciprocal_scale() to avoid variable division or a second scan.
-> >>
-> >> This reduces deterministic convergence without reserving the chosen CPU.
-> >>
-> >> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> >> ---
-> >>  kernel/sched/fair.c | 11 ++++++++---
-> >>  1 file changed, 8 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> >> index ff5793bddc35..6836a8364440 100644
-> >> --- a/kernel/sched/fair.c
-> >> +++ b/kernel/sched/fair.c
-> >> @@ -24,6 +24,7 @@
-> >>  #include <linux/mmap_lock.h>
-> >>  #include <linux/hugetlb_inline.h>
-> >>  #include <linux/jiffies.h>
-> >> +#include <linux/math.h>
-> >>  #include <linux/mm_api.h>
-> >>  #include <linux/highmem.h>
-> >>  #include <linux/hrtimer.h>
-> >> @@ -8459,6 +8460,7 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
-> >>  {
-> >>         unsigned long load, min_load = ULONG_MAX;
-> >>         unsigned int min_exit_latency = UINT_MAX;
-> >> +       unsigned int nr_candidates = 0;
-> >>         int least_loaded_cpu = this_cpu;
-> >>         int shallowest_idle_cpu = -1;
-> >>         int i;
-> >> @@ -8482,9 +8484,12 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
-> >>                         if (idle && idle->exit_latency < min_exit_latency) {
-> >>                                 min_exit_latency = idle->exit_latency;
-> >>                                 shallowest_idle_cpu = i;
-> >> +                               nr_candidates = 1;
-> >
-> > You clear the number of candidate when you find a lower exit_latency
-> > but !idle CPUs that have already been checked will be cleared whereas
-> > they still get a chance if they are checked later.
-> That is correct. Is this a problem?
+__mpi3mr_get_tgtdev_by_addr_and_rphy() takes a reference on the target
+device, but it is only dropped when the device has a valid hba_port.
+When the hba_port has already been cleared because the device is gone,
+the function returns without releasing the reference and the target
+device is leaked.
 
-I would say we should try to be consistent
+Release the reference whenever the lookup succeeds.
 
-> (Again, mirroring what upstream currently does, let's say exit_latency(CPU0)=100, exit_latency(CPU2)=1
-> !idle at CPU3 trumps CPU2 (assuming recent idle_stamp), !idle at CPU1 doesn't trump CPU2, i.e.
-> the inconsistency around !idle is already there?)
+Fixes: 8e45183978d6 ("scsi: mpi3mr: Bad drive in topology results kernel crash")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpi3mr/mpi3mr_transport.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Fair enough but the idle_stamp was also in the party
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3mr/mpi3mr_transport.c
+index 240f67a8e2e3..a95c9352e859 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
+@@ -2499,11 +2499,11 @@ static u8 mpi3mr_get_port_id_by_rphy(struct mpi3mr_ioc *mrioc, struct sas_rphy *
+ 
+ 		tgtdev = __mpi3mr_get_tgtdev_by_addr_and_rphy(mrioc,
+ 			    rphy->identify.sas_address, rphy);
+-		if (tgtdev && tgtdev->dev_spec.sas_sata_inf.hba_port) {
++		if (tgtdev && tgtdev->dev_spec.sas_sata_inf.hba_port)
+ 			port_id =
+ 				tgtdev->dev_spec.sas_sata_inf.hba_port->port_id;
++		if (tgtdev)
+ 			mpi3mr_tgtdev_put(tgtdev);
+-		}
+ 		spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
+ 	}
+ 	return port_id;
+-- 
+2.34.1
 
-> And I'm assuming we really don't wanna keep a cpumask of !idle CPUs, if anything we may just ignore
-> them completely, given how unlikely it they are to be observed.
-
-We must keep them when there is no cpuidle driver, i.e. until we find
-a CPU with an idle state
