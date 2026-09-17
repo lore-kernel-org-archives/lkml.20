@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C136E53D9FD;
-	Thu, 17 Sep 2026 16:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4809D4D179A;
+	Thu, 17 Sep 2026 16:40:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663250; cv=none; b=KjnObt+WeQUkml2nTwzV310gmrVXXqXm4mZpl+wqUfdlq5fUDn+P+I/tIQF34J1HyE/9gvbD5gJdJ5OvGADKLCOLdlDu632G4xeyGB6Y0eDlWxxFAoqq8fpsiMsaaBgngzpWmerf51FGW1No1JP/bIftZULkx3gE+6gZH7byF9s=
+	t=1789663252; cv=none; b=j5BSbO20DpyZ9OyVARrs6sSVgaxlu/+PtE+toCHC2xkue6GyV4pXBW5YAMtFPLWemXtGA0z4RUTiFFyMiS1zibIOkE7v4n9PVVs6ZpZMyLp27ei77WGuLTsOzmYmLfHafY9YO+Ud/+6zROuTNy2wUteTWfaHP90GOIeWnrgmIlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663250; c=relaxed/simple;
-	bh=DL5e220u7y3LwD4Eiaa74zWyGi+IuXsLh7IOYBtbckQ=;
+	s=arc-20240116; t=1789663252; c=relaxed/simple;
+	bh=8gd2DiQMGEItozKo4O59vb2wFFEJ1o4qZdVPzkL/Tnk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=okO5qdfypyg/+iKO1jsikB8lSbI/EsqPumRi5oiSACErJo85x58gnOz06+3SaIvvC93uadF6YzZ3ck7imf7VHSj97PeI96o/0U7v4NNk/jPelpaEV8XC0IvAvxshK5TnszanMXhIt8o5W1AHVm2dRSPZBQyDzUIlWNLHF31dkPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gspn9qQ7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=fEdsn/ymmoKBX4kbomEBlSm9bbDpdufQVnuXL9J5wT1p4uIi9pnOC8ysZhzxz4hf5SDdM/gbZwC3mViruNpY/bzQTTzMZSLI3DTGyA1GkQlNvQ66dL+0IgWLYSpzKwEhPTHpvcOHvz86q3Dma9ddd1Z9sske5/vUK4q2Gjk9QjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S48h55Lf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gspn9qQ7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213F61F000FF;
-	Thu, 17 Sep 2026 16:40:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S48h55Lf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D9C1F00A00;
+	Thu, 17 Sep 2026 16:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663248;
-	bh=1QRQ9WYzmW2nABpmD05iYHWtoRPkYuNGcAfZon3VB64=;
+	s=k20260515; t=1789663249;
+	bh=YyijQXay86LO7WuPF3AZ9mmm2+iWcDQRp4YaV1G9MDQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Gspn9qQ7Co3hTNTbvqHEG4UcsqEuAaXs4WpY+IWArwLJpD+5im1F/7UjZBYzBxEFP
-	 r6kNzzWv/ygP9N4CBTIF6SK4Me1N+TZ7kg6quLRtughmHxBkfXwla981QkTLotSK4V
-	 PNjnrxnE7nvQlWvnL9nNWOrPkCRYAY+FZPJilWJSHjfUPF9+dMlR6D9G7cKVnY5zew
-	 CY9et4FnP9P/JyfZel2Guas6YNCbujBjaIbwC7sV5R2ANs6rbBZryLjyMGMzIfInyM
-	 67LHWbWvbSV5TTZ0+n/kZZXO1u8Gous31lF+kG/dEXbhUdNWe84ivAYvKYlYgwsB+w
-	 kA8OssQfVfUsg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:44 +0100
-Subject: [PATCH v3 35/40] mm: eliminate VMA_SPECIAL_FLAGS check in
- lru_gen_look_around()
+	b=S48h55LfkH2XX5pNuCu6yu15mtAepY0fDUh6GFcWaNJBztQM3rhPOTA3iRH6jxWNC
+	 0CJDiWamAdM1TS5wwEAy9h5haqHwQEPnlRM/gDJvPWVX46h4lwFP5gz3i9aNXn4njq
+	 RWC5NE29htYtCb9aD6zcG2VUr26NJxCo6opg0s8Wmp1KKRBs1ioU+PhvywRxChBPwO
+	 H9xQSQEXmLrVX8aDarVcLWA/86tcEvoQnNTDc0tD75mFVlKZC4BE++sEuZyHZC8vjx
+	 Rqx1dkLOwoE3Sl2NUnSQmzcnTtolBMDvVhqBJ7NS063URIj5UaeHGS2knaR6S4VMiS
+	 WjF7jWfxYigYg==
+From: Drew Fustini <fustini@kernel.org>
+Date: Thu, 17 Sep 2026 09:39:40 -0700
+Subject: [PATCH v8 4/5] dt-bindings: riscv: Add binding for CBQRI
+ controllers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,130 +38,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-35-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1176; i=ljs@kernel.org;
- h=from:subject:message-id; bh=DL5e220u7y3LwD4Eiaa74zWyGi+IuXsLh7IOYBtbckQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCB9hLL35ff77dPnnyjWxyxtOXnb5+35nmharbKxQy
- 6vMp54JHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIqy/Db9aa5weOsMxRtPrs
- HCqQHviv6mfnxF/xdR/y2ZT0lC4lMTL8M7Jx8PFZKXNRYHPiW8EVFv+upxuICcwLWyu1R4MnxHw
- zCwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Message-Id: <20260917-dfustini-atl-sc-cbqri-dt-v8-4-7964e8d73fe8@kernel.org>
+References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
+In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
+To: Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Atish Kumar Patra <atishp@rivosinc.com>, 
+ Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+ Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+ Chen Pei <cp0613@linux.alibaba.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+ guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+ Peter Newman <peternewman@google.com>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Tony Luck <tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, 
+ Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
+ yunhui cui <cuiyunhui@bytedance.com>, 
+ Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4705; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=8gd2DiQMGEItozKo4O59vb2wFFEJ1o4qZdVPzkL/Tnk=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWStkeBdzrlh6f65z6LXPa2/qpTM53K/S1P7u8za91JC5
+ x33yHyW6yhlYRDjYpAVU2TZ9CHvwhKv0K8L5r/YBjOHlQlkCAMXpwBMZFsswz+9jC+vc8UZbHrm
+ r1qvr8tVuMkx58yf0gdqyXt/Hf1xTukFI8MlQduL10q1n9z/lb/8f2Qqc4CZd6vD3zMThEzO3T2
+ 00ZkJAA==
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-A kernel-owned or fixed mapping is one which sets VMA_PFNMAP_BIT,
-VMA_MIXEDMAP_BIT or VMA_DONTEXPAND_BIT, which is precisely what
-VMA_SPECIAL_FLAGS tests for other than VMA_IO_BIT, which is safe to drop as
-only kernel-owned mappings may set it.
+Document the device tree binding for RISC-V CBQRI capacity and bandwidth
+controllers. Each controller is named by a device-specific compatible
+followed by the generic compatible. The binding also describes the
+common riscv,cbqri-rcid and riscv,cbqri-mcid properties, and the
+optional riscv,cbqri-cache phandle that links a capacity controller to
+the cache whose capacity it allocates.
 
-Using these predicates rather than VMA_SPECIAL_FLAGS makes the check
-self-documenting and helps eliminate the confusion around 'special' flags.
-
-No functional change intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Assisted-by: LLM
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+Signed-off-by: Drew Fustini <fustini@kernel.org>
 ---
- mm/vmscan.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ 2 files changed, 98 insertions(+)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 09ff20c3df5b..001f8b760266 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4418,8 +4418,8 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
- 	if (spin_is_contended(pvmw->ptl))
- 		return true;
- 
--	/* exclude special VMAs containing anon pages from COW */
--	if (vma->vm_flags & VM_SPECIAL)
-+	/* exclude kernel-owned and fixed VMAs containing anon pages from COW */
-+	if (vma_is_kernel_owned(vma) || vma_is_fixed_mapping(vma))
- 		return true;
- 
- 	/* avoid taking the LRU lock under the PTL when possible */
+diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+new file mode 100644
+index 000000000000..62d547a0cb96
+--- /dev/null
++++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+@@ -0,0 +1,97 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/riscv/riscv,cbqri.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RISC-V Capacity and Bandwidth QoS Register Interface (CBQRI) controller
++
++description: |
++  The RISC-V CBQRI specification defines capacity-controller and
++  bandwidth-controller register blocks that allocate cache capacity and memory
++  bandwidth to resource-control IDs (RCIDs) and monitor usage per
++  monitoring-counter ID (MCID):
++  https://github.com/riscv-non-isa/riscv-cbqri/blob/main/riscv-cbqri.pdf
++
++  Allocation and monitoring share one register block, and a controller may
++  implement either or both. A driver discovers which at runtime from the
++  capabilities register, so the compatible names only the controller type. It
++  does not distinguish allocation-only, monitoring-only or combined
++  controllers, and no property declares monitoring support.
++
++maintainers:
++  - Drew Fustini <fustini@kernel.org>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - tenstorrent,ascalon-shared-cache-controller
++          - const: riscv,cbqri-capacity-controller
++      - items:
++          - {}
++          - const: riscv,cbqri-bandwidth-controller
++
++  reg:
++    maxItems: 1
++    description:
++      The CBQRI controller register block.
++
++  riscv,cbqri-rcid:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The maximum number of RCIDs the controller supports. RCIDs are the
++      resource-control IDs that allocation operations target.
++
++  riscv,cbqri-mcid:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The maximum number of MCIDs the controller supports. MCIDs are the
++      monitoring-counter IDs that usage-monitoring operations target. Present
++      on controllers that implement monitoring.
++
++  riscv,cbqri-cache:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle to the cache node whose capacity this controller allocates.
++      Applies to capacity controllers that back a CPU cache. The cache level
++      and the harts sharing it are taken from that node's cache topology.
++
++required:
++  - compatible
++  - reg
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: tenstorrent,ascalon-shared-cache-controller
++    then:
++      required:
++        - riscv,cbqri-rcid
++        - riscv,cbqri-cache
++
++additionalProperties: false
++
++examples:
++  - |
++    l2_cache: l2-cache {
++        compatible = "cache";
++        cache-level = <2>;
++        cache-unified;
++        cache-size = <0xc00000>;
++        cache-sets = <512>;
++        cache-block-size = <64>;
++    };
++
++    qos-controller@a21a00c0 {
++        compatible = "tenstorrent,ascalon-shared-cache-controller",
++                     "riscv,cbqri-capacity-controller";
++        reg = <0xa21a00c0 0xf40>;
++        riscv,cbqri-rcid = <16>;
++        riscv,cbqri-cache = <&l2_cache>;
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index db0799d8cbf8..c362d53ed355 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23569,6 +23569,7 @@ M:	Drew Fustini <fustini@kernel.org>
+ R:	yunhui cui <cuiyunhui@bytedance.com>
+ L:	linux-riscv@lists.infradead.org
+ S:	Supported
++F:	Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+ F:	arch/riscv/include/asm/qos.h
+ F:	arch/riscv/include/asm/resctrl.h
+ F:	arch/riscv/kernel/qos.c
 
 -- 
-2.55.0
+2.43.0
 
