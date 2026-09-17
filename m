@@ -1,273 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D8941687C;
-	Thu, 17 Sep 2026 20:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B85A48FF82
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678768; cv=none; b=m/jipdN84NmnIh6q8GmUM2VdnJgR2KDobZg61JCrU7Eyg72mTAIhDcq++8hYYOvJt+OULkRok7UvyP8y5DchEIzX4pxqoWBF7Vrv+sXYsgWLliT5DJVRcIp7S1Ge8A+VEqrk+7qJHUvXPF1WhhE+moTGyP41IjqgF7DYSgOiGc0=
+	t=1789678916; cv=none; b=i3Elqfc5JxIL+oTUfktqaXjOwaifTItitbJx7uR66SStxVmBz1SEmNZNo2ijwFQGygUUcvPh+EhbDJBXR7INiG88Y+03Sbcc75S+o1VUZBPe4F3QK9LaAHqJDGBcFGVXoddR9d5rCivmj2Zk2LxXLo9HCDIWrsciY+IYujtOjWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678768; c=relaxed/simple;
-	bh=s16KJQRcC14LLQy4pTYvXckO3rme4Dl2pTMLZe1/3VM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t3jY10Cnq4WLiR3iqaeGmY2ik3muaVokB2S/dRfnQwU7ALDlL8j5VnEdYggbROQpBIFvDD/g0GzL2UEhsGJTTcIII6Bbj1O213ORATqGhncyk6+2M18+yuyeQJQwSCgmCo5Sox6txBSJDMpx05iyxqBQzLmcUDv/EyuyP2vnikw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1iJnrT5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789678916; c=relaxed/simple;
+	bh=yg38mfNFmr0dglL3mVDQ2WSoZ5XndknsQxtQMXpd0cA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rkGkuL+cY2vAtKVFMXS0WIkTO9gK/WgGptxMqBYvoR73zz8u4tXHA+lWPyP+yIQEp8o1Ea7dayTRfQNbtBbx4jNnu6vpV0E9HVaese7c9vPQgJxUKDFWqc7D09/AGB/a4uv+VevcDIA8rr+OiopyBR/FM29fa+yvB5gTsMZQMYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F3tj0i0P; arc=none smtp.client-ip=74.125.231.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1iJnrT5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620661F000FF;
-	Thu, 17 Sep 2026 20:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789678766;
-	bh=jCN23Z098/jrBfz0bmrygNbGxnLmKn6q7+PuR1I0LGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K1iJnrT5zwIrpIGfCXw3tperSIg5wg+ccx1MerSVNbZKcKAO2Wen+D59D8D5DLJnc
-	 iF217QvkXDUQ+4iHuY8eEUZ7yL8xlYISWkK8SQeYTnqwssMCw1OEbjQgFp9u0lgKvJ
-	 pqHbYnMRym6T6Hhf9CzyK6P9da+oWQN2sQ93SDO+FC20DvtsVGBsMi2ArzaNwg5bVk
-	 UJIdWn+vHQPYc8juD9NnTa5TnDl/Bw97Dt4DPOYHw8xO/jPT0st5vqM2dTssTOnZXI
-	 gyAXZsmWH+tHCCKaZqYgmKl++M7jkh48ll258Xjdsminj3GIfk0yO8jAHheJBA5Nip
-	 ltqEn+yZO5xpw==
-Date: Thu, 17 Sep 2026 13:59:26 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 09/20] kbuild: implement and use depcheck to check
- dependency timestamps
-Message-ID: <202609171229.31BB336E1@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
- <202609171117.35BFDCC13@keescook>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F3tj0i0P"
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c43b4aad44so22974b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:01:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789678910; x=1790283710; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+79viYgxDsziJXy6Z3ZyZxA3uUZqLw1sHaBsWajt9II=;
+        b=F3tj0i0PptvQbFB/xhJ38oWr4pSo709ZEAeMa5jNJxVhO/va9+sgoFNXe84wHWmhik
+         XEdGwzGiCnR05A7I/WSoH9yl64s6u8fJmHkDHyakD13MGbusn6EMw3utKADS4OWEVRsC
+         BNAwDXomAuapA8KXDs/yLdA0TyNbqXGSBpAV6uv/55HFmzmOAfSQ5CSTvFrfdWlDOTrz
+         hmfzUlZghw4E8wjQLlXjq4R3EMuyNA2XKj6KDuJSJqzd8wNfMlW3UKeLBnKWjTI0LWsV
+         +b72+YkNi8mb4eQvHJBy0QWJv2SngLqcx2/KC4UhZCBM+dg3o0vEesusPd3saGvWuVdc
+         Mh8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789678910; x=1790283710;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+79viYgxDsziJXy6Z3ZyZxA3uUZqLw1sHaBsWajt9II=;
+        b=eIhHTVWedJ/y1a6ua/cbpLUEKsI3tG00pyO6oahdSQk2NnT9puNz07WBwyCDONKfZ3
+         8kN/EKZ4r6cHJgmsp+HKkJcmzZ6qsXJjyCWgPdKICyNm7s2R+Kej/iBZk8ZeJLu3Q2TF
+         zfPy9RqoazhYMyxu/5Wr8eLv0mBLhKiBs3HFyfriONqO/S16ThnmuhouFmuuOXeFpfoH
+         3eDgi0LzI1p7APWRofQpH+GkaLTy626OiZQWtwRdmhd8RV8CbRiN5uH4RqqgWeB139hq
+         jccNd5nyPXmz4shh5tzW9j8mOLRYmoOYwsCR0XATL/MJaC71zQEo8NbHjg7y77+LC/Qn
+         X+7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxB3QQRGmtQ0FOD7w/+bS4vFLuEZqlu3mtGhlcqzuyXKwZOCN+b6iTEf5tfJz3TMtdeWhBtFrmfTRBou18=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo/NFXGu5H+5BcAYKkjGiAOpXJ8fAOVxucFjStR2FGDfxcuNbd
+	oNpU57RgYevD+co/oq79gEO7L8hGFhJ6YOq8Nbq3+dOD+zUF7KjSc0fv
+X-Gm-Gg: AYBFou05aacdDHZs8e6OJCXTKuD5bh0lf+yXf5Gd4+HlZw2G26+pnKxmPH6CTMmDvVs
+	cpWnmCIoowSwhqTbBjmEZk3/+L8ZOtj/2IWZUrH4G/pqlls78SfJ1TzTb/z1tXx4Akea3hqfomY
+	2K4XzQMU4wrPRnDkpZLWBuNmMbCn/3vKz89McDo53CFkObtgkT0CaFVYPOo0YYEzSCGT0HK+saQ
+	EQtvxBTTZTktXcUb95AL34amWnTD6R9Amg5Jg/DYGuzVmM+BPIzpu9EFltlxoJkNoF8RvsByWFU
+	NjCZ3FNbsA307H0ZSfQwUTqjSwSqJ6wAEU8PxYYqh0ic7UaH14s8eDrwm7h7vvQhimhfUxfZT+p
+	OoCLrgLhZ6Qc7v3hMJq5lCXVde7NyKyVCnMFz3fUgmj+QpGK/B8vpHSZW/8BDSJlk7rNgv22Ifj
+	aVxkCV71DhTj0aj2QoZLfzY/8V0FCD/UDWfdJwxzEkPQWPfGyYxP75HQtRqrbPDevgPXbMJv/wS
+	/1F+LC6lzb8X0bTj4c7JpKHoV4=
+X-Received: by 2002:a4a:ee12:0:b0:6ca:36f9:1799 with SMTP id 006d021491bc7-6ca90ca09fcmr332728eaf.8.1789678910429;
+        Thu, 17 Sep 2026 14:01:50 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c8f6a5ac0esm4069086eaf.9.2026.09.17.14.01.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 14:01:49 -0700 (PDT)
+Message-ID: <71a6ed12-f089-404a-85ec-546e03b4db3e@gmail.com>
+Date: Thu, 17 Sep 2026 16:01:48 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609171117.35BFDCC13@keescook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+ <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-2-d35d2ac3d6f0@gmail.com>
+ <aqpnpT6hU5Z0s1TZ@ashevche-desk.local>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <aqpnpT6hU5Z0s1TZ@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 11:42:50AM -0700, Kees Cook wrote:
-> On Thu, Sep 17, 2026 at 05:06:19PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > This can be done faster in C, so implement scripts/basic/depcheck to do so.
-> >
-> > It does as little work as possible, reading the .cmd files from a
-> > directory's targets and running stat on each dependency only a single time.
+On 9/16/26 4:55 AM, Andy Shevchenko wrote:
+> On Tue, Sep 15, 2026 at 11:15:27PM -0500, Ryan Brue wrote:
+>> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
+>> built around this PMIC it is the only way to read the battery: the SoC's
+>> AUXADC is wired to board thermistors and the charger ICs these boards use
+>> have no ADC of their own.
+>>
+>> Add a driver exposing the battery voltage and battery temperature
+>> channels. Only those two are described, so a channel ID in the device tree
+>> is an index into the driver's channel array rather than the PMIC's channel
+>> number, as mt6323-auxadc does. The ready bit lives in a channel's raw
+>> result register, but the value comes from the chip's trimmed copy of it,
+>> which is what the vendor driver reads for a measurement.
+>>
+>> Both channels need more than that, as the vendor programs them. The
+>> battery voltage is measured through ISENSE, because a board with a
+>> switching charger in the power path leaves BATSNS on the charger's system
+>> rail instead of on the pack. The thermistor only reads correctly with the
+>> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
+>> settle. Both are switched back off afterwards.
+>>
+>> Reads average sixteen conversions in software; the chip's sample
+>> accumulator makes no measurable difference at any setting, so it is left
+>> at one sample per conversion.
+> ...
 >
-> Doesn't this run the risk of missing transitive deps?
+>> +/*
+>> + * MediaTek MT6397 PMIC AUXADC IIO driver
+>> + *
+>> + * Copyright (c) 2026 Ryan Brue <ryanbrue.dev@gmail.com>
+>> + *
+>> + * Based on drivers/iio/adc/mt6323-auxadc.c
+> Why not add this device support into that driver?
+Please see [1].
+>> + */
+> ...
 >
-> C.cmd:	C.o depends on A.c and B.c and B.h
-> B.cmd:	B.h depends on B.data and B.script
+>> +#define MT6397_AUXADC_ISENSE_SETTLE_US	USEC_PER_MSEC
+> (1 * USEC_PER_MSEC)
+Ack, fixed in v2
+> ...
 >
-> depcheck looks at C.o and B.h's times and is happy so it drops C.cmd file,
-> but then see B.script has changed compared to B.h, so it keeps B.cmd,
-> and then the build runs and doesn't have the C.o dep list any more,
-> and C.o goes unbuilt?
+>> +static const struct iio_chan_spec mt6397_auxadc_channels[] = {
+>> +	MTK_PMIC_IIO_CHAN(isense,   MT6397_AUXADC_ISENSE,
+> One space too many.
+Ack, fixed in v2
+>> +			  MT6397_AUXADC_HWCHAN_BATSNS),
+>> +	MTK_PMIC_IIO_CHAN(bat_temp, MT6397_AUXADC_BAT_TEMP,
+>> +			  MT6397_AUXADC_HWCHAN_BAT_TEMP),
+>> +};
+> ...
 >
-> Also, I don't think this handles if_changed commands at all? The kbuild
-> rebuild condition is timestamps plus if_changed's command-line check.
+>> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
+>> +{
+>> +	struct regmap *map = adc->regmap;
+>> +	int ret;
+>> +
+>> +	if (on) {
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
+>> +		if (ret)
+>> +			return ret;
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +		if (ret)
+>> +			return ret;
+>> +		return regmap_set_bits(map, MT6397_CHR_CON7,
+>> +				       MT6397_CHR_CON7_BATON_TDET_EN);
+>> +	}
+>> +
+>> +	ret = regmap_clear_bits(map, MT6397_CHR_CON7,
+>> +				MT6397_CHR_CON7_BATON_TDET_EN);
+>> +	ret = ret ?: regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +				       MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +	return ret ?: regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
+> Huh?! Please, use standard pattern with 'if (ret) return ret;'.
+> Ditto for other weird cases like this.
+Fixed in v2, and also modified to allow the regmap clears and sets to 
+fall through, so one failure doesn't leave some of those bits in the 
+wrong state.
+>> +}
+> ...
+>
+>> +{
+>> +	unsigned int i, sum = 0;
+>> +	int ret, sample;
+> It's preferred not to mix ret with other semantically different variables.
+Ack, thanks! Fixed in v2
+>> +	/* Held across the whole burst: the channel select is shared state. */
+>> +	guard(mutex)(&adc->lock);
+>> +
+>> +	if (chan->channel == MT6397_AUXADC_ISENSE) {
+>> +		ret = mt6397_auxadc_isense_enable(adc);
+>> +		if (ret)
+>> +			return ret;
+>> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
+>> +	} else {
+>> +		ret = mt6397_auxadc_battemp_bias(adc, true);
+>> +		if (ret)
+>> +			return ret;
+>> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+>> +	}
+>> +	for (i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
+> 	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
+>
+>
+>> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
+>> +		if (ret)
+>> +			break;
+>> +
+>> +		sum += sample;
+>> +	}
+>> +
+>> +	/* Lower START so the converter is not left armed between reads. */
+>> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
+>> +			  MT6397_AUXADC_CON1_START);
+>> +
+>> +	if (chan->channel == MT6397_AUXADC_ISENSE)
+>> +		mt6397_auxadc_isense_disable(adc);
+>> +	else
+>> +		mt6397_auxadc_battemp_bias(adc, false);
+>> +
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
+>> +
+>> +	return 0;
+>> +}
+> ...
+>
+> Otherwise nice and small driver.
+Thanks for the review, Andy!
 
-tl;dr: I spent way too long looking at this. I think my conclusion is
-"Hm, this makes some cases of missed Makefile deps on generated files
-harder to find, but there don't *appear* to be any obviously wrong
-instances of this in the tree."
-
-Long version:
-
-There does appear to be a problem in the case of generated targets where
-the Makefile deps are build-order correct but lack explicit deps. As
-in, a clean build generates the needed dependencies due to some prior
-explicit Makefile rule dependency, and a later source-level "#include"
-for the generated file exists (and the build doesn't fail since the
-included file got generated before the source that "#include"d it got
-built), and then the normal dep tracking (-Wp,-MMD,... -> .cmd) catches
-it and any direct changes to that dep would normally get noticed going
-forward on incremental builds.
-
-However, with the depcheck .cmd pruning, changes to transitive deps
-(either via file contents or Kconfig options) will go unnoticed during
-incremental builds without that explicit dep (but stock doesn't miss
-it). Though actually it's kind of worse because it'll get noticed on
-rebuild #N+1 for N level of transitive depth, so something will break,
-and then you build again, and the changes from 2 builds ago suddenly
-get rebuilt...
-
-I think you maybe encountered an instance of this in your series, too,
-but it got exposed due to a clean build no longer having the ordering
-correct:
-https://lore.kernel.org/lkml/20260917-build-speedup-v3-18-9ecf4163ff36@kernel.org/
-
-See the trailing diff for a demo:
-
-
-  git apply demo.diff
-  make O=b defconfig
-  # simulate a earlier-stage header generation...
-  make O=b lib/byfile_anchor.o lib/byconf_anchor.o
-  make O=b lib/
-
-  # trigger 1: the header's input file changes
-  echo FROMFILE-two > lib/byfile_gen.in
-  make O=b lib/
-
-  # trigger 2: a Kconfig value changes; no file is touched
-  ./scripts/config --file b/.config --set-str LOCALVERSION -demo2
-  make O=b lib/
-
-  # what each object ended up holding
-  strings b/lib/byfile_anchor.o | grep FROMFILE-    # FROMFILE-two   both trees
-  strings b/lib/byfile_victim.o | grep FROMFILE-    # FROMFILE-two   stock
-                                                    # FROMFILE-one   patched  <-- stale
-
-  strings b/lib/byconf_anchor.o | grep CONF-        # CONF--demo2    both trees
-  strings b/lib/byconf_victim.o | grep CONF-        # CONF--demo2    stock
-                                                    # CONF-          patched  <-- stale
-
-
-This means adding depcheck would silently expose any current (and future)
-missing explicit deps on generated files where those files get generated
-by either an earlier build stage or an earlier rule. :(
-
-I went looking for the kind of missed Makefile dep for a generated file,
-and while it's not a very grep-able condition, I did look at stuff that
-fell into include/generated/, but it's safe due to the prepare/archprepare
-ordering AFAICT. So then I looked at places where -I had $(obj) added to
-it, and all of those seemed to have explicit Makefile deps too. Well, all
-except for arch/x86/boot/compressed/sev-handle-vc.c which includes
-"../../lib/inat.c" but that seems safe today due to ordering from
-arch/x86/lib/ being needed before arch/x86/boot/compressed/.
-
-So, yeah, it makes me nervous, and it may make incremental builds less
-idempotent. But I can't really find extant problems and the demo is
-slightly contrived, but not exactly an impossible situation.
-
--Kees
-
-
-diff --git a/lib/Makefile b/lib/Makefile
-index dfab958327c5c..aed0bd9eb7d6a 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -350,3 +350,36 @@ CONTEXT_ANALYSIS_test_context-analysis.o := y
- obj-$(CONFIG_CONTEXT_ANALYSIS_TEST) += test_context-analysis.o
- 
- subdir-$(CONFIG_FORTIFY_SOURCE) += test_fortify
-+
-+# --- depcheck demo ---
-+obj-y += byfile_anchor.o byfile_victim.o byconf_anchor.o byconf_victim.o
-+
-+quiet_cmd_byfile = GENFILE $@
-+      cmd_byfile = printf '\#define BYFILE_STR "%s"\n' "$$(cat $<)" > $@
-+
-+quiet_cmd_byconf = GENCONF $@
-+      cmd_byconf = printf '\#define BYCONF_STR "CONF-%s"\n' '$(CONFIG_LOCALVERSION)' > $@
-+
-+# Regenerated when its input file changes.
-+$(obj)/byfile_gen.h: $(src)/byfile_gen.in FORCE
-+	$(call if_changed,byfile)
-+
-+# No input file: regenerated only when its command line changes, which here
-+# means when CONFIG_LOCALVERSION changes. No file is touched.
-+$(obj)/byconf_gen.h: FORCE
-+	$(call if_changed,byconf)
-+
-+targets += byfile_gen.h byconf_gen.h
-+
-+# The anchors declare the dependency. That is what generates the headers on
-+# a clean build: fixdep only records a header once the object has compiled
-+# successfully, so on a first build there is no .cmd file to rely on. The
-+# victims include the same headers without declaring them, so the only
-+# record of that edge is the deps_ list in their .cmd files.
-+$(obj)/byfile_anchor.o: $(obj)/byfile_gen.h
-+$(obj)/byconf_anchor.o: $(obj)/byconf_gen.h
-+
-+CFLAGS_byfile_anchor.o += -I$(obj)
-+CFLAGS_byfile_victim.o += -I$(obj)
-+CFLAGS_byconf_anchor.o += -I$(obj)
-+CFLAGS_byconf_victim.o += -I$(obj)
-diff --git a/lib/byconf_anchor.c b/lib/byconf_anchor.c
-new file mode 100644
-index 0000000000000..8035eaa352a3b
---- /dev/null
-+++ b/lib/byconf_anchor.c
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "byconf_gen.h"
-+const char byconf_anchor_marker[] = BYCONF_STR;
-diff --git a/lib/byconf_victim.c b/lib/byconf_victim.c
-new file mode 100644
-index 0000000000000..285a8de8bdf6e
---- /dev/null
-+++ b/lib/byconf_victim.c
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "byconf_gen.h"
-+const char byconf_victim_marker[] = BYCONF_STR;
-diff --git a/lib/byfile_anchor.c b/lib/byfile_anchor.c
-new file mode 100644
-index 0000000000000..9ea0b8ad55963
---- /dev/null
-+++ b/lib/byfile_anchor.c
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "byfile_gen.h"
-+const char byfile_anchor_marker[] = BYFILE_STR;
-diff --git a/lib/byfile_gen.in b/lib/byfile_gen.in
-new file mode 100644
-index 0000000000000..7da9e5e0cd83c
---- /dev/null
-+++ b/lib/byfile_gen.in
-@@ -0,0 +1 @@
-+FROMFILE-one
-diff --git a/lib/byfile_victim.c b/lib/byfile_victim.c
-new file mode 100644
-index 0000000000000..763c5ef8f1514
---- /dev/null
-+++ b/lib/byfile_victim.c
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "byfile_gen.h"
-+const char byfile_victim_marker[] = BYFILE_STR;
-
-
--- 
-Kees Cook
+Best regards,
+Ryan
