@@ -1,311 +1,272 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011031.outbound.protection.outlook.com [52.101.62.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4348A47C116
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634286; cv=none; b=o5p8KHQQdOxz9ScHpxthGNNsLeysMpP1uC8Hw/82HdP0Z1+wzwEjz0xznO8fKzq9j89ofUMQmkqB74Nqh9JPMdlRg+hmTTK3OZQjRLW/lk0sVm2/Eld2Gb+xDEMpjDWLYQ1UMNEoSs+xAzVzHA6mtRswMD5aW0K5LAzdLMq5J3M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634286; c=relaxed/simple;
-	bh=SpHy41LSroXkNRAgdbBYvB1SalYhcsSLiyQ953j2bQQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M342ZuWE2le1CltSFeImPJn12EhT7ZVcIDNxWazIPA7oyT60S2H7ad5gs9VPGnLGsKBVa7sYTok4H03qxCEdH2k4l4ILBLfoXKdJi/zO5jagAjsL+p8+I61uloyp94YJ3Qc4BPcjhcglR/y9jlHwTmIbyc5yb96w68Z2pTGng2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qd+02hW2; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69BD3AB46F;
+	Thu, 17 Sep 2026 08:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634308; cv=fail; b=lLQtraNuVYMMJaTKwxcqv8xpOzVdTQZLhtcnNsMwu2yzLXNXk9DLRMooZNbndmyw6V6eeVzVLQ9cmmLUxoW0IAT4A7kLPzWG87X+/IW3XafJ8sxJdbtZjxmCYkr2eKtcf/xM1RmEIv3UwFGgDaZXgBJ1EmbHmtgWBNaE/sQZTG0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634308; c=relaxed/simple;
+	bh=Mvn/t/Q3xiEaXvHn+hEboETn1E/erPiE0FWj+MbdDq4=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=ub6VYZrtfEmYIGKbn2h2hRkI53PD/znG8PKIN1T5xh3KikJM7JbcgFtGKNQeWzivoGrKmpG7tQgBySkzmh+64orRTafiEZln3dI6N2dH1fT2TtvipduCqfxBst27K7Nz61lCIin4QddWEkIdpxsscMUTVZn5jPb6xRAlBQRwsEo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tqJi6YsZ; arc=fail smtp.client-ip=52.101.62.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qd+02hW2"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so88126a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789634273; x=1790239073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qjS555jszAWDoLRuNovKzuqNE3Rj5zKbnspdsPHPVgE=;
-        b=qd+02hW2XrndVcIPzt+pE1uxhLLo7TzPbA6WIWwbBAVxz+9T2QrT6BmuvT1qRQl5Zg
-         8SDta47CXkCYOmiuNAvvkbqPQSjU2DhOwOXEzoFZWB2BV4qLfMlcPcfHEH7MyK51TPV6
-         A3Z8RJy9O2wesDQK/mMkuF40LEhmjwgl6U79qfxi6Yw0RwrNUGaXDehXrKNSOCn0hYfZ
-         n3XD8k19pOzVgHrSDy0EXvpfukBD5Z8bD3wKtxUWnVzEvN6VJmfetYmveLhXO3MgVnXU
-         8MROFxjXgeC9vOokXGLmudArpSTardn+Rbx0jGfyZ6Ho8bY2QW8wzIiMYkzo1gaC3r4D
-         zVqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789634273; x=1790239073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qjS555jszAWDoLRuNovKzuqNE3Rj5zKbnspdsPHPVgE=;
-        b=INWUhPRPs70Io/sHLZCk7GdV7nFHAbIBOi7lX7J8AK4XuYyE3PaLfxI4cgcurUSc/6
-         ooMcSSpNmLMEnwbuawtPn59LBtIx6ohSYBrmYrmsG2OIJ9c+muTt3STneypkPyeJ2Ovz
-         /lVpkw07BrNSmuI4EJ16P87NchI29UOZX5WWED/jpyo/8YddRPUUvpghPbpspknMuEE0
-         Kf2le+8gNDfvYm3R7LhgcwrEBYibuz/uKGddFx5jYCzcOdDbEdnrET4RsoE96FePNr72
-         TA6hkXd3np4yS49NSTjztfZ7x0i8plqza4zRPuoSY6lL44My6LqKpXHrfwFRKo7Hn/BC
-         Szgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxU65UmYF/A2Cm0FZa847WOLYfOoltmvcolv6kIJrWD6zpq/cnNXn1oZk+X+fV0ACPjpN4Txr9Yp+4klBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBJ2XQmQ/PEMl9VlisW7M1kEqwpShOCWm+Dach6Sipv9+OM0F6
-	wVza8ey/4oDMrvoD+KM6CDS7XMclabD6B4y+XHw5TRND96vvG958vKkQ
-X-Gm-Gg: AYBFou37Q+ZprtVwe7ZeXt+hR2v3VFBJRx+hiVY3lretev7Gcgy7qIznXnxGHYBJKTH
-	+bIVJtmLvp1j8yluVUfmJYFXQSiPYnyFHSru8yenWAaWlrNcHqKXwGf09tHO6z3VaHXJTCG/E6S
-	EpZ1dbU1cmMmCfRHMJ7dpmnCmAbpBwMnJPll/WZhA+zZaESIX5l1djtl//i41vsmi0hlBpeJgLn
-	PW8VoKTaBvTXq5XYr8REYQMXJKKp5Vq0RSQaRL6exS7PBVY5M0+24GFuLB+KsV/L/I7o1Ux2TkB
-	hnsBYZXW86M0AoPlcM6nd7AnGS47MjpEZt22AfeWuR23Rd4irofcrK9dV4HVOMt2SPpk3kXp4bU
-	iY1DTu1kY2vqR64g+izJr57ZW4hc67Df6maOb0eLSg0O0dLqHskNGXCERQkeoygzyJqIKTQnS7D
-	yCHvWwW6NALIr2Oa99sdTlZZDum34UzXw1AyBc9huywjcvstBkuvyVdBhzmwCa1512TpufLc3CR
-	FH+JtP1jxsBIn0+o++rAJUPdl8No1r72qzMMalssoogmhck9qUd3lq6bIlh1rkbAxnyhPMOYGRI
-	+B4qZc0Gf2aoTSs6ADI8/D5T5w==
-X-Received: by 2002:a17:90b:3dd0:b0:39e:28db:b950 with SMTP id 98e67ed59e1d1-39e361aa313mr3835618a91.16.1789634273012;
-        Thu, 17 Sep 2026 01:37:53 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-230-153.dynamic-ip.hinet.net. [36.232.230.153])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm3846928a91.15.2026.09.17.01.37.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:37:52 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	liam@infradead.org,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Rik van Riel <riel@surriel.com>,
-	Aristeu Rozanski <aris@ruivo.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/gup: batch PTE-mapped large folios in gup_fast_pte_range()
-Date: Thu, 17 Sep 2026 16:37:47 +0800
-Message-ID: <20260917083747.786-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tqJi6YsZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VylMv6TSnQhQEDnatZ5yEzERXJOyCejHLZSGnIuPRu/Zdup9mNkeFFfYpdeIhCkx25hVsqBQwiDJEsLeUtYoju6RuN48NY1Oz+PuD8SqEGlvN6Ad0df7wGqs7QjGZ8IOcgVlEoUQZLV8v1LBCOksaRSMNnj5FBP1lV6E42fwlSuAuIAwrdbKs027360H+1nxCkufQY/Iyx3Ipy6RWjiUA+oEq84gxOP3p7+pv38uDz467QJsuo60g+Q5e3UTBbdBuQVUBDf4uB5TtYHgpxms1bl5J30PBj5h8We1na/zZIMoNXhrTsN7kkwxMJo7gqqf4Gq3AMhrn+m45f+aTgESpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MFp/ioXXvnyC4d3kqC5sj36+WDNccnutGdq0EzeKoKE=;
+ b=BFm46Sy5PbTnL1WSEkbBEkEprvdUxSnRzdbtEs2mkLOvXT5y2AIwOyTKSehfmreh0G7bQfFf7TqicIjXLjsdIqkUpM1n6ELIZuzFDk30JG+97gDRfm7RFDwkjj13qtg8t5pJF10SEAX0oEjvEJW3W72AHwFZxNAl0Rjh15o1kIDqy8ONPH63LXgJkNBhJjtwBn3TD/YPF0puMKKs0zRzF6OXG6xn/TothtFgiYEEzx0pL+je8UzMwkD9uNEGoRyHWRMu9LmHS2REm32kqqQ15cO0DdCo3GSWzsm+jsbkTYCQJRSjDyoo6Ju1AFCUSDyfq03yuNTl+S/tuhCLoVdA1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MFp/ioXXvnyC4d3kqC5sj36+WDNccnutGdq0EzeKoKE=;
+ b=tqJi6YsZr/6T6CeV9PR6aBnE58gf3HFFxip/ZpWochdvNtd+QowKZNlhvsuGK3fYQPPHtQoRRW8WAVYB0SyFA8Nsptqh2KjU0qtJWjtuvZcswvd12Wzc22FDf2erQxTbdJdzme1w5xTdIpuakTTFFiCJC9ssb41Ca/LelqLdtLKcUoGDVj/WbUECmnfwPd8B0j9LC9CIK6j+lWrDGyyNGGiZr6vLU7V8qHM02h0kdQujpm+MnycG9dnCselgM7z65yzKsYfrJ4RCbiyVMRcS0ncujqayMg7cICOktvZwDXnyvfcVOPNGlg0JMmBsOhW5EvvY8Nwo4M408Ymd8YbdvA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
+ 2026 08:37:17 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 08:37:15 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 09:37:13 +0100
+Message-Id: <DLHGE0SNY9CO.1OPWR5QXKJLAZ@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+In-Reply-To: <DLHFGW1ISL53.3D3X360WD8HPV@garyguo.net>
+X-ClientProxiedBy: FR0P281CA0192.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::11) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|BL4PR12MB9533:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f775a40-11bc-482d-d303-08df1496dfe2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|10063799003|22082099003|18002099003|3023799007|4143699003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	xG4pdyM+YJVjdjZJ+LpcLb6Z0+rRt+jjU4by0Xoh8a/rW4S4k7KThoPMxIEEFC7i1jHXIQtosHv2Fnhg99NIbBmZcm/HK2MOZwyGgMTNOTgmPuTIu/uSAGFZ3qlV5tjJQSK6VHvbpWrY1K2cuUBB1eb51WF/byo8Y+9nFYz999Af20h1mOjZ/tpt0wFhzr1VjCZNyHFNxSHFmKwLUZubkFaxtyJsECbFd0TsSXpxzbjNmmxlFdYRa8CNstD/771MnRmDqlP/0ZnsPRZWyI5NCGczLhNPE5Zgl+r3trut0gNlRB0eb7Y2yvLwWLtJ0CSyN5NMJR5d5Mzz7tZT54XX3R4EDKKwU+ZZo0UYd8YMy+ThQC3MfikoLMYtqytC84zW7wpwwzbTItOOu3ose1qMFSUwrxRiVCrMGdaNeN4fgw77xWcVfSr5NR8HyU0j1+8szxpX20y/GlXpPjfLPNgsBvlQgItUllWXRgUkFbKXqL0dG73MOIjjJZuLXktl/wFvXqA+IyEBv4xSrbxsk9nXD/lYzjF9nhmyWdM4uAwKXTVCENiP6EUaZYjixJRkD84RmdlAzP1mqa5LZYf3XyQlShryIPolsGcgCb6Z1yJfXC1VhcMGRTeehQ0szaCsXeZ6ZrfVRsMJtlkXZCe46Smj+DYAGu/109RrBkilqTzil2Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(10063799003)(22082099003)(18002099003)(3023799007)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ek5DV203UDBYelNXRkNkZVl0enJlOFdsWU1kNmFjVDBxR1N0VUxpQ3lZZjFz?=
+ =?utf-8?B?a2I2ak01Ulo0ZzRVMTVzVm9zbWNNUFhhdzQ1aUlGa0xnNnJFellKQnB4emtF?=
+ =?utf-8?B?RXVkT3hnTlpLTUxnOEhnZTlUdjJWbGZObk52R3VHeXFUdng2eXVVZGNHcnM5?=
+ =?utf-8?B?eHo3elRzaXh5NlROOTh2MmxGTWRISFp0ZFFVVkRQcy9GTkIzVzZlNXZ6VVRC?=
+ =?utf-8?B?RHRBQWxZMjlaZHZ6cmwvSUcyVkFiTGpRRW03cjJWNGtiUGttSUR0R2s4SjN1?=
+ =?utf-8?B?VVRhcjN4S2hsU00wZ0RPZ0JkRkkrUTVyVEJBQlZ0cms5dUJXTktMb0R5aTZn?=
+ =?utf-8?B?U1BLdU5jaWwvbmx3YnZIamEzeEVXeGYrVnF2REd3OEw4Mk1qSXk4L1hhUmhV?=
+ =?utf-8?B?bHdkeHhMVXNPbnZ1RExNMlBBSVZqMHdvWjVhRG5pWHhDbGZBc2M5WXVDRTRG?=
+ =?utf-8?B?UDNFbEhzem9UMldHN1JVaHZiTnEyam9FbXFDSTdxSEMwclNIZ3ZOelNFZ1Z6?=
+ =?utf-8?B?ejRBNlU3OWRnaEpyNHJpZVA3MFhQTnd1aXAwL2Ric0M3ZWh3WkhCSWw3dHMz?=
+ =?utf-8?B?RFNORVpsOWtLaWN0TFlpazlPYk1jOFA0blJOK2JEVEZheHc4QlE0UXdsMXFo?=
+ =?utf-8?B?ZncyV0t2ZjBxazdzamxoR0ZFbWUrN05OTlZLV0tyUUNnVEJycXlIYWhoOVF1?=
+ =?utf-8?B?aEhRREhiNGlCSVhwYW8rTmpDWVovMSs2K2tVVmhZc3IxSUNia3lkbTV4NC9z?=
+ =?utf-8?B?THlpbUthWExVa0t5RFdSVzNKZEZYQjRKK3N4alZpOU1DTGxiVVI5MGE2TFdR?=
+ =?utf-8?B?WjhWby9PdWtNTzVsbHdIckVIYmY3RUI2Vjk5Y2wrQysyb3NwYnh0MlBXUlBj?=
+ =?utf-8?B?RlVXdkovUkpuUTNYK2syL05vRThiM1RldzBWU3NJV1EzaHhSc01yb0tkM21t?=
+ =?utf-8?B?NUhCWVNla1ZOa1VIM01jZDZrSXZIOWlGSVhMZHBUNlJuSFU2QUw5Rzl2T0tk?=
+ =?utf-8?B?WmY5Y09IeFpLVGkvSklHWHBRUmVHSGZ5eDI3RWN1YlBJRHFRM3BjN3R4U2t0?=
+ =?utf-8?B?MlNvaWJEUW80cU1YdG1HM1NmUDIyWGlLWW9RbzZCTDVOYzA3dXNFODg3VFlv?=
+ =?utf-8?B?YzE0czB2NGZENjQ4ZGs0Vkh2eDdpeHZuWHFyNnF2d2JtNnBkZmZ6ajR1WlBC?=
+ =?utf-8?B?TUVrbHhQQ0psZWpyYTJLUVVJRndqWE5ZN1JMWjZpKzZaNVVaeU0rT3ROUGdK?=
+ =?utf-8?B?RE9LdmRYOWdkSC9DM25WdUtEOG40eGg3QWNGdTIyTVFwNDhoVjRLSmxnUlpU?=
+ =?utf-8?B?dHQyYzVrR2QxYk9xWFNYOUlNTnNnaFZvOEtuRkdXYlRjNUJjZWdIQTlnd2lz?=
+ =?utf-8?B?cmFSblJlbW95UmpvVEFmcWNRTVpvaUZsQ1BvdnZFTWN3VUNBRjFkazk4SFFl?=
+ =?utf-8?B?T3BLRXdFUklkNjk5bDk5cGMzWEN0bHV6SVFtY1lxNGJxL1pBVDdoNlVlblVi?=
+ =?utf-8?B?U3JTZTQ5alVkeUtkYXZFbVYvTFBFNnN6QmM4akZJWGgzY09LeEd1Y2xBRndU?=
+ =?utf-8?B?ZktZVCtNbHhwQmkzVXlOQ3BiVmxnNUY0OVQ5UFJQak8vM05HbkgyUFlhdm9p?=
+ =?utf-8?B?bXowSnV3QTRMOFVDRWUvdjFTd0dTK2tJM2F1ZHUxbWpMdmFsSDFQRXZmNGRh?=
+ =?utf-8?B?SFdURUx5c09UZmFCaUZacnR2ZVpMMCtoMEt0Y08ybmRyOXRaZ1JveGhua0tw?=
+ =?utf-8?B?SlFuM1ZSYXJBaEdaQmFxVzBSdVBQa0NzWGRuWS9aRWNyZTRaU1FvdWJyQ1dF?=
+ =?utf-8?B?azlWVjFzK0R4c2V5ODFFMm1WeHlZelRyL3FNWE51dGw5SmtkdUFkbWg1SHBI?=
+ =?utf-8?B?eTFPTG1yNnM1WmFpWC9NL1VBWm9wUWprand4SGlCRU54cXhDcGFPNVRRdVRj?=
+ =?utf-8?B?RERUaDJ6bDRsbDJDKzJ6RnVuUXE5aXBTcko3LzdnaHJrMmNqNmlJTExqN2Zq?=
+ =?utf-8?B?ZWdKMGVET3cvSzlLdmxXcHpuaEo2aG00MFJjZ3JndzgxWlBwOTBvdGtsakky?=
+ =?utf-8?B?blR3NDZTaUs5YVlMN3F4dXR6ZkNBckFpYndBc2VyTEoyYTVrNGpNc3U1RVJM?=
+ =?utf-8?B?RHFvUGFaSktiYjBkVFZaUFY0OFNSVXJjUzJEU1d5VFREcGxYSHV0SFJuTk12?=
+ =?utf-8?B?Y3F3d29LWkcrMTAreWxVaTJoVlNZVjh0Ym5YTUtVL2FyWE1rTWJpbWRWRnky?=
+ =?utf-8?B?SmNNS3lObEgvZkMxdjNLTExEKzR3Sk5IMGdHbjZtRXdxTG9tMERsOVgwL0lW?=
+ =?utf-8?B?cTBNMDdtTXh5WjVsT1VwTlU4YUkxYWZNT3ZRQVVZNnJucjI0dGNkdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f775a40-11bc-482d-d303-08df1496dfe2
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:37:14.8924
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UaCvKuMoWYVtVE7lbZozLKiwyt7MDSy8FcmtUS/+n1RdhC4X4RIwmB/K/SwiTxyaVc/aA33u8sKISBdnnbXqbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
 
-GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
-costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
-atomic, a full barrier and a node stat update for FOLL_PIN), a
-gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
-pays sixteen of each and a PTE-mapped 2 MB THP pays 512.  The PMD and
-PUD leaf paths already take the whole range with one
-try_grab_folio_fast() call, and the slow path is getting the same
-treatment for PTEs in Rik's follow_page_mask() series.
+On Thu Sep 17, 2026 at 8:53 AM BST, Gary Guo wrote:
+> On Mon Sep 14, 2026 at 7:55 AM BST, Eliot Courtney wrote:
+>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>>  use crate::gsp::nvkv::{
+>>>> +    Array,
+>>>>      Index,
+>>>> +    Key,
+>>>>      KeyId,
+>>>>      Op,
+>>>>      Opcode, //
+>>>>  };
+>>>>  use crate::num;
+>>>> =20
+>>>> +/// Defines a schema struct together with its [`Schema`] implementati=
+on that decodes into `$target`.
+>>>> +///
+>>>> +/// Each member of the struct should implement `Schema`. For every (k=
+ey, index, value) triple
+>>>> +/// decoded from the NVKV stream, the generated parent `Schema` imple=
+mentation will call each member
+>>>> +/// in declaration order with that triple. If a member consumes that =
+triple, it will stop there.
+>>>> +/// Otherwise it will keep going until all members are tried.
+>>>> +///
+>>>> +/// The schema struct holds the state required by the schema implemen=
+tation to do the decode. It's
+>>>> +/// recommended to use one of the existing Schema kinds (`Required`, =
+`Accumulated`, `Key`, `Array`,
+>>>> +/// `Indexed`) for each member.
+>>>> +///
+>>>> +/// # Examples
+>>>> +///
+>>>> +/// ```
+>>>> +/// nvkv_decode! {
+>>>> +///     struct RequestSchema =3D> Request {
+>>>> +///         id: Required<u32, 0x0001>,
+>>>> +///         name: Array<u8, 64, 0x0002>,
+>>>> +///     }
+>>>> +/// }
+>>>> +/// ```
+>>>> +macro_rules! nvkv_decode {
+>>>> +    (
+>>>> +        $(#[$attr:meta])*
+>>>> +        $vis:vis struct $name:ident =3D> $target:ident {
+>>>> +            $(
+>>>> +                $(#[$field_attr:meta])*
+>>>> +                $field_vis:vis $field:ident : $ty:ty
+>>>> +            ),* $(,)?
+>>>> +        }
+>>>> +    ) =3D> {
+>>>> +        $(#[$attr])*
+>>>> +        $vis struct $name {
+>>>> +            $(
+>>>> +                $(#[$field_attr])*
+>>>> +                $field_vis $field: $ty,
+>>>> +            )*
+>>>> +        }
+>>>> +
+>>>> +        impl $crate::gsp::nvkv::Schema for $name {
+>>>> +            type Target =3D $target;
+>>>> +
+>>>> +            fn init() -> impl ::kernel::prelude::Init<Self> {
+>>>> +                ::pin_init::init!(Self {
+>>>> +                    $( $field <- <$ty as $crate::gsp::nvkv::Schema>::=
+init(), )*
+>>>> +                })
+>>>> +            }
+>>>> +
+>>>> +            fn visit(
+>>>> +                &mut self,
+>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>> +                index: $crate::gsp::nvkv::Index,
+>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>> +                Ok(false
+>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.=
+$field, key, index, value)? )*)
+>>>
+>>> Mmm looks like this is going to be `O(n)` with `n` being the number of
+>>> fields?
+>>>
+>>> This is ok for a first implementation but eventually I hope we can
+>>> switch to a more efficient dispatch.
+>>
+>> I thought quite a bit about this while writing this code, since we need
+>> the escape hatch to imperative decode (custom Schema impl basically). To
+>> be able to get it down to a match on the key, we need to know ahead of
+>> time which keys a Schema will consume. That duplicates the info from the
+>> visit() implementation.
+>>
+>> I thought up a few methods but it's unclear to me which one is best, so
+>> I just left it for now. Please LMK if you think this is urgent, I can
+>> try in a follow up to improve this. Here are my ideas (when I say O(1)
+>> lookup I mean modulo how the compiler decides to do it with the set of
+>> key IDs it gets):
+>>
+>> 1. current code - just visit()
+>> pros: key source of truth not duplicates
+>> cons: O(field) visit as you say
+>>
+>> 2. Associated const KEY_ID: Option<KeyId> - None if a Schema accepts mul=
+tiple keys.
+>> You can match on each associated const in the macro.
+>> pros: O(1) if the current key goes to a field with KEY_ID =3D Some(...)
+>> cons: O(#fields accepting multiple keys) if current key is one of them
+>>
+>> 3. fn accepts() -> bool
+>> You can match on `if F::accepts(key)` for each field. We could potential=
+ly make
+>> this const with Gary's const traits polyfill.
+>> pros: O(1) if you write an inline-able+optimizable implementation.
+>>
+>> 4. Associated const KEYS table; use tricks to concat tables
+>> pros: O(1) lookup=20
+>> cons: actually MSRV can't get this to optimize down to O(1)=20
+>>   if you use slice::contains(), but stable can.
+>
+> Hmm, am I missing the obvious? Why not generate a `match` expression on I=
+Ds of
+> fields? It looks like in the example all keys would have a known ID to th=
+e
+> macro.
 
-The users are the hot ones: iov_iter_extract_user_pages() pins every
-O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
-buffers through it, and so does RDMA memory registration.  With mTHP
-those buffers are PTE-mapped large folios.
-
-After the head page has been grabbed and verified as before, extend the
-run to the following PTEs that map the next pages of the same folio
-with the same protection bits, take the remaining references for the
-run with try_grab_folio(), and fill pages[] from the run.  The PTEs of
-the run are read while the reference on the folio is held, so the folio
-can neither be freed nor split underneath the scan; a THP collapse can
-still detach the page table, so the pmd is checked again after the run
-is grabbed and the run is dropped if it changed, leaving the next
-iteration to hit the existing pmd check and bail out.  A read-only run
-of an anonymous folio stops at the first page that gup_must_unshare()
-rejects, so the per-page exclusivity guarantee for FOLL_PIN is kept.
-
-folio_pte_batch_flags() does the scan.  It reads the entries with
-ptep_get(), which is not safe without the page table lock on
-CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
-and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
-Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
-site, so the other callers do not change.
-
-The order-0 path keeps its instruction sequence.  The folio flags are
-tested before folio_set_referenced() on purpose: a load of the flags
-right after that locked instruction cost about 25% on order-0 pages in
-the gup_test benchmark below, and reading them first brings that path
-back to the baseline.
-
-gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
-per call, median of 15 runs, two baseline boots / one patched boot, on
-an x86-64 VM:
-
-                       get_user_pages_fast()   pin_user_pages_fast()
-                       before       after      before       after
-  4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
-  64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
-  1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
-  2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
-  2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
-
-fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
-buffer in 64 kB mTHP, median of 15 five-second runs:
-
-  bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
-  bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
-  bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
-
-IORING_REGISTER_BUFFERS of 1 GB, median of 15:
-
-  64 kB mTHP           6179/5998 us  ->  1599 us
-  1 MB mTHP            5790/5801 us  ->   893 us
-  4 kB pages           7173/6741 us  ->  6763 us
-
-Link: https://lore.kernel.org/r/20260811025157.1632867-1-riel@surriel.com/
-Assisted-by: LLM sparse
-Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
----
- mm/gup.c      | 76 +++++++++++++++++++++++++++++++++++++++++++++++++++
- mm/internal.h | 15 +++++++++-
- 2 files changed, 90 insertions(+), 1 deletion(-)
-
-diff --git a/mm/gup.c b/mm/gup.c
-index eb898ea1ee22..1b4bbb525609 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -2807,6 +2807,64 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
- }
- 
- #ifdef CONFIG_ARCH_HAS_PTE_SPECIAL
-+/*
-+ * Extend the run of pages grabbed by gup_fast_pte_range() from @page, mapped
-+ * by the PTE at @ptep, to the following PTEs that map the next pages of
-+ * @folio with the same protection.  The caller holds one reference for @page
-+ * and has verified @pte against the page table; this takes the references
-+ * for the rest of the run and stores its pages in @pages.  Returns the
-+ * number of pages in the run, including @page.
-+ */
-+static unsigned int gup_fast_pte_batch(struct folio *folio,
-+		struct page *page, pmd_t pmd, pmd_t *pmdp, pte_t *ptep,
-+		pte_t pte, unsigned int flags, unsigned int max_nr,
-+		struct page **pages)
-+{
-+	unsigned int nr, i;
-+
-+	if (max_nr == 1)
-+		return 1;
-+
-+	/*
-+	 * The reference on @folio keeps folio_nr_pages() stable.  The PTEs
-+	 * are read without the PTL, hence FPB_LOCKLESS.
-+	 */
-+	nr = folio_pte_batch_flags(folio, NULL, ptep, &pte, max_nr,
-+				   FPB_RESPECT_WRITE | FPB_LOCKLESS);
-+
-+	/*
-+	 * gup_must_unshare() is per page: a read-only run of an anonymous
-+	 * folio ends at the first page that is not exclusive.
-+	 */
-+	if (!pte_write(pte)) {
-+		for (i = 1; i < nr; i++) {
-+			if (gup_must_unshare(NULL, flags, page + i))
-+				break;
-+		}
-+		nr = i;
-+	}
-+	if (nr == 1)
-+		return 1;
-+
-+	if (try_grab_folio(folio, nr - 1, flags))
-+		return 1;
-+
-+	/*
-+	 * The PTEs were read after the reference on @folio was taken, so the
-+	 * pages cannot have been freed, but the page table could have been
-+	 * detached by a THP collapse meanwhile, leaving stale PTEs.  Drop the
-+	 * run and let the next iteration hit the pmd check and bail out.
-+	 */
-+	if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp)))) {
-+		gup_put_folio(folio, nr - 1, flags);
-+		return 1;
-+	}
-+
-+	for (i = 1; i < nr; i++)
-+		*pages++ = page + i;
-+	return nr;
-+}
-+
- /*
-  * GUP-fast relies on pte change detection to avoid concurrent pgtable
-  * operations.
-@@ -2830,6 +2888,8 @@ static int gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp, unsigned long addr,
- 		unsigned long end, unsigned int flags, struct page **pages,
- 		int *nr)
- {
-+	unsigned int nr_batch;
-+	bool large;
- 	int ret = 0;
- 	pte_t *ptep, *ptem;
- 
-@@ -2891,9 +2951,25 @@ static int gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp, unsigned long addr,
- 			gup_put_folio(folio, 1, flags);
- 			goto pte_unmap;
- 		}
-+		/*
-+		 * Read the folio flags before the atomic in
-+		 * folio_set_referenced(); a load right after it has to wait for
-+		 * it, which is measurable on the order-0 path.
-+		 */
-+		large = folio_test_large(folio);
- 		folio_set_referenced(folio);
- 		pages[*nr] = page;
- 		(*nr)++;
-+
-+		if (likely(!large))
-+			continue;
-+
-+		nr_batch = gup_fast_pte_batch(folio, page, pmd, pmdp, ptep, pte,
-+					      flags, (end - addr) >> PAGE_SHIFT,
-+					      pages + *nr);
-+		*nr += nr_batch - 1;
-+		ptep += nr_batch - 1;
-+		addr += (nr_batch - 1) * PAGE_SIZE;
- 	} while (ptep++, addr += PAGE_SIZE, addr != end);
- 
- 	ret = 1;
-diff --git a/mm/internal.h b/mm/internal.h
-index 38b1165212c9..783754a81960 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -368,6 +368,12 @@ typedef int __bitwise fpb_t;
-  */
- #define FPB_MERGE_YOUNG_DIRTY		((__force fpb_t)BIT(4))
- 
-+/*
-+ * Read the page table entries with ptep_get_lockless(): the caller does not
-+ * hold the page table lock (GUP-fast).
-+ */
-+#define FPB_LOCKLESS			((__force fpb_t)BIT(5))
-+
- static inline pte_t __pte_batch_clear_ignored(pte_t pte, fpb_t flags)
- {
- 	if (!(flags & FPB_RESPECT_DIRTY))
-@@ -400,6 +406,10 @@ static inline pte_t __pte_batch_clear_ignored(pte_t pte, fpb_t flags)
-  * must be limited by the caller so scanning cannot exceed a single VMA and
-  * a single page table.
-  *
-+ * The caller must hold the page table lock, unless FPB_LOCKLESS is set: then
-+ * the entries are read with ptep_get_lockless() and the caller has to make
-+ * sure the folio cannot be freed or split, as GUP-fast does.
-+ *
-  * Depending on the FPB_MERGE_* flags, the pte stored at @ptentp will
-  * be updated: it's crucial that a pointer to a COPY of the first
-  * page table entry, obtained through ptep_get(), is provided as @ptentp.
-@@ -436,7 +446,10 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
- 	ptep = ptep + nr;
- 
- 	while (nr < max_nr) {
--		pte = ptep_get(ptep);
-+		if (flags & FPB_LOCKLESS)
-+			pte = ptep_get_lockless(ptep);
-+		else
-+			pte = ptep_get(ptep);
- 
- 		if (!pte_same(__pte_batch_clear_ignored(pte, flags), expected_pte))
- 			break;
-
-base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
--- 
-2.43.0
-
+Some keys may come from embedded structs, which the macro has no way to
+see.
