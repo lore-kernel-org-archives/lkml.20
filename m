@@ -1,84 +1,69 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93E554A7F2
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC5F58B6CD;
+	Thu, 17 Sep 2026 14:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656708; cv=none; b=QrinqbsZ4JS9+4KtpxQ7coCWT1dij3QgLHkLaqAQ/7LUSLxpffwMaY5tMjAmiTpzFz8v8jcNvNzXr+k7TChMGmuRM4vvVDAIu7yVX7DLFJ3gxA977wPDWjEtA2YCT+sfOwerLi3e7ea+GLbte4N6J2SOwl1F61/5qSaw6kA8XjY=
+	t=1789656798; cv=none; b=Ys8GXOEG5/nddRDncKHOQC5BTn7Ytvf/jpGG6rDgLJC+sEaL32vUUHRUmkXM/u27b9IFqA1KtG3jdf/vyIfxwLPRIuMPQaO6fa5gs/gb8fESfeqU4OiQm3eEA+BKWnyMOFWNV/DoP0Z3O/HeOJgVJkwCTTT2h2F+o8nd/5YcBoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656708; c=relaxed/simple;
-	bh=9GN59YSkpcx4uErNtZbygVcGcUIIqwAE3bUrdECbWQg=;
+	s=arc-20240116; t=1789656798; c=relaxed/simple;
+	bh=d8RdIhOHoZdIBdAQFG8udmKfkOZ+UIY9nPFEEMKFz0o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=teO2o7TxWenoHFIQ58eMeKjWZNTkDRdmUVKXaR+ybqGR4wMqY9VxOhwNRRQCfS6oAcKjPZvoIpy8exknz4YsgVuA/8mNO0eyo7pxRcE7lAyr9EqhizINzWTgGsfG5zy83fSPNTMVNI6837+K5Id5Q45k5BE6Fytf/n58ricj/6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xLt2syJC; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=vBuj9OqCBdcU1/m2QR8Hsfk9NLcL1JaHPezEQZeH+dT/gYdqUOcGs6gqEfQPbLLK6iSX5Jbff3kpUCGUHzKi73cbrKPI1DN+vbSNYcVjtKg6xwHUc4ps4oxnesezA1H+62vcCv+8eCJweFuRMokNmy2XhMrqBtQwt8oifZycdHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SxNbbx+N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xLt2syJC"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E2D104E4079D;
-	Thu, 17 Sep 2026 14:51:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B619F5FAA3;
-	Thu, 17 Sep 2026 14:51:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4FCDE11C7B064;
-	Thu, 17 Sep 2026 16:51:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789656687; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=POrtOuCOqjCiA6BJvL08zu5a4W1N+HThsgVOKIk8bsE=;
-	b=xLt2syJCCOC0U58WArMxRSpRADdyj7imBISw9+zTCGs+KuD3U42mJG1sZ2OEQVxEolhlai
-	dTJJBuPkxbkv5buRNTzAkq+iKw+VCBgy9rvw1/mhXBLWAUqKHLtds/ddxnh+PjmkWCMUlR
-	mYCX9RC9JiJ/pJwwhMqYPVOYMdjQXZLV6du8x0CfboEiR2bwV2oJZeL/02EXKl23IZulLX
-	8VOleOTKyd+ey+6qIgPvWyIbtt1n9IZtwW41wRF9O49oOX2F3qDcXeaDRnOQbtU3xL5CD4
-	yWeUpSb91I0qmbRDJ+9Q92456G7NPOCuEDqWsGFKDC+QBYgrc4v+XFq8WGokSg==
-Date: Thu, 17 Sep 2026 16:51:24 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: frank.li@nxp.com, miquel.raynal@bootlin.com,
-	linux-i3c@lists.infradead.org,
-	Stanley Chu <stanley.chuys@gmail.com>
-Cc: linux-kernel@vger.kernel.org, tomer.maimon@nuvoton.com,
-	kwliu@nuvoton.com, yschu@nuvoton.com
-Subject: Re: [PATCH v1] i3c: master: allocate IBI workqueue with WQ_HIGHPRI
-Message-ID: <178965667891.3018556.16752833200317059806.b4-ty@b4>
-References: <20260810013059.3055787-1-yschu@nuvoton.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SxNbbx+N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01BA1F000FF;
+	Thu, 17 Sep 2026 14:53:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789656788;
+	bh=7Vy5EvpWPgBEeIJ3xF/KQS+oApkjxSsfLwoKOwx0i3w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SxNbbx+NRNTcafU63eSB8LK9pkNbX45AzITypEU5CPuoGxdYDWOen0V4I0FDsbzT0
+	 Wjngn9zdSD9GB+iVkdWqfLITem9gzEJzAnBOPrgVGGg4fAsoCmuAwl6pCKoMLcYygJ
+	 Pz0GCq8RnzEtcxO6En/TJdNdOfvPMCEeLW1SlVLA=
+Date: Thu, 17 Sep 2026 15:51:12 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Adarsh Das <adarshdas950@gmail.com>
+Cc: rafael@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+Subject: Re: [PATCH] kobject: fix uevent socket use-after-free on net
+ namespace delete
+Message-ID: <2026091756-widen-doozy-399c@gregkh>
+References: <20260917144206.85836-1-adarshdas950@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260810013059.3055787-1-yschu@nuvoton.com>
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20260917144206.85836-1-adarshdas950@gmail.com>
 
-On Mon, 10 Aug 2026 09:30:59 +0800, Stanley Chu wrote:
-> The IBI (In-Band Interrupt) workqueue is allocated with only
-> WQ_MEM_RECLAIM, which places IBI payload processing at normal
-> worker priority. This is inadequate given the time-sensitive
-> nature of IBI handling.
+On Thu, Sep 17, 2026 at 08:12:06PM +0530, Adarsh Das wrote:
+> When a network namespace is deleted, we free its uevent socket. But
+> sometimes a device in that namespace is still being removed and tries to
+> send a uevent through that socket. The socket is already freed, so KASAN
+> reports a use-after-free.
 > 
-> In the I3C protocol, when a target asserts an IBI, the SDA line
-> is held low until the master acknowledges and completes the
-> exchange. The IRQ handler (top half) ACKs the IBI, reads the
-> payload, emits a STOP, and immediately queues the payload
-> processing to the per-device ordered workqueue via
-> i3c_master_queue_ibi() — effectively the bottom half of the
-> IBI interrupt path.
+> This patch attempts the fix of taking a lock around both the send path
+> and the free path, and clear the pointer before freeing so nobody uses
+> it after free.
 > 
-> [...]
+> Reported-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+> Link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
+> Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
+> ---
+>  lib/kobject_uevent.c | 24 +++++++++++++++++-------
+>  1 file changed, 17 insertions(+), 7 deletions(-)
 
-Applied, thanks!
+Did you forget an Assisted-by: tag?
 
-[1/1] i3c: master: allocate IBI workqueue with WQ_HIGHPRI
-      https://git.kernel.org/i3c/c/591980aaaa46
+How was this tested?
 
-Best regards,
+thanks,
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+greg k-h
