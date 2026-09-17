@@ -1,185 +1,377 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164D94CA796
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAAE3F20F9
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680595; cv=none; b=iZ2doKqFEz2iyCJygejLlIhSShtADicRwMY+giiyD1dYYyRfJD5QuVphxZ1tzAEhQDsPyTju9aMWP/VKmdRwEb42yblvhKHqGiVK61EWPXEMg2n5uCCyV5jdXa+4OTH8/YTm1lPTrjd2OHOZIixTnlpsTyLPIZ6W+lT7wvKdUkQ=
+	t=1789680629; cv=none; b=QPeuKnIM6vJtIz1wdjdQKd8b2zOfHy9n0TamkeoQUAXu4peHmjK39d8BjJGzPb7TjttXzdxOa2NkLXsuS7/GKnovlzb/lMcIxWh6/rWlHYmfDjKZ5S9502AelPiqoAmY6CK4hcGwAnpT/0XuJZbj5MNXvKIjggrtyi1jMuR+b5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680595; c=relaxed/simple;
-	bh=ucQye2B+H6wFivyC6OorOnv4UKxi5gKZEXt7bb+u/q4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k9BFr9MFuwdcqGUNBNyQb8WUG6Iyps1bduqQiD0lZXMdI7CH8FoYRI3Guic7y9/HygleGAMB4LWjXZuH8hmlmifj1rYFEaGm6pp9M6NoMtymvx/NMuCl+WvzTbgds/+gkOLdDDo3yAEDRYVb+VKUyPtUelUoNFJSN8SzL0kqCzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BrQFPiBc; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789680629; c=relaxed/simple;
+	bh=8ej/hPqffjPZ1VyLlBD/vBN77pZLtjldPVm7Oy//ZsU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=AC3EBIbt7XBJ+GzOxEusZ+g8Vl/OdHBv5eI7JIAj2T4/rb/xTvUX4p++XFyRvX6FpHI/a1Wm5WVGpK352KmFn59K0oOFde/M586yZ8Kpi5jjq+Mk4bkYNFnKNGJrOmt91TDt6zR9VUswIA6UKNbrRnVVt9lA4pupg3DHOdxb8Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dOFx715n; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BrQFPiBc"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so97074a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789680593; x=1790285393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
-        b=BrQFPiBc6cUL3ZwNU2K+sYgKpqWI8iDeB6o+w6+/Hkaap46VVt9bPp9lfmjqII1hFQ
-         kmpVWkHW+K9a6LkDmcUXVqtRALuHtHDVdg9XIBDqsHlE/VzgAhXdrC3FcTW3uOC4h76Q
-         GMzcmU0czPIUYuvZxIS433ywGrhoC0PkaEeu0hAhFnIWaVlwGfecDz0bNwUFp+ebNYDu
-         0Nk95azZyhcQ7cp+Lhqr+KQbIczgonHTVLcruFR6ykHlq8b/7TQXy46VMu3c8qznKKxQ
-         W+KE1qltd5hSZf3ALdS2QzGHOoqfjkiclbcZc8BaeVXmQv2i34M/z4fHe4rQoJV/JSwj
-         NgWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789680593; x=1790285393;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
-        b=M6qxTbLPVu7441kSSK+B2ukWlt8nmJqPj4ntoHylIaZjmPNzyOPojKpgajw7rI+iLA
-         QOJ1w2diNkMV7GYI3HdvQ7OXP0e5W3f9bT7jGxQ3VR59BUhL+ZplyDQTT1xTDZa1z+Rw
-         QEIVfcb2C8ORyM2Pk9ZeKbPQN6sPnY/DmoQnseHlvxGkf75c8uEyoYE6AYHROfQfvi02
-         WMgnK3MXCFtG6c1yv9WrDPacS3vpUV0QovgeC4VTlUc4V4Mt9/yyNUosRgTmSYtB3yJg
-         ugtvF4+AIvYaS0C2JOq3sElC8W+NGDXRS8xgRlxgu5ZwZlHWtt1Bh5Xg1YUJzA0OIFjM
-         GbEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTuMfvelkQuyt8JZcBjxEJC88PMI+GZ+kMmTPDZ+qMr38d3k8m+4Kkx/814+QKXuIWMDrhru4SvpxuXYU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwevBKgXd3qn44n0clag9Rkb62gcHrxn/AB9T+pM3NckJwHY3S
-	0945MM1Z/5fCs0wOKcQBnsT1Fm0CIdgeStVqK/qboZ3TRaBfdmY4V7oJ
-X-Gm-Gg: AYBFou0e7SCunDStSaOyBtZz1qMwOgImEZonfoY33tGbKDEcOxuu2Xtx53Ty+hfF2QN
-	AR1mHq1tfpMW6dnBG6ksZoP+D/7bMo0QXr5IPcMFzemRSgBXzg/UJYiRi62dGb+2cs2+/TYKevl
-	VG5rLTEX79NKJMfQiVDfLS6HgTIrH496rDTIAhbc4mWRwn84ObS5mE6ImwrrGJx3/9rASzO8Wpu
-	+bB7sO0ds2Nuo8xLYWpq4DY7/vgTGCcHcCCTHxcgAEtg3QhDK0mmAIBqgNyu6fd5CY7hvNgkBjE
-	ggeIgYpMwdlwmkjGdKPULaoZ1I4dHw4Xq+a6vjK0M9sfFkJ8tmJHGN91iHSkXN27eJBNbDBzipm
-	cqk3k4SlWc/8PYjbQ6Zu/1yQJGx3TND8FG5Y+ijYGn7VqJpPVFDzJuGEwMTsOIOB9NIM45UJguE
-	E4qDeMGcqem4O8tjHdpWS2AHwQBE7S/ixUPjj8wBktY/W1rGf4iYzLu8lY3qx0v7zhq5s1AbtKn
-	DNkwyKFwgH6sPEoUtxjm5Nx1YFnN93CkB69AMS/4PTa0UaMctGF2Jn/nQC4kpEVB9Kkzp5SCsK3
-	tDiRiQ3n
-X-Received: by 2002:a17:90b:4c46:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39e54922644mr1317373a91.0.1789680593294;
-        Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
-Received: from localhost.localdomain ([47.156.168.118])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm14551132c88.11.2026.09.17.14.29.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:29:52 -0700 (PDT)
-From: Henry Paradiz <henry.paradiz@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
-Date: Thu, 17 Sep 2026 14:29:51 -0700
-Message-ID: <20260917212951.558283-1-henry.paradiz@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dOFx715n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789680625; x=1821216625;
+  h=date:from:to:cc:subject:message-id;
+  bh=8ej/hPqffjPZ1VyLlBD/vBN77pZLtjldPVm7Oy//ZsU=;
+  b=dOFx715nkX7JzkaAXEN/yjfTgN4sllDZP6RVHASG/cRz3qFmjaD7lYeD
+   vDDNuWaQRBsaDEghqBwQ2gn3kzDWJ0iQMwwii+CJTRtWqapfE3kd5yh1j
+   gwjN1ZDbHWaiS39iH7ZNt72m/Hayt66sOkMz3MlS091+/XE+FKAyHVTEy
+   LVLs7TTDSKDqH318ocgdf9wgGJtDMpQiVrpj0ivop13ODIWxZxQXz3yI1
+   mK0HfmFmbBcEWQuAed/OmOtEbZCIjRtT5SlCKlP9sNxBl0mPhOHsJvJXh
+   Ho+/Yl6/uKRsYqcb7MwHJ1kfdKuXtM4clM9R57YDYMaJubx8v3XV8WhfI
+   Q==;
+X-CSE-ConnectionGUID: yMamhbkOSZiBbQ41d17gnA==
+X-CSE-MsgGUID: ykTFTmEsQT+3EXc6GkMRkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90014852"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90014852"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 14:30:23 -0700
+X-CSE-ConnectionGUID: AwzrnLcnQLek6E4/jfBxYw==
+X-CSE-MsgGUID: oeUcysUTQCyV5ZELXpmndA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2458920"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 17 Sep 2026 14:30:21 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7JgQ-000000008Xf-49qR;
+	Thu, 17 Sep 2026 21:30:18 +0000
+Date: Fri, 18 Sep 2026 05:29:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexei Starovoitov <ast@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: kernel/bpf/fixups.c:1021:44: sparse: sparse: cast truncates
+ bits from constant value (ffff800000000000 becomes 0)
+Message-ID: <202609180509.bBvnxdhS-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The eEver Live Streaming USB Device HDMI capture card (1e4e:7102,
-bcdDevice 1.00) exposes two problems when HDMI is connected but the
-input signal does not lock.
+Hi Alexei,
 
-While idle, the device disconnects shortly after entering USB runtime
-suspend and repeatedly re-enumerates. Keeping it runtime-active stops
-this loop. Enable the existing UVC_QUIRK_DISABLE_AUTOSUSPEND for this
-USB ID to avoid the repeated USB, UVC and USB-audio discovery messages.
-Normal USB disconnect handling is preserved.
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
 
-On each enumeration, VIDIOC_TRY_FMT takes about 920 ms per call because
-uvcvideo negotiates with the device through UVC probe control transfers.
-PipeWire queries nine MJPEG frame sizes for colorimetry on its main loop,
-blocking unrelated audio mute and volume requests for roughly eight
-seconds while audio playback continues on a separate thread.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+commit: 449f08fa59dda5da40317b6976604b877c4ecd63 bpf: Move fixup/post-processing logic from verifier.c into fixups.c
+date:   5 months ago
+config: arm64-randconfig-r1302-20260917 (https://download.01.org/0day-ci/archive/20260918/202609180509.bBvnxdhS-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180509.bBvnxdhS-lkp@intel.com/reproduce)
 
-Add UVC_QUIRK_SKIP_TRY_FMT_PROBE to answer this device's TRY_FMT calls
-using the parsed format and frame descriptors. The advertised frame
-buffer sizes match the observed probe results for all nine resolutions.
-S_FMT continues to negotiate with the hardware, and other devices retain
-their existing TRY_FMT behavior.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 449f08fa59dd ("bpf: Move fixup/post-processing logic from verifier.c into fixups.c")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609180509.bBvnxdhS-lkp@intel.com/
 
-Both quirks are enabled by one device-specific entry. The card can still
-provide diagnostic frames without an HDMI signal; HDMI signal recovery
-and capture configuration continue through the normal driver paths.
+sparse warnings: (new ones prefixed by >>)
+   kernel/bpf/fixups.c:2202:38: sparse: sparse: subtraction of functions? Share your drugs
+>> kernel/bpf/fixups.c:1021:44: sparse: sparse: cast truncates bits from constant value (ffff800000000000 becomes 0)
 
-Signed-off-by: Henry Paradiz <henry.paradiz@gmail.com>
----
- drivers/media/usb/uvc/uvc_driver.c |  4 ++++
- drivers/media/usb/uvc/uvc_v4l2.c   | 19 ++++++++++++-------
- drivers/media/usb/uvc/uvcvideo.h   |  1 +
- 3 files changed, 17 insertions(+), 7 deletions(-)
+vim +1021 kernel/bpf/fixups.c
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -3055,6 +3055,10 @@
- 	  .bInterfaceSubClass	= 1,
- 	  .bInterfaceProtocol	= 0,
- 	  .driver_info		= (kernel_ulong_t)&uvc_quirk_probe_def },
-+	/* eEver Live Streaming USB Device HDMI capture */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x1e4e, 0x7102, USB_CLASS_VIDEO, 1, 0),
-+	  .driver_info = UVC_INFO_QUIRK(UVC_QUIRK_SKIP_TRY_FMT_PROBE
-+				      | UVC_QUIRK_DISABLE_AUTOSUSPEND) },
- 	/* The Imaging Source USB CCD cameras */
- 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
- 				| USB_DEVICE_ID_MATCH_INT_INFO,
-diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
---- a/drivers/media/usb/uvc/uvc_v4l2.c
-+++ b/drivers/media/usb/uvc/uvc_v4l2.c
-@@ -241,7 +241,7 @@
- static int uvc_v4l2_try_format(struct uvc_streaming *stream,
- 	struct v4l2_format *fmt, struct uvc_streaming_control *probe,
- 	const struct uvc_format **uvc_format,
--	const struct uvc_frame **uvc_frame)
-+	const struct uvc_frame **uvc_frame, bool probe_device)
- {
- 	const struct uvc_format *format = NULL;
- 	const struct uvc_frame *frame = NULL;
-@@ -336,10 +336,14 @@
- 		probe->dwMaxVideoFrameSize =
- 			stream->ctrl.dwMaxVideoFrameSize;
- 
--	/* Probe the device. */
--	ret = uvc_probe_video(stream, probe);
--	if (ret < 0)
--		return ret;
-+	/* Some devices stall on probes during idle format enumeration. */
-+	if (probe_device) {
-+		ret = uvc_probe_video(stream, probe);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		probe->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
-+	}
- 
- 	/*
- 	 * After the probe, update fmt with the values returned from
-@@ -432,7 +436,7 @@
- 	if (fmt->type != stream->type)
- 		return -EINVAL;
- 
--	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame);
-+	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame, true);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -649,7 +653,8 @@
- 	struct uvc_streaming *stream = handle->stream;
- 	struct uvc_streaming_control probe;
- 
--	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL);
-+	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL,
-+		!(stream->dev->quirks & UVC_QUIRK_SKIP_TRY_FMT_PROBE));
- }
- 
- static int uvc_ioctl_enum_input(struct file *file, void *priv,
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -81,6 +81,7 @@
- #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
- #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
- #define UVC_QUIRK_MSXU_META		0x00040000
-+#define UVC_QUIRK_SKIP_TRY_FMT_PROBE	0x00080000
- 
- /* Format flags */
- #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+   975	
+   976	int bpf_jit_subprogs(struct bpf_verifier_env *env)
+   977	{
+   978		struct bpf_prog *prog = env->prog, **func, *tmp;
+   979		int i, j, subprog_start, subprog_end = 0, len, subprog;
+   980		struct bpf_map *map_ptr;
+   981		struct bpf_insn *insn;
+   982		void *old_bpf_func;
+   983		int err, num_exentries;
+   984		int old_len, subprog_start_adjustment = 0;
+   985	
+   986		if (env->subprog_cnt <= 1)
+   987			return 0;
+   988	
+   989		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+   990			if (!bpf_pseudo_func(insn) && !bpf_pseudo_call(insn))
+   991				continue;
+   992	
+   993			/* Upon error here we cannot fall back to interpreter but
+   994			 * need a hard reject of the program. Thus -EFAULT is
+   995			 * propagated in any case.
+   996			 */
+   997			subprog = bpf_find_subprog(env, i + insn->imm + 1);
+   998			if (verifier_bug_if(subprog < 0, env, "No program to jit at insn %d",
+   999					    i + insn->imm + 1))
+  1000				return -EFAULT;
+  1001			/* temporarily remember subprog id inside insn instead of
+  1002			 * aux_data, since next loop will split up all insns into funcs
+  1003			 */
+  1004			insn->off = subprog;
+  1005			/* remember original imm in case JIT fails and fallback
+  1006			 * to interpreter will be needed
+  1007			 */
+  1008			env->insn_aux_data[i].call_imm = insn->imm;
+  1009			/* point imm to __bpf_call_base+1 from JITs point of view */
+  1010			insn->imm = 1;
+  1011			if (bpf_pseudo_func(insn)) {
+  1012	#if defined(MODULES_VADDR)
+  1013				u64 addr = MODULES_VADDR;
+  1014	#else
+  1015				u64 addr = VMALLOC_START;
+  1016	#endif
+  1017				/* jit (e.g. x86_64) may emit fewer instructions
+  1018				 * if it learns a u32 imm is the same as a u64 imm.
+  1019				 * Set close enough to possible prog address.
+  1020				 */
+> 1021				insn[0].imm = (u32)addr;
+  1022				insn[1].imm = addr >> 32;
+  1023			}
+  1024		}
+  1025	
+  1026		err = bpf_prog_alloc_jited_linfo(prog);
+  1027		if (err)
+  1028			goto out_undo_insn;
+  1029	
+  1030		err = -ENOMEM;
+  1031		func = kzalloc_objs(prog, env->subprog_cnt);
+  1032		if (!func)
+  1033			goto out_undo_insn;
+  1034	
+  1035		for (i = 0; i < env->subprog_cnt; i++) {
+  1036			subprog_start = subprog_end;
+  1037			subprog_end = env->subprog_info[i + 1].start;
+  1038	
+  1039			len = subprog_end - subprog_start;
+  1040			/* bpf_prog_run() doesn't call subprogs directly,
+  1041			 * hence main prog stats include the runtime of subprogs.
+  1042			 * subprogs don't have IDs and not reachable via prog_get_next_id
+  1043			 * func[i]->stats will never be accessed and stays NULL
+  1044			 */
+  1045			func[i] = bpf_prog_alloc_no_stats(bpf_prog_size(len), GFP_USER);
+  1046			if (!func[i])
+  1047				goto out_free;
+  1048			memcpy(func[i]->insnsi, &prog->insnsi[subprog_start],
+  1049			       len * sizeof(struct bpf_insn));
+  1050			func[i]->type = prog->type;
+  1051			func[i]->len = len;
+  1052			if (bpf_prog_calc_tag(func[i]))
+  1053				goto out_free;
+  1054			func[i]->is_func = 1;
+  1055			func[i]->sleepable = prog->sleepable;
+  1056			func[i]->aux->func_idx = i;
+  1057			/* Below members will be freed only at prog->aux */
+  1058			func[i]->aux->btf = prog->aux->btf;
+  1059			func[i]->aux->subprog_start = subprog_start + subprog_start_adjustment;
+  1060			func[i]->aux->func_info = prog->aux->func_info;
+  1061			func[i]->aux->func_info_cnt = prog->aux->func_info_cnt;
+  1062			func[i]->aux->poke_tab = prog->aux->poke_tab;
+  1063			func[i]->aux->size_poke_tab = prog->aux->size_poke_tab;
+  1064			func[i]->aux->main_prog_aux = prog->aux;
+  1065	
+  1066			for (j = 0; j < prog->aux->size_poke_tab; j++) {
+  1067				struct bpf_jit_poke_descriptor *poke;
+  1068	
+  1069				poke = &prog->aux->poke_tab[j];
+  1070				if (poke->insn_idx < subprog_end &&
+  1071				    poke->insn_idx >= subprog_start)
+  1072					poke->aux = func[i]->aux;
+  1073			}
+  1074	
+  1075			func[i]->aux->name[0] = 'F';
+  1076			func[i]->aux->stack_depth = env->subprog_info[i].stack_depth;
+  1077			if (env->subprog_info[i].priv_stack_mode == PRIV_STACK_ADAPTIVE)
+  1078				func[i]->aux->jits_use_priv_stack = true;
+  1079	
+  1080			func[i]->jit_requested = 1;
+  1081			func[i]->blinding_requested = prog->blinding_requested;
+  1082			func[i]->aux->kfunc_tab = prog->aux->kfunc_tab;
+  1083			func[i]->aux->kfunc_btf_tab = prog->aux->kfunc_btf_tab;
+  1084			func[i]->aux->linfo = prog->aux->linfo;
+  1085			func[i]->aux->nr_linfo = prog->aux->nr_linfo;
+  1086			func[i]->aux->jited_linfo = prog->aux->jited_linfo;
+  1087			func[i]->aux->linfo_idx = env->subprog_info[i].linfo_idx;
+  1088			func[i]->aux->arena = prog->aux->arena;
+  1089			func[i]->aux->used_maps = env->used_maps;
+  1090			func[i]->aux->used_map_cnt = env->used_map_cnt;
+  1091			num_exentries = 0;
+  1092			insn = func[i]->insnsi;
+  1093			for (j = 0; j < func[i]->len; j++, insn++) {
+  1094				if (BPF_CLASS(insn->code) == BPF_LDX &&
+  1095				    (BPF_MODE(insn->code) == BPF_PROBE_MEM ||
+  1096				     BPF_MODE(insn->code) == BPF_PROBE_MEM32 ||
+  1097				     BPF_MODE(insn->code) == BPF_PROBE_MEM32SX ||
+  1098				     BPF_MODE(insn->code) == BPF_PROBE_MEMSX))
+  1099					num_exentries++;
+  1100				if ((BPF_CLASS(insn->code) == BPF_STX ||
+  1101				     BPF_CLASS(insn->code) == BPF_ST) &&
+  1102				     BPF_MODE(insn->code) == BPF_PROBE_MEM32)
+  1103					num_exentries++;
+  1104				if (BPF_CLASS(insn->code) == BPF_STX &&
+  1105				     BPF_MODE(insn->code) == BPF_PROBE_ATOMIC)
+  1106					num_exentries++;
+  1107			}
+  1108			func[i]->aux->num_exentries = num_exentries;
+  1109			func[i]->aux->tail_call_reachable = env->subprog_info[i].tail_call_reachable;
+  1110			func[i]->aux->exception_cb = env->subprog_info[i].is_exception_cb;
+  1111			func[i]->aux->changes_pkt_data = env->subprog_info[i].changes_pkt_data;
+  1112			func[i]->aux->might_sleep = env->subprog_info[i].might_sleep;
+  1113			if (!i)
+  1114				func[i]->aux->exception_boundary = env->seen_exception;
+  1115	
+  1116			/*
+  1117			 * To properly pass the absolute subprog start to jit
+  1118			 * all instruction adjustments should be accumulated
+  1119			 */
+  1120			old_len = func[i]->len;
+  1121			func[i] = bpf_int_jit_compile(func[i]);
+  1122			subprog_start_adjustment += func[i]->len - old_len;
+  1123	
+  1124			if (!func[i]->jited) {
+  1125				err = -ENOTSUPP;
+  1126				goto out_free;
+  1127			}
+  1128			cond_resched();
+  1129		}
+  1130	
+  1131		/* at this point all bpf functions were successfully JITed
+  1132		 * now populate all bpf_calls with correct addresses and
+  1133		 * run last pass of JIT
+  1134		 */
+  1135		for (i = 0; i < env->subprog_cnt; i++) {
+  1136			insn = func[i]->insnsi;
+  1137			for (j = 0; j < func[i]->len; j++, insn++) {
+  1138				if (bpf_pseudo_func(insn)) {
+  1139					subprog = insn->off;
+  1140					insn[0].imm = (u32)(long)func[subprog]->bpf_func;
+  1141					insn[1].imm = ((u64)(long)func[subprog]->bpf_func) >> 32;
+  1142					continue;
+  1143				}
+  1144				if (!bpf_pseudo_call(insn))
+  1145					continue;
+  1146				subprog = insn->off;
+  1147				insn->imm = BPF_CALL_IMM(func[subprog]->bpf_func);
+  1148			}
+  1149	
+  1150			/* we use the aux data to keep a list of the start addresses
+  1151			 * of the JITed images for each function in the program
+  1152			 *
+  1153			 * for some architectures, such as powerpc64, the imm field
+  1154			 * might not be large enough to hold the offset of the start
+  1155			 * address of the callee's JITed image from __bpf_call_base
+  1156			 *
+  1157			 * in such cases, we can lookup the start address of a callee
+  1158			 * by using its subprog id, available from the off field of
+  1159			 * the call instruction, as an index for this list
+  1160			 */
+  1161			func[i]->aux->func = func;
+  1162			func[i]->aux->func_cnt = env->subprog_cnt - env->hidden_subprog_cnt;
+  1163			func[i]->aux->real_func_cnt = env->subprog_cnt;
+  1164		}
+  1165		for (i = 0; i < env->subprog_cnt; i++) {
+  1166			old_bpf_func = func[i]->bpf_func;
+  1167			tmp = bpf_int_jit_compile(func[i]);
+  1168			if (tmp != func[i] || func[i]->bpf_func != old_bpf_func) {
+  1169				verbose(env, "JIT doesn't support bpf-to-bpf calls\n");
+  1170				err = -ENOTSUPP;
+  1171				goto out_free;
+  1172			}
+  1173			cond_resched();
+  1174		}
+  1175	
+  1176		/*
+  1177		 * Cleanup func[i]->aux fields which aren't required
+  1178		 * or can become invalid in future
+  1179		 */
+  1180		for (i = 0; i < env->subprog_cnt; i++) {
+  1181			func[i]->aux->used_maps = NULL;
+  1182			func[i]->aux->used_map_cnt = 0;
+  1183		}
+  1184	
+  1185		/* finally lock prog and jit images for all functions and
+  1186		 * populate kallsysm. Begin at the first subprogram, since
+  1187		 * bpf_prog_load will add the kallsyms for the main program.
+  1188		 */
+  1189		for (i = 1; i < env->subprog_cnt; i++) {
+  1190			err = bpf_prog_lock_ro(func[i]);
+  1191			if (err)
+  1192				goto out_free;
+  1193		}
+  1194	
+  1195		for (i = 1; i < env->subprog_cnt; i++)
+  1196			bpf_prog_kallsyms_add(func[i]);
+  1197	
+  1198		/* Last step: make now unused interpreter insns from main
+  1199		 * prog consistent for later dump requests, so they can
+  1200		 * later look the same as if they were interpreted only.
+  1201		 */
+  1202		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+  1203			if (bpf_pseudo_func(insn)) {
+  1204				insn[0].imm = env->insn_aux_data[i].call_imm;
+  1205				insn[1].imm = insn->off;
+  1206				insn->off = 0;
+  1207				continue;
+  1208			}
+  1209			if (!bpf_pseudo_call(insn))
+  1210				continue;
+  1211			insn->off = env->insn_aux_data[i].call_imm;
+  1212			subprog = bpf_find_subprog(env, i + insn->off + 1);
+  1213			insn->imm = subprog;
+  1214		}
+  1215	
+  1216		prog->jited = 1;
+  1217		prog->bpf_func = func[0]->bpf_func;
+  1218		prog->jited_len = func[0]->jited_len;
+  1219		prog->aux->extable = func[0]->aux->extable;
+  1220		prog->aux->num_exentries = func[0]->aux->num_exentries;
+  1221		prog->aux->func = func;
+  1222		prog->aux->func_cnt = env->subprog_cnt - env->hidden_subprog_cnt;
+  1223		prog->aux->real_func_cnt = env->subprog_cnt;
+  1224		prog->aux->bpf_exception_cb = (void *)func[env->exception_callback_subprog]->bpf_func;
+  1225		prog->aux->exception_boundary = func[0]->aux->exception_boundary;
+  1226		bpf_prog_jit_attempt_done(prog);
+  1227		return 0;
+  1228	out_free:
+  1229		/* We failed JIT'ing, so at this point we need to unregister poke
+  1230		 * descriptors from subprogs, so that kernel is not attempting to
+  1231		 * patch it anymore as we're freeing the subprog JIT memory.
+  1232		 */
+  1233		for (i = 0; i < prog->aux->size_poke_tab; i++) {
+  1234			map_ptr = prog->aux->poke_tab[i].tail_call.map;
+  1235			map_ptr->ops->map_poke_untrack(map_ptr, prog->aux);
+  1236		}
+  1237		/* At this point we're guaranteed that poke descriptors are not
+  1238		 * live anymore. We can just unlink its descriptor table as it's
+  1239		 * released with the main prog.
+  1240		 */
+  1241		for (i = 0; i < env->subprog_cnt; i++) {
+  1242			if (!func[i])
+  1243				continue;
+  1244			func[i]->aux->poke_tab = NULL;
+  1245			bpf_jit_free(func[i]);
+  1246		}
+  1247		kfree(func);
+  1248	out_undo_insn:
+  1249		/* cleanup main prog to be interpreted */
+  1250		prog->jit_requested = 0;
+  1251		prog->blinding_requested = 0;
+  1252		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+  1253			if (!bpf_pseudo_call(insn))
+  1254				continue;
+  1255			insn->off = 0;
+  1256			insn->imm = env->insn_aux_data[i].call_imm;
+  1257		}
+  1258		bpf_prog_jit_attempt_done(prog);
+  1259		return err;
+  1260	}
+  1261	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
