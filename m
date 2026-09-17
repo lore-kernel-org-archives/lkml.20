@@ -1,108 +1,124 @@
-Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB95559E353;
-	Thu, 17 Sep 2026 14:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89164AAC5A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656920; cv=none; b=W/+XT7m2s8sQslK+62gZymFf3PasLablo1IHz3I7Ji24SWfhbconJG+X1cmhqdBwBPcjSpS7m6wMaLXdxvAaVcGeV30rwyED8XT+kPqwaUhXNlVSwdNQWWJSz5wslYsATSFG10FBm79Ghy5mig3eNBKCj6rGRLhvWxh/8lBBuTE=
+	t=1789656919; cv=none; b=VdKLyEEZo/GauegE2vQXJxFBgub+4jJXYIjZLDN4ItEH5ZbVlSXuTlpfqBluHnndgzodfJr56z+zTQyxEmLkwWYJbWd5c6e8fxX4X+UPEVZNWYui9psN2hNtM2WlS4iWTUXYi62cPj5eGrAFO5Kwp2jxGk+Fr7u9kmdVFyUn5i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656920; c=relaxed/simple;
-	bh=g6hxWKJEYSYx1GwYu7fPNWoD/cYsSOww7jhETWke+TU=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=NowIPEKAIfpEZ4rX0t0JT9gllctRwcKFW+PtgwbrDWyNx18498idnyKF3ULYddIvkdJ/XgwMdS1T+PUPXKoVJ+w+MatBPEpR9PEwQIWJOQxZ7O+AfBc7NjpgT7DpKgaui7cOtJF7aLQUS2pMbaJf6nqytk1Y81DuTO3kdCOqFrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=fAD4oZmH; arc=none smtp.client-ip=195.240.81.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
+	s=arc-20240116; t=1789656919; c=relaxed/simple;
+	bh=6mUCiPfgFcR53z0p0wqDnczQ1/FekAVwOl0ASYekEMA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=S0vnotwaQTpPTL5VeAQjKB19K53kSYKWDhx2k48a4xL1gR+Dg3U/WGroPmQpdNF98WkuNUfwN+2ypDGPjuOUG6Qi0CIlVU5SzN1xo3I3No0A+/aTXjvWQJE8s6d4X0ZTVo7cmtpvfsGf5sptThvUTZi8lNR7jU8osypy5VdGs4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CCH0/CG2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LF4kmRhS; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="fAD4oZmH"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E9E159214C4;
-	Thu, 17 Sep 2026 16:54:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
-	t=1789656897; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=41s0aSbkSfFo1iMv5WcM7yGk70aaW+Q5AABDLtWUmvU=;
-	b=fAD4oZmHXLKu9zecSH939AXqWL2ANjMA1FfqIBMZcpBaixbgnBR4+Qn/+Q9uu4x9IngheX
-	aqJC8Iik+CI3dEns0bnuoLBlRQlHRxp/tJbGoRHfSCsFKoYzV/Hfn8LnPGhocuPy7LLq/H
-	4EjITuD6OkRiNZNM35i90DY7IIJ3DoMGXI8avfqR9k1Tz8hogpXSDTyXPdqkx/0TQ/UXK7
-	/FBTlMQMchAanC6C/N2WKBtrZrbAu01QjMxzloMG7D8FfGaHVhWscFh23a61WDk/B7CFYt
-	T5k0xswhcH9PHTTcu304A8FR8mgTAXAHla4UYAl2sJGMj6Wr5I0KAi+Cz8Tr3w==
-Message-ID: <05a53b37-8de3-4075-93c0-21129a839356@zipdox.net>
-Date: Thu, 17 Sep 2026 16:54:50 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CCH0/CG2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LF4kmRhS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789656896;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9AXFSc42fFXOGOg/f+O9pg18PTmXdnbb3QObGTFVGu4=;
+	b=CCH0/CG2J2i7SQO0ljcrpOQPRF7gpyIEumKLRaYE4+I8Mjp65sx+jHPbFQnVTju+Tziszi
+	9l8wRObz35FQflpOgOsHmoO8yZa/WvUmasjTFCu34rk+7Qs58dBs1deGchh4Bjgx7RNw87
+	yCDypW4zuGUiw78m3IZlsRZtiEvY4JY=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-589-O5B4eBAJMdaFMHqqbQPbSQ-1; Thu, 17 Sep 2026 10:54:55 -0400
+X-MC-Unique: O5B4eBAJMdaFMHqqbQPbSQ-1
+X-Mimecast-MFC-AGG-ID: O5B4eBAJMdaFMHqqbQPbSQ_1789656894
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc0097865so25976811cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:54:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789656894; x=1790261694; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9AXFSc42fFXOGOg/f+O9pg18PTmXdnbb3QObGTFVGu4=;
+        b=LF4kmRhS2iorgtdJ9GUMVK01qbt/noWh/hWZKD4h8ta2lILeuh/9APABpJnTSzIXg4
+         W0kkw37hFDLtPxfGyBd5yavcDl+OQVYlGrf0NKrEkIzPU6c/pPnat+l6zE4UdW2OJxEb
+         y5io8J0f5KeWgS35TJy9LY4xxb8n2Cgz80QGBZ31Gl0q4zOvMKgS8HnzmOXdc/tFd4ld
+         G3rYCYtkwV8PtL3WqRJXE7JIl8ILasmUiKMe6hVTgxQ3w5xYkAoA1aFJOg/h4Azo2EyY
+         l35km2RmZ4O1UeeezxYO6UPpDtyfCesyuFWxdx8Kmx3zQe60NIy1u0tajY8q8H+XJGFS
+         4XaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789656894; x=1790261694;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9AXFSc42fFXOGOg/f+O9pg18PTmXdnbb3QObGTFVGu4=;
+        b=cUljBfTEUVEZijYxc4k9gRigGClzHg8xcVqp4cfPyJF0qfK1LgK7TK+hAJTkiJA25f
+         oYD9gPXSim2jkFcaYztYBWTj+k3XQFE/qHVuvRtIqzrFztY7UZC7Fw43y/Z7CVR3vESX
+         EEppHSToT2WSc3Wmbt1YY/EFbrF5z73/+KfZVo38GUtocyQZZM3vfmYDKknhjqHTXSOY
+         oJDsgk3Exl0SqifC+bjCl+A+/H3+4GFmPT+5FgfHfTpRGpxsi+HZCdjRbx8OkOlmTkUR
+         wXaV58svQZceDh2RKWtfW9Yt1t8v8SuKxOSPyCX9V1QD75GGtuLBTYkeqbH81N9LDPrl
+         x8iA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfKcXT2Nq0iPYv6ebw/uydTyTqUV2/MinWh5+yT6Z4ZrWWGru5uy8mqZi4H1PrFIzGldIDYwrqbtK2UUU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaaLM+z6PAqH3VwNTyqPJw9gJlU1jPufX3bcbjalep77seF2gY
+	Ww1FogU4qxyBG4ITHHDEMaaZh2EnOOAfWzfxn9QmzcBDBF1ckQ+S3evUI4YabxFbNb+QT2qML6Y
+	WkSNYWWLF/kyogz+k0zWEpt+R0/7j9fgy8ZjCwPrIRouTr/BnYdVukaAi36UbyVRm0P+uTVrs8g
+	==
+X-Gm-Gg: AYBFou1+o/Mi4IUiTcNPzyrpGcV1e4KiPr1Y2bOMYdxRhWeN0BchMbEmadUyHdHOl3m
+	yoE7GdFCppGw7TBGDdYm3oTZG0q/M5FA3b9yV7sm/PBBnvmiSsbuC0hLGvbhnWNSHHHNslCykOs
+	RvlV92x71Mi7ZxIXrAetAnp/WC5YCVCWY2JNu468U2eKIjv6Pr5mNWNLcSiFgZccxJ1XcY2WI31
+	zQTL6JOlK2Or12SFM/gjEfCrfnpdevB1TS8lkk5hHmOfCeS3PfXZGeTSfQh/YzgAmsOjJY8JMul
+	k6/Ph+3+Q6pXb4/WLiuO5H0qJS5QiCouXcDvbxF8rgF1oOmTLK7iGh9RpGzpPUfttXFoP5Q80it
+	tHXX6Gbl9+eX5f1Dh3TvWym17d/pJhqMHKtccxO8=
+X-Received: by 2002:a05:622a:17c4:b0:52d:f484:eefe with SMTP id d75a77b69052e-5327f54b73emr119219321cf.35.1789656894326;
+        Thu, 17 Sep 2026 07:54:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:17c4:b0:52d:f484:eefe with SMTP id d75a77b69052e-5327f54b73emr119219001cf.35.1789656893856;
+        Thu, 17 Sep 2026 07:54:53 -0700 (PDT)
+Received: from [192.168.1.3] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53259aee19dsm53067881cf.3.2026.09.17.07.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 07:54:52 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Marek Vasut <marex@denx.de>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260813153650.44793-1-pengpeng@iscas.ac.cn>
+References: <20260813153650.44793-1-pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH v2] clk: si521xx: correct the SI52147 OF output enable
+ map
+Message-Id: <178965684879.360090.5503590837229538426.b4-ty@b4>
+Date: Thu, 17 Sep 2026 10:54:08 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
- and RANGE
-From: Zipdox <zipdox@zipdox.net>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, perex@perex.cz,
- linux-kernel@vger.kernel.org, tiwai@suse.com
-References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
- <87bj9yn55n.wl-tiwai@suse.de>
- <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
- <8733vamwaz.wl-tiwai@suse.de>
- <da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
- <87a4phjjay.wl-tiwai@suse.de> <8733v9jfp1.wl-tiwai@suse.de>
- <87y0d1hx9y.wl-tiwai@suse.de>
- <895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
-Content-Language: en-US
-In-Reply-To: <895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=312; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=HRHMuNqDMyQ7VrNZVdhFpU18W+ly5/8zYF2raxiGR1Q=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJW/zeVuDNf/qB/xFU97jszO922X1pz33/LyflLGSdE3
+ tQWy+pR6yhlYRDjYpAVU2RZkmtUEJG6yvbeHU0WmDmsTCBDGLg4BWAi7HcZGb7MWfDfe++TvoQ7
+ Ns99Ax7LGVn83DihZtWloKzWH9ERT1QYGba+rX9xN20F85R1W2580ZGVsL+4cIlXb1fLJKM1bOo
+ lLWwA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On 9/17/26 4:23 PM, Zipdox wrote:
-> 
-> 
-> On 9/16/26 8:22 PM, Takashi Iwai wrote:
->>
->> ... or maybe a less cryptic version like below.
->>
->>
->> Takashi
->>
->> -- 8< --
->> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
->> index 33a6a1281410..c6639a45fb24 100644
->> --- a/sound/usb/mixer.c
->> +++ b/sound/usb/mixer.c
->> @@ -335,6 +335,16 @@ static int get_ctl_value_v1(struct 
->> usb_mixer_elem_info *cval, int request,
->>       return -EINVAL;
->>   }
->> +/* convert the given UAC1 wValue (ICN+1|OCN+1) to UAC2 MCN */
->> +static unsigned int to_mcn(const struct usb_mixer_elem_info *cval,
->> +               unsigned int validx)
->> +{
->> +    unsigned char m = (validx >> 8) & 0xff;
->> +    unsigned char v = validx & 0xff;
->> +
->> +    return (m - 1) * cval->num_outputs * (v - 1);
->> +}
-> You used multiplication instead of addition for the last part. I assume 
-> this is a mistake? Also you should probably also bitwise and that with 
-> 0xFF to make sure it's not more than one byte. The product of the number 
-> of input and output channels must be no greater than 256 according to 
-> the spec. I don't know if this is checked elsewhere. Other than that it 
-> looks good for a patch to get it working. I'll try it out and send a 
-> follow-up email shortly.
-> 
-If you fix the code like this:
 
-static unsigned int to_mcn(const struct usb_mixer_elem_info *cval,
-			   unsigned int validx)
-{
-	unsigned char icn = (validx >> 8) & 0xff;
-	unsigned char ocn = validx & 0xff;
+On Thu, 13 Aug 2026 23:36:50 +0800, Pengpeng Hou wrote:
+> clk: si521xx: correct the SI52147 OF output enable map
 
-	return (icn - 1) * cval->num_outputs + (ocn - 1);
-}
+Applied, thanks!
 
-then it works correctly. As far as I'm concerned you can merge that 
-as-is. It would be good to try on some other hardware as well to check 
-for regressions though.
+[1/1] clk: si521xx: correct the SI52147 OF output enable map
+      commit: 744e436077af1af06b38589d1e034e4f8ea7b3ae
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
