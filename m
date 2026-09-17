@@ -1,110 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5D24F93C0;
-	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE6E5172E9;
+	Thu, 17 Sep 2026 16:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664264; cv=none; b=e7q1+hQiFy5H3bx4n/x0xy3hkN5J6Anw3MWMaFwhA0ZkobAlxLBOWH2syX+kZiLh+gw20IhipY4QOwrDHdFWI5iIrKdwfAw9qHP/84JQ4r08OUMWOyxFGBh8xa+6iFNNeSHMmsAmpeEgkTSyrVcAyzmIbR5y0/qp89iqXPI5O14=
+	t=1789664286; cv=none; b=UYqculujt1dKgXloQsdwxRqS25kOsWylMOIgSgpfOHvxPVeMmgunIFhpChqxbr5P0/u9B9OA2i3R3DYOo3yr2duSrY8VFO45tVSNoLIq7snvVfDKZETrQxDtTUxjQU1LhzUs8MszGya85F60/EZrS0p5Dh6YG1K00CxCqpXxfxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664264; c=relaxed/simple;
-	bh=B3L9UpHoXcugN4pOHbftcrWm91hFHUBy6z+pwFBCiMg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XiAFF4mGUcUf09bpqNI/IfGSQIaPZ2L9RHa9kD2GB8yz0L6mxxIXIDLv7+mzt7buHbyej1F+o752yB40sYOVW+ct88rsuDdjXjTQ5Hf3+yUJm+z3UQlA7b0QOfw6ZtQaHZjE0ZNPUE44ijPjVzOQzdYOtK4oVP52iyuUAcMbFuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCbvTMIb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789664286; c=relaxed/simple;
+	bh=KU+UbWVWGVDzP2/5478+tNX+uvyBl8kvMYviNDdFHKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p7t1QfL1P72HTyI6pQcuMgKaOZQvNpkFMm3wHLWB9vGmDZCKCU0SBAekhrhGVhDE2deq9WAulX7Vj5VvHeWUrbcVSr5l/fkEr0X41kbDEMDigna2sUf1FTcoKC0+9cGp97Xh0bN+PYB4zZkcetyZ+54xrqySFxVhlNZQ+KVh80g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FijdV8dz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCbvTMIb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390201F000FF;
-	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FijdV8dz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D021F00898;
+	Thu, 17 Sep 2026 16:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789664263;
-	bh=WTHGYau84w7vw3YMl4OjEoYJpFQd/6G7nW3gRxw5Xho=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NCbvTMIbR1zxj6v7W2WmNt6fFAyBliACrLBGksoRCO5auTTSpfpBc6Tr3CQuHfx75
-	 apyKlBmxT4K+3yOw9rfFVfdmrFy+3wWnaANn2m02kHuW9VgW4D0sC4QOEaQJ9QHO47
-	 TbeJ9Kblu6+wZjTq8POU2wuwJvt1vA3CDbHi8P/ORhb1sfKpzBO0ikZKdOzot4Ceh4
-	 LxP3JZKSovqPEHyzDqeST0cPI532z5CYIvTvQCdtMA41a80KHEPlq+iOdEGEou2Rl8
-	 v91ZRyuxznUJI93NsZ+dCGXLnHGJqb2Wc8UVNExBo3G24xDPbytF/yrL9bGHuJSBtQ
-	 D2LFrKhCb3NCw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/5] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
-References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
- <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:57:42 +0000
-Message-Id: <20260917165743.390201F000FF@smtp.kernel.org>
+	s=k20260515; t=1789664285;
+	bh=G6M1hxOvYoy7f6OFIyTNAjYyoJ8doAT9R3t/RnO+5wE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FijdV8dzZR2foaEFvspQUWKw1vTW1Az7WPXaE1AnyErCZpDibf9TS+0SVBRczfVXq
+	 51yGbrxoI2hkrwpUKheNe44X5at4kUaTkptcr34f9l29GQUmKr49sxZmE7zWmdFj70
+	 ToWvPKEy6RdQZV38xRki41NcNNA311huD54DX91tIdQzds9LtsNYVkVPU7JAIpchh1
+	 Xrmfo/xCNNmjhgEgtJM6k6/Aswi959TzbgjltpBsIQweHbEBmQpWA8M3jMptitEsEc
+	 XNV5BKRrbk6whmGYeGr5yQ9CznqcLlvEj6OFEM+Ge0XByu2XWAR4v26+LVunA5ljIs
+	 CrIqaoayngHTQ==
+Date: Thu, 17 Sep 2026 09:58:04 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 20/20] kbuild: compress the kernel with pigz if
+ available
+Message-ID: <202609170955.C6EABD8C@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] cbqri: late-registered capacity controllers bypass capability ag=
-reement check
---
+On Thu, Sep 17, 2026 at 05:06:30PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  Documentation/kbuild/kbuild.rst   | 17 +++++++++++++++++
+>  Documentation/process/changes.rst |  8 ++++++++
+>  Makefile                          |  5 ++++-
+>  kernel/Makefile                   |  6 +++++-
+>  scripts/Makefile.lib              |  4 ++--
+>  scripts/jobserver-exec            |  3 ++-
+>  tools/lib/python/jobserver.py     | 13 +++++++++++++
+>  7 files changed, 51 insertions(+), 5 deletions(-)
 
-commit d3ff1ae1d79d6e8e4041b4efbc3516187f2222a6
-Author: Drew Fustini <fustini@kernel.org>
+Awesome; I love it. (I may send a follow-up to improve the PARALLELISM
+token so things can define the fallback instead of the hard-coded "1",
+but there is only one place I found where that might be useful, and it
+will be totally separate from this.)
 
-riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-This commit wires up CBQRI capacity controllers into resctrl for L2 and
-L3 resources. It manages control domains during CPU hotplug and requires
-all controllers at the same cache level to report identical capabilities.
-
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_resctrl.c
-
-[ ... ]
-
-> +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
-> +{
-> +	static const u32 levels[] =3D { 2, 3 };
-> +	struct cbqri_controller *ctrl, *c;
-> +	struct cbqri_resctrl_res *hw_res;
-> +	struct rdt_ctrl_domain *d;
-
-[ ... ]
-
-> +		d =3D cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
-> +					   ci->id);
-> +		if (d) {
-> +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
-> +			continue;
-> +		}
-> +
-> +		d =3D cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
-> +					     ci->id);
-
-[Severity: Medium]
-Does this bypass the capability agreement check for dynamically registered
-controllers?
-
-If a CBQRI capacity controller is registered late (for instance, via a DT
-overlay) and its CPU is subsequently onlined,
-cbqri_attach_cpu_to_all_ctrls() will discover the controller backing the
-new CPU and create a domain for it.
-
-However, I don't see a call to cbqri_cc_caps_agree(hw_res->ctrl, ctrl)
-before creation to verify that the late controller's capabilities match.
-If the new controller has capabilities (like block mask size or RCID count)
-that differ from the boot-time selected controller, will this group
-mismatched controllers into the same resctrl resource?
-
-Could this cause capacity configuration operations to fail gracefully with
--EIO when hardware limits are exceeded, or otherwise abort CPU hotplug?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-dfustini-a=
-tl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org?part=3D2
+-- 
+Kees Cook
