@@ -1,291 +1,311 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197C729D288
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634251; cv=pass; b=rHBpWqa9/lV2jgHrUPGtuG6WN8H8Aiy7L8czYEIPvXh6U1wXJxNMhCWGbbSJn81tpH4sBjqIkZNmpkwRh5BVi/p7ChEjo6z+cdhHy0tu5rNbsv0tC3tnDhjjPXsNvwf6DcVJv8gXnVTgY2tN207P4bsNXX+vJaOU+5LiQmb9Jqg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634251; c=relaxed/simple;
-	bh=kBt/lsmHB1LyfCEjsXo+nfsL6J4j+X6MlkrToinPe6Y=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ct90ewxvWaSRMyF+jinuPggbEhXP7v0WA67QMID9mpDrwA/2F2tv1LyGytL6jUtP4C4c64CMuNClKLgpY+m4B8vw2jWNNCanLDwgdqs9MsbePGe1pf7E01ItMxjZ1C9RFBwkuVdeGwLwrR5HGjZUBOwcOgWm35+jQOxdqGU3J5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qfpw7jsF; arc=pass smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4348A47C116
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634286; cv=none; b=o5p8KHQQdOxz9ScHpxthGNNsLeysMpP1uC8Hw/82HdP0Z1+wzwEjz0xznO8fKzq9j89ofUMQmkqB74Nqh9JPMdlRg+hmTTK3OZQjRLW/lk0sVm2/Eld2Gb+xDEMpjDWLYQ1UMNEoSs+xAzVzHA6mtRswMD5aW0K5LAzdLMq5J3M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634286; c=relaxed/simple;
+	bh=SpHy41LSroXkNRAgdbBYvB1SalYhcsSLiyQ953j2bQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M342ZuWE2le1CltSFeImPJn12EhT7ZVcIDNxWazIPA7oyT60S2H7ad5gs9VPGnLGsKBVa7sYTok4H03qxCEdH2k4l4ILBLfoXKdJi/zO5jagAjsL+p8+I61uloyp94YJ3Qc4BPcjhcglR/y9jlHwTmIbyc5yb96w68Z2pTGng2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qd+02hW2; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qfpw7jsF"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ef19aso5553351cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:37:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789634227; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r5djVmh7D8v1rbjPk7WcpAh/AZODWNGZRC/kmoaOVf+tSygZQxtNtjht6dxwXWHIhn
-         BqxJrp2QMExR7X2UGhecMtck0OiM4+KSmegd93ZJ0eocqtCKvi9aX8euOsPznEzBE9V2
-         1/R8zEBRGZRHXEfz5OilyOqliS4nhIVYwIts1XdJN9cCp/9ByDuYJ9XhhLNVG5EBWyyk
-         LvUQzTppq4zk64mB8n7Ctc3Um4Ne6vOUaQz021Zfj/JHGheAh4DNC8AWww6yCyXnrKAl
-         kNVt8kVQn6uQIe5ORt9p3wvpKpVty+Ha2SWJMR92Bwo4fyWYUb9NJlTDe4vXzSpCkHvR
-         5lvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=DSywNGd0PivnRhp7RJFiAn20BUh8Ya6uXvMwa7fJTPg=;
-        fh=x2AKqJv7jrlgy19Ke55rwSuhE2DtMEIkroFWRk9sAoM=;
-        b=EFHGMkYHgNdGvW0DdJELTkgax2wVD9OUCxaql9LUDP4Egzun6aBRcc1OWx2qG95KkB
-         tMkF/EAaDlvJGKcw7kmxo8v6/cNJMvkmJAN+a0SieMvE2nWGdBRyPtVCx5RLhXiOoPD/
-         Dfuf/Op9I78P2AlEGrr2jGXRDMHnG3N/KfE5R671MBvZ8uLNKks7gZunB13mYMp17JTj
-         mF0ypjqzxA1xlG6hya3/Ooq8Gkl/Ivbq/jRfj2c3XhcVng0BVKOWIgNUapArBvXu8IZO
-         atq/gCyaZFMG2XZavpRnRr79MBmqOVtbfeHkvHXwiPoW1dmhj1JwmzrR5YIu/mn8lMG9
-         4vvg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qd+02hW2"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so88126a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:37:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789634227; x=1790239027; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DSywNGd0PivnRhp7RJFiAn20BUh8Ya6uXvMwa7fJTPg=;
-        b=qfpw7jsF4mZM5O3CATuIDFTphP8E6YTvS3NKBQqQfXLe9AZ0Z6rtJqg9SuyN8niYJ6
-         iuzkBsyCKqxNQvfpyS5SMN1PexKTYSGwrSSKiwzneAMHpx8UCEoK0huCEgAu02EKay42
-         IT0yi7ic6M3ALSHF9YJb8HW5UGjXJTFw8z8vZUA12O2P8LTqwOpVhsU2zjLDdjytE2j+
-         PRF8rn/y0D9uQoEa3DDHHR1J/9AlyvZ6MouLW/M2JNzdMNFdRYPkj/lRomX2hSZ54yiY
-         bvDKDSEC/7PBLpxdsN3e4f8vus19PDcewr72DjOesWbZ23TSNp+HYyCpLm0cNj0TqSI4
-         d1IQ==
+        d=gmail.com; s=20251104; t=1789634273; x=1790239073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qjS555jszAWDoLRuNovKzuqNE3Rj5zKbnspdsPHPVgE=;
+        b=qd+02hW2XrndVcIPzt+pE1uxhLLo7TzPbA6WIWwbBAVxz+9T2QrT6BmuvT1qRQl5Zg
+         8SDta47CXkCYOmiuNAvvkbqPQSjU2DhOwOXEzoFZWB2BV4qLfMlcPcfHEH7MyK51TPV6
+         A3Z8RJy9O2wesDQK/mMkuF40LEhmjwgl6U79qfxi6Yw0RwrNUGaXDehXrKNSOCn0hYfZ
+         n3XD8k19pOzVgHrSDy0EXvpfukBD5Z8bD3wKtxUWnVzEvN6VJmfetYmveLhXO3MgVnXU
+         8MROFxjXgeC9vOokXGLmudArpSTardn+Rbx0jGfyZ6Ho8bY2QW8wzIiMYkzo1gaC3r4D
+         zVqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789634227; x=1790239027;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DSywNGd0PivnRhp7RJFiAn20BUh8Ya6uXvMwa7fJTPg=;
-        b=mRErrSZsbByJfOznUlOhpQRvWyBmVSFKz4Jup2zW6O761QPK/aXV+5xBvdquJlUHYM
-         7cY7kMt167FQxw18nAbM3E1aEMWKejktw9Eusy6K45DYvwYNG9aQbGFg0VwEAEuUoOGP
-         e0lOpOujSwEPOGPCOz+d9m6vuYpHl4rRSLcZ+8CCZYP2skYNcG5VM1FG06aP8PBTKoX4
-         mTUND88Vw00CaUTiEcXt8PW5fC2bgEgJBHI4LxqS3DmNkkQshnMwC0Y7sWuwRH8iX3rA
-         FBJxSWbkRtYTxUkDmpgx9jjUwn1f7YLzvICwStjwW1VJ1rVZabZFlj4OaEXSIDuAvMY5
-         Efhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwv6naqzIJ2uvZxBGOlfD0NScSBvBiQNbjQiN29O+hNnsDWTU3FpNO/QYDEkljgMJNULNofquFQltsCOIs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYmTmNIA+PZgXklM/REjTqt4JYPWlxJTMhwlCc/UMgK3U9FYpW
-	hOMYLYgslhLtzPvhKBSFp2KxhVA28opWKh1z1fg74TYjZwIYtKYax9id2+LSXkAg36yiu3zqJtC
-	CgPiGClzFPtkjxcSimY7sf3TY8NPHrEM=
-X-Gm-Gg: AYBFou0OZT0WlH7FyELfeYwbb6d7tq7eT8Q4QwKlufTlDavPF+pCNnKqeog5intwqkw
-	LYOdVdXqgZKhVTLobOP7MH7tP1zv1Tj+ZIJdF3srA+py0/BQnydnaEDteQBEc06TrzT1zk8LPc/
-	1pONntZF4W/rpWc8yznrRHzNTjlTLG4ayuzN5SMPrifWEMqZdiqQquJ35rwxwVY2JiOHTOAR/wq
-	t5WP2S8xxiVMuaHiCHbwFbasJ9UNtdyOKg0puRjoOzlgVqki75qk1wWu5WgrcMh+8g02YZEz6l0
-	gb5OLOuDxGGmU8gmPwg0yP1LMYR/oEO18KwzwLkVFU3Vzis+QhSD929S
-X-Received: by 2002:a05:622a:d2:b0:531:803:2a48 with SMTP id
- d75a77b69052e-5327eee89a2mr102193491cf.41.1789634226911; Thu, 17 Sep 2026
- 01:37:06 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789634273; x=1790239073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qjS555jszAWDoLRuNovKzuqNE3Rj5zKbnspdsPHPVgE=;
+        b=INWUhPRPs70Io/sHLZCk7GdV7nFHAbIBOi7lX7J8AK4XuYyE3PaLfxI4cgcurUSc/6
+         ooMcSSpNmLMEnwbuawtPn59LBtIx6ohSYBrmYrmsG2OIJ9c+muTt3STneypkPyeJ2Ovz
+         /lVpkw07BrNSmuI4EJ16P87NchI29UOZX5WWED/jpyo/8YddRPUUvpghPbpspknMuEE0
+         Kf2le+8gNDfvYm3R7LhgcwrEBYibuz/uKGddFx5jYCzcOdDbEdnrET4RsoE96FePNr72
+         TA6hkXd3np4yS49NSTjztfZ7x0i8plqza4zRPuoSY6lL44My6LqKpXHrfwFRKo7Hn/BC
+         Szgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxU65UmYF/A2Cm0FZa847WOLYfOoltmvcolv6kIJrWD6zpq/cnNXn1oZk+X+fV0ACPjpN4Txr9Yp+4klBk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBJ2XQmQ/PEMl9VlisW7M1kEqwpShOCWm+Dach6Sipv9+OM0F6
+	wVza8ey/4oDMrvoD+KM6CDS7XMclabD6B4y+XHw5TRND96vvG958vKkQ
+X-Gm-Gg: AYBFou37Q+ZprtVwe7ZeXt+hR2v3VFBJRx+hiVY3lretev7Gcgy7qIznXnxGHYBJKTH
+	+bIVJtmLvp1j8yluVUfmJYFXQSiPYnyFHSru8yenWAaWlrNcHqKXwGf09tHO6z3VaHXJTCG/E6S
+	EpZ1dbU1cmMmCfRHMJ7dpmnCmAbpBwMnJPll/WZhA+zZaESIX5l1djtl//i41vsmi0hlBpeJgLn
+	PW8VoKTaBvTXq5XYr8REYQMXJKKp5Vq0RSQaRL6exS7PBVY5M0+24GFuLB+KsV/L/I7o1Ux2TkB
+	hnsBYZXW86M0AoPlcM6nd7AnGS47MjpEZt22AfeWuR23Rd4irofcrK9dV4HVOMt2SPpk3kXp4bU
+	iY1DTu1kY2vqR64g+izJr57ZW4hc67Df6maOb0eLSg0O0dLqHskNGXCERQkeoygzyJqIKTQnS7D
+	yCHvWwW6NALIr2Oa99sdTlZZDum34UzXw1AyBc9huywjcvstBkuvyVdBhzmwCa1512TpufLc3CR
+	FH+JtP1jxsBIn0+o++rAJUPdl8No1r72qzMMalssoogmhck9qUd3lq6bIlh1rkbAxnyhPMOYGRI
+	+B4qZc0Gf2aoTSs6ADI8/D5T5w==
+X-Received: by 2002:a17:90b:3dd0:b0:39e:28db:b950 with SMTP id 98e67ed59e1d1-39e361aa313mr3835618a91.16.1789634273012;
+        Thu, 17 Sep 2026 01:37:53 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-230-153.dynamic-ip.hinet.net. [36.232.230.153])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm3846928a91.15.2026.09.17.01.37.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 01:37:52 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	liam@infradead.org,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Rik van Riel <riel@surriel.com>,
+	Aristeu Rozanski <aris@ruivo.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/gup: batch PTE-mapped large folios in gup_fast_pte_range()
+Date: Thu, 17 Sep 2026 16:37:47 +0800
+Message-ID: <20260917083747.786-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: dave mad maxXx <davemadmaxxx@gmail.com>
-Date: Thu, 17 Sep 2026 05:37:32 -0300
-X-Gm-Features: AcwNN1UOyjXjIRM2-nQ_fLD6Po8ADIjBSdT9MDKwMqIgRcWvhdx6Wr8GfSEi4Yo
-Message-ID: <CADy8qZiJmfdwm11aV7z1mr+fjFJQ0kN8Wp6yBub0_0EP3uCssg@mail.gmail.com>
-Subject: Re: [syzbot] BUG: unable to handle kernel paging request in __hfsplus_brec_find
-To: syzbot+f957cf00261d1c41fafd@syzkaller.appspotmail.com
-Cc: syzkaller-bugs@googlegroups.com, Viacheslav Dubeyko <slava@dubeyko.com>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000602a38065ba9b07e"
+Content-Transfer-Encoding: 8bit
 
---000000000000602a38065ba9b07e
-Content-Type: text/plain; charset="UTF-8"
+GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
+costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
+atomic, a full barrier and a node stat update for FOLL_PIN), a
+gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
+pays sixteen of each and a PTE-mapped 2 MB THP pays 512.  The PMD and
+PUD leaf paths already take the whole range with one
+try_grab_folio_fast() call, and the slow path is getting the same
+treatment for PTEs in Rik's follow_page_mask() series.
 
-Hi,
+The users are the hot ones: iov_iter_extract_user_pages() pins every
+O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
+buffers through it, and so does RDMA memory registration.  With mTHP
+those buffers are PTE-mapped large folios.
 
-I am investigating the HFS+ crash reported by syzbot in
-__hfsplus_brec_find() and would like to share the current results of a
-function-by-function reconstruction of the failure path.
+After the head page has been grabbed and verified as before, extend the
+run to the following PTEs that map the next pages of the same folio
+with the same protection bits, take the remaining references for the
+run with try_grab_folio(), and fill pages[] from the run.  The PTEs of
+the run are read while the reference on the folio is held, so the folio
+can neither be freed nor split underneath the scan; a THP collapse can
+still detach the page table, so the pmd is checked again after the run
+is grabbed and the run is dropped if it changed, leaving the next
+iteration to hit the existing pmd check and bail out.  A read-only run
+of an anonymous folio stops at the first page that gup_must_unshare()
+rejects, so the per-page exclusivity guarantee for FOLL_PIN is kept.
 
-The public report shows the fault address:
+folio_pte_batch_flags() does the scan.  It reads the entries with
+ptep_get(), which is not safe without the page table lock on
+CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
+and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
+Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
+site, so the other callers do not change.
 
-fffffffffffffffb
+The order-0 path keeps its instruction sequence.  The folio flags are
+tested before folio_set_referenced() on purpose: a load of the flags
+right after that locked instruction cost about 25% on order-0 pages in
+the gup_test benchmark below, and reading them first brings that path
+back to the baseline.
 
-On 64-bit Linux this value is consistent with the encoding of
-ERR_PTR(-EIO). I am treating that correspondence as an important clue,
-not as proof that -EIO originated at any particular call site.
+gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
+per call, median of 15 runs, two baseline boots / one patched boot, on
+an x86-64 VM:
 
-STATIC AUDIT
+                       get_user_pages_fast()   pin_user_pages_fast()
+                       before       after      before       after
+  4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
+  64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
+  1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
+  2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
+  2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
 
-The audit identified two concrete producer-to-consumer gaps in
-fs/hfsplus/brec.c. In both cases, hfs_bnode_find() can supply a value
-that is assigned to fd->bnode without an IS_ERR() check before
-fd->bnode is subsequently consumed as a struct hfs_bnode pointer.
+fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
+buffer in 64 kB mTHP, median of 15 five-second runs:
 
-The first site is in hfs_brec_insert(), after a successful node split
-and during the parent-node lookup. A second related site exists in
-hfs_brec_update_parent().
+  bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
+  bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
+  bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
 
-hfs_bnode_find() has error-return paths using ERR_PTR(), including
--EIO. This makes error-pointer propagation through these unchecked
-assignments a mechanism worth testing. However, the existence of these
-paths alone does not establish that either site produced the error
-pointer in the original syzbot execution.
+IORING_REGISTER_BUFFERS of 1 GB, median of 15:
 
-RUNTIME REACHABILITY
+  64 kB mTHP           6179/5998 us  ->  1599 us
+  1 MB mTHP            5790/5801 us  ->   893 us
+  4 kB pages           7173/6741 us  ->  6763 us
 
-I then tested the relevant control flow in an isolated QEMU HFS+ environment.
+Link: https://lore.kernel.org/r/20260811025157.1632867-1-riel@surriel.com/
+Assisted-by: LLM sparse
+Signed-off-by: Yuan-Hao Hsu <aa9736195201@gmail.com>
+---
+ mm/gup.c      | 76 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ mm/internal.h | 15 +++++++++-
+ 2 files changed, 90 insertions(+), 1 deletion(-)
 
-A clean HFS+ filesystem and a workload creating many long catalog
-names naturally caused a Catalog B-tree node split and reached the
-parent lookup in hfs_brec_insert(). No control-flow manipulation was
-needed to reach that branch.
+diff --git a/mm/gup.c b/mm/gup.c
+index eb898ea1ee22..1b4bbb525609 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -2807,6 +2807,64 @@ static bool gup_fast_folio_allowed(struct folio *folio, unsigned int flags)
+ }
+ 
+ #ifdef CONFIG_ARCH_HAS_PTE_SPECIAL
++/*
++ * Extend the run of pages grabbed by gup_fast_pte_range() from @page, mapped
++ * by the PTE at @ptep, to the following PTEs that map the next pages of
++ * @folio with the same protection.  The caller holds one reference for @page
++ * and has verified @pte against the page table; this takes the references
++ * for the rest of the run and stores its pages in @pages.  Returns the
++ * number of pages in the run, including @page.
++ */
++static unsigned int gup_fast_pte_batch(struct folio *folio,
++		struct page *page, pmd_t pmd, pmd_t *pmdp, pte_t *ptep,
++		pte_t pte, unsigned int flags, unsigned int max_nr,
++		struct page **pages)
++{
++	unsigned int nr, i;
++
++	if (max_nr == 1)
++		return 1;
++
++	/*
++	 * The reference on @folio keeps folio_nr_pages() stable.  The PTEs
++	 * are read without the PTL, hence FPB_LOCKLESS.
++	 */
++	nr = folio_pte_batch_flags(folio, NULL, ptep, &pte, max_nr,
++				   FPB_RESPECT_WRITE | FPB_LOCKLESS);
++
++	/*
++	 * gup_must_unshare() is per page: a read-only run of an anonymous
++	 * folio ends at the first page that is not exclusive.
++	 */
++	if (!pte_write(pte)) {
++		for (i = 1; i < nr; i++) {
++			if (gup_must_unshare(NULL, flags, page + i))
++				break;
++		}
++		nr = i;
++	}
++	if (nr == 1)
++		return 1;
++
++	if (try_grab_folio(folio, nr - 1, flags))
++		return 1;
++
++	/*
++	 * The PTEs were read after the reference on @folio was taken, so the
++	 * pages cannot have been freed, but the page table could have been
++	 * detached by a THP collapse meanwhile, leaving stale PTEs.  Drop the
++	 * run and let the next iteration hit the pmd check and bail out.
++	 */
++	if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp)))) {
++		gup_put_folio(folio, nr - 1, flags);
++		return 1;
++	}
++
++	for (i = 1; i < nr; i++)
++		*pages++ = page + i;
++	return nr;
++}
++
+ /*
+  * GUP-fast relies on pte change detection to avoid concurrent pgtable
+  * operations.
+@@ -2830,6 +2888,8 @@ static int gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp, unsigned long addr,
+ 		unsigned long end, unsigned int flags, struct page **pages,
+ 		int *nr)
+ {
++	unsigned int nr_batch;
++	bool large;
+ 	int ret = 0;
+ 	pte_t *ptep, *ptem;
+ 
+@@ -2891,9 +2951,25 @@ static int gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp, unsigned long addr,
+ 			gup_put_folio(folio, 1, flags);
+ 			goto pte_unmap;
+ 		}
++		/*
++		 * Read the folio flags before the atomic in
++		 * folio_set_referenced(); a load right after it has to wait for
++		 * it, which is measurable on the order-0 path.
++		 */
++		large = folio_test_large(folio);
+ 		folio_set_referenced(folio);
+ 		pages[*nr] = page;
+ 		(*nr)++;
++
++		if (likely(!large))
++			continue;
++
++		nr_batch = gup_fast_pte_batch(folio, page, pmd, pmdp, ptep, pte,
++					      flags, (end - addr) >> PAGE_SHIFT,
++					      pages + *nr);
++		*nr += nr_batch - 1;
++		ptep += nr_batch - 1;
++		addr += (nr_batch - 1) * PAGE_SIZE;
+ 	} while (ptep++, addr += PAGE_SIZE, addr != end);
+ 
+ 	ret = 1;
+diff --git a/mm/internal.h b/mm/internal.h
+index 38b1165212c9..783754a81960 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -368,6 +368,12 @@ typedef int __bitwise fpb_t;
+  */
+ #define FPB_MERGE_YOUNG_DIRTY		((__force fpb_t)BIT(4))
+ 
++/*
++ * Read the page table entries with ptep_get_lockless(): the caller does not
++ * hold the page table lock (GUP-fast).
++ */
++#define FPB_LOCKLESS			((__force fpb_t)BIT(5))
++
+ static inline pte_t __pte_batch_clear_ignored(pte_t pte, fpb_t flags)
+ {
+ 	if (!(flags & FPB_RESPECT_DIRTY))
+@@ -400,6 +406,10 @@ static inline pte_t __pte_batch_clear_ignored(pte_t pte, fpb_t flags)
+  * must be limited by the caller so scanning cannot exceed a single VMA and
+  * a single page table.
+  *
++ * The caller must hold the page table lock, unless FPB_LOCKLESS is set: then
++ * the entries are read with ptep_get_lockless() and the caller has to make
++ * sure the folio cannot be freed or split, as GUP-fast does.
++ *
+  * Depending on the FPB_MERGE_* flags, the pte stored at @ptentp will
+  * be updated: it's crucial that a pointer to a COPY of the first
+  * page table entry, obtained through ptep_get(), is provided as @ptentp.
+@@ -436,7 +446,10 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
+ 	ptep = ptep + nr;
+ 
+ 	while (nr < max_nr) {
+-		pte = ptep_get(ptep);
++		if (flags & FPB_LOCKLESS)
++			pte = ptep_get_lockless(ptep);
++		else
++			pte = ptep_get(ptep);
+ 
+ 		if (!pte_same(__pte_batch_clear_ignored(pte, flags), expected_pte))
+ 			break;
 
-This established runtime reachability of the exact branch containing
-the first unchecked hfs_bnode_find() assignment.
+base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+-- 
+2.43.0
 
-DIRECTED ERROR-POINTER EXPERIMENT
-
-Only after the natural control flow reached that parent-lookup point,
-I deliberately injected:
-
-fd->bnode = ERR_PTR(-EIO)
-
-The unprotected execution then faulted at:
-
-fffffffffffffffb
-
-This is the same numerical fault address shown in the public syzbot report.
-
-I want to be explicit about the interpretation of this experiment: the
-ERR_PTR(-EIO) value in this test was deliberately injected. Therefore
-this is NOT a natural reproduction of the syzbot bug and does NOT
-demonstrate that hfs_bnode_find() naturally returned -EIO in the
-original report.
-
-What the experiment demonstrates is narrower: if ERR_PTR(-EIO) reaches
-fd->bnode at this reachable producer-to-consumer gap, the resulting
-invalid pointer can produce the same fault-address value observed by
-syzbot.
-
-NAIVE CONTAINMENT AND CLEANUP BEHAVIOR
-
-An initial diagnostic attempt added an IS_ERR() check after assigning
-hfs_bnode_find() directly to fd->bnode and returned the corresponding
-error.
-
-That guard detected the injected -EIO, but the kernel subsequently
-faulted again at fffffffffffffffb, this time through the cleanup path
-ending in hfs_bnode_put().
-
-The reason was that fd->bnode still retained ERR_PTR(-EIO). The caller
-cleanup eventually executed hfs_find_exit(), which calls
-hfs_bnode_put(fd->bnode) without treating ERR_PTR as a valid state.
-
-This led to an additional source-level observation: fd->bnode appears
-to have an effective cleanup contract of containing either a valid
-hfs_bnode pointer or NULL, not an ERR_PTR value. Existing HFS+ code
-also contains a safe pattern in which the hfs_bnode_find() result is
-first held in a temporary pointer, checked with IS_ERR(), and only
-then assigned to fd->bnode.
-
-NEW_NODE OWNERSHIP
-
-The split path also has a live new_node reference returned by
-hfs_bnode_split(). Therefore simply returning on a failed parent
-lookup would not be sufficient; the diagnostic error exit must also
-account for that reference.
-
-DIAGNOSTIC PATCH 40P
-
-Based on those observations, I developed 40P as a diagnostic
-containment patch. It modifies the two unchecked hfs_bnode_find()
-sites identified in the audit.
-
-At each site, the hfs_bnode_find() result is first stored in a
-temporary pointer. If IS_ERR() is true, the patch:
-
-1. obtains the error with PTR_ERR();
-2. ensures fd->bnode is NULL rather than retaining the error pointer;
-3. releases the live new_node reference with hfs_bnode_put(new_node);
-4. returns the error;
-5. assigns the temporary pointer to fd->bnode only after it has passed
-the error check.
-
-Under the same directed ERR_PTR(-EIO) condition, this diagnostic
-version contained the tested error-pointer propagation without leaving
-fd->bnode poisoned for the later cleanup path.
-
-40P is a diagnostic patch only. It is not intended as an upstream fix.
-Its purpose is to test and constrain the causal path while preserving
-the local cleanup state observed in the source.
-
-CURRENT EVIDENCE BOUNDARY
-
-The evidence currently supports the following statements:
-
-- The public syzbot report contains the fault address fffffffffffffffb.
-- That value is consistent with ERR_PTR(-EIO).
-- Two unchecked hfs_bnode_find() -> fd->bnode producer-to-consumer
-gaps were identified in brec.c.
-- hfs_bnode_find() can return error pointers, including -EIO on an error path.
-- hfs_brec_insert() and the relevant post-split parent-lookup branch
-are naturally runtime-reachable in the controlled HFS+ workload.
-- A deliberately injected ERR_PTR(-EIO) at that reachable point
-produces the same numerical fault-address value.
-- A naive IS_ERR()+return is insufficient because fd->bnode can remain
-poisoned and be consumed during cleanup.
-- 40P contains that directed condition while maintaining fd->bnode as
-NULL on the tested error exit and releasing new_node.
-
-The evidence does NOT yet establish:
-
-- that the original syzbot execution naturally obtained -EIO from
-hfs_bnode_find() at this site;
-- that either of these two unchecked assignments is the complete root
-cause of the public crash;
-- or where the first naturally occurring invalid/error state
-originates in the syzbot execution.
-
-NEXT DIAGNOSTIC QUESTION
-
-I am continuing to move the observation point backward around the
-Catalog B-tree split and parent lookup, with the goal of separating:
-
-1. the point where an error pointer can be prevented from propagating; and
-2. the point where the relevant error state first arises naturally.
-
-I would appreciate feedback on whether these two hfs_bnode_find()
-sites are the appropriate boundary for continued instrumentation, and
-whether there are specific HFS+ B-tree invariants, parent-node state
-transitions, or error-propagation rules around
-hfs_bnode_split()/parent lookup that should be checked next.
-
-#syz test
-
-The 40P diagnostic patch is attached as plain text so its whitespace
-is preserved reliably.
-
-Thanks,
-David Maximiliano Hermitte
-
---000000000000602a38065ba9b07e
-Content-Type: application/octet-stream; 
-	name="VQBIT_HFSPLUS_40P_DIAGNOSTIC.patch"
-Content-Disposition: attachment; 
-	filename="VQBIT_HFSPLUS_40P_DIAGNOSTIC.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <>
-X-Attachment-Id: 
-
-LS0tIGEvZnMvaGZzcGx1cy9icmVjLmMKKysrIGIvZnMvaGZzcGx1cy9icmVjLmMKQEAgLTE1OCw3
-ICsxNTgsMTkgQEAKIAkJCWhmc19idHJlZV9pbmNfaGVpZ2h0KHRyZWUpOwogCQkJbmV3X25vZGUt
-PnBhcmVudCA9IHRyZWUtPnJvb3Q7CiAJCX0KLQkJZmQtPmJub2RlID0gaGZzX2Jub2RlX2ZpbmQo
-dHJlZSwgbmV3X25vZGUtPnBhcmVudCk7CisJCXsKKwkJCXN0cnVjdCBoZnNfYm5vZGUgKnBhcmVu
-dDsKKworCQkJcGFyZW50ID0gaGZzX2Jub2RlX2ZpbmQodHJlZSwgbmV3X25vZGUtPnBhcmVudCk7
-CisJCQlpZiAoSVNfRVJSKHBhcmVudCkpIHsKKwkJCQlpbnQgZXJyID0gUFRSX0VSUihwYXJlbnQp
-OworCisJCQkJZmQtPmJub2RlID0gTlVMTDsKKwkJCQloZnNfYm5vZGVfcHV0KG5ld19ub2RlKTsK
-KwkJCQlyZXR1cm4gZXJyOworCQkJfQorCQkJZmQtPmJub2RlID0gcGFyZW50OworCQl9CiAKIAkJ
-LyogY3JlYXRlIGluZGV4IGRhdGEgZW50cnkgKi8KIAkJY25pZCA9IGNwdV90b19iZTMyKG5ld19u
-b2RlLT50aGlzKTsKQEAgLTQ2Miw3ICs0NzQsMTkgQEAKIAkJCWhmc19idHJlZV9pbmNfaGVpZ2h0
-KHRyZWUpOwogCQkJbmV3X25vZGUtPnBhcmVudCA9IHRyZWUtPnJvb3Q7CiAJCX0KLQkJZmQtPmJu
-b2RlID0gaGZzX2Jub2RlX2ZpbmQodHJlZSwgbmV3X25vZGUtPnBhcmVudCk7CisJCXsKKwkJCXN0
-cnVjdCBoZnNfYm5vZGUgKnBhcmVudF9ub2RlOworCisJCQlwYXJlbnRfbm9kZSA9IGhmc19ibm9k
-ZV9maW5kKHRyZWUsIG5ld19ub2RlLT5wYXJlbnQpOworCQkJaWYgKElTX0VSUihwYXJlbnRfbm9k
-ZSkpIHsKKwkJCQlpbnQgZXJyID0gUFRSX0VSUihwYXJlbnRfbm9kZSk7CisKKwkJCQlmZC0+Ym5v
-ZGUgPSBOVUxMOworCQkJCWhmc19ibm9kZV9wdXQobmV3X25vZGUpOworCQkJCXJldHVybiBlcnI7
-CisJCQl9CisJCQlmZC0+Ym5vZGUgPSBwYXJlbnRfbm9kZTsKKwkJfQogCQkvKiBjcmVhdGUgaW5k
-ZXgga2V5IGFuZCBlbnRyeSAqLwogCQloZnNfYm5vZGVfcmVhZF9rZXkobmV3X25vZGUsIGZkLT5z
-ZWFyY2hfa2V5LCAxNCk7CiAJCWNuaWQgPSBjcHVfdG9fYmUzMihuZXdfbm9kZS0+dGhpcyk7Cg==
---000000000000602a38065ba9b07e--
