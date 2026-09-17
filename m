@@ -1,131 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa3.hc1455-7.c3s2.iphmx.com (esa3.hc1455-7.c3s2.iphmx.com [207.54.90.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C6F3ACA48;
-	Thu, 17 Sep 2026 06:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7771A442B39
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627886; cv=none; b=bfWN0YK0dZeA7fCL2RmtoYVBO1Yb3TY5UpBRdXUlFmK5ayNJ71q66lpbvhLPcaW0OHOYWqf8yL8jmObIDUjM5n9c+QRha8R4mUVVwmfmNeqXcGVcPGjy+G1OmDDeFiZev+1sd1Q9LKkpebUWw64b50jX91jttfEC0H7N5lxZaDs=
+	t=1789627898; cv=none; b=IIL9rwE+wbAtr7YXqG3LdLb4N9XSxemisKGhvtP4BV/kPzHaYvnBfMA7v2YW8ZRgCXDECYgyVsvpXIQSN8e6r+WSOOZ//tJqk1OeC2OszBl1tLDxSPpS2kRTb2xf6bS1NwJH8c9VzJe91CHFij6ai2YbSx0jgiFfwmp3OSxrmJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627886; c=relaxed/simple;
-	bh=1VM8O98SlwbQ6tslRntdjAgACRGyZkBHs6CWdV+Uoi8=;
+	s=arc-20240116; t=1789627898; c=relaxed/simple;
+	bh=L4sdGfPRJNvoS+s5nqiUx4BvRY4eQD3g+eBW4eqgX+g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IbaKrl5IVGy1NY+li1PnlpFYAicqcfSquhu7ThVzkE3VtGSAnOxWyZcgk5kIfiPjMWtSkH6MS8bTTRe2UCMb/n8wt5zQInQfIkfSrLYOAhamO4+pn+LtlkwlmMYwsGmQhSc0N4k5h3y+1HuuwFgNFM7t2WGASy/FqYUv9avEJ+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfgmtCRp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kbhnr70HPQcClkZwexDKc81ZvE90FOqZXAcBu2fxt8zcIerSGInC6LRlYFruj0VGsc5LnrDnzD0+wkCEbPrue1OCi2Fv26tKOv7vX/xWqz1ysru9Ye5WGd3QfAiJI18h7wDD4gge9Ti8uyQ7t3+HR6Etujm1gtRA7cs3P4I4zpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=Cr6rWIw0; arc=none smtp.client-ip=207.54.90.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfgmtCRp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70E201F000FF;
-	Thu, 17 Sep 2026 06:51:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789627884;
-	bh=Zk7akdSG+Lt4kXVv0DNDCRRXidxhfe8oAyzsOC/t6g4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VfgmtCRpAvVbXe7/1HGMr3VdOTboOboBfMHkAF5G99vlKXKhKGOJv1D2xb9XMDDKt
-	 k6ofxrkFjri2YH0fDIYKR+P1yRX/L01W4GKj1t/4H0lVXyl6yXMr5BJEWJGcO041sF
-	 M8Nl8IP8EvwKP8KFhRWtoZo417856nhCE3W7oQhjbnm+DSL0Xuov4RAaCSVFSidMgv
-	 w1BRu/Fa8TugQ9cEbu5m7+Me43bXt+NTi+9flladeallexFNnaWATulAPVSbVkWLLd
-	 MG8zyEPH3oetj1DOM6Mt1Q6L1SXVuoaGmAe5ymv8WmwxM5GHj1RgLZohwj5POqrWgR
-	 kD8q1BsrqOA1Q==
-Date: Thu, 17 Sep 2026 08:51:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Maud Spierings <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, 
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Joshua Peisach <jpeisach@ubuntu.com>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-Message-ID: <20260917-mutant-chamois-of-competence-46ca77@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="Cr6rWIw0"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1789627896; x=1821163896;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=L4sdGfPRJNvoS+s5nqiUx4BvRY4eQD3g+eBW4eqgX+g=;
+  b=Cr6rWIw0hIPoZocXN6AbThvjeFlt7mSPlZVwuPMIgIqrM7I+ZDrbGdb9
+   CdM3TbT7zQxVIglpPhIj1TLqdt+/KqNvp6DdgZ4KqlGb4h4DJTrYC4dK/
+   IswblnYy8n1YpHe2Oj4UzYuftp/J6iSS8YHIk84j/Ibp+1CjewAtpXJ7n
+   ZYwUaYacZfxqactPSTNZk3vMvLQJ4XwIYpNCwnSfppgk3fLhRP73hE+Ts
+   iorbT20e2JuKcuWzH2DD1Q9H6fwXKpEJCy3KN7ytKAA3Ul/gw+ao5joIr
+   YOjPHppgIKxZ1Xzj/06ZxVPRH75GKFYUS95HTr+bWdEqN9ZTF872P1dY/
+   Q==;
+X-CSE-ConnectionGUID: iuyA9egzSPOMjNqVzYPsqg==
+X-CSE-MsgGUID: L6YxQLnyQC+hOOx39Jnz7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="255290699"
+X-IronPort-AV: E=Sophos;i="6.27,103,1786978800"; 
+   d="scan'208";a="255290699"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa3.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 15:51:29 +0900
+Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 3A9D11C00647
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:51:29 +0000 (UTC)
+Received: from az2nlsmom3.fujitsu.com (unknown [10.150.26.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id D30B31C00111
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:51:28 +0000 (UTC)
+Received: from sm-arm-grace07 (unknown [10.124.178.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmom3.fujitsu.com (Postfix) with ESMTPS id E35BA101E53D;
+	Thu, 17 Sep 2026 06:51:22 +0000 (UTC)
+Date: Thu, 17 Sep 2026 15:51:19 +0900
+From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Wang Han <wanghan@linux.alibaba.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
+ map
+Message-ID: <aquN5ytDxt44uORD@sm-arm-grace07>
+References: <20260915154305.3852871-1-weilin.chang@arm.com>
+ <aqm9hXB6X9IQ8wHz@sm-arm-grace07>
+ <m6ldbr7hdafmoycx7xjcbsg62mblcakcu52ndowwzqgxdjb3q3@huv4i5bfxtza>
+ <aqnUWp_VJXUCcJnQ@sm-arm-grace07>
+ <86ld9165cr.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+In-Reply-To: <86ld9165cr.wl-maz@kernel.org>
 
-On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
-> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+On Wed, Sep 16, 2026 at 08:08:20AM +0100, Marc Zyngier wrote:
+> On Wed, 16 Sep 2026 00:27:22 +0100,
+> Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
+> > 
+> > On Wed, Sep 16, 2026 at 12:22:30AM +0100, Wei-Lin Chang wrote:
+> > > On Wed, Sep 16, 2026 at 06:49:57AM +0900, Itaru Kitayama wrote:
+> > > > On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
+> > > > > Hi,
+> > > > > 
+> > > > > This is v6 of optimizing the shadow s2 mmu unmapping during MMU
+> > > > > notifiers.
+> > > > > 
+> > > > > This version fixes a few issues, and adds Marc's space optimization
+> > > > > for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
+> > > > > 
+> > > > > Tested by booting L3, and running in-kernel targetted tests described
+> > > > > in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
+> > > > > carry them over since some bugs fixed in v6 are non-obvious. Some
+> > > > > retest would be much appreciated!
+> > > > 
+> > > > How did you boot into L3, with KVM selftest or recrusively boot on HW?
+> > > 
+> > > I just recrusively booted VMs on hardware. :)
+> > 
+> > Good. Then I actually tried that on Grace CPUs, but letting L1 boot 
+> > with nested mode did not print "VHE+NV2" KVM init log in dmesg, thus not
+> > able to boot L3. Do I need to add other than kvm.arm-mode=nested to command line?
 > 
-> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
-> functions as both a PHY provider for the controller and as a clock
-> provider for the variable pixel clock (hdmi_pclk), which it generates
-> from its refoclk.
+> kvm-arm.mode=nested, as documented. That also puts in perspective your
+> TB tag on the whole series...
+
+Yes. Using kvmtool's --nested option did not bring vCPU with the VHE+NV2 boot
+log. The Host kernel is Wei-Lin's version 6 booted on Grace CPUs, and
+the guest kernel is today's kvmarm/fixes plus Wei-Lin's shadow stage 2 ptdump fix.
+
+Thanks,
+Itaru.
+
 > 
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-
-While I appreciate other people looking at this, I don't think review
-here applies. It was a blanket tag, given to the entire series, with
-exception that it is from newbie, thus I want to ask: was this binding
-REALLY reviewed by Joshua?
-
-Are the rest of the patches actually reviewed or just "looks good to
-me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-of doing review.
-
-
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
->  1 file changed, 49 insertions(+)
+> 	M.
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..f838fcc238ec7db0a8e794234bdceec36cb6d9e7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: StarFive JH7110 Innosilicon INNO HDMI PHY
-> +
-> +maintainers:
-> +  - Michal Wilczynski <m.wilczynski@samsung.com>
-> +
-> +description:
-> +  The PHY portion of the StarFive JH7110 INNO HDMI IP.
-> +
-> +properties:
-> +  compatible:
-> +    const: starfive,jh7110-inno-hdmi-phy
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: Reference oscillator.
-
-This barely counts as a resource, so usual question: no resources here?
-no MMIO? Even the user of this phy is the block itself.
-
-This makes me wonder if this should be a device node in the first place
-(instead folded into the parent).
-
-
-Best regards,
-Krzysztof
-
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
