@@ -1,108 +1,99 @@
-Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8264B0E24
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:18:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463704A7CAE;
+	Thu, 17 Sep 2026 09:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636728; cv=none; b=mKhvRXKjM8xi4iWPS3z6NIKmv5rMBNaZyrdZQJaYKGmSkiSRipb7GzbXxr2amroAeQ5H3BDoKvjSJdgeOy+lBUuDWand9ZVxAhfNmWpLASl1RgXbuknjBXKZ+AOn7GhEFEWQ36m8xO0fKBrYLO+KJnt1Zaonl6ICeext75lhYPA=
+	t=1789636787; cv=none; b=eSysg/j7DbsKApoqrDnSZ3JN2psuuoUZ5XAjdCrZ29jfalkV+iYtT5DZTDNnwICX6Vc7Bk6RmAPx82GqXSl6jJfZViiyaoPAfBe4Uh0wJ1EUZVU/FqW5KXRtmfaP9ZJge0eD13D1OJ40z8WyDceg7SPFpmuRqOP8Di6k0MviplQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636728; c=relaxed/simple;
-	bh=uv/QqzkCASpL/8RQbBzCZik975p5clqE6ezIH1NXyV0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=otQX82qGL7mCOgzY0hre/KTnTkEDe+kUgIRMhIYtL4SDROCiUYWaXG/NIGxFmOSibMVGk2CVL3piBvT4mxXVozUcacvSAJSKksx6T3UVJWEeCiMU41e6QH1HfOebDSq2AVuCvpVqJyQz790Fm2OqR2rTfGc68DpnfADvoF6XaCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c5nNcqoP; arc=none smtp.client-ip=91.218.175.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789636787; c=relaxed/simple;
+	bh=6hUuYPcWxqXPQ36Q8DpYTJSlN3WpSLI1Ia1MqQ3Lh68=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=S8tcC+IfhUcG+0vYK5gkuBwnz5Udp0rWKsyMKnvAafWtiXOHvStS9tEOW9BiqGQxB35RZjURatEI2VphnNTvO7yObocKayGKS9n30gK71xsHaY7lG9RJfgp845Bp1EbFNUx7YdwV9c8OxktJi0OVm8Mtd52VvZ4RsRUxHCn+GkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ky8zNg2R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c5nNcqoP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uv/QqzkCASpL/8RQbBzCZik975p5clqE6ezIH1NXyV0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789636723; v=1; x=1790241523;
- b=c5nNcqoP5YWAKr+ihICugNGB3xouSZ4XFkDHJKmSX0/Rw5Y9yel3x9pufcYL/PsN/XWtYJwk
- iO5W6+iKPH6x3THUJNfQSSwixhYq3nJOwHun7Uu2P6iYzu2zmp94zkoRBXP5fC8gdnCyWLTIOQP
- 15T45bJ5/6iRrzazSaZyAYcw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c94fbe1e4d9196cd;
-	Thu, 17 Sep 2026 09:18:43 +0000
-X-Mizu-Trace-ID: c94fbe1e4d9196cd
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: maz@kernel.org,
-	oupton@kernel.org
-Cc: joey.gouly@arm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	qperret@google.com,
-	vdonnefort@google.com,
-	martijnbogaard@google.com,
-	seiden@linux.ibm.com,
-	tabba@google.com,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 4/4] KVM: arm64: selftests: Free the VM when the GIC device probe fails
-Date: Thu, 17 Sep 2026 10:18:26 +0100
-Message-Id: <20260917091826.2639205-5-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260917091826.2639205-1-fuad.tabba@linux.dev>
-References: <20260917091826.2639205-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ky8zNg2R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140F41F000FF;
+	Thu, 17 Sep 2026 09:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789636782;
+	bh=wduxLqvH7l65E4HRHZRiG4ffV/S85OxQP9Lm4sYKkIc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ky8zNg2Rj/O662bhRp4Ok7dOz1U6VBLfH0YfjMvq4smARtvLWDCyUqouuV1yZ5Wk5
+	 CHRR2WVlNaqRJ2Bage394GkzwlT1wPlfA9iw/XzF0HIGzFfg1z95EH2BwNhXbonIvg
+	 chy+ZzUGOZtiysiz4KKaOL7c22i8zMOxC+zwVQB91qqZpj+XtoDVidx+qopDfsLBG2
+	 /A9pCOVDdFqrnSeWjAYRMgHW27g+DTiNTLisS5gwaNcu0Egywi7ZIuRsJjIZEL34ou
+	 yjlkeJFRV2u5nby2nl7vwBnOaIVe235MaIgrQZKZLNzC941eLHgr/znhtgDkwRaBQA
+	 C/giGoZKwTT8Q==
+Content-Type: multipart/mixed; boundary="===============2920527551366109915=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <b93838fa6a820d34225ddcfa69056a560d42df034aff760452e09f0f3d5b3f75@mail.kernel.org>
+In-Reply-To: <20260917081209.361367-2-jiayuan.chen@linux.dev>
+References: <20260917081209.361367-2-jiayuan.chen@linux.dev>
+Subject: Re: [PATCH bpf v1 2/2] selftests/bpf: add verifier tests for bpf_skc_to_mptcp_sock
+From: bot+bpf-ci@kernel.org
+To: jiayuan.chen@linux.dev,bpf@vger.kernel.org,mptcp@lists.linux.dev
+Cc: jiayuan.chen@linux.dev,ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,matttbe@kernel.org,martineau@kernel.org,geliang@kernel.org,tangyazhou518@outlook.com,tj@kernel.org,mattbobrowski@google.com,nicolas.rybowski@tessares.net,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,netdev@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 17 Sep 2026 09:19:41 +0000 (UTC)
 
-test_kvm_device() creates a VM to probe the GIC version under test and
-returns without freeing it when the probe fails, in vgic_init and in
-its vgic_v5 copy. Free it on that path.
+--===============2920527551366109915==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
+> index 8b439e194bcc5..8d5908e34c9b4 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/verifier.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_mptcp.c b/tools/testing/selftests/bpf/progs/verifier_mptcp.c
+> new file mode 100644
+> index 0000000000000..1f679265e0437
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/progs/verifier_mptcp.c
+> @@ -0,0 +1,101 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include "bpf_tracing_net.h"
+> +#include <bpf/bpf_helpers.h>
+> +#include "bpf_misc.h"
+
+This isn't a bug, but since nothing from bpf_tracing_net.h is used here,
+would a plain #include "vmlinux.h" (as progs/verifier_sock.c does) be enough
+for struct mptcp_sock?
+
+The file doesn't use any AF_*/SOL_*/TCP_*/IPPROTO_* constants or
+bpf_core_read/BPF_CORE_READ that bpf_tracing_net.h provides. It only needs
+the transitive vmlinux.h for struct mptcp_sock. The 9 verifier_*.c files
+that need BTF kernel types include vmlinux.h directly.
+
+> +
+> +char _license[] SEC("license") = "GPL";
+> +
+> +__u32 token;
+> +
+> +static __always_inline struct bpf_sock *lookup_subflow(struct __sk_buff *skb)
+> +{
+> +	struct bpf_sock_tuple tuple = {};
+> +
+> +	return bpf_skc_lookup_tcp(skb, &tuple, sizeof(tuple.ipv4),
+> +				  BPF_F_CURRENT_NETNS, 0);
+> +}
+
+[ ... ]
+
+
 ---
- tools/testing/selftests/kvm/arm64/vgic_init.c | 4 +++-
- tools/testing/selftests/kvm/arm64/vgic_v5.c   | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/tools/testing/selftests/kvm/arm64/vgic_init.c b/tools/testing/selftests/kvm/arm64/vgic_init.c
-index 47e34b43afb29..53894d32b0fc8 100644
---- a/tools/testing/selftests/kvm/arm64/vgic_init.c
-+++ b/tools/testing/selftests/kvm/arm64/vgic_init.c
-@@ -732,8 +732,10 @@ int test_kvm_device(u32 gic_dev_type)
- 
- 	/* trial mode */
- 	ret = __kvm_test_create_device(v.vm, gic_dev_type);
--	if (ret)
-+	if (ret) {
-+		kvm_vm_free(v.vm);
- 		return ret;
-+	}
- 	v.gic_fd = kvm_create_device(v.vm, gic_dev_type);
- 
- 	ret = __kvm_create_device(v.vm, gic_dev_type);
-diff --git a/tools/testing/selftests/kvm/arm64/vgic_v5.c b/tools/testing/selftests/kvm/arm64/vgic_v5.c
-index 96cfd6bb32f6f..10fdfe362428b 100644
---- a/tools/testing/selftests/kvm/arm64/vgic_v5.c
-+++ b/tools/testing/selftests/kvm/arm64/vgic_v5.c
-@@ -187,8 +187,10 @@ int test_kvm_device(u32 gic_dev_type)
- 
- 	/* trial mode */
- 	ret = __kvm_test_create_device(v.vm, gic_dev_type);
--	if (ret)
-+	if (ret) {
-+		kvm_vm_free(v.vm);
- 		return ret;
-+	}
- 	v.gic_fd = kvm_create_device(v.vm, gic_dev_type);
- 
- 	ret = __kvm_create_device(v.vm, gic_dev_type);
--- 
-2.39.5
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35199493791
+--===============2920527551366109915==--
