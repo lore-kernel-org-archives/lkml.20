@@ -1,169 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71A83ABD8D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:31:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C488B4322FC;
+	Thu, 17 Sep 2026 08:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633875; cv=none; b=cmza8Mc/padRfwJ7+VTp7x7hE6P9rtpIKe2nqpCKhJHcA+SBWhfAt7Jvd+8PeclXHAjaB30skXlgRHHFgJWQ3etnuFXikeR+oVL9vhnp2YqFZWZfpz1k+SFB3WSmLxhQsB+SINHLvSjqi/IE4ajC0W0j5Fn/9cObKyrFwy4GtVA=
+	t=1789633879; cv=none; b=eJB/CRFl9ve+vulR+xHbnBvL20KizBjipc+d9QN0/PMfjlxbyzo+mFSiMSUs5Mxihv4rPE8+Zn0ErrErg048Q97jIkv5R7lAr6L2smOoJ+dmjCoOH0Zk3m2Mcc9o2fsJUy8MQNdYj1u/9ZgJA/o5jQOY7Ap1BbrMxAXGDqw1P/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633875; c=relaxed/simple;
-	bh=vLEdhgkUC9x/tukFagViGQ7ur/256GYQ1UApjuTIUvo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=NGpPKaSO+LWTUMOoVgR/xB49ZewLA3D9bcyVORI4S6zUMaPhQcizQ0rkjvjpnlgEZ4ZGLe3bCs3ZcMenOzRoq9LbcFHlB5QZtIFkqayoavUMGmFcI8/YAIXIF7MstMKA/u4lF6yBeeaR3fx1bq353e2enjF4sAqD5Cv1Dg9G+kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgqCzWbB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789633879; c=relaxed/simple;
+	bh=L4SQII4zDZ9mSTyG/EfTm86E/2+Bu54hMQHHs0iAq94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pLEf2E65RVT9nmjPIXKgWRc/f6WaAD5i4RgN75cUbRYmJqzab/TDaKn8I2rHgeywFYIMzzX0FLGU6gsXng2ptWY0r9MUEN8nKmVTkzM+HAJk9poRY5+lEYkjsyNTR5NNaDeb37DXC68SokD4U7OmgGoqN+qNM92cS9Nc8GVrTis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOYZ5UEp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgqCzWbB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9ED1F000FF;
-	Thu, 17 Sep 2026 08:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOYZ5UEp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A561F00893;
+	Thu, 17 Sep 2026 08:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789633862;
-	bh=lFdpvrBU8kEVcsoKwwf3D1dYac6o7xDt4OTJI4v73rQ=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=SgqCzWbBDNH2jCl7z1oeAFeSuA8kZQMe7Z3rLtBDqd74tak6GhPOAPioQSJmU6IdZ
-	 zFfaZZJTou5qOUd0A3SIS0y5rxt9vP4ewctohpyuI5picascFmUi4tRqy9NQWeQEvS
-	 SVBGaq7VCA2wkostOG6qpUSwoF/cI0gvI6g0rADeZLzwrmiDhg+sWnkA1ZxT1Pxrd1
-	 NdwWrXe0+UT80wkw0rwHKPPXKmqlYUPKPmJNoCzrHI3lWfm7yAvRKs0FNlrQYk5Q0P
-	 MQpOUec3d2zGlZwm31Mq7mAl326Q6Ji/4Y2qCsGv63FgK+uQPe2yKPoMDO9kmVBcGk
-	 PIVui0aWcIgcA==
-Message-ID: <c4e0c6d3-ad28-4e5e-a938-08b7658e9931@kernel.org>
-Date: Thu, 17 Sep 2026 16:30:59 +0800
+	s=k20260515; t=1789633868;
+	bh=Sy68kMllL4qVZ23QsfOaQ5BM4WCVnsJr8BGQZQjvYPY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GOYZ5UEpo4qVpQJN1JLz8CBpleGZY2WUsn+UBbmj2/W6ataKgCy/BsJmxLSciArlP
+	 IHPNUkhu6P68swZq0zrWF9jNQgLljBhPSekUUQGc/fcZJSOe513oTPZgcEr+hkKxm1
+	 f0dTLs4ZcHeS2s6TY3wwO7RTW3nJudfrn7O0nSKPKIHE31gk6/X8qvz+00ulr3qGB4
+	 Y8MYgz1BGxojdfnmRQznuok0ho8KowndRNvvbeGOK5Cy/6NSgzzZ2uKjgps9GRA5iH
+	 7RjC9rzJ4V77HvEcBnr01XtW7hfJHfM+x/Xm5ehmnhcr6N6wW59tObNWIh4wuCi0Ev
+	 //e1/UjySfuxA==
+Date: Thu, 17 Sep 2026 10:31:05 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Vinod Koul <vkoul@kernel.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Ajit Pandey <quic_ajipan@quicinc.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Imran Shaik <quic_imrashai@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 08/52] dt-bindings: clock: qcom: sm8650-gcc: Add CX
+ power domain
+Message-ID: <20260917-stirring-dramatic-goat-ec400d@quoll>
+References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
+ <20260914-qcom-tie-cx-to-gcc-v4-8-9d5a606ada33@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
- Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
- linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v2 10/14] f2fs: handle partial truncate of large folio
- dirty subpages
-To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
- <20260915041909.2903887-11-zhaonanzhe@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260915041909.2903887-11-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-8-9d5a606ada33@oss.qualcomm.com>
 
-On 9/15/26 12:19, Nanzhe Zhao wrote:
-> A large folio can be partial truncated and stays in folio mapping, we
-> need to clear the subrange dirty bits and uptodate bits that the partial
-> truncate covers. If this partial truncate happens to clear the last
-> subrange dirty bits, then cancel the whole folio dirty state.
+On Mon, Sep 14, 2026 at 03:47:07PM +0300, Abel Vesa wrote:
+> The GDSCs provided by the SM8650 GCC are supplied by the RPMh CX power
+> domain. Model that parent domain in the GCC binding so the provider can
+> describe the dependency in devicetree.
 > 
-> Also add a guard in f2fs_write_single_data_folio() so a large folio
-> subpage whose disk block was already truncated (NULL_ADDR) is skipped
+> Add a single CX power-domain entry to the binding and make it required.
+> Without this dependency, GCC GDSC consumers cannot vote for CX and RPMh may
+> undervolt it.
 > 
-> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  fs/f2fs/data.c | 66 +++++++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 65 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index d9e3a5c370d7..bf9b9c9b722f 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -2679,6 +2679,34 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
->  		folio_mark_uptodate(folio);
->  }
->  
-> +static void ffs_clear_subrange_uptodate(struct folio *folio,
-> +					size_t offset, size_t len)
-> +{
-> +	struct f2fs_folio_state *ffs;
-> +	unsigned int nr_subpages, start, end;
-> +	unsigned long flags;
-> +
-> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
-> +
-> +	if (!f2fs_folio_has_ffs(folio)) {
-> +		if (folio_test_uptodate(folio))
-> +			folio_clear_uptodate(folio);
-> +		return;
-> +	}
-> +
-> +	ffs = (struct f2fs_folio_state *)folio->private;
-> +	nr_subpages = folio_nr_pages(folio);
-> +	start = offset >> PAGE_SHIFT;
-> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> +	end = min(end, nr_subpages);
-> +
-> +	spin_lock_irqsave(&ffs->state_lock, flags);
-> +	bitmap_clear(ffs->state, start, end - start);
-> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
-> +	if (folio_test_uptodate(folio))
-> +		folio_clear_uptodate(folio);
-> +}
-> +
->  bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
->  {
->  	struct f2fs_folio_state *ffs;
-> @@ -3545,6 +3573,14 @@ static int f2fs_write_single_data_folio(struct folio *folio, int *submitted,
->  
->  		fio.old_blkaddr = dn.data_blkaddr;
->  
-> +		/* This page is already truncated */
-> +		if (fio.old_blkaddr == NULL_ADDR) {
-> +			ffs_clear_subrange_uptodate(folio,
-> +					i << PAGE_SHIFT, PAGE_SIZE);
-> +			folio_clear_f2fs_gcing(folio);
+>  Documentation/devicetree/bindings/clock/qcom,sm8650-gcc.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-Since gcing flag is per-folio, so if block #0 is on gcing, but block #1 is
-truncated, it will drop on gcing flag of folio, result in triggering IPU on
-such dirtied block of large folio? also it will affect f2fs_is_cp_guaranteed()?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks,
-
-> +			goto block_done;
-> +		}
-> +
->  got_it:
->  		if (__is_valid_data_blkaddr(fio.old_blkaddr) &&
->  		    !f2fs_is_valid_blkaddr(sbi, fio.old_blkaddr,
-> @@ -4987,8 +5023,36 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
->  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
->  
->  	if (inode->i_ino >= F2FS_ROOT_INO(sbi) &&
-> -				(offset || length != folio_size(folio)))
-> +				(offset || length != folio_size(folio))) {
-> +		size_t clear_start = round_up(offset, PAGE_SIZE);
-> +		size_t clear_end = round_down(offset + length, PAGE_SIZE);
-> +		size_t clear_length;
-> +		bool dirty;
-> +
-> +		/*
-> +		 * If the truncated range falls within a single subpage, no
-> +		 * subpage state needs to be cleared.
-> +		 */
-> +		if (clear_start >= clear_end || !f2fs_folio_has_ffs(folio))
-> +			return;
-> +
-> +		clear_length = clear_end - clear_start;
-> +		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio,
-> +						clear_start, clear_length);
-> +		ffs_clear_subrange_uptodate(folio, clear_start, clear_length);
-> +
-> +		/*
-> +		 * If the truncated subrange happens to clear the remaining
-> +		 * dirty bitmap of the whole folio, cancel the folio-level
-> +		 * dirty state.
-> +		 */
-> +		if (!dirty && folio_test_dirty(folio)) {
-> +			inode_dec_dirty_pages(inode);
-> +			f2fs_remove_dirty_inode(inode);
-> +			folio_cancel_dirty(folio);
-> +		}
->  		return;
-> +	}
->  
->  	if (folio_test_dirty(folio)) {
->  		if (inode->i_ino == F2FS_META_INO(sbi)) {
+Best regards,
+Krzysztof
 
