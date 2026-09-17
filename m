@@ -1,120 +1,105 @@
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495C549BD87
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06766457E47
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789679283; cv=none; b=e+o1D8EGqXitkOq86QBAz7Z+5GrJ0xq6wKyV8+wQeMc2lT/ZZQMhEKXPO4+4BgCQCLAFdXX7YZ0LyKRe63ctcXIZBgnsQSlkwjLboqA4jJiDqPOgb/PKU3gU+0ZCi/uzgmkqvv9suzCvFxnA+CvwjkNLx8CSTGAzn/ja2iRrCRM=
+	t=1789679318; cv=none; b=Yt/OqgCtj6cjBUmOFlbuMRQEqijS4YhVQXR80/xfLJvF3WRAitPCXim7kiz1QOayQ9XDxdLZuu/64/r8YHGlimdcR7dsb2Winb6UvaXcMk8ILLqU9zHuH36B9rbwU6lXKlGF8PQQU03yVVVVxKw8vA/OHrWXOBsgr/HJJ94PPWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789679283; c=relaxed/simple;
-	bh=YBHy4H5pEv93Axkd43WZrvXj62IMTH6uADxqp4QjJ0o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JKkYww402o2rZF/OjmPv+rMsvgA5rlhi//4/gWke6pNncdxHXqz/lZUUp0egCYuGnoGnbLFeE+JqQxGXoU5MLLPyNKlExWnzYO8UIdykf1avSZySw/uwCEcpYuqUKDRS4yj8EuWvP82tCZSqtm0WcnbgL0jm6BlReAItsCx5VG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ynz22d6t; arc=none smtp.client-ip=209.85.218.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	s=arc-20240116; t=1789679318; c=relaxed/simple;
+	bh=bzDavEoyisLgV9Dqni7EvV59qJaL7uG9lj7oSTHVBiY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uYhkUAuqgpFKqSEwm2mnECngb7o0Y70p4TmtLdaJnHriQTreXN12UNXm6n/270rQ2A7z/VUTDgH+ukWrUqaxZiJmECA6pmdfTMdOtNTA+LJaEIJsCnoW/Ekxy2jsJi3SGBB10gegEpnyA/hbn1dRn+g6ME6JLfQAgRmgR6vHP/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nk9EdyU3; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ynz22d6t"
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c293e9cd02fso4427766b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:08:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nk9EdyU3"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so8267f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:08:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789679280; x=1790284080; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789679315; x=1790284115; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GZplDPDarrgfYfltWJB0WdogIU9Jf5wB1DpwTrdaw1c=;
-        b=Ynz22d6tnRIHNp1ws8ZevSUR9PkEretu29eQk45WjHhehr+GNssDGp1Mv7GbEhgTKx
-         f4u/9TAK0GUqrciYUGXIp8l6wjlmv5/QAmD76G0aRIh9Q1a+TMADmKGHsZf9wsiiOSXB
-         XUTl1NdI3cT+zkiaaBD+47/oSc0SUbpaL39y23iX2BI6WL/RcVT4g8bD8lflLzvn3TVo
-         MA3loYv7WFvFK9noWzF9Gv1q/Jot1pRQ0evFnaRWEOD5V+Xr6wN7qF//NC+tVRY6Ctrj
-         rBPJabsBoSFAjNRHtWh868eUoBd66NkijOjZpqptidGGjTHnApRfjQJr/5S20Fz6etRC
-         sCbQ==
+        bh=jdp2C4fIqt7YuChYvn7y27NtEdZt9/0KRN/uN+Dhw3k=;
+        b=Nk9EdyU3AGvOCEY17NoOkvo7IhwM4YvfqBa6+ANK4frvGxAUEDrWWK7XIvam/oby4f
+         6tvDzN7oHCV2rOiHVF9QWW0EAzIqBFQYiR7UBzE5kAaEwjWv73U/JqdG5S+lYrW/R4O1
+         dJQJdUaYCSXnqsk/f41xnq+tiFZN+98EmIA0aSKcNzqwcY5d8WvcqA/3CDJiegQdK4gI
+         DEkxBrjHr+kM314QcmYa3L6R8fTDOZhNEpU/ee29IYdhTu4hJcT76wvC0cRC4o5FZZMu
+         LrKl2DSmkXDkU7YKnuzUPaYpxIwGPvGr/rN/vO3bAZIkYD3fnjOcHYkU5H8ieMtv1sUT
+         VNmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789679280; x=1790284080;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GZplDPDarrgfYfltWJB0WdogIU9Jf5wB1DpwTrdaw1c=;
-        b=WTIVqtNJzhI5E9rodUnMPlTHxGPRXloukMBSM5b98/5xDB5Ih71PfJCn4QPKlxFhx4
-         gIHE6XwbIfdWJ7cDUy5cJXTiPweFQTbazQfJU111zbCJGUqJXsJrLzE4CpMCULHG7jjz
-         NosRFnICd1TJRwlAq9wcHGl6A1rCS+odl0kEQhJCuDUtG39ZVIMLmiM08bgt+K7FFpD7
-         9RdZr7hfkwte20macP7eFgiOgQOqqmOVb0LMgQGewQApZZIE4GWjD9P3MetxvFQBwkSr
-         fz0guVTaco1prrMLY6ONjQKi63RkoZn81KLQWjvBFMrVgYsslEsmgOK8CasvfAjHGRe5
-         2whQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxag3GnDdwetGwqAdsQctu90cd+xqcag0YlEM1ezr/b+TbV+juz7v6oP0/O6iflgtKK0l3JFZD/gGn96ds=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqmcflA7HZrUNpXHF7ViQHLZBXDhriUVBFufXa3TkPFKqpbQMx
-	zJ/KBOCRUsxdwUm34waPpbN0hS5KeFg9GygqRTj2ZLNmWWWwLDD7mGEXHeI+/YOj1o+Enw5f426
-	K6jjNUbDxsFgIjv4syw==
-X-Received: from edbdc23.prod.google.com ([2002:a05:6402:3117:b0:6a3:65f2:cb6])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:906:c111:b0:c26:1691:b368 with SMTP id a640c23a62f3a-c2a157fab8amr38402066b.33.1789679280144;
- Thu, 17 Sep 2026 14:08:00 -0700 (PDT)
-Date: Thu, 17 Sep 2026 21:07:59 +0000
-In-Reply-To: <20260904171610.3342398-1-tarunsahu@google.com>
+        d=1e100.net; s=20260707; t=1789679315; x=1790284115;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jdp2C4fIqt7YuChYvn7y27NtEdZt9/0KRN/uN+Dhw3k=;
+        b=rflOCgre+g79XyQR6Wxdsv4kUm2ttb9ekMZFmd3lSh8H3MuSikXb+iba9gUz9UYpvY
+         8ZvgyLQnX5cZ4GREAGC2h/Znmtr+owKRy4jq6O/tWwDtO8uviCz1B2jpXUklVx7h6Q/C
+         Fhh4WS3AkpusbXdu+38GaSUWoJdRN/7fSbl1eXxmr3SXmdVzXiT2LeFrFjOD8g/SgxCr
+         a1CzbqAU/+dFqjgaazsGwHAC+CFDc6xBCJZfLNZgYBu5FXh+jNdiea4XniTVecHsgbOp
+         fCX5iLlaikXZEtZoBzajpc8a2R8UvN3lBVa43Int0aWPlh4V4//x20LkLQyY74s5+j55
+         0Kgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxj0kZQhWRWrH6SHNz7kb9SEo5+h7L3Y+3DSiV4fAo94tn6Z1oTlOyGiFRwTJnu5tUV7QERKLQFFZ9K654=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwBymTFyzyifY+b+O2l3LGMTn9IR+XUTNTGnykNqZTi8G10p+D
+	LHtwtNSiVwop+dvKp0DVx7ZB+mtGTzD7nRQOvf4ivPmsgAXX7SV+27Ow
+X-Gm-Gg: AYBFou1gmufxHxZHvIxgJah9B4XnIDOM1MPTvNJLhop0n0KqSQSdG6a2Q3GlEF5d5Kd
+	Brpf8rvN/27hnM5AJLpQwPgkkCpqkWrnTlI+6Q12NQ8eFjmSkwX/VWInCUZOxvBMN1OI0Y47zcd
+	uFlSsqIguFSofGawfnxzLKakV5zQHsSehsu4daTvacju2b2Xbtjs3mej5i1CBGzoiX8SVSk8TFM
+	rFMl/Suhex3YbcZOUjS4WPT55Tg5cUlJ/i8foikNgnr9RYdX21Q0s0qe1jJGG3VGHjen4rO49XI
+	tA6ou02ybht2nvDqQ/+G93UZctNkdqCBNBlTHscGLOHJPUAi0KKv33HGyXhq6WBHxMo/iKfteEh
+	/6mRlXNVqfOlTlNI96D/OVg/dqT2vuBS5WHoeS9SvadoC5VNRc+F5VV9Z/M6kWGMa0JxciWP+Vl
+	0pwljrcVG5WrE875IWvgVKtodCaOfJg/nnxcWPPPNmzumGGpVeU5YkQQm3BgJ8ejffd662DbSYj
+	2+IAC4DujtunJWY+attUQ==
+X-Received: by 2002:a05:6000:2382:b0:487:c76:4d12 with SMTP id ffacd0b85a97d-4871e2132c3mr232680f8f.11.1789679315024;
+        Thu, 17 Sep 2026 14:08:35 -0700 (PDT)
+Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1f98csm18394730f8f.11.2026.09.17.14.08.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 14:08:34 -0700 (PDT)
+From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: remove unused variable phal in rtl8723bs_init_xmit_priv()
+Date: Thu, 17 Sep 2026 21:08:02 +0000
+Message-ID: <20260917210802.1081830-1-vladurares@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904171610.3342398-1-tarunsahu@google.com>
-Message-ID: <9huzse37io28.fsf@tarunix.c.googlers.com>
-Subject: Re: [PATCH v4 0/3] Convert manual kfree(dev) to put_device()
-From: tarunsahu@google.com
-To: Russell King <linux@armlinux.org.uk>, Geoff Levand <geoff@infradead.org>, 
-	Masakazu Mokuno <mokuno@sm.sony.co.jp>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Paul Mackerras <paulus@ozlabs.org>, helgaas@kernel.org, Nicholas Piggin <npiggin@gmail.com>, 
-	sourabhjain@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Remove the unused variable 'phal' and its assignment in
+rtl8723bs_init_xmit_priv(). Fixes the following compiler warning:
 
-Hello, This is the gentle remind for picking up this series.
+hal/rtl8723bs_xmit.c:528:30: warning: variable 'phal' set but not used
 
-Please, let me know if it needs any improvements.
+Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
+---
+ drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-~Tarun
+diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+index 7f55448d5..0441e84ea 100644
+--- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
++++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
+@@ -525,9 +525,6 @@ s32	rtl8723bs_hal_xmitframe_enqueue(
+ s32 rtl8723bs_init_xmit_priv(struct adapter *padapter)
+ {
+ 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
+-	struct hal_com_data *phal;
+-
+-	phal = GET_HAL_DATA(padapter);
+ 
+ 	init_completion(&xmitpriv->SdioXmitStart);
+ 	init_completion(&xmitpriv->SdioXmitTerminate);
+-- 
+2.43.0
 
-Tarun Sahu <tarunsahu@google.com> writes:
-
-> Hello,
->
-> As per the kernel-doc guidelines, Devices that are tried to register
-> with device_register or to add using device_add, must use put_device
-> on their failure path (not kfree). This series contains 3 patches
-> for updating such instances. Same for kobject_init_and_add or
-> kobject_add, call kobject_put instead of kfree in case of error.
->
-> V4 <- V3
-> 1. Added Fixes tags
-> 2. update commit msg as per the suggestion on v3
->
-> V3 <- V2
-> 1. Updated the commit msg of each patch to mention about the kernel-doc
->    guidelines.
->
-> V2 <- V1
-> 1. Removed patch [1] as it is part of another series [2] already.
->
-> [1]: https://lore.kernel.org/all/20260810162814.1398016-4-tarunsahu@google.com/
-> [2]: https://lore.kernel.org/all/20260724171945.2812749-5-shubhrajyoti.datta@amd.com/
->
-> Tarun Sahu (3):
->   ARM: locomo: Fix device reference leak on registration failure
->   firmware: edd: Fix kobject reference leak on registration failure
->   powerpc/ps3: use put_device() on device_register() failure in
->     ps3_system_bus_device_register
->
->  arch/arm/common/locomo.c                 | 13 ++--
->  arch/powerpc/platforms/ps3/device-init.c | 83 ++++++++++++++----------
->  arch/powerpc/platforms/ps3/system-bus.c  |  2 +
->  drivers/firmware/edd.c                   |  2 +-
->  4 files changed, 59 insertions(+), 41 deletions(-)
->
->
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> -- 
-> 2.55.0.979.g7e5102b832-goog
