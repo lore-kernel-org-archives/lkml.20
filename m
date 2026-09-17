@@ -1,88 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6B53C1D4A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0316B3C3450
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789619898; cv=none; b=Yc+15hSsi1IOz66gBbCgPLAordqRXOfrCiITCpY9C+yIUEejrg7YAPu0iZcg3GmF8kRPQGnBN5WbAv9qp3NbcjQ1uXrfjFkIGZnE0S2C8XJKetq4akmrgXBqju/dwupkDU3G40w2zeEJt3jAeleiYiBNjHjRdcK3weXjC/VkdAU=
+	t=1789619903; cv=none; b=N8onJ/2tee+f/+aa24aI8iNCuTfROP6eQ4K/UxQQMjyePSUN/gdM3KM917dMseYI3yBJlzko3Vf8Zmc0M/gEIM7uojrrBv4Zyllf6F4N2DdAEaCEBqdpR+i4qx0nwvJo9j1VH97tezlkL5v9TC/fWuO/tC9ta4EzKHAK9gRrn8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789619898; c=relaxed/simple;
-	bh=tJiIhJjKgTlsYOZcHKJ+TsVwQYjgzqcKhJZaAT4zloQ=;
+	s=arc-20240116; t=1789619903; c=relaxed/simple;
+	bh=Ux+ZFdCoSoy8jb5r5lhL01BLMiDuxGk1DiTcmXbBktM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QrFxV7NISYglcRzHVRgmqqd4HQTarBAJjHls79Ngc4B1a7jZrB6X6cPT6qYe+Fhhfg/Z9N+JoyaknH2w5H5tzwv/z4kTwxhtgwdE6wF7JYosxWN42b50LcbsAmnvgj3tUA4JFSpXXZgalmZQkMYYf5fVWPlgzIAlbKQx7f75/0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XZilpUjp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T7LYReWw; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=LY1XspKKHjrKRTsuMYgUBn1QJ8QLqQukMF7yBtU5PGBklrbBWGVJnbncbfNEDZoftbDETiBzsvLMqLtNSXShvR/S/3lBUjfnqBqLnuxzqb0Uz3vxgtLA/qCDL8Mf2jbz7DPQj+AhxO/m4ERsHDWLqOBhPs3eD4812LUGwqqE4ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XJ09n3ih; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e6wfVXp/; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XZilpUjp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T7LYReWw"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H2IBft3238103
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XJ09n3ih";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e6wfVXp/"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GN4LWV3107233
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DuE7m4mhrs94KZg4oJw8Gz2NDY26mkIXr6BuHt6kAco=; b=XZilpUjp6iE5vWyA
-	jmgsFqR68q3gHrjaHZiNj9Quj560HCAekFxp9qTsGwvLFCtuMFVRkZfVposTOUNW
-	6dDrL4HSxOxi6CSALe3f8Re0sT/TSI6Skah83Iul2jgaK54kv2xn8vhyS8uqqWkS
-	PL5uP8m6KtFyeGZhN+H/YPJ/vlAAoKMyDFlijKv+ANrCV1WlnSViyIDQpXQcHVrf
-	W1TWcz1u05gPhio6cWCvVTa8ItcIomS+4Nug9S9YWOY4hmLyDQSYqrP47R9J9t5B
-	dx+R7yNbKjSaCQVj5FF6LXtZhbSxzdRGko/Brr2yzSe6uMA57yQq8lgzDQv30Sze
-	A9IUGw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqyga28an-1
+	70UT+Gxr/HpZnK+rKVvzxxLUrCpev93tYkaseihwzoE=; b=XJ09n3ihvEfEVEXR
+	5lGmWeCS7ptDhQeywUHjcft2iCbCjTpxzFrCNBeDj8FkgzjgjHICCIvDzq11A+3d
+	hQZGujupC+fuRIFxqUZ89wLDsD+Si653WrhWarQfycWXAisJYP7SouMY01wD3wSB
+	FUzVhOMR0DgwlksYLlZ0XU5FGtcmaLfD0UFKBKrv3uWfSbvum9O1lpGf8EtzOjE7
+	6eP5U9YJ7BYm34Zu5Umuu2GlWz+5mctXGBocaNz2w0HqTWATXfPEOjswvcJfZHnu
+	t2QAibOL6wMOmKJsVK8wFgNctrPK0kAsDe4+G2fqkjy+quitN8uxj+UOtOIE+Mft
+	8OMPQg==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2uehw-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:13 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a59faf521so720109b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:38:13 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:38:18 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8696b921ac0so761803b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:38:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789619893; x=1790224693; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789619897; x=1790224697; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DuE7m4mhrs94KZg4oJw8Gz2NDY26mkIXr6BuHt6kAco=;
-        b=T7LYReWw6e1Nv9FvQSqVVIovp3hmzuhwcoREaQ2x3u7q+eNbiBmPouyRGSocJU4wQy
-         nuyx+WLu+szAe2duQK2j/F8skYz6KHolJD4v5H7t6cud2OTnuuMU/SNXS88i7QrhThHs
-         6+X2GZKEAasYxFpgCVEJVXlxNVSl/vlqOXNgaJeiTCW2PkH92YYz/g8mJIPPoU2moWff
-         KiVxlm0fgP/0EvL8/O/B++ELjXJUwEkcUxF5BvjGts777yqBO+yA6jiianJNN6AQ5XE4
-         jGxzTuY1iI4HUBOL6p15W/JUciAYKi5TFQ6Rb5Hrg3a3TA9eGh6W6Bl/CiB0zLh535kQ
-         HIww==
+        bh=70UT+Gxr/HpZnK+rKVvzxxLUrCpev93tYkaseihwzoE=;
+        b=e6wfVXp/RUwgd2uOscviUoe1h8KrPm4apKm/t9wQcTV7IODtSB8F4XFGIS2QXzsfyY
+         TIPhNF6Xy2iT/d7L6Dk2AtIqVqBxK9TsZvg0o7atOBmRlEpCt5/8twH1VdNgX/e3N1zY
+         rTSHDJOxUyFZ5nMAiLj60+rrZIXITLhY9PtocluCp0qsUawQfjpshxIb2ieyOdSvyz7c
+         M3wBXbumICEx0oZKjGMhGe1X/tmxMUTeu4/Jedaxj7X36lT/Hej91Y61iuv/MpVX2gq/
+         JKDfm44DGFB+ukTKEEGnG3wSQoIoVepK7951VpZGskCGyvekKdo3LUgYpbX5zKbyHDth
+         H95w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789619893; x=1790224693;
+        d=1e100.net; s=20260707; t=1789619897; x=1790224697;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DuE7m4mhrs94KZg4oJw8Gz2NDY26mkIXr6BuHt6kAco=;
-        b=lAYOEdeWHti/QAAEEb1C3iFFgUb7qGTtOrtPGSKdBLqI2MSDBR9t8QjTe9g6CJx5pM
-         Wd5K8yfBve7D1Ce5RgpqvULABIxxO6PvkO0S+NTzKEHtkL1FbdibVlAe+m5jIOi97CD9
-         Y2i09U4TANdzNmDg/inFmp2w0wIHahlWTE4aFDUJDPE8KO93Y4gXRi7AA+uVETsO+go9
-         F6CXZTWWVbYTJDAL1FTkbrIK5XQ/9CpaE9VGDdj3JJMa+LcCYueyEQ6WnSxQYnkwN0fE
-         BYlQw8BjCJZE/N8sxlX1CrCLiEHGqYQfzvT7qwmx/fGaEt/VpWbVkihXac1A89+1vMzY
-         zOOg==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ65rtMsLGknmdM431JGBJFYUqTdAIShRqwJcZbRty61SGTmewxjVr3bXRNShPoi2uLJVuk1rQYWX2h3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkfc6WbRZ/9KoG6jImfJS0DiUMyhwcLUD1A97DxsexmPHHex4Q
-	OpUqlqo0tJYA+qWjxsb4vzPg8F9tzUGczDGvHmt4LQMYsJjw9y9boxNjzJv1c9M9IYfVkHwFF58
-	NrmFEMe8q7deIibuOQpbUv1dk+RIn99P3tJKGKf1h7ENgrlxHQJy7Soo/uZzKrEckD04=
-X-Gm-Gg: AYBFou2A1JOjD0lsz1zmH3aiy06eP662kmFF8XLNtvssBKKFBX0izzmCq+CnSRlYmsp
-	eBidfgaQfk/26k+PxdujbkHQw1ppPyDG556pNirjyeL8jdJaAakZG6JvttEj+GA3IZZXJz+6WLj
-	iOuRVao2KlTmBEza9/EyZ7X2gQD4a/i10yv5TdaShgQ/PMBKpGpbmd7nizzUCjAfey72xeM5cw+
-	KZsZcbNgd2CloSjRDc5jdugsT3KbhTsVNaac4iTwZYAToxqilXnkZKaWF0V9EtlMEM8fwTfiuZn
-	/2nu6Jyu8JD+WIIC2qnFt14JRgEFwo48hlgH3RmEdyRfHjTJpZ9wF9fHt/7P1f6ybP6FW2kqjBY
-	fZ5vRbLCXih8QLTJWYVHoFRRupsRQbM959JA0
-X-Received: by 2002:a05:6a20:7355:b0:3d3:ae40:51e4 with SMTP id adf61e73a8af0-3dd5f73b6a9mr13046416637.24.1789619892560;
-        Wed, 16 Sep 2026 21:38:12 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7355:b0:3d3:ae40:51e4 with SMTP id adf61e73a8af0-3dd5f73b6a9mr13046368637.24.1789619892113;
-        Wed, 16 Sep 2026 21:38:12 -0700 (PDT)
+        bh=70UT+Gxr/HpZnK+rKVvzxxLUrCpev93tYkaseihwzoE=;
+        b=r+ogK3QmuF77EJkOVbVxPNKVq6+dAikhajq8TIsGzdUhE0InGzUMjuxYijtV/fhjl5
+         EBOvM6E7kxkVXqPboTTmhUDbd4C12uipImYDRNhqX6+l6uNKBssoO19qNcX38WLPjJvO
+         YaVuA5mUC/B1KLsiz7mkfJLKH2zl0sikYXe5CGX4zOfF3TQHaePujSxjk9E/mjVQjpgE
+         1SrUT+hPuNxmMlZMwVJ9qD568B0VzOxoFcqSg74UHKYOaqwzkx7PvfLZfLcXFRGSXAja
+         hw96m6fe77t+rOzwuutr8uXJy40pJu1A6Si3z1EeJgiyNBBDuFQ46TP93Zl8y2VyEytN
+         2NsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxT6fPYefcBGnq4t07rCal5nuzyxA6ic9SVcrc6B/154VQwsGCY4/d25doaSo77a80SuyntSnbW1Nqhm3I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEsQYbloqg4ezqIImzRAt4XXa5J+DT9v8NsGYNa3uRekbfo4ek
+	RCZs5WDg4wLtc0bAbsIUFT+4RlRkNQTG4+0zi81ZgLNJ+DP/2224BN7iWPi5emB3SqfieeBoAHn
+	nd+we36xKvjkbcNuXjG6DOLGolzoBSy70jKLzaS1uMXCSprzGP9e016B8k9jN2ZvDIRQ=
+X-Gm-Gg: AYBFou3XTvj6P1Ze1r8YS5tjuF/+97FRe9Na9xJWYfCgPGR9xeA0y4gQvQew7pBgDPg
+	KsBn2iZzt3pbSKhs1mClmbmhj1VUQ9/lIlIA/J6cFQ8AwZxrtpoKpaLOjThOpdYbmkhJDa0oYw6
+	cmVs4Oo2znURu9QbVtPFEAiAKwkXZ+xIwMzI8eG6Uctlbmgs2h6a+iseMoYDJ9Ak3m0m8lgS0A2
+	reN1S7KFoO2/07AfjdrOF/ZzrYwsyHGnnnEJBIqF/NR54fJzaDbcLeRzD53/huCUOLm1qIy/4qB
+	8E0jvcSZum5Qgq6GQgc6LrC67EaqgLeDVZIXo4bItHvXa1YkdzC52yj2Kjzn1UZZMOiB/lMr3bE
+	gdAyWawj8knBjYKhDjaoaiLFshrig8Bgg3rDY
+X-Received: by 2002:a05:6a20:e290:b0:3d3:ae40:51e7 with SMTP id adf61e73a8af0-3dd5f7add8fmr11856759637.27.1789619897016;
+        Wed, 16 Sep 2026 21:38:17 -0700 (PDT)
+X-Received: by 2002:a05:6a20:e290:b0:3d3:ae40:51e7 with SMTP id adf61e73a8af0-3dd5f7add8fmr11856706637.27.1789619896582;
+        Wed, 16 Sep 2026 21:38:16 -0700 (PDT)
 Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a9fd38sm12357376eec.13.2026.09.16.21.38.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a9fd38sm12357376eec.13.2026.09.16.21.38.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 21:38:11 -0700 (PDT)
+        Wed, 16 Sep 2026 21:38:16 -0700 (PDT)
 From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 10:07:33 +0530
-Subject: [PATCH v3 4/8] arm64: dts: qcom: shikra: Add soundwire and macro
- nodes
+Date: Thu, 17 Sep 2026 10:07:34 +0530
+Subject: [PATCH v3 5/8] arm64: dts: qcom: shikra-cqm-evk: Enable sound card
+ support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-shikra_audio_dts-v3-4-9a49e1ca6370@oss.qualcomm.com>
+Message-Id: <20260917-shikra_audio_dts-v3-5-9a49e1ca6370@oss.qualcomm.com>
 References: <20260917-shikra_audio_dts-v3-0-9a49e1ca6370@oss.qualcomm.com>
 In-Reply-To: <20260917-shikra_audio_dts-v3-0-9a49e1ca6370@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -104,243 +104,304 @@ Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
         linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789619867; l=5559;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789619867; l=6043;
  i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=tJiIhJjKgTlsYOZcHKJ+TsVwQYjgzqcKhJZaAT4zloQ=;
- b=nC3i5yNg0TE1aBNyZKCsSB3F90ec3xefgw278uuin/V0s/dckqfBKphsPEDZW2x6wcjwernQR
- 4JlfKs+ZWz1CcwRzn8k6JlxQS38mt+kKzJqzqFcV7U2aV8KswHiPsTK
+ h=from:subject:message-id; bh=Ux+ZFdCoSoy8jb5r5lhL01BLMiDuxGk1DiTcmXbBktM=;
+ b=QQyXPZvONpKDc2oncX84cXKGHDcMdeLzWKHVe6ZwmMEh70USJSbxrI9QzgJ13GlefDf8yfiif
+ jVYXr+1u4cCBJvjSKcXZuGHB3Sf5o8lrSTH53uDHdvE+Maomhj9r0uu
 X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
  pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-ORIG-GUID: JFDhvOxZkwA1KF3r3phoXHxCQDVB_8XZ
-X-Proofpoint-GUID: JFDhvOxZkwA1KF3r3phoXHxCQDVB_8XZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA1NiBTYWx0ZWRfX+2e9pb0Fy4nd
- iCKVnpZ34UcK1LUSnUH6vFPf+XxwrM5L5pm1mFQkIE8VzUZDRunqwBjn3E2Jk4GbBdFufiX/IPD
- BxBc9NgQLyme6GKrPYKbUwvk7SBSGfI=
-X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6aab6eb5 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA1NiBTYWx0ZWRfX3hoyvdCJ6/Q7
+ 2k2PcoPq8qj+MhRP+rSJ0ImQ9dX9VbtvUz6EkBRpsqqA3TTOSXuqlEurs3nOGwSrS2u3gPBctww
+ Ln2uKDWL5NJ8+vEClLMhUzs9Eh0KMjE=
+X-Proofpoint-GUID: W7XmjGBFY793cJrqp5aZ7NKQKK9rcCMf
+X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aab6eba cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=SBFx_aHcOOkmsUdThYYA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA1NiBTYWx0ZWRfX2JveuWqNjbmP
- SVupIiPLZGwIIPaEQffApeCOi/7ksWife+A2oHrS8isasIyjdM5iUgJj5hZhe3h8guFxe3yLb/z
- gEbJ+5KqYh95a5N2ljRXvtvSslm0WEu7r+do77fIv/Gcjz0pwfQHYDoA/L7EJDGkq0c06JbSxsJ
- awnuhnBc3Qob/b4+uFVQU1qCEYCRx4ke99AMSyB1N9q8mb4fUPcFvF9kM8SIQFnndE+i6kh4p4e
- K36mqK5mH2ocz+lGyfvpA3fHkwafR17+rtuAtdC1CpVib6nYbUFf464uYIMlJ0vzhk5CyWnouSp
- j0giaBIPBzmIiCOi5bOsf2IwN83rynyhJijTRi4z6Zx5wWiCSAemDZn4tCfnjF2xeb3zDLHa7/r
- BuEbQ59TqRzaUo8WQOrbkl/5pv/ls9nsoZDWjv4FkpkjFn+MVfyFwmNmNSapUKcgErBr3e4iJ6d
- +wB/409UaWjG8zNpEHw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=PV3UO2ft7tq4HPyVVFAA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: W7XmjGBFY793cJrqp5aZ7NKQKK9rcCMf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA1NiBTYWx0ZWRfX1oD4haerucGV
+ hfVU3YLjfHSW+TtAFSwtuaszdZPBu8lV7UKtwCll7cl77B1qj9zdjueylBlmUu+IIkCKusS+bjI
+ syGIWZ+F99VKVPKi+qn1hM7V2eNhsDHY+1QkcliN7fzR6tbpaoBJUy3Tc64hIX7SqOJb0itx8i/
+ 699R7GF5LeFkthkaNbcluNRK0fT0ZVRPwDrblMffKgVEQRP2x3zoePsla0pWM7XlIJ01nF0jKIV
+ 7hNa2BstlzF2xILq5JlhNaSjpe4mFXtk9V1Eo977VFmJtQZJu22VeGdOBiGx/msfOxTqejehE1D
+ fljn7MA+SHASel0pcRrSp9WJ+eQJXPkhG6i1Wp8VWB8h0xseHlI8MyLyCj3T7hF/NJFyYrQ2N60
+ HYA3/5YpmF/hrTw4EfDdyKeiDmkCYMMW4kSgXbd3FQ8iA1GuZ9Uoolrub25/zzOb8RNfb2tws59
+ aor2B4yqRyhRk2Qnk1w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- adultscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170056
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170056
 
-Add SoC-level SoundWire masters and LPASS RX/VA macro nodes, along with
-DMIC and SWR pinctrl states required by the audio data path.
+Enable the sound card on the shikra-cqm-evk platform, including
+the PM4125 (Rouleur) headset codec, WSA885x external speaker path,
+and QAIF backend links.
 
-Keep these nodes disabled in shikra.dtsi so board dts files can selectively
-enable and configure them.
+Also enable the required LPASS macro and SoundWire nodes, along with
+the necessary pinctrl configurations for DMIC and I2S interfaces.
 
 Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/shikra.dtsi | 172 +++++++++++++++++++++++++++++++++++
- 1 file changed, 172 insertions(+)
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  | 199 +++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi |   5 +
+ 2 files changed, 204 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 21e4e6a7e12a..ec0a3cd4a27d 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -953,6 +953,70 @@ rclk-pins {
- 					bias-bus-hold;
- 				};
- 			};
+diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+index 079a1636cb6a..9da58ab4e7a8 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
++++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+@@ -21,12 +21,116 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
 +
-+			dmic01_default: dmic01-default-state {
-+				clk-pins {
-+					pins = "gpio96";
-+					function = "dmic";
-+					drive-strength = <8>;
-+					output-high;
-+				};
++	sound: sound {
++		compatible = "qcom,shikra-cqm-sndcard";
++		model = "shikra-cqm-evk";
 +
-+				data-pins {
-+					pins = "gpio97";
-+					function = "dmic";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
++		audio-routing = "IN1_HPHL", "HPHL_OUT",
++				"IN2_HPHR", "HPHR_OUT",
++				"AMIC1", "MIC BIAS1",
++				"AMIC2", "MIC BIAS2",
++				"AMIC3", "MIC BIAS3",
++				"VA SWR_ADC0", "ADC1_OUTPUT",
++				"VA SWR_ADC1", "ADC2_OUTPUT",
++				"VA DMIC0", "vdd-micb",
++				"VA DMIC1", "vdd-micb",
++				"VA DMIC2", "vdd-micb",
++				"VA DMIC3", "vdd-micb";
++
++		pinctrl-0 = <&i2s2_default>, <&dmic_eldo_en_default>;
++		pinctrl-names = "default";
++
++		headset-capture-dai-link {
++			link-name = "Headphones Capture";
++
++			codec {
++				sound-dai = <&pmic4125_codec 1>,
++					    <&swr1 0>,
++					    <&vamacro 0>;
 +			};
 +
-+			dmic23_default: dmic23-default-state {
-+				clk-pins {
-+					pins = "gpio98";
-+					function = "dmic";
-+					drive-strength = <8>;
-+					output-high;
-+				};
++			cpu {
++				sound-dai = <&qaif_cpu VA_CODEC_DMA_TX_1>;
++			};
++		};
 +
-+				data-pins {
-+					pins = "gpio99";
-+					function = "dmic";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
++		headset-playback-dai-link {
++			link-name = "Headphones Playback";
++
++			codec {
++				sound-dai = <&pmic4125_codec 0>,
++					    <&swr0 0>,
++					    <&rxmacro 0>;
 +			};
 +
-+			tx_swr_active: tx-swr-active-state {
-+				clk-pins {
-+					pins = "gpio105";
-+					function = "swr0_tx";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
++			cpu {
++				sound-dai = <&qaif_cpu RX_CODEC_DMA_RX_1>;
++			};
++		};
 +
-+				data-pins {
-+					pins = "gpio106";
-+					function = "swr0_tx";
-+					drive-strength = <8>;
-+					bias-bus-hold;
-+				};
++		wsa-speaker-dai-link {
++			link-name = "WSA Speaker Playback";
++
++			codec {
++				sound-dai = <&wsa8855>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <32>;
++				dai-tdm-slot-rx-mask = <1 1>;
 +			};
 +
-+			rx_swr_active: rx-swr-active-state {
-+				clk-pins {
-+					pins = "gpio107";
-+					function = "swr0_rx";
-+					drive-strength = <8>;
-+					bias-disable;
-+				};
-+
-+				data-pins {
-+					pins = "gpio108", "gpio109";
-+					function = "swr0_rx";
-+					drive-strength = <8>;
-+					bias-bus-hold;
-+				};
++			cpu {
++				sound-dai = <&qaif_cpu AIF_TDM_RX_2>;
++				dai-tdm-slot-num = <2>;
++				dai-tdm-slot-width = <32>;
++				dai-tdm-slot-rx-mask = <1 1>;
++				dai-tdm-slot-tx-mask = <1 1>;
 +			};
- 		};
++		};
++
++		va-dmic-dai-link {
++			link-name = "VA DMIC Capture";
++
++			codec {
++				sound-dai = <&vamacro 0>;
++			};
++
++			cpu {
++				sound-dai = <&qaif_cpu VA_CODEC_DMA_TX_0>;
++			};
++		};
++	};
+ };
  
- 		pmu@c91000 {
-@@ -3677,6 +3741,114 @@ qaif_cpu: audio@a000000 {
- 			status = "disabled";
- 		};
+ &audiocorecc {
+ 	status = "okay";
+ };
  
-+		rxmacro: codec@a040000 {
-+			compatible = "qcom,shikra-lpass-rx-macro";
-+			reg = <0x0 0x0a040000 0x0 0x1000>;
++&gpr {
++	status = "disabled";
++};
 +
-+			clocks = <&audiocorecc AUDIO_CORE_CC_RX_MCLK_CLK>,
-+				 <&audiocorecc AUDIO_CORE_CC_RX_MCLK_2X_CLK>,
-+				 <&vamacro>;
-+			clock-names = "mclk",
-+				      "npl",
-+				      "fsgen";
++&i2c3 {
++	status = "okay";
 +
-+			#clock-cells = <0>;
-+			clock-output-names = "mclk";
++	wsa8855: speaker@c {
++		compatible = "qcom,wsa8855";
++		reg = <0x0c>;
++
++		pinctrl-0 = <&wsa8855_spkr_sd_n>;
++		pinctrl-names = "default";
++
++		powerdown-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <77 IRQ_TYPE_EDGE_FALLING>;
++		vdd-1p8-supply = <&pm4125_l15>;
++		vdd-io-supply = <&pm4125_l15>;
++		qcom,battery-config = "1s";
++
++		#sound-dai-cells = <0>;
++	};
++};
++
+ &pm4125_hs_in {
+ 	remote-endpoint = <&usb_1_dwc3_hs>;
+ };
+@@ -35,6 +139,20 @@ &pm4125_ss_in {
+ 	remote-endpoint = <&usb_qmpphy_out>;
+ };
+ 
++&qaif_cpu {
++	status = "okay";
++
++	aif@b5 {
++		reg = <AIF_TDM_RX_2>;
++		dai-format = "dsp_a";
++		dai-tdm-slot-width = <32>;
++		dai-tdm-slot-num = <2>;
++		dai-tdm-slot-rx-mask = <1 1>;
++		dai-tdm-slot-tx-mask = <1 1>;
++		qcom,qaif-aif-lane-map = <1 0>;
++	};
++};
++
+ &remoteproc_cdsp {
+ 	firmware-name = "qcom/shikra/cdsp.mbn";
+ 
+@@ -54,6 +172,10 @@ &remoteproc_mpss {
+ 	status = "okay";
+ };
+ 
++&rxmacro {
++	status = "okay";
++};
++
+ &sdhc_1 {
+ 	vmmc-supply = <&pm4125_l20>;
+ 	vqmmc-supply = <&pm4125_l14>;
+@@ -104,3 +226,80 @@ &usb_2_hsphy {
+ 
+ 	status = "okay";
+ };
++
++&spmi_bus {
++	pmic@0 {
++		pmic4125_codec: audio-codec@f000 {
++			compatible = "qcom,pm4125-codec";
++			reg = <0xf000>;
++			vdd-io-supply = <&pm4125_l15>;
++			vdd-cp-supply = <&pm4125_s1>;
++			vdd-pa-vpos-supply = <&pm4125_s1>;
++
++			vdd-mic-bias-supply = <&pm4125_l22>;
++			qcom,micbias1-microvolt = <1800000>;
++			qcom,micbias2-microvolt = <1800000>;
++			qcom,micbias3-microvolt = <1800000>;
++
++			qcom,rx-device = <&pm4125_rx>;
++			qcom,tx-device = <&pm4125_tx>;
 +			#sound-dai-cells = <1>;
 +
-+			status = "disabled";
++			status = "okay";
++		};
++	};
++};
++
++&swr0 {
++	status = "okay";
++
++	pm4125_rx: codec@0,4 {
++		compatible = "sdw20217010c00";
++		reg = <0 4>;
++		qcom,rx-port-mapping = <1 2 3 4 5>;
++	};
++};
++
++&swr1 {
++	status = "okay";
++
++	pm4125_tx: codec@0,3 {
++		compatible = "sdw20217010c00";
++		reg = <0 3>;
++		qcom,tx-port-mapping = <2 3>;
++	};
++};
++
++&tlmm {
++	dmic_eldo_en_default: dmic-eldo-default-active-state {
++		pins = "gpio71";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++		output-high;
++	};
++
++	i2s2_default: i2s2-default-active-state {
++		pins = "gpio100", "gpio101", "gpio102", "gpio103";
++		function = "i2s2";
++		drive-strength = <8>;
++		output-high;
++		bias-disable;
++	};
++
++	wsa8855_spkr_sd_n: wsa8855-spkr-sd-n-active-state {
++		pins = "gpio2";
++		function = "gpio";
++		input-disable;
++		output-enable;
++	};
++};
++
++&vamacro {
++	pinctrl-0 = <&dmic01_default>, <&dmic23_default>;
++	pinctrl-names = "default";
++
++	qcom,dmic-sample-rate = <4800000>;
++	status = "okay";
++};
++
+diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
+index 541ba278bb2e..1b8cc52f88a5 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
+@@ -134,6 +134,11 @@ &rpm_requests {
+ 	regulators {
+ 		compatible = "qcom,rpm-pm2250-regulators";
+ 
++		pm4125_s1: s1 {
++			regulator-min-microvolt = <1396000>;
++			regulator-max-microvolt = <1396000>;
 +		};
 +
-+		swr0: soundwire@a060000 {
-+			compatible = "qcom,shikra-soundwire";
-+			reg = <0x0 0x0a060000 0x0 0x10000>;
-+
-+			interrupts = <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&rxmacro>;
-+			clock-names = "iface";
-+			label = "RX";
-+
-+			pinctrl-0 = <&rx_swr_active>;
-+			pinctrl-names = "default";
-+
-+			qcom,din-ports = <0>;
-+			qcom,dout-ports = <5>;
-+
-+			resets = <&audiocore_csr AUDIO_CORE_CSR_RX_SWR_CGCR>;
-+			reset-names = "swr_audio_cgcr";
-+
-+			qcom,ports-sinterval-low =	/bits/ 8 <0x03 0x1f 0x1f 0x07 0x00>;
-+			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x0b 0x01 0x00>;
-+			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x0b 0x00 0x00>;
-+			qcom,ports-hstart =		/bits/ 8 <0xff 0x03 0xff 0xff 0xff>;
-+			qcom,ports-hstop =		/bits/ 8 <0xff 0x06 0xff 0xff 0xff>;
-+			qcom,ports-word-length =	/bits/ 8 <0x01 0x07 0x04 0xff 0xff>;
-+			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0x00 0x01 0xff 0xff>;
-+			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff 0x00>;
-+			qcom,ports-lane-control =	/bits/ 8 <0x01 0x00 0x00 0x00 0x00>;
-+
-+			#sound-dai-cells = <1>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		vamacro: codec@a078000 {
-+			compatible = "qcom,shikra-lpass-va-macro";
-+			reg = <0x0 0x0a078000 0x0 0x2000>;
-+
-+			clocks = <&audiocorecc AUDIO_CORE_CC_TX_MCLK_CLK>,
-+				 <&audiocorecc AUDIO_CORE_CC_TX_MCLK_2X_CLK>;
-+			clock-names = "mclk",
-+				      "npl";
-+
-+			#clock-cells = <0>;
-+			clock-output-names = "fsgen";
-+			#sound-dai-cells = <1>;
-+
-+			status = "disabled";
-+		};
-+
-+		swr1: soundwire@a080000 {
-+			compatible = "qcom,shikra-soundwire";
-+			reg = <0x0 0x0a080000 0x0 0x10000>;
-+
-+			interrupts = <GIC_SPI 328 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 406 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "core", "wakeup";
-+
-+			clocks = <&vamacro>;
-+			clock-names = "iface";
-+			label = "VA_TX";
-+
-+			pinctrl-0 = <&tx_swr_active>;
-+			pinctrl-names = "default";
-+
-+			qcom,din-ports = <4>;
-+			qcom,dout-ports = <0>;
-+
-+			resets = <&audiocore_csr AUDIO_CORE_CSR_TX_SWR_CGCR>;
-+			reset-names = "swr_audio_cgcr";
-+
-+			qcom,ports-sinterval-low =	/bits/ 8 <0x01 0x03 0x03 0x03>;
-+			qcom,ports-offset1 =		/bits/ 8 <0x00 0x01 0x01 0x01>;
-+			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x00 0x00>;
-+			qcom,ports-hstart =		/bits/ 8 <0xff 0xff 0xff 0xff>;
-+			qcom,ports-hstop =		/bits/ 8 <0xff 0xff 0xff 0xff>;
-+			qcom,ports-word-length =	/bits/ 8 <0xff 0xff 0xff 0xff>;
-+			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0xff 0xff 0xff>;
-+			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff>;
-+			qcom,ports-lane-control =	/bits/ 8 <0x01 0x00 0x00 0x00>;
-+
-+			#sound-dai-cells = <1>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
- 		audiocorecc: clock-controller@a0a0000 {
- 			compatible = "qcom,shikra-audiocorecc";
- 			reg = <0x0 0x0a0a0000 0x0 0x10000>;
+ 		pm4125_s2: s2 {
+ 			regulator-min-microvolt = <1000000>;
+ 			regulator-max-microvolt = <1200000>;
 
 -- 
 2.34.1
