@@ -1,102 +1,204 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDB32EC0A2
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B9C274670;
+	Thu, 17 Sep 2026 00:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605927; cv=none; b=fTGWVoxxJ63dcsJeFzE35NlQmt6xVaPwF9bKnOC3k4k4IzzBzczklk/AF7S2CVy8VD1ugRvGiN/DDBFAPKDSiDVxXFphBShCLQ0iyHQKjTfoUy0Vcf8Wov/mrXf8ov3N551V6M8rgLMUxE7uBZVPw1yPULCN/vbA7iab+pPvH8Y=
+	t=1789605942; cv=none; b=jmX6f9KODsgceK7/olACpWO4ZltSx+/DnTF/eA5Tbt1cjTIlXLzkUm1/wUnoTtGu+HzhX5fvHV/Ce3qOyW87cFK9rbjroqnlK1t2hT4JGOVy8Og0wCW2Q/rl3rQtJwMKQREU5rX3K5ogm8R7TlYplfdBR1AHhggTIVMtPVcleo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605927; c=relaxed/simple;
-	bh=pSIUYIx+0OkhedIaRJFFytc27jwrdIPiXSe8d8kKDuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WSLovZ98H5Uh1pHbMsU6MgjFUDPKt5Uim2z71EpIdhJrc970pEy3DkGwyxbX6y5vk+mQot1x8sOnIyRxtDvYlEOPGD/38Ju7Hhk5RoOaEPJ0syXRBm3LMrwErdpjYuIUBDM2h5AJK5plF8nvvYW4vr7uACynEBsc9rS1TCzxHlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ku1amnl1; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789605942; c=relaxed/simple;
+	bh=7Z3vIBjt5tLPRNBuQBru3f1/VsY4t+8DZAWOPwWqtcc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o8+D4T0UWqnWyG5ULFTKnwfEWLHZVu64odWAh6Zk95aOKmdxnuPQzyUpRnJIpuHcCWdKm54DJoFNkynGwCNs22uBmXcH0QXRdHYJQ6UyxmEjYNqZK+7XhPzKUEn4OqfQtynVda6gLYVwcpojNC+ICNOxFlYlcJOF8aCRUfG+YfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HeoNV/Yo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ku1amnl1"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a33c9cso312340b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:45:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789605925; x=1790210725; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vK4WS6l3ITRV/oYCqfxSRTjx+VRSZj9i6Ex84U5fmjM=;
-        b=ku1amnl1rOi/dNSYnVA2p0mOi5pzTP431ph81+tN5amFHqXTbk8mwhBTq+LNgqYuqJ
-         mTm12WgP+ZSQ1NJSanS892fNSAzKxxX5qg6g32LJXpbUr6G6/FaGQSW1V/js+81J5ArG
-         9Wl5iERzDpuqkqpStr4tPKIYYaeWaMcpG5hKwZF4Ta8YmkRz5NJ+rYV8NRJiHfoQpft3
-         1uFgP18qMuenlIGSrxzB7vFj68kXvXXWtS998CsB/ceoih1kR+IyAeuS+dSKtYbfWXnO
-         pJvJClVR9xWd21s+lgkLAt94hAdoDOYfCWgm/A09AF/LhF5RXA3RgYsWobfw4VGFtK0m
-         ZRWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789605925; x=1790210725;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vK4WS6l3ITRV/oYCqfxSRTjx+VRSZj9i6Ex84U5fmjM=;
-        b=UN30Gl8iYv3jxjzIP3FNOOXO7RWSdl1khd9/GcCuWhmDXp6MiT4ZaJLfaGO1LEisoV
-         MI40kvXfo+w8BUsW3FET3xFB9svdW+IDf9tOuOyD4yXbANywwDMSYkmy2pE5oPoQO/3O
-         3qHGuF/8HnlD4Ap1W1Vyenlhkc6M1aM9WJgCBLjaa2r6vYUr+Z+iMA+2/rkVSHsRGDF6
-         d4BUCQLNgTUPsUyvE/9PvoZFp8Kz2/I1lrpSbmshsdJBJ/L8BlA1hi6s+FO7TBjCCb3F
-         dGy1E64nBae2niFxjYiQuiFlH3tvEpuQcqAWdqXBElOg92SMCY+blL2a0uZeU2G1vGWK
-         BuRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzh26O/YpFFGCKwO4+rS2bTbpVSHwrZLaPYq8tw+Xfnm75LSswleCaE+vXEeMRZlQlZ9JjkpSxH5b6yyrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWiM8JCmsbycjwlN44h9zZ/shVcw5A5gYSeLlLkKhsR1Z9/qlP
-	p8q92feteo+MjhSKyH577zSkQ9TeqV/TUaVaTGJX3erppNhQf96BUzhXoHpFVx3P
-X-Gm-Gg: AYBFou09myXivwhP/gQwvn7iRMJ0iNXcCGK6TgZDaEgCR7KfEztOuIaR8gPAuW3k4JO
-	Ocvrn9w6X5C1Fh/jUoWZlQGb3sNMN+EiJYIRF+lowce2Ut2XXzGn8V7/rk2UzwKg0Zb0dZQRFB2
-	7hV9O2C0ovUVyqRT/1i1A/uHs2ORR1GM5Cnk8ATmlfYWoKworniixqbeQee2MkCM3L1rY9PG1Qn
-	663YGPd6o5i7LvTHV3qoend88cG3UMmN34B5bL/m/7WAdTGhgOl7pWN6F6V2qiQ39GR146TJz0K
-	/lsI1mb/nfn/eKSc7UKky5YBE9jagk8gCiUmAyhhJFJtHObEvVXkTu2gUjryFiXFOxT+XmQx+CW
-	mTAjPm60mbRBui5nSOduuJhE4imEHlmN4Ra/rX9YmCDCk9MuHjPZCwic9pzEn83QoO/IFu48v2e
-	65X2sUFOiT0hChwCuC7tYJe3bKNtuAoi7xLdXQ3SazUUVtf/I78W1+gbKEtc+MM4nt2YJZFjwaq
-	7sziEIqGy6m
-X-Received: by 2002:a05:6a00:4613:b0:851:c2a6:172f with SMTP id d2e1a72fcca58-8723b87eadfmr9178684b3a.7.1789605925335;
-        Wed, 16 Sep 2026 17:45:25 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1da2fsm1952194b3a.52.2026.09.16.17.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:45:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:45:24 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: emil.renner.berthing@canonical.com, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, wim@linux-watchdog.org,
-	xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] watchdog: starfive-wdt: Fix runtime PM leak in
- starfive_wdt_pm_start()
-Message-ID: <dfebf1ef-0496-4b4e-acbe-847064bf09e0@roeck-us.net>
-References: <20260916170704.2086331-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HeoNV/Yo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AFC1F000FF;
+	Thu, 17 Sep 2026 00:45:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789605940;
+	bh=RvTeJmFNZPYMWT61qKcfcgq1L4fEWGELOp4BeELaDsQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HeoNV/YontnZ41uoAbstSo7w3oewrxMhH9IUG0/JJWsuxlognqRKhtvFsaRmAeyI2
+	 +7k7eV7VIHil2XyDImur2sVzI2S0p16+nkC1305mipjW1ylsIwmdcaUssQxwQMcFLD
+	 pW/LdMyVWzrVuKG+tZGQWh+s8SuR7r6nT+qo5lsVihhFylOinaWe5zIYl0qlOPjO2J
+	 LakPAMgbsRnVPqgYM3scZvGsEKNl9RggWtFr4XaNG/JJNWGdXzSVSELhY9DiZ7Zbup
+	 tdaul1b+4PlK9iu3J7x0snqyVFYmTDBw9sXBcmh3VXg/poWhKsrvtoctpXDyWZy4z3
+	 pVqhIiz2nNdbA==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	akinobu.mita@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	akpm@linux-foundation.org,
+	corbet@lwn.net,
+	bijan311@gmail.com,
+	ajayjoshi@micron.com,
+	honggyu.kim@sk.com,
+	yunjeong.mun@sk.com,
+	rientjes@google.com,
+	weixugc@google.com,
+	jic23@kernel.org,
+	gourry@gourry.net,
+	Kunwu Chan <kunwu.chan@linux.dev>
+Subject: Re: DAMON reporting more hot memory on huge pages (was: "Re: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports")
+Date: Wed, 16 Sep 2026 17:45:32 -0700
+Message-ID: <20260917004533.89744-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916051150.107931-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916170704.2086331-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 05:07:04PM +0000, Wentao Liang wrote:
-> starfive_wdt_pm_start() takes a runtime PM reference with
-> pm_runtime_get_sync(), which increments the usage counter even when it
-> fails, and returns the error without dropping it again.  The watchdog
-> core does not invoke the stop callback when start fails, so the
-> reference taken on the error path is leaked.
-> 
-> Use pm_runtime_resume_and_get() instead, which keeps the usage counter
-> balanced when the resume fails.
-> 
-> Fixes: db728ea9c7be ("drivers: watchdog: Add StarFive Watchdog driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Tue, 15 Sep 2026 22:11:49 -0700 SJ Park <sj@kernel.org> wrote:
 
-Applied.
+> On Wed, 16 Sep 2026 11:44:30 +0800 "Lian Wang (ProcessMission)" <lianux.mm@gmail.com> wrote:
+> 
+> > Hi SJ,
+> > 
+> > Thank you for the questions.  I mixed the original field scenario and our
+> > controlled reproducer in my previous mail.  I also jumped from the observation
+> > problem to PMD mapping demotion before explaining why the deployment needs both
+> > huge pages and finer-grained observation.  That made it sound as if our goal
+> > was simply to stop using huge pages.
+> > 
+> > > The observation makes sense.  However, does the sparse access pattern
+> > > realistic?  If so, what is the purpose or expected benefit of using huge page
+> > > for workloads having such access pattern?
+> > 
+> > The original case is not a lab-created request to use huge pages for a sparse
+> > microbenchmark.  It was reported by SXF from a KVM/QEMU deployment where the
+> > VM has a large memory allocation backed by a shared tmpfs file, host THP is
+> > enabled, and Oracle runs inside the guest.  They use host-side DAMON to measure
+> > the VM's hot-memory proportion.  With the same business memory use, they
+> > observed a much larger hot proportion when THP was enabled.
+> 
+> Thank you for clarifying this.  So I understand it is an issue from a real
+> world workload.  I'm still curious how sparse the real access pattern in the
+> real world workload is, and if there is a low haning fruit.  There might be
+> rooms to improve in their DAMON usage.
+> 
+> Could you share more details about the real world setup and findings?  More
+> specifically, how they define the hot proportion and how they collect the
+> number?  What is DAMON setup?  What are the real numbers they saw?
+> 
+> Also, I understand they want to understand real working set size of guests.
+> Could you further share what they are planning to do with the monitored working
+> set size?  The required level of accuracy of the monitoring could depend on the
+> purpose.
+> 
+> > 
+> > The guest tmpfs 4 KiB/2 MiB writer is their controlled diagnostic case for
+> > isolating that observation; it is not a claim that the Oracle workload is
+> > exactly a one-page-per-2-MiB loop.  We then reproduced and quantified the same
+> > effect on a PC and on the x86 server.
+> > 
+> > For this deployment, keeping large pages is a real requirement at the host
+> > virtualization layer.  QEMU owns a large resident guest-RAM mapping.  Host THP
+> > allows that mapping to use PMDs and allows KVM to use large secondary mappings,
+> > reducing host page-table memory, TLB and nested-page-walk pressure, and KVM
+> > mapping/fault overhead.  These benefits are independent of whether every 4 KiB
+> > page inside a particular 2 MiB range is hot at one observation time.
+> 
+> Thank you for clarifying this.  Now I understand why they use THP, and I fully
+> agree they should keep using THP.
+> 
+> [...]
+> > The performance requirement and monitoring use case come from the deployment,
+> > not from our lab model.  We will also report the measured Oracle/VM benefit and
+> > the production access distribution when those data are ready.  The diagnostic
+> > result establishes the observation mechanism, but it should not substitute for
+> > those workload-level measurements.
+> 
+> Thanks to your detailed and nice explanation, I don't doubt about the needs to
+> use huge pages.  So I wouldn't insist on Oracle/VM benefit from huge pages.
+> 
+> I'm still curious the real access distribution, though.  I understand you don't
+> have the data yet.  It would be very helpful if you could share that in future.
+> 
+> > 
+> > > I'm not very sure if this is the right direction.  PMD mapping demotion sounds
+> > > like you just don't want to use huge pages.  If so, you could disable huge
+> > > pages.
+> > 
+> > I agree.  My reasoning in the previous mail was too jumpy: I went from a coarse
+> > observation directly to a possible MM response, and that obscured the actual
+> > goal.  PMD mapping demotion is not part of our current proposed solution.  The
+> > current direction is to keep both the huge folio and PMD mapping unchanged and
+> > use a genuinely fine-grained access primitive to improve the observation and
+> > the stat-only decision.  We should first find out whether that is sufficient
+> > before discussing any mapping change at all.
+> 
+> Thank you for clarifying.  Yes, if you really need sub-pmd access, I believe
+> the perf event based DAMON could be more useful.  Nonetheless, as I requested
+> above, knowing the DAMON usage and purpose in more detail might let us finding
+> a low hanging fruit.
+
+I still want to better understand the real world use case before digging into
+the specific solution.  But, I was thinking perf event based monitoring might
+not feasible for the case.  If that's the case, I think extending data
+attributes monitoring for splitting pmd mapping be fore the access check might
+be a path forward.
+
+That is, we can request DAMON to do some preparation action for the data
+attribute sampling, using damon_prep.  At the moment, set_pgidle prep action is
+supported.  Maybe we could add a new prep action, say, split_pmd?  Then, the
+following sampling memory access check probe (would be a kind of "allow
+pidle_unset" probe filter) will be able to show the access on exactly the pte
+accessed bit, not the pmd accessed bit.
+
+Breaking pmd would cause the overhead, but it would be capped by the
+max_nr_regions.  So the user could at least consider about the tradeoff.  I
+think this is simpler and more intuitive than DAMOS-based pmd breaking, at
+least.
+
+> 
+> [...]
+> > With this context clarified, we will return to the immediate work: use the
+> > existing IBS/perf-event proposal as the concrete strategy under test, and see
+> > whether its fine-grained evidence can improve the observation and DAMOS
+> > decision for this case.  We will use the results to test and review this series,
+> > report both improvements and remaining gaps, and not assume in advance that it
+> > is the final solution.
+> 
+> That makes sense.  Because Ravi thankfully already implemented this nice
+> working version prototype, there is no reason to not test it right now.
+> 
+> > 
+> > I hope this clarifies why keeping huge pages and requesting finer-grained
+> > observation are not contradictory requirements in this case.
+> 
+> Yes, it is now clear to me.  Thank you for patiently englightening me, Lian.
+> 
+> > 
+> > If I am still misunderstanding any part of your questions, or if any part of
+> > this explanation remains unclear, please continue to correct me.  We will keep
+> > sharing our findings and would like to make sure we are aligned before going
+> > further.
+> 
+> I believe testing the perf event based monitoring with Ravi's implementation is
+> a good path forward.
+> 
+> I'm curious about the real setup and results your clients got from their real
+> world wokload.  But that's not necessarily a blocker of the perf event based
+> monitoring test.
+> 
+> 
+> Thanks,
+> SJ
+> 
+> [...]
+
 
 Thanks,
-Guenter
+SJ
