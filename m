@@ -1,39 +1,39 @@
 Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF74451DDE4;
-	Thu, 17 Sep 2026 16:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CDC51DAE1;
+	Thu, 17 Sep 2026 16:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663467; cv=none; b=lKtipfw7McnADto11F9I7OphbFBj+6SGuYuMaIi1Soc4kYXlc2kaqAcEr9zOtIpiRAiY2870RoWCKVFXZDmzM6Fd4N3Y636B7QRTnXgjvjfvFw5eW2xQFHCVuOLIdfJrzayF3rROjWf0hC6rIwBTAA8wFmuemWcKVHuaHgLscow=
+	t=1789663468; cv=none; b=ifAFHA0NuEFTyg+1oSzxsj+RLY583auywJAr1xQPSm84c+XZAVOcLWjslpgOVjFnvvxjMrAfH37rF1YBR1XWwLHmIsEjlLfLWqnj6gRxBO8VlH3U+fBypN51mcLZYBaOn1hOpb2N6bzxGqesC0LS02JjBEy84f2LMBNCFx1g5Mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663467; c=relaxed/simple;
-	bh=Pvcn3OGE2w7zSTKavw5qWSgF7EgPQYKh3ZtNY+hb1ZY=;
+	s=arc-20240116; t=1789663468; c=relaxed/simple;
+	bh=IDLgI9ToRcNNZTG28mJaWRCj+mRBrpyMoEZBA9T6oYA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CXd+BkSsOERV1KJQnq2PkQMi4OVecF/A25nc8HOVPAZ2kjHTVuNAokHhmOZFm8WrBVlHUOlU9nLv4AUUyMPj1ntMCCrI4ItGHenvyI9KK5zeSxIFe1WNZyoswt9tz+zS7I6+QjdY6Arvo8CKetXyKprFrKsk/XytOBbFXdcf9wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=togRMzhk; arc=none smtp.client-ip=31.31.198.150
+	 In-Reply-To:To:Cc; b=Z9DWWrRuNN+rRafXtX2gwILo6dtwwLSOa83MiVgw1ydKWa92r8MsvLvn1pyZ4Lz/SSuwtMrRc8jjkto8brfYuEcj9axP/AQUDomN6QfnlFEvfMZ5o1jltefVZHVyS8N9k98lAVajnK7bagx1s1oFt+0YOQmhfvgxX0Vrb2Arsds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=DznoluaG; arc=none smtp.client-ip=31.31.198.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="togRMzhk"
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="DznoluaG"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
 	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=zUxbVeJDppzpwrVW9tUGBtinYr+rW3ftNjfGxwjtIRk=; b=togRMzhkcsYyzbdcktxpbnTT22
-	YAmtmjd30smB0RobNkzn2boWR53wbEqYpDT0rWPN1VGZ4zu2u3k5GujDb3833B6G7cc41p67ap6B6
-	mCpACSKCPEKNX2KAIjZ27viOpu6IvmB+8hruTTCXLNNl9QgIfz4azMx4U1J2IHJ4516I=;
+	bh=0kciOOJMCgesxixhuPFOYMDsqHGdPZ8nNM/P7un2cyw=; b=DznoluaGMEA46iYtIPtmpEM2YD
+	Rmwvf/HV6SHEAHLhcusiBQEiBTb2ybK7XNaHheOq7hMKdRMtuqR5PjiL0vELmmm/eQ4wXIGoq7vcW
+	yvUR7KZTj5UIL03xmd+HZNTPggvBVBUkBCtf4AgO8AomZ2QH+q+X+tX6chukQ5dAieNI=;
 Received: 
 	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x7FDi-0000000Bw3I-1tqM;
-	Thu, 17 Sep 2026 19:44:23 +0300
+	id 1x7FDk-0000000Bw3I-2F3k;
+	Thu, 17 Sep 2026 19:44:24 +0300
 From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Thu, 17 Sep 2026 19:43:07 +0300
-Subject: [PATCH v2 5/9] drm/panel: novatek-nt36672a: Combine two init
- callbacks into one
+Date: Thu, 17 Sep 2026 19:43:09 +0300
+Subject: [PATCH v2 7/9] drm/panel: novatek-nt36672a: Add Tianma panel for
+ Xiaomi Mi A2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,7 +42,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-nt36672a-panels-v2-5-f8de8be5b86f@minlexx.ru>
+Message-Id: <20260917-nt36672a-panels-v2-7-f8de8be5b86f@minlexx.ru>
 References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
 In-Reply-To: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,155 +58,101 @@ Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
  phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
 X-Mailer: b4 0.16.0
 
-The split between .send_init_cmds_1 and _cmds_2 is completely artificial
-and unnecessary. Two command sets are split in between by the sequence:
- - exit_sleep_mode
- - delay
- - set_display_on
-
-But not every panel driver follows this "split" in their init sequence.
-Some may have different delay timer, or put exit_sleep_mode/display_on
-commands into other places in the sequence.
-
-In order to make this driver more extensible, combine two init functions
-into one by puting exit_sleep_mode/delay/display_on in the middle,
-followed by commands from cmds_2. As part of this step, also move the
-tianma-beryllium specific deinit sequence with its delays from
-nt36672a_panel_unprepare() to tianma_fhd_video_send_deinit_cmds(), so
-that each panel model can have its deinit sequence with its own delays.
-
-No functional change - full init sequence with all the delays for the
-tianma_fhd_video panel is kept the same in the end.
+Add support for Tianma TL060FVXS16-00 video mode panel based on
+Novatek NT36672A, used in Xiaomi Mi A2 smartphone (xiaomi-jasmine).
+It shares some code with already supported panel in this driver
+for xiaomi-lavender, so we can reuse the same panel deinit function.
 
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 
 ---
-v2: move tianma_fhd deinit commands into its own deinit function
-    (set_display_off, msleep, enter_sleep_mode, msleep)
+v2: use mipi_dsi_usleep_range() instead of usleep_range()
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 61 ++++++++++----------------
- 1 file changed, 23 insertions(+), 38 deletions(-)
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 57 ++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 73bec4f47ec60..a445c8067aa5f 100644
+index d356348d39608..48dff2279b0e9 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -51,8 +51,7 @@ struct nt36672a_panel_desc {
- 	enum mipi_dsi_pixel_format format;
- 	unsigned int lanes;
+@@ -441,6 +441,29 @@ static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+ 	mipi_dsi_msleep(dsi_ctx, 120);
+ }
  
--	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
--	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
-+	void (*send_init_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
- 	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
- };
- 
-@@ -92,20 +91,6 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
- 	if (pinfo->desc->send_deinit_cmds)
- 		pinfo->desc->send_deinit_cmds(&dsi_ctx);
- 
--	/* Reset error to continue with display off even if send_cmds failed */
--	dsi_ctx.accum_err = 0;
--	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
--	/* Reset error to continue power-down even if display off failed */
--	dsi_ctx.accum_err = 0;
--
--	/* 120ms delay required here as per DCS spec */
--	msleep(120);
--
--	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
--
--	/* 0x3C = 60ms delay */
--	msleep(60);
--
- 	nt36672a_panel_power_off(panel);
- 
- 	return 0;
-@@ -140,22 +125,9 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
- 
- 	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
- 
--	/* send first part of init cmds */
--	if (pinfo->desc->send_init_cmds_1)
--		pinfo->desc->send_init_cmds_1(&dsi_ctx);
--
--	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
--
--	/* 0x46 = 70 ms delay */
--	mipi_dsi_msleep(&dsi_ctx, 70);
--
--	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
--
--	/* Send rest of the init cmds */
--	if (pinfo->desc->send_init_cmds_2)
--		pinfo->desc->send_init_cmds_2(&dsi_ctx);
--
--	mipi_dsi_msleep(&dsi_ctx, 120);
-+	/* send init cmds */
-+	if (pinfo->desc->send_init_cmds)
-+		pinfo->desc->send_init_cmds(&dsi_ctx);
- 
- 	if (dsi_ctx.accum_err < 0)
- 		gpiod_set_value(pinfo->reset_gpio, 0);
-@@ -192,7 +164,7 @@ static const struct drm_panel_funcs panel_funcs = {
- 	.get_modes = nt36672a_panel_get_modes,
- };
- 
--static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
-+static void tianma_fhd_video_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
- {
- 	u8 reg;
- 
-@@ -352,15 +324,19 @@ static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
--}
- 
--static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
--{
++static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_ROWS, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_COLUMNS, 0x50);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x32, 0x2f);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
++
 +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	/* 0x46 = 70 ms delay */
 +	mipi_dsi_msleep(dsi_ctx, 70);
++
++	mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
++
 +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
++	mipi_dsi_usleep_range(dsi_ctx, 5000, 6000);
++}
 +
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+
-+	mipi_dsi_msleep(dsi_ctx, 120);
- }
- 
- static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-@@ -369,6 +345,16 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+
-+	/* Reset error to continue with display off even if send_cmds failed */
-+	dsi_ctx->accum_err = 0;
-+	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-+	/* Reset error to continue power-down even if display off failed */
-+	dsi_ctx->accum_err = 0;
-+	/* 120ms delay required here as per DCS spec */
-+	msleep(120);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-+	msleep(60); /* 0x3C = 60ms delay */
- }
- 
  static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
-@@ -399,8 +385,7 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
- 			| MIPI_DSI_MODE_VIDEO_BURST,
- 	.format = MIPI_DSI_FMT_RGB888,
- 	.lanes = 4,
--	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
--	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
-+	.send_init_cmds = tianma_fhd_video_send_init_cmds,
- 	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+ 	.clock		= 161331,
+ 
+@@ -552,6 +575,39 @@ static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
+ 	.send_deinit_cmds = lavender_tulip_deinit_cmds,
  };
  
++static const struct drm_display_mode tianma_jasmine_panel_default_mode = {
++	.clock		= (1080 + 96 + 4 + 56) * (2160 + 4 + 2 + 33) * 60 / 1000,
++
++	.hdisplay	= 1080,
++	.hsync_start	= 1080 + 96,
++	.hsync_end	= 1080 + 96 + 4,
++	.htotal		= 1080 + 96 + 4 + 56,
++
++	.vdisplay	= 2160,
++	.vsync_start	= 2160 + 4,
++	.vsync_end	= 2160 + 4 + 2,
++	.vtotal		= 2160 + 4 + 2 + 33,
++
++	.width_mm = 68,
++	.height_mm = 136,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static const struct nt36672a_panel_desc tianma_jasmine_panel_desc = {
++	.display_mode = &tianma_jasmine_panel_default_mode,
++
++	.width_mm = 68,
++	.height_mm = 136,
++
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++			MIPI_DSI_CLOCK_NON_CONTINUOUS,
++	.format = MIPI_DSI_FMT_RGB888,
++	.lanes = 4,
++	.send_init_cmds = tianma_jasmine_init_cmds,
++	/* jasmine panel uses the same deinit sequence as lavender/tulip */
++	.send_deinit_cmds = lavender_tulip_deinit_cmds,
++};
++
+ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+ {
+ 	struct device *dev = &pinfo->link->dev;
+@@ -630,6 +686,7 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
+ static const struct of_device_id panel_nt36672a_match[] = {
+ 	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
+ 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
++	{ .compatible = "tianma,tl060fvxs16-00", .data = &tianma_jasmine_panel_desc },
+ 	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
+ 	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
+ 	{ },
 
 -- 
 2.55.0
