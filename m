@@ -1,324 +1,125 @@
-Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793A74FD270
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C352D4FDA76;
+	Thu, 17 Sep 2026 18:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668686; cv=none; b=bIWszkNtF8kwxT3Oah5tQrruc6q+hAWxx0bOGS4iGVAHbHngDciayj2Cunscmphp3kb4KSQZAbVylKzA1KE9g7zqniVFkqWQWtXF/Sb2RviTcoPp+KBH9zCkp+OqrJ1BuPpfUvm/mCXULzz4hMXuXwkANHWseccjQv9kZ6owacI=
+	t=1789668699; cv=none; b=KjtWrV9mBr4xHbafHx9D27PnGo4GSxIcRNwbjdlNxvr6Dy1zXab8D0SqJSLw5+j6B3HKVq+KcNuBj+4nH5RLQlZUbLgRg4UB0QALSqLavZkzAY2V7vBz8Oiy/cR2oVrrdaFIVx+hCmtFZxfGVh8b6O2hi6j/opfpsLx6DAkWnN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668686; c=relaxed/simple;
-	bh=YozIsMvQDzfNdXt3OLFHnc8aWl9/GFlZtvg1jfBFGhs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C74lQR3vOsxswhegw/9uZ+inQTwGF4Q7OphkmJ2HjMd4o1xMFYIRo+8kHQdthVNhZu5f3ehwdSxmiJn+gWkLIF/7T3mPUvHM3Ldmq3aLgZlJWebWduQrDJFW0uPX9JJVhwC+i1eB1JjJKB/+wGef58TvBIDzgoD3pI5ue90iYv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DDxniRGk; arc=none smtp.client-ip=74.125.228.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789668699; c=relaxed/simple;
+	bh=TMD2k65kuIFXRf0q/E0tlyDyciozaJKv/LfOROsWlhU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oUvexjaZ9OJ/uzqW7BEMJJT5C3GjdtQaHiShw4MYFVPARLZcYV4NI0HxvkkzVG853cQt/zG9TMYIVLujz2NjW7Hq+/bFoi8yGWMfliBzCQwpCz3qUtzVb9ctQ6X4X0Us0sUMYMkE79VKC1Ac2/vcOYiZqM7Xkur3WuPa1cbdI/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oz67M4YS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DDxniRGk"
-Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-cbb818e57c9so479791a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789668679; x=1790273479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PJwoQyONWQntFcfUwerIyiwwlB2/wy713uP/MmK5r2A=;
-        b=DDxniRGkWuiublWw19MFDBsyir4MqHziN6WDJdHb3OnmGwaxMlTKhhvzUwBSs1Mm0+
-         R9MOp8K3Aswm4hZaLUDt0qq/8llihFc3LVdiQq1yjxzgjJ7WF+QYYVJ6J838GBj2ZmMI
-         NLhmY3BerE0+EPQENaf5ehrZwuZ6rM2discdTpck6CAXGwNbnRhtxCT8UVAw6ZtC4U8H
-         8+Zi3mAfSOXFc95ghjmf3JJc5/DPqcj6Y2M5kBhN88RUliDixrKqAXIt69XiuvAASiWY
-         IDSCU9UwjdEyb5NzjuISrh6n2ZtyKcnHbyhTIq8MAGMgFdbCJJQ+r9l3gQx1rut/kW/K
-         iFiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789668679; x=1790273479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PJwoQyONWQntFcfUwerIyiwwlB2/wy713uP/MmK5r2A=;
-        b=tbNuY+ZIpR8E03bovX1vTZn3vlCOhWZlK/PPidMpjWy0cXwTwLvCxIq71dZErfcsHo
-         qoN94iHi/+T2IhFLhsTiUlVq2GJXUkp+mxTCwi7DsbcpQ97/Li0kVnGTmAz1kvUBRkhr
-         WG9bgNt/b7gljM4MMhhOKxGMd47S1JneiGEureKRu443NqJ+JA3n5AowDnB/hzWMU+Sd
-         dJH1quFt06QOVg22A6Yyb7WOavPQ/mcZmZZ2Q4C33M+2T0GoAM5XGIxmVu/b6QUYDVSC
-         3yOVmNJ6bsKjT8PfrV8JhLBIRday0K5SJkt4MYmHUjua/HhmIEtlJ1OhyCgGHXKW8Pa4
-         XslA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGIHN5TgnWv5a7AjS6AKVCPrPXZVEb9MVwnlwc0Bv1J6W1aDKQ1IqbThU6r2ef0+y1taFyCjOycy+Ekic=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx6Rrst5UX4gAkcA4ZZSTUyXfQhbqFb8AtnGf1ku8YCxVnQztl
-	aLZuVYnKbOmlmeEcIpLTxRJct5oXUvnkRe1bd0PcArwgFPjhi0pD//nftVZrZiBa
-X-Gm-Gg: AYBFou0gpq+FmSfUTltPekCXJtMS9Xo3PddVrDTHcwye9He5OhhY7tjhlc//+OthwDg
-	Le6c97p1qsVnLAJI/rNcRGUx+V00Aqku/Rjli+xN49Kgf5XdIGegUTBj+xv98o5u5UpnR6EBciM
-	mG55JIKJS4u3R2EEYuZnNSoU+j14NQE/WCIqqV4f6CyWyDDVhfo5r/VzonwNO2JMcHsIPGKbkrl
-	oJ/j4oSvfLRzVttJZJH7S3FCxAu0+vsXZDM6r6LchxhARTIBfi1XozYu2JLsYE6B1CuTOe6ONT5
-	CEtzxBh28PzhxZyi+738DWig8aMCO8NqYPDMIWYppSCEfQetWS+3TyeJ29nrSPsqjmzf3pOjsz9
-	YhS4DJea0V2n01Uu4vXHDNsE3L/TLTF2DOXZRTeWPPO6UjIWVafCScBbSFbS3QTLXV0sSDA+z2A
-	UnUZTfrUczBvqiQGTMsxHK12Sp7QreLrn4o/wpRq/x9Sxe8J9MKTx2D00WLO8zzznU
-X-Received: by 2002:a05:6a21:9086:b0:3d2:5eb3:596 with SMTP id adf61e73a8af0-3dd5f57c1admr19617115637.16.1789668679280;
-        Thu, 17 Sep 2026 11:11:19 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:59::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5256e04c7sm1192926a12.22.2026.09.17.11.11.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:11:18 -0700 (PDT)
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	sdf@fomichev.me,
-	bobbyeshleman@meta.com,
-	almasrymina@google.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 2/3] net: devmem: embed net_iov_area in binding
-Date: Thu, 17 Sep 2026 11:11:15 -0700
-Message-ID: <20260917181116.3319017-3-sdf@fomichev.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917181116.3319017-1-sdf@fomichev.me>
-References: <20260917181116.3319017-1-sdf@fomichev.me>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oz67M4YS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D27B1476;
+	Thu, 17 Sep 2026 11:11:32 -0700 (PDT)
+Received: from [10.57.7.135] (unknown [10.57.7.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07D443F86F;
+	Thu, 17 Sep 2026 11:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789668695; bh=TMD2k65kuIFXRf0q/E0tlyDyciozaJKv/LfOROsWlhU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oz67M4YS9vKX95bPOvJjG/6IahhL31r2yGk7O81dt+sjjN414ZuuZ1xCMa2au/gHH
+	 rXUcqtwGrQvFQ85FYRDPTsgIv5sPS9YSZzFPZz/TWW1k7YQuQdJ0UPTrn4SrhDiV3s
+	 CGukra9E2ILOT0R0PDF2smG+O2IyEGDjkvUSbT20=
+Message-ID: <d299f7c5-6c71-499a-b8cd-aa69c4c81dd1@arm.com>
+Date: Thu, 17 Sep 2026 20:11:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/6] set_memory: add number of pages parameter to
+ set_direct_map APIs
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: =?UTF-8?Q?Adrian_Barna=C5=9B?= <abarnas@google.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexander Gordeev
+ <agordeev@linux.ibm.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Hildenbrand <david@kernel.org>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Len Brown <lenb@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Ryan Roberts <ryan.roberts@arm.com>, Sven Schnelle <svens@linux.ibm.com>,
+ Thomas Gleixner <tglx@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
+ Will Deacon <will@kernel.org>, x86@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ loongarch@lists.linux.dev
+References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+ <20260903-execmem-set-vm-perms-v0-2-v3-1-949b64a9f755@kernel.org>
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-1-949b64a9f755@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-After replacing the gen_pool with a binding-level freelist, devmem no
-longer needs a separate chunk owner object. There is only one
-net_iov_area for the binding, so store it directly in struct
-net_devmem_dmabuf_binding.
+On 03/09/2026 11:28, Mike Rapoport (Microsoft) wrote:
+> When set_direct_map APIs were introduced by the commit d253ca0c3865
+> ("x86/mm/cpa: Add set_direct_map_*() functions") the single page
+> parameter made sense because the initial callers (vmalloc and
+> hibernation) had sets of unsorted struct pages that required changes of
+> their mappings in the direct map.
+>
+> Since there is an increasing demand for direct map manipulation and it
+> is also desirable to be able to update larger physically contiguous
+> mappings, for example an entire large folio, extend set_direct_map APIs
+> to receive number of pages parameter.
+>
+> As there is still only a handful of callers, change the existing
+> functions directly and update all the call sites rather than adding
+> wrappers for single page case.
+>
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+>  arch/arm64/include/asm/set_memory.h     | 4 ++--
+>  arch/arm64/mm/pageattr.c                | 8 ++++----
+>  arch/loongarch/include/asm/set_memory.h | 4 ++--
+>  arch/loongarch/mm/pageattr.c            | 8 ++++----
+>  arch/riscv/include/asm/set_memory.h     | 4 ++--
+>  arch/riscv/mm/pageattr.c                | 8 ++++----
+>  arch/s390/include/asm/set_memory.h      | 4 ++--
+>  arch/s390/mm/pageattr.c                 | 8 ++++----
+>  arch/x86/include/asm/set_memory.h       | 4 ++--
+>  arch/x86/mm/pat/set_memory.c            | 8 ++++----
+>  include/linux/set_memory.h              | 6 ++++--
+>  kernel/power/snapshot.c                 | 4 ++--
+>  mm/secretmem.c                          | 6 +++---
+>  mm/vmalloc.c                            | 5 +++--
+>  14 files changed, 42 insertions(+), 39 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
+> index 90f61b17275e1..b07fd4e026eac 100644
+> --- a/arch/arm64/include/asm/set_memory.h
+> +++ b/arch/arm64/include/asm/set_memory.h
+> @@ -11,8 +11,8 @@ bool can_set_direct_map(void);
+>  
+>  int set_memory_valid(unsigned long addr, int numpages, int enable);
+>  
+> -int set_direct_map_invalid_noflush(struct page *page);
+> -int set_direct_map_default_noflush(struct page *page);
+> +int set_direct_map_invalid_noflush(struct page *page, unsigned int numpages);
+> +int set_direct_map_default_noflush(struct page *page, unsigned int numpages);
 
-Derive the binding from net_iov_owner() with container_of(), matching the
-pattern used by io_uring zcrx. This removes the leftover
-dmabuf_genpool_chunk_owner wrapper and its allocation/free path.
+I don't have a strong opinion on whether to call the argument nr or
+numpages, but we might as well be consistent across archs :)
 
-Reviewed-by: Mina Almasry <almasrymina@google.com>
-Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
----
- net/core/devmem.c | 61 ++++++++++++++---------------------------------
- net/core/devmem.h | 25 +++++--------------
- 2 files changed, 24 insertions(+), 62 deletions(-)
+Aside from that:
 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index 2ac9d74010a9..7cac0dab8ea8 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -29,15 +29,6 @@ static DEFINE_XARRAY_FLAGS(net_devmem_dmabuf_bindings, XA_FLAGS_ALLOC1);
- 
- static const struct memory_provider_ops dmabuf_devmem_ops;
- 
--static void
--net_devmem_dmabuf_free_chunk_owner(struct dmabuf_genpool_chunk_owner *owner)
--{
--	if (owner) {
--		kvfree(owner->area.niovs);
--		kfree(owner);
--	}
--}
--
- static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
- {
- 	struct net_devmem_dmabuf_binding *binding =
-@@ -52,12 +43,11 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
- 	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
- 
- 	if (binding->freelist)
--		WARN(binding->free_count != binding->chunk_owner->area.num_niovs,
-+		WARN(binding->free_count != binding->area.num_niovs,
- 		     "destroying dmabuf binding with outstanding net_iovs: total=%zu, free=%zu",
--		     binding->chunk_owner->area.num_niovs,
--		     binding->free_count);
-+		     binding->area.num_niovs, binding->free_count);
- 
--	net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
-+	kvfree(binding->area.niovs);
- 	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
- 					  binding->direction);
- 	dma_buf_detach(binding->dmabuf, binding->attachment);
-@@ -94,8 +84,7 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
- 	struct net_devmem_dmabuf_binding *binding = net_devmem_iov_binding(niov);
- 
- 	spin_lock_bh(&binding->freelist_lock);
--	if (WARN_ON_ONCE(binding->free_count >=
--			 binding->chunk_owner->area.num_niovs)) {
-+	if (WARN_ON_ONCE(binding->free_count >= binding->area.num_niovs)) {
- 		spin_unlock_bh(&binding->freelist_lock);
- 		return;
- 	}
-@@ -175,13 +164,11 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		       struct netlink_ext_ack *extack)
- {
- 	struct net_devmem_dmabuf_binding *binding;
--	struct dmabuf_genpool_chunk_owner *owner;
- 	size_t niov_size = 1UL << niov_shift;
- 	static u32 id_alloc_next;
- 	struct scatterlist *sg;
- 	struct dma_buf *dmabuf;
- 	unsigned int sg_idx;
--	size_t total_niovs;
- 	size_t niov_idx;
- 	size_t i;
- 	int err;
-@@ -241,16 +228,18 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		goto err_unmap;
- 	}
- 
--	total_niovs = dmabuf->size >> niov_shift;
-+	binding->area.base_virtual = 0;
-+	binding->area.num_niovs = dmabuf->size >> niov_shift;
- 	if (direction == DMA_TO_DEVICE) {
--		binding->tx_vec = kvmalloc_objs(struct net_iov *, total_niovs);
-+		binding->tx_vec = kvmalloc_objs(struct net_iov *,
-+						binding->area.num_niovs);
- 		if (!binding->tx_vec) {
- 			err = -ENOMEM;
- 			goto err_unmap;
- 		}
- 	} else {
- 		spin_lock_init(&binding->freelist_lock);
--		binding->freelist = kvmalloc_array(total_niovs,
-+		binding->freelist = kvmalloc_array(binding->area.num_niovs,
- 						   sizeof(binding->freelist[0]),
- 						   GFP_KERNEL);
- 		if (!binding->freelist) {
-@@ -258,24 +247,13 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 			goto err_unmap;
- 		}
- 	}
--	owner = kzalloc_node(sizeof(*owner), GFP_KERNEL,
--			     dev_to_node(&dev->dev));
--	if (!owner) {
-+	binding->area.niovs = kvmalloc_objs(*binding->area.niovs,
-+					    binding->area.num_niovs);
-+	if (!binding->area.niovs) {
- 		err = -ENOMEM;
- 		goto err_free_freelist;
- 	}
- 
--	owner->area.base_virtual = 0;
--	owner->area.num_niovs = total_niovs;
--	owner->binding = binding;
--	owner->area.niovs = kvmalloc_objs(*owner->area.niovs,
--					  owner->area.num_niovs);
--	if (!owner->area.niovs) {
--		err = -ENOMEM;
--		goto err_free_owner;
--	}
--	binding->chunk_owner = owner;
--
- 	niov_idx = 0;
- 	for_each_sgtable_dma_sg(binding->sgt, sg, sg_idx) {
- 		dma_addr_t dma_addr = sg_dma_address(sg);
-@@ -289,13 +267,13 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 			NL_SET_ERR_MSG_FMT(extack,
- 					   "dmabuf sg entry (addr=%pad, len=%zu) not aligned to niov size %zu",
- 					   &dma_addr, len, niov_size);
--			goto err_free_chunk_owner;
-+			goto err_free_niovs;
- 		}
- 
- 		nr_niovs = len >> niov_shift;
- 		for (i = 0; i < nr_niovs; i++, niov_idx++) {
--			niov = &owner->area.niovs[niov_idx];
--			net_iov_init(niov, &owner->area, NET_IOV_DMABUF);
-+			niov = &binding->area.niovs[niov_idx];
-+			net_iov_init(niov, &binding->area, NET_IOV_DMABUF);
- 			page_pool_set_dma_addr_netmem(net_iov_to_netmem(niov),
- 						      dma_addr);
- 			if (direction == DMA_TO_DEVICE)
-@@ -310,17 +288,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 			      binding, xa_limit_32b, &id_alloc_next,
- 			      GFP_KERNEL);
- 	if (err < 0)
--		goto err_free_chunk_owner;
-+		goto err_free_niovs;
- 
- 	list_add(&binding->list, &priv->bindings);
- 
- 	return binding;
- 
--err_free_chunk_owner:
--	net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
--	goto err_free_freelist;
--err_free_owner:
--	kfree(owner);
-+err_free_niovs:
-+	kvfree(binding->area.niovs);
- err_free_freelist:
- 	kvfree(binding->freelist);
- 	kvfree(binding->tx_vec);
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index db2eb6372aee..6ed16b4b4687 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -14,9 +14,9 @@
- #include <net/netdev_netlink.h>
- 
- struct netlink_ext_ack;
--struct dmabuf_genpool_chunk_owner;
- 
- struct net_devmem_dmabuf_binding {
-+	struct net_iov_area area;
- 	struct dma_buf *dmabuf;
- 	struct dma_buf_attachment *attachment;
- 	struct sg_table *sgt;
-@@ -27,7 +27,6 @@ struct net_devmem_dmabuf_binding {
- 	 * dereferenced.
- 	 */
- 	void *vdev;
--	struct dmabuf_genpool_chunk_owner *chunk_owner;
- 	/* Protect dev */
- 	struct mutex lock;
- 
-@@ -82,11 +81,6 @@ struct net_devmem_dmabuf_binding {
- };
- 
- #if defined(CONFIG_NET_DEVMEM)
--struct dmabuf_genpool_chunk_owner {
--	struct net_iov_area area;
--	struct net_devmem_dmabuf_binding *binding;
--};
--
- void __net_devmem_dmabuf_binding_free(struct work_struct *wq);
- struct net_devmem_dmabuf_binding *
- net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
-@@ -101,18 +95,11 @@ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
- 				    struct net_devmem_dmabuf_binding *binding,
- 				    struct netlink_ext_ack *extack);
- 
--static inline struct dmabuf_genpool_chunk_owner *
--net_devmem_iov_to_chunk_owner(const struct net_iov *niov)
--{
--	struct net_iov_area *owner = net_iov_owner(niov);
--
--	return container_of(owner, struct dmabuf_genpool_chunk_owner, area);
--}
--
- static inline struct net_devmem_dmabuf_binding *
- net_devmem_iov_binding(const struct net_iov *niov)
- {
--	return net_devmem_iov_to_chunk_owner(niov)->binding;
-+	return container_of(net_iov_owner(niov),
-+			    struct net_devmem_dmabuf_binding, area);
- }
- 
- static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
-@@ -122,11 +109,11 @@ static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
- 
- static inline unsigned long net_iov_virtual_addr(const struct net_iov *niov)
- {
--	struct dmabuf_genpool_chunk_owner *co =
--		net_devmem_iov_to_chunk_owner(niov);
-+	struct net_devmem_dmabuf_binding *binding =
-+		net_devmem_iov_binding(niov);
- 
- 	return net_iov_owner(niov)->base_virtual +
--	       ((unsigned long)net_iov_idx(niov) << co->binding->niov_shift);
-+	       ((unsigned long)net_iov_idx(niov) << binding->niov_shift);
- }
- 
- static inline bool
--- 
-2.53.0-Meta
-
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
