@@ -1,74 +1,64 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6F43F4116
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:12:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AC63F20E8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632737; cv=none; b=oOiCAu+l62IBz+UXcuJUuzo10WJ9QcMEGwsz5RLrOVwwZlblG45W51U61f+O97b7I9k2+deXBKfntc+WJIuwKlvdTdZjFC8WkVCIF+nPls31f6XmT+O1kraGu6SBArjeyotRNQMattYS2wguKrqHWKrMBHCoxG69JFlL5S2QO7w=
+	t=1789632759; cv=none; b=K0hpEAsBk3dlnHsupaoqFgrZOOOlC8BIkpmYw1Riqb+MqBH5EkrFjZ0BbF2RXxnYZtRRUD/zGbI6wCT1xcbT1kCOrkoEjN+mP9N1IkKIlckjDGX+CVKTH8xQgAsZz/cUJeFoj/WXiAK4PeoyjZ41aDKK3dFob3pROJF+AEnCqTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632737; c=relaxed/simple;
-	bh=p0RMUrESzFkLYjFZ5AXFYVI9X31i3O955EvKOPGEKHk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oiGdSEF2gfXNWLMxT94gkk7EfHjOdCFZD1fCJ0zEQF+eLl3vck/5PhXSLoOxh+nCDd1uoVgcipIG1urun3qKS+fozYCU3Nr1WdA5k5plUbX/K22TZsQcvmlyNqW8inN/jxkiwXpl9B7ztYdorOciYdWAuotWKSx2azda7Unwg0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=wzmonVsr; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1789632759; c=relaxed/simple;
+	bh=3bNS7vZoXU7N1kY+Mih7avyiv/bjFO+bIZ/936OV2eE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZWw5ejM4j+mn4UmR1tTSPiLrvu3lrlWXS9yFVXD87ZYfySi25NIqCb5BoGhTHygF8b6KAK5uJVRzH/zOwkKpSeq1fnyAbzIuHq7Voasx+p4KlJGmtvssGSM5+kdSWaLv7rOHUBGm2qsm/Eq4HrznmgFVfunK2j+qpcY25vc0X/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Kf4/7XpN; arc=none smtp.client-ip=91.218.175.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="wzmonVsr"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so555652a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:12:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1789632731; x=1790237531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=INycUrmvpGrxYHCE44iGg+M6064+jK2e/qtdtHH4BSQ=;
-        b=wzmonVsrddZNeB7Ro4nlJE8aELb8HxDLwg3Rs5/n40zgbXW6633XrjDl7LssWuow68
-         8f9GW1EnVg0rCwsZ6oJCzy29hMjd6BwfJK7YMYp9y0qsDsgKpLSzOI8N7Uf2ZIMf6Rdf
-         5s4HMeGz6qtt8OCOEk44riC/ux7DzgTfZwQwc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632731; x=1790237531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=INycUrmvpGrxYHCE44iGg+M6064+jK2e/qtdtHH4BSQ=;
-        b=eTSKe8Bw4FxS946FYguoGWCpaG0ARpBeTR1KpHNQd+56NW8N9UteE4U+EKc963ikP+
-         mQvqqlHVANWo2JxbMZKeZoIH3AUhX4c10LzAlRF2X2A1ZzZec4RO7xHy13lQUeMl4K2u
-         AJN5x+1xjCy4eEt0du+JBFlzfgBi6KEPS/IqRHAP8ek+4PNLWg9ilfzccLIyt0GXlzPH
-         5f8m4OkUgj8eUqoI2MTqxyQ/Pwvwi/oM8VJ93Wgsds6KnYDdatNOLalanTefohwi/z49
-         RHCrmj/DILIxLZaX1aRqXF7Goj+Z3Di9Tps/hEP/0GjWzQ6T3xp0QooZCgjRGijAtST8
-         h/rA==
-X-Forwarded-Encrypted: i=1; AKwUvBzA0yRf38ttJXM3C2wNBVIANF6zsqgEQF9JPxi51mcAECcqUZNzcKAat5GGj31TW18TQHD1ZJz2KIROybI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYtoSePsIer9tYkmQf+65eOpvkaYV/Wy0InNVWHPNcBvOjIbXF
-	kq0VBkk/p8Td7/84Y05ozYcxT22khl8au72oeK70Wk1ojDugta/EECxrLYveybm/7nU=
-X-Gm-Gg: AYBFou0mtgz3ry/4aEaD3diMEJ/bKfVNDCC9/lr1Q2bVAypk04V+t6XlJ6MoqnGFjaf
-	TnNsvas6/355uF4a4npl98YwL+udCXrh9j4o00p/b3fb87a7a0/9RX7NCgH246iHZiXYIMfTNv7
-	73XEkvAMjxckzMfV8/oJIdg0ESZgSPJ7lvkQHozQsjl0kWb9tAGiyLfCASv+z84lIjCWE//CtCy
-	1EpobxWT/X+3bZLROryv6uUISG2Vg6CQ+xNv72VnG/2siKC3xtVtLFrcwWgA6PR8Ozd89w0rJoC
-	C1Bccz/T3vZBMkzxlW+0C5GAZO3uOR5AKaTsdszjjNUOV25t/F483rFDXijutVC6tc78p/CaNBo
-	RtQ2JGYdf86kDYMyXo5QPdsb7CtsoNyywHvvYAsy3uUjazyof53IjCw2SV9Rlby3c/sQ0y0TIjj
-	WRHievTPHiiBpJGdWXKUkceiyB1ZeGsKr+CduVNzUnKQE7TglA+8YbhTeFXkJin4x3idEcblxfv
-	VqRqQ==
-X-Received: by 2002:a17:90b:254a:b0:39b:ac66:bbc with SMTP id 98e67ed59e1d1-39e1e2ee271mr13586772a91.7.1789632730722;
-        Thu, 17 Sep 2026 01:12:10 -0700 (PDT)
-Received: from nina.. ([147.46.174.17])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35e732d6sm3822361a91.11.2026.09.17.01.12.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:12:09 -0700 (PDT)
-From: Junghyun Park <mastpark2001@snu.ac.kr>
-To: l.stach@pengutronix.de,
-	linux+etnaviv@armlinux.org.uk,
-	christian.gmeiner@gmail.com,
-	airlied@gmail.com,
-	simona@ffwll.ch
-Cc: etnaviv@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Kf4/7XpN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3bNS7vZoXU7N1kY+Mih7avyiv/bjFO+bIZ/936OV2eE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789632754; v=1; x=1790237554;
+ b=Kf4/7XpN+XXJy1XmOAPCad0qeTiTCs9GI4sHhuBz+MAotbrj6pnyvpKAG2E/WyjFX+saYH3d
+ WKQtZqX42HVy3Yr7s8NB4ah0nABzld9+aeUWhgkoO8jQQMwyvLkV2UnySpPo0kvWYv6vjGm5fzF
+ yMTxENaEfZi9GgrScIiUh4pw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6fe8c84a50e127c8;
+	Thu, 17 Sep 2026 08:12:24 +0000
+X-Mizu-Trace-ID: 6fe8c84a50e127c8
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org,
+	mptcp@lists.linux.dev
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	VEGA <vega@nebusec.ai>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Matt Bobrowski <mattbobrowski@google.com>,
+	Tejun Heo <tj@kernel.org>,
+	Nicolas Rybowski <nicolas.rybowski@tessares.net>,
 	linux-kernel@vger.kernel.org,
-	jjy600901@snu.ac.kr,
-	Junghyun Park <mastpark2001@snu.ac.kr>
-Subject: [PATCH] drm/etnaviv: reject read-only userptr BOs as perfmon targets
-Date: Thu, 17 Sep 2026 17:09:42 +0900
-Message-Id: <20260917080942.1258716-1-mastpark2001@snu.ac.kr>
-X-Mailer: git-send-email 2.34.1
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH bpf v1 1/2] mptcp, bpf: reject bpf_sk_release() on msk
+Date: Thu, 17 Sep 2026 16:11:57 +0800
+Message-ID: <20260917081209.361367-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,53 +67,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-submit_perfmon_validate() lets a submission name any buffer object (BO)
-as the target for perfmon results, but the kernel writes those results
-back into the BO on job completion: "*pmr->bo_vma = pmr->sequence" in
-sync_point_perfmon_sample_post() and the counter store in
-etnaviv_perfmon_process(). It never checks that the BO was submitted
-writable.
+A bpf prog can do this today:
 
-An unprivileged user can register a read-only userptr BO backed by the
-page-cache page of a file it can only read, via
-DRM_IOCTL_ETNAVIV_GEM_USERPTR (userptr.ro = true, pinned without
-FOLL_WRITE), then name it as a perfmon target in
-DRM_IOCTL_ETNAVIV_GEM_SUBMIT. etnaviv_gem_vmap_impl() maps the CACHED
-BO PAGE_KERNEL (writable) regardless of userptr.ro, so pmr->bo_vma
-becomes a writable kernel alias of the read-only page. On completion
-the kernel stores a caller-controlled 32-bit value into it, overwriting
-the in-memory page-cache contents of a file the caller can only read.
-All etnaviv ioctls are DRM_RENDER_ALLOW, so no elevated privilege is
-required.
+	subflow = bpf_skc_lookup_tcp(...);
+	msk = bpf_skc_to_mptcp_sock(subflow);
+	bpf_sk_release(msk);
 
-Reject a read-only userptr BO named as a perfmon result target. The
-submit-time BO_WRITE flag is not usable for this: it is caller-supplied
-and describes GPU access, so it neither reflects nor constrains how the
-userptr pages were pinned.
+bpf_skc_to_mptcp_sock() returns subflow->conn without taking any
+reference, so bpf_sk_release() drops a refcount nobody took on the msk,
+and the subflow reference is leaked:
 
-Fixes: 249300c740e5 ("drm/etnaviv: add performance monitor request processing")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Junghyun Park <mastpark2001@snu.ac.kr>
+refcount_t: underflow; use-after-free.
+WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xdf/0x120, CPU#2: mptcp_pair/440
+Call Trace:
+ <IRQ>
+ sock_gen_put+0xda/0x100
+ bpf_sk_release+0x5e/0xd0
+ bpf_prog_780c70b94862636c_rel_msk+0x127/0x132
+ __dev_queue_xmit+0x104b/0x3c90
+ ip_finish_output2+0x9af/0x1c40
+ __ip_finish_output+0x510/0x7e0
+ ip_finish_output+0x2f/0x320
+ ip_output+0x17a/0x3f0
+ ip_local_out+0x12f/0x170
+ __ip_queue_xmit+0x81d/0x1d50
+ ip_queue_xmit+0x4a/0x80
+ __tcp_transmit_skb+0x2f6f/0x5110
+ __tcp_send_ack.part.0+0x385/0x740
+ tcp_send_ack+0x70/0x90
+ __tcp_ack_snd_check+0x1c9/0x8d0
+ tcp_rcv_established+0xa1e/0x44f0
+ tcp_v4_do_rcv+0x4b8/0xb30
+ tcp_v4_rcv+0x27af/0x3e60
+ ip_protocol_deliver_rcu+0x95/0x410
+ ip_local_deliver_finish+0x357/0x5b0
+ ip_local_deliver+0x15c/0x1c0
+ ip_rcv+0x284/0x320
+
+bpf_skc_to_mptcp_sock() is listed in is_ptr_cast_function(), so if the
+subflow is a referenced obj (returned by bpf_skc_lookup_tcp()), the msk
+becomes a referenced obj too, which lets bpf_sk_release() take it. That
+list is for helpers casting a sock to another type at the same address,
+which does not hold here: msk and subflow are two different socks.
+
+Drop it from is_ptr_cast_function(). To keep the msk from outliving the
+subflow it was derived from, tie the two together with the existing
+parent_id, so this gets rejected as well:
+
+	subflow = bpf_skc_lookup_tcp(...);
+	msk = bpf_skc_to_mptcp_sock(subflow);
+	bpf_sk_release(subflow);
+	msk->token;			/* rejected now */
+
+The other option was to reject bpf_skc_to_mptcp_sock() on a referenced
+subflow altogether, but that breaks progs which only read msk fields, so
+go with parent_id.
+
+Reported-by: VEGA <vega@nebusec.ai>
+Fixes: 3bc253c2e652 ("bpf: Add bpf_skc_to_mptcp_sock_proto")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ kernel/bpf/verifier.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-index 1a77a09b3..e44fa40fd 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c
-@@ -322,6 +322,13 @@ static int submit_perfmon_validate(struct etnaviv_gem_submit *submit,
- 		if (ret)
- 			return ret;
-
-+		/* perfmon writes the result back; refuse a read-only userptr */
-+		if (bo->obj->userptr.ro) {
-+			DRM_ERROR("perfmon request: BO %u is a read-only userptr\n",
-+				  r->read_idx);
-+			return -EINVAL;
-+		}
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 9e79750e2480..5db49a0c346f 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -522,11 +522,21 @@ static bool is_ptr_cast_function(enum bpf_func_id func_id)
+ 		func_id == BPF_FUNC_skc_to_tcp_sock ||
+ 		func_id == BPF_FUNC_skc_to_tcp6_sock ||
+ 		func_id == BPF_FUNC_skc_to_udp6_sock ||
+-		func_id == BPF_FUNC_skc_to_mptcp_sock ||
+ 		func_id == BPF_FUNC_skc_to_tcp_timewait_sock ||
+ 		func_id == BPF_FUNC_skc_to_tcp_request_sock;
+ }
+ 
++/*
++ * bpf_skc_to_mptcp_sock() does not cast its argument. It returns the parent
++ * MPTCP socket of the subflow that was passed in, so the return value must not
++ * inherit the argument's reference, or bpf_sk_release() would put the wrong
++ * socket.
++ */
++static bool is_ptr_derive_function(enum bpf_func_id func_id)
++{
++	return func_id == BPF_FUNC_skc_to_mptcp_sock;
++}
 +
- 		/* at offset 0 a sequence number gets stored used for userspace sync */
- 		if (r->read_offset == 0) {
- 			DRM_ERROR("perfmon request: offset is 0");
+ static bool is_sync_callback_calling_kfunc(u32 btf_id);
+ static bool is_async_callback_calling_kfunc(u32 btf_id);
+ static bool is_callback_calling_kfunc(u32 btf_id);
+@@ -11369,6 +11379,14 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 		bpf_diag_mod_begin(env, &regs[BPF_REG_0], NULL, BPF_DIAG_MOD_WRITE);
+ 		regs[BPF_REG_0].type &= ~PTR_MAYBE_NULL;
+ 		regs[BPF_REG_0].id = meta.ref_obj.id;
++	} else if (is_ptr_derive_function(func_id) &&
++		   find_reference_state(env->cur_state, meta.ref_obj.id)) {
++		err = validate_ref_obj(env, &meta.ref_obj);
++		if (err)
++			return err;
++
++		/* Ensures we don't access the object after a release_reference() */
++		regs[BPF_REG_0].parent_id = meta.ref_obj.id;
+ 	} else if (is_acquire_function(func_id, meta.map.ptr)) {
+ 		int id = acquire_reference(env, insn_idx, 0);
+ 
+-- 
+2.43.0
+
