@@ -1,134 +1,113 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436224446F5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627395; cv=none; b=SOueXu2nt1GtSbF0CAVLQ/wb9+my82OG4Btz3NYhkbwCfHVyg9djbXT/iitVGPOAoY5wsVuyVYLJyPO7W/BunGwvd9JCagk4jRJp6xuIUBq4vFryG0iVEF4pJYxu3jFjjJkZxS2GMMrm2x8Js3/fKrnAKUSryBGB0AFcy4MR3g8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627395; c=relaxed/simple;
-	bh=Ndq3XZzi/EfqSQhUKNfVgunzhKMGpjb6wAnuZVaabKw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bsieG9/K0gaVXwjmvPwuEq1bprmvFYMaRGob8KN/sjyV2yrliLiDCwGQ1LxuYDIPyq3wjh0Y0k3MfX7r6LjU/n5RAt3Os1GwfYMGZ2hG6xmhvXGu1/dtMVOdW1L/29x0PN45YYkzq0vXbKMHqGctOkll4XaMlTe8issO2kNRzbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VwvRS+AJ; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887C43E486
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789627404; cv=pass; b=YjIxMCFkJnwh+5Kr42vJuAl2RPla6HrOhUTCkBPxmAKAts2RQPQ31EhSbhzBtvXaSbLzvMwuljK5idRyikxxuNbGf38gu/FdDjQJB6yGPWMsi/hob7/vmo61v49FqS9eQbxDKy6MHbimHqrp75S12e5lEIAi2HXgof7DSIVKexI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789627404; c=relaxed/simple;
+	bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QYimxxWg1u3lIjI9LinwG5cRd9KdFkE8ruCTWConf0BcfXyC/0X+xQL+JDDDlfH3TXKiCv080LUYFswYF7dQujPiYgP+hq01VXk7dLB/Petiu7m1iOJvewoLTPN72XQG+ZPNR8ROWgEZuKUZYQ16uwAtoahMwWBUFu1m8rXCYgY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCrgmO7O; arc=pass smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VwvRS+AJ"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so954150a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCrgmO7O"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb767cc71so3815781cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:43:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789627398; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mY0TsSGvnmwfTPaeiGFQcrg5HEHNuovV7vyRklhLRj01gTQfoPv9dFdOuoVzwo+A78
+         GT3Bs/I8fRYQm/Kk4qyb8JK83eYXGe+Lfo9pBa1sdTlrYRBoREmysv4YhvaDzNbCBbq/
+         9AVGdlnWD3mfQfDPL+baVdrrhSMNYu6y9y4x/oHxk0s1KTjFWQKVeB5Pq2puZyjVJFjH
+         XWmct6vz9hsXOxbjRch4hOgtPp59RH8+sDICqc38BU8Pruoe/xlvM8QlGdNbfIvSMI6Y
+         Re5i9xx4Z9HlRE+PRoD4x52NNNZfsID7KAMiQNRYNDF0VNuVmqZGT9cp8ew79BDL6tBW
+         BYrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        fh=YxmMITHj8Zj6HfsJXXdHivtMurPGdEV1d6Q3u1JDsrQ=;
+        b=UumQsROiQy3nielF4sTH79TcL1YYBPrj0baKpIpagTjjfXoCLM9jZrZcmpAdNDGPNJ
+         GWO/JK7M4lGUD2ZHOPUxnhcLFV1UProPi95n6U8CRGVFTxP/QkKSWixp8WDIICVTNhY+
+         Ww1hR57TFTYqToIy5veeLp++VRevKwVp0p29Km4oYem/37oHCvFWwGWYivSIwSDTHNjg
+         NhhgDD39NMlzP9grPzEOEIju5+5dROWvdcr7yR2v2c+aK+DN2TtrG7zoO6zyR9d08JAP
+         9UTEC/VRuePL9WnAQ6M9fRwpt5IbIpNqcYB19D67TFAT2KrCwxivzGsxNYL8MsKHfJVI
+         fDlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789627392; x=1790232192; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789627398; x=1790232198; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rtkpF+2hXoqnckm+Z523eWfhpUjaBTRb2bRSM1mpO+k=;
-        b=VwvRS+AJzgJ6yZowNbliN0GTMTsOS2d09TZjbuTKVMyyMZczGVmJt5A4GBc6x7xXkq
-         26UGxKrchJWwt9k6HnMHaxIoL8J6llYBAgJudZqCpidY9KmHA0mLTFrX/nxxJENOZZtk
-         nMbaAryqpMDe5fYYz1YhMpUFgs/O120KP92OTDqWUnAVJi+G3iOWMVUp4JPPFpZL8zae
-         0FAlnWNC3g9oSsa50zq22FRnREuZi3GZaYgvs5ntUs+RCagClUVSSbj6f3FCn9OHGsLm
-         jI780lUOvzZMN5rggoy+biO9nESk/XlwJUkicUVYzibP8etuqahD2jXXuekoebjDlF8u
-         cBIw==
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        b=iCrgmO7OPliEQzqBbml3sQiFH/C+xCYALws4iKaOXNhOtOr/zh3gi0W1CO4QxiANez
+         D3wO3I8MigUbUwtp7E9unoRqQbF/9k6bmm0g2hNfwma1ZvLF6tvrqgX7fbbqDnaAVOMl
+         x9EOnUTH/xmnfzTD4TOhQHVBtBSRgDCNwC1tNMRbe0dGe6SvBRujz3m98w9EKvlvvTMl
+         b5yjOuaEF/Hkc1JCrUXfpucbppO/KXqnme2jSBORk4kNnrLc3icdpdo2p99w5OVwXkSN
+         KdKdeC9UZn9o6zi52ADGdw6XaalLYRuYYEkGjrub8GZkYOJpXsdRAbQX2iCWqk35Xlwy
+         s1kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789627392; x=1790232192;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rtkpF+2hXoqnckm+Z523eWfhpUjaBTRb2bRSM1mpO+k=;
-        b=kNBf/pqZf723hBv1IDJ+ZEQpJbz6cfG2+fpTwVBRhRM5pWhlP8jdRmYdr56tgHCt0j
-         A2PIJRNz4MSplKpmFKSnsxe2BdjTU9FPouuL7fs/j18pUnk53oF3WCEBLj6+TlOI0e40
-         Jq8w6K225PnFpLeVbHgeYMtRgPGqo4uSdVVpMrCgWq2i6iQeFctKNfI2lQ9jHsyp8JaO
-         jdLm181TIPdyaNx44jDy0HcI6Fm6yN99QayPA16Kes6Yfzbg36Qo3zIGeE/0O1eNkRpy
-         LPetIL/4qZkKdT39cM0uzCrRBVvneGIHDJ4No9meaYMI2ynZBLsfTozo1Ku3x8wZzgOc
-         rghQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmr4v0gYaY59RP0Lwlmx9ro1Q/jydPI28AvUvVAbeVNu4LK4DLQOOUHh46fq8JDrkTtR6FDmxTn3ea1XI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjoYjuMwLR5OnxI4h4oQCpQ5CGdnKaUBBuc+TJ8z+M7EOm0VYQ
-	7+FhCMTFMwY/mtUtMRhPUcS4TkZpQGj8BXEb2Uwbpgpe1AwNUsmnSIDZW16oV9dukAeris28nZQ
-	ezKs/Rwah+g==
-X-Received: from dlc21.prod.google.com ([2002:a05:7022:395:b0:144:bebe:a64])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1811:b0:39d:e54c:8658
- with SMTP id 98e67ed59e1d1-39e1e250230mr16608214a91.5.1789627392115; Wed, 16
- Sep 2026 23:43:12 -0700 (PDT)
-Date: Wed, 16 Sep 2026 23:42:35 -0700
-In-Reply-To: <cover.1789626977.git.irogers@google.com>
+        d=1e100.net; s=20260707; t=1789627398; x=1790232198;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        b=2y8NFbasg8iI0jj6X6nyIrkR4MG+x9O9b/enWjmv+3IWu/d0EQRRzwb9XFtewakfSc
+         01Kvn4/2BEk7VTJVRLL+bm0eIcXNhh1gVsgpCmPVmzJY/2BT9Cq6L32gMV9MNW6K7AjT
+         lnY8oDWf0fsehopsl+Iu92ljMa5zwYotZNqjd9G8eso3gM5fQBp7Prv2u/eRXTiTZqHJ
+         Lj0hG1G6LtGtvzNaVqTzBJmAxbvX0yWZ9K8T8y/SsdUM8kxclfZukKUegRPQJmY87jD7
+         cUooFXy1ugpUVQMPIWkI9cghWWoNNV+TQ7vWkEJBp0a7UJRRC7kmnVTegCmarSEQGmqB
+         C8aA==
+X-Forwarded-Encrypted: i=1; AKwUvByWbVPT+sMVnBeS3dldlxmTif5yggdx2Yvb0x2qq7dtV1hKTwTLt7drZzEwwtmqG8zwTQjgH2EyI/XYvD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpb3s/vIZ+dlxpBgChpTvHxRCNztySJ46C7GcYBrcC249bYvQ3
+	qkSY5sbS/kghHkrfwiQNtp0MSVoL/Q4v0qs2M6qcl4Eq8Ep2EkUmgNjOOQvJo8avChr5abeiJJX
+	aP83auCpalxa76KE+Tpz2zXD9DJlYTZGwnIyCl1Q=
+X-Gm-Gg: AYBFou1z4b7NsmEUujUNfANbkEPfEzz+RtHthF1IKDcJjZLyOyYhx0/6dQzkvAhUxU+
+	FkmbsRImi/C+LTO5YuGEQPOOfvKwARgmekGvazGFchN0VG2bUkgUKlhfSx71vozGNlClzxTKye/
+	gq7FHovysOVlCFYRu4u+U1syEQzHCnyX42fy7yaJ9zEuy6EjXrK16MbqW/douOBnAkD/59IGiq+
+	uSnthsuzniZ9KwPEg8/PLYhVKxnTA+6oqGoLtz5+WqDffqgClAEqrPZYn21dYiNcvS61dOCBa96
+	n75Lz2pPGNJCE65RCbYy9oXFrfrC2xnP4U6BeMCkNxvJnbg8SQLmoejY
+X-Received: by 2002:a05:622a:58cc:b0:530:feae:130a with SMTP id
+ d75a77b69052e-5327ed75c74mr102732471cf.11.1789627398229; Wed, 16 Sep 2026
+ 23:43:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1789626977.git.irogers@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <80beb357d1eebd77f99982fbf4741e8b5fefbafe.1789626978.git.irogers@google.com>
-Subject: [PATCH v1 13/13] perf test uprobe_from_different_cu: Scope probe name
- to PID
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
+MIME-Version: 1.0
+References: <20260917060948.14700-1-palaomer100@gmail.com> <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
+In-Reply-To: <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
+From: =?UTF-8?Q?=C3=96mer_PALA?= <palaomer100@gmail.com>
+Date: Thu, 17 Sep 2026 09:42:56 +0300
+X-Gm-Features: AcwNN1W5u0fdpGa4ENT0dZ7irXfB5ehQ6MdwksADrwwfNdm6bS_Me35uFnyAKQw
+Message-ID: <CAKhZXnp_oYvhmcjv0piYC5MpmH2Lqsy_Z3-ofzKPX_iRxnP3EA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: misc: add xlnx,axi-fifo-mm-s
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-The test builds a binary in a per-run temporary directory and probes
-its foo function. The directory name is unique, but perf probe derives
-the event name from the probed function and the group name from the
-binary's basename, so every run registers the same probe_testfile:foo
-event.
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> Same day? Are you coordinating this anyhow?
+> https://lore.kernel.org/all/20260916201253.483877-1-matyasdaniel005@gmail.com/
+>
+> Anyway, same answer.
+>
+> Best regards,
+> Krzysztof
 
-Running the test concurrently with itself, as 'perf test -r3' does,
-therefore fails in all but one of the runs with:
+Oh, i didn't look up archives.
 
-  Error: event "foo" already exists.
-   Hint: Remove existing event by 'perf probe -d'
+Sorry for wasting your time.
 
-and a losing run's cleanup goes on to delete the winning run's probe
-out from under it.
+You can drop my patch.
 
-Name the event after the pid, foo_$$, so that parallel runs no longer
-collide. This lets the test stay in the parallel pass rather than
-having to be marked (exclusive).
-
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- .../perf/tests/shell/test_uprobe_from_different_cu.sh | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-index 7adf9755d6de..47c99d93436b 100755
---- a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-+++ b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-@@ -18,12 +18,19 @@ fi
- 
- temp_dir=$(mktemp -d /tmp/perf-uprobe-different-cu-sh.XXXXXXXXXX)
- 
-+# The name of the uprobe added and removed below. The probe is placed on
-+# ${temp_dir}/testfile, but perf probe derives the event name from the probed
-+# function and the group name from the binary's basename, so every run would
-+# otherwise share one probe_testfile:foo event, and a concurrent run would
-+# fail with 'event "foo" already exists'. Scope the event name to the pid.
-+probe_name="foo_$$"
-+
- cleanup()
- {
- 	trap - EXIT TERM INT
- 	if [[ "${temp_dir}" =~ ^/tmp/perf-uprobe-different-cu-sh.*$ ]]; then
- 		echo "--- Cleaning up ---"
--		perf probe -x ${temp_dir}/testfile -d foo || true
-+		perf probe -x ${temp_dir}/testfile -d ${probe_name} || true
- 		rm -f "${temp_dir}/"*
- 		rmdir "${temp_dir}"
- 	fi
-@@ -84,6 +91,6 @@ gcc -g -Og -c ${temp_dir}/testfile-main.c -o ${temp_dir}/testfile-main.o
- gcc -g -Og -o ${temp_dir}/testfile ${temp_dir}/testfile-foo.o ${temp_dir}/testfile-main.o
- 
- perf probe -x ${temp_dir}/testfile --funcs foo | grep "foo"
--perf probe -x ${temp_dir}/testfile foo
-+perf probe -x ${temp_dir}/testfile ${probe_name}=foo
- 
- cleanup
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+Best Regards
+Omer PALA
