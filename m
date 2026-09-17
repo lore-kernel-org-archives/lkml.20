@@ -1,118 +1,117 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF874DD3B3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DE14D2EE6
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647068; cv=none; b=PiO8C/XkgFlTXCLghPPSeme3L43HRErdQajlmwZXlDx1HoFM+VD/JY80u7a+DkxwHoFd7BTPMU5is+WiOUD9WiSUKSvI1OOgeveMS5KHsDKzo7OAFNUeH8QOvF7mk1bTxoYliexXL7SsfvQKPNPgOwkm8zGb+YFIi7kLYBLlPG8=
+	t=1789647125; cv=none; b=hxsCOv5FUGhHNeOfQoR0y0TS7McatWqd0aQRZIlmq3Uc8Mn4C6/yIChevzMygAKIdxvsrnbMFSRuNUK9HDLFfYAMo92+tR22KpKm8HctauLso5tBnZhBoHx0MWDF3A5oRTICn3IcaI83lrzS4IXEA4takRpB0/7eqy+9jAnYDmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647068; c=relaxed/simple;
-	bh=2IuuBesuhtQABZX5aTgcPIV5cqFrtbm6oW8Rke4nfe0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dRMdF6+GVXYfmHwjD5HuKUgxui920dm1ZYqMNWmxmaI2rb4LzRHRK6tuzFeIyYPX5ihYGH3UqQ+bLEFsmmWk1XXYomft6ZOOVrBXwwE6GwO1XV5dV/lq/nKH7PrJZ1GIhCV2mxwVBmf4MODxLGDL3pX0ohpyZpx2G1Tt5XlcTLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=KGZi5e8S; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	s=arc-20240116; t=1789647125; c=relaxed/simple;
+	bh=fgZUHsjC2iQqVx1aidjdwZUHIcyExmr2eJm26WWTVec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VmFlaLVDhxTbRpM3bqVn5tJsbZXBHhGWfmofkxjRWU5KjbANdKGF8U2XSYIlLze5vwc04PZBC6/6C+o13kl91c3XCLceQetEkLS4d+DT21fqBT9vF2pLkBbplWl/boRYbUc6yg1rTJiW/cjyd25MCafKzQqLQxxnZL7uNq7ovpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g4JtS5Az; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="KGZi5e8S"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d37f9dso319922a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:10:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g4JtS5Az"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so598921a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:11:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1789647049; x=1790251849; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HHax/jJrt/1XwwtW9NMv6p1y2gNa0xD70FHoF7NK73g=;
-        b=KGZi5e8Srbkk19d0xhNeSKueOlytHXJn2Mnb1IgZJcFBE63RE7LSz5Zq1kSQjuS1qg
-         h5n3EU2zFAEv+PLOPQnr4ff9LN33FG6GUXiLB5TpEz3QATMvIF9l8MFFE93aD2DHHfGj
-         x3G1ckFmdbMIUdluJFQvViAKg8mohr5QEmxOc=
+        d=gmail.com; s=20251104; t=1789647107; x=1790251907; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3s7WaKRRlkRIaU7v5QcdZYP2vnYlxGT/Y2lUD7nlyq4=;
+        b=g4JtS5AzYzBAAUYxUrgxf2xx95X2f+9qvHAekeOKqLx8QwYvqQGcvtuA6lXZnPoIqJ
+         gdYpZxUaMTkt83FodoEMNrCzEDmm1+dlmZf1ii3DBL3UEc74CKrXqpkOqu84eH51Zbp6
+         FF+snR0SKbAW33pf2olYU5DjunAqBkysDlO8N5zZ479EhqgqYPjPR7n4mHXx39DRo6yQ
+         D4AHbga6HEmN0l07d8/jeitUF1mdXSDsJJGKV/hr0avGiS6MlYZmdDeEyvNxq83wNUTO
+         6cHXZ1PlHPjpGcyrHT9g4uvQ7nEYE2Mwu9TF0sphjcrD2N0mRVX3EPKt7Dm3ABh97t6N
+         SrtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789647049; x=1790251849;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789647107; x=1790251907;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HHax/jJrt/1XwwtW9NMv6p1y2gNa0xD70FHoF7NK73g=;
-        b=c/sNqbcCAOjQJalNNmqs+lixRd36ny8ePTELilTuL41YKVbUE+d+QdmLPTCNwINKtI
-         fzoLENW5WCseqMhtRuV5Ioo1Tn5nBVpdg4Q23rTFwIyPz9nfeFu9LdhrOUEYZ/4fxPN6
-         pPytliL2FimWHznEa1+EUm6W5sRijAjZUWOj0P+QiWtFbljsOs09J0FociKh72Up5RZj
-         onMppHXU+DzXMGdX/SJkjjxbKOpf+ZLR3TQakcreF3lUWrkn7lAhQILdGK+o5rv9n7Ub
-         iTLM6e3asBQM0NKOd/GBQ3pby2pCYci/bmYufr1HGgTMGBAx6qFvhinnOvdes2qduilz
-         ey+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxifXTOsNWzcuLOTSRUHBUORtI2EYPGZ8s+64XSHAFadvYSIpjDoYbnfoOkaSA3syX1PDCLhfC3NNapfr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDFPUoYDrghjZmAqdBpygWewFxhIogTkXz5HWMQhgIQBEBzXJC
-	pdkUlZGogq63hljIQPntmDxSe/FncF88QXbI4PpEdVatrChWEQHuITvUJeB7LxQthw==
-X-Gm-Gg: AYBFou2pMlFYIRjRke5zRF4SGrkD6K8yTiiUQKAeFnAmdWIDsfemVnEiI+MnV/d2t/f
-	BsVos2SlyrYNpwNHj8RtucJvwcmUPf/MJNcGJKJ8X7823pGAIlylGCtzUdKSjOH5BNGgYdyJARM
-	NxNEAQEuDDHdaBvd2awB/FEpuImKSJmrR2qRHgBKFpqmtHdjvz9yN1IapOSyHw+iX3/cXekWtUx
-	3UCXMYS8uvSME/Zu5EU9D3XI0cwstPtyGFQ/oyhyKStA1aEuu/nJOmAB2+1z2KVCFPCCXkeuGvp
-	C9m5JugImoraYJatRcs6BkG7qLDqgSU0vtM2WUXFE0/KyCeZUNw938VFJQww5TNQOjqKqu3Eh7W
-	V9J1p7gJL5g2KgqBAgyTabhpetdLcapwi4rUPlDRZvBRb1T1JuiRD9z+Ee0ARjSQZzDlQkq8m1A
-	s0N8FjNwTJ1e1xScZoXn4c2ttZYAGT7En3+z2x16eKdB28509kp/qD6iAK0psnKBj3Aw==
-X-Received: by 2002:a05:6830:640c:b0:7fa:5c49:5258 with SMTP id 46e09a7af769-80b2eb61acdmr7602954a34.31.1789647049145;
-        Thu, 17 Sep 2026 05:10:49 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 46e09a7af769-80c466a2e6fsm2510405a34.14.2026.09.17.05.10.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 05:10:48 -0700 (PDT)
-Message-ID: <7509f005-709d-46d5-8554-b9d2fd0cd218@ieee.org>
-Date: Thu, 17 Sep 2026 07:10:47 -0500
+        bh=3s7WaKRRlkRIaU7v5QcdZYP2vnYlxGT/Y2lUD7nlyq4=;
+        b=t1sXmT5DjFWri8D7PMreS8U0uo70dTPdezx73zdMoVGjB0piFNZStaT4fh9CbFZnHa
+         CmSOauuGE6q/+bJ3pybYB7lWO8yRiFdMv8SEokDz1Gy/QssTgh/A/Ulc+PXLeTQlRWXP
+         DthzB7BIsDOi5IS5mV8GLZ9fTGmZ6tbSeyj4UExIboZhmPLl8oqDxg3J0bFCXkGWE26f
+         LFU9Iw1A69Np8DpAaWHB6feBvX0ewcm6ucZi0rHgplQ6mpDOaN3dRpBWAPIm+0n3BtMq
+         VJdVGWZ5x+ghZ9SA29qH+wBvlNdcC05Ita/w+RRT3Ntlo6NJAULEWtq8SfT7xBKTYVIW
+         jrsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQO3VTPZU5UsV66LllaCTSLbABNfKQipLpn5JuFDUID572k9P8asxQzvAEEiXwPLkh9kP/lXjaZm/I1B8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m181szIEWruFAcZSgYoyqPc4z1k/3JqZlvUtlb7oHKSMheWLkv
+	3Hxp/+9R1Kq8NWlx6GBNAQ0kb6rO5tE/H7r1fc7MvOQtQMhtlCX+Mcla
+X-Gm-Gg: AYBFou3ExFn6w2aOB8bYceFSyaFd1aSfI1hOsqsHP7Z8S8iXDcqLurqAyTx+vjFqStG
+	PonBh+Q984z3tAY0i2r+zDpZS2Kot8l7jZks6ssdekF3bXSIf6afBmxBwgAdWb9vqRL7ixdPbet
+	WYVijxNAb/C+NRAC9XM48qnWvW7UiJ1COo7USgjF/Yk8VnZswATS4hk0CXuOgv4NKdwpX4gFDUo
+	6Ie4edV+Wpu6Q9UGngkKOpIlZGzb1E1K6yzppASR7FbiJHc9Tvpn4xMAWQsO/JpyKwK92GozXOj
+	Hp7gN3F/h3qZGwQS76tUEYgpApQNQhVw8QQsdGIQISeJtVfdiTG+rOn9eFW/AgiJbrR0T1xzVrb
+	75vUKBhieOvZ71HhRliWl0Ihm20fV1YO7agU/XumnPN1n6OfiavK2x4lRK8slbICfrB5YbKMf3J
+	G/yz3iJfKAQ3Z2kx5foYFHf9m0SKLWZJbl2rIGb/cK8Ak8ozshVF/CdLwz86WSXRsIgREOtrs0y
+	P31vfFYwEojTBSaEXNgbgITI/EfUgnnWsljcnyLSqlECdC13+h185MktX4+ifyZHhxe56V77c3R
+	xBnoIhTdNmiZpRg=
+X-Received: by 2002:a17:90b:1f84:b0:39d:f064:3a76 with SMTP id 98e67ed59e1d1-39e1e45e49amr14658875a91.15.1789647106769;
+        Thu, 17 Sep 2026 05:11:46 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3987cdeesm1219657a91.1.2026.09.17.05.11.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 05:11:46 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH] ASoC: fsl_asrc_m2m: fix pm_runtime usage counter leak on error
+Date: Thu, 17 Sep 2026 19:11:36 +0700
+Message-ID: <20260917121136.32527-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net: ipa: Fix runtime PM reference leak in ipa_remove()
-To: Wentao Liang <vulab@iscas.ac.cn>, andrew+netdev@lunn.ch
-Cc: davem@davemloft.net, edumazet@google.com, elder@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, stable@vger.kernel.org
-References: <20260917115115.2149796-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20260917115115.2149796-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 6:51 AM, Wentao Liang wrote:
-> ipa_remove() takes a runtime PM reference with pm_runtime_get_sync() and
-> is supposed to release it at the out_power_put label. If the modem fails
-> to stop, the function returns early and never drops that reference, so
-> the device usage counter stays elevated forever. Release the reference
-> before returning.
-> 
-> Fixes: cdf2e9419dd9 ("soc: qcom: ipa: main code")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   drivers/net/ipa/ipa_main.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 788dd99af2a4..aab38fea91c6 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -975,6 +975,7 @@ static void ipa_remove(struct platform_device *pdev)
->   			 */
->   			dev_err(dev, "Failed to stop modem (%pe), leaking resources\n",
->   				ERR_PTR(ret));
-> +			pm_runtime_put_noidle(dev);
->   			return;
->   		}
->   
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-This issue has already been fixed.  See:
-   6b9eaa61ff2df net: ipa: balance runtime PM reference on remove error
+pm_runtime_get_sync() leaves the runtime PM usage counter incremented even
+when it fails, but the error path in fsl_asrc_m2m_comp_open() does not
+call pm_runtime_put_noidle() to balance it, leaking a reference each
+time resume fails.
 
-How did you find this problem?  that commit indicates a static
-analysis checker was used.  If you benefited from any tools like
-that you should probably explain that.
+Use pm_runtime_resume_and_get() instead, which automatically drops the
+usage counter on failure, fixing the leak.
 
-Thanks.
+Fixes: 24a01710f627 ("ASoC: fsl_asrc_m2m: Add memory to memory function")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/fsl/fsl_asrc_m2m.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-					-Alex
+diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
+index 4bc40f328f58..8bd2a144dbf9 100644
+--- a/sound/soc/fsl/fsl_asrc_m2m.c
++++ b/sound/soc/fsl/fsl_asrc_m2m.c
+@@ -320,7 +320,7 @@ static int fsl_asrc_m2m_comp_open(struct snd_compr_stream *stream)
+ 	if (ret)
+ 		goto error_alloc_out_buf;
+ 
+-	ret = pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to power up asrc\n");
+ 		goto err_pm_runtime;
+-- 
+2.43.0
 
