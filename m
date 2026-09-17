@@ -1,163 +1,321 @@
-Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from one.firstfloor.org (one.firstfloor.org [65.21.254.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59054749EF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:08:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73CE497380;
+	Thu, 17 Sep 2026 23:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.254.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686486; cv=none; b=WMFsN90qNyAypq3wfLxp2Ssp0ud1S1w3gLjOqK9Tbi+0vvrNMM0HlvE/qOK8K5GqvKSRx4jSd0NR6BH5ujJn8ps+0epgi4ZUunGK9djj20Mjm3oZTRw1lTbkz7PqhL8ujn2d1+Wc6VYJcFHII9LZocHxzzOC5gItbGCopNWTr4A=
+	t=1789686562; cv=none; b=FFXZ9AHfl0SN7YNriCUKMSJyCBE3+UZVAUcvfns6owqAwS49zzeG8Mo7x82dSAKEfzQYVsDFRuZGb7+o8wRKQD8nJbOr96b49Zj48nznWFK7VJlmCYPggsLnJOxBS9sV2da3wVxFzljrn0mAu4ohzNUfEr68Qz5ws5NY4aVRvOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686486; c=relaxed/simple;
-	bh=Qyk7IaW5D9rtnfADN57JI/cA1ywHq81PbOJcwVPWGSs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W+wNzu8eN46y6H+Uq0vIuKcL7QOroPipb3lfiwZQbgkV88EtOabxMez98FVBDw3xxmZqYLFMxqNFXfuJB56Q97yV8izhUp2a1Q03BuFVUeq/wkL9olKD5kNpwhb6XHa27H2bt6tgACu8juhZtvcLcXNlgn4e8WyrB15NHzIJW40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=LMwQq6gH; arc=none smtp.client-ip=209.85.210.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="LMwQq6gH"
-Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-871807d6148so63596b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:08:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789686477; x=1790291277;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KkBkFvNjZkmBQ+ciR5KjrTSHBNZ+IYK3WHfHxYYYMK8=;
-        b=qRwGvQRJ34EgpD6pt11P9u7Mst/GRTAvuBxfXNwIIFb2N0m0W4QuJcepN0UmNq1QTz
-         9qjOPZlJxKhSwQW6Xm0wE0TXE1I9Jfjygq6e2cn2eUWnDAY7ZO9b4e2vryolE2AqBDMF
-         RssiVLf3qC7Z9B+KiizKE3FRNjdT6aIBaRtjaPg2Wq699EGWjAcqHqX9fMGh5SgmQuTo
-         hglavrN18FYRtCGPWu0l5lkYrTJB8ydWbGSCxoLo/zqqUi2VbCGIrWXXbCbV20ZQe3kZ
-         t3yURGEaCoIYpW3CR7ePJYknFvDl/Xu/H8fRj4k+JXmSHPB/9k/TE9lxj2Gv/99k95Ag
-         Eo/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxqSrhk1j44f977Waickd/3eXjlCqXSfwaCY1S6uks52X37cUJwFjFgf7KvcapUwjTsKE/VPVm7GM1IXNQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQLgWA7F1mXB3lzlZX2IhMFDeJHlHznDuI8sMvQcLPuHG50DfV
-	yLPpd62J28dhqV2Zl5SvZ4t3Ih9AR8PVBDidzxgSdpxYopic3MOjHTrgAJIIamHNxktFVgGMVnN
-	F+21Rl418T1olf43a2GawsSE3MbXfsgiA5BHkXxtKN03uFcFZfoQnuqEmUCbXizkRv5TgYRH4dM
-	bFSX5vj7gNOLAOw+Xdz0QJ/0hqBHqdaNdUcY6xqQTQ4zClfuJtxJOQ+OKFoGNwVucr24ajGXHtw
-	dXNpmtv+ZCWkCDxotnccHwn
-X-Gm-Gg: AYBFou2iMFbpwTVLe8QogiuNwcDKX4dViVwxPN622BKpaZNYTzH2ITCR3jyRHhFvwHg
-	fEA54DfWppq+fU/iv0XfHjauLzxQns5MtWqpYbEqjY+8QIorEyt3Q0FHMpwt3ji6jSnhXgcHi2k
-	8PJYFHrR15MUKU7dnyZJ7EpYbnSAZdQjJpEEZhn/b6acHd1Rpg7Bc0Gy7/3tTbEhkawl0bcfvM5
-	aYD2e0ApJA9QANpPjyVjaivsk0wvQGSq1OeTqnWWWdxXXeIJHpCORfTYdr0DkYzurTy/1S5EesE
-	esvbacFWL8H/OgyluZlQg3fYaiYdLMUtajRdhFPI416e3+r48TXfGa6wPXuRFic5v6CGxUTYeyM
-	9wi9xotETXnRmQUNhccIV5eroY0PaXMQcQjN8S8tQgJaUQUMNgX6buHIC1OkxFBFuJaWxVmniuo
-	014+CPPR2znmZ7OE0VIrOGoFGotGaMvoMIZzd+tq3G
-X-Received: by 2002:a05:6a00:2d8d:b0:869:c368:3675 with SMTP id d2e1a72fcca58-874dddfa51dmr943523b3a.17.1789686476991;
-        Thu, 17 Sep 2026 16:07:56 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-29.dlp.protect.broadcom.com. [144.49.247.29])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-87201535558sm2160934b3a.7.2026.09.17.16.07.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 17 Sep 2026 16:07:56 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc2229450b4so65199a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:07:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789686475; x=1790291275; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KkBkFvNjZkmBQ+ciR5KjrTSHBNZ+IYK3WHfHxYYYMK8=;
-        b=LMwQq6gHC980CO7El8uqg36zPDsHHths7iVx7tb+okf6U1MYkqmeaIVKpbDTwf2oiZ
-         cRN2Hv4BkRwsnXx4ziNSm8NPo1HwayxmQ0ZksPbzhgzR0gJ48FlSOMYrchFh7hNiww42
-         b//Ud1J5ALBxuMHMYMpk3kOmSAaxBxXMGlzE8=
-X-Forwarded-Encrypted: i=1; AKwUvBybcBnlDp8gBWsgau8i3fMNXLZU+6wMlIl+wBpZCln9c7XdtZWkmemY7A7tdk54rjrPpv0idbrUHXA/pb4=@vger.kernel.org
-X-Received: by 2002:a17:90b:1e04:b0:39e:4c80:f680 with SMTP id 98e67ed59e1d1-39e54f3dba9mr1123027a91.31.1789686474921;
-        Thu, 17 Sep 2026 16:07:54 -0700 (PDT)
-X-Received: by 2002:a17:90b:1e04:b0:39e:4c80:f680 with SMTP id 98e67ed59e1d1-39e54f3dba9mr1122991a91.31.1789686474393;
-        Thu, 17 Sep 2026 16:07:54 -0700 (PDT)
-Received: from [10.211.247.235] ([216.221.25.44])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf596e1f6sm21060020eec.1.2026.09.17.16.07.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 16:07:54 -0700 (PDT)
-Message-ID: <58026818-7737-4560-be64-5cf22f2d8d69@broadcom.com>
-Date: Thu, 17 Sep 2026 16:07:56 -0700
+	s=arc-20240116; t=1789686562; c=relaxed/simple;
+	bh=6BoZw9e7LsBmykesJsGuoupooeM2+els5btjdg+TKgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZiTqljTNEQTxvzpJn7/1xHJcMx4NRHJbx2ePXdbZRJWVpQYCTB5C1D0s35lcyYjcGQZvxT81aLbdt9AdAnvwdMmNmcrWP12KbCBbNC/2XmyRps/aIUhd1vXe8PiBRV4WTVnpuVSjO6QPdlxTSxVf17qG9TV2PjHsq95AroLS3ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=firstfloor.org; arc=none smtp.client-ip=65.21.254.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firstfloor.org
+Received: from firstfloor.org (c-73-11-123-161.hsd1.or.comcast.net [73.11.123.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by one.firstfloor.org (Postfix) with ESMTPSA id 1E56F5E8A1;
+	Fri, 18 Sep 2026 01:01:52 +0200 (CEST)
+Received: by firstfloor.org (Postfix, from userid 1000)
+	id 7E8E71622A2; Thu, 17 Sep 2026 16:01:48 -0700 (PDT)
+From: Andi Kleen <ak@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	x86@kernel.org,
+	tglx@kernel.org,
+	jolsa@kernel.org,
+	linux-perf-users@vger.kernel.org,
+	adrian.hunter@intel.com,
+	Andi Kleen <ak@kernel.org>
+Subject: [RFC PATCH v2 03/11] ptwrite uprobes: Add a sample module to exercise interface
+Date: Thu, 17 Sep 2026 16:00:30 -0700
+Message-ID: <20260917230127.924985-4-ak@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260917230127.924985-1-ak@kernel.org>
+References: <20260917230127.924985-1-ak@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/4] x86/vmware: Preserve panic diagnostics in
- vmware.log
-To: Zack Rusin <zack.rusin@broadcom.com>, Borislav Petkov <bp@alien8.de>,
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org,
- Petr Mladek <pmladek@suse.com>, Joel Granados <joel.granados@kernel.org>,
- Baoquan He <baoquan.he@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, virtualization@lists.linux.dev,
- bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
- John Ogness <john.ogness@linutronix.de>, Steven Rostedt
- <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Kees Cook <kees@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
- Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
- kexec@lists.infradead.org, linux-doc@vger.kernel.org
-References: <cover.1788414671.git.zack.rusin@broadcom.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <cover.1788414671.git.zack.rusin@broadcom.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 11:07 AM, Zack Rusin wrote:
-> A virtual machine may have neither guest-local persistent storage nor
-> working userspace after a panic. The host's vmware.log remains available
-> after the VM terminates, and a production encrypted guest is the only
-> component able to export readable panic text. Hyper-V already provides
-> this class of host-persistent panic reporting.
-> 
-> Add a panic-only VMware logger that copies the newest 4 KiB of the kernel
-> log and sends it with bounded low-bandwidth RPC work. Ordinary guests
-> enable text transfer by default; encrypted guests require an administrator
-> to opt in through kernel.vmware_record_panic_msg. A separate late dumper
-> reports the structured crash event after built-in dumpers and suppresses
-> the event while a crash kernel is loaded, because a configured VMware host
-> may terminate the VM before the reporting hypercall returns.
-> 
-> Patch 4 makes panic diagnostics run before kdump by default on VMware
-> guests. This follows existing platform uses of
-> crash_kexec_post_notifiers, with Hyper-V as the closest guest-reporting
-> precedent. Unlike Hyper-V, VMware exposes no capability bit for this
-> behavior. An explicit crash_kexec_post_notifiers=0 still wins, and patch 4
-> can be dropped without affecting patches 1 through 3.
-> 
-> This replaces patches 2 and 3 of Alexey's v2 posting:
-> https://lore.kernel.org/all/20260309235250.2611115-1-alexey.makhalov@broadcom.com/
-> 
-> The intended merge path is tip's x86/vmware branch. Boris please review the
-> VMware transport and policy. Petr and John, please review the panic-only
-> dumper use and registration ordering. Joel and Kees, please review the
-> sysctl. Baoquan and the KEXEC/KDUMP team, please review the 
-> loaded-crash-kernel guard and the default in patch 4.
-> 
-> Zack Rusin (4):
->   x86/vmware: Add a bounded panic log sender
->   x86/vmware: Add the vmware_record_panic_msg sysctl
->   x86/vmware: Report guest crashes after kmsg dumpers
->   x86/vmware: Run panic diagnostics before kdump by default
-> 
->  Documentation/admin-guide/sysctl/kernel.rst |  14 ++
->  arch/x86/include/asm/vmware.h               |   2 +
->  arch/x86/kernel/cpu/vmware.c                | 245 ++++++++++++++++++++
->  3 files changed, 261 insertions(+)
-> 
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+Add a basic test module and a test program for uprobes ptwrite.
 
+The module allows to configure and register a ptwrite uprobe in a
+executable.
 
-LGTM for the series
+Use this for testing. It is not intended as a production interface.
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Assisted-by: omp:gpt-5.6-luna
+Signed-off-by: Andi Kleen <ak@kernel.org>
+---
+ samples/Kconfig                              |   9 ++
+ samples/Makefile                             |   1 +
+ samples/uprobe-ptwrite/Makefile              |   9 ++
+ samples/uprobe-ptwrite/test_prog.c           |  38 +++++
+ samples/uprobe-ptwrite/uprobe_ptwrite_test.c | 153 +++++++++++++++++++
+ 5 files changed, 210 insertions(+)
+ create mode 100644 samples/uprobe-ptwrite/Makefile
+ create mode 100644 samples/uprobe-ptwrite/test_prog.c
+ create mode 100644 samples/uprobe-ptwrite/uprobe_ptwrite_test.c
 
+diff --git a/samples/Kconfig b/samples/Kconfig
+index a75e8e78330d..79da903edb62 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -322,6 +322,15 @@ config SAMPLE_HUNG_TASK
+ 	  Reading these files with multiple processes triggers hung task
+ 	  detection by holding locks for a long time (256 seconds).
+ 
++config SAMPLE_UPROBE_PTWRITE
++	tristate "Build ptwrite uprobe test module -- loadable module only"
++	depends on UPROBES && X86_64 && m
++	help
++	  Builds a prototype ptwrite uprobe driver for testing Intel PTWRITE
++	  support. Use the module parameters to select a file, offset, arguments,
++	  and event ID. This interface is for testing and is not intended for
++	  production use.
++
+ source "samples/rust/Kconfig"
+ 
+ source "samples/damon/Kconfig"
+diff --git a/samples/Makefile b/samples/Makefile
+index 07641e177bd8..0c970d46653e 100644
+--- a/samples/Makefile
++++ b/samples/Makefile
+@@ -44,4 +44,5 @@ obj-$(CONFIG_SAMPLE_DAMON_WSSE)		+= damon/
+ obj-$(CONFIG_SAMPLE_DAMON_PRCL)		+= damon/
+ obj-$(CONFIG_SAMPLE_DAMON_MTIER)	+= damon/
+ obj-$(CONFIG_SAMPLE_HUNG_TASK)		+= hung_task/
++obj-$(CONFIG_SAMPLE_UPROBE_PTWRITE)	+= uprobe-ptwrite/
+ obj-$(CONFIG_SAMPLE_TSM_MR)		+= tsm-mr/
+diff --git a/samples/uprobe-ptwrite/Makefile b/samples/uprobe-ptwrite/Makefile
+new file mode 100644
+index 000000000000..0b81311dd4b8
+--- /dev/null
++++ b/samples/uprobe-ptwrite/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# ptwrite uprobe prototype sample.
++#
++# Module build (in-tree or via make M=samples/uprobe-ptwrite).
++# The userspace test target is built by the in-tree selftest harness in
++# tools/testing/selftests/uprobes.
++
++obj-$(CONFIG_SAMPLE_UPROBE_PTWRITE) += uprobe_ptwrite_test.o
+diff --git a/samples/uprobe-ptwrite/test_prog.c b/samples/uprobe-ptwrite/test_prog.c
+new file mode 100644
+index 000000000000..1b57c522e215
+--- /dev/null
++++ b/samples/uprobe-ptwrite/test_prog.c
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * test_prog - userspace target for the ptwrite uprobe test.
++ *
++ * target() carries a 5-byte NOP (nopl 0(%rax,%rax,1) = 0f 1f 44 00 00) at
++ * its entry. A probe installed at that file offset emits rdi/rsi (a, b)
++ * via PTWRITE. In the test loop a == i and b == i + 1.
++ */
++#include <stdio.h>
++
++#ifndef noinline
++#define noinline __attribute__((noinline))
++#endif
++
++static noinline unsigned long
++target(unsigned long a, unsigned long b)
++{
++	/*
++	 * 5-byte NOP: nopl 0(%rax,%rax,1) = 0f 1f 44 00 00.
++	 * Emitted as raw bytes: the assembler would otherwise shrink
++	 * "nopl (%rax,%rax,1)" to the 4-byte form (0f 1f 04 00), which
++	 * the probe site validation rejects (jmp rel32 needs 5 bytes).
++	 */
++	asm volatile(".globl target_site\n\t"
++		     "target_site:\n\t"
++		     ".byte 0x0f, 0x1f, 0x44, 0x00, 0x00");
++	return a * 31 + b;
++}
++
++int main(void)
++{
++	unsigned long i, acc = 0;
++
++	for (i = 0; i < 2000; i++)
++		acc += target(i, i + 1);
++	printf("acc=%lu\n", acc);
++	return 0;
++}
+diff --git a/samples/uprobe-ptwrite/uprobe_ptwrite_test.c b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
+new file mode 100644
+index 000000000000..94d01bf18faa
+--- /dev/null
++++ b/samples/uprobe-ptwrite/uprobe_ptwrite_test.c
+@@ -0,0 +1,153 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * uprobe_ptwrite_test - minimal ptwrite uprobe prototype driver.
++ *
++ * Registers a trap-free ptwrite uprobe at a user-specified file offset and
++ * emits the requested live registers / immediates into an externally
++ * configured Intel PT stream (no kernel entry at probe-hit time):
++ *
++ *   perf record -e intel_pt/ptw=1,fup_on_ptw=1//u -o perf.data ./test_prog
++ *
++ * Usage (module params):
++ *   path=/path/to/prog   file to probe
++ *   offset=0xADDR        file offset of the probe site
++ *   args="r0,r1,i0x42"             comma-separated;
++ *                        r<N> = x86-64 GPR index 0..15,
++ *                        i<hex> = immediate constant,
++ *   event_id=0x1234      identifier carried in the PTW header word
++ */
++#include <linux/module.h>
++#include <linux/uprobes.h>
++#include <linux/fs.h>
++#include <linux/shmem_fs.h>
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++static char *path = "/nonexistent";
++module_param(path, charp, 0444);
++MODULE_PARM_DESC(path, "path of the binary to probe");
++
++static ulong offset;
++module_param(offset, ulong, 0444);
++MODULE_PARM_DESC(offset, "file offset of the 5-byte NOP to probe");
++
++static ushort event_id = 0x1234;
++module_param(event_id, ushort, 0444);
++MODULE_PARM_DESC(event_id, "event id carried in the PTW header word");
++
++static char *args = "r0";
++module_param(args, charp, 0444);
++MODULE_PARM_DESC(args, "comma-separated args: r<N> GPR, i<hex> immediate, m<N>[:disp][:4|8] memory");
++
++static struct file *probe_file;
++static struct uprobe *probe;
++static struct uprobe_consumer consumer;
++static struct uprobe_ptwrite_desc desc;
++
++static int parse_probe_args(void)
++{
++	char *s, *p, *tok;
++	unsigned int n = 0;
++
++	s = kstrdup(args, GFP_KERNEL);
++	if (!s)
++		return -ENOMEM;
++
++	p = s;
++	while ((tok = strsep(&p, ",")) != NULL) {
++		struct uprobe_ptwrite_arg *a;
++
++		if (n >= UPROBE_PTWRITE_MAX_ARGS) {
++			pr_err("too many args\n");
++			goto err;
++		}
++		a = &desc.args[n];
++
++		a->size = 8;
++		if (tok[0] == 'r') {
++			unsigned long reg;
++
++			if (kstrtoul(tok + 1, 10, &reg) || reg > 15) {
++				pr_err("bad reg '%s'\n", tok);
++				goto err;
++			}
++			a->src = UPROBE_PTW_SRC_REG;
++			a->reg = reg;
++		} else if (tok[0] == 'i') {
++			unsigned long long v;
++
++			if (kstrtoull(tok + 1, 0, &v)) {
++				pr_err("bad imm '%s'\n", tok);
++				goto err;
++			}
++			a->src = UPROBE_PTW_SRC_IMM;
++			a->val = v;
++
++		} else {
++			pr_err("bad arg '%s'\n", tok);
++			goto err;
++		}
++		n++;
++	}
++	if (!n) {
++		pr_err("need 1..%d args\n", UPROBE_PTWRITE_MAX_ARGS);
++		goto err;
++	}
++	desc.nargs = n;
++	kfree(s);
++	return 0;
++err:
++	kfree(s);
++	return -EINVAL;
++}
++
++static int __init uprobe_ptwrite_test_init(void)
++{
++	struct inode *inode;
++	int ret;
++
++	desc.event_id = event_id;
++	ret = parse_probe_args();
++	if (ret)
++		return ret;
++
++	probe_file = filp_open(path, O_RDONLY, 0);
++	if (IS_ERR(probe_file))
++		return PTR_ERR(probe_file);
++
++	inode = file_inode(probe_file);
++	if (!inode->i_mapping->a_ops->read_folio &&
++	    !shmem_mapping(inode->i_mapping)) {
++		pr_err("unsupported mapping\n");
++		ret = -EIO;
++		goto out_file;
++	}
++
++	probe = uprobe_register_ptwrite(inode, probe_file, offset, &consumer, &desc);
++	if (IS_ERR(probe)) {
++		ret = PTR_ERR(probe);
++		pr_err("register failed: %d\n", ret);
++		goto out_file;
++	}
++
++	pr_info("probe %s+0x%lx, %u args, event_id=0x%x\n",
++		path, offset, desc.nargs, desc.event_id);
++	return 0;
++
++out_file:
++	fput(probe_file);
++	return ret;
++}
++
++static void __exit uprobe_ptwrite_test_exit(void)
++{
++	uprobe_unregister_nosync(probe, &consumer);
++	uprobe_unregister_sync();
++	fput(probe_file);
++	pr_info("unregistered\n");
++}
++
++module_init(uprobe_ptwrite_test_init);
++module_exit(uprobe_ptwrite_test_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("ptwrite uprobes testing driver");
 -- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+2.54.0
+
