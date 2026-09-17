@@ -1,112 +1,71 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501C8359A8B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F723A5E71
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659431; cv=none; b=fL4ovFRRF0vXmIQlV9qQS6Llc+AfNCaboWVgdyY9kSeCWd+11EPY1KPVl44dTV3/oHWcG1BA3k+vy8uU81PFfNP90lMXpttGPSQutimOYgBc3lanK2A2J3fM/Q6wt+58dVqqC8ud8/DSWZSUYCJq0hRwiexrO5/RXIYJM05V3HI=
+	t=1789659435; cv=none; b=df4onrW8zsECvJJzcnuQpzXKS2twVkzAnIVuVry2hKpSo1tpmHFbBwXbqpSCZjGKsZf5BybQpzAXhOjBmgdNnbVkqLd40V2NlcjNc/2JzO87JzKJ9Rbf74Rv/4oIRaU4wdeNSB4CDOoIQ1GDqyZo8R9LL+JKRRJtoVV18RhNnNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659431; c=relaxed/simple;
-	bh=mzju8mDO7O/eNW0T8vonPXIo+XSQ9Rp6mZ79o1aMP1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pie08NNkNdyFkJ+cgCDw/rnzaSj9/ukXSl6CtPJ1Pt+ykQ38VTELWMCQUJOjUr/aYLYJAa7XCdVrH6DBh5RvMxPZCDdP3ZB41a5r6z0NtyOE9S3DimBBRNY+aP8bMbAE0TkUlEtg6hCM0A5z16Azoj3ftu0ax3hy47U2RoROuAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Q7VGeXy8; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789659435; c=relaxed/simple;
+	bh=NYTnDkZFL7m/IP56oGFs81XfqvNjPzbV2wHWJTPl2+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QzorCpZS8KXZOAEOtyxykRil9L5Mfss5svqXywgz/JMAD6tt0rCYw/m5VvmK0zJHId/AQRdgSbvoX7QttMFse07W1wTBf+EiLEYg5wi/7IcUEvjUx2Z/q86ZIFJf7kh4c2ZooNpuX0SDL+/zY6eI1AAgKKwKMvmiD9xsTi25GCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeDCnO0P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Q7VGeXy8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=n8i79UW9u3rcIITO0JwYOju7pP/mgo9hTYj3kEkybdI=; b=Q7VGeXy8vqnoQJh3CfhQ+eWOlA
-	p4Jqvdv5VJ6URobUmOiAb1PjPjPjbMmP0aRHEyx8Cy7RdMYb3BnUTyoYI5CYcK58Sq5vv3KIMu7eL
-	yVwKCZlQye9ME5PfrgkaRCh5Ygfp87fsruzBxED+bOF0Ng5onAsTmc5JYVv+KBBsJ/FA0uTTiCf5S
-	emuv0LeTmbJegByQBfSUR+jv9WEBxJK5/srI6Z98UTcLASUXKMdckPo6uq8Jrbr/KIaw8ibDU7TOo
-	T/ssM1cRWDuyN1gtQmPgZlMsZgqeoJnRGQgA8yPjQR2uv70kCu3PIncZXKRRn9c9AgNtOF35NSsHl
-	YwcdRrCg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7EAM-0000000Any0-1CGC;
-	Thu, 17 Sep 2026 15:36:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D0FBE301BD5; Thu, 17 Sep 2026 17:36:49 +0200 (CEST)
-Date: Thu, 17 Sep 2026 17:36:49 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Jihan LIN <linjh22s@gmail.com>, suleiman@google.com,
-	andrealmeid@igalia.com, bsegall@google.com, dave@stgolabs.net,
-	dietmar.eggemann@arm.com, dvhart@infradead.org, jstultz@google.com,
-	juri.lelli@redhat.com, linux-kernel@vger.kernel.org,
-	mgorman@suse.de, mingo@redhat.com, qyousef@google.com,
-	rostedt@goodmis.org, soolaugust@gmail.com, ssouhlal@freebsd.org,
-	tglx@kernel.org, vincent.guittot@linaro.org, vschneid@redhat.com
-Subject: Re: [RFC PATCH 07/12] futex: Make FUTEX_*_PING use Proxy Execution.
-Message-ID: <20260917153649.GK4121339@noisy.programming.kicks-ass.net>
-References: <20260917043339.2093426-8-suleiman@google.com>
- <887eff66-35f3-4703-8ff7-c0c959621b69@gmail.com>
- <8abf8b0f-38eb-4a25-a40a-57d5439e52e7@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeDCnO0P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6800D1F00899;
+	Thu, 17 Sep 2026 15:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789659430;
+	bh=9FS0Zh39EvFJNF8MC1pNriXws4rcUuxV51H6jv1cDVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KeDCnO0PnrntQhIgYqpH3onKDiM1X2/wp76FssvsPjXqggYWTwfwqLH1pkqB2Ajcy
+	 vmjypuw8M3Kk1aYxSksj9IqyB1znizEtJ1bWXg7e9Ajy4/mv1xhMs+Hmoxkw2pEz3Z
+	 yuVxBA6FSKrp5VYngimnYCcggyrz9uhKHT8qqalB5XhOVVLJpBRCoXVXHnJp627ltv
+	 GI1OPdMl72ZN9NS9QW1mTWJ4PwqUq26hYTR6rWDP5cgenceUCO7pdadWNJ5Oc+KHs/
+	 jz3qBVJLQEivTZVTX/G6974n7dPINny/Pr6N9OsCUfMj3rxXy3u/Zr+2042ss4DlqQ
+	 wFwrUHKRheJXw==
+From: "Harry Yoo (Meta)" <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	linux-mm@kvack.org
+Subject: Re: [PATCH slab/for-next-fixes] MAINTAINERS: update slab.git URL
+Date: Thu, 17 Sep 2026 16:37:01 +0100
+Message-ID: <178965921180.1114058.11649457371183198247.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
+References: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8abf8b0f-38eb-4a25-a40a-57d5439e52e7@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 08:09:34PM +0530, K Prateek Nayak wrote:
-> On 9/17/2026 6:48 PM, Jihan LIN wrote:
-> > [You don't often get email from linjh22s@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > 
-> > Hi Suleiman,
-> > 
-> > Thanks for your RFC series.
-> > 
-> >> diff --git a/kernel/futex/ping.c b/kernel/futex/ping.c
-> >> index ebcd3c4a7793..689f149f7150 100644
-> >> --- a/kernel/futex/ping.c
-> >> +++ b/kernel/futex/ping.c
-> >> @@ -370,6 +370,9 @@ int futex_lock_ping(u32 __user *uaddr, unsigned int flags, ktime_t *time,
-> >>
-> >>               queued = false;
-> >>               while (1) {
-> >> +                     set_task_blocked_on(current, &q.ping_state->ping_mutex,
-> >> +                                         BO_T_PING_FUTEX);
-> >> +
-> >>                       set_current_state(TASK_INTERRUPTIBLE|TASK_FREEZABLE);
-> >>                       if (!queued) {
-> >>
-> > 
-> > A userspace deadlock seems to turn into a kernel lockup.
-> > Consider threads A and B on CPU0, unlocked PING futexes F1 and F2, with
-> > the following ordering:
-> > 
-> >   A: CAS(F1, gettid(A))
-> >   B: CAS(F2, gettid(B))
-> >   A: futex(&F2, FUTEX_LOCK_PING) <-- T1
-> >   B: futex(&F1, FUTEX_LOCK_PING) <-- T2
-> > 
-> > Since futex_lock_ping_atomic() only checks self-lock, both tasks end
-> > up blocked on each other after T2. And task_is_blocked() is true for both
-> > tasks, try_to_block_task() would keep them on runqueue with
-> > tsk->is_blocked set.  So if pick_next_task() picks A or B,
-> > find_proxy_task() will stuck walking on A -> B -> A -> ... with rq->lock.
-> > 
-> > Could we handle cycles in find_proxy_task(), or add a chain walk for
-> > deadlock detection for FUTEX_LOCK_PING like rtmutex?
-> 
-> https://lore.kernel.org/lkml/20260714152220.4046736-1-soolaugust@gmail.com/
 
-Ah yes, that thing. I would suggest to still have a hard-coded limit,
-but perhaps in addition to the sequence mark.
+On Thu, 17 Sep 2026 16:38:37 +0200, Vlastimil Babka (SUSE) wrote:
+> The slab.git tree has been moved to a new URL as part of the mm-next
+> integration. Reflect this in MAINTAINERS as well. The old URL will stay
+> around with historical branches and tags.
 
-Without a hard-coded limit, userspace is free to create chains of
-arbitrary length. This should be discouraged :-)
+Applied to mm/slab.git slab/for-next-fixes, thanks!
 
-Also, we need to be able to return -EDEADLK to userspace.
+[1/1] MAINTAINERS: update slab.git URL
+      commit: 4c51f0b648cbf190d15d4ff60826c769f7e81df6
 
-Ideally userspace gets to have an extra graph walk on block though, and
-not rely on pick time sanity checks.
+https://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git/commit/?id=4c51f0b648cbf190d15d4ff60826c769f7e81df6
+
+-- 
+Cheers,
+Harry / Hyeonggon
+
