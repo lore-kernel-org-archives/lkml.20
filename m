@@ -1,153 +1,96 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D36C2C8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAF3383C84;
+	Thu, 17 Sep 2026 14:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656498; cv=none; b=IMrAsxz0DMU5lZ+QrW050gLDaSL2SWiVobpMc84a2CXBNn9qUE+Acx2q1thnMvPpf4LsbwGKwgsmeMIbe9F5dvC556QIqiHUHuV1aCk5vIZGwHj18vlKRjjxezbaR0cgk2QR6GmUoOYfE7khmYbKokH9UzGrvX1LFWKgGC6aB8Y=
+	t=1789656508; cv=none; b=aVq3g38zuQH+Z9TJqRjaQrJ3Lz20mLDbXlda5IvjPnBxoEZDoa0i9Ehpn6L64oMhPg9VKIj6cCDSZxBoNe0Zk4AW+RWC6IC9FXReah0dG2dBtf6IPlUIvzs2tnSDH7V1nwiQChGi0JjV14fJZ+NYpwAHAOM7mjD1jWm9ltYDO1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656498; c=relaxed/simple;
-	bh=5QCP3+8j+na07v88Li8T9o1YahfFEwfdrkmj0+NLdCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ngIVCJ7xoMw8wm8yZzcIZl+94/DWK+rvFwPDZH8bZHVqi6dku7c2PYcl15cQmFli7jNuwXMBmV4w6vrw03wyleNwsLS18sX0HBs98OuP/hR8Ck8Yj/GHQS1eI6Wf3lvbRG3MHJ7WaqM6j3XL/jm4reHssOgqS/Q5UJ8cD81Ojyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=lDUm4o/w; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="lDUm4o/w"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so91124085a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:48:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789656486; x=1790261286; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3dWYS3ZZvJkfTmwwGBzOMGNsuxhzxqg/70St3SRcFJY=;
-        b=lDUm4o/wJTWxDYZzPkB5gZwpwEJgaPsXvednKFbGb4jVGM/cxvSneD/SDpBLJM4x1A
-         jy1WRKzd8y0SdxxcjllN2VM/988bnEQha+qNgPC/J3+mbCb2MtTXvdhg+3kSNNnp02u+
-         iPdV9efpcBcMloMBMQyg3NsCbTSGYYNChiXFzr5rTIqsjFLyo2liP8ZyCQlgOwwz/9rK
-         S9RHn9x5p5Fx8fLFOxUVMkpVdRR98UjhpIMO73L2kHhGNBNDpY6SRGyWahUpIMzHqt1n
-         FfEI6RpT9vbTFMGdm9QsHXD0VZN/NI8NLfvgbH8Hmo+/jPIYxdlQFr7vm7l2ulHi+4nT
-         7a3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789656486; x=1790261286;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3dWYS3ZZvJkfTmwwGBzOMGNsuxhzxqg/70St3SRcFJY=;
-        b=0/qlizUllQHvctdaZiXans5yYVW0iz2VvY8D6R8SL/pOpX6Rv6GsMZcgbAluhikKYs
-         mJWA7MCe27WDOEUNHvdLOTD8GHIQDKWwUf9bIENhu4dn/o2U/BWzbBRQ5hO/rJQYPW+p
-         5b1ybCF+fvyHuNFelKPaGCo4o5KCaLBnQph6OwnDzLKfPBo0cyBC0DBJF01b66BiIu2T
-         DZXuqF71oClqqJc7JNTAHEFLigaLb7e1kIQ8anUCFfLoHt2LeRHgcG0zLycnPyaiR/d9
-         qzEy+YVNj7lpt3wOwvraPV0C3KKLloMYq+VxX3BF8dzUhXrLTO6rS3GUQcU01l7/XO74
-         qMcA==
-X-Forwarded-Encrypted: i=1; AKwUvByp9GPHD+F7LTs/5fdXYvoPxQB75cbgw+NVruCk0DMqNrDgO6aruZBmG0n8GIoUINpxTreegEWv+MN82j8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3IbEqz2mJyS8g/FTqaPlCxE/oQb3nSTAoed0WUJvtGums/ire
-	jfAr5cocr8yKmXLRUgk2GoeSlTERZ86zHdcZsWHn02jk+Abjne+VCrmWogQp+1h8ox0=
-X-Gm-Gg: AYBFou1kEA0Y8GjwitUe0rCIV6ZeUS8IOSekZ84DWcEYX2YjrY0boElvPHadilNHpET
-	ivnhZ+lsrjPWCqbg1C1iEx42SNb2/olPi9DAa+mG9skhD9SjDLJ5pEdw/tdQnYzBO7V6+9m4Z3d
-	OrogibWtiiln0AyeeUCnv2PkJK9ckkz5GPDYr/IzcS5yjM+D9SBTdnVpP6QsDfP5DyCFIi5lMoV
-	hfyeHw1jwq7wv+fntptNCg2QjdNJnWMdbmGNNlt/pVbQ/AwjrDON/Fln2Dj0h6VLk0ubtF6IOfC
-	txAAWE/o889s8vaZZTkMGaxhgkfsi8SGj+hrSDzqidnp2XlAvAAjUsCLcn0a64ITB6UAuGrg9Lx
-	dqWihTRs2bjebWRK7SLn62hW5VcrJKtxfl3qHS85DwDsI1OKY5fNmtWKwinU7Pk7Dn+AMRrmhD4
-	QkZVcrPiyxAQPxgC6M6/i/P0XGeeJ/lbChTJM6SpaMeRS1ggo3vPJbZgnUZhSwpxenqipfYrJuQ
-	JnzZ8ISjsEsl2cUESMhFy092Kh9HA5TFGjzCYFXVd2HJ3oXYrfRsq7o
-X-Received: by 2002:a05:620a:800e:b0:939:5c62:fddd with SMTP id af79cd13be357-93bb772cd8cmr1243423385a.19.1789656485922;
-        Thu, 17 Sep 2026 07:48:05 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7821d231sm483562385a.21.2026.09.17.07.48.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 07:48:05 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x7DPA-0000000Ctlh-2V45;
-	Thu, 17 Sep 2026 11:48:04 -0300
-Date: Thu, 17 Sep 2026 11:48:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Peng Fan <peng.fan@oss.nxp.com>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 0/4] iommu/arm-smmu-v3: Support shared Stream IDs
-Message-ID: <20260917144804.GI3196566@ziepe.ca>
-References: <20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com>
- <20260916161018.GE3196566@ziepe.ca>
- <aqtDg1EH95RYOdCJ@shlinux89>
+	s=arc-20240116; t=1789656508; c=relaxed/simple;
+	bh=GK2EfBvMOdcJf/xmeiZ4Sd8HKokeIsR6s6UF7yHX8jQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n3OBEiggRIyF8C3UdMcwuEqOFzAnu+ux9pw9mrS1OBTmKewGo2eTEUD/fQ4D0rQB+lei54YqCDN3z/llbu9y2i9rjAdsAUjmse8L/A3PiU4kzPmTFQeYKfaU5ovsfoydHN5QDk4tZeGjphWAnW0Ht2VsQDGx4xlgFWVvXduKwS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH8z2e_atqYNOCCA--.5112S2;
+	Thu, 17 Sep 2026 22:47:58 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: dick.kennedy@broadcom.com,
+	james.smart@broadcom.com,
+	justin.tee@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	paul.ely@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
+Date: Thu, 17 Sep 2026 14:47:58 +0000
+Message-Id: <20260917144758.2157707-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqtDg1EH95RYOdCJ@shlinux89>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH8z2e_atqYNOCCA--.5112S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFW5uFW8CFWUKFyDKrWkCrg_yoW8Gw4rpa
+	1kKa45ArykGFn2krsrtr1UZas0v3WxJ39Fkayqy34xurs5XFy3tr4Yqan8XryUJF1IgrW2
+	q3srJry5W3WUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bbXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMNA2qr888XkwAAsy
 
-On Thu, Sep 17, 2026 at 09:33:55AM +0800, Peng Fan wrote:
-> Hi Jason,
-> 
-> On Wed, Sep 16, 2026 at 01:10:18PM -0300, Jason Gunthorpe wrote:
-> >On Wed, Sep 16, 2026 at 11:12:33PM +0800, Peng Fan (OSS) wrote:
-> >> Some SoCs have a limited number of IOMMU Stream IDs (SIDs) and
-> >> hardware that inherently shares them. For example, the NXP i.MX95
-> >> eDMA controller has 64 channels where each TX/RX pair is assigned
-> >> a single SID by the hardware - the two channel devices are distinct
-> >> from Linux's perspective but present the same SID to the SMMU.
-> >
-> >Is that a reflection of poor DT modelling though?
-> >
-> >Why must a TX/RX *PAIR* have two platform_devices nodes?
-> >
-> >Fix it there and you don't need any of this? Or is there more?
-> 
-> I think there may be a misunderstanding about the device topology here.
-> 
-> There is only one platform device node for the eDMA controller
-> (dma-controller@42000000). There are no separate platform device nodes per
-> channel pair.
-> 
-> What happens instead:
-> The fsl-edma driver probes the single platform device. During
-> dmaenginem_async_device_register(), the dmaengine core calls
+lpfc_release_rpi() only drops the node reference and frees the mailbox
+memory it took when lpfc_sli_issue_mbox() returns MBX_NOT_FINISHED.  The
+SLI-4 issue path can also return -EIO without submitting the command, in
+which case the completion handler never runs and both are leaked.
 
-Yes, and if your DT is correct then that platform device should have a
-single iommus = [] listing all the SIDs for that logical device.
+Clean up whenever the command was not handed to the port.
 
-Using iommu-map to describe synthetic dma_chan_dev devices that the
-kernel creates is the same kind of DT abuse from over here:
+Fixes: 4430f7fd09ec ("scsi: lpfc: Rework locations of ndlp reference taking")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/lpfc/lpfc_nportdisc.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-https://lore.kernel.org/linux-iommu/20260618151745.GD231643@ziepe.ca/
+diff --git a/drivers/scsi/lpfc/lpfc_nportdisc.c b/drivers/scsi/lpfc/lpfc_nportdisc.c
+index 9c449055a55e..055f44ec7b94 100644
+--- a/drivers/scsi/lpfc/lpfc_nportdisc.c
++++ b/drivers/scsi/lpfc/lpfc_nportdisc.c
+@@ -1142,7 +1142,13 @@ lpfc_release_rpi(struct lpfc_hba *phba, struct lpfc_vport *vport,
+ 				 ndlp->nlp_rpi, ndlp->nlp_DID, ndlp->nlp_flag);
+ 
+ 		rc = lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
+-		if (rc == MBX_NOT_FINISHED) {
++
++		/* Only a queued or completed command is handed to the
++		 * port; other results, such as the -EIO returned by the
++		 * SLI-4 path when it cannot submit a non-polled command,
++		 * leave the mailbox and the node reference to the caller.
++		 */
++		if (rc != MBX_SUCCESS && rc != MBX_BUSY) {
+ 			lpfc_nlp_put(ndlp);
+ 			mempool_free(pmb, phba->mbox_mem_pool);
+ 		}
+-- 
+2.34.1
 
-So the problem is self created, by using iommu-map instead of iommus
-and using DT to describe linux SW expectations you end up in this
-strange place of asking for aliases.
-
-> The iommu-map property sits on the eDMA controller's DT node. At channel
-> allocation time (xlate), the driver calls of_dma_configure_id(chan_dev,
-> edma_np, true, &chan_id) to look up the channel index in the eDMA node's
-> iommu-map and attach an IOMMU domain to that specific channel device. The
-> dmaengine framework's dmaengine_get_dma_device() API
-> (which checks chan->dev->chan_dma_dev) then returns the per-channel device
-> instead of the parent platform device, so DMA clients map buffers through
-> the correct IOMMU context.
-
-So go back to the basics, why did this platform use iommu-map instead
-of iommus? The only real difference is you get a DMA translation per
-queue. Is that required? Are you short IOVA? Some other reason?
-
-You can read what I wrote about this general problem before:
-
-https://lore.kernel.org/linux-iommu/20260818130724.GA5482@ziepe.ca/
-
-It would be really nice if you all could work together to figure out a
-better way to handle this than through DT abuses.
-
-If you really need unique translations per sub-compoment of a logical
-device from some pool of SIDs that feels like a weird version of PASID
-to me, it may be an interesting to explore.
-
-Jason
