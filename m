@@ -1,121 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12F0481A8C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3534BD36A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639200; cv=none; b=EHH2UXz784nsncAylvoGfrERFxM7B8j/e1Odad3cucGkcE5gHmk8/Egor6px+mirBPQiTOOGHQ3thEvnnDv6tF0uh2JTNZTcp54HvcakjvviAiNze4lQUxvUwpX28M0pfGKmQYEcpk3oIIgiQQvPX2tjaVf597WzXGd2waWg1bo=
+	t=1789639216; cv=none; b=Y4FnbVA6+M41jf8NH/9M14JXG2FJWfem/gYzZ3275pIR99TiDmZrZS1hWgV5oJzBB9fzJDW/JGqogepmJHSRevkLW1fdVvvWmchz9ugMhKUI9zhoRIX4LrCVFwLcADHpCCz4ymeNgxuzA4LK7oEFa4ImHu2xEKe3RGwCiOwal1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639200; c=relaxed/simple;
-	bh=lPbr0GlFl1qWFLKZRgE+NZbWUkPC6kT+o+ZMBUR9dJE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KYXzR1eAEOo6lc6op3w3e671qHSNEZEDa6Zjn1dW/4kbs7UWut6Q7jPacSY45o7ucFz+7YKyLO2eUyElNFhmFmi/Wxy8bsDJ0a2V4Cs2AyDLgSneqFBREjNH++70sOXk8wBMt55YNzVliFWkxV4HJbE+pURkRHQqWBMZr31kVWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n197orrt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n197orrt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC351F000FF;
-	Thu, 17 Sep 2026 09:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789639194;
-	bh=rHt157+yBiRSCduhhuqli6luHdUzlejn58B4cMvCDzI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=n197orrtCx4Bb2bmHB4DM8dWbLdMqQa+evif6TFaYfJOIGLwpDyfrp9sqTnXpu6l6
-	 suEJ6LrnzY9kZEblR5EWAXAMVmk/XiYKeebRsgijfbic2zelWwM8LqcGUhTQRvq30I
-	 8pJl8oF/eJWyUQsko4VWcWVw1OCG7OJsBBaIMK54PlAKM/ZW4DhsCUc9z+a4aSs7TQ
-	 BsEl/Aya5exe1iGNgpmUEvjr2+kVhZiGVqL8XXSwXdTh5a3Lk2wlgKcoj9s3D/jOKB
-	 Jm3LTyJy5yxG/wh0Y+iUCu6BWzsVavtVAeTaIi1hxSv3UccHgnrVqk9RMz8/RbI6O1
-	 KM7wJQjI7p9lQ==
-Message-ID: <276ab9d5-74b7-48bf-9cd5-94de0190f221@kernel.org>
-Date: Thu, 17 Sep 2026 11:59:47 +0200
+	s=arc-20240116; t=1789639216; c=relaxed/simple;
+	bh=lyxCvXomazoscclUR0t4ky/vHCgm3jn4yYZm7vcNMNg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VoSblLZ/vPfGcsqa1Gj+DesCFylj9MjUEnFuBPVTxNv35SFFv0qxCjPrQDgWiPTJCHD7haqn3wCrLu0EGeEm5u7uMw7kCAe22TpbO+vFzMyTxh0PpVphg9YNAptuqm9v4Bcya4r6kzjFG6Z7OJC6ViUUOfwtFciS2yiUqqEubA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78565b4db77so373138137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:59:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789639185; x=1790243985;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=s008ZoScdhr7BNxJ8Chjjcs4adQQJjIUFRUX5dqGglE=;
+        b=hSITh9KHTOoexGwmQjB6O1m5FdvLqJHwY4RrCi9aBh46gkB3mnXriKRiJi1r+JPbjz
+         HaKWuuicW92XFXNGfAyUWz74bx+tNRlKgXqEiejkcvstmigyL/KMvhS865e4YJxYZgij
+         OoLbV303uufD7T2aV8VY6/t3hlgkOOZ/x8oEjxI2Kr5Sb+NiPbSJHQQf30TraJRXk4Af
+         LXuus1qopvZdPccKQVWV0ciQAngbEABfgVZXmkyq10p8bttYGOQqOB7FOrLNE+u2XbHH
+         +34+XfcK4111IpXNLCR8uK9Ythoib/wEHxcIxx7XgYDNzJ/MTNOCqvmRPh5mPbR+BGpI
+         SGfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxM5IksQ41mpJObuqqbG9fgTjeg25MVzJlJ4+UQyXdXjhjDHcr04X4n8oZrB/08APjga9X0HvWo9630fKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kixQ6zt4XoScsAPL6zeCVrGKkkeORkX+6cr2hqdBKOgsJq7vD/
+	3i/6O2/hhjP8xc+cPy2KhrNiRVogi6+gmmJbM4UBSfAuKoLTXdV8IoK0fMvUS+drsIE=
+X-Gm-Gg: AYBFou25TKI8GIstdewggu9ZaqngVGKdLu3hRKnpg+hURV8HG6Ze3LFWByQItBzOjsZ
+	jfW1mRmtTtHoqbyS67jRD1zZ4Kbv9lyoQcd35e47C29XtjCEAnlkDKmMDCWiL2hfjBU8Hvs3OUz
+	mBaH0zpSVliWq1waoGLhDG93AW+8wH4duEPKtbelDk/X4nk/b7eExRNbPxLixQJN+AQXODSaSk3
+	S6IYnqlNq49PctIEpV0iOQr6PQDnkVj+4eOAcl1DG4hRpjwXMqxbTUZCwcPP2bBH25IP2LyhpLN
+	XhKUQR6emmXnwP+vPN1+jKaVSPAoInst6IrerKmTVAOnWfQMELR2bTXb7EcQprcdtDlnGgIc7a3
+	VM1qMNyKI6qIRZ6n/XrVNK1ypv7xeakiUIpg8vXxTibtR6zBtuTbIBD2Lr9jrF/f7fwRUyMWC3g
+	X1pmpuMOrvut2do1Y6QiDuti/ZxIVsaII/43noqF3k5nGfjQ/13lL9kgZHIyFA7JZynK0D7XjfE
+	MGz8yzaUxFP0j8DZNybQXXwDQMUqMpTlGIZYwnL812DC9tr
+X-Received: by 2002:a05:6102:8007:b0:7a1:f7c3:3a45 with SMTP id ada2fe7eead31-7a1f7c33f5bmr1806708137.18.1789639185112;
+        Thu, 17 Sep 2026 02:59:45 -0700 (PDT)
+Received: from mail-ua2-f27.google.com (mail-ua2-f27.google.com. [74.125.226.219])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9832357cfe4sm2470801241.12.2026.09.17.02.59.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 02:59:43 -0700 (PDT)
+Received: by mail-ua2-f27.google.com with SMTP id a1e0cc1a2514c-97e7c7bac31so364301241.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:59:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzVewVsRl7kUFSQbPf87vuo8OCXzvbNGN0ww6cBdW57aWLtf2Xwnlnqy0+Z6kwbFalVno1Dnk3ywwfxHpw=@vger.kernel.org
+X-Received: by 2002:a05:6102:161f:b0:79e:cc38:c40b with SMTP id
+ ada2fe7eead31-7a0285a1f25mr6780296137.11.1789639183155; Thu, 17 Sep 2026
+ 02:59:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] mm/ksm: use per-VMA locking for find_mergeable_vma()
-To: xu.xin16@zte.com.cn, tujinjiang@huawei.com, akpm@linux-foundation.org,
- liam@infradead.org, surenb@google.com, rppt@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, nico.pache@linux.dev, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, chengming.zhou@linux.dev,
- usama.arif@linux.dev, gourry@gourry.net, harry@kernel.org,
- vbabka@kernel.org, peterz@infradead.org, borntraeger@linux.ibm.com
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260910085430.3173166-9-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260910085430.3173166-9-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 17 Sep 2026 11:59:31 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXFVd160eAuWAcxqvRWUnCHZXshCZscnRoYdiZGCzBqHw@mail.gmail.com>
+X-Gm-Features: AcwNN1V3Cad5Rk6IGr1bTFS9lb5rrCjt1yRBSqziGUl61jF7JvalYEJw63TOIlA
+Message-ID: <CAMuHMdXFVd160eAuWAcxqvRWUnCHZXshCZscnRoYdiZGCzBqHw@mail.gmail.com>
+Subject: Re: [PATCH v2 8/9] arm64: dts: renesas: r9a09g077: Wire up DMA
+ support for ADC
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/13/26 06:17, xu.xin16@zte.com.cn wrote:
->>>    Patch 1 removes an unused 'vma' member from struct folio_walk.  It has
->>>    never been used since its introduction and is pure cleanup.
+On Thu, 10 Sept 2026 at 10:56, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> RZ/T2H (R9A09G077) has three DMA controllers that can be used by
+> peripherals like the ADC to offload data transfers from the CPU.
+>
+> Wire up the DMA channels for the ADC peripherals.
+>
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-I am trying to figure out why your replies don't show up as properly threaded in my inbox, making the discussion impossible to follow.
+Gr{oetje,eeting}s,
 
-Looking into your mail:
-
-https://lore.kernel.org/all/20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn/raw
-
-Message-ID: <20260913121716693wiN5osmShywgtitghSm7G@zte.com.cn>
-In-Reply-To: <40c0c081-d636-407b-898e-f40f3d5d38cb@huawei.com>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,40c0c081-d636-407b-898e-f40f3d5d38cb@huawei.com
-
-Something is messed up there in the References: tag.
-
-It should be
-
-References: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn> <40c0c081-d636-407b-898e-f40f3d5d38cb@huawei.com>
+                        Geert
 
 -- 
-Cheers,
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-David
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
