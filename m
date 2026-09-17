@@ -1,91 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC75E2931D5;
-	Thu, 17 Sep 2026 01:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF7437B3F9
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789609671; cv=none; b=Np1SO3Dj3aIbVcvWzWB9kkggOFZxCJeUHdxVf/kNv0L3UhQrnElGdyovCmLAFKj9nX4MbDbq9OOwBLrCjLsU2a+EC3oaeXzrDbNIOF355h0JGJKAHqj2tWzKaJGaMqo9LzNVLSoT6HlrfKwowfTXuLqKx6toJeoGI3u8TxxRlGQ=
+	t=1789609685; cv=none; b=qUMcLvwnxcf6ucd+tns8jfRs/GaCzxv3md0VGsJhImMZ2Z/ktRi+g8VkGcJP5oVe7N2VScLO3cZ3BdfXgGHUeQUikR8sKQzLm/xhgzkA/J7oCIbV8KFqWhOdA9f6kXEyFi+KLEOP54ue1tsDjhw7+UD6rIR4AvKvzVqzQOghlrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789609671; c=relaxed/simple;
-	bh=m6n84ufDW7Lq5V3cSO0Q2YS+GtLNfR3kF6Gyo3gSnCg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pCAks0aqcmV5CZnZ+S2xxmVAoflG4eF9HPqyLsFd/21GTCN2GCG9iOJ3M8bf+Pq7gQhporkpb1RgKXvHcjMuQgBQowXRt5TRzmmCYLlrQuwvn7rsyKNXY4BEIBPHTza6pXNkk9yUzd3L/EUe60D5qRY+MDHWlvEznKVhvTzzwb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7FON8Ll; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7FON8Ll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93981F000FF;
-	Thu, 17 Sep 2026 01:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789609670;
-	bh=1c+IMTF/reQ7yiDPWmp5EDxLa+NRr4ovH5BnYP0NYx4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E7FON8LlglE0stCv3RHx5Qc53cKYaY5AmMBZlpeuj4fNZouUmw5ABX7MubP1VgG7L
-	 GGpn1Hj3+/Nvb2tUeJOZIq9aKFroDJL6/kC6ps45ZzPjppcKTjy0mbIrQaMJ4w9kYe
-	 AgudHRBXT/rMFehm6n7QDHXg8g7ARjT3d6dBmDX4v2v4SSK1BI3Ry5+Pte3JTa12tZ
-	 Yzl20N8Q5JE/5AAMo6gz34QIooZ5KM8PGUiCg1VFmqFh/mscNLTFrZLp3IEd/NOaXr
-	 IOaW6CnBekgiGdV1YBFfypcBOgX9+lFiwjPT8N/OB1BqiwZk6/au+VbHNHW6SSiUiA
-	 TZbhi4Sy2v24A==
-Date: Wed, 16 Sep 2026 18:47:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, David Ahern <dsahern@kernel.org>, Donald Hunter
- <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>, Ido Schimmel
- <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>, Kuniyuki
- Iwashima <kuniyu@google.com>, Nicolas Dichtel <nicolas.dichtel@6wind.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, Simon
- Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v5 0/4] rtnetlink: dump link-layer multicast
- addresses
-Message-ID: <20260916184748.52ae812d@kernel.org>
-In-Reply-To: <20260914014539.5015-1-sigefriedhyy@gmail.com>
-References: <20260914014539.5015-1-sigefriedhyy@gmail.com>
+	s=arc-20240116; t=1789609685; c=relaxed/simple;
+	bh=PB18oUY/cs1y+fTeX/nwQi028ULDzi1UIpsTpxEbLBI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=t4w8LSSLHHneiy78pu2PUV9GbvXH+MMh8F6Thf1+u/EFLmzrEWUq9FZ+LFVDGbDbGYfyRZhA1RehKuzDoMQqQH9xOQg1lt2bL5NYY2cbVT6WwPj1q0kHqjjPpn44qKHaY/aw+bZoO1BdX+ZZRRvhpwaFc/hIAXCNSPeoB4jmHvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b7932ec2so317211eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:48:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789609682; x=1790214482;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=34DYJRLLuMKafpW7vJaY9rd7gzdbVN5mhrtPQNLDQ9Y=;
+        b=HYghkSvY+1n9vYr2ylaWAn42oqap19thF2cjW1qQ/+zBy//pUCU6LIV0a1YHr0y1QM
+         bY32dxloVvWkc08WR21qU2z3Im6Wh4ub2k6Ey0OmigaI+4HH+SnDAHYSvXHDpaQSrJHg
+         6pOh4m8RlTGVJJaXCPZpqiwzDx55z5dqn57DzESxP3KoGCLsrfesb9G5uCI/R6pW0mLk
+         6GKVEz38yqGQbhMS+elYrNur45k0Dwg4kxh8fq1ip4xAjpX5TDoR6SVFY2llYHDR7/E1
+         WYvVpRj6qnfvN5FaAaHkhiLk7EcjJUd5IMkF8pUXYRiDTA90Dt4/GNEy3hkOzRImxDQJ
+         RL3w==
+X-Forwarded-Encrypted: i=1; AKwUvByRCafaX1AcWxu29lVo9FCMzhvSb9k8qk+F5Tcr5WNTsj1DdEf4mPVUVy6/pcIzADh5Zk2sisz2L8IyKrs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbAEOpra+2hjOwLzM29NoY7+EGjYsEXRqrTvbTDAdVwwHLVy04
+	tv3BVtOIw8KJds2iSkuFzGXrJnGzMTUPjcW59nVfkZ4xqYfGDtMEZsIzjZLvkE9c989xIF7cqqU
+	K4/lA5rhmexafhBegPveN+Dv16gD05NDtoz3EJuq+/W2h87afRRzlUkutLUU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:625:b0:6b1:afc8:3162 with SMTP id
+ 006d021491bc7-6c7d04eebe3mr4957298eaf.7.1789609682729; Wed, 16 Sep 2026
+ 18:48:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 18:48:02 -0700
+In-Reply-To: <6aab41aa.0d1f51e9.29e58a.f892SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab46d2.71f81b7d.278072.0009.GAE@google.com>
+Subject: Re: [syzbot] [media?] KASAN: slab-use-after-free Read in v4l2_release (3)
+From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026 10:45:35 +0900 Yuyang Huang wrote:
-> "ip maddr show" prints three kinds of entries: link-layer, IPv4 and
-> IPv6. The IPv4 and IPv6 ones can be read over netlink today: IPv6 has
-> had RTM_GETMULTICAST for a long time and IPv4 got it in eb4e17a1d915
-> ("netlink: support dumping IPv4 multicast addresses"), with IFA_MC_USERS
-> added later so the user count no longer has to come from procfs.
+Hello,
 
-You compare the situation to IP but for L2 the UC addresses
-are not exposed via RTM_GETADDR. Are you going to add it?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-> The link-layer list is the missing piece. dev->mc, the addresses
-> programmed into the device filter, is only exported via
-> /proc/net/dev_mcast, so iproute2 still carries a procfs parser just for
-> that. This series closes the gap so that "ip maddr show" can be served
-> from rtnetlink alone.
+Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
+Tested-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
 
-Is that the only justification? To avoid reading proc?
-Are you planning to extend this interface with new features?
+Tested on:
 
-> Patch 1 fixes the type of target-netnsid in the rt-addr spec. Patch 2
-> handles RTM_GETMULTICAST dumps with ifa_family set to AF_PACKET and
-> walks dev->mc under netif_addr_lock_bh(), no RTNL. The reply reuses
-> the ifaddrmsg format of the IPv4 and IPv6 dumps: IFA_MULTICAST carries
-> the raw link-layer address, IFA_MC_USERS the reference count, and a new
-> IFA_F_GLOBAL flag in IFA_FLAGS marks entries added explicitly, which is
-> the "static" column /proc/net/dev_mcast has and "ip maddr" prints. A
-> non-zero ifa_index limits the dump to one device and IFA_TARGET_NETNSID
-> selects another netns, like the IPv4 and IPv6 dumps.
-> 
-> Patch 3 updates the rt-addr spec and patch 4 adds a selftest that
-> checks the filter, the user count, the global flag and target-netnsid.
-> 
-> Nothing changes for other families. AF_PACKET dumps returned
-> -EOPNOTSUPP before, so iproute2 can keep the procfs fallback for older
-> kernels. I have the iproute2 side ready and will post it once this is
-> in; with it, "ip maddr show" does not open /proc/net at all.
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11f6dbf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=34957180b0ed2581edaf
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1706dbf9580000
+
+Note: testing is done by a robot and is best-effort only.
