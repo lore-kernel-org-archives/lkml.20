@@ -1,128 +1,82 @@
-Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C044457B6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502C24B4033;
+	Thu, 17 Sep 2026 09:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638655; cv=none; b=B3YUp6yAWmtsRzKCA70g/lkS6UetyPHqCDmHKeTRqfMXRJBhvge5+wgK/XJnkRdutHGejUgpnV8GtG7VNHGn/dYzD6AlhNpgvmSj4Pq3WEyP/4/bzVrxAQMvdY+5O/lC+7ockxQO6AVrLH+dFJP61doL/IaTlH2JbscEgm9F/Ug=
+	t=1789638700; cv=none; b=A1MNaKWZweTeCWmgmK5g23pNPe1KMXtlav6+H50aJCNhf29cCbTtUHlM8Vj0mZ6sgGHslZ7paWKuRQBN9r8bapG6Jdx6aWodFf7ixtX4wJZZI55LGKzHElaWM8HstH+g29aXdVH3iAlK5kuLe8Z9otBKvYEinGi//ihSuPVX18w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638655; c=relaxed/simple;
-	bh=zCGjskzC6nt6OCJ7w5ms6NErauf5y//QMc9iiBz8jkU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dH5unvs6aMUuwubRBrhJvUjGGvYcqz+c+KSQdUz0EMxhlTA/dmYTJSUEeSB9QeBgDpw1pG9xN6haJ4fApOkEHqmK1/+diczGVxh14SP4+es8lFDGYnrn5CPpJAYT4q0sPgpMMxWkpW9rY7R+6uV/P0JK/kfy9v0/BaChh2BMjX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sl+mqBbs; arc=none smtp.client-ip=91.218.175.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789638700; c=relaxed/simple;
+	bh=WfehuPBPz7RRpv7qw+JGUyZJjxV5Vk+P+G5zv0VfH5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e9JALxoArN4FWPj+T1XloGQ2oqpebNki63DVpIXuC/+bO/0YrBp87Y60rODtBoEo4KNuQp8zyn18UpIIlSQCVe8jfxua8thYkTDMKMBxNmBi/kjNGasrvaKuY4EQnBgUuKOTbmMArBC1WhlJECQj8O/Tc7ojjiLjFUSuzrTRPlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iH2X0iGB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ir9Tu6DJ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sl+mqBbs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zCGjskzC6nt6OCJ7w5ms6NErauf5y//QMc9iiBz8jkU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789638644; v=1; x=1790243444;
- b=sl+mqBbsL/tyvYprDuftf3Mdnc34PHHF6AyVE+3bbWr38K/v/bNwLbdZqG9Ut9Ge4RuqRbHH
- KFMTOluPkDcbeRnF9fEQHUZNKx3Oa+bqUFaE5PSyLz2fXhIin5BBZlnhyiZ0rkktWPxXpYGox2E
- uxqBOsqn/gg0V7UZoCVeiiy0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 74eb9895368bae3b;
-	Thu, 17 Sep 2026 09:50:34 +0000
-X-Mizu-Trace-ID: 74eb9895368bae3b
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	tgraf@suug.ch,
-	pshelar@nicira.com,
-	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: [PATCH net v1] ip_gre: Reject enabling collect metadata through changelink
-Date: Thu, 17 Sep 2026 17:50:16 +0800
-Message-ID: <20260917095016.71937-1-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iH2X0iGB";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ir9Tu6DJ"
+Date: Thu, 17 Sep 2026 11:51:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789638671;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4k5q/B9Yhz4IzRdp5uZt+cqVsxHZlip+voh968VmPrc=;
+	b=iH2X0iGBDg5sI1tVhgxXXZQ+flmsIUaa13MY46K3uQeU2GAE104ao0eeE+lBQV3VXefbWF
+	qUbNVL/7iCSSjjJD0H+847xufns6bfsuMD9LXqRlwmfFK+4sSsg2ybDS/2Oz56NY6NSnXH
+	oBPgzd+KeQj+oLrp2ETyP7VsxZd3inus1TSCDORjt99dnQ0ubNX8T9HK5ScmmTlLIhMjkB
+	+Xv2Savd5VxL1kPYCh7ney64r3H5uaifDt3ohebZQIWNHGoIUs4qqiTbN8+4jLFPmsPqYL
+	ojDODPrzU8lz2OloRp40gFIjSE8IjTODNLUWfh/8qy1Vx8xP8g7bx+iT6EHe0w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789638671;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4k5q/B9Yhz4IzRdp5uZt+cqVsxHZlip+voh968VmPrc=;
+	b=Ir9Tu6DJAyYaiH+KSuOlprValYZ3aGP0G1YzW7oFhp5Cju3SYCRzCRFbWLG/xyQ2fafGDQ
+	Dk8pNFLUy0Fg3TCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	wanghui33@xiaomi.com, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org
+Subject: Re: [PATCH] tick/block: Add BLOCK_SOFTIRQ to the hotplug safe mask
+Message-ID: <20260917095110.Yxq3FCrB@linutronix.de>
+References: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+On 2026-09-04 14:45:06 [+0800], Wang Shuaiwei wrote:
+> During CPU-hotplug stress testing combined with an I/O
+> workload, the following message is observed:
+> 
+>   "NOHZ tick-stop error: local softirq work is pending, handler #10!!!"
+> 
+> On CPU offline, ksoftirqd is parked at CPUHP_AP_SMPBOOT_THREADS while
+> the CPU still takes interrupts. A block completion raised after that
+> point stays pending, and if the dying CPU goes idle before teardown,
+> report_idle_softirq() sees it, keeps the tick alive and prints the
+> error above.
+> 
+> Such pending block completions on the outgoing CPU are drained later by
+> blk_softirq_cpu_dead() (CPUHP_BLOCK_SOFTIRQ_DEAD), so a pending
+> BLOCK_SOFTIRQ is harmless here. Add it to SOFTIRQ_HOTPLUG_SAFE_MASK
+> like the other teardown-covered vectors.
+> 
+> Signed-off-by: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
 
-ipgre_netlink_parms() can enable collect_md on an existing GRE, GRETAP
-or ERSPAN device. Unlike newlink, changelink does not enforce metadata
-tunnel uniqueness. Converting a non-metadata device can therefore
-replace the metadata receive entry for another device of the same type
-in the same netns. Deleting either device then clears the shared entry,
-breaking metadata receive lookup for the surviving device.
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-If parameter validation fails after collect_md is set, deleting the
-modified device can also clear an entry it never owned.
+Should this go via nohz, softirq or block?
 
-Reject enabling metadata mode in both changelink callbacks before any
-encapsulation or tunnel parameters are modified. Allow requests that
-repeat the metadata attribute on an existing metadata device.
-
-Fixes: 2e15ea390e6f ("ip_gre: Add support to collect tunnel metadata.")
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
----
-The state change on failure can be reproduced without an existing
-metadata tunnel (output abbreviated):
-
-  # ip link add g1 type gre local 192.0.2.1 remote 192.0.2.2
-  # ip -d link show g1
-      link/gre 192.0.2.1 peer 192.0.2.2 ...
-      gre remote 192.0.2.2 local 192.0.2.1 ...
-
-  # ip link set g1 type gre external
-  RTNETLINK answers: Invalid argument
-
-  # ip -d link show g1
-      link/none c0:00:02:01 peer c0:00:02:02 ...
-      gre external remote 192.0.2.2 local 192.0.2.1 ...
-
-  # ip link del g1
-
-The request fails, but collect_md and the device type have already
-changed.
-
-If another metadata tunnel exists, deleting this device can clear its
-collect_md_tun entry. A successful conversion can overwrite that entry.
-
- net/ipv4/ip_gre.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 82309efd417e0..7b1b0f17f60b9 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1464,6 +1464,9 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
- 	if (!rtnl_dev_link_net_capable(dev, t->net))
- 		return -EPERM;
- 
-+	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
-+		return -EOPNOTSUPP;
-+
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
-@@ -1496,6 +1499,9 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
- 	if (!rtnl_dev_link_net_capable(dev, t->net))
- 		return -EPERM;
- 
-+	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md)
-+		return -EOPNOTSUPP;
-+
- 	err = ipgre_newlink_encap_setup(dev, data);
- 	if (err)
- 		return err;
-
-base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
--- 
-2.43.0
+Sebastian
