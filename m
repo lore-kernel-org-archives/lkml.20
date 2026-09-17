@@ -1,106 +1,151 @@
-Received: from cstnet.cn (smtp87.cstnet.cn [159.226.251.87])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1090E42D757
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2264CDA30
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643870; cv=none; b=lWt1mifqCpnvrvNW7aU2pNUl2Jg1Duvg0Mo8dt0B3IJnqB8Wx1YgebdwnX6MmFbbz1mi3QAihUpGFLhW6SKD9FUTImr83B5IFBuKyUX2LeCKZP4wE8DB+L4seDEicVW/M7jvNTYJ044hNQzvSch5pRz6evdbkiuuvr22zRcVU4I=
+	t=1789643873; cv=none; b=iXwtf3+7QAWLfa0LOqcAWM6Gt9O1IjraNggXXLkNQUMBe9z/r3oXV2vXvqwFPgLXYg51etXFx6WbpkwQm7/x4Mc05Otd7kvWyn2A8uxYpgRp8NnvpKU8kK5I94e5Ld7YDGfz342YXRDjMGppfbjr7igK0y6eK6N9GizqgkY4f2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643870; c=relaxed/simple;
-	bh=+zn+qeJxd15AJym2QjbAXG3qQGjvXskF1wuAhor94E8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=rAzBBYF4i23dR2QSVKZJ/p0Z7+aqfV9+9FJH7At2JEwLeE3aVnaELeU2TQFog5CuInBuIr10SQOhWXsj1btrczNFFNeuPC79nfc7Y8br8giF1W3UaaxlClJa2vps/dkfeqYa8/jJ85Q7p/kWD7qTDkVJwrULWnbrpI5UQGtygFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
-Received: from huanggaobin23$semi.ac.cn ( [159.226.228.11] ) by
- ajax-webmail-APP-17 (Coremail) ; Thu, 17 Sep 2026 19:17:37 +0800
- (GMT+08:00)
-Date: Thu, 17 Sep 2026 19:17:37 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6buE6auY5b2s?= <huanggaobin23@semi.ac.cn>
-To: "Anisa Su" <anisa.su887@gmail.com>
-Cc: jic23@kernel.org, djbw@kernel.org, iweiny@kernel.org, dave@stgolabs.net, 
-	dave.jiang@intel.com, alison.schofield@intel.com, 
-	vishal.l.verma@intel.com, ming.li@zohomail.com, icheng@nvidia.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH 1/2] cxl/mbox: clamp the event record count to the
- received payload
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
- 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
-In-Reply-To: <aqnr04OgqRuKg1xo@cxlqual>
-References: <20260914125701.1160136-1-huanggaobin23@semi.ac.cn>
- <20260914125701.1160136-2-huanggaobin23@semi.ac.cn>
- <aqnr04OgqRuKg1xo@cxlqual>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1789643873; c=relaxed/simple;
+	bh=e+SgX7TDIRhcsTj4pD28guuOTVKaUDrvWw12xj2L1tA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Up6DxEXCzukScvVnoqJxzj9WUv5oSmSq+vDlS+fvkuyeMM9PpuWUz9Rcwr5pKJ1xDDIX89LIcwsqkmTGUy+I8wBYegUzfvPW5jmB4aSNNchBhZ6OptUA+QTBAjQk+chtuG0rQxw937UCHxbKzhimiG1xgRmhgd35vT0kkXIKzE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WyjCEKDA; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WyjCEKDA"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8631d0023daso486528b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789643866; x=1790248666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mY+8sCF4Fq1xjFXp+/Az8sHnxNFnoZQn1XqKaCwae3A=;
+        b=WyjCEKDAqjOMhpHhwgQMuDozdRik+0sSG/Wf6DuaT/EiW/bQYctJWptJ9o45tnxepK
+         aKqJKMSgrz6tV1rn3/+OQLK1vobUgcuTKcsGKqz05z2wuzSLd0te6qDlO2q+WKSExg6V
+         Z2CHX61cUZ2es9DE7Qz4kCqNeX0opdVwFeV0H1zK/A6BtVTtqwMXFTJRAs1Zip6VyhDY
+         tJshHA4Npfvw2Lql3kdmcdteEbcQ2+cC4alDM5JOaf2HRKKjpta/0SD093OWvxOrnFsw
+         qyrMt1OT73eVdimuaxxzcw5DAq0Ob8/jdWC/SNBXg6D8CFge7wWBRI6xLq1tqaUlPGYE
+         3aFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789643866; x=1790248666;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mY+8sCF4Fq1xjFXp+/Az8sHnxNFnoZQn1XqKaCwae3A=;
+        b=VjxwmWDblsE1iyHM09AJDjKDgHE/N1QSocOz4K4zDA544S+pTstKe+hoETdOMqcMnE
+         7TSyh6/r+n1MdUZbJq9NlSZ9P63IEKpsxF7wFvEijcb3AUCcbzL9Cx1LJz1C1FeE7hA2
+         3pUey/Lj75rpoSVft6dn/CvG5ywserhaR6HahnhjNL/ax4kcUfEO4jmImdRZqi0daUZe
+         lIZRNWJJgAHtmNgc7dAahCSQfV+SlAyAna86JlTr+HIaxxSurhoIOxBSnVeKTWvyR/nh
+         BJxENV7TQdwrYh++CkFePZ3vwvOG2Ok8FxCxZrzepYkXYog7QFS9m3dSgG2DEX+KH9fH
+         H9jA==
+X-Forwarded-Encrypted: i=1; AKwUvBwITVc0lU1zBKhUS80y0ikGgA5gYndkEQ+VNRnN1StW3jVUR6xdh8Ak4dKjQbk+Duef0wTz4tBQCPVs47E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nApaY5vYDwuCSzRcApMpDP4XOSgb2KUeT6+eBW+N0pyV0bRaux
+	Sez4ToGmP1VjkcDQcrK91q2ON+a9toce5H5eHd+L9402i5n7raQ2doTm
+X-Gm-Gg: AYBFou3NwYY2r6C3Y/lHNopW6QNl+bWZEI65zE0rl5LsoDCj4mIQw0EDziSw40Z0D0H
+	v0y3rIYGBJ3vx8eVqaYZ82Fx+Ecz2/421k+GhrpZ9O1LYkN6kdsfI+0iey13LOm0PjfWmf8ZCOy
+	M4SbTAxhlhBap2+oJFsTXsKiteELHRGZSJo5RhiIwIYx8+/kiiff+Yy0jWLUg1bEIr/QM8PV/Pc
+	jVtsDbLsUKKrOjRWJ4JXStACXaUtD0ucokz5MHOJNWH4dP44Yirg8/lm7OCVNr6bt0SSRmBaHLK
+	PjgU8ESatGTVQXlgm2yHDT1WhKpR5mXTRty0MtIH6v5p+QB7DkNust7Lt9+CKrgRWlJnkDSoer+
+	XL8ySvx0dqiRyGBm9pJvRlqQw5HkSdErVFxyg8alWsza/MCYfLMlIT+oJMG+xoZ3CzgRec/L1cH
+	BzK1w2hsObONJxAVSRWi3mczDi5YRLy8n+O1H84HPfNwWifUzsn5U3Hl9AvA2jFVFQLO9pY2qWj
+	nAKqrBZcjnW+Jr0BX9+wGodO4YkrBT4duyfs0dRKV8vzFow17ZRN/aXfg2FR8PLpzRDbGpVQsp4
+	wrwAqE/tU3EyD/Q1fIo+QTlVMtg0gu1HpRiccwSmDdkHa+Cif9zRWGEN7oIvhSA=
+X-Received: by 2002:a05:6a00:6088:b0:857:73e2:9106 with SMTP id d2e1a72fcca58-87239aa08b2mr14343741b3a.22.1789643866442;
+        Thu, 17 Sep 2026 04:17:46 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87200c581fcsm2692441b3a.12.2026.09.17.04.17.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 04:17:46 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: dm-devel@lists.linux.dev
+Cc: bmarzins@redhat.com,
+	agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Matthias Goergens <matthias.goergens@gmail.com>
+Subject: [PATCH v2] dm-delay: advertise flush support when a flush delay is configured
+Date: Thu, 17 Sep 2026 19:17:42 +0800
+Message-ID: <20260917111742.1328396-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260814045813.3148127-1-matthias.goergens@gmail.com>
+References: <20260814045813.3148127-1-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <527b2e04.e72c.1a0af16200c.Coremail.huanggaobin23@semi.ac.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:qgCowAAH8hBRzKtqmiMPAA--.27932W
-X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/1tbiCRQNDGqrq01k9wADsr
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-PiBJIHNlbnQgYSBzaW1pbGFyIHBhdGNoIGEgcGFydCBvZiBhIHNlcmllcyB3aGlsZSBhZ28gYW5k
-IHJlY2VpdmVkIHRoZSBnZW5lcmFsCj4gZmVlZGJhY2sgdGhhdCB0aGUgZHJpdmVyIGRvZXMgbm90
-IG5lZWQgc3BlY2lhbCBoYW5kbGluZyBmb3IgYSBidWdneSBkZXZpY2U6Cj4gaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvbGludXgtY3hsLzIwMjYwOTAxMDAyOTEyLjk1OC0xLWFuaXNhLnN1QHNhbXN1
-bmcuY29tL1QvI20zOGVkOGQ2NDgyOTAyZjg1N2JjZWVmMzE0MTMzYTY3OTM3Y2MwMTJmCgpUaGFu
-ayB5b3UgZm9yIHRoZSBwb2ludGVyIC0tIEkgaGFkIG5vdCBmb3VuZCB5b3VyIHNlcmllcywgYW5k
-IGhhdmluZyByZWFkIGl0IEkKYW0gd2l0aGRyYXdpbmcgb3VyIHBhdGNoLiAgW1BBVENIIHYyIDIv
-NF0gY3hsL2V2ZW50czogVmFsaWRhdGUgdGhlIHJlY29yZCBjb3VudApyZXBvcnRlZCBieSB0aGUg
-ZGV2aWNlIGlzIHRoZSBzYW1lIGJ1ZyBpbiB0aGUgc2FtZSBmdW5jdGlvbiwgYm91bmRzIHRoZSBj
-b3VudAp3aXRoIHRoZSBzYW1lIGV4cHJlc3Npb24sIGFuZCBjYXJyaWVzIHRoZSBzYW1lIEZpeGVz
-OiBjb21taXQgKDZlYmUyOGY5ZWM3MikuCkl0IGlzIGFsc28gdGhlIGJldHRlciBvZiB0aGUgdHdv
-LCB3aGljaCBJIGRpZCBub3QgYXBwcmVjaWF0ZSB1bnRpbCBJIHdyb3RlIGJvdGgKbG9vcHMgb3V0
-IHNpZGUgYnkgc2lkZToKCiAgLSB5b3VycyBmYWlscyB0aGUgY29tbWFuZCwgc28gdGhlIHdhbGsg
-c3RvcHMgYXQgdGhlIGZpcnN0IHNpZ24gb2YgYSBiYWQgY291bnQ7CiAgLSBvdXJzIGNsYW1wZWQg
-bnJfcmVjIHRvIHdoYXQgdGhlIHBheWxvYWQgaG9sZHMgYW5kIGNhcnJpZWQgb24sIHdoaWNoIGxl
-YXZlcwogICAgbnJfcmVjIG5vbi16ZXJvIGFuZCBsZXRzIGB9IHdoaWxlIChucl9yZWMpO2Aga2Vl
-cCBpc3N1aW5nIEdldCBhbmQgQ2xlYXIKICAgIEV2ZW50IFJlY29yZHMgdG8gYSBkZXZpY2UgdGhh
-dCBuZXZlciBhY3R1YWxseSBjbGVhcnMgdGhlbS4gIEFnYWluc3QgYSBkZXZpY2UKICAgIHRoYXQg
-a2VlcHMgY2xhaW1pbmcgcmVjb3JkcyBpdCBkb2VzIG5vdCBkZWxpdmVyLCB0aGF0IGlzIGEgaGFu
-ZzsKICAtIHlvdXIgc2VyaWVzIGJvdW5kcyB0aGUgcGVyLWxvZyBsb29wIGFzIHdlbGwgKENYTF9F
-VkVOVF9MT0dfTUFYX1BBU1NFUyksCiAgICB3aGljaCBvdXJzIGhhZCBub3RoaW5nIGZvci4KCkFu
-eXRoaW5nIHRoYXQgZml4ZXMgdGhlIHJlYWQgYnV0IGxlYXZlcyBhIGRldmljZSBhYmxlIHRvIHNw
-aW4gdGhlIGtlcm5lbCBpcyBub3QKd29ydGggcG9zdGluZywgc28gdjIgb2Ygb3VyIHNlcmllcyBk
-cm9wcyBpdC4KCj4gUmVwb3J0IGEgYmFkIHJlY29yZCBjb3VudCBhcyBhbiBlcnJvciByYXRoZXIg
-dGhhbiBhIGRyYWluZWQgbG9nLCBzbyBhIGRldmljZQo+IHJlcGVhdGluZyB0aGUgYmFkIGNvdW50
-IGRvZXMgbm90IGtlZXAgdGhlIGV2ZW50IHRocmVhZCByZS1yZWFkaW5nIGl0LgoKVGhpcyBpcyB0
-aGUgcGFydCBJIGdvdCB3cm9uZy4gIEkgaGFkIGFyZ3VlZCB0aGF0IGNsYW1waW5nICJ0ZXJtaW5h
-dGVzIiBiZWNhdXNlIGEKY291bnQgb2YgemVybyB0YWtlcyB0aGUgZXhpc3RpbmcgYGlmICghbnJf
-cmVjKSBicmVhaztgLiAgVGhhdCBvbmx5IGNvdmVycyB0aGUKZGV2aWNlIHRoYXQgZGVsaXZlcnMg
-bm90aGluZzsgYSBkZXZpY2UgdGhhdCBkZWxpdmVycyBvbmUgcmVjb3JkIGFuZCBjbGFpbXMKNjU1
-MzUgZXZlcnkgdGltZSBuZXZlciByZWFjaGVzIGl0LgoKPiBBbmQgY291bGQgeW91IENDIG1lIG9u
-IHYyPyBUaGVyZSBhcmUgc29tZSBtaW5vciBjb25mbGljdHMgd2l0aCB0aGUgRENECj4gcHJlcCBw
-YXRjaCBJJ20gd29ya2luZyBvbiwgc28gSSB3aWxsIG5lZWQgdG8gcmViYXNlIHRob3NlLgoKWW91
-IGFyZSBDYydkIG9uIHRoZSBwYXRjaCB3ZSBrZXB0OgoKICBbUEFUQ0ggdjJdIGN4bC9tYm94OiBi
-b3VuZCB0aGUgR2V0IFN1cHBvcnRlZCBMb2dzIGVudHJ5IGNvdW50IGJ5IHRoZSBwYXlsb2FkCiAg
-aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwOTE3MTA0NjAzLjI2NTg1MjktMS1odWFu
-Z2dhb2JpbjIzQHNlbWkuYWMuY24vCgpJdCBpcyBub3QgaW4geW91ciBzZXJpZXM6IGl0IGlzIHRo
-ZSBHZXQgU3VwcG9ydGVkIExvZ3MgZW50cnkgY291bnQgZHVyaW5nCmNvbW1hbmQgZW51bWVyYXRp
-b24sIGEgZGlmZmVyZW50IGZ1bmN0aW9uIGFuZCBhIGRpZmZlcmVudCByZXNwb25zZSwgc28gaXQK
-c2hvdWxkIG5vdCBjb25mbGljdCB3aXRoIHlvdXIgRENEIHByZXBhcmF0b3J5IHdvcmsuCgpUd28g
-dGhpbmdzIHRoYXQgbWF5IGJlIG9mIHVzZToKCi0gd2UgaGF2ZSBhbiBpbmRlcGVuZGVudCByZXBy
-b2R1Y3Rpb24gZnJvbSBhIFFFTVUgVHlwZS0zIGRldmljZSB0aGF0IGxpZXMgYWJvdXQKICB0aGUg
-cmVjb3JkIGNvdW50IHBlciByZXNwb25zZSwgd2l0aCB0aGUgYm91bmRhcnkgbWVhc3VyZWQ6IGEg
-Y2xhaW0gb2YgMTYgc3RheXMKICBpbnNpZGUgdGhlIDIwNDggYnl0ZSBidWZmZXIgYW5kIDE3IGlz
-IHRoZSBmaXJzdCB0aGF0IGRvZXMgbm90LCBLQVNBTiBpbgogIGN4bF9jbGVhcl9ldmVudF9yZWNv
-cmQuICBIYXBweSB0byBzZW5kIGl0IGFzIHN1cHBvcnRpbmcgZXZpZGVuY2UsIG9yIGFzIGEgdGVz
-dAogIGNhc2UgZm9yIHlvdXIgcGF0Y2guCgotIG9uZSBvcHRpb25hbCBzdWdnZXN0aW9uOiBjeGxf
-Y2xlYXJfZXZlbnRfcmVjb3JkKCkgc3RpbGwgcmUtcmVhZHMKICBnZXRfcGwtPnJlY29yZF9jb3Vu
-dCB0byBkZWNpZGUgaG93IG1hbnkgaGFuZGxlcyB0byBzZW5kLiAgUGFzc2luZyB0aGUgY291bnQK
-ICB5b3UgdmFsaWRhdGVkIHdvdWxkIHJlbW92ZSB0aGUgaW52YXJpYW50IHRoZSB0d28gZnVuY3Rp
-b25zIGhhdmUgdG8gYWdyZWUKICBhYm91dCwgdGhvdWdoIHdpdGggYSBzaW5nbGUgc3RhdGljIGNh
-bGxlciBpdCBpcyBub3QgbG9hZCBiZWFyaW5nIHRvZGF5LiAgSQogIG1lbnRpb24gaXQgb25seSBi
-ZWNhdXNlIGl0IGlzIHRoZSBvbmUgdGhpbmcgb3VyIHZlcnNpb24gZGlkIGRpZmZlcmVudGx5IHRo
-YXQKICB3YXMgbm90IHdvcnNlLgoKR2FvYmlu
+dm-delay has a flush delay class: the 9-argument table form takes
+<flush_device> <flush_offset> <flush_delay>, delay_map() routes
+REQ_PREFLUSH bios to it, num_flush_bios is 1, and
+Documentation/admin-guide/device-mapper/delay.rst documents it. But
+the target never sets ti->flush_supported, so the dm device only
+supports flushes when an underlying device stacks BLK_FEAT_WRITE_CACHE
+into its limits. Over a write-through device (write_cache "write
+through") it does not: submit_bio_noacct() strips REQ_PREFLUSH and
+REQ_FUA before any bio reaches the target, and a configured flush
+delay measures nothing.
+
+Set ti->flush_supported when dc->flush.delay is non-zero. A configured
+flush delay then always sees its flushes. Without one, dm-delay keeps
+stacking flush support from the underlying device like the other
+targets, so an undelayed dm-delay behaves like linear for flushes.
+As for any table with flush support, the dm queue then also
+advertises FUA; delay_map() keeps routing REQ_FUA writes to the
+write class, and only REQ_PREFLUSH goes to the flush class.
+
+Verified in a VM with dm-delay over a write-through virtio-scsi disk,
+using a 9-argument table with write delay 0 and a flush delay of 200
+or 800 ms. Without this change the dm queue reports write_cache "write
+through", fua 0, and five 4 KiB dd oflag=dsync writes to the dm device
+complete in 0-1 ms. With it the queue reports "write back", fua 1, and
+the same writes take 204-210 ms and 812-880 ms. Zero-delay tables over
+the write-through disk and over a write-back disk behave the same with
+and without the change and keep the underlying queue's settings.
+
+Suggested-by: Benjamin Marzinski <bmarzins@redhat.com>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+Changes since v1:
+- Set flush_supported only when dc->flush.delay is non-zero, so an
+  undelayed dm-delay behaves like linear for flushes (Ben).
+- Commit message describes only the write-through case; otherwise dm
+  stacks flush support from the underlying device (Ben).
+- Dropped the claim that FUA writes reach the wire: tracing the
+  underlying disk shows a plain data write and a REQ_PREFLUSH bio.
+- Re-measured with write delay 0 so the timing isolates the flush class.
+
+ drivers/md/dm-delay.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-delay.c b/drivers/md/dm-delay.c
+index 4864671c2222f..96bb430215a32 100644
+--- a/drivers/md/dm-delay.c
++++ b/drivers/md/dm-delay.c
+@@ -301,6 +301,7 @@ static int delay_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	}
+ 
+ 	ti->num_flush_bios = 1;
++	ti->flush_supported = dc->flush.delay != 0;
+ 	ti->num_discard_bios = 1;
+ 	ti->accounts_remapped_io = true;
+ 	ti->per_io_data_size = sizeof(struct dm_delay_info);
+@@ -451,7 +452,7 @@ static int delay_iterate_devices(struct dm_target *ti,
+ 
+ static struct target_type delay_target = {
+ 	.name	     = "delay",
+-	.version     = {1, 5, 0},
++	.version     = {1, 5, 1},
+ 	.features    = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_ZONED_HM,
+ 	.module      = THIS_MODULE,
+ 	.ctr	     = delay_ctr,
+-- 
+2.55.0
+
