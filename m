@@ -1,111 +1,130 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2104A64C0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83B74A3D52;
+	Thu, 17 Sep 2026 09:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636227; cv=none; b=W9gjUdlZQvJxqTBVF8f9CKtHhH/zJMhmmKrhaEQWyZ2L8KRclLG8aepKlEv3zFPijvJoMKg5wG+eS6NJc+0WQNU93UAs3OHbwqWLiMZN1fDhbeR1ojGrXLHJ3txfkRu6OiFJTvu5j3fjJQ8EjC3PF0EGVPRONIiOQhXXSfR7AxM=
+	t=1789636278; cv=none; b=Mqgm7DeAIQX82WJaScxrpWUxpZ/MHd1dbMUaZL1fhaXQuWHG5T65BWXt1CemNh59xuuLnnto214oxtDCpunzOihSB1RIi8xygyQMzjETATVjQIFKn99/RBTLVuvAqMueLJc7tQBtorc+zwlxOtVepz0OG0at9wv+RSR0s07fYzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636227; c=relaxed/simple;
-	bh=RJjhdV9CwaoE74N1bNU0hY9BatQziexkypF2NItGJcE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lr2pNizWdtoxmKm504G2joPt2+SuA6/zbdUboDGGNQKFj/5glNN+Wvbqc+h0woOYNJAKdBhuzxDJvs+EWPcELLm06YQPoEr/+NbF9nQqInYCX5hkldaBHkHkoHJaGRvSIY/DxvadPVCpSBrUN8FInHKzWaxZJGpHmm8Npl6Yyyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Gen9XyEX; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Gen9XyEX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=I67L
-	oRiWtGV0qD+2zhDaad+CFeN3qsKkRGXxvceIiBY=; b=Gen9XyEXFJXDRb2NjW8f
-	XfvlVt/ZpgVXFYjRvF4d4yjO97TfsTgPisFOp+Ciw7KRfqUNy1ZGaaEIOzzhwUYd
-	6VrlCkckF5wL3Rzi9WM6hraJ+KfqIzwhbE30YbGCnwjYipiWEfavlfPOfu0d/tp0
-	TpXrXh2qsYGN4RRsysvk11O0t7UYiTP1y26nwglVuwPolmGOcC1Dnhb7JLArMF0D
-	qjTlzqssOyFrb4GV0xC2JvwcDKufyOCVtvMWnyD2rlz4mbtvuZqFspE0nmZuFe4M
-	bf1tVmfJT2XO1ON5Tw7Q0xcok6xJk0ewr48FAM4hWgUGW3CENp1MJmQva01Xfi1N
-	8w==
-Received: (qmail 1932189 invoked from network); 17 Sep 2026 11:10:23 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Sep 2026 11:10:23 +0200
-X-UD-Smtp-Session: l3s3148p1@yYxgJ6pbKLcujnsL
-Date: Thu, 17 Sep 2026 11:10:23 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] hwspinlock: add low level debug capabilities
-Message-ID: <aquufy5JW2Z5Gmq8@ninjato>
-References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
- <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
- <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
- <aqsNpEXjuZswCC9w@shikoro>
- <CAMuHMdUPcBfFrLLW9_URM99S1jR-KhqUBQo1n7oHqX8qL4=1-w@mail.gmail.com>
+	s=arc-20240116; t=1789636278; c=relaxed/simple;
+	bh=Fi8U/5R9ouWq3gC3h4XdjmjtQgIhxaWjzBgD9YtimQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=tZ7M4h2wAKaDgUEyMpVtz0x0tUF90DSZ3UqQoY/3+XvYZ5fFnQVr2pCYNgaDShwtWueSXYs+tT2H1qc9jxxpgQugrlhyDA0fjRmQYZWpPTGnpZ61RzaQfaOGmK3CRHzpS9pScuTftjAr4tooFDHKiE2DG4OOjLa6CfCL4sCkzwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=hisilicon.com; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hlqSV3hhHz1T4Mc;
+	Thu, 17 Sep 2026 16:59:22 +0800 (CST)
+Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
+	by mail.maildlp.com (Postfix) with ESMTPS id 625914057F;
+	Thu, 17 Sep 2026 17:11:05 +0800 (CST)
+Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
+ (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 17 Sep
+ 2026 17:11:04 +0800
+Message-ID: <ac3b17af-c6bb-4e91-b9bb-6cf2d43f8107@hisilicon.com>
+Date: Thu, 17 Sep 2026 17:11:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uIs5o3p8zIYvQ1UP"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUPcBfFrLLW9_URM99S1jR-KhqUBQo1n7oHqX8qL4=1-w@mail.gmail.com>
-
---uIs5o3p8zIYvQ1UP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-
-> > You mean I should merge the two sentences into one?
->=20
-> Yes, as the second "sentence" does not have a verb.
-
-Pfff, okay.
-
-> > > > +       debugfs_create_file("request", 0200, rootdir, NULL, &fops_r=
-equest);
-> > > > +       debugfs_create_file("free", 0200, rootdir, NULL, &fops_free=
-);
-> > > > +       debugfs_create_file("lock", 0200, rootdir, NULL, &fops_tryl=
-ock_raw);
-> > > > +       debugfs_create_file("unlock", 0200, rootdir, NULL, &fops_un=
-lock_raw);
-> > > > +       debugfs_create_file("test_lock", 0200, rootdir, NULL, &fops=
-_test);
-> > >
-> > > Perhaps just "test"?
-> >
-> > Hmm, too generic for my taste. In fact, I think I should maybe rename it
-> > to "test_single_lock" to make it more precise...
->=20
-> "test_single"? All others don't have "lock" in their name.
-
-Hmm, I'd rather add 'lock' to request/free. Only lock_lock sounds
-strange :)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ACPI: RISC-V: CPPC: Implement cpc_read_ffh_fb_ctrs()
+To: Yufan Dou <douyufan@picoheart.com>, Sunil V L <sunilvl@ventanamicro.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	<linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <yuchao.46@picoheart.com>, <yang.yicong@picoheart.com>,
+	<lihuisong@picoheart.com>, <geshijian@picoheart.com>,
+	<wang.yechao255@zte.com.cn>
+References: <20260902083450.2348-1-douyufan@picoheart.com>
+ <20260909071541.1545-1-douyufan@picoheart.com>
+Content-Language: en-US
+From: Jie Zhan <zhanjie9@hisilicon.com>
+In-Reply-To: <20260909071541.1545-1-douyufan@picoheart.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemf200017.china.huawei.com (7.202.181.10)
 
 
---uIs5o3p8zIYvQ1UP
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrrn8ACgkQFA3kzBSg
-KbYClw/+I1c9z8xwfb5udO+V3fANqMX1zXeIG1c7zAo+f3tuAPccz/No5uAPqaON
-vg5/xSTMAQPpgvjUhQHg3dUOVZKZjp10inNjTD/pXSyNCDdHlBpPHgcwuC8xcoTA
-HxXNIwqS/yP/GbEt6flyo15sUk75HMRxYPJIauHc9iED/3zfdmg8bPPInU6zzI04
-CtyAKgotERAirsKQwu74JgDhduI3FIOyPZebXpWGpR0TbVunlYHDQacNQ6lJ6zCj
-tPSHI/ME++O/0SAKdCcpS5v1VkPytAAc4ShLn1gFGpnEEIj1L2sXZGDtac5zM29A
-ADfBw494pB/ORGZGfLOReQYBVP7Dp4VoYzLL3AFiAaPl6VPCOswK5qWqYYRBmh+z
-LLc/iH/sCz+odW+GZD06dpkrhgGFw+By6tZDV22ceZvYNo+FVbFci7FW94CmsyOF
-WkYCyZ/TYlNnYI3Fxg+5K6HUqm7rUCG7OcMYEP8XTvDKPqIcWAbqhz0YJiDBAbDW
-3vpTguqVuuyOA7Mg2+8RhEebHjFAtjI01jpJaH+gwSJ+KU2OOxqe0Oe8uDxC04I3
-5mnXxa05BvGp6eJDr1aooyI6EbLV0iIXf3t4+ihqPkAhvrbi7TP/rP3FZJiWGMBb
-thvnZgmcK0ALPVkWOBl0HBllLxRKAOceXBKCJFT8WgetEjrkLoc=
-=LKZ2
------END PGP SIGNATURE-----
-
---uIs5o3p8zIYvQ1UP--
+On 9/9/2026 3:15 PM, Yufan Dou wrote:
+> On RISC-V, reading FFH feedback counters on a remote hart through
+> cpc_read_ffh() requires a separate IPI for each register.
+> cppc_get_perf_ctrs() therefore samples the delivered and reference
+> counters in two separate IPIs. Variation in the delay between these
+> reads distorts the delivered/reference ratio and thus the frequency
+> reported by cpufreq.
+> 
+> Implement cpc_read_ffh_fb_ctrs() to read both counters back-to-back
+> in a single callback on the target hart. For remote reads, this
+> reduces two IPIs to one and narrows the separation between the
+> counter samples. Support CSR-type, SBI-type and mixed-type pairs.
+> Pairing SBI reads does not reduce the number of SBI calls, but
+> still avoids a separate IPI for each counter.
+> 
+> Factor the execution-context handling into cppc_ffh_read_on_cpu(),
+> shared by cpc_read_ffh() and cpc_read_ffh_fb_ctrs(). CPPC frequency
+> invariance (FIE) reads non-PCC counters directly from the scheduler
+> tick, with local interrupts disabled. Unconditionally rejecting
+> such reads prevents the frequency scale from being updated.
+> 
+> Following arm64's counters_read_on_cpu(), invoke the callback
+> directly when interrupts are disabled and the target is the current
+> CPU. Reject remote reads in that context. Otherwise, use
+> smp_call_function_single() and propagate its return value before
+> accessing the callback results.
+> 
+> Frequency accuracy testing used CSR-type delivered and reference
+> counters, with CPU1 kept busy by:
+> 
+>   # stress-ng --cpu 1 --taskset 1
+> 
+> On a CPU with cpuinfo_max_freq of 3000000 kHz:
+> 
+> Before:
+> 
+>   Maximum observed cpuinfo_cur_freq: 3201369 kHz
+>   Maximum observed deviation:        +201369 kHz (+6.71%)
+> 
+> After:
+> 
+>   Maximum observed cpuinfo_cur_freq: 3009646 kHz
+>   Maximum observed deviation:          +9646 kHz (+0.32%)
+> 
+> The maximum observed deviation from cpuinfo_max_freq decreased
+> by 95.2%.
+> 
+> Additional testing covered the CPPC FIE tick path and SBI-type
+> FFH register reads.
+> 
+> Co-developed-by: Yicong Yang <yang.yicong@picoheart.com>
+> Signed-off-by: Yicong Yang <yang.yicong@picoheart.com>
+> Signed-off-by: Yufan Dou <douyufan@picoheart.com>
+> Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
+LGTM, thanks!
+Reviewed-by: Jie Zhan <zhanjie9@hisilicon.com> 
+> ---
+> Changes in v2:
+> - Support SBI-type and mixed-type counter pairs in a single callback
+>   on the target hart, reducing remote reads to one IPI.
+> - Factor out cppc_ffh_read_on_cpu() for both FFH read interfaces.
+>   Allow local reads with interrupts disabled and reject remote reads
+>   in that context, following arm64's counters_read_on_cpu().
+> - Propagate synchronous cross-CPU call errors in cpc_read_ffh().
+> - Test the CPPC FIE tick path and SBI-type FFH register reads.
+> 
+> v1:
+> https://lore.kernel.org/all/20260902083450.2348-1-douyufan@picoheart.com/
+> 
+>  drivers/acpi/riscv/cppc.c | 102 ++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 97 insertions(+), 5 deletions(-)
+> 
+[ ... ]
