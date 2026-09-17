@@ -1,113 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3D8D51474F;
-	Thu, 17 Sep 2026 14:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510525921F9;
+	Thu, 17 Sep 2026 14:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654944; cv=none; b=tBMqaFwe6nd/iQe4aNsd0Y0QYYNDAR8SmZ7862SBLPGirNC+jEr5Ok6kokvpLaM60VqwUEnZrCGhJVpxmRkJrdeWi318kANYiEtrHF0qaRaPajBbk5Hu79LZHVodx5E6cZtN2FOJQjYtVCrq1s5LUk6tWj4xfIVS3QafBfFGZlo=
+	t=1789654945; cv=none; b=SX6uigBJL6R6S3MS/9LYEKbqe6L9uHp1Pc1M9oD/A51TO29HZBXYyFnb+6otEAD2bkdAD+qs5flgRsjh4Netu8Kp24dVjwahMLogoIAHcwa8FX+m0EuohaY6/MT5nySL28BJygEgGfka51gim8+3UKW6vO1FNFUpfHZnYPUyjj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654944; c=relaxed/simple;
-	bh=qv7Bv+oiJEWlaONHpF0qrpPt4OsKdrgQ3MC2MRmkXR0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UbrU3zNcMT+xsSw3WK/A0b2BejtOYiaRfpJJfkbjJ5M6ST1suR2n143NN9ecaM7/J4odvm5tGU9abQ9uOpkTgn/o6dbud7yliW5VmBDSIty9nROSO0+eRsoPgjakWOM5prmDUN0lopE9SETq1jZRIEgNVL0ipv/fUltzAEe101A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ESiJw4AY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789654945; c=relaxed/simple;
+	bh=Eqre9EVQ7YlVbIBp2jqspJzGDFxFiz5ITzxRB7dmjSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WOb9ZcXhiylDSypHBiPyl5sF9qRJ5lBOQOfeFhN4jHwF7K/VxaitmKKK6sxKUiB2YZgFYwSX1GDwrcabNVKR5K/n5uY6bvArE7vbdy7HhjrSfRcADg/winRN4DvFG8DTUnpxD7oXwG/gbMgQZcBoNgYi/4NIdD7J1c41xdqOmp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbxk3B1k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ESiJw4AY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E11B21476;
-	Thu, 17 Sep 2026 07:22:16 -0700 (PDT)
-Received: from [10.57.50.144] (unknown [10.57.50.144])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3DD843F86F;
-	Thu, 17 Sep 2026 07:22:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789654940; bh=qv7Bv+oiJEWlaONHpF0qrpPt4OsKdrgQ3MC2MRmkXR0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ESiJw4AYG+m6Zm4w2RZsLcRgZ4tpG50tgdXQ+DowmSth8SEI2OC+uVfyd3ZFWXAVC
-	 m7Dd509835LDdg2Q0KBtXbUC511CVqyNgoPCkvNyerLvPP6ZcGQqrQMNFR8gzhdmGc
-	 500fXWGNkwGbOYA4GR7wP6yN1N/WjEaQ36VR7q9c=
-Message-ID: <f3912746-90f8-46de-a690-a840afa4a1d1@arm.com>
-Date: Thu, 17 Sep 2026 15:22:15 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbxk3B1k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CD41F0089F;
+	Thu, 17 Sep 2026 14:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789654942;
+	bh=Mozf9eR83klndQFJraTt18kHcl1hxd6yOHCmDoYKrX8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fbxk3B1kVQa/Rmy2plmyyuHyctTxT8yCGXvhut/j2pz7uiz+QbAlLv8/6UztAXe41
+	 tLJg8cKGIynm6fLnBghsnGt6GCd+jYC7M+RYUhe1vzhfTqX3dOZ4C1BId14gforUo+
+	 Mpqj4T/S6kQMSBWZ180eQEfmNUJFLRFNss0AzQc3oQrGPO3n5O+L7sZsfgrNHslSA5
+	 aGPofrVcWeRQSeyLDDMfGqp36KBQBcc2Kpb/M1Zuol0PY0FqPB/wrkDwU9zD5C7/EA
+	 xT3EQzQInjk9Cx/S/7zF+BBGo6a7I5x/aPeqb6BVAs+d4FNyYRhwezk/i5o+sFkLYR
+	 EPfhO8Oy0rVtA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 10/10] Docs/mm/damon/design: clarify bp is basis point
+Date: Thu, 17 Sep 2026 07:22:08 -0700
+Message-ID: <20260917142210.90829-11-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917142210.90829-1-sj@kernel.org>
+References: <20260917142210.90829-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path
- candidates
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Beata Michalska <beata.michalska@arm.com>, Elif Topuz <elif.topuz@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Shubhang Kaushik
- <sh@gentwo.org>, Christoph Lameter <cl@gentwo.org>,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260916100116.701206-1-christian.loehle@arm.com>
- <20260916100116.701206-3-christian.loehle@arm.com>
- <CAKfTPtCAaACP8A=AKGO3PdhZtA9SRM6e3ym+5d=Qfp-VpDa38g@mail.gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAKfTPtCAaACP8A=AKGO3PdhZtA9SRM6e3ym+5d=Qfp-VpDa38g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 15:08, Vincent Guittot wrote:
-> On Wed, 16 Sept 2026 at 12:01, Christian Loehle
-> <christian.loehle@arm.com> wrote:
->>
->> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
->> slow-path selectors can choose the same CPU before either task is enqueued.
->>
->> Use reservoir sampling in the tie branch, resetting the candidate count
->> when a lower advertised exit latency is found. Use the per-CPU scheduler
->> PRNG and reciprocal_scale() to avoid variable division or a second scan.
->>
->> This reduces deterministic convergence without reserving the chosen CPU.
->>
->> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->> ---
->>  kernel/sched/fair.c | 11 ++++++++---
->>  1 file changed, 8 insertions(+), 3 deletions(-)
->>
->> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
->> index ff5793bddc35..6836a8364440 100644
->> --- a/kernel/sched/fair.c
->> +++ b/kernel/sched/fair.c
->> @@ -24,6 +24,7 @@
->>  #include <linux/mmap_lock.h>
->>  #include <linux/hugetlb_inline.h>
->>  #include <linux/jiffies.h>
->> +#include <linux/math.h>
->>  #include <linux/mm_api.h>
->>  #include <linux/highmem.h>
->>  #include <linux/hrtimer.h>
->> @@ -8459,6 +8460,7 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
->>  {
->>         unsigned long load, min_load = ULONG_MAX;
->>         unsigned int min_exit_latency = UINT_MAX;
->> +       unsigned int nr_candidates = 0;
->>         int least_loaded_cpu = this_cpu;
->>         int shallowest_idle_cpu = -1;
->>         int i;
->> @@ -8482,9 +8484,12 @@ sched_balance_find_dst_group_cpu(struct sched_group *group, struct task_struct *
->>                         if (idle && idle->exit_latency < min_exit_latency) {
->>                                 min_exit_latency = idle->exit_latency;
->>                                 shallowest_idle_cpu = i;
->> +                               nr_candidates = 1;
-> 
-> You clear the number of candidate when you find a lower exit_latency
-> but !idle CPUs that have already been checked will be cleared whereas
-> they still get a chance if they are checked later.
-That is correct. Is this a problem?
-(Again, mirroring what upstream currently does, let's say exit_latency(CPU0)=100, exit_latency(CPU2)=1
-!idle at CPU3 trumps CPU2 (assuming recent idle_stamp), !idle at CPU1 doesn't trump CPU2, i.e.
-the inconsistency around !idle is already there?)
-And I'm assuming we really don't wanna keep a cpumask of !idle CPUs, if anything we may just ignore
-them completely, given how unlikely it they are to be observed.
+DAMON design document uses "bp" for "basis point" in multiple places.
+Because it is not clearly mentioned, it is difficult to understand what
+"bp" stands for.  Add the clarification.
+
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Closes: https://lore.kernel.org/107dc6ba-697e-4b25-ba3e-8ce2499cac9a@infradead.org
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ Documentation/mm/damon/design.rst | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
+index 0a86792f90a18..e82390e77a70a 100644
+--- a/Documentation/mm/damon/design.rst
++++ b/Documentation/mm/damon/design.rst
+@@ -445,7 +445,7 @@ users to set the aimed amount of access events to observe via DAMON within
+ given time interval.  The target can be specified by the user as a ratio of
+ DAMON-observed access events to the theoretical maximum amount of the events
+ (``access_bp``) that measured within a given number of aggregations
+-(``aggrs``).
++(``aggrs``).  The ratio is in basis point (bp or 1/10,000).
+ 
+ The DAMON-observed access events are calculated in byte granularity based on
+ DAMON :ref:`region assumption <damon_design_region_based_sampling>`.  For
+@@ -717,7 +717,8 @@ mechanism tries to make ``current_value`` of ``target_metric`` be same to
+   in microseconds that measured from last quota reset to next quota reset.
+   DAMOS does the measurement on its own, so only ``target_value`` need to be
+   set by users at the initial time.  In other words, DAMOS does self-feedback.
+-- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in bp (1/10,000).
++- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in basis point
++  (bp or 1/10,000).
+ - ``node_mem_free_bp``: Specific NUMA node's free memory ratio in bp (1/10,000).
+ - ``node_memcg_used_bp``: Specific cgroup's node used memory ratio for a
+   specific NUMA node, in bp (1/10,000).
+-- 
+2.47.3
