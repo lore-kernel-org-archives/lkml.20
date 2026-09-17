@@ -1,73 +1,101 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF9163CB
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3973290DB
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608844; cv=none; b=BJQi3iSgGshboECB8jBoFEOgIpHvoCv/MALYUYv20CmxaOlPImhDjO/05qbataGjheRy1GBVbiX04kti3u+iCioVJTMJny1pJ6WqRL+nFR9bIs9L2WvvpNweGashHvWsI7aU79qvLRJw2j0HDR+9/AbVnTjolRw+rqUR28p/C7E=
+	t=1789608897; cv=none; b=ErOKS2Zatg7Omj6P9kzYMRS6/juEm9qCmYO0rOaiPwZWkMPh3RC4o/xGV1kxZmEKCg2Cd2awRDJeFZNXlhq5QIEtWXXFtWXb1duDoFpgpSkmFPP6jj13mkmJKQZfUtY+pAfOWxoEFg9v+CaqTT/8BtIuDkXDNsEFDeZw2qeSU6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608844; c=relaxed/simple;
-	bh=I1KJHdyTFsrIlp3bsN3SMjwN7KsBg5SLX4JsdygSAOY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=UvcUpckyyECkQPOcfj9ryotomvGCyu6mFFiHGiRoo5Cdm5R6r4wfqiWI9Au4ebND8tELVpSOHrZTzjuy4hC0+4P/g9lV3gL3ey4bqDepWBwD4YM5fg+8o5Q+hCm3gZjfjbuOWOQJ1wJpjAxqiMJQ9wPjvag4DJcI6cbcoS1rH7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso636069b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:34:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789608841; x=1790213641;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fAUQTadVOIMmNKXmF/BYKZPoM0CIK8Xhy1V+dK0wDyM=;
-        b=JRfXklxo1IcdZa6UWN4WdHoQdiz2tRA4lFbFXlg/fM7WRkLps5E1OYQH7R6fZeu0kc
-         m26BiWF3PAzUPB9RxOV5mZpnLVKIir4kYr/8JDexjj+u3QfpiKaM36lePSBPdf+fDpVt
-         /PKW0I7f7jG+vEn+3UrexN6PRPbsp2x8sNRMMaUpNBrY13IFpeMswwi9q6T7IKAOTGVh
-         ywRLcL9JVNoq00wmS4Wtg88SJFouC/tBSTP5o6cahbfFYcG9ygzYYcyzoHVCEITDDaIW
-         oDMKMC2xJz29HH1R5idESYBFF9pmC8ekjwyYRHTRRkj19Q3Jd3ufCrhX8cutqjWQW2xH
-         tKQg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3PpNMsPwTHJ60zichPclo8Zd4sZteQTxDunrg5f+C051LSWoIdXggWYNxfhhL+5xawECgD2PQT3q4N4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHgiUFaS4C9gkqzB/D/aV9LoIlSbgFtUHoVntqGXQ9wFdPviYP
-	ITz8pu+U2ONsj+QPThlqnDWDMoQjO1z06mNhhh2v/66xABdbdeiKEQXlfvYgUdbSSypP/6KfA67
-	LD6704f4apNwdItob0JsqgSnMP7RnhzzGqgYkrt+EyYoizURsnEDb2msATKY=
+	s=arc-20240116; t=1789608897; c=relaxed/simple;
+	bh=Q4Bmm2BInOP5OudMdDYpd+HnkMiATD4AYQuj3ZU9kbY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nWX9Np2LuYtj6sTqfPmzo+6ZHr3PvQw/grUIBtvEWpjK0y4SnUzY8dY1ukQibU5d863AgDU+8sZiFneIgRVxkTd0cPar6gRWAIxix4XrLvhRL9mI1/p7yiDHkRS3P7aTOID364LklElZNy/HNcJg0/IfugaH4oZanYRXxkdWkog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=N5onHOk0; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="N5onHOk0"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789608893; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=NdN/lLlbb/Noes86GYTJvW3xAkNmueuxUfk2OeVX/Mg=;
+	b=N5onHOk07/VHXESw69M0UXVyweeUd2in1PU4EXn5H/adQlGnE0ZOJhTneA5tC7uVtwqOcRlwpSzPSoS7tEFK4215YbvyMqz4RJFXIKmyHrcMJtz5VqknK2//knJA190dHgHK89Zwhdj1fhY0YgDGuNJ3fIxLrw5wqJeAG8H7Ub8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XB6H5Yk_1789608891;
+Received: from 30.221.129.217(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XB6H5Yk_1789608891 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 17 Sep 2026 09:34:52 +0800
+Message-ID: <2d65e5ee-7381-4230-baef-e5c34fb95806@linux.alibaba.com>
+Date: Thu, 17 Sep 2026 09:34:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c136:b0:4bb:ac05:9ebf with SMTP id
- 5614622812f47-4ca49ecc9b2mr4576702b6e.14.1789608841652; Wed, 16 Sep 2026
- 18:34:01 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:34:01 -0700
-In-Reply-To: <6aab3f19.5af1e7b4.aea08.bb89SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab4389.b398a7c9.1f86be.0006.GAE@google.com>
-Subject: Re: [syzbot] [block?] BUG: sleeping function called from invalid
- context in null_insert_page
-From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: retain all security xattrs during inode creation
+To: Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260916120258.3583355-1-joseph.qi@linux.alibaba.com>
+ <aqqe10w7OONy6pcI@p15>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <aqqe10w7OONy6pcI@p15>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
-Tested-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+On 9/16/26 9:54 PM, Heming Zhao wrote:
+> On Wed, Sep 16, 2026 at 08:02:58PM +0800, Joseph Qi wrote:
+>> When creating a new inode, ocfs2_init_security_get() stores the
+>> security xattr returned by the LSM framework in
+>> ocfs2_security_xattr_info so that it can be written later within the
+>> same transaction.  But ocfs2_initxattrs() only ever looks at the
+>> first element of the xattr array, and it keeps the name as a bare
+>> pointer into memory owned by the security layer instead of copying
+>> it.  The value, by contrast, is already duplicated with kmemdup().
+>>
+>> With stacked LSMs, security_inode_init_security() provides one xattr
+>> per LSM, so all labels but the first are silently dropped and never
+>> written to disk, leaving newly created files without the security
+>> xattrs the other LSMs rely on.
+>>
+>> The borrowed name is not an outright bug with the LSMs in tree
+>> today: security_inode_init_security() frees only ->value once the
+>> callback returns, and documents ->name as the attribute name
+>> suffix, so the pointer stays valid for as long as ocfs2 uses it.
+>> It is fragile though, as an LSM that allocates the name together
+>> with the value would turn it into a use-after-free, so the rework
+>> below copies the names as well.
+>>
+>> Fix this by storing copies of all the security xattrs: allocate an
+>> array in ocfs2_initxattrs(), copy the names and values, account for
+>> all of them in the credit calculations, and write each one in
+>> ocfs2_init_security_set().
+>>
+>> While at it, switch the allocations from GFP_KERNEL to GFP_NOFS.
+>> The callback runs in the inode creation path with the parent
+>> directory locked, and the security layer allocates the very same
+>> xattr array with GFP_NOFS, so direct reclaim must not be allowed to
+>> recurse into the filesystem from here.
+>>
+>> Fixes: de3004c874e7 ("ocfs2: Switch to security_inode_init_security()")
+>> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> 
+> The code looks good to me.
+> Reviewed-by: Heming Zhao <heming.zhao@suse.com>
 
-Tested on:
+Thanks, sashiko has review comments for the case of 512B block size:
+https://sashiko.dev/#/patchset/20260916120258.3583355-1-joseph.qi@linux.alibaba.com?part=1
 
-commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1066dbf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=95fdab36405e5ffdb680
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1254ebf9580000
+It looks simple and I'll address it in v2.
 
-Note: testing is done by a robot and is best-effort only.
+BTW, I've sent the update policy including cc ocfs2-devel, but It hasn't
+been merged yet.
+
+Thanks,
+Joseph
