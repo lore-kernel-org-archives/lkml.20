@@ -1,77 +1,37 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27C953D0D5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AA74F4CFF;
+	Thu, 17 Sep 2026 16:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662727; cv=none; b=gLYPIzAk7jqVQS7xOk74V7Dgzf8BKpLa+FwhHfrkfJPOwCH0donsAM890I9ifFQCaBzSUmIztt5mxzL61l69DEgR/AwOsOq07oMRCSC7723cCqvAcG0hthtcc7Tuf2YQ4KXZ7McJU3SJxhB2wTV37JrVNzjJLgXeoETfOdqv4VQ=
+	t=1789662728; cv=none; b=r9cL/k3Drm50eu5uKWDJ9RGvvdktzaEfv4OPExJIJdkh3/eyuxUf9BW2yOgEW7WyLob2mpoA6cha6+eF7nXrCarwCd1dQv3HJ7zcodqA1mlYQSSnrYmwNeKGKS6NL04GVuUMQm1a/U9manARrr7CrApGNUwx9m4rNZ2LMBQfs1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662727; c=relaxed/simple;
-	bh=RJcT5M95T2jnV9ADCJmfNmInAz0xN/iROM2rgbAU0rY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=akdM+0NnB/qy9k/KL5w0Fn6kyE0fhxRtSRi6ZAkRmxdu0+rTTbtiAs8B2hlqhw9Kq8DoGSjEIz+gRq+yCgSyLlf9CXxmQQ78ebI2JNpYysddmqjRIgU6QQvheX33OqwHeSMZqhNAGrumV63iQCpmmx2y9SMzg8FmH9ukqPItv9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=ttGnrZ4N; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="ttGnrZ4N"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so573277f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789662724; x=1790267524; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=voDA440p6Op7KU/bEfmRYCCSMgQks04lI9jGZ54I4b8=;
-        b=ttGnrZ4NgRomwknDZCUK77ZxI5cFSKnUJ024623hRKVw/n9RAizD2zeqJSlP+2yDkU
-         HoUU7eaUSSiZPyShCuhamqsnezLO9n+U/G2SqKGHnA0d8WBJWSA5/a+IjIbd4/CulpBe
-         6YMgph3eljzofP0x+3XJATAjQrmTilGc0JDrI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662724; x=1790267524;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=voDA440p6Op7KU/bEfmRYCCSMgQks04lI9jGZ54I4b8=;
-        b=EhOaqhMRVAPJd3+FSW8qotfnuzoZ6Ed0wfCdqRZ1vaWFZGTu/d5a5YH9eYeebBINUh
-         xsdzlT8PwIua8c23tcnP+ShFSo0+G3Ph2vE7ZzhOaKXG/BAaZcXpgpvuGl5aav61FDuK
-         amJP7oJbQNY9hzeG7nHjnrGirNyim54VHZoBl+Ffj8lSU2xIpHxahU0hvxWed4blwUl4
-         D+iOKWynJtRlAFazCjqd/MUbe3xzzL3XuLg82Q9N9KhLp/oXtsfEhh/IGLRCUcSuo+ux
-         OxJyFCUbCMgIiPYWebzN7n4gnouCZvZ6bwSkZph45TLo4fygMB8SFw/jI4BZm4DtPYJR
-         4u0g==
-X-Gm-Message-State: AFuF++lbNDO1vI6uzaIprFHn83RJbXpN5b9o/6pccC0RExLM+Esb4msw
-	DkwgRTuglcbcQN1gNmkRnIE7UlFA87R4w4ustRCf92Huazm93Vb3R565zgKpLGXTRH7BQzSOipF
-	KD7eW
-X-Gm-Gg: AYBFou1p65id/SgrTftek89ZN2J+UnDzeYuWiYx/GNOBf6ROwmdfuvfaH/xgO8Tez/S
-	joKNerOUlLXFI3v+ttwUQbZPjePu35FPyz8vFMT+v66y0BCzcW5Az6JUxArD1ZGzWwzGHMjEaXQ
-	+6Ehn4wIF10NOLsCH+P0fqZxjR6WnwmXq8g88cIw49t1EvS6JDJCR7/jlb2FTE/5ZBm5ep6Q+ut
-	5BC+m9IBNz7S3tUqCcHk4n/rqTIbVy+yoyytdyhcT7vE7IdpQUVtnRhXlbIEo7UKsLpV+/ocAFh
-	m+5Ex50nmk8Ts6/XDq0YP/NPPHchunJY70qHbyZ/5fxMoE3UOnGnb0b4pmMk3yDPeN0iy0JV/+6
-	qwoXeSOUdVtCtk52AoEO5ij8Ebod41cCkQ4uK20HbIo4+GPLVldPdOQ11LjVO3se7gdNIMUF91U
-	ZlnNbW+a5osbiryOfUDl0L0+TkyshsY3KgbQ9FH3P8FHsWcUPMBQVhJRdXLovyzuYGS6vmDTWYl
-	Sj3DWYdDD3SGlvmp0wrmFZXYlsw
-X-Received: by 2002:a05:6000:41c5:b0:487:725:8210 with SMTP id ffacd0b85a97d-4870cef394cmr8958734f8f.21.1789662723755;
-        Thu, 17 Sep 2026 09:32:03 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm16842652f8f.35.2026.09.17.09.32.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:32:03 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v6 1/3] dt-bindings: vendor-prefixes: add Draeger AG
-Date: Thu, 17 Sep 2026 19:31:54 +0300
-Message-ID: <20260917163157.1380860-2-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917163157.1380860-1-petko.manolov@konsulko.com>
-References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+	s=arc-20240116; t=1789662728; c=relaxed/simple;
+	bh=7Ibz1xz5DfhjrbbCPfxSiz/JHlKh+7wI06ETEzN1qfo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HOAZfvqPUJm2F2SXTF6mKhKLaXugVoSk8NSanZY1Z1l/iPFQSNjVCEaJbGqfFnm9Ewwj3MyHnYXk5R3AWEL38vaTxRJv8q5MZZVErpBJp8wN3dgNCayFGai3YBvCcldil2PClqDwubA5yjSF+nZHqymy/NcmiMbnrGbcvXtgavI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC36EL6FaxqnIaECA--.6863S2;
+	Fri, 18 Sep 2026 00:31:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Dai.Ngo@oracle.com
+Cc: akpm@osdl.org,
+	chuck.lever@oracle.com,
+	jlayton@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	neil@brown.name,
+	okorniev@redhat.com,
+	tom@talpey.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nfsd: Fix id-to-name cache entry leak in idtoname_parse()
+Date: Thu, 17 Sep 2026 16:31:54 +0000
+Message-Id: <20260917163154.2162438-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,28 +39,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC36EL6FaxqnIaECA--.6863S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFykKF4DAw1kWF4rArWrZrb_yoWktrg_ua
+	9ayFWku398JFs3KrWfX3W7CrsIqF4DCry8GayIqF9xGFZ5tr4Fvr4xXrs5Jr97W3y5Xr1r
+	Cr1Dt34Y9w1a9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbTkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+	Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
+	w2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qr9nBL5gAAso
 
-Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co. KGaA
-Link: https://www.draeger.com/de_de/Home
+idtoname_lookup() returns the id-to-name cache entry with a new
+reference. The name is parsed between the lookup and the update call,
+and when the parsed name is malformed (negative length or longer than
+IDMAP_NAMESZ), idtoname_parse() jumps to the error label without
+dropping the reference returned by idtoname_lookup(), leaking the cache
+entry.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+Release the reference with cache_put() before taking the error exit.
+
+Fixes: f9ecc921b5b5 ("[PATCH] knfsd: Use new cache code for name/id lookup caches")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/nfsd/nfs4idmap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..276d62b848d5 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -467,6 +467,8 @@ patternProperties:
-     description: DPTechnics
-   "^dptel,.*":
-     description: Guangdong Dapu Telecom Co., Ltd.
-+  "^draeger,.*":
-+    description: Draegerwerk AG & Co. KGaA
-   "^dragino,.*":
-     description: Dragino Technology Co., Limited
-   "^dream,.*":
+diff --git a/fs/nfsd/nfs4idmap.c b/fs/nfsd/nfs4idmap.c
+index ba06d3d3e6dd..e0f1bebdf660 100644
+--- a/fs/nfsd/nfs4idmap.c
++++ b/fs/nfsd/nfs4idmap.c
+@@ -252,8 +252,10 @@ idtoname_parse(struct cache_detail *cd, char *buf, int buflen)
+ 	/* Name */
+ 	error = -EINVAL;
+ 	len = qword_get(&buf, buf1, PAGE_SIZE);
+-	if (len < 0 || len >= IDMAP_NAMESZ)
++	if (len < 0 || len >= IDMAP_NAMESZ) {
++		cache_put(&res->h, cd);
+ 		goto out;
++	}
+ 	if (len == 0)
+ 		set_bit(CACHE_NEGATIVE, &ent.h.flags);
+ 	else
 -- 
-2.47.3
+2.34.1
 
