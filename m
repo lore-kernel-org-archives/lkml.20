@@ -1,168 +1,236 @@
-Received: from mail-m49239.qiye.163.com (mail-m49239.qiye.163.com [45.254.49.239])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB79A4BA9F2;
-	Thu, 17 Sep 2026 10:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3D94AB1A2;
+	Thu, 17 Sep 2026 10:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639504; cv=none; b=rAaYBUNWDB7d/ZLXF0jjyXe5eA86bGvwPS5m5bWoxuBl7WDSx74szl1xLZ6YxkRKcN6DGDVNu1dMztJRUqLzolNmvJLLvIFOR+ZbfmKfwIi5jyc+2PrHbsoO1plC4n70U4kxNlZ46ad9+7hg7z0LFza1H20l6oESQOpqSWZ1jsM=
+	t=1789639515; cv=none; b=DCJonwLjKAgpELA6w6O9/Sq6tFeVYTYN4wpP3EJDPIk1BfySVPrvvMbryXivVDVlYk/Tvil6VGfhDitij9eTAaZFJN/jcXLtgI6g9NPmiHovjZuIFSxyKGZ1Uv5KHiDRuvafa1XycDP5z9ohYocvQXmhHkmZKtUiMZBYUMxZsEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639504; c=relaxed/simple;
-	bh=XN48dGpTYdwidGnJPBmKoAFR+QOJxwtxfRmPsyJBTi4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=OrFtuf3NBOlCebNutDZ+pO/uQWcoovr6UbY5E9mSI45PRhW+iXmXrqZW9FKNsw+0TDDmY+kmLrJKv+xg5QkgE+OqWVFnTzv3qhl/BchmvjdOZn2vjoY/KDbsrPSQ9KFpA8UmolntpDPOWszFn8cksbM222geJNy0qiZrU5o74+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=fKyMcQn2; arc=none smtp.client-ip=45.254.49.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789639515; c=relaxed/simple;
+	bh=oJZpSGeZR7c0gtIpdrbJQjFPlzZ2zTpyCdhVreTnrow=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=PWoNRvFdpVfqlooW/JUrpYx4SyQkxPCI8WhjDKzn4CwXgYHh8g0hyvr+wJketZmtjK4cBxIb64hxUCjSzgfFYMNrJDMYVMSR9brhLBkTPPFRRAqafwgSw3/2z18m/oAvIvvR0Nw+u32tFR6/vzN096642X2qNGk+u2Jehk11ANg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=w4WpXlaZ; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="fKyMcQn2"
-Received: from localhost.localdomain (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e203484a;
-	Thu, 17 Sep 2026 16:48:59 +0800 (GMT+08:00)
-From: Shawn Lin <shawn.lin@rock-chips.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shawn Lin <shawn.lin@linux.dev>
-Subject: [PATCH 2/3] docs: mmc: fix stale async request documentation
-Date: Thu, 17 Sep 2026 16:48:36 +0800
-Message-Id: <1789634917-143165-3-git-send-email-shawn.lin@rock-chips.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
-References: <1789634917-143165-1-git-send-email-shawn.lin@rock-chips.com>
-X-HM-Tid: 0aa0ae8e091003a4kunm476cf0c8983b4
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGRodTVZLTElLTk1PQk
-	kYH09WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=fKyMcQn2a1i8eSBRL8iadsMOe058dmz/CjwIAPtZRS3ADpHyZtDolBmEUq3rfX31tqeq3O8cH6Iwya6aaDzTGbYbSouYESTOw+kuxLBrAPPTbMc6Z6AoTDVoyY/EJbWWIJcU6wyrdPCQplwImmQLDSFlQ8x1kI8UigJ7YYkwOV4=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=loyEuDZ5PGTOg02RYKxKU5VNnLeScMXNhADO2TWHIGA=;
-	h=date:mime-version:subject:message-id:from;
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="w4WpXlaZ"
+Received: from hawking.lan (ntp.lan [10.0.1.1])
+	by www.nmnhosting.com (Postfix) with ESMTPSA id 20AA840198;
+	Thu, 17 Sep 2026 20:04:34 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1789639474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=c3jDlmkxxOD3XtdyCo2tdWsuRppzBPyEgPOWoYIFm4o=;
+	b=w4WpXlaZxpCm4PXAWLUxpn8DhT4UZPVwp6YJzX37W6VsRL7jo3bS0bC3ERhkBHvSIVWw1u
+	Ny7ryHYojtfJun1AWUfRKLl6ClYJUAWvOMPx1YYf0HroG7Fmv4uOpqN78EMmoBPS1eNi8V
+	qWkQhwHMuUacQsEQqgemtPiZHePezZrZgIj/mfu0sSh1D9Ui/ZlRSc4QTVPQHsZAW1/G8L
+	OCaXr8uba8xRKYuYBxGzUgi/vwGlhKLfr9TxMrrbm4+RJGcC4C/DNOajcFbFqgLCF2xSpE
+	SqxAvuztXV972KHrpuixiBOoNiGfQSGeBJdsqxpK5YGdBfG+KEz4hspxR/QP1Q==
+X-GPT-Reason: legitimate; This is a technical discussion regarding
+	a Linux kernel patch (rtw88 driver) which perfectly aligns with
+	the recipient's identity as a technical/professional mailbox
+	(alastair@d-silva.org); the content is a detailed, high-context
+	engineering correspondence involving hardware telemetry, register
+	analysis, and code logic; the sender domain (d-silva.org) matches
+	the recipient domain, indicating a personal/professional relationship;
+	there are no phishing indicators, no malicious links, and no marketing
+	language.
+Message-ID: <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
+Subject: Re: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
+ storm
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	 <stable@vger.kernel.org>
+Date: Thu, 17 Sep 2026 20:04:33 +1000
+In-Reply-To: <58a857e3b0614e2b9a520024b9932685@realtek.com>
+References: <20260916040635.205094-1-alastair@d-silva.org>
+	 <ea3434d849b34a4286b0a193351a610e@realtek.com>
+	 <58a857e3b0614e2b9a520024b9932685@realtek.com>
+Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
+ keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
+ VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
+ Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
+ KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
+ muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
+ fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
+ 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
+ QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
+ duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
+ KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
+ EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
+ DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
+ ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
+ N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
+ ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
+ MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
+ hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
+ SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
+ 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
+ uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
+ mPNRYYcR0u2mNy1EJII04w==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-From: Shawn Lin <shawn.lin@linux.dev>
+On Thu, 2026-09-17 at 09:09 +0000, Ping-Ke Shih wrote:
+> Ping-Ke Shih wrote:
+> >=20
+> > Hi Martin,
+> >=20
+> > Alastair D'Silva <alastair@d-silva.org> wrote:
+> > > In rtw_sdio_handle_interrupt(), the HISR status register is
+> > > cleared using
+> > > Write-1-to-Clear (W1C) semantics. However, the driver masks out
+> > > the
+> > > REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before
+> > > writing
+> > > it back, causing a 0 to be written to that bit.
+> >=20
+> > I feel this patch makes sense.
+> >=20
+> > Did you remember why you clear the bit locally? Can you share
+> > vendor
+> > driver you referenced?
+> >=20
+>=20
+> I asked internal expert who said this bit will be cleared
+> automatically
+> if all packets in RX buffer are received. If we clear this bit here,
+> the interrupt will not raise again if no newly incoming packet even
+> there are remaining packets in RX buffer.=20
+>=20
+> Checking rtw_sdio_rx_isr(), we can see it reads hisr for each
+> iteration,
+> which this is also the evidence that the bit will be cleared
+> automatically.
+>=20
+> Therefore, we need to dig further why the RX buffer can't be empty
+> and get stuck.=20
+>=20
+> Ping-Ke
+>=20
 
-mmc-async-req.rst still documents interfaces that no longer exist:
+Hi Ping-Ke and Martin,
 
- - mmc_start_req() was renamed to mmc_start_areq() by commit c3399ef55d8e
-  ("mmc: core: rename mmc_start_req() to *areq()") and then removed together
-  with the rest of the asynchronous request machinery when the block driver
-  switched to blk-mq, by commits 81196976ed94 ("mmc: block: Add blk-mq support")
-  and 126b62700386 ("mmc: core: Remove code no longer needed after the switch to blk-mq").
+Thank you for following up and consulting with the internal hardware
+team. We have extensive test telemetry and logs from our bring-up of
+the Mellow Fly-C5 board in Armbian that provide full context on this
+issue.
 
- - mmc_blk_issue_rw_rq() was removed by commit 0fbfd1251830
-   ("mmc: block: Remove code no longer needed after the switch to blk-mq"),
-   and was replaced by mmc_blk_mq_issue_rw_rq().
+1. Test Platform & Failure Telemetry:
+-------------------------------------
+- Hardware: Mellow Fly-C5 (Allwinner H618 SoC, sun50i-h618).
 
- - The is_first_req argument of the ->pre_req() callback was dropped by
-   commit d3c6aac3bdfe ("mmc: delete is_first_req parameter from pre-request callback"),
-   so the "Optimize for the first request" section is obsolete as well.
+- Wi-Fi Chip: Onboard Realtek RTL8821CS connected over SDIO (mmc1 /
+sunxi-mmc).
 
- - The Linaro wiki page holding the IOZone/mmc_test measurements no longer exists.
+- Kernels: Tested on mainline Linux 6.18 and 7.x branches using
+rtw88_8821cs.
 
-Update the document to describe the current request lifecycle: mmc_pre_req(),
-mmc_start_request(), mmc_wait_for_req() and mmc_post_req()), and drop the sections
-describing the long-gone interfaces and the dead link.
+- Reproduction: On stock mainline kernels, immediately upon interface
+bring-up and association (wlan0: associated), the CPU core servicing
+the SDIO IRQ became 100% pegged in an interrupt storm, triggering RCU
+stalls:
+    rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+            0-...0: (1 GPs behind) idle=3D... softirq=3D...
+    rcu: rcu_preempt kthread starved for 5126 jiffies!
 
-Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
----
+- Verification: With this patch applied (leaving=20
+REG_SDIO_HISR_RX_REQUEST set so W1C acknowledges it), the board
+completed 100/100 consecutive reboots under active network traffic
+(continuous ping, SSH, Moonraker HTTP) with zero RCU stalls and zero
+packet loss.
 
- Documentation/driver-api/mmc/mmc-async-req.rst | 64 ++++++--------------------
- 1 file changed, 13 insertions(+), 51 deletions(-)
 
-diff --git a/Documentation/driver-api/mmc/mmc-async-req.rst b/Documentation/driver-api/mmc/mmc-async-req.rst
-index 0f7197c..d9d4ac7 100644
---- a/Documentation/driver-api/mmc/mmc-async-req.rst
-+++ b/Documentation/driver-api/mmc/mmc-async-req.rst
-@@ -23,7 +23,7 @@ MMC request.
- MMC block driver
- ================
- 
--The mmc_blk_issue_rw_rq() in the MMC block driver is made non-blocking.
-+The mmc_blk_mq_issue_rw_rq() in the MMC block driver is made non-blocking.
- 
- The increase in throughput is proportional to the time it takes to
- prepare (major part of preparations are dma_map_sg() and dma_unmap_sg())
-@@ -34,21 +34,20 @@ platform. In power save mode, when clocks run on a lower frequency, the DMA
- preparation may cost even more. As long as these slower preparations are run
- in parallel with the transfer performance won't be affected.
- 
--Details on measurements from IOZone and mmc_test
--================================================
-+MMC core API
-+============
- 
--https://wiki.linaro.org/WorkingGroups/Kernel/Specs/StoragePerfMMC-async-req
-+The preparation of a request is separated from starting the transfer, so
-+that a host can prepare a request while another one is still in progress:
- 
--MMC core API extension
--======================
--
--There is one new public function mmc_start_req().
--
--It starts a new MMC command request for a host. The function isn't
--truly non-blocking. If there is an ongoing async request it waits
--for completion of that request and starts the new one and returns. It
--doesn't wait for the new request to complete. If there is no ongoing
--request it starts the new request and returns immediately.
-+ * mmc_pre_req() prepares a request before it is started. It may be called
-+   while another request is running on the host.
-+ * mmc_start_request() starts a prepared request without waiting for it to
-+   complete. mmc_wait_for_req() starts a request and waits for it to
-+   complete as well.
-+ * mmc_post_req() releases the resources allocated by mmc_pre_req() after
-+   the request has completed. It may likewise run while another request is
-+   active.
- 
- MMC host extensions
- ===================
-@@ -59,40 +58,3 @@ to before and after the actual mmc_host_ops.request() function is called.
- 
- In the DMA case pre_req() may do dma_map_sg() and prepare the DMA
- descriptor, and post_req() runs the dma_unmap_sg().
--
--Optimize for the first request
--==============================
--
--The first request in a series of requests can't be prepared in parallel
--with the previous transfer, since there is no previous request.
--
--The argument is_first_req in pre_req() indicates that there is no previous
--request. The host driver may optimize for this scenario to minimize
--the performance loss. A way to optimize for this is to split the current
--request in two chunks, prepare the first chunk and start the request,
--and finally prepare the second chunk and start the transfer.
--
--Pseudocode to handle is_first_req scenario with minimal prepare overhead::
--
--  if (is_first_req && req->size > threshold)
--     /* start MMC transfer for the complete transfer size */
--     mmc_start_command(MMC_CMD_TRANSFER_FULL_SIZE);
--
--     /*
--      * Begin to prepare DMA while cmd is being processed by MMC.
--      * The first chunk of the request should take the same time
--      * to prepare as the "MMC process command time".
--      * If prepare time exceeds MMC cmd time
--      * the transfer is delayed, guesstimate max 4k as first chunk size.
--      */
--      prepare_1st_chunk_for_dma(req);
--      /* flush pending desc to the DMAC (dmaengine.h) */
--      dma_issue_pending(req->dma_desc);
--
--      prepare_2nd_chunk_for_dma(req);
--      /*
--       * The second issue_pending should be called before MMC runs out
--       * of the first chunk. If the MMC runs out of the first data chunk
--       * before this call, the transfer is delayed.
--       */
--      dma_issue_pending(req->dma_desc);
--- 
-2.7.4
+2. Why the bit was cleared locally (Vendor driver reference):
+-------------------------------------------------------------
 
+In Realtek's vendor drivers (such as rtl8822bs and rtl8723ds):
+- In hal/rtl8822b/sdio/rtl8822bs_io.c:
+    if (phal->sdio_hisr & BIT_RX_REQUEST_8822B) {
+        /* No need to write 1 clear for RX_REQUEST */
+        phal->sdio_hisr ^=3D BIT_RX_REQUEST_8822B;
+- In include/hal_com_reg.h:
+    MASK_SDIO_HISR_CLEAR explicitly excludes SDIO_HISR_RX_REQUEST.
+
+Martin appears to have ported this comment and software-clearing
+convention directly into rtw88_sdio_handle_interrupt().
+
+
+3. Difference between 8051 and 3081 chips in rtw_sdio_rx_isr():
+---------------------------------------------------------------
+
+Regarding the observation that rtw_sdio_rx_isr() re-reads HISR in each
+iteration:
+
+Notice that in rtw_sdio_rx_isr() (sdio.c:1057-1073):
+    if (rtw_chip_wcpu_8051(rtwdev)) {
+        hisr =3D rtw_read32(rtwdev, REG_SDIO_HISR);
+    } else {
+        /* RTW_WCPU_3081 chips have improved hardware or
+         * firmware and can use rx_len unconditionally.
+         */
+        hisr =3D REG_SDIO_HISR_RX_REQUEST;
+    }
+
+RTL8821CS (and RTL8822C/B) has wlan_cpu =3D=3D RTW_WCPU_3081. For 3081
+chips, rtw_sdio_rx_isr() never actually reads REG_SDIO_HISR! It sets
+hisr to REG_SDIO_HISR_RX_REQUEST unconditionally and loops purely based
+on REG_SDIO_RX0_REQ_LEN.
+
+
+4. The RX buffer IS empty when the storm occurs:
+------------------------------------------------
+
+The buffer is not getting stuck with unread data. In our testing:
+
+- rtw_sdio_rx_isr() drains all available packets until
+REG_SDIO_RX0_REQ_LEN reads as 0, and then breaks out of the loop.
+
+- rtw_sdio_handle_interrupt() then writes back to REG_SDIO_HISR with
+  REG_SDIO_HISR_RX_REQUEST masked out (writing 0).
+
+- Because the bit was not cleared in hardware via W1C (and was not
+automatically de-asserted by hardware when rx_len reached 0), the SDIO
+host controller sees the IRQ line still asserted and immediately re-
+invokes the handler.
+
+- On re-entry, REG_SDIO_HISR_RX_REQUEST is still 1, but
+REG_SDIO_RX0_REQ_LEN is 0. rtw_sdio_rx_isr() immediately breaks out,
+hisr writes 0 again, and the CPU is trapped in a 100% spin loop.
+
+
+5. Effect on future interrupts:
+-------------------------------
+
+Regarding the internal expert's concern that clearing the bit prevents
+future interrupts: in our testing, writing 1 to clear
+REG_SDIO_HISR_RX_REQUEST after the FIFO is drained did NOT prevent
+subsequent RX interrupts. When new packets arrived over the air, the
+hardware asserted REG_SDIO_HISR_RX_REQUEST again normally.
+
+If there is concern about edge cases (such as hitting the 64KB
+total_rx_bytes limit before the FIFO is completely empty), would it be
+acceptable to only clear REG_SDIO_HISR_RX_REQUEST if
+REG_SDIO_RX0_REQ_LEN reads 0, or re-read REG_SDIO_HISR at the end of
+rtw_sdio_rx_isr()?
+
+Cheers,
+
+--=C2=A0
+Alastair D'Silva
