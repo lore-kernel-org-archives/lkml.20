@@ -1,337 +1,142 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A935A512F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658351; cv=pass; b=ma2jlWCLkZ58D1qqzK6JOC+BpydYbC8vdaUwvRZQ70GX3OrHR3Pb1U65l4ZWyCT8vQ6hlJvzxUsZfTITAw+rPsYowzxYPxbYY6aAageafvwgHKvHFuo8XFq3Ia/3jQ/UhLiaDBBBut3nwzh6inlq5Erfvus7o8f5Gr1zi69olvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658351; c=relaxed/simple;
-	bh=wKBBpqxICSTSJH9KovkCmpB4Wf9jAq3IpKkz8RphBEo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kkvg6JAm0AMY7SzlIiG5Mo6kOeDTcgyuDE1Qp1EZYPwHhyO9GZCOXvQvDzm2fYWFoqWZaWA1VGSbjhKQrU0zYpDbEvHO2Nzr4B9k0eTCEPwf+h8nkgK9+TA/i5zN3KKl1V+x12dDwwCODryXfVt1GIAXltoa7yqk0U7aVSafDlQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PdqhEleU; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7894B44AF
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789658366; cv=none; b=kmmfIizLoA+iH+e9DpJUPAjtMycQmu0X/gX1jZqasVSxtp5Yp0pfXe8tlGXNCamgd8QL5WWM7AHwQGuuWt/gBrKqQ3y60rynGpJ9uwMFTs81Y4qGDfwdXbrEhpQD7hgfkKUUCpDmNuUUrFnOLt7/dN6mEIA4W46YgCHDx74hb/s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789658366; c=relaxed/simple;
+	bh=/Z4wTl5LbY0XS8lD0jM8Zpl6/x1nCA9cmHP2BE9iPO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cModWqD2n4pkp1ye9/Nq59drCQBVausb9LLELgc74MqotarPHEXOh5ZcdI08zpSZzlcfWKqDNCdJ2thWJfnyQMXEqeat2qcVKJyMAdqHpD7LqTDck5UFn1MgPp++12pZA6gCKIVLAZoLr/IHnz0CPW+KY1kqi0EO0i//Ow/qoII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H3M5a60c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FtQOm/4A; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PdqhEleU"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f70553dso151783366b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:18:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789658336; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i0dtNVl3QvFWM//ZHlRqurRElprvR9X3oky1B10Ninzk3c5ozVmL4/17AziVS/JGeK
-         CXBbd6Itiy/q2rYzeLihlvchWiV0zZYYIBRfFsgK6SdTjw7yDcT5EIu87ahVl087/6FU
-         ybXUoIB9xra3mMNm1TfWwfDOE0sDQvovGGsBYZNLdHP9JymtfoF0PcFpHB5L4X1HISqS
-         Jc/uFfZZSXHu0WZqSs5aMLlnKlSpYRts3+nNrlZOoXe6FX4MZGuIJNs7Ix/q7I7qHbrh
-         l2tCrW8VW1MT8y8teLiSVTio8DU8uMfDZNo9RWH5BQDwt13QE9UaLPA28wEek1HCB1a5
-         NR5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TvBiRaBEozWOEdoyBMPd97Z2Iz6BQFRDi2IwFNwZ66g=;
-        fh=Wn5i8w/vqOZtQ/n+/QaLJ/NxSniEwtTJckm/NQekaDI=;
-        b=g5Xi/0ygwo11zHxF0zfYV30YkRO6DdoiC3BiHc1hrEW7MKEf4DDWnzHo6oH22YGaqY
-         ImJ/04oN4nx9X+ZRGaw3qKO0XrnMIZMHNjiqAPIDUdwrJCqjdtJhKucNKodKllFngm5p
-         FJ1xtoJAKE/G4ewU44NiCTCxKAYA7Uk5vjZqEj7IQobmZc0GlnZCe9yqXoW5t2MdIGKu
-         q7CN/Wf4DR5dcp3zogXUAy2c+sG3jqZav1fdqrrFlJ7bgZOToee2KHm8Ss8K0y9fmHJC
-         RZwOhCl9pQKf6HIZJz7i9oG1TK3Gcl7BZojGRTiW8R4u9LnrGNNWJ+moW251cptU3gyP
-         lipA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H3M5a60c";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FtQOm/4A"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDj6O11175864
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=dGdv5m0CdvJUBahz873MblPC
+	ZhKo8nu4pgz+cDmXb7s=; b=H3M5a60ctYzdxN2N+tDCL2JB9h7NHZ2vDRbUUMJJ
+	FjqsxjgfCNm7iLveOxykFM47WSJHYNo8aoTzdvPfMw5w749p0mMsCxon3WfIMa9F
+	yxAXiumfSU9dP3e+f+G729+rRXGPf+B3nBuInG8eRKm4CZVNKbAMpulCrdUJcIrb
+	JYRaT5KfCuQ3QDxolfMKQoQRIln1vazGy7+x91DsA+vTLTpKOY9QxXd27E4jzqV7
+	BleHw4BSgCMwzsEtXWtAcd/fi1/gNQPXMNCm0qHF1s375rNHiKI5fqhELFthrarM
+	axDyVXUZ5Jj+Axelxd9HqGiFR7PShDaySCvwOXwkdO+Q6w==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grca0sx3h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:14 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530f49fc5ffso31411811cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789658336; x=1790263136; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1789658354; x=1790263154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TvBiRaBEozWOEdoyBMPd97Z2Iz6BQFRDi2IwFNwZ66g=;
-        b=PdqhEleUU9g4PrziBa7ayBvjiE4mOE6AkCIfbO+L1e4HmCFBhO+/EjuhtY/yteTavn
-         RDDNuwcTHS5vu2+xRyFjuoUsSXMX+a/5klm+2fSdO40Onz3lrHZ7e8u4DmCH1r+O/OGC
-         W69fYTgvuNNH/MXKqoBtFYIZVcVp5cVyrkC9vNNzSAtH+QBiGIOXlceQIHfoViGDEbFn
-         ChcaNxgU6q9C9N6DD2sqDlq28swaHnbenBWO5gRX3cxyXRyw5lVYqQ9qvy/16YgPSHiq
-         ZQQjBSaGTnFmjSkeVxBk1RRetRyLkfsfS1YYaubSirObOb6RaP/2gbXHcBxECHgH+T+A
-         x/Zg==
+        bh=dGdv5m0CdvJUBahz873MblPCZhKo8nu4pgz+cDmXb7s=;
+        b=FtQOm/4AVogV/CHNnd6yJSgD2DqglRqWdQXtMLJgK9vQsppsMqyKicd4qI74KnzfH9
+         N/NPtVl+ibXtUOQB7/RCS3nUfo/uS0vM6H1NeNMXtXxdg5WUD5j1wQjmhPQpOw3xVdSE
+         lLuW9YNuYToJara0rHTLrhkELxdDrEKImy1MxPQp1OwmFkQ5qalS1qJC4sKSg5VTaFJQ
+         KWwIi7R9EbsH1u9BPXKeLyaobZvQ0KC7gdDgVa8gSR4mq0afwXtK/ZmQqswFtD3v3W/m
+         UWOAMErO9YLQj4TFpUrQy6hfCnGwVRXg2Q7ZFIC8BUuj84zwSj1XqMjCpgVxvYDDeIvc
+         zPsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658336; x=1790263136;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789658354; x=1790263154;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TvBiRaBEozWOEdoyBMPd97Z2Iz6BQFRDi2IwFNwZ66g=;
-        b=rq4CJHW36PFCLmwTfiuc1/hNDYBAMQjNjtbE3eXFlWsc5nOHNyHSkXfll/8dMIxrcE
-         xyVj7va7nRju1Do7k9opLRiPQjM8fh7qwnj/ecYJ/C1ai+L2+rXb47dSMOC2xXC/ECvv
-         RWxC8rMCGfmnG/EUW17QlagcSrGxvp8g4So3mBAJrdIHILR1fNbl7w8qCem15wuyLVVt
-         m/lc6/+D7HJAmyaTmJ3WwPgw8HtfQ+GdaUPzU30S3jZNrG7yPFTMOnNn7RezCMdBrWrK
-         pKY3yjCfOkf7M2JiB7A33iEZhp42MYaR3mqiUcIvwsjEBqn9A+eXehN16YLaVHP/QxqG
-         IYEw==
-X-Forwarded-Encrypted: i=1; AKwUvByjVwPHPG3cwAh9xBNiycSQZb/EE245lwmJTQ6eMwtsDRSZYDOxIlPxiTcyYc+ntde1oX0m7/wpvSi7twA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lb0/NDAL2dYYJCrGaDqXw3aVinXbIMBcb525XdxkPN4EdsfvRu
-	Wq8PX+1oe46b8Ad5m9GgcJvYQiG1Xgm2om+I0mVG8r5WTU6LQHX3WMHl47N67XWIzosKsE48t8b
-	L7Bt9skK4SfQ5VF8zx611scqTKtoHXgI=
-X-Gm-Gg: AYBFou2D5WhZ2ffAVcSvjMn8IUbAaZWvK1BPqu7A46PkGUGUWEZeQKrftEmbFBGUygd
-	2AV1UwL9IALa1Y3DrqTdkLTOrAfyxDEUkI83mvsUsqPeav9IjYC52q3hMrJUasf6cqEu43hA1/P
-	rbGWW3yyxcbzP3eevwjQUDKxnpfl+RUzYbZc8vgp/JG/D+YcMRuYjD1GtgKMZPh2gFHpQ+ek5Ml
-	vLRgf349KRuXBSko/20HWQYSYyIUScJllKW3XFsPJfT5USkivitpJZaImgsAKVGS1IUNZXsG8UU
-	5FnaxJWULfCsyFhpp4Lcw7ZzJ+ta+tesdKF8lCgsq7ok4TZrDyeJCmG/FRJc2IBQcoc=
-X-Received: by 2002:a17:907:3f17:b0:c29:dd71:7521 with SMTP id
- a640c23a62f3a-c29e52094e2mr503882066b.13.1789658336185; Thu, 17 Sep 2026
- 08:18:56 -0700 (PDT)
+        bh=dGdv5m0CdvJUBahz873MblPCZhKo8nu4pgz+cDmXb7s=;
+        b=JPl4BPkyIvnw2uAxEY8vdBTgk52s2uTGFGcNlTPjS8DjxhG09jXtP+0/VekVHF/F7h
+         Phlr15/WrVusc8zvxHbWU/2p0rgj6XSP/+hsn7hCqnfMn0BOsarl/I7ZSTugucBjSWmz
+         4EBkWboRtrV6MSKCSckXZq6ug/DEcLUvJQO0qxI9Iyz3Jkc1t9LA5wrny7VcI67mSFho
+         XE60NngpOBoxuIZSFQ8x8jMeDpSRd/EmWFQiSxssOnl/ScgjGpmnVFWE5DAGQcfByQfC
+         kLz+GFBTue6cfR9YM7AU45gpTZyuPtGFgVyv+KjPdnUcEuH1tnouVBnGEcdItmlgPD2C
+         QGgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiuMkCeW/VYZieWS1VVjvz8V0d5xoNoKk3R9qxaYCcaaTOcGvziiidDY8ujKBllcl60qFTgZ2yRWhKTZ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++klzTzxfyQg8IFFg9aXIjJqroyQlpndhuDImmaIBBUsnghJl+FJ
+	zSDg3kNdnrUVSBOV1l3PI1DBmycQFnLQ5IgjY9qw80+rwanJBqqjPsOcScEU3v3o3eckyil0cHb
+	hhGYb+NwbBYre7WH0plEUCmA0xtSARxYZEC9gCLY/hES13vQGUW0RlejmXKDPB09qQVw=
+X-Gm-Gg: AYBFou06eIxpE5smL/NVNWFBJt5W1eN4v56SLL+086/Orq3gcQNh1peJMNF4DnNydDh
+	XE7ngovfAdeK/1Ys55uNYqmnZgl61bKtu2wQSfXidEZaYfLz4dk60UaW1Gwp8bD0sgC/i62aB/0
+	HQGLmmU5n6XEYAufqfPxZiNC6hrdK4bt3DqgiBlNKFyN9XO0hoTxJClOIxeEMS1fPXLojGRqcpj
+	ST8Nm2CN+B1tWaVf/e4Ug8LybUofBWZe2UVjEjbwYGX3dPyzXibRPnKeEpz/q7P54Imuz04/Tp/
+	NsboLSzgFUmkzu5CLYFciNo0l/PbcqNh1Y5Kss4GwzTMayaKv449m2kTI2aPlFn2kK2IFNkMHFk
+	UyjpQ0AkknYyUXQ==
+X-Received: by 2002:a05:6214:5b01:b0:912:517b:4105 with SMTP id 6a1803df08f44-912517b434emr16106776d6.55.1789658353586;
+        Thu, 17 Sep 2026 08:19:13 -0700 (PDT)
+X-Received: by 2002:a05:6214:5b01:b0:912:517b:4105 with SMTP id 6a1803df08f44-912517b434emr16105666d6.55.1789658352927;
+        Thu, 17 Sep 2026 08:19:12 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23ac75sm83193285e9.13.2026.09.17.08.19.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:19:12 -0700 (PDT)
+Date: Thu, 17 Sep 2026 18:19:10 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 08/15] arm64: dts: qcom: sm8250: Move PCIe phy and
+ GPIOs to root port node
+Message-ID: <dn5syafhr2z3ezwr5gqi2ssr72g6ikhxpkfztj2h2opj2aqvmd@a2jlbfecmz3x>
+References: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
+ <20260917-root_port_v2-v2-8-6272b7caae9a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916155629.32421-1-luis@igalia.com> <20260916155629.32421-8-luis@igalia.com>
-In-Reply-To: <20260916155629.32421-8-luis@igalia.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 17 Sep 2026 17:18:44 +0200
-X-Gm-Features: AcwNN1Va1Hx-ENLvFA82HWE6oaHaqZG_YKBqIXvUfSNMOWmG1KlMF0bX0RUSInc
-Message-ID: <CAOQ4uxiSpFXtsfV8J+taEyCvsxcyp5dmMoOtSybK-3m4CUSu6A@mail.gmail.com>
-Subject: Re: [RFC PATCH v4 7/8] selftests/fuse: add fuse symlink caching test
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-root_port_v2-v2-8-6272b7caae9a@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: X4rDElxA22B86CRrUdnDgbz8H-XqfTNX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfX24tSqH5qXGtq
+ z4BkX8ZsdVjI61ch9bixRvewX9MRNqXZO96/RZZakvwR2lfeBz2vu6CPidmwGNcL3W9Tj1CP8qP
+ 8hFIW58YTsk6SpQ4e4O1WgXPurFv/wk=
+X-Proofpoint-GUID: X4rDElxA22B86CRrUdnDgbz8H-XqfTNX
+X-Authority-Analysis: v=2.4 cv=dOQzC+Zb c=1 sm=1 tr=0 ts=6aac04f2 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=adJbRHicXYsKkr84VsUA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfXye3uQbdglk6i
+ HyXMf+PAX9zUo6G8TlvdibKDfKxsIWgI34Ye0k9YTn9QQfgwRH1NlgkfMNEeLdEu1P8qzplFQyj
+ Aoo2bMRWxRJw/+iLDhKlP1c/JcsU4aaCT+Rx2h68a/s5S259SS5seiS6wYhFWHhj9Z3w1PWXX8j
+ Qk8Ftmkr5O8WUU/PZMOhP6jVXejHvjSxovftd5nXkzVM08gYzKyJ+ttql3TVeK9FiqaTv/gzYKq
+ +LKTn0XVA3+BeACVYC8IZbSEk7wMmbAJd8Q5PYMWElxUIoIbTOAfWUpMQs6BWC064Lpdvuajpyo
+ SQV+/3Zm9ggbm70yrh8FERfbPMMr9EHa7ljkyZmUpsgpAE0dTg8K7czh08t3IKjAYEqEib/5G+0
+ rz+YzvMigWNTILsEG4Xu0M+Xk/324Ow/aHhDuix5W2pK1NTiO/rmN+TF1/xUjMF1K8rj6O0OCTF
+ 0oVEy18nCqTq/cnnLmw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170217
 
-On Wed, Sep 16, 2026 at 5:55=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
-ote:
->
-> This patch adds a simple test that allows to verify that, when resolving =
-a
-> symlink, user-space is called only the first time when caching is enabled
-> or, if caching is disabled, every time the symlink resolution is requeste=
-d.
->
-> Signed-off-by: Luis Henriques <luis@igalia.com>
-> ---
->  .../selftests/filesystems/fuse/.gitignore     |   1 +
->  .../selftests/filesystems/fuse/Makefile       |   2 +
->  .../fuse/fuse_symlink_cache_test.c            | 163 ++++++++++++++++++
->  3 files changed, 166 insertions(+)
->  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_symlink=
-_cache_test.c
->
-> diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools/=
-testing/selftests/filesystems/fuse/.gitignore
-> index f7f3dd345a50..ebfe7133d811 100644
-> --- a/tools/testing/selftests/filesystems/fuse/.gitignore
-> +++ b/tools/testing/selftests/filesystems/fuse/.gitignore
-> @@ -3,3 +3,4 @@ fuse_mnt
->  fusectl_test
->  write_extend_eof_test
->  fuse_acl_cache_test
-> +fuse_symlink_cache_test
-> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/te=
-sting/selftests/filesystems/fuse/Makefile
-> index 7744f796eb06..3a5a557dde7a 100644
-> --- a/tools/testing/selftests/filesystems/fuse/Makefile
-> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
-> @@ -5,6 +5,7 @@ CFLAGS +=3D -Wall -O2 -g $(KHDR_INCLUDES)
->  TEST_GEN_PROGS :=3D fusectl_test
->  TEST_GEN_PROGS +=3D write_extend_eof_test
->  TEST_GEN_PROGS +=3D fuse_acl_cache_test
-> +TEST_GEN_PROGS +=3D fuse_symlink_cache_test
->  TEST_GEN_FILES :=3D fuse_mnt
->
->  include ../../lib.mk
-> @@ -28,5 +29,6 @@ $(OUTPUT)/fuse_mnt: CFLAGS +=3D $(VAR_CFLAGS)
->  $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
->
->  $(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
-> +$(OUTPUT)/fuse_symlink_cache_test: fuse_common.c fuse_symlink_cache_test=
-.c
->
->  EXTRA_CLEAN :=3D fuse_common.o
-> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_=
-test.c b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-> new file mode 100644
-> index 000000000000..dd001736ebca
-> --- /dev/null
-> +++ b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
-> @@ -0,0 +1,163 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Simple filesystem to test FUSE symlink cache
-> + *
-> + * This is a simple FUSE filesystem that contains two objects: a file na=
-med
-> + * 'file' and a symlink to that file named 'link'.  If symlink caching i=
-s
-> + * disabled (i.e. FUSE_CAP_CACHE_SYMLINKS is reset during FUSE_INIT), wh=
-enever
-> + * the ->readlink() is executed to resolve 'link' a counter will be incr=
-emented.
-> + *
-> + * If symlink caching is enabled (i.e. FUSE_CAP_CACHE_SYMLINKS is set du=
-ring
-> + * FUSE_INIT), resolving a symlink will only call into user-space the fi=
-rst
-> + * time.
-> + */
-> +
-> +#define FUSE_USE_VERSION 31
-> +
-> +#include <stdio.h>
-> +#include <fuse_lowlevel.h>
-> +
-> +#include "kselftest_harness.h"
-> +
-> +#include "fuse_common.h"
-> +
-> +#define FILENAME "file"
-> +#define FILE_INO 42
-> +
-> +#define LINKNAME "link"
-> +#define LINK_INO 43
-> +
-> +#define TIMEOUT        86400.0f
-> +
-> +struct test_state {
-> +       pthread_mutex_t lock;
-> +       struct fuse_common_ctx ctx;
-> +       int readlink_counter;
-> +       bool cache;
-> +} test_state =3D {
-> +       .lock =3D PTHREAD_MUTEX_INITIALIZER,
-> +};
-> +
-> +static void fs_init(void *userdata, struct fuse_conn_info *conn)
-> +{
-> +       pthread_mutex_lock(&test_state.lock);
-> +       if (test_state.cache)
-> +               fuse_set_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-> +       else
-> +               fuse_unset_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
-> +       pthread_mutex_unlock(&test_state.lock);
-> +}
-> +
-> +static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *nam=
-e)
-> +{
-> +       struct fuse_entry_param e =3D {};
-> +
-> +       if (parent !=3D FUSE_ROOT_ID ||
-> +           (strcmp(name, FILENAME) !=3D 0 && strcmp(name, LINKNAME) !=3D=
- 0)) {
-> +               fuse_reply_err(req, ENOENT);
-> +               return;
-> +       }
-> +
-> +       if (!strcmp(name, FILENAME)) {
-> +               e.ino =3D FILE_INO;
-> +               e.attr.st_mode =3D S_IFREG | 0444;
-> +               e.attr.st_nlink =3D 2;
-> +       } else if (!strcmp(name, LINKNAME)) {
-> +               e.ino =3D LINK_INO;
-> +               e.attr.st_mode =3D S_IFLNK | 0444;
-> +               e.attr.st_nlink =3D 1;
-> +               e.attr.st_size =3D strlen(FILENAME);
-> +       }
-> +       e.attr_timeout =3D TIMEOUT;
-> +       e.entry_timeout =3D TIMEOUT;
-> +
-> +       fuse_reply_entry(req, &e);
-> +}
-> +
-> +static void fs_readlink(fuse_req_t req, fuse_ino_t ino)
-> +{
-> +       char buf[PATH_MAX];
-> +       size_t sz =3D strlen(FILENAME);
-> +
-> +       if (ino !=3D LINK_INO) {
-> +               fuse_reply_err(req, ENOENT);
-> +               return;
-> +       }
-> +
-> +       memcpy(buf, FILENAME, sz);
-> +       buf[sz] =3D '\0';
-> +       pthread_mutex_lock(&test_state.lock);
-> +       test_state.readlink_counter++;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +
-> +       fuse_reply_readlink(req, buf);
-> +}
-> +
-> +static const struct fuse_lowlevel_ops fs_ops =3D {
-> +       .init           =3D fs_init,
-> +       .lookup         =3D fs_lookup,
-> +       .readlink       =3D fs_readlink,
-> +};
-> +
-> +FIXTURE(symlink_cache) {};
-> +FIXTURE_VARIANT(symlink_cache)
-> +{
-> +       const bool cache;
-> +};
-> +FIXTURE_VARIANT_ADD(symlink_cache, symlinks_nocache)
-> +{
-> +       /* Variant with symlink cache disabled */
-> +       .cache =3D false,
-> +};
-> +FIXTURE_VARIANT_ADD(symlink_cache, symlinks_cache)
-> +{
-> +       /* Variant with symlink cache enabled */
-> +       .cache =3D true,
-> +};
-> +
-> +FIXTURE_SETUP(symlink_cache)
-> +{
-> +       char err[MAX_ERR_MSG];
-> +
-> +       pthread_mutex_lock(&test_state.lock);
-> +       test_state.readlink_counter =3D 0;
-> +       test_state.cache =3D variant->cache;
-> +
-> +       if (fs_setup(&fs_ops, &test_state.ctx, err))
-> +               SKIP(goto out, err);
-> +out:
-> +       pthread_mutex_unlock(&test_state.lock);
-> +}
-> +
-> +FIXTURE_TEARDOWN(symlink_cache)
-> +{
-> +       pthread_mutex_lock(&test_state.lock);
-> +       fs_teardown(&test_state.ctx);
-> +       pthread_mutex_unlock(&test_state.lock);
-> +}
-> +
+On 26-09-17 17:55:22, Krishna Chaitanya Chundru wrote:
+> The PCIe phy reference and the perst/wake GPIO properties are
+> per root port and belong in the root port node (pcie@0), not in the
+> RC controller node. Move phys, phy-names, perst-gpios, and wake-gpios
+> from the controller to the existing pcieport0 and newly labeled
+> pcie1_port0 and pcie2_port0, allowing board-level overrides. Rename
+> perst-gpios to reset-gpios to match the binding used in the root
+> port context.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-Here too, unless you have a good reason not to,
-please put fuse_common_ctx in the test fixture object.
-
-With that fix, feel free to add
-
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
-Thanks,
-Amir.
-
-> +TEST_F(symlink_cache, test_symlink_cache)
-> +{
-> +       char pathname[PATH_MAX];
-> +       char buf[PATH_MAX];
-> +       ssize_t sz;
-> +       int counter;
-> +       int i;
-> +
-> +       sprintf(pathname, "%s/%s", test_state.ctx.mountpoint, LINKNAME);
-> +       for (i =3D 0; i < 100; i++) {
-> +               sz =3D readlink(pathname, buf, PATH_MAX);
-> +               ASSERT_NE(sz, -1);
-> +       }
-> +       pthread_mutex_lock(&test_state.lock);
-> +       counter =3D test_state.readlink_counter;
-> +       pthread_mutex_unlock(&test_state.lock);
-> +
-> +       if (variant->cache) {
-> +               ASSERT_EQ(counter, 1);
-> +       } else {
-> +               ASSERT_EQ(counter, 100);
-> +       }
-> +}
-> +
-> +TEST_HARNESS_MAIN
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
