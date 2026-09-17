@@ -1,193 +1,111 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4D644E676;
-	Thu, 17 Sep 2026 07:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DD843933F
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628708; cv=none; b=YvGjJUKOoRWj3e++UwoJxkAVURDSk/G8l/26hDXLj7QTWTtPpqJkExnVfK//F4mcuzchxiWsWsHoSlpgLv8SrsERB2n5nt1ppEenui1ij40QIDNoJO+jagqMvu8/QUM+C5Xm/7K1wHGo0TLt9ZjU2EBu1VAtt62CTn23/eGNGnk=
+	t=1789628793; cv=none; b=XhHMCXilCRKURAlU3rZtwZlQE0NzMinRFsva+vXQFvFiLNDahsCasJGRPBqkXX6MVqH0MMngBjEv0fiEilTFF0GOGBRSLLj5Mwgc3qJgpRP4o5XHtZ0drVtZHb6h6H5JTKGMtcNiN7WJsKyFzxMSg1hAI/1EV1KuV82IFbpz8h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628708; c=relaxed/simple;
-	bh=MNnmu76hPgGWj1Vt27yFxuabcyAjQ2ANFyMTfQshGqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QG7s1sGWIN6obYJOG8EgHgr9iAQi4IzDZtUGtpOPOfh8BpkyR/vPab8/jyJlV/MK2Vao5i+l5mQC3xHGaSPswL3lJAh7yrmzGS1Z+TukewfVFnZ26PVsCESLX+Z2wJun2YFYo+iVBZQK9NTTydYri8RV5EoXtCBWKNkwF8C9iBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KJTlULcf; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789628793; c=relaxed/simple;
+	bh=Huy0vpOdb+xU+xq2T8HxWv7xnUhU8w5frVPeuscTGJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qULBimyKIAHHXTz9IwSYzRwkZ4bG6nApOjcqCLtGCgZEGZKvMjTgnDKwd/OBo/NKxaGSJPIaUjD2Ki/j8ZHOu4uCxHCiX9BSk2UrNdVv+eitJ7gT+xIx8MknNWV8QzUU3oH/CAfDBIVzUlSpOQe4fUX8IpjZnEj2wKlpWDeSl34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jIJnAPXd; arc=none smtp.client-ip=74.125.230.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KJTlULcf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C751EC63440;
-	Thu, 17 Sep 2026 07:05:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 680D45FAA3;
-	Thu, 17 Sep 2026 07:04:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 65A3311C79EF2;
-	Thu, 17 Sep 2026 09:04:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789628698; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=E8iXZTQ0Z85lT35CKG6qwvlJKAl7XnP76vVQ48pKXAs=;
-	b=KJTlULcftlmHVGX4Os7GN4Vk+UriSVnXzUw90uaa3P7qK6jec83GB2imdNx0g6vW1Ng7gH
-	i+zOTP/dCBwmxnbAQHNNE3l4m74tyUJhdw/0lFj7h1eFDghsJBkPuFhTL0Q0s/deRCS4N4
-	Vz20BEH7Sf4ZlKFEYNmoRNq9X55j4UJv1HthcTGbo+/+M8JqREKH1bXxO6wQOJzcIM1rft
-	fjU1aQefmAnWUF2CGe8PIinQMiESGXR6mC0JrJdZRNG8qbSoJIsrdM7eZ7tTtTjxgIhle5
-	wi5wnOBhx5z8DWYvbRjDt7XuuElqDY6l9Ew69PdSShhyUk8q6I6NRX9uHpuFHA==
-Date: Thu, 17 Sep 2026 09:04:50 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260917090450.770c107a@bootlin.com>
-In-Reply-To: <aqonNkbVqW9tf6Bg@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqI3KnnQnUytqkEc@gractus.seuss>
-	<20260910094126.4bf4cae6@bootlin.com>
-	<aqJ5OhJcv4k-ZAj8@gractus.seuss>
-	<20260911091653.37b22b0f@bootlin.com>
-	<aqS6HmkaVYbrePtN@gractus.seuss>
-	<20260914121937.5b7fa2bb@bootlin.com>
-	<aqonNkbVqW9tf6Bg@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jIJnAPXd"
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a2ff16febfso5040271fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:06:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789628789; x=1790233589; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xS2ROdM3t9ezFwrSV2+IwOwSp+lNFHCFMXSmUbeDh1M=;
+        b=jIJnAPXdg8fNb1f7n0oAXRYhwWKpTW6aJQ1CwQy51Z2bfbTd1F7JaJpcHlnbm3RJkj
+         6xvqcpdU2PW66rd0krtIlZZCiggmbQbr4YJul442m7h8M2ymm9B+nukCvdp04azr9Sbx
+         7GZa3ZTdbIQ6BdmXI5L2zS6abuBjSNkhnOSzbOFdVlxDLOpIDKWafF/C0KeVNzNlzv+Y
+         KMYhtj9REJjoMtA4yHj5lEppsqEKt9Pcr3X6xDR7VfqtNcTBHX7yjt0/+U1r5JqiaxId
+         KTrShbSJIxrxiGyQt0ie/xJ+w7u8B4rXr+mXIisk4TfgAMtExg5anGuyc312RQLmb/io
+         M+BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789628789; x=1790233589;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xS2ROdM3t9ezFwrSV2+IwOwSp+lNFHCFMXSmUbeDh1M=;
+        b=ntqSAo4FuHSzRdXYI+gugfHZrYA3gykTk7V43hAYl6t0NUD548bCmfz1SoDvywfrcC
+         A+fZqmGztGJF/+V2Kk/0E+WlWEV79+mRKXaa48OsAjXrvZqGQDejt3xxJeqtpyJjQfX1
+         vfFXtGsXjPMDQE1iPXhxa5UtGTN4499wNg03zq9LwwAIkqtIzq4QLVl6p9EaxC0SJ/LM
+         9RJI0yWKYgMo49iX0chBhkisan1BfI9DwtN4RKJCRPb2YUoJIB8sIGx9z9dy9+Mb7cIq
+         wRlcwjYvMOKIEfzJip2QJlu2Y2odb+tzmix/XNmMeOBC/IZoXefWXLgmGd4py+mIP0jf
+         MBAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMlfPEEcdl8vrJIx6MiHQLitqb+l7B/clXzqODBwITLJQ9JBioQyg54FwUuT9XT3bDL9q9trh2rLPlQPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5gJf9PjolTt+B+OkCn2txaRKUUrDANfIfCw2+/kljzrxreKTe
+	j+q8KybXgdChXkcnog0aNpR9Y6o9T7pL9di34UpjkBqdUIy0Bp+VIHSg4sfIlpkD/uQ=
+X-Gm-Gg: AYBFou19Bf7J+RA7WGhMQGd98lUhaaOXR2jF7i4UVg73o0sT36eVWN+dn1maf2bkXZ+
+	kwR+XQYBLTIjGI9L9SxmROOFuCat1SF5fmnOi+7uvCSmeXGreyUKTNfm7j/Rd+1jYdKF6l23M4z
+	NJ3WJJ9p/GGMJ01/GG5Z3zd+OQJD3K/35IOaofP8+Ar0z+RpsdTcE2uNULCRvyHn2/NCLWxCGm5
+	RLsNFP+Yh9knaYMLY6qmJdsSsH1eGJJsIdi1oi6KidzOgSXXte/exBzlGSiArPCG2y5tIFyyMrX
+	pAuVOiW4wl1o+05pZ9PB/i5upczR2sRxY6AxKidUBmoxS43PndoioTzRxE/iYn6gwlOw7OKsY4O
+	3q8i3TMJR1STJuDLzabkZwBhgCEfAxBdvSet0W4grx0EV/gJY0X8l0SyLC2YalrKa1HLqOJUT3h
+	N34P8iPFEvxXKI+7J63ijg+lABTBSkriNfqsthIrMhje3Rkd6FAx2aTxHTPdg7n2bPsVzN3b18z
+	YxwQRMGOBsAEiyz
+X-Received: by 2002:a2e:a595:0:b0:3a3:7680:67f5 with SMTP id 38308e7fff4ca-3a5dca03e98mr9854301fa.20.1789628788951;
+        Thu, 17 Sep 2026 00:06:28 -0700 (PDT)
+Received: from localhost.localdomain ([94.29.126.47])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafdca36sm12946991fa.35.2026.09.17.00.06.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 00:06:28 -0700 (PDT)
+From: Maxim Skokov <skokovmaksimevg@gmail.com>
+To: pkshih@realtek.com
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maxim Skokov <skokovmaksimevg@gmail.com>
+Subject: Re: rtw89: BT connect state differs between scoreboard and bt_info on RTL8851B
+Date: Thu, 17 Sep 2026 10:06:09 +0300
+Message-ID: <20260917070609.11949-1-skokovmaksimevg@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <776cd43f75f14571943462bd5fc6cb64@realtek.com>
+References: <20260915122625.6341-1-skokovmaksimevg@gmail.com> <20260915123718.7239-1-skokovmaksimevg@gmail.com> <25270f2066784a02806daa352643be53@realtek.com> <20260916053228.10042-1-skokovmaksimevg@gmail.com> <776cd43f75f14571943462bd5fc6cb64@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+> To be clear. The problem you encountered was failed to connect an AP, or
+> this was newly introduced by the patch I shared?
 
-On Wed, 16 Sep 2026 15:21:15 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Not introduced by the patch. It predates it by a day.
 
-> On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Sat, 12 Sep 2026 12:34:24 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > 
-> > ...
-> >   
-> > > > Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
-> > > > 32-bit value right after the tag to give the size for all "skippable" tags?    
-> > > 
-> > > Yes.
-> > >   
-> > 
-> > I did a test using a dts file available in kernel sources. I used (arbitrary
-> > choice) juno.dts [0].
-> > 
-> > Without any new tags, the size of the compiled dtb is 27067 bytes.
-> > 
-> > With new metadata tags identifying phandles in properties (FDT_PROPDATA_PHANDLE),
-> > the size of the dtb becomes 29027 bytes and so 29027 - 27067 = 1960 bytes for
-> > those FDT_PROPDATA_PHANDLE tags (+7.2%).
-> > 
-> > The tags used are composed of:
-> > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
-> > 32-bit: offset in the property where a phandle is present.
-> > 
-> > Removing the '1 x 32-bit' information from the tag value and adding a 32-bit
-> > 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHANDLE
-> > tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
-> > 
-> > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
-> > 1960 * 3 / 2 = 2640 bytes (+9.7%). This leads to around +2.5% of the whole
-> > dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
-> > 
-> > Also, I will not be surprised to see more tags in the future adding some more
-> > metadata information and so increasing dtb sizes.
-> > 
-> > Quite often you have mentioned memory constraints system where libfdt should
-> > be as small as possible. On those system, the dtb itself is embedded in the
-> > binary close to libfdt. The size of dtb should be taken into account.  
-> 
-> Yeah, those proportions are high enough that I think it's worth it.
-> 
-> > If the SAFE_SKIP bit is removed, I even plan to use this now free bit in the
-> > length encoding part:
-> >   0b000: No data
-> >   0b001: 1 fdt32
-> >   0b010: 2 fdt32
-> >   ...
-> >   0b110: 6 fdt32
-> >   0b111: On additional fdt32 to encode the length of data.
-> > 
-> > IHMO, length encoding bits in tag value definition should be kept and used
-> > for all tags where the length is fixed and can be encoded using
-> > these bits.  
-> 
-> Well, I'm convinced we want some sort of compact encoding of the
-> length, but I think we can do better than the current proposal.  It
-> seems implausible to me that we'll need 2^29 different metadata tags,
-> so I think we can spend some more of the tag bits on the length.  How about:
-> 
->    0x80000000		structured tag bit
->    0x7fff0000		tag type
->    0x0000ffff		tag length
-> 
-> So we have up to 2^15 (32k) different structured tags each with a
-> length of [0..65534] bytes (length==65535 reserved for those that need
-> a full 32-bit length word).
-> 
-> I believe that will avoid the extra length word for everything you
-> have currently drafted.
-> 
+On 15 September, with an unmodified driver, the same machine logged 21
+"authentication timed out" and one 4WAY_HANDSHAKE_TIMEOUT in a single
+boot, with an A2DP sink connected and playing:
 
-Yes, this will avoid the extra length field. The drawback is the that the
-tag value is no more a well fixed value. Each time we have to check the tag
-value we have to filter out the tag length.
+  wlp2s0: authentication with 02:0c:43:16:60:e8 timed out
+  wlp2s0: deauthenticated from b2:39:56:12:24:f0 (Reason: 15=4WAY_HANDSHAKE_TIMEOUT)
 
-For instance:
-- FDT_PROPDATA_PHANDLE
-  fixed data size 4 bytes for offset
-  tag value: 0x80010004
+It follows the audio, not the driver build. With the sink stopped,
+association completes in a few seconds on both the patched and the
+unpatched module; while it plays, the interface stays in STA mode
+retrying. That is the coexistence behaviour from the first mail in this
+thread. I mentioned it in the last one only to describe the conditions of
+the sampling, not as a regression.
 
-- FDT_PROPDATA_PHANDLE_REF
-  data: 4 bytes for offset + N bytes for a string
-  tag value 0x8002ssss with ssss for the size
+> The BTC_BSCB_BT_CONNECT should be set by BT firmware. The internal BT
+> expert is helping to dig the cause.
 
-This will lead to code like this:
-  tag = fdt_next_tag();
-  if (tag == FDT_PROPDATA_PHANDLE)
-    /* Do something */
-     
-  if (TAG_GET_ID(tag) == FDT_PROPDATA_PHANDLE_REF)
-    /* Do something */
+Understood. In case it is relevant to what they find, btc_info here
+reports the BT side as
 
-Further more, in the code you will both a mix of both construction:
-  while (tag == FDT_NOP || tag == FDT_BEGIN_NODE ||
-         TAG_GET_ID(tag) == FDT_BEGIN_NODE_REF);
- 
-with #define TAG_GET_ID(tag) ((tag) & 0xffff0000)
+  [coex_version] : BT_FW_coex:0(Mismatch, desired:7)
+  [sub_module]   : BT_FW:0x0(patch)
 
-Also when we write dtbs either in libfdt or dtc, tags value
-have to be built with the length when needed.
-#define TAG_VALUE(tag_id, length) (((tag_id) & 0xffff0000) || \
-                                   ((length) & 0x0000ffff))
+while the mailbox itself works, mailbox_avl:Y and raw_data updating.
 
-I am totally fine with that but we need to have it in mind.
-
-Of course, I can encode FDT_PROPDATA_PHANDLE_REF with 0x8002ffff + length
-field but we lose all the benefits
-
-Ready to see TAG_GET_ID(tag) and TAG_VALUE(tag_id, length) when needed in
-the code?
-
-Best regards,
-Hervé
+I can run any test build you want on RTL8851BE.
