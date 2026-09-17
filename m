@@ -1,266 +1,215 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208EA57ED80;
-	Thu, 17 Sep 2026 14:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0AF568FB4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654044; cv=none; b=jerUNqmdSHo/VINOYaZ+H6imGNSws9LnNnMZCBfRuwPTOvWWigpH7qMFK5eUuYWR/aNjWSh5N0ClOqSJsmbLvMl85/jgFoJu56LvZuvviyZ+XHyxt7WD5OacEpTYG6RwXzTDUo3zeBaUlRCa322HLpRt+LIs8aUBG2GA4bojkck=
+	t=1789654049; cv=none; b=E5QV2n+l163lEAGe48otPhFFi9kO/hAz3kybNOlXy5RFM8B4XWpALmo2gFApu5N9sibtHUr8JDdW97Uak4eOlz+R3QQpGrlF8JC183C+iCT4BFu2RvQ1wOgmUPYRHUWwesB2ej2zsQ3hozyGrx1jQyM5RpkPOlg1F6Ajmq30DTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654044; c=relaxed/simple;
-	bh=vfl896ZYq+ITdLTIbwzVIZEFlFnt1i7wxR7g5ktqCno=;
-	h=Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type; b=kESPE1yu2yyWEN/JECs42Tnpd8/73CxkqGzges/sKgxiPky7a4GmIboAHIliYcltITAEFItm7fpsO/+XI9C8LmiEhOC8JwmUrqfEIfkbNi0mvnwPnZVQdMm3d93x1mTP5NYlKQXrzmdMYALF6CPGjpmylm97g5cBMqMqJaNQA70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=r6OUgXZ1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B75js+1O; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=vq+JBTPb; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=I7jGfqy+; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789654049; c=relaxed/simple;
+	bh=91MhlMOCOPHuZRTXmVE2stgpgE0tD+ZSaY6ycXwu6wo=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=BVxHxkSjbe6iW2uAr6kseFizLqWWopTJ1lpwzklRf91JUKt1nXPU0wKG69dXwXts7Q+97SGMvhqJ67kUU69ex/ccPiUETd7vGM+zsjdFsxsHFfv4RGLoi8oRUtdiRoqnxJV8X89xLNM1Tpy7PQ/Iz1EsEVOZmlQEeN/DWKhgb0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIMHBD3U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="r6OUgXZ1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B75js+1O";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vq+JBTPb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I7jGfqy+"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9B2DC2001C;
-	Thu, 17 Sep 2026 14:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789654031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WfwbHmxT6E+UXfoHfKFxrx2mYaRxKqMI8z5hjEm22SQ=;
-	b=r6OUgXZ1+iwufbBqw6FGKb2JKc3PB84G1RsdKEHNUNNB8JwUiE+BhYYaaUxJspMkNlW6eW
-	MHK43BDKQ5cMs9k3kPzeU8+KoRV6Gf5lXbLk2Oprm8uZcM8OHVp6ngtCA/6tuFBGvIbpya
-	a0/YkzYeamHXYSLd5D/eI8s097vTjgc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789654031;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WfwbHmxT6E+UXfoHfKFxrx2mYaRxKqMI8z5hjEm22SQ=;
-	b=B75js+1OsMxFwDDpcpVaWUubFlk/+a8cxnhQ48tH+dWBETTqas211k6EaGOT1DoQUcPbah
-	F3IyYmFgy07fQQBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vq+JBTPb;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=I7jGfqy+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789654027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WfwbHmxT6E+UXfoHfKFxrx2mYaRxKqMI8z5hjEm22SQ=;
-	b=vq+JBTPb+XwziZlvpcUd9ycE/Aed1j5ozZVeCJ7BDjkXzvu9gXeidNs9v5eKDONpGh3YNp
-	4WKF1PLinB54o5nxNRKD7zqgG48W7+xQ3ykpdv+cXZZVCDq6GMHFBAlOKv+UGQ/ySjMyU+
-	Hc6LRLWT79deQzYPp5id3bOoKrooU0w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789654027;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=WfwbHmxT6E+UXfoHfKFxrx2mYaRxKqMI8z5hjEm22SQ=;
-	b=I7jGfqy+bUaxjxa5JH+ERUAEkky44UfxiGe+sov95j2K36JvKgH1cZTl5kVHKjH4m0uu03
-	9VWvvxAxHSydRBBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B2EC13974;
-	Thu, 17 Sep 2026 14:07:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0yceCQv0q2rNYAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 14:07:07 +0000
-Date: Thu, 17 Sep 2026 16:07:06 +0200
-Message-ID: <87ecesgeet.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] sound fixes for 7.3-rc4
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIMHBD3U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842361F000FF;
+	Thu, 17 Sep 2026 14:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789654044;
+	bh=h7pqj0YxpHMi63B64gZEgXFV3uLjgyTkVmBX3XBFZ7E=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=QIMHBD3Uy8NqKDMUV+2Qyzy+SN8Bwx29gXUsPNIggQpmYRQwh+3sj2G4ryqaU5UxF
+	 U6Jgk1uHIG+7ltheqCd5lkrZhd246syZSUT1mRN3Vydy8uugcD4HssLNXQqMGuOpTQ
+	 RdLALAtji2c4qulHed5MK4QUeAhyZqcGUxP6JVqU0b3OIPeYGV8CX8HO2xADdUj3xL
+	 coTdps7e8AWbPbWh5SMXYehrtU9PANw/H7VLN1ISJourSYm+NXowN8OrXWTikgInUP
+	 K2ylW0X/2sSUx5H3tSOqhznNzkL+zDIxDMadV2N0aNTVYjlzfD/yXusGK4ChWYrYKp
+	 kfp/X2kgjG+9w==
+Message-ID: <4abc50b3-6e6f-4ba9-9e81-c802e5b90ab2@kernel.org>
+Date: Thu, 17 Sep 2026 22:07:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 9B2DC2001C
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid];
-	TO_DN_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v2 13/14] f2fs: allow large folio support to writeable
+ files
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+ <20260915042503.2912616-3-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260915042503.2912616-3-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Linus,
+On 9/15/26 12:25, Nanzhe Zhao wrote:
+> Now we make all write path support large folios,
+> so we open permission to let writeable file set
+> large folio mapping.
+> 
+> Keep fs-layer encrypted files excluded unless inline encryption is
+> enabled, since f2fs_encrypt_one_page() still encrypts one PAGE_SIZE
+> page and cannot handle large folios.
+> 
+> Inline files are allowed as well; their index #0 folio stays order-0
+> (see the large folio write path), so the existing inline read/convert
+> paths are not affected and large folios are used from the second folio
+> on.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>   fs/f2fs/data.c   |  2 +-
+>   fs/f2fs/f2fs.h   | 17 +++++++++++++++++
+>   fs/f2fs/file.c   | 16 ----------------
+>   fs/f2fs/inline.c |  6 ++++++
+>   fs/f2fs/inode.c  |  4 +---
+>   fs/f2fs/namei.c  |  1 +
+>   6 files changed, 26 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 295424f2ade5..c9dba8d0ad3d 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -2941,7 +2941,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>   	int ret = 0;
+>   	bool folio_in_bio = false;
+>   
+> -	if (!IS_IMMUTABLE(inode) || f2fs_compressed_file(inode)) {
+> +	if (f2fs_compressed_file(inode)) {
+>   		if (folio)
+>   			folio_unlock(folio);
+>   		return -EOPNOTSUPP;
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index d99a812810d3..d608376b1456 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -5251,6 +5251,23 @@ static inline bool f2fs_quota_file(struct f2fs_sb_info *sbi, nid_t ino)
+>   	return false;
+>   }
+>   
+> +static inline void f2fs_mapping_set_large_folio(struct inode *inode)
+> +{
+> +	if (!S_ISREG(inode->i_mode) ||
+> +	    f2fs_compressed_file(inode) ||
+> +	    f2fs_quota_file(F2FS_I_SB(inode), inode->i_ino))
+> +		return;
+> +
+> +	/*
+> +	 * Keep the folio order range at 0 as a transitional step; large
+> +	 * folios will be enabled once the whole write path is audited.
+> +	 */
+> +	if (IS_IMMUTABLE(inode))
+> +		mapping_set_folio_min_order(inode->i_mapping, 0);
+> +	else
+> +		mapping_set_folio_order_range(inode->i_mapping, 0, 0);
+> +}
+> +
+>   static inline bool f2fs_block_unit_discard(struct f2fs_sb_info *sbi)
+>   {
+>   	return F2FS_OPTION(sbi).discard_unit == DISCARD_UNIT_BLOCK;
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index a36d243ca305..db71cadefabd 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -162,17 +162,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>   	int err = 0;
+>   	vm_fault_t ret;
+>   
+> -	/*
+> -	 * We only support large folio on the read case.
+> -	 * Don't make any dirty pages.
+> -	 */
+> -	if (unlikely(IS_IMMUTABLE(inode)) ||
+> -	    mapping_large_folio_support(inode->i_mapping)) {
+> -		f2fs_err(sbi, "Not expected: immutable: %d large_folio: %d",
+> -				IS_IMMUTABLE(inode),
+> -				mapping_large_folio_support(inode->i_mapping));
+> -		return VM_FAULT_SIGBUS;
+> -	}
+>   
+>   	if (is_inode_flag_set(inode, FI_COMPRESS_RELEASED)) {
+>   		err = -EIO;
+> @@ -712,9 +701,6 @@ static int f2fs_file_open(struct inode *inode, struct file *filp)
+>   	if (!f2fs_is_compress_backend_ready(inode))
+>   		return -EOPNOTSUPP;
+>   
+> -	if (mapping_large_folio_support(inode->i_mapping) &&
+> -	    filp->f_mode & FMODE_WRITE)
+> -		return -EOPNOTSUPP;
+>   
+>   	err = fsverity_file_open(inode, filp);
+>   	if (err)
+> @@ -1186,8 +1172,6 @@ int f2fs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+>   		return -EPERM;
+>   
+>   	if ((attr->ia_valid & ATTR_SIZE)) {
+> -		if (mapping_large_folio_support(inode->i_mapping))
+> -			return -EOPNOTSUPP;
+>   		if (IS_DEVICE_ALIASING(inode))
+>   			return -EPERM;
+>   		if (!f2fs_is_compress_backend_ready(inode))
+> diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+> index 8db083b545bc..51cc2e6c0284 100644
+> --- a/fs/f2fs/inline.c
+> +++ b/fs/f2fs/inline.c
+> @@ -238,6 +238,12 @@ int f2fs_convert_inline_inode(struct inode *inode)
+>   	if (IS_ERR(folio))
+>   		return PTR_ERR(folio);
+>   
+> +	/*
+> +	 * Inline data is only supported in an order-0 index #0 folio; the
+> +	 * inline write and mmap fault paths never request a larger order.
+> +	 */
+> +	f2fs_bug_on(sbi, folio_test_large(folio));
+> +
+>   	f2fs_lock_op(sbi, &lc);
+>   
+>   	ifolio = f2fs_get_inode_folio(sbi, inode->i_ino);
+> diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+> index 24205a35be04..c8a4c62c9927 100644
+> --- a/fs/f2fs/inode.c
+> +++ b/fs/f2fs/inode.c
+> @@ -643,9 +643,7 @@ struct inode *f2fs_iget(struct super_block *sb, unsigned long ino)
+>   		inode->i_op = &f2fs_file_inode_operations;
+>   		inode->i_fop = &f2fs_file_operations;
+>   		inode->i_mapping->a_ops = &f2fs_dblock_aops;
+> -		if (IS_IMMUTABLE(inode) && !f2fs_compressed_file(inode) &&
+> -		    !f2fs_quota_file(sbi, inode->i_ino))
+> -			mapping_set_folio_min_order(inode->i_mapping, 0);
+> +		f2fs_mapping_set_large_folio(inode);
+>   	} else if (S_ISDIR(inode->i_mode)) {
+>   		inode->i_op = &f2fs_dir_inode_operations;
+>   		inode->i_fop = &f2fs_dir_operations;
+> diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+> index ff86ee07290d..9d0cec72aacc 100644
+> --- a/fs/f2fs/namei.c
+> +++ b/fs/f2fs/namei.c
+> @@ -341,6 +341,7 @@ static struct inode *f2fs_new_inode(struct mnt_idmap *idmap,
+>   	f2fs_set_inode_flags(inode);
+>   
+>   	f2fs_init_extent_tree(inode);
+> +	f2fs_mapping_set_large_folio(inode);
+>   
+>   	trace_f2fs_new_inode(inode, 0);
 
-please pull sound fixes for v7.3-rc4 from:
+After this patch, we can set set large folio bit on new inode, and then
+setting compressed flag via ioctl.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.3-rc4
+It allows to write data on large folio of compressed file, but still it
+does not support read via f2fs_read_data_large_folio()? IIUC.
 
-The topmost commit is 546b928da0427b0d6c663cbb992bd7bfa9ac7971
+Thanks,
 
-----------------------------------------------------------------
-
-sound fixes for 7.3-rc4
-
-A collection of small fixes.  Most of them are device-specific fixes
-while there are a few core fixes.  The continued flux, but not too
-scaring yet.  Some highlights below.
-
-ALSA Core:
-- Fix potential UAF after asynchronous card release
-- Fix a race condition in PCM timer initialization order
-
-USB-Audio:
-- Hardening fixes for issues reported by fuzzer for 6fire, bcd2000,
-  and implicit FB packets
-- Fix double list addition in implicit FB handling
-- Quirks for AVerMedia GC553Pro and Behringer FCA1616
-
-HD-Audio:
-- Quirks / fixes for HP OmniBook 7, OMEN 15, and Victus 15 laptops
-
-ASoC:
-- Support for DAI link codec channel mask to avoid mismatches
-- Fix HDMI-codec channel status change report
-- Fixes for various codecs and platforms: Realtek rt712/rt721
-  (calibration, reset fixes), Cirrus Logic (empty EFI variable
-  validation, capture channel fixup), AMD ACP SoundWire (bounds
-  checks, refactorings), ADAU1977 (OF match table support, SPI
-  cleanups), ES8336 (Huawei Matebook B3-420 quirk), UX500 (macro fix)
-
-----------------------------------------------------------------
-
-Ai Chao (1):
-      ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook B3-420
-
-Alvin ©ipraga (3):
-      ASoC: adau1977: make the Kconfig symbols user selectable
-      ASoC: adau1977-spi: drop __maybe_unused and of_match_ptr()
-      ASoC: adau1977-i2c: add OF match table for I2C
-
-Asai Neko (1):
-      ALSA: usb-audio: skip the broken mute control on AVerMedia GC553Pro
-
-HyeongJun An (1):
-      ASoC: hdmi-codec: Report a change when the channel status moves
-
-Jack Yu (1):
-      ASoC: rt712-sdca: reconfigure PLL2 to fix calibration time-out
-
-Jaeho Cho (1):
-      ALSA: hda/realtek: Enable mute LEDs on HP OmniBook 7 17-dc0xxx
-
-Jiangshan Yi (1):
-      ASoC: codecs: rt712-sdca-dmic: fix uninitialized stream_config->type
-
-Kitty Makin (1):
-      ALSA: usb-audio: Add capture quirk for Behringer FCA1616
-
-Krish Gulati (1):
-      ALSA: hda/realtek: Add quirk for HP Victus 15-fa1xxx (MB 8BB1) mute LED
-
-Nguyen Ngoc Thang (2):
-      ALSA: pcm: set timer->private_data before registering the PCM timer
-      ALSA: usb-audio: fix list_add double-add in push_back_to_ready_list
-
-Oder Chiou (1):
-      ASoC: rt721: Reset codec to fix abnormal sound
-
-Richard Fitzgerald (7):
-      ASoC: wm_adsp: Firmware search progress log should not look like an error
-      ASoC: Rename snd_soc_dai_link_ch_map.ch_mask to cpu_ch_mask
-      ASoC: Add codec_ch_mask to snd_soc_dai_link_ch_map
-      ASoC: soc-pcm: Apply snd_soc_dai_link_ch_map.codec_ch_mask to codec params
-      ASoC: sdw_utils: Set snd_soc_dai_link_ch_map.codec_ch_mask for capture
-      ASoC: sdw_utils: cs_amp: Delete bogus and incorrect capture channel fixup
-      ASoC: cs-amp-lib: Prevent NULL pointer if efi variable is zero length
-
-Sasha Levin (1):
-      ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
-
-Slavin Liu (1):
-      ALSA: hda: trace PCM open only after assigning a stream
-
-Takashi Iwai (2):
-      ALSA: bcd2000: Fix race between rawmidi and disconnect
-      ALSA: core: Fix potential UAF after asynchronous card release
-
-Vijendar Mukunda (4):
-      ASoC: amd: acp: bounds-check SoundWire link ID in machine drivers
-      ASoC: amd: acp: refactor codec config count in SOF SoundWire machine driver
-      ASoC: amd: acp: fix ffs() operator precedence for SoundWire link ID
-      ASoC: amd: acp: fix card name length warning in SOF SoundWire machine driver
-
-Xavier Goffin (1):
-      ALSA: hda/realtek: Add mute LED quirk for HP OMEN 15-ax
-
-Xiang Mei (2):
-      ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
-      ALSA: 6fire: fix OOB write from device-reported iso length
-
-Yuho Choi (1):
-      ALSA: virtio: reset device before deleting virtqueues
-
----
- include/sound/soc.h                     |  3 +-
- include/sound/soc_sdw_utils.h           |  2 -
- sound/core/init.c                       |  3 +-
- sound/core/pcm_timer.c                  |  7 ++-
- sound/hda/codecs/realtek/alc269.c       | 11 ++++-
- sound/hda/common/controller.c           |  2 +-
- sound/soc/amd/acp/acp-sdw-legacy-mach.c | 14 +++++-
- sound/soc/amd/acp/acp-sdw-sof-mach.c    | 23 ++++++---
- sound/soc/codecs/Kconfig                |  4 +-
- sound/soc/codecs/adau1977-i2c.c         |  9 ++++
- sound/soc/codecs/adau1977-spi.c         | 12 ++---
- sound/soc/codecs/cs-amp-lib.c           |  2 +
- sound/soc/codecs/hdmi-codec.c           |  6 ++-
- sound/soc/codecs/rt712-sdca-dmic.c      | 14 ++----
- sound/soc/codecs/rt712-sdca-sdw.c       |  8 +++
- sound/soc/codecs/rt712-sdca.c           | 86 +++++++++++++++++++++++++++++++--
- sound/soc/codecs/rt712-sdca.h           | 18 +++++++
- sound/soc/codecs/rt721-sdca-sdw.c       |  3 ++
- sound/soc/codecs/rt721-sdca.c           | 17 +++++++
- sound/soc/codecs/wm_adsp.c              |  5 +-
- sound/soc/intel/boards/sof_es8336.c     |  9 ++++
- sound/soc/sdw_utils/soc_sdw_cs_amp.c    | 46 ------------------
- sound/soc/sdw_utils/soc_sdw_utils.c     | 24 +++++----
- sound/soc/soc-pcm.c                     | 18 +++++--
- sound/soc/ux500/ux500_msp_i2s.h         |  4 +-
- sound/usb/6fire/pcm.c                   | 12 ++++-
- sound/usb/bcd2000/bcd2000.c             | 33 ++++++++++---
- sound/usb/card.h                        |  1 +
- sound/usb/endpoint.c                    | 21 +++++---
- sound/usb/implicit.c                    |  1 +
- sound/usb/mixer_maps.c                  | 13 +++++
- sound/virtio/virtio_card.c              |  4 +-
- 32 files changed, 316 insertions(+), 119 deletions(-)
+>   	return inode;
 
