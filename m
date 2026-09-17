@@ -1,133 +1,116 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701F1374735;
-	Thu, 17 Sep 2026 07:17:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F767175A7F
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629429; cv=none; b=ezwjjPSLkv4oC4sIQ2no+mrz2okQKS7p9dFCFuBowQ27vQ/vPt9OLBmbY4V69NUWqUxUEFAbKN/dmhurwSeDaCEIrvzv2E7vyOyIt7Zxi9qZgYk3/JSjVXvT+gSuQ1OYRV7AtYKfd0XLNDBr/7mZRan8dDfHbWIzjahb98GSkJo=
+	t=1789629430; cv=none; b=K6dTMfDrVNRUvQROK21lYf4AuV3kfsjKb4WWVbYIx0grJgJAGsHsXmllYKZC2/TuXjDVqYXa2wui5Ratn3bjdmhp34HPijkSeKMvRpjPSLGF7169njlaIlWLBzJ5URXOt1XZ3KId8hhQoYHaR0XG6H1HMXweTfTZ/hrIQQtwQQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629429; c=relaxed/simple;
-	bh=6jpcI/gnGPXCuIu9T+DoZYnzF/oxOh2gSFbbipL4bWA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LH0lVeaRQyeubiz0bd6si8t9cHcMkUB6Usol11P8HuPvB/gBnEpJ3VxSvIYvylsgqKNrL0suu25mfEsdo/qeVB8jWMeFPtc27Vag0Rf9BniwhdwixbAY61xhJWCgRBFdoeUcsxMs0l4VwFIVqka1ACi3KIIYi4mxEo1pziau+/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=AzF4ENGd; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1789629430; c=relaxed/simple;
+	bh=psMZRwkOfr0bnXRHKcURRMVFhIPKVSfM6YNHBR7Q0j8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B9ZTpZQ6b7gLK0ZxfdQcgI/GultOAvRic8iJR6Aqr5WupDiu+3FifMeseM8wnj2aRFy19QBV8HkwJHmm8/ag1+6i/YoZwtCqCnBJRSOxTgbPXGz58ci/hJvyJ/bqacuPTdRqX8hdQBYUqQS2iQe8iEZ4Tc8GzkhWxW8hB/RzxWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UKKNJcye; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="AzF4ENGd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=ewSGL9omp7E5j2kipp6vgIKxit9QEcUNRslfVeTSeSA=; t=1789629425;
-	x=1790234225; b=AzF4ENGdMHF18QeTlMHxe4ny+uUXdm7NveeeRCKyLRV+8ZxwDluQOlphdLe8v
-	BZH9DIOQ9rpOkv2cTdGfeMRChT8DNON9NoL4zorq8PxxWUuPOqvursHR2UBiX312X/IVxy4W25jlD
-	4bTQznxfaaIg8UiPm25PdSSqFnR2rHifFQ3reb/NogvRsnk2du0d2rQPGMurIXJrOeImYUQrUv+Sz
-	YnPQiI74DiBzeBexfyvsqPk6h6rvxCnD9SjfuYavolT9EugAlxYvxOuyqblKnsFRoxmXrxwy1Zbm4
-	X63bFo55NrdpAvMLS6t1o7oovrcx5SR/Uzhi8tVW15Lr60aAxA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.99)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1x76Mf-000000043lr-1ssK; Thu, 17 Sep 2026 09:17:01 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.99)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1x76Mf-00000000jWn-0y41; Thu, 17 Sep 2026 09:17:01 +0200
-Message-ID: <85c4e0b40ec4b52b73c1525c2340cdaf31fd7d6a.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: lib: Restore r4 in shift helpers
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Florian Fuchs <fuchsfl@gmail.com>, Rich Felker <dalias@libc.org>, 
-	linux-sh@vger.kernel.org
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Yoshinori Sato
-	 <yoshinori.sato@nifty.com>, linux-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 09:17:00 +0200
-In-Reply-To: <20260714104147.2016549-1-fuchsfl@gmail.com>
-References: <20260714104147.2016549-1-fuchsfl@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UKKNJcye"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789629427;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=VhU95cDMBIXQvMna+tKy46BOvuCr3e2931Pn9vAkduA=;
+	b=UKKNJcyeJoqjQ7vhRo0XcB5zVCk2o36B2NI7+Wvkq8n/UTOKNnksLwAoWHe179x+lPpBEX
+	JshvObcuwJebYvMNaN18uSyY+ORuflUdKH+19oABQa22oVWQpgqUz4bbAsNsi2hzyr8U86
+	OjuKvVehlnSjJar5IH7bm9YtXUjSMbI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-584-AUHHK_xEM-uUnwU6D4tLMA-1; Thu,
+ 17 Sep 2026 03:17:04 -0400
+X-MC-Unique: AUHHK_xEM-uUnwU6D4tLMA-1
+X-Mimecast-MFC-AGG-ID: AUHHK_xEM-uUnwU6D4tLMA_1789629422
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2E17E184B3A8;
+	Thu, 17 Sep 2026 07:17:02 +0000 (UTC)
+Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0C799427;
+	Thu, 17 Sep 2026 07:16:58 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: bhelgaas@google.com,
+	alex@shazbot.org,
+	mani@kernel.org
+Cc: jjohnson@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	mhi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v14 0/2] PCI: Add device-specific reset for Qualcomm devices
+Date: Thu, 17 Sep 2026 09:16:49 +0200
+Message-ID: <20260917071651.14174-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi Florian.
+Some Qualcomm PCIe devices (WCN6855, WCN7850 WLAN; SDX62/SDX65 modems)
+lack working reset methods for VFIO passthrough scenarios. These devices
+have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
+broken bus reset (addressed by quirk_no_bus_reset, merged for v7.2).
 
-On Tue, 2026-07-14 at 12:41 +0200, Florian Fuchs wrote:
-> Commit 940d4113f330 ("sh: New gcc support") added new shift helpers
-> that use r4 as a scratch register while dispatching to the selected shift
-> sequence. But, the helpers return without restoring r4. With GCC 17, the
-> register allocator can keep a live value in r4 across the helper call.
-> Clobbering it results in runtime data corruption. Restore r4 before
-> jumping to the selected shift sequence.
->=20
-> Fixes: 940d4113f330 ("sh: New gcc support")
-> Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
-> ---
-> Without the patch, the early boot on e.g J2 gets a kernel BUG at
-> mm/percpu.c:2604 / "can't handle more than one group."
->         PCPU_SETUP_BUG_ON(pcpu_verify_alloc_info(ai) < 0);
-> As the static condition in mm/percpu-km.c wasn't true:
->         ai->nr_groups !=3D 1
-> nr_groups contained 60 - the clobbered value from the shift helper.
->=20
-> This change was tested on the J2 core on the Mimas v2 board. It can
-> theoretically also target other SH2 devices, but I don't have any other
-> than J2 sadly.
->=20
-> The flow of operations matches now the state in the libgcc, see also
-> in gcc: libgcc/config/sh/lib1funcs.S
-> ---
->  arch/sh/lib/ashlsi3.S | 3 ++-
->  arch/sh/lib/ashrsi3.S | 3 ++-
->  arch/sh/lib/lshrsi3.S | 3 ++-
->  3 files changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/arch/sh/lib/ashlsi3.S b/arch/sh/lib/ashlsi3.S
-> index 4df4401cdf31..73a9d709b169 100644
-> --- a/arch/sh/lib/ashlsi3.S
-> +++ b/arch/sh/lib/ashlsi3.S
-> @@ -63,8 +63,9 @@ __ashlsi3_r0:
->  	mova	ashlsi3_table,r0
->  	mov.b	@(r0,r4),r4
->  	add	r4,r0
-> +	mov.l	@r15+,r4
->  	jmp	@r0
-> -	mov.l	@r15+,r0
-> +	mov	r4,r0
->=20
+VFIO attempts to reset devices on every reassignment:
+- For the listed modems, without a proper reset capability, these devices
+never successfully initialize even on first VM assignment.
+- For the listed WLAN devices, without a working reset method, the attempt
+fails. On clean VM shutdown, the guest driver properly deinitializes the
+device via .shutdown/.remove callbacks, leaving it in a usable state despite
+the failed reset. However, on unclean VM termination (crash, force-off), the
+guest driver callbacks are not triggered, the device remains in an undefined
+state (DMA active, interrupts enabled, etc.), and without a working reset it
+cannot be reused.
 
-Please correct me if I'm wrong, but after reading the code in [1], it looks
-to me as your patch doesn't preserve r4 but it's actually storing it into
-r0 to be used by the selected shift sequence.
+Add device-specific reset methods using BAR-space hardware reset registers
+that exist in these devices:
 
-With the previous code, r4 is pushed onto the stack first but not restored
-before the shift sequence is jumped to, so what your patch does not make su=
-re
-that r4 is restored across the complete call of the shift helper but rather
-restore the input value in r4 from the stack before calling the jump sequen=
-ce.
+  Patch 1: SDX62/SDX65 modem reset via MHI SoC reset
+  Patch 2: WCN6855/WCN7850 WLAN reset via SoC global reset
 
-What am I missing?
+These are true hardware reset mechanisms (not power management or firmware
+error recovery), providing proper device reset for VFIO scenarios.
 
-Adrian
+Testing shows stable operation over 100+ VM crash/reset cycles. Device-
+specific reset is position #1 in the reset hierarchy, so these devices
+will use hardware reset as their primary reset method.
 
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tr=
-ee/arch/sh/lib/ashlsi3.S
+Jose Ignacio Tornos Martinez (2):
+  PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
+  PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+ drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 116 insertions(+)
+
+---
+v14: Address Bjorn Helgaas feedback:
+  - Split WLAN and modem resets into two separate patches
+  - Clarify commit message for WLAN devices: VFIO resets on every
+    reassignment, clean shutdown leaves device in usable state via
+    driver callbacks, but unclean termination is where the lack of reset
+    is critical
+  - No code changes from v13, only patch split and commit message
+    clarification (Mani's Reviewed-by retained)
+v13: https://lore.kernel.org/all/20260915223634.GA878346@bhelgaas/
+
+--
+2.54.0
+
