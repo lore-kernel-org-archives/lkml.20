@@ -1,211 +1,199 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6BE4BA1FA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4C53DD85C;
+	Thu, 17 Sep 2026 10:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.29
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642213; cv=pass; b=JLEU9u5xRJWz3PrmrnMVP9WI3fGyiSmkjW3XPO/4D2OD8eLJGmFr1hqPPU6abu6yqYj7fw4S8uuf603oxvjf1TAvRRR2lX2rQEcdRCPYIxA+LVAz7A16KUYwK7gy/JxGWm4pMpnbAG/Pg3i5wqY6DqaCK6EZN0ruEZA0X2ZrKOA=
+	t=1789642243; cv=fail; b=ocSkJJmS5HIQWvhprBLtEc58nlj0wEt3yNyQvcMx9fIpQ4Paw1qpn/lAR69M7AWgB/wpHQeJ7CZ49vd/NjdDDx69qjlaSC+ifvBtqln5/1TajnrJixjQQNVbrHwad8ZvD+YyHZJQGmOc4SJa/ffsIYXq4dLpVhTiGqF/TFTG5zs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642213; c=relaxed/simple;
-	bh=lSkvGaijP0/9iVUmeNOEu48KokHNhG2VqwkL4j70uUw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PS0Lww5QzmAqynZOSojNbVu94u3wAJji0z2uvLBpMUsy472mBC2MHP4cmh2uQLNGexnbjZDiYf/njn4BTcQzT7vhqSPjiIA18BE5ciLPwinx6ketAHJw+U98UwEXZpv0a1z2fT8XgVokL1GlXy7DE3tyPQzq54vXXkw/mAU0OoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cnVWuFar; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=E9/TnkuM; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789642243; c=relaxed/simple;
+	bh=gO1eVxX2msA4fzM1QYvc/ztr/Vq4WCh43Yjrwfu/Ef0=;
+	h=Message-ID:Date:Cc:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NU1EtLqA/q1q+xTNwkxO6gL5Cekcehvll0yuggT8HgA/vHg4zJvgRd6jfO9M+H0rSKDD1lFOpGmVL2WRG+yJV7ZtJA3hC4a/ajPQjFXOz6R5QzBkc2WH/iQAPgP61NFKXqWRDAJQ5VRspk9c0svNsiOJThRZXjGHgfYGTENi7pI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com; spf=pass smtp.mailfrom=citrix.com; dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b=EYkhZT+i; arc=fail smtp.client-ip=52.101.57.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=citrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=citrix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cnVWuFar";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="E9/TnkuM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789642207;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u6ihbO4Iqd9EoQ+wSGF6cP/+ZqsoR5JgyUGsjJYPabY=;
-	b=cnVWuFarWugzlHumUJ5HJfYhDUYhhzYAijMN9doVb2whYkxntCNPswokNufR/9Jv1tZeml
-	M6NiP7TVDshHFtoiKyUaMkeBwoMkfwM1iJjicgds+R0IltXENZ83b9sTjP5IPNkvCQPCuH
-	XRuXVpZqfKi8TfZXEhASCEyjNo5CvJA=
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-347-zSRiMjADNdqPPicvmUD-AA-1; Thu, 17 Sep 2026 06:50:03 -0400
-X-MC-Unique: zSRiMjADNdqPPicvmUD-AA-1
-X-Mimecast-MFC-AGG-ID: zSRiMjADNdqPPicvmUD-AA_1789642203
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1b8088203so693430a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:50:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789642203; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZnyG6ZgAWAJi9SA7ASrun7kJ8N9Hm2jxo0pEyRZBckE/MTMB7K71vj9h0GH2OhZdTw
-         RBdzF0yuFbKCdku9MQe2FGPM9RWP2c9LaI4PhFahNv92xxGepKuvwXvnmRYjM0X32AJh
-         rRyKQbdVYEm6x5Jc87jAQT74/3+D5vf8xW/ncgH8B4GNujJavqagJ+qgNqA+nJ7MIRTK
-         /t3ch2v3EBscfCJEev8mcsVlvtqRhXEgV+HLA7fFW5PdLisNQL5BYoJyOV6gRCLCDFHN
-         EXbTGE2KrxpJ0kXAN0GHn0C1cYk3irXnLZHrC5alwVgOCfp/xXQFGSXgQWRL2M7eb43c
-         Y2LQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u6ihbO4Iqd9EoQ+wSGF6cP/+ZqsoR5JgyUGsjJYPabY=;
-        fh=EuNwpZZwIjfx7/3uHr+EPSJNZ8VSQigJqFcpabf2a7g=;
-        b=aDUjx3S29j5DMeHnh+Gnrafe4StMir84250A6C45CFvOC460ewOFDUzcRzQmWvzMG0
-         vcPjiZRDXMo44Y2A0tiuz+TRB1SijlougRSO2Efmv2uuT44slbVBcbPlNDWTO3jmjZiQ
-         xhwfL/h0CQg4ug1NvswfNy/5XI0QNdWPmTNyZ6L8YxeZxgkRe1pUJ1lMUnTc416GmSJV
-         xztP+wZd3rUVIj2ZucA5ffIKWvLNf0S2jCNCHKVK2OYUr8a7reRUoqpEtd4wdjgD5TV1
-         SLC2bL57oNrzAtPeVwYEMLkbRSaRw3vVctMqAYJEpPUJve37it7WYj6CahfH0dfLAPsU
-         l7HQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789642203; x=1790247003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u6ihbO4Iqd9EoQ+wSGF6cP/+ZqsoR5JgyUGsjJYPabY=;
-        b=E9/TnkuMXlBPwUMw61Or8JTE3omfkCGb8FcyMuee/VSm+4jl0y0gjlkgmhfL+FkcFh
-         wA218V9QZrz8B+ga3OAduarWV0z1lJldrPdiuT11tOoOUiTYaYXQrTyAsG0y89ZYK9H3
-         CqswxAGhrOnPm2uaK2neWEZV+juSYuQLnxhNe5bhhPWwzZ/wNz4lnM4yAheHEmpNwAVy
-         6Fi1I4wVJf1QmoJdeeYllRq8vMUPxMzBE7ACAa6k9sx3RmAtc7SScdIZhMOigKDLWy6P
-         Q+ffFH3CeRrqCQlGoCqe4Nj+S34zTFI8dsKnsTj+94+bXKcBvkWA0pjUvNBEzRAYdRSg
-         sBXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789642203; x=1790247003;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6ihbO4Iqd9EoQ+wSGF6cP/+ZqsoR5JgyUGsjJYPabY=;
-        b=wo2wJHt30YmlR7nSfIjPRv4QFZnDsAQBVJe0rSe4s3chhcJaPwn7Imvu7U+PW8Qq9h
-         7TFdmgaASib5IDZBC8TEICN0MSN6ALnRd3FHfh1kLUE8DUXr3mF1yU7l/55SpZprVq3K
-         Gxpip9uAYaERDdKDWFMu/ME82WA1lv3oSciXnh7NRhFLQIEZyv4lihr0gjbX6DgFuNIf
-         nANBATMa1gXZMeashWMeHB4U3QaP+8YaY9k0dgiV2FS4rA5vP+pomCf0TaTzYLdIevKo
-         0F4mYcExY9iGVKvm+ddPjBze55XZIPDORKmfdbGkUR7waXlSg2l1+4Slf79itWb40UqJ
-         U9xg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZk77II8Rp6RcBnFpGm/c/H+wHYw82yiFQYHaiFYp9+MCR1ZQhus7w8ZE9+Mo4I0jTsa3SHytFsjZVlzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++myG+/NwY6ii+CLb/f5YW9Oe4hGmr+14ipC/CHW00sZzy9ZwLgx
-	sw+0QkcF6HYwW8JVYqVR5iivLbOylw3xE9kbFVxW4OjuWh79Ql3wmbSU35I1dwmtU1JEBdJfzbr
-	P7EU9DVdqoPGZgqxg2Uattjs8azTIVVGTB6pZBUyPiIQ9Lyf6Kn7TXp2zSxHAhjKffiNf63KX33
-	aj9GvHFF0llw/Yz4ahb1vrWQOEElTS6QV0FO2/uDCy
-X-Gm-Gg: AYBFou28NXveLjvXnwD381bvVo4w4Ro+6Ed1A4ZZlSIt7oxalVThfgoRDnQPUBRTuLb
-	q/ARrrKUtyFxubmqIUyVmnHoYcLtaa07PG+rThMw2xNZiuZwlVPjUWH04dTcqT24MBbapdcARSv
-	60J8okRc/SIbElyn7kw6Lu6vmVPXk5hj6uHhjVGrtDJcRVTjLPyXhSEvhY
-X-Received: by 2002:a05:6a20:d70f:b0:3db:2c66:6638 with SMTP id adf61e73a8af0-3dd5f471e3emr17197364637.10.1789642202647;
-        Thu, 17 Sep 2026 03:50:02 -0700 (PDT)
-X-Received: by 2002:a05:6a20:d70f:b0:3db:2c66:6638 with SMTP id
- adf61e73a8af0-3dd5f471e3emr17197287637.10.1789642202196; Thu, 17 Sep 2026
- 03:50:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=citrix.com header.i=@citrix.com header.b="EYkhZT+i"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Df78VCmpK4KU8dNUP2a0cM4vR5eXvdt63rBSgjAvhvdvU5TMDkLC8PVntnMA0ZlO+OYVIrm0LRHx2V/mRMctukfbkMl2Zfo8EudRIXydn/8hUEDkpqzrSUjF3ds/aoagx7JGPVlnGShU0A7UIkMMrSi+WT20iNyUPcFuKlWNwSllKw/IY5W07AGskDUJg9Dtu6ceRCjZsxJKulclQ3ugTbey3KzMymVy14l5iqBQI8XI33QYRJ4hDy5R/EYTwh0v68UhGARxFTGiX7Z/ZYQ4u3lf70bt8pCQVYziLySGnQxnDX8pSo2u/LltUk95T3XDMlJStl8jqZ1/8FqnYuoM5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gO1eVxX2msA4fzM1QYvc/ztr/Vq4WCh43Yjrwfu/Ef0=;
+ b=UIK8Aeeyl9sj1Efpl1YziFXCD9aSiQzNGkHjLZu82IU9G6XPcbZjIn344njB0LXQ/RXaldfWhRqIYud9EtNORPd45nBsjFY6FvbLvjnftGJeI25tXj/CTBThLwVezGtrXl4zpH5weYij6aqiwxXvtcUyZ/mS+a7AgJI+g1lvORsijAAjd6dfS+kWscQ63OnaHpKfjtmQuqX+cLwlxujy4alOMiDDFDlYQhaWo3JiOksASJevtxyHipTYd4xgThIluNjaLgspLmyn7aaInVJTaTN2lkCZCqIrMKFpF7C0T9xP7FSj1YEJy0fojth0AxHy7QzdwbwUWHW49kukTk2JWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gO1eVxX2msA4fzM1QYvc/ztr/Vq4WCh43Yjrwfu/Ef0=;
+ b=EYkhZT+i7ud8EeKeH/u7QYrWPudsoRYMdkX0T8A3dqGaSxcFRF2mPqPo657w30wRDE6LYUTnFZFjVHQdq/GHxZzGxg6sTV6VRcUK/0K/QlLhmFhvktbqPtoh0fFA0cKsxJo03NSuWbyFpBB1rl6T6xk+LHN7KEotN4Py8UlpRGc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by PH7PR03MB6864.namprd03.prod.outlook.com (2603:10b6:510:155::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 17 Sep
+ 2026 10:50:32 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%7]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 10:50:31 +0000
+Message-ID: <68e7850e-44a8-450d-96ad-2cd4948ac5af@citrix.com>
+Date: Thu, 17 Sep 2026 12:50:26 +0200
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, arjan.van.de.ven@intel.com,
+ sohil.mehta@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
+ Granite Rapids systems
+To: David Laight <david.laight.linux@gmail.com>,
+ "Chang S. Bae" <chang.seok.bae@intel.com>
+References: <20260908223209.916758-1-chang.seok.bae@intel.com>
+ <20260916225939.1144524-1-chang.seok.bae@intel.com>
+ <20260917101455.3e1ac9a5@pumpkin>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20260917101455.3e1ac9a5@pumpkin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: VIUP296CA0150.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:34c::14) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com>
- <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com>
- <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com>
- <20260916082924.956116-1-zaq14760@gmail.com> <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
- <20260916094453.1062125-1-zaq14760@gmail.com> <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
- <20260917025644.1262504-1-zaq14760@gmail.com>
-In-Reply-To: <20260917025644.1262504-1-zaq14760@gmail.com>
-From: Javier Martinez Canillas <javierm@redhat.com>
-Date: Thu, 17 Sep 2026 12:49:50 +0200
-X-Gm-Features: AcwNN1UM1luWQq9ihk-KOU9oijNFKfCQk8IyuxX6LfLxCouMc1ifgDhN-sy05j4
-Message-ID: <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-To: LiangCheng Wang <zaq14760@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Devarsh Thakkar <devarsht@ti.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB6864:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24883235-2ede-4e37-b980-08df14a97eab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|56012099006|10067099003|18002099003|11063799006|4143699003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	1ngXmpcuCqUR1ape5ykKl441dhY87n3wMRfhMCVhErBo9JLryfcUwsNHyHogeFYNgYMvbYwI+MBPHtJLpeEEG10g62jRSJ3gLa/rvLsV4Muo9UjYxqNDQMbOgQTa2HnSmBkHbftS0IL8kRigSOODjxVzHTZT6aWKV3ow3mUe6Zwg3W+ZrM83vs7ClkaZIVO5LYqYQ9ToplgbjIOeKS2BdSL1dHo9SI1fKWZoIGblfA6Wo0j2MGK8x7NH4vilmOFyhakiKQZkZrP1fuNGJ3Ek7IiCV69ZPdCf2pkvnaTOcW+cVFr76fYdnvRPc9ExS5wUPrHgfPEzcxEa81MPm38krcz/3PjH7J8S3ct2+FFVQodQZPGFY3Jkr4NXmEt8aqUl2kf0X0o4Iy8DqjBNU32ohe1G4mpCVX1j4IOvsdICZOWW0vIeexPPrhatS/7/WiOPHR3nRWb534pgA0YjTYsnGYS2UsraAZMhHecBfRv8orXYs+hbc/ISoVD0AMSD7CVNObIX8cThv6AxJPELFgCvAGlCJpUuCvQq0QhX0JfTpD5Ks4K7ow3kjsiAu+7L7wztCYdPFqvF1HnYGsdepXuxR6dWm391ezBzf4jFMIT+mWksvPYA+u5AmEo4t74K9mb27JWLpgX4AsdlmNJKMtHsbudmtIQjpmsPnvVJA902EAQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(56012099006)(10067099003)(18002099003)(11063799006)(4143699003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d000cTZZMFdzajlPd0JoaXJ5YlYyT0RxU2R5NmRBMDZKTGRFdzhRbTV2d2t6?=
+ =?utf-8?B?N2doV1pPZjBWNnYyaTZJWjYvbjhXVElzV0s3L21uYldQRTA0S042aGthY1hz?=
+ =?utf-8?B?bVFtM1ZrUjNBWlVpNVQ3MnF5aTlQNkM3NENOVUxKOTdMNWlTalFpRUVqTjQ5?=
+ =?utf-8?B?UDFRQnMyQ3dMbjU4d0JzZDNqeXNBaWdNeTVtNm4xbjJ5b0ZxR0thbDdNQWNK?=
+ =?utf-8?B?MElReXBzVHFYbU5OY0VBRTJZM2lPNzFHTWIrZEpMSno1TThnaWFzWHBHUmVv?=
+ =?utf-8?B?eUJvSCt5c0dFM2ROOFUvWjBDSllvSTQ3dU5mb2xuSUxTSnFjMXZmZnhJVWFs?=
+ =?utf-8?B?NnY1ZUUvU3BrVzI0cG5ka2VYQkJpVGlnUnFmQk9SUVFvaFJpMTExazh2UDhV?=
+ =?utf-8?B?Y1UzcmFURnlXMTZrUlB2YmxnQlFvQnU1OVdUNUxqWHVhQ3BMdWJ5ZndZQmVo?=
+ =?utf-8?B?VGNSNWpxVHBHWXExTnpBK25RcGhrQzYzVHBOSDFsUitFOWQvUkFTbXAwcVRT?=
+ =?utf-8?B?bEM5T2gvUitmTURsY0gvQ25hdjFwaGQ1clZnMXFQanRTNDF3OWh6SlZlaWdV?=
+ =?utf-8?B?a3g5R0k3aWJ0YVYvRVJFNUFuYkJDNGh5ampjQlorMi9BS2JtQ0xyOXJ1Yy9S?=
+ =?utf-8?B?cXI5RVh1S1c4a2VFeitaa0w0cFAxWnN3M0RuejFFQlQyVEdXL3J2YlA1K1cv?=
+ =?utf-8?B?WUFjVzFxQUQ1NXNMUUZUOFJvQnJ6cm9KcjJOaHhhMjRmUEZjVEdrSnVMZ0sw?=
+ =?utf-8?B?TWtoUGMvcGQzWDRsRTdoNEZQZ1ozTXZ6V0puYWxNRFRPUnJ0WmQ4NWJmKy84?=
+ =?utf-8?B?UXJaVkpyR0NlbWZpT3dRNHRQaFdOUXhRVE93a1FydWd3Sm5NaVNjRnVGRTJi?=
+ =?utf-8?B?UmZjSUlPTy94eFg5NHdGTmF4MVk5VXluK2RFSFRvZXRLNkhaMTNlSGN3MmZw?=
+ =?utf-8?B?QUF6TXc2L1d2bzQ3VnVvZSt3Qy80UFYzR1lMSWFUbGg3NTYrTlA5WFpxRnBV?=
+ =?utf-8?B?dXVtYnZqQzdnb3paNFdYTjB1Mm55dUdGT0lGZlZtRU50VGkzS0xFZU02R0Jl?=
+ =?utf-8?B?WlhkcTdpK1lOU1Q4ekNQUExHOEl2M3hHbkpsZTRMU2FJQzE4Ylo4MmthaEhz?=
+ =?utf-8?B?UGFKaUFzRi80dE5YR3pvb2hzZ2RwTUpmRS9RV3prZ0xvQnludWtZeWVCNUU0?=
+ =?utf-8?B?SittYXdaNmgzUTYyN1hlbmV3VWNGdklNVHNPanhjSEpIVm51OFBXcExLOC9N?=
+ =?utf-8?B?bTRRL3dMTFEzcmlJY25GZURSTk01cDNLT1JPNTkxenRCZDVibkJveHY2OTdj?=
+ =?utf-8?B?MERSWjA1YTFZNWVuVGlUUThyNzVGM0ZsZHRUc3hhWmpERTZ1SU9YMkZVT2V4?=
+ =?utf-8?B?VzNKSUhzaHBSMDVFOUErakhtNjVtNUZFZG14UExNTHE2NkI0SFVYVy9XQ3Fm?=
+ =?utf-8?B?cHhPNm1OSWZuamVLNjVoZjFGa0QrVFNueGc2bkRvTWRzMGV3L1kybGZsVC9D?=
+ =?utf-8?B?bUVMWldad21zODVZYjU1OFVuRUtjNndpNHVJd1ZHZ2kyZzRzNS8vZGM2UVJY?=
+ =?utf-8?B?VjFWbFd6cDJ1c3lYcjFpSjZKUlJxa2w3Z3pPdG9xYzZXb25JQ2RMVlArZFBT?=
+ =?utf-8?B?UUlvNHhJMWh2MzRxWFZTQStDT0g1WDNJWGhUMUxXZ2liSnpQRWZzR1M0ZjZM?=
+ =?utf-8?B?dG5saFBLak5MYUR0QUZpMjNoZ3lxVFhOZ3Vxc08yNTZ6ZWVONjlNRXJGeHU0?=
+ =?utf-8?B?cE9FRmd6dzc0VXBzWFhpM3pVZy9LVmJoNy9GQWJyaWNIcHRJRk9jcDhHZmZT?=
+ =?utf-8?B?Z0JZQnlZR05neE9HOWlxdEdjSTNIQXhkdlZ2eWFEcmZvcmFBRWptNW43QWln?=
+ =?utf-8?B?QTZqWmVnUHVkTEFTK2JlZHJEYmZZNmc1ZS8wbnJoUmNHaUVTaTRJNGRYaFZH?=
+ =?utf-8?B?RXZ3dEZKa1RMVE4yVDE1eTNOU0s1emEvcEdHRGZ0aGhsZ2tHMW9MTGZMNmFt?=
+ =?utf-8?B?Z3U2aDQ2Y0YvZUlndDNwWXBZVlVUVEwwdkZScW5jNFlQNmVSR3VIbEpFa1Fm?=
+ =?utf-8?B?UWxyR2JEV2t4QUlVK0llRE93TTNlL0FmaEZxeU1razJFNENHS2hFR2o1QzJq?=
+ =?utf-8?B?WGJmZTMyaDhwK21PSkQ4V3FDVVNrUjJGa2YzdEI1Vk5aN2NHdmxYQjFrYkRo?=
+ =?utf-8?B?RzBqeWp5UE5pd3FwZWFyeFR6QWxHSXpZbFN5QmNRM2hRWFlQRWQyaW11WmM2?=
+ =?utf-8?B?d2tKWkZNTHJqOTFGaXlMZDVibGN5OXo3V1kwR2dYU1JVeXRCNGp5Uy9xemRQ?=
+ =?utf-8?B?cUJLWFVJYng4M2JNZ0VsNGovZlZvbW9CMjZvZFplYnBjWXFTSG44UT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24883235-2ede-4e37-b980-08df14a97eab
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 10:50:31.8903
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zH374KoGY1ZTAbpUnwGg2e/0r1vzclnjYFV8tY1yc0Wpm3txG51bjoBoAyOFkcu6xWv+BBJP7+m03ho0QDGobXXq6m3Kch0wGaXB6I1b4Es=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB6864
 
-Hello LiangCheng,
-
-Thanks Thomas for CC'ing me since I missed this patch series.
-
-On Thu, Sep 17, 2026 at 4:57=E2=80=AFAM LiangCheng Wang <zaq14760@gmail.com=
-> wrote:
+On 17/09/2026 11:14 am, David Laight wrote:
+> On Wed, 16 Sep 2026 22:59:39 +0000
+> "Chang S. Bae" <chang.seok.bae@intel.com> wrote:
 >
-> Hi Thomas,
->
-> > There's also the ssd130x driver under solomon/ how does it related to
-> > the ssd16xx? Is that similar as well?
->
-> They share the vendor, but not much else as far as I can tell - Javier
-> will know ssd130x far better than I do.
->
-> It is an OLED driver over regmap, while ssd16xx is e-paper over raw SPI
-> with a BUSY handshake, RAM address windows and waveform LUTs.  The
-> register maps do not overlap, so I doubt there is much the two could
-> share.
->
+>> Microcode updates can usually jump revisions. However, there is an
+>> erratum on Granite Rapids systems. If they "jump over" revision
+>> 0x1000405, they result in #MC. Avoid it.
+> A probably silly question.
+> Is it valid to downgrade microcode?
 
-Correct, I don't think there is much overlap between the ssd13xx and
-ssd16xx families.
+Yes, and it does happen in practice.
 
-There are a few bits that I think are similar though and could be
-reused, for example the pixpaper_spi_write() helper logic is basically
-the same than ssd130x_spi_write() AFAICT.
+Intel microcode contains a field called the Security Version Number. 
+The SVN bumps as infrequently as possible, but does bump when necessary.
 
-Same for pixpaper_send_cmd() and pixpaper_send_data(), I believe that
-is the same logic that we now have in ssd130x_write_cmds(). Specially
-after the recent commit 3e391b0b516b ("drm/ssd130x: Add SSD135X_FAMILY
-and SSD1351 support") that introduced a cmd_params_are_data flag that
-allows to send the operation as command and the parameters as data.
+There is a hard block on the SVN going backwards, but as long as you're
+not violating this constraint, you can upgrade or downgrade microcode as
+desired.
 
-So the MCU interface seems to be the same, in particular for the
-4-wire SPI interface which AFAIU is what this new SSD1677 driver
-supports.
-
-> Its shape does look like a good model though - one driver covering three
-> sub-families through a variant table.  And if you would prefer ssd16xx to
-> sit in drivers/gpu/drm/solomon/ next to it, that is fine by me.
->
-
-I think that's a good idea, as I mentioned above some of the helpers
-used by ssd130x could be factored out in a solomon-common.{h,c} or
-something and be shared by both driver ssd130x and ssd16xx drivers (in
-insight I should had called ssd13xx to the driver since now it
-supports SSD130X, SSD132X, SSD133X and SSD135X families...).
-
-> > If the ssd16xx does not make progress, we could also try to merge your
-> > code as ssd16xx and Devarsh would then add support for additional ICs o=
-n
-> > top.
->
-> Thank you - I would be glad to help that way if it comes to it.
->
-
-Agreed. The ssd16xx driver could do the same than ssd130x and support
-both SSD1677 and SSD1683. They seem to be quite similar by looking at
-the datasheets publicly available.
-
-> Devarsh, it is your series though, so please say if you would rather carr=
-y
-> it yourself; I would only pick it up with your agreement.
->
-> I should also be honest about what I could offer: only what the SSD1677
-> and the PIXPAPER 4.26m need, arranged so that further controllers can be
-> added on top.  This panel is the only SSD16xx hardware I have, so I could
-> not implement or test the others.  If that is too small a starting point,
-> I quite understand.
->
-
-That's OK. When I introduced the ssd130x driver, it only supported the
-SSD1306 controller and over time we added suppport for more ICs and
-13xx families.
-
---=20
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+~Andrew
