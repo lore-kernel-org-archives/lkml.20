@@ -1,106 +1,94 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BEAB497384;
-	Thu, 17 Sep 2026 15:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54645358D27;
+	Thu, 17 Sep 2026 15:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658091; cv=none; b=pG03u+CXsEhcetPiABgFfbhRk9mUweV0+iUlBPUYwBhy9cjq5rZMp9lQ+4B1nmKLQGkzD8ZUovC9pbSYwKiLSdjAYEJ24gBnbSa6IMQjr5Ed+Rc1eSz3UcppjHshcvsJQ/zzeMG6fVJsHjKuTCR0Rcl94iNftxZWG5pTxtSZhok=
+	t=1789658105; cv=none; b=IwzrzkF7ZSU/v9Oe2VS01twlo82EEfhEpy13O4w/DqXvq/vHdv6LfTU8cZWEwQlKHNTaCy6xyBU/FIp9IQdKOV0uUYpQDBhTicdZ/s5qN528NViXeIcoXXxyquVo4EMBl7yUNQNz88c2Qb4Ufhl7q9WlJoTVw3oS4+79H0xWBOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658091; c=relaxed/simple;
-	bh=bno2OaQ++0XptPjxv4KLgDTOcVdE7Tfrme9WXDcNkg4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=nqMAw2liJk4fqfnlx0/UmrJ7Jt6IIZH3fBkrMmVB21jgVgfrn5cy0T3DgKEbUodI8ErWYalW4cQyCxMw9su6rjp+5v1RgRPx69mdLhCbAGX5oGhwMnLKz4vTrAtZQX7jrvCdq1H97CqbeJWo2x1w2frgEH3ByT/4CmN+ShCBCPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=06JGvczP; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="06JGvczP"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E6FF44E407AC;
-	Thu, 17 Sep 2026 15:14:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B08065FAA3;
-	Thu, 17 Sep 2026 15:14:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19AA311C7B064;
-	Thu, 17 Sep 2026 17:14:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789658075; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=bno2OaQ++0XptPjxv4KLgDTOcVdE7Tfrme9WXDcNkg4=;
-	b=06JGvczP9h2B9VsHO67nopzA/zScpYBAk95FVUSIdBi80r/e4D/4/f6p2O7Rgdt4/dQ7tq
-	cpXZh4/+EdLpVWWxsGPDs6WWpSUu8xdPaITv2jauejuiq8ryxXsmJPBHiASw/IBpCPyZ2B
-	YcIRa30DnBr9Jd20ufOksMI3GG8UO+hcxwp0XCPfSs6+Fun0COv8Fd5SlUIjkDJw7dbh2s
-	xTupwiu/if9HcVDsoQ+E7xRTy7QNCAU2qF2fO3mWUJc+owfEb/YZdNYMeNshIovXTvouWd
-	fYrOcoIGoJHzWOOXBrg3IVedQSQ40U7HezUpFSUb36WWC5Ysaoh0A5ToeRNQyg==
+	s=arc-20240116; t=1789658105; c=relaxed/simple;
+	bh=WKd5hbr4XXWA3Mv8v+VhhZjKFugRnWpZAUIpvdZ+LH0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tFMrcdBRyY205l2JAL7ysDHO9VK+BAJetS+c58Kmf39oeQhEX15rhEnRKBbKiGcSEkYcwTC9Q8lQHBXBdnKvDa3AvpuE5C/w4j7zen5DpWI8jHbUptJ4vdLVMFq88Rrik/YvLI1Uzj88FuF+OPltqUiWVRyEBv5VogzOHsLm1U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnFD_iA6xqs1GDCA--.5505S2;
+	Thu, 17 Sep 2026 23:14:42 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpt3sas: Fix sas_device reference leak in _scsih_update_vphys_after_reset()
+Date: Thu, 17 Sep 2026 15:14:42 +0000
+Message-Id: <20260917151442.2158565-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 17 Sep 2026 17:14:20 +0200
-Message-Id: <DLHOU2RLKSDR.YLNQEAWXPDRE@bootlin.com>
-Subject: Re: [PATCH v3 18/19] drm/tve200: don't create a panel_bridge
-Cc: "Albert Esteve" <aesteve@redhat.com>, "Anusha Srivatsa"
- <asrivats@redhat.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mips@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>, <asahi@lists.linux.dev>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-tegra@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>,
- "Lucas Stach" <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Paul
- Cercueil" <paul@crapouillou.net>, "Paul Kocialkowski" <paulk@sys-base.io>,
- "Linus Walleij" <linusw@kernel.org>, "Inki Dae" <inki.dae@samsung.com>,
- "Jagan Teki" <jagan@amarulasolutions.com>, "Marek Szyprowski"
- <m.szyprowski@samsung.com>, "Sean Paul" <sean@poorly.run>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Randy
- Dunlap" <rdunlap@infradead.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
- <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-18-83afb4f1a707@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnFD_iA6xqs1GDCA--.5505S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XFW8Jr4rWFy3Xw1rWF4Durg_yoWkKFb_ua
+	1Ivr97X348KFn5J3WrKry7Zr12vrsFq34kuFsYvFs2kw1jvrZ8XFs7Gwn0yrsrW3yvv3yU
+	Gw1DX393ury8GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07UZSdgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LYlBgAAsz
 
-Hello,
+mpt3sas_get_sdev_by_addr() takes a reference on the sas device, but the
+new hba_port pointer is merely stored in sas_device->port, so the
+reference is never released. The sas device is thus leaked every time
+a vSES device moves to another Port ID after a reset.
 
-On Wed Sep 16, 2026 at 3:45 PM CEST, Luca Ceresoli wrote:
-> Now a panel_bridge is automatically created for every drm_panel and the
-> panel-bridge API is just a deprecated wrapper to access it.
->
-> Update and simplify the code by just getting a reference to the
-> already-existing bridge using of_drm_get_bridge_by_endpoint().
->
-> And since of_drm_find_and_get_bridge() returns a refcounted bridge, take
-> care of putting the bridge reference.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Drop the extra reference once the port pointer has been updated.
 
-I just found this patch fails building on current drm-misc-next due to
-another patch landed earlier this week. Will be fixed in v4.
+Fixes: ffa381d6373b ("scsi: mpt3sas: Handle vSES vphy object during HBA reset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpt3sas/mpt3sas_scsih.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Luca
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+index c841fe1706c7..550a5e4fec10 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+@@ -6415,8 +6415,10 @@ _scsih_update_vphys_after_reset(struct MPT3SAS_ADAPTER *ioc)
+ 					    &mport->vphys_list);
+ 					sas_device = mpt3sas_get_sdev_by_addr(
+ 					    ioc, attached_sas_addr, port);
+-					if (sas_device)
++					if (sas_device) {
+ 						sas_device->port = mport;
++						sas_device_put(sas_device);
++					}
+ 				}
+ 				/*
+ 				 * Earlier while updating the hba_port table,
+-- 
+2.34.1
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
