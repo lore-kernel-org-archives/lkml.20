@@ -1,129 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34AB43B4BF;
-	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42459449B33;
+	Thu, 17 Sep 2026 08:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634638; cv=none; b=qWQL69vcdDmgIzFr2gkmjPH5LUxO6sHrbrkPmbcpc3cv+VInNCyrQNHIc0B0k/sg5T2HlRzG7dLESUmRFtD4oipSLacAF2mxjvj4wLr/53HMeXxVoI7jIdXEwAEQ059JUsNZY2m0XFkvdFUbJ49R0NyWJLjbamXOp/0qfu/UXps=
+	t=1789634700; cv=none; b=gtITAfGNkUbzLBAjMeq6H2RWYAyhCDXJFt473OwkZi7XTvAGMe/bI3fFI2BQ2txNdKvHHgBfxlLzDTlJ6IOH/M/oL34DULC4ND+U/DInUE5wkhnF1b6Iv+bzI7KTydoe0n22uu8/auXh5ADrbhpkF+R7FiYudH+95JPi1yL8jHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634638; c=relaxed/simple;
-	bh=gabtB3LhvDpwGxM60+CDmRYzOClz8MHrctbfhZ7+Cxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZ89OrdRRHvIEg3E22hT1fWCGaT2mJShH673jlJI4qr4BGez8ZKsSkH+Mk0sm9kCQxG1HNMwnGbMmy4czC+zkz/VJwnzKrZp9iBZEkB82DSBupJktmR8Ph5g4LUh3jrOXLyNK0e6JAqIU0W4dS+Lsy6rHkNJ7qGPEAcnLiFgjE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d70TY05y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789634700; c=relaxed/simple;
+	bh=TMTaIbJLsJLv/mTg2rgUmjtIHOhKYVUPD303vPU1PyA=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=hnBlMHealxYoIfda0Ac6nq6fCc9OtKcy+uQeUPnQHVWqOLb8ADSC8NEWkAC0Q4H2uB+ILb0HuvLrjb/3CY8cmVUV1WKhlwZ5bkrWesDaCJ3oMqhoHi+sCcDfSL81jkto+vROzKIIxniERxkh/TETy83e0+oLTRImljjTCaDcxeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NIZ1G7vz; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d70TY05y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2EB1F00893;
-	Thu, 17 Sep 2026 08:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789634608;
-	bh=buD3ErXVY00qtOfbbN+g2a6i1tZgMgrKCslFRQUKThs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d70TY05yyHQ7s2d6aSQmpJlbvfjb565Jt22UNJ1P7e9d3NyE2FF+DoyrPsOggbevm
-	 bJw33nP1ZR/98zM56CUm6S+gL4n4VOlF5ppTlVIZgQalMBgpk3OOgpuShZmz0ZiEI8
-	 GHzVhc6aMEZXhSKfSSpp1JzhE/Wnj793p8O9uiHdX1qBiQV1OT+UXsUqd59S1A/5BC
-	 UfeEdUfm/wup58vramzigPRPAJYE4PscTiIG99QTELI5RipVlkRx3hjja3XsaZKae1
-	 T7tKFlaVdrRDmcbZeVv0X4c0/ZPw0qmevM7HzhewDDvX6uw2vhUD9vFcvdJPeBXLaW
-	 ejh1+7jRDjIVA==
-Date: Thu, 17 Sep 2026 10:43:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 2/3] Input - aw8695: Add driver for AW8695 haptics
-Message-ID: <20260917-slim-smart-rook-1dc942@quoll>
-References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
- <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NIZ1G7vz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789634679; x=1821170679;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=TMTaIbJLsJLv/mTg2rgUmjtIHOhKYVUPD303vPU1PyA=;
+  b=NIZ1G7vzss9ByRy7Hvwa+MMVhaA4uWwkzyTe6ZbvRu9sFcMro3Zy9HhC
+   d4Vaog6rAILg4e+SaHtuCjz0lGNVRRitRANhPKDvbkTDTjxEu0COHoDJC
+   AhRK0flDPyLJdlnYudTJry0JNYhl9N6g/Hjx7yT9DwFF82KqI6Wua89Mr
+   Fprw6nt0DeFFQsx2Ifv6IL+XrIgWCISe0duPgGEvp07Fetsrr0yCSS3vv
+   4izHSgBYsTnKYQx/dGylqJZiRt47FpIXV9h/PS45japFT+wT0KKG/B3Oc
+   rED4CcBRIedRhAW9A8+iu9fHNIXurXLko6eFhzfU+GGPkrrMS7+o9b+gP
+   A==;
+X-CSE-ConnectionGUID: b11WNkkOQI6f+An0Jra2+w==
+X-CSE-MsgGUID: 0+QFpiYdQHeW08u34FzE1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="543456"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="543456"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:44:34 -0700
+X-CSE-ConnectionGUID: A7xAF+jvQ86QaNy8zguPww==
+X-CSE-MsgGUID: nhNzkWHhS/yCaInJ3w0gnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1874791"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.62])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:44:31 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 17 Sep 2026 11:44:26 +0300 (EEST)
+To: Daasaradhi Mannava <daasaradhimannava@gmail.com>, 
+    Denis Benato <denis.benato@linux.dev>
+cc: Nikita Kravets <teackot@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: msi-ec: Report valid charge thresholds
+ when unset
+In-Reply-To: <20260916174812.11496-1-daasaradhimannava@gmail.com>
+Message-ID: <12cdf224-08aa-d19f-62fd-fbc6e26d6103@linux.intel.com>
+References: <20260916174812.11496-1-daasaradhimannava@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Sep 14, 2026 at 04:37:48PM +0200, Griffin Kroah-Hartman wrote:
-> From: Luca Weiss <luca.weiss@fairphone.com>
+On Wed, 16 Sep 2026, Daasaradhi Mannava wrote:
+
+> The charge thresholds are computed by subtracting a fixed offset from
+> the raw EC value. When no charge limit has been set, the EC can hold a
+> value below range_min (0x80 on an MSI GL65 Leopard 9SCXK), and reading
+> the sysfs attributes returns nonsense:
 > 
-> Add a driver for interfacing with the Awinic AW8695 LRA Haptic Driver.
+>   charge_control_start_threshold: -10
+>   charge_control_end_threshold:   0
 > 
-> The chip supports multiple modes of which only RAM mode is implemented.
-> RTP mode would enable a user to "stream" waveform data but to my
-> knowledge no such user space API exists in the kernel yet.
+> Both attributes are documented to be within 0 - 100, and an end
+> threshold of 0 wrongly suggests that charging is disabled.
 > 
-> We upload a basic sine wave to the chip and play this on request.
+> The store path already rejects values outside range_min..range_max.
+> Apply the same range to the show path and report the maximum threshold
+> for any value outside of it.
 > 
-> Co-developed-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> Tested on an MSI GL65 Leopard 9SCXK (EC firmware 16U8EMS2.100) with
+> the EC holding 0x80: the attributes now read 90 and 100.
+> 
+> Fixes: 392cacf2aa10 ("platform/x86: Add new msi-ec driver")
+> Assisted-by: LLM
+> Signed-off-by: Daasaradhi Mannava <daasaradhimannava@gmail.com>
+> ---
+>  drivers/platform/x86/msi-ec.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/msi-ec.c b/drivers/platform/x86/msi-ec.c
+> index 566dfc73c..1762551e0 100644
+> --- a/drivers/platform/x86/msi-ec.c
+> +++ b/drivers/platform/x86/msi-ec.c
+> @@ -1279,6 +1279,15 @@ static ssize_t charge_control_threshold_show(u8 offset,
+>  	if (result < 0)
+>  		return result;
+>  
+> +	/*
+> +	 * The EC may hold an out-of-range value (e.g. 0x80) when no charge
+> +	 * limit has been set. Report the maximum threshold instead of a
+> +	 * meaningless (possibly negative) percentage.
+> +	 */
+> +	if (rdata < conf.charge_control.range_min ||
+> +	    rdata > conf.charge_control.range_max)
+> +		rdata = conf.charge_control.range_max;
+> +
+>  	return sysfs_emit(buf, "%i\n", rdata - offset);
+>  }
 
-Your SoB should be the last, after your codev, after author's.
+Hi,
 
-> +static irqreturn_t aw8695_irq(int irq, void *data)
-> +{
-> +	struct aw8695_data *haptics = data;
-> +	struct device *dev = &haptics->client->dev;
-> +	unsigned int read_buf;
-> +	int err;
-> +
-> +	err = regmap_read(haptics->regmap, AW8695_SYSINT_REG, &read_buf);
-> +	if (err) {
-> +		dev_err(dev, "Failed to read SYSINT register: %d\n", err);
-> +		return IRQ_NONE;
-> +	}
-> +	dev_dbg(dev, "Interrupt: SYSINT=0x%x\n", read_buf);
-> +
-> +	if (read_buf & AW8695_SYSINT_BSTERRI)
-> +		dev_err(dev, "Received boost short circuit protection or over-voltage protection interrupt!\n");
-> +	if (read_buf & AW8695_SYSINT_OVI)
-> +		dev_err(dev, "Received wave data overflow or DPWM DC error interrupt!\n");
-> +	if (read_buf & AW8695_SYSINT_UVLI)
-> +		dev_err(dev, "Received under voltage lock out interrupt!\n");
-> +	if (read_buf & AW8695_SYSINT_OCDI)
-> +		dev_err(dev, "Received over current interrupt!\n");
-> +	if (read_buf & AW8695_SYSINT_OTI)
-> +		dev_err(dev, "Received over temperature interrupt!\n");
-> +
-> +	if (read_buf & AW8695_SYSINT_DONEI)
-> +		dev_dbg(dev, "Received playback done interrupt\n");
-> +	/* FIFO mode is not (yet) implemented in this driver */
-> +	if (read_buf & AW8695_SYSINT_FF_AEI)
-> +		dev_dbg(dev, "Received FIFO almost empty interrupt\n");
-> +	if (read_buf & AW8695_SYSINT_FF_AFI)
-> +		dev_dbg(dev, "Received FIFO almost full interrupt\n");
-> +
-> +	err = regmap_read(haptics->regmap, AW8695_DBGSTAT_REG, &read_buf);
-> +	if (err) {
-> +		dev_err(dev, "Failed to read DBGSTAT register: %d\n", err);
-> +		return IRQ_NONE;
-> +	}
-> +	dev_dbg(dev, "Interrupt: DBGSTAT=0x%x\n", read_buf);
-> +
-> +	err = regmap_read(haptics->regmap, AW8695_SYSST_REG, &read_buf);
-> +	if (err) {
-> +		dev_err(dev, "Failed to read SYSST register: %d\n", err);
-> +		return IRQ_NONE;
-> +	}
-> +	dev_dbg(dev, "Interrupt: SYSST=0x%x\n", read_buf);
+This seems similar to case in commits:
 
-You should not have three debugs (and possibly +3 more in if()
-conditions) in interrupt handler. In case of irq
-storm this still will overwhelm the log. This should be only one and
-most likely dev_dbg_ratelimited(). Errors should also have ratelimit,
-even if IRQ storm with errors is unlikely or even drop them completely -
-isn't regmap already going to print some errors in such case?
+186bf9031666 ("platform/x86: asus-wmi: do not enforce a battery charge threshold")
+78bf392ba77d ("platform/x86: asus-wmi: temporarily revert to setting a charge limit")
 
-> +
-> +	return IRQ_HANDLED;
-> +}
+(The latter reverts first one as userspace could not handle -ENODATA but 
+thought the feature was available.)
 
-Best regards,
-Krzysztof
+So ideally, I'd tend to think we'd want to return -ENODATA when the 
+threshold hasn't been set. But whether userspace survives that is a 
+question we cannot ignore.
+
+-- 
+ i.
 
