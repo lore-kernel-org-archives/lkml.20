@@ -1,160 +1,210 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFFE4D0CD7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD2C4BD376;
+	Thu, 17 Sep 2026 11:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644508; cv=pass; b=F7TIpuY62bTiOE6aiy8nVjkn6MIkrz6aEdzXDnY9b8moNplJfMz58ptGoRKtCGBfSH3Y0tGRngvk2gaECNNjnzD/7YA+OzeKZhry4rc2FK3jGijouGvwSW8YLEzxt67WP3DywV9AMndegRz2pzE5xNROT0HhmrV6VMdRtStRyFQ=
+	t=1789644540; cv=fail; b=jPdVrLBdYyQHFN0Fua0hu7e5rna5SL6MsDXQ8VaEcsQxy3OtynDp+BOWpGzchIMvazr538AaXKX2KfTobeuWhzwFvOMoqzLH9VHm52VwSjT6tsOey07N/Krh54XemOncaTJQFFIhp4y7HCVB8ARg/j2hEzJre4ilSt2D52G7z6w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644508; c=relaxed/simple;
-	bh=VC3uqTx64qtizJvIeWHTm2N1VvFon3rcWBswhTm6g3Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SdeoYDsY+Y0vFCilWfrVlEfBRPc7MYeaZPA5uXL3sMpif2akbb95YYaCV8vdMOcz1ekfKT/nkj8sO+DgBtglVx35WCt+4DWWPMyc9cdHKv4UnaX8NCxpzLbyEZcEI9A7wcYOP84sRD7Gvv0SCDcIYv0lZKEoorE45fN+EzZ6yDM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com; spf=pass smtp.mailfrom=melexis.com; dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b=ZIDyc13x; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=melexis.com
+	s=arc-20240116; t=1789644540; c=relaxed/simple;
+	bh=3mGw6ORD/m5v9Fl5nCquq9EF2V7Wd4apmFwBxkqVy4g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eN714KE/PmQgTaSjfdRDACxEgOzBYPZYEvLkiWGdCoaend6+OrdRLfD0L3/VneMJE6mEO8B1mENZMRsreYeglAx/uxjgNVubImEQ+F/koHEFLtU9la0h8s49OhhcAFzmsvM1H2ZuharNv51/+GW0eRXotKdGgE9+RyRqsYvWjtk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mEjRGQ6Z; arc=fail smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b="ZIDyc13x"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso118201666b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:28:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789644505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FQXfEJ3hJJJwXz6Eosz/8+YMSsnVME7CDe0/p4LvBCuz7rIwuLLg+NeTWxmi03fI4P
-         CtllWrq/IWEEuxsisU8Wf44aXf5MLvUKLpeA4JJKnddMD2YKLjBxhMxmvk0VWKnfaUMs
-         rspmldnLQuVFth9JKTFRpZOz4uz4KltQP6UqRlRMMl/TW5fYH9DuKbcCHdd4MzCKYtLS
-         G1kIEIQb/mYn0HIpIULAhIW6i68tyF7kkUFI2NsP3RjxT5RHL6uyAWy8cUOOXRmJmH34
-         EUct+D0Vg4V9xL/RpRboSDDHjrtmNhDyEHTg8tMLqNsEGXsOm3voT7TA658slAihbmru
-         OkXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=elvP5BwKT6RoQAB5diX5NiXHvp+jdzVM7rvzbyMAHDE=;
-        fh=v4PbOphBiZ836dNqxY9pJQSSViPCNfXBMo0gNgXTH6I=;
-        b=UrKcDFna+1V9Nx+HFlw53bO144dSfYx+cUSutQkqvNV7Dqa0WabZkBThcTAogGiOFA
-         YeTesObY45lLIXM4OCgFwmLVMZx82aCiYytJi06anrbioo3Zzdp8zr0Fho5yhsgzrga7
-         ySKnwl9dkoWHjdEa+7fmhOsedJgPfLLHL3PtRY8YjJJNLF7cc9XgWJKTbkFC7AKaU5DW
-         BWenJKd2gcHObgadC36IJw1Vqjz79ok4S1JI3yul3w8lLmzo0pAKf+tjAF1nM9zGgxWZ
-         2IF7y2TBgwmJgkP/nk+6BGdMqjPqZncpirznQvv90ceJ04RXqN/hBOAFsRILH46D9j6J
-         f1LA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=melexis.com; s=google; t=1789644505; x=1790249305; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=elvP5BwKT6RoQAB5diX5NiXHvp+jdzVM7rvzbyMAHDE=;
-        b=ZIDyc13xhufzMYtbzy8CQz71ncNfsI2Ff3kMgccc2uUZpYyCZLm2vGb0tHaNnIW2WR
-         yeRDq5gR5HFmFho0Bc95D1R6qfp5CRhoqWrlY3Qpa42vRzwxAoLlfHcq+cJblH3pBkjx
-         M1O8myOLAjlwopcaYylY5jG78kngZD0QI5tJ3jbsMZTbj3uIAI2bdg2U9RyjR/FiqcLI
-         GoOasFHEgtroR7HLwvtZt0O4Vn0i++HTkcX4xe1wt/EGF2gR2Cm4sOfUcwNAbebKA7BY
-         BpFRBa8F/QJSiX4saVDJYaAME0LtURY1OPbcmYMhK0kRuK3B6cdnX4YP9CrheT/4HVBL
-         BF0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789644505; x=1790249305;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=elvP5BwKT6RoQAB5diX5NiXHvp+jdzVM7rvzbyMAHDE=;
-        b=VI7/lFm1yFXgeoyvvT1cS8mahUZc6MowLw01+jZ74KrdZZ6gIw6fYhXFL4Z9bHUGTH
-         f2m4J5nGiG2IQD8fVW9vzW51VkKhQjYiF4gDHXgRPcoq6+px61Unf7UHiNtb0xpgzRvs
-         cgQHMIB56Lh6hxm8iERLMDdpfBNjgtw0qpDgC7MYgfQNN6AsDT2MA2Y0mbGBUu+rciec
-         Sz/+nSGag+YrNqZXjslYZCuwtvWxWQSvbdTo05csd6XBR8p4jrnSPtgk6Mfltfus7lbW
-         NXiXztxFpeVPAa60qQTg+M7M1lJyxZtPWcafeAGHZ9Ieyx47N7dqgg65GDDs/4tEln1q
-         lCAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwD8Vr4NujH8mfOSZcvnfoSzyySaMvoU8I28KJot7tr6fDdjewk1HtEirepXp6eDZJ7LXU3ZHS/rrrm2wg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ02AUiaICg2UFfSNW2XbM+csVRFFV3oAnv6OGtRmFlOI+Ajgd
-	UbTfovqNfQz5CoDZz6mtxioVk6wGoKsI9pZSeUr9qqSeG5f7XWgXoX1fdT/FWvQkg21/u6fWEfC
-	F2HqSx7aFj3wNcXcNS6NKbwVZsTO2sAcuDZEy+E4r
-X-Gm-Gg: AYBFou0DffPMAa32YVgRqKhNf2+sl2zKsIDHI9Sc5ulReESDL+2x+xMRLHso8Da4z7s
-	OwLTv/GGBfokanzHtsOUzH/7gGPYgWNPyrD7sl3nGuItLLpS0/d9BuwxdIA7BPE/sSs+IRvY0e4
-	5llHL5FLS6K/bh16wBaKcqrqBfgl8hMs9X6Ai5MKoWmYjsh/PXWIToaipPTzEbevzZofy9Q5bha
-	KNj808EDd4NXh6YkFdTvltOA5lwaEI3orNUuLXMe9ajUA4v5dUj/5wOgEriR9/b0+yISCi0dU0+
-	nvdaXCOY4Ctxts1cBiJPKebqb7INM56Ev+67LkAs5RHns4Hmq3oW
-X-Received: by 2002:a17:907:3e82:b0:c29:f5d8:9c6c with SMTP id
- a640c23a62f3a-c29f5d89e31mr218839466b.27.1789644505308; Thu, 17 Sep 2026
- 04:28:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mEjRGQ6Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789644538; x=1821180538;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=3mGw6ORD/m5v9Fl5nCquq9EF2V7Wd4apmFwBxkqVy4g=;
+  b=mEjRGQ6ZTA844iJB3aHSSVm1rbjpbQVo+Py18dEIVkyM1r7RpPb9MjgM
+   NwuDdC7K6Uh0Go5B7a2eUSOcK28l/GnUDi2SbyFLMxlnpi1m36ldSlZQe
+   X7qk5t8Zj4KO1FNkKh8iWQzYgnTVJ0Xz6JBMMF9tzoL91NCItomS0ciJJ
+   86CuZHZyWD9E6pG8DFnb1rfh5xFu5OGoaRLFpOtdDsI3cBnzIui2N+wM9
+   8ZYLYXwlxpCOhuyzo1Bh9rm3fnWiREl+lJWi/+EMUDIvVMhjvCKQSMo1y
+   H9aWJfhebHI/qBh4ipcLHtCVGg9s/Rv01y3GY6DqKAFDWcOuSJyGflG9g
+   Q==;
+X-CSE-ConnectionGUID: Lm029uz6TWqxyVwATiKFuw==
+X-CSE-MsgGUID: vXLTXPnTTymwGZ9GMKWVmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100720995"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100720995"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:28:56 -0700
+X-CSE-ConnectionGUID: RqUIFNHMQ52Tx8NRQ8iZIg==
+X-CSE-MsgGUID: GTYNGV1PTzq5oo4iQbs7bQ==
+X-ExtLoop1: 1
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:28:55 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:28:55 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 04:28:55 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.0) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:28:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=itkXBsi6ORnRJRXxga6yVZT957xJjMpcigwjSEOxPF3txrcoHEzhW8xPwaEbnmKmi+cDyem6RiVMETzoMCXw6YyvbTdmZUYcYEkY6t1K0Nj43H39E3znri1gZYQtUS/b2bGjdDyZbPiDfBxLRKYolRadKUF+4O6dYIW7/A3FhrImV3V7y3kopXHAmh35j+GkBYdRiyeMgC4dgpOKAdB2fwhdbo0XuFfm6iVsHtKDjZG1MekBMEFcMn/iCa3TZT/LinO8Qq0rw6dU2oiO69LOn0A2zd2XW86mWA13Y7ecNFW8iXdaSQNvvSLymLtyICBrX3PcaOiICKXzOJHkG/83qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6orhvdTQBZFdYhmjlFwSMZHxwlGrrvxY/OXgkxzLiIY=;
+ b=XOSSc2GzDmbXN87D6hVa7PjaPz/Q1n1qX7LWm7PoR2oy9YN4dyx8eyH8WgJQ9q3uZ3fkBTEISVFs9j3Hgf7tdEDPauesjo0pfGfdEQ89z5Uz3yZtU4QCyA/JFN93upuBRmMLe71dkbIOH3zoIG3TeoGOLhpAY2ALsCFVj1/Gve2YAwMeD6f5xhjWnHerTMLEja1UPrutys4aSVOl3a4PxovN0cgoZ7Xk1q3FZhqNiqq0WYyxkxBsqKrDsTs95jA48SLxTDuHoGJ5eNAuI2NYu5v2+ynHAsOclJ6/pzdy/dHA56IWKgBHr+pfkxB+i98sMJcZhkX2hBBunV6Dr3fMTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by SA3PR11MB7654.namprd11.prod.outlook.com (2603:10b6:806:305::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 11:28:51 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 11:28:50 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>
+CC: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"kalyan.kodamagula@intel.com" <kalyan.kodamagula@intel.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Swiatkowski, Michal"
+	<michal.swiatkowski@intel.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "Kitszel,
+ Przemyslaw" <przemyslaw.kitszel@intel.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+Thread-Topic: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+Thread-Index: AQHdRpZw9C9AJgvGek6CTp3KJZif47bSoiUA
+Date: Thu, 17 Sep 2026 11:28:50 +0000
+Message-ID: <IA3PR11MB898619C38AC2792034B229C8E5B82@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260917111114.2148482-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917111114.2148482-1-vulab@iscas.ac.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|SA3PR11MB7654:EE_
+x-ms-office365-filtering-correlation-id: a9e70967-5bdf-479d-1d27-08df14aed919
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info: 0F+qrKvDtP4AGoPGCDX0PswDtOKYtFA+qhAgfY4CUyOW+hwCse3KtUV3A/HeMCm4ko9DDLmex9jQlVYEGPMMyuxbD1rpZ40HagZI6q90vjIGg+oDJs2k5TriEpIdC8xUXrJ9Z2M0quMaBbuoEjDOiW5VF2U0HZiDck5GRbIfUhIDnLW64GuZmK10rn+jl94KMozkA3hA34W+Rx/OUtkpJAYrvUclStEkIUFS+43jA4XVfMpS00UCvvVqTfGyGvPMr3pS2FBQ9Z9EqPugkaCDK2dKeQq9ddgfj3SMu5d276XcjY71Nl5VoivrzBsCyoWwLUeqInt95rcr4Bz5OZb3F2y/1Ua3EeiR8Rn3l7UObxVh5i3jq8icSFtd9agMQciNB6swXxiOHklcggpafGG7uEsOEoldWZdSaLCuYSW9VrGep+JBdsODi3dCIfLVEnXoR+qbcXfln9rQZ1LhJKQt0UCCdBFEfnJW5VX1rm4zYuReb2ZJnywDukI2SVPihn61Ddgopchxaq+GQvWktnmCDf87ESFPMD8nwfYzDX8KTKItkMvpV5J7ClypQ0FBHyyVwvqQ8QlOc9jJvNZXnbv/mt5WgRKsqtN5+HGf82AQ51Miacrz4zTi/r5mZ2CxwZe1ph8kJoUyWiGLqiRWcCkagSTWSLtVXg5R2inQYdZ0LzGrp4cv1g4TVexnafae87an7b5yxWsZpK0XdQICCQYVnbxGzldzj4Qyn5zaUTa0Wg0=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tMgeHSim6eLTdJKxUmv1ZtFpkHKCDqTvQ8KK710EEI6eTe1W9quAI+gDOcRg?=
+ =?us-ascii?Q?/+e57/Ql234bIMsQ6IuNVsk6oF+G9yn1xnaLsrD0jcsUbQdpasYoArULNLFv?=
+ =?us-ascii?Q?vK4FmwL11sHx/e+jQFTk8dexRo06WOoQg0QjBzcNid8blAOssquRKKcgrboh?=
+ =?us-ascii?Q?7cE6FIQp0IfswZifFgGv0W6aHN367uu0m/dJjLA9pOBFGHYqsCQyyHeGLld/?=
+ =?us-ascii?Q?fWa4y3nS9RpaYU++wj6G290nDBH+r8igRks5EfjM0qnJVKYV3DEsWHInZ5sM?=
+ =?us-ascii?Q?GiZ6KkVUN+JHMtNcEV36wuWJ2OFQsdmw5ZtvAMHJ7SXkxgnTc+h7EYRkY7j7?=
+ =?us-ascii?Q?IQI6q/TKM1qp3ZO1roiuojMFS1fjHzpSij2YE7DUkyUOeppiZJfqys07fdy+?=
+ =?us-ascii?Q?DQks1vNJiOJQUisVTQtf7YGh0rVvxODPOrtGYovp6Ucj2ZSXQuRkpfKdW63j?=
+ =?us-ascii?Q?ftZEMJZ1lrdpnW/UuQ/qbIKvBUbBKUzMvcEBxzLcahOFNuA7fIwJYpwOpQiT?=
+ =?us-ascii?Q?PWKXZ+x2VIbh+Z6ovZ0PBgHwSdeLEVzYrUzSMhi+waYOyjtJifT0tqjaLT2e?=
+ =?us-ascii?Q?qEagyXEcv+srzJWXgx38yDe/iQmMThmchQKD6HjBpmYOhMCUPsJWf4qMHc1m?=
+ =?us-ascii?Q?nePg42fGYBqo2e53eChNep6rRX6uTJQ+Zs/TwU0pEfOayyVEybOqIq4AxrUL?=
+ =?us-ascii?Q?oLljsoTtVlMfyWQ0wBT32GC4QSqXS2JA/UuE+3eHoUP9v0dEnyRzLZKQdaXR?=
+ =?us-ascii?Q?oBvgdyLkCkw4prQrcPh5c9I0bPkcoouVNbUEhAxQBpRmafzA+e/1hkvNk6hi?=
+ =?us-ascii?Q?U5YTaA0nbZjGUGfKPaSu6nkHWShV9Kkv2/JwyNLiB53aZ+K6XSF7G4CJ5v8V?=
+ =?us-ascii?Q?1Z9tFM74kU33XvoSrH5a/Eq5LmjPF3jCl+sPE27FqnPcNCKSFE52Lcm9/shL?=
+ =?us-ascii?Q?BZn0CAHJB0u2PmbwvKKjazHCRvaYkz9t1OMvKQjAmncbXg8jBwqBLyuktPeW?=
+ =?us-ascii?Q?q1dht5QkW9Qgul+uevxqeEmqanDhzKvOLiYsLdl/bhr66XJYfF8zbxgEJDKW?=
+ =?us-ascii?Q?UW7XsKnv5XZs9gFA5jdcbzMW3WIJtDipVxd/BsIkMkVgdDr4weOiOIaS1d8V?=
+ =?us-ascii?Q?Gb4HwTL0M6/awWwg8XHR4McgrliGg52jINYgKZEWJidb52X09MbRcb8AXIes?=
+ =?us-ascii?Q?w1iCy4f2vv1W3v9g7M7+u4QRnO34jgvjvCQkL6cuKHyUZVynHQbAhee5JU24?=
+ =?us-ascii?Q?f+oPdpCWBrlwO1qXmwNdtUgyTHhOznNDF/17HysXKiNeLvCtFdhjk5jH77bK?=
+ =?us-ascii?Q?xulCGsE/+M6n63yuIuq3rCWqNN88Gu1Uvs3oFgJdP+xcMsspipghZqHyEayb?=
+ =?us-ascii?Q?BjArBWDUoXkZlbecSQiv97mNARiFUw4mgSa7B0MjOtgKhpUON6pReZlojfrj?=
+ =?us-ascii?Q?BiM7FM3IiuJV3yi/7WKt0O9H1Iv/t/ADzsTEziYb9IyxDB4PH7/Zo8pb9bZF?=
+ =?us-ascii?Q?lz2aD5osZGa62OOhQzruiy1OhyyLEEVnH7IHrVJMb+PL4ZCyDYw1q0gOmnne?=
+ =?us-ascii?Q?JVtsKcLhS+1eSqnZhJTbP1Y7t5IWkLh4P7TE5RoZNykqypo/M7IXa2lfLykV?=
+ =?us-ascii?Q?Nbnl2Dm5Vj34QUUxuwiPQzh3Ji/bHW2pDgLJGcaGP2dbfN5abkO3h+cn2fbW?=
+ =?us-ascii?Q?1DURijb4T1+OQrdVzg90rC2KUAeN4aoJbeFXLXOt99hCdyGlf9yQzhUx9tag?=
+ =?us-ascii?Q?VeHZILwkwY8CrhgZzzgi2WBlIo4iP8M=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917110121.631587-1-salah.triki@gmail.com>
-In-Reply-To: <20260917110121.631587-1-salah.triki@gmail.com>
-From: Crt Mori <cmo@melexis.com>
-Date: Thu, 17 Sep 2026 13:27:48 +0200
-X-Gm-Features: AcwNN1UNrU3oHsY-myWs_zEnpWdpopKMRos-hB6K_a7zw0ZjQEus5Qd7uu-JNfw
-Message-ID: <CAKv63utdoBrCFiw8vkGsMhY9PrWX0DWdxqP5szvTGpdmfSQh5A@mail.gmail.com>
-Subject: Re: [PATCH] iio: temperature: mlx90614: Fix dual channel probe
- condition check
-To: Salah Triki <salah.triki@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-So this fix is for the MLX90615, which is registered as single channel
-operation? Did you test on 90614 as well?
-
-Best regards,
-Crt
-
-Crt Mori
-
-Melexis Technologies NV
-Transportstraat 1
-3980 Tessenderlo
-
-Mobile: +32 492 46 22 15
-E-mail: cmo@melexis.com
-Website: www.melexis.com
-
-----------------------------------------------------------
-The contents of this e-mail are CONFIDENTIAL AND PROPRIETARY. Please
-read our disclaimer at http://www.melexis.com/mailpolicy
+X-Exchange-RoutingPolicyChecked: 3nU27Q2KXplEgx9eAoBTC7m8sxU0b4ln4bMv8oKMTnq3wvFGwSQc6p9dx2s/AafgUi3wzBmagUtmwT9pQj0kQmhHuCF7XCz8I9o2G+loOrdbvglutRBe/BLaYfLcVoZsX0vHJ0vZHrEZKU0wHTbX44wtubg3aYFH48W1C8t+VEZULy4HmzeOhgjFIC0ae2vRkELYJ2EQa1/E8O/g2a6tI2vkyyBZsb4JYQfnN2/18AvgYIhDYYIYSpVmKJTokLh4yu/KdkbeYSkk85B4rsvv0cE+KqDGs0cta0LKKy22De8sneQcq20Sw8Ta0cZi1YGrmDfhiZ7400nG83qBTdYWYg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9e70967-5bdf-479d-1d27-08df14aed919
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 11:28:50.8326
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2ROvj0xD0JmFWH7Ohvg2dvYKGB52K7NYrwwjJW0Zqen5RrinXeo92KGZwJlUS1EV32TIIzhnOi9k4zYHVYHBBYGpx3jqoNvW7u2dIY9unUs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7654
+X-OriginatorOrg: intel.com
 
 
-On Thu, 17 Sept 2026 at 13:01, Salah Triki <salah.triki@gmail.com> wrote:
->
-> In mlx90614_probe_num_ir_sensors(), the check on chip_info->dual_channel
-> is inverted.
->
-> Currently, if dual_channel is true (MLX90614), the function returns 0
-> immediately without checking op_eeprom_config1. This forces all MLX90614
-> devices to be registered as single sensor (num_channels = 2), making the
-> second object temperature channel inaccessible.
->
-> Conversely, if dual_channel is false (MLX90615), the function skips the
-> early return and performs an unnecessary SMBus read on EEPROM CONFIG1 even
-> though MLX90615 does not support dual channel operation.
->
-> Fix this by negating the condition so that single-channel chips return
-> early with 0, while dual-channel capable chips (MLX90614) proceed to read
-> the EEPROM configuration register to detect whether 1 or 2 object channels
-> are present.
->
-> Fixes: 3d5ead238bc8 ("iio: mlx90614: Factor our register IO and constants into model specific descriptor")
-> Assisted-by: LLM
-> Signed-off-by: Salah Triki <salah.triki@gmail.com>
+
+> -----Original Message-----
+> From: Wentao Liang <vulab@iscas.ac.cn>
+> Sent: Thursday, September 17, 2026 1:11 PM
+> To: andrew+netdev@lunn.ch
+> Cc: Nguyen, Anthony L <anthony.l.nguyen@intel.com>;
+> davem@davemloft.net; edumazet@google.com; intel-wired-
+> lan@lists.osuosl.org; kalyan.kodamagula@intel.com; kuba@kernel.org;
+> linux-kernel@vger.kernel.org; Swiatkowski, Michal
+> <michal.swiatkowski@intel.com>; netdev@vger.kernel.org;
+> pabeni@redhat.com; Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>;
+> Wentao Liang <vulab@iscas.ac.cn>; stable@vger.kernel.org
+> Subject: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+>=20
+> ice_get_vf_by_id() takes a reference on the VF, which the caller has
+> to release with ice_put_vf(). The switchdev mode check now happens
+> after the VF is looked up and returns -EOPNOTSUPP without dropping
+> that reference, leaking it.
+>=20
+> Use the existing out_put_vf label instead.
+>=20
+> Fixes: 83b49e7f63da ("ice: check if VF exists before mode check")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/iio/temperature/mlx90614.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/iio/temperature/mlx90614.c b/drivers/iio/temperature/mlx90614.c
-> index 27d6ab5f5d7a..4f79da1f905e 100644
-> --- a/drivers/iio/temperature/mlx90614.c
-> +++ b/drivers/iio/temperature/mlx90614.c
-> @@ -565,7 +565,7 @@ static int mlx90614_probe_num_ir_sensors(struct i2c_client *client)
->         const struct mlx_chip_info *chip_info = data->chip_info;
->         s32 ret;
->
-> -       if (chip_info->dual_channel)
-> +       if (!chip_info->dual_channel)
->                 return 0;
->
->         ret = i2c_smbus_read_word_data(client, chip_info->op_eeprom_config1);
+>  drivers/net/ethernet/intel/ice/ice_sriov.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c
+> b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> index 7e00e091756d..202224dba1a3 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> @@ -1384,7 +1384,8 @@ int ice_set_vf_trust(struct net_device *netdev,
+> int vf_id, bool trusted)
+>=20
+>  	if (ice_is_eswitch_mode_switchdev(pf)) {
+>  		dev_info(ice_pf_to_dev(pf), "Trusted VF is forbidden in
+> switchdev mode\n");
+> -		return -EOPNOTSUPP;
+> +		ret =3D -EOPNOTSUPP;
+> +		goto out_put_vf;
+>  	}
+>=20
+>  	ret =3D ice_check_vf_ready_for_cfg(vf);
 > --
-> 2.43.0
->
+> 2.34.1
+
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
