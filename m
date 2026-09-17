@@ -1,345 +1,357 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1463783CC
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617474; cv=pass; b=FUuwkHgOo6YqekgWILUbDdb1n9qaP85yFUaFR73BMilc382dHBk+fHuZYSmv/Mpt5GDYsSDeD5nnOtA25ZtlJXHXL1VYRTfm/A9v5pA+e5HEZg3U+4SiOwvr9Pw1XDAylrbhpD0JUaticBEsykehXIjiVhTn2ynHH+vLrYGdbxk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617474; c=relaxed/simple;
-	bh=QZDQFrqT//xAlMZSMIHXxRacLP/53JmUTQhvgHqdImc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FxwXsuNePAwe+qNzsRzQLsUVmmG3ZYQNx1zvifEIBB14210ZV9f1UkP83HBo6NyL9HErYLgw0zvxp4bo7eKJzXS4GGMCUFKprIHyIhnVVgpDIt4BMCiJyWwMFOzoIPij7u55+cjLdtY97dj5sHO+Bpqqx6UDdXssO9mHoa6VYHA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Un/FedW5; arc=pass smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Un/FedW5"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-79028ca9371so126218137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:57:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789617471; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CbX0FnhcWtWf1+UDH34vo0VK83PTBa9dX8wJ9MdbFHyIOKPrJemCCs/rlpPIZOb7sr
-         rHAQI/Y1fcgzHCtH4lhS/lGx4bMoxFssnB0HqUhBRbG8HmDONRbXrLbC6xs+eW/2QTjL
-         FPgajbUzm9M6IHODrQ6xBzjyUETeZNOA2zSAKn2dI2rrmqVx2Vm5uj2qynUT14YXF51e
-         tTVy6X8AKeqjLtluENvsxoqN5v9AVB6B1Lmp4rDUneydKo22dAXj3JbB6D9DVmR2Si59
-         vspaHYdVrddc2z/zi2kBmjUHdiox8F1+HgeKLF641Q3aDfalZ63GNjMDno2XlYR+YAUD
-         8Phw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RCkoPqFTOwYe3ybrEe/kvAczlJcQA13QDTHKtLgag7U=;
-        fh=XkTRTqPc/0HXIj/T4KYYEtCPPJsALQ2rR3cgSsccdNU=;
-        b=s2azAzZ/ulgmF+3phg9/bM9c9Hy+Z4QLsdQazPYHeqycgWOPDlfN6lbMT02zgl3WRB
-         4HX3Bpv5sOjXDSE1JX+k/Wp4cXEQCTigub5U+5q4x1uRpe9SFnTXTbSOompY0+dZ1Zwl
-         e1L0SXWp6gQArzo7dnirgxtbB3thwueDDJntVELx77Lf0AdQoVHU6ZaOXdAu/frXvTo5
-         K3TKmauxjIyvQZNeGCSxOB8Akehcmv0G9OawIwVfJx36qen5RyI7jTwi7vm4q7i2Bnx7
-         MWFlT/YLaAGxggEwfhUVww9V+Zw1X16ipcCZBz8aVBkvqtlPU4YbbmdOhYZLS+qCnG4o
-         FDmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789617471; x=1790222271; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RCkoPqFTOwYe3ybrEe/kvAczlJcQA13QDTHKtLgag7U=;
-        b=Un/FedW5UqVRvbbh4CSnowmccvd/cbjvm3ArxRzbEWWtQQfNHkf0Ufbxl8H2I31uHE
-         pMlQayKkiTyrX+WL09hIuqRvmaNMwYKukAbSv17DK62iy38JsSosYHuatBQXttuXFkSE
-         QIKI6uZcGPDtrc62cICPl13JM2kAgWo7iSmgkyw3Vrf1XjCgCxjKdDwaQTZCEHj3TrfE
-         rjzZOxes3QDreZfKG0azyoslh9wcxjbZ98Rw5Aq+RJzfcY9C56PEiV1KQZEkRGXgz8oG
-         S6Z3PM7rlTjRQjO2JVWit6hUK1asX5j1kQDIIa6DsYMOZRS8joR7HsDiDyYoDBMWNxko
-         gP/A==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897793AD539
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789617485; cv=none; b=n7sQkvET6M4VA9lPCdSz9zaSnH+wYpITshtyXqipGDOujB+4nT4vwVNpMbZvh2SV36u3i4z2JfJy9BMZnopFLFVbSfqhLb/rgaE8wp1qXv7F8r2mw5Q5ysRsegh48tVlLcgqwzc6W5BFiPCcywYqb/JWhjrD9UuLNbg+0Y8o3qM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789617485; c=relaxed/simple;
+	bh=/I60K4itcPdKDeoFYlV0JOOONS5CqWsMQKdGvLmYXfk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=BvECH91hpdkAQVRXbQS35qYLcNbIF16YaHDEFJbzW/P6saBB/Qis6ny4YbEDVJFKXgQ7C2UCZzPza1dtXSFlZ1kqyjTGVQ2nLmL2Si2oUuw8ftaaEAcOdonX0pls8XCR4YIWZ5yzUHRpD1x9f/uTwVb6J5Oi6FWIxA17UXvlWYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c7f1caa802so401179eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:58:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789617471; x=1790222271;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RCkoPqFTOwYe3ybrEe/kvAczlJcQA13QDTHKtLgag7U=;
-        b=e7+zn+T+OAQb1GvzVnj4cgvsvJCt5fotxFQFCE2p/6QeEhL1fk6rVU1Qjr1u0xf0QZ
-         BVMsR0m0Gs/b8m5T1676H7BA5eUiXwv6M1E0EDaI0HYVk23otyksJrOpLUQh2criL6MK
-         lKBQzpACEC03V9scJx7X2h4nOlQ259mSSjwAFmNBkJk9R3BTZSPssOjIcXSTSh+5VCZD
-         eSBhNx3JIKUa5wqNOGVLJuPmchK/2g6aE2e/tZnG32012vnkNQZF8Od09Bq+BwMvUDR+
-         x1rIxjrQo4630DkvKDlsYruExps1+e8LqAxA+ne2zzNN/0BjRnpxmrLne2XE9x9EcS8Y
-         0szw==
-X-Forwarded-Encrypted: i=1; AKwUvBxO4xSwHImrqfasG//CQ0/7KZ3DyfpfWvOXIvc4zyWnr4i6S0/wauTtZaR8btRrDhJhVEjcbQcGAEQlGKI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1Y6rzAK4WdLk1OG4J0jHvUiQQDARHi/FimXdmGt9WxCaObUp9
-	TPvEROuZ4tXQxaBQ3pluwG8wSFO5ZxyPsuxCPJ2U5xf8tUyvw3Y009yOMMuUuz0sB2l0QBNfyJn
-	mm1CL4FMWERDPf9S47gXX/EUdNQkAYGA=
-X-Gm-Gg: AYBFou0BJ7Q+wy+oFrEANBgnS4xKL8eHkuLO2zpmzUTAGEeMXfT/A2zPqeVSKgkl+JQ
-	zOg4oljYYZDot5C59cWAT+wtI2J4YpS45/Uioy8H53P5X4E9Y7y7THAzP8/FH5sPjarCsQyU4Rt
-	yVgWE45DFKiDf0nY0BC2VWXiM66fB74quCpD6LcrCGak6JVrsSv3ir/UrKj6v+SG7xf7/vkVLW+
-	seNzOEmxv5r2gTgibse6rOHGFLKeEmp+P3CnVdayYPlzqDQZhKV1Ks+Yiy1VCNriwBskOqvlk9V
-	GvK++ZQC/2t4TulmcVC1elKZMf2bttLeS8bZv0hheMo4OkOaMljF2659xA==
-X-Received: by 2002:a05:6102:5121:b0:79f:45dc:118e with SMTP id
- ada2fe7eead31-7a0263727eemr4957458137.5.1789617471502; Wed, 16 Sep 2026
- 20:57:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789617482; x=1790222282;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3eON63qMvssZ7WPA4vke2VDR1fBCT2cQ8L5ilsw9Mgg=;
+        b=Nga9TzHTa3JHhXX3v9ctoiQCyWa4O5QNlxgiDGNB55p/PvLMYK4Pa43ix18lANHdLm
+         yZ7w8yQTpAUlTPMNCHdU7XdELFLM2Pjjs6S6X1XA4Qig96Qpc6wR7G1PBn+BTzyXIY9y
+         W/m0t8PweUmqhetm+8ERomYQWwUcifVsUeNzHfdKbPW7ZuITi0PNrFOzqZ/qmR1jwVyY
+         cPzW4xUM20HAQtibLHMHo+M7AnShxzMaYk5g6Ui7VBkea2pC3AxAzmr3lYzVdZWNMHDm
+         sGCt/YtBhcYWiCBf6dHXAL7suuF9Y6Byes57m9seK+VoNJK1Z1VomgTx11Ofjszymufj
+         TEQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzsNZO/Rye2GVp6Tmrc1N7JayU8c8LkhTuVPUoT+wtP3CpqZZ/PAPKzRO6k23W2UA/eio8A2Yb+I3I7NmE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBMGcvQcdeFh7ob5Oj9gZ8jcko6/xjBUVXMm73zPGb9MT37f2y
+	wdw+KDQN91IbkLaZCWguMsXoEngZXtZeU32UE04bKxoc1YoZCRnI7iMV7bAYBfjDgFYXLrTHbIl
+	/pu/53tYb9qKsUXTqrXutNqa1Ww5PYHQx2ylUlTOxwAuVBnPDG9CnIdqX/FA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-add-raa229639-and-raa229640-v1-0-8f7218cba85d@gmail.com>
- <20260907-add-raa229639-and-raa229640-v1-1-8f7218cba85d@gmail.com>
- <20260907-chimp-pectin-20f4ea3b772c@spud> <CAPBH0A9GZSD5R657xo1woijKfgS6gecUND4uabguaqUON2exXw@mail.gmail.com>
- <20260908-dinner-atrophy-757595146656@spud> <CAPBH0A9yKhvDA_pda45Me1c0tXcSj3zLqLoFgUOQj3MES0Mk1A@mail.gmail.com>
- <20260915-showcase-reorder-e3c4d45eff60@spud> <20260915-recognize-activist-733d145c0ca7@spud>
-In-Reply-To: <20260915-recognize-activist-733d145c0ca7@spud>
-From: Colin Huang <u8813345@gmail.com>
-Date: Thu, 17 Sep 2026 11:57:40 +0800
-X-Gm-Features: AcwNN1VrNcAwBNna1EDTqdfzEQKrVEmI67efoueReVinzmjRkDLk6TzzxfA2BgY
-Message-ID: <CAPBH0A_UGsiSV8G0aM6DDnytrPNCXYj-6y8MRdmDj9+GgoxBng@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
- RAA229639 and RAA229640
-To: Conor Dooley <conor@kernel.org>
-Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Grant Peltier <grant.peltier.jg@renesas.com>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
+X-Received: by 2002:a05:6820:1845:b0:6b7:46fa:169f with SMTP id
+ 006d021491bc7-6c7d45ecda4mr4636208eaf.52.1789617482044; Wed, 16 Sep 2026
+ 20:58:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 20:58:02 -0700
+In-Reply-To: <6aab3f26.0d1f51e9.29e58a.f7e3SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab654a.71f81b7d.278072.000f.GAE@google.com>
+Subject: Re: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release (2)
+From: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=8816=E6=97=
-=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=881:04=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Tue, Sep 15, 2026 at 06:00:50PM +0100, Conor Dooley wrote:
-> > On Mon, Sep 14, 2026 at 08:06:25PM +0800, Colin Huang wrote:
-> > > Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=889=E6=
-=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=8812:57=E5=AF=AB=E9=81=93=EF=BC=9A
-> > > >
-> > > > On Tue, Sep 08, 2026 at 02:31:40PM +0800, Colin Huang wrote:
-> > > > > Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=88=
-8=E6=97=A5=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=881:01=E5=AF=AB=E9=81=93=EF=BC=
-=9A
-> > > > > >
-> > > > > > On Mon, Sep 07, 2026 at 03:03:29PM +0800, Colin Huang wrote:
-> > > > > > > From: Colin Huang <u8813345@gmail.com>
-> > > > > > >
-> > > > > > > Add Device Tree compatible strings for Renesas RAA229639 and
-> > > > > > > RAA229640 PMBus devices.
-> > > > > >
-> > > > > > Driver change suggests fallback compatibles could be used.
-> > > > > > Why aren't they? If they can be, add them. Otherwise, explain w=
-hy not in
-> > > > > > your commit message.
-> > > > > >
-> > > > > > pw-bot: changes-requested
-> > > > > >
-> > > > > > Thanks,
-> > > > > > Conor.
-> > > > > >
-> > > > > Hi Conor
-> > > > >   Thanks for the review.
-> > > > >
-> > > > >   I didn't add a fallback compatible because I only have document=
- for
-> > > > > RAA229639 and RAA229640
-> > > > >   and could not verify full DT level compatibility with any exist=
-ing
-> > > > > supported devices. While both devices
-> > > > >   are handled by the existing raa_dmpvr2_2rail driver variant, I =
-don't
-> > > > > have sufficient information to establish
-> > > > >   a compatible fallback relationship.
-> > > >
-> > > > Given that the match data table looks like this:
-> > > > static const struct of_device_id isl68137_of_match[] =3D {
-> > > >         { .compatible =3D "isil,isl68137", .data =3D (void *)raa_dm=
-pvr1_2rail },
-> > > >         { .compatible =3D "renesas,isl68220", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl68221", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl68222", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl68223", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl68224", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl68225", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl68226", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl68227", .data =3D (void *)raa=
-_dmpvr2_1rail },
-> > > >         { .compatible =3D "renesas,isl68229", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl68233", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl68239", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >
-> > > >         { .compatible =3D "renesas,isl69222", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69223", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl69224", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69225", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69227", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl69228", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl69234", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69236", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69239", .data =3D (void *)raa=
-_dmpvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl69242", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69243", .data =3D (void *)raa=
-_dmpvr2_1rail },
-> > > >         { .compatible =3D "renesas,isl69247", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69248", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69254", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69255", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69256", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69259", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "isil,isl69260", .data =3D (void *)raa_dm=
-pvr2_2rail },
-> > > >         { .compatible =3D "renesas,isl69268", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >         { .compatible =3D "isil,isl69269", .data =3D (void *)raa_dm=
-pvr2_3rail },
-> > > >         { .compatible =3D "renesas,isl69298", .data =3D (void *)raa=
-_dmpvr2_2rail },
-> > > >
-> > > >         { .compatible =3D "renesas,raa228000", .data =3D (void *)ra=
-a_dmpvr2_hv },
-> > > >         { .compatible =3D "renesas,raa228004", .data =3D (void *)ra=
-a_dmpvr2_hv },
-> > > >         { .compatible =3D "renesas,raa228006", .data =3D (void *)ra=
-a_dmpvr2_hv },
-> > > >         { .compatible =3D "renesas,raa228228", .data =3D (void *)ra=
-a_dmpvr2_2rail_nontc },
-> > > >         { .compatible =3D "renesas,raa228244", .data =3D (void *)ra=
-a_dmpvr2_2rail_nontc },
-> > > >         { .compatible =3D "renesas,raa228246", .data =3D (void *)ra=
-a_dmpvr2_2rail_nontc },
-> > > >         { .compatible =3D "renesas,raa229001", .data =3D (void *)ra=
-a_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,raa229004", .data =3D (void *)ra=
-a_dmpvr2_2rail },
-> > > >         { .compatible =3D "renesas,raa229621", .data =3D (void *)ra=
-a_dmpvr2_2rail },
-> > > >         { },
-> > > > };
-> > > >
-> > > > It's probably pretty safe to assume that a fallback would work here=
-,
-> > > > given how many devices are served by the same data structures but
-> > > > maybe one of the Renesas folks on CC can confirm that for us.
-> > > > At the very least, you have documents for two devices and should be=
- able
-> > > > to confirm if they're compatible with one another.
-> > > >
-> > > > Thanks,
-> > > > Conor.
-> > > >
-> > > Hi Conor,
-> > >   Thanks for the review.
-> > >   I found a very similar precedent here:
-> > >       Link: https://lore.kernel.org/r/20260325090208.857-2-dawei.liu.=
-jy@renesas.com
-> > >       RAA228942 and RAA228943 use renesas,raa228244 as fallback compa=
-tible
-> > >
-> > >   Therefore, I plan to followthe same approach:
-> > >   RAA229639 and RAA229640 also use renesas,raa228244 as fallback comp=
-atible.
-> > >
-> > > ```
-> > > @@ -60,13 +60,13 @@ properties:
-> > >            - renesas,raa229001
-> > >            - renesas,raa229004
-> > >            - renesas,raa229621
-> > >
-> > >        - items:
-> > >            - enum:
-> > >                - renesas,raa228942
-> > >                - renesas,raa228943
-> > > +              - renesas,raa229639
-> > > +              - renesas,raa229640
-> > >            - const: renesas,raa228244
-> > >
-> > >    reg:
-> > > ```
-> > > Does this look reasonable?
-> >
-> > It does, thanks for the update.
->
-> Actually no. The idea is right, but the specific fallback is not?
-> You added to the driver
-> diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl6813=
-7.c
-> index 2f7f825bfb69..53b44775ba1e 100644
-> --- a/drivers/hwmon/pmbus/isl68137.c
-> +++ b/drivers/hwmon/pmbus/isl68137.c
-> @@ -456,6 +456,8 @@ static const struct i2c_device_id raa_dmpvr_id[] =3D =
-{
->         { .name =3D "raa229004", .driver_data =3D raa_dmpvr2_2rail },
->         { .name =3D "raa229141", .driver_data =3D raa_dmpvr2_2rail_pmbus =
-},
->         { .name =3D "raa229621", .driver_data =3D raa_dmpvr2_2rail },
-> +       { .name =3D "raa229639", .driver_data =3D raa_dmpvr2_2rail },
-> +       { .name =3D "raa229640", .driver_data =3D raa_dmpvr2_2rail },
->         { }
->  };
->
-> @@ -506,6 +508,8 @@ static const struct of_device_id isl68137_of_match[] =
-=3D {
->         { .compatible =3D "renesas,raa229001", .data =3D (void *)raa_dmpv=
-r2_2rail },
->         { .compatible =3D "renesas,raa229004", .data =3D (void *)raa_dmpv=
-r2_2rail },
->         { .compatible =3D "renesas,raa229621", .data =3D (void *)raa_dmpv=
-r2_2rail },
-> +       { .compatible =3D "renesas,raa229639", .data =3D (void *)raa_dmpv=
-r2_2rail },
-> +       { .compatible =3D "renesas,raa229640", .data =3D (void *)raa_dmpv=
-r2_2rail },
->
-> but the raa228244 uses a different bit of match data:
-> > > >         { .compatible =3D "renesas,raa228244", .data =3D (void *)ra=
-a_dmpvr2_2rail_nontc },
->
-> So you need something like
-> - items:
->     - enum:
->         - renesas,raa229639
->         - renesas,raa229640
->     - const: renesas,raa229001
+Hello,
 
-Thanks Conor,
-   I miss some information to you.
-  I will modify the compatible to following, because they don't
-support temperature 3.
- +       { .compatible =3D "renesas,raa229639", .data =3D (void
-*)raa_dmpvr2_2rail_nontc },
- +       { .compatible =3D "renesas,raa229640", .data =3D (void
-*)raa_dmpvr2_2rail_nontc },
+syzbot tried to test the proposed patch but the build/boot failed:
 
-so.. fallback  will be like following.
-      - items:
-          - enum:
-              - renesas,raa228942
-              - renesas,raa228943
-              - renesas,raa229639
-              - renesas,raa229640
-          - const: renesas,raa228244
+SYZFAIL: failed to recv rpc
 
-Best regards,
-Colin Huang
+SYZFAIL: failed to recv rpc
+fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
+
+
+[   97.772398][   T30] cfg80211: failed to load regulatory.db
+Warning: Permanently added '10.128.1.171' (ED25519) to the list of known ho=
+sts.
+2026/09/17 03:56:49 parsed 1 programs
+2026/09/17 03:56:49 serving rpc on tcp://36781
+[  107.425166][ T5633] cgroup: Unknown subsys name 'net'
+[  107.545023][ T5633] cgroup: Unknown subsys name 'cpuset'
+[  107.548768][ T5633] cgroup: Unknown subsys name 'rlimit'
+Setting up swapspace version 1, size =3D 127995904 bytes
+[  109.417916][ T5633] Adding 124996k swap on ./swap-file.  Priority:0 exte=
+nts:1 across:124996k=20
+[  112.955691][ T5646] soft_limit_in_bytes is deprecated and will be remove=
+d. Writing any value to this file has no effect. Please report your usecase=
+ to linux-mm@kvack.org if you depend on this functionality.
+[  112.962789][ T5646] ebtables: xtables 32bit compat interface no longer s=
+upported in namespaces and will be removed soon.
+[  112.996505][ T5646] arp_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  113.265373][ T5649] ip_tables: xtables 32bit compat interface no longer =
+supported in namespaces and will be removed soon.
+[  113.265924][ T5649] ip6_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[  115.512391][ T5665] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  115.513183][ T5665] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  115.513330][ T5665] bridge_slave_0: entered allmulticast mode
+[  115.515484][ T5665] bridge_slave_0: entered promiscuous mode
+[  115.529061][ T5665] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  115.529366][ T5665] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  115.549236][ T5665] bridge_slave_1: entered allmulticast mode
+[  115.557769][ T5665] bridge_slave_1: entered promiscuous mode
+[  115.630326][ T5665] bond0: (slave bond_slave_0): Enslaving as an active =
+interface with an up link
+[  115.634285][ T5665] bond0: (slave bond_slave_1): Enslaving as an active =
+interface with an up link
+[  115.686289][ T5665] team0: Port device team_slave_0 added
+[  115.689012][ T5665] team0: Port device team_slave_1 added
+[  115.730273][ T5665] batman_adv: batadv0: Adding interface: batadv_slave_=
+0
+[  115.730299][ T5665] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_0 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  115.730326][ T5665] batman_adv: batadv0: Not using interface batadv_slav=
+e_0 (retrying later): interface not active
+[  115.733142][ T5665] batman_adv: batadv0: Adding interface: batadv_slave_=
+1
+[  115.733159][ T5665] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_1 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[  115.733183][ T5665] batman_adv: batadv0: Not using interface batadv_slav=
+e_1 (retrying later): interface not active
+[  115.862291][ T5665] hsr_slave_0: entered promiscuous mode
+[  115.863274][ T5665] hsr_slave_1: entered promiscuous mode
+[  116.076825][ T5665] netdevsim netdevsim4 netdevsim0: renamed from eth0
+[  116.092514][ T5665] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m0
+[  116.093733][ T5665] netdevsim netdevsim4 netdevsim1: renamed from eth1
+[  116.098383][ T5665] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m1
+[  116.099220][ T5665] netdevsim netdevsim4 netdevsim2: renamed from eth2
+[  116.134480][ T5665] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m2
+[  116.135457][ T5665] netdevsim netdevsim4 netdevsim3: renamed from eth3
+[  116.139947][ T5665] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m3
+[  116.197762][ T5665] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  116.198152][ T5665] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[  116.199090][ T5665] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  116.199183][ T5665] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[  116.311983][ T5665] 8021q: adding VLAN 0 to HW filter on device bond0
+[  116.335679][   T35] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  116.336716][   T35] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  116.366715][ T5665] 8021q: adding VLAN 0 to HW filter on device team0
+[  116.383604][ T1025] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[  116.383705][ T1025] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[  116.407438][   T35] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[  116.407552][   T35] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[  116.844519][ T5665] 8021q: adding VLAN 0 to HW filter on device batadv0
+[  117.096930][ T5665] veth0_vlan: entered promiscuous mode
+[  117.113794][ T5665] veth1_vlan: entered promiscuous mode
+[  117.156179][ T5665] veth0_macvtap: entered promiscuous mode
+[  117.167677][ T5665] veth1_macvtap: entered promiscuous mode
+[  117.193491][ T5665] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_0
+[  117.212241][ T5665] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_1
+[  117.232386][   T35] netdevsim netdevsim4 netdevsim3: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  117.280820][   T12] netdevsim netdevsim4 netdevsim2: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  117.281325][   T12] netdevsim netdevsim4 netdevsim1: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  117.281370][   T12] netdevsim netdevsim4 netdevsim0: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[  117.396824][   T35] netdevsim netdevsim4 netdevsim3 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  117.447398][   T52] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 > =
+1
+[  117.458211][   T52] Bluetooth: hci0: unexpected cc 0x1003 length: 249 > =
+9
+[  117.468719][   T52] Bluetooth: hci0: unexpected cc 0x1001 length: 249 > =
+9
+[  117.472847][   T52] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 > =
+4
+[  117.480842][   T52] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 > =
+2
+[  117.517254][   T35] netdevsim netdevsim4 netdevsim2 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  117.859496][ T1025] wlan0: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  117.859521][ T1025] wlan0: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  117.918179][  T140] wlan1: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[  117.918204][  T140] wlan1: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[  118.615243][   T35] netdevsim netdevsim4 netdevsim1 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[  119.627933][   T35] netdevsim netdevsim4 netdevsim0 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+SYZFAIL: failed to recv rpc
+fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
+[  120.427475][   T35] bridge_slave_1: left allmulticast mode
+[  120.427525][   T35] bridge_slave_1: left promiscuous mode
+[  120.429778][   T35] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[  120.462567][   T35] bridge_slave_0: left allmulticast mode
+[  120.462600][   T35] bridge_slave_0: left promiscuous mode
+[  120.462856][   T35] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[  120.719836][   T35] bond0 (unregistering): (slave bond_slave_0): Releasi=
+ng backup interface
+[  120.737618][   T35] bond0 (unregistering): (slave bond_slave_1): Releasi=
+ng backup interface
+[  120.752620][   T35] bond0 (unregistering): Released all slaves
+[  120.907249][   T35] hsr_slave_0: left promiscuous mode
+[  120.914686][   T35] hsr_slave_1: left promiscuous mode
+[  120.922848][   T35] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_0
+[  120.922909][   T35] batman_adv: batadv0: Removing interface: batadv_slav=
+e_0
+[  120.940373][   T35] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_1
+[  120.940400][   T35] batman_adv: batadv0: Removing interface: batadv_slav=
+e_1
+[  120.972218][   T35] veth1_macvtap: left promiscuous mode
+[  120.972279][   T35] veth0_macvtap: left promiscuous mode
+[  120.972394][   T35] veth1_vlan: left promiscuous mode
+[  120.972483][   T35] veth0_vlan: left promiscuous mode
+[  121.426768][   T35] team0 (unregistering): Port device team_slave_1 remo=
+ved
+[  121.462985][   T35] team0 (unregistering): Port device team_slave_0 remo=
+ved
+[  121.649607][ T5279] 8021q: adding VLAN 0 to HW filter on device eth1
+[  122.528940][ T5279] 8021q: adding VLAN 0 to HW filter on device eth2
+[  123.247846][ T5279] 8021q: adding VLAN 0 to HW filter on device eth3
+[  123.683122][ T5279] 8021q: adding VLAN 0 to HW filter on device eth4
+
+
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build175183130=3D/tmp/go-build -gno-record-gcc=
+-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs-2/linux/gopath/src/github.com/google/syzkaller/go.=
+mod'
+GOMODCACHE=3D'/syzkaller/jobs-2/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs-2/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
+
+git status (err=3D<nil>)
+HEAD detached at 1fe56c0af80
+nothing to commit, working tree clean
+
+
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3D1fe56c0af80df10ab9f07819d9fa709dc9971ae1 -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260910-094642"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3D1fe56c0af80df10ab9f07819d9fa709dc9971ae1 -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260910-094642"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3D1fe56c0af80df10ab9f07819d9fa709dc9971ae1 -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260910-094642"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_386
+x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
+	-m32 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_386=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"1fe56c0af80df10ab9f07819d9fa709dc9=
+971ae1\"
+/usr/bin/ld: /tmp/cc10CeFE.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x145): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+[INFO] Unsupported architecture '386', skipping check.
+
+
+
+Tested on:
+
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D5e4e3a0e188a497=
+e
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Dab6273c58262b9de5=
+6d9
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D1542b9255800=
+00
+
