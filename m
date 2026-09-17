@@ -1,118 +1,133 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF1E5908CD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552085921FE
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655234; cv=none; b=aBIm19uhQlwGx++R51xcZtuEC1yjy08IgduLNNDOx7ZLSk2iEiEZinQirIMWOyyX9uZzAaKQa9oggxO99779QYMNvJ4iYikhNsV74o8/sQeuirnYs9PVk6wbUYj0hRHOXDosNGVDgyMrw0/icoD5zfALwTHh2EFmhiZjv1QMdbo=
+	t=1789655293; cv=none; b=pdlC4VG5UXYjlVzI1dxQh8DuJvl56VGTSU6/hbIJt0x8tk4uB9aj/X86pum6EZslnG3+fE1DRlKbk95IgaEW8zPuQNW/2tx5H1vCqZo4XCq/Zn5JheMpEJGal1kz1z6/E505LXksGxE2EholnBJO52nfmk+4K7qztkVun3aXp3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655234; c=relaxed/simple;
-	bh=yT4Adw+HYU+Hwm526vroWsA5fwFd8do9OPOt3aExbw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ATwB31pMHKrGSOJctpr88lkqD+4S/LY3FmBkgEkzVsNArcuPZjb+rrc7DYdy1C+g1W4S4yU7bPHfsE6TawAJMVH5SmM8xd72MwY4UP6FDCMHUAFE+68fU5f1mqyOEmVJwTnW1f/kFNIo36f/zkpkFFfVCjO4x4qegfYU09rdKpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=P2iZJTYG; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789655293; c=relaxed/simple;
+	bh=zD+yqYOk9BEwYrlkE41XIJFd2WjARDFI5ce4WJxm+Ls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XzWOjJcFqFqvLIlmyyXKo+j00pZZ3a9ywWna7CdEN3d0ACqARCaDhfcY2+ZFf7r82fs8YswjC39hfEPKmRZYHNT0bEJGVhln5KQYjIXodgkHxnpqeukwshzYdpUgKKsJbUSFLtEoAOgOtKY00aUZmeAJ5/laDIQVbeT1cHg4KEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jOZBXJLw; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="P2iZJTYG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F2BED4E4079D;
-	Thu, 17 Sep 2026 14:27:07 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C6CD05FAA3;
-	Thu, 17 Sep 2026 14:27:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C377511C78B65;
-	Thu, 17 Sep 2026 16:27:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789655223; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=NQIErD8RMj3c96Y2peru6EPUda/1WEEQ4CrKh42s+Ao=;
-	b=P2iZJTYGnfnqJojdbtYjMw0NsX3IKbGQZwtyfwF7klzE9sejGGQuU+sMJj5CodLdxxuPyF
-	TWX+uX7+XeAXIgySTKN7/T/ss7RSXNklzznuW4uhjVi6FJmUROnCAXDI9tvz9VflRr/Bhy
-	AFqzDL2d9byn1moj/z+ps/8sIilM8hb2e230YS2v4uMWw5sCAk99HAy8O10ihSESZ/3fab
-	YmdGqWlVwepuGJKIh88GWNWXrkHxuVMCRWbz0UdHLxs1toRqy7VGXAPLv44tC704OaWon0
-	MmeNEYXNNfNNcooGuk3DXQduEQLZx2feOe61ug3DrkxRpwL8sNGC2BFS5c2eXg==
-From: alexandre.belloni@bootlin.com
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Nishanth Menon <nm@ti.com>,
-	Santosh Shilimkar <ssantosh@kernel.org>
-Cc: linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] rtc: omap: remove unused argument
-Date: Thu, 17 Sep 2026 16:26:53 +0200
-Message-ID: <20260917142654.2576889-1-alexandre.belloni@bootlin.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOZBXJLw"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9106feddbdfso7299406d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789655290; x=1790260090; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
+        b=jOZBXJLwf6JP3b19azmsQ5fLkQfodPWKCQ4sDgsm74opbQurokqxNrasGuNyOPVzvE
+         CTVWAdgBhof6iu0XiS8kaZ358Ree3L9tOC68tPaGgk6QmS7dj/CAh2cDH6Ri94YsKWYE
+         zFgjnox0YrTKuN8CziN0SVinO8YFZz6H8x2igaWxvbrgFrudFRNrFyWtefERJIZGn9WM
+         /YRBE5l7nBeTmhMKMbx56N0o1l466lNeHVloV8m2iSh8w9+kxpuV28bJDRjIUAx2mv9y
+         5MOsangOpHqTW06zyEsy1fwdV0ITN+uat3lRUftLj9jAXlHsH37VEcNIWu8qGi0F66Q2
+         koBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789655290; x=1790260090;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Jw1k2NAja1Um952Tl85LJupIp0nZbLj8NYpKbR9I6hU=;
+        b=eWk9bwxy5oBEN63VpV0vG2JDzxCfEGqVnBXKoffxCIRpolJHxceg6itOCuovaVuuW5
+         3pSgyiaXMOTIC0dnWzj5mteybEEzbC9l1/JWVfOj8xWGRHCg2zq+rc1ubfqUGNB/iBmG
+         IYtTpnLDjBLwHPuTEaZtGBvJ4mpoMqj4CVfLb2n/yTfkMiO8+7lcGt5l157wzkFu2iMK
+         Uo/GFJ8taTmmN3ICfgBJv+CV5XEJJuPi3dIpKrDTi8kRMoRvuJPu814h1IQ8zvtegINN
+         Z2czNKpi7v9Rs0gSWaDiqsG9ilavbBRUOUg8aJ9k98Xin2ECQO/N14zANJvy2TK+BJl0
+         Exbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSIDJ+JRA5MheSoPdw+p9nMpzUPlYTOC7nzEwCq2FlvSIp8hwmh3jHSypTtrsUsKfyHqV94QYD3jTqbJs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqwUzsBNJ3kBKfwdgFk7uzdBFcZtaEUmsTM1OKIcBQ57Qgq3ic
+	pWTMS8shjJEIlDrEJULTnanpNR/1UZQTEPOY8bqIzY+IA0YsXcekte9qVu+NMDMCKzM=
+X-Gm-Gg: AYBFou0uQEN7uq7pyJWcwXJ6jKCPD5ybV0JEhHTfsMQv9xvAiL2niIRMv7a9zHpLeZm
+	hbrpDKhqgX3HzCqDFDemJDUXUZNJAySG6kzMiY5xRad2nIqFV3ubOjhWcwzC2GAtOrmF4XPGS2y
+	mgJ6l7Pf2n3wshrirflhva8HBnidLxbYImXNXltWzFMi45/ldU0MVzaNU4Y0PwYJPWyychcGypG
+	KI+xmm440XjJGKK8UzZ+40o6d0XgPiadQL+UCBJ9H39/BQy7UMXz9eS0a+G8PKBv+0rtepwq05w
+	zZWyf4LYdbzS1+fwb4xS87RDdYURcsBWn9HbwReo5Sy7yWkTXtNou8IalKWQg6VGhbw3ti1jnna
+	kDwZGrG2OrjMVxzRgj/KpMhrOHcSofg+Ma+zUjmTSU+5e9WO5BgYBqVGSsYwpp5lh3DBRsZ//28
+	uMeicPDHxKUhrDWcm06qMjjfg4jKKaTGOeF/xYWkaWHdCGirBML/3jDYtIRCKSOfImstmvoneY7
+	qgyfRTMt+DSkwKuvMyceZb15kVN+it0rBRbr8R9YdNU4Y6PYrEGEorm
+X-Received: by 2002:a05:6214:1316:b0:912:517b:911 with SMTP id 6a1803df08f44-912517b0beamr9926716d6.48.1789655289706;
+        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be9ca82sm51192626d6.32.2026.09.17.07.28.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 07:28:09 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x7D5s-0000000CrE5-25RS;
+	Thu, 17 Sep 2026 11:28:08 -0300
+Date: Thu, 17 Sep 2026 11:28:08 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260917142808.GH3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <f3708893-4760-4157-83a3-313867a94e78@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <f3708893-4760-4157-83a3-313867a94e78@amd.com>
 
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+On Thu, Sep 17, 2026 at 04:00:33PM +0200, Christian König wrote:
+> > However, at least for the Intel GPUs, ATS enablement is based on the
+> > PCIe-side enable bit.
+> 
+> Yeah, I can confirm as well that this is something really exotic.
 
-omap_rtc_power_off_program takes one argument that is never used. One call
-passes the struct device of the rtc but the other one passes its parent.
-To avoid confusion, stop taking any argument
+In most datacenter systems it is only the NIC that initiates the P2P
+transfers, so it should not be surprising that NIC HW has more
+optimizations for this. In real systems ATS carries such a perf cost
+that you do need to be selective about it. I would expect every
+serious NIC to have this capability or it will not be perf
+competitive.
 
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
----
- drivers/rtc/rtc-omap.c       | 5 ++---
- drivers/soc/ti/pm33xx.c      | 2 +-
- include/linux/rtc/rtc-omap.h | 2 +-
- 3 files changed, 4 insertions(+), 5 deletions(-)
+NIC and GPU are using ATS for completely different reasons.
 
-diff --git a/drivers/rtc/rtc-omap.c b/drivers/rtc/rtc-omap.c
-index 0f90065e352c..18492165a19f 100644
---- a/drivers/rtc/rtc-omap.c
-+++ b/drivers/rtc/rtc-omap.c
-@@ -408,7 +408,7 @@ static struct omap_rtc *omap_rtc_power_off_rtc;
-  * generates pmic_pwr_enable control, which can be used to control an external
-  * PMIC.
-  */
--int omap_rtc_power_off_program(struct device *dev)
-+int omap_rtc_power_off_program(void)
- {
- 	struct omap_rtc *rtc = omap_rtc_power_off_rtc;
- 	struct rtc_time tm;
-@@ -481,10 +481,9 @@ EXPORT_SYMBOL(omap_rtc_power_off_program);
-  */
- static void omap_rtc_power_off(void)
- {
--	struct rtc_device *rtc = omap_rtc_power_off_rtc->rtc;
- 	u32 val;
- 
--	omap_rtc_power_off_program(rtc->dev.parent);
-+	omap_rtc_power_off_program();
- 
- 	/* Set PMIC power enable and EXT_WAKEUP in case PB power on is used */
- 	omap_rtc_power_off_rtc->type->unlock(omap_rtc_power_off_rtc);
-diff --git a/drivers/soc/ti/pm33xx.c b/drivers/soc/ti/pm33xx.c
-index dc52a2197d24..82979122417d 100644
---- a/drivers/soc/ti/pm33xx.c
-+++ b/drivers/soc/ti/pm33xx.c
-@@ -174,7 +174,7 @@ static struct wkup_m3_wakeup_src rtc_wake_src(void)
- 
- static int am33xx_rtc_only_idle(unsigned long wfi_flags)
- {
--	omap_rtc_power_off_program(&omap_rtc->dev);
-+	omap_rtc_power_off_program();
- 	am33xx_do_wfi_sram(wfi_flags);
- 	return 0;
- }
-diff --git a/include/linux/rtc/rtc-omap.h b/include/linux/rtc/rtc-omap.h
-index 9f03a329e63f..d6ec7c4daea6 100644
---- a/include/linux/rtc/rtc-omap.h
-+++ b/include/linux/rtc/rtc-omap.h
-@@ -3,5 +3,5 @@
- #ifndef _LINUX_RTCOMAP_H_
- #define _LINUX_RTCOMAP_H_
- 
--int omap_rtc_power_off_program(struct device *dev);
-+int omap_rtc_power_off_program(void);
- #endif /* _LINUX_RTCOMAP_H_ */
--- 
-2.55.0
+> Additional to that the setup that ACS seems to be disabled for some
+> bridges bit not all also sounds extremely uncommon.
 
+I'm not sure where you saw ACS disabled, you can look rdma-core now
+has a tool to help people get their RDMA NICs working in GPU systems:
+
+https://github.com/linux-rdma/rdma-core/blob/master/kernel-boot/rdma_topo
+
+I would view most of that stuff as completely normal at this point,
+people have been doing versions of this by hand for almost 10 years
+now. Especially the asymmetric translated/untranslated routing.
+
+Jason
