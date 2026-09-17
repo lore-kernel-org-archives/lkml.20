@@ -1,133 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8234B7A59;
-	Thu, 17 Sep 2026 17:01:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197EB5326B1
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664502; cv=none; b=hX9mKvVhBkg/+Fps0VKhxMFD81SwSLXmwRw+bDyb5lORCqRlLJHTpCVF6A6DSiVtfioHiO5L3xXOSsKQgHLTElawogdwdlA5Uze8P61eXtgzW2KGJAElLKGehJlE2haQa1uFbvSix5DA1q0L2fveC8CWIbOzu7/Nc3QRivj/84I=
+	t=1789664502; cv=none; b=q7Lyhxosq1R7zARl1uAMjBTkUMdaRFLIKR4eJ0pTU27AuFJJ2LTDZjwCdxZlViWEkchSJbrBfDFQeXLlDYLCuMhqn8QjsWRRlGB4ZIYfE8nmyFbfnMgNWFOqPo0ZD3sDG/mP7cN+8gdS2QrCEplG4UXVrZedB2ztxd7P33UV4E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789664502; c=relaxed/simple;
-	bh=msP+aYCFQRejiYJEioJy/luaDngihA3wohgZTYNaII4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lU+z2k6swY0M0M+XSLC1fsGDA00i3+Rv7wLQ57n02St33KkS2Phbynvcxgo3mW0sgK4cwkOdxKFUz9bMz+jH0igyENx+XgecC3Dd6N0WXbZCm9HF4zyqtQf5i9QjlYO/EALV4TgBdn7bqMlkV7ae0zAUQQ/OVh+N5uzu4wJMMEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjMFDSGy; arc=none smtp.client-ip=100.103.45.18
+	bh=ALxb9IdrEGsWfm98e5hYbr4TB9v46uqiCFIO73hJR/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eNKiFem3ES9GjLCZFCqhLbh0cmvT/56VxCEhM4mBLFXqaH0REwUt0hLfpdsqfAOwrsO0fiwBOUDsEgbsC6xXoXuzx+zlMvXkMtgdop4Mska1Et74T8jTFIXE4bhb+Qsu5H6hqye7hvAOGGvBgEk8GW1bvCUqLuoQ9E8C1AetXeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xn7JAWzp; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjMFDSGy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0921F0089B;
-	Thu, 17 Sep 2026 17:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789664500;
-	bh=cMuDnpqJUB2Uf77ZbSuAlr2PpXfKCDvn1QWiL0hTFpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jjMFDSGyVlsre2OTckTLEm8iZBL2xUblNcOIL6hTWSU7fqk30T66IbsSK2lBLpw99
-	 Li0P7WzjAKSSjpIhMssr2/0fCf0fePT4FXZNY5GuZ/FcFSms6av9+BT1r6C06UZ0B9
-	 YyiYY8EBcVeOnXLjcd6vPNwWKdPZ7Ojf8w/cOCKB6I8RSa3RsWc+cc2xiueU4LSg6Y
-	 mTS14dGRBrFfm6udeioEHK9A/Qe+EJHHb6efM8/5J03WRPVZuuozRUxr+mqbzw8IWB
-	 vGGCU1Scz8EtSVp7LCMJD1RAOQFIbsQ3d9+6UsobnTpT5OVJDcELlyNi8o09hYdcU3
-	 9Sr5bwOZ7smLA==
-Date: Thu, 17 Sep 2026 10:01:39 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 14/20] kbuild: batch module finalisation
-Message-ID: <202609171000.CD7797EA3@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-14-9ecf4163ff36@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xn7JAWzp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789664498;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRIqDmgykK4M700vzuRX8fM0npjQeUSDWwklvXV0FfY=;
+	b=Xn7JAWzpopMBXklstGfPJQJ2a6afgw+D2qbYInPEUNB4jnDyVTaqYaj5uMP2s1g16jiEZV
+	gCymjH/EUmBUx/OB7jvASLeGQ9H0CoIUERmutwqit9B/J9F/6HI3J6N16Tgdg6ZSzAikP3
+	dSohM9hh/p4ZGYMe4di/8hjYvdyAroU=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-9Qi6WqmENgeFUwvPezr_vw-1; Thu,
+ 17 Sep 2026 13:01:34 -0400
+X-MC-Unique: 9Qi6WqmENgeFUwvPezr_vw-1
+X-Mimecast-MFC-AGG-ID: 9Qi6WqmENgeFUwvPezr_vw_1789664492
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E5B8A1954186;
+	Thu, 17 Sep 2026 17:01:31 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.64.177])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B0F2230002C2;
+	Thu, 17 Sep 2026 17:01:29 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Dave Airlie <airlied@redhat.com>,
+	"Timur Tabi" <ttabi@nvidia.com>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Mel Henning" <mhenning@darkrefraction.com>,
+	"Hongling Zeng" <zenghongling@kylinos.cn>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v5 3/5] drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+Date: Thu, 17 Sep 2026 12:58:34 -0400
+Message-ID: <20260917170042.440276-4-lyude@redhat.com>
+In-Reply-To: <20260917170042.440276-1-lyude@redhat.com>
+References: <20260917170042.440276-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-build-speedup-v3-14-9ecf4163ff36@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Thu, Sep 17, 2026 at 05:06:24PM +0100, Lorenzo Stoakes (ARM) wrote:
-> With the .mod.S change in place, module finalisation on allmodconfig builds
-> consists of a large number of very short-lived jobs.
-> 
-> For allmodconfig x86-64 this can be on the order of ~22,000 jobs of a few
-> milliseconds in duration each.
-> 
-> Each job entails processing ~22k .cmd files, so the combination of heavy
-> overhead and small individual job results in a lot of unnecessary and
-> repeated work even with all cores being utilised.
-> 
-> The solution is to batch by a number of jobs. Determining which value makes
-> sense was done empirically.
-> 
-> On a 128-thread threadripper box doing an allmodconfig build, best of
-> 2, *.ko, *.mod.o deleted each time:
-> 
->     modules per chunk    instances    wall
->     -----------------    ---------    ------
->                     1        11171    10.22s
->                     2         5586     6.72s
->                     4         2793     4.97s
->                     8         1397     4.26s
->                    16          699     4.05s
->                    32          350     4.05s
->                    64          175     4.07s
->                   128           88     4.05s
->                   256           44     4.03s
->                   512           22     4.18s
-> 
-> Wall time flattens for 16-256 module batches.
-> 
-> A slower/lower core machine will do better with fewer modules-per-batch, a
-> faster/higher core machine will do better with more modules-per-batch.
-> 
-> Therefore, take the midpoint which works in the most margin in either
-> direction - 128 modules per batch.
+One of the things that OpenRM does right before initiating fbsr is apply a
+special workaround (nvidia issue #3172217) which temporarily disables raw
+compression mode on the GPU. It is later re-enabled after resuming with
+fbsr completes.
 
-This is easy to tweak, so if we get negative feedback on this for
-smaller machines, it's an easy fix.
+Since we don't currently save the compbit backing with fbsr, this shouldn't
+currently make any functional difference in the suspend/resume process. But
+it will be required for implementing support for saving and restoring
+compbit backings from the GPU.
 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+---
+V2:
+* Fix gsp object mismatch in r570_memsys_enable_raw_comp_mode()
+* Clarify debug message a bit in r570_memsys_enable_raw_comp_mode()
+V3:
+* Enable raw mode before rescheduling FIFO channels
+V5:
+* Send NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE using
+  gsp->internal.device.subdevice, not gsp->internal.device.object.
 
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 48 +++++++++++++++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       |  6 +++
+ 2 files changed, 54 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+index af5aa5065c3dd..f73d9b29e891d 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+@@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool suspend)
+ 	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+ }
+ 
++static int
++r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
++{
++	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
++	int ret;
++
++	ctrl = nvkm_gsp_rm_ctrl_get(&gsp->internal.device.subdevice,
++				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
++				    sizeof(*ctrl));
++	if (IS_ERR(ctrl))
++		return PTR_ERR(ctrl);
++
++	ctrl->bRawMode = enable;
++
++	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
++	if (!ret)
++		nvkm_debug(&gsp->subdev, "memsys: Raw compression mode %s\n",
++			   str_enabled_disabled(enable));
++
++	return ret;
++}
++
++static bool
++r570_need_raw_comp_war(struct nvkm_gsp *gsp, struct nvkm_device *device)
++{
++	return (device->card_type == GA100 || device->card_type == AD100) &&
++	    gsp->memsys.use_raw_mode_comptagline_alloc;
++}
++
+ static void
+ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ {
+@@ -33,6 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ 	struct nvkm_instmem *imem = device->imem;
+ 	struct nvkm_instobj *iobj;
+ 	struct nvkm_vmm *vmm;
++	int ret;
+ 
+ 	/* Restore BAR2 page tables via BAR0 window, and re-enable BAR2. */
+ 	list_for_each_entry(iobj, &imem->boot, head) {
+@@ -54,6 +84,13 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ 	vmm = nvkm_bar_bar1_vmm(device);
+ 	vmm->func->flush(vmm, 0);
+ 
++	/* Re-enable raw mode if it was previously disabled */
++	if (r570_need_raw_comp_war(gsp, device)) {
++		ret = r570_memsys_enable_raw_comp_mode(gsp, true);
++		if (ret)
++			nvkm_error(&gsp->subdev, "Failed to re-enable raw comp mode\n");
++	}
++
+ 	/* Resume channel scheduling. */
+ 	r570_fbsr_suspend_channels(device->gsp, false);
+ 
+@@ -104,6 +141,17 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ 	/* Stop channel scheduling. */
+ 	r570_fbsr_suspend_channels(gsp, true);
+ 
++	/* Temporarily disable raw mode to prevent FBSR restore operations from corrupting
++	 * compressed surfaces. Required for ampere and ada.
++	 *
++	 * Nvidia bug #3172217
++	 */
++	if (r570_need_raw_comp_war(gsp, device)) {
++		ret = r570_memsys_enable_raw_comp_mode(gsp, false);
++		if (ret)
++			return ret;
++	}
++
+ 	/* Save BAR2 allocations to system memory. */
+ 	list_for_each_entry(iobj, &imem->list, head) {
+ 		if (iobj->preserve) {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
+index 8af432375f7a2..9050a8274b273 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
+@@ -16,4 +16,10 @@ typedef struct NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS {
+     NV_DECLARE_ALIGNED(NvU64 sysmemAddrOfSuspendResumeData, 8);
+ } NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS;
+ 
++#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE (0x20800a6f) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS_MESSAGE_ID" */
++
++typedef struct NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS {
++    NvBool bRawMode;
++} NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS;
++
+ #endif
 -- 
-Kees Cook
+2.55.0
+
