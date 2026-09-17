@@ -1,196 +1,255 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010048.outbound.protection.outlook.com [52.101.56.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFB84DA9BE;
-	Thu, 17 Sep 2026 11:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644848; cv=fail; b=D84MofctwcfOSv1y5eibM1O/XJyoxiod5VFrk4lZyNkgsPS7PXbi1nTx/vfhGtv5j2MswEyM58ckDno7umH2cuHO3y9yXzwmBfWRbnNN99ylvWkU0S0vltIhudcktUpySEYepGd5kzvo/DTaA1W6Eyl622eajdFkFZ6+0ZQafgI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644848; c=relaxed/simple;
-	bh=F06lQM0+A05PDbXETSgghul3irV3xuWxNG03dJmHXbk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=jRelh8gcN/GWnpi7lGt+z4v2C8r18/Hc1i/VdL+7ak2qxTbt/2OPXQN2AqeUdLWBJMTp63chW6MUJ4+ItDyVTvPDET5DvtIcEQMSTuJDxsdIgxf5tZ1298lSBuU9ktGJQSMII9t1WPB6hnhPmiFwgzmhjRlQLWFvgTzxdh5HwdM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=t8/s/xYt; arc=fail smtp.client-ip=52.101.56.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514254D37BE;
+	Thu, 17 Sep 2026 11:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789644868; cv=none; b=kXjonHRijv+cVicqgj0byrm0vmAOAnvGzkHLKqtnpNGcROP/a0iwPxOIDu0YdiDvGxEUl8IXqm7GWl3gES8xru0AG1dBIzRhG9OoHQRxPZ4gOmazIzSRYaBmrf5nBuFYxJDV+Dm4lsqLaEIWz9VT59A4P8mnatygUuJNWLsafn0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789644868; c=relaxed/simple;
+	bh=XJymzU1AohleoC8jmQ2z5ZxfAVkuCXsBoCY+Aq9kL0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SrYHOeIuUYn9QxRkTx/P3EWBW9jyYhmTbBHNbs8351EgiZL1LyDu4y0+xzlBF+Y+zyZBWSbOB3WZD3wVtGeU+1GeQvTADXQCg0KimsexvPMYCeun38sb9l9aduMlwWKQTlaR7QvqYIU9i+N8vbXpCN3KGKeyxOLDetEEMlrw5Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BZ8WmCBC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ITv+zBHp; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ddWDcZxw; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rEgigdPB; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="t8/s/xYt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kG7mX0Kz4oo4LO3d5HJ7OVt5EmBhO/DpA6w0rEBIWQ5J6ZXuQ9WYIhWlpCFyHaiMXP+RrRd6NKhDfjYSQIyUZx4JUOIumFNpsDnF+3cMgWnXbAGnHq8mHYY3iagmn/8R1nu786YcE5s0hPbDd8Z+cgOVqCoUJK7/4MJSpq+KFWZDNvVTycEf18N7b8EMYBVO60UePbzznHRGO5qvh36kF5V0dqTZwwFB/OrGrSB+Q0yUk/Pk+NvSxik/WNx6nGZMn7cYTBAtb0ynj/oq9ayaRLX+a+npnjrcYOyh04glebJ6hRW7+7sfGWf2WmsXs8NXnSQrkfhlrz4FGhvQN7ewuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w1HHsCQJgjZgjU/XVOkQrVU9VRB87xolGHTD+JyTric=;
- b=gYpFtYjj4+U5+9R+T0KbOEA09/kunBl0S4/aF8KTCECD9fF0TvUxvuKWtgm0kroiHo5daZXkLfffERrbrmnq8SP40S59Cez4nKpo+4TIJRi20DFxAOiGK+YHW4FIj88rjc9MThJo3ydLnTNoROZWaOKZgfD7rJ7skHHVe00hn7LFaa6Civ46bborHm4mbh39ATCJkNm1SBz2X7SorPQdgJy7bNDB0LIXzMNoc7Parsa7NbDQk1S8W85Ga2uX9bjcJKReK2Y/Z1YVFEH+M4Bjqa90nd8in6quDb5yKoBs7ioPM/oosLb4HtcpWB9aYnqcd1Gcew0ibsJHRsE1ooIhSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w1HHsCQJgjZgjU/XVOkQrVU9VRB87xolGHTD+JyTric=;
- b=t8/s/xYtzqLdWoXc/t0xQne3j7ppQYRuN5z8cowhWX83OO8Z8M+R/3ebmhlRduJiAlQ2XG5G8iTojc34tVrlCCNrgFAZZ3LAyym/UqnOy+zwblY3X8RIUz+dzmfvu+eacZysUhWgP894NotAKhhOW9sq1QZTHyJjyPzDMwVNGxo=
-Received: from BY3PR03CA0030.namprd03.prod.outlook.com (2603:10b6:a03:39a::35)
- by CH3PR12MB8258.namprd12.prod.outlook.com (2603:10b6:610:128::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 11:33:58 +0000
-Received: from SJ1PEPF000026C7.namprd04.prod.outlook.com
- (2603:10b6:a03:39a:cafe::29) by BY3PR03CA0030.outlook.office365.com
- (2603:10b6:a03:39a::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 11:33:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000026C7.mail.protection.outlook.com (10.167.244.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 11:33:58 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 06:33:52 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 06:33:52 -0500
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 17 Sep 2026 06:33:50 -0500
-From: Colin Huang <colin.huang2@amd.com>
-Date: Thu, 17 Sep 2026 19:33:39 +0800
-Subject: [PATCH v5 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BZ8WmCBC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ITv+zBHp";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ddWDcZxw";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rEgigdPB"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BBB5B21BC9;
+	Thu, 17 Sep 2026 11:34:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789644860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
+	b=BZ8WmCBC1+RvnBwCfIDoSKqVf0CvxEo0Njg/15U/OLVpq1NDtUabOMtkB1/xfG7NwG86cl
+	CB4BWtvOOfcf8ucOtBL1xUY/r1xit7Bwk1p43ujEOqgGS8ZVr0dTrpDnVp4yQCZ/7ST+nt
+	7iFiMz8OB0J+R3gwVOsBxv+yhqViOdY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789644860;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
+	b=ITv+zBHpjgPwOmvK0LWe+jXKLdp/9dcW4kV9R0rFhhuKmgCtxt3txu9C3dSZ5QVMQFchfV
+	u8UzGGMDzri55nCw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789644856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
+	b=ddWDcZxw1hpEhlBJPPJOrvfCBmT7K4v+T0nBvO88X7alda5NYcyb9GzA/gDTNry6bawLmo
+	R42+WGadDJXryz625tfXcVgw8abu+5AIN7EJAR9YQvf9y65ysmOQrKbyiM6Y7kkkMLEO3Q
+	gKIgLvpHtxCHYclJhlEfyqFnGIt5dgI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789644856;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6H3+7HWZmllVud8whTSzg6hp9aJmxAORCWRKfg4F3/M=;
+	b=rEgigdPBlzLuzdmLXzTeOsJ4r03UbXJmuqdmR9DbsnzEc1OQ9CJEWxqwpVLC7/86DiPkCd
+	kBewwcTbW+IRHFCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30E5D1374A;
+	Thu, 17 Sep 2026 11:34:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id cjPKMzfQq2rYNwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Thu, 17 Sep 2026 11:34:16 +0000
+Message-ID: <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
+Date: Thu, 17 Sep 2026 13:34:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260917-add-tda38740-and-tda38725-v5-1-7fc19668ada4@gmail.com>
-References: <20260917-add-tda38740-and-tda38725-v5-0-7fc19668ada4@gmail.com>
-In-Reply-To: <20260917-add-tda38740-and-tda38725-v5-0-7fc19668ada4@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>,
-	<linux-doc@vger.kernel.org>, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789644825; l=2005;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=R1ssmBrpneOOcBVWD/5uiubeCA6eoLBzB89Okx1mSic=;
- b=wiqJC+cqJH5XTrlGh5RSXvYL5pROfuuTYpth1vMhautAm9m/AdUPMTpYKbNxjU7ckSUrQF2lr
- T4zOV2CDmFQAO7dajzl2t486zUBr08Wa7m6D8Qj7otxpoZxCLtTVTx0
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C7:EE_|CH3PR12MB8258:EE_
-X-MS-Office365-Filtering-Correlation-Id: fefa3543-c79d-411f-522b-08df14af9059
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|18002099003|22082099003|13003099007|10067099003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	sScGTBqBQ44Io15zRerNLa/yki+UtquZemxzRiAuw83XfSfVxazaBRVadZFGCLHzHLLI6oTEr+PGIyGFokXS06Ilc6RFcS6FGcto21TUKhNTBXSnXaZHvgWynFx8UGLFZi8Xmk7CGCagthghdXfobYgVV8G9CdwObWpkSbzMHDRo8rAw23wppQb6C+PRMVfi+h66/luPi87C3AtCcmUc5GWnn/66ELTh9QU3ujyEQSCJozrdCQX11vFK3RSM+bDRdjhp3eTm6V7dtLK6nYDi65h5l090hcK6tjtPKweenPWcriPkSJAYlMYuEqt3fIibomSMEDTVCpyC8JGz3urIH6+LtkIEZZCBEnaJB9l5EAJyS5zTyzcvHxhEdbl6ILQr5xU+yzStbzHMr4WhVLhpkwuPE8uG//PcSlGpVoijzRMkBE+FU6omtPckHjNsfEbrLpWhR8EPUuJL/JxJz8zwg8RdmZetBOgRjbPe4GQD2Ny23brdLb/8HXtDqltyUxPGwmGGN9w6Atgy40MwtOzXwSyxZEJf8+Zq7klnmhUBssUZRXS/kz3YK6+9x2aiXitqZIGGZqCBDN6Afka52yOrdixvmDLcWnqinLk/zczXGhKtoLO7fr7F3S9UTjPBt4fT4Y3Pe0g8yfhJ5lVxEcxN8Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(18002099003)(22082099003)(13003099007)(10067099003)(11063799006)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sWwlsvwh+x7dcPyPXoBO4NgWK258wvEjGWR8TzsPUVpBSuaEezmDnvme+X17FKO36XmCyhkRBzJ2wzm601rCti336lt7u3qBPltiF45lzWcEawOrRc8Y/ee5dmmuzHAdsIiRnNeBIicquuTgbbS6/zNGtlssKrVURgI8RI7GTfUeR8miXD38IwuQX6oklx2QPOVbk+vWGAYQlsI4shEzJjC9zXfn6YzSRGJmige034y1LXGmgVKXr9f11xrbF5R07oNxO3Z/hsaA+zFHv3lPia48a9js6P9LvEb4kOUMBh3EpvxLhWZ+Nrz4CU3ojerBLsrQ6m+cFhk+O75q1481lCmRHDKstubGcB3wld9PmM0DvxPbV0cl+72iWIfblPHq6Em4FlutpPkjqeX4oO2uXXbfPk0GUqE9x73QfirABnddTY4HtLmJHE/bNmulxFNv
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:33:58.2475
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fefa3543-c79d-411f-522b-08df14af9059
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C7.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8258
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ LiangCheng Wang <zaq14760@gmail.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+ <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+ <20260917025644.1262504-1-zaq14760@gmail.com>
+ <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[dt];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[redhat.com,gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[ti.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,linaro.org,ravnborg.org,lists.freedesktop.org,vger.kernel.org,ideasonboard.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-From: Colin Huang <u8813345@gmail.com>
+Hi
 
-Add devicetree bindings for the Infineon TDA38740 and TDA38725
-single-voltage synchronous buck regulators with PMBus interface.
+Am 17.09.26 um 12:49 schrieb Javier Martinez Canillas:
+> Hello LiangCheng,
+>
+> Thanks Thomas for CC'ing me since I missed this patch series.
+>
+> On Thu, Sep 17, 2026 at 4:57 AM LiangCheng Wang <zaq14760@gmail.com> wrote:
+>> Hi Thomas,
+>>
+>>> There's also the ssd130x driver under solomon/ how does it related to
+>>> the ssd16xx? Is that similar as well?
+>> They share the vendor, but not much else as far as I can tell - Javier
+>> will know ssd130x far better than I do.
+>>
+>> It is an OLED driver over regmap, while ssd16xx is e-paper over raw SPI
+>> with a BUSY handshake, RAM address windows and waveform LUTs.  The
+>> register maps do not overlap, so I doubt there is much the two could
+>> share.
+>>
+> Correct, I don't think there is much overlap between the ssd13xx and
+> ssd16xx families.
+>
+> There are a few bits that I think are similar though and could be
+> reused, for example the pixpaper_spi_write() helper logic is basically
+> the same than ssd130x_spi_write() AFAICT.
+>
+> Same for pixpaper_send_cmd() and pixpaper_send_data(), I believe that
+> is the same logic that we now have in ssd130x_write_cmds(). Specially
+> after the recent commit 3e391b0b516b ("drm/ssd130x: Add SSD135X_FAMILY
+> and SSD1351 support") that introduced a cmd_params_are_data flag that
+> allows to send the operation as command and the parameters as data.
+>
+> So the MCU interface seems to be the same, in particular for the
+> 4-wire SPI interface which AFAIU is what this new SSD1677 driver
+> supports.
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 55 ++++++++++++++++++++++
- 1 file changed, 55 insertions(+)
+I cannot advice anything here, but at least I'd like to get ssd16xx out 
+of tiny/. It would be great to have it all under solomon/. It looks like 
+sitronix/ does a similar thing.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-new file mode 100644
-index 000000000000..6733e44c37f6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-+
-+maintainers:
-+  - Colin Huang <u8813345@gmail.com>
-+
-+description: |
-+  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
-+  buck regulator with a PMBus interface designed for industrial use.
-+
-+  Datasheet:
-+  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: infineon,tda38740
-+      - items:
-+          - const: infineon,tda38725
-+          - const: infineon,tda38740
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        regulator@40 {
-+            compatible = "infineon,tda38725",
-+                         "infineon,tda38740";
-+            reg = <0x40>;
-+
-+            interrupt-parent = <&sgpiom0>;
-+            interrupts = <10 IRQ_TYPE_LEVEL_LOW>;
-+        };
-+    };
-+
+Best regards
+Thomas
+
+>
+>> Its shape does look like a good model though - one driver covering three
+>> sub-families through a variant table.  And if you would prefer ssd16xx to
+>> sit in drivers/gpu/drm/solomon/ next to it, that is fine by me.
+>>
+> I think that's a good idea, as I mentioned above some of the helpers
+> used by ssd130x could be factored out in a solomon-common.{h,c} or
+> something and be shared by both driver ssd130x and ssd16xx drivers (in
+> insight I should had called ssd13xx to the driver since now it
+> supports SSD130X, SSD132X, SSD133X and SSD135X families...).
+>
+>>> If the ssd16xx does not make progress, we could also try to merge your
+>>> code as ssd16xx and Devarsh would then add support for additional ICs on
+>>> top.
+>> Thank you - I would be glad to help that way if it comes to it.
+>>
+> Agreed. The ssd16xx driver could do the same than ssd130x and support
+> both SSD1677 and SSD1683. They seem to be quite similar by looking at
+> the datasheets publicly available.
+>
+>> Devarsh, it is your series though, so please say if you would rather carry
+>> it yourself; I would only pick it up with your agreement.
+>>
+>> I should also be honest about what I could offer: only what the SSD1677
+>> and the PIXPAPER 4.26m need, arranged so that further controllers can be
+>> added on top.  This panel is the only SSD16xx hardware I have, so I could
+>> not implement or test the others.  If that is too small a starting point,
+>> I quite understand.
+>>
+> That's OK. When I introduced the ssd130x driver, it only supported the
+> SSD1306 controller and over time we added suppport for more ICs and
+> 13xx families.
+>
 
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
