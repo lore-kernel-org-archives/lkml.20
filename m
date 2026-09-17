@@ -1,137 +1,95 @@
-Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0282337C908
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.87.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123543939A4;
+	Thu, 17 Sep 2026 14:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656853; cv=none; b=rgDgYCfrZnKYRqoxF4QKNWK/KlrIwwXwhhQD/7m1Mt8YsuoHw9DOBPxhA9otL718qqO6ZmBWMjxDNQBhkKc35KMFgBl21zkbACCc5ktmb/1HaYbSl0/jaR8lKvymNhV9pERthqR9MEREMiGMCFSG91YZCCO9U/0a309fgH0Dq6M=
+	t=1789656872; cv=none; b=rS66Kai/SnYEInZ+mMXKDDubWg2WJbLoljtufxm4qgYbz8n7hAArKK89nRaAxRwvGXdj2okahaWgCSoh7VGxAGynUIkUU06Kt6uDPgbbz7BM1oXZ16oWrAT03VzdTOi6QTiArvvM3W5Slrrc+ox4Dcu7+u0rwkrgJ+eydcxKP10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656853; c=relaxed/simple;
-	bh=Cm9nZ83Xceub8x5er6oxomrvqroj+WcHkr0Pl1N+LWA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZXBUg8JChITuuyW/WIMS4RuEmJiE/2fHsxYQCNyhLCHJWk2DcD5i9MTYHlrDKTgRF9IV/3mFrIKcC3OEUrHtPX/v7jOCayvAnufrUU3qXcBjt46zZ5j3pfLvpaFf+W6vQJ6HDOIfQZ+mwjdA59nobtzC+1V7aTVEViNn+dKkg4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.87.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hlytR4QqlzBLVWn;
-	Thu, 17 Sep 2026 22:33:51 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
- Thu, 17 Sep 2026 22:33:59 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<stone.xulei@xfusion.com>, <chenjialong@xfusion.com>, shechenglong
-	<shechenglong@xfusion.com>
-Subject: [PATCH RESEND] drm/client: fix restore of partially initialized client
-Date: Thu, 17 Sep 2026 22:33:49 +0800
-Message-ID: <20260917143349.1579-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
-In-Reply-To: <20260907035147.1339-1-shechenglong@xfusion.com>
-References: <20260907035147.1339-1-shechenglong@xfusion.com>
+	s=arc-20240116; t=1789656872; c=relaxed/simple;
+	bh=neXxLjLm07T/5uBNw3MIaIA4Z7Fgm8FkKivipIur184=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oWo94n9ulXwkWUVabavbWrNcDnBNoDiVzVntBG/WSz/wihIk2XrqRFBdueiDltCM5zQvTocIr1YyGmb4VlM3p7YjYLdLXHtrLgsV+uAgTSPJKv4iMjtiqxk6j2PSMLQPsHgtPJirCXPBCj0lOBdxhcCQyRyBH304CibhffXqBXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=dfB2KTNt; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="dfB2KTNt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=A67JsCta3pDpgt91UwwATGFxcmWXa4GKAYCKCqCfNGM=; b=df
+	B2KTNtQm2y1vfPsKWRY3hu6XBsKBZt2AntbCPnuYQvrvYtp8pcgyCGPbYFsiEPWAm67wiW5/Hm9V6
+	34HrLVvW+orTF4naFU99gXstv08S+lOzoqWJSaW9K4WnqN4GZw8bEsjtcJSkKBoShPu+6OvQdgf3i
+	4jddyEWkkZUzZNs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x7DUt-005hAF-QU; Thu, 17 Sep 2026 16:53:59 +0200
+Date: Thu, 17 Sep 2026 16:53:59 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next] net: fec: gate MPC52xx driver on PPC_MPC52xx
+Message-ID: <f29b58c2-1d11-42e9-b920-2272d2c21ed4@lunn.ch>
+References: <20260916220931.262932-1-rosenp@gmail.com>
+ <CAKxU2N-T3urb8Wv3sW1=YaT6AjoicgJ95msTDA8cdsivkiR5vg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03046.xfusion.com (10.32.128.186) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+In-Reply-To: <CAKxU2N-T3urb8Wv3sW1=YaT6AjoicgJ95msTDA8cdsivkiR5vg@mail.gmail.com>
 
-I got a null-ptr-deref report when closing a DRM file descriptor:
+On Wed, Sep 16, 2026 at 03:29:25PM -0700, Rosen Penev wrote:
+> On Wed, Sep 16, 2026 at 3:09 PM Rosen Penev <rosenp@gmail.com> wrote:
+> >
+> > The FEC MPC52xx driver only applies to the MPC52xx family of SoCs,
+> > but only depended on PPC_BESTCOMM. Restrict the driver to MPC52xx
+> > platforms so it is not offered if COMPILE_TEST is applied to
+> > PPC_BESTCOMM. Otherwise the following errors happen during linking:
+> >
+> > ERROR: modpost: drivers/net/ethernet/freescale/fec_mpc52xx.ko: symbol 'mpc5xxx_fwnode_get_bus_frequency' undefined!
+> > ERROR: modpost: drivers/net/ethernet/freescale/fec_mpc52xx_phy.ko: symbol 'mpc5xxx_fwnode_get_bus_frequency' undefined!
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >  drivers/net/ethernet/freescale/Kconfig | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/net/ethernet/freescale/Kconfig b/drivers/net/ethernet/freescale/Kconfig
+> > index b34c0fcfddea..d81984fcec64 100644
+> > --- a/drivers/net/ethernet/freescale/Kconfig
+> > +++ b/drivers/net/ethernet/freescale/Kconfig
+> > @@ -38,7 +38,7 @@ config FEC
+> >
+> >  config FEC_MPC52xx
+> >         tristate "FEC MPC52xx driver"
+> > -       depends on PPC_BESTCOMM
+> > +       depends on PPC_BESTCOMM && PPC_MPC52xx
 
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
-__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+> oh this is against local changes. Please ignore.
 
-Call Trace:
-drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
-drm_client_modeset_commit_locked+0x56/0x160 [drm]
-drm_client_modeset_commit+0x21/0x40 [drm]
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html#updating-patch-status
 
-The warning is followed by a NULL pointer dereference:
+  pw-bot: changes-requested
 
-BUG: kernel NULL pointer dereference, address: 0000000000000008
+  As a result the bot will set the entire series to Changes
+  Requested. This may be useful when author discovers a bug in their
+  own series and wants to prevent it from getting applied.
 
-RIP:
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
-[drm_kms_helper]
+    Andrew
 
-Call Trace:
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
-__fput+0xdc/0x2b0
-__x64_sys_close+0x39/0x80
-do_syscall_64+0x8d/0x460
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-drm_client_register() adds the DRM client to the device client list
-before invoking the initial hotplug callback. If the hotplug callback
-fails, the client remains registered.
-
-For the fbdev client, a failure during drm_fb_helper_initial_config()
-causes the partially initialized fbdev helper to be cleaned up.
-drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
-
-The fbdev client therefore remains registered even though there is no
-fully initialized framebuffer device.
-
-Later, when userspace closes the DRM file descriptor, drm_release()
-can invoke the restore callbacks of registered DRM clients:
-
-drm_release()
-drm_client_dev_restore()
-drm_fbdev_client_restore()
-drm_fb_helper_restore_fbdev_mode_unlocked()
-
-drm_fbdev_client_restore() currently restores the fbdev state
-unconditionally. For a partially initialized fbdev client this can
-submit an incomplete modeset state and subsequently access fbdev
-state which has not been initialized, resulting in the warning and
-NULL pointer dereference above.
-
-drm_fbdev_client_unregister() already uses fb_helper->info to
-distinguish a fully probed framebuffer device from a partially
-initialized client.
-
-Use the same condition in drm_fbdev_client_restore() and skip restore
-if no framebuffer device has been successfully initialized.
-
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
 ---
- drivers/gpu/drm/clients/drm_fbdev_client.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-index 91d196a397cf..1c16bc1084c4 100644
---- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-@@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
- 
-+	/*
-+	 * The client is registered before the initial fbdev probe.
-+	 * If probing failed, the client remains registered but there
-+	 * is no valid fbdev framebuffer to restore.
-+	 */
-+	if (!fb_helper->info || !fb_helper->fb)
-+		return 0;
-+
- 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
- 
- 	return 0;
--- 
-2.33.0
-
+pw-bot: cr
