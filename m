@@ -1,213 +1,269 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097154F0553
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E63A4F054A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648899; cv=none; b=aYWb9zkgcjsrpJ/U9bVGzMQBMSWGfmYKDLhwAWP4uuPLCNiquvZo2OAXmiFBu7OZlWBrGkD5NfUtyXOT3IDKRr4CrqR/wHb2TqM5Dc9VZKCrxHoJ3tNAKpFK8C2S4AoPGPUPmTHT8Lov29I0Q7AGw2qH/Ec1jXgqGftI2RJiZ24=
+	t=1789648938; cv=none; b=K27BfRzTppLLiXn9fWI9q86iPkX5LftRb2Gm+NjYJxZg3EkmS16kyNCII35c6PRG8CRa049CDAR7JniUSyTulYW6hxc4qvTFLs8JSiaInJBIWqncyIMg4C+2kbpX+3i3rWiR9sJhjNWI2J7ObR0brG0u19Ds8W/8PCKj7CW/nHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648899; c=relaxed/simple;
-	bh=RfI+gvuZ9cPGJFcGCs0rWt9mAbRYEPP7T34Ze0RsmW8=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=bLsmuxk+BJDlKHydK7qiq0qaRd6IqAQoozz5DGZi9i0FhBlcBjVqV5bWZY+vo9nR+zhGBG2GBxwx6o9l32+cAQVVpImqf4q+8hmGsqFUAfIgKz1sgC8Gie1ho8BapQvfk0wcGHtJwywa+IEiO5vZ6s+gWnZ5mY0nQ5JS9WjBgRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OghDPgSE; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789648938; c=relaxed/simple;
+	bh=kFg28HSMVsNaPko3lndHm99sINSZDjID7G7sHUDYUjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rhD6bzr+YaUOhX2j9KRaHEDwvfmCZTE2X7QTeWiXd9xUcJOWFej4lplcq808Tv+VqQ1lOSeJkznxyHbNttHGuLOOj3VW+aQJSF6swz+K7lecS4rhWM+Nokm7BlM1s3nn2MQzRmbPJrf+jFTDwMfIO9u7M47mgEXn7ZMbMvo8WZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XNsnx646; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OghDPgSE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789648890; x=1821184890;
-  h=date:from:to:cc:subject:message-id;
-  bh=RfI+gvuZ9cPGJFcGCs0rWt9mAbRYEPP7T34Ze0RsmW8=;
-  b=OghDPgSEKSrxNvwUQjWGneyxkzxlKFIPH3/EdlUSjiYD6ls8pLFtAv/L
-   SyCxghkEAAguKEdL1NhVB6Drlw8UGSJNdfImjjpCcBHb6sslkGoVMqiud
-   y9zPWP4vXWxy9sbCYnrf1fYlwfODfvGxtQ0g0HbShSxKgjlrD16MoEz3/
-   OxfVdVI+pPkTxy3KKZakrpP9EZ0LCzBZaljFN9W2MwCqMsGXTJUjm5lV8
-   AeIU8PJbQUXNWHiHfKyQbWiwtWevv6k0Rl8UIjgQqvvJTPS5/F8FjxeOR
-   JfAeb/Zg8pf5Dv1M4nGGUBh2jGxJz1TM9i5FwlE1mEPwLuEUnNYggFeTa
-   w==;
-X-CSE-ConnectionGUID: m9z3gA8IRESIMZMZS+63sA==
-X-CSE-MsgGUID: PHUNzqyTRTiRq4yBEg5owg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92575145"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92575145"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:41:28 -0700
-X-CSE-ConnectionGUID: 1vWbkZtNT5CblciBYolZHQ==
-X-CSE-MsgGUID: wtWl5Vf+TieTH+0wXrBEig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271127664"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 17 Sep 2026 05:41:25 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7BQZ-000000007mV-0xWL;
-	Thu, 17 Sep 2026 12:41:23 +0000
-Date: Thu, 17 Sep 2026 20:40:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Bradley Morgan <include@grrlz.net>
-Subject: kernel/time/posix-cpu-timers.c:1307:9: sparse: sparse:
- incorrect type in argument 1 (different address spaces)
-Message-ID: <202609172014.0HKGiRi1-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XNsnx646"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789648927;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nIZjNmT37L6e0UXYttiyted0pKwzPAUWzzEiduxiea4=;
+	b=XNsnx646LPGfXJBraFlELCsiJcYWJnFagPITZcVesVD39fJSsKxY1qZTcBRst+cjDl3pFo
+	W/oJkHEYwMQoMERFCHQ5+sUvyCPp4SWIvqLJcY1LlnSIJPXZ/qXKuxzwORDvcyixjD5yAC
+	ONaLHbLQ8njyhq8JmLXG1lZrSV9JMiU=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-435-via1Qod6McKNGDtd9NrGAQ-1; Thu,
+ 17 Sep 2026 08:42:02 -0400
+X-MC-Unique: via1Qod6McKNGDtd9NrGAQ-1
+X-Mimecast-MFC-AGG-ID: via1Qod6McKNGDtd9NrGAQ_1789648919
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 033091978C9D;
+	Thu, 17 Sep 2026 12:41:39 +0000 (UTC)
+Received: from pabeni-thinkpadp1gen8.rmtit.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 60BAF1944CD1;
+	Thu, 17 Sep 2026 12:41:33 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: bastien.curutchet@bootlin.com
+Cc: woojung.huh@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	ceggers@arri.de,
+	arun.ramadoss@microchip.com,
+	pascal.eberhard@se.com,
+	miquel.raynal@bootlin.com,
+	thomas.petazzoni@bootlin.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: dsa: microchip: Save the periodic output flags and index
+Date: Thu, 17 Sep 2026 14:41:07 +0200
+Message-ID: <20260917124107.213222-1-pabeni@redhat.com>
+In-Reply-To: <20260914-fix-perout-v1-1-9f45531a7585@bootlin.com>
+References: <20260914-fix-perout-v1-1-9f45531a7585@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-commit: a73d7f98e41a96d6e1bcb0e731ab185d9d67878e posix-cpu-timers: Don't abuse lock_task_sighand() in handle_posix_cpu_timers()
-date:   2 months ago
-config: x86_64-randconfig-1300-20260917 (https://download.01.org/0day-ci/archive/20260917/202609172014.0HKGiRi1-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609172014.0HKGiRi1-lkp@intel.com/reproduce)
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+net: dsa: microchip: Save the periodic output flags and index
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: a73d7f98e41a ("posix-cpu-timers: Don't abuse lock_task_sighand() in handle_posix_cpu_timers()")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609172014.0HKGiRi1-lkp@intel.com/
+The patch stores the perout request's flags and index into struct
+ksz_ptp_data when the periodic output is enabled, and replays them from
+ksz_ptp_restart_perout() instead of hard-coding index 0 and flags 0.
 
-sparse warnings: (new ones prefixed by >>)
->> kernel/time/posix-cpu-timers.c:1307:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   kernel/time/posix-cpu-timers.c:1307:9: sparse:     expected struct spinlock [usertype] *lock
-   kernel/time/posix-cpu-timers.c:1307:9: sparse:     got struct spinlock [noderef] __rcu *
-   kernel/time/posix-cpu-timers.c:1367:36: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   kernel/time/posix-cpu-timers.c:1367:36: sparse:     expected struct spinlock [usertype] *lock
-   kernel/time/posix-cpu-timers.c:1367:36: sparse:     got struct spinlock [noderef] __rcu *
-   kernel/time/posix-cpu-timers.c: note: in included file:
-   include/linux/sched/signal.h:749:37: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   include/linux/sched/signal.h:749:37: sparse:     expected struct spinlock [usertype] *lock
-   include/linux/sched/signal.h:749:37: sparse:     got struct spinlock [noderef] __rcu *
-   include/linux/sched/signal.h:749:37: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   include/linux/sched/signal.h:749:37: sparse:     expected struct spinlock [usertype] *lock
-   include/linux/sched/signal.h:749:37: sparse:     got struct spinlock [noderef] __rcu *
-   include/linux/sched/signal.h:749:37: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   include/linux/sched/signal.h:749:37: sparse:     expected struct spinlock [usertype] *lock
-   include/linux/sched/signal.h:749:37: sparse:     got struct spinlock [noderef] __rcu *
-   include/linux/sched/signal.h:749:37: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   include/linux/sched/signal.h:749:37: sparse:     expected struct spinlock [usertype] *lock
-   include/linux/sched/signal.h:749:37: sparse:     got struct spinlock [noderef] __rcu *
-   include/linux/sched/signal.h:749:37: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct spinlock [usertype] *lock @@     got struct spinlock [noderef] __rcu * @@
-   include/linux/sched/signal.h:749:37: sparse:     expected struct spinlock [usertype] *lock
-   include/linux/sched/signal.h:749:37: sparse:     got struct spinlock [noderef] __rcu *
+A few questions on the commit message and the code below.
 
-vim +1307 kernel/time/posix-cpu-timers.c
+> net: dsa: microchip: Save the periodic output flags and index
+>
+> When the periodic output is restarted, the request flags and index are
+> always set to 0. So if a pin other than the first one was used, or if a
+> flag was set in the request that triggered the periodic output, it is
+> lost when the output is restarted.
 
-  1296	
-  1297	static void handle_posix_cpu_timers(struct task_struct *tsk)
-  1298	{
-  1299		struct k_itimer *timer, *next;
-  1300		unsigned long flags, start;
-  1301		LIST_HEAD(firing);
-  1302	
-  1303		/*
-  1304		 * tsk is current and ->sighand is stable, see the
-  1305		 * tsk->exit_state check in run_posix_cpu_timers()
-  1306		 */
-> 1307		spin_lock_irqsave(&tsk->sighand->siglock, flags);
-  1308	
-  1309		do {
-  1310			/*
-  1311			 * On RT locking sighand lock does not disable interrupts,
-  1312			 * so this needs to be careful vs. ticks. Store the current
-  1313			 * jiffies value.
-  1314			 */
-  1315			start = READ_ONCE(jiffies);
-  1316			barrier();
-  1317	
-  1318			/*
-  1319			 * Here we take off tsk->signal->cpu_timers[N] and
-  1320			 * tsk->cpu_timers[N] all the timers that are firing, and
-  1321			 * put them on the firing list.
-  1322			 */
-  1323			check_thread_timers(tsk, &firing);
-  1324	
-  1325			check_process_timers(tsk, &firing);
-  1326	
-  1327			/*
-  1328			 * The above timer checks have updated the expiry cache and
-  1329			 * because nothing can have queued or modified timers after
-  1330			 * sighand lock was taken above it is guaranteed to be
-  1331			 * consistent. So the next timer interrupt fastpath check
-  1332			 * will find valid data.
-  1333			 *
-  1334			 * If timer expiry runs in the timer interrupt context then
-  1335			 * the loop is not relevant as timers will be directly
-  1336			 * expired in interrupt context. The stub function below
-  1337			 * returns always true which allows the compiler to
-  1338			 * optimize the loop out.
-  1339			 *
-  1340			 * If timer expiry is deferred to task work context then
-  1341			 * the following rules apply:
-  1342			 *
-  1343			 * - On !RT kernels no tick can have happened on this CPU
-  1344			 *   after sighand lock was acquired because interrupts are
-  1345			 *   disabled. So reenabling task work before dropping
-  1346			 *   sighand lock and reenabling interrupts is race free.
-  1347			 *
-  1348			 * - On RT kernels ticks might have happened but the tick
-  1349			 *   work ignored posix CPU timer handling because the
-  1350			 *   CPUTIMERS_WORK_SCHEDULED bit is set. Reenabling work
-  1351			 *   must be done very carefully including a check whether
-  1352			 *   ticks have happened since the start of the timer
-  1353			 *   expiry checks. posix_cpu_timers_enable_work() takes
-  1354			 *   care of that and eventually lets the expiry checks
-  1355			 *   run again.
-  1356			 */
-  1357		} while (!posix_cpu_timers_enable_work(tsk, start));
-  1358	
-  1359		/*
-  1360		 * We must release sighand lock before taking any timer's lock.
-  1361		 * There is a potential race with timer deletion here, as the
-  1362		 * siglock now protects our private firing list.  We have set
-  1363		 * the firing flag in each timer, so that a deletion attempt
-  1364		 * that gets the timer lock before we do will give it up and
-  1365		 * spin until we've taken care of that timer below.
-  1366		 */
-  1367		spin_unlock_irqrestore(&tsk->sighand->siglock, flags);
-  1368	
-  1369		/*
-  1370		 * Now that all the timers on our list have the firing flag,
-  1371		 * no one will touch their list entries but us.  We'll take
-  1372		 * each timer's lock before clearing its firing flag, so no
-  1373		 * timer call will interfere.
-  1374		 */
-  1375		list_for_each_entry_safe(timer, next, &firing, it.cpu.elist) {
-  1376			bool cpu_firing;
-  1377	
-  1378			/*
-  1379			 * spin_lock() is sufficient here even independent of the
-  1380			 * expiry context. If expiry happens in hard interrupt
-  1381			 * context it's obvious. For task work context it's safe
-  1382			 * because all other operations on timer::it_lock happen in
-  1383			 * task context (syscall or exit).
-  1384			 */
-  1385			spin_lock(&timer->it_lock);
-  1386			list_del_init(&timer->it.cpu.elist);
-  1387			cpu_firing = timer->it.cpu.firing;
-  1388			timer->it.cpu.firing = false;
-  1389			/*
-  1390			 * If the firing flag is cleared then this raced with a
-  1391			 * timer rearm/delete operation. So don't generate an
-  1392			 * event.
-  1393			 */
-  1394			if (likely(cpu_firing))
-  1395				cpu_timer_fire(timer);
-  1396			/* See posix_cpu_timer_wait_running() */
-  1397			rcu_assign_pointer(timer->it.cpu.handling, NULL);
-  1398			spin_unlock(&timer->it_lock);
-  1399		}
-  1400	}
-  1401	
+[Severity: Low]
+Is the flags half of this description reachable today?
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+ksz_ptp_clock_register() sets caps.n_pins, caps.n_per_out, caps.enable and
+caps.verify, but never sets caps.supported_perout_flags. The chardev path
+then does:
+
+drivers/ptp/ptp_chardev.c:ptp_perout_request() {
+	...
+	if (perout->flags & ~ops->supported_perout_flags)
+		return -EOPNOTSUPP;
+	...
+}
+
+and the v1 ioctl masks with PTP_PEROUT_V1_VALID_FLAGS (defined as 0), while
+ptp_sysfs.c period_store() builds a zero-initialized ptp_clock_request. So
+request->flags looks like it is always 0 when ksz_ptp_enable_perout() runs,
+which would make the PTP_PEROUT_DUTY_CYCLE handling in the driver dead code
+at the moment.
+
+The index half does look like a real user-visible fix, since caps.n_per_out
+is 3 and a perout configured on channel 1 or 2 was previously restarted on
+TOU/pin index 0. Given the Cc: stable, could the message distinguish which
+part fixes an observable problem and which part is future-proofing?
+
+> Save the request's flags and index when the periodic output is
+> initialized.
+> Use the save flags and index when the periodic output is reset
+
+This isn't a bug, but "Use the save flags" should probably be "Use the
+saved flags".
+
+> diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+> index 39cc70d65900b..4f924df9e32bf 100644
+> --- a/drivers/net/dsa/microchip/ksz_ptp.c
+> +++ b/drivers/net/dsa/microchip/ksz_ptp.c
+> @@ -222,6 +222,8 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
+>  		return 0;
+>  	}
+>  
+> +	ptp_data->perout_flags = request->flags;
+> +	ptp_data->perout_index = request->index;
+
+[Severity: Medium]
+Does saving flags without saving request->on make the restart path read
+uninitialized stack memory?
+
+The only flag ksz_ptp_enable_perout() accepts is PTP_PEROUT_DUTY_CYCLE, and
+that flag selects the branch that consumes request->on:
+
+drivers/net/dsa/microchip/ksz_ptp.c:ksz_ptp_enable_perout() {
+	...
+	if (request->flags & PTP_PEROUT_DUTY_CYCLE) {
+		pulse_width_ns = request->on.sec * NSEC_PER_SEC +
+			request->on.nsec;
+	} else {
+	...
+}
+
+ksz_ptp_restart_perout() declares "struct ptp_perout_request request;" with
+no initializer and assigns only start, period, index and flags, so
+request.on (the union member with rsv[4]) stays whatever was on the stack.
+Before this patch request.flags was hard-coded to 0 there, so the duty-cycle
+branch could not be reached from the restart path.
+
+Either the resulting pulse width fails ksz_ptp_tou_pulse_verify() (-EINVAL
+or -ERANGE), in which case ksz_ptp_tou_reset() has already cleared
+TRIG_ENABLE and settime()/adjtime() returns an error while tou_mode stays
+KSZ_PTP_TOU_PEROUT, or it passes and an arbitrary value is programmed into
+REG_TRIG_PULSE_WIDTH__4 by ksz_ptp_configure_perout().
+
+Would it make sense to also save request->on (or the whole validated
+request) and to zero-initialize the local request in
+ksz_ptp_restart_perout(), so a saved flag and its payload always travel
+together?
+
+[Severity: Low]
+Should these two assignments happen only after the output has been fully
+configured and started?
+
+At this point in ksz_ptp_enable_perout() the cycle-width check,
+ksz_ptp_tou_pulse_verify(), ksz_ptp_configure_perout(), ksz_ptp_tou_gpio()
+and ksz_ptp_tou_start() can all still fail. A request accepted while
+tou_mode is already KSZ_PTP_TOU_PEROUT and then rejected, for example by:
+
+	cycle_width_ns = timespec64_to_ns(&ptp_data->perout_period);
+	if ((cycle_width_ns & TRIG_CYCLE_WIDTH_M) != cycle_width_ns)
+		return -EINVAL;
+
+leaves the rejected request's index and flags latched in ptp_data. A later
+ksz_ptp_settime()/ksz_ptp_adjtime() -> ksz_ptp_restart_perout() would then
+re-arm the rejected channel rather than the last one that was successfully
+configured. Before the patch that path always re-armed index 0.
+
+>  	ptp_data->perout_target_time_first.tv_sec  = request->start.sec;
+>  	ptp_data->perout_target_time_first.tv_nsec = request->start.nsec;
+>  
+> @@ -795,8 +797,8 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
+>  	request.start.nsec = next.tv_nsec;
+>  	request.period.sec  = ptp_data->perout_period.tv_sec;
+>  	request.period.nsec = ptp_data->perout_period.tv_nsec;
+> -	request.index = 0;
+> -	request.flags = 0;
+> +	request.index = ptp_data->perout_index;
+> +	request.flags = ptp_data->perout_flags;
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but the saved
+index now feeds an unlocked pin lookup.
+
+ksz_ptp_enable_perout() calls ptp_find_pin(), whose contract is documented
+in include/linux/ptp_clock_kernel.h:
+
+ * The caller must hold ptp_clock::pincfg_mux.  Drivers do not have
+ * access to that mutex as ptp_clock is an opaque type.  However, the
+ * core code acquires the mutex before invoking the driver's
+ * ptp_clock_info::enable() callback
+
+That holds for the ksz_ptp_enable() path only, where ptp_chardev.c wraps the
+call:
+
+	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &ptp->pincfg_mux)
+		return ops->enable(ops, &req, perout->period.sec || perout->period.nsec);
+
+ksz_ptp_restart_perout() reaches ptp_find_pin() from
+ksz_ptp_settime()/ksz_ptp_adjtime() holding only ptp_data->lock, so
+info->pin_config[] is walked while PTP_PIN_SETFUNC (ptp_set_pinfunc()) can
+be rewriting func/chan under pincfg_mux. That can yield a wrong index in
+PTP_GPIO_INDEX, or -1 and a spurious -EINVAL from settime()/adjtime().
+
+Note that switching to ptp_find_pin_unlocked() here would invert the lock
+order established by the enable() path (pincfg_mux -> ptp_data->lock via
+ptp_set_pinfunc() -> ptp_disable_pinfunc() -> info->enable()). Would caching
+the resolved pin at enable() time, alongside the flags and index this patch
+already caches, be an option?
+
+>  
+>  	return ksz_ptp_enable_perout(dev, &request, 1);
+>  }
+> diff --git a/drivers/net/dsa/microchip/ksz_ptp.h b/drivers/net/dsa/microchip/ksz_ptp.h
+> index 7067ec9bd1e6f..da6a2efb23d72 100644
+> --- a/drivers/net/dsa/microchip/ksz_ptp.h
+> +++ b/drivers/net/dsa/microchip/ksz_ptp.h
+> @@ -31,6 +31,8 @@ struct ksz_ptp_data {
+>  	enum ksz_ptp_tou_mode tou_mode;
+>  	struct timespec64 perout_target_time_first;  /* start of first pulse */
+>  	struct timespec64 perout_period;
+> +	unsigned int perout_flags;
+> +	unsigned int perout_index;
+>  };
+
+[Severity: Medium]
+This is a pre-existing limitation rather than something the patch
+introduces, but does the new index only work for a single active channel?
+
+caps.n_per_out is 3, and ksz_ptp_enable_perout() accepts a second enable
+while a perout is already running:
+
+	if (ptp_data->tou_mode != KSZ_PTP_TOU_PEROUT &&
+	    ptp_data->tou_mode != KSZ_PTP_TOU_IDLE)
+		return -EBUSY;
+
+All perout bookkeeping is single-slot (perout_target_time_first,
+perout_period, and now perout_index/perout_flags), and
+ksz_ptp_restart_perout() replays exactly one request. Configuring perout on
+channels 0 and 1 therefore overwrites the saved state, and after a clock
+step only the most recently configured channel is re-armed; the other
+trigger unit keeps a target time in the old clock epoch.
+
+Would it be worth mentioning this scope in the commit message?
+-- 
+This is an AI-generated review.
+
