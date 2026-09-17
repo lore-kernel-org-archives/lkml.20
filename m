@@ -1,99 +1,145 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A4D277C96
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02EC2EEE83;
+	Thu, 17 Sep 2026 00:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605103; cv=none; b=fwuanIFgBrbM2ML4O76bbhpdS6kqXvrztQqojcUMGhnVOnsnJeJWpEROiYvy25wobG67pSqEZbHcTyuA5SL3CDT4tQTKxhVKnpPCuul3/Hu+t8tzo9zg7T+Pgd9I+EANNQhpZgTcrKJcaLoVjV0yU8zpcT/7SfiYom87v+TSj7I=
+	t=1789605246; cv=none; b=MUXr0CX1xxFS/e3ZFT2bnDp154A1T/RT+f0q9U2C7d8OUeZiTGN3HfLOBJ3O806PEtsinYjPk45PSfTxFnjFID17G1zLyl++4R919HATW1foWCsbnJPz9pk1jZouByk1oFrrEbSJd6/EdVAGVg3zotd9SRGbW2cQEssM1Ovbhcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605103; c=relaxed/simple;
-	bh=hupbK1XnlApWTnVAz57YeuBiy7hkg7A7oJqBQeRC+c8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Si0yWQ5THO9zo6WohC0RcI6VCs9cnDO7HBleXcj1LnOU+zl5oOG0+JVo7Pff3HgwnYe3xjE24KIPTxhcB2yPsH/v9/xx4rbFD/NzceimhjkI28utdfSeqbYKqP2ow5jmNpQqmsj9HKLtilXCAJDtN40TciAhw7nWuTYPY91u1ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emzLdQBI; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789605246; c=relaxed/simple;
+	bh=ttJvnD6+TdUWnt8ZWZyr50DEuv2I2ACAscocmO7JVGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ihMf6U/Jyr74PmvocVDRQelZMsvz6gxG7ZMVSihlTQCY4sAFrkeVQoFxDSuRd+v8n8E6jx+y6Oa7XveLTevgaLXzRZ7u5L9E/i8RUTxVD/T2Ig4cGo4HlJolJPA06XJRJYmfcjbU2E7yHiGTuboWT70gF5sKe5uRqBpimrgqYQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euug1m+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emzLdQBI"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so268069a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:31:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789605102; x=1790209902; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bUC5CPMfH9AfA+p2OpihFGYYkfQ1b4maiW4dfa+t4fs=;
-        b=emzLdQBI0EZErePGHKhJcT4BR/Rlqr4VwbR5JpHITz6vMtq8o5EHD4OLFR8FFC+VsQ
-         xi03X5fC7A2z2lex5g4FkmCmklvozhwuW+v2562U1fJLVrC87gU+/+yWAUECEvdaALHH
-         lKUUHyuvTiGoiKLSAo8G2Uhw9e8vz6sYlAXfd9UQVg8rSFEw2pdc+Y3wE0qqIK5aHTXb
-         0rV12EgvUJRwmTjnbgpsHhE//iSM3s+GnMft1LbOw0DqtL6dLYcUK/4v6ulIfoeHsMKu
-         3k9P88CPPlPG+8MZ488q46q6VlPU9+xinFxLVTMe8C9RGg4GD3A6njpbV8aWBBsjbAuv
-         U0HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789605102; x=1790209902;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bUC5CPMfH9AfA+p2OpihFGYYkfQ1b4maiW4dfa+t4fs=;
-        b=aD5JV+e2uwg3MpKg7yZQsunc8PQCTIulO+eTQosTYUqZIOa6rvRf1bdfjjnHSypGQ0
-         sa5Ps5cgt3mjKuq1uGQVHzKVdMFiPq4bsl5Jg03tWtGcG8nbHNLDpvhbTGLVt0gR4Fzq
-         sWSsoqApxF4mqDLL5Q/ck/vTwY/u/XgxL9z2MS66QYAwEMhtvqmGPLvk/7pMIol6Aozx
-         tn+zFzP0Fr4Abf78M2RYp41FdQcR/S8NTHZO0lWO2UFRyhU7cv7UIgySHiFOv6xFVI1a
-         FuvTfXhDdL9PlRzk3AWJdesvyVIr2npoXBPcgdDtQF7mBMgaZSpZYgpD2J2d9v2/tBoW
-         Tbyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVOEYLQKTKvyOu92RckoekMCEuD3MXmOxcPU0kbSmjc5fJxoptbwTUpuqn5Ui1MVinogSOrRQyRitstHU=@vger.kernel.org
-X-Gm-Message-State: AFuF++md9+VDe9MnrLARyRCo2MUuqkblBBZeFNHCx+rQHT/x+O0OCfku
-	+NhH5YI4LmLR9skVK45s55/7lmTlBkHcKZ08ZpK5pHXnPjjFf158iyah
-X-Gm-Gg: AYBFou1P5JEsio/XJ4gUjKirI9A0AXH8Xn8Vl/8T+SAukR13FLOos7/tlu4bkoTa/3Q
-	oftO0a1cJzYD2ZaD8U12ufMknxAQhiFPEYM2kqEbgjLkV0brt/9MLileyG3aczhlTdio8q8NBud
-	C1BrYNAe278/V5OZuVIIxxDER4j/hrJH7DEGOzuvjfwYVt6zFEnzXQys3s74ZEaLjAhla0tzzJq
-	rEWCGsLvmO4aigCiaFmogd+I6nf4mPPoV40nZIYHFa12WO6uHVsiTRiM1ShW5BU8Eb0cnslnE1X
-	HosCBzJj5CmG30jhEN1PwNwfaVD8jlneKaB6de3WPrf4ApTgy3vx0L2Oo4jdPP3/c+mQPhqSrQ4
-	w9cfuYa7DHc84It06LoPhaDXvCkDyO/QM03rSxoN7pvSG526iCTEMq18gsk7cfXlrXnnhz4NDOP
-	bL05hpkOwT/1b0GvAnfM4pPOOt8CE2+Q7vdjz2JIlPQuKQOXAr3HCuyi1tILSzrh2u9r6bXL/lI
-	6v/+MMv6fUp
-X-Received: by 2002:a17:90b:5847:b0:39d:ec1b:9651 with SMTP id 98e67ed59e1d1-39e1e484b90mr10720814a91.13.1789605101674;
-        Wed, 16 Sep 2026 17:31:41 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89e92ebdsm17931615ad.13.2026.09.16.17.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:31:41 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:31:40 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] watchdog: msc313e: Fix premature reset during timeout
- update
-Message-ID: <8c1b8c05-fb43-407d-bbd2-1d152ba63e94@roeck-us.net>
-References: <20260913065126.8350-1-tzungbi@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euug1m+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA351F000FF;
+	Thu, 17 Sep 2026 00:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789605244;
+	bh=W2ncFYeDcvoCNyEJjCNLN6rq2hHQLV5DuRrVyS76AMA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=euug1m+Ddo8rxASq/FmQe/Lpf1KspIMHli0mdb37z5kwm0mPWzzghi5YJrhlP8CVS
+	 BwpwsATwR6FLjUu4Mfhat7FJMr+N2Dk/lOApAEhG3mJRTyVEN8Y59tAOdXGVGgR0El
+	 AfQ9EwoXPnMfiJvp6OLiB/d8HeKzLhsyRMGjDTJ1CYVFvyDUE/jNblKI3E+Av1aBn3
+	 Qf7ZX9fMhxCILm9LYlD3y85XoqYZuY2+I508FqLggdndqdRVcwTY+69pIK0eKM0upx
+	 LQGp0Pd3F1NyRH8qkWkOTVbXPl64IKlFm6zzdbSFXdqVGvHNjqgPePJx/NWP+GPajp
+	 tim4ydDEQgFSg==
+Date: Thu, 17 Sep 2026 01:33:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andy@kernel.org, dlechner@baylibre.com, linusw@kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nuno.sa@analog.com, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: gyro: mpu3050: Fix runtime PM leak in
+ mpu3050_drdy_trigger_set_state()
+Message-ID: <20260917013359.05f95b69@jic23-hlaptop>
+In-Reply-To: <20260916162949.2083791-1-vulab@iscas.ac.cn>
+References: <20260916162949.2083791-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913065126.8350-1-tzungbi@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 02:51:26PM +0800, Tzung-Bi Shih wrote:
-> Updating the 32-bit hardware timeout requires writing to two 16-bit
-> registers sequentially.  If the watchdog is actively running, this
-> non-atomic update might trigger a premature system reset.
-> 
-> Clear the watchdog counter before updating the registers to prevent the
-> timer from timing out prematurely against an intermediate threshold.
-> 
-> Fixes: e9800b799464 ("watchdog: Add Mstar MSC313e WDT driver")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+On Wed, 16 Sep 2026 16:29:49 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
 
-Applied.
+> The enable path of the trigger state callback called
+> pm_runtime_get_sync() and returned early on every following register
+> access failure without releasing the runtime PM reference, leaving
+> the device powered permanently. Use pm_runtime_resume_and_get() to
+> propagate resume errors without bumping the usage count, and release
+> the reference on all error paths before returning.
+> 
+> Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+Take another look at the code that results and think about whether having a
+unified cleanup block makes sense as it stands.  There are two legs in this
+function in if / else and the cleanup block only has anything to do with one
+of them.  That is a strong sign that it is time to split the function up
+and introduce two helpers (one for each of the if / else). Those helper
+functions can then do appropriate error handling.
+
+So fix is valid but larger changes needed to ensure the code remains
+maintainable.
 
 Thanks,
-Guenter
+
+Jonathan
+
+
+> ---
+>  drivers/iio/gyro/mpu3050-core.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+> index d84e04e4b431..aab2984a0c09 100644
+> --- a/drivers/iio/gyro/mpu3050-core.c
+> +++ b/drivers/iio/gyro/mpu3050-core.c
+> @@ -988,20 +988,23 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+>  		return 0;
+>  	} else {
+>  		/* Else we're enabling the trigger from this point */
+> -		pm_runtime_get_sync(mpu3050->dev);
+> +		ret = pm_runtime_resume_and_get(mpu3050->dev);
+> +		if (ret)
+> +			return ret;
+> +
+>  		mpu3050->hw_irq_trigger = true;
+>  
+>  		/* Disable all things in the FIFO */
+>  		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+>  		if (ret)
+> -			return ret;
+> +			goto err_pm_put;
+>  
+>  		/* Reset and enable the FIFO */
+>  		ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+>  				      MPU3050_USR_CTRL_FIFO_EN |
+>  				      MPU3050_USR_CTRL_FIFO_RST);
+>  		if (ret)
+> -			return ret;
+> +			goto err_pm_put;
+>  
+>  		mpu3050->pending_fifo_footer = false;
+>  
+> @@ -1013,12 +1016,12 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+>  				   MPU3050_FIFO_EN_GYRO_ZOUT |
+>  				   MPU3050_FIFO_EN_FOOTER);
+>  		if (ret)
+> -			return ret;
+> +			goto err_pm_put;
+>  
+>  		/* Configure the sample engine */
+>  		ret = mpu3050_start_sampling(mpu3050);
+>  		if (ret)
+> -			return ret;
+> +			goto err_pm_put;
+>  
+>  		/* Clear IRQ flag */
+>  		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+> @@ -1037,10 +1040,14 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+>  
+>  		ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+>  		if (ret)
+> -			return ret;
+> +			goto err_pm_put;
+>  	}
+>  
+>  	return 0;
+> +
+> +err_pm_put:
+> +	pm_runtime_put_autosuspend(mpu3050->dev);
+> +	return ret;
+>  }
+>  
+>  static const struct iio_trigger_ops mpu3050_trigger_ops = {
+
