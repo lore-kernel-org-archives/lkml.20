@@ -1,104 +1,104 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD67B42467C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFEB49AA22;
+	Thu, 17 Sep 2026 09:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636157; cv=none; b=N3WmxIT23PWIyBFtS0mlUNdHbUY/LIVDMDUyTGM3GsiXSq6NuBXeI/l05VDpXavZrXBEkwL/qJgheg0haKfs2O0wDH0HBqy3GeG2K2yK0JWxDVEURJadvSvWszF5UR3xEcTYn/OMolmPAZh19jw8ZmQPwLQbEb6ER8CBiuTO7fs=
+	t=1789636193; cv=none; b=PasuKJFrnHoyDxX78XyVrYj2lzy6L0cBEBA3RGQ7Wn6u+xbdG19ge1YEHdVniK42LjaqoaIyQNpqcedw2ATFPFkHX7TUfWd4IwSnT6h280Drs3waUVBGeZqaZ/8VmquWdloN+n+Kg/qiaJefkoLX9ukmlIyQtmcGIXMj1oFoBr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636157; c=relaxed/simple;
-	bh=PQDt1XaKTC1h9sbD77fplyrZ/Oe6k/+/kSAL32fFrTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AoZDVIk0k84iJIxK2tab8Dih89icJQXGGvw7YfZkVDdhRSu3BfO6omdPbHZOBjjcXbDOTzKpLcScG6APl86i7xCzpFcSwKGcQU1wxokMrsYwD0Q+idFa6QtWSKarTtarIKXBgTBBV/X67tXS58k7RPR4rePnEW2DBCPadC0xXlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PJbp786W; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789636193; c=relaxed/simple;
+	bh=a/nFbwjEIOju3X1MIW/sqlGlbwK5FvdVNYvXKi7Xlgo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GYhsb3+lA5n0+16BoowBuR5up2VZNdBa4lZGnREh/FIzTSRQrWX82Kq6rrjaNRT3ZIwbyVzXkgimRLGTyNgttSv9SVQuAeQ50Xe70x6KOfTC3IxXsIO/Lwps78HDyi+6kvcGiuVZ+dJW1z7KobJQoymAUYXLMfrpJdAHX8RG50o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ru9GCvTo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PJbp786W"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so73315ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789636155; x=1790240955; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bl4na25ImFlgUs3EGPMSbVVxr6MK/JC4biDbFTTDRp0=;
-        b=PJbp786WoQwDJ/4SAKDvjO4dHZM5a51+jku1m3tCYgEJUj1/K+SpnEIfmb5ueH0DlV
-         5chWqy77ehLCPKGzM8dYAZ6guwpWz3m5PzBY7cShj0GSVNqtzOODOE4NuYCuf60z0eE9
-         bATsDGASmdd7T2pU7KBl6EsPWS9lyjJ7nDhDMHm8qKq5VMWWLuncJMm92wkcDQUgCPhS
-         XqJoYMK2QlRiLcwZ1aieOtdD4vOg6iZlR172IjFWawr8ZunyTIC3SZECmlSJ/s3n5z0H
-         kvDpVFr9MgCzUFga8rOj46k/jTZuM+z+ALv/oth1G0SyZ9Uw6ktv5eHCnmUKyE782Wua
-         g2+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789636155; x=1790240955;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bl4na25ImFlgUs3EGPMSbVVxr6MK/JC4biDbFTTDRp0=;
-        b=Ixb7ypzqb00L6TLBlkCVLF6hpb3UCiPac0XkNFMBl1RdXOfTPEz3KIUp8pd/XlXSJQ
-         6SMnT0oEV5FvfasayB2Lqyx4H7drmaxzzYcTw12e2+lGA0E2qrnGW5TpcHOy7/DM1Dui
-         s9IkIejRc6R+HG/1UQEndGhNlXz+lDaGO66OVo5QYtJYgvsaM8icSD4MCdHcphH+uamQ
-         l7b0w3p9V3j9BKBRf443QTT0y6zq5NvWcT2WnNcieSADvvs16zodFnF4hCo2tbd/E6wZ
-         wSqu4KY8iFPZQutVlTowYg7DU2MzjfS5O6g/31wjBwLVBvVZJ313OZuBUR263BxY9t7G
-         AHNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAjKnPylcoknWNjX5bin2Xh/sc8+4kcQbv4OgzMqMb60OkmKCQhculCIK4JmwxDi6CyG5iCFSGZml0OY8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m84daynNlJyP0X5k+pilwn0pC2xrlMi2xEF2Be6b2psdfjkAWI
-	oZ7K42E1pJIOSRnhLram7zYo7Ok02Vp91WhNFzyjdHYuDaV60o79wcBVwzn7HbG/dQ==
-X-Gm-Gg: AYBFou07As+zpWVBbp/gBB99YGbhMmHuIuxJEKWL7YiWMjoyCk/ytytD9FFC0leGrCY
-	NEnNV83qL0KPQo5wxIq0DvpOyU+dAutQdP8Jg1lFewuwk1w1pBy71TxT0CRJer/5ZKFblnxMH2h
-	qXEFC8AIS6eRXEFSQ7FIipdQfGO1teAyTlow8KzeiBnw4PtVMBjpLUbSWGWtkJItrxTfVzkoeLH
-	zzOIagFakb6WHQPovS/cPsmNFgJJXmqLQFOFYe+m+69SkhFrC38Z0MSpri/Tk632/bF7ScLSUg0
-	ryXhXSazXCnSXSSDvYsmRvKnPFjcObXpUHhMO/x/6+CUD0v/fCoPFcw3qPdrRyH0NlMMqaGZmT/
-	5cbNHDPBxNnsNTKYExYdH0ehvRE+KBV/E8dbEM7Ea+p2gW8yrJOLUDPqGzmao9adqROJ/d0CsdZ
-	FZTqWhqNeNVW51aU729rukiN8Yr7YLCZCMVQwP3Hpgkkp42NpnXFBELOlw3nj+02co+nwgu1Ou4
-	zxQJaRZB81R2Zr8xyhzjyjCStO10YcTOxVA/z7uKVU4QcejoL+OLaGDyQeZmdQ0s7Ij+cWl1pdQ
-	2NEu768vU/LMG8M=
-X-Received: by 2002:a17:903:2a86:b0:2cf:9ec1:ea6e with SMTP id d9443c01a7336-2dd9d3f894fmr5650455ad.8.1789636154526;
-        Thu, 17 Sep 2026 02:09:14 -0700 (PDT)
-Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89edf8e3sm23423915ad.45.2026.09.17.02.09.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 02:09:13 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:09:03 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: tkjos@android.com, aliceryhl@google.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] binder: Fix up Kconfig dependancy due to removal of
- .c code
-Message-ID: <aquuL7LgSwc4ySbG@google.com>
-References: <2026091743-pony-prewar-735b@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ru9GCvTo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105E01F000FF;
+	Thu, 17 Sep 2026 09:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789636192;
+	bh=5vMJLxb2WgC5tIFea55buznoCzbmE9D2zqOOZHr4b34=;
+	h=From:Subject:Date:To:Cc;
+	b=Ru9GCvTohAXBBstl0Oex+tcL4dV1TFEds9pYcha8vwp3uXnuo6Bi4iRCjcMaYUc+X
+	 FRaoT2J2ypp7jwP9fPqAlO/8jTWjT4ksZdMcaLNFBxXAspLv+oGpF0LfPNTAi4FeRt
+	 4Q2/SIm6LLegLzIYwqwWdk/okWRmseIE3TDOfXCE5QKsTkdlIxWMOJJ4MgoXgzagyR
+	 D3G+JLehh1359FDR5O9sk1BkGQKTU/1oPN6qAJf25VfXR3/OX8XHyxlc7t7ueaI1N/
+	 lP61+MRN4zBiGK9O42ALPFdK1N7Cr5jEb6wskgo1qJAnOwL3dMe2iSuNiJ2MtPEWxZ
+	 rwbNFtO1doZmA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/4] file: simplify and harden cleanup handling
+Date: Thu, 17 Sep 2026 11:09:41 +0200
+Message-Id: <20260917-work-file-fd_prepare-v1-0-b87534ca49f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026091743-pony-prewar-735b@gregkh>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0WMywrCMBBFf6XM2oS20Gj8FRGZJBM7KmmZ+ILSf
+ zfRhctzuPcskEmYMuybBYSenHlKBbpNA37EdCbFoTD0bW9a223Va5KrinwjFcNpFppRSBEO1ph
+ gdmgHKNfiI7+/2cPxx/nhLuTvtVUXDjMpJ5j8WFWt6lrV/6quG1jXDxZPwXekAAAA
+X-Change-ID: 20260917-work-file-fd_prepare-ea5966d68a95
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ wine-devel@list.winehq.org, linux-xfs@vger.kernel.org, 
+ io-uring@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2102; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=a/nFbwjEIOju3X1MIW/sqlGlbwK5FvdVNYvXKi7Xlgo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStXhfJMm/N0WLv17efbFU+rraYVfylV+3zo4W9JoeUt
+ rC+/ezh0lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAnCRSYwMi+JkYraZzsnZOaXx
+ 0UUrBavd6ybar69ZsHjTIzYDdp1D3xgZrrx7/l/ZyezGU4H7pU9+Tpr0xWLmd7ErnyWOROy5EXb
+ vHB8A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu, Sep 17, 2026 at 09:46:44AM +0100, Greg Kroah-Hartman wrote:
-> When the .c binder code was removed, building the kernel if the rust
-> binder code was enabled, will cause the binder to not be built at all as
-> the option changed from .c to .rs which is probably not what the
-> original build wanted.
+The cleanup guards rely on unnecessary infrastructure and make the code
+more complicated to follow than it needs to be. Clean it up. Also shrink
+the struct a bit and get rid of the unnecessary error variable. We can
+just make this more ergonomic by using fdf->fd directly. Also expose the
+struct itself as const and hide the actual underlying local variable
+behind a UNIQUE_ID() named variable so we avoid risking shadow variables
+and polluting callsites. Code generation wise the outcome is exactly the
+same but simpler.
 
-The idea was to avoid silently dropping CONFIG_ANDROID_BINDER_IPC, but I
-hadn't thought about this use case you mention. I agree it's better to
-keep things explicit as _RUST.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (4):
+      file: simplify FD_PREPARE()
+      file: declare the FD_PREPARE() variable with __cleanup() directly
+      cleanup: remove CLASS_INIT()
+      file: make struct fd_prepare const and kill its err field
 
-> 
-> Fix this up by renaming the option back to the _RUST version.  If in the
-> future, that suffix wants to be dropped, we can do so and then it will
-> be prompted for a choice again, but for this release cycle, it should
-> stay as-is.
-> 
-> Fixes: binder: rm -f binder.c
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
+ arch/powerpc/platforms/cell/spufs/inode.c |  12 +--
+ drivers/gpio/gpiolib-cdev.c               |  18 ++---
+ drivers/gpu/drm/msm/msm_perfcntr.c        |   4 +-
+ drivers/media/mc/mc-request.c             |   8 +-
+ drivers/misc/ntsync.c                     |   6 +-
+ fs/eventfd.c                              |   4 +-
+ fs/eventpoll.c                            |   6 +-
+ fs/file.c                                 |   8 +-
+ fs/namespace.c                            |  12 +--
+ fs/nsfs.c                                 |   4 +-
+ fs/xfs/xfs_handle.c                       |   6 +-
+ include/linux/cleanup.h                   |   7 --
+ include/linux/file.h                      | 130 +++++++++++-------------------
+ io_uring/mock_file.c                      |   8 +-
+ kernel/bpf/bpf_iter.c                     |   6 +-
+ kernel/bpf/token.c                        |   6 +-
+ mm/userfaultfd.c                          |   6 +-
+ net/core/scm.c                            |   8 +-
+ net/handshake/netlink.c                   |   8 +-
+ net/kcm/kcmsock.c                         |   6 +-
+ 20 files changed, 117 insertions(+), 156 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260917-work-file-fd_prepare-ea5966d68a95
 
-Worked for me, I found no regressions. Thanks!
-
-Tested-by: Carlos Llamas <cmllamas@google.com>
