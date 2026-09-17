@@ -1,145 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4108E4DDB59
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41AE3F075D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658140; cv=none; b=mX8/347NzjlfPhUCkKSEO8HEauyTdPPd+5vWLJTR76hKhdLLLFPBGG+4HtBP95hImqd+997wcGycUrIOKw9/NPgNe0Dc8AppRZ030PscFumJA+u2ZN2WRpipPin9vgspGuZesNXz1y7hJ+mpd4wtypV0st0Q3k83+0rpskabdp4=
+	t=1789658147; cv=none; b=ri8zTIjf2cQ08HMaUHrUobDj/2V+4dfKApuY9RNbSO0A9GQNcTwKQTwKrm1Twq9SDg4uJpIgMmafuZu8J/m6xiuFwxbisFhox1uj6KHZ7jx40sw454I446nZe6QSISM6WSvrmoSpBd9nGqMwwX48AnAimHMYMNW4j0k2SZDBWeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658140; c=relaxed/simple;
-	bh=HWTYcYmqxnMfOvc0toVfLAh9HcAZf26tjOq5sUKW7ZU=;
+	s=arc-20240116; t=1789658147; c=relaxed/simple;
+	bh=jmjcmemHiZ7FQbMcc82ajlGpQ++hpMbdtAMvlMwreUA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qpOSJuTtB+yByz47p0TiLx6w4rLF4PDd5TfW5CHHVVJlntsxUoQ0U1DffNgDFomR9m5rqky7jZsDxtUU9Ech/B+EORE+FcjG2L1Is9x1PdPgAXgKoK8ehxizCJDlkp9/941OHYbjGFqjND9Phc2IqGmGZ/3Un2LWkWI27QkLKes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KO6Yq6Nm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TirllznP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LJpIPSByQXlOeGbhsKVCJcm/H0qZ84Donu70fFDPIJDMGha3a8Jx12G/ncqCSlLL+/CUicx6BYXZ8ahU9hetOIVTO3wuIW/HAcDJtZ4OXIsaUmmdRxvYYH7SrGoFIXs8chWvDFCHv0pm2rscfABJyV+vGlaNeV+oj4cnXjcSWqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=EScFd7Eq; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KO6Yq6Nm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TirllznP"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDiVpL2974891
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:15:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=fiKuRho5vpq4oB0Iyg7qtY/3
-	GWuotzNlqShh/ODLOOc=; b=KO6Yq6Nm8LNj7p9Z45l+BYAzzTU9HZT1iv+8OoKu
-	5TbzurtBQG3TWS3mEiUffDGQzlgiOZZlfjUqxqqjKXPg9bbe23RD6esyFhYHObrb
-	HngdSGVSqR5YD7r98kW8hwCzRMRZVP+8fshgxANRaXXXjvZE30onkzjul9FMZQeI
-	aJu5PrX79l1+XCtnqewDgpMrAlaly/eNYquohJmNjKA0dja4740VAipbLQ9oZ0ZI
-	Rm/m3UhsTGDgiWqt7KOZsoaPwYZeBtaM9CqEKmTjSGLIDAyuYJrZM7zdg2uaSIHm
-	4mDxIg6iB+ZibwIB7LbQeqj5NTA0OLjQdHFcOCNfjwA/2A==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grdd6hmms-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:15:21 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e98e74535so18827856d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:15:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="EScFd7Eq"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-910431849a0so7845116d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:15:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789658120; x=1790262920; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fiKuRho5vpq4oB0Iyg7qtY/3GWuotzNlqShh/ODLOOc=;
-        b=TirllznPBhAx9LwZdM5nS2qitQJRN8uXZi1SYqYCrwgiPMK2dgQ4VDFN/iFNC/f++V
-         2YTLt9zRqu9+xdvD1oEURwldov+jwjFVQ5juYjQ+1A60ZcXp2LDIgrxmwe9XqYKwl29x
-         K9yDusvOe1yG4/kZixf8xNwhf6wzn4sezcH9QZocCALThopcs/NGqe/dSXeICjx+vRyF
-         +GBlQq4CrIKSkDDcC/qeysevxNjC/XeVB4iiVBc+zlXxomYTbrR03SnxepMzkdGY+giw
-         qS1PTlHjtRE19tYps4T0gfLm9SOJIsfdHpvNxTJdfvy72xj00YgooniFWdk1yN17HSm5
-         fujA==
+        d=ziepe.ca; s=google; t=1789658139; x=1790262939; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eNGwdDF4ki7ojFW7+l1TCezZJgsNPf4Ld7gCqIxw2+Y=;
+        b=EScFd7EqcSjdBSW2T5YFifVnWxpc2pT7jx4lJnbqBbIUVrmHCAXsLYNGVF6DCQIId7
+         3tgiBn5Xz8twWMVpmLE+XrtnUCpktfTZelwm3OK02IfqXMbiMcpbi+n4IgQHtO6xuCrq
+         wJBdsT/+OyNXvUlJiQq9Y+ZD0Chq+JTh4ZetjQDUoVUULs6G8YsBc5qnxBvojqDeZW80
+         PEkXy/BIM+2Oevr5YQ1Cp4T3GGd6rS6XN5zV1NG4znwmvKs+xRUw7WHb12O+jpof2WmU
+         u9YO7poDQaqanjnnA9Hor26G3yV8G72ZLtmlMyQ1El4iIfq4ressxK1idbnBghiSUAkU
+         4CRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658120; x=1790262920;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fiKuRho5vpq4oB0Iyg7qtY/3GWuotzNlqShh/ODLOOc=;
-        b=cFe0FEK9ea8z5txe2J6eYqxMSRtf7SJ2Ai4l+PV4qJpoq/lRjgR9cJn+6UK1aXAVmI
-         9DeJbm/EV8x3LYiIkenu6jTr5BNV86d0hmKxH7oviTc6aO4tfcU2KmxQVgicZKx0YSii
-         O1h4PQHGDJOUfdrWWkV4sTG3j69sRjYczZ2NLBqdg3vCpeECKYCA8t8Md+nbV/Qh9u8d
-         6+fklXRRV3hQAspHeeoI60le+8DtZps/cuVVIR0/68JN+FmOjXaizYhPy7/lRlAcGln4
-         c9Jk7FJ9mRy5aLV5RvXuePUUApqZHvkPmT4QorEvuSZVG8yVq/640ACF4aajELNeC5pM
-         tr5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzYfdqGap17Nyg4G6KTe76LffwvtWurW8bedO+QBTzCyJw1as/bcwm+XaIJf9+NHudXHIObQQTR94KMYOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl5om+fW1HgNUqHdzeilhWYcvK9wC2fwJvnAY37wzNIHLgWVTU
-	PnYHR9V+up4iRIWM2P6PRLpxx2lIAvVYTiI/09uYO9iPVkb6K7r0W58te2tpa5sOE1G9nHkr4j+
-	QAy9VnfVRrKSVIoVOKAbC0TG6wx/S0IDqZQdtaoAH+m3bAKdw4YRPZQ9tgLH9Y/mBCGE=
-X-Gm-Gg: AYBFou0WUqMOBy4WRQjb2uYRYV0Zmg7Qex8nKuEhUa2YDv3q+QyYSdaBPsamqWHdpgS
-	B36Hi3D4taqvQJw2gqKt5fhfmn6kfsv2k8Y3rVR31N8Js1reeYTdUp7HyysIIx6D3o3Ig5V4NtV
-	SZ4mxVD8elBwu6OvRf33fZF+wSMjibth1l2rX1vU/4W20SRstlBeb4CdRlLIXlduJ6XrLuQFlSB
-	VYbOWi3JEaf8NmjhJBGrtLGkK3BYkxJhkIZuyTQqHGiojiJh1NkYU60TnTxAfVhmwi1esIJzD9u
-	YXDcXHjFTHT0QBnQagi8lQQ8zBPylT7H37D1qMZ5dREQeOdPL9Gi//Va7x5/diKsIzuC4uxfX5U
-	CE/dBndAfG7c/xA==
-X-Received: by 2002:ac8:5f50:0:b0:532:9adc:63ae with SMTP id d75a77b69052e-5329adc72b0mr11447481cf.63.1789658114766;
-        Thu, 17 Sep 2026 08:15:14 -0700 (PDT)
-X-Received: by 2002:ac8:5f50:0:b0:532:9adc:63ae with SMTP id d75a77b69052e-5329adc72b0mr11446811cf.63.1789658114163;
-        Thu, 17 Sep 2026 08:15:14 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2563ccsm102251575e9.13.2026.09.17.08.15.12
+        d=1e100.net; s=20260707; t=1789658139; x=1790262939;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eNGwdDF4ki7ojFW7+l1TCezZJgsNPf4Ld7gCqIxw2+Y=;
+        b=RAExSg0AwV0ti+0z71S0RFi0tOqiFAQ0apU7ZXeLZjFZQaD2gl38rqDu9R+8zydmOi
+         ycY77cbDCgvWSsujNsNhSL4BJp+C+xTZZxOT4IEXf75Fo9RDPLVYTpCbNuXBbjOlZE9v
+         aaDNz3h/I4/DJ8InwAXcjvdWAz+aewMM77CrFfwzaPU20yFW2BhS3Cfh+fEEArXjXoNG
+         L74UrGNFquNld24tCH5gPWwmAovVGlf3T/J8yx/MGSS+vtE9A0UYe8esGaxizhiKlxgj
+         KsMUmG9J9hNcGGr0t27d6LjjVpXatgjKWtPxUG6wZ9Q7WvnkfHivW4d3GK2WBxrJYYxi
+         iFcw==
+X-Forwarded-Encrypted: i=1; AKwUvByfcURqLOdVcspjYQ7J02eKBBBidzjRsUowAKK9leuEmmBdwNs628wOF4PSFMDH8xuQ3DUalvPvMj8HH40=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7D4ybRi/sN7Zpd7/NA2lVG3BoYTHAoGzOFeTPL3ztCmSYh7jo
+	mMGy5FcEWv8iuB3ZbbfrYtpr3Kh0+hhkwCzc/yqoXFCmoPlN8a9aMf9W8a4g+SCftbs=
+X-Gm-Gg: AYBFou1ZzMsoM7YceBbW2nQqYJBUazV6SL8tjV7YHKIvvmcMTHux+wihu1vafbz6JRe
+	MogHRmQNH7uVTDLS6N2sJi50shCqeKAcMPFslY4GD03RZgACFhA2dYk30xqRoOy9uFpv498YN1K
+	NAUI8ppjYDEL2xqe/LHng4QLlXCFTlx0qw9dI9TysEaLych+0oi3IeSEAhfhI9E7Q6jLGkoXim3
+	0umoQj4UK5fIzxqIt6UI5wAEYHKB6NwMtKoSllmvxkuMeMR2KBXZsup+t0jj/TFkuKoTTfF7pmm
+	epFthQkHcOhwor8CjjA65VjOh7K4tzZWClgHBgNrlsXTA4RaphblOFsIhq0hQ/9ZwtdYtjGa5PT
+	zwR3eYlB1wn2G1rM1QPlqr+nVyw8tgngxvLl+7UIAMO8o/rOtU4Rass4x/afsOg2c2CoG108AdU
+	LC7RA1XQly/fjQEwrjzIoK/7zJVDMSN+S+pu3LK3GzgZiiWHmR7zR2plfCLWU7AGxAQFgz1Q8Kv
+	sMcvHkYHMhsztRNJ+LBPLRDMG0TfhLLoKcoC2hgxJu0CX6qQ8cdDHL2
+X-Received: by 2002:a05:6214:5903:b0:90e:8be9:c384 with SMTP id 6a1803df08f44-9123d7b301dmr139360466d6.27.1789658138557;
+        Thu, 17 Sep 2026 08:15:38 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cb0b52sm26856d6.28.2026.09.17.08.15.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:15:13 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:15:11 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 12/15] arm64: dts: qcom: sm8650: Move PCIe phy and
- GPIOs to root port node
-Message-ID: <si5cdl4yynao6fdx4mtaiccoryryxtdqgy6v2og4zln5q5e4ew@hkmsdncacbtk>
-References: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
- <20260917-root_port_v2-v2-12-6272b7caae9a@oss.qualcomm.com>
+        Thu, 17 Sep 2026 08:15:37 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x7Dpp-0000000CyZf-0zOc;
+	Thu, 17 Sep 2026 12:15:37 -0300
+Date: Thu, 17 Sep 2026 12:15:37 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v6 18/18] RDMA/mlx5: Ask P2PDMA whether ATS takes a
+ direct peer-to-peer route
+Message-ID: <20260917151537.GJ3196566@ziepe.ca>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-18-5ef07ec9ef06@nvidia.com>
+ <321890690ce83d1943b2f678bd9bee9b8c895b66.camel@linux.intel.com>
+ <20260917140253.GG3196566@ziepe.ca>
+ <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917-root_port_v2-v2-12-6272b7caae9a@oss.qualcomm.com>
-X-Proofpoint-GUID: avtBIjPb4KHiQl5Z1rmVu29BrX1nAstu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxNiBTYWx0ZWRfX4wQM+2zVKUeO
- EVjuawCgKMGQ65euzldsRU/MlDwd0lP6Ztpp1NMDYB30SkrQkNeb+YQ2dzy7jhLeoBAwn8fDMl3
- zsPy0A2vaGQGv84fHMJ1wnZPeBRi/757wo4qOlpHzeq7RoBroJxhmnjukBGPP3YoPI91JaETQ77
- YkJ5vEKLi2cwVO4KrFLHqc3i09PpjH48p595M8PUBSPmZtVtHI1FWy+9vF93SrolmgUENlxIJt/
- WwtBFBGsZ4Bvr/CdZX2fd0930fbIdXNWFahVs1KZm4bBB9MyRVLE2oYQ9usvcGgmTtwdG3YPrNK
- 1aZyclz5jXFs7MXLTGkiHohw97n0mZdJp3/0rDLTD7IVriuuJ3vHXNx2fsm3Wh77GDNYf6zbOVf
- LL9QAHJqgCYyJuomfHIZPTc+sN0b4VGuGrFvLgEd0rfRBh28sYEzZ8VwwnYeFW0tMJ34ciB9Xwi
- bkgKGGqpmmuAuGLVq5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxNiBTYWx0ZWRfX5gZwxtWWYVwy
- 8Jvk2U2PDdYBo8jg6auvtm60VOD/4otn8K2I6E2lC8B/tms81Uuke0ndMmOAphz+dC9bE7s86fh
- i2JIfKXqg4VqRa0rxbEKWeMYiTtvaVg=
-X-Authority-Analysis: v=2.4 cv=GeOCDgXL c=1 sm=1 tr=0 ts=6aac0409 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=adJbRHicXYsKkr84VsUA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: avtBIjPb4KHiQl5Z1rmVu29BrX1nAstu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015
- phishscore=0 bulkscore=0 spamscore=0 suspectscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170216
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d8118ee06f29b73988108c0892022b3a2626f1d.camel@linux.intel.com>
 
-On 26-09-17 17:55:26, Krishna Chaitanya Chundru wrote:
-> The PCIe phy reference and the perst/wake GPIO properties are
-> per root port and belong in the root port node (pcie@0), not in the
-> RC controller node. Move phys and phy-names from the controller to
-> the existing pcieport0 and pcie1_port0, allowing board-level
-> overrides. Move perst-gpios/wake-gpios from the controller overrides
-> to the respective port nodes in the board files, renaming perst-gpios
-> to reset-gpios to match the binding used in the root port context.
+On Thu, Sep 17, 2026 at 04:16:57PM +0200, Thomas Hellström wrote:
+> On Thu, 2026-09-17 at 11:02 -0300, Jason Gunthorpe wrote:
+> > On Thu, Sep 17, 2026 at 03:56:12PM +0200, Thomas Hellström wrote:
+> > 
+> > > That is, a flag to tell the topology check that some transactions
+> > > *will* take the host-bridge path due to IOVA being used, and that
+> > > the
+> > > computations including pci_p2pdma_distance() need to check whether
+> > > that
+> > > is possible (checking whitelist etc.) and return the corresponding
+> > > THRU_HOST_BRIDGE mapping type. Translated transactions taking a
+> > > short-
+> > > cut using the bus-address would then be hidden from the driver.
+> > 
+> > I imagined it would work by the driver passing in what modes it
+> > supports and Intel GPU would simply pass in ATS only.
+> > 
+> > Even something like mlx has variation, only some operations can opt
+> > into ATS, many others are never-ATS.
+> > 
+> > Driver should not make statements like " *will* take the host-bridge
+> > path" since it has no idea.
 > 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> Yes, agreed, but anyway DMA-BUF would then, as part of the
+> dynamic_attach negotiation have an interface that takes an ATS only
+> flag and use it to determine whether P2P is possible at all, and use
+> them at mapping time to set up the correct SG list (IOVA or BUS
+> address).
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Yeah, where I was going with mapping type was to have the core code
+"DMA buf PCI bus mapping type" perform the pci p2p operations,
+(especially the calc distance that has been open coded in GPU
+drivers!!) and I imagined it would take in information from the
+exporter and importer about things like ATS capabilities.
+
+There is worse coming here soon people are working on multi-path PCI
+and we even already have such systems. Multi-path PCI means you have
+to select the best quality path from a NxM matrix of options and then
+inform both sides which path you picked.
+
+> Similarly the dma_map_page() needs to know these flags for p2pdma pages
+> so that it never sets up a BUS_ADDRESS to an ATS-enabled device that
+> didn't explicitly ask for it?
+
+You don't use dma_map_page() with P2P, use the new interface and then
+the details are visible and the mapper can do the right logic.
+
+> And this all (and in addition the previous discussion around pcie
+> subsystems calls from within dma-buf, and data-types for mapping
+> information) makes me think that abstracting fast dma-buf interconnects
+> along with our previous discussions is a good thing. Then interconnect
+> details and cross-subsystem dependencies can be hidden in the
+> interconnect implementations, suitably placed in the tree.
+
+Right exactly, I guess Christain will be more comfortable if we have a
+dma-mapping-type-pci.c that has all of this and only PCI drivers use
+that code so it makes logical layering sense with the needs of the
+embedded non-PCI drivers..
+
+Jason
