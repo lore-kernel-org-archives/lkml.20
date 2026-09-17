@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D574E3769
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1324C4E4C4C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659005; cv=none; b=dWjH81xEZsFf9be/n3qaUICQvF7HiNiJsuVny8P8b/Uhk/HTi48sJCwuQw7xPgtKYSYhnmiI5arSOqDquGU6IpPkEaAxxc+/Cr+j9HT6leKFH/CEqKjptl452E0IKW5UznhgSd/kzQx95Vp/75rG88LQCrMIW4a4laIztfZNl2w=
+	t=1789659020; cv=none; b=NHA9M0EP962NwBb7sweuCczoVJOH0ppXXOfhNaRj2OVtjIaCsFCo7XGLpOMYdGWTxzr/hiFAmaCdB04Qg2fo41JJxwux5QMkL3m+ehIdtVO+CNgsK4QtU8Pgg4ZGSJy82duxyajM9ZZ6r2P+8hrZkHl3nWp8NfhiswgPYYkcdeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659005; c=relaxed/simple;
-	bh=7A/Tag6UaadTOgPEEgnC+Vz/ftb96urxScJUivK0TRI=;
+	s=arc-20240116; t=1789659020; c=relaxed/simple;
+	bh=ooAZ7Csob/6TZMIH9iquAud7rS9Kpx/HMlqUZSvAW8E=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NMy39EKT5sUazYszM/pwZTWZZqed6/mMd5D4liSbMqeQzd426HDbD/748ZvGw8Un+2i7pVdPI1Zh1uSmIcUSYPuxbaFmlYQ2P7YQTznL6bUWUpfXvwp1OW4PqaTaGHigPImB36GxrkOQA3C8Y7R/c8foqRuS9tjxAhFPnFh/dUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxgCSlx5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=hpFFIQO3FwOvr9FoaMCB/nxhwcsAo6KGsDfBCoO7sezKrgyfgsmYAMe5A8hBNzDqGsN6G39Ike8QkurzOGDRZaZjaG8obUL00LT3OIebNS0+L9VJb6OO7lX3p9I4Z3nPr6relCeMqyzZHOVMQI1cLZ3eZ6zv1pz+FFznXZ2+u5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sj1m3QF5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxgCSlx5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90921F0089A;
-	Thu, 17 Sep 2026 15:29:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sj1m3QF5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BBF11F008A5;
+	Thu, 17 Sep 2026 15:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789658993;
-	bh=/WxPtrIuAEb4+1h/R5tbokixOnDPh0mmusu48M2O2g4=;
+	s=k20260515; t=1789659011;
+	bh=xa9FPId/Lya7JMaN4dMhVb0KsDluGo2C+s62v2mCeD4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fxgCSlx51Fk9w6LKE73pPGRFcbVnACo3pctojXHqHqz3aUqccWa1r7ZW7mbkZ/vrp
-	 RrqubvT3M7YmFzgQgaSQOOfzcxNsOWyW85r4GkrpdUfJOO+nWj5jxJhR/SZRYvzrW3
-	 ffiSBfA7WOyg5BtEDQJ2HAlzcFtfr0s+W/H0uPgqFl9nNVw5jhnoEX7KMTa6AYXkp5
-	 4u9pap0dbIVXzJE9wAIWn+ZEyW0f1Nf+LmylfWX/wU6GwnUY2edAOfTF+szxCgdanI
-	 Xk5UtLvWogbI6/OwlmgFmy+dNflrFZsjVRSqvZxTl2wtF7bf6R9VQutQoVQRGVdbLK
-	 vwgZuxilUXpHQ==
-Message-ID: <8c70259a-94ed-415c-89c1-572145c64670@kernel.org>
-Date: Thu, 17 Sep 2026 17:29:48 +0200
+	b=Sj1m3QF5fXQa1Yeeeo+dj9Z1YRZ7CqLS9BoSuoPsFGK1Vcqq98//oj8x5AH3sofQx
+	 NEXle6uQH3Wr4Jt9Z1H0at2lWU8MrKsNIc3jQropnVENc07EoXqB0qMR1h1Q+MBlhd
+	 o8lvZDclxzuvjt+iVhzyceCprpV5oUHn09QMyOdCT4DJg/QTsODxw5GHYYPAoadzMJ
+	 Nv6ZybHGsdON3UIlQNNzkYhi196I5+sly9HzAfaq9oYuohktoXW00ZNn0OZj4cxOsl
+	 5l2UO5y0i6eFvwsk2C+zYArATkHQ2Vm5mqCnYAlO6hhrxHhhS5PegdjV4Y+fh8GeZj
+	 c57ZCeL1X2YPA==
+Message-ID: <dffdbca2-1ba8-492d-b7c0-be749ce8149d@kernel.org>
+Date: Thu, 17 Sep 2026 17:30:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,15 +35,13 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the huge
- zero page
-To: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260917121010.60966-1-lance.yang@linux.dev>
- <aqv5r6Ar0vyKXa_x@thinkstation>
+Subject: Re: [PATCH slab/for-next-fixes] MAINTAINERS: update slab.git URL
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
+ <rppt@kernel.org>, linux-kernel@vger.kernel.org, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org
+References: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -90,27 +88,40 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <aqv5r6Ar0vyKXa_x@thinkstation>
+In-Reply-To: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/17/26 16:32, Kiryl Shutsemau wrote:
-> On Thu, Sep 17, 2026 at 08:10:10PM +0800, Lance Yang wrote:
->> vm_mixed_zeropage_allowed() validates zeropage insertion into
->> VM_MIXEDMAP VMAs. No in-tree user needs to insert the huge zero page
->> through vmf_insert_pfn_pmd().
->>
->> Return VM_FAULT_SIGBUS if vmf_insert_pfn_pmd() is asked to map it.
->>
->> Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
->> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
->> Suggested-by: David Hildenbrand <david@kernel.org>
->> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+On 9/17/26 16:38, Vlastimil Babka (SUSE) wrote:
+> The slab.git tree has been moved to a new URL as part of the mm-next
+> integration. Reflect this in MAINTAINERS as well. The old URL will stay
+> around with historical branches and tags.
 > 
-> The patch looks fine, but don't we want to cover the same for non-huge
-> zero page in vmf_insert_pfn_prot()?
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+> Since Harry as a co-maintainer now also has RW access to the new tree,
+> we agreed that he would apply this patch to test the access.
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..f9c1aa1df9b9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25186,7 +25186,7 @@ R:	David Rientjes <rientjes@google.com>
+>  R:	Roman Gushchin <roman.gushchin@linux.dev>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/vbabka/slab.git
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git
+>  F:	Documentation/admin-guide/mm/slab.rst
+>  F:	Documentation/mm/slab.rst
+>  F:	include/linux/mempool.h
 
-Why would the zeropage be a problem in PFNMAP mapping?
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Thanks!
 
 -- 
 Cheers,
