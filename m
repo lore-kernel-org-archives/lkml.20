@@ -1,571 +1,316 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013035.outbound.protection.outlook.com [40.107.159.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A1449C4C4;
-	Thu, 17 Sep 2026 08:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635551; cv=none; b=hnJCF2d2BK9m/R8djxhA/cH57+OgnVK+39kScPNGIfNTWBFkquYDZr4vJuvwv0prwCqs6LHxZKZzP3i5dz6l9hku9cx+PWDU/xW2vxcIRB/FKQ680YfweD0gutZ8b4mFpB5EnkwfnqE9LiSpaDCYcxeiJignlJul58PnN78nMGk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635551; c=relaxed/simple;
-	bh=k8jYJ7ekOTqwXVHeJT+WKgDYAkaSGzrrXToV6gUjUKc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UKatpjgiL+VlUUqwARJBJCNmUHwpdbjIWlngdF604tLCzWWSJAu1K4lyGV44SosJeBUiVVTSrFbiiV/206dmgRAHrF7I9vXv5v2X8KzJxHzX8ou9j/c2h8xANCjzUJsT6hS+RKRG5gG7eyinHwmggPaFAs8l13v6qdoZGyeDFfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 212062002C0;
-	Thu, 17 Sep 2026 10:59:02 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B51292002B7;
-	Thu, 17 Sep 2026 10:59:01 +0200 (CEST)
-Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7C4E11800224;
-	Thu, 17 Sep 2026 16:59:00 +0800 (+08)
-From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peda@lysator.liu.se,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-Subject: [PATCH v2 2/2] i2c: mux: Add NXP PCA9641 I2C bus master arbiter driver
-Date: Thu, 17 Sep 2026 14:28:52 +0530
-Message-Id: <20260917085852.552079-3-shivprakash.gupta@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917085852.552079-1-shivprakash.gupta@nxp.com>
-References: <20260917085852.552079-1-shivprakash.gupta@nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72253FBEA5;
+	Thu, 17 Sep 2026 09:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789635631; cv=fail; b=T2M5tbMukVmXFs3FVcV7msbzy5sch0CFtsolUzpLvVI2Fg5Pm6gdmO8Njd8iWGAK9fAsW9+Ntx9ymH069ulJiUenwK3drgBiXSLfILARljQP8r0BMl8I4yjrHuaa0n/Id2TUulIj+4/rpxH+upflxWOLFXIiwpi3rBmNT4oQVm0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789635631; c=relaxed/simple;
+	bh=f2h/bqn6TKYmUie6aX5TvGuMeIhj5H/tcjSvGQqQcFI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=D1EAZQyVafLU5X6RRk2/1IrS/O7441ZcCpCHkUVLa4tb6RIg/VaSttTJ9Llf3+vrA+cnV3g0H5m2Ka+NUNCDWANWeDzoddWoMaGXLG3WkxVJAEIFEcUzm4s+K0GMo4y/iGg6HsclFYEUI7U4BYJ9LjT6u+BrhaFxpmJo68dfR3o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=o693R2dn; arc=fail smtp.client-ip=40.107.159.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="o693R2dn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kCc5ghldg8MU5ZqZF219BI5ANXYaEwE2A/EykSSj/ofcmElg97ST+2t9rqna4cdhG2Om6uUmhUP1TNYIHfgASHk7kHfsh8RvrahEV0K0fAgPMUVCTlp3k/S+b1ytOnlelT+sDFsQcTtVVuc9ryoJW2iAkb0jJk7xQEP8Qcs2RJxzv8gUt7amyb72M33Z/s9D4qYT0j6HK6oJYHALOfQL34DJDjXBv3kUq2J/dVqWcLTruSnOkGnhv/SJJ4kSOaVJAJZYP5shrBjq5994lWlrD9IyIcBSe2XNaYzqCeYLIAmYNOJ5cJviEV0pOcjeA+6tDimMJkGs8tL+Ydf0CV8AiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JkG+WwuvgG4tEeN5QC8U9FMOn6IPoGYWtOPneF6eDB4=;
+ b=PftI3igES6xPCmZ9Ob+gRmlim5/9juiX8kRCXw3uRqIGQ740HEKeglE1g85YXqAncINsdpqQIUAsDkBICAPW41OPVDqpf1PX9sF+fhV6c2JO4+RFKpphDd5d32sUNhJUC/W/qxnJA5jOnzuWKXCCUrxn2EA0NZMsm6IgdX3sE1RZl0uHrH63Xk4nkWGRdRtt4s/hmbzoz6LJAvFRf6USp5nHFZaJO9Ftz0FJhxK1nYFLq8Y3UlLyQOjogFbUZBrqSFHPgLP70/my7yOd/4LLwK+yES2RF5Kc+IXEksT3fiDxbkv76RXuxrYFUvpxz4xJkIQfZSHmoZT4r4FgOLDttA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JkG+WwuvgG4tEeN5QC8U9FMOn6IPoGYWtOPneF6eDB4=;
+ b=o693R2dnPrpfLfnWIptirMrllBJWBHAXX/fgUC/YnVDgqcWeEBuCmVPneHldggDeiHRbcuGhjmJd3Su9/GFWAYsWCunMkTgYRrJegotWmdR9q7p/vGRASH5urA4Q2hfZ7NFxirkF1sptKEVsSiOlrohc3DJ+U0tCuj/N5vxAV6HdNvZ6zqIV1Dtd6LCUzq42pM7V5LhXLsN+iDvQKkUj5oFjagUXV5dEe1VrYjlDgqBTyNBtb8+C0Uf1ask6kQvAi5FZi/UrHM4eKP2HCxyyh6ZExJSP1MDd/20wVEub3lDhE5F6ifCdkitIsoZ9ScHERr/TlKSPzLIKPxYoZn8IFg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10) by DB9PR04MB11628.eurprd04.prod.outlook.com
+ (2603:10a6:10:608::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 09:00:25 +0000
+Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
+ ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 09:00:23 +0000
+Message-ID: <adb4b74d-a445-42cd-b041-0df2e454a3d9@oss.nxp.com>
+Date: Thu, 17 Sep 2026 12:00:19 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/10] ufs: unipro: Move Tx/Rx FSM state definitions to
+ unipro.h
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+ Ajay Neeli <ajay.neeli@amd.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Pedro Sousa <pedrom.sousa@synopsys.com>, linux-scsi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, clizzi@redhat.com, aruizrui@redhat.com,
+ eballetb@redhat.com, echanude@redhat.com
+References: <20260916084411.941297-1-larisa.grigore@oss.nxp.com>
+ <20260916084411.941297-2-larisa.grigore@oss.nxp.com>
+ <aqrAZfkcU29Oq7Jo@SMW015318>
+Content-Language: en-US
+From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
+In-Reply-To: <aqrAZfkcU29Oq7Jo@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0184.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::19) To GV2PR04MB12558.eurprd04.prod.outlook.com
+ (2603:10a6:150:368::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|DB9PR04MB11628:EE_
+X-MS-Office365-Filtering-Correlation-Id: c31be38b-edc0-4778-2668-08df149a1bbc
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|19092799006|11063799006|56012099006|4143699003|10067099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ zxvo2sbZyumQly2mPS7tgHMUpuOu/LeEsrVAhof5yTAN92Md5DnJo6X4/HT9XSxmVydDorR6VaEY+bQ32ndXlKyEmZylByr7lYPgCMLt0O7Ebe/D2LDmu2a9naA2CnwJuLYn+GPS6y7SKhVIYBeJZk/kRFR8LBi1A+IvZ23YOFPCYVKXwEL9iJHy+3t5u22MaCdZOSkE0rxjKaETTimZSgUuxqnILPTXrmQXFu0mch+J/SBLElT00Ay8wC82/7IgPYc/NrNCZsfIf9r3RqdOEQp2i8UZd8GBevLpcSyNXC9/fN/5Kqi06/LAahEij+6IVSepy9LgtWoNXNKXNmdFUFkqZV7IrhjFVFy+RMksJ8N2puOeXMzWqNj5ODZhzBShCO8ekGSj6V6G31YR8jtBZnRpbuc74ivbdkvu2tbC76LWu0RDxfizLVd93d1BMGZPj1XzrNKM7odARzdgACwm0OG1xu+XXP3BO/QlR9YV7d0xuiTeoO57Nn+UVBimhrDh/0XGo8LK78M9PTdVAGvTisNdONuyTCN3dEDDO87mL7YIwAhjtq85hhEQ2xTwM+4a/GLbKbrz3llTawSa+tnBTbNodKN1CHZ1uNuQ1Ky6DRIkIt6fggej9fHQjxE/+kEAs/4R80nGWplLcrmVnitGcIsytL2WsspWdKrVzKeF/Ko=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(19092799006)(11063799006)(56012099006)(4143699003)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?WlNJUzJzbGQ5Yko4QTFlSDFsRnp4dHNKejJZL1ZJbXg2UDd0K01FTEVSSkdU?=
+ =?utf-8?B?Z292bnJQQzdXdVZ3bGhWZExWV25DWHRQcHQ4cS9nSE42Z3hDOEdjeHlmaWlv?=
+ =?utf-8?B?cFJTYjcrSVpiZFIzK2lYdzQ1M1NuYXlNYU8xM3lFQS92dFRzR1gzaWFUTzg0?=
+ =?utf-8?B?V2RLNlZ6NmxVYis2SjlndGEwZWthVE1obVk0RXgyZUoyN0MveS9TWkF2a3p4?=
+ =?utf-8?B?OTYxeS9rck53czVUMmFZcEFnNFQvdmcxUmkyNTBoYkpERVBkYzZyYkQ5NzEx?=
+ =?utf-8?B?bTVidFNXNFhJYzMzRUFvdmQxOWNKSmppN1ppTEJ4SnFxendWU1ZFUTZtdFVX?=
+ =?utf-8?B?WCtTdE9wOUIzOE90dkJhanNKNlEwc2lIbWl1dUVlODVQbGhXSTQ2cTFTZ2FV?=
+ =?utf-8?B?UzQwRTkxMndsNW1JVm11b1F0WFFrUStEdVV4dUFDR0swOWpYSkROMWRodWQ5?=
+ =?utf-8?B?eGJ1TnYxSit2Rm50Z2NHdWp2MEtBc1NEemhIY0xJVy8rZFFwYk9hUUYwVC9D?=
+ =?utf-8?B?aHJ3ZnI0N2t5bmJ2YWp2UFhJSGFjZXdGTlRvS3FSVmFxeE1XZkUwZFBuaXAx?=
+ =?utf-8?B?eXU3WEpZbnBBd3JPdVNRUDhTYTJFM0k2NzJMWFBvb0EvMjJSbEVsN3NTdkg3?=
+ =?utf-8?B?a2lzK0VwdjRCSzhtK3o3VjFrTmo0UlpuY25qZFFkOWFBVE5Bck1ySWNYT21X?=
+ =?utf-8?B?Nzduc29RNEpuVmV4MEEvbzl3QnExTnJjS2l5bC9rRXUvTFVqZGYxclJzRzhq?=
+ =?utf-8?B?NmNoT0l4L002QjNVT2xBa1lUNmRYVGlna3FIeHpEQ3RGTGZRSHFhRkg4VWk4?=
+ =?utf-8?B?cW8wYXRaZkM0SURyV2c2VCtpZHViYUFQUlh2enQzVVptbGIycStOTnIzUDJa?=
+ =?utf-8?B?WWUzY2FJMWw0cGVnNEtabEFsSUIxL1JLT0dIWmhWdWxENW83ZEFCaUFwNGw0?=
+ =?utf-8?B?QlhQdDBBUDZ2MitDZHl6K2ZMVEdRczhHTWxpYmFVN1lEQXJZa0dEaVNNVm5N?=
+ =?utf-8?B?UVBOWCtFeFdhZUpROUhCZ0ZFcmRBaVdUNjJQNlpwMVROcHJXYllwUlI2ZW5l?=
+ =?utf-8?B?bEpwWldUWHFqVzVoUVBCU1Y0VDdrSktWRGJxSm9ZeHN2MDhZMG1iNlVDekp3?=
+ =?utf-8?B?TEJEcE9RVnkzbTFaUFQrbkJGa0E4ZjRVbEYzNjI3SXZPUkpRcHFPWlBKcDE0?=
+ =?utf-8?B?aitaS0hjczViR2o3NEREZS9XUWJMejEzUlZhUzV1S2hZZ25vTmRLRGtROWYx?=
+ =?utf-8?B?bDhBeDVTbkFUaEtTTkJDWEYrTisyamlvd0lWdTljV3ZnU0J3c3VFdGlxekVw?=
+ =?utf-8?B?MkR1RDhYdXFYVTlhc29KWFhwZDNNU0MyNGh5TG1PTmEwODkyNS83SEc1Q1Ni?=
+ =?utf-8?B?VCtXUlhsQm9sV1A4M1ZDczdpOE5vN3ZuZVNBUTVzazY4VEdIaWtCenY1WFgv?=
+ =?utf-8?B?aitZa3kraTBTVG9oQ1Q5MGhPUkJyK091c0V3cmFBemNxRy9maStZcytkTWFT?=
+ =?utf-8?B?eHNBR2NzM2VMZHl0QXd6Y3BHNThaSHdFN0QwMTVBMW9jd2IxQ2ppb2hZV2pX?=
+ =?utf-8?B?Y3g4SjhJQjlRMTI1U1loWGZVQTZzaTc5MW0ybHVVQ2dRSVBHWUN5TTJ1OXor?=
+ =?utf-8?B?VzAweE5CZStUOEk2Y3lIQVRpTWxuU20xWFEvd2hXVzBnMzdlUVk5WUlJekhu?=
+ =?utf-8?B?bGxmWlJnR3RpVGhHaUpLWTNxYmxqRXQ5MkRPVi93UWhzcXo5bnRIS3B1Yldv?=
+ =?utf-8?B?cXkrZ3oreWpjcmFOTEc4dmNxSHowK3cveUk1b3k5a2srelRHTms3UHdycDB5?=
+ =?utf-8?B?Ym5GWEhOemVNc3VQdnhqNlY2L0kvYVluQ1pUanZYSnFqQ3diUWdWSVhaaGtM?=
+ =?utf-8?B?UnpjeWh3L044YVl5ZFJoU2M1akxMcHRqY3BEMXE1TFJCY1dYYjE1amMwSUNB?=
+ =?utf-8?B?a0s4UzRxTUVrd2VwamNDeXVRT3Z4YTBTM1B1RzNnRUk2UzR1cnorYW9Lekht?=
+ =?utf-8?B?OFlnZTNhTk1kbzJQOFpacURMVnZ3d1BKQkx6U3p3WHVldTlYVFhHR2kxSkFx?=
+ =?utf-8?B?L1RzTVFRYlBmZ2N3bHNUbHYwUDlzeUU4VU5zdnl1TmxaS3VJQVF5S2FrN3FJ?=
+ =?utf-8?B?Tm5IM0d2amlOaEs2Sy9lS0JhSEJqWEptK3F1bDRjdWY1UGJoZ3BLdlhBMWUv?=
+ =?utf-8?B?clhZeHVDZWxVYTRRZmVHMERUZ21LMDhSVDVKcmIveHk5NmY5TzNZYWtmWTJo?=
+ =?utf-8?B?Vk9XelM3akgwMlZSeHJ6RG44QlRUT2d3T0M1WnBrVUpxd3R0VXg2NXNrZXk0?=
+ =?utf-8?B?NlROR0hzNnI0RVNONXhWS1cvNzhzNDBDVitSSDBSTzAvb01CSHplZz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c31be38b-edc0-4778-2668-08df149a1bbc
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 09:00:23.5001
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mr9J+4KdWQM+pSGg7sxsjRkBhXzvVbdpIihOqdl6OAEXIYC307lJr62Y6Py5mHGKOA4s75ZDUjUa2kuTNuNJBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11628
 
-Add a driver for the NXP PCA9641 2-to-1 I2C bus master arbiter.
+On 9/16/2026 7:14 PM, Frank Li wrote:
+> On Wed, Sep 16, 2026 at 10:44:02AM +0200, Larisa Grigore wrote:
+>> Move the Tx/Rx FSM state definitions from ufshcd-dwc.h to
+>> include/ufs/unipro.h.
+>>
+>> These state values are UniPro/M-PHY related and are not specific to
+>> the DesignWare UFS host controller implementation, so unipro.h is a
+>> more appropriate location for sharing them.
+>>
+>> As part of this move, drop the driver-private TX_FSM_HIBERN8 define in
+>> ufs-hisi and ufs-qcom and repoint their Hibern8 checks at the shared
+>> TX_STATE_HIBERN8 enum constant. This is a no-op change: TX_FSM_HIBERN8
+>> was 0x1 and TX_STATE_HIBERN8 is 1, so the compared values are identical.
+>>
+>> This also prepares for using these definitions in a subsequent commit.
+>>
+>> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+>> ---
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-The PCA9641 allows two upstream I2C masters to share a single downstream
-slave bus using a lock/grant protocol: a master asserts LOCK_REQ, waits
-for LOCK_GRANT, sets BUS_CONNECT to open the switch, performs transactions,
-then clears LOCK_REQ to release the bus.
-
-The driver supports interrupt-assisted arbitration when INT0/INT1 is
-connected to a GPIO. A threaded IRQ handler signals a completion variable
-that select_chan() waits on, avoiding busy-polling. Polling mode is used
-when no interrupt is configured.
-
-Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
----
-Changes in v2:
-- Drop IRQF_SHARED from the threaded IRQ request.
-- Clear the latched LOCK_REQ on every timeout path in
-  pca9641_select_chan() so a master that gives up does not block the
-  peer master.
-- Reorder probe interrupt setup: mask all sources and clear stale
-  INT_STATUS before requesting the IRQ, then unmask LOCK_GRANT and
-  BUS_LOST.
-- Re-mask interrupts if i2c_mux_add_adapter() fails.
-- Unregister the child adapter before masking interrupts in
-  pca9641_remove().
-- Use a named initializer for the i2c_device_id table.
-
- MAINTAINERS                         |   7 +
- drivers/i2c/muxes/Kconfig           |  15 +
- drivers/i2c/muxes/Makefile          |   1 +
- drivers/i2c/muxes/i2c-mux-pca9641.c | 420 ++++++++++++++++++++++++++++
- 4 files changed, 443 insertions(+)
- create mode 100644 drivers/i2c/muxes/i2c-mux-pca9641.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6215fcb07770..2b02090edc9e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12250,6 +12250,13 @@ S:	Maintained
- F:	Documentation/i2c/busses/i2c-nvidia-gpu.rst
- F:	drivers/i2c/busses/i2c-nvidia-gpu.c
- 
-+NXP PCA9641 I2C BUS MASTER ARBITER DRIVER
-+M:	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-+L:	linux-i2c@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/i2c/nxp,pca9641.yaml
-+F:	drivers/i2c/muxes/i2c-mux-pca9641.c
-+
- I2C MUXES
- M:	Peter Rosin <peda@lysator.liu.se>
- L:	linux-i2c@vger.kernel.org
-diff --git a/drivers/i2c/muxes/Kconfig b/drivers/i2c/muxes/Kconfig
-index 6d2f66810cdc..0caff9592466 100644
---- a/drivers/i2c/muxes/Kconfig
-+++ b/drivers/i2c/muxes/Kconfig
-@@ -64,6 +64,21 @@ config I2C_MUX_PCA9541
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-mux-pca9541.
- 
-+config I2C_MUX_PCA9641
-+	tristate "NXP PCA9641 I2C Master Arbiter"
-+	help
-+	  If you say yes here you get support for the NXP PCA9641
-+	  2-to-1 I2C bus master arbiter.
-+
-+	  The PCA9641 arbitrates between two upstream I2C masters competing
-+	  for a single downstream slave bus. It implements a lock/grant
-+	  ownership model with an optional reserve time window, hardware
-+	  interrupt outputs (INT0/INT1), and a 16-bit shared mailbox for
-+	  inter-master communication.
-+
-+	  This driver can also be built as a module.  If so, the module
-+	  will be called i2c-mux-pca9641.
-+
- config I2C_MUX_PCA954x
- 	tristate "NXP PCA954x/PCA984x and Maxim MAX735x/MAX736x I2C Mux/switches"
- 	depends on GPIOLIB || COMPILE_TEST
-diff --git a/drivers/i2c/muxes/Makefile b/drivers/i2c/muxes/Makefile
-index 4b24f49515a7..a50df4013224 100644
---- a/drivers/i2c/muxes/Makefile
-+++ b/drivers/i2c/muxes/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_I2C_MUX_LTC4306)	+= i2c-mux-ltc4306.o
- obj-$(CONFIG_I2C_MUX_MLXCPLD)	+= i2c-mux-mlxcpld.o
- obj-$(CONFIG_I2C_MUX_MULE)	+= i2c-mux-mule.o
- obj-$(CONFIG_I2C_MUX_PCA9541)	+= i2c-mux-pca9541.o
-+obj-$(CONFIG_I2C_MUX_PCA9641)	+= i2c-mux-pca9641.o
- obj-$(CONFIG_I2C_MUX_PCA954x)	+= i2c-mux-pca954x.o
- obj-$(CONFIG_I2C_MUX_PINCTRL)	+= i2c-mux-pinctrl.o
- obj-$(CONFIG_I2C_MUX_REG)	+= i2c-mux-reg.o
-diff --git a/drivers/i2c/muxes/i2c-mux-pca9641.c b/drivers/i2c/muxes/i2c-mux-pca9641.c
-new file mode 100644
-index 000000000000..a37820cf6c2e
---- /dev/null
-+++ b/drivers/i2c/muxes/i2c-mux-pca9641.c
-@@ -0,0 +1,420 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * I2C multiplexer driver for PCA9641 2-to-1 I2C bus master arbiter
-+ *
-+ * Copyright (C) 2026 Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-+ *
-+ * Based on i2c-mux-pca9541.c by Guenter Roeck <linux@roeck-us.net>
-+ *
-+ * Datasheet: https://www.nxp.com/docs/en/data-sheet/PCA9641.pdf
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/i2c-mux.h>
-+#include <linux/interrupt.h>
-+#include <linux/jiffies.h>
-+#include <linux/module.h>
-+#include <linux/slab.h>
-+
-+/* Register addresses, selected via the 3 LSBs of the command code byte */
-+#define PCA9641_ID          0x00  /* Device ID register (R only, value 0x38) */
-+#define PCA9641_CONTR       0x01  /* Control register (R/W) */
-+#define PCA9641_STATUS      0x02  /* Status register (R/W) */
-+#define PCA9641_INT_STATUS  0x04  /* Interrupt Status register (R/W, sticky) */
-+#define PCA9641_INT_MSK     0x05  /* Interrupt Mask register (R/W) */
-+
-+/* CONTR register (0x01) bit definitions */
-+#define PCA9641_CTL_LOCK_REQ        BIT(0)  /* Request downstream bus ownership */
-+#define PCA9641_CTL_LOCK_GRANT      BIT(1)  /* Downstream bus granted (R only) */
-+#define PCA9641_CTL_BUS_CONNECT     BIT(2)  /* Connect master to downstream bus */
-+
-+/* STATUS register (0x02) bit definitions */
-+#define PCA9641_STA_OTHER_LOCK      BIT(0)  /* Other master currently holds the lock (R only) */
-+
-+/* INT_STATUS register (0x04) bit definitions (sticky, clear by writing 1) */
-+#define PCA9641_INTS_BUS_LOST       BIT(1)  /* This master involuntarily lost the bus */
-+#define PCA9641_INTS_LOCK_GRANT     BIT(2)  /* This master was granted the bus */
-+
-+/* INT_MSK register (0x05) bit definitions (1 = masked/disabled, POR = 0x7F) */
-+#define PCA9641_MSK_BUS_LOST        BIT(1)
-+#define PCA9641_MSK_LOCK_GRANT      BIT(2)
-+
-+/* POR value of INT_MSK: all interrupt sources masked */
-+#define PCA9641_INT_MSK_ALL         0x7Fu
-+
-+/*
-+ * Interrupt mask value that enables only LOCK_GRANT and BUS_LOST.
-+ * All other sources remain masked (bit = 1 means masked).
-+ */
-+#define PCA9641_INT_MSK_ARB \
-+	(PCA9641_INT_MSK_ALL & ~(PCA9641_MSK_LOCK_GRANT | PCA9641_MSK_BUS_LOST))
-+
-+/* Sticky INT_STATUS bits used by the arbitration logic (write 1 to clear) */
-+#define PCA9641_INTS_ARB \
-+	(PCA9641_INTS_LOCK_GRANT | PCA9641_INTS_BUS_LOST)
-+
-+/* Value in ID register that uniquely identifies PCA9641 (vs. PCA9541) */
-+#define PCA9641_ID_MAGIC            0x38u
-+
-+/* Arbitration retry delays (microseconds) */
-+#define PCA9641_DELAY_SHORT         50u
-+#define PCA9641_DELAY_LONG          1000u
-+
-+/**
-+ * struct pca9641 - per-device driver state
-+ * @client:          I2C client for the arbiter device
-+ * @select_timeout:  Current polling retry delay in microseconds
-+ * @irq:             Linux IRQ number for INT0/INT1 GPIO, or -1 if not used
-+ * @lock_grant_comp: Completion signaled from the IRQ handler on LOCK_GRANT
-+ */
-+struct pca9641 {
-+	struct i2c_client *client;
-+	unsigned long select_timeout;
-+	int irq;
-+	struct completion lock_grant_comp;
-+};
-+
-+static const struct i2c_device_id pca9641_id[] = {
-+	{ .name = "pca9641" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, pca9641_id);
-+
-+static const struct of_device_id pca9641_of_match[] = {
-+	{ .compatible = "nxp,pca9641" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, pca9641_of_match);
-+
-+/*
-+ * Write to chip register. Don't use i2c_transfer()/i2c_smbus_xfer()
-+ * as they will try to lock the adapter a second time.
-+ */
-+static int pca9641_reg_write(struct i2c_client *client, u8 reg, u8 val)
-+{
-+	union i2c_smbus_data data = { .byte = val };
-+
-+	return __i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-+				I2C_SMBUS_WRITE, reg,
-+				I2C_SMBUS_BYTE_DATA, &data);
-+}
-+
-+/*
-+ * Read from chip register. Don't use i2c_transfer()/i2c_smbus_xfer()
-+ * as they will try to lock adapter a second time.
-+ */
-+static int pca9641_reg_read(struct i2c_client *client, u8 reg)
-+{
-+	union i2c_smbus_data data;
-+	int ret;
-+
-+	ret = __i2c_smbus_xfer(client->adapter, client->addr, client->flags,
-+			       I2C_SMBUS_READ, reg,
-+			       I2C_SMBUS_BYTE_DATA, &data);
-+
-+	return ret ? ret : (int)data.byte;
-+}
-+
-+/*
-+ * Release bus ownership. Writing 0 clears LOCK_REQ (and BUS_CONNECT),
-+ * which lets the arbiter grant the downstream bus to the other master.
-+ */
-+static void pca9641_release_bus(struct i2c_client *client)
-+{
-+	pca9641_reg_write(client, PCA9641_CONTR, 0x00);
-+}
-+
-+/*
-+ * Threaded IRQ handler for INT0/INT1. Signals the completion waited on by
-+ * pca9641_select_chan(). No I2C access here to avoid deadlock on the adapter
-+ * mutex held by select_chan().
-+ */
-+static irqreturn_t pca9641_irq_handler(int irq, void *dev_id)
-+{
-+	struct pca9641 *data = dev_id;
-+
-+	complete(&data->lock_grant_comp);
-+	return IRQ_HANDLED;
-+}
-+
-+/*
-+ * Arbitration management. Asserts LOCK_REQ and checks LOCK_GRANT to acquire
-+ * the downstream bus. Returns 1 when acquired, 0 to retry, <0 on error.
-+ */
-+static int pca9641_arbitrate(struct i2c_client *client)
-+{
-+	struct i2c_mux_core *muxc = i2c_get_clientdata(client);
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	int ctrl, status, ret;
-+
-+	ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+	if (ctrl < 0)
-+		return ctrl;
-+
-+	if (ctrl & PCA9641_CTL_LOCK_GRANT) {
-+		if (!(ctrl & PCA9641_CTL_BUS_CONNECT)) {
-+			ret = pca9641_reg_write(client, PCA9641_CONTR,
-+						(u8)(ctrl | PCA9641_CTL_BUS_CONNECT));
-+			if (ret < 0)
-+				return ret;
-+		}
-+		return 1;
-+	}
-+
-+	if (!(ctrl & PCA9641_CTL_LOCK_REQ)) {
-+		ret = pca9641_reg_write(client, PCA9641_CONTR,
-+					(u8)(ctrl | PCA9641_CTL_LOCK_REQ));
-+		if (ret < 0)
-+			return ret;
-+		data->select_timeout = PCA9641_DELAY_SHORT;
-+		return 0;
-+	}
-+
-+	status = pca9641_reg_read(client, PCA9641_STATUS);
-+	if (status < 0)
-+		return status;
-+
-+	data->select_timeout = (status & PCA9641_STA_OTHER_LOCK) ?
-+				PCA9641_DELAY_LONG : PCA9641_DELAY_SHORT;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Acquire the downstream bus before a transaction. Uses interrupt mode
-+ * if IRQ is available, polling otherwise.
-+ */
-+static int pca9641_select_chan(struct i2c_mux_core *muxc, u32 chan)
-+{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+	struct i2c_client *client = data->client;
-+	unsigned long timeout = jiffies + 2 * client->adapter->timeout;
-+	int ctrl, ret;
-+
-+	if (data->irq > 0) {
-+		reinit_completion(&data->lock_grant_comp);
-+
-+		ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+		if (ctrl < 0)
-+			return ctrl;
-+
-+		if (ctrl & PCA9641_CTL_LOCK_GRANT)
-+			goto set_bus_connect;
-+
-+		ret = pca9641_reg_write(client, PCA9641_CONTR,
-+					(u8)((ctrl & ~PCA9641_CTL_BUS_CONNECT) |
-+					     PCA9641_CTL_LOCK_REQ));
-+		if (ret < 0)
-+			return ret;
-+
-+		if (!wait_for_completion_timeout(&data->lock_grant_comp,
-+						 client->adapter->timeout)) {
-+			ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+			if (ctrl < 0)
-+				return ctrl;
-+			if (!(ctrl & PCA9641_CTL_LOCK_GRANT)) {
-+				dev_warn(&client->dev,
-+					 "Timed out waiting for bus grant\n");
-+				/*
-+				 * Clear our latched LOCK_REQ so the arbiter is
-+				 * not left holding a request for a master that
-+				 * has given up, which would block the peer.
-+				 */
-+				pca9641_release_bus(client);
-+				return -ETIMEDOUT;
-+			}
-+			goto set_bus_connect;
-+		}
-+
-+		ctrl = pca9641_reg_read(client, PCA9641_CONTR);
-+		if (ctrl < 0)
-+			return ctrl;
-+
-+		if (!(ctrl & PCA9641_CTL_LOCK_GRANT)) {
-+			dev_warn(&client->dev,
-+				 "Interrupt fired but LOCK_GRANT not set\n");
-+			pca9641_release_bus(client);
-+			return -ETIMEDOUT;
-+		}
-+
-+set_bus_connect:
-+		(void)pca9641_reg_write(client, PCA9641_INT_STATUS,
-+					PCA9641_INTS_ARB);
-+
-+		if (!(ctrl & PCA9641_CTL_BUS_CONNECT)) {
-+			ret = pca9641_reg_write(client, PCA9641_CONTR,
-+						(u8)(ctrl | PCA9641_CTL_BUS_CONNECT));
-+			if (ret < 0)
-+				return ret;
-+		}
-+		return 0;
-+	}
-+
-+	do {
-+		ret = pca9641_arbitrate(client);
-+		if (ret)
-+			return ret < 0 ? ret : 0;
-+
-+		if (data->select_timeout <= PCA9641_DELAY_SHORT)
-+			udelay(data->select_timeout);
-+		else
-+			msleep(data->select_timeout / 1000);
-+	} while (time_is_after_eq_jiffies(timeout));
-+
-+	dev_warn(&client->dev, "Failed to acquire I2C bus, timed out\n");
-+	/* Drop our latched LOCK_REQ so the peer master is not blocked. */
-+	pca9641_release_bus(client);
-+	return -ETIMEDOUT;
-+}
-+
-+/* Release the downstream bus after a transaction completes. */
-+static int pca9641_release_chan(struct i2c_mux_core *muxc, u32 chan)
-+{
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+
-+	pca9641_release_bus(data->client);
-+	return 0;
-+}
-+
-+static int pca9641_probe(struct i2c_client *client)
-+{
-+	struct i2c_adapter *adap = client->adapter;
-+	struct i2c_mux_core *muxc;
-+	struct pca9641 *data;
-+	int id, ret;
-+
-+	if (!i2c_check_functionality(adap, I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -ENODEV;
-+
-+	id = i2c_smbus_read_byte_data(client, PCA9641_ID);
-+	if (id < 0) {
-+		dev_err(&client->dev, "Failed to read device ID: %d\n", id);
-+		return id;
-+	}
-+	if ((u8)id != PCA9641_ID_MAGIC) {
-+		dev_err(&client->dev,
-+			"Unexpected device ID 0x%02x (expected 0x%02x for PCA9641)\n",
-+			(u8)id, PCA9641_ID_MAGIC);
-+		return -ENODEV;
-+	}
-+
-+	/* Clear any stale bus ownership from a previous crash. */
-+	i2c_lock_bus(adap, I2C_LOCK_SEGMENT);
-+	pca9641_release_bus(client);
-+	i2c_unlock_bus(adap, I2C_LOCK_SEGMENT);
-+
-+	muxc = i2c_mux_alloc(adap, &client->dev, 1, sizeof(*data),
-+			     I2C_MUX_ARBITRATOR,
-+			     pca9641_select_chan, pca9641_release_chan);
-+	if (!muxc)
-+		return -ENOMEM;
-+
-+	data = i2c_mux_priv(muxc);
-+	data->client = client;
-+	data->irq = -1;
-+	init_completion(&data->lock_grant_comp);
-+
-+	i2c_set_clientdata(client, muxc);
-+
-+	/* Optional interrupt mode; fall back to polling on failure. */
-+	if (client->irq > 0) {
-+		/*
-+		 * Start from a known state: mask all sources and clear any
-+		 * stale sticky status before the handler is registered.
-+		 */
-+		ret = i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-+						PCA9641_INT_MSK_ALL);
-+		if (ret < 0) {
-+			dev_warn(&client->dev,
-+				 "Failed to mask interrupts (%d); using polling\n",
-+				 ret);
-+			goto add_adapter;
-+		}
-+		i2c_smbus_write_byte_data(client, PCA9641_INT_STATUS,
-+					  PCA9641_INTS_ARB);
-+
-+		/*
-+		 * Register the handler before unmasking the device so a
-+		 * pending interrupt cannot fire into an unregistered line.
-+		 */
-+		ret = devm_request_threaded_irq(&client->dev, client->irq,
-+						NULL, pca9641_irq_handler,
-+						IRQF_ONESHOT,
-+						dev_name(&client->dev), data);
-+		if (ret < 0) {
-+			dev_warn(&client->dev,
-+				 "Failed to request IRQ %d (%d); using polling\n",
-+				 client->irq, ret);
-+			goto add_adapter;
-+		}
-+
-+		/* Handler is ready; now enable LOCK_GRANT + BUS_LOST. */
-+		ret = i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-+						PCA9641_INT_MSK_ARB);
-+		if (ret < 0) {
-+			dev_warn(&client->dev,
-+				 "Failed to enable interrupts (%d); using polling\n",
-+				 ret);
-+			goto add_adapter;
-+		}
-+
-+		data->irq = client->irq;
-+		dev_dbg(&client->dev,
-+			"Interrupt mode enabled on IRQ %d\n",
-+			client->irq);
-+	}
-+
-+add_adapter:
-+	ret = i2c_mux_add_adapter(muxc, 0, 0);
-+	if (ret) {
-+		/* Re-mask so a left-enabled source cannot storm the line. */
-+		if (data->irq > 0)
-+			i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-+						  PCA9641_INT_MSK_ALL);
-+		return ret;
-+	}
-+
-+	dev_info(&client->dev,
-+		 "PCA9641 I2C master arbiter registered (I2C bus %s, %s mode)\n",
-+		 client->name,
-+		 data->irq > 0 ? "interrupt" : "polling");
-+
-+	return 0;
-+}
-+
-+static void pca9641_remove(struct i2c_client *client)
-+{
-+	struct i2c_mux_core *muxc = i2c_get_clientdata(client);
-+	struct pca9641 *data = i2c_mux_priv(muxc);
-+
-+	/*
-+	 * Unregister the child adapter first so any in-flight downstream
-+	 * transaction can finish arbitration before the interrupt that
-+	 * drives it is masked.
-+	 */
-+	i2c_mux_del_adapters(muxc);
-+
-+	if (data->irq > 0)
-+		(void)i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-+						PCA9641_INT_MSK_ALL);
-+}
-+
-+static struct i2c_driver pca9641_driver = {
-+	.driver = {
-+		.name		= "pca9641",
-+		.of_match_table	= pca9641_of_match,
-+	},
-+	.probe		= pca9641_probe,
-+	.remove		= pca9641_remove,
-+	.id_table	= pca9641_id,
-+};
-+
-+module_i2c_driver(pca9641_driver);
-+
-+MODULE_AUTHOR("Shiv Prakash Gupta <shivprakash.gupta@nxp.com>");
-+MODULE_DESCRIPTION("PCA9641 2-to-1 I2C bus master arbiter driver");
-+MODULE_LICENSE("GPL");
--- 
-2.34.1
+Thank you!
+>>   drivers/ufs/host/ufs-hisi.c   |  8 ++++----
+>>   drivers/ufs/host/ufs-hisi.h   |  1 -
+>>   drivers/ufs/host/ufs-qcom.c   |  4 ++--
+>>   drivers/ufs/host/ufs-qcom.h   |  1 -
+>>   drivers/ufs/host/ufshcd-dwc.h | 19 -------------------
+>>   include/ufs/unipro.h          | 20 ++++++++++++++++++++
+>>   6 files changed, 26 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+>> index 993e20ac211d..2d214ce9620e 100644
+>> --- a/drivers/ufs/host/ufs-hisi.c
+>> +++ b/drivers/ufs/host/ufs-hisi.c
+>> @@ -34,8 +34,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+>>   				      &tx_fsm_val_0);
+>>   		err |= ufshcd_dme_get(hba,
+>>   		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
+>> -		if (err || (tx_fsm_val_0 == TX_FSM_HIBERN8 &&
+>> -			tx_fsm_val_1 == TX_FSM_HIBERN8))
+>> +		if (err || (tx_fsm_val_0 == TX_STATE_HIBERN8 &&
+>> +			tx_fsm_val_1 == TX_STATE_HIBERN8))
+>>   			break;
+>>
+>>   		/* sleep for max. 200us */
+>> @@ -56,8 +56,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+>>   	if (err) {
+>>   		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+>>   			__func__, err);
+>> -	} else if (tx_fsm_val_0 != TX_FSM_HIBERN8 ||
+>> -			 tx_fsm_val_1 != TX_FSM_HIBERN8) {
+>> +	} else if (tx_fsm_val_0 != TX_STATE_HIBERN8 ||
+>> +			 tx_fsm_val_1 != TX_STATE_HIBERN8) {
+>>   		err = -1;
+>>   		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+>>   			__func__, tx_fsm_val_0, tx_fsm_val_1);
+>> diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
+>> index 5a90c0f4e90c..6af6a268458d 100644
+>> --- a/drivers/ufs/host/ufs-hisi.h
+>> +++ b/drivers/ufs/host/ufs-hisi.h
+>> @@ -43,7 +43,6 @@
+>>    * M-TX Configuration Attributes for Hixxxx
+>>    */
+>>   #define MPHY_TX_FSM_STATE	0x41
+>> -#define TX_FSM_HIBERN8	0x1
+>>
+>>   /*
+>>    * Hixxxx UFS HC specific Registers
+>> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+>> index 954be9343f42..38897d01fde2 100644
+>> --- a/drivers/ufs/host/ufs-qcom.c
+>> +++ b/drivers/ufs/host/ufs-qcom.c
+>> @@ -393,7 +393,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+>>   				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
+>>   					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+>>   				&tx_fsm_val);
+>> -		if (err || tx_fsm_val == TX_FSM_HIBERN8)
+>> +		if (err || tx_fsm_val == TX_STATE_HIBERN8)
+>>   			break;
+>>
+>>   		/* sleep for max. 200us */
+>> @@ -413,7 +413,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+>>   	if (err) {
+>>   		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+>>   				__func__, err);
+>> -	} else if (tx_fsm_val != TX_FSM_HIBERN8) {
+>> +	} else if (tx_fsm_val != TX_STATE_HIBERN8) {
+>>   		err = tx_fsm_val;
+>>   		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+>>   				__func__, err);
+>> diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+>> index a5ad5ce44a19..3c6cb2281af0 100644
+>> --- a/drivers/ufs/host/ufs-qcom.h
+>> +++ b/drivers/ufs/host/ufs-qcom.h
+>> @@ -11,7 +11,6 @@
+>>   #include <ufs/ufshcd.h>
+>>
+>>   #define MPHY_TX_FSM_STATE       0x41
+>> -#define TX_FSM_HIBERN8          0x1
+>>   #define HBRN8_POLL_TOUT_MS      100
+>>   #define DEFAULT_CLK_RATE_HZ     1000000
+>>   #define MAX_SUPP_MAC		64
+>> diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+>> index c618bb914904..a5e40e7604a1 100644
+>> --- a/drivers/ufs/host/ufshcd-dwc.h
+>> +++ b/drivers/ufs/host/ufshcd-dwc.h
+>> @@ -39,25 +39,6 @@
+>>   #define RX_AFE_CTLE_IDAC(n)	(0x4001 + ((n) * 0x100))
+>>   #define FW_CALIB_CCFG(n)	(0x404D + ((n) * 0x100))
+>>
+>> -/* Tx/Rx FSM state */
+>> -enum rx_fsm_state {
+>> -	RX_STATE_DISABLED = 0,
+>> -	RX_STATE_HIBERN8 = 1,
+>> -	RX_STATE_SLEEP = 2,
+>> -	RX_STATE_STALL = 3,
+>> -	RX_STATE_LSBURST = 4,
+>> -	RX_STATE_HSBURST = 5,
+>> -};
+>> -
+>> -enum tx_fsm_state {
+>> -	TX_STATE_DISABLED = 0,
+>> -	TX_STATE_HIBERN8 = 1,
+>> -	TX_STATE_SLEEP = 2,
+>> -	TX_STATE_STALL = 3,
+>> -	TX_STATE_LSBURST = 4,
+>> -	TX_STATE_HSBURST = 5,
+>> -};
+>> -
+>>   struct ufshcd_dme_attr_val {
+>>   	u32 attr_sel;
+>>   	u32 mib_val;
+>> diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
+>> index 9c168703b104..e0f490e11c7f 100644
+>> --- a/include/ufs/unipro.h
+>> +++ b/include/ufs/unipro.h
+>> @@ -466,4 +466,24 @@ enum {
+>>   	CPORT_CONNECTED,
+>>   };
+>>
+>> +/* RX_FSM_State encoding, MIPI M-PHY v6.0 Table 50 (M-RX Status Attributes) */
+>> +enum ufs_rx_fsm_state {
+>> +	RX_STATE_DISABLED = 0,
+>> +	RX_STATE_HIBERN8 = 1,
+>> +	RX_STATE_SLEEP = 2,
+>> +	RX_STATE_STALL = 3,
+>> +	RX_STATE_LSBURST = 4,
+>> +	RX_STATE_HSBURST = 5,
+>> +};
+>> +
+>> +/* TX_FSM_State encoding, MIPI M-PHY v6.0 Table 47 (M-TX Status Attributes) */
+>> +enum ufs_tx_fsm_state {
+>> +	TX_STATE_DISABLED = 0,
+>> +	TX_STATE_HIBERN8 = 1,
+>> +	TX_STATE_SLEEP = 2,
+>> +	TX_STATE_STALL = 3,
+>> +	TX_STATE_LSBURST = 4,
+>> +	TX_STATE_HSBURST = 5,
+>> +};
+>> +
+>>   #endif /* _UNIPRO_H_ */
+>> --
+>> 2.43.0
+>>
+>>
 
