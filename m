@@ -1,73 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010673033D8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A06E382299;
+	Thu, 17 Sep 2026 07:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631429; cv=none; b=gLN6pisRJvypZerRr2Bz+cCU/6QCBDH2ePRfUOmLnMLSy+4bseQzK3K7FGIt9MMQsrqa3gEs50fbj4Q1HtZd3HVUVk4QoWt13lXrfBmzoGxjn/8gOK0MTz6ErIIZrumfb2Tyb7eZsADhx0WjVBWX/woWZpG/K0WaPCK19KzUy2Y=
+	t=1789631486; cv=none; b=jyL/TZ8oseHZa+9lW3B6xxplVuirvRf3yEaJGi5v7MRZzwLmPIbXJg6GfbezUZSsWpOPPJqUnbHraBnBMT6l3JXoXb91Pmy6CBsCkpWRz7bN49T40anWLUhZU6YkzKIUxpa/INUloXne8XZ6hWCgGzbJLisqLGE7Qf+QvpVYoWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631429; c=relaxed/simple;
-	bh=JvmJSmcIpi61JUYXX2SSREEZE7UoMBYzmRbwBiQxDgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pfmKXSGxkTBHjD9bEb+zHERLSgcvwvvjT6Mwr+jRqIannLFGvK0/50RfxFul+0IwG3qZIPz8THQqQi97Sm/xQVEZ4q+9cJW9e54EyqjmuPKBqVHTycmRL0zX1vCZiWJMogSHlphXUDIgTdarwRBQE91WGqAMEEXO4rbmQf5Bu1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LFvNGzoi; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789631486; c=relaxed/simple;
+	bh=/QJLjEEFUSfP01bZFXaO00kTEnPjIfUKzqB2JUqvkJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=odPhW17sz44E+i+VRLPA0K42RBURyHdqidCucIjKjtnAalsOtCc/FXAhdzf/NmSjCZB2yaHFNCFZIOHV7PCNOJ3yiCOzl3tDi3wB/biF/NtHZP5Dwt5CTaaZby/DD06henp8jcR5Q+oGthIMV2syvR/X0RMmpfrNC0Ex3BoCHp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3xwywF1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LFvNGzoi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Fo
-	sAeGOR7AXGO4PfO3CMoooq2gVzVdZ2o9cGkWX8ls4=; b=LFvNGzoi1fximF2a0Q
-	TplBxJadG+Djpaf6zT8tsO926VE2paJ3goRHY4ZFbnMQ1JLNThIGwJxR7cgDgUj3
-	TzI0eOPsDcpOaNrJzCnRKslmMmVJuKvs/b3MZkj5I+11Rbqpah89h2KHcPtm7ZnR
-	0rgaeQLZFui+EC6d/MUupA9Ro=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3v5Cxm6tqUPnZBA--.15363S2;
-	Thu, 17 Sep 2026 15:50:10 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzbot+7d1563afac6cb196a444@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] hpfs: reject dirents with an invalid length in hpfs_count_dnodes()
-Date: Thu, 17 Sep 2026 15:50:10 +0800
-Message-ID: <20260917075010.328328-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <5b039133-96c2-6b51-a2f2-da1205234ed6@redhat.com>
-References: <20260916073354.40306-1-quchaosheng000406@163.com> <5b039133-96c2-6b51-a2f2-da1205234ed6@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3xwywF1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58361F000FF;
+	Thu, 17 Sep 2026 07:51:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789631485;
+	bh=gnTwlE8vXLouBpo3zgoY8WtBR+qNusYyWfPZr7YNzr0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m3xwywF1x2dNxru/88y11Jm0HWHD1B/6Wwuw8lE+KPMVIo+xdkMnfJB99wlL98z1B
+	 ycrANUp/YWFNcoeDY49fP27elybl+V3a1ox+5GWpmXlGpPJeR0wWOHn7BrAMM3kKH6
+	 AWtvNopbVC/e0fKHODRAI9g5LILH33nLB0Tzu6PZGx1oXeJS9x62xAF6um5MtgkJzD
+	 ZAT/+yrU/4+jARQeGadxY4AYcJ4BuEwgduQO0DZNaE6WJWco4iRxYc7zBAg4tslFga
+	 a+VQF+h5AK6WplXcMmz4JAaeH4ikbTY/0GgR2pDzxr+JcLElty9iyKD2+ff8+gxwus
+	 w+eQBJufdlZOg==
+Date: Thu, 17 Sep 2026 08:51:15 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: syzbot <syzbot+c3178b6b512446632bac@syzkaller.appspotmail.com>
+Cc: akpm@linux-foundation.org, bigeasy@linutronix.de, dwmw2@infradead.org, 
+	dwmw@amazon.co.uk, kvm@vger.kernel.org, liam.howlett@oracle.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, 
+	lkp@intel.com, llvm@lists.linux.dev, lorenzo.stoakes@oracle.com, 
+	me@brighamcampbell.com, mhocko@suse.com, nogikh@google.com, 
+	oe-kbuild-all@lists.linux.dev, pbonzini@redhat.com, rientjes@google.com, rppt@kernel.org, 
+	seanjc@google.com, shaikhkamal2012@gmail.com, shakeel.butt@linux.dev, 
+	skhan@linuxfoundation.org, surenb@google.com, syzkaller-bugs@googlegroups.com, 
+	vbabka@kernel.org
+Subject: Re: [syzbot] [kvm?] BUG: sleeping function called from invalid
+ context in kvm_mmu_notifier_invalidate_range_start
+Message-ID: <aqubuvR_2XCNav28@gremlin>
+References: <aqrZMReaQPG0M9oV@gremlin>
+ <6aaaecd6.4e05fbd6.392abc.0003.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v5Cxm6tqUPnZBA--.15363S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZw4kGF15Ww1fGw4rAr4xZwb_yoW3Gwc_Jr
-	1qyr1a9w1xJr48ZanrKF10qrZ7GF40kr43Zw18Xr12y3s2qF10qFZIvwn2yF1xGa90vrn8
-	A3WFya17CFnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRE89NPUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABKYDmqrm7I4agAA3+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6aaaecd6.4e05fbd6.392abc.0003.GAE@google.com>
 
-Hi Mikulas,
+On Wed, Sep 16, 2026 at 12:24:06PM -0700, syzbot wrote:
+> Hello,
+>
+> syzbot tried to test the proposed patch but the build/boot failed:
+>
+> failed to apply patch:
+> error: corrupt patch at line 7
 
-Thanks for looking at it, and you are right. I checked the syzbot reproducer
-and it mounts with
+OK let's try again, aping
+https://lore.kernel.org/all/b434f7828a4d7b24de76aa5609dadda2871a932a.camel@infradead.org/
+as I see this branch is still there (David W - I hope this is OK! :)
 
-	eas=no,case=asis,check=none,
+#syz test git://git.infradead.org/users/dwmw2/linux.git seb-nonblock-rt-test
 
-so this only reproduces with check=none, which is the documented behaviour:
-"no fs checks - kernel may crash on corrupted filesystem". The check in
-hpfs_map_dnode() does cover the dirent chain that hpfs_count_dnodes() walks
-(from offset 20 up to first_free, which is exactly the range the walk covers),
-so with the default check=normal the walk is already bounded.
+>
+>
+>
+> Tested on:
+>
+> commit:         9b87fdc9 Merge tag 'sched_ext-for-7.3-rc3-fixes' of gi..
+> git tree:       upstream
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c3178b6b512446632bac
+> compiler:
+> patch:          https://syzkaller.appspot.com/x/patch.diff?x=15a16bf9580000
+>
 
-I also should have added an "Assisted-by: LLM ..." tag to this submission per
-Documentation/process/coding-assistants.rst, and did not. Sorry for the noise
-and for the extra round trip.
-
-Please drop the patch.
-
-Thanks,
-Quchaosheng
-
+--
+Cheers, Lorenzo
