@@ -1,126 +1,136 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B734FDE7F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EDA49C4D3;
+	Thu, 17 Sep 2026 12:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648654; cv=none; b=J/uOoUCWk0iR9+wAAvVtamg/AJmLOY3v4w+alC963nufO1SEaIxGTEvL/pVOaaVt6yyGc2uLpvhIK23lJ1UuHJMi69j2oPT0Q309mQwApiRTQuFN+3NE/tHQt43Jy50i4jtdSi3fv/WV6i4rYp8dAb+aCT/s0CK04vKGYTntSDQ=
+	t=1789648652; cv=none; b=eFUU0LLwdU80YnOt+ZJpeTZttSymT8hd+0A33QpgbgOaUCKdj3fAAzXxVqU5nijEaXPp9zX7QfIfTqU/+Xb23W+yRftoDPbD6hfV1INy3V8t8jclzVhywud0SDXciCYlE86GmF/DwJzvlWrGwWaqgDXk2VdOao/cWm3nwLAa9xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648654; c=relaxed/simple;
-	bh=UjrMYB1SJaVixFfmpvISBt1Okp74qLFloaIEp+D4dWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UaGkA1nOtYxAwUAF2j/5cBy08KNuCU5dJN3yUEj+NnAsVCQ1SkjVQlODnYJpgVO12ydv8XWFje8Vwh1GLveF5FhMqnqGHygpAfq6laKlkQc29nFBtpQVI9SdmVsLCt4gvuVez8IjnOvIZxQuw038mSrwlZkFEiZRX/VtfONqZdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pdp2Dl2I; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789648652; c=relaxed/simple;
+	bh=cdlHw7kaZBru7Db0ys7AceoZFYCOW7iYpbcZggcZFgY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mnH7G3HadP2kc/PaTjxC7I6BWVkrlgrWUBJ/XSPKT8nnczgMRoqnhkn0d3qSzWKkQiv+wG5r0Cumjem6NRPnxB3RqXJtNUKqzkhY/lv2B0gZcshakWP29sXsPrN5v1ipOwr7W3qyQHCwywV/zWp3ddvDLN9zzgCv9QYdZ6na1F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BkaSSE+O; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tgxwyj0X; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Hjv4dpIL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pg9pc5dp; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pdp2Dl2I"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d654f02baso626131a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789648645; x=1790253445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+wQAdV32Fk3OyDL+A25ZncHwDoalpqgqwEDF4cMme34=;
-        b=Pdp2Dl2I9K8jYceUeoTqYt1lNhldV6eEbuM9/H7su8YgfKBXEM0t3VFObJaJzgQWFQ
-         /Hbba4wEMfjrPWrpW5YO3t2bTxS9r10d81Zj1s1Vw2hZ/FO/WffYSICsSzqRZ0mOt0fv
-         cwsXnYIKRx2gwujHOTuGNAYfizGAhpyXkYlZa18ruJ1DCRukd530swSOJZZtGjI/Q1DV
-         bdd47bmR89GobBGrp/7csp4RyRJtUlzTpg9sBoifJ9rLc944IHGoFKdg+bRCKg2xLlTt
-         +J6XmLZ3VfjuvEg41LIDHYznVT78HCL0z2T+6kZCzd+quIpi4CLHl55+8thcLnQ4vDLU
-         1z5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789648645; x=1790253445;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+wQAdV32Fk3OyDL+A25ZncHwDoalpqgqwEDF4cMme34=;
-        b=okWWWNrQpUkRdS7ybpK3eB4Z+eFEe6gENfGFIh7EcMTwDJzY4T3jJN0WtG9+hL58dI
-         +lwTGR4KzhUrs7lCWPgmbzBPw+lmnBWbpBRj5ucKRiGK2xr5Ta0yV89vaDRsuW/dKBfL
-         O34LNWwrKouB+ojYr79Y+anTm07ZMVKGqrpWgFA2xggRDDuSARjvwRFNhCAvTzXnUpg/
-         lqFyGsVh2MpT6jkLDbzfqw0xdA6hxnaWihyWlnSMJQRzkq59PVMyIWADvv7GciTchpXx
-         ilkrlZ2Oq8J4FDAZGlwGD+sJYxZQcUHH5qhBo/zzGB8Wf/l1ARz/5njgqgQ9liGOIhU4
-         4vCg==
-X-Forwarded-Encrypted: i=1; AKwUvBymHfc3F9NrjyW/a1vT2bfYxM6pS+osoR4Rd3WXtElkmAjr0YRJ1FAHR3lNt4WRFg1vVv7hOAE7gSxfiWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCnZesiazcMam1Iy1+zw6R8Tr7kWLZoiDdbIlMDle+us4tULL5
-	dVQlyFAvNvjeMsS4ifTKo9pdFD013YoL72Ym70zmWVy7YfJTIj2rgw5ahocDfLY9M/91OYnV
-X-Gm-Gg: AYBFou046/avDozwQMC2Tho2N7aQeMUdHVUYW84arGM3DaZ8p9dB6dOHCHoKSJBfDAu
-	7cKwnoNBg5bAx7MOrjZchQhkSw1u3iD+i9+ukaEd+SStq/wFkvt9HGb+8w/yDAlwRmU48FjBYSr
-	8Mt5E/6rQwu6mmBUSTfafDz3cx8qOKulLA8wTiZduXFnvVMt9BozFyUqX5c0dVeiVnkpx43thrc
-	KVyCuqaQ1AhPNbJ0rrgNovO999klcJEYl+MwnKU8ZuBb6MQlJzE5vsPusjtuBLjx+ue3r13A/uY
-	CAZ5XF4W38Io97ZVfaTs6lpYs+bdK68XXdaZrkxPoM/2N+jpxC+WC2mglXfj6N0JpLz62NL3+4R
-	JipOiR9Iyjb8GcLWTlPHUG5pyRleOiwS3kJkIRgz8xi3xsT7ltf5RiJ0QXOS12SNfOn3OFuNQd3
-	DdNf+gRC/WJZWt8P+2FtxH7GdQTLPKmLqwm2w7OrxjmTyQnTMlhOiaB521FDx7ZmC2VBG3unw5a
-	SUJqqAUQ0ZgsI1v7WRIPCCkjFixd2Nx9Z8qCuA=
-X-Received: by 2002:a17:90b:314c:b0:39d:f4fd:8075 with SMTP id 98e67ed59e1d1-39e1e4e3559mr13681823a91.19.1789648645405;
-        Thu, 17 Sep 2026 05:37:25 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:9190:e5c6:16a4:8428])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362f0f07sm6057546a91.17.2026.09.17.05.37.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 05:37:24 -0700 (PDT)
-From: zjamg <ndaugoing@gmail.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Oliver Hartkopp <socketcan@hartkopp.net>
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zjamg <ndaugoing@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] can: restore skb header initialisations in init_can_skb()
-Date: Thu, 17 Sep 2026 20:37:16 +0800
-Message-ID: <20260917123716.63116-1-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BkaSSE+O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tgxwyj0X";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Hjv4dpIL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pg9pc5dp"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8B04B21B07;
+	Thu, 17 Sep 2026 12:37:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789648637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
+	b=BkaSSE+Onrb0jnDe1fLtNKWo1dTmBD3s6bl8+OSwGpDJ2vJ52VGeU0ml3jq4l+kKzFRrV5
+	KERv7loJZ6pQwinQmShmhs+rNvObAInRkhZjKueypBp9v3h6OTgvCemFDaO7D6B7i+vIHg
+	ka8rLsT37qNtvjX1MMG49c97r6DveqE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789648637;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
+	b=tgxwyj0XquTo10qsxSkhVcvkYaQSjYnHSMcSc1OG9L16hzFFv8jE2Rri22B4QhF6jQlkQD
+	dluhGIVuayY7zSCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789648633; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
+	b=Hjv4dpILuakX6y74fztR6lgWopixPzIYoCyw9wmgjpn2e4I6sfqiQ84jhAwxNOlyXSbH68
+	6kX+2JpuaDRqPmOVueSe/mYfWda8avNlGXHYcxAa4GzHlL4ky3bUmpv70eKimbieAhlaRi
+	lWKY6FBp0SBF6E6Eu4zzyiat+KmmYXU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789648633;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jWc3jf84fBt6+w/a5ZtwrpnpqLcK2LtnBZ8g5jbNWrw=;
+	b=pg9pc5dpQb18XJfusF4YlMkc7Ge9VIEwTs8TM3sHQc6p8Ox9D3TNqp87oIqypJSzJVm8XR
+	6YikXtsisbYs3oCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 201BC134B3;
+	Thu, 17 Sep 2026 12:37:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id d7p9N/jeq2oECQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 12:37:13 +0000
+Date: Thu, 17 Sep 2026 14:37:12 +0200
+Message-ID: <87mrtggikn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2] docs: sound: hdspm: clean up driver doc.
+In-Reply-To: <20260914195806.1544938-1-rdunlap@infradead.org>
+References: <20260914195806.1544938-1-rdunlap@infradead.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-Commit 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-removed the skb_reset_mac_header()/skb_reset_network_header()/
-skb_reset_transport_header() calls from init_can_skb(). As a result, RX
-skbs from alloc_can_skb() and friends again carry mac_header = 0xFFFF.
-When such an skb reaches packet_rcv_spkt() (SOCK_PACKET), the push length
-calculation overflows and triggers skb_under_panic -> kernel BUG -> full
-machine panic.
+On Mon, 14 Sep 2026 21:58:06 +0200,
+Randy Dunlap wrote:
+> 
+> Do some overall document cleanups:
+> 
+> - add driver name for clarification
+> - fix some punctuation issues
+> - correct some capitalization
+> - correct some grammar
+> - convert a few words from German to English
+> - eliminate double use of "note:"
+> - unindent Precise Pointer bullets so that they are not part of the Hint
+> - drop precise_ptr documentation since it has been modified to be
+>   "always on"
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-The same issue was originally reported in 2014 on linux-can and fixed by
-commit 969439016d2c ("can: add missing initialisations in CAN related
-skbuffs"). packet_rcv_spkt() itself has never been hardened: only
-packet_rcv() and tpacket_rcv() gained dev_has_header() checks in
-commit d549699048b4 ("net/packet: fix packet receive on L3 devices
-without visible hard header").
+Applied to for-next branch now.  Thanks.
 
-Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-Cc: stable@vger.kernel.org
-Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Signed-off-by: zjamg <ndaugoing@gmail.com>
----
-v2:
- - Remove in-code comment per Oliver's feedback.
- - Pick up Reviewed-by and Acked-by tags from Oliver Hartkopp.
 
- drivers/net/can/dev/skb.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-index 95fcdc1026f8..14edec5afb57 100644
---- a/drivers/net/can/dev/skb.c
-+++ b/drivers/net/can/dev/skb.c
-@@ -210,6 +210,10 @@ static void init_can_skb(struct sk_buff *skb)
- {
- 	skb->pkt_type = PACKET_BROADCAST;
- 	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+
-+	skb_reset_mac_header(skb);
-+	skb_reset_network_header(skb);
-+	skb_reset_transport_header(skb);
- }
- 
- struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
--- 
-2.53.0
-
+Takashi
