@@ -1,94 +1,112 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D939274FE3;
-	Fri, 18 Sep 2026 02:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F883ABD8C;
+	Fri, 18 Sep 2026 02:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697148; cv=none; b=qpdU2rC7Hodq8z+LxqR/F6skVj9EzYojDpnWqlxf29cnMn/Gmnh92zXIRJn71SjtVrB106DkfWkCIZqU4M94Ux5f0eX5toS+xLARWzIMqcCpbFrhk3aGsO+cq/n0223FcdUy+32mJMN605WgOwCq0JpV3teQnFlKR/AJrkpcTM0=
+	t=1789697224; cv=none; b=h1lYgNlGdY+rKkmJCt33YuTRX3c4eCQSbY1GuR02o73eqZqxyFiu6+2fpNneUqu+4q/aZgLTkqOZHgQLJwYczizardmPXJQ7t4mS6WzeHgVAG24mTApAa3mBdz/kRKDAjWR0a2eiJA1kTcQixEDWHlOi8mR3drfT1Ew6Z6QfuVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697148; c=relaxed/simple;
-	bh=fGpoYLdZ41d0tFhRKmenhpPMK/bDHssfC0ONNUAm53s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iSMpN7MgeFEWTvaBsLPE5pR8PmeSYvG1+v5Ft/SgUL1ukY0l2cGJ8EGgk/FIx5ko0KbvcmVbUgJyK7El3W/5tZ+h20Yi5jMINRlC1kyMcBdJuscElmouObeHFK/0ipn0gxrkMnTjtl1NWyUL2LUW1y+kes998bWAAgHsjxuS4XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=xjpj5GYs; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789697224; c=relaxed/simple;
+	bh=5trEPETXWgkc3/MRScNf9ISoobtfIhcHGDWAjwwavgw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KxPtZyqfmmvgVQOiVzM3gnEX8hVKnUZjXxUkaPWrPOQOzgKFrfPbwA+eBaRpyNI7nqo0JZkQaa29m0sfQomg6gz0HkTGGXrG2g7oQJSRrTvfSu6ndLWH91jPeEAKSuDSTZMKXwtvz+WAot3NOTsNt0jRcNZiXbxYRkYNzeV9vFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=aUn92JrE; arc=none smtp.client-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="xjpj5GYs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=UXIPYTzbXNJwJbfl1Qo9b3rso/BuNEE9ZA2tivDFk5U=; b=xjpj5GYsO7djcq0k7DWwaX38La
-	BQe5WZViaU0ZD7vbE9kDfkPfpg4o52muffHnZY3xd6swPjEC/fdauTgAcaDiIr+x4s+3/GmPa2T4I
-	qN5HGSHYJ5JnvjkmQfrlGkT3jbZdz/nByj6BL6LSxKuBbsfO8Zx3RD69yOVjNB49Q7cg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7Nyp-005mgK-OQ; Fri, 18 Sep 2026 04:05:35 +0200
-Date: Fri, 18 Sep 2026 04:05:35 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	olteanv@gmail.com, Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v8 2/4] net: usb: smsc95xx: register the PHY
- interrupt with the MDIO bus
-Message-ID: <6e14d6b7-2a5a-40e2-920e-fc69a6e85173@lunn.ch>
-References: <20260918015029.2518425-1-f@lex.la>
- <20260918015029.2518425-3-f@lex.la>
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="aUn92JrE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1789677806;
+	bh=5trEPETXWgkc3/MRScNf9ISoobtfIhcHGDWAjwwavgw=;
+	h=From:Subject:Date:To:Cc:From;
+	b=aUn92JrEzdoKGsZQxqlkZU+FQzKBY+vK+BAIVwJbI1uaFzwiuHaZT54YtCYc9lEI9
+	 p7AU8Kh6Immqj+g9umuCWAHpl8cNCSR6pskkWbht1eNRhdh4yJIY/7R2oodtlKsGOj
+	 Vqsjjfx0Thut161DPUNHNH1sBd2CHWkUXRJ1xM9k=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id B07C6401E1;
+	Thu, 17 Sep 2026 13:43:25 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Subject: [RFC PATCH v2 0/2] sched: Document WF_SYNC wakeup placement
+ semantics
+Date: Thu, 17 Sep 2026 13:43:23 -0700
+Message-Id: <20260917-sched-wf-sync-doc-v2-0-6d1f107c0596@gentwo.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918015029.2518425-3-f@lex.la>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOtQrGoC/22NQQ6DIBBFr2Jm3WmUYIWuvEfjosKMsoEGjNYY7
+ l5q0l2X7yX//QMSRUcJ7tUBkVaXXPAFxKUCMz/9ROhsYRC1uNVKSExmJosbY9q9QRsMkhajZNK
+ q4w7K7hWJ3ftsPobCs0tLiPt5sTZf+6u1f2prgzWy0prsKCVz20/kly1cQ5xgyDl/ALK/p4GzA
+ AAA
+X-Change-ID: 20260824-sched-wf-sync-doc-e92b4fe987f7
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>, 
+ Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
+ Christopher Lameter <clameter@amperecomputing.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789677805; l=1705;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=5trEPETXWgkc3/MRScNf9ISoobtfIhcHGDWAjwwavgw=;
+ b=RbuKqmXzo5FAxp0b1GXEVUcb6fdy9m9d5i1SQnHMf6YWwKluVuRq3YEcY4xOK413oTbpvlHTK
+ IkuXctLUJbBC3fyn+bu4c7ZPXFGS9HmaxWD3rFWJ1BLiPqEbrRZGsvZ
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On Fri, Sep 18, 2026 at 04:50:27AM +0300, Aleksei Sviridkin wrote:
-> The interrupt this driver maps for its PHY is written only into
-> phydev->irq, while the bus table mdiobus->irq[] keeps reading PHY_POLL
-> for the same address. That table is where phylib records what the bus
-> described - phy_device_create() seeds phydev->irq from it - so the
-> number lives only as long as nothing else writes that one field.
-> 
-> The bus is the one this function registered a few lines earlier, so
-> record the number there as well.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
-> 
-> Notes:
->     Compile-tested only; I have no LAN95xx device.
->     
->     No Fixes: tag, for the same reason as patch 1: the write has no reader until
->     patch 3 lands.
->     
->     Teardown order keeps the number live for as long as it is read:
->     smsc95xx_unbind() disconnects the PHY before it disposes the interrupt
->     mapping.
-> 
->  drivers/net/usb/smsc95xx.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/usb/smsc95xx.c b/drivers/net/usb/smsc95xx.c
-> index 42e4048b574b..130a460c1f54 100644
-> --- a/drivers/net/usb/smsc95xx.c
-> +++ b/drivers/net/usb/smsc95xx.c
-> @@ -1252,6 +1252,7 @@ static int smsc95xx_bind(struct usbnet *dev, struct usb_interface *intf)
->  		goto unregister_mdio;
->  	}
->  
-> +	pdata->mdiobus->irq[pdata->phydev->mdio.addr] = phy_irq;
->  	pdata->phydev->irq = phy_irq;
+WF_SYNC is passed by synchronous waitqueue wakeup helpers when the
+caller expects the waker to schedule away soon. Its fair class semantics
+are not documented.
 
-Looking at just the information here it looks like this line can be deleted?
+In particular, the waitqueue API comments state that a synchronous wakee
+will not be migrated to another CPU. This is not guaranteed by the
+current wakeup path.
 
-	Andrew
+Document the current fair class WF_SYNC semantics and correct the stale
+waitqueue API comments. WF_SYNC is a non-binding hint that can influence
+placement and preemption, but does not guarantee CPU locality, avoidance
+of migration, or immediate wakee preemption.
+
+This series does not change scheduler behavior or define a stronger
+WF_SYNC placement policy.
+
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Changes in v2:
+  - Describe stable WF_SYNC semantics rather than scheduler implementation flow.
+  - Remove helper names, predicates, and CPU-selection details.
+  - Clarify custom wake function handling and WF_SYNC placement and
+    preemption limitations.
+
+Link to v1: https://lore.kernel.org/r/20260825-sched-wf-sync-doc-v1-0-f899edb44ff5@gentwo.org
+
+---
+Shubhang Kaushik (Ampere) (2):
+      sched: Document WF_SYNC wakeup placement semantics
+      sched/wait: Clarify WF_SYNC wakeup semantics
+
+ Documentation/scheduler/index.rst               |  1 +
+ Documentation/scheduler/sched-wake-affinity.rst | 67 +++++++++++++++++++++++++
+ kernel/sched/wait.c                             | 30 +++++------
+ 3 files changed, 84 insertions(+), 14 deletions(-)
+---
+base-commit: b5a051f6b840d48f159166ef073d3021989bfb50
+change-id: 20260824-sched-wf-sync-doc-e92b4fe987f7
+
+Best regards,
+-- 
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
