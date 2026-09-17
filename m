@@ -1,79 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDE93C3F51;
-	Thu, 17 Sep 2026 16:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6903D25CC;
+	Thu, 17 Sep 2026 16:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663524; cv=none; b=G8kzsbC4YMo21bt65PpFOvaHvSJTL6gbYfFrwDyDN2j7N93tKW8IIIBrUXK3qBp40eLHNxwEU2uT2TTZO7d5R1rXQU3O/i1Czs6GXX/eCanp/J8AVO15w1Z7w4z45k/rDkvDOu58VW6Ftjw17VNCYu2fwdkiPZNH5z3CwmqJoys=
+	t=1789663528; cv=none; b=OPJ/pOspQkLMSdp2OAS9+w0DzvxangXMCYFZ7jcA1XDOrETYu9cM6M6pHC/Ms3SGdjN16LnovLyN6OgtAmX6nX3mjI0uRspc5dj5XJQVogZwGy3WUuUH2bEpoVavTZPWp5mD5f0evcVtqYTuY11JyHB/s1gVdr/NzDMjLq+3zm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663524; c=relaxed/simple;
-	bh=1q/kOx6JG2vi/MQ8HOsXmPagpC3QttyiydLa7Cv1w8I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eEHvjKgrgO2Cf+u+QdoQb/JTh2mVt8o1ZNpp2ZRgrQghvbe5pVoanLaNc2+pqYsGzA8LrKiH7gPRrYSpt6AyjsfSQyD7Fvwr3VGOqiNCaFa+q3T7EPxZJAyFZ3sZ8QMKLO+hP61hu8QQleDdku5y8F3AXjzXz630oEyHz/ZXE3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnX54qJm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnX54qJm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CAF1F000FF;
-	Thu, 17 Sep 2026 16:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663522;
-	bh=1q/kOx6JG2vi/MQ8HOsXmPagpC3QttyiydLa7Cv1w8I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FnX54qJmdlzA0+fG/aSGjWc+9heDNZv9Qk1jL7SFsUwrHAYkYvUqn27SRFXmpzLyo
-	 p3OUj2/FSCaLev4hq6yPXmVyd1qb5Rtl+q8CJocgB8w0cv+Kz4U1F98GS/pNTsEu4r
-	 ch4Xze6uGFWzYO1Qa9LNt/VYed0bI0KAGa2btYSM7l5czbM6fiNY+EY+LeByAWVsNR
-	 cYXvHWKJFLcsuC9upvj28mBvt9OtjK4kRBMxeF9gQxcNdIplVit0ayoFZEcWn4/FFV
-	 WtFi3rUAv0hNLTQfm6j+EbdAtcwYtchxBz/CUE8Dr5dO4Gwj7zuM/I/rVppMuTuRhp
-	 l6OYL8rGdcHMg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/9] driver core: rely on put_device to free dev->p
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Jeffery" <djeffery@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, driver-core@lists.linux.dev
-Cc: "John Meneghini" <jmeneghi@redhat.com>, "Laurence Oberman" <loberman@redhat.com>, "Pasha
- Tatashin" <tatashin@google.com>, linux-pci@vger.kernel.org, "Stuart Hayes" <stuart.w.hayes@gmail.com>, "Ewan
- Milne" <emilne@redhat.com>, kexec@lists.infradead.org, Maurizio <mlombard@redhat.com>, "Bjorn
- Helgaas" <helgaas@kernel.org>, "Martin K . Petersen" <martin.petersen@oracle.com>, "John
- Garry" <john.g.garry@oracle.com>, "Jeremy Allison" <jallison@ciq.com>, "Bart
- Van Assche" <bvanassche@acm.org>, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, "Tarun
- Sahu" <tarunsahu@google.com>
-In-Reply-To: <20260917163744.191748-2-djeffery@redhat.com>
-References: <20260917163744.191748-1-djeffery@redhat.com>
- <20260917163744.191748-2-djeffery@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1789663528; c=relaxed/simple;
+	bh=AFseobe/On7PEOH87B7g1yNk8F7L0I6E2Np587p6ZdA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J8mTFwKzALD3FsGfgMjT77es5jtgXGCC8sJy9RH0JG2DIw0gFC3nBY9PJSpbs5g19GTAznRIN7fj0qAV7TlQ0wQslic/Q1qszc1OcFDefWbbc8pJzRrUGbcwrjlngHOuTf463SMOVPXEOCupI8HndOPfpg8uzWTsQfESAyobCtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3J0IgGaxqwbyECA--.47882S2;
+	Fri, 18 Sep 2026 00:45:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: baojun.xu@ti.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda/tas2781: Fix ACPI device double put in tas2781_read_acpi()
 Date: Thu, 17 Sep 2026 16:45:20 +0000
-Message-Id: <20260917164521.66CAF1F000FF@smtp.kernel.org>
+Message-Id: <20260917164520.2163024-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3J0IgGaxqwbyECA--.47882S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF1DJF13WF4DGw1kJFyrZwb_yoWkZFg_KF
+	45urWUXa48XFZrAw4rXF1v9FWrurs7AryrGrn5try29rWrWr4UXr98Jr1rAryDua10va4r
+	X3WYk3W8Gry2qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbVkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
+	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IY
+	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
+	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+	1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
+	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
+	nxnUUI43ZEXa7VUjd-PUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qr9nBRuwACsp
 
-> From: Tarun Sahu <tarunsahu@google.com>
->=20
-> device_add allocate private_data for device and assigns to
-> dev->p. If device_add fails in later steps of the function,
-> it cleans up this dev->p which is not necessary because In
-> the next call, put_device free it anyway (if reference to
-> the device is 0 which will be unless someone concurrently
-> get the reference to this device).
->=20
-> This avoids unnecessary races introduced in system. After device
-> is added in device_kset->list by device_add and later steps in the
-> device_add function failures occur, it will free dev->p manually,
-> while in between there might be a user of device_kset->list will
-> take reference to the device just added by device_add. and might
-> try to access dev->p. So relying on put_device to free dev->p
-> prevents such problem.
->=20
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
-> Signed-off-by: David Jeffery <djeffery@redhat.com>
+The reference returned by acpi_dev_get_first_match_dev() is already
+released right after the physical node is looked up. The adev variable
+is not reassigned afterwards, so the acpi_dev_put() on the err path is a
+second, spurious put of the same device, which unbalances the reference
+count, or frees the device while physdev may still be in use.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Drop the redundant acpi_dev_put() from the error path.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163744.1917=
-48-1-djeffery@redhat.com?part=3D1
+Fixes: bb5f86ea50ff ("ALSA: hda/tas2781: Add tas2781 hda SPI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/hda/codecs/side-codecs/tas2781_hda_spi.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+index 0e4f3553f273..63f8b15c2d8c 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+@@ -386,7 +386,6 @@ static int tas2781_read_acpi(struct tas2781_hda *tas_hda,
+ err:
+ 	dev_err(p->dev, "read acpi error, ret: %d\n", ret);
+ 	put_device(physdev);
+-	acpi_dev_put(adev);
+ 
+ 	return ret;
+ }
+-- 
+2.34.1
 
