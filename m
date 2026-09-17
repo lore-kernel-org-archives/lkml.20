@@ -1,125 +1,133 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011063.outbound.protection.outlook.com [52.101.57.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48C4ABBB0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283AA3346A8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.63
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660156; cv=pass; b=Xk3TmXQ/ufb1mWoIRN+gSzYzyTquRkKTRcpnlcTqWb1OVo04k3KAm3RFosX2+v2jFazR8NcE1h25Mn8lH2IPZVfh8jqAyhAb+Dpjm5KBPwIPgAdquVEEb/xufsT2lOVkVo57Vml3omzuuPA3E8Q4i8MNxEEmolEa73iVH/zoh8c=
+	t=1789660184; cv=fail; b=gSPKEmPH7x9th/i3zcc+mcT6mR9I1W9c+Mix/sIXIfOQqgDVf5bRppbaJF4vTpXFncNEd3/fLBO8BPRVXjo5mle/XAh6ryE8WRcrft9552gnoqfCUZ36qlAWn+TrmG3jgb3oiQMAXUklYUB27WSm35DRgAxdthY/nEIAIU/K054=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660156; c=relaxed/simple;
-	bh=MkUdFfNPXdgajb+rcjncmrSL91PHLhj9SCk6H1w5YvQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X0FdVf124s7TVZYponFyfxFBhwTQKoBq0v+agrcJdOS+pDWRNfOdVNmYNKa1fGhYRUdr6W8RcWXsn6HHgh7oPl6h31C6ueW+vJJy7/b3UnHs/oGPVYrqeOzKen3puy72fgk5eC7PxgHjdP6Sv/xq5jW4PluvEB6B2uhqGthxRuA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MA2vp1+8; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789660184; c=relaxed/simple;
+	bh=tS5shZw6feO6GvIDqsgPEIqi9xvqVj1UZPHTSjnA8vg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XDG6xsQmde97LDK8bvTw5Md7PVQtoIDjDgqDOfeOHNYOoQ+R8OUPTHlSxG5hgVv61PRkAqwuclycueX9Dzaug8YlUENnkHinEApbEwLTPLy8z42Q3lTXWPKps3EMZX+xlTWrR+bRWGuRrebJYcj+GV2jCr6eYxWBXpk1aNdLwiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=d2j3hIqa; arc=fail smtp.client-ip=52.101.57.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MA2vp1+8"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcc3e14so2797466d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:49:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789660149; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YXsxuIKItexIxMmtKL6xQ52dnVlAySqWVNa7EL8UYtPqXFGwOxA+YNpXXyfqriEF+L
-         /z3Z2wXJ8/ULISPvprZ6a8Hf5wIJ9OadRqgURXTX3uWVfGI0ZxQ7zmt5Vu0/oUX9iLg1
-         F6D+6oDJmTfTkBVBXg5Df+242pBuTW8PaDj/7Zkhv0r7FZKjsgzrWALLSSePkJvCPGia
-         si8c0Cx0CAVvbzPXZAH8rVN/jpKWgQINTHEA4L5CUxP8xrPZzww0etWYkm42U3I1pd5T
-         egkZ7/eqxKMl+XpAytCIi4nAQTXwCayYU4YcvVoEzFP7oM3Cbq9edaCLfxFFrqpKnBcQ
-         zcFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kVbNW9nYkTQQZyk8jzXTmmCW1z4fY6Sef5CqQ+fiU28=;
-        fh=F6DKXt7YsM8IO5warbF2rIR1WFC/9JnZ5GSF1RqMRVg=;
-        b=sWDc0eBq6hohmxupt+WDNNlD+sv7aG/G0Acaswy/RX+qf8aUCXgQESa5BiOzMGK2v2
-         WU/3hfDSr7VeDmJd13fXNoY0qWymaufu7YxTT0XpXV88lbelbeWUiBRgLOi4nGyQtD1s
-         yux9EFU2O0Rha1Wh/qpQ67I9FpIhTY/VdBD3n5CWDLnquz4zLFG/vO389BXBtYra7O90
-         QpwIUJczkC1GyqVjzESF4M7wlAJEf5GmlVly7b6jTiDZotbB4j0sZ6lsJBann5ZXlVU1
-         Tca9q3RvjO/WkGuKIRQ0C9UJA03wyPmA5HxUeiXcej9KGOKW+BBsCcI7idWHNiFSzwgp
-         lh7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789660149; x=1790264949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kVbNW9nYkTQQZyk8jzXTmmCW1z4fY6Sef5CqQ+fiU28=;
-        b=MA2vp1+8yYNltTbn6zmtae12ab7v0FU1gDQheiNI7X+p5NuJ9Vy8c68YxZ0AhxQ/nc
-         cwnjAnon59gRZ1F6jb300vi4pIp3DP1Mnag3pEwdbvcf9Ijw5K9Vwwo3/Uvo+mLlCufX
-         tXqOdxk5eHd071gDKOGNQZCpjUMY1a15knlZbbBzLYmrqRzf61fJkkEvPOJ4V6j6rDPg
-         5GyNtMtPYND/OPtAaSwvQZk28IL70ksMoWIjdzD6nzQx0bqbUyM3iXfTPFg+txir4UU6
-         JtclYKMREtiL4IWNJ4EyQ2lpexnZn7P/vjU6KAL9t7dG6OLTqrXwX0Ow+7qULj/0cc7S
-         TDag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789660149; x=1790264949;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kVbNW9nYkTQQZyk8jzXTmmCW1z4fY6Sef5CqQ+fiU28=;
-        b=Ym4YRdzttyOqkflLlVnaXrFjB1WS+z7vUYjlE8PHNJCwuqv5DzLcA+RCUmAh/c0lx1
-         Yn3IbMBfugjEDh48PsYsaqkWp73Oo4dYIhzYYOo4YmYh5lcQKnXfViYBMrrubveskrNS
-         bMG4i3XrmiHbyOiHi7XYPDHpEf7KsGYy/6+UXvQ8xQ2Bf/L+SUYSGU6IYm9yOFdCeBoz
-         fQRqKaV3H5FYM+CKcwR1iGwuFfL20WzoTqZChBPymajP2TdQhgPSWevDTEJZ4kBe/AAu
-         XeaAp9SU+URUd5usVlIi2Uo8VLZCVySfOIe6dZWLUXKMyxa+K4dtvWr/83Z9IlqVpRPX
-         BTlA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0dCJz5ZUwE6aQlN83KD5C/8p8NC7NPn7fsBRbJsBIkOKtoPd3B7LZnVZpYZSLtXreHcXKdMhj+xr45lg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFYxJNauv+1V5on1agEcqXu6G5pfl1jY2Tcdu/anvvvc4iQcWv
-	bECOVBX5Dd8y3m5oExUgTJ9ESGlkMH0QCWAv1kzj3NiJ6sN41Zr0T30RIC7Rm7O6BshxLOtGzPs
-	4XKK64CVIaAJz9+S1qQ8+IgNuOYSdBdo=
-X-Gm-Gg: AYBFou26xbRvGHefBgluQyeR1ZEzYp7tcsoq3mz2aic83C051v03thWR2GFkWsxOuEm
-	NrfQygU1RhRHVOGxDjWKfaAe552Q5K/fxaAPhLBIT74C3qZUjD0BMAJLupPjJqRR+S2YbiM+lBc
-	hZ5rQrG9GrcUw0jhxVoWtrRFRG9ecAuMofaeH/f/IdMoUa5OzvWDl9jDXMN2Du7KahglaVO2EnM
-	e85K8o0xSYyXEg/dW9f8+hlszLHdXnHGXBLcZ2QdgKcPEbIdgJ6WUjAuxTkKxZs8yzLK6xaOw0s
-	vuIb1hG4ITzHNKrMJAjlExJ4VDzu/GWyQgrdc1TODMya0Q0mi3De1D/xGn6bBfJyCAOCLRmAiSL
-	6PgqQScW8+kZAhCN1hwJV7ZsyA9g9kzCmumI5fVyPpZLcjXOUtKFcwPOpJt6sex5hc3nb
-X-Received: by 2002:a05:6214:23c9:b0:912:517a:7242 with SMTP id
- 6a1803df08f44-912524291b6mr8701086d6.21.1789660148526; Thu, 17 Sep 2026
- 08:49:08 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="d2j3hIqa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aTOaJUHMrzh4+td5dc9B9kJpiiLzm1WX/3Fk27buCzb8BnS22R5YwOD3MDVb3GGhsY3jTFUgClpGx5MswtCSVHkyHYzdWY7UjCu2qTli/jYSFjM3DfE0QWKF+S8azOXVGCaRbi2VbUnGutHflf9SOFWFnFzfVEKb0T6+R1FdQk3sAeHl3p94r3/sgrfyl03cR1tm5vbqMBGP7ieAyLAulQ15ruad8yJkcxXhnIr5O4ZK/9dCeRTe/MZuKAOXW7yNUXoArM+8cPWhVFzc0pl1n4SveWrOnpTG/KYCepH3mkgbNFydnC8ky8yWRFFol9S87IjcZqUte1SUF5taf8a89g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tgo8ebSzQuNyMtzLHnjfq1PVnJ6HLhISBsQfNQfVmoU=;
+ b=hfuwPPjA8yfovKTZupkdoWO6S+0EL7m5m2MmVfiQ9rttGMTdoDb1qQqEEvDYYKtZaVjQHDFNXUujS3DHzCRahRKxZhirQOExvvcEpNrxt2DE2YIZvFGtwiHobYD7iTvAGHxEFYC/M9CxE2+GZ1sAw7qMjm2pFYPk1Bj3i7v8jrciW3vcaVgIZgl1rEYUx4Dpsby5f2x34aHvfFN4qSIL3FACPpGf260hhhNZEMFdc34fWXKGe70ubKDWPTa8K90kcQGktnPfCzFVzvLD3oTSQe6hQ17oXOzkFrHLwVQ0cNYC62RPDm5uBBcAu7tZOcxmbsCdtlG1RlFVSv1JaFs/HQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tgo8ebSzQuNyMtzLHnjfq1PVnJ6HLhISBsQfNQfVmoU=;
+ b=d2j3hIqaPcWCiAvnVb41gfGsY4lWxcdm+pmDCWb9XLBgJ1xZGMurXmi4ANsiBQMBWBzHKdezbCVVjzS+VAw9V9wJbbBz5f+zFQS7ui53wepKZccp/UUheEJz5xtE93VWSePI1YTFAlqJ021DL/4nIna+E5yJ/RQihRXWSl7ZSos=
+Received: from PH5P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::16)
+ by IA0PPF0C93AC97B.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bc7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 15:49:28 +0000
+Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
+ (2603:10b6:510:34b:cafe::70) by PH5P222CA0005.outlook.office365.com
+ (2603:10b6:510:34b::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 15:49:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 15:49:28 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 10:49:27 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 10:49:27 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
+	<dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+	<sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Set HMM_PFN_REQ_WRITE for writable BO faults
+Date: Thu, 17 Sep 2026 08:49:20 -0700
+Message-ID: <20260917154920.1872289-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916134637.216062-1-lucasadramalho@gmail.com>
-In-Reply-To: <20260916134637.216062-1-lucasadramalho@gmail.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Thu, 17 Sep 2026 12:48:55 -0300
-X-Gm-Features: AcwNN1VzBv9agm3gNTB8NdYr1TpRSTGqcm9esYX-ZHEuTBXEwsWrey6DNjYUI_Q
-Message-ID: <CAMAsx6c5-s4kiw7C-F0tt7jZ3Bu4BBHoPmtuhoRK1-K0Gtcq8w@mail.gmail.com>
-Subject: Re: [PATCH] docs: translations: pt_BR: translate maintainer-devicetree.rst
-To: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|IA0PPF0C93AC97B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05b67185-9e6d-4276-8b42-08df14d34193
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	rPJjhOlOymE4cIugAmtSdmYCJej1/t+c/xke/ZeNRFh46llLlRCBbEXGN2WdEyoYXJVGPNNq89hI4dXMHyZgdDwtVsrxqrOsyhwwzSEf+wpqwu5Y2DoNP1PImSTl8j+OjotIafNP9fmzLTt221Y7CNf69kp79emvdraLq1fHmhiOqhJQi6w4NGeVY4rtfsu/jvZZKAIbe4oIALh2oId55OO9lMrVbWAI+wDM+zNuKO5w2IGZwfXNW8WuEjVnhLZGzIQc2lJ0yba3f8CbSdO3end29XIMfLpM2zHAoCXFXiBLCDC02NWVqQW7/gdN26n64otl4d9VClnYyLc72Zv+gohQLlGte+MwpJNkwnB+4mQA5vZH+1vBW8yjMlw2TnM9HuMjPqDQWhXORQzh4FzrRrJANUlQwmbLWncI7vI4S0jbaf53XMPEu6x5Y9Jr32LOys6+HXs9zeLXDexoDdUi2+03C/PPFE59xK3nW3QQtYKd0Cg0nouLfx/JtHbhmLorgultkGk+ePPNS4A8jUXnGlmMRh/IMEZEEvNrQ0hqknT6+RPY/NEhtPnXK0DaNtSz/3gGK7Ld+LxTwOwnP/iaIuHja0vjRfIilbGGxHnOpEe0T4GARdQnuxTEYRJd4pjQZmMuX+JSNXaA78L3BDCevGLZGJwVVBlDHQ+HHpjJPNTxjHPBy84mnzB2gRvagfyQ9S+ihPQ26lKufHsQA1cYoA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	woo0QTVjB4RKSXhmnE3ba3MeUvn8ifQYl7FSvjJ5lVhZKKRMkcEPg5qut8KYnKVR8RZkmznevjiwCHTXctPlLR1cGgRdAxglpEDYQaLQoWFv0XdlW7bLg4PH3hNhFIllRHGTEvjl/Fr30JIDbYN4MraBTii5l+ONnsfqkddb/1O1SiJdivr5EjRQmq6DjR/mqJ3nN/PHTgjV6S51bdVyeHZl96YVpVsHvjNvLaRASnsgB6N/rQoZaqqc5wA+fPxg1kNWjomHInUtzhAdGgLfi95ecwn6JFSSRenZm+JL/tkb22UaKHAf2sJRpceHwnDTmHhsTkN3iRJbsP4fm0iPEKxsDKkBC7Tr803BAw0mI0FEUWcMgmG3rXcqlE5WHv82zQ9dEfmvRciP+poScw0gDqmv22ugvk1yiE2ZZGeR2Vwy3EgwB0mGeqqw0g88GiMM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 15:49:28.0446
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05b67185-9e6d-4276-8b42-08df14d34193
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF0C93AC97B
 
-Em qua., 16 de set. de 2026 =C3=A0s 10:47, Lucas Adryell Ramalho
-<lucasadramalho@gmail.com> escreveu:
->
-> Translate maintainer-devicetree.rst to brazilian portuguese.
->
-> Assisted-by: LLM
-> Signed-off-by: Lucas Adryell Ramalho <lucasadramalho@gmail.com>
-> ---
->  .../translations/pt_BR/process/index.rst      |  1 +
->  .../pt_BR/process/maintainer-devicetree.rst   | 76 +++++++++++++++++++
->  2 files changed, 77 insertions(+)
->  create mode 100644 Documentation/translations/pt_BR/process/maintainer-d=
-evicetree.rst
->
-Hi Lucas,
+When aie2_populate_range() faults in pages, it only sets
+HMM_PFN_REQ_FAULT. Without HMM_PFN_REQ_WRITE, handle_mm_fault() does not
+request write permissions and may populate the CPU page tables with
+read-only PTEs.
 
-Thanks for the patch. I checked the translation against the original and
-it matches one to one, and it builds clean with
-SPHINXDIRS=3Dtranslations/pt_BR. One note for later, not an objection to
-this patch: pt_BR lists the maintainer handbooks explicitly in
-process/index.rst while upstream reaches them through the
-maintainers-profile-toc directive, which still points at the English
-files; your patch follows the convention already in use for netdev, soc
-and kvm-x86, and I will sort that inconsistency out separately.
+Check the VMA flags and set HMM_PFN_REQ_WRITE when the VMA has VM_WRITE.
 
-Reviewed-by: Daniel Pereira <danielmaraboo@gmail.com>
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 398d0a58b53a..fc3c2c6665aa 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -381,6 +381,8 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
+ 	mapp->range.start = vma->vm_start;
+ 	mapp->range.end = vma->vm_end;
+ 	mapp->range.default_flags = HMM_PFN_REQ_FAULT;
++	if (vma->vm_flags & VM_WRITE)
++		mapp->range.default_flags |= HMM_PFN_REQ_WRITE;
+ 	mapp->abo = abo;
+ 	kref_init(&mapp->refcnt);
+ 
+-- 
+2.34.1
+
