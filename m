@@ -1,111 +1,138 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE87E44AB8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50623D9DBA
 	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673436; cv=none; b=aF9huILcTaz7uT29W5yyF8p4zqxgV8WjQbtOc4GWT+7SG1ZkM5IMmuPOB0MTwZI1nE8nacF7TXq1toxbya1CcNS7oNuOcA5JKEicLxSEfEUSPt5UOyFZCga1a22JNeyolZdZRuwO8jDjz1/W96y2AZH0Xq5eKJKd76tsfkDTjYg=
+	t=1789673437; cv=none; b=MWE0NqKzVmf4x1+74kcqfVFi5DYS3PnJcbMRMGGZH4uqMzj7zWNjv6XPFlWnI/lInzoGF1rOhjcPcK2KkfQvUemKz/ft8J5x6zve7TzCkuKRlQmAfRWHcH7jXBI9HlIPNitmOssfmwEn9xJ3j2LwkpO4RGJ0djPDCpafPcVPu5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673436; c=relaxed/simple;
-	bh=op/43Q8ivGnszBMmvmaQWfcywOTvNbXrkE7Z3J2S4MM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=jLSjVeG7RVzeAwHKhZ129l+KE0wlNnc0X4ICeKAARqCwJzY7amxpd1wk4WWnqAgBWWf3Akww3TSgBHj6EdCgslKTUJGnZmWzWpTZGsUzYEeMRjPgF6slAJl+JY+gTGke8OKTyD2EaYnC7VY9B7+uGDTOzMHmG5ALmtWTV0vzFI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+	s=arc-20240116; t=1789673437; c=relaxed/simple;
+	bh=eMaq8RLV8quYoQsiaB8eCxVRfk+jd+94+wshSktzVnQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Yl2KdkmgLhU1Fi7SYP96PcWc8IWb6fqWekzUsvChPWKs8/uO2/PpqhFPLJaH1IPjtOHNmeCbiWehXUxcppLK7NrxpL2IR9xohpHr1U5F//q++K0bHx6ODDpUDhwQQC2g0Z1l9Fb0LL6JqXTeI9vvtmDN/obIj35ItqCdUyGP4Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.202
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c6545d0f93so21529b6e.0
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so14530b6e.1
         for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:30:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789673433; x=1790278233;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DKBKAO6uZv7zwP+i5r1kqr1VSMo/flSyHByrbO63mzg=;
-        b=tAUvVBq2L7Fekzn6FykYv+i2IMhbdH2ZHzcPIYuEln5zNZg+91wh+i8r/WfCVHnDc7
-         d2Ykp4DqdFCIToy1TsPztWdTinqyAthY9lCOL5SMIvmYmgDTzMeoElR1C54pw5MPQnT4
-         4x8baeuvE8lkmsSjFOSwi+EsX8W3NvBzahA3Nr/lvclMvNAUIm6LgGPyWQie3MfdZXSf
-         vnhIqY5Si3G/RyR9JbCzMqDja6Cs15JVaZpqpw0oPF2p3iJwYppN/mmfgbxZVYBWpip0
-         FIJjXaC1lQcmI4u5N2F0wj9KQkfk1DJMzOQEDhfH6MFDd989ticLQceYRJLHB+a2jEL1
-         0ZDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeuYURyH+9D1woejctYm2ebJWpkpHyeyELCqzuE2jb4bH3/isfuEG/mUFXqHP+Wsxhf81PZ257A2AJnyA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJs8xd34qGKhDi5l29d9+4HuWo6ycXRDN3NXLvZJOFFJU+gYc2
-	CEDECf7Q5MM2IR1/3xAaCyWN/5P2lwVnV7BxJpm76N1B2808jT+KrjXhS+enwydWsjpnBr7dId7
-	SxFxO1tecAXkA+HbfX8CGxXVdnvp0rK1LQAG1D5gH9NGwmvaXs68fjCIDcGs=
+        bh=QxfZm777yiB3GOiVhcaZHS4Wrc/4+22T9DdmmcwZ2XQ=;
+        b=BbMyXR3vkipnANBTfJbqOYDshUvROaXK9yjn/gXvkaK6nqhRkoC4WosjUhCmSvN5VZ
+         V6WvNojJqaaCa7Dgb4FEhBTYVrHHWKPxiN8ggXAfd/eLoORRc04TvWnaAIuddqUzvq76
+         lck0YHDNNmLVvwQLU17GDUnF1GSLzJx1EZHRD/sgha5ICQY5/gHy/5LfN+3nZtnG1uNk
+         8pQyNx2NQ4PZWDNScUJqOVntFzO59nRa5c0i9dE7v4m5qM14iTUPe3njT4W0+lZrlFuV
+         D3/EmbttpoOS8Wq0W18TY5JlX+iCyqDUcIc2fnvyd/5IiRw6CHt+0SOij57CA0E4y6j6
+         nIXQ==
+X-Gm-Message-State: AFuF++mUUdS9IRcMe/HJ0yfew5VKlVW0l4pqUhb+Ur1Zi3s2lScngW4o
+	ln/M0TPWFTIIlqsU6inAXoYRsPd9jFPZ0E2D+7UsQdAW7nUvlQXFUHU5Zhc3MTe1zm4r158S2/D
+	ME/eBiNNsLS/heuyI5wnwIR++fRXGcjXkrtUnkVB/m0lJYjfgikaiZSsW7MS+gw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1383:b0:490:315d:e0d5 with SMTP id
- 5614622812f47-4ccf6a75030mr310242b6e.16.1789673433516; Thu, 17 Sep 2026
+X-Received: by 2002:a05:6808:c162:b0:4c9:90bf:5f5d with SMTP id
+ 5614622812f47-4ccf6e6dfe3mr329110b6e.11.1789673433779; Thu, 17 Sep 2026
  12:30:33 -0700 (PDT)
 Date: Thu, 17 Sep 2026 12:30:33 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aac3fd9.b398a7c9.1f86be.0021.GAE@google.com>
-Subject: [syzbot] [lsm?] [io-uring?] kernel BUG in commit_creds (3)
-From: syzbot <syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com>
-To: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, paul@paul-moore.com, sergeh@kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6aac3fd9.b398a7c9.1f86be.0022.GAE@google.com>
+Subject: [syzbot] [raid?] WARNING in ppl_init_log
+From: syzbot <syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=11f4d8c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-dashboard link: https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
+HEAD commit:    238650ef6c7c Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=107c7925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=2ef75c54d0b2ac5d00ba
 compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=124353f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10f73bf9580000
+
+Unfortunately, I don't have any reproducer for this issue yet.
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
+disk image: https://storage.googleapis.com/syzbot-assets/35551601d170/disk-238650ef.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/62ad5ac38086/vmlinux-238650ef.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/bd8d0f191876/bzImage-238650ef.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com
+Reported-by: syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com
 
+md/raid:md0: raid level 5 active with 2 out of 2 devices, algorithm 2
 ------------[ cut here ]------------
-kernel BUG at kernel/cred.c:376!
-Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+kmem_cache of name 'ppl_io_unit' already exists
+WARNING: mm/slab_common.c:112 at kmem_cache_sanity_check mm/slab_common.c:111 [inline], CPU#1: syz.0.52/6045
+WARNING: mm/slab_common.c:112 at __kmem_cache_create_args+0xae/0x460 mm/slab_common.c:352, CPU#1: syz.0.52/6045
 Modules linked in:
-CPU: 0 UID: 0 PID: 4923 Comm: iou-wrk-4922 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : commit_creds+0x888/0x8d4 kernel/cred.c:376
-lr : commit_creds+0x888/0x8d4 kernel/cred.c:376
-sp : ffff800098287850
-x29: ffff800098287860 x28: ffff0000d05e08c8 x27: ffff0000d05e0000
-x26: dfff800000000000 x25: dfff800000000000 x24: ffff700013050f18
-x23: ffff0000c7e6bac8 x22: ffff0000d05e08d0 x21: ffff0000d2bb7000
-x20: ffff0000d2bb7000 x19: ffff0000d2bb7300 x18: 1fffe00035b9ec28
-x17: ffff8000818fd3bc x16: ffff8000816109b4 x15: ffff800080391038
-x14: ffff8000815de4b4 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff600018fcd751 x9 : 0000000000000000
-x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000004 x3 : ffff800080391048
-x2 : 0000000000000000 x1 : ffff0000d05e0000 x0 : 0000000000000000
-Call trace:
- commit_creds+0x888/0x8d4 kernel/cred.c:376 (P)
- smk_write_relabel_self+0x398/0x418 security/smack/smackfs.c:2709
- loop_rw_iter+0x3c0/0x5c0 include/linux/uio.h:-1
- io_write+0xd50/0x1364 io_uring/rw.c:1170
- __io_issue_sqe+0x134/0x364 io_uring/io_uring.c:1386
- io_issue_sqe+0x94/0x8f0 io_uring/io_uring.c:1409
- io_wq_submit_work+0x4c4/0x690 io_uring/io_uring.c:1525
- io_worker_handle_work+0x640/0xeb8 io_uring/io-wq.c:659
- io_wq_worker+0x830/0xb44 io_uring/io-wq.c:752
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-Code: 91009280 9420ad5a 17fffe51 940b1fa2 (d4210000) 
----[ end trace 0000000000000000 ]---
+CPU: 1 UID: 0 PID: 6045 Comm: syz.0.52 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+RIP: 0010:kmem_cache_sanity_check mm/slab_common.c:111 [inline]
+RIP: 0010:__kmem_cache_create_args+0xb1/0x460 mm/slab_common.c:352
+Code: e7 8e 4d 8b 24 24 49 81 fc 68 2e e7 8e 74 20 49 8b 7c 24 f8 48 89 de e8 ad fe c8 09 85 c0 75 e2 48 8d 3d 52 cc 66 0e 48 89 de <67> 48 0f b9 3a 48 89 df be 20 00 00 00 e8 4d 00 c9 09 48 85 c0 0f
+RSP: 0018:ffffc9000555f9a0 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffffff8cf7a820 RCX: 0000000000000004
+RDX: 000000008cf7a803 RSI: ffffffff8cf7a820 RDI: ffffffff907ec6e0
+RBP: 0000000000000000 R08: ffffffff907a3e7f R09: 1ffffffff20f47cf
+R10: dffffc0000000000 R11: fffffbfff20f47d0 R12: ffff88801d79d2e0
+R13: 0000000000000000 R14: 00000000000002d8 R15: ffffc9000555fa80
+FS:  00007faf490c56c0(0000) GS:ffff888124dd1000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fab21a7a010 CR3: 000000007a880000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ ppl_init_log+0x285/0x1310 drivers/md/raid5-ppl.c:1363
+ log_init drivers/md/raid5-log.h:138 [inline]
+ raid5_change_consistency_policy+0x255/0x740 drivers/md/raid5.c:9141
+ consistency_policy_store+0x7f/0x230 drivers/md/md.c:5883
+ md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7faf4819e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007faf490c5028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007faf48425fa0 RCX: 00007faf4819e159
+RDX: 0000000000000004 RSI: 0000200000000500 RDI: 0000000000000009
+RBP: 00007faf4823506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007faf48426038 R14: 00007faf48425fa0 R15: 00007ffc85c60718
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	e7 8e                	out    %eax,$0x8e
+   2:	4d 8b 24 24          	mov    (%r12),%r12
+   6:	49 81 fc 68 2e e7 8e 	cmp    $0xffffffff8ee72e68,%r12
+   d:	74 20                	je     0x2f
+   f:	49 8b 7c 24 f8       	mov    -0x8(%r12),%rdi
+  14:	48 89 de             	mov    %rbx,%rsi
+  17:	e8 ad fe c8 09       	call   0x9c8fec9
+  1c:	85 c0                	test   %eax,%eax
+  1e:	75 e2                	jne    0x2
+  20:	48 8d 3d 52 cc 66 0e 	lea    0xe66cc52(%rip),%rdi        # 0xe66cc79
+  27:	48 89 de             	mov    %rbx,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	48 89 df             	mov    %rbx,%rdi
+  32:	be 20 00 00 00       	mov    $0x20,%esi
+  37:	e8 4d 00 c9 09       	call   0x9c90089
+  3c:	48 85 c0             	test   %rax,%rax
+  3f:	0f                   	.byte 0xf
 
 
 ---
@@ -118,10 +145,6 @@ https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
 If the report is already addressed, let syzbot know by replying with:
 #syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
 If you want to overwrite report's subsystems, reply with:
 #syz set subsystems: new-subsystem
