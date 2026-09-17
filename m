@@ -1,171 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7484CDDFE;
-	Thu, 17 Sep 2026 18:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6EA547056
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670572; cv=none; b=ZciwI1B7kj/+FcCaghtSWWiZJcVWa8YGIJKP99F0OswIvoC1FmB5ayya13vukOcTioBjgwH/xdhg5L/zgScrMIdWy6OvjK1mE2ZSGje0cj5kRPME4KsBv77n4pOzBNvAseGFhqfmFiDP/89vWdC+NGYCVOy5htxnoQZ5UcylL2E=
+	t=1789670605; cv=none; b=KaA5Xs+hUsqT1q82VMKqq2HxJ9zeE8gJVPwD+/fH3CMuMFUTwveFjSIkP7bFTyOpZ4NxIRa9KsLwd7H92/PnaPIHWYKbAtuvzQ9Z0b5FJSqEellcMhjBwSaMmT2gfLW9oSmk6jfGlYyr2NF2HfodpveMPsH4uGZwAsaqQHjYTks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670572; c=relaxed/simple;
-	bh=//QxEsMx/pYZ431r9fzN1SDLLR1Ocaz/1SqtQ/FHGu8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BglY3YX6LshCQ/gLyh4CP3qjwrK8k0rYsnmNRc8esMkfjW6mQ5jOBnEGnziwE+HbZSgmEeVp6ISdsdtL6YbGSv4EVcbmwH9IbhRwHI3pbZq1rUFwCu6eYWSZycka3aSNxU7VOD68bVI/SMczIozz2QUwzfdJVLqhwm6ywMkHkAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeRYA7rh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789670605; c=relaxed/simple;
+	bh=dddSXRxdIdu49NHzZiLViRMhRwi+PNMj8+As+AEkJag=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LUpXEK7mj2zNGdWsONF+iK+jHti7vkWqMmAaqHCibJlTPc25aRq9eKpQiE3ixg35ZL+Y5ANP9JYYe3+1I3vyMfwUrxPrzPA1pUgZZ34EgmlbYxAdzmUa/s3xROTTXI+CQSUsiOTL8x2keAx9Xu21cQHu7XWaAh0xKChQCwCL6TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TbclyN/Z; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeRYA7rh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F67A1F00898;
-	Thu, 17 Sep 2026 18:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789670570;
-	bh=G9OjC0DvXbYSXJMCvKYfaBrtdLJ3dmS1MuuNFWcE17Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JeRYA7rh2zFrLoDrvkT3tOXHVvhkH6bjWJLZn/UYBnyI/ZxTQuMpD4weCvEGIZTcG
-	 owAKqMoYSujslwmt67lCRILKcm1QQujCJnXPf9/zFmbeLalGQAj9uGlImhcFU8hi4n
-	 K5fVxPWxyFUEls6aBpw9ShMjMfl0WOH2r8XGMGht2rzxe0kiJEE6YuSbCY/NjwgLsw
-	 VKkhwQcTAK+r8jPrWsADcjEs6fEvUkheY+IZbuY6sLFh7iES+AX9CDJ+9svfBn0z4N
-	 LehTASVD2b0Yx5mbf1rARYwQS+8jA7iPbWlZbnr+Ck6iM4NNpf/iX7gAOh6RGVhvN2
-	 0V/NpIFtEHFjw==
-Date: Thu, 17 Sep 2026 11:42:50 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 09/20] kbuild: implement and use depcheck to check
- dependency timestamps
-Message-ID: <202609171117.35BFDCC13@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TbclyN/Z"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dddSXRxdIdu49NHzZiLViRMhRwi+PNMj8+As+AEkJag=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789670600; v=1; x=1790275400;
+ b=TbclyN/ZVuG+rU+4xjm75+piq9TJqCokLY/I9maxgGVgt1b0d02dbe3aecqderwMQxnMCF4e
+ BIP9aDx4SxXpWXx+fALzWVvwEI0rAHZLp0T8W7rxGIrX3ePOBGCwzzr1IJsJ+ITRnI0E+6TywSm
+ Z+40JyM+wKYISNLCILuPmlHY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id df3bf85f09abc0d3;
+	Thu, 17 Sep 2026 18:43:20 +0000
+X-Mizu-Trace-ID: df3bf85f09abc0d3
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b5e5aaf7deso1671e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:43:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxoS9f1VwosjVgW39fgBxmT/iwcSgy7r5u8kdFD1OupISvMeyR+bD30e+DyxI/HCMwtaG7i5KdB3s/fb1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLYQuOI0OkB0q1AEpC7+24nVNN5SYctKImAaTCJO9jtjFHgRyl
+	7yH1bX8MBHPi1V2jxy7hYpuCaU1uqPFLtJmS6LMhn8r8BE5UlbAUlzh16vrPtklpK8b9zKCLLUt
+	mV6b+P1CU0Ld4LxDcvop21+aVsUH44qw+T7FRH0Mq
+X-Received: by 2002:a05:6512:2241:b0:5ae:b918:79d5 with SMTP id
+ 2adb3069b0e04-5b8c1021042mr20644e87.2.1789670599138; Thu, 17 Sep 2026
+ 11:43:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-16-fuad.tabba@linux.dev>
+ <86a4ph5fb9.wl-maz@kernel.org> <CA+EHjTzCQkeXQQcCDwABLR2w+NTmKTG3V6RSmhzYNayaoYXw3g@mail.gmail.com>
+ <865x045mke.wl-maz@kernel.org>
+In-Reply-To: <865x045mke.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 17 Sep 2026 19:42:42 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTx1rGTZ-8Knj_JJJJtcUhU1o3Qmw8gr=iNkWEgX7Lv6vA@mail.gmail.com>
+X-Gm-Features: AcwNN1W2zdyru-EwkMeGvOAl12MsTWv2Fg6M62Lipeq-f3z_dccz0p-vzgpTsTw
+Message-ID: <CA+EHjTx1rGTZ-8Knj_JJJJtcUhU1o3Qmw8gr=iNkWEgX7Lv6vA@mail.gmail.com>
+Subject: Re: [PATCH v3 15/18] KVM: arm64: Reject host access to protected VM
+ private state
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
+	qperret@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026 at 05:06:19PM +0100, Lorenzo Stoakes (ARM) wrote:
-> This can be done faster in C, so implement scripts/basic/depcheck to do so.
-> 
-> It does as little work as possible, reading the .cmd files from a
-> directory's targets and running stat on each dependency only a single time.
+Hi Marc,
 
-Doesn't this run the risk of missing transitive deps?
+On Thu, 17 Sept 2026 at 09:06, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> News flash, this is not x86, nor s390. I don't feel constrained by
+> other architecture, and we deviate *everywhere* already.
 
-C.cmd:	C.o depends on A.c and B.c and B.h
-B.cmd:	B.h depends on B.data and B.script
+Not x86 nor s390: and I'm grateful for that every day :P
 
-depcheck looks at C.o and B.h's times and is happy so it drops C.cmd file,
-but then see B.script has changed compared to B.h, so it keeps B.cmd,
-and then the build runs and doesn't have the C.o dep list any more,
-and C.o goes unbuilt?
+[...]
+> A protected-aware VMM already knows it cannot obtain the registers.
+>
+> I don't want to have to revisit the userspace interface once you have
+> to relax it, because I know for sure that you will have to.
 
-Also, I don't think this handles if_changed commands at all? The kbuild
-rebuild condition is timestamps plus if_changed's command-line check.
+What the error buys is that a read outside what EL2 copies out fails
+rather than returning the copy, which is what a register dump would
+otherwise print. But then how would the VMM know, once EL2 starts
+copying more out on an exit it already gets, that those registers are
+now the guest's? A cap is all I can think of, but I may well be
+missing something. With the error, the relaxation is a window on that
+exit for the registers EL2 copies out, and a read that succeeds there
+returns something EL2 copied out.
 
-> diff --git a/scripts/basic/depcheck.c b/scripts/basic/depcheck.c
-> new file mode 100644
-> index 000000000000..622101c33650
-> --- /dev/null
-> +++ b/scripts/basic/depcheck.c
-> @@ -0,0 +1,441 @@
-> [...]
-> +/* What fixdep writes, see above. */
-> +#define DEPS_PREFIX		"deps_"
-> +#define DEPS_RULE_PREFIX	"$(" DEPS_PREFIX
-> +#define RULE_SUFFIX		":"
-> +#define LINE_CONTINUATION	" \\"
-> +#define WILDCARD_OPEN		"$(wildcard "
-> +#define WILDCARD_CLOSE		")"
-> +#define CMD_SUFFIX		".cmd"
-> [...]
-> +static bool is_blank(char chr)
-> [...]
-> +static bool str_ends_with(const char *str, const char *suffix)
-> [...]
-> +static bool line_starts_with(const struct line *line, const char *prefix)
-> [...]
-> +static bool line_ends_with(const struct line *line, const char *suffix)
-> [...]
-> +static bool line_is_blank(const struct line *line)
-> [...]
-> +static bool line_is_continued(const struct line *line)
-> [...]
-> +static void line_strip_continuation(struct line *line)
-> [...]
-> +static void line_trim(struct line *line)
-> [...]
-> +static bool next_line(const char **pos, const char *end, struct line *line)
+> As far as LD64B is concerned, there is no place to copy anything in
+> the run structure, and the relaxation would require to cover all the
+> GPRs, ESR, and FAR. At this stage, returning whatever is there is the
+> correct thing to do IMO.
 
-There is a lot of sting handling in here. I know you're going for speed,
-but it just feels like a python script doing all this would be much more
-readable without wrecking speed compared to C much. Yes, C will win out,
-but the maintainability of this helper does not fill me with joy. :P
+For a protected VM the operands would go through fixed registers, the
+way x0 carries the MMIO data today, so the window on that exit is
+those registers rather than all the GPRs.
 
-> [...]
-> +static const struct dep *lookup_dep(const char *path)
-> +{
-> +	const unsigned int key = hash_str(path);
-> +	struct dep *dep;
-> +	struct stat st;
-> +
-> +	hash_for_each_possible(dep_table, dep, hnode, key) {
-> +		if (!strcmp(dep->path, path))
-> +			return dep;
-> +	}
-> +
-> +	dep = xmalloc(sizeof(*dep) + strlen(path) + 1);
-> +	strcpy(dep->path, path);
-> +	dep->exists = !stat(path, &st);
-> +	if (dep->exists)
-> +		dep->mtime = st.st_mtim;
+Hoping this one doesn't return -EPERM :)
 
-I realize you only check "mtime" after an "exists" check, but I bristle
-at leaving a time-stamp uninitialized. Can we just add an "else
-dep->mtime = 0" here?
-
--Kees
-
--- 
-Kees Cook
+Cheers,
+/fuad
