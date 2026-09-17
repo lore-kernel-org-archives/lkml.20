@@ -1,70 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D3F4BCAA5;
-	Thu, 17 Sep 2026 10:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65B04A49B8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639476; cv=none; b=YOP40xukKfzFRKOBgMVWRP2Bh1fhMCcxDeG91nx0tx59Ey0akXjDFje/ASjW0r3DMuOyB+I50uwVSr4CMBM50fpL5guhCo3S/knAZt6MFn8NhAKv2tdYlCD1rKHs+JK0QjS2/S4BWzWX35gduEME8VKhUpSEX2aaB9RKjeqBUek=
+	t=1789639481; cv=none; b=V4mb9evKuS1DTBOMgVcqNDot3S/zW1ywEo9tVJEYOOhQvTIfTGjpfW7weJ6Q3N7oQxEabdPbxIQETIolIvQTdYPj+k8mFkWlmOYcTENxyi5nlZg2SgDDqCgo1hl3TfqpamW2qc1or3WSoXtdUtq7NCwl7MTbn6cBlmiWbbKBlfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639476; c=relaxed/simple;
-	bh=Zw0go1bY/h0Fvnvwmo4x3hJ1ZrAO60jCIR7sgEMVdwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fydl4SKzYv6HbWclmbu05/zpejY/2mbKvJ6eMEVhV+CIyJIGcWR/o3xda5RksCehwOf0y4HSzkF0D/4mt16R7fETcWg2c+6dSXTInM9Wrdma1aFZuuYVAEA5XbM9SaSo/jsKdCXS1dz9+/DkvltLfa0OrD/rqtmOf7GXvWDLz5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ASAy3Hp1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ij3Pu7oW; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789639481; c=relaxed/simple;
+	bh=um+kB+/1dd3CrZpB7pm7ZqNd5aTE9oIXH5aBLAcW9WU=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=QjIsRcWFU4IxmEIeISKWdCoJeIPZUCF5QZx5Sv3QDu+mnB1C2SxA779c/JRy9+Bmr7nfEbYWQnKNQ28rzAQNHrFYPipssIKzU2fcSS03T91Gh/P7ak0MIn/JoPckzu7O3XSmJxwyFFIJfznePKRgybc3peJoFY82B2nBPHhmIhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QVR71EpC; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ASAy3Hp1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ij3Pu7oW"
-Date: Thu, 17 Sep 2026 12:04:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789639469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gUoSclQfN4Mc0MDUxCK/MPlKgNaoIFGqLPM9QL3S5wM=;
-	b=ASAy3Hp1LHtsIx0mSVn6CabihAkqnMmSrWieGr/JGKWUdSJzwsQqo8ZASmhkXEYLeSLCMY
-	N7qhGDncA037YRWVuqQ57D9cPHojsnnti6VNH6BLX8y4eQ0X/9+RzKnQ2TGaDKQdABB0hD
-	3mvqRz/4CouIIzK5BbIha/N4VrbactnScER7ixCG6ReylFcwemlHxwiyX5OI93Ld8IjpSw
-	z/yKvKNUHVjyH6i6vX2ISl0NouDZHj417OoRJ3McTR0DfB+Hf+/ulPQyVnMQmc44C9a6sz
-	RLXWb4nxHBrKqa6YFhcKujhCks621Jl1DdyArHSv7lDDPprfytDzA2RhcJ7H8g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789639469;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gUoSclQfN4Mc0MDUxCK/MPlKgNaoIFGqLPM9QL3S5wM=;
-	b=Ij3Pu7oWy/cj3245y6NTY1PjubHosGSwrvK0hDjS7Iejv/SciM8DeKelAi0wnUWdWeZoCu
-	IptkBDZXc/5dxWAg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, Rosen Penev <rosenp@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCHv2] gpio: mvebu: keep resume masks within the irqchip cache
-Message-ID: <20260917100428.LT2ZUBVd@linutronix.de>
-References: <20260915004406.115230-1-rosenp@gmail.com>
- <178963874726.7902.8784965092061133801.b4-ty@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QVR71EpC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=um+kB+/1dd3CrZpB7pm7ZqNd5aTE9oIXH5aBLAcW9WU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789639464; v=1; x=1790244264;
+ b=QVR71EpCz0PgY6oK/noJmZH71vrf1S/sB7dtcl2QkvQmu1FQj2vEhV1XyW3oJfQGYQ4zB5Q5
+ Gb3YVEXkKorYYXX/5CaB0Jxa2SwoW3Hx1DNkjJ+9t96IU+8vRWQT1Wt3RnsjKwUcA7j7U8DFxHr
+ FlbtefRU/UUWFcoUVGuNtY6A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b18fe0d830ae10e;
+	Thu, 17 Sep 2026 10:04:14 +0000
+X-Mizu-Trace-ID: 4b18fe0d830ae10e
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <178963874726.7902.8784965092061133801.b4-ty@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 10:04:14 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Li Wang" <li.wang@linux.dev>
+Message-ID: <3f7c7f35866b47158369bd526cc4a17244cbcd92@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] mm/hugetlb: account for allowed nodes when gathering
+ surplus pages
+To: "Huaisheng Ye" <yehuaisheng@open-hieco.net>, muchun.song@linux.dev,
+ osalvador@suse.de, linux-mm@kvack.org
+Cc: david@kernel.org, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, "Huaisheng Ye" <yehuaisheng@open-hieco.net>
+In-Reply-To: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
+References: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
 
-On 2026-09-17 11:52:29 [+0200], Bartosz Golaszewski wrote:
-> Applied, thanks!
+>=20
+>=20Hugetlb reservations are accounted globally, but hugetlb_acct_memory(=
+)
+> also verifies that the current cpuset and MPOL_BIND policy contain enou=
+gh
+> free huge pages to add a new reservation.
+>=20
+>=20gather_surplus_pages() calculates its allocation shortfall from the g=
+lobal
+> free and reserved counters. If the global pool has enough free pages, b=
+ut
+> those pages reside outside the nodes allowed by the task, it allocates =
+no
+> surplus pages. The subsequent allowed_mems_nr() check then rejects the
+> reservation and mmap() fails with ENOMEM, even when
+> nr_overcommit_hugepages permits allocating surplus pages on the allowed
+> nodes.
+>=20
+>=20Calculate both the global shortfall and the shortfall within the allo=
+wed
+> nodes, and allocate the larger of the two. Include surplus pages alloca=
+ted
+> outside hugetlb_lock in both calculations when rechecking after reacqui=
+ring
+> the lock. These pages are constrained by alloc_nodemask, so they satisf=
+y
+> both shortages.
+>=20
+>=20Easy way to reproduce this issue with 2+ NUMA nodes system:
+>=20
+>=20 # echo 0 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepage
+>  # echo 3 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/n=
+r_hugepages
+>  # echo 1 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_overcommit_hug=
+epages
+>  # cd tools/testing/selftests/mm
+>  # numactl --membind=3D1 ./hugetlb-mmap 2 21
+>  TAP version 13
+>  # [INFO] detected hugetlb page size: 2048 KiB
+>  # [INFO] detected hugetlb page size: 1048576 KiB
+>  # 2048 kB hugepages
+>  1..2
+>  # Mapping 2 Mbytes
+>  Bail out! mmap: Cannot allocate memory (12)
+>  # Planned tests !=3D run tests (2 !=3D 0)
+>  # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+>=20
+>=20This fixes hugetlb mappings when, for example, a task runs with
+> MPOL_BIND on Node 1 while the existing free huge pages are on Node 0.
+>=20
+>=20Similar issue also could be found in ltp if the free pages of global =
+pool
+> reside outside the nodes allowed by the application.
+>  # cd ltp/testcases/kernel/mem/hugetlb/hugemmap/
+>  # numactl --cpunodebind=3D0 --membind=3D1 ./hugemmap10
+>=20
+>=20Signed-off-by: Huaisheng Ye <yehuaisheng@open-hieco.net>
 
-This looks like a hack with no explanation about the root cause.
+Tested-by: Li Wang <li.wang@linux.dev>
 
-> [1/1] gpio: mvebu: keep resume masks within the irqchip cache
->       https://git.kernel.org/brgl/c/02af7eac17bc62a72335c1fc8c4af4471654f6cc
 
-Sebastian
+Regards,
+Li Wang
