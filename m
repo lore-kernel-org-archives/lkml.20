@@ -1,108 +1,173 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FB5302155
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D211448E0;
+	Thu, 17 Sep 2026 04:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789618947; cv=none; b=Q3blJdm+YHJ/pkRM1yPLJ9K1vZbpGGXIp07H/BEsfq8x+nVKsd5CpMgWjIiFX5pt5DI3IWTY4FOL2Bg2IbKraPi/9FaZKc4vOlfcfNC7ozfCtxjhiM8K+8eTHEK+skHtRtQIssiYk478HnCkmjOD4wj3UBFm4eX1ZRM0/rFsOyI=
+	t=1789619016; cv=none; b=CRpmVUEogZXi7dpuU1X0b+79R4IFa9JNjCWGes8z4zlRogMLBVcUYUddlh8PNgXoYDcRDdmimgqdmdvvc7fRskWD+jhF2HLOveAxl8JPQ6+QUJWmt1KX26y9VD1ZhEqWsgdQjarqz6WLSi83A71khnQWnhaRTNE5EN6D7urNxs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789618947; c=relaxed/simple;
-	bh=1fK5MtmOWDFH/FcgfwNq+jQUvUAwSVHapAqSkHBHWZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GnTPMInbZlvndlwlNW3/ZFu0K9I8inTwc2lpZbI0VV4fLrbji6T4t/P7EME5l4L7KKptZzCp84clJuCOg/A61GyKO3fLU9/oXr/GX6JA7hd9HlFdvKlLQNhLQUjn/0PDo5WSLR/l5aYEX4gOCi9YrKnU55FrcROz2JvIddc6iBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nfy06BVu; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789619016; c=relaxed/simple;
+	bh=qdxkTLD9uoCFIhxrWKxe+s5FfwMI+0AafQ4TgFMyO8c=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=SJ2C48wDGDeniqHYoPjiATspWxRMl2wal+FjHmv1j4wqEdlslokMLPWd+I1+iJ47Bz+06X7Zo1f6ASYaKQhfUrvssIR/jp2RvC2qz8/x4FOxatzt8qYxq4/xwAc9YxePpKMp4PJd48UFte0Wgi3kLDoW/rKoMuiszcEBmn1URkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZH7Y94zI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nfy06BVu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=g3XJZr0bBAmjOsLLoXDbQLrl5Q9yQ0n598oUSVXwZq0=;
-	b=nfy06BVujwOHDCcbgVosR0L/IuIHUVnlLUpnjtPjCuaCaetUrhkvsxpkMtzLVk
-	Py9hFCR7m7+ejDSBVJtwm1OJgpNn6d44Pr8m0zyuuCaKHRD6zxArWSs9PGQBz4x6
-	MT5+UGMUjCyHiZ1K20miRIdex5P7ySL/s8Xeo8xb9KyLY=
-Received: from [IPV6:2409:8900:1e93:14fb:69bd:c53b:3beb:e380] (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgC3RCHlaqtqrpxfSA--.64386S2;
-	Thu, 17 Sep 2026 12:21:59 +0800 (CST)
-Message-ID: <545e6e4c-d897-4248-a2c0-bbbe6f4fef45@163.com>
-Date: Thu, 17 Sep 2026 12:21:57 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZH7Y94zI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61181F000FF;
+	Thu, 17 Sep 2026 04:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789619015;
+	bh=rd16Z3y1fpySyhEkogFEnRO8utyQhjZLXwvtXuG7Bp0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZH7Y94zI/yrzYEtQjEX0axYEYvUsl6B97k2rWU/E/DLg/Fw043lmuu+9DG5fW0A/M
+	 2IUe7l3rhkdbsXxsyTk9Layg3wj6ZaD0hL3ai28AQsK91sgLdBUJz0sZVr2vkUAUu8
+	 5ICVj4dd6pparLZXuQ+cWYpty/rTUSkw+V4IXCy4=
+Date: Wed, 16 Sep 2026 21:23:34 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jiaming Zhang <r772577952@gmail.com>
+Cc: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, mark@fasheh.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzkaller@googlegroups.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: fix chunk number of the first chunk in a local
+ quota file
+Message-Id: <20260916212334.033cfa1f0113f3614ef7baa9@linux-foundation.org>
+In-Reply-To: <CANypQFZMpExoykmy8kM=G5yYN0hJvuHmw0hVMKDvzZ7-qX6ang@mail.gmail.com>
+References: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
+	<20260914034940.4070970-1-r772577952@gmail.com>
+	<20260915180721.1914e74dc8da69e58399d7a6@linux-foundation.org>
+	<CANypQFZMpExoykmy8kM=G5yYN0hJvuHmw0hVMKDvzZ7-qX6ang@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] ntfs: report attribute errors to fsnotify
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
-References: <20260916022345.1151836-1-liubaolin12138@163.com>
- <20260916022345.1151836-3-liubaolin12138@163.com>
- <aqpHhxKx_xiSoZZQ@hyunchul-PC02>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <aqpHhxKx_xiSoZZQ@hyunchul-PC02>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgC3RCHlaqtqrpxfSA--.64386S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cw45ZFWUJF4fKFy3JFykuFg_yoW8Ww1kpF
-	WxGa97K397t347Wr1qk3yjva42vryIgrWjqry5Gw13Can8Krn7tF4xKwn5uF4FkryrKrZF
-	qr4jka9rZrWUZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2kskUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQdZJGqraudB8QAA3H
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+On Wed, 16 Sep 2026 12:58:22 +0800 Jiaming Zhang <r772577952@gmail.com> wrote:
+
+> > When fixing a bug please always describe the userspace-visible effects
+> > of that bug.
+> 
+> Mounting a crafted OCFS2 image can corrupt kernel memory.  When the
+> local quota file header of such an image claims zero chunks, the first
+> quota entry allocated during the mount gets a chunk number taken from
+> a kernel pointer, and releasing that entry clears a bit far outside
+> the chunk bitmap.
+
+Great, thanks.  I did some lazy pasting into the changelog and came up
+with the below.
+
+I see that cc:stable is well justified!
 
 
+From: Jiaming Zhang <r772577952@gmail.com>
+Subject: ocfs2: fix chunk number of the first chunk in a local quota file
+Date: Mon, 14 Sep 2026 11:49:40 +0800
 
-在 2026/9/16 15:38, Hyunchul Lee 写道:
-> Hi Baolin,
-> 
->>   folio_err_out:
->> @@ -3720,7 +3737,8 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
->>   static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
->>   					    s64 from_vcn,
->>   					    struct ntfs_inode *locked_ni,
->> -					    bool defer_attrlist)
->> +					    bool defer_attrlist,
->> +					    bool *error_reported)
->>   {
->>   	struct ntfs_attr_search_ctx *ctx;
->>   	struct ntfs_inode *base_ni;
->> @@ -4086,8 +4104,11 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
->>   	return 0;
->>   
->>   put_err_out:
->> -	if (ctx)
->> +	if (ctx) {
->> +		if (error_reported && ctx->error_reported)
->> +			*error_reported = true;
->>   		ntfs_attr_put_search_ctx(ctx);
->> +	}
->>   	return err;
->>   }
-> 
-> __ntfs_attr_update_mapping_pairs() does:
-> 
->    ntfs_attr_put_search_ctx(ctx);
->    ctx = NULL
-> 
-> Therefore any later mapping or other errors can therefore lose report
-> state and duplicate reports. And The error_reported boolean only tell
-> us that some lower-level path has already emitted an error. Consequently
-> a report can incorrectly suppress a separate report for a later rollback
-> or resotre failure, even though that failure represents an independant
-> filesystem integrity problem.
-> 
-> Instead of carrying error_reported, would it be simpler to report each
-> error at its detection point and let fanofify merge repeated error
-> events? or would there be any alternatives?
-> 
-Hi Hyunchul,
-   Thanks for the feedback. I agree that reporting errors at their 
-detection points and relying on fanotify's event merging is simpler. 
-I'll update the series accordingly and send v3.
+Mounting a crafted OCFS2 image can corrupt kernel memory.  When the
+local quota file header of such an image claims zero chunks, the first
+quota entry allocated during the mount gets a chunk number taken from a
+kernel pointer, and releasing that entry clears a bit far outside the
+chunk bitmap.
 
-Thanks,
-Baolin.
+The write will corrupt the data stored at that address, and the
+corruption may lead to a system crash or damage unrelated data. 
+Mounting requires CAP_SYS_ADMIN, so it takes an untrusted image, such
+as removable media or a loop mount of a file from elsewhere.
+
+Since the chunk number comes from a kernel pointer, the address of the
+bit that gets cleared differs from boot to boot, and the issue has been
+reported under several titles:
+
+- BUG: unable to handle kernel paging request in ocfs2_local_release_dquot
+- KASAN: use-after-free Write in ocfs2_local_release_dquot
+- KASAN: slab-out-of-bounds Write in ocfs2_local_release_dquot
+- KASAN: slab-use-after-free Write in ocfs2_local_release_dquot
+- KFENCE: use-after-free write in ocfs2_local_release_dquot
+
+Note that none of these is a use-after-free in the quota code: the
+chunk and its buffer head are alive.  The bit that gets cleared lies
+far outside the bitmap.  KASAN and KFENCE name each report based on the
+object occupying that address, which explains why the same issue is
+reported under so many different titles.  In the report I sent, the
+address fell in a free page, which KASAN labels use-after-free.
+
+The local quota file in OCFS2 is divided into chunks, and each chunk
+begins with a header block holding a bitmap of the quota entries that
+chunk has handed out.  Chunks are numbered from zero, and that number is
+used to convert the file offset of an entry back into a bit position in
+the bitmap.  ocfs2_local_quota_add_chunk() appends a new chunk to the
+in-memory list and numbers it one past the chunk that was last:
+
+	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+				   struct ocfs2_quota_chunk,
+				   qc_chunk)->qc_num + 1;
+
+The predecessor is looked up after the new chunk is added to the list, so
+if the list was empty, the prev pointer is the list head itself.  The head
+is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a chunk, so
+reading qc_num through it lands 16 bytes past the start of the head, on
+the dqi_gqinode pointer that follows it.  The first chunk of the file is
+then numbered with the lower half of a kernel pointer instead of 0.
+
+The list is empty when the local quota file header claims the file has no
+chunks.  ocfs2_local_read_info() takes dqi_chunks from that header without
+validating it, so an image with dqi_chunks == 0 takes this path when the
+first quota entry is allocated.
+
+ocfs2_create_local_dquot() turns the bad number into a file offset with
+ol_dqblk_off(), which shifts a 32-bit block number left by the block size
+bits, so the top bits of such a large block number are lost. 
+ocfs2_local_release_dquot() turns the offset back into a bit index with
+ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
+that index far outside the bitmap, and clearing it corrupts unrelated
+memory.
+
+Compute the chunk number before putting the chunk on the list, and use 0
+when the list is empty.
+
+Link: https://lore.kernel.org/20260914034940.4070970-1-r772577952@gmail.com
+Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
+Assisted-by: Claude Code:claude-opus-5
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/quota_local.c |    9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+--- a/fs/ocfs2/quota_local.c~ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file
++++ a/fs/ocfs2/quota_local.c
+@@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_l
+ 		goto out;
+ 	}
+ 
++	if (list_empty(&oinfo->dqi_chunk))
++		chunk->qc_num = 0;
++	else
++		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
++					   struct ocfs2_quota_chunk,
++					   qc_chunk)->qc_num + 1;
+ 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+-	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+-				   struct ocfs2_quota_chunk,
+-				   qc_chunk)->qc_num + 1;
+ 	chunk->qc_headerbh = bh;
+ 	*offset = 0;
+ 	return chunk;
+_
 
