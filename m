@@ -1,140 +1,93 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBA94D09FF;
-	Thu, 17 Sep 2026 10:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109624D0CDF;
+	Thu, 17 Sep 2026 10:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642479; cv=none; b=a+zY8L9k/tCoCCQmvRCE6sUlGZVf4dVoUDlTM+kWrxNCnmupboysbRgRrdUd3JTvrWtJP1mbLuj+UK40b4rMkDzxtrchetr3sl3Jjtg+/RQyzdkGSFLd73/uzl+Unn19lBoff5WPYOrJ/0qXr1xqFC5lbDVeErKle4zJ5CYswEw=
+	t=1789642497; cv=none; b=hIuzmwAPxP4rAJd1uSiKluX44TIhsaxaKeGN7CfO6Q4cK1bfg1/3+GVJ1+adzHVL0ufGs1MP6zca9KWTFW0oRAVomHCx07Ff9Py4AeHqeMIFEcAn0/sjt0elbP/4mMQ+2rDdhp2jHePMMiLX/8sjBY/h7GPki1ysPJOQ2otWzcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642479; c=relaxed/simple;
-	bh=rG1ZzCQXpx4b8hj/Kqe4tHrseuayAXL0p9ByZXOgmFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rcWPqMBzkuP0mtkQXqFqqA9439end+3t8gk5dtnSWu7ngzTIheezVsH8z6p0Wq2Z+UJZqezZvbafdyNIW7tkf+TCj9l6WrIxWF+SwYO1HMjwAHhHVL63J/1h3w1HaT65JwFUOFV2yoiKRYsIDmc1kk2wlUnRXVe36fuYlcVQNlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=Mnn8+OoB; arc=none smtp.client-ip=212.42.244.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="Mnn8+OoB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789642448; bh=rG1ZzCQXpx4b8hj/Kqe4tHrseuayAXL0p9ByZXOgmFQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mnn8+OoB2dxJ6zQ+ECtRl7Lszj1/yg7RPlu3RdeooNAMdJDRvjaOwjCaeIe47tWsW
-	 kdo3+q61plhMx7FLd5OYc9WXFiNw8el86v489dlICP8Uf37wgRqSIDEljxfNyamBJe
-	 jU111wCg+gjx4pnrhokctcNLtjSoLvt7JvG0x2auugf3/xJ9ssMvnwqFujCTaqlAys
-	 R9iN2rV12ZwvVOHF0fwRiy6gA2+qXg5gaT8klwH1Ar6mDytGQ+NTrDdSnHZ7M/13KL
-	 1iittE4/OcqM6qO6u1pgEYhQk0/uUAuhGEAs5dHL4jhfan04f3VoeNe23VjH71ZWWo
-	 goLPQ88CRil3g==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aabc6d0-0449-7f0000032729-7f000001ea08-1
-	for <multiple-recipients>; Thu, 17 Sep 2026 12:54:08 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 12:54:08 +0200 (CEST)
-Date: Thu, 17 Sep 2026 12:54:07 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: nathan@kernel.org, nico@fluxnic.net, rdunlap@infradead.org,
-	grahamr@qti.qualcomm.com, kees@kernel.org, pengpeng@iscas.ac.cn,
-	vegard.nossum@oracle.com, linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] kconfig: promote invalid numeric reference from
- warning to error
-Message-ID: <20260917-proficient-swift-of-masquerade-0ff7ce@l-nschier-aarch64>
-References: <20260915211508.291790-1-julianbraha@gmail.com>
- <20260915211508.291790-2-julianbraha@gmail.com>
+	s=arc-20240116; t=1789642497; c=relaxed/simple;
+	bh=giIWjDDBHc/Az7Gt57hxkGh/olN1AnVWv+gcsPhSTsk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T3CIutQpJ0Uz8s7eLKAxbLV68wzAjjSr/ACUbenxjV9q4TLbAtXQ2lHPOHELqklO44IhET6LQswcUcS0u23b7K9fvNVYVRE832iX+J4M2sD8uInpDfnQpxOGPRoGZjv3oGDW1IVw8Y1Pg4So2KMrts17Y5NG+sDGpGf9y7jSlJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDrhxqtqdwl_CA--.64396S2;
+	Thu, 17 Sep 2026 18:54:25 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	jeff@garzik.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stephen@networkplumber.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: cxgb: Fix skb reference leak in espibug_workaround_t204()
+Date: Thu, 17 Sep 2026 10:54:25 +0000
+Message-Id: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915211508.291790-2-julianbraha@gmail.com>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1789642448-407E6965-D671F190/0/0
-X-purgate-type: clean
-X-purgate-size: 3052
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-01  mail-id: 0D27BA07DC  external: no
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXgDrhxqtqdwl_CA--.64396S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyUGFyDXrWUZFyrZwb_yoW8JFyDpw
+	4qka47CrZ8Za12ka1kAw48tF9xua1ktFWrKF1fJws5ZrsxJr4UWry0qF45KFWDArZ3WanI
+	yrs8Aan8Krs0y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU5TOJ7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qrq3ZfDQAAsH
 
-On Tue, Sep 15, 2026 at 10:15:04PM +0100, Julian Braha wrote:
-> The Kconfig interpreter already warns if a numeric option attempts to use
-> a non-numeric option (bool, tristate, or string) to set its value (for
-> example, with a 'default' or 'range').
-> 
-> Since there is nowhere in the tree that attempts this, we can safely
-> promote this check from warning to error.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Julian Braha <julianbraha@gmail.com>
-> ---
->  scripts/kconfig/lkc.h                         |  2 +-
->  scripts/kconfig/menu.c                        | 39 ++++++----
->  scripts/kconfig/parser.y                      |  2 +-
->  .../tests/err_num_non_numeric_ref/Kconfig     | 75 +++++++++++++++++++
->  .../tests/err_num_non_numeric_ref/__init__.py |  9 +++
->  .../err_num_non_numeric_ref/expected_stderr   | 14 ++++
->  6 files changed, 126 insertions(+), 15 deletions(-)
->  create mode 100644 scripts/kconfig/tests/err_num_non_numeric_ref/Kconfig
->  create mode 100644 scripts/kconfig/tests/err_num_non_numeric_ref/__init__.py
->  create mode 100644 scripts/kconfig/tests/err_num_non_numeric_ref/expected_stderr
-> 
-> diff --git a/scripts/kconfig/lkc.h b/scripts/kconfig/lkc.h
-> index 7e6f6ca299cf..bbc99f75b416 100644
-> --- a/scripts/kconfig/lkc.h
-> +++ b/scripts/kconfig/lkc.h
-> @@ -89,7 +89,7 @@ struct property *menu_add_prompt(enum prop_type type, const char *prompt,
->  				 struct expr *dep);
->  void menu_add_expr(enum prop_type type, struct expr *expr, struct expr *dep);
->  void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep);
-> -void menu_finalize(void);
-> +int menu_finalize(void);
->  void menu_set_type(int type);
->  
->  extern struct menu rootmenu;
-> diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
-> index 9c079e92a9ed..99a57ce0fdc9 100644
-> --- a/scripts/kconfig/menu.c
-> +++ b/scripts/kconfig/menu.c
-> @@ -240,11 +240,12 @@ static int menu_validate_number(struct symbol *sym, struct symbol *sym2)
->  	       (sym2->type == S_UNKNOWN && sym_string_valid(sym, sym2->name));
->  }
->  
-> -static void sym_check_prop(struct symbol *sym)
-> +static int sym_check_prop(struct symbol *sym)
->  {
->  	struct property *prop;
->  	struct symbol *sym2;
->  	char *use;
-> +	int errors = 0;
->  
->  	for (prop = sym->prop; prop; prop = prop->next) {
->  		switch (prop->type) {
-> @@ -258,10 +259,13 @@ static void sym_check_prop(struct symbol *sym)
->  				break;
->  			sym2 = prop_get_symbol(prop);
->  			if (sym->type == S_HEX || sym->type == S_INT) {
-> -				if (!menu_validate_number(sym, sym2))
-> -					prop_warn(prop,
-> -					    "'%s': number is invalid",
-> -					    sym->name);
-> +				if (!menu_validate_number(sym, sym2)) {
-> +					fprintf(stderr,
-> +						"%s:%d: error: '%s': number is invalid\n",
-> +						prop->filename, prop->lineno,
-> +						sym->name);
+The timer handler takes an extra reference with skb_get() before handing
+the skb to t1_sge_tx(), so that the skb survives until the DMA has
+completed. When the command queue is full, t1_sge_tx() returns
+NETDEV_TX_BUSY without queueing the skb, and the return value is
+ignored, so the extra reference is never dropped.
 
-I think it would be reasonable to add a prop_err() function for that.  
-But that's a possible follow-up.
+Free the skb when t1_sge_tx() reports that it did not consume it.
 
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+Fixes: f1d3d38af757 ("[PATCH] chelsio: add support for other 10G boards")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/chelsio/cxgb/sge.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/net/ethernet/chelsio/cxgb/sge.c b/drivers/net/ethernet/chelsio/cxgb/sge.c
+index d8fca697874a..d4677c5b8d74 100644
+--- a/drivers/net/ethernet/chelsio/cxgb/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb/sge.c
+@@ -2052,7 +2052,8 @@ static void espibug_workaround_t204(struct timer_list *t)
+ 			 * the skb once the DMA has completed.
+ 			 */
+ 			skb = skb_get(skb);
+-			t1_sge_tx(skb, adapter, 0, adapter->port[i].dev);
++			if (t1_sge_tx(skb, adapter, 0, adapter->port[i].dev))
++				dev_kfree_skb_any(skb);
+ 		}
+ 	}
+ 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
 -- 
-Nicolas
+2.34.1
+
