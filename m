@@ -1,273 +1,133 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C024F4025
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1883AB480
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677854; cv=none; b=PeIWSS/asfiVBiAyoCYg6llx7eIi0AyLYGFZCy9AoeeggRdUPnDiRT0O7sPoi6ocYuiFlEzdgRRDZCZ6L3wsGqLbQ7of3Ll15rZey4+f/mikwJl3ebTtWV0VvMqJZ4UOj5FfrqMckjDggCpOoaZCjnPfj4pFMX4WR87WFvCzVLo=
+	t=1789677912; cv=none; b=fR1vlZWhfI78z/UeWeQjZH4Y+dfd2bnMAG6CWhgsLhwXKmbWp5LKvjQjlY0tCH0Yc2XjeIKTp5pN6i64vOlNSR0EuGMX0YkzOIm2+MUfZECb0xLfg9MEH8K31lno4upNqkrTLeo1azIxmqx6G96SZosr0pkoSE8Jatad8i2avDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677854; c=relaxed/simple;
-	bh=7n3EKdPTyeJ3fng5n2NU2Jsl5vOG5evW8rwiIQjnCNs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jm2mQkap65DAJF7TQDp1T2UVX/qjAqwBl/Wlv8tKq/xu8dpW7e8rbrvmPjkt9wiYO2HTw4MLdfMs3Kway2jQgr7pho2O//heKIIeOvBJbhbvDxQ2r+hVfF4mpcxPapn1VEhJUWedoIocMpYnmXnDjD4gNk9nzZ0iCaUdYfmSA7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqsecCjF; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789677912; c=relaxed/simple;
+	bh=72Va4xv8Ms2h78XcKuZg9RHaTyup/YG0a/Xfii40hfc=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=V5p6mj0C/eaPpbQqpHNrb3bcSqRsOF+XUjwDwZwqsnohaJIs+D7n3+8gMHq1pBT4r9M1yfU1QTZS/l80gUCzzvnvkH+ZiJK10alXYpPo6nrVR42O1PDumUmoR+9mpWQw0ElzaZnd4cv5iDG7XSAAgfuEAyuV22C769N+j6dwMqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dwkQfPml; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqsecCjF"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so364455e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:44:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dwkQfPml"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso131273a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:45:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789677843; x=1790282643; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+azRImqFeLmJHvmrcTLLoRlF37aB5bzWoKnNKv00IsU=;
-        b=SqsecCjFYdzat9lXBaSRN/dnAvBIjPWnCPaZJViG9/0Lkrm28KsJgDfT4mTwTKd9hZ
-         a8fENg3OLgivOZgJ9y7YenF7SGVqQHBXiCKjwjlSZugWdobEvgcnWd73vhT2dUeKnte3
-         0Z3sByn+zZqN1ure9VtMPAjd2IbXfLw8drLw/Yb/ma7atOU6mOXmtvvZW5JxJJ3Pf87A
-         6rNHTz+G/o9V7Ixfw6sEHlo+gSYF2YSQs5Vb2lmf8Y16vBgIc7Z+2FODo/2nmt4rz6qH
-         cVwJgWHR/jsNDBkHh1UFGMB7D/aX1KA5DFDv2XESdoTPaWjNwJU6+FOaqdvgcfIZTOWj
-         EeNA==
+        d=google.com; s=20251104; t=1789677907; x=1790282707; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jMNh0+jAAa1Kr4+QO+vi3xyA58GWdIBX9d8ih4uK1uA=;
+        b=dwkQfPmlWkd/T7A/vKfGTLqfrem8YCSe9PCv6MjwH1nCQpfG6Te0q5gue5iOtvCWEm
+         4LhVuxiFZWYl0hCKTZbEHTjh6eqCLMw9C9ePeob8K1fjbbpwxs4+wRsGe9T6fpEHGDUp
+         sZrs/hoXUecziJQp/Kk8NV5T+slzkIq7+Wigx10FBAxIL4ZgYK/iIVeqv53F04OyDVPg
+         G/6TSrMMShgyj/jJE1CQqvdU0cENHYmcsbFlR80nCPFWnTwOMV8n1hB3nDqhXOPvaADJ
+         69KjYxqcPJAnUI5jwpw1WfqH0ypKIUV26gGKuZOo3dL6VU243FH1V/yGB7qrRZMqp+hL
+         Vbfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677843; x=1790282643;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+azRImqFeLmJHvmrcTLLoRlF37aB5bzWoKnNKv00IsU=;
-        b=fmotQPvDCVFHaM/qPZ+7lf+k7OuMN1nEPBPVKbSAeKDDo3/BmAc35ZgWTUYJsZKP/u
-         9+bMU1M53y4IqkRJ5RIaxP1NtIBj3vYEuAyf54gvvqt1c7VASwwAZgxvSuAFC67gc3sQ
-         OrsWgHaq6pRjqBJfPZKRrc0N1NaAZafY8n7t+B1DepZB3pLkT6lrHUdKv0uK56xG2xbb
-         KmO163oO3VRFPo5Snx5EvxwPxsv8oijZG+5aL4CwM9lXOLSogJQNcVqhkDxWE3Ui1Uig
-         LQoJqb5opsqzNhX3q82t0wC5Zn+oPHQNkr9gT+5hriqCy2SJR6ZE67aoDY3s9AVR2n9N
-         CpwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqJfdQMEdyfabPY1AiddidpOG5+Qrs1WpBOaQJ0FfdjOkuwU7FODdMeoC7WSs2/V8MG4sZcGJAD12qzXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0OILVtjkVNDMYgVlDcDpSRXlPrKexQvWfBj4FYUtTrh317CmB
-	1afOzvx77oTfMD8i09dOBrdmS6KDDOf/5w6uuv1fpXcRhOI5zxJiLfHo
-X-Gm-Gg: AYBFou0sYPMkn/61RqpLYjBpEHHAhRogx86iMNoE4HxqEHMjJ9kQE+VcKAgg1IcoUIM
-	UoF+8FEErfR5c3ApKtwuWo910gYYyzXtXFNfxFdYh4PiAdPt4aBaAvUJjW3kwT72FyjZ+08bzcQ
-	t8XmBB7W2SwYj+G2HCDGyU+7QGbIjg+r1CzqeJQmqnXIuREd6wqQGD++PmpDDtg1lUnLUMkOu5V
-	MJIWlS3Jjql3Z//iH7xxkngM8a38Kjqx8AvGoFnGOnPqO63ryUY/bggvQNwoFW2w2ogBw+Be0A2
-	j+7dFe7g92Z1Bfu2htq/qkQ4MNqDrYLRnK0fDBJiV04owS+yRf4GKkorPsw8m696WTualhzODgZ
-	xQIG9XNEBePGKh+vlSUtlObeASiC0/LNTwCMDlvSrg81E34gabz4LtdaiUbuufkOJYoCk99cynO
-	vC2RTNDqOZxa4Z5hoSVenSac0QQ8kfxsB3TmTAlW9c8x/iv2GvHD8WT9WzlJwbQfD0Womip0cNu
-	3e9FM1MBNbndOWVPO7RhtdOcdmzTItPbuvXl0QxL1+JbWoIWQ==
-X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr1407605e9.2.1789677843097;
-        Thu, 17 Sep 2026 13:44:03 -0700 (PDT)
-Received: from localhost.localdomain ([82.77.79.112])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fbd227141sm122333395e9.2.2026.09.17.13.44.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 13:44:02 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3] dt-bindings: net: wireless: Convert WL1251 to DT schema
-Date: Thu, 17 Sep 2026 20:43:54 +0000
-Message-ID: <20260917204354.3017427-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789677907; x=1790282707;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jMNh0+jAAa1Kr4+QO+vi3xyA58GWdIBX9d8ih4uK1uA=;
+        b=NGnbocF90tr4KzArEQcAaXNbGYscJawSNKZBBOsLtUvvkAobSYQFMmbO7D7t11yWii
+         I+/WdU7XfiaPvutmAo5AzgWVp0VvLKumGNH3PfaU2dvjlGg1tF6AOVictXXjmzBOd6pK
+         s0Wg4bYTs1ttyYfAqgGBC11Hnn4TgHeyTePiCAb0pH1Y8q/wbM4+ewjlpES7G0xn6UDa
+         URFJaXtNqnBYwqu/po8elIYOO2nWc1HPgoBY7XiYYlBpabB9ioLTPoO7G8wOhx0vtU0r
+         gjDOM/hB8ZsRHlgg0mKfB6+VqINkwj4B1/OHHNnHM0aBralO3Vxa/zmq+6dmm4M44dq8
+         GfpA==
+X-Forwarded-Encrypted: i=1; AKwUvByiMmdPEhiuYIBnIVMILbE+xlB44nPhuQZ/9hOegMnQqnTIiwBzkeJFcDTN5lL/bBHp0cHBWKoNmU+/1zc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdz1x3sPoqiFMXl+0YL629l6LBDOSDDRCIxzCWMt98PNDBJS5w
+	iOqmI5d5LG1YwSWs+6sqf6iwTaZEWYIzU6vzUnh1ke475bRkurmCFBYcJWROrUzg5NHXcg5pBPO
+	wixIsLg==
+X-Received: from pje10.prod.google.com ([2002:a17:90b:550a:b0:39b:a3c6:1ea1])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:280a:b0:39e:2530:2102
+ with SMTP id 98e67ed59e1d1-39e54f4221amr1221121a91.11.1789677907330; Thu, 17
+ Sep 2026 13:45:07 -0700 (PDT)
+Date: Thu, 17 Sep 2026 20:43:46 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAAJRrGoC/4XNQQ6CMBCF4auQrh3TFErBlfcwLqZ0Ck2AmlaJh
+ HB3Cy6MK5b/S+abhUUKjiK7ZAsLNLno/JiiPGWs6XBsCZxJzQQXJZdCwUCDDzNYdP0rEAwWDPU
+ 4kwHr3qCMxMoWWGGlWTIegdK8+7d76s7FZzrf303Ftn7lkosDeSqAA0rdKKMl1lpcW+/bns6NH 9hGT/LHVSI/4mTiTK1QKp5TIfGPW9f1Ax+ywPUaAQAA
+X-Change-Id: 20260527-memory-failure-mf-delayed-fix-7d5a8f4a8a8b
+X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789677906; l=1740;
+ i=wyihan@google.com; s=20260319; h=from:subject:message-id;
+ bh=Am2jKIW9EJEt0JmvNafH4y2xjpYHkskddR3CBeqh7Zw=; b=/wh3h4RwP/TLeQrHX1ATtrr76sHTMiPuM2R+SJAOB0ZNs9zkKo19zhJPXOol9dk/vZK8KxzTh
+ kMzeBBM0ciYCOfVQNYSBsGFmVAddo2DxqCG+W/jupYzZWJ8KL9ooBKj
+X-Mailer: b4 0.14.3
+Message-ID: <20260917-memory-failure-mf-delayed-fix-v6-0-4b00856b5364@google.com>
+Subject: [PATCH v6 0/5] mm: Fix MF_DELAYED handling on memory failure
+From: Lisa Wang <wyihan@google.com>
+To: Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Andi Kleen <andi@firstfloor.org>, 
+	Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>, Rik van Riel <riel@redhat.com>, 
+	Yu Zhang <yu.c.zhang@linux.intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>
+Cc: rientjes@google.com, seanjc@google.com, ackerleytng@google.com, 
+	vannapurve@google.com, michael.roth@amd.com, jiaqiyan@google.com, 
+	tabba@google.com, dave.hansen@linux.intel.com, Lisa Wang <wyihan@google.com>, 
+	Isaku Yamahata <isaku.yamahata@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the Texas Instruments WL1251 Wireless LAN Controller bindings to DT
-schema.
+Here's a sixth revision to fix MF_DELAYED handling on memory failure.
 
-During the conversion, the following updates were made:
-- Added the 'clocks' property. It was missing from the txt binding but
-  is used in device trees (omap3-n900.dts).
-- Added 'spi-cpol' and 'spi-cpha'. These were present in the original
-  txt binding's example but missing from its property list.
-- 'vio-supply' and 'spi-max-frequency' are no longer required. The txt
-  binding listed them as required, but they are only applicable when
-  the chip is connected via SPI.
+This patch series addresses an issue in the memory failure handling path
+where MF_DELAYED is incorrectly treated as an error. This issue was
+discovered while testing memory failure handling for guest_memfd.
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The proposed solution involves -
+1. Clarifying the definition of MF_DELAYED to mean that memory failure
+   handling is only partially completed, and that the metadata for the
+   memory that failed (as in struct page/folio) is still referenced.
+2. Updating shmem=E2=80=99s handling to align with the clarified definition=
+.
+3. Updating how the result of .error_remove_folio() is interpreted.
+
+Changes from v5:
+Add comment-style fallthrough in the memory-failure test, as suggested
+by Ackerley and David
+
++ RFC v5: https://lore.kernel.org/all/20260823-memory-failure-mf-delayed-fi=
+x-v5-0-d97a5703e45a@google.com/
+
+Signed-off-by: Lisa Wang <wyihan@google.com>
 ---
-Changes in v3:
-- Rename the example WLAN node from wl1251@0 to the generic node name
-  wifi@0, as requested in review.
+Lisa Wang (5):
+      mm: memory_failure: Clarify the MF_DELAYED definition
+      mm: memory_failure: Allow truncate_error_folio to return MF_DELAYED
+      mm: shmem: Update shmem handler to the MF_DELAYED definition
+      mm: memory_failure: Generalize extra_pins handling to all MF_DELAYED =
+cases
+      mm: selftests: Add shmem into memory failure test
 
-Link to v2: https://lore.kernel.org/all/20260905201108.415713-1-egbostina@gmail.com/
-Link to v1: https://lore.kernel.org/all/20260815083326.2146602-1-egbostina@gmail.com/
+ mm/memory-failure.c                         |  29 ++++---
+ mm/shmem.c                                  |   2 +-
+ tools/testing/selftests/mm/memory-failure.c | 114 ++++++++++++++++++++++++=
++++-
+ 3 files changed, 126 insertions(+), 19 deletions(-)
+---
+base-commit: 08745c62350126bc31b09548137be87e2866f628
+change-id: 20260527-memory-failure-mf-delayed-fix-7d5a8f4a8a8b
 
- .../bindings/net/wireless/ti,wl1251.txt       | 64 --------------
- .../bindings/net/wireless/ti,wl1251.yaml      | 85 +++++++++++++++++++
- 2 files changed, 85 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
- create mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-deleted file mode 100644
-index 88fd28d15eac..000000000000
---- a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Texas Instruments wl1251 wireless lan controller
--
--The wl1251 chip can be connected via SPI or via SDIO. This
--document describes the binding for the SPI connected chip.
--
--Required properties:
--- compatible :        Should be "ti,wl1251"
--- reg :               Chip select address of device
--- spi-max-frequency : Maximum SPI clocking speed of device in Hz
--- interrupts :        Should contain interrupt line
--- vio-supply :        phandle to regulator providing VIO
--
--Optional properties:
--- ti,wl1251-has-eeprom : boolean, the wl1251 has an eeprom connected, which
--                         provides configuration data (calibration, MAC, ...)
--- ti,power-gpio :	 GPIO connected to chip's PMEN pin if operated in
--			 SPI mode
--- Please consult Documentation/devicetree/bindings/spi/spi-bus.txt
--  for optional SPI connection related properties,
--
--Examples:
--
--&spi1 {
--	wl1251@0 {
--		compatible = "ti,wl1251";
--
--		reg = <0>;
--		spi-max-frequency = <48000000>;
--		spi-cpol;
--		spi-cpha;
--
--		interrupt-parent = <&gpio2>;
--		interrupts = <10 IRQ_TYPE_NONE>; /* gpio line 42 */
--
--		vio-supply = <&vio>;
--		ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>; /* 87 */
--	};
--};
--
--&mmc3 {
--	vmmc-supply = <&wlan_en>;
--
--	bus-width = <4>;
--	non-removable;
--	ti,non-removable;
--	cap-power-off-card;
--
--	pinctrl-names = "default";
--	pinctrl-0 = <&mmc3_pins>;
--
--	#address-cells = <1>;
--	#size-cells = <0>;
--
--	wlan: wifi@1 {
--		compatible = "ti,wl1251";
--
--		reg = <1>;
--
--		interrupt-parent = <&gpio1>;
--		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;	/* GPIO_21 */
--
--		ti,wl1251-has-eeprom;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-new file mode 100644
-index 000000000000..6ce82c4a2c0b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-@@ -0,0 +1,85 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wireless/ti,wl1251.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments WL1251 Wireless LAN Controller
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: ti,wl1251
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vio-supply:
-+    description:
-+      Phandle to the regulator providing VIO. Required when connected via SPI.
-+
-+  ti,power-gpio:
-+    maxItems: 1
-+    description:
-+      GPIO connected to chip's PMEN pin if operated in SPI mode.
-+
-+  ti,wl1251-has-eeprom:
-+    type: boolean
-+    description:
-+      The wl1251 has an EEPROM connected, which provides configuration
-+      data (calibration, MAC, ...).
-+
-+  clocks:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+  spi-cpol: true
-+  spi-cpha: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wifi@0 {
-+            compatible = "ti,wl1251";
-+            reg = <0>;
-+            spi-max-frequency = <48000000>;
-+            spi-cpol;
-+            spi-cpha;
-+            interrupt-parent = <&gpio2>;
-+            interrupts = <10 IRQ_TYPE_NONE>;
-+            vio-supply = <&vio>;
-+            ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    mmc {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wifi@1 {
-+            compatible = "ti,wl1251";
-+            reg = <1>;
-+            interrupt-parent = <&gpio1>;
-+            interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
-+            ti,wl1251-has-eeprom;
-+        };
-+    };
--- 
-2.43.0
+Best regards,
+--=20
+Lisa Wang <wyihan@google.com>
 
