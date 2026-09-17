@@ -1,178 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0D841D103
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34AB43B4BF;
+	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634626; cv=none; b=t3eGhGbQddiXyyMhDVLX4j5MhpakWfNTJIpkM58Dz/byL3+AxjmQUq08uFPIDui/d0klb81LuYnER2hhSo2t4ZLGkpWiyRBSrLUSsQlxDN25qbUUsXCfeQi4HPCfUnMwMugN1aAHLGsHW/GdGQ8fZdNb10LHCwcf6es6JqIsoAM=
+	t=1789634638; cv=none; b=qWQL69vcdDmgIzFr2gkmjPH5LUxO6sHrbrkPmbcpc3cv+VInNCyrQNHIc0B0k/sg5T2HlRzG7dLESUmRFtD4oipSLacAF2mxjvj4wLr/53HMeXxVoI7jIdXEwAEQ059JUsNZY2m0XFkvdFUbJ49R0NyWJLjbamXOp/0qfu/UXps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634626; c=relaxed/simple;
-	bh=DZTC4uPqaHJj/OZS6NpKiXcAPICjbOhzo2h5GxYHiQI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=tC04lOwVftsqh27UVSCbj/uo/EAlQ5ySHoI+p23EmDRwHtjzGyR2yT8bGoeWJ5bV9LLbNFli5juCASN3EjIu72wmryHhJt6YpVe43VPopRZ2RQ7nKB+FERVUYGqbsyHOTAwYWMUvVmym49ul7dClwf33hdjWqVRyn5erJMDc4fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZ1Nv4E5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789634638; c=relaxed/simple;
+	bh=gabtB3LhvDpwGxM60+CDmRYzOClz8MHrctbfhZ7+Cxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hZ89OrdRRHvIEg3E22hT1fWCGaT2mJShH673jlJI4qr4BGez8ZKsSkH+Mk0sm9kCQxG1HNMwnGbMmy4czC+zkz/VJwnzKrZp9iBZEkB82DSBupJktmR8Ph5g4LUh3jrOXLyNK0e6JAqIU0W4dS+Lsy6rHkNJ7qGPEAcnLiFgjE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d70TY05y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZ1Nv4E5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505C11F000FF;
-	Thu, 17 Sep 2026 08:43:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d70TY05y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2EB1F00893;
+	Thu, 17 Sep 2026 08:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789634610;
-	bh=AZdjSMK1O73M0g/SKYTQXMO6bB6h5wxyUE1M5wazgR0=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=cZ1Nv4E5M8ZqvrssciqIPmbcB5tnUu3LISQlyC31sZV4aLmai4oBlDr0ZCMJJtt3O
-	 Zwzp39lzTFzX94viFolQ+w6JHMMxiVd3yt/YwuJl15kd1pa3Y2XK36Uioz915XaIXy
-	 ADNAu+j61uQXJJogMbTMssodfeJEbzWjPHIaBa0SP5qkL8Okggq7YiVnjEXf6ZItyq
-	 KkS71wjnsZDMh+iXkUo4auLw3X08RPkjSfXECNvtxinNP60v6cSskmcff8CQujWKl3
-	 WneAAh86Egy/phHyKYiGLo7lDuLPDfJ/qM2sax0hm/rPW3almwiNYYRM1OPwo03Lhf
-	 fD+pONFOrnWCQ==
-Message-ID: <e988b0e8-3ee9-45ed-9d34-7b73d86d9cfd@kernel.org>
-Date: Thu, 17 Sep 2026 10:43:22 +0200
+	s=k20260515; t=1789634608;
+	bh=buD3ErXVY00qtOfbbN+g2a6i1tZgMgrKCslFRQUKThs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d70TY05yyHQ7s2d6aSQmpJlbvfjb565Jt22UNJ1P7e9d3NyE2FF+DoyrPsOggbevm
+	 bJw33nP1ZR/98zM56CUm6S+gL4n4VOlF5ppTlVIZgQalMBgpk3OOgpuShZmz0ZiEI8
+	 GHzVhc6aMEZXhSKfSSpp1JzhE/Wnj793p8O9uiHdX1qBiQV1OT+UXsUqd59S1A/5BC
+	 UfeEdUfm/wup58vramzigPRPAJYE4PscTiIG99QTELI5RipVlkRx3hjja3XsaZKae1
+	 T7tKFlaVdrRDmcbZeVv0X4c0/ZPw0qmevM7HzhewDDvX6uw2vhUD9vFcvdJPeBXLaW
+	 ejh1+7jRDjIVA==
+Date: Thu, 17 Sep 2026 10:43:24 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/3] Input - aw8695: Add driver for AW8695 haptics
+Message-ID: <20260917-slim-smart-rook-1dc942@quoll>
+References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+ <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/gup: batch PTE-mapped large folios in
- gup_fast_pte_range()
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- liam@infradead.org, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Aristeu Rozanski <aris@ruivo.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260917083747.786-1-aa9736195201@gmail.com>
- <f8f6d553-d818-4cc6-a1a1-a9c9149a17e9@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <f8f6d553-d818-4cc6-a1a1-a9c9149a17e9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
 
-On 9/17/26 10:42, David Hildenbrand (Arm) wrote:
-> On 9/17/26 10:37, Yuan-Hao Hsu wrote:
->> GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
->> costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
->> atomic, a full barrier and a node stat update for FOLL_PIN), a
->> gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
->> pays sixteen of each and a PTE-mapped 2 MB THP pays 512.  The PMD and
->> PUD leaf paths already take the whole range with one
->> try_grab_folio_fast() call, and the slow path is getting the same
->> treatment for PTEs in Rik's follow_page_mask() series.
->>
->> The users are the hot ones: iov_iter_extract_user_pages() pins every
->> O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
->> buffers through it, and so does RDMA memory registration.  With mTHP
->> those buffers are PTE-mapped large folios.
->>
->> After the head page has been grabbed and verified as before, extend the
->> run to the following PTEs that map the next pages of the same folio
->> with the same protection bits, take the remaining references for the
->> run with try_grab_folio(), and fill pages[] from the run.  The PTEs of
->> the run are read while the reference on the folio is held, so the folio
->> can neither be freed nor split underneath the scan; a THP collapse can
->> still detach the page table, so the pmd is checked again after the run
->> is grabbed and the run is dropped if it changed, leaving the next
->> iteration to hit the existing pmd check and bail out.  A read-only run
->> of an anonymous folio stops at the first page that gup_must_unshare()
->> rejects, so the per-page exclusivity guarantee for FOLL_PIN is kept.
->>
->> folio_pte_batch_flags() does the scan.  It reads the entries with
->> ptep_get(), which is not safe without the page table lock on
->> CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
->> and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
->> Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
->> site, so the other callers do not change.
->>
->> The order-0 path keeps its instruction sequence.  The folio flags are
->> tested before folio_set_referenced() on purpose: a load of the flags
->> right after that locked instruction cost about 25% on order-0 pages in
->> the gup_test benchmark below, and reading them first brings that path
->> back to the baseline.
->>
->> gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
->> per call, median of 15 runs, two baseline boots / one patched boot, on
->> an x86-64 VM:
->>
->>                        get_user_pages_fast()   pin_user_pages_fast()
->>                        before       after      before       after
->>   4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
->>   64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
->>   1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
->>   2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
->>   2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
->>
->> fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
->> buffer in 64 kB mTHP, median of 15 five-second runs:
->>
->>   bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
->>   bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
->>   bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
->>
->> IORING_REGISTER_BUFFERS of 1 GB, median of 15:
->>
->>   64 kB mTHP           6179/5998 us  ->  1599 us
->>   1 MB mTHP            5790/5801 us  ->   893 us
->>   4 kB pages           7173/6741 us  ->  6763 us
->>
+On Mon, Sep 14, 2026 at 04:37:48PM +0200, Griffin Kroah-Hartman wrote:
+> From: Luca Weiss <luca.weiss@fairphone.com>
 > 
-> I think Rik was already working on this and sent some patches. Anyhow, there is
-> quite some GUP review backlog I have t go through, so this will have to wait.
+> Add a driver for interfacing with the Awinic AW8695 LRA Haptic Driver.
 > 
+> The chip supports multiple modes of which only RAM mode is implemented.
+> RTP mode would enable a user to "stream" waveform data but to my
+> knowledge no such user space API exists in the kernel yet.
+> 
+> We upload a basic sine wave to the chip and play this on request.
+> 
+> Co-developed-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-Ah, no, Rik looked at GUP not GUP-fast. So I'll have a look but it will take a
-while.
+Your SoB should be the last, after your codev, after author's.
 
--- 
-Cheers,
+> +static irqreturn_t aw8695_irq(int irq, void *data)
+> +{
+> +	struct aw8695_data *haptics = data;
+> +	struct device *dev = &haptics->client->dev;
+> +	unsigned int read_buf;
+> +	int err;
+> +
+> +	err = regmap_read(haptics->regmap, AW8695_SYSINT_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read SYSINT register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: SYSINT=0x%x\n", read_buf);
+> +
+> +	if (read_buf & AW8695_SYSINT_BSTERRI)
+> +		dev_err(dev, "Received boost short circuit protection or over-voltage protection interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OVI)
+> +		dev_err(dev, "Received wave data overflow or DPWM DC error interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_UVLI)
+> +		dev_err(dev, "Received under voltage lock out interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OCDI)
+> +		dev_err(dev, "Received over current interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OTI)
+> +		dev_err(dev, "Received over temperature interrupt!\n");
+> +
+> +	if (read_buf & AW8695_SYSINT_DONEI)
+> +		dev_dbg(dev, "Received playback done interrupt\n");
+> +	/* FIFO mode is not (yet) implemented in this driver */
+> +	if (read_buf & AW8695_SYSINT_FF_AEI)
+> +		dev_dbg(dev, "Received FIFO almost empty interrupt\n");
+> +	if (read_buf & AW8695_SYSINT_FF_AFI)
+> +		dev_dbg(dev, "Received FIFO almost full interrupt\n");
+> +
+> +	err = regmap_read(haptics->regmap, AW8695_DBGSTAT_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read DBGSTAT register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: DBGSTAT=0x%x\n", read_buf);
+> +
+> +	err = regmap_read(haptics->regmap, AW8695_SYSST_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read SYSST register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: SYSST=0x%x\n", read_buf);
 
-David
+You should not have three debugs (and possibly +3 more in if()
+conditions) in interrupt handler. In case of irq
+storm this still will overwhelm the log. This should be only one and
+most likely dev_dbg_ratelimited(). Errors should also have ratelimit,
+even if IRQ storm with errors is unlikely or even drop them completely -
+isn't regmap already going to print some errors in such case?
+
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+Best regards,
+Krzysztof
+
