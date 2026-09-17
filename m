@@ -1,416 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103DF4FC35D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FADF5304D0
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664476; cv=none; b=YfXpL22vo4dACkcldX+DhDtHFpacnhQClBbbxaqT36dHNgeysJkBr6J08AQrqPAM1thKudDqnmio+k3c4KUroKV+6xuiwmDP3fO0W3LWtkTiTBb4WEXPEbX2XVYlMPaQBbn6aqWIYRUiZ7WSRC9rW+C0XqO618EuLHmHthzowzs=
+	t=1789664478; cv=none; b=Ca5ASRJloP0g5y0oaKuJS7ZBQW6+b39P8p6hb+ryjXJmgGqzrorY5ZLGfgRvQK6YeL6OZPRmz4kxtfL5/RHPBmZ8erYrZVUupKoRndk62bUUhJDppAmTY2b40eJIIbQe5/xIxlan2Vc56nT5bZ2kUQbST37z/TUAQ4Lt8xkBQfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664476; c=relaxed/simple;
-	bh=cu4RM+NBC5HuCtRGqTqWZIrzlExHM/gip5ev9gnmNQY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b2BYthJ9/4tX0i1CVtu8SC7dNv5Xc8Rx0rS4mYC6Lz67qDq1riy4RULdsAekISXkfQVbZa8DccJ+RmftUxqcnFMVTpqwnzEVaBl3cE/L0qCTsIgItg/nnihM5mfLpNV0jUOn03HhtR9GqEex/n/W0IJ6iSEx+coEXYW/FjbJhaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KdYvMn7z; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789664478; c=relaxed/simple;
+	bh=NcSOim9h8kyRSm5v9QF40ACjK5sIpIrMrCWpOXGumu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kDkN2V7kwPl23ocHMewz1nA54O5UNPg5Vc8JBNaUVR6GAIWVr8kPFwavBjcbmweshj8RK8P/TokO+0qVu4TsKcfh9ZhNVNAUTysBca5XmoOJuivhNxDZ/BSN6MBk0/fuoiZSR6e9jymBfElCcmkXbiZfC+ZLWzLuYE8vehwoTJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=V6p7IXFG; arc=none smtp.client-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KdYvMn7z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789664473;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7TReMI78OyMw60WlPg5zVX2hlL2xFOKTElF4iSyKao=;
-	b=KdYvMn7zgqUUtQusasjhJLYG2C8l9BEXzSYH9CAPefJ8Tg0a3CzikLYRB5OerM1uOMLvkc
-	zByYVccSEtQl2gVsKtTpXiCyAQnrWQucCZRjoy4fmRQzyAo1ziVzcpp3+7ioP51sQP5+ly
-	ftMW2QO3RFh1Bb22xmyBFae9fhHwbvE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-101-DQrXLprXMAGOF3D7uGNfzA-1; Thu,
- 17 Sep 2026 13:01:09 -0400
-X-MC-Unique: DQrXLprXMAGOF3D7uGNfzA-1
-X-Mimecast-MFC-AGG-ID: DQrXLprXMAGOF3D7uGNfzA_1789664464
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 503EA19772F6;
-	Thu, 17 Sep 2026 17:01:04 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.177])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 880DC30002D0;
-	Thu, 17 Sep 2026 17:01:01 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Dave Airlie <airlied@redhat.com>,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v5 1/5] drm/nouveau/gsp/r570: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
-Date: Thu, 17 Sep 2026 12:58:32 -0400
-Message-ID: <20260917170042.440276-2-lyude@redhat.com>
-In-Reply-To: <20260917170042.440276-1-lyude@redhat.com>
-References: <20260917170042.440276-1-lyude@redhat.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="V6p7IXFG"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso378698a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:01:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789664477; x=1790269277;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8rCSqMUFH3Lxxpziks2c8kLHTQuu4M+hXz5ckQbu5Xs=;
+        b=R4v6MwHsiGoEfxvlKc1oVTkXv8hvQ4PKNU+MaGCv+ikiSgiB7W8N89DG4mWECLiPxd
+         T4D6M4XGCGg4Z4Ax7iCBdaTLfWurDC41BzW889Oy0ylIQQu04Jff/34LQGdpSPRETy5M
+         eXG3tq3/a721x3c1siZX0J0hFmvvkz9SQ5yIyhxuY0ldTM4QYARQFTRZ2t2EPwHMwt1p
+         bMYLeWhgA+LEeZjuEvZyHpaTJqH2DAvz/M+PFAnMUa+puPoYSzWiX/ltmgm0LjF7zYbf
+         V9rMX4sPtJrwLQXFhtLhLZqMDgCZYG2h7t8ZvbTgtguzkzt5433jpSU7xvm3aMwrvSoH
+         T7/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzTMqJg7+gKQLz6y2BtyvNTTwC8rYjo+CnSU2mWdr3tUjX80BV3j9AdAgt9GOo8E97alY083fEXx2E4DEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUV+OTJ4yvT3CyB4N2spy1yMfQ5Y41VTkRh7EzVBC/goa4x43k
+	4Mdo+MAyETPFj+7ImForqbb9lK5SGJ+VZYgxnJwh9P8riWXg2Vk+ATrYEcDB8xNJVkI3kWsxQ3e
+	0SGEslleKUAUyLnvzTQrMmERcIjCpaMEzyuDkyXok+rKs6pRj6DGPn9LVV4M91sO+qx6wgV6hXn
+	LI9zf/pJd0H97TlWxyV6CjuH+UMsTq9ywM+vTmxOfErnsvN7wFCNX4QTm2ReFRlmHaSSx5GkJWf
+	ZdF6QW7K+THb99lRVq33Tzj
+X-Gm-Gg: AYBFou0MvqyWcBbHLBlE/YJLWbZVqd+gnaAvPhrs76ziRQjuutOB+tpWUkWQYggRzn+
+	97bczDYK4Mre1Mrbv2ChdnIV895iih2KmRfy0PfY9425MNRIHwDAirv2uZsCqhHV673yPN740jb
+	obnvHT7gqBDhcrddTmGif6tacwWpRapkoYs8e93FdZXu5M+Fb63S6pGbaWpC3xqD7c+EaZqdh/X
+	BFW4dyIC2PAa0xwW/0BoJCjaXBvqXI/VZOU73cd+/kybHoVehyLqkvqylMpy6qtyLzbViCqK936
+	o5b59oPtgp9Gez/KgWH70ZksFyhKuH8GQyGLc16Gu4N9xnyYI4QSrNfjm3jMRVc/7AXyqgFO92Y
+	lVfXE5Vv1zix9jfKHGe9DzdH8sEswsi8hJTTyYoHVxaGP9yiMfP+jzxOhjHzmpouGIzdyvC4XSy
+	+bYUcgroO3r0HRJ543rFXfIcoEi2yHtZcHUVFYcydo
+X-Received: by 2002:a17:90a:d44c:b0:39e:4717:7cd9 with SMTP id 98e67ed59e1d1-39e47178036mr3475910a91.0.1789664476643;
+        Thu, 17 Sep 2026 10:01:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39e35e23adasm1814533a91.5.2026.09.17.10.01.16
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 17 Sep 2026 10:01:16 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c26012cd0so20909651cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:01:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789664475; x=1790269275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8rCSqMUFH3Lxxpziks2c8kLHTQuu4M+hXz5ckQbu5Xs=;
+        b=V6p7IXFGwJ5foD94g8A3UiNatXt4u1UHZjYk++iC1hpO4ElBNmn6cdGmqrvwJqr/fF
+         Dl7/FgfHW4dE1XODCpfubnvTyQ21iNazF/ZWXGUgl79OGxyjbeLEo6YrpiaGf/VBmiBH
+         sSPeLovpXXpqAZLtcXu0suBapzCPeUtWqfFss=
+X-Forwarded-Encrypted: i=1; AKwUvBzx9L9WiHKjySUiWdPSq6DuZzrlZ1TVQKnePtAEOqD4fKdOw/99pmypSphM00BO4Dr7cktX2QPC6eSFGRM=@vger.kernel.org
+X-Received: by 2002:a05:622a:1214:b0:530:42e5:f3a3 with SMTP id d75a77b69052e-5327f16318cmr121320121cf.44.1789664475285;
+        Thu, 17 Sep 2026 10:01:15 -0700 (PDT)
+X-Received: by 2002:a05:622a:1214:b0:530:42e5:f3a3 with SMTP id d75a77b69052e-5327f16318cmr121319081cf.44.1789664474364;
+        Thu, 17 Sep 2026 10:01:14 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53291651dabsm20372241cf.10.2026.09.17.10.01.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 10:01:13 -0700 (PDT)
+Message-ID: <85444883-ab1a-49a1-a356-27dd9f6b77cb@broadcom.com>
+Date: Thu, 17 Sep 2026 10:01:09 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/13] PCI: brcmstb: Declare and assign quirk
+ NO_RGR1_TIMER
+To: Jim Quinlan <james.quinlan@broadcom.com>, linux-pci@vger.kernel.org,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ bcm-kernel-feedback-list@broadcom.com, jim2101024@gmail.com
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+ <20260911233541.1650895-9-james.quinlan@broadcom.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260911233541.1650895-9-james.quinlan@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-OpenRM's runtime PM handling looks a bit different then nouveau's, one part
-in particular that differs from us: OpenRM actually consults GSP to ask
-whether the GPU should be allowed to enter Gc6 and/or GcOff before runtime
-suspending the GPU. In the event the card isn't ready, runtime suspend is
-simply delayed for a few seconds before retrying.
+On 9/11/26 16:35, Jim Quinlan wrote:
+> Very few SoCs do not have an internal bus timer whose timeout value may be
+> adusted for L1SS operation.  Declare this as a quirk and assign it
+> accordingly.
+> 
+> Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
 
-Implement the command used for querying GSP about this,
-NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE, and check to ensure that
-the GPU is ready for runtime suspend in nouveau_pmops_runtime_suspend()
-using this query. If the GPU can't be runtime suspended, update the last
-busy counter of the device and then return -EBUSY from
-nouveau_pmops_runtime_suspend() - essentially delaying the runtime suspend
-process by whatever autosuspend_delay_ms is set to.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-
----
-V2:
-* Remove accidental return of bitmask from nvkm_udevice_gcx_ready()
-* Use gsp variable in nvkm_udevice_gcx_ready() more.
-* Remove unused GSP_GCX_ENTRY defines
-V3:
-* Fix error checking
-V4:
-* Fix layering violation
-* Remove structs from r535, this hadn't been added yet!
-V5:
-* Fixup another mistaken duplicate of the INTERNAL_GCX_ENTRY_PREREQUISITE
-  struct
-
- drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 ++++++
- drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  2 ++
- drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 +++++++
- drivers/gpu/drm/nouveau/nvif/device.c         | 13 +++++++
- .../gpu/drm/nouveau/nvkm/engine/device/user.c | 35 +++++++++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/base.c    | 10 ++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c | 28 +++++++++++++++
- .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        |  7 ++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  2 ++
- 11 files changed, 122 insertions(+)
-
-diff --git a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-index ea8267e0d8da2..9e639df1da467 100644
---- a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-+++ b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
-@@ -4,6 +4,7 @@
- 
- #define NV_DEVICE_V0_INFO                                                  0x00
- #define NV_DEVICE_V0_TIME                                                  0x01
-+#define NV_DEVICE_V0_GCX_READY						   0x02
- 
- struct nv_device_info_v0 {
- 	__u8  version;
-@@ -55,6 +56,15 @@ struct nv_device_time_v0 {
- 	__u64 time;
- };
- 
-+#define NV_DEVICE_GC6_READY	BIT(0)
-+#define NV_DEVICE_GCOFF_READY	BIT(1)
-+
-+struct nv_device_gcx_ready_v0 {
-+	__u8 version;
-+	__u8 pad01[6];
-+	__u8 ready;
-+};
-+
- #define NV_DEVICE_INFO_UNIT                               (0xffffffffULL << 32)
- #define NV_DEVICE_INFO(n)                          ((n) | (0x00000000ULL << 32))
- #define NV_DEVICE_HOST(n)                          ((n) | (0x00000001ULL << 32))
-diff --git a/drivers/gpu/drm/nouveau/include/nvif/device.h b/drivers/gpu/drm/nouveau/include/nvif/device.h
-index 7877a2a79da9b..ce2fadcb05d9e 100644
---- a/drivers/gpu/drm/nouveau/include/nvif/device.h
-+++ b/drivers/gpu/drm/nouveau/include/nvif/device.h
-@@ -22,4 +22,5 @@ int  nvif_device_ctor(struct nvif_client *, const char *name, struct nvif_device
- void nvif_device_dtor(struct nvif_device *);
- int  nvif_device_map(struct nvif_device *);
- u64  nvif_device_time(struct nvif_device *);
-+int  nvif_device_gcx_ready(struct nvif_device *);
- #endif
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index 64fed208e4cf8..cd10c37053695 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -495,6 +495,8 @@ nvkm_gsp_event_dtor(struct nvkm_gsp_event *event)
- int nvkm_gsp_intr_stall(struct nvkm_gsp *, enum nvkm_subdev_type, int);
- int nvkm_gsp_intr_nonstall(struct nvkm_gsp *, enum nvkm_subdev_type, int);
- 
-+int nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp);
-+
- int gv100_gsp_new(struct nvkm_device *, enum nvkm_subdev_type, int, struct nvkm_gsp **);
- int tu102_gsp_new(struct nvkm_device *, enum nvkm_subdev_type, int, struct nvkm_gsp **);
- int tu116_gsp_new(struct nvkm_device *, enum nvkm_subdev_type, int, struct nvkm_gsp **);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 4d1ad718e09b7..298b940296c73 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1148,6 +1148,7 @@ nouveau_pmops_runtime_suspend(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct nouveau_drm *drm = pci_get_drvdata(pdev);
-+	struct nvif_device *nvif = &drm->client.device;
- 	int ret;
- 
- 	if (!nouveau_pmops_runtime()) {
-@@ -1155,6 +1156,18 @@ nouveau_pmops_runtime_suspend(struct device *dev)
- 		return -EBUSY;
- 	}
- 
-+	// Check if the GPU itself is ready for runtime suspend, otherwise mark as busy and check
-+	// again in a bit.
-+	ret = nvif_device_gcx_ready(nvif);
-+	if (ret < 0) {
-+		NV_ERROR(drm, "Failed to query GCX readiness (returned %d)\n", ret);
-+		return -EBUSY;
-+	} else if (!(ret & NV_DEVICE_GCOFF_READY)) {
-+		NV_DEBUG(drm, "GPU isn't ready for suspend yet, delaying...\n");
-+		pm_runtime_mark_last_busy(dev);
-+		return -EBUSY;
-+	}
-+
- 	nouveau_switcheroo_optimus_dsm();
- 	ret = nouveau_do_suspend(drm, true);
- 	pci_save_state(pdev);
-diff --git a/drivers/gpu/drm/nouveau/nvif/device.c b/drivers/gpu/drm/nouveau/nvif/device.c
-index 24880931039f6..1be9fbe6cb703 100644
---- a/drivers/gpu/drm/nouveau/nvif/device.c
-+++ b/drivers/gpu/drm/nouveau/nvif/device.c
-@@ -38,6 +38,19 @@ nvif_device_time(struct nvif_device *device)
- 	return device->user.func->time(&device->user);
- }
- 
-+int
-+nvif_device_gcx_ready(struct nvif_device *device)
-+{
-+	struct nv_device_gcx_ready_v0 args = {};
-+	int ret;
-+
-+	ret = nvif_object_mthd(&device->object, NV_DEVICE_V0_GCX_READY, &args, sizeof(args));
-+	if (ret)
-+		return ret;
-+
-+	return args.ready;
-+}
-+
- int
- nvif_device_map(struct nvif_device *device)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-index 23d11d8221cb6..f78e6b9b42923 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
-@@ -27,6 +27,7 @@
- 
- #include <core/client.h>
- #include <subdev/fb.h>
-+#include <subdev/gsp.h>
- #include <subdev/instmem.h>
- #include <subdev/timer.h>
- 
-@@ -189,6 +190,38 @@ nvkm_udevice_time(struct nvkm_udevice *udev, void *data, u32 size)
- 	return ret;
- }
- 
-+static int
-+nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
-+{
-+	struct nvkm_object *object = &udev->object;
-+	struct nvkm_device *device = udev->device;
-+	struct nvkm_gsp *gsp = device->gsp;
-+	union {
-+		struct nv_device_gcx_ready_v0 v0;
-+	} *args = data;
-+	int ret = -ENOSYS;
-+
-+	if (!gsp) {
-+		args->v0.ready = NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
-+		return 0;
-+	}
-+
-+	nvif_ioctl(object, "device gcx ready size %d\n", size);
-+	ret = nvif_unpack(ret, &data, &size, args->v0, 0, 0, false);
-+	if (!ret) {
-+		nvif_ioctl(object, "device gcx ready vers %d\n", args->v0.version);
-+
-+		ret = nvkm_gsp_gcx_ready(gsp);
-+		if (ret < 0)
-+			return ret;
-+
-+		args->v0.ready = ret;
-+		ret = 0;
-+	}
-+
-+	return ret;
-+}
-+
- static int
- nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
- {
-@@ -199,6 +232,8 @@ nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
- 		return nvkm_udevice_info(udev, data, size);
- 	case NV_DEVICE_V0_TIME:
- 		return nvkm_udevice_time(udev, data, size);
-+	case NV_DEVICE_V0_GCX_READY:
-+		return nvkm_udevice_gcx_ready(udev, data, size);
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-index 9ba1316831e7e..e475d0e8fa7bf 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
-@@ -20,6 +20,7 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- #include "priv.h"
-+#include <nvif/cl0080.h>
- 
- int
- nvkm_gsp_intr_nonstall(struct nvkm_gsp *gsp, enum nvkm_subdev_type type, int inst)
-@@ -47,6 +48,15 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum nvkm_subdev_type type, int inst)
- 	return -ENOENT;
- }
- 
-+int
-+nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
-+{
-+	if (!gsp->rm->api->gsp->gcx_ready)
-+		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
-+
-+	return gsp->rm->api->gsp->gcx_ready(gsp);
-+}
-+
- static int
- nvkm_gsp_fini(struct nvkm_subdev *subdev, enum nvkm_suspend_state suspend)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-index 71b7203bef507..b07797813b049 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
-@@ -93,6 +93,7 @@ void r535_gsp_dtor(struct nvkm_gsp *);
- int r535_gsp_oneinit(struct nvkm_gsp *);
- int r535_gsp_init(struct nvkm_gsp *);
- int r535_gsp_fini(struct nvkm_gsp *, enum nvkm_suspend_state suspend);
-+int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
- 
- int nvkm_gsp_new_(const struct nvkm_gsp_fwif *, struct nvkm_device *, enum nvkm_subdev_type, int,
- 		  struct nvkm_gsp **);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index b45781cd0dfdc..dfda6b0b910a2 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -10,6 +10,7 @@
- #include "nvrm/gsp.h"
- #include "nvrm/rpcfn.h"
- #include "nvrm/msgfn.h"
-+#include "nvif/cl0080.h"
- 
- #include <core/pci.h>
- #include <subdev/pci/priv.h>
-@@ -215,6 +216,32 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
- 	args->bDmemStack = 1;
- }
- 
-+int
-+r570_gsp_gcx_ready(struct nvkm_gsp *gsp)
-+{
-+	NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS *ctrl;
-+	int ret = 0;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-+				   NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE,
-+				   sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	if (ctrl->bIsGC6Satisfied)
-+		ret |= NV_DEVICE_GC6_READY;
-+	if (ctrl->bIsGCOFFSatisfied)
-+		ret |= NV_DEVICE_GCOFF_READY;
-+
-+	nvkm_debug(&gsp->subdev,
-+		   "GCX ready status: GC6=%s GCOFF=%s\n",
-+		   str_yes_no(ctrl->bIsGC6Satisfied), str_yes_no(ctrl->bIsGCOFFSatisfied));
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.client.object, ctrl);
-+	return ret;
-+}
-+
-+
- const struct nvkm_rm_api_gsp
- r570_gsp = {
- 	.set_rmargs = r570_gsp_set_rmargs,
-@@ -223,4 +250,5 @@ r570_gsp = {
- 	.xlat_mc_engine_idx = r570_gsp_xlat_mc_engine_idx,
- 	.drop_post_nocat_record = r570_gsp_drop_post_nocat_record,
- 	.sr_data_size = r570_gsp_sr_data_size,
-+	.gcx_ready = r570_gsp_gcx_ready,
- };
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-index c458569af9d72..2814629fddd22 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-@@ -639,4 +639,11 @@ typedef struct GSP_FMC_BOOT_PARAMS
- } GSP_FMC_BOOT_PARAMS;
- 
- #define GSP_FW_HEAP_PARAM_BASE_RM_SIZE_GH100              (14 << 20)   // Hopper+
-+
-+#define NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE (0x2080a7d7)
-+
-+typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-+    NvBool bIsGC6Satisfied;
-+    NvBool bIsGCOFFSatisfied;
-+} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
- #endif
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index e9ac47d86b69a..86970129ad96a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -40,6 +40,7 @@ struct nvkm_rm_api {
- 		void (*drop_send_user_shared_data)(struct nvkm_gsp *);
- 		void (*drop_post_nocat_record)(struct nvkm_gsp *);
- 		u32 (*sr_data_size)(struct nvkm_gsp *);
-+		int (*gcx_ready)(struct nvkm_gsp *gsp);
- 	} *gsp;
- 
- 	const struct nvkm_rm_api_rpc {
-@@ -174,6 +175,7 @@ int r535_gr_chan_new(struct nvkm_gr *, struct nvkm_chan *, const struct nvkm_ocl
- int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
-+int r570_gsp_gcx_ready(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.55.0
-
+Florian
