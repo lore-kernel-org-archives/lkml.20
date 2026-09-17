@@ -1,79 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DCD3DAAC8;
-	Thu, 17 Sep 2026 22:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250EC3A1A56
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:31:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684275; cv=none; b=oAczZy+DF24g9/L8j/GAitzp6f7NZv+FRWDKwP98c4UC5ofaQqHO3lVWircK50/hP6CxjTYT1bODHaauf9JS16lUnk/OKD6aowVTODWRlGULjS9qMcDaijHL+EHCv2kEfxFS5araxYReikrgozKaiFtVEY+ngHzHeM2JoSmfHTg=
+	t=1789684293; cv=none; b=AayiaD/RpRK2Za/DLdqyRDQ0TmgIILTmoaEf32aYsW6cyqikANEWq/794OkCBThR2sJEV35bxvNcgSQBshhXHvf6xIeR9U7JjWDozYDuWXbNvLJITLsTPNsIYxQ6id9O0aphTxUJJVA2DN8/dqxWmt9bGluXSvUmX40iwH+sEUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684275; c=relaxed/simple;
-	bh=2XweQ+rDJ+fZAy7DSwx1gobAciV1lGVDkjAKKkZGB7Q=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=TK3/2Ci4y2fC+hlNnkOtpFXpwuvbYnwXeoThjrWWqn6THkZ+EnU+7eMQ2RlxxxW2UbJOZC6ApbBsmwWMOGRZEwblOh2VNssITYFpt2Aj4jJCen+P5AKXWEKlsZ2Hn6DSYD7IyyngTRs+RD+Zy74f7mEyGq0LQmsjC5qy4gFhYV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ky8711Sj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789684293; c=relaxed/simple;
+	bh=4krgD/TlwPFHs+5bXtllWBzZ1ujoLH6zodErYJ6+60U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DEa605BwYd2TKm8bCQ4/ynymWBshtYLS4Z5ycP1A+XrMmllhSB+sfRR/neT4QVtkES6HufqkDYkVBZYYNB3mLO1TDmni0PXDpw4/8UJJVd7kEKUxPf/NDAnJXdL3zrlq4SNn3lh+viNtd0sCcqmIJ59vDCxRsZTR3vJX7HcCsys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FGJMKFVU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ky8711Sj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678C01F00893;
-	Thu, 17 Sep 2026 22:31:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FGJMKFVU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3FE41F00893
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684273;
-	bh=PlAtmKj/yRuyyKVdtIKk9Y8dlYAygrMY9Sp1HMi8Awc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ky8711SjEoEHDMlko0oXpy5onyqd+GbHgfF5LfBeqkaErZrdU1UDptbvutC50AXhv
-	 1XY0ApD0e8q8VK4CVjBBppuLNLhDyhga29HgHhIwkgsTmRd1Q0RtYzuoWayYEL1+xb
-	 3EIf8n6lk0CuH84KhI6Sc3Q+cZlMEjwuPRhlIFO+0mdJHsIHoL8qsnY9ZOqiWXYRvw
-	 RMTGB2JQiyRo4KfYBRxtFixppORKfEZ/iaced8QF1qgVZ+RGSV2xVjO2EevauUsgwT
-	 apvA0ITM9a1oU37bXLq5KiVUW+CmzsYm/okP7UTeA/3suYQOchVDWNn3YQkVKJfyB8
-	 KAI3krRgIKTdw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 197DA3811974;
-	Thu, 17 Sep 2026 22:30:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789684292;
+	bh=sgzFISdebgyulnEYwPr3r7Dfr+yDo59RA9yogZZthtA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FGJMKFVUkB9f4ceLcBhdlZWUbGYsNG7voSf7Xkw/ZKagmB9IotpZXjviNtCmLv4ry
+	 WnjvZcTSIywFqGSEwuLV7fIzM67MNdptwXRQ7QUiUzxmWPEPXcMCCDRVtwIcamEu6G
+	 K51ksKGYNXil7lvHuguELVihmri5DXTymzfGLZuYuBeVRTS2GXuuygsI77EevDsBoo
+	 Gf/MrkHIWQkwlphH8S0Zu0+iVWJGD3oi8P3QSuXtkq7O6GnftIudf3hObiULlb7DJA
+	 LsBPQyP21iXw5NdmpUvsvFLzt7dROMkb4agGDpnHT0IKn6QM07eT8dVNaeRHjyRmKp
+	 riuEA5ebNgh3A==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1744eso94052e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:31:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxreKU8T6nN7tDsOrHLgLh9mS364UEbDEvVcPSbAf9x3hQRM6Zcjc+8sxboVExc9ZbeGMHP6ng2e8iweTg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfuGTVkMO8ro3pDc6B0RiODASXCdC14cgA5Dh71ZdKMF9ibxtO
+	rxdL02IrOq8zvvOudQd6vIxnMYpSdOTyTx0OaAjkKkpgo30vjP29o9OhrPjIsF72h59f4IuvuZY
+	w4SC0AWUvYOUgZeAhutpx/A1YlIqxa7w=
+X-Received: by 2002:a05:6512:33c6:b0:5b6:183c:5c9d with SMTP id
+ 2adb3069b0e04-5b8c1958e1fmr84452e87.59.1789684290738; Thu, 17 Sep 2026
+ 15:31:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf-next v2] libbpf: Fix program log buffer size
- validation
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178968420663.152767.3344352465407469671.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 22:30:06 +0000
-References: <20260915-libbpf-log-buf-fix-v2-1-2feca3fa4842@gmail.com>
-In-Reply-To: <20260915-libbpf-log-buf-fix-v2-1-2feca3fa4842@gmail.com>
-To: Luis Vieira <luisflavieira@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, mykyta.yatsenko5@gmail.com, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
+References: <20260917155657.2200191-1-arnd@kernel.org>
+In-Reply-To: <20260917155657.2200191-1-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 18 Sep 2026 00:31:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=D+xCtWx_MX1jbBvByqypabFkFW_xp=2XpUfBb7wyGnQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Vq4xrB9hQc50m54nmaYX1xnKUe4T5kma-lOihlY4UA7NShBSz8Spmt7nk
+Message-ID: <CAD++jL=D+xCtWx_MX1jbBvByqypabFkFW_xp=2XpUfBb7wyGnQ@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: pxa25x: prevent ixp4xx + pxa25x combination
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Daniel Mack <daniel@zonque.org>, 
+	Haojian Zhuang <haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Arnd Bergmann <arnd@arndb.de>, Johan Hovold <johan@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Thu, Sep 17, 2026 at 5:57=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
+te:
 
-This patch was applied to bpf/bpf-next.git (master)
-by Andrii Nakryiko <andrii@kernel.org>:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The USB gadget driver is one of the holdouts of Arm single-platform
+> support that conflicts with a multiplatform kernel. Trying to
+> build this for both Intel PXA and IXP fails with:
+>
+> drivers/usb/gadget/udc/pxa25x_udc.c:144:9: error: 'UDCCS_IO_ROF' redefine=
+d [-Werror]
+>   144 | #define UDCCS_IO_ROF    (1 << 2)        /* Receive overflow */
+>       |         ^~~~~~~~~~~~
+> drivers/usb/gadget/udc/pxa25x_udc.c:141:9: note: this is the location of =
+the previous definition
+>   141 | #define UDCCS_IO_ROF    (1 << 3)        /* Receive overflow */
+>       |         ^~~~~~~~~~~~
+> drivers/usb/gadget/udc/pxa25x_udc.c:232:2: error: #error "Can't configure=
+ both IXP and PXA"
+>   232 | #error "Can't configure both IXP and PXA"
+>
+> Until recently this was not a problem, as ixp4xx was only big-endian
+> and pxa is only little-endian, so these could never be in the same
+> kernel image.
+>
+> As this has changed recently, an allmodconfig kernel for ARMv5 runs
+> into the above failure. I don't think this is an important scenario
+> in practice, especially as pxa25x support is already rather broken,
+> so prevent this configuration using a Kconfig dependency, and
+> rework the driver to allow a combined ixp4xx/pxa3xx kernel that
+> only uses this driver on ixp.
+>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-On Tue, 15 Sep 2026 15:13:35 -0300 you wrote:
-> bpf_program__set_log_buf() checks the existing prog->log_size instead
-> of the incoming log_size argument when enforcing the UINT_MAX limit.
-> As a result, an oversized value can be accepted.
-> 
-> The setter also accepts a non-NULL log_buf with a zero log_size, while
-> bpf_prog_load() rejects mismatched log buffer and size values.
-> 
-> [...]
+That's a reasonable fix. It's not like we would want an actual multi_*
+kernel on these devices anyway.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Here is the summary with links:
-  - [bpf-next,v2] libbpf: Fix program log buffer size validation
-    https://git.kernel.org/bpf/bpf-next/c/8cca9a6bb681
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Yours,
+Linus Walleij
