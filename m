@@ -1,119 +1,83 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452CC53ECE3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC38C4F0555
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652688; cv=none; b=eTQko29O5wvZrcJH1XtrxUG2vklVqth14Mr17xnc8wclIVhGd+xJSULi5NqUukDS3d5IQkUaWgyBND2eKA/37Vky5ldM4gTG+OiiYP9aw+wXErZliZtm40ybeX7AFwn7bO3dUcKoB0f/Z7dMMhRCpa5VXusc+un0bhFl4DVBWn0=
+	t=1789652757; cv=none; b=a6CJQ6XtDF+vJ1e4RyBKPKqPPlOj3tBW2wL15Ld/Kvj5FIUmofWRupq2UQy3d+pGDqa4beWhlZojDarpNUUvluqNNpmiwWH9aHqni+2m/JlRJmkXyNakZmGOyV34sbH3jqJWvtuSC+/2Fl+2NhQ7uFoTSpDREqrEq5ZZY/QKQuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652688; c=relaxed/simple;
-	bh=xkT6eoN6SNKXL4VzXso2H312Ve7Wds/u8g2CpTKBkBw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=nF0IBxhTtoRBag2iR/Y/WomZPP8eiS4QfiLXeYYA/8EftfVwCqroWRsVSWJxuCAgpREBc+VEwuKi+aQvVYRzbStGqiksyvv8jvm9hNqaRGXdgLhIudNkORIdgYweNyPQtqtl2oUT3pjcyRdN+VSi4AXZGka2MlYvKbOiPKV5HEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=HctIIHov; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=SStFEGzx; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789652757; c=relaxed/simple;
+	bh=0aBjkdR4UR77mZaQN03FPwAVBbGKW4UBYvZBXBGWdgo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BbyEFa6H3KlV+8nNpH7dbphw9nWA6S09eLfpnNefL9ddfyaVuqDOK1x3tDl9UFMDLAyeagZiwFC3T9nc63t5wXXI4niG1gvpsWT8XCH9F5ewCwYFUa+scynJQPJn4KugAacKoWuEFTlKyQvDMt4muV+KwKZRThRss1IzmetWrLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=HONMuTmU; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="HctIIHov";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="SStFEGzx"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id F249C7A00C5;
-	Thu, 17 Sep 2026 09:44:33 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 09:44:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789652673;
-	 x=1789739073; bh=tv6AvKyUBKOBYVm3p89JvK4vd3gPLoZ8aFTemFA9YCI=; b=
-	HctIIHovHKiSYvDiERhQbil2j0rxOiLLU1DR3yhzfDgVf8OBAturF4DW+rjA/pvm
-	2TzLUXFsqesfBe/VzUjY5Ju64T2L/iMnYi4Iad2YoqCjrFCCtJcrFNty7KYaAkMX
-	Ee/ThGhSNY9K8EqUjlX3DBBbEx/iD4zw0n9T1lAR0UcjIAiS2QIu/DGeFtM2gKsx
-	vC1618xkmUgbuhahywNtoXIoFCQd2T41JK7SONpIEAZmn+k+g8Jw5bH1gN58C5uA
-	t8Lr/iqGzj6AwyMMsO2Hr/46k0jobJDn5xUdIBJtFKTOKQynTNruPylRBw3+OFm5
-	rALKY7nbPduQzYQgGCpRlw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789652673; x=
-	1789739073; bh=tv6AvKyUBKOBYVm3p89JvK4vd3gPLoZ8aFTemFA9YCI=; b=S
-	StFEGzxtmEHfc/qCz0zCotM/62OuKzHd85UKp5on/sqrapd1073iSGEnIW7cbSU7
-	x2iYOlCqOJmN9CH8dnJujRjyRNx+0Rb73k/x41hsFYPrlYd2ic888Qg4bHieUev0
-	3FFiY6py7o5tIBq3fNUbqObBJ50xldle8fiPYdOH+CviFb/BaFBlsuOtg6vFTK5D
-	5Qr8IGCFMBL7Va8qzEd++eIm+bgE3qiIFyV3deBWLoZagMOgLU+IqfH2zXVZK0sD
-	MxphVkaC4athozVsO406Gkt4RMZ6mI3CfIbWSGKuKSb2IR1EmHhKSgL2cJ3oo/Cw
-	LNnPjasrPOmybL2sjzNEg==
-X-ME-Sender: <xms:ue6raubhOIm_07ibcU_1fa-IfTv8byRULWi1LALnQy-fA0E2tY0Srw>
-    <xme:ue6rasOmwxcXa8Wfg2C-_h7nr62L9J8dQar2w6fePo7tE4wXV0xe8LEFTYt2la4PA
-    KUxM64DVB6RS4XXJQMinIIyzgI_tpBcQtlz_SbRXvdozZS20hX3LyNt>
-X-ME-Proxy-Cause: dmFkZTExMucRjVTWbs21V42SBnhmaV4MID8KsqHtSlc5cs4YSlrkOBHN5kHw1e+1PjA916
-    9qrZOYYnJrxL7qGwwWQpGSNzj3uskNb1QR5XO03BL513/hPDNlb+fwDHlSeoO/Pnk6whk/
-    LKQVd28yHC8/KBccPHePZI6mTeqh7yKWU7/09ViA1FxBpR+uoLt/wrYJds6oeJvJ4T29MG
-    ali7NZeCPIsmZJ6nf39KUC39gTsQlaZhWsinf8igZnwI0CQL9I7h460JI5zfd282v19One
-    8AMUBGUCj/m/2aPL9jLGr34OcqninFy5SCx6sSEPZxU8KripIQ9SH8D3iL5s5EvCzYv8sI
-    wZjcD2Bn7eiQwRwVXeqeR/9N2Y3tP6i9ckJC3pgPUvWLAjUcibwBKHIY8jh4h+xPZzq1nd
-    TPrj0XpO6qnyktQZQKsYUSyo95ZxXoWVkoA7ifbMitPAufHtbx1Z3XLM/j8Q8PglVwx6HD
-    6GYlJIWjRNmErVFsasLUHAKF94+gS4YDbgUP5MUSiiG2DK2pcD8Zr32GAbYbZMY6aIqxvj
-    DGuJJ9M61UrNiu4+tC5HCX02FO52ZhZpCswYDg3LN86DXC44SZDHIDoIqtdOb2HgBaioMs
-    Mc9xIQ5KTHz6ivWOO1NuhCfGmll1SfbHC98gRcXftXYmOy06u0bj6SjFbNEg
-X-ME-Proxy: <xmx:vO6rauwaldgalYcXLr1iUTZ-Yqqll9kaYJgXcGfgFOiCmdk0O1-4vg>
-    <xmx:vO6rak9X4skk0eo5ap8breFmETkR6IBJzZCF4GfrEu2e7le3oOg3IQ>
-    <xmx:vO6ram_ZY1uk8OnoV0dvj0u_2vAdP1GWb5CobItxUECZc3B_2rG8tg>
-    <xmx:vO6ravfpWfBhtWEhSXDKDQePAwXV4Ir0NIoNrn2v1YqONWlZnIVUAw>
-    <xmx:we6rarCG3xGFO3pdABduVOIx9yvQlZsGjax8CXya8lN4zOy4cyqZ6KEq>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7306C32A0084; Thu, 17 Sep 2026 09:44:25 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="HONMuTmU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789652735; x=1789911935;
+	bh=uY8GV1Tb1njnq5CRvS7gPHrkYnM3Z+LEuT/WlGlwG4I=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=HONMuTmU0oltMLUvOPvveuEtkqEDI7P5ti4AxuTKYiQ18leknWf4oPaspdvTXX/1a
+	 mFO2Vqtpp4h3bBUJkI1QUo+jjxIiY94HKj5kUrSvf1YigueqvB5C/N0XshsJwzHvgT
+	 Os/onKGenaHHJR8v2oboQQPp/qQaWtq75ei1/QYCIu96dvfFYWeZ5KQ3TLtSN+l1sY
+	 TzcQ3ThprVeBg5uWdu8Jm/t7twoCJTfYtUiWAhRqyJDyxe+ezAyPWoTZYoMREeLM2n
+	 VhzFkLyJJ+r3xz2rF0+08Bj4qsm7UQXie5OuivwGt4dyqjCeesfOLBIgrD5uaPn2HH
+	 faA47rfLwU1Uw==
+Date: Thu, 17 Sep 2026 13:45:30 +0000
+To: Alice Ryhl <aliceryhl@google.com>
+From: Sagar Taunk <sagartaunk@proton.me>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] rust: net: netlink: validate attribute length before casting to `c_int`
+Message-ID: <OFpa5lCrCbU3qGep0CtUhaT89qRwVqHY_LWoHC27noLYmjqgp8kAvHrnng6MEzqlqF3zvapYJrpFBpfjf9XiNfxtR-GwhnFMeIj94mKfKCE=@proton.me>
+In-Reply-To: <aqu0bzgMAUQe_LZ6@google.com>
+References: <20260915164000.124340-1-sagartaunk@proton.me> <aqu0bzgMAUQe_LZ6@google.com>
+Feedback-ID: 130121444:user:proton
+X-Pm-Message-ID: b0745fc7f76395deb99f3859023ec5869fa0b10c
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ACGBcqtoOIMw
-Date: Thu, 17 Sep 2026 15:44:05 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andrew Morton" <akpm@linux-foundation.org>
-Cc: "Arnd Bergmann" <arnd@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes" <ljs@kernel.org>,
- "Kairui Song" <kasong@tencent.com>, "Barry Song" <baohua@kernel.org>,
- "Axel Rasmussen" <axelrasmussen@google.com>,
- "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
- "Baoquan He" <baoquan.he@linux.dev>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Ridong Chen" <chenridong@xiaomi.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Message-Id: <be7213e7-db2a-44e2-ae36-7735b17c20d5@app.fastmail.com>
-In-Reply-To: <d832c2d1-d691-4583-852a-f05d4335e9ce@app.fastmail.com>
-References: <20260916083456.4136132-1-arnd@kernel.org>
- <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
- <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
- <75939625-482c-464f-83fb-fa12d3e1d79c@app.fastmail.com>
- <20260916230330.f0923cdb679de0b39d1c5d3a@linux-foundation.org>
- <d832c2d1-d691-4583-852a-f05d4335e9ce@app.fastmail.com>
-Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning, again
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026, at 12:15, Arnd Bergmann wrote:
-> On Thu, Sep 17, 2026, at 08:03, Andrew Morton wrote:
+Thanks for the review. Also,I wanted to ask what do I put in the `Fixes` ta=
+g?=20
+Like the commit which introduces it or explain the problem there?
 
-> I also managed to create a reduced test case, see
-> https://godbolt.org/z/xofecssz4 but this still doesn't make sense
-> to me. I do see that gcc creates a both an out-of-line version
-> of read_ctrl_pos() and also inlines it. Marking it either
-> __always_inline or noinline avoids the warning.
+Thanks,=20
+Sagar Taunk
 
-I now reported this as a gcc bug at
 
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=127454
+On Thursday, September 17th, 2026 at 3:05 PM, Alice Ryhl <aliceryhl@google.=
+com> wrote:
 
-Let's see what they think.
-
-    Arnd
+> On Tue, Sep 15, 2026 at 04:40:10PM +0000, Sagar Taunk wrote:
+> > `put()` trusted an unchecked `as` cast from `usize` to `c_int`.
+> > When the length exceeds `i32::MAX` that cast wraps around to a
+> > negative value.
+> >
+> > This ultimately resulted in a kernel panic when the reinterpreted
+> > value via `__nla_reserve()` and `skb_put()` became enormous.
+> >
+> > Validate payload and header both fit together in a `u16`, rejecting
+> > any payload that wouldn't leave room for `NLA_HDRLEN`.
+> >
+> > Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+>=20
+> This should include a Fixes: tag if it leads to a kernel panic.
+>=20
+> Can you also update the subject to [PATCH net vX] according to the
+> guidelines in: Documentation/process/maintainer-netdev.rst
+>=20
+> The patch itself LGTM.
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+>=20
+> Alice
+> 
