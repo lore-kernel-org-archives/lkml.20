@@ -1,230 +1,355 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013034.outbound.protection.outlook.com [40.107.201.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC794B1CE3;
-	Thu, 17 Sep 2026 10:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A2A4B8293;
+	Thu, 17 Sep 2026 10:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640049; cv=fail; b=m5TsOAJip78fl+AhRgFP2AHttoMfmiPEZPLhZIppx8mbLulWcYcSSHHjJ64lAKyV2yxYucXBRjS2gNo8Y3zjizWsNogVHCpkhHOD5ak2nJIyp+2RZg1z1PjoSn8+BlYgroZnVYQWNXWDGdfPv9psbRYYOh509VfZPAJSmATHb8c=
+	t=1789640069; cv=fail; b=TfMP4zCleiAZjinOjVxWGDjUqpEdO6YlR9OHCG3v7Jl8AJoX4brPGyB3KWNFiiGZoUDw/9/jSulsLmRIuoZ/e76Kp1fxgGTFOo9YK1AryriPj5RKw+6mDqjpRW9vmNXeIQa3Gv5TVi/tn0/dYMTj0tvqMQacl+Ltf1jGuRvmiKE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640049; c=relaxed/simple;
-	bh=F5h02IQonpmIuEajs2ej7qYoU7xwzEZsd7B2XYefczU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Z/0Rgq1pEEDWpiPVK4Miwo3adhpMRVTGxZpmTWgTRO5cn2crDSfPvCu0e8iHTWl7fb+ssyJ3w+opOkt/78+ccs+1VmuRrF5M+uqYQ6tmkbzjRm6c0KZzTK9bFdFYnSpVzG4DtVJE47wlonsId98X517YVkQM2KwuehDqRQEOIAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=CpYpXK0B; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=OmKirrfw; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1789640069; c=relaxed/simple;
+	bh=1Wsi4Q1Oxw7RpcPkmuwU2w6YrZgWf7cLpILVWdG63Sw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=uKRjEHf+F1kzLUUDxJ1mJar9ITl1zbI+KcF0GDpNCurba4z35vUECjE+XpmQW0MdZXorz90ODs/BqMwxUpB8sX1O/jF6hfCNAxeqm3/9AJrhaGtEsZHEjB1TKwJBnYO2pbEUKBrxGBQHkIsmTGW5TVnCyfJrdksNR7gsSydWp8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hPZB/8e2; arc=fail smtp.client-ip=40.107.201.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="CpYpXK0B";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OmKirrfw"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9amhd1437719;
-	Thu, 17 Sep 2026 05:13:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=TCIRqjra/CDtqMt5VM3IAqEoT34q/DF2Ov2kUU2Pu
-	5s=; b=CpYpXK0Bi0vqW//rKLHjeltTK6kVMvfkp4Uo6w6CJoPhl22J4L1/a1rV6
-	vxQMefCOysc+QesZFR3fOIP6BX+s38rXt80VWl86TviKDPhwwobuyB+yWUNl+nfe
-	aaN1wHXFWexYAEgYhebeczl0RBL6O6x4RkvA4T1D+Fkh+wbCjp0JXweDmpsDIcez
-	WmCz7vN1GhKRWnQPSXDPCR+BGdjCGhYBEE4arGD+4MDhUjDcwSZCbf59Ndw3flbW
-	a2dqJuIF2ZM7b7GUvZOWeh2MA0IAT/wcyOCviADWNwqPdTq9/b89JRYH2+0AL1gB
-	T6wA07iiGwm8Y65YXUQTVR9v8kBTw==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gr4wnkd8n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 05:13:55 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hPZB/8e2"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gMRIhMP8fDTJPuZhrZf+rHe6IJr+ktPdnCghgQEC0mHtdk0KHWhUyyubwtL1OKM866Io60IrTiQJ8hIWah8RuyLwKk1YvO8QJC++Pf1cfIMHSW+Fe6VDx0JcuSfY1mSZouNy3r8JCyoQYYL1Js7PjxHLgrzW0qA6nB50d47G+TxWinfwiSb0PICXu3IWJtFhsSsmX35vW6VrikLCOrirtI9jQYk4mIOTDw8lNDqvE+k22EFGfVG3KIMBUXyk9BTSKNdkCc81kuo25JzHpi6hFBclrFXfiCyUdixcHjjhv9PF7cBHnxrlCZFsg9zHAftOoZZaybxr+OuVRVODluUOeg==
+ b=GE35saoQsJOJvJCc6M48kQ8d9WDo+cCGO12HtqQ/UytnkQgfhnr8io+RjMtU7ucAP93eHiBfvgTUYZHqTBAe0f7WjSDvc+eTZFYTwcsGwBvew8/kwcCLBbmdGHpFTd50OUZ31X5qx7oxIeES+7f/F76eykYeTFn5br1SFc9B22y/a4Rh1vOk84z6wbxZJknd2vcosnkN2itVSxi/KlI43j58pQxlrBfqFQK8tXicd+vXx9ZU5c9tqdRRtj8iclaD/EnHdWqBAdcm2TuGaq8jLqzULhHDxZwCs2/oXdwfxuiIBR3sICtR6+QmiIvrHShgnleSHh4vXsLPdkp+XvxbQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TCIRqjra/CDtqMt5VM3IAqEoT34q/DF2Ov2kUU2Pu5s=;
- b=DsZjZDOQsZOO2vLpoYlxWkwFWNTnvKZeIgzbRVU2lMRh2JUOp3Rd5JzJhoQtrN8PjtQtqn942LRKFlu5GbGns6vhoyAZyQ9DjEbrNAiIl3OeWF644xX45WjmXh0Ow+k0tP2+w/fiRpBse78exRVipqggFGoTXUYHd+BKkKHpiTIPen3UoaAz72jKAdx1YxeT0ClV9xVVLq3IBudFKsQSHUFlprv33s8GtXPk2egov9JaVGN1TVkP3iQ8ya72eZBPVKV6bhK3llDVlgQtAF8f1S1qUX19GdNjCdP4hPlMjcVjv41TmeNDYZNa2EQgAbe/u5QXmI2vlNFx+AHBh6vXOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=D7qvkGi+xakqT9aGCHob/5o5hvCFX46Dgexhw47mMXY=;
+ b=yClh2OgkFeDPpjS5dd59QXD/ypFRfJ5KYJWlZtV+Zfaz6LbJCui/gkS2bZOXjcMZ9DYNnt3d8poPISle5xhjPliDlBreclu/GgD07Xinm5ZmQKvqIBvrXYk3VX3Uoy+C2kcpy/WWeljGdwgUA/aU/SqkMTD0aFreR8l5a3gOyHFdfEVm7rTLLxVkkUax68+37TfEhFY8Ze9EHH6E8WXdKyCeZnZ+I9rdKdDbhmkkIzq5WumWRTiU+bn4emAj6+H1A1ZpMFgZ1uFJXVQgC3fpjS/VGR9LqOI2BhEsHycpKY9qwtNY5dKvyd+CnuPZBPZEG/C017Sp74foU46KVJmdvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TCIRqjra/CDtqMt5VM3IAqEoT34q/DF2Ov2kUU2Pu5s=;
- b=OmKirrfwHCTlIstvkF0iroik/d8EietfnQuxArS7NA87pgalybq9438Lbjhx7ZyF9rC1QgLKDbet80nmJG3fFTqpEh4rUtmys1T1AZVZHm98kG+lh1tgF7HcE3ZADU2S3s0lVfxqzf5Hb7fbaErJJP2DUOJugiyc1XHvcJGwXkk=
-Received: from CH0PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:76::10)
- by IA0PR10MB7547.namprd10.prod.outlook.com (2603:10b6:208:493::18) with
+ bh=D7qvkGi+xakqT9aGCHob/5o5hvCFX46Dgexhw47mMXY=;
+ b=hPZB/8e2txYZjaObwF2VLMH71tb7Qc08S44B95N9nw0Qn4iScFX4RJgfAbX1tTLIKvluGuPzsjRQbsSH7Ly/jsUhNuQbXAnfvh1Q9QKQ+LGJ3YuObsZjJ2MFKiCJa670Xms4whTJT9Ld0e/rYg3uvakngIf9DrbSWxX/NOwqqgVevtw30NT6DPypfjc6CiISHaf8/z0uyKxWEM7ALoVterbWSw5og0Mj/O9sH5o4BZvX2xqL6M/JSTxr4XvxNUoPhDYdXJMawenqHNZEtEFMgZsM1KlcVqpcNaqHu+JjT5W3WXvYJB7t5vpariw7ZYVsL6WSMHa6pVZsoSzxY3RjSw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 10:13:51 +0000
-Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
- (2603:10b6:610:76:cafe::e) by CH0PR04CA0005.outlook.office365.com
- (2603:10b6:610:76::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 10:13:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 10:13:51 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 05:13:49 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 05:13:49 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 17 Sep 2026 05:13:49 -0500
-Received: from [10.24.53.205] (pratham-workstation-pc.dhcp.ti.com [10.24.53.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68HADkBv2804567;
-	Thu, 17 Sep 2026 05:13:46 -0500
-Message-ID: <dfddf92e-1547-4cad-94c4-b5fbba098134@ti.com>
-Date: Thu, 17 Sep 2026 15:43:45 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 10:14:16 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 10:14:16 +0000
+Date: Thu, 17 Sep 2026 13:14:05 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Chris J Arges <carges@cloudflare.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com
+Subject: Re: [PATCH net-next v2 2/3] ipv6: hash uncached routes by device
+Message-ID: <20260917101405.GA1202580@shredder>
+References: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
+ <20260914-hash-bucket-route-lists-v2-2-29f6297d8a5a@cloudflare.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-hash-bucket-route-lists-v2-2-29f6297d8a5a@cloudflare.com>
+X-ClientProxiedBy: FR2P281CA0049.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::9) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/30] crypto: sa2ul - fix stack overflow in
- sa_prepare_iopads
-To: Manorit Chawdhry <m-chawdhry@ti.com>,
-        Herbert Xu
-	<herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Keerthy <j-keerthy@ti.com>,
-        Colin Ian King <colin.i.king@gmail.com>
-CC: Andrew Davis <afd@ti.com>, Kamlesh Gurudasani <kamlesh@ti.com>,
-        Udit Kumar
-	<u-kumar1@ti.com>, <linux-crypto@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260915-b4-upstream-sa2ul-cleanup-v1-0-57ab34e97162@ti.com>
- <20260915-b4-upstream-sa2ul-cleanup-v1-23-57ab34e97162@ti.com>
-Content-Language: en-US
-From: T Pratham <t-pratham@ti.com>
-In-Reply-To: <20260915-b4-upstream-sa2ul-cleanup-v1-23-57ab34e97162@ti.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|IA0PR10MB7547:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5106153-879c-48f3-5445-08df14a45f66
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2a4066f-5afd-4472-bf22-08df14a46dd0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|10067099003|22082099003|18002099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|4143699003|11063799006|56012099006|18002099003|22082099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	K8Z3EJzGguOsUzjYYDo1NitDI4VrhsGJMM2NbNXyPsvmw3MXlCGBr3qS07rZN4zV6QYWFcGB+h7RpxAmRbcFtlA2xQKeYodi3i+zFgMOaw0F5EAW+30L/bfrTqTkoiayf6KwFExqvuAjxj6zKdzdxvPRIKy78cm6DSi7NZ79hIsv0qtS9ztb9PZSskO6/63oOu7/JGDd0gPZUeP227e0j64PTOvAF1rEKWFdTuWx9VKGprJA/SEK236Yk0Wm0JumMGE9RmmJw26MkaTQoNtVeYKCqvtASY8fk50p9hkNh9yqC/1xxZYtPp0E6qTfGyCRRWFmA1qj+TJ0hzQ6330m57RsGR4kmtTWHnbsLTjAM9jUk5zWUWlU4N/QbJZSfN+LlLu5LypqU9s26CYbyx363urPzz1e71jizeI11vQ0gsQfgcjZfLY4nIciZkFI1P0qPmjgyvsDvjdblp2gdQlJkjikbJVIYi6hNCHEmPNktHGs+cfmv7wIO46o5aGfTAH+chE/0zXfM4tlHaBIlAfCBo+vj8DVPV8dJWK/Qx/VMB7g3hozYNPE1vDwGdQSXjA4txHWsqUJAcEdkfGJdcykDM+LkEhhxM3m3CSFnEElTBoD4My/EEFkOws2cae8Mzoy5hE9eDL4JHISedUMH9DyeLvbK2Df3MNg9VpV6BVNZGZHOWvpzXhcDrGNES+o+IQos89enYxTiIqfMGk16g7xKQ==
+	iZXXdWIv76hWNcu2Z0vfHQC/Fj8V/IypGxfoEDax2ibNZPwSWP101hGo80+Ay84utra7MmutYHV3iTjJgJ0TXQRi6OC3WaqpPupBQG1TGjs4P76NRsLaFQe5WqJHWSvA2MjJ37SbEYIAcjcG3iWGSTR+90R9wpaZqwZQ8fvMoTj0+P4RYGb+rw4Hz//wCA0X8WpVvenlJT1uAraDP+eRoQLKMjyb7uv/HN7d5c9BrGyIciziN4zv7eamK8LY+ND7q0TRC74QfJopZCghs/9jrFQWNkpiXNGw5EYC7Hifmp3GQRNJ/zGQhUW8vAY2iGbRVykBuZqH5gJ3kEeiIOwnCJZZ2rKWNeAelkR2/zHlX74A2krQbp1xIVo/AVn2c2brKPk26OlY0oWYFitxrNjifE58G+tRjJ1vcPj6qvI7pAk2Q5d3+0mlMH1/wMNuMkJ1FI1em1twxU/OcF/HMItpqwpaEKoqg9mYL+53bflMA4R3n+Yg4lRp1f+z2T+bVzPdGCZCy8MEkGMYTTLhJmlYDKS7oJ1PRjx6gsPik91wj3mKK8nb0BTfRLKEXhmLHHLxvf+G0oCNtSm0eBYzvNH+n0QN1KPaWdoLLtGKaDlOhdn3hTc5nomvhfUfj9YPlHP7UxpO5MxWp8jV3/vqe60zWjyG4CCbSH3yur/l0UcROtE=
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	YRkhZRdJ0bR8mBcMHoxSngAQDnQmOna5/gqr7JFG73N5V+i3jcoEJLCfXUSBuvtCZIZK6YhjksycjaqIDZO+4grJaa55S8Gk1klJTA+GRtS/rqU2iTzZgayCB40CPf5y4h76U9pX9tpKvIL+LJq7Z619lCTGJPelvGlcHj/9wBTBzvvTP7QUGoRAa4o+M89mpNXiXBSxvEWgWRpkFVfRpOLBs/VuJeGsIVts7PtPzmHFLI12hDe0PzhkdOr+HggIihvc87mM2WPsHDqY//zqjN0fiPTmPxOzPyK/TDNpzNNpyJEvfy7SzCoQft/ZeM3zLoDFa8LfrL9fAwALdl21V92Wp4nA6elI0vU/7PsRo/1vcD5Hi5DcFgmKd/xsJLo6VIluvqZPVcYg4VyQJQpRnsBu+H8S9XUtBGQlUPJzZbQkfzvhbtuTW1HE/LBOMndB
-X-Exchange-RoutingPolicyChecked:
-	46IKrR77UHPRTgvoO8Y0dOcsNqaSao3wUiRzlBI/0/lPMh60e8vUlaULn8q5oI2Z4zCHZvC6OjTP6tGozfNbJlvQvOe9AEcz15H7+G2pgLo1VwkB54zDNqIOyXiac2wbkBpKVSyb/4SCC+YgEDgShIK3DLZYBkhrA/ZakYcCAaLFllqptwYqPvHTR8FgT7pJf1YUaf3UURLtIhdQmdv1rRqF7N8vLQLQ5drxAaTRACQmleOZPcAs56Fgl0Nm0AFJI2b48Em5jYfj4yBD/C0tz/z9sDYQm1fGdka+qs5LgqiyA9gnv8USv6xIvRq45SCgVqdms7M20ijSwzbR/Etw+w==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 10:13:51.6647
+	=?us-ascii?Q?d3l4YToU8xL7u1TRdw4Gkkl7s+WV0o3QbFaOKGeGLN9iC6tnBH52AV1n25LV?=
+ =?us-ascii?Q?aj0VE3frduW3dtBcgwVIPes6L4VPHcfFRYdZv3CSJxQM4WTsQGciUWaM0Dvo?=
+ =?us-ascii?Q?/uDWy39xfTXfFelDZoJjEZaciVW1F+izhP6FBI2wxt/m8KCDIjRqRsrx24Zw?=
+ =?us-ascii?Q?C4Lm7eMumPm4G3JOz5DJ2hu4JrKZoQP+CgpTRhHz9LCPvxHCW/3B2pRR+fAC?=
+ =?us-ascii?Q?ORC2S5RcV+ocIwJO5FN63I9K3jycxJp+WHWmiXyVhe4mIqdYTXvX4rwoTIwZ?=
+ =?us-ascii?Q?ApdfvQBHKyEYDMU/ky5hcyJ048L/vaPBcuIKcPD0SGIlVWjWtGpE3YvNGxo3?=
+ =?us-ascii?Q?nqC+DfrVirc0m8usCDH8TAjDm6+XNH0rWWkPxfKRTqC1265NYhgY45zN57lh?=
+ =?us-ascii?Q?loA1QJ9REObySFc4qMmwcUJw89QLTn5C6Shoa34Rgq5CUuv7h51QT/qxGWdu?=
+ =?us-ascii?Q?ahEprE8d+BkUgDqo82bsb85DpsobH5D0b62S+957fOClABVHAQ6I8LAok3sm?=
+ =?us-ascii?Q?UFcO8mVvUGTd+tUH0hXOwAZrlcKsP33E0zynKHAgid0/38lLRGEHBm0fAIla?=
+ =?us-ascii?Q?qGd/hcYoLpzodZEME8f65EqqMbOAGi0DaAAKnR/ixFuppOpHnqQDbr6sU2GO?=
+ =?us-ascii?Q?aCsyu+ao8SEN4/nuYGSW9UVCPuDoXu6e8b1SIJFkI6rmFK2SyqtkEK+XTtQL?=
+ =?us-ascii?Q?YDk6tkGe/DdQZ9HQxX90p/TkxdkdIkl0fACicKN4ajxcmGF4Wmp5IuZgXgQj?=
+ =?us-ascii?Q?iNynplf/hHUaNlUCi/ncaNDwqDiY0SmRXCJzghERpYKG8eIMX6jyO0AKq7VZ?=
+ =?us-ascii?Q?lXdtRq7tDn6WaF9IZR+pgk1wW+kPSLdtR7kobdhHiCB8min20TuTAddBeBCV?=
+ =?us-ascii?Q?1NcozayborQqg2joJPJFUxkzR093krYN6FyQXfOT2Mumu1YE5gnggX/5QhTm?=
+ =?us-ascii?Q?qO656nbJ6iIXtN0C8qfTeXPBg7etrucxo9n/XQg1qlZSG4B0/j77g7A6gBC0?=
+ =?us-ascii?Q?+fL0Gbwg3qJp5OX4DQCR5jjooM9JQJ5tvRiLT4wPBxry4bw7EPMjTOjvE7PC?=
+ =?us-ascii?Q?CkDaV7bv5K+B6EcrK+kC7MK4vv9Dcpv2i9Qw7MIo8958yg/N93eNONY1Psuf?=
+ =?us-ascii?Q?K1S1cwlgto8j/dZGzAoYj0kCXVHmeAgZCPrdiiW/b0iYoOxUBj2lskgR3CjV?=
+ =?us-ascii?Q?SdISo3L8LPAX4/JrN1Wtk05lGC47ZN5iBv+XsFlfL4Pl7GwPTS3tQhwd7MBr?=
+ =?us-ascii?Q?4TpuFByFQu2e/UTwokONz11yM4vRksI/GphqHxSP74F38wB42ewAznpEDRAY?=
+ =?us-ascii?Q?hzRjaHqWs1vvd1NrfD+bKUcflDF0kq2s6nrlbZewNar9owGTNp6qELYMwTVH?=
+ =?us-ascii?Q?AzB5Yt/0RKvPDFPm69iZn6L8u3zUiv0mVjtj6e0A572Wjnf37DcV7aNx78Uk?=
+ =?us-ascii?Q?JPXo9m+LUkqPGjuxEIx0qtnPD5Y7X7KoxbubIj9zDPGeKVl8tlrQV9Ohyn7P?=
+ =?us-ascii?Q?G5iktkTowp0VEFSoS16fz7woC90ZmU0g/iqjwzrs3xeZjPgqsklesaujL3wZ?=
+ =?us-ascii?Q?DpqG3BtO59+PovXBv8NDDCSLapJCupnzdMIWz6Hw9AXFiJLyqv54GFf3np/N?=
+ =?us-ascii?Q?bUId0KI/d83o2Jppe4rDTqM95Gmdxn+pjH4TNnBXAFBQkaPv5tVRqjnFC6KS?=
+ =?us-ascii?Q?l4DyDx3a7vO8ZNkAmQLQOI+u22jb7/et5+/zZ/tQOB0mnBil18CVRfbtsooR?=
+ =?us-ascii?Q?LxFlma3IMA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2a4066f-5afd-4472-bf22-08df14a46dd0
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 10:14:16.1408
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5106153-879c-48f3-5445-08df14a45f66
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB7547
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE0MCBTYWx0ZWRfX1d1wlLzOGMVF
- hv/99Fy4WqvIwOuMRFs2UDGJzcF78KfDHzj0PpjpURaPDATCej6M8/+GVAP9rshchb/YRajDISj
- jluYmq16+UYluYYt1Y2sAW/svOvJIZ8=
-X-Proofpoint-GUID: mHJ0qVxypdNlpTP7EE3knYhZhHtdBZPL
-X-Authority-Analysis: v=2.4 cv=OPOyTiaB c=1 sm=1 tr=0 ts=6aabbd63 cx=c_pps
- a=6wX/tLcgNF/HagpTIcwFsg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8
- a=deXQ5rYGxmprgFreiB4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: mHJ0qVxypdNlpTP7EE3knYhZhHtdBZPL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE0MCBTYWx0ZWRfX4RPtBNg9J+g/
- vAgz6FI+v9182WblpbMhV9D7f+MoJ6e54sxUO82E/QkFkwuIyuGA5SVzQrpOWWO+03oCPIT45v/
- RwSZRlJPb9xSZGg52k2DPgbbo1lcFjEHhzLX77x0xhzfqI+mgeAWG8m5pRZpb01or6eZjsCLKE4
- KJq4WuSjJyF5KEJKgK0/ibyLDMlKR24pJg1ALheNcYzoXJV4bcDg9TXvTk+103eFssEI/NigMPq
- Ay+/BHCeFkfDXaP0G9tLBY/WUnOasggWTnwnj/5AhQm+jG25KunDrcMLb1PmKhSaraCJ4EyUhRX
- nF/xiBARf4YK8+BnM0ORIczVHRbK2wXgnOAUSumdWYPcP4HhL2iLcoh1bUNqWd6RxWxObzWAKoC
- GlvJ21TWIItXyMD5O4/n7KOk4qi1sT7pbNkPFtv+8ELKnt7Yp13LxTEe4UqWHLryVAfO4+frLzU
- pdJTzz1+dUiZZAr1gRA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 impostorscore=0 phishscore=0
- suspectscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170140
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yH//PQeRlkDARQOaBlZh4IvkfSFgkSPIK0ExM8M878UNMEkS96Gv5zqqmEW557Sdn0G9EaCZz4lohtP7pYPkuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 
-On 9/15/26 15:25, Manorit Chawdhry wrote:
+On Mon, Sep 14, 2026 at 09:03:36PM -0500, Chris J Arges wrote:
+> rt6_uncached_list_flush_dev() currently walks every per-CPU uncached route
+> list for each device being removed. Hash uncached routes by their inet6
+> device so ordinary device teardown only visits the matching bucket on each
+> CPU.
+
+The code is doing something else and hashing using dst_dev():
+
+	struct net_device *rt_dev = dst_dev(&rt->dst);
 [...]
->  
-> -static int sa_export_shash(void *state, struct shash_desc *hash,
-> -			   int digest_size, __be32 *out)
-> +static int sa_export_shash(struct shash_desc *hash, int digest_size,
-> +			   __be32 *out)
->  {
-> -	struct sha1_state *sha1;
-> -	struct sha256_state *sha256;
->  	u32 *result;
->  	int ret = 0;
-> +	int state_size;
-> +	u8 *sha;
-> +
-> +	state_size = crypto_shash_statesize(hash->tfm);
-> +	if (state_size <= 0) {
-> +		dev_err(sa_k3_dev, "%s: invalid state_size=%d\n", __func__,
-> +			state_size);
-> +		return -EINVAL;
-> +	}
-> +
-> +	sha = kmalloc(state_size, GFP_KERNEL);
-> +	if (!sha)
-> +		return -ENOMEM;
->  
->  	/* Export the intermediate digest to program into SA2UL */
-> -	ret = crypto_shash_export(hash, state);
-> +	ret = crypto_shash_export(hash, sha);
->  	if (ret) {
->  		dev_err(sa_k3_dev, "%s: crypto_shash_export failed\n",
->  			__func__);
-> +		kfree_sensitive(sha);
->  		return ret;
->  	}
->  
->  	switch (digest_size) {
->  	case SHA1_DIGEST_SIZE:
-> -		sha1 = state;
-> -		result = sha1->state;
-> +		result = (u32 *)sha;
->  		break;
->  	case SHA256_DIGEST_SIZE:
-> -		sha256 = state;
-> -		result = sha256->state;
-> +		result = (u32 *)sha;
->  		break;
->  	default:
->  		dev_err(sa_k3_dev, "%s: bad digest_size=%d\n", __func__,
->  			digest_size);
-> +		kfree_sensitive(sha);
->  		return -EINVAL;
->  	}
->  
-All the arms in this switch-case are now doing the exact same thing. If
-digest_size is guaranteed to be supplied correct in this function, this
-can be removed.
+		ul = &table->buckets[hash_ptr(rt_dev,
+					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
 
--- 
-Regards
-T Pratham <t-pratham@ti.com>
+> 
+> ip6_rt_get_dev_rcu() can return loopback or an L3 master while rt6i_idev
+> still refers to the original interface, so such a route must be reachable
+> from either device. Place those routes on a separate per-CPU list that is
+> always visited in addition to the keyed bucket.
+> 
+> This avoids growing struct rt6_info while filtering most unrelated routes
+> from ordinary device teardown.
+> 
+> The table has 2^CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS buckets and defaults
+> to 64. Larger values shorten each bucket, but every additional bit doubles
+> the per-CPU memory used by the table. The default costs approximately
+> 1.5 KiB per possible CPU on x86-64.
+> 
+> Signed-off-by: Chris J Arges <carges@cloudflare.com>
+> ---
+>  net/ipv6/Kconfig |  13 +++++++
+
+Same comment as in patch 1 about the Kconfig.
+
+>  net/ipv6/route.c | 102 +++++++++++++++++++++++++++++++++++++------------------
+>  2 files changed, 82 insertions(+), 33 deletions(-)
+> 
+> diff --git a/net/ipv6/Kconfig b/net/ipv6/Kconfig
+> index c3806c6ac96f..0253178668bd 100644
+> --- a/net/ipv6/Kconfig
+> +++ b/net/ipv6/Kconfig
+> @@ -18,6 +18,19 @@ menuconfig IPV6
+>  
+>  if IPV6
+>  
+> +config IPV6_UNCACHED_ROUTE_HASH_BITS
+> +	int "IPv6 uncached route hash bits"
+> +	range 1 10
+> +	default 6
+> +	help
+> +	  This option sets the number of buckets used in the IPv6 uncached
+> +	  route hash table to 2^IPV6_UNCACHED_ROUTE_HASH_BITS buckets. The
+> +	  allowed values select between 2 and 1024 buckets. Larger values
+> +	  reduce collisions, but each additional bit doubles the per-CPU
+> +	  memory used by the table.
+> +
+> +	  If unsure, use the default of 6 bits (64 buckets).
+> +
+>  config IPV6_ROUTER_PREF
+>  	bool "IPv6: Router Preference (RFC 4191) support"
+>  	help
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 7535b09068a0..080dce329168 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+> @@ -40,6 +40,7 @@
+>  #include <linux/seq_file.h>
+>  #include <linux/nsproxy.h>
+>  #include <linux/slab.h>
+> +#include <linux/hash.h>
+>  #include <linux/jhash.h>
+>  #include <linux/siphash.h>
+>  #include <net/net_namespace.h>
+> @@ -133,11 +134,27 @@ struct uncached_list {
+>  	struct list_head	head;
+>  };
+>  
+> -static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt6_uncached_list);
+> +#define RT6_UNCACHED_HASH_SIZE	BIT(CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)
+> +
+> +struct rt6_uncached_table {
+> +	struct uncached_list buckets[RT6_UNCACHED_HASH_SIZE];
+> +	/* Routes that must be discoverable through two different devices. */
+> +	struct uncached_list mismatch;
+> +};
+> +
+> +static DEFINE_PER_CPU_ALIGNED(struct rt6_uncached_table, rt6_uncached_table);
+>  
+>  void rt6_uncached_list_add(struct rt6_info *rt)
+>  {
+> -	struct uncached_list *ul = raw_cpu_ptr(&rt6_uncached_list);
+> +	struct rt6_uncached_table *table = raw_cpu_ptr(&rt6_uncached_table);
+> +	struct net_device *rt_dev = dst_dev(&rt->dst);
+> +	struct uncached_list *ul;
+> +
+> +	if (rt->rt6i_idev && rt->rt6i_idev->dev != rt_dev)
+> +		ul = &table->mismatch;
+> +	else
+> +		ul = &table->buckets[hash_ptr(rt_dev,
+> +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
+>  
+>  	rt->dst.rt_uncached_list = ul;
+>  
+> @@ -157,40 +174,51 @@ void rt6_uncached_list_del(struct rt6_info *rt)
+>  	}
+>  }
+>  
+> +static void rt6_uncached_list_flush(struct uncached_list *ul,
+> +				    struct net_device *dev)
+> +{
+> +	struct rt6_info *rt, *safe;
+> +
+> +	if (list_empty(&ul->head))
+> +		return;
+> +
+> +	spin_lock_bh(&ul->lock);
+> +	list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
+> +		struct inet6_dev *rt_idev = rt->rt6i_idev;
+> +		struct net_device *rt_dev = dst_dev(&rt->dst);
+> +		bool handled = false;
+
+https://docs.kernel.org/next/process/maintainer-netdev.html#local-variable-ordering-reverse-xmas-tree-rcs
+
+> +
+> +		if (rt_idev && rt_idev->dev == dev) {
+> +			rt->rt6i_idev = in6_dev_get(blackhole_netdev);
+> +			in6_dev_put(rt_idev);
+> +			handled = true;
+> +		}
+> +
+> +		if (rt_dev == dev) {
+> +			rt->dst.dev = blackhole_netdev;
+
+Please use:
+
+rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
+
+See commit 1469773b246a ("ipv4: use rcu_assign_pointer() in
+rt_flush_dev()")
+
+> +			netdev_ref_replace(rt_dev, blackhole_netdev,
+> +					   &rt->dst.dev_tracker, GFP_ATOMIC);
+> +			handled = true;
+> +		}
+> +		if (handled)
+> +			list_del_init(&rt->dst.rt_uncached);
+> +	}
+> +	spin_unlock_bh(&ul->lock);
+> +}
+> +
+>  static void rt6_uncached_list_flush_dev(struct net_device *dev)
+>  {
+>  	int cpu;
+>  
+>  	for_each_possible_cpu(cpu) {
+> -		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
+> -		struct rt6_info *rt, *safe;
+> +		struct rt6_uncached_table *table;
+> +		struct uncached_list *ul;
+>  
+> -		if (list_empty(&ul->head))
+> -			continue;
+> -
+> -		spin_lock_bh(&ul->lock);
+> -		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
+> -			struct inet6_dev *rt_idev = rt->rt6i_idev;
+> -			struct net_device *rt_dev = rt->dst.dev;
+> -			bool handled = false;
+> -
+> -			if (rt_idev && rt_idev->dev == dev) {
+> -				rt->rt6i_idev = in6_dev_get(blackhole_netdev);
+> -				in6_dev_put(rt_idev);
+> -				handled = true;
+> -			}
+> -
+> -			if (rt_dev == dev) {
+> -				rt->dst.dev = blackhole_netdev;
+> -				netdev_ref_replace(rt_dev, blackhole_netdev,
+> -						   &rt->dst.dev_tracker,
+> -						   GFP_ATOMIC);
+> -				handled = true;
+> -			}
+> -			if (handled)
+> -				list_del_init(&rt->dst.rt_uncached);
+> -		}
+> -		spin_unlock_bh(&ul->lock);
+> +		table = per_cpu_ptr(&rt6_uncached_table, cpu);
+> +		ul = &table->buckets[hash_ptr(dev,
+> +					      CONFIG_IPV6_UNCACHED_ROUTE_HASH_BITS)];
+> +		rt6_uncached_list_flush(ul, dev);
+> +		rt6_uncached_list_flush(&table->mismatch, dev);
+
+The mismatch list can be quite long depending on the workload and every
+device needs to walk it for every CPU.
+
+AFAICT, when there is a mismatch, dst_dev() is either loopback or a VRF
+device. Can you instead hash based on rt6i_idev->dev (fallback to
+dst_dev() when not available) and only iterate over all the buckets when
+the device that is going away is loopback / VRF?
+
+That way, in the common case, you only need to walk one list per-CPU.
+
+>  	}
+>  }
+>  
+> @@ -6987,10 +7015,18 @@ int __init ip6_route_init(void)
+>  #endif
+>  
+>  	for_each_possible_cpu(cpu) {
+> -		struct uncached_list *ul = per_cpu_ptr(&rt6_uncached_list, cpu);
+> +		struct rt6_uncached_table *table;
+> +		int bucket;
+> +
+> +		table = per_cpu_ptr(&rt6_uncached_table, cpu);
+> +		for (bucket = 0; bucket < RT6_UNCACHED_HASH_SIZE; bucket++) {
+> +			struct uncached_list *ul = &table->buckets[bucket];
+>  
+> -		INIT_LIST_HEAD(&ul->head);
+> -		spin_lock_init(&ul->lock);
+> +			INIT_LIST_HEAD(&ul->head);
+> +			spin_lock_init(&ul->lock);
+> +		}
+> +		INIT_LIST_HEAD(&table->mismatch.head);
+> +		spin_lock_init(&table->mismatch.lock);
+>  	}
+>  
+>  out:
+> 
+> -- 
+> 2.43.0
+> 
