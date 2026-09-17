@@ -1,73 +1,59 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50E984DDB42;
-	Thu, 17 Sep 2026 16:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AC44FE2ED;
+	Thu, 17 Sep 2026 16:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661335; cv=none; b=asmE5AyyMMjMAgTDD3M5EUA438Zjd8QGzgS46Ik4Z8WCchUwmT83EGs3J3dXDjHPaWufCLVOltwI/5aPgqKA45aDmaV+jp6rRs4ZlpRwcbarKqZyqVEa/EqwZLk81rSJhNlS7SSXLD/Nm/EkDCb9T222nnchuMWYclqxG5JGhZw=
+	t=1789661341; cv=none; b=pudXdHfRDUpzMV1aU2N3HdvrjKtoi3A66DWBfDc9vXSfaLek5gkdj0O8a4ZzkGPIQMWX+vgEguitZXyIhjOnFaUsuGiYv44NUW9ekb2Qggr9zW2BAHA38vCzMM9vZZYC7oJd99aPsIuza3T7Iz8ig+C4w6xort5MzHqJGHLJiyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661335; c=relaxed/simple;
-	bh=LTrp4k+I8MTH1TFb/n0jAUNy6sMkQLKvNVm0Ssk0Ik4=;
+	s=arc-20240116; t=1789661341; c=relaxed/simple;
+	bh=RGZ9fRqZxJh/hlhZzn5xtWX9pyXG2JtB1UUvRWEPvcs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oqFtbGxGDCIfA0DMLWQY55R3rvlV7w+xgmQgHHzWVEmh1cgpLAlu88Ux+lW4MVoXhOCa456svKqFL6+1byyZ6CcJFh/QKIbnhmqPm/z2YlFmEYJJR2LC1w9pdM8G+SwrHi64Qi7q/XFFQ3I+raa3W0T8OB5UuHm0Xg0IuSeErK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fg2BVR2h; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HYeEDekXwEU2QsJimE7kG0cokZxYhoHonWv+9RVDTitDY9a3Rn5X1Vzdot2Dt7To7QfwRv6z4Qcit+mhROsbqyaWGl0NTpXgY0v/ph+moPXJWqtXL3fzvOXyiJ724UUyu0I0hlAVxmi4N8y5brFLjCwTg8CpkDO7/xbjeeugdGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=NEDpr4x+; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fg2BVR2h"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D71DA1476;
-	Thu, 17 Sep 2026 09:08:48 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C2B23F86F;
-	Thu, 17 Sep 2026 09:08:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789661332; bh=LTrp4k+I8MTH1TFb/n0jAUNy6sMkQLKvNVm0Ssk0Ik4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fg2BVR2hsmdfzOw802jgLmkU4C8dYgDiVodN/BCQcJnNlXQvUZTot4764bZzdYHoP
-	 KpxaXu68DSJ+nTWkJw0nr52jlY0S/pY38k0WZGKhlRoxtkP4hWgPjgsWanps+qYf6p
-	 OWz0B8EVzI71pY/BTigybbpetQ2VZbhxL7LsQAdw=
-Date: Thu, 17 Sep 2026 17:08:43 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v4 5/5] dma: swiotlb: Remove SWIOTLB_ANY
-Message-ID: <aqwQi0AGG6NvHKHG@arm.com>
-References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
- <20260914070135.313337-6-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="NEDpr4x+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=oWDjAmBCydWzvPv+GolAERB9gr9l6TVcbY9rwhPWq6E=; b=NEDpr4x+8B0oTWM8fFOyQZTjyB
+	dIXmLDO6p4cNlf0T7QjTfAh2vTlfCR6//DMWHw/3AVPhOweIPw5qnmx6Y4VVD1+CG2eVwm0RnvDWf
+	oE7r9iaRDwfoYinmsvm4WkaGS4yXBGec54V3h3CN+RkW7ZtMMivfJWt8ctYuzi8RUghtU65t6MG6d
+	kqOe9l3mxI06Fs77APAKODML3z8S64NtU15bxWuK6nXwKwHOUNHrYznSkzHA16imjAuVFnvkTHitK
+	lC8nqxc8VOSVIPz06oyDCm7rdrDJgiyqme3pmQ0SOSIY+XBHVQnh9fHCwARs9ZkzTNhbADWUqB5bz
+	ySjpXZaQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x7Eex-0000000Az3O-3ujw;
+	Thu, 17 Sep 2026 16:08:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7C1AC3030A6; Thu, 17 Sep 2026 18:08:27 +0200 (CEST)
+Date: Thu, 17 Sep 2026 18:08:27 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, mingo@redhat.com,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev,
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+	lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org,
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+	byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+	jannh@google.com, pfalcato@suse.de, osalvador@suse.de,
+	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-3-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,24 +62,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914070135.313337-6-aneesh.kumar@kernel.org>
+In-Reply-To: <20260911001826.2109390-3-gourry@gourry.net>
 
-On Mon, Sep 14, 2026 at 12:31:34PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> swiotlb pools are currently allocated below the architecture's low
-> address limit by default. SWIOTLB_ANY overrides this and permits
-> allocation anywhere in directly mapped memory.
+On Thu, Sep 10, 2026 at 08:18:24PM -0400, Gregory Price wrote:
+> From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> SWIOTLB_INIT_ADDRESSING_LIMIT now explicitly identifies callers which
-> need a pool that is reachable by devices with limited DMA addressing.
-> Use it as the placement constraint and remove SWIOTLB_ANY.
+> NUMA balancing rejects shared copy-on-write folios and executable
+> file folios mapped by multiple processes to avoid placement bouncing.
+> These checks also block promotion from slow memory.
 > 
-> This changes the default behavior for callers which do not set either
-> flag. Previously, omitting SWIOTLB_ANY placed the default pool below the
-> architecture's low address limit and also constrained dynamically
-> allocated pools to the same range. After this change, omitting
-> SWIOTLB_INIT_ADDRESSING_LIMIT permits both static and dynamic pools to
-> use any directly mapped memory.
+> Allow such folios to participate when moving from a slow tier to a fast
+> tier. Keep the existing restrictions for ordinary placement.
 > 
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/mempolicy.c | 8 ++++++--
+>  mm/migrate.c   | 6 ++++--
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index a082ccfa09ec..19b599bc2dd1 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -863,8 +863,12 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+>  	if (!folio || folio_is_zone_device(folio) || folio_test_ksm(folio))
+>  		return false;
+>  
+> -	/* Also skip shared copy-on-write folios */
+> -	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio))
+> +	/*
+> +	 * Shared copy-on-write folios are poor NUMA placement candidates, but
+> +	 * a hot folio on a slow tier still needs a hint fault for promotion.
+> +	 */
+> +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
+> +	    !folio_use_access_time(folio))
+>  		return false;
+>  
+>  	/* Folios are pinned and can't be migrated */
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index a369d0c95c38..afd9c97d2389 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2697,12 +2697,14 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
+>  		/*
+>  		 * Do not migrate file folios that are mapped in multiple
+>  		 * processes with execute permissions as they are probably
+> -		 * shared libraries.
+> +		 * shared libraries, unless this is a promotion from a slow tier.
+>  		 *
+>  		 * See folio_maybe_mapped_shared() on possible imprecision
+>  		 * when we cannot easily detect if a folio is shared.
+>  		 */
+> -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
+> +		if ((vma->vm_flags & VM_EXEC) &&
+> +		    folio_maybe_mapped_shared(folio) &&
+> +		    (!folio_use_access_time(folio) || !node_is_toptier(node)))
+>  			return -EACCES;
+>  
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Semi related; I've often wondered if we should still account shared and
+pinned vmas in the fault statistic, even though we should not migrate
+them.
+
+After all, those pages are still used and by not accounting them in the
+fault statistics, it becomes easier to migrate a task away from them.
+
+Using the scanning for two different things has made a mess of things
+though :/
