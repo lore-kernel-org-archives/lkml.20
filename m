@@ -1,128 +1,166 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CC35187E8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BA05187F6
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663169; cv=none; b=jZPruAs6rwjPELUSuFwbuR65DFeY7Z3sTSe0sSGVw+IbuFUj6vYXRtMIYMV4CQks9ekGeP6aRyuRCsxZXWJTYz5c8LSCeLtEkKMP5+xNmOogysDKsOmj3ADf5Zx5IW2ZpzoOBJDCyufL69JXYJVIK3JARIzAFjVqkNAYq6FRBaQ=
+	t=1789663172; cv=none; b=B6+XbBn5jZLkflAfAxXrSfmIqWkOXBIWz20IDi7M2La52PXcGLQbid14AvIwbjMgjNhq1cNh9i/TXwwMXrI2/tVPrbE23elHvjPAS6wXMOY7JKSBOJ9Rvzzx44AIwZjfFopmlbeXz8pTR3MeIXtvLd6zD3MoEC6Yp4BueDPyELk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663169; c=relaxed/simple;
-	bh=IJxxGucmX+S/ianmDruEL9wFhGfEfpxOR36b/1+SnPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iCNMLih050444Ofam+vMEtvQkpSORgDXZ3hr65FBj2j1Y/kuwQNQGKbPY9l4aVVailQI/pPE6aAA0VQJwXG3YGD+VB6n6hTXg+TAa4hN0F96uCv2hXE4G6vnTYbsiipGdNW11zAdzEB8K4wCs+xXNoYVtyeoqOoG+lb0UkVZpyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rhcMJPet; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789663172; c=relaxed/simple;
+	bh=lx7wyF3Qu/HpKTFDnfOd4iCQJKE+aEvsCq9kKuv30HU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=MLxYOlZXveXhxJ5aMpApJq2/VIU02jSo0HK0k+5ol4/w8GSFW+tlEznfNrGrW/Vryo89eo/8wp/n3oqObRY9KErunpeR//LasZIhoxk/SVCkqpUv4tkvNpOPoTq1mujxtZjR3zntbbNj30S4ktEBLeK2P4V7fC3B8/U4LcRP9fQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KmQSwlPm; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rhcMJPet"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb767cc71so9033331cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KmQSwlPm"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2db8e9fe9c7so14731505ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789663165; x=1790267965; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
-        b=rhcMJPetUieV0UG48w/mx8aXY1yuTaDOh9glAiHtyR+VOF/TYIi9LaUSceWwqy7rjD
-         fXYm1Un1VMNSpbhSs2iLDjZcNp8zqbQBGhaL4uN19Zow98iZNIgrQspFdGzeeiPIkRBi
-         gaPZTTUDLvWh3R1Xhrqlo3t/1Q8Jt9WVPok8VRtYsqcGe9il+SXenl3AYrmvVWecpXPG
-         b+/27ARTY3zVMzNP5RZl2SnJ6RO9BIC57pTNQcjGl32KTIc1x7Ae2JNgG/uc2/WSlxPX
-         41e56/y9yNty+tSqDg+/+ZSbtQUE6A0dZvGKJo6tDF0+p5RhNAQyB01CpYUJt1gYQ/BO
-         SLRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789663165; x=1790267965;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789663169; x=1790267969; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
-        b=r0zC4gQLbMTjRa7DGa5yp/elwZBJMi0DKObGWOHQvEl4Kvz8rATRXLsJlUcbOYo772
-         RHOjiAe8cm2BXbJd49D2AzRnSqMYcjMf47rda3R7f6g+nZtgYjAuQgjoftgM3j6sBOFP
-         uSI9RXTGnnZ2hA/F1zYk3+ju+iZ0fMMCbU2kQv5DHuBLwOjMIZrYPXZacg0yrm8vXVaE
-         SEDeBHlnZ9ucSkeEuZA3xxrDS1qVvX75SgkIqIILmf7Zh9v4hLIW5R3OBaZ0JmenSajB
-         WFcOpkmOCgfBnus1IuHqDh4wf4CbE/qWSjc03cIE9WBSQCMaAjk9YBkttUN3dfUGNjLS
-         sjhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTGDVRe+AgMi5APCQsvoaAjTrPiwmFn3i40NowtuSj04STjSIYvXZxPyCg7HPTC0hlEyEAQTa6g2G2AII=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwsJni2ocCSzO/Yj9vbuKUrK4/eHeJgpj1t8yqh0wqVHLwsnCj
-	jWKZRngiHcY7jELN3olc9szBVE2vtQyTMfN4ZkSIP88AuDmQJ+tuAXEyKGa7gQfXCo0=
-X-Gm-Gg: AYBFou0HLJxexoAKlWTNSHvh+SlPGC2PpGki1nYpG6n0FiRFBDXf4rdHBtCGoUtTcaP
-	YCBvMhrxBxjl5q6+pjkhMuilUYIvC2waMdZa7CkGboArZVTpPs6UIhavX7EdFoMmJbejBTJlfeN
-	tcEqpvyZaU1n4Csd15Q60mNVDmKy8LcYkOMWWgyraADZCQiNF/k59pj2MqXfswY+OikADyQAGoO
-	HePewfRyVetT1DIZYSJZtHV+cB/1sx2F8ggt1jiKOMOTUid1DptKTarH7m79S/gXMiOOFy59Vnp
-	M+z91PVER4U58aAJhCEF/43HkIIGDxlYDDC1ZviWYmDD4olAU6Ys+lKC5Wg7rOo2ScUN6M/V7MM
-	RYk3fkeSdViTgl+xh7XPfGkW47+GN2p5UHWvye6qBGAdmjl8ZcKRDc2bRvDvYb1+iYH6KqQLoWx
-	2UozrEf3oj+9CFTs8N1+CKoAD3pBp/JDmAeE0nfQvc0AiOWMrHQilGekTXxMDjxBPOJeEMukqoz
-	v/vk4E2ZJut5h3tGDsRCpu3iggEUCfK/jysp9aX5hk505yHQ0KD7ls=
-X-Received: by 2002:a05:622a:1f99:b0:530:dcc7:aeda with SMTP id d75a77b69052e-5327eeab4e6mr112125271cf.40.1789663165269;
-        Thu, 17 Sep 2026 09:39:25 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326204ad36sm53765271cf.18.2026.09.17.09.39.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:39:23 -0700 (PDT)
-Date: Thu, 17 Sep 2026 12:39:21 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <aqwUxQRwbhfGgg1J@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-3-gourry@gourry.net>
- <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
- <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
- <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
+        bh=iDa4jCWG1HgPZsp/vqH9L8ol0+fyo/nirzG/z+7DOWE=;
+        b=KmQSwlPmX2l9tTBcJHj2hfipd21q7DnOY7L7gXAin/KlnHXXhUMFD3RnDoYEogJAIk
+         Id3VdyiEZL/LLN0wdG8clBBA2p8bCrQ3snN0JNKcK+ifZgxH4lOMeBZV9ZzzrCqLqPkJ
+         5/+8/UUSWRjppsFhK4wg+Fg0GiI7rD73XCpkjrSA0Oj/MswEv5T7o9nEQbQFzllcdMdh
+         22RlBV3NwaPRwRkbBA1oonp8YGgvTLrPa1GEQbTNqILauWlNmijA7/JWubsM+1RHX5eG
+         7SBz95psvEiPXpj/0px0BpmIzYcYbFvhVVp+PzpurY6t7YVMroYECijXvC7VjH7T6Fmw
+         MNGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789663169; x=1790267969;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iDa4jCWG1HgPZsp/vqH9L8ol0+fyo/nirzG/z+7DOWE=;
+        b=W0barNOjd9YoYRdmN43KWYl6OQITN9mg17SM0X5GBK9wh3MckpOdmFPjr+36ECJLRG
+         4C8ulf+yxohKF8b56ZIYxTCk1ckdaHx5PcQG5/OYxA/Qb2YPOhvixGl6K1suYqZo+hhJ
+         HHmbB+Pv4iUO3I58dWLbEbqc+zCBnqvYRcznooQQqBXzktek0kQey5LRJOb9AZHw/AL9
+         CHeuedJJuRDUnR2gQSFNWgswJcyvklr4p70himM4Cdy7+h3euJYfBeqWOxDQxsxH920E
+         AI+m/U204oF4hELwebmD2onZGVk/C6pdF77CuSICrA6YbazqpO83FULgIPRegoLueALD
+         HIsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNxNLxQz2yCUgrraRNmNzsdnVKJOee/o7ihPYATmHCnf/BkGsMIJi7w1eiXgRmNAfIUGKDLwJW6JHqj84=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksEHkKYpWHNUEv5RG58VAbuB3awH0G2QuejrkxwW+EWL7bpofC
+	P1TyQIgtK7XNoYv4b9v4CQ7A7fwUC535AFdqMoYua3+e2fyHCF1BNY420Hrlo3LSN1MLNkh1NnI
+	a2rV+g0ABJg==
+X-Received: from dybzy24.prod.google.com ([2002:a05:7301:e118:b0:313:fb09:e2c0])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:46c7:b0:2db:8ae7:a5d2
+ with SMTP id d9443c01a7336-2dd8e026db9mr148505725ad.9.1789663168790; Thu, 17
+ Sep 2026 09:39:28 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:38:52 -0700
+In-Reply-To: <cover.1789662556.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
+Mime-Version: 1.0
+References: <cover.1789662556.git.irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <ff6b4ac0b85c13aa3dd8c0e60f89253669c661ff.1789662556.git.irogers@google.com>
+Subject: [PATCH v2 04/14] perf trace: Do not set unaugmented BPF program on
+ sys_exit map
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026 at 06:23:24PM +0200, Peter Zijlstra wrote:
-> > Would be nice to just have the hardware report what's hot (and how hot)
-> > rather than depending on a software-heuristic like deriving hotness
-> > from a page fault.
-> 
-> Yeah, there is/was this patch-set from AMD that uses their IBS counters
-> for this, but 'ab'-using the performance counters for this also has ick.
-> PMU data isn't ideal either. Mostly they generate a ton of data that
-> needs to be analyzed as well. Its not clear cut and easy.
-> 
-> I'm not sure there's been proposals for better hardware support.
+In trace__init_syscalls_bpf_prog_array_maps(), the BPF program array map
+for sys_exit (syscalls_sys_exit) was populated with the result of
+trace__bpf_prog_sys_exit_fd().
 
-In the CXL Spec there's a "CXL Hot-range Monitoring Unit" mechanism that
-will report the N hottest regions of the device.
+When a syscall had no specific exit augmenter,
+trace__find_syscall_bpf_prog() fell back to unaugmented_prog
+(syscall_unaugmented). However, syscall_unaugmented is a sys_enter
+program that outputs enter arguments to __augmented_syscalls__.
 
-Not sure we actually need this for the CPU-tiers. LRU already does a
-decent job of recording coldness.
+As a consequence, when an unaugmented syscall exited, sys_exit
+tail-called syscall_unaugmented, which interpreted the exit arguments as
+enter arguments and emitted a duplicate, corrupt sys_enter event into
+__augmented_syscalls__ right as the syscall completed.
 
-I think bandwidth data provides the missing glue between the two.
+Fix this by:
+1. Returning NULL from trace__find_syscall_bpf_prog() when looking up exit
+   augmenters and none is found.
+2. Returning -1 from trace__bpf_prog_sys_exit_fd() when no exit program
+   is present.
+3. Only updating map_exit_fd when prog_fd >= 0.
+4. Clearing err = 0 when trace__bpf_sys_enter_beauty_map() returns
+   non-zero (indicating the syscall has no augmentable pointer arguments)
+   before continuing the loop, so a trailing run of such syscalls (e.g.
+   'perf trace -e close') does not leave err non-zero on return and abort
+   the session.
 
-I've been a proponent of just using bandwidth data to drive *when* to
-promote, and let the devices dictate *what* to promote.
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/builtin-trace.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
-https://lore.kernel.org/all/aPJ7qe_2xznFSUMZ@gourry-fedora-PF4VCD3F/
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index af9696aadaec..a68d34256996 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -4117,7 +4117,12 @@ static struct bpf_program *trace__find_syscall_bpf_prog(struct trace *trace __ma
+ 	pr_debug("Couldn't find BPF prog \"%s\" to associate with syscalls:sys_%s_%s, not augmenting it\n",
+ 		 prog_name, type, sc->name);
+ out_unaugmented:
+-	return unaugmented_prog;
++	/*
++	 * Do not set unaugmented_prog for exit: syscall_unaugmented is a
++	 * sys_enter program that outputs enter arguments. Exit without a
++	 * specialized return augmenter returns 1 directly from sys_exit.
++	 */
++	return !strcmp(type, "exit") ? NULL : unaugmented_prog;
+ }
+ 
+ static void trace__init_syscall_bpf_progs(struct trace *trace, int e_machine, int id)
+@@ -4140,7 +4145,7 @@ static int trace__bpf_prog_sys_enter_fd(struct trace *trace, int e_machine, int
+ static int trace__bpf_prog_sys_exit_fd(struct trace *trace, int e_machine, int id)
+ {
+ 	struct syscall *sc = trace__syscall_info(trace, NULL, e_machine, id);
+-	return sc ? bpf_program__fd(sc->bpf_prog.sys_exit) : bpf_program__fd(unaugmented_prog);
++	return sc && sc->bpf_prog.sys_exit ? bpf_program__fd(sc->bpf_prog.sys_exit) : -1;
+ }
+ 
+ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, int key, unsigned int *beauty_array)
+@@ -4395,16 +4400,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace, int e_m
+ 		err = bpf_map_update_elem(map_enter_fd, &key, &prog_fd, BPF_ANY);
+ 		if (err)
+ 			break;
++		/* Only update the exit prog array map if an exit augmenter exists */
+ 		prog_fd = trace__bpf_prog_sys_exit_fd(trace, e_machine, key);
+-		err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
+-		if (err)
+-			break;
++		if (prog_fd >= 0) {
++			err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
++			if (err)
++				break;
++		}
+ 
+ 		/* use beauty_map to tell BPF how many bytes to collect, set beauty_map's value here */
+ 		memset(beauty_array, 0, sizeof(beauty_array));
+ 		err = trace__bpf_sys_enter_beauty_map(trace, e_machine, key, (unsigned int *)beauty_array);
+-		if (err)
++		if (err) {
++			/*
++			 * Not a failure: the syscall just has no augmentable
++			 * arguments. Clear err, or a trailing run of such
++			 * syscalls, e.g. all of them for 'perf trace -e close',
++			 * would leave it set on return and abort the session.
++			 */
++			err = 0;
+ 			continue;
++		}
+ 		err = bpf_map_update_elem(beauty_map_fd, &key, beauty_array, BPF_ANY);
+ 		if (err)
+ 			break;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-e.g. if the top-tier looks under-utilized in terms of bandwidth, get
-some chunk of hot data from below and see if it shifts the needle.
-If so, repeat until numbers stabilize or the top tier reaches
-saturation - otherwise chill out.
-
-</food for thought | ramblings>
-
-~Gregory
