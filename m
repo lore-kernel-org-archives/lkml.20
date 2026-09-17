@@ -1,77 +1,94 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E533B52F8
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 523FE4A4EF3;
+	Thu, 17 Sep 2026 10:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639312; cv=none; b=EwMJXjBRWf1rXdVeGn/XwxAHJbzTci0Ui+ODhXmiXbOLoCdL/JItxFGxDgfrCG0XuWztURiz5EBrizTgexfPzINMll37ZJ+b7P6dmnHxq/zS9YpfuldjnjesBrhpvlfU7gI+QMs40/a81lKszHfewzXhCW8jvf5Q+eRMUbrCF/Q=
+	t=1789639383; cv=none; b=rgVRokYplwJETpqllbRY0p5Imio8xMZoPYuGArjiifQ43qF0/5eDnU65gEHj7fxQpsk+5/tcpd08gT5PFMLXzHM60WlTBycnmFjnwvuiCTcRvG8afO1r72qkR0ZUNRVCbjc08NSLG5Q+iUeh2ezxlY7ZVT0MQL6u8e29C8ha9Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639312; c=relaxed/simple;
-	bh=0FltFsY6ankPumYo1oeKxNcQO+Ae9X3mJpO+iWWNVrs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MVQy1N+2SLJrEf0K9XMwR2A0gGg9G58yC87e9zTqzPaWc8mn+9DBGLZ+ox3bEAxCy+BroZZv5u3uRo/CSY5HybSHy8Vcb3ZkqS/32gPA06hvX+NjxNP1sJMyv4L20+DFbvhjyOPXx1NBmQO+W8muCyfikrXklFD/fuEZIjXzCA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SkYDjtFz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SkYDjtFz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789639282;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0FltFsY6ankPumYo1oeKxNcQO+Ae9X3mJpO+iWWNVrs=;
-	b=SkYDjtFzY6LLUgk5+yAU5T/C+OVD6Kp63dG2o1+WE2mxCJdjTUJPv4chaH713g4WS6/XMN
-	vUVsEWmjCbgEAbvYDiUPD+6R4gwfjOGvlOzYUxdw7zlmZzIVJU6oU+lHm3To6t+CO+VuRW
-	lgit/Wdp6uE/VwIk+Fda3gMVw6lnJxM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-541--vhghsE7NXybKx5g-qswkQ-1; Thu,
- 17 Sep 2026 06:00:56 -0400
-X-MC-Unique: -vhghsE7NXybKx5g-qswkQ-1
-X-Mimecast-MFC-AGG-ID: -vhghsE7NXybKx5g-qswkQ_1789639250
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E53291977008;
-	Thu, 17 Sep 2026 10:00:49 +0000 (UTC)
-Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0B6541956089;
-	Thu, 17 Sep 2026 10:00:47 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: nbd@nbd.name
-Cc: ryder.lee@mediatek.com,
-	shayne.chen@mediatek.com,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: mt7996: fix NULL pointer dereference in MLD AP recovery
-Date: Thu, 17 Sep 2026 12:00:44 +0200
-Message-ID: <20260917100046.31142-1-jtornosm@redhat.com>
-In-Reply-To: <20260727161353.962426-1-jtornosm@redhat.com>
-References: <20260727161353.962426-1-jtornosm@redhat.com>
+	s=arc-20240116; t=1789639383; c=relaxed/simple;
+	bh=s4v9Rx8zuOAwFntnIIBCe7zSW2ZVhwiwhh8liJIqldQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hFh9vBwZXYDuYWse5BnvkYbCMNZ1WX0rybF+o3ELaUBN42tGmZ9RzhYQBkp4XqewglqVU6JNmYigTZPZRRrz0ECnOE+bp3SqbU/lZofGl0uXIbDY40Ymmb18kA/E4ovld22uCbR6alJA3L8ikyJPKyYU8buZNsa+ffkptfL0hE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnVD_HuqtqiDl+CA--.150S2;
+	Thu, 17 Sep 2026 18:02:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: angelogioacchino.delregno@collabora.com
+Cc: bin.liu@mediatek.com,
+	hverkuil@kernel.org,
+	irui.wang@mediatek.com,
+	kyrie.wu@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
+	mchehab@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mtk-jpeg: Fix runtime PM leak in mtk_jpegdec_worker()
+Date: Thu, 17 Sep 2026 10:02:47 +0000
+Message-Id: <20260917100247.2145872-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-CM-TRANSID:zQCowADnVD_HuqtqiDl+CA--.150S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr47Ar4UtFWUXFW5CrWfZrb_yoW8GFy3pr
+	W5tFy7ArWDGw45tw48Aw17XFyYk34rGr48uF1xX3WkZ39xXF47t3y5ZFyftFWIkr9Fka45
+	Jr10q3yxGr4qvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07j1zuXUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq00+8QAAs7
 
-Hi Felix,
+pm_runtime_get_sync() leaves the device's runtime PM usage count
+incremented even when it fails.  mtk_jpegdec_worker() jumps to
+dec_end on that failure, which does not call pm_runtime_put(), so
+the reference taken by the failed resume is leaked.
 
-Friendly ping on this patch. It fixes a NULL pointer dereference during
-MLD AP recovery caused by stale valid_links after full hardware reset.
+Use pm_runtime_resume_and_get() instead, which drops the reference
+again when resuming the device fails.
 
-Any further comments, or anything I can do to move forward?
+Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks
-
-Best regards
-José Ignacio
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 8c684756d5fc..ed1d5858c942 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1732,7 +1732,7 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 	jpeg_dst_buf->frame_num = ctx->total_frame_num;
+ 
+ 	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+-	ret = pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
++	ret = pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+ 	if (ret < 0) {
+ 		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
+ 			__func__, __LINE__);
+-- 
+2.34.1
 
