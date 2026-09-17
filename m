@@ -1,170 +1,92 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DC74F0526;
-	Thu, 17 Sep 2026 12:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B773909AE;
+	Thu, 17 Sep 2026 12:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648099; cv=none; b=QBveOFAieInZ3eEpBpwqEVCxxu3impzdQn96PbB2d4relqfPO9aanGUlAwlcxVj2QyNt0dey0sFvnVrpVFQ90rIAzul6Cdpt60sFDs8pLjufQBs4cQPFsb/38lNyW2kDW8ae2XFSi8AD/YNNJ7U3iK0aBk8z0JQmF/KnAUiy+c8=
+	t=1789648117; cv=none; b=Out/StY5xTL6UP0DLhByGlcrtuhPdhCAIrNeKi59aBlspBKqFIVf5Ryqs/YJKmRe1ZisfQc+Pp0aT9kzAORXYzplIF87YaiXXG8kU0BF/IK3YotiAP0R9Yigi8N4LmApIiSEYKoasw4LJtTMnxvT5e+RhViiLE8tqUVlZQPEyo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648099; c=relaxed/simple;
-	bh=dNhv9mq4obzH55lT4kIxVd8uB+BycKnB0uQ6jBCNrw0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D8sEA17dyZ74Lk4nA0fbY+PLayZW0fd6xhPsc9P0cF0Rif7sRcE9wTHVLoB003cBm2bvPtQpNDX0fK/jCovht+Nn56hNtQhUx0gw8+vycfOxXUz+KRagW6Vc0lcAba9Ts0U5wPXhhHRnX8b20UIV/iv6GDKBP5UmCSjjNeyCymg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=gaRQMYbK; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="gaRQMYbK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=GH7VmVCs4ONMESSMDsg1J1910mif7egOaATVIQHKpQE=; t=1789648093;
-	x=1790252893; b=gaRQMYbK7fJaq1Jo1/B79w100BGWf07lhE/ihKnuAOzgYWfzjdNAocGfzkWGo
-	P84Fk8vzp30bx3IX0irKILvl/rN8qLs2mVFnIgMowz2gu9AxRVtih0vxTXhFeYmScPcW1lSmDnU7c
-	/kiZ0iBgdSY1ADPab4eGA8Whf5Cq1BxXpl9zbU1NPXhGQNu5p3iCOBnjoFpnO3z8asukrqpatg2Lj
-	tc6S+6BGuZaMSKxo84653kmH7RQ5JAVWfkQAnMwknk5uvqv8+mSYffDeprj0cX6an5YkUCQ5gxQTr
-	RvNwQ0TIPMk0glR2N9BWMcqvIQ5b5mmokIR1UpxauxhGBNMMyA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1x7BDk-00000001wUA-0zvx; Thu, 17 Sep 2026 14:28:08 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1x7BDk-000000027ri-02Af; Thu, 17 Sep 2026 14:28:08 +0200
-Message-ID: <9470a0100b9f890c6ce700fad53f95f8ac07d357.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 1/2] sh: mach-x3proto: add software node for GPIO
- controller
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Yoshinori Sato
-	 <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>,  Arnd Bergmann	 <arnd@arndb.de>,
- linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 14:28:07 +0200
-In-Reply-To: <20260704-sh-x3proto-swnode-v1-1-0c039549dc46@gmail.com>
-References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
-	 <20260704-sh-x3proto-swnode-v1-1-0c039549dc46@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	s=arc-20240116; t=1789648117; c=relaxed/simple;
+	bh=0+JgyF0oo3n2o9uBQku5EmBrQgG5ORRz/ZZCDwf6MHo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jh8YUXKiIcL64NoqOS7kGY9HITgFvUXXKaOS0XVse/HqVpWmhPuptcGcPYeHVOlsIuDsJfFDieXOt64hM8RC5xpY+YHGR1lzc//rXBnh0W3Vg6JendgfNgEEXkPTXiUGitat8fNgjVzOLQ3dAwpBnvya3ce+ZIM7Btea0DfDUhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+ELh3KtqPoGACA--.43567S2;
+	Thu, 17 Sep 2026 20:28:17 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: dave.jiang@intel.com
+Cc: djbw@kernel.org,
+	ira.weiny@intel.com,
+	linux-kernel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	vishal.l.verma@intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvdimm/bus: Fix dev double put in nd_async_device_register()
+Date: Thu, 17 Sep 2026 12:28:16 +0000
+Message-Id: <20260917122816.2151081-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+ELh3KtqPoGACA--.43567S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF45Kw17tr1kAF48Xr4UXFb_yoW8JFy7pr
+	s8Jas8ArZ7Grs8Ka1UZr1DuFyrKw1Iya4rury8J3y0grn8X345trWrWFWjqa1rArZ3GF1U
+	trW7tw18JF4kArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b5lk3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02cxwABsu
 
-Hi Dmitry,
+device_add() takes and drops its own reference on every return path, so
+the async worker only owns the reference that __nd_device_register()
+took with get_device(). The failure branch drops that same reference once
+more before the unconditional put_device(), which underflows the refcount
+and frees the device while it is still referenced by its creator, as
+reported by KASAN for the parent pointer access in this function.
 
-On Sat, 2026-07-04 at 22:04 -0700, Dmitry Torokhov wrote:
-> We want to convert the legacy gpio-keys platform device on the SH-X3
-> Prototype board to use software nodes. To do this properly and allow
-> referencing the GPIO controller by address rather than relying on
-> name-based matching (which is being removed from the gpiolib core),
-> we need to associate the GPIO controller with a software node.
->=20
-> Introduce x3proto_gpiochip_node, register it, and associate it with
-> x3proto_gpio_chip.
->=20
-> Assisted-by: Antigravity:gemini-3.5-flash
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->  arch/sh/boards/mach-x3proto/gpio.c           | 15 ++++++++++++++-
->  arch/sh/include/mach-x3proto/mach/hardware.h |  2 ++
->  2 files changed, 16 insertions(+), 1 deletion(-)
->=20
-> diff --git a/arch/sh/boards/mach-x3proto/gpio.c b/arch/sh/boards/mach-x3p=
-roto/gpio.c
-> index c13d51b29702..a09cafc782b4 100644
-> --- a/arch/sh/boards/mach-x3proto/gpio.c
-> +++ b/arch/sh/boards/mach-x3proto/gpio.c
-> @@ -18,6 +18,7 @@
->  #include <linux/io.h>
->  #include <mach/ilsel.h>
->  #include <mach/hardware.h>
-> +#include <linux/property.h>
-> =20
->  #define KEYCTLR	0xb81c0000
->  #define KEYOUTR	0xb81c0002
-> @@ -73,6 +74,10 @@ static void x3proto_gpio_irq_handler(struct irq_desc *=
-desc)
->  	chip->irq_unmask(data);
->  }
-> =20
-> +const struct software_node x3proto_gpiochip_node =3D {
-> +	.name =3D "x3proto-gpio",
-> +};
-> +
->  struct gpio_chip x3proto_gpio_chip =3D {
->  	.label			=3D "x3proto-gpio",
->  	.direction_input	=3D x3proto_gpio_direction_input,
-> @@ -104,9 +109,15 @@ int __init x3proto_gpio_setup(void)
->  	if (unlikely(ilsel < 0))
->  		return ilsel;
-> =20
-> +	ret =3D software_node_register(&x3proto_gpiochip_node);
-> +	if (ret)
-> +		goto err_gpio;
-> +
-> +	x3proto_gpio_chip.fwnode =3D software_node_fwnode(&x3proto_gpiochip_nod=
-e);
-> +
->  	ret =3D gpiochip_add_data(&x3proto_gpio_chip, NULL);
->  	if (unlikely(ret))
-> -		goto err_gpio;
-> +		goto err_swnode;
-> =20
->  	x3proto_irq_domain =3D irq_domain_create_linear(NULL, NR_BASEBOARD_GPIO=
-S,
->  						   &x3proto_gpio_irq_ops, NULL);
-> @@ -127,6 +138,8 @@ int __init x3proto_gpio_setup(void)
->  err_irq:
->  	gpiochip_remove(&x3proto_gpio_chip);
->  	ret =3D 0;
-> +err_swnode:
-> +	software_node_unregister(&x3proto_gpiochip_node);
->  err_gpio:
->  	synchronize_irq(ilsel);
-> =20
-> diff --git a/arch/sh/include/mach-x3proto/mach/hardware.h b/arch/sh/inclu=
-de/mach-x3proto/mach/hardware.h
-> index 57ea4a5cca35..1ee5a404973c 100644
-> --- a/arch/sh/include/mach-x3proto/mach/hardware.h
-> +++ b/arch/sh/include/mach-x3proto/mach/hardware.h
-> @@ -3,10 +3,12 @@
->  #define __MACH_X3PROTO_HARDWARE_H
-> =20
->  struct gpio_chip;
-> +struct software_node;
-> =20
->  /* arch/sh/boards/mach-x3proto/gpio.c */
->  int x3proto_gpio_setup(void);
->  extern struct gpio_chip x3proto_gpio_chip;
-> +extern const struct software_node x3proto_gpiochip_node;
-> =20
->  #define NR_BASEBOARD_GPIOS	16
-> =20
+Drop the spurious put_device() from the failure branch.
 
-Looks good to me, will pick this up for v7.4.
+Fixes: 4d88a97aa9e8c ("libnvdimm, nvdimm: dimm driver and base libnvdimm device-driver infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/nvdimm/bus.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+diff --git a/drivers/nvdimm/bus.c b/drivers/nvdimm/bus.c
+index 45b7d756e39a..a1f33a03aba8 100644
+--- a/drivers/nvdimm/bus.c
++++ b/drivers/nvdimm/bus.c
+@@ -488,10 +488,8 @@ static void nd_async_device_register(void *d, async_cookie_t cookie)
+ 	struct device *dev = d;
+ 	struct device *parent = dev->parent;
+ 
+-	if (device_add(dev) != 0) {
++	if (device_add(dev) != 0)
+ 		dev_err(dev, "%s: failed\n", __func__);
+-		put_device(dev);
+-	}
+ 	put_device(dev);
+ 	if (parent)
+ 		put_device(parent);
+-- 
+2.34.1
 
-Reviewing part 2 will take slightly longer due to the size of the changes.
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
