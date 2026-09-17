@@ -1,125 +1,184 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0561E4562BD;
-	Thu, 17 Sep 2026 08:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A73412BFB;
+	Thu, 17 Sep 2026 08:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635316; cv=none; b=LuB2hCX19ORY8+g2zdSES08DFMTd0O3qdEVPLeqAv9lehxYuoZJoZ13Yiwu2e79O29jzfQYvU+JDrtNtz/ThnvgzrTJTXCZWUGgxUlMZn+g1KHrXYRqtbYvBElsfHvO/nEs7ELfGxG/fXwRV0W6MEl/QfwNf7DTV33CyvqB11FY=
+	t=1789635363; cv=none; b=HkR1J/GJdidDKtVuwCT4G2FR94OpLw1oroL+7qcnE7oQbaClaV571ulhr4M0bdmUX91f277QU2kIxilsWUipbEkLIHcO4LuUvwQycFBJ3iXECoZwAT+4Q0UdrI9/Dmj047Bt3AiKRVzBB/bcEnDBXoa8dEHo/+FbaEN6VYQ46C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635316; c=relaxed/simple;
-	bh=vn31ij5EjMpSY4fNULl9mNiHva1/BB4PcHzqjFUIWVM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4DZOt8IBiKZrMu54PXTXb6+KjEvPzUtx+fuO5Dvl7xrdrzDzrrEgnwHJbanKnbDOE10xoQ3+pSCYh5/3SXpfBwsUojkoypKWSgO6K0RoW9zB3IoY2qU6m324cO4ZeHioxtake93xa7ejPQuKxmZk/53DY/qJFzYxIf2mhvtVoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=E24bQLqZ; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1789635363; c=relaxed/simple;
+	bh=Mc0lFG0Z0oBzNs3L58U9sL+1iv+RkGg36M51tN5iKSo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=iCx4d8yTjOMoiVKzh1K8nO+3dOFNZB9o9JetaFlazwSvxd3/V9PlgoDshNJt95uLA93l3cnST3qxu6LL2fjxu2bMEOQDYFQ9D0aDZHkPybEYkWyaxF4m+CaceBMkHXOeHYQ34Lkw5utYl/xUHE133jmmbK8XM6Diin6bNcfkmFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TbjybCJX; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="E24bQLqZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1789635308;
-	bh=VyrNncgMjLTsBvabQF8/YlHLzKKib3TBgXLmZZSfKgQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E24bQLqZqCbhYofFpFX5C/Yn90lZRe1Y1Sl92lkL5j5M0O9HmOV/qfTuszP+xhHMZ
-	 PHgtIrJLt1Cmp9zNstWDEva8MV+TOpfIOOGS3+ge9KpPnCGTwcnq0yz+rlsZ1KlMyp
-	 +vq4s4VZYDlux6eyjR9b7eMbj375oF+kgQXvTWbHA4pkLKuOhr3fom7iTZp0KNyE9I
-	 yLDpyxv8KzYcp9FiUJju60ACYct+BWomEPCeqvjhM4j6ErtuYmYPrZsZMCAArGhFau
-	 4xUQE97+l1D5vk3XmZBUshNUkKbwXKerlMtqkh4AKdD0+Nr95zNzHgTT4DuGfneKfl
-	 cbtKQePrSd1nA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 9A1346005F;
-	Thu, 17 Sep 2026 10:55:08 +0200 (CEST)
-Date: Thu, 17 Sep 2026 10:55:05 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Fernando Fernandez Mancera <fmancera@suse.de>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, mptcp@lists.linux.dev,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net] selftests: net: update netfilter netlink config
-Message-ID: <aquq6fEQiDq5Ey59@chamomile>
-References: <20260917-selftest_config-v1-1-bf25ccbfb18e@kylinos.cn>
- <f557e44a-86b6-4ebb-ad35-d7bc5902929a@suse.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TbjybCJX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789635360; x=1821171360;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Mc0lFG0Z0oBzNs3L58U9sL+1iv+RkGg36M51tN5iKSo=;
+  b=TbjybCJXqENA5/dQpEa7D4cEXa1qrnqwisf+U1O2WnvEQUBT2Xf6ZceU
+   2ndyJPz8FDUUhbGXj5x6yLM1XVkFQf8CBesmT+o8J2dT9TAi5PGFzGR8/
+   oP/jyKZ4cX+eb13Do+zAYoIUuzUpPOPK+ZO9463KX5eNFzh1TR5qffUIx
+   QJlQPe88g6J3ziuv9yYXPfzPQUvlXUma/TblrPyKAHfytfnTdrr/+UrKQ
+   5figb03P9H10T9J4fH2TiAI9xPACdJab1stkr8BMSWMyvpUZGxbr+ZuNV
+   m3PoC000Ma+7HUmAkQ/247/CeppF9ke/QYeCeHKLkudlAfWZfXXD//wAg
+   w==;
+X-CSE-ConnectionGUID: y6KVqTEuQSOD/ZfqHTskVA==
+X-CSE-MsgGUID: ODra5nZkSoeCl/1bU2xBVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861767"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93861767"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:55:57 -0700
+X-CSE-ConnectionGUID: RE2V7s0YTmi6smSY9w/WPw==
+X-CSE-MsgGUID: ob9ktvbyR++ZXnBHTxTu5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="275621273"
+Received: from ubuntu.bj.intel.com ([10.238.152.72])
+  by fmviesa004.fm.intel.com with ESMTP; 17 Sep 2026 01:55:55 -0700
+From: Jun Miao <jun.miao@intel.com>
+To: sathyanarayanan.kuppuswamy@linux.intel.com,
+	rick.p.edgecombe@intel.com,
+	dave.hansen@linux.intel.com,
+	kas@kernel.org
+Cc: linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jun.miao@intel.com
+Subject: [PATCH v2] virt: tdx-guest: Use read_poll_timeout() to shorten get-quote polling interval
+Date: Thu, 17 Sep 2026 16:55:33 +0800
+Message-Id: <20260917085533.750434-1-jun.miao@intel.com>
+X-Mailer: git-send-email 2.32.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f557e44a-86b6-4ebb-ad35-d7bc5902929a@suse.de>
 
-On Thu, Sep 17, 2026 at 09:06:48AM +0200, Fernando Fernandez Mancera wrote:
-> On 9/17/26 4:17 AM, Hangbin Liu wrote:
-> > From: Hangbin Liu <liuhangbin@kylinos.cn>
-> > 
-> > Since commit d4349ba9872d ("netfilter: allow nfnetlink built-in only"),
-> > NETFILTER_NETLINK was changed to a bool. Use 'y' instead of 'm'.
-> > Otherwise the build emits:
-> > 
-> >    .config:5688:warning: symbol value 'm' invalid for NETFILTER_NETLINK
-> > 
-> > Fixes: d4349ba9872d ("netfilter: allow nfnetlink built-in only")
-> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
-> 
-> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+The TD guest sends TDREPORT to the TD Quoting Enclave via a vsock or
+a tdvmcall. In general, vsock is indeed much faster than tdvmcall,
+and Quote requests usually take a few millisecond to complete rather
+than seconds based on actual measurements.
 
-Acked-by: Pablo Neira Ayuso <pablo@netfilter.org>
+The following get quote time via tdvmcall were obtained on the GNR:
 
-Thanks.
+| msleep_interruptible(time)     | 1s       | 5ms      | 1ms        |
+| ------------------------------ | -------- | -------- | ---------- |
+| Duration                       | 1.004 s  | 1.005 s  | 1.036 s    |
+| Total(Get Quote)               | 167      | 142      | 167        |
+| Success:                       | 167      | 142      | 167        |
+| Failure:                       | 0        | 0        | 0          |
+| Avg total / 1s                 | 0.97     | 141.31   | 166.35     |
+| Avg success / 1s               | 0.97     | 141.31   | 166.35     |
+| Avg total / 1s / thread        | 0.97     | 141.31   | 166.35     |
+| Avg success / 1s / thread      | 0.97     | 141.31   | 166.35     |
+| Min elapsed_time               | 1025.95ms| 6.85 ms  | 2.99 ms    |
+| Max elapsed_time               | 1025.95ms| 10.93 ms | 10.76 ms   |
 
-> Thanks!
-> 
-> > ---
-> > This is a simple update addressing the same issue, so I’d like to post it
-> > directly to netdev instead of bothering two separate subsystems
-> > (mptcp and netfilter).
-> > ---
-> >   tools/testing/selftests/net/mptcp/config     | 2 +-
-> >   tools/testing/selftests/net/netfilter/config | 2 +-
-> >   2 files changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/net/mptcp/config b/tools/testing/selftests/net/mptcp/config
-> > index 59051ee2a986..bb9c4c97c620 100644
-> > --- a/tools/testing/selftests/net/mptcp/config
-> > +++ b/tools/testing/selftests/net/mptcp/config
-> > @@ -18,7 +18,7 @@ CONFIG_NET_CLS_ACT=y
-> >   CONFIG_NET_CLS_FW=m
-> >   CONFIG_NETFILTER=y
-> >   CONFIG_NETFILTER_ADVANCED=y
-> > -CONFIG_NETFILTER_NETLINK=m
-> > +CONFIG_NETFILTER_NETLINK=y
-> >   CONFIG_NETFILTER_XTABLES=m
-> >   CONFIG_NETFILTER_XTABLES_LEGACY=y
-> >   CONFIG_NETFILTER_XT_MATCH_BPF=m
-> > diff --git a/tools/testing/selftests/net/netfilter/config b/tools/testing/selftests/net/netfilter/config
-> > index c3c121b6f300..629b2b29ed1a 100644
-> > --- a/tools/testing/selftests/net/netfilter/config
-> > +++ b/tools/testing/selftests/net/netfilter/config
-> > @@ -44,7 +44,7 @@ CONFIG_NET_CLS_U32=m
-> >   CONFIG_NETDEVSIM=m
-> >   CONFIG_NETFILTER=y
-> >   CONFIG_NETFILTER_ADVANCED=y
-> > -CONFIG_NETFILTER_NETLINK=m
-> > +CONFIG_NETFILTER_NETLINK=y
-> >   CONFIG_NETFILTER_NETLINK_QUEUE=m
-> >   CONFIG_NETFILTER_SYNPROXY=m
-> >   CONFIG_NETFILTER_XTABLES=m
-> > 
-> > ---
-> > base-commit: 1dd85662fee6e2ac580b1c4f9a0c0a7ae6e31f0e
-> > change-id: 20260917-selftest_config-286bdd44b22b
-> > 
-> > Best regards,
-> 
+According to trace analysis, the typical execution tdvmcall get the
+quote time is 4 ms. Therefore, 5 ms is a reasonable balance between
+performance efficiency and CPU overhead.
+
+Since it's a real issue, updating the polling interval to 5ms. Given
+that deployed QEs respond fast, we should also reduce the maximum wait
+time to 2 seconds (from 30 seconds) to fail faster on errors
+
+And compared to the previous throughput of one request per second,
+the current 5ms can get 142 requests per second delivers a
+142× performance improvement, which is critical for high-frequency
+use cases without vsock.
+
+So, change the 1s (MSEC_PER_SEC) -> 5ms (5 * USEC_PER_MSEC)
+
+Suggested-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Signed-off-by: Jun Miao <jun.miao@intel.com>
+---
+
+v1 -> v2:
+ - Add "Suggested-by: Sathyanarayanan Kuppuswamy"
+ - Use read_poll_timeout() from <linux/iopoll.h> to simplify the
+   timeout handling instead of manual loop counters.
+ - Reduce the maximum wait time to 2 seconds (from 30 seconds) to fail
+   faster on errors.
+
+---
+ drivers/virt/coco/tdx-guest/tdx-guest.c | 34 +++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
+index d0303e31e816..a73d1f0335be 100644
+--- a/drivers/virt/coco/tdx-guest/tdx-guest.c
++++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
+@@ -16,6 +16,7 @@
+ #include <linux/set_memory.h>
+ #include <linux/io.h>
+ #include <linux/delay.h>
++#include <linux/iopoll.h>
+ #include <linux/sockptr.h>
+ #include <linux/tsm.h>
+ #include <linux/tsm-mr.h>
+@@ -198,10 +199,10 @@ static void *quote_data;
+ static DEFINE_MUTEX(quote_lock);
+ 
+ /*
+- * GetQuote request timeout in seconds. Expect that 30 seconds
++ * GetQuote request timeout in seconds. Expect that 2 seconds
+  * is enough time for QE to respond to any Quote requests.
+  */
+-static u32 getquote_timeout = 30;
++static u32 getquote_timeout = 2;
+ 
+ static long tdx_get_report0(struct tdx_report_req __user *req)
+ {
+@@ -251,18 +252,31 @@ static void *alloc_quote_buf(void)
+  */
+ static int wait_for_quote_completion(struct tdx_quote_buf *quote_buf, u32 timeout)
+ {
+-	int i = 0;
++	u64 status;
++	int ret;
+ 
+ 	/*
+-	 * Quote requests usually take a few seconds to complete, so waking up
+-	 * once per second to recheck the status is fine for this use case.
++	 * Quote requests usually take a few milliseconds to complete, so waking
++	 * up once per 5 milliseconds to recheck the status is fine for this use
++	 * case. Fixed-interval polling doesn't scale well since QE response
++	 * times vary by implementation; an interrupt-based approach would be
++	 * the proper long-term solution.
++	 *
++	 * Also break out early if a signal is pending so the caller can be
++	 * interrupted while waiting.
+ 	 */
+-	while (quote_buf->status == GET_QUOTE_IN_FLIGHT && i++ < timeout) {
+-		if (msleep_interruptible(MSEC_PER_SEC))
+-			return -EINTR;
+-	}
++	ret = read_poll_timeout(READ_ONCE, status,
++				status != GET_QUOTE_IN_FLIGHT ||
++					signal_pending(current),
++				5 * USEC_PER_MSEC, timeout * USEC_PER_SEC,
++				false, quote_buf->status);
++	if (ret)
++		return ret;
++
++	if (signal_pending(current))
++		return -EINTR;
+ 
+-	return (i == timeout) ? -ETIMEDOUT : 0;
++	return 0;
+ }
+ 
+ static int tdx_report_new_locked(struct tsm_report *report, void *data)
+-- 
+2.43.0
+
