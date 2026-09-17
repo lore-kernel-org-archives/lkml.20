@@ -1,67 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246344F7984;
-	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AE24E1C76;
+	Thu, 17 Sep 2026 14:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655818; cv=none; b=Z7uZc8mJoBc3j1OntEyfgYO/sCpdc02WORi8Hap/p6xo4L/RXdeR6lRufgP3rAMhcG08RaYx0GoRu5p2uLj/0RGPcYm5LUycoI9n9e57liiTViLSoSC0yRx4bOHvl5qcd2cI+sefPClXMICSV9HZgnt+Lx2P3HOUxPxLD/Zf1wQ=
+	t=1789655836; cv=none; b=ZTmP5gzWFcSmxcqym3pOluuP84+Gm3BMNqGcTrpJqizaDDTg7PFoJU2Qc1bP38htN9HVMYHTObAc30lMq6rTJiCgKvA+nWfToGV1KTon12btC21QufloaRl6vJpOSL5F84LcE+L4UZ3H+n0Pu8hmLIuSK+9cQ2DS2x+JB2b8cYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655818; c=relaxed/simple;
-	bh=nszi45kXm73Y7NgYq5onAqIMX+LJwX1ohh2P6iyEr3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KQDUsLQXquSna2ZL65OndxRZCGJxrL+BD/EFeWiNpsLyKFZyWbkkwJvL/jHp6ZwUOJ8v7cgBmMhI9LE3FbweCrAmB8ndPK88ErTENMieXjf8yFvBsklF/Xh/IKnxA/0pYWdPcD9JQSBZH9GJ4uEUapL7vC7CSSkcglrsYfU51GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkU8BSbq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789655836; c=relaxed/simple;
+	bh=SZIzUSR1nFqTWSIRDfocCNLg521X7fCgUMYiRt5NjvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cpUe+GF4RV9kF9c5HTHE3prbJ88n/tFI6FwjuRllKObcalFbIA3HYMpFHENYR10iCzQVWXwQR+i2r0NPxSCSfRwX/lGnExr+frMrAqD77iChnjegUvmH9byhhXD4z4Au6Q1RlopjiISyL/5zPd+U8YvPT2ik6H5kDPHutD+kLEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJuPtYUr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkU8BSbq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6501F000FF;
-	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJuPtYUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469181F000FF;
+	Thu, 17 Sep 2026 14:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789655816;
-	bh=wbTtNovbZeKMcq+Fme6uVDAlmL8EXwA2kL/1U7fmOOo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZkU8BSbqtg1MvUzQghAYB/EEHMgRjbmvz4b+h7ap4WJKOXkkw6YlL1KSpf89Pscy2
-	 B5MATM+0LGHT1dnDxFBe4wfPtHYfOSf7T53E0t9bXlItT0WbAMRG30PzpaLqBxR36c
-	 QY6O+jKe1JJhnyXPwMr7nfEFYroUK02zY7xPtZF90lnTpihTk/Yj5oJ69BhBNyzdkr
-	 R7MbKadAsopryAllSVRFaBnzduAg3DQ1IdcqfXACOjrHXZ+Qv7p6Ag2hDNp7KX0TCn
-	 abRJPKkJldCyee3eei/CSyRZ9rEdrendzzVBzrO/NgOqNtAXeFnj+60nqQz203ZETa
-	 2s/9349+QT/5Q==
-Date: Thu, 17 Sep 2026 07:36:55 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- jeff@garzik.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, stephen@networkplumber.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: cxgb: Fix skb reference leak in
- espibug_workaround_t204()
-Message-ID: <20260917073655.5d7c9ecb@kernel.org>
-In-Reply-To: <20260917105425.2147804-1-vulab@iscas.ac.cn>
-References: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1789655835;
+	bh=1YrFDyne4Mw/5P6NtQygUYrYZ/7F2ZHeKeQK62aWTkU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KJuPtYUrTYQGek3CmOas+vaeay56yXNJlPharuTziS0HuGlv9+bFj/ng4L9Gqzw6X
+	 hbpaKm3VOtxa0FgbVaXIOP9wrqWNNOD5jxtUSdiCMlJ23GDiLKRUqDAB2K7ezJoG7Q
+	 vSrwhA5gdOE2jvEuvVmcoXyGNO3SMivVMty3JoUNg4CSOH2RxmA/og+GLIRfI/WeY9
+	 L3R58YHYfK0xLMYcRKW43nU/p7Atc8VcsmEP0qpenjTPt5XTS4eySByP+xz7CsjRMv
+	 Gpndqtq8HYdEZuExkh0B23Pv24u9Ne3OCLxV5/ApNZ89mpRUte/JZyyYP1sMQUC7x9
+	 Ur9U5xfQ7qZhQ==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 00/10] mm/damon: improve readability, clarity and test coverage
+Date: Thu, 17 Sep 2026 07:37:06 -0700
+Message-ID: <20260917143707.91700-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917142210.90829-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 10:54:25 +0000 Wentao Liang wrote:
-> The timer handler takes an extra reference with skb_get() before handing
-> the skb to t1_sge_tx(), so that the skb survives until the DMA has
-> completed. When the command queue is full, t1_sge_tx() returns
-> NETDEV_TX_BUSY without queueing the skb, and the return value is
-> ignored, so the extra reference is never dropped.
+On Thu, 17 Sep 2026 07:21:58 -0700 SJ Park <sj@kernel.org> wrote:
 
-You have sent way too many patches at once. We have a hard limit of 
-15 patches per person, but really if you're sending low value garbage
-you should not send more than 8. So that you can apply the feedback
-you receive to later postings.
+> Yet another batch of miscellaneous DAMON minor improvements.  Mostly
+> focused on readability and clarity of code and document, and unit/self
+> test coverage.  No user-visible behavioral change is intended.
 
-You may repost new version of the patches to which you receive feedback.
-But I don't want to see any new patches from @iscas.ac.cn for
-drivers/net and net/ for a month.
+Sashiko found no blocker for this series.  Sashiko send its findings to damon@
+mailing list [1], and I reply those if anything needs to be clarified.  Please
+refer to those for details.
 
-Please tell your coworkers/friends.
--- 
-pv-bot: 15cnt
+[1] https://lore.kernel.org/damon/
+
+
+Thanks,
+SJ
