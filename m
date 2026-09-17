@@ -1,155 +1,98 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4915650EB
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6C44973B5;
+	Thu, 17 Sep 2026 15:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658848; cv=none; b=KkHktozxxIYbJtOp6PY+TTxBOtp3YK3fz0DkmCmUSkaWyHovFJFjTFjmZnUPbGdctVJnt2jTpmAmXBEKPY3uP6NKT93M+S4WZW9d9cfMtGpgl+4Sxf46bVAyiUlpAXTNUONNkfMg7q854rqj/D61o8auE5HL76wdIFSPXCB5ImI=
+	t=1789658855; cv=none; b=M0jwTPEjTpffpM3V0s/8Qb/X+Fh2or3cizZ+oC7+ZTTq6T5BWDfTSjguYv6vQL9gEEXuQt31LptUiFSF031eVntac4Ua5dP+aalyZGY799ky5Lerb7UvCGsXWHAH4RwqUSH1LyJsIEmzZ+N5qMwQSNXm8RDmDA+JNgLAhLx7YPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658848; c=relaxed/simple;
-	bh=ORrkQdx7WaXLuX6nCR7n/UoR4xgg8OSPPnuyxEfLNUk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqJZYqNikGobikEplR3Zw5w4TuAfE984FRWyglRxokbArlZ6G2HUnbl2lteCDungT1uxzNh+kQ0s1QacEyfDKynk+lsnw1FFU91izQga41r7V7ZV8pioQVjlBhul8KS63iCJ0yep7xK2mLzRe7Ht2QnpRRtXVA+ia0WYg7VlR1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MQ0AS78Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fF6FPlpy; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MQ0AS78Y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fF6FPlpy"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDk5vX1955214
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:27:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lOcf1R7o5InmAsKwg2E0EjTS
-	IYI7yDGuX6N2Ud8ufV8=; b=MQ0AS78YiydvB/L9ivANs0HuhU7RutkgB/3kwdsG
-	kMln+VSjUbSBBkbM5olq7ZRZzRo++BRaqiiaJEvyz0Akj/Hp1UHnUUiNPhcVNDSq
-	pBDSU2oW7E2Qzwfg6V/uLmt5m7FsWiMArz36lg4/pTUOcg04wcln4stYkJvzbgiF
-	baJAbhBtKQd1MqqD0O2f2nwVFWzvlvbm3z5RoUurE/IWD78pLrjtaHdulPd1NWwg
-	m/+K+R9RONfZyvdSC6pJKvZZ+M2QdJsKFhO/3iyPqUVyd7Cyh3DcuKaYkSkTj//Z
-	X6KTcpwF+lDdjZ3eULZUuIS/dgjHB6Dq53/u/7u1UaTO1g==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grgu5gqb0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:27:14 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90ce8ad8002so20375016d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:27:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789658834; x=1790263634; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lOcf1R7o5InmAsKwg2E0EjTSIYI7yDGuX6N2Ud8ufV8=;
-        b=fF6FPlpyCSwQaHGjcVNd5MjyCjbetN7WV1blgzFr9082tOU0WbDziUbZG7XZT+cZMi
-         SNck0Hkd9KtjOR3rC1cg5O6dt/3H/0hBYn7QcWDFnZ5ZGhIi4nj1RSx/r+dNPrwfjKEx
-         +kMnDfUu34tkct9uFkgbhF01K8pLn8SaOrWRvXsj+EjZQqp2L0BLIgTycOiYjnDaJskW
-         9i4kJF8+5BJdlbO5Sv8gj6MRiY+oNcxD2Z9m4nc16qf2SW/ovq+iqOtZxnRnzozFQ8Ro
-         vSne9G/6mxeVVv2bd8DX7gZjiXAymgcNrkywXqvBtFp0BldruuzNkh4KERopfqtUOiRV
-         ce4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658834; x=1790263634;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lOcf1R7o5InmAsKwg2E0EjTSIYI7yDGuX6N2Ud8ufV8=;
-        b=hpjhacF8mkmvgD/9KvwcluEYRFyw0UqPYucyffMJp3QWTneGg7760tPvd4kmlDQNxx
-         TbSF6OgcF9zuXfGC2L33Gye9ppJcSWoV0P++zXswL6Z2ax4B1pKVCTVUMcaIAvawIVMz
-         4SyCMaiqnKVe9y5Y2vwaCbmMQvxODfb/WwU8BGC9zMxydQatZhlLw8Um5kK/WV9VBnjt
-         Jgi+SVkEBIq21mgmbwTsQeKr49gWYfgG/vsqgdmQcmW4QfhKiDSxzVTghjYeId3cIv2Z
-         vpc5L5C8pwnb4ydIgYY+Hv+/D3LZ3mhdXc02/b2Dj6CVprR+Yp6XqugUcAjorU7rmxBE
-         /GOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztQ5BnrciTEBUc5TmyfIvSuByk0MJVvzRPH4Qs66vQQiVjNZqU06YZpk/AfB9OGpeXRc0FCUSS891OlBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCjWsKkNFCq9i965xRFc21bFM2DVGDh0hXdFkibEqZW2qwJYzF
-	o9oRLo0HNw4r0IUprNejGxFnN4xDuk2YT7NS3IRCP1aDuAtSABE8nl9i/Dq5/GkZHDy/hIN6dYq
-	V5iIjdwj9BPG95S6xN/ZNARwGSkGqr+zgjz1X4xGOlnoRo5WzYKI+iNdX18jnB7mBMww=
-X-Gm-Gg: AYBFou2jlxf/uWoeVF5hPM+Ot7XJvnCGUr4rXz7b6B95vZ/ZOhtq0syqtM4jdevRszf
-	EbQ7AZorxlRDs+WcNxFtTntZYpSFCywKSQAE9NYbRtFlwQyIOdRcDimestZ7L0/z+Hsw8f+8hv6
-	Mj87QsG2eih8bWmU1pPir1Zv+DrIoJtUOiHwXQRGtDjifWcRai6K5P35Kg4TToxNCfSM9LCXp5G
-	mWrIc7Tmc4YdySXY6keY5JnGsYP65p4AyIam1R09Yqak+3QWhvvWARrKeU1Bqyo7NU63+bfMA1C
-	M1CWFaKMpHfrVapaz9/TDKzdaWFXnC1P9SCiPGB2gvlfaTfchDSeJqn9ECSFAahn1YquZ658hG1
-	NA2mgGPqfj3Yo8J4=
-X-Received: by 2002:a05:6214:62c8:b0:912:4527:7ba with SMTP id 6a1803df08f44-91252411994mr6212156d6.23.1789658833868;
-        Thu, 17 Sep 2026 08:27:13 -0700 (PDT)
-X-Received: by 2002:a05:6214:62c8:b0:912:4527:7ba with SMTP id 6a1803df08f44-91252411994mr6211096d6.23.1789658833203;
-        Thu, 17 Sep 2026 08:27:13 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf26c8dsm16288601f8f.14.2026.09.17.08.27.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:27:12 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:27:09 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH v8 2/5] arm64: dts: qcom: shikra: Add CCI definitions for
- Shikra
-Message-ID: <ns6fwcvy53zd3yx237nrnbyzs2dvnp2imucgdxmj2wqi7pupsf@dkif3wniurye>
-References: <20260917-shikra-camss-review-v8-0-9b9596221cfa@oss.qualcomm.com>
- <20260917-shikra-camss-review-v8-2-9b9596221cfa@oss.qualcomm.com>
+	s=arc-20240116; t=1789658855; c=relaxed/simple;
+	bh=+3lUdX8f7H9AjGovEb9R0rgJMrXEFu/RgcvdkJV+xdM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=op4iOy28JneQKesOsNAf5xNRpY17fXoRC1b90BN3F6DsFUttGv0n5NjbaQvKX4ahY20TIUrwC5g21OlD/u6nDwlnyPUN7OZFPC1s19CSnbQ132FpFVmZfKnV+fWl0BhhT2jL/T5dzbqhmL6toNW2muDyfvm8uovSrwKwVLpAe5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnF0LXBqxq54WDCA--.5805S2;
+	Thu, 17 Sep 2026 23:27:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: chleroy@kernel.org,
+	herve.codina@bootlin.com,
+	leoyang.li@nxp.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	qiang.zhao@nxp.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
+Date: Thu, 17 Sep 2026 15:27:19 +0000
+Message-Id: <20260917152719.2160395-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-shikra-camss-review-v8-2-9b9596221cfa@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxOCBTYWx0ZWRfX1n4YQ3EhOvDj
- cvpUNSjjJdUCpTKHyOrbb8RSxXKDe1D6jNGfzNwDg8Iva9FrZnyLQVvNbINiu/4965wbm6wAVLB
- +MioRiCGTvY35GUJTJv8ftIY9xTBvFU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxOCBTYWx0ZWRfX9oruqk5Oqp4J
- L56VLnCiR3whU6zyVJEJAKiKPiBnP9waFXROPB3QxwgqKMJDEXNWlk+yjpBOiFYnF3oKfBm4Wyu
- TBQlCWHxgH20NnlWb3CJaw2Rreos0meq0uCuTro5gm9QylpT3Iwpdb0GttwUpoNJWOAcooaN9Oi
- BawqokLjvuc99uttqRjNqDozRgGlTb0YHo711+INILz1J2eaEKKyReoxljx7D3LsCfqVhv33a4Z
- o8smL3GAxrgxrrSoyeoDXN9JZfUtcXGFEtJ5YPLDlz0Yq6toSwksMzuhtw7AWxlZCCM4oZQecrS
- G8+bXM0MRCsnFhz4ZjkkYmwnau9smNgA8xHvaCYEOw0P4EnO/ZOgk8q9OpwdYej/Fanc8cvrAZ0
- Lmlrgy1AsyRqiz4arEhuNuCMr74CZpTPQv2BYPd/BMS7T3gZeNmRymfhqjNUCPjrZ2ws/Jg1UNe
- I4qtlPKnXyaVxWCXIqQ==
-X-Proofpoint-GUID: Trdlg7s7cgNR8VDD78gA1LAWz_TFNitI
-X-Authority-Analysis: v=2.4 cv=GvbXaU1C c=1 sm=1 tr=0 ts=6aac06d3 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kTwRDD6jQfcqJCPQX_EA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: Trdlg7s7cgNR8VDD78gA1LAWz_TFNitI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170218
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnF0LXBqxq54WDCA--.5805S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFy7Xr4rJw13WryfCr1rWFg_yoW8GryDp3
+	93GrWYvrZaqrsYgFnrGw4IgFyrtay7tas7GrsxKa1I9rZxJ3WUKr1DCa4xuF1kCryUCFsF
+	qFyUKr95G3WUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07UC38nUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAnhgAAsl
 
-On 26-09-17 17:11:01, Nihal Kumar Gupta wrote:
-> Qualcomm Shikra SoC has one Camera Control Interface (CCI)
-> containing two I2C hosts.
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+The error cleanup loop puts l1rsync_clk and l1rclk_clk a second time
+and never puts l1tsync_clk or l1tclk_clk, because the branches that
+guard the transmit clocks use the receive clock field names.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Use the matching field in each branch so every clock acquired by
+tsa_of_parse_tdms() is released exactly once.
+
+Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/soc/fsl/qe/tsa.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/soc/fsl/qe/tsa.c b/drivers/soc/fsl/qe/tsa.c
+index 4a88e54d25b9..94691369353e 100644
+--- a/drivers/soc/fsl/qe/tsa.c
++++ b/drivers/soc/fsl/qe/tsa.c
+@@ -865,12 +865,12 @@ static int tsa_of_parse_tdms(struct tsa *tsa, struct device_node *np)
+ 			clk_put(tsa->tdm[i].l1rclk_clk);
+ 		}
+ 		if (tsa->tdm[i].l1tsync_clk) {
+-			clk_disable_unprepare(tsa->tdm[i].l1rsync_clk);
+-			clk_put(tsa->tdm[i].l1rsync_clk);
++			clk_disable_unprepare(tsa->tdm[i].l1tsync_clk);
++			clk_put(tsa->tdm[i].l1tsync_clk);
+ 		}
+ 		if (tsa->tdm[i].l1tclk_clk) {
+-			clk_disable_unprepare(tsa->tdm[i].l1rclk_clk);
+-			clk_put(tsa->tdm[i].l1rclk_clk);
++			clk_disable_unprepare(tsa->tdm[i].l1tclk_clk);
++			clk_put(tsa->tdm[i].l1tclk_clk);
+ 		}
+ 	}
+ 	return ret;
+-- 
+2.34.1
+
