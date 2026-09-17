@@ -1,106 +1,208 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC8D3612F3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6FA3911D5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632564; cv=none; b=eiuBbaWrEDLrKT48UekGOnGLezwaOn6763VrLFIxNt0wTqrchaaB/8vQiq+JIRPkOPB0Sv6YsJ6uYbfGznGHC/iWuniHBv+6QxZCnlIaVKU2byJxSTT5rPuJ7QypMDd3xVAGJc0lTtCAybwHwkqDfg+ItHccOvn0pr0WQi0f2QM=
+	t=1789632591; cv=none; b=k901ngL7A9ACb+u3MxgkebKGdeQg8fI0/k/FpTuLz8ptK/KUnYvXnq+gfGzCQVbSMLiM0AaDYFNgm34fgmifIg/b1iPe2vua/X/tiIzQ4BUpUk2+c6GEcEa4pmfHKXUiFTzTfj1sCn+ytJsOJJnVNgOiFAO9Ru6NshS34SBlbLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632564; c=relaxed/simple;
-	bh=cjQ6RYzc2Amucs+53IxcHHczFj1kbL1NRf7Hpsxfmg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MOz2nwk4NVbUfkYhOFOJ6ytGfWAG74HvcHkR/WELtyKX6iaMblubILIoY5mWF4fpgwUADUm28RGugA7zmpwg8Bg5wnM0tOUwsRAtnMy8FwoI5jOYgqyWD6r5+43y24tqLaq++ylDaDvT6bLDhCr9IZpg02OtlFJQfCTrYdj8nJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iVuVJaJJ; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789632591; c=relaxed/simple;
+	bh=thxTlFDiUn5m3b2TgEqlNjeAfPL8lcYYZNd7JPe5Uzc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=tXL1EdA5jluFOTQJMsoXoh+iiPjqyVi+9QaQFQ0XXT5s5m0WciTlBCcmrlfMPRQilXD5wdng7K0hgJ+X/B0h4sh1RzUfery6CfopbvCoE/urMCTS7ZLjTesNzHXiLyM9qeVnClsBYTAnru8whNOgHbgwYXUl8iandja/gFY3Hww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V61j4DCj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iVuVJaJJ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso1202665e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789632560; x=1790237360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jNDQvvdETqkQqr6M3U+s+GuEJjts7GdgrSSwohM6KmE=;
-        b=iVuVJaJJbujO3c5XIHUBkcIUF60Dg90fOoR5t5RZFE6rFpNU7J9ze72C++C7Fze1lu
-         czEGzL1etuAFkPVmgj6F3qnBNdtbdOkum7Q7nJYPKG6a+42ZN3yUN/cYqNsOUVQTRcvs
-         ojuqxBKQBjz5nEa39AluoXFMKUQ/6lx6yjug/YoCZPFvfHUOk0ac2ds6w0BrLJr5/xHw
-         euby7eAH9j2yEDITeXe+KjSMtYQl4OQf6OlEZh4l9evvki88sfHP0CtmEIvXjsF3xXhM
-         nEopzxxIijx7s+gaoEPYOt4Sun//rhvo7QaAFxBZxm92eY7WU7mrYHQxmPQI492k5Uc4
-         XMLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632560; x=1790237360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jNDQvvdETqkQqr6M3U+s+GuEJjts7GdgrSSwohM6KmE=;
-        b=DSJaD//Sk4nABcKTpeMYiSQKw2DfZXQi4n4rjQJqrWvVOc9fzVVYbq+2D+LYOaV5J8
-         MjVUs4DLYkJiCqRDQmqOdyaYwf3ef6mRAxm9VHI4mPLwUo5axdmW5sURJQBpY78ukp4P
-         kG6LWfeiaCidXOEuJ+WSbhfRuN3tJ7bUogn6Qwpng4gx5EMGlWOUY6oGwwGSyub5kVuH
-         W1AwpFdkQSTuaneHTeme88KSaN0Jete7pQTUy8c7oSwAoWmBA4VTsQuc08aJFss8igjp
-         qm8EFVzmfU2CzExdiL+okCvXDhIRgsQ/nFJ6Gm7yOkTfEGxrtKaDtvQeaO7CwYPx4nLL
-         dGBw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3BSxn9/xih9E6jFuZ9N0j22cfzvl7XpXA/rP0Q8ujqOZb4Ij5LLmnD07s4a/ruQMTVPyGLNH4DoY0Bnc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA6XQwD6O7mcjjqEAs/Jdz6mjICW5eymE+LVP+fnGKwtmoDNm3
-	5esEj3QX34UXoX6TUhkJu8VoXYovFdgQiXqOcr7YL8GdlZvtJ/iyj4Te
-X-Gm-Gg: AYBFou3dM4YTs69gBUc5G3EQMJ3jlHn6T0AVW//MmcNB947Hcb+KKN5a9zomGSHVLWh
-	0i85deOn69+bJFJGdfJoGSPf1NMdQnWngufZ2kH4Y5lx1xFVyBB2xyw614uyXB1ZPrW+YljQsTi
-	35nrtrtaHqw3vZ9q/G4FczgJDiZyXSeCh+n8I6MI6qoCCOmWCu9RgZycWJ2ny6Rr34CKExghL3/
-	6sq/Jh+D6o7Tj88j0l4U8qiLqWPW/MrY+mq0eaa9QS0JeorPv+wPElsycXDuTyqELqDjHh9X1vq
-	zuNxlFxuuHZJGxmoMqMsS69W9dqnoKEAeiodKEtGAGXAzO3e4YebArgIKwcvlUtSP58b/JcTshj
-	iBTkn1c80UxCoWNIiyH8+niyF035r3sYgCoiOpq+Bw/AJpFJoNytYAa+AKFojHyHmiZaI1ygjuh
-	1KvFO/mgDDlUHsnmHbVfhpdpRwE+17vtooGDWph9SpiaVA45ZKTz2rcdg5844PV3XrMkSz
-X-Received: by 2002:a05:600c:1d25:b0:49d:1916:2133 with SMTP id 5b1f17b1804b1-49fbd1ccc32mr42120145e9.8.1789632560321;
-        Thu, 17 Sep 2026 01:09:20 -0700 (PDT)
-Received: from omermac ([82.222.238.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84805db6sm85566375e9.3.2026.09.17.01.09.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:09:19 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	jic23@kernel.org,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: accel: add adi,adis16203 support
-Date: Thu, 17 Sep 2026 11:09:05 +0300
-Message-ID: <20260917080905.7654-1-palaomer100@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V61j4DCj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BFE41F000FF;
+	Thu, 17 Sep 2026 08:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632589;
+	bh=UykKVWBqmzlyI8cYgHwt51rpqVmLZ/BwoeZDabajYo4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=V61j4DCj4ah5LSOTCOFsmvR14tPiPu89KoJFUT7ZafNL3UgbTIapTqu9c4t0gxT0N
+	 KmhP7HU9NKjSkanSpLbGGaY72xrtuws9ZnRQPywE38umtaTDQVj+FdX6vaImJKi+6z
+	 QW1c9rZjNS1SpRxACgIUsCUeExwhe2f1cvHHrql1nADuXe5g3AhjGqYJMZLYq9XwHU
+	 MSmZ/R0r09tKlz/ZGWwRAugiXAdA0uLvb38xX1ym5yvlCOSJP4k+H+Xy0BD08EEJXz
+	 ajq2SGoOyD3P8J3laf/mYZtWi1tv7lPd67pXeFHs+Kt0lLOuhDlEOqoAUhSupL3Maj
+	 5inw+7e0j5v4A==
+Message-ID: <6045b4b3-26ef-4d12-b832-7affc9574df0@kernel.org>
+Date: Thu, 17 Sep 2026 16:09:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v2 08/14] f2fs: optimize small block size large folio read
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+ <20260915041909.2903887-9-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260915041909.2903887-9-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add adi,adis16203 support to adi,adis16201.yaml for
-staging adis16203 driver
+On 9/15/26 12:19, Nanzhe Zhao wrote:
+> The original f2fs_read_data_large_folio() implementation has limited
+> benefit with a 4KB block size, mainly because updating
+> read_pages_pending greatly increases the number of spinlock
+> operations.
+> 
+> Use len_blks to batch read_pages_pending and iostat updates for
+> contiguous mapped blocks. If the contiguous mapping covers the whole
+> folio, skip f2fs_folio_state allocation for that folio.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  fs/f2fs/data.c | 65 ++++++++++++++++++++++++++++++++++----------------
+>  1 file changed, 45 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 287d83debf95..09ad5cf0d9aa 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -173,8 +173,9 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>  			continue;
+>  		}
+>  
+> -		if (folio_test_large(folio)) {
+> -			struct f2fs_folio_state *ffs = folio->private;
+> +		if (f2fs_folio_has_ffs(folio)) {
+> +			struct f2fs_folio_state *ffs =
+> +				(struct f2fs_folio_state *)folio->private;
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
----
- Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml | 1 +
- 1 file changed, 1 insertion(+)
+I just notice that in somewhere, we missed to cast the private field to
+f2fs_folio_state pointer as below, please take a look.
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-index b6ba7ad1a..73ea8f192 100644
---- a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-+++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-@@ -19,6 +19,7 @@ properties:
-   compatible:
-     enum:
-       - adi,adis16201
-+      - adi,adis16203
-       - adi,adis16209
- 
-   reg:
--- 
-2.55.0
+ffs = folio->private;
+
+>  
+>  			spin_lock_irqsave(&ffs->state_lock, flags);
+>  			ffs->read_pages_pending -= nr_pages;
+> @@ -2844,8 +2845,7 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  	pgoff_t index, offset, next_pgofs = 0;
+>  	unsigned max_nr_pages = rac ? readahead_count(rac) :
+>  				folio_nr_pages(folio);
+> -	unsigned int nrpages;
+> -	struct f2fs_folio_state *ffs;
+> +	unsigned int nrpages, len_blks;
+>  	int ret = 0;
+>  	bool folio_in_bio = false;
+>  
+> @@ -2868,11 +2868,17 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  	folio_in_bio = false;
+>  	index = folio->index;
+>  	offset = 0;
+> -	ffs = NULL;
+>  	nrpages = folio_nr_pages(folio);
+>  
+> -	for (; nrpages; nrpages--, max_nr_pages--, index++, offset++) {
+> +	for (; nrpages;
+> +	     nrpages -= len_blks, max_nr_pages -= len_blks,
+> +	     index += len_blks, offset += len_blks) {
+>  		sector_t block_nr;
+> +		bool whole_folio_in_bio;
+> +		unsigned int i;
+> +
+> +		len_blks = 1;
+> +
+>  		/*
+>  		 * Map blocks using the previous result first.
+>  		 */
+> @@ -2901,13 +2907,31 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  got_it:
+>  		if ((map.m_flags & F2FS_MAP_MAPPED)) {
+>  			block_nr = map.m_pblk + index - map.m_lblk;
+> -			if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
+> +
+> +			len_blks = min_t(unsigned int, nrpages, max_nr_pages);
+> +			len_blks = min_t(unsigned int, len_blks,
+> +					(unsigned int)(map.m_lblk + map.m_len - index));
+> +
+> +			for (i = 0; i < len_blks; i++) {
+> +				if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode),
+> +						block_nr + i,
+>  						DATA_GENERIC_ENHANCE_READ)) {
+> -				ret = -EFSCORRUPTED;
+> -				goto err_out;
+> +					ret = -EFSCORRUPTED;
+> +					goto err_out;
+> +				}
+>  			}
+> +
+> +			/*
+> +			 * If an entire folio is added to one bio,
+> +			 * folio_end_read() can complete the folio read status
+> +			 * without relying on f2fs_folio_state.
+> +			 */
+> +			whole_folio_in_bio = offset == 0 &&
+> +					len_blks == folio_nr_pages(folio);
+> +
+>  		} else {
+>  			size_t page_offset = offset << PAGE_SHIFT;
+> +
+>  			folio_zero_range(folio, page_offset, PAGE_SIZE);
+>  			if (vi && !fsverity_verify_blocks(vi, folio, PAGE_SIZE, page_offset)) {
+>  				ret = -EIO;
+> @@ -2917,15 +2941,13 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  		}
+>  
+>  		/* We must increment read_pages_pending before possible BIOs submitting
+> -		 * to prevent from premature folio_end_read() call on folio
+> +		 * to prevent from premature folio_end_read() call on folio.
+>  		 */
+> -		if (folio_test_large(folio)) {
+> -			ffs = f2fs_ffs_find_or_alloc(folio);
+> +		if (folio_test_large(folio) && !whole_folio_in_bio) {
+> +			f2fs_ffs_find_or_alloc(folio);
+
+Need to check return value?
+
+Thanks,
+
+>  
+>  			/* set the bitmap to wait */
+> -			spin_lock_irq(&ffs->state_lock);
+> -			ffs->read_pages_pending++;
+> -			spin_unlock_irq(&ffs->state_lock);
+> +			f2fs_update_read_folio_pending(folio, len_blks);
+>  		}
+>  
+>  		/*
+> @@ -2949,17 +2971,20 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+>  		 * If the page is under writeback, we need to wait for
+>  		 * its completion to see the correct decrypted data.
+>  		 */
+> -		f2fs_wait_on_block_writeback(inode, block_nr);
+> +		for (i = 0; i < len_blks; i++)
+> +			f2fs_wait_on_block_writeback(inode, block_nr + i);
+>  
+> -		if (!bio_add_folio(bio, folio, F2FS_BLKSIZE(F2FS_I_SB(inode)),
+> +		if (!bio_add_folio(bio, folio,
+> +				len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode)),
+>  				offset << PAGE_SHIFT))
+>  			goto submit_and_realloc;
+>  
+>  		folio_in_bio = true;
+> -		inc_page_count(F2FS_I_SB(inode), F2FS_RD_DATA);
+> +		for (i = 0; i < len_blks; i++)
+> +			inc_page_count(F2FS_I_SB(inode), F2FS_RD_DATA);
+>  		f2fs_update_iostat(F2FS_I_SB(inode), NULL, FS_DATA_READ_IO,
+> -				F2FS_BLKSIZE(F2FS_I_SB(inode)));
+> -		last_block_in_bio = block_nr;
+> +				len_blks * F2FS_BLKSIZE(F2FS_I_SB(inode)));
+> +		last_block_in_bio = block_nr + len_blks - 1;
+>  	}
+>  	trace_f2fs_read_folio(folio, DATA);
+>  err_out:
 
