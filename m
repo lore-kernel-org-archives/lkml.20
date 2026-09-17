@@ -1,307 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A8B4E2F08;
-	Thu, 17 Sep 2026 15:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660548; cv=none; b=iqNYe+tw9rRGddEtpSSpGiv9kCCJHACi4Ih7HQA+iDwL36VtJQYfIdBxx68p7sR8uMadE80u4refnwMcJEFGs42DPmahrHls/9uCNQbodpLBXBn5Q4/yji22U+OKXVgp+WbeOREfMYOiascQxIgMgEFGz70xS69HCQm9sYlfRdM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660548; c=relaxed/simple;
-	bh=Vgv5m697j2LtDwHwK/f7vJZZ5y6Op6J/VZBiDNrsd0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rBfQttg1VaKOMfhuKQDsCe965FhCePdnys2sJy+SM0LmcURZFTspekx/qBz3nZuHFir9phClG9GhsuHeztSugkTfTyFPiI6QzahSpH9O3FQJTKdmcedLDfXso3zitSm58j5Zsz/5z7AWGU3q9AtYG+Evqc5oIO0DGTVl/8Y5Vvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWq+fo6/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05054E4C30;
+	Thu, 17 Sep 2026 15:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789660550; cv=fail; b=DqrB2yf3BJBcJjPNvVyNx4mt/ywmISsSM/6rw0b1jkpgHRK9A2nqQeTDl6aHoG8V1jYQn/zP69Ea1mDq30kaUU6U0KUIuNwcSnHqHF0BGrHxwY+oVmXsW8coKtWP7k3UdoKFK9wOY2CgcsiSIQVE2OGp0N8DlD0uBKmv/3Hqxso=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789660550; c=relaxed/simple;
+	bh=ypXUvrH3533+X0yR5L4q6H7Hd9ruG6UMOEWtCuGrgok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KspCoOE75JKC1bc2vpUFshZWohNnhN76QVMPvZaQUoa3IRwPtGn+GRMFjPEa66CAb1dhEItUJPbJIW/n2TSodvqUKmI3xDBzvmrA2eQo9mvHFor5u2BlcOzt+vPNqSzp0+IcGJaDK0qgNtMawTpb9y3y4/X6NhtUYADcaH7Lx1Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=R9Pnwofp; arc=fail smtp.client-ip=40.107.159.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWq+fo6/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F411F00893;
-	Thu, 17 Sep 2026 15:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789660546;
-	bh=veEtliTXE+qi5c1dPvGcmoseCgN+WEJW4Sh9bMMveps=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EWq+fo6/GGIDhJCspORXUGjcMG3EBmFOFamFaQHyc+cSpNUGtF1/+WLwbQCwmtQYp
-	 luGbaAFsjF7wXGRBWWDfdtBVqvHapxvDIjXbR7hB/3Bfebz0bObI9vIVNNIfkt+T0P
-	 ybASAWRcsBzvFi42BUkLqYKUwmGbRrBYG7B3Mw59BKnD0RPuW31/hKhg9rcJCWtJay
-	 2OgtEqAQwAZUND/k4cn0rPooFxfsvcVG6fpK73Vc8qxELkRzyzX79Jhv82xeJ/tHK+
-	 ZKdhcO438p0zJLy+SsLVjzJ5FbjblziOQUUaZCp1rkf3wpXBPd5g0v4RyFzBUnMIDh
-	 JkTwOVAm2+TcQ==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 02/15] perf debuginfo: Set DEBUGINFOD_URLS from /etc/debuginfod when unset
-Date: Thu, 17 Sep 2026 12:55:13 -0300
-Message-ID: <20260917155528.62607-3-acme@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917155528.62607-1-acme@kernel.org>
-References: <20260917155528.62607-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="R9Pnwofp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OQ3BHXQ16CZHl1pnr/kExAzP1+P8w6DnaCux5NtnC8iI1leLJQ4404vO8JLHOSBbmn0PLwPMb6KzqFx/jCuBbQeJUxVTEjjr04uMs+xY94PiFHVAhOE8I609CLYfkn8VaYNT9kOu/aKsDXaywiSaK1NlMeeh8QRq1s6fQrTcDiiLelMLbldLDD24VX9DS1a2qJB30OSe5DO7Iux+C6/H7eSFrWwAT1OpOiqpd+wSrkXp9H2b4BIJITtRCtVmBtrMaqAOu5l0f1EE74h9R9uwX+5H5l179zEiC7dF4UnTfVH3rlZkhkF9tFytc0/hho/JGSNh15i+IDK4QYfauy2HEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bLFcdEe4qcvZeQbFBV3cG0/cwcR7tiyxN8pT9j62e1c=;
+ b=O3TX1t1s1aSKLZiQbT97aPkmj8MLEDN6msHW3yVuk0l0UBMe9scHWmu2UE6pgh/MbxYnA49EJ2DQe1glY++J/zOg7Ssit+zRde+1ZmgY6iAw/H5sjXo2qHhnrJ6Ex6OEFJeKdLocNTjB6TBwK4m/VHg53Fil9dRngQcwk2sAuYjWzF2oob5M1H9E8qLdWt0+t5qsvQh8bUFEbailuxebS59Z/P6Kghg70qCw/oU20H5iYo8rnrt9gTq3re7xGXA4sew//MU8bx2N3qFxIjUuoj47k536jPrAz9un98hJ6x/uHn+Vb5rZGRTzU47K8/vPyuCMGuNUtCquM1gD2Y1Lsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bLFcdEe4qcvZeQbFBV3cG0/cwcR7tiyxN8pT9j62e1c=;
+ b=R9PnwofpHIsClGoBNSfLMlZ0ZkaIsdtBYZAJDIM2x9I0hRDRxFjOqj49a5nHnwnLhg7Q5MBpBLinUxYJlmkgchKiVaEgpvwc2QbnJ1yOMrE0duwd86XTVCi6kNcfG7ZxqwvNC5vDtp8Sg/ENZcUO0hrZFYwZUCksc6ra+uSO+lWY4gxHsIaymsx2iJyZFbyE14AhD8qyZNxcnprKMhqubOp4IiAEFBRkfWO4R/8sj8EhI9r9MEwhemHCtd2jmD5yFcRst6U1kE4Va9BWPZ8NQM4dYVrGx6YT2XggAnceJE/51/wIDhd5z+msTpJrRMB15Q61cltAUKQ7k+wB+oW1NQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DB9PR04MB8331.eurprd04.prod.outlook.com (2603:10a6:10:244::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Thu, 17 Sep
+ 2026 15:55:44 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
+ 15:55:44 +0000
+Date: Thu, 17 Sep 2026 10:55:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Devendra K Verma <devverma@amd.com>
+Cc: mani@kernel.org, vkoul@kernel.org, frank.li@kernel.org,
+	den@valinux.co.jp, dmaengine@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	michal.simek@amd.com
+Subject: Re: [PATCH v2 1/2] dmaengine: dw-edma: Sort Register Field Macros by
+ Bit Position
+Message-ID: <aqwNeCmo51qm2_-6@SMW015318>
+References: <20260917103050.1020982-1-devverma@amd.com>
+ <20260917103050.1020982-2-devverma@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917103050.1020982-2-devverma@amd.com>
+X-ClientProxiedBy: PH7PR17CA0066.namprd17.prod.outlook.com
+ (2603:10b6:510:325::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB8331:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3eef7f9f-b97a-4eac-7a78-08df14d421c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|19092799006|366016|23010399003|18002099003|22082099003|11063799006|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	a9drOSItd4UAd4CzJcrSQDKSh5IXqOpvvLFkSnN+4dE3knjBqPeMv9nvKVTD3nzolEvR7kMiH9ALynyIwJ9yufW22bhVhnGbJOjU2u+ze3y6JG8RPgPKGFhn7PzFDYtWIDaifZfdV2cYZVYanX4iXCoONcJE0hVucKS/DfYVh5+dyLlXhJUs6aFQMh8iPPI2xM8Ur+SpB6Dk3h/WyrDEsjLE3EUEjt+uV/HFu3k0Y0BNvJ2ieCLngPDH+HDjSzIJzRB40IkmgFfaUTg3a3DrqJE2tPNl48LaWajGht+KCkhoBdKgN3jdK9oOrJpnaXciCL3lWUwNmYlJSkq065ZcxccF2KhawsuSu0qV1LQUrj+gFe2mPzbXJ/kjOGgF4Zly20BdKOZf3s3tYOjynLRcmy+ivulm4giGNuTCpVyJj94Gj7DHmbWfSKOb6fGJEErqHkCXJfk2tDtqlLXphO4OWB21oItineWSgN68ZjeroXrsyTjMcXHrul2PsjCPneSSn1II2WZp5ZuA0sl7pVsEYABrmLxT7RFUJAIl+ygWrtFKShDQTlhIkjiEN2WmsApbHVTxFgWlu58CfMCvRh++ZKGaOsaN+5deWBkx9ZM8A29mt48DaIXUB7FGHuEsSI4WodXxkyth7eBY1WIFol1nkg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(366016)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vkxqbTe/KUVEj3P7Ansy8J9xkzi5O3Qo6u12l3dpQAl4XLy32KjeEjeuXYEY?=
+ =?us-ascii?Q?NsO7LFbWt6S1IX11YwMTvL4VIUh6IghEyAbDF/e+HkXlybyfroiZMev9HrS3?=
+ =?us-ascii?Q?kSXvIpzYDaVR6kOxgpaRI8f7KPw4dtgmzZ+aWJlfOlcbj3T5cYSRcAKWVaS8?=
+ =?us-ascii?Q?A7Sx7rEXeXYIa7kaUQIY5kpz+U0+ROF3rodnojEB0FqTSoOH5cUf7APZm/W1?=
+ =?us-ascii?Q?OiYqd9IellwsuvRqtN/pIh3on29xjyV4KzEzmZwWYP6NS74Vb43uFiAxI2YT?=
+ =?us-ascii?Q?wS+KNCZF+LeV115kkO70YdNbIJ7TL5vJ6BtKSBCfoJ7XwxDGiA/IZJOg/HIy?=
+ =?us-ascii?Q?XvcS/IstmafV1Y2raWpEoINiWZVGvwU42eo9K3xLaWJ70YNlbdHRTE578FWa?=
+ =?us-ascii?Q?FvUShXQlvuOVvfI3MMm/8jmHxED3BR2X8GJ2GLK3gq7eAMTPcAr8+wTWHmJY?=
+ =?us-ascii?Q?yYjeKYBsVKJcP9zxs442KPmin9spR3T6oawsy+b+urQUmJnHlyLKSVZzvtg1?=
+ =?us-ascii?Q?RdaAoyGkZAsHzLzj+dk5tOq4KJuJubPPnbPiqlLi40IPFsXDFQwzxghRbZza?=
+ =?us-ascii?Q?y9Wm+WiB1rgECxOI/T6T02rVWd/XLzUFyGUNtzEiE7Tw6tGHWV2Zuj3c7jkz?=
+ =?us-ascii?Q?dURkqyuKVjlmIM1+JPVxeyyuaBb4apr07KmU2/4e0Tc2/8lxdxwFBPm9A2mF?=
+ =?us-ascii?Q?IuBUO6VS5DppmLqon0JSpntYmr410I27HjleP4iln2iUI/ZqoAXqHEOwnuEK?=
+ =?us-ascii?Q?avKD64ccQsyQZbIj+aT5fdw7YClNfqIPSI1U4AkGqBxCpaMJcsOek5VstjFz?=
+ =?us-ascii?Q?kPwuROCXgk1PjCWTWTLRudVwED/yjiY87K0fnq8u3P64OuV7BxXtMHREmIbV?=
+ =?us-ascii?Q?1vYxJix9Hk/jhhXpaH7DkogIm/JjlhJ2aSVGfQxSe+dXgphlh9z0oaZRM6BC?=
+ =?us-ascii?Q?lhWILDzzvoJpismBgBIX9iB5TWbxzMr/TRn2XQMXlTW5Ytz04NAnifqNowOY?=
+ =?us-ascii?Q?2Q2GjT+Neop+TrcfWx3LWqHYJywFJdPHi8mgOPk7g8p/aoK5y7dWWMlO/81U?=
+ =?us-ascii?Q?/N80NshW2w3+wmkBotFH19XEE8+gVXrcH9ck4sWLrTzvom35OxClwDGnexVb?=
+ =?us-ascii?Q?PJT6oa98fwBEE8LP20z2ufVJSIsXsqgtD6JmuPSGqCFtXdB0mPw2vArqEg3h?=
+ =?us-ascii?Q?xjlmW4Gkm66kfQTXK4G/FoWchE6WzqOyT4wGEEzMM+l5k3OcT0VSjvnOPeKE?=
+ =?us-ascii?Q?zbfqzj9awEDCcVG2+JoqfZFN7cijrfkoD8PX6mz0dhQBPvWWK4Wno9JwkwsN?=
+ =?us-ascii?Q?F3IX4drCj3TWXQdd/PwXdkiUpPX3YqMsYGh57HqbsueYDLfuQSlUoTCrIsfw?=
+ =?us-ascii?Q?JplWEQdYROki0mzi2MkmqfULbs/zky36g5W7WTxLrqqZOg8+2H9d31wwltHB?=
+ =?us-ascii?Q?i67nVpWTyz0fPVPFizKW+WfjNsTuDc5lLZmbfvYkKFHoNA0k+j5Agw5sIgsM?=
+ =?us-ascii?Q?t6WfUl7hHBuYQ6vnvYCD5pLJ1MWoEGA7ZT0UEU1mFMqhf8FufT8bl9GhUKL8?=
+ =?us-ascii?Q?DM69TrK04bREqlB56cD5d4/CGx5I3xmXS5zEAg5EPQK6vjZrn+jlYGsGbsib?=
+ =?us-ascii?Q?1B5d6ADE4W7TXjQXL2dmiKDF6FlWo1I0Wn+gJj74EH8YUh5Uic3V2+TOC9uj?=
+ =?us-ascii?Q?1m/kupR4vXoMURuurMyk647w4CFc5RpmWxmr1In3fcm58DlcA/wgwUnuBFTb?=
+ =?us-ascii?Q?OGBpmkCUzFj+Hd1nUKdXsbGiqFh16N3IqcSpyPI/bv3X35TmAXGS?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3eef7f9f-b97a-4eac-7a78-08df14d421c7
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 15:55:44.5568
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pRgOUuEKFqYHZXYBjKaqNy3/hZ4g8AmglNaiZLohDMSiYjKaIPPRVZFkSHK2turWg8lCcrVsFg7SP7pMT9/gZRWJEqGgQylGY2kzo2+b8OPgL3T4xFt6dXKKy0BW9qJR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8331
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+On Thu, Sep 17, 2026 at 04:00:49PM +0530, Devendra K Verma wrote:
+> Sort register field macros by bit position to improve readability.
+> No functional change.
+>
+> Signed-off-by: Devendra K Verma <devverma@amd.com>
+> ---
 
-The debuginfod client fails when DEBUGINFOD_URLS isn't set even when
-what it wants is in its local cache, and the distro setup scripts that
-populate it from the files in /etc/debuginfod don't reach cron jobs,
-systemd services and CI, so set it from those .urls files from
-symbol__init(), before any thread that can call getenv() is started:
-setenv() is not thread safe and libdebuginfod reads the variable in
-every debuginfod_begin().
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Install it via putenv() as a string perf owns, so that it can be
-emptied in place mid-session when the user disables debuginfod, and
-when debuginfod is off, with --no-debuginfod, core.debuginfod=false or
-by disabling the build-id cache, set the empty string, that both
-libdebuginfod and libdwfl's own client read as an opt-out, instead of
-exporting the variable for libdwfl to fetch behind perf's back.  Tools
-that manage DEBUGINFOD_URLS themselves are left alone.
-
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
----
- tools/perf/util/symbol.c |   7 ++
- tools/perf/util/util.c   | 151 +++++++++++++++++++++++++++++++++++++--
- tools/perf/util/util.h   |   9 +++
- 3 files changed, 161 insertions(+), 6 deletions(-)
-
-diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index b1a2684c813c5d8d..fbad770cb96f8294 100644
---- a/tools/perf/util/symbol.c
-+++ b/tools/perf/util/symbol.c
-@@ -2536,6 +2536,13 @@ int symbol__init(struct perf_env *env)
- 	if (symbol_conf.initialized)
- 		return 0;
- 
-+	/*
-+	 * Set DEBUGINFOD_URLS from the distro .urls files before any thread
-+	 * that getenv()s it is started: setenv() is not thread safe and
-+	 * libdebuginfod reads it in every debuginfod_begin().
-+	 */
-+	debuginfod__setup_urls_env();
-+
- 	symbol_conf.priv_size = PERF_ALIGN(symbol_conf.priv_size, sizeof(u64));
- 
- 	symbol__elf_init();
-diff --git a/tools/perf/util/util.c b/tools/perf/util/util.c
-index 8f7cd32f524dc10e..d502fd867f38196b 100644
---- a/tools/perf/util/util.c
-+++ b/tools/perf/util/util.c
-@@ -21,9 +21,11 @@
- #include <linux/time64.h>
- #include <linux/overflow.h>
- #include <unistd.h>
-+#include "build-id.h"
- #include "cap.h"
- #include "strlist.h"
- #include "string2.h"
-+#include "symbol_conf.h"
- 
- /*
-  * XXX We need to find a better place for these things...
-@@ -431,19 +433,66 @@ char *perf_exe(char *buf, int len)
- 	return strcpy(buf, "perf");
- }
- 
-+static bool debuginfod__urls_set_by_tool;
-+
-+#define DEBUGINFOD_URLS_ENV "DEBUGINFOD_URLS"
-+
-+/*
-+ * The DEBUGINFOD_URLS string perf owns: it has to change mid-session
-+ * when the user disables debuginfod, and setenv() then could race with
-+ * another thread's getenv().  With the string owned by perf, disabling
-+ * it is just writing a NUL over its first byte.  The string is never
-+ * freed: from putenv() on it is the environment's own storage.
-+ */
-+static char *debuginfod_urls_env;
-+
-+static void debuginfod__set_urls_env(const char *urls)
-+{
-+	size_t len = strlen(DEBUGINFOD_URLS_ENV "=") + strlen(urls) + 1;
-+	char *env = malloc(len);
-+
-+	if (env == NULL)
-+		return;
-+
-+	snprintf(env, len, DEBUGINFOD_URLS_ENV "=%s", urls);
-+	debuginfod_urls_env = env;
-+	putenv(env);
-+}
-+
-+/*
-+ * Empty the copy of DEBUGINFOD_URLS installed by
-+ * debuginfod__set_urls_env(), which both libdebuginfod and libdwfl's
-+ * own client read as an opt-out.  No environ array write and no free(),
-+ * so a racing getenv() sees a valid string.
-+ */
-+void debuginfod__disable_urls_env(void)
-+{
-+	if (debuginfod_urls_env != NULL)
-+		debuginfod_urls_env[sizeof(DEBUGINFOD_URLS_ENV "=") - 1] = '\0';
-+}
-+
- void perf_debuginfod_setup(struct perf_debuginfod *di)
- {
- 	/*
- 	 * By default '!di->set' we clear DEBUGINFOD_URLS, so debuginfod
- 	 * processing is not triggered, otherwise we set it to 'di->urls'
--	 * value. If 'di->urls' is "system" we keep DEBUGINFOD_URLS value.
-+	 * value. If 'di->urls' is "system" we keep DEBUGINFOD_URLS value,
-+	 * but as a copy perf owns, so that it can still be emptied
-+	 * mid-session, see debuginfod__disable_urls_env().
- 	 */
--	if (!di->set)
--		setenv("DEBUGINFOD_URLS", "", 1);
--	else if (di->urls && strcmp(di->urls, "system"))
--		setenv("DEBUGINFOD_URLS", di->urls, 1);
-+	if (!di->set) {
-+		debuginfod__set_urls_env("");
-+	} else if (di->urls == NULL || !strcmp(di->urls, "system")) {
-+		const char *urls = getenv(DEBUGINFOD_URLS_ENV);
-+
-+		if (urls != NULL)
-+			debuginfod__set_urls_env(urls);
-+	} else {
-+		debuginfod__set_urls_env(di->urls);
-+	}
- 
--	pr_debug("DEBUGINFOD_URLS=%s\n", getenv("DEBUGINFOD_URLS"));
-+	debuginfod__urls_set_by_tool = true;
-+	pr_debug("DEBUGINFOD_URLS=%s\n", getenv(DEBUGINFOD_URLS_ENV));
- 
- #ifndef HAVE_DEBUGINFOD_SUPPORT
- 	if (di->set)
-@@ -451,6 +500,96 @@ void perf_debuginfod_setup(struct perf_debuginfod *di)
- #endif
- }
- 
-+#ifdef HAVE_DEBUGINFOD_SUPPORT
-+/*
-+ * The debuginfod client checks its local cache only as part of the
-+ * server query flow, so with no servers configured it fails even when
-+ * the file is cached; the distro setup scripts that export
-+ * DEBUGINFOD_URLS from /etc/debuginfod don't reach cron jobs, systemd
-+ * services and CI, so do it here when the variable isn't set.  An
-+ * explicitly empty DEBUGINFOD_URLS is an opt-out and is left alone.
-+ *
-+ * Done from symbol__init(), on the single-threaded setup: setenv() is
-+ * not thread safe and libdebuginfod reads it in every
-+ * debuginfod_begin().  When debuginfod is off, set the empty opt-out
-+ * instead of exporting it, so that libdwfl's own client doesn't fetch.
-+ * The value is a copy owned by perf, see debuginfod__set_urls_env().
-+ */
-+void debuginfod__setup_urls_env(void)
-+{
-+	const char *env_urls;
-+	char *urls = NULL;
-+	DIR *dir;
-+	struct dirent *dent;
-+
-+	/*
-+	 * Tools that set DEBUGINFOD_URLS themselves already made their choice,
-+	 * leave it alone.
-+	 */
-+	if (debuginfod__urls_set_by_tool)
-+		return;
-+
-+	if (!symbol_conf.debuginfod || !strcmp(buildid_dir, "/dev/null")) {
-+		debuginfod__set_urls_env("");
-+		pr_debug("DEBUGINFOD_URLS cleared, debuginfod is disabled\n");
-+		return;
-+	}
-+
-+	env_urls = getenv(DEBUGINFOD_URLS_ENV);
-+	if (env_urls != NULL) {
-+		/*
-+		 * Take ownership of the value, so that it can be emptied mid-session
-+		 * with the 'd' key.
-+		 */
-+		debuginfod__set_urls_env(env_urls);
-+		return;
-+	}
-+
-+	dir = opendir("/etc/debuginfod");
-+	if (dir == NULL)
-+		return;
-+
-+	while ((dent = readdir(dir)) != NULL) {
-+		char *content = NULL;
-+		char *new_urls;
-+		char path[PATH_MAX];
-+		size_t len = strlen(dent->d_name), i, size;
-+		int n;
-+
-+		if (len < 5 || strcmp(dent->d_name + len - 5, ".urls"))
-+			continue;
-+
-+		snprintf(path, sizeof(path), "/etc/debuginfod/%s", dent->d_name);
-+		if (filename__read_str(path, &content, &size) < 0)
-+			continue;
-+
-+		for (i = 0; i < size; i++)
-+			if (content[i] == '\n' || content[i] == '\r')
-+				content[i] = ' ';
-+
-+		if (urls == NULL) {
-+			urls = strdup(content);
-+		} else {
-+			n = asprintf(&new_urls, "%s %s", urls, content);
-+			if (n < 0) {
-+				free(content);
-+				continue;
-+			}
-+			free(urls);
-+			urls = new_urls;
-+		}
-+		free(content);
-+	}
-+	closedir(dir);
-+
-+	if (urls != NULL) {
-+		debuginfod__set_urls_env(urls);
-+		pr_debug("Set DEBUGINFOD_URLS from /etc/debuginfod: %s\n", urls);
-+	}
-+	free(urls);
-+}
-+#endif /* HAVE_DEBUGINFOD_SUPPORT */
-+
- /*
-  * Return a new filename prepended with task's root directory if it's in
-  * a chroot.  Callers should free the returned string.
-diff --git a/tools/perf/util/util.h b/tools/perf/util/util.h
-index f8f1ff603c728086..42feccf18f0d163f 100644
---- a/tools/perf/util/util.h
-+++ b/tools/perf/util/util.h
-@@ -81,6 +81,15 @@ struct perf_debuginfod {
- 	bool		 set;
- };
- void perf_debuginfod_setup(struct perf_debuginfod *di);
-+void debuginfod__disable_urls_env(void);
-+
-+#ifdef HAVE_DEBUGINFOD_SUPPORT
-+void debuginfod__setup_urls_env(void);
-+#else
-+static inline void debuginfod__setup_urls_env(void)
-+{
-+}
-+#endif
- 
- const char *perf_basename(const char *path);
- 
--- 
-2.55.0
-
+> Changes in v1:
+>    o Corrected heading and body as per reviewer's suggestion
+> ---
+>  drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+> index 9f237ba916de..006dea7d6322 100644
+> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
+> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+> @@ -31,8 +31,8 @@
+>
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_ID		0x6
+>  #define DW_PCIE_XILINX_MDB_VSEC_ID		0x20
+> -#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_MAP		GENMASK(2, 0)
+> +#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_WR_CH	GENMASK(9, 0)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_RD_CH	GENMASK(25, 16)
+>
+> --
+> 2.43.0
+>
