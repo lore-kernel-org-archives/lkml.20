@@ -1,104 +1,85 @@
-Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51D04E0216;
-	Thu, 17 Sep 2026 15:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DE7497392;
+	Thu, 17 Sep 2026 15:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658534; cv=none; b=ZsVyiDUZgwslwOlf/hIbtqJpZLkcW6dWh2Z3WkdyeLk9VaZrlZbcidqvwLBqPXRM338AsVb6m+9oGM7v9raXOIC1uEbuMRqpEWqIZ15jUthFy6mGXuMLQS11BVz8KohBVMaf4j3LZMYTPQo/ndDoOo7NpNWB/5ueFtIhysbHRDc=
+	t=1789658571; cv=none; b=DFxwmNOX4785/oJ09NDpb99sbyxrbYl/SYInrvSdnFdDHBALzyzGI6KUAcSliMgzZfbiYDI0wDONArydK4hOxl/yePgNlGk/Yy5nSYnvrlCKTs/CuxJxfC5JCPjuIvNC8s17RnAcl0P1uCC9BYl3VVZgOu3ShA4RcMdbnYKteF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658534; c=relaxed/simple;
-	bh=A94HsU69g5I66yksg+106KqVV8VdZ7lpjKXhjsYT1PQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sel5a9/CYiN4NaVVg5EvBS9qgAktQDffMGxZg5lQJBuBpUCAUybCWbTrjDk2wsAdwM25CV4R+ZC+46ByVIt9nK3CzgSepWl99BTD1BCA/M0OJ2YpA7oBbf3jLZUyq9nNgZIkEWn6FpEZsMxZoMp8omPYm6FSD/amombO0Kb9R8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de; spf=fail smtp.mailfrom=lht.dlh.de; arc=none smtp.client-ip=212.27.42.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=lht.dlh.de
-Received: from OMT-CWNXR4TFW5-LHT (unknown [213.61.137.106])
-	(Authenticated sender: albeu@free.fr)
-	by smtp3-g21.free.fr (Postfix) with ESMTPSA id 7177E13F880;
-	Thu, 17 Sep 2026 17:21:57 +0200 (CEST)
-Date: Thu, 17 Sep 2026 17:21:52 +0200
-From: Alban Bedel <alban.bedel@lht.dlh.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, Johan Hovold
- <johan@kernel.org>, Alban Bedel <alban.bedel@lht.dlh.de>
-Subject: Re: [PATCH] USB: serial: Support attaching serdev devices
-Message-ID: <20260917172152.1b1cb540@OMT-CWNXR4TFW5-LHT>
-In-Reply-To: <2026091756-unmolded-fructose-a018@gregkh>
-References: <20260917081103.1917665-1-alban.bedel@lht.dlh.de>
-	<2026091739-spousal-linked-2a36@gregkh>
-	<20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
-	<2026091756-unmolded-fructose-a018@gregkh>
-Organization: Lufthansa Technik AG
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; aarch64-apple-darwin25.4.0)
+	s=arc-20240116; t=1789658571; c=relaxed/simple;
+	bh=EahuWFjx9wFIrRgh4K2BjyJnsqfwU21KdyA8yyyh+4c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=beedGOGWcHWXU+asFpLiwOwj4bobfXdyNb8VdmGP2BT2z2gHabgdYx1/17OKKYSccppZeV8cN8Uzxz67Ko3zVI+lNjxD2L1/FbuxGrWC+NhyJHu58mXTE3WOUBxoQQIGo8c3loG4I7FcXdNvx5vUddnHAA2SfCWYa95DrhqnIc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnVD+6BaxqjXODCA--.5729S2;
+	Thu, 17 Sep 2026 23:22:34 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	srini@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] slimbus: messaging: Fix runtime PM leak in slim_do_transfer()
+Date: Thu, 17 Sep 2026 15:22:34 +0000
+Message-Id: <20260917152234.2158902-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnVD+6BaxqjXODCA--.5729S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Wr4rAr4kJF1xJFyxZrWDArb_yoWDArg_Cr
+	s8JFnrA39xWF17Awn3Jw13ZF9I9a95Xr109FnFvFW3trWUCF45Xr4DXrn8u3srXayUtw13
+	Gw1qy39rAr1SgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UNTmhUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qr9LYo8QAAsP
 
-On Thu, 17 Sep 2026 15:08:11 +0100
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+slim_do_transfer() takes a runtime PM reference with
+pm_runtime_get_sync() before allocating a transaction id.  The
+slim_alloc_txn_tid() failure path returns directly, skipping the
+slim_xfer_err cleanup that drops this reference.
 
-> On Thu, Sep 17, 2026 at 03:37:36PM +0200, Alban Bedel wrote:
-> > On Thu, 17 Sep 2026 09:27:42 +0100
-> > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> >   
-> > > On Thu, Sep 17, 2026 at 10:11:03AM +0200, Alban Bedel wrote:  
-> > > > Use tty_port_register_device_serdev() to allow attaching serdev
-> > > > devices to USB serial ports. Also set the ACPI companion device on the
-> > > > USB serial device to let the serdev matching work on ACPI systems.    
-> > > 
-> > > "also" should be a separate patch, right?  
-> > 
-> > Will do.
-> >   
-> > > And I didn't think that serdev could handle devices going away at any
-> > > point in time, when did that change?  How was this all tested and what
-> > > ACPI device wants to use this?  
-> > 
-> > The use case here is an x86 embedded platform with a soldered USB serial
-> > adapter connecting to a MAX9265 GMSL serializer. As everything is on a
-> > single PCB there is no question of anything getting disconnected at
-> > runtime.  
-> 
-> You hope :)
+Jump to slim_xfer_err so the reference is always released.
 
-Obviously anything can fail, but I don't see why that should be treated
-differently than an UART connected via PCI or LPC. The link could also
-fail anytime.
+Fixes: d3062a210930 ("slimbus: messaging: add slim_alloc/free_txn_tid()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/slimbus/messaging.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > But I now see that I missed that the bus remove also need to be
-> > adjusted to use tty_port_unregister_device() instead of
-> > tty_unregister_device().  With that done the serdev device get properly
-> > taken down when I manually disable the port. With a small fix to the
-> > serdev core it also comes back up when the port is enabled again.  
-> 
-> Please read the archives for why we don't want to do this unless/until
-> serdev is "fixed" to properly handle dynamic device removals.
+diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
+index e2dbe4a66b70..ee127ef42046 100644
+--- a/drivers/slimbus/messaging.c
++++ b/drivers/slimbus/messaging.c
+@@ -139,7 +139,7 @@ int slim_do_transfer(struct slim_controller *ctrl, struct slim_msg_txn *txn)
+ 	if (need_tid) {
+ 		ret = slim_alloc_txn_tid(ctrl, txn);
+ 		if (ret)
+-			return ret;
++			goto slim_xfer_err;
+ 
+ 		if (!txn->msg->comp)
+ 			txn->comp = &done;
+-- 
+2.34.1
 
-All I could find is the "USB-Serial serdev support" thread from last
-year which sadly doesn't provides much details. Like Marco Felsch back
-then I tested disabling/enabling the USB port and didn't have any
-issue, the serdev device get removed and added back just fine. In my
-case the serdev driver provides an I2C bus, all devices on it get
-removed and added back again as well and work just fine.
-
-I really fail to see an issue in pratice, would you care to explain
-what I'm missing here?
-
-> > The ACPI part is a custom DSDT overlay that defines the chain
-> > starting from the USB port. At this level there is no difference to 
-> > classic UART where serdev are already working.  
-> 
-> So acpi now defines USB to serial devices?  Is that new?
-
-UARTSerialBusV2() is there to define devices using an UART, the
-specification doesn't mention any limitation on the kind of UART it can
-be pointed at. What is the issue here?
-
-Alban
