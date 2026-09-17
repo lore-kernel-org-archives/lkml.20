@@ -1,123 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A365B2F8EAA;
-	Thu, 17 Sep 2026 00:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C523C1F8755;
+	Thu, 17 Sep 2026 00:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604330; cv=none; b=Ph8IdSYjcXABLUfllCZTKXOVvNynhPQL70IOaIUo42nT1OlXVQf1m46GTfd3I1A7T/Wa6XZn2BCVcNS1aLG44Y4BMK0oECxILpUQbS6W6QQBLZL0gBJl85LQWoAF+g1Uts9zA/0hLkT8lYcfDwFZ7hXy+pi4+O202ZSsNyBXnzs=
+	t=1789604435; cv=none; b=Z+EFiGyW4Uau8ex9+/3Pf753D2w+pHxtVIKv5KkGj1w5X+LvVEmV7kGKTLjc/oUnvmEn1li/Gjq7QPtzeDsEVY8kPSLI1n1amYXLH5mPGOt8kad/t1qUJUtN70MJOGvUHAPUlfeZJMaeqG8Z9oigx0s5y0P22ghdjED0Wd2gRpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604330; c=relaxed/simple;
-	bh=qSx7EqvHE7Jdbpsu/dpO5l2jUSZY3ITM0i7c+b3wfXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=MtIuP+I3q6rF9/iacDv/dzV6GSkMkogHIaEejG7mFZQS8WlJC5q2j75DPnXZt+2niEmk9EWo7Iu46H1b6XQGH5KPmpR3/tV8f/E/sCiHl1P8XvXO1pyZpjNuLQsat7aZmvV/MKxXw+APMMx++o8on+DtBY1GoJq1Phrth0iONNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTCcc2Op; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789604435; c=relaxed/simple;
+	bh=T6taZodXFCYnxyIAY8fB7774BuIWh1NuSVGdGrT1WtA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q23Rr5TVL6/9YAI5l6wWDjho6HLRBRFqHKd5MjaA6sxLGU9Pq11WrqKrNKGdxLx7SsvAZFFS8yl0ILt4Pd1KX/PUGhDgkK7TYyFoDomi29KvoY/EqZ4Q99WQa1TogdJbfRJ2yFd5dDhvHCZiANyTPUWZJ0aKyC0fvlTX+hGf8WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxcPguzP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTCcc2Op"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E5E1F000FF;
-	Thu, 17 Sep 2026 00:18:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxcPguzP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406E71F000FF;
+	Thu, 17 Sep 2026 00:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604329;
-	bh=/I018ClHfzUNPJt0+qMbQoq+P+RBASppZEIurBOx0D0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=hTCcc2OpdJ9QTJ/43CxwpgjFBxFkI1cBuFOCVvg+DW5lqQhReL4g6HpYm8MA+Yd+s
-	 cEtp/gYcnSUCGp5wIg8UPM53pGwTfoPcpJRGcQQhWUlDWh2mDLElt8OzdzQzRaToHm
-	 1WyHFD0e2UTg0HfnN6aX3wx5uL8+aUjuxmypfEz9bjjjRFX4J0v7Hv2ZS0P9OD7CJz
-	 i4SQqmEylvwEMl9RubLczb7y5qvyXOJLBmta4HxuXXhlP8A0tpNQL00gzGAIw52HOv
-	 UcyiTOvMxjRzAkCubtbbwYMqr6Ras8/HJf6uPvXYP5hDxatNQMRSFkQQG3nbiv4bgz
-	 AtstkzNaGBXEA==
-Date: Wed, 16 Sep 2026 19:18:47 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 06/12] PCI: liveupdate: Auto-preserve upstream bridges
- across Live Update
-Message-ID: <20260917001847.GA993118@bhelgaas>
+	s=k20260515; t=1789604434;
+	bh=VU0RdrSYSaktP7eaGg2QcyaHvscbHkZB/kh8R6MdnxQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=lxcPguzPWr9xu3mWRXA4anOPm4vOqDQWLx+eG9H664oOkIbJ7Daetn3c2Pv+AX6Da
+	 KqVO2TMLzTHbHLsu5YufYRddZ42B7Uqp8+Wll3/1EaRdVVShOVr8wBBaoldEO2iQNa
+	 toF0g/hNs+TKUYPoYfmzqMp3lpSVxMnM91TZouTKCZK/VaLiZX1bQ03vsirUwKizx0
+	 5CKshC6Xi7Tv35wQhDkCLv5NFjsGoWxQnJXOtG9AGTz5pPI+oB/4RrHfHRauJkwq7r
+	 YTaO5K7gO6QkkdmOjRvHwl/8y4rGHMW+C+t9WYpB2gsCy+AnzM8xfT06JBTySnB5Qi
+	 XpU4aWc9Dm5dg==
+Date: Thu, 17 Sep 2026 01:20:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+ srinivas.pandruvada@linux.intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: kxcjk-1013: Fix trigger reference leak in
+ kxcjk1013_probe()
+Message-ID: <20260917012032.5d5f84be@jic23-hlaptop>
+In-Reply-To: <20260916161054.2082486-1-vulab@iscas.ac.cn>
+References: <20260916161054.2082486-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqQzmvgILmU8F4TR@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 05:00:10PM +0000, David Matlack wrote:
-> On 2026-09-10 06:51 PM, Bjorn Helgaas wrote:
-> > On Tue, Jul 28, 2026 at 10:10:00PM +0000, David Matlack wrote:
-> > > When a PCI device is preserved across a Live Update, all of its upstream
-> > > bridges up to the root port must also be preserved. This enables the PCI
-> > > core and any drivers bound to the bridges to manage bridges correctly
-> > > across a Live Update.
-> > > 
-> > > Notably, this will be used in subsequent commits to ensure that
-> > > preserved devices can continue performing memory transactions without a
-> > > disruption or change in routing.
-> > > 
-> > > To preserve bridges, the PCI core tracks the number of downstream
-> > > devices preserved under each bridge using a reference count in struct
-> > > pci_dev_ser. This allows a bridge to remain preserved until all its
-> > > downstream preserved devices are unpreserved or finish their
-> > > participation in the Live Update.
-> > 
-> > This seems to hint that we're going to allow bridge reconfiguration in
-> > some cases, e.g., for hot-adds.  The simplest case is "leave config of
-> > all bridges the same", and I thought that was what the previous patch
-> > commit log said.
-> > 
-> > What's the benefit added by this patch?
+On Wed, 16 Sep 2026 16:10:54 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
+
+> The reference acquired for indio_dev->trig is only dropped by
+> iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Move the
+> iio_trigger_get() after iio_triggered_buffer_setup() succeeds so that
+> failure of motion trigger registration or buffer setup, which return
+> before the mode is set, no longer leak the trigger reference.
 > 
-> It is used in the following patches:
+> Fixes: c1288b833881 ("iio: accel: kxcjk-1013: Increment ref counter for indio_dev->trig")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+See bma220 reply. Not something we are going to fix like this.
+
+> ---
+>  drivers/iio/accel/kxcjk-1013.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 > 
->  PCI: liveupdate: Adopt ACS controls in incoming preserved devices
->  PCI: liveupdate: Adopt ARI Forwarding Enable on preserved bridges
->  PCI: liveupdate: Do not disable bus mastering on preserved devices during kexec
-> 
-> to preserve certain configuration on bridges that have downstream
-> endpoints that are being preserved. To support P2PDMA we will also have
-> to preserve bridge memory windows (future series).
-> 
-> If we are ok with applying those policies to all bridges on the system
-> whenever one or more endpoints anywhere on the system are being
-> preserved, then I agree we don't need this patch. But I thought it would
-> be cleaner to track things per-device.
+> diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
+> index 2823ddde4bf2..dbaa829a98c2 100644
+> --- a/drivers/iio/accel/kxcjk-1013.c
+> +++ b/drivers/iio/accel/kxcjk-1013.c
+> @@ -1488,10 +1488,6 @@ static int kxcjk1013_probe(struct i2c_client *client)
+>  		if (ret)
+>  			goto err_poweroff;
+>  
+> -		indio_dev->trig = iio_trigger_get(data->dready_trig);
+> -
+> -		data->motion_trig->ops = &kxcjk1013_trigger_ops;
+> -		iio_trigger_set_drvdata(data->motion_trig, indio_dev);
+>  		ret = iio_trigger_register(data->motion_trig);
+>  		if (ret) {
+>  			data->motion_trig = NULL;
+> @@ -1508,6 +1504,9 @@ static int kxcjk1013_probe(struct i2c_client *client)
+>  		goto err_trigger_unregister;
+>  	}
+>  
+> +	if (data->dready_trig)
+> +		indio_dev->trig = iio_trigger_get(data->dready_trig);
+> +
+>  	ret = pm_runtime_set_active(&client->dev);
+>  	if (ret)
+>  		goto err_buffer_cleanup;
 
-Yes, I agree tracking it per-device is good.  I was looking for a
-traversal upstream to increment refcounts on bridges, and I guess that
-happens via for_each_pci_dev_in_path() in pci_liveupdate_preserve().
-
-The actual refcount still confuses me a bit (see
-https://lore.kernel.org/all/20260917000723.GA992337@bhelgaas).  Maybe
-it would help if pci_liveupdate_preserve_device() alloc the dev_ser
-*first* (right after all the bail-out checks)?  I wonder if the
-refcount increment could then happen in exactly one place, separated
-from the one-time dev_ser housekeeping?  E.g., something like:
-
-  if (!dev->liveupdate.outgoing) {
-    dev_ser = pci_flb_alloc_dev_ser(outgoing);
-    ...
-    dev->liveupdate.outgoing = dev_ser;
-  }
-
-  dev->liveupdate.outgoing->refcount++;
