@@ -1,114 +1,73 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF104E50AE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010673033D8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631412; cv=none; b=IR+B3IhJsuqP7EZVFFXbpTFZauCkvHj2PlGblDSVzGIzwY8GmqeGPkcV/T/eRsIysO4j7zxC1xtraTehdM9FC2/qwWbywgY3YNWPtpWqwGSDlQfF/XVB4rohTt6WXS71wgyLolysVeMpoFqyinjYRNM4AUSprfXyXQLa7Jw3bNU=
+	t=1789631429; cv=none; b=gLN6pisRJvypZerRr2Bz+cCU/6QCBDH2ePRfUOmLnMLSy+4bseQzK3K7FGIt9MMQsrqa3gEs50fbj4Q1HtZd3HVUVk4QoWt13lXrfBmzoGxjn/8gOK0MTz6ErIIZrumfb2Tyb7eZsADhx0WjVBWX/woWZpG/K0WaPCK19KzUy2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631412; c=relaxed/simple;
-	bh=aPr+Qi0GqWk/BrztXPdzLLv2v1LWbUl6I2/UmOUxrGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UL0qF9MVwh19ZmyUi8BqL8GBQpTf5qeiKlskJFv1wDzukBrIvGibpr+oveLfEnBXae1+tNighEuTl5qyHZwxvMRayoSSLrpXALPvxDF0Tz+kET+aMWgvX4COyNschTs0UXV8eogUYjEh4kwmi16kiYvGMIbsvj+y780yukD+tmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KPz05s+Q; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789631429; c=relaxed/simple;
+	bh=JvmJSmcIpi61JUYXX2SSREEZE7UoMBYzmRbwBiQxDgE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pfmKXSGxkTBHjD9bEb+zHERLSgcvwvvjT6Mwr+jRqIannLFGvK0/50RfxFul+0IwG3qZIPz8THQqQi97Sm/xQVEZ4q+9cJW9e54EyqjmuPKBqVHTycmRL0zX1vCZiWJMogSHlphXUDIgTdarwRBQE91WGqAMEEXO4rbmQf5Bu1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LFvNGzoi; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KPz05s+Q"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99c5de614so703083a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:50:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789631409; x=1790236209; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qQsMi3oaSJScdRbutpiL5WH0Qa1SNOuUKKoGIIRm5XQ=;
-        b=KPz05s+Qg8PcmgTU4cSKSG8cVtvjiAp8mgG/Igrws6ctO/GfY2zcv9WpIo6Ewojb+D
-         qSs0bQhvB99a1jpIPpDiX7cJUTBTBanrEEeaHlFIB1ef74g69fVty7zPHSgl0Dhp5Gny
-         hxex6AzvtZpkPgPQccx5OqQl3iU0XBRyeL4X1aZRHn+kT/5/p8QwCeJ66jw8pMLOzUIp
-         fcWH/HVJlW7ob+EnfmyE5buhPz0OAQZTs1NQngsWqNa+uSCnsjs3kYc9cgkrQEA4M4DS
-         1ouv4mZQO0cHnoikhfx7AHKbe17qL4WgIEZ2DUpWyMeHnGJ7pMjDRVCH+AaFpJoQAAKI
-         jgEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789631409; x=1790236209;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qQsMi3oaSJScdRbutpiL5WH0Qa1SNOuUKKoGIIRm5XQ=;
-        b=DW/LCurhYBeoyuIHFGjAiNdvigbn3Y7i6L/YDQgaz6VxfJ5toeltrnX2M3S+aE1J3x
-         zGI6fAUjBb19/y5WiKvO7eDLkWrsLb78kF86K6kgy7cNhqAEZ54rC0jVm1SRwyOJRqFV
-         oHNYbCXk5XZTzgQ+/GVCh2XEDHMdU7YjjLClveRKHo4KMUNPX3NJHHqDpUYVfgNfQJAm
-         Lgy0reGSyq/X4KMKg3df0CEvBwgtLPR9KL15+l7rsHpDHrGJ4XWaSh720VwKwHos/ANH
-         uJ0IyEFhbQwXE4o9fQTlOo9iD9u47+Y6l/ow0251sYr9vjSCiqb1tPXIvV55pDvvPZ7m
-         GAYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwMPxe1Wce0227HToTVtgN3jCDrMaxfzyDT9lCSpJBykP9NAxOrQYdmAA7TAuWsICOYrs9ZNsRNkFnOeno=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkidVy30c7+52OUV2JdINFuhxRS4cNMTJVA+nNjO4sPQin+AXn
-	l9sZw8KE3KbDL5jCePBQk4a6LwtFzCaGtKBvYEuv45bag88c/pxHlnM6
-X-Gm-Gg: AYBFou2IyinMTfQhZi551/x/dxUibuwTUvjvseZb6Mm3yjQJHjw5nrKEbtC2p0bcVom
-	WFdZW19cQwqj6bCgYMV/WNm2KTxKJjqtpCSUK4Cwjv7wO2Rsdpq1UaXTpA4NI2+n2SIxc6JZb62
-	zLljbhwis6TWv+nDc3HFXKYN+LgYn8HcPJASQ7+0pE4RB7ST0oSLDVJRUYJtYYQv4neyAhaO2VM
-	FA06Sx76Y7pyBsCreFD3ZPDGij8k3AK7Gt1cvTn8T2CZn6vbfS6bg2LvpTmhHV48jmQJyyj+uYj
-	d+KvDHlk5C1MjfbJGQg5Lic8Ovpi4CgI1IFzKztJqJSHb1ebKDZTxM92ipse4244mXa7mGWRjjZ
-	A+I2VXoa/FtrbqTKiQVq7IUt7KY+urJ1nCWKURO6NFo0sDwyPpaZ4MlFchSVeXp9TMO2t+6RXCZ
-	pjjIFEX1Ly9hhJEtyzpkcZkkxZgKoWG6OXGoaqrbLHuYjbYuyxFvwDIU0hbYt6JGCR5TU=
-X-Received: by 2002:a05:6402:5d4:b0:6aa:1cf5:6076 with SMTP id 4fb4d7f45d1cf-6aa222624b5mr8120998a12.1.1789631408370;
-        Thu, 17 Sep 2026 00:50:08 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d2a272dsm3101894a12.28.2026.09.17.00.50.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 00:50:07 -0700 (PDT)
-Date: Thu, 17 Sep 2026 10:50:03 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Omer PALA <palaomer100@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: rtl8723bs: replace msleep with usleep_range
-Message-ID: <aqubqzKGtpmDkX9W@stanley.mountain>
-References: <20260917071931.8063-1-palaomer100@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LFvNGzoi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Fo
+	sAeGOR7AXGO4PfO3CMoooq2gVzVdZ2o9cGkWX8ls4=; b=LFvNGzoi1fximF2a0Q
+	TplBxJadG+Djpaf6zT8tsO926VE2paJ3goRHY4ZFbnMQ1JLNThIGwJxR7cgDgUj3
+	TzI0eOPsDcpOaNrJzCnRKslmMmVJuKvs/b3MZkj5I+11Rbqpah89h2KHcPtm7ZnR
+	0rgaeQLZFui+EC6d/MUupA9Ro=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3v5Cxm6tqUPnZBA--.15363S2;
+	Thu, 17 Sep 2026 15:50:10 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzbot+7d1563afac6cb196a444@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] hpfs: reject dirents with an invalid length in hpfs_count_dnodes()
+Date: Thu, 17 Sep 2026 15:50:10 +0800
+Message-ID: <20260917075010.328328-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <5b039133-96c2-6b51-a2f2-da1205234ed6@redhat.com>
+References: <20260916073354.40306-1-quchaosheng000406@163.com> <5b039133-96c2-6b51-a2f2-da1205234ed6@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917071931.8063-1-palaomer100@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3v5Cxm6tqUPnZBA--.15363S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZw4kGF15Ww1fGw4rAr4xZwb_yoW3Gwc_Jr
+	1qyr1a9w1xJr48ZanrKF10qrZ7GF40kr43Zw18Xr12y3s2qF10qFZIvwn2yF1xGa90vrn8
+	A3WFya17CFnI9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRE89NPUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABKYDmqrm7I4agAA3+
 
-On Thu, Sep 17, 2026 at 10:19:31AM +0300, Omer PALA wrote:
-> Replace msleep(1) with usleep_range(1000, 1500) because msleep with small
-> values (<20ms) can sleep for up to 20ms due to timer tick resolution.
-> Using usleep_range provides a more precise and consistent delay for
-> hardware power control operations.
-> 
-> Signed-off-by: Omer PALA <palaomer100@gmail.com>
-> ---
->  drivers/staging/rtl8723bs/core/rtw_pwrctrl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> index 448611ad8..1d3262413 100644
-> --- a/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> +++ b/drivers/staging/rtl8723bs/core/rtw_pwrctrl.c
-> @@ -561,7 +561,7 @@ void LPS_Leave_check(struct adapter *padapter)
->  		if (jiffies_to_msecs(jiffies - start_time) > 100)
->  			break;
->  
-> -		msleep(1);
-> +		usleep_range(1000, 1500);
+Hi Mikulas,
 
-These kinds of changes need to be tested.
+Thanks for looking at it, and you are right. I checked the syzbot reproducer
+and it mounts with
 
-I don't love this checkpatch warning because it we reject almost all
-these patches.  If it were new code, presumably the person sending the
-patch would be able to test it...  But I guess it serves as a kind of
-lesson to not listen to checkpatch and also to search lore before
-sending stuff.
-https://lore.kernel.org/all/?q=LPS_Leave_check%20msleep
+	eas=no,case=asis,check=none,
 
-regards,
-dan carpenter
+so this only reproduces with check=none, which is the documented behaviour:
+"no fs checks - kernel may crash on corrupted filesystem". The check in
+hpfs_map_dnode() does cover the dirent chain that hpfs_count_dnodes() walks
+(from offset 20 up to first_free, which is exactly the range the walk covers),
+so with the default check=normal the walk is already bounded.
 
+I also should have added an "Assisted-by: LLM ..." tag to this submission per
+Documentation/process/coding-assistants.rst, and did not. Sorry for the noise
+and for the extra round trip.
+
+Please drop the patch.
+
+Thanks,
+Quchaosheng
 
