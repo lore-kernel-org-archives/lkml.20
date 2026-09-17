@@ -1,155 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563EA491588;
-	Thu, 17 Sep 2026 08:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40A445D1A5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634586; cv=none; b=VbAZ45DuaKINi4AqmhVR2zw3xcIO241gRaFSUIc/7G7h02ERSlBWV5QshptcuFh+f27CuB1pzsoadivInQg49eN3OPKRr2vwJiHmMgAnF1gYtU7n1DFPJSdAe1f9UdacV8Cm9TlKxgilCP9m8rJqB5hkm5WjKy0jhrCXNcwfJ1E=
+	t=1789634596; cv=none; b=WVoieSV90frNgCCmfT4ew8IF6TTxUXUe4HyO2AtbVvJfeol4YYMZxQ8aEiGxHn+YHKWOn06O1RTDpfCeZhi+ruNrQXUNOWQnGFPRTv2bjx7O/Aai1wQ6oTUfYYE44VlgB9Ho8Kl0Drf61a+NHWqij+5R96KUHo/Uwn21svTwXxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634586; c=relaxed/simple;
-	bh=ca2bSrHmaobUPE6FKGEwCza6bF8w2hqM+0de2rE6VS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p3cPCzBVoof1WzDEx93xa2CfHqzJrcMgtEOxZjgTUilSqRa8Gj1Wfmw1zi4zOiODQkK4fKGzP0yhSKPxzrHBlOpvlroZdtxmmogXKCNXZEBSyrvO/oR+v2PBmbdUKeCtK+WfKEFwSL0GRgoC8oessE3zei21dRgGF8zxrJjnXyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Kbinsmvf; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789634596; c=relaxed/simple;
+	bh=xZ3JSj8oevdfblevZOGxIZ7GwtEyzSx++6y/65fyjlg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rsrW0nXe0Mr5ts8uXlPQl1tP9amoXNJRsuEQf8wUq+4wzuW9AJ5hAn3jOJ4rXx+I+v/geIDxAmaRiG3q4U9wkzvgM5642tlwdqVBu/QbOPll1jxwqe37vLUMLlPlRxAAxU3Niq92GpiKGqYZ3zzBVwL2VGjqRoSVtKLuOHs0Vqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NXsGNePQ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Kbinsmvf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789634582; x=1821170582;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ca2bSrHmaobUPE6FKGEwCza6bF8w2hqM+0de2rE6VS4=;
-  b=KbinsmvfU0s4U1U41FTbbN9SOCqu47EHIhBz52B6kMt8T/Rczp1K8OR0
-   eWplR80f4pISjN3hJoGZZd8pH20vbiqJqC3xfuz6OpiyiN8pwPGNdf06m
-   IfyZ4z1uhMHSF5+Tk5C9FJDScxs5AICxVoga1B/PXZOhutF1pnujhDsKg
-   hsRDb48w5OAwdxdFxfyZ4MI4l9VGI3C5sLCIYMCYIim1mC59QDsDKhmxz
-   yeYkm89oAPvsO1kMwU9QzLXkNSQyYDa0Li3eysj5Pmws9IDWJiTxSr3Ex
-   8nkl4C23envnZGQw1O+ZNHTJFnjzNN6aah8tLkR/C7/y0mzanjvS5Qzwz
-   Q==;
-X-CSE-ConnectionGUID: XkOnNh1lR36QDgTOC80Mxw==
-X-CSE-MsgGUID: j6QJdxrFSuSkMWpC8LEjUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="543011"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="543011"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:42:41 -0700
-X-CSE-ConnectionGUID: YS7t7p99Qze4tZdEMVSqyA==
-X-CSE-MsgGUID: sQkmySHbQd646GJ6/CCGuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1874268"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 01:42:38 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x77hT-000000007Pd-19fk;
-	Thu, 17 Sep 2026 08:42:35 +0000
-Date: Thu, 17 Sep 2026 16:41:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
-	mperttunen@nvidia.com, simona@ffwll.ch, thierry.reding@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/tegra: Fix bo reference leak in
- host1x_reloc_copy_from_user()
-Message-ID: <202609171640.8lyJYO2E-lkp@intel.com>
-References: <20260916182550.2091797-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NXsGNePQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789634580;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qnj5bGFt5q5vW3x1crtWWx2Ui97eiSoKFvsTpuZ4ym8=;
+	b=NXsGNePQxHUoU+NhcQtuECJUVuIewm+GnWowpAng2/qEjrqtxf54G1bcWjU0xO+Sq0dTHL
+	FtOSk5IHIzK3Gd/DC6oSYVDHZlSpynlAyImR0PgM3xmdy3KzDQHKGTvuNVmuConhXmYAzS
+	8Sgawh1UqdFl2HVkE2BcOSVQ64KJwYE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-558-Nye_faDPOGKCA8dwMkPHsw-1; Thu,
+ 17 Sep 2026 04:42:55 -0400
+X-MC-Unique: Nye_faDPOGKCA8dwMkPHsw-1
+X-Mimecast-MFC-AGG-ID: Nye_faDPOGKCA8dwMkPHsw_1789634573
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7131519540C9;
+	Thu, 17 Sep 2026 08:42:52 +0000 (UTC)
+Received: from [100.90.87.156] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 25A921977588;
+	Thu, 17 Sep 2026 08:42:48 +0000 (UTC)
+Message-ID: <371bb5ad-ecdd-48ce-9288-8f9209b8ffdf@redhat.com>
+Date: Thu, 17 Sep 2026 10:42:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916182550.2091797-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 03/15] dpll: add basic SiTime SiT9531x support
+To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+ "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "cjubran@nvidia.com" <cjubran@nvidia.com>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260915000015.80480-1-arouhi@sitime.com>
+ <20260915000015.80480-4-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20260915000015.80480-4-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi Wentao,
+On 9/15/26 2:00 AM, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> 
+> The SiT9531x is an I2C clock generator with four independent PLLs, up to
+> eight input clocks and up to twelve outputs.  Later patches register the
+> PLLs with the DPLL subsystem and expose the clocks as pins; this one adds
+> only what is needed to reach the device.
+> 
+> The register space is paged: 32 pages of 256 registers, selected by
+> writing the page number to offset 0xFF, which is present in every page.
+> A regmap range configuration describes that window, so the rest of the
+> driver addresses a register as a page and an offset and never touches the
+> selector itself.  Pages come in pairs for the PLLs (0x0A/0x1A for PLLA,
+> and so on).
+> 
+> Probe reads the rate of the crystal feeding XIN, since every frequency
+> the driver later computes derives from it; takes the optional reset line
+> and leaves it deasserted, because the device configuration comes from
+> efuse or from a blob applied before probe and a reset would discard it;
+> then identifies the variant from the single byte at page 0 offset 0x02
+> and refuses to bind on anything unknown.
+> 
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: Claude:claude-4-opus [chat]
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   MAINTAINERS                    |   1 +
+>   drivers/dpll/Kconfig           |   2 +
+>   drivers/dpll/Makefile          |   1 +
+>   drivers/dpll/sit9531x/Kconfig  |  17 +++
+>   drivers/dpll/sit9531x/Makefile |   4 +
+>   drivers/dpll/sit9531x/core.c   | 272 +++++++++++++++++++++++++++++++++
+>   drivers/dpll/sit9531x/core.h   |  91 +++++++++++
+>   drivers/dpll/sit9531x/regs.h   |  56 +++++++
+>   8 files changed, 444 insertions(+)
+>   create mode 100644 drivers/dpll/sit9531x/Kconfig
+>   create mode 100644 drivers/dpll/sit9531x/Makefile
+>   create mode 100644 drivers/dpll/sit9531x/core.c
+>   create mode 100644 drivers/dpll/sit9531x/core.h
+>   create mode 100644 drivers/dpll/sit9531x/regs.h
+> 
+> ...
+> +
+> +#define SIT9531X_RANGE_OFFSET  SIT9531X_PAGE_SIZE
+> +
+> +static const struct regmap_range_cfg sit9531x_regmap_range = {
+> +       .range_min      = SIT9531X_RANGE_OFFSET,
+> +       .range_max      = SIT9531X_RANGE_OFFSET +
+> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
+> +       .selector_reg   = SIT9531X_PAGE_SEL,
+> +       .selector_mask  = GENMASK(7, 0),
+> +       .selector_shift = 0,
+> +       .window_start   = 0,
+> +       .window_len     = SIT9531X_PAGE_SIZE,
+> +};
+> +
+> +const struct regmap_config sit9531x_regmap_config = {
+> +       .reg_bits       = 8,
+> +       .val_bits       = 8,
+> +       .max_register   = SIT9531X_RANGE_OFFSET +
+> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
+> +       .ranges         = &sit9531x_regmap_range,
+> +       .num_ranges     = 1,
+> +       .cache_type     = REGCACHE_NONE,
+> +};
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on tegra/for-next]
-[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master drm-tegra/drm/tegra/for-next v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-tegra-Fix-bo-reference-leak-in-host1x_reloc_copy_from_user/20260916-182550
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux.git for-next
-patch link:    https://lore.kernel.org/r/20260916182550.2091797-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] drm/tegra: Fix bo reference leak in host1x_reloc_copy_from_user()
-config: hexagon-randconfig-1000-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171640.8lyJYO2E-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171640.8lyJYO2E-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609171640.8lyJYO2E-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/tegra/drm.c:163:22: error: incompatible pointer types passing 'struct host1x_bo *' to parameter of type 'struct drm_gem_object *' [-Werror,-Wincompatible-pointer-types]
-     163 |                 drm_gem_object_put(dest->cmdbuf.bo);
-         |                                    ^~~~~~~~~~~~~~~
-   include/drm/drm_gem.h:572:43: note: passing argument to parameter 'obj' here
-     572 | drm_gem_object_put(struct drm_gem_object *obj)
-         |                                           ^
-   1 error generated.
+Couldn't it be useful to cache at least page selector register or is it
+volatile? I remember from zl3073x history that page selector caching
+helped a lot to reduce number of i2c transactions.
 
 
-vim +163 drivers/gpu/drm/tegra/drm.c
+Thanks,
+Ivan
 
-   126	
-   127	static int host1x_reloc_copy_from_user(struct host1x_reloc *dest,
-   128					       struct drm_tegra_reloc __user *src,
-   129					       struct drm_device *drm,
-   130					       struct drm_file *file)
-   131	{
-   132		u32 cmdbuf, target;
-   133		int err;
-   134	
-   135		err = get_user(cmdbuf, &src->cmdbuf.handle);
-   136		if (err < 0)
-   137			return err;
-   138	
-   139		err = get_user(dest->cmdbuf.offset, &src->cmdbuf.offset);
-   140		if (err < 0)
-   141			return err;
-   142	
-   143		err = get_user(target, &src->target.handle);
-   144		if (err < 0)
-   145			return err;
-   146	
-   147		err = get_user(dest->target.offset, &src->target.offset);
-   148		if (err < 0)
-   149			return err;
-   150	
-   151		err = get_user(dest->shift, &src->shift);
-   152		if (err < 0)
-   153			return err;
-   154	
-   155		dest->flags = HOST1X_RELOC_READ | HOST1X_RELOC_WRITE;
-   156	
-   157		dest->cmdbuf.bo = tegra_gem_lookup(file, cmdbuf);
-   158		if (!dest->cmdbuf.bo)
-   159			return -ENOENT;
-   160	
-   161		dest->target.bo = tegra_gem_lookup(file, target);
-   162		if (!dest->target.bo) {
- > 163			drm_gem_object_put(dest->cmdbuf.bo);
-   164			return -ENOENT;
-   165		}
-   166	
-   167		return 0;
-   168	}
-   169	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
