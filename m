@@ -1,124 +1,128 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E715187CA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CC35187E8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663166; cv=none; b=CITD7X/2D++ca9Gyid2xpTKlSy4AQiG1RTlt7671smjJzbJgcNoi2Bvj41FxaaevAkOaqgJYFyuLlb7WuwfD2PvozWGl+aM8NEsWvMHNEXhSzxfuG9LSKJKdQMBtC2xLulBJXqmZ+6RZcyZf/w7k3kXbHv2tv66ZVtCF3bG2q9o=
+	t=1789663169; cv=none; b=jZPruAs6rwjPELUSuFwbuR65DFeY7Z3sTSe0sSGVw+IbuFUj6vYXRtMIYMV4CQks9ekGeP6aRyuRCsxZXWJTYz5c8LSCeLtEkKMP5+xNmOogysDKsOmj3ADf5Zx5IW2ZpzoOBJDCyufL69JXYJVIK3JARIzAFjVqkNAYq6FRBaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663166; c=relaxed/simple;
-	bh=AIhDuxYXm6TPBGEUGmeWMYRdVi5UgiMgDR7MkYv1egM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=OiOcNV8o1IoosT7wQToNaW6jScdig8PoG34a7NPM8MRDVgj7JFBl0uGjuBwzon1du7tUWI+0vawcaRvcBzHxgwiDksXgFsPClkZmlnQ92ZcD3p3u291Dxyg5T6/BydpwVsfYWAFRAFwA9vkTAsQx5y9QOvoxkav0DtRZCnJbMqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QCNyeA3k; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1789663169; c=relaxed/simple;
+	bh=IJxxGucmX+S/ianmDruEL9wFhGfEfpxOR36b/1+SnPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iCNMLih050444Ofam+vMEtvQkpSORgDXZ3hr65FBj2j1Y/kuwQNQGKbPY9l4aVVailQI/pPE6aAA0VQJwXG3YGD+VB6n6hTXg+TAa4hN0F96uCv2hXE4G6vnTYbsiipGdNW11zAdzEB8K4wCs+xXNoYVtyeoqOoG+lb0UkVZpyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rhcMJPet; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QCNyeA3k"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so2976971a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rhcMJPet"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb767cc71so9033331cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:39:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789663164; x=1790267964; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XZ4suTwVR71QEmnzgMO/8pQXqTLVqgY6KmKt7zHzuV0=;
-        b=QCNyeA3kw2/dmW0tSZ3jU+dEaiXdjCTeIhd1F6NZ1czaKtoqQDMgvvdD/Uc9cqMEz9
-         Uz8GrUrIpWxQlrSSelg60ZGaBFziLsVo7AbZ3uQKKzE6bmrYLbZ8dSiBHJiZ7CcFS1dw
-         EzpAw/a2FOqmaIcHVyEQzuctsVpFyttdxkaGLuW8+yNjGByCbqNk5auGer2hZxoHQtLz
-         pqN6lM6Em+FHNgu1RmEvYKmFnerUKFff76cWYNvS+lUhrNe+RP/S9cVz49K5+E1Irzc6
-         1bfVGRlJFvmsWVjxi3/bcvxD1UF6OHr3jLdmGNrloFiWQlrUxOe7XVR7XAE9FmaeRp11
-         xpuQ==
+        d=gourry.net; s=google; t=1789663165; x=1790267965; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
+        b=rhcMJPetUieV0UG48w/mx8aXY1yuTaDOh9glAiHtyR+VOF/TYIi9LaUSceWwqy7rjD
+         fXYm1Un1VMNSpbhSs2iLDjZcNp8zqbQBGhaL4uN19Zow98iZNIgrQspFdGzeeiPIkRBi
+         gaPZTTUDLvWh3R1Xhrqlo3t/1Q8Jt9WVPok8VRtYsqcGe9il+SXenl3AYrmvVWecpXPG
+         b+/27ARTY3zVMzNP5RZl2SnJ6RO9BIC57pTNQcjGl32KTIc1x7Ae2JNgG/uc2/WSlxPX
+         41e56/y9yNty+tSqDg+/+ZSbtQUE6A0dZvGKJo6tDF0+p5RhNAQyB01CpYUJt1gYQ/BO
+         SLRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789663164; x=1790267964;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XZ4suTwVR71QEmnzgMO/8pQXqTLVqgY6KmKt7zHzuV0=;
-        b=JQw/q9+ejNgKBVhDvgQSN4g2FeEMVAI2v0RbuFDUf+Kq5g0bViFLsdpLB8Ve9QQ8nV
-         SSHUpxUGS8s5XQrx35KEsKi+SVQYJkY18hFwIAk6FnL4NHKeXltsVnuHjWnnM/KmGElw
-         DDkIQpz7W91Gb0Frs8WgI8u1086easnJB6ZcKOWT7B8K80vId8SC2JyK/VckfL/KTcdw
-         NduPR+yDvyF1LOlydy9CwWXSkQVF3te8fgicaAnM3cBhy5/vRAKEDZOgivGdNoTC6TQL
-         JhZhFSLxJvWEeKJktNlXrpWWM4eLklPrKkiTetwnHeCHOiq75+VI6G7BYqAiUTpYzV90
-         +fcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpA6ukQnXAALTR9nIPnnGLp1gPtpLYM16WNgg9GxCaNomIJQmJ0KXLcu8Hi2DCcq1ADuDztgM2RbkytSg=@vger.kernel.org
-X-Gm-Message-State: AFuF++marAFu20uVFotQyiy6O3mykp62zdfZQ2mp3KIf/EzX7bHQ6/wU
-	K38Xf7EEFZePrGQaOBEEUd4FjyH3ZpdF2qeVp0Q4ZTt9frIHQAHg9nwgd7gTJsCVzcjMBoJ+jJX
-	NsGC4eOCcnQ==
-X-Received: from dlii2.prod.google.com ([2002:a05:7022:4182:b0:143:926f:ba09])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:224b:b0:39d:eda9:febf
- with SMTP id 98e67ed59e1d1-39e1e4c637amr15458764a91.18.1789663163910; Thu, 17
- Sep 2026 09:39:23 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:38:50 -0700
-In-Reply-To: <cover.1789662556.git.irogers@google.com>
+        d=1e100.net; s=20260707; t=1789663165; x=1790267965;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
+        b=r0zC4gQLbMTjRa7DGa5yp/elwZBJMi0DKObGWOHQvEl4Kvz8rATRXLsJlUcbOYo772
+         RHOjiAe8cm2BXbJd49D2AzRnSqMYcjMf47rda3R7f6g+nZtgYjAuQgjoftgM3j6sBOFP
+         uSI9RXTGnnZ2hA/F1zYk3+ju+iZ0fMMCbU2kQv5DHuBLwOjMIZrYPXZacg0yrm8vXVaE
+         SEDeBHlnZ9ucSkeEuZA3xxrDS1qVvX75SgkIqIILmf7Zh9v4hLIW5R3OBaZ0JmenSajB
+         WFcOpkmOCgfBnus1IuHqDh4wf4CbE/qWSjc03cIE9WBSQCMaAjk9YBkttUN3dfUGNjLS
+         sjhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTGDVRe+AgMi5APCQsvoaAjTrPiwmFn3i40NowtuSj04STjSIYvXZxPyCg7HPTC0hlEyEAQTa6g2G2AII=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwsJni2ocCSzO/Yj9vbuKUrK4/eHeJgpj1t8yqh0wqVHLwsnCj
+	jWKZRngiHcY7jELN3olc9szBVE2vtQyTMfN4ZkSIP88AuDmQJ+tuAXEyKGa7gQfXCo0=
+X-Gm-Gg: AYBFou0HLJxexoAKlWTNSHvh+SlPGC2PpGki1nYpG6n0FiRFBDXf4rdHBtCGoUtTcaP
+	YCBvMhrxBxjl5q6+pjkhMuilUYIvC2waMdZa7CkGboArZVTpPs6UIhavX7EdFoMmJbejBTJlfeN
+	tcEqpvyZaU1n4Csd15Q60mNVDmKy8LcYkOMWWgyraADZCQiNF/k59pj2MqXfswY+OikADyQAGoO
+	HePewfRyVetT1DIZYSJZtHV+cB/1sx2F8ggt1jiKOMOTUid1DptKTarH7m79S/gXMiOOFy59Vnp
+	M+z91PVER4U58aAJhCEF/43HkIIGDxlYDDC1ZviWYmDD4olAU6Ys+lKC5Wg7rOo2ScUN6M/V7MM
+	RYk3fkeSdViTgl+xh7XPfGkW47+GN2p5UHWvye6qBGAdmjl8ZcKRDc2bRvDvYb1+iYH6KqQLoWx
+	2UozrEf3oj+9CFTs8N1+CKoAD3pBp/JDmAeE0nfQvc0AiOWMrHQilGekTXxMDjxBPOJeEMukqoz
+	v/vk4E2ZJut5h3tGDsRCpu3iggEUCfK/jysp9aX5hk505yHQ0KD7ls=
+X-Received: by 2002:a05:622a:1f99:b0:530:dcc7:aeda with SMTP id d75a77b69052e-5327eeab4e6mr112125271cf.40.1789663165269;
+        Thu, 17 Sep 2026 09:39:25 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326204ad36sm53765271cf.18.2026.09.17.09.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:39:23 -0700 (PDT)
+Date: Thu, 17 Sep 2026 12:39:21 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <aqwUxQRwbhfGgg1J@gourry-fedora-PF4VCD3F>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-3-gourry@gourry.net>
+ <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
+ <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
+ <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1789662556.git.irogers@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <ee1ddc3779258c12aa0df06eefdaed2d1f025fc8.1789662556.git.irogers@google.com>
-Subject: [PATCH v2 02/14] perf trace: Start BPF summary before starting workload
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
 
-When using --bpf-summary, trace_start_bpf_summary() sets
-skel->bss->enabled = 1. In trace__run(), trace_start_bpf_summary() was
-previously invoked after evlist__start_workload().
+On Thu, Sep 17, 2026 at 06:23:24PM +0200, Peter Zijlstra wrote:
+> > Would be nice to just have the hardware report what's hot (and how hot)
+> > rather than depending on a software-heuristic like deriving hotness
+> > from a page fault.
+> 
+> Yeah, there is/was this patch-set from AMD that uses their IBS counters
+> for this, but 'ab'-using the performance counters for this also has ick.
+> PMU data isn't ideal either. Mostly they generate a ton of data that
+> needs to be analyzed as well. Its not clear cut and easy.
+> 
+> I'm not sure there's been proposals for better hardware support.
 
-Because evlist__start_workload() immediately unblocks the child process
-by writing to its go_pipe, short-lived workloads (such as `cat /dev/null`)
-can execute and complete their initial system calls before
-trace_start_bpf_summary() is reached by the parent process. Furthermore,
-under high system load, the child process may finish before the BPF
-summary tracking is enabled in the kernel at all, causing syscall
-summary tests to fail. Additionally, if initial_delay was configured,
-the workload was started before sleeping.
+In the CXL Spec there's a "CXL Hot-range Monitoring Unit" mechanism that
+will report the N hottest regions of the device.
 
-Move trace_start_bpf_summary() to be invoked before
-evlist__start_workload(), matching evlist__enable(), and ensure it
-respects target.initial_delay.
+Not sure we actually need this for the CPU-tiers. LRU already does a
+decent job of recording coldness.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-trace.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+I think bandwidth data provides the missing glue between the two.
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 20fffc24507b..8da0c51ec380 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4838,17 +4838,19 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	if (!target__none(&trace->opts.target) && !trace->opts.target.initial_delay)
- 		evlist__enable(evlist);
- 
-+	if (trace->summary_bpf && !trace->opts.target.initial_delay)
-+		trace_start_bpf_summary();
-+
- 	if (forks)
- 		evlist__start_workload(evlist);
- 
- 	if (trace->opts.target.initial_delay) {
- 		usleep(trace->opts.target.initial_delay * 1000);
- 		evlist__enable(evlist);
-+		if (trace->summary_bpf)
-+			trace_start_bpf_summary();
- 	}
- 
--	if (trace->summary_bpf)
--		trace_start_bpf_summary();
--
- 	trace->multiple_threads = perf_thread_map__pid(evlist__core(evlist)->threads, 0) == -1 ||
- 		perf_thread_map__nr(evlist__core(evlist)->threads) > 1 ||
- 		evlist__first(evlist)->core.attr.inherit;
--- 
-2.55.0.1082.g2b9226bbc0-goog
+I've been a proponent of just using bandwidth data to drive *when* to
+promote, and let the devices dictate *what* to promote.
 
+https://lore.kernel.org/all/aPJ7qe_2xznFSUMZ@gourry-fedora-PF4VCD3F/
+
+e.g. if the top-tier looks under-utilized in terms of bandwidth, get
+some chunk of hot data from below and see if it shifts the needle.
+If so, repeat until numbers stabilize or the top tier reaches
+saturation - otherwise chill out.
+
+</food for thought | ramblings>
+
+~Gregory
