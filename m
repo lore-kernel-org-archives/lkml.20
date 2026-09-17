@@ -1,175 +1,170 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012021.outbound.protection.outlook.com [52.101.48.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9261E495AE8;
-	Thu, 17 Sep 2026 09:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636445; cv=fail; b=QZQj8Xhm74FSFiDocsFc7vRHjEv8h+whlzq8ZDtZvJ/zFGItSe14sJs4D7kP/oB3qZ1w34xo0JNFwSCRm6EuOWepEehd5I4LzIn8eV9rmxV/39K8IDdNMM11g92fI7hqWjvCi6MVu6O35VoNmUgjhQThRYAZg/0rUE5V26Dx73Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636445; c=relaxed/simple;
-	bh=EAKiBs220ZwPvDcHQSpK5vFGT+uAPOI4HclTtRCAPLY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=g2ujkzspKSc8CLU6T3g4xtKYMUKInKxV9uZmqa/vkoaxuGcb88nRxY0lj16D5226CH6/i+tdr7pcs5nYv+NZ6QGt/RsDVFpt8vlbpaBDgZ2344LCf7Oco7+5ooOLJQ7Tm4vBOCtNx94bTJH+ahArQ/yNAcTzFqkbXoDMhnHQGbU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DFHtNIxp; arc=fail smtp.client-ip=52.101.48.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14734A3866
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789636500; cv=none; b=ZXDyIEqBbiiOsQDQsBgF3akunRCGc3xmjCZQxWN9x6LrYViF6TwQto/EokEaWyMhHBRDyrB23bl+2KYuyPZSVhJl2MtTXuT2tehh31Xtnt8IvIlOPqdLl+Eqfz+oetWYFA6RVY81UNLwVF3wLxqPphlmW6L27x4ndPLnu+F9T8E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789636500; c=relaxed/simple;
+	bh=XUDC1HxwPmam1Qjo85tVg1CWvgjsvr2XAz89uv0st7I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KOaaSCYWSx1HrZf0aU8beVH93u8orpysuk9HGv9cUW7p0mXdZTk1zauTbP7ZivFbvn6XYlL6+/hHAGwWEzEfHMqF66H0i2/Qki/8XidBv9f3BMObPkxKsWKVyIPpNCzlWffg5fao6VDbPM3/QxeI6jVviH2ORfSpPb9gEQiW6b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SBUDRDfU; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DFHtNIxp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u0im24aBK5eHe+o55mbEZUEc+1n0kuKftuaFsgT5o07D7MGzIoMOaqCkArFQgt8kMjhW+kjiaLhtdBH2BDMZ+XEtHPLPE2FxrHh9xmYfMg54Teo1IfFc7Y9VsRuBZxpU0GU9uLGJr+3gPc4855w9/i1XEIdcGqyHJWiaeYSy6Cy+2jvO/oBwaAN9hsCsFENJMszAx7py4/t7wlzdfI7KkMbezfAnnEtrxb1unKScAQL72TaiuAxaYXX0ranK6aD/ANwJGGRmzlqrgoZzPfRLkiCyONA8eM2bDefO+Zcb3fGK4d4p7tlAlewUbmWcHypJPcM+DWbpCVjktXjCxJlsoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=su1rfIRsKkMmgbGb6XJGSY0JIEhPpcPuhhqaF0gfWI4=;
- b=CiaQp2EfQ3yDmZeo1Z4qCkekp67jbjPMzN62GSuaPhfQ+/5lLs5a462YuPewo233cWJXAm6jQHj7OIYrOKjtvv9WmbdfrFVNVqhGpP2e8UzPvNuknUjHgc1gc/GI8szkbTl3ZwxRnPbKlYvCm/kk1zchxD5DM/SqtbThm+9p5EEw5ozI5p4UVHZNFYCWe4YRhnbDbjH5bKAh4GpEeHBKZl+c/khNeMI/wHJuMNRG0gGSOjIbTc89vuiWj/Fga+q+/iy9XcQoahr8aZNEmz+Xcj7OV3jOb7u860DrqYfRQRCGOWRcAADM4Mw+PZCnNi+JUXKp5dXz4QeLAbnNMJLG8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=su1rfIRsKkMmgbGb6XJGSY0JIEhPpcPuhhqaF0gfWI4=;
- b=DFHtNIxph42A8Q/mM09IPVy/Wq60GnLeI/R8EskVFlH5JCPiyCzb7aD0KXks6ILNGALvvlMmx/mtZ7JDI60M+AK5bHxOc/LIooA+YAKVBx0Mu0txdrNNx1OPEJ2Rw8lyCb3qCh29YtnKeRvn/p5Cp1tf+khSmPLfA1H5MoLdtoc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9482.namprd12.prod.outlook.com (2603:10b6:208:58d::19)
- by BN3PR12MB9569.namprd12.prod.outlook.com (2603:10b6:408:2ca::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
- 2026 09:14:01 +0000
-Received: from BL4PR12MB9482.namprd12.prod.outlook.com
- ([fe80::e4cf:3801:9631:2965]) by BL4PR12MB9482.namprd12.prod.outlook.com
- ([fe80::e4cf:3801:9631:2965%5]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 09:14:01 +0000
-Message-ID: <2b6e2d5e-4aa7-4498-b63a-f549f1bf22c8@amd.com>
-Date: Thu, 17 Sep 2026 14:43:54 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] dmaengine: dw-edma: IP name corrected under its
- struct
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: mani@kernel.org, vkoul@kernel.org, frank.li@kernel.org,
- den@valinux.co.jp, dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, michal.simek@amd.com, devverma@amd.com
-References: <20260907105453.1940646-1-devverma@amd.com>
- <20260907105453.1940646-3-devverma@amd.com>
- <aql2nUwXYLOXrLM6@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: "Verma, Devendra" <devverma@amd.com>
-In-Reply-To: <aql2nUwXYLOXrLM6@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PNYPR01CA0031.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25d::15) To BL4PR12MB9482.namprd12.prod.outlook.com
- (2603:10b6:208:58d::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SBUDRDfU"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso537272f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789636497; x=1790241297; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rd6RO2crHw1PBE+XJrO3BxeE7S5k0arp+bS2hkTKLEw=;
+        b=SBUDRDfUpP4Hn9BLCpOpTz71Zq7jAoQsMshg/Vyl3eckC0eDq6MTX00TnyLM8W2NO5
+         d67dw/IUxGNvHKqHXQTJ36walnckZ4TKt2KGLLfreoVGcFGYENLH7PAsqGo5CZTIQJSv
+         F6TMHdiTLzdYKYFcBNLZbxyZQKqkfaogZEdSI0av2ULuErUSwHHK98Dg1OL/7JZoLLv8
+         Xz//veN68vmgirenHK/4nTUW7+3QFVV+hOZdV5h1rAfEE3oYQjMFZ2uYfdmQ9+dF921T
+         7yXZWnIsMVQrRg2srSB6WRczSCJFrjgJrPFEpMOq9E7OqlyYk5+ErHq8XHiWC986oC3S
+         RtOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636497; x=1790241297;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rd6RO2crHw1PBE+XJrO3BxeE7S5k0arp+bS2hkTKLEw=;
+        b=yC2TQm+JYuUi1uT04FrKK09wWNSokevWg8IR7f1mHTJoP+bbfajsX4AnYUrmw3FaCn
+         UBAqn59sHfZmzulw1Ildu/9UFrP9qRgsczc5eymRNxzwhfvQh3v0QOp4Yd9K/Xmaa3Du
+         RiqAk0ig0GgjnWBSpETCOolytH9pRPWfCjnPd7ll67d6jyMDiUvIRoaV3cHajwkNzDjy
+         0SxwnI9pcoEEDAjhy5DlqN8sZ3SWEm3ZHvYR3S5+tRN1JjsHyrlpsNd/udbvO8DJgDFN
+         cmFXax0jpF8zYMcwJE24Tr44FxqroDoNOWrpFAf7lIvLjRrz4yj6xrQmDbQUXSzIyll/
+         +f9w==
+X-Gm-Message-State: AFuF++lCrOWatJIBOw6kGL1Us1YsQ9wl4Lslfpfvga8xJ2g+aj3+lcY+
+	YBnyTMD3Q5fbZq/bgtfyGZp3sHzT6gSQAfgsWNb9avdm3x3f3zS6QZ+m
+X-Gm-Gg: AYBFou2HNeMv7BfhI8G7ps3RkEtmOl/8eP8V3cj4H0T9kuY+QZIfxuuFw51Xn14VI7j
+	TEpYIvLc39I3eL5STcNAYopkY+YXZkmt1T09duF5I/OwqI9cdxhucM0/UCOUw4O4Q4QsYXqb0xl
+	sf/WExEeVDiu/RGNy3Mwd+GgiXa0+Q5RxH6+g3fgXkd7IeJQAeMvgGJkotLnnvSanqSx5hqhmVC
+	6I0wwCZmusrhhMMGlFA7Yhvk0rCywHG0SLd0dD6E4Dsfr39O+QtT/qJjFZxCI+5MBfqxpCcPHaZ
+	bq8FjL9sRYs55nDioyK/exl2Vs6f3itlRsG4w91qVsEOcx7tyuMXtwxnb898eTvsYep0N7PWbfa
+	ZAbFYnVePOhXQ0HL3GD1hhWhBbx2lmcU8QGzuzTPMas3xuET0XW8aM5eSsjHeVK/h0as1u87s7P
+	h/AD5B3M8sFeVKIs269Z2QWlugDvFBKjeKh5JtQAqrJPSjhCT4rlAYRyafEHg9OVUGFPjcqjOKp
+	HlatJ4KS+e9QXAVkIKFnRPllyUt2zELF7dv
+X-Received: by 2002:a05:600c:3e15:b0:49c:ff3c:973f with SMTP id 5b1f17b1804b1-49eb7329ce0mr59255905e9.24.1789636496900;
+        Thu, 17 Sep 2026 02:14:56 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf415058sm34707795e9.0.2026.09.17.02.14.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 02:14:56 -0700 (PDT)
+Date: Thu, 17 Sep 2026 10:14:55 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+ andrew.cooper3@citrix.com, arjan.van.de.ven@intel.com,
+ sohil.mehta@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
+ Granite Rapids systems
+Message-ID: <20260917101455.3e1ac9a5@pumpkin>
+In-Reply-To: <20260916225939.1144524-1-chang.seok.bae@intel.com>
+References: <20260908223209.916758-1-chang.seok.bae@intel.com>
+	<20260916225939.1144524-1-chang.seok.bae@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9482:EE_|BN3PR12MB9569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 559ad408-6d69-450c-c493-08df149c0328
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	eWy1zHRd7yhu3Ag0C1qwxFUThmjI59cmWdq0NuhbKKkC6Ltn590OZXUQlHlfdhjpuQtL6esKNikTr9wujQq5EkY8SIjfbs/eF6ewb+vo5gmzCMiqgcIOUeL427dcZZV2x1eg+QC/0M57kMsyXOxFlx7hJ0weCZ1y+x0nxuH//MHpRK6hytn9DOSvGazllt1jiXkP/d0Z1Sb3bsqov4O7PqemKyhS5g8GPRDvvbP6g+lo6Sfs44C5h/xWTdlocbDfrqUFskNGizdKdSBtZkoi9+OLwrgfB57f+otzJFgvKR3MGf1BtpHy54lYjfgzuJpgdZhJS5H+bSEiSzW9KVNrilJ/92TICF0tc0Xek9kUOxAYL72y//t3o4oDBFbBS6/cfOG8nK5qPip+kR3z0/lEwiYVkDvtSR3I7Ayl0ip/XjavCuCtvv0BIx7PXOn+9Te4BE/5tM9E6h9MswHco69K0xfJVjMbycL6xO8R6rxBfxQjhb64DAFMrgaF1Bf6qboboTneOOBksPIr3XhM4fy79jCsmBSuWCsZWun8oXaSMWMyJUTOJxjY0kWEAo9FkEpGKEeyNEhlm7v0N+W/HNoNYI+djFxsXmjotjcmviTlbblmwSK1ykSGkxDGDphJIB4/TG9CWFkeTDIQGYSOt0aRXW8r+Cthn857DuvAjua/fM8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9482.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TnprUEZnWERrYVJpZ0pMc2RiT2J3YlNnUDN4STJtaGo0VndzUWpFTXRad3Rt?=
- =?utf-8?B?V1kvcVFWcWVSZGNpbE9JeGEzWklaNDRtNjdyOU5CWDNsYWpPNGE3dVhSUlpN?=
- =?utf-8?B?NXk4TVIyaEcrT0NhdnIzend6RmhnSWo4YlMrL0FEUVh2NW1yUnVsYWhFaExW?=
- =?utf-8?B?VHI5THZ1WUk1UmFuZUlYZ3c4dVhZV1dFZHNPcC9pNUdCd2RMczR3VU5sTUFZ?=
- =?utf-8?B?Zmd3Y0h5Qk1RYnNiNGRPekJvN25NbFlFSnQzSVh4bWFvRGJoRXN1cVNMazMw?=
- =?utf-8?B?eW1POEZicDB3QURsMDViTlF4ZllaamwwMGRheUFRSlpIT2V1R2w3SmNzejVO?=
- =?utf-8?B?MHFLTWt6QityU2NiY1Z4U1E2QWVpRXRCWC8zeFMxeVpYYmVSU2dEbXpTbGFi?=
- =?utf-8?B?Z05LbGdYZEs5ZVhxUUVOaU8xeitHM2FzRERoQWZ5Z0JMbERtOXl2UzNIQ2xt?=
- =?utf-8?B?TTZ3eVFkajBoek5CbnhYSHNrNjRaanhPdXFHZG5RVW9vZm5kWThlbTNhMHBN?=
- =?utf-8?B?Nm4wTkdCamJrRnVuV2JzMmVNdTM0ZHBIcmpMaEZKN1U1OERhdVNzV1BGSVBD?=
- =?utf-8?B?QWhYVG96WGlEMVlxYkZleUg4ZWhLOUtScTVKb0dWWGRFTTFZNHl3emE2UEtl?=
- =?utf-8?B?eUhCcE5xRERGbVN6QmJ3MXJ2eGp6cGEwSEZ5b2QvTW9iOXFPOG9OOExqOHhp?=
- =?utf-8?B?MG9nTXNKc3ZrWkN5OFBtbjFKREV4eXB6aTZSdmVOUEhKQ3NRMmlNU01IZjc0?=
- =?utf-8?B?ejRZZ2hPamNqdCt2d1ZGRGdrK3Z4WldDMzR6VmNoM293Vk5UK1FxQnVwK1JZ?=
- =?utf-8?B?SHlFQldMYTB0YnR2Q2tRRUZyR0U0Sjk4UUUzUDNTT2t6U0hSWVhacjBCWWVN?=
- =?utf-8?B?SGhmYXB6ZHFSM2JrT2FaSXMxRnJwUVB5VDlJOWdKWWFhcEF6YmErWDdZTjNM?=
- =?utf-8?B?TVZrNG1PdFkzdVJTQWdsWnFQREN2STNqYm5WVis3T2pEcDY4WDFHbFhaYUdu?=
- =?utf-8?B?dkR1RG8yUVBHaFBBeXR0TG5vdDMyb0RCZG1BaW5KZ0FuWG14c0RDdnprVEpn?=
- =?utf-8?B?aFpnZWF5NTUwVkErRFdadWRHV2RWZElDUHV2YTZkdjFialdCOXgwNmJhcnFi?=
- =?utf-8?B?VzJPR2kvN0puZHA3dnBHS2FaZkhObFJCeVNRTVpCbVh4YXVsSG1ORExwdlRH?=
- =?utf-8?B?VS84SjU4dmtETVp6Mm5TUkcyRlNHVm9GS0RjekphbG5rWHlPMFAvUUgwQnZI?=
- =?utf-8?B?L2kzMElZRVVqSkh0cWF0WjYybHBSR2FicXY4ZDdVQ2RpdWxhQWwraTc2M0Zm?=
- =?utf-8?B?cEN3UFhkdzZ6ejlqS0VHNXFVQjk1NlJiY1BIRTYxSEFWZGkvSDl5dXBsWksw?=
- =?utf-8?B?dEZFZThCdUNzeUs1dXBmT29IQml0RHNFMk5LZE8vd3Zud3djcGRoV0VsSlQw?=
- =?utf-8?B?L0phYkgyeG9NaUx4aGhLQlROMXNWS0tjWC9qYnp2UEdUTEpaRFh1dW9YelNh?=
- =?utf-8?B?cjlvako0ZlZaN3JhSXJVc0FDZmhOWUcrWHJ2cFRjMHJoU2xycGo0UDVQOHdy?=
- =?utf-8?B?ZDlqS3BCdjM0Vkl6dWJXaHk5c3FmQXdJSzFqbjA3a3MxcDlTUVdCbERpTUpW?=
- =?utf-8?B?TUFyVml2dGI0NjNGbGV0c0pwVXdXNnVSRVNjd0F5Y2FsUG1NYkZIYWFPemdU?=
- =?utf-8?B?dmZoSkRmZ0ZXaC9wTzdKQ1I2UlExV0ZQN0sxWWoyK1l2OFpWeWhzVGpoTDFk?=
- =?utf-8?B?R0o3K2Y0RnIyM0ZCY1ZzamJwL3BXazh5SlE2bWlGQitrcHI0R1V5eXQwWHRZ?=
- =?utf-8?B?SExxOVRFNlczNHYxbjNpeEU1Wi9LY29JUzI5dSs0SE02T3JhTkJMUjBsN0c1?=
- =?utf-8?B?clJ0dG5LcGIzUWNUdnVqcVBaVEordjlCZTdnWjZFcGdqZDJzSFg5TnhCbWUy?=
- =?utf-8?B?VmRDaVJycTdhTS81QXBDL3dxb1VvK085NHBtNklYQnF3b05xSDJCT2FCck1Z?=
- =?utf-8?B?L2dRQlJkZXo4ajNUS0xPRXplbTd5OEM3VzZKMVl3NzNoOUVBUnpuNXdnRUxX?=
- =?utf-8?B?MVpYQ2psejFVNWg3Y3N6MkViSloyM0NkN2taMWYzVXZkNng2QWRtclRuRWJw?=
- =?utf-8?B?bUdBaVZyUFFIRWxtbGIrMktnK3BXaFJRN3lMMHlkZVhQV003dFpKNDU2NUdE?=
- =?utf-8?B?RjVzUzlJVWdWOUFYc3hMTVA5U2RPaFFRRTdQQ3dvaFZnSVdBenZjM2NPenBu?=
- =?utf-8?B?L2FjQkZGU29BUVYwaXE2VDMyNkpNOEZZc05TN2ZIMTZTZlBjbm80YmtEMHNh?=
- =?utf-8?B?ekp6LzNabjJrT2xjVWJiR3pqSkx3TXN1S0RlUDNUS0ZLbXU0MlF3dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 559ad408-6d69-450c-c493-08df149c0328
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9482.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 09:14:01.1353
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5l52YKtuKc2oGIMAgtXsjdHF0kkLBK0VVBXyTDEwZIkhXFnAUdL5sHMGXedX6Q6KxTpCeEcnYWf2Qpw3yEaxSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9569
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 15-Sep-26 22:17, Frank Li wrote:
-> On Mon, Sep 07, 2026 at 04:24:53PM +0530, Devendra K Verma wrote:
->> For 'xilinx_cpm6_dma_data' struct which is CPM6 IP, the comment
->> under this struct has typo and mentiones 'MDB' registers when
->> it shall be 'CPM6' regisers.
->>
->> Signed-off-by: Devendra K Verma <devverma@amd.com>
->> ---
-> 
-> dmaengine: dw-edma: correct IP name in xilinx_cpm6_dma_data comment
-> 
-> Replace 'MDB' with 'CPM6' in the xilinx_cpm6_dma_data comment to fix
-> the IP name typo.
-> 
+On Wed, 16 Sep 2026 22:59:39 +0000
+"Chang S. Bae" <chang.seok.bae@intel.com> wrote:
 
-Thank you for the suggestion. Please check the v2 of the same patch
-series.
+> Microcode updates can usually jump revisions. However, there is an
+> erratum on Granite Rapids systems. If they "jump over" revision
+> 0x1000405, they result in #MC. Avoid it.
 
--Devendra
+A probably silly question.
+Is it valid to downgrade microcode?
 
-> Frank
+David
+
 > 
->>   drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
->> index 006dea7d6322..762a693ab55b 100644
->> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
->> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
->> @@ -146,7 +146,7 @@ static const struct dw_edma_pcie_data xilinx_mdb_data = {
->>   };
->>
->>   static const struct dw_edma_pcie_data xilinx_cpm6_dma_data = {
->> -	/* MDB registers location */
->> +	/* CPM6 registers location */
->>   	.rg.bar				= BAR_0,
->>   	.rg.off				= SZ_4K,	/*  4 Kbytes */
->>   	.rg.sz				= SZ_8K,	/*  8 Kbytes */
->> --
->> 2.43.0
->>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: <stable@vger.kernel.org>
+> ---
+> V2 -> V3:
+> * Shorten the changelog and rename the function (Boris)
+> * Reduce the code comment (Dave)
+> * Allow 0x1000405 loading. Thanks to Andrew, this fix got attention.
+> * Collect Dave review tag. Thanks, Dave!
+> 
+> Note:
+> * GNR98 currently describes loading 0x1000405 itself is unsafe, but it
+>   will be updated to say okay with that. I will watch out the GNR98
+>   changes.
+> * Jumping from < 0x1000380 to 0x1000405 was identified as an issue, but
+>   0x1000380 is the first revision as GNR products. So loading 0x1000405
+>   in production systems should be okay.
+> ---
+>  arch/x86/kernel/cpu/microcode/intel.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
+> index 1142183c950c..30a22388d4b1 100644
+> --- a/arch/x86/kernel/cpu/microcode/intel.c
+> +++ b/arch/x86/kernel/cpu/microcode/intel.c
+> @@ -309,6 +309,26 @@ static void save_microcode_patch(struct microcode_intel *patch)
+>  		pr_err("Unable to allocate microcode memory size: %u\n", size);
+>  }
+>  
+> +static bool revision_is_safe(struct cpu_signature *sig, u32 rev)
+> +{
+> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
+> +
+> +	/*
+> +	 * Erratum GNR98 can cause #MC's if "jumping over" revision 0x1000405.
+> +	 * Avoid the jumps.
+> +	 */
+> +	if (vfm == INTEL_GRANITERAPIDS_X &&
+> +	    x86_stepping(sig->sig) == 1 &&
+> +	    sig->pf & 0x95 &&
+> +	    sig->rev < 0x1000405 &&
+> +	    rev > 0x1000405) {
+> +		pr_err_once("Erratum GNR98: skipping revision 0x%x.\n", rev);
+> +		return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>  /* Scan blob for microcode matching the boot CPUs family, model, stepping */
+>  static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+>  						     struct ucode_cpu_info *uci,
+> @@ -330,6 +350,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+>  		if (!intel_find_matching_signature(data, &uci->cpu_sig))
+>  			continue;
+>  
+> +		if (!revision_is_safe(&uci->cpu_sig, mc_header->rev))
+> +			continue;
+> +
+>  		/*
+>  		 * For saving the early microcode, find the matching revision which
+>  		 * was loaded on the BSP.
+> @@ -878,6 +901,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+>  		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
+>  			continue;
+>  
+> +		if (!revision_is_safe(&uci->cpu_sig, mc_header.rev))
+> +			continue;
+> +
+>  		is_safe = ucode_validate_minrev(&mc_header);
+>  		if (force_minrev && !is_safe)
+>  			continue;
 
