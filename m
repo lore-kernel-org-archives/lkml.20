@@ -1,95 +1,319 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E14B49B44A;
-	Thu, 17 Sep 2026 21:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D342B3B19A3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680739; cv=none; b=YmERPEheOw/2+5ByuyLe5HJdDx3AGRxizN4txRb5mNhDfXBOXs1UVJXHK3NGdvUas5H1+h3eQzPrR4PxPlr7KhRdEfYbjrk8tPDJ8/XX5KTaogfGXQ2plpegDO33V5OAIlZpJowNPDmHZi2/1frA/voBIXdoXWG5BL6PW+qjSAM=
+	t=1789680965; cv=none; b=M6bdneq+p2L64m36wxEUk52OCMplK2tygLJ1+XDLpKUk2vGr5pfA5t4ajmxc32hu+VlMBFBpIeNt5crSKdFuGjkymV2Wpku4b8uNDwd34HI3ent1iXlT0aSO+Jdzu2dLCCRuWmohxgv30zWNtaBhm+q8T2PDmhXwWrO2Ck+yISg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680739; c=relaxed/simple;
-	bh=el1WHaS1dYYEDt96LaHzK2Xdh0bUebajf8pZOHrBkP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jtt3HRah0AfqIodQs+D1TBO0KQzTM0o/CwkV7eV1tCl9FtQ8Bm8Eu1TvKu7y149aoyWiM4z/l/I7LKHzzlBHjsV8fXVVBOmoPZDlt7nB3p+J+mVTBgOAa7MXFYYby7FVGa1IdEn+ODRMyRm747+Td0Vn19rUJutkZQPAHnJFVpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZTKvqfx6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789680965; c=relaxed/simple;
+	bh=52AsRwXMoovtJKh7XNiBOhqI0uOHeCsLkfsr9QJ6bao=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=F4ZG/305kzEkQCiXSl2PjPREH60jW1rvsQaue5bLTlswturV3JFx5ripmLNDsBCRSdq+/JP/ySRwwtSQ8VvqqeWvXBn+DkokVjmJHdjXmeSsAz2vi4MV40CgD49LV96QzCRNwsK2O9A6ZFIXF7bEwfPYKpm/j70zFKyMHatDmkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dBug+zQi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U7DjrVwp; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZTKvqfx6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12FBC1F000FF;
-	Thu, 17 Sep 2026 21:32:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789680738;
-	bh=WAitvtvDwVCfK0MvrLl9cl3GHGpBKB8z+LgVcEI8TDI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZTKvqfx6tRci4+eC7stPSKnuWLqGDFQ7XCvfM4AwtF7uAbkmaZuNXRI6NAr/8PGbo
-	 YYiDENx2SmdtEntZ5ntcEvvs6kBVaLw2Wx/73rk2MUPCHY05GG7a6xLuA9Yvb9A38b
-	 1nERfcHIe0YOMRvRJuTNSTVqQ4cqJlu7z4SiwWZ44bQi0aX+X865iayo3zhrNw4bO9
-	 dXp/fUsWFvT+JAd+P8/giaZvZ/sTEKjqZYgbIDyxqHt2Kz4RIj7qd9aHJrGRrUmmhu
-	 1uWENc3ITVpis9dSJc24OtC2xGgajo65vAFdNir7pahrkiMp5KfcLEbDf+bkfWbAQO
-	 0Lw+UQTATl1iA==
-Message-ID: <37f07dcb-9b4a-4767-8d0c-471148729c20@kernel.org>
-Date: Thu, 17 Sep 2026 22:32:15 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dBug+zQi";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U7DjrVwp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789680962;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GPQYwNrXtzx5wg61th1A6MtnGzGLpKWbnnt0jGgdHkE=;
+	b=dBug+zQiW8R2QOCvk/iEDSnMLm6V0thpyulnCVq6Hlvs7+Bce5PPhOQUYqdUsJnOwVRKla
+	2njQjlT5lLDgyu/k8ooOecepYd244sBIoopJJxPuWRvN3liUZYOGyi5NKiA8YVjuw8GMfC
+	sTBTyqbVY03r2g8BG9ikdpPgz18s4u8=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-184-lBWSfjr3NTizt7HNpzIMWg-1; Thu, 17 Sep 2026 17:36:01 -0400
+X-MC-Unique: lBWSfjr3NTizt7HNpzIMWg-1
+X-Mimecast-MFC-AGG-ID: lBWSfjr3NTizt7HNpzIMWg_1789680961
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9124b265371so3566906d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:36:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789680960; x=1790285760; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GPQYwNrXtzx5wg61th1A6MtnGzGLpKWbnnt0jGgdHkE=;
+        b=U7DjrVwpprFAQLycjHUVUJtP9wQnbKYAtLDiki94cd9xo6uJvK+tFlD1gmX0iM+iHc
+         hY1WZzpnwycErRAZvCRigm97pid42Ur2EbLf9aZXcf5XCbn5Rp0/HFyelbZrGvzdesTd
+         T7BHavLS7wyte8WV39Y0qfFBmIuCv6AQz+OQecbyU2vYfcCqV8z2P/CW5baFJv14xVpz
+         8ct8sUA1S09Hkm6HvpzWr6n91/vaqDIGdgtWJr3iOWwC6Hqj/DyGAT8ELT63Wftp3PRu
+         NaWH0oiV/wIaLdqlJjzVrv9wXMlSh/GL1Ug30kBNq2EUjq7/exkUJ6X40e7hygRBZkrZ
+         lFYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789680960; x=1790285760;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GPQYwNrXtzx5wg61th1A6MtnGzGLpKWbnnt0jGgdHkE=;
+        b=CC6udamYFYLprMWg70sIAjVNGW50xNcOM6ObVG1kX5yMNzt/zcbrgf6o5+YQeTXsUf
+         D9w/k7I4SIr0hVCw3HJCeDy63HzmksxWDVre5puFULLaEPjLiRsDqlqUBYmAH6gnhFkT
+         Zmt1ga40iTtq9lVc2aE8griZG6p3Ca+YoA+i/66dWPbCDrWv5be0kzaZq1Zx8aJQ9jVX
+         qLVVRxS0ilsrEs8tQe585JaI2KAxMcRhEkE0HM7k9jHD45Cpth7rzHRS1a5CFslk+zsz
+         HB6+GwpqwknbIuCPLo/Mf6BXD4V4+APbUxOQCJy2CIEIOTnwg4A6e0yvytdvf5wC8De2
+         gRYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4PaLbRwLohOTTpzBpHalVgEaUjNnkhSJMs9oe7DKGwLKebagRQ9afKgzlNtMVLlCXkPdrmhFKCDoa6zg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgZgp4DmzIHGa/ySDj/jaBEluxn66lP1WOky4QOfFZyomtjHW6
+	HStsVSGiO5i4b7EfqrKmUbzaXwiNaNH3FHcntwpkZzd8wtpd5zW6leTJXMZLrFAVYHJlj59ahsl
+	EKbbjr7rqjy+ZHbxdeh1KAhX9W028YF8mAKazOBvr94S7Fm5lUAhRdQodK4BpCFz6IQ==
+X-Gm-Gg: AYBFou35rnqcqIB/wIhebJgj/QY57yGbUg+0RCtR5yWQ1UYrxJWNAkT1TM2V8Vfmba4
+	99mhC71SSqR7F9LBTKnLRPOZ405VK4b0+CksppauexViWBm5uUut5yV54XZi2a3y7KdVgUE6Qb5
+	ZblDCS622G4bt+/tELjOHcXGyjIRggX3xrqOdvZaV2nEia3eQwps2zLbooQbyQZqzUUFBmbOsj/
+	W6I0obO8U6z2GPzc3PuCIixUiDfGMR9jfkKUPsYI38HSxWh/CQ4TsrzKHDLyxEfDkwt5ZOpFnod
+	p0nKcIQiDs3wrcMF2eVn/MW677cQMoqFRAAUxrO9EOEweu4vO3W+iio02sRlwP4yI39dIxds
+X-Received: by 2002:a0c:fa46:0:b0:912:428a:8bb2 with SMTP id 6a1803df08f44-91254b57120mr8659266d6.19.1789680960562;
+        Thu, 17 Sep 2026 14:36:00 -0700 (PDT)
+X-Received: by 2002:a0c:fa46:0:b0:912:428a:8bb2 with SMTP id 6a1803df08f44-91254b57120mr8659126d6.19.1789680960046;
+        Thu, 17 Sep 2026 14:36:00 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cd9fc8sm7298096d6.38.2026.09.17.14.35.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 14:35:59 -0700 (PDT)
+Message-ID: <c0c9f4af21a0918f1198cc929820c01c1190f5b6.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau/uvmm: fix UAF in nouveau_uvmm_sm when BO is
+ in TTM_PL_SYSTEM
+From: lyude@redhat.com
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, airlied@redhat.com
+Date: Thu, 17 Sep 2026 17:35:57 -0400
+In-Reply-To: <0D77BEC410CE0129+20260907052204.1431488-1-peiyang_he@smail.nju.edu.cn>
+References: 
+	<0D77BEC410CE0129+20260907052204.1431488-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmem: core: Add const to pattrs allocation type
-To: Kees Cook <kees@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
-Cc: Kees Cook <kees+treewide@kernel.org>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20260917211423.i.786-kees@kernel.org>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260917211423.i.786-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
+Will push to drm-misc-fixes in just a moment
 
-On 9/17/26 10:14 PM, Kees Cook wrote:
-> From: Kees Cook <kees+treewide@kernel.org>
-> 
-> In preparation for making the devm_kmalloc family of allocators type
-> aware, we need to make sure that the returned type from the allocation
-> matches the type of the variable being assigned. (Before, the allocator
-> would always return "void *", which can be implicitly cast to any
-> pointer type.)
-> 
-> The assigned type is "const struct bin_attribute **", but the converted
-> allocation type would be "struct bin_attribute **", which is the same
-> type without the const qualifier. As there is no general way to safely
-> add const qualifiers, take the size from the assignment target instead.
-> No change in allocation size results.
-> 
-> Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
-> drivers/nvmem/core.o
-> 
-> Assisted-by: LLM coccinelle
-> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+On Mon, 2026-09-07 at 13:22 +0800, Peiyang He wrote:
+> nouveau_uvmm_sm() calls op_map(), which passes bo->resource through
+> nouveau_mem() to nouveau_uvma_map(). nouveau_uvmm_vmm_map() then
+> reads
+> mem->mem.type.
+>=20
+> But this is only valid when bo->resource is backed by struct
+> nouveau_mem,
+> as is the case for VRAM and TT resources. If the BO is left in
+> TTM_PL_SYSTEM, bo->resource is only a struct ttm_resource. Treating
+> it
+> as struct nouveau_mem makes the mem->mem.type read past the end of
+> the
+> resource, causing a KASAN: slab-use-after-free Read in
+> nouveau_uvmm_sm
+> report:
+>=20
+> BUG: KASAN: slab-use-after-free in nouveau_uvmm_vmm_map
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:152 [inline]
+> BUG: KASAN: slab-use-after-free in nouveau_uvma_map
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:199 [inline]
+> BUG: KASAN: slab-use-after-free in op_map
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:849 [inline]
+> BUG: KASAN: slab-use-after-free in
+> nouveau_uvmm_sm.constprop.0+0x6ab/0x900
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:903
+> Read of size 1 at addr ffff888127d3e3a0 by task kworker/0:1/11
+>=20
+> CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0 #5
+> PREEMPT(lazy)=20
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-
+> debian-1.16.3-2 04/01/2014
+> Workqueue: nouveau_sched_wq_2224 drm_sched_run_job_work
+> Call Trace:
+> =C2=A0<TASK>
+> =C2=A0__dump_stack lib/dump_stack.c:94 [inline]
+> =C2=A0dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+> =C2=A0print_address_description mm/kasan/report.c:378 [inline]
+> =C2=A0print_report+0xcb/0x5a0 mm/kasan/report.c:482
+> =C2=A0kasan_report+0xca/0x100 mm/kasan/report.c:595
+> =C2=A0nouveau_uvmm_vmm_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:152
+> [inline]
+> =C2=A0nouveau_uvma_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:199 [inline=
+]
+> =C2=A0op_map drivers/gpu/drm/nouveau/nouveau_uvmm.c:849 [inline]
+> =C2=A0nouveau_uvmm_sm.constprop.0+0x6ab/0x900
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:903
+> =C2=A0nouveau_uvmm_sm_unmap drivers/gpu/drm/nouveau/nouveau_uvmm.c:932
+> [inline]
+> =C2=A0nouveau_uvmm_bind_job_run+0xd6/0x250
+> drivers/gpu/drm/nouveau/nouveau_uvmm.c:1532
+> =C2=A0nouveau_job_run drivers/gpu/drm/nouveau/nouveau_sched.c:350 [inline=
+]
+> =C2=A0nouveau_sched_run_job+0x62/0xd0
+> drivers/gpu/drm/nouveau/nouveau_sched.c:364
+> =C2=A0drm_sched_run_job_work+0x356/0xa10
+> drivers/gpu/drm/scheduler/sched_main.c:1061
+> =C2=A0process_one_work+0x8a5/0x1900 kernel/workqueue.c:3322
+> =C2=A0process_scheduled_works kernel/workqueue.c:3405 [inline]
+> =C2=A0worker_thread+0x5dd/0xd80 kernel/workqueue.c:3486
+> =C2=A0kthread+0x31d/0x420 kernel/kthread.c:436
+> =C2=A0ret_from_fork+0x662/0x940 arch/x86/kernel/process.c:158
+> =C2=A0ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> =C2=A0</TASK>
+>=20
+> Allocated by task 2224 on cpu 0 at 66.550027s:
+> =C2=A0kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+> =C2=A0kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+> =C2=A0poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+> =C2=A0__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+> =C2=A0kasan_kmalloc include/linux/kasan.h:263 [inline]
+> =C2=A0__do_kmalloc_node mm/slub.c:5334 [inline]
+> =C2=A0__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
+> =C2=A0_kmalloc_noprof include/linux/slab.h:992 [inline]
+> =C2=A0dma_resv_list_alloc+0x27/0x90 drivers/dma-buf/dma-resv.c:106
+> =C2=A0dma_resv_reserve_fences+0x60e/0xa30 drivers/dma-buf/dma-resv.c:205
+> =C2=A0ttm_bo_alloc_resource+0x12c/0xbd0 drivers/gpu/drm/ttm/ttm_bo.c:721
+> =C2=A0ttm_bo_validate+0x1bc/0x4a0 drivers/gpu/drm/ttm/ttm_bo.c:856
+> =C2=A0ttm_bo_init_reserved+0x2c3/0x570 drivers/gpu/drm/ttm/ttm_bo.c:970
+> =C2=A0nouveau_bo_init+0x159/0x2c0 drivers/gpu/drm/nouveau/nouveau_bo.c:35=
+9
+> =C2=A0nouveau_gem_new+0x234/0x5f0
+> drivers/gpu/drm/nouveau/nouveau_gem.c:272
+> =C2=A0nouveau_gem_ioctl_new+0x1eb/0x420
+> drivers/gpu/drm/nouveau/nouveau_gem.c:352
+> =C2=A0drm_ioctl_kernel+0x192/0x350 drivers/gpu/drm/drm_ioctl.c:817
+> =C2=A0drm_ioctl+0x4f8/0xb40 drivers/gpu/drm/drm_ioctl.c:914
+> =C2=A0nouveau_drm_ioctl+0xea/0x2c0
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1338
+> =C2=A0vfs_ioctl fs/ioctl.c:51 [inline]
+> =C2=A0__do_sys_ioctl fs/ioctl.c:597 [inline]
+> =C2=A0__se_sys_ioctl fs/ioctl.c:583 [inline]
+> =C2=A0__x64_sys_ioctl+0x180/0x1d0 fs/ioctl.c:583
+> =C2=A0do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+> =C2=A0do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+> =C2=A0entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>=20
+> Freed by task 2223 on cpu 0 at 66.554063s:
+> =C2=A0kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+> =C2=A0kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+> =C2=A0kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+> =C2=A0poison_slab_object mm/kasan/common.c:253 [inline]
+> =C2=A0__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+> =C2=A0kasan_slab_free include/linux/kasan.h:235 [inline]
+> =C2=A0slab_free_hook mm/slub.c:2677 [inline]
+> =C2=A0__rcu_free_sheaf_prepare+0xb6/0x2e0 mm/slub.c:2928
+> =C2=A0rcu_free_sheaf+0x1b/0x120 mm/slub.c:5978
+> =C2=A0rcu_do_batch kernel/rcu/tree.c:2645 [inline]
+> =C2=A0rcu_core+0x521/0x1490 kernel/rcu/tree.c:2897
+> =C2=A0handle_softirqs+0x1b1/0x8a0 kernel/softirq.c:622
+> =C2=A0__do_softirq kernel/softirq.c:656 [inline]
+> =C2=A0invoke_softirq kernel/softirq.c:496 [inline]
+> =C2=A0__irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+> =C2=A0irq_exit_rcu+0x9/0x20 kernel/softirq.c:752
+> =C2=A0instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062
+> [inline]
+> =C2=A0sysvec_apic_timer_interrupt+0x70/0x80
+> arch/x86/kernel/apic/apic.c:1062
+> =C2=A0asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> arch/x86/include/asm/idtentry.h:674
+>=20
+> The buggy address belongs to the object at ffff888127d3e380
+> =C2=A0which belongs to the cache kmalloc-96 of size 96
+> The buggy address is located 32 bytes inside of
+> =C2=A0freed 96-byte region [ffff888127d3e380, ffff888127d3e3e0)
+>=20
+> The buggy address belongs to the physical page:
+> page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0
+> pfn:0x127d3e
+> flags: 0x200000000000000(node=3D0|zone=3D2)
+> page_type: f5(slab)
+> raw: 0200000000000000 ffff888100041280 dead000000000122
+> 0000000000000000
+> raw: 0000000000000000 0000000000200020 00000000f5000000
+> 0000000000000000
+> page dumped because: kasan: bad access detected
+>=20
+> Memory state around the buggy address:
+> =C2=A0ffff888127d3e280: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+> =C2=A0ffff888127d3e300: 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc
+> > ffff888127d3e380: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
+> =C2=A0ffff888127d3e400: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+> =C2=A0ffff888127d3e480: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+>=20
+> Fix by resetting the placement to the BO's valid domains before
+> calling nouveau_bo_validate(), matching the handling in
+> nouveau_uvmm_bo_validate(), so map jobs do not run for SYSTEM
+> resources;
+> Reject BO that cannot reside in VRAM or GART;
+> Also skip op_map() when the GPUVA has been invalidated, matching the
+> handling in the unmap and remap paths.
+>=20
+> Found when fuzzing the nouveau driver with a modified Syzkaller.
+>=20
+> Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Assisted-by: Codex:gpt-5.5
 > ---
-> Cc: Srinivas Kandagatla <srini@kernel.org>
-> ---
->  drivers/nvmem/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> index 0556d140170a..19edc9ab0282 100644
-> --- a/drivers/nvmem/core.c
-> +++ b/drivers/nvmem/core.c
-> @@ -485,7 +485,7 @@ static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
->  	/* Allocate an array of attributes with a sentinel */
->  	ncells = list_count_nodes(&nvmem->cells);
->  	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
-> -			      sizeof(struct bin_attribute *), GFP_KERNEL);
-> +			      sizeof(*pattrs), GFP_KERNEL);
-
-Thanks for the patch, while you are at it, there are few more instances
-just below this.
-
---srini
->  	if (!pattrs)
->  		return -ENOMEM;
->  
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_uvmm.c | 13 +++++++++++--
+> =C2=A01 file changed, 11 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> index fc125fd44a9b..2026fe6b48c6 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> @@ -846,6 +846,9 @@ op_map(struct nouveau_uvma *uvma)
+> =C2=A0{
+> =C2=A0	struct nouveau_bo *nvbo =3D nouveau_gem_object(uvma-
+> >va.gem.obj);
+> =C2=A0
+> +	if (drm_gpuva_invalidated(&uvma->va))
+> +		return;
+> +
+> =C2=A0	nouveau_uvma_map(uvma, nouveau_mem(nvbo->bo.resource));
+> =C2=A0}
+> =C2=A0
+> @@ -1232,6 +1235,7 @@ bind_lock_validate(struct nouveau_job *job,
+> struct drm_exec *exec,
+> =C2=A0
+> =C2=A0		drm_gpuva_for_each_op(va_op, op->ops) {
+> =C2=A0			struct drm_gem_object *obj =3D
+> op_gem_obj(va_op);
+> +			struct nouveau_bo *nvbo;
+> =C2=A0
+> =C2=A0			if (unlikely(!obj))
+> =C2=A0				continue;
+> @@ -1246,8 +1250,13 @@ bind_lock_validate(struct nouveau_job *job,
+> struct drm_exec *exec,
+> =C2=A0			if (va_op->op =3D=3D DRM_GPUVA_OP_UNMAP)
+> =C2=A0				continue;
+> =C2=A0
+> -			ret =3D
+> nouveau_bo_validate(nouveau_gem_object(obj),
+> -						=C2=A0 true, false);
+> +			nvbo =3D nouveau_gem_object(obj);
+> +			if (!(nvbo->valid_domains &
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (NOUVEAU_GEM_DOMAIN_VRAM |
+> NOUVEAU_GEM_DOMAIN_GART)))
+> +				return -EINVAL;
+> +
+> +			nouveau_bo_placement_set(nvbo, nvbo-
+> >valid_domains, 0);
+> +			ret =3D nouveau_bo_validate(nvbo, true,
+> false);
+> =C2=A0			if (ret)
+> =C2=A0				return ret;
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0
 
