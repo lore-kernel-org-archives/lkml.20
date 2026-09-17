@@ -1,115 +1,96 @@
-Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF1934EB856;
-	Thu, 17 Sep 2026 17:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2784D17A2;
+	Thu, 17 Sep 2026 17:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789666932; cv=none; b=K8Ua2icDb+W/+jmLSJltwoo2Yep/zFUHJuqBI7lQ08AhF9CC3mPKnyolJAo+K3sr15JmCwoUbVnCEh2V9XRQDh5qNP6y4QfnSVS5AJctFYUM+3LM213Zb48AmEHIvW29qJ+dxMV3z/s+5zVdMOOHXXjqq589aIdaZgL+/T72FiA=
+	t=1789667059; cv=none; b=dfb7h7fyMV+/86lyezunLN5/BkY+TgJSgM4aRPdtuJC6JlC9H594jKpmBUF6I7gtyzIe0v0FwWbP7obpfFHRNiXRQYHX01kNiZdStMa6UYA2kBniw4PU6jXOGKkr9eco6zhZeFFlnA4LQFnAr1PTBVIlyh/LpQ7VqzrzI3rpQ9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789666932; c=relaxed/simple;
-	bh=NHHc4y0Y32HjeDzKmPrMdvv7ABkyjJFUGzW3+qTTm5o=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=cpYBAQznCaXaSFXbYprPJtd/gaMimZWhEZMOTwFcCxWIQRU7wgoxI4JBxtF50MnfhY/Xed6and/weN2io37KYJo0/nNHybs88S2nP9HaxRaG/xkmtPvct9HmebnJOG4N2vjciSiKaVSpTx2sc9raxk+BsE86E8pRwU63WUHLz4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=678ts7bp; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=FByVuGTJ; arc=none smtp.client-ip=160.80.4.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1789667059; c=relaxed/simple;
+	bh=hv3na7/nQgMbxQLaY+j3n5VbiUqmgVcku9u0PT/EKF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sA1meZaIXdsvlyYkWscRRB8iTtCbjR7CX3vx37r2mar/RRiVd7E3PAQR+rOK4VFR7TfRbixW+UeeJ1P1hovg12TcaAXMRyqxkvWgfQB7Q4Y0FNLu8ld70NcE+ET4m0s+/aLdRPKQVzYXMq/bacC9pFf1aKKNOcdMqh+nt2BS5Z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ldr4nFBF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="678ts7bp";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="FByVuGTJ"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68HHfXJD010699;
-	Thu, 17 Sep 2026 19:41:38 +0200
-Received: from lubuntu-18.04 (unknown [139.28.148.6])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 4EEA7122885;
-	Thu, 17 Sep 2026 19:41:29 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1789666889; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MJh67ZsdoSJ2VmJoLbPlfwH2YuC1ln+5OOMOZoHQIrk=;
-	b=678ts7bp5LQYI8HW0nWSCa58BwtZvLooPHZV/M11wB+DVpPtX8H13m7svOVdRTtK+BYm2k
-	ZU1MQTFk6N0kaxCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1789666889; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MJh67ZsdoSJ2VmJoLbPlfwH2YuC1ln+5OOMOZoHQIrk=;
-	b=FByVuGTJKF9FHIm5QswKlv3uIMzQIMd7UpmBBBecBXdq6j+X9+FXSJrlyjwFcn1QTlHyGZ
-	JtZK2RH+l3Ecm9DkaJkGNX7yYrTE/CYkCqEhrnaMjsekJlAX/ymZLgUMV2X9vBmtx7+GnC
-	1EAVM1r2X3ww1zOweZGJKR05p65Gtsw0+eNNTmAMaCP5bc0zbkAe2bbi89eo/pH6S8P/Jz
-	XX+0X/AiGBX53rwcXzY7y/2wzsWO6Xupes4Psg/vhqXY9mGNqA8BiPVt2w2Qcs7QCa8AFL
-	gwR81H59Vm2oNewjha48zrRh4XIhI75VQFgMkPh1FN0TFCL6KmfADBvsa3vJWw==
-Date: Thu, 17 Sep 2026 19:41:28 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, dsahern@kernel.org,
-        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org, idosch@nvidia.com,
-        alex.aring@gmail.com, justin.iurman@gmail.com, bestswngs@gmail.com,
-        stefano.salsano@uniroma2.it, xmei5@asu.edu, stable@vger.kernel.org,
-        Andrea
- Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net v3] ipv6: rpl: fix NULL dereference of idev in
- ipv6_rpl_srh_rcv()
-Message-Id: <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
-In-Reply-To: <aqk49jT8tGsqn61d@fedora>
-References: <20260817132644.2223-1-andrea.mayer@uniroma2.it>
-	<aqjflqdySFG51YEa@fedora>
-	<aqk49jT8tGsqn61d@fedora>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ldr4nFBF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3DA81F00898;
+	Thu, 17 Sep 2026 17:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789667057;
+	bh=o8t0uG7E/uqhNTiPvbHo7UwXr4W2cYCMc4ofCJI1mX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ldr4nFBFOw6TPOxueHSHbklvn48Qy3syIjOsXs7I6UcQTE2m/oKdxy7UwJF+Qfcqk
+	 YltPrrl6XBEeGlpvlgPo/VXJNfUeIm/FAvUkQ68c3yX35vmOWW7lkuPQAx4cTD/XCK
+	 fdmLzL6Nra8hQ2fNt+ui9fSmG9R6Clo2VmKHYbCCwnaTTE8KbDAwidHmiXdSYNI85U
+	 W0jt/FttxkfT1qLWZHJGExQQvu8UEPGgfzswfk9D/jfQVw+ArkwzTkWIZe316OF1iL
+	 V9zCji0IocQ2CZCKK4LUKQ6zrX6UcmEBFvSFxrckHT4qvWyD6Yg1axxPfyWQCQo2mD
+	 +EudT3LXTkexA==
+Date: Thu, 17 Sep 2026 10:44:17 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 06/20] elf-parse: add section flags, symbol binding
+ and a read-only mapping
+Message-ID: <202609171044.EF5672D54@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-6-9ecf4163ff36@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-build-speedup-v3-6-9ecf4163ff36@kernel.org>
 
-On Tue, 15 Sep 2026 20:24:22 +0800
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
+On Thu, Sep 17, 2026 at 05:06:16PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-> On Tue, Sep 15, 2026 at 02:03:12PM +0800, Hangbin Liu wrote:
-> > Hi Andrea,
-> > 
-> > While reviewing the SRv6 code, I noticed you added an `idev` check in
-> > `ipv6_rthdr_rcv()`. I’m wondering whether it makes sense to also halt
-> > processing for `IPV6_SRCRT_TYPE_2` when `!idev`, given that IPv6 is
-> > disabled on that device.
-> > 
-> > If so, could we drop the skb early at the entry point of `ipv6_rthdr_rcv()`?
-> > The downside is that subsequent processing and `__IP6_INC_STATS()` would be
-> > skipped.
-> 
-> Oh, another behavior change. At present, if !idev, we can still process the
-> IPV6_SRCRT_TYPE_2 message. And the process will be skipped if we return early.
-> I'm not sure if this kind of change is acceptable or not in kernel.
-> 
-> But on the other hand, is it correct to accept and forward SRCRT Type 2
-> packets on device that IPv6 is disabled?
-> 
-> Thanks
-> Hangbin
+LGTM
 
-Hi Hangbin,
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-One case is when IPv6 is already disabled as the packet arrives:
-ip6_rcv_core() drops the packet before ipv6_rthdr_rcv().
-The other is the transient window: dev->ip6_ptr can be cleared after
-that check, and ipv6_rthdr_rcv() can then find idev NULL.
-In that window the TYPE_2 path can run without idev. ipv6_srh_rcv() and
-ipv6_rpl_srh_rcv() cannot: they read idev->cnf. That is why the check
-sits before those two calls.
-
-On the counters: __IP6_INC_STATS() goes through _DEVINC(), which skips
-the per-device bump when idev is NULL and still increments the per-net one.
-Stopping TYPE_2 in that window as well is a behaviour change, and I think
-it would need a reason of its own.
-
-Thanks
-Andrea
+-- 
+Kees Cook
