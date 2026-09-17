@@ -1,224 +1,377 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547784519A0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A58A447805
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627738; cv=none; b=gm2zLAjwkceMseqtMSy5jC9IBy+Yc/U3onDa5tAsVUHwrIACGhl5A/+B2q8lUcv1aW9l0rNAAkWE2Wh+h4PT6a1Ana3R1vdau/OV6TUB6FgcDJU7fjOLqGVzquPDBAJstZdmgAdSglBFzwKIa0dRQ0qzPUAf6Ab5sDVA0mXFNWA=
+	t=1789627745; cv=none; b=GlNr48VmyQGzH7SXsVWxfNY6h3wcTTR8c9pRGL1u0EmE3Ii4WPkM0PVZ9ugUa919TNzj0umKRV/vFvdehHnRpoVonCkkDIWBXSYTFTzqPhbyweABFkngPrufIXvZgoivyJ5JR2WJ0sn6arXoL7DrrQAj4HP3IEiRRQ5gp11oCMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627738; c=relaxed/simple;
-	bh=GuEvA3JdECBFpURHxbEYLFHZ0dyaUULS9nWuHwN13YA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SN5X8YJzlbPu3KmNk9kN7iMKSJ3y3LmXxmwx8UGufJpkMQhOuHyGmdy8L0lOwXol/10rPVedhp3Q4f4SJlACak6Q+T0N/ZMoGyB/WE2pTVjXl67Z0PZ48TGNBB3jjm6KQyuFi/BsA6wVfvwh5nyeEie89ro0Hndy2hdQ1COpO3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wr1e8G5U; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wr1e8G5U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789627736;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nBOKDWHJ5d/WX+9vDbLuOmrdk3Z30++1D+Jr/5PySfA=;
-	b=Wr1e8G5UZTjN8RF4Sme6EYrjHPWRpXcp/9C082akX344ABwT7B5UWTewkanZv6Q/Gii84u
-	MRKo1BPaHCX/hdHaUiyt0swpwxCj7iJjCGjjqTqdTxImCejcPPxWJmKAgtD1v3l8ePXHzU
-	BwLdKI9AfOrYwqPbxso6CGLTPXyN5e4=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-311-1nHO73epMROil569RZVwAQ-1; Thu,
- 17 Sep 2026 02:48:53 -0400
-X-MC-Unique: 1nHO73epMROil569RZVwAQ-1
-X-Mimecast-MFC-AGG-ID: 1nHO73epMROil569RZVwAQ_1789627732
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D75BE1955DB9;
-	Thu, 17 Sep 2026 06:48:51 +0000 (UTC)
-Received: from fedora.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id F366F3003EF4;
-	Thu, 17 Sep 2026 06:48:49 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jjohnson@kernel.org
-Cc: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v7 4/4] wifi: ath12k: implement custom wake_tx_queue with flow control
-Date: Thu, 17 Sep 2026 08:48:25 +0200
-Message-ID: <20260917064825.12747-5-jtornosm@redhat.com>
-In-Reply-To: <20260917064825.12747-1-jtornosm@redhat.com>
-References: <20260917064825.12747-1-jtornosm@redhat.com>
+	s=arc-20240116; t=1789627745; c=relaxed/simple;
+	bh=uLP7EXQwdqW1Wf3X8HQiEkF/eLPer5ndJSlhzhjcnEI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=uyoNzoBhnrYv7MhTAqburG8gFOnJ6iBD3YdtTKQ9J1iFeEfNts9HpIcojOZ+Df5WgbbVvkHKtyjiLQxxmHw3FqseQ/C25VgP4zsU+2c8Mqw2/KT4s2z94SBOj7K42K/RWdlTSQgFAGFjS+JupzkzOWCFNizSxdl0/jT47pcAKeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cbf700ddccso183557b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:49:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789627742; x=1790232542;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SrjWaV4YmLkNWDi0qJu8YfAg3wjnBV6El9eP+RYwtSc=;
+        b=yLUbnyyTa+DiAUC2amMcBb6sKJ7qBNVFhhmsq8LdJ28dLtxEwjBV1hQBChm+iehuDr
+         MCyhAFVGF+up0KRbBxNFlwudR8ZtUtKhrsSN5MQKfET52E0sbG8Tt0eQRO+TzpJASmfM
+         XX+wQmjwgpsLJPBGoJqGSYM7awW0w/HPOFTWo75VA0OHZwyGrUPDqMyx+6mNFuLl3mOh
+         4+XECjibB/8AeROlsf4Fi3S5GHZo6xfNx5ENH9T9BGrG7KGomS68hVdspqTA2rQuc3I3
+         wfXaFJq+MEbqTXCRkle47stLMOwiiERG6jV7mGEACt9EyQPFZPzaeeoO7zSJQri12gVE
+         +oQg==
+X-Forwarded-Encrypted: i=1; AKwUvBztULNtt5Y5Y1curk1EKB5JM/MzEjLJ+DBJZ1ICYKYkWYvb759dCBrqkyqSae83f9IaGrqOgq8dDFgtrFs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq84q7dPrAqb/8Mgx0hCqc0rSaN/x3pSJFSsQMg+qYbchVRH4a
+	VuMEqSa82BclJG4YkcW9rjD4lGkyyWioe8uud19pTWaz39dOLQdwJKbw8G3SsZnkLNktIsx7MUC
+	8Z1dn/9UX1vgy0nFJ+m185/UlvqGrd9OByEqiYrF3050s3MBsB1rnCp9/lwQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Received: by 2002:a05:6820:8183:b0:6c2:21ab:ec92 with SMTP id
+ 006d021491bc7-6c7d1fc9f2amr5106163eaf.30.1789627742459; Wed, 16 Sep 2026
+ 23:49:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 23:49:02 -0700
+In-Reply-To: <6aab45f1.70721e1c.396df2.be74SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab8d5e.71f81b7d.278072.0018.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] INFO: task hung in ieee80211_register_hw (8)
+From: syzbot <syzbot+c92af8613ad38696ff09@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Under heavy traffic, ath12k can hang and experiences -ENOMEM errors
-("failed to transmit frame -12") when the hardware TCL ring fills up.
-This issue is more commonly observed in VMs with PCIe passthrough but
-also occurs on bare metal systems.
+Hello,
 
-Implement a custom wake_tx_queue operation that:
+syzbot has tested the proposed patch but the reproducer is still triggering=
+ an issue:
+INFO: task hung in addrconf_dad_work
 
-1. Checks hardware ring space before dequeuing packets from mac80211
-2. Uses per-ring locking (wake_tx_lock with spin_lock_bh) to serialize
-   concurrent wake_tx_queue calls targeting the same ring and to ensure
-   bottom halves are disabled as required by ieee80211_tx_dequeue()
-3. Syncs with hardware state to get accurate free slot count
-4. Resolves the target TCL ring once using get_ring_selector(txq->ac),
-   which selects the ring based on the access category
-5. Returns early during firmware crash in the same way as other
-   tx paths
+INFO: task kworker/u8:11:3317 blocked for more than 149 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/u8:11   state:D stack:23784 pid:3317  tgid:3317  ppid:2      t=
+ask_flags:0x4208060 flags:0x00080000
+Workqueue: ipv6_addrconf addrconf_dad_work
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5526 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7276
+ __schedule_loop kernel/sched/core.c:7353 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7368
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7425
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ rtnl_net_lock include/linux/rtnetlink.h:134 [inline]
+ addrconf_dad_work+0x116/0x15c0 net/ipv6/addrconf.c:4235
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-This approach follows the pattern used in the iwlwifi driver, adapted
-for ath12k's hardware ring architecture.
+Showing all locks held in the system:
+locks held by kthreadd/2: 1, last CPU#1:
+ #0: ffffffff8eeac370 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_lock_acquir=
+e include/linux/srcu.h:198 [inline]
+ #0: ffffffff8eeac370 (remove_cache_srcu){.+.+}-{0:0}, at: srcu_read_lock+0=
+x27/0x60 include/linux/srcu.h:305
+locks held by kworker/0:0/9: 4, on CPU#0:
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_lo=
+ck_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_re=
+ad_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
+s_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
+s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
+quire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
+ck include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
+_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900000e7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
+eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807ee51440 (&wg->static_identity.lock){++++}-{4:4}, at: wg_noise=
+_handshake_consume_initiation+0x1a2/0x9b0 drivers/net/wireguard/noise.c:598
+ #3: ffff8880296de640 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
+e_consume_initiation+0x59c/0x9b0 drivers/net/wireguard/noise.c:632
+locks held by kworker/0:1/10: 2, last CPU#0:
+ #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: rcu_=
+lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: rcu_=
+read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: proc=
+ess_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88806f171d40 ((wq_completion)wg-crypt-wg0#3){+.+.}-{0:0}, at: proc=
+ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
+}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
+}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
+}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900000f7c40 ((work_completion)(&peer->transmit_packet_work)){+.+.=
+}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+locks held by kworker/u8:0/12: 3, last CPU#0:
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90000117c40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff8880580f07a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: class_wiphy_const=
+ructor include/net/cfg80211.h:6906 [inline]
+ #2: ffff8880580f07a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: cfg80211_wiphy_wo=
+rk+0xb4/0x420 net/wireless/core.c:526
+locks held by kworker/1:0/25: 3, last CPU#1:
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_lo=
+ck_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: rcu_re=
+ad_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
+s_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88806f172140 ((wq_completion)wg-kex-wg0#6){+.+.}-{0:0}, at: proces=
+s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
+quire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
+ck include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
+_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc900001f7c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
+eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff8880296de640 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
+e_begin_session+0x36/0xbf0 drivers/net/wireguard/noise.c:822
+locks held by kworker/1:1/30: 2, last CPU#1:
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_lo=
+ck_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_re=
+ad_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
+s_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
+s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
+quire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
+ck include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
+_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90000a57c40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
+eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+locks held by khungtaskd/32: 1, last CPU#1:
+ #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire inc=
+lude/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock includ=
+e/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8ed5c8a0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks=
++0x2e/0x180 kernel/locking/lockdep.c:6871
+locks held by kworker/u8:2/43: 4, last CPU#1:
+ #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: rcu_lo=
+ck_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: rcu_re=
+ad_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: proces=
+s_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88807cc09940 ((wq_completion)wg-kex-wg1#5){+.+.}-{0:0}, at: proces=
+s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90000b37c40 ((work_completion)(&peer->transmit_handshake_work)){+=
+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:347=
+9
+ #2: ffff888032a25440 (&wg->static_identity.lock){++++}-{4:4}, at: wg_noise=
+_handshake_create_initiation+0x12e/0x810 drivers/net/wireguard/noise.c:529
+ #3: ffff8880296d8d18 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
+e_create_initiation+0x13f/0x810 drivers/net/wireguard/noise.c:530
+locks held by kworker/u8:3/50: 3, last CPU#0:
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
+t_dw)->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:30=
+9 [inline]
+ #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
+t_dw)->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [=
+inline]
+ #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
+t_dw)->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [in=
+line]
+ #1: ffffc90000bb7c40 ((work_completion)(&(&nsim_dev->trap_data->trap_repor=
+t_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/=
+workqueue.c:3479
+ #2: ffff88807bd00258 (&devlink->lock_key#7){+.+.}-{4:4}, at: nsim_dev_trap=
+_report_work+0x57/0xb40 drivers/net/netdevsim/dev.c:834
+locks held by kworker/u8:5/60: 2, last CPU#0:
+ #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_lock=
+_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: rcu_read=
+_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_=
+one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880331c4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_=
+scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
+}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
+}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
+}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc9000201fc40 ((work_completion)(&(&bat_priv->tt.work)->work)){+.+.=
+}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+locks held by kworker/0:2/89: 3, last CPU#0:
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_lo=
+ck_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: rcu_re=
+ad_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
+s_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff8880718fd140 ((wq_completion)wg-kex-wg0#4){+.+.}-{0:0}, at: proces=
+s_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_lock_ac=
+quire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: rcu_read_lo=
+ck include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_one=
+_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc9000208fc40 ((work_completion)(&({ do { const void *__vpp_verify =
+=3D (typeof((worker) + 0))((void *)0); (void)__vpp_verify; } while (0); ((t=
+ypeof((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker)))))((uns=
+igned long)((__typeof_unqual__(*((worker))) *)(( unsigned long)((worker))))=
+ + (((__per_cpu_offset[(cpu)]))))); })->work)){+.+.}-{0:0}, at: process_sch=
+eduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff88807bef5c58 (&handshake->lock){++++}-{4:4}, at: wg_noise_handshak=
+e_begin_session+0x36/0xbf0 drivers/net/wireguard/noise.c:822
+locks held by kworker/u8:6/447: 3, last CPU#1:
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: rcu_=
+read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801b0ac140 ((wq_completion)events_unbound){+.+.}-{0:0}, at: proc=
+ess_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc90002f0fc40 ((work_completion)(&rdev->wiphy_work)){+.+.}-{0:0}, a=
+t: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #2: ffff8880582507a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: class_wiphy_const=
+ructor include/net/cfg80211.h:6906 [inline]
+ #2: ffff8880582507a0 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: cfg80211_wiphy_wo=
+rk+0xb4/0x420 net/wireless/core.c:526
+locks held by kworker/u8:7/1012: 3, last CPU#0:
 
-This prevents hangs, eliminates -ENOMEM errors, and improves throughput
-by optimizing resource usage and preventing unnecessary packet drops.
 
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+Tested on:
 
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
----
-v7: Address comments from Jeff Johnson:
-  - Add the defensive pattern _bh in both spinlocks
-v6: https://lore.kernel.org/all/20260811172435.616200-5-jtornosm@redhat.com/
-
- drivers/net/wireless/ath/ath12k/dp.c       |  1 +
- drivers/net/wireless/ath/ath12k/dp.h       |  2 +
- drivers/net/wireless/ath/ath12k/hal.c      |  1 +
- drivers/net/wireless/ath/ath12k/wifi7/hw.c | 69 +++++++++++++++++++++-
- 4 files changed, 72 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath12k/dp.c b/drivers/net/wireless/ath/ath12k/dp.c
-index f9b37d75956d..e62fa416b992 100644
---- a/drivers/net/wireless/ath/ath12k/dp.c
-+++ b/drivers/net/wireless/ath/ath12k/dp.c
-@@ -1537,6 +1537,7 @@ static int ath12k_dp_setup(struct ath12k_base *ab)
- 	}
- 
- 	for (i = 0; i < ab->hw_params->max_tx_ring; i++) {
-+		spin_lock_init(&dp->tx_ring[i].wake_tx_lock);
- 		dp->tx_ring[i].tcl_data_ring_id = i;
- 
- 		dp->tx_ring[i].tx_status_head = 0;
-diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
-index bef0f2ba0560..4bf8a8a6d76c 100644
---- a/drivers/net/wireless/ath/ath12k/dp.h
-+++ b/drivers/net/wireless/ath/ath12k/dp.h
-@@ -58,6 +58,8 @@ struct dp_tx_ring {
- 	u8 tcl_data_ring_id;
- 	struct dp_srng tcl_data_ring;
- 	struct dp_srng tcl_comp_ring;
-+	/* Serializes wake_tx_queue operations for this ring */
-+	spinlock_t wake_tx_lock;
- 	struct hal_wbm_completion_ring_tx *tx_status;
- 	int tx_status_head;
- 	int tx_status_tail;
-diff --git a/drivers/net/wireless/ath/ath12k/hal.c b/drivers/net/wireless/ath/ath12k/hal.c
-index c0c3d2f047ef..fbe4dc41e34b 100644
---- a/drivers/net/wireless/ath/ath12k/hal.c
-+++ b/drivers/net/wireless/ath/ath12k/hal.c
-@@ -390,6 +390,7 @@ int ath12k_hal_srng_src_num_free(struct ath12k_base *ab, struct hal_srng *srng,
- 	else
- 		return ((srng->ring_size - hp + tp) / srng->entry_size) - 1;
- }
-+EXPORT_SYMBOL(ath12k_hal_srng_src_num_free);
- 
- void *ath12k_hal_srng_src_next_peek(struct ath12k_base *ab,
- 				    struct hal_srng *srng)
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-index 678c512a2199..7bfeb9397465 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
-@@ -1160,9 +1160,76 @@ static void ath12k_wifi7_mac_op_tx(struct ieee80211_hw *hw,
- 	}
- }
- 
-+static void ath12k_wifi7_mac_op_wake_tx_queue(struct ieee80211_hw *hw,
-+					      struct ieee80211_txq *txq)
-+{
-+	struct ath12k_vif *ahvif = ath12k_vif_to_ahvif(txq->vif);
-+	struct ieee80211_tx_control control = {
-+		.sta = txq->sta,
-+	};
-+	struct ieee80211_vif *vif = txq->vif;
-+	struct ath12k_link_vif *arvif;
-+	struct dp_tx_ring *tx_ring;
-+	struct hal_srng *tcl_ring;
-+	struct ath12k_sta *ahsta;
-+	struct ath12k_dp *dp;
-+	struct sk_buff *skb;
-+	struct ath12k *ar;
-+	u8 ring_selector;
-+	int num_free;
-+	u8 ring_id;
-+	u8 link_id;
-+
-+	if (ieee80211_vif_is_mld(vif) && txq->sta) {
-+		ahsta = ath12k_sta_to_ahsta(txq->sta);
-+		link_id = ahsta->assoc_link_id;
-+	} else {
-+		link_id = ahvif->deflink.link_id;
-+	}
-+
-+	rcu_read_lock();
-+
-+	arvif = rcu_dereference(ahvif->link[link_id]);
-+	if (!arvif || !arvif->ar) {
-+		rcu_read_unlock();
-+		return;
-+	}
-+
-+	ar = arvif->ar;
-+	dp = ar->ab->dp;
-+
-+	ring_selector = dp->hw_params->hw_ops->get_ring_selector(txq->ac);
-+	ring_id = ring_selector % dp->hw_params->max_tx_ring;
-+	tx_ring = &dp->tx_ring[ring_id];
-+	tcl_ring = &dp->hal->srng_list[tx_ring->tcl_data_ring.ring_id];
-+
-+	while (1) {
-+		if (unlikely(test_bit(ATH12K_FLAG_CRASH_FLUSH,
-+				      &ar->ab->dev_flags)))
-+			break;
-+
-+		guard(spinlock_bh)(&tx_ring->wake_tx_lock);
-+
-+		spin_lock_bh(&tcl_ring->lock);
-+		num_free = ath12k_hal_srng_src_num_free(ar->ab, tcl_ring, true);
-+		spin_unlock_bh(&tcl_ring->lock);
-+
-+		if (num_free == 0)
-+			break;
-+
-+		skb = ieee80211_tx_dequeue(hw, txq);
-+		if (!skb)
-+			break;
-+
-+		ath12k_wifi7_mac_op_tx(hw, &control, skb);
-+	}
-+
-+	rcu_read_unlock();
-+}
-+
- static const struct ieee80211_ops ath12k_ops_wifi7 = {
- 	.tx				= ath12k_wifi7_mac_op_tx,
--	.wake_tx_queue			= ieee80211_handle_wake_tx_queue,
-+	.wake_tx_queue			= ath12k_wifi7_mac_op_wake_tx_queue,
- 	.start                          = ath12k_mac_op_start,
- 	.stop                           = ath12k_mac_op_stop,
- 	.reconfig_complete              = ath12k_mac_op_reconfig_complete,
--- 
-2.54.0
+commit:         7bc21b74 selftests: net: gro: fix OOB access when unde..
+git tree:       net-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=3D1153b925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D95af895ed08a9be=
+e
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Dc92af8613ad38696f=
+f09
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D14b6dbf95800=
+00
 
