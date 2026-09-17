@@ -1,308 +1,175 @@
-Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012021.outbound.protection.outlook.com [52.101.48.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EBB439F62
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636431; cv=none; b=cp1K+RHHde6gN2DKApg9b8zQx7GDrmT/xmHIndtRuKeUUI7tNXgJKaB1N4yZzTx0a6NrTMfUUYfyGK99WJa1kLXEBUXR8E4Vox7PFV7puns36qGHTl50Qhf87Lfvgm/uLT3Z87dUA+D31RkjKlY98h5mx/r1THA8XwtyElElCzA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636431; c=relaxed/simple;
-	bh=BvI+zmx0bHsSDRwo8/eGXtzYLY6Y0EC/pcKbtQ5XLG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dPaGrUtxYI/bVxdl0IASnCZljFPx8IEYYEgCuXHNaTJuTATMr17XA+X1jN2mzgPhCTrqNexEXlIZftbNgY0s9pzD+yAFLHxWNeWzRts8JJ1sof/+TfNa8aULO+m06+V595QT1hQxp3qDWbiz1YyL9yFUfxDI6hmoww+RXXiHVHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QRy2KXqQ; arc=none smtp.client-ip=91.218.175.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9261E495AE8;
+	Thu, 17 Sep 2026 09:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789636445; cv=fail; b=QZQj8Xhm74FSFiDocsFc7vRHjEv8h+whlzq8ZDtZvJ/zFGItSe14sJs4D7kP/oB3qZ1w34xo0JNFwSCRm6EuOWepEehd5I4LzIn8eV9rmxV/39K8IDdNMM11g92fI7hqWjvCi6MVu6O35VoNmUgjhQThRYAZg/0rUE5V26Dx73Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789636445; c=relaxed/simple;
+	bh=EAKiBs220ZwPvDcHQSpK5vFGT+uAPOI4HclTtRCAPLY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=g2ujkzspKSc8CLU6T3g4xtKYMUKInKxV9uZmqa/vkoaxuGcb88nRxY0lj16D5226CH6/i+tdr7pcs5nYv+NZ6QGt/RsDVFpt8vlbpaBDgZ2344LCf7Oco7+5ooOLJQ7Tm4vBOCtNx94bTJH+ahArQ/yNAcTzFqkbXoDMhnHQGbU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DFHtNIxp; arc=fail smtp.client-ip=52.101.48.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QRy2KXqQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BvI+zmx0bHsSDRwo8/eGXtzYLY6Y0EC/pcKbtQ5XLG8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789636426; v=1; x=1790241226;
- b=QRy2KXqQu6WCdJRyUYRN2Tg1fZOy//8PfYrpGbsf7QCOQd8NyM0i6hjR88ZEhcxdxBb4TERl
- i9bRu34LxQbzjSS3tDfZkO9+8JKRt5dKsM1KVurw4QuKt7ff6PHV6OQg+BVg0jY6dK7V3DdW4Fj
- 8RZ/hKulSICy/cI5dRnUMqkE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ec8b15142238164a;
-	Thu, 17 Sep 2026 09:13:45 +0000
-X-Mizu-Trace-ID: ec8b15142238164a
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 17 Sep 2026 17:13:39 +0800
-From: Hao Li <hao.li@linux.dev>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>, harry@kernel.org, 
-	akpm@linux-foundation.org, cl@gentwo.org, rientjes@google.com, roman.gushchin@linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/2] mm/slub: introduce slab parking to reduce
- list_lock contention
-Message-ID: <aqun4pdMge4QVmnL@fedora>
-References: <20260824122004.3652-1-hao.li@linux.dev>
- <20260824122513.3829-1-hao.li@linux.dev>
- <20260824122513.3829-2-hao.li@linux.dev>
- <8d73f087-42e2-454c-8e5f-93c1b64cb969@kernel.org>
- <aqPlMzUIw-4g2iOX@fedora>
- <23b15032-01c3-43fa-866f-296138228b5a@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DFHtNIxp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u0im24aBK5eHe+o55mbEZUEc+1n0kuKftuaFsgT5o07D7MGzIoMOaqCkArFQgt8kMjhW+kjiaLhtdBH2BDMZ+XEtHPLPE2FxrHh9xmYfMg54Teo1IfFc7Y9VsRuBZxpU0GU9uLGJr+3gPc4855w9/i1XEIdcGqyHJWiaeYSy6Cy+2jvO/oBwaAN9hsCsFENJMszAx7py4/t7wlzdfI7KkMbezfAnnEtrxb1unKScAQL72TaiuAxaYXX0ranK6aD/ANwJGGRmzlqrgoZzPfRLkiCyONA8eM2bDefO+Zcb3fGK4d4p7tlAlewUbmWcHypJPcM+DWbpCVjktXjCxJlsoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=su1rfIRsKkMmgbGb6XJGSY0JIEhPpcPuhhqaF0gfWI4=;
+ b=CiaQp2EfQ3yDmZeo1Z4qCkekp67jbjPMzN62GSuaPhfQ+/5lLs5a462YuPewo233cWJXAm6jQHj7OIYrOKjtvv9WmbdfrFVNVqhGpP2e8UzPvNuknUjHgc1gc/GI8szkbTl3ZwxRnPbKlYvCm/kk1zchxD5DM/SqtbThm+9p5EEw5ozI5p4UVHZNFYCWe4YRhnbDbjH5bKAh4GpEeHBKZl+c/khNeMI/wHJuMNRG0gGSOjIbTc89vuiWj/Fga+q+/iy9XcQoahr8aZNEmz+Xcj7OV3jOb7u860DrqYfRQRCGOWRcAADM4Mw+PZCnNi+JUXKp5dXz4QeLAbnNMJLG8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=su1rfIRsKkMmgbGb6XJGSY0JIEhPpcPuhhqaF0gfWI4=;
+ b=DFHtNIxph42A8Q/mM09IPVy/Wq60GnLeI/R8EskVFlH5JCPiyCzb7aD0KXks6ILNGALvvlMmx/mtZ7JDI60M+AK5bHxOc/LIooA+YAKVBx0Mu0txdrNNx1OPEJ2Rw8lyCb3qCh29YtnKeRvn/p5Cp1tf+khSmPLfA1H5MoLdtoc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9482.namprd12.prod.outlook.com (2603:10b6:208:58d::19)
+ by BN3PR12MB9569.namprd12.prod.outlook.com (2603:10b6:408:2ca::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
+ 2026 09:14:01 +0000
+Received: from BL4PR12MB9482.namprd12.prod.outlook.com
+ ([fe80::e4cf:3801:9631:2965]) by BL4PR12MB9482.namprd12.prod.outlook.com
+ ([fe80::e4cf:3801:9631:2965%5]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
+ 09:14:01 +0000
+Message-ID: <2b6e2d5e-4aa7-4498-b63a-f549f1bf22c8@amd.com>
+Date: Thu, 17 Sep 2026 14:43:54 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] dmaengine: dw-edma: IP name corrected under its
+ struct
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: mani@kernel.org, vkoul@kernel.org, frank.li@kernel.org,
+ den@valinux.co.jp, dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, michal.simek@amd.com, devverma@amd.com
+References: <20260907105453.1940646-1-devverma@amd.com>
+ <20260907105453.1940646-3-devverma@amd.com>
+ <aql2nUwXYLOXrLM6@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: "Verma, Devendra" <devverma@amd.com>
+In-Reply-To: <aql2nUwXYLOXrLM6@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PNYPR01CA0031.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25d::15) To BL4PR12MB9482.namprd12.prod.outlook.com
+ (2603:10b6:208:58d::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23b15032-01c3-43fa-866f-296138228b5a@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9482:EE_|BN3PR12MB9569:EE_
+X-MS-Office365-Filtering-Correlation-Id: 559ad408-6d69-450c-c493-08df149c0328
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|18002099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	eWy1zHRd7yhu3Ag0C1qwxFUThmjI59cmWdq0NuhbKKkC6Ltn590OZXUQlHlfdhjpuQtL6esKNikTr9wujQq5EkY8SIjfbs/eF6ewb+vo5gmzCMiqgcIOUeL427dcZZV2x1eg+QC/0M57kMsyXOxFlx7hJ0weCZ1y+x0nxuH//MHpRK6hytn9DOSvGazllt1jiXkP/d0Z1Sb3bsqov4O7PqemKyhS5g8GPRDvvbP6g+lo6Sfs44C5h/xWTdlocbDfrqUFskNGizdKdSBtZkoi9+OLwrgfB57f+otzJFgvKR3MGf1BtpHy54lYjfgzuJpgdZhJS5H+bSEiSzW9KVNrilJ/92TICF0tc0Xek9kUOxAYL72y//t3o4oDBFbBS6/cfOG8nK5qPip+kR3z0/lEwiYVkDvtSR3I7Ayl0ip/XjavCuCtvv0BIx7PXOn+9Te4BE/5tM9E6h9MswHco69K0xfJVjMbycL6xO8R6rxBfxQjhb64DAFMrgaF1Bf6qboboTneOOBksPIr3XhM4fy79jCsmBSuWCsZWun8oXaSMWMyJUTOJxjY0kWEAo9FkEpGKEeyNEhlm7v0N+W/HNoNYI+djFxsXmjotjcmviTlbblmwSK1ykSGkxDGDphJIB4/TG9CWFkeTDIQGYSOt0aRXW8r+Cthn857DuvAjua/fM8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9482.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TnprUEZnWERrYVJpZ0pMc2RiT2J3YlNnUDN4STJtaGo0VndzUWpFTXRad3Rt?=
+ =?utf-8?B?V1kvcVFWcWVSZGNpbE9JeGEzWklaNDRtNjdyOU5CWDNsYWpPNGE3dVhSUlpN?=
+ =?utf-8?B?NXk4TVIyaEcrT0NhdnIzend6RmhnSWo4YlMrL0FEUVh2NW1yUnVsYWhFaExW?=
+ =?utf-8?B?VHI5THZ1WUk1UmFuZUlYZ3c4dVhZV1dFZHNPcC9pNUdCd2RMczR3VU5sTUFZ?=
+ =?utf-8?B?Zmd3Y0h5Qk1RYnNiNGRPekJvN25NbFlFSnQzSVh4bWFvRGJoRXN1cVNMazMw?=
+ =?utf-8?B?eW1POEZicDB3QURsMDViTlF4ZllaamwwMGRheUFRSlpIT2V1R2w3SmNzejVO?=
+ =?utf-8?B?MHFLTWt6QityU2NiY1Z4U1E2QWVpRXRCWC8zeFMxeVpYYmVSU2dEbXpTbGFi?=
+ =?utf-8?B?Z05LbGdYZEs5ZVhxUUVOaU8xeitHM2FzRERoQWZ5Z0JMbERtOXl2UzNIQ2xt?=
+ =?utf-8?B?TTZ3eVFkajBoek5CbnhYSHNrNjRaanhPdXFHZG5RVW9vZm5kWThlbTNhMHBN?=
+ =?utf-8?B?Nm4wTkdCamJrRnVuV2JzMmVNdTM0ZHBIcmpMaEZKN1U1OERhdVNzV1BGSVBD?=
+ =?utf-8?B?QWhYVG96WGlEMVlxYkZleUg4ZWhLOUtScTVKb0dWWGRFTTFZNHl3emE2UEtl?=
+ =?utf-8?B?eUhCcE5xRERGbVN6QmJ3MXJ2eGp6cGEwSEZ5b2QvTW9iOXFPOG9OOExqOHhp?=
+ =?utf-8?B?MG9nTXNKc3ZrWkN5OFBtbjFKREV4eXB6aTZSdmVOUEhKQ3NRMmlNU01IZjc0?=
+ =?utf-8?B?ejRZZ2hPamNqdCt2d1ZGRGdrK3Z4WldDMzR6VmNoM293Vk5UK1FxQnVwK1JZ?=
+ =?utf-8?B?SHlFQldMYTB0YnR2Q2tRRUZyR0U0Sjk4UUUzUDNTT2t6U0hSWVhacjBCWWVN?=
+ =?utf-8?B?SGhmYXB6ZHFSM2JrT2FaSXMxRnJwUVB5VDlJOWdKWWFhcEF6YmErWDdZTjNM?=
+ =?utf-8?B?TVZrNG1PdFkzdVJTQWdsWnFQREN2STNqYm5WVis3T2pEcDY4WDFHbFhaYUdu?=
+ =?utf-8?B?dkR1RG8yUVBHaFBBeXR0TG5vdDMyb0RCZG1BaW5KZ0FuWG14c0RDdnprVEpn?=
+ =?utf-8?B?aFpnZWF5NTUwVkErRFdadWRHV2RWZElDUHV2YTZkdjFialdCOXgwNmJhcnFi?=
+ =?utf-8?B?VzJPR2kvN0puZHA3dnBHS2FaZkhObFJCeVNRTVpCbVh4YXVsSG1ORExwdlRH?=
+ =?utf-8?B?VS84SjU4dmtETVp6Mm5TUkcyRlNHVm9GS0RjekphbG5rWHlPMFAvUUgwQnZI?=
+ =?utf-8?B?L2kzMElZRVVqSkh0cWF0WjYybHBSR2FicXY4ZDdVQ2RpdWxhQWwraTc2M0Zm?=
+ =?utf-8?B?cEN3UFhkdzZ6ejlqS0VHNXFVQjk1NlJiY1BIRTYxSEFWZGkvSDl5dXBsWksw?=
+ =?utf-8?B?dEZFZThCdUNzeUs1dXBmT29IQml0RHNFMk5LZE8vd3Zud3djcGRoV0VsSlQw?=
+ =?utf-8?B?L0phYkgyeG9NaUx4aGhLQlROMXNWS0tjWC9qYnp2UEdUTEpaRFh1dW9YelNh?=
+ =?utf-8?B?cjlvako0ZlZaN3JhSXJVc0FDZmhOWUcrWHJ2cFRjMHJoU2xycGo0UDVQOHdy?=
+ =?utf-8?B?ZDlqS3BCdjM0Vkl6dWJXaHk5c3FmQXdJSzFqbjA3a3MxcDlTUVdCbERpTUpW?=
+ =?utf-8?B?TUFyVml2dGI0NjNGbGV0c0pwVXdXNnVSRVNjd0F5Y2FsUG1NYkZIYWFPemdU?=
+ =?utf-8?B?dmZoSkRmZ0ZXaC9wTzdKQ1I2UlExV0ZQN0sxWWoyK1l2OFpWeWhzVGpoTDFk?=
+ =?utf-8?B?R0o3K2Y0RnIyM0ZCY1ZzamJwL3BXazh5SlE2bWlGQitrcHI0R1V5eXQwWHRZ?=
+ =?utf-8?B?SExxOVRFNlczNHYxbjNpeEU1Wi9LY29JUzI5dSs0SE02T3JhTkJMUjBsN0c1?=
+ =?utf-8?B?clJ0dG5LcGIzUWNUdnVqcVBaVEordjlCZTdnWjZFcGdqZDJzSFg5TnhCbWUy?=
+ =?utf-8?B?VmRDaVJycTdhTS81QXBDL3dxb1VvK085NHBtNklYQnF3b05xSDJCT2FCck1Z?=
+ =?utf-8?B?L2dRQlJkZXo4ajNUS0xPRXplbTd5OEM3VzZKMVl3NzNoOUVBUnpuNXdnRUxX?=
+ =?utf-8?B?MVpYQ2psejFVNWg3Y3N6MkViSloyM0NkN2taMWYzVXZkNng2QWRtclRuRWJw?=
+ =?utf-8?B?bUdBaVZyUFFIRWxtbGIrMktnK3BXaFJRN3lMMHlkZVhQV003dFpKNDU2NUdE?=
+ =?utf-8?B?RjVzUzlJVWdWOUFYc3hMTVA5U2RPaFFRRTdQQ3dvaFZnSVdBenZjM2NPenBu?=
+ =?utf-8?B?L2FjQkZGU29BUVYwaXE2VDMyNkpNOEZZc05TN2ZIMTZTZlBjbm80YmtEMHNh?=
+ =?utf-8?B?ekp6LzNabjJrT2xjVWJiR3pqSkx3TXN1S0RlUDNUS0ZLbXU0MlF3dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 559ad408-6d69-450c-c493-08df149c0328
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9482.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 09:14:01.1353
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5l52YKtuKc2oGIMAgtXsjdHF0kkLBK0VVBXyTDEwZIkhXFnAUdL5sHMGXedX6Q6KxTpCeEcnYWf2Qpw3yEaxSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9569
 
-On Wed, Sep 16, 2026 at 10:01:00AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/11/26 15:06, Hao Li wrote:
-> > --- >8 ---
-> > mm/slub: refill prefilled sheaves from the barn
-> > 
-> > For evaluation.
-> > 
-> > ---
-> >  mm/slub.c | 118 +++++++++++++++++++++++++++++++++++++++++++++++++++---
-> >  1 file changed, 112 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/mm/slub.c b/mm/slub.c
-> > index 27a78d63f537..7d337dbe26a5 100644
-> > --- a/mm/slub.c
-> > +++ b/mm/slub.c
-> > @@ -427,6 +427,8 @@ struct node_barn {
-> >  	spinlock_t lock;
-> >  	struct list_head sheaves_full;
-> >  	struct list_head sheaves_empty;
-> > +	/* leftovers of prefill or refill, protected by barn->lock */
+On 15-Sep-26 22:17, Frank Li wrote:
+> On Mon, Sep 07, 2026 at 04:24:53PM +0530, Devendra K Verma wrote:
+>> For 'xilinx_cpm6_dma_data' struct which is CPM6 IP, the comment
+>> under this struct has typo and mentiones 'MDB' registers when
+>> it shall be 'CPM6' regisers.
+>>
+>> Signed-off-by: Devendra K Verma <devverma@amd.com>
+>> ---
 > 
-> All the fields are protected by the lock so I don't think it's worth
-> pointing out specifically.
-
-Yeah, make sense to me.
-
-> "prefill or refill" sounds like it may include also internal sheaf refill,
-> which is not the case
-
-Yeah, agreed, refill is a generic word, so I will remove the comment and let
-the code speak for itself.
-
-> (but maybe something worth exploring later)
-
-Yes! later we can see if partial_sheaf can have more use cases.
-
+> dmaengine: dw-edma: correct IP name in xilinx_cpm6_dma_data comment
 > 
-> > +	struct slab_sheaf *sheaf_partial;
-> >  	unsigned int nr_full;
-> >  	unsigned int nr_empty;
-> >  };
-> > @@ -3183,6 +3185,69 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
-> >  	return empty;
-> >  }
-> >  
-> > +/*
-> > + * Exchange @sheaf, which holds fewer objects than requested, for a full sheaf
-> > + * from the barn. The objects of @sheaf stay in the barn: it becomes the barn's
-> > + * partial sheaf, or its objects are merged into the existing one, which becomes
-> > + * a full sheaf when it reaches capacity. That way the leftovers neither occupy
-> > + * a full-sheaf count nor have to be flushed.
-> > + *
-> > + * Returns NULL if the barn has no full sheaf.
-> > + */
-> > +static struct slab_sheaf *barn_replace_partial_sheaf(struct kmem_cache *s,
-> > +						     struct node_barn *barn,
-> > +						     struct slab_sheaf *sheaf)
-> > +{
-> > +	struct slab_sheaf *full, *partial;
-> > +	unsigned int to_move;
-> > +	unsigned long flags;
-> > +
-> > +	if (!data_race(barn->nr_full))
-> > +		return NULL;
-> > +
-> > +	spin_lock_irqsave(&barn->lock, flags);
-> > +
-> > +	if (unlikely(!barn->nr_full)) {
-> > +		spin_unlock_irqrestore(&barn->lock, flags);
-> > +		return NULL;
+> Replace 'MDB' with 'CPM6' in the xilinx_cpm6_dma_data comment to fix
+> the IP name typo.
 > 
-> Hmm what if there's no full, but there's sheaf_partial with enough objects
-> to make a full sheaf together with @sheaf?
 
-This is very inspiring, thanks!
+Thank you for the suggestion. Please check the v2 of the same patch
+series.
 
-And I feel this doesn't just apply when barn->nr_full == 0. At any time, as
-long as the @sheaf and sheaf_partial together have enough objects to make a
-full sheaf, we can always complete a full sheaf out of the two and skip the
-barn list operations entirely.
+-Devendra
 
-This small optimization is essentially equivalent to what the current patch
-does, because the current code basically takes a full sheaf from the barn, then
-put the newly assembled full sheaf back into the barn, which is an
-unnecessary round trip.
-
-On top of that, to be more efficient, we could compare their sizes first to
-make sure we always copy from the one with fewer objects to the one with more.
-
-I ran a quick test, the performance and stats difference isn't very noticeable,
-but logically it feels much more elegant.
-
-I'll roll this into a non-rfc patch and send it out later.
-
+> Frank
 > 
-> > +	}
-> > +
-> > +	full = list_first_entry(&barn->sheaves_full, struct slab_sheaf,
-> > +				barn_list);
-> > +	list_del(&full->barn_list);
-> > +	barn->nr_full--;
-> > +
-> > +	partial = barn->sheaf_partial;
-> > +	if (partial) {
-> > +		to_move = min(sheaf->size, s->sheaf_capacity - partial->size);
-> > +		sheaf->size -= to_move;
-> > +		memcpy(&partial->objects[partial->size],
-> > +		       &sheaf->objects[sheaf->size], to_move * sizeof(void *));
-> > +		partial->size += to_move;
-> > +
-> > +		if (partial->size == s->sheaf_capacity) {
-> > +			list_add(&partial->barn_list, &barn->sheaves_full);
-> > +			barn->nr_full++;
-> > +			barn->sheaf_partial = NULL;
-> > +		}
-> > +	}
-> > +
-> > +	if (sheaf->size) {
-> > +		/* no partial sheaf, or it just became full */
-> > +		barn->sheaf_partial = sheaf;
-> > +	} else {
-> > +		list_add(&sheaf->barn_list, &barn->sheaves_empty);
-> > +		barn->nr_empty++;
-> > +	}
-> > +
-> > +	spin_unlock_irqrestore(&barn->lock, flags);
-> > +
-> > +	full->capacity = s->sheaf_capacity;
-> > +	full->pfmemalloc = false;
-> 
-> I think this belongs more to the caller which deals with the prefilled
-> sheaves specifically, and this helper is more low level.
+>>   drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+>> index 006dea7d6322..762a693ab55b 100644
+>> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
+>> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+>> @@ -146,7 +146,7 @@ static const struct dw_edma_pcie_data xilinx_mdb_data = {
+>>   };
+>>
+>>   static const struct dw_edma_pcie_data xilinx_cpm6_dma_data = {
+>> -	/* MDB registers location */
+>> +	/* CPM6 registers location */
+>>   	.rg.bar				= BAR_0,
+>>   	.rg.off				= SZ_4K,	/*  4 Kbytes */
+>>   	.rg.sz				= SZ_8K,	/*  8 Kbytes */
+>> --
+>> 2.43.0
+>>
 
-Makes sense to me! will do.
-
-> 
-> Otherwise LGTM!
-
-Awesome, thanks!
-
-> 
-> > +
-> > +	return full;
-> > +}
-> > +
-> >  /*
-> >   * The following two functions are used mainly in cases where we have to undo an
-> >   * intended action due to a race or cpu migration. Thus they do not check the
-> > @@ -3317,6 +3382,7 @@ static void barn_init(struct node_barn *barn)
-> >  	spin_lock_init(&barn->lock);
-> >  	INIT_LIST_HEAD(&barn->sheaves_full);
-> >  	INIT_LIST_HEAD(&barn->sheaves_empty);
-> > +	barn->sheaf_partial = NULL;
-> >  	barn->nr_full = 0;
-> >  	barn->nr_empty = 0;
-> >  }
-> > @@ -3334,6 +3400,10 @@ static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
-> >  	barn->nr_full = 0;
-> >  	list_splice_init(&barn->sheaves_empty, &empty_list);
-> >  	barn->nr_empty = 0;
-> > +	if (barn->sheaf_partial) {
-> > +		list_add(&barn->sheaf_partial->barn_list, &full_list);
-> > +		barn->sheaf_partial = NULL;
-> > +	}
-> >  
-> >  	spin_unlock_irqrestore(&barn->lock, flags);
-> >  
-> > @@ -5233,12 +5303,49 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
-> >  }
-> >  EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
-> >  
-> > +/*
-> > + * Refill by swapping *@sheafp for a full sheaf from the barn. The old sheaf and
-> > + * its objects stay in the barn. Returns true when the new sheaf is full.
-> > + */
-> > +static bool refill_sheaf_from_barn(struct kmem_cache *s,
-> > +				   struct slab_sheaf **sheafp)
-> > +{
-> > +	struct node_barn *barn = get_barn(s);
-> > +	struct slab_sheaf *sheaf = *sheafp;
-> > +	struct slab_sheaf *full;
-> > +
-> > +	/* objects from pfmemalloc slabs must not enter the barn */
-> > +	if (!barn || sheaf->pfmemalloc)
-> > +		return false;
-> > +
-> > +	full = barn_replace_partial_sheaf(s, barn, sheaf);
-> > +	if (!full)
-> > +		return false;
-> > +
-> > +	stat(s, BARN_GET);
-> > +	*sheafp = full;
-> > +
-> > +	/*
-> > +	 * The sheaf may hold fewer than capacity objects: rcu_free_sheaf()
-> > +	 * puts it in the barn as full even when slab_free_hook() has taken
-> > +	 * some out (KFENCE, KASAN). __prefill_sheaf_pfmemalloc() then
-> > +	 * continues to refill it.
-> > +	 */
-> > +	return full->size == s->sheaf_capacity;
-> > +}
-> > +
-> >  static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
-> > -				      struct slab_sheaf *sheaf, gfp_t gfp)
-> > +				      struct slab_sheaf **sheafp, gfp_t gfp)
-> >  {
-> > +	struct slab_sheaf *sheaf;
-> >  	gfp_t gfp_nomemalloc;
-> >  	int ret;
-> >  
-> > +	if (refill_sheaf_from_barn(s, sheafp))
-> > +		return 0;
-> > +
-> > +	sheaf = *sheafp;
-> > +
-> >  	gfp_nomemalloc = gfp | __GFP_NOMEMALLOC;
-> >  	if (gfp_pfmemalloc_allowed(gfp))
-> >  		gfp_nomemalloc |= __GFP_NOWARN;
-> > @@ -5331,7 +5438,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
-> >  		sheaf->pfmemalloc = false;
-> >  
-> >  		if (sheaf->size < size &&
-> > -		    __prefill_sheaf_pfmemalloc(s, sheaf, gfp)) {
-> > +		    __prefill_sheaf_pfmemalloc(s, &sheaf, gfp)) {
-> >  			sheaf_flush_unused(s, sheaf);
-> >  			free_empty_sheaf(s, sheaf);
-> >  			sheaf = NULL;
-> > @@ -5401,11 +5508,10 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
-> >   * the given size.
-> >   *
-> >   * Return: 0 on success. The sheaf will contain at least @size objects.
-> > - * The sheaf might have been replaced with a new one if more than
-> > - * sheaf->capacity objects are requested.
-> > + * The sheaf might have been replaced with a new one.
-> >   *
-> >   * Return: -ENOMEM on failure. Some objects might have been added to the sheaf
-> > - * but the sheaf will not be replaced.
-> > + * and the sheaf might have been replaced.
-> >   *
-> >   * In practice we always refill to full sheaf's capacity.
-> >   */
-> > @@ -5427,7 +5533,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
-> >  
-> >  	if (likely(sheaf->capacity >= size)) {
-> >  		if (likely(sheaf->capacity == s->sheaf_capacity))
-> > -			return __prefill_sheaf_pfmemalloc(s, sheaf, gfp);
-> > +			return __prefill_sheaf_pfmemalloc(s, sheafp, gfp);
-> >  
-> >  		if (!__kmem_cache_alloc_bulk(s, gfp, sheaf->capacity - sheaf->size,
-> >  					     &sheaf->objects[sheaf->size]))
-> > 
-> 
