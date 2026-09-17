@@ -1,98 +1,94 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A229E45C6E3;
-	Thu, 17 Sep 2026 11:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8054D9F62
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645449; cv=none; b=hA3KqcOtZIUUGwvbN1S9UYnNLAc/AIWSWzVmwedNIIx5gDLGST64vRh5KE/Aygxn00UfPJmGjntV0BWC8zfoYNiLB/PIddIKSjc2AlmClcW9+IHyqcONDtoK5B0Fkl0T6Oo5PREz0rQXdfdaXoIHklhDE2FuowvEOyhrZFrZ4/c=
+	t=1789645460; cv=none; b=ojfKsg9+w9f9gQ1SniToM2LqGF4IM+/ROoB2eVq0wrB4dkQShBamSvqBsuLshj7TDBzWswy7GO/5Yo5ygr2R3TaEPuMeSZ+3ZLaoRXHJE8nzlvD32D631hR6zvxklYkesY1XFwUdbOWjULQl+TGMJqdAduzX2hAVMNPbZ0mK9Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645449; c=relaxed/simple;
-	bh=2R4/mAlxNzoxBJLYHba8qKjPuoWKlotG7O16qtL9keI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ADSdLFEB7hmT32Vn3f18I6Frvm/juHctMRNtDNPWu14rW4RIrlMoArLm2sccYA0wOlTPeFWtBCb+5Rv+jV72kRKeOJUSUoqYZ5ayRIyUDJUBkY9jota/UQjG9/WG61ZHfmX/Gvkm3/3zlXCj9d0TlsLtoyBgO0p8sOemx4aqZDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHsTty0qtqls1_CA--.1875S2;
-	Thu, 17 Sep 2026 19:43:47 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	wellslutw@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: ethernet: sunplus: Fix port node leak in spl2sw_probe()
-Date: Thu, 17 Sep 2026 11:43:47 +0000
-Message-Id: <20260917114347.2149525-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789645460; c=relaxed/simple;
+	bh=Omr5YNGYKwyWTPgWRknDHqzPp18nEwTFDLWcDMuEHqw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V1P65cnbCD4HBuFS7F3rvWqQaefu1d7ZK4/drw5H4L9XiA908ma50eJcyesERSIww0FsSh7pM7t3uPkEdcSFxlV579zm1OWRymPiM6mjDkpQwXXq4G28fTok1q/pa5dlayrns4Gx6/phh/Co2pcDSpqN8HcxhHWwX+7yqPQO8LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MfpCiGaz; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MfpCiGaz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789645445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BBs6k3xlfCSD42jKUfYT4y6VsbvCsirGQ8gwI4gNGFQ=;
+	b=MfpCiGazL+FxsZbVZ4RySHQS5jU5lRMdXy0IsBL5fsrsPPC9lRs+85cZ74r49CdLxL5+xD
+	TCYcr+1ilALdQ4GIEDw6TsMad3roKjK34M+DoXdNLp5XLDU6vv7sQFSehOANaBWAvmTLnk
+	4J8qHDuDm35j2R3RxH1TgMNVkt3jT+0=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-677-c3xBtgrgOMWtJM9qEtnqEg-1; Thu,
+ 17 Sep 2026 07:44:02 -0400
+X-MC-Unique: c3xBtgrgOMWtJM9qEtnqEg-1
+X-Mimecast-MFC-AGG-ID: c3xBtgrgOMWtJM9qEtnqEg_1789645441
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6219B1944B3E;
+	Thu, 17 Sep 2026 11:44:01 +0000 (UTC)
+Received: from gmonaco-thinkpadt14gen3.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 236B21800577;
+	Thu, 17 Sep 2026 11:43:58 +0000 (UTC)
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	wen.yang@linux.dev
+Cc: Gabriele Monaco <gmonaco@redhat.com>,
+	Nam Cao <namcao@linutronix.de>,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/4] rv/reactors: fix lockdep warning and add tests
+Date: Thu, 17 Sep 2026 13:42:53 +0200
+Message-ID: <178964525531.168264.3996450542370140719.b4-ty@redhat.com>
+In-Reply-To: <cover.1789412799.git.wen.yang@linux.dev>
+References: <cover.1789412799.git.wen.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHsTty0qtqls1_CA--.1875S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFyUWFyDXF1rCr1xKryxGrg_yoW8WrWUpa
-	1UCayYkrZ7GFsrW3Z2vr18AF98uw1DK3y09F48CwsY93s5Zry3Jw4jvFyY9r45ArW8KFW3
-	tr1qyas8JF4DC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPlb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aV
-	AFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZF
-	pf9x07j8jjgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qrrJp1WgAAsb
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-spl2sw_get_eth_child_node() returns a child node with a reference held,
-but spl2sw_probe() never releases it: the node is leaked on the
-"failed to get phy-mode" and "failed to get phy-handle" continue paths,
-on the out_unregister_dev error paths and when the loop ends. Declare
-the node inside the loop with __free(device_node) so the reference is
-released on every iteration exit.
 
-Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/ethernet/sunplus/spl2sw_driver.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On Tue, 15 Sep 2026 03:13:33 +0800, wen.yang@linux.dev wrote:
+> From: Wen Yang <wen.yang@linux.dev>
+> 
+> We occasionally hit a lockdep "Invalid wait context" warning when
+> a reactor callback is preempted by a timer interrupt.
+> On interrupt exit the scheduler takes rq->__lock (LD_WAIT_SPIN) while
+> rv_react() still holds its wait-type-override map, which declared
+> LD_WAIT_FREE.  On any kernel where the task context has preemption
+> enabled (not just CONFIG_PREEMPT_RT) this triggers a spurious lockdep
+> report:
+> 
+> [...]
 
-diff --git a/drivers/net/ethernet/sunplus/spl2sw_driver.c b/drivers/net/ethernet/sunplus/spl2sw_driver.c
-index fdc9c3196738..c124e5ef3588 100644
---- a/drivers/net/ethernet/sunplus/spl2sw_driver.c
-+++ b/drivers/net/ethernet/sunplus/spl2sw_driver.c
-@@ -320,7 +320,6 @@ static struct device_node *spl2sw_get_eth_child_node(struct device_node *ether_n
- static int spl2sw_probe(struct platform_device *pdev)
- {
- 	struct device_node *eth_ports_np __free(device_node) = NULL;
--	struct device_node *port_np;
- 	struct spl2sw_common *comm;
- 	struct device_node *phy_np;
- 	phy_interface_t phy_mode;
-@@ -418,6 +417,8 @@ static int spl2sw_probe(struct platform_device *pdev)
- 	}
- 
- 	for (i = 0; i < MAX_NETDEV_NUM; i++) {
-+		struct device_node *port_np __free(device_node) = NULL;
-+
- 		/* Get port@i of node ethernet-ports. */
- 		port_np = spl2sw_get_eth_child_node(eth_ports_np, i);
- 		if (!port_np)
+Applied to my tree, thanks!
+
+[1/4] rv/reactors: use LD_WAIT_SPIN as the reactor lockdep wait type
+      commit: 16249b9b6be1f05e7d4116459a527ee681d2ff9f
+[2/4] rv/reactors: propagate rv_register_reactor() error from reactor init
+      commit: 7439018693dd41b6578a4a036cb463e1388b7ab0
+[3/4] rv/reactors: export rv_register_reactor() and rv_unregister_reactor()
+      commit: 1863477db0cdad202049ce66b1a0036a87fe16dc
+[4/4] rv/reactors: add KUnit tests for reactor registration and dispatch
+      commit: 8b8129a31089b2430a77debea97772bb2402779f
+
+Best regards,
 -- 
-2.34.1
+Gabriele Monaco <gmonaco@redhat.com>
 
