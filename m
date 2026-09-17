@@ -1,128 +1,82 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B927288C81
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A8495059;
+	Thu, 17 Sep 2026 22:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684105; cv=none; b=B4WdteQ6ZtWXLL4RaO5Ym2sDTmMV/hn6wyekG2TtNks4Vq2oEibmiJEeh2B7JDQysiGXk+HySRIuKMflDfeWSn3pyeD8cZxDBOVDpM1bYbEAL5kAGMYT5cmAUs74wHBMdKJaEh1ndto2cyQAPmfp6NiaptGRo2gx75G1G2F8t4U=
+	t=1789684200; cv=none; b=G0Vf1nJ7Es60VACboYlZKcNjF/JjR944VvYF+OCzS8fvaLaFb1I7wBSp13jEL9bTEwkwSvh2BKEWb5jllFqs+MfjHT4HCWV0PMX9cdQqiOCtrB4472nH8GGV0lFhSc8UUDFbl7qN1FKHJ5hkRh54+YOmIVgGFdcUJ9l7eOeivpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684105; c=relaxed/simple;
-	bh=sLFaAppU3wK9S8QMebnoeicFz8IcQo/MGVpJyqf7Qs8=;
+	s=arc-20240116; t=1789684200; c=relaxed/simple;
+	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BEUuDTiWxuaqSEhRyn9P+cu6in87Jha3+EMvY1SKTyFZQPSMPTOA8ZDZouXa0bUkY0PAl+K8TWU1FQLdsj/zWuemetLdAR38773Stz37i1an//A/9JJruuW4OGJ1bF1DHGAv6H8CUZVYsN1SafNDpIkViPXC5YK7n0b1as9tWeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=UJ3J9Gps; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NuvRf0Id/w+f/+DYhKg4IT7/WDQrE9O1BjIOMnciZP3BE55vK2G7RJwPCCmmgiVPp8YhlT6H956xDXTNgOktznHwB4O0hWpfWt4RXmpnXZZop0gjpp2od4JAf52V31Oz0vz9jbvq7eVt6KrKoBucTzS7CyDM0QwrMiuyowSnNoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3DrAFGC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="UJ3J9Gps"
-Received: by linux.microsoft.com (Postfix, from userid 1223)
-	id BE47D20B7169; Thu, 17 Sep 2026 15:27:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BE47D20B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789684058;
-	bh=nvTjGmBhopEnZflh8i1ti4Hgs/iqhGxpq0Jv81TKxtw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UJ3J9GpsZYJczyx4ypa/Bjs1XagLLfisPNn8YOFGXfdPXfeLWFRaV/v7Dls8fAaEo
-	 NlW3k+3jwiTWhfifHkDhCHe19GUhmXOO6ed1446XXgAzFID61SGE4kUnF21t16eA4b
-	 T3qMiuVw9zXEfOAqEr5S6YWLKpC8/WR0pB0qc4E8=
-Date: Thu, 17 Sep 2026 15:27:38 -0700
-From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-To: Sam Agazaryan <samagazaryan@google.com>
-Cc: Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	linux-i3c@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	linux-kernel@vger.kernel.org, tgopinath@linux.microsoft.com,
-	boris.brezillon@collabora.com
-Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <20260917-b3831e748e890287325aae49@linux.microsoft.com>
-References: <20260906202747.4041389-1-samagazaryan@google.com>
- <20260906202747.4041389-4-samagazaryan@google.com>
- <20260911-d0e2d97df458cbf24fa42089@linux.microsoft.com>
- <CAHreonH0b=spgb2LuUbVvWHarJWf3MOyL8qS5k_1X6gb_mjVkg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3DrAFGC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695AA1F000FF;
+	Thu, 17 Sep 2026 22:29:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789684198;
+	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g3DrAFGCXodJgXf8lrkUeFKFopTWa2xYEacf93xGv6ZYtyLzyqKtzaaDe3MVfDFqD
+	 An3uxil+l8Uf4hVzs/Yrp1kg3B461zNoGzoIiRmAs96LnaDYhPdxoe9NniGragGqIj
+	 ++L9k8HW/31w4toD9phIV3nZHZcCddEBiYL9VIrsD9PC76xCRrvyzBVwmnPgw5Ti0O
+	 lyvJEPlcSUmKkk0X/uOGuxgBjyLlLu5J0VFp6O00EzFu+Nh97JEKTS85orxDXcxrpE
+	 bAEby48luqnTPVMvrI1nOmmUgO+G5XK7RY4D3dToafgBREG2C7HkKf5SX0F+OhebN5
+	 FoxD/BXF1NVCg==
+Date: Thu, 17 Sep 2026 23:29:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, nicoleotsuka@gmail.com,
+	perex@perex.cz, shengjiu.wang@gmail.com, tiwai@suse.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in
+ fsl_asoc_card_probe()
+Message-ID: <1ff14ab8-fa35-45c3-abcc-1075a848be2d@sirena.org.uk>
+References: <20260917165654.2163461-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="daAMsHLhBjcveUdx"
+Content-Disposition: inline
+In-Reply-To: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+X-Cookie: Whip it, whip it good!
+
+
+--daAMsHLhBjcveUdx
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHreonH0b=spgb2LuUbVvWHarJWf3MOyL8qS5k_1X6gb_mjVkg@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 05:12:40PM -0700, Sam Agazaryan wrote:
-> Hey Meagan,
-> 
-> Thanks for sharing your patch series.
-> 
->  The reason we have the bus notifier system here is
->  1. Dynamic module loading is handled automatically: if i3cdev is built-in and
->     a specialized driver module loads later, the bus notifier receives
->     BUS_NOTIFY_BIND_DRIVER and immediately calls i3cdev_detach().
+On Thu, Sep 17, 2026 at 04:56:54PM +0000, Wentao Liang wrote:
+> The codec device reference taken by of_find_i2c_device_by_node() is kept
+> in codec_dev[] and never released, leaking the I2C client on both the
+> error paths and the successful registration path. The same slot also
+> holds the reference of_find_device_by_node() takes when the codec is a
+> platform device, which leaks in the same way.
 
-I think the bus notifier approach has the potential to hit some race
-conditions with other drivers.
+This doesn't apply against current code, please check and resend.
 
-For example, drivers/base/dd.c, really_probe is the only spot in the
-source code that BUS_NOTIFY_BIND_DRIVER event occurs:
-    really_probe
-        driver_sysfs_add <- where BUS_NOTIFY_BIND_DRIVER occurs
-        call_driver_probe
+--daAMsHLhBjcveUdx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If a specialized driver's probe sets dev->driver_data, and i3cdev_detach
-gets to run afterwards, wouldn't it overwrite driver_data with
-NULL and clobber the driver_data?
+-----BEGIN PGP SIGNATURE-----
 
-Similarly, a driver setting dev->driver_data could cause you to lose
-your i3cdev_data pointer - which you need for teardown in i3cdev_detach.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaeEACgkQJNaLcl1U
+h9AKRAf+I5U/zFfzbOfGdHHHyloZBavITTecgnUthXRxd031B60RwgXz4kFI59vb
+GLorypBTYwytxvXSpg4SrNRYJTjDz2vD8o7oGPjzTDn7Hwb4ZlaiywYisezZqg5C
+KOP9AZfQgIRao95uGpkPoH4EVi86dOUYUbUaU6z16GLkbPHI54svv36Y4qbTTi8I
+SpBGBEOAu7rm5FJdTPg/eZtFuO3bh2Cdggd7oh/Q/oijLlaOt9MhPrHHP25CSD4W
+kjzrjfmNBaQUnOD222LZd+aMQLEVrekPGwLzY00dr00z54kt70JB88frXUOuILji
+2R4OnnuUVOMnwhpYgPyv1bRJYkADtw==
+=TPUY
+-----END PGP SIGNATURE-----
 
-The use of the dev->driver_data field when i3cdev isn't a registered 
-device driver was one of the feedback points flagged in v3 (2020).
-
->  2. No cross-subsystem changes needed. The bus notifier avoids touching other
->     subsystems entirely.
-
-That's true and certainly a plus!
-
->  3. Boot-time recovery flows: For OCP Secure Firmware Recovery
->     devices come up unbound and need /dev/bus/i3c/<device> available
->     immediately without requiring udev rules or sysfs writes first.
-> 
-
-Why can't you use udev rules?
-
-You can use them to automatically set driver_override & bind to i3cdev.
-Once the rules are in-place, the setup of character device files in
-/dev/bus/i3c/<device> will be immediate and automatic on-boot and for any
-devices that join later.
-
-You can also do it for all I3C devices if that's what you want.
-
-> It looks like we're both going in the same direction for UAPI integration too.
-> 
-> If you're open to collaborating, I think we can combine and converge on a single
-> i3cdev driver - adopting all necessary fixes and ensuring the UAPI and features
-> cover both of our use cases so we have one unified series (and any
-> other use cases
-> or desires we may want out of an i3cdev driver).
-
-Yeah, I am up for that! :)
-
-> I'd like to know what everyone thinks about taking that approach also
-> if there are any
-> other use cases we may be missing here, regardless of which patch set we choose.
-> 
-> I guess just to get things moving, if we go one way and choose to go
-> forward with
-> the bus notifier approach, Meagan would you be okay with me incorporating your
-> Patch 2/3 for actual_len for the i3c controller drivers? Of course
-> with your authorship.
-
-Sure. I should have mentioned is that I only have a Designware I3C controller,
-so hopefully we can source help to test actual_len for other controller drivers.
-
-Thanks,
-Meagan
+--daAMsHLhBjcveUdx--
