@@ -1,91 +1,111 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A649C4D3;
-	Thu, 17 Sep 2026 12:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B989470E85;
+	Thu, 17 Sep 2026 12:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646708; cv=none; b=M0cBGspIHQaCQVoCS74jKUdJH4/WBWCSGdIs4UF61BYdiB9oLWazWS8qu0LlTh0ah/I9yAq3l1UuRErXaYErh3f8b4R4cORH+kyv5Nn7EZ1n6Zf1f49l8zCb5oWjEwVffK2vHwpSPyikwjqoK0+7Iee+4MNagdxDIi4F2+ulYn8=
+	t=1789646719; cv=none; b=pHwRcFweaioW7B485s7XQWzkp6SS8FnCDyvea8WUZlkS30tR7PrfdmBGDhF047dVurNUCXEeFsc3EM2cV4TFhOx6xkJMTSUyRWj5WBVPd0N+nWtrdve0J0CnO3am5OzkD53KTwQBEzE9G5ZappHSBulmdaxCRNsGtKIozh1Zq/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646708; c=relaxed/simple;
-	bh=f6dEYUg3qwnuiNz8knI4frPeCoas5Lo7cFmz+uMmNZ0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W/0ViLk3a1VZG3aYxf2fD1OCd1iX1Hmco9uzzXptUBQQ/9WzET2rvvkJ5ByCsEIlkMuvBsXgUgk+JM7xRPXHM+wWxw1+ZE2FMUKNt78HC8bgiP9JTk4c1rfv+gAbo0O4j6O9nlNAQpDfrDjziYJSv2tG9oxLa6D38soAB/oe/3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDpb16tqDiSACA--.8S2;
-	Thu, 17 Sep 2026 20:04:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: ath12k@lists.infradead.org
-Cc: jjohnson@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	quic_rajkbhag@quicinc.com,
-	quic_ssreeela@quicinc.com,
-	vasanthakumar.thiagarajan@oss.qualcomm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath12k: Fix rproc reference leak when configuring rproc IRQs
-Date: Thu, 17 Sep 2026 12:04:43 +0000
-Message-Id: <20260917120443.2150370-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789646719; c=relaxed/simple;
+	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QRM/WATDmRHYb/T92YzdevbwOJpykvJfxEzqaJdycOcPdUqJokdPFkXswQ/twztGblYt2qvmj/GjEZrLy2W7kMBbAgsqH1JlIem8SUfrcbhxzPTIO4ZCqjJqk/z/4zVGiOFX+svxqe3vokIaGou8zoCVj7Y0wDxlFcefDn/li+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v0NC/dCi; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v0NC/dCi"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a4f1:7e05:2192:a835])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01EDC2EC;
+	Thu, 17 Sep 2026 14:03:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789646599;
+	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
+	h=From:Subject:Date:To:Cc:From;
+	b=v0NC/dCionvRi5La/89prc2TfwM7LKZ+tof0wyQp+2Bn5L0Y6ZsHZ4QnU6AsvnHJL
+	 dsLCxSrQ0N2Fs2m+U6wrlHh1C4uJOIh6dG2EXII+KQoLz+yPT9LWBs9Bijogd4q9Ek
+	 wocfAg4eGwmpgoXhcT+Ei5sunpd4OWqBZv04XFJ8=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Subject: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
+Date: Thu, 17 Sep 2026 21:04:39 +0900
+Message-Id: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDpb16tqDiSACA--.8S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKw1DWF4xJw1UArW7GFWUtwb_yoWkAwcE9F
-	4rXw1xZ3yIkrWjkF15Ca12vw4IvFyDXFWxJFWqqFWfJFWxJr4v9ryrZFn8AFsrtry8Cr1f
-	GFZ2qr47A3srWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbSxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
-	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU2U73DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qrrRmBsQAAsJ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFfXq2oC/x3MQQqDMBAF0KvIrP2QRNtYr1K6iHFSB8SGBIMg3
+ t3Q5du8kzIn4Uxjc1LiIll+W4VuG/KL274MmavJKPNUL23B0e0rikWH5DWOx4KSI4KPGFyYeTK
+ 2V8FSDWLiIMc/f3+u6wbwIMvwbAAAAA==
+X-Change-ID: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-ath12k_ahb_configure_rproc() returns the result of
-ath12k_ahb_config_rproc_irq() directly, so a failure there leaves the
-rproc notifier registered and the rproc reference taken by
-ath12k_ahb_get_rproc() unreleased. Route this failure through the error
-path that unregisters the notifier and drops the reference.
+This series is based on Geert's
+"topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
+branch including this series is available here [1].
 
-Fixes: 10a355ba6238 ("wifi: ath12k: Power up root PD")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
+R-Car X5H SoC.
+
+This has been tested on an Ironhide with the vsp-tests test suite [2]:
+148 tests: 142 passed, 0 failed, 6 skipped
+
+There was some odd behavior with the clocks, where from what I
+understood was that the clocks for the FCPV[BI] and VSP[BI] are
+always-on, but the tests would hang unless I explicitly enabled...  the
+always-on clock (or fsleep). Then after I removed the patch that
+explicitly enabled the always-on clock everything ran fine. Just
+reporting that this happened just in case it's relevant.
+
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
+[1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
+[2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
+
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 ---
- drivers/net/wireless/ath/ath12k/ahb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Paul Elder (10):
+      dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
+      clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
+      pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
+      arm64: renesas: r8a78000: Add FCPV[BI] nodes
+      arm64: renesas: r8a78000: Add VSP[BI] nodes
+      media: rcar-fcp: Check device revision at probe time
+      media: rcar-fcp: Handle resets
+      media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
+      media: vsp1: Document X5H SoC ID
+      media: rcar-fcp: Add R-Car X5H support
 
-diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-index 2dcf0a52e4c1..0b69ff42dd7a 100644
---- a/drivers/net/wireless/ath/ath12k/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/ahb.c
-@@ -889,7 +889,11 @@ static int ath12k_ahb_configure_rproc(struct ath12k_base *ab)
- 		}
- 	}
- 
--	return ath12k_ahb_config_rproc_irq(ab);
-+	ret = ath12k_ahb_config_rproc_irq(ab);
-+	if (ret < 0)
-+		goto err_unreg_notifier;
-+
-+	return 0;
- 
- err_unreg_notifier:
- 	ath12k_ahb_unregister_rproc_notifier(ab);
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
+ drivers/clk/renesas/r8a78000-cpg.c               |   2 +
+ drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
+ drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
+ drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
+ drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
+ 7 files changed, 372 insertions(+), 15 deletions(-)
+---
+base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
+change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+
+Best regards,
 -- 
-2.34.1
+Paul Elder <paul.elder+renesas@ideasonboard.com>
 
