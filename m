@@ -1,99 +1,160 @@
-Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com [115.124.28.220])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5A63DAAC9;
-	Thu, 17 Sep 2026 19:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3E0547071
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671991; cv=none; b=SH0mSlRlWgT669UZp/hK2eBWSclUYWOlu3u2BbdKt7ZGa2ai9dHqRU7k9mNngeCFK6T9g/lCyBi1HChz9O4twYU2kqt1ewtFn2ZhUpODHAF4xukpEnPxHpQfJ6Y/RgVJAbuamhbWyzUvqODjIN9OJhExQvRVhpo4uN08BQsnjU8=
+	t=1789672023; cv=none; b=HZL6FniFByiHAfWjlOBgFCGjPKgw5bM9FEhe5d7maC26TvpxbkaR+VR5LDhJZs473BN/pIjTJUCIF2s/DQezBYpaLCYDVRLU44djiPaDREofBPMoB8DI0K44kquOQ0ElvWNri0b9hydON5k/zjg7hTazc0tIXxaYchou9U2RbCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671991; c=relaxed/simple;
-	bh=wrsIHoHOBGnWfGLeM249ztUUjWOMhH73kU4KEpK5gfo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ny+E6S8h7Ls5hnXu4OFNo0aKlAHEwNyh8o42gNxNejMaXJKzUsxa3hoSIbPzlN6mbzZUyLQ4tW4QF1f8UvlXqzekgp8X809IkPOO2852CRSHt84dDIKL0tnWQ+Q+boLsHmVnfaG9HXE0gsuFzI/lS6Qg5TH9xfbEWce1roeiweE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=TujI0yVl; arc=none smtp.client-ip=115.124.28.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789672023; c=relaxed/simple;
+	bh=3MNB59KuRrONZ1G4/oINcksRsjMdTDrarM9Aa+nyIaY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tuleCaxBQsD0vYDfFYuCMYfiqsQSfyy80RjWKKp2X+uCBK1boRBg+r3vR3OevaYhzpFsewUGbxXHPJOo3merdb3gy1GuCNBn9zAF2UiccpFCDZv4xGJudYTJPJMzs3nTnDdEElP8C9k8EFZBUDyI0kzdU8hhQcvj4AZFUo9vABE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSwDAPK3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="TujI0yVl"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789671980; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=A8TRKg7M1b4TmknYpxAi51YwWqt01cT9L4eNEJKUU9k=;
-	b=TujI0yVlu8lBxvfgdIUMISxSIP+aCH277oB1GcNoh7qmu5reKdvXbS4DF1eSomvzYa+Ks7uTZqVn8ZptWiIsE/XHzkYyZSIuodn26DY6Edv/YD+/uRR2NU9eIEX7UTm5Sx09tnQir6bLvegKkLaolM/7zZuCeJjkb2a81+y8NcU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04503161|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00639929-0.000475032-0.993126;FP=1577981889284212419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032023038;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jG9ODf7_1789671978;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jG9ODf7_1789671978 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 03:06:19 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 0/2] module: close two ELF section-validation gaps
-Date: Fri, 18 Sep 2026 03:06:16 +0800
-Message-ID: <20260917190618.94759-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSwDAPK3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4BC91F00898
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789672021;
+	bh=Bm3bnAq+YUUR/05QEONsbFO18RrWasKhSRqIzvk/6E4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KSwDAPK3JMAyE7T3tN1ElaJAZu+35WJEs3GNisrTnhqIIgham/GjyPVadpJ/lpf1G
+	 LY/Gce6awif0Yz0lgAfEd/uHnNJ4N3nXGozLh470yrK1UHNMs18Yx3Gt4lbLtJXcag
+	 m/5wUROx2UrH6DRpNEECU7iIXksqIg5uOw1K0bF/C/nCETIRiL4P4oJ7fa2nOg3oc7
+	 qeXCDXfPdKcp8ZV9MxvEFZUgYNx7rmEVgjCkfc9WGdOpeFvwZxt7N3OZiTt4pWld6y
+	 ZJXDf/jzmFfY7bm4EeYTOvttBtDzHNJkMWeMqXnxfTg3kpbUTqLEPGSRgwDs52CQAL
+	 I8t3hRgcu8zPg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1040818e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:07:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYQV+9DpItYZMjNNYLU9pZYDhvGtCPMspl7hTzkc9sE3lYZkxCrPSWSif6lGzJe2W5n+xzKhTjez562Jc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiIswc+KIbtbgopSVlpF5A694QDDyhuEV5JZJJn0fEXno10cIB
+	DCoPc2ptZ8W93ZK0NIdu+FltDRnTguF1zSnExyLVH27sGsbPj/IaLKORwJjRXuvjeHStqI3edZd
+	2rLNuqkNlkT1PD1ioro+ZucDPUkHFziQ=
+X-Received: by 2002:a05:6512:640b:b0:5b6:1603:7c8b with SMTP id
+ 2adb3069b0e04-5b8b6655c9cmr3287892e87.18.1789672020252; Thu, 17 Sep 2026
+ 12:07:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
+ <20260908-schedutil-boost-frequency-handling-v2-1-25312a713699@oss.qualcomm.com>
+In-Reply-To: <20260908-schedutil-boost-frequency-handling-v2-1-25312a713699@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 17 Sep 2026 21:05:37 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jbYHcEWqqO3YSbwyeHBLkYCFn+_nQ9Ktt3yYPPcNH6LQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VasRWS8HiJHGDy74pWeVE-itua9NNF64RwExFD0rkuQM7IztWuAAwbQd8
+Message-ID: <CAJZ5v0jbYHcEWqqO3YSbwyeHBLkYCFn+_nQ9Ktt3yYPPcNH6LQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arch_topology: seed capacity_freq_ref with
+ boost-aware max freq
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Both patches come from the same review of the module ELF validator, and
-both fix an out-of-bounds read of a section field that the validator
-leaves unchecked on purpose.
+On Tue, Sep 8, 2026 at 10:31=E2=80=AFAM Ananthu C V <ananthu.cv@oss.qualcom=
+m.com> wrote:
+>
+> capacity_freq_ref, the per-CPU frequency-invariance reference used by
+> schedutil, is seeded from policy->cpuinfo.max_freq at policy creation.
+> If boost frequencies are filtered out of the frequency table because
+> boost isn't yet enabled at boot, max_freq only reflects the non-boost
+> ceiling, so capacity_freq_ref never learns about boost frequencies for
+> the policy's lifetime. Enabling boost later raises policy->max, but
+> capacity_freq_ref stays stale, leaving schedutil unable to scale
+> utilization or target a frequency above the non-boost maximum.
+>
+> Track the highest frequency in the table regardless of boost state
+> (max_table_freq) and seed capacity_freq_ref with max(cpuinfo.max_freq,
+> max_table_freq), so the invariance reference is boost-aware from boot
+> regardless of whether boost is currently enabled. Runtime enforcement,
+> still handled by policy->max, is unaffected.
+>
+> Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> ---
+>  drivers/base/arch_topology.c | 3 ++-
+>  drivers/cpufreq/freq_table.c | 6 ++++++
+>  include/linux/cpufreq.h      | 1 +
+>  3 files changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+> index 8c5e47c28d9a..da94f77441da 100644
+> --- a/drivers/base/arch_topology.c
+> +++ b/drivers/base/arch_topology.c
+> @@ -404,7 +404,8 @@ init_cpu_capacity_callback(struct notifier_block *nb,
+>         cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->related_cpus=
+);
+>
+>         for_each_cpu(cpu, policy->related_cpus) {
+> -               per_cpu(capacity_freq_ref, cpu) =3D policy->cpuinfo.max_f=
+req;
+> +               per_cpu(capacity_freq_ref, cpu) =3D max(policy->cpuinfo.m=
+ax_freq,
+> +                                                     policy->cpuinfo.max=
+_table_freq);
 
-elf_validity_check_sectionheaders() exempts SHT_NULL and SHT_NOBITS
-sections from its bounds checks, on the assumption that a section with
-no contents has nothing to dereference. The loaders that run after it do
-not share that assumption: they read sh_name and sh_offset for every
-section, so an exempted section carries an unvalidated field into a
-string lookup or a pointer computation. Commit 9a5ff4568932 ("module:
-validate string table section types") closed two such gaps for
-.shstrtab and .strtab; these two patches close the ones that remain.
+So isn't capacity_freq_ref supposed to correspond to the CPU capacity
+returned by arch_scale_cpu_capacity()?
 
-Patch 1 gives the undefined sh_name of a SHT_NULL section a safe value,
-so the section walkers that follow read the empty string instead of
-running past .shstrtab.
+If that's the case and boost was disabled when the CPU capacity was
+computed, how can cpuinfo.max_table_freq correspond to that capacity?
 
-Patch 2 requires the __version_ext_names section to be SHT_PROGBITS
-before elf_validity_cache_index_versions() dereferences its sh_offset,
-so a SHT_NOBITS section of that name - which the validator exempts and
-which holds no file data - cannot drive the extended version name walk
-outside the module image or make it read unrelated bytes as a name.
-
-Each patch stands alone and can be applied or backported separately;
-they are grouped only because they share a root cause. Both were
-reproduced on 704340f1cd0d with KASAN, and each is fixed by its own
-change.
-
-Changes in v2. v1 was posted here:
-https://lore.kernel.org/all/20260916174753.14870-1-fangxy@xiaopeng.com/
-
- - Patch 2: require __version_ext_names to be SHT_PROGBITS before its
-   sh_offset is dereferenced, instead of bounding the offset. Review
-   pointed out the offset bound is narrower than the bug: an in-bounds
-   SHT_NOBITS section passes it and the walk then reads unrelated file
-   bytes as a version name. The type check rejects both the
-   out-of-bounds and the in-bounds variants; the reproducer now covers
-   both. Details in the patch's tear-line notes.
- - Patch 1: unchanged since v1.
-
-Fang Xieyan (2):
-  module: Sanitize the undefined sh_name of SHT_NULL sections
-  module: Validate the __version_ext_names section type
-
- kernel/module/main.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
-
--- 
-2.50.1 (Apple Git-155)
-
+>                 freq_inv_set_max_ratio(cpu,
+>                                        per_cpu(capacity_freq_ref, cpu) * =
+HZ_PER_KHZ);
+>         }
+> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
+> index ea994647abc8..4984142dc08a 100644
+> --- a/drivers/cpufreq/freq_table.c
+> +++ b/drivers/cpufreq/freq_table.c
+> @@ -33,11 +33,15 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_po=
+licy *policy)
+>         struct cpufreq_frequency_table *pos, *table =3D policy->freq_tabl=
+e;
+>         unsigned int min_freq =3D ~0;
+>         unsigned int max_freq =3D 0;
+> +       unsigned int max_table_freq =3D 0;
+>         unsigned int freq, i;
+>
+>         cpufreq_for_each_valid_entry_idx(pos, table, i) {
+>                 freq =3D pos->frequency;
+>
+> +               if (freq > max_table_freq)
+> +                       max_table_freq =3D freq;
+> +
+>                 if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
+>                     && (pos->flags & CPUFREQ_BOOST_FREQ))
+>                         continue;
+> @@ -57,6 +61,8 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_poli=
+cy *policy)
+>         if (policy->cpuinfo.max_freq < max_freq)
+>                 policy->cpuinfo.max_freq =3D max_freq;
+>
+> +       policy->cpuinfo.max_table_freq =3D max_table_freq;
+> +
+>         if (min_freq =3D=3D ~0)
+>                 return -EINVAL;
+>         else
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index 35ce665edfd8..3f3b1380251a 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -45,6 +45,7 @@ enum cpufreq_table_sorting {
+>  struct cpufreq_cpuinfo {
+>         unsigned int            max_freq;
+>         unsigned int            min_freq;
+> +       unsigned int            max_table_freq; /* Highest valid frequenc=
+y in the table */
+>
+>         /* in 10^(-9) s =3D nanoseconds */
+>         unsigned int            transition_latency;
+>
+> --
