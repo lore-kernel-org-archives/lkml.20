@@ -1,97 +1,139 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F161332B13F;
-	Thu, 17 Sep 2026 08:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC833DDDD7;
+	Thu, 17 Sep 2026 08:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632041; cv=none; b=cR+hbVV5Q7V1MD241P9bkwcXWkc5Eme9Eno8SWlGRnX2oTeZUvd6rw+jscmfMew9KP3iql+Be48wV9GMLNvSC/zG9K2Lx+i1Atye82JOZEyysl14d2hAyTjonp+hkPaiOkVpsF4Yonm94eDkVqwelAIU3F5GaPsy91RjYqLdFzc=
+	t=1789632045; cv=none; b=qt9sfgjkH2932WwHbKHFm0EHRlw8FJscz/wDik5PWfB9VfiLfu6w/KjBENTnpf4sPVAQZzt50t7+8Z1181WTKxtQApUlyvg/oLa5L4opEhdlb91aNEvHxc13cNKql5ftsX7FIRNn7OTYXjTJR1K02HSoI7ztU/xOGoBT/2+Wr90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632041; c=relaxed/simple;
-	bh=hqr0qEEdqIoe2AJI1B4LOV2ycNVlGo3yYJ71z0899z4=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=NhuAnxwvvv9ZiYCOrQ39F+36uMM/uCrsh4Wdrnr7r3EaG7gyenWUV27qKLlLerZzFyjxgH5qWnjhOUvoEwSUQ/BGlxXE0OV6BKaNVCxhHPMhBt4BIXN1R2wuu21HWJYCSvWYCyptfDGZjaROv5YzMavtktuG1bpjvNqq5qWaiiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hh5xRLfq; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789632045; c=relaxed/simple;
+	bh=fpSccCQTtocdNkkOJ7qtK8D7ka1uiiSK6AMKGUYwGwQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fMmKf5NwB8/tckgwGTz5h0M/Iwipi8u4oU/xk5JPzED+SN1Hj8uODEVtCU4QQjIkJzt0BPVu83GrYGCaFcFeq04tiz8M2czOCIvr99sI2+yAbXpw5SvvqdpU7OYM1Jjhd7QotEdPiSHKAkUL7y2WiT0AATvxt4yPehb4WuqaSDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltfFARBn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hh5xRLfq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=hqr0qEEdqIoe2AJI1B4LOV2ycNVlGo3yYJ71z0899z4=; b=H
-	h5xRLfq+lo+2hJJIXnJIU6Kz3YHGLx9NW3svT4JKvw9R4NMZ4VRqfehHeZGWja1N
-	ivJKqO9q8GzUHC7XzqKX5cXjXGOLUTL3NultZySUKBYMWN44AXV7YezZw7Bxu1zN
-	rXNXXld9+4SyDqSLQMm7VGHNtKQqxm6/iIlWuUsqZo=
-Received: from localhost (unknown [::1])
-	by gzsmtp6 (Coremail) with SMTP id TSWEB_0014CB51000021B66AAB9E01;
-	Thu, 17 Sep 2026 16:00:01 +0800 (CST)
-Received: from firefly0158$163.com ( [120.227.56.131] ) by
- ajax-webmail-wmsvr-40-135 (Coremail) ; Mon, 14 Sep 2026 17:31:30 +0800
- (CST)
-Date: Thu, 17 Sep 2026 16:00:00 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: gregkh@linuxfoundation.org, stern@rowland.harvard.edu, kees@kernel.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] usb: dummy_hcd: general protection fault in set_link_state on
- unbind
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+ct0oi5ieRZ+kdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/tPLxOpq2AVH9/wlRiZpYCg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltfFARBn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E1C55C4AF09;
+	Thu, 17 Sep 2026 08:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789632045;
+	bh=fpSccCQTtocdNkkOJ7qtK8D7ka1uiiSK6AMKGUYwGwQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ltfFARBn2kLxaJP4576aO5fKsWFweBm4ob0uhQo360ecbAYkXLwRIKXiSfZd6XBkN
+	 FiInId7w9Stc41FMj0ChuQEMB4wo2DSHo5Eb0Qx074mLo6rIbG0+AVpQHVRz+qkhb+
+	 NJVjTAOarzLJzB76O834lgPeAuY3gPdeUqRPUiKTDq0vYR9sI/zAxJw+8+VAj8bzUq
+	 Unl2iRhV4fVm+y8mqv8Nfw9N8AlLzcLtNtCSARtZaprE6a4cVxEzeMAuGRATG3ym7Q
+	 Qipz51aPdR0+sqCC76B/q+Oj9prvfGMPQLukcScVM6ravs5xlx3/+NxfZIVr+iVRJF
+	 ROhHoPGCl4Ejw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6B5CC88E72;
+	Thu, 17 Sep 2026 08:00:44 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Thu, 17 Sep 2026 09:59:00 +0200
+Subject: [PATCH v12 1/6] mfd: khadas-mcu: Add per-variant configuration
+ infrastructure and VIM4 support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <34667d49.9099.1a09f41e473.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:QSgvCgBHtcwFnqtq5PMfAA--.59364W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3RJwImqnvvL0wQAA3p
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-add-mcu-fan-khadas-vim4-v12-1-497cd543a148@aliel.fr>
+References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1930;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=BJRhwKhcdjrF5epARgcxNmy3jED4cBzG1XxROeciDJk=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bqeVLWEctSXnAY1q9nWdy0Muhnc9WiVtHLglO2nDH43
+ Xhtn+2DjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAiu3gY/vCdeSbLuyCiZ8Np
+ LfHQOWtF/jExpDhNedZ9bLPGoZ0rHFsYGb5OU9ds5dmX4JAsJqm2IlTSlfGXw5wN2mZbOTgqpoW
+ u5QcA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+
+Some values change per variant, add the structure to manage it.
+
+Add VIM4 specific registers done for a subsequent patch, which will use a
+new compatible especially to get the right regmap config.
+
+Add an enum khadas_mcu_type used as value to match.
+
+Also fix a kernel-doc warning for the khadas_mcu struct.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ include/linux/mfd/khadas-mcu.h | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/mfd/khadas-mcu.h b/include/linux/mfd/khadas-mcu.h
+index a99ba2ed0e4e0..acd3291061b40 100644
+--- a/include/linux/mfd/khadas-mcu.h
++++ b/include/linux/mfd/khadas-mcu.h
+@@ -70,6 +70,13 @@
+ #define KHADAS_MCU_WOL_INIT_START_REG		0x87 /* WO */
+ #define KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG	0x88 /* WO */
+ 
++/* VIM4 specific registers */
++#define KHADAS_MCU_VIM4_REST_CONF_REG		0x2c /* WO - reset EEPROM */
++#define KHADAS_MCU_VIM4_LED_ON_RAM_REG		0x89 /* WO - LED volatile */
++#define KHADAS_MCU_VIM4_FAN_CTRL_REG		0x8a /* WO */
++#define KHADAS_MCU_VIM4_WDT_EN_REG		0x8b /* WO */
++#define KHADAS_MCU_VIM4_SYS_RST_REG		0x91 /* WO */
++
+ enum {
+ 	KHADAS_BOARD_VIM1 = 0x1,
+ 	KHADAS_BOARD_VIM2,
+@@ -80,7 +87,7 @@ enum {
+ 
+ /**
+  * struct khadas_mcu - Khadas MCU structure
+- * @device:		device reference used for logs
++ * @dev:		device reference used for logs
+  * @regmap:		register map
+  */
+ struct khadas_mcu {
+@@ -88,4 +95,14 @@ struct khadas_mcu {
+ 	struct regmap *regmap;
+ };
+ 
++/**
++ * enum khadas_mcu_type - Khadas MCU hardware variant
++ * @KHADAS_MCU_GENERIC: VIM1, VIM2, VIM3, Edge, Edge-V (shared register map)
++ * @KHADAS_MCU_VIM4: VIM4 (extended register map, distinct fan/LED/WDT regs)
++ */
++enum khadas_mcu_type {
++	KHADAS_MCU_GENERIC = 1,
++	KHADAS_MCU_VIM4,
++};
++
+ #endif /* MFD_KHADAS_MCU_H */
+
+-- 
+2.49.0
 
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgZ2VuZXJhbCBwcm90ZWN0aW9uIGZhdWx0IGluIHRoZSBk
-dW1teV9oY2QgbGluay1zdGF0ZSBoYW5kbGluZywKdHJpZ2dlcmVkIGJ5IGEgc3l6a2FsbGVyIFVT
-QiByZXByb2R1Y2VyLiAgVGhlIGlzc3VlIGlzIHJlcHJvZHVjaWJsZSB3aXRoIEhFQUQKY29tbWl0
-IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUgKHY3LjMtcmMxLCBMaW51
-eCA3LjMuMC1yYzEpLgoKClRoZSByZXByb2R1Y2VyIGNvbm5lY3RzIGEgc3ludGhldGljIEhJRCBV
-U0IgZGV2aWNlIHRocm91Z2ggZHVtbXlfaGNkIGFuZCB0aGVuCnVuYmluZHMgdGhlIGR1bW15X2hj
-ZC4wIHBsYXRmb3JtIGRldmljZSBieSB3cml0aW5nIGl0cyBuYW1lIHRvIHRoZSBkcml2ZXIncwp1
-bmJpbmQgYXR0cmlidXRlLiAgVGhlIGZhaWx1cmUgaGFwcGVucyBkdXJpbmcgdGhlIHRlYXJkb3du
-IHRoYXQgZm9sbG93cy4KCgpUaGUgY29uc29sZSBzaG93cyBhIGdlbmVyYWwgcHJvdGVjdGlvbiBm
-YXVsdCBmb3IgdGhlIG5vbi1jYW5vbmljYWwgYWRkcmVzcwoweGRmZmZmYzAwMDAwMDAwMDAgd2l0
-aCBhIEtBU0FOIG51bGwtcHRyLWRlcmVmIGluIHRoZSByYW5nZSBbMHgwLTB4N10sIGFuZCBSSVAK
-aW4gc2V0X2xpbmtfc3RhdGUuICBUaGUgcGF0aCByZWFjaGVzIGl0IHRocm91Z2ggdGhlIGdhZGdl
-dCBkaXNjb25uZWN0IGFuZAp1bmJpbmQgc2VxdWVuY2UgKHVzYl9nYWRnZXRfZGlzY29ubmVjdF9s
-b2NrZWQgLT4gZ2FkZ2V0X3VuYmluZF9kcml2ZXIgLT4KZGV2aWNlX3JlbW92ZSkgd2hpbGUgdGhl
-IGR1bW15IFVEQyBpcyBiZWluZyByZW1vdmVkLgoKCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0
-IHRoZSBsaW5rLXN0YXRlIGhlbHBlciBydW5zIG9uIGEgVURDIHdob3NlIHByaXZhdGUKZGF0YSBo
-YXMgYWxyZWFkeSBiZWVuIHJlbGVhc2VkIGJ5IHRoZSB1bmJpbmQsIHNvIGl0IGRlcmVmZXJlbmNl
-cyBhIE5VTEwKcG9pbnRlci4gIFRoaXMgbG9va3MgbGlrZSBhbiBvcmRlcmluZy9saWZldGltZSBw
-cm9ibGVtIGJldHdlZW4gdGhlIHBsYXRmb3JtCmRyaXZlcidzIHJlbW92ZSBwYXRoIGFuZCB0aGUg
-Z2FkZ2V0IGRpc2Nvbm5lY3QgcGF0aC4gIEkgbm90ZSB0aGF0IGQ1ZTVjZDM2NTRkMgpmaXhlZCBh
-IHJlbGF0ZWQgZ2l2ZWJhY2sgbGlmZXRpbWUgaXNzdWUgaW4gdGhpcyBmaWxlIGJ1dCBkb2VzIG5v
-dCBjb3ZlcgpzZXRfbGlua19zdGF0ZS4gIEkgYW0gcmVwb3J0aW5nIHRoZSBmYXVsdCBhbmQgdGhl
-IHBhdGggYXMgb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0
-aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlkIGlzCjgzZTM5YjgyMTU4NzA2NGJkN2Ez
-LiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEuCgoKUmVwcm9kdWNlcjoKCgpz
-eXogcmVwcm9kdWNlcjoKc3l6X3VzYl9jb25uZWN0JGhpZCgweDMsIDB4MzYsICYoMHg3ZjAwMDAw
-MDAxNDApPUFOWT1bQEFOWUJMT0I9IjEyMDEwMDAwMDAwMDAwMTBkODA0ZGQwMDAwMDAwMDAwMDAw
-MTA5MDIyNDAwMDEwMDAwMDAwMDA5MDQwMDAwMDEwMzAwMDAwMDA5MjEwNTAwMDAwMTIyMDUwMDA5
-MDU4MTAzMDAwMiJdLCAweDApCm1rZGlyYXQoMHhmZmZmZmZmZmZmZmZmZjljLCAmKDB4N2YwMDAw
-MDAwMDAwKT0nLi9teXN5c1x4MDAnLCAweDFmZikKbW91bnQoMHgwLCAmKDB4N2YwMDAwMDAwMDgw
-KT0nLi9teXN5c1x4MDAnLCAmKDB4N2YwMDAwMDAwMGMwKT0nc3lzZnNceDAwJywgMHgwLCAweDAp
-CnIwID0gb3BlbmF0KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDEwMCk9Jy4vbXlz
-eXMvYnVzL3BsYXRmb3JtL2RyaXZlcnMvZHVtbXlfaGNkL3VuYmluZFx4MDAnLCAweDEsIDB4MCkK
-d3JpdGUocjAsICYoMHg3ZjAwMDAwMDAyMDApPSdkdW1teV9oY2QuMFx4MDAnLCAweGIpCgoKY29u
-c29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy8xQ05WZk1IdwprZXJuZWwgY29u
-ZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvMTlZdlRTRXAKCgpLZXJuZWw6CgoKSEVBRCBj
-b21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6
-IHVwc3RyZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3Rh
-dGVkIHRhZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFh
-YjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxs
-KQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgpMZXQg
-bWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2Fy
-ZHMsCkNoYW5namlhbg==
