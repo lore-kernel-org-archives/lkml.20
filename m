@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8380B55931E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 835A059E337
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657031; cv=none; b=C5sV4yRxy4uCXFskMQUpaMnE8qcNsmiidMag4O3MJw3TKZlk3DCVeVtzM84ULX/WyvyFb9wTajmj/zyi2g3qGEmdwt95bwrRbWqOquyr1rNZfe/JMZhvfQVudYI+drkFy+WGpa2Zc/p8OfOeK7WPb22uyif7uVSWxvP4M0ix2YE=
+	t=1789657037; cv=none; b=b2hmyhh4MnPKERVulR5gY+Ypz2Gr4QkfEDqyj3mzZ6ipqndoBz3+jpMw0YB8i0FKBMTYiIi5Xo0gUIrnTez8v+jTx2ZnBvFW+5r7KH0GUrmsBIBrVGrDH3mhYmrQ+XRw4HwZ+oqfA+wNPqFfECqGUJD/zT606TInFqTCmaalZDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657031; c=relaxed/simple;
-	bh=2W4vg8a0BH3+OFw+MBFW0cOa1L2xE5ZnqmXZrMtVPsM=;
+	s=arc-20240116; t=1789657037; c=relaxed/simple;
+	bh=KXTRQ8B7NuAawelRtl9Xn3/aug9ykZjYKPq/c2H+xsk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cK9jfvjw+LWpuBgkeuyOK9PpxHQJg9lTaXhKszdSPOJMxiaIIn+6KkDPqiQeekXzYhRmXgjwyI+FOevdhA3icuuY7+Ivhz5MTO7mowj9hIIroVE/aekM7czKjLB+zK0uijSYquF51ERrMsQxNvNP8PmXlUaqNZyFKmgANUXAuzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=K/ADxr8L; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=ml+t9sWhBiyEMoZY4k5lmSWey3wUSQy9huAM4PVn7uZY779aJunvNtBfYo8GlXJ1spaQ0sjvfsZ6ZDBjL9yH7Crvk7ikVvkKRTMudzDy7yBTFQNacFF4Q4h6vaNnLZ8DbOQnBcD3gCZrvl6svMQZnvjQbu94eYeEfZssmiFGbmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oPUjhHv+; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="K/ADxr8L"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oPUjhHv+"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC574201B;
-	Thu, 17 Sep 2026 07:56:38 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C1AF204C;
+	Thu, 17 Sep 2026 07:56:44 -0700 (PDT)
 Received: from e134344.cambridge.arm.com (unknown [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 01DEF3F86F;
-	Thu, 17 Sep 2026 07:56:40 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3498B3F86F;
+	Thu, 17 Sep 2026 07:56:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789657002; bh=2W4vg8a0BH3+OFw+MBFW0cOa1L2xE5ZnqmXZrMtVPsM=;
+	t=1789657007; bh=KXTRQ8B7NuAawelRtl9Xn3/aug9ykZjYKPq/c2H+xsk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=K/ADxr8LGT+NRfiYYQX71AUBp4ZCgJLxTOTedZnU/VYIV+CIdfFT+WhA5g/dNvuk4
-	 9RMwKqogC2BGIKZWorYLLZyp76aB/b5FVWKrZT0BkFE8tZJQ+olUswpMXKNMcuM/L+
-	 x517IB1+QrY84D3rFVuhCoYZjQuRA1LOq8q7Igcs=
+	b=oPUjhHv+ZnTx+s/GIzhBl8HFTp7A2OJXfiOf8PRsemafBk3jxN/BJL3O5/VRupQzP
+	 sM/0n+Iw7M81TLFQq7DnHmf4vQ7J2uDd7mc/MqOYIPAYWKFI+tB8lMcS/qI93gce/S
+	 DxZLgXcvdN0blyQDKgW5MX+YIBItWPP0KufNMBEc=
 From: Ben Horgan <ben.horgan@arm.com>
 To: ben.horgan@arm.com
 Cc: james.morse@arm.com,
@@ -35,10 +35,10 @@ Cc: james.morse@arm.com,
 	linux-arm-kernel@lists.infradead.org,
 	dave.martin@arm.com,
 	andre.przywara@arm.com,
-	Gavin Shan <gshan@redhat.com>
-Subject: [PATCH v2 09/12] arm_mpam: resctrl: Make read_mon_cdp_safe() self consistent
-Date: Thu, 17 Sep 2026 15:56:14 +0100
-Message-ID: <20260917145617.2202986-10-ben.horgan@arm.com>
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 12/12] arm_mpam: resctrl: Don't stop early when tearing down a class
+Date: Thu, 17 Sep 2026 15:56:17 +0100
+Message-ID: <20260917145617.2202986-13-ben.horgan@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260917145617.2202986-1-ben.horgan@arm.com>
 References: <20260917145617.2202986-1-ben.horgan@arm.com>
@@ -50,46 +50,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When read_mon_cdp_safe() is called with cdp_enabled equal to false then the
-reading returned in val is the sum of the monitor values for the given
-component. However, when cdp_enabled equal to true it is again the sum of
-the monitor values but with the initial value of val also added. Both
-resctrl_arch_cntr_read() and resctrl_arch_rmid_read() call
-read_mon_cdp_safe() and are documented to return the val directly without
-consideration of the older value.
+An MPAM class can back more than one control and more than one
+monitor. mpam_resctrl_teardown_class() iterates through all the controls
+but stops if it finds a match which means classes backing more than one
+class aren't torn down. The same for monitors, in which case the mbwu
+counters will be leaked.
 
- The val is always zeroed before read_mon_cdp_safe() is called except in
- __check_limbo() and __l3_mon_event_count_sum() but the latter is not
- relevant on MPAM systems.  The extra accumulation in __check_limbo() means
- when there are multiple RMIDs in limbo some of them may be marked dirty
- when they are already clean.
+Stop terminating the loops early.
 
-Change the cdp_enabled equals true case to match the false case and the
-documentation of the resctrl arch hooks.
+As we are already changing mpam_resctrl_teardown_class() remove the
+misleading comment. It doesn't call resctrl_exit() and isn't required to do
+so as the only caller does it first.
 
-Fixes: fb56b29932ca ("arm_mpam: resctrl: Add resctrl_arch_rmid_read()")
+Fixes: fb481ec08699 ("arm_mpam: resctrl: Call resctrl_init() on platforms that can support resctrl")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-Tested-by: Gavin Shan <gshan@redhat.com>
 ---
-Add fixes tag as actually fixes an issue (Sashiko)
-Update commit message
+Changes since v1:
+
+New patch
 ---
- drivers/resctrl/mpam_resctrl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/resctrl/mpam_resctrl.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index b825bd90d4bd..321741a702fe 100644
+index 321741a702fe..9cec5843e8fa 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -497,7 +497,7 @@ static int read_mon_cdp_safe(struct mpam_resctrl_mon *mon, struct mpam_component
- 		if (err)
- 			return err;
+@@ -1943,10 +1943,6 @@ static void mpam_resctrl_teardown_mon(struct mpam_resctrl_mon *mon, struct mpam_
+ 	mon->mbwu_idx_to_mon = NULL;
+ }
  
--		*val += code_val + data_val;
-+		*val = code_val + data_val;
- 		return 0;
+-/*
+- * The driver is detaching an MSC from this class, if resctrl was using it,
+- * pull on resctrl_exit().
+- */
+ void mpam_resctrl_teardown_class(struct mpam_class *class)
+ {
+ 	struct mpam_resctrl_res *res;
+@@ -1957,17 +1953,14 @@ void mpam_resctrl_teardown_class(struct mpam_class *class)
+ 	might_sleep();
+ 
+ 	for_each_mpam_resctrl_control(res, rid) {
+-		if (res->class == class) {
++		if (res->class == class)
+ 			res->class = NULL;
+-			break;
+-		}
  	}
+ 	for_each_mpam_resctrl_mon(mon, eventid) {
+ 		if (mon->class == class) {
+ 			mon->class = NULL;
  
+ 			mpam_resctrl_teardown_mon(mon, class);
+-			break;
+ 		}
+ 	}
+ }
 -- 
 2.43.0
 
