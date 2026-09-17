@@ -1,169 +1,134 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2234B4973B9
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE87E44AB8A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673401; cv=none; b=oHulspmQcz8Uidz+M/hrYJQgn1gHNjAp1LpaZ9URBHZTV+m+6i8QyvK7zJRhnJ9x008rrHckOZm3I5VMWCgqCngt0UhMm4diknvzEvzpNmwdqLmHMrNbYN8qMc3ut4N8MGu7VptkNXa91pYTHjOU9bNZOPoKOpyX7ri3gJ5Gla8=
+	t=1789673436; cv=none; b=aF9huILcTaz7uT29W5yyF8p4zqxgV8WjQbtOc4GWT+7SG1ZkM5IMmuPOB0MTwZI1nE8nacF7TXq1toxbya1CcNS7oNuOcA5JKEicLxSEfEUSPt5UOyFZCga1a22JNeyolZdZRuwO8jDjz1/W96y2AZH0Xq5eKJKd76tsfkDTjYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673401; c=relaxed/simple;
-	bh=pGb3Vp3ZlWEKZyzEIIGwbv44vQfUSndTLfijg7KE4eQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IdEnebnZPJrXDKXBk0SmU9t8JDZbyXS/oGWdCrKn7QmrCUexK1/3LQftOfHLpGY54QVGmr7CssXLTQz84wC6tKBPIA3Y+S8mcud/AMI32Op3VHM1h1xW8gOnRkfUSKinmFmugBHnNMXdluvROX+O+Eylr7BP//6DZ8BLawQOZDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Une9NNSK; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Une9NNSK"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-80a854e5b3cso630702a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789673399; x=1790278199; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SOpmSpu+1kSYFLkQThK4c6ymQH45Iak6v9IcQ+Qt0zg=;
-        b=Une9NNSK+ZcdqGGjnf9j//FSY5QqvHJNeYQx+knGBpY5wdVxrRbIOkjTXPO04/gQ76
-         tW7Q0ckubYcnZmtx1UPDWDD975VjF8Cxx51HpYcI+NIK7dxwSEsL3ecdzy+9oBzZRXkE
-         H6R5yonyjr6GL88iRcvVb+/gxM8tNoMVpD8lclIMXhDiZCNfvfifHsBouD6wbPZOAGnN
-         ma0sJNwTD/EEkgVnnCvNnw162g9WlzOr+pZGlg2C0elhEOlb9Kz5hMmK4+LqB3vbJcOt
-         3TSlQUMQMM/zIEc1PJYM2Y/LW6J/u9/NypKQbL9GV2D5VdoD8RfXPFVkJSxIn5D5Qkv5
-         AuAg==
+	s=arc-20240116; t=1789673436; c=relaxed/simple;
+	bh=op/43Q8ivGnszBMmvmaQWfcywOTvNbXrkE7Z3J2S4MM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=jLSjVeG7RVzeAwHKhZ129l+KE0wlNnc0X4ICeKAARqCwJzY7amxpd1wk4WWnqAgBWWf3Akww3TSgBHj6EdCgslKTUJGnZmWzWpTZGsUzYEeMRjPgF6slAJl+JY+gTGke8OKTyD2EaYnC7VY9B7+uGDTOzMHmG5ALmtWTV0vzFI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c6545d0f93so21529b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:30:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789673399; x=1790278199;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SOpmSpu+1kSYFLkQThK4c6ymQH45Iak6v9IcQ+Qt0zg=;
-        b=ov44UUqE/udh5UPCl5mbrKJit+1inSObX7pyWfbG8SrdMqZRVDFk6vmpcY1FjWYxtc
-         0VwpWDtn0edfmOAoicRduFvbbqSsfpXoxnzAIazlBTqnExduMLVs5gIKW1erTymZmA+/
-         ZQkcD73V6iykm+NlgdPZh96R0BNxV2R7FddpsJltrGVxO9dQA8t0YUdZVpJeyRAIsT58
-         Y0fyxx72YJCXw82XQQYhLTYKjeBpr0c6jGXcIJD9santhlGTP+CvNXkXcjb/D/GL+nek
-         6D2JidEku2Zu0RvbtKoehRcKBUoRGqRC28tu5Q/N6Xn8td4d08q9dIjqrtDD6kSZlIPk
-         pDMw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVAP7n7t4Ez2XlUkDDpSA2+8N30yxR+67Qudgc3NVpJHKtGwKdJfASNUGRJImWMDUxYV42XBRPry4Y5cM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kO690so7ARObt9fA1LbXwjMh4VjgIkkVh+zug2aBjvhpDGp3LV
-	/3tTTRjPbwKbmPmtze5GQ4542UVa1G3LyNgbH7q1gpFj0Zdg+0tawzHe
-X-Gm-Gg: AYBFou00A7u836Z3L1a51tgQLOfr1bo9ixTFDbUL80ScrqshP19ECzdWfDW13D/wmxU
-	mHKe7Nij/pUtSlDvzG2npOMGVrZnYPhJK0fkWYOZqLM3qCXEcPR2l1UqKREfOTrHtGWeyg9gu8a
-	UYLrcY3+M31HnVX9K8SgVRR8In5rl3Fc9HYuCq1kaQkJbIZrNxkR2w1ZXNvmPTV1eJpcSco6Hiv
-	80Ir669LiOh/er3jQHQy0/WNbAgA8zj2uqOmqx0fRISk5VB/sTikqTNldZ7FVAp3n/h8e/0fmLR
-	/PBAoA/HfCgio+w45N0jXiQf+0MDN+uMXbpAsUyeivabcU59cVFyKoG2RK+eFv7Q6H6l6+yuHgd
-	wa3GEqK7nRrXtXPoiB4H2+LZ7gr7KycxghevUClODX+hJ5RThDY/gkkH6Nd5XV+AF9bgCp5rzI8
-	5riAGbQSlEsxZFebSFz6D47pWElpNk+3Qae2dprhW25tGr7dTM9tXz/Nsg0ubKU64YofonT3/k0
-	wfqxhOIcwY6h5fBZ1ShJxZbPtVzsN3gJSqiQGku
-X-Received: by 2002:a05:6830:43ac:b0:80c:d30f:974 with SMTP id 46e09a7af769-80de21d1f84mr119151a34.21.1789673398952;
-        Thu, 17 Sep 2026 12:29:58 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:5c::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c474d1f0asm3732953a34.24.2026.09.17.12.29.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:29:58 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: ackerleytng@google.com,
-	Alex Shi <alexs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Hongxiang Lou <louhongxiang@huawei.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	fvdl@google.com,
-	jthoughton@google.com,
-	rientjes@google.com,
-	vannapurve@google.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
-Date: Thu, 17 Sep 2026 12:29:56 -0700
-Message-ID: <20260917192957.3466978-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
-References: 
+        d=1e100.net; s=20260707; t=1789673433; x=1790278233;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DKBKAO6uZv7zwP+i5r1kqr1VSMo/flSyHByrbO63mzg=;
+        b=tAUvVBq2L7Fekzn6FykYv+i2IMhbdH2ZHzcPIYuEln5zNZg+91wh+i8r/WfCVHnDc7
+         d2Ykp4DqdFCIToy1TsPztWdTinqyAthY9lCOL5SMIvmYmgDTzMeoElR1C54pw5MPQnT4
+         4x8baeuvE8lkmsSjFOSwi+EsX8W3NvBzahA3Nr/lvclMvNAUIm6LgGPyWQie3MfdZXSf
+         vnhIqY5Si3G/RyR9JbCzMqDja6Cs15JVaZpqpw0oPF2p3iJwYppN/mmfgbxZVYBWpip0
+         FIJjXaC1lQcmI4u5N2F0wj9KQkfk1DJMzOQEDhfH6MFDd989ticLQceYRJLHB+a2jEL1
+         0ZDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeuYURyH+9D1woejctYm2ebJWpkpHyeyELCqzuE2jb4bH3/isfuEG/mUFXqHP+Wsxhf81PZ257A2AJnyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJs8xd34qGKhDi5l29d9+4HuWo6ycXRDN3NXLvZJOFFJU+gYc2
+	CEDECf7Q5MM2IR1/3xAaCyWN/5P2lwVnV7BxJpm76N1B2808jT+KrjXhS+enwydWsjpnBr7dId7
+	SxFxO1tecAXkA+HbfX8CGxXVdnvp0rK1LQAG1D5gH9NGwmvaXs68fjCIDcGs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1383:b0:490:315d:e0d5 with SMTP id
+ 5614622812f47-4ccf6a75030mr310242b6e.16.1789673433516; Thu, 17 Sep 2026
+ 12:30:33 -0700 (PDT)
+Date: Thu, 17 Sep 2026 12:30:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aac3fd9.b398a7c9.1f86be.0021.GAE@google.com>
+Subject: [syzbot] [lsm?] [io-uring?] kernel BUG in commit_creds (3)
+From: syzbot <syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com>
+To: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, sergeh@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+Hello,
 
-> On Wed, 16 Sep 2026 16:39:00 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
-> 
-> > HugeTLB subpools currently only track used pages (used_hpages) when a
-> > maximum size limit (max_hpages) is configured on the mount.
-> > 
-> > ...
-> > 
-> > This series addresses three problem areas resulting from untracked usage
-> > and asymmetric error handling:
-> 
-> These are rather serious-sounding problems.
-> 
-> I'm seeing Fixes: for 10-year-old patches, for one last year and one
-> this year.  The fourth patch doesn't identify what to fix.
-> 
-> So if downstream people (-stable maintainers, others) follow our
-> recommendations, some kernels will get two of these patches, other
-> kernel versions will get three and some lucky kernels might get all
-> four.  Are you confident that the patches can be split apart in this
-> fashion and still produce a good result?  After all, we're sending
-> downstream some patch combinations which we didn't test.
-> 
-> Also, can you speculate about why these things took so long to
-> discover?
+syzbot found the following issue on:
 
-Hi Andrew,
+HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=11f4d8c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+dashboard link: https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=124353f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10f73bf9580000
 
-I'll be brave and admit that I knew there were hugetlb accounting issues
-for a while because I was seeing them at some ~rare~ frequency, but
-I couldn't figure out exactly what was happening and didn't report it. 
-In my defense this was before LLMs were doing a good job of finding
-bugs in code ; -)
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
 
-So I'm very grateful that Ackerley took the time to find what was
-happening and sent the fixes. 
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com
 
-> Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
-> trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
-> region_add file_region coalescing").
+------------[ cut here ]------------
+kernel BUG at kernel/cred.c:376!
+Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+Modules linked in:
+CPU: 0 UID: 0 PID: 4923 Comm: iou-wrk-4922 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : commit_creds+0x888/0x8d4 kernel/cred.c:376
+lr : commit_creds+0x888/0x8d4 kernel/cred.c:376
+sp : ffff800098287850
+x29: ffff800098287860 x28: ffff0000d05e08c8 x27: ffff0000d05e0000
+x26: dfff800000000000 x25: dfff800000000000 x24: ffff700013050f18
+x23: ffff0000c7e6bac8 x22: ffff0000d05e08d0 x21: ffff0000d2bb7000
+x20: ffff0000d2bb7000 x19: ffff0000d2bb7300 x18: 1fffe00035b9ec28
+x17: ffff8000818fd3bc x16: ffff8000816109b4 x15: ffff800080391038
+x14: ffff8000815de4b4 x13: 0000000000000001 x12: 0000000000000000
+x11: 0000000000000000 x10: ffff600018fcd751 x9 : 0000000000000000
+x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000004 x3 : ffff800080391048
+x2 : 0000000000000000 x1 : ffff0000d05e0000 x0 : 0000000000000000
+Call trace:
+ commit_creds+0x888/0x8d4 kernel/cred.c:376 (P)
+ smk_write_relabel_self+0x398/0x418 security/smack/smackfs.c:2709
+ loop_rw_iter+0x3c0/0x5c0 include/linux/uio.h:-1
+ io_write+0xd50/0x1364 io_uring/rw.c:1170
+ __io_issue_sqe+0x134/0x364 io_uring/io_uring.c:1386
+ io_issue_sqe+0x94/0x8f0 io_uring/io_uring.c:1409
+ io_wq_submit_work+0x4c4/0x690 io_uring/io_uring.c:1525
+ io_worker_handle_work+0x640/0xeb8 io_uring/io-wq.c:659
+ io_wq_worker+0x830/0xb44 io_uring/io-wq.c:752
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+Code: 91009280 9420ad5a 17fffe51 940b1fa2 (d4210000) 
+---[ end trace 0000000000000000 ]---
 
-I just reviewed the 4th part, I'm not sure if there are any
-userspace-visible changes for this. Maybe just an additional retry for
-allocating from the global subpool? 
 
-> Our other little friend is talking to us:
-> 	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
-> 
-> I'd like to queue this up promptly because it fixes things.  But let's
-> seek additional review input and argue with Sashiko before taking that
-> step.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Agreed, I left my reviewed tag on 2 & 3 but it seems like Sashiko is
-raising some concerns. Ackerley, any thoughts on those?
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Thank you as always, Andrew!
-Joshua
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
