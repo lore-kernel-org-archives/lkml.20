@@ -1,148 +1,299 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40A445D1A5
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB448FF74;
+	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634596; cv=none; b=WVoieSV90frNgCCmfT4ew8IF6TTxUXUe4HyO2AtbVvJfeol4YYMZxQ8aEiGxHn+YHKWOn06O1RTDpfCeZhi+ruNrQXUNOWQnGFPRTv2bjx7O/Aai1wQ6oTUfYYE44VlgB9Ho8Kl0Drf61a+NHWqij+5R96KUHo/Uwn21svTwXxY=
+	t=1789634622; cv=none; b=sKgUmtW70p61Wq8jiSNgvs1xoBvXO4bfqitGAFz1qfAibcxnC8MeDkkl0UGrJdYldnbj9RQYy8yYFpeouyoG6qMK0tG0hwq/fMlKSwfAtUgtrAxGEgtvL2iy1VZkZfEPR8KsscpFsAInGFI1+v9vrU4RS3RRTElFQd6FS2by98w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634596; c=relaxed/simple;
-	bh=xZ3JSj8oevdfblevZOGxIZ7GwtEyzSx++6y/65fyjlg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rsrW0nXe0Mr5ts8uXlPQl1tP9amoXNJRsuEQf8wUq+4wzuW9AJ5hAn3jOJ4rXx+I+v/geIDxAmaRiG3q4U9wkzvgM5642tlwdqVBu/QbOPll1jxwqe37vLUMLlPlRxAAxU3Niq92GpiKGqYZ3zzBVwL2VGjqRoSVtKLuOHs0Vqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NXsGNePQ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789634622; c=relaxed/simple;
+	bh=p+12XKBNdSjDhIy6E+e9yuG30QEvWnhXl3elNOuNjw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dJjxNSMOBPhvtPUmugZCb+YJ+8GLMuytt1aFk2VwNHiwvOjTNjZlfIyrlDDPkjFcGDcL30etYYLN2cGQFoz5MVHJgsCDbhcwuVjE//vZZGgiDt+2TuFhpxXM1uh/J62qxaekIjrlsBnEZBhhKzWdcsA3iezbhD/TP22Uu6JOGNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RA0Z64r6; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NXsGNePQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789634580;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qnj5bGFt5q5vW3x1crtWWx2Ui97eiSoKFvsTpuZ4ym8=;
-	b=NXsGNePQxHUoU+NhcQtuECJUVuIewm+GnWowpAng2/qEjrqtxf54G1bcWjU0xO+Sq0dTHL
-	FtOSk5IHIzK3Gd/DC6oSYVDHZlSpynlAyImR0PgM3xmdy3KzDQHKGTvuNVmuConhXmYAzS
-	8Sgawh1UqdFl2HVkE2BcOSVQ64KJwYE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-558-Nye_faDPOGKCA8dwMkPHsw-1; Thu,
- 17 Sep 2026 04:42:55 -0400
-X-MC-Unique: Nye_faDPOGKCA8dwMkPHsw-1
-X-Mimecast-MFC-AGG-ID: Nye_faDPOGKCA8dwMkPHsw_1789634573
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7131519540C9;
-	Thu, 17 Sep 2026 08:42:52 +0000 (UTC)
-Received: from [100.90.87.156] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 25A921977588;
-	Thu, 17 Sep 2026 08:42:48 +0000 (UTC)
-Message-ID: <371bb5ad-ecdd-48ce-9288-8f9209b8ffdf@redhat.com>
-Date: Thu, 17 Sep 2026 10:42:47 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RA0Z64r6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id F281AC5CD6C;
+	Thu, 17 Sep 2026 08:44:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E64F5FAA3;
+	Thu, 17 Sep 2026 08:43:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1F7711C7B02B;
+	Thu, 17 Sep 2026 10:43:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789634607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Mg2tLnhtM9MhyKLc8so1gxY18xcOvlKJXGedwmLFfOY=;
+	b=RA0Z64r6KvLuOjdkOdu1Uin9njJO5FBDLcwuBYR16ruDzhrdnAiM4hKwOeE253WpsFlBgh
+	LskHc6N72E6IRA4lZ5fZGOU+Pr3SNHtEwRWzrkbMoYtNl5DQ4G3zpJiF0vUK+4s5vAC0Ph
+	wOgQ4+OeqMYcO7Xwz30gy9M3e2Fhq8f76NqfKixUu0gfc8EiBRwoSEs87mgNQLTZPv5CYd
+	PyonmjqO12pZrB9Up8BkqtONlGGHW54hzdHY1lyDLe0nQkikoageclBoXIYRcSe57BhR2b
+	k8Y9MMc2/IaETGyf2q3NUUlvcupx9uaWUSpW/HkTM9jUpPl5tKlAsdHYMUJowg==
+Date: Thu, 17 Sep 2026 10:43:21 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 11/15] libfdt: Introduce fdt_getprop_by_offset_w()
+Message-ID: <20260917104321.11256312@bootlin.com>
+In-Reply-To: <aqtx_MzOsc3q4Gev@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-12-herve.codina@bootlin.com>
+	<aqpnzXyR_k4fs7Jk@gractus.seuss>
+	<20260916124205.28a71859@bootlin.com>
+	<aqtx_MzOsc3q4Gev@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v9 03/15] dpll: add basic SiTime SiT9531x support
-To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
-Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
- "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "cjubran@nvidia.com" <cjubran@nvidia.com>,
- "pabeni@redhat.com" <pabeni@redhat.com>,
- "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260915000015.80480-1-arouhi@sitime.com>
- <20260915000015.80480-4-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20260915000015.80480-4-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/15/26 2:00 AM, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> The SiT9531x is an I2C clock generator with four independent PLLs, up to
-> eight input clocks and up to twelve outputs.  Later patches register the
-> PLLs with the DPLL subsystem and expose the clocks as pins; this one adds
-> only what is needed to reach the device.
-> 
-> The register space is paged: 32 pages of 256 registers, selected by
-> writing the page number to offset 0xFF, which is present in every page.
-> A regmap range configuration describes that window, so the rest of the
-> driver addresses a register as a page and an offset and never touches the
-> selector itself.  Pages come in pairs for the PLLs (0x0A/0x1A for PLLA,
-> and so on).
-> 
-> Probe reads the rate of the crystal feeding XIN, since every frequency
-> the driver later computes derives from it; takes the optional reset line
-> and leaves it deasserted, because the device configuration comes from
-> efuse or from a blob applied before probe and a reset would discard it;
-> then identifies the variant from the single byte at page 0 offset 0x02
-> and refuses to bind on anything unknown.
-> 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: Claude:claude-4-opus [chat]
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
->   MAINTAINERS                    |   1 +
->   drivers/dpll/Kconfig           |   2 +
->   drivers/dpll/Makefile          |   1 +
->   drivers/dpll/sit9531x/Kconfig  |  17 +++
->   drivers/dpll/sit9531x/Makefile |   4 +
->   drivers/dpll/sit9531x/core.c   | 272 +++++++++++++++++++++++++++++++++
->   drivers/dpll/sit9531x/core.h   |  91 +++++++++++
->   drivers/dpll/sit9531x/regs.h   |  56 +++++++
->   8 files changed, 444 insertions(+)
->   create mode 100644 drivers/dpll/sit9531x/Kconfig
->   create mode 100644 drivers/dpll/sit9531x/Makefile
->   create mode 100644 drivers/dpll/sit9531x/core.c
->   create mode 100644 drivers/dpll/sit9531x/core.h
->   create mode 100644 drivers/dpll/sit9531x/regs.h
-> 
-> ...
-> +
-> +#define SIT9531X_RANGE_OFFSET  SIT9531X_PAGE_SIZE
-> +
-> +static const struct regmap_range_cfg sit9531x_regmap_range = {
-> +       .range_min      = SIT9531X_RANGE_OFFSET,
-> +       .range_max      = SIT9531X_RANGE_OFFSET +
-> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
-> +       .selector_reg   = SIT9531X_PAGE_SEL,
-> +       .selector_mask  = GENMASK(7, 0),
-> +       .selector_shift = 0,
-> +       .window_start   = 0,
-> +       .window_len     = SIT9531X_PAGE_SIZE,
-> +};
-> +
-> +const struct regmap_config sit9531x_regmap_config = {
-> +       .reg_bits       = 8,
-> +       .val_bits       = 8,
-> +       .max_register   = SIT9531X_RANGE_OFFSET +
-> +                         (SIT9531X_NUM_PAGES * SIT9531X_PAGE_SIZE) - 1,
-> +       .ranges         = &sit9531x_regmap_range,
-> +       .num_ranges     = 1,
-> +       .cache_type     = REGCACHE_NONE,
-> +};
+On Thu, 17 Sep 2026 14:52:28 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Couldn't it be useful to cache at least page selector register or is it
-volatile? I remember from zl3073x history that page selector caching
-helped a lot to reduce number of i2c transactions.
+> On Wed, Sep 16, 2026 at 12:42:05PM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Wed, 16 Sep 2026 19:56:46 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Wed, Aug 26, 2026 at 10:31:42AM +0200, Herve Codina wrote:  
+> > > > Future operations, such as handling unknown tags on dtb modifications,
+> > > > need to modify properties retrieved by their offset.
+> > > > 
+> > > > fdt_getprop_by_offset() already exists to get a preperty by its offset
+> > > > but the property returned is read-only. A writable returned property is
+> > > > needed.    
+> > > 
+> > > Since we already have fdt_get_property_by_offset_w() this is an
+> > > obvious gap and I'd be happy in principle to apply this independent of
+> > > the rest of the series.  
+> > 
+> > Nice :)
+> >   
+> > >   
+> > > > Fill the lack and introduce fdt_getprop_by_offset_w(), the write enabled
+> > > > variant of fdt_getprop_by_offset().
+> > > > 
+> > > > Add also its related test.
+> > > > 
+> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > > > ---
+> > > >  libfdt/libfdt.h           |  6 +++
+> > > >  tests/.gitignore          |  1 +
+> > > >  tests/Makefile.tests      |  2 +-
+> > > >  tests/get_prop_offset_w.c | 84 +++++++++++++++++++++++++++++++++++++++
+> > > >  tests/meson.build         |  1 +
+> > > >  tests/run_tests.sh        |  1 +
+> > > >  tests/tests.h             |  1 +
+> > > >  tests/testutils.c         | 18 +++++++++
+> > > >  8 files changed, 113 insertions(+), 1 deletion(-)
+> > > >  create mode 100644 tests/get_prop_offset_w.c
+> > > > 
+> > > > diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
+> > > > index 7a1915a5..82965e32 100644
+> > > > --- a/libfdt/libfdt.h
+> > > > +++ b/libfdt/libfdt.h
+> > > > @@ -856,6 +856,12 @@ static inline struct fdt_property *fdt_get_property_w(void *fdt, int nodeoffset,
+> > > >  #ifndef SWIG /* This function is not useful in Python */
+> > > >  const void *fdt_getprop_by_offset(const void *fdt, int offset,
+> > > >  				  const char **namep, int *lenp);
+> > > > +static inline void *fdt_getprop_by_offset_w(const void *fdt, int offset,
+> > > > +					    const char **namep, int *lenp)
+> > > > +{
+> > > > +	return (void *)(uintptr_t)fdt_getprop_by_offset(fdt, offset, namep,
+> > > > +							lenp);
+> > > > +}
+> > > >  #endif
+> > > >  
+> > > >  /**
+> > > > diff --git a/tests/.gitignore b/tests/.gitignore
+> > > > index 69693129..1091174a 100644
+> > > > --- a/tests/.gitignore
+> > > > +++ b/tests/.gitignore
+> > > > @@ -30,6 +30,7 @@ tmp.*
+> > > >  /get_phandle
+> > > >  /getprop
+> > > >  /get_prop_offset
+> > > > +/get_prop_offset_w
+> > > >  /incbin
+> > > >  /integer-expressions
+> > > >  /fs_tree1
+> > > > diff --git a/tests/Makefile.tests b/tests/Makefile.tests
+> > > > index 63e201ae..0d4d399f 100644
+> > > > --- a/tests/Makefile.tests
+> > > > +++ b/tests/Makefile.tests
+> > > > @@ -16,7 +16,7 @@ LIB_TESTS_L = get_mem_rsv \
+> > > >  	sw_tree1 sw_states \
+> > > >  	move_and_save mangle-layout nopulate \
+> > > >  	open_pack rw_tree1 rw_oom set_name setprop del_property del_node \
+> > > > -	appendprop1 appendprop2 propname_escapes \
+> > > > +	appendprop1 appendprop2 propname_escapes get_prop_offset_w \
+> > > >  	string_escapes references path-references phandle_format \
+> > > >  	boot-cpuid incbin relref_merge \
+> > > >  	extra-terminating-null \
+> > > > diff --git a/tests/get_prop_offset_w.c b/tests/get_prop_offset_w.c
+> > > > new file mode 100644
+> > > > index 00000000..dbfa5dd7
+> > > > --- /dev/null
+> > > > +++ b/tests/get_prop_offset_w.c
+> > > > @@ -0,0 +1,84 @@
+> > > > +// SPDX-License-Identifier: LGPL-2.1-or-later
+> > > > +/*
+> > > > + * libfdt - Flat Device Tree manipulation
+> > > > + *	Testcase for fdt_getprop_by_offset_w()
+> > > > + * Copyright (C) 2026 Bootlin.
+> > > > + */
+> > > > +
+> > > > +#include <stdlib.h>
+> > > > +#include <stdio.h>
+> > > > +#include <string.h>
+> > > > +#include <stdint.h>
+> > > > +
+> > > > +#include <libfdt.h>
+> > > > +
+> > > > +#include "tests.h"
+> > > > +#include "testdata.h"
+> > > > +
+> > > > +#define SPACE		65536
+> > > > +
+> > > > +int main(int argc, char *argv[])
+> > > > +{
+> > > > +	const void *exp_val;
+> > > > +	const char *name;
+> > > > +	char *modif_val;
+> > > > +	void *propval;
+> > > > +	int proplen;
+> > > > +	int exp_len;
+> > > > +	int poffset;
+> > > > +	void *fdt;
+> > > > +	void *buf;
+> > > > +	int err;
+> > > > +
+> > > > +	test_init(argc, argv);
+> > > > +	fdt = load_blob_arg(argc, argv);
+> > > > +
+> > > > +	buf = xmalloc(SPACE);
+> > > > +
+> > > > +	err = fdt_open_into(fdt, buf, SPACE);    
+> > > 
+> > > You shouldn't need an fdt_open_into().  You're modifying the contents
+> > > of a single property, but not moving tags about or (specifically)
+> > > expanding the tree as a whole.  This is a "write in place" operation
+> > > rather than a "read/write" operation in libfdt terms.  
+> > 
+> > Ok, I will update in the next iteration.
+> >   
+> > >   
+> > > > +	if (err)
+> > > > +		FAIL("fdt_open_into(): %s", fdt_strerror(err));
+> > > > +
+> > > > +	free(fdt);
+> > > > +	fdt = buf;
+> > > > +
+> > > > +	/* Retrieve the offset of the 'prop-str' property */
+> > > > +	poffset = get_poffset(fdt, 0, "prop-str");
+> > > > +	if (poffset < 0)
+> > > > +		FAIL("Property 'prop-str' not found")    
+> > > 
+> > > Introducing get_poffset() seems a bit awkward compared to using an
+> > > fdt_for_each_property_offset() like get_prop_offset.c does.  
+> > 
+> > Ok, will use fdt_for_each_property_offset() directly here and remove
+> > get_poffset() in the next iteration.
+> >   
+> > > > +
+> > > > +	/* Get the property value for modification */
+> > > > +	propval = fdt_getprop_by_offset_w(fdt, poffset, &name, &proplen);
+> > > > +	if (!propval)
+> > > > +		FAIL("fdt_getprop_by_offset_w(%d): %s", poffset,
+> > > > +		     fdt_strerror(proplen));
+> > > > +
+> > > > +	/* Check original values */
+> > > > +	if (strcmp(name, "prop-str"))
+> > > > +		FAIL("Name mismatch : %s instead of prop-str", name);
+> > > > +
+> > > > +	exp_len = strlen(TEST_STRING_1) + 1;
+> > > > +	if (proplen != exp_len)
+> > > > +		FAIL("Original size mismatch on property \"%s\": %d instead of %d",
+> > > > +		     name, proplen, exp_len);
+> > > > +
+> > > > +	exp_val = TEST_STRING_1;
+> > > > +	if (memcmp(exp_val, propval, exp_len))
+> > > > +		FAIL("Original data mismatch on property \"%s\"", name);
+> > > > +    
+> > > 
+> > > You could re-use check_get_prop_offset() from testutils.c to perform
+> > > these tests before invoking fdt_getprop_by_offset_w().  
+> > 
+> > I wanted to test that the value returned by fdt_getprop_by_offset_w() is the
+> > correct one. check_get_prop_offset() calls fdt_getprop_by_offset() and not
+> > fdt_getprop_by_offset_w().  
+> 
+> Ah, fair point.
+> 
+> But.. rather than checking the retreived values the same as
+> get_prop_offset.c, it would be both simpler and more complete to
+> explicitly check that fdt_getprop_by_offset_w() returns the same
+> pointer as fdt_getprop_by_offset().
 
+Ok, I will do that.
 
-Thanks,
-Ivan
+> 
+> > I know it doesn't matter with current implementation
+> > of fdt_getprop_by_offset_w() but I am not supposed to know about this
+> > implementation here in the test. Also, this implementation could change in the
+> > future (not planned on my side).
+> >   
+> > >   
+> > > > +	if (exp_len < 4)
+> > > > +		CONFIG("Property \"%s\" should be at least 4 bytes", name);
+> > > > +
+> > > > +	/* Modify the property value */
+> > > > +	modif_val = xmalloc(proplen);
+> > > > +	memcpy(modif_val, propval, proplen);    
+> > > 
+> > > Why malloc() and memcpy()?  The whole point of
+> > > fdt_getprop_by_offset_w() is that you get a writable pointer into the
+> > > fdt which you can modify in place.  
+> > 
+> > I want to keep the modified value for later comparison.
+> > 
+> > - modif_val : Current property val + modification.
+> > - Update propval: Current property val.
+> > - Check reading the property with check_get_prop_offset() that the
+> >   property has been really updated.
+> > 
+> > If instead I use only propval, I use only one buffer and so
+> > - propval = modified value
+> > - check that get check_get_prop_offset() which will also return the 
+> >   propval buffer matches the propval buffer.  
+> 
+> Ah, missed that, that makes sense.  Personally I'd probably go with a
+> static buffer with the value to write in (and then compare), but
+> either way is fine.
 
+Will keep malloc()/memcpy().
+
+The static buffer needs to know about the lengh of data, at least a
+maximum allowed length.
+
+Best regards,
+Hervé
