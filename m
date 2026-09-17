@@ -1,68 +1,68 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444B4495AF4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC249B1F5
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678965; cv=none; b=i0CJjHDxqrWUkWet5JyNPs4J4P8/jylThl9ZUsQo1cVWqTdLGfeqrfpzTXEGKvyKOx15Wx95cVYYwM7k5pwZpLBxwFHhglKSTSbOsPjumACr+Onc8NoXDEHtwkeDfaoeBs6D0Q4Ze92cIDox4ghtKLt0QyE7M6hNinaNe1lOWMM=
+	t=1789678968; cv=none; b=MfHiZX4yJK2pQ9B/rMtbNo8IgiQORxqPfQqQ/BGwKh5CPH5cdzcQSqhT6yyvr8ca1KZMkeRO/qJfb3+fWweN8TrrOKpfUGhZaG599qGhkl4O90iJvKdBITmpQBJ7T3Qt0nrNg86cpuUaJizLqVWVu6EWdOoth9dpqwLARDuim+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678965; c=relaxed/simple;
-	bh=QQUrE+DwZ1KWpqLSQpoA8URn9azrBBw3jC33CI+5l4Q=;
+	s=arc-20240116; t=1789678968; c=relaxed/simple;
+	bh=Uvy6WjK33Ql5QDc+7YeTX2qUEcUUi+n12SinkXVNwt4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dFqxqG3CnUmlrVwOc3Yh1UB5ZSU1JozF4JD123c/4gZ9EOm5pOGCM0nJKddqDl9C3nwIxgSrzxAMDrO7nvvf+GUVlY6MK14v6xfR4yP/jtIP7B5dz8Hd3Kr0Dd0Nu/8gKxU1ldZqRYa3vty5kGL6PzapNhE1wiv0vxA9x4Rmcr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=kvMRcmRq; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=G1Sc1pzfJ6R6nAxZcyNbUVE6pmtVOtGIV2RF5kokUP7WjPv+zZ3Pisch2Putj1BHghPQse7zDEoL9r6vINWV9ehrqCoMLoeeEV52cP9s5Os0lKdWC02FzRUam6dHCbyiLxLojM/EOvKCG7K2cjGTHrsMWJSX/0HJaAeUgd/07T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Kg29WfOX; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="kvMRcmRq"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so515265e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:02:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Kg29WfOX"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so969935e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:02:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789678961; x=1790283761; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789678964; x=1790283764; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3jbM+/xCOFHz2ekpLk2drdaMa28onD9DLLAyaB1dHZ0=;
-        b=kvMRcmRqM3DL8mI5LTcS+zb28kEG24CbsM+8fVvbf8mXh+RTGiMrkPCCEtGozIWgLO
-         1bydYgn0WBOW9DaHmq9es5yrmM9GvFNlymBFBY2+C1qXtHoiE3heRxOBTxDv0SgwF1zM
-         r3qjRXwr+j6/zBEnNdlI0PAwu3Fch19NqKGr3hCWjTTpvXvsOfMQ5vAJe4gTiBVVT/il
-         EGVXjwV9w0bZf73kZbJE/hmqU+dkcWMeH/2PdNfXy527xk9BTykyhO9a6o/JsfdWUXso
-         /3allJYPE547ttQHhU7REsX8KWDUSbAdywX91VcCpMw9GnuXD/xWvrkxQb621oLhVn3u
-         K8mg==
+        bh=0a21Y1nKSOFECTC5sqA3T0CqQ+Krc+hIIInAv6Qgnz4=;
+        b=Kg29WfOXjW0/kjOCVjKbclVDnPh3qxPBMr1GjKk08d9lkTd0rQs2+Gzhyd+xK+mapQ
+         g3bfeddu9K3OLL/poxG2PsWSGTmv42okVppmbTUHWK29IJyWUZufIiV+QsaFJc9/XwlV
+         TWfQDTZu5T1as5y8p3HWHNxJ3IrzVgQ8PWCNsRKrcgkl7LrCwR2j2TUc/REN43WBlzm/
+         49/J0zeduwh263aK+AFcaQHN7I7Lk6WtLAGir3sdBGUN2tLE49dwSY7nBRIvBYzxDg0e
+         wIWseMXZ1Hgc5EwUPVXAm1puHUla8qYB8bFqeLUAzooFjchpvBzKrGLCSg4iMMfWKgSm
+         VI/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789678961; x=1790283761;
+        d=1e100.net; s=20260707; t=1789678964; x=1790283764;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3jbM+/xCOFHz2ekpLk2drdaMa28onD9DLLAyaB1dHZ0=;
-        b=aNp5a+1eTFITo6eKf6PS1NIMu9C1pvwn7giricou3SYJevy1Y0ac8SroH7SK6DOE7O
-         n24X4Un4+fWsUK6fwGEHY74jZUAgwpszM1Rkm/MIvRO68zEuM5Gc8Kjzg42ufbpMcicw
-         HbS/ibPxP6hXzD8oGN1oP0fhIodnvNDzNKNIteo3QTel4oYBIBh+CS6I4NT+aDnH42aE
-         fQ5Q+WG7U22VHhrYw5TV1ugsWEn7xkfxruaLiVbByHGrlq5yhETLMWRwoMe0CyjeFQKl
-         g0WwqcdzhGmhM0m+DpUVxT+x1J33SMpaMfp1mPxl5RyWPFNcnBwsY5TNqahwrCgCP19K
-         mLpw==
-X-Forwarded-Encrypted: i=1; AKwUvByCoN6yX8lh039wzmn0m7OK8M/3/z2woVJbHDWs/4NS91okAOp3VYxUvg0KgrgZn9Js4oACuHZArbpu8ig=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1KCLaOLsvdxUZdEDKw8IcLlrggWh2UNWYX3ta3ZY/2/8DQnwL
-	8OIuvZqSkDj9/knpltX6WRWxfg22h+REmsDxiucfhms1huobwvobRhmD/sbk3tIA5RM=
-X-Gm-Gg: AYBFou3O65+rMvR+B6B0FClSwyodC3/eNlCuMbGPaR7JSrs9ovQR3y3f08g7b/pUcvP
-	U18Z3Gsscs+9YjYxwhqbEmgikWvosWQDdJI8QL8Zm2/pGeQs5q3lhNzF80W3ytktciXww9toeRb
-	nMFD3SKCu+OK9iDThNkWcPCv7NQRF4/YvL5MUBotEflUCoy+6LwDfrMSCtroTk57vUU7Ams1R3p
-	UYr63uenBJJ5Cj8K9w4+SrcJ82r0jHX9HA7fkVlYG4TSILuWV5gKYnFKsg/4j367YSHjKMBE9sr
-	+Q8PjdvnoZjFBQVrjQ2FpcbqdWrlGKm6VTfzgzOpfD1kCdEnyEcDkAZmLKFbxax6DyvHqbyDwrs
-	uQcs0EiIwQxIjzcRSGceScfDPDFHi24uNxcA4oMR7Pe8TW6VrBp6xrDEzrWnOtPf9xRla9U7rV2
-	1iYwLTFZ1A5J9zsKzNJAOlMcbDLAtlxguhGrjVkA4+g44rrmVVtY7oIpGaX/8KugGpCg==
-X-Received: by 2002:a05:600c:1382:b0:49d:1d7e:4085 with SMTP id 5b1f17b1804b1-49fc5750e24mr1268555e9.22.1789678961573;
-        Thu, 17 Sep 2026 14:02:41 -0700 (PDT)
+        bh=0a21Y1nKSOFECTC5sqA3T0CqQ+Krc+hIIInAv6Qgnz4=;
+        b=pdOAe1UWzJHaEYHhzMaMd26dgvuASTZbbsjcmnM269JREXguivaE7woa48H68yoEE7
+         CTQrrpIiq4VAkMZLi79b/0tly/6ctNpGHx2lqre2z1PYpPVgGzpVwJlBXTcylPeoCl74
+         dkreXbbU4G7kU1ekNg9/fgGt/1i47dSvx3f8C+9CKfjfQgu5L04/8G5+yphabVDDst4o
+         FUIadR7mx8Esrop6NppzhqpY7TKng5p5WOCGIOxFSTK8hCjvKEw4CwOEjG+LvAE2fBZG
+         8aQkr14qEmML8k07Gi4N/KV3LniVkA+MXwYYjMQfRa+6Yljt7tvhfRNlZQmVH3HUhASj
+         Z65g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8Od8S0eW3wFKoHbr5P2ndJbvRsiUHe1qqOjgfnbpaNbI9q4iHLZISNMUXOaborK2dJVD2/e+Tertkygk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwbSPK/NJp2djKtzexFc/g2aXRwQRWfKaZpSb/3Wh+X7IsS3Kw
+	Cx/FjCAqUxLkQRdfVanGVzauUr+zKnEUYI67dopabJ+1zkx036d0OxG+Gtsnf475eOo=
+X-Gm-Gg: AYBFou1c3SrMmykJiOOmyICjjnR+3Q7Ud6F+bpuGqZREdjbPE/RyxsGoTkK+0ZvMfhw
+	mipqRyTWi0b5s0nkUrbYS69XUTdb7ApCqGgVtEd6ATdTbayKfcF6Ln4DISBPBO75j4axsjZTNiB
+	q9EMEYihAmfDNW0nUt/GaPEG49U9jAquJBut82/u/Rq2Rdz1T9hVA17PuHi9CAy/GJ7c5PmRjHf
+	1N3Lt+7kSajtlyIGtEhsoxTYJq+Gnp/GcJnxndiI8kyyomREy/BvjkWmAuvsDz6bjqHAbGcAJJs
+	p5dV1YGbuR1ooiqO5Auu+edQgm8Om3bPAUwUSYoLkW+eqPefocF4bqiFrW9C++hXpDQZeCiP64E
+	XfYSkv0g1vLH+JpwzFlVgsuW44o6qJECv9QX5b56cYP3VQfnQnS7WuzxORxYvRDRRasBbjd130r
+	EJPZ2S5spzQndPskFcqppad8KoYl/lwPevKXd3VTQ8TNOZYqyXJBtI+rTIDyzVqtHRTG8GP8upa
+	+tUjg==
+X-Received: by 2002:a05:600c:198b:b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49fc574f05dmr1574425e9.33.1789678963884;
+        Thu, 17 Sep 2026 14:02:43 -0700 (PDT)
 Received: from [127.0.1.1] ([151.42.87.32])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5755c40sm3106095e9.3.2026.09.17.14.02.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5755c40sm3106095e9.3.2026.09.17.14.02.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:02:41 -0700 (PDT)
+        Thu, 17 Sep 2026 14:02:43 -0700 (PDT)
 From: Valerio Setti <vsetti@baylibre.com>
-Date: Thu, 17 Sep 2026 23:02:32 +0200
-Subject: [PATCH v2 2/6] ASoC: meson: build gx-formatter as a separate
- module
+Date: Thu, 17 Sep 2026 23:02:34 +0200
+Subject: [PATCH v2 4/6] ASoC: meson: aiu: add I2S Capture DAI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-audin-v2-2-38de4bc1de34@baylibre.com>
+Message-Id: <20260917-audin-v2-4-38de4bc1de34@baylibre.com>
 References: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
 In-Reply-To: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
 To: Jerome Brunet <jbrunet@baylibre.com>, 
@@ -86,71 +86,59 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2113; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=QQUrE+DwZ1KWpqLSQpoA8URn9azrBBw3jC33CI+5l4Q=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlrQnO/ntzvH79Q1yg+wHDPzcDdgsyPt4S7+TmzcyTnS
- q6tPyjRUcrCIMbFICumyMIy/d7vglK1h8YJJwtg5rAygQxh4OIUgIlMjmVk2D3tWLfIEYmnStLP
- /m/gO1Gyv01q+5md1iVJinUf3L7fWMrwT/X1lLkaX47s9/Cy4d9UN/tG6+v8jQampY+YJrX/q7X
- p4AMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1725; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=Uvy6WjK33Ql5QDc+7YeTX2qUEcUUi+n12SinkXVNwt4=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlrQnPVXXIkF19akM2yaANzTvkv5SwOwx05M15mSF780
+ rfPiNOso5SFQYyLQVZMkYVl+r3fBaVqD40TThbAzGFlAhnCwMUpABM59ZLhf0BKUawkm9T3o373
+ JU4++fdX5HWgZ7tPR4R6xFNtM3WhnQz/TBt0/F/LRDzrEImSn2DTeaBkfTLbsZcn2dRi5yVor2h
+ mAgA=
 X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
  fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-Instead of including it in 'snd-soc-meson-aiu', create a separate module
-for it. This way it can be independently selected by either AIU or the
-(upcoming) AUDIN.
+Add capture stream to CPU_I2S_ENCODER making it able to handle both
+playback and capture streams. Captured data is formatted from
+"audin-formatter-i2s" widget, buffered from "audin-fifo" into an internal
+FIFO and then bulk transmitted into RAM when the FIFO is full.
+
+As for the naming of the stream "I2S Encoder" is kept as base following
+the same pattern used for the playback stream and with the goal to minimize
+changes.
+
+Supported format for capture is currently limited to S16_LE because it's
+the only one that has been tested. According to the manual also S24_LE
+should be supported, but this is kept as follow-up.
+
+This capture support also takes advantage of the following commits that
+has recently been merged:
+
+commit df3c987ab3d7 ("ASoC: meson: aiu-encoder-i2s: reflect bs quirk in hw constraints")
+commit e82159384a50 ("ASoC: meson: aiu-encoder-i2s: use the core symmetric_rate handling")
+
+They ensure bs_quirk and rate symmetry across playback and capture streams.
 
 Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 ---
- sound/soc/meson/Kconfig  | 5 +++++
- sound/soc/meson/Makefile | 3 ++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ sound/soc/meson/aiu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
-index d9a730994a2a..4c40bf60dc4e 100644
---- a/sound/soc/meson/Kconfig
-+++ b/sound/soc/meson/Kconfig
-@@ -2,10 +2,15 @@
- menu "Amlogic"
- 	depends on ARCH_MESON || (COMPILE_TEST && COMMON_CLK)
- 
-+config SND_MESON_GX_FORMATTER
-+	tristate
-+	select REGMAP_MMIO
-+
- config SND_MESON_AIU
- 	tristate "Amlogic AIU"
- 	select SND_MESON_CODEC_GLUE
- 	select SND_PCM_IEC958
-+	select SND_MESON_GX_FORMATTER
- 	imply SND_SOC_MESON_T9015
- 	imply SND_SOC_HDMI_CODEC if DRM_MESON_DW_HDMI
- 	help
-diff --git a/sound/soc/meson/Makefile b/sound/soc/meson/Makefile
-index f9ec0ebb01f0..1b1fbe8a0458 100644
---- a/sound/soc/meson/Makefile
-+++ b/sound/soc/meson/Makefile
-@@ -4,12 +4,12 @@ snd-soc-meson-aiu-y := aiu.o
- snd-soc-meson-aiu-y += aiu-acodec-ctrl.o
- snd-soc-meson-aiu-y += aiu-codec-ctrl.o
- snd-soc-meson-aiu-y += aiu-encoder-i2s.o
--snd-soc-meson-aiu-y += gx-formatter.o
- snd-soc-meson-aiu-y += aiu-formatter-i2s.o
- snd-soc-meson-aiu-y += aiu-encoder-spdif.o
- snd-soc-meson-aiu-y += aiu-fifo.o
- snd-soc-meson-aiu-y += aiu-fifo-i2s.o
- snd-soc-meson-aiu-y += aiu-fifo-spdif.o
-+snd-soc-meson-gx-formatter-y := gx-formatter.o
- snd-soc-meson-axg-fifo-y := axg-fifo.o
- snd-soc-meson-axg-frddr-y := axg-frddr.o
- snd-soc-meson-axg-toddr-y := axg-toddr.o
-@@ -29,6 +29,7 @@ snd-soc-meson-g12a-tohdmitx-y := g12a-tohdmitx.o
- snd-soc-meson-t9015-y := t9015.o
- 
- obj-$(CONFIG_SND_MESON_AIU) += snd-soc-meson-aiu.o
-+obj-$(CONFIG_SND_MESON_GX_FORMATTER) += snd-soc-meson-gx-formatter.o
- obj-$(CONFIG_SND_MESON_AXG_FIFO) += snd-soc-meson-axg-fifo.o
- obj-$(CONFIG_SND_MESON_AXG_FRDDR) += snd-soc-meson-axg-frddr.o
- obj-$(CONFIG_SND_MESON_AXG_TODDR) += snd-soc-meson-axg-toddr.o
+diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
+index 535fbf7c1639..14d0e20a4bd6 100644
+--- a/sound/soc/meson/aiu.c
++++ b/sound/soc/meson/aiu.c
+@@ -153,6 +153,13 @@ static struct snd_soc_dai_driver aiu_cpu_dai_drv[] = {
+ 			.rates = SNDRV_PCM_RATE_8000_192000,
+ 			.formats = AIU_FORMATS,
+ 		},
++		.capture = {
++			.stream_name = "I2S Encoder Capture",
++			.channels_min = 2,
++			.channels_max = 2,
++			.rates = SNDRV_PCM_RATE_8000_192000,
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
+ 		.ops = &aiu_encoder_i2s_dai_ops,
+ 		.symmetric_rate = 1,
+ 	},
 
 -- 
 2.47.3
