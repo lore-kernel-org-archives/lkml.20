@@ -1,132 +1,150 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B633FBEBB
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48823BE15D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624405; cv=none; b=Xo+Sp3K4qvzf0dG7Bh7SH/QXXJJJA7VOHGsmrjOba9biVe9bpQa5Vdxw6K39ihtuIHQjCZS+56TH2wVSLbgQvq/dlQpaI7p3h24r3UEmv42LO4jtQSwsKRlwVlTYWhoAq2VZhDfDyX4Q2soWf43l6oVOLiX5VkZiaoJIkRA3eEg=
+	t=1789624408; cv=none; b=Uxy/GrzzYpdwcxMuqSPGj9Tp9FCGc37k4R2LaNpTjQlkrj2KLNtL0vfCw+BD8aaU4L9Z8nwYVaxHEwND+Afkps7J1IhfsqTi4PSD2SBSaIaEVga2ejxPUEKEFWZv8D18jSYip6ZwYGpdZxH+la6SjBTtP572B9eWUJHS6CjY2PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624405; c=relaxed/simple;
-	bh=eu9VvAWL8c0CVMyrD/Xjn/6IGx8pRK+MMjh1QQNDFvQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HEvPmv4mXJJx32MXY14hJ7fQnsxsgXXHGUT+2xpW8Tx7jZFo5BpuYoysz2BAhNffDz6MklVjPknaXzZ8e4UebFGanKyV0cgTPvwzULEF2+iJRFNqurJy6gbiRO2FrOP6ncU0fty2HQrDQFOe7NcU4E9GBgF+cKn3wHdNvkXGFWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lS/0ijBu; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lS/0ijBu"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so2435465e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:53:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789624400; x=1790229200; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v7VMBV2ocTSSZ91doHV+9Jk99FMhih4t2wlbITjifDc=;
-        b=lS/0ijBumKYdvLM5hVLHu5hjZn6x4b36JUmPGyL1pFQ+vmiikFRfz8kC0834R3nS61
-         w38J/R7Q0XXkxxkaXFs5W0P5NyuAoOM8UGAqGx7Gy0CpgjpiBzXEnjphD9dK58PvkpsV
-         Z4k38sVF4S81aEfH0u97LKjyVIh+6+AXM6TQo0twhIfgjw01A/JyFF4OdFWEjAo9wLGA
-         GHecBgxdhLjmsHvqd7/tpZE6sQKVjVULVsnwJhqHKAcili8fXZiNj3HrHg/Mn+oU/v/o
-         yYQhNqa/2oJH1cAgXGotDfTtqROr7kEZ1/k39AmXnpfrFCnM1Ain9dVjTFNnvTM6JLeU
-         aR8w==
+	s=arc-20240116; t=1789624408; c=relaxed/simple;
+	bh=g064DLOiSbUyNirEC4UGhO820EHW3erHwE4YH1EorzQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=szYEkVBDBHoZA+eoufePXL75jnaEkJHWaKYDxiT4wXd+3YaSZcza/iYynCj7BDEqcyO/UeVxREZYpjrOabmcXjvDvrkedPLpsdxwAc0Axjwjow9dQaCRJd0yNkJfskeIWdyWmQBWUr8vjeXb7uFmGe3WjTY09RwoPiPRSv8zGL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4c112aaaee4so131062b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:53:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789624400; x=1790229200;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789624405; x=1790229205;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v7VMBV2ocTSSZ91doHV+9Jk99FMhih4t2wlbITjifDc=;
-        b=QLjctRtHnTYMlkjGWjyxvTzjfRpieiHku3fkULM+UAxJQe4d57X2GlPSCot6Ui6twW
-         99XC9+nC57MMkFv9Lax63Dkbrggi3Qmlx9Em1DjaHGSfTHWq/HE37ldQG930U/p4ahy1
-         EspM6DX48VX8R49x3kJGb6yhlZkHOKT7dYKYRrSLyVAwVrdGs9EropHCCQjhc9jHRbNr
-         nzk61JmXKNikQpzADo0W+bK0v24m+Xsgme15uNMWIdRTjvCcDuMaS2748hH+wdzvDgpN
-         0yiYgfh093o70VhBpymn9q3xo+2Eecoo+kX67VN/jtEFRHcw/ZqLLt4Lykd2tnp5TT99
-         cBEA==
-X-Forwarded-Encrypted: i=1; AKwUvByXm3w9ITLKqS4QNRqMohqqlEH4iAJcUg/8bKgnoJumDyDr8f6enJ2XKqSZcM2mVAH5n0As/3msHfHg66Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJoiP0geHgPyEh9UKVmigdq7KHNL1Y96T8r6qpa05KTebVheTr
-	1dqTkNtNre0xg3Lg8K1LyyB/1Zonolat8Zt10N9Tt/Q43o1qsr7ifKu9wBtfmoSq2iI=
-X-Gm-Gg: AYBFou1LjUf2eOeffIABmEB+DUHgyhYtLvQLkL08YVWmyYMsd+nWfNwRvafMm/wUGL2
-	jxT0lIZMaRh3oxhl88IcrXVKtLQRIy0b6ZTC9c0thpBFQiuz8XhkMsZ3w5Cyy04/7yvNI9eoi5P
-	fX7BeO0LLcAnwyaQQgswbj9FKTNbimE7KS8lFS9Y19irQY9Zhh6yW+Z12LASahlNIHk/5hY2x91
-	4hHw3vfHnXyIJY5sEVfUvhiTP1wO8sBkOeB9WLP7vQbHliPcasgZiTR2WxqxOh2Pj8ODt7qehM/
-	nG3hrgCGL/fzHgxFesBGuCjMavC4DSdZrM/BFIEl7BDhnsufiHH+Hh+zH7e/z9eXfKM1hf4thil
-	xinvtUrTuPk3M1t+rm3jGSok0UXZCCpYoMI/ye/4uOog1VPGs2L5/VpegC3mOLToES4WN8W2fZ7
-	OnGXMgO13HhNN/UHOtwrzYy9XSerfVhY1wbYaLOZ8PMvGyX68Q9FiXX1bchbjsBu19NLW4DvUAG
-	rM5lblJgAg3big=
-X-Received: by 2002:a05:600c:3b0c:b0:49f:bc28:e8b1 with SMTP id 5b1f17b1804b1-49fbc28e978mr74636685e9.14.1789624399375;
-        Wed, 16 Sep 2026 22:53:19 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fbf515cfdsm29444615e9.11.2026.09.16.22.53.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 22:53:18 -0700 (PDT)
-Date: Thu, 17 Sep 2026 07:53:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	Li Jun <lijun01@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm: remove extraneous #ifdef
-Message-ID: <aquADl_vIvmCcFpP@monoceros>
-References: <20260915201305.3529682-1-arnd@kernel.org>
+        bh=Q760ABFe/6JnVselIsou2NZjVaSmzIBt+agD6QxVZzc=;
+        b=eb25EQfLkcAzZGNTy001HAqV+mz9Yig/YX7YCVukRYn8r7AUNuyJ0vVYMrdtobRIOa
+         29iXW3RsLb6gZK55efmxJQFVZrPz0xJQZjnSvdIxFikEmhHnvuIu67Tu73uEGzMfydWD
+         oDrGK/3OI4q1r0aVf1z1pB6LdunVvElMIIPI1jrXip/qg4GjT4ZruzaKUOVWJf4HhvWa
+         gYzRfAo5eOrJhBkXc4i1WmxI8WSHWdEqoHw1stJiWIfdzVoqq+x7dPFoIOYcGlIzTbim
+         OL6v0q1WHRvTzOEKB9hEEiIjyp5uiTjWaJxv6tNDaWuTwlKDCwVG5xYSEwUctIZE0nt5
+         eRww==
+X-Forwarded-Encrypted: i=1; AKwUvBxHsNuU+RCOaPJEs8R/5M7DYy/8wRNCXmolFUPcnYSdHmiPPB/NKjrHnY7hjoEqMcSA9mts7Nw2s1MouiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrZ6wlrBc1iG/lK1jgV7g3mgZviOsPXoAfx2aN3SplCTGldtTE
+	MUqYObLWPrOdW7W3lC0GKW3CiYkjo9jTwezKT3DLZld5LKWGw6drZbnmFF1wRWc0mZ9c107ZmmO
+	uNIoKiqjgqQlKkig9AsvzcFzNip5wNr3INYo2IFiBWUflSt90hORnNlGCOTI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ssrlnq7k6thlujsw"
-Content-Disposition: inline
-In-Reply-To: <20260915201305.3529682-1-arnd@kernel.org>
+X-Received: by 2002:a05:6808:4f0f:b0:4a4:ed9a:e7ac with SMTP id
+ 5614622812f47-4ca499ce7f8mr6573069b6e.1.1789624405564; Wed, 16 Sep 2026
+ 22:53:25 -0700 (PDT)
+Date: Wed, 16 Sep 2026 22:53:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab8055.71f81b7d.278072.0016.GAE@google.com>
+Subject: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
+From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
+To: almaz.alexandrovich@paragon-software.com, linux-kernel@vger.kernel.org, 
+	ntfs3@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    238650ef6c7c Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=12baebf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=3db654d91b471c4d7a7d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=144f93f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16baebf9580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/41924f079a65/disk-238650ef.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/09d46c75ec43/vmlinux-238650ef.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/061e8caeb39c/bzImage-238650ef.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/881a3ca6c010/mount_0.gz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+ifs_is_fully_uptodate(folio, ifs) != folio_test_uptodate(folio)
+WARNING: fs/iomap/buffered-io.c:295 at ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294, CPU#1: syz-executor196/5626
+Modules linked in:
+CPU: 1 UID: 0 PID: 5626 Comm: syz-executor196 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294
+Code: 41 5f 5d e9 b8 66 c1 ff e8 83 47 61 ff 90 0f 0b 90 e9 d5 fe ff ff e8 75 47 61 ff 90 0f 0b 90 e9 12 ff ff ff e8 67 47 61 ff 90 <0f> 0b 90 eb c7 44 89 e1 80 e1 07 80 c1 03 38 c1 0f 8c 08 fe ff ff
+RSP: 0018:ffffc90004a3f5d8 EFLAGS: 00010293
+RAX: ffffffff826553d9 RBX: 0000000000000008 RCX: ffff888038a19f40
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 000000008265d201 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffff9400023c4e1 R12: ffff888028521084
+R13: ffff888028521000 R14: ffffea00011e2700 R15: 0000000000000000
+FS:  0000555586e47400(0000) GS:ffff888125ccb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f0595ca6000 CR3: 000000001bbb4000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ folio_invalidate mm/truncate.c:140 [inline]
+ truncate_cleanup_folio+0xcb/0x190 mm/truncate.c:160
+ truncate_inode_pages_range+0x2c4/0xd80 mm/truncate.c:404
+ ntfs_evict_inode+0x19/0x40 fs/ntfs3/inode.c:2012
+ evict+0x624/0xb50 fs/inode.c:822
+ dispose_list fs/inode.c:864 [inline]
+ evict_inodes+0x7e3/0x870 fs/inode.c:918
+ generic_shutdown_super+0xaa/0x2d0 fs/super.c:741
+ kill_block_super+0x44/0xa0 fs/super.c:1904
+ ntfs3_kill_sb+0x44/0x1c0 fs/ntfs3/super.c:1940
+ deactivate_locked_super+0xbc/0x110 fs/super.c:589
+ cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ ptrace_notify+0x27c/0x2b0 kernel/signal.c:2536
+ ptrace_report_syscall include/linux/ptrace.h:416 [inline]
+ ptrace_report_syscall_exit+0x2d/0x50 include/linux/ptrace.h:477
+ arch_ptrace_report_syscall_exit include/linux/entry-common.h:240 [inline]
+ syscall_exit_work include/linux/entry-common.h:273 [inline]
+ syscall_exit_to_user_mode_work include/linux/entry-common.h:304 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:341 [inline]
+ do_syscall_64+0x4a0/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f6e5f33cec7
+Code: bf 41 4d 56 53 b8 9d 00 00 00 0f 05 83 f8 ea 75 a2 c7 05 08 6c 0c 00 00 00 00 00 eb 96 e8 91 05 00 00 90 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d0 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007ffdde381518 EFLAGS: 00000206 ORIG_RAX: 00000000000000a6
+RAX: 0000000000000000 RBX: 000000000001a4fc RCX: 00007f6e5f33cec7
+RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007ffdde3815d0
+RBP: 00007ffdde3815d0 R08: 00007ffdde3825d0 R09: 00000000ffffffff
+R10: 0000000000000000 R11: 0000000000000206 R12: 00007ffdde382680
+R13: 0000555586e48760 R14: 431bde82d7b634db R15: 00007ffdde382624
+ </TASK>
 
 
---ssrlnq7k6thlujsw
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] tpm: remove extraneous #ifdef
-MIME-Version: 1.0
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On Tue, Sep 15, 2026 at 10:12:58PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> Changing to DEFINE_SIMPLE_DEV_PM_OPS() broke here because the
-> tpm_inf_resume() function is hidden in an #ifdef:
->=20
-> drivers/char/tpm/tpm_infineon.c:615:61: error: 'tpm_inf_resume' undeclare=
-d here (not in a function); did you mean 'tpm_pm_resume'?
->   615 | static DEFINE_SIMPLE_DEV_PM_OPS(tpm_inf_pm, tpm_pm_suspend, tpm_i=
-nf_resume);
->       |                                                             ^~~~~=
-~~~~~~~~~
->=20
-> Remove the #ifdef check.
->=20
-> Fixes: 2249200ee420 ("tpm: use DEFINE_SIMPLE_DEV_PM_OPS and pm_sleep_ptr(=
-)")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-I hit the same issue during my build tests. Thanks for your patch.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Tested-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-Best regards
-Uwe
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
---ssrlnq7k6thlujsw
-Content-Type: application/pgp-signature; name="signature.asc"
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqrgEcACgkQj4D7WH0S
-/k56EAf/SC8iK7FtbpqIrX5WeL5TWPiBRaRsqDhqp2bCUyrpyo05byDWyEHWbVSE
-jNE9waEYf2/y/6JTZEOh7k4+9eFrgbd4TlPvakH4MBCORynmWMxNkXknv9IwHeQ3
-CuC4/qqtxWPGQvwq1IEOSVdniz1SKjoZcVz0gt5qHeT5q7OmbeQSxLzYfqax35iz
-9hkCFqg9AxRUvZDLCxrPSIlZNZyy673mWFmIrah7cMoaTvrRUvsGaFpQFmiAA5ID
-nzafNZVdfW8c7l8S1aadYhfaqhcPjXvlpz1NtMvJYKlyHa3yW1uTCEDgngH9c6in
-GAZPFUtt8tplOLUVnIQ1tr+58xRl4w==
-=o/nl
------END PGP SIGNATURE-----
-
---ssrlnq7k6thlujsw--
+If you want to undo deduplication, reply with:
+#syz undup
