@@ -1,310 +1,163 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787524A4850
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789688044; cv=none; b=fph+ETD3Ir+kDlootjEScpMoz1SpKU0woiPY/yN37Y1K1IJ3b3WV8IySxcjehMUIMevFa2T/axAbuMGJCdVEXT8EQRql8JnOBREJIC3F88lx7hT5aPrXU01oNiLFISKgTLDdKeeUIqnL/w742XaMYSb/JWvRG7RsbSynu5Pj0Ik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789688044; c=relaxed/simple;
-	bh=TNu+UsGtp6p6PSM8/oFNIjpC/cnMFn+2Y+PpgTc2gpY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pyoMKUPiFEuMG0qus2FHQnxHhbiebFGyJdmRNV2I+wKnj1qLZVRs9E4ZmmtkhNngKq0qhXOIwMtL2Vbsj4XvE1cBKhdg+z3pOKTyYbQIAOqBXJQ1WGXH0B9dNeKSqbCwFqO1p1ONBPQxBtBl6BzzRLRCI2OYDpYmBHfTZsbo2BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XQLoEdUx; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717413ACA59;
+	Thu, 17 Sep 2026 23:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789688159; cv=fail; b=IJzoh6YeHkrbZrUkwDXnABhn2QZvsS1xQ+aBjqbYsNwv3AlqgUQ3z9Jmopi/nu5MavnIPlDMTXSiwwLcHBW7wmU5jWDFGlQhvPyHhTJRcbR3qwnme7IDHBV6iLA8ERHM1VB4Kjn3VzN/q7swOTxBdg+ILcX9JlRmG1Noqxe4NXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789688159; c=relaxed/simple;
+	bh=LIE4SHxTN4qWm5Op/gN2f2wN/XLAfsfWcmQ/oYHFkR8=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UELIJBghevoCpS+YO7rktlQmQRvXwHpuEPSEYLpYciFOqwLmeKTMunFK3h26tebSGY61c5NOFxXUmTIzvzJ15ncv0bn8lMHB/uCFp19/pugtSNoFXNE00T7Z9jOkSQklL9fzyPr6lYfpSYO6n0HT0lpx79olE4Iw5IwHw9LpH4w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jMz2Hf8m; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XQLoEdUx"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2dd68a16955so12844775ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789688042; x=1790292842; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RQOshW1Wlhutz0RqxDn5T1g0vEprp2QiXpRdTBiiFYc=;
-        b=XQLoEdUxF5TuxLGhMpwsYA0ujXMkBJZnheQ0LjsfaAewhWveG01V8Enq41j4FILr3Z
-         g2Cv3/djRxHUNF//UX81HJMu0YBDm5/snmMnW0eAHJJpH1qQRx8O9ArT2EcI26DAmzjz
-         M2YgoAZnZ04+XlcAqseWUA7owi2PGsYPjkb6KUwhpX2uitdx81GzAE7KCXeNqXg1ZFn2
-         4kj+oUxYEimec1R6tG9lA5Xr6+XrhY/WTVVUKE8Q1Y+6zulw4Pb6mOCK8s83ruvYVCgt
-         SffjPa8G3NNGY5Jl9xgR6yMLJMGOwcf4VOl3ZeZeefcZ7Qlz1jpnm9WP6ZE/KBXgXgnS
-         hr1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789688042; x=1790292842;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RQOshW1Wlhutz0RqxDn5T1g0vEprp2QiXpRdTBiiFYc=;
-        b=xirn9+QMr8y1utUIfC6Gtg8In6Cg8JTb9s7TnfNXYpY+qfpSAd0041d8PLQmVIIjf1
-         btfbCqXDHpIdjQRiczMkVKcAOsT44HDUho/o4ivhij4MSj+y9u9RHHYFneQkgdlAJ5M9
-         vRgFQHAGiH9JwHwEPDGnEQjy7rT0KSMpEzHo9Ot/wsP7f6aDLmEClgOp+nWxf3PvzyUy
-         /1u/YsqOLNZLfKA5WuU43xYWeKqk9jXfELHwt3yP7Om39fo6HWPHQJSB+c7++lwukqgM
-         lfzvzORTs76dBggBphp4WMZ+jLT7FBU4CEadyAnmxOOr5SMi9hhZVSO0388E4PdvnMc7
-         2fBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlmDwlAqvflzLew997y4qQbD5fZ2JipNCqIhzOqHoBjzPZOnHW8eB+CMSl5SzSkS9cr/ZoA1RwE+Xalzo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mL5tobY5hID6Pn71CBtfEahQ1KZLIYR+vNpJrx2YN/3tP/lrVg
-	X4JDmNRU84yb4Pxc4YbVKjAuFViehgn+gZfHqfetmlL21u/2lGuEaNRbNsNPcIn9qA==
-X-Gm-Gg: AYBFou3/UcXlfBUr1stZutbz0gosePNkdzLPrdSq0tekwPWpfCxoXTyu/gNKZHZUgL0
-	uluH0/ogxVQwn70bD1ROzpDIOfR5egIE6QWOi9eQcOQ4dT/IfrbusUqe8s9xgZmfBxsiyEy0sb3
-	Q0AN9l9xAOfmwn66MBWYsngpr2JxCoOCHCFylgIWf+POgZWPMHEIoDmhNtBMc4h1Doa8C7/aBtg
-	K4X+5BCjQyxpQzk+/M3+gtiTA45iBVoEsFES6SjOR5daLlePC/pkuV2S6iDZ/bNtTENnl4jpbow
-	XGgmkfCZTfYdJqrYZimbLn5KwmkxLMg3F2WkijwZhpTyaLmGnJI+C/tcho3ZJI+Yzj8ErVNM1dI
-	cvr+iiFSZ4GzPduLLHX/FXs8gpBzilQgmQnwVc3lCoIQdGxrRE74bkvcSjICvtcZxMqSNPxXEsf
-	jlX4SJn4wdAHQgYg6khqKnIg13xC6EFSi7rfezW5xBAO7rBKDnNMicFaaIg1k3S60SVfqlJ1tkX
-	CwYMhyXKMEQSVQbDAfuWdA+/iMmHs+iA7gIupn6oCMyzLgvLaQ=
-X-Received: by 2002:a17:902:c410:b0:2dd:b442:ea48 with SMTP id d9443c01a7336-2ddb442ee33mr2803545ad.19.1789688041146;
-        Thu, 17 Sep 2026 16:34:01 -0700 (PDT)
-Received: from google.com (132.200.185.35.bc.googleusercontent.com. [35.185.200.132])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd9e79bb2dsm16491025ad.25.2026.09.17.16.33.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 16:34:00 -0700 (PDT)
-Date: Thu, 17 Sep 2026 23:33:56 +0000
-From: David Matlack <dmatlack@google.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 12/12] Documentation: PCI: Add documentation for Live
- Update
-Message-ID: <aqx45FqmkRps0wCF@google.com>
-References: <20260728221007.2098560-13-dmatlack@google.com>
- <20260917213912.GA1049556@bhelgaas>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jMz2Hf8m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789688157; x=1821224157;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=LIE4SHxTN4qWm5Op/gN2f2wN/XLAfsfWcmQ/oYHFkR8=;
+  b=jMz2Hf8m6475asb+knuIYjmeEhXfsxJAkYqJL/lU2gAyBdKrrLEURuIg
+   FCHWGg2FSK7wJhLgcI+9Xy5C1rhIqgc4rllAvmp7JOD5dgFUw44J1cz2q
+   HLJR+nkVmDNByPWv2s+k+5zeaSjC6xBZm5rH1QeWBWEzUTIQRBDCbuzVx
+   e/CITP/3K8E1KVwUEnA3/+ev3rrVes6lsuTap6oEn27C1ySIutVPGAdFb
+   BdZHhPCIYuA7fXf9ZF6mVawUvpPAVucg/nRU1lq0c+EEBaDpyXooQHp0N
+   qhqvkA9wd7Cz6hErvMfopr0pig0pBRhxrRVeyde2YvzXMOIIp/yyAqyn1
+   g==;
+X-CSE-ConnectionGUID: IpweQFAVT2uocj4tlO7SKA==
+X-CSE-MsgGUID: Ghy0mB1oQ+esKUUV/FHzcw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115696283"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="115696283"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 16:35:56 -0700
+X-CSE-ConnectionGUID: wuCAqaZLQSSQc/hnIPjhRA==
+X-CSE-MsgGUID: fBhlosQCQj2KTh9zxFgVtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276052196"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 16:35:55 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 16:35:55 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 16:35:55 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.41) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 16:35:54 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pDLCPH1eIlg/v6dCYECD2zP+haZYnbgu+w4IzkpL7wRi3r58u/xmAgtLaP5Rex0NrE4SECM3A1mbZ18uybrZZ5j0BZdxtxiK3v2rsYxALortBZ4rFkbVFn55r8I8HODgfz5cHCCJHRhtgy0kje3YlvbBRMyl4Et9B6naB8DsYbUFPqdEdAUREIjEowXWGWMu1KgrxescPj3eAHE/5s+tqrFgHi2V2a1GORYIRnYckC9f2bAUwkjF2l1AHc4bpIhF7meUVU16zZP311/bT4m3nuvbkeh+Laeew9R3MWnEEoYYucdzMqfHIUzAiJpRgkujxL6YSqq3l2+qyRN8jXiOaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TTFIMFVWM7ezrSk3iSTz3fPvEovLn7oo0R6sWAuCSd8=;
+ b=fLG2n6G2wnDg/PP0Uv0lBS2WsM+vMat5jIgAEykcpcvsBxaiMdt9vXDY7Nh96YndEmGwCh0oJeVfEOz0qjtqYxAhokqsmOp2hqj8NAkL6Hv95RhmdoQSQMCfBRh0kNsiQwXbRocUdpwwnovQCAAfeOj3SXa+jw9VMtr5Tw56yUPGu/EuDLJ8uo72PDecQEF90hYV75zXHo7xdnUNa1fXy5DCQyw6nheqzr5jaeUWIHYm3ZhnMa7Ov0ymvP5Dkp2mqIVrur27Mix5DDPRYh9fn6hxMF3rRo8YaMHTU/xKiR0nAhvg046VEze+jllPZYmnZTMdaJU/Fhip5foho5gciw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
+ by DS7PR11MB6102.namprd11.prod.outlook.com (2603:10b6:8:85::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
+ 2026 23:35:46 +0000
+Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
+ ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 23:35:45 +0000
+Date: Thu, 17 Sep 2026 16:35:44 -0700
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+CC: <bp@alien8.de>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <qiuxu.zhuo@intel.com>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] EDAC/i10nm: Fix mdev reference leak in
+ i10nm_get_ddr_munits()
+Message-ID: <aqx5UOLpXdDnDsi7@agluck-desk3>
+References: <20260916091251.1997522-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260916091251.1997522-1-vulab@iscas.ac.cn>
+X-ClientProxiedBy: SJ0PR13CA0022.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c0::27) To SJ1PR11MB6083.namprd11.prod.outlook.com
+ (2603:10b6:a03:48a::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917213912.GA1049556@bhelgaas>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|DS7PR11MB6102:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e198e74-5330-4d32-b8c6-08df1514658d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: wWVr4xhttGOgTF9nQ50U0o2nAikrA6ylPNnPkhuzvD0sl+SO5pN6qXm0ZLDjxMM9mrTiQAWYG0ITfn2VybFXWNzvFbcYyyj4JINgBFDaBsh4M2PNpyZcIpLIgpHXzErS5xTsrSisqoatoOj53+0CnOi0CeStW+tSOY+3RW+yFFhziv8eIJ41OyE+ydvBCF+Gm9X8x0aZZKg6ib3HnYFnoovmczmPHbG0uFKrFEB6JFus5hSrLcHaZ+Y/fBtbPDmp9mlFxHKexYjaS59ypLB8w4ZHD6tbSOJBLAAeXq5CBDju56bvO9xNwD4Mnxmb9f/8YMdLqA0iBdlD0KRGvCQnbP/iK102qcSy5Zs9DGk6+5VbhSa1LHbJ5aaetH6hMe8viyMqjmTs/3crJfQZx7S+3nr0bTnGqv/uY5G/MIqRFjYeJC7G719F44ZTsj3OKLJ5d1ocseh1TbEoOqrTOlZhg3vFA1CISEndkOBIK0Hxod9QvhtrUQaMEPyZx49I/34FgVGwvm4imfDlzqxN542IOsq9IjMXmQkhirR39di+4Q2QEHkM2IuDS4NML6yirNA9Jp0rbMpXAEAntZAnwT7k+HQUsjr+Rh0l7lp8Y/QrMFqU3dTXYux3udDW+P3P0CcPLHrzl4FRAAZvZ+BXAx6+xHGgbBm6nQbG/moY7rStfeE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sSg7kyr1t67AKm3UHNirt3alDJKv+fAGeoEaUtR5TSWTerUPFfgEs/D5k7aR?=
+ =?us-ascii?Q?THMy+mkKmrOr8Io86dvFO4BRqPaSCPRQegMarWvVc0zlT8QBjSX4zu+dUipG?=
+ =?us-ascii?Q?4KqVlKRfOn1MuTQM32F/NYuxdBiYX55uWY3pu2e6wL59Ca01C7zobDEjMr9p?=
+ =?us-ascii?Q?P0pKlfCa1guV6XELdAAhytM85nEBMocqdRWncmJtb9cOS6Q+169CfHg35hba?=
+ =?us-ascii?Q?rvVm+ePd19Fb3l1a0ujx6DtGG7jpE2aAOHfw0FQHsr+1hJl1Z2ZUCLTtMMSc?=
+ =?us-ascii?Q?dlla4xPanPGTBUeJzqQl2md51s1htioZ/93m+lgJ2OvXYGm5m+zrrJlNwUy7?=
+ =?us-ascii?Q?OBhkSAYm+9QsSYuDpwqjnx6zS5xUAFUfB9hZwvNnaq3mdH6iM1L8NjeRuf4E?=
+ =?us-ascii?Q?7x5UHSEoGtcMz4glv8mE89c6aLPzx9ycIrAyEw7ue95Krv180yb3DBZca0Yi?=
+ =?us-ascii?Q?QIrFO44iStMYPqzZ0HSDt5cj9Sv58Hqm+O1bshqVuNwc64RUDyUxIsCJK3Ru?=
+ =?us-ascii?Q?3Ht/XYouLAJOKv1QydQdwIhwbnNnslIAdzHSUyju7q5vlLko0Zb8pKRnaejN?=
+ =?us-ascii?Q?whvrU7nVCmjJMP6dFMy2PZMiUtxmtV8bTCEH48fUJ2a6zfvuFw31XOp2MdfZ?=
+ =?us-ascii?Q?IZEMp4W+sC4H5vYCemXs1Kt+fAlcMYxn1N5pc+UaTQya24UWns890Pg93xdc?=
+ =?us-ascii?Q?XTj1raii5GRB8kp0cfNn0L/c6gSdNriYA5fcx2Jpaec2BrLaUgdOtMqgJIJu?=
+ =?us-ascii?Q?VN7G8gI5wMCMrZOvk1004ftFXRTYfM3JerOhlQve4vIVMxJOE5WVGjC1qxn+?=
+ =?us-ascii?Q?hQX6Kwi6ELkJEO0rfBPlU6JQJVDhMaFLKMJP1Nxf4hxij1NefCyaw6fW5wgU?=
+ =?us-ascii?Q?j0dmlKyKNUCnrZD5+AqjIhd8QmoHfvQ9ZVJVlWYr8r2YSlEZ7Wy1aQNyjR2h?=
+ =?us-ascii?Q?pd4h2OVDYrS0W7i4bxoQqyIPPC07f2yoBNrPCzA6mrr2cXjR36nI/ahoeFkS?=
+ =?us-ascii?Q?Bmt9uGHLzwq8gGmUc2dZSXrWg7CxJkgtPlof5p0kRAKSd54vV2B/3R2PXRlQ?=
+ =?us-ascii?Q?bRaVX8CxZbDEmrszV/SW129WbjmsqMPR5sHRHPY2IIuHuTGhRLvRV3+GWCrR?=
+ =?us-ascii?Q?Zemqs+0LRgk1+C/DCR0JE+SEg1srR00cFTlKmli37HXiJhF8lbWaPqg39hme?=
+ =?us-ascii?Q?yhJcwsgpudlnswfgWeJATCBx32al8s72qEJ/2FwRxvdUIMNm9Jb5uXefbALs?=
+ =?us-ascii?Q?nuhNUoIFvNIrXZuiI1XyHPrTruZjBJR5vjv4VtkhFMxvFAy5ORfmTd9spr9Q?=
+ =?us-ascii?Q?TfamDF9mckGsL+7bAiNdHi2Pqt1K1T7QZ/AR+GDzPyQsDUeR8AWsmzZTLNq2?=
+ =?us-ascii?Q?dM+YjulavD8PqwbNshNPJCyoSrgKTJJK8xSEKvkYQhnc621JBzgkYKyBt6qu?=
+ =?us-ascii?Q?etmV7W+HXsu+8X7kqtxr7g5zpH4lTbG6RJj3hjkB6lpedZkYpCgNNGCDyUfi?=
+ =?us-ascii?Q?vHsJWINwAIj1DeX2PnE0sm0zpmrPo7ZFAXo4MpoajA/QcS4jTqrAyrn7EaS2?=
+ =?us-ascii?Q?ukuj2NCZ4DT0SgTq9+jWb4lE78A3JNp1YffWQSItFhRBZ7TY2tzLQLXk6yZR?=
+ =?us-ascii?Q?8NTGtgvWzisBR0X2eduCL6ECC0nDgS0RRKWJMBc0tibkgPiQZISB5StkHxwH?=
+ =?us-ascii?Q?80qBmlDytrwtOUOiZ9k+STt7b6VK/v9vt8t4EZLHy2ltvEnsj9ssmobHcUy0?=
+ =?us-ascii?Q?btvkCnOQEQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: hWAlYavWDmiAh1FgyofExKcRiBJMHlGEwqoEK4br1qrIxnr+leXwDpH7X6N36nro1giyGfK0JiEve9nTMrvGRGXVTQDSsOPEgMrrAPyntW4R+YLtfhIeo7KmkcU0UYO5p2MtcSVR2P9sBCeephRHAEE7jLxRLYKVqxEAxNdDWSctTKHnsPIw4nDf5cKgAf+tQuauKumWw2ZaFNnQcWvhNMBrrxRbYQVsBexKWEgw+xj9cj1z7wOXTZIiJQbCujxM3osc6SezjfAu0suTrw3Jk3WW7/cf0sp7u4rN60rT3IwrEUb1RaRDV3ChdJEnfle5DqmV1NjiW1iBR13yJVKY4A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e198e74-5330-4d32-b8c6-08df1514658d
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 23:35:45.8791
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IZEFl2fumrEZduTASn9CEYtC0dBrOvVRX9QsodNbNr9TT3reodyoSnbIaTnkSCTmLY5FXHpg3qXWpdNfsFQJyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6102
+X-OriginatorOrg: intel.com
 
-On 2026-09-17 04:39 PM, Bjorn Helgaas wrote:
-> On Tue, Jul 28, 2026 at 10:10:06PM +0000, David Matlack wrote:
-> > Add documentation files for the PCI subsystem's participation in Live
-> > Update.
-> > 
-> > These documentation files are generated from the kernel-doc comments
-> > in the PCI Live Update source code. They describe the File-Lifecycle
-> > Bound (FLB) API, the device tracking API, and the specific policies
+On Wed, Sep 16, 2026 at 09:12:51AM +0000, Wentao Liang wrote:
+> In i10nm_get_ddr_munits(), get_ddr_munit() returns a PCI device with
+> its reference count incremented.  If ioremap() fails to map the MMIO
+> space of the memory controller, the function returns -ENODEV without
+> putting the reference held by mdev, leaking it.
 > 
-> Most uses fully hyphenate this: "File-Lifecycle-Bound" data, object,
-> etc.
+> Put the device reference before returning on the ioremap failure path.
 
-Ack, will fix.
+Applied. Thanks.
 
-> 
-> > applied to preserved devices (such as bus number inheritance and bus
-> > mastering preservation).
-> > 
-> > Reviewed-by: Pranjal Shrivastava <praan@google.com>
-> > Signed-off-by: David Matlack <dmatlack@google.com>
-> 
-> Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-> 
-> > ---
-> >  Documentation/PCI/index.rst           |  1 +
-> >  Documentation/PCI/liveupdate.rst      | 35 +++++++++++++++++++++++++++
-> >  Documentation/core-api/liveupdate.rst |  1 +
-> >  MAINTAINERS                           |  1 +
-> >  4 files changed, 38 insertions(+)
-> >  create mode 100644 Documentation/PCI/liveupdate.rst
-> > 
-> > diff --git a/Documentation/PCI/index.rst b/Documentation/PCI/index.rst
-> > index 5d720d2a415e..23fb737ac969 100644
-> > --- a/Documentation/PCI/index.rst
-> > +++ b/Documentation/PCI/index.rst
-> > @@ -20,3 +20,4 @@ PCI Bus Subsystem
-> >     controller/index
-> >     boot-interrupts
-> >     tph
-> > +   liveupdate
-> > diff --git a/Documentation/PCI/liveupdate.rst b/Documentation/PCI/liveupdate.rst
-> > new file mode 100644
-> > index 000000000000..96b1d7f5df3a
-> > --- /dev/null
-> > +++ b/Documentation/PCI/liveupdate.rst
-> > @@ -0,0 +1,35 @@
-> > +.. SPDX-License-Identifier: GPL-2.0-or-later
-> > +
-> > +===========================
-> > +PCI Support for Live Update
-> > +===========================
-> > +
-> > +.. kernel-doc:: drivers/pci/liveupdate.c
-> > +   :doc: PCI Live Update
-> > +
-> > +Driver API
-> > +==========
-> > +
-> > +.. kernel-doc:: drivers/pci/liveupdate.c
-> > +   :export:
-> > +
-> > +Internal API
-> > +============
-> > +
-> > +.. kernel-doc:: drivers/pci/liveupdate.c
-> > +   :internal:
-> > +
-> > +Live Update ABI
-> > +===============
-> > +
-> > +.. kernel-doc:: include/linux/kho/abi/pci.h
-> > +   :doc: PCI File-Lifecycle Bound (FLB) Live Update ABI
-> 
-> Ditto (and in include/linux/kho/abi/pci.h itself).
-> 
-> Trying to understand the FLB concept, I found
-> kernel/liveupdate/luo_flb.c.  I know that's already merged so this
-> isn't really the place to ask about it.  But FWIW here are some
-> questions from this naive reader:
-> 
->    File-Lifecycle-Bound (FLB) objects provide a mechanism for managing
->    global state that is shared across multiple live-updatable files.
->    The lifecycle of this shared state is tied to the preservation of
->    the files that depend on it.
-> 
-> I understand "global state", but I don't know whether "global" is
-> relevant here.
-> 
-> I don't know what "shared across live-updatable files" means.  Is the
-> sharing a fundamental aspect or just a typical use case reflecting the
-> level the data is for (e.g., bus vs device)?
-
-LUO is fundamentally a system for preserving files across a kexec. FLB
-solves 2 related but independent problems that arise when trying to
-preserve files:
-
- 1. For certain types of files, there is some data that needs to be
- preserved that is not necessarily tied to one specific file. Instead it
- is shared across multiple files. FLB gives you a way to allocate and
- preserve such shared data. The association between FLB and file
- handlers tells LUO which types of files require which FLBs to be
- allocated.
-
- 2. For certain types of files, the next kernel needs information about
- preserved state before userspace has come up and is ready to restore
- the preserved files. FLB solves this by existing separate from the
- preserved files and thus can be fetched during early boot.
-
-For the PCI core we use FLB to solve both these problems.
-
- 1. The files userspace is preserving are VFIO device files that
- correspond with endpoint PCI devices. Bridges can be shared across
- multiple endpoints so the PCI FLB gives us a way to track those
- independent of the VFIO endpoint state that is inside the file.
-
- 2. The PCI core needs to know during enumeration which devices were
- preserved by the previous kernel so that it can set up those devices
- differently, e.g., adopt ACS controls instead of programming new ones.
- The PCI FLB contains the full list of preserved devices, making this
- possible.
-
-> I'm imagining a *kernel* being "live-updated", i.e., a kernel being
-> updated while things around it (devices, some user-space things) stay
-> alive, so I guess "live-updatable files" would be preserved across a
-> kexec?  I don't think of devices as being "live-updated" since they
-> themselves aren't being updated; in fact, the whole point is that they
-> *aren't* updated.
-
-Yeah I think live-updatable is not an accurate way to describe these
-files. I would say "preserved files" instead.
-
-> Do these FLB objects appear in a filesystem?  Or are they merely blobs
-> of data that are preserved across kexec?  I suppose there must be a
-> mechanism for the new kernel to identify and request one of the
-> several FLB objects saved by the pre-kexec kernel?
-
-They are not exposed anywhere in the filesystem. They are blobs of data
-(e.g. struct pci_ser) that the kernel hands off to the next kernel
-across the kexec. To request a specific incoming FLB (i.e., FLB passed
-by the previous kernel) liveupdate_flb_get_incoming(). Strings are used
-to uniquely identify an FLB. PCI_LUO_FLB_COMPATIBLE ("pci") is the
-string used for the PCI core's FLB.
-
-> What does "lifecycle is tied to preservation of files" mean?  I
-> expected to learn about the beginning and end of the object lifetime.
-
-Specifically it means:
-
- - Just before the first file goes through liveupdate_file_ops::preserve(),
-   the outgoing FLB is allocated (liveupdate_flb_ops::preserve()).
-
- - Just after the last file goes through liveupdate_file_ops::unpreserve(),
-   the outgoing FLB is freed (liveupdate_flb_ops::unpreserve()).
-
- - Just after the last file goes through liveupdate_file_ops::finish(),
-   the incoming FLB is freed (liveupdate_flb_ops::finish()).
-
->    An FLB represents a global resource, such as the IOMMU core state,
->    that is required by multiple file descriptors (e.g., all VFIO fds).
-> 
-> I have the impression that the important thing about FLB is the
-> lifetime of some data, e.g., something that lasts longer than the
-> kernel that produced it.
-
-I think that is fair way to think about it.
-
->    The preservation of the FLB's state is triggered when the *first*
->    file depending on it is preserved. The cleanup of this state
->    (unpreserve or finish) is triggered when the *last* file depending
->    on it is unpreserved or finished.
-> 
-> Maybe this means .unpreserve() (in pre-kexec kernel) or .finish() (in
-> new post-kexec kernel) is the end of an FLB object lifetime?
-
-Hopefully my comment about explains this more clearly.
-
-> > +.. kernel-doc:: include/linux/kho/abi/pci.h
-> > +   :internal:
-> > +
-> > +See Also
-> > +========
-> > +
-> > + * :doc:`/core-api/liveupdate`
-> > + * :doc:`/core-api/kho/index`
-> > diff --git a/Documentation/core-api/liveupdate.rst b/Documentation/core-api/liveupdate.rst
-> > index b3c689e633c1..2bce2644eba2 100644
-> > --- a/Documentation/core-api/liveupdate.rst
-> > +++ b/Documentation/core-api/liveupdate.rst
-> > @@ -74,3 +74,4 @@ See Also
-> >  
-> >  - :doc:`Live Update uAPI </userspace-api/liveupdate>`
-> >  - :doc:`/core-api/kho/index`
-> > +- :doc:`PCI </PCI/liveupdate>`
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 08a724b860dc..347c435ca404 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -20833,6 +20833,7 @@ L:	kexec@lists.infradead.org
-> >  L:	linux-pci@vger.kernel.org
-> >  S:	Maintained
-> >  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git
-> > +F:	Documentation/PCI/liveupdate.rst
-> >  F:	drivers/pci/liveupdate.c
-> >  F:	drivers/pci/liveupdate.h
-> >  F:	include/linux/kho/abi/pci.h
-> > -- 
-> > 2.55.0.487.gaf234c4eb3-goog
-> > 
-> 
+-Tony
