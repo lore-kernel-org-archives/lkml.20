@@ -1,111 +1,153 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B989470E85;
-	Thu, 17 Sep 2026 12:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779672135B8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646719; cv=none; b=pHwRcFweaioW7B485s7XQWzkp6SS8FnCDyvea8WUZlkS30tR7PrfdmBGDhF047dVurNUCXEeFsc3EM2cV4TFhOx6xkJMTSUyRWj5WBVPd0N+nWtrdve0J0CnO3am5OzkD53KTwQBEzE9G5ZappHSBulmdaxCRNsGtKIozh1Zq/I=
+	t=1789646720; cv=none; b=jJLqbCPkPPF8Grmp+vBJLlmxFxjJfdK3BDXnIj56PXmxy3HRbgoi2gP9KW4hryYZu6cQmdbItJezo8Uhg2UjfZ54YC3OPCJySMpzmsJBqfrX6h0p/uxHJa6TR246zT8MHr40kZcbHv8wbQ9fZXaHXeXPiW888GL0yixbxszTa+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646719; c=relaxed/simple;
-	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QRM/WATDmRHYb/T92YzdevbwOJpykvJfxEzqaJdycOcPdUqJokdPFkXswQ/twztGblYt2qvmj/GjEZrLy2W7kMBbAgsqH1JlIem8SUfrcbhxzPTIO4ZCqjJqk/z/4zVGiOFX+svxqe3vokIaGou8zoCVj7Y0wDxlFcefDn/li+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=v0NC/dCi; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789646720; c=relaxed/simple;
+	bh=SC7XYX10hWebInkiKKp2nmH8rixCWV0tK6vU6OdjXv4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J+4e3eb1zLaNPEkeOOGCQT1p9jhxa9kgm3ilb38aPh39JKOXJ9k+EnT1tRhEKAZ9V3Qgd3fHM04eKFxLzkB0sAz4ndkjWZVzM2K/0cJ+nNCxWspXIc9iNd9YS6CWU7AtSch9VmD5UyPNPGjjc6Kk7wTfhJZHgE22SJO63pmWB2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NITOPt+v; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ajX0Fno6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="v0NC/dCi"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a4f1:7e05:2192:a835])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 01EDC2EC;
-	Thu, 17 Sep 2026 14:03:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789646599;
-	bh=+c6MUVzqCSojvrVGRFKwYwpQJt6UNDpnaDyo08CazqM=;
-	h=From:Subject:Date:To:Cc:From;
-	b=v0NC/dCionvRi5La/89prc2TfwM7LKZ+tof0wyQp+2Bn5L0Y6ZsHZ4QnU6AsvnHJL
-	 dsLCxSrQ0N2Fs2m+U6wrlHh1C4uJOIh6dG2EXII+KQoLz+yPT9LWBs9Bijogd4q9Ek
-	 wocfAg4eGwmpgoXhcT+Ei5sunpd4OWqBZv04XFJ8=
-From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Subject: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
-Date: Thu, 17 Sep 2026 21:04:39 +0900
-Message-Id: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NITOPt+v";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ajX0Fno6"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9ZW4Q612898
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:05:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vRTy7m3So/X94mzU1zPkSfnnEoWD8/O+poGSv7zNk8g=; b=NITOPt+vi/kcel29
+	ZME2jUz8gizGO9Mr5LqfSaccVNmQ/o3x/cwcf05Yq0reFKaVVLIuFEHTCDV58Bps
+	4K38QyCNuYs7fb0hHW028Au59HGYeqznB9Z/zaJFb9bVwAwV97px862p0sfuEboi
+	8NECFmiRpx/Ugbx0tTf0wYzs0aqF8H3C2yAyP4GRzkoYRhaH1vC5ZbP/axjTdrJR
+	ucCUQHfeRmt3cTUbOezxTqItvku0Gm4ECNAdxBgY+rHHuSJuKMKNxpo03OlSFlhs
+	zoEauNwJMAdkHZXAEeaGnie9TFyLR3zgywkQqJfr+QDNwM7Zn5JI/LEvwutlEZjX
+	FuVHoQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grca0rysc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:05:14 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfc52ddc55so11373685ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:05:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789646713; x=1790251513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vRTy7m3So/X94mzU1zPkSfnnEoWD8/O+poGSv7zNk8g=;
+        b=ajX0Fno6QBrLL2fkfhmHlhwgZGKlmXl3D9aiartKmZqgYVxiP+kR2tLflw8R7T6KH9
+         cjDikIFFign0IIbc5yC7iK6nvZPUavyU2aDHbUgO32YqnjNQj6mL5GlttKk8qOEPzEYu
+         VcpbobnPKomvR44pu3IbooLgO9Ta/Fyeyw3insXgfBxgQczAqE3IZsMoZhmm7uoCBNbc
+         xnG4LsUlgVt1vdEqnRHnwIu5fylvyNjTXzAvbiJp6Vp9rQGSFFPg6UAxRGkoXFPvj/S2
+         WGU+mgKAEuUJu0wrYOBuHb7MegcR5GYfFCrtTyzc16RumBCCkd0SM8q5Mhdsjb9IBh04
+         WnYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789646713; x=1790251513;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vRTy7m3So/X94mzU1zPkSfnnEoWD8/O+poGSv7zNk8g=;
+        b=Fbk/rmsjOaspcnAh0Ouh1Q0jgWYeC9TG1txvyY2xTiWSxnjZuk6sxGA+Xtd1tYgXel
+         QTuCH1r4vBHmptXjQs3i9KBZV2MiClYxY7wj8/fOrabAM8dTjRqc26AqS+TcOXYIjWTq
+         iPKOM0xya1Zc/nQCv9r4o9rVsnLttSeNxmRRJoLcpTA63r4VHfi3wt0GQY0sXKt44zY4
+         5FDdVWZTWOsokzi3OJs3Xc83j9Kw/XCNlc/Z68JP4vtHwKdOBP5LRAjp0csLxUZPUnV8
+         uhR3HgqiEY3c1A8sN8Hyozx2IoJoK9sqcveFT2qME0KQlePPu5UICdH1N9h/VgCqfFjJ
+         zp0g==
+X-Forwarded-Encrypted: i=1; AKwUvByF35jC9DFmw1gApU+ZfP7ecWaeQGFmPNWtmaoFneK5CSKup+QvAPDkNwgmqKSl+X5C5+4ZAfjh5K1OT+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTDKKOKx3alTy5eVVny/PpP5RNoyGAexlpyMsVnEgyJdj/J3T7
+	yzBjSpYZhA+VBBw5Xr9yEchYmdyH4Pzm12Iin1MEI3L4HMjEgpofFMdU9aFAzwG+D8gJkaZHLz8
+	g5PY/ploIziGV29AifaKTMLnjW4UKv0QwTk3N1fkruvc+3Q3C7KF6umWlWa1wBpkV8GE=
+X-Gm-Gg: AYBFou0ubkir465XCtMTLwPrGyEFcq7ZcKb4xN9EF46TBHn9QKfIYXkRGSDnIJPmP1b
+	sAu1rQGgjQxD9FM3BIbywW7fmpmHQK4MaiKryGSoalvE44g+86abEOtpGtC32Y7DDXcJ05JR88y
+	XWLhg1qwNpE3pm3Wqn2tsP7fzA4/Ga+h8ehROde55/CyRhSJ580Yajz/UBTXFlwO3JYG6G12fy+
+	nYkjoFBNsRLv2VaMdPrIchOrNnzNxj72nsKFHPVIHPCNB1NmcNahlFKLd/gEY6fUNv9fI/NqxTD
+	YeB9b4bHjKZSOCh3SvxwH6lyhpRmvoiQA4gRnfoiHY/IFfb2wvy/+VrFtIvOGrlXJvdCigRtxZH
+	DJ2T97Qeoo39MuM6MdiBolOWpYQ==
+X-Received: by 2002:a17:902:ec87:b0:2dd:ad74:ac26 with SMTP id d9443c01a7336-2ddad74ad8amr39955ad.24.1789646713026;
+        Thu, 17 Sep 2026 05:05:13 -0700 (PDT)
+X-Received: by 2002:a17:902:ec87:b0:2dd:ad74:ac26 with SMTP id d9443c01a7336-2ddad74ad8amr39205ad.24.1789646712588;
+        Thu, 17 Sep 2026 05:05:12 -0700 (PDT)
+Received: from [10.218.25.214] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89eb5618sm25348115ad.32.2026.09.17.05.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 05:05:11 -0700 (PDT)
+Message-ID: <ed2cba23-5511-4787-8cb7-7c8207c21f25@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 17:35:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] pinctrl: qcom: Add qcs615 lpass lpi pinctrl driver
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908075854.3015560-1-karthik.s@oss.qualcomm.com>
+ <20260908075854.3015560-3-karthik.s@oss.qualcomm.com>
+ <83509feb-8776-4f61-9bc8-aca27d7c234b@oss.qualcomm.com>
+Content-Language: en-US
+From: Karthik S <karthik.s@oss.qualcomm.com>
+In-Reply-To: <83509feb-8776-4f61-9bc8-aca27d7c234b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFfXq2oC/x3MQQqDMBAF0KvIrP2QRNtYr1K6iHFSB8SGBIMg3
- t3Q5du8kzIn4Uxjc1LiIll+W4VuG/KL274MmavJKPNUL23B0e0rikWH5DWOx4KSI4KPGFyYeTK
- 2V8FSDWLiIMc/f3+u6wbwIMvwbAAAAA==
-X-Change-ID: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Ulf Hansson <ulfh@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
- Paul Elder <paul.elder+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: btE8fVaa57rg-l34qHwLiaucda_o3TFN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE2OSBTYWx0ZWRfXxWxab3dwGgfz
+ DuMRQ9tH7+DbOV7lnVzJbzE7N5s4ScJxUW9dJ0hB4T1EeUNCHozvlXEFv0WbimluwXcEuyiXHhR
+ j1bOycL9YVzBp7PNxa0MuoVrwRSSG7I=
+X-Proofpoint-GUID: btE8fVaa57rg-l34qHwLiaucda_o3TFN
+X-Authority-Analysis: v=2.4 cv=dOQzC+Zb c=1 sm=1 tr=0 ts=6aabd77a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=Ck1oJWCqvmENqo9s2LQA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE2OSBTYWx0ZWRfX50i3sM5mDCHG
+ 5AmKiNj67Z1zKiF8Ll0WNEYJz/vWicEPGa4sr9yiUOYcDfCNFvhfhegyhf9iqgn43N3OazoKe9X
+ xRcQMe2h7V1TYI6lfvhahIKetGZ06nmObkXwL36xBysGblmWVdIedg8zTQl/n5HzNByq8AkrlTk
+ BaakBFNY+xVDLfSIkiSDDek997s+cwc6N89M46jWPfeLRtfXRZw3sCGwz9bK9gTJRT8Sl7y+82l
+ 7m7FzrWrt8vjCTc6mi7czyBkWzID0srcgJ2PsxrAZ7A54S3ctfrqXAdgf49rUhHwnx9Wt6k64in
+ +IsOP1wEue5l37XDGvDewMhBofBLtaqRXGWr/VVMrmZZ3/2UaQk/qAAkES5TNHQJRI/oCJ/AEmb
+ 3xkyJrX66FRfMp0962VZeYc9ykObogIcc0IEShdCAKDDSVC3QwzYyvCgTHHD1kHh2YUSMrJ8Kw1
+ xEd9dHuySKr9QIRcERw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170169
 
-This series is based on Geert's
-"topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-branch including this series is available here [1].
 
-This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
-R-Car X5H SoC.
 
-This has been tested on an Ironhide with the vsp-tests test suite [2]:
-148 tests: 142 passed, 0 failed, 6 skipped
+On 9/8/2026 6:32 PM, Konrad Dybcio wrote:
+> Also, it looks like the data you provided here is a subset of
+> pinctrl-sdm670-lpass-lpi.c - is there a chance that the block is directly
+> copy-pasted between these SoCs? Are the extra functions present on 670 also
+> present on QCS615?
 
-There was some odd behavior with the clocks, where from what I
-understood was that the clocks for the FCPV[BI] and VSP[BI] are
-always-on, but the tests would hang unless I explicitly enabled...  the
-always-on clock (or fsleep). Then after I removed the patch that
-explicitly enabled the always-on clock everything ran fine. Just
-reporting that this happened just in case it's relevant.
+Hi Konrad,
 
-[0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
-[1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
-[2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
+As you suggested we tried pinctrl-sdm670-lpass-lpi.c on QCS615 and it 
+works fine, the alternate functions seem to be similar between sdm670 
+and QCS615, we will use the existing pinctrl driver and post the dts and 
+machine driver changes for the same.
 
-Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
----
-Paul Elder (10):
-      dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
-      clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
-      pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
-      arm64: renesas: r8a78000: Add FCPV[BI] nodes
-      arm64: renesas: r8a78000: Add VSP[BI] nodes
-      media: rcar-fcp: Check device revision at probe time
-      media: rcar-fcp: Handle resets
-      media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
-      media: vsp1: Document X5H SoC ID
-      media: rcar-fcp: Add R-Car X5H support
-
- arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
- drivers/clk/renesas/r8a78000-cpg.c               |   2 +
- drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
- drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
- drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
- drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
- include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
- 7 files changed, 372 insertions(+), 15 deletions(-)
----
-base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
-change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
-
-Best regards,
--- 
-Paul Elder <paul.elder+renesas@ideasonboard.com>
-
+Thanks and regards,
+Karthik S
