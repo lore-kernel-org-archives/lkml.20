@@ -1,517 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D874E0214;
-	Thu, 17 Sep 2026 16:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50E984DDB42;
+	Thu, 17 Sep 2026 16:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661332; cv=none; b=qrTSxw2rKSFDOnz7S2wq3y4GUXe4J8cKYRUQ/BvlSKeCp6GpFckpoYe8fUUlKdWLwAmjWRrDp4V47TsIVE5VALa2H/Q3I8T7fDG6YGx2prnh6dghARVIgfuE27rGZQmZwLzAyNM4L7fACtTLiBEYRp12EKtxY/Liu9B+Ca13M3k=
+	t=1789661335; cv=none; b=asmE5AyyMMjMAgTDD3M5EUA438Zjd8QGzgS46Ik4Z8WCchUwmT83EGs3J3dXDjHPaWufCLVOltwI/5aPgqKA45aDmaV+jp6rRs4ZlpRwcbarKqZyqVEa/EqwZLk81rSJhNlS7SSXLD/Nm/EkDCb9T222nnchuMWYclqxG5JGhZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661332; c=relaxed/simple;
-	bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QvHHSof4PsEtnJb2K1C0gZ1NHfhOXxGjKSyEP1UrcPQCG19ycImFkbpHcfp3CRsS82tvD6YtH/80Os70H50R2vFiFisIv0ohGaytYW1TFLuZ4x3IU2ikuwNHjx8RZe7MpRPL5yF7dC32K9A7zZFH8ezhHOQm7xCPu+ED8tSs2zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDAidKjc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789661335; c=relaxed/simple;
+	bh=LTrp4k+I8MTH1TFb/n0jAUNy6sMkQLKvNVm0Ssk0Ik4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oqFtbGxGDCIfA0DMLWQY55R3rvlV7w+xgmQgHHzWVEmh1cgpLAlu88Ux+lW4MVoXhOCa456svKqFL6+1byyZ6CcJFh/QKIbnhmqPm/z2YlFmEYJJR2LC1w9pdM8G+SwrHi64Qi7q/XFFQ3I+raa3W0T8OB5UuHm0Xg0IuSeErK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fg2BVR2h; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDAidKjc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 798501F0089A;
-	Thu, 17 Sep 2026 16:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789661330;
-	bh=kyV9tLD58BJ1dnw177aZoGUZ0P4tXoiPTGjshBkWPJc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZDAidKjc1EtIxtzNUdY/iTnt7xogNeXI5HYMf+bwMPbPI/o0lRhQrYQ8y1JGmWRLy
-	 jSAtW3HYKV8XArFSiwMBr2AUi5cUismQvfYTNzazEnP2MCJ91BxCWWeGynbjwyQpqu
-	 RtOe5L2X/HI/1s0juL99bvUCLui459HjTRXl+Z9g7yjERLOEBWL+hyIt0Dk1knC3UI
-	 i342CVtyLrFhfbUxrSnjsmgcB8Dg3E09Tm7cmT5nyOjDnkYXyt8OcBwrCzCfZpKL9y
-	 jGtQtm8PqkRnRK1vD2YURbnGLkhMwEiBhepG0eAQ0SmgfO2hioga8/OkLes57mrBiY
-	 juwdb6o5Wrz1Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:06:20 +0100
-Subject: [PATCH v3 10/20] kbuild: move the toolchain checks into
- init/Kconfig.toolchain
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fg2BVR2h"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D71DA1476;
+	Thu, 17 Sep 2026 09:08:48 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C2B23F86F;
+	Thu, 17 Sep 2026 09:08:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789661332; bh=LTrp4k+I8MTH1TFb/n0jAUNy6sMkQLKvNVm0Ssk0Ik4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fg2BVR2hsmdfzOw802jgLmkU4C8dYgDiVodN/BCQcJnNlXQvUZTot4764bZzdYHoP
+	 KpxaXu68DSJ+nTWkJw0nr52jlY0S/pY38k0WZGKhlRoxtkP4hWgPjgsWanps+qYf6p
+	 OWz0B8EVzI71pY/BTigybbpetQ2VZbhxL7LsQAdw=
+Date: Thu, 17 Sep 2026 17:08:43 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v4 5/5] dma: swiotlb: Remove SWIOTLB_ANY
+Message-ID: <aqwQi0AGG6NvHKHG@arm.com>
+References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
+ <20260914070135.313337-6-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-build-speedup-v3-10-9ecf4163ff36@kernel.org>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-In-Reply-To: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14277; i=ljs@kernel.org;
- h=from:subject:message-id; bh=I4N/QGvfiqwISRNIr8XvyiUONyrL6kJU9dfDNPImVZI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLW8P87fnq6gJGbs/cdVfdPnqLmxo9Dt23ccr9utrNJr
- eB0q2VZHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiI5y1Ghn419SnhOtP0KzJf
- lW5zeS32hzM6UOTx/smf4j4cZbG5MYmRoen+MesJZktCEtQe3eS6eVXhiHKM9cwFIaLXe40myu9
- 7yg4A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914070135.313337-6-aneesh.kumar@kernel.org>
 
-init/Kconfig opens with two hundred lines identifying the compiler,
-assembler, linker and rustc and probing which options they support, none of
-it to do with init.
+On Mon, Sep 14, 2026 at 12:31:34PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> swiotlb pools are currently allocated below the architecture's low
+> address limit by default. SWIOTLB_ANY overrides this and permits
+> allocation anywhere in directly mapped memory.
+> 
+> SWIOTLB_INIT_ADDRESSING_LIMIT now explicitly identifies callers which
+> need a pool that is reachable by devices with limited DMA addressing.
+> Use it as the placement constraint and remove SWIOTLB_ANY.
+> 
+> This changes the default behavior for callers which do not set either
+> flag. Previously, omitting SWIOTLB_ANY placed the default pool below the
+> architecture's low address limit and also constrained dynamically
+> allocated pools to the same range. After this change, omitting
+> SWIOTLB_INIT_ADDRESSING_LIMIT permits both static and dynamic pools to
+> use any directly mapped memory.
+> 
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-Move them into their own file, sourced from the top of init/Kconfig, so
-that the next commit can add to them without growing init/Kconfig further.
-
-No functional change.
-
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- init/Kconfig           | 197 +-----------------------------------------------
- init/Kconfig.toolchain | 198 +++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 199 insertions(+), 196 deletions(-)
-
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..b44a9482cdc9 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1,201 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--config CC_VERSION_TEXT
--	string
--	default "$(CC_VERSION_TEXT)"
--	help
--	  This is used in unclear ways:
--
--	  - Re-run Kconfig when the compiler is updated
--	    The 'default' property references the environment variable,
--	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
--	    When the compiler is updated, Kconfig will be invoked.
--
--	  - Ensure full rebuild when the compiler is updated
--	    include/linux/compiler-version.h contains this option in the comment
--	    line so fixdep adds include/config/CC_VERSION_TEXT into the
--	    auto-generated dependency. When the compiler is updated, syncconfig
--	    will touch it and then every file will be rebuilt.
--
--config CC_IS_GCC
--	def_bool $(success,test "$(cc-name)" = GCC)
--
--config GCC_VERSION
--	int
--	default $(cc-version) if CC_IS_GCC
--	default 0
--
--config CC_IS_CLANG
--	def_bool $(success,test "$(cc-name)" = Clang)
--
--config CLANG_VERSION
--	int
--	default $(cc-version) if CC_IS_CLANG
--	default 0
--
--config AS_IS_GNU
--	def_bool $(success,test "$(as-name)" = GNU)
--
--config AS_IS_LLVM
--	def_bool $(success,test "$(as-name)" = LLVM)
--
--config AS_VERSION
--	int
--	# Use clang version if this is the integrated assembler
--	default CLANG_VERSION if AS_IS_LLVM
--	default $(as-version)
--
--config LD_IS_BFD
--	def_bool $(success,test "$(ld-name)" = BFD)
--
--config LD_VERSION
--	int
--	default $(ld-version) if LD_IS_BFD
--	default 0
--
--config LD_IS_LLD
--	def_bool $(success,test "$(ld-name)" = LLD)
--
--config LLD_VERSION
--	int
--	default $(ld-version) if LD_IS_LLD
--	default 0
--
--config RUSTC_VERSION
--	int
--	default $(rustc-version)
--	help
--	  It does not depend on `RUST` since that one may need to use the version
--	  in a `depends on`.
--
--config RUST_IS_AVAILABLE
--	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
--	help
--	  This shows whether a suitable Rust toolchain is available (found).
--
--	  Please see Documentation/rust/quick-start.rst for instructions on how
--	  to satisfy the build requirements of Rust support.
--
--	  In particular, the Makefile target 'rustavailable' is useful to check
--	  why the Rust toolchain is not being detected.
--
--config RUSTC_LLVM_VERSION
--	int
--	default $(rustc-llvm-version)
--
--config RUSTC_LLVM_MAJOR_VERSION
--	int
--	default $(shell,expr $(rustc-llvm-version) / 10000)
- 
--config RUSTC_CLANG_LLVM_COMPATIBLE
--	bool
--	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
--	help
--	  This indicates whether Rust and Clang use LLVM of the same major
--	  version.
--
--	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
--	  LTO) require the same LLVM major version to work properly. For best
--	  compatibility it is recommended that the exact same LLVM is used.
--
--config ARCH_HAS_CC_CAN_LINK
--	bool
--
--config CC_CAN_LINK
--	bool
--	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
--	default $(cc_can_link_user,$(m64-flag)) if 64BIT
--	default $(cc_can_link_user,$(m32-flag))
--
--# Fixed in GCC 14, 13.3, 12.4 and 11.5
--# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
--config GCC_ASM_GOTO_OUTPUT_BROKEN
--	bool
--	depends on CC_IS_GCC
--	default y if GCC_VERSION < 110500
--	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
--	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
--
--config CC_HAS_ASM_GOTO_OUTPUT
--	def_bool y
--	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
--	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
--
--config CC_HAS_ASM_GOTO_TIED_OUTPUT
--	depends on CC_HAS_ASM_GOTO_OUTPUT
--	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
--	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
--
--config TOOLS_SUPPORT_RELR
--	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
--
--config CC_HAS_ASM_INLINE
--	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
--
--config CC_HAS_ASSUME
--	bool
--	# clang needs to be at least 19.1.0 since the meaning of the assume
--	# attribute changed:
--	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
--	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
--	# supported since gcc 13.1.0
--	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
--	default y if CC_IS_GCC && GCC_VERSION >= 130100
--
--config CC_HAS_NO_PROFILE_FN_ATTR
--	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
--
--config CC_HAS_COUNTED_BY
--	bool
--	# clang needs to be at least 20.1.0 to avoid potential crashes
--	# when building structures that contain __counted_by
--	# https://github.com/ClangBuiltLinux/linux/issues/2114
--	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
--	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
--	# supported since gcc 15.1.0
--	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
--	default y if CC_IS_GCC && GCC_VERSION >= 150100
--
--config CC_HAS_COUNTED_BY_PTR
--	bool
--	# supported since clang 22
--	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
--	# supported since gcc 16.0.0
--	default y if CC_IS_GCC && GCC_VERSION >= 160000
--
--config CC_HAS_BROKEN_COUNTED_BY_REF
--	bool
--	# https://github.com/llvm/llvm-project/issues/182575
--	default y if CC_IS_CLANG && CLANG_VERSION < 220100
--
--config CC_HAS_ALLOC_TOKEN
--	def_bool $(cc-option,-falloc-token-max=123)
--
--config CC_HAS_MULTIDIMENSIONAL_NONSTRING
--	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
--
--config LD_CAN_USE_KEEP_IN_OVERLAY
--	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
--	# https://github.com/llvm/llvm-project/pull/130661
--	def_bool LD_IS_BFD || LLD_VERSION >= 210000
--
--config RUSTC_HAS_SPAN_FILE
--	def_bool RUSTC_VERSION >= 108800
--
--config RUSTC_HAS_UNNECESSARY_TRANSMUTES
--	def_bool RUSTC_VERSION >= 108800
--
--config RUSTC_HAS_FILE_WITH_NUL
--	def_bool RUSTC_VERSION >= 108900
--
--config RUSTC_HAS_FILE_AS_C_STR
--	def_bool RUSTC_VERSION >= 109100
--
--config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
--	def_bool RUSTC_VERSION >= 109800
--
--config PAHOLE_VERSION
--	int
--	default "$(PAHOLE_VERSION)"
-+source "init/Kconfig.toolchain"
- 
- config CONSTRUCTORS
- 	bool
-diff --git a/init/Kconfig.toolchain b/init/Kconfig.toolchain
-new file mode 100644
-index 000000000000..fac36246451f
---- /dev/null
-+++ b/init/Kconfig.toolchain
-@@ -0,0 +1,198 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+config CC_VERSION_TEXT
-+	string
-+	default "$(CC_VERSION_TEXT)"
-+	help
-+	  This is used in unclear ways:
-+
-+	  - Re-run Kconfig when the compiler is updated
-+	    The 'default' property references the environment variable,
-+	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
-+	    When the compiler is updated, Kconfig will be invoked.
-+
-+	  - Ensure full rebuild when the compiler is updated
-+	    include/linux/compiler-version.h contains this option in the comment
-+	    line so fixdep adds include/config/CC_VERSION_TEXT into the
-+	    auto-generated dependency. When the compiler is updated, syncconfig
-+	    will touch it and then every file will be rebuilt.
-+
-+config CC_IS_GCC
-+	def_bool $(success,test "$(cc-name)" = GCC)
-+
-+config GCC_VERSION
-+	int
-+	default $(cc-version) if CC_IS_GCC
-+	default 0
-+
-+config CC_IS_CLANG
-+	def_bool $(success,test "$(cc-name)" = Clang)
-+
-+config CLANG_VERSION
-+	int
-+	default $(cc-version) if CC_IS_CLANG
-+	default 0
-+
-+config AS_IS_GNU
-+	def_bool $(success,test "$(as-name)" = GNU)
-+
-+config AS_IS_LLVM
-+	def_bool $(success,test "$(as-name)" = LLVM)
-+
-+config AS_VERSION
-+	int
-+	# Use clang version if this is the integrated assembler
-+	default CLANG_VERSION if AS_IS_LLVM
-+	default $(as-version)
-+
-+config LD_IS_BFD
-+	def_bool $(success,test "$(ld-name)" = BFD)
-+
-+config LD_VERSION
-+	int
-+	default $(ld-version) if LD_IS_BFD
-+	default 0
-+
-+config LD_IS_LLD
-+	def_bool $(success,test "$(ld-name)" = LLD)
-+
-+config LLD_VERSION
-+	int
-+	default $(ld-version) if LD_IS_LLD
-+	default 0
-+
-+config RUSTC_VERSION
-+	int
-+	default $(rustc-version)
-+	help
-+	  It does not depend on `RUST` since that one may need to use the version
-+	  in a `depends on`.
-+
-+config RUST_IS_AVAILABLE
-+	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
-+	help
-+	  This shows whether a suitable Rust toolchain is available (found).
-+
-+	  Please see Documentation/rust/quick-start.rst for instructions on how
-+	  to satisfy the build requirements of Rust support.
-+
-+	  In particular, the Makefile target 'rustavailable' is useful to check
-+	  why the Rust toolchain is not being detected.
-+
-+config RUSTC_LLVM_VERSION
-+	int
-+	default $(rustc-llvm-version)
-+
-+config RUSTC_LLVM_MAJOR_VERSION
-+	int
-+	default $(shell,expr $(rustc-llvm-version) / 10000)
-+
-+config RUSTC_CLANG_LLVM_COMPATIBLE
-+	bool
-+	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION = $(shell,expr $(cc-version) / 10000)
-+	help
-+	  This indicates whether Rust and Clang use LLVM of the same major
-+	  version.
-+
-+	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
-+	  LTO) require the same LLVM major version to work properly. For best
-+	  compatibility it is recommended that the exact same LLVM is used.
-+
-+config ARCH_HAS_CC_CAN_LINK
-+	bool
-+
-+config CC_CAN_LINK
-+	bool
-+	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
-+	default $(cc_can_link_user,$(m64-flag)) if 64BIT
-+	default $(cc_can_link_user,$(m32-flag))
-+
-+# Fixed in GCC 14, 13.3, 12.4 and 11.5
-+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=113921
-+config GCC_ASM_GOTO_OUTPUT_BROKEN
-+	bool
-+	depends on CC_IS_GCC
-+	default y if GCC_VERSION < 110500
-+	default y if GCC_VERSION >= 120000 && GCC_VERSION < 120400
-+	default y if GCC_VERSION >= 130000 && GCC_VERSION < 130300
-+
-+config CC_HAS_ASM_GOTO_OUTPUT
-+	def_bool y
-+	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
-+	depends on $(success,echo 'int foo(int x) { asm goto ("": "=r"(x) ::: bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
-+
-+config CC_HAS_ASM_GOTO_TIED_OUTPUT
-+	depends on CC_HAS_ASM_GOTO_OUTPUT
-+	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
-+	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - .": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /dev/null)
-+
-+config TOOLS_SUPPORT_RELR
-+	def_bool $(success,env "CC=$(CC)" "LD=$(LD)" "NM=$(NM)" "OBJCOPY=$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
-+
-+config CC_HAS_ASM_INLINE
-+	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x c - -c -o /dev/null)
-+
-+config CC_HAS_ASSUME
-+	bool
-+	# clang needs to be at least 19.1.0 since the meaning of the assume
-+	# attribute changed:
-+	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3c185354b9f6c17
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 190100
-+	# supported since gcc 13.1.0
-+	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106654
-+	default y if CC_IS_GCC && GCC_VERSION >= 130100
-+
-+config CC_HAS_NO_PROFILE_FN_ATTR
-+	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
-+
-+config CC_HAS_COUNTED_BY
-+	bool
-+	# clang needs to be at least 20.1.0 to avoid potential crashes
-+	# when building structures that contain __counted_by
-+	# https://github.com/ClangBuiltLinux/linux/issues/2114
-+	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb26c5659eb581489
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 200100
-+	# supported since gcc 15.1.0
-+	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108896
-+	default y if CC_IS_GCC && GCC_VERSION >= 150100
-+
-+config CC_HAS_COUNTED_BY_PTR
-+	bool
-+	# supported since clang 22
-+	default y if CC_IS_CLANG && CLANG_VERSION >= 220100
-+	# supported since gcc 16.0.0
-+	default y if CC_IS_GCC && GCC_VERSION >= 160000
-+
-+config CC_HAS_BROKEN_COUNTED_BY_REF
-+	bool
-+	# https://github.com/llvm/llvm-project/issues/182575
-+	default y if CC_IS_CLANG && CLANG_VERSION < 220100
-+
-+config CC_HAS_ALLOC_TOKEN
-+	def_bool $(cc-option,-falloc-token-max=123)
-+
-+config CC_HAS_MULTIDIMENSIONAL_NONSTRING
-+	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
-+
-+config LD_CAN_USE_KEEP_IN_OVERLAY
-+	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
-+	# https://github.com/llvm/llvm-project/pull/130661
-+	def_bool LD_IS_BFD || LLD_VERSION >= 210000
-+
-+config RUSTC_HAS_SPAN_FILE
-+	def_bool RUSTC_VERSION >= 108800
-+
-+config RUSTC_HAS_UNNECESSARY_TRANSMUTES
-+	def_bool RUSTC_VERSION >= 108800
-+
-+config RUSTC_HAS_FILE_WITH_NUL
-+	def_bool RUSTC_VERSION >= 108900
-+
-+config RUSTC_HAS_FILE_AS_C_STR
-+	def_bool RUSTC_VERSION >= 109100
-+
-+config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
-+	def_bool RUSTC_VERSION >= 109800
-+
-+config PAHOLE_VERSION
-+	int
-+	default "$(PAHOLE_VERSION)"
-
--- 
-2.55.0
-
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
