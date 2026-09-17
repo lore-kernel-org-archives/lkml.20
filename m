@@ -1,85 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9311A4FD27E;
-	Thu, 17 Sep 2026 18:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834AF4FD29D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668151; cv=none; b=RCCBeOF4XseNVRIePPFMi/uv19YjtcrWEhYuxwgyTIkwnzuLNjz5hKzXiDQc7ZlgCu032L41CzgpExAcF/szWspp5XBMsB+QSNAZtFTrZ96hsL9JIggJBXwB9j5lCN3wwudso0//hbjgUGIm19vDI5BldglX3yTIzLeu98xFCl4=
+	t=1789668153; cv=none; b=MfaAO+sjg4HLBasTZ/yTDHxS28hNkkEpZR9MfKjj8fL9f388LFHcDPfr71NDPghvtCWP55BPcAzc3V4NQkoLuvoEbNw2niNoQBD3fFt5lczDxGYVpqls20xS+2uNxXRnQ6VkXAaCpA5G2yPKEvzUHZuofYV17dHvbA1cextEXDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668151; c=relaxed/simple;
-	bh=JldMhV2U3O3qyM0I1MwAI1p2YVFkCCvDXuwG8kfUspE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UxREzQiliQdqZGbyOwYQl+j9xDB6GzqM5kJEX3cse+pj+TZleCDwlF5DPbRNCfUs6soeNvQfUn9Epb9lvTz6dzDtQoaK3KwcPFiZ05gADVAbn1Ndre5MmfHTUx9njPOhru19dts5g34L6375D0Dp2cPoyP4w7rlXU+QG+yqKkto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S06VcLvf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789668153; c=relaxed/simple;
+	bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qJrAKRl7JWgPHWym/REUmRYkdN/EEtediPJG/n1+HqgAAA5NKD1lLWVEdg6pdqmTrodAUTPN6pgmZ222VoiNT5qS4987qPBdKfLlms6AlJIFLCZd2wKw48+nNJh9TyStfwtBkzi2iXEx4cczR0dbYKp0ZCdiB68MJNcKWzAmq6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTfrKcog; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S06VcLvf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7851F00893;
-	Thu, 17 Sep 2026 18:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789668150;
-	bh=rotodS3cmAPC3hGEOA1tyayaGlDuD2j3cViAEtNkMoc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S06VcLvftn+SrOOv6kGTBbZ4LebREU8+SlDZ3AvC8/yzwFH8YriD1qbaW5q4LXTSB
-	 MJ1yG0ZHj5auyt7tyGfqxF0yuTWmhDfnEbl0ai2b1SHrYkgHb0ZrW+rnEq2Na8CaZC
-	 I2xWYAdMKRB10JFYr/ogysarI1uZRDRl0QBBaSDa8maG6e8em/NA+DnV69v1/Da4BN
-	 zfhLPSX0PQyWiLUrO0jtO+HDkL6SLgqxgRilF6Kh/qDtJLu+SwG605PspYaIa4wFHM
-	 yJKMxIHhPypv8BKzjGooVQP2tSAOXsHPT0wPTW/wAKIc6fUoJNfm+1rjLKXjpNi/TX
-	 3bC6rI19iuthA==
-Message-ID: <55c9bb7f-33f0-4fb0-8fac-69d5660ac1bc@kernel.org>
-Date: Thu, 17 Sep 2026 13:02:27 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTfrKcog"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86dd69a1b15so317463b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:02:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789668151; x=1790272951; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
+        b=mTfrKcogLP/NHgwosqLqvbPTpEYZlVOGPVqzaqwuaM9PyXJ5an0NsTMbIfEyuiamy2
+         mEMwPgwAGoNEFLJSQpAhMFMuL0DBbYzAacLdxZNyp2iONObf9IAF0MzxtPuc7r+07Fy2
+         RF3X46QP2AEhOrvk0hJqAArqR+CxE0aT15Zhe0+iRs09JijhP4ToNDfSEkpx0AA7zKiq
+         NckyCARAKEjqRpL8QoGOu9KUTEPZfVsXt+fFC6OM7PJD2CvGndpBn+kIlX3LAG5clxKa
+         nhPq0F6b5GsXiTLLS5FDflpxifCtrp0PbXvPXRuXH4nMOY1V5GHws2AMSuz9qyYzRtp1
+         xpmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789668151; x=1790272951;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
+        b=OUIIoI+gYyy7LaNtBy6t6h1RANaofZqo6fajTA5E4mC8YwxhNP9EEqRyPZwuN92yAx
+         myH6PTVxooC54m489ITNqCbnf44JLZcZg3oVti6A5vwPxPBoMEjsScdp1M3Rhtk/p+ZI
+         H7Nelea5NaK9voFOzvuEvADkxFbG4etvufdX0+7qPheuwV7fh44s0s+N004n04bE5i0O
+         7qFErWraaahX/hphSnguL1kOoNEI3ORlnNx0alfFqPQgs5hrd68RtP3GYifmtxETEoOn
+         KMfrjoD5qitIspzl1GoZGPe6uL9Pkaic8lhkHj0uSFM/qaiE6FrydziugXIDBz9xn8pK
+         aIug==
+X-Forwarded-Encrypted: i=1; AKwUvBwc0FlKNcVJPNDEWqI4IvL97xR3jjbQUqqJsiGpKFDypx69S1n8dRUz3q1P9IT36Pcf+9M049EWtA3DWcc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDU34jP3SpsAuBaW8ZYpxDwIfy2rPawWiFAXeGlgiW+fNUMzea
+	5yWy8L2MxeOjiA8da2y5UA2GAQbhXZrsVvmirPwp36Wl4g+KfD7RhbZl
+X-Gm-Gg: AYBFou1WmWGkzmWJMB3csWLfimkWk09luk2s6PEg9V+Qs1RNKYQfY4Bc+5RDTeCVoH7
+	uW9MMSOvRd4misvq9sG9UOpx9hiAbQlNrohIRYxLD2JgFQ0En++OIFdDQqV6DEj2l/Io8/4BOdK
+	KaJAoJWtKrutEsg00Lytyb5ut49X1LmGlAnWP/B4yZX6dNW9ntMibVJ294FUxJqVzEp0EaFBus1
+	8eswXvKyMiaankr6b1ryoaMw4atdZu0MhO1sbszwyI1QyVWYc/Ne3OpLJ2ZrD/nHaJqCQzE3rbD
+	6ltEwRXeG+ZI+DvnonITyY7Zg1Q6rH3ebPoMaiKFbarB52ZAySSFO47JA3u9Wym+36rvuuGY1cK
+	535a870XNtQH7jTUplr6QDvh0Ej/yDb5yWDu6CfYMVBVBjwq1Rk9QfuMNRnc8Ruo4eQNYprxCEW
+	EDvuzCvcn6HcLe85wA/6LtkCvHhlIJSFTcrWglULz+7wUOEKxlHLwAmNB63bpVJDZn7FvA02xYT
+	8xbi8XVa+Q0UxObAjUNr3sagpUwRgVdo+vJAA==
+X-Received: by 2002:a05:6a21:6086:b0:3dd:85a8:4c4d with SMTP id adf61e73a8af0-3dd85a84db2mr1401112637.17.1789668150742;
+        Thu, 17 Sep 2026 11:02:30 -0700 (PDT)
+Received: from [192.168.0.13] ([38.34.87.7])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab50d67sm3678139a12.6.2026.09.17.11.02.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 11:02:30 -0700 (PDT)
+Message-ID: <6a547919d40c858afcd4f8b9c7e970076711b30c.camel@gmail.com>
+Subject: Re: Missing signoff in the bpf tree
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Kumar Kartikeya Dwivedi
+ <memxor@gmail.com>,  Daniel Borkmann <daniel@iogearbox.net>, Alexei
+ Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,  bpf
+ <bpf@vger.kernel.org>, Networking <netdev@vger.kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Date: Thu, 17 Sep 2026 11:02:27 -0700
+In-Reply-To: <CAEf4BzYp0YAbhkdkKJn1FR0pjUF3JXUxqXkZtWqKiSVPT4=qOA@mail.gmail.com>
+References: <aqvBPVcN__UX8P85@sirena.org.uk>
+	 <DLHJEZ0K0FV1.SCQLJJQNS1ES@gmail.com>
+	 <66d3f5cd-12df-4000-8459-360ba57cea12@sirena.org.uk>
+	 <DLHJUSTDSQ05.28VUGOV7YPS6V@gmail.com>
+	 <ec2acd16-40e3-46b7-b120-ce9eec70e942@sirena.org.uk>
+	 <DLHK013DCY3J.19Y8X3Z0RTWCI@gmail.com>
+	 <9d668d7c-8f85-49ad-bdb9-5cb81fb6f60d@sirena.org.uk>
+	 <c80c4e2aee9502d781fb52bcd5c0972ccd3bc7e4.camel@gmail.com>
+	 <CAEf4BzYp0YAbhkdkKJn1FR0pjUF3JXUxqXkZtWqKiSVPT4=qOA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/pmf: Fix power supply leak in
- amd_pmf_get_battery_prop()
-Content-Language: en-US
-To: Wentao Liang <vulab@iscas.ac.cn>, Shyam-sundar.S-k@amd.com
-Cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260917140140.2154244-1-vulab@iscas.ac.cn>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260917140140.2154244-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Thu, 2026-09-17 at 10:27 -0700, Andrii Nakryiko wrote:
+> On Thu, Sep 17, 2026 at 10:08=E2=80=AFAM Eduard Zingerman <eddyz87@gmail.=
+com> wrote:
+> >=20
+> > On Thu, 2026-09-17 at 16:03 +0100, Mark Brown wrote:
+> > > On Thu, Sep 17, 2026 at 01:27:01PM +0200, Kumar Kartikeya Dwivedi wro=
+te:
+> > > > On Thu Sep 17, 2026 at 1:23 PM CEST, Mark Brown wrote:
+> > >=20
+> > > > > Do you have a full list of the current committers, I guess there'=
+s been
+> > > > > more bitrot than just this?
+> > >=20
+> > > > It's me and Eduard, apart from Alexei, Daniel, and Andrii.
+> > >=20
+> > > I've added you and Eduard.
+> >=20
+> > Apologies, that's on me, some issue with scripts configuration again.
+> > What would you like me to do? Force push with SOBs?
+>=20
+> rebase preserving merges, and add your SOB for all commits that you
+> rebased, including "xsk: Use a 32-bit compare in xsk_map_gen_lookup"
+> which you didn't apply, you still need to add your SOB
 
-
-On 9/17/26 09:01, Wentao Liang wrote:
-> power_supply_get_by_name() takes a reference that is only dropped on
-> the error path of power_supply_get_property(). Drop it as soon as the
-> property has been read and stop searching, so that a successful lookup
-> does not leak the reference.
-> 
-> Fixes: f4627dfd0e19 ("platform/x86/amd/pmf: Add support to get inputs from other subsystems")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>> ---
->   drivers/platform/x86/amd/pmf/spc.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
-> index f48678a23cc7..cd957d7a4e48 100644
-> --- a/drivers/platform/x86/amd/pmf/spc.c
-> +++ b/drivers/platform/x86/amd/pmf/spc.c
-> @@ -249,10 +249,11 @@ static int amd_pmf_get_battery_prop(enum power_supply_property prop)
->   			continue;
->   
->   		ret = power_supply_get_property(psy, prop, &value);
-> -		if (ret) {
-> -			power_supply_put(psy);
-> +		power_supply_put(psy);
-> +		if (ret)
->   			return ret;
-> -		}
-> +
-> +		break;
->   	}
->   
->   	return value.intval;
-
+Done.
+Apologies for inconvenience.
+Andrii, thank you for the instructions.
