@@ -1,88 +1,111 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6274BD785;
-	Thu, 17 Sep 2026 10:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82511343893;
+	Thu, 17 Sep 2026 10:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640583; cv=none; b=D+Cdj+IO1GjDpbtHS6mgjMWLRonpyB9kmZZw2GGNaLlPYlpKJzBGWGx/HqLjxMFDKz1pEfYOLCYy2pgaOrZf1uFE4PYv2JRk2Y7OlVskV7dXR9RXvjT74V5oO/A30fbIeFkP1cVdJ2wQzMaXrBjXwHYrHQoYIrnQ676JE8aylZg=
+	t=1789640614; cv=none; b=RyxVPLXOAJYjwINQPe/9V1f0M5sTaQKj4r2lcz9MxYpKGfv+gUmEixbeCK+QdkAhO/H6wLCVPSieGKntDcz7lTrX+uQ7PaR0rKyxNg3LmOh63Yx7w/fFyni6G6e+wPb/Bf0i5ipCXIVqezTOe5pi67Jz8+s/kT1L/FyO4DlTjpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640583; c=relaxed/simple;
-	bh=c1vgiiMikaJOFrMWdY5sHyDJa3KbO+8P/c+WsFR0Itw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mJl++y3SKmjDPfJzP1ZGIwdKSZNOn/y1/zKXuC1m1CY/MOahDnE7lDaV3aLEPRQThqR8jin3dtt8zCvOLGUrNHjn7lSJAdySCE0+m9qyCKdToyYP9DVL/wlmviry4+rBh1zippkr8XrZwK1/IhO+uK1Cu8zonkWiJXF2a3opXto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXADt0v6tqe4h+CA--.483S2;
-	Thu, 17 Sep 2026 18:22:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: akpm@osdl.org
-Cc: dwmw2@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: maps: l440gx: Fix double put of the ISA bridge in init_l440gx()
-Date: Thu, 17 Sep 2026 10:22:44 +0000
-Message-Id: <20260917102244.2146654-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789640614; c=relaxed/simple;
+	bh=t8wO41taTD6iGpUjRq+yEVHz2UbwzvT/8u1dEcpghc8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B4VRs/PigBnEuQ/Jp60MLRaczluPcdnJcPX0dlI6eoivc4lrbPuOmvQ86L5dERBeEX3e29lr9jR/8ekJBJceNwDoLTqscsG6asveUwshMCF1wqyPGWSyeFcdnhxEw7xgdGcoUeAxgZ+evGdVwLOu9p3qJJDG/TQkSnDfNNTiDKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=D4dyPhy8; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="D4dyPhy8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=4A+Pj1WGudSCI8JmGe5z1JrMzxlI+rziCJEAOBn8QD8=; b=D4dyPhy8yv34KN6ankHcC0FNLV
+	KsZnvR+2xtA6Of6ZgdsklrIKaU94pJZJczcIpP82iHQeBjcoXp/0ppOxPSklpXMlzLodRD2ls85Hi
+	faNNP4WXO0RQQ2zEGmjB+AwhT8w5+JAo2YR9Djia7+S4q2iN9hkanAdeaqbp7qGmRidodViGtPXup
+	giY1t6iDEdHu7SimtIgRgeTNQQV91GqAU3YSYHz6hpjknRJLMuBDZl7vgdLOM9uatnFCOJ1JXjBiI
+	KOea0Y0mChiGwCYjkDL+GxbDChRWG5z524aMmbpuyRn1WYZ4f3mpu8bC6KU5ufj6BhbkqoitjeyGo
+	rpaQM3Uw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x79Gt-00000009U6N-240E;
+	Thu, 17 Sep 2026 10:23:15 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7B76D300583; Thu, 17 Sep 2026 12:23:14 +0200 (CEST)
+Date: Thu, 17 Sep 2026 12:23:14 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+	Mingwei Zhang <mizhang@google.com>,
+	Stephane Eranian <eranian@google.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: Re: [PATCH v3 0/9] perf/x86: Don't write PEBS_ENABLED on KVM
+ transitions
+Message-ID: <20260917102314.GI776954@noisy.programming.kicks-ass.net>
+References: <20260508231353.406465-1-seanjc@google.com>
+ <anTB6ksbUs18FEf1@google.com>
+ <aqLvXM5SPPlQePXs@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXADt0v6tqe4h+CA--.483S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFyUAr45JF1xCFy7Gw4rXwb_yoWkWrgEga
-	4j9rnru3yUXr18Cw1rtr4furyayryqgryxGan7ta9akrWYvF1qqrWDZr95Jw18ua1YyrZx
-	X3WDCrsxZrZF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j1zuXUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq01N0gAAst
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqLvXM5SPPlQePXs@google.com>
 
-init_l440gx() takes a single reference on the PIIX4 ISA bridge with
-pci_get_device() and drops it again right after the lookups, before
-the flash window is set up.  The pci_assign_resource() failure path
-then calls pci_dev_put() on the same device a second time, releasing a
-reference that is no longer owned and underflowing the reference count.
+On Thu, Sep 10, 2026 at 10:56:44AM -0700, Sean Christopherson wrote:
+> On Thu, Aug 06, 2026, Sean Christopherson wrote:
+> > On Fri, May 08, 2026, Sean Christopherson wrote:
+> > > Sean Christopherson (9):
+> > >   perf/x86/intel: Ensure guest PEBS path doesn't set unwanted
+> > >     PERF_GLOBAL_CTRL bits
+> > >   perf/x86/intel: Don't write PEBS_ENABLED on host<=>guest xfers if CPU
+> > >     has isolation
+> > >   perf/x86/intel: Don't context switch DS_AREA (and PEBS config) if PEBS
+> > >     is unused
+> > >   perf/x86/intel: Make @data a mandatory param for
+> > >     intel_guest_get_msrs()
+> > >   perf/x86/intel: Invert names of intel_ctrl_{guest,host}_mask
+> > >   perf/x86: KVM: Have perf define a dedicated struct for getting guest
+> > >     PEBS data
+> > >   perf/x86/intel: KVM: Handle cross-mapped PEBS PMCs entirely within KVM
+> > >   KVM: VMX: Drop a redundant pmu->global_ctrl check when processing
+> > >     pebs_enable
+> > >   KVM: VMX: Only tell perf to enable PEBS counters for fully enabled
+> > >     PMCs
+> > > 
+> > >  arch/x86/events/core.c            |  5 +-
+> > >  arch/x86/events/intel/core.c      | 92 +++++++++++++++++++------------
+> > >  arch/x86/events/intel/lbr.c       |  2 +-
+> > >  arch/x86/events/perf_event.h      |  7 ++-
+> > >  arch/x86/include/asm/kvm_host.h   |  9 ---
+> > >  arch/x86/include/asm/perf_event.h | 11 +++-
+> > >  arch/x86/kvm/vmx/pmu_intel.c      | 28 +++++++---
+> > >  arch/x86/kvm/vmx/vmx.c            | 10 ++--
+> > >  arch/x86/kvm/vmx/vmx.h            | 15 ++++-
+> > >  9 files changed, 114 insertions(+), 65 deletions(-)
+> > 
+> > Ping.  This still applies on Linus' tree and against tip/master.
+> 
+> Ping again.  This fixes a real issue and IMO provides much-needed improvements
+> for the KVM<=>perf APIs.
 
-Remove the extra pci_dev_put().
+Right, finally got around to staring at them. How did you want them
+merged?
 
-Fixes: dd8e9ed6ed54 ("[MTD] Switch to pci_get_device and do ref counting")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mtd/maps/l440gx.c | 1 -
- 1 file changed, 1 deletion(-)
+AFAICT 2-4 have Fixes tags and should go in perf/urgent, while the rest
+goes in perf/core?
 
-diff --git a/drivers/mtd/maps/l440gx.c b/drivers/mtd/maps/l440gx.c
-index 832b880d1aaf..85cd273ce065 100644
---- a/drivers/mtd/maps/l440gx.c
-+++ b/drivers/mtd/maps/l440gx.c
-@@ -110,7 +110,6 @@ static int __init init_l440gx(void)
- 
- 		/* Allocate the resource region */
- 		if (pci_assign_resource(pm_dev, PIIXE_IOBASE_RESOURCE) != 0) {
--			pci_dev_put(dev);
- 			pci_dev_put(pm_dev);
- 			printk(KERN_WARNING "Could not allocate pm iobase resource\n");
- 			iounmap(l440gx_map.virt);
--- 
-2.34.1
-
+/me tries and finds patch 5 doesn't apply.
