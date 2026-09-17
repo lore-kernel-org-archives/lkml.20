@@ -1,161 +1,102 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B4437F8C7
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DCD351C2E;
+	Thu, 17 Sep 2026 02:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611088; cv=none; b=dDuqRFDp17uEcQj4JrOwzKSW4ZKYUk/BLrkkQ543/5mvNA26QbzK+QBtXxN5lEoMiWEjaRbRLXsM+fgWbcmjViHwRZpuX2DIxd06XhgY9Hh1KWqHJx3zY+G33a8XZQzFzavxew7hYTmll4MefbX0g+t+7w23zg4JLIQvan61/BY=
+	t=1789611207; cv=none; b=qnArnxgCAQoxTYZSWo+z7zHQeoEIZ8do0mG4SwuIjFb73mlRlmhBM0fTNs6sTPSmJHKqi+rtC22LE+greFzBnFfUsmms488j42lH484guO2R+WAz70XlcEsDK13D0V0Lz8dKEFaC+1nNGrXT+D1nVZ8gTbCjEaQ64cfOoiipWCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611088; c=relaxed/simple;
-	bh=HZBXv4jU+OH7HPxkBvcIcczFxFHKKG0jFS4KYrWsCr8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K0+TiYzoPDp+QWd2CfomudG7sU3J/cdxQ5LZV8Xm8wDzhC0HeBK7geiXRwjTtVMgKKruYISecmo9MlloG3kJTCyyzn8ncdnierrSKiqAD/IX+KVINTitmd0Y1enLGwyc0IgrzchuooSXhQN7LFcm7CweFyfh9d/Opq82c548y80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDpjiPO0; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789611207; c=relaxed/simple;
+	bh=Ito34hIZ5NPw9kRJ6XsglDhkv2eNuqKtvpYi3myN748=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=HwUIynKRwY51AN33Ol++SC1Q4wDjBjS8BjRbpaeIQtYG1L24wpwadk8gMMugqoWqtreU9kfUZAoWfOLkFoyy6lYayG0NdjN/mxHDJ+mbAvHRBNQp1XE4xHX2HmiXy6wWPoD/mTbSyl7GU1W11qRe+TJk6V5aG8ec8hoVjAiveJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=u6a9FiNd; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDpjiPO0"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so304035a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:11:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789611086; x=1790215886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4gsVWXpnjX78h0nmw4XlSnFALx3t9o8uakK9lz3EF6E=;
-        b=HDpjiPO0ejwReNHOfXmIBm3Sk6V2MJzJ8HfUhc99Q0MpPLV6e7VxZxvBQ9AFDQylmQ
-         W3YJnespGd+MW9JUJ7Zxvnc37VZ12y1yasBAgjig2jVQp2/LmeA+xmR6VrpoE2xKsMA4
-         WTsC48oJyignIWj5gVseFVxzY1+lmByuf4QcKdwUfBUoZxcRkO/75rRzE1h0AcTky/74
-         ZREo31ife4Y/CquG0uZR9fzKcVFazVnBZLsP/9p6sQ5BpUXOk/1e9WoOy98swVHK3r/V
-         hiKhB6BbTtKMphyheERjZ1EeFd87HNLTUn21mM5d1xKlRe6gJ7SS2ifV0+2yeu2oxpc6
-         S4Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789611086; x=1790215886;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4gsVWXpnjX78h0nmw4XlSnFALx3t9o8uakK9lz3EF6E=;
-        b=Cz5Mp99WgogzP7kXqG+W+SKwJwzo+gB+G5zBtaV+bOJycXNfMFVDHCLlL28VLN1PLR
-         hgZYLAtdlRl3k0HjfRuhRDgjE3fren3guaWL6u9tfbh8UMWjP/N+zhAfvlywxk4JcCd7
-         mckSCT+ehBwSsr6xqgwkH1c2avolxIC3APaVtLk24kA8VEXOQNfrL+5T0KLkHo12asaH
-         o10KKCWvcWylDRjldpD6msswBdTmjBe7KwXE3MZymCwbdC7cpsQOW17viJmWd2OajUiU
-         l8jvfNswViHLxVsK/sooA5dvG2f9CAZ/jnrZodcIZXb3Q/soJUrNhodz8zJj1yd2UJZU
-         9Bdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQhSccDAtXuulLxauDniJ151RPCgSNwytyYzr/92pfecWddsaJOsBseZ/oIvLaXVrFgKcMJqtJJm36eys=@vger.kernel.org
-X-Gm-Message-State: AFuF++ll02rSFGdBmhF3O4fm+NQ7v8XERNb/wL5Kg7TPPgYdKHlpduMP
-	86zfTWjhmStmWBsIOO2qYa/yTB/GpDElgte6Njs0MGkfCBSv3hwTLPZe
-X-Gm-Gg: AYBFou0Fxf8QVchZ6CjtCAbgixQqe0lbXxFYHNG2afFt40UaeHA8NY2H/ZPMhgPKGKZ
-	ES+xvxoe+Es8OV6347rjXV0g1pSjVEEAaW+XjfGXfk6d3W2EzFnjTAUUZ8+INm0+iq7MFwlcXBF
-	qZE7Oc4iY9UsItAvPZbuLRXZaVGpxmJHm5OBGuV1Zx/CFw38JIxv+Dz0nV5gblpm2RCZQSsCERR
-	HySU4LflQtvvDRCdWF733B80o3Mh0cPPe6djlryY069VoTbWNACuHI4SBcZZSfWBMrEuy8TVWAy
-	3qKWrYrkMWJPrH+pwFPNZ29wdA8wDlNmtovcWCZG2tys++cFnuqGyLrJrBpmUryVpgcGYabRXU5
-	Wbvzrl2vfWVfd9xvh6XzCsvuZ1k+SkdPcF+BvitpDjYr9rAAcP2/mSBY9lEinOKQOupNsf8AhBY
-	Eb+lXdeBZaSgntO3S7DxsuafY0U0eb+onHNsadL2wpT4NoPxeRF55pT5qBUghaA/1BIOUUGW3vz
-	3RcYjF6cQMOB2N2D+lfw65aOnk120H9NnA=
-X-Received: by 2002:a17:90b:524d:b0:39d:eca2:5c81 with SMTP id 98e67ed59e1d1-39e1e2dea05mr11005754a91.8.1789611086223;
-        Wed, 16 Sep 2026 19:11:26 -0700 (PDT)
-Received: from localhost.. (59-124-112-186.hinet-ip.hinet.net. [59.124.112.186])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e36096735sm2341821a91.12.2026.09.16.19.11.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 19:11:25 -0700 (PDT)
-From: chipang_kao <prozac2734@gmail.com>
-X-Google-Original-From: chipang_kao <chipang_kao@asus.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	bryan.odonoghue@linaro.org,
-	W_Armin@gmx.de
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	chipang_kao <chipang_kao@asus.com>
-Subject: [PATCH 2/2] platform/arm64: Enable ASUS WMI driver support
-Date: Thu, 17 Sep 2026 10:10:55 +0800
-Message-ID: <20260917021055.8029-3-chipang_kao@asus.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917021055.8029-1-chipang_kao@asus.com>
-References: <20260917021055.8029-1-chipang_kao@asus.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="u6a9FiNd"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=NY/KaMce+VjwVt0dOR8ch7NEguPF4WSe3KMxe/KFxiI=;
+	b=u6a9FiNdZ6v2gLFp7ofUcRzMJ5gMtkpaKpnr32U9lXNn0lGb/zM+n9vbfzS1BdqVqhaToZS0e
+	F3EcZqb1AY1CXT8bNb/1sid9A0qp0OrB99RRCJYMlhe5UR6UDvtgoEY7g5SU9/oCy0pRLOLiw0M
+	07kYSQHr/yvbAU0iEmS0Gwc=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hlfC40zL1z12LHk;
+	Thu, 17 Sep 2026 10:02:08 +0800 (CST)
+Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
+	by mail.maildlp.com (Postfix) with ESMTPS id DB7F2203C1;
+	Thu, 17 Sep 2026 10:13:15 +0800 (CST)
+Received: from [10.174.179.24] (10.174.179.24) by
+ whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 10:13:13 +0800
+Subject: Re: [PATCH v4 1/3] RAS: Fix inverted context info bounds check in ARM
+ processor errors
+To: Abbott Liu <liuwenliang@huawei.com>, <tony.luck@intel.com>,
+	<bp@alien8.de>, <ardb@kernel.org>, <mchehab+huawei@kernel.org>,
+	<rafael.j.wysocki@intel.com>, <jic23@kernel.org>,
+	<jason@os.amperecomputing.com>, <danielf@os.amperecomputing.com>,
+	<luoshengwei@huawei.com>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
+	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>, ACPI
+ Devel Maling List <linux-acpi@vger.kernel.org>
+References: <20260909112832.805314-1-liuwenliang@huawei.com>
+ <20260909112832.805314-2-liuwenliang@huawei.com>
+From: Hanjun Guo <guohanjun@huawei.com>
+Message-ID: <46b53a0e-b2f8-d179-113d-0b7030e78058@huawei.com>
+Date: Thu, 17 Sep 2026 10:13:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260909112832.805314-2-liuwenliang@huawei.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk200014.china.huawei.com (7.152.185.79)
 
-Wire up the Makefile to build drivers/platform/x86/asus-wmi.c
-and asus-nb-wmi.c without duplicating driver source code.
+On 2026/9/9 19:28, Abbott Liu wrote:
+> Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
+> allocated memory") added bounds checks for malformed ARM processor
+> error records but contained a bug:
+> 
+>    In log_arm_hw_error(), the ctx_info bounds check is inverted. The
+>    condition "sz + (long)ctx_info - (long)err >= err->section_length"
+>    adds ctx_info->size when the context header is already past the end
+>    of the section instead of when it is within bounds. So change the
+>    comparison to <=.
+> 
+> Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
+> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+> ---
+>   drivers/ras/ras.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+> index 03df3db62334..2540538a16a8 100644
+> --- a/drivers/ras/ras.c
+> +++ b/drivers/ras/ras.c
+> @@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+>   	for (n = 0; n < err->context_info_num; n++) {
+>   		sz = sizeof(struct cper_arm_ctx_info);
+>   
+> -		if (sz + (long)ctx_info - (long)err >= err->section_length)
+> +		if (sz + (long)ctx_info - (long)err <= err->section_length)
+>   			sz += ctx_info->size;
+>   
+>   		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
+> 
 
-Signed-off-by: chipang_kao <chipang_kao@asus.com>
----
- drivers/platform/arm64/Kconfig  | 46 +++++++++++++++++++++++++++++++++
- drivers/platform/arm64/Makefile |  2 ++
- 2 files changed, 48 insertions(+)
+Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
 
-diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
-index e32e01b2a9bd..59aa389d9aab 100644
---- a/drivers/platform/arm64/Kconfig
-+++ b/drivers/platform/arm64/Kconfig
-@@ -103,4 +103,50 @@ config EC_QCOM_HAMOA
- 
- 	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
- 
-+config ASUS_WMI
-+	tristate "ASUS WMI Driver"
-+	depends on ACPI_WMI
-+	depends on ACPI_BATTERY
-+	depends on INPUT
-+	depends on HWMON
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on RFKILL || RFKILL = n
-+	depends on HOTPLUG_PCI
-+	depends on ACPI_VIDEO || ACPI_VIDEO = n
-+	depends on SERIO_I8042 || SERIO_I8042 = n
-+	select INPUT_SPARSEKMAP
-+	select LEDS_CLASS
-+	select NEW_LEDS
-+	select ACPI_PLATFORM_PROFILE
-+	help
-+	  Say Y here if you have a WMI aware Asus laptop (like Eee PCs or new
-+	  Asus Notebooks).
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called asus-wmi.
-+
-+config ASUS_WMI_DEPRECATED_ATTRS
-+	bool "BIOS option support in WMI platform (DEPRECATED)"
-+	depends on ASUS_WMI
-+	default y
-+	help
-+	  Say Y to expose the configurable BIOS options through the asus-wmi
-+	  driver.
-+
-+	  This can be used with or without the asus-armoury driver which
-+	  has the same attributes, but more, and better features.
-+
-+config ASUS_NB_WMI
-+	tristate "Asus Notebook WMI Driver"
-+	depends on ASUS_WMI
-+	help
-+	  This is a driver for newer Asus notebooks. It adds extra features
-+	  like wireless radio and bluetooth control, leds, hotkeys, backlight...
-+
-+	  For more information, see
-+	  <file:Documentation/ABI/testing/sysfs-platform-asus-wmi>
-+
-+	  If you have an ACPI-WMI compatible Asus Notebook, say Y or M
-+	  here.
-+
- endif # ARM64_PLATFORM_DEVICES
-diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
-index 7681be4a46e9..d608b2aa8c12 100644
---- a/drivers/platform/arm64/Makefile
-+++ b/drivers/platform/arm64/Makefile
-@@ -10,3 +10,5 @@ obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
- obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
- obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
- obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
-+obj-$(CONFIG_ASUS_WMI) += ../x86/asus-wmi.o
-+obj-$(CONFIG_ASUS_NB_WMI) += ../x86/asus-nb-wmi.o
--- 
-2.43.0
-
+Thanks
+Hanjun
