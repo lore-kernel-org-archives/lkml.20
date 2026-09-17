@@ -1,200 +1,813 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f10.google.com (mail-pz2-f10.google.com [74.125.228.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EDD3C2B92;
-	Thu, 17 Sep 2026 20:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678087; cv=fail; b=pwD6qV6dxM6L9E7FcJxf1er/xCHGIkz6bdPuj/0S7fbTBjg16EP8ms4xN582UotNtxauaLzASqVV8FR/jboWcFDq6kziuUElKtqUTWRTausgQIj+tZ0YLDtf7sFUa6Q2JEwXG4BiY6EtESFilG7eaKosGPtAGee/VxD9S1oJWF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678087; c=relaxed/simple;
-	bh=pgEEKxNrVbl25TwbQIdLewzzCzkJzgMjHV3Fd61WGgE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HeL4ur2KD4OnKquN1dLGoPQ1QkkK+fFlBoYgPDfzLRHmXZfrJionLN/zF0Y6TRBDP3lcFLcFoBe+7/mRv79rgJonBepNQFDzc3zd1da+PMrT/6hCM7wC3GFMrliEY76jUGmy6HIdhoPIa/r49sABz8QppuphQL8dm2MemZoVi7w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FiKLu8tr; arc=fail smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C380B401A2E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789678091; cv=none; b=O8uJMVhQ8wGlrbm6X0QvrMlKdEA1j9J941Sqv88SSBl+gaboDIeyqArAWAt7/PrCU4wHZ8c6pXTtfhy4vQvkCC8avBnNINVJpJB8JQPLFhYzTi9r1FJAzfMNfAcyB9QqiuleYDqutCKqrJeybQVgyAsuByTv1VROSFx/ChvRLPE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789678091; c=relaxed/simple;
+	bh=WU92SbmuYO7Axnz1Xa0T+W7d+jUuvZa5bV5OO4BlLMc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cPF60dTUMBvCZwirCoWyLgDCryZG4J4KiKDDK3hmEj8uYPmsUjxdHb4OLmzQpljwuuOMqrZCZVp8hPpqNREkcHMPU0FgvAsYKFwFQl+gKD+EmeU1Jq7hxFkWhHZXSDmip/INZ07+aNPPfdn8m1PaN5DPI2X+kNDvj4CJOxtgSPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B7rBua/d; arc=none smtp.client-ip=74.125.228.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FiKLu8tr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789678085; x=1821214085;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=pgEEKxNrVbl25TwbQIdLewzzCzkJzgMjHV3Fd61WGgE=;
-  b=FiKLu8trCXsIOXv46XgnJ6uNZcRhX/tEmyYid1lZa8unZ0AxcbLa+qty
-   wQJvvThiUn6uveJgFzQZGNBgtzY7UdgN7g1qE4QliJVgi6ilheql6Nehy
-   lUO73z6DBxjyyipOVDG33/KwzG3CyIERTgXHAKFUjZtQdU0Mcn8AYCgot
-   quYeVgTG9s5ijAcTmnpHco/BCrkgcFgHvPdC0Aa4Pz2w1r0YalCg/zwyT
-   z9k/AlkxNXNVLHMXYZgJDp7V3gHPiJbakO6O2mvOuWFUKVM4qO2e9GPvS
-   26pLbInOordoy2cQnOMjRYx33l7IS0E4mpRvXVgigvCYx/sq1l9TOYsZq
-   g==;
-X-CSE-ConnectionGUID: sMHOCgekS9+lH5EwZ0idjg==
-X-CSE-MsgGUID: QDoZ+Sn7TmyYYbn+s3j1yw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100805717"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100805717"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 13:48:05 -0700
-X-CSE-ConnectionGUID: 2UEUh3xOTAme/w2mgNy1xQ==
-X-CSE-MsgGUID: BynSX2oJQgGVayF7HQljRg==
-X-ExtLoop1: 1
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 13:48:04 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 13:48:04 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 13:48:04 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.62) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 13:48:01 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M/ZoZZIMG1Evf0SjBb7O6vsNbQmV9nuddWYo1JCfs2zpUS6lDvRvN7VeczWAr4QSoxduCyvXI0ddxlSbuTT0aF7oi4zQHEUOpAs2p51491RxkcVhmmZYoyjcEutETpqwg8gLUbvZntBdcXsryw48Z3F7hdS/PwpkB+eeUtJlj4PE27nlNK3+wzszr729LqnbwGmgfMY5OxaSxvzBb5vcRqsLV87rIKQQ0pU+gWSO96TJocYNM9+GW+bOxyPpx0cBEDGlPUBxWZ+g+Yzpp5Yp8B+6KoChFsB6R/wcbHYbe5fmafA7+f512QsEX3F9A9NX6I3jqDdzuP80/4wWCgKrKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pgEEKxNrVbl25TwbQIdLewzzCzkJzgMjHV3Fd61WGgE=;
- b=Bwrsroa/wKxW1Ad0v1UnF2wkEyezzofMUwAgvLQ8kmdr+cSELLIp06bmq1+Gjc6XNSkO2ttTou7FDxShGvYnc5JKKq7+SALauor5x4c71c58nuNMpGojeJlXLd3w+WvMFfSX5H0bLJ9CQTcsAOzzZ589SHzqeXW+xgE3bPp/32H2CNA3EyEUcSoyF9R9+6BtiOM6v7NPL9GiLb6/Ogsajoz2FRbKCpfE36F/Ys4pKsJIUv0L928hQTSCTCXrNtnIZQg/a21gtbaNC3wSM5i/as8LWConBVfl6Elo+O+f96VyoESofBzchZgp9pfxEUKfIE4fICTupX2dukRLgfm4KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CH0PR11MB5330.namprd11.prod.outlook.com (2603:10b6:610:bd::7)
- by DM6PR11MB4673.namprd11.prod.outlook.com (2603:10b6:5:2a4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 20:47:59 +0000
-Received: from CH0PR11MB5330.namprd11.prod.outlook.com
- ([fe80::9d32:3dfb:c2f1:40e2]) by CH0PR11MB5330.namprd11.prod.outlook.com
- ([fe80::9d32:3dfb:c2f1:40e2%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 20:47:59 +0000
-From: "Winiarska, Iwona" <iwona.winiarska@intel.com>
-To: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux@roeck-us.net" <linux@roeck-us.net>,
-	"changhuang.liang@starfivetech.com" <changhuang.liang@starfivetech.com>
-CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 3/6] peci: Add support for PECI CC 0x83 retry condition
-Thread-Topic: [PATCH v1 3/6] peci: Add support for PECI CC 0x83 retry
- condition
-Thread-Index: AQHdO6kkoI12wGsC9k6v+VgYUVb5mrbTVE8A
-Date: Thu, 17 Sep 2026 20:47:59 +0000
-Message-ID: <47a9f001f9c0f9e2be2254289c5ba3f7d64cef05.camel@intel.com>
-References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
-	 <20260903133408.110847-4-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260903133408.110847-4-changhuang.liang@starfivetech.com>
-Accept-Language: en-US, pl-PL
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.60.2 (3.60.2-1.fc44) 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR11MB5330:EE_|DM6PR11MB4673:EE_
-x-ms-office365-filtering-correlation-id: 972d85cb-0668-4de8-bbdd-08df14fcf5b6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info: qq5JXf1eE6E4d+hLgqo5LvAJJeJ2xMbsGZCKf204ELVqWOcCfDVJbs4dqPme7eg0/u5bFkWPwpH2DeX4WtDgKUXhBPyKHVjIfAcigpoojj6PKpz3wcuPRNEKAgK2k7o9ig3tzCOj5T1Mjtf97fJ8IZXONJ56athuFr8zcV33btqcLsmvYwLoS13Y2AUiwnNNfYhvwpELUqCLldOcsRXv9vJRNKm6XexGFjBVqxxn9wSBRKgkBn10OVsf5NrKWvdtfJWT5Y14PgKUgHFdKSh72/RbU1cRYJG/D/4ogd3G+HGlz7NDuJ2Y66rfrEUECo8HW9NJeuWKviN8pbTqbkKC1W+ekypa5PKjYHrM8BKHYMjnShCr73fhbxO6a0NLNbCqA2JBVSPcKmpFUecKJFzMcx4LIdJcmWVXQEA3jUMQXu1yLSZKyWiWRp/xhB6rgDHTSM4NeDRiMxT7VE2DL/u+JEvQNEWV1Y6dLmlJFhP5VfK3TsOufXXqPII5wtG2NTFNJGN1vTw2vnjjWBZDa9dW0iW1UuX+4wgZogWtk/WtLxOF5gKrCUiIJ80eWvBnBiVy/X7Xaz7K5itATghBFGrMhpl0JsKs9ARAWE+6VO0Eyb0pGXORv2g2j++KqglIEylOcUe0w1ZhZwZ+p9gfkPRz+tDoMIEV0RQtqjD+OKMMHL4YCK9kYsQTjlzQMaYEi3mCqcwm/1BKYk34anY3TpPrbXWS1Y89/Qepnt/dmt3tV4I=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5330.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WEI0SlUzdlhsU1Q5R1hIRW1vL0tpbGJsMGh6SFIrOVNESFYwa3QwL1NLL21r?=
- =?utf-8?B?TnU2dVJYR25WSmVkT3VKWWt2SFIrcmZpMDY2UmM0QkhtYW0vZC95c0ZQelVv?=
- =?utf-8?B?aThiMVZjYjdFTlo0WVpaUkZOK3JKSzIwdmlnVXdsM0VEbGthNnBYRnRRcm5L?=
- =?utf-8?B?OEltakRhYjJ5dkQwUmtmUmVGV2k2dGhka0hBTitEL05sSkNibnE1ZUpER0Z3?=
- =?utf-8?B?Ti91ZkU5YituMjNKak05YWVKb3JvVi8wZjhLS1ZuU0dieXQ1YkFManYybW1k?=
- =?utf-8?B?ZHJXdENNV3J5bzJCVnFtd1JjUXNaS1YxbW1ScW9JeFhXc0NJLzlaYmRTYmtW?=
- =?utf-8?B?QlE3VEhpQlJuQ05qeTlEUEw2cnVmYkhsYmxNdzI5bHcxWDdFQlRscXFDeWtr?=
- =?utf-8?B?bUc2Y0pYbitUcVpseWxacXkyYXpBWEtvWjVwWTBFRlE4VHBRZEZYVVdHN3VQ?=
- =?utf-8?B?VGFGbnpZQWY0VlUxQ2ZsdHRMbFdNU3J0c29RQmdmaUpkaHZjQ1l0d055aEdX?=
- =?utf-8?B?RFM1dzhGeFZtMG45eUxMQjJnOGZEd2dtWG14OTNrV0RFbHZjTy8vVjh0RjRM?=
- =?utf-8?B?RXVMcmhxVGwyOHpNdnhTaUFtS0FFcUNQRXAyNk8zM3R1K0s5Y3lTUmZCdHdm?=
- =?utf-8?B?aEtUS0VPZWxXRE9CMkZvbFpIbytqN0h1MnVqc3ZsVHJiWW1NbE9Jc2grZ3JG?=
- =?utf-8?B?VUxKYkVkVTlwaDRSajdPcEV3dGVRa0lDTlJDNkFTdng1c2pxTnd4NEd3Yjlw?=
- =?utf-8?B?dXIxUlhaSVlxOTlQZUlFSFIydWJGZzQ4enhCVW5aZ3IwRnZoc2dZRU5ZUUhS?=
- =?utf-8?B?bm1NUU1ZbGVBMXhxb1hpeERnWkNUYkZhQjcyRmtBcXNrYWU1V0FEZmFDMmEw?=
- =?utf-8?B?bktZV1g2eTE3ZUdqb3YvRC9LVk4zS0poZ2o1Vk81MW1keGMzMkw2dDVjK2NX?=
- =?utf-8?B?bURxMCtIbUdZcHl1T05wSkt6WGZzcUpCMS95Yk92TDdDZURQR3JyazFHVk5y?=
- =?utf-8?B?bHRVWVJGaTlna0Eyd1VZUUxnS3E3Sk1HZWFFeXp3NDRMTFZiaXc3dGdINXo5?=
- =?utf-8?B?U2ozUGVGRG1aaDdNTXFMNzluN2YyYTJTeCtQaXUyMWNWNTZMMysvNlF3SnhF?=
- =?utf-8?B?dHlNYXR1UTUyV01kSVQ2TzRIUitxK1pSZEtrUWNtY3lyYjBJTWpLbWtoL0tr?=
- =?utf-8?B?STdNRG9YUnJhaitBUUpGdWR6NlRUbEUxeWFzbERqcnR6WmIzeEpUWjFrYUt3?=
- =?utf-8?B?STg1ZmZlZWw0bzNaWTAvNzg5SkpKcW5ZUFZJS1E0Z1puSmZwaWhmUTNydmYw?=
- =?utf-8?B?R2ZxWXVOcVhtSmtXbGFEdFZ0M0lnMHZsWnFBM3ZLakw1ZnpCTVJOUi9jNFZV?=
- =?utf-8?B?bEhSc2RBdVBmR0FQeHM2bkZKK0JMalZ6bTc1czBaYjZZaUt2WXY2eWViMjky?=
- =?utf-8?B?cjJxb1I3L1hWRjEvQjhlb1hyclY5QzczbGd6L245dVQ3RU5NcUNnRTRmK3dM?=
- =?utf-8?B?TFdFb3U0OG50SE9LSDFOY2RPK1N6VnpJNTVjVWdTMFVCR3JSL0tQSHc4MTZx?=
- =?utf-8?B?dGtMd3h2V01HaEMwdGhyS3NQWmNTTEdLTkZhcGpNL1NOYWZudmsrR0xtclRx?=
- =?utf-8?B?ZlZDUnJnK0F5OUdHUFRxcmpjdm8zTmRoSlBBTmhZUFpuK1BDTXloaTlXK2V2?=
- =?utf-8?B?N25ZeE9PcVlEWGV1VTh2UlNZYUh0MEVkK3l3SDlFY29VOTdSQVZOTWVLUGZh?=
- =?utf-8?B?M254VGVVZEp0OEJRTTlJMHo2YmZVSmdBWlRqSFc2cXQzK3N2MHhrZ3NjVUJn?=
- =?utf-8?B?ZXcyMFBVN2VZRzN3U0ErbW5KYjF0cjB4NXZOQ3NKcnFqL2VZYWJYSlZXOGwz?=
- =?utf-8?B?bm0zNFFmUEhlL3dVYkZSelZKOENYSFdGZ3lrbXk3S2lsMGdBL0U1U2g0c3lD?=
- =?utf-8?B?RmpFYVladjJJY1lZM3cxUy9BbXpEREFwb1dCZmhrZ3NLd2k3c1JEdmN3YnBu?=
- =?utf-8?B?YUp3KzhwRHJTRkNsa3UrMVNTK1VWMk1xaVY2WkhVM1F1Z050MVdLL2lLRCtX?=
- =?utf-8?B?cUZIWHEyRkREQU5EN0VrSHowYm5NSk02ZEdUWnFoVFhXR05KaWpucEtkRWxH?=
- =?utf-8?B?WEVNUDBGVm56ZVUrN0ZRejMwNFNrL0wwT3V1S3RSNVlIM2pIc1grZUwyVnRr?=
- =?utf-8?B?YjRRVzlKeEpNWnJ3ZmV1bkVOeVVnUVBLVnBUSUdWZllUNTNqODcyRXBVZld1?=
- =?utf-8?B?TzJoSkIvb1ZVdDBKY1F3aEw5Y0xYZ09qemVBcDA5SW1GeUZhYkpTZGNsSGdW?=
- =?utf-8?B?YTA3a2VlVld5OFlDZHJ6Z3BTMk0ya2tUcERKaHVJdmNudWFqOERLcUdzbUNP?=
- =?utf-8?Q?jYevnububc/8ElNE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <EB03A84FDF420C46B7CA45E40298796A@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B7rBua/d"
+Received: by mail-pz2-f10.google.com with SMTP id 41be03b00d2f7-cc4ac927998so71590a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:48:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789678088; x=1790282888; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uBGcm1I2eVyPUZasVcVLfyMlSRVyD01pdDbmfpULt3I=;
+        b=B7rBua/dg8hVEj1IPpGrv8eaEsDhg+FATy7ix4BNniFZmLe4crVo+A6lbi8qdO0kEl
+         bLhf6RROXt9aw66fELIzGlU0b3IoMixwFsWnC4/10Yd+tuKT3cN9U1Y7fvy4V8nmv8lf
+         b6ch5j87j0ZqTiwdnd/tifhyo+b3WV5+UbJhsVD3t6KJqolK+PCQgN4lorvWiVggCWRU
+         cK8nG6VMwZXk+Tpwt+VJ/8kj5sjW2jzr6sd5r6sNCmh6aVnDkxLjIbYMIRQm6Z14vNKV
+         rgiOINfeK8pXYmTw8niokLEy8G7wiSu6W7B9Y0NwLrsdGk0I4f2rDfTV5HKmg37Ro3Ik
+         k30g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789678088; x=1790282888;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uBGcm1I2eVyPUZasVcVLfyMlSRVyD01pdDbmfpULt3I=;
+        b=lXp+89EPWK80PSjy1AKaJXeG1O+L2kzLzALEXNeoPhn6xM5rv7ijwwHuUyBrgBeJ/8
+         C7kZlHYpmU/Ik78Xp8XzLvTHKzwfd50xgo2B1rRioa25sLmc51lcIqoO2RIdcIR2N8JP
+         j3Fl2UhrQqoqIPgmptXgAschq8FU8CmGnZbDq6wUgoKzlSBJRHFxbr8mIBr+cY2v4YyM
+         ZCzWdgaQheTcOSPVsniKw57pCpso1udVFICItitnBRet2u3NLledlM84SOlcnmtA62XT
+         T0JxIj2nc4u5UHKNKyWGvv5+F2BAlbSKxGd55rPfm3RueUFl93AP1qIE0ZZoWhiucEcI
+         cfiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzN0gHOORZZvtVgQl8aySxM8yvrTyWBdWgGpDHO76ZUp/noTMbsy/Pcp05aKGf8RdEiXqELqwuOff+apEY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncGqpLFYYS/yumApYYYVYWtQ/lUbQOFqw2ilAXVXt8BNrjaz0u
+	GM05lg6kfZD6ee2IfzGEG52C2BOYzf0uXUm84rr6M020WlgrCTXsh5dK
+X-Gm-Gg: AYBFou263HrjImw0vjqWT7Kkxs6EdqR/xYvJ+zgTcsnc1Zs+XwhOgv4gbuU3jtgQC1O
+	K91YnRiC/w6e65OeQ5xW1WxWcloQmodtZ5Di0BCkULIgiwSCwEObphzkex8SurSVfqmwMawk33w
+	WLZprmswr8kzx1v1get/LJw7LRaNBk24cKZWN7jSp402RtH9ILpqOH2BLXzGDsiNq7KvphmKBEW
+	esT8aR+M5xkx9XsWR2ZRtFOMwS/pLbJUYdskTZyey0AR5M3NOvIA/NyQHCADMjFnPDTDzP9sIsW
+	X3hMMsqeH00dr1z/Z+NM+OAPHpxmpDNn9zkzIlYGVhROC4qAzjoT7EUcV7nIKjKV4rPfQiRbuF/
+	qsT1P429JMN+qRlYy/jzJ6PgRlNpvnNsACuQx4h9v5xCyA02Ebhpr7+UYM1VHN0EpId1so+h57G
+	9S1IT92DgCdOgCroVfExk9Wd84Lq75jLA6/0Hns5Ws8rqeeKu8a6YWl3smADdasnAOFqhICw==
+X-Received: by 2002:a17:90b:3f84:b0:39e:396d:b0c0 with SMTP id 98e67ed59e1d1-39e5546cc9fmr300684a91.2.1789678088000;
+        Thu, 17 Sep 2026 13:48:08 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e50a4bc22sm1232196a91.17.2026.09.17.13.47.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 13:48:07 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v7 07/11] net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+Date: Fri, 18 Sep 2026 04:46:18 +0800
+Message-ID: <20260917204624.2427486-8-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917204624.2427486-1-coiaprant@gmail.com>
+References: <20260917204624.2427486-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: zVwKxi91phDWjgj7PrZST/zyTJ8zm7z0YOOD1tIguA7KViJpQUMV4NYo0NofwG8NaALp+0A2hrRp3c7kpSsRMLlDcHoWIl55YHC2qUwK3ZUfft6oCwdt2IA7x93oXV7OQFed8pDvCCh4GlHvPSZ/8Vte+yldbwgJAi+nvfTws/PhwvFNDcRb8lWC1uKI2IzMDVbPktS+dzayua6eIJtkDxsTewN0uCSWrU5BNG380Hlss6Iwta2PB/Rm7XARnlUHX8teSfl4ii/sZHQV4qEScacDg/wnt5eOs5o7IGkdzg/LGpaPXLH8IWpPykMBRC5bh2JI7lIIHdloYGIdfn9Xzg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5330.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 972d85cb-0668-4de8-bbdd-08df14fcf5b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 20:47:59.6302
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4GF91lU8KzlBmHjvnnQb0FDg1iiOaDnIGIg9VXUR10+ofxEEnRmQTEL1uh5nv75+OztkLyJcj/s+cgy+Gv7cDbXLbUwY0/xucD2OUSa6BgI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4673
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-T24gVGh1LCAyMDI2LTA5LTAzIGF0IDA2OjM0IC0wNzAwLCBDaGFuZ2h1YW5nIExpYW5nIHdyb3Rl
-Og0KPiBTb21lIFBFQ0kgY2xpZW50IGRldmljZXMgbWF5IHJldHVybiBjb21wbGV0aW9uIGNvZGUg
-MHg4MyAoQ01EX1RJTUVPVVQpDQo+IHVuZGVyIGNlcnRhaW4gY29uZGl0aW9ucywgd2hpY2ggaXMg
-bm90IGN1cnJlbnRseSBoYW5kbGVkIGJ5IHRoZSBkcml2ZXIuDQoNClRoaXMgY29tcGxldGlvbiBj
-b2RlIG1lYW5zIHRoYXQgYSBjb21tYW5kIHJlc3BvbnNlIGlzIGluIHByb2dyZXNzLg0KSXQgd2Fz
-bid0IGRlZmluZWQgb24gb2xkZXIgcGxhdGZvcm1zLg0KDQo+IA0KPiBBZGQgUEVDSV9DQ19DTURf
-VElNRU9VVCBkZWZpbml0aW9uIGFuZCBtYXAgaXQgdG8gLUVBR0FJTiBzbyB0aGF0IHRoZQ0KDQpU
-aGUgZGVmaW5pdGlvbiBuYW1lIHNob3VsZCBiZSBtb3JlIHJlbGF0ZWQgdG8gdGhlIGV4YWN0IEND
-IG1lYW5pbmcsIGUuZy4NClBFQ0lfQ0NfUkVTUF9JTl9QUk9HUkVTUz8NCg0KVGhhbmtzDQotSXdv
-bmENCg0KPiByZXF1ZXN0IHdpbGwgYmUgcmV0cmllZCBhcHByb3ByaWF0ZWx5LCBzaW1pbGFyIHRv
-IG90aGVyIHJldHJ5YWJsZQ0KPiBjb21wbGV0aW9uIGNvZGVzICgweDgwLCAweDgxLCAweDgyKS4N
-Cj4gDQo+IFNpZ25lZC1vZmYtYnk6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcubGlhbmdA
-c3RhcmZpdmV0ZWNoLmNvbT4NCj4gLS0tDQo+IMKgZHJpdmVycy9wZWNpL3JlcXVlc3QuYyB8IDIg
-KysNCj4gwqAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9wZWNpL3JlcXVlc3QuYyBiL2RyaXZlcnMvcGVjaS9yZXF1ZXN0LmMNCj4gaW5k
-ZXggZGIyY2MzMGE0MmE0Li4yYmY4YjZhMjU1ZDQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvcGVj
-aS9yZXF1ZXN0LmMNCj4gKysrIGIvZHJpdmVycy9wZWNpL3JlcXVlc3QuYw0KPiBAQCAtNzEsNiAr
-NzEsNyBAQA0KPiDCoCNkZWZpbmUgUEVDSV9DQ19ORUVEX1JFVFJZCQkJMHg4MA0KPiDCoCNkZWZp
-bmUgUEVDSV9DQ19PVVRfT0ZfUkVTT1VSQ0UJCQkweDgxDQo+IMKgI2RlZmluZSBQRUNJX0NDX1VO
-QVZBSUxfUkVTT1VSQ0UJCTB4ODINCj4gKyNkZWZpbmUgUEVDSV9DQ19DTURfVElNRU9VVAkJCTB4
-ODMNCj4gwqAjZGVmaW5lIFBFQ0lfQ0NfSU5WQUxJRF9SRVEJCQkweDkwDQo+IMKgI2RlZmluZSBQ
-RUNJX0NDX01DQV9FUlJPUgkJCTB4OTENCj4gwqAjZGVmaW5lIFBFQ0lfQ0NfQ0FUQVNUUk9QSElD
-X01DQV9FUlJPUgkJMHg5Mw0KPiBAQCAtMTEyLDYgKzExMyw3IEBAIGludCBwZWNpX3JlcXVlc3Rf
-c3RhdHVzKHN0cnVjdCBwZWNpX3JlcXVlc3QgKnJlcSkNCj4gwqAJY2FzZSBQRUNJX0NDX05FRURf
-UkVUUlk6DQo+IMKgCWNhc2UgUEVDSV9DQ19PVVRfT0ZfUkVTT1VSQ0U6DQo+IMKgCWNhc2UgUEVD
-SV9DQ19VTkFWQUlMX1JFU09VUkNFOg0KPiArCWNhc2UgUEVDSV9DQ19DTURfVElNRU9VVDoNCj4g
-wqAJCXJldHVybiAtRUFHQUlOOw0KPiDCoAljYXNlIFBFQ0lfQ0NfSU5WQUxJRF9SRVE6DQo+IMKg
-CQlyZXR1cm4gLUVJTlZBTDsNCg==
+The RK3568 SoC integrates a Synopsys DesignWare XPCS that is accessed
+via APB3 memory-mapped registers.
+This driver provides the glue logic to make the XPCS accessible to
+the generic pcs-xpcs core.
+
+The XPCS block contains four MII ports (0..3), each of which can be
+routed to GMAC0 or GMAC1 via the pcs-handle property in the MAC node.
+The hardware maps these ports to different MMDs:
+  - port 0: MMD 7 (ROCKCHIP_MMD_MII)
+  - port 1: MMD 2 (ROCKCHIP_MMD_MII1)
+  - port 2: MMD 3 (ROCKCHIP_MMD_MII2)
+  - port 3: MMD 4 (ROCKCHIP_MMD_MII3)
+
+This driver creates a virtual MDIO bus that translates MDIO operations
+to APB3 register accesses, with proper address remapping for each port.
+The generic xpcs driver then creates a phylink_pcs instance on top of
+this bus, allowing the MAC to use the PCS via the standard phylink API.
+
+The generic XPCS platform glue (pcs-xpcs-plat.o) is split out of the
+pcs_xpcs composite object into its own module, gated behind the new
+PCS_XPCS_PLATFORM symbol. The symbol defaults to PCS_XPCS, so existing
+configurations keep the snps,dw-xpcs platform glue enabled without any
+change.
+
+PCS_XPCS_ROCKCHIP selects GENERIC_PHY and PM_GENERIC_DOMAINS.
+ARCH_ROCKCHIP already selects PM, so the dependency of PM_GENERIC_DOMAINS
+on PM is satisfied on the target platform.
+
+The EEE multiplier is derived at runtime from the EEE clock rate
+instead of being hardcoded, because the clock is muxed between
+gpll200 (200 MHz) and cpll125 (125 MHz) and can be changed by the
+board or firmware. A 64-bit intermediate avoids overflow on 32-bit
+builds, and the result is clamped to the 4-bit
+DW_VR_MII_EEE_MULT_FACT_100NS field.
+
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part2%20V1.1-20210301.pdf (Page 2078)
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
+---
+ drivers/net/pcs/Kconfig         |  25 ++
+ drivers/net/pcs/Makefile        |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c   | 582 ++++++++++++++++++++++++++++++++
+ include/linux/pcs/pcs-xpcs-rk.h |  11 +
+ 4 files changed, 621 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
+index e417fd66f660a..3db9b343ac0c7 100644
+--- a/drivers/net/pcs/Kconfig
++++ b/drivers/net/pcs/Kconfig
+@@ -12,6 +12,31 @@ config PCS_XPCS
+ 	  This module provides a driver and helper functions for Synopsys
+ 	  DesignWare XPCS controllers.
+ 
++if PCS_XPCS
++
++config PCS_XPCS_PLATFORM
++	tristate "Generic XPCS controller support"
++	default PCS_XPCS
++	help
++	  Generic DWXPCS driver for platforms that don't require any
++	  platform specific code to function or is using platform
++	  data for setup.
++
++	  If you have a controller with this interface, say Y or M here.
++
++config PCS_XPCS_ROCKCHIP
++	tristate "Rockchip XPCS controller support"
++	default ARCH_ROCKCHIP
++	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
++	select GENERIC_PHY
++	select PM_GENERIC_DOMAINS
++	help
++	  Support for XPCS controller on Rockchip RK356x SoC.
++
++	  If you have a Rockchip SoC with this interface, say Y or M here.
++
++endif # PCS_XPCS
++
+ config PCS_LYNX
+ 	tristate
+ 	help
+diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
+index 4f7920618b900..f9f6cf2578d72 100644
+--- a/drivers/net/pcs/Makefile
++++ b/drivers/net/pcs/Makefile
+@@ -1,10 +1,11 @@
+ # SPDX-License-Identifier: GPL-2.0
+ # Makefile for Linux PCS drivers
+ 
+-pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-plat.o \
+-				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
++pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-wx.o
+ 
+ obj-$(CONFIG_PCS_XPCS)		+= pcs_xpcs.o
++obj-$(CONFIG_PCS_XPCS_PLATFORM) += pcs-xpcs-plat.o
++obj-$(CONFIG_PCS_XPCS_ROCKCHIP) += pcs-xpcs-rk.o
+ obj-$(CONFIG_PCS_LYNX)		+= pcs-lynx.o
+ obj-$(CONFIG_PCS_MTK_LYNXI)	+= pcs-mtk-lynxi.o
+ obj-$(CONFIG_PCS_RZN1_MIIC)	+= pcs-rzn1-miic.o
+diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+new file mode 100644
+index 0000000000000..1c725d6a008dc
+--- /dev/null
++++ b/drivers/net/pcs/pcs-xpcs-rk.c
+@@ -0,0 +1,582 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Rockchip XPCS platform device driver
++ *
++ * Based on the Synopsys DesignWare XPCS platform driver.
++ * Copyright (C) 2024 Serge Semin
++ *
++ * Adapted for Rockchip SoCs, with reference to the Rockchip OEM driver.
++ * Copyright (C) 2026 Coia Prant
++ */
++
++#include <linux/atomic.h>
++#include <linux/bitfield.h>
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/math.h>
++#include <linux/mdio.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
++#include <linux/pcs/pcs-xpcs-rk.h>
++#include <linux/phy.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
++#include <linux/property.h>
++#include <linux/sizes.h>
++#include <linux/time.h>
++
++#include "pcs-xpcs.h"
++
++struct dw_xpcs_rk {
++	struct platform_device *pdev;
++	struct mii_bus *bus;
++	void __iomem *reg_base;
++	struct phy *serdes_phy;
++	struct clk *csr_clk;
++	struct clk *eee_clk;
++	u8 eee_mult_fact;
++};
++
++static ptrdiff_t xpcs_rk_addr_format(int dev, int reg)
++{
++	return FIELD_PREP(0x70000, dev) | FIELD_PREP(0xffff, reg);
++}
++
++static int xpcs_rk_read_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg)
++{
++	ptrdiff_t csr;
++	int ret;
++
++	csr = xpcs_rk_addr_format(dev, reg);
++
++	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
++	if (ret)
++		return ret;
++
++	ret = readl(pxpcs->reg_base + (csr << 2)) & 0xffff;
++
++	pm_runtime_put(&pxpcs->pdev->dev);
++	return ret;
++}
++
++static int xpcs_rk_write_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg, u16 val)
++{
++	ptrdiff_t csr;
++	int ret;
++
++	csr = xpcs_rk_addr_format(dev, reg);
++
++	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
++	if (ret)
++		return ret;
++
++	writel(val, pxpcs->reg_base + (csr << 2));
++
++	pm_runtime_put(&pxpcs->pdev->dev);
++	return 0;
++}
++
++#define ROCKCHIP_MMD_MII1	2
++#define ROCKCHIP_MMD_MII2	3
++#define ROCKCHIP_MMD_MII3	4
++#define ROCKCHIP_MMD_PMAPMD	6
++#define ROCKCHIP_MMD_MII	7
++
++static bool xpcs_rk_mdio_addr_validate(int addr)
++{
++	return !(addr < 0 || addr > 3);
++}
++
++static int xpcs_rk_mdio_read_remapping(int addr, int dev, int reg)
++{
++	switch (dev) {
++	case MDIO_MMD_PMAPMD:
++		return ROCKCHIP_MMD_PMAPMD;
++	case MDIO_MMD_VEND2:
++		break;
++	default:
++		return -ENXIO;
++	}
++
++	/*
++	 * Reads are redirected by hardware to the port's read-only mirror;
++	 * only writes have to be targeted at MII (see the write path).
++	 */
++	switch (addr) {
++	case 0:
++		return ROCKCHIP_MMD_MII;
++	case 1:
++		return ROCKCHIP_MMD_MII1;
++	case 2:
++		return ROCKCHIP_MMD_MII2;
++	case 3:
++		return ROCKCHIP_MMD_MII3;
++	default:
++		return -ENODEV;
++	}
++}
++
++static int xpcs_rk_mdio_write_remapping(int addr, int dev, int reg)
++{
++	switch (dev) {
++	case MDIO_MMD_PMAPMD:
++		return ROCKCHIP_MMD_PMAPMD;
++	case MDIO_MMD_VEND2:
++		break;
++	default:
++		return -ENXIO;
++	}
++
++	/*
++	 * These registers physically live only in MII (the management port).
++	 * Ports 1-3 expose read-only mirrors of these bits, so writes must
++	 * always target MII; the read path remaps per address and the
++	 * hardware redirects to the port's mirror.
++	 */
++	switch (reg) {
++	case DW_VR_MII_AN_CTRL:
++	case DW_VR_MII_AN_INTR_STS:
++	case DW_VR_MII_EEE_MCTRL0:
++	case DW_VR_MII_EEE_MCTRL1:
++	case DW_VR_MII_DIG_CTRL2:
++		return ROCKCHIP_MMD_MII;
++	default:
++		break;
++	}
++
++	switch (addr) {
++	case 0:
++		return ROCKCHIP_MMD_MII;
++	case 1:
++		return ROCKCHIP_MMD_MII1;
++	case 2:
++		return ROCKCHIP_MMD_MII2;
++	case 3:
++		return ROCKCHIP_MMD_MII3;
++	default:
++		return -ENODEV;
++	}
++}
++
++static int xpcs_rk_read_c22(struct mii_bus *bus, int addr, int reg)
++{
++	struct dw_xpcs_rk *pxpcs = bus->priv;
++	int dev;
++
++	if (!xpcs_rk_mdio_addr_validate(addr))
++		return -ENODEV;
++
++	dev = xpcs_rk_mdio_read_remapping(addr, MDIO_MMD_VEND2, reg);
++	if (dev < 0)
++		return 0xffff;
++
++	return xpcs_rk_read_reg(pxpcs, dev, reg);
++}
++
++static int xpcs_rk_write_c22(struct mii_bus *bus, int addr, int reg, u16 val)
++{
++	struct dw_xpcs_rk *pxpcs = bus->priv;
++	int dev;
++
++	if (!xpcs_rk_mdio_addr_validate(addr))
++		return -ENODEV;
++
++	dev = xpcs_rk_mdio_write_remapping(addr, MDIO_MMD_VEND2, reg);
++	if (dev < 0)
++		return 0;
++
++	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
++}
++
++static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
++{
++	struct dw_xpcs_rk *pxpcs = bus->priv;
++
++	if (!xpcs_rk_mdio_addr_validate(addr))
++		return -ENODEV;
++
++	dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
++	if (dev < 0)
++		return 0xffff;
++
++	return xpcs_rk_read_reg(pxpcs, dev, reg);
++}
++
++static int xpcs_rk_write_c45(struct mii_bus *bus, int addr, int dev, int reg, u16 val)
++{
++	struct dw_xpcs_rk *pxpcs = bus->priv;
++
++	if (!xpcs_rk_mdio_addr_validate(addr))
++		return -ENODEV;
++
++	dev = xpcs_rk_mdio_write_remapping(addr, dev, reg);
++	if (dev < 0)
++		return 0;
++
++	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
++}
++
++static struct dw_xpcs_rk *xpcs_rk_create_data(struct platform_device *pdev)
++{
++	struct dw_xpcs_rk *pxpcs;
++
++	pxpcs = devm_kzalloc(&pdev->dev, sizeof(*pxpcs), GFP_KERNEL);
++	if (!pxpcs)
++		return ERR_PTR(-ENOMEM);
++
++	pxpcs->pdev = pdev;
++
++	dev_set_drvdata(&pdev->dev, pxpcs);
++
++	return pxpcs;
++}
++
++static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
++{
++	struct device *dev = &pxpcs->pdev->dev;
++
++	pxpcs->serdes_phy = devm_phy_get(dev, "serdes");
++	if (IS_ERR(pxpcs->serdes_phy))
++		return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
++					"Failed to get SerDes PHY\n");
++
++	return 0;
++}
++
++static void xpcs_rk_serdes_phy_poweroff(void *data)
++{
++	struct dw_xpcs_rk *pxpcs = data;
++	struct device *dev = &pxpcs->pdev->dev;
++
++	phy_power_off(pxpcs->serdes_phy);
++	phy_exit(pxpcs->serdes_phy);
++
++	dev_pm_genpd_rpm_always_on(dev, false);
++}
++
++static int xpcs_rk_serdes_phy_poweron(struct dw_xpcs_rk *pxpcs)
++{
++	struct device *dev = &pxpcs->pdev->dev;
++	int ret;
++
++	/*
++	 * The power domain is required and must be enabled, which allows us to
++	 * dynamically turn the CSR clock on/off using PM while keeping the PCS
++	 * powered on.
++	 */
++	ret = dev_pm_genpd_rpm_always_on(dev, true);
++	if (ret) {
++		dev_err(dev, "Failed to power on power-domains\n");
++		return ret;
++	}
++
++	ret = phy_init(pxpcs->serdes_phy);
++	if (ret) {
++		dev_err(dev, "Failed to init SerDes PHY\n");
++		goto pm_domain;
++	}
++
++	ret = phy_power_on(pxpcs->serdes_phy);
++	if (ret) {
++		dev_err(dev, "Failed to power on SerDes PHY\n");
++		goto serdes_phy;
++	}
++
++	ret = devm_add_action_or_reset(dev, xpcs_rk_serdes_phy_poweroff, pxpcs);
++	if (ret) {
++		dev_err(dev, "Failed to register devm for SerDes PHY: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++
++serdes_phy:
++	phy_exit(pxpcs->serdes_phy);
++pm_domain:
++	dev_pm_genpd_rpm_always_on(dev, false);
++	return ret;
++}
++
++static int xpcs_rk_init_res(struct dw_xpcs_rk *pxpcs)
++{
++	struct platform_device *pdev = pxpcs->pdev;
++	struct device *dev = &pdev->dev;
++	struct resource *res;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res) {
++		dev_err(dev, "No reg-space found\n");
++		return -EINVAL;
++	}
++
++	if (resource_size(res) < SZ_2M) {
++		dev_err(dev, "Invalid reg-space size\n");
++		return -EINVAL;
++	}
++
++	pxpcs->reg_base = devm_ioremap_resource(dev, res);
++	if (IS_ERR(pxpcs->reg_base)) {
++		dev_err(dev, "Failed to map reg-space\n");
++		return PTR_ERR(pxpcs->reg_base);
++	}
++
++	return 0;
++}
++
++static void xpcs_rk_exit_clk(void *data)
++{
++	struct dw_xpcs_rk *pxpcs = data;
++	struct device *dev = &pxpcs->pdev->dev;
++
++	pm_runtime_force_suspend(dev);
++	clk_disable_unprepare(pxpcs->eee_clk);
++}
++
++static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
++{
++	struct device *dev = &pxpcs->pdev->dev;
++	unsigned long rate;
++	u64 mult;
++	int ret;
++
++	pxpcs->csr_clk = devm_clk_get(dev, "csr");
++	if (IS_ERR(pxpcs->csr_clk))
++		return dev_err_probe(dev, PTR_ERR(pxpcs->csr_clk),
++					 "Failed to get CSR clock\n");
++
++	pxpcs->eee_clk = devm_clk_get(dev, "eee");
++	if (IS_ERR(pxpcs->eee_clk))
++		return dev_err_probe(dev, PTR_ERR(pxpcs->eee_clk),
++					 "Failed to get EEE clock\n");
++
++	ret = clk_prepare_enable(pxpcs->eee_clk);
++	if (ret) {
++		dev_err(dev, "Failed to enable EEE clock\n");
++		return ret;
++	}
++
++	pm_runtime_set_suspended(dev);
++	pm_runtime_enable(dev);
++
++	ret = devm_add_action_or_reset(dev, xpcs_rk_exit_clk, pxpcs);
++	if (ret) {
++		dev_err(dev, "Failed to register devm for EEE clock: %d\n", ret);
++		return ret;
++	}
++
++	/*
++	 * Compute the multiplier for the EEE clock so that
++	 * clk_eee_period * (mult_fact + 1) falls within 80..120 ns.
++	 *
++	 * On RK3568, clk_xpcs_eee is muxed between gpll200 (200 MHz, 5 ns)
++	 * and cpll125 (125 MHz, 8 ns), selected by CRU_CLKSEL_CON29 bit 13.
++	 * The reset value is 0 (200 MHz), but derive the value at runtime to
++	 * stay correct if the mux is changed by a board.
++	 *
++	 * Use a 64-bit intermediate: on 32-bit builds, 100 * 200000000
++	 * does not fit in unsigned long. Clamp to the 4-bit
++	 * DW_VR_MII_EEE_MULT_FACT_100NS field. The mux only provides
++	 * 125 MHz or 200 MHz, so the rate cannot drop below the 5 MHz
++	 * threshold where DIV_ROUND_CLOSEST_ULL() would return 0 and the
++	 * subtraction below would underflow.
++	 */
++	rate = clk_get_rate(pxpcs->eee_clk);
++	if (!rate)
++		return dev_err_probe(dev, -EINVAL, "Invalid EEE clock rate\n");
++
++	mult = DIV_ROUND_CLOSEST_ULL(100ULL * rate, NSEC_PER_SEC) - 1;
++	pxpcs->eee_mult_fact = min_t(u64, mult, 15);
++	return 0;
++}
++
++static int xpcs_rk_init_bus(struct dw_xpcs_rk *pxpcs)
++{
++	struct device *dev = &pxpcs->pdev->dev;
++	static atomic_t id = ATOMIC_INIT(-1);
++	struct mii_bus *bus;
++	int ret;
++
++	bus = devm_mdiobus_alloc_size(dev, 0);
++	if (!bus)
++		return -ENOMEM;
++
++	bus->name = "Rockchip DW XPCS MCI/APB3";
++	bus->read = xpcs_rk_read_c22;
++	bus->write = xpcs_rk_write_c22;
++	bus->read_c45 = xpcs_rk_read_c45;
++	bus->write_c45 = xpcs_rk_write_c45;
++	bus->phy_mask = ~0;
++	bus->parent = dev;
++	bus->priv = pxpcs;
++
++	snprintf(bus->id, MII_BUS_ID_SIZE,
++		 "rockchip_dwxpcs-%x", atomic_inc_return(&id));
++
++	/*
++	 * MDIO-bus here serves as just a back-end engine abstracting out
++	 * the MDIO and MCI/APB3 IO interfaces utilized for the Rockchip DWXPCS CSRs
++	 * access.
++	 */
++	ret = devm_mdiobus_register(dev, bus);
++	if (ret) {
++		dev_err(dev, "Failed to create MDIO bus\n");
++		return ret;
++	}
++
++	pxpcs->bus = bus;
++	return 0;
++}
++
++static int xpcs_rk_probe(struct platform_device *pdev)
++{
++	struct dw_xpcs_rk *pxpcs;
++	int ret;
++
++	pxpcs = xpcs_rk_create_data(pdev);
++	if (IS_ERR(pxpcs))
++		return PTR_ERR(pxpcs);
++
++	/*
++	 * The XPCS may be attached to a power domain (e.g. PD_PIPE). The domain
++	 * must be powered on before any register access, otherwise the SoC will
++	 * trigger a synchronous external abort (SError).
++	 *
++	 * Accessing the XPCS registers also requires a TX clock from the SerDes,
++	 * which is needed for the soft reset.
++	 */
++	ret = xpcs_rk_serdes_phy_init(pxpcs);
++	if (ret)
++		return ret;
++
++	ret = xpcs_rk_serdes_phy_poweron(pxpcs);
++	if (ret)
++		return ret;
++
++	ret = xpcs_rk_init_res(pxpcs);
++	if (ret)
++		return ret;
++
++	ret = xpcs_rk_init_clk(pxpcs);
++	if (ret)
++		return ret;
++
++	ret = xpcs_rk_init_bus(pxpcs);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static const struct of_device_id xpcs_rk_of_ids[] = {
++	{ .compatible = "rockchip,rk3568-xpcs" },
++	{ /* sentinel */ },
++};
++MODULE_DEVICE_TABLE(of, xpcs_rk_of_ids);
++
++struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *np)
++{
++	struct platform_device *pdev;
++	struct device_node *pcs_np;
++	struct dw_xpcs_rk *pxpcs;
++	struct dw_xpcs *xpcs;
++	u32 port;
++
++	if (!of_device_is_available(np))
++		return ERR_PTR(-ENODEV);
++
++	if (of_property_read_u32(np, "reg", &port))
++		return ERR_PTR(-EINVAL);
++
++	if (!xpcs_rk_mdio_addr_validate((int)port))
++		return ERR_PTR(-EINVAL);
++
++	/* The XPCS pdev is attached to the parent node */
++	pcs_np = of_get_parent(np);
++	if (!pcs_np)
++		return ERR_PTR(-ENODEV);
++
++	if (!of_device_is_available(pcs_np)) {
++		of_node_put(pcs_np);
++		return ERR_PTR(-ENODEV);
++	}
++
++	if (!of_match_node(xpcs_rk_of_ids, pcs_np)) {
++		of_node_put(pcs_np);
++		return ERR_PTR(-EINVAL);
++	}
++
++	pdev = of_find_device_by_node(pcs_np);
++	of_node_put(pcs_np);
++	if (!pdev)
++		return ERR_PTR(-EPROBE_DEFER);
++
++	/*
++	 * Pin the supplier before reading its drvdata: device_link_add()
++	 * refuses to create a managed link while the supplier is being
++	 * unbound, so if it succeeds the drvdata cannot be freed under us.
++	 * The link is released automatically when the consumer device is
++	 * destroyed (DL_FLAG_AUTOREMOVE_CONSUMER), which covers all probe
++	 * failure paths, so no explicit device_link_remove() is needed.
++	 */
++	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
++		put_device(&pdev->dev);
++		return ERR_PTR(-EPROBE_DEFER);
++	}
++
++	pxpcs = platform_get_drvdata(pdev);
++	if (!pxpcs || !pxpcs->bus) {
++		put_device(&pdev->dev);
++		return ERR_PTR(-EPROBE_DEFER);
++	}
++
++	xpcs = xpcs_create_mdiodev(pxpcs->bus, (int)port);
++	if (IS_ERR(xpcs)) {
++		put_device(&pdev->dev);
++		return xpcs;
++	}
++
++	xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
++	put_device(&pdev->dev);
++	return xpcs;
++}
++EXPORT_SYMBOL_GPL(xpcs_rk_create);
++
++static int xpcs_rk_pm_runtime_suspend(struct device *dev)
++{
++	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
++
++	clk_disable_unprepare(pxpcs->csr_clk);
++
++	return 0;
++}
++
++static int xpcs_rk_pm_runtime_resume(struct device *dev)
++{
++	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
++
++	return clk_prepare_enable(pxpcs->csr_clk);
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(xpcs_rk_pm_ops,
++			   xpcs_rk_pm_runtime_suspend,
++			   xpcs_rk_pm_runtime_resume,
++			   NULL);
++
++static struct platform_driver xpcs_rk_driver = {
++	.probe = xpcs_rk_probe,
++	.driver = {
++		.name = "rk_xpcs-dwxpcs",
++		.pm = pm_ptr(&xpcs_rk_pm_ops),
++		.of_match_table = xpcs_rk_of_ids,
++	},
++};
++module_platform_driver(xpcs_rk_driver);
++
++MODULE_DESCRIPTION("Rockchip XPCS platform device driver");
++MODULE_AUTHOR("Coia Prant <coiaprant@gmail.com>");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/pcs/pcs-xpcs-rk.h b/include/linux/pcs/pcs-xpcs-rk.h
+new file mode 100644
+index 0000000000000..28723d5bd75cc
+--- /dev/null
++++ b/include/linux/pcs/pcs-xpcs-rk.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __LINUX_PCS_XPCS_ROCKCHIP_H
++#define __LINUX_PCS_XPCS_ROCKCHIP_H
++
++#include <linux/device.h>
++#include <linux/of.h>
++#include <linux/pcs/pcs-xpcs.h>
++
++struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *np);
++
++#endif /* __LINUX_PCS_XPCS_ROCKCHIP_H */
+-- 
+2.47.3
+
