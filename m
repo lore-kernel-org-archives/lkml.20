@@ -1,82 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A8495059;
-	Thu, 17 Sep 2026 22:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13931288C81;
+	Thu, 17 Sep 2026 22:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684200; cv=none; b=G0Vf1nJ7Es60VACboYlZKcNjF/JjR944VvYF+OCzS8fvaLaFb1I7wBSp13jEL9bTEwkwSvh2BKEWb5jllFqs+MfjHT4HCWV0PMX9cdQqiOCtrB4472nH8GGV0lFhSc8UUDFbl7qN1FKHJ5hkRh54+YOmIVgGFdcUJ9l7eOeivpI=
+	t=1789684255; cv=none; b=a378T4GZJxz/quIZARPq89zoilcW1CVomrXYH5bghu3SbAfYgf24F4FjpGuUZzSUL7g3xusfwF4oXYE8Bq7EtZkslEc8Khah+prLXLnrUz+7WiWTxOnQkerMXo7C+LXqG9pmam4dyDsRDpD0DX5mTb3uuD3GJcDS+1ugsaSkJeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684200; c=relaxed/simple;
-	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
+	s=arc-20240116; t=1789684255; c=relaxed/simple;
+	bh=yMVntEvByiQnwXoY/WDeu9YYuOKVHTMYd+Zy59/3QDI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NuvRf0Id/w+f/+DYhKg4IT7/WDQrE9O1BjIOMnciZP3BE55vK2G7RJwPCCmmgiVPp8YhlT6H956xDXTNgOktznHwB4O0hWpfWt4RXmpnXZZop0gjpp2od4JAf52V31Oz0vz9jbvq7eVt6KrKoBucTzS7CyDM0QwrMiuyowSnNoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3DrAFGC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ujQs6iHQxCyvwGHLqJ80gVYVb1XmkV1H0QX5YtfRfm9xLMkIqHjbkgBcIIprcH7zU+4RCJ6ZgmVYXErBQEithLgS3n3ZeqKgyc4qqAI2qaDS8EYpuFKs89rTAmdv5Qb/TckCMk0vywBKvPAlaYSRAxb0xyz3DF+T6ZLiej3zkf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLPLzJkL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3DrAFGC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695AA1F000FF;
-	Thu, 17 Sep 2026 22:29:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLPLzJkL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC811F000FF;
+	Thu, 17 Sep 2026 22:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684198;
-	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
+	s=k20260515; t=1789684253;
+	bh=4/qx3gACLobp/kVaCWxWU6urjoLYTDk1lm6knmcF17E=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g3DrAFGCXodJgXf8lrkUeFKFopTWa2xYEacf93xGv6ZYtyLzyqKtzaaDe3MVfDFqD
-	 An3uxil+l8Uf4hVzs/Yrp1kg3B461zNoGzoIiRmAs96LnaDYhPdxoe9NniGragGqIj
-	 ++L9k8HW/31w4toD9phIV3nZHZcCddEBiYL9VIrsD9PC76xCRrvyzBVwmnPgw5Ti0O
-	 lyvJEPlcSUmKkk0X/uOGuxgBjyLlLu5J0VFp6O00EzFu+Nh97JEKTS85orxDXcxrpE
-	 bAEby48luqnTPVMvrI1nOmmUgO+G5XK7RY4D3dToafgBREG2C7HkKf5SX0F+OhebN5
-	 FoxD/BXF1NVCg==
-Date: Thu, 17 Sep 2026 23:29:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, nicoleotsuka@gmail.com,
-	perex@perex.cz, shengjiu.wang@gmail.com, tiwai@suse.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in
- fsl_asoc_card_probe()
-Message-ID: <1ff14ab8-fa35-45c3-abcc-1075a848be2d@sirena.org.uk>
-References: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+	b=OLPLzJkL2pS51ZSdjvIK3zdS7esWlyTgsGn50j02Y2ZED9OxLGUZj7V58u32BmEVK
+	 mX85kSqvR/CetXKufKiQsPtO5BR1RnM3JufEsmwuZFSQ2JISfXRFnHaqZhMILoYcBT
+	 Bvd5PDr8DhkgvFvdihoRBfnNnxj3vscpeS3yKXdIXLuxYh1VEMXTEJM5MD30ZrehVZ
+	 zNULAC0juzOT3fAL3u3cbRGdHpCTaOdwUye3he5MwrRa1ZyY14KJZtNhvcXcwHjjq/
+	 ek+uXsramaiYLMPIhp70TYdNX/cb5Vfj9+a5zJU2Se9X5x4PhfMRaRd/IKAA6FCgyQ
+	 rtAnBRZI1P99w==
+Date: Thu, 17 Sep 2026 17:30:51 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Sven Peter <sven@kernel.org>
+Cc: Janne Grunau <j@jannau.net>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Neal Gompa <neal@gompa.dev>, Konrad Dybcio <konradybcio@kernel.org>,
+	devicetree@vger.kernel.org, Joshua Peisach <jpeisach@ubuntu.com>,
+	asahi@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <westeri@kernel.org>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Subject: Re: [PATCH v2 05/22] dt-bindings: thunderbolt: Add Apple
+ USB4/Thunderbolt NHI
+Message-ID: <178968425120.4102150.11013505530489451162.robh@kernel.org>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-5-1f80085f93fb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="daAMsHLhBjcveUdx"
-Content-Disposition: inline
-In-Reply-To: <20260917165654.2163461-1-vulab@iscas.ac.cn>
-X-Cookie: Whip it, whip it good!
-
-
---daAMsHLhBjcveUdx
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-5-1f80085f93fb@kernel.org>
 
-On Thu, Sep 17, 2026 at 04:56:54PM +0000, Wentao Liang wrote:
-> The codec device reference taken by of_find_i2c_device_by_node() is kept
-> in codec_dev[] and never released, leaking the I2C client on both the
-> error paths and the successful registration path. The same slot also
-> holds the reference of_find_device_by_node() takes when the codec is a
-> platform device, which leaks in the same way.
 
-This doesn't apply against current code, please check and resend.
+On Sun, 06 Sep 2026 20:36:28 +0200, Sven Peter wrote:
+> The Native Host Interface (NHI) provides the TX and RX rings used by the
+> software connection manager on Apple Silicon SoCs.
+> 
+> The NHI is part of the ACIO host router and is exposed to the main SoC
+> bus while the ACIO co-processor is running.
+> 
+> T6000 and T6020 use one DART stream for the TX and RX control rings and
+> one shared by all other rings, which are used for XDomain connections.
+> This likely improves the isolation of those host-to-host connections.
+> 
+> The M3 generation uses a slightly insane set of 24 IOMMU entries. These
+> are probably one DART stream for each TX and RX ring.
+> 
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> ---
+>  .../bindings/thunderbolt/apple,t8103-usb4-nhi.yaml | 151 +++++++++++++++++++++
+>  MAINTAINERS                                        |   2 +
+>  2 files changed, 153 insertions(+)
+> 
 
---daAMsHLhBjcveUdx
-Content-Type: application/pgp-signature; name="signature.asc"
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaeEACgkQJNaLcl1U
-h9AKRAf+I5U/zFfzbOfGdHHHyloZBavITTecgnUthXRxd031B60RwgXz4kFI59vb
-GLorypBTYwytxvXSpg4SrNRYJTjDz2vD8o7oGPjzTDn7Hwb4ZlaiywYisezZqg5C
-KOP9AZfQgIRao95uGpkPoH4EVi86dOUYUbUaU6z16GLkbPHI54svv36Y4qbTTi8I
-SpBGBEOAu7rm5FJdTPg/eZtFuO3bh2Cdggd7oh/Q/oijLlaOt9MhPrHHP25CSD4W
-kjzrjfmNBaQUnOD222LZd+aMQLEVrekPGwLzY00dr00z54kt70JB88frXUOuILji
-2R4OnnuUVOMnwhpYgPyv1bRJYkADtw==
-=TPUY
------END PGP SIGNATURE-----
-
---daAMsHLhBjcveUdx--
