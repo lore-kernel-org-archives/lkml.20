@@ -1,66 +1,34 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7083B4A33F6
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C3F4A484F;
+	Thu, 17 Sep 2026 09:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636042; cv=none; b=Wad8hp3I6/uBFhLALK1Jct0zr4LYjmWAOIMQwkDKt27r4Vlc70G74HUC8kjytrkm2l3W9IVvq2Gx+DGf2ZiS4Qi++UKBZMi8PO1ge0Pn5WolETE1UUbUCwFc7gJchNQsYkMckwUq2jk2wZbHBsBxs2i8uZl4iAW1KIcsatfyWbg=
+	t=1789636043; cv=none; b=fo7V7E1DRe8B+Fq0GO8pmrU9Z10/ECBRbg+ItLNFf1J3kadInHUd9jO5ipqVIxPsPnb2WLY/2YSB3mSmxdjAfLA0xyTO7Znc6u3/FDyxbUuny0EHypdmFn1iyKv26VMEZZo0RqlVxSwEr6TWZcbmPy9yHp/Y8WgQ/G3vb0U8JSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636042; c=relaxed/simple;
-	bh=4VYAgGnCoLccnThsi6FGyu7dWH9CoLPORdAqvgX6CSE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=t0ZVu6g2SxyUVV71oOMaWtYbDInqn1SF3k/ukxzLhATpOZHf/2VcnPckbpqlNdsQPPwIkD2S8RJZ4/0uyGldaq7FEGo+DdRTF1QW7xkgusCavrMCoxgeEbVHzwdi+NjQWp2bOY/JP1S900/cyasyg6VzPaG/ua/mZbp3CgJe5AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A0r4xj3Q; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789636043; c=relaxed/simple;
+	bh=zMvAjTgY4H4tDP7p1KXre59sDVGMQ64j9Ua4bl2Lg1Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=p8iliGG2SEDJE7qHRZT7mkyFoikNrI9lv9HdrMwccVaUMmsaGx8qU6sK1Bs2p5Ngle5W2GNHql7jmSErtMAYIchFx2AUeVcGIl/tBE1ezWpBFaF+/Bfpal4I6NKcPEKwIDvsHExadhVj28UsfOM0XcrB90c8G16euwkym6W7FjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACmDOwj6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A0r4xj3Q"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so882870a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:07:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789636038; x=1790240838; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=11XG6GHVaKbsTYUnnB/fk0WT0cIpei9Z8XfJe+BSC78=;
-        b=A0r4xj3QNwAAw62cs9wWPGv7Oa1AR6vFxFL1JZ/AW4UM8QE1jqJrJrGujM4kbFtZVM
-         Hr/PRDs3Sgwh55dfNItyEGYJmsmAVEjV9ssdmpNJp1TTCMkM0VYtwP5b3L3ISwy5k7OF
-         0I969s2KAVqA8swHFBHVqykZyOPfhEXg71Sw+Ca0XQBdakhZfviAdFolwVnq5D28akod
-         GybY1gWkdmbN5+IAhHitrzNw35+SRZSv4/iUUJND7zZY9SKTHMG0rx0ROMsHrQXD91MZ
-         fGWF6GhJN9Gd5wgadMF/CP6BT/hJ59pPX4F02aGAjmbDOk3q0c+grJkpi1h6phzn3UPL
-         JNhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789636038; x=1790240838;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=11XG6GHVaKbsTYUnnB/fk0WT0cIpei9Z8XfJe+BSC78=;
-        b=re3BILArpD5gjhlA/d6d6kZ5hXXIDhNhcKcaHZVjPnFrIK+/Fgq9rNgr4Fv0/1166Q
-         7wkOQ9dZCJyD3UTYui7nNAe4SijN0417W4J2S3VEdnQGuRRc7l3/uwMlWH1G4pteyRrv
-         Lp7bMX8sTFs8g0i67WuF28rrbNWiW8Av3UTLGLYjyX1HjoYk7reflRUxNPYUB0YijDpr
-         zppx4PsLFxmN2hibPYldIWlHk/awAlvP1omx31vXMYv+vdXA+8Fl3eaKY1Ak5+BeuLT6
-         vukauDXmIDWJ5jQUH3DSaL70QDCFkt8Jeuyt8O+IvYevhCOqCQbmLzmOVXKgxZfhudOP
-         CVmg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgktFZnqmH9GDsZzNSQJoS0O2y/mZhRyDU6q0QSHiFzWFI06Um9QPwzPaVzs+40vN9VSwKa9FIxTQvOXM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLf3P9+HFFoNJArrqektv53OjQG9xOzu6PN3jAQ49ASx0zvKzA
-	mUv4OM3Jjw90rag3vL6YA0ODC8G3USZ2ZSXlm68SU7+9/Ob78PSbnLjmCHXv73Et
-X-Gm-Gg: AYBFou3AjcXXe2b+XPfJ+m3RMiOHtBXqYfwQTA+2OeUfBRtN3mqfA4S/sJLAOGjapsr
-	G07R+5da19Y70jdmVEsNbs4/7HKSoFSb8N2MKQQNVW6mD9xkYPCbzolU8BAtFfH9l9YyG5GAPCs
-	FAycFlkvsgiJ6G2ctNt+Nlc90gj4EkBVGOpoBQAZPXGurrnZlBU3og7zGVR3uI56KH4/AKr4AuU
-	wyoe+bexSMGpOjKkP9VGb4ZGWTdflUv71hZprO0UjsPdNlLuBxa/o1w7EHkjxmwvCvI/sThBcR8
-	v7GIEOEMe7nVtkKMOzfDa3Llj30CsEVby45swX7UcAeu0Vf2IKa2GJBEme78O//FYou3UyparUL
-	/3FDabgQ36iNOO/7RKDl8UL3PZoRnMzo7ZLkOTyx4pSP4TiVPVECzU8NuYgtZQVnK/LS8ljfx2J
-	ev9YdHfA8M2c2CELmqTELS9nJsk841LcTWZHGaYRH93NoRErs1tdl2iFJ0X4AwaU53B7FJzR35K
-	HRTK/Vr9AJ4QChMWdsIy40KIcBXqUANisgRq6Xuy6Pneb2KgIfKyQBcg/VBabiWRze11OuO
-X-Received: by 2002:a05:6402:52d6:b0:6a9:ae73:2b59 with SMTP id 4fb4d7f45d1cf-6aa224041a1mr7540556a12.13.1789636038039;
-        Thu, 17 Sep 2026 02:07:18 -0700 (PDT)
-Received: from [127.0.0.2] (0x3ec686fb.mobile.telia.dk. [62.198.134.251])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d2ab4ebsm3286953a12.30.2026.09.17.02.07.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 02:07:16 -0700 (PDT)
-From: Malte Wechter <maltewechter@gmail.com>
-Date: Thu, 17 Sep 2026 11:07:13 +0200
-Subject: [PATCH] rnull: configfs: add power to configfs features
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACmDOwj6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA961F000FF;
+	Thu, 17 Sep 2026 09:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789636041;
+	bh=3PVi5I/8XaooRVeaEp0X+Mv2AxQzJLysEDNI0bUGMxQ=;
+	h=From:Subject:Date:To:Cc;
+	b=ACmDOwj6YeS2jK4nAZsBSQfDhG7l4DDSUvAnpWbb4IZJ80HdZxhhaEIExExqdjQqS
+	 qZjIUbqtTO9hOOOzGIP+d4fw0QoOO+Nd/Wri8tw6IWTdxsZqaewUWMgkl8FRw5XWqA
+	 eAWD+hFLduOxrGRElr/N0YAm3FHZGaUtzpTVQGJxUCkyk/mqDgDBN/mj/H/lK77ykT
+	 XCPD/h9tykvX/0r9CqGjaNO1pmPaNMMqw9+fNnHKtVDCdVUfzg6BWhyuK1J8tFyZ48
+	 vqnhLEJXre6xAKnWMEGtJSeSiKzi3bq+nrGMXaf2NKFpr8rQIwTdRpG2GFpfRSzqYZ
+	 msLn8HhCvEblg==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH 0/3] Assorted fix-ups for clk/qcom/rcg2
+Date: Thu, 17 Sep 2026 11:06:52 +0200
+Message-Id: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,52 +37,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-upstream-v7-3-rc3-v1-1-d0b620bf82c9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMCtq2oC/yXMTQqDQAxA4atI1gZGhyrTqxQX85NqBK0kKoJ4d
- 6ft8lu8d4KSMCk8ixOEdlb+zBlVWUAc/NwTcsqG2tSNcVWL26KrkJ9wb9GiRIsmhUfjXPLBGsj
- dIvTm4/d8dX/rFkaK63cE13UDOZh5a3UAAAA=
-X-Change-ID: 20260917-upstream-v7-3-rc3-0db5699dab30
-To: Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Malte Wechter <maltewechter@gmail.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789636035; l=1119;
- i=maltewechter@gmail.com; s=20260812; h=from:subject:message-id;
- bh=4VYAgGnCoLccnThsi6FGyu7dWH9CoLPORdAqvgX6CSE=;
- b=L3IqiNeupBg1A7BEFeHM7SaRg1I52yfOds1Jaj3LJfHoEFNA1x5jLDRU03mrjIZbe1BAvnwfl
- v3I6WrIC9pFASH5OI3K+kUjNBgOK90ezsjrhRRa1iLXHJikIuJQ+9CY
-X-Developer-Key: i=maltewechter@gmail.com; a=ed25519;
- pk=Ta/JQQMOW0Cbxp+yEwWqWFEyKFRyuQeSoYicwD7yvWI=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0Nz3ZL8gsxk3cLk+OSc7Pi0zIrUYl1DM0Njg2SDpFRzUyMloMaColS
+ wBFBfdCyEX1yalJWaXAIySam2FgCGYxxQdgAAAA==
+X-Change-ID: 20260917-topic-qc_clk_fixes-16130c0be752
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Amit Nischal <quic_anischal@quicinc.com>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789636037; l=672;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=zMvAjTgY4H4tDP7p1KXre59sDVGMQ64j9Ua4bl2Lg1Y=;
+ b=2YPaMrdgOSX1bmBYrZjMKbgrt0e2vOyPR/DtN5SsLoomGEL4V9UTHeL104EoUbitWOtfzUFH2
+ JUqB9oM9Fu4BPW+WDubhbGcf9qwsuDnLn8v9tKbrh37zO6v7kHA7YNw
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-features displayed by configfs for rnull was inconsistent with the
-actual features available. This correctly exposes `power` as a feature,
-which is also consistent with the C null_blk driver.
+The robot found a couple of small issues that I believe are valid.
+Compile-tested only.
 
-Signed-off-by: Malte Wechter <maltewechter@gmail.com>
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/block/rnull/configfs.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Konrad Dybcio (3):
+      clk: qcom: rcg2: Initialize shared floor clock state
+      clk: qcom: rcg2: Propagate force-enable status errors
+      clk: qcom: rcg2: Clear force enable after rate failure
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index 32c10c3f4d0fd..5f1cdd54cf48a 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -35,7 +35,7 @@ impl AttributeOperations<0> for Config {
- 
-     fn show(_this: &Config, page: &mut [u8; PAGE_SIZE]) -> Result<usize> {
-         let mut writer = kernel::str::Formatter::new(page);
--        writer.write_str("blocksize,size,rotational,irqmode\n")?;
-+        writer.write_str("blocksize,size,rotational,irqmode,power\n")?;
-         Ok(writer.bytes_written())
-     }
- }
-
+ drivers/clk/qcom/clk-rcg2.c | 35 ++++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 ---
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-upstream-v7-3-rc3-0db5699dab30
+base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+change-id: 20260917-topic-qc_clk_fixes-16130c0be752
 
 Best regards,
 --  
-Malte Wechter <maltewechter@gmail.com>
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
