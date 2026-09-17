@@ -1,121 +1,156 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6002EEE8C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624553; cv=pass; b=UyRDWRMys7rXpoVkv4LiaTs2K9JaZi8fDnYt7pAQmaYDoJHcDbUp+F9CzIGMs1BYVxyaesFYiunm83ZfGIOZQSqahJ207/DEa1UnNYICXGsLk1va7PLGsnDEVaVyTbB9A9jBn0f3PphL7FoWEwnd7G/5h4GTEc/SdAGV5xlgHf8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624553; c=relaxed/simple;
-	bh=2M19jcpJB7iaoZ3X4Y35ux2/fOQ9sByXnP6IvdU3kiE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qDTE5k0l1jObZudi3pBKB4MRjgI28kOtK7N8NHCOLDe7cFcdIV/SD/L48of+eWxzEXvsVmnMHtm3oTOqc5o9vBfX2sM7Dv/Xs+JJNvPwmP/wB+2OOeaMIWdzVFhzZebp7Xf2aiCYaHI7M5aP37JGMqPC6auF4c9RAY5OQWEuVhg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p+HK5RyT; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154E83812F6;
+	Thu, 17 Sep 2026 05:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789624586; cv=none; b=pNh65hvcceXssJ+MNte2ogsAfoBAjGhSI5wtU5mZyhAYFfwimHjqJMqgPKjInPqBEIeS8TOn6cxrgqG/wPRmw5KnOHtd4+pEDFDm8DLRs6DNnCqwhDQ4RM6PdJWjXaugKK5IptBMYo8/6Fo2DlEFLA9OaQGepG0jUydWb6PABVM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789624586; c=relaxed/simple;
+	bh=Mbwi+hAEJ2TOuE5pCiU68p6QpU+CXNObLTPMmeKgryc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=IgML+dkT5c5Rt/8s51jUv/A/ov/QBG8mC/dXiRmCJGzMwr8lU7LU0gnfdfmhuASIuUi0EYhvbOpKaTyrm1yZhz8DSQj3hLN9rKCxOPpaFSbKTWXxVYLxG0wEfoM6E1IiWz75FxZWuMjNTeJoD+8y7GCOntIf/4jg8g8NaEuiQSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=GGbp4G/u; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=eBKaRa1q; arc=none smtp.client-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p+HK5RyT"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4838dbf1bbeso70337f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:55:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789624550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fAJ8l4/jdIeYSi1RjDdBrAuv7AGW1DdqzP80Ug2MeLsSY596eA20Z0dfsRjWUWBaHQ
-         O47iykfI56FXvyo1ODBlDxRPrbd7pkyJPtqPm+fpf2F1Ks3n760rvznIL+HEilKYGXgO
-         s9DMpeLF4SAUZ9X1JpAM5o12n6bmGwfk5eLWDqT7qa3NMvv/pjIJ+4BKDpa5lJVA+ZVd
-         TnGGe9C++H8hb1m9XM4ceaZQXy7wLEtvJvh0l6M2PxyShU34SP5hRuujTYraeoIU0q9a
-         qwgY4lQs2OQ6R8OuKr+RAH9kh+aq65zxgYRYD69nSO07zFxGXB9BIyfqHAhHAt+0nkqi
-         VVQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C2JDpDvxbkVszK8qUg2bwR78mCh70sLOIElXLTKIW20=;
-        fh=5X9c5T/YIqdRg+wkTN3LcWRuEEM5kNIS/NMFvlz9NxU=;
-        b=IkabbQ6TINm9gOGfXhdTFYRFjXzW8kmPQUqJrqeZt22aG/ZuuSi0hAVimiSMa+jhQA
-         /y9S0NpjMBAbXaMN37Vl42RwdplvdmX4Mbhm50whut5g3TA/KJdFz1r1YRU660wZyzQp
-         KCJQe06u1tYDRYSX6IzngJlZDf3vu7oKkbjO4glSdWJRngtZwscpmH44jFLjTZPJD642
-         TJyb8gv+jiRPbymc2CfEcORJ/ArChdD+WKtq+WIrbO5SmbMm4tH5x8c9H9twUMwgxzU0
-         VGAxW7StKLzrlR5OptN9CCR3jaaYA01OZMKtSn0hJaPBmu5H+NlHzz44xoKT2KHesEc+
-         NX+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789624550; x=1790229350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C2JDpDvxbkVszK8qUg2bwR78mCh70sLOIElXLTKIW20=;
-        b=p+HK5RyT1rUdmApeIdwPb8/sJzLalkaUi6B6f1/U97VDuNxCUqdpxraz/i30ZS/98Z
-         V9djKkTc7fknqr0JP/8DtmmfirB51NUKkZkvpUqfPbwLBMAWBBzZBjWfti6n+pbzV+ZY
-         mxz8s2Dw3TCjYxMHSxZG7LFhFeAtSNO1YYaOtqjnfMUgxkAkX839/LTRe6gsNogjYyEN
-         YvReQQesiP+nYiR+jn0edtt4HK5KInZh/idL76PO0HLRiX0vJlMxE9R8cJuwoy+Gu4M6
-         5vnsk8Bw4H+wz0FcpZ/cHVPPv4Uifk/eaAFB4v5CEys2MdWwILtHeMvTxePB4QvROE5U
-         ND+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789624550; x=1790229350;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C2JDpDvxbkVszK8qUg2bwR78mCh70sLOIElXLTKIW20=;
-        b=ZeDVIvSRCGrXEUg9EDM2xtHriMv6RCMsPsaYtPC9IezmrmwB5/qK28b2vG0tR7rulE
-         jKypE5Gqcqhz6yn64ab0Hf9yt3JFa0YZbArZ74ch66wRfJJpzcj0WkKspFJ1jtSol+TS
-         GHJkL9Q56l9rk/b0jStJtyWl6tQUM270KE3Y5BbIcLIpu5mmodz00RFw4UC03mviLH+7
-         mJASuAle2mMuNvo/VB422gib4SHOV1wWn1yKmvw4hVAnKT99zr32sbiEMXxmGosqdlTd
-         jk4i+VNmnoLTci5xai83WljG8ljyx2peZ4ETjtXSEfYR3rxL4CH/64RYqRxm/9e81J9q
-         xi2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByFKBRZnkJDsI2pfURhHz5b1oaecOi1tdcqIwnF6C7ULE7QTz7OPe54/P3BR/rYFsVIo8vkP862wkCtixA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYCh0co9dVvorge1DoWCCfbbExq315q7vFeb9iTi9lezXeC95I
-	/8H+epUewilE4Nta4xXpGAesfYnbh1SErnPUNHABfy5j+mjvNXO/g3jfofbzg0dLpsvyiPCF2J0
-	CMWt3MJ45UWyVNIVYg7w7W/Ir6bcPaD4=
-X-Gm-Gg: AYBFou2uGRstA+DO9GGEwqzLAHkGn+tVNUf+nnMO2+4d8oMttC+R8uDgyX8mUcnWCT+
-	kZ33nD93UPTL+bsmdmzm+1s9gUmXNoZ8EmOOR6rFq0IUjv70ZIhL9Dvr6u3rehVmboxyzzozI0F
-	XWaYUzHr7Sku8KjCVZMSihpMc0r5WAdTnYrI8HQe5gYIsd+ghiYjUIleWRrOsK7YEVjIPB74B9z
-	T1ZRYhGEoNmjAKVZI1G+0vIMfFh4Un1LnO7WEHAtr1CkRAa8Qk/6MVbo2PvjHruUbSy5MoqXpGQ
-	BmEOWbzk5MS86YdRc/nm/bkcsKY3uLhPgQCETcQT6a4otyz4yuQBdTCJ
-X-Received: by 2002:a05:6000:480b:b0:486:e596:1253 with SMTP id
- ffacd0b85a97d-4870d0541dcmr6003777f8f.3.1789624549699; Wed, 16 Sep 2026
- 22:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="GGbp4G/u";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="eBKaRa1q"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 05937EC0118;
+	Thu, 17 Sep 2026 01:56:21 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 01:56:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789624581;
+	 x=1789710981; bh=E6Vg3bpUqSz3Pj9xg3oQSweER3Z7QxD7M1oDqjqbTDE=; b=
+	GGbp4G/u+roLCBBW1X5LxaPuo76yNpQDClMQMHkJmJCuirPtxMNGj1jajS/PTGfN
+	JVK1YQbrVgyHcM5r88NM4U1E5do7xAG78NOL+9CDBRjuk4KEDE8BSVNmyWM2arDJ
+	ra6+Btxidwe4vTBDTMhblROGwZLbytUpIx8EtmlM6yA6jtQGaTqKRX4Dcxb4n3au
+	NnEUSdf3EDdHJlXkS0zp+WeWiCdYUBSaP3a2dk6oKO2VhmXUl2wKRWIPoO0ogHee
+	CTESVdKNA7pcf9Jyz9Bi4fAR7ZK+I+rZuCxYMynFJmHpCV8DV2WexIiE75gl9N76
+	+rV/p9tZhFNfaPbak9I0QQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789624581; x=
+	1789710981; bh=E6Vg3bpUqSz3Pj9xg3oQSweER3Z7QxD7M1oDqjqbTDE=; b=e
+	BKaRa1qijVXP/ajZuMAbyukMZKAFqJbMTTD1l4SzixYv2o9ux9k5SpwWP6shuZi6
+	865rELRDQkGVQ560bbGAEs54IVn96qd4TZC64dVV29s6tGRKoIBB1oCprIIIaEBd
+	R0a7/WhCklnf2k3mcDGVJbRtWfJVKB5iZwosgZAiPT+EpCM7CHbR1Vy+4iS8wX36
+	9LE9fv8WA5KCuoK1eq0iy9Nvfsm/+T+u996e9rpT3cllfrv7U3tMxNRiMsRo48MS
+	Gs8UoeIwlWQsI4PPWOdU3eoVd3Kcq8wnnb8EGn6UcR8ip06o0H13XQAPCaNsXY8a
+	SC8VoEXEyTHTEalfPb/FA==
+X-ME-Sender: <xms:AIGranrIsNzd-n5_Y_lgDm8e4SveGD4WDkkQG1exaPyHNwyfIvTZbA>
+    <xme:AIGrasfLaUOrMTpyOBaiZ89PwG8J6Edhypf-kwZqr_K80-fhGBuGj5T1N5bvggTAM
+    hNpTkii2-BASlIC_B0jMI20PaaeEPo5rxYuOFCVD9hYmZKqVFtADLNk>
+X-ME-Proxy-Cause: dmFkZTFlx2cT7GLNvlNJEzNcY+Amz1Ciq+yjddF3pMcq3/zZLoLLD2H82cYq+2SeOYQV9f
+    vehC8tp9xFp5qadWLjh+qiCAyw47Ch69MWx66qZr1l/WAmg0WrvOpJumDcq+uMYLgMnaui
+    vaVxLdO2W1cWqVPF2UQHOQ36xm/wSftcKi+Ca//GEsMgqK0MrQF4x4me01uH4IRb68jYyZ
+    OJUk4XkunCR4+ds+tTViycw2avGqXhI22CM1Gdy9ZkMp0uMjDt0GHh5BtN/7tM6ztMugOO
+    92nCc5FFXjf//UTJ5Y2mBwu5H/nqaISdKHJ3PiRgUtwGCanRvVJS3KCcsANToDdrbd1uIU
+    UB3LfmT1/5WcpFhho/ss8YDyEuTq93o6YW96Fvy/GopTRZ6mFe/jVCl8NbTSToGxqkDZbs
+    ae8Ec1jmx/4fmaS8R2dq6A2nJe2Bu44omcwh+Uc9+lks0BIAHWfdBfCpP3a9aU9ElZQ42V
+    tzgYuvZzo4kLrFFQuxbRatLhcsKUYLu2bsEuApzGxJOJcwFxJT6tGlg7ICwRL9cxg2d27W
+    PEw7JxMlTUJXiJY/M9hMFCSD+ao51qh4AO9SuMAYNv1dFuqTFP0fTJGZ9uIE1md1Gcy6sP
+    Gu4Im/oJu2smgsG47SdCFaov6IfT7eJU7LO6HoFrSlZ85HOX4lBZdHSlbcXw
+X-ME-Proxy: <xmx:A4GraqsT-7Y_-7Pi_lEQa9ygymHWBMqAV-q_z0fAlD7Xl_MrRPlTuw>
+    <xmx:A4Grav504RveMCKeSbDWGAtYZXxblOBcBDM643TN_YWDjAcwkhNOLA>
+    <xmx:A4Gralh0Ju2t_GxhEHoVaLRYJnMALJOoo5IhfOlSiHGY4nVCRFoeaw>
+    <xmx:A4GrahlpmG0IUBEpT0yA3bHiuuRcQz4vCKr1JaFc3Ko2r-rZJiVgpw>
+    <xmx:BYGrat3f9YzO4JP-AGGLy-4_Rp9eLrex7DBQngPe_b2S_5s8Oivy7jAX>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A4D9532A0084; Thu, 17 Sep 2026 01:56:16 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-8-chao@kernel.org>
- <CAHJ8P3+0jVMFp3YTse8fbUTSp+jjW+2czxp0NuD__sHG_7UNXQ@mail.gmail.com> <94731ef5-4c1b-4aed-9a03-ab63a4fc8a7c@kernel.org>
-In-Reply-To: <94731ef5-4c1b-4aed-9a03-ab63a4fc8a7c@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Thu, 17 Sep 2026 13:55:13 +0800
-X-Gm-Features: AcwNN1VguL-2228RZ6OpwQGLHkDRN7vvPudMJHrjoULo_3Tj7FNh3X8HxFnEdVo
-Message-ID: <CAHJ8P3JTqtxKOr90B0fR6dFyNgPA6dAgPOxFNYtKpFP=nVWJNg@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v8 07/12] f2fs: cache: use node cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: AA0MNwphKERR
+Date: Thu, 17 Sep 2026 07:55:56 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
+ linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
+Message-Id: <5aedf90f-d30d-4f55-b066-dd8fdf3ff8f9@app.fastmail.com>
+In-Reply-To: <6fa4e1e3-c023-465c-9490-ce2f18ffaa91@igalia.com>
+References: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
+ <95b693c0-ca51-4355-99ba-2b37a1ab2169@app.fastmail.com>
+ <6fa4e1e3-c023-465c-9490-ce2f18ffaa91@igalia.com>
+Subject: Re: [PATCH v6 00/13] syscalls: Add a shared table for all archs
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Chao Yu <chao@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8817=E6=97=A5=E5=91=
-=A8=E5=9B=9B 10:55=E5=86=99=E9=81=93=EF=BC=9A
+On Thu, Sep 17, 2026, at 00:19, Andr=C3=A9 Almeida wrote:
+> Em 15/09/2026 04:45, Arnd Bergmann escreveu:
+>> On Sat, Aug 29, 2026, at 01:19, Andr=C3=A9 Almeida wrote:
 >
-> On 9/16/26 17:15, Zhiguo Niu wrote:
-> >>  static void __submit_merged_write_cond(struct f2fs_sb_info *sbi,
-> >>                                 struct inode *inode, struct folio *fol=
-io,
-> >> -                               nid_t ino, enum page_type type, bool w=
-riteback)
-> >> +                               bool writeback)
-> > Hi Chao,
-> > seems this function just only handle DATA type now, so can we rename
-> > it xxx_data_xxx for easy reading?
+> Thanks for testing! I believe I found a simple solution for this. I=20
+> modified syscall_o32.tbl and can confirm it triggers a rebuild now:
 >
-> Zhiguo,
+> diff --git a/arch/mips/kernel/syscalls/Makefile=20
+> b/arch/mips/kernel/syscalls/Makefile
+> index aaa5443ea906..9e31d1ce5015 100644
+> --- a/arch/mips/kernel/syscalls/Makefile
+> +++ b/arch/mips/kernel/syscalls/Makefile
+> @@ -40,10 +40,10 @@ src_n32 :=3D $(src)/syscall_n.tbl
+>   src_n64 :=3D $(src)/syscall_n.tbl
+>   src_o32 :=3D $(src)/syscall_o32.tbl
 >
-> I rename it to __submit_merged_data_write_cond() for readability.
-Hi Chao,
-It is good to me.
-Thanks!
+> -$(kapi)/unistd_nr_%.h: $(systbl_common) $(sysnr) FORCE
+> +$(kapi)/unistd_nr_%.h: $(systbl_common) $(src_%) $(sysnr) FORCE
+>          $(call if_changed,sysnr)
 >
-> Thanks,
+> -$(kapi)/syscall_table_%.h: $(systbl) $(systbl_common) FORCE
+> +$(kapi)/syscall_table_%.h: $(systbl) $(systbl_common) $(src_%) FORCE
+>          $(call if_changed,systbl)
+
+I had tried the same thing already, but in my testing, it did
+not rebuild after changing the syscall_n.tbl file, only the=20
+syscall_o32.tbl file. Can you verify that your change rebuilds
+all nine files in the correct cases?
+
+>> The rt_sigtimedwait and ustat entries had a typo that caused a link
+>> error, but I did not check if there were any additional mistakes that
+>> caused incorrect output data without causing a link failure.
+>>=20
 >
+> Ops, my bad. I had another round comparing the tables, and I found=20
+> another case that needed a fix:
+>
+> diff --git a/arch/mips/kernel/syscalls/syscall_n.tbl=20
+> b/arch/mips/kernel/syscalls/syscall_n.tbl
+> index e3d278f715b7..1882527053af 100644
+> --- a/arch/mips/kernel/syscalls/syscall_n.tbl
+> +++ b/arch/mips/kernel/syscalls/syscall_n.tbl
+> @@ -43,7 +43,7 @@
+>   33     common  pause                           sys_pause
+>   34     common  nanosleep                       sys_nanosleep=20
+> sys_nanosleep_time32
+>   35     common  getitimer                       sys_getitimer=20
+> compat_sys_getitimer
+> -36     common  setitimer                       sys_setitimer=20
+> compat_setitimer
+> +36     common  setitimer                       sys_setitimer=20
+> compat_sys_setitimer
+>   37     common  alarm                           sys_alarm
+>   38     common  getpid                          sys_getpid
+>   39     common  sendfile                        sys_sendfile64=20
+> compat_sys_sendfile
+
+Looks good, thanks for checking this one.
+
+    Arnd
