@@ -1,43 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DA5595739;
-	Thu, 17 Sep 2026 14:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB851598C01;
+	Thu, 17 Sep 2026 14:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653862; cv=none; b=ONtYn+FK2zZijWBvDEPzwVWCV/ptRfw4vt1mfAtDuQvTxIFQo7ZXPsmXPYBIVSKd7doQJL6++zFYpQ4zE9ShgFVvu/Pb6y8LvsQsvxuPusBTBQQZdRYe4LLltA0NkdJhpQLGQRc6bYahS9N39RqmsG4r0xtA6udG/S254DX88OE=
+	t=1789653866; cv=none; b=QcKtWNczfgoTGAFJ6H5I9DHvs7BsLvqFnvPEeA125AauNBLemGzSfJaLDPKLMNmdUFVVWHvpopR+6rvygCbUaMbnatVDUTAZRGOTILwZInMZteDwCxxttkNVk6mvOnZMXoY7O/ynBU3+RAcVrYPXpwJrcPRIh2ckTAYvE4RDqok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653862; c=relaxed/simple;
-	bh=+lY5BeFcwV5FB838TAcxY9ito2AIXwIBAsYU2ILeoMs=;
+	s=arc-20240116; t=1789653866; c=relaxed/simple;
+	bh=TNtuc9GGI5fjqkVDrU17OxAsxDoMnUnAakkErqmjmpM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tPonqMOyYcA5hrzn9di70qSoJWr/xwnGKTkR26GigaNtct1fjgr8iOUJFuwed23AzJlu5t3LIpu0q9yialLAIEQMDaDWmzw8eZMlU95QOLH3alHYYA3j0BO+MI3WjIaOTWSTb41uIcIGiEdYMVa1PUVhkch9CknRLOtMfJbMKDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GSO8Nouh; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=abTLQrhAaCugys0S4XQNPmqQ6jBsqRdS0E7vynorj+EELksdoUrBh5vjOtNZ8InViYgRYBCJi+C6cNSa+CcFtCg3jzMWwMRAF/LZm2/QvawbwuyBP9wIUe3d5+R+1nM/ZMl4nA/dQ6sP8Sd+dA22FT67pzmIn1iHC3MZuup8VgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jMT9IhNF; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GSO8Nouh"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jMT9IhNF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789653858;
-	bh=+lY5BeFcwV5FB838TAcxY9ito2AIXwIBAsYU2ILeoMs=;
+	bh=TNtuc9GGI5fjqkVDrU17OxAsxDoMnUnAakkErqmjmpM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GSO8NouhnIrUU1B3YujfbZvvE7+mLDvWytQ2vcQlxnMqyetbYJgXGwIAG4ZZBA2/w
-	 OsJHnYjRJlwDaDA0Qx+OYr71laPfDa1VH99m2dUjKdeSvv4ZqPqetDVdN1J+ZVU3Lc
-	 E+drHNYvWUlQWwgebSB1erGyAmKSSW6HByr+8U7F1GbLVFgqnLEtgNCGVrV2R+gpjD
-	 1M5qV4dgYxndIcz61dAk+JZ/MQ5bP3V6MOPaIx4Xanx7H4mjX+AIIqe0Soa+drlhJj
-	 MSquWTWgYoKbPWCwTo2wzbb7Am8GlVvPqxGfSwzdsYfBvzeRvpwUifVN+F1TnX40tX
-	 HHCkWfhUwH44w==
+	b=jMT9IhNF7HGV7QqLeOyyL93BjgncoG8F+jFqYZJt2y0gROue0GjQ9BGA4YH8dbqRO
+	 c157zJ8eXVCIEPJ6EjxpmxqgtYOvWQg5PRlmSovlzD+hrR/rXw3j7CrHyxQoSmWfgz
+	 kxNBhCdgUsfdqnVeSsXnEODgTqTrG+rhSql5G2ypsZuK6v1eJE+3/Hkpla9gKjHcVZ
+	 MTRdigstC78jIVbc7NM7LQ2lS5yhvyMj0yMaVobIYWWROerDr5yt0FpNMklwMPBm0j
+	 5mGFDa6mb06mZOs1WPPPych7sWDOUjBg5v9wNj4priXir8niTWzoty5XiSP2Hv3UdB
+	 YTWqpqd/DgtXw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A82017E0074;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 84EA717E0D49;
 	Thu, 17 Sep 2026 16:04:18 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id E4586480029; Thu, 17 Sep 2026 16:04:17 +0200 (CEST)
+	id EE3E748003A; Thu, 17 Sep 2026 16:04:17 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 17 Sep 2026 16:04:07 +0200
-Subject: [PATCH 1/7] dt-bindings: clock: rk3576: add more DFI clocks
+Date: Thu, 17 Sep 2026 16:04:13 +0200
+Subject: [PATCH 7/7] PM / devfreq: rockchip-dfi: add RK3576 support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,7 +46,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-rockchip-dfi-rk3576-support-v1-1-a5752a29f7bd@collabora.com>
+Message-Id: <20260917-b4-rockchip-dfi-rk3576-support-v1-7-a5752a29f7bd@collabora.com>
 References: <20260917-b4-rockchip-dfi-rk3576-support-v1-0-a5752a29f7bd@collabora.com>
 In-Reply-To: <20260917-b4-rockchip-dfi-rk3576-support-v1-0-a5752a29f7bd@collabora.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
@@ -63,50 +63,78 @@ Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=888;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2139;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=JMwGtADsjoZugYy5kca2WIyyIS8H1fB5ycX9ZpgOJ8Y=;
- b=kA0DAAoB2O7X88g7+poByyZiAGqr82Gg+ziNO8WErazFJTt5jJP61npnkoV6x1KcGnWH6jxJu
- YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq/NhAAoJENju1/PIO/qarQgP+wdz
- V84TmRG89qN3+4xvPAMg6GvMv160aZD+ZJ/ND6VqWuNxshjwQg9zOfk5KDWOCpU1GksL+6p78Td
- 8k0xyuNOLirZe25JfyqxQogMiI06RdOGeQwb6MhS/CsLbSalokUqsJk+htIvjCj/HnIPT6MYknG
- oMSzql+ZtuGKKP6LKVHQswxrhIUw+KhSCeAJFHNYNGFXZTG8S27CZuO+FJRwGgLQJsozoDKnEAJ
- xIyYaC0HfXhwy0I43moMQEFXbz8DYOWb+W50SpIBMpDa0HunpRoS6ONn9PimpGICFboUQKTDhpc
- EDFpExCjKLzYHea7NNYg4fre1MJ+/MdBR5z7/SOCo7YAy1dtLI+leFsqxjz2EEoQlETkQ9S74Cy
- 7HVT3XQoNeLwlq+aK6LY1WOXFlxDlJIC03cgE5YY/b4ep0OgtoTuvlcmO6L9NFZHjvEvXzUkwES
- /3OUVXY/xspfEFPu4eGfSMRGmXuRyuEjapwSrrus3n0aZTEqtUSH7woN4siDJlqJPiRT+deUble
- prz9xlUQnNfQDMJ8+MveNBJGeLN2ZH/Wr6ggW5a/T0au/QjYYpznS5L0ffagrrMNzeWKVy5AR8v
- xQzGxMAg5LHMooZ/3nWFZHXsqe6EWFSvrZpgeI8tyKiZqtlbTglWd5Dme1SAeU2ovF3w6qGqocW
- GYFHE
+ bh=TNtuc9GGI5fjqkVDrU17OxAsxDoMnUnAakkErqmjmpM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqr82EejlJ4FuU9C+ypGh5AhmIBgkLkIVLEA
+ skFrKrWWYV3wokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqq/NhAAoJENju1/PI
+ O/qa8+YP+QEDsuu3RP/2L/Qy2ETZ2iabxGV5UWbgrhU1pPnDMxMaAssY2VYSmij376j5jUg30yZ
+ CsDgJztC5EgYglcDRzFTjrF7jY1BUqFwPInLGCn8rvy25PKxICcLtn5SaqNr3CgfmrwoKw0vgcZ
+ LlwhUyyamFvSN/fbb5CJR2jBBemSEEDiDT1GS7xA7pW+4agVXoqpVd/Fq3NVJYVV5BCKSPsDaUL
+ eJWoL/ynSBl62rS1ycp9uzCQONR3NubE285zGeLZ9vvtEIQTIlAKg6uiu6pu5P9fEEvnScZ5ihF
+ OIVCaS5dT4Sz3BIjTnIQwligCNrcHt0VQ+nEBMDNUKx0pDl/BiNHME5g3RrDG55alodx1brJ/3N
+ W9tceAUrE+Kt7debuHyb6+lSWWd8FGpePaa5vh0fYeAPCpPJgphs4Z4il5RZmcFnVZLXl9qDbxD
+ xvexArxbuKPEQdJgXsXk2DHhnBFurWLaq6siNybPVNqY+GTfOOFt6OOsFx0K+AItSxGbJK+whay
+ TGMNqwEGiWjXSVUnEhpEGSLN3e9A3+Q1c0YuRrwsktw4jOBk9FP1exsuvw4u63SVnNPeRCP2eNI
+ Lf7x2N4OShGGhtLgDildct0SDJxrWALQEPIjTUc0SGJ/+vQzQFk50GZWmLbeqdeyYw5fHV4vrsN
+ qnibFnxZbttyxFtVEw7kqJA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Add RK3576 support to the DFI driver exposing the same functionality
+as found on previous chips. This uses the RK3588 init for getting the
+DRAM type info from the GRF registers. In contrast to RK3588 it uses
+a newer DDRMON controller IP, though (version 0x40).
 
-When the RK3576 CRU DT binding got upstreamed, some DFI clocks
-were missed. Add identifiers for them.
-
+Co-developed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- include/dt-bindings/clock/rockchip,rk3576-cru.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/devfreq/event/rockchip-dfi.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/include/dt-bindings/clock/rockchip,rk3576-cru.h b/include/dt-bindings/clock/rockchip,rk3576-cru.h
-index ded5ce42e62a..c5b74f2d8926 100644
---- a/include/dt-bindings/clock/rockchip,rk3576-cru.h
-+++ b/include/dt-bindings/clock/rockchip,rk3576-cru.h
-@@ -604,4 +604,10 @@
- #define CLK_FSPI0_TO_IO			576
- #define CLK_FSPI1_TO_IO			577
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index 8ba97af78e3d..a895e566b4b9 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -858,6 +858,10 @@ static const char * const rk3399_clk_names[] = {
+ 	"pclk_ddr_mon",
+ };
  
-+/* Clocks that were missed initially */
-+#define PCLK_DDR_MON_CH1		578
-+#define TMCLK_DDR_MON_CH1		579
-+#define CLK_DFI_CH0			580
-+#define CLK_DFI_CH1			581
++static const char * const rk3576_clk_names[] = {
++	"pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1",
++};
 +
- #endif
+ static const char * const rk3588_clk_names[] = {
+ 	"pclk_ddr_mon_ch0", "pclk_ddr_mon_ch1", "pclk_ddr_mon_ch2",
+ 	"pclk_ddr_mon_ch3",
+@@ -887,6 +891,18 @@ static const struct rockchip_dfi_variant rk3568_variant = {
+ 	.reg_access = 0x2c,
+ };
+ 
++static const struct rockchip_dfi_variant rk3576_variant = {
++	.init = rk3588_dfi_init,
++	.stride = 0x10000,
++	.max_channels = 2,
++	.clk_names = rk3576_clk_names,
++	.num_clks = ARRAY_SIZE(rk3576_clk_names),
++	.reg_write_access = 0x28,
++	.reg_read_access = 0x2c,
++	.reg_access = 0x34,
++	.reg_clock_cycles = 0x30,
++};
++
+ static const struct rockchip_dfi_variant rk3588_variant = {
+ 	.init = rk3588_dfi_init,
+ 	.stride = 0x4000,
+@@ -903,6 +919,7 @@ static const struct rockchip_dfi_variant rk3588_variant = {
+ static const struct of_device_id rockchip_dfi_id_match[] = {
+ 	{ .compatible = "rockchip,rk3399-dfi", .data = &rk3399_variant },
+ 	{ .compatible = "rockchip,rk3568-dfi", .data = &rk3568_variant },
++	{ .compatible = "rockchip,rk3576-dfi", .data = &rk3576_variant },
+ 	{ .compatible = "rockchip,rk3588-dfi", .data = &rk3588_variant },
+ 	{ },
+ };
 
 -- 
 2.53.0
