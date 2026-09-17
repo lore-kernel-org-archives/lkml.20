@@ -1,229 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476B7531631
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8234B7A59;
+	Thu, 17 Sep 2026 17:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664488; cv=none; b=Z0kDmNGYQRj/AlhXJG4IZG+fDBg1fYR54rnagKa6Fn0bzbUMzWlJdzdJ3jc97jowcPGmN2MVz2R6EYH3gZVkGWfUBCDB2M+6ooIFNMWK9pjIUKKREwDkghuwYZyl/giO3ZJ6t70+zR5/qpUqv9HdkFweCPBnjbqIp8un9a9AV18=
+	t=1789664502; cv=none; b=hX9mKvVhBkg/+Fps0VKhxMFD81SwSLXmwRw+bDyb5lORCqRlLJHTpCVF6A6DSiVtfioHiO5L3xXOSsKQgHLTElawogdwdlA5Uze8P61eXtgzW2KGJAElLKGehJlE2haQa1uFbvSix5DA1q0L2fveC8CWIbOzu7/Nc3QRivj/84I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664488; c=relaxed/simple;
-	bh=r9Ep85E9w6MlvG9H6Qne0a62DOZ+FXMfXEgCtKiCArg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JWF9rGlmoQ38h7e42Cyeh930XJvqRhLe/eqcOcs+K6ZsUqc6SH3/+lRrqx/y0jxCyHVUhboeMJiPBfkKjuCU9+Sp6D8/6lDZAxPez5UMYBrTC2Rp1pVUVI1Dxs3YRQ8MkCDaoMraYhZAzP3XzdVyIs5fV0/uOR2vziE6KQWS/Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OSgF2e4f; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789664502; c=relaxed/simple;
+	bh=msP+aYCFQRejiYJEioJy/luaDngihA3wohgZTYNaII4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lU+z2k6swY0M0M+XSLC1fsGDA00i3+Rv7wLQ57n02St33KkS2Phbynvcxgo3mW0sgK4cwkOdxKFUz9bMz+jH0igyENx+XgecC3Dd6N0WXbZCm9HF4zyqtQf5i9QjlYO/EALV4TgBdn7bqMlkV7ae0zAUQQ/OVh+N5uzu4wJMMEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjMFDSGy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OSgF2e4f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789664486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JP/uDEX2IPOSsVOnPf5VFYwjODpygq1wiqDkrVKezOo=;
-	b=OSgF2e4fAr/HVdyHTnShho8toBoIT9ZYARd08fSrITP/BIRqd+newSVIgnE6jYf1LODzGB
-	NKuQjVPnfY5P7jS3j5UFYtaMCgAgyd0P4B7lMDCSLAOsJ3AH4p5zfGleGUl+mFW6XUFiFs
-	aW/nClIH4vOQYGppu16EcMdRKzA9BCc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-486-nJQf6tf4P3OrNpxv-SjAFA-1; Thu,
- 17 Sep 2026 13:01:22 -0400
-X-MC-Unique: nJQf6tf4P3OrNpxv-SjAFA-1
-X-Mimecast-MFC-AGG-ID: nJQf6tf4P3OrNpxv-SjAFA_1789664478
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3EE3F18F0F01;
-	Thu, 17 Sep 2026 17:01:18 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.64.177])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 039E530002C2;
-	Thu, 17 Sep 2026 17:01:15 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Dave Airlie <airlied@redhat.com>,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v5 2/5] drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-Date: Thu, 17 Sep 2026 12:58:33 -0400
-Message-ID: <20260917170042.440276-3-lyude@redhat.com>
-In-Reply-To: <20260917170042.440276-1-lyude@redhat.com>
-References: <20260917170042.440276-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjMFDSGy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0921F0089B;
+	Thu, 17 Sep 2026 17:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789664500;
+	bh=cMuDnpqJUB2Uf77ZbSuAlr2PpXfKCDvn1QWiL0hTFpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jjMFDSGyVlsre2OTckTLEm8iZBL2xUblNcOIL6hTWSU7fqk30T66IbsSK2lBLpw99
+	 Li0P7WzjAKSSjpIhMssr2/0fCf0fePT4FXZNY5GuZ/FcFSms6av9+BT1r6C06UZ0B9
+	 YyiYY8EBcVeOnXLjcd6vPNwWKdPZ7Ojf8w/cOCKB6I8RSa3RsWc+cc2xiueU4LSg6Y
+	 mTS14dGRBrFfm6udeioEHK9A/Qe+EJHHb6efM8/5J03WRPVZuuozRUxr+mqbzw8IWB
+	 vGGCU1Scz8EtSVp7LCMJD1RAOQFIbsQ3d9+6UsobnTpT5OVJDcELlyNi8o09hYdcU3
+	 9Sr5bwOZ7smLA==
+Date: Thu, 17 Sep 2026 10:01:39 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 14/20] kbuild: batch module finalisation
+Message-ID: <202609171000.CD7797EA3@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-14-9ecf4163ff36@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-build-speedup-v3-14-9ecf4163ff36@kernel.org>
 
-This is a GSP structure describing various characteristics of the memory
-management system that GSP provides. Start by fetching it during driver
-load, but don't do anything with the information we get from it just yet.
+On Thu, Sep 17, 2026 at 05:06:24PM +0100, Lorenzo Stoakes (ARM) wrote:
+> With the .mod.S change in place, module finalisation on allmodconfig builds
+> consists of a large number of very short-lived jobs.
+> 
+> For allmodconfig x86-64 this can be on the order of ~22,000 jobs of a few
+> milliseconds in duration each.
+> 
+> Each job entails processing ~22k .cmd files, so the combination of heavy
+> overhead and small individual job results in a lot of unnecessary and
+> repeated work even with all cores being utilised.
+> 
+> The solution is to batch by a number of jobs. Determining which value makes
+> sense was done empirically.
+> 
+> On a 128-thread threadripper box doing an allmodconfig build, best of
+> 2, *.ko, *.mod.o deleted each time:
+> 
+>     modules per chunk    instances    wall
+>     -----------------    ---------    ------
+>                     1        11171    10.22s
+>                     2         5586     6.72s
+>                     4         2793     4.97s
+>                     8         1397     4.26s
+>                    16          699     4.05s
+>                    32          350     4.05s
+>                    64          175     4.07s
+>                   128           88     4.05s
+>                   256           44     4.03s
+>                   512           22     4.18s
+> 
+> Wall time flattens for 16-256 module batches.
+> 
+> A slower/lower core machine will do better with fewer modules-per-batch, a
+> faster/higher core machine will do better with more modules-per-batch.
+> 
+> Therefore, take the midpoint which works in the most margin in either
+> direction - 128 modules per batch.
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+This is easy to tweak, so if we get negative feedback on this for
+smaller machines, it's an easy fix.
 
----
-V3
-* s/nvkm_gsp_rm_ctrl_get()/nvkm_gsp_rm_ctrl_rd()/
-V4:
-* Remove mistakenly duplicated struct
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 5 files changed, 75 insertions(+)
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index cd10c37053695..ed5c6e0e68d3c 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -156,6 +156,10 @@ struct nvkm_gsp {
- 		struct sg_table fbsr;
- 	} sr;
- 
-+	struct {
-+		bool use_raw_mode_comptagline_alloc;
-+	} memsys;
-+
- 	struct {
- 		struct nvkm_gsp_mem mem;
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 94925f1590ea4..63aa30f947471 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1782,6 +1782,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 	return 0;
- }
- 
-+int
-+r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
-+{
-+	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
-+
-+	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
-+				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
-+				    sizeof(*ctrl));
-+	if (IS_ERR(ctrl))
-+		return PTR_ERR(ctrl);
-+
-+	gsp->memsys.use_raw_mode_comptagline_alloc = ctrl->bUseRawModeComptaglineAllocation;
-+
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-+	return 0;
-+}
-+
- int
- r535_gsp_init(struct nvkm_gsp *gsp)
- {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-index b6683a5bf870c..7b10b7548c575 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-@@ -782,6 +782,51 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_TABLE_PARAMS {
- 
- #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   // Support 2048 channels
- 
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-+    /*! Determines if RM should use 1 to 1 Comptagline allocation policy */
-+    NvBool bOneToOneComptagLineAllocation;
-+
-+    /*! Determines if RM should use 1 to 4 Comptagline allocation policy */
-+    NvBool bUseOneToFourComptagLineAllocation;
-+
-+    /*! Determines if RM should use raw Comptagline allocation policy */
-+    NvBool bUseRawModeComptaglineAllocation;
-+
-+    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)? */
-+    NvBool bDisableCompbitBacking;
-+
-+    /*! Determine if we need to disable post L2 compression */
-+    NvBool bDisablePostL2Compression;
-+
-+    /*! Is ECC DRAM feature supported? */
-+    NvBool bEnabledEccFBPA;
-+
-+    NvBool bL2PreFill;
-+
-+    /*! L2 cache size */
-+    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-+
-+    /*! Indicate whether fpba is present or not */
-+    NvBool bFbpaPresent;
-+
-+    /*! Size covered by one comptag */
-+    NvU32  comprPageSize;
-+
-+    /*! log32(comprPageSize) */
-+    NvU32  comprPageShift;
-+
-+    /*! RAM type */
-+    NvU32  ramType;
-+
-+    /*! LTC count */
-+    NvU32  ltcCount;
-+
-+    /*! LTS per LTC count */
-+    NvU32  ltsPerLtcCount;
-+} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-+
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x20800a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" */
-+
- typedef union rpc_message_rpc_union_field_v03_00
- {
-     NvU32      spare;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index dfda6b0b910a2..dff2081ed764f 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -138,6 +138,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
- 		}
- 	}
- 
-+	ret = r535_gsp_get_static_memsys_info(gsp);
-+	if (ret) {
-+		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
-+		return ret;
-+	}
-+	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations? %s\n",
-+		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index 86970129ad96a..17480d4e527ac 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -176,6 +176,7 @@ int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
- int r570_gsp_gcx_ready(struct nvkm_gsp *gsp);
-+int r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
 -- 
-2.55.0
-
+Kees Cook
