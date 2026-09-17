@@ -1,56 +1,56 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0183B27CE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200864ED19A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677915; cv=none; b=nhjtB0Ri6mtRSDyxg5qIkp8Fg3Z3xfVqJpIhKJVLVm2p2Teh2T1kSdkV0N9k9Fxpqn1GiBFfXIa8tFibeqfmJYODDkAOZPhFhqyLIH57ZmxXO1COcgiLW3s1a8qHADsH9uvXWWoz4ynz9F4YC/FG+RlWrCMjEr82mqPt95ZXBfo=
+	t=1789677916; cv=none; b=ZgamEQWknSA2Fz2gipd8u8Pn+BLFxx1b9nWPXjcLVlz0V+U+tnlejFKQcXtAUJzhvWCqVPOvZF3vWlLmpeb3PxteMXrXz9e7xQNqH/MbZxqavqCJxU1bQqHa/zlVgKMv9wLCChJ1MNjdOxBIE6A8ruQDzqa5yyV9yJp8PY1kOHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677915; c=relaxed/simple;
-	bh=VByVeEjI4LUQrNUSvfcdQ/qkaw2W/Fj0TZtQKNhauZ4=;
+	s=arc-20240116; t=1789677916; c=relaxed/simple;
+	bh=oCZbQTSw2Yyl7B5BQDviNb8o0kDmMbfd/szlr3bi9Xc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=HWEUpN95wJIeZy8gpEXFIXvnuKFGgdqV/ZnjNUuDwYyQmrR+4/UgBWXp03EHE1f9bQyymPTVdXW7betKvnM6bucYnzLqQX0YWRTGkE4B2YKAU+E40lBcK43FdfH9ItjhBnVcRde3rrGCFJjlVCVoe0swIvt32cuPcLmttb1UQyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MRqonI+n; arc=none smtp.client-ip=209.85.216.70
+	 To:Cc:Content-Type; b=MUE8I0HYPGHM9ythf3CdHebd/Z8D8AC4Ocv9C5LwK5/xm1hYIs6KuLdR+aI5+7+P7K90cVBXJSO1h/ssjCMVoVzJInSZl09/xA2CEwB+sinzLBPlUGThhCI5lle9/+kE6vnBC7PEhSHsNStL8w33AHAC4E5Nf8lXbClD3Ia8Kbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bab+nJ/0; arc=none smtp.client-ip=209.85.214.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wyihan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MRqonI+n"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39de1f85cb2so110305a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:45:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bab+nJ/0"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dc92350888so908705ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:45:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789677909; x=1790282709; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789677912; x=1790282712; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JxlCNYOwsW45BnQIn3JTG+O/SEl/6G4eXS+I5oaCDnU=;
-        b=MRqonI+nHeywoLMhrBjnzBL3OVdhM5yIzLFh7gn568V6uex2cDxSGywudR31v3ApUG
-         Vcr6lmKCoHul00MV+iRxo8IhueDX4NjW428DUTv+VsqhA7W9/tr/9N0XpWQ/JXrdoehP
-         boEswlQrPr5jdhI+h/c/Jzq7/BjU1cxex2I4l+RsBXO3kg7zQxYNtBczOZB7vKB5t6/f
-         2Ba+U6rup/kxnLQPDzPl50OGsn1OJq/2XbFfnXyGyIiwJTSUTWICFH4s2i2nUlqr+9EG
-         d/+TcmzJl/U0JA1ifPAXhiLDdF3ZfyT+ZJIFlYffTuKZkTu0+zzsY49+4ZVdwhgupqzS
-         z7JA==
+        bh=GhFaT1pWqaSYrZ5igcNnVG6b2J5qZxAlydhAJEnR0ZM=;
+        b=Bab+nJ/0V6jpXMC97e+ZPo3Xllxynjs3pqo0pZPG2wu4/HhmLCvJVTaePNSNCmEb5Y
+         J7bVslQaF3VyYZ0opid7LGYexvYs32CCdHPZ6zfI2RFvK3KnUdqJxUYyrzlLZX+KzMHY
+         7wES20uOL7attywKQWSMC3WmfGv8qFHFGU0lw8i1FbLYu9u2eokdQ3gRy4WIfvUFVhZf
+         hzdKTUKb0sGV7km2WczuDF2RXxo7qZ7eYPKOFv+B8RE1q+KoZbghpTpn1lt/Zo/1bEOd
+         jmDTBV5wTsmXTy94ULHVjw89nKnT3khP4cb2+ED/7n1wHI1H0bEcXb+mR6VmNWSOqNPW
+         dEbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677909; x=1790282709;
+        d=1e100.net; s=20260707; t=1789677912; x=1790282712;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JxlCNYOwsW45BnQIn3JTG+O/SEl/6G4eXS+I5oaCDnU=;
-        b=2OE5fODDxe3Fu54KNFB6w1SgoaFXgv00S7zQDgICbPwTsUhpzqTducJIaGGTkkzYGP
-         CjJzDQRhlLOckRs47an0PzU266sMX2/EOfCguy55ssTSzLOaOSQ5h9WcKF6E/JMzxDds
-         j3riArnf4GbAI2ZAtpYsksCHq3q+rP/42usgxX4DwFar+mVSE4TsvxqwAgLd4/OmZvXb
-         TKFs+M4kdWhyb78WnDDHI6HSbvNd46T+2kT30PXN3M+F1TotA5l0wt1cavvEHKm+G3HX
-         rUsjmAT+NDfDBb5ZRRsgPdcGBN/3piCtGtrpr2AlraqpO2zqdnMvBhjfTYN+eL6n77LO
-         MOsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTCFNngpkB3rDJyQSJID/wDk+QL9LsDBmA0iM80ytIwxIZq2VptxN6MZWMM8kbY2PfACpqgzmO0Sa+6/c=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2apV9ioC5Ys3kQyhzcYViNVUKkJKX+9L1K52qvvIHcFf+YhGT
-	v5Y2r4NDSZs1qMthQ2aX3jZ0rLO4iTESbAmJT0tqn6rLGaUXY3QzurJuzTU9frqFXoSqe27/H3r
-	ptPK7Dw==
-X-Received: from pjyd8.prod.google.com ([2002:a17:90a:dfc8:b0:39e:4bdd:a2c8])
- (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3d8b:b0:39e:410b:bec4
- with SMTP id 98e67ed59e1d1-39e54dca306mr707986a91.11.1789677908717; Thu, 17
- Sep 2026 13:45:08 -0700 (PDT)
-Date: Thu, 17 Sep 2026 20:43:47 +0000
+        bh=GhFaT1pWqaSYrZ5igcNnVG6b2J5qZxAlydhAJEnR0ZM=;
+        b=atewFFp8Sm1LDI8eFr3RZGChycLQ9e+ZcYqxEqUmCscn+VL587yjvH6qV0/TTdZYqK
+         Q+PqZVFgiUaqLMUAh+bY3iKrZcX0hR3WBcZMl+qBgEMeKDPVu0lYleQbtvugt1oNKnqp
+         n3uy0eIOgsJ7vHI50O9f6Fi3D+pE7BgaNLzByD7iB3Uwsr7tCYGCCND/AxqevW/qBvRb
+         J4M2HpASUfEM42pY/A8Yeh2fQJaIvdgn5W6ohYLRXHW5YFAwtMV3neV86QFUoeqkvCkg
+         arHX0hTo7WG+yOR7KKP3ssCFV8XuxJRrxWQI0vGgjCyHead2Y0QP/sKsRoxRjq4N13Rt
+         MP0A==
+X-Forwarded-Encrypted: i=1; AKwUvByxeUimV5SwSMAOQIWu3DoeNsHsfO3hlhMcNMlQfMicUaF60n/h1mOSY4VktOvoW74kOPmMYGZmQ2M3BfI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUo2NOksdI+VxOEn2h8nn1QIf3saNKsCuHXSt6Dky0r8X84KtO
+	cLO06ySOMcCr55Vq2I6k0JXg2bIUpCUdwhXqwe4DbQhZMWBKuhvxZ4z3Sq8Na5YxwA1TKBEO2kp
+	mXFMtbg==
+X-Received: from pjzm16.prod.google.com ([2002:a17:90b:690:b0:39d:9b47:4551])
+ (user=wyihan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:224c:b0:39b:61f1:8032
+ with SMTP id 98e67ed59e1d1-39e54e7c18emr677747a91.16.1789677912150; Thu, 17
+ Sep 2026 13:45:12 -0700 (PDT)
+Date: Thu, 17 Sep 2026 20:43:51 +0000
 In-Reply-To: <20260917-memory-failure-mf-delayed-fix-v6-0-4b00856b5364@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,13 +60,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260917-memory-failure-mf-delayed-fix-v6-0-4b00856b5364@google.com>
 X-Developer-Key: i=wyihan@google.com; a=ed25519; pk=cRi0fKzS5BMxlHyHY2pJv3w/1zcgfYKr6EYGYppdMYc=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789677906; l=2541;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789677906; l=5191;
  i=wyihan@google.com; s=20260319; h=from:subject:message-id;
- bh=VByVeEjI4LUQrNUSvfcdQ/qkaw2W/Fj0TZtQKNhauZ4=; b=26Q9nOB/cKS3IbZahb3B67Qv7bStXKlTukEhrVZ3ZTwAxnSeS1vUPLqyUMVeJYRB0EYtlJR7z
- gJoC/MAIdDNALDdHkcigEox0KlId9ndvnjep7WAdkFOdJ368ZU4Ehy+
+ bh=oCZbQTSw2Yyl7B5BQDviNb8o0kDmMbfd/szlr3bi9Xc=; b=2sjWrqtdOcssMiZtTNK//2RmRxIpXb5yhivrXeyIB1v0t2FyBFn36kmbEWN2P8Ax0XR7UqVYg
+ PdjG1ilLGPiDeSDyMaCfp7cPG5UuHvIdRtwg6rJOtaSMWsW7wX2rc6R
 X-Mailer: b4 0.14.3
-Message-ID: <20260917-memory-failure-mf-delayed-fix-v6-1-4b00856b5364@google.com>
-Subject: [PATCH v6 1/5] mm: memory_failure: Clarify the MF_DELAYED definition
+Message-ID: <20260917-memory-failure-mf-delayed-fix-v6-5-4b00856b5364@google.com>
+Subject: [PATCH v6 5/5] mm: selftests: Add shmem into memory failure test
 From: Lisa Wang <wyihan@google.com>
 To: Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
 	Andrew Morton <akpm@linux-foundation.org>, Paolo Bonzini <pbonzini@redhat.com>, 
@@ -85,55 +85,182 @@ Cc: rientjes@google.com, seanjc@google.com, ackerleytng@google.com,
 	Isaku Yamahata <isaku.yamahata@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>
 Content-Type: text/plain; charset="utf-8"
 
-This patch clarifies the definition of MF_DELAYED to represent cases
-where a folio's removal is initiated but not immediately completed
-(e.g., due to remaining metadata references).
+Add a shmem memory failure selftest to test the shmem memory failure is
+correct after modifying shmem return value.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Specifically, test the expected behavior under various scenarios
+combining page dirtiness (dirty vs clean) and failure types (hard vs
+soft):
++ Dirty + Hard: Trigger a SIGBUS on injection, and trigger another
+  SIGBUS when reading the page again.
++ Dirty + Soft: No SIGBUS is triggered, and the original value can be
+  read successfully.
++ Clean + Hard: No SIGBUS is triggered on injection, but trigger a
+  SIGBUS when trying to read the page again.
++ Clean + Soft: No SIGBUS is triggered, and the page can be read
+  successfully.
+
 Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 Signed-off-by: Lisa Wang <wyihan@google.com>
 ---
- mm/memory-failure.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ tools/testing/selftests/mm/memory-failure.c | 114 +++++++++++++++++++++++++++-
+ 1 file changed, 111 insertions(+), 3 deletions(-)
 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index aaf14608b30e..e698d0e9711d 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -847,24 +847,25 @@ static int kill_accessing_process(struct task_struct *p, unsigned long pfn,
+diff --git a/tools/testing/selftests/mm/memory-failure.c b/tools/testing/selftests/mm/memory-failure.c
+index 1a5a32e22cce..d5d17a262c00 100644
+--- a/tools/testing/selftests/mm/memory-failure.c
++++ b/tools/testing/selftests/mm/memory-failure.c
+@@ -29,9 +29,14 @@ enum result_type {
+ 	MADV_HARD_ANON,
+ 	MADV_HARD_CLEAN_PAGECACHE,
+ 	MADV_HARD_DIRTY_PAGECACHE,
++	MADV_HARD_CLEAN_SHMEM,
++	MADV_HARD_DIRTY_SHMEM,
+ 	MADV_SOFT_ANON,
+ 	MADV_SOFT_CLEAN_PAGECACHE,
+ 	MADV_SOFT_DIRTY_PAGECACHE,
++	MADV_SOFT_CLEAN_SHMEM,
++	MADV_SOFT_DIRTY_SHMEM,
++	READ_ERROR,
+ };
+ 
+ static jmp_buf signal_jmp_buf;
+@@ -157,17 +162,22 @@ static void check(struct __test_metadata *_metadata, FIXTURE_DATA(memory_failure
+ 	case MADV_HARD_CLEAN_PAGECACHE:
+ 	case MADV_SOFT_CLEAN_PAGECACHE:
+ 	case MADV_SOFT_DIRTY_PAGECACHE:
+-		/* It is not expected to receive a SIGBUS signal. */
+-		ASSERT_EQ(setjmp, 0);
+-
++	case MADV_SOFT_DIRTY_SHMEM:
+ 		/* The page content should remain unchanged. */
+ 		ASSERT_TRUE(check_memory(vaddr, self->page_size));
++		/* FALLTHORUGH */
++	case MADV_HARD_CLEAN_SHMEM:
++	case MADV_SOFT_CLEAN_SHMEM:
++		/* It is not expected to receive a SIGBUS signal. */
++		ASSERT_EQ(setjmp, 0);
+ 
+ 		/* The backing pfn of addr should have changed. */
+ 		ASSERT_NE(pagemap_get_pfn(self->pagemap_fd, vaddr), self->pfn);
+ 		break;
+ 	case MADV_HARD_ANON:
+ 	case MADV_HARD_DIRTY_PAGECACHE:
++	case MADV_HARD_DIRTY_SHMEM:
++	case READ_ERROR:
+ 		/* The SIGBUS signal should have been received. */
+ 		ASSERT_EQ(setjmp, 1);
+ 
+@@ -263,6 +273,20 @@ static int prepare_file(const char *fname, unsigned long size)
+ 	return fd;
  }
  
- /*
-- * MF_IGNORED - The m-f() handler marks the page as PG_hwpoisoned'ed.
-+ * MF_IGNORED - The m-f() handler marks the page as PG_hwpoison'ed.
-  * But it could not do more to isolate the page from being accessed again,
-  * nor does it kill the process. This is extremely rare and one of the
-  * potential causes is that the page state has been changed due to
-  * underlying race condition. This is the most severe outcomes.
-  *
-- * MF_FAILED - The m-f() handler marks the page as PG_hwpoisoned'ed.
-+ * MF_FAILED - The m-f() handler marks the page as PG_hwpoison'ed.
-  * It should have killed the process, but it can't isolate the page,
-  * due to conditions such as extra pin, unmap failure, etc. Accessing
-  * the page again may trigger another MCE and the process will be killed
-  * by the m-f() handler immediately.
-  *
-- * MF_DELAYED - The m-f() handler marks the page as PG_hwpoisoned'ed.
-- * The page is unmapped, and is removed from the LRU or file mapping.
-- * An attempt to access the page again will trigger page fault and the
-- * PF handler will kill the process.
-+ * MF_DELAYED - The m-f() handler marks the page as PG_hwpoison'ed.
-+ * It means the page was unmapped and partially isolated (e.g. removed from
-+ * file mapping or the LRU) but full cleanup is deferred (e.g. the metadata
-+ * for the memory, as in struct page/folio, is still referenced). Any
-+ * further access to the page will result in the process being killed.
-  *
-- * MF_RECOVERED - The m-f() handler marks the page as PG_hwpoisoned'ed.
-+ * MF_RECOVERED - The m-f() handler marks the page as PG_hwpoison'ed.
-  * The page has been completely isolated, that is, unmapped, taken out of
-  * the buddy system, or hole-punched out of the file mapping.
-  */
++static int prepare_shmem(const char *fname, unsigned long size)
++{
++	int fd;
++
++	fd = memfd_create(fname, 0);
++	if (fd < 0)
++		return -1;
++	if (ftruncate(fd, size) < 0) {
++		close(fd);
++		return -1;
++	}
++	return fd;
++}
++
+ /* Borrowed from mm/gup_longterm.c. */
+ static int get_fs_type(int fd)
+ {
+@@ -355,4 +379,88 @@ TEST_F(memory_failure, dirty_pagecache)
+ 	ASSERT_EQ(close(fd), 0);
+ }
+ 
++TEST_F(memory_failure, dirty_shmem)
++{
++	int fd;
++	char *addr;
++	int ret;
++
++	fd = prepare_shmem("shmem-file", self->page_size);
++	if (fd < 0)
++		SKIP(return, "failed to open test shmem-file.\n");
++
++	addr = mmap(0, self->page_size, PROT_READ | PROT_WRITE,
++		    MAP_SHARED, fd, 0);
++	if (addr == MAP_FAILED) {
++		close(fd);
++		SKIP(return, "mmap failed, not enough memory.\n");
++	}
++	memset(addr, 0xce, self->page_size);
++
++	prepare(_metadata, self, addr);
++
++	ret = sigsetjmp(signal_jmp_buf, 1);
++	if (!ret && !self->injection_attempted) {
++		self->injection_attempted = true;
++		ASSERT_EQ(variant->inject(self, addr), 0);
++	}
++
++	if (variant->type == MADV_HARD) {
++		check(_metadata, self, addr, MADV_HARD_DIRTY_SHMEM, ret);
++		ret = sigsetjmp(signal_jmp_buf, 1);
++		if (ret == 0)
++			FORCE_READ(*addr);
++		check(_metadata, self, addr, READ_ERROR, ret);
++	} else {
++		check(_metadata, self, addr, MADV_SOFT_DIRTY_SHMEM, ret);
++	}
++
++	ASSERT_EQ(munmap(addr, self->page_size), 0);
++
++	ASSERT_EQ(close(fd), 0);
++}
++
++TEST_F(memory_failure, clean_shmem)
++{
++	int fd;
++	char *addr;
++	int ret;
++
++	fd = prepare_shmem("shmem-file", self->page_size);
++	if (fd < 0)
++		SKIP(return, "failed to open test shmem-file.\n");
++
++	addr = mmap(0, self->page_size, PROT_READ | PROT_WRITE,
++		    MAP_SHARED, fd, 0);
++	if (addr == MAP_FAILED) {
++		close(fd);
++		SKIP(return, "mmap failed, not enough memory.\n");
++	}
++	FORCE_READ(*addr);
++
++	prepare(_metadata, self, addr);
++
++	ret = sigsetjmp(signal_jmp_buf, 1);
++	if (!ret && !self->injection_attempted) {
++		self->injection_attempted = true;
++		ASSERT_EQ(variant->inject(self, addr), 0);
++	}
++
++	if (variant->type == MADV_HARD) {
++		check(_metadata, self, addr, MADV_HARD_CLEAN_SHMEM, ret);
++		ret = sigsetjmp(signal_jmp_buf, 1);
++		if (ret == 0)
++			FORCE_READ(*addr);
++		check(_metadata, self, addr, READ_ERROR, ret);
++	} else {
++		/* Test the address accessability without check_memory(). */
++		FORCE_READ(*addr);
++		check(_metadata, self, addr, MADV_SOFT_CLEAN_SHMEM, ret);
++	}
++
++	ASSERT_EQ(munmap(addr, self->page_size), 0);
++
++	ASSERT_EQ(close(fd), 0);
++}
++
+ TEST_HARNESS_MAIN
 
 -- 
 2.55.0.1082.g2b9226bbc0-goog
