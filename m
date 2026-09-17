@@ -1,119 +1,127 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834AF4FD29D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668153; cv=none; b=MfaAO+sjg4HLBasTZ/yTDHxS28hNkkEpZR9MfKjj8fL9f388LFHcDPfr71NDPghvtCWP55BPcAzc3V4NQkoLuvoEbNw2niNoQBD3fFt5lczDxGYVpqls20xS+2uNxXRnQ6VkXAaCpA5G2yPKEvzUHZuofYV17dHvbA1cextEXDU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789668153; c=relaxed/simple;
-	bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qJrAKRl7JWgPHWym/REUmRYkdN/EEtediPJG/n1+HqgAAA5NKD1lLWVEdg6pdqmTrodAUTPN6pgmZ222VoiNT5qS4987qPBdKfLlms6AlJIFLCZd2wKw48+nNJh9TyStfwtBkzi2iXEx4cczR0dbYKp0ZCdiB68MJNcKWzAmq6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mTfrKcog; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9213C50129D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789668157; cv=pass; b=I4r40E+uwdQ9zJ/aQTdVXYskP9HfRKo9S7iPrKzo0IR8IQMKolbNXXir9ATms7QlITMDuDmJ8h7t7873X9DX8cyuDoUomVfZSDVJMClbhLoyQeQdI7uM3wByM6equrrZZsJvVO+hJ9wIW7EJpk2Yj+y9pucI8yILwRnuIK2SZW4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789668157; c=relaxed/simple;
+	bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UMWPO9ylHRIC9qNrCUA2j13u2gy3hhfMnRqMxzxvUU142aR0xN8/FUYYaTwKgjVdXJOtSplab+gADWsn6QZX/YLj4x1LEG5otYo0MDDUT5ZuLT7On15mDdj05XYJIdH6Sc4H0uXmwqhG4qLE0iSOy8tlvvwuEz6XSMpaMAAVOUE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BlFaUimK; arc=pass smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mTfrKcog"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86dd69a1b15so317463b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:02:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BlFaUimK"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso10653405ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:02:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789668155; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AaYDxwOfqO+LSNIRFQiGaTI/+jvs5NkTDYdvV23gGzzz/bt+Pkcn8Rzmb55Yhm/DA6
+         2w9wKWLkMI90Qwvn1cJgYGc2Sm86ChF16y78GcrYqwnJpQ7CbhEhwViUkjIbI3e/wQIc
+         arbgZP2JQRUt8/TmV8QLZsEeFl2x6+mZOOq7x3OU0lpng+FXTimXkj0gFidtXXAoRmIp
+         CnMhdRt+Y9FsAvPxW1h/kTuQVixzX+4Mym7jrQD8MGFoAgAXxt+TfWe7wCUbKbjEUW1z
+         0XSsKhd1QgUJhr9NXWfTREqsNvJ6BNJykV1/ZJdRDbuVBeYSiOYox6XICLFeJ433vxpN
+         gVDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
+        fh=FkImZ7BguSQTFVdWao3hYMA6Jl/VZaJUXjMofVXDk70=;
+        b=j87Sj3DWt2h3gUeASKh62GNpffQDx0eEhgpkeL6Um/hmS59dc3LzZOAabRMpjM2ZSK
+         Hu0MCHecuDtTNl7E3XnYWfxve6GvBChb1OZfuWxLOexNAt7iOevap+7m3X3BNMLobDz2
+         Hz/H35tQlthnC/zF+LYsHsjwIv5oKduyj93kr30x/u/yUCf2c1+TKprxTwE629DA0Aul
+         Ulwbm/HPic9UuYufq+d2UEfxeNr0c5CZob8xZB2X/hsi6f3hArVdX9gPeX2vI6kSJceJ
+         LsHTqhcCeRVFJbxnVVmUuzlPHT323jOz1rvHID5RjkA2sGlr9s5k9gLTOL576AE1fkt4
+         8X+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789668151; x=1790272951; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
-        b=mTfrKcogLP/NHgwosqLqvbPTpEYZlVOGPVqzaqwuaM9PyXJ5an0NsTMbIfEyuiamy2
-         mEMwPgwAGoNEFLJSQpAhMFMuL0DBbYzAacLdxZNyp2iONObf9IAF0MzxtPuc7r+07Fy2
-         RF3X46QP2AEhOrvk0hJqAArqR+CxE0aT15Zhe0+iRs09JijhP4ToNDfSEkpx0AA7zKiq
-         NckyCARAKEjqRpL8QoGOu9KUTEPZfVsXt+fFC6OM7PJD2CvGndpBn+kIlX3LAG5clxKa
-         nhPq0F6b5GsXiTLLS5FDflpxifCtrp0PbXvPXRuXH4nMOY1V5GHws2AMSuz9qyYzRtp1
-         xpmQ==
+        d=gmail.com; s=20251104; t=1789668155; x=1790272955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
+        b=BlFaUimKgEMiwJjvnh+MIlGCw8cRY/xzAVpoJT/XjQemq4kvLFSuujj9G4trL9QpdZ
+         zU9PnHetcCm9+7Wp5oSP41fQ/ZNP4AxGCZTKxjugPqQMrZ2KHM9B0A67VLotIhIa/p7R
+         bjMdNF3/eAROzbNi+wbQL22aqhAXVqm2ErWodY0KM11WqjcCEXLCjw/AzTWRX0nlx5JR
+         jqCrz9ocPDwzetP7g5/4kknPikr/+Iz7cwzd0ku/D6Zsv4LO4raSctzJKCCAnenWU0gO
+         9SfCe7kr26AEOLyZ1PvU7UN8qNK77mxpqh4dU14ezbWsCewx2+z7Q/RHr5nIrFeKKEaO
+         lezg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789668151; x=1790272951;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1789668155; x=1790272955;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cxS7Rf5IiMOsBdgURLuM5pIlrTw3/34bzMbKDyP61fw=;
-        b=OUIIoI+gYyy7LaNtBy6t6h1RANaofZqo6fajTA5E4mC8YwxhNP9EEqRyPZwuN92yAx
-         myH6PTVxooC54m489ITNqCbnf44JLZcZg3oVti6A5vwPxPBoMEjsScdp1M3Rhtk/p+ZI
-         H7Nelea5NaK9voFOzvuEvADkxFbG4etvufdX0+7qPheuwV7fh44s0s+N004n04bE5i0O
-         7qFErWraaahX/hphSnguL1kOoNEI3ORlnNx0alfFqPQgs5hrd68RtP3GYifmtxETEoOn
-         KMfrjoD5qitIspzl1GoZGPe6uL9Pkaic8lhkHj0uSFM/qaiE6FrydziugXIDBz9xn8pK
-         aIug==
-X-Forwarded-Encrypted: i=1; AKwUvBwc0FlKNcVJPNDEWqI4IvL97xR3jjbQUqqJsiGpKFDypx69S1n8dRUz3q1P9IT36Pcf+9M049EWtA3DWcc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDU34jP3SpsAuBaW8ZYpxDwIfy2rPawWiFAXeGlgiW+fNUMzea
-	5yWy8L2MxeOjiA8da2y5UA2GAQbhXZrsVvmirPwp36Wl4g+KfD7RhbZl
-X-Gm-Gg: AYBFou1WmWGkzmWJMB3csWLfimkWk09luk2s6PEg9V+Qs1RNKYQfY4Bc+5RDTeCVoH7
-	uW9MMSOvRd4misvq9sG9UOpx9hiAbQlNrohIRYxLD2JgFQ0En++OIFdDQqV6DEj2l/Io8/4BOdK
-	KaJAoJWtKrutEsg00Lytyb5ut49X1LmGlAnWP/B4yZX6dNW9ntMibVJ294FUxJqVzEp0EaFBus1
-	8eswXvKyMiaankr6b1ryoaMw4atdZu0MhO1sbszwyI1QyVWYc/Ne3OpLJ2ZrD/nHaJqCQzE3rbD
-	6ltEwRXeG+ZI+DvnonITyY7Zg1Q6rH3ebPoMaiKFbarB52ZAySSFO47JA3u9Wym+36rvuuGY1cK
-	535a870XNtQH7jTUplr6QDvh0Ej/yDb5yWDu6CfYMVBVBjwq1Rk9QfuMNRnc8Ruo4eQNYprxCEW
-	EDvuzCvcn6HcLe85wA/6LtkCvHhlIJSFTcrWglULz+7wUOEKxlHLwAmNB63bpVJDZn7FvA02xYT
-	8xbi8XVa+Q0UxObAjUNr3sagpUwRgVdo+vJAA==
-X-Received: by 2002:a05:6a21:6086:b0:3dd:85a8:4c4d with SMTP id adf61e73a8af0-3dd85a84db2mr1401112637.17.1789668150742;
-        Thu, 17 Sep 2026 11:02:30 -0700 (PDT)
-Received: from [192.168.0.13] ([38.34.87.7])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab50d67sm3678139a12.6.2026.09.17.11.02.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:02:30 -0700 (PDT)
-Message-ID: <6a547919d40c858afcd4f8b9c7e970076711b30c.camel@gmail.com>
-Subject: Re: Missing signoff in the bpf tree
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Kumar Kartikeya Dwivedi
- <memxor@gmail.com>,  Daniel Borkmann <daniel@iogearbox.net>, Alexei
- Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,  bpf
- <bpf@vger.kernel.org>, Networking <netdev@vger.kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Date: Thu, 17 Sep 2026 11:02:27 -0700
-In-Reply-To: <CAEf4BzYp0YAbhkdkKJn1FR0pjUF3JXUxqXkZtWqKiSVPT4=qOA@mail.gmail.com>
-References: <aqvBPVcN__UX8P85@sirena.org.uk>
-	 <DLHJEZ0K0FV1.SCQLJJQNS1ES@gmail.com>
-	 <66d3f5cd-12df-4000-8459-360ba57cea12@sirena.org.uk>
-	 <DLHJUSTDSQ05.28VUGOV7YPS6V@gmail.com>
-	 <ec2acd16-40e3-46b7-b120-ce9eec70e942@sirena.org.uk>
-	 <DLHK013DCY3J.19Y8X3Z0RTWCI@gmail.com>
-	 <9d668d7c-8f85-49ad-bdb9-5cb81fb6f60d@sirena.org.uk>
-	 <c80c4e2aee9502d781fb52bcd5c0972ccd3bc7e4.camel@gmail.com>
-	 <CAEf4BzYp0YAbhkdkKJn1FR0pjUF3JXUxqXkZtWqKiSVPT4=qOA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10+b1 
+        bh=Pgrlp+kanKdNoXJ+vKvKqsAcIb9YRQaef/KFSYsD/eY=;
+        b=naogLcioOnKOtwTfyF+MGMr1NEAhkJtjCdpZoxGA/SxqLCNl9nBWHRWCirVV9EEpNm
+         6UTK8msIEy4JD9Hr/RbxDWDvy+0PRm9r29bHvHRv7+HQtFmUHIfEDWY07bozD5xbImzY
+         oLboSHwgV63wsemKXQQwl18sBkJZarUZ208f+zqNdjYJ7Fy+dsnpuvd2svXzM4NioMt3
+         nmrDmE7I+iUGQvPKypQFRgf8d4AlZBKHmLbszOuY78gsMDbiiuEz327f4SSCJMC9uwAv
+         aFwUJyl7N9Q9oKgHOhc8rdHipVFKkJrnLtUKRhpcL+pa5zz7OtPjP7jpnUdwQHeg9Oo/
+         K87g==
+X-Forwarded-Encrypted: i=1; AKwUvBxt+4QpuaoV8m8VpGNMS7a8gSLCmcG9uWk8F3UHCH+7ac4Bs7NKkFzkFjT8hCibJSmxsc6Z+P5pVVe1Ml0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsE26D8x4gxMA2S76piFyBfNj5PEIjcpG0Arpj5/GyUJwzINxz
+	XFinYnvQMaucx3LUDbMIK2/1M2hzmiPEeIXpP8E528qZAQEYgk8QWnsh1X4rMH3XlpMXMQGdYK1
+	D+rskzGbEKpCtx2xrdVplTgCZ7gZ6JhA=
+X-Gm-Gg: AYBFou1RBxZPPvTYciXECZgvlyxtJuW0rTNNHYjgJBcL+kNCYITNNkgNDwIlF6RuGkH
+	gveuFCCm3Gwa0xlmdimBRKBnIx8S7dLCprO3NKDsQd0H/nhlibn6+wEWaWsiS/8qREuMeU3PB8+
+	3kP7kbEgW5lzaXJPZRjQITiNSpJMnaTYpNbho3yKCVWs7Jvnz+dmJ7NTexT5nR2uluAuMC2Oubm
+	l5MmsDkydhd+UL8nhln1nh5VRGlljLgOSJ1qvt8n/xKKQthtEJCNlTllziyFRiH5P+F/5mopVFC
+	9b+C2KInNL5OVCPXr7yhOwauxgfpcH3IAEttEqN0a1elzBhSL61KHH9eWj4K0cD3upGI+l1cl2W
+	sNGYCV6MytJ1ja+osFnwNdeGQqwYB299D6d8=
+X-Received: by 2002:a17:903:2007:b0:2cf:afa5:b19a with SMTP id
+ d9443c01a7336-2ddb1ae16a9mr141875ad.11.1789668154804; Thu, 17 Sep 2026
+ 11:02:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <CAAsRjR=1iL+Nw0+0erVH2t8igpobXBfcqijz4vzMO7cW=ryHPw@mail.gmail.com>
+ <20260917155929.GA1023894@bhelgaas>
+In-Reply-To: <20260917155929.GA1023894@bhelgaas>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Thu, 17 Sep 2026 21:02:23 +0300
+X-Gm-Features: AcwNN1WnIP6FLPzSZ9jqUd4tiuCtAEofHa6BPB6t-cxgjZWjftKahJr7LIWgfdk
+Message-ID: <CAAsRjRmmPanAjpquZ4VnDDw9jqRkxPkLsu+KjrpwsOMj8-TE-Q@mail.gmail.com>
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+	robh@kernel.org, bhelgaas@google.com, rjui@broadcom.com, 
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
+	rafal@milecki.pl, zajec5@gmail.com, florian.fainelli@broadcom.com, 
+	arnd@arndb.de, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	rosenp@gmail.com, rani.hod@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-09-17 at 10:27 -0700, Andrii Nakryiko wrote:
-> On Thu, Sep 17, 2026 at 10:08=E2=80=AFAM Eduard Zingerman <eddyz87@gmail.=
-com> wrote:
-> >=20
-> > On Thu, 2026-09-17 at 16:03 +0100, Mark Brown wrote:
-> > > On Thu, Sep 17, 2026 at 01:27:01PM +0200, Kumar Kartikeya Dwivedi wro=
-te:
-> > > > On Thu Sep 17, 2026 at 1:23 PM CEST, Mark Brown wrote:
-> > >=20
-> > > > > Do you have a full list of the current committers, I guess there'=
-s been
-> > > > > more bitrot than just this?
-> > >=20
-> > > > It's me and Eduard, apart from Alexei, Daniel, and Andrii.
-> > >=20
-> > > I've added you and Eduard.
-> >=20
-> > Apologies, that's on me, some issue with scripts configuration again.
-> > What would you like me to do? Force push with SOBs?
->=20
-> rebase preserving merges, and add your SOB for all commits that you
-> rebased, including "xsk: Use a 32-bit compare in xsk_map_gen_lookup"
-> which you didn't apply, you still need to add your SOB
+On Thu, Sep 17, 2026 at 10:59:29AM -0500, Bjorn Helgaas wrote:
+> And why do we need pcie-iproc-platform, since pcie-iproc-bcma.c will
+> claim them?
 
-Done.
-Apologies for inconvenience.
-Andrii, thank you for the instructions.
+I do not see anything on Northstar that needs it. I think
+pcie-iproc-platform is the front end for the iProc SoCs that have no
+bcma bus.
+
+> Is there a requirement that pcie-iproc-platform must be able to claim
+> the PCI host bridge if CONFIG_PCIE_IPROC_BCMA is not enabled?
+
+None that I can find. Neither symbol depends on the other, no in-tree
+defconfig sets either one, and multi_v7_defconfig gets both from their
+defaults. OpenWrt builds only the BCMA one. The one use of the
+platform driver on Northstar I know of is Rafa=C5=82's: 767012397976 says
+it was tested with it on BCM47094, and his test in the thread on the
+axi ranges ran both drivers on his board. The platform driver
+enumerated the two BCM4366 devices on its own:
+https://lore.kernel.org/all/93ee7456-4179-4d78-b980-1df0b7e0278a@gmail.com/
+I have not looked outside the tree.
+
+Best regards,
+Semih
