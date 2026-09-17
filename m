@@ -1,93 +1,100 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5C4314A9E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02D031E85B;
+	Thu, 17 Sep 2026 00:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604881; cv=none; b=UlaDdrZgrhqCqHkV+h/zbakDjIII6DRiw6mj9JYTbfzJoasQ3wsSDpOe4jX/UK48DnsWFsL5qrgKG5MkCov0+MRDf6oLqtAAAlMumycuaka/AYPmUoaQQJSzkZ4wBpuxuisbz4cmJWBv6jw8xvsvBQW+z1h/d2oCq+TA+1kHLKs=
+	t=1789604895; cv=none; b=epkt+k41XJIJprA5hwKpCjzt0IIGnxwT4vpEdVIoqiE6Idu+lKRLB5tMK7sxpz1ZzVVFuLkdrYerpZODxehSz7SkdtpoQOrBvUaF2qb4hi3tZqd0U/Em4BkxYDqfGxoAmwYzpOHYWyqTu1/d1JnUvNaHItvLPK1Afdre0Bw0xU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604881; c=relaxed/simple;
-	bh=9FgMLbEt/sXyQcNribkC7l0KNZOAkXosmxtmyUflEYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bhcjg1Tkp8yWedbp16bEZORDOovxK6Pm7DoGgxNgTuXyHttgAeMwI8O1bbHbbC3bdEPGX8+Qmzqm5s+EAR7MKd06wrmKXG8NxZVpCEvqw4XyHB2MtWxI28VJl46NVsTmUXM0letDvvB6wq8y75LWv4rio+I0QeZkYCoU52qu/qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJgeciLe; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789604895; c=relaxed/simple;
+	bh=n9Jl++NUYjVk/8CAYUqzLCtOcczDVKSvBoXXviYrOn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FOEy9ZPzntaeTEnNapyT2EGZO7yw9D5H+W0doh06/6q9StV4pWKyYvINyXalDS8kkdr9XpkPz+6EfPqfZn7gjeLI6fW8jC8MGi6QHIqW0QA3LHTuqOI8jTCpVqopp1FL8uYL9vRWmzGknsjGECNfCZIdFmg69rIQNlfjzgq+J8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqoH13q0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJgeciLe"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso220983a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:27:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789604879; x=1790209679; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tmkJQLUc+UOHMTg0w7B4y5XSpy6y1Yvw1LbiiPABaEo=;
-        b=LJgeciLe213JjUYHt1ofecbn/A0QICj3sI4Xcr76xpr9KnAA9yGD2ZY4LgytAmHF5T
-         E0sWivnTFtWTDIjoQy5Qm70xJH4BPaFVVXGd5knukxtVw2ClRfrd2TAloLhOmSAR4TJ8
-         0Jae5x0nZ67xscwzRQnUS39//zS7JD9agVjEYWvRVSVxq8gox5RZ6KuHiKUtvyGcGRT1
-         dIWleeQzt+q88bwFTanW6v8QOzrARjHe16QfuV/6j4pT4TqywMZg8STcswFDtRudkOnL
-         0jbMuWOBCSDYwr4xdX9cPgp+9oS/STjsvbIIOcTS74FILHAnARO0DP1wNmOauVsrYou1
-         W24w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789604879; x=1790209679;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tmkJQLUc+UOHMTg0w7B4y5XSpy6y1Yvw1LbiiPABaEo=;
-        b=27MkCjDBtpk2N3fiBGkT2FGaTl5Bif5J2d290PnWmAGeYN6/aMOl8/X4sZAb+JhKUg
-         sb21mHWvN5vuOOB287WBV7t71fb44nSHl6Ak32Y8Xcw3RR4HesgQByVzjp7W2eAEC8pb
-         SkX6j05hWSRENJXOqkaTKUD7I8nVcXPGm9OZIGg4JUt3QVapCToSlKAb5HsgaJlYk4/O
-         qz15QDzyluir/m7I+klog69/qPgyOMY5ibkExmgNXWdGD4/riwzc2uTek9nqMeZ6Rp4V
-         VxNtdAz9NKXcatzM4QCt9XZ/8yzO7kuxz0WJpdKSwHyHrXDHIlSRfpl41CbFX2Z9BAyD
-         QBVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByduvDAdjJN4r+N6KeMS084caZO9uo62yu9OYzpN7V9Y54ahtJqnXCSoZzyhNC4saOCPyJS/IBb01f3Z9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWrO4QLchCHzN25EUVenpLvWBtXt0gWhBRuiPCkCFFjM6Qje5V
-	zcyLtru7cVK/qNeL7wSI0355ASGW39Rm/b/+MyvmayfYsbS9xGHD41xJ
-X-Gm-Gg: AYBFou3ww2kUlfdpsLraiAI5Tk6VDA7QB3qgJX2wua0WNIMz4rhMwjs0rVxM1LTelMl
-	MLY/udsYjB3AYDPVHbIREo8KB5WCDcz9dvgsUcEdDjewSD1anHyGBz5EcyXvIkkgY5lXDy/Wbww
-	rT8K1aXEz+cmD7L5Ye3IviF9pSTWa+rBUydnvZoBjFugqxi2UFa8nwSWze0au3PHDsrCsMn4jhl
-	mqVyUsJWzABXBVcwpHu0tKbHkHQApmiYli6zuy/WSx4KkDU/dHYmZQ+KhANGr377wdtjy7/6diF
-	dq/7/tLKJl0CnceQjkzh4pGH+jlqoYBtWUzuUvdaWYUqzszP4Y/zFhubmc9qVHxph5ej62lGb9M
-	8wZYhs8sT43B3jU7E6Y7tvMk+XoSvATIuMeLJMZt0hCteLvhAOiifRuseO6pkayd/0NTFvaXqi1
-	gQAqb4hYGu1jfuZmenzdeHJ76sKzJXGdwvmYzQbc9SubIOymDZtIAT+0/GS5nwE7vk+pBFEvWSZ
-	5X6Y2RX2houtkj/DTrdyLYc
-X-Received: by 2002:a17:90b:3842:b0:39e:3ce1:d22f with SMTP id 98e67ed59e1d1-39e3ce1d970mr721394a91.16.1789604879311;
-        Wed, 16 Sep 2026 17:27:59 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm1948689a91.9.2026.09.16.17.27.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:27:58 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:27:58 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Baruch Siach <baruch@tkos.co.il>, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] watchdog: rtd119x: Avoid division by zero
-Message-ID: <dc85b026-c81f-4b41-98a6-e6ef842c20eb@roeck-us.net>
-References: <20260913064851.8239-1-tzungbi@kernel.org>
- <20260913064851.8239-3-tzungbi@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqoH13q0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502C71F000FF;
+	Thu, 17 Sep 2026 00:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789604891;
+	bh=InfGZMppnShVM6fj4TBSU8aG+A5gwXJyj3QjRlZH4bA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PqoH13q0IFjHgbjNGA8hO1W6M2WKQ6iu/BroNDROB00IjMwgKhqNjSZFcn1sVs8Ka
+	 9uJn6fzU5APA06GFe4DVWqYYogj04W4dCgQKCW9xKIc+lccvzVrLfVQRv6xyXlJRMZ
+	 Y7l+WLkvhq+biYAhlHGsM4s6apQdiEFSXd0+FnUnK2nThd+JXfeazXCZU4dvbePvar
+	 4A0T6W0Wo0Oty+MWEXojU+J3W5MqiKDI1+menmIKEq3TQkHHWyRP+VKqBx0rNZ78Gq
+	 lTJoWVi+iFOvl5214Vl63JCDXVV/zEQGMG3bNlzfu8DcNU4QSMma3Dfc4b86KwNdAV
+	 1h0Hx2kGkMRIw==
+Date: Thu, 17 Sep 2026 01:28:09 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Michael.Hennerich@analog.com, andy@kernel.org, dlechner@baylibre.com,
+ lars@metafoo.de, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nuno.sa@analog.com, ramona.nechita@analog.com, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: ad7779: Fix trigger reference leak in
+ ad7779_setup_without_backend()
+Message-ID: <20260917012809.77af8721@jic23-hlaptop>
+In-Reply-To: <20260916161917.2083043-1-vulab@iscas.ac.cn>
+References: <20260916161917.2083043-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913064851.8239-3-tzungbi@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 02:48:50PM +0800, Tzung-Bi Shih wrote:
-> clk_get_rate() could return 0.  Avoid a division by zero panic.
+On Wed, 16 Sep 2026 16:19:17 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
+
+> The reference taken with iio_trigger_get() is only dropped by
+> iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
+> devm_iio_triggered_buffer_setup() fails before setting that mode, the
+> reference acquired for indio_dev->trig leaks. Move the
+> iio_trigger_get() after the buffer setup succeeds.
 > 
-> Fixes: 2bdf6acbfead ("watchdog: Add Realtek RTD1295")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+> Fixes: c9a3f8c7bfcb ("drivers: iio: adc: add support for ad777x family")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Same again.  Not this solution. Note I'm replying to all these patches
+simply because others may open just one of them and not see the earlier
+replies.
 
-Applied.
+This is why you send one test patch (or at least put similar changes in a
+series).
 
-Thanks,
-Guenter
+When something has been obviously wrong for a while in the world of LLM
+review, it is worth checking earlier discussions to see why.
+
+Jonathan
+
+> ---
+>  drivers/iio/adc/ad7779.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ad7779.c b/drivers/iio/adc/ad7779.c
+> index 695cc79e78da..76834275b1ca 100644
+> --- a/drivers/iio/adc/ad7779.c
+> +++ b/drivers/iio/adc/ad7779.c
+> @@ -850,8 +850,6 @@ static int ad7779_setup_without_backend(struct ad7779_state *st, struct iio_dev
+>  	if (ret)
+>  		return ret;
+>  
+> -	indio_dev->trig = iio_trigger_get(st->trig);
+> -
+>  	init_completion(&st->completion);
+>  
+>  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
+> @@ -861,6 +859,8 @@ static int ad7779_setup_without_backend(struct ad7779_state *st, struct iio_dev
+>  	if (ret)
+>  		return ret;
+>  
+> +	indio_dev->trig = iio_trigger_get(st->trig);
+> +
+>  	return ad7779_spi_write_mask(st, AD7779_REG_DOUT_FORMAT,
+>  				     AD7779_DCLK_CLK_DIV_MSK,
+>  				     FIELD_PREP(AD7779_DCLK_CLK_DIV_MSK, 7));
+
