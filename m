@@ -1,234 +1,203 @@
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010038.outbound.protection.outlook.com [52.101.46.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC993DD85E;
-	Thu, 17 Sep 2026 18:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.133.104.62
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671281; cv=none; b=FPTrk3P/uX/0F9UXXecdaT6E3KlVYUpPToW5EzfIY9WNrIcqYij8DvMCcCvFDSU7Q0L0E/ApUv5YxMK+O6uqd9QH/wi0Ghp2+c+VX9/CmdjQ/cZRduQaTb/q3KnneI4l6SQ/nnKBa6ZiX8MMsqKV70QtRwzczsOxEScgxeZvFQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671281; c=relaxed/simple;
-	bh=OP1o+RrmeyvU+HSJQ8IRj1SJPj8axc+6JLEBsxG9pOI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=d6eqN87N5e1FkcFr5KuZPXlDvlJSp2uPklGwtHZY9HzPwuIhS2ep9/xZTNvh4XzAai33RqMxUeETZzYizndFj2gj6lt+0n+e36WlnWMtUGc1ngOTMttTYrkFRDDu9QsGL+ekS/6JBIGnov/dBGpWtJMZLmXs4/ANvcVAKayxApk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net; spf=pass smtp.mailfrom=iogearbox.net; dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b=VqYt8mPw; arc=none smtp.client-ip=213.133.104.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iogearbox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iogearbox.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF7A4DEC3F;
+	Thu, 17 Sep 2026 18:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789671287; cv=fail; b=GBc9lEqV5wYetjP1Jhy8LJqqta5pSdRLM0EkgMeZzzj22olm9gjYSbeQa0aRtL70cKLyNtJDwv0LFPfmGU0av0Ie4GYVb716zZRqhy8GfMRrPI33Jv/vPgY28h30ovNQZK4I+hzEZiPujCQHrrz+BAKYJ92a5yO4pV3x6P/ewiA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789671287; c=relaxed/simple;
+	bh=dfWhQnvtmuY/MsRzO52Q98TCmkXD+zalYYK7DGjUFBw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VwGpXCZjQuhgzIDe80izlTgafwBQIODPOFz2C9bzD8EeboUsPDP6zJ6rHeiKPqosfQ8dWP1VO3OQvhjLx48NKsaLP42obG1EAFnMFz/hfPP+w+nc9/InV9U0rBVYGkaxgaK0w4QeMk89juYMo6m67JW+GzrRBdi/wrdtyhHSuNs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FDafgP9W; arc=fail smtp.client-ip=52.101.46.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iogearbox.net header.i=@iogearbox.net header.b="VqYt8mPw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=iogearbox.net; s=default2302; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=zAd9mOo2epPXqMF6KJpulztJE0NFhCZeoEFYB3U8NWo=; b=VqYt8mPw/GsN5Du//YN3WrhHBr
-	9PGQ4s+hy22N9tR329Nt8SsFB+Ixc+QprV5pTrowtHyBG861m5/lUmsERpKMRCVuoPLXm+uVhN55D
-	kv7TCbCJQOJEmSklSgZ2O51Cg0LA5gcA7W22eRoZ4QqQC5FUMvNp14ZkZPQawxz7JnXFTIhdukRoB
-	YdE4uIalucxB7+RYKPzvOodkaZ8/UXfi0TZ++9js3os35H3BUjWtFowpW36pJK7sEOiBE0dIaoQ/+
-	Hd4kduKYwpyWtIwChYuUmDfeMbkLvrBiH0tNkL81ouFic+4mNY45MIWju4tixkrK7YlCxgft1AK6j
-	MifDisjA==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www62.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x7HFi-0009rh-0x;
-	Thu, 17 Sep 2026 20:54:34 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <daniel@iogearbox.net>)
-	id 1x7HFh-000HX2-03;
-	Thu, 17 Sep 2026 20:54:33 +0200
-Message-ID: <97695bef-507a-403a-84ae-c2e222b3dc65@iogearbox.net>
-Date: Thu, 17 Sep 2026 20:54:32 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FDafgP9W"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LGtcjDUQUOn2lgoBo6omdYUSXufIFsNRJU+LmzdPtifk7y97TrMnIGjj0E/E0v9v7dD4MHcY8c7eq1TModo9TGry+tmwUo0xYkfmyD8Sx1qvmX4T8EnLQQcIdYaOxkkrR5LySv/BgeGfeDlcgTh+Xjy0C/e9CPfoY4AbDCd+yTC0L0J6MkjyQWdA1DKgOmHk6GMwD76cYJp2i/qWpJksWn+kFT84p3O71ImEfSDRGXQdRpH7lcm2QxU2gAHsWqIqzIlGpABSL7LRGs+j6orodOuAiMI40U7h555drZG1TFWYbnf1oHhrlPPNGDNQQctGG9zr/OFRtfKIYHucrYf74Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6UbMcub1LUUZz2LlYEf/SPkZqcQy0meqrboViHwEd+g=;
+ b=R4tih2jqZgJ+TeKTWSUDID3W//agsPYQSvL0JORBTfDuklFYFORLa0NlieOwsyaNhT4mOb93vt2l2FcO/TV79zrWQBU4EX7KNrG8BrEWntgjWzFGz9HkQE1QCJG8slPkY2LW9jNAgfVKIrxZa9CKs3IPvvZFS6rPdXBWDdyQTY38HXqcwmQquakCoThgJbthr59/eLSjZoYi6Nr1nAITP6OTjWGHiEyYD8ywHN7XNbGDecu4pDLN3Mi/bZcCH+oOFQlIIKXHeZ2y9VqWst1FJPa/ps6cjtMAxSdZ53gnlPTZKYQFT/hU/IVnqSVXykqd3MKMw9QJHOcAOTzpDXz84Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6UbMcub1LUUZz2LlYEf/SPkZqcQy0meqrboViHwEd+g=;
+ b=FDafgP9WbKv6wC2hWjPeDxp/YVdNgONvtlW94ZYn6H8/aURlroKrkejmBJn1FcPlgV1dNniphcURkYfQ+alunuhDT/f1kCNPZiFNhxpaRUKaUYq8ZdZAHEAx2jqPCukPOZWYUH7SBhP2XcudgCqJUsvB03uvbJw19PxEa797vnI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by CY8PR12MB8364.namprd12.prod.outlook.com (2603:10b6:930:7f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 18:54:40 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
+ 18:54:35 +0000
+Message-ID: <a3896705-66c6-4b17-ba66-1665cf7dfb2e@amd.com>
+Date: Thu, 17 Sep 2026 13:54:32 -0500
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v5 10/16] fs/resctrl: Add support for hidden resource
+ group files
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <f7bcf19ac8113a1e3d9575739c1a6400c455ce6d.1787772750.git.babu.moger@amd.com>
+ <34aa4824-810b-4c81-8188-f2f37e1dc277@intel.com>
+ <948f5361-fc46-4d89-a1b1-cfbcb2ce0ff6@amd.com>
+ <e88c02c7-5dbe-4dc0-91b8-ab8231c50d50@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <e88c02c7-5dbe-4dc0-91b8-ab8231c50d50@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN0PR10CA0014.namprd10.prod.outlook.com
+ (2603:10b6:408:143::12) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] bpf: clear stale IPv4 options after LWT encapsulation
-From: Daniel Borkmann <daniel@iogearbox.net>
-To: Weiming Shi <bestswngs@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Peter Oskolkov <posk@google.com>,
- Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-References: <20260916170406.1280954-2-bestswngs@gmail.com>
- <48990076-414c-4196-99b9-86fce41b8054@iogearbox.net>
-Content-Language: en-US
-Autocrypt: addr=daniel@iogearbox.net; keydata=
- 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
-In-Reply-To: <48990076-414c-4196-99b9-86fce41b8054@iogearbox.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28126/Thu Sep 17 08:24:16 2026)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|CY8PR12MB8364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e7add02-d78f-4554-0559-08df14ed1e3b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|11063799006|56012099006|10067099003|5023799004|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Lq0L2mATuDp7mHYOkCgJ+vgSmDQdQN2eB0bg7xCjZp2pIe33AAM/LbSWvNeEUsWOvB0M/QIyW/8I8seIjbgFkV3u5BzIDJsRgjbQDHuxo+mltJm5Na5AcZ78s1KjfmkEHsuKjYftyPimXM1Kc/gFLFel+AaKeENiwFB/U6QIbRSeHo15hClFZjNnhr/9RlQldEQrKWBXiQod0wfEuMW2pm3S2faz/SkGMmWAhifgJr1JSTdnQT4t5qdANnPE/svqspX8QxYok9ZPvmkTWkb/aeaOnsboX/oAtbx3EHzjrt/lpp1S3ZXJcj+tPcGRD246UDLE5UL5zxVywHEDEJolSTuulWi/xXIUOM+niW1kf3Ay1CqmLQlNOmsz6NtWpE8f6hAxDeTCEyLxThf1GiZRpCn350FCdVjiuvhosEtMnrC8dO27DhmSDGePyFKFEa44TauifhTZ+G9JexF8hDT1hdyA2ER9kV6+CV0LXISIyjN+IfBg5N4weM7ZC2kZ2aDNcO8puZlw+RD6ypGaUzHodLuR0NysYLsyfWExTAP1ZaRlI1iK0/ieOG9MyF2yvY1xhYCLcB4THFu3NJpxprNYDt3oew+LPgHtZgG75CmdUyNCjLEXjA4naoeMma6AB7Y5TvTtaUOV7hWme5Bu4xsK0E1XKAJChIaO3M6RLutgiKU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003)(5023799004)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YzBoekxOam56K0p5cEhkcXNNMDNSTC9rOHg2bERuaE4yaHZIS2NkdXRNSGxM?=
+ =?utf-8?B?aC84Qzd6cFQ0S0ZrTXBwSjFYTm1Yd3dHMEFyNVQyNkc2RkI2OEJqTXMzeGFz?=
+ =?utf-8?B?S3NhU0pvVy81dmQraFVnZzlqeXVwR2tnaFRFVkdoWC90UDVvNDdXL2p4OS9P?=
+ =?utf-8?B?bSt4cTB6R0tDbHBUdWhySXVoMkF6M1JaUHQrdWFoMTFjeWFXUmxsMk5LQkph?=
+ =?utf-8?B?alAzaFBsVXpKczVzejV1YytsdWR2ZDM3YkF6NktPR0NVQTVlM0drNXZja0JR?=
+ =?utf-8?B?U0UrbHc3Si9Mb2ZuVHlWZE5FOFZTcjVscWRKellDUVVlU0xwSjN2eWp6dFVm?=
+ =?utf-8?B?RGhNTnViYVp1SFdlcFNZYS9YWGx3bmZOS1AzTmZ3MTZRLzVDR3ZDcGQzTTlD?=
+ =?utf-8?B?ei92ZWxHRlFsOEt0Sytlc2NIMTljanVKUVZ1dkxrM1ZmSlJ1ZXEvNFJ3cXJH?=
+ =?utf-8?B?ZjZ4Ni8xcWVJT1J2SHAxRm5ja0pyR2lKenBKN0JvTmlXaE42aVJrUUJmRnJ5?=
+ =?utf-8?B?K0tIeHFjOXJMTDFQblM4MkJYekI0Q1Fod05MQWk3VmtPQUcrZmwwa3ZVVzYx?=
+ =?utf-8?B?WUtTUzRxUWNySUVKd1hOWTIrYUxSMWZQbktnWXR5WkpvWmVIcXZxNXV2a1hi?=
+ =?utf-8?B?SERUR253aGVEdGJkV0FwRFJYVWt1WTFMM1BFRjkvZFdFZktQOTJUYXJjS1VS?=
+ =?utf-8?B?U3BaMy90ZzdnRzNpbmJTbmNkQ1ZVZFRqVlI5M0JOd0k4cC9SY3FuZ0QrZ2lT?=
+ =?utf-8?B?YmhPVHNQTVBwYy9MaEVRSjZpUTZ4NkpQUXkzMUZQWmRkTnc3M0t2enc1TU9G?=
+ =?utf-8?B?VFhBTHIwSEhzUm5kNjZTbU1uQms2SFdHMEtYclZ2S1YvYmxyeml0TEdDWnVR?=
+ =?utf-8?B?UkNsTlhjL0xmenp5OEw1U0lRNGkxUndWd01KbzBWTlF5S0FaTk9BRVdnTE14?=
+ =?utf-8?B?bXFwUDJnRnYvL3FKVVpYdmwvTVNMUGVHUi9xUi9yRGdZcVBpd29mRTFBVGtl?=
+ =?utf-8?B?cTFYbENlRWFIbk1OazhvMVpDNDJGazMyQ0xSTFQxcmlPMlREQzhWd2NLSDlm?=
+ =?utf-8?B?Tlk3Q1NjR212NFY1eUpraER3dis3T2Q4VG9kai9qcHh3eFhoMjV3bnJrTG9T?=
+ =?utf-8?B?bGtqRXNUV3hxajluTXJwSlhlQTZ4NW9qL1ZEWEo0SDVkSXF6N3UzNW94YTU5?=
+ =?utf-8?B?c2ZER2JJQjN2V2FzcmZpV1NXT015MUh1SXF2Y2dId0wwdmxMR2VpNG1oa05S?=
+ =?utf-8?B?V2dDV1JSTXpnQm43d1N0NVg1YXI4WXZ0cFk5a1kxYmViSE1HRGQ4ZHIrMlFV?=
+ =?utf-8?B?SlFIUko2Q1FJdm5LNkNpRGY1UmhXeVU2VlhPMjV0eTVOV05tZGhZSlNob0t6?=
+ =?utf-8?B?enFKVFVQdUlqVTU4NzlOMGI2em9ZaVZzMXFMZGphc2pTbWlwZTk3OXJwZkdU?=
+ =?utf-8?B?Umw3T3JsYkt4TmlUWkUwc0NLOHdVYkwxL3FQSGM1RE50bGp0NTZMaWVXQ1RN?=
+ =?utf-8?B?SUwrZkxjYlBzcjA4b3ZLRFdKK3pjajI0RXFhM2x4U0pvcjN2QkdJbzJnY3Z2?=
+ =?utf-8?B?aW41MXhzcy9MZUpvMHJOYWx6MjMwOVJuYS9nTTNPNU50MXRaRXlIUEd2OWFx?=
+ =?utf-8?B?ZisyeDROdUR1VnAvRHlNOFBxWlQ0bWgwOGI5S3VIQUVrTUxkbVQyT1JVdFBD?=
+ =?utf-8?B?M2lKa3Q4ZmJva20yMjdDU1J5VjdYWnRyeDFlMmJCZlAyK3lEeWpmYzdQcXR2?=
+ =?utf-8?B?Sm1NQUpVd2VkQ3pRa3dDQmJuY0hIK3k1dnJEaUE4amw0YVI5cGZuWFJmM0Y0?=
+ =?utf-8?B?QVBMR09ROFBYak0vclBJNEs2N3hzYk1mNEQwWHhyNlBpaUVoMXdzZ3h0QjVr?=
+ =?utf-8?B?d0g5d3ZYRE9LVlQvTG5SMFNuemlCd3FPSWhuajBMZ0daYjV2TU1yRys3NHgy?=
+ =?utf-8?B?WHpHYnNmSmk1N09XUDhEMjZ2OVUxUXZlV1lKZzJla0RLR2RRSk0xUURtYTl1?=
+ =?utf-8?B?MExOZk1kbzRNTmYyVWtxWE1iYTJjSFduenBiSWROQ3Yvb041cXNDWU9GWWxs?=
+ =?utf-8?B?WHpqYS84Wkw2d2VjY0VaVWdYYTMxaDZhSGExQ1VxK1doMmhaQ0l2U01XYUxR?=
+ =?utf-8?B?OExsOER0bzA0T3lXQStYRUNBNUZLUDBhOTlIQ2NJTlpEaFJsaWV5dGNnRWRT?=
+ =?utf-8?B?OGhiekVvalRUYklHQyt4TnViSUVLL0dCYXJBdDlZT1ljVmd4Y0d5L2ppV3o1?=
+ =?utf-8?B?REI0U2ZKU05LNzZLZERrNTA1TUJCSWhLeTRyUFNpa0Juc2pEd2hBY1V0Nm9q?=
+ =?utf-8?Q?q71WtEUSsiNO82N2yZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e7add02-d78f-4554-0559-08df14ed1e3b
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 18:54:35.7759
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K+iRX+qD6VOZ5AwPLZzKOEgshhkWV+Ujns8nb/DMrFkkJrW9qsLWhiSALbMKV4m5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8364
 
-On 9/17/26 8:24 PM, Daniel Borkmann wrote:
-> On 9/16/26 7:04 PM, Weiming Shi wrote:
->> bpf_lwt_push_ip_encap() rebases the network header after prepending an IP
->> header, but leaves IPCB(skb)->opt describing the inner IPv4 header.  An
->> ingress LWT route can consequently make an ICMP error interpret an
->> inner-header byte as an option length and copy 255 bytes into 40 bytes of
->> stack storage.  The trace decoded with scripts/decode_stacktrace.sh is:
->>
->>    BUG: KASAN: stack-out-of-bounds in __ip_options_echo
->>    Write of size 255
->>    Call Trace:
->>     <IRQ>
->>     __asan_memcpy (mm/kasan/shadow.c:106)
->>     __ip_options_echo (net/ipv4/ip_options.c:96)
->>     __icmp_send (net/ipv4/icmp.c:949)
->>     ip_forward (net/ipv4/ip_forward.c:176)
->>     lwtunnel_input (net/core/lwtunnel.c:465)
->>     ip_rcv (net/ipv4/ip_input.c:612)
->>     __netif_receive_skb_one_core (net/core/dev.c:6264)
->>     process_backlog (net/core/dev.c:6728)
->>     __napi_poll (net/core/dev.c:7787)
->>     net_rx_action (net/core/dev.c:8007)
->>     handle_softirqs (kernel/softirq.c:645)
->>     do_softirq.part.0 (kernel/softirq.c:546)
->>     </IRQ>
->>     <TASK>
->>     __local_bh_enable_ip (kernel/softirq.c:473)
->>     __dev_queue_xmit (net/core/dev.c:4961)
->>     packet_sendmsg (net/packet/af_packet.c:3143)
->>     __sys_sendto (net/socket.c:2281)
->>     __x64_sys_sendto (net/socket.c:2288)
->>     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
->>     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
->>     </TASK>
->>
->> A helper-only reset can be restored by bpf_prog_run_save_cb(), while a
->> program without ctx->cb[] access can clone-redirect the skb before a
->> return-only reset.  Track active LWT runs and their control-block family
->> in the BPF network context.  When the control block is not BPF scratch
->> space, save its original contents and reset it immediately so clones see
->> the new-family layout.  After the program returns, restore that snapshot
->> when the verdict continues through the original protocol callback, then
->> invalidate the stale header metadata.  Verdicts that reroute or redirect
->> keep the new-family layout.
->>
->> Preserve the state across nested runs and retain the ingress interface and
->> L3-slave state when the protocol family changes.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
->> Reported-by: Xiang Mei <xmei5@asu.edu>
->> Assisted-by: LLM
->> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
->> ---
->> v2:
->> - Save the incoming protocol control block for programs without ctx->cb[]
->>    access.
->> - Restore that snapshot before a verdict continues through the original
->>    protocol callback, then invalidate the rebased header metadata.
->> - Keep the eager new-family reset for clones and final reroute/redirect
->>    consumers.
->> - Add Cc: stable@vger.kernel.org.
->> - Correct the patch author and reporter attribution.
->> v1:
->> - https://lore.kernel.org/bpf/20260915170147.3943392-2-bestswngs@gmail.com/
-> 
-> Hm, this is way too much fragile churn for a feature which I'm not sure is much
-> used (?). Can't we just save/restore the skb->cb when the BPF prog runs? Roughly
-> sth along these lines (untested) :
-> 
-> diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-> index da49364ec63d..9cf04b44ecc1 100644
-> --- a/net/core/lwt_bpf.c
-> +++ b/net/core/lwt_bpf.c
-> @@ -36,10 +36,24 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(struct lwtunnel_state *lwt)
->   #define NO_REDIRECT false
->   #define CAN_REDIRECT true
-> 
-> +static void bpf_lwt_reset_cb(struct sk_buff *skb)
-> +{
-> +    if (skb->protocol == htons(ETH_P_IP)) {
-> +        memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-> +        IPCB(skb)->iif = skb->skb_iif;
-> +    } else if (skb->protocol == htons(ETH_P_IPV6)) {
-> +        memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
-> +        IP6CB(skb)->iif = skb->skb_iif;
-> +        IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
-> +    }
-> +}
-> +
->   static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
->                  struct dst_entry *dst, bool can_redirect)
->   {
->       struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
-> +    bool encap = skb->encapsulation;
-> +    u8 cb_saved[BPF_SKB_CB_LEN];
->       int ret;
-> 
->       /* Disabling BH is needed to protect per-CPU bpf_redirect_info between
-> @@ -48,7 +62,12 @@ static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
->       local_bh_disable();
->       bpf_net_ctx = bpf_net_ctx_set(&__bpf_net_ctx);
->       bpf_compute_data_pointers(skb);
-> +
-> +    memcpy(cb_saved, bpf_skb_cb(skb), sizeof(cb_saved));
->       ret = bpf_prog_run_save_cb(lwt->prog, skb);
-> +    memcpy(bpf_skb_cb(skb), cb_saved, sizeof(cb_saved));
+Hi Reinette,
 
-... also needs BPF selftests obviously; dropping the memcpy and a closer look wrt
-freplace, whether we should reuse & propagate ->cb_access=1 also from there.
-
-> +    if (!encap && skb->encapsulation)
-> +        bpf_lwt_reset_cb(skb);
+On 9/17/26 13:31, Reinette Chatre wrote:
+> Hi Babu,
 > 
->       switch (ret) {
->       case BPF_OK:
+> On 9/17/26 10:26 AM, Babu Moger wrote:
+>> Hi Reinette,
+>>
+>>
+>> On 9/16/26 00:33, Reinette Chatre wrote:
+>>> Hi Babu,
+>>>
+>>> On 8/26/26 12:32 PM, Babu Moger wrote:
+>>>> @@ -2377,6 +2380,33 @@ static int rdtgroup_add_files(struct kernfs_node *kn, unsigned long fflags)
+>>>>        return ret;
+>>>>    }
+>>>>    +/*
+>>>> + * resctrl_hidden_files_set_visible() - Show or hide files marked hidden
+>>>> + * @kn: resource group kernfs_node
+>>>> + * @show: whether to show or hide
+>>>> + *
+>>>> + * Iterate res_common_files entries marked hidden and show or hide the
+>>>> + * corresponding file under @kn.
+>>>
+>>> As a generic helper this is not appropriate since it just blindly makes *all*
+>>> hidden files belonging to a resource group visible or invisible. This pretends to
+>>> be a generic function but then assumes that only kernel mode related files
+>>> are ever created with the hidden flag set because as the kernel mode changes
+>>> all hidden files belonging to the named parent changes visibility.
+>>>
+>> Are you suggesting that I update the code comments to be more
+>> specific about the group, or are you suggesting that the code itself
+>> should be changed?
+> 
+> Both.  The "hidden" flag is *only* about whether a file should be visible
+> at time of creation, whether it is by default "hidden". That is accomplished
+> without this function.
+> 
+> Whether a file is visible or not after initial creation is feature specific.
+> For example, as is done with resctrl_bmec_files_show(). There is no use
+> case for "make all hidden files visible".
+> 
+> resctrl_hidden_files_set_visible() is a hack because it pretends to introduce
+> a generic feature but the implementation only supports two specific files.
+> Consider the scenario when somebody tries to add another resource
+> group file that is by default hidden. Just setting the "hidden" flag will be
+> a reasonable thing to do, but that unrelated file will have its visibility
+> connected to the kernel mode feature!
+> 
+> Please replace resctrl_hidden_files_set_visible() with a kernel mode specific
+> function that only controls visibility of this feature's specific files. That
+> could even be in a separate patch.
+> 
+I will separate this patch.  Will rename it something like.
 
+void resctrl_kmode_global_file_show(kn, "name", true/false);
+
+Thanks
+Babu
