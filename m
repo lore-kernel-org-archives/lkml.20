@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA95D3E410E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14D73E4103
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789620823; cv=none; b=JeH10QXYywnSokJx5btxkTFf63WDIaV0qHyg4DFH9CcYMgjG0uB4i7jvwAH9uRFpOlQDZIblKNHTrFGTBNE2y2QgcAU9tOX+CuG33I07ZgfnYhSwTyW7CaGLK7HeolUBLvho0UqPdmtSRQx3jmA7kdLvQunk14L201P9eT6Z7NY=
+	t=1789620825; cv=none; b=d7koGSxlhbm68I6qvEdp+4SmucyHofNe3wTvS44ev5h26pCl6ZkWWOPnf9jg2a9qnzHuUmBcNNjSpWu4jybu61Cv+HmzQw7XrcaFrG9XCo50+1T9ST20xYwcDsUILUuuzIIACIuAZbhR9ZiF1fWqtQqUMzSQSUK3gwlGHmU2BtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789620823; c=relaxed/simple;
-	bh=UFZw8ccWukYPTXWDhuLgW3RK9MncZoRZK2RoRe3blgM=;
+	s=arc-20240116; t=1789620825; c=relaxed/simple;
+	bh=ctgAKO83gsTv8gTCuaPIepnWz72t4D2/QM8/mKVOa2Q=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=X8/+YS0s31aeYNOUi7FQpjml1tHMAKQmWlN6pxAu39EbrWLj8hb3QXkJ8P7DnlPxT4HnmZ3uxmJWAau5pnwdUKH7/CV3lLlTmzZMdOV3d7UN5xO2TLNWbH3TmreOczEPo3VdxDgN+IqDaW6tfYaN8MF/b/aNlbzE8+y6P4MgT/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aQouRKFA; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=QQi20+DCK4F2uD3LDguDGE+XNqfQdrbSUZjc6yUjtIr+WTkDjjAZAI8sSEbgnuVhPnZ3ogL5sEySErxKPdRQUZG9YdsF9zCxYUcY18E0kgrziFfdHL8E9ag+RhQ1Qjb4C+1MZaM7dpmpia0B25nZTtnkJEHLCugimxce+ROzW38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NgmzRS0j; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aQouRKFA"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db3d832827so6445705ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:53:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NgmzRS0j"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so1100596a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:53:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789620821; x=1790225621; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789620823; x=1790225623; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FW5H/Iu2+HolG/+BtlKduLPhDgOXa5vtUBne8YJ7Hg8=;
-        b=aQouRKFAVCJRi5owluvqZGmT+cV8D11I3TzY9QJzipzhQlTPbeUhXijDNFbiNeV6dN
-         Q5bTmP0Q08LeFyAiFlFtV/YXTAETQEKnKH8zdSYPZ7Z6PWtypBJzk1YRBZsYpCeqxH1o
-         NipLWmQ23a7TBo1Pu/goKk6jR1lx79iHbo4sC+wgYMgQ7L9unXgcVpa5EEzIT5bwu+LO
-         BM5GotZpnNoCr4gbnys/6tGE/Gba3lPlQ5J6/xDa3A1TM/6/5nay+drveYuQb3tQrvcl
-         b7VuNhYHfTCU1NUoV2+9pQjHFnWEJl/5SYmxzpZuFifTEj7lLoUpMKT2VhmT6w8azGA8
-         otEQ==
+        bh=t4bGGtl8mviDTYAje/z76N2WSQvQmolwBPcSYqlFs3A=;
+        b=NgmzRS0jgzt4shBmpurPsr1K+VSSesM88BjKNKBJTVNuip7vZBQmZ5RxXxOqdEKY/i
+         ftuu5Q4WI8Wf0Nc9qUQxTypginai+uqO904mgyirCIgayAY3pxWf7yPPLQeG3gmth+QA
+         DUsKFjdptfNEqdVnnQYEmxNv+UPUYDlist7dB7Gaa04YMwDNg9qD/pZS1xlCkQ+LGh0v
+         1EOhVww3aIRQMvxaGUTIP9Kk0zwMDc47cT2FAhpeX/c1hqppOYp+RM+5imlB4tU5L/Uv
+         72c8Wcyh5yPUbPtzNpbdFfkUOtnDbPdbeIIMGdn36+XIFFGgbUcGk+rnnNgnhqJRrnUj
+         NfyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789620821; x=1790225621;
+        d=1e100.net; s=20260707; t=1789620823; x=1790225623;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FW5H/Iu2+HolG/+BtlKduLPhDgOXa5vtUBne8YJ7Hg8=;
-        b=Y0A5HpQDpT+nb6TdqHIA5tJkTDMxqWMPirjeK5T0WjNxHbDXuA7eFDQ6yMT2xMm3qA
-         xt7aXeZiBsFepqPfxLBq/q0oMwhP00+/hhHBfddJfL2ebXXcXiVngGuVCh9DPTTpWnna
-         KErQGuE9kHq73zPD4ZUlTJUKE5c0tI9ok+Y1U5d2gnPp4wd28cSKC1ToSFuwlHFvl3/W
-         6546mh3TOR2u+AFnVrdm3xU/dkfQv5YyFYZPmOhhVpO72aMm4YN90ct9fvfBFJk9NEhL
-         aD4i4Asqwm1UcKNmaTsy88SYx2YczTpyn6aRLJRzTEGnqE+pUCal2DiSHKwTYMyn74RF
-         IAJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ1vLHIGz+Gr5k4DHqKJGz0DbnT2bOxUzfOvxA6b+d8tPCNGJx9InkqRqP4BMahDOItS3L24TBjANjPr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kG2LQMtA5iZV9jyaiTvqoY1+3eN/9capMfRqQz81VRukDLH+Gr
-	M/QDJNfYRwS3owfGXlqBHkkFDTxqaWl6x+GtDuFP5c4kdh74Xscvs0hiL3MLBHL5me85vI63mCV
-	iWf2UJwUEsw==
-X-Received: from dybzy15.prod.google.com ([2002:a05:7301:e10f:b0:336:e0f9:1b3])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b85:b0:2dd:9b53:f9ba
- with SMTP id d9443c01a7336-2dd9b53faa9mr59334475ad.1.1789620820770; Wed, 16
- Sep 2026 21:53:40 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:53:19 -0700
+        bh=t4bGGtl8mviDTYAje/z76N2WSQvQmolwBPcSYqlFs3A=;
+        b=pgRZQzow7fRJH3UQPx6okT2/GDaUMjDCqeOshkT9ryZJSbHfY/GzxIzS0A3NvFHbbp
+         adH98gqku+sH7tp+J+ekORptzA3+oF7opvFnCStIZhznO4ktFcIYaRPixcOvb8ON5dhB
+         D0b9VxWpvdkoEmEjLR4l5GY5gMjNHr2lytF7z3o45rppl32H7+Gjbrh7UMlUkY5+qAwF
+         2fEUbTAplttNw/rm44/Q64IxfXQ5safLnl0v3x7zmX8Nt1/Nm+GFr8gTN2UzUuq71nJi
+         p9UFYFL7nuTV0Ug9r+oAzxT6fUIJdRaU7slqr0bN1GFjLTtgBd3EPszv5CqibqxAZxRN
+         XK5g==
+X-Forwarded-Encrypted: i=1; AKwUvBySWAmVqCtxMxo8tc+ww6LkbWbsOwjgGmub6IhwHjIdvVFEiBb9FEU7dJvWvhDdwztpaZhWxylmL2IROBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lm+MDvMKChJPlMn+/NGlQnkB0FF+iIqOWKNpeUKhaxTNQcMgM6
+	qkirU9sxQuENWwcX8gkCOJ4uhmR4V++cxEQsyqd1yHii7NUvF1Zdus0umymlRYkUdwRGbi9tHax
+	R5MPUg/bt6A==
+X-Received: from dlec16-n1.prod.google.com ([2002:a05:701b:4290:10b0:144:be75:f389])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:54cb:b0:37f:c22a:c188
+ with SMTP id 98e67ed59e1d1-39e1e25ac28mr12048608a91.4.1789620823042; Wed, 16
+ Sep 2026 21:53:43 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:53:20 -0700
 In-Reply-To: <20260917045326.63601-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260917045326.63601-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917045326.63601-4-irogers@google.com>
-Subject: [PATCH v1 04/11] perf llvm: missing explicit POSIX headers in symbol__disassemble_llvm()
+Message-ID: <20260917045326.63601-5-irogers@google.com>
+Subject: [PATCH v1 05/11] perf dso: missing POSIX headers string.h and limits.h
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
 	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
@@ -72,59 +72,98 @@ Content-Type: text/plain; charset="UTF-8"
 
 Sashiko reported:
 
-  When building the perf tool in an environment utilizing a strict C
-  library such as musl libc, compilation fails because
-  tools/perf/util/llvm.c omits explicit inclusion of <stdlib.h> and
-  <inttypes.h>.
+  When building the perf tool on a system using the musl C library,
+  compilation of tools/perf/util/dso.c fails because it utilizes
+  standard string operations and the PATH_MAX macro without explicitly
+  including <string.h> and <limits.h>.
 
-  The function symbol__disassemble_llvm() directly invokes free() for
-  memory deallocation and utilizes the PRIx64 macro for formatting
-  64-bit integers.  While glibc often implicitly provides these POSIX
-  definitions via other includes, relying on transitive inclusion
-  creates a brittle dependency that violates perf subsystem
-  portability guidelines. On environments that do not implicitly pull
-  in these headers, the compiler encounters undeclared identifier and
-  unknown type name errors for free() and PRIx64, preventing
-  successful builds of the perf toolchain.
+  Functions like dso__read_binary_type_filename() allocate arrays
+  sized by PATH_MAX and perform string manipulations using strncpy(),
+  strlen(), and strdup(). While glibc implicitly exposes these POSIX
+  definitions via other included standard library headers such as
+  <stdlib.h>, musl enforces strict header dependency
+  boundaries. Consequently, these macros and functions remain
+  undeclared during preprocessing, resulting in a fatal compiler
+  error.
 
 Add the header files and use git clang-format to sort.
 
 Reported-by: sashiko-bot@kernel.org
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/llvm.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ tools/perf/util/dso.c | 47 +++++++++++++++++++++++++------------------
+ 1 file changed, 27 insertions(+), 20 deletions(-)
 
-diff --git a/tools/perf/util/llvm.c b/tools/perf/util/llvm.c
-index a0deb742a733..95efd089014b 100644
---- a/tools/perf/util/llvm.c
-+++ b/tools/perf/util/llvm.c
-@@ -1,5 +1,14 @@
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 42bfe30a3b51..592fb971ffaa 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -1,38 +1,45 @@
  // SPDX-License-Identifier: GPL-2.0
- #include "llvm.h"
++#include "dso.h"
 +
 +#include <errno.h>
-+#include <inttypes.h>
++#include <limits.h>
 +#include <stdlib.h>
++#include <string.h>
 +
+ #include <asm/bug.h>
 +#include <fcntl.h>
-+#include <linux/zalloc.h>
-+#include <unistd.h>
-+
- #include "annotate.h"
- #include "debug.h"
- #include "dso.h"
-@@ -7,10 +16,6 @@
- #include "namespaces.h"
- #include "srcline.h"
- #include "symbol.h"
+ #include <linux/kernel.h>
+ #include <linux/string.h>
+ #include <linux/zalloc.h>
+-#include <sys/time.h>
+ #include <sys/resource.h>
+-#include <sys/types.h>
+ #include <sys/stat.h>
++#include <sys/time.h>
++#include <sys/types.h>
+ #include <unistd.h>
 -#include <errno.h>
 -#include <fcntl.h>
--#include <unistd.h>
--#include <linux/zalloc.h>
+-#include <stdlib.h>
+-#ifdef HAVE_LIBBPF_SUPPORT
+-#include <bpf/libbpf.h>
+-#include "bpf-event.h"
+-#include "bpf-utils.h"
+-#endif
++
++#include "annotate-data.h"
++#include "auxtrace.h"
+ #include "compress.h"
++#include "debug.h"
++#include "dsos.h"
+ #include "env.h"
++#include "libdw.h"
++#include "machine.h"
++#include "map.h"
+ #include "namespaces.h"
+ #include "path.h"
+-#include "map.h"
+-#include "symbol.h"
+ #include "srcline.h"
+-#include "dso.h"
+-#include "dsos.h"
+-#include "machine.h"
+-#include "auxtrace.h"
+-#include "util.h" /* O_CLOEXEC for older systems */
+-#include "debug.h"
+ #include "string2.h"
++#include "symbol.h"
++#include "util.h" /* O_CLOEXEC for older systems */
+ #include "vdso.h"
+-#include "annotate-data.h"
+-#include "libdw.h"
++
++#ifdef HAVE_LIBBPF_SUPPORT
++#include <bpf/libbpf.h>
++
++#include "bpf-event.h"
++#include "bpf-utils.h"
++#endif
  
- #ifdef HAVE_LIBLLVM_SUPPORT
- #include "llvm-c-helpers.h"
+ static const char * const debuglink_paths[] = {
+ 	"%.0s%s",
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
