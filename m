@@ -1,103 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC2A30EF89;
-	Thu, 17 Sep 2026 02:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4846351C2E;
+	Thu, 17 Sep 2026 02:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610407; cv=none; b=CwkIwRG545ktMdMhbjqe6runW8BHrGXthbanpqeVlRLZP+XFptKR1nF8fVwYc1zDw8wsn0WJ0045ZdH7l/WRXmdgfjfduALespAcMI7RGyelNhcQBhEBJaNueENJpZspPT/MKkVjXqojAu93qet9WDRFn9TCQnGSg9Q/uDEpXeQ=
+	t=1789610412; cv=none; b=MN7UIfU/2JkIY+ijlGB27iEx/jagEQPB017l8xjaE/spwIjm+6Zi/RmFsjDZsb3repTlhR6JZAuAFOtSWUmuiMHs5hFiSdWKfotOYzOjHZk0iwkt0IgC7LrPqg3u2uODT7ian8bp9PYB2rmNI1Yb0VhrD5qqc5yl3Rw/6BMEHmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610407; c=relaxed/simple;
-	bh=GiRYzqelFvZjf3NOI++/w/qBAEsbZLya5YyF3mmqENs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WD9GXtSPPs75dEVmHTNLxgoeHPD08p03cGE9vUpaflbTTf8NG45IaP14Ct/v72jKb4eHNf+uZVYC2EO5E7gy4iGZR5ni6TKkvu4kuLxxO20lUC/OM8hp0uE5/uqC9NmAYxBPxvGlkk6g3GJC7+hn7FJP9U4k4qvkxpTssxmwHWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hvAXQJZ9; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789610412; c=relaxed/simple;
+	bh=66nRGvVue7yxITQfRjkMRaaoiGoCxloORIWhztOpPRk=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=iFYNkmEPZCI7DSf4hF4t3aL3K6BVDcHhJ+z+GPAtvLXjJaMk864yWX8sgg76Omc158EWCgCUW7g2S3YApzdo8w5NmpIJrSPIU3vUyy1iV83uAe5fDUNqx87U9JKl0hIjH1zX2cYA6NTX7I2pF/uOd8nrFUSNHrrJS4TA2/ljrXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WcvMCnRN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=R8CC9YPm; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hvAXQJZ9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789610406; x=1821146406;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=GiRYzqelFvZjf3NOI++/w/qBAEsbZLya5YyF3mmqENs=;
-  b=hvAXQJZ93w465oIlxkMSsEoqtCwQO+LDIPYH8fy3OefvXuQoR6OwRXIR
-   ez1Wftm/mBo6oK8E9BPzr1s38ifexJnR6E9WCiHc22RACNtOdDbZZil1Y
-   GxjkuErfwVDpOSeBM2sx0QuVqkxGiU7KbUfgsdSiFw+/L7M7mFZJL8GZc
-   iDwmmrH8zBQS4e5GUvuSbJ7MOKp1r25wukwwlOl9ovD4wCU98So7HXLzl
-   qnUCgxZIxV4yMtr2TK4QBrMv7f4gMydyYPiqdU0UaJmM4DyobuMWgHJtQ
-   2NPlsSfj6P4yYFjasOcmOmdGAQ5k7ZLoaSbf55R7ny/jnleOwMssbQt02
-   A==;
-X-CSE-ConnectionGUID: nBMHYqjfQ4uE8EI1PvSwgw==
-X-CSE-MsgGUID: r8i6dlGLRM6yuzVrY3GLdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107498595"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107498595"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 19:00:06 -0700
-X-CSE-ConnectionGUID: yldd3ZiETBi5kf4PUWilwA==
-X-CSE-MsgGUID: qaCD5VV0RM+5ijIEsIwuDQ==
-X-ExtLoop1: 1
-Received: from spr.sh.intel.com ([10.112.229.196])
-  by fmviesa003.fm.intel.com with ESMTP; 16 Sep 2026 19:00:02 -0700
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [PATCH 08/12] perf/x86/intel: Delete dead NVL PEBS data-source init call
-Date: Thu, 17 Sep 2026 09:52:30 +0800
-Message-Id: <20260917015234.981153-9-dapeng1.mi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917015234.981153-1-dapeng1.mi@linux.intel.com>
-References: <20260917015234.981153-1-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WcvMCnRN";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="R8CC9YPm"
+Date: Thu, 17 Sep 2026 02:00:06 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789610408;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nl+J7EdJkNMd0L9vMAiD0OTe5p0q0vgVXMINX1p2ZJ4=;
+	b=WcvMCnRNA+qeAYFnhTh4bImRrxq9cCRO1UNQQEai9ery03gRF1gm4piIzZN2As5sekgvcQ
+	W7/dFaFEOSY7WE/G3M0KFvJA7X1r3prqx7FSDv3q8K3qkoY4e2w6SmUIkdnKNy/kya4PiK
+	ls6+cfjr/I1sSBVel/xTKhOjIuzZt9SFM7E9ukEmK7aG/kl/M2UhV4glPD8nAg6CEE+zox
+	Wo5lr2jqVqn5hww3r3Cnm7hHLZUFPogcDSR0Yv3ZY7KpjslfWlh74ix0HxQoVYTYQqd83f
+	18aA1qAs5LX3C+AF0JXexVd0n71BNNRC/c/EIUCz3XzflDgaLs/YxyeAjMx3zA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789610408;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nl+J7EdJkNMd0L9vMAiD0OTe5p0q0vgVXMINX1p2ZJ4=;
+	b=R8CC9YPmppQGXOps1WxgHkZO5uuTB/P9LDaOZu6BUziu8I08SWEewLaqUwMTP/7w1QHZs4
+	nyCrfEVqnkM+qgCA==
+From: "tip-bot2 for Ihor Solodrai" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: x86/cpu] x86/cpu: Don't transiently clear the boot CPU's capabilities
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260916195203.1099646-6-ihor.solodrai@linux.dev>
+References: <20260916195203.1099646-6-ihor.solodrai@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <178961040663.1720534.16515337025931220992.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Nova Lake now uses the OMR data-source table for PEBS data-source
-decoding and no longer depends on the legacy static pebs_data_source[]
-mapping.
+The following commit has been merged into the x86/cpu branch of tip:
 
-Remove the dead intel_pmu_pebs_data_source_lnl() initialization call
-for NVL.
+Commit-ID:     2711d67bc3a776abcfc651ad87be5d29ada19166
+Gitweb:        https://git.kernel.org/tip/2711d67bc3a776abcfc651ad87be5d29ada=
+19166
+Author:        Ihor Solodrai <ihor.solodrai@linux.dev>
+AuthorDate:    Wed, 16 Sep 2026 12:52:03 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 17 Sep 2026 02:05:39 +02:00
 
-Fixes: c847a208f43b ("perf/x86/intel: Add core PMU support for Novalake")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+x86/cpu: Don't transiently clear the boot CPU's capabilities
+
+On the boot CPU, identify_cpu() runs from arch_cpu_finalize_init(), with
+interrupts enabled and before alternatives are patched. So
+cpu_feature_enabled() still evaluates against boot_cpu_data.
+
+identify_cpu() rebuilds c->x86_capability from scratch: the reset zeroes the
+array and the CPUID rescan fills it in again. An interrupt delivered in that
+window finds X86_FEATURE_LA57 clear in boot_cpu_data, so pgtable_l5_enabled()
+is false and KASAN checks a 5-level address against the 4-level addressability
+limit. The result is a bogus "wild-memory-access" report, and under
+kasan_multi_shot a report storm that wedges the boot.
+
+The boot CPU has already been scanned by early_identify_cpu(), with interrupts
+disabled, and its capabilities cannot have changed since. Reset only the CPUs
+which have not been scanned yet.
+
+The window is as old as identify_cpu() rebuilding the capabilities.  Commit
+
+  39b9552281ab ("x86/mm: Optimize boot-time paging mode switching cost")
+
+merely let KASAN notice it by making pgtable_l5_enabled() read the feature
+bit. So no Fixes: tag.
+
+Closes: https://lore.kernel.org/bpf/20260610175651.647515-1-ihor.solodrai@lin=
+ux.dev/
+Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20260916195203.1099646-6-ihor.solodrai@linux.d=
+ev
 ---
- arch/x86/events/intel/core.c | 2 --
- 1 file changed, 2 deletions(-)
+ arch/x86/kernel/cpu/common.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 4bde7362d7b2..e6efd2a2ada6 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -8843,8 +8843,6 @@ __init int intel_pmu_init(void)
- 		/* Initialize Atom core specific PerfMon capabilities.*/
- 		pmu = &x86_pmu.hybrid_pmu[X86_HYBRID_PMU_ATOM_IDX];
- 		intel_pmu_init_arw(&pmu->pmu);
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 156a7b8..7d4ff29 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -2000,8 +2000,6 @@ static void identify_cpu(struct cpuinfo_x86 *c)
+=20
+ 	c->loops_per_jiffy =3D loops_per_jiffy;
+=20
+-	init_cpu_info(c);
 -
--		intel_pmu_pebs_data_source_lnl();
- 		break;
- 
- 	default:
--- 
-2.34.1
-
+ 	if (!cpuid_feature())
+ 		identify_cpu_without_cpuid(c);
+=20
+@@ -2186,6 +2184,7 @@ void identify_secondary_cpu(unsigned int cpu)
+ 		*c =3D boot_cpu_data;
+ 	c->cpu_index =3D cpu;
+=20
++	init_cpu_info(c);
+ 	identify_cpu(c);
+ 	x86_spec_ctrl_setup_ap();
+ 	update_srbds_msr();
