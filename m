@@ -1,85 +1,103 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010844A7CBE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089494A8430
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636912; cv=none; b=RzrYR0OT1R4o9IoOEIhjfuT85KiYOI22lhdv7lTb/ooU6tceWmpeIr3qtP081N9qW5kQuL7HnQoM8/FPS7uYcTJ4Xy5T7r6PgkgAOM3BD9P1N8Krbmvorsn1toYxWQMFG80+41LgwF8y6skTRrJ+ttjYHjjsGepNImnOjLmwqUo=
+	t=1789636917; cv=none; b=DA2XlvqfWmqc/VWrun20GU8NsTiiiQ2J2UAlie1pZ1L/Re+XkfjDFRXvGnbzEJ69H43DPN2JC7+imZU2QHBHgg5bkarN9VJU2cJZYxD2HutJvqgune1AAIfZN0RATG4WvpeXYz2AtWK9YXI0ETK1poD9Ha1I4MA21qyAoU/dw8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636912; c=relaxed/simple;
-	bh=PZpPmnrmFPtO6uTY0bPCBH0fo8mLjoh8EhNhwyThCL8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H02sleCV+rgsaUKThmDUFWFEcCIhI7bTaxmm97rtWpz5nuhJQH/tYvvIzjHijxS2c48fOykTFRSN1vJ+uv9V2xNQ6mhc9vSZWLpfYhhnWXpK2TYhG2k/+kJdQRM6Ux53hQ588BsAoNRiLchcxc2vfuUHgblM23gNfc4UHET+hXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ly/AzZwf; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789636917; c=relaxed/simple;
+	bh=PbNeOpHyT5IouC5bkY58dTpb/EK5Mw7xbZDeLKa1RIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LC2CqWIUGwPuJ1KCVCyW8gAkrAI9RQlnZQkeY4Ip/cMUlSCNdgDjUmYJFgdRI/z/G1AXDpcQae5d/nSvzfggHKsoVG15zI975dHr7/X1uG/KJ+ROE0+nwnlQhkFlaxIdBiSyuO1RHI6H9QYB3cYBBkQ8FOoNmWFtWDwKlDJwBbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=gRFM9sHF; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ly/AzZwf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=pV
-	9D1WCS8Ulhq6sFgdxPfnRzeCFcOs1g7mYcf8YKpEo=; b=ly/AzZwfxHDUJogido
-	fhhegLyvBlie9mBMbi7L0SVPckNVpQi25A3ODVOHaSfOORP/XppdfRVA1u5bTy4T
-	TZrYF+ImtXtI/tsdYlBhjmrqPVJAV3OHVTnV0K5GdTGabz9XBmsFpa6LbakZh8kQ
-	EZ3pWTRYLbQO3mvwEhzvg/dHo=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDXOfcMsatqdhQkSA--.64230S2;
-	Thu, 17 Sep 2026 17:21:16 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] kthread: Report cpumask allocation failure without warning
-Date: Thu, 17 Sep 2026 17:21:16 +0800
-Message-ID: <20260917092116.388262-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aqqR-up8wovbEsv7@localhost.localdomain>
-References: <20260915014222.13423-2-quchaosheng000406@163.com> <aqqR-up8wovbEsv7@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="gRFM9sHF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=PbNe
+	OpHyT5IouC5bkY58dTpb/EK5Mw7xbZDeLKa1RIA=; b=gRFM9sHFB6vvBwoyN8SD
+	hReVsLjCEk/85CP+Ioau4AtIzTtXVv5zbMvIxp3YEe+wK9vPJrs09kNGtUv2XNdn
+	Xqf9hw0R3TGtGrgqNVf943MpZvy4PsV0lXFLe2JllyzrRhNQxo51vBjhKOCdPqMz
+	z/TV9GsqHfnVlzhRkhUff3Ck8DTqwVZpECvSeJwWuIy2KK06g/PYWzjHy7ETSfpS
+	D/oMndhJznC2gMJvS6FWHDzGxuaEa+OT+SXt1heJxX+zHKLEl38pzi1bnY7GQZd+
+	X0g5XJxo8Wtpmr1UddE17N29l7f7JgqS1sAIi03m3WwYQFzxgAdoRS6+Q4FNZ2ky
+	rg==
+Received: (qmail 1936302 invoked from network); 17 Sep 2026 11:21:52 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Sep 2026 11:21:52 +0200
+X-UD-Smtp-Session: l3s3148p1@svd1UKpbwqUujnsL
+Date: Thu, 17 Sep 2026 11:21:52 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v7 2/3] hwspinlock: add list of locks to debugfs
+Message-ID: <aquxMAA5oPStd2Eu@ninjato>
+References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
+ <20260912191442.99453-3-wsa+renesas@sang-engineering.com>
+ <CAMuHMdVbYaUXiW11j+LKSuSaLLF2PRR2kAFsaj-ZGsx7nNjK-w@mail.gmail.com>
+ <aqsMzXQ__BsWXUqH@shikoro>
+ <CAMuHMdXBHeRj2tjjqc82MKCm+Tpm4KakrvGwn4q5T7mkTOmrXQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDXOfcMsatqdhQkSA--.64230S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4rAFyUCr18JrWDKF1xXwb_yoWkCrbE9r
-	yDtr4xuay7Cr1Iyr4DKF4xXF97GFWjvry5Xa95urnxt34jka1xWF1DtrnxAwn5JanY9ry3
-	G3WrZ3W8Ca9F9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjqYLPUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wz0amqrsQy35QAA3f
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pwBXeAy3FapsKEbP"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdXBHeRj2tjjqc82MKCm+Tpm4KakrvGwn4q5T7mkTOmrXQ@mail.gmail.com>
 
-Hi Frederic,
+--pwBXeAy3FapsKEbP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for looking at it.
 
-You are right that pr_warn_once() is easy to miss, and that this matters
-least at boot under memory pressure. The case I was worried about is the
-WARN itself: __warn() taints the kernel and calls check_panic_on_warn(), so
-on a box running panic_on_warn=1 a recoverable allocation failure turns
-into a panic. That said, the allocation is GFP_KERNEL on a path that runs
-once per thread and almost always at boot, so if you would rather keep the
-warning as it is, I am fine with that. It is your call and I will not push
-it further.
+> > > Do you mean xa_find_after() may loop forever?
+> >
+> > Ehrm, it's been a while, I need to look this up. Which means the comment
+> > is not explanationary enough :/
+>=20
+> Yeah, I'd expect xa_find_after() to do exactly what you want...
 
-Two things I should mention, since you are the maintainer here:
+So, the reason is that xa_find_after() only upadtes ppos if something is
+found. If nothing is found, it will in deed loop forever staying on the
+same ppos. Will update the comment.
 
-1. I am not going to re-send this. Waiman said the patch looked good to
-   him, but you are the one who would take it, and "mildly convinced" is
-   not an ack. If you want a revision with the message kept as WARN, say so
-   and I will send one; otherwise please just drop it.
+> > I get the idea, but haven't found a nice word yet. "Busy" could be
+> > interpreted as "lock taken". I'll think some more about it.
+>=20
+> "used", "bound", "unavailable", "occupied", "reserved", "in_use", "inuse"=
+, ...
 
-2. This was prepared with an LLM coding assistant and should have carried
-   an "Assisted-by: LLM" tag per
-   Documentation/process/coding-assistants.rst. It did not, and I am adding
-   the tag on anything I send from now on.
+After sleeping over it, I will simply go with "free/used".
 
-Sorry for the extra round trip.
 
-Quchaosheng
+--pwBXeAy3FapsKEbP
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrsTAACgkQFA3kzBSg
+KbZv2Q//b7RzLd98y4gI3ZMrrPrQR7iOmWXm2S8kNQVAT3AvXHQoa0rv/o1yF4NN
+Jsn8+AObRyrJ0nrkFL00ZYO2KYSEoJI2E/MPJ9xv/8wO6R0c5Hqd3ralF1igePk5
+mBoFJ8XrNkpXuJjtFhIuZacX0IazS+w5BLEDMlW5MVyJUOUcZUXZ6rZEnfrX8EVK
+VlxBCWjiOHQhyBTnOMq+JhPEl7KkvQRKopegQZJwqw8ugU0R0uudT225BF+ebR1S
+4kQJda35SD6uuU8e56WET1VRE8qKXmhdPu1/3kHMiJ1zd4aG3hc9Pp8hoDbt64L/
+MOOXedF5u9lmZfmuJIJDiGGfUyA1VCCS3lBEXcIaT1rYvHVQDZn1o63TFmjZN3uZ
+K2T2hAvhJkanC67hoza39gmfYMzVefdRTZnvnKAiBJnk/i8jNuRBZeRHxRr5u2gJ
+nq/nYFXbZp9UldW7HiKThF6BOdF2Cp5mU2taSSlZ0E7DhRaWeCnFa5kQQ4uZExKp
+2+EZiP77BwGvD/yF0XK34AoC8cp2i9fNWinWTu3FdcZEks7rIpwCeNahfdaSfIuy
+2NU94Z4QrN2HcBsGcSqTJ1Dw/mwOn6I/tA8jEUS7gXOFxLqyEmvAsB5f7e8j0xt7
+l3xQJ7l41MpwxcT1EVHsbqUKEIZTOeNhH9Rl1YveaaNiKV1yrU0=
+=K7LL
+-----END PGP SIGNATURE-----
+
+--pwBXeAy3FapsKEbP--
