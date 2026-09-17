@@ -1,131 +1,164 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A9BC265621;
-	Thu, 17 Sep 2026 01:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFFD1448E0;
+	Thu, 17 Sep 2026 01:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789606918; cv=none; b=ZWSNtvqkxms4V04r9qZFpsemo+Y507Oa2LIU9orfamLDqDfhp4umOFAs6EEQjSaS9y/y5aI/jCuHusNvnVls+HJy7sobVWY5uNNhDVVELVm8pPCeYuMjhj4X/y9TxfU44BjvBB/OUs4YSFjiLRt0EYfoV2jDLZ3xAA9gET4DLTM=
+	t=1789607005; cv=none; b=NSqvHV18upWnpObFGw0Ka3m9KK4vA0Z4ug1bkA2sRPgbTb8ZLHkBrVGTpt1xqqP6Nu2zvNy9NOXW1A97282/GH+I8+P85Uu93GOQXGT5E0+EScqKakAFNN648VA9UAFw9LitcsVsPragnGOShepr3ogmkvLWtI3t6Y9IHMD2Kb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789606918; c=relaxed/simple;
-	bh=UYj33uToIe6OR13RPp5d3tTHqWSnJ5S7fiV/rx58uk8=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=kSGetfSZzXLhllI89AGqIuj1rQLSx4pnAo/rrmodjP1n+3IAWeF1B1D88bJte06uJs/ynURB5HmIXIuAZkhCPNuowRuoJ9FFA4140WkDi9IKKnOPwQtBM4Z4xwSLbjle3qldEyzsaWwxtecfr6ylHscFjQKonfsNJ1JHbm+12mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxytH7O6tqydkMAA--.37580S3;
-	Thu, 17 Sep 2026 09:01:47 +0800 (CST)
-Received: from [10.130.40.83] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAxlMz4O6tqoqUhAA--.44539S2;
-	Thu, 17 Sep 2026 09:01:45 +0800 (CST)
-Subject: Re: [PATCH net-next v1] net: stmmac: Default DWMAC_MOTORCOMM to m on
- MACH_LOONGSON64
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Yao Zi <me@ziyao.cc>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915073206.6665-1-yangtiezhu@loongson.cn>
- <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <f6b93b98-e0d3-9e28-e366-4df126e6ab5f@loongson.cn>
-Date: Thu, 17 Sep 2026 09:01:44 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1789607005; c=relaxed/simple;
+	bh=inNyvSkcLBnS5k/OiUY6yUYECw1VW2i6mv/AgsAoLVg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cf139ctWsFKvLz9HuG2SG1bosxemlvYEp0JYRBeQvy6puKCPR9rgMTgq6xf+b8ZI/K6XBdmmVEODbcsW7QGVpdC25QlXlm2TBj/jDDlaC7Rv3fL9YvM8/TCZe8LysLQp5ixBFuc3J7RlcBLPJhM14BJRQ9q3pBt2MP6M2cWgb40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P6xxV9o0; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P6xxV9o0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789607004; x=1821143004;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=inNyvSkcLBnS5k/OiUY6yUYECw1VW2i6mv/AgsAoLVg=;
+  b=P6xxV9o0klTEPoE76dicjPYzxq/IsV4dOU+xkHjTCid2GoxaQHBQWVvg
+   l4jglI9PIhdtin5QkCfGRcf8xR90H6NQhxHkBP73sAsULdFjvmONuLJTA
+   fNLHdCd4B8iQMmY7xVJVwxNuyn6C4o5mXk/KIx/kjDRyjPh3b7gZsunUH
+   6zUCPLDy2iwfMxs518a8mdbIuH7siOv+FNetXc3vIgBRE/chjmV9FKuJZ
+   VeZS4zWOZnD+Pp0e81e1UXdc7fRaoQpc/fP7lh/GOsBkaK41tlGFQ2PtV
+   3+wPvr4SV4npI8Mf1B7klZ3Yn436kS9oY8uHznkq4FxE2WiuGLKwOSul3
+   g==;
+X-CSE-ConnectionGUID: gJBmHJAiSZC8hGwfxVF+MA==
+X-CSE-MsgGUID: EfOfovyTTEu22jhAL/h6Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92500778"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92500778"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 18:03:23 -0700
+X-CSE-ConnectionGUID: xTMPxkNlRLyAAUGaj09X5A==
+X-CSE-MsgGUID: 3VpWgHoIRHuSCFef8fYZ8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277638019"
+Received: from unknown (HELO [10.238.2.103]) ([10.238.2.103])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 18:03:20 -0700
+Message-ID: <169f9a48-425d-4e58-b05d-bed05c4c6971@linux.intel.com>
+Date: Thu, 17 Sep 2026 09:03:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] perf: Add checks to prevent null ptr access
+To: "Belgaumkar, Vinay" <vinay.belgaumkar@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+References: <20260904181625.1394082-1-vinay.belgaumkar@intel.com>
+ <20260904181625.1394082-2-vinay.belgaumkar@intel.com>
+ <f2b62bcb-b5a1-48e9-93c8-644ab3ac4439@linux.intel.com>
+ <1d6c8cd5-76e9-421c-9e36-3de7c2816d27@intel.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxlMz4O6tqoqUhAA--.44539S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ur15CF18Zw43AF15JFW5Jwc_yoW8KFy3pr
-	4qya429r1kJF45Jw4kA3y8WF90ga97KrZ8u3Z7Jw1fXFZFkryjqryqqFWYqF1UCrWDXF12
-	yrW5uasxC3WDAwbCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UU
-	UUU==
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <1d6c8cd5-76e9-421c-9e36-3de7c2816d27@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026/9/17 上午12:54, Maxime Chevallier wrote:
-> Hi
-> 
-> On 9/15/26 09:32, Tiezhu Yang wrote:
->> Currently, there is no network connectivity when upgrading to the
->> latest upstream mainline kernel on certain Loongson machines such
->> as Loongson-3C6000 server, because the driver for the onboard NIC
->> is not enabled.
+
+On 9/17/2026 5:48 AM, Belgaumkar, Vinay wrote:
+> On 9/15/2026 6:40 PM, Mi, Dapeng wrote:
+>> On 9/5/2026 2:16 AM, Vinay Belgaumkar wrote:
+>>> Sashiko recommended some additional checks to prevent null pointer
+>>> access. Check for revoked states inside perf_event_read_local(), as
+>>> the pmu event may have already been freed at this point. Add a null
+>> Could you please show where perf_event_read_local() could be called after
+>> the event is revoked?
+> perf_event_read_local() is only available to be called in the kernel 
+> context. So, BPF helpers can call it. This was the scenario outlined by 
+> Sashiko:
+>
+> If CPU A calls perf_event_read_local(), disables interrupts, and locklessly
+> checks event->state, it can pass if the event state is
+> PERF_EVENT_STATE_INACTIVE.
+>
+> Concurrently, if CPU B calls perf_pmu_unregister() which leads to
+> __pmu_detach_event(), it will not send an IPI to synchronize with CPU A
+> since the event is inactive. CPU B then sets event->state to
+> PERF_EVENT_STATE_REVOKED and clears event->pmu to NULL.
+>
+> When CPU A continues and calls __perf_event_read_cpu(event, event->cpu),
+> if the event has PERF_EV_CAP_READ_SCOPE, it will dereference
+> event->pmu->scope, which was just set to NULL by CPU B, causing a panic.
+
+Ok, better add this into the change log, so the reviewers know why we need
+this change. Thanks.
+
+
+>
+> So, I think the scenario is- we have a regular perf session ongoing and 
+> a parallel session (through BPF) that tries to access the same counter.
+>
+>> BTW, the prefix should be "perf/core:" instead of "perf:" by following
+>> current naming convention.
+> Sure.
+>
+> Thanks,
+>
+> Vinay.
+>
+>> Thanks.
 >>
->> Enable the Motorcomm PCI DWMAC driver as a module by default when
->> building for the Loongson-64 platform.
 >>
->> This ensures out-of-the-box support for Motorcomm YT6801 Ethernet
->> controllers on Loongson machines, enabling demand-loading without
->> increasing the core kernel image size.
->>
->> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
->> ---
->>   drivers/net/ethernet/stmicro/stmmac/Kconfig | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> index ab3c4cf96423..c86d6c08977c 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
->> @@ -408,6 +408,7 @@ config DWMAC_LOONGSON
->>   
->>   config DWMAC_MOTORCOMM
->>   	tristate "Motorcomm PCI DWMAC support"
->> +	default m if MACH_LOONGSON64
->>   	depends on PCI
->>   	select MOTORCOMM_PHY
->>   	select STMMAC_LIBPCI
-> 
-> I agree with Yao Zi, this belongs in your .config, maybe your
-> defconfig, but not in the stmmac Kconfig.
-
-Thanks for the constructive suggestions.
-
-Before moving forward, I'd like to share an alternative thought.
-As noted in the earlier review, this network controller could be
-used across multiple architectures. To avoid the redundant churn
-in the defconfigs of every single architecture, I am wondering if
-we could unconditionally set it to default m in the Kconfig instead.
-
-Please let me know whether it makes sense:
-
-```
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig 
-b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index ab3c4cf96423..bea18cb4b697 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -408,6 +408,7 @@ config DWMAC_LOONGSON
-
-  config DWMAC_MOTORCOMM
-         tristate "Motorcomm PCI DWMAC support"
-+       default m
-         depends on PCI
-         select MOTORCOMM_PHY
-         select STMMAC_LIBPCI
-```
-
-If no, I will modify the arch-specific config.
-
-Thanks,
-Tiezhu
-
+>>> check inside __perf_event_read_cpu() as well before accessing the pmu
+>>> ptr.
+>>>
+>>> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+>>> ---
+>>>   kernel/events/core.c | 12 +++++++++++-
+>>>   1 file changed, 11 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/kernel/events/core.c b/kernel/events/core.c
+>>> index 7777e82aad5e..059f82f0cadd 100644
+>>> --- a/kernel/events/core.c
+>>> +++ b/kernel/events/core.c
+>>> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cpu_topology_cpumask(unsigned int
+>>>   
+>>>   static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+>>>   {
+>>> +	struct pmu *pmu = READ_ONCE(event->pmu);
+>>>   	int local_cpu = smp_processor_id();
+>>>   	u16 local_pkg, event_pkg;
+>>>   
+>>>   	if ((unsigned)event_cpu >= nr_cpu_ids)
+>>>   		return event_cpu;
+>>>   
+>>> +	if (!pmu)
+>>> +		return -ENODEV;
+>>> +
+>>>   	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+>>> -		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
+>>> +		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(pmu->scope,
+>>> +										event_cpu);
+>>>   
+>>>   		if (cpumask && cpumask_test_cpu(local_cpu, cpumask))
+>>>   			return local_cpu;
+>>> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+>>>   		goto out;
+>>>   	}
+>>>   
+>>> +	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
+>>> +		ret = -ENODEV;
+>>> +		goto out;
+>>> +	}
+>>> +
+>>>   	/*
+>>>   	 * Get the event CPU numbers, and adjust them to local if the event is
+>>>   	 * a per-package event that can be read locally
