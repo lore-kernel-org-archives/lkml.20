@@ -1,94 +1,127 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A504E4333;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F4B4D37DB;
 	Thu, 17 Sep 2026 12:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647951; cv=none; b=XXeQmat3akt6tyJcTms4UKBtncL4VQMpBDjTBRP6vYitp36yd7ZxyiurCNJwX5f7AHEY0jiDgmakqHoYA/OUgqmkcWyl3JJxnc12ufpNlm2UpMSWbeFvH9hIcCOnczOORDE2Rf8fFpb46xkfk4imZhiZAmyDNLIC2K3OhnuLQgI=
+	t=1789647957; cv=none; b=JUqQAH0zbHIAUxdC8Is1junGFgtzvRwoMc7MedbgaZzIWUbPNvpK8h0QsAdPAOH78xCdY0FSzIoxwQ5r8fRa/FGPtmwG83IfYaee7oo4wh/zy24xPIa7O3B6wAJ7Kan5CHCxgJYbNbskUWfFHpJNv+KeelPD0Tf6g648a0jfQpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647951; c=relaxed/simple;
-	bh=6AhwryHkCtCla0U2D/jO3hscbmh+77fa9n2niFCK6w8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V0KljAmO68iqgtX7XJ7VLlsm82alNYwsVIGAS2Zpqbs9FzwtAIs/TZV5JiZr+06k/rsjzjZ4K0Ozwa0oXpfp7zmImxobAQKcxVmQxlEZzaJ5URvHHj+ypoWPSmey25wI55XfPgEVhLpDmDbkeE1QziegQUWhVqWLthWGURmKcF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXwz083Ktq5XaACA--.43697S2;
-	Thu, 17 Sep 2026 20:25:33 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: david+nfc@ixit.cz
-Cc: linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	mgreer@animalcreek.com,
-	oe-linux-nfc@lists.linux.dev,
-	sameo@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] NFC: trf7970a: Fix runtime PM leak in trf7970a_switch_rf_on()
-Date: Thu, 17 Sep 2026 12:25:32 +0000
-Message-Id: <20260917122532.2150988-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789647957; c=relaxed/simple;
+	bh=MO544Wsk/Oafa0bUboIOlCkH6j/N7fUKxAhwOhrTIWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D/8eVkICDMcul1s65I7SkNsGDjatglrrDv/Ke6I6xnGTg0Psp+hs/016KLo8eps0fS+K7ItrKLnXz0kv6Hv176M7ggzTy/6MMqswd5aF7pkClQuSu71Ip/iBlBKNlgKh/TKDkiB2KVIlrComTOLOo5DwboWD9ZQZ4CtpojXEHD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Message-ID: <a47a1a0e-559b-410c-aa99-9230908c2fe6@mainlining.org>
+Date: Thu, 17 Sep 2026 15:25:32 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXwz083Ktq5XaACA--.43697S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrZry8JryxuFyUCw1rCr1xKrg_yoW8JF45pa
-	n2qrW5CFy5ArW7t34UAF4vqa4F93s8trW5C34F9a4Iva1rJFy3ta45JF129F10yr95Zw13
-	tFyIyr47WasYvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j0wZcUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq02ZIQABsL
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/19] clk: qcom: Add global clock controller driver
+ for MSM8952
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-2-798c2602dde1@mainlining.org>
+ <af3f7261-e4b0-42fc-818d-80e760cddc2c@oss.qualcomm.com>
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Content-Language: en-US
+In-Reply-To: <af3f7261-e4b0-42fc-818d-80e760cddc2c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-pm_runtime_get_sync() unconditionally increments the runtime PM usage
-counter, so the reference taken at the top of trf7970a_switch_rf_on()
-has to be dropped on every exit path. The two error paths return
-without doing so, and since the chip is left in TRF7970A_ST_RF_OFF they
-are not balanced by trf7970a_switch_rf_off() either.
+Hi Taniya,
 
-Release the reference the same way trf7970a_switch_rf_off() does.
+On Thu, 17 Sep 2026 09:49:07 +0530, Taniya Das wrote:
+>> diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+>> index a6c676f68b79..3c3f27dcc68d 100644
+>> --- a/drivers/clk/qcom/Makefile
+>> +++ b/drivers/clk/qcom/Makefile
+>> @@ -89,6 +89,7 @@ obj-$(CONFIG_MSM_GCC_8909) += gcc-msm8909.o
+>>  obj-$(CONFIG_MSM_GCC_8916) += gcc-msm8916.o
+>>  obj-$(CONFIG_MSM_GCC_8917) += gcc-msm8917.o
+>>  obj-$(CONFIG_MSM_GCC_8939) += gcc-msm8939.o
+>> +obj-$(CONFIG_MSM_GCC_8952) += gcc-msm8952.o
+>>  obj-$(CONFIG_MSM_GCC_8953) += gcc-msm8953.o
+>>  obj-$(CONFIG_MSM_GCC_8960) += gcc-msm8960.o
+>>  obj-$(CONFIG_MSM_GCC_8974) += gcc-msm8974.o
+>> diff --git a/drivers/clk/qcom/gcc-msm8952.c b/drivers/clk/qcom/gcc-msm8952.c
+>> new file mode 100644
+>> index 000000000000..6b82606dfadb
+>> --- /dev/null
+>> +++ b/drivers/clk/qcom/gcc-msm8952.c
+>> @@ -0,0 +1,3550 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright 2020 Linaro Limited
+> 
+> https://android.googlesource.com/kernel/msm/+/android-msm-shamrock-3.10-nougat-release/drivers/clk/qcom/clock-gcc-8952.c
+> 
+> This is our original copyright.
+> 
+>> + * Copyright 2026 Muzaffer Kadir <muzafferkadir@mainlining.org>
+>> + */
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/bitops.h>
+>> +#include <linux/err.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/clk-provider.h>
+>> +#include <linux/regmap.h>
+>> +#include <linux/reset-controller.h>
+>> +
+>> +#include <dt-bindings/clock/qcom,gcc-msm8952.h>
+>> +
+>> +#include "common.h"
+>> +#include "clk-regmap.h"
+>> +#include "clk-pll.h"
+>> +#include "clk-alpha-pll.h"
+>> +#include "clk-rcg.h"
+>> +#include "clk-branch.h"
+>> +#include "reset.h"
+>> +#include "gdsc.h"
+>> +
+> 
+> Add DT_BI_TCXO enum.
 
-Fixes: e6403b7c756f9 ("NFC: trf7970a: Add pm_runtime support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/nfc/trf7970a.c | 2 ++
- 1 file changed, 2 insertions(+)
+Should I rename the clock name to bi_tcxo?
+Or should I use DT_XO for enum?
 
-diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
-index 08c27bb438b5..07bc336c6505 100644
---- a/drivers/nfc/trf7970a.c
-+++ b/drivers/nfc/trf7970a.c
-@@ -1155,12 +1155,14 @@ static int trf7970a_switch_rf_on(struct trf7970a *trf)
- 	if (trf->state != TRF7970A_ST_RF_OFF) {	/* Power on, RF off */
- 		dev_err(trf->dev, "%s - Incorrect state: %d\n", __func__,
- 			trf->state);
-+		pm_runtime_put_autosuspend(trf->dev);
- 		return -EINVAL;
- 	}
- 
- 	ret = trf7970a_init(trf);
- 	if (ret) {
- 		dev_err(trf->dev, "%s - Can't initialize: %d\n", __func__, ret);
-+		pm_runtime_put_autosuspend(trf->dev);
- 		return ret;
- 	}
- 
--- 
-2.34.1
-
+Best regards,
+Muzaffer Kadir
