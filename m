@@ -1,137 +1,185 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E96D493D2D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789680586; cv=pass; b=iCB3cAIjNTU8FU+xr1Pd2OmvHwJwbabCG9kYjIW3rUc2NRRs3UQ3QAoI9NjNIIS6vSwMWIGYsFgm+zfX8o617enn07aBdAlmIkDyixT5GrOW5V3nKLSr4VwnhtZqzO3Yrtybe3AFwvkVqlhry+MNeH9Uo8TND5mC6U1GGfy0kRE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789680586; c=relaxed/simple;
-	bh=qgLoDi6Xh7D7JxGbAM+LdTIwZ8wB4ozC9PqydMFa25M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SFbALpQYYJ+mHbGf5ocGY29V1gLdDYM6yTHldOAb4WbAxy5Fmocv8sPzDJnGEgoUuHNYs6ALBQ6pm3y9O09k3geWXda/Y3ZZtjS0TxQ/v8tJhYBYH7ke1DfvB3Kfmtvlg8eUHoB6cwXtb6wHya3kYbMlzXgMmVp08gfJ2hmK9zU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=v31K2xAs; arc=pass smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164D94CA796
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789680595; cv=none; b=iZ2doKqFEz2iyCJygejLlIhSShtADicRwMY+giiyD1dYYyRfJD5QuVphxZ1tzAEhQDsPyTju9aMWP/VKmdRwEb42yblvhKHqGiVK61EWPXEMg2n5uCCyV5jdXa+4OTH8/YTm1lPTrjd2OHOZIixTnlpsTyLPIZ6W+lT7wvKdUkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789680595; c=relaxed/simple;
+	bh=ucQye2B+H6wFivyC6OorOnv4UKxi5gKZEXt7bb+u/q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k9BFr9MFuwdcqGUNBNyQb8WUG6Iyps1bduqQiD0lZXMdI7CH8FoYRI3Guic7y9/HygleGAMB4LWjXZuH8hmlmifj1rYFEaGm6pp9M6NoMtymvx/NMuCl+WvzTbgds/+gkOLdDDo3yAEDRYVb+VKUyPtUelUoNFJSN8SzL0kqCzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BrQFPiBc; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="v31K2xAs"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so10649e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:29:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789680584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fu6Fpm7Zf7lwIQ0VOP9SjWuUrhcxBB+08sVlUW/FavtboTVlNI9NjowFFWkrDhRuoM
-         RF+ZG0zX4K3QDxNBKkUmYqMhdX0R4P5g+qCIv3YP4QdBV9kmXtYrNdSx483TvixneTca
-         orekSZ68s6HtEe61NU2bD3spiRfSjoEQ1Zl168+qxFzY492z4wD+af6Xc86z06cSNDGC
-         2sOw89Q51r2/IT9VNsUUazG1aewTFjGjQy2M5SK4scLCR1z+gNxg7+IMWH1PGcNEx0Vf
-         uMYZj9YKPj1cru/ybQ6Tj4G/573rCeaxV5HJQNSc+IokmoXoUU4doUih74oF1aAKXCdm
-         2NPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qgLoDi6Xh7D7JxGbAM+LdTIwZ8wB4ozC9PqydMFa25M=;
-        fh=9sXhEpmmFYpKvY6N7LGRsv2Xkptm6o2IDwWC+5tbLQA=;
-        b=kt9y34gQgigzBw1sH9XLbbG/zhp23X4ZybHU5RjROSaYLZ6pQSCnI6h1B1hiW36mJz
-         D7LNAAnQ2wgy0zzBHTZEN3I+F/2iWk5fPpaf99uuu/9vmuDzRz9fBj+10mTv7DLkVqES
-         NaxBxFQG4gQ3UKiBpNy/hJ/PIvu28NeDGLLJFxHZYENTA4VU1oV/EkzjPDTdOqR7AwLN
-         CdV59v/6/+tmMdZj4iuhPVmYG+j6x2VXt99oDqTP0yKpEwOmTE1RlOFR3NbiUI2jfjGi
-         8BOr3O6YZ3UEVvNuafCa2104NtPegpUYC09fJIgRiTNx1OR9PPQkuLOrCFdEglFHxgra
-         WT7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BrQFPiBc"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so97074a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789680584; x=1790285384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qgLoDi6Xh7D7JxGbAM+LdTIwZ8wB4ozC9PqydMFa25M=;
-        b=v31K2xAs4kc1vZHOyTkWByZOM8TMy+phP7RpVpUuEOX9a8GRdHmduPj94d3Nh1yhyw
-         WUutoWbMfwDMqCL/k8FXhit1X0/ybEB4o9T7W3SATErlhIc6Y3yGfaYiULrPucGvrqZQ
-         uE5BD1s6zkUxXsISYHIkJKFjGg9nb2v5GcNQ5j/JTdAzrVKOo6xu+PYku/PSKmP8clRW
-         qZ5eRtin4lNoelGVoA8kjcoMIl1YOwtKwU44sY1gW0OZobeVPGbdD4IAGGKhQqlVEz2b
-         sIrnscC+Ord8a7/IlsVdgpgNh83jL3rfOHQvEcSVgL0tdvcoMliiLsnN1VIm/KusAWk8
-         pqPg==
+        d=gmail.com; s=20251104; t=1789680593; x=1790285393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
+        b=BrQFPiBc6cUL3ZwNU2K+sYgKpqWI8iDeB6o+w6+/Hkaap46VVt9bPp9lfmjqII1hFQ
+         kmpVWkHW+K9a6LkDmcUXVqtRALuHtHDVdg9XIBDqsHlE/VzgAhXdrC3FcTW3uOC4h76Q
+         GMzcmU0czPIUYuvZxIS433ywGrhoC0PkaEeu0hAhFnIWaVlwGfecDz0bNwUFp+ebNYDu
+         0Nk95azZyhcQ7cp+Lhqr+KQbIczgonHTVLcruFR6ykHlq8b/7TQXy46VMu3c8qznKKxQ
+         W+KE1qltd5hSZf3ALdS2QzGHOoqfjkiclbcZc8BaeVXmQv2i34M/z4fHe4rQoJV/JSwj
+         NgWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789680584; x=1790285384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qgLoDi6Xh7D7JxGbAM+LdTIwZ8wB4ozC9PqydMFa25M=;
-        b=mRkHN1Xy5gaCOrO84uD6QS3toiOsgGV5xGk6YTMYMossHBo7jN6fU2mGg8UfQwq4w2
-         PykLM4Wf4y1niHpm5DIvhdVJqjIkQCezQfKX47e1QhPWA0DMvOd0C1LTmmwpRAHEFnBW
-         fsQRG4xrXukEZZT7x+ADnL3tAhqW/Q7312JO+8a0wRLaoqGxmf6nhYPv5eu8763nmFPh
-         BHqGwTRiW8D6/uaKOMXKnfnUHCbRyK6okcjXZNf3vOtEezqpRClVEnMXDQI3yDg22jqv
-         cNsStEhYKsuHHr38+NUrZWlKdEjawntXnQF6kIG4JqBi5YNdoZTh5bP0V0tYmh11R+KV
-         G56g==
-X-Forwarded-Encrypted: i=1; AKwUvBzducCUZVdFVt728qSxlATQqKeck23T0wZuKhEzwBoSLjap3iZOEWUpzqTlqnMN4xkmriYcfpSF/torBoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaETdMGEY23JgY2vr/GVxJ50uw+eL4iQLcS+OxY3dhMbA8QnpP
-	V+O595uzDigtp5fmsB8JsvAQbNTu6XBtbxDRO2LUb2PtKTDzAe/SqKZa8FTN6aIB8g/CqA0EyvN
-	9qTrfloGn0Qfp2qirBRkmHnlSrBJVKYdhr/U19xQ=
-X-Gm-Gg: AYBFou0h4egiDuvnZqUpTFuwTSUvw+FElmf22UVdSeEZ+2+y/sM9XVDoBJ2XNKsG+1o
-	DteLbA/vDUCXjeIGJWB0mytw9ChaYzkEp36QUWmVRHPaSlqDJUjnydnPH7pPtRvL5qPtsx3G3tC
-	blU2lao6WKQuRc824WGGRrvvqJoAnnBI2bMX1U06Qx4r/z1dQ2UWMg9lgpUE1tCCBShyrn7o37w
-	kdSRwZBXIAA3DuHHxVd2SGax6qJlKufuiR7YjO2Kh03WMc882kP4LpY4jf4jAeex/bz8phxr37W
-	DYqgpUuQQ2AN2r1EEFnPrMl8pLDBC0PJR+dakIw5vBX3DC6t9CSmmK7GBxdIduEzh2u6TKdqto8
-	/3b12kN1XaHkjV7NJvfJB
-X-Received: by 2002:a05:6122:328a:b0:5c8:4bd6:fe with SMTP id
- 71dfb90a1353d-5c9b58e4d13mr267621e0c.8.1789680583441; Thu, 17 Sep 2026
- 14:29:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789680593; x=1790285393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1DANMGqGjQRJK06dbUTcEvdwBQZbNV6u9IBjVo5P9NY=;
+        b=M6qxTbLPVu7441kSSK+B2ukWlt8nmJqPj4ntoHylIaZjmPNzyOPojKpgajw7rI+iLA
+         QOJ1w2diNkMV7GYI3HdvQ7OXP0e5W3f9bT7jGxQ3VR59BUhL+ZplyDQTT1xTDZa1z+Rw
+         QEIVfcb2C8ORyM2Pk9ZeKbPQN6sPnY/DmoQnseHlvxGkf75c8uEyoYE6AYHROfQfvi02
+         WMgnK3MXCFtG6c1yv9WrDPacS3vpUV0QovgeC4VTlUc4V4Mt9/yyNUosRgTmSYtB3yJg
+         ugtvF4+AIvYaS0C2JOq3sElC8W+NGDXRS8xgRlxgu5ZwZlHWtt1Bh5Xg1YUJzA0OIFjM
+         GbEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTuMfvelkQuyt8JZcBjxEJC88PMI+GZ+kMmTPDZ+qMr38d3k8m+4Kkx/814+QKXuIWMDrhru4SvpxuXYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwevBKgXd3qn44n0clag9Rkb62gcHrxn/AB9T+pM3NckJwHY3S
+	0945MM1Z/5fCs0wOKcQBnsT1Fm0CIdgeStVqK/qboZ3TRaBfdmY4V7oJ
+X-Gm-Gg: AYBFou0e7SCunDStSaOyBtZz1qMwOgImEZonfoY33tGbKDEcOxuu2Xtx53Ty+hfF2QN
+	AR1mHq1tfpMW6dnBG6ksZoP+D/7bMo0QXr5IPcMFzemRSgBXzg/UJYiRi62dGb+2cs2+/TYKevl
+	VG5rLTEX79NKJMfQiVDfLS6HgTIrH496rDTIAhbc4mWRwn84ObS5mE6ImwrrGJx3/9rASzO8Wpu
+	+bB7sO0ds2Nuo8xLYWpq4DY7/vgTGCcHcCCTHxcgAEtg3QhDK0mmAIBqgNyu6fd5CY7hvNgkBjE
+	ggeIgYpMwdlwmkjGdKPULaoZ1I4dHw4Xq+a6vjK0M9sfFkJ8tmJHGN91iHSkXN27eJBNbDBzipm
+	cqk3k4SlWc/8PYjbQ6Zu/1yQJGx3TND8FG5Y+ijYGn7VqJpPVFDzJuGEwMTsOIOB9NIM45UJguE
+	E4qDeMGcqem4O8tjHdpWS2AHwQBE7S/ixUPjj8wBktY/W1rGf4iYzLu8lY3qx0v7zhq5s1AbtKn
+	DNkwyKFwgH6sPEoUtxjm5Nx1YFnN93CkB69AMS/4PTa0UaMctGF2Jn/nQC4kpEVB9Kkzp5SCsK3
+	tDiRiQ3n
+X-Received: by 2002:a17:90b:4c46:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39e54922644mr1317373a91.0.1789680593294;
+        Thu, 17 Sep 2026 14:29:53 -0700 (PDT)
+Received: from localhost.localdomain ([47.156.168.118])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm14551132c88.11.2026.09.17.14.29.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 14:29:52 -0700 (PDT)
+From: Henry Paradiz <henry.paradiz@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
+Date: Thu, 17 Sep 2026 14:29:51 -0700
+Message-ID: <20260917212951.558283-1-henry.paradiz@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916222125.1259631-1-morbo@google.com> <20260917011359.1585961-1-morbo@google.com>
- <9DA6BE5B-E65F-4E8B-8B56-A861042100E4@kernel.org>
-In-Reply-To: <9DA6BE5B-E65F-4E8B-8B56-A861042100E4@kernel.org>
-From: Bill Wendling <morbo@google.com>
-Date: Thu, 17 Sep 2026 14:29:26 -0700
-X-Gm-Features: AcwNN1VNx8kwm1pwS70fvvLDvkNMIiJFA0qoHj8KSyyD3K9Zmt_H0FI-tXmjMpE
-Message-ID: <CAGG=3QV0yamwdhWX=vB4LaworiOJ0iUaDCJ3E24Wh8NHgHXpuw@mail.gmail.com>
-Subject: Re: [PATCH v3] seq_buf: add seq_buf_strlen(), seq_buf_init_append(), seq_buf_puts_trunc()
-To: Kees Cook <kees@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 7:24=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
-> On September 16, 2026 6:13:59 PM PDT, Bill Wendling <morbo@google.com> wr=
-ote:
-> >Converting some strlcat() call sites seq_buf need behavior seq_buf
-> >doesn't currently provide, either directly or without introducing subtle
-> >bugs:
->
-> Ah, our implementations have crossed paths in flight. :)
->
-> > - seq_buf_strlen(): seq_buf_used() reports the full buffer size when
->
-> We agree, we need this one. :)
->
->
-> > - seq_buf_init_append(): seq_buf_init() always clears the buffer it's
->
-> Oh, nice, yeah this is cool. I'd like a different name that mentions "str=
-"? Maybe _from_str?
->
-> > - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and
->
-> I prefer my solution that just truncates and sets overflow. Nothing i fou=
-nd needed the non-trunc behavior.
->
-> I'll send a v2 of the other series with seq_buf_init_from_str?
->
-Hi Kees,
+The eEver Live Streaming USB Device HDMI capture card (1e4e:7102,
+bcdDevice 1.00) exposes two problems when HDMI is connected but the
+input signal does not lock.
 
-I didn't know you were working on this as well.
+While idle, the device disconnects shortly after entering USB runtime
+suspend and repeatedly re-enumerates. Keeping it runtime-active stops
+this loop. Enable the existing UVC_QUIRK_DISABLE_AUTOSUSPEND for this
+USB ID to avoid the repeated USB, UVC and USB-audio discovery messages.
+Normal USB disconnect handling is preserved.
 
-Andrew, please ignore this patch. I apologize for the spam.
+On each enumeration, VIDIOC_TRY_FMT takes about 920 ms per call because
+uvcvideo negotiates with the device through UVC probe control transfers.
+PipeWire queries nine MJPEG frame sizes for colorimetry on its main loop,
+blocking unrelated audio mute and volume requests for roughly eight
+seconds while audio playback continues on a separate thread.
 
--bw
+Add UVC_QUIRK_SKIP_TRY_FMT_PROBE to answer this device's TRY_FMT calls
+using the parsed format and frame descriptors. The advertised frame
+buffer sizes match the observed probe results for all nine resolutions.
+S_FMT continues to negotiate with the hardware, and other devices retain
+their existing TRY_FMT behavior.
 
-> -Kees
->
-> --
-> Kees Cook
+Both quirks are enabled by one device-specific entry. The card can still
+provide diagnostic frames without an HDMI signal; HDMI signal recovery
+and capture configuration continue through the normal driver paths.
+
+Signed-off-by: Henry Paradiz <henry.paradiz@gmail.com>
+---
+ drivers/media/usb/uvc/uvc_driver.c |  4 ++++
+ drivers/media/usb/uvc/uvc_v4l2.c   | 19 ++++++++++++-------
+ drivers/media/usb/uvc/uvcvideo.h   |  1 +
+ 3 files changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -3055,6 +3055,10 @@
+ 	  .bInterfaceSubClass	= 1,
+ 	  .bInterfaceProtocol	= 0,
+ 	  .driver_info		= (kernel_ulong_t)&uvc_quirk_probe_def },
++	/* eEver Live Streaming USB Device HDMI capture */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x1e4e, 0x7102, USB_CLASS_VIDEO, 1, 0),
++	  .driver_info = UVC_INFO_QUIRK(UVC_QUIRK_SKIP_TRY_FMT_PROBE
++				      | UVC_QUIRK_DISABLE_AUTOSUSPEND) },
+ 	/* The Imaging Source USB CCD cameras */
+ 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+ 				| USB_DEVICE_ID_MATCH_INT_INFO,
+diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
+--- a/drivers/media/usb/uvc/uvc_v4l2.c
++++ b/drivers/media/usb/uvc/uvc_v4l2.c
+@@ -241,7 +241,7 @@
+ static int uvc_v4l2_try_format(struct uvc_streaming *stream,
+ 	struct v4l2_format *fmt, struct uvc_streaming_control *probe,
+ 	const struct uvc_format **uvc_format,
+-	const struct uvc_frame **uvc_frame)
++	const struct uvc_frame **uvc_frame, bool probe_device)
+ {
+ 	const struct uvc_format *format = NULL;
+ 	const struct uvc_frame *frame = NULL;
+@@ -336,10 +336,14 @@
+ 		probe->dwMaxVideoFrameSize =
+ 			stream->ctrl.dwMaxVideoFrameSize;
+ 
+-	/* Probe the device. */
+-	ret = uvc_probe_video(stream, probe);
+-	if (ret < 0)
+-		return ret;
++	/* Some devices stall on probes during idle format enumeration. */
++	if (probe_device) {
++		ret = uvc_probe_video(stream, probe);
++		if (ret < 0)
++			return ret;
++	} else {
++		probe->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
++	}
+ 
+ 	/*
+ 	 * After the probe, update fmt with the values returned from
+@@ -432,7 +436,7 @@
+ 	if (fmt->type != stream->type)
+ 		return -EINVAL;
+ 
+-	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame);
++	ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame, true);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -649,7 +653,8 @@
+ 	struct uvc_streaming *stream = handle->stream;
+ 	struct uvc_streaming_control probe;
+ 
+-	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL);
++	return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL,
++		!(stream->dev->quirks & UVC_QUIRK_SKIP_TRY_FMT_PROBE));
+ }
+ 
+ static int uvc_ioctl_enum_input(struct file *file, void *priv,
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -81,6 +81,7 @@
+ #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
+ #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
+ #define UVC_QUIRK_MSXU_META		0x00040000
++#define UVC_QUIRK_SKIP_TRY_FMT_PROBE	0x00080000
+ 
+ /* Format flags */
+ #define UVC_FMT_FLAG_COMPRESSED		0x00000001
