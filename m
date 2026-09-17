@@ -1,79 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECBF55931E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6BF3A1A56;
+	Thu, 17 Sep 2026 16:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660893; cv=none; b=HguXBICBoSH5ODnlD9tg3naQ/sAqXSuk0h64+FlXiG963ko4lS5GqqbNdSYfW4lv3bLRSvDQrDsUHGscggi/ORC/bmgaDW3g4XT5jp+A6o38kiIRHIDY0EwhhY4qkepM9qaw9+aioO5Z0y0tIfdyBS4ZsUj81W+46DuKnbLd8VU=
+	t=1789660899; cv=none; b=uKCh9rHkpQkblNxE6kL4EWZSSNXEP/JTZjLGtLYmgXQzGvgyEQI8n8t+km747R5JeZ8hNWcJworMW55e3+Ah6lZWJ+6UtOyhhkdvOlN0ib6lyk5JwMG+Svv7em9EPwzQxTwnh9/+AbJbD7pFb0JyVmW1jH0xctQooFYnDIgX6l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660893; c=relaxed/simple;
-	bh=L7XJVn3zJKEYZntTNEdwCrWKBFrCg6HrvKLQHNiolyA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IDbo1lFZRcgW53mDU4OqIXIISdEBIhbe3nNPwZCNyOJuKoNPOC+F1flWa6jYXlvGTy0oKyqEvhfhI0Py474Tvr/EAhDwewVUgGcZa1hNpOWaqjq8rEjtVZRux3QIBDI3SC7Ua3B1jRgldGQJLy97YKrHLAuacu+W0wOJQE+xaB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLCKsPy8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLCKsPy8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F48E1F00898
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789660891;
-	bh=+DhS//7o7owj41t5iDIwF0SCGyy9ibYv4B+yFcVevxo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iLCKsPy8hA6x/lcktVIlsdyn8sjQTyqgjVUWBF7en1MLAP8475WnPTJKZOB82zlBn
-	 NhkNmK//XwCB31rqv2Ge84kDd/YzHO1lz0SCO2+wnBC2rQRHEakVW+ZvChRZuGOzSp
-	 fAdyMg1ZW+Xh8qZJ9WdvT+qegs5dV/p2RoJJveW2q8/nxmn+6MAt5jwF3eCrNUzq8l
-	 vD3ym1+00U5oIa0PAE4sKfkXIyepkbCZKZN0h+uLAYm5k7muZcGm3Gv8JReJEdvOFe
-	 2Dvx+G8xaxU5sbMzYo+S1J5lq38BOsw2tB0XArQN3iIRmvftMhRaChy8g1Mlm5qBm+
-	 PS2VVLAtMl5UQ==
-Received: by mail-ed2-f27.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so1653613a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:01:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZ2rHDFRRBHb26vXCvf06bAynMbA5rotT7t3ubaNozKHW4ScW4liBZZ+23iyNq6hPO+3WjBzjyX5jkFqw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kR/JRbxaER2wCybDbhZtyvSfuzpQj4pi7kxAbBt5R3HNcavfc3
-	37fHh47YJWmwXFjJ8gO9PFCpKUYAFgrHJmEVnhr67hk/RVpFgsIstmTWfr/+DIkD9CrMStldX+y
-	rfwmQZTKFzfB9BaocOBk7tG5VXrwvrQ==
-X-Received: by 2002:a17:907:960c:b0:c29:f5d8:9c72 with SMTP id
- a640c23a62f3a-c29f5d89db1mr290535766b.33.1789660889600; Thu, 17 Sep 2026
- 09:01:29 -0700 (PDT)
+	s=arc-20240116; t=1789660899; c=relaxed/simple;
+	bh=2WL+TixSTzFVZfjCLOYF3RUzf13SgJtLGAxZFY7ta4U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TlI/CeORlesTri8abY3PFor0OVfntwVi9zzpPAPFVHIWimlJUMwP7KAxIfomQkt0+lWsyRtbn+DO6qRSjjuiO3JH0dGx5oE1m09yRLjJy9yzojdLhntlqadFVPY+lPUVD0v2VnPjHqH6/MEuMoQ/vgzt/7zGndfJRUWB8DEJtLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3YDvWDqxqiw6ECA--.17S2;
+	Fri, 18 Sep 2026 00:01:26 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: JBottomley@Parallels.com
+Cc: James.Bottomley@HansenPartnership.com,
+	alim.akhtar@samsung.com,
+	avri.altman@wdc.com,
+	bvanassche@acm.org,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	santoshsy@gmail.com,
+	sthumma@codeaurora.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: ufs: core: Fix runtime PM reference leak in ufshcd_init()
+Date: Thu, 17 Sep 2026 16:01:26 +0000
+Message-Id: <20260917160126.2161457-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917124653.2151894-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917124653.2151894-1-vulab@iscas.ac.cn>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 17 Sep 2026 11:01:18 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
-X-Gm-Features: AcwNN1WoXj-aX4pp7VlWV3BhGAP-WQFU2LTbUI4Kt3JEKGaQRag-A_cEy77_ASo
-Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
-Subject: Re: [PATCH] of: unittest: Fix np reference leak in of_unittest_bus_3cell_ranges()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	saravanak@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3YDvWDqxqiw6ECA--.17S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1Utw43CF13GrW8tFWUurg_yoW8tr15pr
+	ZFq3yYvr1rWF4ayw1xtr48WFWFga1fG34UGr4v9a47Ww1YkFnrXas5Kr1FqF45GrW3Za9x
+	JFn2yw15XFy0yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9E1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcV
+	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
+	n4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20E
+	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+	AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUblAp5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMNA2qr889AwQAAs3
 
-On Thu, Sep 17, 2026 at 7:46=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> of_range_parser_init() can fail when the node lacks a ranges property.
-> That error path returns without dropping the reference taken by
-> of_find_node_by_path(). Add the missing of_node_put().
->
-> Fixes: 3d5089c4263d ("of/address: Add support for 3 address cell bus")
-> Cc: stable@vger.kernel.org
+ufshcd_init() calls pm_runtime_get_sync() to hold auto suspend until the
+asynchronous scan completes, and that reference is only dropped in
+ufshcd_async_scan(). If initialization fails before the scan is
+scheduled, no one ever drops it and the device stays runtime resumed.
 
-I don't really think we need backports for all of these.
+Route all error paths taken after pm_runtime_get_sync() through a new
+out_put_rpm label that drops the reference.
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/of/unittest.c | 1 +
->  1 file changed, 1 insertion(+)
+Fixes: 62694735ca95 ("[SCSI] ufs: Add runtime PM support for UFS host controller driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/ufs/core/ufshcd.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-A general comment for all of these unittest fixes. I think we did a
-pass of using the scoped cleanups, but if we could use those it would
-be better.
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index c3f08957d179..6aee54788d29 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -11236,7 +11236,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+ 
+ 	err = ufshcd_link_startup(hba);
+ 	if (err)
+-		goto out_disable;
++		goto out_put_rpm;
+ 
+ 	if (hba->mcq_enabled)
+ 		ufshcd_config_mcq(hba);
+@@ -11253,23 +11253,23 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+ 	/* Verify device initialization by sending NOP OUT UPIU */
+ 	err = ufshcd_verify_dev_init(hba);
+ 	if (err)
+-		goto out_disable;
++		goto out_put_rpm;
+ 
+ 	/* Initiate UFS initialization, and waiting until completion */
+ 	err = ufshcd_complete_dev_init(hba);
+ 	if (err)
+-		goto out_disable;
++		goto out_put_rpm;
+ 
+ 	err = ufshcd_device_params_init(hba);
+ 	if (err)
+-		goto out_disable;
++		goto out_put_rpm;
+ 
+ 	err = ufshcd_post_device_init(hba);
+ 
+ initialized:
+ 	ufshcd_process_probe_result(hba, probe_start, err);
+ 	if (err)
+-		goto out_disable;
++		goto out_put_rpm;
+ 
+ 	ufs_sysfs_add_nodes(hba->dev);
+ 	hba->dme_qos_sysfs_handle = sysfs_get_dirent(hba->dev->kobj.sd,
+@@ -11280,6 +11280,9 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+ 	ufshcd_pm_qos_init(hba);
+ 	return 0;
+ 
++out_put_rpm:
++	pm_runtime_put_sync(dev);
++
+ out_disable:
+ 	hba->is_irq_enabled = false;
+ 	ufshcd_hba_exit(hba);
+-- 
+2.34.1
 
-Rob
