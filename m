@@ -1,83 +1,58 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5CC1E98EF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C07214812;
+	Thu, 17 Sep 2026 00:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603617; cv=none; b=ft7xW4Kzfe1qJkbY92GGIOpVhslqp5ZAjXxKhGHVI8k3T7zU+3hW8ZXy1k/SvA9MJiRH3+JQ6WSE8J49U8yTVo/0XqKhYKWzu5N8t54A1IMQNyQhU6oCGHG9EbYLzpCvMHiHlCOVnfcuAJGeaciCcfC7CmN9h6YHohJ1ANWK5EE=
+	t=1789603646; cv=none; b=Vzk4YdHhEH4uEeLf1gZamGuoY5zrkR6aZf8m6NMDGsLHzdVFnjAN5K4UmsoXi5CEWCV5ZFKBHAMH7e25/7SATLeLXtvapV8mkfQt54bKpyYBSqfvb8wq65JSSqbi4ttM8nzV3ZBDx0eWou19qEaK+YBwVH/J2wbVJJSTRYcrH/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603617; c=relaxed/simple;
-	bh=+ThdJPNy+byv+5Bn8J2b9hHnhaBGGv4AJj/JK9pn78I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YUo5Ufb8gLTQi3wY7cugQMFUR0cSe/8n0Bm0KFFxaMqEc1Nx5aZ7zUyV62bByBl0Box1rtHz1BiuH/8DaHPKj0DiRuNBTVyZQC08MaFtciVTMP5gNe+JaBWd8w0aOC4gE1XyNI4LBulVE4h0/e9S+vxP/sF6c+AeLzwjQoEvTNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ic3WLNfh; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789603646; c=relaxed/simple;
+	bh=Q6qTyOSAVqzgx4rJNxm+9/hjkyz2JYfoGFgR2fGVxEQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=OUdeoKegCJAwvUmLisdbdqaJOGhxyn/8H/J3nhHeQBUdsuU0XS8bOlsdWM1nQ8aGvw8+RRbQnZsJ1TsqDp5Y/Zdz399GpFJpMhQqZmH0C/jHR62zc3hux0LBiwBwaVVjtBLx0VpJ0vOf0uV8JlpOi/7SYZbGO8x1g7CGU0gkJ2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjbTsEtV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ic3WLNfh"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so2444905ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789603616; x=1790208416; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZlhBBh6GNry8e/hmi/l6fJM69DrRa/l8BJNW8A1qQkg=;
-        b=ic3WLNfhwU2fzmV8IaKnGslnh6GGuVvR5hlzb7CyCFJBasdoUZUWa8XhFzeDZ1C1jt
-         qlXnaMa2o2dYgsaezRHeHTe1iq5aPo4cI7krEwCSxA0NoFvSlKJ7LiJzKkRpF7g8bglE
-         wFzFrCJ/aPkBCxxAqEbpV4XNdHD99due8xNwIlj2fWA49S3Nce2tIj5zldGmJ5IP831T
-         iIcQhaxe+ky5iNgiBw/SFC8/E1AGQYd/HccVkYyIloEeDRPFrqQO2OpGzhuUh9oRxCOk
-         FCzGxHE1BpMa0cKiPp2C96NhsggKQSgmOcUj5g/4wXcMseiobuKI5cZR+PBUVSr04U4p
-         l0Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603616; x=1790208416;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZlhBBh6GNry8e/hmi/l6fJM69DrRa/l8BJNW8A1qQkg=;
-        b=gtDoOq1wYuJxRS6j0iqhxws2r3CglH+v5b0jSvAPwmBVmp3SHGFQMG9e5Kfc8oXPox
-         Fm4S9Lxd7nCWVLabguBwavr3Kx00YTgUK82buHQfo1f5wMNE7nqqQ7fncmgbL55fOctv
-         QP7AvGhtr2sv9dFli3L6NWGUoxXvGLxQ2klTwDVgxi7v3fZRiCHgIqASu8FQM58q1RY1
-         3Cx1WYFjocHibsMRj6GhZZQJ5rpMns2I64bXLEW0WY4mIAPb/IJTUaOeHEDEaftJJaLs
-         t9kqrtkodLxcvka1wgmqc9at1bOgGVSntjHPDx/NhW2kejiysKtiSN2G4c36Koon0EOn
-         boYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSG2mUrvPiqmGp2paZvvvcf4SMqnGD0HV+uDNauhVgYtSc0kcj/I0U8oAzBycZZaHcARLGYVIlLCrYrO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndTpqOgUXGdZJ+oDOvAvbPPrnLchLH3dBem+EBrtV+DC/oeZnZ
-	Kp+kwp1voyymOjk79cqHPHE0tIluWVfRP3/cAA7nPzzkHfWvzOjhdN+k
-X-Gm-Gg: AYBFou0O7ADLG/0EgxOCwAm8f4ZIlWMzkbp/lXRNHsbN6tE7yqNLsWJLeqDMVmal9pq
-	iXwRKPCsphanotbfVLKbNsuRdIpECJWZ94u14QBZ19VoYTRG1jz6VfEl84Fqo25OZQkgf+PIUP3
-	DSPRBp7Hb+o9KdKNGGPu7Qwcrh5wEx+Ewy+fwM8Pl70x5ueW1jFw0nR4rcEb8jKhlmEbAmOU6kw
-	FqCUjm3TD+8qZ1nQbWFhApFteDwPrwfLKgfiiYn2mJhxH8NbH10p2MoaNPFPJ1O3Fq+kdtJyqv2
-	sj5iwacxWONadD0dbFzPzUxOwhy6nXKLGg88pEccdEWikVbmtkBHHCLwlgM63YqewjU+JuRJeRP
-	LomAGXmDeBkfaeCt3OSyf7MREgjbQ+YyjnhQkM1GrarAR16QFwFAMLsiOsYTQ8vF1WrywKF1jg2
-	KFeVIUBxvNKY1e5zKDq6fUKHIwnwBWss34SRIzM7S78Agerh3BXDX7oAyj0W+3RGhMQyxdk7/Xu
-	XvJzCUkkrExxgWSKA9Zrrs=
-X-Received: by 2002:a17:90b:5388:b0:39b:92bb:9eef with SMTP id 98e67ed59e1d1-39e1e509fc1mr10470483a91.22.1789603615636;
-        Wed, 16 Sep 2026 17:06:55 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b1d335sm11616315eec.28.2026.09.16.17.06.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:06:55 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:06:54 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/tps53679) Select page 0 for
- single-page TPS536C7
-Message-ID: <01bcbbc1-d613-41ac-b848-462b309a3a3d@roeck-us.net>
-References: <20260916235406.681131-1-sanman.pradhan@hpe.com>
- <20260916235406.681131-3-sanman.pradhan@hpe.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjbTsEtV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5DF1F000FF;
+	Thu, 17 Sep 2026 00:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789603644;
+	bh=+yFcjzj37ujFduHmXiBvfG9JBS833j3YXgLJ04CFxHE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=UjbTsEtVaPtsiaZUuZNq+T2sPIquKhVFlF6WCE1Nit+LYL5byUhUnUswsWKHVH8wK
+	 7qMsN9mQuJsHdDVnrFzUsqc9srPE2TyNRfy5sfQGHZd2IhIXBj2X/t95jvsRKjbxes
+	 lW4C1s7A5Nc0siyJhxlMktOEclBcFv0GC8ZCkpoYvvrYb+6YZUqa5gzAF92LNEhiWG
+	 fbkCpan3pHHSqNMPeNzv/+c7N/vuVGzf8tIrVMWvAFsKjZw1wSbvxtDjUqQoHSjPIh
+	 af2nNUqh3M0izEpdLd5+JAe9EJ8BchGBTY8vR4TP4CD1d2d1+4+nNv6FNem2o7XMVr
+	 6IuBrI0whhNvw==
+Date: Wed, 16 Sep 2026 19:07:23 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v8 06/12] PCI: liveupdate: Auto-preserve upstream bridges
+ across Live Update
+Message-ID: <20260917000723.GA992337@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,22 +61,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916235406.681131-3-sanman.pradhan@hpe.com>
+In-Reply-To: <20260728221007.2098560-7-dmatlack@google.com>
 
-On Wed, Sep 16, 2026 at 11:54:21PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On Tue, Jul 28, 2026 at 10:10:00PM +0000, David Matlack wrote:
+> When a PCI device is preserved across a Live Update, all of its upstream
+> bridges up to the root port must also be preserved. This enables the PCI
+> core and any drivers bound to the bridges to manage bridges correctly
+> across a Live Update.
 > 
-> tps536c7_identify() sets info->pages to 1 for a single-channel part and
-> then accesses page 0 (writing PMBUS_PHASE) without ensuring PAGE is
-> actually 0. pmbus_set_page() does not update the PAGE register when
-> info->pages is 1, so if boot firmware left PAGE set to another value the
-> PHASE writes and subsequent telemetry may target the wrong page.
+> Notably, this will be used in subsequent commits to ensure that
+> preserved devices can continue performing memory transactions without a
+> disruption or change in routing.
 > 
-> Select page 0 explicitly before configuring PHASE.
-> 
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> To preserve bridges, the PCI core tracks the number of downstream
+> devices preserved under each bridge using a reference count in struct
+> pci_dev_ser. This allows a bridge to remain preserved until all its
+> downstream preserved devices are unpreserved or finish their
+> participation in the Live Update.
+> ...
 
-Applied.
+> +static int pci_liveupdate_unpreserve_device(struct pci_flb_outgoing *outgoing,
+> +					    struct pci_dev *dev)
+>  {
+>  	struct pci_dev_ser *dev_ser = dev->liveupdate.outgoing;
+>  
+>  	if (!dev_ser) {
+>  		pci_warn(dev, "Cannot unpreserve device that is not preserved\n");
+> -		return;
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!dev_ser->refcount) {
+> +		pci_WARN(dev, 1, "Preserved device has a 0 refcount!\n");
+> +		return -EINVAL;
+>  	}
+>  
+> +	if (--dev_ser->refcount)
+> +		return 0;
 
-Thanks,
-Guenter
+I guess this is a nit: I was looking for a dev_ser->refcount++ in this
+patch to correspond with this decrement.  I *guess* the
+"dev_ser->refcount = 1" in pci_liveupdate_preserve_device() starts
+that, and the "dev->liveupdate.outgoing->refcount++" there is an
+increment of the same refcount?  The connections there don't seem
+quite obvious to me.
+
+But I guess "dev_ser->refcount = 1" was added by a different patch, so
+probably *not* the same?
+
+>  	pci_info(dev, "Device will no longer be preserved across next Live Update\n");
+>  	outgoing->ser->nr_devices--;
+>  	memset(dev_ser, 0, sizeof(*dev_ser));
+>  	dev->liveupdate.outgoing = NULL;
+> +	return 0;
+> +}
+
+> @@ -385,13 +418,23 @@ static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
+>  	}
+>  
+>  	if (dev->liveupdate.outgoing) {
+> -		pci_warn(dev, "Device is already preserved\n");
+> -		return -EBUSY;
+> -	}
+> +		if (!dev->liveupdate.outgoing->refcount) {
+> +			pci_WARN(dev, 1, "Preserved device with 0 refcount!\n");
+> +			return -EINVAL;
+> +		}
+>  
+> -	if (!pci_is_root_bus(dev->bus)) {
+> -		pci_warn(dev, "Cannot preserve devices behind bridges\n");
+> -		return -EINVAL;
+> +		/*
+> +		 * Endpoint devices should not be preserved more than once.
+> +		 * Bridges are preserved once for every downstream device that
+> +		 * is preserved.
+> +		 */
+> +		if (!dev->subordinate) {
+> +			pci_warn(dev, "Device is already preserved\n");
+> +			return -EBUSY;
+> +		}
+> +
+> +		dev->liveupdate.outgoing->refcount++;
+> +		return 0;
+>  	}
+>  
+>  	dev_ser = pci_flb_alloc_dev_ser(outgoing);
