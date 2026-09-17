@@ -1,81 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A909E4E50AF;
-	Thu, 17 Sep 2026 06:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141F7400DF9
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789626109; cv=none; b=g0ahNlZ+YpUkWpdsRy3tLFtG93EkvbB2/u+lLwVSwbp+J2f/4St7f2hF+sX5OmfK2i9XejWNA5e96AqubV/S4j98wpELsBE6lXB5f1DjCmMvalzYXQVqDJ9eWTJMbeXSiYd6o7RoWEVM3h2gSnuhE6TKiCrzr0w1M4DR2fQUowk=
+	t=1789626128; cv=none; b=pock0Nzm+/M1myIkwTHz6j7zWZ1iVdn3zIrVKoLqxkbDotDqirB7X4ZDNBxzhmZyxkUeLzDvo2D54VWARdDjnx4Ika0EOlIccLB6CMntutSR1l/FpKdNPkQixz05GhWbmou1rBh2ObNJdqfZRl73ZqrOg2RyQXZoJiDeKTey6t0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789626109; c=relaxed/simple;
-	bh=4vFJCXm0H+3X9C2NcWa2a2u6p/MC1RWFawDV7OgZ44U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=izhrZTmqeuiWP36RJkAWf6sUfeaWktgR42LjS7yrXjxyTzKC9bhgjVFPHQIh/v9p2hA1d2AxkKV7hGX/WP62CNwTsbiroH9xWrngAjsVXa2UPmASjCvL3+UI5lLgPQVzRE/pt1Jpn5c5GUXbWEKQ6kUhMFq84KRBfGQGDie7RjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNEbCrbM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNEbCrbM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408BA1F00893;
-	Thu, 17 Sep 2026 06:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789626108;
-	bh=uvz94Madl6XwgNZ98QYnERk2Nye9Am5+hUEu6jXWDR8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jNEbCrbM5tMYw3dQt3JRP63b1Ugj/rsR/xQcZhKv+tVleMXxebJLsD9eSIZht65oA
-	 m7h2obEwK9HgaC9xZtIWVLQpPv2RfzwcTvLDDeXvNdtM0XeWcUFw76bbAQM4BMatTs
-	 5X3V9aGu7potUF4nSlWWRMEd7NcvE/pL9Aw90UImJNOwIofoOhowO5ZlKlCW4kVhsY
-	 kyVP24OQ1LgFpIl2tAseSKkfMzn4w8i18gokx0kncJbzGtvADJyTJ9s4kGU/2g20Jp
-	 dZHlw6EJK1cI+7N9RxQjqisNCuPqLvJyqeockjaSTACLYjtqXWZPTkOeuytUfvpeut
-	 sYe+uNO1DLEwA==
-Message-ID: <c55f8ca6-3b67-45da-b309-b1793407fc04@kernel.org>
-Date: Thu, 17 Sep 2026 08:21:45 +0200
+	s=arc-20240116; t=1789626128; c=relaxed/simple;
+	bh=3k2BxK+Z3kjp0FhZbXd1sKf1oRtxOy5b1V0t9mIJ1X4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=e4yt6xT0RbpgGKFLbYU41hzdA+mWRoNb3XiYtYNM3Jlhwp1LfH4nZ1QRPohEaw32ng3WjZ+rRg77V/aoiWQ+AntPTzwo9EGbNZ+RgwcCSSzG2MchQBZxQvkxi7LO5HHT1QEpk0Iyc6bZU4oZxemFZpDGFB06Cckx4k/p5bDPcQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c2c5c1f843so550981eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:22:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789626124; x=1790230924;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rwbr88JS2qjrdyIUPnUYi4gGQPQP+L17w9UV/XLAB9Q=;
+        b=pW1n7b/WeT1ygt8pWc+xTtbd0+KS+N8mthCiDrXqLn/Vcd/k40VgFmO9L6GlPqihCQ
+         HunjmSAgRTlsdketK2j9Su93U32t7HcvTGJ8MO6dwS+P6g2XFLUu+eHcMxmWXAnUkipy
+         5dmmM3YOy9calJbPKZlqiVpLznPPeCc/wyleNupZQuNl7S+2af3JdabXoZhRkL4pfsOj
+         +5Nn6YwBtVaRJ/adDhvRDayADeSET3PhLP5+qM4LtnvzGoPEwm48FXMcOim8JF5zlNu0
+         0FBAqXIdaqP0lQnWbsqNhU4fG68tm/DI/cGEEAy139e6S0XU3FNW6vnbuQb5ZW5c41bI
+         87IA==
+X-Forwarded-Encrypted: i=1; AKwUvBzbJl7G/+KTmG8HdzOdn1mKFuYqDDihg+Y+U2tQhZ+FsqDc1alrHjtu6DuHsKhkCRxwZ9MV3oY7hMFfWYg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZc2h5v4+mHinbNKvNq8/w/wFIwPhKWmf07rGTVfYsUppjh92V
+	H4ypBrDvVQQvq9ELf8Eq2ZbmMa0eDM2VaHRAhr2H9s+2gqISevVE22BrLK4NIKxVha0Woyog0Ck
+	f/1B5F1KRLyCXyiVu9S0gIDKCStJpB09YIdSo/j9PY+VJ0kdwHznCFk77x9U=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] efi/libstub: Avoid UTF-16 conversion busywork
-To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>
-References: <20260916144647.2651379-11-ardb+git@google.com>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:4b91:b0:6b5:ec2f:3568 with SMTP id
+ 006d021491bc7-6c8fde724bamr1566680eaf.25.1789626124141; Wed, 16 Sep 2026
+ 23:22:04 -0700 (PDT)
+Date: Wed, 16 Sep 2026 23:22:04 -0700
+In-Reply-To: <6aab41bf.727fe05c.1f19d8.c7a6SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab870c.87c06881.1db2b3.0011.GAE@google.com>
+Subject: Re: [syzbot] [netfilter?] WARNING: suspicious RCU usage in expect_iter_name
+From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 16/09/2026 at 16:46, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
-> 
-> The EFI libstub performs some redundant conversions between UTF-16 and
-> UTF-8 and back again, which includes dealing with surrogate pairs, which
-> UEFI implementations themselves simply ignore.
-> 
-> So drop all the homegrown code, and use the existing UCS-2 (== UTF-16
-> without surrogate pairs) library code where conversion to UTF-8 is
-> actually needed (the kernel command line).
-> 
-> The remaining handling involves the EFI console, which supports wide
-> characters natively, so just use those directly.
+Hello,
 
-This v3 looks good to me and runs fine.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Patch 8 still uses spaces instead of tabulation for indentations. But,
-notwithstanding of that and for the full series:
+Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
+Tested-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
 
-Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+Tested on:
 
+commit:         8d9eae69 xsk: Use a 32-bit compare in xsk_map_gen_lookup
+git tree:       bpf
+console output: https://syzkaller.appspot.com/x/log.txt?x=115c53f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=4bd730aede2791e40bdf
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=15801115580000
 
-Yours sincerely,
-Vincent Mailhol
-
+Note: testing is done by a robot and is best-effort only.
