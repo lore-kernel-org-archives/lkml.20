@@ -1,99 +1,133 @@
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E581C4B0C88
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41484AD4B9;
+	Thu, 17 Sep 2026 09:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637760; cv=none; b=YHi1iOzrb8BsY3H3+0rFa7B1ezxmwpJ6svuuWHcOjpfFWlTC5RZY6aTadNTygJ5y6WAPMc/E6XezAVDJrwH+h5lX1TU3Ya/sJlAdmoGpVdeSrSM8Rwnzcc9ztjdGfCBAIfohzp/BtPkYYahbtxAwMWp0L7E6ZHlF15mDVj0YupA=
+	t=1789637817; cv=none; b=Yi66T7ipGadsF44G4mnN+YnymhiRY5RT7eRVIPjuKkJPf2iyPa+2dxl0hOQoc6JluKcjm2YS/7vG6KZ04lbIYzeZJMtO9o5zinNgAhaDWapqbZ9azVgxsWngPyX2jC/ufip1bHe7+KtewL3rFUvuCRWC7t5FKEJN4U1sIju92lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637760; c=relaxed/simple;
-	bh=Oz8G4IOR6Gmqkd7yD6cQD3SSfjx7S8ayJRM3R9p6+sQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XCq8UyK+ovak6wp0lO23ojTj8HRHWuR5hBv5W0tAfOb6OxxEswZzxNieqyyxKGmJ6Jmd5QAF9f+Jv3UiPuHCt9AWrv0lQZ7L6Zzrl1XcUmmpOx6M7gNXAZ79utdI9Y5BtErYTbdFBGM0ZXPecTA4q5lIkHRl67HVL2a6EGOvw/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oxhzcLRD; arc=none smtp.client-ip=209.85.218.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1789637817; c=relaxed/simple;
+	bh=2Sf+S9cOAIGjnMuUoWLx3jxqSb4baH2NMOZXkOdv1ME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=u1+g5QJ2dgVXt+ugrptkwEzoHWE/SH6zqfVH/nIJ0o5BnkwEfBlQtYkCp1m4YINHTWekJdDXUuCTYVAdA4ZLYqfRuIW4FyLb2oli1cyQypMFZivIxCF9TeFqDjTD/dCtK0NkHgl0tJcpFdW5+czif3AjzQh1u17BZG6zkgvVX+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=DTlSowL3; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oxhzcLRD"
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c29bc25836fso87641566b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789637745; x=1790242545; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vsyxKzqLMpsUXo8Lic/w3Wn8v7CPcrVQjEJhvbshmVE=;
-        b=oxhzcLRDRuX/gBo8vy0TKlSVL5ziY2v+kKlqu6Lb/KuleKdEBO8I3J+wv6nkrJbiXQ
-         vbPNjpLX6bQLTKGZWCcQjw+9UEF6Xceakc1L5R//WszwchnJB+34Kfq2zKLRpFpilLRS
-         XW3gYnxLFUCAIukeJNtZ4ZwgTu/nLrv6P3G3hl5IwEShcVD/890hy3mqAr7C6yjA0GYR
-         dCPh4LJvm5+AfZoxU/A2h9IahBGWAYbu7NMBY4q5FWV8jKAoYQqx7BzjkHjY1k++s3BR
-         2vhkWj9NyFIdj5Rzwr+mfEFi3b/fKWbehFFLktr0aqRSp7teY4QhtgT9zYwzhclfGIy4
-         MIPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789637745; x=1790242545;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vsyxKzqLMpsUXo8Lic/w3Wn8v7CPcrVQjEJhvbshmVE=;
-        b=Hcy1iQun/Ycys/knZlRiwqwQyhS1VoxvMYSknnh4trKIfTRAgdA3NKZup/inFs8EJg
-         +g1PmTGshflv/V/sRp3sTa+3QvQFVLGcKEHdGUnyfi2MK/4aHkRTZu6GryA3XnD/ZpfT
-         Xo16thFCPR8UAj7Yi7QMlARYPxRYGdYkDKowG1RjYfIYxA3jyMlNGDrhVmB9SFfj1JMT
-         +XeJjfjiT66fNnRfP+R/FfEFeItOWne6QgOWXsCQY3A+6CwLRKEZUeGQzPEmc610oP8/
-         P7Y8bpm/vAaxP7HDcaBCumeR5OGGtgpH6VQZrGXb2FnSu8R9GWHl/zO3WKENE6LzvymT
-         g5Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwHU7Kaj0hzTi5dAT31Jakeg1flobveuQ/na6Ato5hSdhqwpSXBr/TftkyRXOdESnu5FkHtpxvYwMxC3dA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzPiR+S9BCABMQKGVHaxAuZZaM01lAuQf92pfbI8YqybixtRlq
-	E++p00wXFfuJ9FVGLBCoFL1B6z2gXki7UhnrZWKcEOPPSWyeq0FfKU/9NeG1zSHPB1WogN6zAI7
-	X8pXetZUmXICgVQ2MfA==
-X-Received: from ejoy22.prod.google.com ([2002:a17:906:4496:b0:c29:c42c:f427])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:9343:b0:c29:5712:a420 with SMTP id a640c23a62f3a-c29e51dc1e5mr387979866b.5.1789637744642;
- Thu, 17 Sep 2026 02:35:44 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:35:43 +0000
-In-Reply-To: <20260915164000.124340-1-sagartaunk@proton.me>
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="DTlSowL3"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=4qKfA/3QEG+L09Ej0W0JUmXjP14WgIp0UD1F6ZxKGEQ=;
+	b=DTlSowL3Lp5IlKr8I4O810oODvMG7RcpjuCN6edc+KXf4K5wuZSjrdzelnteyiCUA85xklR42
+	Dh95ybOJeH696idTZaIq8ejFJpU4zjPmnUGz89VJlcGcMXrPC5kFQBdz1GQx3hRLRYlQybxG3WT
+	YoMMQNUSbU+e5zhyb1bW5mE=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hlr2Y5dl2z12LHn;
+	Thu, 17 Sep 2026 17:25:25 +0800 (CST)
+Received: from kwepemp200001.china.huawei.com (unknown [7.202.195.150])
+	by mail.maildlp.com (Postfix) with ESMTPS id 687014057F;
+	Thu, 17 Sep 2026 17:36:33 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp200001.china.huawei.com (7.202.195.150) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 17:36:33 +0800
+Received: from [10.67.120.108] (10.67.120.108) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 17:36:32 +0800
+Message-ID: <f9071dfe-2345-6ee3-c4ae-8408bdf781e4@huawei.com>
+Date: Thu, 17 Sep 2026 17:36:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915164000.124340-1-sagartaunk@proton.me>
-Message-ID: <aqu0bzgMAUQe_LZ6@google.com>
-Subject: Re: [PATCH v2] rust: net: netlink: validate attribute length before
- casting to `c_int`
-From: Alice Ryhl <aliceryhl@google.com>
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH] scsi: libsas: Fix SMP IO deadlock during HA resume
+Content-Language: en-CA
+To: John Garry <john.garry@linux.dev>, <yanaijie@huawei.com>,
+	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>, <mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
+References: <20260826032845.1632348-1-yangxingui@huawei.com>
+ <a97c6cfb-8476-1030-a07a-fea1c004ecbe@huawei.com>
+ <2c1aee3c-3ea5-44f7-915c-5a812a261032@linux.dev>
+From: yangxingui <yangxingui@huawei.com>
+In-Reply-To: <2c1aee3c-3ea5-44f7-915c-5a812a261032@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-On Tue, Sep 15, 2026 at 04:40:10PM +0000, Sagar Taunk wrote:
-> `put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-> When the length exceeds `i32::MAX` that cast wraps around to a
-> negative value.
+Hi John
+
+Thank you for the review.
+
+On 2026/9/16 21:58, John Garry wrote:
+> On 9/11/26 02:00, yangxingui wrote:
+>> Hi John & Jason,
+>>
+>> Kindly ping for review...
 > 
-> This ultimately resulted in a kernel panic when the reinterpreted
-> value via `__nla_reserve()` and `skb_put()` became enormous.
+> What about the sashiko comment:
 > 
-> Validate payload and header both fit together in a `u16`, rejecting
-> any payload that wouldn't leave room for `NLA_HDRLEN`.
+> - [High] Bypassing PM reference counting via a global state flag creates 
+> a race condition where concurrent independent threads can submit SMP 
+> I/Os without holding a PM reference, risking premature hardware suspend.
 > 
-> Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+> It looks correct.
 
-This should include a Fixes: tag if it leads to a kernel panic.
+Agreed. Although the possibility is very slim.
+The SMP IO which sas_drain_work() waits on cannot outlive the
+SAS_HA_RESUMING window, but a BSG request submitted during the window
+takes no PM reference for the duration of its IO, and the controller
+may autosuspend underneath it. v2 takes the reference with
+pm_runtime_get_noresume()/pm_runtime_put_noidle() instead: the usage
+counter stays elevated for the IO duration, without waiting for the
+already ongoing resume.
 
-Can you also update the subject to [PATCH net vX] according to the
-guidelines in: Documentation/process/maintainer-netdev.rst
+> 
+>>
+>> On 2026/8/26 11:28, Xingui Yang wrote:
+>>> During sas_resume_ha() -> sas_drain_work(), 
+> 
+> This is poorly described - what does during sas_resume_ha() -> 
+> sas_drain_work() even mean?
 
-The patch itself LGTM.
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+The deadlock happens during a runtime resume, while
+sas_resume_ha() is inside sas_drain_work(), flushing the event and
+discovery workqueues. That flush includes the DISCE_RESUME work queued
+when the phys come back up: sas_resume_devices() -> sas_resume_sata()
+resumes the ATA ports through the libata error handler and waits for
+it in sas_ata_flush_pm_eh(). So the resume is blocked in
+sas_drain_work() waiting on that error handling - and the error
+handling's reset of the expander-attached ATA device blocks on the
+host being RPM_RESUMING, i.e. on the very resume which is waiting on
+it.
 
-Alice
+> 
+>> ATA EH will trigger SMP
+>>> IOs via
+>>> sas_phy_reset() -> sas_smp_phy_control() for expander-attached ATA 
+>>> devices.
+> 
+> What commands are these specifically?
+
+SMP PHY CONTROL (hard reset or link reset) commands, sent to the
+expander which owns the phy of the ATA device being recovered:
+
+   ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
+     -> lldd_I_T_nexus_reset() -> sas_phy_reset()
+       -> sas_smp_phy_control() -> smp_execute_task_sg()
+
+A directly-attached device would take the lldd_control_phy() path
+instead, which is why only the EXP topology deadlocks.
+
+
+Thanks,
+Xingui
+.
