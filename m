@@ -1,76 +1,33 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912C92F7EE1
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:42:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1788E2E06E6;
+	Thu, 17 Sep 2026 12:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648980; cv=none; b=rusthqAHswGoCh5mcNbxjZZ+5ytw7doFwt9amofZRtFyNwX+pmu2Gnk9a0okhKujYFMMs/QJlJOVygdmnXKsfwQ/5+Ie84Sl7g49i+1w/T88BjbLXqD018PdfiCeg9Wp04VBtxO0jjseF+SnDoiY8ss18uHlWQz4+E5OSor6bN4=
+	t=1789648983; cv=none; b=mV5Z4JFyHKWGR14vUTSruIl51znJnvp4++XXT7eIDM3G0v98idO/neFpS+bPwWjyWe8hlxLgXvd6ZG/nB+weMKGEtpKA+qQFGHKPnR+xmHBcodw8z1jOU/6O69OEM3ebS7o8xI7PGU5x2Z4XYaWmpFJ0Bp2AvxwFdD5X3LGWhog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648980; c=relaxed/simple;
-	bh=+h9xvV+FmfsvD3o4x5A4hhDvjrjYOG6lR0QGp99K5mg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IQ3KSF4IpIlTs3g1DRnihRX85PnPl4V7t1g6wSImiYMvLNalMpaNwkY+JIZ5GN6JqZio8gQ5wnG6Tvhh6LAqw/zl/yQlzDmzWH6BLChBm9euQrtJru/fdLDhmuyZ+sttJvPw6sIgaqDquHTf33FUUtGmgM9tDtR7XutC11IFG0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KMNy/HC4; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KMNy/HC4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so4379355e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:42:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789648967; x=1790253767; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H3XOkTTYIjCOyk/autE/aPM8JwQM44JJhJTWr5dHFho=;
-        b=KMNy/HC4qP/UMPp/IJ31m6W+tlUdG6d3xwPw/PDrtbEhdjRFUQx9/kx+p7UQJgnnhS
-         D1WuQXcXuwpArAkuv1GM3nAJxCE4hPQ8IUMuSc0P0KPwf7oOF782NK++AxtsFfJmXCPF
-         nG/vN6TFESyAUOcJF5X0SUpelVZGjrfIEWB/KVw8/c/ZWT99wxC4wmInMWXe/Wc6pRWn
-         dF7NahRlAUeFwJXYQ61M52lwxidDej+GbzslCsV0rimsF/79wdgYWdzuQurgeLXx7HTu
-         IuZ0y5brz8PLRu5KPopmtxtPu6jvZkkYV4Mm/MPb1vQYbuqtE1VZtx3jBwxXC+soLo9X
-         nD2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789648967; x=1790253767;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H3XOkTTYIjCOyk/autE/aPM8JwQM44JJhJTWr5dHFho=;
-        b=LjmTlyRXNDgoLyJIDJhoZVL7rfnYjO0+o/nhCU8hsG04oH9RYSVpfTeDmAOS7LRkME
-         IdK/GQTRbLttTvi5mKZBzkoM6Xd1WGPEhvIPW+wGcCU7oToQizBJiSxF3ZWRFMnG4JBj
-         i6QMIED+rR1+5LO20DDM4vLiq/BJAgnC7gWEXKdUFWC/mwCoYDfZ4vdgnmr+fM2f0OEY
-         yQDTvwL1lC0MlME39wfwrDQ/WAxTmV+nzlQ5Ng+HmfPFqcqMPHQ34Dnsp9ZfCGXY3wFZ
-         68CtKwtQJ6g1zhMeZoyIsujS/9gblZNjhWAb4hYI4BI1+lYvi9kffxEIYhnNdEydFe87
-         mZ4g==
-X-Gm-Message-State: AFuF++nW52vqPnSnLvcV4jAaLiOfIYhY0BVdEDW52TBsUdXYiupBd4N7
-	0to3RA4L67QfYF6b6qBCu++cpWzHjHEGR/UwDLcCthwd1jK5ldHHKn+wi7ASJHx9
-X-Gm-Gg: AYBFou3ocGwvat/EsCeHYvcmXCOxjnjv8++dcOeUoBDzzW1Vc9j2Ek5ceF/LHvhwUm6
-	mjE35BSmDPTnXjZXuhkX566LaYvCXj1goqgLvnn3Bef5SdR0JtC3EpdMD1j8o23WObsJB1XJh4d
-	xQidX0T8tyHmzZWKrT2GYLr1EqlXvAQF4pxRKBVOYJE0sY5VyTVqAqDu3WYHDzIAmz2xBQ3sbgi
-	h7lBhVSlPAgvPntIL2AP55Jm1bU4+L+HbqRLADgcKN305QFBVPhe754oiZTTLVOIKsLy3tUcd8x
-	lTmfI/Q5lT6HX0KmZWmubDRdOcHjMWwhrglSr4zsEBuslr6tR++t2OIPh/p5hC3q5XkDlmXdE/i
-	836Ea8KcjIOfcV7PNAb7m28uQW9XDfC02xZuWcL0RTtnkWhGayrIRElK+QSwLIsWXBi2Q/VmPL7
-	llx9Y63rSI/9ll8KOfvvZoOU/hVGItqX+hzlhV2WK9ic1sveQLLnA3wChX1u/hORR1jBF1WyLXd
-	bMdP4BWc5dRlho2LX6uxnkqh39hOt0p50a5rBT9nvlwYwToEYxfH6f59dbe5IzE3BghJtK960R7
-	PW7b0M2d7II8RiKUdUAdiw==
-X-Received: by 2002:a05:600c:350d:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49eb73253ebmr75509995e9.20.1789648966979;
-        Thu, 17 Sep 2026 05:42:46 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd226ee5sm80976605e9.3.2026.09.17.05.42.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:42:46 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org
-Subject: [PATCH v1 1/1] tpm: tis_i2c: Deassert optional reset line before probing
-Date: Thu, 17 Sep 2026 14:42:11 +0200
-Message-ID: <20260917124211.136221-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1789648983; c=relaxed/simple;
+	bh=A/DzU/aoqNE1SjpM64MsQUbfLr9jiu9kcjGp2wel53A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rFIEiF0XWOGHEeRV0AnIG9PiueoSO0rFztjXT2GuBTLDXK5US98ISK7QkLpdS/A48uiM2ecDMHY7+BhbvuJaeawODFffTZ039LWmw8L8z+I/hV5gWBFBl/csghWxBb8dpR7OQvDNpWUtAL02DJi1MOl4rJJlIY/o+etleGwJiXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH8z1H4KtqBr+ACA--.2959S2;
+	Thu, 17 Sep 2026 20:42:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Julia.Lawall@lip6.fr
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of/irq: Fix remaining refcount leaks in of_irq_init()
+Date: Thu, 17 Sep 2026 12:42:47 +0000
+Message-Id: <20260917124247.2151674-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,64 +35,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH8z1H4KtqBr+ACA--.2959S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZw4UWrWkWr1fXFy5tw47Jwb_yoWDGFbEkF
+	1kZFyxGr1UGrs5KF42yr1rZr92kr1UurWfZws2vF43Ga4avrn0qFy7ZrWrX34UurWxWFyk
+	Cr1qvw4F9ryrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07je0PfUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq02oUAAAsL
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Successfully initialized controllers are moved to intc_parent_list,
+but the final cleanup only frees the descriptors. The device node
+references taken with of_node_get() and the interrupt parent
+references are therefore leaked on the normal return path. Drop both
+before kfree(), as the intc_desc_list cleanup already does.
 
-The common TPM Device Tree binding already documents resets and
-reset-gpios, but the TIS I2C driver never requests a reset control.
-As a result, an I2C TPM held in reset by board wiring remains
-inaccessible and the first register access during probe fails.
-
-Request the optional reset control and deassert it before
-communicating with the TPM. This keeps existing boards without a reset
-line unchanged while allowing platforms using resets or reset-gpios to
-release the TPM before probe continues.
-
-Tested on a Variscite DART-MX95 with an ST33KTPM2XI2C TPM using
-reset-gpios.
-
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+Fixes: 8363ccb917c6 ("of/irq: add missing of_node_put")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/char/tpm/tpm_tis_i2c.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/of/irq.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
-index d55f30fef00a..cde0b093ed58 100644
---- a/drivers/char/tpm/tpm_tis_i2c.c
-+++ b/drivers/char/tpm/tpm_tis_i2c.c
-@@ -12,6 +12,7 @@
+diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+index 6367c67732d2..f50fec3afa2e 100644
+--- a/drivers/of/irq.c
++++ b/drivers/of/irq.c
+@@ -752,6 +752,8 @@ void __init of_irq_init(const struct of_device_id *matches)
  
- #include <linux/i2c.h>
- #include <linux/crc-ccitt.h>
-+#include <linux/reset.h>
- #include "tpm_tis_core.h"
- 
- /* TPM registers */
-@@ -330,6 +331,7 @@ static const struct tpm_tis_phy_ops tpm_i2c_phy_ops = {
- static int tpm_tis_i2c_probe(struct i2c_client *dev)
- {
- 	struct tpm_tis_i2c_phy *phy;
-+	struct reset_control *reset;
- 	const u8 crc_enable = 1;
- 	const u8 locality = 0;
- 	int ret;
-@@ -346,6 +348,16 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
- 	set_bit(TPM_TIS_DEFAULT_CANCELLATION, &phy->priv.flags);
- 	phy->i2c_client = dev;
- 
-+	reset = devm_reset_control_get_optional_exclusive(&dev->dev, NULL);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(&dev->dev, PTR_ERR(reset),
-+				     "failed to get reset control\n");
-+
-+	ret = reset_control_deassert(reset);
-+	if (ret)
-+		return dev_err_probe(&dev->dev, ret,
-+				     "failed to deassert reset\n");
-+
- 	/* must precede all communication with the tpm */
- 	ret = tpm_tis_i2c_init_guard_time(phy);
- 	if (ret)
+ 	list_for_each_entry_safe(desc, temp_desc, &intc_parent_list, list) {
+ 		list_del(&desc->list);
++		of_node_put(desc->interrupt_parent);
++		of_node_put(desc->dev);
+ 		kfree(desc);
+ 	}
+ err:
 -- 
-2.47.3
+2.34.1
 
