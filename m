@@ -1,98 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D50842E43A;
-	Thu, 17 Sep 2026 22:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2694047F2C6;
+	Thu, 17 Sep 2026 22:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789685254; cv=none; b=eosT2ry/2MWrIQ8njZEBweA255Xhu1ELZhyY7+olmSVZOVl/BVq5RY4OY5fqeQmr1R0Z31oeiWQk7lhI92J2SgUQAqllQLBlbhel9Rh4p1s/RP7tN2vKuvFHnsApjuFhHEPSdkyVt4aM1Bj7yxTLArDCoKOyLcLxNvsMWb+urcs=
+	t=1789685343; cv=none; b=ZABFj80epDM0M6/q9BfwyYAXkgrkXPfqDP8G/NF/hqCy8gdQr/ZM+Qpvao4rs3krPVBKCF4L08lCXL40msRNZb80xysaNMVzXXYzJmgLHOEG0E7Wm5WIYmVzC0BDWM0w38kOi/xpSHpWt5Jw/7jW+pL3WmjrjQDhBdIaHFxhz24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789685254; c=relaxed/simple;
-	bh=SMqYdfiPwRXRyTKswGzz5iO1soozNB7Bw2nAH6gFfqE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aPmZZiWDoXLWn5U2DmTCV+ZmI/mT3lr0NtVHT/jts/9uhmQqIENv1cicpyBwm7N9dK0AkS7HHSRRc0LyCeMGXpeY/bgYkoSYkp+JOymCbgAusEfRkVz6BfyzI+tOcH+yim84snEdScWwu+zVOzvZWNBxZvNJKM6hOXyCQKojoMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5wRw5JL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789685343; c=relaxed/simple;
+	bh=cSv40zDCjUa6QLT0PGB7Irub/S8I7AeCF7NrtGbjeSs=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=KRVKgi+DNmGKXf2hzsv920Sp19aOOWuE0qAvpIJqKr5v8ASvXGE/8JrCdgKokPQLB8ES5nfJdMmDXRJDoxnA6OdH4lRaKTawRepVYTKGQnAENuKg2Jvu2USYflMRbUCkRARgHJhJdT7eNmPeCj/5jMz/BHly4/lgfzeDxs1y+ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=X4YfLKac; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5wRw5JL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557C61F000FF;
-	Thu, 17 Sep 2026 22:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789685253;
-	bh=8Li/olbUQ7G8GFrX4U0/Y+lzE3EV3zjQFNNG4WPCqrg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n5wRw5JLBeFR1hel4a/n8LSxMtWLORFssE+amPgpyU65X393AnLKWj6EYDT4rctR8
-	 JGMcR+6Q78oK2krKLDunCtuTySxFTMPziAS3azB5bp+p/5Q//cUsePeP3Sf4bmmlCk
-	 uFpmrKLThNbtNNL47WaOBdXaMZbYIalYNznB1gl68ScxwakaHPcbtCsIMBf1BEpP21
-	 sYHy0lm+VN/w/Vty/1druh+PytAH5gZIAgJkU589Go7b8e7tdu49qWfiNhuwvJA1nO
-	 150e9b03Ry4vxiBF/RIKuJvt0q+dVDC+p3ThWUTOIs5kWAxYypQevEMHygaM4Rnglw
-	 QItmzN/8aQo/g==
-Date: Thu, 17 Sep 2026 15:47:33 -0700
-From: Kees Cook <kees@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] nvmem: core: Add const to pattrs allocation type
-Message-ID: <202609171545.A37F12B74F@keescook>
-References: <20260917211423.i.786-kees@kernel.org>
- <37f07dcb-9b4a-4767-8d0c-471148729c20@kernel.org>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="X4YfLKac"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=cSv40zDCjUa6QLT0PGB7Irub/S8I7AeCF7NrtGbjeSs=; b=X4YfLKac+dzSzc5vDQkuBEH4eN
+	2xHiblTQ/oYL3zPbIRqZlFx7FVxp2PiTiMUfyFVe7Q6sc+h0J+SjlCqac5erAseFy7RtioSaV4HzD
+	3DzPj0kYWPmpO3dtPt0adv6RofItZ3ZbtAuqt8Bk8bHW1b6wHzHDp5YH6bqTHc8pVSpErYO2UOXVc
+	m7IrZKEioyO/00OJqZ0SkcNTcBDmyNHuKLZteSbYh9I78CRBnV2QlvRyPKf4UYL361r2dRQb7Aulh
+	+1DHMPIXATs8Br9fNuHejVGbHSmYMLAah3Fq7Bnoou+daOMn2PoZpn2MVocOIqYJuzvoE0eb8izAb
+	U+jte1BA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x7KuV-00000001guf-3dzV;
+	Thu, 17 Sep 2026 19:48:55 -0300
+Message-ID: <9a0ffb5299163f5865eb8a805bddf4d6@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Wentao Liang <vulab@iscas.ac.cn>, bharathsm@microsoft.com
+Cc: linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ronniesahlberg@gmail.com, samba-technical@lists.samba.org,
+ sfrench@samba.org, sprasad@microsoft.com, tom@talpey.com, Wentao Liang
+ <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] cifs: Fix server use-after-free in
+ cifs_chan_skip_or_disable()
+In-Reply-To: <20260917163439.2162539-1-vulab@iscas.ac.cn>
+References: <20260917163439.2162539-1-vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 19:48:55 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <37f07dcb-9b4a-4767-8d0c-471148729c20@kernel.org>
+Content-Type: text/plain
 
-On Thu, Sep 17, 2026 at 10:32:15PM +0100, Srinivas Kandagatla wrote:
-> 
-> 
-> On 9/17/26 10:14 PM, Kees Cook wrote:
-> > From: Kees Cook <kees+treewide@kernel.org>
-> > 
-> > In preparation for making the devm_kmalloc family of allocators type
-> > aware, we need to make sure that the returned type from the allocation
-> > matches the type of the variable being assigned. (Before, the allocator
-> > would always return "void *", which can be implicitly cast to any
-> > pointer type.)
-> > 
-> > The assigned type is "const struct bin_attribute **", but the converted
-> > allocation type would be "struct bin_attribute **", which is the same
-> > type without the const qualifier. As there is no general way to safely
-> > add const qualifiers, take the size from the assignment target instead.
-> > No change in allocation size results.
-> > 
-> > Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
-> > drivers/nvmem/core.o
-> > 
-> > Assisted-by: LLM coccinelle
-> > Signed-off-by: Kees Cook <kees+treewide@kernel.org>
-> > ---
-> > Cc: Srinivas Kandagatla <srini@kernel.org>
-> > ---
-> >  drivers/nvmem/core.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-> > index 0556d140170a..19edc9ab0282 100644
-> > --- a/drivers/nvmem/core.c
-> > +++ b/drivers/nvmem/core.c
-> > @@ -485,7 +485,7 @@ static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
-> >  	/* Allocate an array of attributes with a sentinel */
-> >  	ncells = list_count_nodes(&nvmem->cells);
-> >  	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
-> > -			      sizeof(struct bin_attribute *), GFP_KERNEL);
-> > +			      sizeof(*pattrs), GFP_KERNEL);
-> 
-> Thanks for the patch, while you are at it, there are few more instances
-> just below this.
+Wentao Liang <vulab@iscas.ac.cn> writes:
 
-There are, but there were no type mismatches with those. pattrs is const,
-but attrs and attrs[i].attr.name aren't, so no change is needed there.
-Do you want me to flip the attrs devm_kcalloc sizeof to *attrs to much
-style, though?
+> When a secondary channel is no longer supported by the server,
+> cifs_chan_skip_or_disable() drops the channel reference with
+> cifs_put_tcp_session() and then continues to use the server pointer by
+> calling cifs_signal_cifsd_for_reconnect() on it and reading its
+> primary_server pointer. cifs_put_tcp_session() can drop the last
+> reference of the channel and tear it down, so both the channel and the
+> primary server (whose reference is also dropped by
+> cifs_put_tcp_session()) can be freed before they are signaled for
+> reconnect.
+>
+> Signal the channel and the primary server and capture the primary
+> server pointer before dropping the channel reference with
+> cifs_put_tcp_session().
+> ...
 
--Kees
-
--- 
-Kees Cook
+Applied.
