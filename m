@@ -1,69 +1,35 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D71A415F39
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE24439320;
+	Thu, 17 Sep 2026 08:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633550; cv=none; b=XpRvFl2S/TBrS0Nh3qDvh1q/5lRu7SWptYtEwEVi6kTpUmM+YFWQebeA7dvlZe2GmD/22jrIBZi9oo0KC/FHrNkpv8SSlfN82dh+NMzPnNtXPImScEGabavZRWtqIy1RuTFjeCie50OIBfiYJ+3988CZvyIpb6jIhON/f5TYwHk=
+	t=1789633559; cv=none; b=Si9IUU3LlcCUjd0SteVHrS/xD6+NQ09+D6s0I2oucJEdZag5P83gqFt+RiQu96onCoP1C34xv1uAmoYlZN0F+4MLdNiRWvKaNc1h1E+2zYqwxOFQ6TOWI4Wzm7OEnoOxbwGPAXwb/QV+3GN7JVIXm8qSIOsQ4sL01Yde1dFCnLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633550; c=relaxed/simple;
-	bh=tKqz8WaA5fCf8zqxAuhb+KSHy9L2ioB7dBm28PChNnM=;
+	s=arc-20240116; t=1789633559; c=relaxed/simple;
+	bh=iCNntByuagri6GX/0cHOmsW0p43nmuVacSBdZuqEa5U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hu7U+UyW79MRLJmCPVl4ZFaIwrA2Fq0OQYMNnbs7EoSKUzGZtaUm3mZGy0MUWV1qnJFyZOW15CwfZQnaqf482kra6qfRq4gVqYvOFdl0LACb3kjeGSbCkmQgePEWbgssN0uXgvXWJ9vEUVrckI42EU9inoRJWLm7LCqvePnCdu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=IDVJg5Aq; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	 In-Reply-To:To:Cc; b=o5hQvklfs5Wh8/rEJObSlLJZowY1VjTErpHcSlZLvp+qC3cXDYnsSjJ6U08IFBGd7Eb/UnSiQPs2hnUwFbZVQEiSSO8cLmcR5UqkB/bUYwf1sjhzLq7gTgd3zeqbHoIl0ZAJDhT331zjpadL7ZXyb/NgEFFUwaS3rGy9MineuCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oDboan0O; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="IDVJg5Aq"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so87392466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789633529; x=1790238329; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T0+EbfIJEQi9Km2o4RWY1Oe967wA79enaext7ctyUJE=;
-        b=IDVJg5AqZ5Y8c7H7zSYinlG5tIi5AwD653xe1nqKmyj7tZsrPP9eDHFCoxu5+v78XZ
-         z7r//+jXaK1ItG7a4lVzO7wNdC8OvvPBW9rwzaghfbZRGCpL9OTTXT+bcu6z5nLUYjdJ
-         yCOwUOpys8DQEkxk8s5PQcVfCbou9UeEz85BbUOsCx864wVz6ta7gT4ZNFL96mTKSDUi
-         eRchZgctIDCvFsKTcHyJZdQSHo4jymsw3XwHlA5L29oFrH6slArNj5p73/AN3O3I+QYI
-         1HhU7ixTJPSeHDAq8b2G57TiwRcAe+fmO95w8JTMSxTzivHi8kmnrlTAYQHLZU/jDnAy
-         dzqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789633529; x=1790238329;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T0+EbfIJEQi9Km2o4RWY1Oe967wA79enaext7ctyUJE=;
-        b=xC+eSNyHdKJQCY/WxVqXisJGmt20ko7uGCzLnSoSQiOMPOhu+oJgIPVOfkM715RFfD
-         zrGjj6wJnaVzr72vfOhhsJU5lrbLDbH5V1ovZxuBHfb3WqxCJtO94tdvktB2Qqsv5jA/
-         85Muq8OqgH5Z0VU52AZbedONfRd6A8SalRKCZJA/Ksf7m4h70P5+f/asF1b5NY0mVKuU
-         cZ2FvXJym4ZicQYkUfmneX9s9L+blopEfsyJJYujvawAjsx9l0Wat/bHNlrThxP19sbT
-         8j0WwIThP29By3xeiiEWduR0Yl9tQLpbBn3KyRUHeXUj6LGZvqiFBUb6OuqrZutnaINA
-         Necw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoz6wKF9Z3jGbaiLkoOXS8mI4V/PFKfFR1bXMX66wAqycI9wtC/D02aQ5CRmO/7L8M9hivRmKASVz303o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJYd4JqJQHVS+dbepvgkJs8st/oObmZVoV1g99UBFdAdG1pdk+
-	wewMklGCHiHAcLZGIYdCa+uySaEQsGi0M/vZvlDw7XBWpRoBuYE05N9Iz+t+Kt5KRFk=
-X-Gm-Gg: AYBFou3d7xpvSQZy8/n/jYEucEBUNbbuyowBe2PpzNuN14A0cvaQmJUD6CVszWomTdw
-	gc0y6enb3s6Lhw4MaY/vID5bARcOQiAy6Y4butxqLPMaS39s3CwyycwGi0asDrkeQrtOs/wKtz9
-	Cp2jcWnRqCtWZREkJLnS6V1Q+HtceAQeHvweNSQ8dUr2ElF+97t/rDGUXuHyDfIlhIdo/dGtORR
-	DDNii4phNwy2h0AKDnrkVr+o/l7X+GkRcQhnxb8YGLseqUVzKdELtkxGG4CF3Oy7KmHVZ2yWAgo
-	6ZVMHwkxPCYLKIiDMA4zkV3uJq8afG/wmzvDdL5KtryOIm8ibBqwUGfGmo+QNT36g2QfpMHtcX9
-	fOpPdIWkCDwkcCp0C95M7tcn7adi1A1K4/FHfAAT0OOsI4uJSuqFWnx95+adjD/sfsPA9/+ZMxQ
-	fV4PqlXnOz0JlWUNKHXBXTevorjiMdp+Bmkn/1Jm03Gg2/fuap0U6p6n72RmiXKDD6AqL2MLvwe
-	0kTrPr1fyjVVa3K3QoN97S4MCFwWu9jIsR+iYLzFZ7lR1TT2PLN4cqMOvbK7E8=
-X-Received: by 2002:a17:907:7205:b0:c29:59ea:5bf9 with SMTP id a640c23a62f3a-c29e52085bamr405665266b.14.1789633529521;
-        Thu, 17 Sep 2026 01:25:29 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de0851ebsm242943966b.4.2026.09.17.01.25.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:25:29 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Thu, 17 Sep 2026 10:25:25 +0200
-Subject: [PATCH v2 3/3] arm64: dts: qcom: milos-fairphone-fp6: Add
- touchscreen
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oDboan0O"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 531B7512;
+	Thu, 17 Sep 2026 10:23:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789633426;
+	bh=iCNntByuagri6GX/0cHOmsW0p43nmuVacSBdZuqEa5U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=oDboan0OC4tSQgCGuM81al37SgpIT7sCr8IZbnqd3zjXN4OfO0BkIoOGOFPMh09NJ
+	 qAaj4oTvhW40hF8VXHwuHwhN7pOsW4TN7B+namWI8GxOdcqH02fdcuVL5le4dM/mHT
+	 afSdHIv4Zb70mkqRUMV2+oOFkiwx8UbzRVpi1Zn8=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Date: Thu, 17 Sep 2026 13:53:11 +0530
+Subject: [PATCH v5 05/10] platform/raspberrypi: vchiq-mmal: Support bayer
+ and gray formats
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,84 +38,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-eswin-eph8621-v2-3-f534080a6338@fairphone.com>
-References: <20260917-eswin-eph8621-v2-0-f534080a6338@fairphone.com>
-In-Reply-To: <20260917-eswin-eph8621-v2-0-f534080a6338@fairphone.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789633524; l=1602;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=tKqz8WaA5fCf8zqxAuhb+KSHy9L2ioB7dBm28PChNnM=;
- b=UXnL3U0l+wxPa6dEX/B0T61AEQAmzOv/3SA2eDzB+9GPdURRWB1b9TGmZdmBpcE0PZyPxTwsc
- j0/hz+WM++LBcUzDuhnIkvW3795KB3LK3CwcFy3Zl97BxeSBbPLw6ph
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Message-Id: <20260917-b4-vchiq-isp-v5-5-2d8870add2c0@ideasonboard.com>
+References: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
+In-Reply-To: <20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
+ Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, 
+ Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4390;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=iCNntByuagri6GX/0cHOmsW0p43nmuVacSBdZuqEa5U=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqq6PSiKPsgKBoEnB5Kuu6EQJrstlV+N49xdl35
+ HMIBEFnUraJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaquj0gAKCRBD3pH5JJpx
+ RX1RD/9xow8H1N1ydkl4q19Y2No8lgRYsWq+m1WMlIBGjzP3y9/F5AGcbKDBLdjfAc46A22c/tc
+ zBKiXy4lvGaBjPqF3tjjNmjBQrLGl91jfKUUNodybD75b5lDz0l1WyeB8Cmmsg1T5SH4AI968o1
+ w6fQSpfMgKC3XQTVVhGg9kdzObKxPVv9YSZDCjZoL5xgkQucxG0v1/wDK/c5XDkAw3R783FT6Dc
+ k91wtFRiJN1HIiXJwIMy0u1pcbsRnMT9GWtPva8ebBIa14yi+hn1HaSjMRTFUyhdLS/jS3R8+2C
+ yBT1nrX/fX2a6jz+uAaqXqr89o2S9wEszRpHQwabX15HU6Szg3QnMshg1WtTNfr1rln6XOZL1ru
+ WTc9c93RSIWrZ1gO+sCoNQfcemu6gcY48PqUEtjDAdkjyuN74+VUKTytcdNtfcKJ2mm8r6IlbfV
+ 1gGBNA/Zt3w2aRnbsdZ04CFI7M5CZuZmpB90rCMTmQXP4yBUHr2i3pfDWqUcpN/2NZDufiZ4dX5
+ wnLzn6lWJajWMFfjtTgkAG+G30BjQ4yIupLWBmNXR5qE3j+HIlGMZfP4vTMsCTzx+4Oco46GLd0
+ zoF6mU+naf4VIp9UxUHv33ivN2ReH2ocwZ+3tdv9hTGyXmH7+b7xvTo4BK7Cto8VlyqAXHJ+UK5
+ Hu9F8sxLryxlTSQ==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Add a node for the ESWIN EPH8621 touchscreen connected via SPI and the
-pinctrl state for the two GPIOs connected to the touchscreen.
+Raw camera sensors often send data as packed or unpacked bayer and gray
+formats, which needs to be processed by the ISP.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Add macros to support bayer and gray format FOURCCs in the MMAL layer.
+
+Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts | 29 +++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+Changes in v4:
+- Drop comment about FourCC values being copied from V4L2
+---
+ include/linux/raspberrypi/mmal-encodings.h | 63 ++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-index 4b7ae87270ac..498fde3d3d18 100644
---- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-+++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
-@@ -983,7 +983,27 @@ &sdhc_2 {
- };
+diff --git a/include/linux/raspberrypi/mmal-encodings.h b/include/linux/raspberrypi/mmal-encodings.h
+index eadf2e981408..fd9cd840cb7b 100644
+--- a/include/linux/raspberrypi/mmal-encodings.h
++++ b/include/linux/raspberrypi/mmal-encodings.h
+@@ -69,6 +69,69 @@
+  */
+ #define MMAL_ENCODING_OPAQUE           MMAL_FOURCC('O', 'P', 'Q', 'V')
  
- &spi0 {
--	/* Eswin EPH8621 touchscreen @ 0 */
-+	status = "okay";
++/**
++ * Bayer formats
++ */
++/* 8 bit per pixel Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR8     MMAL_FOURCC('B', 'A', '8', '1')
++#define MMAL_ENCODING_BAYER_SGBRG8     MMAL_FOURCC('G', 'B', 'R', 'G')
++#define MMAL_ENCODING_BAYER_SGRBG8     MMAL_FOURCC('G', 'R', 'B', 'G')
++#define MMAL_ENCODING_BAYER_SRGGB8     MMAL_FOURCC('R', 'G', 'G', 'B')
 +
-+	touchscreen@0 {
-+		compatible = "eswin,eph8621";
-+		reg = <0>;
++/* 10 bit per pixel packed Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR10P   MMAL_FOURCC('p', 'B', 'A', 'A')
++#define MMAL_ENCODING_BAYER_SGRBG10P   MMAL_FOURCC('p', 'g', 'A', 'A')
++#define MMAL_ENCODING_BAYER_SGBRG10P   MMAL_FOURCC('p', 'G', 'A', 'A')
++#define MMAL_ENCODING_BAYER_SRGGB10P   MMAL_FOURCC('p', 'R', 'A', 'A')
 +
-+		avdd-supply = <&vreg_l22b>;
-+		vddio-supply = <&vreg_l9b>;
++/* 12 bit per pixel packed Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR12P   MMAL_FOURCC('p', 'B', '1', '2')
++#define MMAL_ENCODING_BAYER_SGRBG12P   MMAL_FOURCC('p', 'g', '1', '2')
++#define MMAL_ENCODING_BAYER_SGBRG12P   MMAL_FOURCC('p', 'G', '1', '2')
++#define MMAL_ENCODING_BAYER_SRGGB12P   MMAL_FOURCC('p', 'R', '1', '2')
 +
-+		interrupts-extended = <&tlmm 19 IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
++/* 14 bit per pixel packed Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR14P   MMAL_FOURCC('p', 'B', 'E', 'E')
++#define MMAL_ENCODING_BAYER_SGBRG14P   MMAL_FOURCC('p', 'G', 'E', 'E')
++#define MMAL_ENCODING_BAYER_SGRBG14P   MMAL_FOURCC('p', 'g', 'E', 'E')
++#define MMAL_ENCODING_BAYER_SRGGB14P   MMAL_FOURCC('p', 'R', 'E', 'E')
 +
-+		pinctrl-0 = <&touchscreen_default>;
-+		pinctrl-names = "default";
++/* 16 bit per pixel Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR16    MMAL_FOURCC('B', 'G', '1', '6')
++#define MMAL_ENCODING_BAYER_SGBRG16    MMAL_FOURCC('G', 'B', '1', '6')
++#define MMAL_ENCODING_BAYER_SGRBG16    MMAL_FOURCC('G', 'R', '1', '6')
++#define MMAL_ENCODING_BAYER_SRGGB16    MMAL_FOURCC('R', 'G', '1', '6')
 +
-+		spi-max-frequency = <2000000>;
++/* 10 bit per pixel unpacked (16bit) Bayer formats. */
++#define MMAL_ENCODING_BAYER_SBGGR10    MMAL_FOURCC('B', 'G', '1', '0')
++#define MMAL_ENCODING_BAYER_SGRBG10    MMAL_FOURCC('B', 'A', '1', '0')
++#define MMAL_ENCODING_BAYER_SGBRG10    MMAL_FOURCC('G', 'B', '1', '0')
++#define MMAL_ENCODING_BAYER_SRGGB10    MMAL_FOURCC('R', 'G', '1', '0')
 +
-+		touchscreen-size-x = <1116>;
-+		touchscreen-size-y = <2484>;
-+		touchscreen-inverted-x;
-+	};
- };
- 
- &tlmm {
-@@ -991,6 +1011,13 @@ &tlmm {
- 			       <13 1>, /* NC */
- 			       <63 2>; /* WLAN UART */
- 
-+	touchscreen_default: touchscreen-default-state {
-+		pins = "gpio19", "gpio20";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
++/* 12 bit per pixel unpacked (16bit) Bayer formats */
++#define MMAL_ENCODING_BAYER_SBGGR12    MMAL_FOURCC('B', 'G', '1', '2')
++#define MMAL_ENCODING_BAYER_SGRBG12    MMAL_FOURCC('B', 'A', '1', '2')
++#define MMAL_ENCODING_BAYER_SGBRG12    MMAL_FOURCC('G', 'B', '1', '2')
++#define MMAL_ENCODING_BAYER_SRGGB12    MMAL_FOURCC('R', 'G', '1', '2')
 +
- 	sdc2_card_det_n: sdc2-card-det-state {
- 		pins = "gpio65";
- 		function = "gpio";
++/* 14 bit per pixel unpacked (16bit) Bayer formats */
++#define MMAL_ENCODING_BAYER_SBGGR14    MMAL_FOURCC('B', 'G', '1', '4')
++#define MMAL_ENCODING_BAYER_SGBRG14    MMAL_FOURCC('G', 'B', '1', '4')
++#define MMAL_ENCODING_BAYER_SGRBG14    MMAL_FOURCC('G', 'R', '1', '4')
++#define MMAL_ENCODING_BAYER_SRGGB14    MMAL_FOURCC('R', 'G', '1', '4')
++
++/* MIPI packed monochrome images */
++#define MMAL_ENCODING_GREY    MMAL_FOURCC('G', 'R', 'E', 'Y')
++#define MMAL_ENCODING_Y10P    MMAL_FOURCC('Y', '1', '0', 'P')
++#define MMAL_ENCODING_Y12P    MMAL_FOURCC('Y', '1', '2', 'P')
++#define MMAL_ENCODING_Y14P    MMAL_FOURCC('Y', '1', '4', 'P')
++#define MMAL_ENCODING_Y16     MMAL_FOURCC('Y', '1', '6', ' ')
++
++/* Unpacked monochrome formats (16bit per sample, but only N LSBs used) */
++#define MMAL_ENCODING_Y10     MMAL_FOURCC('Y', '1', '0', ' ')
++#define MMAL_ENCODING_Y12     MMAL_FOURCC('Y', '1', '2', ' ')
++#define MMAL_ENCODING_Y14     MMAL_FOURCC('Y', '1', '4', ' ')
++
+ /** An EGL image handle
+  */
+ #define MMAL_ENCODING_EGL_IMAGE        MMAL_FOURCC('E', 'G', 'L', 'I')
 
 -- 
 2.55.0
