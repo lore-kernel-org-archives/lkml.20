@@ -1,209 +1,97 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A774B44C4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661152; cv=pass; b=hhj1uNnXiRmQjganrmItSrCDJ9LTWHg3PjxyogXdJpbVT0r4U/DtG/odVkcqJpLl54jA9Jfxej6YeOzm3YSvA6tt3JdpDjgZbKD0HdPngYYRG9ixevTRvSvPvCKxekFuRMTS8vONRzAocr7l1fFwPQETTQXANJMkQxVXKJufEd4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661152; c=relaxed/simple;
-	bh=aYHPZun5/irD6+c03BRZQvOeX0fB7lcB7AWwlXYl/9k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DK09gGiTaVcRpE6KLmFAk6oNBQmaFkUcztDDbJv89awnITYHLN3yDq82YSTh1mgSzPZzMpZla/3otAXg4tWDLiYmueKlIufV/8dFW9v7ap/j/V5osMqcodzqZqFmQWd48jsy2pPT4DnR4X5xYTDEvkND5WAh8w/qi5QIcK61Gwc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OsyaETGg; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB6164E4C35;
+	Thu, 17 Sep 2026 16:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789661164; cv=none; b=qGpN5z0A6QfkYKkti/tpUNJ+GjvXYX3EdmiECfVMQ91y8X089a7ntlagjCHzg8ucxKJquLqeXmltRhRrUqNOgCiUlGK6ocCvIGpfgs6Hzk4a5VN1ytL/VZ0IjeB7SZHcFYQ26nmhNoTk14E08Zmn3/QFYJsFaJ6sxDsn+Jd2KrI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789661164; c=relaxed/simple;
+	bh=9mcxnDc8qxIpxmpk6T3Tp+BnQwg+ATLN/zS0rC02bj4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h9FByVXMzEcCDDBbQ7RCCNMpyvVj9s9fZXRbUufRcrN695BZJDf2DLj9oMBu2Px2+GcnqrIUtk6rVGJmEteVKtn+9OkY3BYpt5RoDRr62y7SADwhAP/lKebE2/7p8Vm5xdpTri0xcd9iCMPfHDw40EL1IY1LR/2kNgrSHVqnxzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iSTmFOj/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OsyaETGg"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a36de66c0dso10694071fa.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:05:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789661148; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MCGihumer8nePRj1+AW9N8MXJAkOjbxbEegDiJWz4yAq434p9ZlFP2GNfLvSfgrR8S
-         zbkFSIknB/EJ34po/e3zLFxSIZN8JDS6GCqaIY4a/kd0SHngqnyr5SRTA8E1ZEAgulnq
-         jtuPj7DTCWurXSFWSZxOHVfhXrg1/9a7PuMLSfWOlartRIcvruC4JVwaeSIfq89S3xIF
-         DA3yv8Y8vf3XxL5OrKtSPPxZlgsKKtNS/w2iqitonh3eN+nwSOX4kB5o187Lln8zP+qn
-         VzVQhG+6xlrpkuiTCyvso2PPWOzJpZ7coF/Pd9zK7eKQPt4vcBWLnrIyuZrej70g7KPR
-         W/Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q0knlEXv4mbL0sYln2HZI5KQEQf/XjamlBIK6poQrSI=;
-        fh=N21GQ9DIGyuRYk55TN4CmKg5EaXmhITilE3QX8WADGo=;
-        b=o7B1EXyrwtjYiYCkQBkPTwrlCr90iB7rrWTp9rweziptYI/AU2EC5TneqsKn7rKUDB
-         +oGMPn9+owqLqNPXjJ5Tkv6O+N3eQd4a3cK91RUjzy0TSe4coOuWy9zPXdtutHpn+EFg
-         Wf9MqjV5X4D19PouJXSxLWUKbTk945EWUdZcMQ+QbQEqrr777q99YUOAJGTmWa9tTXzy
-         gjidW23amxDgYxcIov+L2lv/B9Vpd6b8rBF2vTewofnvPk3+JZTqSh6LrtVMS5DK1Kvi
-         1ADIqMTj4iKNcPgPav3CggOD8bO2wRT4Eme5nZE7kBovBlIqV2vSz+oIgM1NbLGbrB2M
-         jgJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789661148; x=1790265948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q0knlEXv4mbL0sYln2HZI5KQEQf/XjamlBIK6poQrSI=;
-        b=OsyaETGgmpv4PWCTwaGsD1bae+I4JryglL4Fg2/Ejw6sVd7FES/e/KmCLGjq4b/o5p
-         mmWeTgjbN8B+Rd7zIwy6TpaqO4zKCgqD7XW4pazSIBBfitdGa6Uvo46uZOnD3SnjQ6Np
-         ppWvD4DIu2beqa40BQ6GfSx2CWwZhho4U5xFDa8/RRUhiGLAcwvcNMy8f0KtnXaSYQ0S
-         z1BFXdWOwCCQp5te1OM/VSW+h3StOkLRak6j6FQGgJakJPEUJ2DcF+b8qR9RVwAd02qI
-         draFSz8FhHUc3FLLjyv09ChAJHsogbihidT4w4O1d/mZAU6dT3BUlF6uGi836xOJYAcX
-         xClA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789661148; x=1790265948;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q0knlEXv4mbL0sYln2HZI5KQEQf/XjamlBIK6poQrSI=;
-        b=U3ZtZZB+WWXMJ1RSuByucKdlNef89AuxmqO7iD9dWk0GLYQvnIbJ5gC7O9+nqLESKX
-         VaKS0I7vpFx180HFp3PoMyKLXiUshGpun248nL5ivh2+ZhRr8auRCt6HgmFoh36na+uE
-         bPFw4ScbM9C6BpOOltFaOV56olLZOr9qGbII2ZQ9cziJxLf74XxFGnsMN+sQ+gk1GOSo
-         Fgsg7RUBpyrKqKX34C1ULiBJIk+eM9mBLis4ZK9SCGHtqrhGCHlVza2/HCTEfDmK7yxc
-         bbRBAxR0zEzISlWBvGyrzcDyPNkEgZUZvr/F/6rLeeKEw9aHzUlHISI2QszAc6WXy+TF
-         vqIQ==
-X-Forwarded-Encrypted: i=1; AKwUvByUayB1o/lVXxtOSAo9AN2r0CuYyb2Zam1OOBQ4MchJKYQwqca2urQaUpYMEWh5R9z6sVKzaQ/90XYeZos=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaugwF23Gr0RyRi8IsSUim2lb2OXAkF+Ek2bZv4/9VJhKXp2VM
-	gg14SXzlMYBE/xwyf7zL5korWVzQzHC1+jwdMyA9FjRfaHe6yZPG523cd6V3fW9/s0EQpQOjSO+
-	vIsb6DF9b01HF2tF94doYkjrAcJvjQck=
-X-Gm-Gg: AYBFou3B6ycFISsCTzZVp63YdYP4ryRqMZOKKPRoch7/p8Lfd403fY56NEDyjtDDO1w
-	b3SWTpBfqNk+K+JllcnyOsQCMIirmcaZY7DCOmqTP86AnCFOCKcS0BHoF9ZS9A4tC6te7X+CVnZ
-	E15H22ZF2qL8oWEv4SBlvRpwQuPC+6CwDx43HdlTy8quTF5x2FaRDFKM+tdd2uuUTESmLyByaZV
-	LhrYHjZhh5XnmGzImhj28bp55bFDc+RNUFrJuG8NClElSrgTUImfH03+LPcDQ3PdRihpFatXsVg
-	tmPyykrw7t6pomtWOc60FLktteZdHsmqKk8Ry5PNG8xPQXh3A0xNBtJ2
-X-Received: by 2002:a2e:bea9:0:b0:3a3:7682:49a4 with SMTP id
- 38308e7fff4ca-3a5dca3287bmr15262601fa.25.1789661148190; Thu, 17 Sep 2026
- 09:05:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iSTmFOj/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 723D01476;
+	Thu, 17 Sep 2026 09:05:57 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0930A3F86F;
+	Thu, 17 Sep 2026 09:05:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789661161; bh=9mcxnDc8qxIpxmpk6T3Tp+BnQwg+ATLN/zS0rC02bj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iSTmFOj/SjkZUclQCqE4zTW0vk94VTD2VbErQFckNg1Hf9DqR+Wb+AcjT1kbXrZTY
+	 9NCVL8hRLjredBc9QRerBZnnZDifRLrHjsitRjiaswGzll4lpHF3AB6KbXTdEHKJsU
+	 MLwoOZ4/t3+aNJhsyRfmX7PHIpukuOpzzytXFkiM=
+Date: Thu, 17 Sep 2026 17:05:53 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v4 4/5] dma: swiotlb: Add an overridable architecture
+ pool opt-out
+Message-ID: <aqwP4ZKugUpFezV7@arm.com>
+References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
+ <20260914070135.313337-5-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915195223.3331909-1-qwe.aldo@gmail.com> <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
- <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
-In-Reply-To: <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Fri, 18 Sep 2026 01:05:30 +0900
-X-Gm-Features: AcwNN1UNmNAEFEa_aShHdfCxs1sFHZf3BKx1wDE4NUS_g7cKBrh-ViQLa11YyzE
-Message-ID: <CAKFNMo=Lsaci5bY+G8A-C_FdD3Rhais4eANUdz8rHL7e-auHvw@mail.gmail.com>
-Subject: Re: [PATCH v2] nilfs2: validate segment number in nilfs_sufile_get_suinfo()
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914070135.313337-5-aneesh.kumar@kernel.org>
 
-On Fri, Sep 18, 2026 at 12:46=E2=80=AFAM Ryusuke Konishi  wrote:
->
-> On Thu, Sep 17, 2026 at 4:06=E2=80=AFAM Viacheslav Dubeyko wrote:
-> >
-> > On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
-> > > nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> > > number
-> > > from the total number of segments without first checking its range.
-> > > If
-> > > the requested number is greater than the total, the unsigned
-> > > subtraction
-> > > wraps and the function may process segment numbers outside the
-> > > filesystem.
-> > >
-> > > Cache the total while holding the metadata semaphore and return no
-> > > entries
-> > > when the starting segment number is at or beyond the end.
-> > >
-> > > Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > > ---
-> > >  fs/nilfs2/sufile.c | 10 +++++++---
-> > >  1 file changed, 7 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> > > index eceedca026..573646c5f7 100644
-> > > --- a/fs/nilfs2/sufile.c
-> > > +++ b/fs/nilfs2/sufile.c
-> > > @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> > > *sufile, __u64 segnum, void *buf,
-> > >
-> > >       down_read(&NILFS_MDT(sufile)->mi_sem);
-> > >
-> > > +     nsegs =3D nilfs_sufile_get_nsegments(sufile);
-> > > +     if (segnum >=3D nsegs) {
-> > > +             ret =3D 0;
-> > > +             goto out;
-> > > +     }
-> > > +
-> > >       segusages_per_block =3D
-> > > nilfs_sufile_segment_usages_per_block(sufile);
-> > > -     nsegs =3D min_t(unsigned long,
-> > > -                   nilfs_sufile_get_nsegments(sufile) - segnum,
-> > > -                   nsi);
-> > > +     nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
-> > >       for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> > >               n =3D min_t(unsigned long,
-> > >                         segusages_per_block -
-> >
-> > Looks good to me.
-> >
-> > Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-> >
-> > Thanks,
-> > Slava.
->
-> Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
->
-> Hi Viacheslav,
->
-> Please take this directly.
->
-> I also agree that this change makes sense, and my local test results
-> are as expected.
->
-> However, please drop the 'Cc: stable' tag since it does not cause any
-> fatal issues at the moment.
-> If a real-world problem is found or reported, I think it would be fine
-> to request a manual backport then.
->
-> While acquiring information on out-of-range segments due to
-> wrap-around is indeed possible, sufile is also a metadata management
-> file.
-> When accessing out-of-range areas, it simply hits as a hole block and
-> returns empty data.
->
-> Neither memory overrun in user space or kernel space, nor
-> out-of-bounds block device access or information leaks will occur.
->
-> Well-behaved userland tools read segment information based on the
-> statistics obtained via nilfs_get_sustat(), so no problem will occur
-> (the difference in behavior was visually indistinguishable).
->
-> Therefore, I modified the nilfs-utils to perform ill-behaved calls and
-> tested it.
-> Although out-of-range non-existent segments were displayed as empty
-> data, no critical issue that compromises kernel stability occurred.
->
-> At present, it does not appear to meet the basic criteria for stable
-> backporting, so when backporting, we need to be able to organize and
-> demonstrate the reasoning why it is necessary.
->
-> Thanks,
-> Ryusuke Konishi
+On Mon, Sep 14, 2026 at 12:31:33PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index be3962a33fc6..ef7a776ee508 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -20,6 +20,8 @@ struct scatterlist;
+>  #define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
+>  /* Initialize a default-sized pool that requires architecture remapping. */
+>  #define SWIOTLB_INIT_REMAP		(1 << 3)
+> +/* Do not initialize a pool unless SWIOTLB is explicitly required. */
+> +#define SWIOTLB_INIT_FORCE_DISABLE	(1 << 4)
 
-Hi Viacheslav,
+Nit: maybe better as SWIOTLB_INIT_DEFAULT_OFF. "Force" sounds too
+drastic and it can be overridden on the command line to re-enable.
 
-To follow up on my previous email regarding the stable tag: since the
-patch includes a Fixes tag, simply dropping 'Cc: stable' will not
-prevent automatic pickup by AUTOSEL.
-
-To strictly prevent automatic backporting while keeping it tracked,
-please replace the tag with the following instead of dropping it
-entirely:
-
-Cc: stable+noautosel@kernel.org # Non-fatal bug fix; defer backport
-until a real issue is reported
-
-Thanks,
-Ryusuke Konishi
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
