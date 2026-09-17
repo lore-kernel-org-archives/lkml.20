@@ -1,109 +1,231 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BCC311958
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1C031328E;
+	Thu, 17 Sep 2026 01:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607430; cv=none; b=GfMXIkqnji79omSg6FJWQNS7YiXoQ0vtMsI3AU5xCBChYHMXC3x6gKsxlUOuAhGWISmQxk423d56s8yfOi8OOfM+OrCiiJyleisTcUmyc0EoAM8twdLeVyu5Xfr68ce14J1QY5EtWroDgMKsT56bUeGvi8zrK4UkH6aSA0z3HfA=
+	t=1789607483; cv=none; b=ae11fmeWnRr8fa75PAkk0ou+O1qbf2I5wl512DC9taxSti+CF02FjFu/Vzsgnj2EtWZkPSfWabYqZfWIi0YTKincI5Jvpv63FOaFAh5xObUFSyed35HC6JQshaauDaryNc71rKGDbjutKpysx57NHeM4hOrI2VpyaVIbdtb0nZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607430; c=relaxed/simple;
-	bh=d89DZbU6qSxHVFReirp4z+F8nAR1vhudlk9+d6a3WxQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MUNqM9cM2IMvQQachPiY7u8mKGe5QcZll/vwNXNHZfaUjZntLOaLXcwl0S6lbFV+Hxz0PlwUHyrTHvxvzycOMi2tQI6qDB6kaaRQSRb2xmbDi/u1IEbpfFGpTHMT8iwYhzsADPVFEW7TLfs58YTZ1vZ1ZpcwyOM/ARa0B3lJvaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dYwxpOdN; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789607483; c=relaxed/simple;
+	bh=lIl1ALWpclX3R1zfPf6n0myrRk16LVQmVMr0yI0Z9ww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=heMCP4otTA7GxUMYx4K1uAgvXo5vrAdLSbQiYIgbPAEqfpDnKlJoeVxRfd62DMB+eppCt4tXOFIB3fS0S2Z+RYEdt8rALjvEsuA2vFfnozL5wOMg70a0PaGvFNA8pqQpfUg63rPffWPRlCIpjOZBrTdk4uXeCjpmbHQcUdQnh2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=QeUG+hax; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dYwxpOdN"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so157125a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:10:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789607428; x=1790212228; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dq2fKZpF2ZHXoWdO/QCS/aYMwaYmBqIaG3WsHfdgCQk=;
-        b=dYwxpOdNsllifx6zKm9MJTKYrX8DCV3QiSvcQp2dm9zavIWqYWfkAJtITq5Cd6BW1R
-         yqVXjWWgZi4mOdnBnF38XhgY2Awia7PhuLfR/a7C1FYSDOKAoErp1sh7k+HWJ8hgPq+H
-         PuPETgVS/4HiBtoWZBtzCKeCya8UuKRXDqFKIiZEBgBJPF6GfjzFzMTLcMLD7MY3wBUO
-         jmB2WdezzRTrs8JEdbx80VAw39Sn/8REm18oGZqsVhai12QgMjfxX0LnrhdfERqeqHR3
-         HYfmU3VIUqR/2KxaJfLv2fz74BXmcugYto4SQgwVpN62IMdgMdLzNgKN1zKCRJwOBlmC
-         0GZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789607428; x=1790212228;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dq2fKZpF2ZHXoWdO/QCS/aYMwaYmBqIaG3WsHfdgCQk=;
-        b=yS0p70O84yf9Ehi64C8wMnqlVxvizihEILQ/qui/tfLHQuSQp2GdWzfS8mN2hpx4cT
-         b1k9g2RRtTpRss9FuwSaP6PdSbPr9fCUezmrZnsz/Y9aKU3LPIJifWrI/JHouxg6W907
-         GTTZokeLloRxO9TAq5NaBhUWhuKVYwlMTAEd8TpoiXJrG3sjx3OXRM3BuN1e4UVJzOe0
-         7e3/dOJ9DtcvCNSyAahKcbk3V0caoOSAArEYrQawNnrxFqOIelc5VIVvvQX+vBjjTvjt
-         tAA8i95EfA6YPIEvAhslUJs4HLsg2jdNpokd5okZGM4+TKPchOGFZH/tYZPlYYqZ4aYP
-         dBfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzznQm/EhANbw0zSOmNs4sn5YcByIYcI/G0kZ2czT4DVRrCLUQYIFKPCX1Zatul/DirJp4DImBlvYd5qSk=@vger.kernel.org
-X-Gm-Message-State: AFuF++llHpBD8ZQSOsm39vVs6iMYALnZgskZUpRinYyqSe2AzIWNEh9l
-	7iDAqmPViKzxprWBD9EzntFUcJhi0wVBpONyx3sIZ2q8UAfUJcqhi67A
-X-Gm-Gg: AYBFou02CixRo31sLqbhjeuCQ1H5eCsbdF1DPtk8JGau7S/n+BrzLIUtgojQ7koLRLg
-	nXzZl5+a689hzBGSYA4EiodMKghYZYE1iO+iztxDuADx2SSIlt7vN6rNfVPxF4dkHzFGmjbubLO
-	D7tOFIIg9C6uKlf/sYDtoHhnbv7AxSx872Ii0MufHCMyy4IgvHoFqMVJZGr+BEvkIP+4NJYqJCk
-	qt8kUkAZI/XOX2AyHhOtSKuzAcmzRnd6EK0bWgOPt1aiymq9dwp1+ugC06tn9/N2Kab59TTVROv
-	5de5FsSnmcku+Oy2hA/3kGbfIhCmAhyqbStCufKRShe8nQ2cKqNBpcW7EOg/g3sfUbNCm7z5/C/
-	vOxChw+lKEJAJpOPqV2H6ugdUpvhCn/TEqisf7mniih+2HoPKYVrP70ViargzgsSym4OFBtNO55
-	idyQLatsFV23k40xW20DIBzgiB6eUotU6rMR+3YQ/T6yU/ePCWN7K20XEyrszyu7ZapfZNOUGZV
-	pbl4wuFGxq9
-X-Received: by 2002:a17:90b:5785:b0:39d:6f12:fd47 with SMTP id 98e67ed59e1d1-39e1e50f73cmr14917254a91.20.1789607428438;
-        Wed, 16 Sep 2026 18:10:28 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3909d02asm353486a91.0.2026.09.16.18.10.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 18:10:27 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 18:10:26 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 4/8] watchdog: mediatek: Add support for mt8167
- toprgu/watchdog
-Message-ID: <befea2ce-e4a5-4bc0-ba01-d18c4a236667@roeck-us.net>
-References: <20260908174259.9009-1-l.scorcia@gmail.com>
- <20260908174259.9009-5-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="QeUG+hax"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=8k9uasLdJhEnshQsGKu6floda4Zwvrq8480xbirB5/c=; b=QeUG+haxncT2aoj4+8ZiwFj81k
+	PQHpNGVCyJ+k3b1K6eQZHsKWLdLYqzZtic4gC+c7RPb84NHFNwYX56QSbV38d6eE4FCCrIzA0WZKy
+	G65j/qBrTfPoN2YYqGlagCxaclmZHmnS8c2bKL5tNwWYllpF3vS6bmap/WcdG9rVQFsn5NvvKtX1j
+	JE9/I93oyz0dHzYAqxU0SxV/sJNsf+4VsEcb2+8qJSD3KRgNIn7UVU51Caql+dZySHQkhV9quNqHG
+	Z0SErNOd8acuMPHe+YGOSTrlVWT9eixMZTihoonJgbDdaLoWMCpF+WqfUapyqqNn3b8KNcWuQXYzM
+	q/5z3CiQ==;
+Received: from [177.172.123.214] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x70eU-003Bv7-Q5; Thu, 17 Sep 2026 03:11:02 +0200
+Message-ID: <d0c5ada8-929f-4d39-9f8e-32860fa5b853@igalia.com>
+Date: Wed, 16 Sep 2026 22:11:01 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908174259.9009-5-l.scorcia@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/4] arm64: vdso32: Implement
+ __vdso_futex_robust_try_unlock()
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Peter Zijlstra <peterz@infradead.org>, Florian Weimer <fweimer@redhat.com>,
+ Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
+ Uros Bizjak <ubizjak@gmail.com>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kernel-dev@igalia.com
+References: <20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com>
+ <20260821-tonyk-robust_arm-v8-4-077707b6f1c7@igalia.com>
+ <aqqngEKC_CsrS62n@J2N7QTR9R3>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <aqqngEKC_CsrS62n@J2N7QTR9R3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 07:38:31PM +0200, Luca Leonardo Scorcia wrote:
-> Add support for the Top Reset Generation Unit/Watchdog Timer found on
-> mt8167.
+Em 16/09/2026 11:28, Mark Rutland escreveu:
+> On Fri, Aug 21, 2026 at 06:50:45PM -0300, André Almeida wrote:
+>> Based on aarch64 implementation, provide a 32 bit entry point for
+>> this vDSO.
+>>
+>> In order to keep compatibility with arm64_futex_robust_unlock_get_pop(),
+>> make sure to store the pop address at r2 and the compare result value
+>> at r3.
 > 
-> Since according to its data sheet mt8167 toprgu reset bits are not
-> contiguous, add support for a reset table to the driver. This lets us
-> define reset identifiers as contiguous indexes in the binding headers.
+> Before we add this to the compat vdso, we'll need to implement this on
+> arch/arm/.
 > 
-> Also address a preexisting Sashiko finding that noticed that the
-> has_swsysrst_en configuration was set after the reset controller
-> registration.
+> Otherwise, my comments on the patch for the native vdso functions apply
+> here too.
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Applied.
+Right, and the compat entry point at arch/arm64/ would point to the 
+__vdso_futex_robust_list32_try_unlock implementation at arch/arm/?
 
-Thanks,
-Guenter
+> Mark.
+> 
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>> ---
+>> v7:
+>>   - The store needs to be a release store, so s/strex/stlex/
+>>   - result reg clobber modified to "=&r" to make sure the compiler don't use
+>>   the r3 reg for something else
+>>   - pop_reg will be read after the execution so it should be an output
+>>   parameter with "+Q"
+>> ---
+>>   arch/arm64/kernel/vdso.c            | 15 ++++++++++++++-
+>>   arch/arm64/kernel/vdso32/Makefile   |  4 ++++
+>>   arch/arm64/kernel/vdso32/vdso.lds.S |  9 +++++++++
+>>   arch/arm64/kernel/vdso32/vfutex.c   | 34 ++++++++++++++++++++++++++++++++++
+>>   4 files changed, 61 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/kernel/vdso.c b/arch/arm64/kernel/vdso.c
+>> index dc6b582736d0..5cae9c17ec72 100644
+>> --- a/arch/arm64/kernel/vdso.c
+>> +++ b/arch/arm64/kernel/vdso.c
+>> @@ -78,11 +78,19 @@ static inline void vdso_futex_update_ips(struct mm_struct *mm)
+>>   				VDSO_SYMBOL(vdso, futex_list64_try_unlock_cs_end));
+>>   }
+>>   
+>> +static inline void aarch32_vdso_futex_update_ips(struct mm_struct *mm)
+>> +{
+>> +	unsigned long vdso = (unsigned long) mm->context.vdso;
+>> +
+>> +	__vdso_futex_update_ips(mm, true,
+>> +				VDSO_SYMBOL(vdso, futex_list32_try_unlock_cs_start),
+>> +				VDSO_SYMBOL(vdso, futex_list32_try_unlock_cs_end));
+>> +}
+>>   #else
+>>   static inline void vdso_futex_update_ips(struct mm_struct *mm) {}
+>> +static inline void aarch32_vdso_futex_update_ips(struct mm_struct *mm) {}
+>>   #endif /* CONFIG_FUTEX_ROBUST_UNLOCK */
+>>   
+>> -
+>>   static int vdso_mremap(const struct vm_special_mapping *sm,
+>>   		struct vm_area_struct *new_vma)
+>>   {
+>> @@ -195,6 +203,8 @@ static int aarch32_mremap(const struct vm_special_mapping *sm,
+>>   {
+>>   	current->mm->context.vdso = (void *)new_vma->vm_start;
+>>   
+>> +	aarch32_vdso_futex_update_ips(current->mm);
+>> +
+>>   	return 0;
+>>   }
+>>   
+>> @@ -327,6 +337,7 @@ static int aarch32_sigreturn_setup(struct mm_struct *mm)
+>>   	return PTR_ERR_OR_ZERO(ret);
+>>   }
+>>   
+>> +
+>>   int aarch32_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
+>>   {
+>>   	struct mm_struct *mm = current->mm;
+>> @@ -347,6 +358,8 @@ int aarch32_setup_additional_pages(struct linux_binprm *bprm, int uses_interp)
+>>   	}
+>>   
+>>   	ret = aarch32_sigreturn_setup(mm);
+>> +
+>> +	aarch32_vdso_futex_update_ips(mm);
+>>   out:
+>>   	mmap_write_unlock(mm);
+>>   	return ret;
+>> diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32/Makefile
+>> index 4bd60f059f4a..f3190125c68b 100644
+>> --- a/arch/arm64/kernel/vdso32/Makefile
+>> +++ b/arch/arm64/kernel/vdso32/Makefile
+>> @@ -97,6 +97,10 @@ munge := ../../../arm/vdso/vdsomunge
+>>   hostprogs := $(munge)
+>>   
+>>   c-obj-vdso := note.o
+>> +ifdef CONFIG_FUTEX_ROBUST_UNLOCK
+>> +  c-obj-vdso += vfutex.o
+>> +endif
+>> +
+>>   c-obj-vdso-gettimeofday := vgettimeofday.o
+>>   
+>>   ifneq ($(c-gettimeofday-y),)
+>> diff --git a/arch/arm64/kernel/vdso32/vdso.lds.S b/arch/arm64/kernel/vdso32/vdso.lds.S
+>> index 12bfc39e8aab..52ced27d6045 100644
+>> --- a/arch/arm64/kernel/vdso32/vdso.lds.S
+>> +++ b/arch/arm64/kernel/vdso32/vdso.lds.S
+>> @@ -89,6 +89,15 @@ VERSION
+>>   #endif /* CONFIG_COMPAT_32BIT_TIME */
+>>   		__vdso_clock_gettime64;
+>>   		__vdso_clock_getres_time64;
+>> +#ifdef CONFIG_FUTEX_ROBUST_UNLOCK
+>> +		__vdso_futex_robust_list32_try_unlock;
+>> +#endif
+>>   	local: *;
+>>   	};
+>>   }
+>> +
+>> +#ifdef CONFIG_FUTEX_ROBUST_UNLOCK
+>> +VDSO_futex_list32_try_unlock_cs_success = __futex_list32_try_unlock_cs_success;
+>> +VDSO_futex_list32_try_unlock_cs_start = __futex_list32_try_unlock_cs_start;
+>> +VDSO_futex_list32_try_unlock_cs_end = __futex_list32_try_unlock_cs_end;
+>> +#endif
+>> diff --git a/arch/arm64/kernel/vdso32/vfutex.c b/arch/arm64/kernel/vdso32/vfutex.c
+>> new file mode 100644
+>> index 000000000000..0d9080b17965
+>> --- /dev/null
+>> +++ b/arch/arm64/kernel/vdso32/vfutex.c
+>> @@ -0,0 +1,34 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +#include <linux/stringify.h>
+>> +#include <vdso/futex.h>
+>> +
+>> +__u32 __vdso_futex_robust_list32_try_unlock(__u32 *lock, __u32 tid, __u32 *pop)
+>> +{
+>> +	register __u32 *pop_reg asm("r2") = pop, result_reg asm("r3") = 0;
+>> +	__u32 val, zero = 0;
+>> +
+>> +	asm volatile (
+>> +		".globl						  "
+>> +		"__futex_list32_try_unlock_cs_start,		  "
+>> +		"__futex_list32_try_unlock_cs_success,		  "
+>> +		"__futex_list32_try_unlock_cs_end		\n"
+>> +
+>> +		"retry:						\n"
+>> +		"	ldrex %[val], %[lock]			\n"
+>> +		"	cmp %[tid], %[val]			\n"
+>> +		"	bne __futex_list32_try_unlock_cs_end	\n"
+>> +		"	stlex %[result], %[zero], %[lock]	\n"
+>> +		"__futex_list32_try_unlock_cs_start:		\n"
+>> +		"	cmp %[result], #0			\n"
+>> +		"	bne retry				\n"
+>> +		"__futex_list32_try_unlock_cs_success:		\n"
+>> +		"	str %[zero], %[pop_reg]			\n"
+>> +		"__futex_list32_try_unlock_cs_end:		\n"
+>> +
+>> +		: [val] "=&r" (val), [result] "=&r" (result_reg), [pop_reg] "+Q" (*pop_reg)
+>> +		: [tid] "r" (tid), [lock] "Q" (*lock), [zero] "r" (zero)
+>> +		: "cc", "memory"
+>> +	);
+>> +
+>> +	return val;
+>> +}
+>>
+>> -- 
+>> 2.55.0
+>>
+
