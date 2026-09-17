@@ -1,137 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C424756DD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789687231; cv=none; b=Ba5jLWH5FgOOfDKmZlak45QRL7fveIgIfxu4kz1SkUb5yLIjZbM0kupyh160sSrc01iZCa7C/Xp6ZdaeA2WC/ZpVlQpZDkiativQvxt7CeEVSe5G4x86We+xybYlOmBuHyfTBUyL30DAs0DeHB73cP+S4loKRoCykiolbIntPcE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789687231; c=relaxed/simple;
-	bh=/YLkONxFDQYICTHszcVcZwZtpjGEF0UwkGSRQH89tyo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EptmvHZqEPGcPZThSpNww0nwBpbFupoo4HcLfCDwWiz5ENyy1Palkh+l73U/eg/QHxtGVdNqVAR27jS4BvGawtKxCBrR849UE4RNuYV8x17LU8sbpb1RK8VL2BEyZo8RihZcHnHdIRU9SrwOOFO955D0mKw3CABGh0R2lzXMBSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KIsgnQN9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2509B372EE4;
+	Thu, 17 Sep 2026 23:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789687289; cv=pass; b=WhGXvxNys2QDLBWT9b/K02dhTV2dcMnI7fmq2Uz1fKEfhICZImSODDBQYMB92AuKqRegP+SxsYVw0ocaZVmcn58rY3c9KpxGk2dGghdiPjl10UHPNP+ESw2Gd/+EW1TZxlH2Bgm0fo+0bKJCNHVHcGGmO109oWfYghItM11d9Ds=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789687289; c=relaxed/simple;
+	bh=LkK2pFSWkVKdoqi6VQoP7k8BLHvLrWGp7jYouKvh8Fs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PVz7tMaBfeC97YxqpLOOLkEp22mvhwzw1+NdSc0zWSiX5ugfl8qvxvo3rAp2gxpUkb+EVHE1xRi4wJlTU+O/BHHEEMLsFdd6yl+0bnBW9c57wnSC0NqFQWo/ViXRF/K12QQaB6npJcNBJtLVvjgPCfEv5XbtXqKdGlXrxIYkSM4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chanakanlabs.com; spf=pass smtp.mailfrom=chanakanlabs.com; dkim=pass (1024-bit key) header.d=chanakanlabs.com header.i=me@chanakanlabs.com header.b=N7ngPiSM; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chanakanlabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chanakanlabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KIsgnQN9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D111F00893;
-	Thu, 17 Sep 2026 23:20:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789687226;
-	bh=0wmsh21wkd7ZY/9Y9mSIaXM8UfHreJhufRu8bchqZSk=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KIsgnQN9zT76HtR3fNU8ScaVaMKo8SrFFv9WrMMvIYYusUqR9vd8UcCWRlQx2JXn4
-	 BASMLooC/sFivbzEybmIU1nfg16PSMtJE4uUGZhmbHElRktg8XJreKH/yqE40YwiM0
-	 ipGxUJp/wYSOBQrfNSKYS0EdEKnw/HAy3xGwevLPCyj/A+zBbNLpuYvEjHgFrzYOV8
-	 d5RzHYUXUBqi8ACNTgXrcN8VSnEqjdsazYR4Q375f6lHQicCkmt5az2nzGXNykJP8b
-	 r7S1Wf16Q9kbQFgimZdjBGzAcPNJ5ltJxDwbTr2bo0QkTncTbsLaGSmQ5wMEW/5GZl
-	 XRvyMrRALTYtQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 00F4A1980052;
-	Thu, 17 Sep 2026 19:20:23 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 19:20:24 -0400
-X-ME-Sender: <xms:tnWsajmaSbOGCbGLt0qnzWWLboInZNiYDjshp4l9nIifJf5Yiqaqrg>
-    <xme:tnWsahq0AO3HWWywXivnT-jRWP82rch0gEUfVkn_d1MpWKGyRhDYhEctbCNAbRn7Y
-    Y6tL6AX1WgRT90dLljAgt4ZaJAguxGS6ctI1T89NzJBUiIxMLBLUMfl>
-X-ME-Proxy-Cause: dmFkZTGJBonoOPjFOUoXy+YTM2uO97Vsgbx1nCN+CmyIQAwbdc8IykWfU6SoGa7Z6sKKTE
-    J8q704juP+4g74zb/er4ibZOsL5U6hAWe4K/1qq4QHJxEWjWFB3kH1y3ZdSTvhKh3vnzJO
-    GnR7IxfaNedbW158uD+E801gG2IPhcp7bLJ2/lFK1726f2M2FskKbulur23cZ8AI09KR6E
-    nCxgW6Ag8z9BBcQtrfIzl/e12Nj21aUR/ZDgcXIsDnuVtBt06DCJrasogV42OqyZadp9Cr
-    eYMkp/Eh76K3fVVf6mwuODlVYN/RiLS5mxNcSWlKSvKQrWJw6CnRA1N/ueUKvVogGqTOqd
-    AaUa5O9fWZX5AHEhoPQaVQHrGed10DBJL0TY7Vg2D5iQL4IEj0wFHUfSmWYtTW//GRVXbF
-    Dbyv+eoom9S2lC9o38VGzmrUe1R1KnIV5Du0uSk3zMUAXDRdpm6CsgHAtaREqNP9iKKPmf
-    uSaTwd8FQzSy8aqdRlihkIM8PcbNXKnpC6q0ltslwtknmxuVD9MiwcOFlFr7gXeNGu1se0
-    q32QBZIk3+HxgXsK+sBeaYcu2KsUc5dsuT/6FKQRYrpCcZQ+42IePW8R9ATXq6ZWM1Jq54
-    o2sOVev8N8d6Ub8u/kEAgdQCbJfJqgiKzHDv29M/vjHfdTLbT2cHFxDJFQcA
-X-ME-Proxy: <xmx:t3WsalMNoEwfPJhwb5xvoWDV4dboyUqRYRx76uOOXy01iE3vDYoFPw>
-    <xmx:t3WsaiCe7wBahRNCNtAnQHV1pMAt0QQOWSLTRNslgDyWfmLvPlCBLQ>
-    <xmx:t3WsakJvcacja-uTLxuf6evOU9o6YDkZA0I3KdZ_hnI0O28Y4tm5zg>
-    <xmx:t3WsajOmgpCh0ZeANXpXUZQ_numI25Y9is7FpdjG9KV0fFEQBAOW_Q>
-    <xmx:t3Wsaq5Tg-1z-n8qyMcrL-Jo4BytrFmvoQmeP-iLWxRuC0esRvmbYTh1>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4A274F80080; Thu, 17 Sep 2026 19:20:22 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=chanakanlabs.com header.i=me@chanakanlabs.com header.b="N7ngPiSM"
+ARC-Seal: i=1; a=rsa-sha256; t=1789687275; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LFiIhtm4oPVKXTty5qLjk9Q2X8cwuWje0rIU3q+mf5LqfjRB+oK541E7Lb4eKH5j8X1dwnU3i/wDN6QwgDauvRSk9M6iPqdGgZ1BS2S1mID/86EtXWGSCoBPD83hfjPQR61WBtuKvEWdg0uWSGajrvKq36BkP5VIFv5OUWtCh7Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789687275; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QFWV3MLLCIO5BlrPbqnOm469lr1dLRDnafWCOeZnAPs=; 
+	b=kxiF4oYVs10mDgRt/qe3Vme6a0UigG0W+Om8EBmdG6yamHNMg8S55MqSP81hmLqlw78GGn4pgaZfhBbViFxYvnuUtx2M27umUNXlIyeFSp2LSKKhIR6PGJzXHZ0u1qvU4GsLBqF3t5ub1RJwd3edSxn+o2OyIxbz+2FvPiMUa6E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=chanakanlabs.com;
+	spf=pass  smtp.mailfrom=me@chanakanlabs.com;
+	dmarc=pass header.from=<me@chanakanlabs.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789687275;
+	s=zmail; d=chanakanlabs.com; i=me@chanakanlabs.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=QFWV3MLLCIO5BlrPbqnOm469lr1dLRDnafWCOeZnAPs=;
+	b=N7ngPiSM/c0A+lItT5o/wYI0ecpUl/lX/47L5Obn6iOv89lBYdNt3jYvJiSWS6HY
+	3IC+KQRf9H2WQz7DWgV7LCg/DrPiFdzBXIHO7uyU9cBtsApoRF4IWnhVQnWQP0MNdne
+	8CdxQdwYbxpsAbdHroRzrTGRtaeSOOftV04g2law=
+Received: by smtp.zohomail.com with SMTPS id 1789687272578948.040234208764;
+	Thu, 17 Sep 2026 16:21:12 -0700 (PDT)
+From: Chanakan Moongthin <me@chanakanlabs.com>
+To: linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org,
+	johannes.thumshirn@wdc.com,
+	bvanassche@acm.org,
+	Chanakan Moongthin <me@chanakanlabs.com>
+Subject: [PATCH] scsi: Honor TRY_VPD_PAGES during initial scan
+Date: Fri, 18 Sep 2026 06:20:27 +0700
+Message-ID: <20260917232027.4265-1-me@chanakanlabs.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 01:19:59 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Rick Edgecombe" <rick.p.edgecombe@intel.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "Zhao, Yan Y" <yan.y.zhao@intel.com>
-Cc: "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "x86@kernel.org" <x86@kernel.org>, "Borislav Petkov" <bp@alien8.de>
-Message-Id: <0fce97e4-3c3d-4b25-aa50-b88a003fd033@app.fastmail.com>
-In-Reply-To: <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
-References: <20260914183745.37538-5-ardb@kernel.org>
- <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
- <aqvrUeIfpE4D-Ol0@thinkstation>
- <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
-Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+The scsi_device_supports_vpd() helper treats try_vpd_pages as an
+explicit override for the device SCSI level. However, scsi_add_lun()
+only calls scsi_attach_vpd() when the reported SCSI level is at least
+SCSI_3.
 
+This prevents VPD pages from being cached during initial discovery for
+devices that report SCSI-2 but are explicitly flagged with
+TRY_VPD_PAGES. The sd driver then cannot read the cached Block Device
+Characteristics VPD page, leaving such disks marked rotational until a
+manual SCSI rescan.
 
-On Thu, 17 Sep 2026, at 20:29, Edgecombe, Rick P wrote:
-> +Yan 
->
-> On Thu, 2026-09-17 at 14:32 +0100, Kiryl Shutsemau wrote:
->> > I guess the caller could care about TDX_PAGE_ALREADY_ACCEPTED errors. But
->> > SNP
->> > doesn't do anything for this case. It seems like part of the problem is that
->> > we
->> > are passing errors back that the caller can't feasibly handle.
->> 
->> Maybe. I don't understand SNP model and why they don't care about errors
->> here.
->> 
->> Do you have a proposal here?
->
-> Yan pointed out that future TDX modules will not take an S-EPT entry lock on
-> accepting a NP S-EPT entry. However, I think this won't prevent guest caused
-> busys on re-accept attempts?
->
->
-> Here is a strawman proposal. Please consider critically.
->
-> TDX_PAGE_ALREADY_ACCEPTED: Zero memory that was re-accepted and treat it as a
-> success.
->
-> TDX_OPERAND_BUSY host contention: Loop and blame the host for any infinite
-> loops. It can be not unlike if the host zap's the EPT and the guest gets stuck
-> on infinite EPT violations. Except that the host does not get any notification
-> of the trouble it is causing... Some sort of TDX arch change to notify the host
-> of heavy guest-host contention could be worked on in the background?
->
-> TDX_OPERAND_BUSY guest contention: RW lock around accept. Normally take the lock
-> for read, and a single fallback attempt takes the lock for write.
->
-> Then I think all errors accept() would want to return to the callers are
-> handled.
->
-> The only thing I'm not sure about is TDX_PAGE_ALREADY_ACCEPTED. Some callers may
-> want a warning on that case. I think a warning is more in line with what we have
-> done in similar situations, rather than panic. But a warming would throw off the
-> EFI stub callers apparently.
+Call scsi_attach_vpd() unconditionally from scsi_add_lun(). The existing
+scsi_device_supports_vpd() check remains responsible for deciding whether
+VPD pages may be queried.
 
-The memory acceptance occurs after ExitBootServices(), and so there is little the
-EFI stub can do at this point except maybe set a variable with an error message
-and reset the system. If that is better than a panic(), this is something we can
-consider.
+On a VMware PVSCSI guest with
+scsi_mod.default_dev_flags=0x10000000, the baseline kernel reported
+rotational=1 at boot and changed to rotational=0 after rescan. With this
+change, rotational=0 was reported during initial discovery.
 
-However, I'd like to avoid going off into the weeds here with something that was
-intended to simply move some logic from one place to the other. The current code
-prints an error to the UART I/O port (rather than the PV console TDX uses when
-running in the decompressor) and then loops forever. Is that something we could
-retain for this series, and then continue the above discussion in the context of
-a separate series based on top of that?
+Fixes: 7fb019c46eee ("scsi: sd: Switch to using scsi_device VPD pages")
+Assisted-by: LLM
+Signed-off-by: Chanakan Moongthin <me@chanakanlabs.com>
+---
+ drivers/scsi/scsi_scan.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/drivers/scsi/scsi_scan.c b/drivers/scsi/scsi_scan.c
+index 0f0f243c2561..a9264a3acaf1 100644
+--- a/drivers/scsi/scsi_scan.c
++++ b/drivers/scsi/scsi_scan.c
+@@ -1122,8 +1122,7 @@ static int scsi_add_lun(struct scsi_device *sdev, unsigned char *inq_result,
+ 	if (hostt->sdev_configure)
+ 		scsi_realloc_sdev_budget_map(sdev, sdev->queue_depth);
+ 
+-	if (sdev->scsi_level >= SCSI_3)
+-		scsi_attach_vpd(sdev);
++	scsi_attach_vpd(sdev);
+ 
+ 	scsi_cdl_check(sdev);
+ 
 
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+-- 
+2.47.3
 
