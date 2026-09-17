@@ -1,76 +1,65 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD23334A791
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39F137D100
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613672; cv=none; b=JSbHvQHkLlcqLjAtFwrizxthvxeeLNwkPK2ik2XqMFPOuyp53PNKNUCJQeCu3D/IaYwFWQdbg1HLkGoCWuUCERDW9rjw1m/w4sRTZ3Cixe0yzYdFmFBLkjKOfJc81WNOgcXPBz8uqAoStAXphPAQ1HidV1EwagZutogKOQAzNiA=
+	t=1789613748; cv=none; b=B62xeo63qLPsrRkLgLAHIkEhm9x8Yc7fQYXT2Hsyxd6rpRABEJASORo6ffUb2xd6KRr13lH1/lFFzGfSsDRATiJKeMRX0QaM86MRLtiRNX1pXqb6lH9iWEZ0pUkwRABVB6xHGoI3oWn0zBBjzezp1ShwC4Pi/Gp+ZH0Or1LaoT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613672; c=relaxed/simple;
-	bh=9vMCR56ARYZ2B332PEB13Aimy0Zh1bvUNn4SyoD1c9A=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KqI51cm3DBIVvNqv7Tmw3qWAwufWbzmmoUX39oBOgvN3m4rFSTutG3dZ6PGBee/TcFFHiTylsihlipNRS+RCJryOGLmuOiqeVD980pTJRuCYMXh/mRUon8x4E3CchfHpjmkjlCFwAwGh5qDBsj806ntdVd5wOPeAE9aN1UeFGEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6bdc0e8af81so426590eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:54:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789613661; x=1790218461;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RRScqn2of0yoWLmH30hp11yDVAViQnVBcWO4VXKwdIw=;
-        b=wG7FnQ5LBh7xASAWiesm+KGp5eaD/wLbEJbvsUS6pyfomoIJfk9W4CPapCdwqBwtmV
-         IFK+XvkeTl5hCAPIHWMFPRBrRJG1+neyyNdUtdnjgpLSlDtAlDw9lWS+6jINVcccjv1m
-         v9eUP4TmnGrfM8Ou03b8ncMUWjgR01wGO3rQ+dTT6Wv/j05Csq8XOLTyUdT4BmHO9iSy
-         IIvE5IHeI9ctXuLJK1UjZICzmcX7dML4i9csY8xRDAHnk+MW6bTBtD7XKS7LbOHtD6hy
-         Fmt0YrIsayj3r10LGFGUM9k5UsnBRBCe2lMtRk5Ub0nzbwOHaHuCrtrN5b7lTWM9mkOi
-         hFtg==
-X-Gm-Message-State: AFuF++lbff0Qgc5tWinJYi2aKpPD4bJlwlfTdZ7zIhZKKkA3aiUvo7Rf
-	nwaYQv92g9d0/rv9NefDy32JHJ++Kw87xfn/y9XKfwUftBDuhd6WzFCgb+Vz3wbAHn0ZO9EUONt
-	NYjxf2nefX3SQgIdpyH5UFD4lE0lkzgpBS1DifYQWYIRPUa5uFz9dEQLt8j8=
+	s=arc-20240116; t=1789613748; c=relaxed/simple;
+	bh=rLVM2Kvs1rH28UD0zg/8TTMfcDIabnflS6Yr7be6jIQ=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=nSBKKHhPbuhnCRKFxcs01T5tcwqjrKpwpH53Bn+CEgDi/DAVnZWluArjdSKORicCsFR0RadcrzOMVOhrxftGdp5coYMFBGM9jTkCJwaM2Tcsvm3FmEIzSXMgXOLdrPoj4S1ZsnzRhvwUjlDNgD/dU9Kle57MKlVcMnDuq2+ONyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i32Ppjv0; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i32Ppjv0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28C91F000FF;
+	Thu, 17 Sep 2026 02:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789613739;
+	bh=a1urShVx1CTGS+0Mcr3CJ4cQ9a5WoVlHz6Ell7cT1tM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=i32Ppjv0vEOP5iZEgMf7IumbJhRen1Ut4SX/p/i33hZ4ipBThvqa8xPUpXgAakEHO
+	 JuXuBMeDNKG/r4+aFL+32HQcicvx1qzLEvak3c2/pyFWJW0V3WXr5jANcJKCgLIvK+
+	 4BGZ8pdSuuDHsr2sD2zCBrzjS1OY8ytgKBwLjXKhmuPryQ75PnFkWlHTd4uOvHCEUa
+	 8HCJMkH9RG1JP8PC32J06mVnfF7hvuVuRl4A0gC13XHdmBstfwwv7HkxZ1tujumSw+
+	 c8plW1cVtIywjUaMpOxfmdGXOU4pF2isYvwY5oNvgDNDfikZre3Skl8FROO0rPdKrC
+	 9FMmS/rorrizg==
+Message-ID: <94731ef5-4c1b-4aed-9a03-ab63a4fc8a7c@kernel.org>
+Date: Thu, 17 Sep 2026 10:55:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16a3:b0:6aa:cce3:ab61 with SMTP id
- 006d021491bc7-6c7d1bca6bemr7262691eaf.9.1789613661412; Wed, 16 Sep 2026
- 19:54:21 -0700 (PDT)
-Date: Wed, 16 Sep 2026 19:54:21 -0700
-In-Reply-To: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab565d.71f81b7d.278072.000a.GAE@google.com>
-Subject: Forwarded: Re: KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [f2fs-dev] [PATCH v8 07/12] f2fs: cache: use node cache
+To: Zhiguo Niu <niuzhiguo84@gmail.com>
+References: <20260916015440.2232938-1-chao@kernel.org>
+ <20260916015440.2232938-8-chao@kernel.org>
+ <CAHJ8P3+0jVMFp3YTse8fbUTSp+jjW+2czxp0NuD__sHG_7UNXQ@mail.gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <CAHJ8P3+0jVMFp3YTse8fbUTSp+jjW+2czxp0NuD__sHG_7UNXQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 9/16/26 17:15, Zhiguo Niu wrote:
+>>  static void __submit_merged_write_cond(struct f2fs_sb_info *sbi,
+>>                                 struct inode *inode, struct folio *folio,
+>> -                               nid_t ino, enum page_type type, bool writeback)
+>> +                               bool writeback)
+> Hi Chao,
+> seems this function just only handle DATA type now, so can we rename
+> it xxx_data_xxx for easy reading?
 
-***
+Zhiguo,
 
-Subject: Re: KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-Author: neganhat@gmail.com
+I rename it to __submit_merged_data_write_cond() for readability.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+Thanks,
 
-diff --git a/fs/ecryptfs/ecryptfs_kernel.h b/fs/ecryptfs/ecryptfs_kernel.h
-index 58165928ed1e..3baccd4143e8 100644
---- a/fs/ecryptfs/ecryptfs_kernel.h
-+++ b/fs/ecryptfs/ecryptfs_kernel.h
-@@ -124,6 +124,9 @@ ecryptfs_get_key_payload_data(struct key *key)
-        if (!ukp)
-                return ERR_PTR(-EKEYREVOKED);
-
-+       if (ukp->datalen < sizeof(struct ecryptfs_auth_tok))
-+               return ERR_PTR(-EINVAL);
-+
-        return (struct ecryptfs_auth_tok *)ukp->data;
- }
