@@ -1,435 +1,380 @@
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C774BCAA9
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B496F3749E8
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:12:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686601; cv=none; b=CKXGBxi4i0JRJ7/z4L45TcFS+XUOg/xxRgYuXh/qYegMJbEmwj5AUxQa7MVxl7tTKMD5pVAUj7luNK9Gc2Yv96NLUqwwajvJcSyxRtFOnczpSX18Y4GVRqJ6iVDOGErMh5tSY5z897UgklKAdHuHV1UO+EUEPnRO64UTiLb+44s=
+	t=1789686758; cv=none; b=I3tXQA6vOlULwooaALNI0YwzyXsM/rh+CCONDb2rX79Pz+X3sS/WWP83fgznFUsoRteyK1MapJYij9reA4owaMZX8RtwIgGmPhNUGzslGqJeMuyTVE429tpOgf60zQbwmonk8FrSeqOZ4edJuvmY967nJzm/UR1vU+ha/wBR8pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686601; c=relaxed/simple;
-	bh=oFNZnroysglcMzj8u+xfoACOnRUzQ/KsuJn2dxzUMR8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LHW55NIs48mqvQBfJeZ6brXbi0Ej7clsoyjIW6ikSVX/6/P9GsxuX2HTVQ+xr/CPjnymuLl8iijzoQOH5bBVn5hi9AK5YJSY6dVcQ0KRqFh052pPOgfB+Dpeh7MsoWCA0w5pwvVoVPAJSEw93JqrOFGxZqVUmWf/yA0XTOl6nYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VoeaAR//; arc=none smtp.client-ip=91.218.175.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VoeaAR//"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oFNZnroysglcMzj8u+xfoACOnRUzQ/KsuJn2dxzUMR8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789686588; v=1; x=1790291388;
- b=VoeaAR//fQudthjcqsK2u1hnV4AdsPfcodFmkNJIjgE9h7g0Tb99MxAA4H3+oxk5ZzZ9f8h2
- OPsYnJ7SwimMoWTcH5clgDLXPbyB48l+HUW7rjb65VWkXWhyRDWrZcXKIqwSotyCihA30QLwgxF
- AV0SSZ6wAQHdAKq+FEy0AycE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f227167076898fad;
-	Thu, 17 Sep 2026 23:09:48 +0000
-X-Mizu-Trace-ID: f227167076898fad
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: Xin Li <xin@zytor.com>,
-	hpa@zytor.com
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Paul Gofman <pgofman@codeweavers.com>,
-	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH 2/2] selftests/x86: Check signal state for rejected software interrupts
-Date: Thu, 17 Sep 2026 16:09:07 -0700
-Message-ID: <20260917230907.2080792-3-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
-References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
+	s=arc-20240116; t=1789686758; c=relaxed/simple;
+	bh=N2+u1Dt+48bEQZZGrGiPdh6Oxtzz8M8eeg6pH78Jn10=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=FxidRGBX7tE+qQPgZLeq3hu58CUhApaTkj0LhpHwfGiaBCjyHkgqjKgCfneJ1mqs/UT38411tNy5KLSH0e2XD3NPbD+PF+bL5qiqCpCEUzrkWprfGRDTl4vpNLQwSi9tif80AJFox0MkX6SoZEXm6MHut3O/UlnTnmwBC8VajFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so81854eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:12:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789686749; x=1790291549;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :date:mime-version:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3jKujHdzytCKoazkUoSl53S0HLiGT0x/21fG+wCk2jU=;
+        b=RqfyyfhOLE8Si49Row7vdrv7v1gVEYbKHCk35WLHcDSPUCppIjoFnuRzJDne61ENVW
+         AleLUjtQDx5t686WixLoujHHkOt0eGRgq8LFebaipW1Wvqb/eJdM/pr4m4my/EU3/vYZ
+         h4JcBB6MX/4FYizumrkKIikuniTEs1W7XzhblUPQlZBxY/kDOE1N3EmCeU9Jd6XiT9IT
+         aZAVi88KnxXJ8MDlwtTYmiC23B3kbzJxYHk6x5DmSdsuGV7rHdCR07wK4g62D+pTHlz6
+         V2UXTId7wI5xGidbFpv9PzDsUkmo0azWTHPcT0Qha6m3LVTS01z/6mMujVCbYrahLRvG
+         tYxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyjYx2bReXBIUNtVc/S+Qz/kbhCAQ33YmJ3HHFmxFv82o/Msyrb+D4jZLMvkKzsYELaqd2kckCYQ6Z4VU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpjibIFEt6XTTn1SAdWJMi8C4wiz3PsN8icfNu7KDw9dP9AOBP
+	EE405QNuKyBo3YNk0xmMJlIEc32mLbujdtQaW3O1VT7qe8Z7TzmxbTb5leoWqN7tCt8HRWNURNT
+	bLMe9lmorkphmMU97O5jWdjVa/pPLWqGVDzEQMNf7fAzyRJ/wp5uVid8bvwU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1f10:b0:6b7:8415:d77a with SMTP id
+ 006d021491bc7-6ca9c059d34mr652908eaf.37.1789686749248; Thu, 17 Sep 2026
+ 16:12:29 -0700 (PDT)
+Date: Thu, 17 Sep 2026 16:12:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aac73dd.b398a7c9.1f86be.0026.GAE@google.com>
+Subject: [syzbot] [kernel?] BUG: workqueue lockup in request_firmware_work_func
+From: syzbot <syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, mcgrof@kernel.org, rafael@kernel.org, 
+	russ.weight@linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a test of the signal ABI for INT instructions in both 32-bit and
-64-bit processes. Check the signal number, trap number, error code,
-si_code, si_addr, instruction pointer and RF/TF state against legacy
-IDT behavior. Include a 15-byte prefixed INT to check that IP uses the
-hardware instruction length. Exercise both INT3 encodings, INT4, UD2
-and HLT to cover the unchanged trap and fault paths.
+Hello,
 
-Run each instruction with TF clear and set. Resume at a known NOP after
-handling the signal and check that single-stepping traps after the NOP.
+syzbot found the following issue on:
 
-Also drive INT 0x2d under ptrace, which resumes through the fault frame
-rather than sigreturn and so exposes a stale FRED software event flag.
-Start from an INT3 stop, whose FRED frame has no software event flag,
-instead of the syscall frame of raise(SIGSTOP). Single-step into the INT
-and check that the fault reports its address. Then suppress SIGSEGV and
-resume at the NOP, once with PTRACE_SINGLESTEP and once with PTRACE_CONT
-and TF set. Section 6.2.3 of the Intel FRED specification [1] specifies
-the immediate single-step trap caused by returning with both that flag
-and TF set. Check that each trap occurs after the NOP, rather than at
-its address.
+HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disable=
+d
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.g=
+it for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=3D15bff5f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D56ed23170c168d4=
+c
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Dd7795c8487ca4e20e=
+d88
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D17fa7e1558000=
+0
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D141208c9580000
 
-Report whether the CPU supports FRED, since a pass looks the same on
-either entry path. INT 0x80 with IA32 emulation disabled and a 64-bit
-tracer of a 32-bit tracee are not covered.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-=
+5445d641.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-=
+5445d641.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Ima=
+ge-5445d641.gz.xz
 
-Both variants pass all 29 checks on a non-FRED AMD host and on Panther
-Lake with FRED enabled and the fix applied. With the same binaries on
-unpatched Panther Lake, 16 signal-context checks fail and the first
-ptrace check reports the IP after the INT. The two dependent ptrace
-resume checks are not reached.
+IMPORTANT: if you fix the issue, please add the following tag to the commit=
+:
+Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
 
-[1] Intel Flexible Return and Event Delivery (FRED) Specification,
-revision 9.0 (346446-009US), section 6.2.3.
+BUG: workqueue lockup - pool cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 stuck f=
+or 51s!
+Showing busy workqueues and worker pools:
+workqueue events: flags=3D0x100
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D16 refcnt=3D17
+    in-flight: 9:request_firmware_work_func for 117s ,4770:nsim_fib_event_w=
+ork for 72s
+    pending: 3*nsim_dev_hwstats_traffic_work, 2*psi_avgs_work, vmstat_sheph=
+erd, 6*ovs_dp_masks_rebalance, drm_fb_helper_damage_work, psi_avgs_work
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D5 refcnt=3D6
+    pending: 2*nsim_dev_hwstats_traffic_work, psi_avgs_work, free_obj_work,=
+ delayed_vfree_work
+workqueue events_unbound: flags=3D0x2
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D6 refcnt=3D7
+    in-flight: 1402:cfg80211_wiphy_work for 68s cfg80211_wiphy_work ,40:cfg=
+80211_wiphy_work for 70s cfg80211_wiphy_work ,3330:cfg80211_wiphy_work for =
+72s cfg80211_wiphy_work
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D14 refcnt=3D15
+    in-flight: 183:linkwatch_event for 71s ,5008:nsim_dev_trap_report_work =
+for 0s ,3000:cfg80211_wiphy_work for 72s cfg80211_wiphy_work ,1180:cfg80211=
+_wiphy_work for 73s cfg80211_wiphy_work ,54:cfg80211_wiphy_work for 65s cfg=
+80211_wiphy_work
+    pending: 2*nsim_dev_trap_report_work, toggle_allocation_gate, flush_mem=
+cg_stats_dwork, 2*nsim_dev_trap_report_work
+workqueue events_power_efficient: flags=3D0x82
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 5009:reg_check_chans_work for 3s
+    pending: neigh_managed_work
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D6 refcnt=3D7
+    in-flight: 1188:neigh_periodic_work for 13s
+    pending: do_cache_clean, fb_flashcursor, neigh_periodic_work, wg_rateli=
+miter_gc_entries, gc_worker
+workqueue events_dfl_long: flags=3D0x2
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D8 refcnt=3D9
+    pending: 8*defense_work_handler
+workqueue netns: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D4
+    in-flight: 58:cleanup_net for 75s
+workqueue mm_percpu_wq: flags=3D0x108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: vmstat_update
+workqueue writeback: flags=3D0x4a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wb_workfn
+workqueue gid-cache-wq: flags=3D0x20002
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D5
+    pending: netdevice_event_work_handler
+    inactive: update_gid_event_work_handler
+workqueue mld: flags=3D0x40108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D66
+    pending: mld_ifc_work
+    inactive: mld_dad_work, mld_ifc_work, 3*mld_dad_work, 11*mld_ifc_work, =
+mld_dad_work, 2*mld_ifc_work, mld_dad_work, 6*mld_ifc_work, 2*mld_dad_work,=
+ 12*mld_ifc_work, mld_dad_work, 2*mld_ifc_work, mld_dad_work, 16*mld_ifc_wo=
+rk, 2*mld_dad_work, 2*mld_ifc_work
+workqueue ipv6_addrconf: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D344
+    in-flight: 12:addrconf_dad_work for 73s
+    inactive: 340*addrconf_dad_work
+workqueue bat_events: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D48 MAYDAY
+    in-flight: 2854(RESCUER):batadv_tt_purge for 4s
+    inactive: 2*batadv_tt_purge, batadv_mcast_mla_update, 3*batadv_purge_or=
+ig, 2*batadv_iv_send_outstanding_bat_ogm_packet, batadv_purge_orig, batadv_=
+iv_send_outstanding_bat_ogm_packet, batadv_mcast_mla_update, 5*batadv_iv_se=
+nd_outstanding_bat_ogm_packet, 2*batadv_purge_orig, 6*batadv_iv_send_outsta=
+nding_bat_ogm_packet, batadv_dat_purge, batadv_bla_periodic_work, batadv_da=
+t_purge, batadv_bla_periodic_work, batadv_dat_purge, batadv_bla_periodic_wo=
+rk, batadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, batadv_bl=
+a_periodic_work, batadv_dat_purge, batadv_bla_periodic_work, batadv_mcast_m=
+la_update, 2*batadv_tt_purge, 3*batadv_mcast_mla_update
+workqueue udp_tunnel_nic: flags=3D0x20002
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D6
+    pending: udp_tunnel_nic_device_sync_work
+    inactive: 2*udp_tunnel_nic_device_sync_work
+workqueue wg-kex-wg0: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 4955:wg_packet_handshake_receive_worker for 15s
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker, wg_packet_decry=
+pt_worker
+workqueue wg-kex-wg1: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg1: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    in-flight: 13:wg_packet_handshake_send_worker for 1s
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker, wg_packet_decry=
+pt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D3
+    in-flight: 4896(RESCUER):wg_packet_decrypt_worker for 0s
+    pending: mayday_cursor_func
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker, wg_packet_decry=
+pt_worker
+workqueue wg-kex-wg1: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    in-flight: 26:wg_packet_handshake_receive_worker for 13s
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg2: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
+workqueue wg-kex-wg0: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 1092:wg_packet_handshake_receive_worker for 25s
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker, wg_packet_decry=
+pt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 4934:wg_packet_encrypt_worker for 25s wg_packet_encrypt_work=
+er
+workqueue wg-kex-wg1: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 4840:wg_packet_handshake_receive_worker for 15s
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_tx_worker, wg_packet_encrypt_worker, wg_packet_decry=
+pt_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 24:wg_packet_handshake_receive_worker for 15s
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg2: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker, wg_packet_decry=
+pt_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D4 MAYDA=
+Y
+    in-flight: 4914(RESCUER):wg_packet_encrypt_worker for 0s
+    pending: mayday_cursor_func
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    pending: wg_packet_decrypt_worker, wg_packet_tx_worker, wg_packet_encry=
+pt_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
+pool 2: cpus=3D0 node=3D0 flags=3D0x0 nice=3D0 hung=3D51s workers=3D8 idle:=
+ 10 1021 4469 4990 4941 4771
+pool 6: cpus=3D1 node=3D0 flags=3D0x2 nice=3D0 hung=3D0s workers=3D7 manage=
+r: 866
+pool 8: cpus=3D0-1 flags=3D0x6 nice=3D0 hung=3D0s workers=3D14 manager: 501=
+0
+Showing backtraces of busy workers in stalled worker pools:
+pool 2:
+task:kworker/0:0     state:R  running task     stack:0     pid:9     tgid:9=
+     ppid:2      task_flags:0x4288060 flags:0x00000010
+Workqueue: events request_firmware_work_func
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x1370/0x2d80 kernel/sched/core.c:7270
+ preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7449
+ preempt_schedule+0x60/0x78 kernel/sched/core.c:7473
+ rcu_read_unlock_sched include/linux/rcupdate.h:974 [inline]
+ pfn_valid+0x210/0x214 include/linux/mmzone.h:-1
+ lowmem_page_address include/linux/mm.h:3111 [inline]
+ __kasan_poison_pages+0x40/0x8c mm/kasan/common.c:151
+ kasan_poison_pages include/linux/kasan.h:118 [inline]
+ __free_pages_prepare mm/page_alloc.c:1440 [inline]
+ __free_frozen_pages+0x4e0/0xc18 mm/page_alloc.c:2962
+ free_frozen_pages+0x14/0x20 mm/page_alloc.c:2999
+ __free_slab+0x11c/0x1b4 mm/slub.c:3528
+ free_slab+0x2c/0x154 mm/slub.c:3562
+ discard_slab+0x48/0x90 mm/slub.c:3568
+ __slab_free+0x1a0/0x1d0 mm/slub.c:5815
+ ___cache_free+0x80/0x94 mm/slub.c:6571
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0xb4/0x120 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x118/0x124 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x2c/0x88 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x2e8/0x6c8 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ kobject_get_path+0xbc/0x2a4 lib/kobject.c:161
+ kobject_uevent_env+0x264/0x944 lib/kobject_uevent.c:548
+ kobject_uevent+0x2c/0x3c lib/kobject_uevent.c:659
+ device_del+0x5f8/0x71c drivers/base/core.c:3983
+ fw_load_sysfs_fallback drivers/base/firmware_loader/fallback.c:134 [inline=
+]
+ fw_load_from_user_helper drivers/base/firmware_loader/fallback.c:172 [inli=
+ne]
+ firmware_fallback_sysfs+0x330/0x930 drivers/base/firmware_loader/fallback.=
+c:248
+ _request_firmware+0xb34/0xf5c drivers/base/firmware_loader/main.c:898
+ request_firmware_work_func+0xa4/0x24c drivers/base/firmware_loader/main.c:=
+1162
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
+pool 2:
+task:kworker/0:4     state:R  running task     stack:0     pid:4770  tgid:4=
+770  ppid:2      task_flags:0x4208060 flags:0x00000010
+Workqueue: events nsim_fib_event_work
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x1370/0x2d80 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x13c/0x20c kernel/sched/core.c:7362
+ schedule_timeout+0x13c/0x28c kernel/time/sleep_timeout.c:99
+ schedule_timeout_uninterruptible+0x78/0xbc kernel/time/sleep_timeout.c:158
+ msleep+0x3c/0x68 kernel/time/sleep_timeout.c:318
+ nsim_fib6_rt_add drivers/net/netdevsim/fib.c:693 [inline]
+ nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:759 [inline]
+ nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
+ nsim_fib_event+0x57a0/0x60c4 drivers/net/netdevsim/fib.c:889
+ nsim_fib_event_work+0x1d8/0x320 drivers/net/netdevsim/fib.c:1493
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
 
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
+
 ---
- tools/testing/selftests/x86/Makefile     |   2 +-
- tools/testing/selftests/x86/int_signal.c | 311 +++++++++++++++++++++++
- 2 files changed, 312 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/x86/int_signal.c
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index 434065215d12..d478b13cc8d5 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -13,7 +13,7 @@ CAN_BUILD_WITH_NOPIE := $(shell ./check_cc.sh "$(CC)" trivial_program.c -no-pie)
- TARGETS_C_BOTHBITS := single_step_syscall sysret_ss_attrs syscall_nt test_mremap_vdso \
- 			check_initial_reg_state sigreturn iopl ioperm \
- 			test_vsyscall mov_ss_trap sigtrap_loop \
--			syscall_arg_fault fsgsbase_restore sigaltstack
-+			syscall_arg_fault fsgsbase_restore sigaltstack int_signal
- TARGETS_C_BOTHBITS += nx_stack
- TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
- 			test_FCMOV test_FCOMI test_FISTTP \
-diff --git a/tools/testing/selftests/x86/int_signal.c b/tools/testing/selftests/x86/int_signal.c
-new file mode 100644
-index 000000000000..22676dac72b5
---- /dev/null
-+++ b/tools/testing/selftests/x86/int_signal.c
-@@ -0,0 +1,311 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Check the signal context for INT instructions with IDT and FRED entry. */
-+#define _GNU_SOURCE
-+
-+#include <cpuid.h>
-+#include <errno.h>
-+#include <stdbool.h>
-+#include <stddef.h>
-+#include <stdint.h>
-+#include <sys/ptrace.h>
-+#include <sys/user.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+#include <ucontext.h>
-+
-+#include "helpers.h"
-+
-+#ifdef __x86_64__
-+#define REG_IP REG_RIP
-+#define USER_IP rip
-+#define STACK_PTR "%rsp"
-+#else
-+#define REG_IP REG_EIP
-+#define USER_IP eip
-+#define STACK_PTR "%esp"
-+#endif
-+
-+/*
-+ * Each instruction has normal and single-step entry points. Resume at the
-+ * NOP after handling its signal, then expect a trace trap after that NOP
-+ * when TF is set. Explicit labels avoid assuming the kernel's saved IP.
-+ */
-+#define PROBE(name, insn) \
-+	extern void name(void); \
-+	extern void name##_tf(void); \
-+	extern const char name##_end[], name##_step[]; \
-+	asm(".pushsection .text\n" \
-+	    ".globl " #name "_tf\n" \
-+	    ".type " #name "_tf, @function\n" \
-+	    #name "_tf:\n" \
-+	    "pushf\n" \
-+	    "orl $0x100, (" STACK_PTR ")\n" \
-+	    "popf\n" \
-+	    ".globl " #name "\n" \
-+	    ".type " #name ", @function\n" \
-+	    #name ":\n" insn "\n" \
-+	    ".globl " #name "_end\n" \
-+	    #name "_end:\nnop\n" \
-+	    ".globl " #name "_step\n" \
-+	    #name "_step:\nret\n" \
-+	    ".size " #name ", .-" #name "\n" \
-+	    ".size " #name "_tf, .-" #name "_tf\n" \
-+	    ".popsection\n")
-+
-+PROBE(int1, ".byte 0xcd, 0x01");
-+PROBE(int29, ".byte 0xcd, 0x29");
-+PROBE(int2c, ".byte 0xcd, 0x2c");
-+PROBE(int2d, ".byte 0xcd, 0x2d");
-+PROBE(prefixed_int2d, ".byte 0x66, 0xcd, 0x2d");
-+PROBE(long_int2d, ".fill 13, 1, 0x2e\n.byte 0xcd, 0x2d");
-+PROBE(int81, ".byte 0xcd, 0x81");
-+PROBE(intff, ".byte 0xcd, 0xff");
-+PROBE(short_int3, ".byte 0xcc");
-+PROBE(long_int3, ".byte 0xcd, 0x03");
-+PROBE(int4, ".byte 0xcd, 0x04");
-+PROBE(ud2, ".byte 0x0f, 0x0b");
-+PROBE(hlt, ".byte 0xf4");
-+
-+struct test {
-+	const char *name;
-+	void (*run)(void);
-+	void (*run_tf)(void);
-+	const char *end, *step;
-+	int signo, trap, error, ip_offset, flags, code;
-+};
-+
-+#define TEST(name, sig, trap, error, offset, flags, code) \
-+	{ #name, name, name##_tf, name##_end, name##_step, \
-+	  sig, trap, error, offset, flags, code }
-+
-+#define GP(name, error) \
-+	TEST(name, SIGSEGV, 13, error, 0, X86_EFLAGS_RF, SI_KERNEL)
-+
-+static const struct test tests[] = {
-+	GP(int1, 0x00a),
-+	GP(int29, 0x14a),
-+	GP(int2c, 0x162),
-+	GP(int2d, 0x16a),
-+	GP(prefixed_int2d, 0x16a),
-+	GP(long_int2d, 0x16a),
-+	GP(int81, 0x40a),
-+	GP(intff, 0x7fa),
-+	GP(hlt, 0),
-+	TEST(short_int3, SIGTRAP, 3, 0, 1, 0, SI_KERNEL),
-+	TEST(long_int3, SIGTRAP, 3, 0, 2, 0, SI_KERNEL),
-+	TEST(int4, SIGSEGV, 4, 0, 2, 0, SI_KERNEL),
-+	TEST(ud2, SIGILL, 6, 0, 0, X86_EFLAGS_RF, ILL_ILLOPN),
-+};
-+
-+static const struct test *active;
-+static volatile sig_atomic_t seen, signo, trap, error, ip_offset, flags;
-+static volatile sig_atomic_t code, addr_ok, single_step, stepped, step_ok;
-+
-+static void handler(int sig, siginfo_t *info, void *context)
-+{
-+	ucontext_t *uc = context;
-+	uintptr_t ip = uc->uc_mcontext.gregs[REG_IP];
-+	uintptr_t start = (uintptr_t)active->run;
-+	uintptr_t end = (uintptr_t)active->end;
-+
-+	if (seen && single_step && sig == SIGTRAP) {
-+		if (stepped++) {
-+			ksft_print_msg("%s: second trace trap at %#lx\n",
-+				       active->name, (unsigned long)ip);
-+			_exit(KSFT_FAIL);
-+		}
-+		step_ok = ip == (uintptr_t)active->step &&
-+			uc->uc_mcontext.gregs[REG_TRAPNO] == 1 &&
-+			info->si_code == TRAP_TRACE;
-+		uc->uc_mcontext.gregs[REG_EFL] &= ~X86_EFLAGS_TF;
-+		return;
-+	}
-+
-+	if (seen || ip < start || ip > end) {
-+		ksft_print_msg("%s: unexpected signal %d at %#lx\n",
-+			       active->name, sig, (unsigned long)ip);
-+		_exit(KSFT_FAIL);
-+	}
-+
-+	signo = sig;
-+	trap = uc->uc_mcontext.gregs[REG_TRAPNO];
-+	error = uc->uc_mcontext.gregs[REG_ERR];
-+	ip_offset = ip - start;
-+	flags = uc->uc_mcontext.gregs[REG_EFL] & (X86_EFLAGS_RF | X86_EFLAGS_TF);
-+	code = info->si_code;
-+	/* force_sig() reports no address, force_sig_fault() reports the IP. */
-+	addr_ok = info->si_addr == (code == SI_KERNEL ? NULL : (void *)ip);
-+	seen = 1;
-+	uc->uc_mcontext.gregs[REG_IP] = end;
-+}
-+
-+static void wait_for_child(pid_t child, int *status)
-+{
-+	pid_t ret;
-+
-+	do {
-+		ret = waitpid(child, status, 0);
-+	} while (ret < 0 && errno == EINTR);
-+	if (ret != child)
-+		ksft_exit_fail_perror("waitpid");
-+}
-+
-+/* Resume the tracee and check where the next stop lands. */
-+static bool resume_to(pid_t child, int *status, int request, int sig,
-+		      const void *ip, const char *what)
-+{
-+	struct user_regs_struct regs;
-+
-+	if (ptrace(request, child, 0, 0))
-+		return false;
-+	wait_for_child(child, status);
-+	if (!WIFSTOPPED(*status)) {
-+		ksft_print_msg("%s: tracee did not stop\n", what);
-+		return false;
-+	}
-+	if (WSTOPSIG(*status) != sig) {
-+		ksft_print_msg("%s: stopped with signal %d, expected %d\n",
-+			       what, WSTOPSIG(*status), sig);
-+		return false;
-+	}
-+	if (ptrace(PTRACE_GETREGS, child, 0, &regs))
-+		return false;
-+	if ((unsigned long)regs.USER_IP != (unsigned long)ip) {
-+		ksft_print_msg("%s: stopped at %#lx, expected %#lx\n", what,
-+			       (unsigned long)regs.USER_IP, (unsigned long)ip);
-+		return false;
-+	}
-+	return true;
-+}
-+
-+static bool set_ip(pid_t child, const void *ip, bool tf)
-+{
-+	struct user_regs_struct regs;
-+
-+	if (ptrace(PTRACE_GETREGS, child, 0, &regs))
-+		return false;
-+	regs.USER_IP = (unsigned long)ip;
-+	if (tf)
-+		regs.eflags |= X86_EFLAGS_TF;
-+	return !ptrace(PTRACE_SETREGS, child, 0, &regs);
-+}
-+
-+/*
-+ * Exercise the tracer paths that resume through the fault frame rather than
-+ * sigreturn. A stale FRED software event flag on that frame traps before the
-+ * NOP executes instead of after it.
-+ */
-+static void test_ptrace(void)
-+{
-+	bool into = false, step = false, cont = false;
-+	pid_t child;
-+	int status;
-+
-+	child = fork();
-+	if (child < 0)
-+		ksft_exit_fail_perror("fork");
-+	if (!child) {
-+		if (ptrace(PTRACE_TRACEME, 0, 0, 0))
-+			_exit(KSFT_FAIL);
-+		/* Start from a breakpoint frame, not the syscall frame of raise(). */
-+		asm volatile("int3");
-+		_exit(KSFT_FAIL);
-+	}
-+
-+	wait_for_child(child, &status);
-+	if (!WIFSTOPPED(status) || WSTOPSIG(status) != SIGTRAP)
-+		goto out;
-+	if (ptrace(PTRACE_SETOPTIONS, child, 0, PTRACE_O_EXITKILL))
-+		goto out;
-+
-+	/* Single-step into the INT. The fault must report the INT's address. */
-+	if (!set_ip(child, int2d, false))
-+		goto out;
-+	into = resume_to(child, &status, PTRACE_SINGLESTEP, SIGSEGV, int2d,
-+			 "single-step into INT");
-+	if (!into)
-+		goto out;
-+
-+	/* Suppress SIGSEGV and single-step the NOP. */
-+	if (!set_ip(child, int2d_end, false))
-+		goto out;
-+	step = resume_to(child, &status, PTRACE_SINGLESTEP, SIGTRAP, int2d_step,
-+			 "single-step after INT");
-+	if (!step)
-+		goto out;
-+
-+	/* Fault again, then suppress SIGSEGV and continue with TF set. */
-+	if (!set_ip(child, int2d, false))
-+		goto out;
-+	if (!resume_to(child, &status, PTRACE_CONT, SIGSEGV, int2d,
-+		       "continue to INT"))
-+		goto out;
-+	if (!set_ip(child, int2d_end, true))
-+		goto out;
-+	cont = resume_to(child, &status, PTRACE_CONT, SIGTRAP, int2d_step,
-+			 "continue with TF after INT");
-+out:
-+	if (WIFSTOPPED(status)) {
-+		kill(child, SIGKILL);
-+		wait_for_child(child, &status);
-+	}
-+	ksft_test_result(into, "ptrace single-step into INT faults at the INT\n");
-+	ksft_test_result(step, "ptrace single-step after suppressing SIGSEGV\n");
-+	ksft_test_result(cont, "ptrace continue with TF after suppressing SIGSEGV\n");
-+}
-+
-+static bool cpu_has_fred(void)
-+{
-+	unsigned int eax, ebx, ecx, edx;
-+
-+	if (__get_cpuid_max(0, NULL) < 7)
-+		return false;
-+	__cpuid_count(7, 1, eax, ebx, ecx, edx);
-+	return eax & (1 << 17);
-+}
-+
-+int main(void)
-+{
-+	unsigned int i, tf;
-+	int expected_flags, ok;
-+
-+	ksft_print_header();
-+	ksft_set_plan(2 * ARRAY_SIZE(tests) + 3);
-+	ksft_print_msg("CPU %s FRED\n", cpu_has_fred() ? "supports" : "lacks");
-+	sethandler(SIGSEGV, handler, 0);
-+	sethandler(SIGTRAP, handler, 0);
-+	sethandler(SIGILL, handler, 0);
-+
-+	for (tf = 0; tf < 2; tf++) {
-+		for (i = 0; i < ARRAY_SIZE(tests); i++) {
-+			active = &tests[i];
-+			single_step = tf;
-+			seen = signo = trap = error = ip_offset = flags = 0;
-+			code = addr_ok = stepped = step_ok = 0;
-+			expected_flags = active->flags | (tf ? X86_EFLAGS_TF : 0);
-+			if (tf)
-+				active->run_tf();
-+			else
-+				active->run();
-+
-+			ok = seen && signo == active->signo && trap == active->trap &&
-+				error == active->error && ip_offset == active->ip_offset &&
-+				flags == expected_flags && code == active->code && addr_ok &&
-+				(!tf || (stepped && step_ok));
-+			ksft_test_result(ok, "%s%s\n", active->name, tf ? " with TF" : "");
-+			if (!ok) {
-+				ksft_print_msg("got signal=%d trap=%d error=%#x ip=%d\n",
-+					       signo, trap, error, ip_offset);
-+				ksft_print_msg("got flags=%#x code=%d addr_ok=%d step_ok=%d\n",
-+					       flags, code, addr_ok, step_ok);
-+				ksft_print_msg("expected signal=%d trap=%d error=%#x ip=%d\n",
-+					       active->signo, active->trap, active->error,
-+					       active->ip_offset);
-+				ksft_print_msg("expected flags=%#x code=%d\n",
-+					       expected_flags, active->code);
-+			}
-+		}
-+	}
-+	test_ptrace();
-+	ksft_finished();
-+}
--- 
-2.55.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
