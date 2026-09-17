@@ -1,106 +1,93 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163FE4418D7;
-	Thu, 17 Sep 2026 06:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AD344CAC6;
+	Thu, 17 Sep 2026 06:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628247; cv=none; b=CJ10kx2mpopgCKYMrn+KMsylxkOF3mhD7Gm/nvfR9gtf+XDKkoo/RSWv4K/vZBg1+q+4e17KI4Wd5WWRePMOKOv4meiBC0o8yMGSjLHewE43wW+gTBGXiR7ADaYOGbKQoB9ENuf8I5KUSu36J9Gy8PYx1a5+GOYopjy+vVvqrD0=
+	t=1789628249; cv=none; b=nLJAT57QEYtlDW+o6xhyDan3i514tkdXrFnICQ1cjYnAr6VvZhI0v4r25puc7cU8fG1ueE94k1cbJ9w5xrSm7dtK5ik9EXhWtx/xuWO8MVMPAj3HbtlxMBi5Awa0H0LFoepRdQQLZR7pStrpPNu2RulIvv7YJx/mRU1iZemcXW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628247; c=relaxed/simple;
-	bh=NDmjBfPXqUCwb0277MkB74yRPXjYVJcqmLzIrjedTz8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gG/o2Xc9sP0gF6O7HZeWLLwgt5wTGMlRjhua5ckoJtZuExBD2gAql8aErFvG6CfdfRX9ftrBh63Dz4LHZOcXdorHjluFqCqbUOa6MNNMvJi344RSPSHN485rCd2yOCFoyQn6CYeNh5yUdM8wZ+j23VeCU+NbLSke0LGB7RiVF1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Wq/xXMiK; arc=none smtp.client-ip=117.135.210.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789628249; c=relaxed/simple;
+	bh=emH1J4cBgiN5T9BbNi7z7yhKApmeSxcgOTtnbUvF3DA=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ZfI8sv74hHFXEluBBAzwpK4meSezwJWL0ZpgIdvxP+VnAeZh7u7mJAT8j9SqVeFL77CT724EC+1l4wlFeNOMdOQTg9zN7vIi8pViZGs49zEHSp1aQbJX7x+Kih8osT6u9LxyWWm9gHXYtyhUSQOmL0RkJa+qvCn2L7XR8sJ7XIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nhqvs3nW; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Wq/xXMiK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9+
-	5aItjV8sXRWYQrSBqF5NevwNFZO4i/q6ItO4H3KNM=; b=Wq/xXMiKny4jxdC7cg
-	EWDIOZIGCdT5CPUUUXVIvFNpCj8Kh6btEmSIoM6vfcHbmi8xgH5vgtLwVQNOGfHK
-	Tbh1gSadALv11LCQxCLgQcDrRoeySgmtv0UeKOsG3t9lcQkBUnJEE0xXpyELlhaN
-	lTIrVVuBKfWaU+1GE/8ER9Ijs=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3X7IAj6tqQTSDBQ--.47835S2;
-	Thu, 17 Sep 2026 14:56:00 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jedrzej.jagielski@intel.com,
-	kees@kernel.org,
-	aleksandr.loktionov@intel.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [Intel-wired-lan] [PATCH net v2 1/2] ixgbe: do not busy wait in ixgbe_devlink_reload_empr_finish()
-Date: Thu, 17 Sep 2026 14:54:35 +0800
-Message-Id: <20260917065436.1181073-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nhqvs3nW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789628248; x=1821164248;
+  h=mime-version:content-transfer-encoding:in-reply-to:
+   references:subject:from:cc:to:date:message-id;
+  bh=emH1J4cBgiN5T9BbNi7z7yhKApmeSxcgOTtnbUvF3DA=;
+  b=Nhqvs3nWjxPy63A9i4ZUptin9VKCY5NdVQQoy6sbt1o4jJFb+ekcGjFd
+   y85WZ72Nk7ukAsTp4KvOrhzrtNYJPKShdcxNFl6k9js4Ylt/Pzq9b8x06
+   esgOx/W6/sZIDU5bukL54K6BGrErWNaz42/xxP8QUInwj9xDfiGyFmvVY
+   NUfZEYMiEnhxyTRQRnfEsLz+AOh7nGTIRL8ALSfBiVrm2hVE9tCOJB/Oz
+   TiHqHMA43h7z5ZKINKXiQ9KqKjZ8uzCOLFSMpjg54OuVw8GkzviXWo1e6
+   xAE8/91w7iwL6Nus63QodkmKjqXfdyayc8LvtJ0Qcdr/sGbeIPLgQkbBY
+   A==;
+X-CSE-ConnectionGUID: t/jy3L9HSTq04uQmKMRT2w==
+X-CSE-MsgGUID: I98EVbdRTeS+zkH4LukF/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93846233"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93846233"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:57:25 -0700
+X-CSE-ConnectionGUID: 7sCm9ffsTReAiqJK44SzgA==
+X-CSE-MsgGUID: 8gnKXQFZRDiQK/kt8e4gZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269333869"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.16])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:57:21 -0700
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X7IAj6tqQTSDBQ--.47835S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7trW7AryUuw13JF1rAryUGFg_yoW8Zr1DpF
-	WUWF93Jw4xXr4Fg34jqa18uasxX3WYg3y5WFySkrZ5Z3ZYyr1Dtr1Utr1fKr1UArZ8Kr1S
-	qFn09rsxAFs8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07ULVysUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQBpQGqrjwDwYgAA3c
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: andi.shyti@linux.intel.com, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org, matthew.d.roper@intel.com, rodrigo.vivi@intel.com, simona@ffwll.ch, sujaritha.sundaresan@intel.com, tursulin@ursulin.net, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Date: Thu, 17 Sep 2026 09:57:18 +0300
+Message-ID: <178962823827.28653.5098493516220452854@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Quoting Wentao Liang (2026-09-16 20:19:35)
+> mock_gem_device() takes a reference on the GGTT vm for gt->vm, but
+> neither mock_device_release() nor the setup error paths drop it, unlike
+> the real teardown where intel_gt_driver_release() releases gt->vm.
+> Drop the reference before mock_fini_ggtt() and on the error paths.
+>=20
+> Fixes: cdeea858d8df ("drm/i915: Remove unused i915->ggtt")
+> Cc: stable@vger.kernel.org
 
-ixgbe_devlink_reload_empr_finish() is the .reload_up devlink operation,
-so it always runs in process context with the devlink instance lock held.
-Its polling loop delays with mdelay(500), i.e. it spins the CPU for half
-a second per iteration and, because the loop bound is 20 iterations, for
-up to ten seconds. That keeps a CPU fully occupied while the firmware
-performs the EMP reset, and on CONFIG_PREEMPT_NONE it also makes the
-loop non-preemptible for that whole window. The loop does not need to be
-atomic and holds no spinlock.
+We're not putting Fixes and definitely not Cc: stable for selftest
+improvements.
 
-Use msleep() instead.
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Fixes: c9e563cae19e ("ixgbe: add support for devlink reload")
-Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
-v1:https://lore.kernel.org/all/20260914092626.263886-1-xiaolinkui@126.com/
+You clearly did not try to address any of the issues per the surrounding
+coding style or understand the severity before Cc stable, but just generated
+some static code fixes and commit messages with LLM.
 
-v2:
-  - Reworded the commit message: mdelay() does not mask interrupts or
-    disable preemption, and the ~10 s window is below the soft lockup /
-    RCU stall thresholds.  State the actual rationale instead.
-  - Split the macro rename into a separate patch.
-  - The mdelay() -> msleep() change itself is unchanged, so the
-    Reviewed-by tag is kept.
+Looking at your history of spamming the LKML with 30+ patches per day
+and not a single response for requests to fix things or add the
+Assisted-by tag, don't really expect you or even your LLM to read this.
+So this reply is more for documentation purposes.
 
- drivers/net/ethernet/intel/ixgbe/devlink/devlink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Doesn't really inspire any confidence to merge anything or look at any
+further of your multiple patches which you send separately and not in
+series in the hopes of getting some merged even when pushback in others.
 
-diff --git a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-index cf8908b82f8a..781f13240a0d 100644
---- a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-+++ b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-@@ -460,7 +460,7 @@ static int ixgbe_devlink_reload_empr_finish(struct devlink *devlink,
- 		 * may be not cleared yet, so begin the loop with the delay
- 		 * in order to not check the not updated register.
- 		 */
--		mdelay(500);
-+		msleep(500);
- 
- 		fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
- 
--- 
-2.25.1
+If I happen to be wrong, let me know.
 
+Regards, Joonas
