@@ -1,62 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8094A3DB62F;
-	Thu, 17 Sep 2026 19:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6253DAADC
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:25:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673118; cv=none; b=aaAhVfy3hUjxP7Jlf084+yENGNXmtbZdHuc4lde/ZGfPwr3CQS6rd8Y9PY+lCMncnO5ARxkODdVQB+bje0kgeC99jzro5ysdZ45bu6/Dxnr845Wynel4lVhFq6Nc2yiFLUKWYiFqlnDLzoXNEWhnn8sHRR/nCTuek8vHooQKK/Y=
+	t=1789673127; cv=none; b=JXr2avDYYV74hVfj0MiWq6i8x5fUeu1S2kweJ67pZ8GmTdkCBrX9Fc6adak1b3uTUIdjnqfNsd+j5Ey/c7eLZFr9pcQk0K74hlYK4R3Z4ASA2u/plMNS8M7FR+0x7VTDsyiR1XkmO0hyTEAtVT2JOoe56zOUIllGjLXU3KavL9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673118; c=relaxed/simple;
-	bh=Rub1p1ej2uqP0hTHr9T2J4RRTKOfNI89iHv3I9XKy8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U8tcKHnFo0lj2G/RKMcZciYOAWS5TnOmY0lL6prImCbqwj12hdaimb9tKWzn2ciZIGW1svtqu68aKutP/xwArqrg/u+FonGPmmsEKUsWrAHUUTk9mQr009JsEJ67qkK+PG/xFRhGfNW5psrwitRAcoEvnehu7Pxop9NoqIdqCE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PHxlFK0f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789673127; c=relaxed/simple;
+	bh=cOo2RXzJ2/nxsXrqUlX1wSI+6jcHi8/GvdFnePFjaeA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LGf+T2t9xE5/qu21aeh0AYBv2jBK2Z8aeY+xkj8c9yYjtZwotTa3/rxt76ctmtUwV7BADRiWJagPuDcR3mWlYzR2w/G7RLLZ3F3LrqMOONwnpGskYNH5RToEDOOHQIbik8uKXIgLGkAxQGvb11eFOGIMSXTd4jQoJC4/hu5Lwnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBpZTHyK; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PHxlFK0f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5031F000FF;
-	Thu, 17 Sep 2026 19:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789673117;
-	bh=z+UrWXf+3mraC1/xhx95xER8J1cuQI2htGiyOXiHHoA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PHxlFK0faV7Q3LQlRvy6Z0MRHy0odulVzp5hiygHGftXQTCr0uFVnQFexxVP7KseX
-	 6Czz/9ro+wrQm/3P5ddzV8WmUR8zTqR69AoiRdpwKldFwkijUdj+WAdRX+q/mpTkQg
-	 ZhnGo5MXwbq7TSOZUEXIUhoMivCehYhkox2A9qnHMv1tJNQkzASnGuPTtyBZ80YnQp
-	 hbvr93rwMBUpaMqKcyhC6boLnoGrA752RtdJsBjL8/gDCAOp2nCzesPQ4YMCmCjIbM
-	 3LsaHr2XbIJ9FmeBWYVWzT7Hqk0gLC1mK1RUbt354OeZhVT42ks8/cxp57KsyzZ8N4
-	 tXZDfiIUS4DwA==
-Date: Thu, 17 Sep 2026 14:25:15 -0500
-From: Rob Herring <robh@kernel.org>
-To: Sai Krishna Musham <sai.krishna.musham@amd.com>
-Cc: bhelgaas@google.com, lpieralisi@kernel.org, kw@linux.com,
-	mani@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	cassel@kernel.org, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	michal.simek@amd.com, bharat.kumar.gogada@amd.com,
-	thippeswamy.havalige@amd.com, pranav.sanwal@amd.com
-Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
-Message-ID: <20260917192515.GA3283677-robh@kernel.org>
-References: <20260823040715.204096-1-sai.krishna.musham@amd.com>
- <20260823040715.204096-2-sai.krishna.musham@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBpZTHyK"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso352356d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789673125; x=1790277925; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NWTMcQH1C+AONjQx5Jl8m1ayn/JT2ZnanuB0BziOVNY=;
+        b=tBpZTHyKm7VcYVIZlwSuMVi5h+irdDC4nQIfeUrYq71fOSJgTbm3363Wjjtb6ycIqZ
+         vNKsTOx7sgdluslFHQEYv+dTT5EkRoOAqBiFlS5iwbtZoFydB3adeQRwEKXZ6tQaTHS6
+         mdP+91KvsZOL0BKwIYo+YxOc0NAxt/9mIFw/Dru69LMGelAsrA+CIOnF8BCYEmgyEt7M
+         SMYePzJqgOJBxxzP8czoxhlY8iM8PcXyh5+hZafvYBo8b+zOPYccQlwmW0KaraA0mhRU
+         3UWOBxuUzXlFR+ODQGfyK7anHO4WO8X3Yfl99StkuKm/QMVo3hMvfRzpK0NjL7E8PkNQ
+         nkBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789673125; x=1790277925;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NWTMcQH1C+AONjQx5Jl8m1ayn/JT2ZnanuB0BziOVNY=;
+        b=UZCqriIaITDsR9VGUmFq04jaP71QLt/LDu9dJrUlnkbvp/9u95tBKHmRijQxHHnPNx
+         UElIx9a473M0WmE4qdLNLHp76inI6j9Tp+dlsJvFf068nXPvY5CucFmi2NUDhNxeeb4B
+         ciDeDSNWZfaFY4eSFtfNUHvLSGyWNwvGYU/YQjb7ME7hTLmmNf6K4eZhuEBwhUK6Pqbh
+         Xn95uyuap0nj0CC8rsq1YuVFVYAA0JWT4cWRPz1stn1YfMwCD7iXRFs9jh/k33hHo0eH
+         kb2uFj+E2R+0lvZZp/s+mG8N4MEI1Wu//+24QTZHtPJbf/HQz51BFfzJBtmac0dRL+O3
+         iLzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxv7tbNKOqiM1ECDECDC+jDAQxMzejdeX0eMTfVDnndjqZhNeqefNZUy8q9WzEfJcbCfWwS5JPyrIaPzMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpVHk0iWBt1UsifXLDuC2/Q0a1ptO0aa+R6HRFkOCifM7VOumC
+	JTcMq2yhJaBoKeBd86H1zCS1F+IyGCAXXkCmIEkTawpmx+cHXUvUwOk=
+X-Gm-Gg: AYBFou1l8bUR9Sr4sIhLFu+1NXu/7G6j+WAxSatvmR/rDs5xkShl38sf3oTu9SIH83N
+	xC7zx/QNUB4AhLUIMqFK7GeYjJ62PGijw+w6vuEf3YEPdFdaTldC14HxyHhFYWpQnZKbEW1yP6n
+	d3q0M01Y5uoSSQXQ1k+fWoaOnFb2FouwhsK/s5o0URGR62/2Ffpbn71BwiVne7O4Hi5+vryY04P
+	TuGZ+yUi78wO37vG7ftHrDNSsjxwiBBs0Tqcj+LJlxNSJ7yhKAgLOYRLkIemWyHnDO4f3z/M/zS
+	AjxSFp6sxv4fsOFKwr5a+4x/xzI1s7NDrJw3gYPSEgXiUiMRrTX7NmMOkATA8fj7Qhj/6D0h9tS
+	YzSC/6dTan/MKu9ZTRsRDy98LjljaB/RVtBoIo9cnWzdwaMDMoTZAzMSVjVmkE0759ZPpFJ6yG5
+	YWGjZlZr6TVg25ox8PtCaH6Tm2pwaUyXBIWrmScP4TwUlazZwNw6vvm3mstGpO0npF6FiSh99qx
+	4ZEKfnplF658bF6rypiOTXC1UORU1lw43BNffqjp1jMtUHSQidg53+hM4aYfxKFBv0ct6ZX7oyM
+	ReFA140wD0sEojk08M5BqxI5Xn1kMdJtt5d2zA==
+X-Received: by 2002:a05:6214:14a1:b0:910:3453:9011 with SMTP id 6a1803df08f44-91254cb14b3mr2393886d6.35.1789673124900;
+        Thu, 17 Sep 2026 12:25:24 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252a794acsm5546826d6.0.2026.09.17.12.25.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 12:25:24 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] accel/qaic: Cancel Sahara read data work on removal
+Date: Thu, 17 Sep 2026 15:25:12 -0400
+Message-ID: <20260917192512.56205-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260823040715.204096-2-sai.krishna.musham@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 23, 2026 at 09:37:14AM +0530, Sai Krishna Musham wrote:
-> The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe
-> IP and integrates two PCIe host controller instances. Add the
-> "amd,versal2-cpm6-host" and "amd,versal2-cpm6-host1" compatible strings
-> to describe the HOST0 and HOST1 controller instances.
+Sahara removal cancels fw_work and dump_work, but leaves read_data_work
+pending or running. The latter accesses the firmware and the device-managed
+context and transfer buffer, which are released during removal.
 
-That is clear from the diff. What's not clear in this patch, and I 
-probably already asked, what is the difference between host0 and host1? 
-Usually instances are not different compatibles...
+Cancel read_data_work after fw_work, which can schedule it, and before
+releasing the firmware. The MHI core suspends and resets the channels
+before invoking the driver's remove callback.
 
-Rob
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code. The same omission was also reported by the
+Sashiko bot while reviewing the Sahara relocation series.
+
+Fixes: 7fb19ea1ec6a ("accel/qaic: Support the new READ_DATA implementation")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260701105055.8D4371F00A3A@smtp.kernel.org/
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Validated with static source review, apply checks and strict checkpatch.
+No build or runtime testing was performed.
+
+ drivers/accel/qaic/sahara.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/accel/qaic/sahara.c b/drivers/accel/qaic/sahara.c
+index c7c0b3eb4b65fb7776a6c724cb3105046cf6f7eb..6487961bbf14a1c284caf91f500968b90a064ef4 100644
+--- a/drivers/accel/qaic/sahara.c
++++ b/drivers/accel/qaic/sahara.c
+@@ -879,6 +879,7 @@ static void sahara_mhi_remove(struct mhi_device *mhi_dev)
+ 	struct sahara_context *context = dev_get_drvdata(&mhi_dev->dev);
+ 
+ 	cancel_work_sync(&context->fw_work);
++	cancel_work_sync(&context->read_data_work);
+ 	cancel_work_sync(&context->dump_work);
+ 	vfree(context->mem_dump);
+ 	sahara_release_image(context);
+-- 
+2.47.1
