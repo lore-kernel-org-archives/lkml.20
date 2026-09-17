@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B273845B0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AFE3BD65D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789619636; cv=none; b=u3KJAh1AqkXr1DayUG4hZy1IY87eFy+eXDPaCmal0DJtQH7QuoSX2tgHVwLJWGVW7Tr+hVwtx/c9s6m8KvmmDZ6yJ+nXUxyIcqZWdT8Sw7+LztTwCJhGLs4RwWJ7QTi4WAfBi2IBsMXU/7m7rV8Svetm0a/Tppo0PGQ2eHgDmz4=
+	t=1789619640; cv=none; b=eEqLPXAVzIsthVzyvsweS3zcH4tWbs7p/KrEnUlY9PB1GP7Z7nviKoOKVufGJkBC0IFxqQPb5W1E26Nt0Vdbhop8ept6yn6qIK/0zOisBIUXsZ79pvxqgz8EtVqZz4WxYWRJQe32HZ6HOZBI6M4lKbIe55/+ELPfcX1UP+aIjrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789619636; c=relaxed/simple;
-	bh=KaT9NI0t5qrzBJ05W03jZ2i9577k9kTBGqpTJPCzuf8=;
+	s=arc-20240116; t=1789619640; c=relaxed/simple;
+	bh=JhcozAA+A9t065vQxyaqGS89nG6vza/RKha5TtWKih8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nC9Jjc4MFQIni8mOTiIGbJl5K4nCHe4rWT+kDmsQIGhvxsQZRaGL80KxrJQ/VyMToJs+6ifOMiCCc/Lafq2ERNZCEaIFWOy+TIdlZfbqfJGf2IFCRw9bXIFy6rOk+JdEUQxFvPkLpJZ9r9kfb3UgVDJ2ihYKWVUXZOytvfODnu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CZfRZlMg; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=i5vPwdKcNRUiWqzxDjecOyNbW008Sfkb+J57UhqrgdVLhA85dYbdXS2RS+P6ybJXOOToaSI2BZDFFwa4pcF4aZDkLXRvsDN88pquWxAMPd5dYrXGo3TzV17gcdGyfha5FnGHiCUheYBCQ5dZSVqPqPOA2ct8+84pvn8rErOeaJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o+62nOvL; arc=none smtp.client-ip=209.85.210.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suleiman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CZfRZlMg"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd7d0751efso4700895ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:33:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o+62nOvL"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8710450f731so589453b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:33:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789619635; x=1790224435; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789619638; x=1790224438; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sdNyvCbcOZhKLcqXh8qFyV08oHNPuc9KtGoMTg2NP9I=;
-        b=CZfRZlMgoqBPr4q4N3dStkfk/aeqjW1RkpS1/q+985/IbIwYj1Tb/r/Vo6UfEv/VzM
-         YPe5f6AZtwG2x1tE4FdQgZXQECfYF7Ma5tZMNCEFGTdgyTCiKuyFAEeDOcAy6qa+zEJg
-         lUAQY5HyDFvghswufc/rVhXsz2b+8JJ+KtUll1aTQPsfRPP9KGHsDUTQLjmP8cTjAUvs
-         TNmuWWE1C8GvMHT9W+peDBo+MybeEgSX7PkJ03FVEQ5yuypYemxQXZqbTMgiHBOYKO8f
-         zhm7+1fBXjRBaS/w2OWEVJTqIQB+brWdVTbPMxqwGQ3/b1AHFbfFHRJabMPvKu2C6xEQ
-         8Sng==
+        bh=k62DQxnbCWh2Ug5s4Hdgmh9l39pPAQ2b4OqnI14O8ic=;
+        b=o+62nOvLNXkkNEHYY+1Z+buzVC5pTum2kqeaaD9m3bKpUywHpzVWyk/LHNP21unR8A
+         S19pZaxWnDN9YmX4YGT8wOI9JNGJF7OHojHTevuosuVpTZWQeKGAAp5Rg+seM7zEunSJ
+         I201Tc0uTxfNWcOEUfgsrGAOWKvMp2xLjRqr7NgZiDcYGiCywBi8cfwLdptgw5+XXI8r
+         3sn6Bgu3T8Y0GohusHjgTYBL30CPqEQfBuQchOcepkGAgQJVV9jRXaeqIBNsJdtxXk8r
+         iNV2GXNCJkHOychTx04p74+q79W5DPj1Pbmvw30mZdYp9rtQNjcuLQj53EJyiEcLGtFa
+         U/gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789619635; x=1790224435;
+        d=1e100.net; s=20260707; t=1789619638; x=1790224438;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sdNyvCbcOZhKLcqXh8qFyV08oHNPuc9KtGoMTg2NP9I=;
-        b=d6Ee7HkX+FI7IaPcQpcDR16yNSMAmc4nAGXZhRTdo6WzuX725KynDSnqwHmYvEkBth
-         fm3LvFVTWiBr0Vam2P/j+cWtVUcdEWoAGlGF7ZdwLkjRtf39ZBCg1JJLUaTL8uHP+/7S
-         cEI5Gp/0czPq07W3heCAYQKwKAxswZOQe2sOimKXY18Nn+YG4rXasrYv+PJ4pUMpI9EV
-         V5XPL/5VFt2FswmO80GySkbK+27JgRRa/6nYFYEp34d1lh5g31OZg8XB9ay8OF2g64cE
-         5EyIzYrL+lZm5XFuP0lR4BOjHvnKN8PM4kfP9GUyw0iPhYQA5pW190qXLfjH2/He/qa2
-         v4tQ==
-X-Gm-Message-State: AFuF++mmr8BF7RqB4y3xcVdx3A/dm8SpgVeTpHiTH+CkXOtHP/XfvM2U
-	eyN8ZT0VGOiSS663fpcj+IdDWdHM3yXkWF7r9Had4P0Gh35HpcigyATonRH1qUlKV/Kot64dJeb
-	HlIcUUPBeLPPQ8yz8zjpd2FUOFw9S5xDTL26ctB7Tl7UtREf/rOIBGNNukBpDjztU/UlddKfABk
-	kc0W0g9ATZT1T19ZUulDvMnTsacHG64fRPV1mkzKGNqRvVBDEMC3uzDpk=
-X-Received: from plgo14.prod.google.com ([2002:a17:902:d4ce:b0:2dd:47fd:3a9c])
+        bh=k62DQxnbCWh2Ug5s4Hdgmh9l39pPAQ2b4OqnI14O8ic=;
+        b=RJBPYUwcPRE+4UWpSHiHNDZ2abfZYoz9zQSClTPVb8R9NHQSXN/lSeidpbkSKECtvx
+         3MMPJHhPKirYy97csy3WOzu6cxsiNgPNCHGcoVvc1fPz5qCdapG3ZzKO8tuXhHl7N+Dn
+         fNpvBXv3alqdJjSmCtwA4BUvbWk3U0RKi4C0KeX02GxaXW09x9XmHPjsVEzp+p6/6S1G
+         R2YhAJn056WFCWLEj9UchzoTECHnFDiO66zn2lXHhOCos/l7PRFd1m4asfAPV/8BhYgS
+         8m1HLF1ReDQX+qssF5Ep2lhAeqECzypWmTbuDuJw8dPYKyvufuks+3iKxkeIo4+N/s1D
+         /F9w==
+X-Gm-Message-State: AFuF++k93Uq5uUhwKm/sJZOpVssKvW8rf+dUZYX+KQYpJ0kXFKiuMOhI
+	6w5rskpaIuW0LovslYU7tXTS4CpLndjAeu6SWlsxmE93yIhKw3LdSvjlhuTq1qHi7BqX1EH6ZJr
+	LpWZ6NQ52ucDWrJWuaTYyHS0yTvya/QTTL8t6Nw/cFR1yHc44w2gmuK2/3YSHt8TKEtdiR60hNy
+	SE0y7zsX+a/ElTp4WZGyduoxTL2vOfhQ2H2cYwiALx/1y+vnnzSIK6oRc=
+X-Received: from pfbgd6.prod.google.com ([2002:a05:6a00:8306:b0:86a:854f:170b])
  (user=suleiman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f60c:b0:2d3:6cb4:e79e with SMTP id d9443c01a7336-2dd9c8cc333mr28001715ad.5.1789619634309;
- Wed, 16 Sep 2026 21:33:54 -0700 (PDT)
-Date: Thu, 17 Sep 2026 04:33:25 +0000
+ 2002:a05:6a00:2d8c:b0:86c:f33d:e3d6 with SMTP id d2e1a72fcca58-872374c06e9mr10511822b3a.9.1789619637384;
+ Wed, 16 Sep 2026 21:33:57 -0700 (PDT)
+Date: Thu, 17 Sep 2026 04:33:27 +0000
 In-Reply-To: <20260917043339.2093426-1-suleiman@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260917043339.2093426-1-suleiman@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917043339.2093426-2-suleiman@google.com>
-Subject: [RFC PATCH 01/12] sched: Abstract task_struct->blocked_on by locking primitive.
+Message-ID: <20260917043339.2093426-4-suleiman@google.com>
+Subject: [RFC PATCH 03/12] futex: Add "ping" parameter to pi_state management
+ functions and export them.
 From: Suleiman Souhlal <suleiman@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Suleiman Souhlal <suleiman@google.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -75,296 +76,204 @@ Cc: Suleiman Souhlal <suleiman@google.com>, Thomas Gleixner <tglx@kernel.org>, I
 	Qais Yousef <qyousef@google.com>, ssouhlal@FreeBSD.org
 Content-Type: text/plain; charset="UTF-8"
 
-Abstract task_struct->blocked_on by type of locking primitive, so
-that it can be used by things other than mutexes.
+In preparation to adding FUTEX_PING, allow the pi_state management
+functions to use a different wait_lock, and make them non-static.
+Also rename handle_exit_race() to pi_handle_exit_race().
 
-Signed-off-by: John Stultz <jstultz@google.com>
 Signed-off-by: Suleiman Souhlal <suleiman@google.com>
 ---
- include/linux/sched.h  | 40 +++++++++++++++++++--------
- kernel/fork.c          |  2 +-
- kernel/locking/mutex.c |  8 +++---
- kernel/sched/core.c    | 62 ++++++++++++++++++++++++++++++++++++------
- kernel/sched/sched.h   |  2 +-
- 5 files changed, 89 insertions(+), 25 deletions(-)
+ kernel/futex/futex.h | 10 ++++++++
+ kernel/futex/pi.c    | 61 +++++++++++++++++++++++++-------------------
+ 2 files changed, 45 insertions(+), 26 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 705970d07614..6edd0c7891c5 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -832,6 +832,16 @@ struct task_ipi_mask {
- struct task_ipi_mask { };
- #endif
+diff --git a/kernel/futex/futex.h b/kernel/futex/futex.h
+index f00f0863ed44..e450f60b180b 100644
+--- a/kernel/futex/futex.h
++++ b/kernel/futex/futex.h
+@@ -395,6 +395,16 @@ extern int refill_pi_state_cache(void);
+ extern void get_pi_state(struct futex_pi_state *pi_state);
+ extern void put_pi_state(struct futex_pi_state *pi_state);
+ extern int fixup_pi_owner(u32 __user *uaddr, struct futex_q *q, int locked);
++extern int pi_handle_exit_race(u32 __user *uaddr, u32 uval);
++extern struct futex_pi_state *alloc_pi_state(void);
++extern int attach_to_pi_state(u32 __user *uaddr, u32 uval,
++			      struct futex_pi_state *pi_state,
++			      struct futex_pi_state **ps,
++			      bool ping);
++extern int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
++			      struct futex_pi_state **ps,
++			      struct task_struct **exiting,
++			      bool ping);
  
-+enum blocked_on_type {
-+	BO_T_NONE,
-+	BO_T_MUTEX,
-+};
-+
-+struct blocked_on_lock {
-+	void *lock;
-+	enum blocked_on_type type;
-+};
-+
- struct task_struct {
- #ifdef CONFIG_THREAD_INFO_IN_TASK
- 	/*
-@@ -1259,7 +1269,7 @@ struct task_struct {
- 	struct rt_mutex_waiter		*pi_blocked_on;
- #endif
- 
--	struct mutex			*blocked_on;	/* lock we're blocked on */
-+	struct blocked_on_lock		blocked_on;	/* lock we're blocked on */
- 	raw_spinlock_t			blocked_lock;
- 
- 	/*
-@@ -2221,10 +2231,15 @@ extern int __cond_resched_rwlock_write(rwlock_t *lock) __must_hold(lock);
- static inline struct mutex *__get_task_blocked_on(struct task_struct *p)
- {
- 	lockdep_assert_held_once(&p->blocked_lock);
--	return p->blocked_on;
-+	return p->blocked_on.lock;
- }
- 
--static inline void __set_task_blocked_on(struct task_struct *p, struct mutex *m)
-+/*
-+ * These helpers set and clear the task blocked_on pointer, as well
-+ * as setting the initial blocked_on_state, or clearing it
-+ */
-+static inline void __set_task_blocked_on(struct task_struct *p, void *m,
-+					 enum blocked_on_type type)
- {
- 	WARN_ON_ONCE(!m);
- 	/* The task should only be setting itself as blocked */
-@@ -2236,11 +2251,12 @@ static inline void __set_task_blocked_on(struct task_struct *p, struct mutex *m)
- 	 * with a different mutex. Note, setting it to the same
- 	 * lock repeatedly is ok.
- 	 */
--	WARN_ON_ONCE(p->blocked_on && p->blocked_on != m);
--	p->blocked_on = m;
-+	WARN_ON_ONCE(p->blocked_on.lock && p->blocked_on.lock != m);
-+	p->blocked_on.lock = m;
-+	p->blocked_on.type = type;
- }
- 
--static inline void __clear_task_blocked_on(struct task_struct *p, struct mutex *m)
-+static inline void __clear_task_blocked_on(struct task_struct *p, void *m)
- {
- 	/* Currently we serialize blocked_on under the task::blocked_lock */
- 	lockdep_assert_held_once(&p->blocked_lock);
-@@ -2249,21 +2265,23 @@ static inline void __clear_task_blocked_on(struct task_struct *p, struct mutex *
- 	 * blocked_on relationships, but make sure we are not
- 	 * clearing the relationship with a different lock.
- 	 */
--	WARN_ON_ONCE(m && p->blocked_on && p->blocked_on != m);
--	p->blocked_on = NULL;
-+	WARN_ON_ONCE(m && p->blocked_on.lock && p->blocked_on.lock != m);
-+	p->blocked_on.lock = NULL;
-+	p->blocked_on.type = BO_T_NONE;
- }
- 
--static inline void clear_task_blocked_on(struct task_struct *p, struct mutex *m)
-+static inline void clear_task_blocked_on(struct task_struct *p, void *m)
- {
- 	guard(raw_spinlock_irqsave)(&p->blocked_lock);
- 	__clear_task_blocked_on(p, m);
- }
-+
- #else
--static inline void __clear_task_blocked_on(struct task_struct *p, struct rt_mutex *m)
-+static inline void __clear_task_blocked_on(struct task_struct *p, void *m)
- {
- }
- 
--static inline void clear_task_blocked_on(struct task_struct *p, struct rt_mutex *m)
-+static inline void clear_task_blocked_on(struct task_struct *p, void *m)
- {
- }
- #endif /* !CONFIG_PREEMPT_RT */
-diff --git a/kernel/fork.c b/kernel/fork.c
-index a5934a317634..6b3f369aad2b 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2266,7 +2266,7 @@ __latent_entropy struct task_struct *copy_process(
- 
- 	lockdep_init_task(p);
- 
--	p->blocked_on = NULL; /* not blocked yet */
-+	p->blocked_on.lock = NULL; /* not blocked yet */
- 	p->blocked_donor = NULL; /* nobody is boosting p yet */
- 
- #ifdef CONFIG_BCACHE
-diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
-index 942a939cee95..b7565ad15494 100644
---- a/kernel/locking/mutex.c
-+++ b/kernel/locking/mutex.c
-@@ -689,7 +689,7 @@ __mutex_lock_common(struct mutex *lock, unsigned int state, unsigned int subclas
- 	}
- 
- 	raw_spin_lock(&current->blocked_lock);
--	__set_task_blocked_on(current, lock);
-+	__set_task_blocked_on(current, lock, BO_T_MUTEX);
- 	set_current_state(state);
- 	trace_contention_begin(lock, LCB_F_MUTEX);
- 	for (;;) {
-@@ -734,7 +734,7 @@ __mutex_lock_common(struct mutex *lock, unsigned int state, unsigned int subclas
- 		 * that has cleared our blocked_on state, re-set
- 		 * it to the lock we are trying to acquire.
- 		 */
--		__set_task_blocked_on(current, lock);
-+		__set_task_blocked_on(current, lock, BO_T_MUTEX);
- 		set_current_state(state);
- 		/*
- 		 * Here we order against unlock; we must either see it change
-@@ -762,7 +762,7 @@ __mutex_lock_common(struct mutex *lock, unsigned int state, unsigned int subclas
- 
- 			raw_spin_lock_irqsave(&lock->wait_lock, flags);
- 			raw_spin_lock(&current->blocked_lock);
--			__set_task_blocked_on(current, lock);
-+			__set_task_blocked_on(current, lock, BO_T_MUTEX);
- 			set_current_state(state);
- 
- 			if (opt_acquired)
-@@ -1038,7 +1038,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
- 		 */
- 		donor = current->blocked_donor;
- 		if (donor) {
--			struct mutex *next_lock;
-+			void *next_lock;
- 
- 			raw_spin_lock_nested(&donor->blocked_lock, SINGLE_DEPTH_NESTING);
- 			next_lock = __get_task_blocked_on(donor);
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 7885ff76e69f..2e8fe4b9bb88 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -150,6 +150,24 @@ static int __init setup_proxy_exec(char *str)
- 	}
- 	return 1;
- }
-+
-+static inline struct task_struct *__blocked_on_owner(struct blocked_on_lock *bo)
-+{
-+	switch (bo->type) {
-+	case BO_T_NONE:
-+		return NULL;
-+	case BO_T_MUTEX:
-+		return __mutex_owner(bo->lock);
-+	default:
-+		WARN_ON_ONCE(1);
-+		return NULL;
-+	}
-+}
-+
-+static inline struct task_struct *task_blocked_on_owner(struct task_struct *p)
-+{
-+	return __blocked_on_owner(&p->blocked_on);
-+}
- #else
- static int __init setup_proxy_exec(char *str)
- {
-@@ -6799,7 +6817,7 @@ static void proxy_deactivate(struct rq *rq, struct task_struct *donor)
- 	unsigned long state = READ_ONCE(donor->__state);
- 
- 	WARN_ON_ONCE(state == TASK_RUNNING);
--	WARN_ON_ONCE(donor->blocked_on);
-+	WARN_ON_ONCE(donor->blocked_on.lock);
- 	/*
- 	 * Because we got donor from pick_next_task(), it is *crucial*
- 	 * that we call proxy_resched_idle() before we deactivate it.
-@@ -6884,6 +6902,28 @@ static void proxy_migrate_task(struct rq *rq, struct rq_flags *rf,
- 	proxy_reacquire_rq_lock(rq, rf);
- }
- 
-+static void
-+lock_blocked_on_lock(struct blocked_on_lock *bo)
-+{
-+	if (bo->type == BO_T_MUTEX)
-+		raw_spin_lock(&((struct mutex *)bo->lock)->wait_lock);
-+	else
-+		WARN_ON_ONCE(1);
-+}
-+
-+static void
-+unlock_blocked_on_lock(struct blocked_on_lock *bo)
-+{
-+	if (bo->type == BO_T_MUTEX)
-+		raw_spin_unlock(&((struct mutex *)bo->lock)->wait_lock);
-+	else
-+		WARN_ON_ONCE(1);
-+}
-+
-+DEFINE_LOCK_GUARD_1(blocked_on_lock, struct blocked_on_lock,
-+		    lock_blocked_on_lock(_T->lock),
-+		    unlock_blocked_on_lock(_T->lock))
-+
  /*
-  * Find runnable lock owner to proxy for mutex blocked donor
-  *
-@@ -6914,6 +6954,7 @@ static struct task_struct *
- find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(rq))
- {
-+	struct blocked_on_lock bo, *blocked_on;
- 	struct task_struct *owner = NULL;
- 	bool curr_in_chain = false;
- 	int this_cpu = cpu_of(rq);
-@@ -6922,10 +6963,15 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 
- 	/* Follow blocked_on chain. */
- 	for (p = donor; p->is_blocked; p = owner) {
--		/* if its PROXY_WAKING, do return migration or run if current */
--		struct mutex *mutex = p->blocked_on;
--		if (!mutex) {
--			clear_task_blocked_on(p, mutex);
-+		/* copy the entire blocked_on structure */
-+		raw_spin_lock(&p->blocked_lock);
-+		bo = p->blocked_on;
-+		raw_spin_unlock(&p->blocked_lock);
-+		blocked_on = &bo;
-+
-+		/* Something changed in the chain, so pick again */
-+		if (!blocked_on->lock) {
-+			clear_task_blocked_on(p, NULL);
- 			if (task_current(rq, p)) {
- 				p->is_blocked = 0;
- 				return p;
-@@ -6937,11 +6983,11 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		 * By taking mutex->wait_lock we hold off concurrent mutex_unlock()
- 		 * and ensure @owner sticks around.
- 		 */
--		guard(raw_spinlock)(&mutex->wait_lock);
-+		guard(blocked_on_lock)(blocked_on);
- 		guard(raw_spinlock)(&p->blocked_lock);
- 
- 		/* Check again that p is blocked with blocked_lock held */
--		if (mutex != __get_task_blocked_on(p)) {
-+		if (blocked_on->lock != __get_task_blocked_on(p)) {
- 			/*
- 			 * Something changed in the blocked_on chain and
- 			 * we don't know if only at this level. So, let's
-@@ -6954,7 +7000,7 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		if (task_current(rq, p))
- 			curr_in_chain = true;
- 
--		owner = __mutex_owner(mutex);
-+		owner = __blocked_on_owner(blocked_on);
- 		if (!owner) {
- 			/*
- 			 * If there is no owner, either clear blocked_on
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..a386ac33e295 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2505,7 +2505,7 @@ static inline bool task_is_blocked(struct task_struct *p)
- 	if (!sched_proxy_exec())
- 		return false;
- 
--	return !!p->blocked_on;
-+	return !!p->blocked_on.lock;
+  * Express the locking dependencies for lockdep:
+diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
+index ceeeca1910ca..aefcc0491d60 100644
+--- a/kernel/futex/pi.c
++++ b/kernel/futex/pi.c
+@@ -33,7 +33,7 @@ int refill_pi_state_cache(void)
+ 	return 0;
  }
  
- static inline int task_on_cpu(struct rq *rq, struct task_struct *p)
+-static struct futex_pi_state *alloc_pi_state(void)
++struct futex_pi_state *alloc_pi_state(void)
+ {
+ 	struct futex_pi_state *pi_state = current->futex.pi_state_cache;
+ 
+@@ -252,9 +252,10 @@ void put_pi_state(struct futex_pi_state *pi_state)
+  * the pi_state against the user space value. If correct, attach to
+  * it.
+  */
+-static int attach_to_pi_state(u32 __user *uaddr, u32 uval,
+-			      struct futex_pi_state *pi_state,
+-			      struct futex_pi_state **ps)
++int attach_to_pi_state(u32 __user *uaddr, u32 uval,
++		       struct futex_pi_state *pi_state,
++		       struct futex_pi_state **ps,
++		       bool ping)
+ {
+ 	pid_t pid = uval & FUTEX_TID_MASK;
+ 	u32 uval2;
+@@ -284,7 +285,8 @@ static int attach_to_pi_state(u32 __user *uaddr, u32 uval,
+ 	 * Now that we have a pi_state, we can acquire wait_lock
+ 	 * and do the state validation.
+ 	 */
+-	raw_spin_lock_irq(&pi_state->pi_mutex.wait_lock);
++	if (!ping)
++		raw_spin_lock_irq(&pi_state->pi_mutex.wait_lock);
+ 
+ 	/*
+ 	 * Since {uval, pi_state} is serialized by wait_lock, and our current
+@@ -348,8 +350,10 @@ static int attach_to_pi_state(u32 __user *uaddr, u32 uval,
+ 		goto out_einval;
+ 
+ out_attach:
+-	get_pi_state(pi_state);
+-	raw_spin_unlock_irq(&pi_state->pi_mutex.wait_lock);
++	if (!ping) {
++		get_pi_state(pi_state);
++		raw_spin_unlock_irq(&pi_state->pi_mutex.wait_lock);
++	}
+ 	*ps = pi_state;
+ 	return 0;
+ 
+@@ -370,7 +374,7 @@ static int attach_to_pi_state(u32 __user *uaddr, u32 uval,
+ 	return ret;
+ }
+ 
+-static int handle_exit_race(u32 __user *uaddr, u32 uval)
++int pi_handle_exit_race(u32 __user *uaddr, u32 uval)
+ {
+ 	u32 uval2;
+ 
+@@ -419,7 +423,8 @@ static int handle_exit_race(u32 __user *uaddr, u32 uval)
+ }
+ 
+ static void __attach_to_pi_owner(struct task_struct *p, union futex_key *key,
+-				 struct futex_pi_state **ps)
++				 struct futex_pi_state **ps,
++				 bool ping)
+ {
+ 	/*
+ 	 * No existing pi state. First waiter. [2]
+@@ -429,18 +434,20 @@ static void __attach_to_pi_owner(struct task_struct *p, union futex_key *key,
+ 	 */
+ 	struct futex_pi_state *pi_state = alloc_pi_state();
+ 
+-	/*
+-	 * Initialize the pi_mutex in locked state and make @p
+-	 * the owner of it:
+-	 */
+-	__assume_ctx_lock(&pi_state->pi_mutex.wait_lock);
+-	rt_mutex_init_proxy_locked(&pi_state->pi_mutex, p);
++	if (!ping) {
++		/*
++		 * Initialize the pi_mutex in locked state and make @p
++		 * the owner of it:
++		 */
++		__assume_ctx_lock(&pi_state->pi_mutex.wait_lock);
++		rt_mutex_init_proxy_locked(&pi_state->pi_mutex, p);
++		WARN_ON(!list_empty(&pi_state->list));
++		list_add(&pi_state->list, &p->futex.pi_state_list);
++	}
+ 
+ 	/* Store the key for possible exit cleanups: */
+ 	pi_state->key = *key;
+ 
+-	WARN_ON(!list_empty(&pi_state->list));
+-	list_add(&pi_state->list, &p->futex.pi_state_list);
+ 	/*
+ 	 * Assignment without holding pi_state->pi_mutex.wait_lock is safe
+ 	 * because there is no concurrency as the object is not published yet.
+@@ -453,9 +460,10 @@ static void __attach_to_pi_owner(struct task_struct *p, union futex_key *key,
+  * Lookup the task for the TID provided from user space and attach to
+  * it after doing proper sanity checks.
+  */
+-static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+-			      struct futex_pi_state **ps,
+-			      struct task_struct **exiting)
++int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
++		       struct futex_pi_state **ps,
++		       struct task_struct **exiting,
++		       bool ping)
+ {
+ 	pid_t pid = uval & FUTEX_TID_MASK;
+ 	struct task_struct *p;
+@@ -471,7 +479,7 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+ 		return -EAGAIN;
+ 	p = find_get_task_by_vpid(pid);
+ 	if (!p)
+-		return handle_exit_race(uaddr, uval);
++		return pi_handle_exit_race(uaddr, uval);
+ 
+ 	if (unlikely(p->flags & PF_KTHREAD)) {
+ 		put_task_struct(p);
+@@ -508,7 +516,7 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+ 			return -EBUSY;
+ 		}
+ 
+-		int ret = handle_exit_race(uaddr, uval);
++		int ret = pi_handle_exit_race(uaddr, uval);
+ 
+ 		raw_spin_unlock_irq(&p->pi_futex_lock);
+ 		put_task_struct(p);
+@@ -530,7 +538,7 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+ 		}
+ 	}
+ 
+-	__attach_to_pi_owner(p, key, ps);
++	__attach_to_pi_owner(p, key, ps, ping);
+ 	raw_spin_unlock_irq(&p->pi_futex_lock);
+ 
+ 	put_task_struct(p);
+@@ -614,7 +622,8 @@ int futex_lock_pi_atomic(u32 __user *uaddr, struct futex_hash_bucket *hb,
+ 	 */
+ 	top_waiter = futex_top_waiter(hb, key);
+ 	if (top_waiter)
+-		return attach_to_pi_state(uaddr, uval, top_waiter->pi_state, ps);
++		return attach_to_pi_state(uaddr, uval, top_waiter->pi_state,
++		    ps, false);
+ 
+ 	/*
+ 	 * No waiter and user TID is 0. We are here because the
+@@ -651,7 +660,7 @@ int futex_lock_pi_atomic(u32 __user *uaddr, struct futex_hash_bucket *hb,
+ 		 */
+ 		if (set_waiters) {
+ 			raw_spin_lock_irq(&task->pi_futex_lock);
+-			__attach_to_pi_owner(task, key, ps);
++			__attach_to_pi_owner(task, key, ps, false);
+ 			raw_spin_unlock_irq(&task->pi_futex_lock);
+ 		}
+ 		return 1;
+@@ -671,7 +680,7 @@ int futex_lock_pi_atomic(u32 __user *uaddr, struct futex_hash_bucket *hb,
+ 	 * attach to the owner. If that fails, no harm done, we only
+ 	 * set the FUTEX_WAITERS bit in the user space variable.
+ 	 */
+-	return attach_to_pi_owner(uaddr, newval, key, ps, exiting);
++	return attach_to_pi_owner(uaddr, newval, key, ps, exiting, false);
+ }
+ 
+ /*
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
