@@ -1,129 +1,148 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58AD37F30A;
-	Thu, 17 Sep 2026 02:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5C6379C3E;
+	Thu, 17 Sep 2026 02:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611242; cv=none; b=E1d8s/l8dGkxKS+mb/i9N333Uisy8Hp0CITQLFtT406OdM26tyRKAYgERShivy/59PwvUQysSbjSRwvB8C42NKetW8blVPYlSNq5eE1fB8V3qtQ3HvDhM2xtChzgqflZtRFtev197Wb6u7ixlRdJFSTb4T3h8JwmQzpoWIpUj/E=
+	t=1789611274; cv=none; b=JMGAdMUWUh5B74UfJGgOJRvNs/KDiH8EOKipudetXwOzV6KCmzu7JnPBj3jXYdieTnv3/GjZC4d3AjwIRDMnTIvKoaGMwiFCHiYLDJPlQd3J0VTCGxvoW6ZjfTPeJ2U49r7NlrmlKRM0EmGvHFLrl6jOiQTlGa4rSq7BOgp78ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611242; c=relaxed/simple;
-	bh=qKL6VzIHy8fYD9P82qSgmcOD60vtNuCECmmLFFqLXII=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=s5XaS6rD5bJYp7pQS7tmYWAIpbmK1uLSc44+/arVTDbNTC3KaenYIME5mOsQsNETb9ogO+QrApin2Gu+sqvYZPi2KAL6wxRjbshkbQxSqIkw4q5KOpHVM2P6uHIpyZ1aITAEb4MzUW7REGNVSZR4ZSMxKojd+gby5pzY204c3ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=UrYZRFTf; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1789611274; c=relaxed/simple;
+	bh=GqxAlTZz0NqrzuMUZJ+b0UwuxHIMC/Nm/d2kNrr3NLY=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=Flqbfy4k6n0orz2eHgUhRUUr3okwUDFTpfJIEXw9wfUT7q7Z9HYqCmsI3BnOMkVgvT2U+i2N//qpX87IWtEx9LOT1flJZPOOKpT/qj/a15pgfsCH9KETNXn1jpq+h8DWI0oBt+YVx3Vkf0UqT7ERbC/RD6bCGdcrdKYFA7pbeQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=X1l3EFXC; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=X1l3EFXC; arc=none smtp.client-ip=45.249.212.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="UrYZRFTf"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H00d6D2578021;
-	Wed, 16 Sep 2026 19:13:40 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=LMbT0JmCI+rLg44rP/aR0Sg
-	2kzqMWG1VSxt5wdgVr70=; b=UrYZRFTfB9fKMmN7H0s9dmSPYGqFt0PmmzCOt3R
-	L7Zq0f8YgDuUGKIQgE105KHvXobDWMfmI2R8dbOLyMIW0IgwNAujkAHrkIpVOBsV
-	pDfBpwDm9NyqBeYv9bWNpRegSTO742vLx47Psf1xC7ZDVOXEei/zLgN7snF9L8cL
-	cR+LLHc6VsuDJmqGsbWOJ6t/8EFTaEgzo8TfSfkodkK/9VlW0/OZ3zu6jTgwZSLu
-	ge8tUcMigWR0m441UlYwaWsw9Bi9GZZOIjDk4R+fZ5DFW/AoNpMpwhoH2Su7WpS3
-	nW0Mfugxg/SeP1OHLYMYR0N1pBKg807qXeI6alZi2xT089Q==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gqqujny21-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 19:13:39 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="X1l3EFXC";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="X1l3EFXC"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=IYRc1XP4apk0bziWvvCWjelPNrXlOohILCKMvg7fKR8=;
+	b=X1l3EFXCPZi5re2DqWbcoupTkMTXFQvdAk/Fu4owIV1civSd2VpGzBINs5mWqquP541rKpv5U
+	1P7wRmIg/Rq3a8lkBTHYs02sx7oruILy2KCCd8UcEx5iC3j6ww1SK4jmHWQCOCSRxZChszNtept
+	Gd78nBy429mMKW4GDJ1yAOk=
+Received: from canpmsgout03.his.huawei.com (unknown [172.19.92.159])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4hlfS51SNsz1BFt7;
+	Thu, 17 Sep 2026 10:13:25 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=IYRc1XP4apk0bziWvvCWjelPNrXlOohILCKMvg7fKR8=;
+	b=X1l3EFXCPZi5re2DqWbcoupTkMTXFQvdAk/Fu4owIV1civSd2VpGzBINs5mWqquP541rKpv5U
+	1P7wRmIg/Rq3a8lkBTHYs02sx7oruILy2KCCd8UcEx5iC3j6ww1SK4jmHWQCOCSRxZChszNtept
+	Gd78nBy429mMKW4GDJ1yAOk=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hlfCW5jJFzpStW;
+	Thu, 17 Sep 2026 10:02:31 +0800 (CST)
+Received: from whupemk200014.china.huawei.com (unknown [7.152.185.79])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8E76440561;
+	Thu, 17 Sep 2026 10:14:18 +0800 (CST)
+Received: from [10.174.179.24] (10.174.179.24) by
+ whupemk200014.china.huawei.com (7.152.185.79) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Wed, 16 Sep 2026 19:13:39 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Wed, 16 Sep 2026 19:13:39 -0700
-Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id D23CB3F7053;
-	Wed, 16 Sep 2026 19:13:35 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>
-Subject: [PATCH net-next] octeontx2-af: nix: Log TX scheduler queue validation failures
-Date: Thu, 17 Sep 2026 07:43:27 +0530
-Message-ID: <20260917021327.1124199-1-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.43.0
+ 15.2.2562.45; Thu, 17 Sep 2026 10:14:16 +0800
+Subject: Re: [PATCH v4 2/3] RAS: Fix out-of-bounds read when tracing arm_event
+To: Abbott Liu <liuwenliang@huawei.com>, <tony.luck@intel.com>,
+	<bp@alien8.de>, <ardb@kernel.org>, <mchehab+huawei@kernel.org>,
+	<rafael.j.wysocki@intel.com>, <jic23@kernel.org>,
+	<jason@os.amperecomputing.com>, <danielf@os.amperecomputing.com>,
+	<luoshengwei@huawei.com>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
+	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>, ACPI
+ Devel Maling List <linux-acpi@vger.kernel.org>
+References: <20260909112832.805314-1-liuwenliang@huawei.com>
+ <20260909112832.805314-3-liuwenliang@huawei.com>
+From: Hanjun Guo <guohanjun@huawei.com>
+Message-ID: <6783acb8-61ef-3990-dfc2-1d2bad30d805@huawei.com>
+Date: Thu, 17 Sep 2026 10:14:15 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDAyOCBTYWx0ZWRfXxObxhNtNeA4Y
- 7GdSKkqPK0jMdiToZqrlngxZRHx38/fey3MKYyJKmFQ2s+06T2eV341+lWD3u9JdHkehK+0KXq/
- Y778Qc3ddlQGijb5U5A/Sfje1gyYqWIHK68vAFZNpw/KnN5nSVGERQ2dNdroAfOrX5zsJPFNtNJ
- OdrQshGGk5S0p395HYpSUTyo8VfUz5Wgt7Q3pw+dVEVjglYDti+52JDp7/8qn3dreCVM3tPktGA
- AoKng+bDBG/Yd4OatKrKe93mdh2VPGwD4B1OUhnEk8gVwdberA3pt3VXPRh2+IBMM5D/IUghJ00
- yzE81PTwtAO8ixljrudNL/6jaf8NApj+SEGl+1CZfqEJrWsaleL11PV33yRrxhXCSZV/NOZN6yf
- QMC8KhKiymtkopJohL59pomNIInbN1ps0LmI1cNXH6jlyUy5JULd6HPuhGS4xqXdMav3DObJla/
- 2bk34ZrA7+kXTwkJaWQ==
-X-Proofpoint-GUID: BigU30hSahoM8F9aeMLufZM_1zGb54ZS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDAyOCBTYWx0ZWRfX7LqoaLzMuAVV
- H+X8re6TiQwn9qy1RD2VCYHpELX4XWS0QNDixS9WDbog5iw+pBIH7yVXLMJWoYAoKvI8gjR7tym
- NcVbd5ShVCoOHEEy6yQO9uma4anOqN4=
-X-Authority-Analysis: v=2.4 cv=F6LC5ahN c=1 sm=1 tr=0 ts=6aab4cd3 cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=IgfSDKnIuoUFKMqXljMA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: BigU30hSahoM8F9aeMLufZM_1zGb54ZS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+In-Reply-To: <20260909112832.805314-3-liuwenliang@huawei.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk200014.china.huawei.com (7.152.185.79)
 
-From: Subbaraya Sundeep <sbhatta@marvell.com>
+On 2026/9/9 19:28, Abbott Liu wrote:
+> The vsei_len < 0 error path did not verify the pei_len and ctx_len.
+> When vsei_len is negative, section_length is too small to hold the
+> full record, yet pei_len and ctx_len were derived from
+> err_info_num/context_info_num and may describe regions beyond the
+> (long)err .. err + section_length buffer. To prevent trace_arm_event
+> from reading past the allocated record, sanitize the parameters:
+> recalculate ctx_len and pei_len based on section_length, limit them,
+> and set the corresponding pointers to NULL and lengths to 0 when
+> there is no remaining space.
+> 
+> pei_len and ctx_len become s32 so that the recalculated lengths can
+> be checked for negative values.
+> 
+> Fixes: 05954511b73e ("RAS: Report all ARM processor CPER information to userspace")
+> Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+> ---
+>   drivers/ras/ras.c | 22 ++++++++++++++++++----
+>   1 file changed, 18 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+> index 2540538a16a8..085fe2d980e5 100644
+> --- a/drivers/ras/ras.c
+> +++ b/drivers/ras/ras.c
+> @@ -58,10 +58,10 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+>   	struct cper_arm_err_info *err_info;
+>   	struct cper_arm_ctx_info *ctx_info;
+>   	u8 *ven_err_data;
+> -	u32 ctx_len = 0;
+> +	s32 ctx_len = 0;
+>   	int n, sz, cpu;
+>   	s32 vsei_len;
+> -	u32 pei_len;
+> +	s32 pei_len;
+>   	u8 *pei_err, *ctx_err;
+>   
+>   	pei_len = sizeof(struct cper_arm_err_info) * err->err_info_num;
+> @@ -87,14 +87,28 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+>   		pr_warn(FW_BUG "section length is too small\n");
+>   		pr_warn(FW_BUG "firmware-generated error record is incorrect\n");
+>   		vsei_len = 0;
+> +		ven_err_data = NULL;
+> +
+> +		ctx_len = err->section_length - (sizeof(struct cper_sec_proc_arm) + pei_len);
+> +		if (ctx_len < 0) {
+> +			ctx_len = 0;
+> +			ctx_err = NULL;
+> +
+> +			pei_len = err->section_length - sizeof(struct cper_sec_proc_arm);
+> +			if (pei_len < 0) {
+> +				pei_len = 0;
+> +				pei_err = NULL;
+> +			}
+> +		}
+> +	} else {
+> +		ven_err_data = (u8 *)ctx_info;
+>   	}
+> -	ven_err_data = (u8 *)ctx_info;
+>   
+>   	cpu = GET_LOGICAL_INDEX(err->mpidr);
+>   	if (cpu < 0)
+>   		cpu = -1;
+>   
+> -	trace_arm_event(err, pei_err, pei_len, ctx_err, ctx_len,
+> +	trace_arm_event(err, pei_err, (u32)pei_len, ctx_err, (u32)ctx_len,
+>   			ven_err_data, (u32)vsei_len, sev, cpu);
+>   }
 
-Emit dev_err() when is_valid_txschq() rejects a scheduler queue
-mapping so misconfigured TX scheduler allocations are easier to
-diagnose.
+Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
 
-Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
----
- .../net/ethernet/marvell/octeontx2/af/rvu_nix.c    | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index 153eb57bad06..995ca8ccf2ae 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -325,14 +325,22 @@ static bool is_valid_txschq(struct rvu *rvu, int blkaddr,
- 		if ((nix_get_tx_link(rvu, map_func) !=
- 		     nix_get_tx_link(rvu, pcifunc)) &&
- 		     (rvu_get_pf(rvu->pdev, map_func) !=
--				rvu_get_pf(rvu->pdev, pcifunc)))
-+				rvu_get_pf(rvu->pdev, pcifunc))) {
-+			dev_err(rvu->dev,
-+				"Invalid tx link: pcifunc %x map pcifunc %x\n",
-+				pcifunc, map_func);
- 			return false;
--		else
-+		} else {
- 			return true;
-+		}
- 	}
- 
--	if (map_func != pcifunc)
-+	if (map_func != pcifunc) {
-+		dev_err(rvu->dev,
-+			"pcifunc %x map pcifunc %x not equal\n", pcifunc,
-+			map_func);
- 		return false;
-+	}
- 
- 	return true;
- }
--- 
-2.43.0
-
+Thanks
+Hanjun
