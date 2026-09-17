@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB18214A9B;
-	Thu, 17 Sep 2026 00:40:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F394D315D53;
+	Thu, 17 Sep 2026 00:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605632; cv=none; b=j4jChHP75YQ8JNbG1y/a0BZmQwyIwlNWmTLQMuhtqdQjJLykCuGa4kNSh4DX5KVs1SryBOBrqE2dW2Q+tvK36TemSm1/cIlOA/L33xYOc/MVakwwway70RH65MjpIAUKZsGSOM6d5wuHF4LuerNP18zZIF2D/MiXHDMglo/Ow+M=
+	t=1789605648; cv=none; b=u2/FGTd9N/W994p6jm93O80vMxv0eYn6F87m1Jd53G+uISNZBdAhf60zACrQ9Zi8wUM+YwoFZj+r/5AflMIkDgAxKDXSEBXUQJRvrxjUPA1SspySngjLGglr8qH0GtV76FS1vQo3S3OFyGXByHorXdkIDu2ofecq9uhrdKMnHHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605632; c=relaxed/simple;
-	bh=Aayokhv9XINqpz9W3aYBaHx+9q0KQLiRqlTP3OiBn6M=;
+	s=arc-20240116; t=1789605648; c=relaxed/simple;
+	bh=53fQJtWaglbTzYvtW1itQmUmK3y5fQPMcjBjBJCLpb4=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SBsrdhvPJ/G6SX6VmOUve9WxlvjTgQRu+HhPS4Jpugsd+ziazXVQM00HRMcDWRswzNoTkRztXGnYLHcMVybO5mrju0s+rYJB1/6U4vSm1OWQ1OamqjmwL1LQJsI6sL029hsCOPIXjpW9eC0hkxXX9aMo6o9pJgrZFP9fLItLKD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fs8NFO0r; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=U1Oz2oZbCIjJHkamjU5K2Aa3bbiyUJQY+F6fjA0gVzwTff8SrNTff0lBlmb1hLZxGekfkF4GceQ5KOR+rM38OAA83d2B8yz6n5dHzxhRk3ScFyybqoMFu1VFZoursFCr0Hr6DTjozhC0zB03ehizA03QNktjnTt6+6dncPFG2i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeG2uQOa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fs8NFO0r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99791F00893;
-	Thu, 17 Sep 2026 00:40:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeG2uQOa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83CF21F000FF;
+	Thu, 17 Sep 2026 00:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789605631;
-	bh=DqUJTAEx6W7xs/2kQ2owmDa2Y73pdtkDzqIy+nPJS6U=;
+	s=k20260515; t=1789605646;
+	bh=x7PZzSgSd7bhRvjxdxDYadQIgM+pPnZzijQbH933b7Q=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Fs8NFO0rCFBFzFPxQUu8UJzobooawYqXltlnciKSXUb0T/ZigSSN/3U+KPgv7mzqj
-	 J+BbNcfoh4ShIcIzel0DNKrGSrlQrAdmMJ6opdByOS6Iwpu2QAoHpzcdvIt9s4ezbr
-	 FerNjXN8LBXt8kfzbApbivGKi0Bn2ZRIVHGtuuL2G83SD41AkaWzewuccfUbrmxQT3
-	 Qjq/fffjjfGhMStn57NEJco0ACqVYv7ifaXsDns0whlxQh+ZTbhf9mIcL6m4GTWz9W
-	 TvY3sV78M30PLQ/07Xs+LkOccBLh4BEol0EaaYOaDj8K2Yl0Ag3KxTDrjMiSpZqviB
-	 64ffUs7b5nkGg==
-Date: Wed, 16 Sep 2026 17:40:29 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Qingshuang Fu <fuqingshuang@kylinos.cn>
-Cc: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Willem de Bruijn
- <willemb@google.com>, Anton Danilov <littlesmilingcloud@gmail.com>,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: net: fou_mcast_encap: conditionally load fou
- module and skip IPv4 case
-Message-ID: <20260916174029.78939f6b@kernel.org>
-In-Reply-To: <20260911100158.854183-1-fuqingshuang@kylinos.cn>
-References: <20260911100158.854183-1-fuqingshuang@kylinos.cn>
+	b=VeG2uQOaE6bl3ZgltdIsLIABmGIOucAyb+QtaV092jcfj/B/F7gFM7pRR7QSF5PS0
+	 NEVNQq8QrxhO5KWw4Y1L8pWj1/scSfhZDcuE6crzh3fM3OL3XKoS0U8X/U4qhGMykX
+	 oWcmXyXlJHSrCgOHuSxFqhm/N0QCAzfbzHgeW898fn4u2Ma0py/4/L2HOkK6hHcCP5
+	 TPLh98/xJ8am1ioUoj80a+w5xzzyD5dtqhw+Nbnj0TvtZoGSy3TXZa2KPTlERnddOE
+	 nxrcK2mkfO51EyA4J9QLF4VnNCEIZcMaEKI6sWopTVvsXGdY9u8UfaZvkGS2ctvXty
+	 SQniwDp6+ip0g==
+Date: Thu, 17 Sep 2026 01:40:44 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andy@kernel.org, apokusinski01@gmail.com, dlechner@baylibre.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nuno.sa@analog.com, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: temperature: tmp006: Fix trigger reference leak in
+ tmp006_probe()
+Message-ID: <20260917014044.4f72b35c@jic23-hlaptop>
+In-Reply-To: <20260916164517.2084799-1-vulab@iscas.ac.cn>
+References: <20260916164517.2084799-1-vulab@iscas.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,51 +47,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 11 Sep 2026 18:01:58 +0800 Qingshuang Fu wrote:
-> Fixes: e5382133c51c ("selftests: net: add FOU multicast encapsulation resubmit test")
+On Wed, 16 Sep 2026 16:45:17 +0000
+Wentao Liang <vulab@iscas.ac.cn> wrote:
 
-No fixes tag, please, this is barely worth applying at all, let along
-as a fix.
+> The reference taken with iio_trigger_get() is only dropped by
+> iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
+> devm_request_irq() or of triggered buffer setup returns before that
+> mode is set and leaks the reference acquired for indio_dev->trig.
+> Take the reference only after the triggered buffer setup succeeds.
+> 
+> Fixes: 91f75ccf9f03 ("iio: temperature: tmp006: add triggered buffer support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-> diff --git a/tools/testing/selftests/net/fou_mcast_encap.sh b/tools/testing/selftests/net/fou_mcast_encap.sh
-> index 70210d39fba3..d94c19237daf 100755
-> --- a/tools/testing/selftests/net/fou_mcast_encap.sh
-> +++ b/tools/testing/selftests/net/fou_mcast_encap.sh
-> @@ -51,8 +51,6 @@ setup_common() {
->  }
+Not this way - see other threads on same topic.
+
+> ---
+>  drivers/iio/temperature/tmp006.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/temperature/tmp006.c b/drivers/iio/temperature/tmp006.c
+> index d8d8c8936d17..06303ce72bfb 100644
+> --- a/drivers/iio/temperature/tmp006.c
+> +++ b/drivers/iio/temperature/tmp006.c
+> @@ -354,8 +354,6 @@ static int tmp006_probe(struct i2c_client *client)
+>  		if (ret)
+>  			return ret;
 >  
->  setup_ipv4() {
-> -	# IPv4 FOU (CONFIG_NET_FOU) is built in on kernels configured for
-> -	# these tests, so no module load is needed here.
->  	ip -n "$NSENDER" addr add 10.0.0.1/24 dev veth_s
->  	ip -n "$NRECV" addr add 10.0.0.2/24 dev veth_r
+> -		indio_dev->trig = iio_trigger_get(data->drdy_trig);
+> -
+>  		ret = devm_request_irq(&client->dev, client->irq,
+>  				       iio_trigger_generic_data_rdy_poll,
+>  				       IRQF_NO_THREAD, "tmp006_irq",
+> @@ -369,6 +367,9 @@ static int tmp006_probe(struct i2c_client *client)
+>  	if (ret < 0)
+>  		return ret;
 >  
-> @@ -160,8 +158,17 @@ run_ping_test() {
->  }
->  
->  setup_common
-> -setup_ipv4
-> -run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
+> +	if (data->drdy_trig)
+> +		indio_dev->trig = iio_trigger_get(data->drdy_trig);
 > +
-> +# The fou module registers both the tunnel encap ops used by "encap fou"
-> +# and the FOU genetlink family used by "ip fou add", and neither of them
-> +# is auto-loaded. modprobe succeeds as a no-op when CONFIG_NET_FOU=y.
-> +# Keep any other setup error as a test failure rather than a skip.
+>  	return devm_iio_device_register(&client->dev, indio_dev);
+>  }
+>  
 
-Drop this comment please, its obvious. Well, to people with basic
-kernel familiarity it is.
-
-> +if modprobe -q fou; then
-> +	setup_ipv4
-> +	run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
-> +else
-> +	log_test_skip "FOU/GRETAP IPv4 multicast encap resubmit"
-> +fi
-
-Two very important questions you must answer before posting v2 or any
-other similar fix:
-
-Have you actually run into this or it's a result of an LLM scan?
-
-How many of such fixes would we need to make all the net/ tests 
-clean from similar issues?
