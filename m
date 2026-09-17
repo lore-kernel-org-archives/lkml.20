@@ -1,167 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC4C40099B;
-	Thu, 17 Sep 2026 07:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3150389E07;
+	Thu, 17 Sep 2026 07:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629495; cv=none; b=ICqN3suo2dbuUeFdk8D8oyOzZQsnLXpFQbdjLmzI8VOYerw84jyIw1rgh4v4VlK81IVld9s6zL9yoRrbXAX6oBAiiwW3Kp08hmMUPYiUjjrz1pxGzJtXry7zKUJ0iH/YNVga5qSVs6VP+oXcn+hUKSGNlOLMhkOjp5wlj6TW/Yg=
+	t=1789629525; cv=none; b=rXMrKHv0Dyy95F9VXl4fjaAxowoJuACKyavWR/H1r/pJS/DN69VJHMrj58aM5MOgSmV+W421ZTsctPrzE9YNmDGkkb3jK02gVgOncEtEGbVjF38p2bAsyKiEa6QsyinZLlgTGFhbedpHYXUkHXtFGjHxbq7Z/KZzv/n9IFa6jxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629495; c=relaxed/simple;
-	bh=ZC6md3bmLBgcfp7eJkLqqavkXbJdlcm0uaqZF9bgaik=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u5KY+WrDLeZ1xapz3SeSxIt3Hteo6EVMAnV9y/Lv+GcL5B3ptGLtOCZvgQxqytCpcaKSXV2N0DXjD4sH/MnTcdGyN5gJaXDL8XsXPFVTmLNq19nTStn0VIgBDE1Yke9+WIRe8cCO7QOcV9KH8PGCt97dFTksVBt2hzB4Fglz+H4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDjdnktF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789629525; c=relaxed/simple;
+	bh=2Q4AvzzwNsliB0nEHtb8HTiNCAA4cpOjcTAT9ArCO3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B99ryr88q6D4dts5QwwTyTmsHeu/W9FpmA1LdSENoBCGKyZ6InkRd5ezRA9eg/34teaTyJ6BQxeR4IbMTT/qDaxlZKjzPCK3y1JMbZuyfm2LS1PzRdOR5lLMjTdmVSQAl02fCAwQbOtVpDwgK7On17bepShafN37jVn0FD9mVtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=l4xEzcUL; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDjdnktF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BECC1F000FF;
-	Thu, 17 Sep 2026 07:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789629494;
-	bh=zQn0Kuu3A86UORUXxYi1t9ARAs8CbzOo9YCoZIac5fo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lDjdnktFGXlHE6LGkTeiTM3YVHiuMJHAlavMVTqDhj0Ck+MbWn9MA8Z24GL+33Py7
-	 8zoEeClAiTXDmZAf8U+uFEwSG+u0iKqQZI60OQzrqvzrBwDP01qh03E2Puikx4KFnn
-	 SdEOiT+Nz+8iKaE3AKZFciPJgHf8akKczfpk/ug/uAM74ZwqRDoZHJiSDKGBcHc8PE
-	 WPYvOiECGKRN8VPv7LWyeVeGIIiQHPy7hpz8prJU6Zhk/h6zYWtIlS/px066ElsJvo
-	 xzv5OpT/lYYa1UOtBYhRHVCAwk5WSmNMvSBHJgBvc168ef3ndTyKjfb1tAKxeY8NOF
-	 13z++SKe9VeCQ==
-Subject: Re: [PATCH net v2] ipv4: fib: fix data-race and stale genid check
- around nh->nh_saddr
-From: netdev-bot+sashiko@kernel.org
-To: xiaolinkui@126.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn
-Date: Thu, 17 Sep 2026 07:18:12 +0000
-Message-ID: <178962949299.22033.4111144579519364166@kernel.org>
-In-Reply-To: <20260915071503.465875-1-xiaolinkui@126.com>
-References: <20260915071503.465875-1-xiaolinkui@126.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="l4xEzcUL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789629523; x=1821165523;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2Q4AvzzwNsliB0nEHtb8HTiNCAA4cpOjcTAT9ArCO3g=;
+  b=l4xEzcULrZd77OKoXWLLePTX9Np5VfHvAAo28BuY0HklVdhGEhxxYuoF
+   svy2AqsfdOKGf13+o1rXJzWDq1f2YUoT/g680UJPZLHrLe8J1Xe2DGniz
+   ZB5CqtWipsv3+Al/rYuxG7cc/JmRW0ua5so5GpVzHb8GvaKgUUBEa/hud
+   +CozBvQLxzTltyA+lr+jpm/5D4MXJN+bJqjKpnOVpVjUrib1cdSsnQNJ7
+   XDv3rlM0dQz3w737fTnrWYFFI7JaUWLt1iO8gVkSFtV6ivlH3/B3nyl88
+   JorTEsVZCtOfOHKL6HRt9YtyXBp1kQ7nSvxoOTx/7PIh3l8vVA9VbukdC
+   g==;
+X-CSE-ConnectionGUID: hd5Tl3oZRdGDdtQgn8YWEQ==
+X-CSE-MsgGUID: Q2L12+wTSNuXgxPR1C9aeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="529812"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="529812"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 00:18:43 -0700
+X-CSE-ConnectionGUID: olq41PMxQtW5WYC/cw6Ybw==
+X-CSE-MsgGUID: H6jDLjHmR1SS/xCm/cBfPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267396588"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 00:18:41 -0700
+Date: Thu, 17 Sep 2026 10:18:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonas Rebmann <jre@pengutronix.de>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH 2/5] lib/tests: string_helpers: drop unused parameters
+Message-ID: <aquUT9FgY_Ep_4E4@ashevche-desk.local>
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+ <20260916-string_unescape-v1-2-7f8bd986fa33@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-string_unescape-v1-2-7f8bd986fa33@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Wed, Sep 16, 2026 at 07:38:07PM +0200, Jonas Rebmann wrote:
+> Drop the unused parameters from test_string_check_buf() to improve
+> readability.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-- [High] In fib_select_multipath() (net/ipv4/fib_semantics.c), the newly
-  added `READ_ONCE(nexthop_nh->nh_saddr_genid) == genid` test treats a…
-
---
-
-ipv4: fib: fix data-race and stale genid check around nh->nh_saddr
-
-This adds READ_ONCE() to the two lockless reads of nh->nh_saddr and
-nh->nh_saddr_genid in fib_select_multipath(), and additionally requires the
-cached nh_saddr_genid to equal a snapshot of net->ipv4.dev_addr_genid before
-the source-address match can add its scoring bonus.  The stated intent is to
-mirror fib_result_prefsrc().
-
-> diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-> index 7a362f2e2c2bd..e2bfc11aea09c 100644
-> --- a/net/ipv4/fib_semantics.c
-> +++ b/net/ipv4/fib_semantics.c
-> @@ -2192,6 +2193,7 @@ void fib_select_multipath(struct fib_result *res, int hash,
->  
->  	use_neigh = READ_ONCE(net->ipv4.sysctl_fib_multipath_use_neigh);
->  	saddr = fl4 ? fl4->saddr : 0;
-> +	genid = saddr ? atomic_read(&net->ipv4.dev_addr_genid) : 0;
->  
->  	change_nexthops(fi) {
->  		int nh_upper_bound, nh_score = 0;
-> @@ -2204,7 +2206,9 @@ void fib_select_multipath(struct fib_result *res, int hash,
->  		    (use_neigh && !fib_good_nh(nexthop_nh)))
->  			continue;
->  
-> -		if (saddr && nexthop_nh->nh_saddr == saddr)
-> +		if (saddr &&
-> +		    READ_ONCE(nexthop_nh->nh_saddr_genid) == genid &&
-> +		    READ_ONCE(nexthop_nh->nh_saddr) == saddr)
->  			nh_score += 2;
-
-[Severity: High]
-Does this genid check turn a cache miss into a permanent disqualification,
-so that the source-address preference from 32607a332cfe stops working after
-any address event in the netns?
-
-The function the commit message says is being mirrored treats a genid
-mismatch as a miss and repopulates the cache:
-
-net/ipv4/fib_semantics.c:fib_result_prefsrc() {
-	...
-		if (READ_ONCE(nh->nh_saddr_genid) ==
-		    atomic_read(&net->ipv4.dev_addr_genid))
-			return READ_ONCE(nh->nh_saddr);
-	}
-
-	return fib_info_update_nhc_saddr(net, nhc, res->fi->fib_scope);
-}
-
-fib_select_multipath() has no such fallback: on mismatch the nexthop simply
-loses nh_score += 2, and nothing recomputes nh_saddr for it.
-
-nh_saddr_genid is only stamped in fib_create_info() (once per fib_info at
-route creation, for all nexthops), at nexthop object creation in
-net/ipv4/nexthop.c, and by fib_result_prefsrc() for res->nhc alone.
-Meanwhile dev_addr_genid is a per-netns counter bumped for any IPv4 address
-event on any device:
-
-net/ipv4/fib_frontend.c:fib_inetaddr_event() {
-	...
-		atomic_inc(&net->ipv4.dev_addr_genid);
-		rt_cache_flush(net);
-
-The same pattern appears for NETDEV_DOWN and in fib_netdev_event().  So after
-one unrelated ip addr add/del, DHCP renew or NETDEV_UP, every fib_nh in the
-netns has a stale nh_saddr_genid, and the accompanying rt_cache_flush()
-forces established sockets into fresh lookups that already carry
-fl4->saddr != 0.
-
-Is there anything on that path that would refresh the cache?  The only lazy
-refresher reachable from here is gated on the opposite condition:
-
-net/ipv4/fib_semantics.c:fib_select_path() {
-	...
-check_saddr:
-	if (!fl4->saddr) {
-		...
-			fl4->saddr = fib_result_prefsrc(net, res);
-
-That block is skipped exactly when saddr is non-zero, which is the only case
-the new check governs, and even when it does run it refreshes res->nhc only,
-not the sibling nexthops walked by the scoring loop.  The other caller,
-ip_mkroute_input() in net/ipv4/route.c, passes fl4 == NULL, so saddr is 0
-there and the check has no effect on forwarding.
-
-With that in place, for every output lookup that already has a source
-address (socket bound before connect(), UDP or raw sendmsg with a fixed
-source, and the post-flush re-lookups), does the +2 bonus become
-unreachable, making nh_score == 3 impossible and reducing selection to plain
-hash ECMP?  That would let a flow sourced from veth0's address egress via
-veth1, which is the behaviour 32607a332cfe was written to avoid.
-
-Would calling fib_info_update_nhc_saddr() on mismatch, or restricting this
-patch to the READ_ONCE() annotations that the KCSAN report actually
-justifies, be preferable here?  As it stands the Fixes: tag would carry this
-behavioural change into stable.
-
-[Severity: Low]
-On the commit message wording:
-
-    fib_info_update_nhc_saddr() stores a new value from another CPU as soon
-    as the preferred source address of the egress device changes.
-
-Is that accurate?  fib_info_update_nhc_saddr() is only called on demand
-(from fib_result_prefsrc() on a genid mismatch, and at route creation), not
-from the address-change notifier itself, which only bumps dev_addr_genid.
+We need to find a way how to use them in the error messages. This is a
+regression in fb57550fcbd8 ("string: Convert helpers selftest to KUnit")
+that drops them.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915071503.465875-1-xiaolinkui%40126.com
+With Best Regards,
+Andy Shevchenko
+
+
