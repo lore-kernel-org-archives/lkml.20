@@ -1,62 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB85642467C;
-	Thu, 17 Sep 2026 09:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD67B42467C
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636131; cv=none; b=KDAsixkBtB18Ps2YiLZBiCLfFbh986xZRubYS7YLbfi+sbvRUxmi0fxgy9gjnRPHhfjdeoJs6CUCAPtikjZ+i/firJe/QEBijx1TVDep+cqs5R6CzQiLDeQBa1d7S9QDyv6DqQt34dptWjmvUNLTV0JY5oNSnJ/dggu1W2Cr4QE=
+	t=1789636157; cv=none; b=N3WmxIT23PWIyBFtS0mlUNdHbUY/LIVDMDUyTGM3GsiXSq6NuBXeI/l05VDpXavZrXBEkwL/qJgheg0haKfs2O0wDH0HBqy3GeG2K2yK0JWxDVEURJadvSvWszF5UR3xEcTYn/OMolmPAZh19jw8ZmQPwLQbEb6ER8CBiuTO7fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636131; c=relaxed/simple;
-	bh=sCImTtgex6RkAC5SI4v651xOFxCQuHKxp9fOw/jr6eY=;
+	s=arc-20240116; t=1789636157; c=relaxed/simple;
+	bh=PQDt1XaKTC1h9sbD77fplyrZ/Oe6k/+/kSAL32fFrTA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aN9cpd5h9heYo3aYquLUfq+/8iaobTAaW/lEOXRyLBdeweebTweM5Q4982NJDp2kIit8oNeqsSiqZTyZ1eEM/howSzAB6sTWRsFuvD8vj08NlveMz6WoygqTyDYU3QL9jvIftqzDzAzSmugeR1Sxr8cM5z62Z47F414CK+RjA6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mao+9DfD; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AoZDVIk0k84iJIxK2tab8Dih89icJQXGGvw7YfZkVDdhRSu3BfO6omdPbHZOBjjcXbDOTzKpLcScG6APl86i7xCzpFcSwKGcQU1wxokMrsYwD0Q+idFa6QtWSKarTtarIKXBgTBBV/X67tXS58k7RPR4rePnEW2DBCPadC0xXlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PJbp786W; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mao+9DfD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789636129; x=1821172129;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sCImTtgex6RkAC5SI4v651xOFxCQuHKxp9fOw/jr6eY=;
-  b=Mao+9DfDevmQcY05HbmOeJUHCAlCGOlHHlabI5PhGk93WKQj7CeH8s6s
-   85kWqtWQGHvCPSu6D2+FHS8Zrpth8uN+fcn6JgbOU5fOicSXPyHslQKaj
-   V7RAuMCPIsQojYCCMkAKjmJvWCdR6PrM9X2E4xnxYtH1AM3OLoZajzTJU
-   6ykehFC2CkApUTvMM0fX4tVdgbolrN+5zMOSE5WjRSMhv5KqWXVVCucT4
-   m7yYzAXw4vZuqu2jsy6WGpOHkkfogARX/As7dTTUeMt3mdYcSXp7N1Us9
-   oqb+gjFj94S10GOjQUWQJt0RVL0LiP4U/kQNoHAhQwKRPqm/3dVP5KbF/
-   w==;
-X-CSE-ConnectionGUID: uf1AbyKPRk6DmuXF0Mb9Eg==
-X-CSE-MsgGUID: 03Kei1XvRIWR/2tVARBlYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90055610"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90055610"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:08:48 -0700
-X-CSE-ConnectionGUID: 5PjGRrfhRbmrHznmpFaCFQ==
-X-CSE-MsgGUID: He8ZQOv3QT27/9OONngMLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270378840"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:08:46 -0700
-Date: Thu, 17 Sep 2026 12:08:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonas Rebmann <jre@pengutronix.de>
-Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel@pengutronix.de
-Subject: Re: [PATCH 3/5] lib/tests: string_helpers: introduce
- test_string_unescape_one
-Message-ID: <aquuHKFFN7tGKbCf@ashevche-desk.local>
-References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
- <20260916-string_unescape-v1-3-7f8bd986fa33@pengutronix.de>
- <aquVCG4NwM1ezLLm@ashevche-desk.local>
- <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PJbp786W"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so73315ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:09:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789636155; x=1790240955; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bl4na25ImFlgUs3EGPMSbVVxr6MK/JC4biDbFTTDRp0=;
+        b=PJbp786WoQwDJ/4SAKDvjO4dHZM5a51+jku1m3tCYgEJUj1/K+SpnEIfmb5ueH0DlV
+         5chWqy77ehLCPKGzM8dYAZ6guwpWz3m5PzBY7cShj0GSVNqtzOODOE4NuYCuf60z0eE9
+         bATsDGASmdd7T2pU7KBl6EsPWS9lyjJ7nDhDMHm8qKq5VMWWLuncJMm92wkcDQUgCPhS
+         XqJoYMK2QlRiLcwZ1aieOtdD4vOg6iZlR172IjFWawr8ZunyTIC3SZECmlSJ/s3n5z0H
+         kvDpVFr9MgCzUFga8rOj46k/jTZuM+z+ALv/oth1G0SyZ9Uw6ktv5eHCnmUKyE782Wua
+         g2+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636155; x=1790240955;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bl4na25ImFlgUs3EGPMSbVVxr6MK/JC4biDbFTTDRp0=;
+        b=Ixb7ypzqb00L6TLBlkCVLF6hpb3UCiPac0XkNFMBl1RdXOfTPEz3KIUp8pd/XlXSJQ
+         6SMnT0oEV5FvfasayB2Lqyx4H7drmaxzzYcTw12e2+lGA0E2qrnGW5TpcHOy7/DM1Dui
+         s9IkIejRc6R+HG/1UQEndGhNlXz+lDaGO66OVo5QYtJYgvsaM8icSD4MCdHcphH+uamQ
+         l7b0w3p9V3j9BKBRf443QTT0y6zq5NvWcT2WnNcieSADvvs16zodFnF4hCo2tbd/E6wZ
+         wSqu4KY8iFPZQutVlTowYg7DU2MzjfS5O6g/31wjBwLVBvVZJ313OZuBUR263BxY9t7G
+         AHNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAjKnPylcoknWNjX5bin2Xh/sc8+4kcQbv4OgzMqMb60OkmKCQhculCIK4JmwxDi6CyG5iCFSGZml0OY8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m84daynNlJyP0X5k+pilwn0pC2xrlMi2xEF2Be6b2psdfjkAWI
+	oZ7K42E1pJIOSRnhLram7zYo7Ok02Vp91WhNFzyjdHYuDaV60o79wcBVwzn7HbG/dQ==
+X-Gm-Gg: AYBFou07As+zpWVBbp/gBB99YGbhMmHuIuxJEKWL7YiWMjoyCk/ytytD9FFC0leGrCY
+	NEnNV83qL0KPQo5wxIq0DvpOyU+dAutQdP8Jg1lFewuwk1w1pBy71TxT0CRJer/5ZKFblnxMH2h
+	qXEFC8AIS6eRXEFSQ7FIipdQfGO1teAyTlow8KzeiBnw4PtVMBjpLUbSWGWtkJItrxTfVzkoeLH
+	zzOIagFakb6WHQPovS/cPsmNFgJJXmqLQFOFYe+m+69SkhFrC38Z0MSpri/Tk632/bF7ScLSUg0
+	ryXhXSazXCnSXSSDvYsmRvKnPFjcObXpUHhMO/x/6+CUD0v/fCoPFcw3qPdrRyH0NlMMqaGZmT/
+	5cbNHDPBxNnsNTKYExYdH0ehvRE+KBV/E8dbEM7Ea+p2gW8yrJOLUDPqGzmao9adqROJ/d0CsdZ
+	FZTqWhqNeNVW51aU729rukiN8Yr7YLCZCMVQwP3Hpgkkp42NpnXFBELOlw3nj+02co+nwgu1Ou4
+	zxQJaRZB81R2Zr8xyhzjyjCStO10YcTOxVA/z7uKVU4QcejoL+OLaGDyQeZmdQ0s7Ij+cWl1pdQ
+	2NEu768vU/LMG8M=
+X-Received: by 2002:a17:903:2a86:b0:2cf:9ec1:ea6e with SMTP id d9443c01a7336-2dd9d3f894fmr5650455ad.8.1789636154526;
+        Thu, 17 Sep 2026 02:09:14 -0700 (PDT)
+Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89edf8e3sm23423915ad.45.2026.09.17.02.09.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 02:09:13 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:09:03 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: tkjos@android.com, aliceryhl@google.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] binder: Fix up Kconfig dependancy due to removal of
+ .c code
+Message-ID: <aquuL7LgSwc4ySbG@google.com>
+References: <2026091743-pony-prewar-735b@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,45 +77,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7ad3889a-d9f9-426c-916f-3900d2c4ab8a@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <2026091743-pony-prewar-735b@gregkh>
 
-On Thu, Sep 17, 2026 at 10:58:27AM +0200, Jonas Rebmann wrote:
-> On 2026-09-17 09:21, Andy Shevchenko wrote:
-> > On Wed, Sep 16, 2026 at 07:38:08PM +0200, Jonas Rebmann wrote:
-> > > The existing test_string_unescape() function follows a complex procedure
-> > > where it, given a set of UNESCAPE flags, appends multiple test fragments
-> > > and predicts their unescape result for the chosen set of flags. Rename
-> > > test_string_unescape() to a more descriptive
-> > > test_string_unescape_combined
-> > > 
-> > > In preparation to add simple regression tests, introduce
-> > > test_string_unescape_one() which asserts on exactly one call to
-> > > string_unescape.
-> > > 
-> > > Add some tests for corner cases which already pass.
-> > 
-> > So, this is two-in-one patch change. Needs a split, but I'm not sure why
-> > we even need this. Can't your case be incorporated into the existing
-> > "combined" variant?
+On Thu, Sep 17, 2026 at 09:46:44AM +0100, Greg Kroah-Hartman wrote:
+> When the .c binder code was removed, building the kernel if the rust
+> binder code was enabled, will cause the binder to not be built at all as
+> the option changed from .c to .rs which is probably not what the
+> original build wanted.
+
+The idea was to avoid silently dropping CONFIG_ANDROID_BINDER_IPC, but I
+hadn't thought about this use case you mention. I agree it's better to
+keep things explicit as _RUST.
+
 > 
-> They can not be incorporated into the combined variant because that
-> makes it impossible to control the size of the destination buffer. This
-> can not be fixed because the idea of the combined test is that all test
-> strings are combined into one buffer. The bugs fixed in this series only
-> occur when the destination buffer is limited.
+> Fix this up by renaming the option back to the _RUST version.  If in the
+> future, that suffix wants to be dropped, we can do so and then it will
+> be prompted for a choice again, but for this release cycle, it should
+> stay as-is.
+> 
+> Fixes: binder: rm -f binder.c
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
 
-We may modify the loop to provide the length of the destination buffer to be
-exactly what we expect, no?
+Worked for me, I found no regressions. Thanks!
 
-> Furthermore, for the regression tests, I want each test tailored for a
-> specific case and when it fails, to show me which one failed.
-
-> I'll update the commit message and split the commit.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Tested-by: Carlos Llamas <cmllamas@google.com>
