@@ -1,106 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2B34FB9BA;
-	Thu, 17 Sep 2026 13:00:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8734DA9D3
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650020; cv=none; b=PztAJvnyKwF053va3SYTc8zXMk51D9r4wOVhmFNvCwCwHo3OxTQB1kKKj/i7qM4m2BLKFhhGIsSeNmG5fY1ebl9hrfjpNHiYj//qDWMuAuPdKGIXuDbx4nhtGePyodi6VpkzNKwQYLJxslDgCG5O8lYHtDzYleMDfh/R9s+FdsU=
+	t=1789650052; cv=none; b=beY1VxjJv9ClUwIF8KXSseJSAojtrJJA7pjca+ob5JU8AEzpXtvcEC0Q3XIMspgv0ANp2duCc3VpUG/eCEejX/Z7s6QSM/z181sFhMN/Y+qVhvFtR2gcfW1xRnfMDAmn9BKkx/CFvkGSJp606Kl8DY4QnrChugzGInJvhnAjIdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650020; c=relaxed/simple;
-	bh=fnSA3ZHadEOkVq2wZc11TDEJhpap1RJvd4qDUJYvOpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q1pmhzgDWO4OtDDsqPYCABnTlq+Sg0dspUM983lHJ68nrVSeOl67lmmj+qoODjyKOuoHhKbCPM3ve0g2JcyGfYgmDcAxY2Mq6cZ93XMV4k5R5A9W+L0/U/ukRD2lCDWTpj/SEH1SE8V/okx+ybVQYe2WqggLjL/XROkbp+VNqKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RnJwqIgj; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789650052; c=relaxed/simple;
+	bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mgCDSuZ695Frkmg58JRfuzq8K6TJRXDdLmcuiRStInAZ//6pBIjjjPuiaBD58+WhMD4299o8aEH+hl3kwNP2eOVsz/LfvALP/A7olj8vt61cGpro1VbOCuBYyOtPtnSi25TZAWTS7BCkDFpRi/wpeHAKiZSowDVXyMRzRlEbPAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2xVGkNY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RnJwqIgj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789650013; x=1821186013;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fnSA3ZHadEOkVq2wZc11TDEJhpap1RJvd4qDUJYvOpA=;
-  b=RnJwqIgjnfr/9l08SJEO2Pa0kAVWJMR2B1TjbA6ssbQSjBUN/au3uScO
-   F9b7n2w25ml7e3RbHzyrXI+RV7siHpeKXsG2g0FrVUuKirrY7/lsRxrUA
-   G7GG4lnow4Kp4/WDH2cssh1BAUAK/lllgVwRvCVSJ6xEQ5QY5UYuIzly8
-   t0j76GmapCknTMnJLBMj8vV+aASfZUocfkTminZoC8/1kA2Edd9KhIttA
-   XVynrPQqeAXIYuXixirK87aE1/jVm7YaPtMHARAGzYSl8YSuYskk0M/Wm
-   wt4PtXutJizoWp8Ie3Kggw9fbkKiny7GJUT/D8GW+kHjazr0+AyaiqVjm
-   Q==;
-X-CSE-ConnectionGUID: gVz7JWv8Q+2G4PE+V/d+ug==
-X-CSE-MsgGUID: ETFYWGZ5R9CO1g/B7Wi8Rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="574939"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="574939"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:00:08 -0700
-X-CSE-ConnectionGUID: Q0bNwbL2QWiqyRS4yT7Cnw==
-X-CSE-MsgGUID: W/xGtr8bQZmM94o6Ngr0YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2005101"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:00:06 -0700
-Date: Thu, 17 Sep 2026 16:00:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Frank Wunderlich <linux@fw-web.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Frank Wunderlich <frank-w@public-files.de>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpiolib: use of_node_name if line-name is missing
-Message-ID: <aqvkU_1_ki5lGXS_@ashevche-desk.local>
-References: <20260917122815.88601-1-linux@fw-web.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2xVGkNY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86337C2BCB8;
+	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789650051;
+	bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=O2xVGkNYcjWxXO1fS8hOL/A6OIxU+lKxCvrv684Qa4NATwuSJyx8UTY3l5L/x1AYS
+	 VERPE/MfXsUuJjKpkZfm0h8PuJVYhvZ5V73UlYG3PcRn33jtGpIVR+bEoxdrz2wTWi
+	 psfpcJ3QA4kOk34kal9+/LK6Bm+4wm+rC2H3clgBrO0AoXWmYh4TYpOCpGQT1q4b8z
+	 2GmQFhZ2ry+1Vc6cvM6dPUHS3Cub1xsSJjunlf4nIhqzqFGySDtiQ5XSZGZX64WqNl
+	 OdmBR5Rzl/eJfy/2O5ALtU2gAVUKrWlux3Lw7K34pOuopwSTOnpsKqWRN1bCHgeSZm
+	 fQxBcmu1lQf4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7218CC982D1;
+	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
+From: Peter-Simon Dieterich via B4 Relay <devnull+peter-simon.dieterich.vaillant-group.com@kernel.org>
+Subject: [PATCH 0/2] mtd: rawnand: Handle GigaDevice chips behind the ESMT
+ manufacturer ID
+Date: Thu, 17 Sep 2026 15:00:41 +0200
+Message-Id: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917122815.88601-1-linux@fw-web.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHnkq2oC/yXMQQqEMAxA0atI1hbSKqJzlcFF1bRG0BkaK4J4d
+ 6su3+L/A4QCk8AnOyDQxsK/JUHnGfSjXTwpHpLBoKmwNqhI5lX5oXHR+NoVVjVlp11FGrGwkLJ
+ /IMf7s/y2ryV2E/Xr/YHzvACsPd/+dAAAAA==
+X-Change-ID: 20260820-esmt-gd9fu2g8f3a-94b1f6e1003a
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789650050; l=1814;
+ i=peter-simon.dieterich@vaillant-group.com; s=20260820;
+ h=from:subject:message-id;
+ bh=ST6lkf8zWnv1Bb1/dVgKbAOWbpFORRupmi8n5QqXhzg=;
+ b=v8R4RThorGStiRkYuqiy4vVHp2R3EYd1tnzChzEJWSj/iyUf1N530ytqr6Kzl4/5Gzj+SBMGs
+ ExPLfO26ZG8C66WNLgYeqkRM0iUeYbWEH7rxbWUuKgU5Mu+4jS6HEzv
+X-Developer-Key: i=peter-simon.dieterich@vaillant-group.com; a=ed25519;
+ pk=YI8VL1pBCnAIu0GVWI3a6qn/SG0pMQhm9n/RZTI5KZg=
+X-Endpoint-Received: by B4 Relay for
+ peter-simon.dieterich@vaillant-group.com/20260820 with auth_id=965
+X-Original-From: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+Reply-To: peter-simon.dieterich@vaillant-group.com
 
-On Thu, Sep 17, 2026 at 02:28:13PM +0200, Frank Wunderlich wrote:
+JEDEC manufacturer ID 0xc8 is shared between ESMT and GigaDevice, so
+GigaDevice raw NAND chips are detected as ESMT and handled by
+nand_esmt.c. This series deals with a GigaDevice part that ends up there.
 
-> Until v7.0, GPIO hogs inherited the DT node name when no line-name
-> property was specified. This was implemented as a fallback in
-> of_parse_own_gpio().
-> 
-> Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog parsing
-> into the GPIO core and removed this fallback.
-> 
-> Consequently, GPIO hogs without a line-name property are now displayed
-> with a ? in /sys/kernel/debug/gpio. Restore the old fallback.
+Patch 1 works around a broken timing mode feature on the GD9FU2G8F3A:
+the parameter page advertises SET/GET_FEATURES support, but
+GET_FEATURES(TIMING_MODE) does not report the mode that was written, so
+the core does not see its selection acknowledged and falls back to timing
+mode 0. GigaDevice confirmed the chip is compatible with every timing
+mode it advertises and that SET_FEATURES is not required to enter them,
+so the feature is unflagged for this model and only the host side is
+configured. This mirrors the existing handling of the Macronix MX30LF AC
+series in nand_macronix.c.
 
-...
+Patch 2 is cosmetic: it renames the manufacturer entry to
+"ESMT/GigaDevice" and documents the ID collision, so a GigaDevice part
+is no longer reported as ESMT at detection time. It is independent of
+patch 1 and can be dropped or deferred without affecting the fix.
 
-> int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle *fwnode)
+Tested on an i.MX6ULL board using gpmi-nand with a GD9FU2G8F3A.
 
->  	fwnode_property_read_string(fwnode, "line-name", &name);
->  
-> +	if (!name && is_of_node(fwnode))
-> +		name = to_of_node(fwnode)->name;
+Signed-off-by: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+---
+Peter-Simon Dieterich (2):
+      mtd: rawnand: esmt: Disable broken timings feature on GD9FU2G8F3A
+      mtd: rawnand: Reflect that ESMT and GigaDevice share ID 0xc8
 
-Can we move it inside the loop? Yes, I understand that it will be unnecessarily
-called more times than required, but gpiod_hog() is called anyway in the loop,
-so I don't think it will be a big deal. With that it will allow to group
-OF-specific code in one location.
+ drivers/mtd/nand/raw/internals.h |  1 +
+ drivers/mtd/nand/raw/nand_esmt.c | 34 ++++++++++++++++++++++++++++++++++
+ drivers/mtd/nand/raw/nand_ids.c  |  2 +-
+ 3 files changed, 36 insertions(+), 1 deletion(-)
+---
+base-commit: 7e874b1750a40f3dc9a629aeb72eba09c77f77e9
+change-id: 20260820-esmt-gd9fu2g8f3a-94b1f6e1003a
 
->  	for (unsigned int i = 0; i < num_hogs; i++) {
->  		if (is_of_node(fwnode)) {
-
-		...somewhere inside this conditional...
-
->  			/*
-
--- 
-With Best Regards,
-Andy Shevchenko
+Best regards,
+--  
+Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
 
 
