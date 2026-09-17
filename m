@@ -1,299 +1,178 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB448FF74;
-	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0D841D103
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634622; cv=none; b=sKgUmtW70p61Wq8jiSNgvs1xoBvXO4bfqitGAFz1qfAibcxnC8MeDkkl0UGrJdYldnbj9RQYy8yYFpeouyoG6qMK0tG0hwq/fMlKSwfAtUgtrAxGEgtvL2iy1VZkZfEPR8KsscpFsAInGFI1+v9vrU4RS3RRTElFQd6FS2by98w=
+	t=1789634626; cv=none; b=t3eGhGbQddiXyyMhDVLX4j5MhpakWfNTJIpkM58Dz/byL3+AxjmQUq08uFPIDui/d0klb81LuYnER2hhSo2t4ZLGkpWiyRBSrLUSsQlxDN25qbUUsXCfeQi4HPCfUnMwMugN1aAHLGsHW/GdGQ8fZdNb10LHCwcf6es6JqIsoAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634622; c=relaxed/simple;
-	bh=p+12XKBNdSjDhIy6E+e9yuG30QEvWnhXl3elNOuNjw4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJjxNSMOBPhvtPUmugZCb+YJ+8GLMuytt1aFk2VwNHiwvOjTNjZlfIyrlDDPkjFcGDcL30etYYLN2cGQFoz5MVHJgsCDbhcwuVjE//vZZGgiDt+2TuFhpxXM1uh/J62qxaekIjrlsBnEZBhhKzWdcsA3iezbhD/TP22Uu6JOGNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RA0Z64r6; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789634626; c=relaxed/simple;
+	bh=DZTC4uPqaHJj/OZS6NpKiXcAPICjbOhzo2h5GxYHiQI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=tC04lOwVftsqh27UVSCbj/uo/EAlQ5ySHoI+p23EmDRwHtjzGyR2yT8bGoeWJ5bV9LLbNFli5juCASN3EjIu72wmryHhJt6YpVe43VPopRZ2RQ7nKB+FERVUYGqbsyHOTAwYWMUvVmym49ul7dClwf33hdjWqVRyn5erJMDc4fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZ1Nv4E5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RA0Z64r6"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id F281AC5CD6C;
-	Thu, 17 Sep 2026 08:44:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E64F5FAA3;
-	Thu, 17 Sep 2026 08:43:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1F7711C7B02B;
-	Thu, 17 Sep 2026 10:43:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789634607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Mg2tLnhtM9MhyKLc8so1gxY18xcOvlKJXGedwmLFfOY=;
-	b=RA0Z64r6KvLuOjdkOdu1Uin9njJO5FBDLcwuBYR16ruDzhrdnAiM4hKwOeE253WpsFlBgh
-	LskHc6N72E6IRA4lZ5fZGOU+Pr3SNHtEwRWzrkbMoYtNl5DQ4G3zpJiF0vUK+4s5vAC0Ph
-	wOgQ4+OeqMYcO7Xwz30gy9M3e2Fhq8f76NqfKixUu0gfc8EiBRwoSEs87mgNQLTZPv5CYd
-	PyonmjqO12pZrB9Up8BkqtONlGGHW54hzdHY1lyDLe0nQkikoageclBoXIYRcSe57BhR2b
-	k8Y9MMc2/IaETGyf2q3NUUlvcupx9uaWUSpW/HkTM9jUpPl5tKlAsdHYMUJowg==
-Date: Thu, 17 Sep 2026 10:43:21 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 11/15] libfdt: Introduce fdt_getprop_by_offset_w()
-Message-ID: <20260917104321.11256312@bootlin.com>
-In-Reply-To: <aqtx_MzOsc3q4Gev@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-12-herve.codina@bootlin.com>
-	<aqpnzXyR_k4fs7Jk@gractus.seuss>
-	<20260916124205.28a71859@bootlin.com>
-	<aqtx_MzOsc3q4Gev@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZ1Nv4E5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505C11F000FF;
+	Thu, 17 Sep 2026 08:43:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789634610;
+	bh=AZdjSMK1O73M0g/SKYTQXMO6bB6h5wxyUE1M5wazgR0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=cZ1Nv4E5M8ZqvrssciqIPmbcB5tnUu3LISQlyC31sZV4aLmai4oBlDr0ZCMJJtt3O
+	 Zwzp39lzTFzX94viFolQ+w6JHMMxiVd3yt/YwuJl15kd1pa3Y2XK36Uioz915XaIXy
+	 ADNAu+j61uQXJJogMbTMssodfeJEbzWjPHIaBa0SP5qkL8Okggq7YiVnjEXf6ZItyq
+	 KkS71wjnsZDMh+iXkUo4auLw3X08RPkjSfXECNvtxinNP60v6cSskmcff8CQujWKl3
+	 WneAAh86Egy/phHyKYiGLo7lDuLPDfJ/qM2sax0hm/rPW3almwiNYYRM1OPwo03Lhf
+	 fD+pONFOrnWCQ==
+Message-ID: <e988b0e8-3ee9-45ed-9d34-7b73d86d9cfd@kernel.org>
+Date: Thu, 17 Sep 2026 10:43:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/gup: batch PTE-mapped large folios in
+ gup_fast_pte_range()
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ liam@infradead.org, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Aristeu Rozanski <aris@ruivo.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260917083747.786-1-aa9736195201@gmail.com>
+ <f8f6d553-d818-4cc6-a1a1-a9c9149a17e9@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <f8f6d553-d818-4cc6-a1a1-a9c9149a17e9@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-On Thu, 17 Sep 2026 14:52:28 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Sep 16, 2026 at 12:42:05PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Wed, 16 Sep 2026 19:56:46 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 10:31:42AM +0200, Herve Codina wrote:  
-> > > > Future operations, such as handling unknown tags on dtb modifications,
-> > > > need to modify properties retrieved by their offset.
-> > > > 
-> > > > fdt_getprop_by_offset() already exists to get a preperty by its offset
-> > > > but the property returned is read-only. A writable returned property is
-> > > > needed.    
-> > > 
-> > > Since we already have fdt_get_property_by_offset_w() this is an
-> > > obvious gap and I'd be happy in principle to apply this independent of
-> > > the rest of the series.  
-> > 
-> > Nice :)
-> >   
-> > >   
-> > > > Fill the lack and introduce fdt_getprop_by_offset_w(), the write enabled
-> > > > variant of fdt_getprop_by_offset().
-> > > > 
-> > > > Add also its related test.
-> > > > 
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > ---
-> > > >  libfdt/libfdt.h           |  6 +++
-> > > >  tests/.gitignore          |  1 +
-> > > >  tests/Makefile.tests      |  2 +-
-> > > >  tests/get_prop_offset_w.c | 84 +++++++++++++++++++++++++++++++++++++++
-> > > >  tests/meson.build         |  1 +
-> > > >  tests/run_tests.sh        |  1 +
-> > > >  tests/tests.h             |  1 +
-> > > >  tests/testutils.c         | 18 +++++++++
-> > > >  8 files changed, 113 insertions(+), 1 deletion(-)
-> > > >  create mode 100644 tests/get_prop_offset_w.c
-> > > > 
-> > > > diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-> > > > index 7a1915a5..82965e32 100644
-> > > > --- a/libfdt/libfdt.h
-> > > > +++ b/libfdt/libfdt.h
-> > > > @@ -856,6 +856,12 @@ static inline struct fdt_property *fdt_get_property_w(void *fdt, int nodeoffset,
-> > > >  #ifndef SWIG /* This function is not useful in Python */
-> > > >  const void *fdt_getprop_by_offset(const void *fdt, int offset,
-> > > >  				  const char **namep, int *lenp);
-> > > > +static inline void *fdt_getprop_by_offset_w(const void *fdt, int offset,
-> > > > +					    const char **namep, int *lenp)
-> > > > +{
-> > > > +	return (void *)(uintptr_t)fdt_getprop_by_offset(fdt, offset, namep,
-> > > > +							lenp);
-> > > > +}
-> > > >  #endif
-> > > >  
-> > > >  /**
-> > > > diff --git a/tests/.gitignore b/tests/.gitignore
-> > > > index 69693129..1091174a 100644
-> > > > --- a/tests/.gitignore
-> > > > +++ b/tests/.gitignore
-> > > > @@ -30,6 +30,7 @@ tmp.*
-> > > >  /get_phandle
-> > > >  /getprop
-> > > >  /get_prop_offset
-> > > > +/get_prop_offset_w
-> > > >  /incbin
-> > > >  /integer-expressions
-> > > >  /fs_tree1
-> > > > diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-> > > > index 63e201ae..0d4d399f 100644
-> > > > --- a/tests/Makefile.tests
-> > > > +++ b/tests/Makefile.tests
-> > > > @@ -16,7 +16,7 @@ LIB_TESTS_L = get_mem_rsv \
-> > > >  	sw_tree1 sw_states \
-> > > >  	move_and_save mangle-layout nopulate \
-> > > >  	open_pack rw_tree1 rw_oom set_name setprop del_property del_node \
-> > > > -	appendprop1 appendprop2 propname_escapes \
-> > > > +	appendprop1 appendprop2 propname_escapes get_prop_offset_w \
-> > > >  	string_escapes references path-references phandle_format \
-> > > >  	boot-cpuid incbin relref_merge \
-> > > >  	extra-terminating-null \
-> > > > diff --git a/tests/get_prop_offset_w.c b/tests/get_prop_offset_w.c
-> > > > new file mode 100644
-> > > > index 00000000..dbfa5dd7
-> > > > --- /dev/null
-> > > > +++ b/tests/get_prop_offset_w.c
-> > > > @@ -0,0 +1,84 @@
-> > > > +// SPDX-License-Identifier: LGPL-2.1-or-later
-> > > > +/*
-> > > > + * libfdt - Flat Device Tree manipulation
-> > > > + *	Testcase for fdt_getprop_by_offset_w()
-> > > > + * Copyright (C) 2026 Bootlin.
-> > > > + */
-> > > > +
-> > > > +#include <stdlib.h>
-> > > > +#include <stdio.h>
-> > > > +#include <string.h>
-> > > > +#include <stdint.h>
-> > > > +
-> > > > +#include <libfdt.h>
-> > > > +
-> > > > +#include "tests.h"
-> > > > +#include "testdata.h"
-> > > > +
-> > > > +#define SPACE		65536
-> > > > +
-> > > > +int main(int argc, char *argv[])
-> > > > +{
-> > > > +	const void *exp_val;
-> > > > +	const char *name;
-> > > > +	char *modif_val;
-> > > > +	void *propval;
-> > > > +	int proplen;
-> > > > +	int exp_len;
-> > > > +	int poffset;
-> > > > +	void *fdt;
-> > > > +	void *buf;
-> > > > +	int err;
-> > > > +
-> > > > +	test_init(argc, argv);
-> > > > +	fdt = load_blob_arg(argc, argv);
-> > > > +
-> > > > +	buf = xmalloc(SPACE);
-> > > > +
-> > > > +	err = fdt_open_into(fdt, buf, SPACE);    
-> > > 
-> > > You shouldn't need an fdt_open_into().  You're modifying the contents
-> > > of a single property, but not moving tags about or (specifically)
-> > > expanding the tree as a whole.  This is a "write in place" operation
-> > > rather than a "read/write" operation in libfdt terms.  
-> > 
-> > Ok, I will update in the next iteration.
-> >   
-> > >   
-> > > > +	if (err)
-> > > > +		FAIL("fdt_open_into(): %s", fdt_strerror(err));
-> > > > +
-> > > > +	free(fdt);
-> > > > +	fdt = buf;
-> > > > +
-> > > > +	/* Retrieve the offset of the 'prop-str' property */
-> > > > +	poffset = get_poffset(fdt, 0, "prop-str");
-> > > > +	if (poffset < 0)
-> > > > +		FAIL("Property 'prop-str' not found")    
-> > > 
-> > > Introducing get_poffset() seems a bit awkward compared to using an
-> > > fdt_for_each_property_offset() like get_prop_offset.c does.  
-> > 
-> > Ok, will use fdt_for_each_property_offset() directly here and remove
-> > get_poffset() in the next iteration.
-> >   
-> > > > +
-> > > > +	/* Get the property value for modification */
-> > > > +	propval = fdt_getprop_by_offset_w(fdt, poffset, &name, &proplen);
-> > > > +	if (!propval)
-> > > > +		FAIL("fdt_getprop_by_offset_w(%d): %s", poffset,
-> > > > +		     fdt_strerror(proplen));
-> > > > +
-> > > > +	/* Check original values */
-> > > > +	if (strcmp(name, "prop-str"))
-> > > > +		FAIL("Name mismatch : %s instead of prop-str", name);
-> > > > +
-> > > > +	exp_len = strlen(TEST_STRING_1) + 1;
-> > > > +	if (proplen != exp_len)
-> > > > +		FAIL("Original size mismatch on property \"%s\": %d instead of %d",
-> > > > +		     name, proplen, exp_len);
-> > > > +
-> > > > +	exp_val = TEST_STRING_1;
-> > > > +	if (memcmp(exp_val, propval, exp_len))
-> > > > +		FAIL("Original data mismatch on property \"%s\"", name);
-> > > > +    
-> > > 
-> > > You could re-use check_get_prop_offset() from testutils.c to perform
-> > > these tests before invoking fdt_getprop_by_offset_w().  
-> > 
-> > I wanted to test that the value returned by fdt_getprop_by_offset_w() is the
-> > correct one. check_get_prop_offset() calls fdt_getprop_by_offset() and not
-> > fdt_getprop_by_offset_w().  
+On 9/17/26 10:42, David Hildenbrand (Arm) wrote:
+> On 9/17/26 10:37, Yuan-Hao Hsu wrote:
+>> GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
+>> costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
+>> atomic, a full barrier and a node stat update for FOLL_PIN), a
+>> gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
+>> pays sixteen of each and a PTE-mapped 2 MB THP pays 512.  The PMD and
+>> PUD leaf paths already take the whole range with one
+>> try_grab_folio_fast() call, and the slow path is getting the same
+>> treatment for PTEs in Rik's follow_page_mask() series.
+>>
+>> The users are the hot ones: iov_iter_extract_user_pages() pins every
+>> O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
+>> buffers through it, and so does RDMA memory registration.  With mTHP
+>> those buffers are PTE-mapped large folios.
+>>
+>> After the head page has been grabbed and verified as before, extend the
+>> run to the following PTEs that map the next pages of the same folio
+>> with the same protection bits, take the remaining references for the
+>> run with try_grab_folio(), and fill pages[] from the run.  The PTEs of
+>> the run are read while the reference on the folio is held, so the folio
+>> can neither be freed nor split underneath the scan; a THP collapse can
+>> still detach the page table, so the pmd is checked again after the run
+>> is grabbed and the run is dropped if it changed, leaving the next
+>> iteration to hit the existing pmd check and bail out.  A read-only run
+>> of an anonymous folio stops at the first page that gup_must_unshare()
+>> rejects, so the per-page exclusivity guarantee for FOLL_PIN is kept.
+>>
+>> folio_pte_batch_flags() does the scan.  It reads the entries with
+>> ptep_get(), which is not safe without the page table lock on
+>> CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
+>> and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
+>> Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
+>> site, so the other callers do not change.
+>>
+>> The order-0 path keeps its instruction sequence.  The folio flags are
+>> tested before folio_set_referenced() on purpose: a load of the flags
+>> right after that locked instruction cost about 25% on order-0 pages in
+>> the gup_test benchmark below, and reading them first brings that path
+>> back to the baseline.
+>>
+>> gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
+>> per call, median of 15 runs, two baseline boots / one patched boot, on
+>> an x86-64 VM:
+>>
+>>                        get_user_pages_fast()   pin_user_pages_fast()
+>>                        before       after      before       after
+>>   4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
+>>   64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
+>>   1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
+>>   2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
+>>   2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
+>>
+>> fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
+>> buffer in 64 kB mTHP, median of 15 five-second runs:
+>>
+>>   bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
+>>   bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
+>>   bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
+>>
+>> IORING_REGISTER_BUFFERS of 1 GB, median of 15:
+>>
+>>   64 kB mTHP           6179/5998 us  ->  1599 us
+>>   1 MB mTHP            5790/5801 us  ->   893 us
+>>   4 kB pages           7173/6741 us  ->  6763 us
+>>
 > 
-> Ah, fair point.
+> I think Rik was already working on this and sent some patches. Anyhow, there is
+> quite some GUP review backlog I have t go through, so this will have to wait.
 > 
-> But.. rather than checking the retreived values the same as
-> get_prop_offset.c, it would be both simpler and more complete to
-> explicitly check that fdt_getprop_by_offset_w() returns the same
-> pointer as fdt_getprop_by_offset().
 
-Ok, I will do that.
+Ah, no, Rik looked at GUP not GUP-fast. So I'll have a look but it will take a
+while.
 
-> 
-> > I know it doesn't matter with current implementation
-> > of fdt_getprop_by_offset_w() but I am not supposed to know about this
-> > implementation here in the test. Also, this implementation could change in the
-> > future (not planned on my side).
-> >   
-> > >   
-> > > > +	if (exp_len < 4)
-> > > > +		CONFIG("Property \"%s\" should be at least 4 bytes", name);
-> > > > +
-> > > > +	/* Modify the property value */
-> > > > +	modif_val = xmalloc(proplen);
-> > > > +	memcpy(modif_val, propval, proplen);    
-> > > 
-> > > Why malloc() and memcpy()?  The whole point of
-> > > fdt_getprop_by_offset_w() is that you get a writable pointer into the
-> > > fdt which you can modify in place.  
-> > 
-> > I want to keep the modified value for later comparison.
-> > 
-> > - modif_val : Current property val + modification.
-> > - Update propval: Current property val.
-> > - Check reading the property with check_get_prop_offset() that the
-> >   property has been really updated.
-> > 
-> > If instead I use only propval, I use only one buffer and so
-> > - propval = modified value
-> > - check that get check_get_prop_offset() which will also return the 
-> >   propval buffer matches the propval buffer.  
-> 
-> Ah, missed that, that makes sense.  Personally I'd probably go with a
-> static buffer with the value to write in (and then compare), but
-> either way is fine.
+-- 
+Cheers,
 
-Will keep malloc()/memcpy().
-
-The static buffer needs to know about the lengh of data, at least a
-maximum allowed length.
-
-Best regards,
-Hervé
+David
