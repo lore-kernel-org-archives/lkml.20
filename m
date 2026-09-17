@@ -1,90 +1,87 @@
-Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BAF1448E0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AEB1448E0;
+	Thu, 17 Sep 2026 01:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608230; cv=none; b=YmCryOJ8Ccwp0SR0o6PpALTbpsOfRS3gMaq+JyOxsTcfdDfRxX8rJ1G1T7J37BWT8k1tu4oTi16SLMOc4Eo1Q9dxDmlKbsfnpf/EAsxe9kGDHlj51FqjyuCPSItKelWRUKR9G1wDdkdxyJG6MYvLWyeHCcO6AtUGaxKUEwlK3+A=
+	t=1789608269; cv=none; b=CgQfI2yyF4UVXA8nMjlx53V2hiTJUU9E6Krfp1Nd6NOkSSBBKPaTIMqMiYX9zwkwXmCYVtLNF6JIrZ+6qk8JQQb08JYS1BWWCL5Dxvj9/sVAL8eoIz4OEciUyP8uKgiPQPray4Fc8q8NNurNyP9V+bTCQxALqh0QRE75cZPUBs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608230; c=relaxed/simple;
-	bh=wDg1fKXgo2gnh1KZoLEb6HenGD7qVnWNZCNvYn7EiGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UjDl8q63Nps1yb3BxrpuGeQlm3HBIbcPsjUmqdT6oUiaegZKV63GD/xiKCKO2QVxlwdHSmuvbauNv+qk42Q5pdflLoFzODLByWF4PQeSHk0GL23pGGVWcP86f+4lFF1FtRojZZj5n3GLkfSg1SEu/ky2bocqi+svp9A1705MBBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NSXjE+eQ; arc=none smtp.client-ip=91.218.175.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789608269; c=relaxed/simple;
+	bh=UC68QhQcRLaMGB8I8HwQemwmUPJCvrWhVtPioeeqyJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EN0fQNnemKP1vmGTT/tdrP9zHZyv2uC3WjDRx8DItj8TVhTPsiE02uyaBNOcflc0tom34mf5Akc89U7Kff0ldl1t0vuTlsIKVUEgHZXMLHjlGz2MhyzQBH/qBtTG0HLJucNg3NdmbIXcfyPuYGVo7jhz1Cs4QFqm0/m6SU7mk6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlX87D/L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NSXjE+eQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wDg1fKXgo2gnh1KZoLEb6HenGD7qVnWNZCNvYn7EiGM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789608226; v=1; x=1790213026;
- b=NSXjE+eQjTHs61mS8ahOdvlpL97CYi3Oil7vbxswIjGlHKEgS5xxU62Mx1lYLoYG0Bfa1DrG
- zOKJP4j8FYwIPImThj88zDmnj7iuq7IKZi1chAB9Lsl/+cfQZh8ej3sNWqww9qhZaAeDv+Dh3Y7
- 2SAgwrYf/1MAFCRZ6hyVz3cE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 19db6483ce23b745;
-	Thu, 17 Sep 2026 01:23:46 +0000
-X-Mizu-Trace-ID: 19db6483ce23b745
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 17 Sep 2026 09:23:39 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Ridong Chen <ridong.chen@linux.dev>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	"open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-Message-ID: <aqtBG9Oyu-RVI7jv@fedora>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev>
- <aqkoeJvFzqpoGeaP@fedora>
- <e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev>
- <aqn7h3BVCCRFI2TI@fedora>
- <20260916095122.50cbb620@robin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlX87D/L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8BC61F000FF;
+	Thu, 17 Sep 2026 01:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789608268;
+	bh=lZ1/JqShDzbJ7IZu7QOMEIySEk70KUHs+UhoEK32jik=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IlX87D/Lq6R17YTQTyg93CU3XzxNg0LyM3R516eJBKICYpiceSdQBusGt9JxbwAEY
+	 Oetopq4JPfNlc51yws7g3VFOllGU7RnvGvMJ/IDBbvF0s1NwRFdxsHETeTVJwcPfz4
+	 kBf7PsyHKeql9NIFUHUuzLd1iVk/zA2+RDkeRcpVToRyKEQRgo4L+KHWhMbocTLpwP
+	 iZLmKnR0prC5s0ikktVP/0z/7YoHQquIEdNsZ53gQRgE5ooCJnRNHiJeW8QTXZzCQx
+	 jnjAhSzs4eBYFKatCXzMxLp0tr9uMUlNhdNx+YiOZx09TPEy72jGOXhM4pcmoirpqC
+	 dbtTtVxXSbeBg==
+From: SJ Park <sj@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] mm/damon/core: charge only the part of a region the filter left
+Date: Wed, 16 Sep 2026 18:24:19 -0700
+Message-ID: <20260917012420.101087-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917003553.2465523-2-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916095122.50cbb620@robin>
+Content-Transfer-Encoding: 8bit
 
-On 09/16/26 at 09:51am, Steven Rostedt wrote:
-> On Wed, 16 Sep 2026 10:14:31 +0800
-> Baoquan He <baoquan.he@linux.dev> wrote:
+On Thu, 17 Sep 2026 09:35:52 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+
+> An address range DAMOS filter that partially overlaps a monitoring
+> region splits the region at the filter boundary, so the scheme action is
+> applied to only one side of it.  damos_apply_scheme() reads the region
+> size once on entry, before damos_core_filter_out() performs that split.
 > 
-> > > However, 'sc' is an internal structure, so sc->order cannot be accessed in
-> > > TP_fast_assign(), and I don't think it is worth making scan_control an
-> > > external structure just for this.  
-> > 
-> > Agree.
+> The quota charge and the statistics update therefore account for the
+> region as it was before the trim.  schemes/<S>/stats/sz_tried counts
+> memory the filter excluded, which Documentation/mm/damon/design.rst says
+> is not counted as tried, and with quotas/bytes set the excluded part is
+> charged against the budget, throttling the scheme to a fraction of what
+> was configured.
+
+The user impact is that DAMOS could work unexpectedly slow, due to over-charged
+quota.  Also DAMOS stat could be confusing.  No critical events such as crashes
+or leask happen.
+
+If above is not incorrect, I will add that to the commit message when I add
+this patch to damon/next tree.  Let me know if anything is incorrect.
+
 > 
-> Or what you can do is to move include/trace/events/vmscan.h to
-> mm/trace_mm.h (or whatever you want to call it) and struct scan_control
-> into "vmscan.h" and then you can use internal structures within the
-> trace event.
+> Re-read the region size after the core filters have run.
 
-Sounds very reasonable, thanks for the valuable input.
+Thank you for finding and fixing this bug!
 
 > 
-> Up to you, but this is what other subsystems have done.
+> Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+> Cc: <stable@vger.kernel.org> # 6.6.x
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Yeah, leave this to Ridong to decide.
+Reviewed-by: SJ Park <sj@kernel.org>
 
+
+Thanks,
+SJ
+
+[...]
