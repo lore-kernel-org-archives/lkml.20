@@ -1,161 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D8847C0F3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E304E5358
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675206; cv=none; b=lM/OwnJid2q3PKuznmywKzIZwsW8u8MGJm1ZR7AnwT5sbCkQWrHbxgMZqzblMagxpqQEZm0aQPLFjjclTu01MWHA/IKkWdQlySmXKRw+guSmqGEYcqHCqLTVU/AHaWjDZJ59jkoxCBNooFBQh70EtHiXglZRzY5MfAGlQQYZwkA=
+	t=1789675212; cv=none; b=DYBSm7g1Y7ijeNfgM0kP+8Wj3gr2NXzg/0iTSarseBAXhmKOy40kUySqDoqpA6jQvOJ73hvwi9C5iI867bydnyMMRnZlRvL8HJvco+JiidGLlMZ5wFHPj4bk7HPRER2Raqr3N9AqpPO7j2anLzfJT4OSJ/esCiXdl1Q8/H1UOF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675206; c=relaxed/simple;
-	bh=vW1PEVXQ9jSdeXqvu/sHm4RW6P/OoSsC0JrMfDOrePU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Mqns2/ycBnsq9TwKDhDCL1Z21dMxihYzWyGjLdcdSWBi2aYXtI+hEmKqYSNkQlQpkN36HQtnimmoAwxcwcLpUvptFSVXr12idfP4/62YjhszUA79yl5QwsfnZm6AAzWcvpuE9YxOCgodANp7wWZFv2l1Wrl5dRO8mI5PRVvmClA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iMi18HIv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KmIixB3f; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789675212; c=relaxed/simple;
+	bh=qQt4cO6gcM8mr7BbKnuuxQVqoSliQpL2hRO0tN5IJCs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aMWlvaZeC0g9+sH0fXKWgx0a5G2OC8JFCM6vPiZSZwOj8oUOn6QiCvkW7Ywf/MAFeRaT2KS4HnItDv1Sm+k85ZFAw+hqoAMZIk0Aau8PEgHT/PArdaOZ3FOKKKCSLTc2IY7tYwds//FIKhMpZ6xWF6l9h4DXoSsWxM9Zjzm0qXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Le7/uLIr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iMi18HIv";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KmIixB3f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789675203;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QKJHwYoHwtxGXYRY1vkeptYjZQfzNjxi9ZIJDlWS3xE=;
-	b=iMi18HIvgUTW0NjINTSt/+demP+eRT6zXYzndaKVVyE+hUy/J2IS2fJDFu9HZfCW8nKjge
-	+xRIORPaxpuXZ6zo2GUFAn4grtxY6Az9C0ic0GguqSjFsfV+dw9964MMyA5JwSB2/rWI4w
-	hj0VESbdQzwUN0dpzM94eaXJUeyG7Zw=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-669-tRox68tXOrW30STklhODNQ-1; Thu, 17 Sep 2026 16:00:02 -0400
-X-MC-Unique: tRox68tXOrW30STklhODNQ-1
-X-Mimecast-MFC-AGG-ID: tRox68tXOrW30STklhODNQ_1789675202
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-53000c06184so36026251cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Le7/uLIr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so346075e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789675202; x=1790280002; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QKJHwYoHwtxGXYRY1vkeptYjZQfzNjxi9ZIJDlWS3xE=;
-        b=KmIixB3fRUIQw4iswbxGK+7IF5sSXuI1Wv6IHjm5GNSmR8ZGPbjC1oH0uhk9zfmHty
-         HE45PZal4cvDMMSG9p+BAFMgD93bXZOpM75AyXhz+lqDw5uMKK1bKSp/i9XHIBsOlePx
-         JWhtiqJerY8YWz71CNH2/iWlLA4tPzYArHZhkFG1IaFe4EpNEFmGENbGqduTJfsZmUP/
-         Dmwh+SJZwPX3JA34aePFPKJUXVRuvfehgAh6VtMYLsZQS1SWOpffFn3lS3VWjmoBDu+C
-         b0E4QfOi9Pg+kpSsFhslbIrOwmTSaFTyE950IN2paQhM3Y+9lFPrCXbl8PLH4MnsZeOY
-         B7WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789675202; x=1790280002;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789675208; x=1790280008; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QKJHwYoHwtxGXYRY1vkeptYjZQfzNjxi9ZIJDlWS3xE=;
-        b=Do+6ml2F6hviWQqmTsGoqPTRERb61ZWswTP0EoYz2Axqs4Ov3tI6+1Ks1a8iNkQNfX
-         AVKO2vjI7aWW7BNqh0h4kNXameuJY8Mo/REO83e1N4NdVookGMyxYt9hqEhuooefXIK8
-         Q6W9afpFpWpZLI2pPAfJAYs7fsV24Y8AmRlRwKIejOcuDjkvgp/AKry29kThaqRRUxqp
-         K31oWW2JZ3yqOKN9eOeJM4FjTRqyi7C+0sn9h3QKfbDTRiHM7KI+1pa2JuxW2CvaJcMY
-         jIe7idxMxXPFhCJai7WaMW9gi54Nl1evXgagAJlxx0t+FgfuVnVtV0vgFVWpPtDhNT3i
-         0Eog==
-X-Forwarded-Encrypted: i=1; AKwUvBwww3SjRVsewIdl+J6ckQB7NR3Q70c7ltsDFfa9/M84yWhSQ3k3KbjH+ZDSS7DGgLCl2zoqmbmDsfaENlQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRRj+TbBWU1fz1gEt8/Lh+27qYeyDXQex7eFX1eDQrTo+dExNe
-	wg64P33VetoKDCJPZuvFHWEWg4lY+wjNUOBuvyDQCk1voGMQG+7JspoQNxouR8GPdI93dHiBoAc
-	sbzLOWqiEzdGZoLPLaug1L2WdG1Y4o3OizVzIRSYUZnTr24lJUJKraPpLKPyBLQ+XcQ==
-X-Gm-Gg: AYBFou2C4SI59jxTObP0sSUH3OQctAaydgHiTL+jwAxlugQisJwmXYF++dU6NxD4J1j
-	+3d9NbkUGe9LpRaIOKEAfKJEp2vX+37E9glVCoiMZ2IzFDWAGxyd58NQIinka2uYZgaf1wyrlCa
-	7O/oYBvMyIC1FMbGaOR0hfbL1aaFaPzCuZztQDRFv/nL/fg0ofRhAwWsEAd8HLxx8SWaDcvTV5w
-	NFSZQLB6LExWxwzUsHp+xLu5gXiglR5yz8olSSnKCnQpXLPMkwFnnT7NY4RaoMcofwzR6AqKSXG
-	8HdYCftZHcZtwquF4BhSY/pVJt4BgGa4xb7ml0s+vY28s+xgJVgck51TJVNIRURxZbzdAAhU
-X-Received: by 2002:a05:622a:389:b0:530:dcc7:aede with SMTP id d75a77b69052e-5329e3d16c9mr5804111cf.30.1789675201630;
-        Thu, 17 Sep 2026 13:00:01 -0700 (PDT)
-X-Received: by 2002:a05:622a:389:b0:530:dcc7:aede with SMTP id d75a77b69052e-5329e3d16c9mr5803511cf.30.1789675200978;
-        Thu, 17 Sep 2026 13:00:00 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532620843dfsm59146421cf.22.2026.09.17.12.59.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:59:59 -0700 (PDT)
-Message-ID: <41bd4250f6833a7aa8de54b84e182ce922281d24.camel@redhat.com>
-Subject: Re: [PATCH 1/2] drm/nouveau/dmem: pin VRAM for the whole registered
- range
-From: lyude@redhat.com
-To: moonafterrain@outlook.com, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Andrew Morton
- <akpm@linux-foundation.org>, Balbir Singh	 <balbirs@nvidia.com>, Mary
- Guillemard <mary@mary.zone>, Mohamed Ahmed	
- <mohamedahmedegypt2001@gmail.com>, James Jones <jajones@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
-	stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 15:59:58 -0400
-In-Reply-To: <20260817-nouveau-fixes-v1-1-f518d0c735f3@outlook.com>
-References: <20260817-nouveau-fixes-v1-0-f518d0c735f3@outlook.com>
-	 <20260817-nouveau-fixes-v1-1-f518d0c735f3@outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+        bh=OaaciFVIl9v1eXFkeR+gZr+bpmUH+PehdgPs/XwqD9w=;
+        b=Le7/uLIrUEhNx3iTyQ3zrYKZLv3UXt0J81gccVaZ9mx7jsktm+H4/N1xkqGkWi+nSu
+         URoNatSCzusME69Sx2JWL/TTZhBGXJkONwyy12s6AZ7Zr4ERsHyznQ8MgZIBE4GNicXw
+         GF01wCGSxwF+icgEcNCHXhWjJJ2t+EhsB+pMzMFudnMoQ2e7wQ4USDAdeIreNtcmi85M
+         /uBzseGj9PVRkJNMVbfoyV8Oo95TXh6KRyovMXX9fcMPqPH/mpofwFVZGa+/ZqjeQQis
+         WhBYjDI7lPArSGqYBnvRFyheHdAXVWtCNDlTno76M2SmQTsjtsn+F9rcMIbvGF3M0Lq3
+         TftQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789675208; x=1790280008;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OaaciFVIl9v1eXFkeR+gZr+bpmUH+PehdgPs/XwqD9w=;
+        b=Hv2sH8ddNpCODKawqOYl5p96pQ8lHdty+hw717LHD5OuItMj6xPfCN8oxw1ItlLttc
+         /636qvRKGDRYHBvNHNNOHX0miQNN98toGEnZON+k6oW8hYxg4/d40qolEyTktEnClMF9
+         ixinlPmUNn8eE+HDfJbwE+RBnnt/NOjqoFfGkfUU5TcmwtHvll7T1Hzc3+ZNQ1KXM3q5
+         WIYw5zV4hWyfcWXlTryDIBYJ+hcJ8Xc1VJt/QU1BKoMlce2U7jq23i8c/2YJmHc430HX
+         9U9Cw5hTt5g2FEUnIbzJgl3e5C3LKk7nWMoAWEiSOgX4jL9a0dKqrluEQm3EJLsr7EP8
+         VSxw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4W9/pjCGbIXWOzWfZjz4E+PyMhHYt7b78gJ/xGlBWeqm2BKlUOC66p2YPTP4LgF9RK61NdCgyeb9UBRc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljUJLN8Euy6KyV1c81HBZwaxibDSYjmKFO27r2arU/3WWASLma
+	ocaBJyypNGIQFenZ2cAAkQRikNG473n+QgR66uZBcxVgRtdE/VzjUBNup9PCcA==
+X-Gm-Gg: AYBFou0YcipdP41jPup2zal3Oz7u2MXRJf2s46aRhWhkjcder3No2vmb8MFF0es7MlM
+	1Aq3Kte3M3rP/7r3axDz7AJzR0HZ1yFcZjYzwM8aUPshot3uxxWuiSaIK4PAywfmPDKr3wdHUMN
+	bh8FpQeOqZKalchAqwlWmJ0U3VZVbR8noR2XF3Np0W03GVYbJbBA259gwRmzBqUwkDoHkPef/GS
+	0hE9ntF6cA9LN3AWm6yp0kFWup6O7kiQq2k/UvmwGoBJwtKy9/uIvLE3kHNwOFy3G3oX3XyQ2L+
+	niQIa9WvembZMpYzSDCg0Y5NMc+iUdFtFJavlSwcwTNXvXtgN0ULL0DzV4kNI8/LItiv4sDjo8g
+	L8H8+zNsGaKWPN15Dgs9IUISOq4QwyypPqzFuedT9qGRhCt+J4aunbcnSerd2JX1ic6Qsm4iXxy
+	uGeh+vXqIpVuoduQICiFElxvJBIkZK2frZU8XSN51yJjHr1qzNeTAeFvRHu+yyHn/6F8b0QMi31
+	DzBAcy5aF1It6p0r+rOSmGYaK6JM62o2Yl518nU6X6GSn9xrA==
+X-Received: by 2002:a05:600c:4691:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-49eb733cb1amr100153915e9.25.1789675207535;
+        Thu, 17 Sep 2026 13:00:07 -0700 (PDT)
+Received: from ?IPV6:2a02:a03f:a75e:9a00:5f07:c6a0:e93d:34d? ([2a02:a03f:a75e:9a00:5f07:c6a0:e93d:34d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd17051fsm102448785e9.0.2026.09.17.13.00.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 13:00:07 -0700 (PDT)
+Message-ID: <32ef3122-2cca-4e40-93a3-2e02a4f96ae3@gmail.com>
+Date: Thu, 17 Sep 2026 22:00:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] seg6: keep room for the mac header when growing the
+ headroom
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stefano.salsano@uniroma2.it
+References: <20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com>
+ <fd0ffc06-f1c5-42d6-ae16-b592208c6d69@gmail.com>
+ <20260917182826.452d987261004173916e9722@uniroma2.it>
+Content-Language: en-US
+From: Justin Iurman <justin.iurman@gmail.com>
+In-Reply-To: <20260917182826.452d987261004173916e9722@uniroma2.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On 9/17/26 18:28, Andrea Mayer wrote:
+> On Thu, 17 Sep 2026 12:12:11 +0200
+> Justin Iurman <justin.iurman@gmail.com> wrote:
+> 
+>> On 9/16/26 23:38, Yuya Kusakabe wrote:
+>>> [snip]
+>>
+>> Overall, LGTM, thanks. However, I think we'd need a v2 with the followings:
+>>
+>> - use max_t(unsigned int, skb->mac_len, dst_dev_overhead(cache_dst,
+>> skb)) instead of max()
+>> - apply the same changes to ioam6_iptunnel and rpl_iptunnel (all in one
+>> patch is fine)
+>>
+>> Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
+> 
+> Hi Justin,
+> 
+> Agreed, rpl and ioam6 inline do trigger. Single VLAN device per side,
+> reorder_hdr off on the receiving one, plain ping:
+> 
+>    BUG: KASAN: slab-out-of-bounds in rpl_do_srh_inline.isra.0+0x3d3/0x770
+>    Write of size 18 at addr ffff88810deeba7e by task ping/447
+> 
+>    CPU: 0 UID: 0 PID: 447 Comm: ping Not tainted 7.3.0-rc1 #364
+>    Call Trace:
+>     <IRQ>
+>     __asan_memmove+0x38/0x60
+>     rpl_do_srh_inline.isra.0+0x3d3/0x770
+>     rpl_input+0xd3/0x5e0
+>     lwtunnel_input+0x18d/0x420
+>     ipv6_rcv+0x452/0x460
+> 
+>    BUG: KASAN: slab-use-after-free in ioam6_do_inline+0x2d8/0x5e0
+>    Write of size 18 at addr ffff88811480fa7e by task ping/432
+> 
+>    CPU: 0 UID: 0 PID: 432 Comm: ping Not tainted 7.3.0-rc1 #364
+>    Call Trace:
+>     <IRQ>
+>     __asan_memmove+0x38/0x60
+>     ioam6_do_inline+0x2d8/0x5e0
+>     ioam6_output+0x335/0x970
+>     lwtunnel_output+0x1b0/0x440
+>     ip6_forward+0x16a7/0x16f0
+>     ipv6_rcv+0x452/0x460
+> 
+> ioam6_do_encap triggers too, with three VLAN tags via tc push:
+> 
+>    BUG: KASAN: use-after-free in ioam6_do_encap+0x202/0x5c0
+>    Write of size 26 at addr ffff88810de227fe by task ping/453
+> 
+>    CPU: 0 UID: 0 PID: 453 Comm: ping Not tainted 7.3.0-rc1 #364
+>    Call Trace:
+>     <IRQ>
+>     __asan_memmove+0x38/0x60
+>     ioam6_do_encap+0x202/0x5c0
+>     ioam6_output+0x3cc/0x970
+>     lwtunnel_output+0x1b0/0x440
+>     ip6_forward+0x16a7/0x16f0
+>     ipv6_rcv+0x452/0x460
+> 
+> I would fix dst_dev_overhead() itself rather than patching every
+> caller individually, that covers all callers at once and protects
+> any future user of the helper. dst_dev_overhead() already returns
+> skb->mac_len when dst is NULL, the fix would make the other branch
+> consistent:
+> 
+> --- a/include/net/dst.h
+> +++ b/include/net/dst.h
+> @@ -455,7 +455,8 @@ static inline unsigned int dst_dev_overhead(struct dst_entry *dst,
+>   					    struct sk_buff *skb)
+>   {
+>   	if (likely(dst))
+> -		return LL_RESERVED_SPACE(dst->dev);
+> +		return max_t(unsigned int, skb->mac_len,
+> +			     LL_RESERVED_SPACE(dst->dev));
+> 
+>   	return skb->mac_len;
+>   }
 
-Will push patch 1 to drm-misc-fixes in just a moment
-
-On Mon, 2026-08-17 at 14:50 +0800, Junrui Luo via B4 Relay wrote:
-> From: Junrui Luo <moonafterrain@outlook.com>
->=20
-> Commit c32287471077 ("gpu/drm/nouveau: enable THP support for GPU
-> memory
-> migration") grew the device-private region that
-> nouveau_dmem_chunk_alloc() registers from DMEM_CHUNK_SIZE to
-> DMEM_CHUNK_SIZE * NR_CHUNKS, but left the VRAM buffer object backing
-> that
-> region at DMEM_CHUNK_SIZE.
->=20
-> nouveau_dmem_page_addr() returns chunk->bo->offset plus the page's
-> offset
-> within the registered region, so every page past the first chunk
-> resolves
-> to VRAM outside the buffer object.
->=20
-> Size the buffer object to the region it backs.
->=20
-> Fixes: c32287471077 ("gpu/drm/nouveau: enable THP support for GPU
-> memory migration")
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_dmem.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index 9442ec6e1f6c..356ff8f3c1b8 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -325,8 +325,8 @@ nouveau_dmem_chunk_alloc(struct nouveau_drm *drm,
-> struct page **ppage,
-> =C2=A0	chunk->pagemap.ops =3D &nouveau_dmem_pagemap_ops;
-> =C2=A0	chunk->pagemap.owner =3D drm->dev;
-> =C2=A0
-> -	ret =3D nouveau_bo_new_pin(&drm->client,
-> NOUVEAU_GEM_DOMAIN_VRAM, DMEM_CHUNK_SIZE,
-> -				 &chunk->bo);
-> +	ret =3D nouveau_bo_new_pin(&drm->client,
-> NOUVEAU_GEM_DOMAIN_VRAM,
-> +				 DMEM_CHUNK_SIZE * NR_CHUNKS,
-> &chunk->bo);
-> =C2=A0	if (ret)
-> =C2=A0		goto out_release;
-> =C2=A0
-
++1. That's even better, thanks!
