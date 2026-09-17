@@ -1,102 +1,113 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDC12417DE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ABA2FD665;
+	Thu, 17 Sep 2026 01:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608097; cv=none; b=YZp+DmSJ+N+0NkooG5xyd9xtX2ilkkOlIslQabGeD1TCk7WvScbxoFmZYin3oZxGm9oFBhDLtw0bwxk7/VkvM/yE5Za84JoTeGH6W+j4WGbcd6zJGNFIxImanLRHRppNAcTMgUK4Fu5F2rywCbaZjaCJAvx/W+0tDMe5ic0mpcI=
+	t=1789608124; cv=none; b=TxC/QCpDpxsG0cc0TQrpcshaTG+md/srhCbLMJxJgOQjf66o95hUkNRolQ2wcXybG7/R0gGA2jTV3l/egSQaj/wQtLKSvAF4kivnIBu+0pOx5EBRFWoevtiMq7aotWwUaKWWp4ggyiOQk8TIT5NlQJcaFpN7LcMv6hi+e7yDUfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608097; c=relaxed/simple;
-	bh=+7T9BYdzO8iKuroVXgN4w7YVTsUp6HggeJOIIA6ENiA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Guz9T4DB6giVJEViaxfuAMaYKq5NbeR5ZCSSM0Xo/McDWYeMdMyh4e8IDFNcrIwidA73QiePHl3N6RrutJ194XnKhHWxcma3XkQu3sqnanCG0GTSSTXvlS570hGXP60GzJczDbAiSgyBwdmeg3Sg+5VJw3o4OsNZTBvBI9y0XKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c1e5079d43so319085eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:21:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789608095; x=1790212895;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vsX+qQwQHEWldzppmwfASg2kKxlQR1QVwM+dO6GkfPg=;
-        b=IN9x/voM/dgjLzcsIaFnvU+jhdQv7bJagC6g1NebOKb/zP2o0nOjiTev0zs1/HwzZv
-         tC0FS1METjwCql3BuieZXhT2Jk3F9lI7D24EYKeEP0XpzH0mTeZgmvTrLXZhSnZaPffn
-         UPLk9kuuP95jrEoPK6oaP1ezDUy3EX7tSrdNmWJndswFS3QflvdToCnYIeDEVz859MyV
-         /we8o6P/ml7h0NyGY7tdsZKpy12Z5Xb8Z8NtN4cGG+9FTErEhskvOr8I4EKaGrjeTn9m
-         dMxeRVg2s6uNbxbFec/2oH+IQGvHc4+Wc1z34qIsjadu5qnL3lUfs6G2fwnk9BuOVowt
-         B4aQ==
-X-Gm-Message-State: AFuF++ns100ZYwApoZmanLFYi+qjkmcyABQTCZbg7K5nIQM8CxIphqiI
-	lL99xY0h9TI7jL3pkkp58aKu6B+SBnNFCy/h5FjengVM7ZiAqbHUDRqpBB/wCyGfSVSrHdM03gP
-	x7T11WRWQ/8ZhUOTZHy3Vl2MycWVVnIU1nQWNsGL4C03clnyUasvMmSn1UdI=
+	s=arc-20240116; t=1789608124; c=relaxed/simple;
+	bh=rrv0ZsKZkUrsFxngXKcbhlEXSxHcCSrCkjHauOs6nxs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HfX0/AktoDDt1Rcqsan1bsLmjnXJ3sHm3MaMKMH09LEf3mopVpQe1iN239Z38ZIsmjeCMkw6OdzNQilB+69prxhlriFrrHUXs4FuV/nt+mZz+GdRjODqQgNZ3QckbTO0hq7ALUCgBOPe6cwsddiRXYuBiCjzyz9oRoUEn0vOSuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com; spf=pass smtp.mailfrom=airoha.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=R19IqMMb; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="R19IqMMb"
+X-UUID: 2c4436a0b23611f18dc8c9802ae25ab1-20260917
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=3jQnTexqLKlsnZgBOq3eCESiN5enzxrupb9BUw6kI2k=;
+	b=R19IqMMb7cMU8veLH4GljeUXzmgnWVjL4t09TUNP6Rkd2gUnTILg5yHc+B7+RddypjNkC84F7Gftm1sg9k0kM2ZaYwnev/w8EIgOdMHW6J9l90Un7RlJAlgT/61XA2ydRApPv6jyNlRFzk5UW+2Sq1j+v+8Qo/ZNxapnbE/nVEI=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4f96e879-d44e-423e-b3ea-272219574f4a,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:202f6928-9ebf-4787-bb42-3cd26eee85aa,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2c4436a0b23611f18dc8c9802ae25ab1-20260917
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
+	(envelope-from <ar702101@airoha.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 297475316; Thu, 17 Sep 2026 09:21:56 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 17 Sep 2026 09:21:55 +0800
+Received: from mediatek.com (172.18.153.125) by mtkmbs13n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Thu, 17 Sep 2026 09:21:55 +0800
+Received: by arhtenbupstream01.localdomain (Postfix, from userid 1007)
+	id 503B9140DB0; Thu, 17 Sep 2026 09:21:55 +0800 (CST)
+From: Weiting Lee <weiting.lee@airoha.com>
+To: <netdev@vger.kernel.org>
+CC: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
+	<davem@davemloft.net>, <kuba@kernel.org>, <edumazet@google.com>,
+	<pabeni@redhat.com>, <linux-kernel@vger.kernel.org>, <bjorn@mork.no>,
+	<ericwouds@gmail.com>, <frank-w@public-files.de>, <joseph.lin@airoha.com>,
+	<wenshin.chung@airoha.com>, <lucien.jheng@airoha.com>,
+	<albert-al.lee@airoha.com>, Weiting Lee <weiting.lee@airoha.com>
+Subject: [PATCH] net: phy: air_en8811h: add dedicated suspend callback for AN8811HB
+Date: Thu, 17 Sep 2026 09:21:02 +0800
+Message-ID: <20260917012102.3103131-1-weiting.lee@airoha.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:169e:b0:6c1:fd93:5292 with SMTP id
- 006d021491bc7-6c7d35fb2a8mr6353879eaf.17.1789608095605; Wed, 16 Sep 2026
- 18:21:35 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:21:35 -0700
-In-Reply-To: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab409f.b398a7c9.1f86be.0002.GAE@google.com>
-Subject: Forwarded: [PATCH] INFO: task hung in kvm_gmem_release (2)
-From: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+The AN8811HB hardware requires a re-negotiation sequence before
+entering power-down to correctly restore the link upon resume.
+Add an8811hb_suspend() to handle this.
 
-***
+Signed-off-by: Weiting Lee <weiting.lee@airoha.com>
+---
+ drivers/net/phy/air_en8811h.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Subject: [PATCH] INFO: task hung in kvm_gmem_release (2)
-Author: jchuang26@m.fudan.edu.cn
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
-
-Reported-by: syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com
-
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 65eb26a05..ad5852f49 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2572,8 +2572,18 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
- 	/*
- 	 * Reserve memory ahead of time to avoid having to deal with failures
- 	 * partway through setting the new attributes.
-+	 *
-+	 * The requested range can be arbitrarily large, so allow userspace to
-+	 * abort the reservation loop with a signal.  Otherwise the loop can run
-+	 * for an extended period of time while holding slots_lock, which blocks
-+	 * tasks such as kvm_gmem_release() and triggers hung task warnings.
- 	 */
- 	for (i = start; i < end; i++) {
-+		if (signal_pending(current)) {
-+			r = -EINTR;
-+			goto out_unlock;
-+		}
-+
- 		r = xa_reserve(&kvm->mem_attr_array, i, GFP_KERNEL_ACCOUNT);
- 		if (r)
- 			goto out_unlock;
-@@ -2612,6 +2622,14 @@ static int kvm_vm_ioctl_set_mem_attributes(struct kvm *kvm,
- 	if (!PAGE_ALIGNED(attrs->address) || !PAGE_ALIGNED(attrs->size))
- 		return -EINVAL;
+diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+index a03d63dd4ac9..5b1edb127c68 100644
+--- a/drivers/net/phy/air_en8811h.c
++++ b/drivers/net/phy/air_en8811h.c
+@@ -1573,6 +1573,19 @@ static void an8811hb_remove(struct phy_device *phydev)
+ 	}
+ }
  
-+	/*
-+	 * KVM processes the range one gfn at a time while holding slots_lock.
-+	 * Reject absurdly large requests, using the same limit as memory
-+	 * regions, so that userspace can't hang tasks that need slots_lock.
-+	 */
-+	if ((attrs->size >> PAGE_SHIFT) > KVM_MEM_MAX_NR_PAGES)
-+		return -EINVAL;
++static int an8811hb_suspend(struct phy_device *phydev)
++{
++	int ret;
 +
- 	start = attrs->address >> PAGE_SHIFT;
- 	end = (attrs->address + attrs->size) >> PAGE_SHIFT;
- 
++	clk_save_context();
++
++	ret = phy_modify(phydev, MII_BMCR, 0, BMCR_ANRESTART);
++	if (ret < 0)
++		return ret;
++
++	return genphy_suspend(phydev);
++}
++
+ static struct phy_driver en8811h_driver[] = {
+ {
+ 	PHY_ID_MATCH_MODEL(EN8811H_PHY_ID),
+@@ -1606,7 +1619,7 @@ static struct phy_driver en8811h_driver[] = {
+ 	.config_aneg		= en8811h_config_aneg,
+ 	.read_status		= en8811h_read_status,
+ 	.resume			= en8811h_resume,
+-	.suspend		= en8811h_suspend,
++	.suspend		= an8811hb_suspend,
+ 	.config_intr		= en8811h_clear_intr,
+ 	.handle_interrupt	= en8811h_handle_interrupt,
+ 	.led_hw_is_supported	= en8811h_led_hw_is_supported,
+-- 
+2.43.0
+
