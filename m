@@ -1,387 +1,151 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09DB3ED13B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631916; cv=pass; b=j+QYuLBAZGgeqMe5JNM79uDiAavBufic5q5fZhKWdTFDgNlHjR11IK5boh4JI4dihPmmgiuILUaClvrxficjEVRSsSctr1n1WBzP9zTokTtcdCpn7q1AuUBUApFqgbZwQKEEgHfKLr6KYRZ2BmW8N5d4fPQSXZXgdVyxUdQbez0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631916; c=relaxed/simple;
-	bh=9qT9A22pf9KjwH69Lyn+ypwRyt3CF0CJwIrrJXEjYIk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CgBQtITR7aa/eY1hCv0IeWZVQlIZsRRwqLaBsRy9wngr7P8dApKiZGqTwBzIabxO/LpDFyCuRN3SR/sRP3kBLlyAt0IXPW907EEQvUPqK0+/JvkG72UW8VxAKuM8QWGvasmHg/Xo4+C7/38g6gFn4pXpDsnlBFkAVHA3gAxAQT8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=MmAx4w+7; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7183D5259
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789631953; cv=none; b=H3MUfAKZpQIehwWPL3rkZHdjJ1vPIkLgBEIoxRF4eog0JmTHd21cnmwN3lT83iqa6Eor+5fREhQJXDHfI05LEToVEwIfXPEFADE76fNnbCKM0wI7GbrVfPGJms9T659z6+HZbBasP/2TG4N8yxoyO0bU2AaraWaYyHkkQhEtG6A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789631953; c=relaxed/simple;
+	bh=HzxMf9+8T6QPlATP3+kPcAW2ULqoRkB/P0Uf3YNk5yM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o7tGjKT7eOrNWj0qRNhRkfX9y5IbOWtBKsJt/UEQeNs7Nrh8MdgK0yMVDHWAVOOTrclMGfZ+E4kUa/8wPvHJDhROWxopPuFqSo9X0OwyPEcSIKADE0QOhHT1XuMHZwbyiiEjyhlXnQjcmVtFcfyqhIWu6mQNi2MMcS3vfLPMdqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=huv7/E1q; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="MmAx4w+7"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-8716a5baf64so3786447b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:58:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789631914; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GabJ62Nc+uscABhT6ouwi5TNsxddV9xZWLMFxaZQH5+2XqX0kiwVNbm1ALQHiBBfNn
-         vMQqHzBq+JvIk8WPr1edT9a8xi6n3w8DKf7OhEtUhDW/mKDey0KDd6okAA3D0lZpJFb1
-         m/VRWPkG0aBq9jG4X3460iyRZDXeNqkZsYWwpo2ZDO7hO8QvnnY6RHk+SqUlwFqHEmhK
-         T1FkuZ9AE5CBlm8vzYnCv9TapFnx7DYppp3tbf/+3w2shJr0kYxbnbtITclGSKkYduXJ
-         dgKvM9MItflCDhqAvDYiy7F+GaNVIjZJLwFHH24FNEZFu6qO6Xt8gE6LzLB114g3VbHI
-         voLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=DwdWN9VFDqGRtbCjz/kUfyQYAbd1HiLxZP0xptgmx/c=;
-        fh=ELKzB+RXQQIw+S6TIafp3sWEm9Y6iqmYNt2hsuwbDgM=;
-        b=N+EUHpBsyxXKE/9PD2Tfz08jEteLpaPgQB0U6jg+Ek0D3XsLt0EMMytdV2Pk9ImYnU
-         W4O4D16YQTZ5m8XMPL5QGXHXENSuuK5d/zeInEI8jSRZ14oTSacr6VfBd8iH9olAahwa
-         cNgyArnRSU9LB78O0is0IDDlf8qd7aopwJUZEsPeMT2D8Xi0HqrG7t1kyor+v9rTMk6w
-         Nsjbw+S0NWTy5oCuX32ym+JRiXokm7dvoQqeo7YWdzyPE0A1jB9JySg61/ftua7wUt1K
-         RXwaoe/WCAxzGmLOwhtXAOwIJQoHKcGzoeJ6QN+jQkGRywcIbYZyWSzdAp0oel3GU8k1
-         +l8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="huv7/E1q"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a98505364aso908843a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:59:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thechris.in; s=google; t=1789631914; x=1790236714; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DwdWN9VFDqGRtbCjz/kUfyQYAbd1HiLxZP0xptgmx/c=;
-        b=MmAx4w+7OJBn/CoRNOI2rv4U3fIHEdU/ENiNpqxpWMWMt97Qx0lsXBtVnrDrdi+6FN
-         ndYA69QcI0QBf8brHtWgcsAtzcrqsabdRVfsYRPXDdgt5L4mWNJzg4sxIHNy/KqcLGKF
-         ZYgJVvlR0aOzxuPFjMARdlEuwbRtLhRPc/lRnNjHVRqTQXtD0KoLwh0qt2I4xJNkEkMC
-         1ydgEykDI6h0cU6dC0xc+lv+PQwQ1ODNIdtgTelqZvs/HVCgtO2FsOlm9PFY8iQ3ivl8
-         /d0OpNZXet1wiPbSK72+FYz35sTnLy0GELO8uqu47Z1BbM7s/z/GfGeEIbzxgITdFce9
-         dRtw==
+        d=gmail.com; s=20251104; t=1789631949; x=1790236749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GOfKLa1W7BWMMHOij1kNXtl7XucEhCyieOIZlA8fo3k=;
+        b=huv7/E1qv4mSBia1m5TrNhiFYEtn8QmwbBv2I9RqnBZKu1MDuvEWEvZitGzT+78nwh
+         rhhRkfylBXu/eXedEhVsNC+qU3jhsdLh6CzwNDhsruCPWtKSKQi1BgPjGVhwFpDwPdbl
+         Kb7QzUJC6F/acykt876juwDnHZNzXU/KUjE3ckB2FND/gGcLOQVP6RU0a1qKezyqc334
+         GxAT1oIBRlCkcNOyxHZOF0J8GMbcCkUQLsT69XPnPaegWd0ymjRYpqm3EeVW9Ey22jca
+         X+DRowM9fwsb3Md1boQkA2zBFELHId32ViGUiIqo4NsRVzsqE8yDIXNF7vW03MDYa1Uj
+         jQlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789631914; x=1790236714;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DwdWN9VFDqGRtbCjz/kUfyQYAbd1HiLxZP0xptgmx/c=;
-        b=pYCwDC5M8Fz6XIniiIMLQJg7MKDjyT5yd0z8OG+kfn+HvAKoxhY3tXF8jlW5c24Y2f
-         +B1EBpokWy4Hvhs+iSkErKDFNuLJtnlcgK7UnOZOneFtJt4sEV34RrGtcBRelHsDEhLH
-         zTydI0UZ478D93uAN/3U52e2lJRTyR13p4oxY9muBpbw2fDJoFclM2CM+vIK2xBSbur7
-         b686ENHWoaLLussMOOqB5ZhRPEZFea7f6K23IhJil78syB+uE5xUCt869GAcsJcbcOcS
-         kqHl/k1n3FkwTamHHKEjiTdPVtOxdBswbORSAtULBPVqfzcz3wSf2TNCU5GmiWhWzbwZ
-         o80Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwdVwSEJGrfTojO32cTCmZwsnXqic8BTunwkTydCAlj93x+5tO6p1YELe/DNOO7sSilOrbYZ6uHNTZpdak=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGHDHHv6hzKZfpsM7H7is0Wk7ES3+5BO07wUXsKgPq3sjuDuqh
-	fDZ36VpGtEHXBt6AM2UyyrBlMX1Ww7IzjWUkYermykuxOS12Yh0GEyeG/QG0OixVgXvZGMaVrdM
-	oEa65GSuUAcfM1aibL16XZFjoiMbe/o63D7HrDGV+x/8=
-X-Gm-Gg: AYBFou3df9xT/yBSnI0N6jTQiOxaCNE+LTn6NRlvluJjNGqzW42iF1yJIqcpoe20osy
-	V3IguwfqOnJ8rETmiuIX1P6FxaRWqyrYk71jYDCubBY3+N8Dt3LA4zwPjB+k1ZidgWcEB09BzBI
-	S6LjRXmc4sa6Tfsx7/WlJmfJw6gXD5QMYJxwsFkMgLRPrOpdxBrJjBiXCrneZcT9MJZeGJ7Idng
-	Y7RU9uWkJztUgNtW7kWRkx9UNOYzIJHtAFfP8lKvHfVWHaQb56xtLlZhJGwNxVOf3oPAuL9UboB
-	qvqPOtJnuLXNzUwAutYN4DCgkCVcKWG3EJpP6MZbJPF5+9V8yiizgcjZSiZw0rvH1gQlbB04/CV
-	N56lUJID5rgb2wpMOifq/o76q6UNQ1xUen5Ii4i3bY5oFv3LaD/OYHE31I95hMNb0yzXh/9nSo4
-	oF8ronwDC3W76AmX4=
-X-Received: by 2002:a05:690c:a4c9:b0:873:5bb2:6c31 with SMTP id
- 00721157ae682-892292a76bcmr12630057b3.56.1789631913597; Thu, 17 Sep 2026
- 00:58:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789631949; x=1790236749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GOfKLa1W7BWMMHOij1kNXtl7XucEhCyieOIZlA8fo3k=;
+        b=xGZQFAlzr2VOjx3Ic7FdyMZQrP1iNbLFcyRQBIfXmt3BDHxGpgOEeVRbQ/YJBicnbw
+         iCaVl1RDrJ3bcfRPZY/lavVRaOatDpmdJssMgAvBDCZV54HKoKokgpVx6DKx1zzdkCtJ
+         xYbhMYnUemixsMRpgobdwPB1cZ2JdTtbc9bs8wE8jLSP+RQqgTYV6lj/FgCrz1KnaLO7
+         1UYNMZ/EfqyEhe+aPvJYYO27o2Vu8ZcNP1xFN7y/FI9/9MdfZ+jk2yWdf4E+8hm7UipH
+         pQxiDim71Rv2ZH/3VY2hdGm/T0hmlvEuHX5YiFJwPjREXNc2/CRXxu0tw2x43htQhFx/
+         ocEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTIT228+O2Rf0y/FSDRocBN+OLvVjC4jUclwLve87ez5xn0v0VCF1tszR8UcqwEzi+wHDI3uTTsbrQrcU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkawtffHsxUdkro6L57jmXom/17TK9v2amFq33NxqmAaB5NRCQ
+	UPNt+AafkyUefZFx8wswq1E03n+2ZT2XV4NkckUfRCa/eeopi02THP6eP6IfxQ==
+X-Gm-Gg: AYBFou191Tt69TQLL+iOGmxbroOor1RfmwSzs7yq0L87qd8hId8bE/w8/WnEdQiLrN/
+	2f+RWIqMezTvQI939lSzJxVMnq/u5w7JKClCOZ2vQauIt7tM4eCs4EoUp9EPwtqD2bNs2XQsDB1
+	7lReNXrlQHmUPxkHNh0onoDW5dba5eDTRDgOvZtL1tFnCYgkoRGW2mTY/C7/h8MinlxcBpfNW+0
+	Z48BaQXVd4WhvvxZw5gAkNWNXe1ffts4xAi6A/grmQjol6c0xqD1RBDHqgKfEr/mP+8olllYL29
+	SuddfOCz+XmXvqwmJeI5Acnaw4EvS6i1QXjyGVEo5KFEOXfBcXwoTPWMjEE52yF137/6PTqJJzH
+	YcdkhSoPtARcZMqy7AqG7dnmjJKgo6tIT8X2cNEEMVazWpoEvVePEQ2n/csje5gkkToRnwFlPhO
+	oM8zr5HhKe6FsY01AviqQ69Kdcf9AxvDXopq65FpN2z88zu2WeJsGnTyD62c/pQ3TbO0ovgzL4h
+	rntdsYrO0fpDzMYMnbBJbZ28Gg7iGl7w0aPlbNUpg==
+X-Received: by 2002:a17:907:6d1e:b0:c29:5af0:3b44 with SMTP id a640c23a62f3a-c29e52e0551mr377872566b.41.1789631949444;
+        Thu, 17 Sep 2026 00:59:09 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de453ea0sm250287766b.11.2026.09.17.00.59.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 00:59:09 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: sam@ravnborg.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linmag7@gmail.com
+Subject: [PATCH v2 0/2] sparc32: SuperSPARC SMP synchronization fixes
+Date: Thu, 17 Sep 2026 09:57:03 +0200
+Message-ID: <20260917075842.784996-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
- <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com> <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
- <2026091753-broadness-bootie-b683@gregkh>
-In-Reply-To: <2026091753-broadness-bootie-b683@gregkh>
-From: Chris Roy <iam@thechris.in>
-Date: Thu, 17 Sep 2026 13:28:22 +0530
-X-Gm-Features: AcwNN1XpJy0du_9xKUDmyUBPj5x207E9TNQ6LZAwxysAE2QZiRxTF0PGqeJF0kw
-Message-ID: <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, dakr@kernel.org, 
-	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, 
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
-	joern@lazybastard.org
-Content-Type: multipart/mixed; boundary="0000000000007d6517065ba92698"
+Content-Transfer-Encoding: 8bit
 
---0000000000007d6517065ba92698
-Content-Type: text/plain; charset="UTF-8"
+Fill two gaps in the SuperSPARC/Viking SMP synchronization paths.
 
-On Thu, Sep 17, 2026 at 13:05:00 +0530, Greg KH wrote:
-> Did you forget the Assisted-by: tag?
->
-> Make the comments make sense please. That's the problem of using a LLM :(
+This series is based on the three sparc32 relocatable-kernel fixes which
+honour and derive phys_base and advertise the relocatable image. It does
+not include those prerequisite patches.
 
-Fair. v3 adds Assisted-by and rewrites those comments.
-Same approach as v2 otherwise. syzbot tested v2 cleanly on this bug.
+These patches can be found here:
+Link: https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.com/T/#t
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+The SuperSPARC Family User's Manual requires software to keep at most one
+Demap operation in progress across the system. It also says that an MBus
+system must ask every processor which can retain a stale translation to
+perform its own local Demap [1, sections 8.5.3 and 9.8.2]. The Sun-4M
+architecture specification likewise describes SRMMU flushing as local to
+a module [2, section 7.1.4]. Patch 1 serializes each complete shootdown on
+sun4m and invokes remote CPUs one at a time. sun4d already serializes its
+Viking Demap operations.
 
-Please consider for linux-mtd.
+SuperSPARC maintains I-cache coherence by snooping, so no remote processor
+needs to be told about modified instructions. FLUSH is still required on the
+processor that wrote them: the store buffer is not snooped, so FLUSH is what
+pushes them into the coherent hierarchy [1, sections 7.4 and 10.2.5; 3,
+section A.8.2]. Patch 2 supplies that local FLUSH on two Viking paths that
+performed none at all, viking_flush_sig_insns() was an empty stub, and
+flush_icache_range() was defined as do { } while (0).
 
-On Thu, 17 Sept 2026 at 13:05, Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Sep 17, 2026 at 12:14:05PM +0530, Chris Roy wrote:
-> > On Wed, 9 Sep 2026 08:19:24 -0700, syzbot wrote:
-> > > syzbot found the following issue on:
-> > > ...
-> > > possible deadlock in ovl_create_object
-> >
-> > Follow-up / v2.
-> >
-> > v1 deferred the open with schedule_work() and an on-stack work_struct.
-> > That cleared the lockdep cycle, but syzbot reported an ODEBUG warning
-> > under CONFIG_DEBUG_OBJECTS_WORK.
-> >
-> > v2 uses a dedicated ordered workqueue and heap-allocated work, keeps a
-> > module reference across the deferred open, flushes the queue before
-> > exit, and serializes setup on the worker under a local mutex.
-> >
-> > Local testing with the C reproducer (LOCKDEP + DEBUG_OBJECTS_WORK):
-> > unpatched hits the circular locking warning; v2 is clean.
-> >
-> > #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> > master
-> >
-> > Please consider the patch for linux-mtd.
-> >
-> > On Thu, 17 Sept 2026 at 03:22, syzbot
-> > <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com> wrote:
-> > >
-> > > Hello,
-> > >
-> > > syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-> > > WARNING: ODEBUG bug in lookup_object_or_alloc
-> > >
-> > > ODEBUG: object ffffc90007cdf850 is on stack ffffc90007cd8000, but NOT annotated.
-> > > ------------[ cut here ]------------
-> > > 1
-> > > WARNING: lib/debugobjects.c:672 at debug_object_is_on_stack lib/debugobjects.c:672 [inline], CPU#0: syz-executor162/6029
-> > > WARNING: lib/debugobjects.c:672 at lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705, CPU#0: syz-executor162/6029
-> > > Modules linked in:
-> > > CPU: 0 UID: 0 PID: 6029 Comm: syz-executor162 Not tainted syzkaller #0 PREEMPT(full)
-> > > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > > RIP: 0010:debug_object_is_on_stack lib/debugobjects.c:672 [inline]
-> > > RIP: 0010:lookup_object_or_alloc.part.0.cold+0x19/0x40 lib/debugobjects.c:705
-> > > Code: c4 60 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 83 c5 01 89 2d a0 1f 7d 1a 4c 89 e6 48 c7 c7 c0 39 62 8c e8 21 ae eb ff 90 <0f> 0b 90 e9 82 31 fe 03 83 c5 01 89 2d 7f 1f 7d 1a 49 39 c4 73 da
-> > > RSP: 0018:ffffc90007cdf6c0 EFLAGS: 00010082
-> > > RAX: 0000000000000050 RBX: ffff88802cb1d738 RCX: 0000000000000000
-> > > RDX: 0000000000000050 RSI: ffffffff81ea1339 RDI: fffff52000f9bec9
-> > > RBP: 0000000000000001 R08: 0000000000000007 R09: 0000000000000000
-> > > R10: 8000000000000001 R11: 0000000000000001 R12: ffffc90007cdf850
-> > > R13: ffff888034204b00 R14: 0000000000000000 R15: 0000000000000000
-> > > FS:  00005555811b5400(0000) GS:ffff8880d5b57000(0000) knlGS:0000000000000000
-> > > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > CR2: 00005555811b8778 CR3: 000000002bbd8000 CR4: 0000000000352ef0
-> > > Call Trace:
-> > >  <TASK>
-> > >  lookup_object_or_alloc lib/debugobjects.c:682 [inline]
-> > >  __debug_object_init+0x2a9/0x3d0 lib/debugobjects.c:798
-> > >  __init_work+0x51/0x60 kernel/workqueue.c:697
-> > >  block2mtd_setup_defer+0xd7/0x1d0 drivers/mtd/devices/block2mtd.c:504
-> > >  block2mtd_setup+0x9c/0x1e0 drivers/mtd/devices/block2mtd.c:529
-> > >  param_attr_store+0x199/0x300 kernel/params.c:591
-> > >  module_attr_store+0x58/0x80 kernel/params.c:906
-> > >  sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
-> > >  kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
-> > >  iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
-> > >  do_splice_from fs/splice.c:936 [inline]
-> > >  do_splice+0x109c/0x1fa0 fs/splice.c:1349
-> > >  __do_splice+0x33b/0x370 fs/splice.c:1431
-> > >  __do_sys_splice fs/splice.c:1634 [inline]
-> > >  __se_sys_splice fs/splice.c:1616 [inline]
-> > >  __x64_sys_splice+0x187/0x250 fs/splice.c:1616
-> > >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-> > >  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-> > >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > > RIP: 0033:0x7fa1c31b3437
-> > > Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-> > > RSP: 002b:00007ffce5a2ac20 EFLAGS: 00000202 ORIG_RAX: 0000000000000113
-> > > RAX: ffffffffffffffda RBX: 00005555811b5400 RCX: 00007fa1c31b3437
-> > > RDX: 0000000000000005 RSI: 0000000000000000 RDI: 0000000000000003
-> > > RBP: 00007fa1c31ec0fe R08: 0000000000000026 R09: 0000000000000000
-> > > R10: 0000000000000000 R11: 0000000000000202 R12: 00005555811b7770
-> > > R13: 0000000000000026 R14: 00007ffce5a2aca0 R15: 0000000000000002
-> > >  </TASK>
-> > >
-> > >
-> > > Tested on:
-> > >
-> > > commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
-> > > git tree:       upstream
-> > > console output: https://syzkaller.appspot.com/x/log.txt?x=143de115580000
-> > > kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-> > > dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
-> > > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> > > patch:          https://syzkaller.appspot.com/x/patch.diff?x=17ade115580000
-> > >
->
-> > From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-> > From: Chris Roy <iam@thechris.in>
-> > Date: Thu, 17 Sep 2026 00:00:00 +0000
-> > Subject: [PATCH v2] mtd: block2mtd: defer device open out of param/sysfs write
-> >
-> > block2mtd_setup() opens the named block device (VFS path walk) while
-> > still under param_lock and kernfs_fop_write_iter. When that write
-> > arrives via splice, a pipe mutex is held as well. That nests under
-> > locks already ordered the other way with overlay sb_writers /
-> > ovl_i_mutex and triggers lockdep, for example:
-> >
-> >   sb_writers -> pipe -> kernfs/param -> ovl_i_mutex -> sb_writers
-> >
-> > Drop param_lock and run setup on a dedicated ordered workqueue so the
-> > open is not nested under that stack. Keep the call synchronous with
-> > wait_for_completion().
-> >
-> > Changes since v1:
-> > - allocate work on the heap (v1 tripped DEBUG_OBJECTS_WORK)
-> > - use a dedicated ordered workqueue instead of system_wq
-> > - hold a module reference across the deferred open
-> > - flush and destroy the workqueue before exit teardown
-> > - serialize setup2 on the worker under block2mtd_mutex
-> > - keep early-boot paramline updates under that mutex
-> >
-> > Reported-by: syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
-> > Signed-off-by: Chris Roy <iam@thechris.in>
-> > ---
-> >  drivers/mtd/devices/block2mtd.c | 121 ++++++++++++++++++++----
-> >  1 file changed, 103 insertions(+), 18 deletions(-)
->
-> Did you forget the Assisted-by: tag?
->
-> >
-> > --- a/drivers/mtd/devices/block2mtd.c
-> > +++ b/drivers/mtd/devices/block2mtd.c
-> > @@ -27,6 +27,8 @@
-> >  #include <linux/init.h>
-> >  #include <linux/mtd/mtd.h>
-> >  #include <linux/mutex.h>
-> > +#include <linux/workqueue.h>
-> > +#include <linux/completion.h>
-> >  #include <linux/mount.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/major.h>
-> > @@ -45,6 +47,13 @@
-> >
-> >  /* Static info about the MTD, used in cleanup_module */
-> >  static LIST_HEAD(blkmtd_device_list);
-> > +/*
-> > + * Serializes setup/teardown (including list updates). Never held by a
-> > + * task that also holds param_lock / kernfs / pipe locks across a VFS open:
-> > + * deferred setup runs on block2mtd_wq instead.
->
-> Make the comments make sense please.  That's the problem of using a LLM :(
->
-> thanks,
->
-> greg k-h
+Tested on a dual-CPU sun4m SPARCstation 20, TI SuperSPARC-II with
+Viking/MXCC:
 
---0000000000007d6517065ba92698
-Content-Type: text/x-diff; charset="US-ASCII"; 
-	name="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Disposition: attachment; 
-	filename="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mu58l3n10>
-X-Attachment-Id: f_mu58l3n10
+  - boot to multi-user with both CPUs online;
+  - 200,000 concurrent mprotect iterations over a shared address space
+    (patch 1);
+  - 40,000 executable-code rewrites, each replacement executed on the
+    writing CPU and on the other CPU, with each CPU taking a turn as the
+    writer (patch 2).
 
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDaHJpcyBSb3kgPGlhbUB0aGVjaHJpcy5pbj4KRGF0ZTogVGh1
-LCAxNyBTZXAgMjAyNiAwMDowMDowMCArMDAwMApTdWJqZWN0OiBbUEFUQ0ggdjNdIG10ZDogYmxv
-Y2sybXRkOiBkZWZlciBkZXZpY2Ugb3BlbiBvdXQgb2YgcGFyYW0vc3lzZnMgd3JpdGUKCmJsb2Nr
-Mm10ZF9zZXR1cCgpIG9wZW5zIHRoZSBuYW1lZCBibG9jayBkZXZpY2Ugd2hpbGUgc3RpbGwgdW5k
-ZXIKcGFyYW1fbG9jaywgYW5kIG9uIHRoZSBzeXNmcyB3cml0ZSBwYXRoIHVuZGVyIGtlcm5mcyAo
-YW5kIHBvc3NpYmx5IGEKc3BsaWNlIHBpcGUgbG9jaykuIFRoYXQgbmVzdHMgVkZTIGxvY2tpbmcg
-dGhlIHdyb25nIHdheSByZWxhdGl2ZSB0bwpvdmVybGF5ZnMgYW5kIHRyaXBzIGxvY2tkZXAuCgpE
-cm9wIHBhcmFtX2xvY2sgYW5kIHJ1biBzZXR1cCBvbiBhIGRlZGljYXRlZCBvcmRlcmVkIHdvcmtx
-dWV1ZS4gS2VlcAp0aGUgY2FsbCBzeW5jaHJvbm91cyB3aXRoIHdhaXRfZm9yX2NvbXBsZXRpb24o
-KS4gQWxsb2NhdGUgdGhlIHdvcmsgb24KdGhlIGhlYXAgc28gREVCVUdfT0JKRUNUU19XT1JLIHN0
-YXlzIHF1aWV0LgoKQ2hhbmdlcyBzaW5jZSB2MjoKLSByZXdyaXRlIHRoZSBuZXcgY29tbWVudHMg
-dG8gbWF0Y2ggdGhlIHJlc3Qgb2YgdGhlIGZpbGUKCkNoYW5nZXMgc2luY2UgdjE6Ci0gaGVhcC1h
-bGxvY2F0ZWQgd29yayAodjEgdHJpcHBlZCBERUJVR19PQkpFQ1RTX1dPUkspCi0gZGVkaWNhdGVk
-IG9yZGVyZWQgd29ya3F1ZXVlIGluc3RlYWQgb2Ygc3lzdGVtX3dxCi0gbW9kdWxlIHJlZmVyZW5j
-ZSBhY3Jvc3MgdGhlIGRlZmVycmVkIG9wZW4KLSBmbHVzaC9kZXN0cm95IHRoZSB3b3JrcXVldWUg
-YmVmb3JlIGV4aXQgdGVhcmRvd24KLSBzZXJpYWxpemUgc2V0dXAyIG9uIHRoZSB3b3JrZXIgdW5k
-ZXIgYmxvY2sybXRkX211dGV4Ci0gZWFybHktYm9vdCBwYXJhbWxpbmUgdXBkYXRlcyB1bmRlciB0
-aGF0IG11dGV4CgpSZXBvcnRlZC1ieTogc3l6Ym90KzdjYWI2YTE5NjE5ZjFiOGVmYzAwQHN5emth
-bGxlci5hcHBzcG90bWFpbC5jb20KQ2xvc2VzOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNv
-bS9idWc/ZXh0aWQ9N2NhYjZhMTk2MTlmMWI4ZWZjMDAKQXNzaXN0ZWQtYnk6IE1pc3RyYWwsIFF3
-ZW4KU2lnbmVkLW9mZi1ieTogQ2hyaXMgUm95IDxpYW1AdGhlY2hyaXMuaW4+Ci0tLQogZHJpdmVy
-cy9tdGQvZGV2aWNlcy9ibG9jazJtdGQuYyB8IDExOCArKysrKysrKysrKysrKysrKysrKy0tLS0t
-CiAxIGZpbGUgY2hhbmdlZCwgOTggaW5zZXJ0aW9ucygrKSwgMjAgZGVsZXRpb25zKC0pCgotLS0g
-YS9kcml2ZXJzL210ZC9kZXZpY2VzL2Jsb2NrMm10ZC5jCisrKyBiL2RyaXZlcnMvbXRkL2Rldmlj
-ZXMvYmxvY2sybXRkLmMKQEAgLTI3LDYgKzI3LDggQEAKICNpbmNsdWRlIDxsaW51eC9pbml0Lmg+
-CiAjaW5jbHVkZSA8bGludXgvbXRkL210ZC5oPgogI2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+Cisj
-aW5jbHVkZSA8bGludXgvd29ya3F1ZXVlLmg+CisjaW5jbHVkZSA8bGludXgvY29tcGxldGlvbi5o
-PgogI2luY2x1ZGUgPGxpbnV4L21vdW50Lmg+CiAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgogI2lu
-Y2x1ZGUgPGxpbnV4L21ham9yLmg+CkBAIC00NSw2ICs0Nyw5IEBACiAKIC8qIFN0YXRpYyBpbmZv
-IGFib3V0IHRoZSBNVEQsIHVzZWQgaW4gY2xlYW51cF9tb2R1bGUgKi8KIHN0YXRpYyBMSVNUX0hF
-QUQoYmxrbXRkX2RldmljZV9saXN0KTsKKy8qIFByb3RlY3RzIGJsa210ZF9kZXZpY2VfbGlzdCBh
-bmQgZWFybHktYm9vdCBwYXJhbWxpbmUgdXBkYXRlcyAqLworc3RhdGljIERFRklORV9NVVRFWChi
-bG9jazJtdGRfbXV0ZXgpOworc3RhdGljIHN0cnVjdCB3b3JrcXVldWVfc3RydWN0ICpibG9jazJt
-dGRfd3E7CiAKIAogc3RhdGljIHN0cnVjdCBwYWdlICpwYWdlX3JlYWQoc3RydWN0IGFkZHJlc3Nf
-c3BhY2UgKm1hcHBpbmcsIHBnb2ZmX3QgaW5kZXgpCkBAIC00NjEsMzEgKzQ2Niw4OSBAQAogCXJl
-dHVybiAwOwogfQogCitzdHJ1Y3QgYmxvY2sybXRkX3NldHVwX3dvcmsgeworCXN0cnVjdCB3b3Jr
-X3N0cnVjdCB3b3JrOworCXN0cnVjdCBjb21wbGV0aW9uIGRvbmU7CisJY2hhciAqdmFsOworCWlu
-dCByZXQ7Cit9OworCitzdGF0aWMgdm9pZCBibG9jazJtdGRfc2V0dXBfd29ya2ZuKHN0cnVjdCB3
-b3JrX3N0cnVjdCAqd29yaykKK3sKKwlzdHJ1Y3QgYmxvY2sybXRkX3NldHVwX3dvcmsgKncgPQor
-CQljb250YWluZXJfb2Yod29yaywgc3RydWN0IGJsb2NrMm10ZF9zZXR1cF93b3JrLCB3b3JrKTsK
-KworCW11dGV4X2xvY2soJmJsb2NrMm10ZF9tdXRleCk7CisJdy0+cmV0ID0gYmxvY2sybXRkX3Nl
-dHVwMih3LT52YWwpOworCW11dGV4X3VubG9jaygmYmxvY2sybXRkX211dGV4KTsKKwljb21wbGV0
-ZSgmdy0+ZG9uZSk7Cit9CisKKy8qIFF1ZXVlIHNldHVwMiBvbiBibG9jazJtdGRfd3E7IGNhbGxl
-ciBob2xkcyBhIG1vZHVsZSByZWYgdW50aWwgcmV0dXJuICovCitzdGF0aWMgaW50IGJsb2NrMm10
-ZF9zZXR1cF9kZWZlcihjb25zdCBjaGFyICp2YWwpCit7CisJc3RydWN0IGJsb2NrMm10ZF9zZXR1
-cF93b3JrICp3OworCWludCByZXQ7CisKKwlpZiAoIWJsb2NrMm10ZF93cSkKKwkJcmV0dXJuIC1F
-Tk9ERVY7CisKKwl3ID0ga3phbGxvYyhzaXplb2YoKncpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIXcp
-CisJCXJldHVybiAtRU5PTUVNOworCisJdy0+dmFsID0ga3N0cmR1cCh2YWwsIEdGUF9LRVJORUwp
-OworCWlmICghdy0+dmFsKSB7CisJCWtmcmVlKHcpOworCQlyZXR1cm4gLUVOT01FTTsKKwl9CisK
-Kwlpbml0X2NvbXBsZXRpb24oJnctPmRvbmUpOworCUlOSVRfV09SSygmdy0+d29yaywgYmxvY2sy
-bXRkX3NldHVwX3dvcmtmbik7CisJcXVldWVfd29yayhibG9jazJtdGRfd3EsICZ3LT53b3JrKTsK
-Kwl3YWl0X2Zvcl9jb21wbGV0aW9uKCZ3LT5kb25lKTsKKworCXJldCA9IHctPnJldDsKKwlrZnJl
-ZSh3LT52YWwpOworCWtmcmVlKHcpOworCXJldHVybiByZXQ7Cit9CiAKIHN0YXRpYyBpbnQgYmxv
-Y2sybXRkX3NldHVwKGNvbnN0IGNoYXIgKnZhbCwgY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbSAq
-a3ApCiB7Ci0jaWZkZWYgTU9EVUxFCi0JcmV0dXJuIGJsb2NrMm10ZF9zZXR1cDIodmFsKTsKLSNl
-bHNlCi0JLyogSWYgbW9yZSBwYXJhbWV0ZXJzIGFyZSBsYXRlciBwYXNzZWQgaW4gdmlhCi0JICAg
-L3N5cy9tb2R1bGUvYmxvY2sybXRkL3BhcmFtZXRlcnMvYmxvY2sybXRkCi0JICAgYW5kIGJsb2Nr
-Mm10ZF9pbml0KCkgaGFzIGFscmVhZHkgYmVlbiBjYWxsZWQsCi0JICAgd2UgY2FuIHBhcnNlIHRo
-ZSBhcmd1bWVudCBub3cuICovCi0KLQlpZiAoYmxvY2sybXRkX2luaXRfY2FsbGVkKQotCQlyZXR1
-cm4gYmxvY2sybXRkX3NldHVwMih2YWwpOwotCi0JLyogRHVyaW5nIGVhcmx5IGJvb3Qgc3RhZ2Us
-IHdlIG9ubHkgc2F2ZSB0aGUgcGFyYW1ldGVycwotCSAgIGhlcmUuIFdlIG11c3QgcGFyc2UgdGhl
-bSBsYXRlcjogaWYgdGhlIHBhcmFtIHBhc3NlZAotCSAgIGZyb20ga2VybmVsIGJvb3QgY29tbWFu
-ZCBsaW5lLCBibG9jazJtdGRfc2V0dXAoKSBpcwotCSAgIGNhbGxlZCBzbyBlYXJseSB0aGF0IGl0
-IGlzIG5vdCBwb3NzaWJsZSB0byByZXNvbHZlCi0JICAgdGhlIGRldmljZSAoZXZlbiBrbWFsbG9j
-KCkgZmFpbHMpLiBEZXRlciB0aGF0IHdvcmsgdG8KLQkgICBibG9jazJtdGRfc2V0dXAyKCkuICov
-CisJaW50IHJldCA9IDA7CiAKLQlzdHJzY3B5KGJsb2NrMm10ZF9wYXJhbWxpbmUsIHZhbCwgc2l6
-ZW9mKGJsb2NrMm10ZF9wYXJhbWxpbmUpKTsKKwlpZiAoIXRyeV9tb2R1bGVfZ2V0KGtwLT5tb2Qp
-KQorCQlyZXR1cm4gLUVOT0RFVjsKIAotCXJldHVybiAwOworCS8qIERvIG5vdCBvcGVuIGEgYmxv
-Y2sgZGV2aWNlIHVuZGVyIHBhcmFtX2xvY2sgKi8KKwlrZXJuZWxfcGFyYW1fdW5sb2NrKGtwLT5t
-b2QpOworCisjaWZuZGVmIE1PRFVMRQorCW11dGV4X2xvY2soJmJsb2NrMm10ZF9tdXRleCk7CisJ
-aWYgKCFibG9jazJtdGRfaW5pdF9jYWxsZWQpIHsKKwkJLyogRWFybHkgYm9vdDogY2Fubm90IHJl
-c29sdmUgYmxvY2sgZGV2aWNlcyB5ZXQuICovCisJCXN0cnNjcHkoYmxvY2sybXRkX3BhcmFtbGlu
-ZSwgdmFsLCBzaXplb2YoYmxvY2sybXRkX3BhcmFtbGluZSkpOworCQltdXRleF91bmxvY2soJmJs
-b2NrMm10ZF9tdXRleCk7CisJCWtlcm5lbF9wYXJhbV9sb2NrKGtwLT5tb2QpOworCQltb2R1bGVf
-cHV0KGtwLT5tb2QpOworCQlyZXR1cm4gMDsKKwl9CisJbXV0ZXhfdW5sb2NrKCZibG9jazJtdGRf
-bXV0ZXgpOwogI2VuZGlmCisKKwlpZiAoYmxvY2sybXRkX3dxKSB7CisJCXJldCA9IGJsb2NrMm10
-ZF9zZXR1cF9kZWZlcih2YWwpOworCX0gZWxzZSB7CisJCS8qIFByZS1pbml0IChlLmcuIGluc21v
-ZCBhcmdzKTogc2FmZSB0byBydW4gc2V0dXAyIGhlcmUgKi8KKwkJbXV0ZXhfbG9jaygmYmxvY2sy
-bXRkX211dGV4KTsKKwkJcmV0ID0gYmxvY2sybXRkX3NldHVwMih2YWwpOworCQltdXRleF91bmxv
-Y2soJmJsb2NrMm10ZF9tdXRleCk7CisJfQorCisJa2VybmVsX3BhcmFtX2xvY2soa3AtPm1vZCk7
-CisJbW9kdWxlX3B1dChrcC0+bW9kKTsKKwlyZXR1cm4gcmV0OwogfQogCiAKQEAgLTQ5NiwxMCAr
-NTU5LDE3IEBACiB7CiAJaW50IHJldCA9IDA7CiAKKwlibG9jazJtdGRfd3EgPSBhbGxvY19vcmRl
-cmVkX3dvcmtxdWV1ZSgiYmxvY2sybXRkIiwgMCk7CisJaWYgKCFibG9jazJtdGRfd3EpCisJCXJl
-dHVybiAtRU5PTUVNOworCiAjaWZuZGVmIE1PRFVMRQorCW11dGV4X2xvY2soJmJsb2NrMm10ZF9t
-dXRleCk7CiAJaWYgKHN0cmxlbihibG9jazJtdGRfcGFyYW1saW5lKSkKIAkJcmV0ID0gYmxvY2sy
-bXRkX3NldHVwMihibG9jazJtdGRfcGFyYW1saW5lKTsKKwkvKiBBdm9pZCByYWNpbmcgc3lzZnMg
-d2l0aCB0aGUgZWFybHkgcGFyYW1saW5lICovCiAJYmxvY2sybXRkX2luaXRfY2FsbGVkID0gMTsK
-KwltdXRleF91bmxvY2soJmJsb2NrMm10ZF9tdXRleCk7CiAjZW5kaWYKIAogCXJldHVybiByZXQ7
-CkBAIC01MTAsOSArNTgwLDE2IEBACiB7CiAJc3RydWN0IGxpc3RfaGVhZCAqcG9zLCAqbmV4dDsK
-IAotCS8qIFJlbW92ZSB0aGUgTVREIGRldmljZXMgKi8KKwlpZiAoYmxvY2sybXRkX3dxKSB7CisJ
-CWZsdXNoX3dvcmtxdWV1ZShibG9jazJtdGRfd3EpOworCQlkZXN0cm95X3dvcmtxdWV1ZShibG9j
-azJtdGRfd3EpOworCQlibG9jazJtdGRfd3EgPSBOVUxMOworCX0KKworCW11dGV4X2xvY2soJmJs
-b2NrMm10ZF9tdXRleCk7CiAJbGlzdF9mb3JfZWFjaF9zYWZlKHBvcywgbmV4dCwgJmJsa210ZF9k
-ZXZpY2VfbGlzdCkgewogCQlzdHJ1Y3QgYmxvY2sybXRkX2RldiAqZGV2ID0gbGlzdF9lbnRyeShw
-b3MsIHR5cGVvZigqZGV2KSwgbGlzdCk7CisKIAkJYmxvY2sybXRkX3N5bmMoJmRldi0+bXRkKTsK
-IAkJbXRkX2RldmljZV91bnJlZ2lzdGVyKCZkZXYtPm10ZCk7CiAJCW11dGV4X2Rlc3Ryb3koJmRl
-di0+d3JpdGVfbXV0ZXgpOwpAQCAtNTIyLDYgKzU5OSw3IEBACiAJCWxpc3RfZGVsKCZkZXYtPmxp
-c3QpOwogCQlibG9jazJtdGRfZnJlZV9kZXZpY2UoZGV2KTsKIAl9CisJbXV0ZXhfdW5sb2NrKCZi
-bG9jazJtdGRfbXV0ZXgpOwogfQogCiBsYXRlX2luaXRjYWxsKGJsb2NrMm10ZF9pbml0KTsK
---0000000000007d6517065ba92698--
+An earlier revision measured a stale instruction on the first rewrite with
+no flush at all, but that was on a kernel predating this series, where the
+whole Viking icache path was inert. On a patched kernel the same control is
+intermittent, so it is not offered as evidence for anything here; the
+argument for the shape of patch 2 is in its changelog.
+
+Changes in v2:
+
+  - patch 2 no longer cross-calls remote CPUs. Hardware snooping maintains
+    instruction-cache coherence on the other processors; both FLUSH
+    operations are now local. Callers modifying live text must arrange
+    safe execution during the update. A later cross-call cannot prevent an
+    old instruction from executing before it arrives, and cannot by itself
+    make an otherwise unsafe concurrent text modification safe.
+  - patch 2 no longer routes Viking sig_insns through the SMP wrapper, so
+    that path retains the local-only behaviour mainline already had.
+  - patch 1 is unchanged. It is a TLB shootdown: MBus cache coherence does not
+    make a peer discard a virtual TLB entry, so each processor must still
+    demap its own.
+
+[1] SuperSPARC Family STP1020 & STP1090 Series User's Manual,
+    Revision 1.0, April 1994.
+[2] Sun-4M System Architecture, Specification 950-1373-01,
+    Revision 50, July 19, 1991.
+[3] SuperSPARC II Addendum, Revision 1.3, December 1994.
+
+Magnus Lindholm (2):
+  sparc32: serialize SuperSPARC demap operations
+  sparc32: synchronize SuperSPARC instruction updates
+
+ arch/sparc/include/asm/cacheflush_32.h |   2 +-
+ arch/sparc/mm/srmmu.c                  |  98 +++++++++++++++++++++++++
+ arch/sparc/mm/viking.S                 |   5 +
+ 3 files changed, 104 insertions(+), 1 deletion(-)
+
+-- 
+2.43.0
