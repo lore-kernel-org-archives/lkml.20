@@ -1,82 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A54A1E05;
-	Thu, 17 Sep 2026 22:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CAE449B26;
+	Thu, 17 Sep 2026 22:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684441; cv=none; b=U81WjfOgXcz6fQSFSbrsqvDgC5Xtmss9o/3GI0JxIc8K/aneRm1eF01JFFqK4A0XlQT6hSD1ZhiqNFEHOXAdgqPxSvdoiaaBCoRH32EaozqxNkVZyINcb5l61JU/G9yr5z2DIyw5IyUeG8YFkmZBy+KFARnLnrRT0vW5AuZ4DlY=
+	t=1789684501; cv=none; b=DwPZ0iQf8q1PuwmWDDX2zQgbBFcfYQcdOOzTfkOiR1GuvVnxMyPFXfPzy2MMHKyGeV11kodTZF+DVz1u3waAhFksK8oCYOjgPty6FBuR1X6Svcy4uEOHrlEZRdJ+KySOxDjS+rxleKF372V+xbjStr08Z5AjcWD1Qbi2Dzok5pQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684441; c=relaxed/simple;
-	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fFPEGXz1/zlZrkmwJDt12sfuy9uH2VfWbB8GsnC6N3aGqXc1GC5KT6tW4OEZN3duYtvihKqCUOhScAP7AWVR3+IVMAUhzFMy0ngfICjGAFwDA/B50W8VnabXkHN7iS82sF3QrzuxuDIF9mYka8+lFD+c31ZCg5pPDbcgXVvl8x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNdgG5DS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789684501; c=relaxed/simple;
+	bh=slmwenKVNm7oiFHsA0N2JQn3F94d4Vx0OSusBSuSHLY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uya0lXHNjGMpgPh5jPNCUj3znyt/Ryct2t2KW8g54bFVJdF4T5bmn2CIUDx+Sx6IViJBb/bGuNNrCY1FINJ0VF2UXpGGFUfi483EwzLIAbKkEQfxUK/9NsN4Vh7t5dP5H2h9dLUn/JaIEsThnKpVa5QZRpLjRNReqS9FJcrodBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVATthhi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNdgG5DS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EE61F000FF;
-	Thu, 17 Sep 2026 22:33:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVATthhi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5646B1F000FF;
+	Thu, 17 Sep 2026 22:34:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684440;
-	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WNdgG5DS3KQnHaWNU+TDLlgSaj3d54kvjXav4ma5fjCLAES1Bl113qxoQgiY1TrOj
-	 ZlqxNeiNKMsMqahjxk8FGzgsO30737PX2VT2GFlnoRCCvSqj92vT469DaDPG/Om2ah
-	 IdB7ICbLYWpxYHUbPz8OEpfkay4B2wVB1caQskAy1McvHiwpmp4ZJiqTMF5fciQ77S
-	 1ZG0i55cgy5rJd1ZiC20J0IlOfAewOjliScvCe21NmzCV382tiCh5/Zy+qmcrw02wL
-	 ojG+6OmI/81SJ8L19Jkn+tAHoUJtBLvwBipUpKeDSsaFeYt4qrn0CUzP56I6ldCqgG
-	 8pvulrTcU4XyA==
-Date: Thu, 17 Sep 2026 23:33:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, nicoleotsuka@gmail.com,
-	perex@perex.cz, shengjiu.wang@gmail.com, tiwai@suse.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in
- fsl_asoc_card_probe()
-Message-ID: <1d80b89f-7b33-4036-a450-bf32c603a238@sirena.org.uk>
-References: <20260917165430.2163372-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1789684500;
+	bh=AwxJ8N+cZbpD5bptxQGFwIFSG4k3sUIJceTDXjNhTGc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KVATthhixeMA+YMMyshkfJD37dUY/D7jd4LBOSfuFz4yK04r7+lv+wxob3PaMTOBF
+	 7fRlXY51wuY4s9+wRG4XSg/b+QI5kz14CbE6DZF4kAHz3StynxN15EwUyxlzwET5Uk
+	 +V7I+v7UxVIWkElW8gdtMMfpXq+fu6l/5vJdjAZP+GNRDck/5oT0DHPan/1Ro0WwYM
+	 xCKoEN3+OQIJL02rCMIdAxU5fBkyQrMfveiYSk9dizUKH9dpiFvlxc67O//r4tser1
+	 BBaapRFtxaVwVTobUt+L3KR5AX2NTwwrbLTdmW61f05z32s+r3BImtygEmsoPcmXKO
+	 YyHribX3lAy/w==
+Subject: Re: [PATCH v28 net-next 01/10] net/nebula-matrix: add minimum nbl
+ build framework
+From: netdev-bot+sashiko@kernel.org
+To: illusion.wang@nebula-matrix.com
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
+ sam.chen@nebula-matrix.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ corbet@lwn.net, kuba@kernel.org, horms@kernel.org, linux-doc@vger.kernel.org,
+ pabeni@redhat.com, vadim.fedorenko@linux.dev, lukas.bulwahn@redhat.com,
+ edumazet@google.com, enelsonmoore@gmail.com, skhan@linuxfoundation.org,
+ hkallweit1@gmail.com, linux-kernel@vger.kernel.org
+Date: Thu, 17 Sep 2026 22:34:58 +0000
+Message-ID: <178968449889.22033.13874613436402978456@kernel.org>
+In-Reply-To: <20260914123429.56596-2-illusion.wang@nebula-matrix.com>
+References: <20260914123429.56596-2-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="P1ZmkZ7HWziaZSjA"
-Content-Disposition: inline
-In-Reply-To: <20260917165430.2163372-1-vulab@iscas.ac.cn>
-X-Cookie: Whip it, whip it good!
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
---P1ZmkZ7HWziaZSjA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-On Thu, Sep 17, 2026 at 04:54:30PM +0000, Wentao Liang wrote:
-> of_find_device_by_node() returns the ASRC platform device with a
-> reference taken, but asrc_pdev is only used during probe to set up the
-> DPCM DAI links and is never released. The shared exit path already drops
-> the CPU device reference, so release the ASRC one there too, covering
-> both the error paths and the successful registration path.
+- [Low] At this commit only, the user-facing artifacts describe
+  functionality that the added code does not contain: CONFIG_NBL help…
 
-This doesn't apply against current code, please check and resend.
+--
 
---P1ZmkZ7HWziaZSjA
-Content-Type: application/pgp-signature; name="signature.asc"
+net/nebula-matrix: add minimum nbl build framework
 
------BEGIN PGP SIGNATURE-----
+This adds the Kconfig, Makefile, MAINTAINERS entry and documentation for a
+new nebula-matrix ethernet driver, plus a PCI driver skeleton whose probe
+and remove callbacks are empty stubs.  The commit message notes that the
+real implementation follows in later patches of the series.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsatIACgkQJNaLcl1U
-h9C0Ygf/RPsRzvwwH4gsQUTDa5a8UQsKSpt0ClJpUzd9B3N82yCZlVAtHxZBcgUj
-tHCfZEKD+1B9Glr+QJGAN+8NesYn3HRKfbKiW4Jt5NESTK5QAIAjsMrWxhNrFN3x
-KD3sph6e2rbMmYV0ghCw0/S5EZ/uEtePvuWKIZ+c2bgfx5XVFfG1TvUOOlj6kXP8
-U8PLUZQeyUmnhexe09hMc5+i0SDW4IiM5p+vB4fHy6Aip6qz+zIX/NocqexZhrhd
-j22M3Qgvz3klweIoHpxTZqR/MLYY6lxLcL7Wj9mVCG8qzL/8dZh5HcE83TCzc139
-7+M0UMSahUdK1AC4hZiK15UGanLF7g==
-=+L6c
------END PGP SIGNATURE-----
+> diff --git a/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
+> new file mode 100644
+> index 0000000000000..5540291cf3766
+> --- /dev/null
+> +++ b/Documentation/networking/device_drivers/ethernet/nebula-matrix/nbl.rst
+> @@ -0,0 +1,28 @@
 
---P1ZmkZ7HWziaZSjA--
+[ ... ]
+
+> +This driver provides the core infrastructure for m18110/m18000-NIC
+> +devices, including:
+> +
+> +- PCI device enumeration and resource (BAR) management
+> +- Firmware command interface via PF mailbox
+> +- Channel-based communication between driver and firmware
+> +- Device initialization and teardown
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/Kconfig b/drivers/net/ethernet/nebula-matrix/Kconfig
+> new file mode 100644
+> index 0000000000000..dd0e91d14131f
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/Kconfig
+> @@ -0,0 +1,32 @@
+
+[ ... ]
+
+> +config NBL
+> +	tristate "Nebula-matrix Ethernet Controller m18110/m18000 support"
+> +	depends on PCI && (64BIT || COMPILE_TEST) && !CPU_BIG_ENDIAN
+> +	help
+> +	  This driver provides the core infrastructure for Nebula-matrix
+> +	  Ethernet Controller m18110/m18000 Family of devices, including
+> +	  PCI enumeration, firmware mailbox and channel communication.
+
+[Severity: Low]
+This isn't a bug, but the commit message says:
+
+  Note: the documentation describes the final full driver features;
+  implementation will be added in subsequent patches of this series.
+
+That disclaimer covers nbl.rst, but the CONFIG_NBL help text makes the same
+claims ("PCI enumeration, firmware mailbox and channel communication") and
+isn't mentioned.  At this commit nbl_probe() just returns -ENODEV and
+nbl_remove() is empty, so none of the described infrastructure exists yet.
+
+Would it make sense to either extend the note to cover the Kconfig help
+text, or move the feature list into the patch that actually adds the
+enumeration, mailbox and channel code?
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
+> new file mode 100644
+> index 0000000000000..199626159a4ce
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_main.c
+> @@ -0,0 +1,100 @@
+
+[ ... ]
+
+> +static int nbl_probe(struct pci_dev *pdev,
+> +		     const struct pci_device_id *id)
+> +{
+> +	return -ENODEV;
+> +}
+> +
+> +static void nbl_remove(struct pci_dev *pdev)
+> +{
+> +}
+
+[ ... ]
+
+> +	{ PCI_DEVICE(NBL_VENDOR_ID, NBL_DEVICE_ID_M18000_LX_BASE_T_OCP),
+> +	  .driver_data = BIT(NBL_CAP_HAS_NET_BIT) },
+> +	/* required as sentinel */
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(pci, nbl_id_table);
+
+[Severity: Low]
+This isn't a bug either, just an observation about the intermediate state.
+The full 16-entry nbl_id_table plus MODULE_DEVICE_TABLE(pci, nbl_id_table)
+publishes udev autoload aliases for 1f0f:3403-3412 at a point where every
+match is rejected:
+
+  nbl_probe()
+      return -ENODEV;
+
+So a kernel built exactly at this commit with CONFIG_NBL=m will autoload
+nbl on a present m18110/m18000 card and log a probe failure for each
+matching function, with the device left unbound.  Nothing is allocated
+before the -ENODEV return, so there is no leak, but it is visible during a
+bisect of this series.
+
+Would it be cleaner to add the id table (or the driver registration) in the
+patch where nbl_probe() gains a working implementation, keeping every commit
+in the series functional?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914123429.56596-1-illusion.wang%40nebula-matrix.com
