@@ -1,119 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012008.outbound.protection.outlook.com [52.101.48.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD0D4F68BF;
-	Thu, 17 Sep 2026 16:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663954; cv=none; b=BePlOYkIpSGpD+I7Pgh9ROfA9o+jIio9RTUjVT8IRUeCTULXb1w3ollrIL2sKJri8RZK1YqCNI6W9lahJ+YXA5zKBeothxhHrL5UkirYM5Cr+qAFlS4GMutAS8F62yvCIUemkvOGOOG7mw03zZ1bwNilwsmanI43LWuaJkM3lwY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663954; c=relaxed/simple;
-	bh=7X4pBO5Gfn34VCD0w+WxEYTb4YRWIG1+GLdVToPUjuE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t7dr0WG+0E/F/06MrUfeky4KBv0w+r13prrosoQZLrZY1WKSPwfm4a5YOhzmmng+Y0coUXf//rQztJ5gAm+2IJpKANJ+9oKBxt1JZuBC2BeDiru1VM5ZOzaNog7jUdsdJMXailUlL7pdH0mxAaTgSVgFUusIcNEj9gHvcJfEIa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijR8wbuK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE0F4E9C14;
+	Thu, 17 Sep 2026 16:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789664009; cv=fail; b=ZaJgs9Sto6rU7HVxw6AdPemwjePsilhCBZNExdKwmTozzHv6tazLR5baCV5pXF0w9GpYeK/ArsRv/CDwTFfxCvq6E2A2Nrt7LLyG0ltuvXIt4rYveQHKimNgiO+qEGRQsf9NiJRSPU31JpKj4VS3Um3keRSpaJJRPiVH4B031rQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789664009; c=relaxed/simple;
+	bh=DDWkZwswRqN9MgkHC5LASG8Em7Wjz6cIrAXS96m/pC0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RcpBSOgxPkZlAzgseE2FMSwc97bLQnqfUhrUaZ+s0+rDFUx1uzSqptPlgjyb9uUg2M9GRnu24x6gXrNsQgCjK1JA+AyP5i5/cNcziV+uNoc/nMLj1NsoMn1LtXPn8BYH4IAs5MOmJj/WxMKowoQ+Nivv3lNv/j0aINE96whisUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4CCtd0KO; arc=fail smtp.client-ip=52.101.48.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijR8wbuK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1FE1F00898;
-	Thu, 17 Sep 2026 16:52:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663952;
-	bh=6HEIePW/GlQEOC8t0u6x4RNSCvywoj94H5Dv9GmwVto=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ijR8wbuK+jfGWDzkXgnzvZ2zbZocAjn+YYg2G2izTt209ujOut6uhGYc+G6GX5lg/
-	 Gsx7nEaWC8+EQEKcPf1WJmXyVbPnBLAl8/kbkIWc1ooxh/XzVfvd6j+MKv0rcsIFWt
-	 XuLgs4GNdDKtxqsYTGzyNKMi+OoU5PuCMoK9PvI3mSPATlCkOAyuYNZSl+bntxvupf
-	 9zaaJXZp7TakObvOzc7p4Uuk8jmTwCG6/Hb9i36amD6PLyhqI7RK6+RPeweQi0O37V
-	 N185d8gTHUhEV7vlo36kgNPaz6aVZKuH3qa7AIrFO0Q/lOZq7CZxkaCdoYttrF8ICb
-	 n6NPpwAvriCEA==
-Date: Thu, 17 Sep 2026 09:52:32 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 01/20] kbuild: do not allocate .modinfo in vmlinux
-Message-ID: <202609170950.480F90A28@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-1-9ecf4163ff36@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4CCtd0KO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Egzv35LcLaiN+Q0Ei1jjy6yghRiZN9Moh7Av5N7fTJWRxcGN1d0JRF28EJQ8agD5IvaXGmp+d7/kkgQutCzTK71Uq4e8Tx0ey1OJ544Mwg4XwArOta6HAUaHPUpH4BsQD0T81hW9BL40PpQC/YCpFmm4qN/ijWHsl0C9gtxZJjlzviGeEQsVnqi+tkVdU69fI6AdVJo9UERTBkSFRYSTumwISk8tRgdfaYP6p0WJOcuWWOhNiGlelH50kIYRTqdj25BXgt8QkyglYFIrnl8Vhc8O0Dcc/WkwMUzCPdDYrMZSNVgGElPEaxKI7l0HD7cAXZCL7OIOxI+CiyicCcMlyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GK55GCoQZOH2asDRdPBgrv1nC/pbCaH/bHqTcxf9tFQ=;
+ b=sMBRUEKNaDNRYk5wzuia22yJk0T5/DwRN3guTDxhW3L7W0ETQoJg+qfL3QfbT6lUPIsAtYQV4UE358QO3WFdehJ0PYo4N2xRQR62IH0dVfFU63uP4MQt4uqb7hIblTN4J3HiK4UtzaKwGczSItq8ujv3tsC8jQOCiQ0bnT4KOhZu6jemNeth5H8Wo2PnwS4ud50sWKphSvaBqKEDGZOROhPHfvcCGzPeCmyA+d2S5YF+AT7muA/V+b08kqk0aNfxCAlkHQ0ivL8fJJ9XAk1kUiNsC12kct4Jphdc3jQOE6oiG/JvvciXsnEySxtkBbt6Z7SQhCEi45Sh3+VYqWCkyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GK55GCoQZOH2asDRdPBgrv1nC/pbCaH/bHqTcxf9tFQ=;
+ b=4CCtd0KOFR3Oqe0PYu+u8uswVCe4gh8RCwzQ6j4o/W4Btn9GbarpsdcRJA0cn5mZ73D4ATuEGhuTjXPuhm1tQb/wioCG15lsKB1SIowkvsILGgUi8NcNCO9NCcomBl1WcIeTk+GJ9fFdpBthbBFF7Ge4XReGzAJP1lAtpXzWTyg=
+Received: from SJ0PR05CA0082.namprd05.prod.outlook.com (2603:10b6:a03:332::27)
+ by SJ0PR12MB7068.namprd12.prod.outlook.com (2603:10b6:a03:4ae::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 16:53:23 +0000
+Received: from SJ1PEPF000037AB.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::1e) by SJ0PR05CA0082.outlook.office365.com
+ (2603:10b6:a03:332::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Thu, 17
+ Sep 2026 16:53:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF000037AB.mail.protection.outlook.com (10.167.244.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 16:53:23 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 11:53:20 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 11:53:19 -0500
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 11:53:15 -0500
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <Vijendar.Mukunda@amd.com>, <anson.tsao@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <mario.limonciello@amd.com>, Syed Saba Kareem
+	<Syed.SabaKareem@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Randy Dunlap
+	<rdunlap@infradead.org>, Simon Trimmer <simont@opensource.cirrus.com>, Baojun
+ Xu <baojun.xu@ti.com>, Ville Saarinen <wiza@saarinenkoti.fi>, "Hasun Park"
+	<hasunpark@gmail.com>, "open list:AMD ASoC DRIVERS"
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine
+Date: Thu, 17 Sep 2026 22:21:49 +0530
+Message-ID: <20260917165314.1880855-1-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-build-speedup-v3-1-9ecf4163ff36@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AB:EE_|SJ0PR12MB7068:EE_
+X-MS-Office365-Filtering-Correlation-Id: fec736aa-9e09-4e99-ae2d-08df14dc2fbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|36860700016|82310400026|376014|11063799006|6133799003|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	z/mYlHDITryo79O7MFU5kZd4nYkU+Qxu9RB+xpG82VZwvQ0jI/PqIY7Btn6C36wDran6Zm+gib6+AMYI6H2OTlfTSoP9wuVhCcBd1BidJwkCF5cMIPFkcNSdlktAgCPNY6r4osGcDregFRQ1dyq3blIEhzuMItHfnF/E/bRH7s7jKLPmYxr7j52mrj0LJFGh9aUSgkkSP1T994TQZzxmxokYQHYXEIJes42tGiagCQhIU3fQpo+B8+/kzOoNq/dcGS0QoAq1S6wtQ36Rlcg1mydYNFBlp1yYhjQywqY1aYbCwMI+qw/wePOO/aFSGBB+k3qHThokJq6oOOj7sAsLhjWrnf/t5gSzfF3UnCaghHNkMvz60lEd34L1kccsiRQNqR1QuzQO2MYy4043gITeXzTF3+4/bSCSKU/GIzox/RkmvTJO42JMXJOzR/2tvvcFPPZVrN8puXG7i65KfWp3eCFxr8xXDDF72Gso2cw9+geW8UyEnFZYwywTsl0JRh7O5HbhCTCuBqkq1APMv6PqXIzVFlBdRUBsx74d73f5j0TQsWPhlPV3WFQ9gAIQlOakeNVSZwQhZ0hPA0WxTI+CNuu19BoO2rGzpw4Qn1c0seH4zUNhvfmjhyC7Y315qzvMoE/6kCE8gpdUNnZnWGOd7qR+PHgbQygF9JMaJonJu+Ei2fZLX/iem8+FFO8zfJWhwW7VGD9TR+xlBC8qg6Er5w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(36860700016)(82310400026)(376014)(11063799006)(6133799003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sJBIhGVGqKqdcoKEWuvdX3lAK3zvFA5o9Pkg1KJ90MPf+stuK0gmwCJdDUeWZqAdiRCxG/CvC7zJrAtK4Z6sqD2FqtKVS3/aWoaTY8vda2pCKuL+fNB37nNjwWdyiAFT2w1LXjn2kyu7Gi/ldpdxzHm/K92f0cOdQkpRncDHnq5lw0N3o/RAh3vR65E+l2n1xsdPNsSxvR57NbxDO1LwUHSdSAohXXWCNrSNqpFB/5Exj+RDImKCWCvWNS8V0Z0fx8zBlL56ngmFmEbusFQNpozvTKz9JSCOFyl1WMi6Uqn7s0JRuhB7sJTMIO63WZTe7+39pCWPdu/pmYeaL4HJdI7raTEartrn/0QDRg+xUlb8AFov+nL0bGgoNZFW/WSwiQkh1eCFtGe65XC1cuVwb0K3HJxRsDRDslRBgk8MgFK+XZtK0jSz/S8zB/1wldNr
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 16:53:23.4825
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fec736aa-9e09-4e99-ae2d-08df14dc2fbb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037AB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7068
 
-On Thu, Sep 17, 2026 at 05:06:11PM +0100, Lorenzo Stoakes (ARM) wrote:
-> -# .modinfo in vmlinux.unstripped is aligned to 8 bytes for compatibility with
-> -# tools that expect vmlinux to have sufficiently aligned sections but the
-> -# additional bytes used for padding .modinfo to satisfy this requirement break
-> -# certain versions of kmod with
-> -#
-> -#   depmod: ERROR: kmod_builtin_iter_next: unexpected string without modname prefix
-> -#
-> -# Strip the trailing padding bytes after extracting .modinfo to comply with
-> -# what kmod expects to parse.
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-This comment still seems useful here (afaict the stripping is still
-happening with the "sed"). Maybe better to leave it, or future readers
-are left wondering what the sed is for?
+The ACP7.0 SoundWire machine table did not cover boards that combine TI
+TAS2783 smart amplifiers on SoundWire link 0 with a Realtek RT712-VB
+codec on link 1.  In addition, the TAS2783 SoundWire codec driver was
+not selected by the AMD legacy SoundWire machine config, so it was not
+built for these platforms.
 
->  quiet_cmd_modules_builtin_modinfo = GEN     $@
-> -      cmd_modules_builtin_modinfo = $(cmd_objcopy); \
-> -                                    sed -i 's/\x00\+$$/\x00/g' $@; \
-> -                                    chmod -x $@
-> -
-> -OBJCOPYFLAGS_modules.builtin.modinfo := -j .modinfo -O binary
-> +      cmd_modules_builtin_modinfo = $(OBJCOPY) -O binary -j .modinfo --dump-section .modinfo=$@ $< $@.tmp; \
-> +                                    rm -f $@.tmp; \
-> +                                    sed -i 's/\x00\+$$/\x00/g' $@
+Select SND_SOC_TAS2783_SDW from SND_SOC_AMD_LEGACY_SDW_MACH so the
+TAS2783 SoundWire codec driver is built together with the AMD legacy
+(no-DSP) SoundWire machine.
 
-Otherwise, looks good. With the comment back (or rewritten):
+Add a new link/address map, acp70_tas2783a_l0_rt712_vb_l1, describing
+the TAS2783 amplifiers on link 0 and the RT712-VB codec on link 1, and
+register a corresponding entry in snd_soc_acpi_amd_acp70_sdw_machines[].
+The entry uses snd_soc_acpi_amd_sdca_is_device_rt712_vb() as its
+machine_check callback so it only matches platforms that actually
+expose the RT712-VB device.
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ sound/soc/amd/acp/Kconfig                |  1 +
+ sound/soc/amd/acp/amd-acp70-acpi-match.c | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
--Kees
-
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index a04c301df4d6..e880e44b9763 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -181,6 +181,7 @@ config SND_SOC_AMD_LEGACY_SDW_MACH
+ 	select SND_SOC_RT715_SDW
+ 	select SND_SOC_RT715_SDCA_SDW
+ 	select SND_SOC_RT722_SDCA_SDW
++	select SND_SOC_TAS2783_SDW
+ 	help
+ 	  This option enables Legacy(No DSP) sound card support for SoundWire
+ 	  enabled AMD platforms along with ACP PDM controller.
+diff --git a/sound/soc/amd/acp/amd-acp70-acpi-match.c b/sound/soc/amd/acp/amd-acp70-acpi-match.c
+index 815e088b437d..2a9da6de7bbc 100644
+--- a/sound/soc/amd/acp/amd-acp70-acpi-match.c
++++ b/sound/soc/amd/acp/amd-acp70-acpi-match.c
+@@ -748,7 +748,27 @@ static const struct snd_soc_acpi_link_adr acp70_rt721_only[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_link_adr acp70_tas2783a_l0_rt712_vb_l1[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(tas2783_2_adr),
++		.adr_d = tas2783_2_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt712_vb_1_group1_adr),
++		.adr_d = rt712_vb_1_group1_adr,
++	},
++	{}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_amd_acp70_sdw_machines[] = {
++	{
++		.link_mask = BIT(0) | BIT(1),
++		.links = acp70_tas2783a_l0_rt712_vb_l1,
++		.machine_check = snd_soc_acpi_amd_sdca_is_device_rt712_vb,
++		.drv_name = "amd_sdw",
++	},
+ 	{
+ 		.link_mask = BIT(0),
+ 		.links = acp70_tas2783_2,
 -- 
-Kees Cook
+2.43.0
+
