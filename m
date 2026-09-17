@@ -1,101 +1,145 @@
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE0F3B0584;
-	Thu, 17 Sep 2026 08:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66420402436;
+	Thu, 17 Sep 2026 08:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633155; cv=none; b=jTzdZuqKrSUOyp1xF5K2apVcRxEwbQfXunTAsmbhmlAqfhO4rw2g0nD3/CKgu8C71grqqDlQhi3jsTYn/2gwjU0dCAaZ8V60MnDvlZM3B02zoF8uudQKCCcIAMRFQTzavR1IY3UmmiRLmHAsrSLr2oOEZ4kZFJ2nHW9tQEiLClY=
+	t=1789633163; cv=none; b=qfcGx7g93gysNscx5NssDPay5Kl8tKqu8RlrIi1irxRfBR+8EwNULTFaFQkr7QcQnE/6oA4FFFOXvvYF+/jZqTSu5Lwpq4HQVXB7D6PnuyhmZKn4Czz0mYfVczsRlsGJIk6jFMX7ihpsn0/FadDuVkDAUUEpWmPDh/QsLuuAF1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633155; c=relaxed/simple;
-	bh=EVSX76OzB+diEYCs/nJX3q5v7Kwcdgu4DpKF5WvGx7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AiEvkmIwpPw+vnHIBHESzZlTas7A71AdVoMtKqLxHj6cfYSyJhhvYxcAGuiPVVB0Qca2XaWMSstAgRkC5sqQjLpTlfxI+5H7jcE29t6/heMPPtUAOGzArzE3mxLtklJtdtfQ2FZNq21um8Cgjaahr6Y9xehqcwCFMZTGexLdFKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=OXyeW1Xh; arc=none smtp.client-ip=115.124.28.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789633163; c=relaxed/simple;
+	bh=LS99K8Op4slw1Q3V2zznD24yITjo1HPU1HStlTL3Ldg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kDCTXm6ac7e0Lcdbhppckwk+YWPkdQ/NWl4am0LWB+12x222jSkSev87Fgvw22EwdxLU0yJ+Dtzrnp79S8q/fiR4wwp1xRNINOYhWcs8jL+K1+EjNlU0uADVSR6v5P/vFlGs5/xSnlvuYGOY7spKk0RUz5m/Hs2/UPJapNYxCj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uTFwO27X; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="OXyeW1Xh"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789633142; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=nOivH+tpyHEQbs/5d8ymLlzakpf9GHeFHzNCZfiL+A0=;
-	b=OXyeW1Xh5dTLcLUJ5kCNrBgKyB3rUGCSpyt2cZGyW3tYo50rXKmFcp72Lq0Dq/n+O/JvfdsS2oKpPHhopAqWs3BYwt9PYllBXEPbgepPAI7xw4L3elhLwgQQMYbRo6Fwvj5ex5G0cYIJ34ih77SUg+axtTW0+y8RmSiA12qRgZY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3915794|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0144512-0.00147129-0.984078;FP=674923788358001744|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jFl7ePB_1789633140;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFl7ePB_1789633140 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 16:19:01 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: justinpopo6@gmail.com,
-	alcooperx@gmail.com,
-	gregkh@linuxfoundation.org
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	liuwb@xiaopeng.com,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: bdc: validate endpoint index in ep0 handlers
-Date: Thu, 17 Sep 2026 16:18:58 +0800
-Message-ID: <20260917081859.190561-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uTFwO27X"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 942DB512;
+	Thu, 17 Sep 2026 10:17:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789633056;
+	bh=LS99K8Op4slw1Q3V2zznD24yITjo1HPU1HStlTL3Ldg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uTFwO27XdrmQIcRxWvyqKbRrtAt0F2Z5jOGUrbXKX+k9RSjYlRf/36wVgt9WDMmhP
+	 ogVToOnFrlhfS6IE4a5IpMbyyYpy/OLND/JQIJHPNXJ39uq83yhYpwV5mNIGcQLvFX
+	 2pKzZF1x3wIM80PjU2x5uV471p5Sbq90NaR0TYAw=
+Date: Thu, 17 Sep 2026 11:19:17 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Richard Leitner <richard.leitner@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <20260917081917.GB21347@killaraus.ideasonboard.com>
+References: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+ <aqpYqrtKTY20IW_0@bombadil>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+ <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
+ <aquan_6JiKkEw-Kp@bombadil>
+ <3dc63afd-ab21-4e3c-b6da-0fb51584ca9a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <3dc63afd-ab21-4e3c-b6da-0fb51584ca9a@kernel.org>
 
-ep0_handle_status() and ep0_handle_feature() derive an endpoint index
-from the host-supplied wIndex field:
+On Thu, Sep 17, 2026 at 10:08:15AM +0200, Krzysztof Kozlowski wrote:
+> On 17/09/2026 09:55, Richard Leitner wrote:
+> >> There is no "clocks" property in the binding. If there is input, then
+> >> there is a "clocks".
+> >>
+> >> Then we never describe external oscillators with "clock-frequency"
+> >> property. ACPI does, but not DT.
+> > 
+> > So how would that be best solved in DT?
+> > 
+> > Should there be a "fixed-clock" child node for that external oscillator?
+> > Something like:
+> > 
+> > vc_mipi_ctrl: controller@10 {
+> >   ...
+> > 
+> >   vc_mipi_clk: clock {
+> >     compatible = "fixed-clock";
+> >     #clock-cells = <0>;
+> >     clock-frequency = <37125000>;
+> >   };
+> > 
+> 
+> Oh, wait, I misread. The external oscillator is not external to the
+> module? Below...
+> 
+> >   i2c-tunnel {
+> >     ...
+> > 
+> >     vc_mipi_sensor: camera@60 {
+> >       ...
+> > 
+> >       clocks = <&vc_mipi_clk>;
+> >       clock-names = "inck";
+> >     };
+> > };
+> > 
+> > Or should (as discussed in the other branch of this thread) there be a
+> > separate compatible for every vc-mipi sensor variant board? Then this
+> > could also be part of the compatible-dependent driver data.
+> > 
+> > Or are there any other/better approaches to this?
+> > 
+> >>
+> >>
+> >>> uses it for internal purpose, and also to provide a clock to the sensor.
+> >>> Very roughly speaking, and ignoring power supplies as we focus on the
+> >>> clocks, the camera module is architectured this way:
+> >>>
+> >>> Connector
+> >>>    ||                                       +--------+
+> >>>    || <------------ MIPI CSI-2 ------------ |        |
+> >>>    ||               +-------+               |        |
+> >>>    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
+> >>>    ||               | FPGA  |               |        |
+> >>>    ||               |       | --- Clock --> |        |
+> >>>    ||               +-------+               +--------+
+> >>>                         ^
+> >>>                         |
+> >>>                     +-------+
+> >>>                     | Clock |
+> >>>                     | Osc.  |
+> >>>                     +-------+
+> >>>
+> >>> The frequency of the external clock oscillator is what the
+> >>> clock-frequency models.
+> 
+> ... this sentence confused me. If the oscillator is part of the module,
+> then clock-frequency property is applicable or it is implied by the
+> compatible.
 
-    epnum = wIndex & USB_ENDPOINT_NUMBER_MASK;  /* 0 .. 15 */
-    epnum = epnum * 2 + 1;                      /* up to 31 */
-    ep = bdc->bdc_ep_array[epnum];
+Our replies have crossed each other. I should have waited, it would have
+saved me time writing a long message :-)
 
-bdc_ep_array[] is allocated with bdc->num_eps entries (typically 10-16
-depending on the hardware).  A malicious USB host can set wIndex to a
-value that produces an epnum beyond num_eps, causing an out-of-bounds
-read of a stale or uninitialized pointer, followed by a dereference.
+Yes, the external oscillator is in the module. That's why I initially
+proposed using the clock-frequency property. We could still model it as
+a separate DT node (see my other e-mail), but I think it brings
+complexity for little gain.
 
-Add a bounds check before the array access in both functions, matching
-the same pattern already used in bdc_sr_xsf() since commit a402532ab855
-("usb: gadget: bdc: validate status-report endpoint indices").
-
-Fixes: efed421a94e6 ("usb: gadget: Add Broadcom BDC UDC driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
----
- drivers/usb/gadget/udc/bdc/bdc_ep.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/usb/gadget/udc/bdc/bdc_ep.c b/drivers/usb/gadget/udc/bdc/bdc_ep.c
-index a7a22e5ec..e5c203b9a 100644
---- a/drivers/usb/gadget/udc/bdc/bdc_ep.c
-+++ b/drivers/usb/gadget/udc/bdc/bdc_ep.c
-@@ -1286,6 +1286,10 @@ static int ep0_handle_feature(struct bdc *bdc,
- 			return 0;
- 		}
- 		dev_dbg(bdc->dev, "epnum=%d\n", epnum);
-+		if (epnum >= bdc->num_eps) {
-+			dev_err(bdc->dev, "Invalid ep index %d\n", epnum);
-+			return -EINVAL;
-+		}
- 		ep = bdc->bdc_ep_array[epnum];
- 		if (!ep)
- 			return -EINVAL;
-@@ -1352,6 +1356,10 @@ static int ep0_handle_status(struct bdc *bdc,
- 			epnum = 1; /* EP0 */
- 		}
- 
-+		if (epnum >= bdc->num_eps) {
-+			dev_err(bdc->dev, "Invalid ep index %d\n", epnum);
-+			return -EINVAL;
-+		}
- 		ep = bdc->bdc_ep_array[epnum];
- 		if (!ep) {
- 			dev_err(bdc->dev, "ISSUE, GET_STATUS for invalid EP ?");
 -- 
-2.50.1
+Regards,
 
+Laurent Pinchart
