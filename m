@@ -1,144 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E69E50EBE7;
-	Thu, 17 Sep 2026 13:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4102255C1BF
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:58:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653477; cv=none; b=RqmrBDdsMLNJCEipUovKoHIwmPsnr7PWG0JOx7H8jNzxNotmwS6pohc25anZbrSCSB7L91rKzC+AsyIa7V0s3sAr+pYRMl2TZxOgKZEJfiOrpmUtqAN/gKdtARPhJVMCHceFh6Wz77fnim79gHod4nuoCSawnXDbocST46Pkq2w=
+	t=1789653532; cv=none; b=rIO4bKN/N22FyPD7pxWIBPWg6slHOo9JONxtpZk7v3L/Peshr50piK0jFRPbK9vdznSLSSAnOGkApZ5F5ZBpHzHMBCMdS/QrXfs7Y6eeEGjYf7xi0+GPlg7ZG4IpVDldpbnLRWGLbqjTGOO5/YXkgu1gwm0hkEwVKrJDGES1o/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653477; c=relaxed/simple;
-	bh=mx3gficTDYddR9ZowafVEAXBGtTvRLt8DqNH3hi4f/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eZIcs/wqG6O3YSoHdAlQNq/yOKdOkryRjCMk1Mivl0xQ+uVUj0HxWeZVyBlC2OnTbljFx2pkrD2Ex6wNoFJNt36y1U6hKgwePTu+Tamue+YPxsD6vxeP5Z5RNAwIS74yPPsDqYgQ3NWczdN1LKUD0gXjdm8CBl1tRlcmlLjxl/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AefP0ZTX; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789653532; c=relaxed/simple;
+	bh=bCFpQtachC1KJwXz7PqZLmT28jPdHjKwLuHYzFZREks=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=snKumtx718VrBcY5D4HgdKOVdMTNcExYA0nKfklZy+EzoVZZdYbfBxSuEJVSKdAZUFWs+jCUzFP8wTmd4ydaAQDy9m0bMRSvlWXWhkP2ASn71V8oPBJEF6WNxYRxZb7wQtwAZkXzJBnNuClLyFOwzm+pS5ZOFN+WIo83iRg1CT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=F5Wvvs4q; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AefP0ZTX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789653475; x=1821189475;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mx3gficTDYddR9ZowafVEAXBGtTvRLt8DqNH3hi4f/M=;
-  b=AefP0ZTXmECvDRWCbNeImTZ5cBpqDhe/QUy0xGyE+FwtlDbMpGTfJVK4
-   tOYJFQtoWuaH6E/ovBTuwnX/E8+Kt6uftaa23CiwpHmKzF7v1/N3U1/ww
-   ectzYspwQO/SQQjO3i/bl5BkQtd8XuEEWYiTMGV1ADI8+slFi/7ppdDoS
-   oOLVX75U2xYS9fUTwq1eFd+RHJRk/PfMzsKIl6vgz5g6iPCH8YCmPbQRK
-   b/GWOuz64/BPdcljRN+Hp+RfzaA5Dc6ro7ghWGVENrZUz6hXhqeE9oLyJ
-   F/EbfOgOg4fEuDNC4mom0VR7j9d4w8qMu/q6v37zU2A1cHS//L72PMEAB
-   w==;
-X-CSE-ConnectionGUID: rBh2uWPXQX+I7iRfnSvI/w==
-X-CSE-MsgGUID: Daz85EjCQmmNqY/pumUq9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89210053"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89210053"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:57:54 -0700
-X-CSE-ConnectionGUID: wEmSy5MOTBOitG1Ulztj4A==
-X-CSE-MsgGUID: cpUIdU5pSoivgcC8Aqz+hw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297299998"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 17 Sep 2026 06:57:51 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7CcW-000000007vt-2BMc;
-	Thu, 17 Sep 2026 13:57:48 +0000
-Date: Thu, 17 Sep 2026 21:57:42 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	jernej.skrabec@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	samuel@sholland.org, simona@ffwll.ch, tzimmermann@suse.de,
-	wens@kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/sun4i: Fix pdev reference leak in
- sun8i_r40_tcon_tv_set_mux()
-Message-ID: <202609172103.AfhCF3XZ-lkp@intel.com>
-References: <20260916182412.2091681-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="F5Wvvs4q"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso4446665e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789653528; x=1790258328; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=bCFpQtachC1KJwXz7PqZLmT28jPdHjKwLuHYzFZREks=;
+        b=F5Wvvs4qQ85b33FvRPmucAwKHR2HK3OQMrVtjLQRY2WoFr9FQAB3Whx2uitxq3OT7P
+         AJR5Yq3aBomTRuP6Nzjk8oQCVfVO0ewRP2gcRy8KRONsXRSmfMCidxgPQdgB/tlo+9qQ
+         2jysOGRGwEi5FbhPqpeSElQSvLM8DxRDgAhjsD4OVTuuo+DQfd4uYh47omBK01U4a4Rt
+         +Es9XgE4okcIL2eSCAp6prKmknmv2c7HmewzluAmRIJ/Hv5hw9020Y/FG2QHdgUYFcpg
+         HF3EWKSKMGhbBX9M0YoIe4j690KHzeoOblefw5bPoeZmYliBXyPxK8s4VG+vhj8X2sg5
+         fvSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789653528; x=1790258328;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bCFpQtachC1KJwXz7PqZLmT28jPdHjKwLuHYzFZREks=;
+        b=vsYB34URcZFhY1dNHoMdByyMv1pmUXelWPvsVI0QGu0156qnwflTayfb0JU5PWOdrU
+         IR5TE2Q8Ap0Ra79x04u8bWXkmVBvoG7cmXAqfLaXQFSQolmO75z++znn+Leejzs4WmaE
+         aAuSBbk5a1OsV9Ti4dEVWPtmpqdQGOcf+u67gdLLq+mPpwDToERKg8OCLLMT8RHW4PII
+         xKsIL5xYo61EnAjRxP0Bfr5YOG3z/PRONzMSyu9umSSIbyjZ9xIGmflpf2w4cXCrI1ik
+         wxJZH9GtlOOHYVNz+k+7Uaz+nxmyW4EFSmkh46IZBG77VyiEm+NeX5MlcC1G0DDt5zYr
+         ynFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzTM1zVFhzwHxnjWAKzZM9RgjVTeoWQ92VofkMwj7PakWRWlZsGloTgjb6FkEcX9Ju0dAX6nNIOIf11zLE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5noQ3JQcOuKeWLind0+EDvrlQNSRDD3mNjyycDbHdvAkPqNAs
+	drA2v4zm9/Gmb22ZgbWW9x3chEoaUfJvBeMWOKdq6Ch7JOKT2IpZqfp0ovlEmif836I=
+X-Gm-Gg: AYBFou3LGOmgEEydjbPtWUYM2FjBOw+223vvjYXtUCoFH1PGoTM5h9ZZzX5By0vYj2a
+	5XZEYsupT0DWAstgn6n4z12Y67jK7TNEtRXT8vMSfnZSxvJlgIC6wzMF7nrOJ14eKvNKuwQstQ8
+	+uX+R1/mLkNV/wU+ClCoqdtgxPqjMhM9E078iOsRwrZVJyCISMmVGw1BL4ppYDofLXB0WrnggfD
+	BFIxPsDDV6mvlReWC/YVG6ODK6rcTZyPlyjwjtYmoBhIJqC4EDrn9pDAxjfyoUsQ6OXwL67puxV
+	kWpShzqTuPoREcwuQ5e0ivA4Nf7CNxxCpMxYmApyMFVf2dpYDUdY/U/XdXPf1LqfMX3L0UQPMHZ
+	Sy1NTNc7V1DirLbJSiwe6xKqRI/m/SYxKpOclpyaPEz2BnoQW/Kc+mPmob7dDzMpFr1cNnH4cWz
+	4DIbK2FJwqUZ0UqtY7NYxpM1WoOMJzG0zTucxAhhq29qQSqeKg/YUubrBMtu7Q6z0W/z4kRzq56
+	HL1W43eOCEPLZCnsQE4fzfcG3TYSUqaeKLaFi5RP5zVtYAn2RDIDVd+3YtTFUEBEUzGTABGIgxz
+	5TVvUujhEPa+BNbCRGHCtA0L5PHqn7DmryabL6A+zUO8cw==
+X-Received: by 2002:a05:600c:a00e:b0:49e:63cd:31fb with SMTP id 5b1f17b1804b1-49eac4679b3mr92674295e9.9.1789653528216;
+        Thu, 17 Sep 2026 06:58:48 -0700 (PDT)
+Received: from p200300de37172700e7f885d729fa4be7.dip0.t-ipconnect.de (p200300de37172700e7f885d729fa4be7.dip0.t-ipconnect.de. [2003:de:3717:2700:e7f8:85d7:29fa:4be7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2160c2sm81755845e9.6.2026.09.17.06.58.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 06:58:47 -0700 (PDT)
+Message-ID: <0cce3ff7dc782ef2f2618212b6b87889aea8e653.camel@suse.com>
+Subject: Re: [PATCH v6 1/2] md: Don't set MD_BROKEN for RAID1 and RAID10
+ when using FailFast
+From: Martin Wilck <martin.wilck@suse.com>
+To: Kenta Akagi <k@mgml.me>, Xiao Ni <xni@redhat.com>,
+ linan666@huaweicloud.com
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ song@kernel.org, 	yukuai@fnnas.com, shli@fb.com, mtkaczyk@kernel.org
+Date: Thu, 17 Sep 2026 15:58:46 +0200
+In-Reply-To: <b2cc7f6e-b029-48d8-9c1a-cc8bdbdc4f1a@mgml.me>
+References: <7944a042-2e1e-1487-1b42-529768afbbd0@huaweicloud.com>
+	 <0106019b9349bf39-5460c782-3d63-43cb-a56e-e34760ce51cd-000000@ap-northeast-1.amazonses.com>
+	 <CALTww282Kyg9ERXeSiY5Thd-O40vEXjAXsD8A2PxEsd-h-Cg3Q@mail.gmail.com>
+	 <b2cc7f6e-b029-48d8-9c1a-cc8bdbdc4f1a@mgml.me>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916182412.2091681-1-vulab@iscas.ac.cn>
 
-Hi Wentao,
+Hello Kenta, all,
 
-kernel test robot noticed the following build errors:
+On Fri, 2026-01-16 at 11:04 +0900, Kenta Akagi wrote:
+>=20
+>=20
+> On 2026/01/07 12:35, Xiao Ni wrote:
+> > On Tue, Jan 6, 2026 at 8:30=E2=80=AFPM Kenta Akagi <k@mgml.me> wrote:
+> > >=20
+> > > Hi,
+> > > Thank you for reviewing.
+> > >=20
+> > > On 2026/01/06 11:57, Li Nan wrote:
+> > > >=20
+> > > >=20
+> > > > =E5=9C=A8 2026/1/5 22:40, Kenta Akagi =E5=86=99=E9=81=93:
+> > > > > After commit 9631abdbf406 ("md: Set MD_BROKEN for RAID1 and
+> > > > > RAID10"),
+> > > > > if the error handler is called on the last rdev in RAID1 or
+> > > > > RAID10,
+> > > > > the MD_BROKEN flag will be set on that mddev.
+> > > > > When MD_BROKEN is set, write bios to the md will result in an
+> > > > > I/O error.
+> > > > >=20
+> > > > > This causes a problem when using FailFast.
+> > > > > The current implementation of FailFast expects the array to
+> > > > > continue
+> > > > > functioning without issues even after calling md_error for
+> > > > > the last
+> > > > > rdev.=C2=A0 Furthermore, due to the nature of its functionality,
+> > > > > FailFast may
+> > > > > call md_error on all rdevs of the md. Even if retrying I/O on
+> > > > > an rdev
+> > > > > would succeed, it first calls md_error before retrying.
+> > > > >=20
+> > > > > To fix this issue, this commit ensures that for RAID1 and
+> > > > > RAID10, if the
+> > > > > last In_sync rdev has the FailFast flag set and the mddev's
+> > > > > fail_last_dev
+> > > > > is off, the MD_BROKEN flag will not be set on that mddev.
+> > > > >=20
+> > > > > This change impacts userspace. After this commit, If the rdev
+> > > > > has the
+> > > > > FailFast flag, the mddev never broken even if the failing bio
+> > > > > is not
+> > > > > FailFast. However, it's unlikely that any setup using
+> > > > > FailFast expects
+> > > > > the array to halt when md_error is called on the last rdev.
+> > > > >=20
+> > > >=20
+> > > > In the current RAID design, when an IO error occurs, RAID
+> > > > ensures faulty
+> > > > data is not read via the following actions:
+> > > > 1. Mark the badblocks (no FailFast flag); if this fails,
+> > > > 2. Mark the disk as Faulty.
+> > > >=20
+> > > > If neither action is taken, and BROKEN is not set to prevent
+> > > > continued RAID
+> > > > use, errors on the last remaining disk will be ignored.
+> > > > Subsequent reads
+> > > > may return incorrect data. This seems like a more serious issue
+> > > > in my opinion.
+> > >=20
+> > > I agree that data inconsistency can certainly occur in this
+> > > scenario.
+> > >=20
+> > > However, a RAID1 with only one remaining rdev can considered the
+> > > same as a plain
+> > > disk. From that perspective, I do not believe it is the mandatory
+> > > responsibility
+> > > of md raid to block subsequent writes nor prevent data
+> > > inconsistency in this situation.
+> > >=20
+> > > The commit 9631abdbf406 ("md: Set MD_BROKEN for RAID1 and
+> > > RAID10") that introduced
+> > > BROKEN for RAID1/10 also does not seem to have done so for that
+> > > responsibility.
+> > >=20
+> > > >=20
+> > > > In scenarios with a large number of transient IO errors, is
+> > > > FailFast not a
+> > > > suitable configuration? As you mentioned: "retrying I/O on an
+> > > > rdev would
+> > >=20
+> > > It seems be right about that. Using FailFast with unstable
+> > > underlayer is not good.
+> > > However, as md raid, which is issuer of FailFast bios,
+> > > I believe it is incorrect to shutdown the array due to the
+> > > failure of a FailFast bio.
+> >=20
+> > Hi all
+> >=20
+> > I understand @Li Nan 's point now. The badblock can't be recorded
+> > in
+> > this situation and the last working device is not set to faulty. To
+> > be
+> > frank, I think consistency of data is more important. Users don't
+> > think it's a single disk, they must think raid1 should guarantee
+> > the
+> > consistency. But the write request should return an error when
+> > calling
+> > raid1_error for the last working device, right? So there is no
+> > consistency problem?
+>=20
+> Hi all,
+>=20
+> I understand that when md_error is issued for the last remaining
+> rdev,=20
+> the array should be stopped except in the failfast case, also,=20
+> it is no longer appropriate to treat an RAID1 array that has lost=20
+> redundancy as "just a normal single drive" [1].
+>=20
+> I will post an PATCH v7 based on v5.
 
-[auto build test ERROR on sunxi/sunxi/for-next]
-[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+I wonder what became of this v7 series. Have you given up on this?
+If yes, what is the bottom line - simply not using failfast in setups
+like the one you described?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-sun4i-Fix-pdev-reference-leak-in-sun8i_r40_tcon_tv_set_mux/20260916-182412
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/sunxi/linux.git sunxi/for-next
-patch link:    https://lore.kernel.org/r/20260916182412.2091681-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] drm/sun4i: Fix pdev reference leak in sun8i_r40_tcon_tv_set_mux()
-config: alpha-randconfig-r1306-20260917 (https://download.01.org/0day-ci/archive/20260917/202609172103.AfhCF3XZ-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 15.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609172103.AfhCF3XZ-lkp@intel.com/reproduce)
+Martin
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609172103.AfhCF3XZ-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/drm/sun4i/sun4i_tcon.c: In function 'sun4i_tcon_init_clocks':
->> drivers/gpu/drm/sun4i/sun4i_tcon.c:811:21: error: 'pdev' undeclared (first use in this function); did you mean 'dev'?
-     811 |         put_device(&pdev->dev);
-         |                     ^~~~
-         |                     dev
-   drivers/gpu/drm/sun4i/sun4i_tcon.c:811:21: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +811 drivers/gpu/drm/sun4i/sun4i_tcon.c
-
-   785	
-   786	static int sun4i_tcon_init_clocks(struct device *dev,
-   787					  struct sun4i_tcon *tcon)
-   788	{
-   789		tcon->clk = devm_clk_get_enabled(dev, "ahb");
-   790		if (IS_ERR(tcon->clk)) {
-   791			dev_err(dev, "Couldn't get the TCON bus clock\n");
-   792			return PTR_ERR(tcon->clk);
-   793		}
-   794	
-   795		if (tcon->quirks->has_channel_0) {
-   796			tcon->sclk0 = devm_clk_get_enabled(dev, "tcon-ch0");
-   797			if (IS_ERR(tcon->sclk0)) {
-   798				dev_err(dev, "Couldn't get the TCON channel 0 clock\n");
-   799				return PTR_ERR(tcon->sclk0);
-   800			}
-   801		}
-   802	
-   803		if (tcon->quirks->has_channel_1) {
-   804			tcon->sclk1 = devm_clk_get(dev, "tcon-ch1");
-   805			if (IS_ERR(tcon->sclk1)) {
-   806				dev_err(dev, "Couldn't get the TCON channel 1 clock\n");
-   807				return PTR_ERR(tcon->sclk1);
-   808			}
-   809		}
-   810	
- > 811		put_device(&pdev->dev);
-   812	
-   813		return 0;
-   814	}
-   815	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--=20
+Dr. Martin Wilck <mwilck@suse.com>
+SUSE Software Solutions Germany GmbH, Frankenstr. 146, 90461 N=C3=BCrnberg,
+Germany
+Gesch=C3=A4ftsf=C3=BChrer: Stefan Gaiser, Jochen Jaser, Abhinav Puri (HRB
+36809,AG N=C3=BCrnberg)
