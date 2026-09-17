@@ -1,95 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73BE4C2265
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:29:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597614C753C;
+	Thu, 17 Sep 2026 10:30:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640987; cv=none; b=eBn9pZ3wJVap+LwWy93dG2OnNKcQOhIf3MgP9MtQ+DDYn2+ZJWJTizgpx3CyeHVBegjMvunsmjpWYSbw8nlQrvckzosPmycF13QQkesA3u37wbkiwzQKpnKp8dqonU2JlvsWWJjRh6utzfCIsY2v3ZFnBmEN6Z+YXIh4fY+P14I=
+	t=1789641038; cv=none; b=X5cGq9fOrbrBvALrQibgSir2noBefL6tDj9jlAAI9QtpFIYRtgqApDp9MuiO6tQ4K9SuQZ0g0OzvT6O577dKNGtNvZjOHF0V0vYE45QzB58uP+wPRuzmIV5m//5W0TYMIgbdhlX6Gh4xIUeIAJhoJ9iXrOsq35G7+3RK/p9f2f4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640987; c=relaxed/simple;
-	bh=A2fdU7ZCV46uVFIhqaM+LkYuD7fWh0388vMbNgqTAGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gtn5YnmIsVJcSuIKElgODdwgnzebWb7TyaOcoZj1+O03l0SGsX019EqQH/eLPHiAk6xMORMYQYM+3nidivQF18j+h3Dx+8tm4jeF5pUxeTbv6OwXYDtqyBXnFCAPR+KClu8BejbUZPzj0QhFYjmnqTqrKiI9jvFN28VeoiFiP+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jV3I3UmV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789641038; c=relaxed/simple;
+	bh=h+PSZ07ElaAG4uKNSW/vf4ikRTNpBKrbzTc+pKVFaBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Z0R84qXpnYJMBaKu4t5FRuIw6xkY0J6TBOCgsC7rAzN9z686VcsXBMwZmwACfx4Znd0CkQ3z/QdHgXV57u1h3gsFGgreStvTK1RivrDml9L570xJfEg2prXzuJFovlBdyWVq31NlLcmGve8seP6BXH41p+2SUQXLhhLI56H1APo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkLzcuhg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jV3I3UmV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD9D1F00899;
-	Thu, 17 Sep 2026 10:29:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkLzcuhg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0ACD1F00899;
+	Thu, 17 Sep 2026 10:30:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789640981;
-	bh=A2fdU7ZCV46uVFIhqaM+LkYuD7fWh0388vMbNgqTAGM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jV3I3UmViUB2+jLzp3yKXMQ3n1CJKdYKHEv8AM79KRyQbDlgrg57uHLfrDvo3ZURK
-	 QlRG+rWr4lSjeEVHGGtGmN6RDlZhH9aFZE7dfZBJ3rX8+8EfY9hzuvd2gzlHidvCyG
-	 eX+SPWfveocWla2CfbtdQSme2Cn3k3qYacGYuGrVUK9tXoVOApqS7opKUlSicdpi2f
-	 UcmPiRkpbscmIcGUAprpKkwJdOp5HEptgQ4p4rLIdVrJMp07vWPZbrO6LIiuG8V2AQ
-	 vkBQ7UUQ+U+rQNMEYVx6d76andzLuLTjhTLRXMB3W2C3hhpaEpcFybAXP0bjTAsJ2u
-	 kCPQDrqx3fq4Q==
-Date: Thu, 17 Sep 2026 11:29:35 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Bo Zhang <zhangbo0325@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, baohua@kernel.org, 
-	kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
-	mhocko@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Bo Zhang <zhangbo56@xiaomi.com>
-Subject: Re: [PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low
- swapcache
-Message-ID: <aqvA_tm8vSLyUWqe@gremlin>
-References: <20260903040131.4016290-1-zhangbo56@xiaomi.com>
- <20260906011820.382381-1-zhangbo56@xiaomi.com>
+	s=k20260515; t=1789641025;
+	bh=zhN6BBtSDK6hxpI9eloNR89Fq177Dh+jL9nZm6Y6ofA=;
+	h=Date:From:To:Cc:Subject;
+	b=IkLzcuhgK0/Q9UQfYNZwq3YCMvYygdhnRpOzw4ph3enkXFTR+AVtjRfDoVVeeUsiE
+	 ak76t7uPKkNlyBJcoMibYfc/ogWjdww4SmfOuULRpCxgNPYSAAcuGTUbZhoKmWtNrN
+	 5ffqqdQZNhD8W7uLrExspoqHIPr2Q5EZK0jeJvxYeiZZKnkTBAfj5TXyVkRBcVbGq1
+	 tPFHY+1t6M0mZkx2KQ57u5+5bv1y0guMvWK1iDTctfEFOKSPc2HDPdLJ+2nhEtXqjF
+	 Ao2EfejQBQOzjPGxnheNz67xnjWdhI+Y4BN2m7A2pU7bX4W6bVlva2qbQHmRHOnyZJ
+	 WBTP/a1tVyL+Q==
+Date: Thu, 17 Sep 2026 11:30:21 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the bpf tree
+Message-ID: <aqvBPVcN__UX8P85@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LrB2mtwSvA+Hmh+Y"
+Content-Disposition: inline
+
+
+--LrB2mtwSvA+Hmh+Y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906011820.382381-1-zhangbo56@xiaomi.com>
 
+Commits
 
-This is the friendly patch-bot of Lorenzo Stoakes.
+  4499609f99fd5 ("selftests/bpf: Test global subprog callback contexts")
+  3506b9a2f1085 ("bpf: Verify global subprogs in each sleepability context")
 
-You have sent him a patch that has triggered this response.
+are missing a Signed-off-by from their committers
 
-He used to manually respond to these common problems, but in order to save
-his sanity (he kept writing the same thing over and over, yet to different
-people), I was created.
+--LrB2mtwSvA+Hmh+Y
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Hopefully you will not take offence and will fix the problem in your patch
-and resubmit it so that it can be accepted into the Linux kernel tree.
+-----BEGIN PGP SIGNATURE-----
 
-When sending emails to mm:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqrwTwACgkQJNaLcl1U
+h9A3wwf9Gm1KLu/zqi0kvP0jtvpYXbJRSpdZZoFf/QL/Wg6kgbn9aJ70YT2bxxA9
+6wXIrIBufm0ojyqIuyct2ttsJ3kCajYTlbFJIvc8ZHd+uBpq/rctteYwRv/euo+U
+y5kBdWhTk1xqALWZ8tnwHsM4WMUVF68ENat3BmnvDQTPA0j7lRujdGGCAG9b2O+O
+hgYAaNZhPHuvGEwE1YAPpQEavxK51MIaZy6OYhUw6eIa/M1aGsRh7j/uTUbAHD13
+RdOa4PMlBt7RLK+HXRg3N+KHk88kfyjJ0a7dr7KQS+VwywzBLF2ejK14EvoPj1/x
+fCwz584wbDTHgnbiwhKPGKJ8gxao9Q==
+=YEMO
+-----END PGP SIGNATURE-----
 
-New revisions sent in-reply-to mail
-
-Please always send new revisions of series individually, not in-reply-to
-any other email.
-
-The easiest way of accomplishing this is to use b4 [0] (the recommended
-way of sending patches to mm), otherwise format patches like this:
-
-For a patch series, e.g. at v2:
-
-$ git format-patch -v2 --cover-letter --thread ...
-
-For an individual patch, e.g. at v2:
-
-$ git format-patch -v2 HEAD~1
-
-[0]: https://b4.docs.kernel.org/en/latest/contributor/send.html
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Lorenzo will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-Lorenzo's patch email bot
-
-[ Idea shamelessly stolen from greg-kh ]
-
---
-Cheers, Lorenzo
+--LrB2mtwSvA+Hmh+Y--
