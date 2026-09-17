@@ -1,211 +1,93 @@
-Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A7F35AC3F
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F98634A791;
+	Thu, 17 Sep 2026 01:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607495; cv=none; b=AtKlhsv4lvP7t38bDm8LGVpU1CLB6DDxVWeYqU52eqLlhmRHjxgvKcx9iZh4ipr/cat/kPXOOf6csmg3XUHEP5dUvnlfvrBsFwBUPiT25ksfOwL9wStFsZz/xyZAfbV9G7A+8gcVyu78JsksbT2DQJZBJ9Hbb0HylDNZGE3/DeE=
+	t=1789607525; cv=none; b=uxwcQNLDr7BdheSPqmdf76uRj7UAlKGkeL44PS4glww/VnAW//dY9ekU9MqawfpEN5PegPJ6/R9pIuFLUU4N7gZlIT48yM7uLF2dpmPF6YQET/iC+uE3w8W6vZ9g3ZZbfO1uG5fZJhEGavsbbfBdEDDuX9Xz5jcRE0iy2APIfTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607495; c=relaxed/simple;
-	bh=P9osztPS/w56p8S5ChVkJvqYNJdgBwmiJ78Pt9GIkFw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L1rnqLI7PgvuDdxjEkQ5IuuudqohwN5lGoAHCDtJXTs0npRVs6P/tlUtFt7o6eyAaZNEJ/dyiK0umM/v+VWJcAzWdaz7q5wAoVX+O1Up+P4D1vy1g5uIGdWsvt/n+YhXPEYM/rz6/2vgYMWm3Rh/M8gS5LGm5IG3xJARH1FDhFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tcgYrEyQ; arc=none smtp.client-ip=91.218.175.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789607525; c=relaxed/simple;
+	bh=Jjq1Oe40v5kFXyhhBn105uwzVlqWcacroTzvz4jNvi8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ogpCGZ0xmarTNfhA5lX6PKMOM1NpkCd9Ovo4zXGKsGxZ4a6HYhtJDN29FFnkptTWdqQSlpwY8V79vVIMBmkhfnOho3feX5o640qS7oIyZvTSoOWtcI4ga+PaQMm+f6GUXj5kW5xGRJtAXJDsELu/TcuA/r84b8Vq11hXGI+Enh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=QOfjA2pP; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tcgYrEyQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P9osztPS/w56p8S5ChVkJvqYNJdgBwmiJ78Pt9GIkFw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789607489; v=1; x=1790212289;
- b=tcgYrEyQBicp8cfhe0A5aEsa8zlDiEOciMOZOaO6W2EGB+zhzvo5s8MPuP7lfta/DHBStWhV
- r4PT6ENfRG3WMesbwoF8kWhLgQiSKjihMAxqdezHGd4BHBveTMHVDO0LoZTjjMO3l4S2Xo62blB
- qTHzHm5pApIff0exspDOYh3w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d5848c4447c400b0;
-	Thu, 17 Sep 2026 01:11:29 +0000
-X-Mizu-Trace-ID: d5848c4447c400b0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
-Date: Thu, 17 Sep 2026 09:12:18 +0800
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="QOfjA2pP"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H1Bs6022878187, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789607514; bh=Jjq1Oe40v5kFXyhhBn105uwzVlqWcacroTzvz4jNvi8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=QOfjA2pPKjMTPp5dO9Fez0JrzvvG8eM0sKkrRo4ozpkGCRAPqK9ISrmDAffdEGbxg
+	 dAfSyGBsei3WnaSf7DqtL93rUcu2dxv2Oq2y2gIxp8UbyatqJVwgHySEXmLT+FHIfZ
+	 lVnUBHM4G1+AXhetDL5lSHWV27dLjiLf3Ovp/9Pinu8085/LGi9Lco2g9n1D4dhC6Z
+	 bZwXhk5LPLIJ4As0hcYzTQQ4PEdtcO5sIqwhzpmPS3OBg9tXIoMBlWgLCKH7ouMJvb
+	 UvzxQmJr13OU03/Yn8sEtb620DY1+BSuNe6jumpo3Tmq/0l/krZO8IjsWxFUnlhTM2
+	 Sg7gPrJZdNW5Q==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H1Bs6022878187
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 17 Sep 2026 09:11:54 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 09:11:54 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 09:11:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 17 Sep 2026 09:11:53 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: kimwooseok <5mghybrid@khu.ac.kr>, Jes Sorensen <Jes.Sorensen@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Topic: [PATCH wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Index: AQHdQvXIGvF0I1VmF0mL7Gmxnqj2RLbR/JqQ
+Date: Thu, 17 Sep 2026 01:11:53 +0000
+Message-ID: <0b970cf2ade94c569eab459ca996acab@realtek.com>
+References: <CAH1Bc_wBUmmNyzF3c2H1aFBRBbAPSw0hR=1MnPOAcCXypVL_Dg@mail.gmail.com>
+ <CAH1Bc_xSxOrEUjx11NtTE9Y6WVitF8K0mVws8s3623C8O=Lpkw@mail.gmail.com>
+In-Reply-To: <CAH1Bc_xSxOrEUjx11NtTE9Y6WVitF8K0mVws8s3623C8O=Lpkw@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-To: Suren Baghdasaryan <surenb@google.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
- <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
- <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Suren
-
-On 2026/9/17 03:07, Suren Baghdasaryan wrote:
-> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
->>
->> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>
->>> Hi Suren
->>>
->>> Thanks for you review.
->>>
->>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
->>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>>>
->>>>> The reservation is already stored in the maple tree when
->>>>> vm_module_tags_populate() fails. A failed load never unloads the
->>>>> module, so nothing releases the entry. Release it and roll
->>>>> module_tags.size back. Without the rollback a concurrent load that
->>>>> already passed needs_section_mem() can reuse the freed gap, skip
->>>>> vm_module_tags_populate() and write to unmapped memory.
->>>>>
->>>>> vmap_pages_range() may have installed some PTEs before failing. A
->>>>> retry to populate the same range would BUG on them, so undo them,
->>>>> but only if vmap actually ran.
->>>>>
->>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
->>>>
->>>> If a patch fixes two other patches, it likely needs to be split so
->>>> that each part fixes one patch only. But read on please. I'm not sure
->>>> if one of the fixes is correct.
->>>>
->>>
->>> Kept them in one patch because they only make sense together.
->>>
->>> After a failed populate the reservation is released and the
->>> size rolled back, so the next load takes the same gap and calls
->>> vm_module_tags_populate() again, and that retry would trip over
->>> the PTEs the failed vmap left behind.
->>>
->>> Without the rollback a load that already passed needs_section_mem()
->>> just reuses the gap, skips populate and writes to unmapped memory.
->>> So splitting them leaves each half broken.
->>
->> Yeah, that's why I think vmap_pages_range() cleanup should be a
->> completely separate patch with vmap_pages_range() doing cleanup
->> itself.
->>
-
-I think I get where you're coming from now.
-Thanks for taking the time to explain.
-
->>>
->>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>>> Cc: stable@vger.kernel.org
->>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>>> ---
->>>>>  mm/alloc_tag.c | 10 ++++++++++
->>>>>  1 file changed, 10 insertions(+)
->>>>>
->>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->>>>> index 2070e682fe10..95ddf5b743d0 100644
->>>>> --- a/mm/alloc_tag.c
->>>>> +++ b/mm/alloc_tag.c
->>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
->>>>>                                      next_page, PAGE_SHIFT) < 0) {
->>>>>                         release_pages_arg arg = { .pages = next_page };
->>>>>
->>>>> +                       /*
->>>>> +                        * vmap_pages_range() only runs once all pages were
->>>>> +                        * allocated, and it may have installed some mappings
->>>>> +                        * before failing. Undo them.
->>>>
->>>> If vmap_pages_range() failed to map the range, why should we need to
->>>> undo it? If it indeed leaves some partial mapping when failing then I
->>>> would argue that vmap_pages_range() should be undoing these partial
->>>> mappings itself before returning the error.
->>>>
->>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
->>
->> Hmm. I wonder if this behavior is intentional or requires a fix. The
->> only possible reason I can think of is performance but I can't imagine
->> a failure to map is a performance-critical case.
->>
->> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
-> 
-> Huh, my gmail thinks you are still at your previous companies :)
-> 
-
-I manually fixed it on the mailing list for this thread.
-
->> guys think? Shouldn't vmap_pages_range() undo its possible partial
->> mapping when it fails?
->>
->>
->>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
->>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
->>> so I did the same here.
->>>
->>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
->>> be a relatively large change, and we would need to consider many more cases. So I think we keep
->>> the current behaviour for now.
->>
->> Yeah, I understand it would require a deeper cut but if that's the
->> right way to handle this we might as well do that. Let's see what MM
->> folks think.
->>
-
-Sounds good to me. Let's wait and hear what the MM folks say.
-
-Thanks
-Best Regards
-Hao
-
->>>
->>> Thanks
->>> Best Regards
->>> Hao
->>>
->>>>> +                        */
->>>>> +                       if (nr == more_pages)
->>>>> +                               vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
->>>>>                         /* Clean up and error out */
->>>>>                         release_pages(arg, nr);
->>>>>                         return -ENOMEM;
->>>>> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>>>>                 return ret;
->>>>>
->>>>>         if (module_tags.size < offset + size) {
->>>>> +               unsigned long prev_size = module_tags.size;
->>>>>                 int grow_res;
->>>>>
->>>>>                 module_tags.size = offset + size;
->>>>> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>>>>                         shutdown_mem_profiling(true);
->>>>>                         pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
->>>>>                                mod->name);
->>>>> +                       release_module_tags(mod, false);
->>>>> +                       module_tags.size = prev_size;
->>>>
->>>> Yes, this one is a valid fix. It fixes 0f9b685626da commit.
->>>>
->>>>>                         return ERR_PTR(grow_res);
->>>>>                 }
->>>>>         }
->>>>> --
->>>>> 2.25.1
->>>>>
+a2ltd29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4gd3JvdGU6DQo+IEEgZmFpbGVkIFJYIFVS
+QiBzdWJtaXNzaW9uIGNhbiBsZWFrIHRoZSBza2IgYWxsb2NhdGVkIGZvciB0aGF0IGF0dGVtcHQu
+DQo+IHJ0bDh4eHh1X3N1Ym1pdF9yeF91cmIoKSBhbGxvY2F0ZXMgdGhlIGJ1ZmZlciBhbmQgc3Rv
+cmVzIGl0IGluIHVyYi5jb250ZXh0LA0KPiBidXQgaWYgdXNiX3N1Ym1pdF91cmIoKSBmYWlscywg
+aXQgb25seSB1bmFuY2hvcnMgdGhlIFVSQi4gVGhlIFJYIHdvcmtlcg0KPiBxdWV1ZXMgRU5PTUVN
+L0VBR0FJTiBmYWlsdXJlcyBmb3IgcmV0cnkgd2l0aCB0aGF0IGJ1ZmZlciBzdGlsbCBhdHRhY2hl
+ZC4NCj4gDQo+IE9uIHRoZSBuZXh0IGF0dGVtcHQsIHJ0bDh4eHh1X3N1Ym1pdF9yeF91cmIoKSBh
+bGxvY2F0ZXMgYW5vdGhlciBza2IgYW5kDQo+IG92ZXJ3cml0ZXMgdXJiLmNvbnRleHQsIGxvc2lu
+ZyB0aGUgcmVmZXJlbmNlIHRvIHRoZSBwcmV2aW91cyBidWZmZXIuDQo+IFN0b3BwaW5nIGJlZm9y
+ZSB0aGUgcmV0cnkgYWxzbyBsZWFrcyB0aGUgYnVmZmVyIGJlY2F1c2UgcGVuZGluZy1yZXF1ZXN0
+DQo+IGNsZWFudXAgZnJlZXMgb25seSB0aGUgVVJCLg0KPiANCj4gRml4IHRoZSBsZWFrIGF0IHRo
+ZSBzdWJtaXNzaW9uIGZhaWx1cmUgYnkgbWFraW5nIHJ0bDh4eHh1X3N1Ym1pdF9yeF91cmIoKQ0K
+PiByZXNwb25zaWJsZSBmb3IgYm90aCBhbGxvY2F0aW5nIHRoZSBza2IgYW5kIHJlbGVhc2luZyBp
+dCB3aGVuIHN1Ym1pc3Npb24NCj4gZmFpbHMuIEZyZWUgdGhlIG5ld2x5IGFsbG9jYXRlZCBza2Ig
+YW5kIGNsZWFyIHVyYi5jb250ZXh0IGJlZm9yZSByZXR1cm5pbmcNCj4gdGhlIGVycm9yLCBzbyBu
+ZWl0aGVyIHJldHJ5IG5vciBzdG9wIHJlY2VpdmVzIGEgcGVuZGluZyBVUkIgdGhhdCBzdGlsbA0K
+PiBvd25zIGEgYnVmZmVyLiBSZW1vdmUgdGhlIGNhbGxlci1zaWRlIHNrYiBjbGVhbnVwIGZyb20g
+c3RhcnQgYW5kIHRoZSBSWA0KPiB3b3JrZXI7IHRob3NlIGNhbGxlcnMgbm93IGhhbmRsZSBvbmx5
+IHdoZXRoZXIgdG8gcmV0cnkgb3IgcmVsZWFzZSB0aGUgVVJCLg0KPiANCj4gRml4ZXM6IDI2ZjFm
+YWQyOWFkOSAoIk5ldyBkcml2ZXI6IHJ0bDh4eHh1IChtYWM4MDIxMSkiKQ0KPiBBc3Npc3RlZC1i
+eTogR1BULTYgQXN0cmENCj4gU2lnbmVkLW9mZi1ieToga2ltd29vc2VvayA8NW1naHlicmlkQGto
+dS5hYy5rcj4NCg0KQ2FuIHlvdSBnaXZlIHlvdXIgcy1vLWIgbW9yZSBmb3JtYWw/IExpa2UsIEtp
+bSBXb28tU2Vvaz8NCg0KUmV2aWV3ZWQtYnk6IFBpbmctS2UgU2hpaCA8cGtzaGloQHJlYWx0ZWsu
+Y29tPg0KDQoNCg==
