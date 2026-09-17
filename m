@@ -1,71 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F723A5E71
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83E84C10E4;
+	Thu, 17 Sep 2026 15:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659435; cv=none; b=df4onrW8zsECvJJzcnuQpzXKS2twVkzAnIVuVry2hKpSo1tpmHFbBwXbqpSCZjGKsZf5BybQpzAXhOjBmgdNnbVkqLd40V2NlcjNc/2JzO87JzKJ9Rbf74Rv/4oIRaU4wdeNSB4CDOoIQ1GDqyZo8R9LL+JKRRJtoVV18RhNnNk=
+	t=1789659452; cv=none; b=Bz3ZAyNOh+GibTypl2tVg2fJrY0Lxx1jtoLU0PQOhqfFh8fBYMLsAmwSd6h4uLMSSPvw0DY8NIv2eQ31c39ilGFbuK5aRTwlSuENkR3v1HqjuVsJy08X++5B76El1SLXcYvvSRcDB1o4QjfRNeHxZeugWW1eGD50B12dKS2Bp9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659435; c=relaxed/simple;
-	bh=NYTnDkZFL7m/IP56oGFs81XfqvNjPzbV2wHWJTPl2+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QzorCpZS8KXZOAEOtyxykRil9L5Mfss5svqXywgz/JMAD6tt0rCYw/m5VvmK0zJHId/AQRdgSbvoX7QttMFse07W1wTBf+EiLEYg5wi/7IcUEvjUx2Z/q86ZIFJf7kh4c2ZooNpuX0SDL+/zY6eI1AAgKKwKMvmiD9xsTi25GCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeDCnO0P; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeDCnO0P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6800D1F00899;
-	Thu, 17 Sep 2026 15:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789659430;
-	bh=9FS0Zh39EvFJNF8MC1pNriXws4rcUuxV51H6jv1cDVE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KeDCnO0PnrntQhIgYqpH3onKDiM1X2/wp76FssvsPjXqggYWTwfwqLH1pkqB2Ajcy
-	 vmjypuw8M3Kk1aYxSksj9IqyB1znizEtJ1bWXg7e9Ajy4/mv1xhMs+Hmoxkw2pEz3Z
-	 yuVxBA6FSKrp5VYngimnYCcggyrz9uhKHT8qqalB5XhOVVLJpBRCoXVXHnJp627ltv
-	 GI1OPdMl72ZN9NS9QW1mTWJ4PwqUq26hYTR6rWDP5cgenceUCO7pdadWNJ5Oc+KHs/
-	 jz3qBVJLQEivTZVTX/G6974n7dPINny/Pr6N9OsCUfMj3rxXy3u/Zr+2042ss4DlqQ
-	 wFwrUHKRheJXw==
-From: "Harry Yoo (Meta)" <harry@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
+	s=arc-20240116; t=1789659452; c=relaxed/simple;
+	bh=vWycF/OkNIdJPdWa6/e7T0fw4fZdq7rOwCWBikgklag=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ghgZWiqgndWFfvfshR0WLSOPPLBOsvnJVQ4ybZPI49Wl/sjnlyoeWlmgSkU4YqHRqqZ8wrp6z6ul66K0pDrOqWXFVdb+S1yDj5NJ+0EkFI47ISYftrrfE7jFw+gMfsRv1zF+knFzZBvHv5KDPetpocW4Fz5Zxx6VQLQpTJFUSFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHtD4pCaxqLrCDCA--.5904S2;
+	Thu, 17 Sep 2026 23:37:14 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: haibo.chen@nxp.com,
+	han.xu@nxp.com,
+	imx@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-mm@kvack.org
-Subject: Re: [PATCH slab/for-next-fixes] MAINTAINERS: update slab.git URL
-Date: Thu, 17 Sep 2026 16:37:01 +0100
-Message-ID: <178965921180.1114058.11649457371183198247.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
-References: <20260917-maint-slab-git-v1-1-d21a5210aec9@kernel.org>
+	linux-spi@vger.kernel.org,
+	yogeshgaur.83@gmail.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: nxp-fspi: Fix runtime PM leak in nxp_fspi_probe()
+Date: Thu, 17 Sep 2026 15:37:13 +0000
+Message-Id: <20260917153713.2160743-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHtD4pCaxqLrCDCA--.5904S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKrW7ZFWfZr17ZryfAFWkJFb_yoWkXFg_C3
+	WUuF97WrWUKr4ktFnxKr13Zr92vrZxXF1xWr4qyFWSy3yDAF1Fv3y8Zrn8Ar4xuw48Cr1D
+	uF1kta47Zr1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1ID73UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qr9tgrPAAAs0
 
+pm_runtime_get_sync() increments the runtime PM usage counter even when
+it fails.  If it returns an error, nxp_fspi_probe() returns without
+dropping that reference, so the counter stays unbalanced.
 
-On Thu, 17 Sep 2026 16:38:37 +0200, Vlastimil Babka (SUSE) wrote:
-> The slab.git tree has been moved to a new URL as part of the mm-next
-> integration. Reflect this in MAINTAINERS as well. The old URL will stay
-> around with historical branches and tags.
+Balance the counter with pm_runtime_put_noidle() before returning, as
+nxp_fspi_remove() already does.
 
-Applied to mm/slab.git slab/for-next-fixes, thanks!
+Fixes: 97be4b919a60 ("spi: spi-nxp-fspi: enable runtime pm for fspi")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/spi/spi-nxp-fspi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-[1/1] MAINTAINERS: update slab.git URL
-      commit: 4c51f0b648cbf190d15d4ff60826c769f7e81df6
-
-https://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git/commit/?id=4c51f0b648cbf190d15d4ff60826c769f7e81df6
-
+diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
+index 1e36ae084dd8..9883e5149dc4 100644
+--- a/drivers/spi/spi-nxp-fspi.c
++++ b/drivers/spi/spi-nxp-fspi.c
+@@ -1351,8 +1351,10 @@ static int nxp_fspi_probe(struct platform_device *pdev)
+ 
+ 	/* enable clock */
+ 	ret = pm_runtime_get_sync(f->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(f->dev);
+ 		return dev_err_probe(dev, ret, "Failed to enable clock");
++	}
+ 
+ 	/* Clear potential interrupts */
+ 	reg = fspi_readl(f, f->iobase + FSPI_INTR);
 -- 
-Cheers,
-Harry / Hyeonggon
+2.34.1
 
