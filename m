@@ -1,142 +1,193 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7894B44AF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F6C4C10DF
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658366; cv=none; b=kmmfIizLoA+iH+e9DpJUPAjtMycQmu0X/gX1jZqasVSxtp5Yp0pfXe8tlGXNCamgd8QL5WWM7AHwQGuuWt/gBrKqQ3y60rynGpJ9uwMFTs81Y4qGDfwdXbrEhpQD7hgfkKUUCpDmNuUUrFnOLt7/dN6mEIA4W46YgCHDx74hb/s=
+	t=1789658378; cv=none; b=nCLDnGH7o1WegpKl1N+90dvXepHJYN6XF3JA0MLyHKQqwwMttvWguaIA+6zdPxihDwY2Pr5eaXqGHcSti9ntA810jHeVlyxkiYXxMDyp0w+g5MhtTGbf7sRvjtVsmQJUOMCw4HuwN/r6LwBlnhLtLvKAAULjkb+3I5LmAva6L8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658366; c=relaxed/simple;
-	bh=/Z4wTl5LbY0XS8lD0jM8Zpl6/x1nCA9cmHP2BE9iPO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cModWqD2n4pkp1ye9/Nq59drCQBVausb9LLELgc74MqotarPHEXOh5ZcdI08zpSZzlcfWKqDNCdJ2thWJfnyQMXEqeat2qcVKJyMAdqHpD7LqTDck5UFn1MgPp++12pZA6gCKIVLAZoLr/IHnz0CPW+KY1kqi0EO0i//Ow/qoII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H3M5a60c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FtQOm/4A; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789658378; c=relaxed/simple;
+	bh=t6h+v1TMwHLddYzQCfbsmVI6zKcZ51BmkGJamlXAlBY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NW0S65xm/IrS7+zqFaGLA1om73vG7s2TD8+KCIBEOg+KIkIckJfYzvwZsYmbXXN1/lkn6EiHd588D4Y/+S1NvssLKxS5LMwCvnTFsbEhaEyHUfhDxopPOYWK3yTRk1R+hoyFeBRNeFK+N63G2uurK6N2uSC/gD+qrg6p0gmbGuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fadsxQWd; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H3M5a60c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FtQOm/4A"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HDj6O11175864
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dGdv5m0CdvJUBahz873MblPC
-	ZhKo8nu4pgz+cDmXb7s=; b=H3M5a60ctYzdxN2N+tDCL2JB9h7NHZ2vDRbUUMJJ
-	FjqsxjgfCNm7iLveOxykFM47WSJHYNo8aoTzdvPfMw5w749p0mMsCxon3WfIMa9F
-	yxAXiumfSU9dP3e+f+G729+rRXGPf+B3nBuInG8eRKm4CZVNKbAMpulCrdUJcIrb
-	JYRaT5KfCuQ3QDxolfMKQoQRIln1vazGy7+x91DsA+vTLTpKOY9QxXd27E4jzqV7
-	BleHw4BSgCMwzsEtXWtAcd/fi1/gNQPXMNCm0qHF1s375rNHiKI5fqhELFthrarM
-	axDyVXUZ5Jj+Axelxd9HqGiFR7PShDaySCvwOXwkdO+Q6w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grca0sx3h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:19:14 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530f49fc5ffso31411811cf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:19:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fadsxQWd"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so6934535ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789658354; x=1790263154; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dGdv5m0CdvJUBahz873MblPCZhKo8nu4pgz+cDmXb7s=;
-        b=FtQOm/4AVogV/CHNnd6yJSgD2DqglRqWdQXtMLJgK9vQsppsMqyKicd4qI74KnzfH9
-         N/NPtVl+ibXtUOQB7/RCS3nUfo/uS0vM6H1NeNMXtXxdg5WUD5j1wQjmhPQpOw3xVdSE
-         lLuW9YNuYToJara0rHTLrhkELxdDrEKImy1MxPQp1OwmFkQ5qalS1qJC4sKSg5VTaFJQ
-         KWwIi7R9EbsH1u9BPXKeLyaobZvQ0KC7gdDgVa8gSR4mq0afwXtK/ZmQqswFtD3v3W/m
-         UWOAMErO9YLQj4TFpUrQy6hfCnGwVRXg2Q7ZFIC8BUuj84zwSj1XqMjCpgVxvYDDeIvc
-         zPsw==
+        d=gmail.com; s=20251104; t=1789658367; x=1790263167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kcXKRIDcw5mAZxkYucxI77vzHbmXLBieOuahAT0hPgU=;
+        b=fadsxQWdzqNpCRAH7E/+d1MYwR1y6TAbbhpYVzwQxJmm8l08Zz3p3lzhKoylmNNfxF
+         YlWfmANe4qIK7nYjJVBvjxvSedqf7cbwLtSBiz5pfsScoeVnc55hUi37QfcbLF0ph2SX
+         CN6andO3YEEZARbu5DEUMnlOc+KzlyNO2Xw0eH+M5gLrGM3sG/oqi1GbWM3xjDe//dwV
+         xGWJLWktZJKSDtZ9tm9lk4aDKk4EJUS2FN/qbVUn57mV9tDgQZewscvZYJB4r5xDCb+1
+         k7w9G4C/MmRvZXOH8t0Wtw0DKja8Fmi+8cTVOw+SN02R9LRE39czaOw0FFW5xSp4ynS6
+         pqKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658354; x=1790263154;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dGdv5m0CdvJUBahz873MblPCZhKo8nu4pgz+cDmXb7s=;
-        b=JPl4BPkyIvnw2uAxEY8vdBTgk52s2uTGFGcNlTPjS8DjxhG09jXtP+0/VekVHF/F7h
-         Phlr15/WrVusc8zvxHbWU/2p0rgj6XSP/+hsn7hCqnfMn0BOsarl/I7ZSTugucBjSWmz
-         4EBkWboRtrV6MSKCSckXZq6ug/DEcLUvJQO0qxI9Iyz3Jkc1t9LA5wrny7VcI67mSFho
-         XE60NngpOBoxuIZSFQ8x8jMeDpSRd/EmWFQiSxssOnl/ScgjGpmnVFWE5DAGQcfByQfC
-         kLz+GFBTue6cfR9YM7AU45gpTZyuPtGFgVyv+KjPdnUcEuH1tnouVBnGEcdItmlgPD2C
-         QGgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiuMkCeW/VYZieWS1VVjvz8V0d5xoNoKk3R9qxaYCcaaTOcGvziiidDY8ujKBllcl60qFTgZ2yRWhKTZ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++klzTzxfyQg8IFFg9aXIjJqroyQlpndhuDImmaIBBUsnghJl+FJ
-	zSDg3kNdnrUVSBOV1l3PI1DBmycQFnLQ5IgjY9qw80+rwanJBqqjPsOcScEU3v3o3eckyil0cHb
-	hhGYb+NwbBYre7WH0plEUCmA0xtSARxYZEC9gCLY/hES13vQGUW0RlejmXKDPB09qQVw=
-X-Gm-Gg: AYBFou06eIxpE5smL/NVNWFBJt5W1eN4v56SLL+086/Orq3gcQNh1peJMNF4DnNydDh
-	XE7ngovfAdeK/1Ys55uNYqmnZgl61bKtu2wQSfXidEZaYfLz4dk60UaW1Gwp8bD0sgC/i62aB/0
-	HQGLmmU5n6XEYAufqfPxZiNC6hrdK4bt3DqgiBlNKFyN9XO0hoTxJClOIxeEMS1fPXLojGRqcpj
-	ST8Nm2CN+B1tWaVf/e4Ug8LybUofBWZe2UVjEjbwYGX3dPyzXibRPnKeEpz/q7P54Imuz04/Tp/
-	NsboLSzgFUmkzu5CLYFciNo0l/PbcqNh1Y5Kss4GwzTMayaKv449m2kTI2aPlFn2kK2IFNkMHFk
-	UyjpQ0AkknYyUXQ==
-X-Received: by 2002:a05:6214:5b01:b0:912:517b:4105 with SMTP id 6a1803df08f44-912517b434emr16106776d6.55.1789658353586;
-        Thu, 17 Sep 2026 08:19:13 -0700 (PDT)
-X-Received: by 2002:a05:6214:5b01:b0:912:517b:4105 with SMTP id 6a1803df08f44-912517b434emr16105666d6.55.1789658352927;
-        Thu, 17 Sep 2026 08:19:12 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23ac75sm83193285e9.13.2026.09.17.08.19.11
+        d=1e100.net; s=20260707; t=1789658367; x=1790263167;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kcXKRIDcw5mAZxkYucxI77vzHbmXLBieOuahAT0hPgU=;
+        b=bwS/3CwuNm3TyJoF/vfui5bE2iv3Yze0G2yvRIbl25pnhsszfzwYk9l+Ait53LkQsZ
+         1L8ZGNeQnppvXP+kbkAHRr4y7ykGXSqFvnp/63+Bk9uWe7cORQZ70whvZynsUIr1D/EP
+         /vdZXfz5hEOs3pEH6QSTOlXpeyOdSuu4gBze9Z5rmtTKdW2BEq3xeearjeO0tEFaKg6z
+         ecH0BegQbEiCkm+31UeNDpyVqYJC9tO3MAKldztOsubmdTg5WsUeAbhyBslcww4Ik6L9
+         noPTDlaLfGVt0ydUg60J8hKcdbwB38NT7aLo8tBohdebNDirwLcgCMHF2cu/D5LBhL4s
+         mtVw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4mKuIWtWw04LXtMH807vb2bsJJBScooe7TAlu7kYTfyRoUyxLzvHumRHB7WDbEGTS0Q2dcDlPdubh1cU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPi0dmmdmfUh6+Zf9Yu5P5EqqFiz0HHJtglQFRLpKnn0ztBTfg
+	WRSuQmSLNH7X9tEDUd0q5UzLdDOCISxIxpEhUB5jdBkNrW35mIlR9ZD7
+X-Gm-Gg: AYBFou3SHjsDf5XkVAju4lEro0Gj5OolNpnUMcpsZCSkf52YCUuYBot1u3Ivtk5B9iT
+	VOBrmZHtkJctEYnTT64wnj8VE9N7TL/dBYHnW69MD7EvlJdMZFOEs91iG+D5BzvBVjrQzg1VQS5
+	83YU4AA7ONoA4OU1v+79k2YVROnfOihLuZlZ4bv1ilSL6NQrqTE7wdo2hQ0XCX0qsVtZCEEJetA
+	yQYRC8yDZcIMuPcBBPybTH6+Hu6Hl/2V/zIXcNo8j7JnzvUNAPrmnNUq1IcE+e9yY6dCWHtMMgk
+	4j8VuoyK2/2qxFJx+m7OTzByJPumD8557lQCkApkz9617TQkx+A2CeUGauSeLz68TUX95oVfCJW
+	AobZ1OsV30bxNCe/oMSyPh6GuJIyaVw435QGjoXt3dFUy7UKyrnq2FvxdKBKmb3tVG5KN4sTEOe
+	jbJa9xeNVUsw7OXQAAB+XM6S+axaTPoOql6TPnGrfQZ8zxJ4cN+J+rLAulvq+6DHQll59mPnH56
+	H1+g9d3lcFcSOZNrFHKtis=
+X-Received: by 2002:a17:902:d54e:b0:2d9:6db:9fcb with SMTP id d9443c01a7336-2dd8e40cdd6mr157761115ad.11.1789658367416;
+        Thu, 17 Sep 2026 08:19:27 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ebc548sm28789145ad.37.2026.09.17.08.19.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:19:12 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:19:10 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 08/15] arm64: dts: qcom: sm8250: Move PCIe phy and
- GPIOs to root port node
-Message-ID: <dn5syafhr2z3ezwr5gqi2ssr72g6ikhxpkfztj2h2opj2aqvmd@a2jlbfecmz3x>
-References: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
- <20260917-root_port_v2-v2-8-6272b7caae9a@oss.qualcomm.com>
+        Thu, 17 Sep 2026 08:19:26 -0700 (PDT)
+From: MarkLee131 <kaixuanli0131@gmail.com>
+X-Google-Original-From: MarkLee131 <kaixuan.li@ntu.edu.sg>
+To: linux-ext4@vger.kernel.org
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	"Theodore Ts'o" <tytso@mit.edu>,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] ext4: stack OOB in set_flexbg_block_bitmap() via EXT4_IOC_GROUP_ADD
+Date: Thu, 17 Sep 2026 23:19:14 +0800
+Message-Id: <20260917151914.415604-1-kaixuan.li@ntu.edu.sg>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-root_port_v2-v2-8-6272b7caae9a@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: X4rDElxA22B86CRrUdnDgbz8H-XqfTNX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfX24tSqH5qXGtq
- z4BkX8ZsdVjI61ch9bixRvewX9MRNqXZO96/RZZakvwR2lfeBz2vu6CPidmwGNcL3W9Tj1CP8qP
- 8hFIW58YTsk6SpQ4e4O1WgXPurFv/wk=
-X-Proofpoint-GUID: X4rDElxA22B86CRrUdnDgbz8H-XqfTNX
-X-Authority-Analysis: v=2.4 cv=dOQzC+Zb c=1 sm=1 tr=0 ts=6aac04f2 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=adJbRHicXYsKkr84VsUA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDIxNyBTYWx0ZWRfXye3uQbdglk6i
- HyXMf+PAX9zUo6G8TlvdibKDfKxsIWgI34Ye0k9YTn9QQfgwRH1NlgkfMNEeLdEu1P8qzplFQyj
- Aoo2bMRWxRJw/+iLDhKlP1c/JcsU4aaCT+Rx2h68a/s5S259SS5seiS6wYhFWHhj9Z3w1PWXX8j
- Qk8Ftmkr5O8WUU/PZMOhP6jVXejHvjSxovftd5nXkzVM08gYzKyJ+ttql3TVeK9FiqaTv/gzYKq
- +LKTn0XVA3+BeACVYC8IZbSEk7wMmbAJd8Q5PYMWElxUIoIbTOAfWUpMQs6BWC064Lpdvuajpyo
- SQV+/3Zm9ggbm70yrh8FERfbPMMr9EHa7ljkyZmUpsgpAE0dTg8K7czh08t3IKjAYEqEib/5G+0
- rz+YzvMigWNTILsEG4Xu0M+Xk/324Ow/aHhDuix5W2pK1NTiO/rmN+TF1/xUjMF1K8rj6O0OCTF
- 0oVEy18nCqTq/cnnLmw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170217
+Content-Transfer-Encoding: 8bit
 
-On 26-09-17 17:55:22, Krishna Chaitanya Chundru wrote:
-> The PCIe phy reference and the perst/wake GPIO properties are
-> per root port and belong in the root port node (pcie@0), not in the
-> RC controller node. Move phys, phy-names, perst-gpios, and wake-gpios
-> from the controller to the existing pcieport0 and newly labeled
-> pcie1_port0 and pcie2_port0, allowing board-level overrides. Rename
-> perst-gpios to reset-gpios to match the binding used in the root
-> port context.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+EXT4_IOC_GROUP_ADD can make set_flexbg_block_bitmap() index two one-element
+arrays at offset 1. KASAN reports a stack out-of-bounds read on v6.12.9 and
+v7.2.4; a reproducer is below.
+
+EXT4_IOC_GROUP_ADD requires CAP_SYS_RESOURCE, so this goes to the list
+rather than security@kernel.org. The ioctl returns 0 whether or not the
+read happens.
+
+ext4_group_add() builds a one-element flex group descriptor whose arrays
+are locals in its own frame:
+
+	__u16 bg_flags = 0;
+	...
+	flex_gd.count = 1;
+	flex_gd.groups = input;          /* the ioctl's single struct */
+	flex_gd.bg_flags = &bg_flags;    /* one __u16 */
+	err = ext4_flex_group_add(sb, inode, &flex_gd);
+
+set_flexbg_block_bitmap() derives its index from a block number, not from
+flex_gd->count (fs/ext4/resize.c):
+
+	group  = ext4_get_group_number(sb, EXT4_C2B(sbi, first_cluster));
+	start  = EXT4_B2C(sbi, ext4_group_first_block_no(sb, group));
+	group -= flex_gd->groups[0].group;
+	...
+	if (flex_gd->bg_flags[group] & EXT4_BG_BLOCK_UNINIT) {
+		BUG_ON(flex_gd->count > 1);
+		continue;
+	}
+	...
+	bh = sb_getblk(sb, flex_gd->groups[group].block_bitmap);
+
+The BUG_ON tests flex_gd->count, not group, so it does not fire.
+
+verify_group_input() bounds the three supplied blocks against
+[start, start + input->blocks_count), but nothing bounds blocks_count
+against EXT4_BLOCKS_PER_GROUP(sb). A blocks_count spanning more than one
+group lets inode_table sit in group N+1, so group above becomes 1 while
+both arrays hold one element.
+
+The second access feeds a journalled write: the out-of-bounds 8 bytes
+become the block number passed to sb_getblk(),
+ext4_journal_get_write_access(), mb_set_bits() and
+ext4_handle_dirty_metadata().
+
+ext4_resize_fs() is not affected. ext4_setup_next_flex_gd() sets
+blocks_count = EXT4_BLOCKS_PER_GROUP(sb) and ext4_alloc_group_tables()
+keeps the tables inside the flex group, so group stays below flex_gd->count
+there. Only EXT4_IOC_GROUP_ADD takes these numbers from userspace.
+
+Reproducer
+==========
+
+blocks_count must be first_data_block + N * blocks_per_group, or
+verify_group_input() stops at "Last group not full" first:
+
+	truncate -s 64M img
+	mke2fs -q -F -t ext4 -b 1024 -g 1024 -O ^has_journal img 4097
+	mount -o loop img /mnt
+
+Group 4 is the next group and carries no superblock backup, so overhead is
+0. inode_table is the first block of group 5, which makes the index 1:
+
+	struct ext4_new_group_input in = {
+		.group		 = 4,
+		.block_bitmap	 = 4097,
+		.inode_bitmap	 = 4098,
+		.inode_table	 = 5121,
+		.blocks_count	 = 1088,
+		.reserved_blocks = 0,
+	};
+	ioctl(fd_on_mnt, EXT4_IOC_GROUP_ADD, &in);	/* returns 0 */
+
+KASAN
+=====
+
+v7.2.4, x86_64 defconfig plus CONFIG_KASAN=y CONFIG_KASAN_STACK=y
+CONFIG_KASAN_INLINE=y, under QEMU:
+
+	BUG: KASAN: stack-out-of-bounds in set_flexbg_block_bitmap+0x531/0x6a0
+	Read of size 2 at addr ffff8880072b7b2a by task init/1
+	CPU: 0 UID: 0 PID: 1 Comm: init Not tainted 7.2.4 #1 PREEMPT(lazy)
+	Call Trace:
+	 <TASK>
+	 set_flexbg_block_bitmap+0x531/0x6a0
+	 ext4_flex_group_add+0x3885/0x5730
+	 ext4_group_add+0xc13/0x14b0
+	 ext4_ioctl_group_add+0x1a4/0x4a0
+
+	BUG: KASAN: stack-out-of-bounds in set_flexbg_block_bitmap+0x646/0x6a0
+	Read of size 8 at addr ffff8880072b7da8 by task init/1
+
+Size 2 is bg_flags, size 8 is groups[1].block_bitmap. v6.12.9 gives the
+same pair. set_flexbg_block_bitmap() and verify_group_input() are unchanged
+in current master.
+
+set_flexbg_block_bitmap() has computed the index this way since
+33afdcc5402d ("ext4: add a function which sets up group blocks of a flex
+bg"), v3.3.
+
+Fix
+===
+
+Either bounds check works, and I do not know which you prefer:
+
+  - reject blocks_count > EXT4_BLOCKS_PER_GROUP(sb) in
+    verify_group_input(), which is what the single-group path means; or
+
+  - bound group against flex_gd->count in set_flexbg_block_bitmap(), which
+    also covers a future multi-group caller.
+
+I can send a patch for either, and test one.
+
+Kaixuan
