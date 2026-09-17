@@ -1,67 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5E133938F;
-	Thu, 17 Sep 2026 00:30:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADC633689A;
+	Thu, 17 Sep 2026 00:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605032; cv=none; b=M0x5AqadZmO6EPwo6uiJwsB4t9io3xl2KGdzMASKykay6C7wh9E4QkeCETLT6h98xBamqSbkEJW7enbtAIk8qV/oXqZYwpkb5/5n/ZVwxz2F2wgXcf/wOct5Yf4yCOaZTIyQ7liZe3ZI+1OBD859VyzwNzuzIRUxQTx3M0kvN8E=
+	t=1789605036; cv=none; b=XaTHNRfMcIsspVWrrmQTAOR/1Lu0Kwaakp3P9z0FXs0r8qIMLvzTnSguhozpQr8619t9b05v3JCCvtjP3j57dImUCcxUIQIDxrdTC8UQNrmT8OW48TjjRfftVryKf/bBXuiz3fInuNa1Wub493xT9L64uolO1OT7U/wfv27TxcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605032; c=relaxed/simple;
-	bh=oYG6oqEXKM71Vx0FVvcKaEqIluq5mPiCvi4P/KQuz+w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iG0KJvvoEDCheQ1BspoWmu/fWtgXYp6cygPkKCqirUQ1HReylTeTHS3bb5Dw2cz2oYtykYKzEurZRsL55RuhtmCu8VM65AVT26iexb/ygGwWc7xryA5NaBOwr6jT6/wHpyrAofzUIz2AWX3W2qO4z09wT+8kxB33O7NboQaAvBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EH437860; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789605036; c=relaxed/simple;
+	bh=pE7ADaI3lT7QXyQrFmvFoIb1gXc9bYUdBZzdgC7ZkSY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=bG2nVToOvXU4MlMXF8cB8DROwEcBXHPPRbbrnfyEhFKO7CxQC1z2Xo/8VmjyTG5E1LLZOHS6ya5L79G3DmzM5TaWea1Ga5pbMjgEU+qKLhhcJPYW2wLFVV75PoOYgknoSg3P7sVR/cnKFdQ4UcpNn/VrgC+Il73516/nejR8bes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=DPQ4ds/t; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EH437860"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF431F00893;
-	Thu, 17 Sep 2026 00:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789605028;
-	bh=LRJuW1G1kuLW50MJCNk8YbtTnx1at2EzijAw2lQ1fbw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EH437860PIasELZAGQxhqcIp7joxh8a0bGdFFDBIueoSNjiDSrL29+9CSoK6rLFY8
-	 vz2MIBaB6eyrUgBPeeEdunEMW4+h4Tuxf/RhkBUGEMFnhtnrzpS9cbGTgrYpxIe5PR
-	 mPw+hCIP9JD2Z313i23UGet2cjiVxGq5o3zFXS71Ps5XlTts0HFPDVbmGvhJnnYiWP
-	 KVUioOH5jf4bFzdgcO8+3KhI1GR6cUgXBPvnc/SdI3xQo4HetlSewIJDKRbclKfuit
-	 tIfK3d+IeU09pK9aGWpDEWznvI38gQDgW1qkZtOBj+72Au07YJCmueJP1ycqloVL6Y
-	 lWy+F5Lg7aHHg==
-Date: Thu, 17 Sep 2026 01:30:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andy@kernel.org, dlechner@baylibre.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, nuno.sa@analog.com,
- tomasz.duszynski@octakon.com, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: chemical: scd30: Fix trigger reference leak in
- scd30_setup_trigger()
-Message-ID: <20260917013023.5fd8d0fb@jic23-hlaptop>
-In-Reply-To: <20260916162817.2083674-1-vulab@iscas.ac.cn>
-References: <20260916162817.2083674-1-vulab@iscas.ac.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="DPQ4ds/t"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H0US2802858962, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789605029; bh=pE7ADaI3lT7QXyQrFmvFoIb1gXc9bYUdBZzdgC7ZkSY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=DPQ4ds/tC9xJz0XRaN967rioGGsQKtIUgXbJdhrtsiUy0RpR4ZHKW4KaLYwCS27R7
+	 +QphNrMhg9PTk9xHMMdOmHYWSN0yjzUhQNVUjVcVmTUI+4ztxB1ert7+L5WlF+0s8u
+	 k7XGx6cERMFsbmAPO2yoYI50r+yySG4VHsy9zcVr3/jDfvbE9LtmCEYL3fW4H3zBxN
+	 AbInqutfdCWaB/zv6plR1ZRvhAzGxoECsrRY2Syo19BXl7SBnypB8L2ZWdBchiN36E
+	 Qix84naLoJxeYAhiSC4BR3HjUvhPaevBUTsi5DNtByJQp5dT8kYzJJJMkLc0w2cBJN
+	 0nXaeiHKWcxiA==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H0US2802858962
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 17 Sep 2026 08:30:28 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 08:30:29 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 17 Sep 2026 08:30:29 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Maxim Skokov <skokovmaksimevg@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: rtw89: BT connect state differs between scoreboard and bt_info on
+ RTL8851B
+Thread-Topic: rtw89: BT connect state differs between scoreboard and bt_info
+ on RTL8851B
+Thread-Index: AQHdRQ2CnV7TRht53kG/awfFcwERqbbPDZQAgAFwrJD//6sOAIABwvFg
+Date: Thu, 17 Sep 2026 00:30:29 +0000
+Message-ID: <776cd43f75f14571943462bd5fc6cb64@realtek.com>
+References: <20260915122625.6341-1-skokovmaksimevg@gmail.com>
+ <20260915123718.7239-1-skokovmaksimevg@gmail.com>
+ <25270f2066784a02806daa352643be53@realtek.com>
+ <20260916053228.10042-1-skokovmaksimevg@gmail.com>
+In-Reply-To: <20260916053228.10042-1-skokovmaksimevg@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 16:28:17 +0000
-Wentao Liang <vulab@iscas.ac.cn> wrote:
+Maxim Skokov <skokovmaksimevg@gmail.com> wrote:
+>=20
+> The sink was connected and playing for all of the
+> above, and WL stayed in STA mode, retrying association without completing
+> it.
 
-> The reference taken with iio_trigger_get() is only dropped by
-> iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
-> devm_request_threaded_irq() in scd30_setup_trigger(), or of triggered
-> buffer setup in scd30_probe(), returns before that mode is set and
-> leaks the reference acquired for indio_dev->trig. Take the reference
-> after the IRQ request succeeds and set up the trigger after the
-> buffer so that only failures with the mode already set follow the
-> iio_trigger_get().
-> 
-> Fixes: 64b3d8b1b0f5 ("iio: chemical: scd30: add core driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Same again. See bma220. Not this solution.
+To be clear. The problem you encountered was failed to connect an AP, or
+this was newly introduced by the patch I shared?
 
-Jonathan
+>=20
+> Is BTC_BSCB_BT_CONNECT expected to be set by BT firmware on this chip? If
+> not, status.map.connect will keep being overwritten from the scoreboard
+> after _update_bt_info() has written it from the mailbox.
+
+The BTC_BSCB_BT_CONNECT should be set by BT firmware. The internal BT
+expert is helping to dig the cause.
+
+
