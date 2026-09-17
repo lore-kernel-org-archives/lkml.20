@@ -1,280 +1,167 @@
-Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51803D091A
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3D83A7D81;
+	Thu, 17 Sep 2026 07:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631765; cv=none; b=iIzUggrvTB+E+lj08E3C9oRvZvdS1TvBS5ccBPLL09GwB12WqSYPa3maXNKM7V+b3LBDvS6Gnf+4fIzTXUMuqApHJV1W/0pkW3fPhoPI2GRcFKLZbEgeb88aKcv0fU6YQk+mJXWQzYRs1jVJlVBz1dbzTOvSCU6YZ9TvxQcGwaQ=
+	t=1789631786; cv=none; b=NgJR1qqJx9Lpacg9HcsiqinAiJPHla4ql1rxyq9kZI4HJVou4scRCcZKyUTHqiMBh//r5rmRHbK0XkmpbAJF7xijFHyG0Yza6NHAFdRgKlsJWwu2W7G/TmOjSWc6Nu3jql3s1X30CMpMF0+02e4IhOsBZcSn1JMR1Qs7tSl/PfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631765; c=relaxed/simple;
-	bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VFTrnHkdoTem7ieJeURO8oCM9oq+cyx/TOYJlouFp6x5rm4TbGZfoK6i8ADijhzVOknwfr1bAP437VRhzsoi8egFDRcSLvvmEiGXG3HNGJCvPjFr0SxrMNSz/QzH5mSOqChMGqrwBH3kcUQMUnom0eVhGQAejy0B7xF3Pn3W7zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uwKywFw3; arc=none smtp.client-ip=91.218.175.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789631786; c=relaxed/simple;
+	bh=q2imLB7DAcnODQLGYGDQw1pxfE00L145xo82F9cM6Ok=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QJofnfKyS8nLIhQzujsjS43ccZVqCBaaZi6zdogO3iUmXZZmPnHWPBiy6cOdHK/fP677bvkz23J/2Rsu14wafsmz4LE78HfahbfYtaPGj6ccb5APofXYpyevCKzutoIhRh5CHGy9+z4WZonrs19cNQBJOnX0uQyxo6JDwAZxlDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=AYjrEC0p; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uwKywFw3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789631760; v=1; x=1790236560;
- b=uwKywFw3PzGwK+BKHwgZmJzb48/BwrzaW876/sQgqbDaogSWabFol/7ihe2rCABAUO7ZTkqo
- ukFeOQGxNyvrBkEg9iRMeStOwBmZnVdyvpk3BfgVohQSCp+gCr8oO8f+P7fRfP9A+FogK8/dd+t
- 6FLCBAp4T5KAe4lPeGjF9qm8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f50246a7211157f5;
-	Thu, 17 Sep 2026 07:55:50 +0000
-X-Mizu-Trace-ID: f50246a7211157f5
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 17 Sep 2026 09:55:45 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <aquan_6JiKkEw-Kp@bombadil>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
- <aqpC8fxO4F3bFjF4@bombadil>
- <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
- <aqpYqrtKTY20IW_0@bombadil>
- <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
- <20260916165244.GB191870@killaraus.ideasonboard.com>
- <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="AYjrEC0p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789631784; x=1821167784;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZdtsmIJ+5HEo2vvt44CeG3gDnKZgeRd/9JLiG2dN6I0=;
+  b=AYjrEC0pmYsjATjwDzFtic36IpFdZfWWT6CFaJIEVqOX9xoQisedHH7s
+   kZZVlGtjYvEQpZhZp06QMEsB94vp6jbPs9Igwu5KYSTK5UNFGxQ4tiOYr
+   lakErc3WUi6lQetCyYXd0M1YEoacC4yI+7QT1XHdzvd0El9vXkiYR08Yh
+   CTzTiT4r4YWNRMDB0TbBtIToxAp4ex6GeHjWeuNc31NEcwaDMVqL2cZed
+   dp1CM6ChEgyD1zNU5gA1JKOWAahVH/izqZFTIQ5xHART1k7uM4as5hOAU
+   +VL+bN5591CzEyHB4xfRpFENmtH8DNObDzAZ1wbNzLUqKQbBV1mlm1fIF
+   w==;
+X-CSE-ConnectionGUID: HntPkuUmQaievKElN+gbrA==
+X-CSE-MsgGUID: 1zIy5RyHT5yfGmk4TWRzhw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28408864"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 07:56:22 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25044]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.23.40:2525] with esmtp (Farcaster)
+ id 1bc143c1-2357-4219-852f-18020763d2e5; Thu, 17 Sep 2026 07:56:22 +0000 (UTC)
+X-Farcaster-Flow-ID: 1bc143c1-2357-4219-852f-18020763d2e5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Thu, 17 Sep 2026 07:56:22 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 17 Sep 2026
+ 07:56:19 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/3] pps-gpio: restore pin mux on unbind and shutdown
+Date: Thu, 17 Sep 2026 07:56:08 +0000
+Message-ID: <20260917075611.47881-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916182641.9768-1-farbere@amazon.com>
+References: <20260916182641.9768-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D036UWB001.ant.amazon.com (10.13.139.133) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Thu, Sep 17, 2026 at 08:18:23AM +0200, Krzysztof Kozlowski wrote:
-> On 16/09/2026 18:52, Laurent Pinchart wrote:
-> > On Wed, Sep 16, 2026 at 03:41:16PM +0200, Krzysztof Kozlowski wrote:
-> >> On 16/09/2026 11:01, Richard Leitner wrote:
-> >>> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
-> >>>> On 16/09/2026 09:33, Richard Leitner wrote:
-> >>>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
-> >>>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+Some boards route the PPS input GPIO through a pin controller and mux the
+pins to a different function when the pps-gpio driver is not active.
 
-[...]
+The driver core already selects the "default" pinctrl state before probe,
+so the pins can be muxed for GPIO/PPS use while the driver is bound without
+any driver change. Nothing, however, hands the pins back when the driver
+is unbound or the system is shut down (for example before kexec), leaving
+them stuck in the GPIO mux for the next kernel.
 
-> >>>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
-> >>>>>>> +
-> >>>>>>> +  vcc-supply:
-> >>>>>>> +    description: Power supply of the module (3.3V)
-> >>>>>>> +
-> >>>>>>> +  '#address-cells':
-> >>>>>>> +    const: 1
-> >>>>>>> +
-> >>>>>>> +  '#size-cells':
-> >>>>>>> +    const: 0
-> >>>>>>
-> >>>>>> No children allowed, so why these two?
-> >>>>>
-> >>>>> Based on your and the bot feedback I would suggest for v2 to change this
-> >>>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
-> >>>>> "$ref: /schemas/i2c/i2c-controller.yaml".
-> >>>>>
-> >>>>> This would better reflect the actual hardware, as there is only this one,
-> >>>>> in firmware hard-coded I2C downstream bus.
-> >>>>>
-> >>>>> Would this be a sane approach?
-> >>>>
-> >>>> If the underlying I2C bus and sensor are important, then yes. But I have
-> >>>> doubts that you need to describe the sensor if it is truly
-> >>>> unadressable/invisible to the OS.
-> > 
-> > To be clear, the sensor *is* addressable from the OS. The FPGA sits in
-> > the middle on the I2C bus instead of being a separate I2C device on the
-> > same bus as the sensor, but it forwards all I2C writes addressed to the
-> > sensor onto the backend I2C bus. This is why the DT binding is modelled
-> > with a child I2C bus. The sensor DT node is located on that node, and
-> > uses the regular DT bindings for the sensor.
-> 
-> Thanks, this should be explained in the description of the binding. It
-> does mention "the sensor device reachable through the tunnel" but the
-> rest about optionality of the sensor feels confusing in this case.
+This series lets pps-gpio select an optional "inactive" pinctrl state in
+remove() and shutdown(), so a board can describe the alternate mux there
+and have it restored. The state is looked up and selected by the driver
+itself (devm_pinctrl_get() + pinctrl_lookup_state() + pinctrl_select_
+state()), so its meaning is unambiguous and it does not depend on
+CONFIG_PM. It is a no-op for boards that do not describe an "inactive"
+state.
 
-Thanks Laurent for the additional clarification!
+Patch 1 is a small preparatory fix to propagate the gpiod_to_irq() and
+request_threaded_irq() error codes (rather than a hardcoded -EINVAL) on
+the probe error paths that patch 3 then converts to gotos. Patch 2
+documents the optional "default"/"inactive" pinctrl-names in the binding;
+patch 3 implements the driver side.
 
-I will adapt the description accordingly for v2.
+Tested on an AL11 K2V6 JRD10 board: binding/unbinding each pps-gpio device
+toggles the corresponding PBS pin-mux register between the GPIO function
+and the alternate ec_ptp_trigger_in function as expected, and re-binding
+restores the GPIO function via the core-applied "default" state. Reading
+the mux register with the devices left unbound confirms the "inactive"
+mux persists. Also tested with a pps-gpio node that describes no pinctrl
+at all, where probe, remove and shutdown behave as before.
 
-> 
-> > 
-> >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
-> >>> talks (via the tunneled I2C interface) directly to the sensor.
-> >>>
-> >>> The separate I2C controller/bus description is necessary as the tunneled
-> >>> I2C bus has some quirks unfortunately. Those need to be addressed as 
-> >>> otherwise the sensor drivers do not work.
-> >>>
-> >>> So the idea is to not have a vc-mipi module binding per "sensor variant"
-> >>> of the camera modules, but provide a common controller driver which
-> >>> provides the I2C bus for the sensor driver.
-> >>
-> >> Bindings must accurately describe the device and so far - based on the
-> >> website - there is no device as mipi-module-controller alone.
-> >>
-> >> I don't get why you assume that all of the variants are exactly
-> >> identical, thus sensor variant is not applicable.
-> >>
-> >> If they are identical in all aspects, then why clock-frequency property?
-> >> That's obviously rhetorical question, because they are not identical in
-> >> all aspects and must produce different clock at least.
-> > 
-> > The FPGA has an input clock whose frequency depends on the module. It
-> 
-> There is no "clocks" property in the binding. If there is input, then
-> there is a "clocks".
-> 
-> Then we never describe external oscillators with "clock-frequency"
-> property. ACPI does, but not DT.
+Changes in v3 (addressing Sashiko's and Rodolfo Giometti's
+review):
+- New preparatory patch 1: propagate the gpiod_to_irq() and
+  request_threaded_irq() error codes instead of overwriting them with
+  -EINVAL, and log the errno on the request_threaded_irq() failure. The
+  pinctrl patch only converts those returns into gotos, so fixing the
+  discarded errors separately keeps them out of the pinctrl change
+- Do not constrain pinctrl-names to a fixed ["default", "inactive"] tuple
+  in the binding. The driver looks the states up by name, so "inactive"
+  may appear in any position and other states may coexist; the binding
+  now only requires that a "default" state exists
+- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl described" rather
+  than a probe failure. A DT device without a "pinctrl-0" property gets
+  -ENODEV from the pinctrl core; that is expected, not an error. Real
+  errors, including -EPROBE_DEFER, are still propagated
+- Restore the "inactive" mux on probe failure too. The error paths after
+  pps_gpio_get_pins() now go through a new err_release_pins label, so a
+  probe that fails in gpiod_to_irq(), pps_register_source() or
+  request_threaded_irq() no longer leaves the pins stuck in the
+  core-applied "default" state
+- Warn if applying the "inactive" state fails rather than ignoring the
+  pinctrl_select_state() return silently
+- Trim and de-duplicate the comments added in v2
 
-So how would that be best solved in DT?
+Changes in v2 (all addressing Rodolfo Giometti's review):
+- Rename the released state from "idle" to "inactive". "idle" is the
+  runtime-PM state in pinctrl-state.h; overloading it for "driver not
+  active" would clash with any future runtime PM or .suspend() and was
+  being baked into the binding as ABI. "inactive" is not a well-known
+  state, so no generic PM helper will ever auto-select it -- the driver
+  drives it explicitly
+- Look the state up in the driver (devm_pinctrl_get() +
+  pinctrl_lookup_state() + pinctrl_select_state()) instead of
+  pinctrl_pm_select_idle_state(), removing the CONFIG_PM dependency so a
+  CONFIG_PM=n kernel that describes an "inactive" state now honors it
+  instead of silently doing nothing
+- Fix shutdown(): tear down in the same order as remove() -- free_irq()
+  and timer_delete_sync() first, the mux change last -- so no IRQ or echo
+  timer callback can drive a pin after it has been handed back to another
+  function; shutdown() no longer changes the mux while the hardware is
+  still live
+- Require a "default" state whenever "inactive" is present and reject the
+  mismatch, rather than releasing pins that were never put into a defined
+  PPS state
 
-Should there be a "fixed-clock" child node for that external oscillator?
-Something like:
+Link: https://lore.kernel.org/all/20260916134744.46354-1-farbere@amazon.com/ [v1]
+Link: https://lore.kernel.org/all/20260916182641.9768-1-farbere@amazon.com/ [v2]
 
-vc_mipi_ctrl: controller@10 {
-  ...
+Eliav Farber (3):
+  pps: clients: gpio: propagate probe error codes
+  dt-bindings: pps: pps-gpio: document optional pinctrl states
+  pps: clients: gpio: release pins to an inactive state on remove and
+    shutdown
 
-  vc_mipi_clk: clock {
-    compatible = "fixed-clock";
-    #clock-cells = <0>;
-    clock-frequency = <37125000>;
-  };
+ .../devicetree/bindings/pps/pps-gpio.yaml     |  16 ++-
+ drivers/pps/clients/pps-gpio.c                | 102 +++++++++++++++++-
+ 2 files changed, 113 insertions(+), 5 deletions(-)
 
-  i2c-tunnel {
-    ...
+-- 
+2.47.3
 
-    vc_mipi_sensor: camera@60 {
-      ...
-
-      clocks = <&vc_mipi_clk>;
-      clock-names = "inck";
-    };
-};
-
-Or should (as discussed in the other branch of this thread) there be a
-separate compatible for every vc-mipi sensor variant board? Then this
-could also be part of the compatible-dependent driver data.
-
-Or are there any other/better approaches to this?
-
-> 
-> 
-> > uses it for internal purpose, and also to provide a clock to the sensor.
-> > Very roughly speaking, and ignoring power supplies as we focus on the
-> > clocks, the camera module is architectured this way:
-> > 
-> > Connector
-> >    ||                                       +--------+
-> >    || <------------ MIPI CSI-2 ------------ |        |
-> >    ||               +-------+               |        |
-> >    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
-> >    ||               | FPGA  |               |        |
-> >    ||               |       | --- Clock --> |        |
-> >    ||               +-------+               +--------+
-> >                         ^
-> >                         |
-> >                     +-------+
-> >                     | Clock |
-> >                     | Osc.  |
-> >                     +-------+
-> > 
-> > The frequency of the external clock oscillator is what the
-> > clock-frequency models.
-> > 
-> >>>>>>> +
-> >>>>>>> +required:
-> >>>>>>> +  - compatible
-> >>>>>>> +  - reg
-> >>>>>>> +  - '#clock-cells'
-> >>>>>>> +  - clock-frequency
-> >>>>>>> +  - vcc-supply
-> >>>>>>> +  - '#address-cells'
-> >>>>>>> +  - '#size-cells'
-> >>>>>>> +
-> >>>>>>> +unevaluatedProperties: false
-> >>>>>>
-> >>>>>> additionalProperties instead, see writing bindings or writing schema.
-> >>>>>> Unless you miss here some other schema $ref.
-> >>>>>>
-> >>>>>>> +
-> >>>>>>> +examples:
-> >>>>>>> +  - |
-> >>>>>>> +    i2c {
-> >>>>>>> +        #address-cells = <1>;
-> >>>>>>> +        #size-cells = <0>;
-> >>>>>>> +
-> >>>>>>> +        vc_mipi_ctrl: controller@10 {
-> >>>>>>> +            compatible = "vision-components,mipi-module-controller";
-> >>>>>>> +            reg = <0x10>;
-> >>>>>>> +            #clock-cells = <0>;
-> >>>>>>> +            clock-frequency = <37125000>;
-> >>>>>>> +            vcc-supply = <&cam_3v3>;
-> >>>>>>> +
-> >>>>>>> +            #address-cells = <1>;
-> >>>>>>> +            #size-cells = <0>;
-> >>>>>>> +
-> >>>>>>> +            i2c@0 {
-> >>>>>>> +                #address-cells = <1>;
-> >>>>>>> +                #size-cells = <0>;
-> >>>>>>> +
-> >>>>>>> +                vc_mipi_sensor: camera@60 {
-> >>>>>>> +                    compatible = "ovti,ov9281";
-> >>>>>>> +                    reg = <0x60>;
-> >>>>>>
-> >>>>>> Why having the child abstraction if it is completely abstracted? I don't
-> >>>>>> fully get the explanation from description. Completely optional means no
-> >>>>>> benefits, no point in it, no?
-> >>>>>
-> >>>>> I will try to improve the description. The idea behind this device
-> >>>>> driver/devicetree node is to not rely on the sensor abstraction from
-> >>>>> vision components, but to use the upstream sensor specific driver.
-> >>>>
-> >>>> You can use driver even without these nodes... but fine, let's assume
-> >>>> you have them, so driver will talk with OV9281 sensor for example?
-> >>>
-> >>> The vc-mipi driver does not talk to sensor at all. This is done by the
-> >>> dedicated sensor driver. The vc-mipi driver is only controlling the
-> >>> regulator, clock, etc. as described and sets up the "quirk aware"
-> >>> tunneled i2c interface.
-> >>
-> >> I meant, driver for the sensor. So who controls sensor supplies? Not the
-> >> sensor driver? It tells something how the hardware is managed, no?
-> > 
-> > Power supplies are managed in a similar way as the clock in the above
-> > diagram. There's one input supply to the camera module on the connector.
-> > Individual supplies for the sensor are generated from that main supply,
-> > and are controlled by the FPGA which exposes a register over I2C to
-> > enable/disable the supplies from the host (there's a single bit to
-> > enable/disable them all, they can't be controlled individually).
-> > 
-> 
-> Thanks, I see this also shown in the example DTS. I think the sensor
-> node is redundant here, but removing it would require moving all of this
-> to swnodes, so not that much better either. It's fine to keep the sensor
-> subnode for me.
-
-ACK.
-
-Thanks Krzysztof!
-
-regards;rl
-
-> 
-> Best regards,
-> Krzysztof
