@@ -1,87 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520AB585969;
-	Thu, 17 Sep 2026 14:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB125867DA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654614; cv=none; b=pIUQ57sH1KAv04+Q0HoHb5emxRraStf550pLfLCRznvFrrxmr2XRdqXdOXH+9Ykp+Y+bWWa7M/PMSxTa/+bxN7Q9dWid2dzkvPCLrc+ASw5yTt3m7W9AutR7wdg3rJQkRL6gD839A7OmEErgtH2KJqrjK3G3qn1CKakG3nBQcGY=
+	t=1789654626; cv=none; b=H1gOQBnkMb9CcEXOHYvBYzPB7ihysSvGhritVhtSd+RP3reOiho6ScK/8kHRGrfKt1ybVyMKvrag7o6ias/OLwQZIKt5XzvB9EUsu9iuhMIUk8iKiX5XTrk9HkUU7NveA01h+70VAl2zLrOBiyFxH8FzC2MuT8mnEeXhd9M0gzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654614; c=relaxed/simple;
-	bh=qUQpEwEAf03ydxY/z49pwtC0JzrodVH85vpCXMSp9WA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UgIw7IklN4ru4lGzmrxTQazDjxkneVmD/x1reEJsCch2/hB/vHuAu0d7mZj23E8D6/uwNcJ+5UXgQWEp/Y5K4snfwndhwvxtUCQK/OgqC+vpHeVhMY4nr3pClDYzkhYkuaKlsRePfQiFYt8bV/aO/kEhRQleVjabekjQ/nw7U8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hrYW/0cB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789654626; c=relaxed/simple;
+	bh=wiqEuG8/cSEg7rIA1EdKPkNp8t3X+jIVQg7jtFMc8mo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VNosk5Oc9BlAy86ApuCUSV/1lwiuJw/0d5MMNIDQMuylnF854GlCCssJGLSnqWWF5CoQ/4nmR7dQqVUIsZbHHeMsaSgakWSgL0O/BC+Qpbf4yh6O8j/vdq87KFhdbFT/GlKxxg2/PfQBIDuwd2s5nRH23YqnZCUKBnoAI2FvYh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbGKCVue; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hrYW/0cB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9061A1F000FF;
-	Thu, 17 Sep 2026 14:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789654611;
-	bh=eDW8IouqkovElgfc32IDNMAM4R26qJXqrPUo54akiM4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hrYW/0cBcIW3w0qdxci8Ag7Mm3r2foDbv4BzufAfK/AdMnQNHKVnH8Z4A7RQ1qO8m
-	 grW0JgXa+mlrfFhrHczGGrB/PO7R8dsWEKab5VWv1Oj9JP2WJFtE/nXIW/7tOP12FA
-	 QN1U6rH5k0y1qcP2RafoaTlAzPc/AuqveahpapZE=
-Date: Thu, 17 Sep 2026 15:08:11 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alban Bedel <alban.bedel@lht.dlh.de>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>
-Subject: Re: [PATCH] USB: serial: Support attaching serdev devices
-Message-ID: <2026091756-unmolded-fructose-a018@gregkh>
-References: <20260917081103.1917665-1-alban.bedel@lht.dlh.de>
- <2026091739-spousal-linked-2a36@gregkh>
- <20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbGKCVue"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e82ea30faso1130515e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789654621; x=1790259421; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wiqEuG8/cSEg7rIA1EdKPkNp8t3X+jIVQg7jtFMc8mo=;
+        b=RbGKCVuedKx3vs+ffEOxw+sZWVVvWTA7OP75LquQFFL+FEBiifD9GNUIId0gSfsk9R
+         JISEhGH1wDGCQiZrpfhRwL6Ipw7EUa0bP6rSrtiIrKIiKTGc+dkDmdH2/dRwdbCouWRJ
+         9S4taRq3bMobOw3+PM2YAvW9G+R+A2Dwux9Ikis1PQELHiVz+vsZx1tbAy15G4iBEZ18
+         xM3fyxcY6UysQRImFLIcCY/ocYwBxDhdgKFYSSKOEiz+Cu41DpsY+pZB2DwjQM1B+l+Y
+         MAH1BLJdDnlvwlzL26yOIOvJwBbndubT+m4jWGDw1A8HBmemUAGwTn55lApvzfVqzDLh
+         Xnng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789654621; x=1790259421;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wiqEuG8/cSEg7rIA1EdKPkNp8t3X+jIVQg7jtFMc8mo=;
+        b=bdK0axiUGTrPl6MSNXa5Dg5vw915WdoB0/w8FL8/HQmghEPDt2hfz2sU1OkGm4xlGw
+         wKb7p5d4pv5bDE+KVC9yXPqVzwLmz0Natv+uUx1NhTKh/y2w62Ekv3fHr6rT/Yxmbc0/
+         cHCUOs0bC9CZYW0BCpZIPK3tFQlJ98nZwbuqOYwDshoFCi6yk2hmh3jX0ccahclb3iXn
+         gjNRSpqJ9FyIDTIUO61xi90D8RQk+SjCIyUDHONGjUrwp8rN7w3vWCs2tpZVbsBYawQh
+         wZ4BzrqbynUwotaUjMWl/5hyw5WStv0IdPNHQR/9iR0D5zb2HbR6QeNS+yh+ccy2CoZb
+         d1rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0vmg2FZU4Hc0TviLNCZ6ta5jUUk6UK31A8apRLnYwxYfNTOrzuLxchgG8LHahkXKevU3wYBL6LZOAPy0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSdd4CPgQnTW+/KJcE1pAR96Cwzf4N/2n3u+0GH4KBfLN67pDV
+	hppP8dNxT3QpmqaB9kcQ7orP/4lLFxo7gPqVxhuyxpuQHnsianjqr1xRjfZ415zH
+X-Gm-Gg: AYBFou2DhZ3R8uDZFn6B0fkcVdbTFcH3rrVEh/yMSmosLmrMpxlo1xFVd/6HB5h5fvV
+	r7E36f7fXyN16HbCwG28SveDrNeBrRMUCifRQsQrH0yWcqr+cNxZWmhf+HjIbfLSAcQ51eYMQzz
+	KZix2rn3sL4z0NsNbg0rxjj9kI0dshghFXPconOEClj+WtUBihAGViaBCGfYeqh/n1uR0eeDPIt
+	G1S4IZMy5b/vBF9a96gPQUqVkO+Nc8jzzRk0tmyi7G3qXX+HDM98E3PJmbJ0XT9vCu5PQe3AzGs
+	q+OjaAB9py0WC3kTrSPrGIOluNpn9vMYj/RxxsrMGvfbgjcdfbuekBn0lQ3qAhYr7LObtUOxxJa
+	3KbCI0gby0odD5JWnBuK2xgrrug6Z/bKSfHfEFQ7s1WMIrQqySMImIZgZwrROme+x5NbSi11ZlM
+	cwOdT39896Gvoi6E34mpI7RQXSoMRrgn+j86gDvOCYqDMIokG5otmH8qKa8JnQp9C8Yw6FzrV9i
+	WiPW8w/MkgEtjh5jmBccp4=
+X-Received: by 2002:a05:600c:3492:b0:49e:7c8b:fdef with SMTP id 5b1f17b1804b1-49eb7329b2emr73332995e9.2.1789654621094;
+        Thu, 17 Sep 2026 07:17:01 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd247809sm134648665e9.11.2026.09.17.07.16.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 07:17:00 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: christian.loehle@arm.com
+Cc: beata.michalska@arm.com,
+	cl@gentwo.org,
+	daniel.lezcano@kernel.org,
+	dietmar.eggemann@arm.com,
+	elif.topuz@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rafael@kernel.org,
+	rostedt@goodmis.org,
+	sh@gentwo.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path candidates
+Date: Thu, 17 Sep 2026 17:16:57 +0300
+Message-ID: <20260917141658.14490-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <b129997a-8d49-41be-a93a-7e0343c952e3@arm.com>
+References: <b129997a-8d49-41be-a93a-7e0343c952e3@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 03:37:36PM +0200, Alban Bedel wrote:
-> On Thu, 17 Sep 2026 09:27:42 +0100
-> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> 
-> > On Thu, Sep 17, 2026 at 10:11:03AM +0200, Alban Bedel wrote:
-> > > Use tty_port_register_device_serdev() to allow attaching serdev
-> > > devices to USB serial ports. Also set the ACPI companion device on the
-> > > USB serial device to let the serdev matching work on ACPI systems.  
-> > 
-> > "also" should be a separate patch, right?
-> 
-> Will do.
-> 
-> > And I didn't think that serdev could handle devices going away at any
-> > point in time, when did that change?  How was this all tested and what
-> > ACPI device wants to use this?
-> 
-> The use case here is an x86 embedded platform with a soldered USB serial
-> adapter connecting to a MAX9265 GMSL serializer. As everything is on a
-> single PCB there is no question of anything getting disconnected at
-> runtime.
+> Actually about the last part, I'm leaning towards sticking with v1, because
+> that is actually the current upstream behaviour. !idle CPUs currently trump
+> any CPU seen so far, but preserve min_exit_latency, therefore sticking it
+> into the shallowest seen reservoir is consistent IMO (although we can
+> certainly debate if that should be the case).
+> I'd prefer sending a follow-up with an idle helper and making a properly
+> defined policy there, but that's adjacent to this patch.
 
-You hope :)
+Hello Christian,
 
-> But I now see that I missed that the bus remove also need to be
-> adjusted to use tty_port_unregister_device() instead of
-> tty_unregister_device().  With that done the serdev device get properly
-> taken down when I manually disable the port. With a small fix to the
-> serdev core it also comes back up when the port is enabled again.
+I could send a patch about this if you want, after making sure about
+everything, obviously.
 
-Please read the archives for why we don't want to do this unless/until
-serdev is "fixed" to properly handle dynamic device removals.
+I'm a bit sick, so if you say yes, I could be slow. But I don't think
+it will take more than 3 days after your answer.
 
-> The ACPI part is a custom DSDT overlay that defines the chain
-> starting from the USB port. At this level there is no difference to 
-> classic UART where serdev are already working.
+Thanks,
+Kayra :>
 
-So acpi now defines USB to serial devices?  Is that new?
 
-thanks,
-
-greg k-h
