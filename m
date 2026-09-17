@@ -1,35 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp153-168.sina.com.cn (smtp153-168.sina.com.cn [61.135.153.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B4D386573;
-	Thu, 17 Sep 2026 02:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B04EC385503
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611687; cv=none; b=u/0ItUHAPqLzuyorJKgIgo8o4Fm9OmJMX2PnyhCwbIv60ViCEEFRi1sPNQF0YtlK8DCok2P7KEpftGlkAdMui8ocuHo+CC3swjGklSzIkv1k9TPthSvwgTYx71eP6a4xxSWs+TEVC/fumPYWjtcqRQ9XhuC4u6pJDdAG987s/9k=
+	t=1789611749; cv=none; b=HKpiQqrKNpZr651aRsuVOJdJaYL+WaAcMy+5kO0ZQNGtRnePUMClJ341CBrvHCCHmUGRsiSg4Bwrk/N3MWPq7/Me5Grt7nrLzg8QNK+oOhhisAY/GVLEr+VsTfN0M/wR8o2rHvpgJVYKAfKtAcecqiBRJ1nvWSlpcCPp84agpdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611687; c=relaxed/simple;
-	bh=IaGgtaMPfx592U6r7xxfY4sOPuz33jG/EGc4WgoHyAk=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=kjdgxVdXF1tdPPHJwXhPY05kb6vCpudouv4rd7oQbuxTZ3jYKB3oF7uk4yIV2NBoxXH948vFqtBiJNT4qHcuJ9r4+x915hnJ3PBiNlXX/VLkrbtebKlHN11vUsPOUttmfjbUUdpuQEziAP6OIJCNDWm/BVSuvy++7N5flUSJH2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kIe0k9+b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789611749; c=relaxed/simple;
+	bh=p17D1FfwjYiNalCM2xRlJA1BhxtoWDTiCel+YvdCYWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PY7ekvjbLP6EwkmZ/+gk/vbDIPxZfnhpgPfBPaBFCv7++5zBYvc0g5EV0LGW6zMGjQx0Ngn98pvekR3kXpeBzNksa3uDhxByaNfyfBRGww40C+eCvG/K5B3GL3uPxttnTtycH/xOAy6LwuKL5wTptf1nUEpmfz7D/L+wsz1DiSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=jbCDkEAs; arc=none smtp.client-ip=61.135.153.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kIe0k9+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC8E1F000FF;
-	Thu, 17 Sep 2026 02:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789611685;
-	bh=A9NwGyxeZ+DHFulwQgYDFnMQYUc+eMcjYeHUIUT9sMc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kIe0k9+bxAbMDF+x2RdpT2ffL9snM23NRdeE6wAIJPPvGdo7uM+Oond6RekPHT2Bn
-	 76cKtkSupvQhsS9QzULKe3Na7TlBpTmRFV6xoSckU+5gVVCgb0rFM90+mWAih563pn
-	 Fjq5oAnChsvEInSOuvvLN/3EmvRlQmBPuf4DmqxYA0XCjJjh0nS09icyrjdCmXJ2dH
-	 ggMsdKSj4o23yB6Z22b3frn1a5kYxm/M4T17qAw5+3EDPN0Bc/kKeZOIfyeneaPvTa
-	 oAzo1CXATZSir2VAkhJEaCcJ2frhyBsoYa5me4JoldCzlN49vFUhqncnwv6iocwwCc
-	 UtP68z95KN8hw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569C439E9609;
-	Thu, 17 Sep 2026 02:20:20 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="jbCDkEAs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789611742;
+	bh=6499mP0TvnNW82APDOqOJqcdQbPTGRc4JDjRgr3TQCU=;
+	h=From:Subject:Date:Message-ID;
+	b=jbCDkEAsY3IE+6za9LcOkueTEMVnGku/HgplZl2++drrfWaJJF/CpYx7oiuydw+Pg
+	 r7/h0rhY1JW5wm/ZzRlWJ45+OcT4ffJzQMEvb6ir6GCX5xfsQ3I6B6jN0DomBpDFGb
+	 tONtyxHPdoPhfeJaDVln8DeuWi1JhKWtQWiOGlaQ=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AAB4ED100001F7A; Thu, 17 Sep 2026 10:22:11 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 081236685257
+X-SMAIL-UIID: 50260D273A284C35AD221069EAD133C3-20260917-102211-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
+Date: Thu, 17 Sep 2026 10:22:08 +0800
+Message-ID: <20260917022208.977393-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
+References: <6aaabb70.86093f18.33004f.0003.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,54 +51,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3] selftests: drv-net: add BIG TCP test cases
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178961161888.3379718.13689947396648272606.git-patchwork-notify@kernel.org>
-Date: Thu, 17 Sep 2026 02:20:18 +0000
-References: <20260913052419.77910-1-narcisav.kernel@gmail.com>
-In-Reply-To: <20260913052419.77910-1-narcisav.kernel@gmail.com>
-To: Narcisa Vasile <narcisav.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, kuba@kernel.org, daniel.zahka@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, shuah@kernel.org, horms@kernel.org, willemb@google.com,
- petrm@nvidia.com, anubhavsinggh@google.com, richardbgobert@gmail.com,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+From: Edward Aadm Davis <eadavis@sina.com>
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+#syz test: upstream f6e7b42bf05b
 
-On Sat, 12 Sep 2026 22:24:19 -0700 you wrote:
-> Add four new test cases that validate coalescing
-> under increased size limits (BIG TCP):
-> 
-> big_tcp_data_same
->   - validates that equal-sized segments coalesce past
->    the legacy IP_MAXPACKET limit.
-> big_tcp_data_lrg_sml
->   - validates that a smaller final segment coalesces into the
->     previous chain of large-sized segments while crossing the
->     IP_MAXPACKET limit.
-> big_tcp_tcp_seq
->   - validates that a packet with a wrong sequence number doesn't
->     coalesce. The test uses a sequence number for which the low 16 bits
->     correspond to the correct sequence number to validate against
->     truncation bugs, since total aggregate length crosses over the
->     legacy size limit for BIG TCP.
-> big_tcp_large_max
->   - validates that coalescing stops at the configured BIG TCP limit.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v3] selftests: drv-net: add BIG TCP test cases
-    https://git.kernel.org/netdev/net-next/c/9a483b60a0ad
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+diff --git a/security/keys/user_defined.c b/security/keys/user_defined.c
+index 6f88b507f927..6bf3e2da7bda 100644
+--- a/security/keys/user_defined.c
++++ b/security/keys/user_defined.c
+@@ -61,7 +61,8 @@ int user_preparse(struct key_preparsed_payload *prep)
+ 	struct user_key_payload *upayload;
+ 	size_t datalen = prep->datalen;
+ 
+-	if (datalen == 0 || datalen > 32767 || !prep->data)
++	if (datalen == 0 || datalen > 32767 || datalen < 4 ||
++	    !prep->data)
+ 		return -EINVAL;
+ 
+ 	upayload = kmalloc_flex(*upayload, data, datalen);
