@@ -1,64 +1,64 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF3159574D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6BA59D628
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 14:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789656269; cv=none; b=gSoU3b6sx1UiKGr8RuQ67dmSJutEl4c9WgkYTJaRqdbp1j6BOajt8X3RQhKDGgImGjWdzJofTax4vWxm5elMrJwSL4twIFiiDfJrBmbIixcQSuXIHdNJAF4sdCf+U7lKjX2HM6VVFYZi9M8mdLOjOoI0qhNkSxQsrYR/tGc4cVo=
+	t=1789656274; cv=none; b=U1BfwW6uOn+lbfFyKNwrnu4w1SNxn8tLHebXh/kSH/C0dj+ulSC6dFn1j1ZSvG8keeAagcOROTmFBCWue6HMmYbRaL+pCIDvaXegdmI+TXEY6Nt6cT364TZcERaheMiY+2HmUqobEZD3y3/xRODPpD4X3rlYVIRCsoOYj+a4g9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789656269; c=relaxed/simple;
-	bh=wWFrmPZdYXd7YwWTy9eTwd5LSF+K84lu9Y2vEN80o7Y=;
+	s=arc-20240116; t=1789656274; c=relaxed/simple;
+	bh=uaqjBwLJCC82wt/s/pAT4kIoBXhiZ8r0imzWhi6oNmQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fsOON21qLpTF0/nlAo7rTRXiE4NIHSwxfNptqWvtnkwhOw5vTFGU7Tpdv3pb2yGy1g2TuN4P6IfHOYe9DNnSCOUpkel1eaSpFR6Y3IugT0mMfP9CnpE8CHWXeEfBHwfBuKhVNHdst6H8R+vo04Iel5ybC9Ff91SbuJ0iUIvBpxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1MOjl+0; arc=none smtp.client-ip=74.125.228.41
+	 MIME-Version; b=s4SvKUJgd4Dx/qTrTCgoAUwMpZkqkmE7Uu8hV6tzzxfT/z3OVc67/iQov2+92Y2C2Rv0nQdGtVRWN717TkBRFZ3sypxxGVSewACQuoi+fFc9hbOgeqgM2fDqf3UFJY0zTfSh7xdtthRBqrlrU6qw6zhsbFJKylKug8C6iDJt9O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e3OX0Aj7; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1MOjl+0"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso926902b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:44:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e3OX0Aj7"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86868f7707dso480189b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:44:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789656251; x=1790261051; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789656256; x=1790261056; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=22gw0ZGKrgRtPwCbXT3ngxxxz9UmWAY8ZGfEsrb6sco=;
-        b=E1MOjl+0nwwQ49HcCMwiGX7M/dm4AUeA7GBY4kDRqWwerphYVS6yngIewQkxgQ6xnp
-         gztP3YB69HdYO3inYGZSOkmN7LbclP68v6iXT7Lxlrv+Qu2T5bYe1V4atVNJiEDDarVT
-         arodqhXuHPqRgfld5MqpvsBS1PQCuhq9cYQ934wN/e9oklvgNDVuNE+4oXgM8mYipk/d
-         dMA7C1KqUnaFa+Ogr4EJO4H081GgV/SfJgfTAdq9ogWOyFeugqpzb425YjzyZ8TMbFh3
-         9rt7No3szN7mB2Fs38pP8xPZD0bVhotlAV7WrXpP7ZW+RMIV3fTK8c+PPBI8sQQ0Yeyg
-         JdlQ==
+        bh=o4aPNtQuaiA+2t73z2Ob/AKAru2eGb/yyU8jK4Q9iWQ=;
+        b=e3OX0Aj7z0rSG1f3Wn8wAA1BKzlkWTna7hHuwHoZbuVdw0EVt/C2nRbM95KwgkSbuK
+         pEu/AXrK4JJFO0Ia4usdzuMRZX4dObIr28Hsu1jTkZLg9RoBDmKHOSNCuHKXIr1d1udu
+         PqEXu8ubWyr9kpJRCBiyqTen06iO6jz5w461iABryww6cWEDgrNAFgoTeF4T3afD6f58
+         EBYHmaVTWqDbAjJe6FFvsC0Fty4Es6ajfGFUV+Nf3OdSN7l39qLfeI86Uczq8K6+8K4I
+         7ZAQ1h/4hWbtP4jhHxYsxuGOfI0NhHguOSYOHu9dRVKjT44am1mgoEpe73adMr1cCtND
+         tnXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789656251; x=1790261051;
+        d=1e100.net; s=20260707; t=1789656256; x=1790261056;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=22gw0ZGKrgRtPwCbXT3ngxxxz9UmWAY8ZGfEsrb6sco=;
-        b=sLVOWkSu0qCbYZ1IZhCd87lKEL9Sz1GDm/dEYRRL3TspH48p3EAY9y2tkXVN5MihF3
-         BsWd2IvUC+os+Q9SLyg78c0hT1ZVAEkw/jTGa+LyculmXZs4QThkXYioxJPhgnskW1+m
-         6n1Uu9jhGuFN+Ld305cUYOOFBYFp9r7rJZy6xiv1B4+3kvUG/5BAaRhdYA28bcKEqaxE
-         bCX2+x3YqS6rUlSRs/ecnUpvYLV205jTNz/vyN2Eh1JgrBdBYlEtm0M9M8aTPwXpT0ks
-         F3Iz6ynr5JJi6Qg9gOW+gGjLw9Ywpr9jsM/1+FftmA38udQb3ezjBhPQ0CXKkx6crrMD
-         Htdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzspuA3I3w1kMD+OtSFlYZ2+19buf0OgNOXYnlc0ocR7Db7Ab1hK+U4SpknRElAt2kIZusXLh2xv5JUD/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8eHo+3LZpzoREx0kwceVXV5UnFzUutDagRbd9gHg9565yOA9L
-	eG0wLTROJQwzhQXXPFZme3+roqv1M2VsSkuS7boofdXcK2PgE/Kisbza
-X-Gm-Gg: AYBFou2eZReBB2Zjue3JEKeAwP+Ki+12R3WTTFK/KmJmras50dVlGT5LHLoKjOmEG7V
-	OnsPVnJ/LEVN94cJBcgQeSxDNm3eDxZ/G2Vgsl+UhaTYDF1YOccTWpi88xCUvpfqKlrrz2vi3Av
-	KYnvxlyjesRVyMVvel6ULIhfFkF6AczXwRFtWEZmQx4DouqQaWzExm2EN6pdik+AnOmV4THGbD/
-	bxd6iF0W206XxxGIl5RgO48n2LtWMWZ+k6+0MujR4pbSyx/5NlHDn5Llgpno8ZEyq5xco57Q1Pa
-	qBxJxERg6/PeXCaAOqhrdGRYnNHn0F94blK8x6Fp2OU3E31vSuWm6xXEyopR+sqVx8OX+cD1dVI
-	zYab3qnawzQ0BXn0jiQC/aDmMhjpnbZx1AUleePVPo5kuTV03cTKn5MLKNMADluaZvHAUKa+3Xp
-	NR5aPy5QXfbPwF9p4boA59thAkiQayof0Re4Rr7M8yJHeQxbVPiLYzgmhr2MKqDttTeICjncrCg
-	kvL/BrXE6cryzUwKQuTLbOMRq9eJapGKuWdXtEfyg==
-X-Received: by 2002:a05:6a00:398f:b0:848:4424:2b8e with SMTP id d2e1a72fcca58-8723adafcb6mr14166549b3a.3.1789656250736;
-        Thu, 17 Sep 2026 07:44:10 -0700 (PDT)
+        bh=o4aPNtQuaiA+2t73z2Ob/AKAru2eGb/yyU8jK4Q9iWQ=;
+        b=E9n0GM2NIS3NpIk1j4z0ozCsvV/yjPDL8RwYxyJihuostax1CgAAAzLrWDrlM2BAwJ
+         wFYjVcVap4oUlT1HZvIeg4tMkPX9oXmo8coFYFo9PpVxcteRBmF8tYspDWRiwmhTOpbJ
+         PaK92qbI+HiRZJwBwmGdEDwQ+J913WMv6gw0CUiU1JUY0lGBddqkXDo/RAOv5colp/w6
+         lAO8rO58EueKlItLQy+1/wgWkhugt4E/jBiIyK3Y8+AD9kbS0pje4BMZvQAOkAzWyPCL
+         3oijugHR7RQYOaHwQGPdWIpjEZHU6EQoNf6K/DSHNnB7qzhC5mln8e9HDYmXEMY+Nlf3
+         5MRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwOkAGXV2TYhzKrgb4kjoIFmE5U2PWpb4CInrDRLs6Anhmbd5jBK9AdwAqVCPIWGe63hcOEmlpH8D3Y/Ss=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBK8wJrCB1yJiTcy8A59vp+sTq+A2S6xIr+hp4nrmqzHu657Bf
+	GZfu+QhiI2fx6No8O+KOxMU4oUPiIXW93ooAURv+ORopum5D2N3Rw823
+X-Gm-Gg: AYBFou2ysCQ8vPhnv6dEUreASSlJy5DN/HVtcAPs/tQ6XzD/vK+1uJH2d/gHnUL00QF
+	kiiPjCTa0F0GvYysry9Gdgwsid78cGwUKKBlwZHIRVf/8lZSyl0cNoKmP6QA4VCraddVyTJZM8h
+	6tFaySWVbbDZwSCSZflAfXw/EPOuiaN8LhuStsclTz0o9U+w7EFmZ3kpRIi+6pJReImYALfN9xJ
+	XZrQr2d7SKCFwRVex5t8zDiRiwi3bLaJacDCHkUuYi4mNF0bp5bX1GZf6wHypEGVBRi+dM1131F
+	l9XDrznSXJ9ExzIf1mADuwheOIKqezkXvZPyCJJMJHsXaX4ZA1AA+QldIhfM0UPPt29yqmPIc79
+	C7uvq5GR2l3Q8XFjRQbRE01Wyy22bgD/COyaWQkranF9WyO0uja4OMdUTC3t9t8T4egSyiDZckm
+	IndZWikRde18VRABm8Ioyk361GTVZ5SNyOh6uBbAXK2nzec4CADLlcoHUl+OtwVM0ssdXmYPe/S
+	OjCCfUQO1AUvMtEr1ImJHgM6gXMhkbiGc45UwU83KKQ3PkXGnt2
+X-Received: by 2002:a05:6a00:1d14:b0:874:708d:b626 with SMTP id d2e1a72fcca58-874708db89cmr1110819b3a.27.1789656255590;
+        Thu, 17 Sep 2026 07:44:15 -0700 (PDT)
 Received: from localhost.localdomain (59-127-145-64.hinet-ip.hinet.net. [59.127.145.64])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm2962034b3a.51.2026.09.17.07.44.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm2962034b3a.51.2026.09.17.07.44.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 07:44:10 -0700 (PDT)
+        Thu, 17 Sep 2026 07:44:15 -0700 (PDT)
 From: Zhi-Jun You <hujy652@gmail.com>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>
@@ -76,9 +76,9 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	Zhi-Jun You <hujy652@gmail.com>
-Subject: [PATCH net v4 2/3] net: ethernet: mtk_wed: fix reset condition for rx wdma
-Date: Thu, 17 Sep 2026 22:43:34 +0800
-Message-ID: <20260917144335.19466-2-hujy652@gmail.com>
+Subject: [PATCH net v4 3/3] net: ethernet: mtk_wed: setup WDMA_RING_TX(0) for non-DBDC MT7986
+Date: Thu, 17 Sep 2026 22:43:35 +0800
+Message-ID: <20260917144335.19466-3-hujy652@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260917144335.19466-1-hujy652@gmail.com>
 References: <20260917144335.19466-1-hujy652@gmail.com>
@@ -90,35 +90,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mtk_wdma_rx_reset, only the wdma rings that weren't allocated are
-reset which is wrong.
+WDMA_RING_TX(0) is required to set MTK_WED_WDMA_RING_TX for WED RX
+but on a non-DBDC MT7986 it is never setup because idx is 1.
 
-Fix this by inverting the reset condition so allocated rings will be
-reset.
+Setting MTK_WED_WDMA_RING_TX with WDMA_RING_TX(1) is not feasible because
+WED still tries to send through WDMA_RING_TX(0). This is verified with
+register dump.
+
+Fix this by calling mtk_wed_wdma_tx_ring_setup if wed is v2 and
+rx_ring[0] is not allocated and reset tx_wdma[0] if it's already
+allocated.
 
 Fixes: 4c5de09eb0d0 ("net: ethernet: mtk_wed: add configure wed wo support")
 Signed-off-by: Zhi-Jun You <hujy652@gmail.com>
 ---
 Changes in v4:
-- Patch added for issue raised by Sashiko
-- Link to Sashiko review: https://sashiko.dev/#/patchset/20260724172040.1653-1-hujy652%40gmail.com
+- no change
+- Link to v3: https://lore.kernel.org/all/20260724172040.1653-2-hujy652@gmail.com/
+- Still waiting for comment from maintainers for the return value concern
+  raised by Sashiko and it would be a much bigger change because it
+  involves mt7915 and mt7996.
+Changes in v3:
+- no change
+- Link to v2: https://lore.kernel.org/r/20260711112128.971-1-hujy652@gmail.com
+Changes in v2:
+- Address warm reset concern raised by AI review.
+- Return value concern is skipped until further comment from reviewers.
+- Added a comment to explain this special case.
+- Link to v1: https://lore.kernel.org/r/20260630144831.1109-1-hujy652@gmail.com
 ---
- drivers/net/ethernet/mediatek/mtk_wed.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/mediatek/mtk_wed.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
-index d55042ccaff1..3f0be70c3f14 100644
+index 3f0be70c3f14..3800e602d3c4 100644
 --- a/drivers/net/ethernet/mediatek/mtk_wed.c
 +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
-@@ -257,7 +257,7 @@ mtk_wdma_rx_reset(struct mtk_wed_device *dev)
- 	wdma_w32(dev, MTK_WDMA_RESET_IDX, 0);
+@@ -2339,6 +2339,13 @@ mtk_wed_start(struct mtk_wed_device *dev, u32 irq_mask)
+ 		if (!dev->rx_wdma[i].desc)
+ 			mtk_wed_wdma_rx_ring_setup(dev, i, 16, false);
  
- 	for (i = 0; i < ARRAY_SIZE(dev->rx_wdma); i++) {
--		if (dev->rx_wdma[i].desc)
-+		if (!dev->rx_wdma[i].desc)
- 			continue;
- 
- 		wdma_w32(dev,
++	/*
++	 * non-DBDC MT7986 allocates only rx_ring[1] and tx_wdma[1] during setup
++	 * but tx_wdma[0] is also needed for WED to function.
++	 */
++	if (mtk_wed_is_v2(dev->hw) && !dev->rx_ring[0].desc)
++		mtk_wed_wdma_tx_ring_setup(dev, 0, MTK_WED_WDMA_RING_SIZE, !!dev->tx_wdma[0].desc);
++
+ 	if (dev->wlan.hw_rro) {
+ 		for (i = 0; i < MTK_WED_RX_PAGE_QUEUES; i++) {
+ 			u32 addr = MTK_WED_RRO_MSDU_PG_CTRL0(i) +
 -- 
 2.47.3
 
