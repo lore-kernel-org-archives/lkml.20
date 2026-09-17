@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A423446AD
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:53:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AEF4A206D
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789689187; cv=none; b=CvayrP/uGemR9tyvA4VQKnFm78GdLIIPo+ZD+BfUt1XqSuBm+hCsHHgDFPoYP/7wmduYFjGYogA6wbKaGoPTsyRCoYt2iN4Wk3xrneG/hdaz2AazXdxctOUUm0KjUR0i+GQHvOjrXm5KzJsfsOpW2pK0V7PB8p9PQA1uutaZPrA=
+	t=1789689310; cv=none; b=FZ5nnCXZ2gHOuZ3w/bhzhCIIl8uIjWYFgscZkd6ANbbs3o+1XxKwVsCpXd0TP6uIATmf5UvVWKTpLLcf1YtcNLSypDnmDVUTGnYKZE0x6Sc5DWXbia5lyaXgnq9F0v8/pvboMSHVASlQ3mwSVVKzhKaXjTZPpg4CXviEABvLk48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789689187; c=relaxed/simple;
-	bh=gWWf1CItyz7KVgwfN+ZqCkcVAoPlbIWKxV2n1po8ang=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=pdLbzViCJsfPv3JupzqTLx7IcmuDONM+uvme045JPUkW+4AGxZdEwMNdzOMDrZoEw0NEl8n2n6sKWeh80m1x8h7yZZRY6kv+Tu30AkG049ClTavDi/urWMNZxHhymsLEn2t3A4D11YxsR0VTBi4rlrIFqi63Cib5L7wv580epwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R3ev+6CG; arc=none smtp.client-ip=192.198.163.13
+	s=arc-20240116; t=1789689310; c=relaxed/simple;
+	bh=Rl/ZVL25hvqljf/OTl3RFSTwcrD1NNdKLpqRxMPppZs=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ZotYJXokrzz5CuiTyiYTb0/xt912e8FJEcigqcDDHk/3hVj8t6qNm04tOa+rlqWLq8EhfDZ9tTjFIrTT3lBV0EcjwuqoWNwMkMTJ0uBNrmmo7/06bp0LX++9srIUGrYhk+RVBb3+C/k6XpNmy5NoKchh+pTpbJRHnOWVbV/seO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FpcI8JpD; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R3ev+6CG"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FpcI8JpD"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789689185; x=1821225185;
+  t=1789689307; x=1821225307;
   h=date:from:to:cc:subject:message-id;
-  bh=gWWf1CItyz7KVgwfN+ZqCkcVAoPlbIWKxV2n1po8ang=;
-  b=R3ev+6CGc0rmmG4uoEMDF1LsD8XHUOJzKB+0rtBPihqiyz63F6ryHI57
-   zOT1W4/c/v3PlWMwc/P1Daw4GYuXI6CZ9ltmuQ3t6Zx60+ODo58k+jtbg
-   YzhOYIivzOY3lBPKwWpw2DbJca3kGX6JlIp5Qmri3XJZGx5r3cyUNcRJf
-   Uxhckzj0SNXN7Kg5oOKHdbknm+cRMeAVNhvBYJKLCtGiWf5PzceS8UFyo
-   xZ1z9gwkPiMTTh0w5wejglGBp6yZoZuIVWkDt5J3ZDG68d6EuhiQsMvLj
-   Xa54mN51nwg3xPJuVKAbuAb6UQJ51L6y6CfcYNLrPdMOERf+PYH7WkY86
+  bh=Rl/ZVL25hvqljf/OTl3RFSTwcrD1NNdKLpqRxMPppZs=;
+  b=FpcI8JpDIrflnoxWHlY9cARve4eUDn+TmgHgOyvNzMuoJvkDYziETO84
+   nwPV/s6wwQgcNWSny+D4wy4ownvFZAg+uAbR6ut7gaQ8XdFWyRm7V2ICJ
+   DCmS0mgPKXhFM0J5XXz26O6APgcv+GZzjnRX3guQa3375221CLtqttRv+
+   KAV+6A/io3IVxFQ6uZsmOH2HJc+PITed1egC4wpxET3CunvNMHgEnoxAL
+   9vbeqT+zk9cOPEEEAFHSnmoOpPZMDMu5o1IqqA8aiUqRrwP522fTfBRAJ
+   2e4Cwd8p6vu3sl1NAUIv3lyK/nGxy9AmlupZLc1X8X35ZSMWXLZ2WyJXi
    Q==;
-X-CSE-ConnectionGUID: ySFSCcJURDebuTdTmylcXQ==
-X-CSE-MsgGUID: Xi6SQu43Tz2/59XJm8XKlw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92672485"
+X-CSE-ConnectionGUID: vS42TmgIRwi5+upDyHl+Ig==
+X-CSE-MsgGUID: /yv5UsTsSzuhkEvQptQaqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92672804"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92672485"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 16:53:04 -0700
-X-CSE-ConnectionGUID: dTZcVS2PSh2CUQ1XVVIPcA==
-X-CSE-MsgGUID: APXLSy5IRfa1x3SeG9XFAQ==
+   d="scan'208";a="92672804"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 16:55:05 -0700
+X-CSE-ConnectionGUID: 8at6zn3FQUOtKHihRrKv9Q==
+X-CSE-MsgGUID: ph6mqX5FSIejkQXVW9S9qA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="267850697"
+   d="scan'208";a="2290914"
 Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 17 Sep 2026 16:53:02 -0700
+  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 16:55:04 -0700
 Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1x7LuS-000000008m8-1zl4;
-	Thu, 17 Sep 2026 23:52:56 +0000
-Date: Fri, 18 Sep 2026 07:52:04 +0800
+	id 1x7LwP-000000008mV-0Naw;
+	Thu, 17 Sep 2026 23:54:57 +0000
+Date: Fri, 18 Sep 2026 07:54:22 +0800
 From: kernel test robot <lkp@intel.com>
 To: "x86-ml" <x86@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [tip:locking:urgent] BUILD SUCCESS
- b61b6f95d6722ddbbbd09e689fa41b55fd36f9a5
-Message-ID: <202609180700.OIH00mQf-lkp@intel.com>
+Subject: [tip:timers:core] BUILD SUCCESS
+ 7b07d15ed1d78cb49309754a2d14dacdddb058c7
+Message-ID: <202609180717.ZMco4N2R-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,12 +59,12 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking/urgent
-branch HEAD: b61b6f95d6722ddbbbd09e689fa41b55fd36f9a5  futex: Also allocate private hash on vfork()
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/core
+branch HEAD: 7b07d15ed1d78cb49309754a2d14dacdddb058c7  posix-timers: Handle exit in do_exit() completely
 
 elapsed time: m
 
-configs tested: 265
+configs tested: 257
 configs skipped: 9
 
 The following configs have been built successfully.
@@ -119,7 +119,6 @@ arm64                 randconfig-1001-20260917    gcc-11.5.0
 arm64                 randconfig-1002-20260917    gcc-11.5.0
 arm64                 randconfig-1003-20260917    gcc-11.5.0
 arm64                randconfig-r1306-20260917    clang-18   sparse
-arm64                randconfig-r2200-20260917    clang-19
 csky                              allmodconfig    gcc-16.1.0
 csky                               allnoconfig    gcc-16.1.0
 csky                                 defconfig    gcc-16.1.0
@@ -201,7 +200,6 @@ mips                       malta_kvm_defconfig    gcc-16.1.0
 mips                         omega2p_defconfig    clang-24
 mips                 randconfig-r1301-20260917    clang-24   sparse
 mips                 randconfig-r1309-20260917    clang-24   sparse
-mips                 randconfig-r2202-20260917    clang-24
 nios2                             allmodconfig    clang-20
 nios2                              allnoconfig    clang-24
 nios2                                defconfig    clang-24
@@ -283,7 +281,6 @@ um                                   defconfig    gcc-14
 um                              i386_defconfig    gcc-14
 um                    randconfig-1000-20260917    clang-17
 um                    randconfig-1001-20260917    clang-17
-um                   randconfig-r2201-20260917    clang-17
 um                            x86_64_defconfig    gcc-14
 x86_64                            allmodconfig    clang-22
 x86_64                             allnoconfig    clang-24
@@ -317,11 +314,6 @@ x86_64                randconfig-1017-20260917    clang-22
 x86_64                randconfig-1300-20260917    gcc-14     sparse
 x86_64                randconfig-1301-20260917    gcc-14     sparse
 x86_64                randconfig-1302-20260917    gcc-14     sparse
-x86_64                randconfig-2100-20260917    clang-22
-x86_64                randconfig-2101-20260917    gcc-14
-x86_64                randconfig-2102-20260917    gcc-14
-x86_64                randconfig-2103-20260917    gcc-13
-x86_64                randconfig-2200-20260917    gcc-14
 x86_64                                rhel-9.4    clang-22
 x86_64                            rhel-9.4-bpf    gcc-14
 x86_64                           rhel-9.4-func    clang-22
