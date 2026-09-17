@@ -1,239 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3B54F5E09;
-	Thu, 17 Sep 2026 16:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662457; cv=none; b=c4Fk9Vauf4uC63EnkCTZGtnlo+gbyh/T5bTs2ukQ0BpSYhU+H51Y0o/mR/UOCTHszfeQXPPwN41qvLDO0oupbcQz8FoAgg/30LjyVSbhj6HQxTz7mLlH7Mvaff82R2aVWSYBc1WvNlHkLDh6ax33HwzbQ7dolx3Yz0XNU1s309M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662457; c=relaxed/simple;
-	bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JZ3WVz0z1UNkn4fQzn99T7C0z6wvPVuiKWMzDjxbkkTVPPkiKch/ATW6Zv8JWyeWJpygGLpmH3/qiV6tqnFxI74gluEpY3vg9y3inDDJhbYvBFmUdX+9TCTG48aOl3ezHW/2u7+KdAF9n1xxrsJ83PxCaAdUv9wokAL9mcy5TjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IcORuJ3n; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB0D5172FB;
+	Thu, 17 Sep 2026 16:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789662477; cv=fail; b=t6knkvXx2MKHRDIe7glSvPcbkG6u2kYH5UqlpX+PiAyblAFPb0vKReIHU27DSpihPl84RgIFCq0ri0uxp04OHQ1G/u2srUZQ4+GDjOiSpDbcKwSSKzELbeTVyXmXgczLL5uz04bPMYsSjkT+D3x3QuxJXWcenk6xmSB4p770wUQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789662477; c=relaxed/simple;
+	bh=GB2I1AMPdBB7e2hEP2HwEzlqO6/52jswQI6TRq67SF0=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=NHcPkSjl00vA4KcIgA1s2WbYfIYyNOZ1kFH411Y06FXOyDc8PBK+NMGVn0ze833PcVVnCMLJ0bweMcQU0+oyMA+0diak6FrX3fUGPhzkBzJyT7KXuPs6OEspebkelXXqd5jqB+yTRy/5J+B1FPX33QfEHW8KeuxiBEpabcabdlA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QX0bERGr; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IcORuJ3n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FEC1F00893;
-	Thu, 17 Sep 2026 16:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789662455;
-	bh=CxJPdlL4ukdxMfUTmFq0FMtswRM14QRAmb+14GeHlio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IcORuJ3nMChpo6WU1uYF0OWevbealV2BPcixTtf3CtI3dNgsKKnp/D9A4ivvGpGFn
-	 C7wgPTeh92c8FDFeVvp4dhmfd9rUGrhrnjMqeqUh8Ze2yYdUxGUXUdo2TwPG/h7i6H
-	 H24iTxqyQkl4K0YudfAb4Z7aYdAjA9VNW8gJdri0ngtUbo3tMPRG58gS0n6YIG6PUO
-	 iDtiW14oRQszjZQYD1A+6RXPu66NieVaI8hm1FRPe4DIa6TfN3XCzMNnil9CCRoAPX
-	 oOAM0OWsG3cxddEO85vcTLA/NXPpdSq3P9iOkLKfBGG735m87sEDFRIz7eg6UQn0JD
-	 h9pJautmI4lPw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 17 Sep 2026 17:22:18 +0100
-Subject: [PATCH v3 09/40] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QX0bERGr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789662475; x=1821198475;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=GB2I1AMPdBB7e2hEP2HwEzlqO6/52jswQI6TRq67SF0=;
+  b=QX0bERGraWmBo54Cfjyf6VbnKoIVH43i+yrUwnpL/6b1cKAwd2bzO1XY
+   Yx2kou8LrPOb/7UnyQ9iuxuX52Yi0pYQh23F2prWqsQbskhOIu6U0HWfd
+   +DPUHjgAxDo0yeEzzrj/lO2hMVO6NgBx9xjSTM77ox03JKBALuEtnTiZO
+   5nmLLYtpkgMxtKfrmzfbLJAHGWGEPDFPdoybwMKAyvM8IjtNG8AIR6E1d
+   6EtjxjSKj+Q2y/rcS0vXnj7zF2fYPz4oZsS0SKAk8J1RjrviIMEK5i50J
+   HD9XFCTtKw0Qzwe7RO4faZkweW9UM5Rx1BzIGU7ew/hWoza9AKqtijim0
+   Q==;
+X-CSE-ConnectionGUID: +271DNUMTeOwXQ/gmOlsWQ==
+X-CSE-MsgGUID: GQiFb4L/TIahN9J45qC4mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93934373"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93934373"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 09:27:53 -0700
+X-CSE-ConnectionGUID: 9P4CVzcLQtqKEpz9qhaHsg==
+X-CSE-MsgGUID: DFgGfH3CQFCJinlrkkGyCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269622971"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 09:27:52 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 09:27:51 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 09:27:51 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.45) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 09:27:50 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jbntUTQzORYgKGcn5QtA5xEDC1tVqvfu3YJvLb+rx4JSMp0eR35shOOoKr73xfpJwH2s435+5uWVCLUbrloCa9Cf0eAVBJK8QCOxqPakDrpcrMcGqkJ59RT0wt0pE2EKF56R1Ws1rohf1laolUDtq/Qcid5RY+hOXcwSjU6QVbXkU3IzWyWgbs7ib3EQM0mPXusQ30b55S1yVT8Tw+mnSHiVe3t4lyvkoiBdQht6JHudln67oHfUNmxr3NHu6dEjC0ntHlDT3awpN/kAO2ejoCTC5DQ9A6hVD4fEK3d7Q2J9YObEJPfbXjH6nEM5JejNWfES/9CL6LMG4GOMf2enJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ImjZqqW1PcF7f0tYmMp6W/cpGGZGyMAjlsm5dv6F4p8=;
+ b=H1RyXvPVjiZI8uVhp0KJKeuubB+Qwtc2tJncrWvpiYqSCkfSC688rpv9FcpwWWsN/r3lWrCa5N0ERw72kNfuTQ1YO7sxLFWAysLmq7TJXn5TcFEogjicFco5weg8Dfr6kB78YkiEGIAlj6DYWm+t1Nl/VH2nBjkH1q0WlHryzGCk1asHtja1s6F/LgprDCVrFzZcMys9Wwf9/Wt21VUBr0tLheSIN9RVVXV4CcAq9b4Ui69YZynErvuDTa8rbM8e/Pht86EBkwv+LfOSuJxiasHnL8WHk9/YRFJMAcQhDeNDY9k49XJD6fswDqos4ZkfRjpcoUNAxDEAfzxwfqOFhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by CY5PR11MB6438.namprd11.prod.outlook.com (2603:10b6:930:35::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
+ 2026 16:27:47 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 16:27:46 +0000
+Message-ID: <76048b44-8faf-4fc1-a265-478ad83ff7b8@intel.com>
+Date: Thu, 17 Sep 2026 09:27:42 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+To: Drew Fustini <fustini@kernel.org>
+CC: Adrien Ricciardi <aricciardi@baylibre.com>, Alexandre Ghiti
+	<alex@ghiti.fr>, Atish Kumar Patra <atishp@rivosinc.com>, Atish Patra
+	<atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, Ben Horgan
+	<ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, Chen Pei
+	<cp0613@linux.alibaba.com>, Conor Dooley <conor.dooley@microchip.com>, "Conor
+ Dooley" <conor+dt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"Dave Martin" <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, Gong
+ Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>,
+	<guo.wenjia23@zte.com.cn>, James Morse <james.morse@arm.com>,
+	=?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, Liu Zhiwei
+	<zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>, "Paul
+ Walmsley" <pjw@kernel.org>, Peter Newman <peternewman@google.com>,
+	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, Rob Herring
+	<robh@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>,
+	Weiwei Li <liwei1518@gmail.com>, yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+	<x86@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <linux-doc@vger.kernel.org>
+References: <20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org>
+ <20260901-dfustini-atl-sc-cbqri-dt-v7-2-ca2935d85622@kernel.org>
+ <8230dae2-2cb0-4b46-8cec-dc4e281d4e4a@intel.com> <aqwS7qgGNkSHxoSz@gen8>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <aqwS7qgGNkSHxoSz@gen8>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0218.namprd03.prod.outlook.com
+ (2603:10b6:303:b9::13) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-9-4583d8a23bca@kernel.org>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4561; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWCO9/I77qciHTtLypd/9UFVzY1s3Zzzdfvn83B3cMd
- 7H70oblHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIXAIjw/sMni1XVcoePFZ6
- 8OLDvt+vW+8ovv1SfeUEN2ez4533nvoM/8xkZ6fej8t9/n6z2yqDhOuVsZM/Hy7q5X1rwZa7MY7
- 9Ih8A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|CY5PR11MB6438:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f74f804-7d89-464e-b965-08df14d89b84
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|3023799007|18002099003|6133799003|22082099003|4143699003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: MkslSndxo7BneS16HCsQxJSZtWJycLDmJgAcED8BuX1zRDt8T7MMlC1QnOj1lH4Ntmv3EeftgnBzbEsBG3Qmg7EsT7VzJxD5lnlQa12yKhdKD53cQfy5H9QHjdSk2RQSduZY1nTOGKElktl6jlDtWmi06HsGeulm6QgWS5evzsndOq5LN1GbAINouEORXn5hktiejofgMbV6wBgRhF1n56NTqSVZmAIuYU1cM8c6w3dNiBAaL2U+oqIT19+GDmIH3K0OINUXEpNuSRy5NHscuojAtYhIoNxK7k8oprnzENesWWKd4Clrw3VHZJlqGgOiSyXUvJkFfMNf/FscJX9oaa67qNh61hIO+zODZYZWPwcovfW71bjYnwoL392MYxkzY3T7v2z8FGjyvouKTn75HcpMsJYHPH+FPI0Oanb3XvVaMgPPvs7FRmJbJ8obxIVTVbir2z7rVGGd1ISXeQE5WGkK/2bPfNsxITf8Y5qf8I+1NWj7m1RILGK9GWJPzFmbGim6f2CCXO2yqh/nFJAkito+Qow/1GxfYndzZgDwKDSz3WSDc3kDS1SoifImQjymi6lI8L9X4J/euTARLktfnWjl8lTKMSMF3RkvkhhONIBMqbGfnauoUbC8NSleAzNvZIRp0mP2fGRnJf+vaMaNtFGiqKkt2weG7G5VcrOrus0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(3023799007)(18002099003)(6133799003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFdDUjhhUkMzemwyUTd4ZjZNQncxSTJsZGVYNHlUNDlYTTJHT2FKQlAwMy8z?=
+ =?utf-8?B?SGRmVjRXOWxmTitURy9FTDlFWHRweDdTbUdiRkFGVkkzY0I5ZVhLL2RnWmxi?=
+ =?utf-8?B?LzNLQmxXK0lPK0puRGtRSW1OR3lWQjdYcGVMdEdlQzVHK0lTd0pNT1cwZXVy?=
+ =?utf-8?B?dHZ4MVVPMXlTNFVDeTFJWUI3dGR3cFhwZzJnVGIwY3VFNVR5YVBxK2Q5ZWc5?=
+ =?utf-8?B?UXg1MXJjNzhsQmdzczBCcVdTMCtGb0l4dzN4M05aV240SXJ0QXRKUFl5Q1lm?=
+ =?utf-8?B?bGl5NVFXUEh1QStiQzRZc3FhOTI5cHI3eXdKaGtudnNCMVAzNjZXK1B1UE90?=
+ =?utf-8?B?Um1OQjVlK0dkY1d0KzF2RkF0b1RLK0gwZExxd3p5ajJLdnJWcmkwRHZTdmtm?=
+ =?utf-8?B?K1ZFNnYrbEJ2dlpVdlVsVVRrL2FydW5tb3lJbDRBK0pJbDBic2VrL0hRRjNi?=
+ =?utf-8?B?NkQ5VzFnV3ZFYzZ0NGJTQWR0WS9xeVRBT05lVi8rbmNjaitVTjhMTUU0S2Fp?=
+ =?utf-8?B?WDdJWkF1bzJIemxsYWdsVGJwaTQ4a0grbCttSmtvOTRRTHBYMTRPNHU1ZER5?=
+ =?utf-8?B?ZVBLeHlVRkhKMGZ3SE5vUFRuaGc3dDlEYXdQckh6cHRnVFR6eXpWN1BvWm5z?=
+ =?utf-8?B?S24rUkpnN1F4V3ZJNm5DSGhRMzd3U2xwaERqZitCdDVuemN0eEVVdTNSRGNP?=
+ =?utf-8?B?RzN0dURjTEJFYTdwbTFGT3YxSmN2NS9MZ0dWUm5JRU5PNm5md0RzNnByU3Mv?=
+ =?utf-8?B?NFhteVg3SmwyR0VNRWdoUktGOGxrTDN0SmlXVzBEZmRwdG96QndRWmhUU21P?=
+ =?utf-8?B?Ujc1bERESHNlSUg4bVNXMUw1bEk1b2plOGxJb09zcndzbDlMSXJyUE94OC94?=
+ =?utf-8?B?aUg4Ty83YzlFa3g1NXhzWE5oVUk5RGxQcmxKM3AxTUNKTm9zSHkwQktLMHdZ?=
+ =?utf-8?B?ZWl5czIvZHR5d2gxYnRwdjZmM21PbHdUOEZjUkhxcTkxc1hlV3Z3VjRVTWxX?=
+ =?utf-8?B?a1BWclFWV3dINzVRKzVqQzRrRUUrbDlLVzBXUnFRQ29jbXN2SmxTWnY1MEl5?=
+ =?utf-8?B?RG1RbDBxSnQwK3R1VkdvcmtXaGREVVBPdlhqYUdFckhsR2ZtUWpXZkRrTUJo?=
+ =?utf-8?B?bTdXOU9ZZXJPYjNjUUI4ZHV2UzBVTDdKc1RiQVJLalA5RnFaSUxYTlhsNU00?=
+ =?utf-8?B?bENFS1d4RTBHNEljbnRiRHpsbjNuRUdGVW9iYWRFZ2U0OG50Nm0xM3dGc09Z?=
+ =?utf-8?B?Vk91eGV0RkFEc2JtNmlqTExkVFVRR3RRWXBwd2Q3RjZYK2ZDdHhYdGR1bWdn?=
+ =?utf-8?B?bmo3NzJnNmprZmN2amxVdmlPd1UwVU9EZ0R4bmoxOWcxM3NTL0pndlBxSCtm?=
+ =?utf-8?B?TFoyVHg4WnRxY2FtTDRqZHJ3U2pkcGtnclRrUWJyMWpqWFd1RUdUek83MVly?=
+ =?utf-8?B?NjJLN0MzTUVwTUdtaU9GQjVUdlhqQndKdDFFM2QvTS9qSkRMaVA1OFVoZm1q?=
+ =?utf-8?B?Y09OOVVoNDhsUHlJOHhHbkNoSit1TGtXZjVWWnVETWtwaDZKejF5SFhxYXRn?=
+ =?utf-8?B?cmpZN2RvZnI2Qjk5UHFxRHdERkJIVFBKdzF4Rm9qUmtaS2p3RUEwVmRXSjhT?=
+ =?utf-8?B?bkFtbFIrVktUSWVnODkzS2QrWCtWQ0srWW16b0ttZ0xITytOMURqclRSY1hj?=
+ =?utf-8?B?bTRrUkd1UE9NSDlLU1M3WTZLajl4MlpNVTZSZGlwTjRrY0lETTN6anBza0hU?=
+ =?utf-8?B?WHVkUzdSYW9yZERhR0FyeW16ZDNkSldBcEtXUUEwQ0hlUzZzZzAyYWVYemY1?=
+ =?utf-8?B?YU54RzhzazRkTFVEWkluOFB2c1RKRldDK29SNUUwejI3ekY2WmpnczJReHpK?=
+ =?utf-8?B?d1VaYUJ4Q3dORkl5UTdudVBZNDlQVTlRYkVrOWcreEpBWEI3bHNwcysydlJ4?=
+ =?utf-8?B?VTRyMXBONGFOanlxc20xSFg1dDFObHlCYzlBUG9DUlBLc0N3eGxVNWZvZ0Rv?=
+ =?utf-8?B?anF0djVlNkk3Y2J3V1FQVkgycTNkL055VkNKZmlpQy83TFE4YXJ2NFFzczlY?=
+ =?utf-8?B?UGhpTDg2SDIxZU1yeXBuUFFkSkIrUnpEdDdKRFRjWGUyUWZQUDFqZEtSNmZR?=
+ =?utf-8?B?eVFJalE1VE5zdDRMMCtITW5xVmVadkJqMXZ4UUtaMFRQUjg1SC9YR0YyTmRk?=
+ =?utf-8?B?OVk5ZFlRQW03NlFTbGxjeW0xbEwwaWJpOHNSUkNRdEtiR1J0UCtZTDB0SFRh?=
+ =?utf-8?B?Q0haUWJKbDUreit0QWVZRkFJeEk1eHZMQjFFSC9zMG1yMmtjR2tTMkNvdUx4?=
+ =?utf-8?B?eTJiVURveVRzbSs5bWt4SUYxYlE0clJOZ0k5ajRRd1RGcGVCTTNMTWpGWTBU?=
+ =?utf-8?Q?xhKJM+/6kY5DLIZQ=3D?=
+X-Exchange-RoutingPolicyChecked: c+RxvqfQE0MluzTK/4tHugXsycJONjMQ2HWez/L7vL3XhirlfnNOYcPjIkN+qdujhbIcY3/PYH/d4JFVQJtAhOyQ37MtVe3bCeh7XraDH9fsFwlqhXxde/k6hOYYoU5xr4fUvNJQn5u9keKO8crt5FtJLyheRwVfiURsKDtUzndUko8hKKs6HNCexH4QutJrlsgychOr12Ykt9a2huHADoeXWHlfjTuxJV3gzXeQSjE9JLq27sdUL5z9Y8BMRhX1Dqn9uY/8xQuXRr7FXhrqD1cP+9pgoXEcz7+dwAHODlk9wobMM6+0Kt6+UgLnqwEKzSADbvActYZcbc+TDfPfnw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f74f804-7d89-464e-b965-08df14d89b84
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 16:27:46.7445
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HNhtBK3fhgDR3612C7MfW6XkqA6Siy+nQHbNOM07sHaFiu9Dfh2b/ESqFXXAw/4Jp8VdVyyTw+z9lq68kJc+KWX60v20bAewqhm7giIpVXA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6438
+X-OriginatorOrg: intel.com
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+Hi Drew,
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+On 9/17/26 9:18 AM, Drew Fustini wrote:
+> On Thu, Sep 17, 2026 at 08:37:43AM -0700, Reinette Chatre wrote:
+>> On 9/1/26 3:31 PM, Drew Fustini wrote:
+>>> resctrl exposes a single cap set per rid, so when more than one capacity
+>>> controller backs a cache level they must agree on those caps. A level
+>>> whose controllers disagree is left unexposed. Other levels are
+>>> unaffected.
+>> If I understand correctly, while attempting to translate to resctrl terms,
+>> this means that a cache resource with several domains may support different
+>> capacity masks in the domains?
+> 
+> Yes, each capacity controller reports its own number of capacity blocks,
+> so two controllers backing the same cache level can have different
+> maximum capacity masks.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+Thank you.
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..a476e1006bf1 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
- 
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
-+
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
-+
-+Discontiguous Actions
-+=====================
-+
-+Some actions can be performed across discontiguous ranges.
-+
-+Map kernel pages
-+----------------
-+
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
-+  size. Note that if the number of pages specified exceeds the VMA size then an
-+  error will arise.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
+> 
+>> I believe the "single cap set per rid" you refer to is
+>> /sys/fs/resctrl/info/L3/cbm_mask and /sys/fs/resctrl/info/L2/cbm_mask that
+>> exposes a single capacity bitmask representing the maximum allocation.
+>>
+>> As you know, resctrl is in the process of changing the way in which schema
+>> formats are described. The most recent PoC [1] added new bitmap description
+>> files but it kept a single value "max" file to describe the highest allocation
+>> possible for a bitmap schema.
+>>
+>> To support asymmetrical cache instances it looks like changing the interface
+>> to describe the maximum per domain (instead of one global value) could address
+>> the gap?
+>>
+>> For example, if there is a hypothetical system with two L2 cache instances, one
+>> with a 0xFF max CBM and the other with a 0XF max CBM then resctrl could expose it
+>> as:
+>>
+>> 	# cat /sys/fs/resctrl/info/L2/schemata/L2/max
+>> 	0=ff;1=f
+>>
+>> The schemata file currently and will continue to display the allocations per domain.
+>>
+>> resctrl will need more changes to support different CBM per domain internally and
+>> until then all these CBMs will be the same, but adding this change to user interface now
+>> may set resctrl up to support these systems in the future?
+> 
+> I think that would be a good change to the generic schema rfc as a max
+> per domain would be helpful for CBQRI. The hardware I am working with
 
--- 
-2.55.0
+Will do.
+
+> right now (Tenstorrent Ascalon) does not have two controllers at one
+> level, but I think it is reasonable to assume other RISC-V platforms may
+> do that in the future.
+
+Looking at this patch more it seems the controllers could also differ in
+CDP ("supports_alloc_at_code") support. Supporting that in resctrl is a
+different story. 
+> BTW, I have been meaning to send v8 with some unrelated minor
+> improvements based on sashiko comments in v7. I will go ahead and send
+> right now in case you are looking at the rest of the series.
+That is fine. I just started looking at v7 and will switch to v8 instead.
+
+Thank you.
+
+Reinette
+
 
