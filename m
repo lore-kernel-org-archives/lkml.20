@@ -1,148 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF85503BC3;
-	Thu, 17 Sep 2026 12:48:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A464B0488;
+	Thu, 17 Sep 2026 12:49:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649291; cv=none; b=hREoSM8kOCZpghsSzXsliO8NK//aEjQWVKK49RSWPhKNp9ghOY4370vy/lWhQa2KYKa1obDNGbGjf0DpcZUsSOEqmU4b4aP/QhoOV0zZFlYfHMkF3w7w1WDGwYZNSA9DqrKWJKPKUmL6vNPyPZh3B48ioefNWFk2T8jnsK2vwYs=
+	t=1789649351; cv=none; b=sYCeP2gMKl5bpFOLxGkUqbn22aU1biz5kosiSc9inCkmPDD4CK2XhYDjosOVBa5Pw0on7LCtS5aFjjF0NLtWSGw0B8OlEXr+Ah/pKve1+4uQpyXPm8p0FAkqNyhOGBgg7Zc8aVk2wAykysSli+MRMTTuhAFn+9XBUzlCsAiGXys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649291; c=relaxed/simple;
-	bh=NMgg80kClZTR3rqRl6aY4igBdyi4THxTY7KHZXOIStE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ic7PDbK0wpngPIBBhbe/XMKyvB4CzgVTbvMuhBvgxs82F5YIIioHrtQ1w6tRCGPVVSqlZIvgfvIL5i+eN6gZRg9CgfbVsNzLiuDKZwVkG6meEw5bo6Jlpd3TGn/jOGNFdsm9M6DAKSWsTZGi89DooB9XAUtZzhQ51+aXx/Z8bVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KocQVZC6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789649351; c=relaxed/simple;
+	bh=BeHhmtlQGqLMuqLD7LV08ps+39aN0jvsHuUwVIurisw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=isLEVkv2lbro1Yjneh9RSOSIvGbDj+hfdHKS0AS2Nks0B0KgWRxko5iDNu5Do1M4pSXlaHR8GuejJNr2/oHbHNH7l8RdQhS/ioxMuNgo9lnuOkHDulf0XOMmLzBvqe+Rde0cKOfrDrQQJxyR/MCmcT/WW2LtSM3huc5LOKfIHuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mv7SHeti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KocQVZC6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2050A1F00898;
-	Thu, 17 Sep 2026 12:47:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mv7SHeti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 903271F000FF;
+	Thu, 17 Sep 2026 12:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789649278;
-	bh=2upxzb5/gZsb1Rha3aM8fbRCAT+zsZRzcObIyULwoMo=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KocQVZC6B1sNGak/+O+8jS+SsIxfP2VIfVj2AzKB6Zasyn5T8E4bMdYCJ8xt0E+Bf
-	 0FR20ABdgDVabHzcPDteuQKtJCCuCftni1oxLcdMN7/igOVmdlEK4UMMcD84gzgI6H
-	 7nhMg6iu1c86qBCdg91SIJNplgdqo6/2hkuGgjO2PocoGDVPZtixj2AmAfFhGilwue
-	 6Id+df5q0IeIMdLkzqT4O2VzOgVQ0i/5XAy3v62nLgts3RkyR9rCvsnDw2HByegOA4
-	 OSQrk2UdgEREvvAL/K8UBpIl/N4+SHmkjMgj1aEsILsdG3v/GW5QQOMND2HIec5TQ1
-	 vtYW7J+5ZJtmg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 86E43198006B;
-	Thu, 17 Sep 2026 08:47:56 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 08:47:56 -0400
-X-ME-Sender: <xms:euGraoBNnKL1PpuZ9hDA1_zOU6XvfrfaoIG2zVBVMPSJAd6JwsG3Tg>
-    <xme:euGralXTvPdLr1KXbPsy61Nv4AFVgub20QYEP0enVG1Dwyzl_RYU_sIw_OY9_NDZg
-    mV2zu6I9xkPaZ216kWflDI2r0Z1U61dDLcM6IEM1ZoyutSbGRP74St5>
-X-ME-Proxy-Cause: dmFkZTGxw0yxLVpRYmYsRRF+w+9AsjklEfKsqciXRtJIGovkXGEZXnRBW+flkWBmw5+38G
-    u+XSJhXx8zOP2hp1kr4wK2cZsY2kiPa9KJTt60C97Nj3MNdMvMSYxy1MyNCDZYpelLymXB
-    PVH3/N4SVDBs5d9qYVz0X3D0cnrFkDh9YMxm8W+V0v4xcKKSbNVaEh5mqsXJftIZURFG3D
-    6bRgxAAdPsLJ/wDQ8YcKMUhHaKDDRFYdgzFL5wu0/sLy1B0Tr2DUo5g+3OTEr9cN/Ri8zB
-    WWE5RG53bLoZXKnA8s4xH9gTUTjs5Ise3KOVtmdKl6SXODFy6BIz5Q7kvmXZO4GnLUOOrN
-    XLFHhLbZ4mk1aN+bT/Mg/+ODCK6NMMeT4MJGtAWYg6e6aEDxzbiEUYi262uOGNeQU3IjIp
-    HQLCUfmVuOfDzWEK0pdhbGTZ3VFZyW9uawqTjs5vRSKfW8ls6jM7ik8LWyZ03SWqz70cmT
-    XNgRozb40cymhf1bdfjeJgAo2ZbJV9GWnrwVgvwIA1QX/Oz810/D8UdL+aVFVybjRZimWL
-    41LaIpYQ91DR6XkkistvJqmK4wTcdXOk1XnscbIIH0FHZra0ctCAPR7Q9XfTPRY/eMx6hC
-    4S1lSkfKrYhs81BIpb4QMq/99B+7ZrdtLPWmDKVhE5RwlD5vks8WXAE0nRpg
-X-ME-Proxy: <xmx:fOGrauBIcbnh3elH2t9_GzfOULi3fXi2Y4nW7g8IS2QlmFDOr96yfQ>
-    <xmx:fOGrajdmZbom6bQcQahUpI6Y_UVWlL0QBsx7jdOXxKvA67K4LH_znw>
-    <xmx:fOGraglmvnGz3omrlWejwtyUCTbR2wSNYbqnc_iB70NnD-7YwWzn_w>
-    <xmx:fOGraiGM11qvRUgyJ5yt5rQYJh64eEGvdKk8TyBJ_2Qpn9lpX18Dlg>
-    <xmx:fOGrag4sXA0MfMa-Dmo4F8waQc51zXPDUxRMxnem6HOrSkCyHJl-oraR>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id D359FF8007E; Thu, 17 Sep 2026 08:47:54 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1789649339;
+	bh=w/ZpxzP97FnralLubsMUeeWAjxaK4oiT2d3z39Cm/rc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Mv7SHetixqzv3eYG8UJupvgZG9ZeJvZRABvLXUPUhjm3Ow+gaeMG9rln11oD79Sy8
+	 4VAPS3VFwx+UaP1Vv755a3GcAXNLRStAHyMihuLNc2DHTp0fxWLhFhGx3EEv1mCh36
+	 33zeCBz01i/YVl1DhRkJfEBk5fpZo+E5z1Of7nPJhZZ3JZHdIPmUp2Iv9rnylu77im
+	 5pvk1WnXXdzfrsJyv5zfLlrvRExgbpHlfk+36hLxjMlHSfM+LK6sM3oZPQGk9n88nl
+	 BvycAG90OvlXe98Mmam9+XMdZTNgBjgVsn/Vx/vkAXetIhs/QhngoWNGvSxZSoTATY
+	 1vRsyM3kMwx+w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] cifs: Scripted clean up fs/smb/client/fscache.h
+Date: Thu, 17 Sep 2026 08:48:55 -0400
+Message-ID: <20260917124857.223602-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091652-frantic-unexposed-7b62@gregkh>
+References: <2026091652-frantic-unexposed-7b62@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 17 Sep 2026 14:47:34 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Breno Leitao" <leitao@debian.org>,
- "sami.mujawar@arm.com" <Sami.Mujawar@arm.com>
-Message-Id: <b6602c6e-4c77-4dcf-8683-95b5c8fc4693@app.fastmail.com>
-In-Reply-To: <aqkGohQYChzkBPZ7@e129823.arm.com>
-References: <20260903113238.2291844-1-yeoreum.yun@arm.com>
- <960e985e-b338-4648-a29b-1f8a31e00599@app.fastmail.com>
- <apl_29t7Jxr2mv9C@e129823.arm.com>
- <44097058-9fdc-4e9f-a277-d63e3876b035@app.fastmail.com>
- <23ce2fb0-1002-409f-bb84-f592db9d0b89@app.fastmail.com>
- <apmFpUvkRBgMdOH2@e129823.arm.com> <aqkGohQYChzkBPZ7@e129823.arm.com>
-Subject: Re: [PATCH] firmware: efi: add a separate timeout for UpdateCapsule()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: David Howells <dhowells@redhat.com>
 
-On Tue, 15 Sep 2026, at 10:49, Yeoreum Yun wrote:
->> > On Thu, 3 Sep 2026, at 16:29, Ard Biesheuvel wrote:
->> > > On Thu, 3 Sep 2026, at 16:10, Yeoreum Yun wrote:
->> > >> Hi Ard,
->> > >>
->> > >>> Hello Yeoreum Yun,
->> > >>> 
->> > >>> On Thu, 3 Sep 2026, at 13:32, Yeoreum Yun wrote:
->> > >>> > On platforms that allows to update firmware in runtime, UpdateCapsule()
->> > >>> > may immediately write a firmware image to persistent storage.
->> > >>> > This operation can take longer than EFI_RTS_TIMEOUT.
->> > >>> >
->> > >>> > Use a separate timeout for the UpdateCapsule() runtime service. By
->> > >>> > default, wait indefinitely to avoid interrupting an ongoing firmware
->> > >>> > update. Administrators may configure an appropriate timeout, in seconds,
->> > >>> > through /sys/firmware/efi/capsule_update_timeout.
->> > >>> >
->> > >>> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
->> > >>> > ---
->> > >>> >  drivers/firmware/efi/efi.c              | 41 +++++++++++++++++++++++++
->> > >>> >  drivers/firmware/efi/runtime-wrappers.c | 14 +++------
->> > >>> >  include/linux/efi.h                     | 10 ++++++
->> > >>> >  3 files changed, 55 insertions(+), 10 deletions(-)
->> > >>> >
->> > >>> 
->> > >>> Given that UpdateCapsule() is rarely used these days at runtime, I
->> > >>> wonder if we should just call it synchronously instead of via the
->> > >>> EFI workqueue.
->> > >>> 
->> > >>> I assume that would also solve the timeout issue?
->> > >>
->> > >> Might be. But it would make *non-preemptible* for UpdateCapsule().
->> > >> AFAIK the purpose of running runtime service with efi_queue to
->> > >> run it in indepdent context and to be preemtible in case of arm64.
->> > >>
->> > >
->> > > No.
->> > >
->> > >> Since most of UpdateCapsule() will be called via capsule-loader's misc
->> > >> device, if UpdateCaspule() is called synchronously, It would be
->> > >> non-preemtible in arm64 platform.
->> > >>
->> > >> But, some platform could be preemptible while updating firmware so
->> > >> I think it would be better that it would be called via EFI workqueue.
->> > >>
->> > >
->> > > EFI runtime service invocations are preemptible on arm64, so this is
->> > > not a problem.
->> > 
->> > Ah wait - you're right, they are only preemptible when invoked from the
->> > work queue.
->> 
->> Yes. That's why I think it would be better to call via EFI workqueue
->> when I see arch_efi_call_virt_setup().
->
-> Hi Ard,
->
-> Could there be any issues with doing it this way, or would there be
-> a better approach?
->
+[ Upstream commit bc3de356aae666de5d8b5131545be87cf7754431 ]
 
-Would it make sense to simply have different limits for UpdateCapsule() and
-for everything else? How much longer than 2 minutes do you need in the
-typical case?
+Remove externs, correct argument names and reformat declarations.
 
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: cd2b2b57921d ("smb: client: fix WSL reparse point uid/gid override")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/fscache.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
+index f06cb24f5f3cf..b6c94db5edb94 100644
+--- a/fs/smb/client/fscache.h
++++ b/fs/smb/client/fscache.h
+@@ -38,12 +38,12 @@ struct cifs_fscache_inode_coherency_data {
+ /*
+  * fscache.c
+  */
+-extern int cifs_fscache_get_super_cookie(struct cifs_tcon *);
+-extern void cifs_fscache_release_super_cookie(struct cifs_tcon *);
++int cifs_fscache_get_super_cookie(struct cifs_tcon *tcon);
++void cifs_fscache_release_super_cookie(struct cifs_tcon *tcon);
+ 
+-extern void cifs_fscache_get_inode_cookie(struct inode *inode);
+-extern void cifs_fscache_release_inode_cookie(struct inode *);
+-extern void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
++void cifs_fscache_get_inode_cookie(struct inode *inode);
++void cifs_fscache_release_inode_cookie(struct inode *inode);
++void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
+ 
+ static inline
+ void cifs_fscache_fill_coherency(struct inode *inode,
+-- 
+2.53.0
 
