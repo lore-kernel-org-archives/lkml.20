@@ -1,95 +1,66 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57C24D7D36;
-	Thu, 17 Sep 2026 11:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9504DAF85;
+	Thu, 17 Sep 2026 11:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644060; cv=none; b=u+BkOvqFOqJRvWUGOvEYuaKrm/bK4ipnIbfrlEihQ/rxg9L0/tQAUymoLJ2q9yWQzrbKuJ3n87bpqx9Vf+bLcQ+iaIg3qd1GyAP3r7UqJ81VAWkPzZwtAaCpbmLnl+g/dQK23b/eXw+O1nYD4yi2oIZhulGhrRSGhdSkwUxO9Mo=
+	t=1789644086; cv=none; b=izYemgXyBaOQLT2VC+tbq8d6SVHEtqp2oTkVk9Koi2OZa5Y4J0vQ1l/ORUayeSGWxcOWDlvU8UDBdLmUBv3dmcZVMsd8pOqIM1w11S7D13/M1F4jTryR3YkXNJy50zSoYvPPg6yEP2hVTpac5/UhL23aGCLPwHMoJrV2hoL93kQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644060; c=relaxed/simple;
-	bh=JUxXiFZW05igLa+91oD5EKuT24d94zhLnd3l0uNsNzo=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=d7eProIezmY1mqU8spB19bkqWfUK+SPOn1eRVAtx2agRt6eYfccj+N+JRm16BiAwsBsy6nKIkhh6ddUaV3kC6+U3+f2ipkLK7hN6A4GIEyczdngATOyN8WNoRk3RvIHgXFpuVPDwP4OP70PT6b8+z3XJq6hxzqF6tEW6Y4KDujw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=EjjPOXlR; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789644086; c=relaxed/simple;
+	bh=Dim/QSeGUhrQVZ7xvXdr+08HoJesMzwtqPNkQCiQZi4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ar5z1+fTAfKYjFJu60GX6uGGuQ/cWFdkk0k00h6nWmNQ+26FFN1anSch2pKSr9kvGhOaJsMqd8NFq2iaHqVRjfyLYIrUNqFPFmJv9rkChPXKpgppGX1tG9GEnWmsF5hm9yqPKGlN3pBenR8EMlLBLSI+MOO2w2xmR7vbcNZKJB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMVVq2Ba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="EjjPOXlR"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qBT9oEMuSH+QUhAv8dwdu6RDMpOUzUIuwB5dGjyEQHk=;
-	b=EjjPOXlRIweH68rSem4lpfEB0qXbK0kdZEsNtk7liGQLLdXcwCFIRzykehkn6T79Hnvxq7xNg
-	CNFcC9yCmgsnzg9xT5gBnHHFzL7gxqfJEOmnGmonN9p+Xp2vzl8lN2vPzxSHsh2HDLbHUH8dK40
-	0iTbAedqwtZkShJnTPnb1ho=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hltLk0LfJz12LHh;
-	Thu, 17 Sep 2026 19:09:34 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9599640591;
-	Thu, 17 Sep 2026 19:20:41 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 19:20:40 +0800
-Subject: Re: [PATCH] mtd: ubi: Fix UBI device reference leak in
- ubi_detach_mtd_dev()
-To: Wentao Liang <vulab@iscas.ac.cn>
-CC: <daniel@makrotopia.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mtd@lists.infradead.org>, <miquel.raynal@bootlin.com>,
-	<richard@nod.at>, <vigneshr@ti.com>, <stable@vger.kernel.org>
-References: <20260917103102.2147038-1-vulab@iscas.ac.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <103ef14f-85e7-8f4d-4ba4-eab5e36ddfe2@huawei.com>
-Date: Thu, 17 Sep 2026 19:20:35 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMVVq2Ba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B24C1F000FF;
+	Thu, 17 Sep 2026 11:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789644074;
+	bh=HNVlKCQj9t4F2QxuG5+Nvtx8ehVkwFth5lkkTZy95rs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AMVVq2BaaA3ro4YmKSTxDFpK6fKCjPZpAIkS0uvm1IuX4djWApqyTCrxQ5gYhvqnE
+	 +XzJk9ryBy1gWGAduc7mAHRyZ45+K6Xom9gQT6hvZ2RD1weznuciZnIevsQQkN8arD
+	 kzA6+skezzP533vxDgEnOXgTqr653qyOg04Gm4ozbklG5p8u9GZGo+8DStnYlhnL+B
+	 5zuM+QBBtv3z2Z2nBFKs1xAlJZjt9V8Kk0VK1ze4YoIy+vE9Vw9gP2dZD/9OBcNqT1
+	 JP9dGNlC9+vjdxMH+4e0OW99haQaxZnEZYPdDTiCOzYx6pjpI4c79mZQHwPg91C5uD
+	 dX8IKxcXw35eA==
+Date: Thu, 17 Sep 2026 13:21:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chandrasekar Ramakrishnan <rcsekar@samsung.com>, 
+	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com, 
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: can: m_can: add ti,am62-mcan
+ compatible
+Message-ID: <20260917-ivory-jackrabbit-of-discussion-cb4dd2@quoll>
+References: <20260915-temp-v6-0-ddf1411d63cc@ti.com>
+ <20260915-temp-v6-1-ddf1411d63cc@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260917103102.2147038-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="gbk"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-temp-v6-1-ddf1411d63cc@ti.com>
 
-ÔÚ 2026/9/17 18:31, Wentao Liang Ð´µÀ:
-> ubi_detach_mtd_dev() takes a reference on the UBI device with
-> ubi_get_device() and drops the matching kobject reference only after
-> the shutdown notification has been sent.  When the device is still in
-> use and a forced detach was not requested, the function returns -EBUSY
-> before that put_device(), so the reference taken by ubi_get_device() is
-> never released and the device is never freed.
+On Tue, Sep 15, 2026 at 01:16:01PM -0500, Kendall Willis wrote:
+> Add "ti,am62-mcan" device. Device is fully compatible with Bosch.
+> The device supports out-of-band wakeup capability.
 > 
-> Drop the reference on the busy path as well.
-> 
-> Fixes: 7e84c961b2eb ("mtd: ubi: introduce pre-removal notification for UBI volumes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
 > ---
->   drivers/mtd/ubi/build.c | 1 +
->   1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 
-Hi, Wentao, it has been fixed by [1].
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/mtd/ubi/build.c?id=31dd710cd84d5dd63c49f640d3a9f36c9699ca95
-> 
-> diff --git a/drivers/mtd/ubi/build.c b/drivers/mtd/ubi/build.c
-> index 674ad87809df..d81f5e0395ac 100644
-> --- a/drivers/mtd/ubi/build.c
-> +++ b/drivers/mtd/ubi/build.c
-> @@ -1106,6 +1106,7 @@ int ubi_detach_mtd_dev(int ubi_num, int anyway)
->   	if (ubi->ref_count) {
->   		if (!anyway) {
->   			spin_unlock(&ubi_devices_lock);
-> +			put_device(&ubi->dev);
->   			return -EBUSY;
->   		}
->   		/* This may only happen if there is a bug */
-> 
+Best regards,
+Krzysztof
 
