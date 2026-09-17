@@ -1,148 +1,73 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DDF3546DE
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B9F331237
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624277; cv=none; b=L+JRGwAhiTOdjE+6WUwZu5nPlTuBocuccQQmb7wGpYZs1vpx3hr9TrEfK+oKIJwsWJXzbdUjHSDlnxrpt8lKg5ODTdw1RH69yhirwjKbIbf+9I3npy3pZ2cYG0uglVJkfdAs57RgswRzHZtxqbvBqYuR4cnvP7vOlZsRLEPexOE=
+	t=1789624384; cv=none; b=fViauAePa0GOmvl6puBOXrHCfU+87VXunLoFV02kIUTJk7Qh2Ilm82AyLvvd7dWtr8iNz7+qKvcDszRSLOx5OFOxuss5fgzVE5C6GGgdL+7X7iqTkwl2nFUcLYCDoms/SymjW1vRL9ksFrlwCDlBf/XIQYRPT4IiqBaB34HIHzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624277; c=relaxed/simple;
-	bh=4N7wGdC5kLlgkGcBt8XKjJgw9A6ui80j0Dh7P4UgDH0=;
-	h=MIME-Version:Date:From:To:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=AF/QlgiIptRPznXQF6aoUOeWZ5fXEnyf8+nd3cGPHICKUh12ntYwTwgMgmfAncg48KwA3gJlF9VC6pygr7gluA/CZymsvHjLTgCNTZZrvhZf7FE5b1T2MqU7e4j7oiVLJhuvfV7OjIJNa/OeEmPK3ZHSHBvVThWCvXap+qvYjvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Z370RMWP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=EL2R8GIp; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Z370RMWP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="EL2R8GIp"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 76BE3EC0118;
-	Thu, 17 Sep 2026 01:51:12 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 01:51:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:content-transfer-encoding:content-type:content-type:date:date
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789624271;
-	 x=1789710671; bh=UGRPAzauanR7qsQwc3Ona1gpjahHlNY9Rv4SC2D+Z5A=; b=
-	Z370RMWP2XHjGgZj3zFx2563dDWdU9Sdv0ctyAWJ+jJ37hE1HMUDARwJqWpMesrM
-	hHfgXF9LVQ7KzQ/+5Dclss+kt/NqnZDjy58NdrvkB4wZyKm5shHpidK8QYCzEiRR
-	wpEvrK1zUIurzGRxaS82+1fa/Lg9Qq6bVgeDJESLvmCqKNu5Hl+yLwH+v61NPdA9
-	PP+b4XEw93qyBKvpoBNo3iWueWl89koWrslfv8aj+zJViJ30xnZn4cv9AqwGCv23
-	rdOJ3Xaci9tmB2VnE9jcymj9WqLer8LHocCUmFxytooQAc8ZNxsWGm3WaiKKAOEO
-	bAzmIAqDmAuJ9dUYVk+5RQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789624271; x=1789710671; bh=U
-	GRPAzauanR7qsQwc3Ona1gpjahHlNY9Rv4SC2D+Z5A=; b=EL2R8GIpbrRqeb8tC
-	A0g82IX7qfBCrZsj0NsKlBxjmrxzAwfIGdFVq/yA1hYsnk/FXE4s+rj/LSkEm74Y
-	vsB1xngJ2xPs4YeIEKr02rN9CbJ/waN43eM2I9sWxyj1cFidGDyT1o6esOUlVPOM
-	eGq1UhmA04TMaLZ0Q2PEAwDfJygeXdGihE2rObc3342KdG/vDbt5w5Ah4432XG/G
-	ykLG3B91PAP+P5wZhT/gDfM5UdDEscfKYLsFHzW+kmnDRcKpZFQjAx+YLt6awXKq
-	p4SPVMry8brHgmCUpga+Z+Yvfk8sXrbbCHb9Pz9RWltB8KorgtBniqYDn2d1jiAh
-	PVSaA==
-X-ME-Sender: <xms:yH-ravJrZY-wRL74XnX1nCIQPbfFOmg9PPuKB4xBj7LUpOCKRTW_YQ>
-    <xme:yH-rat810WfX6mq3u1b62-RsLWpMlL6W74u_vVjsUjNmCTFCBTVbNz9P_NiTH6Jbt
-    utlhEXZNkZRJZ2Kb64Y8D-786pCMMDUdcAO4_3fbvOqY_iad9-pCwoE>
-X-ME-Proxy-Cause: dmFkZTGnn8Sme9kb57l5bgN4UhEjU/bFY+Pd3evnw0NFIJSJ66av+xqVHMQlqpWCoweKBS
-    3mAdt9AVz7wO7v41yIJ4dUlg9Mr3ZMOpWs8zcL4+Vbye7v//d6hDjaznL1d7/bCBwc3aCj
-    Qh2t29H8cd189WZuf6E23LpGcznBhCX9raxZX1EXNGNK0nncYC7+9tA+4ojFAUY6zc1E+g
-    Cj198DIh3EWhh5QtRlP60N7/L5wS2t74/d+6hekyk2t8Li/pI+fXLETkm2Y/WwbZ6mv3Nf
-    tzfGiog2yGQZK8W8slXat/Kz0op6UHYM37phv4nCJIZuFPWTcGtBVEWkjlggZdw62RpVtt
-    iD2f+/NRq5yTw+a3PSEZQhPUO/vE+/eeJ0rBORbkMWemKdrJEvTwJa0upFIr2/CfaT2DRo
-    yM+/zrIGBdvxVMA8b6oRWyDnfUviiYeYBtRT/42TEPjG4lXe51p4H54xwbQYQt25BoQF6a
-    QJRRtE75HBq3zpTRZYN0vgYO+1qKWPDh1cZ2QHizfBEPAOQcHrSFM0MkD2XlrRSx08IX0R
-    8uEiHr3c46yHkvhA6xPmltQKEIge8WKPJg7x2bTAmheAMJqYidUR7TdZL5LvCH0hrW54j3
-    88zWwJ/XJ1hTFctNTQ2zFSpwL2LQ/NJ4dHj0ZlRPQ20jUC+oCrdg8av071Pg
-X-ME-Proxy: <xmx:yn-ratj26I3xhV-ml1GIbFLp2_t4yH49E0GZnb67XAN4fpnvYHmAQQ>
-    <xmx:yn-rassCvbswT_p4mJb5vIH0vTlBStSmTAi9Gl9tsv2nZhEoz9nyvg>
-    <xmx:yn-rajtF4Gn8VvAj1D587DSRvyzr32K7z-8WGeCNcSkhTvW388QUXg>
-    <xmx:yn-ratMXPSyczDEGhifbVX2qnmFcPKG00jm2sFfnsb-Z8d8uQhUDKA>
-    <xmx:z3-raswEjUzGjr96MXnzCL1aQ1kHG4tn8Fay2opo5lVBrKLnMh1HqXZE>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0571D32A0084; Thu, 17 Sep 2026 01:51:04 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789624384; c=relaxed/simple;
+	bh=50Wr14ns1HRBAcm/e6CTUuUbCKcKE2kc6z5bgqa8EGc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=oPxg4zodRmOMc6HylgNSkoJXXaS9P48Xxi2OCyYLrsHYKUtXlUH6FVCaE1fYrOO9cyUvkKkt4J/vsw19IeLsSRpS6OiowY0qqIwAgp/qS8SPC/mOpsCcfKj1j/A7WbrziD8DMQNYuKh+ZSVNLkeEj/SogdVchBPXhmOx7sEnPAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c2bb8200b0so780908eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:53:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789624381; x=1790229181;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=z1Vgm1pTiLCaf4GIZgI9+8+t5NMqM0aZeh7AqUaz8fk=;
+        b=y9PQeGN9859RCzTHPAk2aE8Qi5/ENqTjh855Zt6/+vNYKtaKfz2w0nI/5wEFwabvCd
+         t6HU/UehQ72BX77PvysJmw2wzpqFz8UQ5T/FqPGvLnkcR9+2kjPwvQwOEtEK9Y9URsUN
+         CfCD5TCRGUOq+qK4OliXo9cRoc6q++S/ktV5AHDEZwp1JJxX3wp8/OH0sHo7GzToD5cA
+         KYzANF5seqZYYeUX9yWLRETHEOuh/pjQU8eVNZPJi3Jo+cmsz3L0TcfsFfNolx5jJ271
+         laryxIhYk8VfuBa7kTTZrKgixC5x4WTfRg2iBonemIOZYZ1T29hzOMC8qe2tRKSw4l4O
+         mj+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzmSa6mDAs8AKh7PaS3b6rB2uBmrnZr0+pBEyY974QHvpVq8pnCrtY4K1vC6Mr31mCM30QihOISjBfhTLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfDefa3wQZKm/cPN1NZIXLF0c7Og8vhb/iMqwjFj5FaqWije1N
+	ChBHXBVikO8PdkiTlCEHnuNIByFc/BEgq7NKeMwNt0v++uNUfikIRickm9zwYm5bgPV0hYncpHO
+	CEedpe4KmeyYBiGrb7hxEQ6Huws7X6ib9Yb6Rqmhu4Wuy1gny08MShc33pYQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ACGBcqtoOIMw
-Date: Thu, 17 Sep 2026 07:50:43 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andrew Morton" <akpm@linux-foundation.org>,
- "Arnd Bergmann" <arnd@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
- "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes" <ljs@kernel.org>,
- "Kairui Song" <kasong@tencent.com>, "Barry Song" <baohua@kernel.org>,
- "Axel Rasmussen" <axelrasmussen@google.com>,
- "Yuanchu Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>,
- "Baoquan He" <baoquan.he@linux.dev>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Ridong Chen" <chenridong@xiaomi.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Message-Id: <75939625-482c-464f-83fb-fa12d3e1d79c@app.fastmail.com>
-In-Reply-To: <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
-References: <20260916083456.4136132-1-arnd@kernel.org>
- <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
- <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
-Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning, again
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:1520:b0:6c7:bc0c:4bd3 with SMTP id
+ 006d021491bc7-6c7d3df0742mr5133633eaf.44.1789624381613; Wed, 16 Sep 2026
+ 22:53:01 -0700 (PDT)
+Date: Wed, 16 Sep 2026 22:53:01 -0700
+In-Reply-To: <6aab418f.e2326a07.6d12b.e9b0SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab803d.71f81b7d.278072.0014.GAE@google.com>
+Subject: Re: [syzbot] [batman?] WARNING in batadv_iv_ogm_process_per_outif
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 17, 2026, at 01:30, Andrew Morton wrote:
-> On Wed, 16 Sep 2026 16:28:16 -0700 Andrew Morton  <akpm@linux-foundation.org> wrote:
->> >
->> > --- a/mm/vmscan.c
->> > +++ b/mm/vmscan.c
->> > @@ -3274,8 +3274,10 @@ struct ctrl_pos {
->> >  	int gain;
->> >  };
->> >  
->> > -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
->> > -			  int tier_max, int gain, struct ctrl_pos *pos)
->> > +/* __noipa works around  gcc-16 warning for uninitizled use of pos->refaulted */
->> > +static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type,
->> > +				  int tier_min, int tier_max, int gain,
->> > +				  struct ctrl_pos *pos)
->> >  {
->> >  	int i;
->> >  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
->> 
->> Current code has changed here somewhat, but I expect the error is still
->> there.  I fixed that "uninitizled" while in there.  Altered patch is
->> below.
->
->
-> Then the build blew up in unexpected ways.  gcc-15.2.0.
->
-> The failure looks like a legit min() signedness thing which has been
-> there quite a while.  I'm thinking that __noipa surfaced this for some
-> reason?
+Hello,
 
-Right, I now saw the same thing here on the current linux-next.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-What I found now is that the __noipa is only needed on top of 
-"mm/mglru: use explicit tier range in read_ctrl_pos()", which was
-in next-20260915 but disappeared in next-20260916. This patch
-also removed the min().
+Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+Tested-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
 
-I think the reason why __noipa causes the warning about min() is
-that it prevents the constant propagation into read_ctrl_pos() and
-in turn the hack that suppresses warning about mixed types in
-minmax.h when both sides are constant.
+Tested on:
 
-Is the mglru series currently expected to make it into 7.4?
-If not, I would withdraw my __noipa and hope that the next
-round of changes to read_ctrl_pos() does not run into this
-problem again.
+commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14344915580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=a079f084653164a652d1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12e393f9580000
 
-     Arnd
+Note: testing is done by a robot and is best-effort only.
