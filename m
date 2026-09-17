@@ -1,142 +1,93 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314144E781B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133C84E7817;
+	Thu, 17 Sep 2026 16:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664219; cv=none; b=NjbAAcT8JGXZ6VTEShAgjli4+/XRLoFwZmpe4PLKa4JQN3xfy+P/Mp65gfv94ymSUSAeqZ+TRMO/3w4rP9sQ3XPPvPYRY+PV25PqgOdaT+RyVxfleob+oEIYazflbfdiia9MSGDy//wdy/9KFr+Db4c6KMm2jwny1NlKhcdQf3c=
+	t=1789664223; cv=none; b=QiU/BVjxuncirox4BmJiOk5UlxhOv95d2QN2bIm51mPHj5hujUnMrCV8Vq4wnXLgNKvXk6XetTDSacryYjo6h23i8oVQGexKO8zrdQjrUeWAP7tFMGX+CUI2t0/1WDWNukpF+qtRjWGm/qoR01EpIvVkt7h/PkOhd+TAP9YLO38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664219; c=relaxed/simple;
-	bh=dn6zdp2y2bOJRaaaQLDIzFmFi1gvO691DvcSbAUCigE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ylg5A+PmXGvxTdqxnxI/u7Gq8+oPGexK9qLKaDhiQmQDRAc4jybkMEsBtO+F6MpCtmazclLEHzZq+an+htDY8q45o+GplzavmAhQdKyQJMPkgKfO7CvZtxPo08dGCNrYG/+942yZX9KaGcHV9aVZ0Iq5eZiUfTX8qWAFjgLbWg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dl7oiocz; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dl7oiocz"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b91369d18so8372505e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:56:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789664215; x=1790269015; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QNumNnYoURFzMwz5gShxa1JkMSD2gx61i8FWqYuf9ws=;
-        b=Dl7oioczVUdXEXtspFX2+mOxyKTgtK7CijzIrDpETJMXfCsvKeEwdTQqdKEWbTBWRS
-         g0Cma75FJqSZHCBIED+LGvJF2805FxD8fJmljj6KU6HGHzOBxNm21ZbleanAJjvXoZ5E
-         AXWerMvg8PvsxH5KKEDRB3atyr7C1KcgqdGgsHcLp+9LxStr0YcywWbVfjIvMAwdnPgl
-         8XZNYVkJnTCKaI6L3SGyV7KSnEh1lYay1KhPtwu10lJgKz9CsamytYnssW/ta5o7HtyR
-         3j6SNkIEgLqlQICFNA1Yns+qW66481vHOwGwNuUlToLQcTUqoypTupxEMvBS61YbGf1s
-         OpTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789664215; x=1790269015;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QNumNnYoURFzMwz5gShxa1JkMSD2gx61i8FWqYuf9ws=;
-        b=Moc7jGkM8OoBjiXMBfJYhT2zbge6jRgM27bqfsvhCVjyrkdlfsSabC9OJd+ceoOsk6
-         kZoggpOax/OXY29lBGu6jOx0VT25Kn9wzLV1EDxBLLOXNavZdqMaHLn+S8o1XBFiZnL7
-         nOJgoeL00+J+YnX5NFABwO7lxZRGKjHexoNsBpNdq6QWigH9ERJiQj6zOnEqe0pgF5CH
-         HmuwgBZrrBYF18zjXtO97KGPRcXvkpuvmkkf6AV6iutLE4CSIo+OWDZEArHn1tyyHSFL
-         IY9BXeJsldSI8sas3DFHwFLrPFBYknx6GQDVbjjehACun1u+8NNrNtOveY/Zk0sf7i8G
-         +A5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzjZemsGsSN4wDBCI47lFJLGQOQJWiboLVmGX3U09gAgatZDAdHHZR1FOBqwrRbSG3OYwsLbAD+FBSqjxM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfRaUgJgav05xaUOpuYP/+sSSZ/OEG1DtLfHFqsRrKQ3TdA7b6
-	AYLvA20Dfnj0TXZabzP8ITdMa4N3sVJj8Gz1Fpw868UFKFHEf3m9tZ3H
-X-Gm-Gg: AYBFou3gN8QK0q647xcK60xWjxZX296Hbmp6wwwZqh4FEPUiayoPqBPo3fNAVDYWB8m
-	nr4Etp8fmQsFoaLK5n129NeTrmEP2xLPI7X/bwGHn73nKpyRQjhrrz03S3a/RXklfMh4+AbNnLX
-	LuDPgwmuUYgxTN6tTlchV33B7UdScCFXj0PqhUCX2yIsLryO3gJjabelIpO3fmIeIP3A9tGD6bv
-	I8yFIbOKjxNkWLuX7kUVrVFxoFxjSVGiP7PuNZ9tm8EMSIhgem68wlF0moZE7sfv/VijKkEnU1S
-	0TLRunlbU5IGD8SXYLUQmguE0oIQIe+8NRf0ldtowGHzw14rSwyokDU7BzkJaKobZ4JfXDmzv8W
-	EQk0vT2WIlpPcpXVOdMMrB/RPV178gEyC1eOGKhQCUfMA3fejzSr3Dw9hhM3x0QFIHyqc1THs1F
-	ynwl/b//FiBNU5cmUid4FZy3uZo2HOhAc3ib0nRPAn9Sgn4yyS5eYaZ13sG9w7XBpcvY2+5ealm
-	/LXn49f++c=
-X-Received: by 2002:a05:600c:358a:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-49eb733cea8mr116064525e9.27.1789664215299;
-        Thu, 17 Sep 2026 09:56:55 -0700 (PDT)
-Received: from foxbook (bez152.neoplus.adsl.tpnet.pl. [83.28.37.152])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd225898sm95977295e9.9.2026.09.17.09.56.54
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 17 Sep 2026 09:56:55 -0700 (PDT)
-Date: Thu, 17 Sep 2026 18:56:50 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: djraszit <djraszit@gmail.com>
-Cc: Oliver Neukum <oneukum@suse.com>, Oliver Neukum <oliver@neukum.org>,
- Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] uas: JMS578 returns reproducibly incorrect data after
- host reboot
-Message-ID: <20260917185650.7fdea3cb.michal.pecio@gmail.com>
-In-Reply-To: <CAFKhL9dmR1KDaBQGta=X5xDCGirzJ8t7u0rH4HUgBoFqN152DA@mail.gmail.com>
-References: <CAFKhL9eUM91rtywaz_7Mz+4mJH2b2csmOmc3+86ii3a0Ka3Q6g@mail.gmail.com>
-	<c335085d-a824-4632-ad3a-c06715258c81@suse.com>
-	<CAFKhL9f6aLZgerw_7bohbQWvzMxSfd-m-LFcuNP1_p1vWkN4=Q@mail.gmail.com>
-	<1320caa3-85b5-47dc-aa2d-56d3b003c6ef@neukum.org>
-	<CAFKhL9eTD7DxtxMSMuUVP9cDG7Nq4jvrkTCjYfwr9puZfuC4Gg@mail.gmail.com>
-	<20260915233818.5881ad97.michal.pecio@gmail.com>
-	<CAFKhL9fL++S1xh+aUCuYbk6EkLQnfUn95y7TBoWaGnPAVP1gYA@mail.gmail.com>
-	<20260916204713.22c4f575.michal.pecio@gmail.com>
-	<6041fdad-78b9-4310-a86b-f9931563de19@suse.com>
-	<CAFKhL9dmR1KDaBQGta=X5xDCGirzJ8t7u0rH4HUgBoFqN152DA@mail.gmail.com>
+	s=arc-20240116; t=1789664223; c=relaxed/simple;
+	bh=3wK1veyRCeHdZhVgBP1g8RgttxbvcXPCiSIoYPPHhog=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pZksEo1kDrb2/nf0874tFTWA0IoY7LKdtW17wS+O9wpkOhXnZ3NhbBSVt4rdDNeQBUjZNlemPDlIAkPyjJ4gigZfN6K63UKlira4cnzTrLriw0NfLMMnlOk7VbyVFvmgKKetNt3HHTxxOCB3oGHbCnuwXxvZI3YIpblHyQVu+x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHdkDWG6xqLeiECA--.946S2;
+	Fri, 18 Sep 2026 00:56:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Xiubo.Lee@gmail.com
+Cc: broonie@kernel.org,
+	festevam@gmail.com,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	shengjiu.wang@gmail.com,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in fsl_asoc_card_probe()
+Date: Thu, 17 Sep 2026 16:56:54 +0000
+Message-Id: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHdkDWG6xqLeiECA--.946S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GFyfXF1kKryfJw4UZrW3trb_yoW8Jr1Upw
+	nIga9xGFy5Gr129a1rXrW8Zay2kryjy393Jw4Fyw4xKr9xX34FvF9aqw1YqFWftrykK34D
+	ur9rtrWrXr1rZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBY1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LZcAQABsM
 
-On Thu, 17 Sep 2026 18:02:02 +0200, djraszit wrote:
-> shutdown Pi with the enclosure connected
-> -> disconnect USB after shutdown
-> -> boot the Pi without the enclosure
-> -> wait for Linux to boot completely
-> -> reconnect USB  
-> 
-> I repeated this three times. All three tests were GOOD
+The codec device reference taken by of_find_i2c_device_by_node() is kept
+in codec_dev[] and never released, leaking the I2C client on both the
+error paths and the successful registration path. The same slot also
+holds the reference of_find_device_by_node() takes when the codec is a
+platform device, which leaks in the same way.
 
-> USB_MSD_PWR_OFF_TIME=0
-> 
-> I do not currently reproduce the state where the enclosure enumerates
-> successfully but returns incorrect data. Instead, after consecutive
-> reboots I reproducibly get the "Cannot enable" failure described
-> above.
-> 
-> After changing it back to:
-> 
-> USB_MSD_PWR_OFF_TIME=1000
-> 
-> I repeated the test twice, starting from a known GOOD state each time.
-> A reboot reproducibly resulted in the enclosure enumerating normally,
-> but:
-> 
-> Alternate GPT is invalid, using primary GPT.
-> 
-> and the previously tested block returned the BAD hash.
+Drop those references on the shared exit path.
 
-So it's a boot issue. I think it would make sense to determine whether
-the problem is caused by bootloader actions or the kernel.
+Fixes: 708b4351f08c ("ASoC: fsl: Add Freescale Generic ASoC Sound Card with ASRC support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/soc/fsl/fsl-asoc-card.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Is it possible to configure the bootloader to wait a few seconds before
-booting the kernel and connect or disconnect the device during this
-time, or to never boot the kernel at all so that the device can be
-disconnected and tested on another machine?
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index 3fdc77d5968b..04adb8e76e29 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -1069,6 +1069,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 	of_node_put(asrc_np);
+ 	of_node_put(codec_np[0]);
+ 	of_node_put(codec_np[1]);
++	for (codec_idx = 0; codec_idx < 2; codec_idx++)
++		put_device(codec_dev[codec_idx]);
+ 	if (asrc_pdev)
+ 		put_device(&asrc_pdev->dev);
+ 	put_device(&cpu_pdev->dev);
+-- 
+2.34.1
 
-If it's the bootloader, and things seem to be going in this direction,
-then you will need to sort this out with the vendor, obviously.
-
-> Regarding the Raspberry Pi 5 test: yes, the enclosure was connected to
-> USB 3.0/SuperSpeed. The Pi 5 uses the RP1 southbridge rather than the
-> VL805 used by the Pi 4. On my Pi 5 Linux exposes two xHCI controllers,
-> xhci-hcd.0 and xhci-hcd.1, each with a SuperSpeed bus at 5000M.
-
-Thanks, that's all I wanted to know. It's some other xHCI controller.
-
-(I looked it up, it seems RP1 uses Synopsys IP).
-
-Regards,
-Michal
