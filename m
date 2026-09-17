@@ -1,183 +1,120 @@
-Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F8B38F950
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4053D1A81;
+	Thu, 17 Sep 2026 08:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632951; cv=none; b=pqqcGqAfmdXtm2luGMDX53qY+WLdqWJJjaqGmp1MtBy5WGXxZZf6juBwmx1Mabw9/9N67mcDp8fDsz+R6dm2k+9wMVcT2cz0f3rpiBC0MQCgi0qxNUDZX/GrnuaBuZD7GgK/kmW8j5QXicUxWizAlVA333hYSLPEnyI49mjcJZ4=
+	t=1789632955; cv=none; b=iZppONN7XiUFjhz9A9eqzEiAbd6W2C9o8hRqD0B2HunT6Mc7bHhwZwhSZuHppccr/5vwIwwZwkZgTlhXCMbTd/nsYzQujfI11Iy7Agx65X85CyikpA+atguQ2AaYHEN/7vTjZPpGASCc6ZK9+NZhLmUs8MwSx+hEZppg5+6EX8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632951; c=relaxed/simple;
-	bh=NvPx8OfXlBjTydmRGXNV9+CIy/MtUUq+PQTUgas3+4I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ijEaFLHinxUbxMhbedY8MRitimJxklrmRAZvRuKrz3VDNl9L2+jQh8uNQWthaWNN88QAvZVAZdHN6WtRS/gSBHMAh689NlVzGALJpUi6c3yCpfEzmY+OBLm/fIde9CjcALCG6AOulr4AKDCIUQAmgTyqmDYu2B0oULvumVmBd5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oviWyruF; arc=none smtp.client-ip=91.218.175.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789632955; c=relaxed/simple;
+	bh=duC5ZgQYUxVbX7FOyK5k4dOretacvOYqy0FhaNKKr50=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jnDcG7xdywSitF2g3hsfiD+N3YWVqes67txm5JnH1DNqSRxqHGWmxoW4+L9jCbETK9vJMgjoWIKZR9TjBPdxQGMf5XDhwDLs8RSm17YhUGVrenuXGE1yNrjAdOLoAt6Pf9ePvZt00zZGcf+IIlxaMDK/TXj5xNOcGYGdl21kANc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lLgdJ+rA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oviWyruF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NvPx8OfXlBjTydmRGXNV9+CIy/MtUUq+PQTUgas3+4I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789632947; v=1; x=1790237747;
- b=oviWyruF+4T200BNL7mm2/MDkUTTdMb1Fbap8fbhjJqu85qSD/3FQFT9D1ahTNOXPhBYrbDQ
- gsUhsEMpseop1RKZKUwP654Cppeg0Qd6wc5W/xqROu42eLSTmUIeSGDnLxQiS+oBQAXZ+ViiK6A
- hEcInPFIJUViOnXRt3Dfveww=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e159dc0f4017a5ad;
-	Thu, 17 Sep 2026 08:15:47 +0000
-X-Mizu-Trace-ID: e159dc0f4017a5ad
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Cc: Priyanshu Kumar <priyanshukumarpu@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH 2/2] memblock: Remove unused memblock_alloc_exact_nid_raw()
-Date: Thu, 17 Sep 2026 16:15:04 +0800
-Message-ID: <20260917081504.30426-3-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260917081504.30426-1-kaitao.cheng@linux.dev>
-References: <20260917081504.30426-1-kaitao.cheng@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lLgdJ+rA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB011F00893;
+	Thu, 17 Sep 2026 08:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632953;
+	bh=7g0u82hNfhE7W89rBTDa+bTBBY19jMUj/oJVoQr/dI0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lLgdJ+rAZj/nEcathEXT1DpHXFhZcRC3a+5a2EaNYhnaSSM75Wz7H0N9BxDDExDbQ
+	 pQrdJ5qpo873WITSanZ8r+ZBUSRshNWwbFjB+5jVFlx87gvObgR8iWlNqdrnW/UJzZ
+	 Pn4V5mO5OjlfLSqtrGmTCfv9lCZ32xmYg/sZwIP2PPvZ45C6EBTXM557+Wr48mBGrv
+	 D0VICjkzTwMGnKKQB0vNWvDY+0TAG2myrIhS4VFrmA3T0yAAQONQuhXwo/gPDWj8NM
+	 SV1NR9Q+EzJBaTiR/RXtnBMIYE3GyYO0Xz0BzH1pvfk3uX6rzr2MdtzU3ZtLK6Wtce
+	 jXFw1uUHMc6EA==
+Message-ID: <e108d128-a48e-4da7-a959-63775f5548fa@kernel.org>
+Date: Thu, 17 Sep 2026 10:15:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH fixes] soc: samsung: exynos-pmu: fix use-after-free of
+ interrupt generator node
+To: Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alexey Klimov <alexey.klimov@linaro.org>, Sashiko
+ <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260917081510.59599-2-krzk@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260917081510.59599-2-krzk@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On 17/09/2026 10:15, Krzysztof Kozlowski wrote:
+> From: Alexey Klimov <alexey.klimov@linaro.org>
+> 
+> The setup_cpuhp_and_cpuidle() parses the device tree node for the
+> interrupt generation block via of_parse_phandle() and decrements its
+> reference count using of_node_put() immediately after fetching the resource
+> address. However, later the intr_gen_node pointer is passed into
+> of_syscon_register_regmap().
+> 
+> Fix this by declaring intr_gen_node with __free() and removing
+> of_node_put().
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
+> Fixes: 78b72897a5c8 ("soc: samsung: exynos-pmu: Enable CPU Idle for gs101")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> Link: https://patch.msgid.link/20260828-exynos-pmu-cpuhp-idle-fixes-v2-1-06bce6107bd6@linaro.org
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> ---
+>  drivers/soc/samsung/exynos-pmu.c | 7 ++-----
 
-memmap_alloc() was the only in-kernel caller of
-memblock_alloc_exact_nid_raw(). After removing its unused exact_nid
-argument, the function no longer has any callers.
+Please ignore, brain fart.
 
-Remove memblock_alloc_exact_nid_raw() and its declaration. The remaining
-callers of memblock_alloc_internal() always allow allocation to fall back
-to other NUMA nodes, so remove its exact_nid argument and pass false
-directly to memblock_alloc_range_nid().
-
-Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- include/linux/memblock.h |  3 ---
- mm/memblock.c            | 44 +++++-----------------------------------
- 2 files changed, 5 insertions(+), 42 deletions(-)
-
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index aa845f488327..01a2dea5aa11 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -412,9 +412,6 @@ static __always_inline phys_addr_t memblock_phys_alloc(phys_addr_t size,
- 					 MEMBLOCK_ALLOC_ACCESSIBLE);
- }
- 
--void *memblock_alloc_exact_nid_raw(phys_addr_t size, phys_addr_t align,
--				 phys_addr_t min_addr, phys_addr_t max_addr,
--				 int nid);
- void *memblock_alloc_try_nid_raw(phys_addr_t size, phys_addr_t align,
- 				 phys_addr_t min_addr, phys_addr_t max_addr,
- 				 int nid);
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 22d14a637f24..51f816ce0cd9 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -1659,7 +1659,6 @@ phys_addr_t __init memblock_phys_alloc_try_nid(phys_addr_t size, phys_addr_t ali
-  * @min_addr: the lower bound of the memory region to allocate (phys address)
-  * @max_addr: the upper bound of the memory region to allocate (phys address)
-  * @nid: nid of the free area to find, %NUMA_NO_NODE for any node
-- * @exact_nid: control the allocation fall back to other nodes
-  *
-  * Allocates memory block using memblock_alloc_range_nid() and
-  * converts the returned physical address to virtual.
-@@ -1675,7 +1674,7 @@ phys_addr_t __init memblock_phys_alloc_try_nid(phys_addr_t size, phys_addr_t ali
- static void * __init memblock_alloc_internal(
- 				phys_addr_t size, phys_addr_t align,
- 				phys_addr_t min_addr, phys_addr_t max_addr,
--				int nid, bool exact_nid)
-+				int nid)
- {
- 	phys_addr_t alloc;
- 
-@@ -1684,12 +1683,12 @@ static void * __init memblock_alloc_internal(
- 		max_addr = memblock.current_limit;
- 
- 	alloc = memblock_alloc_range_nid(size, align, min_addr, max_addr, nid,
--					exact_nid);
-+					false);
- 
- 	/* retry allocation without lower limit */
- 	if (!alloc && min_addr)
- 		alloc = memblock_alloc_range_nid(size, align, 0, max_addr, nid,
--						exact_nid);
-+						false);
- 
- 	if (!alloc)
- 		return NULL;
-@@ -1697,37 +1696,6 @@ static void * __init memblock_alloc_internal(
- 	return phys_to_virt(alloc);
- }
- 
--/**
-- * memblock_alloc_exact_nid_raw - allocate boot memory block on the exact node
-- * without zeroing memory
-- * @size: size of memory block to be allocated in bytes
-- * @align: alignment of the region and block's size
-- * @min_addr: the lower bound of the memory region from where the allocation
-- *	  is preferred (phys address)
-- * @max_addr: the upper bound of the memory region from where the allocation
-- *	      is preferred (phys address), or %MEMBLOCK_ALLOC_ACCESSIBLE to
-- *	      allocate only from memory limited by memblock.current_limit value
-- * @nid: nid of the free area to find, %NUMA_NO_NODE for any node
-- *
-- * Public function, provides additional debug information (including caller
-- * info), if enabled. Does not zero allocated memory.
-- *
-- * Return:
-- * Virtual address of allocated memory block on success, NULL on failure.
-- */
--void * __init memblock_alloc_exact_nid_raw(
--			phys_addr_t size, phys_addr_t align,
--			phys_addr_t min_addr, phys_addr_t max_addr,
--			int nid)
--{
--	memblock_dbg("%s: %llu bytes align=0x%llx nid=%d from=%pa max_addr=%pa %pS\n",
--		     __func__, (u64)size, (u64)align, nid, &min_addr,
--		     &max_addr, (void *)_RET_IP_);
--
--	return memblock_alloc_internal(size, align, min_addr, max_addr, nid,
--				       true);
--}
--
- /**
-  * memblock_alloc_try_nid_raw - allocate boot memory block without zeroing
-  * memory and without panicking
-@@ -1756,8 +1724,7 @@ void * __init memblock_alloc_try_nid_raw(
- 		     __func__, (u64)size, (u64)align, nid, &min_addr,
- 		     &max_addr, (void *)_RET_IP_);
- 
--	return memblock_alloc_internal(size, align, min_addr, max_addr, nid,
--				       false);
-+	return memblock_alloc_internal(size, align, min_addr, max_addr, nid);
- }
- 
- /**
-@@ -1858,8 +1825,7 @@ void * __init memblock_alloc_try_nid(
- 	memblock_dbg("%s: %llu bytes align=0x%llx nid=%d from=%pa max_addr=%pa %pS\n",
- 		     __func__, (u64)size, (u64)align, nid, &min_addr,
- 		     &max_addr, (void *)_RET_IP_);
--	ptr = memblock_alloc_internal(size, align,
--					   min_addr, max_addr, nid, false);
-+	ptr = memblock_alloc_internal(size, align, min_addr, max_addr, nid);
- 	if (ptr)
- 		memset(ptr, 0, size);
- 
--- 
-2.54.0 (Apple Git-157)
-
+Best regards,
+Krzysztof
