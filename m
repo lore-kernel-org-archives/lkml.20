@@ -1,143 +1,216 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165D73B6BE3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEA249D59E
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789666595; cv=none; b=ayQpozvPHHiLzu9Qom5dWjWgX8Swc5HhfqbU4+Ip2577MK0JmVSwidW+COKTn4+I8m+V6g8vWyfiE5B1NHmziVfg5+j/4tTlvNV/5P6PpdvG28DBrrI9at9ixvm/cpAYH9wqEzFnrPzdhUuRO3UNceKVzJOCXfA8cB2VIwdkzeA=
+	t=1789666649; cv=none; b=lwKOwfpFfFSgzdODMlFgELV9GJ7KRvA9xTfSbnkFlzjLO/2mBl0hMewFq+mJcQoCdKAvxADn/L9YsVomMj1WFn4rMdIQ7Jk5VLMqM1qLriGjPiN78PAcG7/XZMxHBcTNwGy27DJM8wclTnpMc37+sc6cPOCSwFlc/gwsnhfypmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789666595; c=relaxed/simple;
-	bh=brPvAVuoXkLTRqscCDH//orHps/ShgXHlWwJteljMYo=;
+	s=arc-20240116; t=1789666649; c=relaxed/simple;
+	bh=CFR6F3l6/mnlppDqwqUSLKoZh+cM5zXJZV5KJ+UriLk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=suOgnghbOQrV0SmijUWbm808v/ez+XxGmnuCHKUN5ZLpyPMEN8fS1wEXetLHuC1+HRVQ867nQlj43tJGfwPFDuO9jF4rpkD2sc2PmQUJQntVywyJRtTZdfdWGRRvQZtqBcG0Yrb1XZ7XME1Hv+05XVlvKRM3X+A/vksUzEBu7ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TsY8C4qA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HYAUu3Lh; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PyHzn4avJG1qDPdMj8pEof0Y8SHOBcfoETGqbRIGNH0Dd8FEtt+fgcaRcFmWkHlopa74WmVcM1lfWz1Jqpx74WFIHRCTeDqwl4NDjx2Ipoj77Oj7QI2gD5P7CX240ShDSf690RUks9mQGUc+5c7COJ4G+r1tuSgUWQPZGtoGZIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HQvbYjww; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=giuPnKC/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TsY8C4qA";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HYAUu3Lh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789666592;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wrWvLH4IjkM2V8/F9alR2F7Hm+iUEvocnVY+jEcEev8=;
-	b=TsY8C4qAO6wVVYk97I5Cnq8R6tdTdRH8UH9ZbhgIcoGC3Ir8Hbwzq3PcOfZBudeAIghXM2
-	T0IyPUTAv+n0ZVwGgGwlRqngpYvM7dRJMPu+08ClqzgcxmYph779IsEXU9YJYfwpEh5L7w
-	2vpGLFihORDHAtzrpPexJU9/WEYfIiI=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-479-wVMcqGMnMN22NpACLh1Dug-1; Thu, 17 Sep 2026 13:36:30 -0400
-X-MC-Unique: wVMcqGMnMN22NpACLh1Dug-1
-X-Mimecast-MFC-AGG-ID: wVMcqGMnMN22NpACLh1Dug_1789666590
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91219341db7so20738946d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:36:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HQvbYjww";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="giuPnKC/"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH5kXo2728652
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:37:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=RiLUTK8pLQQMWX+C1g6PNvcB
+	iveJnZkCvbZEp3/30IM=; b=HQvbYjwwjk5GaVNODVw65EvnkLxnC3BJy5uItFuJ
+	bCHneyKtmUfJQyIILksEEKd38z9MGhNeFMOG23lPRXd2v/AFwGdwBGzFHMQXfB22
+	/Iz7boVtV6fDdBZMdnVFqxf3Y+aKr3T+6YdgugsxppcV30yNfqmEIa6BoSKW6+9B
+	48rTUSGlHs0U8kKqgLHnQNhCsb7QtRt5gGuuwCCKGjPrZAiSXslrAFWHyg2znvBI
+	Y7W3DVny5KEq+GW7BXcbZEGBcQxqpSD5HZ6Gw4/Dm+j04Zp8pmdX8gWTOa9z099/
+	MZETRN0NOSASY2QfZkCVHRJHcLa6hGvu5m3SYI43TP6/fw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grfpphnks-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:37:25 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f248907fso117618785a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:37:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789666589; x=1790271389; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wrWvLH4IjkM2V8/F9alR2F7Hm+iUEvocnVY+jEcEev8=;
-        b=HYAUu3LhE/TK+jpKsUy4TouVEP/FXytn6GBM8t+ZzK4LwAW7Hh5aCcVn/bDkQZ69bX
-         R+JMQVYfzppR+RoK89A9zpkfrptEIuGvVALVfYVvKkixMncoWfoxVH2nsrxGcH/j0Bap
-         LJOXKy8Tih+xnvwp3YthE/deH8ukyy/vdrszDa0lV6C6RAKJ/PBu5F+nPHkTtbWJ3Ogw
-         wVbbuXci8vL4bEOyBH68mFVIvzBTJFoZCcExRu2pFq4O7OwKpc3EJtvcT+DuK9hLGU6I
-         XpjfBTmBirCYekFh/dkLZPaKIo5ibtVknGH4JTua086EfCQgJiivv6GaMAg/hoG2iQ2I
-         e/pg==
+        d=oss.qualcomm.com; s=google; t=1789666645; x=1790271445; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RiLUTK8pLQQMWX+C1g6PNvcBiveJnZkCvbZEp3/30IM=;
+        b=giuPnKC/2kz6KOM/H0VYGrGeF9z/yKD1RRF/J0IqqvUlZEZiypBR9EcOC/xY+VVhnu
+         vhpcTmgilxcb15Z1wW8o9R8xPCAgVcmwM0Jcg8HspwWefvbnSZJn/rH5FQmAzCk/p2OO
+         SvZW5zTG6ttc+lGBbWy69OsM5gN0d5Au+rD7EU3B26XMBl7x6n/zixwALyiDoTizK5T0
+         pGYRTMmXd2EPPmRr/ElfANPG76HAcey5ho15RuQap/k6XA+yxUMX7hFoJCaKgsrteAMv
+         LGefVmstsqXgDUg7nFEYndJdyXuB4Yua3IhpagK41dE48UWfNUfm/PCYy7ALWRTGP8Ik
+         GtQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789666589; x=1790271389;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789666645; x=1790271445;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wrWvLH4IjkM2V8/F9alR2F7Hm+iUEvocnVY+jEcEev8=;
-        b=HhOVuNnHcjWDy0JXAhNoPvSDSmW+4BhndN2EgAQNBEdzRrRzQplcKV6Ruy+Z3kY5gh
-         zJUHEc16uFCRvikNUhsjAm2RFO6NZ/I/gF8+BZkXe5yqYIMTfZOCPZPRakDEFWdL0lrS
-         dTQ11Cgr0KUb3kqzRtMVkYk+51m7d7q22xrFg45IArgooKMTHNjXHtm5oIyVoObSg9IC
-         i6IRaIxJYF/dWS4mobHLnB6s1RuJKcldpmUW8X/Y20hvJGCAcsz6QU2gXS0HXmEL7rZv
-         BpeMe2L4vYUrBcHqSbUkaEIOdPC2okyKKdkqBtIB0gERhp9NvWsSb2LpHx4udiBX/SYy
-         6Q0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzYLiikJm/oaxt5q+mFXxnf61NZMylyad7GvEInhHr9V1J2EmmhDxUaWIXgsmEGmJzKwROinz0Xu5EYbcs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmW6pN+PP0L9/cFkYo9mq6jNA+AXCbBQoYdd/stnFHXrAZfD2k
-	zwB96hIfmvH/ELOp/J0UPxfK9sc9aHtUNSn9A1sZtFZ7O+/pGNsnKTgY2sqDdFjeD5CWv9EXIn2
-	DGnKUVnOoCOlDiKcTBu8N70XB1cMpJpb7s46k/kdR/4fmc6SzHnKJQasNawRn1AuiMQ==
-X-Gm-Gg: AYBFou19Jj34/dVINoMBkIDaa/s2pDOAIWCAUKB6LSRsuRCEcu9Y9jwiGSGG3zluJq0
-	BLaYDBf9y50FeEaoXVQJHuKZqqDBMd+Zqz35Q2zvq2syn7PtmkJg11++Qeplnrr+C+lataQqt1d
-	LMtYcbyE6d3qJO+4VAZ0qcSIPKdxzEwiD+Hw/i+FbFV8NNAuuqfQFqsQ/WVFCKjVByKVXyl74Z7
-	SHudKccrJnijO4jt2Ruqv3pLUqWwDXw8XY0lrTG9PFzEp79NiuwxmWn+xZgyzF1s6CZVMni8RVR
-	XjfYAWnaNKzv+ZkevYhzHXDOSv1Bxmx165I8f0DFVG68qUZAkHj0fRHz2rh2vhJPO5DISxyBtk6
-	B5KM75y8zKEPHE5D/q9RhynmxPMnC7YegOI4=
-X-Received: by 2002:a05:6214:5903:b0:90e:8be9:c384 with SMTP id 6a1803df08f44-9123d7b301dmr154578896d6.27.1789666589626;
-        Thu, 17 Sep 2026 10:36:29 -0700 (PDT)
-X-Received: by 2002:a05:6214:5903:b0:90e:8be9:c384 with SMTP id 6a1803df08f44-9123d7b301dmr154578186d6.27.1789666589171;
-        Thu, 17 Sep 2026 10:36:29 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252c5bef1sm2950686d6.9.2026.09.17.10.36.28
+        bh=RiLUTK8pLQQMWX+C1g6PNvcBiveJnZkCvbZEp3/30IM=;
+        b=hMvWacZfBkXWSiLWmmIoYLaEexL754QuQ/HdMY2wyGxs0LJXsORvMiHwNj+GCC0OaT
+         KOwJkKFUXIZP4bAx5uALuf4ueZ5pVAUkY2+KBt49aNJIuhpBKxG3r3TWFZwB2kOt0XUZ
+         4Cqba7BXI4HftIfBDVQb+piWHabewqNRIVhMydDJd1RR8kvdHycyvuVyIALHVXXrh9iJ
+         o1mV3wcS4V4I5pl6wrqVG8CVTbotKM6z/2yw7a3+CgKTKjgLkKRfxgDIJJq3t0BBlHYm
+         dLr/DXvaT+sdKyOpfFKshLfLAs2eiew8yb3S7DYlj+rikxYxruVZm/dALme1CHWyztEX
+         qnUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCC/yr2dmQUgHj3XkeCX40UIqMggLxGUrh1Vrqdbt7QtBmAM9V7H9nE4dI5q5yq1aULL6jI6EGaKBosL8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kObb6eVkFElk1Dxi3K+n1GY8J9d/l94RCwSbRiNVG5v6LJ5VXy
+	A/lnXk1FHwIa/mG2mVqEt7m7ZMY29nua1m9NgFMOgP5GEntuCVE6kvfNCy26nHvOD/pQUj6DlTK
+	lsF4B+tu11xwPCgplF71ewv3w14ZLlhXRkbQjVU+V3wGCWsYucwRNSB00qeStSi4vPBs=
+X-Gm-Gg: AYBFou3rluxHs4Av93zdnakbev2SOq4gWIuV01Jn6HETLdCgHdAgYvPS5F4KRCiLka5
+	ll9lsprPYuk+b3wzLqDUdVkltGWcUGQnX64fI0OEPqG3/BY+uqE4L981+eEO57SpEgvldO3sG22
+	5udnc0bCmwodbH+ad7w6Mot3h+Ch0YldW9b1XwVdtj1kK2PoV9Ube5AvVc0pbN5xT0ZOGhVhlQB
+	tKbHq7iElxE2Fas5KOI9r8xDyJwe2EvgIe6GXVB7WdHTkS5totRj+HpDPNH6jqFUtnYmiianuwR
+	/YLzq6IvvsjZtSUz5dX7M3x1yPhYPJOSKVZTmVBZ4gRpWVlk0Jc7lJHPUHBwE45NA7M++/RFVvd
+	NfT2E83K0MPRWcoMRIfvPb32qcahfYUBjHgc4
+X-Received: by 2002:a05:620a:6488:b0:937:7e90:ecc with SMTP id af79cd13be357-93bb791a336mr1166927185a.25.1789666645023;
+        Thu, 17 Sep 2026 10:37:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:6488:b0:937:7e90:ecc with SMTP id af79cd13be357-93bb791a336mr1166920285a.25.1789666644423;
+        Thu, 17 Sep 2026 10:37:24 -0700 (PDT)
+Received: from localhost (77-32-99-124.dyn.eolo.it. [77.32.99.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27df9sm17600420f8f.19.2026.09.17.10.37.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 10:36:28 -0700 (PDT)
-Date: Thu, 17 Sep 2026 13:36:27 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: disable unused clocks registered after boot
-Message-ID: <aqwlG3Rx3MScxNXx@redhat.com>
-References: <20260917144011.3014860-1-alexandre.belloni@bootlin.com>
- <aqwO5sAN9qbvK8LF@redhat.com>
- <2026091717233613a5b6a3@mail.local>
+        Thu, 17 Sep 2026 10:37:23 -0700 (PDT)
+Date: Thu, 17 Sep 2026 19:37:21 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+        netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: do not cache the new TSO MSS before it
+ reaches the DMA
+Message-ID: <aqwlUWN3rAXfcaWr@lore-qca>
+References: <20260917124234.1348673-1-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zK4cZSasZmlQ8lcH"
+Content-Disposition: inline
+In-Reply-To: <20260917124234.1348673-1-xiaolinkui@126.com>
+X-Proofpoint-GUID: 05IvmbSJz8qRrYKsQDi5abFnsTj99rfi
+X-Authority-Analysis: v=2.4 cv=YcYodARf c=1 sm=1 tr=0 ts=6aac2555 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=oN7owVyBLNHHe3W6XE6vpg==:17
+ a=K11jTO6jPfkTDgbD:21 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=TAmxZOqScj0W_Gg8AvoA:9 a=CjuIK1q_8ugA:10
+ a=wOP-5i2p18UGaVo_UgQA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: 05IvmbSJz8qRrYKsQDi5abFnsTj99rfi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI1MSBTYWx0ZWRfXyHxxhF6zrKPy
+ BphQiDmn8KV8hcVklAJxszkl+ElMAUoi6IXfvhYmQ6e0AktwKCvUBGyYIRpxf3dIdvw8xOafkta
+ hWttvRCm7a/bZHaKzqaSrPYeeIIaGVB0Yua41MB+f/ivIsx6OxuDf/gw/+srfHc2C64GYti1+cL
+ fM9bTyoxGzr+0fJDbnmmwvhJ1Y7UhSExtXcute2Hrbos976KFIO+IQI3vfFYB5nFuWLmcjealEG
+ exHBFm4Rg86f7GUI/PVF0MjNwuxQIB1/zVmwQxEI3F6J1Gj7LsHAF8J9sK/a7kjnSyciLMh1veT
+ +QICqxHfcPhCcdaO6/6rLWwrjSE/eXNbaf5DHm2ebNyNQUpVuARhVr5EXeubI5rUBwI4qw0wIhE
+ 7LGUnZfUFq4kAh6zOwn4nHfL+VwmXtpgCUvHzkXeJTWrMJk3b63tomgVO4ya/TZ+WwapxwlGUCL
+ /oeh3ecSXYQAeNkLApA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI1MSBTYWx0ZWRfX0//de1W7q3Ed
+ KHt+F6x6SnuRxe8ImzCu8eLfjTJzcuM06TwbyP0AJG8YlAB7Y8HOuDfLb/+X0wtJAJMua4IWoko
+ bUy90MC+SoGlrj6kb9zj1arfmgffIWU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170251
+
+--zK4cZSasZmlQ8lcH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026091717233613a5b6a3@mail.local>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alexandre,
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>=20
+> stmmac_tso_xmit() fills the MSS context descriptor and stores the new
+> MSS in tx_q->mss right away, but the descriptor only gets its OWN bit
+> much later, right before the frame is handed to the DMA. Every error
+> path in between - the dma_map_single() of the linear part and the
+> skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+> updated while the MAC is still programmed with the previous MSS; the
+> abandoned context descriptor is later reclaimed by stmmac_tx_clean().
+>=20
+> The next skb carrying the same MSS then compares equal to the cached
+> value, so no context descriptor is emitted and the hardware segments
+> the TCP stream with a stale MSS, generating frames whose payload size
+> does not match what the stack accounted for.
+>=20
+> Only update tx_q->mss once the context descriptor has been given to the
+> DMA so that the cached value always describes what the hardware is
+> actually programmed with.
+>=20
+> Fixes: f748be531d70 ("stmmac: support new GMAC4")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index af2d38a2bb3d..a8f94cd6abb4 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4563,7 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *=
+skb, struct net_device *dev)
+>  			mss_desc =3D &tx_q->dma_tx[tx_q->cur_tx];
+> =20
+>  		stmmac_set_mss(priv, mss_desc, mss);
+> -		tx_q->mss =3D mss;
+>  		tx_q->cur_tx =3D STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+>  						priv->dma_conf.dma_tx_size);
+>  		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+> @@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *=
+skb, struct net_device *dev)
+>  		 */
+>  		dma_wmb();
+>  		stmmac_set_tx_owner(priv, mss_desc);
+> +		tx_q->mss =3D mss;
 
-On Thu, Sep 17, 2026 at 07:23:36PM +0200, Alexandre Belloni wrote:
-> On 17/09/2026 12:01:42-0400, Brian Masney wrote:
-> > On Thu, Sep 17, 2026 at 04:40:10PM +0200, alexandre.belloni@bootlin.com wrote:
-> > > From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > > 
-> > > clk_disable_unused() only runs once as a late_initcall, so clocks
-> > > registered afterwards by loading a module are never checked and may be left
-> > > running needlessly.
-> > > 
-> > > So record when clk_disable_unused has run and afterwards, schedule a
-> > > delayed work to run the scan when new clocks are registered.
-> > > 
-> > > Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > 
-> > We're actually in the process of redoing the way clk_disable_unused is
-> > handled. I posted a series to add sync_state support to the clk
-> > framework:
-> > 
-> > https://lore.kernel.org/linux-clk/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
-> > 
-> > Will you be at Linux Plumbers in Prague in 2.5 weeks? If so, come to
-> > this talk where we will talk about the clk subsystem.
-> > 
-> >     Evolving support for sync_state to subsystems beyond genpd 
-> >     https://lpc.events/event/20/contributions/2504/
-> > 
-> 
-> I will be at plumbers and I'll try to attend, thanks!
-> 
-> For reference, this is the reason for the patch:
-> https://lore.kernel.org/all/2ce03d3b4cd9cce8e32fe1fe1ffbea5760bf9ef3.camel@siemens.com/
+I think the issue is real. A couple of comments:
+- do you think we should run stmmac_release_tx_desc() on mss descritpr in o=
+rder
+  to clean it up?
+- I guess we should use the same approach used for data descriptor and adva=
+nce
+  tx_q->cur_tx when there are no other possible error condition. What do you
+  think?
 
-Can you try running with my sync_state patch set before LPC and see if
-it works as expected for you? Be sure to leave clk_ignore_unused off the
-kernel command line.
+Regards,
+Lorenzo
 
-https://lore.kernel.org/linux-clk/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
+>  	}
+> =20
+>  	if (netif_msg_pktdata(priv)) {
+> --=20
+> 2.25.1
+>=20
+>=20
 
-Brian
+--zK4cZSasZmlQ8lcH
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqwlUQAKCRA6cBh0uS2t
+rG/tAQCSC+2RVhkLKndRbYfTihT9iTa12YhuEwvfzDeB1cr3DwD/TRnCLF4KT631
+skR5J9p37gUdnEYuDX9/wAnd5jh0hwM=
+=X0mQ
+-----END PGP SIGNATURE-----
+
+--zK4cZSasZmlQ8lcH--
