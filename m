@@ -1,111 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284B950C2B3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30A850EBF4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650055; cv=none; b=EU6lR/LrVEi73/TeKpq1L9edY1D48vT9e5Ue1M2+j8YAkXLIluaj30jOTn5dH5S91QzWUwnzS+yUIK3bbCMDdE0i3Ho4OkgLj/sZa05ZZ318mEWnTmPg5Ve8B9tVNnN7jtJ7sjVizh07mNAAtV8tEjc1wYZwNJw1Z6bh82GZDls=
+	t=1789650055; cv=none; b=Y1fZWm0qNLdvjNUf+YjOg3YiiwQ/bju5OJuQccXzxFYzKa1yTh13qvr2pQ4kU5C2kXooxyY90cD4FqW48AKvF3Mo5jVfSjOih9ucO7H/UwpG367ypF4kq3UKs5ePkR2kAK1aWPLqbhQ7HrF3ci1AMpL4PiHyFJgzDC1ofIzxY3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789650055; c=relaxed/simple;
-	bh=M7K41bEmZRs8zEe7ciQ4rClIT6UHkTQUin6UUaJnqrw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HrlEsX9lapfXN3MJD+KaQoHBzbOGXVkSyhCoxVIfO6oz/YXnbP3HHlT8e23PxaHo1W3Xb80X6SjOg8iT39uTiiqTDM7pJnNvVXciGgFj4TuNjOn/a8B+YL5m3YufueMSOd9kZSXa0DN6eh6cnqv98RkKY38t0rRhSzDWBdekVXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMbFsdVZ; arc=none smtp.client-ip=10.30.226.201
+	bh=vwgRYswkmFYVOj7RHSLDpXjS8/vNLNG+d/Pzf2YpRbs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q87OKPy/AKCeWOhXKkBlOXo5MnvTHrCWZEJA81d8SkBJ1H8ruulkgqD+j2zAHGs519m+ahVgO3CMd5Vd/B6Qm6ZWTeuTPAueosjQiS0wRirQj3zxBnNOACunwOI9aGz26WfVF/bWhCJtD429yN69egNHZfmnMTuhyz1Bs/DeGt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UREkS+Yn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gYU1mMVK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMbFsdVZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B441EC2BCFA;
-	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789650051;
-	bh=M7K41bEmZRs8zEe7ciQ4rClIT6UHkTQUin6UUaJnqrw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DMbFsdVZryHSuLXAkoXUoHDyCQMI0m7RO0Gy7mcQbYVfmnlIm70l4NXQAbil9/nk+
-	 M7QHaxVcdN1K2T1Ekfq9rv+M3bRiC3DlNv0ltHd5kFfNgsdA9j6UNSm2SpNAKLLtD1
-	 tFkymnwkgxRwkoTQZVtJsI/5lZK0HN0R8Dk35bxW78e5HOdu0M8ZQW+cEBHtQN4RQb
-	 NcDWNIYYQ8/iSAIUiz5jFVR1UQp503DI4apgSHhkhiPbPvGqM4NDDqY0H+1iPV0DMS
-	 XuzBlwee9ITxeoz3NOsKZ/jM+9JunfnsqiErKr+SVLdw26DQ1mJyIKIk7L2ptnb2KV
-	 DTfqmvj0kxYZA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B3F5C982D5;
-	Thu, 17 Sep 2026 13:00:51 +0000 (UTC)
-From: Peter-Simon Dieterich via B4 Relay <devnull+peter-simon.dieterich.vaillant-group.com@kernel.org>
-Date: Thu, 17 Sep 2026 15:00:43 +0200
-Subject: [PATCH 2/2] mtd: rawnand: Reflect that ESMT and GigaDevice share
- ID 0xc8
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UREkS+Yn";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gYU1mMVK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789650036;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ouQ9UMJuK7mTop0Sws+ZpuUFqnmqPSVJ5MDQLtIoDE=;
+	b=UREkS+YnlKP5ScFevtzZO7BIdtOOgXsNqzqBxxSgkyE58bg++UQwXhmdDDP9paC9DEySbC
+	V+ftIyQbPaBHicPhfCHS8SQm93vilTrRRowCx17pdXDB2qB+afSjw8MFNLfXF8ph9jCJc5
+	8/vn94DgsRCJR2erkKv+4UpxrizBFKc=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-468-RqNoSxH6MnufySlr-xIWNQ-1; Thu, 17 Sep 2026 09:00:31 -0400
+X-MC-Unique: RqNoSxH6MnufySlr-xIWNQ-1
+X-Mimecast-MFC-AGG-ID: RqNoSxH6MnufySlr-xIWNQ_1789650029
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49e7631c43aso10184825e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 06:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789650029; x=1790254829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6ouQ9UMJuK7mTop0Sws+ZpuUFqnmqPSVJ5MDQLtIoDE=;
+        b=gYU1mMVKxpIL7kVEhorRkqxxcgyrl5GASp1nooXcYDHSkjUCcqaOXNE5HSK7oSDnV1
+         7ZbyUbuhQiUyFL2EP9LJtB+pvx3uav+XVIMrI2xZRN2pIMKmnVft0tC7CnRuBTy4LTXK
+         xQB7JcuIJ49HsIKOuVyfxWiejbrJK8zzP0qdyG3h4e0Z1paX42IuO13Eg40uZ9cgO1A7
+         DTGimitjeeBb70bEVz9SSIQnxMuHwz/zZmP7W3kg04BTHbE0XBPJ04AeBqSkZ2N3kMn1
+         AfTDkcU7LITdCgU1V4zTBev9c2k//xBDWNN0gAhLJKZ8HTAzedgvI/TfOQTuiz51SBgj
+         37+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789650029; x=1790254829;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6ouQ9UMJuK7mTop0Sws+ZpuUFqnmqPSVJ5MDQLtIoDE=;
+        b=PMILUSrgA+YOZxPUJ7shVcTMUurphOWLTOcCr1wNsEubQMCDvPpNhWznbl4WF9m8Rw
+         aSK5oxSviC9lHeRAZXDfLTof38ghRb5q34UM7icggxYbx0xqEF/8EC9p80osdVBKOnwG
+         4BihGC5qM/zfjSE+je9m1h333Z5FURrUy2KbRayDS0XUI+sMyxxZvgZyffhkL0E0brDG
+         mG7EiTlIHLSRR3SEbB68wTmUnRzwWJkdu4RwGqUx5Mso5ROlhEgisW1FYZnEcN7HuEz+
+         1F2TEjunwqp8D8NOP20/ok0zfUcD1Rm0WCpozbZWdwwdeBwBxJaowwKyH5cQG9evQk1v
+         k9Ug==
+X-Forwarded-Encrypted: i=1; AKwUvBzzfIru9ZTodHj8T5M6Y2PJ++oqRZd2pcHxEUruzlaOW0WJ9R8JAXzyEOVBgD6IQ266HZw8E0pSJfLVX/w=@vger.kernel.org
+X-Gm-Message-State: AFuF++npWRA4Q8yolYJ6u1y92/OBoHSacaH9smXagccvcCKO+O12iOJ5
+	20cchSH6IvAkqf8MY3thDt9atkorvVa034p1WK/mTxAXuNXdBmYn2f1Qbzau5yRtG+hurmRY9I3
+	qHDmH6QznD6e3O9xXuiV9k59GCD/9cYMub8mpBQESEB3lUc2czZNoXear6htl9Yywxg==
+X-Gm-Gg: AYBFou1nBIbk/asGBz6uX3/VmCO/dmGkDFH990KpxFgVD0EAujhOpQ/j4sTIqx2+Laf
+	fXmrR9D6naxC3U6WC8HEq6OBSl1mh7qrJsu1lzU8zdcgSHPIoMy5Kt2MCHs43M49NqbKlVPwyqb
+	hQ6NFw0f0qLDTzhGDd6nrV8VaAwL1BHRLjZ1fLXxjsHjoY2AUNllpUhmg4g2FbOsb5FzMgGzNWD
+	7zhhn1ZBv1dcnfrMt/lgnuSilcKP2I6/Bd4bDMGUbaqIYele89MxLQbX3snTxAdQoIoySIDnti7
+	4H1Ww0hy6yx9Sb1gt4E5CVeqTlOnEY4nPgnrSRxup4aVarK04SUuscW47n0gWEkmPtMXFVoqvKV
+	BuJ1BJ8HNyw+oDOM1GZwrpqKgrfRPup//GRCKx4NitYPTOjDfrMNrI+RLUqKa4TzJz9RU6H6qrA
+	==
+X-Received: by 2002:a05:6000:2089:b0:487:92e:c608 with SMTP id ffacd0b85a97d-4870ceee268mr16040967f8f.1.1789650028877;
+        Thu, 17 Sep 2026 06:00:28 -0700 (PDT)
+X-Received: by 2002:a05:6000:2089:b0:487:92e:c608 with SMTP id ffacd0b85a97d-4870ceee268mr16040713f8f.1.1789650027358;
+        Thu, 17 Sep 2026 06:00:27 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm15323682f8f.24.2026.09.17.06.00.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 06:00:24 -0700 (PDT)
+Message-ID: <ab569155-f779-427e-8c8f-1dc5315fb0ff@redhat.com>
+Date: Thu, 17 Sep 2026 15:00:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: usb: catc: bound the RX packet length in
+ catc_rx_done()
+To: Aamir Ahmed <elb12345@hotmail.co.uk>, Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Peter Korsgaard <peter@korsgaard.com>, Ziyi Guo <n7l8m4@u.northwestern.edu>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-esmt-gd9fu2g8f3a-v1-2-577c0ab2d31a@vaillant-group.com>
-References: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
-In-Reply-To: <20260917-esmt-gd9fu2g8f3a-v1-0-577c0ab2d31a@vaillant-group.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789650050; l=1759;
- i=peter-simon.dieterich@vaillant-group.com; s=20260820;
- h=from:subject:message-id;
- bh=GVgrbaeNYYC74jEu4meBBZ7WRozFmcBvWG5whH/D0VM=;
- b=l0SsMisYo5Dfq77I3F5DLjARmFARoNm+su+9JXxGB+DtQTaQrbkkGFRcVSCRzJQ4zmwFZdYYk
- oLMu8xtFbkRASk2T/LZE2YjQ83lC8FgGTFHxMwqqWNHGT7upYXwwOT9
-X-Developer-Key: i=peter-simon.dieterich@vaillant-group.com; a=ed25519;
- pk=YI8VL1pBCnAIu0GVWI3a6qn/SG0pMQhm9n/RZTI5KZg=
-X-Endpoint-Received: by B4 Relay for
- peter-simon.dieterich@vaillant-group.com/20260820 with auth_id=965
-X-Original-From: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
-Reply-To: peter-simon.dieterich@vaillant-group.com
 
-From: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
+On 9/15/26 01:06, Aamir Ahmed wrote:
+> catc_rx_done() walks a multi-packet URB, reading a two-byte length from
+> each packet header. Its bound, pkt_len > urb->actual_length, ignores the
+> header offset and compares against the whole transfer rather than the
+> bytes left from pkt_start, so a crafted packet header makes
+> skb_copy_to_linear_data() read past the buffer.
+> 
+> A length below ETH_HLEN is also accepted, including zero, and
+> eth_type_trans() then reads a MAC header from the uninitialised tailroom
+> of a shorter skb. The is_f5u011 branch takes its length straight from
+> the transfer, so a zero-length URB reaches the same path.
+> 
+> Track the bytes remaining from the current packet, and reject a header
+> that does not fit, a length past what is left, and a length below an
+> Ethernet header.
+> 
+> A transfer shorter than an Ethernet header, including a zero-length one,
+> previously became a runt skb passed to netif_rx() and counted as
+> received; it is now counted in rx_length_errors and ends the walk.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+I'm sorry, but no minor fixes for legacy drivers.
 
-JEDEC manufacturer ID 0xc8 is used by both ESMT and GigaDevice, so
-nand_esmt.c handles chips from both vendors. Chips from either
-vendor are currently reported as "ESMT", which is misleading when
-debugging a GigaDevice part.
-
-Rename the manufacturer entry to "ESMT/GigaDevice" and document the
-collision next to the NAND_MFR_ESMT definition. The only behavioural
-change is the manufacturer name printed at detection time.
-
-Signed-off-by: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.com>
----
- drivers/mtd/nand/raw/internals.h | 1 +
- drivers/mtd/nand/raw/nand_ids.c  | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/nand/raw/internals.h b/drivers/mtd/nand/raw/internals.h
-index b7162ced9efa..b8b29341b88c 100644
---- a/drivers/mtd/nand/raw/internals.h
-+++ b/drivers/mtd/nand/raw/internals.h
-@@ -19,6 +19,7 @@
- #define NAND_MFR_AMD		0x01
- #define NAND_MFR_ATO		0x9b
- #define NAND_MFR_EON		0x92
-+/* ESMT and GigaDevice share the same manufacturer ID. */
- #define NAND_MFR_ESMT		0xc8
- #define NAND_MFR_FUJITSU	0x04
- #define NAND_MFR_HYNIX		0xad
-diff --git a/drivers/mtd/nand/raw/nand_ids.c b/drivers/mtd/nand/raw/nand_ids.c
-index 08707ce9d7c0..9b2dd246398f 100644
---- a/drivers/mtd/nand/raw/nand_ids.c
-+++ b/drivers/mtd/nand/raw/nand_ids.c
-@@ -185,7 +185,7 @@ static const struct nand_manufacturer_desc nand_manufacturer_descs[] = {
- 	{NAND_MFR_AMD, "AMD/Spansion", &amd_nand_manuf_ops},
- 	{NAND_MFR_ATO, "ATO"},
- 	{NAND_MFR_EON, "Eon"},
--	{NAND_MFR_ESMT, "ESMT", &esmt_nand_manuf_ops},
-+	{NAND_MFR_ESMT, "ESMT/GigaDevice", &esmt_nand_manuf_ops},
- 	{NAND_MFR_FUJITSU, "Fujitsu"},
- 	{NAND_MFR_HYNIX, "Hynix", &hynix_nand_manuf_ops},
- 	{NAND_MFR_INTEL, "Intel"},
-
--- 
-2.55.0
-
+/P
 
