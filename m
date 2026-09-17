@@ -1,205 +1,98 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907831FE471
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:11:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708B0258EDA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603890; cv=none; b=aC4XovjSqZkIHylnfae6Iowc4XHylhb1jxHix9Z2P1aNt2jZKu/fIznrwv3fOhTH1Uxv/nr9yhF8aCcaPjqu8X6HHbRzprQqDFAuawpXGCX1mGVcUyLy8RZz611qev2V28Gtj+Ys9gVyuKIJo8lKLuUQuXIhIN9Tu7lF6Px7cbA=
+	t=1789603933; cv=none; b=Hvh3LMgnJYvkZ1waKFQ+SH5zDzf2xuhM/H2EXhfmGsNfAFV4n+EZ5GjUBTXNsDCqhXRYW+r1h6XY+O7eKDS9wtm9f4yzqryZRIe6dg1Uj7vSXaUHiNl6izf7dyHliWw2r4AQEFj/OYWepRLvXnF0PcV1ltuTb0ooFoZ48Wg7Has=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603890; c=relaxed/simple;
-	bh=ckLfNY5m7sw42q1GlHV4ctBFyqc0HiyBfdvgQ/3RKy4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=kpIP4I0tlL+NhAzgc1GyqlGlpu8MsW4n/LGKS4y21qrEVG7LkyEcTFLVp8/7kk09lPQ1EAJHyivisC5uRXnJnGT/IPUF/J2d34n7+adpf8tu2iULjwDSGKrG8C3JpUZfo/EGiF1whBWJ07vM5PSAa4eio9rlbERmWXorCzU+m4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dYIlCm+g; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789603933; c=relaxed/simple;
+	bh=HozO84mXGPcKS1igoe/VwSJOG7i5lKGoSVIesNmNWWw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=WN7E3kV1+FGtLjLRIaZzM3j2TkPyN8X8cW469L7b3obaBIJmQ0SujzX51MQvG3Qvv1SUjqCsmzkC3lYdi6pSqynfMOl0tHiyO/88Gl6aoQuWjyrECL0MEjkUZZ89mYa8KrbVnhUJZpwXQ29VGdsRdnRSbP2U+RNN7n7t9AU6Svw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PIi8kwNO; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dYIlCm+g"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ad2273so30311685a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:11:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PIi8kwNO"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39d865b11b4so315348a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:12:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789603887; x=1790208687; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kxh7qp6INDtgYuziuWlOBCsKbnHlhHZqtJui1JeMELI=;
-        b=dYIlCm+gUgCP/q0SLLM4KC/RBdn1c5VrpBkO7l+OnCJQgZzjVKbNz8hqCm6FyS9qIv
-         nAtxfpikhHTdgaAdSHvbpTmVNmwHLpnqmW9qBK96bWS1TPKyWgjVGRgt7vrl+sjh1Z47
-         UUvx1i3jgvDlSBApn0FZeOqGCJqvLTHujCbicDy0tn/rwklpKuYamyU0iaeFu883BHkq
-         e/N054p86VQWPMtXD+2PblBLI5Xhq8wo8Ww0r1C4xP4B7swCTkhy+fuXDclKqVutqzTV
-         l3QAKB2PiupnA+aiTih4fh418DE0qE8nP+PDeT/YYfJe3+1+YaAfyqrUeI3Mrq5jLUwr
-         Lgug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603887; x=1790208687;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789603932; x=1790208732; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kxh7qp6INDtgYuziuWlOBCsKbnHlhHZqtJui1JeMELI=;
-        b=uqgOE0VQmvk8+eEin7sEkeCEmOIaZl3h8LVGkngntj7ccCmCWS9bt19DDfhfF+7FqI
-         1oPk3rfW0bsGcU1cR81pIr8+pMIM7arWkL0/5PhGKr6Fby9yCHvq5vRF+rU3sAgUh20l
-         prPQYPoxol0L/iXbQVj6gfRoZDsO243QI0i+V4YyE2a2PgpJiTJISSNIPA0u2ERHWy4J
-         4eiiobkSW8xHhTZVzEatUNhiB6o9xPdDuHzyoRBtSEdzbONZtklyvKyMskV4gdeIE3Xn
-         rSJMVoV1cLsCIoSTKBVDKTOI/gi1/pGxUWvroQJ8nxvrAqHjxfZUyZOHlgvZzu5WNcA+
-         O1qw==
-X-Forwarded-Encrypted: i=1; AKwUvByE0/5SAnxxN78hCSBc8XqN09ZuITNu1vAbJQ+zzpF6SIcdA72BM/hzij6UFEnfp2AgJkibiIuubqDzbOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKwWrHAgPZ+6wLTrU6RxdWAQDLci8yDu7NY1TOXsjXk0/Gj1us
-	XDpz7yhNAd1QtP3rhwzBKhb4cUYChdS1v8l12euKSu+3Zfiqfzp1QBxY
-X-Gm-Gg: AYBFou3JSNW8+t5wPxE0xuaH+oim41jLbVe5Tqkg4skig+20xJwlKDCs7RTHm4zmUZ9
-	VC0BWWzzwHnNemyz1Z2n1n76Zw9dk7EHN08n9rBZnrR/NXxsSUe8875JDqaXqJrVhh5r66jSQ3L
-	YcnFhTyLWLxSi+FoJ3Dry/zELFw/xIdycPMnfN7+Uhh90u+J//zQqK6T3r6xq77UsN5YC2Ce0FB
-	PJNIOURM7DoSqZm3sPRUrYWFkj4s5y2BcpK4Nt1ZTFbZpSmJsLC3W0pKZ6p/mp0wwxbe24sUzzL
-	Hz8q4CeIptd1QYaeWEMr0rLUBh81QOMb7wsCcQz1N2nKcztK+XH/nVNuNAeo/g0crxvEzkgujD+
-	ZozhiYiq/M1MONv6P7AElyVFP/wJQ90w+iT6PafVVLVWbnvDIUBydzCuC8tI3uIJTWwfcrR8W2G
-	EZTmjkPKNdt9KnbJlvbHlUrSwUWFessX+P1rfTkFC4yWGDtIMAghqQIC85galDJbeisQJLdyFgC
-	9uF8dn8M2ozm0U=
-X-Received: by 2002:a05:620a:294a:b0:937:27fb:96f8 with SMTP id af79cd13be357-93bb7900601mr761224785a.41.1789603887335;
-        Wed, 16 Sep 2026 17:11:27 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7824d7b1sm338655085a.27.2026.09.16.17.11.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 17:11:26 -0700 (PDT)
+        bh=j6iDNH5wuGoL3/bmQAOC4Dn6hjBP2bgu5FvPAn8HKIQ=;
+        b=PIi8kwNOUE05OJOvW+p3JD2hKWNLG6LeG5NF4sm0t9pkSoAG3uIET79vZnP5gMjcnK
+         1Eg2mLY2GQZTsl0v7MYHN19VLBn34tsaRZawG3pLH0K6jtmrCs6dSLwoF2kZ5ptsPxm5
+         E4UjpLnrAyGbeGOSCmFxvyXMYW/6iQGsNizi7mityK33Qb5jfWqSwnr2xgAxOwa3xheb
+         ZzRBj5eQXvr14wvds5IMEMcczqTCb1oEoYCTbRhG0Ka1tNqxA7XUFkvirSEGQNfg7b6+
+         WagWMif4BuHJ3ByIhnNisFNYLrjFBQdm8PDe58XDeb+commwjD4Klb7oQMlXDCAJeE+6
+         FLmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789603932; x=1790208732;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j6iDNH5wuGoL3/bmQAOC4Dn6hjBP2bgu5FvPAn8HKIQ=;
+        b=KQgFRqUo011i6zdevdLFEH8AmFTZVqoa3Q5waOthPkgOJRzbBySDYLEhN/eZ5AQa7r
+         0p3nIF4LqwAWVqvuqQDhEhz/nTv3yug6RLcJxZ6+1yMW2IpHylW8S8qGDsP1kcIQhcy5
+         LQoQr+wDbPbvGK6uGnD1Qay5vnL/QJNoumrgCp/sZ5vRlpdYyVYjIpLONMkr3b+3oP+V
+         5H86Or4C64+QPXBpcclBeJpT2sd0UxxWSxk+tjubbjEDhhTeh5WlI/0nCQXbfAi39eFd
+         6T4DOm3ZcDPwGFw0mrcwvQNPXudofgMj/+ls5xtazdJ2SdHpGuJ1CmKI6llu7QbwsBOk
+         jdwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwzGMrl/FTamODYyvRhzpOurUnshGLg4I4cjvqU2zGqBpfvvKU4YWZnj1Zq5NufPK1UKTSmDh4k9cnk/s0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3ceHEPiSPci+PEK6hodY/ztd2ZRowEHjDt0X3JP/uASBwsvKA
+	+HlUKDljYaQK/TMUnLqL0z5/AVDRflAjHxbVOu8jl7eaXMI475o+PSm5UZwb/bSwDEj8jPF3VEJ
+	xSCONXA==
+X-Received: from pjqf7.prod.google.com ([2002:a17:90a:a787:b0:39e:18b3:6422])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:6cf:b0:38e:7168:281
+ with SMTP id 98e67ed59e1d1-39e1e329409mr10995151a91.10.1789603931494; Wed, 16
+ Sep 2026 17:12:11 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:12:10 -0700
+In-Reply-To: <aqe4QCxIhcoBL+po@yzhao56-desk.sh.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 20:11:25 -0400
-Message-Id: <DLH5MRIK84UU.1ZS2B8TGS8TKO@gmail.com>
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
-Cc: <edumazet@google.com>, <ncardwell@google.com>, <kuniyu@google.com>,
- <davem@davemloft.net>, <kuba@kernel.org>, <pabeni@redhat.com>,
- <horms@kernel.org>, <willemdebruijn.kernel@gmail.com>,
- <andrew+netdev@lunn.ch>, <shuah@kernel.org>, <willemb@google.com>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH net v2 2/2] selftests: drv-net: psp: test PSP and TCP
- ULP mutual exclusion
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260915-psp-ktls-fix-v2-2-0eedc3b148ec@gmail.com>
- <178960039600.22033.386517201454373799@kernel.org>
-In-Reply-To: <178960039600.22033.386517201454373799@kernel.org>
+References: <20260902230932.2760127-1-seanjc@google.com> <20260902230932.2760127-2-seanjc@google.com>
+ <aqe4QCxIhcoBL+po@yzhao56-desk.sh.intel.com>
+Message-ID: <aqswWjRN0_G-xyGJ@google.com>
+Subject: Re: [PATCH v3 1/3] KVM: x86/mmu: Use KVM's max TDP level to determine
+ need for 32-bit TDP root
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Kai Huang <kai.huang@intel.com>, Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed Sep 16, 2026 at 7:13 PM EDT, netdev-bot+sashiko wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> - [Medium] In tools/testing/selftests/drivers/net/psp.py, the new helper
->   `_require_tls_ulp()` (lines 338-344) wraps=E2=80=A6
->
-> --
->
-> selftests: drv-net: psp: test PSP and TCP ULP mutual exclusion
->
-> This adds two psp.py cases that check PSP associations and TCP ULPs are
-> mutually exclusive in both orders, plus a _require_tls_ulp() helper that
-> skips when kTLS is unavailable, and enables CONFIG_TLS=3Dy in the
-> drivers/net selftest config.
->
->> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/=
-selftests/drivers/net/psp.py
->> index 315648a770d00..a5b1e14f120f0 100755
->> --- a/tools/testing/selftests/drivers/net/psp.py
->> +++ b/tools/testing/selftests/drivers/net/psp.py
->
-> [ ... ]
->
->> @@ -333,6 +335,50 @@ def assoc_version_mismatch(cfg):
->>              ksft_eq(the_exception.nl_msg.error, -errno.EINVAL)
->> =20
->> =20
->> +def _require_tls_ulp():
->> +    with socket.create_server(("localhost", 0)) as srv, \
->> +         socket.create_connection(srv.getsockname()) as s:
->> +        try:
->> +            s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
->> +        except OSError as exc:
->> +            raise KsftSkipEx("kTLS not available") from exc
->
-> [Severity: Medium]
->
+On Mon, Sep 14, 2026, Yan Zhao wrote:
+> On a separate note, though it shouldn't be a real issue, is the below change
+> necessary?
 
-I understand the point, but I'm not sure this really worth the change. I
-considered checking for specific error codes here, but decided against
-it because maybe that would be end up being brittle if someone in the
-future changed or added error codes. Aside from ENOENT when the feature
-is not available, I think the only other error this could throw is
-ENOMEM.
+I would say this is technically correct, but unnecessary, because I can't imagine
+any 32-bit guest firmware would try to relocate BARs above 4G.
 
-> Should this handler be narrowed to the errnos that actually mean "no
-> kTLS"?  As written, every OSError from the TCP_ULP setsockopt turns into
-> a skip, including -EINVAL, which is exactly the errno the kernel side of
-> this series returns:
->
-> net/ipv4/tcp_ulp.c:__tcp_set_ulp() {
-> 	...
-> 	err =3D -EINVAL;
-> 	if (sk_has_decrypt_user(sk))
-> 		goto out_err;
-> 	...
-> }
->
-> The probe socket here is a plain loopback TCP connection with no PSP
-> association, so the only legitimate reasons to skip are the "ULP unknown
-> / TLS not built" errnos, ENOENT from __tcp_ulp_find_autoload() and
-> EOPNOTSUPP.
->
-> If sk_has_decrypt_user() ever returns true for an ordinary TCP socket -
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index bb68a021cfaf..abbba26dbdc6 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1810,7 +1810,7 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
+>                         phys_as = entry->eax & 0xff;
+>                         g_phys_as = phys_as;
+>                         if (kvm_mmu_get_max_tdp_level() < 5)
+> -                               g_phys_as = min(g_phys_as, 48U);
+> +                               g_phys_as = min(g_phys_as, kvm_mmu_get_max_tdp_level() == 3 ? 32U : 48U);
 
-The code in question can't take this branch as it is now, and if it did,
-a skip seems arguably more appropriate to me, because otherwise how
-would we even interpret the result of the test.
+FWIW, if we wanted to do this, my vote would be for:
 
-> and the parent commit anticipates growth there ("As other users of
-> skb->decrypted come along, they can be added to sk_has_decrypt_user()") -
-> the probe fails with EINVAL and the helper reports a skip.
->
-> Would restricting the skip to exc.errno in (errno.ENOENT,
-> errno.EOPNOTSUPP) and letting other errnos propagate keep the assertions
-> below load-bearing?
->
->> +
->> +
->> +def assoc_psp_ulp_exclusive(cfg):
->> +    """ Test that a TCP ULP cannot be attached to a PSP socket """
->> +    _init_psp_dev(cfg)
->> +    _require_tls_ulp()
->
-> [Severity: Medium]
->
-> Since _require_tls_ulp() is the first gate in both assoc_psp_ulp_exclusiv=
-e()
-> and assoc_ulp_psp_exclusive(), does an over-broad kernel-side
-> sk_has_decrypt_user() end up disabling both directions of the
-> mutual-exclusion check at once?  The result would be two skips in CI rath=
-er
-> than a failure for the case these tests were added to catch.
->
->> +
->> +    with _make_clr_conn(cfg) as s:
->> +        try:
->> +            cfg.pspnl.rx_assoc({"version": 0,
->> +                                "dev-id": cfg.psp_dev_id,
->> +                                "sock-fd": s.fileno()})
->> +            with ksft_raises(OSError) as cm:
->> +                s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
->> +            ksft_eq(cm.exception.errno, errno.EINVAL)
->> +        finally:
->> +            _close_conn(cfg, s)
->> +
->> +
->> +def assoc_ulp_psp_exclusive(cfg):
->> +    """ Test that a PSP assoc cannot be added to a socket with a TCP UL=
-P """
->> +    _init_psp_dev(cfg)
->> +    _require_tls_ulp()
->
-> [ ... ]
+			if (kvm_mmu_get_max_tdp_level() < 4)
+				g_phys_as = min(g_phys_as, 32U);
+			else if (kvm_mmu_get_max_tdp_level() < 5)
+				g_phys_as = min(g_phys_as, 48U);
 
+but I think I'd prefer to just leave this be.  Rr better, drop 32-bit kVM support :-D
