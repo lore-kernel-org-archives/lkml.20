@@ -1,89 +1,112 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2036D3B42D6;
-	Thu, 17 Sep 2026 07:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F413469FC
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 07:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631560; cv=none; b=n3ITDsGkq5A2Ao/xItXDxyNsjTa4x3Cr36n26GhwrMSyGpmw7vB/DI1mr7wqD2pPqLVub+QTu5mJSHVCCisEAY0OUFeuHjKms2tDBbifm3ON6IBQSAoWxbnJo3GZO719cKfaGjqLl2nBF2ZdfM+e/Biz1b4FhiKvd9V8xFwXGQg=
+	t=1789631586; cv=none; b=RClt1/gkgh1R3cxsYjD0OhxpgioeXMFgWQA4CtGsJBgvbYINU2wn3bhPcjcqsGDPhWoi5VBvLjRv33W++Ip1f12yTLQfwsaq1UbR5Zs6YZI7JSxNcz5eBSv0qMGCPLvb6zNyUVLYjwSxcYUsFEm0eNU1wBbTkYdSGrYz9BlgXoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631560; c=relaxed/simple;
-	bh=OXK8/9w9cheZCOXJr5vqhqui6g3bHdsoK8EFFdGDNJs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KEvSw4hYmtHkhf8Dgm6M2r1urjWH2+6LcrFyoFghjjOvCtXVntByF5tIleoSJ4yr8/sC/gr4yA5B7e4XxBGGbFASUsh+Xkl2WqVC/ZBYmpEltoOKBMcWXdWG0Uk01axu4EW/czLHFl1ByKQ5lhpMNU13aBYvcMyoSyjx95TLhHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=fxpRd7wR; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="fxpRd7wR"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H7qVQa93114411, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789631552; bh=OXK8/9w9cheZCOXJr5vqhqui6g3bHdsoK8EFFdGDNJs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=fxpRd7wRD53vNe2kujb+3IWpW9Pirlqxp3NZZQlOEtH9yw0uOJBv5t3ozSYQ6w0ZL
-	 zJDgyvEeQJ1CsahvTcYwgVZWuj8jwBe8c3Y9b5WiNBJr2O7wUXeDvcKYDi3IANhY9O
-	 FlKAKemZgD2Uek7zWbhHUDFlXMDOstTEh9j06K1FD/iReM13jGP3M3ImIvCz414LIC
-	 niLyZAV1dsB4xPmelmjAe7sIF4Da6x/OIwa2oGj7DU8QON/epC13+pW+p+LloGvO+P
-	 SHV6mkdBzM6JRCMfb7grb6Kqhy39zwixNILtptSqKsocwsBpqO0BEoTAfMlu5yKnlw
-	 ePtldQF63eHMg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H7qVQa93114411
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 17 Sep 2026 15:52:32 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 15:52:31 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 17 Sep 2026 15:52:30 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 17 Sep 2026 15:52:30 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: =?utf-8?B?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghA==?=
- =?utf-8?B?7J6Q6rO17ZWZ6rO8KQ==?= <5mghybrid@khu.ac.kr>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "Jes
- Sorensen" <Jes.Sorensen@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2 3/4] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Topic: [PATCH rtw-next v2 3/4] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Index: AQHdQ1IzihV6w9HjIUGWB4VYUBvLcbbSJYBw//+6RQCAAIsaIA==
-Date: Thu, 17 Sep 2026 07:52:30 +0000
-Message-ID: <bcbeef2a98ce411299a7ff97ac9626af@realtek.com>
-References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
- <20260913-codex-rtw-rx-v2-v2-3-f09c964e0b96@khu.ac.kr>
- <2b956e6e0c5945e596d5825ace0c6203@realtek.com>
- <CAH1Bc_ybPZtieaMkuUdbpv-STvJTqTxbFZgVbifNdbADt21C9Q@mail.gmail.com>
-In-Reply-To: <CAH1Bc_ybPZtieaMkuUdbpv-STvJTqTxbFZgVbifNdbADt21C9Q@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789631586; c=relaxed/simple;
+	bh=iKsVo0ZubUN1LonjXifQ7VLw5AT3xBEJIcyNJ45ZduM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IMLz9MeKoeHKbMHUwNQRXzTJtQlRZtFxU3A7rkriK8wDCOjekOJsmVVgOUMxbv2/2/ozc/91ycN8P3SHhUXuBHjWKWTwspChwWWINsplI+AFIZMtvBNIm0jWR3DvIJ0hAn5CoQRugUiP5W97jf0OcH/wvFxZrbKhophlDpw1zF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: c90b3c1eb26c11f19a56ed5b684f684d-20260917
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:04faa1c7-cb26-4199-bc90-6348d88167af,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:716258d18b5d99c66735db4288bb3f07,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c90b3c1eb26c11f19a56ed5b684f684d-20260917
+X-User: fangqiurong@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fangqiurong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 670414630; Thu, 17 Sep 2026 15:52:52 +0800
+From: Qiurong Fang <fangqiurong@kylinos.cn>
+To: tj@kernel.org
+Cc: arighi@nvidia.com,
+	void@manifault.com,
+	changwoo@igalia.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] sched_ext: Don't run ops.dequeue() with a DSQ lock held
+Date: Thu, 17 Sep 2026 15:52:40 +0800
+Message-Id: <20260917075242.2813147-1-fangqiurong@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-DQrigI3quYDsmrDshJ1b7ZWZ7IOdXSjsoITsnpDsoJXrs7TrjIDtlZkg7KCE7J6Q6rO17ZWZ6rO8
-KSA8NW1naHlicmlkQGtodS5hYy5rcj4gd3JvdGU6DQo+IA0KPiBJJ2QgbGlrZSB0byBrZWVwIHRo
-ZSByZXRyeSBsaXN0IGFuZCBkZWxheWVkIHdvcmsgc2VwYXJhdGUgZnJvbSBub3JtYWwNCj4gcGVu
-ZGluZyByZXF1ZXN0cywgdGhvdWdoLiBQdXR0aW5nIGZhaWxlZCByZXF1ZXN0cyBkaXJlY3RseSBv
-biB0aGUgbm9ybWFsDQo+IHBlbmRpbmcgbGlzdCBjYW4gbGV0IG5vcm1hbCBjb21wbGV0aW9ucyBi
-eXBhc3MgdGhlIGVycm9yIGJhY2tvZmYsIHdoaWxlDQo+IGRlbGF5aW5nIHRoZSBzaGFyZWQgc3Vi
-bWlzc2lvbiB3b3JrIGNhbiBhbHNvIGRlbGF5IHJlcGxlbmlzaG1lbnQgb2YNCj4gbm9ybWFsIFJY
-IHJlcXVlc3RzLiBLZWVwaW5nIHRoZSB0d28gbGlzdHMgcHJlc2VydmVzIHRoZSBleGlzdGluZyBu
-b3JtYWwNCj4gUlggc2NoZWR1bGluZyB3aGlsZSByZW1vdmluZyB0aGUgZHVwbGljYXRlZCBxdWV1
-ZWluZyBjb2RlLg0KDQpJIHRoaW5rIHRoZSByZXRyeSBsaXN0IGlzIHRvIHJlc29sdmUgcmVzb3Vy
-Y2UgdGVtcG9yYXJpbHkgdW5hdmFpbGFibGUsIHJpZ2h0Pw0KSWYgc28sIHRoZSBub3JtYWwgcGVu
-ZGluZyBsaXN0IGNhbiBhbHNvIGVuY291bnRlciBpZiBpdCBpbW1lZGlhdGVseSByZXF1ZXN0cw0K
-dGhlIHJlc291cmNlLg0KDQpNeSB0aG91Z2h0IGlzIHRvIHVzZSBhIGZsYWcgKGFzIGZ1bmN0aW9u
-IGFyZ3VtZW50KSBmb3Igbm9ybWFsIHBlbmRpbmcgbGlzdCwNCmFuZCBtYWtlIGEgZGVsYXkgYmVm
-b3JlIGl0IHJlc2NoZWR1bGVzIHRoZSB3b3JrLiANCg0KSSdtIHRyeWluZyB0byBhdm9pZCB2ZXJ5
-IHNpbWlsYXIgY29kZS4NCg0KUGluZy1LZQ0KDQo=
+From: fangqiurong <fangqiurong@kylinos.cn>
+
+The consume and move paths invoke ops.dequeue() with the source user
+DSQ's lock held, self-deadlocking any BPF scheduler which locks the
+same DSQ from ops.dequeue(). Move the invocations after the DSQ unlock.
+
+v3 -> v4:
+- Reword the terminal-branch comment: the callback runs after
+  @dsq->lock is dropped, not "unlocked" - the rq lock is held on every
+  path (Tejun Heo)
+- Drop the unused @src_dsq parameter of scx_move_local_task_to_local_dsq()
+  (Tejun Heo)
+- Fix the dangling "there" in the commit message (Tejun Heo)
+- selftest: reword the header comment and poll from run() directly
+  instead of from a worker thread (Tejun Heo)
+
+v2 -> v3:
+- Restrict the deadlock description to the two user DSQ paths; keep
+  the global/bypass move for the shared DSQ lockdep class (Tejun Heo)
+- Drop the ordering sentence and the doc change until the DISPATCHING
+  reenq hole is fixed (Tejun Heo)
+- Open-code the ops.dequeue() invocations and drop call_task_dequeue()
+  (Tejun Heo)
+- Drop the __scx_move_local_task_to_local_dsq() split; unlock @src_dsq
+  right after unlinking (Tejun Heo)
+- selftest: add ops.select_cpu(), record UEI and check SCX_EXIT_UNREG,
+  fix the watchdog wording (Tejun Heo)
+- Set ops.timeout_ms to the suite-standard 1000U
+- Add Cc: stable # v7.1+ (Tejun Heo)
+
+v1 -> v2:
+- Drop the claim that ops.dequeue() may run after the task has
+  re-entered custody: SCX_OPSS_DISPATCHING is held across the callback
+  on the global/bypass path and @p's rq lock is held across the
+  callback on the user-DSQ-to-local paths (Andrea Righi)
+- Add a selftest whose ops.dequeue() iterates the source user DSQ
+  (Andrea Righi)
+
+Patch 1 carries Andrea's Acked-by from the v1 review.
+Link: https://lore.kernel.org/all/20260916070753.3343113-1-fangqiurong@kylinos.cn/
+
+fangqiurong (2):
+  sched_ext: Don't run ops.dequeue() with a DSQ lock held
+  selftests/sched_ext: Test that ops.dequeue() can iterate the consumed
+    DSQ
+
+ kernel/sched/ext/ext.c                        | 44 ++++++------
+ kernel/sched/ext/internal.h                   |  3 +-
+ kernel/sched/ext/sub.c                        | 10 +--
+ tools/testing/selftests/sched_ext/Makefile    |  1 +
+ .../selftests/sched_ext/dequeue_iter.bpf.c    | 73 +++++++++++++++
+ .../selftests/sched_ext/dequeue_iter.c        | 79 +++++++++++++++
+ 6 files changed, 181 insertions(+), 29 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.c
+
+--
+2.43.0
+
