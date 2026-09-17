@@ -1,33 +1,33 @@
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F39E4DAFAF;
-	Thu, 17 Sep 2026 14:00:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687E855C319;
+	Thu, 17 Sep 2026 14:00:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653659; cv=none; b=jvY8uRqqRjhiWb+ezPlsN54D++AJcJQAy5PYFOAeW2dZlKdZijwipGPevi3C/8GoBgwWz5XfcjoQzjuKPoTwp9nUqswhnSQVMvcA+hjS6rmKC8Hpgv7rac0AWhVOCTPMk3X90iFZruPkPvzOB1scrEWWOa4gctMiWJsxCQk7bO8=
+	t=1789653659; cv=none; b=pVuFLmcoBKsTCAFiIqh7/Y/E1rRLYxZwK/4Y5Es/QjjLNoN2MYebH0CHI9DMBmMAJrXyEJsyOYoMJqp092kaOjJ5I6IDK+YY0PjE6/p+nv7FcofkDiovicQ3n7wr/ZMayvI+2xg4IbDgIRqmH+ZI9GuaJ4RJPnZAlNBTLLAyXIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789653659; c=relaxed/simple;
-	bh=kr8DC1yojJk9nG43YgDicPPWVcN0PW9KjVsyZqPW4LQ=;
+	bh=qr4ZMoF0xnAVzuY6CyLri6Kg+fDyZQ33aAoaaVdMcvg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PKSZiyFECCSDHMj+fFIPG4r9pDquKkUMzj+B656PBkX4sVsXEreaBwxAXWbKGNABbyy3OeABHj6kglVYsCWEdfYdptvDptenf8ENv+F+BP5MYMzVc/bX4We1SOZ1zCkyEYU4hXowu9iSL7vBBQiELyVsx9/PV4e8ZiRL4Z34JgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=o8DF/4JR; arc=none smtp.client-ip=217.194.8.81
+	 MIME-Version; b=giqJ56yQWosEWLi8ZD93RjCY9JPEPATOg89RMz8HrV8CJ6GtXVXiBdl3tfgIk7xI9VEah7+fNuH0zkF+VZ3YsUhXj30Wf3JPyLHc7vVJOedVyiZeud4kAQY5+mqj6R9TzgzZWLnnFsUFyWfwvgy0Ej20WVgTxc98eBjFl8NHJMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=TtipBJko; arc=none smtp.client-ip=217.194.8.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="o8DF/4JR"
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="TtipBJko"
 Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 470F322814;
-	Thu, 17 Sep 2026 16:00:54 +0200 (CEST)
+	by mail11.truemail.it (Postfix) with ESMTPA id 282F622817;
+	Thu, 17 Sep 2026 16:00:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789653655;
-	bh=skm3Fsv3AnGbhO2KEqDrMKHxJwSa91rKkWRnJk3LvDI=; h=From:To:Subject;
-	b=o8DF/4JRMTOHW/jpaD2ArSG6uCfSEZWqONE15xTIfEKOz+uu5wfDl61IegBEq7kOf
-	 LJl9AVBg5PS61g0BImpy/hPT/bCcFZRI4nd/Ov4cXdtdNSj5ZwcEULd4Zlc7MA6Yq7
-	 VP8veGsMYmhiC0gcxdkEF6B/1dcVk3bihQMeeZ4l5nOuMtt4BjAuIKvWZaJGe9kGpy
-	 dR+h/exB7vpWQ/8bZP3p3ZYlf5CPejusB8UlErEiUi1nCuG+taHIGaS7Ckxlg271qz
-	 +tWKOLTfjtamlzO88VAQedwN/4xJUK09qAiuvbWNLQtOH6C5/9oYy47211flVHzp0o
-	 RaBzuZ/4nORjQ==
+	s=default; t=1789653654;
+	bh=PFbHrnCbgfpqZStiZJ8Sb/nHDFg7+/3mGwQ68I1HP3A=; h=From:To:Subject;
+	b=TtipBJkoMi6cb3iVLiD7pa++jODJA5EF5UJJPbuB9G6kDhgrasJYojd+g6IDXKSFf
+	 u7BGs/ZojQDywBeGS0BBpSeSaMlGYE3MXoYcuYNvRL+yMMYRjF8ED2I3jNt8J9rYiy
+	 uJHbWWqGoEcb88/dq1g8IzYQG+wWNizk5rBGXEEm8/4yILdEneOa584tOTyz7Y1SDm
+	 HXxHTw7d23EXswFiPYpgDJjH6UJro2SqFlktKmRtDlpc+NWA639jJFdfECov5xzc11
+	 cGJJUFBwQXHI63P3x0zuSBVHpicWZrhQTL9qso4uu66THawaE32dNtIiS0i8dBzzyT
+	 p2aZV/IBs/LeA==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Marek Vasut <marex@denx.de>,
 	Stefan Agner <stefan@agner.ch>,
@@ -56,9 +56,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Robert Foss <rfoss@kernel.org>
-Subject: [PATCH v5 4/4] ARM: dts: imx7-colibri: Set LCDIF bus width
-Date: Thu, 17 Sep 2026 16:00:39 +0200
-Message-ID: <20260917140042.118181-5-francesco@dolcini.it>
+Subject: [PATCH v5 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus width
+Date: Thu, 17 Sep 2026 16:00:38 +0200
+Message-ID: <20260917140042.118181-4-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260917140042.118181-1-francesco@dolcini.it>
 References: <20260917140042.118181-1-francesco@dolcini.it>
@@ -83,7 +83,7 @@ interface. Set the LCDIF bus-width property accordingly.
 A 24-bit interface can still be used by a specific carrier and module
 combination by overriding the property in the carrier board device tree.
 
-Link: https://docs.toradex.com/103125-colibri-arm-som-imx7-datasheet.pdf
+Link: https://docs.toradex.com/104446-colibri-arm-som-imx6ull-datasheet.pdf
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
@@ -92,14 +92,14 @@ v4: no changes
 v3: no changes
 v2: use the common bus-width property instead of the legacy interface-pix-fmt
 ---
- arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi | 1 +
+ arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-index 8666dcd7fe97..c4088d3c5ab1 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx7-colibri.dtsi
-@@ -537,6 +537,7 @@ &lcdif {
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+index ec3c1e7301f4..1eb1cf2d7395 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+@@ -229,6 +229,7 @@ &lcdif {
  
  	port {
  		lcdif_out: endpoint {
