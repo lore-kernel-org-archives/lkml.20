@@ -1,147 +1,353 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE61F37E5E7;
-	Thu, 17 Sep 2026 15:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660058; cv=none; b=QViu1PRnno5/3ZB/kWhZws1Mi+601uArw7gj6yGvb/bvx5U5zRPUtLRb3gs3na3lm9rYBssBmk2zWcGkA/QUUA0wQvtAQ0/e30sj+JYyH8UNPlrQOkkizghDGeNyPPmg7nZZLjgHZUqjij37MucTCuBOlXQA5agrRt1Td6VHFvM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660058; c=relaxed/simple;
-	bh=G4HWLVNXzhSCswJXl+GAJjZ5dE9EPV7jBwWTmIkK6T0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tIlmufDo0OGjL5i6RmB/M4wg9vFP5T50paaEsFln5QFl2UOemGootufScisAR55oaet1O3a6qen4isdMbslK1svdoX/hFVMxjS+kBG4N3yuG1H/ZfEc44YG8SND6//yOn1m50QitTwCphd5kx9yaQ7jKXSlhQfYLMz6JsNIgw0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jujJeTkR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-ej2-f14.google.com (mail-ej2-f14.google.com [74.125.228.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A584EC67A
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789660059; cv=pass; b=pE5u/CyiYGxlfwUR3sZoZm+p1kOJaHCS/4nAQc3l1VAQSGiJp9azlI7RkHeHG6mRDVatQnGbOU40Wm2SllRar5o7Y7NmdJ+eIHlpdGDS//p6R80aUMhUIGb4tIpLeG4wSU6cyi93NNjGKSRlUutHVlTkshtoxG8HpAVJz49swRA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789660059; c=relaxed/simple;
+	bh=y7iJTse76G4ucUZqi+M7vBGe+965ykVSunvIgxX0/3U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gvGONk0NuO8DIFOe6f2NIvnfnmYxTpnKnM7qf9CiZLxjd1ird3PfJ/wIR185YIh8dnlkYJ9RyjpQQGTjbQMDxXgyw26qCWTYXVPrG4HUssViyEPaDE04wJA4Ok9rjV1YUujDY3MNHplHo05S5guboGalU+6x155xWlRHmRqFA8k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jliweolY; arc=pass smtp.client-ip=74.125.228.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jujJeTkR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA9981476;
-	Thu, 17 Sep 2026 08:47:25 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 91A183F7B4;
-	Thu, 17 Sep 2026 08:47:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789660049; bh=G4HWLVNXzhSCswJXl+GAJjZ5dE9EPV7jBwWTmIkK6T0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jujJeTkRY9cy1NiL8rY70s3FzxqxUPmYtddnwYMekhhHo/JoTCrFo6hMKOk9rLuOm
-	 twsIKR3Ht2HCoURivfSghdsivEyGC4q6zt9yB8X/Lo5a+tO7z6Y8Zh38KNsuDkXoA+
-	 03JZSCS3IMQ44FpHgVwMp+OhHuQl0PQKLatASQKE=
-Date: Thu, 17 Sep 2026 16:47:20 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Jiri Pirko <jiri@resnulli.us>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v4 2/5] dma: swiotlb: Centralize minimal pool sizing
-Message-ID: <aqwLiHQb71hU8cEy@arm.com>
-References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
- <20260914070135.313337-3-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jliweolY"
+Received: by mail-ej2-f14.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso167721466b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:47:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789660047; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nRSkVE+GeeEE2F9Fga3OuBLfQTw0mFvz8+QgcyodGRdxmw1XNgIalaV7mnGArJUKYj
+         2jN2Ytqgj+7pwRin3hhUfJjTDdWDBzXh73/285nsMfHGQLLrgt5vS0NHUZzUbjksPzFD
+         1Dpo4nGelLdBUYcAX+WLn2fY7ppEL1L00GTqOzos9GdRWTSO6iJg8lECISrX1ga7dar1
+         Wd1D2NvNzqZ/tczotR0GylKDqOFr6+FKIQlk5rQ0dFYQCgvbo1fCjxyQy23tlzX3jihc
+         4HOZFAzTnux6TvWo2Lga0H8nBkVMacjPC9lkzhJUjJbpIjtSa1BzCD3grq84x1HTgs1a
+         h3Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6x6xW2hYJmzX0BckreNr2G2CFmLyrZuvybTX8QaHySY=;
+        fh=ZuuCOEChQvj3Hv7qQ6VXrQMTSOgM+T5BQWUsP+T4KLM=;
+        b=gWySBQOYiRt874uwKCCix5kNmrHZPPyLQIhDwvw1jtQCxWcyvPLe/tCIVMsYS+9tP+
+         3Eco0mJ8xVBPV3btrvkbMl3JkkyxYgFDNnBI0JiCQ4yjunvdc9qYLCR6KvVPOyuWT3w+
+         zN2M7mBYVR7pvCO/6SKwNtC5sF9BF/v5aHt92KurpEZShwhJj9TGw/JVdck5txkF/lmc
+         Lx3VD5a/LYTjo6aR9Fh6yPRbv/FV0XsNTYAr/exb2VU3fCcN0oF18YEm+UcbxlYWRhRU
+         /sdpyP5xIVi5Zhmf07A6YdgML53DnJWbLfLTpKt0XNnMfcoA98ycI1tjiNg5j//xU2Hg
+         hnnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789660047; x=1790264847; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6x6xW2hYJmzX0BckreNr2G2CFmLyrZuvybTX8QaHySY=;
+        b=jliweolY1ovksPLUeLJxXu8fXR785nEQCDtGVAuLiWDsrfCTmz51gj2N2+XeaUfZxv
+         boLGFLz8ZBg1hcwiego+zSMkfd/nBDNMNPTFgFr3CYmA0ap3JbkcWC2bAiPtpXMCItGC
+         /KX/57NmOREmcNOh86IFu2cLumkq0M4vwzTxdF9oZ9PQxkIsMRE1+SoXO3mKyGCr2r0V
+         AocfppH+V2C4aBIoLG7BTjpR9RSn6zbVQdZxtO+2j33j/btroezRF1cfnpZsalNAMEJ5
+         Jazs1LJmhl1LAByYneZSec9PB4XbRdzizjiyhTJ4DBcV9zMdx1tLzPuqywVNNIXRhb9O
+         4PKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789660047; x=1790264847;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6x6xW2hYJmzX0BckreNr2G2CFmLyrZuvybTX8QaHySY=;
+        b=S/lREBRj1evVb7HbfDOZf7a0Y9RNgztCONEkFJ6aijkNpLuhQRl4eFOIUCIlD57EJX
+         /+3HN/qa9MoB9xw+h0sINL1Kru0buFe7d/ASXEo1d8S8CEgp34XXtT7lcZJmNfCQGYBm
+         T4t/5WQhWp/2rFQoDGDXLiw5GlMzMAELnuhUtf5ZTibTzLmtJHemlUC/KqhttPHr1bNy
+         lLJuTbfxMKnDIFH3dTGWLYJ+596zLEX4dodUxijqaE0mP2GKwHaL/ScLdh8Y7rFkRood
+         8wToj+H4QSereX66PTypipJF2z0DjHbaHMLfRAPmdNlUwu/Hwah0RAIgeUlJ3et5jczD
+         XuGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzdpewpUoY7HutChlbOy8km5dIJgm0QXVjpwM1YNXJ/swi+VX2YSGFW+kX2O2Tv6B7n7hH8hfsJpaxMp1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJTXroauX5bRfnkKXRSo3umwvJAbj5nCpRW8FdE3UWLFqrKTeU
+	VnG1j24IIp1l2WQMczuPDvYfaBDjtEBvw35l1836Jbh6ox79ZnqP8az7Cwl8HuNr8nt+nnGha99
+	05rbOCCBb967m2tC4ztl5MSRD5qtu+wc=
+X-Gm-Gg: AYBFou3xbf7+9uC5oFxhhGmZr0ylRyHdt3AEXRSw0+Oz1sIpfxgtdFs+sxMmQLuFvsZ
+	X3V9uL7I7Dlqq5xnX/0bFXTL70Jb/dn0GEzvfNnNn0HbW5KoiNh9BA8t2gKdDDYDnhLeQNCaQUN
+	mtmlsLSyQ5X6Ds4KhShEvbXn/bpx+2S+QrPETOg1SMIUOtUg6pi2ceRvB+N+oNkk0AiX8xHgKqu
+	7RNuby9e8QDBXUjRyHylNIzVsxKs73Gy1SYyZ1XIaMRyglOQF74UrZ/mjX1yyhoX++Yz51pzRCr
+	mzcGbF5XXs/uKa9iJnThDAHp761ccPKMO+Q+xJLDeO/5vOoKtqz6U1YN
+X-Received: by 2002:a17:907:9343:b0:c29:4490:50c8 with SMTP id
+ a640c23a62f3a-c29e51b2d0fmr670404266b.8.1789660046479; Thu, 17 Sep 2026
+ 08:47:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914070135.313337-3-aneesh.kumar@kernel.org>
+References: <20260916155629.32421-1-luis@igalia.com> <20260916155629.32421-2-luis@igalia.com>
+In-Reply-To: <20260916155629.32421-2-luis@igalia.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 17 Sep 2026 17:47:15 +0200
+X-Gm-Features: AcwNN1VotyV4kfW8TwYaGG-9pXTuMI1MGuctXsFZpheLcejQzMscYoicIU6JX-Q
+Message-ID: <CAOQ4uxipJkiiy8pURxRFdKYbruBM8wQxArd8uAiv2Dh=tPwNhA@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 1/8] Documentation: fuse: add document on caches
+ being used by FUSE
+To: Luis Henriques <luis@igalia.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Chen Linxuan <me@black-desk.cn>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, fuse-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Matt Harvey <mharvey@jumptrading.com>, kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 12:31:31PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> NOTE: We lose the RISC-V SWIOTLB_ANY setting in this patch. It will be
-> reinstated in a follow-up patch where we make SWIOTLB_ANY redundant.
+On Wed, Sep 16, 2026 at 5:55=E2=80=AFPM Luis Henriques <luis@igalia.com> wr=
+ote:
+>
+> This new file aims at documenting the caches that are used by FUSE.  At
+> the moment only symlink, attributes, ACLs and readdir caches are describe=
+d.
+>
+> Signed-off-by: Luis Henriques <luis@igalia.com>
+> ---
+>  .../filesystems/fuse/fuse-caches.rst          | 148 ++++++++++++++++++
+>  Documentation/filesystems/fuse/index.rst      |   1 +
+>  2 files changed, 149 insertions(+)
+>  create mode 100644 Documentation/filesystems/fuse/fuse-caches.rst
+>
+> diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentati=
+on/filesystems/fuse/fuse-caches.rst
+> new file mode 100644
+> index 000000000000..b133066429b1
+> --- /dev/null
+> +++ b/Documentation/filesystems/fuse/fuse-caches.rst
+> @@ -0,0 +1,148 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +FUSE Caches
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Introduction
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +This document summarises the different types of caches used in FUSE. For=
+ each
+> +cache type, it documents the rules to insert data into it. It also docum=
+ents the
+> +rules for validating and invalidating data in the cache.
+> +
+> +symlink caching
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Whenever there's a link resolution request for a FUSE filesystem, the VF=
+S will
+> +call into ``fuse_get_link()``, the ``->get_link()`` inode operation. Thi=
+s
+> +function will then send a ``FUSE_READLINK`` request to the user-space FU=
+SE
+> +server.
+> +
+> +The server can ask the kernel to cache all link resolutions by setting t=
+he
+> +``FUSE_CACHE_SYMLINKS`` flag during the ``FUSE_INIT`` negotiation. If th=
+is flag
+> +is set, when the VFS calls into the ``->get_link()`` operation, FUSE wil=
+l
+> +immediately call ``__page_get_link()``. The first time this is done for =
+a
+> +specific inode, it will result in sending the ``FUSE_READLINK`` request =
+to
+> +user-space. But the result returned from this request will then be added=
+ into
+> +the page-cache. The next time this link needs to be resolved, it will us=
+e the
+> +link resolution already cached, and will only fallback to user-space if =
+the
+> +folio isn't up-to-date.
+> +
+> +Attributes caching
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +Inode attributes may be obtained from user-space by different FUSE opera=
+tions.
+> +For example, ``FUSE_LOOKUP``, ``FUSE_GETATTR``, and also several other
+> +operations that create file system objects (e.g. ``FUSE_MKDIR``). These
+> +attributes obtained from user-space are cached by the kernel. They have,
+> +however, a timeout associated and once it expires, they are invalidated.=
+ The
+> +next time the attributes are needed, a request (``FUSE_GETATTR``) will b=
+e sent
+> +to the FUSE server.
+> +
+> +The ``FUSE_GETATTR`` request can be sent to user-space in three differen=
+t
+> +scenarios:
+> +
+> +#. if the attributes for the inode aren't yet available in the kernel;
+> +#. if they are not valid any more (timed-out, or have been invalidated),=
+ or
+> +#. if there is an explicit request for forcing the request to be sent (f=
+or
+> +   example, by using the ``AT_STATX_FORCE_SYNC`` flag in ``statx``).
+> +
+> +Regarding the attributes invalidation, they may happen in several occasi=
+ons. For
+> +example, upon a user-space request for invalidation, through
+> +``FUSE_NOTIFY_INVAL_INODE``, ``FUSE_NOTIFY_INVAL_ENTRY``, or
+> +``FUSE_NOTIFY_DELETE`` requests.
+> +
+> +FUSE uses fine-grained invalidation masks rather than invalidating all
+> +attributes at once. The principle is that each operation only invalidate=
+s the
+> +specific attributes that the operation could have changed on the server.=
+ The
+> +masks used are:
+> +
+> +- ``STATX_ATIME`` - after reads and readlink, since the server may updat=
+e access
+> +  time
+> +- ``STATX_CTIME`` - after xattr changes (including ACL set/remove) and r=
+ename
+> +- ``STATX_BLOCKS`` - after a successful flush with writeback cache, sinc=
+e the
+> +  server's block count may differ from the local one
+> +- ``FUSE_STATX_MODIFY`` (``STATX_MTIME | STATX_CTIME | STATX_BLOCKS``) -=
+ after
+> +  writeback completion (without writeback cache), since the server may h=
+ave
+> +  updated modification metadata
+> +- ``FUSE_STATX_MODSIZE`` (``FUSE_STATX_MODIFY | STATX_SIZE``) - after wr=
+ites,
+> +  truncate-on-open, and fallocate, since the server's size and modificat=
+ion
+> +  metadata may have changed
+> +- ``FUSE_STATX_MODDIR`` (``FUSE_STATX_MODSIZE | STATX_NLINK``) - after d=
+irectory
+> +  modifications (create, unlink, mkdir, rmdir, rename), since the server=
+ may
+> +  have updated the directory's size, timestamps, and link count
+> +- ``STATX_BASIC_STATS`` - as a full invalidation, used for server-initia=
+ted
+> +  invalidation (FUSE\ :sub:`NOTIFY`\ \_INVAL\ :sub:`INODE`), interrupted
 
-[...]
+What is this odd subscript format and why? Please remove it.
 
-> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> index e0e4c103d603..734712230f35 100644
-> --- a/arch/riscv/mm/init.c
-> +++ b/arch/riscv/mm/init.c
-> @@ -165,31 +165,11 @@ static void print_vm_layout(void) { }
->  
->  void __init arch_mm_preinit(void)
->  {
-> -	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
-> -		       memblock_start_of_DRAM() < dma32_phys_limit;
->  	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
->  #ifdef CONFIG_FLATMEM
->  	BUG_ON(!mem_map);
->  #endif /* CONFIG_FLATMEM */
->  
-> -	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
-> -	    dma_cache_alignment != 1) {
-> -		/*
-> -		 * No 32-bit DMA bouncing needed (either all DRAM is within
-> -		 * the 32-bit limit, or it all starts above it), but
-> -		 * kmalloc() buffers whose sizes are not cache-line-aligned
-> -		 * still require bouncing for non-coherent DMA.  Use
-> -		 * SWIOTLB_ANY so that the buffer can be allocated from high
-> -		 * memory when DRAM starts above dma32_phys_limit.  Allocate
-> -		 * ~1 MB per 1 GB of RAM.
-> -		 */
-> -		unsigned long size =
-> -			DIV_ROUND_UP(memblock_phys_mem_size(), 1024);
-> -		swiotlb_adjust_size(min(swiotlb_size_or_default(), size));
-> -		swiotlb = true;
-> -		swiotlb_flags |= SWIOTLB_ANY;
-> -	}
+> +  setattr, and interrupted link
+> +
+> +The full set of invalidation points can be found by searching for
+> +``fuse_invalidate_attr_mask()`` in the FUSE source.
+> +
+> +ACL caching
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +FUSE has allowed the usage of POSIX Access Control Lists (ACLs) for a lo=
+ng time,
+> +as they can be set and accessed simply as extended attributes. However, =
+it was
+> +only with the introduction of the ``FUSE_POSIX_ACL`` flag that ACLs star=
+ted to
+> +be fully supported. Without this flag being set during the ``FUSE_INIT``
+> +negotiation, ACLs can still be set, but the VFS won't use them for perfo=
+rming
+> +permission checks - that would be the user-space server's responsibility=
+.
+> +
+> +Also, without setting ``FUSE_POSIX_ACL``, ACLs will not be cached by the=
+ kernel.
 
-Does it break the bisectability for risc-v? IIUC this undoes commit
-cfca5a48b03f until patch 5. Basically if there's no low memory and no
-SWIOTLB_ANY passed, memblock_alloc_low() will fail.
+This Also, feels out of place and unneeded for the document flow.
 
-I think we could preserve SWIOTLB_ANY until patch 5. Or it might be
-simpler to move patches 2 and 3 at the end (I haven't tried).
+> +In this case, new inodes ``i_acl`` and ``i_default_acl`` fields will be =
+set to
+> +``ACL_DONT_CACHE``.
+> +
+> +On the other hand, if the ``FUSE_POSIX_ACL`` flag is set then, when an i=
+node ACL
 
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index aa19e81ae544..90e0bfd0715c 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -304,6 +304,11 @@ unsigned long swiotlb_size_or_default(void)
->  	return default_nslabs << IO_TLB_SHIFT;
->  }
->  
-> +static bool __init swiotlb_default_size_changed(void)
-> +{
-> +	return default_nslabs != IO_TLB_DEFAULT_SIZE >> IO_TLB_SHIFT;
-> +}
+This OTOH, feels out of place and unneeded for the document flow.
 
-I mentioned before in passing
-(https://lore.kernel.org/all/ann6noRzoPLL9kDY@arm.com/), if one sets
-swiotlb= to the default size, it will go unnoticed. I know it's an
-existing issue but we might as well fix it now with a bool that tells us
-the swiotlb size was forced/changed.
+> +is accessed, VFS will first check if it's already cached. If it is not, =
+FUSE
+> +``->get_acl()`` operation (``fuse_get_acl()``) is called, which will eve=
+ntually
+> +send a user-space request. Future accesses to this inode ACL will use th=
+e cached
+> +data.
+> +
+> +Setting an ACL in an inode will also result in sending a request to the =
+FUSE
+> +server for setting it. But this operation won't immediately cache the AC=
+L -- it
+> +will only be cached after it is accessed again and requested from user-s=
+pace.
+> +
+> +On the other hand, ACLs will be removed from the cache in the following
 
--- 
-Catalin
+This OTOH, feels out of place and unneeded for the document flow.
+Which text is it referring to? Anyway, text seems better and clear without =
+it.
+
+> +situations:
+> +
+> +- When setting an ACL in an inode (and the ``FUSE_POSIX_ACL`` flag is se=
+t),
+> +  previously cached ACLs for this inode will be invalidated.
+> +- When invalidating an inode through the ``FUSE_NOTIFY_INVAL_INODE`` ope=
+ration.
+> +- After setting an inode attribute (i.e. operation ``FUSE_SETATTR`` is s=
+ent to
+> +  user-space), the user-space server may have also updated the ACLs. Thu=
+s, any
+> +  cached ACLs for this inode are also invalidated.
+> +- Whenever attributes are refreshed from the server. For example, when w=
+hile
+
+stray while - please remove
+
+> +  revalidating a dentry (``->d_revalidate()``), or when updating a dentr=
+y during
+> +  while processing a ``FUSE_READDIRPLUS``.
+
+stray while - please remove
+
+> +- In general, when there is the need to send a ``FUSE_STATX`` or
+> +  ``FUSE_GETATTR`` to user-space (e.g. when attributes expired).
+> +
+> +readdir caching
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +When opening a directory a ``FUSE_OPENDIR`` will be sent to the FUSE ser=
+ver, and
+> +server will be responsible for setting the open flags related with cachi=
+ng,
+> +namely ``FOPEN_KEEP_CACHE`` and ``FOPEN_CACHE_DIR``.
+> +
+> +If neither flags are set by the user-space FUSE server, then every ``rea=
+ddir``
+> +will result in a ``FUSE_READDIR`` (or ``FUSE_READDIRPLUS``) request bein=
+g sent.
+> +If ``FOPEN_CACHE_DIR`` is set by the server, then the result of a ``read=
+dir``
+> +will be cached by the kernel and reused for the current open.
+
+I understand what you mean but it sounds confusing.
+
+> +``FOPEN_KEEP_CACHE`` is about keeping the cache on **this** open, not on=
+ some
+> +**next** open.
+
+Suggest:
+
+FOPEN_CACHE_DIR determines if readdir results of this open will be cached a=
+nd if
+readdir cache will be used to return readdir results during the current ope=
+n.
+If FOPEN_KEEP_CACHE is set, any readdir cache from previous opens is preser=
+ved
+when the directory is opened. Otherwise, the old readdir cache is
+invalidated on open.
+
+If you accept this phrasing and fix the style nits above, feel free to add
+
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+
+Thanks,
+Amir.
