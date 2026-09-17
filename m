@@ -1,85 +1,167 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E749E4B7A4D;
-	Thu, 17 Sep 2026 16:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA1A4ED187
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661545; cv=none; b=X2R1UYcXk/OCo+DFjzpgbSOWiUau95ECmVAWS4isQnkZxIyoJkJIrCVXaRdtp5AOVFKN/xemT6HrKuJdQ5TBGOSqNHsCRgcB3V9cYwpuxeYmrjpoWv0YPysoMAmS433L9pSaJlkhZQhX2mwrqL9jYRxd2/4/I62RkuwpGeprLUk=
+	t=1789661579; cv=none; b=OHNxOfh9CMj6E0hg4FrZgZfxoSdLowa2aXYceVYWNtsbuoXaueNd2Ttrs/V/kujlnrOP9adDRsgr4MUwUlozuua56PhAamCLaD6sO/hil2nynVbhvlBmEzLN2s745o6oqL8bpl8A7DSr0MNuwp1uq04W3NVWFEgtDecMGjC8j9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661545; c=relaxed/simple;
-	bh=flo9osKtc/OpzjojZWTfF9H4r3vbpa+SFX7R4uSEisw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KgykSAuW4aA8Vsn1mUHpb4HnrCbaM0chnot1HKigvIUclu4x431jtjj4fI8JH8Z4sXRjcnGjWVHbALPt63ZPPSJ/hNLGui31tmrezagMNusDMJ+8Sr7BzK09/2yb/2HKSyrdT3sDq3oAyfY+NnXoPx7PCSKGCv3Duk2t3BN8xS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHdkBhEaxqZTmECA--.193S2;
-	Fri, 18 Sep 2026 00:12:17 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	oneukum@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: cdc-acm: Fix urb reference leak in acm_resume()
-Date: Thu, 17 Sep 2026 16:12:17 +0000
-Message-Id: <20260917161217.2161883-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789661579; c=relaxed/simple;
+	bh=VWbDqFJaYwnn39FxyvRfm2BxVkAJpX0wS2JxDsmFPro=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=O1fQ/nK++CXrfqG/HS/tgHMy49Y2YrMiJl1cCDXBbYGRn4/K/xB6UBy5ytY5CGNLmOak0Bfg8o38d6WRRPeKnKFdsglE5wrP691WfHF6VSaLl0EMmmn9cCyP5AtoPw8tHVBhzppXpR40lZ53a9n7fHAYUA4VaM3FqReiNN5WwcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qzM+6Zio; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qzM+6Zio"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso602307f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:12:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789661574; x=1790266374; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aD+hE8sW8gpLmXZS+oKLwmaSPyQHvokBuz4Tpi2ixuk=;
+        b=qzM+6ZiokgFxGEBdMvo/E7+9H5BNd+iSV2wSoYSdWOhiBB2r9/YM4cQXjhnTQmv4q0
+         waBMRg2dS65QG1L4DMaKxPuZVzEE3w/fZPw0n/q+fr3OaaM4ZHnGB0lutA9K/YgcogeF
+         AwoKu3e5L5QzA4j1niGVnDv5UtFh6fG0xM+M/qBpnKf1Nzo89NngH9SHOLyhpy60ThFy
+         FkcNOoxHdABeJ/ShRdMbEnsyigmQWB6O9wg/+2GwF0t6jkvkWxJRj9w/kITJVgkWvKPI
+         T8nzrDlwDqNSNCSHV2f0xVAQNGGVTu6Lb6rASZCLeUTa7+aExgi/sebCKHvJNriwYBL1
+         J9cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789661574; x=1790266374;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aD+hE8sW8gpLmXZS+oKLwmaSPyQHvokBuz4Tpi2ixuk=;
+        b=SyU/Grs5pfc7krkx2gMq223EeH2k5Pbt5VUO8/DGpFbGqPloqBkn+czYCpcYaTdIRV
+         HpyoaMk//UP6ibzbCEPItAWqjKhakATHO7Ze/NUXqfIv15Z6MF4SffrBUCmrHlidlM5a
+         3rUQEiOaKAMJu2xviFgoJdFpeSXDDvGRD8P2tK2lzXojjVe13QZ4AfCY/PZ7JDXNK6yM
+         Wd0gF3Vhkk1ZQ2n7fI9sMZehjO/ImZqvbQ3+xj1yBsWKfVGptTcU1hPpeThHb7Nvea5S
+         djtlPwk8Aybv6yHYiEuK+Ql96q6tRNt4KO7OcM1kiZ8uudHb3RWch9t+XzWcP5MTdH/x
+         m0mw==
+X-Forwarded-Encrypted: i=1; AKwUvBwR9E3jxxbUPH2Z/p9nrLPThIoMUK0eN9GHBCjNhm0qkpkfOUUB4pBGLDsedm8Rel2vYBwNYMqi0jEgA4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbrO95vxUn9yoRyTD/N+kEtgOGIu0TesfWvwvO1yJg7VU8Bs93
+	eQ4mpKY+O1wemMXLrNgD3R4q2KSUD/jTeg2SSh/V09N0U+a3vCdfzmcOkC0O
+X-Gm-Gg: AYBFou2H2kNHXIeUyBp/HgePe0O6tcZCryeRBFcTS7uiRzrsXOcdqP+GddKXNOVy1hD
+	pS860KrCxhjg0SIUH7D2b8Svd3gypjgTRJ1zay7Zf0OI4q2pkKN9gGt4OTgc4bPxZyLOUcK9RwE
+	YBPFFFLOA48CFiet7rGH7LNQHLXPJ9znHyjedD2alOoAhMvN3aAp0I7AVVn7vlFNylGkYuv+sxK
+	/jQ+Hp5r+EFrz65ZtbFPmeSA6rdPbsY0C+hA54jT+6WuFvNGbFZAFc8blyHHtXBAXlMjKmQcVlV
+	PbisES/+p90iq958tGWF6NE0K8FSkS+jfnIa5jKKrzFyb9itSZF2yBjRwpynYKFW2pyxBtw0Kjv
+	vvTc1AYEc8lRWv/tnZejnLaHlYApXhFMyIPagJ4oha7QHB0wcKLPru0BpunxmcUv9pow9Nz0rN2
+	GtT9rK65paQ9xd2w0p2SVVOuyfU7qRD+lGvPii2DaoR7LzFQC3TCHUu7su1kEW60YkiZs=
+X-Received: by 2002:a05:6000:2893:b0:487:1681:2218 with SMTP id ffacd0b85a97d-48716812448mr3934969f8f.45.1789661574208;
+        Thu, 17 Sep 2026 09:12:54 -0700 (PDT)
+Received: from p183 ([46.53.134.223])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf33e01sm18719379f8f.23.2026.09.17.09.12.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:12:53 -0700 (PDT)
+Date: Thu, 17 Sep 2026 19:17:07 +0300
+From: Alexey Dobriyan <adobriyan@gmail.com>
+To: akpm@linux-foundation.org
+Cc: Dmitry Antipov <dmantipov@yandex.ru>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] kstrtox: delete saturation in case of overflow
+Message-ID: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHdkBhEaxqZTmECA--.193S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF4DJw4xtFW7ZF1fAF17Awb_yoWfCFX_WF
-	yUWrn7JrWj9FyqkF4kJwnxZr97K3WkZws7X3Z8t34S9FW2qF10vr4F9ayDGw1DGF47JF9r
-	Kr4Utw1Fvr1kWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
-	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjfUY9a9DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qr9LZFPwAAss
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-acm_resume() takes the delayed write urbs from the acm->delayed anchor
-with usb_get_from_anchor(), which hands the reference held by the
-anchor over to the caller. That reference is never released, so an urb
-that was queued while the device was suspended is never freed.
+From 161367fd1e8b41e938274923bbb3d26de69f7a7e Mon Sep 17 00:00:00 2001
+From: Alexey Dobriyan <adobriyan@gmail.com>
+Date: Thu, 17 Sep 2026 18:49:18 +0300
+Subject: [PATCH 1/1] kstrtox: delete saturation in case of overflow
 
-Drop the reference after the urb has been resubmitted.
+Partially revert
 
-Fixes: 140cb81ac8c6 ("USB: cdc-acm: fix broken runtime suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+	commit 6e30111dbb4075e3c26c230417b32bc4a1c66831
+	lib: fix _parse_integer_limit() to handle overflow
+
+Originally, kstrto* was written in a way to keep simple_strto*()
+functions as is, so that they continue to return incorrect result
+if integer overflow occurs.
+
+Saturation doesn't do anything useful, it just creates second incorrect
+value and potentially breaks simple_strto*() users.
+
+Caller can decide to saturate itself anyway.
+
+Move saturation to memparse() from where the idea came from.
+
+Signed-off-by: Alexey Dobriyan <adobriyan@gmail.com>
 ---
- drivers/usb/class/cdc-acm.c | 1 +
- 1 file changed, 1 insertion(+)
+ lib/cmdline.c | 19 ++++++++++++++-----
+ lib/kstrtox.c |  1 -
+ 2 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 54059e4fc6ed..399c42b58cfc 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -1703,6 +1703,7 @@ static int acm_resume(struct usb_interface *intf)
- 				break;
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index 16cce6621cec..7f9859733fb5 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -14,6 +14,8 @@
+ #include <linux/string.h>
+ #include <linux/ctype.h>
  
- 			acm_start_wb(acm, urb->context);
-+			usb_free_urb(urb);
- 		}
++#include "kstrtox.h"
++
+ /*
+  *	If a hyphen was found in get_option, this will handle the
+  *	range of numbers, M-N.  This will expand the range and insert
+@@ -146,14 +148,21 @@ EXPORT_SYMBOL(get_options);
+  *	Parses a string into a number.  The number stored at @ptr is
+  *	potentially suffixed with K, M, G, T, P, E.
+  *
+- *	Return: The value as recognized by simple_strtoull() multiplied
+- *	by the value as specified by suffix, if any.
++ *	Return: The value multiplied by the value as specified by suffix, if any.
+  */
  
- 		/*
+ unsigned long long memparse(const char *ptr, char **retptr)
+ {
+-	char *endptr;	/* local pointer to end of parsed string */
+-	unsigned long long ret = simple_strtoull(ptr, &endptr, 0);
++	unsigned int base = 0;
++	ptr = _parse_integer_fixup_radix(ptr, &base);
++	unsigned long long ret;
++	unsigned int rv = _parse_integer(ptr, base, &ret);
++	if (rv & KSTRTOX_OVERFLOW) {
++		rv &= ~KSTRTOX_OVERFLOW;
++		ret = -1;
++	}
++	/* local pointer to end of parsed string */
++	const char *endptr = ptr + rv;
+ 	unsigned int shl = 0;
+ 
+ 	/* Consume valid suffix even in case of overflow. */
+@@ -194,7 +203,7 @@ unsigned long long memparse(const char *ptr, char **retptr)
+ 	}
+ 
+ 	if (retptr)
+-		*retptr = endptr;
++		*retptr = (char *)endptr;
+ 
+ 	return ret;
+ }
+diff --git a/lib/kstrtox.c b/lib/kstrtox.c
+index bac1c057e1b0..dcbc613fcde6 100644
+--- a/lib/kstrtox.c
++++ b/lib/kstrtox.c
+@@ -85,7 +85,6 @@ unsigned int _parse_integer_limit(const char *s, unsigned int base, unsigned lon
+ 		if (unlikely(res & (~0ull << 60))) {
+ 			if (check_mul_overflow(res, base, &res) ||
+ 			    check_add_overflow(res, val, &res)) {
+-				res = ULLONG_MAX;
+ 				overflow = KSTRTOX_OVERFLOW;
+ 			}
+ 		} else {
 -- 
-2.34.1
+2.55.0
 
