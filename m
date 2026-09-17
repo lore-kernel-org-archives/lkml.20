@@ -1,97 +1,174 @@
-Received: from mail-wr2-f19.google.com (mail-wr2-f19.google.com [74.125.225.83])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E7C392C4B
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612725; cv=pass; b=rXh72N5/nkovQrcb7qXvVKScopH5bkofg6Jr/eg5B1RrZUmyTSHxl4AZHQ6JbuIEoE2zfgMbl9iiJGes7pnGH1DThTD4eJXLgFEjf31NmECwQUHmxDnhD5CIo6SpGYqJYKZgLVEiBwHX2it0sRkVLSYa5DkZbtZRppAdhxLrSxY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612725; c=relaxed/simple;
-	bh=vq4o8SMQXm0gA308FoVdVzcFOKue1qv39OaHjktBjk0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C/wagjyp21+iIjGbSODBzcdNVjCjl6gAPV3kxDiPuPd4Gmpqb/TUeMYdXj49ySg+m41DXRrqVDCvYmqvYKUwahIc9BlWYWBJWa+DmHSqR90HDkkmcFiGeM1bj4fL4kxx+TTdgQZ+//bWTRZdO2cVgIOFH4Y9Hb03OUdFeP8f6oc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fr2BErdp; arc=pass smtp.client-ip=74.125.225.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72133542D4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789612728; cv=none; b=XyPhVUf5TaQyGtIJvYNK16ET08UVxAGmWuO8Yve4iDeUP2xeCqBJO72X02Y/xCPvuebzEtevOFZJLXG+GV77+gX6a37F7t9MLjd7fWR95/unReZWnJ/Mo4sAIFvZUXDV2DQvzRfEMBibmcE/6D7D37yo/X3vsAtYcwuMnw9c4NI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789612728; c=relaxed/simple;
+	bh=SPJ8vYFXxs81oCoPiGRKiXQOHnvvwao8NAhit+FTgnw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K29P0XwvQpmnoRRBTXiTyhsjY3ckIP371EpQf38NKkzh/JLVvGYTfNrB000SQPq0Pdda7k5PWUXjuYy5hDOQ3MzZGXQUEIvKoLqg3RBwTHT/nSzpWvRUa/XfqL7ywkXJvJtbmSY8CFJI5bLclslRg8Se0/8agiG/QGeYKWFl1BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PViV9wQS; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fr2BErdp"
-Received: by mail-wr2-f19.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so132383f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:38:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789612717; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B7048rVLbwq+FKMpWWZVi5Kix50lApTVNzZyAdC+/Sr9v3Ny7M3AQvtc7Su2ZGkhGO
-         4IA7R+zzBT6WRqctnr1FXURNrdtxyw0jWV3JFC3fIreiXs8DcWd5hNvjeFk5SXIH3mzC
-         SmJg779HPVlbK0BQFkna0AJmAUgbx3DPZfx6s6CAkzAK7P8B9xrft4v3LHJXevaIzF1p
-         rKO517kGNb2Sidju3M1mqOIxqI1KivynKV3bgEDKv4Sv3FQ4fb3F/Q4KW72c/y4KO8oD
-         7AAVk7BznxESM/t4zhsdOgRD9IpFhzBegCTcE6UKxD1TV8VZxKM4DMKNlZm/I+uyfzGB
-         Ykvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=vq4o8SMQXm0gA308FoVdVzcFOKue1qv39OaHjktBjk0=;
-        fh=2vB50X9kRA5PSk0YCbmB2saFh8lg9Az4Gbw1VJyxylU=;
-        b=j5TJSZgOmdLOgT0BxTAvOAPJTgYehCPJzUor3j6VtV/V+QKGiR8HuNLBIY+J4jJg0L
-         ZXFYl7/G/BfNOVYQYxKMrjvFVjnNuVNSnEDNL2ulkGxoYtyRRhLLl8L4LfY+Z2+lpOvD
-         mxIGBas7+P2aM4BornfU3wyrBN13hAStDrYo2r3s+/F0d32S0rChaSX06udU6KjxGKJG
-         ymG2Fl25I12aA1GAWRyEg8gk232PXwOF9uV/qnIc0m1DseGYcrC9ILUyARdB7lKvUQK7
-         4nxIppxyoapQ9sXtGOvbkrUBKBVTDn9qjTxW6KjsIpRwONjGcb3I4eFMG9KWFyfSyR7H
-         54JQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PViV9wQS"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8692a856865so302520b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:38:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789612717; x=1790217517; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vq4o8SMQXm0gA308FoVdVzcFOKue1qv39OaHjktBjk0=;
-        b=Fr2BErdpNEyRRXm/yaFnwVK7SRheemtEuSvCkgNqa6eReSyU2ckmNMs6Cjetx838FX
-         zBf1i3aNfTji3i04D6J7wsC77qqNRojD2V8aqEIdPeBCdU5oD90geqfKuLnKmKCmq9Bv
-         hjqqts8Swlr5K97CFwinNd5vACChbH5zSCX2vj4cTdl89km07jvIfWMhLECfbF9PmFOX
-         XVOMhRxsGc9ROysYfZntXVmErea08KTxv9KkM4A10Zt4AowCS5fEk2uDxtZo7c00UyHM
-         EmgZdTMQJZQnLRyMbI0CO7IDzidX+DwhSeCeOjm2mBb9/+3oXRkCKq4M+2dC0RCHPFkT
-         C/lw==
+        d=gmail.com; s=20251104; t=1789612722; x=1790217522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qtIXBwZucUITj0nDXUGS9AW/hdtRHC7e/xSPUpvvawk=;
+        b=PViV9wQSnJxfYg58moSrxWpl2dHav7NebmaDRJHobwlE6VTtH2FdihEemOq3RI+9se
+         XJrfenYd6/busoOM58bmojeDY1dgz3nZHooIpZmIqybwuZ4K56st2VZTHP+82HjdU7be
+         gnjnpyHEQmsdx8cnuetn6UnefI7uEO0q99FDBEARsnmWphbE3D5fUK430+mlM/B1OvNn
+         cyP2oBRI/B/sHCywF5vdUOnbOOKB+utJeMfawWz30HTPL/JZECdhTpxnW8jSaEQB8Z/a
+         loYV/1xccQweA+UrTXdk2dzwfpbgnS4eFvIdXEVi9yX2KMtZ8n6rY07DZnPmlPISObEW
+         Eo6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789612717; x=1790217517;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vq4o8SMQXm0gA308FoVdVzcFOKue1qv39OaHjktBjk0=;
-        b=h3AGUs59/anBnND4t0D4FE3b0EQP8uTkESsbHct7e7AF5wG5YO7eTzpDl1ukpi0MRG
-         IX2GqaLoKdWl+OW59dwTWy3yCbSL7xUmtPc4KpGSZEfJzu/qR4JEmmVPY1wyjWPU6OY8
-         eRRZJNjagZWsaf9j2Hdbptoj4Az9hvJM3m21/Z9UIYBTz2v0t5u4OdSjz/9jsKrigHKK
-         by803OUPLoh/eGe9WI4JeZFQhHm3/HgBkpwWVXZ0CqeO0NoDvpVOFQFx7Lu8D7Yy2InA
-         WF34oJISjrE1vTeA65/XZZ9VPjq9u63nDr3q4AnXsBbo/quIT7isfrxiZh3UFJKCBIOJ
-         EHKA==
-X-Forwarded-Encrypted: i=1; AKwUvByazJ42hKumXkaYfKGv+UKkiNXyccOQR0AS+HaWdrqSyBCNEVQI5jSAbrb8n+fY+A05j/HZc1R3DBjlgIM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXb1/TjbnEQvldRVhUqtZq+07vtEgRC4vth53nAXB6It33wvvH
-	lAddZeDR1aIBNXNzvBjTD9ySy1K1kNeYuOgStQ5G5U2CsbnpxbxwUAQ+m7j8yWQFsiL4z2O8+PB
-	T2ZVswseI2+IRzAbm5tB7O84PSZqaom2kT4ngef5B
-X-Gm-Gg: AYBFou0MivkMOvoIbXnTLfpKAKI7M8w5EtoVxfDmiZFNPhQU8mYD79+t1j6K5OMohZz
-	QhZc7NxFOqbBU9PSSrfjJ+ZbQberctCeVcHqZLt25N4uO5h1sia9+qv/MmA487MnSd94NYFukm6
-	nBX0IoEiVaV+MI5UoO+XvHp0pn5Z/2eiTZwtmivDvvmEcibBxDtFRYCqALRM+eKxmZ0il3gn4AA
-	Av52dIA+FC7vZmYh7F+xE18BcZOoVpTdWlX0qQO5Y4LWhZxNpl/QRsVVQaRJ79PyBqk9Iyrjpuv
-	2a24Q5HLGKWd4+3SR1DbKi3GLPbn6OjurdlHD4NrDXJEsWsGTRkEgTa4Z3RXpA==
-X-Received: by 2002:a05:6000:490d:b0:487:342:d142 with SMTP id
- ffacd0b85a97d-4870d16b276mr5758481f8f.44.1789612716970; Wed, 16 Sep 2026
- 19:38:36 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789612722; x=1790217522;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qtIXBwZucUITj0nDXUGS9AW/hdtRHC7e/xSPUpvvawk=;
+        b=fLWpl9ecjgn+UCArSmMcYS7iPaD/XFQlJh2ksdf+4n58heML0qQo1Bf4UUxaIN1N7o
+         Arv4iV0JvgK7qz033AFJqsQI71UmTRf4sC+ba4Lz+BM2LE5cPqJO0p/HGKBDb8l8HTvE
+         0I1DVrC6Lpacrvo6fl20WStYsuVXiJutQmhI5+I02BUJy/DOitNKilIdljvZBDuVN3ET
+         FucNAnn/zSNClL5RwwLnd1s82v54LLZ3cywUPf94i+G3QtYCfBbN+BezzqFbLhrDXxJ7
+         ewJdWzOahVDonlaIJqwr9KIZQU53FZVeYcD45X23ugsCeiT6X+lZk1oEPybVDQxW5hx3
+         hnig==
+X-Forwarded-Encrypted: i=1; AKwUvBz3RDs9jVxKJImvOb6U4LmnQ3liKfXEa6LAiA1mNtUW3klQbVv+xIxAj8SVWTsA8K1SX/cMeiarXOPthx8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6yMb+8NJuAA2Gqvk5fK6omsw35Nny9CiR1GULgHx4ZX3EFv+X
+	1xTolbHhRkcENLkRbRQPIWP6b1AKTsS9+2dvss/jv4WHUBDAH6voq4c=
+X-Gm-Gg: AYBFou39aCWi+IEyXmmyiDQIPiehuWbzbnalNHjdj3gki2wj4VZKK+F9yUSS4kr6O2K
+	z/uFdF+NcnfdOZ+3236iLPuQdzNsd6x3TG553/XpycPsmd41mtPKbWTzYCKpGtU31ednjzp0vVD
+	thXop2Z7jsxnoDB/18WFAt/26a7exqUeX2rYBQRkSR3k4Cl4woUuBxmBr91XVwq7QLWzzy5NtIN
+	ow5RlO3PLvcr92XqvZIbSRjgD7yTNiXv6xG6T73Akxu1w5eVojODbV3iHv2J8/YrSThLQV4divm
+	ZcRvLmviqp/7naPaxIS/4fwjTKtdNu2bPmwa//EZ9LffHIMociaQJ4SDGtJpSCHKVGgPZ/hgbC4
+	cV5fF5b3+smkPDBCg+XXt50cipIHEEspjwoVv9faqAz/7gXVHBmQBE7NnF46IqbsAVO0YJ41TKL
+	SXeKkE7Kk7v02Oh71YvPqb8N7Xq9TkZrz+k9EDR8fv66oFGBvy8zfFJQwtyEIKN9nxoe/TpA+cQ
+	hzw1DOitODL1wMYvMseNG3Ka90=
+X-Received: by 2002:a05:6a00:b43:b0:857:72ba:ff0b with SMTP id d2e1a72fcca58-8723919dfeemr10247005b3a.19.1789612721914;
+        Wed, 16 Sep 2026 19:38:41 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b6f9:c198:e14b:34c1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm2007843b3a.51.2026.09.16.19.38.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 19:38:41 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	namhyung@kernel.org,
+	zanussi@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH v2] tracing: Compute the log2 histogram bucket in 64 bits
+Date: Thu, 17 Sep 2026 11:38:34 +0900
+Message-ID: <20260917023834.216893-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911193208.410015-1-jthies@google.com> <2026091633-sinless-freezing-0184@gregkh>
-In-Reply-To: <2026091633-sinless-freezing-0184@gregkh>
-From: Jameson Thies <jthies@google.com>
-Date: Wed, 16 Sep 2026 19:38:25 -0700
-X-Gm-Features: AcwNN1XpuCi2cTM7SKEf-K3jHaqLdXUfZIHv1kf9oqVEKu65nfK0QgLQpuCFung
-Message-ID: <CAMFSAReNTsHdCqAX7RUEKUhaAeHOfPoLRUpEyLrAEkJAZDOvFg@mail.gmail.com>
-Subject: Re: [PATCH] usb: typec: ucsi: displayport: Current CAM OOB index fixup
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bleung@chromium.org, akuchynski@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Thanks for the feedback, I'll send a follow up with appropriate tags
-and reviews.
+The .log2 key modifier files a value under its base-2 order:
+
+  # echo 'hist:keys=bytes_req.log2' > events/kmem/kmalloc/trigger
+
+hist_field_log2() is handed a u64 and computes that order as
+ilog2(roundup_pow_of_two(val)). Both helpers take an unsigned long, so
+the bucket is wrong wherever the value does not survive the conversion.
+
+The out-of-line roundup_pow_of_two() is
+
+	return 1UL << fls_long(n - 1);
+
+which shifts by BITS_PER_LONG when n is 0, where n - 1 wraps to
+ULONG_MAX, and when n is above 2^(BITS_PER_LONG-1). Both are ordinary
+keys, because the field fetch hands every value over as a u64. On
+x86_64, keying on a u64 field and passing 2^63+1 and U64_MAX puts both
+in bucket 0, and with CONFIG_UBSAN_SHIFT=y the shift is reported:
+
+  UBSAN: shift-out-of-bounds in include/linux/log2.h:57:13
+  shift exponent 64 is too large for 64-bit type 'long unsigned int'
+
+On a 32-bit kernel the conversion drops the upper half of the value
+before any of that runs. Keying on common_timestamp.log2 six seconds
+into boot, where the timestamp needs 33 bits, one build of each gives
+
+  x86_64  { common_timestamp: ~ 2^33 }
+  i386    { common_timestamp: ~ 2^0  }
+
+hist_field_timestamp() returns the u64 unchanged, so hist_field_log2()
+is the only narrowing in that path.
+
+Compute the order from the u64. ilog2() selects __ilog2_u64() for an
+eight-byte argument, so ilog2(val - 1) + 1 for val above 1, and 0 below
+it, is order_base_2() evaluated without narrowing. It returns what the
+old expression returned on every input the old one was defined for.
+Where it was not, 0 stays in bucket 0, and the values an unsigned long
+could not hold move to the bucket their magnitude asks for.
+
+Cc: stable@vger.kernel.org
+Fixes: 4b94f5b7b4a5 ("tracing: Add hist trigger 'log2' modifier")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260914054614.82A9B1F000FF@smtp.kernel.org/
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+Changes since v1
+(https://lore.kernel.org/all/20260916002735.808520-1-donggeunyoo.kernel@gmail.com/):
+- v1 used order_base_2(), which also takes an unsigned long and so fixed
+  only the 64-bit half.  Compute from the u64 instead.
+- Added Reported-by/Closes: the 32-bit half is claim (a) of that report,
+  which v1 did not fix.
+
+QEMU, v7.3-rc3-82-g238650ef6c7c, CONFIG_UBSAN_SHIFT=y, one kernel per arm
+per arch.  A user_events record carries a u64 field; each value is keyed
+with .log2 under its own id, so no two share a row.
+
+  value               x86_64 before  i386 before  after, both
+  0 1 2 3 4 5 2^31    correct        correct      unchanged
+  0x100000000         2^32           2^0          2^32
+  0x100000001         2^33           2^0          2^33
+  0x123456789abc      2^45           2^31         2^45
+  0x8000000000000001  2^0            2^0          2^64
+  0xffffffffffffffff  2^0            2^0          2^64
+  0xffffffffffffff9c  2^0            2^0          2^64
+
+One UBSAN shift report per arch before, none after.
+
+The i386 column needs "tracing: Fix 64-bit and signed histogram fields on
+32-bit kernels" applied; without it the field fetch truncates first and
+nothing in that column is attributable to this function.  The
+common_timestamp figures above the --- do not need it.
+
+The build-tree prefix was trimmed from the UBSAN path above.
+
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4ee2d..86f5767dbb81 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -289,7 +289,7 @@ static u64 hist_field_log2(struct hist_field *hist_field,
+ 
+ 	u64 val = hist_fn_call(operand, elt, buffer, rbe, event);
+ 
+-	return (u64) ilog2(roundup_pow_of_two(val));
++	return val > 1 ? ilog2(val - 1) + 1 : 0;
+ }
+ 
+ static u64 hist_field_bucket(struct hist_field *hist_field,
+-- 
+2.53.0
+
