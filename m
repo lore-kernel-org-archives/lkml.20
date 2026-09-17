@@ -1,257 +1,181 @@
-Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C1113D51E
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805571C5F1B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603710; cv=none; b=pvcTMzcn0hOvlvBNcjvaN444/h0p3N+lewUzgSf3EqOim9aLPb5Zw5i44iShkZz2L6pf36Oc72t9Q20a46BBE/KHbNs+MqdPk18mt23FejxcynpPaaXfRNvjAM0iT5n+piyI0EEgCPuR/zu1EdAphHHbuOMdctcoSCX1Q67O9/w=
+	t=1789603729; cv=none; b=RSF/oOpn2A/jXBtW6g2JEK5uYBXWzbtqPwLAJGIVeQ70PLwKd7Dq5sg74tvfcEzLT1gjmqJhMqMqSxpUz5X7N3oTq599ji1cSxvqUL9lNgoW0bx+dbGWirDUWh20JjPEFe5FwgEN4nN1zi91tqQvWGHNmpGoazFyZ9h/wImwv2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603710; c=relaxed/simple;
-	bh=stXunbVkIdx4k59uImIa4pDdXbqX+msrN9yjZYDiyb0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VnwLQGeDMj7WubvR5Usqsb1AIGTgS1Lk373ZrvOYs5WcPewC0JcocFPHxeqdz+0uryQaSuaYrSD1G+IKJNr2hgqJVW5Kza0R4T3ISG7acDXfIKC3NLYNRuFWfajc8LLezlOYP6aiDgBNPA460dOx3+Hzjmu7NbTUvN7Zrh495mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N+I3Reme; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789603729; c=relaxed/simple;
+	bh=axt0pyxvikct4TP8X4Wmmrq2ZpEZQ2m5UBXWa5Kgtkg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SVCbp+iNqV/oLk0hwZghZ1TgCQDV65O+YtmpQWZSU8TulTTI5sy8bUgD1zPPSfe7nANeKwtKraGimpvmwSi1lUXUpdMfrjdEdFU/t8tfVHgSBJf51EdXE3vN4iadXqAQB5dJ97irf1rnyee+OV0C+W1ZlvQ0NSNOYOSD/4L8Nqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siP5ne7c; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N+I3Reme"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=stXunbVkIdx4k59uImIa4pDdXbqX+msrN9yjZYDiyb0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789603704; v=1; x=1790208504;
- b=N+I3Reme10cccECT0mBJre6ky0ZzzL1KUu0OENGJyYFiLPDb5EcHML/GJu6Odmbhmdus2lLq
- qm7qh4Cgmgj9Kip/7lgKDi8NKtPzfeN2MWKM/N/nEyOznOGXUCBrYE1er17fKsvCaBFVR7gdvlA
- XqQY5O0Iw6mjNKDTey7xto6A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 35f6557e0c1272c7;
-	Thu, 17 Sep 2026 00:08:24 +0000
-X-Mizu-Trace-ID: 35f6557e0c1272c7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <202c45e2-58ba-4ad5-a234-c90703031f91@linux.dev>
-Date: Wed, 16 Sep 2026 17:08:16 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siP5ne7c"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6bda350b708so81480eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:08:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789603726; x=1790208526; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ij5FQ1cxo8ePhLeDltni+VDXBFGoj/hemI8tUtKAvVo=;
+        b=siP5ne7cdpE6qyoSfDKnBF9UvzXBJVWfSggJ7pxyxgWUtXzDQn+u/xQvaYJtmOqADX
+         hryhlua0r67mPATDeDqj6DvSw0Ti3bj627oa1z1oGXhCyBVs4I3m3Iwx1PZpwoe+PQaP
+         OPhcO+faiHf0EOXsLEOmIExQeeuQzYcgD4MCoI+mKJgMnuzhkmMdeHOig3LitJPm6VG4
+         qiZSvd4ZtjXx7AN5S+jj49oYgnm7+jd6OdDJxcNvYhvZPzmtNaRMHE8XIm1fRjJJa3xf
+         y22BJvrULyCc+VLXOFT60ihvGDeIFRB+l7CVSONVnNULjNNyg5+altKXxXfCzIKIG1wJ
+         9V9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789603726; x=1790208526;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ij5FQ1cxo8ePhLeDltni+VDXBFGoj/hemI8tUtKAvVo=;
+        b=zZe0BfV4hYZJ4WF5W4qlXmmFtQKdu6hU+v+kscnLBVPd0pEe2OZVDeU1ync05Rwh3i
+         TtQsXvaXu3HXObKqy0KbBIi6+n+HWj/o+fK3JOQ6RVjPQtT0bb90xlgO0LUvSIpt+AkW
+         AD8ec1AITXuFgRX0CIUpdcU/E629VDQwqHpkxkE1AUAsGBv5Ey75tJtTUsSqv3NCAkPv
+         2RjyunlCQDNWTvzKeuCQRzMaP52/Js4XpKPTCfxbekyFnyEp68FBmfADWl9xt/4KFJYI
+         kTR1YmIG9QHPXxQOzDLM69vg3RiHMdj4m5beoSx2seOBZrfuIKqGsRuDqqxjGHXVHf3B
+         uTyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxcnyyY5CQsOwbLnXLCVqnPZPtAm2Xt5wyTS/LCbz5k9sg/3fGnFvSj1EohN725b32yAh9p00Xu6gMn758=@vger.kernel.org
+X-Gm-Message-State: AFuF++lX+P3thIpaRVDqk/4XocFWop3u8Qs1EmFg4dS5USGQ96CC04ho
+	aPljx9nu6zS5ukoSjUtzh3kj3PawsTD6T46SF4K33WDmu9+jV9mCDf7sF7xR8I8i
+X-Gm-Gg: AYBFou25AOB3MnrboWb32qg33XZDFVb3swKUQ4KPFOnLmOpHgdRLbLGiM/JFxBZ+jQ1
+	czG/SegMAj7QtLbDerdAL0Um+bC5dlhCmsrRr6l8QPydSg2D6RmLZXBKjHR9NK8EMgw1UGnycIX
+	yiekXA0vgqJBl0xzBn9jfpUjmBgljeTrR/BhbphPN9ou+5mt8fQlEz4D6wi9bgyGOrj2KBuBBfX
+	ZzdsmRq363ZgS8ioCkXOc2y0ByP8Cjfg2v0goZUQ/kHscndeYhViQLMfb+1czf4fHEvNjp85lIc
+	JMRXbypNJTowc/L51zBjxkHtXpoPI6upik7M0H38zvNl859megIVscPBO8tucPCnVZtLiJzXukr
+	wKh0uZmkbPjW/RpUENjqh+CiFgrxM87plEzQfYEWbjcLXeAeR+UCJuVPxgf604MipVnB2yHyc4a
+	OHTB2Zjy5uVJXAbfpxirtDo1TYZFOl3L2slduweEkEDD2/FPwcLclu883O6lQYdK0aduu8NdCXd
+	kv9GZAM+p6K
+X-Received: by 2002:a05:6820:818e:b0:6b7:8396:f3cc with SMTP id 006d021491bc7-6c7d3ceffe5mr4919325eaf.46.1789603726487;
+        Wed, 16 Sep 2026 17:08:46 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14397197dc8sm8595889c88.3.2026.09.16.17.08.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 17:08:45 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 17:08:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: James Seo <james@equiv.tech>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>
+Subject: Re: [PATCH] hwmon: (hp-wmi-sensors) Improve raw WMI string handling
+Message-ID: <4fae6e7c-2667-4002-93d2-bb3c53910fe7@roeck-us.net>
+References: <20260916221912.434119-5-james@equiv.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
- across zero-extending movs
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>,
- John Fastabend <john.fastabend@gmail.com>, Shuah Khan <shuah@kernel.org>,
- bpf <bpf@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-4-vineet.gupta@linux.dev>
- <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
- <4ab75099-0e95-4fee-81da-6f4198e3e6a0@linux.dev>
- <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <CAADnVQ+N9tzBJ0Bbvp8_8QvR+QcCP4ej5CgV_kRHt=iw4BANSQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916221912.434119-5-james@equiv.tech>
 
-On 9/15/26 9:23 PM, Alexei Starovoitov wrote:
-> On Tue, Sep 15, 2026 at 1:31 PM Vineet Gupta <vineet.gupta@linux.dev> wrote:
->> On 9/12/26 11:59 AM, Alexei Starovoitov wrote:
->>> On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
->>>> Linked-scalar equality is full-64-bit only. A 32-bit mov from a source
->>>> with unknown high bits therefore has to drop the relationship, and a later
->>>> narrowing of the source never reaches the destination:
->>>>
->>>>     r6 = ...              /* full 64-bit unknown */
->>>>     w7 = w6               /* 32-bit zero-extending mov */
->>>>     if w6 != 0 goto ...   /* not taken: r6's low 32 bits are 0 */
->>>>     if w7 == 0 goto ...   /* not deduced today */
->>>>
->>>> Record a low-32-only link instead: dst shares src's low 32 bits and its
->>>> high half is zero. On a later narrowing, sync_linked_regs() rebuilds such
->>>> a register from the base rather than copying it, by re-applying the same
->>>> zext_32_to_64() the mov used. The reverse direction is skipped: a ->subreg
->>>> base knows nothing about a full register's high half.
->>> at the first glance SUBREG_ZEXT is exactly the same as ADD_CONST32 delta == 0.
->>> no?
->>> Both are unidirectional:
->>> w6->id == 1
->>> w7->id == 1, add_const == 32, delta == 0
->>>
->>> will zero extend w7.
->>>
->>> This new SUBREG_ZEXT will do the same.
->>> What am I missing?
->> The 2 examples below both imply ADD_CONST32 + delta=0, with different
->> semantics and need special casing.
->>
->> w3 = w2; w3 += 0
->> w7 = w6; (r6 was wide)
->>
->> With code hacks it could in fact me made to work, but its less cleaner.
->>
->>
->> Current approach we have something like below in sync_linked_regs()
->>
->>                 /*
->>                  * A ->subreg register shares only the base's low 32
->> bits, so it
->>                  * is rebuilt rather than copied. Not modelled together
->> with a
->>                  * delta, so skip if either side has one (sound, less
->> precise).
->>                  */
->>                 if (reg->subreg) {
->>                         if (reg->add_const || known_reg->add_const)
->>                                 continue;
->>                         if (reg->subreg == SUBREG_ZEXT)
->>                                 reconstruct_zext32(reg, known_reg);
->>                         else
->>                                 reconstruct_sext32(reg, known_reg);
->>                         if (e->is_reg)
->>                                 mark_reg_scratched(env, e->regno);
->>                         else
->>                                 mark_stack_slot_scratched(env, e->spi);
->>                         continue;
->>                 }
->>                 /*
->>                  * The reverse: known_reg knows only its low 32 bits,
->> which say
->>                  * nothing about reg's high half.
->>                  */
->>                 if (known_reg->subreg)
->>                         continue;
->>
->>
->> With the suggested approach it looks something like below.
->> ADD_CONST_32, delta == 0 has to be disambiguated from a real += 0 by
->> inspecting another register's bounds.
->>
->>                 /*
->>                  * A low-32 link shares only the base's low 32 bits, so it is
->>                  * rebuilt rather than copied.
->>                  *
->>                  * SIGN_EXTEND_32 says so outright. ADD_CONST_32 with
->> delta == 0
->>                  * does not: it is also what "w3 = w2; w3 += 0" records,
->> which is
->>                  * a plain equality. The two are separable only by the base's
->>                  * width
->>                  */
->>                 if (reg->add_const == SIGN_EXTEND_32 &&
->> !known_reg->add_const) {
->>                         reconstruct_sext32(reg, known_reg);
->>                         goto scratched;
->>                 }
->>                 if (reg->add_const == ADD_CONST_32 && reg->delta == 0 &&
->>                     !known_reg->add_const) {
->>                         reconstruct_zext32(reg, known_reg);
->>                         goto ...;
->>                 }
-> I think that's a problem with reconstruct_zext32().
-> It shouldn't be necessary.
-> The existing code that adds a constant should
-> already handle it.
-> If not, we have a bug in add_const_32.
+On Wed, Sep 16, 2026 at 03:19:15PM -0700, James Seo wrote:
+> Commit c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on
+> EliteDesk 800 G6") left out some logic for recognizing raw WMI
+> strings in check_numeric_sensor_wobj(). This issue was reported by a
+> user along with an incomplete and unsuitable proposed solution [1].
+> 
+> Add the missing logic and properly remedy the issue. Also slightly
+> refactor how raw WMI strings are recognized elsewhere to make the
+> intent that they should be treated as regular ACPI strings clearer.
+> 
+> Reported-by: Muhammad Bilal <meatuni001@gmail.com>
+> Link: https://lore.kernel.org/linux-hwmon/20260916002907.161210-1-meatuni001@gmail.com/ [1]
+> Fixes: c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on EliteDesk 800 G6")
+> Signed-off-by: James Seo <james@equiv.tech>
 
-Not really a bug, but a deliberate design choice in the past.
+Never mind my previous reply. Applied.
 
-if (alu32 && (dst_umax > U32_MAX))
-       goto clear_id;
+Thanks,
+Guenter
 
-So the core change is ADD_CONST_32 needs to be allowed on wider regs.
-So treating it as
-     reg = (u32)(base + delta)
-
-which simplifies to zero-extend for delta==0 and base can be either wide 
-or narrow.
-
-> Instead of losing link at wx=wy time
-> we can keep it with delta == 0
-> and sync_linked_regs() shouldn't need any new code.
-
-I toyed with a prototype which essentially lifts the restriction above 
-(and ensuing adjustments)
-FWIW it *does* require a reverse guard in sync_linked_regs() - so some 
-additional code there (at least in my version).
-
-It ended up with full testsuite run parity - after 4 incremental patches.
-But the pattern of all those patches was adding some predicate / 
-special-casing to reg->add_const
-
-hunk 1
-
--       if (src_reg->add_const)
-+       if (src_reg->add_const && src_reg->delta)
-
-
-hunk 2
-
--               if (dst_reg->add_const) {
-+               if (dst_reg->add_const && !dst_reg->delta &&
-+                   dst_reg->add_const == (alu32 ? ADD_CONST_32 : ADD_CONST_64)) {
-+                       dst_reg->delta = off;
-+               } else if (dst_reg->add_const) {
-
-
-hunk 3
-
--                               if (subreg_link && reg->id)
--                                       state->regs[dst_regno].subreg =  is_ldsx ? SUBREG_SEXT : SUBREG_ZEXT;
-+                               if (subreg_link && reg->id) {
-+                                       if (is_ldsx) {
-+                                               state->regs[dst_regno].subreg_sext = true;
-+                                       } else {
-+                                               state->regs[dst_regno].add_const = ADD_CONST_32;
-+                                               state->regs[dst_regno].delta = 0;
-+                                       }
-+                               }
-
-
-hunk 4
-
--               if (known_reg->subreg)
-+               if (known_reg->subreg_sext)
-+                       continue;
-+               /*
-+                * Same for a zero-extending link, now spelled ADD_CONST_32:
-+                * reg == (u32)(base + delta) does not invert once the base is
-+                * wider than 32 bits.
-+                */
-+               if (known_reg->add_const == ADD_CONST_32 &&
-+                   get_reg_width(reg) > 32)
-                         continue;
-
-
-Yes it does allow removal of reconstruct_zext32()
-
--               if (reg->subreg) {
-+               if (reg->subreg_sext) {
-                         if (reg->add_const || known_reg->add_const)
-                                 continue;
--                       if (reg->subreg == SUBREG_ZEXT)
--                               reconstruct_zext32(reg, known_reg);
--                       else
--                               reconstruct_sext32(reg, known_reg);
-+                       reconstruct_sext32(reg, known_reg);
-
-
-but personally speaking reading the code feels a bit more harder now.
-
-I can send over the full patch which converts the v2 SUBREG_ZEXT into 
-ADD_CONST32+delta=0 to give a feel for all the special casings, were it 
-to be subsumed into the orig zext support work, but I think you 
-understand what I'm getting at ;-)
-
-Happy to pursue whatever your maintainer hat tells you.
-
-Thx,
--Vineet
+> ---
+>  drivers/hwmon/hp-wmi-sensors.c | 30 ++++++++++++++++++++++--------
+>  1 file changed, 22 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
+> index 03c684ba83bd..cb2eb9bd278a 100644
+> --- a/drivers/hwmon/hp-wmi-sensors.c
+> +++ b/drivers/hwmon/hp-wmi-sensors.c
+> @@ -526,14 +526,12 @@ static int check_wobj(const union acpi_object *wobj,
+>  	for (prop = 0; prop <= last_prop; prop++) {
+>  		type = elements[prop].type;
+>  		valid_type = property_map[prop];
+> -		if (type != valid_type) {
+> -			if (type == ACPI_TYPE_BUFFER &&
+> -			    valid_type == ACPI_TYPE_STRING &&
+> -			    is_raw_wmi_string(elements[prop].buffer.pointer,
+> -					      elements[prop].buffer.length))
+> -				continue;
+> +		if (type == ACPI_TYPE_BUFFER &&
+> +		    is_raw_wmi_string(elements[prop].buffer.pointer,
+> +				      elements[prop].buffer.length))
+> +			type = ACPI_TYPE_STRING;
+> +		if (type != valid_type)
+>  			return -EINVAL;
+> -		}
+>  	}
+>  
+>  	return 0;
+> @@ -579,6 +577,7 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
+>  	int prop = HP_WMI_PROPERTY_NAME;
+>  	acpi_object_type valid_type;
+>  	union acpi_object *elements;
+> +	union acpi_object *element;
+>  	u32 elem_count;
+>  	int last_prop;
+>  	bool is_new;
+> @@ -602,13 +601,20 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
+>  	    elem_count > HP_WMI_MAX_PROPERTIES)
+>  		return -EINVAL;
+>  
+> -	type = elements[HP_WMI_PROPERTY_SIZE].type;
+> +	element = &elements[HP_WMI_PROPERTY_SIZE];
+> +	type = element->type;
+>  	switch (type) {
+>  	case ACPI_TYPE_INTEGER:
+>  		is_new = true;
+>  		last_prop = HP_WMI_PROPERTY_RATE_UNITS;
+>  		break;
+>  
+> +	case ACPI_TYPE_BUFFER:
+> +		if (!is_raw_wmi_string(element->buffer.pointer,
+> +				       element->buffer.length))
+> +			return -EINVAL;
+> +		fallthrough;
+> +
+>  	case ACPI_TYPE_STRING:
+>  		is_new = false;
+>  		last_prop = HP_WMI_PROPERTY_CURRENT_READING;
+> @@ -631,6 +637,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
+>  	for (i = 0; i < elem_count && prop <= last_prop; i++, prop++) {
+>  		type = elements[i].type;
+>  		valid_type = hp_wmi_property_map[prop];
+> +		if (type == ACPI_TYPE_BUFFER &&
+> +		    is_raw_wmi_string(elements[i].buffer.pointer,
+> +				      elements[i].buffer.length))
+> +			type = ACPI_TYPE_STRING;
+>  		if (type != valid_type)
+>  			return -EINVAL;
+>  
+> @@ -651,6 +661,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
+>  			/* PossibleStates[0] has already been type-checked. */
+>  			for (j = 0; i + 1 < elem_count && j + 1 < count; j++) {
+>  				type = elements[++i].type;
+> +				if (type == ACPI_TYPE_BUFFER &&
+> +				    is_raw_wmi_string(elements[i].buffer.pointer,
+> +						      elements[i].buffer.length))
+> +					type = ACPI_TYPE_STRING;
+>  				if (type != valid_type)
+>  					return -EINVAL;
+>  			}
