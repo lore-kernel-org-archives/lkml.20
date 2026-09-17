@@ -1,129 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635BB53A894;
-	Thu, 17 Sep 2026 13:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A13953A8A4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:39:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652391; cv=none; b=mNeGSPkiJ/8fQrqdD9o7zo9HQMVv1gs++FKHH7S6ph+lCCfUY9jMHoLUK7bDM/deW/kk8ZkskksTBYbHIWuf9kuPjdbij2BXkBF6fKpgen1L6P2kaUf4UNhbWeyhI7CkIBa299c/B96kduQnlW8NfD8DiueUFcSAO/i1/rktmP4=
+	t=1789652395; cv=none; b=AcDjajHKhV289aArMT6GQ8tdvFoQlkvG8JuhQToBgEjqW+xU58kF68YwITc6h3oFAsFYKCd/CWC6TWcASH6gQng5PiWg9719tXeqb6ygwLN6eEUMLoo4YetUYGO5DReR3Z5DyPeReNVQSokgfg524KTSlqn2CXoFxVJaYcXobos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652391; c=relaxed/simple;
-	bh=MnY1GpEk653T3W368n0d8F1LgMP7hnnNeolcOILf7YY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3dIOsetBu2i3CijDIl4goShtZ+sfsNE50SLEPMDkKsJkRx9L6YomJiMJ/2GmuxOwsJNo5nnm3CEdpxwKJJ/L9vquGXouf5d0atJAcRZNmNnlliGiSoFMHbCcW+RmVcWj4DOMIChMslanpSIz/nJSVziZ5CiXw2CEL8+Tov1m5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LoJck14g; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789652395; c=relaxed/simple;
+	bh=OWWuR7rBxaqD33VyihkwJ695nHYFAwO0VHcJcoyMqvg=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=YcfTKGqqGizhhsovG91TfFiWeraqdC45oju8HA+NUe1bvxGN2gEOPldRmyVgLrNB9zUFL2PGvlXNd4OVKoAbxO7w2uotxhf9qZUdOwSEipoxHPXL826ybpiG4SirBlPKPrE9wRXkyZGq4LvYc8gggVd4Z6mmEhfKbye996piMCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g61A/662; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LoJck14g"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g61A/662"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789652383; x=1821188383;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MnY1GpEk653T3W368n0d8F1LgMP7hnnNeolcOILf7YY=;
-  b=LoJck14g9OH6ak1im/MzX9C98A8Qe5HZ63+0qzLiztGtkcu48k+HHJFm
-   0FjQQKH0G55A8KoJTDxr65qUEEzEaDlpSfmHY+s+fJ111cciMdN79c73w
-   HqVGuhMoLboUcKXR0sAQq+qxcTy4f1gkLypwMQWyF9UylOfy+yGmFqlf9
-   UXqz7exkI+97WILwPU3G9O/2yrktbyqXfkKEGEMFc10TcX4Bz9vs4GfSP
-   Awg4i92o3tTCBLXDDb0m3lhxslErpFeBgL7d2Rd0yJfnfyFT3Ac1AZ/G6
-   uhOl8YMXd85hfXwsZGVbaQpsL6xIEyAbJsvDsTNBX/3+/0YcGS7gnTqC6
-   A==;
-X-CSE-ConnectionGUID: PakNZgARSRy0b4ULU1X2uA==
-X-CSE-MsgGUID: dE0CtnbSR8asx0XjETe7oQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92584744"
+  t=1789652387; x=1821188387;
+  h=date:from:to:cc:subject:message-id;
+  bh=OWWuR7rBxaqD33VyihkwJ695nHYFAwO0VHcJcoyMqvg=;
+  b=g61A/662NYwuQz48kBQJJKPkX0P1hHyK8cw1OK98jhssYRE7MeBmOGAR
+   5l6XObXgP/cJd+B1keOfAIC1SbgGj5nI3w3LhSWXcblE4RmjF3n7GQDG+
+   9GHCxLvtQmryceuoFyXBIYj40M5B5Hw1bmKBzGIAoYK1rPZmsuLQC8eUX
+   WTa7jyPif8ku7C/7YEId8DilyxAgVK//XiUSUw8zTT0wjn1pjhVsNVOwA
+   mxjBxYUFVrWFcrYGTdU/LHIiLaXgj5j/+5n4D1Ho0oOAQE3p95vYgfFlH
+   0iTIyVnSRUlxlN7yiL+D8pyaEeLcTLE6b+sPc6dh3aSY1RFjphBD/mTpR
+   Q==;
+X-CSE-ConnectionGUID: 56RM9fRsQWKr7akr+HtM+w==
+X-CSE-MsgGUID: LjAPqw5IRbumYr//bxdrdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100738329"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92584744"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:39:32 -0700
-X-CSE-ConnectionGUID: m8Ad4rALTgC8pQ7Y8K6K2Q==
-X-CSE-MsgGUID: 71aozPS4RbCh6yssA8UqZw==
+   d="scan'208";a="100738329"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:39:45 -0700
+X-CSE-ConnectionGUID: 7hZosOZoSJOaIXsEondsdA==
+X-CSE-MsgGUID: X4k6WamUSk+abaQEbnEfmA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271155797"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 06:39:30 -0700
-Date: Thu, 17 Sep 2026 16:39:28 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Frank Wunderlich (linux)" <linux@fw-web.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Frank Wunderlich <frank-w@public-files.de>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	frank.wunderlich@linux.dev
-Subject: Re: [PATCH] gpiolib: use of_node_name if line-name is missing
-Message-ID: <aqvtkNQQp15cr35G@ashevche-desk.local>
-References: <20260917122815.88601-1-linux@fw-web.de>
- <aqvkU_1_ki5lGXS_@ashevche-desk.local>
- <85b0d147af3b63a6b2419b7daaf81332@fw-web.de>
- <aqvtMDiqCzsxUDKw@ashevche-desk.local>
+   d="scan'208";a="2203000"
+Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
+  by fmviesa013.fm.intel.com with ESMTP; 17 Sep 2026 06:39:43 -0700
+Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7CKz-000000000bw-1TpD;
+	Thu, 17 Sep 2026 13:39:41 +0000
+Date: Thu, 17 Sep 2026 15:38:46 +0200
+From: kernel test robot <lkp@intel.com>
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Link Mauve <linkmauve@linkmauve.fr>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: warning: unknown and unstable feature specified for
+ `-Ctarget-feature`: `mma`
+Message-ID: <202609171549.xeqQabC6-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqvtMDiqCzsxUDKw@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 17, 2026 at 04:37:57PM +0300, Andy Shevchenko wrote:
-> On Thu, Sep 17, 2026 at 03:20:49PM +0200, Frank Wunderlich (linux) wrote:
-> > Am 2026-09-17 15:00, schrieb Andy Shevchenko:
-> > > On Thu, Sep 17, 2026 at 02:28:13PM +0200, Frank Wunderlich wrote:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   238650ef6c7c7cca08e032527329424c9fbd70e5
+commit: bc87cbdb952e9223616b839d64bdb4723aa2ed1d powerpc: Enable Rust for ppc64le
+date:   7 weeks ago
+config: powerpc64-randconfig-r2201-20260917 (https://download.01.org/0day-ci/archive/20260917/202609171549.xeqQabC6-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609171549.xeqQabC6-lkp@intel.com/reproduce)
 
-...
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: bc87cbdb952e ("powerpc: Enable Rust for ppc64le")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609171549.xeqQabC6-lkp@intel.com/
 
-> > > > int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle
-> > > > *fwnode)
-> > > 
-> > > >  	fwnode_property_read_string(fwnode, "line-name", &name);
-> > > > 
-> > > > +	if (!name && is_of_node(fwnode))
-> > > > +		name = to_of_node(fwnode)->name;
-> > > 
-> > > Can we move it inside the loop? Yes, I understand that it will be
-> > > unnecessarily
-> > > called more times than required, but gpiod_hog() is called anyway in the
-> > > loop,
-> > > so I don't think it will be a big deal. With that it will allow to group
-> > > OF-specific code in one location.
-> > > 
-> > > >  	for (unsigned int i = 0; i < num_hogs; i++) {
-> > > >  		if (is_of_node(fwnode)) {
-> > > 
-> > > 		...somewhere inside this conditional...
-> > > 
-> > > >  			/*
-> > 
-> > I'm not sure what you want to achieve here (maybe only to have the
-> > is_of_node-condition once?, as the loop imho is only for enumerating
-> > multiple gpio (like "gpios = <3 0>, <4 0>;") inside one hog of_node.
-> 
-> The primary goal is stop spreading OF-specific code. If you have noticed the
-> function was also rewritten (during the move) to be fwnode agnostic, but that
-> was not feasible by 100%, the leftover is collected inside the mentioned loop.
-> That's why I really prefer to keep all OF code there.
-> 
-> > Here the node-name will never change (like the line-name above) and read-once
-> > is correct.
-> > But while looking at the code i also thought about these multi-gpio-hogs
-> > (label and output-X). Imho here something like the gpio-controllers
-> > "line-names" would make sense as well as something similar for the output
-> > (or just handling this with the GPIO_ACTIVE_HIGH/LOW param).
-> > 
-> > But if you think the part should be moved into the loop, that's no big deal.
-> 
-> Yes, I think that way.
+All warnings (new ones prefixed by >>):
 
-Btw, while doing that, also add a comment explaining why (like we have now for
-the OF flag translations).
+>> warning: unknown and unstable feature specified for `-Ctarget-feature`: `mma`
+   |
+   = note: it is still passed through to the codegen backend, but use of this feature might be unsound and the behavior of this feature can change in the future
+   = help: consider filing a feature request
+--
+>> warning: unstable feature specified for `-Ctarget-feature`: `vsx`
+   |
+   = note: this feature is not stably supported; its behavior can change in the future
+--
+>> warning: unknown and unstable feature specified for `-Ctarget-feature`: `hard-float`
+   |
+   = note: it is still passed through to the codegen backend, but use of this feature might be unsound and the behavior of this feature can change in the future
+   = help: consider filing a feature request
+--
+>> warning: unstable feature specified for `-Ctarget-feature`: `altivec`
+   |
+   = note: this feature is not stably supported; its behavior can change in the future
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
