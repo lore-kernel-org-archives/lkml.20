@@ -1,86 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f7.google.com (mail-ed2-f7.google.com [74.125.228.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D594E50BF;
-	Thu, 17 Sep 2026 08:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633186; cv=none; b=sYRqs34x/6qbyYdKQPOs2c3a+u8Qjo5MQamJ3z7BcckS27lGkdN2CmxmM39WJp9Y5JhUhqE1w4HNYFEYOXIITJKPnnWoJ5je+pR1TUvx5l8FL1liaiysxE4XIwT1FGxyImC3MRmEyHhyNKXydFneEX7aPtuQaN4iR2Vtqrf4RZg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633186; c=relaxed/simple;
-	bh=QVeuPbpk81HCqCH5q/JU/r4nmt5LWXXbzEDa3F/FCag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EdqM/adStPgG9tHTCuu9FcRB9a9bADZCI6YLktdUkEOXG7ELtKPIhSPtVQVzcN+6ytzrkDN+La8XYtNVYnD121emkD3GgELbotPA5VCgKLqvtYIJPfFGJc7lvTA8UxdBG14N4/zIh/Aw7euh8tgZV+Z9004I0YoOOEsExeZxUfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eEqQTprY; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3063F88A2
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789633279; cv=pass; b=hcAUk0OFDyocVYCHojW7rzX0ajXqBdY7CytbMaSVCQDbJMjm/+2H8OfYjRz3RAePArB9jpl48giCHDN+0Ugz5B7x73lO/hrFkwk/BDsJdYhWSRpGuTlMxLgNTb8qp9ASsLwpTMa9flXTOxzM3ngVsMltrJXuDxyuItWoyZJCrRU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789633279; c=relaxed/simple;
+	bh=Mt2nG22gQ2VlhRCDsFPAMB9fHywKLlkANeCXC+o2mY4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=adYk0vEwPHZ07dfkGD4rduKEY9P1la/qk8eqZZ9Mhm2Q4sBaTcf6nOCknJLbwyPS8KY3t3zPWNi0tzgj/NbkgO3ecZyqF1bc6qLzc7JRLiIpruA+3uQ/DgBpbIv28SECwSil2B7h01WWu5Mj5U7rzGZw74GyLHWNfaXPepDPJP4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LkNgSj6j; arc=pass smtp.client-ip=74.125.228.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eEqQTprY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C781F000FF;
-	Thu, 17 Sep 2026 08:19:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789633181;
-	bh=h0zm856Sds7/Jevh8ra9Omnxami6oc8p7GzrqrBXCf8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eEqQTprYFUMyjt04Fp/eZenarzoghCA1IANYr5WAYQrOHPdmYBrwzJgSHCCtJQQhG
-	 ArOIwr2ToN8h3TunD3px2mp+AW+tbdKR+EleenMHV98rlx4ZtD9prTsZUzSFHO556s
-	 QLIAJ3nivBrgSPHNdwBnWOL51V/DMvhgwxQRBifOYLN52tNlF0PVDMmjYnT6cgG9Z/
-	 daWw6+0Gd/mUBPrWaDGuBwANQO8iGWTFGpDTLugNrexJ1UHR5Pn5vharxpMAQC/nzv
-	 xjKeUtCSYkRkfzBXuF7dVDvsuX0affjK0lM93aWflyT2KbYXWZdd6BRgNyaYSOfSrT
-	 CzQtXMKTb9d+A==
-Date: Thu, 17 Sep 2026 10:19:37 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Lucas Sinn <lucas.sinn@wolfvision.net>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] media: dt-bindings: Add Rockchip JPEG decoder
-Message-ID: <20260917-dangerous-friendly-booby-d2ebe4@quoll>
-References: <20260914-rockchip-jpegdec-v3-0-3583c376d0d2@pengutronix.de>
- <20260914-rockchip-jpegdec-v3-1-3583c376d0d2@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LkNgSj6j"
+Received: by mail-ed2-f7.google.com with SMTP id 4fb4d7f45d1cf-6aa44774ee2so8386a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:21:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789633275; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zr59Rxz/yU68VypveTgwVnRTy+EBBIMq2SyH5wyz2ekuQdaZdXVM6wDtGeVGDy9Hga
+         5D8vJK5s6CWUp5Qp5a49GRDOg1ON/lQk9glmvLXXvvTVkF5yQEKOn9UoFSSuO+qafCJb
+         HwfOy03bxxjpD4Rv7x1/bUIb+r6mCyc7PO3eJBmA2quskygpYGeaDteBYgzYTaxs0qmd
+         43KVTeI40E3xHu7KvIU3GFxq5jGCuD6NX7T8v9+IksP8Q6jbq2F72cupWjKks0y1jqZm
+         irJNDSuwbJ9cDV1p0HI6GgDOwDcBxUc/MARGS6N4RnANfYIgRaI7UiLgKUAVIroqkm8k
+         H49g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Mt2nG22gQ2VlhRCDsFPAMB9fHywKLlkANeCXC+o2mY4=;
+        fh=8HPmWwcHbZ51h269iNjGP2T1tUqthHYPc1BzX/H8C0w=;
+        b=ftBuH8dDmln9fyog7z+8q/RfL6BAzfnAI1rmXVSLRazVZqqhD9XlcEHoejAs+5uhMa
+         yBeLNG1Y14zqv5iCWaFIpxhapCTTJthrexiq2OZBAUpD7wTkwEBoaDDUbMb6uUOjXSfG
+         A9w0SbBks6i6Ur3i8suaE+1JLL9jTDbc22iEJ4pqOV1lDohgFkuZysAksfwVgIk6Wd/f
+         PsGG+ECZeFBRplGt9HROyxbUxY+qrb0Eap/HDLfKqSfg7dlgwwy2oGJBu2QVT49R2aIH
+         /gVWH6LyGGkEO3NLKjG7+47Vr6Lqnl56IbYOHPm2uXlt0g7EdXQIDcVb1EW5dD5nMPg7
+         SHgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789633275; x=1790238075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mt2nG22gQ2VlhRCDsFPAMB9fHywKLlkANeCXC+o2mY4=;
+        b=LkNgSj6j1mh+t4RwWFqK0oZGmHByGzWfcY/zg1MYPjx1xJGUsm3Levzmg417PBZ/GX
+         lS4n4bDiQ7tLC+iV/ptYNIlTQKgCmtD1qqq8DZwX9nwKvUybD/WxwuNLq4XlqOFraN6J
+         e2pkajBHBVhw76hnQuSRkrcUSmYLUl2cuqQsGypWILVEmLEgyVf7iCYEaFBHfJOGlAVO
+         OkhaajhhQu9KyE5sB+km8AUYGVWRbxEDjZUgMUXB26aVb+rynQUFpvOtQ6Q6gekDOdPp
+         PhRf1Uhn6Mpea/EwRT/oMizBfmS2ibRJGktxgpXutOxCGzD+nfIksnWachRymFwffUsd
+         RH3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789633275; x=1790238075;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mt2nG22gQ2VlhRCDsFPAMB9fHywKLlkANeCXC+o2mY4=;
+        b=SOTDLulCCOzQOYMaBI9mkAK1MTVXVuDKEHrakLbkmVgCPXkoiowQ/lIjgmuYl/BB0L
+         dfWgJRbE4SDV1cBq/fhObmQsiYrl+OXeoRgIhFxEQGRgfnz75HFo3GVw/3aEZJWIUncC
+         qOCu2c+0vH9GpKYT6XLhRp/Uk2JCg+hvfO7im1TCwIrVvK0K+fTEgp1RBAaowMOfbbiq
+         0Mygju6LHk7VM8WL8A3Clns9PFrNTJXgkfkOmjbxBvugyQkv+qfDktmu2GJqldZq6IT5
+         UHX2b4izFsE+ffOg/Ng2zrpDuWJvlS5Vb6U7CRikhRRatCJzbAwkv61nqFLhD3Lsn3t4
+         rzaA==
+X-Forwarded-Encrypted: i=1; AKwUvBy/o+qd64GAJUp5JntS1MI62Zn9/3zocB3fVC4ytzvgLVbTMejE+/32LkMnKMsrI3+4+ylI0TYu2TH1JuU=@vger.kernel.org
+X-Gm-Message-State: AFuF++no9nTScECAqI6ZcQxBLjexs27q1r6wn/9+w1j0eKAkDDjPMP6M
+	u4uDpgtWxvlm6PTSq96LPg5dE6hJqBFZDD9ykeDTR6hPLbNtktwiYBkV4BfHU+Xl3YzS3uOSeHx
+	pV0TQ21FG1/H+Y/q4s7VirPQiM45YoPA=
+X-Gm-Gg: AYBFou11F04ARFgKKkj+iB2jaTJuwJ3eBnofiXliGg3jn3QwdvADrXDY7xpzYOVr+lu
+	3V3fMfrJsCvCjl3BBdfiB/wTvkMPeE1chPecEs83u/42U54BIjYCIc7dGDjPXPXfsaucFlhsXTs
+	1lr3sWL2LQ4YA+AzNpPj3LAM209iziVZi5oMRYXkMqktsgrQpH45mtFwByfEQ4LRfxfXXCvoA+U
+	oM00KkVsqEx0pWJwC+Y3e+uJfUpCfCPLjlSh/M0AbrqXHTkG/5TZfGKu8cRyFDlBpnMBsD2NCMs
+	0v1W/Xe3IXWK+T4M2On2LMLLI7p4VhAG4xqJKjJW9Ot9InLtCIDIV+OmIzdFdOxZYoBy6A==
+X-Received: by 2002:a17:907:3f11:b0:c25:35cd:fdb2 with SMTP id
+ a640c23a62f3a-c29f526dd2dmr190379266b.7.1789633275095; Thu, 17 Sep 2026
+ 01:21:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-rockchip-jpegdec-v3-1-3583c376d0d2@pengutronix.de>
+References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <aqqI9wOnradk9d7K@oss.qualcomm.com> <97924d2f-45f9-44d5-b482-97fcbb70abdc@bootlin.com>
+ <CH3PR11MB8413131D50175690DF9FDAB0E4B82@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <3bdf2ecc-9dd1-428c-8841-36b1f19916e7@bootlin.com>
+In-Reply-To: <3bdf2ecc-9dd1-428c-8841-36b1f19916e7@bootlin.com>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Thu, 17 Sep 2026 16:21:03 +0800
+X-Gm-Features: AcwNN1XL07xRu5XXN3J_i5sQYnNCkDU2pPnYaE7rXj6dGCxz8rSrRM8IV9aR83Q
+Message-ID: <CALj3r0gXP0+bwsPVtuw=9RRQ6gpmuHzGc5PzF_a3XXXTTZYcqQ@mail.gmail.com>
+Subject: Re: [PATCH net 2/2] net: stmmac: qcom-ethqos: advertise supported
+ SerDes interfaces
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Thomas Karpiniec <tom.karpiniec@outlook.com>, 
+	Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, netdev@vger.kernel.org, 
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Choong Yong Liang <yong.liang.choong@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Russell King <rmk+kernel@armlinux.org.uk>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 02:19:04PM +0200, Sascha Hauer wrote:
-> Add a devicetree binding schema for the JPEG hardware decoder Rockchip
-> integrates into a number of its SoCs.  Documents the single register
-> window (task registers plus the LLP link-table block at offset 0x300),
-> the decode interrupt, the AXI and AHB clocks and resets, the IOMMU and
-> the power domain.
-> 
-> The core is not tied to one SoC.  Downstream it is known as the VDPU720
-> and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
-> RV1126B, with only the clocks, the resets and the power domain differing,
-> none of which this schema constrains.  A compatible per SoC is all it
-> takes to cover them; the RK3568 and the RK3588 are the two that have been
-> tested and are enabled here.
-> 
-> The resets and the power domain are required.  The block cannot be
-> reached with its domain off, and the driver falls back to pulsing the
-> reset lines when a frame times out and the in-block soft reset does not
-> complete, which a node without them would leave with no way to recover.
-> 
-> The IOMMU stays optional.  The driver never refers to it, it is a platform
-> integration detail, and rockchip-vpu.yaml does not require it for the
-> other codec blocks on these SoCs either.
-> 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->  .../bindings/media/rockchip,rk3568-jpegd.yaml      | 92 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 ++
->  2 files changed, 100 insertions(+)
+Maxime Chevallier <maxime.chevallier@bootlin.com> =E4=BA=8E2026=E5=B9=B49=
+=E6=9C=8817=E6=97=A5=E5=91=A8=E5=9B=9B 13:36=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi Thomas,
+>
+> +Coia
+>
+> On 9/17/26 06:29, Thomas Karpiniec wrote:
+>
+> >> Can you test settung the STMMAC_FLAG_SERDES_SUPPORTS_2500M flag in
+> >> dwmac-qcom-ethqos ?
+> >
+> > I can confirm that dma_cap.pcs =3D Y.
+>
+> Thanks for looking up :) This is a good start
+>
+> >
+> > I tested setting STMMAC_FLAG_SERDES_SUPPORTS_2500M on hardware and unfo=
+rtunately the flag alone doesn't solve the problem.
+>
+> Yeah, but it's still the right first move. Russell planned to do that as =
+well :
+>
+> https://lore.kernel.org/netdev/E1vvDJi-0000000ArhH-3ipf@rmk-PC.armlinux.o=
+rg.uk/#t
+>
+> >
+> > I think there are a couple of things missing. stmmac_phylink_setup does=
+n't use the integrated PCS bitmap to populate config->supported_interfaces,=
+ so SGMII is still not advertised to phylink as a usable host interface. Al=
+so stmmac_integrated_pcs_init is adding 1000BASE-X unconditionally, which w=
+ouldn't be appropriate here.
+>
+> Ok so, the missing bit seems to be that priv->integrated_pcs isn't taken
+> into account in stmmac_phylink_setup(). This needs to be added then :)
+>
+> Looks like there's also the inband support that needs addressing, that wa=
+s
+> part of his RFC here :
+>
+> https://lore.kernel.org/netdev/E1vvDJi-0000000ArhH-3ipf@rmk-PC.armlinux.o=
+rg.uk/#t
+>
+> > I did a proof-of-concept fixing those things and the end result looks a=
+ little messy: config->supported_interfaces could come from either get_inte=
+rfaces _or_ the integrated PCS with unclear (to me) responsibility.
+>
+> There's only dwmac-intel, dwmac-spacemit and dwmac-rk that use the
+> .get_interfaces() API. Let me add Coia in CC, as they're working
+> on better PCS support specifically for Rockchip :
+>
+> https://lore.kernel.org/netdev/20260915123802.1561724-1-coiaprant@gmail.c=
+om/
+>
+> For spacemit, looks like it's not really a problem as there's no PCS
+> involved. For intel though, heh... Intel platforms with dwmac AND PCS
+> are hard to come by, but I think at that point let's roll with the
+> bitwise or'int of get_interfaces + pcs interfaces.
+>
+> > This POC did show that STMMAC_FLAG_SERDES_SUPPORTS_2500M enabled phylin=
+k to configure the integrated PCS for 2500BASE-X and a 2.5 Gbps link came u=
+p with no apparent issues.
+>
+> Maybe the blind spot is inband aneg. Mohd, you were quite involved in
+> this, do you remember where we stand on that front ?
+>
+> Thanks,
+>
+> Maxime
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks for adding me.
 
-Best regards,
-Krzysztof
+For the Rockchip side, rk_get_interfaces() no longer needs to advertise
+SGMII: stmmac_phylink_setup() already OR's the PCS's supported_interfaces
+into config->supported_interfaces, and the XPCS driver provides SGMII
+there. I'll drop the SGMII line from rk_get_interfaces() so RGMII ports
+don't advertise SGMII unnecessarily.
 
+On the qcom issue: the missing bit seems to be that
+stmmac_phylink_setup() only looks at priv->hw->xpcs and
+priv->hw->phylink_pcs, not priv->integrated_pcs. Extending the existing
+OR to cover the integrated PCS would let qcom-ethqos work without a
+new get_interfaces() callback.
+
+Best,
+Coia
