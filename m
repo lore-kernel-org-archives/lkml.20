@@ -1,80 +1,106 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A00339DBD4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2234B4973B9
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673320; cv=none; b=UJGO8X0wpNpJZKcSuy0+zTik4X23Cc18pEL/4hJT+NaBFTFLfN96Yz4RqogwjUjyp2vb8jcNfBm8e1a7nzTmva+Et8AhAELIrBvL5cXyTpkDe7Bxj7QZhnR4ftxO4tK5bTAYqPDCACgxX0ggsKrxDsjlTGpQ2ai8JuV9tFjyxI4=
+	t=1789673401; cv=none; b=oHulspmQcz8Uidz+M/hrYJQgn1gHNjAp1LpaZ9URBHZTV+m+6i8QyvK7zJRhnJ9x008rrHckOZm3I5VMWCgqCngt0UhMm4diknvzEvzpNmwdqLmHMrNbYN8qMc3ut4N8MGu7VptkNXa91pYTHjOU9bNZOPoKOpyX7ri3gJ5Gla8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673320; c=relaxed/simple;
-	bh=kiJ8keaXl4aBoqSuNH1yUdc+yH4rf+KYUY3jg3YGXM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fY46EgYm2MYmXpVanTOr+EiOKuQQRm/zfLqLpd3jnKvF4af88Hq6e6OPVzIKxMkTvQ9/p3eakf2d6DQ++iCKXOg/cCwrLo2E6sluLMyKzx6jbzi/KjvNxPhuaM6zdYrnlObbMd7kGCPAxamADHjYS/dnWAlGn6dpCBovQN8nbsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JLGpnZZr; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789673401; c=relaxed/simple;
+	bh=pGb3Vp3ZlWEKZyzEIIGwbv44vQfUSndTLfijg7KE4eQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IdEnebnZPJrXDKXBk0SmU9t8JDZbyXS/oGWdCrKn7QmrCUexK1/3LQftOfHLpGY54QVGmr7CssXLTQz84wC6tKBPIA3Y+S8mcud/AMI32Op3VHM1h1xW8gOnRkfUSKinmFmugBHnNMXdluvROX+O+Eylr7BP//6DZ8BLawQOZDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Une9NNSK; arc=none smtp.client-ip=74.125.231.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JLGpnZZr"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb3so384246d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:28:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Une9NNSK"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-80a854e5b3cso630702a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 12:29:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789673317; x=1790278117; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DYFrXGjlvtshGh6uTDLzwFW8Ia3Piduo4Mx7nxDTOKY=;
-        b=JLGpnZZr6hMX2bzqzZmvuKBY0tCL+A1WNuyhVvEKADmCWzjOngoYa3ElDAOzgOM2eJ
-         h9qeQz6kggy4l/YzkWARVRmv2V9ubHgTWsF8+ZIVWsibseqruiCE9AD0t9n6ciIIRwZf
-         Kpo//GhxFbUwsE6en9ZAJumEcxe2ylD6bauj+t62wsHCw6+m143Nl2WrORjEFlMp9ndD
-         NDrrbnKmWwCKO7T6FfUCFHuwpJYi0OuSca9WO5B0LzCTKut+XHn3ic4j0rhKH67MKLf3
-         f3c/J9QwxawuAbGgv61Ou6DMCqyP9Vk1dmP2KbAr/5waaveN+aSsSX7iWNzwBBaeLDmY
-         jtjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789673317; x=1790278117;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789673399; x=1790278199; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DYFrXGjlvtshGh6uTDLzwFW8Ia3Piduo4Mx7nxDTOKY=;
-        b=OOclW4/sJno/c5RggLlgyM0E+cLFQff21JpyhKVIr0YZt1oIiCP75MYlo2XQlwqr3t
-         xGNkSFzuJc+pTV2YwQydbH88+dyXLgHN0bxPSumzufvpnIbSUMPX2glQQ7bhLjRueSiH
-         Y+0wCPg2XKg+TRXVStfUA4ZOnnISd/nimiVIDT42fkZE9Ab/2MAJSJKwrX5qMaGKizvN
-         MHSdnlEwmXy7ny+VdehEU5aZODN9OYDiZuMCRnxdc3Dr7Lht1YSXcYp6BxHPxLlVh+2H
-         ytyL/av1QT5Q3wPYJi5+dtJBwgH3q9k7ijgsrJTSW7XvBzs8dSY8IzO0zS/ut6Ky+F60
-         f0og==
-X-Forwarded-Encrypted: i=1; AKwUvBy2XSiHJC/AUlB7iaNXfgrkzdzeri+BU9Xb0lg0yPwYkYtYCw/gYbPYv1y3G9+DIZAdoJHgL6j7O4drPKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOvOaTBGaMdPmM3E8I7WFMFEY9ThZWXIFwF14rcLFRyIKxpstB
-	kJPxs0dr4wdxcNVl7iAC7Mi0IrPb+q4mYDNJOHs/7ssFW2FW5B4PaG4=
-X-Gm-Gg: AYBFou2Yz1clP9jeuBMyn577c8Kvkr3edXEW+R+0e+V6mYkNsKG8WDmfoziw3TmYDvY
-	affLaGrMekdjWblMq9S8i4b0hBVRcMrqMn9cjciuGs98tPKu5U/gOleoFgl+vfbMt8hneDyU46/
-	oo53gr1spnQNJhO/mxllntYd5ZZvQj2FTyPOb+7WJXXSX3qIL7kgrHYDV4sZfevx73ou19MQC4M
-	YSvq4Q1bNU6Bmvqj02EK82T8qBGWOluF24IiX7vwQluqmUULSfG4OYnnpdb//u3HpPD965u1e36
-	L7Izz+daiITqGaI4RvTS71BEx9IgePn/lJK8zw3m46BtI9WEeymIxuRmjkQGPyrGlOIs5GarR5x
-	T0I2VDHcEyQeLNGXQU3/I73ZVmq088mHvN8y51N2C8UhvCU4MWOpOKd4EyKUT+KyRAi37q4VuTN
-	ASXdmROJILHXAc3kRrpiT+dTngPeOofcWdLPD8JQQHmKCNmCn5aTWeCps3Yv3/yGHCJiKWyCzbx
-	5WRrSCoL/9ZD7xBQQ10YZJsid1M2VZWSO7kNAGxu0N6ZTjK0rL68uUkvaAS6zqrv1thm4OQMjf4
-	kxKKURPakffoiHJ7a4Sen5+p4xhM4ingCc2w
-X-Received: by 2002:a05:620a:6cc5:b0:939:ee44:36bf with SMTP id af79cd13be357-93bb785b995mr1306780385a.29.1789673317506;
-        Thu, 17 Sep 2026 12:28:37 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.169.225])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b78255316sm525568085a.29.2026.09.17.12.28.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 12:28:36 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
+        bh=SOpmSpu+1kSYFLkQThK4c6ymQH45Iak6v9IcQ+Qt0zg=;
+        b=Une9NNSK+ZcdqGGjnf9j//FSY5QqvHJNeYQx+knGBpY5wdVxrRbIOkjTXPO04/gQ76
+         tW7Q0ckubYcnZmtx1UPDWDD975VjF8Cxx51HpYcI+NIK7dxwSEsL3ecdzy+9oBzZRXkE
+         H6R5yonyjr6GL88iRcvVb+/gxM8tNoMVpD8lclIMXhDiZCNfvfifHsBouD6wbPZOAGnN
+         ma0sJNwTD/EEkgVnnCvNnw162g9WlzOr+pZGlg2C0elhEOlb9Kz5hMmK4+LqB3vbJcOt
+         3TSlQUMQMM/zIEc1PJYM2Y/LW6J/u9/NypKQbL9GV2D5VdoD8RfXPFVkJSxIn5D5Qkv5
+         AuAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789673399; x=1790278199;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SOpmSpu+1kSYFLkQThK4c6ymQH45Iak6v9IcQ+Qt0zg=;
+        b=ov44UUqE/udh5UPCl5mbrKJit+1inSObX7pyWfbG8SrdMqZRVDFk6vmpcY1FjWYxtc
+         0VwpWDtn0edfmOAoicRduFvbbqSsfpXoxnzAIazlBTqnExduMLVs5gIKW1erTymZmA+/
+         ZQkcD73V6iykm+NlgdPZh96R0BNxV2R7FddpsJltrGVxO9dQA8t0YUdZVpJeyRAIsT58
+         Y0fyxx72YJCXw82XQQYhLTYKjeBpr0c6jGXcIJD9santhlGTP+CvNXkXcjb/D/GL+nek
+         6D2JidEku2Zu0RvbtKoehRcKBUoRGqRC28tu5Q/N6Xn8td4d08q9dIjqrtDD6kSZlIPk
+         pDMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVAP7n7t4Ez2XlUkDDpSA2+8N30yxR+67Qudgc3NVpJHKtGwKdJfASNUGRJImWMDUxYV42XBRPry4Y5cM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kO690so7ARObt9fA1LbXwjMh4VjgIkkVh+zug2aBjvhpDGp3LV
+	/3tTTRjPbwKbmPmtze5GQ4542UVa1G3LyNgbH7q1gpFj0Zdg+0tawzHe
+X-Gm-Gg: AYBFou00A7u836Z3L1a51tgQLOfr1bo9ixTFDbUL80ScrqshP19ECzdWfDW13D/wmxU
+	mHKe7Nij/pUtSlDvzG2npOMGVrZnYPhJK0fkWYOZqLM3qCXEcPR2l1UqKREfOTrHtGWeyg9gu8a
+	UYLrcY3+M31HnVX9K8SgVRR8In5rl3Fc9HYuCq1kaQkJbIZrNxkR2w1ZXNvmPTV1eJpcSco6Hiv
+	80Ir669LiOh/er3jQHQy0/WNbAgA8zj2uqOmqx0fRISk5VB/sTikqTNldZ7FVAp3n/h8e/0fmLR
+	/PBAoA/HfCgio+w45N0jXiQf+0MDN+uMXbpAsUyeivabcU59cVFyKoG2RK+eFv7Q6H6l6+yuHgd
+	wa3GEqK7nRrXtXPoiB4H2+LZ7gr7KycxghevUClODX+hJ5RThDY/gkkH6Nd5XV+AF9bgCp5rzI8
+	5riAGbQSlEsxZFebSFz6D47pWElpNk+3Qae2dprhW25tGr7dTM9tXz/Nsg0ubKU64YofonT3/k0
+	wfqxhOIcwY6h5fBZ1ShJxZbPtVzsN3gJSqiQGku
+X-Received: by 2002:a05:6830:43ac:b0:80c:d30f:974 with SMTP id 46e09a7af769-80de21d1f84mr119151a34.21.1789673398952;
+        Thu, 17 Sep 2026 12:29:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:5c::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c474d1f0asm3732953a34.24.2026.09.17.12.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:29:58 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: ackerleytng@google.com,
+	Alex Shi <alexs@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Hongxiang Lou <louhongxiang@huawei.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Wupeng Ma <mawupeng1@huawei.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	fvdl@google.com,
+	jthoughton@google.com,
+	rientjes@google.com,
+	vannapurve@google.com,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	Myeonghun Pak <mhun512@gmail.com>
-Subject: [PATCH] net: gemini: Free the shared queue after removing the ports
-Date: Thu, 17 Sep 2026 15:28:35 -0400
-Message-ID: <20260917192835.58126-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Date: Thu, 17 Sep 2026 12:29:56 -0700
+Message-ID: <20260917192957.3466978-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,54 +109,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The software free queue is shared by both Ethernet ports, but each port
-remove callback frees it. The parent also frees the queue before its
-managed child devices are removed. This can free the queue while a port
-or its threaded free-queue IRQ handler still uses it, and free the same
-allocation again when the children are removed.
+On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
 
-Keep the queue owned by the parent. Explicitly depopulate its child
-devices before freeing it, so both ports are unregistered and their
-managed IRQ handlers have been released. Disable the free-queue
-interrupt after those handlers have drained, since the threaded handler
-can re-enable it. Only clean up the queue if it was allocated; it may
-never have been set up if neither interface was opened.
+> On Wed, 16 Sep 2026 16:39:00 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+> 
+> > HugeTLB subpools currently only track used pages (used_hpages) when a
+> > maximum size limit (max_hpages) is configured on the mount.
+> > 
+> > ...
+> > 
+> > This series addresses three problem areas resulting from untracked usage
+> > and asymmetric error handling:
+> 
+> These are rather serious-sounding problems.
+> 
+> I'm seeing Fixes: for 10-year-old patches, for one last year and one
+> this year.  The fourth patch doesn't identify what to fix.
+> 
+> So if downstream people (-stable maintainers, others) follow our
+> recommendations, some kernels will get two of these patches, other
+> kernel versions will get three and some lucky kernels might get all
+> four.  Are you confident that the patches can be split apart in this
+> fashion and still produce a good result?  After all, we're sending
+> downstream some patch combinations which we didn't test.
+> 
+> Also, can you speculate about why these things took so long to
+> discover?
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+Hi Andrew,
 
-Fixes: 4d5ae32f5e1e ("net: ethernet: Add a driver for Gemini gigabit ethernet")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/net/ethernet/cortina/gemini.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+I'll be brave and admit that I knew there were hugetlb accounting issues
+for a while because I was seeing them at some ~rare~ frequency, but
+I couldn't figure out exactly what was happening and didn't report it. 
+In my defense this was before LLMs were doing a good job of finding
+bugs in code ; -)
 
-diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
-index 4c762229ce42..e493d495f2ef 100644
---- a/drivers/net/ethernet/cortina/gemini.c
-+++ b/drivers/net/ethernet/cortina/gemini.c
-@@ -2364,7 +2364,6 @@ static void gemini_port_remove(struct gemini_ethernet_port *port)
- 		unregister_netdev(port->netdev);
- 	}
- 	clk_disable_unprepare(port->pclk);
--	geth_cleanup_freeq(port->geth);
- }
- 
- static void gemini_ethernet_init(struct gemini_ethernet *geth)
-@@ -2656,7 +2655,10 @@ static void gemini_ethernet_remove(struct platform_device *pdev)
- {
- 	struct gemini_ethernet *geth = platform_get_drvdata(pdev);
- 
--	geth_cleanup_freeq(geth);
-+	devm_of_platform_depopulate(&pdev->dev);
-+	writel(0, geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-+	if (geth->freeq_ring)
-+		geth_cleanup_freeq(geth);
- 	geth->initialized = false;
- }
- 
--- 
-2.47.1
+So I'm very grateful that Ackerley took the time to find what was
+happening and sent the fixes. 
+
+> Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
+> trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
+> region_add file_region coalescing").
+
+I just reviewed the 4th part, I'm not sure if there are any
+userspace-visible changes for this. Maybe just an additional retry for
+allocating from the global subpool? 
+
+> Our other little friend is talking to us:
+> 	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
+> 
+> I'd like to queue this up promptly because it fixes things.  But let's
+> seek additional review input and argue with Sashiko before taking that
+> step.
+
+Agreed, I left my reviewed tag on 2 & 3 but it seems like Sashiko is
+raising some concerns. Ackerley, any thoughts on those?
+
+Thank you as always, Andrew!
+Joshua
