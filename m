@@ -1,90 +1,84 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012061.outbound.protection.outlook.com [52.101.53.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BDF372662
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643740; cv=none; b=pPiFMnXpctSpGx1H7LTVU9vws2xdSVO7168vCnUB6IX61FGHr0s3zY6ECmjmLwjUE8Bx/8fJe4sbSTtIatAs0IrFN3o0pfsqpvkjd5eKp3c8pcFSfIWMUS+8oP4aiGy8+qE4xFH6TFHaOUFqCXiiiUW1zcyog67rxdhDQSxANUM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643740; c=relaxed/simple;
-	bh=AJ5mMe8CMyMMvu5opXwqf0CvLKRMqW+UoSHD9baNOoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lrWJzrULpqAQ/w/61rFMEffBemqxGsVnl4xBkNCAlzM97ZfpivVdRcoUvuHHZXwpPdBYciThdjkugH2LXnV13uaCuv+C+uMUsUJ8DVEKPboLGcy4uj3LKhlobAiqXK3CoSyVAmQXRYjwfTO9cNuIg9qRuzMXyLjkc+aK0LpOfMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=mP4TE9si; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E3A4D37B8;
+	Thu, 17 Sep 2026 11:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789643742; cv=fail; b=nRhkyAFDNd4fgCKdtowA5hco2u8y2EBee5FOK5sW82VscdzSy41MMPVmWh+9XZXtGOEo/v0GCJg2FEy1gyjPMAITXTVzlwVu/HMWLgIK0I9s2/Ugr/S6zHTJTDjCaJb6+yLa6r/DOnuOi/jgB0nN5VDAXQ+5Tr0LcUArrUSZ6dA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789643742; c=relaxed/simple;
+	bh=RcYejznkTZKc7VLM997dE8Y2/8C8CEuCgDtfiwi5Msk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G51Ut9XcemQQEfX0om0CTqh9Wt8ft5uJ+K41b/GZ+yRJnTSNQFSkrOm83fZvmB3pNGB/xsBMyFYFCyW66F6yzdhpNAFFOa4F/J4xRSrJIXcPOhKsHucXdWdsIjRFsJ0I6R6IUsjfLZ0rj9ybwVftK1jxMEWl+p8ql4iog1glnhk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Rqxx8qZR; arc=fail smtp.client-ip=52.101.53.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="mP4TE9si"
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 87ED93F52D
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1789643722;
-	bh=bd10M+bix5UlEXeH9BMOYOfhizghQyBfU2z5WWgogyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=mP4TE9si7YEmNK+Kl+nZ4R54ZZD2gK6BBN/03rTJrQFEgbFBBL9lrGRZhIxNZENxC
-	 O1InBbRC1hsjymkQXhfvQOGAu8sbF6Bubm1by/lniFWc92fvYssnDMtESSw/N9/HnS
-	 J0fakDtN3te9x4sMOaohdAcUBaKScv2FeicK+PIT/O8p3VU47oMBMdHtqJ0UWw+D01
-	 9dpFWoK+3mmyImUwOIyMXrFtZB0+LuuXxAjfmcxCMWJa1XjZrqdYYN9Lc2932bnJKa
-	 rYGJccglK3lnh6szL08RVppb81eYbIivGZJBmawBkKX43hx1x/Kb8BVTLzi9ynVw4V
-	 hNM7hQ5zl3pO66CKuKqAJVlchINSnsViifYKEeos8+9jdsF8exY0CHxDuFs44MXGpZ
-	 xVkf5NzQIbgvln/CBkX/FrIlA+KIjSBABcQcQHyLUwMdrQjkSb5aDOOPtakLLVHEdB
-	 LfgQhDRpVHMxQI0EeUn2fimAeGTC1dxa0/Z57ash+llyMAEcxu3ToOKmz4CtDalJzK
-	 qD6jQwogeYhOeKxI0aWonygLCpRwwLvg9JslnroapqBpav/09ZYANwOrp2YG+EuNXf
-	 prNERExivtQdrd8T6mYaHeFwcGJ9daPUZWIUhmLmDyKzhC/M3wBgUWLZ0JkVWjahEV
-	 eYCA221HehuWQabmbmznPDOs=
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4957a231facso124295e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:15:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789643722; x=1790248522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bd10M+bix5UlEXeH9BMOYOfhizghQyBfU2z5WWgogyc=;
-        b=YIt1mi1Lsx03dG9VMLHe1noh0ONqWA755qrhtxSl244XQmAZfQQs9P63abQIQ3Obm4
-         ZcA1snAPC9Ow0w7rckt1JjChIKeBiKr82VHE2hToGNuEJ2IidORagC7m/sKUG78hnL0S
-         iJSzifpdd+LdcIphAItxPK5F/X1EqPetEh4odrSByP7aqUhXlqq8u57P3jZHjgNBzb0x
-         BtEk7LuuHjvrS+f1wOB5I58EZt6ohVv+Vktyvcjgl6Q7Nt/YeklVylnh+XupCjrzA9W5
-         2f2lsz4xXIFbW5jLVVHK8ABkW0A5yw2/4fN8iy6AjRMDswNuFLQSsfGVE21qxD13tAyu
-         3h5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwstt/vbM1MSyV6Rs+ceKUb3xcCFj6zkLltYmwAUPiiWTYyIUOGdh1+j8uT/XAATewGRRXLa08nrCnchOI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mag8UMfQvmkiV8VYDgN4VBjYGj9ZztnDzlvjCVJqQKRyo2T+cl
-	jB+M1wHIbiL6927W2uRCfd/b+rZDZ+R6Y4G2glra+qa9mlLaaN0X6H+Ebzbi/upHA39VoZa+ict
-	81UwATSC2DUXmTKbnIsg34e3LoJecXlJZl78JEn6KTKToyg1qPf+273B2mkxhvEgQ1XCT4HOouP
-	UUGULSlQ==
-X-Gm-Gg: AYBFou375dI7+JjeTMtcrVMzuoHcD7yo75BXgzPm1lEEox+en0eid8F07TD4QvEcJNs
-	mY8e9/+E7g9Nu+q4IXU2CEXhF35/coTU4JqST7Q8ADU2G1hamrfB1d6jIgBvUfX7tPo25cHUx5G
-	Cmgucw9Ua7BJcFJM64ioqEZekjApN7cTEGv9OXWU2phNa5W90jo+ULxJjVbiX4xka87yYiFOdqb
-	6zjRs8ze/IXn5JjnC2EQG8sJnrX77Ca9E/amlsEZZLDxeWfFQb8GRvL8vHp2MTnSU0km9ZVsENt
-	Yk6JxiDZ2Hr5tVHxXNtkpKa8XgYdxTTrSj3NukP6pb9T8SdJb+XCkiFfV51v8xwYisjqJVyaEsU
-	0MO57VyfgqnHjX1YJeiWes3a7YdVWMxQGdLgJIJAxdaEtaesiNt1Q
-X-Received: by 2002:a05:600c:4e48:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49eb731c39emr77445295e9.1.1789643722164;
-        Thu, 17 Sep 2026 04:15:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e48:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49eb731c39emr77444985e9.1.1789643721803;
-        Thu, 17 Sep 2026 04:15:21 -0700 (PDT)
-Received: from localhost (host-79-46-33-118.retail.telecomitalia.it. [79.46.33.118])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf415058sm42111315e9.0.2026.09.17.04.15.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 04:15:20 -0700 (PDT)
-From: Edoardo Canepa <edoardo.canepa@canonical.com>
-To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Xu Du <xudu@redhat.com>,
-	Po-Hsu Lin <po-hsu.lin@canonical.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] selftests/net: run tun tests in a dedicated network namespace
-Date: Thu, 17 Sep 2026 13:15:20 +0200
-Message-ID: <20260917111520.2614448-1-edoardo.canepa@canonical.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Rqxx8qZR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hi/tRyT+cz7lPYlI0dcW1J+dDwfuCIpU9oFSoIdxuO4tlFhCYltdN7os6P5zRlRgaaZmyJDaiapWqlr1UtiyU4lifljoOGdWxw3RofcI8KClfl7H7EIzpDvcv6Tx7KnzHA9hZ50WYr2leS4y8FM5WlW0hKOfWPSr9LX6oqDWYrloGf+5y3jtb5+iEvTE1TQqT47u04TpWyK5H4LwhqSg54LroDYa7qrJiphIBJxJEPv+L2k0QmG9f0dTcG8rwqLthd761J3QV2eOQGfJWd/h+8Q+aWI/n7emkzqka6kLASQ6yiI0vB4hPXNCl275onLcZzL2M13pnvlgykKxTMJpRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SxjPdk44MPo0ovWQYEBDzgDREckLZ1t+eE3kphzbRLc=;
+ b=AER//ggL3WmKfRrV9UxDf3mE346QVfedtEJnRobVLelv55MnaqWpws4Hs/fVI34U4UGkl24bW4jkdrsuSloPZ+wn1UjV9mUu3lg1+hUHgxNtnt76Yt/vWWUHcpWLkHD31TJjSxry/z0JUlP7c5/CSZtXJ1JvF+5NILijXhPwabFQPD6Z4baYBcoOfg3GFsFMYVqK+M4DUeHPyGB/+Xc1Bq/VcJXCYqWAAh7dWXwt6zVhJidSU2y3+q8w24OGcAFKmUoGPNZ8vEWDnCxzsfUuwRPRX7lJL5beuYtK/mtR615JdkFhUX4hMW+sEFATNAlByWAmtcLAWZN2Szm3sGdYdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SxjPdk44MPo0ovWQYEBDzgDREckLZ1t+eE3kphzbRLc=;
+ b=Rqxx8qZRamtxjvk6hryaSzd1XJf+DtsEF2hRHPCQ3hk+4IIsQD/ym648IsTaNkZeiRxr09uZmaCeq6M51K8GgarT1rsVXB70BRoCzh3lF3V/4FI+UMysazOPJ+ThXxAil3ChlWBXjMcZ0Z8CEn6zw3hKwYZaYNhGH5BazT22bfODF4X2XtMvWug/IpB6uOmaDvJDWLll1JOuvuHG+qugaNjsHgsFrai5ACMj8aqjXSo7GUYPY0+REbet+mDRbosY4WjlPhR8BX7Nf9Fh522iXolQd6gVWbMdp8bPavV6QNqWIA8RVmsqlXGtVNfCNI5cjLocvtOdN7gWu5rC1uPF1g==
+Received: from MN2PR03CA0013.namprd03.prod.outlook.com (2603:10b6:208:23a::18)
+ by CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Thu, 17 Sep
+ 2026 11:15:26 +0000
+Received: from BN3PEPF00022BC4.namprd05.prod.outlook.com
+ (2603:10b6:208:23a:cafe::57) by MN2PR03CA0013.outlook.office365.com
+ (2603:10b6:208:23a::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
+ 17 Sep 2026 11:15:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ BN3PEPF00022BC4.mail.protection.outlook.com (10.167.248.216) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 11:15:26 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 04:15:05 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 04:15:04 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 17 Sep 2026 04:15:01 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>, <linux-rdma@vger.kernel.org>, "Mark
+ Bloch" <mbloch@nvidia.com>, <netdev@vger.kernel.org>, Saeed Mahameed
+	<saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, Cosmin Ratiu <cratiu@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>, Dragos Tatulea
+	<dtatulea@nvidia.com>, Eric Dumazet <edumazet@google.com>, Gal Pressman
+	<gal@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, Jason Gunthorpe
+	<jgg@ziepe.ca>, Leon Romanovsky <leonro@nvidia.com>, open list
+	<linux-kernel@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH mlx5-next 01/10] RDMA/mlx5: Notify data direct users via a notifier chain on unbind
+Date: Thu, 17 Sep 2026 14:14:13 +0300
+Message-ID: <20260917111422.4054862-2-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20260917111422.4054862-1-tariqt@nvidia.com>
+References: <20260917111422.4054862-1-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,137 +86,214 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC4:EE_|CY5PR12MB6478:EE_
+X-MS-Office365-Filtering-Correlation-Id: 821cecfa-10e0-4002-f979-08df14acf9a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|82310400026|376014|1800799024|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	7fR1S9ALRP75bddEY1PmO8Qm9f6j8MnE1v05qNdIDQOK/xfbWQQQjmMqQT+Va0KTpWKw9iP8uB/UYV+k+RnpcNqSCWz9DJTibEgRTIjBlpAxLypUH1voFhUUTCGITZH6GX1yyNMYx12TsKWUnsVsJDtdaidRWsCL3QTUR2Zt9jWOjqwFbW5mtBrNGnNbviI6jibjjFxuEBExjtv3dqTLMkLH8N5+cTlDSGpiY6eHovfQgR5RP6NpeM+tdgwSL1B9Q4rI6yXlsGj9fHYpDwMjLyC9a8U7u4F5AyMWZsyCQNsk4ovHskbtMpc6/a55SOmjvUbSpBKeJShO/bU/Xdo0fHwQ60Nkc5ElmXevPKau1nEFOeNHa4HR8wtaLd/VRNKrUMEpY68VoDOCF+2IBXCjAZpvsXKPWKRk4NBXOv+7vt1HZ/7lnksBoUKiXR7p3xGtRXqDNHAV1G67h16zI65xAhizO94CcbwS5xB3Jcj2vv2OOBHr3WKv4NbT3SRZn3GAYzjd0ltF8aIPvrdZmVA3PG1PnfoNOZvvi4bfqdf/58kTQ2V0CoclVmRNOw3Mu9yN0QD59SaE83Ipel8km150tLlt+0ej+yym0jdVe0Bigx+14eXy3FcC07fjsBQyMcdrKfvGJ98XeYpnHol63cWTw5LZcKLsDziV8tW4YdwLpgyetHMTt9kVJLTwxZgZFz0KGtIvjbkwEMyBOsaEgMfd/w==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wpKIVnWVcQd/3oDDqYKxEvWB481HpNynhrWGhYLYoyJyHEbo30cAqMwzKD2bly+L8wLMEdjR7meuyZJ2EIGRcqL0nLVelmCCR+H00lZbfVtNMLSLhA2bzExPpO7AQ7+AWKmuGswyTvbpUJqfa9wHmcQfAoGy3/3CxeMjuyj6BqmrUiScJlhCLepdN23bIGTm/H2Y84Q4bQW8ZTg7zpfy5yXzVQMDfAQVLhniH5n/oM03Ib4EXDJeDeSmu+g8XTQ3mdY3ubcCWM2vM4JEPn9YkdQTWRvxCiW4C2QtPpwf600dx6bJHpuufgDmiKKBLErQsi+R7HL2Y3GzV6YcE+od+frhD1kJ4OEtT5Ny9/8r56apBv17BToAT4PzNBl2RKx2Xzv0QJUEQEKRfZmazLpgd/gl0BDr9Ol4PI1ClPrFLDFw0zSwwfVRvx2twDJfBaGd
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:15:26.3363
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 821cecfa-10e0-4002-f979-08df14acf9a5
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6478
 
-The tun_vnet_udptnl fixture creates a fresh tap device, assigns it a
-fixed MAC address and installs the outer neighbor entry as
-NUD_PERMANENT.  On systems where systemd-udevd is running and a systemd
-.link file sets
+From: Dragos Tatulea <dtatulea@nvidia.com>
 
-    MACAddressPolicy=persistent
+Currently during unbind, data direct code calls
+mlx5_ib_data_direct_unbind() directly. To make the unbind notification
+generic and support multiple users, deliver an MLX5_DATA_DIRECT_UNBIND
+event through a blocking_notifier chain kept per registration.
 
-(the default shipped by systemd in 99-default.link, so this is what
-most systemd-based hosts inherit), systemd-udevd's net_setup_link
-builtin asynchronously sends an RTM_SETLINK to reassign the freshly
-created tap device's MAC to a machine-persistent value.  When that
-lands after the fixture has configured the device, both directions
-break:
+Users register a notifier_block via mlx5_data_direct_ib_reg(); mlx5_ib
+embeds one in struct mlx5_ib_dev and, from its notifier callback, runs
+the existing mlx5_ib_data_direct_unbind() teardown.
 
-- recv_gso_packet transmits through the tap, and the address change
-  flushes the neighbor entry the fixture installed:
+This patch doesn't introduce any functional changes.
 
-    do_setlink
-    -> netif_set_mac_address
-       -> call_netdevice_notifiers(NETDEV_CHANGEADDR)
-          -> ndisc_netdev_event (arp_netdev_event for an IPv4 outer)
-             -> neigh_changeaddr
-                -> neigh_flush_dev(tbl, dev, /* skip_perm = */ false)
-
-  so the packet hits __neigh_create() and waits on neighbor resolution
-  that never completes.
-
-- send_gso_packet writes frames addressed to the MAC the fixture
-  assigned.  Once the tap has a different address, eth_type_trans()
-  marks them PACKET_OTHERHOST and the IP receive path drops them.
-
-Either way nothing arrives before the receive timeout, and the test
-fails with, for example:
-
-  tun.c:947:send_gso_packet:Expected ret (0) == variant->data_size (1)
-  tun.c:948:send_gso_packet:Expected r_num_mss (0) == variant->r_num_mss (1)
-  tun.c:962:recv_gso_packet:Expected ret (0) == variant->data_size (1)
-
-The failure is non-deterministic and reproduces on a plain
-systemd-based VM with no containers.
-
-Fix by calling unshare(CLONE_NEWNET) from both fixture setups.  The
-harness runs each test in its own forked process, so every test gets a
-private network namespace that is torn down with it, and all tap and
-geneve devices are created in a namespace that systemd-udevd (running
-in the init netns) does not watch, so its RTM_SETLINK never fires
-against them.
-
-Creating a network namespace needs CAP_SYS_ADMIN in the current user
-namespace and CONFIG_NET_NS=y, neither of which the tests required
-before.  Where they are unavailable the unshare() is reported with
-SKIP() rather than aborting, so the binary still emits a full TAP
-stream and a runner can tell "network namespaces unavailable" apart
-from a real tun/tap regression.
-
-Verified on a plain systemd-based VM running the affected kernel.
-Without the fix, 1000 sequential invocations of
-
-  tun -r tun_vnet_udptnl.4in6_nogsosz_1byte.recv_gso_packet
-
-fail 10 times, and 2 out of 20 full runs of the test binary fail.  With
-the fix there are no failures in either case.
-
-Reported-by: Po-Hsu Lin <po-hsu.lin@canonical.com>
-Closes: https://bugs.launchpad.net/bugs/2158217
-Fixes: 24e59f26eef2 ("selftest: tun: Add helpers for GSO over UDP tunnel")
-Assisted-by: LLM
-Signed-off-by: Edoardo Canepa <edoardo.canepa@canonical.com>
+Signed-off-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Cosmin Ratiu <cratiu@nvidia.com>
+Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
-v3:
-  - Drop the claim that a failure leaves the tap and geneve devices
-    behind.  The failing checks are EXPECT_EQ()s in the test body, so
-    FIXTURE_TEARDOWN still runs (Sashiko).
-  - Explain the send_gso_packet failure correctly: its frames are
-    dropped as PACKET_OTHERHOST once the tap's MAC changes.  The
-    neighbor flush only affects recv_gso_packet.
-  - Redo the measurements on a freshly booted host.  The v2 numbers
-    were taken in an unclean environment.  The v1 numbers were fine,
-    and the v2 entry saying otherwise was wrong.
-  - Go back to "Assisted-by: LLM", the current format in
-    Documentation/process/coding-assistants.rst.  v2 followed an older
-    copy of that document (Sashiko).
-v2: https://lore.kernel.org/netdev/20260914211921.3786609-1-edoardo.canepa@canonical.com/
-  - Add the unshare(CLONE_NEWNET) to FIXTURE_SETUP(tun) and
-    FIXTURE_SETUP(tun_vnet_udptnl) instead of replacing
-    TEST_HARNESS_MAIN with a hand-written main() (Jakub).
-  - Report an unshare() failure with SKIP() instead of aborting the
-    binary before the harness starts (Sashiko).
-  - Mention the new CAP_SYS_ADMIN / CONFIG_NET_NS prerequisite in the
-    commit message (Sashiko).
-  - Change the Assisted-by: format (reverted in v3).
-  - Redo the measurements (redone again in v3).
-v1: https://lore.kernel.org/netdev/20260905085318.3416670-1-edoardo.canepa@canonical.com/
- tools/testing/selftests/net/tun.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/infiniband/hw/mlx5/data_direct.c | 17 ++++++++++++++---
+ drivers/infiniband/hw/mlx5/data_direct.h | 12 ++++++++++--
+ drivers/infiniband/hw/mlx5/main.c        | 17 +++++++++++++++--
+ drivers/infiniband/hw/mlx5/mlx5_ib.h     |  1 +
+ 4 files changed, 40 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/selftests/net/tun.c b/tools/testing/selftests/net/tun.c
-index abe488bac50b..6db21dad0efe 100644
---- a/tools/testing/selftests/net/tun.c
-+++ b/tools/testing/selftests/net/tun.c
-@@ -4,6 +4,7 @@
+diff --git a/drivers/infiniband/hw/mlx5/data_direct.c b/drivers/infiniband/hw/mlx5/data_direct.c
+index d57484245c38..04affdbdcb12 100644
+--- a/drivers/infiniband/hw/mlx5/data_direct.c
++++ b/drivers/infiniband/hw/mlx5/data_direct.c
+@@ -4,6 +4,9 @@
+  */
  
- #include <errno.h>
- #include <fcntl.h>
-+#include <sched.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -488,6 +489,10 @@ FIXTURE(tun)
+ #include "mlx5_ib.h"
++
++#include <linux/notifier.h>
++
+ #include "data_direct.h"
  
- FIXTURE_SETUP(tun)
+ static LIST_HEAD(mlx5_data_direct_dev_list);
+@@ -18,6 +21,7 @@ struct mlx5_data_direct_registration {
+ 	struct mlx5_ib_dev *ibdev;
+ 	char vuid[MLX5_ST_SZ_BYTES(array1024_auto) + 1];
+ 	struct list_head list;
++	struct blocking_notifier_head users;
+ };
+ 
+ static const struct pci_device_id mlx5_data_direct_pci_table[] = {
+@@ -78,7 +82,8 @@ static int mlx5_data_direct_set_dma_caps(struct pci_dev *pdev)
+ 	return 0;
+ }
+ 
+-int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid)
++int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid,
++			    struct notifier_block *nb)
  {
-+	if (unshare(CLONE_NEWNET))
-+		SKIP(return, "Cannot create network namespace: %s",
-+		     strerror(errno));
-+
- 	memset(self->ifname, 0, sizeof(self->ifname));
+ 	struct mlx5_data_direct_registration *reg;
+ 	struct mlx5_data_direct_dev *dev;
+@@ -89,6 +94,8 @@ int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid)
  
- 	self->fd = tun_alloc(self->ifname);
-@@ -732,6 +737,10 @@ FIXTURE_SETUP(tun_vnet_udptnl)
- 	struct sockaddr_storage ssa, dsa;
- 	void *sip, *dip, *smac, *dmac;
+ 	reg->ibdev = ibdev;
+ 	strscpy(reg->vuid, vuid);
++	BLOCKING_INIT_NOTIFIER_HEAD(&reg->users);
++	blocking_notifier_chain_register(&reg->users, nb);
  
-+	if (unshare(CLONE_NEWNET))
-+		SKIP(return, "Cannot create network namespace: %s",
-+		     strerror(errno));
+ 	mutex_lock(&mlx5_data_direct_mutex);
+ 	list_for_each_entry(dev, &mlx5_data_direct_dev_list, list) {
+@@ -106,13 +113,15 @@ int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid)
+ 	return 0;
+ }
+ 
+-void mlx5_data_direct_ib_unreg(struct mlx5_ib_dev *ibdev)
++void mlx5_data_direct_ib_unreg(struct mlx5_ib_dev *ibdev,
++			       struct notifier_block *nb)
+ {
+ 	struct mlx5_data_direct_registration *reg;
+ 
+ 	mutex_lock(&mlx5_data_direct_mutex);
+ 	list_for_each_entry(reg, &mlx5_data_direct_reg_list, list) {
+ 		if (reg->ibdev == ibdev) {
++			blocking_notifier_chain_unregister(&reg->users, nb);
+ 			list_del(&reg->list);
+ 			kfree(reg);
+ 			goto end;
+@@ -150,7 +159,9 @@ static void mlx5_data_direct_dev_unreg(struct mlx5_data_direct_dev *dev)
+ 	list_del(&dev->list);
+ 	list_for_each_entry(reg, &mlx5_data_direct_reg_list, list) {
+ 		if (strcmp(dev->vuid, reg->vuid) == 0)
+-			mlx5_ib_data_direct_unbind(reg->ibdev);
++			blocking_notifier_call_chain(&reg->users,
++						     MLX5_DATA_DIRECT_UNBIND,
++						     NULL);
+ 	}
+ 	mutex_unlock(&mlx5_data_direct_mutex);
+ }
+diff --git a/drivers/infiniband/hw/mlx5/data_direct.h b/drivers/infiniband/hw/mlx5/data_direct.h
+index 2fd2bdbe8f69..a9bb471949e2 100644
+--- a/drivers/infiniband/hw/mlx5/data_direct.h
++++ b/drivers/infiniband/hw/mlx5/data_direct.h
+@@ -6,8 +6,14 @@
+ #ifndef _MLX5_IB_DATA_DIRECT_H
+ #define _MLX5_IB_DATA_DIRECT_H
+ 
++#include <linux/notifier.h>
 +
- 	flags = (variant->is_tap ? IFF_TAP : IFF_TUN) | IFF_VNET_HDR |
- 		IFF_MULTI_QUEUE | IFF_NO_PI;
- 	features = TUN_F_CSUM | TUN_F_UDP_TUNNEL_GSO |
+ struct mlx5_ib_dev;
+ 
++enum mlx5_data_direct_event {
++	MLX5_DATA_DIRECT_UNBIND,
++};
++
+ struct mlx5_data_direct_dev {
+ 	struct device *device;
+ 	struct pci_dev *pdev;
+@@ -15,8 +21,10 @@ struct mlx5_data_direct_dev {
+ 	struct list_head list;
+ };
+ 
+-int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid);
+-void mlx5_data_direct_ib_unreg(struct mlx5_ib_dev *ibdev);
++int mlx5_data_direct_ib_reg(struct mlx5_ib_dev *ibdev, char *vuid,
++			    struct notifier_block *nb);
++void mlx5_data_direct_ib_unreg(struct mlx5_ib_dev *ibdev,
++			       struct notifier_block *nb);
+ int mlx5_data_direct_driver_register(void);
+ void mlx5_data_direct_driver_unregister(void);
+ 
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
+index 02809114fc79..547275dfa40e 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -4019,6 +4019,18 @@ static bool mlx5_ib_bind_slave_port(struct mlx5_ib_dev *ibdev,
+ 	return false;
+ }
+ 
++static int mlx5_ib_data_direct_event(struct notifier_block *nb,
++				     unsigned long action, void *data)
++{
++	struct mlx5_ib_dev *dev =
++		container_of(nb, struct mlx5_ib_dev, data_direct_nb);
++
++	if (action == MLX5_DATA_DIRECT_UNBIND)
++		mlx5_ib_data_direct_unbind(dev);
++
++	return NOTIFY_OK;
++}
++
+ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
+ {
+ 	char vuid[MLX5_ST_SZ_BYTES(array1024_auto) + 1] = {};
+@@ -4037,7 +4049,8 @@ static int mlx5_ib_data_direct_init(struct mlx5_ib_dev *dev)
+ 		return ret;
+ 
+ 	INIT_LIST_HEAD(&dev->data_direct_mr_list);
+-	ret = mlx5_data_direct_ib_reg(dev, vuid);
++	dev->data_direct_nb.notifier_call = mlx5_ib_data_direct_event;
++	ret = mlx5_data_direct_ib_reg(dev, vuid, &dev->data_direct_nb);
+ 	if (ret)
+ 		mlx5_ib_free_data_direct_resources(dev);
+ 
+@@ -4050,7 +4063,7 @@ static void mlx5_ib_data_direct_cleanup(struct mlx5_ib_dev *dev)
+ 	    !MLX5_CAP_GEN_2(dev->mdev, query_vuid))
+ 		return;
+ 
+-	mlx5_data_direct_ib_unreg(dev);
++	mlx5_data_direct_ib_unreg(dev, &dev->data_direct_nb);
+ 	mlx5_ib_free_data_direct_resources(dev);
+ }
+ 
+diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+index 522984d958bb..97d2aa79e95d 100644
+--- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
++++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
+@@ -1131,6 +1131,7 @@ struct mlx5_ib_dev {
+ 	spinlock_t		reset_flow_resource_lock;
+ 	struct list_head	qp_list;
+ 	struct list_head data_direct_mr_list;
++	struct notifier_block data_direct_nb;
+ 	/* Array with num_ports elements */
+ 	struct mlx5_ib_port	*port;
+ 	struct mlx5_sq_bfreg	bfreg;
 -- 
-2.53.0
+2.44.0
 
