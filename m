@@ -1,148 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from r3-25.sinamail.sina.com.cn (r3-25.sinamail.sina.com.cn [202.108.3.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C07214812;
-	Thu, 17 Sep 2026 00:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04EE1FA272
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 00:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603646; cv=none; b=Vzk4YdHhEH4uEeLf1gZamGuoY5zrkR6aZf8m6NMDGsLHzdVFnjAN5K4UmsoXi5CEWCV5ZFKBHAMH7e25/7SATLeLXtvapV8mkfQt54bKpyYBSqfvb8wq65JSSqbi4ttM8nzV3ZBDx0eWou19qEaK+YBwVH/J2wbVJJSTRYcrH/o=
+	t=1789603687; cv=none; b=HTiy49xwftsQvG0t/jCWvu0DeGtJTL0hIIFqTi+dn0wqmHS/ab0Qankk9gvd2sSGBo3ciLlgH/zY4P0pijp6lr24gTODD+GQpx8UZCExxlH8UEyu8/9hzQXnJAfLw9yG4RLAvz0pkrqongLI9GOndQtraULG5RdNYITV3zrgvaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603646; c=relaxed/simple;
-	bh=Q6qTyOSAVqzgx4rJNxm+9/hjkyz2JYfoGFgR2fGVxEQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=OUdeoKegCJAwvUmLisdbdqaJOGhxyn/8H/J3nhHeQBUdsuU0XS8bOlsdWM1nQ8aGvw8+RRbQnZsJ1TsqDp5Y/Zdz399GpFJpMhQqZmH0C/jHR62zc3hux0LBiwBwaVVjtBLx0VpJ0vOf0uV8JlpOi/7SYZbGO8x1g7CGU0gkJ2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UjbTsEtV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789603687; c=relaxed/simple;
+	bh=LjmfDRNBEjGYTsn0/17oKo0akdmCEoT31H9y+6WTRuU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UlQEG1vDvhNipgE2C2Wykd5/dHN67K0VTL9S6Jz2/1x55d+pum7wNI7e5iY/8KGVghCh70mRMDX2TyVloJ1OczCdndiiGsABpkDufBVWhxYrC8Soq6IUFqT3YUcXLWFptlbNMPS01oCE5+W2Tm7UV6DjvDFQXVbDm5/WmEkW1i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=GG3bOfhp; arc=none smtp.client-ip=202.108.3.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UjbTsEtV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5DF1F000FF;
-	Thu, 17 Sep 2026 00:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789603644;
-	bh=+yFcjzj37ujFduHmXiBvfG9JBS833j3YXgLJ04CFxHE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=UjbTsEtVaPtsiaZUuZNq+T2sPIquKhVFlF6WCE1Nit+LYL5byUhUnUswsWKHVH8wK
-	 7qMsN9mQuJsHdDVnrFzUsqc9srPE2TyNRfy5sfQGHZd2IhIXBj2X/t95jvsRKjbxes
-	 lW4C1s7A5Nc0siyJhxlMktOEclBcFv0GC8ZCkpoYvvrYb+6YZUqa5gzAF92LNEhiWG
-	 fbkCpan3pHHSqNMPeNzv/+c7N/vuVGzf8tIrVMWvAFsKjZw1wSbvxtDjUqQoHSjPIh
-	 af2nNUqh3M0izEpdLd5+JAe9EJ8BchGBTY8vR4TP4CD1d2d1+4+nNv6FNem2o7XMVr
-	 6IuBrI0whhNvw==
-Date: Wed, 16 Sep 2026 19:07:23 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 06/12] PCI: liveupdate: Auto-preserve upstream bridges
- across Live Update
-Message-ID: <20260917000723.GA992337@bhelgaas>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="GG3bOfhp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789603683;
+	bh=hKjnpvXTojaVU5YIzpdNIrqfBtMirn+eCnJFcui5yEg=;
+	h=From:Subject:Date:Message-ID;
+	b=GG3bOfhpJ5zcNk5BG0UqXSI5cYC8VM/yWrUt4KTZtx2TZBHTbMEvMvaYN1P/co4m3
+	 Tw3WIIs/tSL3MLk0O1oFdY5UpIuMq3WCPeWvgm86jwwwUKIWzpWqQJZkTOgtwcemY2
+	 BN3Vzpz1qI6fOMdnO28BAOgSP7npUB7TxadIQoe4=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.249.62.194])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AAB2F5500000181; Thu, 17 Sep 2026 08:07:51 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 8931646815926
+X-SMAIL-UIID: 98200398C3E643C3AC30E941A3E8AE43-20260917-080751-1
+From: Hillf Danton <hdanton@sina.com>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org,
+	Baoquan He <bhe@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	lirongqing <lirongqing@baidu.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for vmap drain
+Date: Thu, 17 Sep 2026 08:07:37 +0800
+Message-ID: <20260917000738.115-1-hdanton@sina.com>
+In-Reply-To: <aqq9FM3ti6NIHxQ0@milan>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728221007.2098560-7-dmatlack@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 10:10:00PM +0000, David Matlack wrote:
-> When a PCI device is preserved across a Live Update, all of its upstream
-> bridges up to the root port must also be preserved. This enables the PCI
-> core and any drivers bound to the bridges to manage bridges correctly
-> across a Live Update.
+On Wed, 16 Sep 2026 18:00:20 +0200 "Uladzislau Rezki (Sony)" wrote:
+> On Wed, Sep 16, 2026 at 08:12:27AM +0800, Hillf Danton wrote:
+> > On Mon, 14 Sep 2026 18:56:26 +0200 "Uladzislau Rezki (Sony)" wrote:
+> > > This patch does not use queue_work_on() semantic thus i do not want to
+> > > queue all helpers on current CPU. Instead scheduler does balancing and
+> > > that is it.
+> > > 
+> > [Fair queue in the Eric Dumazet accent]
+> > 
+> > +static bool
+> > +schedule_drain_vmap_work(struct workqueue_struct *wq,
+> > +		struct work_struct *work)
+> > +{
+> > +	if (wq)
+> > +		return queue_work(wq, work);
+> > +
+> > +	return false;
+> > +}
+> > +
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/linux/workqueue.h#n697
+> > 
+> > static inline bool queue_work(struct workqueue_struct *wq,
+> > 			      struct work_struct *work)
+> > {
+> > 	return queue_work_on(WORK_CPU_UNBOUND, wq, work);
+> > }
+> > 
+> > queue_work_on
+> >   __queue_work
+> > 	if (req_cpu == WORK_CPU_UNBOUND) {
+> > 		if (wq->flags & WQ_UNBOUND)
+> > 			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
+> > 		else
+> > 			cpu = raw_smp_processor_id();
+> > 	}
+> > /*
+> >  * When queueing an unbound work item to a wq, prefer local CPU if allowed
+> >  * by wq_unbound_cpumask.  Otherwise, round robin among the allowed ones to
+> >  * avoid perturbing sensitive tasks.
+> >  */
+> > static int wq_select_unbound_cpu(int cpu)
+> > {
+> >  	pr_warn_once("workqueue: round-robin CPU selection forced, expect performance impact\n");
+> > }
+> > 
+> /**
+>  * worker_attach_to_pool() - attach a worker to a pool
+>  * @worker: worker to be attached
+>  * @pool: the target pool
+>  *
+>  * Attach @worker to @pool.  Once attached, the %WORKER_UNBOUND flag and
+>  * cpu-binding of @worker are kept coordinated with the pool across
+>  * cpu-[un]hotplugs.
+>  */
+> static void worker_attach_to_pool(struct worker *worker,
+> 				  struct worker_pool *pool)
+> {
+> 	mutex_lock(&wq_pool_attach_mutex);
 > 
-> Notably, this will be used in subsequent commits to ensure that
-> preserved devices can continue performing memory transactions without a
-> disruption or change in routing.
-> 
-> To preserve bridges, the PCI core tracks the number of downstream
-> devices preserved under each bridge using a reference count in struct
-> pci_dev_ser. This allows a bridge to remain preserved until all its
-> downstream preserved devices are unpreserved or finish their
-> participation in the Live Update.
+> 	/*
+> 	 * The wq_pool_attach_mutex ensures %POOL_DISASSOCIATED remains stable
+> 	 * across this function. See the comments above the flag definition for
+> 	 * details. BH workers are, while per-CPU, always DISASSOCIATED.
+> 	 */
+> 	if (pool->flags & POOL_DISASSOCIATED) {
+> 		worker->flags |= WORKER_UNBOUND;
+> 	} else {
+> 		WARN_ON_ONCE(pool->flags & POOL_BH);
+> 		kthread_set_per_cpu(worker->task, pool->cpu);
+> 	}
 > ...
+> }
+> 
+> A local CPU preference for WQ_UNBOUND is not the same as executing on
+> the __bound__ per-CPU system kworker.
+>
+As Ulad, like Yu Zhao, is one of the couple black horses I saw in mm the
+past a couple years, lad, I make the difference between BOUND and UNBOUND
+workers as clear as it is.
 
-> +static int pci_liveupdate_unpreserve_device(struct pci_flb_outgoing *outgoing,
-> +					    struct pci_dev *dev)
->  {
->  	struct pci_dev_ser *dev_ser = dev->liveupdate.outgoing;
->  
->  	if (!dev_ser) {
->  		pci_warn(dev, "Cannot unpreserve device that is not preserved\n");
-> -		return;
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!dev_ser->refcount) {
-> +		pci_WARN(dev, 1, "Preserved device has a 0 refcount!\n");
-> +		return -EINVAL;
->  	}
->  
-> +	if (--dev_ser->refcount)
-> +		return 0;
+Given numa node1 including cpu8-15 without cpu hotplug cared, a bound worker
+for cpu9 can not migrate to any other cpu, while a unbound worker can run on
+any cpu of node1, that is all.
 
-I guess this is a nit: I was looking for a dev_ser->refcount++ in this
-patch to correspond with this decrement.  I *guess* the
-"dev_ser->refcount = 1" in pci_liveupdate_preserve_device() starts
-that, and the "dev->liveupdate.outgoing->refcount++" there is an
-increment of the same refcount?  The connections there don't seem
-quite obvious to me.
+Important UN/BOUND have nothing to do with eevdf (and balancing cpus) because
+of different layers.
 
-But I guess "dev_ser->refcount = 1" was added by a different patch, so
-probably *not* the same?
+And at best I suspect what you missed is the difference between drain_vmap_work
+and lru_add_drain_work, but I do not like the latter as it annoyed the RT/full
+nohz apps more than thought [11].
 
->  	pci_info(dev, "Device will no longer be preserved across next Live Update\n");
->  	outgoing->ser->nr_devices--;
->  	memset(dev_ser, 0, sizeof(*dev_ser));
->  	dev->liveupdate.outgoing = NULL;
-> +	return 0;
-> +}
+static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
+static DEFINE_PER_CPU(struct work_struct, lru_add_drain_work);
 
-> @@ -385,13 +418,23 @@ static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
->  	}
->  
->  	if (dev->liveupdate.outgoing) {
-> -		pci_warn(dev, "Device is already preserved\n");
-> -		return -EBUSY;
-> -	}
-> +		if (!dev->liveupdate.outgoing->refcount) {
-> +			pci_WARN(dev, 1, "Preserved device with 0 refcount!\n");
-> +			return -EINVAL;
-> +		}
->  
-> -	if (!pci_is_root_bus(dev->bus)) {
-> -		pci_warn(dev, "Cannot preserve devices behind bridges\n");
-> -		return -EINVAL;
-> +		/*
-> +		 * Endpoint devices should not be preserved more than once.
-> +		 * Bridges are preserved once for every downstream device that
-> +		 * is preserved.
-> +		 */
-> +		if (!dev->subordinate) {
-> +			pci_warn(dev, "Device is already preserved\n");
-> +			return -EBUSY;
-> +		}
-> +
-> +		dev->liveupdate.outgoing->refcount++;
-> +		return 0;
->  	}
->  
->  	dev_ser = pci_flb_alloc_dev_ser(outgoing);
+[11] Subject: [PATCH v4 3/4] swap: apply new pw_queue_on() interface
+https://lore.kernel.org/lkml/20260519012754.240804-4-leobras.c@gmail.com/
