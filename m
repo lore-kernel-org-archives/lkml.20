@@ -1,102 +1,107 @@
-Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170893382EC
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CF73D413F;
+	Thu, 17 Sep 2026 10:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640284; cv=none; b=LBIfVU2trw7wIXNJIE+hcf/n+D9IYV7Kiqeyp18olXH426hrUhSI/3OhB8E004Vyu0ucardKMjkN8JupbctHn0Y8QOTYmKOgLEzoALO6XQBGI03g+yK90nRfA5Hdufko7Q6BIIRyI5YCyxOMn81g6Ak/2ZW/FlxRYMqZtPudo3k=
+	t=1789640338; cv=none; b=ebL5cMhkO0DCToR0wIeXP2tjCuz5k8vG8sdTjeAYH/2HiSRBuTvuHUEEVwFzodLqpB9RuawxDR13fgP1lhvIspGZT9wfqpJ0AblxAZmRl77E+JRsKz06HkQGIHBPpwAh0A/RV8GLKXDzX7Qlq/UR8uF+vUA0thicFV4KU29tYws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640284; c=relaxed/simple;
-	bh=DIFoReXqzCCEdyzOnHZyO/KDl68bNqQoPzIWJqoTfqE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=m5lSaThYObHCKGHz7XLFU28btLTA4f9GVPzi9OJn/mPzUaKPCmnI0AKtehPVBMh2Q8jHeQCLU3zKrTRR+sm/nNFnuuPoh41NPSy0J/7ZAAGHSo+U0c30e5v63YDAv8IeXVnyPrUgzhGAoZTYdtfG8lguANWp+dpBPjmabUmBrAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Lmbcvlxa; arc=none smtp.client-ip=91.218.175.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789640338; c=relaxed/simple;
+	bh=dnqgWmMlMT3rhhJvrxIw2SeqmOcqcGDKcUrL5VfGsu4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AnSyUch7u7/ZM5dDYTmA16Iu4zNPeo+lQgsjPVAA+Sw/UZyUcHznZbG+Fiw6YZ9EDHfumYly1f0TieG8mvww6GYrHKekxdl17OHA+urI9Mr2iA0LbjAJFsqiawU3RpC6ot7HezSv0WsXqz0RLK/4Ua7NeykGX4jtDkRdnddEvPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpiILKlj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Lmbcvlxa"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DIFoReXqzCCEdyzOnHZyO/KDl68bNqQoPzIWJqoTfqE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789640279; v=1; x=1790245079;
- b=LmbcvlxaUExQL4VcOJKr+GUiLIlTdT/2R4qkbzkUCRVM0EDI80cHZqHr0brrZyH4Z4oP3n3h
- WiBzCSzR7l+OpFxsq+xU2tFy3I3YxjbClsuGx2Wm56B7XoNE52Owm1HpLY0qH2GUqMx7JblLwT/
- OE2HhM700apRuS4hHy0xm04Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f42acc8c86f58c5;
-	Thu, 17 Sep 2026 10:17:59 +0000
-X-Mizu-Trace-ID: 8f42acc8c86f58c5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <534d67fb-8b5c-455b-ab75-cfc5c73e677a@linux.dev>
-Date: Thu, 17 Sep 2026 18:17:55 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpiILKlj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9C31F000FF;
+	Thu, 17 Sep 2026 10:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789640337;
+	bh=8t5/A3M/pTDCbWt4AC8flokRJa2n9cF5txLr5EGOSNg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cpiILKljPqDnMX/zM7jjXCFTWHbyn9UZrWBGgCRNpLjBQOugDiA5HE3ufmU6yloKl
+	 mQ42/tcYXDuGnwFmRzjYE6HbJvMWAg2cr5X4aJ7iIVJ86MQ3WRor3gpLinsceG1ik3
+	 /fkJYPczmlUiFUTtTV9msnykNWdZl2tH4INQD0x/pemuC2Z5GBcwMuhCQdtLGEHQV1
+	 jJvUpsOrR3FhyZkBtL1K3tc1aoSgPpt6vlmJaRQl9NPpAPwDzOFLZNGZFqrLVUrOdz
+	 s9zDHsAuhoAxfIlGLhfTo4kvN4zYrD6MW/4rGo/A5frjG6OmPFyTBuI+EVR9BO0LWs
+	 1lLsuS17H+8jg==
+Date: Thu, 17 Sep 2026 12:18:53 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: syzbot <syzbot+listec583fa4257875d46833@syzkaller.appspotmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] Monthly fs report (Sep 2026)
+Message-ID: <20260917-ticken-spinnen-feilschen-d7e283e8ea2a@brauner>
+References: <6aa38496.6e6c5f9e.28f11f.003f.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Kees Cook <kees@kernel.org>, Colin Ian King <colin.i.king@gmail.com>,
- Shakeel Butt <shakeel.butt@linux.dev>, Mina Almasry
- <almasrymina@google.com>, Mike Kravetz <mike.kravetz@oracle.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/hugetlb_cgroup: move the per-node usage along with
- the folio
-To: Andrew Morton <akpm@linux-foundation.org>
-References: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
- <20260916175302.be1e68f24b96b7c639cbd7f5@linux-foundation.org>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <20260916175302.be1e68f24b96b7c639cbd7f5@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <6aa38496.6e6c5f9e.28f11f.003f.GAE@google.com>
+
+On Thu, Sep 10, 2026 at 09:33:26PM -0700, syzbot wrote:
+> Hello fs maintainers/developers,
+> 
+> This is a 31-day syzbot report for the fs subsystem.
+> All related reports/information can be found at:
+> https://syzkaller.appspot.com/upstream/s/fs
+> 
+> During the period, 3 new issues were detected and 3 were fixed.
+> In total, 46 issues are still open and 642 have already been fixed.
+> There are also 30 low-priority issues.
+> 
+> Some of the still happening issues:
+> 
+> Ref  Crashes Repro Title
+> <1>  10972   Yes   KASAN: use-after-free Read in hpfs_get_ea
+>                    https://syzkaller.appspot.com/bug?extid=fa88eb476e42878f2844
+
+hpfs
+
+> <2>  8730    Yes   INFO: task hung in __iterate_supers
+>                    https://syzkaller.appspot.com/bug?extid=b10aefdd9ef275e9j368d
+> <3>  2032    Yes   INFO: task hung in user_get_super (2)
+>                    https://syzkaller.appspot.com/bug?extid=ba09f4a317431df6cddf
+> <4>  2002    Yes   INFO: task hung in lookup_slow (3)
+>                    https://syzkaller.appspot.com/bug?extid=7cfc6a4f6b025f710423
+
+ext4/vfat/sysv/9p
+
+> <5>  33      Yes   general protection fault in __simple_recursive_removal (2)
+>                    https://syzkaller.appspot.com/bug?extid=cc460646984184ad435a
+> <6>  26      Yes   KASAN: slab-use-after-free Read in lockref_get (2)
+
+Both <5> and <6> are ic2 core races and fixed in v7.3-rc1 by b15b548d52b4.
+They were tagged with another syzbot id. In any case, no fs bug so:
+
+So both should get:
+
+#syz fix: i2c: core: fix debugfs UAF on adapter removal
 
 
-On 9/17/26 8:53 AM, Andrew Morton wrote:
-> On Wed, 16 Sep 2026 16:30:26 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
->
->> The per-node usage reported by hugetlb.<size>.numa_stat is accounted
->> against folio_nid() in __hugetlb_cgroup_commit_charge() and
->> __hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
->> stays charged on the same node and in the same hugetlb_cgroup.
->>
->> Two paths move a folio which stays charged, and neither moves the usage
->> with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
->> of a folio migrated to another node, and hugetlb_cgroup_move_parent()
->> only moves the page_counter charges and the hugetlb_cgroup pointer of
->> the folios of a dying cgroup. In both cases the node (or cgroup) which
->> was charged keeps a usage which never goes away, while the node
->> (or cgroup) which ends up uncharging the folio underflows as soon as
->> the folio is freed.
->>
->> Patch 1/2 moves the usage along with the folio on cross node migration,
->> patch 2/2 does the same for the folios a dying cgroup reparents.
-> As I understand it, this series affects numa_stat output but has no
-> actual runtime effects?
+> <7>  25      Yes   INFO: rcu detected stall in sys_close (7)
+>                    https://syzkaller.appspot.com/bug?extid=393022c13d02e1f680e3
 
-Yes, that's right. The per-node usage[] is only read by
-hugetlb_cgroup_read_numa_stat(), so this series only fixes the values
-reported in hugetlb.<size>.numa_stat. It has no effect on charging or
-limit enforcement, which go through page_counter and are already
-handled correctly by hugetlb_cgroup_migrate() and
-hugetlb_cgroup_move_parent().
+NOT FS: taprio qdisc hrtimer storm via RTM_NEWQDISC.
 
->
-> Do you (and maintainers) think that we should fix this in earlier
-> kernels?
->
-> (I do - a lot of userspace infrastructure makes expensive decisions
-> based on this sort of info).
+> <8>  25      Yes   VFS: Close: file count is zero (use-after-free) (2)
+>                    https://syzkaller.appspot.com/bug?extid=592c653b056459925299
 
-I agree with you that this should go to stable.
+NOT FS: That's a gaudio_cleanup() thing with a fix on-list. Remove it
+from the fs list, please.
 
-Patch 1/2 and Patch 2/2 already carry Fixes: and Cc: stable tags.
+> <9>  22      Yes   INFO: task hung in writeback_iter (3)
+>                    https://syzkaller.appspot.com/bug?extid=1e3ff4b07c16ca0f6fe2
 
--- 
-Best regards,
-Hongfu
+FIXED: The mdb_bh versus bitmap folio deadlock was fixed by f26da7e0381c in v7.3-rc1.
+This is just reproed in multiple fses and thus kept open. Kill it.
 
+> <10> 22      No    possible deadlock in uvcg_mjpeg_bma_controls_show
+>                    https://syzkaller.appspot.com/bug?extid=2b082cefcfb1439289ef
+
+NOT FS: Deadlock in USB
