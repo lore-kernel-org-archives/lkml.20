@@ -1,156 +1,161 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154E83812F6;
-	Thu, 17 Sep 2026 05:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BFC33ADBF
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624586; cv=none; b=pNh65hvcceXssJ+MNte2ogsAfoBAjGhSI5wtU5mZyhAYFfwimHjqJMqgPKjInPqBEIeS8TOn6cxrgqG/wPRmw5KnOHtd4+pEDFDm8DLRs6DNnCqwhDQ4RM6PdJWjXaugKK5IptBMYo8/6Fo2DlEFLA9OaQGepG0jUydWb6PABVM=
+	t=1789624606; cv=none; b=Pz5wwjRLTFDAZr7N2N8fDpafWyoS1uWq2moVsgVNxS4DaZboPa/nBHn5KmxWm5zqGyMqQ/i1kngCg/iz7M9lldP8lpLOK9N3WN8VKKokaAJt1PoJVyKdbfgsWohlGthslA/dGXbMEKFBaCqnNrDybGG07H1EVSK1Htix/tTkDg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624586; c=relaxed/simple;
-	bh=Mbwi+hAEJ2TOuE5pCiU68p6QpU+CXNObLTPMmeKgryc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IgML+dkT5c5Rt/8s51jUv/A/ov/QBG8mC/dXiRmCJGzMwr8lU7LU0gnfdfmhuASIuUi0EYhvbOpKaTyrm1yZhz8DSQj3hLN9rKCxOPpaFSbKTWXxVYLxG0wEfoM6E1IiWz75FxZWuMjNTeJoD+8y7GCOntIf/4jg8g8NaEuiQSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=GGbp4G/u; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=eBKaRa1q; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789624606; c=relaxed/simple;
+	bh=IRwy3v4RbeEQb7tDTKXoI8cnAJR4oVGR+vCDRpGGxF0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ahA0m8HcZ4F5Kaii1tLP/CvFkoiRn8FypW71gnak7CwMaU5mCHcUkD3XGV5MgRdzOeKFS1wA2g9rX/kXqW6HR8A7C5gpMMIpTPWNLEO8tQDjPodwm593RgeR4Ai6KaIrqC7yvX1g6YghoKSE8p0QvMsLQzwojnWPMzLwaIGzTQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MNpbfkV9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cx3pGQJk; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="GGbp4G/u";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="eBKaRa1q"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 05937EC0118;
-	Thu, 17 Sep 2026 01:56:21 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 01:56:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789624581;
-	 x=1789710981; bh=E6Vg3bpUqSz3Pj9xg3oQSweER3Z7QxD7M1oDqjqbTDE=; b=
-	GGbp4G/u+roLCBBW1X5LxaPuo76yNpQDClMQMHkJmJCuirPtxMNGj1jajS/PTGfN
-	JVK1YQbrVgyHcM5r88NM4U1E5do7xAG78NOL+9CDBRjuk4KEDE8BSVNmyWM2arDJ
-	ra6+Btxidwe4vTBDTMhblROGwZLbytUpIx8EtmlM6yA6jtQGaTqKRX4Dcxb4n3au
-	NnEUSdf3EDdHJlXkS0zp+WeWiCdYUBSaP3a2dk6oKO2VhmXUl2wKRWIPoO0ogHee
-	CTESVdKNA7pcf9Jyz9Bi4fAR7ZK+I+rZuCxYMynFJmHpCV8DV2WexIiE75gl9N76
-	+rV/p9tZhFNfaPbak9I0QQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789624581; x=
-	1789710981; bh=E6Vg3bpUqSz3Pj9xg3oQSweER3Z7QxD7M1oDqjqbTDE=; b=e
-	BKaRa1qijVXP/ajZuMAbyukMZKAFqJbMTTD1l4SzixYv2o9ux9k5SpwWP6shuZi6
-	865rELRDQkGVQ560bbGAEs54IVn96qd4TZC64dVV29s6tGRKoIBB1oCprIIIaEBd
-	R0a7/WhCklnf2k3mcDGVJbRtWfJVKB5iZwosgZAiPT+EpCM7CHbR1Vy+4iS8wX36
-	9LE9fv8WA5KCuoK1eq0iy9Nvfsm/+T+u996e9rpT3cllfrv7U3tMxNRiMsRo48MS
-	Gs8UoeIwlWQsI4PPWOdU3eoVd3Kcq8wnnb8EGn6UcR8ip06o0H13XQAPCaNsXY8a
-	SC8VoEXEyTHTEalfPb/FA==
-X-ME-Sender: <xms:AIGranrIsNzd-n5_Y_lgDm8e4SveGD4WDkkQG1exaPyHNwyfIvTZbA>
-    <xme:AIGrasfLaUOrMTpyOBaiZ89PwG8J6Edhypf-kwZqr_K80-fhGBuGj5T1N5bvggTAM
-    hNpTkii2-BASlIC_B0jMI20PaaeEPo5rxYuOFCVD9hYmZKqVFtADLNk>
-X-ME-Proxy-Cause: dmFkZTFlx2cT7GLNvlNJEzNcY+Amz1Ciq+yjddF3pMcq3/zZLoLLD2H82cYq+2SeOYQV9f
-    vehC8tp9xFp5qadWLjh+qiCAyw47Ch69MWx66qZr1l/WAmg0WrvOpJumDcq+uMYLgMnaui
-    vaVxLdO2W1cWqVPF2UQHOQ36xm/wSftcKi+Ca//GEsMgqK0MrQF4x4me01uH4IRb68jYyZ
-    OJUk4XkunCR4+ds+tTViycw2avGqXhI22CM1Gdy9ZkMp0uMjDt0GHh5BtN/7tM6ztMugOO
-    92nCc5FFXjf//UTJ5Y2mBwu5H/nqaISdKHJ3PiRgUtwGCanRvVJS3KCcsANToDdrbd1uIU
-    UB3LfmT1/5WcpFhho/ss8YDyEuTq93o6YW96Fvy/GopTRZ6mFe/jVCl8NbTSToGxqkDZbs
-    ae8Ec1jmx/4fmaS8R2dq6A2nJe2Bu44omcwh+Uc9+lks0BIAHWfdBfCpP3a9aU9ElZQ42V
-    tzgYuvZzo4kLrFFQuxbRatLhcsKUYLu2bsEuApzGxJOJcwFxJT6tGlg7ICwRL9cxg2d27W
-    PEw7JxMlTUJXiJY/M9hMFCSD+ao51qh4AO9SuMAYNv1dFuqTFP0fTJGZ9uIE1md1Gcy6sP
-    Gu4Im/oJu2smgsG47SdCFaov6IfT7eJU7LO6HoFrSlZ85HOX4lBZdHSlbcXw
-X-ME-Proxy: <xmx:A4GraqsT-7Y_-7Pi_lEQa9ygymHWBMqAV-q_z0fAlD7Xl_MrRPlTuw>
-    <xmx:A4Grav504RveMCKeSbDWGAtYZXxblOBcBDM643TN_YWDjAcwkhNOLA>
-    <xmx:A4Gralh0Ju2t_GxhEHoVaLRYJnMALJOoo5IhfOlSiHGY4nVCRFoeaw>
-    <xmx:A4GrahlpmG0IUBEpT0yA3bHiuuRcQz4vCKr1JaFc3Ko2r-rZJiVgpw>
-    <xmx:BYGrat3f9YzO4JP-AGGLy-4_Rp9eLrex7DBQngPe_b2S_5s8Oivy7jAX>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A4D9532A0084; Thu, 17 Sep 2026 01:56:16 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MNpbfkV9";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cx3pGQJk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789624603;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
+	b=MNpbfkV9rcuZoJyvzbeGrnMwU+4p3svFlwF/SaXuh/x0ofE1rtl7jpF8rhnSu2eO2f5YUZ
+	+ioa/vRrGxZ3s11Su7myEwPlwdXl1EiKSDx0qhHWwuJ2fgZIDxldTHwYvE9cXnj1KrVajY
+	JhCWVCJmOll1SHE2UYb6AVztIt0JYOc=
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-539-tQEIuf7iO2WD4lqwaJUiLQ-1; Thu, 17 Sep 2026 01:56:36 -0400
+X-MC-Unique: tQEIuf7iO2WD4lqwaJUiLQ-1
+X-Mimecast-MFC-AGG-ID: tQEIuf7iO2WD4lqwaJUiLQ_1789624591
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a6f4ba619so584381b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:56:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789624591; x=1790229391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
+        b=Cx3pGQJkdGIa0WKNWPCo9W40OW6agjBtqMbLXozguwAQOZ09O0lmRIyVSdEDlNHL61
+         ZM8vYafka1jfEe9RU8lAlpW6X5zs4fhBkFKT+B1r3RWI2buvR7kugGta6SodmOPn+b30
+         zgktbNNNPcN5Y41EL1l9jxilkITlDseD+tCcwxICKsVCiLvMxgmKESPFMi0uPwpHCkad
+         GjE0DLNr996/spZQUAA+eWZrA4uUhvU2oaW0/JAVafkGhew2plOmrivnz2g0+9i4dHEt
+         mgaXsLuqLcnCw4vlkkLzhoZMuriyTFgfbkb64yeUIG2PRP7uDgre8DdBHnpv2I8g16/A
+         Nn2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789624591; x=1790229391;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a5IexDE5RwVjuRt7QVn2TA0PVUO278ucUqo3lGJjXXA=;
+        b=tGjth647eCWEhFWCgmSMAcAIG2m8UyBBhYlrMHz6JoHT9rMke8mFMZL0dmFZMTgUdI
+         U9WsZHGQuK7PVzSf38L6zpZNRSFVlyadJucQ34ALvNBajeLC5/B/Qi8ihRD5+6iASRFj
+         EX4/oJ1zZKWUYFT0aPKIoPAICZuk+7UH2WdMUn4Q5cFJAF/qo6HrboBCtILpUNnllt+E
+         KlP9/F0zY38E6kg77dOZfjkGnDn5KHzUAuHQsKPbnaE+lsX62rLhhwdNWp82ROzRvOmv
+         ZF9p6XGsn47BWpVnesR4Xh1n5IkdyrX09xqtOEVwLUlOiFcO6FN1IpkEvNQeeY/Gc2jQ
+         pE2A==
+X-Forwarded-Encrypted: i=1; AKwUvBz4e48dZPyxMynD1PsUBZmq6Q1QtwfHJ+MEEmhHHSMFeNngQGV0MnzFe4cWEZ0QaQtAeLw2G3Wu6UPMHpE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiZQpREGbRoscEuXgKSkjTzenwAwdblZDkG/cbFbjE5zbB49tL
+	1raw+wYNtocusE7HZLsXh4jwCdinNeE+NGaH3ERXbghcLXLXh2hRi66Zwms/qgLybwb4nL162q8
+	3dXysoa1czlnETBvT45WrLnj8AaRo5zMPxl4o/lRSfXB+cZlFZSVQIWl20ug60rGntg==
+X-Gm-Gg: AYBFou3YJau5WQpBbe1Q/f5Z76h20iBcMFkF/6ZaeAL7np1T48DpWTAP6b/JQDsctob
+	d2UlLj8dQPJilIVi8ZHjM2p/wKKZyXf/fDEnm37sGAD0EtVrwBr5gfz/ytZzZ+XgusWjUPrZ9BF
+	C57VKC9FEnpYQ+2P24RxQ1NjAJc/NndtxHm8+hTLi0oNaQOKzHm9pBRkXQmjbdkccN7TjiKR9LG
+	ybH4o3Dul8q9/WTQsy3Pf8DQNP28ibgs7pDQhKvwZUU4jGx6FzZgJY+8Q/GjJ7iMIQgXAjpHL9D
+	Dcain916pTsrDU4f4jZk/A/bEK2exRTwzVlrjXWhIijioOUoR24PgiCK+HY4kCy8B0dxMGGNI2B
+	vyZRQiwNWqnzn3HxaiVgS0AAUIKjG6Qr7GKbBGol1zw==
+X-Received: by 2002:a05:6a00:bd0e:b0:845:ba94:a56 with SMTP id d2e1a72fcca58-872372c313emr11817049b3a.5.1789624590918;
+        Wed, 16 Sep 2026 22:56:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:bd0e:b0:845:ba94:a56 with SMTP id d2e1a72fcca58-872372c313emr11816999b3a.5.1789624590365;
+        Wed, 16 Sep 2026 22:56:30 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871febde2f7sm2262500b3a.6.2026.09.16.22.56.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 22:56:29 -0700 (PDT)
+Message-ID: <dc160a37-5413-4dc0-bda9-ce75c388f665@redhat.com>
+Date: Thu, 17 Sep 2026 15:56:24 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AA0MNwphKERR
-Date: Thu, 17 Sep 2026 07:55:56 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <5aedf90f-d30d-4f55-b066-dd8fdf3ff8f9@app.fastmail.com>
-In-Reply-To: <6fa4e1e3-c023-465c-9490-ce2f18ffaa91@igalia.com>
-References: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
- <95b693c0-ca51-4355-99ba-2b37a1ab2169@app.fastmail.com>
- <6fa4e1e3-c023-465c-9490-ce2f18ffaa91@igalia.com>
-Subject: Re: [PATCH v6 00/13] syscalls: Add a shared table for all archs
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
+ get_cpu_cacheinfo_id()
+To: Andre Przywara <andre.przywara@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+ James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>,
+ Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
+ Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260902143757.3469690-1-andre.przywara@arm.com>
+ <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
+ <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
+ <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <4f35abf6-6dac-4c60-9ece-c1af02a98c9c@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026, at 00:19, Andr=C3=A9 Almeida wrote:
-> Em 15/09/2026 04:45, Arnd Bergmann escreveu:
->> On Sat, Aug 29, 2026, at 01:19, Andr=C3=A9 Almeida wrote:
->
-> Thanks for testing! I believe I found a simple solution for this. I=20
-> modified syscall_o32.tbl and can confirm it triggers a rebuild now:
->
-> diff --git a/arch/mips/kernel/syscalls/Makefile=20
-> b/arch/mips/kernel/syscalls/Makefile
-> index aaa5443ea906..9e31d1ce5015 100644
-> --- a/arch/mips/kernel/syscalls/Makefile
-> +++ b/arch/mips/kernel/syscalls/Makefile
-> @@ -40,10 +40,10 @@ src_n32 :=3D $(src)/syscall_n.tbl
->   src_n64 :=3D $(src)/syscall_n.tbl
->   src_o32 :=3D $(src)/syscall_o32.tbl
->
-> -$(kapi)/unistd_nr_%.h: $(systbl_common) $(sysnr) FORCE
-> +$(kapi)/unistd_nr_%.h: $(systbl_common) $(src_%) $(sysnr) FORCE
->          $(call if_changed,sysnr)
->
-> -$(kapi)/syscall_table_%.h: $(systbl) $(systbl_common) FORCE
-> +$(kapi)/syscall_table_%.h: $(systbl) $(systbl_common) $(src_%) FORCE
->          $(call if_changed,systbl)
+On 9/16/26 11:34 PM, Andre Przywara wrote:
+> On 9/16/26 11:49, Ben Horgan wrote:
+>> On 07/09/2026 13:59, Ben Horgan wrote:
+>>> On 02/09/2026 15:37, Andre Przywara wrote:
+>>>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
+>>>> error value.
+>>>>
+>>>> Check the returned value for this error condition, before passing the
+>>>> value on to other code, which would hide the negative number in some high
+>>>> value in the unsigned type.
+>>>>
+>>>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
+>>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>>>
+>>> This looks good to me. Out of interest what led you to find this?
+>>>
+>>> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+>>
+>> I seem to have been a bit hasty here.
+>>
+>> Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
+>> and that the value coming from dt or acpi can provid other valid values that would after this patch
+>> be considered invalid.
+> 
+> Fair, and I can easily change the check to only check explicitly for -1.
+> 
+> But this is somewhat broken already, right? I mean the return type for the existing get_cpu_cacheinfo_id() has always been "int". It looks like this comes from the x86 world, where the cache IDs never get that large? I can have a deeper look, but my gut feeling is that this is practically irrelevant, since we barely see Aff3 at all, not to mention high values of it.
+> 
 
-I had tried the same thing already, but in my testing, it did
-not rebuild after changing the syscall_n.tbl file, only the=20
-syscall_o32.tbl file. Can you verify that your change rebuilds
-all nine files in the correct cases?
+I guess we also can exploit CACHE_ID flag in struct cacheinfo::attributes.
+struct cacheinfo::id is valid only when CACHE_ID flag is set. So we would
+introduce our own helper as below, where an extra return value to indicate
+the (returned) cached ID is valid or not.
 
->> The rt_sigtimedwait and ustat entries had a typo that caused a link
->> error, but I did not check if there were any additional mistakes that
->> caused incorrect output data without causing a link failure.
->>=20
->
-> Ops, my bad. I had another round comparing the tables, and I found=20
-> another case that needed a fix:
->
-> diff --git a/arch/mips/kernel/syscalls/syscall_n.tbl=20
-> b/arch/mips/kernel/syscalls/syscall_n.tbl
-> index e3d278f715b7..1882527053af 100644
-> --- a/arch/mips/kernel/syscalls/syscall_n.tbl
-> +++ b/arch/mips/kernel/syscalls/syscall_n.tbl
-> @@ -43,7 +43,7 @@
->   33     common  pause                           sys_pause
->   34     common  nanosleep                       sys_nanosleep=20
-> sys_nanosleep_time32
->   35     common  getitimer                       sys_getitimer=20
-> compat_sys_getitimer
-> -36     common  setitimer                       sys_setitimer=20
-> compat_setitimer
-> +36     common  setitimer                       sys_setitimer=20
-> compat_sys_setitimer
->   37     common  alarm                           sys_alarm
->   38     common  getpid                          sys_getpid
->   39     common  sendfile                        sys_sendfile64=20
-> compat_sys_sendfile
+In drivers/resctrl/mpam_internal.h:
 
-Looks good, thanks for checking this one.
+/* NULL is returned if struct cacheinfo::attributes don't have CACHE_ID set */
+static inline bool mpam_cpu_cache_id(int cpu, int level, unsigned int *id)
+{
+         struct cacheinfo *ci = get_cpu_cacheinfo_level(cpu, level);
 
-    Arnd
+         if (!ci)
+                 return false;
+         
+         if (id)
+                 *id = ci->id;
+         
+         return true;
+}
+
+Thanks,
+Gavin
+
