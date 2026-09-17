@@ -1,139 +1,91 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2862A26B742
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2F913C908;
+	Thu, 17 Sep 2026 01:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607833; cv=none; b=VvOwfLPoNGR5tDELn45fDnbG7jWACG0O1Lf9qFTpucEGtyRQB2ZKOIGgqCFhXL7UfUqsYmMq/wVo1fPUng9IXdYZo09clbtonmZaXhqPLv/OIfEWp3XjLlanlwLrieKaTo/eCculqqRko78fgMqjkfQLfvAVs1CTE0oOV5FPipE=
+	t=1789607903; cv=none; b=jf7Z8ubUaUDmHY0CeP2rp3zXkj9an47QeCCL3knJULn2W7NlzQnzGu/XkR8VU23bNlgCTwffiSsEwQYDodXKEq/DdfAsBZ+ozLs3DwuXOlJJFKPocgaWo5vOAe6BBu/eJ/jXKtlJiyscuC+RWbUx6REf82ifYDG38q1542jOrFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607833; c=relaxed/simple;
-	bh=3fICS9Csi+nlJQK43ytP+dop+wq8MBzte5BeTYJ0koo=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mDmS6qNciBzkq8f1+3A7Ad5KVma/39NnJ8LfAE/hh5G2iGhZn1IzgYk4dcQdBdYsYsxMxgIUD89LaTUXukc0nzCF6bVOYQxmWZpACvKHenApcuw8PWymzvCHdPoJgJBFAXLk2IO2Wffx1IQ5NeaZNlVx2xCiH5LWwHi3njwl2rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=NuucbmMw; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1789607903; c=relaxed/simple;
+	bh=EATQlpzzMnaDmW6yLWFAEafoD3+5QC45zmGxfrSmTME=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=LXCFcjvY0pZHbtTSjoOkxIHR9mwJBmPq7wll+42PqeCCsKL/0EGJKdnPM2x0TSJ5OVmwttPfyE784U5/sIqFF6DfATykR+kYWk1K9DZcPHCxP8alnObR3N7sWoHHZKoGs8+SPvcD0SA5ieurH4XBH8ee+RrhsmPQvY1tqlbhakU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Zdn0Wzrd; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="NuucbmMw"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb767cc7fso2151821cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:17:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789607831; x=1790212631; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+5zFJ55cgnEY1OXRIavKUOEIG38H34pgZ3VgFg2bzwY=;
-        b=NuucbmMwYB4rH4LdRz3rj+oUbzdl2pMAlrFl7js/lFG2OHxI06CjJtAFlNYeIWYgWc
-         LOvPOwuYYcIFYxsnkb96dz6qi6uhawdiYNSt7ClpcxkPrPFqFSy2oVhXRQnMCYQuFarC
-         y89aYxmRrxYboR06vMqzQU24Tm8b58j/qalTYBXmRhB6U95wFsU5NbwvWt2xt/FUlp3d
-         fiFbursIuDNdBjHockPrWaBPAZp9jUaJtkvXCYvepgUQyM/blMO4Il8/S2UBMVmebDXn
-         214o8+doZShoWzIX5WWWOTBtWUADeNz5c3TK/HQmyLdLaW96Y3nW7WnE4qNAt3th1kKR
-         xDZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789607831; x=1790212631;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+5zFJ55cgnEY1OXRIavKUOEIG38H34pgZ3VgFg2bzwY=;
-        b=BsSCbw6ML7cot5WMstKApzUuYN4pKPx4LzMYnfLBRbEl/hfWlLHEObuphQhRmaQlU1
-         r2akK+brmY/+/B9P6FCac+6+pZsmVeu7eczJ5hJDewcTifkbOZWZJsIIRDPvhY3vcc6O
-         /QaEq/7Yo70g6g24qeZQOb7iy9MvyBNExRQECAZbt/odTVp80j9sclYECVi0TRhW/Bwq
-         XjR4Ru14Cerkd2F50bykD97EdDLdQN/O1zO6Xj0SN8XYjD3mU4pSJV2xRNoNWsQBJT5e
-         /gCzaS15kC81bZZ7g/5ldbp1NYAtyay0XvAR49gjSWpDKJB2TfqEaXMaPsHJjj6NuYjq
-         MN4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzxXdeaGpk0VIKS9C+a3VW9gv2h5hEHG6B1PgIvNfU0wMYieCJ7sbtKwbsGYoF2ghTpD058wL3WORzjAWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mH4lKteTnL197pxBF4bRLgCV9GsHgh53Iv5qe3cpjMSA45We33
-	rkainq6N8NfAyPpnzRULn4ar1J2HzXUBZm3OQzSRs0rkA9PTLLyshA35eVgrBscGmBs=
-X-Gm-Gg: AYBFou3qmASX5bjEK/YpKchZtRUvrhiuyT2Tn1sld/z7N1Jz9HaUF7UBws21R7oJ0WU
-	9uRa5JD9WI8YZXURGrwSXom2mMvwdfCTBQX/LejYaLjTpt/9rjDFMHTEkapZt6tHRKj8Jhix6AY
-	yv0rjvhZoEA0GVgmqKOkLc4Jd9PkWsF79J9sZ3BPnU9h6uBSU0gHEu5jiiZjAKClnDxeb63TYoa
-	aEmLUSArFlBWEbjVM2XpUjznWn5i4vOI5Icfr8ScSJWVaDEtfNeDGJfVmqlo/dHdxe+y9v3a9sf
-	LTJHnO4+V11CeuzsjjsWbxYUpPAqi3X5lziPz07dTEVOL/A6tQaag8smctd5tIaeKE8knarcQ9M
-	XC3+QNwzwBtnfk9BdmhTBRwyCI4vQ6khwvoHWwaakdCWyF5lOWOvEWuz03wX48uUGGzdHxwtMV0
-	1M49smTvlYJeXJlu7LAE7CcRfvXq4BcZu1zTuC9i5kplP+c7Q7bR9PPvd/daddPAs5cunfT+Dfh
-	b6N1C6RgYM9Skx0T7IaN6qPVKsyf8UYlw7WGJ+EHlClIjZOmwwOJtfH
-X-Received: by 2002:a05:622a:1a93:b0:530:4249:e7a9 with SMTP id d75a77b69052e-5327ed78742mr91407171cf.13.1789607830859;
-        Wed, 16 Sep 2026 18:17:10 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326200b8d1sm35571491cf.12.2026.09.16.18.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 18:17:09 -0700 (PDT)
-Date: Thu, 17 Sep 2026 01:16:58 +0000
-Message-ID: <a51c15af0d61414aa780e7646b8e74cd.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
-	Andy Lutomirski <luto@kernel.org>, Josh Triplett <josh@joshtriplett.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
-	Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v3 06/13] bpf: Take a Tasks Trace reader in the trampoline glue
-In-Reply-To: <DLGFJY2ZSY5M.11K7HK2CLM6I9@gmail.com>
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com> <20260915-b4-rcu-tasks-preempt-qs-v3-6-0ad30c4c5ee7@toxicpanda.com> <DLGFJY2ZSY5M.11K7HK2CLM6I9@gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Zdn0Wzrd"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68H1IAlmC2880613, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789607890; bh=EATQlpzzMnaDmW6yLWFAEafoD3+5QC45zmGxfrSmTME=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Zdn0Wzrd64k/H6pD/JlO/Y1qa8Oyb4ME3tBUh60IBElqHrLS6VVc7tuxORc8QUI0J
+	 MlYLNAALwoxgydrIQvmrC4ArFXe5NheUsgvSyPqL0nSNE5w5I6eHKTtRF6xDwzxban
+	 eVfGotz8P0qfbEmM972Xjqso7cwsKQBzrxt3rBGvYPhbaWeTUU1W0NlpO1BBT/XmN+
+	 iJogq4Xin2Jow+OrxAauTVx0td34DQVS+UGM+rEHR2t453S0L1gNqdqXYNuCOZHCbR
+	 L9A4TE9dRdXP25gx9qjmSdoLpuB8VlOri3OjyUa4TUc14qfzoZdUBXqjimUpP4E4FL
+	 jAQa/l+ib78Eg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68H1IAlmC2880613
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 17 Sep 2026 09:18:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Thu, 17 Sep 2026 09:18:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Thu, 17 Sep 2026 09:18:10 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: "5mghybrid@khu.ac.kr" <5mghybrid@khu.ac.kr>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+CC: Jes Sorensen <Jes.Sorensen@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v2 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Topic: [PATCH rtw-next v2 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Index: AQHdQ1IxiIqtfPPoo0eEiuaP6H+hobbR/gMg
+Date: Thu, 17 Sep 2026 01:18:10 +0000
+Message-ID: <de086af71cc346d9ac8ca4e7bf8787e0@realtek.com>
+References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
+ <20260913-codex-rtw-rx-v2-v2-1-f09c964e0b96@khu.ac.kr>
+In-Reply-To: <20260913-codex-rtw-rx-v2-v2-1-f09c964e0b96@khu.ac.kr>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Wed, 16 Sep 2026 03:45:16 +0000, Alexei Starovoitov wrote:
-> On Tue Sep 15, 2026 at 1:17 PM UTC, Josef Bacik wrote:
-> >  	__acquires(RCU)
-> >  {
-> > +	bpf_tramp_read_lock_trace();
-> >  	rcu_read_lock_dont_migrate();
->
-> This is double increment. rcu_read_lock_dont_migrate() includes
-> rcu_read_lock_trace().
-
-Unless I'm looking at the wrong tree it doesn't, on Linus' master and on
-bpf-next it is
-
-	static __always_inline void rcu_read_lock_dont_migrate(void)
-	{
-		if (IS_ENABLED(CONFIG_PREEMPT_RCU))
-			migrate_disable();
-		rcu_read_lock();
-	}
-
-so plain RCU plus migrate_disable(), no Tasks Trace reader. That is why
-the non-sleepable glue needs one added here: on these architectures the
-trampoline image the glue returns into is only kept alive by Tasks RCU
-while the task is a rcu_read_lock_trace() reader, and rcu_read_lock()
-does not give us that.
-
-It is two counters for a non-sleepable prog on x86-64/arm64 though,
-rcu_read_lock()'s and trc_reader_nesting plus the SRCU-fast percpu one,
-if that is what you meant. I don't see a way around it short of not
-using Tasks Trace as the trampoline reader: the prog still needs plain
-RCU for everything it dereferences, and the image needs something that
-survives preemption. It is compiled out on every other configuration and
-nothing changes in the JITed image. If you would rather the reader be
-taken once around the whole image in the JIT instead of per prog in the
-glue (which would also let the fentry-only teardown stay a single grace
-period), I can do that for x86 and arm64, it is what v2 did with the
-private counter.
-
-Separately, Junseo's "bpf: keep trampoline progs alive until image
-release" also adds bpf_tramp_image::nr_progs; if that lands first I will
-just use it here.
-
-Thanks,
-
-Josef
+a2ltd29vc2VvayB2aWEgQjQgUmVsYXkgPGRldm51bGwrNW1naHlicmlkLmtodS5hYy5rckBrZXJu
+ZWwub3JnPiB3cm90ZToNCj4gRnJvbToga2ltd29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4N
+Cj4gDQo+IEEgZmFpbGVkIFJYIFVSQiBzdWJtaXNzaW9uIGNhbiBsZWFrIHRoZSBza2IgYWxsb2Nh
+dGVkIGZvciB0aGF0IGF0dGVtcHQuDQo+IHJ0bDh4eHh1X3N1Ym1pdF9yeF91cmIoKSBhbGxvY2F0
+ZXMgdGhlIGJ1ZmZlciBhbmQgc3RvcmVzIGl0IGluIHVyYi5jb250ZXh0LA0KPiBidXQgaWYgdXNi
+X3N1Ym1pdF91cmIoKSBmYWlscywgaXQgb25seSB1bmFuY2hvcnMgdGhlIFVSQi4gVGhlIFJYIHdv
+cmtlcg0KPiBxdWV1ZXMgRU5PTUVNL0VBR0FJTiBmYWlsdXJlcyBmb3IgcmV0cnkgd2l0aCB0aGF0
+IGJ1ZmZlciBzdGlsbCBhdHRhY2hlZC4NCj4gDQo+IE9uIHRoZSBuZXh0IGF0dGVtcHQsIHJ0bDh4
+eHh1X3N1Ym1pdF9yeF91cmIoKSBhbGxvY2F0ZXMgYW5vdGhlciBza2IgYW5kDQo+IG92ZXJ3cml0
+ZXMgdXJiLmNvbnRleHQsIGxvc2luZyB0aGUgcmVmZXJlbmNlIHRvIHRoZSBwcmV2aW91cyBidWZm
+ZXIuDQo+IFN0b3BwaW5nIGJlZm9yZSB0aGUgcmV0cnkgYWxzbyBsZWFrcyB0aGUgYnVmZmVyIGJl
+Y2F1c2UgcGVuZGluZy1yZXF1ZXN0DQo+IGNsZWFudXAgZnJlZXMgb25seSB0aGUgVVJCLg0KPiAN
+Cj4gRml4IHRoZSBsZWFrIGF0IHRoZSBzdWJtaXNzaW9uIGZhaWx1cmUgYnkgbWFraW5nIHJ0bDh4
+eHh1X3N1Ym1pdF9yeF91cmIoKQ0KPiByZXNwb25zaWJsZSBmb3IgYm90aCBhbGxvY2F0aW5nIHRo
+ZSBza2IgYW5kIHJlbGVhc2luZyBpdCB3aGVuIHN1Ym1pc3Npb24NCj4gZmFpbHMuIEZyZWUgdGhl
+IG5ld2x5IGFsbG9jYXRlZCBza2IgYW5kIGNsZWFyIHVyYi5jb250ZXh0IGJlZm9yZSByZXR1cm5p
+bmcNCj4gdGhlIGVycm9yLCBzbyBuZWl0aGVyIHJldHJ5IG5vciBzdG9wIHJlY2VpdmVzIGEgcGVu
+ZGluZyBVUkIgdGhhdCBzdGlsbA0KPiBvd25zIGEgYnVmZmVyLiBSZW1vdmUgdGhlIGNhbGxlci1z
+aWRlIHNrYiBjbGVhbnVwIGZyb20gc3RhcnQgYW5kIHRoZSBSWA0KPiB3b3JrZXI7IHRob3NlIGNh
+bGxlcnMgbm93IGhhbmRsZSBvbmx5IHdoZXRoZXIgdG8gcmV0cnkgb3IgcmVsZWFzZSB0aGUgVVJC
+Lg0KPiANCj4gRml4ZXM6IDI2ZjFmYWQyOWFkOSAoIk5ldyBkcml2ZXI6IHJ0bDh4eHh1IChtYWM4
+MDIxMSkiKQ0KPiBBc3Npc3RlZC1ieTogR1BULTYgQXN0cmENCj4gU2lnbmVkLW9mZi1ieToga2lt
+d29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4NCg0KQ2FuIHlvdSBnaXZlIHlvdXIgcy1vLWIg
+bW9yZSBmb3JtYWw/IExpa2UsIEtpbSBXb28tU2Vvaz8NCg0KUmV2aWV3ZWQtYnk6IFBpbmctS2Ug
+U2hpaCA8cGtzaGloQHJlYWx0ZWsuY29tPg0KDQoNCg==
