@@ -1,120 +1,114 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC74472071;
-	Thu, 17 Sep 2026 11:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5060E4D2ED8;
+	Thu, 17 Sep 2026 11:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645006; cv=none; b=jTzHT9O0sMRtIojBaPP1iAVR0ZlqqRXb1CF7AnL01xbMtHbkdnBTXZxu5d6Vq+IppI8H3rU5lnFmQpQYo/3vKPgYdb1aTZ06PiXtXQdoK34+ptdc0GF93xrZkSJcBvZi70nmg/jfhfgfVe9vXNzBoL2hXGVoAihjE2Wuqbgj8NY=
+	t=1789645032; cv=none; b=M8V6iGbOCiRVV3xI0mL7Pe85mjDEtknBfKVVrUYaVWW4NKf5IF7t0Y7ovRVoTk7Z5LHo9kqf9AYYJ9Ein0/+BO5kC89UE7Fo+lnzgCkJUbKeP3JjRl+gYRTbfzVgFe74ZNoGOXFr3oZegHqGXeG4eNS1zeFG1ZVijVywioooBoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645006; c=relaxed/simple;
-	bh=wnVF4EDSgyK6ufClPx8Vkw5CO0NpbiMXFip/7WIQvMQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Sf/szQWNbWCePnIU2oZjFhck3a5dsmLKG3Tqn/gzX6s3AroRPuaJVHjMXebSfXmfk5pDw+6c7Eu4W8c7TxVk+neig+ZwC72/DqUI5VXbX7MlF0OmWbaGHYKPwXsxjkw9d6IuCv1jCRFUlJdiIkwk80lhf+sK6dQUD5C7Fh5Ioto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=iza2NPC4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iAJHFcp2; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="iza2NPC4";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iAJHFcp2"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1B357EC00A5;
-	Thu, 17 Sep 2026 07:36:42 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 07:36:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789645001;
-	 x=1789731401; bh=ziPVSX4/3cQB748F1o2ZX4kZiZbJlTcRzcCjsKowjHY=; b=
-	iza2NPC4mZ3pvoRung8Ay5RDxQowHHRGJ8FMjy9RjiFmznc2qSOqK3X5x8hjvIQC
-	08lk3DplldfaPvbcPXpdlbj9NBx1S7GHdFG6E8IUG8VePjTxFaNVWP0ZvUCMSWaT
-	9LlF9d8/i1yzuA3L6bls5tCazF+8udhbjjny37NMiMvF5UZjKJtvPJBhbGTXRDGn
-	NtYUmtfXhYbaWfKv1NrJmP5iUiK6PP1uO5rBlHELetRzQsXYKaVhJXaVa3CpOOR8
-	gDTb0oyxgVtJixzQ4h/d5jAIBTxS7dWy2mY03Gn1wdcffNwybNxSFsjdU3HUv/6h
-	a/IY/dVrKmfN5xF9CQt8oA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789645001; x=
-	1789731401; bh=ziPVSX4/3cQB748F1o2ZX4kZiZbJlTcRzcCjsKowjHY=; b=i
-	AJHFcp2bT1RdX2RsTr3Em/95nrBinrE/zUotZ+m56zIU3EoCoKKaF2YfW4bbaZ5b
-	rn+hsMkKPsm+PilLGpqoHaxLWSIdiOcI8kwWHdnBTr6tm70mAgBRM6oDyp5AqVhi
-	hrQJP/hZxR6RrVwkblVG9/z1awQLOr+wYLhdtrWulk80/klpDO1GMotG5/43lHYy
-	tzgwSe6x3JaUXWhD4KeuuDQw/8kHwu40fihk15EVtM9MHxJ7nppLt2ahWphNMvlk
-	FbjWTpx91Ap4QTw4c9RhSO6Tc2+3ClXyHTXSEhE85kzBHKJgEbCLdjgx1RFpDlQB
-	ol1J/ZU9NpGVE0y8xYZQw==
-X-ME-Sender: <xms:xNCrasfu5B7Hea255n73ua47tOhvrlxRN_cpz4_CURxepqSmJ83iTA>
-    <xme:xNCrapBIA2NefeSyRahTczoDNojHDVd1RLIouRGb9bHqC6eyRBfcak2UiFUCm8Pt4
-    DAysVdriXfi_D-a-ZUd55ldw9f_qS4A0MWLW3JlupK3Etbwkj_hno47>
-X-ME-Proxy-Cause: dmFkZTEP9uUHDX9dZsqDF5MTd3hSYSGi/ykCJR/t5N/emZ29OdpuQijn00YYtcHqSDQ7/9
-    0xONnZPrHgy9cWTWveWtEeIkn5qf+Yagi1y1biJxGuyA32dNpBud8+vXZNzahA7iExbqG1
-    zSb7dBmgVbJQM9bo2JLtu989R6Y0th4217limY/Y10DHACHhlwL9cZdNKDEyhqvc7eO8XW
-    EFnyytYjFjQozY2uX/+OP6xfPWWQmORtuTMNbMsimmdmFDAM11D0qL+fyFP/5j/xEFTK7C
-    ladkSLzqO+YdIxYY7NPCiOEFYRtA4XuVjvHJMV5gQxgtb1iwgdezHMlKM3fKXWBPfRnZAm
-    t7BXZFzNmLoOOmcJkJL6Q1L0nGYyvzjbUo4Mkw1Wb5c9PczuLvwt8ZmTTl/fvRzMMJA9oH
-    HFTdEet+UOzXurbXKQ/94rGlt3P7Vx+2eVKSgEhqGtNYH3SItq7VqHVZUXvpwf2VZs8OGp
-    CsebyQxXqjFQ6H3zMVYkRmD0s3zFnKuKnYN+fAJJPWiROzc9PCx0ITAujnOwCjCNqoXjA0
-    j6Y4lVgxOC//w5K/vjRPPkAIs8zQ3kLWKtJn8V09bKHcoYmK2eO/krufwcy1WjWDY5bvay
-    96whB0gpO2AvBsUaPscxr5TYbpNUCz43Tc+jF0H+I3Hs25Xua8ZHVXfOn65Q
-X-ME-Proxy: <xmx:xtCraoCcf914H0Mia0HozzhJT1qdn0Uv65BhEulf8S9arBXx90Q9fg>
-    <xmx:xtCramZ11TIPFX7voeD2VMPInRyvr0GGRpIPQmjA1DMoqnGCJNu-JQ>
-    <xmx:xtCraom7L-o0kFca2nPOVUxP9nlxeqOBjwj0WAykh3_-vERmMdZpMA>
-    <xmx:xtCrajpaTQbzYFM-7NfTqUqCv7nS6t6tZQZxekH-SDgIhcWP8k6Lpg>
-    <xmx:ydCrag0iNIUSh52yf0SFfzjOxFkiRQe7WOROVCMNVSDmQ5fHGp327eQU>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2F3F132A0084; Thu, 17 Sep 2026 07:36:36 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789645032; c=relaxed/simple;
+	bh=Wcr4n+AA427t8C01cZCI3uB+FbcFP5+u2Cp3I9g9a+I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p1wghx7w2TomDkegUUp0nH4KDHmpqIRIyUa5lq6/ipziZrZH85hUVl4a9vUSC+WnZG/dl9TIz+D3zAvNFh6hbue0fwTZSAqdefSNM8vOo0HH+WYIH4jmgZVXU+IAoQoFLHXqNJgzPBZaK/Y0nT8gUoFEiEeFhia/YbjN7HZYhgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHKkPW0Ktqj7F_CA--.42390S2;
+	Thu, 17 Sep 2026 19:36:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.torgue@foss.st.com
+Cc: andrew+netdev@lunn.ch,
+	clabbe.montjoie@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	jernej.skrabec@gmail.com,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev,
+	mcoquelin.stm32@gmail.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	samuel@sholland.org,
+	wens@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: stmmac: dwmac-sun8i: Fix EPHY clock leak in get_ephy_nodes()
+Date: Thu, 17 Sep 2026 11:36:54 +0000
+Message-Id: <20260917113654.2149268-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AMQlh5H7f1Z-
-Date: Thu, 17 Sep 2026 13:36:15 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
-Cc: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- "Arnd Bergmann" <arnd@kernel.org>, "Paul Moore" <paul@paul-moore.com>,
- "James Morris" <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- "Tingmao Wang" <m@maowtm.org>, "Justin Suess" <utilityemal77@gmail.com>,
- =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <95e794f6-6ec4-4b3e-bfa8-7edae0ac898e@app.fastmail.com>
-In-Reply-To: <20260917104544.3trW9Jq1@linutronix.de>
-References: <20260915201036.3527935-1-arnd@kernel.org>
- <20260916084947.6QDy8KZQ@linutronix.de> <20260916.shai0tha3IPa@digikod.net>
- <57b5869d-7411-46e8-ade6-6d2a7fea02ac@app.fastmail.com>
- <20260917070915.Ix8TOn5Y@linutronix.de>
- <1192c2df-d39a-4d43-ad57-68b0167759f5@app.fastmail.com>
- <20260917104544.3trW9Jq1@linutronix.de>
-Subject: Re: [PATCH] [v2] landlock: work around gcc-16 -Wuninitialized warning
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHKkPW0Ktqj7F_CA--.42390S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF45tF4rKFW8AFW8Jry5Jwb_yoW8Aryfpr
+	Z7uFyYv34fArWSg3Z8tr1UZF98Zay2qF4rGr1ftan3Canayayjv34a9Fy5XFn8AF4rWa4a
+	qr48G3Z3C3WDArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZV
+	WrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxUVpBTUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq016GgAAsS
 
-On Thu, Sep 17, 2026, at 12:45, Sebastian Andrzej Siewior wrote:
-> On 2026-09-17 12:26:17 [+0200], Arnd Bergmann wrote:
->> I checked again and found that this is a config that did produce
->> the issue a few weeks ago, but doesn't today for me.
->> I found a different config from this week and managed to reproduce
->> the problem on today's linux-next using both gcc-16.2 and gcc-17.0
->> from yesterday, so there is still a related issue that is not
->> fixed in gcc, even though one at least one of them was fixed.
->
-> Confirmed. I see the warning on arm64 while x86-64 is quiet. The patch
-> fixes the issue.
->
-> You might need to update gcc bug tracker.
+get_ephy_nodes() stores the clock returned by of_clk_get() directly in
+gmac->ephy_clk before the reset control is obtained. When the reset
+lookup fails, the loop continues or returns without releasing that
+clock, and sun8i_dwmac_probe() then jumps to dwmac_remove, which does
+not call clk_put(). Keep the clock in a local variable and release it
+on the error paths.
 
-Correction: I noticed the failing gcc-17 binary was an old one,
-the current snapshot does not produce the warning any more.
-It does seem like the fix was not yet backported to older compilers,
-and seeing that the final gcc-13.x was released, we will
-continue to need the kernel workaround. I assume the compiler
-fix will eventually make its way into the other stable branches.
+Fixes: 634db83b8265 ("net: stmmac: dwmac-sun8i: Handle integrated/external MDIOs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-      Arnd
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 48c52eb96233..38d7e71de925 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -783,18 +783,22 @@ static int get_ephy_nodes(struct stmmac_priv *priv)
+ 
+ 	/* Seek for internal PHY */
+ 	for_each_child_of_node_scoped(mdio_internal, iphynode) {
+-		gmac->ephy_clk = of_clk_get(iphynode, 0);
+-		if (IS_ERR(gmac->ephy_clk))
++		struct clk *ephy_clk;
++
++		ephy_clk = of_clk_get(iphynode, 0);
++		if (IS_ERR(ephy_clk))
+ 			continue;
+ 		gmac->rst_ephy = of_reset_control_get_exclusive(iphynode, NULL);
+ 		if (IS_ERR(gmac->rst_ephy)) {
+ 			ret = PTR_ERR(gmac->rst_ephy);
++			clk_put(ephy_clk);
+ 			if (ret == -EPROBE_DEFER) {
+ 				of_node_put(mdio_internal);
+ 				return ret;
+ 			}
+ 			continue;
+ 		}
++		gmac->ephy_clk = ephy_clk;
+ 		dev_info(priv->device, "Found internal PHY node\n");
+ 		of_node_put(mdio_internal);
+ 		return 0;
+-- 
+2.34.1
+
