@@ -1,105 +1,154 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-156.mta0.migadu.com [91.218.175.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B137D100
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F331358378
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613783; cv=none; b=f8q3vxCwQccfgvtG3qVC8gbd8dm+pkop1WjRzCpE8uOWoCOBspqp2wegUO7hP+6/qSKwtK9GtkbT858xGoH8FmT51Mq5GioXjTneOnqtYF8ZHE1NWDY78ldNCo7bEYtdfVN2b9S2k30Gv72Em0jmrTBtnylxnHCzoNM5nqu8X9M=
+	t=1789613799; cv=none; b=T4ieTyC7IvpalHAd9X+crxSrtFGtQ+ca7W8wwU05cJYIm/VaV8EvnTMbh4IFrBBi1hMIjwbJkIXHHUOCRbAoDrltEhV502pKTTm0KeRWikR47GTJUquOM9J654A0Fi2fKKTE/f3hXneNpVAEOyJQQwuffYxBtYilvT5GG5YElAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613783; c=relaxed/simple;
-	bh=BFXNjlWuUDwnZdCulxR6Q5megzB2xqd+7tQTNv5iTEY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UJ1VCM220s885ATHV86Ao7nqKk8H0qkDcbQ/LEsLT+Pf3MdTU7/EAREoI11jZmw28soKXacCtKyzk+9WnEDFCEzdzb2tc9DvbgHoQVKLDQIXqbxn3hyWgAfLx2HSYnqFmsVnS38hDX6i+CRGppSp7jDOQVsZ19J2b9ymyPKNkM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OhVB0Cub; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789613799; c=relaxed/simple;
+	bh=FhTMxEbI+Hm7knFbU8ZHAQCuFqyobe/xTUTkOpgFmSQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G1hMf7iDLkha8VvhqAoI/RNbv88lJ4nv/bu68IyivgtnDI2Oc9naV9zYvZ1jUw/6aDvL0lCSr3aDkVpn6wK5mOflvsTNfLgf8YQQUVz1yC79Jk1a93QJeP5IQQHocrLOHuKJCJ3mrxc9QzptlqagvrrPxyfz6ox6Cc/vNz2P3tQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pNlthdPi; arc=none smtp.client-ip=91.218.175.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OhVB0Cub"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789613765; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=/Y6Uh+LvQ8rP9w60VuF19J58tyBySgKuwMUmFXQ+Wl4=;
-	b=OhVB0CubxpRG0Y2QQbwTMPsB0Odqwur3OCA/XBo3iCb7Ar81Z02dkCC1x2CIJNW2A7Xmg7FpmMIyf/FkjLeFRid+Db4rc175hgbLSmqveYtfU0Dln9cWvmpAKJ7lR+NesXiSI9AU4TYXmvMa7Ut/HYK3icWgv0suMNGpS8UPKXc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R291e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XB6NTcz_1789613759;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XB6NTcz_1789613759 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 10:56:02 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	baolu.lu@linux.intel.com,
-	jroedel@suse.de,
-	zong.li@sifive.com,
-	andrew.jones@oss.qualcomm.com,
-	anup@brainfault.org,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	kevin.tian@intel.com,
-	atish.patra@linux.dev,
-	skhawaja@google.com,
-	vasant.hegde@amd.com,
-	gsh517025@gmail.com,
-	joerg.roedel@amd.com
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org
-Subject: [RFC PATCH v4 10/10] iommu/riscv: Add IOTINVAL.GVMA after updating DDT/PDT entries
-Date: Thu, 17 Sep 2026 10:54:46 +0800
-Message-Id: <20260917025446.4070-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
-References: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pNlthdPi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FhTMxEbI+Hm7knFbU8ZHAQCuFqyobe/xTUTkOpgFmSQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789613787; v=1; x=1790218587;
+ b=pNlthdPiVvdHJYAlRecZ7TL1llP87xUxqNpIkLSE+6eepTAZvDqLnq5PKlZkTH6LZcF1SM3I
+ ChrLTF/oD/6ccEwe4oUKZD50ZM20VZEvybBS/OrRTQEy+QmylvyGM/vNhu0rztvE5hxXeM+IkVd
+ LGJjp5XtTQ1XxOh4Kx8qUWqI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id af011a6eef206229;
+	Thu, 17 Sep 2026 02:56:26 +0000
+X-Mizu-Trace-ID: af011a6eef206229
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 10:56:22 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Arnd Bergmann <arnd@arndb.de>, David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Ridong Chen <chenridong@xiaomi.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning,
+ again
+Message-ID: <aqtW1iW9WLJfl7hp@fedora>
+References: <20260916083456.4136132-1-arnd@kernel.org>
+ <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+ <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916163044.3daa3811d9b2bf7d958f1f27@linux-foundation.org>
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+On 09/16/26 at 04:30pm, Andrew Morton wrote:
+> On Wed, 16 Sep 2026 16:28:16 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+> 
+> > >
+> > > --- a/mm/vmscan.c
+> > > +++ b/mm/vmscan.c
+> > > @@ -3274,8 +3274,10 @@ struct ctrl_pos {
+> > >  	int gain;
+> > >  };
+> > >  
+> > > -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+> > > -			  int tier_max, int gain, struct ctrl_pos *pos)
+> > > +/* __noipa works around  gcc-16 warning for uninitizled use of pos->refaulted */
+> > > +static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type,
+> > > +				  int tier_min, int tier_max, int gain,
+> > > +				  struct ctrl_pos *pos)
+> > >  {
+> > >  	int i;
+> > >  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+> > 
+> > Current code has changed here somewhat, but I expect the error is still
+> > there.  I fixed that "uninitizled" while in there.  Altered patch is
+> > below.
+> 
+> 
+> Then the build blew up in unexpected ways.  gcc-15.2.0.
+> 
+> The failure looks like a legit min() signedness thing which has been
+> there quite a while.  I'm thinking that __noipa surfaced this for some
+> reason?
+> 
+>   CC      mm/vmscan.o
+> In file included from <command-line>:
+> mm/vmscan.c: In function 'read_ctrl_pos':
+> ././include/linux/compiler_types.h:702:45: error: call to '__compiletime_assert_798' declared with attribute error: min(tier, 4U - 1) signedness error
+>   702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>       |                                             ^
+> 
+> I'll queue a fix to switch this to min_t (yuck) for now.  It would of
+> course be better to use more appropriate types in this code.  Unless
+> tiers can be negative!
 
-Previously, only IOTINVAL.VMA was issued, which is insufficient for
-second-stage address translation consistency.
+I drafted one to change 'tier' as 'unsigned int'. While in mm-new this
+issue has gone away because Kairui's patch change 'tier' to 'tier_min'
+and 'tier_max' and remove min().
 
-Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+commit b447513eee2f ("mm/mglru: use explicit tier range in read_ctrl_pos()")
+
+I personally think your one line change is better for backporting to
+stable tree.
+
+From: Baoquan He <hebaoquan@kylinos.cn>
+Subject: [PATCH] mm/vmscan: fix min() signedness mismatch in read_ctrl_pos()
+
+read_ctrl_pos() declares 'tier' as int, but MAX_NR_TIERS is 4U, so
+min(tier, MAX_NR_TIERS - 1) compares int with unsigned int and min()
+reports a signedness error:
+
+  error: min(tier, 4U - 1) signedness error
+
+'tier' is never negative, it is a tier index or MAX_NR_TIERS to mean
+all tiers. Make it unsigned int, then min() compares two unsigned
+values and no min_t() needed.
+
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- drivers/iommu/riscv/iommu.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index 41b593def1f5..e848a7f97771 100644
---- a/drivers/iommu/riscv/iommu.c
-+++ b/drivers/iommu/riscv/iommu.c
-@@ -1153,12 +1153,15 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
- 		/*
- 		 * else: IOTINVAL.VMA with GV=1,AV=PSCV=0,and
- 		 * GSCID=DC.iohgatp.GSCID
--		 *
-+		 */
-+		riscv_iommu_cmd_send(iommu, &cmd);
-+		/*
- 		 * IOTINVAL.GVMA with GV=1,AV=0,and
- 		 * GSCID=DC.iohgatp.GSCID
--		 * TODO: For now, the Second-Stage feature have not yet been merged,
--		 * also issue IOTINVAL.GVMA once second-stage support is merged.
- 		 */
-+		riscv_iommu_cmd_inval_gvma(&cmd);
-+		riscv_iommu_cmd_inval_set_gscid(&cmd,
-+			FIELD_GET(RISCV_IOMMU_DC_IOHGATP_GSCID, iohgatp));
- 	}
- 	riscv_iommu_cmd_send(iommu, &cmd);
- }
--- 
-2.50.1
-
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..1844d92a6732 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3195,10 +3195,10 @@ struct ctrl_pos {
+ 	int gain;
+ };
+ 
+-static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+-			  struct ctrl_pos *pos)
++static void read_ctrl_pos(struct lruvec *lruvec, int type, unsigned int tier,
++			  int gain, struct ctrl_pos *pos)
+ {
+-	int i;
++	unsigned int i;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	int hist = lru_hist_from_seq(lrugen->min_seq[type]);
+ 
+@@ -4801,7 +4801,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 
+ static int get_tier_idx(struct lruvec *lruvec, int type)
+ {
+-	int tier;
++	unsigned int tier;
+ 	struct ctrl_pos sp, pv = {};
+ 
+ 	/*
