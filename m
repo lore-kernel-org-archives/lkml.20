@@ -1,41 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C6D377ED9;
-	Thu, 17 Sep 2026 04:05:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DA03BBFB4;
+	Thu, 17 Sep 2026 04:05:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617948; cv=none; b=GXYWR05Hd8rCmiDfnznA4sSvSmPkFDQlwbqyRT5nB1bKPxVHr4SQA3XlS/T0y5btubtYQuhrwxo823/C+DYk/VeYOAmUVPHA+VxyvqhVilVYjC8+kSj8kGp78WseQ5VkigM31laOpi5vQACLAbouDFFCChH2UnqbPpqhN+JMr7k=
+	t=1789617949; cv=none; b=RHSb/wCPbmLdMELF6hnRruHqBzWB8wDsN4snVbED9R0P6z9U+cRf9xGMZKD2mvdk9PgVJ+mYTbPqXCTgfxmuYt5bx2QQe7pi5H7EuS997K7GhUinr1gYWO7MwYNT8Yl35sqT79AkP/aIKKqnjRoU5rKhC3fJ4ssaroTU+XrDBtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617948; c=relaxed/simple;
-	bh=IEt5isfidqyU0pz+Ed5oabTsHpojfScQRA9L+2gb7C0=;
+	s=arc-20240116; t=1789617949; c=relaxed/simple;
+	bh=3waL/h3q7DZwEaKW66X8co0xhOUYc545eSn+/YM2mqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q1nUDX5dpXdXWRQE8Rt5BrzXhh6WM1vr8GDxlDjRrnBpMqe4Jr38iT6BjCnjPhPKdJR0aEeWXg9CKaZC44whncOOstgqLwpnuJo+ROJKYuUO96RBYPF0cBsNr1wwgVuWh24FL0l2TBwGpIn605biTI6Mc84jYt/ZW2zfw34ofCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNZUqJgP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uTpToZp9GMdSbKE5dmDEa3l4QdeY2cr+Zp8TcxdJ6oOjjzETT/3NYb4xm48IMkykfjczUc5xPfyOf1bkXQZgCarp6+FzJQORWdJ2uAqRgeonGyTyn/UG9ralo9TDBJhGNdSx5xzQGdf1N2oWq8Bz374PZmah94DQw2Yu9bAWSF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLy5Z/jH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNZUqJgP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3831F0089B;
-	Thu, 17 Sep 2026 04:05:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLy5Z/jH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE3B1F00898;
+	Thu, 17 Sep 2026 04:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789617946;
-	bh=xuBve8B9TeEtlHU83DYclAih0SjxWd5x7DEHnP/pWkE=;
+	s=k20260515; t=1789617947;
+	bh=PDYFtYaMI0AhnykvPFvkzlsotZmDoTCT5c0S8nqI1O4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iNZUqJgPOYgDNx/fChezmCGs2a+uNvx1Ni6wOwUmuP5HWXUOzOo3pFR/zhl3me4A2
-	 w8ifdGvr9eE7gjyPh9Hl3tCJ03IUQ8YG72a9xSDvcfYUzbdq2Nxe3/Ekn9JjWrPii7
-	 HHC3XJXFzy+EZ30TA5EyQx31wPManYFvk8t/O0sjhVamfESL+/VOAAs+yeuFur5ROe
-	 4G7M5v1Qq07QAUJXBnH1BlR054B1AqPC0xf6Jy6i7hlvH7zPE8LRcBIBjGWr/IG/aC
-	 MenqKNxe7TuRrfJnln6h0Jx3u05NIZsfnnnLQ1/f4C9V8FNCwNLhqMdo5Xje6kEq1x
-	 d7TzwqrwDsueQ==
+	b=NLy5Z/jH1+4dW/Yv3fuWWsqcwJbHuH4Bx4sq02CzSo0x9EY1cLKhIflZFhRTlu0/f
+	 AY6MfHFCp3fRe5oU1QbtD+4yHCYdzXR7W00DWNScRkznBrhufu+aID6C/Hp/cyRKTu
+	 C2vkv+AoIhr1n9Ghwr/tfXfb1mkR0Koi3velQZlIbMt77XNMtsJYF7l8U+fHvtOhLQ
+	 /gMfhtJ2GWYbc0CMeuZX0o12UAzebRzYCaZCyGNPDCt8Uc53PEPXOS1uLaPUYwFSou
+	 smGV+thHWKYurYjIQXR1DBmtSEC1Ce6M09b5AbNPCSuDguhyvkZxlWcgEZagI+W0uy
+	 4yYWJsNOPBJ2Q==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
 	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v2 04/10] mm/damon/core: set damon_ctx->walk_control_obsolete in damon_new_ctx()
-Date: Wed, 16 Sep 2026 21:05:30 -0700
-Message-ID: <20260917040537.107341-5-sj@kernel.org>
+Subject: [RFC PATCH v2 07/10] mm/damon/tests/core-kunit: test eligible_mem_bp commitment
+Date: Wed, 16 Sep 2026 21:05:33 -0700
+Message-ID: <20260917040537.107341-8-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260917040537.107341-1-sj@kernel.org>
 References: <20260917040537.107341-1-sj@kernel.org>
@@ -47,52 +51,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damos_walk() should be called for a damon_ctx context that has
-successfully started at least once.  That's because
-damon_ctx->walk_control_obsolete is initialized when kdamond starts.  If
-the rule is violated, an indefinite wait can happen.  There is no
-existing violation of the rule.
+There was a DAMOS quota goal commit bug [1] that doesn't update the nid
+field for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP metric goal.  Add a kunit
+test case for confirming nid commitment.
 
-damon_call() had a similar rule, and it turned out keeping the rule is
-not easy for damon_call()'s case.  Hence, commit 8023b5f47e09
-("mm/damon/core: set ctx->call_controls_obsolete in damon_new_ctx()")
-added the initialization in damon_new_ctx() and removed the rule.
-
-Keeping the rule for damos_walk() is relatively easier.  But having
-slightly different rules for similar functions could be confusing.
-Sashiko, for example, repeatedly asked questions about this.  Do the
-initialization of walk_control_obsolete in damon_new_ctx() for
-consistency.
-
-[1] https://lore.kernel.org/20260915011614.102342-1-sj@kernel.org
+[1] https://lore.kkernel.org/20260827045035.94611-1-sj@kernel.org
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ mm/damon/tests/core-kunit.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 7bbbd44379301..9120a1b707b24 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -939,6 +939,7 @@ struct damon_ctx *damon_new_ctx(void)
- 	INIT_LIST_HEAD(&ctx->schemes);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 82c542afaa60e..1244cfeae5e70 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -835,6 +835,9 @@ static void damos_test_commit_quota_goal_for(struct kunit *test,
+ 		KUNIT_EXPECT_EQ(test, dst->nid, src->nid);
+ 		KUNIT_EXPECT_EQ(test, dst->memcg_id, src->memcg_id);
+ 		break;
++	case DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP:
++		KUNIT_EXPECT_EQ(test, dst->nid, src->nid);
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -898,6 +901,13 @@ static void damos_test_commit_quota_goal(struct kunit *test)
+ 			.current_value = 345,
+ 			.last_psi_total = 567,
+ 			});
++	damos_test_commit_quota_goal_for(test, &dst,
++			&(struct damos_quota_goal){
++			.metric = DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP,
++			.target_value = 12,
++			.current_value = 345,
++			.nid = 6,
++			});
+ }
  
- 	ctx->call_controls_obsolete = true;
-+	ctx->walk_control_obsolete = true;
- 	prandom_seed_state(&ctx->rnd_state, get_random_u64());
- 
- 	return ctx;
-@@ -2308,10 +2309,6 @@ int damon_call(struct damon_ctx *ctx, struct damon_call_control *control)
-  * passed at least one &damos->apply_interval_us, kdamond marks the request as
-  * completed so that damos_walk() can wakeup and return.
-  *
-- * Note that this function should be called only after damon_start() with the
-- * @ctx has succeeded.  Otherwise, this function could fall into an indefinite
-- * wait.
-- *
-  * Return: 0 on success, negative error code otherwise.
-  */
- int damos_walk(struct damon_ctx *ctx, struct damos_walk_control *control)
+ static void damos_test_commit_quota_goals_for(struct kunit *test,
 -- 
 2.47.3
