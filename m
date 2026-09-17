@@ -1,96 +1,281 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B70D3563D4;
-	Thu, 17 Sep 2026 02:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612506; cv=none; b=WiRnMKlZJ8MDEu1/dMf+rAlM3kRwkSKRYU2XgmM5FAQl77iqcRSu5javFJGiyDuUlW4JB/8Csu/qnsNmzJ8mQEtGBPRqPMaVXVO6LKVJP9aRBj8JBFObtWY9T2brF10SZs/x6LD4wS3XgyZNCkwaZSxVNLR6jnl1sghcNlOjzHA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612506; c=relaxed/simple;
-	bh=PeUQ683RJlPFxP6+ceMxW3G2onzFxs4LNlFP+k5VM1o=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=an5sN7b8HNhPTHtP1gw3Ud+oSShA1lPdSZ+bgxfKhD5CTkEub4Bum75yADLG6WtI3E9+y7FOn/vMxd3dmeZx9ZU1tc51fIPhxC17t6xgkiYm9NnvJ7SsxmffUNm7vhqgg6trY7THuSRefXbVh8GmR7WrBqcVM/UvhetJoFdCUAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZySDM2DC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF8230E858
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789612602; cv=pass; b=TJsDgIIrE6Wce1ms3r8czvbdXd/0pEHZuC0BXUQXiJTWrMDRKiwfHNat4iM+be4aaIawEtViFgzKWhP6VqrVEwycxPB2z1oGVqofN6Udl0TJfh+6/RQWtA4ZsyPL1sS3Cz3cIU/0JMUmmz28ZO+ZTaSVTzPNjBNNnLTmTRoZI9s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789612602; c=relaxed/simple;
+	bh=KFoouBEoh+uW86XcJd+UZdk3TebKZrvQ+qmS9LC6dTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mTQOpbSaBVTzi/L9X1iiYGlFHna11TbJKt/qcmDKJkbG2O6AQlMnlk8Ts0wVZg2kCrzDYMVwkz0E3/oPC3tKzpo1NlkHlM5sZpsnozJ0tbzR+sXXwGv3Evf8/2ZovKo665yScIxIQ3+HMIW7VaP0oHfUVB+fzoqAPF/+rqMU7Ao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=allelesecurity.com; spf=pass smtp.mailfrom=allelesecurity.com; dkim=pass (1024-bit key) header.d=allelesecurity.com header.i=@allelesecurity.com header.b=O/GbSBHu; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=allelesecurity.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=allelesecurity.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZySDM2DC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB7B1F000FF;
-	Thu, 17 Sep 2026 02:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789612494;
-	bh=K/RNf0vR2eOQ/dq8Mg/3O5B5a2js4GnbWuI/ED+6udk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZySDM2DChW6Qq8GCYSPmYZt/Fri0cJcyI30q1ZPdGYms0FAGVnXVC9Fl4hkckA1Wu
-	 /FzETTgY86IMVWm/XHoLq2ZFZ1r0f1jCL0B+kASM3n4wFwqfvWv7AlrRfOPWjjZL6O
-	 ei52upwraOv+hEwRZ4AH3mhXOOrUbj9P1uWLv+i7uv77cb/q7/diFK5HaNa+ggq6Lw
-	 OoJBV8ArNeYjN/fRXkSAxXQ2RJ4scasCi65CGjRFJU7qnK0WElPIiKHl2/TkyPKt6y
-	 JO+oJuKSi87onhj8zoFBkz9p16NwkCeksQQIUAFtvLR+MezltiUr1SMlMLlDwxAoPn
-	 nBmgwjYGt66EQ==
-Date: Thu, 17 Sep 2026 03:34:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Bill Wendling <morbo@google.com>,
- David Lechner <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>,
- Joel Stanley <joel@jms.id.au>, Justin Stitt <justinstitt@google.com>,
- Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers
- <nick.desaulniers+lkml@gmail.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v6 5/6] iio: pressure: dps310: add hardware FIFO support
-Message-ID: <20260917033448.1b830f32@jic23-hlaptop>
-In-Reply-To: <20260916210223.15456-1-zoone.rupert@gmail.com>
-References: <20260824201203.396651-6-zoone.rupert@gmail.com>
-	<178813888151.2788519.16547013180884814648.b4-review@b4>
-	<20260906094622.433243-1-zoone.rupert@gmail.com>
-	<20260910033636.3a2ed151@jic23-hlaptop>
-	<20260916210223.15456-1-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=allelesecurity.com header.i=@allelesecurity.com header.b="O/GbSBHu"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so189904e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:36:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789612592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VZ2NivfE5csKTLYyMqCT1uyBBeR1EeAf7lm/lUwraCnqdv4zeDxTJjpQAbwnnXx9+X
+         7MN+N73l5TFsGUAAdhIRQWcARMetSgNfcgrY6R5RvtmIuDB+y6fVrsoimmzSq6YavmkT
+         kAHDLpTJ0R61NLgsyiRy5zNEnwuGkMzfrjfUztwDw2j7dZa7Fsmc/Xs7biT7op0OOfea
+         8fgXmSLZ2+S1Ab0i5P1XMjEsaT72dYaVfm3ZLhjpmRluC5nNArCGmGx0iEJ3aq4dFRNy
+         yiHBiZVVxe8uwxq2XiWJjpHVF6k7+/0SBTik0aKdgHXA4G8RpRK4U7z33xywu06b3iSP
+         DHfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tQ6AEV+sre/jT0COFkT5OPJwURRK0cuFSk9SrCDKSfg=;
+        fh=pZEf4Y83aAef9Uu7mxhJjsnKBaviE1ZGDu/E5/cuBUk=;
+        b=Gx4tG7d4ynniCQCYRMaq5GyDfYYTlkC0C4NkNkjh9o9hzr8EFFrBNgLDsa1bomFhNl
+         n1aiEHid2aM7B/s61jdUU1UBfAJt6oVnimqP6q6F0vwvcQTgUJN6SlSmcXYW2OUWlPhT
+         TBfeiAaSrx6VXlHuOSmdsDhtOVcL6tMXpbrTjp0VEkhWYmumIQV/jklvYJ+Rm5csZZ8p
+         gDIrFUJi7b8uwtWAnbMLSXq1TKX4gTq7+gsBEvB0XEOYIRq6sHR2cGz2emfbpEkf0lP3
+         MeNS+EKprr9aWN83wVEHMNEMlSHPwYWTW+4SYDd0dJDvgeIxDGnBwrmOzBd2C/ImmEAA
+         YjEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=allelesecurity.com; s=google; t=1789612592; x=1790217392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tQ6AEV+sre/jT0COFkT5OPJwURRK0cuFSk9SrCDKSfg=;
+        b=O/GbSBHuYvRoT0rEzzr6xK6x4y2vUtKeFbQ0clb0swF3u11QodQYaRw7Q3uZ75N/J4
+         D16/mWeRCI/sWa9ZtiHxuu864qzudheMRyH1OkRGorM8amnTEQU0hd2zf3e458Kej/sl
+         MsvsvQT0Gz9ZM9Ceq7wyrZqdddI6JnDH0lqe8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789612592; x=1790217392;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tQ6AEV+sre/jT0COFkT5OPJwURRK0cuFSk9SrCDKSfg=;
+        b=akssunp00BGrZkZVdfJT4w9ojmGpLCwOoONJlYW1/R4UXvLiAJnWexSabDmmbFQLo6
+         zVDB3Ows7zxKYGbvFmb3hmxqv3CmnVgC9Bl4qx4AWk4UYCyuWme+a+rEiqOHRUEJc+B8
+         rjdEUyiUizy+xQ1H9G0J3vgRYRutHEXw+4GitQk1EbrVgfsDhCFGfG/F75qdclU/Wlbk
+         5cSERxEAIU2U8gyH4B6nEt2aktYwjV35PJVt3+CnYakLYDUl79qAWsPnKZBl1aztf0BQ
+         Btgl4cIJibYqCvb5jxZaFkc3GbHzoys7AkaG5Df3VkFCIodm5btP5qXhxDRoEAuQehbe
+         SL1g==
+X-Forwarded-Encrypted: i=1; AKwUvBx1FjWc4gMWL6ZVUf2l3CU2VISxZhvvy3a3qsKP1wowDFSloOOlvZxjoY1rg9TqCSDGb/3jj7sd8jrRvZM=@vger.kernel.org
+X-Gm-Message-State: AFuF++npVGW05escEId7sdRr2RygqSuEwzJJ86dETkegbzjRyQePJBkG
+	5ERQcAcYdHO1M0xUm9GRel4Z2gf3TRh0Sk7UA4hgtqDypebxFwS+piIcnMYWdYS2v0MWyFtr8ts
+	rKXkFDwOmAicef6n264Q13QZNoT/rfJnmj4xBesc3sQ==
+X-Gm-Gg: AYBFou1b1DdQ3ulSlwrRE8Qiom6UkhZVfEig4CHlNnDIT7Bo25PNl6DAA6V2ZF5yJAb
+	sqhqc+deSF9NCiTIv/T5u8oYrFK3pTo1tu68tZMj/yNBz/5LQs494lrrOhCMLWxM2h1/i59VnN6
+	MgG6/mtgYfjZho+yRG1Q9w/kKMbytlCdHhDQA5H781e4/OwILV43E+KMlnIf4rRBIZy5I+9TeSH
+	OKy0P94d927XUUOHzARw3yOZTCbonCjaddBbMn0F+edA6Ac16g/AgL4ZnhNrPcqTtXf/gmkJrq5
+	IyjMDrkGiqF1E1ipABpS8ek64gi9/kE05cIuO9Gwo/vuMUrUetlqVLtR1w==
+X-Received: by 2002:a05:6122:2221:b0:5c8:36a6:ddd0 with SMTP id
+ 71dfb90a1353d-5c9a62c415fmr572925e0c.6.1789612591679; Wed, 16 Sep 2026
+ 19:36:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <CAPhRvkyFrKO3O=D9YZoWWVwykCZ1-fXkzA9NyaJ8aaX9b-pcXw@mail.gmail.com>
+In-Reply-To: <CAPhRvkyFrKO3O=D9YZoWWVwykCZ1-fXkzA9NyaJ8aaX9b-pcXw@mail.gmail.com>
+From: Anderson Nascimento <anderson@allelesecurity.com>
+Date: Wed, 16 Sep 2026 23:36:21 -0300
+X-Gm-Features: AcwNN1UOMBnnX6yxvdEoPMD6HzLNvtDDNUO0W_2RcWqzvqH3H9lFb8WsCFj9rFw
+Message-ID: <CAPhRvkxuibHUSuRcoz-X-i1mEvGb5huU+sd9D-8m6j-BaczLbw@mail.gmail.com>
+Subject: Re: [BUG] rxrpc: Client connection leak and BUG() call during kernel
+ IO thread exit
+To: netdev@vger.kernel.org
+Cc: dhowells@redhat.com, Marc Dionne <marc.dionne@auristor.com>, 
+	Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
+	Jeffrey Altman <jaltman@auristor.com>, Simon Horman <horms@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 17 Sep 2026 00:02:23 +0300
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+Hello all,
 
-> On Thu, 10 Sep 2026 03:36:36 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > Maybe we just set the minimum allowed watermark to something that
-> > in practice always has a temperature (or almost does)? It's kind
-> > of true that a watermark below that doesn't work because we end
-> > up dropping data.  
-> 
-> Two temperature entries are prs_rate / tmp_rate pressure entries apart, so
-> a batch needs one more than that before it is sure of catching one. The
-> FIFO holds 32, so there is no such watermark once the ratio reaches 32.
-> That is six of the 64 rate pairs, and one of them is pressure 32 Hz with
-> temperature 1 Hz, the case that found this, which would want 33.
+I have just triggered this again on the latest kernel on Fedora Server
+44. I used the same reproducer provided here a few months ago.
 
-Ah.  So if we did go this way we'd need to cap the ratio to be sure of getting
-them fast enough to always be available. Doing so doesn't sound too bad...
+[  316.661038] rxrpc: AF_RXRPC: Leaked client conn 0000000053e6ed6e {1}
+[  316.661063] ------------[ cut here ]------------
+[  316.661064] kernel BUG at net/rxrpc/conn_client.c:64!
+[  316.661080] Oops: invalid opcode: 0000 [#1] SMP NOPTI
+[  316.661087] CPU: 4 UID: 0 PID: 1351420 Comm: krxrpcio/7001 Not
+tainted 7.2.5-200.fc44.x86_64 #1 PREEMPT(lazy)
+[  316.661097] Hardware name: VMware, Inc. VMware Virtual
+Platform/440BX Desktop Reference Platform, BIOS 6.00 03/24/2025
+[  316.661106] RIP: 0010:rxrpc_purge_client_connections+0x55/0xa0 [rxrpc]
+[  316.661147] Code: 48 83 bf 28 01 00 00 00 74 22 31 c0 48 8d 74 24
+0c 48 89 cf 89 44 24 0c 48 89 0c 24 e8 24 d7 fa c1 48 85 c0 0f 85 0f
+ed 01 00 <0f> 0b 31 f6 48 89 cf 48 89 0c 24 e8 7b a3 fc c1 48 8b 0c 24
+85 c0
+[  316.661160] RSP: 0018:ffffc90007fdfdf8 EFLAGS: 00010246
+[  316.661167] RAX: 0000000000000000 RBX: ffff8880121cd000 RCX: 00000000000=
+00000
+[  316.661174] RDX: 0000000000000000 RSI: ffffc90007fdfda8 RDI: ffff8880121=
+cd120
+[  316.661180] RBP: ffff888022054000 R08: ffffc90007fdfdd8 R09: ffff8880121=
+cd128
+[  316.661186] R10: ffffc90007fdfda8 R11: 0000000000000000 R12: ffff8880111=
+92dc0
+[  316.661192] R13: ffff8880121cd000 R14: ffffc90007fdfe80 R15: ffffc90007f=
+dfe80
+[  316.661198] FS:  0000000000000000(0000) GS:ffff8880f546a000(0000)
+knlGS:0000000000000000
+[  316.661205] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  316.661210] CR2: 00007f2fccc551a0 CR3: 0000000003c2c004 CR4: 00000000007=
+706f0
+[  316.661236] PKRU: 55555554
+[  316.661241] Call Trace:
+[  316.661247]  <TASK>
+[  316.661251]  rxrpc_destroy_local+0xd5/0xf0 [rxrpc]
+[  316.661296]  rxrpc_io_thread+0x600/0x6e0 [rxrpc]
+[  316.661323]  ? __pfx_rxrpc_io_thread+0x10/0x10 [rxrpc]
+[  316.661349]  kthread+0xe4/0x120
+[  316.661356]  ? __pfx_kthread+0x10/0x10
+[  316.661362]  ret_from_fork+0x1a1/0x270
+[  316.661367]  ? __pfx_kthread+0x10/0x10
+[  316.661372]  ret_from_fork_asm+0x1a/0x30
+[  316.661379]  </TASK>
+[  316.661383] Modules linked in: rxrpc ip6_udp_tunnel libdes
+udp_tunnel krb5 nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib
+nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject sunrpc nft_ct
+nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
+nf_tables qrtr rfkill binfmt_misc intel_rapl_msr intel_rapl_common
+intel_uncore_frequency_common intel_pmc_core pmt_telemetry
+pmt_discovery pmt_class intel_pmc_ssram_telemetry
+intel_pmc_pwrm_telemetry intel_vsec rapl vmw_balloon vmxnet3 i2c_piix4
+i2c_smbus joydev dm_multipath zram lz4hc_compress
+vmw_vsock_vmci_transport vsock vmw_vmci xfs nvme nvme_core vmwgfx
+nvme_keyring nvme_auth drm_ttm_helper ttm ata_generic pata_acpi
+serio_raw fuse scsi_dh_alua scsi_dh_rdac i2c_dev scsi_dh_emc
+[  316.661476] ---[ end trace 0000000000000000 ]---
+[  316.661493] RIP: 0010:rxrpc_purge_client_connections+0x55/0xa0 [rxrpc]
+[  316.661534] Code: 48 83 bf 28 01 00 00 00 74 22 31 c0 48 8d 74 24
+0c 48 89 cf 89 44 24 0c 48 89 0c 24 e8 24 d7 fa c1 48 85 c0 0f 85 0f
+ed 01 00 <0f> 0b 31 f6 48 89 cf 48 89 0c 24 e8 7b a3 fc c1 48 8b 0c 24
+85 c0
+[  316.661548] RSP: 0018:ffffc90007fdfdf8 EFLAGS: 00010246
+[  316.661556] RAX: 0000000000000000 RBX: ffff8880121cd000 RCX: 00000000000=
+00000
+[  316.661565] RDX: 0000000000000000 RSI: ffffc90007fdfda8 RDI: ffff8880121=
+cd120
+[  316.661573] RBP: ffff888022054000 R08: ffffc90007fdfdd8 R09: ffff8880121=
+cd128
+[  316.661579] R10: ffffc90007fdfda8 R11: 0000000000000000 R12: ffff8880111=
+92dc0
+[  316.661829] R13: ffff8880121cd000 R14: ffffc90007fdfe80 R15: ffffc90007f=
+dfe80
+[  316.662027] FS:  0000000000000000(0000) GS:ffff8880f546a000(0000)
+knlGS:0000000000000000
+[  316.662208] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  316.662387] CR2: 00007f2fccc551a0 CR3: 0000000003c2c004 CR4: 00000000007=
+706f0
+[  316.662618] PKRU: 55555554
 
-> 
-> So I will hold them locally instead, which is what you asked for first. The
-> drain timer runs at half the fill time, so nothing overflows while the
-> driver waits, and the hold lasts only until the first temperature of the
-> session, bounded by the rate ratio at 128 entries. The first push still
-> waits for that temperature, but only once per enable, and no pressure entry
-> is dropped. I will re-run the zero output regression against it.
+On Wed, Apr 1, 2026 at 1:19=E2=80=AFAM Anderson Nascimento
+<anderson@allelesecurity.com> wrote:
+>
+> Hello,
+>
+> I have identified a reliable way to trigger a BUG() in the RxRPC
+> protocol at rxrpc_destroy_client_conn_ids(). This occurs because the
+> kernel IO thread can exit while there are still active connection
+> objects registered in the local IDR (local->conn_ids).
+>
+> I did a quick analysis and the result is the following. When the IO
+> thread exits, it calls rxrpc_destroy_local(), which in turn calls
+> rxrpc_clean_up_local_conns(). However, that function only iterates
+> over the local->idle_client_conns list. If a connection was recently
+> created by rxrpc_connect_client_calls() (via
+> rxrpc_alloc_client_connection()) but has not yet been deactivated or
+> moved to the idle list, it is completely missed during this cleanup
+> phase.
+>
+> Because the connection remains in the IDR, the subsequent call to
+> rxrpc_destroy_client_conn_ids() finds the entry, logs an "AF_RXRPC:
+> Leaked client conn" error, and hits a BUG().
+>
+> I can reliably reproduce this using a client and server where the
+> server calls close() immediately after sendmsg().
+>
+> My suggestion for a fix is to update rxrpc_clean_up_local_conns() to
+> check the local IDR instead of just the idle list, ensuring all
+> allocated connections are reaped during teardown. I don't have the
+> time to properly test a patch or verify if the teardown for a
+> brand-new conn differs significantly from an idle one, so I wanted to
+> report my quick analysis to the maintainers. I tested on Fedora 43 on
+> kernel 6.18.
+>
+> 420 void rxrpc_destroy_local(struct rxrpc_local *local)
+> 421 {
+> ...
+> 433         rxrpc_clean_up_local_conns(local);
+> ...
+> 451         rxrpc_purge_client_connections(local);
+> ...
+> 453 }
+>
+> 813 void rxrpc_clean_up_local_conns(struct rxrpc_local *local)
+> 814 {
+> 815         struct rxrpc_connection *conn;
+> ...
+> 823         while ((conn =3D list_first_entry_or_null(&local->idle_client=
+_conns,
+> 824                                                 struct
+> rxrpc_connection, cache_link))) {
+> 825                 list_del_init(&conn->cache_link);
+> 826                 atomic_dec(&conn->active);
+> 827                 trace_rxrpc_client(conn, -1, rxrpc_client_discard);
+> 828                 rxrpc_unbundle_conn(conn);
+> 829                 rxrpc_put_connection(conn, rxrpc_conn_put_local_dead)=
+;
+> 830         }
+> ...
+> 833 }
+>
+> 54 static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
+> 55 {
+> 56         struct rxrpc_connection *conn;
+> 57         int id;
+> 58
+> 59         if (!idr_is_empty(&local->conn_ids)) {
+> 60                 idr_for_each_entry(&local->conn_ids, conn, id) {
+> 61                         pr_err("AF_RXRPC: Leaked client conn %p {%d}\n=
+",
+> 62                                conn, refcount_read(&conn->ref));
+> 63                 }
+> 64                 BUG();
+> 65         }
+> 66
+> 67         idr_destroy(&local->conn_ids);
+> 68 }
+>
+> [88656.300130] rxrpc: AF_RXRPC: Leaked client conn 00000000cf1d5a14 {1}
+> [88656.300702] ------------[ cut here ]------------
+> [88656.301099] kernel BUG at net/rxrpc/conn_client.c:64!
+> [88656.301442] Oops: invalid opcode: 0000 [#17] SMP NOPTI
+> [88656.301765] CPU: 0 UID: 0 PID: 3989526 Comm: krxrpcio/7001 Tainted:
+> G      D W           6.18.13-200.fc43.x86_64 #1 PREEMPT(lazy)
+> [88656.302039] Tainted: [D]=3DDIE, [W]=3DWARN
+> [88656.302323] Hardware name: VMware, Inc. VMware Virtual
+> Platform/440BX Desktop Reference Platform, BIOS 6.00 11/12/2020
+> [88656.302599] RIP: 0010:rxrpc_purge_client_connections+0x58/0xa0 [rxrpc]
+>
+> Regards,
+>
+> --
+> Anderson Nascimento
+> Allele Security Intelligence
+> https://www.allelesecurity.com
 
-Ok. So we get some lag if that ratio is big. Not ideal but not too bad.
-> 
-> > Validity flag in the data we push to userspace?  That never works because
-> > we don't have a universal encoding for one.  
-> 
-> I meant driver state, not a channel. Moot now.
-> 
-> Rupesh
-
-Jonathan
 
 
+--=20
+Anderson Nascimento
+Allele Security Intelligence
+https://www.allelesecurity.com
