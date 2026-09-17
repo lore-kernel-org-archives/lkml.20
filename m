@@ -1,381 +1,199 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C38D4BB815
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FD0477E4B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639538; cv=none; b=eVG08w91fpYxZQYSzbgAYBRakYn9LeVF0Uwm9p4NX45YP/faFkrR/fQciIZhBw2H4qiaKOPcdF9lu/mgltzfiPRPGgGbulPBiW/cerOTVdzI1Y1p6AgRh5YLCgUsajEh2ayCKFy206N7qKn1BiIodRkFGLab1woLSr7jpjBn1OQ=
+	t=1789639539; cv=none; b=iaIWZykyF/c9YaC0XPskrJ72FgmxWFM3IeKdgCssIT+gMfD7YosHTvFsBfyn4C9AwowXF0iOOdivM7vPPsrdJmwA0P0NuAB6S7xmn2fMtNXE22LQdp7tu96GiZmhFtpFoyRdfhNjN0wM030kdadbZBLWMtbz6QU83PggrRaek4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639538; c=relaxed/simple;
-	bh=/ZcoGQU7+HpSLRmFfBGWL0azsSfivXUGNCssuK3UNyU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YN+hZHuSDaMYbk+1US0I3Lx9C/dsm+wAWnymqbHVyLVTpPuVBrRE/yoU/vKDfvCVPcbYrWjNcnd+i54Z3XqDA9EIiyg0YQnjzbLGI1tWdsalKnG01ULVB3TDVaAc5K5YzYhGGNJWQGStfGg2Zdx2LHZoPLltQhRVttzZR7rqV1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iF0sJQ6l; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1789639539; c=relaxed/simple;
+	bh=/tZHzVllun6wYA77y8xQTAiwknDz8pgNlCRFsI3jAaQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uzBRZaE1OKqQqT5Lm9Vt+6N7lp7HalXujoh/4yEWxX7h04jXt/b1F+HpdAO8SrS1awX8YSsibFTJLqfKW8DA0P/RIscpk32ENsCcpHt8mNiQvcGst8r08jIXoYPkjNFbjHcPnz8u0YOUs6DGKxOz2fvB7BAKo+47yyaKogmpf48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YFqVzS95; arc=none smtp.client-ip=91.218.175.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iF0sJQ6l"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso573257a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 03:05:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1789639532; x=1790244332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E/4WSHuLHoAStKDHNH/RtkvNpdrgiXRCApKgg1BxoNE=;
-        b=iF0sJQ6leoPaWGdLghiLpHAyvGIcPGwvlESAHJ/LCseEe2ke3L3fnpg34xxig8SgAz
-         5fBso/JdXmiWqJFPBrn1deh4H7Kk13P45HuhqvipD8MHdF0apOVtOJs+n+3q1QsOxMSr
-         MGASUS3AE1klrpbBI3ewLwHxxCUikFt8mRtmeqvQ1IFbbVTBtK/GXc6FtK9lS7UMszGV
-         5aPh9NncgxuToPmKl6UqrbbEWbtstCWrZowzrsjRShJmTXWBhUUSwVwZyeCS1/fKx0WR
-         Qc1vq2IGwx4fYFRWZw9/2dGhyfiGSSDPPKai7Tu42IvZ+ZeE3hyyvyQRRvctVGKdG0Kj
-         lwMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789639532; x=1790244332;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E/4WSHuLHoAStKDHNH/RtkvNpdrgiXRCApKgg1BxoNE=;
-        b=S1S3Rioe/4EUav7NEfRWtX1JZ9a4wJPhW9Ln/31VDMs+8Q/xyP+KoTDs9meYPG7sJ0
-         7Yitd7IanRbv4lQcv511NUbx7yDQKU6Hyiz+fqJ2FCKFj/j6MLPW8Xw/iVFGDD91Vk6+
-         vVWYK+bTbpljE8kVbqBiUmfqq4noNovsq04N6iuuQIpai3L7NwxsUv7Gl/Yrzz2+zBXB
-         vo0l+zTV/N38YMLOwutbyykHdC7G+fdAebeBdwKJMEkaeREf+NMtcJpqiTKxG86/UEQ9
-         kNjzaXtN38/+O66KId+/76CfvS+JA6vqYaMdhu4XHdI3tKhG337C488oTaxkJGxOv7QY
-         GbTQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPCDsDAuFzbBkrCvPdo6MwYEZU8I9Bf3vVYrbozFwgutTHgymUTqIgyn2AZYoBT+8VdOpkn6Va3UJNWhM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsXFLFwWOZ8Qlpq5twt6azqQ+MmEAjr95s3wA72Y+5faeBy4aP
-	SaAprHN7b1grniiHsPymT85e3C08mcSds3ozb5+0S1sFSPco+Clzs984aCOkWXSApmPW
-X-Gm-Gg: AYBFou0qe02eyjQQkd+pUDft8wDgySv05OYUjI9X699vNbz2k6TWBya3rHfZOcCZ/eS
-	unwkY+AxBB/DDoKTzUvCXDmX1YEidFPin/IMPPiqGcIxSfI7XpZigXq83/bT2oYBxFOdR8jXxoG
-	JF8Sbf6HadYaFZqh034DF357LEYopJiAmGnCSy60CKaQRV9E2n1hX6URDiMYWD6Vrcgrb5Mrp8p
-	p0MDuhwhpB1i+COHkxTuVsAd953rwkc5ByBTM6weF5gEkf4mtQOSAToJ6VM3a7zWJHX3qgN4mKo
-	JmeudhwOFbW9qa47268EhFsTFJyO4z4b8XCTFcgtVakAy6qDrpPalxxQNaKZjlOyPIY2yRqgNd3
-	KVkWNJtc896qh7gBYyPhQyLLUiNbD2g/sEygi7Egm/lhhSmERhhaLpDgOdm3fXxRIt49Q4cpROi
-	o1ZFqYa4a3hP+W7rMXTPlmknNvXOys8C8IiLu8SNe/XOZ6Sn0UJcv6BT46CA1595fAZTa9Wrag0
-	g/3LvO5Agu8PNSYOACHjTecMBm0GCFIyfq0EXHH
-X-Received: by 2002:a17:90b:2f47:b0:39e:2f57:67c7 with SMTP id 98e67ed59e1d1-39e2f5848damr9551873a91.3.1789639531771;
-        Thu, 17 Sep 2026 03:05:31 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e390c2984sm1019445a91.0.2026.09.17.03.05.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 03:05:30 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: dhowells@redhat.com,
-	marc.dionne@auristor.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	linux-afs@lists.infradead.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zihanx@nebusec.ai,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH net v6 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Date: Thu, 17 Sep 2026 10:05:09 +0000
-Message-ID: <fd9449f2d394828609e81f6178608ea91344bbfd.1789608558.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1789608557.git.zihanx@nebusec.ai>
-References: <cover.1789608557.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YFqVzS95"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/tZHzVllun6wYA77y8xQTAiwknDz8pgNlCRFsI3jAaQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789639532; v=1; x=1790244332;
+ b=YFqVzS95tIUZvKGur1qzM7qmgLoKfQrIwtXyQlgsXsTWGpvgxTYkIPLHzxu76FY+NAAaERQ5
+ VNvYSIpfdlkCet+3+fnNRLfudlTahYkfFGH2rTpCaYV7T3yRzvxMId9VRC3/F3OcNEETw5AM5Zn
+ iQ1KJXQrwQyPacXEXD7P4Ng0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 5049fdc33711d8e9;
+	Thu, 17 Sep 2026 10:05:06 +0000
+X-Mizu-Trace-ID: 5049fdc33711d8e9
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 18:04:57 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org, Baoquan He <hebaoquan@kylinos.cn>,
+	kunwu.chan@gmail.com
+Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
+Message-ID: <aqu7Sep9nHUS2DmR@fedora>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916101929.149106-1-hebaoquan@kylinos.cn>
 
-rxrpc_encap_rcv() queues encapsulated UDP packets on the RxRPC local
-queue without charging them to the UDP socket. If the I/O thread cannot
-keep up, the queue can therefore grow without bound.
+On 09/16/26 at 06:19pm, Baoquan He wrote:
 
-Charge each packet against the tunnel socket before queueing it, while
-holding sk_receive_queue.lock, and drop it when socket rmem or protocol
-memory accounting fails. Size the socket from the advertised RxRPC
-receive window, retain headroom for control and error packets, and
-refresh the cap when the window grows without shrinking an existing
-buffer. The lock also serializes sk_forward_alloc updates with the
-destructor path.
+For Sashiko complaints: 
 
-Orphan charged PACKET skbs under the same lock when the I/O thread
-dequeues them. Keep the existing destructor for error skbs, clear
-skb->dev, drop the dst, and account drops with the corresponding UDP
-statistics and reasons.
+============================================================                                            
+Subject: Re: [PATCH v3 01/14] mm: xswap support for zswap                                               
+                                                                                                        
+│ xswap entries are added to the zswap writeback LRU but                                                
+│ zswap_writeback_entry() rejects them with -EINVAL, so shrink_memcg_cb()                               
+│ retries and zswap_reject_reclaim_fail keeps climbing.                                                 
 
-Since skb_set_owner_r() does not hold a socket reference, clear
-sk_user_data under RCU and release the socket only after purging the
-local queues.
+Right. An xswap entry has no backing store, so it should not be a
+writeback candidate. v4 no longer adds it to the zswap writeback LRU;
+zswap_lru_del() tolerates that (__list_lru_del() checks list_empty()
+first, and entry->lru is initialized before free). The shrinker then
+neither scans nor counts these entries. 
 
-Fixes: 446b3e14525b ("rxrpc: Move packet reception processing into I/O thread")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v6:
-  - refresh the tunnel socket receive-buffer cap when
-    rxrpc_rx_window_size increases, without shrinking an existing
-    socket
-  - distinguish socket receive-buffer exhaustion from protocol memory
-    accounting failures in the drop reason and UDP statistics
-  - cap the window-derived value at sysctl_rmem_max and only grow an
-    existing sk_rcvbuf; avoid the unexported sysctl_rmem_default
-  - v5 Link: https://lore.kernel.org/all/cover.1789273347.git.zihanx@nebusec.ai/
-changes in v5:
-  - size the tunnel sk_rcvbuf to one advertised window of ordinary
-    DATA (RXRPC_JUMBO(1)), doubled for typical 2-4KiB skb truesize,
-    plus 25% for ACKs/ICMP, capped by sysctl_rmem_max
-  - leave ICMP/error-queue headroom in the DATA rmem check
-  - count UDP RCVBUFERRORS/INERRORS and drop with
-    SKB_DROP_REASON_SOCKET_RCVBUFF
-  - drop the dst instead of skb_dst_force(); keep skb->dev = NULL
-  - refresh the cover crash log from the latest unfixed net/main
-    run; record the panic as a sender-path OOM, not an I/O-thread
-    allocation
-  - note that sk_rcvbuf is sized at socket open and is not updated
-    if rxrpc_rx_window_size later changes
-  - v4 Link: https://lore.kernel.org/all/cover.1788878590.git.zihanx@nebusec.ai/
-changes in v4:
-  - serialise UDP rmem charge/uncharge with sk->sk_receive_queue.lock
-  - use spin_lock() in encap_rcv() (BH) and spin_lock_bh() around
-    skb_orphan() in the I/O thread
-  - do not enqueue encapsulated skbs on the UDP receive queue
-  - orphan only PACKET skbs charged in encap_rcv(); leave error-queue
-    skb ownership alone
-  - restore the unprivileged namespace reproducer and document the
-    AFS callback listener
-  - clarify in the cover that the recorded panic is a downstream OOM
-    after extra I/O-thread contention, not the unprivileged flood
-    alone
-  - include the full OOM Mem-Info in the cover crash log
-  - v3 Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
-changes in v3:
-  - orphan the skb when the I/O thread dequeues it from the local
-    queue so UDP rmem ownership does not follow packets onto
-    call/conn queues
-  - mention both io_thread.c and local_object.c in the cover opening
-  - distinguish the unprivileged flood from extra steps used to
-    record the panic
-  - attribute the OOM to skbuff growth rather than incoming-call
-    setup
-  - describe the recorded panic as a downstream OOM after I/O-thread
-    contention, not as an allocation at the encap_rcv enqueue site
-  - v2 Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
-changes in v2:
-  - switch the drop path from atomic_inc(&udp_sk->sk_drops) to
-    sk_drops_inc(udp_sk)
-  - retarget Fixes to 446b3e14525b, the first boundary where encap_rcv
-    queued the skb onto local->rx_queue for later I/O-thread consumption
-  - rebase onto current net/main
-  - refresh the cover crash log from an unfixed 7.3.0-rc1+ net/main run
-    and include the decoded stack
-  - explain in the cover why packetdrill was not used
-  - document the actual flood command in the cover
-  - v1 Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
----
- net/rxrpc/ar-internal.h  |  1 +
- net/rxrpc/io_thread.c    | 77 ++++++++++++++++++++++++++++++++++++++--
- net/rxrpc/local_object.c | 24 +++++++++++--
- 3 files changed, 98 insertions(+), 4 deletions(-)
+│ swap_vma_readahead() does not skip xswap, unlike swap_cluster_readahead().
+                                                                                                        
+Right, I only added the check to the cluster path. v4 adds the same                                    
+SWP_XSWAP check to swap_vma_readahead().                                                                
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 04/14] mm, swap: add xswap cluster grow via VM_SPARSE vmalloc                    
+                                                                                                        
+│ Returning -EBUSY from vm_area_map_pages() skips vm_area_unmap_pages(),                                
+│ then the pages are freed while their PTEs are still populated.                                        
+                                                                                                        
+This path is unreachable. vmap_pages_pte_range() does return -EBUSY, but                               
+vmap_pages_pmd_range() and vmap_pages_pud_range() normalize the return to                               
+-ENOMEM, so vm_area_map_pages() never returns -EBUSY. A collision takes                                
+the -ENOMEM path, which calls vm_area_unmap_pages() before freeing the                                  
+pages, so no freed page is left mapped.                                                                 
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 05/14] mm, swap: add sysfs create interface for xswap                            
+                                                                                                        
+│ maxpages smaller than SWAPFILE_CLUSTER skips the rounddown(), leaving                                 
+│ si->max unaligned.                                                                                    
+                                                                                                        
+That needs 2 * RAM < SWAPFILE_CLUSTER, i.e. RAM below about 1MB. Not                                   
+reachable in practice.                                                                                  
+                                                                                                        
+│ sysfs_create_group() failure leaks xswap_kobj.                                                        
+                                                                                                        
+Fixed in v4: kobject_put(xswap_kobj) and clear the pointer on that path.                                
+                                                                                                        
+│ pr_info() after enable_swap_info() races with swapoff reading si.                                     
+                                                                                                        
+Fixed in v4: the message is printed while swapon_mutex is still held.                                   
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 06/14] mm, swap: add xswap grow trigger on cluster allocation                    
+                                                                                                        
+│ free_clusters can be populated concurrently after the scans, so the grow                              
+│ block is skipped and the allocation fails.                                                            
+│ -EAGAIN from xswap_map_clusters() (another grower won) is not retried.                                
+                                                                                                        
+Fixed in v4: retry alloc_swap_scan_list(free_clusters) once after the grow                              
+attempt, which covers both cases.                                                                       
+                                                                                                        
+│ backing pages are leaked on swapoff.                                                                  
+                                                                                                        
+That is fixed by the patch that follows ("mm, swap: free backing pages in                               
+xswap_unmap_clusters"); patch 06 has no unmap path yet.                                                 
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 08/14] mm, swap: free backing pages in xswap_unmap_clusters                      
+                                                                                                        
+│ The teardown callers retry the unmap in an unbounded while loop.                                      
+│ kmalloc_array() under memalloc_noreclaim_save() is a high-order,                                      
+│ non-reclaimable allocation that can fail under fragmentation.                                         
+                                                                                                        
+Both fixed in v4. The array is now allocated with kvmalloc_array() and                                
+GFP_KERNEL. It can fall back to vmalloc and it can reclaim, and the                                   
+unmap always runs in process context, so this is fine. If it still                                    
+fails, we unmap in small batches using a stack array. So teardown                                     
+always makes progress, and no page is lost. The function cannot fail                                  
+now, so we removed the while() loops and the shrink rollback. The                                     
+counters are unsigned long now, and an overflow gives a warning.
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 10/14] mm, swap: refactor swapoff and add xswap_destroy                          
+                                                                                                        
+│ sysfs_create_group() failure leaks xswap_kobj.                                                        
+                                                                                                        
+Same as patch 05; fixed in v4 in xswap_sysfs_init().                                                    
+                                                                                                        
+│ sys_swapoff() mixes goto-based cleanup with scope-based cleanup.                                      
+                                                                                                        
+This is pre-existing upstream style in sys_swapoff(): CLASS(filename,                                   
+pathname) and out_dput/filp_close(victim) are already there before this                                 
+series; the patch only moved them while extracting __swapoff(). Both
+pathname and victim are released on every path.  I left it unchanged to                                 
+avoid unrelated churn, and there is no standard CLASS for a struct file *                               
+from file_open_name() anyway.                                                                           
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 11/14] mm, swap: require zswap for xswap devices                                 
+                                                                                                        
+│ The fix only checks zswap at create time; runtime disabling of zswap and                              
+│ runtime zswap_store() failures are not handled.                                                       
 
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index 865f05fe37ab9..b079ec98aaa74 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -1323,6 +1323,7 @@ void rxrpc_send_version_request(struct rxrpc_local *local,
-  * local_object.c
-  */
- void rxrpc_local_dont_fragment(const struct rxrpc_local *local, bool set);
-+void rxrpc_adjust_rcvbuf(struct sock *sk);
- struct rxrpc_local *rxrpc_lookup_local(struct net *, const struct sockaddr_rxrpc *);
- struct rxrpc_local *rxrpc_get_local(struct rxrpc_local *, enum rxrpc_local_trace);
- struct rxrpc_local *rxrpc_get_local_maybe(struct rxrpc_local *, enum rxrpc_local_trace);
-diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-index dc5184a2fa9d1..fa6cfd603548b 100644
---- a/net/rxrpc/io_thread.c
-+++ b/net/rxrpc/io_thread.c
-@@ -7,12 +7,55 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
-+#include <net/udp.h>
-+
- #include "ar-internal.h"
- 
- static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
- 				      struct sockaddr_rxrpc *peer_srx,
- 				      struct sk_buff *skb);
- 
-+/*
-+ * Drop UDP rmem ownership for packets charged in encap_rcv().
-+ * sk_forward_alloc is serialised by sk_receive_queue.lock.
-+ */
-+static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
-+{
-+	struct sock *sk = skb->sk;
-+
-+	if (!sk)
-+		return;
-+
-+	spin_lock_bh(&sk->sk_receive_queue.lock);
-+	skb_orphan(skb);
-+	spin_unlock_bh(&sk->sk_receive_queue.lock);
-+}
-+
-+static void rxrpc_encap_rcv_drop(struct sock *udp_sk, struct sk_buff *skb,
-+				 enum skb_drop_reason reason)
-+{
-+	struct net *net = sock_net(udp_sk);
-+
-+	sk_drops_inc(udp_sk);
-+#if IS_ENABLED(CONFIG_IPV6)
-+	if (skb->protocol == htons(ETH_P_IPV6)) {
-+		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
-+			__UDP6_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
-+		else
-+			__UDP6_INC_STATS(net, UDP_MIB_MEMERRORS);
-+		__UDP6_INC_STATS(net, UDP_MIB_INERRORS);
-+	} else
-+#endif
-+	{
-+		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
-+			__UDP_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
-+		else
-+			__UDP_INC_STATS(net, UDP_MIB_MEMERRORS);
-+		__UDP_INC_STATS(net, UDP_MIB_INERRORS);
-+	}
-+	sk_skb_reason_drop(udp_sk, skb, reason);
-+}
-+
- /*
-  * handle data received on the local endpoint
-  * - may be called in interrupt context
-@@ -28,6 +71,9 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	struct sk_buff_head *rx_queue;
- 	struct rxrpc_local *local = rcu_dereference_sk_user_data(udp_sk);
- 	struct task_struct *io_thread;
-+	enum skb_drop_reason reason;
-+	unsigned int headroom;
-+	unsigned int rcvbuf;
- 
- 	if (unlikely(!local)) {
- 		kfree_skb(skb);
-@@ -41,8 +87,6 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	if (skb->tstamp == 0)
- 		skb->tstamp = ktime_get_real();
- 
--	skb->mark = RXRPC_SKB_MARK_PACKET;
--	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
- 	rx_queue = &local->rx_queue;
- #ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
- 	if (rxrpc_inject_rx_delay ||
-@@ -52,9 +96,35 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
- 	}
- #endif
- 
-+	headroom = SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
-+	spin_lock(&udp_sk->sk_receive_queue.lock);
-+	rxrpc_adjust_rcvbuf(udp_sk);
-+	rcvbuf = READ_ONCE(udp_sk->sk_rcvbuf);
-+	if ((unsigned int)atomic_read(&udp_sk->sk_rmem_alloc) +
-+	    skb->truesize + headroom >= rcvbuf) {
-+		reason = SKB_DROP_REASON_SOCKET_RCVBUFF;
-+		goto drop;
-+	}
-+	if (!sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
-+		reason = SKB_DROP_REASON_PROTO_MEM;
-+		goto drop;
-+	}
-+
-+	skb->dev = NULL;
-+	skb_set_owner_r(skb, udp_sk);
-+	spin_unlock(&udp_sk->sk_receive_queue.lock);
-+	skb_dst_drop(skb);
-+
-+	skb->mark = RXRPC_SKB_MARK_PACKET;
-+	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
- 	skb_queue_tail(rx_queue, skb);
- 	wake_up_process(io_thread);
- 	return 0;
-+
-+drop:
-+	spin_unlock(&udp_sk->sk_receive_queue.lock);
-+	rxrpc_encap_rcv_drop(udp_sk, skb, reason);
-+	return 0;
- }
- 
- /*
-@@ -471,6 +541,9 @@ int rxrpc_io_thread(void *data)
- 		/* Distribute packets and errors. */
- 		while ((skb = __skb_dequeue(&rx_queue))) {
- 			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
-+
-+			if (skb->mark == RXRPC_SKB_MARK_PACKET)
-+				rxrpc_skb_orphan_udp(skb);
- 			switch (skb->mark) {
- 			case RXRPC_SKB_MARK_PACKET:
- 				skb->priority = 0;
-diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
-index 169f9dfdaa77f..f519a93059244 100644
---- a/net/rxrpc/local_object.c
-+++ b/net/rxrpc/local_object.c
-@@ -22,6 +22,19 @@
- 
- static void rxrpc_local_rcu(struct rcu_head *);
- 
-+void rxrpc_adjust_rcvbuf(struct sock *sk)
-+{
-+	u32 rcvbuf, old_rcvbuf;
-+
-+	rcvbuf = READ_ONCE(rxrpc_rx_window_size) *
-+		SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
-+	rcvbuf += rcvbuf / 4;
-+	rcvbuf = min_t(u32, rcvbuf, READ_ONCE(sysctl_rmem_max));
-+	old_rcvbuf = READ_ONCE(sk->sk_rcvbuf);
-+	if (rcvbuf > old_rcvbuf)
-+		WRITE_ONCE(sk->sk_rcvbuf, rcvbuf);
-+}
-+
- /*
-  * Handle an ICMP/ICMP6 error turning up at the tunnel.  Push it through the
-  * usual mechanism so that it gets parsed and presented through the UDP
-@@ -198,6 +211,9 @@ static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
- 
- 	/* set the socket up */
- 	usk = local->socket->sk;
-+	spin_lock_bh(&usk->sk_receive_queue.lock);
-+	rxrpc_adjust_rcvbuf(usk);
-+	spin_unlock_bh(&usk->sk_receive_queue.lock);
- 	usk->sk_error_report = rxrpc_error_report;
- 
- 	switch (srx->transport.family) {
-@@ -437,8 +453,8 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
- 	if (socket) {
- 		local->socket = NULL;
- 		kernel_sock_shutdown(socket, SHUT_RDWR);
--		socket->sk->sk_user_data = NULL;
--		sock_release(socket);
-+		rcu_assign_sk_user_data(socket->sk, NULL);
-+		synchronize_rcu();
- 	}
- 
- 	/* At this point, there should be no more packets coming in to the
-@@ -448,6 +464,10 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
- 	rxrpc_purge_queue(&local->rx_delay_queue);
- #endif
- 	rxrpc_purge_queue(&local->rx_queue);
-+
-+	if (socket)
-+		sock_release(socket);
-+
- 	rxrpc_purge_client_connections(local);
- 	page_frag_cache_drain(&local->tx_alloc);
- }
--- 
-2.43.0
-
+Yes, this is a known issue. The create-time check cannot cover (a) zswap                              
+being disabled after creation, or (b) zswap_store() failing at runtime                                
+(pool full, allocation failure). In both cases swap_writeout() cannot                                 
+write the folio out, so it stays in the swap cache until it is faulted                                
+back in.                                                                                              
+                                                                                                      
+So this is a temporary state. The writeback series on top adds the                                    
+fallback (write to disk when zswap refuses an xswap page), and then this                              
+case becomes the normal swap IO error path that every swap device has.
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 13/14] mm, swap: add sysfs per-device size limit for xswap                       
+                                                                                                        
+│ del_from_avail_list()/add_to_avail_list() use try_cmpxchg() without a                                 
+│ retry loop.                                                                                           
+                                                                                                        
+That is the pre-existing pattern in these functions (they already used                                  
+atomic_long_try_cmpxchg() and skipped on failure before this series); this                              
+patch does not change it.                                                                               
+                                                                                                        
+│ DIV_ROUND_UP(val, SWAPFILE_CLUSTER) overflows for a huge val.                                         
+                                                                                                        
+Fixed in v4: clamp against (unsigned long)nr_clusters_max * SWAPFILE_CLUSTER                            
+before dividing.                                                                                        
+                                                                                                        
+│ a limit write that makes the device full leaves it on swap_avail_head.                                
+                                                                                                        
+Fixed in v4: after updating si->pages, call del_from_avail_list() when the                              
+device is full, add_to_avail_list() otherwise.                                                          
+                                                                                                        
+============================================================                                            
+Subject: Re: [PATCH v3 14/14] mm, swap: shrink xswap to the ceiling when it drops                       
+                                                                                                        
+│ the hardcoded excess can include an in-use cluster, and the whole shrink                              
+│ aborts.                                                                                               
+                                                                                                        
+The limit write clamps the new ceiling up to the clusters covering the                                  
+pages in use, so [ceiling, mapped) is free and the validation loop passes.                              
+The only remaining window is an allocation racing the shrink, which just                                
+defers the shrink to the next trigger.                                                                  
+                                                                                                        
+============================================================ 
