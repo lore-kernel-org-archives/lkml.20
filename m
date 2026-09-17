@@ -1,170 +1,122 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F43342467C
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:02:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49943C7A4;
+	Thu, 17 Sep 2026 09:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789635768; cv=none; b=HrWXdTBeyrUx+HoHDkxpr64YqBUuBNaCfx3wXVXk66DaXn+kSdVlG2qfL1CWwfhvvLnM0zF1s5oGm5CYNONFe6+/4JzDln77F9spA6EFDpyfxSRP5oxh0LQwMjlNjjYlgbU7SLw2SXh12Ic0eoBYCqLqHq2n63okgP54XMfH7zs=
+	t=1789635777; cv=none; b=fdSQ/FgGjD4fCS+zFVzs684c+N2L/2m0MdL0Wk/aQSHGjk6mHyjTyKziyp1seJvfnQfYAxyM0K8+nb+LnixpZMh9/LtB67363fnA1RKVToM7+pIzTchz0lcX/kf5Qrkwn0QBY2qzkfiqcDj+owgYf0tJfVLx+DyD/oAPZpGahDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789635768; c=relaxed/simple;
-	bh=ozQGAIMkvqqhkvZe4pcXRhsZdYTDnzGPu7fLJ+j23Bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UWAyelpX3azeqqcwkDlBKYUB5plQZM15zGds4W3bD5xoqIEB5ajzPJ3DPN0lCaU5ZJZq6IC7W48kgtVsd64ff72Le9N8YF15EsnB3KP00F/7kP8uEqfY83Wd0/Yv128zH5Wugf+/t2ibIxB18tT+oUdUSoVihcnQd/yAnTk34a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FNSjtb2s; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FNSjtb2s"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so3566555e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:02:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789635764; x=1790240564; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6V+0YBZBpJih1IEGrwmsUOqpoN+1krggl7KJMKg77no=;
-        b=FNSjtb2s1WTy92cABFdOQXAD92IL850r8F7eq01+3QSpbDoXhvbFrBlCQJMUiBaFLa
-         cwHhIKjCFt6NUEkXjYmSYG/CDTn63IGT1bIlr5rupy97IOiPwD/ihUKPlZp1RU07pAH6
-         3PQ89DfHMSbpzxHSruERc538pLoDER//a7gNWh3BENxOSUW7BRVz2qQZCC7Qv59H+qFS
-         OVd83NBAFGB9p1cumJpZrMbUi/46Mo9qbn7jRfOw9HjG8rfpSlYeQMobyOrHzefLa/7c
-         h1PqDUQm5cqrR7hecG48I+Ejbuxjt8doFhD6h6avHnYAFQnkCQ9jMt8ZeqOaPeqzfK2p
-         DooA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789635764; x=1790240564;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6V+0YBZBpJih1IEGrwmsUOqpoN+1krggl7KJMKg77no=;
-        b=ZzTEZ8weS/pBCbHQM6kMuAPUULMuDQabBPuqounGewn1SQHM+ZcFfOHBn03GEFRU2S
-         nPbXRtQo7EjqFyot+yD+E4X6zdbHWPlqljyAA6kaVT1v7v8GT4PsOGF25APitCyIPKNj
-         s4Z5ZzHoOt1bBb4ODkPXCJaDUl0rVS1s7Th7BnbnIc9w8dakv2QjKyvKfBZWHu4DHJ3e
-         NMYq56lrqvszVweBPSXOQtRT8Lp3FrO5z+ArClAPBCJB3F1ZMs1nhRxuNcFEmpXzRHdq
-         tWPeGdyK05fM17xhgYMHDACmevd9V3yPGUFeChSd7Xk/4kgwi9hi3PRHCaVBmI1PDekg
-         3mXQ==
-X-Gm-Message-State: AFuF++n+RwAYur6zBM1ULNf3XQaPNXvIDMCk4wm8SQbaWBKHcKiyUx7w
-	Y/ThewcEKp9xCcS/KQleH8ksq8Maf9xPyCZxeaudC645jUjjwhg8Fa6y
-X-Gm-Gg: AYBFou1ibA/KdUcRh6cWxLy+JXOzZXQLJshJZafNWwSRR8lXQxiq4892q6bvEQXD8Fn
-	vNwi+Pp6q1vg4osRj0QH5fRW7C/WKTIWRNa5LkWGZ/i3KbHRxwkcpZxUbZ3VppNm6owh7OIQoby
-	7R40s+DvCLvdqYdcJnMHgupD7uVMiTtNW1y44cU3v11VWHI/YFGuNme1IeAJFaybcFJ/6Ecls0x
-	4Y6579JkRDjPN8w90QQj6y+OeiF5jaodokiFjKJqDbjpAwv6fpiuiDcKoA2di83QrZnfOd24Wfn
-	neiF3TTiCgHk2JgUKb8apN0+lTYEuYO7FBDcr4CmKEUkinMiBa5PlPY+EX9tqQL/V66L9qmpXbf
-	B/GsCc7vtFPuP+7OjYLifUKq9y7/wwnmUz0Mc0fbjO8Gb4ruZAU24LSMYAJ+oioWvFNrSTc0Y5c
-	nS0tHaqILCcTSJCFZJkQf2K5pHx/1r33DYJT/aZaLinu18q8pmNrPnAmfDOt+T9fsLwAyN7Y9IS
-	kZUvf8jpGa5e5NIEVF/Mr53hvzac+a1YmqiL4IbsTSBr2V+jw==
-X-Received: by 2002:a05:600d:1b:b0:49b:9105:cdaf with SMTP id 5b1f17b1804b1-49f1d516a12mr135848715e9.8.1789635763947;
-        Thu, 17 Sep 2026 02:02:43 -0700 (PDT)
-Received: from andreayoga.localdomain (93-42-14-189.ip84.fastwebnet.it. [93.42.14.189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd967f1csm22095115e9.3.2026.09.17.02.02.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 02:02:43 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Andrea Parri <parri.andrea@gmail.com>
-Subject: [RFC PATCH] ftrace: Fix lost recursion records in ftrace_record_recursion()
-Date: Thu, 17 Sep 2026 11:02:17 +0200
-Message-ID: <20260917090217.6738-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1789635777; c=relaxed/simple;
+	bh=mqNK9tXH7XCK1DFahQMaObbcuPam3HTVphlBFJLU8iQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L9CpIUdkiRIcikruB2P/Wp0Asdcuimt1S63NiTfvZ9tta5mfsEMqM/i/IoSv/r35k9FO4EVOdBURvHLMx3CN8KLQsNYScpCkjh/hmr3BdtxUlaNPyaHSUHZYcaIArKttPhTlkWVcI6H5XxlvzZHLFGnlc0Kg4YXKphDdjnTqrmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: andriy.shevchenko@intel.com
+X-PTX-Original-Recipient: kees@kernel.org
+X-PTX-Original-Recipient: andy@kernel.org
+X-PTX-Original-Recipient: akpm@linux-foundation.org
+X-PTX-Original-Recipient: linux-hardening@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: kernel@pengutronix.de
+Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: jre@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E15362020F4;
+	Thu, 17 Sep 2026 11:02:52 +0200 (CEST)
+Message-ID: <ae3d04de-b12b-454d-93f7-31ce912f6f8c@pengutronix.de>
+Date: Thu, 17 Sep 2026 11:02:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] lib/string_helpers: use full destination buffer in
+ string_unescape()
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+ <20260916-string_unescape-v1-4-7f8bd986fa33@pengutronix.de>
+ <aquahuZKdB1haZrN@ashevche-desk.local>
+Content-Language: en-US
+From: Jonas Rebmann <jre@pengutronix.de>
+In-Reply-To: <aquahuZKdB1haZrN@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-cached_function is set to the current ip before the cmpxchg() that
-claims a slot in recursed_functions[]. When that cmpxchg() loses a
-race for the same slot, the code bumps index and retries via "goto
-again", but the retry immediately matches its own cached_function
-write and returns without ever reaching the bumped-index cmpxchg().
+On 2026-09-17 09:45, Andy Shevchenko wrote:
+> On Wed, Sep 16, 2026 at 07:38:09PM +0200, Jonas Rebmann wrote:
+>> Although all of the available sequences expand to exactly one byte, the
+>> current implementation decrements the remaining bytes in the destination
+>> buffer twice, effectively shortening it by one byte per each unescaped
+>> character.
+>>
+>> The extra decrement is only needed in the one case where a single loop
+>> iteration produces two output bytes: when the sequence turns out not to
+>> be a valid escape sequence, the previously skipped backslash has to be
+>> emitted before the character is copied verbatim.
+>>
+>> Add a kunit regression-test that unescapes into a barely long enough 3
+>> buffer.
+> 
+> Can you add a simple example here with the hexdump to show the point?
+> Yes, reading the code helps, but the above commit message is a bit
+> unclear (at least to me).
+> 
 
-Concretely, for two writers racing on the same index:
+My idea was that the regression tests below would serve as examples
+here.
 
-  CPU 0 (ip = A)                    CPU 1 (ip = B)
-  --------------                    --------------
-                                     cmpxchg(&recursed_functions[index].ip,
-                                             0, B);      // succeeds
-  cached_function = A;
-  cmpxchg(&recursed_functions[index].ip,
-          0, A);
-    // fails, old == B
-  index++;
-  goto again;
-  if (A == cached_function)         // true: matches A's own store
-          return;                   // A is dropped, not retried
+Maybe I could mention that "short buffer" without my patch yields "A\"
+instead of "AAB"...
 
-Once dropped this way, cached_function stays set to A, so every later
-recursion of A also hits the fast path and returns before reaching the
-retry, until some unrelated ip overwrites the cache.
+I'll add that to the commit messages
 
-Only set cached_function once the record is confirmed present, either
-because a concurrent writer already added it or because this writer
-just claimed the slot. The retry path leaves it untouched, so it no
-longer matches against a value it just wrote for itself.
+And I'll add the kunit outputs to the cover letter:
 
-Fixes: 773c16705058e ("ftrace: Add recording of functions that caused recursion")
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
-Can't claim to fully understand the logic behind ftrace_record_recursion().
-Notably, its smp_mb__after_atomic() calls and the lack of barrier comments
-both look suspicious to my LKMM-trained eyes.  ;)  Hence the RFC.
----
- kernel/trace/trace_recursion_record.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+      # test_unescape: EXPECTATION FAILED at lib/tests/string_helpers_kunit.c:24
+      Expected q_real == q_test, but
+          q_real == 2 (0x2)
+          q_test == 3 (0x3)
+  name:short buffer
+      # test_unescape: EXPECTATION FAILED at lib/tests/string_helpers_kunit.c:25
+      Expected out_test == out_real, but
+          out_test ==
+           41 <41><42>
+          out_real ==
+           41 <5c><00>
+  name:short buffer
+      # test_unescape: EXPECTATION FAILED at lib/tests/string_helpers_kunit.c:25
+      Expected out_test == out_real, but
+          out_test ==
+           42 <41>
+          out_real ==
+           42 <5c>
+  name:end of buffer
 
-diff --git a/kernel/trace/trace_recursion_record.c b/kernel/trace/trace_recursion_record.c
-index bac4bc844ccd8..f42089c30f53c 100644
---- a/kernel/trace/trace_recursion_record.c
-+++ b/kernel/trace/trace_recursion_record.c
-@@ -17,8 +17,8 @@ static struct recursed_functions recursed_functions[CONFIG_FTRACE_RECORD_RECURSI
- static atomic_t nr_records;
- 
- /*
-- * Cache the last found function. Yes, updates to this is racey, but
-- * so is memory cache ;-)
-+ * Cache the last function confirmed present in recursed_functions[].
-+ * Updates to this are racy, but this is only a best-effort cache.
-  */
- static unsigned long cached_function;
- 
-@@ -67,24 +67,27 @@ void ftrace_record_recursion(unsigned long ip, unsigned long parent_ip)
- 		}
- 	}
- 
--	cached_function = ip;
--
- 	/*
- 	 * We only want to add a function if it hasn't been added before.
--	 * Add to the current location before incrementing the count.
--	 * If it fails to add, then increment the index (save in i)
--	 * and try again.
-+	 * Claim the current slot before incrementing the count. If the slot
-+	 * is occupied by another function, advance to the next slot and retry.
-+	 *
-+	 * Do not update cached_function until ip is known to be present;
-+	 * otherwise the retry would match its own cache update.
- 	 */
- 	old = cmpxchg(&recursed_functions[index].ip, 0, ip);
- 	if (old != 0) {
- 		/* Did something else already added this for us? */
--		if (old == ip)
-+		if (old == ip) {
-+			cached_function = ip;
- 			return;
-+		}
- 		/* Try the next location (use i for the next index) */
- 		index++;
- 		goto again;
- 	}
- 
-+	cached_function = ip;
- 	recursed_functions[index].parent_ip = parent_ip;
- 
- 	/*
+>> Fixes: 16c7fa05829e ("lib/string_helpers: introduce generic string_unescape")
+>> Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+> 
+> ...
+> 
+>> +	test_string_unescape_one(test, "short buffer", UNESCAPE_HEX, "\\x41\\x41B", 4, "AAB", 3);
+>> +	test_string_unescape_one(test, "unrecognized escape at end", UNESCAPE_HEX, "B\\qX", 4, "B\\q", 3);
+> 
+> Still wondering if we can incorporate this into the "combined" loop?
+
+Both these tests really only fail without my fixes because the
+destination buffer is short, barely fitting the result.
+
+With a buffer length of 4 it yields "A\", for 5 "AA" and for 6 "AAB",
+a bug because "AAB" would fit the 4 byte buffer too.
+
 -- 
-2.53.0
-
+Pengutronix e.K.                           | Jonas Rebmann               |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
