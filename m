@@ -1,213 +1,123 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E32A29C328;
-	Thu, 17 Sep 2026 10:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224472135B8;
+	Thu, 17 Sep 2026 10:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639689; cv=none; b=nJxfly/Ihvjq+EAfV3pNXG2tSGc0wX+nqJitHinwR6t8RiorMWD5fttWXsdozuBiDqscwP9b9n7xkUreu55BoW/Id2kCnMSlsjLetLbWSu7dw1zX0uBwroDQaeT9PLUXhFz+EMmZGDBf9aEQq3342htFF3V5veve/6TO9NRakPg=
+	t=1789639706; cv=none; b=spHlYAxVGrzabK1OFpvuUMyGGArJLUr4iTH/PPYV0rdDQ6phxyGTgnd5+WH2byJqM0FDzDAMKsvo3a8rfo5nDGchPM99o5YD/e1O2DJ4Ti2LrHP2/G4w0RlBxSLpfzktVNq2udVHATbZk6cT19ts9sTE4twTiMZYvSILwsHnydc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639689; c=relaxed/simple;
-	bh=bnkB15TBzFifAi7S/AeASPXDOKykoFiwg/B/YSNE9QM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mhJ9MJMIJwTVZCHk+m1yKk/Lm4FBRAryxepNsCzGG0SuwR3Ud/wYGGfg12ZNBhTXqgOxFOel0KYdLrA7y/S4WGb2sxDvQ+/oT5CYY0JiKFJgAeppU1UCExiNrcYRt+238oK0fVq8K1GsIJkZf7ii86DTuY0ww6Ssfziu5XaZ/PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=PG0voMdz; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789639706; c=relaxed/simple;
+	bh=OvoD0jfo0JSg6ilUPHm45pyrK53+/ioAkKf0HloE5Es=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=BMWaNGSbqB5FEwSjYSW5D506mN2p1ecJNRI02zQVPjodqDO/9oVFFIZ+++qJhRr8ESYgyrzftKchEw0jrtAleoWX+d0gtLrm+oHeupP1rrlv3U0h1utCeM+cXzY+R1U8yUwiE7KNuSz9lNj3tG/fLgOWtxuVN57InecD4gUQH5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z58226+8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PG0voMdz"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HA1ZKX2191648;
-	Thu, 17 Sep 2026 10:07:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=qBJsTO
-	u/IPPT3dbucX75kl/0dlD/Hyi3Sla1hCQGEfc=; b=PG0voMdz7wIsnlQMaMOgKE
-	pJr6N6LYEmqExTJly+KqHudQUcdhLbE0qJyLKXub5NeS5ZLg84ESkfRclbnTdPr2
-	3yAXLw1ePWnFxkbTFwHaPHKhmU4QPM7kAnMZx/YKvmlelh36TMvmS9qnvU8UMmcv
-	N4WGYAryjG1BptiDK5/GkXPAgPVUmGSkTmacJ87MgJW2TEbbUyQrFT1xZZb8/PSc
-	x25GSt8/rY00M5DLmLgyWQIX3/E6Aw5tRCaYoU8DbXn8IirinkDLa0hYTIY5xl+P
-	bBAS031K+5pTTIOIYzjOOEjGvZk1XZR/fcjYr6vCMKpmIDH+bIZsbVD2i2R3P+Lg
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx841q53-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 10:07:16 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9aKWk2879602;
-	Thu, 17 Sep 2026 10:07:15 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gra3f8x84-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 10:07:15 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68HA7DTN30277964
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 10:07:13 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A8DB82006E;
-	Thu, 17 Sep 2026 10:07:13 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CA4E52006A;
-	Thu, 17 Sep 2026 10:07:01 +0000 (GMT)
-Received: from [9.61.250.49] (unknown [9.61.250.49])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 10:07:01 +0000 (GMT)
-Message-ID: <c52cf3a5-d831-4cb1-b22c-d04fd324f48d@linux.ibm.com>
-Date: Thu, 17 Sep 2026 15:36:57 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z58226+8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2929D1F00898;
+	Thu, 17 Sep 2026 10:08:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789639698;
+	bh=he+U2PvQT8h0aaCK77sEX6BMLC5kT22NcW/rzWEPQS0=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Z58226+8DY9+G9AqreqD5Bxnak+yg+tU8PPt95GmmygaXSLtMie0UcADM2xHu4fHA
+	 AGzJazt0qeQHkE6O9GOfhuhT1OT9JVaPvsUYWmjZuYrnVlBewQpP43NwfjV/ZPZBXX
+	 8udvPgNzh/4D1vtbuPeuSNDplcwfb/EW4cEKRQUPdWXaYpAiLczPhe/xyUCYsX2HdJ
+	 7ijGgupe+mKNGArUMKhBXMdg/RZUYeCb3xfbiG7tRyIjdh6EXA2HPe49CKpPcZDX6c
+	 //2GH1Z15ocuQ4wlGSRkyoZZrrOX6XwR7/S/e1pVJiVllIm6qLH6GgKyBe6aY2x8aP
+	 N+wRcfBpberIA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/bug: Add ARCH_WARN_ASM and refactor
- _EMIT_BUG_ENTRY for Rust support
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>, maddy@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
-        pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-        alex@ghiti.fr, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
-        bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
-        aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
-        daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
-        work@onurozkan.dev, thuth@redhat.com, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-        rust-for-linux@vger.kernel.org
-Cc: FUJITA Tomonori <tomo@flapping.org>
-References: <20260819084825.969116-1-mkchauras@gmail.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260819084825.969116-1-mkchauras@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEzOCBTYWx0ZWRfX/l9UUbC8fpyA
- aMTQnLi/CWSkMu08GpNSpMs7obpX9jpUEi8Bjk3U3xeO+O8pYum3sA0wOeNBqGMHf6AVUOCe1qi
- JFyknGkbNwZYGSfugkAk6UJRdmVWrR9q+Q0AiwKP2UOz1FRQMe0pnHc5q4X+Gm0LgalCXiONbHc
- YLOtuIX1jlY/q638R9QGvF/uSbHkYI/2Kj+zRJK0BKir0W0LQB9jvDKW8dctM+Wle0hcU9Aze/z
- MIR7qIt93JsE+YQ9rRBB+NPXn2QFx5rwusIfLNvaheCaBfKYMdMdWwEflCcv94sB2ZBa9M0pX+n
- TvfS4jMxfxQ3NxFNqMGlj21Bhdy13zUcCdL/zbuYSRhfbjmvxq8UPXZzs6HPUbsw255OKeMu4dT
- NwBYPL+M2+QUf+xinSOscwPl1H8ZG3wJpWLbcklVk6U4aVL5F/7lNWxn9X3o2rn2RQCt6u4dsQQ
- bI2zFMkxpwH7O0X/dPg==
-X-Proofpoint-ORIG-GUID: AhHA6OE8t6-OwvhXsYezp_hGH2HgEAuE
-X-Proofpoint-GUID: PdE9ocJZv5unX_ODRxpYIpQPLcE9YWJC
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEzOCBTYWx0ZWRfX/g4G73Cb0QAk
- Pk+xciUM4ANjOjCPxnx0ueN6QO4DNnQWcUqBxS5pgkgVZs7ISLOhDKXHB3JrKphQQ0bcyGsMS+n
- UGdFa4O1bPI5JMEBykwAX0AYskSAZ60=
-X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aabbbd5 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=5KbLO8kBAAAA:8
- a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=oeJeb_WNhhSxgeKwS9sA:9 a=QEXdDO2ut3YA:10
- a=YAFEAY7MpQUdBuZ-Sgsb:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1011 suspectscore=0
- impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170138
+Subject: Re: [PATCH v2 0/4] kernfs: don't hold kernfs_rwsem across
+ dir_emit()
+From: Christian Brauner <brauner@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Meta kernel team <kernel-team@meta.com>, linux-fsdevel@vger.kernel.org, 
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260911182815.1992483-1-shakeel.butt@linux.dev>
+References: <20260911182815.1992483-1-shakeel.butt@linux.dev>
+Date: Thu, 17 Sep 2026 12:08:12 +0200
+Message-Id: <20260917-wehten-achtfach-getarnt-c85a4812337d@brauner>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2808; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=OvoD0jfo0JSg6ilUPHm45pyrK53+/ioAkKf0HloE5Es=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3sM7yfS587wjt7d1q186ZTLP59zt3WGTxCIq/J4+N
+ v33896fzI5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJZF5lZHik3Dyb/Q7LzNc/
+ 0gt7Y9dbnXnz2KTCiz1Y4oT5yfvbnr9i+MPPJbHTnDs942BE00KHM3M+nON+MPvl27WXWZNbP67
+ uncQFAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
+> kernfs_fop_readdir() takes kernfs_rwsem for reading and holds it for the
+> whole listing, dir_emit() included.  dir_emit() copies into a userspace
+> buffer, so it can fault, and under memory pressure that fault goes to
+> reclaim.
+> 
+> We are hitting this case on the Meta fleet very regularly.  Many times it
+> is below[1], a monitoring daemon.  It walks the cgroup tree and faults on
+> its own getdents(2) buffer with the lock held for reading.
+> 
+> 	below: page allocation stall for 120 secs: order:0,
+> 	mode:0x140dca(GFP_HIGHUSER_MOVABLE|__GFP_ZERO|__GFP_COMP)
+> 	nodemask=(null),cpuset=hostcritical.slice,mems_allowed=0
+> 	Call Trace:
+> 	 <TASK>
+> 	 dump_stack_lvl+0x5d/0x80
+> 	 __alloc_frozen_pages_noprof+0x5f4d/0x6300
+> 	 ? memcg_list_lru_alloc+0x73/0x320
+> 	 ? ima_file_check+0xd0/0x7d0
+> 	 vma_alloc_folio_noprof+0x145/0x560
+> 	 handle_mm_fault+0x17c9/0x2720
+> 	 ? find_vma+0x27/0x30
+> 	 do_user_addr_fault+0x39f/0x6e0
+> 	 exc_page_fault+0x8f/0x110
+> 	 asm_exc_page_fault+0x22/0x30
+> 	RIP: 0010:filldir64+0xd7/0x1a0
+> 	[Code:/RSP:/RAX:..R15: register block elided]
+> 	 kernfs_fop_readdir+0x2de/0x420
+> 	 iterate_dir+0x8c/0x1f0
+> 	 __se_sys_getdents64+0x61/0xe0
+> 	 ? copy_page_from_iter+0x860/0x860
+> 	 do_syscall_64+0x6a/0x250
+> 	 entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> 	 </TASK>
+> 
+> kernfs_rwsem is the lock every create, remove and rename in the hierarchy
+> needs, and sysfs and cgroupfs have one per machine.  More importantly, the
+> userspace OOM killers such as systemd-oomd also traverse the cgroupfs
+> hierarchy and can get stuck behind below, which is stuck in reclaim.  They
+> are supposed to relieve memory pressure on the system, but can get stuck
+> themselves.
+> 
+> The fix is to not hold the lock across dir_emit().  Copy the name while the
+> lock is held, drop the lock, emit, and take it again.
+> 
+> That opens a window.  With the lock dropped, the entry the listing stopped
+> on can be removed or renamed before the listing picks up again, and readdir
+> only remembers its place as a name hash.  Two entries in one directory can
+> share a hash, so the hash alone does not say where the listing stopped.
+> 
+> Patch 1 makes the fallback search land after the missing entry rather than
+> on either side of it.  Patch 2 keeps the name of the entry the listing is
+> on and resumes on the full key.  Patch 3 is the fix.  Patch 4 adds tests.
+> 
+> Patch 1 is worth having on its own.  Without the rest, the same search can
+> land on the entry before the missing one and report it a second time,
+> between two getdents(2) calls.
+> 
+> The series applies to the vfs-7.4.kernfs branch of the vfs tree.
 
-On 19.08.2026 2:18 PM, Mukesh Kumar Chaurasiya (IBM) wrote:
-> The Rust kernel infrastructure generates inline asm for WARN() via
-> ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
-> preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
-> arch-specific asm template string for use in Rust's core::arch macros.
->
-> powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
-> Rust builds to fail on powerpc.
->
-> Refactor _EMIT_BUG_ENTRY to accept explicit (file, line, flags) string
-> arguments rather than relying on positional asm operand references
-> (%0, %1, %2, %3). This allows the macro to be composed as a plain
-> string concatenation, which is required for ARCH_WARN_ASM where no asm
-> operand context exists.
->
-> Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
-> the BUG_ENTRY() call site to preserve existing behaviour while enabling
-> ARCH_WARN_ASM to supply its own size operand independently.
->
-> Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
-> convention, indicating that no additional reachability annotation is
-> needed after a WARN on powerpc.
->
-> This brings powerpc into line with x86, arm64, s390, and riscv, all of
-> which already define ARCH_WARN_ASM and ARCH_WARN_REACHABLE.
->
-> Suggested-by: FUJITA Tomonori <tomo@flapping.org>
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-
-Tested on PowerPC LPAR + 7.3.0-rc3 by creating a small .rs module to
-
-trigger ARCH_WARN_ASM.
-
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-
-> ---
->   arch/powerpc/include/asm/bug.h | 28 ++++++++++++++++------------
->   1 file changed, 16 insertions(+), 12 deletions(-)
->
-> diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
-> index 0db48977c70c..8aba39e0cf26 100644
-> --- a/arch/powerpc/include/asm/bug.h
-> +++ b/arch/powerpc/include/asm/bug.h
-> @@ -32,34 +32,38 @@
->   #endif /* verbose */
->   
->   #else /* !__ASSEMBLER__ */
-> -/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
-> -   sizeof(struct bug_entry), respectively */
->   #ifdef CONFIG_DEBUG_BUGVERBOSE
-> -#define _EMIT_BUG_ENTRY				\
-> +#define _EMIT_BUG_ENTRY(file, line, flags)	\
->   	".section __bug_table,\"aw\"\n"		\
->   	"2:	.4byte 1b - .\n"		\
-> -	"	.4byte %0 - .\n"		\
-> -	"	.short %1, %2\n"		\
-> -	".org 2b+%3\n"				\
-> -	".previous\n"
-> +	"	.4byte " file " - .\n"		\
-> +	"	.short " line ", " flags "\n"
->   #else
-> -#define _EMIT_BUG_ENTRY				\
-> +#define _EMIT_BUG_ENTRY(file, line, flags)	\
->   	".section __bug_table,\"aw\"\n"		\
->   	"2:	.4byte 1b - .\n"		\
-> -	"	.short %2\n"			\
-> -	".org 2b+%3\n"				\
-> -	".previous\n"
-> +	"	.short " flags "\n"
->   #endif
->   
->   #define BUG_ENTRY(cond_str, insn, flags, ...)		\
->   	__asm__ __volatile__(				\
->   		"1:	" insn "\n"			\
-> -		_EMIT_BUG_ENTRY				\
-> +		_EMIT_BUG_ENTRY("%0", "%1", "%2")	\
-> +		".org 2b+%3\n"				\
-> +		".previous\n"				\
->   		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
->   		  "i" (flags),				\
->   		  "i" (sizeof(struct bug_entry)),	\
->   		  ##__VA_ARGS__)
->   
-> +#define ARCH_WARN_ASM(file, line, flags, size)		\
-> +		"1:	twi 31, 0, 0\n"			\
-> +		_EMIT_BUG_ENTRY(file, line, flags)	\
-> +		".org 2b+" size "\n"			\
-> +		".previous\n"
-> +
-> +#define ARCH_WARN_REACHABLE
-> +
->   /*
->    * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
->    * optimisations. However depending on the complexity of the condition
+Looks fine to me although it spaghettifies the code quite a bit.
+I'll pull it but wait for Tejun to give it a nod.
 
 -- 
-Thanks and Regards
-R.Nageswara Sastry
 
