@@ -1,93 +1,128 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109624D0CDF;
-	Thu, 17 Sep 2026 10:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A34D4B95D3;
+	Thu, 17 Sep 2026 10:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642497; cv=none; b=hIuzmwAPxP4rAJd1uSiKluX44TIhsaxaKeGN7CfO6Q4cK1bfg1/3+GVJ1+adzHVL0ufGs1MP6zca9KWTFW0oRAVomHCx07Ff9Py4AeHqeMIFEcAn0/sjt0elbP/4mMQ+2rDdhp2jHePMMiLX/8sjBY/h7GPki1ysPJOQ2otWzcE=
+	t=1789642507; cv=none; b=P2pCWQfp9VBPL8aWEwvMorn367IPHh4wKq1lCtP8XB1kad4Pz8BzK2DlX4Vn3R34vRDDhG/X/FuxHw95xlGTizAmWXowYaHYb4NkL7m+Bg8dOGf6gQsjgpMM+6a5uujppXi+5iarYAs3DEaoWOEPJf0tlEfSokRQTlBxIRAFsUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642497; c=relaxed/simple;
-	bh=giIWjDDBHc/Az7Gt57hxkGh/olN1AnVWv+gcsPhSTsk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T3CIutQpJ0Uz8s7eLKAxbLV68wzAjjSr/ACUbenxjV9q4TLbAtXQ2lHPOHELqklO44IhET6LQswcUcS0u23b7K9fvNVYVRE832iX+J4M2sD8uInpDfnQpxOGPRoGZjv3oGDW1IVw8Y1Pg4So2KMrts17Y5NG+sDGpGf9y7jSlJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDrhxqtqdwl_CA--.64396S2;
-	Thu, 17 Sep 2026 18:54:25 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	jeff@garzik.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stephen@networkplumber.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: cxgb: Fix skb reference leak in espibug_workaround_t204()
-Date: Thu, 17 Sep 2026 10:54:25 +0000
-Message-Id: <20260917105425.2147804-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789642507; c=relaxed/simple;
+	bh=dOWawK509JfgA0/OI6Z19bFMRZe9MoRXbw29n29PY0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UwaUHmQQe5ZTlMGNHAihV4A/RWRPd3fF1GF2WulNGxRBnQMxoE4Izux9M7fMY9I/cSwVFTe+eCGM+t+9BbEml2So2JfnsAMCknfRInVM/MC/RlDCmnD7TiXL5D92G1U23DRZX9STuH0OUcO8Vmik4RCgeJ1oqA2EILv9yMUmX38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=JrNMbJz0; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="JrNMbJz0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=zPEyYPDk8EE/aISYlZkkyB6RhrWT5mJK2Kdv46y7alY=; b=JrNMbJz0FRUfJExTa9QX+PN6aX
+	rhxoAQEs1iGB1gBE7OpxWvUIW8oaZJ+3qq36mNpM298qJUbpa6EV1l5ropOVv08fE6+gDxVbt6av4
+	Hje1sXASq15UoTMM5biKhP59WUt5uM2mWizZ94hEA12cJeo+YKdwyq+FNA7cJwVDWzLzaLdEZ1Yn7
+	bI4fAjT372GztJPzZsd7s8hbZJRyvaQhKvOYlC+Wbxp8OBHWPoY+w4qH7drvLUU9cVqE9vQmnJdT2
+	we/GkdA4e8zC/Yrde1HYP1gljPaqZExfeBTOr8SiZVVolX2RERZBv5A/c7kAkxWLzR1xyVPxeBfsY
+	xou5+GnA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x79kQ-005tLG-0g;
+	Thu, 17 Sep 2026 10:53:46 +0000
+Date: Thu, 17 Sep 2026 03:53:37 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, kexec@lists.infradead.org, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Oscar Salvador <osalvador@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or, 
+	shakeel.butt@linux.dev, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, 
+	linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v5 3/9] mm/memory-failure: libstub: install the
+ poisoned-memory EFI table
+Message-ID: <aqvE5kO5x0UpRm9m@gmail.com>
+References: <20260915-hwpoison-kho-v5-3-3bc7a57bd503@debian.org>
+ <20260916153954.1054456-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDrhxqtqdwl_CA--.64396S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyUGFyDXrWUZFyrZwb_yoW8JFyDpw
-	4qka47CrZ8Za12ka1kAw48tF9xua1ktFWrKF1fJws5ZrsxJr4UWry0qF45KFWDArZ3WanI
-	yrs8Aan8Krs0y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU5TOJ7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qrq3ZfDQAAsH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916153954.1054456-1-usama.arif@linux.dev>
+X-Debian-User: leitao
 
-The timer handler takes an extra reference with skb_get() before handing
-the skb to t1_sge_tx(), so that the skb survives until the DMA has
-completed. When the command queue is full, t1_sge_tx() returns
-NETDEV_TX_BUSY without queueing the skb, and the return value is
-ignored, so the extra reference is never dropped.
+Hello Usama,
 
-Free the skb when t1_sge_tx() reports that it did not consume it.
+On Wed, Sep 16, 2026 at 08:39:53AM -0700, Usama Arif wrote:
+> On Tue, 15 Sep 2026 05:53:37 -0700 Breno Leitao <leitao@debian.org> wrote:
+> > +static efi_status_t efi_get_ram_range(u64 *base, u64 *top)
+> > +{
+> > +	struct efi_boot_memmap *map __free(efi_pool) = NULL;
+> > +	u64 ram_base = ULLONG_MAX, ram_top = 0;
+> > +	efi_status_t status;
+> > +	int i, nr_desc;
+> > +
+> > +	status = efi_get_memory_map(&map, false);
+> > +	if (status != EFI_SUCCESS)
+> > +		return status;
+> > +
+> > +	nr_desc = map->map_size / map->desc_size;
+> > +	for (i = 0; i < nr_desc; i++) {
+> > +		efi_memory_desc_t *d;
+> > +
+> > +		d = efi_memdesc_ptr((unsigned long)map->map, map->desc_size, i);
+> > +		if (!(d->attribute & EFI_MEMORY_WB) &&
+> > +		    d->type != EFI_UNACCEPTED_MEMORY)
+> > +			continue;
+> > +		ram_base = min(ram_base, d->phys_addr);
+> 
+> Can this use the architecture's full RAM predicate?  On x86,
+> setup_e820() maps EFI_LOADER_CODE, EFI_LOADER_DATA, both boot-services
+> types, and EFI_CONVENTIONAL_MEMORY as E820_TYPE_RAM without requiring
+> EFI_MEMORY_WB.
+> 
+> If a non-WB descriptor is at either end of RAM, this code omits it
+> from the bitmap span.  efi_hwpoison_record_pfn() then rejects a
+> poisoned PFN there, so the next kernel can allocate the bad frame.
+> 
+> One possible way to preserve the x86 behavior before applying the WB rule is:
+> 
+>     if (IS_ENABLED(CONFIG_X86) &&
+>         (d->type == EFI_LOADER_CODE ||
+>          d->type == EFI_LOADER_DATA ||
+>          d->type == EFI_BOOT_SERVICES_CODE ||
+>          d->type == EFI_BOOT_SERVICES_DATA ||
+>          d->type == EFI_CONVENTIONAL_MEMORY))
+>             goto include;
+>     if (!(d->attribute & EFI_MEMORY_WB) &&
+>         d->type != EFI_UNACCEPTED_MEMORY)
+>             continue;
+> include:
+>     ram_base = min(ram_base, 
 
-Fixes: f1d3d38af757 ("[PATCH] chelsio: add support for other 10G boards")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/ethernet/chelsio/cxgb/sge.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Sure, I had something similar in v2, but the feedback there was to
+simplify this and go coarser, since the real cost is only a few extra
+bits in the bitmap, so it wasn't worth the added complexity.
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb/sge.c b/drivers/net/ethernet/chelsio/cxgb/sge.c
-index d8fca697874a..d4677c5b8d74 100644
---- a/drivers/net/ethernet/chelsio/cxgb/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb/sge.c
-@@ -2052,7 +2052,8 @@ static void espibug_workaround_t204(struct timer_list *t)
- 			 * the skb once the DMA has completed.
- 			 */
- 			skb = skb_get(skb);
--			t1_sge_tx(skb, adapter, 0, adapter->port[i].dev);
-+			if (t1_sge_tx(skb, adapter, 0, adapter->port[i].dev))
-+				dev_kfree_skb_any(skb);
- 		}
- 	}
- 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
--- 
-2.34.1
+Happy to bring it back if saving those bits is worthwhile.
 
+See the discussion here:
+https://lore.kernel.org/all/aogvGXKH2u7JsJiS@thinkstation/
+
+Thanks for the review,
+--breno
