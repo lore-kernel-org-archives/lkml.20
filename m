@@ -1,316 +1,192 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8A82D1907;
-	Thu, 17 Sep 2026 08:39:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634369; cv=fail; b=I7RQPFd0ezVNTEtHI/WRnsbbJelZ8T4FvpFaCqFWppfjBMgFIWNJKLyE1HQpLOhgQ/yZ/JeuMKBSfT7B5mBn8ctJR0dDRwLRNBvinmNp3xb1riTtIxdbltQFk2lFI8ajogV3DGsEOXP3Lo+w3eay8unq5QSudF8OYEvAsdfwJmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634369; c=relaxed/simple;
-	bh=8L7gT1lEdGSoOfEDSJdo/baG9xD5jLVvo74uyvVUDxo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PE97zY32PKO9wGzqZz3+VGBTQ42medn5GVKTIJ+UEfKO1n3dVqhhC85W52pmS1rISw5fsFBLzN35E4HWAjN0xPEIabjGvOOQupGBPf5xf4WJ+wLiyd0xeWCw9gpxjlFWZT5NnfXMq1mZBEKq3SsBfOBVQi01n9o4uLHj4l8zq4A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cRH+BqTi; arc=fail smtp.client-ip=52.101.85.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315EF457E67
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634374; cv=none; b=HEKkVi9FPeTp/yaV1Bhe/njeZb+FblY60RMuiSaag3o1FrC6puhq/qQJQiPvxzcx29BQPUKIErRCEP9udCrlyGYW5KxIgWpK/IVzYt+R8XjWixPzknw3JodczZ/2aGTW4Ol7fI84VlGeX7l1HIFQGE/O7l4aCfaK+OZ5yOI1R6c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634374; c=relaxed/simple;
+	bh=XvreuLeOtfvNywpcxb8bwQSkEogyi1YRQ/XuBi2qtaQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=L2O78WdDbtA8CA61+BLr9bE+ReIbTsJY4mvf30JK2mwIGl3CFG5OQ2RWO/HHKYe0dLIHGBpbslZPtLveBmkBEFU/e9GhJyKD6V0cmkyVMuC2YVkh82PvzUnHb44WPbZwhgV7/95qJx1G3ZJ2en7MD9xePWvfeqgi7P6x1SkGELg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=p43hO+iZ; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cRH+BqTi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VlJXkfVeg5078ztUlrirZc8A/XIpGtFfrJNmHzwwIuB0Fm9j4d7bWY5Xwmu1OGupleCNrzjZ+R2WrNpGXYeaqNEueTKOfWfzRYIxI+n5rW4dXECc1sfYEQpstRExJpS/T9a5Pzy5iL4A4jtUUZEGcSiBeVrEiIjkNdXzoo+cXPCCZ3d/LBe6vfSNaGgSUXpyGK1n33HtenVyoPqAR2oUqyabb6xy0J8ylAaOOXRL68BsMbnLlu9sUVxvAusVQYk7xmwlcr7nsXe473kpuBq96tlwbGCumJfaxL/2cn30OfVVlAY/0cYOIy14wb2nBhlKHsQzXxqFrMQAqV2Pxu8wOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dSmyffqLCbyReJQ+rBc5VPUykzYlhk+8fz+hvqCOZ40=;
- b=CLNcjZSNPyIOWc90MARzpcMBGLk56NYF8xaBgTSmKEvOpUc3l3KDe73zSDTFBioMu3cbMGKSNJJVS9Pd+Df5CzMlgFH46ZAwpAYim56JBBTWsY4sgfbmvmPCmviVf1p7+JIeRJ6J+SmrDdiI7QaUmE0zGQqdBVqCuWD89INkVxLI+cg+L2rfdezm2t0zZk0kJchHAjT4hjQQk23dXlAE+xiwhWNnYxTUhy11/zMTeVEu43zJG9uk5qUZZcvbsm4Vv5esm06F7X26ugmWfqIF/LPWY35yXuy2azCqN/TBJbSxMH4Dgc7qJkftrvZPcYxRAxFbjmOltdCpmHFuCo2bjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dSmyffqLCbyReJQ+rBc5VPUykzYlhk+8fz+hvqCOZ40=;
- b=cRH+BqTie3YIs0tL9sF7oMe4CO2CPJkSubdMmqCGP+l7QHvHp2IRFnN2+slnrR+KNtJIzf5kYpu7XoptsLYFJEwhZiGTvnKxTW9vTZ3r5/Ob1UczojTuoexGWoRAZoZVsiqXKI9sIyydVOnWTbcgI2p6YzHEWdlhrbYadq/3v2E=
-Received: from BY3PR04CA0002.namprd04.prod.outlook.com (2603:10b6:a03:217::7)
- by DM6PR12MB4436.namprd12.prod.outlook.com (2603:10b6:5:2a3::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Thu, 17 Sep
- 2026 08:39:17 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:a03:217:cafe::9f) by BY3PR04CA0002.outlook.office365.com
- (2603:10b6:a03:217::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
- 17 Sep 2026 08:39:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 08:39:17 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 03:39:16 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
- via Frontend Transport; Thu, 17 Sep 2026 03:39:12 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V2 8/9] soundwire: amd: replace >= ACP70 with explicit switch/case in PM paths
-Date: Thu, 17 Sep 2026 14:04:19 +0530
-Message-ID: <20260917083732.3803526-9-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
-References: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="p43hO+iZ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C498E1A0923;
+	Thu, 17 Sep 2026 08:39:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D6965FAA3;
+	Thu, 17 Sep 2026 08:39:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2B3DF11C7B03D;
+	Thu, 17 Sep 2026 10:39:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789634351; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=QuoRrFfTxIZUivKnEfDlkI8xh2XYY3hVccu5BeUQVu0=;
+	b=p43hO+iZNKIVcVxx0knz5+yLFxD+GWfHsSWNxKV047TChC0YUx5bFYrHLZUv3OPEUZTgu2
+	cE/YxOyAjapcOisgMFuumn+H3mvQj9Kut6fVmGJx4mQQTkwatNSTUHsIenzvzft4mT62C3
+	zlxq7OLFrxkSeTKuVEX6ApPdq9D+5GQ9BNF2r56Scobfr8YVnOnSDitvxotPURizwFP6oM
+	Kk15WmMFy9E2NcpbtYbUt+CCtbTWa1cXvSNO2tIRvXKEb6TYrWj09i40wc2ZNTW8yZBhuH
+	bHA7VwkIcp5zJdb4SghgU+4RnM5v7rJIBOS318ijEdcvWR8ABi9W15LMn/7c+g==
+From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
+Date: Thu, 17 Sep 2026 10:39:04 +0200
+Subject: [PATCH net v2] net: dsa: microchip: save the periodic output
+ request
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|DM6PR12MB4436:EE_
-X-MS-Office365-Filtering-Correlation-Id: a61a0e69-b735-447a-6742-08df14972932
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|6133799003|22082099003|18002099003|10067099003|11063799006|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	7nbqlVq3u43ZDUexcFUEnoufazEBxping1yaoXFOOzO294skpmu6Ri2SRMuor5Kh3CW6xMo8+wYjqbktHnPf1szbx08VNEsa5VbepzE+ReoWYh1+rIK3Zt3zY2mjgZeOD180Ppl5WBEDT+pSiZPSpo7Wd1TLtShYp5NHyJ8wC63hfCtnElGAIRrApngY2Xy0WM8AcljrlIG/0y3qA/bDVkgkcLYtZMjvWlcfeX3Oau5cYtgF7B2n6WT1u1dLpRsrPYKnRhTeCPcHAfzvDE3CANCGl9anC5FGX3OP1e+xTb51d3lk0uVnpplAZ3tGd5EjMR+AdnvLWxdZAcoW79IvF7wTBRVZJaz3xySrj9ftP/BDRHLVv1z/N/K1DahaCOkevkiYiJuxBcBYzm3CmNGoVrbN4uxqcwiq3HoN/jqJaYA1lhE1/dGzOqU+hPd22Z0FJs1j0t0q8QGjVRZ+gHMsoV7e6e6DicPmW85UGGMcz4fDCOR5Yi82/BDZAfJPe9AdHXlFxUhpFL5lpGm4gDCDSDjbhnJ46KjtfBAZYAZToA8n6bHiBs5F+1qLsOxvwfch21wTWhSvGaRQxxEFtk8NN9wLHurbvT7GhDV6mBhWlsnYEVI12Vo/TfwQjsmaIiJ7Z2XirS4OnV0L6Jg6G3m/ZL0K6d8UKUHq+y0LfJQi/Hn0uaAxxiN/RiLXCt50SqYKe4DtIFiTR/NFAcJkp8/kTw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	6w2MeL5E710kZHznKRDr4yXAfbrt+h2saTujRWSZKMT9NGHM9/95cxoN1bYVGgVcSoa+kxipSD/jQs784+emzea0Zj/tZJv5yQ0aevrx4gQZtZTSWptjbwffdZ/51LD0PlYiiTOWFrGFoLVWw0VKdrUSjpsheHyK9HCTz19VJQKFfFYa+phAr5Mu7gh0dvh69RGfrHVmBMRmxfyRdeUiYJZVv6s4qwPEfXZ1wNSis6wLZgB8ouwEGe4+SYC8xdwtP6kRAo400NR6A5IppPKGfLmnABb593mxwN1gQg8+Z+JYUTbDd2PWynOULnCpz+7JjxNnMEX6092GOZngUZX2U+wLqp8c1D3BmQL14UWIWrieF2pfKYP/6mj1jpENtMRQC2JIeTnyYiRrrgB2jXHRsG1dFDKmtsaRvsqmYjT6QjwVdDzYYY959aKuGyHIQFRO
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:39:17.2944
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a61a0e69-b735-447a-6742-08df14972932
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4436
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-fix-perout-v2-1-d8acf3eea6f7@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBREr9L8tZiCRaAr72G6aOnH/kShASSap
+ neXdO1y5mXebJAwEibomw0iFkoUfA3i1IBdRv9ARnPNIFpxbQ3vmKMPWzGGd2ZWW6PEpM2sHNT
+ BGrHSQ3YHjxmGWi6Ucojf46DwA/1zFc44M66T8sJHJbW8TSHkJ/mzDS8Y9n3/Af7w4xOrAAAA
+X-Change-ID: 20260914-fix-perout-c8c972b89d7f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Christian Eggers <ceggers@arri.de>, 
+ Arun Ramadoss <arun.ramadoss@microchip.com>
+Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
+ =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Replace open-ended acp_rev >= ACP70_PCI_REV_ID comparisons in
-amd_suspend(), amd_suspend_runtime(), and amd_resume_runtime() with
-explicit per-revision handling enumerating ACP63, ACP70, ACP71, and
-ACP72, so that every supported revision is handled explicitly.
+When a periodic output is initialized, only the start and the period are
+stored, not the flags nor the pin index. So when the periodic output is
+restarted, the request flags and index are always set to 0. So if a pin
+other than the first one was used, or if a flag was set in the request
+that triggered the periodic output, it is lost when the output is
+restarted.
 
-The host wake enable step is guarded by acp_rev at six PM call sites.
-Factor that repeated block into amd_sdw_host_wake_enable_by_rev() to
-avoid duplicating the switch/case at every site. The remaining device
-state transitions keep an inline switch/case as one of them carries
-additional PME handling.
+Save the full request when the periodic output is initialized.
+Use the saved request when the periodic output is reset
 
-An unrecognised revision cannot reach these PM callbacks because
-amd_sdw_manager_probe() already validates acp_rev with the same switch
-and fails registration for anything unknown. The switch default therefore
-emits dev_err() and returns -EINVAL to make the unexpected case visible
-while keeping the error path consistent across all PM operations.
-
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: stable@vger.kernel.org
+Fixes: 1f12ae5b6760 ("net: dsa: microchip: ptp: add periodic output signal")
+Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
 ---
- drivers/soundwire/amd_manager.c | 97 ++++++++++++++++++++++-----------
- 1 file changed, 64 insertions(+), 33 deletions(-)
+Changes in v2:
+- Save the full request insead of only flags and index.
+- Link to v1: https://lore.kernel.org/r/20260914-fix-perout-v1-1-9f45531a7585@bootlin.com
+---
+ drivers/net/dsa/microchip/ksz_ptp.c | 30 ++++++++++++++++--------------
+ drivers/net/dsa/microchip/ksz_ptp.h |  3 +--
+ 2 files changed, 17 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 6af224ca54a3..0cb5f4694e9a 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -1292,6 +1292,22 @@ static int __maybe_unused amd_pm_prepare(struct device *dev)
- 	return 0;
- }
- 
-+static int amd_sdw_host_wake_enable_by_rev(struct amd_sdw_manager *amd_manager, bool enable)
-+{
-+	switch (amd_manager->acp_rev) {
-+	case ACP63_PCI_REV_ID:
-+		break;
-+	case ACP70_PCI_REV_ID:
-+	case ACP71_PCI_REV_ID:
-+	case ACP72_PCI_REV_ID:
-+		return amd_sdw_host_wake_enable(amd_manager, enable);
-+	default:
-+		dev_err(amd_manager->dev, "unexpected acp_rev 0x%x\n", amd_manager->acp_rev);
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
- static int __maybe_unused amd_suspend(struct device *dev)
+diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
+index 39cc70d65900..0979b6e04d1e 100644
+--- a/drivers/net/dsa/microchip/ksz_ptp.c
++++ b/drivers/net/dsa/microchip/ksz_ptp.c
+@@ -189,6 +189,7 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
  {
- 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(dev);
-@@ -1307,22 +1323,18 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, false);
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, false);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-+		if (ret)
-+			return ret;
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, false);
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, false);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-+		if (ret)
-+			return ret;
- 		/*
- 		 * As per hardware programming sequence on AMD platforms,
- 		 * clock stop should be invoked first before powering-off
-@@ -1335,10 +1347,19 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 		if (ret)
- 			return ret;
+ 	struct ksz_ptp_data *ptp_data = &dev->ptp_data;
+ 	u64 req_pulse_width_ns;
++	struct timespec64 tmp;
+ 	u64 cycle_width_ns;
+ 	u64 pulse_width_ns;
+ 	int pin = 0;
+@@ -222,13 +223,11 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
+ 		return 0;
  	}
--	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+	switch (amd_manager->acp_rev) {
-+	case ACP63_PCI_REV_ID:
-+		break;
-+	case ACP70_PCI_REV_ID:
-+	case ACP71_PCI_REV_ID:
-+	case ACP72_PCI_REV_ID:
- 		ret = amd_sdw_set_device_state(amd_manager, AMD_SDW_DEVICE_STATE_D3);
- 		if (ret)
- 			return ret;
-+		break;
-+	default:
-+		dev_err(amd_manager->dev, "unexpected acp_rev 0x%x\n", amd_manager->acp_rev);
-+		return -EINVAL;
- 	}
- 	return 0;
+ 
+-	ptp_data->perout_target_time_first.tv_sec  = request->start.sec;
+-	ptp_data->perout_target_time_first.tv_nsec = request->start.nsec;
++	memcpy(&ptp_data->perout_request, request, sizeof(struct ptp_perout_request));
+ 
+-	ptp_data->perout_period.tv_sec = request->period.sec;
+-	ptp_data->perout_period.tv_nsec = request->period.nsec;
+-
+-	cycle_width_ns = timespec64_to_ns(&ptp_data->perout_period);
++	tmp.tv_sec = ptp_data->perout_request.period.sec;
++	tmp.tv_nsec = ptp_data->perout_request.period.nsec;
++	cycle_width_ns = timespec64_to_ns(&tmp);
+ 	if ((cycle_width_ns & TRIG_CYCLE_WIDTH_M) != cycle_width_ns)
+ 		return -EINVAL;
+ 
+@@ -249,9 +248,10 @@ static int ksz_ptp_enable_perout(struct ksz_device *dev,
+ 	if (ret)
+ 		return ret;
+ 
++	tmp.tv_sec = ptp_data->perout_request.start.sec;
++	tmp.tv_nsec = ptp_data->perout_request.start.nsec;
+ 	ret = ksz_ptp_configure_perout(dev, cycle_width_ns, pulse_width_ns,
+-				       &ptp_data->perout_target_time_first,
+-				       pin);
++				       &tmp, pin);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -763,6 +763,7 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
+ 	struct ptp_perout_request request;
+ 	struct timespec64 next;
+ 	struct timespec64 now;
++	struct timespec64 tmp;
+ 	unsigned int count;
+ 	int ret;
+ 
+@@ -773,10 +774,14 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
+ 		return ret;
+ 
+ 	now_ns = timespec64_to_ns(&now);
+-	first_ns = timespec64_to_ns(&ptp_data->perout_target_time_first);
++	tmp.tv_sec = ptp_data->perout_request.start.sec;
++	tmp.tv_nsec = ptp_data->perout_request.start.nsec;
++	first_ns = timespec64_to_ns(&tmp);
+ 
+ 	/* Calculate next perout event based on start time and period */
+-	period_ns = timespec64_to_ns(&ptp_data->perout_period);
++	tmp.tv_sec = ptp_data->perout_request.period.sec;
++	tmp.tv_nsec = ptp_data->perout_request.period.nsec;
++	period_ns = timespec64_to_ns(&tmp);
+ 
+ 	if (first_ns < now_ns) {
+ 		count = div_u64(now_ns - first_ns, period_ns);
+@@ -791,12 +796,9 @@ static int ksz_ptp_restart_perout(struct ksz_device *dev)
+ 
+ 	/* Restart periodic output signal */
+ 	next = ns_to_timespec64(next_ns);
++	memcpy(&request, &ptp_data->perout_request, sizeof(struct ptp_perout_request));
+ 	request.start.sec  = next.tv_sec;
+ 	request.start.nsec = next.tv_nsec;
+-	request.period.sec  = ptp_data->perout_period.tv_sec;
+-	request.period.nsec = ptp_data->perout_period.tv_nsec;
+-	request.index = 0;
+-	request.flags = 0;
+ 
+ 	return ksz_ptp_enable_perout(dev, &request, 1);
  }
-@@ -1357,21 +1378,17 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 	}
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
- 		amd_sdw_wake_enable(amd_manager, true);
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, true);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
-+		if (ret)
-+			return ret;
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		amd_sdw_wake_enable(amd_manager, true);
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, true);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
-+		if (ret)
-+			return ret;
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
-@@ -1380,7 +1397,12 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 		if (ret)
- 			return ret;
- 	}
--	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+	switch (amd_manager->acp_rev) {
-+	case ACP63_PCI_REV_ID:
-+		break;
-+	case ACP70_PCI_REV_ID:
-+	case ACP71_PCI_REV_ID:
-+	case ACP72_PCI_REV_ID:
- 		ret = amd_sdw_set_device_state(amd_manager, AMD_SDW_DEVICE_STATE_D3);
- 		if (ret)
- 			return ret;
-@@ -1392,6 +1414,10 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 				dev_dbg(amd_manager->dev, "ACP_PME_EN:0x%x\n", val);
- 			}
- 		}
-+		break;
-+	default:
-+		dev_err(amd_manager->dev, "unexpected acp_rev 0x%x\n", amd_manager->acp_rev);
-+		return -EINVAL;
- 	}
- 	return 0;
- }
-@@ -1413,11 +1439,9 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		ret = amd_sdw_clock_stop_exit(amd_manager);
- 		if (ret)
- 			return ret;
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, false);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-+		if (ret)
-+			return ret;
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
- 		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
- 		/*
-@@ -1431,11 +1455,9 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		mutex_lock(&amd_manager->bus.msg_lock);
- 		amd_manager->ping_slave_stat = U32_MAX;
- 		mutex_unlock(&amd_manager->bus.msg_lock);
--		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--			ret = amd_sdw_host_wake_enable(amd_manager, false);
--			if (ret)
--				return ret;
--		}
-+		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-+		if (ret)
-+			return ret;
- 		val = readl(amd_manager->mmio + ACP_SW_CLK_RESUME_CTRL);
- 		if (val) {
- 			val |= AMD_SDW_CLK_RESUME_REQ;
-@@ -1461,10 +1483,19 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 			return ret;
- 		amd_sdw_set_frameshape(amd_manager);
- 	}
--	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
-+	switch (amd_manager->acp_rev) {
-+	case ACP63_PCI_REV_ID:
-+		break;
-+	case ACP70_PCI_REV_ID:
-+	case ACP71_PCI_REV_ID:
-+	case ACP72_PCI_REV_ID:
- 		ret = amd_sdw_set_device_state(amd_manager, AMD_SDW_DEVICE_STATE_D0);
- 		if (ret)
- 			return ret;
-+		break;
-+	default:
-+		dev_err(amd_manager->dev, "unexpected acp_rev 0x%x\n", amd_manager->acp_rev);
-+		return -EINVAL;
- 	}
- 	return 0;
- }
+diff --git a/drivers/net/dsa/microchip/ksz_ptp.h b/drivers/net/dsa/microchip/ksz_ptp.h
+index 7067ec9bd1e6..eb3827203b96 100644
+--- a/drivers/net/dsa/microchip/ksz_ptp.h
++++ b/drivers/net/dsa/microchip/ksz_ptp.h
+@@ -29,8 +29,7 @@ struct ksz_ptp_data {
+ 	spinlock_t clock_lock;
+ 	struct timespec64 clock_time;
+ 	enum ksz_ptp_tou_mode tou_mode;
+-	struct timespec64 perout_target_time_first;  /* start of first pulse */
+-	struct timespec64 perout_period;
++	struct ptp_perout_request perout_request;
+ };
+ 
+ int ksz_ptp_clock_register(struct dsa_switch *ds);
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260914-fix-perout-c8c972b89d7f
+
+Best regards,
 -- 
-2.48.1
+Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
 
