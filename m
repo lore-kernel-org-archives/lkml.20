@@ -1,151 +1,175 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA78514773;
-	Thu, 17 Sep 2026 13:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A1E513579
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 13:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650414; cv=none; b=UgK4D1Yt8h4kHl+s4htecmZyi3KjAuxReWQSQyq4Eyqki5ilcuJ7Gb+pgvBZSO03M/13BYsMHgkb3BIi2cUz1pcEqZeM9+pZQAqWtrep09baMbz7xCrtDPu/KaRLuZOZexgjfrCTJ+aoNtDd5GvpxdODBWrlbbCQR0gufBnWHpA=
+	t=1789650423; cv=none; b=gplOvsWxRZlRu6KC4fCBKuw/QXOD9M+PAbmRdnoVbTGY7kponB/rsgzs2Ni92RY1dC/OL06qXZMjpMmi9Cc5b1CiNyUcGP/08OZkw0unY6tg5nPFemFh4s5pmDqm5xEEPGzhMHuZGmGJ4/u/NdKJzUj9y9KZONUzLgEzPpS8YQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650414; c=relaxed/simple;
-	bh=6fjy9ZBmXn0UPSK1BLLKsFzED6I434bUX3EwUrM41tE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RpHr5oqF/qOCmIqvdzjYa/X37R6ZL7vaMlBY4a1T1CY8G6qgv/XTgutZXdyygsPavF8gFe6DIxCbBEYZpPHalAIprxKp0vjVwLFQKfUmmSvneELYqS0rLCY0d0tVg1+am7KCEq7oIuyixb/bt5FDSbBjgMgHHqbXDFw0T5FRnfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=eBxZRgdn; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+	s=arc-20240116; t=1789650423; c=relaxed/simple;
+	bh=A99s6qGzXGsm0xJ39yw3mTC3dYxbI1dGX7ih7zzTNhk=;
+	h=Date:Content-Type:To:Subject:Message-Id:In-Reply-To:Mime-Version:
+	 References:Cc:From; b=Cnefod3kbAXyJqZFHuo017/FLjD3tn3MVkCVCZFAh4IfawKVI17Dp1FkGci9wIXrM9Qtqr/Oa6O1vVWVPf0PeqKo12ZtmsttsQ3jhseENM78awn6IyT0rueauPefpXMtixdVqdor5NYJLGRtMi23Q7/aYtPjRBfv550RBUqWwX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=sYBSOhG8; arc=none smtp.client-ip=209.127.231.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="eBxZRgdn"
-dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=4l+0/KB5shywkowpBJPfrdIhgydMAX7BiWEFJvhsp7Y=;
-	b=eBxZRgdnZIvmrxcH13n4208C4A/NcXSIVfuRIfXFtY7fKXd+iRRsCkyA8O75EpA8zgd7ohdOD
-	Rq+12qgLZ+kQFJPI3JeRuFw/uO4UXeWDD3M269NrieNcyBq3sBPy/83JkTk2a7qmWXfBcBv61CV
-	fNrheYk9hpTnwYYiPZDQXAA=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hlwj829qtzKm5t;
-	Thu, 17 Sep 2026 20:55:40 +0800 (CST)
-Received: from kwepemp200012.china.huawei.com (unknown [7.202.194.234])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5B7F340586;
-	Thu, 17 Sep 2026 21:06:43 +0800 (CST)
-Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
- kwepemp200012.china.huawei.com (7.202.194.234) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 21:06:43 +0800
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 21:06:42 +0800
-From: Xingui Yang <yangxingui@huawei.com>
-To: <john.garry@linux.dev>, <yanaijie@huawei.com>, <jejb@linux.ibm.com>,
-	<mkp@kernel.org>
-CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linuxarm@huawei.com>, <yangxingui@huawei.com>, <liuyonglong@huawei.com>,
-	<kangfenglong@huawei.com>
-Subject: [PATCH v2] scsi: libsas: Fix SMP IO deadlock during HA resume
-Date: Thu, 17 Sep 2026 21:06:42 +0800
-Message-ID: <20260917130642.1796231-1-yangxingui@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="sYBSOhG8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1789650390; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=+K/fwK8bvxELpb1D1iB7Tjzey3gE1mQsPqJM5hXilTs=;
+ b=sYBSOhG8F9ggTDfXjZcy9GmaHBoFZpDBmcQrP5vAkuVxIsruenpevWL3XhFROaSwMXva8g
+ hOjg+9/h9Z3O8YUUXV8cd326/jo0xInCsAR+nymvihEoCCuLxjgF2s06MDiQJGFZxgG8GM
+ qvFOMH7u9mvbXOx0ONmZ1Xel+oc/m+XDWqNXTWNtZuFEhWTfvzWicgI6/1gsWNvYKuWUkA
+ gziiE+eidvtlEdgsibY4OQL9YKwJuQawplmlYuq0S+9hOPjlFRjzf5GPmjuJsLdlt0tbX5
+ sWnBdM4E677M3N2HqlbodIsXOhxIwBaKvmRiSE+KwO3oMgtpOD4TfdyiDRslxg==
+Date: Thu, 17 Sep 2026 21:06:25 +0800
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Received: from [172.16.155.39] ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 21:06:27 +0800
+To: "Kumar,  Udit" <u-kumar1@ti.com>
+Subject: Re: [PATCH v3] serial: 8250_dw: Prefer SRBR in bogus RX timeout workaround if available
+Message-Id: <ab256e4a-a9cc-410e-b889-f75fb01e77c7@picoheart.com>
+In-Reply-To: <52822f65-58c4-4def-a1b6-e37055d4c0c6@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemp500015.china.huawei.com (7.202.195.9)
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26aabe5d4+ae2f41+vger.kernel.org+yang.yicong@picoheart.com>
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+References: <20260908141524.20302-1-yang.yicong@picoheart.com> <52822f65-58c4-4def-a1b6-e37055d4c0c6@ti.com>
+Cc: <ilpo.jarvinen@linux.intel.com>, <andriy.shevchenko@linux.intel.com>, 
+	<linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<yang.yicong@picoheart.com>, <gregkh@linuxfoundation.org>, 
+	<jirislaby@kernel.org>, <geshijian@picoheart.com>, 
+	<yangyang.8776@picoheart.com>, <yanligen@picoheart.com>
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+Content-Transfer-Encoding: 7bit
 
-When the controller resumes, sas_resume_ha() -> sas_drain_work()
-processes the DISCE_RESUME work, which restores the ATA ports through
-the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
-and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
-ATA device the hard reset in that recovery is an SMP PHY CONTROL
-command sent to the expander:
+On 9/17/26 6:47 PM, Kumar, Udit wrote:
+> Hi Yicong,
+> 
+> On 9/8/2026 7:45 PM, Yicong Yang wrote:
+>> The DW uart could get into the cases where a bogus RX timeout
+>> interrupt is asserted but no available data. This could be
+>> workaround by doing a bogus read.
+>>
+>> Currently the driver's using the standard RBR (receive buffer
+>> register) for this bogus read. However the reading of RBR
+>> in this case is allowed to raise a hardware error if vendor
+>> choose to implement in this way (our platform). It's also
+>> allowed to do the bogus read using SRBR (shadow RBR) for
+>> workaround which won't raise the hardware error. So change
+>> to use the SRBR to workaround the issue if it's available.
+>>
+> 
+> Thanks for the patch. If I understand correctly, the IP you are using
+> does not allow reading an empty FIFO, so you decided to read the SRBR
+> instead.
 
-  ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
-    -> lldd_I_T_nexus_reset() -> sas_phy_reset()
-      -> sas_smp_phy_control() -> smp_execute_task_sg()
+yes but under certain condition, see blow.
 
-For a runtime resume ha->dev is still RPM_RESUMING while the callback
-runs, so the pm_runtime_get_sync() in smp_execute_task_sg() blocks
-waiting for the resume to complete, but the resume is blocked in
-sas_drain_work() waiting for that very SMP IO — a deadlock.
+> 
+> Does this same case applies when you open a port without any data in the
+> FIFO:
+> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/tty/serial/8250/8250_port.c#L710
+> ?
+> 
+> If yes then I am wondering, how the condition mentioned above is bypassed
 
-Use pm_runtime_get_noresume()/pm_runtime_put_noidle() when
-SAS_HA_RESUMING is set: the usage counter stays elevated for the whole
-duration of the IO, so the controller cannot autosuspend underneath an
-in-flight SMP IO issued by a thread which the drain does not wait on,
-while avoiding the wait for the already ongoing resume. The hardware
-is already initialized by the LLDD before sas_resume_ha() runs.
-SAS_HA_RESUMING is also set during a system sleep resume, where
-ha->dev is RPM_ACTIVE and the noresume variants are harmless.
+reading an empty FIFO (by RBR) will be fine when the fifo is disabled.
+so I think serial8250_clear_interrupts() you referred is always invoked
+when the FIFO is disabled.
 
-Outside of the resume window, convert the pm_runtime_get_sync() call
-to pm_runtime_resume_and_get() and check the result, so that an SMP IO
-is not submitted to a host whose runtime resume failed (the return
-value was previously ignored).
+I also find a similar issue related to serial8250_clear_interrupts()
+that trigger the PSLVERR when reading the empty FIFO when the FIFO
+is enabled. this is fixed by 7f8fdd4dbffc ("serial: 8250: fix panic due to PSLVERR")
 
-Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
-(pm8001, isci, aic94xx, mvsas) are unaffected.
+thanks.
 
-Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
-Signed-off-by: Xingui Yang <yangxingui@huawei.com>
----
-Changes since v1:
-
-- Use pm_runtime_get_noresume()/put_noidle() during HA resume instead
-  of skipping the PM reference entirely, so an in-flight SMP IO always
-  keeps autosuspend away.
-- Convert pm_runtime_get_sync() to pm_runtime_resume_and_get() and
-  check the result (pre-existing issue flagged by sashiko).
-
- drivers/scsi/libsas/sas_expander.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/sas_expander.c
-index 811c9eb4fef1..43cb90188f44 100644
---- a/drivers/scsi/libsas/sas_expander.c
-+++ b/drivers/scsi/libsas/sas_expander.c
-@@ -61,8 +61,23 @@ static int smp_execute_task_sg(struct domain_device *dev,
- 	struct sas_internal *i =
- 		to_sas_internal(dev->port->ha->shost->transportt);
- 	struct sas_ha_struct *ha = dev->port->ha;
--
--	pm_runtime_get_sync(ha->dev);
-+	bool ha_resuming = test_bit(SAS_HA_RESUMING, &ha->state);
-+
-+	/*
-+	 * While the host is resuming, ha->dev may be RPM_RESUMING and
-+	 * the resume blocked in sas_drain_work() waiting for this very
-+	 * SMP IO, so waiting for the host to resume here would deadlock.
-+	 * Use the noresume/noidle variants to still hold a PM reference
-+	 * for the duration of the IO, the hardware is already initialized
-+	 * by the LLDD before sas_resume_ha() runs.
-+	 */
-+	if (ha_resuming) {
-+		pm_runtime_get_noresume(ha->dev);
-+	} else {
-+		res = pm_runtime_resume_and_get(ha->dev);
-+		if (res)
-+			return res;
-+	}
- 	mutex_lock(&dev->ex_dev.cmd_mutex);
- 	for (retry = 0; retry < 3; retry++) {
- 		if (test_bit(SAS_DEV_GONE, &dev->state)) {
-@@ -135,7 +150,10 @@ static int smp_execute_task_sg(struct domain_device *dev,
- 		}
- 	}
- 	mutex_unlock(&dev->ex_dev.cmd_mutex);
--	pm_runtime_put_sync(ha->dev);
-+	if (ha_resuming)
-+		pm_runtime_put_noidle(ha->dev);
-+	else
-+		pm_runtime_put_sync(ha->dev);
- 
- 	BUG_ON(retry == 3 && task != NULL);
- 	sas_free_task(task);
--- 
-2.43.0
-
+> 
+> Thanks
+> Udit
+> 
+> 
+>> Signed-off-by: Yicong Yang <yang.yicong@picoheart.com>
+>> ---
+>> Change since v1:
+>> - refine the comments and type per Andy
+>> Link: https://lore.kernel.org/linux-serial/20260907074035.77796-1-yang.yicong@picoheart.com/
+>>
+>> Change since v1:
+>> - simply the workaround path per Ilpo and Andy
+>> - run ~48k reboot tests and didn't reproduce the issue
+>> Link: https://lore.kernel.org/linux-serial/20260629075510.32854-1-yang.yicong@picoheart.com/
+>>
+>>  drivers/tty/serial/8250/8250_dw.c    | 9 ++++++++-
+>>  drivers/tty/serial/8250/8250_dwlib.c | 5 +++++
+>>  drivers/tty/serial/8250/8250_dwlib.h | 5 +++++
+>>  3 files changed, 18 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+>> index 51d026f20825..b8a0bca8b536 100644
+>> --- a/drivers/tty/serial/8250/8250_dw.c
+>> +++ b/drivers/tty/serial/8250/8250_dw.c
+>> @@ -439,8 +439,15 @@ static int dw8250_handle_irq(struct uart_port *p)
+>>  	if (!up->dma && rx_timeout) {
+>>  		status = serial_lsr_in(up);
+>>  
+>> +		/*
+>> +		 * Do the bogus read from Shadow RBR (SRBR) if provided.
+>> +		 * Both RBR and SRBR are supported ways to workaround
+>> +		 * this problem. But read RBR can cause hardware error
+>> +		 * (PSLVERR) if hardware choose to implement in this way
+>> +		 * (implement REG_TIMEOUT_WIDTH to 0), whereas SRBR won't.
+>> +		 */
+>>  		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
+>> -			serial_port_in(p, UART_RX);
+>> +			serial_port_in(p, d->data.srbr);
+>>  	}
+>>  
+>>  	/* Manually stop the Rx DMA transfer when acting as flow controller */
+>> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+>> index 8859e66d2d71..9bb02a4ab11f 100644
+>> --- a/drivers/tty/serial/8250/8250_dwlib.c
+>> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+>> @@ -247,5 +247,10 @@ void dw8250_setup_port(struct uart_port *p)
+>>  
+>>  	if (reg & DW_UART_CPR_SIR_MODE)
+>>  		up->capabilities |= UART_CAP_IRDA;
+>> +
+>> +	if (reg & DW_UART_CPR_SHADOW)
+>> +		pd->srbr = DW_UART_SRBR_0;
+>> +	else
+>> +		pd->srbr = UART_RX;
+>>  }
+>>  EXPORT_SYMBOL_GPL(dw8250_setup_port);
+>> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+>> index 1fe52332e774..ee7a07fac0f6 100644
+>> --- a/drivers/tty/serial/8250/8250_dwlib.h
+>> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+>> @@ -13,6 +13,7 @@
+>>  #include "8250.h"
+>>  
+>>  /* Offsets for the DesignWare specific registers */
+>> +#define DW_UART_SRBR_0	0x0c /* Shadow Receive Buffer Register */
+>>  #define DW_UART_USR	0x1f /* UART Status Register */
+>>  #define DW_UART_DMASA	0xa8 /* DMA Software Ack */
+>>  #define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
+>> @@ -90,6 +91,10 @@ struct dw8250_port_data {
+>>  
+>>  	/* RS485 variables */
+>>  	bool			hw_rs485_support;
+>> +
+>> +	/* Register offsets */
+>> +	/* Shadow RBR (if not defined RBR will be used) */
+>> +	int		srbr;
+>>  };
+>>  
+>>  void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
