@@ -1,325 +1,168 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-of-o52.zoho.com (sender6-of-o52.zoho.com [165.173.180.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308954BD0FD;
-	Thu, 17 Sep 2026 11:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643244; cv=none; b=Xe+OJCO6+o8/WaomzS20HrHBLSBulXoW1gsw+VqRuT9X8lWYayVr80B3JVn42aALcbHiuw5w7oVhfPzPJJA8+O7pNvViGFZVY2LfdtvGbPJGx9nie/aKt0R2vBO3w7BHiLHvq50Il6mKTR1D8FznV+vO9vEXhOZz+KtoL+CbvoU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643244; c=relaxed/simple;
-	bh=ej12WBcgxUjonp5mnmeZ1QqoktFNYq4AwG8DM0OMau4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z7nhJR6XyD6R0bavF3eb9LRfIxruYzu6s/mltVHGl5jS5p9IoMSkZmg5lPAD5Weg9lmHOJDpntTKpnYNUKlmL9L7cXLEvvg4nFLF0at9uLq1IJHMoV9pHFD9GYBmbYRzamnUQCBsgM70t0KB6K6j99+zYILy4FP36wvFqZTTF3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PaHnQqEn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=c6wJbcoX; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fkJHRCqX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=f5wr0dVf; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26842451992;
+	Thu, 17 Sep 2026 11:07:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789643254; cv=pass; b=dLxFu0aQ9WSo5PqQalg76Vt87hPbgdqFdnqGFiaCUJtxYoIMRC8LpRAiggHitMwAuk/WJUr7ftfzCzp/RzhhOAO3WKDNBrGZll366CzZi8tyTO6PAyta4weVyDzRm7nyf8zA+nuhurveKB1IZ4abuY4oV5yiSZj01npW6vpF00k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789643254; c=relaxed/simple;
+	bh=41xDYFQQpziqncNzQ0S4/AEnmyQN67a4Es40OByesrQ=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=gA9uYF9amI0XTtXeMov4nXXNbonjq/XCk0io1q1Bi5hyJK0rlMoJeIYrqn2xpDE2ML0YCpezdN48iIeMyF+26SaKmUVLEYDolUi7TXai8ANtNa5QTx8ZV9r8mWJVNgOwgFPV8Ed0zDWYoLSkQfHnhddEVRVrCYi8/66a21EJzU0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mpiricsoftware.com; spf=pass smtp.mailfrom=mpiricsoftware.com; dkim=fail (0-bit key) header.d=mpiricsoftware.com header.i=kalpan.jani@mpiricsoftware.com header.b=cx+4F74d reason="key not found in DNS"; arc=pass smtp.client-ip=165.173.180.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mpiricsoftware.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mpiricsoftware.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PaHnQqEn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="c6wJbcoX";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fkJHRCqX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="f5wr0dVf"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2505C21DDF;
-	Thu, 17 Sep 2026 11:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789643231; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVJcEGGMkJoXImRO1LXTVtap5mDapXZTdZLVXHfCX8o=;
-	b=PaHnQqEnRnLwwxH/VrS2Ao1tMY0U7ne7j7nHmC5vz5Vj4gcxrJTbYZHxO+mW8Dd/1oR7rX
-	15KZT71QVwo0dr9QQjzAF+AiqwwbImCcUF3RAo4vKAyaYPjudrY4FydwV+ZEWaU46M7acc
-	hcInc4z4C1EzMi5EJDmou9RKimzBc+I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789643231;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVJcEGGMkJoXImRO1LXTVtap5mDapXZTdZLVXHfCX8o=;
-	b=c6wJbcoXt5QZUYqVgO7pQREz9aS/MQ3/VwL1Bmwws5YqkPE+RopjoD8wEaFAMWjA5tF7Xk
-	cxhn/xLOmYjQszAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789643227; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVJcEGGMkJoXImRO1LXTVtap5mDapXZTdZLVXHfCX8o=;
-	b=fkJHRCqXLB1oj2kIsLaxQ+0FTAXDz4hy+tncTQFk/ewgVgcCtnld10UUw+TEt65vQn/ZeC
-	UobVXB7KM5FFCl28Ro/HOc9Ke23K6CTtyKnZbyep3r3y3O8+PPnLBFyUsufj0ZpjPq0wRP
-	K0+08pP6Auqp1NerHTYjHDpPlpWq+1s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789643227;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LVJcEGGMkJoXImRO1LXTVtap5mDapXZTdZLVXHfCX8o=;
-	b=f5wr0dVfXeVC2E7Sg3zMPkmIiA+xVKqMUHW+0bOUwsVk3Y4gULEqRW/J5gxgm9EkWoyh7Y
-	R+7C6XAeN1+/XZAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CDA85134B3;
-	Thu, 17 Sep 2026 11:07:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bqwOKdrJq2reGQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 11:07:06 +0000
-Date: Thu, 17 Sep 2026 13:07:06 +0200
-Message-ID: <87zexggmqt.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: A Akhil <akhilarul324@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: Sound/seq: hung task in odev_open - unuse callback sleeps under list_mutex
-In-Reply-To: <CACygGA9s1oWO53NPamL5tkaNhUt-W8S736OVAJZcYCU_UOni+A@mail.gmail.com>
-References: <CACygGA9s1oWO53NPamL5tkaNhUt-W8S736OVAJZcYCU_UOni+A@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mpiricsoftware.com header.i=kalpan.jani@mpiricsoftware.com header.b="cx+4F74d"
+ARC-Seal: i=1; a=rsa-sha256; t=1789643207; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DNhOUAo1jlLUwd02itr2IC9/qEoshkkTg5q/bVmOFU4XdxD9q2qwZY8TRcwfpsJQfNDEo7oznARWc5S8PYWDMMy8H0sM+mAGAQIQmWORZkBHJO+PlJKi5YvORnVwDCM92K6ozp9hR7oGMecfu6iYnqJUtQjJGi5ganGYS6NBtoo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789643207; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Z3q7s9EkdzfJ7kZtJqAQ2XTDo7/rlMeQle/Z1w4CZ80=; 
+	b=LKp6I1bIqSg8QGNSljTD5GfubvRBYXnT0f3IHMqP9Di8yLqzPtSwSVcEIHXYMemEruGpPOBojYbiNw6WT+iSvVkOqMzRC/P71HLL2DRtBgV6LeJQZ3CekDt1cHtRxk0ONxJVqgZ0OlidZl4zXwxwOuicJdz9gbbLf19FkcZy1Qo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=mpiricsoftware.com;
+	spf=pass  smtp.mailfrom=kalpan.jani@mpiricsoftware.com;
+	dmarc=pass header.from=<kalpan.jani@mpiricsoftware.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789643207;
+	s=mpiric; d=mpiricsoftware.com; i=kalpan.jani@mpiricsoftware.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Z3q7s9EkdzfJ7kZtJqAQ2XTDo7/rlMeQle/Z1w4CZ80=;
+	b=cx+4F74dSU/bo4Pxw3BLUrMwMFbk2b2ecyo8ZgNAHkZWIjqdQUOChlds6s8kmKxn
+	R+et3e8K/fiXTC4vm5hI030I2JmBkpQdFgJJWEeh6qXA2//QeNwmlCK+t6flsbe+7Wc
+	+hUqzKDzfuwUvn1cLNwL6rk3KcI7XAwtTzEvEfUc=
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1789643207468545.0938849369105; Thu, 17 Sep 2026 04:06:47 -0700 (PDT)
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 17896432040711007.7801553990827; Thu, 17 Sep 2026 04:06:44 -0700 (PDT)
+Date: Thu, 17 Sep 2026 16:36:44 +0530
+From: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
+To: "Matthieu Baerts" <matttbe@kernel.org>
+Cc: "Jiayuan Chen" <jiayuan.chen@linux.dev>, "bpf" <bpf@vger.kernel.org>,
+	"mptcp" <mptcp@lists.linux.dev>, "VEGA" <vega@nebusec.ai>,
+	"Alexei Starovoitov" <ast@kernel.org>,
+	"Daniel Borkmann" <daniel@iogearbox.net>,
+	"John Fastabend" <john.fastabend@gmail.com>,
+	"Andrii Nakryiko" <andrii@kernel.org>,
+	"Eduard Zingerman" <eddyz87@gmail.com>,
+	"Kumar Kartikeya Dwivedi" <memxor@gmail.com>,
+	"Martin KaFai Lau" <martin.lau@linux.dev>,
+	"Song Liu" <song@kernel.org>,
+	"Yonghong Song" <yonghong.song@linux.dev>,
+	"Jiri Olsa" <jolsa@kernel.org>,
+	"Emil Tsalapatis" <emil@etsalapatis.com>,
+	"Ihor Solodrai" <ihor.solodrai@linux.dev>,
+	"Shuah Khan" <shuah@kernel.org>,
+	"Mat Martineau" <martineau@kernel.org>,
+	"Geliang Tang" <geliang@kernel.org>,
+	"Matt Bobrowski" <mattbobrowski@google.com>,
+	"Tejun Heo" <tj@kernel.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>,
+	"linux-kselftest" <linux-kselftest@vger.kernel.org>,
+	"netdev" <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>
+Message-ID: <1a0af0c25d8.352950d2114190.972790069861537729@mpiricsoftware.com>
+In-Reply-To: <18f86b06-7477-4750-b57e-094df4310e4a@kernel.org>
+References: <20260917081209.361367-1-jiayuan.chen@linux.dev> <18f86b06-7477-4750-b57e-094df4310e4a@kernel.org>
+Subject: Re: [PATCH bpf v1 1/2] mptcp, bpf: reject bpf_sk_release() on msk
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid,perex.cz:email,googlegroups.com:email]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On Thu, 17 Sep 2026 04:41:31 +0200,
-A Akhil wrote:
-> 
-> 
-> To: tiwai@suse.com, perex@perex.cz
-> Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
->     syzkaller-bugs@googlegroups.com
-> Subject: sound/seq: hung task in odev_open - unuse callback sleeps under
-> list_mutex
-> 
-> Hi,
-> 
-> I've been looking at this syzbot report:
-> 
->   INFO: task hung in odev_open (5)
->   https://syzkaller.appspot.com/bug?extid=825b7e3a03dd072c187f
-> 
-> The hang isn't really in the OSS code where it gets reported. syzbot only
-> shows the task waiting on register_mutex in odev_open(); the one actually
-> holding things up is this:
-> 
->   odev_release                            takes register_mutex
->    snd_seq_oss_release / snd_seq_oss_reset
->     snd_seq_oss_synth_reset
->      snd_seq_oss_midi_close               takes mdev->open_mutex
->       snd_seq_ioctl_unsubscribe_port
->        snd_seq_port_disconnect
->         __delete_and_unsubscribe_port     called with grp->list_mutex held
->          midisynth_unuse                  seq_midi.c:298
->           snd_rawmidi_drain_output        sleeps 10*HZ per substream
->            schedule_timeout
-> 
-> delete_and_unsubscribe_port() holds grp->list_mutex for write while the
-> unuse callback runs, and midisynth_unuse() ends up in
-> snd_rawmidi_drain_output(), which waits 10*HZ per substream. With ~8
-> substreams I measured close() taking 82 seconds. Anything calling
-> snd_seq_port_connect() blocks on the same rwsem, and in the OSS path that
-> connect runs under register_mutex, so every other odev_open() piles up
-> behind it and the hung task detector fires.
-> 
-> I tried narrowing register_mutex in odev_release, and then open_mutex in
-> snd_seq_oss_midi_close. Both build, both still hang - the wait just moves
-> down a level each time, ending up in snd_seq_port_connect().
-> 
-> Moving unsubscribe_port() out of the rwsem looked wrong to me: grp->count
-> is protected by it, and the comment above subscribe_port() says open and
-> close are only invoked on the 0->1 and 1->0 transitions. If close ran
-> unlocked, a concurrent subscribe could call open first.
-> 
-> That pairing also means an opener of the same port has to wait for a close
-> in progress anyway, so I don't think lock narrowing can fix this - the
-> teardown just has to stop taking tens of seconds.
-> 
-> So the drain has to stop blocking the teardown. I can see three ways to do
-> that, but all of them change when or whether pending MIDI output gets
-> flushed, and that's not something I want to decide on my own:
-> 
->   - drop the output instead of draining it in midisynth_unuse()
->   - move the drain to a workqueue so the unuse callback doesn't sleep
->   - keep draining but cap the total wait
-> 
-> Which of those would you take? I can write it and test it.
-> 
-> (v7.3-rc3, 9b87fdc9af2f, qemu with dummy_hcd + raw-gadget. The syz repro
-> alone didn't trigger it for me - I needed a second thread opening
-> /dev/sequencer2 while another one closes it. That hits the hang in under a
-> minute.)
+Hi Matt, Jiayuan,
 
-IIUC, this is no real "hang" that locks up forever but just went over
-threshold in mutex?  If so, we can avoid taking too long mutex like
-the (totally untested) patch below?
+Thanks for looping me in, and thanks Jiayuan for catching this.
+
+This is a separate bug from what I was fixing. My patch hardens the
+lockless read of ->conn (the NULL-deref/UAF from #622) with
+rcu_dereference()/acquire-release/SOCK_RCU_FREE, but that doesn't
+touch the helper's return-value ownership contract, so the refcount
+mismatch you're describing exists independently of whether the read
+itself is safe. Hardening the read fixes my bug; it doesn't and can't
+fix this one.
+
+Given that, I think Paolo's original suggestion (dropping the helper
+from tracing_prog_func_proto()) is the right call. I don't see a way
+to fix the refcounting issue while keeping the helper's current shape
+(returning a different object than the input, with no reference taken)
+without a bigger rework of what it hands back to a BPF program.
+
+I checked which prog types can actually chain bpf_skc_lookup_tcp()
+into bpf_skc_to_mptcp_sock() - it's broader than just tracing.
+sock_addr, tc_cls_act, xdp, and sk_msg all have bpf_skc_lookup_tcp()
+available and fall through to bpf_sk_base_func_proto(), which is
+where bpf_skc_to_mptcp_sock() is registered, so the same pattern
+Jiayuan showed is reachable from all four of them, not only from
+tracing programs. sock_ops doesn't register bpf_skc_lookup_tcp() at
+all, and cg_skb has the lookup helper but doesn't fall through to
+bpf_sk_base_func_proto(), so neither of those two can chain into it
+this way. I haven't traced the verifier's reference-tracking closely
+enough to rule out some other path I'm not aware of.
+
+I don't have visibility into whether any real tracing (or TC/XDP/etc.)
+programs use this helper today. If that's a live concern for anyone,
+I'll defer to whoever has that visibility.
+
+I can send a version that drops bpf_skc_to_mptcp_sock() from
+tracing_prog_func_proto() as Paolo suggested. Given what Jiayuan found
+also applies to the non-tracing paths above, should that patch just
+remove the BPF_FUNC_skc_to_mptcp_sock case from
+bpf_sk_base_func_proto() as well, rather than leaving it there for
+sock_addr/tc/xdp/sk_msg?
+
+Cheers,
+Kalpan Jani
 
 
-thanks,
+From: Matthieu Baerts <matttbe@kernel.org>
+To: "Jiayuan Chen"<jiayuan.chen@linux.dev>, <bpf@vger.kernel.org>, <mptcp@lists.linux.dev>
+Cc: "VEGA"<vega@nebusec.ai>, "Alexei Starovoitov"<ast@kernel.org>, "Daniel Borkmann"<daniel@iogearbox.net>, "John Fastabend"<john.fastabend@gmail.com>, "Andrii Nakryiko"<andrii@kernel.org>, "Eduard Zingerman"<eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"<memxor@gmail.com>, "Martin KaFai Lau"<martin.lau@linux.dev>, "Song Liu"<song@kernel.org>, "Yonghong Song"<yonghong.song@linux.dev>, "Jiri Olsa"<jolsa@kernel.org>, "Emil Tsalapatis"<emil@etsalapatis.com>, "Ihor Solodrai"<ihor.solodrai@linux.dev>, "Shuah Khan"<shuah@kernel.org>, "Mat Martineau"<martineau@kernel.org>, "Geliang Tang"<geliang@kernel.org>, "Matt Bobrowski"<mattbobrowski@google.com>, "Tejun Heo"<tj@kernel.org>, <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, <netdev@vger.kernel.org>, "Kalpan Jani"<kalpan.jani@mpiricsoftware.com>, "Paolo Abeni"<pabeni@redhat.com>
+Date: Thu, 17 Sep 2026 15:09:13 +0530
+Subject: Re: [PATCH bpf v1 1/2] mptcp, bpf: reject bpf_sk_release() on msk
 
-Takashi
+ > Hi Jiayuan,
+ > 
+ > +Cc Kalpan, Paolo.
+ > 
+ > On 17/09/2026 10:11, Jiayuan Chen wrote:
+ > > A bpf prog can do this today:
+ > > 
+ > >     subflow = bpf_skc_lookup_tcp(...);
+ > >     msk = bpf_skc_to_mptcp_sock(subflow);
+ > >     bpf_sk_release(msk);
+ > > 
+ > > bpf_skc_to_mptcp_sock() returns subflow->conn without taking any
+ > > reference, so bpf_sk_release() drops a refcount nobody took on the msk,
+ > > and the subflow reference is leaked:
+ > Thank you for looking at this!
+ > 
+ > Note that Kalpan was looking at this [1], and Paolo suggested removing
+ > the helper [2] (but we failed to review the last version so far, sorry
+ > about that...)
+ > 
+ > I don't know if there are progs already using it. If yes, I guess your
+ > approach is better (but I'm not comfortable reviewing verifier's code).
+ > 
+ > @Kalpan, WDYT?
+ > 
+ > [1] https://lore.kernel.org/20260818120437.3949686-1-kalpan.jani@mpiricsoftware.com
+ > [2] https://lore.kernel.org/e039e866-fe7e-41ef-ad41-92a76a123713@redhat.com
+ > 
+ > Cheers,
+ > Matt
+ > -- 
+ > Sponsored by the NGI0 Core fund.
+ > 
+ > 
 
--- 8< --
-diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
-index 2835576040ed..c790b1cd451a 100644
---- a/sound/core/seq/oss/seq_oss.c
-+++ b/sound/core/seq/oss/seq_oss.c
-@@ -132,13 +132,19 @@ static int
- odev_release(struct inode *inode, struct file *file)
- {
- 	struct seq_oss_devinfo *dp;
-+	int index;
- 
- 	dp = file->private_data;
- 	if (!dp)
- 		return 0;
- 
--	guard(mutex)(&register_mutex);
-+	scoped_guard(mutex, &register_mutex)
-+		snd_seq_oss_detach(dp);
-+	index = dp->index;
- 	snd_seq_oss_release(dp);
-+	scoped_guard(mutex, &register_mutex)
-+		snd_seq_oss_detach_done(index);
-+
- 	return 0;
- }
- 
-@@ -149,6 +155,8 @@ odev_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
- 	dp = file->private_data;
- 	if (snd_BUG_ON(!dp))
- 		return -ENXIO;
-+	if (dp->closing)
-+		return -EBADFD;
- 	return snd_seq_oss_read(dp, buf, count);
- }
- 
-@@ -160,6 +168,8 @@ odev_write(struct file *file, const char __user *buf, size_t count, loff_t *offs
- 	dp = file->private_data;
- 	if (snd_BUG_ON(!dp))
- 		return -ENXIO;
-+	if (dp->closing)
-+		return -EBADFD;
- 	return snd_seq_oss_write(dp, buf, count, file);
- }
- 
-diff --git a/sound/core/seq/oss/seq_oss_device.h b/sound/core/seq/oss/seq_oss_device.h
-index 935cf3df0b30..ee318ea1a096 100644
---- a/sound/core/seq/oss/seq_oss_device.h
-+++ b/sound/core/seq/oss/seq_oss_device.h
-@@ -72,6 +72,7 @@ struct seq_oss_devinfo {
- 	int cseq;	/* sequencer client number */
- 	int port;	/* sequencer port number */
- 	int queue;	/* sequencer queue number */
-+	bool closing;
- 
- 	struct snd_seq_addr addr;	/* address of this device */
- 
-@@ -107,7 +108,9 @@ int snd_seq_oss_delete_client(void);
- 
- /* device file interface */
- int snd_seq_oss_open(struct file *file, int level);
-+void snd_seq_oss_detach(struct seq_oss_devinfo *dp);
- void snd_seq_oss_release(struct seq_oss_devinfo *dp);
-+void snd_seq_oss_detach_done(int index);
- int snd_seq_oss_ioctl(struct seq_oss_devinfo *dp, unsigned int cmd, unsigned long arg);
- int snd_seq_oss_read(struct seq_oss_devinfo *dev, char __user *buf, int count);
- int snd_seq_oss_write(struct seq_oss_devinfo *dp, const char __user *buf, int count, struct file *opt);
-diff --git a/sound/core/seq/oss/seq_oss_init.c b/sound/core/seq/oss/seq_oss_init.c
-index 6586e07431c3..3aece0d2981a 100644
---- a/sound/core/seq/oss/seq_oss_init.c
-+++ b/sound/core/seq/oss/seq_oss_init.c
-@@ -33,6 +33,7 @@ static int system_port __ro_after_init = -1;
- static int num_clients;
- static struct seq_oss_devinfo *client_table[SNDRV_SEQ_OSS_MAX_CLIENTS];
- 
-+#define SEQ_OSS_DETACHED	((struct seq_oss_devinfo *)-1)
- 
- /*
-  * prototypes
-@@ -396,14 +397,23 @@ free_devinfo(void *private)
- /*
-  * close sequencer device
-  */
-+void snd_seq_oss_detach(struct seq_oss_devinfo *dp)
-+{
-+	dp->closing = true;
-+	client_table[dp->index] = SEQ_OSS_DETACHED;
-+	num_clients--;
-+}
-+
-+void snd_seq_oss_detach_done(int index)
-+{
-+	client_table[index] = NULL;
-+}
-+
- void
- snd_seq_oss_release(struct seq_oss_devinfo *dp)
- {
- 	int queue;
- 
--	client_table[dp->index] = NULL;
--	num_clients--;
--
- 	snd_seq_oss_reset(dp);
- 
- 	snd_seq_oss_synth_cleanup(dp);
-@@ -475,7 +485,7 @@ snd_seq_oss_system_info_read(struct snd_info_buffer *buf)
- 	for (i = 0; i < num_clients; i++) {
- 		snd_iprintf(buf, "\nApplication %d: ", i);
- 		dp = client_table[i];
--		if (!dp) {
-+		if (!dp || dp == SEQ_OSS_DETACHED) {
- 			snd_iprintf(buf, "*empty*\n");
- 			continue;
- 		}
-diff --git a/sound/core/seq/oss/seq_oss_ioctl.c b/sound/core/seq/oss/seq_oss_ioctl.c
-index f1a79776773f..2b4930a56a22 100644
---- a/sound/core/seq/oss/seq_oss_ioctl.c
-+++ b/sound/core/seq/oss/seq_oss_ioctl.c
-@@ -66,6 +66,9 @@ snd_seq_oss_ioctl(struct seq_oss_devinfo *dp, unsigned int cmd, unsigned long ca
- 	void __user *arg = (void __user *)carg;
- 	int __user *p = arg;
- 
-+	if (dp->closing)
-+		return -EBADFD;
-+
- 	switch (cmd) {
- 	case SNDCTL_TMR_TIMEBASE:
- 	case SNDCTL_TMR_TEMPO:
+
