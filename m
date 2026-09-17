@@ -1,41 +1,41 @@
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77C6524B19;
-	Thu, 17 Sep 2026 13:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E185437D8;
+	Thu, 17 Sep 2026 13:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789652874; cv=none; b=dIM+V9DByK414IB0OhRh79ZuQMH5xl7ghfoRazuoG7KqqePElw/CRk8jxsL+0s3ZuMNrLF9y1GwTOES537wYVXt1TEuVM1qOoFld3NA64/FlFatVfo532sCV/So460gTfbMoJxop7IROXwQIVA44rs6br++WS83gzNrbmfICqSY=
+	t=1789652876; cv=none; b=K8CJW1DvJPcu7hwMvWWqhXeTvFBHmwdfWOQ1wWHhID2umbEiI7z70ektWxdGLCHgYwRuRhlX6uZ0wnnYEo25JeKRrWqhLacUC34seaBiC7rB6FTkxXw9+PPAhbqHkPSct3nC1McN3P1vjWQE9mLJc6BQFowTFIWpvEt9Q3BuHog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789652874; c=relaxed/simple;
-	bh=Y3/WTQ/l4oRXIFqoGJBY3yM0W6YAM9UCtn+ZY5zlgfU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W1aETvamxIa1h9ZptI0lRqidnerSRlC3UVyz3kx8N0GQxB9nvLVYqiTj3anoEwNM5NoV5iYOPCWT4YaC4bK2kZp8sj0xL/yCX23WyFdUi9XZYGibtXmObFqdvHaOMQ9css5g+tQ1d1GvZAVpg5OMHRTAm2pa9PY9QAuEMRrt6qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=BecBOv0w; arc=none smtp.client-ip=82.195.75.108
+	s=arc-20240116; t=1789652876; c=relaxed/simple;
+	bh=Eto8hzL6OaM80EOgMASH5eHiPO+2/yag486xyFWRXFs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=P+ZwgIywyGPYcVGIVTBTLNif4eByayFMSmMMlBH+fF1aHNUQ8bmNLrC07R7xrRUeNku9zSSVX42FPI3nCX+K/yBcCzD+85mkKj7un6p3OIm8Oyp02F+HvMhE5T3JyQqvr20RCcqSV/kwcFbnnTBfcPzI78aYEXFP5wnRKknTHJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=OZbSwR3S; arc=none smtp.client-ip=82.195.75.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="BecBOv0w"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="OZbSwR3S"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=ji3axTtoFrhEc5dq8UvC0E5lffT8DbwX5FXf+6BtpwQ=; b=BecBOv0wr+SJF33yEWPpz0/lMS
-	gBxdtd8yD0JdprD/49mqCczN8hQ3BEurmxw6+WMWwErUzDW60qgneU0sHcYFAjVah7z+5Jloou/9W
-	e007wRt8/l4ZhXcN4N7g7AZcugEUaG7MRQATtIVt0s+Dfk/c0LhI2lf/sasaSmjh7vvvWMWa62NIp
-	onpD8v9ep1WwTvmBTssezDx4p3/ouj7G9qGBXo8IeLeByjutW4b2druAlW+/0ZETzXIZWjlRwxSzb
-	BjvcyOQsC0iFAnzQPPRkVMzvZufT9ceGzaWJujWj6ReKXqBfjcj9UuAIi4HFhktLdM7cmIL59LzU8
-	ro77G/2w==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=Ei3la3t9mnU7egxeLLJVw2Dg0OUQm68UUC9EQYYQZPU=; b=OZbSwR3SjmBfb5UAnj4ffQD6uQ
+	TnjMK9ApQipb6geHD2ciiCEgIrqtdkUn9RlswO2B+bAs0vnx7Cdt7JFqDQN7Qq+A4sV7TVoIFiJjQ
+	Fz/Eyp89W1W/SDkZqdLsWxzn2Et+iLJI2l5v2/i5ZHMffUItE99Jrpx6ezW7bF3xYFQwW6LCRMgeq
+	XoWbleh2m8YDA10ftf6zFEU/KyfGOena69dRPNDTHt3R8QlLFwNRvS85ZNvIz3bhwN6Y86F653ks1
+	7watHq8HPqMgU5esr5b7Zuhfv53dQJgHbLLjc/zT+Gc/BXnqajgprSnmadIY99+ecjiSyM7FN136t
+	Qau2ZyAQ==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1x7CSm-005zB7-19;
-	Thu, 17 Sep 2026 13:47:44 +0000
+	id 1x7CSq-005zBN-3A;
+	Thu, 17 Sep 2026 13:47:50 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH 0/3] kmemleak: fix stale documentation and raise the
- verbose default
-Date: Thu, 17 Sep 2026 06:47:34 -0700
-Message-Id: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
+Date: Thu, 17 Sep 2026 06:47:35 -0700
+Subject: [PATCH 1/3] Documentation: kmemleak: describe the metadata pool,
+ not the early log
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,10 +44,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHbvq2oC/yXMTQ5EQBBA4atIrVWiSyNcRSxohfKfbjORiLvrG
- ctv8d4Fjq2wgyK4wPJXnGyrhwoDMEO99ozSegNFlEa5yrDROC28zFxP2G4GFcWU6LTTRAn4arf
- cyfk/ltVr92lGNsdvA/f9AJ8ZQpdzAAAA
-X-Change-ID: 20260917-b4-kmemleak-doc-1232546f4225
+Message-Id: <20260917-b4-kmemleak-doc-v1-1-84fde6d1f749@debian.org>
+References: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
+In-Reply-To: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
 To: Catalin Marinas <catalin.marinas@arm.com>, 
  Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
  Randy Dunlap <rdunlap@infradead.org>, 
@@ -56,47 +55,61 @@ Cc: workflows@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
  Breno Leitao <leitao@debian.org>, kernel-team@meta.com
 X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=leitao@debian.org;
- h=from:subject:message-id; bh=Y3/WTQ/l4oRXIFqoGJBY3yM0W6YAM9UCtn+ZY5zlgfU=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqq+97r6e00yIzYT04C5vSbseQ6yBFaKFGQ29FI
- 1qWzRuSQLeJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqvvewAKCRA1o5Of/Hh3
- bcXwEACGgqN4ui4VMPS+2k7A/7QdcBjYupp4IXS6chcEBFTfSfHOtyqJ/C2WSs3QFIbYcfomw5D
- 1p2gZP6HGsjulqcvr0m9OMb9jE4BfSEF6jEybbzFfznX8MGXK+FMuaPx7jxSgPqVVyeKh+Maf8c
- TZAD7dmgyeo2tBPzT7tvVWU7vKc4NVwp2byLDpR1J/vYIhg3Rmq3QNus/mX1tu1r2mA6P2aUf3u
- 4hdez/xTA6w7mqycS3j4w1LAAfmybNhLZoEOy0hILrvfIUCUbChX1S8u4+mrXRRCJSiVZ8mWla7
- qOI02wYiz7CqlrHNDfRniuPsVl8BCbS84z1Rpu0X5/VcCKwPNk2rDnyWsM5Nn7GeWxXkrPgrEJp
- 2gKAlZC8BICqoRsEja61yHYVOHD6LSAh0fWZIZh2yjP+4BfutoBhYLiCfesNiZzsVyOY+7k/jXu
- f1nIFUhUpolaO2IyAVTTKg0ydMAqXTPb2iCw0FTsoGNQ+088ib/YM94qHoGgjqgK2Gr8B5Vzo4Z
- DEDs9caQpC5dibRK35vSqkBQJ1r5FDYe9tavCCH86x7pPsayDyBUvUJTqEiYHrJT7KCUZ83fFc2
- rfJ+mU1vGmmWqJxlzaEdZzmHIMITKmjaychD1W6ncZmqYz0Gj9rscR5ZIW4cgIu6KZPrRbvbtl8
- V8ELmV/ENTkYQWg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1862; i=leitao@debian.org;
+ h=from:subject:message-id; bh=Eto8hzL6OaM80EOgMASH5eHiPO+2/yag486xyFWRXFs=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqq+97bAZLPHORsUJDZJBGyd9jqqoLSrsRu/m3E
+ VBvWYZmKpKJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqvvewAKCRA1o5Of/Hh3
+ bRDoEACF4IxIhijugl9oV3FI0E3zTWGkO2KSgHIGnOFvv3K+Mxi7194KcfTdMmIjI9ji7+GZoNt
+ NpL8YVh1hCdQCSTm5HgQoDZ9WYjsL54UDncCxyxP8ambZSREXC6bJ8XllyzuDj5ssVhbQVmEnDd
+ o3lqWniw3AIY9G9fPj4XnhxEXi+4g0Rgx4aHU/8Vr7xtqgjrTv/tmeTKjyUmiikvfcFC97wisd0
+ Gj+gh3tJtMEHxQN0QTCY0bj/xk88IQqRFTxAExrs2Nx9QR7RjBwUSknYB5epCfhXUiPIMrpt08n
+ eCwD4bBW+JcBmARaWxuwFNijmIJR+x/BbX86Vc3I31xmMpOaA+cVS4N8HZkdDv50E0wTZu0nMgf
+ hYQMTt14KYGauGp6dYZG0SOINEcjLnpxxBRLa0ziC8wjtZh9QeRg7LLJCoTCHtHhZE+oj5TwWcI
+ JHFFCM+WAa7qnbLEC8wWSizAbjC5SnzVO3O/AH4w0yPQBFhLaC2EztbEFSUq6TZdTi6/soCw2nJ
+ OE5tJqPQbbWO/VSu6Kl6vxmbhIKqFtzcByJHi3eQBPGZWvzelhSOb2ThoGeDFjXONSrp9ED1kfO
+ fh34x+4Iy6sntbm6zwD9b4zoRPNwSUGqlf3LHn7UH9oMrW6O5bjxbS2j/flSoQ3KQXElTYt8OMg
+ Ozo5kvCKQkEis6Q==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-The first two patches fix statements in
-Documentation/dev-tools/kmemleak.rst that do not match mm/kmemleak.c.
+commit c5665868183f ("mm: kmemleak: use the memory pool for early
+allocations") removed the early log buffer in favour of a static pool of
+kmemleak_object structures, but the documentation still describes the
+old mechanism.
 
-The third requires one more consecutive unreferenced scan before a
-CONFIG_DEBUG_KMEMLEAK_VERBOSE kernel reports a leak on the console, to
-avoid the last false positives I am seeing when running
-CONFIG_DEBUG_KMEMLEAK_VERBOSE on a daily basis.
+Fix the documentation by describing what the pool actually is, matching
+the Kconfig help text.
 
+Fixes: c5665868183f ("mm: kmemleak: use the memory pool for early allocations")
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Breno Leitao (3):
-      Documentation: kmemleak: describe the metadata pool, not the early log
-      Documentation: kmemleak: fix stale statements about scanning
-      mm: kmemleak: raise min_unref_scans to 3 for verbose auto-scan
+ Documentation/dev-tools/kmemleak.rst | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
- Documentation/dev-tools/kmemleak.rst | 24 ++++++++++++++++--------
- mm/kmemleak.c                        |  2 +-
- 2 files changed, 17 insertions(+), 9 deletions(-)
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20260917-b4-kmemleak-doc-1232546f4225
+diff --git a/Documentation/dev-tools/kmemleak.rst b/Documentation/dev-tools/kmemleak.rst
+index d1b690b171696..8dad7647742d3 100644
+--- a/Documentation/dev-tools/kmemleak.rst
++++ b/Documentation/dev-tools/kmemleak.rst
+@@ -66,9 +66,14 @@ Memory scanning parameters can be modified at run-time by writing to the
+ Kmemleak can also be disabled at boot-time by passing ``kmemleak=off`` on
+ the kernel command line.
+ 
+-Memory may be allocated or freed before kmemleak is initialised and
+-these actions are stored in an early log buffer. The size of this buffer
+-is configured via the CONFIG_DEBUG_KMEMLEAK_MEM_POOL_SIZE option.
++Memory may be allocated or freed before kmemleak is initialised, so a
++static pool of metadata objects is used to track those allocations. Once
++kmemleak is fully initialised the pool becomes an emergency reserve, used
++whenever a metadata object cannot be allocated from the slab. The number
++of objects in the pool is configured via the
++CONFIG_DEBUG_KMEMLEAK_MEM_POOL_SIZE option. Exhausting it at run time
++prints "Cannot allocate a kmemleak_object structure" and disables
++kmemleak.
+ 
+ If CONFIG_DEBUG_KMEMLEAK_DEFAULT_OFF are enabled, the kmemleak is
+ disabled by default. Passing ``kmemleak=on`` on the kernel command
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.0-Meta
 
