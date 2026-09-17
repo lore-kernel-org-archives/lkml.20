@@ -1,126 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39A42628D;
-	Thu, 17 Sep 2026 08:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E114388878;
+	Thu, 17 Sep 2026 08:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632275; cv=none; b=JNC3MRLLgNACjQDsZ7jCcsiYK3pAVFIrruj2+nLaaaZBrB11CoQBe65rPU9pzoxA6d19PNw01ClK2YvoCbJQdBylRLN3leZIqmvq02b5fU1cio2LuNJabCguG5XVz/254INbe8IF2ia3Dm3I0cUlMgx2OxzuKxd5VYY2CrNSpmE=
+	t=1789632293; cv=none; b=QXNo4NbQkui9PFPwXHnHX6F4690/Q2KzjfrmAOYWZ/9bbOPHoKd77vdd3B2DankAJfaaAT9cKkWZ6nLUqC8t02npa3Mo406u9Hn0Kty3/Qio1lPzqExkoLWsKrQg5dSd27oAweDCRv4PU5dS7+k5hhWsT6zXSZLC6V47PO5wi3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632275; c=relaxed/simple;
-	bh=ou/nevU3zQKfabX0KKwn1JcJFXk3b5jOGwor5+mK2fY=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=h7nURVDgSpZAH7UiwdLiukn1TeXEHgBwDcYRA4eqOBGROrA4Vjw9RoZZKrT+nTCZiIjCHiqNArUpY4eZQzXvZQymteq+WX95qg5YN/kj6MeGVpOL1TTuQX6IvvJ/YQiq8mljRXFm4ZRuOJszi4kyW1VlTlrTK+7G3LsHLMtWJ3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCIwEF46; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789632293; c=relaxed/simple;
+	bh=ZakSworF3b8jW7lQweEFXuAAZdxo/4SEjVDDfFiOzLc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oN0EHDKhPElyT1+tgHaoMrbR/aTPo5WGq2ytaKNVoj50EokuyXZ81vi30h46hTjHpBdPg78NCQ2pUdzAeggv8jkZud2v9v3U0Dznl+L2UhCIXVnZ3GV/TRx08v/U9O6wKEGjwxxFiHlCP4QmEpDIfKzpkWP2TKSbMrvH5wLQoG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f20dqGsC; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCIwEF46"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id CCF851F00893;
-	Thu, 17 Sep 2026 08:04:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789632274;
-	bh=wosywDew5N+JCGuAr/8q3TYlO7vCGyn1j6CRNBjhqYQ=;
-	h=From:To:Cc:Subject:Date;
-	b=GCIwEF46q7A04pJ/SK/OlBzfbYTDJ5ranVWm1ZyvkACERK/SwKvH7FXSgxydmmE+/
-	 DDRiB4qxXg3jl3dSFc9oZmiwvIiRthMB53R7QhDOwmNSU7xv/KtHKeq6kfRSdElfnr
-	 2M0JKCvDhbLcn2b7jMrt4wHVhznnllFBSS8gRGjJaskHFRgo3ymse4LC4pEF0H8VZ5
-	 KitCQWxmphvZNhM1gxECQgm9zrZ7ksE83/juAbCO97aDfwPRTor5zDbTS/Xigwxd4t
-	 gziK3yl3HRIHK5sbhyGaVLzJxu2PMjhA4PiCc4+U8Epm3qrYnVlb/OVbhitrfpXMXT
-	 0pD95HiXfM/fg==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Doug Gilbert" <dgilbert@interlog.com>, <linux-scsi@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, "FUJITA Tomonori" <fujita.tomonori@lab.ntt.co.jp>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] scsi: sg: Fix shift-out-of-bounds in sg_build_indirect()
-Message-ID: <e68a2050-dc97-4531-95e2-29f4d1a109cb@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f20dqGsC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789632290; x=1821168290;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZakSworF3b8jW7lQweEFXuAAZdxo/4SEjVDDfFiOzLc=;
+  b=f20dqGsCG3geNw0hGXu2MelaBx+0xdLIzdeF/Wq9RyQ01MOBOp9iGgXt
+   ldXIqZYiI7l01y73ovUWwjgsW6Lwt1WovyFbP6YtMDayrUs+sIlT8RCjf
+   ZwoOpQnC8oTEcaAEnALYoG2bumovWa6qAlTme8VVTxpofIOCL3ffwmPqS
+   qLHXRkGzbigol0E0bDb6Li9vPEqlPk+niA5hbrnY+m1slVNaSXkr4+lz3
+   MJfJzEwcyTBTeYYNZJN5OfH2h0BcQ9GQ1Cfx6awwAHo7yOE2todc9fqM+
+   QUJSqiWY6nk4osQxC5xfRbrfpNlDPbIuCBPeqJCY19lPkdxFESNXS+Lw8
+   A==;
+X-CSE-ConnectionGUID: igU5dFA7TCOiqriJM0Emjw==
+X-CSE-MsgGUID: jZ2lXq4ORRC64dswGsxJ4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="536901"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="536901"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:04:48 -0700
+X-CSE-ConnectionGUID: fUDMFHp6QwWcfURGQwGgLg==
+X-CSE-MsgGUID: 8eiTUaR9STaFQt16ktJN7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269954554"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 01:04:46 -0700
+Date: Thu, 17 Sep 2026 11:04:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonas Rebmann <jre@pengutronix.de>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH 5/5] lib/string_helpers: fix counting of remaining bytes
+ in string_unescape()
+Message-ID: <aqufHDWKoR1gdg8U@ashevche-desk.local>
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+ <20260916-string_unescape-v1-5-7f8bd986fa33@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Thu, 17 Sep 2026 08:04:33 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-string_unescape-v1-5-7f8bd986fa33@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+On Wed, Sep 16, 2026 at 07:38:10PM +0200, Jonas Rebmann wrote:
+> All of the available sequences expand to exactly one byte, the size
+> check in the loop condition is sufficient for the case of an escaped
+> character too.
+> 
+> Otherwise, an escape sequence that should be unescaped to the last
+> character before terminating with null in the destination buffer will be
+> output as backslash instead of the escaped character.
+> 
+> The only exception is when encountering a backslash that turns out to
+> not start a valid escape sequence and both the backslash and the
+> character following are handled in one iteration. Move the check there.
+> 
+> Add a kunit regression-test that unescapes a character to right in front
+> of the null terminator of the destination buffer.
 
-Writing an invalid value such as 0 or a negative number to
-/sys/module/sg/parameters/scatter_elem_sz, or setting it at module load
-time, causes a shift-out-of-bounds bug during subsequent device operations.
-In init_sg(), scatter_elem_sz is checked against PAGE_SIZE, but because
-PAGE_SIZE is unsigned, the comparison is unsigned and bypasses negative
-values. When opening a device via sg_open(), the driver calls
-sg_build_indirect() to allocate scatter-gather buffers. In
-sg_build_indirect(), scatter_elem_sz is read into the local snapshot
-variable num. Because PAGE_SIZE is unsigned, comparing num against
-PAGE_SIZE also results in an unsigned comparison that bypasses negative
-values. Furthermore, even if the condition is met, the code updates the
-global scatter_elem_sz and scatter_elem_sz_prev variables but leaves the
-local snapshot variable num unupdated before get_order(). As a result, an
-invalid value such as 0 remains in num and is passed to order =
-get_order(num). Calling get_order(0) is undefined and underflows to 52 on
-64-bit systems, causing ret_sz = 1 << (PAGE_SHIFT + order) to compute 1 <<
-64. Shifting a 32-bit int by 64 bits triggers a UBSAN shift-out-of-bounds
-warning:
+Without examples (and the respective hexdumps) it's hard to get.
+I re-read the code and see no issues there. The size > 1 check is for the \\
+and \0 at the end of the destination buffer.
 
-UBSAN: shift-out-of-bounds in drivers/scsi/sg.c:1887:13
-shift exponent 64 is too large for 32-bit type 'int'
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
- __ubsan_handle_shift_out_of_bounds+0x36d/0x400 lib/ubsan.c:494
- sg_build_indirect+0x559/0x870 drivers/scsi/sg.c:1887
- sg_build_reserve drivers/scsi/sg.c:1997 [inline]
- sg_add_sfp drivers/scsi/sg.c:2177 [inline]
- sg_open+0x1128/0x18a0 drivers/scsi/sg.c:349
- chrdev_open+0x4d9/0x600 fs/char_dev.c:411
- do_dentry_open+0x816/0x1380 fs/open.c:996
- vfs_open+0x3b/0x340 fs/open.c:1101
- </TASK>
+So, if the sequence is not recognized it means that it's separate \\ in the
+stream and has to be copied as is.
 
-Fix this by casting PAGE_SIZE to int in both init_sg() and
-sg_build_indirect() so that the comparisons are signed and negative values
-do not bypass the check, and by updating the local snapshot variable num to
-PAGE_SIZE when num < (int)PAGE_SIZE in sg_build_indirect() before
-get_order() is called.
-
-Fixes: 10db10d144c0 ("sg: convert the indirect IO path to use the block layer")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+270f1c719ee7baab9941@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=270f1c719ee7baab9941
-Link: https://syzkaller.appspot.com/ai_job?id=1d412b83-5bbc-4d73-b690-4c798d45cee4
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-
----
-diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
-index 5408f002e..46117d1a1 100644
---- a/drivers/scsi/sg.c
-+++ b/drivers/scsi/sg.c
-@@ -1667,7 +1667,7 @@ init_sg(void)
- {
- 	int rc;
- 
--	if (scatter_elem_sz < PAGE_SIZE) {
-+	if (scatter_elem_sz < (int)PAGE_SIZE) {
- 		scatter_elem_sz = PAGE_SIZE;
- 		scatter_elem_sz_prev = scatter_elem_sz;
- 	}
-@@ -1875,9 +1875,10 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
- 
- 	num = scatter_elem_sz;
- 	if (unlikely(num != scatter_elem_sz_prev)) {
--		if (num < PAGE_SIZE) {
-+		if (num < (int)PAGE_SIZE) {
- 			scatter_elem_sz = PAGE_SIZE;
- 			scatter_elem_sz_prev = PAGE_SIZE;
-+			num = PAGE_SIZE;
- 		} else
- 			scatter_elem_sz_prev = num;
- 	}
-
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+With Best Regards,
+Andy Shevchenko
+
+
