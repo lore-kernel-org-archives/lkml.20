@@ -1,35 +1,48 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mxout3.routing.net (mxout3.routing.net [134.0.28.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83E84C10E4;
-	Thu, 17 Sep 2026 15:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA18B358D27;
+	Thu, 17 Sep 2026 15:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.0.28.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659452; cv=none; b=Bz3ZAyNOh+GibTypl2tVg2fJrY0Lxx1jtoLU0PQOhqfFh8fBYMLsAmwSd6h4uLMSSPvw0DY8NIv2eQ31c39ilGFbuK5aRTwlSuENkR3v1HqjuVsJy08X++5B76El1SLXcYvvSRcDB1o4QjfRNeHxZeugWW1eGD50B12dKS2Bp9s=
+	t=1789659466; cv=none; b=tjVjejus4FVvkC/bCMQN42QFKQzhIQjPRkDtbJWurlu5e121egffAAN9HLZjnUL2WRGSJhUfNRrSxnBcy1FzhlFnfLheaKZxDeIbY1ZxYBR9+Q/M8Xkt28V5FG6j/tkAm6OCrb1HoNuMCnIYqVwRxJDYmwHvMjybbkzLlSulhB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659452; c=relaxed/simple;
-	bh=vWycF/OkNIdJPdWa6/e7T0fw4fZdq7rOwCWBikgklag=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ghgZWiqgndWFfvfshR0WLSOPPLBOsvnJVQ4ybZPI49Wl/sjnlyoeWlmgSkU4YqHRqqZ8wrp6z6ul66K0pDrOqWXFVdb+S1yDj5NJ+0EkFI47ISYftrrfE7jFw+gMfsRv1zF+knFzZBvHv5KDPetpocW4Fz5Zxx6VQLQpTJFUSFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD4pCaxqLrCDCA--.5904S2;
-	Thu, 17 Sep 2026 23:37:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: haibo.chen@nxp.com,
-	han.xu@nxp.com,
-	imx@lists.linux.dev,
+	s=arc-20240116; t=1789659466; c=relaxed/simple;
+	bh=VUAW9NKlxqOK7RBxed3VuAlb3pspvJ59kI354N187dA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ASaLFojCU+xM2iTuiPd+w1ClpT+p1W8yulQS7oMSlwfLuUg4upCPEJm1K94Wh3iTnz+M+v8h1UG9nfqDHFeDCjIYMIqH/6K11JrGYJ4HS7QfdLbRsyK011f4duG6aCCEdWi1fdIE5vBN7HDqoI2PQPT4aQuVSC9G9zJ6KFkWtkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de; spf=pass smtp.mailfrom=fw-web.de; dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b=kklYlwvY; arc=none smtp.client-ip=134.0.28.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fw-web.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b="kklYlwvY"
+Received: from mxbulk.masterlogin.de (unknown [192.168.10.85])
+	by mxout3.routing.net (Postfix) with ESMTP id F0ACD60F04;
+	Thu, 17 Sep 2026 15:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailerdienst.de;
+	s=routing; t=1789659448;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EWj9VioosLpk74B6lLbbnxdtdzOYxaz/vgqW8+QGFb4=;
+	b=kklYlwvYL8g1oev0DSOJQEztAdXsmgJv3jQklz8IGD9p8DqqQ13WlUgt/xuvoq3XbbTRxz
+	mgy5FaqVWJ/7TR5pKqoERZ32OeYvnGnlOs7MWmMZWD/JE4KaXOfnkZwBU+0Qe+f6wffbqw
+	ktP+ey2jn3ZJGf/DQx53ipzD3cR4RzM=
+Received: from frank-G5-5590 (fttx-pool-217.61.148.160.bambit.de [217.61.148.160])
+	by mxbulk.masterlogin.de (Postfix) with ESMTPSA id CFEC01200CB;
+	Thu, 17 Sep 2026 15:37:27 +0000 (UTC)
+From: Frank Wunderlich <linux@fw-web.de>
+To: Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Frank Wunderlich <frank-w@public-files.de>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	yogeshgaur.83@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: nxp-fspi: Fix runtime PM leak in nxp_fspi_probe()
-Date: Thu, 17 Sep 2026 15:37:13 +0000
-Message-Id: <20260917153713.2160743-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	frank.wunderlich@linux.dev
+Subject: [PATCH v2] gpiolib: use of_node_name if line-name is missing
+Date: Thu, 17 Sep 2026 17:37:11 +0200
+Message-ID: <20260917153712.134367-1-linux@fw-web.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,55 +50,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD4pCaxqLrCDCA--.5904S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW7ZFWfZr17ZryfAFWkJFb_yoWkXFg_C3
-	WUuF97WrWUKr4ktFnxKr13Zr92vrZxXF1xWr4qyFWSy3yDAF1Fv3y8Zrn8Ar4xuw48Cr1D
-	uF1kta47Zr1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1ID73UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qr9tgrPAAAs0
 
-pm_runtime_get_sync() increments the runtime PM usage counter even when
-it fails.  If it returns an error, nxp_fspi_probe() returns without
-dropping that reference, so the counter stays unbalanced.
+From: Frank Wunderlich <frank-w@public-files.de>
 
-Balance the counter with pm_runtime_put_noidle() before returning, as
-nxp_fspi_remove() already does.
+Until v7.0, GPIO hogs inherited the DT node name when no line-name
+property was specified. This was implemented as a fallback in
+of_parse_own_gpio().
 
-Fixes: 97be4b919a60 ("spi: spi-nxp-fspi: enable runtime pm for fspi")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog parsing
+into the GPIO core and removed this fallback.
+
+Consequently, GPIO hogs without a line-name property are now displayed
+with a ? in /sys/kernel/debug/gpio. Restore the old fallback.
+
+Fixes: d1d564ec4992 ("gpio: move hogs into GPIO core")
+Signed-off-by: Frank Wunderlich <frank-w@public-files.de>
 ---
- drivers/spi/spi-nxp-fspi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+v2:
+- move code into loop as suggested by Andy and add comment about the reason
+---
+ drivers/gpio/gpiolib.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
-index 1e36ae084dd8..9883e5149dc4 100644
---- a/drivers/spi/spi-nxp-fspi.c
-+++ b/drivers/spi/spi-nxp-fspi.c
-@@ -1351,8 +1351,10 @@ static int nxp_fspi_probe(struct platform_device *pdev)
- 
- 	/* enable clock */
- 	ret = pm_runtime_get_sync(f->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(f->dev);
- 		return dev_err_probe(dev, ret, "Failed to enable clock");
-+	}
- 
- 	/* Clear potential interrupts */
- 	reg = fspi_readl(f, f->iobase + FSPI_INTR);
+diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+index ef8ccaf17c9c..28f7265c5d56 100644
+--- a/drivers/gpio/gpiolib.c
++++ b/drivers/gpio/gpiolib.c
+@@ -1029,6 +1029,13 @@ int gpiochip_add_hog(struct gpio_chip *gc, struct fwnode_handle *fwnode)
+ 			ret = of_gpiochip_get_lflags(gc, &gpiospec, &lflags);
+ 			if (ret)
+ 				return ret;
++
++			/*
++			 * If no line-name property is present, fall back to the OF
++			 * node name as in the previous implementation.
++			 */
++			if (!name)
++				name = to_of_node(fwnode)->name;
+ 		} else {
+ 			/*
+ 			 * GPIO_ACTIVE_LOW is currently the only lookup flag
 -- 
-2.34.1
+2.53.0
 
