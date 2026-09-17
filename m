@@ -1,52 +1,52 @@
 Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D8B1448E0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11A4361951
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608338; cv=none; b=A9kbmHIIDDqciIvS9jzpG3W6b0IZwXB6y4fsEnhwSsgw9hfGdrpNaDDj5Rh8ykdCNq+wqn7Q9sqVqYrTSPjmZYKMnOGrsGO9B7J3WuW2XJ3+HRHC8q69zinIbwOcxMFrO6xybh0M/Hirf1dy8Di6whw5G6BN1xe+U4UYisOoztk=
+	t=1789608365; cv=none; b=A1X4ZmcK0wXxUu6yoNmC1O+cLanbQ6KQkGxpOb39Xwv5LesoFPCg2+hkArblHUXiRlxJ1h32EyX7iihGLAsDaberP9WWuUCG02qnKQLSd4SNH5SmOn1+ZavYn+ZPiG/nJIq6nG0QoDR0o2sioNlgXbPmjcYSXO4V2R+pbvJPbi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608338; c=relaxed/simple;
-	bh=mm4+eemLchMwVS6uvq/AcYthnGrFWYoczEeRtjgJt0w=;
+	s=arc-20240116; t=1789608365; c=relaxed/simple;
+	bh=kdY2HYbAwe9ocKnvkyDwof50rabNoVZqFe1cNX2AYZQ=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=phou4+3W75G+fN+vGsCfbB4Lrd0doaaJgJzDVOAONIGTaw+QdY/uByzXOXhm4tZZGZ4hgqyWFa4tKnnRglXvejTvujV8QSIEhBdTBMo5jhJ9fiblo+PJ6t37nX94tRrozZnljyJR5ILpDNAhrWFltLez569t0PoSkT1aeNOmPwc=
+	 Content-Type; b=Tvo1d3RcqdeSJiEJAjocod+2pAJUPi3QlW97TOMEDYRQPKw/rJ/L+ARdQMaSaRSYlcPHKNnlIxrKvAcpfYik5N3nWGqZ4naw0HSU+zLIvQX72fQMnaWDgX8XR2DJsLxeizxMew98xl+Dp+2z8hScOYxeuchWKkgRfe4j4EATZgY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c153bab4c3so368850eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:25:36 -0700 (PDT)
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c2549d0cbaso624330eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:26:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789608335; x=1790213135;
+        d=1e100.net; s=20260707; t=1789608363; x=1790213163;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=WcIO/9fkMsI8qpUyeC4I8Q6Q8jYIr+yU3hCj0DqfTlU=;
-        b=Wq0ZYD3xknmJ3PEYvSm3KD1aNM4PJMQ/LPQE4/srfyHL7Yf3c3kYC5GEpGZctqsBtI
-         a5049yFtIfc7YQHkawC8RK2rQ2fxvDUfz/T7SfzqKsuwyNvsipRCHl39RmQTfM3Cpn30
-         a2XoFUxGklgb4j3azEMny4Cilu0JFGRX1apbkXujK3tBaU3lWDQ8HU2Hmjb/3aK4P2mm
-         2evdSjWLl/o7TySoCgIiY8A5kfIyUMVne2KQ6FJG53Mm15rhTphmDeJQMt98QWPlhdCt
-         No0TdWmglw8/Eenb4DHAli8P2ODkrJWvhSeOwOZKXRDpjc3Mu2376EnrSj1VVu6y/8Mn
-         dumw==
-X-Gm-Message-State: AFuF++k2wS6umx0eIWT+1xtzg53JfPIjDicGPfD+BKgepKi949yUUrZd
-	qAdZNJCBky37/m4FXZYMib1lNMF9r/kuA+9i47Z8RCdw2lLYItnyM4HGodZBnpzsp/WwWV03mty
-	6bv93Fgkuuj+nOyqlLl1VMOOp9NGYClRR9N9Az/eh4LHx/UOEXYS9W7S2JNY=
+        bh=zGA1GK+PjVQ9HeM+Q7Te74D4Fh+I5xSQ7vxwKtdUBTA=;
+        b=Hovkq9Yxmfiwu2AY9CJ3bGj95f/x2j+90vGvJsnpkVZpKlt9eD9qPRvlpZMoEV08X/
+         vvZ8kYgElQ6AeUJ0CIcB2xpUmWLBiClv+Kb4ygN0HrhUCefw+xWMp+U6qgRoGUfSeSqI
+         b8MyAzhogWWpCyGZECAqQTPjE2oNfAkcNZpBg9JfUvnrUJXlbVOWGMo3zJxBlrjwUJWz
+         OY5R3nrqzKOXv8cUT3cAqUrHiLJid/FqekncESz6zmE+HpI3rvzlpcXLqTW/U3lCUrks
+         cD3oS6Q/YmSGMSP8B4xGhvFsWAUwqwX7M7VNJ1mOubyLWH+c3gN+E1bTk7DeVjIDl/2x
+         dmPA==
+X-Gm-Message-State: AFuF++m28thNVMYRUYD0b4QaKS04jMsluaxBCJTVtYern8FosISmQ715
+	JKrcKSs+HIdKso44Uf9FjT0KuK5Nlfo9weAUd4ET0CPF308LThSHqNh8StueZYC9xXWcl8oz10O
+	HxbNMunuPEAE0AgpZ+3rT4XINCjHDQhGYHox4FJUzBL3+r2P5VvbyswYfuRA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1622:b0:69d:9dfb:7928 with SMTP id
- 006d021491bc7-6c7d12d21e5mr5072235eaf.3.1789608335700; Wed, 16 Sep 2026
- 18:25:35 -0700 (PDT)
-Date: Wed, 16 Sep 2026 18:25:35 -0700
-In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
+X-Received: by 2002:a05:6820:f035:b0:6b1:9e75:6fe2 with SMTP id
+ 006d021491bc7-6c7d15ce097mr5194248eaf.12.1789608362947; Wed, 16 Sep 2026
+ 18:26:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 18:26:02 -0700
+In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab418f.71f81b7d.278072.0006.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+Message-ID: <6aab41aa.b398a7c9.1f86be.0003.GAE@google.com>
+Subject: Forwarded: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
+From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,30 +55,72 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
+Subject: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
 Author: jchuang26@m.fudan.edu.cn
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 50d05c7c76c96b90462f24debacca971d2e86713
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 53fbdbbe8..1fc9dead9 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1410,9 +1410,13 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
- 		return BATADV_NO_DUP;
+diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+index 09d8c5f8d..39166161d 100644
+--- a/drivers/input/touchscreen/sur40.c
++++ b/drivers/input/touchscreen/sur40.c
+@@ -647,6 +647,25 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
+ 	return 0;
+ }
  
- 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
--	if (WARN_ON(!orig_ifinfo)) {
-+	if (!orig_ifinfo) {
-+		/* This allocation can legitimately fail (for example under
-+		 * memory pressure or fault injection), in which case duplicate
-+		 * detection must be skipped without emitting a kernel warning.
-+		 */
- 		batadv_orig_node_put(orig_node);
--		return 0;
-+		return BATADV_NO_DUP;
++/*
++ * Release the sur40 state once the last reference to the video device is
++ * gone. The video_device is embedded in sur40, so sur40 must not be freed
++ * while an open file descriptor can still reach it (e.g. from the v4l2 core
++ * release path). sur40_disconnect() only drops the reference taken by
++ * v4l2_device_register(), which frees sur40 right away if nothing is open
++ * or defers it to this callback until the last user closes the device.
++ */
++static void sur40_release(struct v4l2_device *v4l2_dev)
++{
++	struct sur40_state *sur40 =
++		container_of(v4l2_dev, struct sur40_state, v4l2);
++
++	v4l2_ctrl_handler_free(&sur40->hdl);
++	v4l2_device_unregister(&sur40->v4l2);
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ /* Check candidate USB interface. */
+ static int sur40_probe(struct usb_interface *interface,
+ 		       const struct usb_device_id *id)
+@@ -726,6 +745,7 @@ static int sur40_probe(struct usb_interface *interface,
  	}
  
- 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
+ 	/* register the video master device */
++	sur40->v4l2.release = sur40_release;
+ 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
+ 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
+ 	if (error) {
+@@ -827,14 +847,18 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 
+ 	input_unregister_device(sur40->input);
+ 
+-	v4l2_ctrl_handler_free(&sur40->hdl);
++	v4l2_device_disconnect(&sur40->v4l2);
+ 	video_unregister_device(&sur40->vdev);
+-	v4l2_device_unregister(&sur40->v4l2);
+-
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
+ 
+ 	usb_set_intfdata(interface, NULL);
++
++	/*
++	 * Drop the reference taken by v4l2_device_register(). The state is
++	 * only freed from sur40_release() once the last video device user is
++	 * gone, so an open device node cannot use the freed memory.
++	 */
++	v4l2_device_put(&sur40->v4l2);
++
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
+ }
+ 
