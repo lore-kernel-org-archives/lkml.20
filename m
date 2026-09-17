@@ -1,142 +1,79 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011039.outbound.protection.outlook.com [52.101.57.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E140E449B0C;
-	Thu, 17 Sep 2026 08:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634352; cv=fail; b=kIVJw1h45W5s8lqJ0nzeOhmbyd1Xz+Liu8XDsXxv2byltD1KpEIlX9diw/7AOhCGZMKON/cPbmv8oOkY10x3iS20JjtzkoGZZ2QSFrXzqO3WN5Xhd9aHi8JcfeBs79w6I+KwIhG/x7dBxa+NES85biyGfwwfbdD/awiZsslDoFM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634352; c=relaxed/simple;
-	bh=Rm9H71A5N5k3fihz6Ax+UCQNsa3jrJWj7f410fO4wec=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AZTkqZ+rMb4l08YXrFAoZnMCr1cxXJCqnsTf0Bg4Qdf8bRuqUPokvebUZGJi9VdIrM9mK148hbG+tbmLMUhx4LY9OmlCWPPtcKrhSjEhqfV6n+/IJljg3L6dmccOJix2RD8m3QqkUaldtDCz5P/R4j+czHnapi8sGX42EEVK7P0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4QgtgJ0W; arc=fail smtp.client-ip=52.101.57.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA2F48FF77;
+	Thu, 17 Sep 2026 08:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634354; cv=none; b=aZGNRkf8WMcVgyiyTiiSJLz5/05xlZCz2Lk/AL9iOrcPeE96OGcEKibtiODcNCPfRqK1IwvM2iJ+sxmZ6/+vjgycbB+YwcmlZuFVuc5JHWplo6xAY5D1JmF8tHkFZqumVhp+85mQ/aKJRxueSAdbFQh/WcoebCy/c5Nf3T3Q3GE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634354; c=relaxed/simple;
+	bh=GynwFI5vip7Kr6umZm873EPrEE38lvHB75YMQiazVS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qMTj01Axo2l1ZHb6vUwP0M4nYRrfE0Kr4EbDTaYehU3yLPKqeQLISS4tN36ueF7RIFb86sCpNSsnk1x3m6wqxpYzACjDg/ObFKmur2sD+b6yGACDeYzfxLMny55yhN6gjhO9kh3OeGo9FzvdSm9cF9wsZNdEuVixf4GyCyAEmKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGOGmkLC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4QgtgJ0W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pdsqKY6BmAqALALkP7y0jwdcplE9t1tB+q52wp20w2RIOC3SCLzKHqOq9lNt5sEBEWN/sx8UdXTW17d7NKkoZ969DeoYymXD/a+3nbRdk7sP4yBs+HJwcCzBmuK8/5veKsXD1lXjOf5eaEgyJQ+GgU0SI2T1JokJNrBBxRzCkF4DrNkVtkfhSew/Mhv3xoWrnyeExraEkW6Snq+h/hjmksh99v1AD8gdvLHw7MHky8dI/XnmUMddPBAcDATHhgt1p7EM+H6vCmPxy/SQOBrIaZasNa8g8IJceFeXjRkgImSNVYd5bnkm9diYLaEQNkqQmm8p3XcclSCT+gO0+y+JAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eGC+G1CYXb8swVH8qBXU8LDIXrTTeP4o+shmXKOn1DE=;
- b=fz6+hQqn7jXarsc8brKymR7v6C61Kg5xsN1OWjAOYmJpEVHkZ/srk5NH7mPX47pG5MIYmAyFVr2YfcGujavoFgUPtJC96xRXMZ7kV7GhymZI5xCQXW679gxXa1VCsMKj2JCZmE1ssDsuESGR/XkFD9fyIlzXCOfquqlr3b2Ii9uYKQZZyxqnDnaA6SO4u/gbC00pH5Hsga1Ag7HgV2+x9+DEHmT35YIUaRksVnRY3TQnnB0R7EMPmk6uST7kKDzZp/wOEV0YbmZjS11pOZcq0USJnjWrHBSWQO0JUijNZFSnl0wu39kN6vvZNuP3aDiBckj76Njy1pFfxZKjNuqnhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eGC+G1CYXb8swVH8qBXU8LDIXrTTeP4o+shmXKOn1DE=;
- b=4QgtgJ0WW1h4FtNPjWaF1GsjlOKHWvz6bK3C6sJ3uh+KuWvcxiFEPHlESLZBEAezbXwJxxvw9iIOs0XXlCEX92nt7Uqar2HV782S96b7qZDvEaYf++J4doeLzDhObHhbar4gXa39DlwfiN8zrybDpBBekyR3f127CnaQj6sOs4k=
-Received: from SJ2P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:a03:5db::16)
- by SN7PR12MB7201.namprd12.prod.outlook.com (2603:10b6:806:2a8::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 08:38:46 +0000
-Received: from MWH0EPF000C618E.namprd02.prod.outlook.com
- (2603:10b6:a03:5db:cafe::37) by SJ2P221CA0012.outlook.office365.com
- (2603:10b6:a03:5db::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 08:38:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C618E.mail.protection.outlook.com (10.167.249.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 08:38:45 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 03:38:44 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 03:38:44 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
- via Frontend Transport; Thu, 17 Sep 2026 03:38:40 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V2 0/9] soundwire: amd: SoundWire manager driver bug fixes
-Date: Thu, 17 Sep 2026 14:04:11 +0530
-Message-ID: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGOGmkLC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE921F000FF;
+	Thu, 17 Sep 2026 08:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789634335;
+	bh=23XbxxprwWAPo80YX3fykLj/tp02PZCODbSLdyrtjZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZGOGmkLCTT7Bs5w8cPdOHQn1CdbXRD2L8uTmHCuTN2MDz8opdkBmptV09MIQeDuAK
+	 lIvvFuu8+EKC0IuI8HTBEapSViryR+G1F/9xkidm43ayb0oz70WllhQe/3inBJQVrp
+	 DSIZ+JnzOoQXHjNDjY+eFJd5JpJhYQ2343mhmEiMSS/RRdyPgLetKFkIvF6tXoH62B
+	 Srch9mvOtOZVvXZ2wL0qy/TVJzCm/TKQ3tBjdrQcAyRAjXSSzvPdMlwblznmujK2Tk
+	 m7z+oyCxrdDkx/ZcfhDgGa1EzKtEbsZNkE999EeG0V6wbxBcZX+QmcxTb7mq7IwGcJ
+	 GHE5aPTT/uSew==
+Date: Thu, 17 Sep 2026 10:38:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: input: Add compatibility for Awinic
+ AW8695
+Message-ID: <20260917-dancing-stork-from-shambhala-ff49ab@quoll>
+References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+ <20260914-aw8695_haptic_fp4_driver-v1-1-156f7549149a@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C618E:EE_|SN7PR12MB7201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 731b1af4-fa7c-4465-6bfb-08df1497165c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|10067099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	bGRkLnP4M5MgppwkRPxnQMqSboZ02oM/8XSWPmqHarGpnRL1XaothXHP3qdmrGdZ7ZHoIfpr+meeLLm54Xa5sVWqHZy8j0sqmTvD46htOWByFdPfi0Q+EIENfuORy3ZnwYApQVK971QH55QsOcOIDHz3jW7v2EfbuCIWGDkRqe/VWL09waEtI74L5riEdtp5KTBtbhHxkV6Bm7BA6Kfslh4lyI+siZ87qfPbBHQWGS+p9G6Tf1l5sqTrtN6b1KC4vaIwVG/4iv8giYwbjRmGM+0YOHRBp5lOmtsNLyiXIiB1ocIHbxWnUgEM0xX6a/s3FykV7c71Ta3btDKYW036+vIhX1chv/jFLTPdu0+G60ZYk9ofEbnlJGKTSgjLoWa1TclkNaePioeCwI2kAiXzUeWoygRNpaDwpwBQZ32gb7CQ5NsxTyJa5owA8N5Qey2alwaoacC1Q1ru0PYZ9gs36mHUXrO/4R0Ck7T6Wo9si9vDApF4bxDrQLUJBZauVGzzYKzFcfN7DSYeJhVRJt5ID9n3LDWbRrssX2LpVyFStUtdf8pIsylIEHDT8+gjVKYIxMqt8v/YqUV5Orqh55ZYDQZwUhFZoCovj4+WRr7bz91pqtEmIeWHlYZKErCtsC0PNN+yBAzM4g0NfvUj3AMoPY+tO+t+lCwz91k0+/MJ+w6nH+9HZk4SEpU6f+2U4PgulPnBqcdjXKyINqTDz1LbCg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(10067099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wnLOuvROurRwZsag9KnWixn47Z+tGcEtSXP2dzBaiyndOXDhEs4mTZI+7a75XIKTw9evwVaSRE+rIrSGVL6kginyduDF4vV7It2hhJ2UUWBqoihG2iW35KYwCC0UnHYrQfpFg43rYtRFit0KViPRLfqCCQ+DBLpcirWJ+l10x18xMySWLGoIQhIuJ5L8TpefYE56gNUrlRpafusxr83gPVkZl9YaIfXbDBiWH65HCcZYdBgLfyDF309O2TacRDDB2SvJ0g/lJ0OIyBRq0r7C+x8HtNCgxLxpE4NALTR8d30MykHtBBEI76L3nYX5qWIqMJJOhGWoAG0vJueKii3ke0K20RtdiR3efP2sWkx0N7nEodAOs3kf1uGUNJIzSbI2oXXBm6dLwvGyd0pQpy0qJCxZYKtAioH6Y2mJFtFIpN1FAaNxvS/HZJ3ZpZYr2L2B
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:38:45.6330
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 731b1af4-fa7c-4465-6bfb-08df1497165c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C618E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7201
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-1-156f7549149a@fairphone.com>
 
-This series collects bug fixes for the AMD SoundWire manager
-driver (ACP6.3/7.0/7.1/7.2). The patches address correctness issues
-in command response handling, slave status caching, work-queue teardown
-ordering, resource cleanup on probe failure, and power-management
-suspend/resume sequences.
+On Mon, Sep 14, 2026 at 04:37:47PM +0200, Griffin Kroah-Hartman wrote:
+> Add the AW8695 haptic driver to the binding documentation for the
+> AW86927 and AW86938, as this binding needs the same properties.
+> 
+> They are not compatible though, because the chip identification works
+> differently compared to the 86927/86938
+> 
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> ---
+>  Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> index bd74b81488f61d72b675b5701b321b30b3430be0..d9da85499cda4d62f14f36f1ce77627e37e348d7 100644
+> --- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> +++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+> @@ -17,6 +17,7 @@ properties:
+>            - enum:
+>                - awinic,aw86938
+>            - const: awinic,aw86927
+> +      - const: awinic,aw8695
 
-Changes since v1:
-- Update comment for ping_slave_stat variable description in patch 2/9.
-- split the remove path work drain and pm ops guard patch into separate
-  patches (patches 3/9 and 4/9) to improve clarity and maintainability.
+This should be combined with the first item (const for aw86927) and turned into enum.
 
-Vijendar Mukunda (9):
-  soundwire: amd: fix SDW command timeout return value handling
-  soundwire: amd: cache ping slave status to avoid spurious disconnect
-    on timeout
-  soundwire: amd: fix work drain ordering in remove path
-  soundwire: amd: pm_runtime guard in remove path
-  soundwire: amd: fix ctx leak when sdw_amd_startup() fails
-  soundwire: amd: propagate amd_init_sdw_manager() error on resume
-  soundwire: amd: drop amd_deinit_sdw_manager() in POWER_OFF suspend
-  soundwire: amd: replace >= ACP70 with explicit switch/case in PM paths
-  soundwire: amd: fix interrupt gate and work drain ordering in PM ops
-
- drivers/soundwire/amd_init.c      |   9 +-
- drivers/soundwire/amd_manager.c   | 204 ++++++++++++++++++++----------
- include/linux/soundwire/sdw_amd.h |   4 +
- 3 files changed, 149 insertions(+), 68 deletions(-)
-
--- 
-2.48.1
+Best regards,
+Krzysztof
 
