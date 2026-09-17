@@ -1,90 +1,95 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096DE3DA7C3
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF1A47CC8F;
+	Thu, 17 Sep 2026 09:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636121; cv=none; b=mDGmlsuMTI+3mH1XbwTIHXPNCedss3Z2D7ON83UizJs3oAWS1IbNufxUjZJoZZ8BVKR4bKpyka8rT5ZIdb2TV6kFn/A9YyChGOKscbTPkWlWV4kuHGzqEUd8Xw0WN1CHCfeddorTLdJjuOPb/KM5uBLzVFT3ZY+UJJgKvbgYwfo=
+	t=1789636125; cv=none; b=s8F+KkBF5sXtcg3STZtQ6hi6aXLWO6qp1q5xdR/OEUtTdM9v5CDOYC7jFGaoylAmthFzMMN/dlH4q7KpL+0nAttHPQ3fFnv7T32BP3clSD4xho4AV0eLiUL8y5XV1QimUyKX30Fd2zDhVy/2lEPkgZz/ZKwpSicUiosu5vdO2DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636121; c=relaxed/simple;
-	bh=RqcwEE9Xx/564lN1a6EvV2mReIrkeBU5Ko+5a7oBOjk=;
+	s=arc-20240116; t=1789636125; c=relaxed/simple;
+	bh=2ScCc0OepfhSsYTnQ76bG/Bvm4xN79bqyIZX5um0K78=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HiKn0OIG/Q+1ppVuVnGrw0ZkBSNdWjHV+f95Id5JqTZe32D8g1mVEdjs/dcaT3ysBbXNJsPAbB7HgIldazbgKDF1ROlTr57ev7Qx4QyUc9ZoC3geshJFqFJaXEJi/A5CsgP6pd+Hw9UOBeGQH6VcOhKf4Y00xUQ3+AS1XPg9Q5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=f+suIXbN; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=i0sk3fdc2hE0vgBZoLrwPnjpd2CQ0DzLOOEFibu56LqJOzud2vZXWS1W+I8BD715St0S4gEzSQuo5VxSY1LIvwNgYFUyzonk+Eum8D7BliQhefeO2MxLRkhwY8alxhB0DfFMW4BHDRU8+YRSgxTeYbGH2y0i8asb1B3sWGH+2jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0Fk0mm4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="f+suIXbN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Rqcw
-	EE9Xx/564lN1a6EvV2mReIrkeBU5Ko+5a7oBOjk=; b=f+suIXbNAdvhsPSEGync
-	0NvYXoYNTdl2S20CFq6fFDbYf1zm+I7dkqyEiE3RVswil/5o4ET8V7hjyJvsGN7X
-	TNz/S08KlPsKeuNeU3lU6wCZoztI2LdqPAUxaSxGICa8YzGAU8H+o0uKOvA+b1ri
-	vGc7IkR/7YKBn69nYTyam5f0oWUdv/VilWWNpFGdVjz46YVNkb5Nty9dAcQAnZrR
-	WibkfUyq9dWWv7c06jxs/pT3y5O/QU1+yoiBIqWw86qWTYftx8BM3KgoVlK1IoKp
-	JnlR9xXqJunrdo/z/Djfs+R6re+CRTVkWoECoqvCr2E7Z3oPGP+aPjeoauxgZ29/
-	mA==
-Received: (qmail 1931465 invoked from network); 17 Sep 2026 11:08:35 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Sep 2026 11:08:35 +0200
-X-UD-Smtp-Session: l3s3148p1@M0n0IKpbRKEujnsL
-Date: Thu, 17 Sep 2026 11:08:35 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] hwspinlock: add list of locks to debugfs
-Message-ID: <aquuDy2Lspr4j7wn@ninjato>
-References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
- <20260912191442.99453-3-wsa+renesas@sang-engineering.com>
- <CAMuHMdVbYaUXiW11j+LKSuSaLLF2PRR2kAFsaj-ZGsx7nNjK-w@mail.gmail.com>
- <CAMuHMdXcU3Eebhb3aS2PFoUdZsK=cmU6sjAFWhMRiPB9eczKhw@mail.gmail.com>
- <aqsMWn11lSgnNuVR@shikoro>
- <CAMuHMdXzyn2-bkky_wEC=5DdNFYo+QSroP3gEdmuZ6bhqQC0vA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0Fk0mm4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D281F000FF;
+	Thu, 17 Sep 2026 09:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789636122;
+	bh=vY3m/vwF9FHK+yR+LIlV5WHJI9mpj+7r7W70mHMu4JY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J0Fk0mm4Wh0Gc+87ftA9DSSDmBI8+GF8g118M1Cj5sy+cTXMqylQJgvFXs0XUikfe
+	 t8kNYNhEXCVOgCfrKsKnLJE2hRubp5nWoM5sOR/ojHaTEDcveuEJl5qBBl9H3u8AMh
+	 57GmgD03owi8oaHahZy0mD44opFH4WMKckl86N7hgOoiuMrhwIA+XC79rar4AqzLKC
+	 Cal4S2GHmlYsHM0YrkCPlPm7cqeqwBmMzm4al5kZDl69VJy6roKBaxj6SmD4I8BU5r
+	 ZEJUePucaDyBWdTrVEZzz19onkUe4M9woGgGfgiILkSKvxZBuaP0fxAyNdgFIejm/h
+	 vz2IpIgVY1fmQ==
+Date: Thu, 17 Sep 2026 10:08:38 +0100
+From: Simon Horman <horms@kernel.org>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Peter Korsgaard <peter@korsgaard.com>,
+	Ziyi Guo <n7l8m4@u.northwestern.edu>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: usb: catc: bound the RX packet length in
+ catc_rx_done()
+Message-ID: <20260917090838.GY51261@horms.kernel.org>
+References: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cvva/6AwbSPr5Tlo"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdXzyn2-bkky_wEC=5DdNFYo+QSroP3gEdmuZ6bhqQC0vA@mail.gmail.com>
-
---cvva/6AwbSPr5Tlo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 
+On Tue, Sep 15, 2026 at 12:06:58AM +0100, Aamir Ahmed wrote:
+> catc_rx_done() walks a multi-packet URB, reading a two-byte length from
+> each packet header. Its bound, pkt_len > urb->actual_length, ignores the
+> header offset and compares against the whole transfer rather than the
+> bytes left from pkt_start, so a crafted packet header makes
+> skb_copy_to_linear_data() read past the buffer.
+> 
+> A length below ETH_HLEN is also accepted, including zero, and
+> eth_type_trans() then reads a MAC header from the uninitialised tailroom
+> of a shorter skb. The is_f5u011 branch takes its length straight from
+> the transfer, so a zero-length URB reaches the same path.
+> 
+> Track the bytes remaining from the current packet, and reject a header
+> that does not fit, a length past what is left, and a length below an
+> Ethernet header.
+> 
+> A transfer shorter than an Ethernet header, including a zero-length one,
+> previously became a runt skb passed to netif_rx() and counted as
+> received; it is now counted in rx_length_errors and ends the walk.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+> ---
+> v2:
+>   - reject pkt_len below ETH_HLEN, covering the is_f5u011 branch too (Sashiko)
+>   - hoist the remaining-bytes calculation so one check bounds both ends
+>   - drop Cc: stable; no conforming device reaches this
+>   - add Assisted-by: LLM
+> v1: https://lore.kernel.org/netdev/AS8P251MB00013A0DCA600A79DC58B0FEC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+> 
+> Sashiko also suggested a sanity maximum on pkt_len. I left it out: PKT_SZ
+> would reject the 1537-1600 byte transfers the is_f5u011 path allows, since
+> RX_PKT_SZ is 1600, and dev->mtu excludes the MAC header that pkt_len
+> includes.
+> 
+> Built with W=1 (catc.o) on x86_64; no warnings. I have no CATC hardware,
+> so this is not runtime-tested.
 
-> I don't think just booting on a system with a single spinlock
-> counts as a full Tested-by for such a complex conversion.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Your choice. There would be, however, enough chances to break the
-conversion so that even a single lock would not work ;)
-
-
---cvva/6AwbSPr5Tlo
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrrg8ACgkQFA3kzBSg
-KbZT/w/+OidAC6L3kb0fjd35PJutmUSkCaURTj1pRS6aNpAWF/dj0JA1V3Ub7coe
-5aVL96nGKyXUFPgztqsl0t+Vf5tlFIjmO+yTF9InlHRoS/Cd9keD124gaAM0v0oF
-TbX7xhHsbpvqO7QZvj/CDabiMGQVk3SappWnpuOQZOUno9XYN/GSjuT4S+58WoJv
-s5DKh+4PwBsKqIgB3TlSeLVHdLxcVdOW8M0LJEq6c+9dWarJn0C1jhEEMHcYXf87
-sGcoW+vHoxJolaDlW2NKAkJ2soWk5O3FJgR0F2E81F9SRnj8u4TGbS87SfRJ+sSF
-yM0isTq9Seas5gxklm6GbJ6Q2SIXJBV12g6H3BwLj99L7MEGKhivwnYh5ZJNxCPq
-8/mpdFRek3K1Jyt5H4roB9yDeqwLfI+QdyBzqF6Y1+VxoNM9jxOouQTx0QxVO41D
-SDqsjOgSaBT29HyQ1VEXgLbhvl5bMk3i8jHfPu7k9/00bjqxL/ToPbHVw7wh1qVO
-dY4sKeEMgFLw0Q1Elz3cXV8VIlfSJs3xPerQCjDIbDWiIsg7rsh6qX8LOlRe3ymk
-1HhhmXZQZlfFutcZchLNDEdzT/oZLsQ+Iz/XyseMaFnV7YFX7PFR9Qk8f6nJH+3z
-6wP4Qn4IWgINMFkl43Pz3yZcVG5u93ByXXx8I3INEP9/c7O4YBU=
-=85Rh
------END PGP SIGNATURE-----
-
---cvva/6AwbSPr5Tlo--
