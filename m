@@ -1,200 +1,190 @@
-Received: from relay15.grserver.gr (relay15.grserver.gr [46.62.234.254])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA2D4AB3AA
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.62.234.254
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5028F4A2624
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789685713; cv=none; b=HjccezmbTgKdlDOmQ8H7LwaNlXokH2FqHIJe3fAuqhcFlL2uYajyC1peft9+m1v6CEuvxSRt1aEQvb7FQ+bMf1scpIAeu16vrtWYTaETs3yLXggXGV7Nn3QSHIMgmJofz3o3CmaJBWmMROcsvHumj3Gp9hvXJ7kGBPrw8lJY8GE=
+	t=1789685794; cv=none; b=XQKZBwhUfzgf826JFEgsO1qmC9tf0rNKqa/balO7qO+wALy9dGOFYwVy+UP580FVh8hMlRS3fccZOXkmAO3LAtdVy58Q0VGrC7hTGtrwh70tmFUDUq60sjk6YmlCK4vhufNGC7aIcKmDB8UpkDzdtYrYVnQvl1uLfLtOhlVLEb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789685713; c=relaxed/simple;
-	bh=x8dJutPCFqdfkx8N765ADRUz9RAxSutdjnlXtXVNKjQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VOyLCjvxSR+0UFkKTCrwjJxXfVENnBT2x+S28xTXUfdNS+1bP6EeyhKE6WGA/Yfi+1qqOOkzakU6BgqF8HEEb/j5wGs2o+PcLUz5sUX54NzHjVjb4/xPwFTXb6PgGht+VBt3VHgyUxNIcpdZDQovB70iyOhDfCoVRmIBArK0iVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=Bzd83PbU; arc=none smtp.client-ip=46.62.234.254
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1789685794; c=relaxed/simple;
+	bh=F7WocV7DuaKABLMSLxd+y8B1sodZx6pHNsQFtV+4VuA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Q8ppC4Usg05lElQnVaCR8M1qy1jzfd+W1rfBpTdu1ThKAM0QVo4FyNwMHLf+NaCyQ/4TdRMLGE2HUVXOvIFMmcI2DJERq8aZ5SDwAqb7i0x/f0uFfHtkCKU3raMzogXJPI/3rJ3JBVXRoS9KN6ytFOFF4LRHcDf5zWHM4EGddTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mOOTaZ2G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aKmByR4t; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="Bzd83PbU"
-Received: from relay15 (localhost [127.0.0.1])
-	by relay15.grserver.gr (Proxmox) with ESMTP id 25B143F480
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:04 +0000 (UTC)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay15.grserver.gr (Proxmox) with ESMTPS id 5B4583F8C0
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:55:03 +0000 (UTC)
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 13A3A200577
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:55:01 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1789685702;
-	bh=x8dJutPCFqdfkx8N765ADRUz9RAxSutdjnlXtXVNKjQ=;
-	h=Received:From:Subject:To;
-	b=Bzd83PbUDy55g5Q3EXGRA93oTEwbDvv92fRUsqn85Y2O9QAEUfI6DjMN7iPeljS5f
-	 73RUhR6vKoOyhLPKMosU2brjr8IPSbb8PY/3wHjOzE9yOuE0RHQ7dcfln2BLRV1Sob
-	 xhDf4+w75X/EQ1pjMRzO9j3Zdhn6i8pSAUlfrnfVujQoN0naBikepc2dnCmAOKkVfn
-	 YLFAz9FeTFGvfFsLySh0lXAWI6lE3xzYmx2dMjQgnFpLzvbXT1V++C+8L3oVaww2u7
-	 JOkUggJaa5pk+DaRwivLTbcacDv58ZY6GkAefd31SO9iS38G1TWQ+yZhMRufzq/z/n
-	 ZgtD6NJsAbuHw==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.230.204) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-qk2-f12.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-qk2-f12.google.com with SMTP id
- d75a77b69052e-5309a20a55bso875591cf.1
-        for <linux-kernel@vger.kernel.org>;
- Thu, 17 Sep 2026 15:55:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBxvrNqQmLeC1NSoH0fnCvP7Ut30yxLVT3qfr3ntj3HLm/5aQUsK7IT5GcLx5kXsTLmqy/jg0PBXtuIpdGU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBCjlh3x4EctaId6Q4Bs2GanijjINTzGU/8KXbiL/4Ko8fkU+N
-	7Cux/23Rsvv3qRlYtBHXMrhk9mYqfGUXDWGsqh3AVaj2HsnkREbd0XQKODh+1dwFMk8lvyZBcdS
-	A08F02H5kfujD/cYIiv/LiOhcxd4lGG4=
-X-Received: by 2002:a05:622a:4d0f:b0:532:9adc:63bb with SMTP id
- d75a77b69052e-5329e54b1demr12161021cf.76.1789685700622; Thu, 17 Sep 2026
- 15:55:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mOOTaZ2G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aKmByR4t"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HLFgbl3088702
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:56:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=VbNdLbD7tr+jmxCOhngfhF
+	KBi7RxEhhS1Y6zQpNFs1A=; b=mOOTaZ2GOTTDXcrsYMzwb3gQfC2HTNT1Pf5pc7
+	0PnhDh0MZKFuvz8gvvlNahMnqW8hy0CMQd259Ja1SxlwOE5jhDTibFtAneSq5IJe
+	wSxoeNdDmvgxETOxKMUkDOU8cl7jGU3GS9uGrp68bkmQWZQbLBZwvZYFVTU+gYFs
+	45gmoUmVttqd4hfSBUZxZoIH9rm3bHlr9OcuOZjpHx8GZmlNqDZWjlwXeWIq718p
+	d4MPvFcCav+rHW2GynxbouVqkdODNiHEE/sDbo4i0hCGSLM/0le0lAsXsNqUcjI2
+	bEsLdlPCuwgtnPro/rSV5C2Ds4fcPJEKTu8BJt3y9eIPgzNg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grnqe8xkb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:56:31 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cee1ec30f2so1553165ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 15:56:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789685790; x=1790290590; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VbNdLbD7tr+jmxCOhngfhFKBi7RxEhhS1Y6zQpNFs1A=;
+        b=aKmByR4tV5FaWOxNFfGSMTq04mqGjtanbqIFAvnpr0/e8Jtwc7JNXtni2V/OM7LMPI
+         nfaF9E8Ozv3fG0oNVT5VWZT9KMhI2hqJWbQTsl4HGwUyfZmhwhfIg9wyw+GaVO39XWHi
+         WvDGQp6zVvAV6O11RGnFbIaR8yqhoyKR/Aelu+8x/5q9/87oL5Rcv6UKzwjLjgM6UFj0
+         jxPDx14OMLQ53tP2jmfMUqQ5GuQ5FeJUrF6zCZlt1kA9tkYg2glFYofbpzfgWF7Y0R+2
+         576FVdF+hwiXH+pjx8kFRoC3+A/R/UfNrVGqo2lGK8L7MEvtQSvCOuLESChqxUSyFOwl
+         qkww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789685790; x=1790290590;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VbNdLbD7tr+jmxCOhngfhFKBi7RxEhhS1Y6zQpNFs1A=;
+        b=OzlREGatKkCWZbFlh0Lxy2raPLfPL1RxmMW9M/8RfFxtqhPOBI08fdCHN6ZEVxo88V
+         1dL66PhzRW8rB/lPyTe/qujY7TLxjTlLejCwDGdEYleb+sowUgTMhLvi35z5AwcbKbGZ
+         +vim3k0JSwWNdY25lA6NWPAlFSEZsWGRor3LurB/23IHSgmCxyhOqttadKvRrKpozXkF
+         05KhlLj9m1KAPO+Qa1lU88roYdQRWzKe1U7iP7pInFhDxW+o7YEnoiEdrFBO+WjZ+VX7
+         BZlvrlNtWYfEPUl7Z1hdqBIqk5gAXrn74lTx1z/bSl1d5FO5ZMcpRe8EUswY29h9JawY
+         nkyw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6B2gM0hfjfxAZQ+Qwu9kO0pTeqbHuUAbSNGHDhyx2qXAzhT4bj5dYelwADtV/c/Zfxz3kJgaG4UI9x/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJyMb1RlpV4bAHdIO8yWhpsdMVJTrTUZ8a3NcSgpMon/AIy7Cw
+	FYuvhm+HMp2VWAndSQl7v2mIgNc4M0BH4M3lZDap2/sNGdTzdgUPDH01+TQOSUyCDdOARu9/0sQ
+	HsCgIAG6QYwgwbC5/kyzI2PSyAY3W7olopwW+vEtbzKyTz1JX/jK+OAA9pr7IVRhjPHk=
+X-Gm-Gg: AYBFou0cGiUT6EUQVHcvCT7r4Tjf33w4oeWlbUkNGohfl8POiE71DowR7tIJ6XS6R7F
+	XS6Yl3Xs7ozO8oOxP0p+jvg0fpUT7zCBA3NWA8pzLAJ8oemMgrGgbBVDGpbuR5pf62yV42KX+G2
+	LjoiqLfQnI7cUVOHScQErm4W4K72VnyxzGclYsYFygr1ZwhuCuVvFdZYTtDhd7icayIUuWZcBE0
+	lh2Wpc4vHIcf3ekkgaeFI/HduXO/NvQoOdScloslcE4/zU9UF0Y6wqcOcgJjwBsgXqBkE8RsR94
+	bd99p4XH5FysFWKtl9KM9zGPxQJohZXKJljQwiTOTqZxEsnBTH7XADWGJfypRVTI2t76Gi1GPe0
+	Wym2nW7ggP5BsNIR6V0fM/pw2jQK+ydDmwNxoezQSxKLuIUhGmw==
+X-Received: by 2002:a17:903:2f8f:b0:2dd:ad74:ac32 with SMTP id d9443c01a7336-2ddb1baf0a0mr12615785ad.27.1789685789760;
+        Thu, 17 Sep 2026 15:56:29 -0700 (PDT)
+X-Received: by 2002:a17:903:2f8f:b0:2dd:ad74:ac32 with SMTP id d9443c01a7336-2ddb1baf0a0mr12615435ad.27.1789685789359;
+        Thu, 17 Sep 2026 15:56:29 -0700 (PDT)
+Received: from hu-aletran-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad25bbsm15812508eec.19.2026.09.17.15.56.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 15:56:28 -0700 (PDT)
+From: Alex Tran <alex.tran@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] pinctrl: scmi: Replace get function and group info
+ with generic callbacks
+Date: Thu, 17 Sep 2026 15:55:54 -0700
+Message-Id: <20260917-scmi-pinctrl-generics-v2-0-3eeee364257f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: 
- <CAGwozwEkgP9-VwhW81=WEvJOac5iD+PFO4tA4eVrFP_qDVaiWA@mail.gmail.com>
- <20260917222327.63999-1-hello@matias.me>
-In-Reply-To: <20260917222327.63999-1-hello@matias.me>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Fri, 18 Sep 2026 00:54:47 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwGykWJFovoT3wEaTn54tpW-5Fo=Dym=RxtTg_Vk+DJgYg@mail.gmail.com>
-X-Gm-Features: AcwNN1VlQ546YbCygXwHhHsOnspKTvi6jbSQJqY6vuSHmUt0pgiHTXxpe-6M698
-Message-ID: 
- <CAGwozwGykWJFovoT3wEaTn54tpW-5Fo=Dym=RxtTg_Vk+DJgYg@mail.gmail.com>
-Subject: Re: [PATCH v3] HID: ayaneo: Add AYANEO 3 detachable controller driver
-To: =?UTF-8?B?TWF0w61hcyBNYXJ0w61uZXo=?= <hello@matias.me>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Denis Benato <denis.benato@linux.dev>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-PPP-Message-ID: 
- <178968570268.329066.4034476748916102990@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPpvrGoC/3WNQQ6CMBREr2K6tgRqU8CV9zAs2vKBb6DFfiAaw
+ t0t6NbNJC+ZmbcygoBA7HpaWYAFCb2LIM4nZjvtWuBYR2YiFSrNheRkB+QjOjuFnrfg4twSz6W
+ ShbRlYZRicTsGaPB1/N6rL9NsHmCn/WxvdEiTD+9DvGR77+e4ZH8cS8ZTXuimqYXJS63MzRMlz
+ 1n31g9DEoNV27Z9AIsJdn3TAAAA
+X-Change-ID: 20260724-scmi-pinctrl-generics-746484c98b66
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+        Cristian Marussi <cristian.marussi@arm.com>,
+        Linus Walleij <linusw@kernel.org>
+Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Alex Tran <alex.tran@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789685788; l=2134;
+ i=alex.tran@oss.qualcomm.com; h=from:subject:message-id;
+ bh=F7WocV7DuaKABLMSLxd+y8B1sodZx6pHNsQFtV+4VuA=;
+ b=BgJpLj7z1mrSx41erlyl/MtJ2q23h5Q53fBYqxP3n3Mp/Q6rRUJLb9agea2fyzGx2AEsQa/qL
+ 106cr8fmljmC+a1kzw0e1rI5/ta9ji/QSlD7Bk4c8WtS4MmROV66YqU
+X-Developer-Key: i=alex.tran@oss.qualcomm.com; a=ed25519;
+ pk=vKab/gw1fXij5UviWoglv+ho+H/oOiTHyETCLfayPE0=
+X-Proofpoint-ORIG-GUID: MOQA1oiX6eaJXyWYB-JT9GMbFrlFnOQw
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6aac701f cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8
+ a=JfrnYn6hAAAA:8 a=BgRH2eVm0xmwmakAeEgA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=FO4_E8m0qiDe52t0p3_H:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-GUID: MOQA1oiX6eaJXyWYB-JT9GMbFrlFnOQw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDMzMCBTYWx0ZWRfX2TYB1UqU0Jxu
+ /cah83XArms+e8W6thCi2kBih3gSUtmowdXiSoRMJMj+zH6be6DPDJ8iKsTdjotIev5kK/4ItO1
+ MSj+K0q3CE/SCKnGDAV4RWjExFA94WlazdI0vwg+aDVq99yy8Peeco1xDMH68L1eQQSpvnwAxcX
+ N5+7gDdImLejxBizuWQXBZh7cSP/WAnNwY2rGpcH1JyP7ciUchYLH2TJnHB+ClKQEnRE4NIkCul
+ JY++Y6Ii17PrY5rEkjXpzgTShuu5tLzbk2zFvfcrUL59xN2ZiyPrMHStD4+6UaaSLCp2NNVMS3c
+ aAmKZnhLJpf+G5b9feiKgeYgTQI/LhhI1NHB/WnEFoi4c3M8oQm7NaaHcvFlfZcftUfJS25zJ4m
+ 8bUyPjrakNRPrMgXH2c2eaL8mnJJuBQ63LRij896Tafnq2iI9Oy9ytorDtQ4W5YbF65I6mb3GbA
+ 4V3A1RjP21rif6QFtJA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDMzMCBTYWx0ZWRfX3JrCuL3IoBSN
+ iuQiX40TZyi3H8g1Ly+yQYGzAPuV0pZvrp/kV8oJw0Kbidg1sVII4Eu4aMqmRdmH8XMfJSQsQAN
+ E2wiWGTb5bgg2A3s9GxH1klboizEih0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_05,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170330
 
-On Fri, 18 Sept 2026 at 00:23, Mat=C3=ADas Mart=C3=ADnez <hello@matias.me> =
-wrote:
->
-> On Thu, 17 Sept 2026 at 23:48, Antheas Kapenekakis <lkml@antheas.dev> wro=
-te:
->
-> Hi Antheas,
->
-> Thanks for going through v3, and for all the help along the way. This
-> driver exists because of your protocol work in Handheld Daemon and
-> your reviews of every revision here.
->
-> > After you submitted your patch series to the lore, why didn't the
-> > review take place here and take place downstream?
->
-> Sequencing rather than intent. The OGC kernel folks wanted the driver
-> submitted and tested in their tree first, and their maintainer's
-> review landed on the already-merged downstream PR after v1 and v2
-> were on the list. I folded it into v3 rather than ignoring it. Agreed
-> that from here on review belongs on the list.
->
-> > The rby Denis should not be added by you. It should be added by
-> > denis by replying to the mailing list and then you carry it forward
-> > on future revisions (for provenance).
->
-> Understood, I carried it over from his downstream review round.
-> Denis, if you are still fine with the driver as of v3, could you
-> confirm your Reviewed-by here? Otherwise I will drop the tag in v4.
+This series refactors the SCMI pinctrl driver to eliminate metadata
+getter callbacks to be replaced with pinctrl and pinmux generics
+provided by the pinctrl core.
 
-As I said, none of this is your responsibility.
+Previously, the driver implemented its own get_functions_count,
+get_function_name, get_function_groups, get_groups_count,
+get_group_name, and get_group_pins callbacks, which required
+maintaining driver metadata like the functions and count.
 
-> > Consider exploring similar ABIs in e.g., Legion Go S hid and
-> > mirroring their ABI. Then remove this file. This is not the only
-> > breathing device. Moreover, delta_t values are ignored and you are
-> > introducing an ABI for them?
->
-> The delta_t point is fair: hw_pattern accepts timing values this
-> firmware cannot honor, and the sc27xx precedent does use them. For
-> context, hw_pattern was my reading of your v1 suggestion to find an
-> accepted ABI for the pulsing mode, and the downstream review
-> preferred the generic trigger ABI over adding a custom effect
-> attribute, so the two reviews point in opposite directions here.
-> hid-lenovo-go-s documents its effect/effect_index attributes in its
-> own ABI file, so a doc file exists on that path too, though shared
-> with a second driver it could become a common one. I am happy to
-> switch to effect/effect_index mirroring hid-lenovo-go-s (values
-> monocolor and breathe) if that is the preferred direction. Jiri,
-> Benjamin, a preference either way would settle this.
+The pinctrl core already has support to store and manage this
+topology in the pinctrl_dev via its own internal radix trees.
+By registering functions and groups at probe time using
+pinmux_generic_add_function and pinctrl_generic_add_group, the
+driver can delegate group and function metadata management to
+the core.
 
-If there is an existing ABI, you shouldnt add a new sysfs doc file.
+Signed-off-by: Alex Tran <alex.tran@oss.qualcomm.com>
+---
+Changes in v2:
+- Add patch to select generic pinmux and pinctrl Kconfig symbols when PINCTRL_SCMI is selected
+- Remove duplication of pins array while registering generic groups
+- Check for duplicate function and group name during generic registration
+- Allow functions with 0 groups and groups with 0 pins to be registered during probe but issue warning
+- Link to v1: https://patch.msgid.link/20260731-scmi-pinctrl-generics-v1-0-8affd2b79a6b@oss.qualcomm.com
 
-https://github.com/torvalds/linux/blob/b5a051f6b840d48f159166ef073d3021989b=
-fb50/Documentation/ABI/testing/sysfs-driver-hid-lenovo-go#L1-L13
+To: Sudeep Holla <sudeep.holla@kernel.org>
+To: Cristian Marussi <cristian.marussi@arm.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: arm-scmi@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-There is an existing class of device in the same space with a new ABI
-that does exactly what this device needs. I am really not sure why you
-were guided on a LED PWM interface by the author of that ABI.
+---
+Alex Tran (3):
+      pinctrl: scmi: Replace pinmux ops get function info with generics
+      pinctrl: scmi: Replace pinctrl ops get group info with generics
+      pinctrl: kconfig: Select generic pinctrl helpers for scmi pinctrl
 
-You need to modify that sysfs file in a separate patch to make it
-generic by removing go.
+ drivers/pinctrl/Kconfig        |   2 +
+ drivers/pinctrl/pinctrl-scmi.c | 232 +++++++++++++++++++----------------------
+ 2 files changed, 108 insertions(+), 126 deletions(-)
+---
+base-commit: 48a5a7ab8d6ab7090564339e039c421f315de912
+change-id: 20260724-scmi-pinctrl-generics-746484c98b66
 
-> > I am not sure of the struct naming or whether a struct is needed in
-> > this case. if you do not use most of the report, consider
-> > documenting it somewhere else and doing direct accesses to the
-> > appropriate bytes.
->
-> The packed structs came from the downstream review, mirroring
-> hid-lenovo-go; they replaced a set of byte-offset defines and the
-> static_asserts pin the wire sizes. I would mildly prefer to keep
-> them, but I am fine either way if the maintainers have a preference.
-
-I am also fine either way. I'd prefer what is simpler.
-
-> > If you set vibration, you need to expose it to userspace. Otherwise
-> > this driver degrades functionality over userspace implementations.
->
-> Agreed. v4 adds an attribute for the vibration level (the firmware
-> takes three) plus an index listing the options, instead of writing a
-> hardcoded default.
->
-> > Prefer removing semicolons; they have a particular smell ;)
->
-> Will reword the comment.
-
-All occurances.
-
-Thanks,
-Antheas
-
-> > Consider dropping the hid_device ... check block unless it is
-> > necessary. it seems like a premature test that can go wrong and you
-> > touch the device. Particularly, hid_device_io_start is a bit
-> > unconventional.
->
-> Agreed, v4 drops the probe-time status check and with it the
-> hid_device_io_start call. Every sysfs read already talks to the
-> device live, so the check adds nothing, and without it the driver
-> generates no traffic unless userspace asks, which also keeps it inert
-> next to userspace implementations like yours.
->
-> > I'd suggest waiting a week before the next revision and up to two
-> > weeks for jiri/Benjamin to reply with some comments as I think I
-> > was the only one that reviewed the previous revision.
->
-> Will do. v4 waits for Jiri and Benjamin, and goes out as a fresh
-> thread.
->
-> Thanks again,
-> Mat=C3=ADas
->
+Best regards,
+--  
+Alex Tran <alex.tran@oss.qualcomm.com>
 
