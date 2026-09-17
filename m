@@ -1,123 +1,98 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1555D3DAAC9;
-	Thu, 17 Sep 2026 16:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AFE4FE2DB
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663551; cv=none; b=FIYRP9DDRjYTLcq0Cyi0Roj93yO0cHGNuVBoMmFqcGC29g8Cc6xeoJKKhYjwibuQOb2iAZ+T5kTBIxTH0WqdthhLhF3sKZGq1wxrAnSz0rqwGwukb1UlBu31JMYQuNuB7/pft8TbPKBkmIOQKt7fGtQxylZxZnpJsyfAgAD25Zo=
+	t=1789663556; cv=none; b=oU9GaiB3EP/25HKvNlj3Kd4mTvl/wR16YGPwPXkk6ThsUb9SsWZwNXwQsb6ODik+JGuZ8VAy+kw+6lE+moAg0aWMwSQxqf7o+Z3Yjszgh6GF0ClefvphD/iU0Gh63/5X+OAlMjUdy0P9kClLU/qUkHL3naAf/oHKyHAzrw4Iyc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663551; c=relaxed/simple;
-	bh=wzguD82Bxmn2t0ZmkzkAp/MrCpv/zzbAGjWUCYwhsaA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uREpAb2o2QCiuetYCuXPV76qQX4EM1t0eaaufpyMvocTkRQo45dk0daNCCxLkjr4wXX1GJDQ0TcEYV6P/Frw36nGJsootRhDfyFq3BKj/mHtqkvLRD9CLIoejgmm4AVl6Oz9nsusTlBbZD27G2Pq61EV003MGqxWmagQzCJVnxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=KeCD27Yt; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1789663556; c=relaxed/simple;
+	bh=V5INTN8RuWwRwwnNDHAyBiXr8TPXJ7fn99txaxZ+ahE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q6MuoPWNzJ5EsNIvAll7fjlGTgCfIb39K927Bd7BXrCJ9mly+bSez+YW2sA3W+3cUF0IVkJeKa2HHGUI6JO/TMaFtKN5DG9rPj8Gub99arUl1AC9zbodQWZdX1ritCzyDZoCaUi4KDv3Qql3UZDRhAN1zhe0lVafnJTMLVaCbh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OAPOHPX+; arc=none smtp.client-ip=91.218.175.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="KeCD27Yt"
-Message-ID: <7077da32d9aaa1d748bbc39e9416974ccf6aa8ea.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1789663547;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wzguD82Bxmn2t0ZmkzkAp/MrCpv/zzbAGjWUCYwhsaA=;
-	b=KeCD27Yt6Z2BGpiHVPP5ps+cMStp5VYaNRfcTgaSb0vzJhFK2SLo5GfFY+Kho1pBtyE1nt
-	t0TCE4PFp1HJX1DTPcEV/KMrjhEbbdsFFFsEYsD4QlPwEJ/HvBpHqQfK9SQ5FqD+08dCnz
-	FIT7eXD8EfKfSZDoku4kkRw9nZCsi9s=
-Subject: Re: [PATCH 0/2] fs: honor FOP_UNSIGNED_OFFSET in llseek and
- positional I/O
-From: Stian Halseth <stian@itx.no>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	sparclinux@vger.kernel.org, schwab@suse.de
-Date: Thu, 17 Sep 2026 18:45:45 +0200
-In-Reply-To: <lhuo6dv50l2.fsf@oldenburg.str.redhat.com>
-References: <20260917151614.376867-1-stian@itx.no>
-	 <lhuo6dv50l2.fsf@oldenburg.str.redhat.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ErG7nOQjqGsN6l2Jh7B4"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OAPOHPX+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V5INTN8RuWwRwwnNDHAyBiXr8TPXJ7fn99txaxZ+ahE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789663550; v=1; x=1790268350;
+ b=OAPOHPX+raBVgDiTxlBRJpeAO/c0D2hJhq8U2xcGg7UIu2tyYWfSpYhmemW94eX37lSHPmLE
+ At+KwCgGfCW3tEubzxGJ64NRsTTVFEya6nbRLgEBcWCalSY1IJ5PZ+iiHYlpIIiw3YA+NQ5zHiQ
+ xrTyJYRSX3PMi3W8LAiqrkk0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 378d3e8deb789c20;
+	Thu, 17 Sep 2026 16:45:50 +0000
+X-Mizu-Trace-ID: 378d3e8deb789c20
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b0e2de23-7421-4217-bd37-e98e59bef873@linux.dev>
+Date: Thu, 17 Sep 2026 17:45:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: libsas: Fix use-after-free in sas_suspend_devices()
+To: Wentao Liang <vulab@iscas.ac.cn>, JBottomley@Parallels.com
+Cc: James.Bottomley@HansenPartnership.com, djbw@kernel.org,
+ jacek.danecki@intel.com, john.g.garry@oracle.com,
+ linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+ martin.petersen@oracle.com, stern@rowland.harvard.edu, yanaijie@huawei.com,
+ stable@vger.kernel.org
+References: <20260917143800.2157286-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20260917143800.2157286-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/17/26 15:38, Wentao Liang wrote:
+> sas_suspend_devices() walks port->dev_list with list_for_each_entry()
+> while sas_notify_lldd_dev_gone() may drop the last reference 
 
---=-ErG7nOQjqGsN6l2Jh7B4
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+The low-level device driver should not keep (nor put) a reference to the 
+domain device.
 
-Hi,
+Notice how sas_put_device() is in sas_internal.h ?
 
-On Thu, 2026-09-17 at 18:01 +0200, Florian Weimer wrote:
-> * Stian Halseth:
->=20
-> > Tested on an UltraSPARC T4: pread(), preadv(), pwrite(), pwritev()
-> > and
-> > lseek() on /proc/PID/mem at positions above 2^63 return the correct
-> > data
-> > and offset; a negative position on a regular file or a pipe still
-> > fails
-> > with EINVAL and position 0 on a pipe with ESPIPE, as before; and
-> > the
-> > stock pldd(1) works again.=A0 On other architectures the change is a
-> > no-op
-> > for every file without FOP_UNSIGNED_OFFSET, and userspace addresses
-> > never set the top bit, so the new paths are only reachable by
-> > passing
-> > a bogus position to /proc/PID/mem or /dev/mem, which then fails in
-> > the
-> > driver instead of the wrapper.
->=20
-> For lseek, aren't some file offsets (the top 4095 bytes or so just
-> before 2**64) ambiguous as error indicators?=A0 You would have to use
-> _llseek when accessing /proc/PID/mem.
+> and free
+> the current device, so the next iteration dereferences freed memory.
+> 
+> Use list_for_each_entry_safe() to keep the next entry around.
+> 
+> Fixes: 303694eeee5e ("[SCSI] libsas: suspend / resume support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/scsi/libsas/sas_discover.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/scsi/libsas/sas_discover.c b/drivers/scsi/libsas/sas_discover.c
+> index b07062db50b2..91045966612e 100644
+> --- a/drivers/scsi/libsas/sas_discover.c
+> +++ b/drivers/scsi/libsas/sas_discover.c
+> @@ -231,7 +231,7 @@ static void sas_probe_devices(struct asd_sas_port *port)
+>   static void sas_suspend_devices(struct work_struct *work)
+>   {
+>   	struct asd_sas_phy *phy;
+> -	struct domain_device *dev;
+> +	struct domain_device *dev, *n;
+>   	struct sas_discovery_event *ev = to_sas_discovery_event(work);
+>   	struct asd_sas_port *port = ev->port;
+>   	struct Scsi_Host *shost = port->ha->shost;
+> @@ -245,7 +245,7 @@ static void sas_suspend_devices(struct work_struct *work)
+>   	 * suspension, we force the issue here to keep the reference
+>   	 * counts aligned
+>   	 */
+> -	list_for_each_entry(dev, &port->dev_list, dev_list_node)
+> +	list_for_each_entry_safe(dev, n, &port->dev_list, dev_list_node)
+>   		sas_notify_lldd_dev_gone(dev);
+>   
+>   	/* we are suspending, so we know events are disabled and
 
-Yes, for lseek, anything in the top MAX_ERRNO bytes below 2^64 cannot
-be separated from -errno.=A0
-
-For that reason _llseek is the interface that can be exact.
-
-Patch 1 ensures that _llseek works for everything except that 4095-byte
-window. The patch does _not_ change the fact that _llseek can't return
-an offset in said window.
-
-I think fixing the window requires llseek to report errors separately
-from the offset. A bigger change, I would need some feedback before
-attempting to implement that.
-
-That being said, I _think_ the window is unreachable in practice, and
-that no architecture maps user memory there.=A0
-
-I could add a sentense to patch 1 noting the limitation, or look at the
-larger change if the VFS maintainers think it's worth it.
-
-On the glibc side: 64-bit glibc uses lseek except on sparc64 and ppc64,
-which use _llseek, so those two get the exact result with patch 1,
-and the rest carry the lseek ambiguity for that top window regardless.
-
-Best regards,
-Stian
-
->=20
-> Thanks,
-> Florian
->=20
-
---=-ErG7nOQjqGsN6l2Jh7B4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCaqwZOQAKCRDoeAEuJe36
-VkoZAQCDy3TkbtQ6JnO16PSxWhQze7dMZrROIG8dWHifhd1rzQEAglxCtIFZm4TY
-fXk9wuxKxj6kBKmCxz81UfctgIiq7wI=
-=R+T/
------END PGP SIGNATURE-----
-
---=-ErG7nOQjqGsN6l2Jh7B4--
