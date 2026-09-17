@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4034D17A2;
-	Thu, 17 Sep 2026 18:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA14ABBD6;
+	Thu, 17 Sep 2026 18:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670299; cv=none; b=NOYD9HcctPeBLC6tllWGNQpYVbZppneLAQ+8I/q2Q7yHWye6O5HYBJNdzob+QyQvEvoBM54yM17B0dgFiKxYSiWArApOz51TzuRT8MPSzQCSb2bLpua8kbFzW+5z3VevnFu1vSD8mv/Eo+Ayh3EgxbmaECoHFoe/8zDgnUh7gIE=
+	t=1789670305; cv=none; b=PQ3Drblog7ztU0goWPrYIcka7vgoFjk8hM3xsaNXOatfXLsuUSUkw9lqWenp6pNHUKOxguNsnzrg1htz8StzQ/qsndW6jqRASDotEpbVgpiLcCtg7q+3A+eZa9XIqrfp+aG4TSGoZd0UpVvcgpXKzKEyX4lRpudiY6l3eHsse3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670299; c=relaxed/simple;
-	bh=yr7AIPhgcB6C1r/uWMJ1QqNFi4/qtjJRl94HVsqHz2I=;
+	s=arc-20240116; t=1789670305; c=relaxed/simple;
+	bh=yuXQrfsfKwSA3bTby0PRCwmEC9sGLGom3zawGAZX57w=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n3+38+1cIMAgzZhZmx1h/FlZTZr1WCj3eBG8MVGxszlgsI6iIZ128DosU/HiyQRarDeLa+LIL9j7R7Pif4mGFYw0/gh3CypE9Y97cfzYstJqfvwAtN6cENAkiwoR9kTXUHeW9LLrz6t4oMk95iEKfJRl1A5evKYauIduf/z3e3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGYuVqZC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=flE4+mZOQSYGZQBRCIPOaLqVHhubRKTuVeiWy1Olu8NQAPc/HH8aN03q9Iy5nR9cU65K+NWIB6LgVJPmzAK7OCcvD/aAjf0UP+B3zwtAsBo7CBY/Ql/1ibp5ukdn0AXZD7j9R+NVpS39IwTn4W+RUz7+rBGeTYI/vT2JhZuwqrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzUy4DNs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGYuVqZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA1B1F00898;
-	Thu, 17 Sep 2026 18:38:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzUy4DNs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2E31F000FF;
+	Thu, 17 Sep 2026 18:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789670297;
-	bh=bmXke02eLyEimoYDRxYaM6VBAAJN5fHFcFdIdY6gQrE=;
+	s=k20260515; t=1789670301;
+	bh=7/HZTASVkqKaji0QyjTNpQOcpYSX+5MHinbb2iPHtgk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LGYuVqZC5ogJZ83YyAvhfE5/mqHlHm0rxYMLNccSRrcFH+M0Qa6TmluiEyC8QIJXo
-	 mxxZxpt5ZmTAIReuVKatcFZLVojg2KDKAjUWTJCh7wUjbCW5kNQdg2VM9Vvx7ITf3o
-	 whlktWKC/EYNU7Maahh1/YqqYyaiRCLrq3ri/EeshROKfibZczFe2E5NrHuut6jQRV
-	 us9hs0KZw0+jrsgQw9c36WI8TUL4soTukwXONv/a8xmjx+bucmI6AePVxs/pl5Mm7f
-	 UGJJR6PPuTSUKU6hmWMnkbErtGyJR7SwvhgigkeYvCKI3fzSBigIUMJu0M/1uXLCjD
-	 bzuHQQK1oiYlQ==
-Subject: Re: [PATCH net-next v6 06/11] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
+	b=DzUy4DNsPs6KVxt3KwqIt7hsBJPGJfY5+jH/P+/NawPmKCuwHebVhj5iWmcMGZab0
+	 ivWn04rnlTtaofhzwCPdSwq0X6GdxAydr7CYNce8WNGUsE5uYRw712OW7NVlP+nyqt
+	 y+VISEl3gdx6iVV3h3pAG3y/kUgYM6UZex7J3xOwH7CS45MpkR238mqmq7cbCGQhAC
+	 hHvYz0hVDC0FiObk0dp3wjKiJkIMqZAvKHmY2T2uz+AyucMQGh++gjX3Axmhzm0v0M
+	 IbJu6pq1XWBIVbMX9pzHBNlM84TCf2lOZhIFGYwB1I6vB/2rGzD3h0E2OdqJ0RvXDy
+	 N6T9w5dr/lBpw==
+Subject: Re: [PATCH net-next v6 08/11] dt-bindings: net: rockchip-dwmac:
+ document pcs-handle
 From: netdev-bot+sashiko@kernel.org
 To: coiaprant@gmail.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -41,11 +41,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Date: Thu, 17 Sep 2026 18:38:15 +0000
-Message-ID: <178967029584.22033.13072734956170022047@kernel.org>
-In-Reply-To: <20260915123802.1561724-7-coiaprant@gmail.com>
-References: <20260915123802.1561724-7-coiaprant@gmail.com>
-X-sashiko-severity: Medium
+Date: Thu, 17 Sep 2026 18:38:20 +0000
+Message-ID: <178967030009.22033.606150817628079939@kernel.org>
+In-Reply-To: <20260915123802.1561724-9-coiaprant@gmail.com>
+References: <20260915123802.1561724-9-coiaprant@gmail.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -58,168 +58,126 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-- [Medium] In xpcs_get_state_c37_sgmii() (drivers/net/pcs/pcs-
-  xpcs.c:1110-1121) the AN-complete latch is destroyed before the…
-- [Medium] The patch turns the pcs_get_state callback into a writer of
-  MII_BMCR without any serialization.
+- [Low] Commit message describes code that does not exist at this commit:
+  the message states the Rockchip dwmac glue "now supports SGMII on…
+- [Low] The new `allOf` conditional in
+  Documentation/devicetree/bindings/net/rockchip-dwmac.yaml keys only on…
 
 --
 
-net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+dt-bindings: net: rockchip-dwmac: document pcs-handle
 
-This adds an explicit BMCR_ANRESTART when starting C37 SGMII
-auto-negotiation, and also clears DW_VR_MII_AN_INTR_STS plus triggers an
-AN restart from the link status path when the link is down but AN
-completion is latched.  The stated motivation is RK3568 MAC side SGMII,
-which does not re-arm AN by itself after a link drop.
+This adds a pcs-handle property to the Rockchip GMAC binding and a new
+allOf conditional making it required whenever phy-mode is "sgmii".  Two
+observations below, one about the commit message wording and one about
+the scope of the new conditional.
 
-> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> index 0337e2bcc0125..8c3875b6985b9 100644
-> --- a/drivers/net/pcs/pcs-xpcs.c
-> +++ b/drivers/net/pcs/pcs-xpcs.c
+>     The Rockchip dwmac glue driver now supports SGMII on RK3568 and
+>     requires a PCS, referenced through the "pcs-handle" property.  The
+>     property is parsed by rk_pcs_init() and a missing phandle fails the
+>     probe, so describe it in the binding and require it when phy-mode
+>     is "sgmii".
 
-[ ... ]
+[Severity: Low]
+This isn't a bug, but the wording is in the past tense for code that is not
+present yet at this commit.  At fc2e19066d08,
+drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c has no rk_pcs_init(), no
+"pcs-handle" parsing, and no pcs_init/pcs_exit/select_pcs callbacks or
+SGMII support.
 
-> @@ -816,9 +825,14 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs,
->  	if (ret < 0)
->  		return ret;
+Checking the end of the series, those all arrive in the following patch
+("net: stmmac: dwmac-rk: add SGMII support for RK3568"), which adds
+rk_pcs_init() with:
+
+	pcs_node = of_parse_phandle(np, "pcs-handle", 0);
+	if (!pcs_node)
+		return -ENODEV;
+
+and installs the callbacks in rk_gmac_probe() for
+PHY_INTERFACE_MODE_SGMII.
+
+Putting the binding before the driver is the usual convention, so would it
+be worth rewording to say the property will be parsed by rk_pcs_init() in
+the following patch, rather than that it already is?
+
+> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> index 80c252845349c..67b21ea77ec96 100644
+> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> @@ -120,6 +120,12 @@ properties:
+>      maximum: 0x7F
+>      default: 0x10
 >  
-> +	/* Clear CL37 AN complete status */
-> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	if (ret < 0)
-> +		return ret;
+> +  pcs-handle:
+> +    description:
+> +      Specifies a reference to a node representing the PCS device
+> +      connected to this GMAC. Required when phy-mode is "sgmii".
+> +    maxItems: 1
 > +
->  	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED)
->  		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-> -				 mdio_ctrl | BMCR_ANENABLE);
-> +				 mdio_ctrl | BMCR_ANENABLE | BMCR_ANRESTART);
+>  phy-supply:
+>      description: PHY regulator
 >  
->  	return ret;
->  }
-
-> @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
->  		return 0;
->  	}
+> @@ -159,6 +165,15 @@ allOf:
+>          clocks:
+>            minItems: 5
 >  
-> -	/* Clear AN complete status or interrupt */
-> -	if (state->an_complete)
-> -		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	if (state->an_complete) {
-> +		/* Clear AN complete status or interrupt */
-> +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +		if (ret < 0)
-> +			return ret;
+> +  - if:
+> +      properties:
+> +        phy-mode:
+> +          contains:
+> +            const: sgmii
+> +    then:
+> +      required:
+> +        - pcs-handle
 > +
 
-[Severity: Medium]
-Can the link stay down permanently here if the restart below fails?
+[Severity: Low]
+Should this conditional also key on compatible?  As written it keys only on
+phy-mode, so required: [pcs-handle] applies to all sixteen compatibles this
+schema selects (px30, rk3128, rk3228, rk3288, rk3308, rk3328, rk3366,
+rk3368, rk3399, rk3506, rk3528, rk3568, rk3576, rk3588, rv1108, rv1126).
 
-The only condition that lets xpcs_get_state_c37_sgmii() enter this branch is
-the latched AN complete bit:
+At the end of the series only rk3568_ops provides .set_to_sgmii, and
+dwmac-rk.c derives the capability from it:
 
-	ret = xpcs_read(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS);
-	...
-	state->an_complete = ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
+	bsp_priv->supports_sgmii = ops->supports_sgmii || !!ops->set_to_sgmii;
 
-The latch is destroyed by the write above before the restart is attempted.
+so the PCS requirement looks specific to rockchip,rk3568-gmac.
 
-The restart itself can fail before touching the hardware, because
-xpcs_modify() -> mdiodev_c45_modify() -> __mdiobus_c45_modify_changed() does
-a read first and bails out on a read error:
+The reverse direction is open too: pcs-handle is added unconditionally, so a
+GMAC node on a Rockchip SoC with no XPCS can carry a pcs-handle and still
+pass dt_binding_check.  The rest of this file already gates SoC-specific
+constraints on compatible with a negative else branch, for example:
 
-	ret = __mdiobus_c45_read(bus, addr, devad, regnum);
-	if (ret < 0)
-		return ret;
+  - if:
+      properties:
+        compatible:
+          contains:
+            enum:
+              - rockchip,rk3576-gmac
+              - rockchip,rk3588-gmac
+    then:
+      required:
+        - rockchip,php-grf
+    else:
+      properties:
+        rockchip,php-grf: false
 
-So on a transient bus or CSR access error the sequence is: latch cleared,
-restart never issued.  On the next poll DW_VR_MII_AN_STS_C37_ANCMPLT_INTR
-reads as 0, state->an_complete is false, and this branch is not re-entered.
+Documentation/devicetree/bindings/net/renesas,rzv2h-gbeth.yaml uses
+"pcs-handle: false" in the else branch for the same purpose.  Would nesting
+the new block under a check for rockchip,rk3568-gmac, plus
+"pcs-handle: false" for the variants without a PCS, describe the hardware
+more accurately?
 
-xpcs_get_state() can only log the error, since the phylink pcs_get_state op
-returns void:
+No in-tree DT is affected today: the only Rockchip GMAC node with
+phy-mode = "sgmii" is in rk3568-photonicat.dts, and it already provides
+pcs-handle = <&xpcs_mii0>.
 
-	if (ret)
-		dev_err(&xpcs->mdiodev->dev, "%s returned %pe\n",
-			"xpcs_get_state_c37_sgmii", ERR_PTR(ret));
-
-No pending-restart state is recorded, and phylink_resolve() will not re-run
-pcs_config() while the interface is unchanged.  Given the premise of this
-patch, that this hardware does not restart AN on its own, would it be better
-to issue the ANRESTART before clearing the latch, or to leave the latch
-intact (or set a pending-restart flag) when the restart fails so later polls
-retry?
-
-> +		/* Initiate the next round of AN */
-> +		ret = xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-> +				  BMCR_ANRESTART);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: Medium]
-Is the pcs_get_state callback allowed to write MII_BMCR without any
-serialization against pcs_config?
-
-phylink reaches pcs_get_state from paths with disjoint locks.
-phylink_resolve() calls phylink_mac_pcs_get_state() while holding
-pl->state_mutex and not RTNL, and in the same section can call
-phylink_major_config() -> phylink_pcs_config() -> xpcs_config_aneg_c37_sgmii():
-
-drivers/net/phy/phylink.c:phylink_resolve() {
-	mutex_lock(&pl->state_mutex);
-	...
-		phylink_mac_pcs_get_state(pl, &link_state);
-	...
-			phylink_major_config(pl, false, &link_state);
-}
-
-While phylink_ethtool_ksettings_get() and phylink_mii_read() reach it with
-RTNL only and no state_mutex:
-
-drivers/net/phy/phylink.c:phylink_ethtool_ksettings_get() {
-	case MLO_AN_INBAND:
-		if (pl->phydev)
-			break;
-
-		phylink_mac_pcs_get_state(pl, &link_state);
-}
-
-struct dw_xpcs has no mutex or spinlock, and mdiodev_c45_modify() only makes
-a single register read-modify-write atomic on the bus, so can one CPU be
-part-way through the multi-register sequence in xpcs_config_aneg_c37_sgmii():
-
-	mdio_ctrl = xpcs_read(xpcs, MDIO_MMD_VEND2, MII_BMCR);
-	...
-		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-				 mdio_ctrl & ~BMCR_ANENABLE);
-	/* reprogram DW_VR_MII_AN_CTRL, DW_VR_MII_DIG_CTRL1, clear AN_INTR_STS */
-	...
-		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-				 mdio_ctrl | BMCR_ANENABLE | BMCR_ANRESTART);
-
-while the other CPU, in the ethtool or ioctl query path, clears
-DW_VR_MII_AN_INTR_STS and sets BMCR_ANRESTART?  That would kick the AN state
-machine while PCS_MODE/TX_CONFIG are half reprogrammed and AN is
-deliberately disabled.
-
-A second variant: both paths read link-down plus AN-complete, and the one
-that was descheduled then issues ANRESTART from a stale snapshot, restarting
-negotiation on a link that has meanwhile come back up.
-
-The driver already exposes .pcs_an_restart = xpcs_an_restart(), which phylink
-calls under state_mutex:
-
-	xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-		    BMCR_ANRESTART);
-
-Could the restart be driven through that callback instead of open-coding the
-same register write in the status path?
-
+>  unevaluatedProperties: false
 >  
->  	return 0;
->  }
+>  examples:
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915123802.1561724-1-coiaprant%40gmail.com
