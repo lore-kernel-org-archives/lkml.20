@@ -1,92 +1,81 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996883D16EF
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF473D954E;
+	Thu, 17 Sep 2026 18:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670034; cv=none; b=iCANwoUKBu79ewdgsUX6vBC04+Rul7/JbVvXjfmhmbF4yjDNJGKtY5PZmVWbWRFZsDUB9tl3csrbUCzMdPnmEdMf6KVw42ARPXYK1jAHom8c9jlZGcgdnxDQTN+/0R55ofSjHWAwaBCIX8DM0UGSyJV3RpE+cdNakNSNaD7bj/Q=
+	t=1789670166; cv=none; b=gXXd7BvEHvKyTJg+x7eJ7Nr8r79W1D2WgoRY4ALr1kAJcEoO7dd1gDMrDgy+uZr8CtiKb/VC3+mRjGxShvMaX+Bp8IO8o7jGNmfjngBWpru5pD8rzKvtIok45nOPNqdJdqDiRhqO0ZlOVMqXot+rfHG0hJRp6dh7ljLch5lB/gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670034; c=relaxed/simple;
-	bh=Z2wh3hX4GTbMSEzBSVlaN0sCaPeudxONGvzONywFAB0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BI6vRbw7oy/KmzoOnHaSIHG+ovBPnexYKqGX10kDY2WqEnogo7+X3RaipEcxzby6SvhIdvpy/DzK5FNIy3s2Dyvpi6IC3ZYZlManA4SJCcqA5/ZgSlUvFpxZmPjjLkxk57eqKhjyJk3NX9s0hbKTeEI9zL1RbYeAvWwO0Fu6N28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=BHYwpIwU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1789670166; c=relaxed/simple;
+	bh=likCwKHBXUnTeBGj77u0NOzDuA3om3Gs+1sLDOVPWuY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=bK46i++VR5vr/vxzHAFmV5YgSoA1PD/HSFA6Se9tgRAphnShFHE6WQ/0NspB4IpWi3pi7GSW07n33uWXoAJqwYrW8D94EVm96iyOR1XWfVN2UZb7z8nJhH6NXrpujqIpSjc9jkGkUUdNRYLgLXE1Vte/K2Q79N6mjhd2RqN01Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNLdW7Sv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="BHYwpIwU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d391aso9232085e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 11:33:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789670031; x=1790274831; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z2wh3hX4GTbMSEzBSVlaN0sCaPeudxONGvzONywFAB0=;
-        b=BHYwpIwU5XLCkTaVff96GO8IQrYo2UJY0v6FESNtLB+TLNwGAqQuOJmuNRX+ZUZ7ce
-         UQUJdYD81N8+YVqXw7C/pTA+r/CLISa2ysPizRM3Cr6hItcrjN0TqiUlqKhj6nBUfWjq
-         raaKOl02w7kGHTIX3Wb7hCnuDL5kbVCN/3EyhOm9w0jp1C5kLEiVbf4n57yIpPrKDLId
-         2htod2ekRYJ8gx48YXUaFjE3f3td17JSdLVbN5zl4IgQFL8fOROCqDlW4Kqh4BMRW8OO
-         ftZdYgnhpqCLmbXLjRb7MSB9zY3OSP7a4rUcU2Gf2emEmVHiIwOMz5p1KanU+DIuqavc
-         ANrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789670031; x=1790274831;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z2wh3hX4GTbMSEzBSVlaN0sCaPeudxONGvzONywFAB0=;
-        b=2i0HXN68ETHtCFzsFz9QWby8dB6csH69fHbI6oCfrNECk+KlZhz5P5xyC/obq1V5GZ
-         7x4xcwPmSMnDTmmOEj/+CVmLCbGFI938/5Y5XgDMYg37CqSD6liF+lqYMF0zRPe4GntO
-         XOm8IkZwMYyqeGynzrifybXXnqy2NISOVmc6VrJ/53gBXMkUODpS2BGFR7s+SVH6HAb3
-         4TCVswG0LnJwyKUgjB3vYsNyNO2f4J5LA8jiAKxHfCqJl7jouMFlqGKKpp8KqmT0cPeQ
-         Az/icnMUso9xrPlzV0ubwJYYwaBZWMJry4mNzfg8zE2prOZvhvn12L8CZzt/vBRMcOdE
-         ZI3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxF4hyhknv4y+vXsswEEZ7Dst5LY26kPgjrbz9cv2idtb2fLlqEgRtid+E8+Bxq78EoZ4q0DnQBmKnXGiI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC0gq2EPOm5CQn9S8Uhr8DmT6auESulGpaDOMRY+Sqynq7GXWR
-	4YR3FS2FONTNJlsbTC1F4Z0sFBXBYpGMH8KJhFLoh4Jrx2IhreyAgc4PtkjQLAc4nCM=
-X-Gm-Gg: AYBFou3aOb06zJg47D2Z30pYTme8DX9pYRFRR9pxkfCwNaCMtjcRoVD+ObPFtfV8amW
-	bTGiXV1jU74crzuPeqHJspWo+XF5XgQGRGL2q82oFfwqe8TssMl8k2IWTPFJB7Qr8g2VxZZR5fL
-	VVm0Z9WS0sB5lYUOSY5O7RtwZ9+zFTc2APcoq1e3wniZ++brvmHpgyqcqiDCdlOgv4WQFLkwitq
-	8L7UwKji0b9lQaXt0YocDn0rJaZx+l9NIHXkwCUR4RAchgvB4o49Z8K1897r4v1BM0jlqkACXtP
-	VPNUSYJxMLIUUjqSVFA53vUawsCXI6SqG1EIR596s8i3d0lBn4w9HrY63zJe6v9q4VLuCF0UejM
-	qEi7ZFQl0ekixhlKQQYZ91+tfFzhI3FCwZmLVq7cUIqrOa9ku0z/+kR39usllZY7RP13oZWG0o+
-	1vPS69gpq9HH9zdcalrQ1OM0OoDjjupQ560fvYri4+7rpsXZhkaQ==
-X-Received: by 2002:a05:600c:8b8a:b0:49e:799a:8951 with SMTP id 5b1f17b1804b1-49eb72fc61emr120382075e9.11.1789670030653;
-        Thu, 17 Sep 2026 11:33:50 -0700 (PDT)
-Received: from remote-01 ([84.17.55.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd225898sm102190195e9.9.2026.09.17.11.33.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:33:50 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: maxime.chevallier@bootlin.com
-Cc: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: reject attach while the PHY driver is in transition
-Date: Thu, 17 Sep 2026 21:33:45 +0300
-Message-ID: <20260917183345.37604-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6e82dc04-a68d-4c54-a6f0-a13c04fa2eef@bootlin.com>
-References: <20260914204200.2743251-1-f@lex.la> <6e82dc04-a68d-4c54-a6f0-a13c04fa2eef@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNLdW7Sv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358911F000FF;
+	Thu, 17 Sep 2026 18:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789670164;
+	bh=VMuIqdf58whRQjARyNRh45d2VJkJgHaiJ7/sfPxyN00=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=TNLdW7SvlO9XQo7SLg+Cjq1f6IPm2PtSLg5P/LY4YJbLKi/nqQO1HS0nA3Z/1szCf
+	 DPkSrvyFZ21h3lgVp4iUqEO2zDGGDHmeFDPwQEqjdqdhVsDE9QUhQ0clrfPAh3Sph/
+	 EV7DvBW4jiPSvI9DvRxx216mrV/YK+zIn2muToEr2+BPCpUyHE/+mvu7M2Vl9rwnpG
+	 7HkGpPciP+pQlLeSShO1kBsCdI5/mVOGa1GMuvsRtQGU/P5IZxZblhLnBPNsfI4dio
+	 luuu9jrVathR962wMg3H+Nb2+fEgp2FM9H1uvv/7dkYUiq6CH1tM6sqEUExqoI95zT
+	 OyS+jIJ4L9eqQ==
+Date: Thu, 17 Sep 2026 13:36:02 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Semih Baskan <strst.gs@gmail.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	robh@kernel.org, bhelgaas@google.com, rjui@broadcom.com,
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	rafal@milecki.pl, zajec5@gmail.com, florian.fainelli@broadcom.com,
+	arnd@arndb.de, linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	rosenp@gmail.com, rani.hod@gmail.com
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+Message-ID: <20260917183602.GA1036092@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAsRjRmmPanAjpquZ4VnDDw9jqRkxPkLsu+KjrpwsOMj8-TE-Q@mail.gmail.com>
 
-Fine, v2 will target net-next.
+On Thu, Sep 17, 2026 at 09:02:23PM +0300, Semih Baskan wrote:
+> On Thu, Sep 17, 2026 at 10:59:29AM -0500, Bjorn Helgaas wrote:
+> > And why do we need pcie-iproc-platform, since pcie-iproc-bcma.c will
+> > claim them?
+> 
+> I do not see anything on Northstar that needs it. I think
+> pcie-iproc-platform is the front end for the iProc SoCs that have no
+> bcma bus.
+> 
+> > Is there a requirement that pcie-iproc-platform must be able to claim
+> > the PCI host bridge if CONFIG_PCIE_IPROC_BCMA is not enabled?
+> 
+> None that I can find. Neither symbol depends on the other, no in-tree
+> defconfig sets either one, and multi_v7_defconfig gets both from their
+> defaults. OpenWrt builds only the BCMA one. The one use of the
+> platform driver on Northstar I know of is Rafał's: 767012397976 says
+> it was tested with it on BCM47094, and his test in the thread on the
+> axi ranges ran both drivers on his board. The platform driver
+> enumerated the two BCM4366 devices on its own:
+> https://lore.kernel.org/all/93ee7456-4179-4d78-b980-1df0b7e0278a@gmail.com/
+> I have not looked outside the tree.
 
-Out of curiosity, since I will run into this again: is the line
-"needs instrumentation to reproduce -> net-next" about the window
-being unreachable in practice, or about nobody having reported it?
-The crash itself came from a real board; the msleep() only made the
-race deterministic instead of occasional.
+Then it seems like we should remove the "brcm,iproc-pcie" compatible
+from DTs for platforms where bcma can enumerate it via EROM.  Those
+platforms can enable CONFIG_PCIE_IPROC_BCMA.  They still need the PCIe
+controller node in DT so they can use the wifi nodes below it, but if
+there's no "brcm,iproc-pcie" compatible, pcie-iproc-platform shouldn't
+do anything.
+
+Arnd, Rafał, jump in if I'm in the weeds here.
