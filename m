@@ -1,149 +1,72 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0920524E4C6;
-	Thu, 17 Sep 2026 04:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8ED3BAD9B
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 04:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789618437; cv=none; b=eUHd9kXmgzHVI32k0ZQ/xAhK6aLLRJF1a6z5S1qMD3TxdmvD+bWup74tkRiyJN5a1P/FCcHlDpin6wvrDfJKD+VXOlvBV4kdZ0NkkiYDFgkX8Aimf8xOm+MRrDHZcS/0cej5W0NgYt67jy4SfEH0kZJP0c7v1th3d4mHgqJR7Xg=
+	t=1789618506; cv=none; b=FL28T6kS92WcWAW8zc8L0v8X32b/PxWnMnYTaey6AZDquHPX+Dm8ZWh99F3tSt1gRama7JoteAr3ye53udscd81Jx5MGGjKDIcmvwZd5MpNRcxzPrnrKnjQIjJMdqJB8/lUse9oeMcfajD9ha6u5GFl1pk//SOQ71ewgKV3Z3i0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789618437; c=relaxed/simple;
-	bh=Bdl76ZWrWZL1veswYShU0im+JoWvvsZJt7p0osg10FE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OtClchuKgNO9Z5ql3jMZelKom8ZwZrDtLQT5Wxm3mf7tQI/GnxXkh0DTFahhhOM71sC3hMLZc3dem5Cj7zKz74wOyKNR/gPu8sqwpQymYKjzu2uilJBedjzWFTOeKeP/YyOyyzzTp4O2gQ3Glm+HO5uYYOSzL78CLX79hV1BssM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nUfvjPp5; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nUfvjPp5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789618435; x=1821154435;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Bdl76ZWrWZL1veswYShU0im+JoWvvsZJt7p0osg10FE=;
-  b=nUfvjPp5qFJeSsRsHIprJOeXeqyiuB3O8lxm15ff8yevhUDYps/uMTDF
-   7uIXQi0llxstlp1dW4mtm5l+JRUdix9LVslOXkINk+FKC7f8ZUPqbftB5
-   qfp1+Cw+Fm/3z+4Np6NqT4Dpoepzulo1J2DGrXbm2Zc7MyCS8IrhLXi5X
-   i41Jf8Mi6avXPCrybigLFUn0hjdXo2+8kEBp7RjRV87JPyt1Wq/1Q4uCD
-   54wxd8X9jBqCRm6C8MXv0V5u9/XQAnmlLlfrNupzO4Ivf4i6Z1ftAyes9
-   48SfhjjsaEJ0TvRl1gai+P1NYSEETeo63ISxqXQrxLq5ZWW5f+YCcQdHI
-   g==;
-X-CSE-ConnectionGUID: YkojIHw1SnS1j3ijAla9Bw==
-X-CSE-MsgGUID: 20cZYpFhRbi5PNJluo41OQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77565444"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77565444"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 21:13:54 -0700
-X-CSE-ConnectionGUID: moFQ/QlpTCKD0laV0CNgvw==
-X-CSE-MsgGUID: BwKUgnpAQ4GvTcI123lUFg==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 16 Sep 2026 21:13:51 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id AABAF99; Thu, 17 Sep 2026 06:13:50 +0200 (CEST)
-Date: Thu, 17 Sep 2026 06:13:50 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
-	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>
-Subject: Re: [PATCH] thunderbolt: Make PCIe NHI support opt-in
-Message-ID: <20260917041350.GT106095@black.igk.intel.com>
-References: <20260915-topic-tbt_pcie_optional-v1-1-47c4a3d129bd@oss.qualcomm.com>
- <20260916075924.GO106095@black.igk.intel.com>
- <f0882d3b-fb75-4c57-b76c-10ac61a5780d@oss.qualcomm.com>
+	s=arc-20240116; t=1789618506; c=relaxed/simple;
+	bh=mUNdLJQTkJSl5P8tRqLjDBQm8g++C7BTfZLiOHJxsrY=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=EdQq8Ty0R344E8Rc2qf6xwCvuc12o7LKxuWfDmGVPJtrsyMSC5Sniei9pRjdKeG33ZbpLyLLGLrZTmLpFLPyUeq0c+bqRAs9SXRLwl8tVQlH3/N53vGeuqEa2H6wBdcjXkdy/O9G4nRxDp2xX3lXUs96uBxz3EUy5/K9sEw2I2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c07dcbe60eso474915eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:15:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789618504; x=1790223304;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=c3q7pvy0kWnNflUEFxICrdD6rZ/0/PXz0z8B3GwVfrM=;
+        b=t7lwWsJw75sKzhkyYD0ylql/JSoN/Ktl2J/Ekk3yFxwwX9mlTv+Nbw5N9Gkpd6velC
+         CJwF9p11T+DiVopmJ3ByzTIAEdz7+Wp9SJhEtd4w/8/SG6cCpCUIG+F0vvbmZjIuJ7RW
+         E5vFu0P5pQrTdGOIjw3XDZF438Q+afN62XU32q4UBAF4kn6H2Lsrwwdywv5xKS8p2zvq
+         zAPlPCtZ8WOEAu1+ZLexn2G+ANyJ2jsEjk2kx0v18zhxIdlVLpDSXWQtw+e3pkkSbMfl
+         6eGYSmFmTNLBkDNwO3vkhH3pD+xDyv3yQXf551dtwY0VCzeup3l1jf51+K0HJUh4/k7G
+         wO0A==
+X-Forwarded-Encrypted: i=1; AKwUvBx2ftQ4lANNCYOgzKz5FbsXBRva9vohhcf8PusrR9qipHIv+YTlBLpQmXgyPzPrTRRm92tXRD1fI0SX8Yw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksVirQwdJbD03J+hRu0tHqv9/M2DeLogs4dlfPSF5RurzAZb+F
+	ibz1EH02JWgFsmOErLe/o4AIwmpew5XZ5ri4UbhC9B6Vl7st3U7t8YoOQfmy1r0RTz6FxDudYYS
+	w/NreTwiG1xRzitz/GAkdD2igqcXaKbW5qe7NP/hA/mYklZYdBoMwE1oYKjY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f0882d3b-fb75-4c57-b76c-10ac61a5780d@oss.qualcomm.com>
+X-Received: by 2002:a05:6820:80c7:b0:6c7:af50:b2ef with SMTP id
+ 006d021491bc7-6c7d3404f25mr4946442eaf.36.1789618503864; Wed, 16 Sep 2026
+ 21:15:03 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:15:03 -0700
+In-Reply-To: <20260917033925.981926-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab6947.b398a7c9.1f86be.0010.GAE@google.com>
+Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
+From: syzbot <syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hello,
 
-On Wed, Sep 16, 2026 at 06:10:59PM +0200, Konrad Dybcio wrote:
-> On 9/16/26 9:59 AM, Mika Westerberg wrote:
-> > Hi,
-> > 
-> > On Tue, Sep 15, 2026 at 07:04:10PM +0200, Konrad Dybcio wrote:
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> With more implementations coming in, one may desire not to enable
-> >> support for the PCIe-attached NHIs. Allow it to be built as a module
-> >> atop the framework.
-> > 
-> > Is it so that Qualcomm platform does not support PCIe tunneling at all
-> > then?
-> 
-> 
-> No, this is about letting one opt out of building in support for
-> PCIe-attached NHIs - tunneling stays intact and our hw
-> indeed supports it.
-> 
-> The PCI NHI driver (which this patch makes optional) binds host
-> interfaces. TBT PCIe bridges (e.g. PCI 8086:15d3) on connected devices
-> with PCIe ports are handled by the pcieport driver.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Yes okay "typically" they go hand-in-hand and that's why I wanted to check.
-So you have a PCIe root complex that then exposes the tunneling root ports
-as well, got it.
+Reported-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
+Tested-by: syzbot+b9529ebe6a9394ddf825@syzkaller.appspotmail.com
 
-> [...]
-> 
-> >> +config USB4_PCIE
-> >> +	depends on PCI
-> >> +	tristate "Support for PCIe-attached USB4 and Thunderbolt controllers"
-> > 
-> > I think USB4_PCI and so on.
-> > 
-> >> +	help
-> >> +	  Say Y here to add support for the USB4 and Thunderbolt host
-> >> +	  routers attached over the PCIe bus, commonly found on x86 PCs.
-> >> +
-> >> +	  To compile this driver a module, choose M here. The module will be
-> >> +	  called thunderbolt_pcie.
-> > 
-> > thunderbolt_pci
-> 
-> ack
-> 
-> [...]
-> 
-> >> --- a/drivers/thunderbolt/nhi.c
-> >> +++ b/drivers/thunderbolt/nhi.c
-> >> @@ -548,6 +548,7 @@ irqreturn_t ring_msix(int irq, void *data)
-> >>  
-> >>  	return IRQ_HANDLED;
-> >>  }
-> >> +EXPORT_SYMBOL_GPL(ring_msix);
-> > 
-> > We need to think what is going to be exported and how. For example here
-> > ring_msix is pretty common name so if nothing else it needs to be properly
-> > namespaced and that should be the first patch in the series.
-> 
-> Right, maybe EXPORT_SYMBOL_FOR_MODULES would be more fitting..
+Tested on:
 
-That or namespace like tb_ring_msix (this one requires probably rename
-patch first but may end up looking more consistent wrt naming).
+commit:         f6e7b42b Merge tag 'sysctl-7.03-fixes-rc4' of git://gi..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=126eebf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
+dashboard link: https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=177f93f9580000
 
-> > Secondly I think it would be good to have this whole thing as part of a
-> > patch series that adds the Qualcomm controller support so we have an
-> > explanation there why we are doing all this.
-> 
-> This change isn't really necessary and my reasoning here was to
-> let the user decide if support for this specific kind of controllers
-> should be built, just like CONFIG_I2C is separate from the dozens of
-> implementations.
-
-Yes but there is really no other option at the moment so it does not make
-sense to provide yet another selection to the user IMHO. Once we have the
-thunderbolt_platform (and thunderbolt_apple) then thunderbolt_pci makes
-more sense.
+Note: testing is done by a robot and is best-effort only.
