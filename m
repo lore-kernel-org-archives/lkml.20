@@ -1,84 +1,89 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490A84D6C31;
-	Thu, 17 Sep 2026 14:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58A30599A2B;
+	Thu, 17 Sep 2026 14:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655706; cv=none; b=oRLvD06iJqZ9BWKHZwAOird3utTvexUd4AZrUB1AarjDBwwCO2LnwYxI5xeK8itRWTD4iflzD0i30yOzHR/YhA5WXu9LIZD6+FI6jYLk8KDsZBIx5WKqFWopquWJg16iZs6R0aODwO0dJMSbuBXRtoE6YsMlto0bWYWDyLKPIeg=
+	t=1789655708; cv=none; b=qQi6MOA2bxEO5SYs8fxzdx41Xa6DAb6MK1lgL7XDSpj9b0gSH3XETJedFaZ4Yzhp7Ci3KppVZ93hfD2BasWCjbDxpbL+n8ka7ILs0LepszrI3h9g8CxaHrkuuqkEcB+liuHZ0tvDCmrsrNp3+f1jxyT9DZLWyccrmoDeNTWIwTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655706; c=relaxed/simple;
-	bh=Jm5WFH8dapbRoXEULZtht3SITwlhdhwoitF9mC/sGI0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lRTamafx/+dgkbFM3oUgYEi8JDc9rNuzYryUX1/rtmGI9PeRKhka7kxeOQMy6F0jhm5Q/4+qZ2SfP5xAuxxFRM/ddS9k/Dds+B6D+AdOBJUUMlnF4TOBT917WuvrWKoFm/+hMtsslEC4wh2GfMwoSadiKzknrAW3ejgs67HxCNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXATyP+qtq5pWCCA--.45297S2;
-	Thu, 17 Sep 2026 22:34:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: James.Bottomley@SteelEye.com,
-	hare@suse.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: aic79xx: Fix scsi_device reference leak in ahd_dump_target_state()
-Date: Thu, 17 Sep 2026 14:34:55 +0000
-Message-Id: <20260917143455.2157126-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789655708; c=relaxed/simple;
+	bh=mobytS+1K2rkJCeo1bg8kHuJ2xKRSO5VB5xXMn9bBS4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LnYUHZ5Xx5zQKmr/3YxV63DQENJZThjPGvMptcZ1DwZCMNRFCHgxifsd4qB3EguHL4YoCMdmPzmU/0P+1V6ofrgR2K/mDP45AG9U8co8gVLmRojy+w7VyljJ541Bsh+7CYAtk20KqCYRdN8PED2xlL7MrQe5CNXk9YGPnSbDZqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iqHXQy1J; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iqHXQy1J"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2CAD1476;
+	Thu, 17 Sep 2026 07:35:00 -0700 (PDT)
+Received: from [192.168.178.100] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 735AC3F86F;
+	Thu, 17 Sep 2026 07:35:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789655704; bh=mobytS+1K2rkJCeo1bg8kHuJ2xKRSO5VB5xXMn9bBS4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iqHXQy1JB2qQbP3MjChIwmtzj+93Umn86ZBQsDSTZGKWutkkKFuWxAmMh4B7G882X
+	 t49S9TiQH/OuzPpJBUWpvJugzd9EYUqw5JPodoZqA2xm0egrEQGISGahSQQIcAPjYi
+	 b6b5wjWLuz+I6I/cz1LfWsLlsqLcc06ls9uP3LJw=
+Message-ID: <bddc9273-fe02-4984-bfe9-5078e9e6e111@arm.com>
+Date: Thu, 17 Sep 2026 16:34:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXATyP+qtq5pWCCA--.45297S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFy7KrW8Kr13ZF4DJrWxXrb_yoWfGFg_Cr
-	yS9as7Wry8W3y8GF1jyFs8Za4SkrWqq3ykA3WSqws5AayYqayxX345uF98Cr1DZayfAw1j
-	q347J3yY9rnrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qr9nAJ+wAAsz
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arch_topology: use the boost frequencies for
+ capacity_freq_ref
+To: Oleg Keri <okerixx@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Sumit Gupta <sumitg@nvidia.com>,
+ Beata Michalska <beata.michalska@arm.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ driver-core@lists.linux.dev, Viresh Kumar <viresh.kumar@linaro.org>,
+ linux-pm@vger.kernel.org
+References: <20260917125112.2283-1-okerixx@gmail.com>
+ <20260917125112.2283-3-okerixx@gmail.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260917125112.2283-3-okerixx@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ahd_dump_target_state() looks up each LUN with
-scsi_device_lookup_by_target(), which returns the device with a
-reference held, but the reference is never dropped. Put the device once
-its state has been dumped.
+On 17.09.26 14:51, Oleg Keri wrote:
+> capacity_freq_ref is latched from policy->cpuinfo.max_freq by
+> init_cpu_capacity_callback() on CPUFREQ_CREATE_POLICY.
+> cpufreq_frequency_table_cpuinfo() excludes CPUFREQ_BOOST_FREQ entries
+> while boost is disabled, so on a system that boots with boost off the
+> reference is the non-boost maximum and stays there.
+> 
+> Once boost is enabled the CPU runs above its reference.  On arm64, where
+> the AMU drives frequency invariance, amu_scale_freq_tick() caps the scale
+> at SCHED_CAPACITY_SCALE, so the scheduler cannot tell a boosted CPU from
+> one at the sustained maximum, and arch_freq_get_on_cpu() cannot report
+> above the reference, so cpuinfo_avg_freq is pinned to it.
+> 
+> CPPC based systems do not have the problem: their reference comes from
+> highest_perf, and a disabled boost shows up as cpufreq pressure.  Do the
+> same for frequency table drivers and take the highest valid table entry,
+> boost entries included, as the reference.  With boost off
+> cpufreq_update_pressure() then reports the difference as pressure.
 
-Fixes: f89d0a4e1d01 ("[SCSI] aic79xx: remove slave_destroy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/scsi/aic7xxx/aic79xx_proc.c | 1 +
- 1 file changed, 1 insertion(+)
+Ah, you want to fix this for 'frequency table' drivers.
 
-diff --git a/drivers/scsi/aic7xxx/aic79xx_proc.c b/drivers/scsi/aic7xxx/aic79xx_proc.c
-index aa37838b78a6..da8f2afdf405 100644
---- a/drivers/scsi/aic7xxx/aic79xx_proc.c
-+++ b/drivers/scsi/aic7xxx/aic79xx_proc.c
-@@ -185,6 +185,7 @@ ahd_dump_target_state(struct ahd_softc *ahd, struct seq_file *m,
- 			continue;
- 
- 		ahd_dump_device_state(m, dev);
-+		scsi_device_put(dev);
- 	}
- }
- 
--- 
-2.34.1
+IMHO,
+https://lore.kernel.org/r/20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com
+is trying the same at the moment.
 
+[...]
