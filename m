@@ -1,201 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010026.outbound.protection.outlook.com [52.101.61.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B7B4DE72D;
-	Thu, 17 Sep 2026 14:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654808; cv=none; b=CKw4rkb7DfnNqoBAvUYcIrx2H+xaMslqqyZ5nzvJ/Z6qz7pZqR01RLJ0USvA2x/ejHENVdHPk9r/F2hnckapXGlNzP3id4SnIWiydRuJaxM+f6uHQwctx200AdT0FAHLgiFMvWr3PYIiqUDelv9R8kIwfDEO/D7sfYZzRfueXwo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654808; c=relaxed/simple;
-	bh=xa57NPFmTC5Yj/MpeYtU7y7Y4kssDDqDWXCcU5XWsSY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=X9rAkkzHFBnqBFNruG35/wWckYLDsvGMUoy9RvmdQy0/Z06CEXb7JQsins6pOZ9BJNFrDR1A14ZUBk/9zRd8+MRJMt3fxDJEEBmLpvt9rVCSuqGi6LVhuMLtIMRhV7FVDtCnM7NW3FARlVdB68yLj4tTGTbz7/BCKsg4k1IXI2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFgMRizz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4DF50EBE1;
+	Thu, 17 Sep 2026 14:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789654850; cv=fail; b=nMHR1/hFyjwUmnT1fu1Jt4RwqtIJF0IKAR/a9P8QPhqvtxeoR77KunSvpHFEvgDNBj2D8pEbr++ojyqtrYhVC8cm/e9Qd90yAGz/siTIAuWe2m8PNfMWwWNjUAaMou03sPCrlHIN6uwSV12RBMR25yGy2Y6N5Vu7RjWRInVgsFM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789654850; c=relaxed/simple;
+	bh=57e3PbP3FT24gbHInETzTtMbW/NRPZoMqiLNoG3KKjw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=btme9BqYAaZiBsTeWYCe0jn/TDWX1Jm/nw9VIGYEd2Rmi1I1uVMEetyU2o/8V/wW8IWKG9TUD6Xhni1Okw10Cky62/V8CLdHCCbmxpbEtLtYx5xQ/1lNde7r363Zw9aBcVuk6s7nUiAuZ02vDqziMYuGwUQOLPH2TJ/vtGoauq0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tK6GH/4D; arc=fail smtp.client-ip=52.101.61.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFgMRizz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4EA61F000FF;
-	Thu, 17 Sep 2026 14:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654807;
-	bh=2b6Fc6mZqxGMWHKPgaUO0EmAKAWEWiz9CQ8Lh3O1i7Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SFgMRizzakEYYR4ek8mkV+aeeiwakh5m4snf49LOhCvyaR9S8o/LMQ4Mfhov86mwU
-	 4IUg601urXAc0fJn4WT6EASrkXz0LhNOgLWI4Svqze14bBkxxxTWjwqzHCDgljqvUu
-	 9dBAOK/QCGVXWSi9ZlPjpDu4XkJzUSbZMx2K5RtPmIT2uuC1vTckyR6++ExsNzpMxt
-	 DlSDVSlotQGkLnBdxGWZ+LaaOn5zyo9BqxuQSBXiEEhdEdrKTgLkZ/7UHoUzu7jOXq
-	 RQHdA5VaRTh1NkKxG9MwunETgAaK4ptxsCOZNW8ktAF2MPUYEoqGBpa4iKrr8lWmrm
-	 S9fhATAF5x0bg==
-Subject: Re: [PATCH] vsock: preserve child namespace mode on an empty write
-From: netdev-bot+sashiko@kernel.org
-To: qwe.aldo@gmail.com
-Cc: sgarzare@redhat.com, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kuba@kernel.org
-Date: Thu, 17 Sep 2026 14:20:06 +0000
-Message-ID: <178965480627.22033.2840574060294474673@kernel.org>
-In-Reply-To: <20260915111417.2726515-1-qwe.aldo@gmail.com>
-References: <20260915111417.2726515-1-qwe.aldo@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tK6GH/4D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SijMQ1dXrDLDQaq+ALNoT92tYtDN/OAPsEc2p/zLsQMpm7UKyT9QxUgt40P9/xzYgJpDZ5iTaipaUnnNiQSgRuO7/VALi3CWb2uNmhsurVRtQ2TIGZNlqbqcjFCLVyx5pMhBnbJmSLfKOHdYXbJgkfGxC8QNUyZ454lJQf6c6nxpKGIqEE6cQCGesX9jCcAQFHeKqnBp0/panSCMAalHPU9b8BzveTfaRgqiT8mnQO41AlDiUUm7neGXEbkXvbmaZ+mNyJ4IWEWLiOIyW+0M6wK/pTEE9zgRi/CJf+wG5V3TPRtw0PYczs0vBKq4ee3ul1Nn+dzuyC22Blpx2+0Q5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CrHUC2uoG0Llou6+vqF4pzkTzuQTjiSJlaKZlZ13gd4=;
+ b=ImVEJKokuWT2e1TJVKzUVIz+cb4qv5vu3RNtSDaBBGRa0Y2kX/wuka4EvPIFKU9I0sSvD4QVYxglEwL1dqfY4e9xWIaAuHRX1dciu0FDRzVEOFB5EBuZuC2TXw5iRcjbAY2SxQ7zMFagU+3o2FBJPz3SXAcASV7YFWzi8qqEb9VJ4WGvZiTPzrNtpbtxbprkKi9pcg0vLzkGaCItmfv+3BdgFd3YqN3VjConslgLwaGIVX+n9DlKeZYzAKhzkU1dyzj/n9B8h5TF6aQM0S9Q+D8hm3b3tuzvWwid1IPGVxDx0KKZMVPi+BWPnvbiA2GI9UgQh1GF9Z2jAdE2qPl0ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CrHUC2uoG0Llou6+vqF4pzkTzuQTjiSJlaKZlZ13gd4=;
+ b=tK6GH/4D9HWlmDEYY505laWUwPUe/buNNAHLLyqsEnR+gfp90CU1RDwsmYXesDisvwjLTfeWPkEzznh60YJhNoYR4Ia75c48+bozSBDK3ld5ooDXxAD8s6FU3fxgEkoncqsg5b21xwyZMDwLTVwwsOL8WQiaywSXqD7trXE5JVg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by PH0PR12MB7094.namprd12.prod.outlook.com (2603:10b6:510:21d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 14:20:29 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
+ 14:20:28 +0000
+Message-ID: <22c9d6f9-b777-4647-bd71-81803acc5519@amd.com>
+Date: Thu, 17 Sep 2026 09:20:25 -0500
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v5 07/16] fs/resctrl: Introduce
+ resctrl_set_kmode_support() to register supported modes
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <077f2c8ea7e5b7ce89e63bf4a67bd74eee16f7ed.1787772750.git.babu.moger@amd.com>
+ <2e0c9195-8599-43db-aced-dbe8a138956b@intel.com>
+Content-Language: en-US
+From: Babu Moger <babu.moger@amd.com>
+In-Reply-To: <2e0c9195-8599-43db-aced-dbe8a138956b@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0P223CA0012.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:610:116::29) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|PH0PR12MB7094:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb15e39e-23ae-4a9d-6af2-08df14c6d306
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|22082099003|18002099003|3023799007|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	a8ah+WkIZ9qd7yBR/cUEzU0K8HIzcEE3ZU1eHECMZ3EHBJ8HD/qdHR0xp7rgXSKgopmrgWNWQK/k4G7YxxqJIGyta/bj5DR7EveT2vMgoCOujy9IQsmjJKfqujHeW08CU9MWwx+M11lu0aA2F+R4y5bhScjB1/aE4z4jZVmnbkXiBhMklhLmgSpcM0PCnAH5z5dhiIlKFeFIUb+E60iABcZ8XuE2Hr7lg0wsNsOHvGR+0vwjBPkm3MQ2wI9uLKg/jDVPh3IQwlNB1UIWIX4FPwq+BM6gmHNKTbGU7UWnmge7OHiTYHSLyqYR8DErpHs92AqdLQCLxApIZgnrLv31ImYY3CqJcgqPLgSuF7Ez1ybd9XFCTgsM8CLJT++s1AQN1+RgVSVrqB6n6PPxPtwVlJi5BEAMffg6krdyAYeY1/0qIx3JgpAHAlHmkaO9m1K3dIXzRn/mAGK+kzjuefBG6as7KWpynlcDnV7UtwultuWbFlJ5dgA3biO2m4qpIWLG6mKwgXDXxUXWmUHuFcAis2/u7gYEAQ+c2vJTJ9E6bdJNUDxZ0HH33qmzETMvdyWHFom9oHjSsHsuEPr+24VqJ8Ea9Lo0yodteSWQw/NQiHJmVgr2YCK+t/+8DilU05PURJMfnLfHxkEUivgg5s6EEZEA0CTx0Qx9x5lF3HTIxP0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(22082099003)(18002099003)(3023799007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUdUNHZmaDQzNHJLdUxtc2RvSWxVQTViZDNMbGVwc05xOVE3WTdQOURMTk5h?=
+ =?utf-8?B?QStZOGRYTG9pK25PL0hicEo4VCtqQ3dzK2xuMzE0aVF2bjdGTlNvTFRxNXpl?=
+ =?utf-8?B?bWNOUVEyM0pGNXlWVUNsNFNNRGMwaWdrSXhKam1ZRE5EYnBIUnhxdTlzbWgv?=
+ =?utf-8?B?TWQ3NUFQSmlkVXJyUEpCOVRkaWhlNXBSL2hlNDlGQ2hMYS9qRkx4MW81UWcy?=
+ =?utf-8?B?SWFnTmdRNTlFeGNXalRUbklLMmtLVFVWYzUvSGNuMk5kRzJMdjQxV3NwUGRD?=
+ =?utf-8?B?Z3JvQ3Jidzh1dkZtZGNBLzFMdjY4ZHVhb20vWStwK3oxRDhsVFhXNnE4T2Rl?=
+ =?utf-8?B?ZDhYWWMvenJ6bmpsbjBUTUx2OHlaU3BndHZaR01yWjAzbHBGalZjVTBFd3NC?=
+ =?utf-8?B?c1laeVZ1aDIwZXZLbFNsUWRpaVJEOTVYb0FKQVIzVlVhRlQydlhTK0Y3cXow?=
+ =?utf-8?B?TUpsNlJaVDBYYjk2Q1IwM0Z5dlhEQzVNOUFjL2VaN0MwNEdCNDAzVUdmV2Ji?=
+ =?utf-8?B?OTh5VzRuQ1Yxa0J2WjdKMFp1RENLK0ZjcUpsWFgybG5pK0xsSExGbzFOMGhj?=
+ =?utf-8?B?Z1BpOGh1bFBKTXdzOHZIcVdrSkdKdjd1bUYvcy82WlMzaVk5YTNXQmlaV3dX?=
+ =?utf-8?B?azRXRFB3QzhuTUZEUm5MWXBDTm1TZDNaYkpkMVdEYmVIV1JiOVpvMW5oWUJm?=
+ =?utf-8?B?VENqM2hMSmhvLys3cWNOMGRRQS9wSkhjZHFPRFhlRlJ0QUJTU296eGprZkJ6?=
+ =?utf-8?B?RHJNQVdLb0FleHpYdnhTQUd2cVIyZ0QwVTdiNHFBQ1VyY2MwUUdWSC9oZ1Vq?=
+ =?utf-8?B?SGFDUHR1QkJ0M0Zic05mTGpvbW0xTFFpeUd5bFdQWlJ4M0xScDFraDJpU0xt?=
+ =?utf-8?B?dUdsSjdHcG9nZEs5ai9Qd3lPeS84d2IxMCtKYzBmV29GOWRNNmJhWlQ4MlJQ?=
+ =?utf-8?B?eVJIdWpaTmRCeGdCRnhMbERDcUxQRGtOTXd4Z283bkkrWEdkdUdNaXpRTTdy?=
+ =?utf-8?B?TUVYRWoydG5UVmliK0twZ09heUg5NXBVQ2UrRXJYcEkxWkpWUWFTTFBTUzhI?=
+ =?utf-8?B?a1BwSGk1bjRJSnYrZUwxa3FCNGd0M04xZzY4U0I4b3ZodTJQTFZ6QXpYSWox?=
+ =?utf-8?B?dmJSbGxBR1hXUVJLRFlZOHEzK3hCck9EN295d2NwajhYcWtCWFRvOEtabklr?=
+ =?utf-8?B?ek9DblFtTGRrTGUzaTZqS0dodEtvRS92b1RtTjdhMlVDeGhORmhrOXJ3VjBw?=
+ =?utf-8?B?VFFvRTR3QnB1anVCcnJTcGt1bWxGSHRnZ1QxRjkrbzZpcW9ncTBObVJnYStG?=
+ =?utf-8?B?b09BT2dFUkZJa3FPMGlqRnVpSUsreEx0bjJjWHFuZEJodlZVUWV6Z3o0QzZw?=
+ =?utf-8?B?Vk9Nc3cxcXNqait0NG9JZUhjNE1Zc0lyaXdIWjNwdGJQVG5KcWJDWi9uVW1B?=
+ =?utf-8?B?UGVxWFNqeDFxTmtjdlpiZE55QitYMXNKZ3ZmWjJyN0l5aHIvdnRLN3o4SEZZ?=
+ =?utf-8?B?R3c2Y3lIZmljeUc2RW1Sb0F2Y0RsbFJNL21mZEF3a0RYTFMvYno1WW5WeWtK?=
+ =?utf-8?B?SzJWSXFBdTE0T2ZKZWZBTE5mZTJLU1lqYm1xZjZYYTd5bWx3bkRYbkhPaktM?=
+ =?utf-8?B?dE51SmpodisvSjFYMDBEYjdTL21yV0J4UjVhdDBpS3d3aUszdWRPaDVPTzM5?=
+ =?utf-8?B?R3pYVHYwY0dEOEtlQ2MzUk1RVE9rSzVueEdSaXJJNXhkbjZVNUw2ZlhqU3hr?=
+ =?utf-8?B?VWhSY05nUm1XLzhMY3RZalV3WUVhcStQVXBHbkRGdE93WFJQTnNLQWhBWXpL?=
+ =?utf-8?B?dkx6TTVWZDZUc2hBMTNpdmVQSTBGQlY3Y1pzbFFaNnFmeVUrZG5qY29lMUJW?=
+ =?utf-8?B?WWtiUHNOeUtuZG5hci9ZOXJuWWpZSHhpaHVKOFhPcEEzZGZXVGMwMXNSbldr?=
+ =?utf-8?B?QTNseHBxUnVxUlgyTHZlenhvdzZ0QW00V2l5V0g4MDBXQ1phQVhCL3Job052?=
+ =?utf-8?B?bXdTRDZqSGgwa2RJREhvaEd0eDgweUNnM1FBSWIyanJtSkMzUmFQeFJNRmtW?=
+ =?utf-8?B?aWxmNHhuOVFVRksrbDlhN05NeVpsOW05eHB5QWVCMDJTdHJldG9uK2xxajBC?=
+ =?utf-8?B?QVphMFVLbklKRlh2cUhRYWhONnYvVEt3dUdJdzRlbi9TeW96NVY5eHFLamU5?=
+ =?utf-8?B?aDQzSzVtV3ZXeTdrbzhiT294SURsYzhNMlVja3FuZWJGcndhcU9sRVBYVU96?=
+ =?utf-8?B?VUN4c2hxUlBwZTR0M3pjTVRDdHNMSUtla0dSQmpkOHBUWDNza2VTOWI5YTV1?=
+ =?utf-8?Q?5QUzoaYLbIoCDSzO+O?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb15e39e-23ae-4a9d-6af2-08df14c6d306
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 14:20:28.7801
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JsI5MeHbxe4K9j+5AaSKZGubBdWqtj8RTnxFqBMcrcaCkoSobFDGEi0WiBEaqBsR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7094
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+Hi Reinette,
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+On 9/16/26 00:29, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 8/26/26 12:32 PM, Babu Moger wrote:
+> 
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index 3c53f3f74e5a..3bb0e3a203ac 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -892,6 +892,19 @@ static int rdtgroup_rmid_show(struct kernfs_open_file *of,
+>>   	return ret;
+>>   }
+>>   
+>> +/**
+>> + * resctrl_set_kmode_support() - Register a supported kernel mode
+>> + * @kmode:	Kernel mode policy supported by the architecture.
+> 
+> How is "Kernel mode" different from "Kernel mode policy"?
 
-- [High] Incomplete fix: a zero-length write to
-  /proc/sys/net/vsock/child_ns_mode still consumes the write-once child-…
+It should be just "kernel mode".
 
-Pre-existing issues:
-- [Medium] Non-atomic publication in vsock_net_set_child_mode()
-  (include/net/af_vsock.h:289-302): child_ns_mode_locked is published by…
+> 
+>> + *
+>> + * Set the corresponding bit in resctrl_kcfg.caps.kmode_sup so @kmode
+>> + * is visible to the resctrl file system.
+> 
+> Verbatim description of what can be seen from the code.
 
---
+ok.
 
-vsock: preserve child namespace mode on an empty write
+> 
+>> + */
+>> +void resctrl_set_kmode_support(enum resctrl_kernel_mode kmode)
+>> +{
+>> +	if (kmode < RESCTRL_NUM_KERNEL_MODES)
+>> +		__set_bit(kmode, resctrl_kcfg.caps.kmode_sup);
+>> +}
+>> +
+>>   #ifdef CONFIG_PROC_CPU_RESCTRL
+>>   /*
+>>    * A task can only be part of one resctrl control group and of one monitor
+>> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+>> index 8b30eef835aa..051aece77eb9 100644
+>> --- a/include/linux/resctrl.h
+>> +++ b/include/linux/resctrl.h
+>> @@ -729,6 +729,23 @@ enum resctrl_kernel_mode {
+>>   
+>>   #define RESCTRL_NUM_KERNEL_MODES (RESCTRL_KMODE_LAST + 1)
+>>   
+>> +/**
+>> + * resctrl_set_kmode_support() - Register a supported kernel mode
+>> + * @kmode: Kernel mode supported by the architecture.
+>> + *
+>> + * Set the corresponding bit in resctrl_kcfg.caps.kmode_sup so @kmode
+> 
+> No need to describe resctrl fs internal details here.
 
-This initializes new_mode in vsock_net_child_mode_string() from the current
-child mode, so the caller no longer reads an uninitialized enum when
-__vsock_net_mode_string() returns success for a zero-length write.
+ok.
 
-> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> index f840498b58afb..9f89f199478b9 100644
-> --- a/net/vmw_vsock/af_vsock.c
-> +++ b/net/vmw_vsock/af_vsock.c
-> @@ -2888,6 +2888,7 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
->  	int ret;
->  
->  	net = container_of(table->data, struct net, vsock.child_ns_mode);
-> +	new_mode = vsock_net_child_mode(net);
->  
->  	ret = __vsock_net_mode_string(table, write, buffer, lenp, ppos,
->  				      vsock_net_child_mode(net), &new_mode);
+Thanks
+Babu
 
-[Severity: High]
-The changelog says "Initialize new_mode from the current child mode so that
-an empty write is a no-op."  Is the empty write really a no-op after this
-change?
-
-A zero-length write still reaches the handler with write == 1 and
-*lenp == 0.  fs/read_write.c:vfs_write() has no count == 0 early return
-(rw_verify_area() only rejects negative counts), and
-fs/proc/proc_sysctl.c:proc_sys_call_handler() does not short-circuit
-either:
-
-	if (write) {
-		error = -EFAULT;
-		if (!copy_from_iter_full(kbuf, count, iter))
-			goto out_free_buf;
-		kbuf[count] = '\0';
-	}
-	...
-	error = table->proc_handler(table, write, kbuf, &count, &iocb->ki_pos);
-
-copy_from_iter_full(kbuf, 0, iter) returns true, so
-vsock_net_child_mode_string() is entered with *lenp == 0.
-
-__vsock_net_mode_string() then returns 0 without parsing anything:
-
-	if (!table->data || !table->maxlen || !*lenp) {
-		*lenp = 0;
-		return 0;
-	}
-
-Since that return value is indistinguishable from "a mode was parsed",
-vsock_net_child_mode_string() falls into its write block anyway:
-
-	if (write) {
-		...
-		if (!vsock_net_set_child_mode(net, new_mode))
-			return -EBUSY;
-	}
-
-so vsock_net_set_child_mode() is still called, now with the seeded current
-mode rather than a stack value.
-
-Does that still consume the write-once latch?  In
-include/net/af_vsock.h:vsock_net_set_child_mode():
-
-	int new_locked = mode + 1;
-	int old_locked = 0; /* unlocked */
-
-	if (try_cmpxchg(&net->vsock.child_ns_mode_locked,
-			&old_locked, new_locked)) {
-		WRITE_ONCE(net->vsock.child_ns_mode, mode);
-		return true;
-	}
-
-On a fresh namespace vsock_net_init() leaves child_ns_mode_locked at 0, so
-the cmpxchg succeeds and the mode is latched permanently.
-
-Would this sequence then break a later legitimate lockdown on a global-mode
-namespace?
-
-	write(fd, "", 0);                     /* returns 0, latches GLOBAL+1 */
-	echo local > .../child_ns_mode        /* cmpxchg fails, -EBUSY */
-
-Documentation/admin-guide/sysctl/net.rst describes the behaviour as:
-
-  The first write to ``child_ns_mode`` locks its value. Subsequent writes of
-  the same value succeed, but writing a different value returns ``-EBUSY``.
-
-which ties the lock and the -EBUSY to writing a mode value, not to a write
-that supplies no value.
-
-Would it be more in line with the changelog to skip the write handling
-entirely when nothing was parsed, for example an early
-"if (write && !*lenp) return 0;" in vsock_net_child_mode_string(), or having
-__vsock_net_mode_string() report "no value parsed" distinctly from success,
-instead of re-applying the current mode through the cmpxchg?
-
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but while
-looking at vsock_net_set_child_mode() in include/net/af_vsock.h: is the
-publication of the lock and of the mode value atomic with respect to
-namespace creation?
-
-	if (try_cmpxchg(&net->vsock.child_ns_mode_locked,
-			&old_locked, new_locked)) {
-		WRITE_ONCE(net->vsock.child_ns_mode, mode);
-		return true;
-	}
-
-	return old_locked == new_locked;
-
-The lock becomes observable before the child_ns_mode store, and a second
-writer of the same mode returns success from the last line without waiting
-for that store:
-
-CPU0 (writes "local" on a global-mode netns)
-	try_cmpxchg() succeeds, child_ns_mode_locked = LOCAL+1
-	/* preempted here, before WRITE_ONCE(child_ns_mode, LOCAL) */
-
-CPU1 (writes "local")
-	try_cmpxchg() fails, old_locked == LOCAL+1 == new_locked
-	return true;			/* sysctl write reports success */
-
-CPU2 (creates a netns after CPU1's write returned)
-net/vmw_vsock/af_vsock.c:vsock_net_init()
-	net->vsock.mode = vsock_net_child_mode(current->nsproxy->net_ns);
-	net->vsock.child_ns_mode = net->vsock.mode;
-
-Can the new namespace read VSOCK_NET_MODE_GLOBAL here and permanently
-inherit the more permissive mode even though userspace was told the "local"
-lockdown was committed?
-
-A barrier does not seem sufficient, since the reader has already observed
-the lock publication that precedes the value store.  Would publishing the
-mode and its locked state together help, for example deriving child_ns_mode
-from child_ns_mode_locked, or adding an in-progress state that the second
-writer waits on?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915111417.2726515-1-qwe.aldo%40gmail.com
