@@ -1,108 +1,87 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2CF545DBF;
-	Thu, 17 Sep 2026 14:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520AB585969;
+	Thu, 17 Sep 2026 14:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654460; cv=none; b=WfexzVrzA1t/m9uzT2uitYOWbycCYz4iGYN0ZX/RpxP5aec5gzse26OEVYsMN81PgZ0+1prp1RE30FBpNbAgO0ZwlH2MzL8wA8c4TQYxQYeTP+llBgCXx7B2+1M0ZGvpnJQ0YPToNWFP1zkpLB0DdAGFnW+ZJxPiCWRF26d2CJM=
+	t=1789654614; cv=none; b=pIUQ57sH1KAv04+Q0HoHb5emxRraStf550pLfLCRznvFrrxmr2XRdqXdOXH+9Ykp+Y+bWWa7M/PMSxTa/+bxN7Q9dWid2dzkvPCLrc+ASw5yTt3m7W9AutR7wdg3rJQkRL6gD839A7OmEErgtH2KJqrjK3G3qn1CKakG3nBQcGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654460; c=relaxed/simple;
-	bh=CKzwH5IlqQ4tcQlRqwBTavEe5X3w0+DdU2PZds2WOgc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CvP4JzMySfSekwjqqxq7t8UG3OrLdlrpSgxauRjlB9hePWjpwlmJ+gNzsS9aFBmRsiVElXewMdX20ZIPmlUs5ayMBjtmpRBCLrv9kXu57icR3XLGBg+KsRHNlfA9n86iOTUUGFKivt57cyno/H1C+BgHBHrRsO+Shd+jikYwG7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD+39atqTzOCCA--.4496S2;
-	Thu, 17 Sep 2026 22:14:15 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andriy.shevchenko@linux.intel.com
-Cc: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	mingo@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: pmc_atom: Fix PCI device reference leak in pmc_atom_init()
-Date: Thu, 17 Sep 2026 14:14:14 +0000
-Message-Id: <20260917141414.2156326-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789654614; c=relaxed/simple;
+	bh=qUQpEwEAf03ydxY/z49pwtC0JzrodVH85vpCXMSp9WA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UgIw7IklN4ru4lGzmrxTQazDjxkneVmD/x1reEJsCch2/hB/vHuAu0d7mZj23E8D6/uwNcJ+5UXgQWEp/Y5K4snfwndhwvxtUCQK/OgqC+vpHeVhMY4nr3pClDYzkhYkuaKlsRePfQiFYt8bV/aO/kEhRQleVjabekjQ/nw7U8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hrYW/0cB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hrYW/0cB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9061A1F000FF;
+	Thu, 17 Sep 2026 14:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789654611;
+	bh=eDW8IouqkovElgfc32IDNMAM4R26qJXqrPUo54akiM4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hrYW/0cBcIW3w0qdxci8Ag7Mm3r2foDbv4BzufAfK/AdMnQNHKVnH8Z4A7RQ1qO8m
+	 grW0JgXa+mlrfFhrHczGGrB/PO7R8dsWEKab5VWv1Oj9JP2WJFtE/nXIW/7tOP12FA
+	 QN1U6rH5k0y1qcP2RafoaTlAzPc/AuqveahpapZE=
+Date: Thu, 17 Sep 2026 15:08:11 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH] USB: serial: Support attaching serdev devices
+Message-ID: <2026091756-unmolded-fructose-a018@gregkh>
+References: <20260917081103.1917665-1-alban.bedel@lht.dlh.de>
+ <2026091739-spousal-linked-2a36@gregkh>
+ <20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD+39atqTzOCCA--.4496S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar15Ww47Xry3WFy5Zw1xAFb_yoW8Xw47pr
-	sruFyayry5Gwn7Ka1DZa10vFy5AF42v34fC3y0y3Wq93s09Fy5J34Iqa43ZFnrAFWkJ3W5
-	t3yDtF48Wa15XaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_Zr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x
-	0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUznYFDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMNA2qrrJrfXAAAs1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917153736.600061de@OMT-CWNXR4TFW5-LHT>
 
-pmc_atom_init() iterates over the PCI devices with for_each_pci_dev()
-and returns pmc_setup_dev()'s result directly from inside the loop when
-a matching device is found. The reference obtained for the matched
-device by pci_get_device() (via for_each_pci_dev()) is never dropped,
-leaking a reference to the PCI device on every successful init.
+On Thu, Sep 17, 2026 at 03:37:36PM +0200, Alban Bedel wrote:
+> On Thu, 17 Sep 2026 09:27:42 +0100
+> Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+> 
+> > On Thu, Sep 17, 2026 at 10:11:03AM +0200, Alban Bedel wrote:
+> > > Use tty_port_register_device_serdev() to allow attaching serdev
+> > > devices to USB serial ports. Also set the ACPI companion device on the
+> > > USB serial device to let the serdev matching work on ACPI systems.  
+> > 
+> > "also" should be a separate patch, right?
+> 
+> Will do.
+> 
+> > And I didn't think that serdev could handle devices going away at any
+> > point in time, when did that change?  How was this all tested and what
+> > ACPI device wants to use this?
+> 
+> The use case here is an x86 embedded platform with a soldered USB serial
+> adapter connecting to a MAX9265 GMSL serializer. As everything is on a
+> single PCB there is no question of anything getting disconnected at
+> runtime.
 
-Break out of the loop, drop the reference with pci_dev_put() before
-returning, as pci_dev_put() on a NULL pointer is a no-op when no device
-was matched.
+You hope :)
 
-Fixes: 2b8f8eddaf05 ("x86/platform/intel/pmc_atom: Add Cherrytrail PMC interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/platform/x86/pmc_atom.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+> But I now see that I missed that the bus remove also need to be
+> adjusted to use tty_port_unregister_device() instead of
+> tty_unregister_device().  With that done the serdev device get properly
+> taken down when I manually disable the port. With a small fix to the
+> serdev core it also comes back up when the port is enabled again.
 
-diff --git a/drivers/platform/x86/pmc_atom.c b/drivers/platform/x86/pmc_atom.c
-index 48c2a0e59d18..750b72c6c616 100644
---- a/drivers/platform/x86/pmc_atom.c
-+++ b/drivers/platform/x86/pmc_atom.c
-@@ -579,6 +579,7 @@ static int __init pmc_atom_init(void)
- {
- 	struct pci_dev *pdev = NULL;
- 	const struct pci_device_id *ent;
-+	int ret = -ENODEV;
- 
- 	/*
- 	 * We look for our device - PCU PMC.
-@@ -591,11 +592,14 @@ static int __init pmc_atom_init(void)
- 	 */
- 	for_each_pci_dev(pdev) {
- 		ent = pci_match_id(pmc_pci_ids, pdev);
--		if (ent)
--			return pmc_setup_dev(pdev, ent);
-+		if (ent) {
-+			ret = pmc_setup_dev(pdev, ent);
-+			break;
-+		}
- 	}
--	/* Device not found */
--	return -ENODEV;
-+
-+	pci_dev_put(pdev);
-+	return ret;
- }
- 
- device_initcall(pmc_atom_init);
--- 
-2.34.1
+Please read the archives for why we don't want to do this unless/until
+serdev is "fixed" to properly handle dynamic device removals.
 
+> The ACPI part is a custom DSDT overlay that defines the chain
+> starting from the USB port. At this level there is no difference to 
+> classic UART where serdev are already working.
+
+So acpi now defines USB to serial devices?  Is that new?
+
+thanks,
+
+greg k-h
