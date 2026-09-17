@@ -1,119 +1,103 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC044B1CE6;
-	Thu, 17 Sep 2026 09:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB763AF660
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637888; cv=none; b=Mmt5DR2SXDXR6pVvxwXzS1+bbuKf85ZxxJ8jkpGsmSL05WxQeVnkMKA2ZxnAqn4Ex3tI0GOlXoi7MhRc3wIZQTTNZbuD4B/pv5t0dDD8hKoItiDB0tAuba1dES6V0R2MqvSSywifaVdP8+81+QZsh8HENO6+9BTY90er56O6JNg=
+	t=1789637902; cv=none; b=HUjL+n4s9v9d7aYBe2Ib5df8SHTgeRQzjgpDxDBO3KJaJ6Cd4dUicVHVuk6RLT6oya6IEx+J6FDIm1sW11k+3cmTvIRqp3nxnPU4BtdhazT9dZmTp8wdKf9YohLDndFacGCx5B5055wwaFSCv0AqibJUWSyrsLOMoZJsv36RKy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637888; c=relaxed/simple;
-	bh=mybn1VSLp+vbEY9o/N1PfHKCTE3Z5ZwxFj9ZXSY03XY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OAgfmwL/4gYKH7Nl4TIv39bFrFRAZqDEl9d6/4i7wjZq0xkxFzWtNWaS7BdRoQjbHIhmI8bHEb+XiZtE8SnkANXkrUgyNnzaK7ol4/WpHbZxBfY8+WZY4t62r+GvmEI9UqVpCD6W93NCRdc3GOhpOdbxmeTNj9215k2cPxg3qwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnFD_ptKtqV8t9CA--.40357S2;
-	Thu, 17 Sep 2026 17:37:46 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: angelogioacchino.delregno@collabora.com
-Cc: jason-jh.lin@mediatek.com,
-	jassisinghbrar@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	matthias.bgg@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] mailbox: mtk-cmdq: Fix GCE clock reference leak in cmdq_get_clocks()
-Date: Thu, 17 Sep 2026 09:37:45 +0000
-Message-Id: <20260917093745.2144930-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789637902; c=relaxed/simple;
+	bh=k9iy9AJdW8wLxZL5ESd1C2sYrjeHcZKryGJ+0Y5s9hM=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=B3qLIOJC57LXa7zbFdcheLYsilwCUGiik/fRL4AQeq7PAd4KAMq7T+pFfR6aGSUeZnAP4t3nC8SSFeCJvo96PeMU7qgtWz8Rnv+g2xk6m7xosFRxh4BqFsFMvfWG7F9mf1ZAbpJg9PK9kD0u3yJ8ZbN0l81NSTsRnbfVWTvF3OY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNxYDaNq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNxYDaNq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BEE1F000FF;
+	Thu, 17 Sep 2026 09:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789637888;
+	bh=2rSF53ZY4pk3y6lA4BpXgH5Qd2QOlkJhpUxGn+AImfw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=RNxYDaNqOcntlf++6Gzcp8azIj6a1+NP5cwBvWoXLnK6NnIB+qEqEYk+TMBrK4GXB
+	 LHY3Y54gnFWIDSk5OHMxUIcVLedwHb/e7Nz/AJG15WKzSebehnqWJGmf/fsfx+3O5m
+	 t0RC8yaIezWobKh+JatM36EdOmyyc3DZaQop8kxlhioxUgcQwAMCT+oDlf9l3jKGOn
+	 JwoRzw6bChek6g8Fm02uwRN9GqQtiUw8yvH1Tps0oODiM2tM3LAY/y0tEBEgJY8/Dp
+	 t+IJQyUxTeARGy6YQOLh9Mar2iOPt0SRwB9fFVCz8z0b2sYz+YLXaEv/wBljxaEGgT
+	 v/2up5VCfrKAg==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9A4821980074;
+	Thu, 17 Sep 2026 05:38:06 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Thu, 17 Sep 2026 05:38:06 -0400
+X-ME-Sender: <xms:_bSravXTHP8oWAhhoNm2inP06XPvxIL8w08Uf21_3un7Q5o4ZJkwLg>
+    <xme:_bSraiYxHz02LS9UwLcrpZB501n7rIXLSL8ogVyZGP05yz_Apqdrw50cwfNVRNaeP
+    NDwOmM7qhQHyAU7FIcXN071zXoM4n_tGvWYSZ5-O4iyhBFNuvPvi6CBUQ>
+X-ME-Proxy-Cause: dmFkZTEXd2h0o4lG1b+Y5NWTcjCbMHLFEL0ltW+yBpGuTNwPxnu6HZiwkO7TqUQ1L02Kac
+    ReG/bMGBU0bvYMzDliKa0O2QhEYAhhwf6wSOhVR3uLuSHgCWTY8s9LkMtFiM5mq1DYshrz
+    J1MiUMMwKHalFIYr4dxzgnUWIw7qZuvtxUDfcqpP+uXd/sazidg5kM7R+ngF4FoggYX+JT
+    tpbHDAuiNp5KyGQCJa+1zmGkNVRfJEb4U8QuV273ImWVP0tlXabVzwAcgc2qcGE3xFNK2q
+    naa9dmemW1LDLk7Y71ClmwFPyvMKyBCopcOcPGfWVIgLDcklNUt/xLdu6IYRn5zxP4bKdW
+    d7+iCQL9RZ0Eokewq0SVs4XdxHaEg94yzcakOQNH+7PpTCGHhijzUBPFC/Y6RsBhGyms5L
+    Izg7wNn1eyolV3jdvK1bbl6RJ/uYLr6ta16rszPsMxXD+K8tOoK/1SCfbQS1Qln3SPAw4W
+    aIbrM77sEOY0WQ9tUjQsTED6SCzeLg1oSFhGU+NGwCbV0s1UdXVZS4HpBT3KC1ByMY3V1X
+    uKLF8Gm2wkTpD8DbA16dVQCHDsRZ5CiR5kGGl3BUF8pZ0sozWBbb9G+s+8Edx0NLWK2nth
+    SRHy7WDkEuUWjkE+kSB+dDpSGfDP9xlzPpQlxz17ddpUGxbPNQdnTDTsn2pQ
+X-ME-Proxy: <xmx:_rSrasdgc45UV0EZ8KeBa0v4oRSECm7--m92X8ESFKrbms_R3WpL7Q>
+    <xmx:_rSrappMHWg18OiOg8FO1aYPgLJY4qDnG-H3SxsPu5UcphGxdRgwXQ>
+    <xmx:_rSrahANL1lT3JDwfDy7yix3QI4rfgsXYcw94gz483tXpM0tLtOq9w>
+    <xmx:_rSrambWsUT0kKtGfNBXXTNNuKI6NliLnZLD3fkHsV4r-2SeWkG3og>
+    <xmx:_rSrak6AcsMv_wmAW2uHZaPuMliANzt-tK_OexURrFHOs3oBQcXDYNlg>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 529B3F80081; Thu, 17 Sep 2026 05:38:05 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnFD_ptKtqV8t9CA--.40357S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF4kKF45GFWDAF45CrWDtwb_yoW8uw4fpF
-	4qyFy5ArWUJFn7WrsIvr1kAF9Y93WSqFWSkwna9ayvvrs8Ary5XFyUJFy8XF98AFyfAanr
-	X3Z5tr1UCr4DAFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvm1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
-	JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY
-	0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnU
-	UI43ZEXa7VU1eWlPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq00rowAAs7
+Date: Thu, 17 Sep 2026 11:37:44 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Vincent Mailhol" <mailhol@kernel.org>,
+ "Ard Biesheuvel" <ardb+git@google.com>, linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Message-Id: <eef95da0-5d7e-4d19-b416-7f64ff2297d0@app.fastmail.com>
+In-Reply-To: <c55f8ca6-3b67-45da-b309-b1793407fc04@kernel.org>
+References: <20260916144647.2651379-11-ardb+git@google.com>
+ <c55f8ca6-3b67-45da-b309-b1793407fc04@kernel.org>
+Subject: Re: [PATCH v3 0/9] efi/libstub: Avoid UTF-16 conversion busywork
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-of_clk_get() returns the clock with an elevated reference count, but
-the references taken for the other GCE clocks are never dropped: those
-clocks outlive probe and the driver calls neither clk_put() nor
-clk_bulk_put(), so probing a GCE with multiple instances leaks one
-reference per other GCE clock.
 
-Let devres drop the references when the device goes away, which also
-covers the probe failure paths after cmdq_get_clocks() has returned.
 
-Fixes: 85dfdbfc13ea ("mailbox: cmdq: add multi-gce clocks support for mt8195")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/mailbox/mtk-cmdq-mailbox.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+On Thu, 17 Sep 2026, at 08:21, Vincent Mailhol wrote:
+> On 16/09/2026 at 16:46, Ard Biesheuvel wrote:
+>> From: Ard Biesheuvel <ardb@kernel.org>
+>> 
+>> The EFI libstub performs some redundant conversions between UTF-16 and
+>> UTF-8 and back again, which includes dealing with surrogate pairs, which
+>> UEFI implementations themselves simply ignore.
+>> 
+>> So drop all the homegrown code, and use the existing UCS-2 (== UTF-16
+>> without surrogate pairs) library code where conversion to UTF-8 is
+>> actually needed (the kernel command line).
+>> 
+>> The remaining handling involves the EFI console, which supports wide
+>> characters natively, so just use those directly.
+>
+> This v3 looks good to me and runs fine.
+>
+> Patch 8 still uses spaces instead of tabulation for indentations. But,
+> notwithstanding of that and for the full series:
+>
+> Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+>
 
-diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
-index e523c84b4808..eadd340f8fee 100644
---- a/drivers/mailbox/mtk-cmdq-mailbox.c
-+++ b/drivers/mailbox/mtk-cmdq-mailbox.c
-@@ -633,11 +633,22 @@ static struct mbox_chan *cmdq_xlate(struct mbox_controller *mbox,
- 	return &mbox->chans[ind];
- }
- 
-+static void cmdq_put_clocks(void *data)
-+{
-+	struct cmdq *cmdq = data;
-+	u32 i;
-+
-+	for (i = 0; i < cmdq->pdata->gce_num; i++)
-+		if (!IS_ERR_OR_NULL(cmdq->clocks[i].clk))
-+			clk_put(cmdq->clocks[i].clk);
-+}
-+
- static int cmdq_get_clocks(struct device *dev, struct cmdq *cmdq)
- {
- 	static const char * const gce_name = "gce";
- 	struct device_node *parent = dev->of_node->parent;
- 	struct clk_bulk_data *clks;
-+	int ret;
- 
- 	cmdq->clocks = devm_kcalloc(dev, cmdq->pdata->gce_num,
- 				    sizeof(*cmdq->clocks), GFP_KERNEL);
-@@ -660,7 +671,14 @@ static int cmdq_get_clocks(struct device *dev, struct cmdq *cmdq)
- 	 * If there is more than one GCE, get the clocks for the others too,
- 	 * as the clock of the main GCE must be enabled for additional IPs
- 	 * to be reachable.
-+	 *
-+	 * Those clocks are not devm-managed, so keep track of their
-+	 * references and drop them when this device goes away.
- 	 */
-+	ret = devm_add_action_or_reset(dev, cmdq_put_clocks, cmdq);
-+	if (ret)
-+		return ret;
-+
- 	for_each_child_of_node_scoped(parent, node) {
- 		int alias_id = of_alias_get_id(node, gce_name);
- 
--- 
-2.34.1
+Thanks. I've fixed patch #8 and pushed the set (minus the x86 boot)
+to the bootloader-info topic branch. I'll merge that into efi/next
+once the x86 changes land in tip.
 
