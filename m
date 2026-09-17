@@ -1,120 +1,93 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4B14156FD;
-	Thu, 17 Sep 2026 10:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BE5873CB57F;
+	Thu, 17 Sep 2026 10:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641928; cv=none; b=ZsQnv9cWp5iBPxEm1OUmbY7ph8B6hoVgb1gfV2FHfG5oXpjXZ2FE82qu+0vN06oWMQz+bQeiZVvkOBAvoQ3vTCzPkVp4lblEF4JSj1Oaukf9eMM478w8P+6zMr0V+r0ElTqNSOfajZUyDSZ6vZK7AOAurxpx08ZLD6auJCya6Xk=
+	t=1789641951; cv=none; b=ax0vqHT9YoJzxu6UKGJs1Lgucvx3kd2G52PaDudEj77GYMhkNO+xr0YP2uRGxHCmwjzHGLyfPnD5AjrmeTs/XllyuClzaQ7mz+n5ZkqXw9eaO9ureEANg72h2YSlCHiGzv/Li+YhCtaPG8P71sPnBYaEphcvBMNnsRvD7Tcv7kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641928; c=relaxed/simple;
-	bh=afSx3D/vkh44WIvQMHVDzVIdoFNtbb2vZ91yVkdb2/w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ACQSaY6UycwziM5kdbcoqL00iGA2tLofvDHq6KfkuhJZMXZXvwMrs2uVj3Q6QS9cjHOuKZg8Rjb6RZiKDe9aYImlNCSJs/Ttpa9wCHaO6Z6ixlfmJ0y/4gYm+akPNDGeb9Mup0AWaPQMWxRL1J5dwQKnPA8xHOrbnPc/Ygjf3VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3qEK6xKtqI+R+CA--.906S2;
-	Thu, 17 Sep 2026 18:45:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: info@gerhard-bertelsmann.de
-Cc: jernej.skrabec@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	mailhol@kernel.org,
-	mkl@pengutronix.de,
-	mripard@kernel.org,
-	samuel@sholland.org,
-	wens@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] can: sun4i_can: Fix clk leak in sun4ican_probe()
-Date: Thu, 17 Sep 2026 10:45:14 +0000
-Message-Id: <20260917104514.2147347-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789641951; c=relaxed/simple;
+	bh=A1qJUzoEx4MjxX5KJ5zP6XztKc5+3XRYmk3SylEfKJg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AbEWxWtgK65LhlP8rWd6ILVo1d9FP2VU43dm7CW7cCgROz5MQx/P8gRpszYlaCkZm+5Hfy5QIG5u/Wts7/WcucD43k0LIAor3OilKatQkfp9OHgXD+OBb783GqQ/qID2QhuQLsMRb5ezVsQM+JXYVyMDX0R0HTZlHBia6uNxcWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n3EKRXU7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n3EKRXU7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77CEF1476;
+	Thu, 17 Sep 2026 03:45:45 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 830FF3F882;
+	Thu, 17 Sep 2026 03:45:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789641949; bh=A1qJUzoEx4MjxX5KJ5zP6XztKc5+3XRYmk3SylEfKJg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=n3EKRXU7Cq0DBTHyOGTTXwg29ME9vRYoBg/Zu9Qo8a/ZRg4WR/J/U0BVm+v1OMi4g
+	 HNkWPW0bXHN9fcTqmsv5rJx7nhcBoRmjzGf42teEOckKeKZ3kfBaAjMrxSeXMoZqoc
+	 j6309z9kZ3G1alSAYIaABBDQGB2YjpiPXZfdXtnw=
+Date: Thu, 17 Sep 2026 11:45:43 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Florian Weimer <fweimer@redhat.com>,
+	Darren Hart <dvhart@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Arnd Bergmann <arnd@arndb.de>,
+	Uros Bizjak <ubizjak@gmail.com>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org, kernel-dev@igalia.com
+Subject: Re: [PATCH v8 2/4] arm64: vdso: Implement
+ __vdso_futex_robust_try_unlock()
+Message-ID: <aqvE1w1-FQPD4AoM@J2N7QTR9R3>
+References: <20260821-tonyk-robust_arm-v8-0-077707b6f1c7@igalia.com>
+ <20260821-tonyk-robust_arm-v8-2-077707b6f1c7@igalia.com>
+ <aqqkX8GyxgdtoOmc@J2N7QTR9R3>
+ <9d9a804f-c1f3-4c0c-b12a-975206f6c34c@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3qEK6xKtqI+R+CA--.906S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFy5GrWfZry5Cry5Ar18Xwb_yoW8Ar1rpF
-	nYqaySkr48GFyYgwnrta10vFyYyw4IyFyakrW0kws3ZanxAr1DCFyrCFyjvF48AFWkGay5
-	Ww4jyF18KFs8Z3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUqP8nDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq01YSAABsj
+In-Reply-To: <9d9a804f-c1f3-4c0c-b12a-975206f6c34c@igalia.com>
 
-In sun4ican_probe(), the clock is obtained with of_clk_get(), which
-returns a reference that must be released with clk_put().  If
-platform_get_irq(), devm_platform_ioremap_resource(), alloc_candev()
-or register_candev() fails, the reference is never released, leaking
-the clock.
+On Wed, Sep 16, 2026 at 10:06:25PM -0300, André Almeida wrote:
+> If I understood correctly, the correct approach here would be to use pop_reg
+> as an input operand, making sure that we store the address hold by *pop on
+> x2 register right? So something along the lines:
+> 
+> __u32 __vdso_futex_robust_list64_try_unlock(__u32 *lock, __u32 tid, __u64
+> *pop)
+> {
+> 	register __u64 pop_reg asm("x2") = (__u64) pop;
+> 
+> ...
+> 
+> 		"	str 	xzr, [%x[pop_reg]]		\n"
+> ...
+> 
+> 		: [val] "=&r" (val),
+> 		  [result] "=&r" (result_reg),
+> 		  [lock] "+Q" (*lock)
+> 		: [tid] "r" (tid),
+> 		  [pop_reg] "r" (pop_reg)
+> 		: "cc", "memory"
+> 
+> Does that looks right?
 
-Fix this by adding an exit_put_clk label that releases the clock and
-jumping to it from all error paths after the of_clk_get() call.
+Yep; that should work!
 
-Fixes: 0738eff14d81 ("can: Allwinner A10/A20 CAN Controller support - Kernel module")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/can/sun4i_can.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Just for completeness: another option would be to drop the memory
+clobber, and have separate constraints for the "pop" memory location and
+the "pop_reg" register. I think your suggestion above is simpler, so
+let's go with that.
 
-diff --git a/drivers/net/can/sun4i_can.c b/drivers/net/can/sun4i_can.c
-index af52285d5a4e..311526107ed8 100644
---- a/drivers/net/can/sun4i_can.c
-+++ b/drivers/net/can/sun4i_can.c
-@@ -854,13 +854,13 @@ static int sun4ican_probe(struct platform_device *pdev)
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		err = -ENODEV;
--		goto exit;
-+		goto exit_put_clk;
- 	}
- 
- 	addr = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(addr)) {
- 		err = PTR_ERR(addr);
--		goto exit;
-+		goto exit_put_clk;
- 	}
- 
- 	dev = alloc_candev(sizeof(struct sun4ican_priv), 1);
-@@ -868,7 +868,7 @@ static int sun4ican_probe(struct platform_device *pdev)
- 		dev_err(&pdev->dev,
- 			"could not allocate memory for CAN device\n");
- 		err = -ENOMEM;
--		goto exit;
-+		goto exit_put_clk;
- 	}
- 
- 	dev->netdev_ops = &sun4ican_netdev_ops;
-@@ -908,6 +908,8 @@ static int sun4ican_probe(struct platform_device *pdev)
- 
- exit_free:
- 	free_candev(dev);
-+exit_put_clk:
-+	clk_put(clk);
- exit:
- 	return err;
- }
--- 
-2.34.1
-
+Mark.
