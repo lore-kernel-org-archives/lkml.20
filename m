@@ -1,66 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4C142CB07
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9257B4052C7
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638236; cv=none; b=WW6AR9mzfDz5ZOB5Pj9Y1cNmKY+izhbmw/u/6DmpWuR1ZnMB3h617W4Ha/RRVaxWg97bdyp/qsA3OcsQpCf8JFnI6DcdOH/CeDCP7NIi9aVFb4h0n5w/SkCE11f5JEMXzK7t++mdRe4WOdfhsnoo2Tz5/FrHyCRG4VSS4rXz2MA=
+	t=1789638269; cv=none; b=WMC9i2w21xggXE+qDBnqmYnBfGD3gPig5ccubyukpxOm8NiFibKlfMeg0AxQN5ASD0RXpAga0R6pdLUFwyFE0KLfun+wB2/e0AZM8wSMObTH8bK9OQAM3vVsucQhXqOkS54ykEZzmS3nOi/Z73GK/v7oM0PQg/zNZRq8+oWAzJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638236; c=relaxed/simple;
-	bh=8D6G7Ae5J//jgEv6IHw+UpzQvqiu1LXaFmi0I8y7rz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=An0qP8wfGsxkPtPM30+Y5Z8B5R7wseHODVUblKE12EFF8XuZIxXwm/BQoAl8O0O2aZdKiSbnmBs+/BMTbvUENJNqGTN3z8+MMEsEe9XavgfFpnRZd4iAtUxYcU7Gz1rwGPM+ndAm5/DYaHm9axNS2/RnxfLYtps7mRYgwI+WrXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H4ZugQUy; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789638269; c=relaxed/simple;
+	bh=W3avD/gwwEkeiicWHrArtYtKTr1r5cPUIp2WpU4qAoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bMhoCzMQrpNIzerJAXANBC5iDCOrbD9BH5hciprlnLTaYKqSBPiYJd/+wwEGtwEGl40Y6pGgXVptDMzOnhFfOaEbJxiXNSyT7IKdGMFj9DfLm2sO9BqQiil4mwxnNryo0nbBR5evuDBrd3DvQiDrqtJnVytSFCOKWbJz+dmBK4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y3vQ+B+Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FLxinP5T; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H4ZugQUy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789638219; x=1821174219;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=8D6G7Ae5J//jgEv6IHw+UpzQvqiu1LXaFmi0I8y7rz4=;
-  b=H4ZugQUyz53oqRIbhROTLU58GYkEs8UjBdIk8MqRrZJLodi58PXJJVyr
-   17T1WbdBLnipuVtUJ5iOuE/EbbGLpQjnj9Jh2nUdTesctRowK6RgEJvel
-   m9seYSt/6tK1CEBOvtZ67wGS2Ceol6CXZZkvurzqVrJlBHLsQP67U2NmA
-   cLTtBbUdyi9R7MSxLbDj7D1rNVwT7RYceJ5njK8MwtC6nTPYenmeceFDa
-   6lpiApopnec5egjDNFM79uDuudBx8mx7PmzopwD6t5f6UbVyrWn51TQ7c
-   jACJd/1N50qUUT6XQY4Q2LMWo2sxXt6xd6gXxknpVAP5XghZ/+CQVWE9/
-   w==;
-X-CSE-ConnectionGUID: yzAMDOfHTAuwYMl39y/kqg==
-X-CSE-MsgGUID: 1Qsgy0rQTk+BYCmC7cT/Hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93869466"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93869466"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 02:43:37 -0700
-X-CSE-ConnectionGUID: TapVFOvmRIeKBrtWMdl8/A==
-X-CSE-MsgGUID: +TSzmJcKQ3CW6ytOtXBBUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="298768187"
-Received: from gklab-103a-104.igk.intel.com ([10.91.103.104])
-  by fmviesa001.fm.intel.com with ESMTP; 17 Sep 2026 02:43:34 -0700
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-To: Ning Sun <ning.sun@intel.com>
-Cc: Baolu Lu <baolu.lu@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>
-Subject: [PATCH v3 1/2] x86/tboot: Add support for parsing DTPR table and disabling TPRs
-Date: Thu, 17 Sep 2026 11:43:33 +0200
-Message-ID: <20260917094333.765643-1-michal.camacho.romero@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <PH8PR11MB6878FA66E30AC9A4E01B60A687BA2@PH8PR11MB6878.namprd11.prod.outlook.com>
-References: <PH8PR11MB6878FA66E30AC9A4E01B60A687BA2@PH8PR11MB6878.namprd11.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y3vQ+B+Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FLxinP5T"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9Zld71150749
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:44:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Ka3m7yPQ6zXpaZ43TO2KozhhqfAFnwYtxFW
+	YYUMBqKs=; b=Y3vQ+B+Z1ecneAXa0LqLRWyTCBNGfHkcOi0J5ItWYzGcKZ/26VQ
+	8PdtJfAts7FffvIKXWog/HBqpgKqMP+QJEE7xrzB75uErdlUFaJbU0eGifhGFXV3
+	dzul8nXZLPHTiWTErSwr4UGwv9c6romnIKMqtwOuyHXLIaLgcw7Y4OTMLFvwjzcj
+	xFJDYGslHOljhLMSag1FNde8MOSue43UPini1C8WrlYYi0/LrtB+WC/hqG7InHhi
+	tlJzXH/8Fwr/IlMEzAD2K7j930N2CliHJtV1hxEST/nvfwzlMZjyc0FOuR7Eg3Ae
+	+7fDfEfAtDKLGWBsxrP6IOOUfK7zSpQ3ZIA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grc9w8dxp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 09:44:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939a6937513so86933685a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 02:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789638243; x=1790243043; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ka3m7yPQ6zXpaZ43TO2KozhhqfAFnwYtxFWYYUMBqKs=;
+        b=FLxinP5TUfLQilmCCEyeoll1PGc3srvzJVNfu46lj6o3TqdMWyn7sW7XrS/fTp+LYG
+         25COkbKBplJ4PrMzuy05Nc0Mr7MuOz4Pc2KcnzCNoYkEUkbymna0949D9sOyR3xA+PTb
+         JF1iNmIvK/VJBo6hLAN4JBLo+hj6B1O34+YrMrdhtSeqjBppLGGWGQ3PNZvWPv5+R/Ag
+         ZuQA8E9DvtTllkkK88U84O1M3Tvh834dzfMUJlgW1zwOx64TwSxZIErn7xO2rwUup1ci
+         91x17tvHvIbbcy8WN6Bd8qbSOMk3KCUIZWbBSDPEZkvEhEAlUpcW2ysebbVaUaYQ24SR
+         BNFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789638243; x=1790243043;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ka3m7yPQ6zXpaZ43TO2KozhhqfAFnwYtxFWYYUMBqKs=;
+        b=YMxdZo8mXOKsvCa5IjMdYYvh1SBcsnKIRNz7WuEr0fy5ZXyUbRfFhPrdLTnT6ebP09
+         5EkSWRpG4SYDVShSngB79kSUOQSc1dAnx/aKKgPlz9y6djk0s7iy/UYuJpScHBKF8ySm
+         qKHmc5Xgvf8dCLTjl15NX1fBkKVumZjodrxn0e08XGyNQc7+AMBuLIKCrV+XOknUIg1K
+         f9FVqqyGmkXxeBNmM+EbbNoUYrSzmf0RaAMtabilpRB1mGTapZUMzWT/N/iQ8fSWRr+E
+         vMhl1GbV6u1w4ykai4GrCiCaHRXIBhOQbWUOyjGH+JtR1OSV38Z4H1+Q3zFwyrD/tdFo
+         TUZg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCgZpxaqxUEEoeWZsBixg/QxtOd9PwZDM+pfGXKNtsL3Y0KwOs8mmtpboRNzHjPHRjBoB3ZlTVE4gOFZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEPwwYjHeBJ6gpuXD2l/elOm52jabLLJ/rW1u1uTuorO793M9l
+	NqGqkmICgwo+4g1zo5YH4y37IDeL0rB4JFEHule5sX5CoGWwLRuSjUkSLi4r2N6B58awwdViRqo
+	P7YOseTMe/dbritWHBGVwFvYoNo/lzsQqmM6e+nDuHLAh9xPijWj0LVxZImPI15ysXFiM1x8HHc
+	8=
+X-Gm-Gg: AYBFou1JwLCheQ1sVGhb5ViZE22Gemwxz6IRUDFrWH1Q/Zhnb1hEdhfaC5sKzJgC267
+	BI0Sv7yGyyVFOYZwAH+6NdjiP72AZIfjeHKzzv8ibV0sRyZT6SgMIYqcjS+cC/PCwec58iVGxuV
+	5JYxAo71toen3ingsFw7ycxbK07XwcVQ9K0yAhRG3cLc4VeK/XGMa24Wal09M4qcPHcllSalyzz
+	XVslAy2QsrqBxE8sfdykQRZ8lk96TKjVPNDEHlcOtM3Bb/t1F8W5qRra8CHOEbXoOD4XBxvfVI4
+	72R2yLzx4j1IYznNJjkrC5S8MIpfoRfIWEYH5ZDXjlc7Hm23hioXM4QLTghP3+u/RYeOlteR+MM
+	1G5SGF8LWdP1b3A+9ZD2gC1YdZ6A=
+X-Received: by 2002:a05:620a:470c:b0:93a:3c8a:2025 with SMTP id af79cd13be357-93bb7880659mr1030779385a.34.1789638243008;
+        Thu, 17 Sep 2026 02:44:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:470c:b0:93a:3c8a:2025 with SMTP id af79cd13be357-93bb7880659mr1030775885a.34.1789638242561;
+        Thu, 17 Sep 2026 02:44:02 -0700 (PDT)
+Received: from brgl-qcom.local ([90.161.207.100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbda7c462sm515895e9.4.2026.09.17.02.44.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 02:44:01 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [GIT PULL] Qualcomm pin control fixes for v7.3-rc4
+Date: Thu, 17 Sep 2026 11:43:56 +0200
+Message-ID: <20260917094356.7040-1-bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,471 +92,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEzMSBTYWx0ZWRfX/MpT7BCQfT4w
+ Blg5XJ6TuHCWp89qrN5St4s2m79JfqwsTSb1oc/SGx1mpXfEzfAC4QnERRQ8Ap4abvHWFS8nBon
+ FwkzNHRDjn7R/W99KUlwb5gWsZnGJkQLLbLVt8dIVdhBadh2l6P8Ul0y3yWim/Bqw3cEoi0LN8p
+ QAtpjLMBn25WA+YG2fXdPIjjKMG9/RTP0nj0ibgzzWZaCAu50788PM0+LXFMmGoLbObH/Pi0Gn2
+ ZBKjD2QgkLfiEoRbKGmQ8jBiMglvy+I1QoDl41+0Frdm3iHHl0aDnwv1If9uznVf/+7KTFJbU/W
+ eM+YRJq5JdnHEN6j4MM22oBno20bekNJx2z+aO/WQyjygYxkdTgWk0tbhUcqvJPSr0yf7ivYmgB
+ ehx9sjufVQDgcOBDnpox7qJDqHfopbpK4NF71bSechU1dazjWv48B8zg8DArQgrOtVuyFFM0yQ5
+ SqELc2QLDiw+aDFAW1g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEzMSBTYWx0ZWRfXynmzMZP692JV
+ sZb9IqNOQTuMuveJYrbO1osQXkHpG90WxHUWb2Qs9UWQFpK+D+p9wA/ZIvExMeM6KyVwhTKRp8D
+ kk/UAyDO3ihAjiFdSUGE3tnTC+jCCIU=
+X-Proofpoint-GUID: 8wTiGuTXVt1-o_ogfu0FTuY3i4BQN2QD
+X-Proofpoint-ORIG-GUID: 8wTiGuTXVt1-o_ogfu0FTuY3i4BQN2QD
+X-Authority-Analysis: v=2.4 cv=EsZHPicA c=1 sm=1 tr=0 ts=6aabb663 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=BQ2oiuy6hHN+kKmom1QVvA==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=P8F4T-NFUzOHK0OehmwA:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170131
 
-From: Michal Camacho Romero <michal.camacho.romero@intel.com>
+Linus,
 
-Add functions to locate and parse the DMA TXT Protection Ranges (DTPR)
-table from the TXT heap's SinitMleData extended data elements (requires
-SINIT MLE version >= 9).
+Please pull the following set of Qualcomm pin controller fixes for the
+next RC.
 
-* tboot_get_dtpr_table() - function walks through the TXT heap to find
-                           the DTPR extended data element
-                           (type HEAP_EXTDATA_TYPE_DTPR) and returns
-                           pointer to the DTPR table.
+Thanks,
+Bartosz
 
-* tboot_parse_dtpr_table() - function iterates over TPR instances and
-                             disables each TPR region by setting bit 4
-                             in the TPRn_BASE register via MMIO.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
 
-Using these functions will allow the kernel to deactivate SINIT
-ACM-established TPRs prior to the Linux OS launch.
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@intel.com>
----
- arch/x86/kernel/tboot.c | 358 ++++++++++++++++++++++++++++++++++++++--
- include/linux/tboot.h   |  18 ++
- 2 files changed, 361 insertions(+), 15 deletions(-)
+are available in the Git repository at:
 
-diff --git a/arch/x86/kernel/tboot.c b/arch/x86/kernel/tboot.c
-index 46b8f1f16676..f7ccd3e4e9d2 100644
---- a/arch/x86/kernel/tboot.c
-+++ b/arch/x86/kernel/tboot.c
-@@ -18,6 +18,7 @@
- #include <linux/mm.h>
- #include <linux/tboot.h>
- #include <linux/debugfs.h>
-+#include <acpi/actbl1.h>
- 
- #include <asm/realmode.h>
- #include <asm/processor.h>
-@@ -223,6 +224,132 @@ static int tboot_setup_sleep(void)
- 
- #endif
- 
-+static bool tboot_check_txt_heap_section_bounds(const u64 heap_end,
-+                                                void **heap_base,
-+                                                void *heap_section,
-+                                                const u64 heap_section_size,
-+                                                const char *section_name)
-+{
-+	if (heap_section_size < 8)
-+	{
-+		pr_err("%s size is too small\n", section_name);
-+		iounmap(*heap_base);
-+		*heap_base = NULL;
-+		return false;
-+	}
-+
-+	if ((u64)heap_section + heap_section_size > heap_end) {
-+		pr_err("%s exceeds heap boundary\n", section_name);
-+		iounmap(*heap_base);
-+		*heap_base = NULL;
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+static bool tboot_check_dtpr_size(const struct acpi_table_dtpr *dtpr,
-+                                  const u64 dtpr_payload_size)
-+{
-+	u64 dtpr_offset, dtpr_ref_size;
-+	u32 i, j, ref_tpr_cnt;
-+
-+	struct acpi_tpr_instance *tpr_inst    = NULL;
-+	struct acpi_tpr_aux_sr   *tpr_aux_srl = NULL;
-+
-+	if (!dtpr)
-+		return false;
-+
-+	if (dtpr_payload_size < sizeof(struct acpi_table_dtpr)) {
-+		pr_err("DTPR element payload too small for a DTPR header\n");
-+		return false;
-+	}
-+
-+	dtpr_ref_size = dtpr->header.length;
-+	dtpr_offset   = 0;
-+
-+	if (dtpr_ref_size < sizeof(struct acpi_table_dtpr)) {
-+		pr_err("DTPR table header exceeds expected size\n");
-+		return false;
-+	}
-+
-+	dtpr_offset += sizeof(struct acpi_table_dtpr);
-+	tpr_inst = (struct acpi_tpr_instance *)((u8 *)dtpr + dtpr_offset);
-+	if (dtpr_offset + sizeof(struct acpi_tpr_instance) > dtpr_ref_size) {
-+		pr_err("TPR instance No.0 header exceeds DTPR table size\n");
-+		return false;
-+	}
-+
-+	ref_tpr_cnt = tpr_inst->tpr_cnt;
-+	if (ref_tpr_cnt < 2) {
-+		pr_err("Reference TPR count is less than 2, further DTPR processing "
-+		       "interrupted.\n");
-+		return false;
-+	}
-+
-+	for (i = 0; i < dtpr->ins_cnt; i++) {
-+		/* iterate over each TPR instance */
-+		dtpr_offset += sizeof(struct acpi_tpr_instance);
-+		if (dtpr_offset > dtpr_ref_size && i != 0) {
-+			pr_err("TPR instance No.%d header exceeds DTPR table size\n", i);
-+			return false;
-+		}
-+
-+		/* verify TPR count for the given Instance. It should be 2 at least*/
-+		if (tpr_inst->tpr_cnt < 2 && i != 0) {
-+			pr_err("TPR Instance %d has less than 2 TPRs, further DTPR "
-+			       "processing interrupted.\n", i);
-+			return false;
-+		}
-+
-+		/* compare TPR count for the given Instance with the expected one */
-+		/* each TPR Instance should have the equal number of TPRs */
-+		if (tpr_inst->tpr_cnt != ref_tpr_cnt && i != 0) {
-+			pr_err("TPR Instance %d has inconsistent TPR count: expected %d,"
-+			       " found %d\n", i, ref_tpr_cnt, tpr_inst->tpr_cnt);
-+			return false;
-+		}
-+
-+		/* verify TPR array size for this instance */
-+		dtpr_offset += tpr_inst->tpr_cnt * sizeof(struct acpi_tpr_array);
-+		if (dtpr_offset > dtpr_ref_size) {
-+			pr_err("TPR instance No.%d TPR entries exceed DTPR table size\n",
-+			       i);
-+			return false;
-+		}
-+
-+		/* move to the next TPR instance */
-+		tpr_inst = (struct acpi_tpr_instance *)((u8 *)dtpr + dtpr_offset);
-+	}
-+
-+	tpr_aux_srl = (struct acpi_tpr_aux_sr *)((u8 *)dtpr + dtpr_offset);
-+	dtpr_offset += sizeof(u32);
-+
-+	if (dtpr_offset > dtpr_ref_size) {
-+		pr_err("TPR SRL count field exceeds DTPR table size\n");
-+		return false;
-+	}
-+
-+	dtpr_offset += tpr_aux_srl->srl_cnt *
-+	               sizeof(struct acpi_tpr_serialize_request);
-+	if (dtpr_offset > dtpr_ref_size) {
-+		pr_err("TPR SRL entries exceed DTPR table size\n");
-+		return false;
-+	}
-+
-+	if (dtpr_offset < dtpr_ref_size) {
-+		pr_err("DTPR table is smaller than expected\n");
-+		return false;
-+	}
-+
-+	if (dtpr_offset != dtpr_payload_size) {
-+		pr_err("DTPR table size mismatch\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- void tboot_shutdown(u32 shutdown_type)
- {
- 	void (*shutdown)(void);
-@@ -453,22 +580,30 @@ struct sha1_hash {
- 	u8 hash[SHA1_SIZE];
- };
- 
-+struct heap_ext_data_elt {
-+	u32 type;
-+	u32 size;
-+	u8  data[];
-+} __packed;
-+
- struct sinit_mle_data {
--	u32               version;             /* currently 6 */
--	struct sha1_hash  bios_acm_id;
--	u32               edx_senter_flags;
--	u64               mseg_valid;
--	struct sha1_hash  sinit_hash;
--	struct sha1_hash  mle_hash;
--	struct sha1_hash  stm_hash;
--	struct sha1_hash  lcp_policy_hash;
--	u32               lcp_policy_control;
--	u32               rlp_wakeup_addr;
--	u32               reserved;
--	u32               num_mdrs;
--	u32               mdrs_off;
--	u32               num_vtd_dmars;
--	u32               vtd_dmars_off;
-+	u32                      version;             /* currently 9 */
-+	struct sha1_hash         bios_acm_id;
-+	u32                      edx_senter_flags;
-+	u64                      mseg_valid;
-+	struct sha1_hash         sinit_hash;
-+	struct sha1_hash         mle_hash;
-+	struct sha1_hash         stm_hash;
-+	struct sha1_hash         lcp_policy_hash;
-+	u32                      lcp_policy_control;
-+	u32                      rlp_wakeup_addr;
-+	u32                      reserved;
-+	u32                      num_mdrs;
-+	u32                      mdrs_off;
-+	u32                      num_vtd_dmars;
-+	u32                      vtd_dmars_off;
-+	u32                      proc_scrtm_status; /* version 8 or later only*/
-+	struct heap_ext_data_elt ext_data_elts[];
- } __packed;
- 
- struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tbl)
-@@ -514,3 +649,196 @@ struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tb
- 
- 	return dmar_tbl;
- }
-+
-+struct acpi_table_dtpr *tboot_get_dtpr_table(void **heap_base)
-+{
-+	void *heap_ptr, *config, *sinit_mle_end;
-+	struct sinit_mle_data *sinit_mle;
-+	struct heap_ext_data_elt *elt;
-+	u64 heap_end, heap_size, sinit_mle_size, heap_section_size;
-+
-+	if (!heap_base)
-+		return NULL;
-+
-+	if (!tboot_enabled())
-+		return NULL;
-+	/*
-+	 * ACPI tables may not be DMA protected by tboot, so use DMAR copy
-+	 * SINIT saved in SinitMleData in TXT heap (which is DMA protected)
-+	 */
-+
-+	/* map config space in order to get heap addr */
-+	config = ioremap(TXT_PUB_CONFIG_REGS_BASE, NR_TXT_CONFIG_PAGES *
-+			 PAGE_SIZE);
-+	if (!config)
-+		return NULL;
-+
-+	/* now map TXT heap */
-+	*heap_base = ioremap(*(u64 *)(config + TXTCR_HEAP_BASE),
-+			    *(u64 *)(config + TXTCR_HEAP_SIZE));
-+	heap_size = *(u64 *)(config + TXTCR_HEAP_SIZE);
-+	heap_end = (u64)*heap_base + heap_size;
-+	iounmap(config);
-+
-+	if (!(*heap_base))
-+		return NULL;
-+
-+	/* walk heap to SinitMleData */
-+	/* skip BiosData */
-+	/* get BiosData section size */
-+	heap_section_size = *(u64 *) (*heap_base);
-+	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, *heap_base,
-+	                                         heap_section_size, "BiosData")) {
-+		return NULL;
-+	}
-+
-+	/* skip OsMleData */
-+	heap_ptr = *heap_base + heap_section_size;
-+	/* get OsMleData section size */
-+	heap_section_size = *(u64 *)heap_ptr;
-+	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-+	                                         heap_section_size, "OsMleData")) {
-+		return NULL;
-+	}
-+
-+	/* skip OsSinitData */
-+	heap_ptr += heap_section_size;
-+	/* get OsSinitData section size */
-+	heap_section_size = *(u64 *)heap_ptr;
-+	if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-+	                                         heap_section_size, "OsSinitData")) {
-+		return NULL;
-+	}
-+
-+	/* jump to the SinitMleData */
-+	heap_ptr += heap_section_size;
-+	/* now points to SinitMleDataSize; set to SinitMleData */
-+	sinit_mle_size = *(u64 *)heap_ptr;
-+	if(!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-+	                                        sinit_mle_size, "SinitMleData")) {
-+		return NULL;
-+	}
-+
-+	heap_ptr += sizeof(u64);
-+	sinit_mle = (struct sinit_mle_data *)heap_ptr;
-+	sinit_mle_end = (void *)sinit_mle + sinit_mle_size;
-+	if (sizeof(struct sinit_mle_data) > sinit_mle_size) {
-+		pr_err("SinitMleData size is smaller than expected.\n");
-+		goto err;
-+	}
-+
-+	if (sinit_mle->version < 9) {
-+		pr_err("Unsupported SinitMleData version: %u\n", sinit_mle->version);
-+		goto err;
-+	}
-+
-+	heap_ptr += sizeof(struct sinit_mle_data);
-+	if (heap_ptr > sinit_mle_end) {
-+		pr_err("SinitMleData header out of bounds.\n");
-+		goto err;
-+	}
-+
-+	elt = sinit_mle->ext_data_elts;
-+	do {
-+		if ((u8 *)elt + sizeof(*elt) > (u8 *)sinit_mle_end) {
-+			pr_err("SinitMleData element header out of bounds.\n");
-+			goto err;
-+		}
-+
-+		if (elt->size < sizeof(*elt)) {
-+			pr_err("Invalid SinitMleData element size: %u\n", elt->size);
-+			goto err;
-+		}
-+
-+		if (elt->type == HEAP_EXTDATA_TYPE_END || elt->type == HEAP_EXTDATA_TYPE_DTPR) {
-+			break;
-+		}
-+
-+		elt = (void *)elt + elt->size;
-+	} while (elt <= sinit_mle_end);
-+
-+	if (elt >= sinit_mle_end){
-+		pr_err("Reached the end of SinitMleData without finding DTPR nor END"
-+		       " element.\n");
-+		goto err;
-+	}
-+
-+	if (elt->type == HEAP_EXTDATA_TYPE_END) {
-+		pr_err("DTPR element not found in SinitMleData\n");
-+		iounmap(*heap_base);
-+		*heap_base = NULL;
-+		return NULL;
-+	}
-+
-+	if ((u8 *)elt + elt->size > (u8 *)sinit_mle_end) {
-+		pr_err("DTPR Table exceeds SinitMleData bounds.\n");
-+		goto err;
-+	}
-+
-+	if (!tboot_check_dtpr_size((struct acpi_table_dtpr *)elt->data,
-+	                           elt->size - sizeof(*elt))) {
-+		pr_err("Invalid DTPR Table size.\n");
-+		goto err;
-+	}
-+
-+	return (struct acpi_table_dtpr *)elt->data;
-+
-+err:
-+	iounmap(*heap_base);
-+	*heap_base = NULL;
-+	return NULL;
-+}
-+
-+static bool tboot_tpr_enabled = false;
-+void tboot_parse_dtpr_table(struct acpi_table_dtpr *dtpr)
-+{
-+	struct acpi_tpr_instance *tpr_inst;
-+	struct acpi_tpr_array    *tpr_arr;
-+	u32 *instance_cnt;
-+	u64 *base;
-+	u32 i, j;
-+	u32 ref_tpr_cnt;
-+
-+	if (dtpr == NULL)
-+		return;
-+
-+	if (!tboot_enabled())
-+		return;
-+
-+	instance_cnt = (u32*)(&dtpr->ins_cnt);
-+	tpr_inst = (struct acpi_tpr_instance *)(instance_cnt + 1);
-+	ref_tpr_cnt = tpr_inst->tpr_cnt;
-+
-+	for (i = 0; i < *instance_cnt; ++i) {
-+		for (j = 0; j < tpr_inst->tpr_cnt; ++j) {
-+			tpr_arr =  (struct acpi_tpr_array*)((u8*) tpr_inst +
-+			            sizeof(struct acpi_tpr_instance) +
-+			            j * sizeof(struct acpi_tpr_array));
-+
-+			base = ioremap(tpr_arr->base, 16);
-+			if (!base) {
-+				pr_warn("TPR Instance %d, TPR No.%d disabling failure.\n",
-+				        i, j);
-+				continue;
-+			}
-+
-+			pr_info("TPR instance %d, TPR %d:base %llx limit %llx\n", i, j,
-+			        readq(base), readq(base + 1));
-+			writeq(readq(base) | BIT(4), base);
-+			if (tboot_tpr_enabled == false)
-+				tboot_tpr_enabled = true;
-+			iounmap(base);
-+		}
-+
-+		tpr_inst = (struct acpi_tpr_instance *)((u8*)tpr_inst +
-+		            sizeof(*tpr_inst) + j * sizeof(struct acpi_tpr_array));
-+	}
-+
-+	if (tboot_tpr_enabled)
-+		pr_debug("TPR protection detected, PMR will be disabled\n");
-+}
-+
-+bool tboot_is_tpr_enabled(void)
-+{
-+	return tboot_tpr_enabled;
-+}
-diff --git a/include/linux/tboot.h b/include/linux/tboot.h
-index d2279160ef39..7523f8ecdf70 100644
---- a/include/linux/tboot.h
-+++ b/include/linux/tboot.h
-@@ -24,6 +24,10 @@ enum {
- #include <linux/acpi.h>
- /* used to communicate between tboot and the launched kernel */
- 
-+/*TXT Extended Data Element Types*/
-+#define HEAP_EXTDATA_TYPE_END   0
-+#define HEAP_EXTDATA_TYPE_DTPR 14
-+
- #define TB_KEY_SIZE             64   /* 512 bits */
- 
- #define MAX_TB_MAC_REGIONS      32
-@@ -58,6 +62,14 @@ struct tboot_acpi_sleep_info {
- 	u64 kernel_s3_resume_vector;
- } __packed;
- 
-+/*
-+ * structure for tboot extended data elements
-+ */
-+struct heap_ext_data_elt {
-+	u32 type;
-+	u32 size;
-+} __packed;
-+
- /*
-  * shared memory page used for communication between tboot and kernel
-  */
-@@ -126,6 +138,9 @@ extern void tboot_probe(void);
- extern void tboot_shutdown(u32 shutdown_type);
- extern struct acpi_table_header *tboot_get_dmar_table(
- 				      struct acpi_table_header *dmar_tbl);
-+extern struct acpi_table_dtpr *tboot_get_dtpr_table(void **);
-+extern void tboot_parse_dtpr_table(struct acpi_table_dtpr *);
-+extern bool tboot_is_tpr_enabled(void);
- 
- #else
- 
-@@ -135,6 +150,9 @@ extern struct acpi_table_header *tboot_get_dmar_table(
- #define tboot_sleep(sleep_state, pm1a_control, pm1b_control)	\
- 					do { } while (0)
- #define tboot_get_dmar_table(dmar_tbl)	(dmar_tbl)
-+#define tboot_get_dtpr_table(txt_heap) NULL
-+#define tboot_parse_dtpr_table(dtpr) do { } while (0)
-+#define tboot_is_tpr_enabled() 0
- 
- #endif /* !CONFIG_INTEL_TXT */
- 
--- 
-2.55.0
+  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pinctrl-qcom-fixes-for-v7.3-rc4
 
+for you to fetch changes up to 818103dc7f5998a0d7957fb71d4deecdf4d579e1:
+
+  pinctrl: qcom: ipq5210: Publish the OF module alias (2026-09-07 10:51:54 +0200)
+
+----------------------------------------------------------------
+Qualcomm pin control fixes for v7.3-rc4
+
+- fix QUP1 functions in pinctrl-nord
+- add missing MODULE_DEVICE_TABLE() for pinctrl-ipq5210
+
+----------------------------------------------------------------
+Shawn Guo (1):
+      pinctrl: qcom: nord: Split QUP1 SE2/SE3 into lane-pair functions
+
+hpp.iscas (1):
+      pinctrl: qcom: ipq5210: Publish the OF module alias
+
+ .../bindings/pinctrl/qcom,nord-tlmm.yaml           |  7 +++--
+ drivers/pinctrl/qcom/pinctrl-ipq5210.c             |  1 +
+ drivers/pinctrl/qcom/pinctrl-nord.c                | 34 +++++++++++++++-------
+ 3 files changed, 28 insertions(+), 14 deletions(-)
