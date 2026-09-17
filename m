@@ -1,126 +1,156 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6041C3F8250
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:56:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4365A41F5DA
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 05:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789624619; cv=none; b=uD8zaYE7Wj8FFbsgpNOO9EPnynkxBzVq8gYux/RGRV1o/umAwV70Beiz7JkPb63p9erenb2AXk+f9VzNY3VnHWSSr7wKfM++iwa+kY/R0o8pNoA70zAYQ2e856jMxIuPNSpdUAgrKe5Aps+lNeghu/A5BXrVMxD9ag0CpRzIls4=
+	t=1789624718; cv=none; b=QgBSO9SXHHkfZEX3T5UtTeK2S8S9lGPIPDQJsJucTTo8uBBI9OA1O5Pp8kMz+11VLY0DWjThtYzo7Ly2JMdXMJ+PlblSjoTJ1/e2Q5YfjMTlRQDCv6Czr5cxNCf0V6QCEjrHHcCSNZzZLaMd4/GQeKdDd2/v9nUWJ+LzgyZvdQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789624619; c=relaxed/simple;
-	bh=axjKGAd5Z/3bPAjXWt5In13wd/F8lTzuocyx1Fp1oag=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Nr8uur3BDwr5cJQsDytdB0CNBZfLJwSqWwNmOO560z8pm9ILw4X4GJolBT/luBEQULdMpJts9vkgGNx6gXC9vzavI4VyvkUidxuRfcbX7Wqyf687S5UrBHtoSIIfwvsFIrBzInIYsZusmJ+SK32T+3lAzUtWWrr+vNHkfrk7GN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Is5sYCTW; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789624718; c=relaxed/simple;
+	bh=J8DscqG4a4GeiQzq3/0ZMuMoJ5VdAvhrxumKrU8mFcI=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=YuhuE7ZZi28a4NgMZVXk3C4/6VBykm0VcYVFJWwwrZ47kUeQpnEbzgTR6XnbEdDAlkZ8qEYRYoV2y7WR3JSZ7uBppVbcz4sX4y9YwsQiMigM3H3MMHiLMojLP8iVxj07h1pWGloz9OavGtHX45OaO0vdxF4BcbW1dJT6ZfN2RMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YjTmazg9; arc=none smtp.client-ip=91.218.175.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Is5sYCTW"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d391aso3170535e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:56:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789624616; x=1790229416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TXa2jqQKkTliyGqricPHkYJ8GTisx6eCrgeiQ3lmh5M=;
-        b=Is5sYCTWeKu+bYQiM7B63cAOJ4NXKZMHIlOUp3yaK8FDUJ1KZcoqjSR1X/xWKwnM1f
-         jVroKGDczKboO785tS2sjWOQFbNE27Vamk1fuf3HV83H7xU1UTPEJnWuiEwcSi2gI+hO
-         IBfCWz7SPEcShWvkoND1vmR4cBDHVVNQhDz1JDn6eBTMKsPOhe0bFyYCKgMjMspmipwB
-         Fa+fMNzl6fijGcFfsRQ/XBNuLIYcggAY7cSPhNoXTRrMoKywa6hAUstG8EDxh2QhjM8r
-         Jv2F8MldT4XWRNOTczerGxCD4Pl8fKHSk+kB5zf0IqPMm41uHVc/NfkH/0RR2n98lSQv
-         kRYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789624616; x=1790229416;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TXa2jqQKkTliyGqricPHkYJ8GTisx6eCrgeiQ3lmh5M=;
-        b=1VpwSxvVqk7lOBUXcyedPSw+rkBOChj85VAQd11xyqTnQvE93yw8OHckWA06I9Oub8
-         n7meIIUnNzvFWHwB4uuBJPznBH8G+WQJjXpdOHLLFfLo/7FWHs0PZZZekXJgJANmPT3B
-         IFmg524GtecMnxMyvg6GFwpNhI7NFn7/p+5amLy3miUpkv1I2VArPmyi+TAb6y9NUNN7
-         QwszGgOJlTAXq/bFYT1CAjyIslOD1JN1TrEd5aWdH3IPpuws6Go6BWcZs+WR00FSka3p
-         JuxkXJQ+0e6fNJKk83MbzQV/cVvi+1AaMoJ9qgF3H1no7VfQXVm15Hnd4m5Qktdha8Xe
-         2I7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwNHMvnvSLuypZPJBraESqjO8foxVNpL7MFmkAfGY6KYCNni93FqqthdzfhRHG0abJyemCGL94y8rb9vSY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaNd4+OwY4JCkD3nEM3NAuL5dSjq7VuM6CHWTaWE4Hs1XXEjCX
-	fq7d+TVtuTKAyGqQfc79FVZR49uIGbAHcYFiXGuia4odSqA+RWgNqC4g
-X-Gm-Gg: AYBFou01L7SPP5BwTQ1S2VupQatHnZsa+Cl2xmXTy5n7ZFTzbLJCMK0k6WFgvCYzoKM
-	3Hd+l9MvY2VzwIS2+FjgXqknE2IxwQsvzu37dOoMtK7IOMA/qpULoeb/1swtZarJhYsoBtmOJar
-	gxqCBmga1eGhEUiJs4asCrXtX42Pb/CrRyqI+rJywepRUKJ2zazlUa5dTHb5lHW2925tx77rIrB
-	ramfpNCzpacpju/CW7Kd4GaeWl2QVEyN94AJy45qhnaUk4xjmgGoq85mJzh5hJ/c3qb8VG5EL6p
-	w4rG+BIoZDt6TD8h2eBdd7WPnDJkJGg3GpCSTS0l71jwpvFlNSB5HfLqkAu9CQjkWOIcL+zXDP5
-	ZBh8wMdW8lwD6BN6+JUDKQKmeOAtOTWI8I3FxAdbAnDtIdy8bvfJ+LxJDM31bgWjfxOa0PTaBei
-	WDUOA6wFf9DDXnkBPj2nwLz2atH/DYvOkArXoPesX7HjMIrVT0f/GGQrQbnlHKJXNeBWAkYpdmr
-	TMg4/uB3G1DdkSSq1Iwrt5sHEzIt0GseaGAm2OWyxMsMi1IMNj5OlLnBgOS+jAU84j16Aq0QQ45
-	6ijq+GhNqPIr1O1Wy3aB05621RAcGfmzhXScZjd8a7NktDXp3ExbiarfFupd/g2b4lIlkHZ6q9Z
-	G6YT4AVjo44z7NO2jGUorPZeYww==
-X-Received: by 2002:a05:600c:c8f:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49eb733c62dmr64900215e9.27.1789624616385;
-        Wed, 16 Sep 2026 22:56:56 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-9dc6-c001-54ee-4741-4927-0a28.310.pool.telefonica.de. [2a02:3100:9dc6:c001:54ee:4741:4927:a28])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847eab65sm76230685e9.2.2026.09.16.22.56.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 22:56:55 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Haren Myneni <haren@us.ibm.com>,
-	Dan Streetman <ddstreet@ieee.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-crypto@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Rae Moar <raemoar63@gmail.com>,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] lib/842: depend on the decompressor for KUnit tests
-Date: Thu, 17 Sep 2026 07:56:45 +0200
-Message-Id: <20260917055645.26780-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YjTmazg9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=J8DscqG4a4GeiQzq3/0ZMuMoJ5VdAvhrxumKrU8mFcI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789624714; v=1; x=1790229514;
+ b=YjTmazg9aIQBpzd39HD+qdjdHyMQ6IWhBBlRR3dFFJuYswwbtw9NutY2Wvkq8zHBRWlR/wXv
+ QSoUrX9UyeYdZ7JPEhyY3cxYOz71ydRYsLA3ZZN2QTexx8OQi605WPUH2GaUBqauuIIDhwCMS5I
+ Od/QQGNhp1SqgHUx99quepG0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 67928f8b5859cc35;
+	Thu, 17 Sep 2026 05:58:33 +0000
+X-Mizu-Trace-ID: 67928f8b5859cc35
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 1/2] mm/hugetlb_cgroup: move per-node usage on cross node
+ migration
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260916-for-hugetlb-charge-v1-1-70fb708b2e4a@kylinos.cn>
+Date: Thu, 17 Sep 2026 13:58:11 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Kees Cook <kees@kernel.org>,
+ Colin Ian King <colin.i.king@gmail.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Mina Almasry <almasrymina@google.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Hongfu Li <lihongfu@kylinos.cn>,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E35A1286-33DF-4B54-8338-888EE28BFD06@linux.dev>
+References: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
+ <20260916-for-hugetlb-charge-v1-1-70fb708b2e4a@kylinos.cn>
+To: Hongfu Li <hongfu.li@linux.dev>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-842_DECOMPRESS_KUNIT_TEST selects the decompressor even when no other
-option needs it, including through KUNIT_ALL_TESTS.
 
-Depend on 842_DECOMPRESS as required by
-Documentation/dev-tools/kunit/style.rst. This also prevents the test from
-promoting a modular decompressor to built-in.
 
-Fixes: cca072cb1423 ("lib/842: add KUnit tests for the decompressor")
-Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Closes: https://lore.kernel.org/r/CAMuHMdVcZ5cV4-HrjLYfFKh6UshiVxq5eXCNyp0Z1k_SMAvF5g@mail.gmail.com/
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Follow-up to the accepted commit, based on cryptodev-2.6/master.
+> On Sep 16, 2026, at 16:30, Hongfu Li <hongfu.li@linux.dev> wrote:
+>=20
+> From: Hongfu Li <lihongfu@kylinos.cn>
+>=20
+> hugetlb.<size>.numa_stat uses folio_nid() to account usage in
+> __hugetlb_cgroup_commit_charge() and =
+__hugetlb_cgroup_uncharge_folio().
+> hugetlb_cgroup_migrate() only moves hugetlb_cgroup pointers, leaving
+> per-node usage behind on the source node during cross-node migration.
+>=20
+> When the migrated folio gets uncharged, we subtract usage from the
+> destination node counter. This creates stale usage on the source node
+> and unsigned long counter underflow on the destination node.
+> The hugetlb.<size>.numa_stat interface exposes these incorrect =
+per-node
+> usage values to userspace.
+>=20
+> Add a hugetlb_cgroup_move_usage() helper which moves the usage from =
+the
+> old node to the new node, and call it from hugetlb_cgroup_migrate().
+>=20
+> Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+> ---
+> mm/hugetlb_cgroup.c | 31 +++++++++++++++++++++++++++++++
+> 1 file changed, 31 insertions(+)
+>=20
+> diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
+> index ecb6e0b7819a..1040406e7e1d 100644
+> --- a/mm/hugetlb_cgroup.c
+> +++ b/mm/hugetlb_cgroup.c
+> @@ -179,6 +179,34 @@ static void hugetlb_cgroup_css_free(struct =
+cgroup_subsys_state *css)
+> hugetlb_cgroup_free(hugetlb_cgroup_from_css(css));
+> }
+>=20
+> +static void hugetlb_cgroup_move_usage(struct hugetlb_cgroup *from,
+> + 				     struct hugetlb_cgroup *to,
+> + 				     struct folio *from_folio,
+> +  			             struct folio *to_folio)
+> +{
+> + 	int idx =3D hstate_index(folio_hstate(from_folio));
+> + 	unsigned long nr_pages =3D folio_nr_pages(from_folio);
+> + 	int from_nid =3D folio_nid(from_folio);
+> + 	int to_nid =3D folio_nid(to_folio);
+> + 	unsigned long usage;
+> +
+> + 	lockdep_assert_held(&hugetlb_lock);
+> +
+> + 	if (!from || !to)
+> + 		return;
+> +
+> + 	if (from =3D=3D to && from_nid =3D=3D to_nid)
+> + 		return;
+> +
+> + 	usage =3D READ_ONCE(from->nodeinfo[from_nid]->usage[idx]);
 
-Testing: Checked Kconfig dependency resolution for eight x86_64
-configurations before and after the change, including KUNIT_ALL_TESTS
-and modular/built-in combinations.
+READ_ONCE is unnecessary because there is no concurrent writer.
 
- lib/Kconfig.debug | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> + 	if (WARN_ON_ONCE(usage < nr_pages))
+> + 		return;
+> + 	WRITE_ONCE(from->nodeinfo[from_nid]->usage[idx], usage - =
+nr_pages);
+> +
+> + 	usage =3D READ_ONCE(to->nodeinfo[to_nid]->usage[idx]);
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 48201092b3df..49f74005394b 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2228,7 +2228,7 @@ if RUNTIME_TESTING_MENU
- config 842_DECOMPRESS_KUNIT_TEST
- 	tristate "KUnit tests for the 842 decompressor" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
--	select 842_DECOMPRESS
-+	depends on 842_DECOMPRESS
- 	default KUNIT_ALL_TESTS
- 	help
- 	  Enable stream-validation and boundary tests for the software 842
+Same here.
 
-base-commit: 9e06d371730b841ad8fe79ebfccf0def9470201f
--- 
-2.39.5 (Apple Git-154)
+> + 	WRITE_ONCE(to->nodeinfo[to_nid]->usage[idx], usage + nr_pages);
+> +}
+> +
+> /*
+>  * Should be called with hugetlb_lock held.
+>  * Since we are holding hugetlb_lock, pages cannot get moved from
+> @@ -906,6 +934,9 @@ void hugetlb_cgroup_migrate(struct folio =
+*old_folio, struct folio *new_folio)
+> 	/* move the h_cg details to new cgroup */
+> 	set_hugetlb_cgroup(new_folio, h_cg);
+> 	set_hugetlb_cgroup_rsvd(new_folio, h_cg_rsvd);
+> +
+> + 	hugetlb_cgroup_move_usage(h_cg, h_cg, old_folio, new_folio);
+> +
+> 	list_move(&new_folio->lru, &h->hugepage_activelist);
+> 	spin_unlock_irq(&hugetlb_lock);
+> }
+>=20
+> --=20
+> 2.54.0
+>=20
+
