@@ -1,222 +1,75 @@
-Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B90C3F1076
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.244
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB73A3F5BE4
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 08:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632767; cv=none; b=I20RY0nq9rt/bMUFsViz38InAi+NdKNfur/uXPeGihCKvQKRRFE09+NNRzzWf4jyHIGDFbxZ3PFr2fupc9RJX/P50C40xhaGAMHMvhDuWlWyocNQ8z6RBm6udqeH2GPDMBfdCE8ePe9fE0f7FhzAojFV2+Rj86rwYmBS2+DbkDw=
+	t=1789632791; cv=none; b=ue+ypsjjHBXQq0rFjBONJmgCs6weGDhSu51DXeX5Wv3Q4sijs450An+HK5wEfPp7z6bFpvCTReDzm62VzwAv+q5iDeNMZ9Eee/suI4gcuOT4YMqSdYnWKBw1+Mb/cMkdgmcrCqjRLV/05G0mHleLQhw1HVwZNGiR5+5aZbjT9a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632767; c=relaxed/simple;
-	bh=oreBxrf8GAK3VaUUt1/2GRlQeYjOscRYT33XUXX05ic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nPqZjRLvI6KRe5gm+UGJ/klni36FmjkVRm2ebImBI+Un6dUYLDxJ/VFP0JCqHSY3yglM6r3iE2A7i5X9uPgrTAv3jbPNtzrnhSPdTg/hBfb+cL4HIIm9NCf5jUUFG2XljmtZxyemO6DF0EluiLOI9DyCiOkVJ6db56E6qZrcwC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cm93HryE; arc=none smtp.client-ip=91.218.175.244
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cm93HryE"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oreBxrf8GAK3VaUUt1/2GRlQeYjOscRYT33XUXX05ic=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789632763; v=1; x=1790237563;
- b=cm93HryE3VmvASrYC/2mSDeZNkrISVAIT2RK/jCdhW9FhqnKLXOU+LVtQSJUqtX8m/rTwLBE
- pAzNS/NdJZ2kmQ3m3XSJCu3OOaTSwN76T4m22+P+D9MtGVVdu2cTtybeW6U/BVDh1zbhi+/fflY
- 75lmfvPzsfgl/hxaDzTe0DH4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d096a69812a48edf;
-	Thu, 17 Sep 2026 08:12:42 +0000
-X-Mizu-Trace-ID: d096a69812a48edf
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org,
-	mptcp@lists.linux.dev
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Yazhou Tang <tangyazhou518@outlook.com>,
-	Tejun Heo <tj@kernel.org>,
-	Matt Bobrowski <mattbobrowski@google.com>,
-	Nicolas Rybowski <nicolas.rybowski@tessares.net>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf v1 2/2] selftests/bpf: add verifier tests for bpf_skc_to_mptcp_sock
-Date: Thu, 17 Sep 2026 16:11:58 +0800
-Message-ID: <20260917081209.361367-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917081209.361367-1-jiayuan.chen@linux.dev>
-References: <20260917081209.361367-1-jiayuan.chen@linux.dev>
+	s=arc-20240116; t=1789632791; c=relaxed/simple;
+	bh=Hs68hwnq6v6JB6u5yjPs1ot3/dTWyi3j667K22UbsPk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=EXXEmdjbSgyuSzPpqsWiSyQgfGfjGoARiTRWLG0idaYlqfGTISODf7wPp48Id5BzGZeOA0/SZ9+l0lLAnhkrJbfsC3n7iM+rirVlTxCpTK0nHRAVSb7RzaGE40gCVzHQUvrF/6kVVWEvcoisu7YplBJwa0g/1ERmyViKfuVYrA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c307941971so811989b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 01:13:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789632785; x=1790237585;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jLd9W0G+g0fEhC1pzO8g1eY0KUSU+n4SflMsM+Hy+ss=;
+        b=XDhJrz+lYoDdFECTUcDr5I4qH/7qOg+j0Xs8e+GYZG2IezRbwdBHlquEC38bwbZaAk
+         E96AR+yrlNpJ3/C2xenafEx6CT+M3sVNfVH2HGsByucLfwKgJ/fzPL7KPen76KgOPQxW
+         Q/N6RE59MES97XeOPva5h4UPjGfD0QaQKUHntuls6HbkUwGq48K9+bf/ugrNOS0YIYwv
+         kJ9dPe9NM/ZAJE33F6ROQ+uwhBR+/NonbYsqjszV+MmVoCvHdYDUswkEodg0Cmst6B2x
+         C4zENlwLD7eF9TfiEzvu8RuqT1p5brRYYuPL2UQU52zkrKNjcZ8ku0JlJD0+2yH8I6cY
+         dFOA==
+X-Forwarded-Encrypted: i=1; AKwUvBws8unwQlgq3yUqkzgy37A0XFQbXIoLQVG+q5PQ5ZGjd/127swIh/jhyABTPWjCIPcTy1c9Ux75vDfVw30=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9ryzLxk2Y/3BP7zuXo/D0XBxrMuFd6bSfOUuqCHKjFW+eITSG
+	A7XnJTybue5IF6+4EKfspSPHjVoDZmXbo82eIkNYdIiIsw+wraLhSImplIMdRcFpE7froNZm4X3
+	eaJoLvtYXoi+M2pHUrvurDaT4HqoaxHC/9w/xtFvr/N++aVB8sftCKkskeq0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:470c:b0:4b9:a829:f016 with SMTP id
+ 5614622812f47-4ca4c6aaf9fmr5278837b6e.34.1789632785213; Thu, 17 Sep 2026
+ 01:13:05 -0700 (PDT)
+Date: Thu, 17 Sep 2026 01:13:05 -0700
+In-Reply-To: <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaba111.b398a7c9.1f86be.0013.GAE@google.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+From: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	iam@thechris.in, joern@lazybastard.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	miquel.raynal@bootlin.com, rafael@kernel.org, richard@nod.at, 
+	syzkaller-bugs@googlegroups.com, vigneshr@ti.com
+Content-Type: text/plain; charset="UTF-8"
 
-Cover what the verifier has to get right for the msk returned by
-bpf_skc_to_mptcp_sock(): it must not be accepted by bpf_sk_release(), it
-must go away with the subflow it was derived from, and the subflow
-reference still has to be released.
+Hello,
 
-  # ./test_progs -t verifier_mptcp
-  #658/1   verifier_mptcp/bpf_skc_to_mptcp_sock: release the acquired subflow:OK
-  #658/2   verifier_mptcp/bpf_skc_to_mptcp_sock: msk is not the acquired subflow:OK
-  #658/3   verifier_mptcp/bpf_skc_to_mptcp_sock: msk dies with the subflow it came from:OK
-  #658/4   verifier_mptcp/bpf_skc_to_mptcp_sock: subflow is still owned after the cast:OK
-  #658     verifier_mptcp:OK
-  Summary: 1/4 PASSED, 0 SKIPPED, 0/0 FAILED
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- .../selftests/bpf/prog_tests/verifier.c       |   2 +
- .../selftests/bpf/progs/verifier_mptcp.c      | 101 ++++++++++++++++++
- 2 files changed, 103 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/verifier_mptcp.c
+Reported-by: syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com
+Tested-by: syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
-index f7f94ccebce2..63316e4be6bb 100644
---- a/tools/testing/selftests/bpf/prog_tests/verifier.c
-+++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
-@@ -74,6 +74,7 @@
- #include "verifier_mem_size_reg.skel.h"
- #include "verifier_meta_access.skel.h"
- #include "verifier_movsx.skel.h"
-+#include "verifier_mptcp.skel.h"
- #include "verifier_mtu.skel.h"
- #include "verifier_mul.skel.h"
- #include "verifier_netfilter_ctx.skel.h"
-@@ -238,6 +239,7 @@ void test_verifier_may_goto_2(void)           { RUN(verifier_may_goto_2); }
- void test_verifier_mem_size_reg(void)         { RUN(verifier_mem_size_reg); }
- void test_verifier_meta_access(void)          { RUN(verifier_meta_access); }
- void test_verifier_movsx(void)                 { RUN(verifier_movsx); }
-+void test_verifier_mptcp(void)                { RUN(verifier_mptcp); }
- void test_verifier_mul(void)                  { RUN(verifier_mul); }
- void test_verifier_netfilter_ctx(void)        { RUN(verifier_netfilter_ctx); }
- void test_verifier_netfilter_retcode(void)    { RUN(verifier_netfilter_retcode); }
-diff --git a/tools/testing/selftests/bpf/progs/verifier_mptcp.c b/tools/testing/selftests/bpf/progs/verifier_mptcp.c
-new file mode 100644
-index 000000000000..1f679265e043
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/verifier_mptcp.c
-@@ -0,0 +1,101 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "bpf_tracing_net.h"
-+#include <bpf/bpf_helpers.h>
-+#include "bpf_misc.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u32 token;
-+
-+static __always_inline struct bpf_sock *lookup_subflow(struct __sk_buff *skb)
-+{
-+	struct bpf_sock_tuple tuple = {};
-+
-+	return bpf_skc_lookup_tcp(skb, &tuple, sizeof(tuple.ipv4),
-+				  BPF_F_CURRENT_NETNS, 0);
-+}
-+
-+SEC("tc")
-+__description("bpf_skc_to_mptcp_sock: release the acquired subflow")
-+__success
-+int mptcp_cast_release_subflow(struct __sk_buff *skb)
-+{
-+	struct mptcp_sock *msk;
-+	struct bpf_sock *sk;
-+
-+	sk = lookup_subflow(skb);
-+	if (!sk)
-+		return 0;
-+
-+	msk = bpf_skc_to_mptcp_sock(sk);
-+	if (msk)
-+		token = msk->token;
-+
-+	bpf_sk_release(sk);
-+	return 0;
-+}
-+
-+SEC("tc")
-+__description("bpf_skc_to_mptcp_sock: msk is not the acquired subflow")
-+__failure __msg("release helper bpf_sk_release expects referenced PTR_TO_BTF_ID")
-+int mptcp_cast_release_msk(struct __sk_buff *skb)
-+{
-+	struct mptcp_sock *msk;
-+	struct bpf_sock *sk;
-+
-+	sk = lookup_subflow(skb);
-+	if (!sk)
-+		return 0;
-+
-+	msk = bpf_skc_to_mptcp_sock(sk);
-+	if (!msk) {
-+		bpf_sk_release(sk);
-+		return 0;
-+	}
-+
-+	bpf_sk_release((struct bpf_sock *)msk);
-+	return 0;
-+}
-+
-+SEC("tc")
-+__description("bpf_skc_to_mptcp_sock: msk dies with the subflow it came from")
-+__failure __msg("invalid mem access 'scalar'")
-+int mptcp_cast_use_after_release(struct __sk_buff *skb)
-+{
-+	struct mptcp_sock *msk;
-+	struct bpf_sock *sk;
-+
-+	sk = lookup_subflow(skb);
-+	if (!sk)
-+		return 0;
-+
-+	msk = bpf_skc_to_mptcp_sock(sk);
-+	if (!msk) {
-+		bpf_sk_release(sk);
-+		return 0;
-+	}
-+
-+	bpf_sk_release(sk);
-+	token = msk->token;
-+	return 0;
-+}
-+
-+SEC("tc")
-+__description("bpf_skc_to_mptcp_sock: subflow is still owned after the cast")
-+__failure __msg("Unreleased reference")
-+int mptcp_cast_leak_subflow(struct __sk_buff *skb)
-+{
-+	struct mptcp_sock *msk;
-+	struct bpf_sock *sk;
-+
-+	sk = lookup_subflow(skb);
-+	if (!sk)
-+		return 0;
-+
-+	msk = bpf_skc_to_mptcp_sock(sk);
-+	if (msk)
-+		token = msk->token;
-+
-+	return 0;
-+}
--- 
-2.43.0
+Tested on:
 
+commit:         238650ef Merge tag 'powerpc-7.3-4' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=165358c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=117a3bf9580000
+
+Note: testing is done by a robot and is best-effort only.
