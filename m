@@ -1,219 +1,120 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012031.outbound.protection.outlook.com [52.101.53.31])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14EB449A3CA;
-	Thu, 17 Sep 2026 08:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634385; cv=fail; b=tw5F0qEJveyNOKZ9MSrWdBJncoJ5IDNzt/jochO+DCAJos+Cag58gCAT7P8tjjef/rkHfmpu24Rxn3IVMzhqnWqqn12MLJxEITc5PAeZxMKtsgsYK8ztMCzs0v0XBlg8UmwEtH042SjGnI9WDWkHplQceGBOsgte33Lfg6zvlW8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634385; c=relaxed/simple;
-	bh=DqashJMrQX49tCkDDmSpfSNfdAdwDr3UHYDIG6k0Dbw=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DU33hEFFRG1BdsjHZ8TuJJpAMUtgpm0yQ7MGLFnjripuEDqLruO0SfStHrOyFSeXlUuKENFp6+wOCi1IhFg4WkpLvbmIF5CZ+PGedU92WN0PN7kS9BVPv/p7JZveHjHX1Qj1WnMigWPFMhYaLi6CMgddiKYN+58tZqr10UiLATk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NW2k/Y5h; arc=fail smtp.client-ip=52.101.53.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE69499F39;
+	Thu, 17 Sep 2026 08:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789634446; cv=none; b=NR/9HTOdXvxq3x/bFTBTJa05UGPxwd9HT5LrjQ5270D6P2fHnI8UVbcUqf/FrBIcKFQ71QbpTzTz8yVXH8YzhzvUhAdrrA7rVy3jhdvFO7FIED4wKTjUoKBfEJ0dPKShqImAx+KiGekahIci3L1JTO29CvBrZ51mG4viYig7Cfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789634446; c=relaxed/simple;
+	bh=g9vUrJLuX3tLOjcXyLXs6n1+JPwnhVUSH+YPtjy7ov4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kkvwA5m19inY+tnkl9O7f0yAEtxouL8i8i7fZXBw2To2gH8rW9pwgsXcBanMecz9hEY/VcfnEnnNh+lb3usmN4tNFmwQG9ruS18AQk1GvyDsCvvuWtPb957YzANXj0ZFlxJDVjDPjEAfeEC7KZ9GCRFOSzs7ha7cs/ZgbQcek1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Dg98uTER; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NW2k/Y5h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QmtNsi+TJjKpTZf23YRgenJCO2gexWWYQO5YEHRlT4tLlTsfBMdRWxChrWzOXymUQeVGtjv6XSuIGb1UmRc11dxISby7Z4KJIKgzKGPT2HMkmgFYWpAKUA/Lwko6BF+91il1XTmTTIBkKdyp3p71TNP4eC1ljH5saMl+dA13NFt2NZXUkcGsOaeJfOfEYOFMzVjzJeNA+EFrjwlh2A1iltGtA1WPir95meupmlBMJIPyN45n73lvIa3TJ/U0+LmoIaxJC6X0+k0js8+31k9kEtqzITWmZ+VeTy29HKn6AMAJ4lEoY1pe0jVCz0PEsWuZh8YrTJOkjgb/cLv0KqXXLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKeHN3IJ2uXIWj3bKKfuPjV7ploK0JTlIbpwvQf9FME=;
- b=iTUHOF22FzvuclAAGd8cbiq4kU0+DC6UZGoofnNQk+URo7ExUxygoN7YGpsXR4Gxn274wxy89vQKKUviPq+sZ/9YUkTbhP8BygvbqcJezcqK90N6bhtV+7fN74u8TW/a57ZKPgKMbWCFa/7cbtBL0euj85GVX7S7Ja+KgLchRNvl7hfjw87aCCPGxDZeZp2pjpWngicXAVL99OOUC5TAVTnZMV8kUon7jdwfTlsDhkddnMfUH4EmRMGwevWOrvw7RVpsQQVbTPJORI4Sndj/aYeJeavaVyGMnOSFdwQEBoHrWIHy3XefYM9doH2PjBBwM1TDuEsFWf+NqnbuEdqFmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uKeHN3IJ2uXIWj3bKKfuPjV7ploK0JTlIbpwvQf9FME=;
- b=NW2k/Y5h+lSFZ/bR2vTrY5+Noig1Zv8DyUHDOvKDfdo9H5VfJoVK8sSyJNjcEoEGqdRpDtevKXd+idNioUOg/T+M6cwRR/BfMGSavHW7wsOwYFBRrxLh1MPqREPZGtQG32TR9xV4mpZxKfKRQReZYiC2Aer4outREfTHfhlZK9Y=
-Received: from CY5PR22CA0040.namprd22.prod.outlook.com (2603:10b6:930:1d::16)
- by IA0PR12MB7652.namprd12.prod.outlook.com (2603:10b6:208:434::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
- 2026 08:39:21 +0000
-Received: from BN1PEPF00004682.namprd03.prod.outlook.com
- (2603:10b6:930:1d:cafe::a3) by CY5PR22CA0040.outlook.office365.com
- (2603:10b6:930:1d::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
- 17 Sep 2026 08:39:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 08:39:20 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 03:39:20 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49
- via Frontend Transport; Thu, 17 Sep 2026 03:39:16 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <vkoul@kernel.org>
-CC: <broonie@kernel.org>, <alsa-devel@alsa-project.org>,
-	<yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<venkataprasad.potturu@amd.com>, <Syed.SabaKareem@amd.com>,
-	<Mario.Limonciello@amd.com>, <Richard.Gong@amd.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Vijendar
- Mukunda" <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V2 9/9] soundwire: amd: fix interrupt gate and work drain ordering in PM ops
-Date: Thu, 17 Sep 2026 14:04:20 +0530
-Message-ID: <20260917083732.3803526-10-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
-References: <20260917083732.3803526-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Dg98uTER"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qwIkKtla+hik8QJ+k0zna/z2zi7HBqTzDCA2HFbIpMQ=; b=Dg98uTERFewuwnioPh2Y+qERc4
+	PhTNjESKDUUMla3VAZE/6JG7ooVUvjomP9FI1BUyK1Iy3XgkxUDVCAnOHRW/2GMdG9KxpjdVHhAfo
+	KT7UNx99v/iR/5OUz0Vy1pYrMlLcxICo+RbHx9ej/nYvYcOB4Qp3GhTgxNfMguXqD16Kg4DQc9GMy
+	WZfD2dc2el61qDMcZY+HEX6ceZ4G+NrggQKejK3jasUGwxOeGC7zWR1LbSLuxAuX/WxjCw1sPGKuT
+	CpGDqoStJd9/emhAepKlUIH4+Tl2vaL6jWJjN9hcSqaL1E+64awoa/+JAuzd/B90Rj4FvhH3x02Dl
+	Ty4dOXUQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x77es-00000008gVP-18ta;
+	Thu, 17 Sep 2026 08:39:54 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A74AF300583; Thu, 17 Sep 2026 10:39:51 +0200 (CEST)
+Date: Thu, 17 Sep 2026 10:39:51 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: Re: [PATCH 2/2] perf: Add checks to prevent null ptr access
+Message-ID: <20260917083951.GC2009045@noisy.programming.kicks-ass.net>
+References: <20260904181625.1394082-1-vinay.belgaumkar@intel.com>
+ <20260904181625.1394082-2-vinay.belgaumkar@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|IA0PR12MB7652:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d64c83-9014-4c74-258d-08df14972b53
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6npDY0dxzf69dcyq4PrTGoKiZiMY25J5v7cHqi57EUbyNCBpJKqRIBdu1/+WD+vrxGqvdjEUEGfeZToCNXNBY0N9bfxiYbHx1t8GzLkkhpvyGxwmY9MghWKbHu4MDj9ThcV140pLydokH9SiaPi4CqjIfcH6oZ297oSB23kdiwNMOCm3Sn28x9zrYZrc8hUCEB7k916zIowopqDIV1QhHcpMSSyIx0ouBNcRU4Q/1XLTde7FapOaz+mz3jCopIOVUPN6ITwg5EH7fmavmpMwowYJnRjRGfiDSTYz2vmhe9gGNldCvzKXNYAgPG/+mIMQflYXtVrUssLyMeMWdtC2uBHhhum8G4EWso1W+WkfVl+H6vnGEQYypXjDp+gcCnUAndNm4edTWiRWFVVOUWxr6Ozz7dMHtuBSsqwkUpoTXExznE996F/XTDSCdREnu7eD8dMN0gqQ5vAdCOo22MoojUD8BBfbdJicWYuzp9HuCFNrYCu3VJ/WauWQBNhHnv+35EpxA/d5HTCRlxLCp3o5dpfl/mLd21hKi9NdkXEmmo3wqgahcDyDPdY0dvJcH29Knoy5DsJqlJ1BolLQ/e/GHreNTzmPDODtxQhi5wWnG3P+Uj8MYkjLAt8WKi4fVLCmrXTs/XiGd5xblnSNNqLBs8YyAIYPO33UAYIIbZi19lyZhzC9xlFcmj++QotrauwpgxKuK0gmmeOSi8NyzSL0kw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	obKQu6kPaOXnyzj+wy3A2M0nKCK1HPXAroyf3BPyOYHW26QbrFvPI7vUs7c6Z+5sd3kWY+EBNEZlYNFXI3hP5nTwRCwQcbQUpEJKZ0SkunAsCNOzDZDP6sOM2aPsLT/Kc4sD3ZWkohupQ3XNeBbLDwxmjdbrrPc0yFV5aCEaQ1ZhjYf7dFpUBEna4TOQPXjU/F2JIudl1Z7ADejuePFxwxeIu9y9ByEihqA3jbD7riUs235mmfZL/8pJky8OiCJgBAbV+dU37TEGD7d4UeKawPqhD1FEga3ppoGRykVy4czGJ9OA8y4Gsz6hG176Gnwv09Tsclim7l/xIg3XlmgwzRx431LW/5fDas8MunA8CKj7igOkWoZU2aLbZdSZTvMm2H+wgX73DtiUIeylmsEoC3vfMEwYxV2WaWWzbQXwSPIjhVXVsUQleiK6KrSB9nNf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 08:39:20.8987
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d64c83-9014-4c74-258d-08df14972b53
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004682.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7652
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904181625.1394082-2-vinay.belgaumkar@intel.com>
 
-The CLK_STOP_MODE branches in amd_suspend_runtime() and amd_suspend()
-did not close the ACP_EXTERNAL_INTR_CNTL delivery gate before draining
-amd_sdw_irq_thread and amd_sdw_work. The ACP PCI parent driver interrupt
-handler dispatches SoundWire interrupts to the AMD SoundWire stack by
-scheduling amd_sdw_irq_thread. Because the gate was open, an ISR already
-running when the drains completed could re-queue work after
-cancel_work_sync() returned, racing amd_sdw_clock_stop().
+On Fri, Sep 04, 2026 at 11:16:25AM -0700, Vinay Belgaumkar wrote:
+> Sashiko recommended some additional checks to prevent null pointer
+> access. Check for revoked states inside perf_event_read_local(), as
+> the pmu event may have already been freed at this point. Add a null
+> check inside __perf_event_read_cpu() as well before accessing the pmu
+> ptr.
+> 
+> Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+> ---
+>  kernel/events/core.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index 7777e82aad5e..059f82f0cadd 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -4788,14 +4788,19 @@ static inline const struct cpumask *perf_scope_cpu_topology_cpumask(unsigned int
+>  
+>  static int __perf_event_read_cpu(struct perf_event *event, int event_cpu)
+>  {
+> +	struct pmu *pmu = READ_ONCE(event->pmu);
+>  	int local_cpu = smp_processor_id();
+>  	u16 local_pkg, event_pkg;
+>  
+>  	if ((unsigned)event_cpu >= nr_cpu_ids)
+>  		return event_cpu;
+>  
+> +	if (!pmu)
+> +		return -ENODEV;
+> +
+>  	if (event->group_caps & PERF_EV_CAP_READ_SCOPE) {
+> -		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(event->pmu->scope, event_cpu);
+> +		const struct cpumask *cpumask = perf_scope_cpu_topology_cpumask(pmu->scope,
+> +										event_cpu);
+>  
+>  		if (cpumask && cpumask_test_cpu(local_cpu, cpumask))
+>  			return local_cpu;
+> @@ -4917,6 +4922,11 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+>  		goto out;
+>  	}
+>  
+> +	if (READ_ONCE(event->state) <= PERF_EVENT_STATE_REVOKED) {
+> +		ret = -ENODEV;
+> +		goto out;
+> +	}
+> +
+>  	/*
+>  	 * Get the event CPU numbers, and adjust them to local if the event is
+>  	 * a per-package event that can be read locally
 
-Fix both suspend paths by calling amd_disable_sdw_interrupts() first to
-close the ACP-level gate before work drains.
+I don't think any of this is right.
 
-In amd_suspend() CLK_STOP_MODE:
- - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
-   before the existing cancel_work_sync(work).
- - Call amd_enable_sdw_interrupts() after clock stop to reopen the gate.
-   ACP remains powered in CLK_STOP_MODE (only the SoundWire bus clock is
-   gated), so the interrupt path must be live to allow wake events to
-   reach the CPU during system sleep.
+When unregistered, the event is de-scheduled, this means event->oncpu
+will be -1, therefore __perf_event_read_cpu() will already exit early.
 
-In amd_suspend() POWER_OFF_MODE:
- - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
-   before the existing cancel_work_sync(work).
- - Remove the redundant post-clock-stop amd_disable_sdw_interrupts() call;
-   the gate is already closed at the top of the branch.
+And perf_event_read_local() will then already do the right thing, by
+returning the old value.
 
-In amd_suspend_runtime() CLK_STOP_MODE:
- - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
-   before the existing cancel_work_sync(work).
- - Call amd_enable_sdw_interrupts() to reopen the gate. ACP remains
-   powered in CLK_STOP_MODE (only the SoundWire bus clock is gated), so
-   the interrupt path must be live to allow wake events to reach the CPU.
-
-In amd_suspend_runtime() POWER_OFF_MODE:
- - Add amd_disable_sdw_interrupts() and cancel_work_sync(irq_thread)
-   before the existing cancel_work_sync(work).
- - Remove the redundant post-clock-stop amd_disable_sdw_interrupts() call;
-   the gate is already closed at the top of the branch.
-
-Fixes: 86a4371b7697 ("soundwire: amd: fix for handling slave alerts after link is down")
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- drivers/soundwire/amd_manager.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 0cb5f4694e9a..1a252a81269a 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -1321,6 +1321,8 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 	}
- 
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		amd_disable_sdw_interrupts(amd_manager);
-+		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
- 		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, false);
- 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-@@ -1329,7 +1331,10 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
-+		amd_enable_sdw_interrupts(amd_manager);
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-+		amd_disable_sdw_interrupts(amd_manager);
-+		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
- 		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, false);
- 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, false);
-@@ -1342,7 +1347,6 @@ static int __maybe_unused amd_suspend(struct device *dev)
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
--		amd_disable_sdw_interrupts(amd_manager);
- 		ret = amd_disable_sdw_manager(amd_manager);
- 		if (ret)
- 			return ret;
-@@ -1377,6 +1381,9 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 		return 0;
- 	}
- 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-+		amd_disable_sdw_interrupts(amd_manager);
-+		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
-+		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, true);
- 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
- 		if (ret)
-@@ -1384,7 +1391,11 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
-+		amd_enable_sdw_interrupts(amd_manager);
- 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-+		amd_disable_sdw_interrupts(amd_manager);
-+		cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
-+		cancel_work_sync(&amd_manager->amd_sdw_work);
- 		amd_sdw_wake_enable(amd_manager, true);
- 		ret = amd_sdw_host_wake_enable_by_rev(amd_manager, true);
- 		if (ret)
-@@ -1392,7 +1403,6 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
- 		ret = amd_sdw_clock_stop(amd_manager);
- 		if (ret)
- 			return ret;
--		amd_disable_sdw_interrupts(amd_manager);
- 		ret = amd_disable_sdw_manager(amd_manager);
- 		if (ret)
- 			return ret;
--- 
-2.48.1
-
+So AFAICT, there is nothing to fix here.
