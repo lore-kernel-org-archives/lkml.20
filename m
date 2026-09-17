@@ -1,124 +1,212 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A790B46D559;
-	Thu, 17 Sep 2026 10:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A974A9D66
+	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 10:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639431; cv=none; b=qGBnlKUGbBsyCv+g75jssVloSgCE7n7DdSfTgvZsLbADQdwpMfG+G+XvR6/fFX6jE3fYxhtkqddF0r4Ji9rY2KCYZMDDy7uMsnpUQcjHhTYz0BKlK57D0Y1tzQQrsslV2N4Kv+q9MNbQn8r8pTqiA8V7KYLxbhs6FScRz828LCQ=
+	t=1789639437; cv=none; b=l97q701tL9pQ391TOHWDRZqrfHurkdqL98VZJ2sjAJIjKRjL/UFpApiNztm4egIuWEhw2XqO46JI1uJW2CuKoa/CHoMrHq5YzPEItt65soT5GKO+UJs1NDOBDHVB1/K620XpcNv+tTR5dwAGDpsTnFU0Aq/qeLBV051NTLztb9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639431; c=relaxed/simple;
-	bh=YKVLIQtatBhn5yK/xtLhS4dBm2eOpXamOjk5hO60+Mw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IA3i9XEkYjeEoTdMuBxS98DQTgqWQYUhSzjb0BjhyKFxJCqC7IVwt8+sbahO5mlkT8N2jQEhvwmc9UCJ5R+OtO1kXTWtJSYMkFKUlKnSBFDxKhw113uiAcfsGQcxiihKFqbvLzZH6ep81DCajM6U3LaHa1P1cIcs7o+AFXBtwjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=pa6r9mEW; arc=none smtp.client-ip=212.42.244.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1789639437; c=relaxed/simple;
+	bh=El1SDhqL0VkLIW5Sh+Zz192N587q+4iY48iKL8JBv0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i5Q3cMWkHi8a2q2gAY1zGbhFwOhu7Y/XUaKrcKklVRVm4NPDZ2SK7QCbG6j8h3hC4VMkoYluu2MFUGlHraFiwMiNO/5iK5px+SRWFA3LuuMWfcDjXZ4cXyX7LqRD6v6e9eNV87i0efUgjNsH951T+ggh9GIAzndmij5az/edsCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KLWVY6+d; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="pa6r9mEW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789639398; bh=YKVLIQtatBhn5yK/xtLhS4dBm2eOpXamOjk5hO60+Mw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=pa6r9mEW5JKwfXLpjjkk6v03ol+QiWEZMNrQyVm+rLT1EZyDQoht4H+xBiPLoSQqS
-	 pRXVBUZj0CcN8H4qRdVMP5fk8MPo++ZT9zPOa59a8WL9HjFntSYa+zYeUot8rh9kie
-	 ZWT2fESBMRh6u1L5rR4i3UPSJBMV/6sDOLJrIahYpyXuW3NbeQ4lOMbVCF/a3FPyJL
-	 vd2lCg0iuIc6ePeRf1NLnoWYtE+H/5Pp1i7NgEOMKDXS0BDTiSsLeLHgm2nRc5I3Ah
-	 7cyjGp3UkFfrL6U7LQ5s5PPHG2jtPLxWl2W4DMraPOyqRwGXVW4VQwIPUDxvKGwpme
-	 42MVQjIgFh00w==
-Received: from [212.42.244.71] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <t.martitz@fritz.com>)
-	id 6aabbae6-ea3f-7f0000032729-7f000001add2-1
-	for <multiple-recipients>; Thu, 17 Sep 2026 12:03:18 +0200
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Thu, 17 Sep 2026 12:03:18 +0200 (CEST)
-From: Thomas Martitz <t.martitz@fritz.com>
-To: Simon Horman <horms@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Thomas Martitz <t.martitz@fritz.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5 0/1] macvlan: allow source mode devices along with passthru
-Date: Thu, 17 Sep 2026 12:02:57 +0200
-Message-ID: <20260917100258.2582568-1-t.martitz@fritz.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KLWVY6+d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789639405;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EeBRoyZCve99duqFqW1lbroVXhrD9TMpia4ydx6eOvE=;
+	b=KLWVY6+dwly3gU8lJEW5WHZPpoDUx5dQ+zJBnL3bs2PLnMjv7prdf8McGp38dtybKh9Z2a
+	ix813WjXLeP9k4W0EPe2CROWIqO8P1GaxNMyWvzSrM2i5Eyv1WZWuRa51QlPzDvxSASCPh
+	Wd8NcLgkAFoknsRl3aTvdTnQaERwhtQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-618-umu6d2ZXPQSGDaCFkK-lNw-1; Thu,
+ 17 Sep 2026 06:03:22 -0400
+X-MC-Unique: umu6d2ZXPQSGDaCFkK-lNw-1
+X-Mimecast-MFC-AGG-ID: umu6d2ZXPQSGDaCFkK-lNw_1789639401
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2FE8C1828ACB;
+	Thu, 17 Sep 2026 10:03:21 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A8FA11800370;
+	Thu, 17 Sep 2026 10:03:20 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>
+Subject: [PATCH] KVM: x86: remove "full" out-argument from flush_tlb_gva
+Date: Thu, 17 Sep 2026 06:03:20 -0400
+Message-ID: <20260917100320.21899-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: 149429::1789639398-FDC87720-101C1876/0/0
-X-purgate-type: clean
-X-purgate-size: 2437
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-02  mail-id: 38D6AA048F  external: no
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Hello,
+The "full" out-argument in flush_tlb_gva is only ever set on AMD
+processors, where the TLB flush is little more than a memory write and
+thus extremely cheap anyway.
 
-we're trying to solve a use case on our devices where two SoC are
-connected on the same board, using the only available high-speed interface.
+Simplify the code by letting the implementation of Hyper-V TLB flush
+hypercalls always go through all the addresses queued in tlb_flush_fifo;
+there are no performance concerns since that is already the case on
+VMX, and also was on SVM prior to commit 26505e1b5b54 ("KVM: SVM: make
+svm_flush_tlb_gva do a full asid flush if NPT enabled", 2026-08-06).
 
-One SoC runs the main Linux system including the full routing stack
-(FRITZ!OS) and the other SoC implements most of the GPON ONT side.
-
-The high-speed interface is of course also used for the user traffic.
-Therefore we must tell the inter-SoC traffic apart from the user traffic.
-
-We achieve this by matching the well-known MAC address of the ONT SoC.
-The user traffic passes through the ONT SoC without modifying MAC headers.
-Now we would like to use macvlan (with source mode devices) on the main
-SoC side for this but our routing stack requires the rx_handler to be
-available. Therefore macvlan is currently not an option.
-
-With this patch macvlan becomes an option because the current limitation
-of either "one passthru device" or "any other configuration" is relaxed
-for the combination of passthru and any number of source mode devices.
-
-This allows us to configure a source mode device for the other SoC and
-register an rx_handler for further processing on the passthru device.
-
-Thanks in advance!
-
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
-Changes in v4
-- Prevent macvlan_restore_mac() from changing the MAC address
-  of remaining source mode interfaces.
-- Set MACVLAN_F_PASSTHRU on the macvlan_port only after adding
-  the passthru interface truly succeeds.
-- Changing existing interfaces to passthru mode shouldn't become
-  allowed.
+ arch/x86/include/asm/kvm_host.h | 2 +-
+ arch/x86/kvm/hyperv.c           | 7 +++----
+ arch/x86/kvm/mmu/mmu.c          | 2 +-
+ arch/x86/kvm/svm/svm.c          | 4 +---
+ arch/x86/kvm/vmx/main.c         | 4 ++--
+ arch/x86/kvm/vmx/vmx.c          | 2 +-
+ arch/x86/kvm/vmx/x86_ops.h      | 2 +-
+ 7 files changed, 10 insertions(+), 13 deletions(-)
 
-Changes in v3
-- fix passthru port removal caused by passing the wrong 
-  device to macvlan_port_release_mac(). This was also
-  detected by syzbot.
-- macvlan_port_release_mac() is now named macvlan_restore_mac()
-  and gets passed a "struct macvlan_port" directly.
-- Link to v2: https://lore.kernel.org/netdev/20260709100512.1383421-1-t.martitz@fritz.com/
-
-Changes in v2:
-- changed several port-wide checks (macvlan_passthru()) to 
-  per-interface checks (vlan->mode == vlan->mode == MACVLAN_MODE_PASSTHRU)
-- correctly handle removing the passthru interface when there are still
-  source interfaces
-- Link to initial posting: https://lore.kernel.org/netdev/20260612092345.2352255-1-t.martitz@fritz.com/
----
-
-Thomas Martitz (1):
-  macvlan: allow source mode devices along with passthru
-
- drivers/net/macvlan.c | 107 ++++++++++++++++++++++++++++--------------
- 1 file changed, 73 insertions(+), 34 deletions(-)
-
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 683bb8bf43a9..283847619ff8 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1578,7 +1578,7 @@ struct kvm_x86_ops {
+ 	 * Can potentially get non-canonical addresses through INVLPGs, which
+ 	 * the implementation may choose to ignore if appropriate.
+ 	 */
+-	void (*flush_tlb_gva)(struct kvm_vcpu *vcpu, gva_t addr, bool *full);
++	void (*flush_tlb_gva)(struct kvm_vcpu *vcpu, gva_t addr);
+ 
+ 	/*
+ 	 * Flush any TLB entries created by the guest.  Like tlb_flush_gva(),
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 604651cb2739..3ee6bf35d1e4 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -1995,7 +1995,6 @@ int kvm_hv_vcpu_flush_tlb(struct kvm_vcpu *vcpu)
+ 	u64 entries[KVM_HV_TLB_FLUSH_FIFO_SIZE];
+ 	int i, j, count;
+ 	gva_t gva;
+-	bool full = false;
+ 
+ 	if (!tdp_enabled)
+ 		return -EINVAL;
+@@ -2006,7 +2005,7 @@ int kvm_hv_vcpu_flush_tlb(struct kvm_vcpu *vcpu)
+ 
+ 	count = kfifo_out(&tlb_flush_fifo->entries, entries, KVM_HV_TLB_FLUSH_FIFO_SIZE);
+ 
+-	for (i = 0; i < count && !full; i++) {
++	for (i = 0; i < count; i++) {
+ 		if (entries[i] == KVM_HV_TLB_FLUSHALL_ENTRY)
+ 			goto out_flush_all;
+ 
+@@ -2015,11 +2014,11 @@ int kvm_hv_vcpu_flush_tlb(struct kvm_vcpu *vcpu)
+ 		 * pages to flush.
+ 		 */
+ 		gva = entries[i] & PAGE_MASK;
+-		for (j = 0; j < (entries[i] & ~PAGE_MASK) + 1 && !full; j++) {
++		for (j = 0; j < (entries[i] & ~PAGE_MASK) + 1; j++) {
+ 			if (is_noncanonical_invlpg_address(gva + j * PAGE_SIZE, vcpu))
+ 				continue;
+ 
+-			kvm_x86_call(flush_tlb_gva)(vcpu, gva + j * PAGE_SIZE, &full);
++			kvm_x86_call(flush_tlb_gva)(vcpu, gva + j * PAGE_SIZE);
+ 		}
+ 
+ 		++vcpu->stat.tlb_flush;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 064ecc33b926..3d4c4937f679 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -6704,7 +6704,7 @@ void kvm_mmu_invalidate_addr(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
+ 		if (is_noncanonical_invlpg_address(addr, vcpu))
+ 			return;
+ 
+-		kvm_x86_call(flush_tlb_gva)(vcpu, addr, NULL);
++		kvm_x86_call(flush_tlb_gva)(vcpu, addr);
+ 
+ 		if (tdp_enabled)
+ 			return;
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index ea647938a2a6..835e59ca982c 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4245,7 +4245,7 @@ static void svm_flush_tlb_guest(struct kvm_vcpu *vcpu)
+ 	svm_flush_tlb_asid(vcpu);
+ }
+ 
+-static void svm_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t gva, bool *full)
++static void svm_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t gva)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 
+@@ -4261,8 +4261,6 @@ static void svm_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t gva, bool *full)
+ 	}
+ 
+ 	svm_flush_tlb_guest(vcpu);
+-	if (full)
+-		*full = true;
+ }
+ 
+ static inline void sync_cr8_to_lapic(struct kvm_vcpu *vcpu)
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index 4c52ab8d0786..0ff3230fd95e 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -543,12 +543,12 @@ static void vt_flush_tlb_current(struct kvm_vcpu *vcpu)
+ 	vmx_flush_tlb_current(vcpu);
+ }
+ 
+-static void vt_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr, bool *full)
++static void vt_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr)
+ {
+ 	if (is_td_vcpu(vcpu))
+ 		return;
+ 
+-	vmx_flush_tlb_gva(vcpu, addr, full);
++	vmx_flush_tlb_gva(vcpu, addr);
+ }
+ 
+ static void vt_flush_tlb_guest(struct kvm_vcpu *vcpu)
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 504630f0eb40..e3bfe6aca1a0 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -3377,7 +3377,7 @@ void vmx_flush_tlb_current(struct kvm_vcpu *vcpu)
+ 		vpid_sync_context(vmx_get_current_vpid(vcpu));
+ }
+ 
+-void vmx_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr, bool *full)
++void vmx_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr)
+ {
+ 	/*
+ 	 * vpid_sync_vcpu_addr() is a nop if vpid==0, see the comment in
+diff --git a/arch/x86/kvm/vmx/x86_ops.h b/arch/x86/kvm/vmx/x86_ops.h
+index 054fd14bb2e1..cdb38d940cfb 100644
+--- a/arch/x86/kvm/vmx/x86_ops.h
++++ b/arch/x86/kvm/vmx/x86_ops.h
+@@ -82,7 +82,7 @@ void vmx_set_rflags(struct kvm_vcpu *vcpu, unsigned long rflags);
+ bool vmx_get_if_flag(struct kvm_vcpu *vcpu);
+ void vmx_flush_tlb_all(struct kvm_vcpu *vcpu);
+ void vmx_flush_tlb_current(struct kvm_vcpu *vcpu);
+-void vmx_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr, bool *full);
++void vmx_flush_tlb_gva(struct kvm_vcpu *vcpu, gva_t addr);
+ void vmx_flush_tlb_guest(struct kvm_vcpu *vcpu);
+ void vmx_set_interrupt_shadow(struct kvm_vcpu *vcpu, int mask);
+ u32 vmx_get_interrupt_shadow(struct kvm_vcpu *vcpu);
 -- 
-2.54.0
+2.52.0
 
