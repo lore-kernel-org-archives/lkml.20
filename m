@@ -1,159 +1,142 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-vs2-f9.google.com (mail-vs2-f9.google.com [74.125.227.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A694306B1B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0B42D5436
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717574; cv=none; b=ou/Y0CpbBvQR+0+1YaMmyJOgEfjXTNWg5qP/bRJCJuKsvlHUG5mVtJqW1yB4W+gUPvR197FFlB4I8xSuXRIMQuRF7KY/dgzRX2AtnLNwUZzd+X79UCMikclSZjwmNqdKFjsu63upmyQNQNsmvCjJ65lXMBDUE/6DjDTTXdX8S58=
+	t=1789717613; cv=none; b=dhVDdtA4tnz8eEt2IORsy2srXpsEz3FgcLxBJNK/DcacFZzLwDfgHgsvXzdyc7lN4/0fTS1qcoUSdu2QxxCktZnwo8UxsmyjbbyFNbDU5bBWiorwl/GBEc8RJr8smAomFcu6ykLYG7V7Us+m+Y1EAKMIga1fblFKM4RMSjoc1cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717574; c=relaxed/simple;
-	bh=2SXDsS5wy/DJY/6q1ZX3DVF2JgAhS3NkxwvT4ZIegO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SKZfIl7eiClj1CPsPz6FYavEB+vCBy+nFGRMloHBhozaCtZR3DQ7UC+DvT+o8iAY30TWkfB3hJftmn8I2yxO4XTKSnVkXaI66WrxtqBsBLMjQeTjo2VkmPynQ3zKfWk+L3nfKs6JgZxAUsw13EHQXozzvhPd/DVY54qoV6ovV9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJEJFrsU; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1789717613; c=relaxed/simple;
+	bh=wTlung53wgG0U6uz6ynHrcjwVaYOb0YK4Nvyasm8+go=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uN3uwGdW6QxN8bWPVD5YF8Q2NRObT94GYHFGEI7E0UqKpJWZmh0/tQ908KafApICHcL2Fdo20d3OUZbvrwSi4xNyWkp7K83jvmgz54Fa82N/Sw7TRW5XmLBI25Qf5UNaJiPhAYg9t+Lb5lGCTzpSG70Rlh+ppwcsm5bvR49hKIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJEJFrsU"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so320810b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:46:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789717565; x=1790322365; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SInoAck4kPSdZMq0ZJdvww+HIYJKSPW+Gpf9er2XW6E=;
-        b=NJEJFrsUPS3aqJV8hyejXZuzzXihYBGFuxNxOwjMrKa0IJG4P6S1kg1wwpmfCZwAn8
-         Q6cI1KedYblPQ/ol5uMbIbNhKF040L7flBZXCsbwCA94D/pBw0cnzgLKtxlWxKBcMp05
-         kiTvgEwNPfCS1tfrNweRYKiOMtplvkgg3P0+1PsGGJFk1LcqGp85VAIlkBIv6sPA8lM3
-         qsb9OLuT284iQiJXzrVxhxg/077HBlpNt8Dzmq+sQv/UX1mV2HTGE0qJVVoW/rM+nhQ1
-         JSnY5+T44IXSu8iqAg3cqpxkVK8eby8ZZX+gIuFs3cxvznJu1LcBnRQIQPab14sZpOmU
-         T8/A==
+Received: by mail-vs2-f9.google.com with SMTP id ada2fe7eead31-790a0799373so87263137.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:46:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789717565; x=1790322365;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SInoAck4kPSdZMq0ZJdvww+HIYJKSPW+Gpf9er2XW6E=;
-        b=j+b3imC62vHjOXAUFtqaCCEjN3E91A1C8RHCG52q2qys27Znlu8SururBYw8ySBp8l
-         dI8KjGKqgjrjmqe40iN0btVIke2uJYXy78jE2rLMka52HOYd2hnaeznBxBTL8wpB/S+l
-         tAFhZNb0kfuo7S/Lv7BR4L9hv3GhmDS7Ot5GWtH6qzu5QOc4kzKNtSmjl0YZYChnFqRp
-         TIcrsjYletecaMiPCdGmU/d3v5dhiBjyppW60Vm2hB7ZY0uy6+Vby6VsMCtRP6HuDl5G
-         US2bKpS7NIrFGWEOM1rJVKfE6IIpA8dZLcBj9ht0kZhRwV7fUJdEvI2mAjhK6FSTVgY2
-         MmfQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNr97ST8Atznnvi++Aqw0ensmKP/S8LToqoHZyzkHcfZWN2MuGT991giiyYyjnO/dimrDhh0qsQ6qKQvI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncIWFwtM95ztxCsF/+zmJ9XFB+DWAiS24lku8JdZ5CLXTry7RF
-	5FotryAnBzhE72raWn6ZHwZd6leSNjsYLqumUG6cxYjSoDfgIT63a+nJ6zuFHGZtm84=
-X-Gm-Gg: AYBFou3JyW18VXs5LJzGYlrAmr6RqX7oiwlZUCA2jfcuOmdzaESMoY04Mm3fOc7NZIH
-	/t/c5kSubD1kmQVdC0I/rfCZD95qsBsKasX06nIdm3PVEX/bNWy/T0CYnZBZAZcuCgxD61oOLL1
-	DoCERpL0Sh4wwmbJrN+Z3NPpZyTGpged+99PknxriJK0oduvuMYkSz3r9kszPFMA4qt2Fz7HiYz
-	x/DMeIxMf65uQh1jobqf2m038SjImrL1VJ1KgnyIpv8XGE6i336SAEovC1Go5V6c8ZUjiS8hEHU
-	I4AbwOl7EJOT4Lgeu0xoOxMy+AmCUZctgzrKxcZnuByiPdzsw92oXB9D6W+RHlDH/tcaniE8qnA
-	khxW4gojV4AvNj6BORUMQe49QDkFB8QknbsYCrWUmLBKLp1me/3Dl062GIRTf4sJrihyztOj97d
-	CAn80EoBraHk7xJlaJg+BfZcCLJrloGWOZ/Bv3PqhEe1+OsSbLM9rRmJYBATkDncBGHiUWEKP82
-	T2GISgZq712QSsaiDXSm8RKixQbb+ovHk/B6h4=
-X-Received: by 2002:a05:6a20:6f9c:b0:3dd:85a8:cad2 with SMTP id adf61e73a8af0-3dd8c4b06b1mr3259004637.41.1789717564818;
-        Fri, 18 Sep 2026 00:46:04 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2872052fsm2491833eec.11.2026.09.18.00.46.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 00:46:04 -0700 (PDT)
-From: Malathi A <malathi.a2000@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Malathi A <malathi.a2000@gmail.com>
-Subject: [PATCH] serial: 8250_uniphier: Use dev_err_probe() in probe error paths
-Date: Fri, 18 Sep 2026 07:45:46 +0000
-Message-ID: <20260918074546.245342-1-malathi.a2000@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789717607; x=1790322407;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y+tYCkkvzZJmFoYOhTQyYw6fM+qA/usgZs/lU8fn+ao=;
+        b=0l0uyi+9BR7PJ4l8c/qsSqOkQR0SAmuDt7aAEkMPnPQbIMte8PK1cJ1TXIj9ETK5iP
+         nA2zVcoXVdLgMxFgp8PvvSbCr9TX5HQuvCj8/jbsSea7Q8ehb5nucn5GmXBIbzhwvVjk
+         zqEgMSKc+K63J5e0sFYn22Ohu656qHryQc6tcukjwccP50Fyr1AJfCh+MYqMjpgOSD/u
+         wmALEFypcuXnpw4mOxMUqnH3mL09Hu1hnr1BXxdb6ZZ4HDTm5JVWLkSXV/6uvgcBspQk
+         TRYKUGegBn60bsDn3DSN1Vqb8Jt821+U/M2JRnYtdVGUV+3ZSCOKa+cd/Z9rh+TFWrGC
+         0tNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNWDH1TFxUdyRg/hCCe/erNB7o9gORJblPjcleRDNg3N3R28WYcM+MhmOjsF4dZmOJ5Mo/vFu410pog4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOcvPhJBz90U9a46Frm/nbfH2wA06Jk9+4tWB9tscSVdzYq+C2
+	AgluAvB555Hzo/GYhUfVuoRGlCVHpktssQB/XNSvlXcHdfyYWpZkftDu4e0UTDEM8yk=
+X-Gm-Gg: AYBFou0rxLg8lgA1Zgmer4sp1qMUBiEZR7DXsiog+eG3qnQ7faKzsNMcI3egFM56Aq7
+	zZ0UMAuh88pe0zUx/8t4H1WdU0H7n/ZK0HxII6PX77C3BB9hTEESkiV5eExxOc5Z8FhIBI8XE7V
+	QVvxSWYDLBLqyeWbVfLLg+A+/4/49DIhQBiFEC0YDYXEA6cQVePJ7lTjT5C4rU2fDw0HPzYlkod
+	yj2wPNklhsYPWWIIqKLLoppV6vmyUT4wO5F849CcsQzvm/yqC0OI+srXJrZlbYy1pEtC5RFGDLc
+	o/rQtHDCchOlSP8z1Wz2rNERV6Dcq6hhWP8I6mTEstTfZlBfFaNMffzB7AGcUbQFjCmhfjtwBDg
+	3ukW6AI3LUZxgj8G5QZVprxPClCGrbSmbYzzrkqgSlGI6fvDsykrkI6qlOYzxH7OtkaEWogPYcu
+	pH8xsYwnYzG1ZQSFINFQyPLj8fn9RCAszuNZ7N4KS8Y23ytHOyDs7n7UzEoYGMNDrQx3yfF3DyK
+	UD+93AfbxDgJme+hloFkwOV5JzxsjVljzov
+X-Received: by 2002:a05:6122:d14:b0:5c8:2dc9:f8d2 with SMTP id 71dfb90a1353d-5c9b872d199mr388471e0c.0.1789717606825;
+        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9b84c80a8sm830311e0c.18.2026.09.18.00.46.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a7003f94fso107590137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzXNg//Gf4gMQ/n6U7LzsxAItqBrUD4s7O1rUYfhJju4hkeaH213fva6ibxllV/aKrjL+kZJOQqgN6BOZc=@vger.kernel.org
+X-Received: by 2002:a05:6102:358d:b0:79f:e8ce:27f2 with SMTP id
+ ada2fe7eead31-7a55af2df71mr547985137.4.1789717606396; Fri, 18 Sep 2026
+ 00:46:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1788338320.git.geert+renesas@glider.be> <1d5c56c80291e447208ac8777aaf90ad6f0a4f4d.1788338320.git.geert+renesas@glider.be>
+ <20260917221647.GA4038349-robh@kernel.org>
+In-Reply-To: <20260917221647.GA4038349-robh@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 18 Sep 2026 09:46:34 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
+X-Gm-Features: AcwNN1XFZho-l6FTtqXfFYSmbjO5DpuymjytNtvp4sOSdCdr5EidSrnlACqjwyk
+Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
+Subject: Re: [PATCH v3 04/12] of: property: fw_devlink: Add support for renesas,scmi-firmware
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
+	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-devm_clk_get_enabled() returns -EPROBE_DEFER while the clock provider is
-not registered yet, and uniphier_uart_probe() reports that with
-dev_err(). Every retry of an intermittently deferred probe therefore
-prints "failed to get and enable clock" at error level, which is only
-dmesg noise.
+Hi Rob,
 
-Use dev_err_probe() instead: it demotes -EPROBE_DEFER to dev_dbg() and
-records the reason for /sys/kernel/debug/devices_deferred. Convert the
-other two error messages in probe as well, so the whole function follows
-the "return dev_err_probe()" pattern already used by other 8250 drivers
-such as 8250_em.c. Those two codes are never -EPROBE_DEFER, so there the
-conversion is a readability change only.
+On Fri, 18 Sept 2026 at 00:16, Rob Herring <robh@kernel.org> wrote:
+> On Wed, Sep 02, 2026 at 01:29:20PM +0200, Geert Uytterhoeven wrote:
+> > Let fw_devlink create device links between consumers and suppliers of
+> > SCMI firmware on Renesas platforms, and enforce these dependencies.
+> >
+> > This prevents probing of drivers before the firmware they depend on
+> > becomes available, thus avoiding unneeded probe deferrals.
+> >
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > ---
+> > v3:
+> >   - s/firmware/renesas,scmi-firmware/,
 
-Errors other than a deferral are still logged at error level, now with
-the error code added by the helper. No functional change otherwise.
+> > +++ b/drivers/of/property.c
+> > @@ -1417,6 +1417,7 @@ DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
+> >  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
+> >  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
+> >  DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
+> > +DEFINE_SIMPLE_PROP(renesas_scmi_firmware, "renesas,scmi-firmware", NULL)
+> >
+> >  static struct device_node *parse_pinctrl_n(struct device_node *np,
+> >                                          const char *prop_name, int index)
+> > @@ -1574,6 +1575,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+> >       { .parse_prop = parse_regulators, },
+> >       { .parse_prop = parse_gpio, },
+> >       { .parse_prop = parse_gpios, },
+> > +     { .parse_prop = parse_renesas_scmi_firmware, },
+>
+> This is going to be a catch-22, we can't have vendor specific properties
+> here. If we need this, we need to come up with a distributed way to
+> declare them. Linker section tricks is one way. Maybe something in the
+> driver struct would work?
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Malathi A <malathi.a2000@gmail.com>
----
-This is the follow-up cleanup suggested during review of
+Quoting myself:
+"I still think the vendor prefix should be dropped, or replaced by "arm".
 
-  [PATCH v2] serial: 8250_uniphier: Use devm_clk_get_enabled()
+> Can you just avoid a property altogether? Why can't you check for the
+> presence of SCMI at runtime?
 
-and it applies on top of that patch: the clock hunk relies on its
-context. That fix is not in tty-next as of today, so this one should be
-applied after it.
+A system can have multiple SCMI providers, so
+of_find_compatible_node(..., "arm,scmi") is not sufficient to find
+the right one.
 
- drivers/tty/serial/8250/8250_uniphier.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+Gr{oetje,eeting}s,
 
-diff --git a/drivers/tty/serial/8250/8250_uniphier.c b/drivers/tty/serial/8250/8250_uniphier.c
-index 6fffac12277a..7d558b750f83 100644
---- a/drivers/tty/serial/8250/8250_uniphier.c
-+++ b/drivers/tty/serial/8250/8250_uniphier.c
-@@ -165,10 +165,8 @@ static int uniphier_uart_probe(struct platform_device *pdev)
- 	int ret;
- 
- 	regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!regs) {
--		dev_err(dev, "failed to get memory resource\n");
--		return -EINVAL;
--	}
-+	if (!regs)
-+		return dev_err_probe(dev, -EINVAL, "failed to get memory resource\n");
- 
- 	membase = devm_ioremap(dev, regs->start, resource_size(regs));
- 	if (!membase)
-@@ -181,10 +179,9 @@ static int uniphier_uart_probe(struct platform_device *pdev)
- 	memset(&up, 0, sizeof(up));
- 
- 	priv->clk = devm_clk_get_enabled(dev, NULL);
--	if (IS_ERR(priv->clk)) {
--		dev_err(dev, "failed to get and enable clock\n");
--		return PTR_ERR(priv->clk);
--	}
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk),
-+				     "failed to get and enable clock\n");
- 
- 	up.port.uartclk = clk_get_rate(priv->clk);
- 
-@@ -216,10 +213,9 @@ static int uniphier_uart_probe(struct platform_device *pdev)
- 	up.dl_write = uniphier_serial_dl_write;
- 
- 	ret = serial8250_register_8250_port(&up);
--	if (ret < 0) {
--		dev_err(dev, "failed to register 8250 port\n");
--		return ret;
--	}
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to register 8250 port\n");
-+
- 	priv->line = ret;
- 
- 	platform_set_drvdata(pdev, priv);
+                        Geert
+
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
