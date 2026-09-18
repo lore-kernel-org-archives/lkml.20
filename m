@@ -1,132 +1,76 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC2E3D79FB
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECAC3D3327;
+	Fri, 18 Sep 2026 15:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744667; cv=none; b=rTXOwXy4tqinaLPaIeiVab23dvExcsCSq5W2lSZO5dx5FchqPly9n82u8O6DAlyBIYvSBoCTKABB0zNOPk/g1afu5lf+qwkHIkDpLQok1oyCFU9pSmAvk3V+8KJsPQk/WATciUKgp4TsvuBXptX8Yq9pPT02XVxjwXmsnVonAsU=
+	t=1789744687; cv=none; b=imGMja+aF4DdX+ClIMD4vZZ/5g28CXb3z23TIOLzPcUQX/r1oViCUNkK32+hVcy0FM6QQ6G969fRHQ/03dt38OIHMz9JlGZIebANfo1BJWJeqv1az5kewr6+KDQ9oH0LgI7Jv4kRGKXoBbWHbGSMWWrRgNAWBBt7rl/3dpPUx4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744667; c=relaxed/simple;
-	bh=lCzf76+NJFiZBWowe56JipIaRmY6y097OMCOguKq84Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uBPhaTTDF0r4uybiTEFEOwHO6OLf6bVwIzsQQb08x06WdQqnRwXgno7QmM26MEL1zF637T0kVdgb5egKhOc8S4wnsnRzjmtfVtEON2eQY6DrX7ST+BWwUpkJgpeDUOuWJIJDjBGc53vS5PJvqkrIBBA9ylCgNJNla8jLO0OwoGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAau96Qc; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789744687; c=relaxed/simple;
+	bh=e7u07P5eoA0cu9MO4I2ALjAlEavOvdWZxVOMRUfqUUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ak/SV2T6UdfQlIkugR+W2c+cU/KHSlWoOHHkVkk1E78YgxlBbmsskXqTquLCSj3frYG5s5eevH0nzxG9+/RjUpJPv4vmt4MU2DJJ/xcXtMrAiIo/6egs/r/sPr05WDDpY1fRGGJvF/U+MW/uRd6XgvfdBFpsT/tPT3gZT0Q7N0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivgqK9iw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAau96Qc"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605844571so1110253a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:17:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789744663; x=1790349463; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7cqdA0O8Ahj4mmcXHJ140W7PNv8oloRpbbh1DU0ab2Y=;
-        b=MAau96Qcy437Rhkb8qb17CTu/aCU/UUHNgKUJPbxMde8RMu3sRQHlxHTf/cb99qzY/
-         O5jyEgt72sKg5WOvC1qFIwrRrZ3/wmt3HXEZ09Oht9so+sUPKzIICQ9XaogQOZbqdBL7
-         zEDreqNkdyjdcz38U2FuWBJk8V5R8InTTzk8DPBi/O8z6jd44XWhbxbp/6SgZq8Oq5vq
-         l6HrAkyumm+GZM1a54A2T/uscFhJzQZLmnG0LBKJbWKKhl6qxLorBEkg3vTZyxwaIHkd
-         +neg5o1voE/b4rmCie9MACURh8yiBzvFRLtWRFKp33u8QoCYYvDJ1EZHBxXj6YIWzcE5
-         /1LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789744663; x=1790349463;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7cqdA0O8Ahj4mmcXHJ140W7PNv8oloRpbbh1DU0ab2Y=;
-        b=Hkjmf6alwA7nBB68iO6/yfBIN49+s0WOZOn43sRW1VFTPQesfKzfgijsrjhI27iRPc
-         60VRGmTdguDvTNECaZimihn2B+Cimah8ADYS43PG5DJx1oiuMFE1sPUfMGf8CVekh/PC
-         J0GyipPa5xNS9ibMwraZkOOuCVPfuonDuXVVcidHeaUU6OPBJtLhRkXTzRCqEaLG8B7x
-         IpKWreodkU8TZ/Rr6PcltO7LsxmuBio9gv2O9NFt3Ir5rInF2AaRcs82Iq+R7N7NKt4C
-         V0WmE5dgOKbC/aJm9xEkakjM104ReB+jCKKlmA0AYWVt/0/cgrwj0xr7/TfaMet9mSV3
-         0dkg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNdCN3xlKi7JM2LYCVlPNQ+w/w/GBBe0OrhXbu2N5soH+HInqJdLiXqNrhRZUZ3w9v0Ra8nl/8CtaJmtA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5gmbO2NB9aa6IguKSBvbUyb6TD9eqv9T7xG6qvNrNrOiKMOg+
-	aepTfgchp1jvGjJMIEB1ZbEpsXKAW4MnHAsB+u+cdvj+FEUKa6QHA9eg
-X-Gm-Gg: AYBFou10d6ftsvz1M4ttpqdCSAUZNpCdDTI58mUTSvC+pNjbteVEO4EzqhCJ9W9x298
-	U9Dc1Sq1w2j9bMcyxTdrun0Lf9NhGfIn+OCZz37+OMCoyVc8cbDlgi8GrYQtXt7G4q6FRo08RxA
-	s7MabokdLXUSnRRxpdirCHaZQ6lI98RuEHbO7lckgVa4IN17Ve2awrvIqYJA5d0kDGW1rjai8O8
-	JNlfiu3Hae81ulsfAU/7zD58Otjt0U0KnquMB1NnWOnZEFqk8Ej4jEONC8oY5wiTD9i7EcmFVwD
-	E4pD1ZCBZHwh7l9tN6uUYQMNjYbcbnciqtWWvVHrPYEZErG2N+CCJU+M1HAsA7dmjT0Cgpt7okL
-	Lghde0QrsystD5yI2z0L266ESIsSw/dya0FoAi9vUut/eyYDqZ5fIjQDal0ptzxhoIzU4g35ctS
-	69X6kWj89Ts3p24X3E42GNitc+LGhplguVihpkGNF6ajgPBlCn/SiW6723yDqahx9/5pg/sTpj1
-	9qgiR/L8CfW5G6W8Rq/J6cjuxapM4bw4F5K
-X-Received: by 2002:a17:907:960d:b0:c29:d3ad:4f72 with SMTP id a640c23a62f3a-c2a157da677mr272170666b.16.1789744663392;
-        Fri, 18 Sep 2026 08:17:43 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb42643sm74893366b.26.2026.09.18.08.17.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:17:42 -0700 (PDT)
-Date: Fri, 18 Sep 2026 16:17:41 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Andy Lutomirski <luto@amacapital.net>, Mikko Rantalainen
- <mikko.rantalainen@peda.net>, Rich Felker <dalias@libc.org>, Matthew Wilcox
- <willy@infradead.org>, linux-fsdevel@vger.kernel.org,
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
- brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <20260918161741.1d95bd4f@pumpkin>
-In-Reply-To: <lhu5x02vhtk.fsf@oldenburg.str.redhat.com>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
-	<aqcmz5uI7PgN5CT7@casper.infradead.org>
-	<20260913235145.GY25906@brightrain.aerifal.cx>
-	<eeb50cae-87af-4a40-b9c6-f4fa9981425e@peda.net>
-	<CALCETrUgLj4Dz0s6PMofViJwausRWCvNvJphxWHUeWCCaRBtQg@mail.gmail.com>
-	<f61886ed-3026-4db7-ae22-b882264141bd@peda.net>
-	<CALCETrVnE2unnjHokG=bGLEXAeC0U8QRx_wb8fQDh-Fe5O6PBg@mail.gmail.com>
-	<lhu5x02vhtk.fsf@oldenburg.str.redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivgqK9iw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD981F000FF;
+	Fri, 18 Sep 2026 15:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789744685;
+	bh=S82gNLURUVEd42qKqLAV6CWU9l2uRU5gXjuBbJpx9XM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ivgqK9iwMqXIMmVpjbsKaKPtRWJEamrW7bFCVQh8ISq9Co3a+JtxzefrAnXhj7PuF
+	 wLzqRYsz4EnP0ycCGJzXkXw9psQOxzb0dvX3wTln/sxHrU/v/XWWr2PqidO81CAF31
+	 cs0DH9QaEV4LUJapntbecmD75jkOoSokGNQ2h1+6eivNmLnIgIZjnJeWXeGVsy7KRL
+	 OdIj6s9QBpoPd46eFAV41TFFi/pek31MZmNkml279cackF44BwaRLRGZcsB+qRP9n1
+	 TceE7YfhvXi8AtQBCjNGPkmGAN1+r9AracXjL6Ua5gdoJ1uExcqekY2jRS8v5c/v6k
+	 hHI0Sp9lwZCfA==
+Date: Fri, 18 Sep 2026 09:18:02 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	co+77553a7fc66ac133@bugs.sh, Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nvmet-auth: fix out-of-bounds write in
+ nvmet_auth_challenge()
+Message-ID: <aq1WKv3UKpNf_3rL@kbusch-mbp>
+References: <20260912171009.1513289-3-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912171009.1513289-3-bestswngs@gmail.com>
 
-On Fri, 18 Sep 2026 14:56:39 +0200
-Florian Weimer <fweimer@redhat.com> wrote:
-
-> * Andy Lutomirski:
+On Sun, Sep 13, 2026 at 01:10:11AM +0800, Weiming Shi wrote:
+> nvmet_auth_challenge() receives its output buffer as a void pointer.
+> sizeof(*d) therefore evaluates to one with GCC and undercounts the fixed
+> challenge header by 15 bytes.  A short AUTH_RECEIVE buffer can pass the
+> check before the challenge is copied past the end of its allocation.
 > 
-> > I think I mostly agree with your analysis except that I really don't
-> > like the ENOSPC.  The kernel actually has the ability to commit to
-> > having space for pending writes on an fd *without syncing*, then I
-> > think that capability should be expose to userspace.  fsync is a
-> > pretty poor alternative for code that just wants to make sure that, in
-> > the absence of a bug, crash or physical failure, the data won't be
-> > lost.  
+> Use the typed challenge pointer when calculating the response size.
 > 
-> It's something we might want to call from fflush.
-> 
-> As a replacement, dup3/close doesn't quite work because it releases
-> POSIX advisory locks on the original descriptor (as they are per
-> process, not per descriptor).
+>   BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:442 drivers/nvme/target/fabrics-cmd-auth.c:569)
+>   Write of size 32 by task kworker/1:1H/64
+>   Workqueue: nvmet_tcp_wq nvmet_tcp_io_work
+>   Call Trace:
+>   nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:442 drivers/nvme/target/fabrics-cmd-auth.c:569)
+>   nvmet_tcp_try_recv_pdu (drivers/nvme/target/tcp.c:1119 drivers/nvme/target/tcp.c:1243)
+>   nvmet_tcp_io_work (drivers/nvme/target/tcp.c:1350 drivers/nvme/target/tcp.c:1382 drivers/nvme/target/tcp.c:1445)
+>   process_one_work (kernel/workqueue.c:3322)
+>   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+>   kthread (kernel/kthread.c:436)
+>   ret_from_fork (arch/x86/kernel/process.c:158)
+>   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>   The buggy address is located 16 bytes inside of
+>    allocated 33-byte region [ffff888000554e80, ffff888000554ea1)
+>   Kernel panic - not syncing: KASAN: panic_on_warn set ...
 
-POSIX advisory locks are completely broken by design.
-They just don't work for threaded processes at all.
-
-Thread 1	thread 2	thread 3
-open
-lock
-		open
-		close
-				open
-				lock - succeeds
-
-The same could easily happen if a single threaded process opens
-the same file multiple times.
-
-David
-
-> 
-> Thanks,
-> Florian
-> 
-> 
-
+Thanks, applied to nvme-7.3.
