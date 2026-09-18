@@ -1,62 +1,64 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862A551991F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1776519DF5
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750367; cv=none; b=AP2L7t95BC4sxhXuki4KdjHEp1I1wJPVoTEKC8NA5QHJ2ZZ5vFmZaYr//NDLHOkUdNWkrIkIaSpb2m2BYZXa0VXk+iMTKaURs0L+4AxMKESFNGNsm6YRTgw1xdNNHVreIwacRTH2TcuAET3Ym/qd2oxi4dmebnHZ6+nf3f310UM=
+	t=1789750367; cv=none; b=LCu1V97Hssiv5hAar4+pFE+ZuMAx2+4fKgSFjxjlfWvovd3ExvSyAkyG7QfwpGPra70XsNGDlt+UV6PJ6wTiA7euanKnu2r7PIYFZkg37nuF5vOEj+qI6K5VFepKQd3fFEuetr2B3qp9hIPAhqL2iNB02qdvRkEDwsH5rdVB7mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789750367; c=relaxed/simple;
-	bh=im7bHLtGYT9Yz0ql8qKBFhgsMiDZmM4stEa2+3CQjmg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=inWJrYdsbkxptzlQoA389LvXyTjtkKVpH3RX1SHvC1LvYgIaX3pbiMJYtPJx38+APKc2EcQkQOgjKE+gfhrea5ePYkSQUybMFzBxxPjsQHsDdJAHxk2ZYngZMAeTDCP0UCS4yRZ/ixjTLGkjrcZV7BiMHHqVn8wUHl8O0pz1HRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=K3bTltgi; arc=none smtp.client-ip=74.125.230.235
+	bh=ut9bu0ogvOe3LaZe7HaU4YRdS8uXZFfbEqCnduNcrb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t1jrR4acc8U+YQ4iatq9KdBW7JR6iYtiQpNnVoiOU2rzPu/Xt8d1Kc8Y1WV+y048M5P7pAtTrYwgz5PYPIgHHttT62NQuRIPFpjqKtARFxM7OtCh+nLmL62LEeXeU3e8p2LNB/OBqWct0YZG2I5J4WL2q6t57QxPzE3F/SIMozw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=E5JVYXGu; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="K3bTltgi"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cadeb0so80824785a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:52:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="E5JVYXGu"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadea2so76155185a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:52:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789750358; x=1790355158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UsHLj9guVGOwJ1+byqEfFywik/JH+zBDqG7OfDqa/L8=;
-        b=K3bTltgij+YGsuW8NBaMUplLapyFfvvlGqIe2hFCNzdFwnw0Dj2uMDuHJP5av5L7Mt
-         GgSqVNn1H3J3eFwjnNjqAbjvKH7XlekR/s51bFgHeYzmsY/3grrdZrfRYtybBhZuwA2I
-         lRf7zXLMIL5PbsN9OVcKeaGqHY6vGWf896uwEnPyYY2qdLZfdQkWzLHErbreweevaFQy
-         r1Y4etaFcrp8p1f9Fpb6PBDN8WFc+LtMgBB/cXhdLC9gaRyf+T+49IziLnZVwGwJVJ3l
-         PglLQjQy49HWbSBR8RvpQi6KiwnZFA3SCd6E1ds19hjz0FyLAPvQu6QTAv0eMC9uMrXV
-         8Jmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750358; x=1790355158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789750359; x=1790355159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UsHLj9guVGOwJ1+byqEfFywik/JH+zBDqG7OfDqa/L8=;
-        b=zwRbvHVaugggSsbJVC1hrdLaLGj0gY+Dh08hdhU8H625ZGuB+V2ONLwtlNFzGa3FBi
-         Npv8OJHgqZHOt/vJDGH5YDVT/wW1GJ9rROECqVlpwTLq7zUVFbCk0T1gj0QjHzS8wmSO
-         e1YOBhxFhp2vejOHd6KHYDAiu530qDyw1UzYEcHrzOwSI00jBH3H+R/eY0w5VKj+dIge
-         aBizXTrdYSALmPHj48pe8aJv8j5jy3VTgDD+oYPTUXIWgCGFeO+aKxd95Mem/zxCEjTI
-         g8fMmp3vXOSVh/MGm7CBwZocntw+Tf2IElbsFB3Yx180Zi2UffNCbdOnkxt/njB+WHs5
-         mlgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwR4J9IuApTwFKVRgnrWPK84MHxr2FL4BZLuCWT0b4yAbok7ZbhJ7b+p9xHy31ze6X3DF5GhRfK4jI0Sig=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRZcq3XgTslTUeDzN4NTcTVdPSr5M9wwqyGmzgpldaTzItD0Rk
-	RYLlD3yfQ0o+WYzw0tUAkOz1EdiwVZPI9XcMo4TCh96Eyg9OwIR6HKPQkLKnS2Qvqxk=
-X-Gm-Gg: AYBFou1fOKahb4qXEDmWawUBmSr4I8XU4E7REAhxvaijiNs9IYaqM+6vmNLwvnpJehi
-	q16sxRheQdlGtwGrCH9j4ATk9wCN2uRuu/Hi5b99xPqSrrdRshYl+ShKJqKFOmVQKPaNEfMTPsC
-	itggetUwc5He4UHDFhWbOAsqanNuYTjan1LNTAA8Bxsg54bRhsz5KbKCe+NMto/BnpRbszlMgx/
-	R5FXYraUxcqXgi6ahluE+Xmc2WwJHX1pTJwdSYdDeX9ZPMYoYHOeQfQnHSPqVN2U/BKgo4zi334
-	WPCbyQ8wbz6499giBWxyy2YFYutuo5CfPjzpSAIDbN6v8Ds2CCi5Wj6UWZtAE/TRgjikBv9iEFe
-	TetgEi/ZcpqVjQqTFUT2++7DXjHTEE3as0UsTU9eEYaQ+HSYlt6xKRrhyDi4g4YAlu0nGYC59Lv
-	XDT+6ljSFkqsfetG4Lf6ktByuICbak93TWrq+nDk3+8YG/Owa9Ic3ynvqvPUe2Qyq8lBIjGx3pl
-	Q0=
-X-Received: by 2002:a05:620a:a0da:20b0:93b:e412:8cee with SMTP id af79cd13be357-93be412aa37mr210118885a.73.1789750357966;
-        Fri, 18 Sep 2026 09:52:37 -0700 (PDT)
+        bh=oe9FkoIahCgEzPBuPDqtCAL2bGeR9kc9QC4Nw24cDKs=;
+        b=E5JVYXGu57Y/67BCAKxRz5yPwLfPxcgv6/MZt99eSldvuFl7BWxiWIO1RE4Y69QTK9
+         UajLCGadRl40RX3VDBkonBYkX1Em3iai0tdjS8rNdfyYc/lXfOmGWqlfL/M10Eq/SePg
+         y5L8zT7xvcKX1WcRIQRzukr/w3kx4nHxUNBmr2C9l/jF2D5dkPHGakBzVRPICV5jA9Wd
+         wM7s1h03hHoPUrcTuQiNnb6q5+uBqCR07Oexy15x/Osz/3e478tMvJwJDjc6CB0T00RQ
+         OkJcK1rjwlLDARKkNzi1/PYoGzdwg3TXYg42fVoPcZfZHl/7XAG2Nse/MIiSTXTbnCar
+         wB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789750359; x=1790355159;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oe9FkoIahCgEzPBuPDqtCAL2bGeR9kc9QC4Nw24cDKs=;
+        b=1PYZZt3K/7wZSAqmIeNSYWMRXy3COSe6nmKOqul1qFLBLYOR1zq3CbSSJjWEIY1HEK
+         HLo6FmjxCXsIM23B+BvbJpr+zN4ptcOlSXO+M8XMBJnBHGmSrIEMgSPLk/HI51lj877i
+         FvoQtksHziOtxrfZ1zrUljsVziN0LgP9HW1m4LGnxiuSBYnjSxEI31LhBNcnDwnLhPZq
+         TWgQnsxb2D5oFV/dS++15McprpRucDF1vXwi52Vj5a1bS1ijJhL4f/qrfpeP3T4w/sSY
+         yngvlz05xykQMu96OShRqXcHUdcpOhuezgQS/lJFV51ZtacbmztiaelSt6F4VB785aZA
+         CFxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXzxRQK2b+24Eyz0pHG5wxsZ8wqBpU4yDOvJUYbRoMXcem6+WdpSP9/60tLmaP9yx6w9LWSwOi/SS3FMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBf+kdtWfg5wu+YiiUeGyJ7dnI0yoe2gYaLdVd0AcRib6YkTTX
+	0PAD+SkbhwHlAnBjvWv+JoruShiH0qkq7tIGCtVDWCOPHd4/jM2jYIsbe6Bnv1J0y00=
+X-Gm-Gg: AYBFou3RljBRTMHXzzlfUFXUvgPsR8JI5HsXZ3Ln32HPhefVVjZXHfm6cEEhshIoq8G
+	nM4kF9J0YsK0U3Z03lMtdxh/S+Tgg0qamYrifofw+d8OuLbxpBh4kE/jHHgrmtdp8ODqczOOCD+
+	GJqYB/7KCA/uwfyssLtGlpC4zddd7Z7dJnwRZBUC+2s5WJBRGJ7Bwre5TALjTsjnVW3AB60jiIT
+	XnZopAnteFM7QfJetAxfSh9RkQJ5BSo6QP8jRNDj2NO528oWTH/qSq4y+NSPOSe3moytI6rFa46
+	MtRRJsTRe1ta0mZeg2FdsN67s4fVkrJTNyC56jsvtAGie6yhwhlHvVBHy3JH2r0m6Lsm5+QTQvO
+	1KhdG5ydMptYpgHC+0iDiWcyHx6rpi5VeckZKMcvJaubpzuHUzlv11EqK8DbDaxeD10eLhSP8gH
+	WTkJ3FV7WKcW1zbziVTrtEceyg4uNDi1VMTWQYyYDocpoyUzPxtcF7hBSIc9FxpVNGEeXMvvpDR
+	Kw=
+X-Received: by 2002:a05:620a:4103:b0:93b:d7a2:dd39 with SMTP id af79cd13be357-93bdca3fb9cmr469299485a.73.1789750359512;
+        Fri, 18 Sep 2026 09:52:39 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0f0762dsm183582785a.39.2026.09.18.09.52.36
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0f0762dsm183582785a.39.2026.09.18.09.52.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:52:37 -0700 (PDT)
+        Fri, 18 Sep 2026 09:52:39 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: sboyd@kernel.org,
 	bmasney+clk@redhat.com,
@@ -80,10 +82,12 @@ Cc: daniel@riscstar.com,
 	linux-arm-msm@vger.kernel.org,
 	linux-hardening@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/4] clk: introduce TC9564 clock and reset
-Date: Fri, 18 Sep 2026 11:52:29 -0500
-Message-ID: <20260918165234.687224-1-elder@riscstar.com>
+Subject: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+Date: Fri, 18 Sep 2026 11:52:30 -0500
+Message-ID: <20260918165234.687224-2-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918165234.687224-1-elder@riscstar.com>
+References: <20260918165234.687224-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,51 +96,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the clock and reset controller present
-within the TC9564 SoC.
+Define the binding for a system controller used in the Toshiba
+TC9564 SoC.
 
-This SoC attaches to a host system via PCIe.  It includes a PCIe
-switch with three downstream ports.  To one of these ports an
-embedded PCIe endpoint is attached, and it implements two PCI
-functions.  BAR 4 for both of these PCI functions provides access
-to the registers that enable or disable a number of clock signals,
-and assert or deassert a set of reset lines.
-
-The TC9564 PCI functions provide PCI endpoint buses via devicetree.
-This allows a PCI function to use devicetree to define subordinate
-devices accessible using one or more of the function's BARs.  The
-clock/reset driver binds with a device defined this way.  Only one
-of the two PCI functions is permitted to define the clock/reset
-device node.
-
-					-Alex
-
-Note: to work correctly, this series depends on this:
-  https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
-
-
-Alex Elder (4):
-  dt-bindings: mfd: introduce the TC9564 config syscon
-  dt-bindings: clock: introduce toshiba,tc9564-clock.yaml
-  clk: toshiba: introduce a TC9564 SoC clock and reset driver
-  arm64: dts: qcom: qcs6490-rb3gen2: add the clock controller
-
- .../bindings/clock/toshiba,tc9564-clock.yaml  |  64 +++
- .../bindings/mfd/toshiba,tc9564.yaml          |  56 +++
- MAINTAINERS                                   |   9 +
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  22 +-
- drivers/clk/Kconfig                           |  11 +
- drivers/clk/Makefile                          |   1 +
- drivers/clk/clk-tc9564.c                      | 366 ++++++++++++++++++
- include/dt-bindings/clock/toshiba,tc9564.h    |  54 +++
- 8 files changed, 582 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ .../bindings/mfd/toshiba,tc9564.yaml          | 56 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 57 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
- create mode 100644 drivers/clk/clk-tc9564.c
- create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
 
-
-base-commit: 79d34e34e9ab629be19e588ec2eb7e1855d6dc46
+diff --git a/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+new file mode 100644
+index 0000000000000..32e73a727c82a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/toshiba,tc9564.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Toshiba TC9564 System Controller
++
++maintainers:
++  - Alex Elder <elder@riscstar.com>
++  - Daniel Thompson <daniel@riscstar.com>
++
++description: |
++  The Toshiba TC9564 is an SoC accessed by a host system through the
++  upstream PCIe port on the PCIe switch it implements.  The switch includes
++  an embedded PCIe endpoint on one of its downstream ports that provides
++  access to various SoC peripherals (including a clock and reset controller)
++  via one of its BARs.  A system controller provides managed access to the
++  first two pages of this memory region to ensure accesses made by these
++  peripherals produce well-defined results.
++
++properties:
++  compatible:
++    items:
++      - const: toshiba,tc9564-config
++      - const: syscon
++      - const: simple-mfd
++
++  reg:
++    maxItems: 1
++
++  ranges: true
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    syscon@0 {
++        compatible = "toshiba,tc9564-config",
++                     "syscon",
++                     "simple-mfd";
++        reg = <0x0 0x2000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cf846853fdc79..b2d3257b8f892 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27674,6 +27674,7 @@ TOSHIBA TC9564 PCI DRIVER
+ M:	Alex Elder <elder@kernel.org>
+ M:	Daniel Thompson <danielt@kernel.org>
+ S:	Maintained
++F:	Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+ F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+ F:	drivers/misc/tc9564-pci.c
+ 
 -- 
 2.53.0
 
