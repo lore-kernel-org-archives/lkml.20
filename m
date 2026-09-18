@@ -1,154 +1,139 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D224EDCCF;
-	Fri, 18 Sep 2026 12:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A66D4EBAED;
+	Fri, 18 Sep 2026 12:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734346; cv=none; b=dZExvFIMG0THy8tVrUJY7HoHAuzVqxjbxi3tH4QMFGkASpDtQqEpMPABXn9piT4zCm+BpMmSH+jVZKfPNVDjxruwstRW89DHrhFegPwYcYR3d5SdeYw3JDIFm9QxduHK+5eIwOWsALaFkpTxGgxOj01mbIIZzo1NZfblLljT/ZA=
+	t=1789734359; cv=none; b=IXwK1sgmUtJNnQ7WytCMn4yLjBEH4jK8Z5eDCracWaa1O8XIz1CWJw81ICVIpwUHdOqpr+DffmVVUQ9Qvr8zs9peOBZLlJMoBQ6xEIkTY+vwT6UsO3Rf6XHGqi1uW9XL/ZPm1Fz8aQ9uKGWh+x/D6EmJdrmAuMhtmHzwIEEMjiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734346; c=relaxed/simple;
-	bh=pwoth8A68uKPG0mGoQjNPVpeIDll2HuWzMUx+qHpwkk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=BCV9LJTjUuMGOQPUPM6E0u+Qiuu+Cm22vaRIfulDfUVUv0gCDzVWHkviY6b4ER9V/IPV29w3hRZ5T+egs95xFs/A5AVwrE0vb0T6a34uesJZWk6HNGymz3sELwecglBnOxHheUS+rAaFGQ6uFWW9/lEIIsxSEEnZC+24mAzCAsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=e9Fyd26y; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789734359; c=relaxed/simple;
+	bh=bzLjVbV2XLshhPh87slsfNupz1y3zpt+smqxp/pTH6E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TsVwigd23g44az/p+7uCj0Z3AIH15bjO5E0vf7cs3hzPhk8aB1LBYUkR/JAsKRhKg/YZ6eNXMVDt2oVw6njwZtxL72vOQwdCJefgiRroMW7lraF8MMev2DzcByQlGs+gvMhKJ0imPW6DLm5VZ976xXKa3YjAUFfls/BGrblMmU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=J6Yr5t9j; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="e9Fyd26y"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06695A0350;
-	Fri, 18 Sep 2026 14:25:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789734335; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=QNYlyICHDiAtyzbtSm0WmmoGzJl3BdJ+V4spo9bThFU=;
-	b=e9Fyd26yQqmSW8ysRa3AoKtnYuq3pFrXjn7p/7K2qYMpUHkXi5USPm4YZVNPkSf8VLfe+w
-	YOd+n9cN3EKDLom5BLPVHdMt5AwlWd0eYhYe1lePleDHFisV0A1BVrwAdmrH/3JarZhdb3
-	hyyeia5Ds8EItRyit+65PTkgFDsKtKC+EchfhZIwPiAk+/DwX+L9/93/Gc+dkPnOvPjG5B
-	vpe8QW/udvQ0D2yk4ImyFMVxrdooiCSkI5BAFTNEeIoRuv3Tnuftf4OaaEUXVVnUouyOXD
-	A6V2YXpwAYdHoq8nQKPEEyyFqcPNO8x0MI2mJ3UpoLEm6r/92aP1d+MMvfXSGQ==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="J6Yr5t9j"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DEA2168F;
+	Fri, 18 Sep 2026 05:25:42 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C5F223F86F;
+	Fri, 18 Sep 2026 05:25:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789734346; bh=bzLjVbV2XLshhPh87slsfNupz1y3zpt+smqxp/pTH6E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=J6Yr5t9jOHufl2Hjx55B6CUtsmoGSJkiZNp3ty7YyOQ789q6L3J/hEyTjh9dj/T3s
+	 lVGkdOZmKzRKHURxizUKFUkeVaVfK4NHxPl+UXNlgRa99qTclq23pmBEtuOkXQpgjZ
+	 QkcEm7i1eGR3tTmvJygym8i+Vxa2Mt+KlUeGCixw=
+Message-ID: <937939c3-ae9a-4148-a601-0f8876216423@arm.com>
+Date: Fri, 18 Sep 2026 17:55:36 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 14:25:16 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
- <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
- <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
- Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
- <david.laight.linux@gmail.com>
-Subject: Re: [PATCH net v4 5/7] net: stmmac: dwmac4: Use the correct bufzise
- when the len is exactly 8K
-In-Reply-To: <20260917215339.2022523-6-maxime.chevallier@bootlin.com>
-References: <20260917215339.2022523-1-maxime.chevallier@bootlin.com>
- <20260917215339.2022523-6-maxime.chevallier@bootlin.com>
-Message-ID: <4b3c26c482ac1d26f39b53fea072e4d1@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 1/6] selftests/mm: make file helpers return errors
+To: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918112234.195857-1-sarthak.sharma@arm.com>
+ <20260918112234.195857-2-sarthak.sharma@arm.com>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20260918112234.195857-2-sarthak.sharma@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Maxime
 
-On 17.9.2026 23:53, Maxime Chevallier wrote:
-> DMA bufsize selection isn't made on the MTU but the actual frame 
-> length,
-> so including the L2 header. On DWMAC4, if the len is exactly 
-> BUF_SIZE_8KiB,
-> the next larger size is incorrectly selected.
+
+On 9/18/26 4:52 PM, Sarthak Sharma wrote:
+> Change read_file(), write_file(), read_num(), write_num() and
+> write_num_ignore_einval() in vm_util.c to report failures to callers
+> instead of exiting from the helper.
 > 
-> Lets fix the comparison and while at it, rename the parameter from len
-> to mtu.
-
-Isn't it "[...] from mtu to len"?
-
+> Make read_file() return a negative errno on failure and 0 on success, so
+> callers can distinguish a successful read from an I/O error. Also make
+> read_num() reject negative and malformed values.
 > 
-> Fixes: c3efed5ad1b0 ("net: stmmac: Enable dwmac4 jumbo frame more than 
-> 8KiB").
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Keep write_num_ignore_einval() silent for -EINVAL while returning other
+> errors to its caller.
+> 
+> Update callers to print diagnostics and fail wherever required. Modify
+> a comment which implies write_num() uses ksft_exit_fail_msg(). Also add
+> a helper print_file_access_error() in hugepage_settings.c to print
+> TAP-compatible errors without a kselftest dependency. This prepares the
+> helpers to be moved to tools/lib/mm without a kselftest dependency.
+> 
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 4 ++--
->  drivers/net/ethernet/stmicro/stmmac/hwif.h         | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/ring_mode.c    | 4 ++--
->  3 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c 
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> index 2994df41ec2c..c6a8f8d73501 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> @@ -474,11 +474,11 @@ static void dwmac4_set_sarc(struct dma_desc *p, 
-> u32 sarc_type)
->  					  sarc_type));
->  }
-> 
-> -static int set_16kib_bfsize(int mtu)
-> +static int set_16kib_bfsize(int len)
->  {
->  	int ret = 0;
-> 
-> -	if (unlikely(mtu >= BUF_SIZE_8KiB))
-> +	if (unlikely(len > BUF_SIZE_8KiB))
+Hi Andrew!
 
-Should we drop set_16kib_bfsize() instead?
+This fixes an MM selftest build failure in patch 1/6: read_num() changed
+its interface, but hugetlb_nr_resv_pages() was missed during the caller
+conversion. I'm sorry for missing this.
 
-After 6/7 it looks to me like the same test as the first branch of
-stmmac_set_bfsize(). The caller ends up there anyway when it returns 0
-and chain_mode_ops doesn't have it at all.
+Can you please apply this fixlet after this patch and before the next
+one? Sorry for the inconvenience again.
 
->  		ret = BUF_SIZE_16KiB;
->  	return ret;
->  }
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h 
-> b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index 04dafec021b4..de7aa6d28148 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -540,7 +540,7 @@ struct stmmac_mode_ops {
->  	bool (*is_jumbo_frm)(unsigned int len, bool enh_desc);
->  	int (*jumbo_frm)(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
->  			 int csum);
-> -	int (*set_16kib_bfsize)(int mtu);
-> +	int (*set_16kib_bfsize)(int len);
->  	void (*init_desc3)(struct dma_desc *p);
->  	void (*refill_desc3)(struct stmmac_rx_queue *rx_q, struct dma_desc 
-> *p);
->  	void (*clean_desc3)(struct stmmac_tx_queue *tx_q, struct dma_desc 
-> *p);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c 
-> b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-> index f7949419eb9f..d2f0c321661d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
-> @@ -124,10 +124,10 @@ static void clean_desc3(struct stmmac_tx_queue 
-> *tx_q, struct dma_desc *p)
->  		p->des3 = 0;
->  }
-> 
-> -static int set_16kib_bfsize(int mtu)
-> +static int set_16kib_bfsize(int len)
->  {
->  	int ret = 0;
-> -	if (unlikely(mtu > BUF_SIZE_8KiB))
-> +	if (unlikely(len > BUF_SIZE_8KiB))
->  		ret = BUF_SIZE_16KiB;
->  	return ret;
->  }
 
-regards
-Nicolai
+From f7cfae95a1d0554ea03df320d91641979a9ac473 Mon Sep 17 00:00:00 2001
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+Date: Fri, 18 Sep 2026 17:40:50 +0530
+Subject: [PATCH] fixup! selftests/mm: make file helpers return errors
+
+Convert hugetlb_nr_resv_pages(), which was missed when read_num()
+changed to return an error and store the parsed value through an output
+pointer.
+
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+---
+ tools/testing/selftests/mm/hugepage_settings.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/mm/hugepage_settings.c
+b/tools/testing/selftests/mm/hugepage_settings.c
+index 9a63420d0744..6f3abd357385 100644
+--- a/tools/testing/selftests/mm/hugepage_settings.c
++++ b/tools/testing/selftests/mm/hugepage_settings.c
+@@ -515,10 +515,18 @@ unsigned long hugetlb_free_pages(unsigned long size)
+ unsigned long hugetlb_nr_resv_pages(unsigned long size)
+ {
+ 	char path[PATH_MAX];
++	unsigned long nr;
++	int ret;
+
+ 	hugetlb_sysfs_path(path, sizeof(path), size, "resv_hugepages");
+
+-	return read_num(path);
++	ret = read_num(path, &nr);
++	if (ret) {
++		print_file_access_error(path, ret);
++		exit(EXIT_FAILURE);
++	}
++
++	return nr;
+ }
+
+ static bool __hugetlb_setup(unsigned long size, unsigned long nr)
+-- 
+2.53.0
