@@ -1,64 +1,64 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC93B51FCBF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F2851EE18
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755441; cv=none; b=mAUdTDS4zhaTW3x4OQu7GHz546x1xY2dMO1RjpwRopQvefUl2UQjj8SMyT7U7xmJg0b32O5GKUjxMFwflU8B52XDXJ3XXVSiyJdsn3s0t+wruVNvh6zS6v7D3RjeGHOz6ag7B4EaNfqPG9jKIkfwqKGCZMZkmJIVGPehqXCukyk=
+	t=1789755440; cv=none; b=ErNdppWEUDxHhk0TCTfEIAXcUSFxVjfDJV+vtz3trNAXg9a2ks4StusKDwMyfdh6HixZe4EEyiwvOhAp8Dt/w50DrqPRzYEUVgb0F/ebTy1a3Cxnna7bKoGP5dnhrZpVyiqqsUBacI+1DdlmPSHoh5dD6gsaxB5pISNHZ3feZnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755441; c=relaxed/simple;
-	bh=D0ry5I2UO5EoVVglgccRISGqcp8rRYeGB8BrHvdM5pE=;
+	s=arc-20240116; t=1789755440; c=relaxed/simple;
+	bh=N3TrYKj63SGboRNWu/OysoGDNr/HzP5uaLhsWM3pZ+A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k0D+3zOuCsWHc7bGmiwkX7bai3ZMPOOiR8XmVPnPweTOQ/fyFZR06guPakIW5H1+luqW8gNMbvI3tS1taMzLkPdp4pw6XDrFJ/XR5p4WrGJJpf0PxKrSWOOll2vqjeXNonCGtGIeGzKejUoaZao/BJV57Q7qMUxuHHq4KdosoS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=aIyTwY2N; arc=none smtp.client-ip=74.125.228.42
+	 MIME-Version; b=CoGmhoaWkXwKIZiDys/WjgvS1jrzWif7hvKY3Ah888jQZZU4ihcvncjIWYHOIhs1ReciYVgdeRIb38kpNz4y0gkTqBzEZUz5gvzi/gqbMXnNvwtY3F86Ix0qMFGKLpkJcKMRWYhtYiTxucLgjcRgfBc1tu4jOfy0uFd8K59w6sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=aOSEnO6s; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="aIyTwY2N"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so635970a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="aOSEnO6s"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso399835a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789755439; x=1790360239; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1789755438; x=1790360238; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Dih43qxI5dfgAB3392PAv6zbxSUobiO7FmfsRmituIk=;
-        b=aIyTwY2NHWsrV2FaRalS6mA+gBKXQ+FQPxtDBLhUokoMfvw7tTaouGjcqXp1yg8A2z
-         HO1lwntxzV7k7loB4DCBbvD+qTsQQmN+t6IFr13KIooC2ACoBK18Wq3Fp2eEkllmdnwh
-         jO0ARacSk9HS9iJTr3CfDwukuHNxpi6IPKCLsegq59yymtTQnOQ/GUtEOortsImyhxy0
-         8wcafcs76bf3/1Xw8Y2BM1vUe5CoNg7KtDUNFYXUBsHVyQNKCWxEQ8xWMOYff8no3NcT
-         LV/XZgB2DXjxuZ14GCwQ5y2X2RF5HKQ2CjBtvAtYX1ouXKPhzRsGG5ov68OKEXQQnbPG
-         3pOA==
+        bh=xpEVTaDIEqTTyPgj4k8QhiOl8bbLm2x6tGVGdtqRrPM=;
+        b=aOSEnO6soKUMY2vwaWIIPtM8IjcKwrYaRnhS+dNCTON5wjxlCq8zuURg/aYAsPBnso
+         nJJgd78sD9YSJnjXJ3kqJQgaoxZBMm1VqF2b5Mx7AA2zVdf9W4QH7KD/y63Yo8BkfQhx
+         tjL5Q/iW+sNuUlZ+lIxSfCsC0sMVQ92pYr7nqCigFZeHZIm+hE06Z9yozfHJ29mXdls/
+         DaN1xb0aQhhbvk5cpSORUkfi91ptsBK9yA81rh+ErYw4+V0XSYp72YSw3h29CSvbNF/U
+         yGeAZ7ZrDRR7NEdCcEJpGZJSN7SJguzBwGnNwaDDPqktALHfC4VeqUfcVbiXHhb46JGo
+         tP0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755439; x=1790360239;
+        d=1e100.net; s=20260707; t=1789755438; x=1790360238;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dih43qxI5dfgAB3392PAv6zbxSUobiO7FmfsRmituIk=;
-        b=UrhYpc+lwIylfxxC4MpIO4/g6t1ya1QFWDZQY6KPFRolNKvXAuxSCClqmP5CywVZNn
-         zvAhP/OsZyXe1zjkqeWSNukbGfA6MdXGsj1iN8LTOdhiCnem8ZoVL55RWVZTPqFBlCqN
-         A5vlg2nsO5dDHkl8PphalNZdgx7cAalqvXPtzB78Hc4tciNitv0xwTipvwyUWwy/NoMV
-         KaP6EsdL4WnpryrEMQ2EoHbYQpkQQwCTBwZAXfl/EeLFj3fwGHej9PsPlNU1SqKNmclA
-         tFJ0RZVWQjxKp6eQcGb65SA7tQ8pJagTKO6rmTduc9htyYWtgTdvLMvt46PYcZjJk9Rw
-         IPzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGdyvMWTv4uzP5c2xjl5CXgbrs+M6n8vKMxjXKiWx4ml+5EAbRVcvH7ZFCv2n+FIQQkCNHZyIt+b3vvvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqPEYwoovXA/SYFew2Vaoevrqd8Nb0j8Q5Kdr9vhzudQQA/2s+
-	dl32QAu5aHaRnBrV7Lkja8Org3GC4Do/DnR4d+LJA6wRiz3pdwE7APY8ARs/TdKw+/I=
-X-Gm-Gg: AYBFou3Qvc95h4U6vqb/Nl1hzJgMDLCjQJFb0a8eyp6cBCfMECajPqr0GTpcPBy5ey7
-	PePY0lO7WfQ75iF0mbt9qQnwUZqApUfZ4E+9Kf0Xq+UoNo6kuycda9ZgzVd43GovB4vy3kvdwR/
-	DCo/ahqRpdXEZMsdarVVjEryyAqfh98HhHRzqEt9c6KN7EP8aaKk9gyVAT0MG6cOYk19zGv5Exn
-	YgxPMxuN+ARldVmLcKJxr+ufyH/04dXplHTm9eZfW0yiWV9VYFHUB2+/DlaLrybD1Q6z7Hvjayd
-	hSRHbgfBbhs2XUt382SHnpzuRLWPxsNn4Fkiyl+K8Dsr6/EV/eXd15yInf2XcQCzTbnSK00SlVG
-	jyvStjLXjhzajYKM+eMM5RxKv3Yr23pjmuGmU3riEDy300+V509Hb03kVfE77KSgFtp6M5qQxwv
-	65qrho9407fLVaftyQjllom3jT70wYf3gdhVDtQmoznF+hKkeV+NSKwMh6WcrxxatNkqRLc2fTr
-	Twirp4AqnaGjciCRMcz8Bk=
-X-Received: by 2002:a17:90b:4a03:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-39e54d38c48mr11469185a91.8.1789755438885;
-        Fri, 18 Sep 2026 11:17:18 -0700 (PDT)
+        bh=xpEVTaDIEqTTyPgj4k8QhiOl8bbLm2x6tGVGdtqRrPM=;
+        b=jr0jttoCnXnY2+F2+o6bpTrwsV4DFxnNoNlqXvXW9BDkllJdKpNUEzDwtMR8f2N3un
+         +GH5aBeLYBpV7ByAPV5Jy6w4tKCeCE+v26bQQYsWk1GukKqeX0hVdKl7/CAJ697Zlof/
+         srDeLUMsTw5KJPLKYFkXprpCtg6pD9FjUkP8/jFxBREvcK0gkAFxH4FszBCJH7HmDxJ0
+         Alxk4+OjLu+qZ6hZQf+p4SCA1Rz4846rjGjh9vJePvzyzxpSLdGj391FPyN8V7ORz7NP
+         vvz06rce4AnSdzbPaymsKrYOyh8MdoA0JsQipMjPfG6fDFPPgqzYNQmeZ7+l1N6oOW3m
+         5zSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytR+Oik2YeGY/APv3V0DKmD1k1e/LuF4dsptftl8WF/7M3gZ9cWRyONADeC/0cLlNQ1Y9G8MRD9NRve9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8afVUNvmxQ/hvGKNq71lGBFqW7gfskhj9N5bsHccKqKD+AyTI
+	k5iTeeSAV8A6sOQUcZQwv0mU89AKUkjZRWuEcZeAhpqouO98PXB+tHKCmatzLGZQrpw=
+X-Gm-Gg: AYBFou1ZnXXNzNy1+TxMhZsrH4gYNeFKYSogTenocVODeK0F5NA203HQOBqJFHXG1vz
+	ACs45kjwcsiXdKj8ZWSzuyd5d3rqWrGqcH27zsmuEYsqnnLQKQpzNdVH4yfezi8G6RKdjBm+Ybs
+	CotR29MNAvNTbe79exWWBqJ4uf2Bta29/lUSBjN1sfRENVPEj9JagImqjLbpcrTsOqzSbnn2/XR
+	7XsS6bX4rxvfavSKAownjqqb26QSfGXKnWiW0YTeCv2Wm9TQ5S3Rr1F8Ya1a3st8YCaczZVVjK1
+	bNRUrtsfazhrY1/H72RZMhp8wZbwHw+77XlO8tMW/Wg7rWS9gwQ/BtnScWBVYlglO1/pXnJeUlR
+	E1korI3KU4uG+a0hsf1uGKMZfYcr/jT3bATD7OOKLLU4WT6lGu51uIDTxtvTC8gC8VwPTKsxTwj
+	18IErQIiiGwyhuDaSMUIEQhWse8iTROExVvvXjffyyb33OmU+xsqQ7YnGH6HQIsFWtl0k5DxaUL
+	Fq9oa1U82DOFb5jTbsOaBb/6ToGKjc+
+X-Received: by 2002:a17:90b:38c8:b0:39e:6a7f:6187 with SMTP id 98e67ed59e1d1-39e6a7f6404mr766298a91.24.1789755437763;
+        Fri, 18 Sep 2026 11:17:17 -0700 (PDT)
 Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.17
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:17:18 -0700 (PDT)
+        Fri, 18 Sep 2026 11:17:17 -0700 (PDT)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -74,9 +74,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Mohamed Khalfella <mkhalfella@purestorage.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 18/18] nvme: let controller deletion wait out a fencing window
-Date: Fri, 18 Sep 2026 11:14:18 -0700
-Message-ID: <20260918181614.3947933-19-mkhalfella@purestorage.com>
+Subject: [PATCH 17/18] nvme: Add support for CQT to nvme host
+Date: Fri, 18 Sep 2026 11:14:17 -0700
+Message-ID: <20260918181614.3947933-18-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918181614.3947933-1-mkhalfella@purestorage.com>
 References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
@@ -88,138 +88,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DELETING is not reachable from FENCING or FENCED, so during a fencing
-window nvme_delete_ctrl() fails with -EBUSY. Its callers assume
-deleting a live controller cannot fail: a sysfs disconnect is silently
-dropped after the delete_controller node is already gone, rdma device
-removal returns with the controller still holding resources on the
-outgoing device, and module unload leaks live controllers.
+TP4129 KATO Corrections and Clarifications defined CQT (Command Quiesce
+Time) which is used along with KATO (Keep Alive Timeout) to set an upper
+limit for attempting Cross-Controller Recovery. Add ctrl->cqt, read its
+value from controller identify response, expose it via sysfs, and have
+nvme_fence_timeout_ms() account for it.
 
-Fencing is time-bounded and always ends in a state that allows
-deletion. Add nvme_delete_ctrl_wait(), which waits on ctrl->state_wq
-for the fencing window to end and retries, and use it in the tcp/rdma
-module exit paths and rdma device removal. Make nvme_delete_ctrl_sync()
-wait the same way so a sysfs disconnect during fencing is delayed
-instead of dropped.
-
-nvme-fc's remoteport unregister with dev_loss_tmo == 0 keeps the
-non-waiting call since it runs under rport->lock; it does not need to
-wait, as dev_loss_end has already expired and the reconnect path
-deletes the controller once fencing completes.
+Use CQT to drive time-based recovery in fc, rdma, and tcp transports.
+Add a fenced_work delayed work to each transport controller. If CCR
+fails, fencing_work switches to error recovery immediately if CQT is not
+supported. Otherwise it schedules fenced_work after the remaining fence
+timeout, which also switches to error recovery when scheduled.
 
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 ---
- drivers/nvme/host/core.c | 41 ++++++++++++++++++++++++++++++++++++++--
- drivers/nvme/host/nvme.h |  1 +
- drivers/nvme/host/rdma.c |  4 ++--
- drivers/nvme/host/tcp.c  |  2 +-
- 4 files changed, 43 insertions(+), 5 deletions(-)
+ drivers/nvme/host/core.c  |  1 +
+ drivers/nvme/host/fc.c    | 33 +++++++++++++++++++++++++++++++--
+ drivers/nvme/host/nvme.h  |  5 +++--
+ drivers/nvme/host/rdma.c  | 32 ++++++++++++++++++++++++++++++--
+ drivers/nvme/host/sysfs.c |  2 ++
+ drivers/nvme/host/tcp.c   | 32 ++++++++++++++++++++++++++++++--
+ 6 files changed, 97 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index dc44e3af5f14..ca7f083702f5 100644
+index 5509b58b51db..dc44e3af5f14 100644
 --- a/drivers/nvme/host/core.c
 +++ b/drivers/nvme/host/core.c
-@@ -271,6 +271,38 @@ int nvme_delete_ctrl(struct nvme_ctrl *ctrl)
- }
- EXPORT_SYMBOL_GPL(nvme_delete_ctrl);
+@@ -3844,6 +3844,7 @@ static int nvme_init_identify(struct nvme_ctrl *ctrl)
+ 	ctrl->ciu = id->ciu;
+ 	ctrl->cirn = le64_to_cpu(id->cirn);
+ 	ctrl->ccrl = id->ccrl;
++	ctrl->cqt = le16_to_cpu(id->cqt);
  
-+static bool nvme_ctrl_fencing(struct nvme_ctrl *ctrl)
-+{
-+	enum nvme_ctrl_state state = nvme_ctrl_state(ctrl);
-+
-+	return state == NVME_CTRL_FENCING || state == NVME_CTRL_FENCED;
-+}
-+
-+static void nvme_wait_fencing_done(struct nvme_ctrl *ctrl)
-+{
-+	wait_event(ctrl->state_wq, !nvme_ctrl_fencing(ctrl));
-+}
-+
-+/*
-+ * Like nvme_delete_ctrl(), but waits for a fencing window to end
-+ * instead of failing with -EBUSY. May sleep; callers that cannot
-+ * sleep must use nvme_delete_ctrl() and handle the failure.
-+ */
-+int nvme_delete_ctrl_wait(struct nvme_ctrl *ctrl)
-+{
-+	int ret;
-+
-+	might_sleep();
-+
-+	for (;;) {
-+		ret = nvme_delete_ctrl(ctrl);
-+		if (!ret || !nvme_ctrl_fencing(ctrl))
-+			return ret;
-+		nvme_wait_fencing_done(ctrl);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(nvme_delete_ctrl_wait);
-+
- void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
- {
- 	/*
-@@ -278,8 +310,13 @@ void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
- 	 * since ->delete_ctrl can free the controller.
- 	 */
- 	nvme_get_ctrl(ctrl);
--	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_DELETING))
--		nvme_do_delete_ctrl(ctrl);
-+	while (!nvme_change_ctrl_state(ctrl, NVME_CTRL_DELETING)) {
-+		if (!nvme_ctrl_fencing(ctrl))
-+			goto out_put;
-+		nvme_wait_fencing_done(ctrl);
-+	}
-+	nvme_do_delete_ctrl(ctrl);
-+out_put:
- 	nvme_put_ctrl(ctrl);
+ 	ctrl->oacs = le16_to_cpu(id->oacs);
+ 	ctrl->oncs = le16_to_cpu(id->oncs);
+diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
+index a6e0fa2dc341..3db111accd0c 100644
+--- a/drivers/nvme/host/fc.c
++++ b/drivers/nvme/host/fc.c
+@@ -167,6 +167,7 @@ struct nvme_fc_ctrl {
+ 	struct blk_mq_tag_set	tag_set;
+ 
+ 	struct work_struct	fencing_work;
++	struct delayed_work	fenced_work;
+ 	struct work_struct	ioerr_work;
+ 	struct delayed_work	connect_work;
+ 
+@@ -1882,6 +1883,19 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
+ 	return ret;
  }
+ 
++static void nvme_fc_fenced_work(struct work_struct *work)
++{
++	struct nvme_fc_ctrl *fc_ctrl = container_of(to_delayed_work(work),
++					struct nvme_fc_ctrl, fenced_work);
++	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
++
++	dev_info(ctrl->device, "Time-based recovery finished\n");
++	nvme_fc_flush_held_requests(fc_ctrl);
++	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
++	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
++		queue_work(nvme_reset_wq, &fc_ctrl->ioerr_work);
++}
++
+ static void nvme_fc_fencing_work(struct work_struct *work)
+ {
+ 	struct nvme_fc_ctrl *fc_ctrl =
+@@ -1899,9 +1913,22 @@ static void nvme_fc_fencing_work(struct work_struct *work)
+ 		__nvme_fc_teardown_association(fc_ctrl);
+ 
+ 	rem = nvme_fence_ctrl(ctrl);
+-	if (rem)
+-		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
++	if (!rem)
++		goto done;
+ 
++	if (!ctrl->cqt) {
++		dev_info(ctrl->device,
++			 "CCR failed, CQT not supported, skip time-based recovery\n");
++		goto done;
++	}
++
++	dev_info(ctrl->device,
++		 "CCR failed, switch to time-based recovery, timeout = %ums\n",
++		 jiffies_to_msecs(rem));
++	queue_delayed_work(nvme_wq, &fc_ctrl->fenced_work, rem);
++	return;
++
++done:
+ 	nvme_fc_flush_held_requests(fc_ctrl);
+ 	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
+ 	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
+@@ -2541,6 +2568,7 @@ static void
+ nvme_fc_stop_ctrl(struct nvme_ctrl *nctrl)
+ {
+ 	flush_work(&to_fc_ctrl(nctrl)->fencing_work);
++	flush_delayed_work(&to_fc_ctrl(nctrl)->fenced_work);
+ }
+ 
+ /*
+@@ -3661,6 +3689,7 @@ nvme_fc_alloc_ctrl(struct device *dev, struct nvmf_ctrl_options *opts,
+ 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_fc_reset_ctrl_work);
+ 	INIT_DELAYED_WORK(&ctrl->connect_work, nvme_fc_connect_ctrl_work);
+ 	INIT_WORK(&ctrl->fencing_work, nvme_fc_fencing_work);
++	INIT_DELAYED_WORK(&ctrl->fenced_work, nvme_fc_fenced_work);
+ 	INIT_WORK(&ctrl->ioerr_work, nvme_fc_ctrl_ioerr_work);
+ 	spin_lock_init(&ctrl->lock);
  
 diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index bcecaaf06f7e..bf8c2bf91ad3 100644
+index 7096f1e4f84e..bcecaaf06f7e 100644
 --- a/drivers/nvme/host/nvme.h
 +++ b/drivers/nvme/host/nvme.h
-@@ -1026,6 +1026,7 @@ void nvme_stop_keep_alive(struct nvme_ctrl *ctrl);
- int nvme_reset_ctrl(struct nvme_ctrl *ctrl);
- int nvme_reset_ctrl_sync(struct nvme_ctrl *ctrl);
- int nvme_delete_ctrl(struct nvme_ctrl *ctrl);
-+int nvme_delete_ctrl_wait(struct nvme_ctrl *ctrl);
- void nvme_queue_scan(struct nvme_ctrl *ctrl);
- int nvme_get_log(struct nvme_ctrl *ctrl, u32 nsid, u8 log_page, u8 lsp, u8 csi,
- 		void *log, size_t size, u64 offset);
+@@ -401,6 +401,7 @@ struct nvme_ctrl {
+ 	u32 max_zone_append;
+ #endif
+ 	u16 crdt[3];
++	u16 cqt;
+ 	u16 oncs;
+ 	u8 dmrl;
+ 	u8 ciu;
+@@ -1360,8 +1361,8 @@ static inline bool nvme_multi_css(struct nvme_ctrl *ctrl)
+ static inline unsigned long nvme_fence_timeout_ms(struct nvme_ctrl *ctrl)
+ {
+ 	if (ctrl->ctratt & NVME_CTRL_ATTR_TBKAS)
+-		return 3 * ctrl->kato * 1000;
+-	return 2 * ctrl->kato * 1000;
++		return 3 * ctrl->kato * 1000 + ctrl->cqt;
++	return 2 * ctrl->kato * 1000 + ctrl->cqt;
+ }
+ 
+ #endif /* _NVME_H */
 diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
-index 8ff5aa312377..ce37e3eafeae 100644
+index 9c50421d79c4..8ff5aa312377 100644
 --- a/drivers/nvme/host/rdma.c
 +++ b/drivers/nvme/host/rdma.c
-@@ -2483,7 +2483,7 @@ static void nvme_rdma_remove_one(struct ib_device *ib_device, void *client_data)
- 	list_for_each_entry(ctrl, &nvme_rdma_ctrl_list, list) {
- 		if (ctrl->device->dev != ib_device)
- 			continue;
--		nvme_delete_ctrl(&ctrl->ctrl);
-+		nvme_delete_ctrl_wait(&ctrl->ctrl);
- 	}
- 	mutex_unlock(&nvme_rdma_ctrl_mutex);
+@@ -120,6 +120,7 @@ struct nvme_rdma_ctrl {
+ 	/* other member variables */
+ 	struct blk_mq_tag_set	tag_set;
+ 	struct work_struct	fencing_work;
++	struct delayed_work	fenced_work;
+ 	struct work_struct	err_work;
  
-@@ -2523,7 +2523,7 @@ static void __exit nvme_rdma_cleanup_module(void)
+ 	struct nvme_rdma_qe	async_event_sqe;
+@@ -994,6 +995,7 @@ static void nvme_rdma_stop_ctrl(struct nvme_ctrl *nctrl)
+ 	struct nvme_rdma_ctrl *ctrl = to_rdma_ctrl(nctrl);
  
- 	mutex_lock(&nvme_rdma_ctrl_mutex);
- 	list_for_each_entry(ctrl, &nvme_rdma_ctrl_list, list)
--		nvme_delete_ctrl(&ctrl->ctrl);
-+		nvme_delete_ctrl_wait(&ctrl->ctrl);
- 	mutex_unlock(&nvme_rdma_ctrl_mutex);
- 	flush_workqueue(nvme_delete_wq);
+ 	flush_work(&ctrl->fencing_work);
++	flush_delayed_work(&ctrl->fenced_work);
+ 	flush_work(&ctrl->err_work);
+ 	cancel_delayed_work_sync(&ctrl->reconnect_work);
  }
+@@ -1155,6 +1157,18 @@ static void nvme_rdma_reconnect_ctrl_work(struct work_struct *work)
+ 	nvme_rdma_reconnect_or_remove(ctrl, ret);
+ }
+ 
++static void nvme_rdma_fenced_work(struct work_struct *work)
++{
++	struct nvme_rdma_ctrl *rdma_ctrl = container_of(to_delayed_work(work),
++					   struct nvme_rdma_ctrl, fenced_work);
++	struct nvme_ctrl *ctrl = &rdma_ctrl->ctrl;
++
++	dev_info(ctrl->device, "Time-based recovery finished\n");
++	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
++	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
++		queue_work(nvme_reset_wq, &rdma_ctrl->err_work);
++}
++
+ static void nvme_rdma_fencing_work(struct work_struct *work)
+ {
+ 	struct nvme_rdma_ctrl *rdma_ctrl = container_of(work,
+@@ -1163,9 +1177,22 @@ static void nvme_rdma_fencing_work(struct work_struct *work)
+ 	unsigned long rem;
+ 
+ 	rem = nvme_fence_ctrl(ctrl);
+-	if (rem)
+-		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
++	if (!rem)
++		goto done;
++
++	if (!ctrl->cqt) {
++		dev_info(ctrl->device,
++			 "CCR failed, CQT not supported, skip time-based recovery\n");
++		goto done;
++	}
++
++	dev_info(ctrl->device,
++		 "CCR failed, switch to time-based recovery, timeout = %ums\n",
++		 jiffies_to_msecs(rem));
++	queue_delayed_work(nvme_wq, &rdma_ctrl->fenced_work, rem);
++	return;
+ 
++done:
+ 	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
+ 	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
+ 		queue_work(nvme_reset_wq, &rdma_ctrl->err_work);
+@@ -2354,6 +2381,7 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
+ 	INIT_DELAYED_WORK(&ctrl->reconnect_work,
+ 			nvme_rdma_reconnect_ctrl_work);
+ 	INIT_WORK(&ctrl->fencing_work, nvme_rdma_fencing_work);
++	INIT_DELAYED_WORK(&ctrl->fenced_work, nvme_rdma_fenced_work);
+ 	INIT_WORK(&ctrl->err_work, nvme_rdma_error_recovery_work);
+ 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_rdma_reset_ctrl_work);
+ 
+diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+index 3a12b07149d2..e8dad4722347 100644
+--- a/drivers/nvme/host/sysfs.c
++++ b/drivers/nvme/host/sysfs.c
+@@ -486,6 +486,7 @@ nvme_show_int_function(numa_node);
+ nvme_show_int_function(queue_count);
+ nvme_show_int_function(sqsize);
+ nvme_show_int_function(kato);
++nvme_show_int_function(cqt);
+ 
+ static ssize_t nvme_sysfs_ciu_show(struct device *dev,
+ 					  struct device_attribute *attr,
+@@ -966,6 +967,7 @@ static struct attribute *nvme_dev_attrs[] = {
+ 	&dev_attr_sqsize.attr,
+ 	&dev_attr_ciu.attr,
+ 	&dev_attr_cirn.attr,
++	&dev_attr_cqt.attr,
+ 	&dev_attr_hostnqn.attr,
+ 	&dev_attr_hostid.attr,
+ 	&dev_attr_ctrl_loss_tmo.attr,
 diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 7b1d9e2cb00d..9331a3e0bd9a 100644
+index febbe8954473..7b1d9e2cb00d 100644
 --- a/drivers/nvme/host/tcp.c
 +++ b/drivers/nvme/host/tcp.c
-@@ -3208,7 +3208,7 @@ static void __exit nvme_tcp_cleanup_module(void)
+@@ -168,6 +168,7 @@ struct nvme_tcp_ctrl {
+ 	struct nvme_ctrl	ctrl;
  
- 	mutex_lock(&nvme_tcp_ctrl_mutex);
- 	list_for_each_entry(ctrl, &nvme_tcp_ctrl_list, list)
--		nvme_delete_ctrl(&ctrl->ctrl);
-+		nvme_delete_ctrl_wait(&ctrl->ctrl);
- 	mutex_unlock(&nvme_tcp_ctrl_mutex);
- 	flush_workqueue(nvme_delete_wq);
+ 	struct work_struct	fencing_work;
++	struct delayed_work	fenced_work;
+ 	struct work_struct	err_work;
+ 	struct delayed_work	connect_work;
+ 	struct nvme_tcp_request async_req;
+@@ -2565,6 +2566,18 @@ static void nvme_tcp_reconnect_ctrl_work(struct work_struct *work)
+ 	nvme_tcp_reconnect_or_remove(ctrl, ret);
+ }
+ 
++static void nvme_tcp_fenced_work(struct work_struct *work)
++{
++	struct nvme_tcp_ctrl *tcp_ctrl = container_of(to_delayed_work(work),
++					 struct nvme_tcp_ctrl, fenced_work);
++	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
++
++	dev_info(ctrl->device, "Time-based recovery finished\n");
++	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
++	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
++		queue_work(nvme_reset_wq, &tcp_ctrl->err_work);
++}
++
+ static void nvme_tcp_fencing_work(struct work_struct *work)
+ {
+ 	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
+@@ -2573,9 +2586,22 @@ static void nvme_tcp_fencing_work(struct work_struct *work)
+ 	unsigned long rem;
+ 
+ 	rem = nvme_fence_ctrl(ctrl);
+-	if (rem)
+-		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
++	if (!rem)
++		goto done;
++
++	if (!ctrl->cqt) {
++		dev_info(ctrl->device,
++			 "CCR failed, CQT not supported, skip time-based recovery\n");
++		goto done;
++	}
+ 
++	dev_info(ctrl->device,
++		 "CCR failed, switch to time-based recovery, timeout = %ums\n",
++		 jiffies_to_msecs(rem));
++	queue_delayed_work(nvme_wq, &tcp_ctrl->fenced_work, rem);
++	return;
++
++done:
+ 	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
+ 	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
+ 		queue_work(nvme_reset_wq, &tcp_ctrl->err_work);
+@@ -2657,6 +2683,7 @@ static void nvme_reset_ctrl_work(struct work_struct *work)
+ static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
+ {
+ 	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
++	flush_delayed_work(&to_tcp_ctrl(ctrl)->fenced_work);
+ 	flush_work(&to_tcp_ctrl(ctrl)->err_work);
+ 	cancel_delayed_work_sync(&to_tcp_ctrl(ctrl)->connect_work);
+ }
+@@ -3023,6 +3050,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 	INIT_DELAYED_WORK(&ctrl->connect_work,
+ 			nvme_tcp_reconnect_ctrl_work);
+ 	INIT_WORK(&ctrl->fencing_work, nvme_tcp_fencing_work);
++	INIT_DELAYED_WORK(&ctrl->fenced_work, nvme_tcp_fenced_work);
+ 	INIT_WORK(&ctrl->err_work, nvme_tcp_error_recovery_work);
+ 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_reset_ctrl_work);
  
 -- 
 2.55.0
