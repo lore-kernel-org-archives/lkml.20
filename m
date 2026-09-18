@@ -1,119 +1,110 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CBC4F96B4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27FC2502543;
+	Fri, 18 Sep 2026 16:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789747340; cv=none; b=Y0S3xluQjFgLVs0cYOgUx7DP+flsTRTDvWX0qrq2B1R4e0SsYBwcUB2ZPQb1odj2D4GEM2QnYo9ppfn3sotU61dORZPl6luC1J/ZB13iudp8uTFLlmKpOVg2jB9F8G4XvAsMynWil8l8dNs1vj+acHeKDGrWk5stGSGeYak77sc=
+	t=1789747444; cv=none; b=KfXIFWiOIjNOHF4eFVyGk8TPjdBNLKHaZkFrMmi4K+l+wqgNFzFPme6Atsr+tflK6rFM7eZuC3/DPNuMhrPOuFeS1mFPb3zoCt+30AY4OA4T9ZYW3HSvfWhdS0o2UjEKKgy9/kOSEfr9S1JnY+Cg3OhPBCnCFO9eR2XXk6NAO6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789747340; c=relaxed/simple;
-	bh=dFhy4My3gTfz46T+pP1ejh2aEiiK+pEn+gpbRz8FajE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VaJKdlwHrv9XqgeonbC40gltg454mfQqNR7N5hW0I4tiUdtWhtLD/V6zYLuYgRLPKH4vhybqpeqgFYzNBhF/3KFRvq16ojMv3Mu8vhR0SI1TcziAjGO56kZOBpz16sGOX1eDhqrbH+csbmURpdu8enSfRdMscqI0MCZfGCEDK3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DUHU9klz; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789747444; c=relaxed/simple;
+	bh=3do1fHEhpJFdddOzJMwgsSk4W5z16/aVCPPb79+UaWw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P0X7u6WKmIpfya2u/7fim/wQG8EA4qaL2Mm28Dn9iPH99KajUYNn/yIWQzhTAg5rMrZYQT81CniF6FCO3qLiQcdX+8OlSF+F6h/8ow4ZDbnFmzWmN/emAxTtqWV1m+tsv7zE91OpNxKCbU0fZmh/z7d6+5tHb5MGwMSiqlSjINk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ursaNtXT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DUHU9klz"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5664545e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:02:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789747337; x=1790352137; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dFhy4My3gTfz46T+pP1ejh2aEiiK+pEn+gpbRz8FajE=;
-        b=DUHU9klzHWINy+WMe9czFJ1ecYRgil11QqBt1yqu1/x0RxDoq10xKqKUpRwJjdw4Be
-         AvWiI802dAY6BSjtgWj0+9OGjRx3avFPSHysNex2AwODac0is1eFYeOE4aiYL9RZ+X6Y
-         JI95UNzqkF+vw3p9sA6PTaT7HD8wR4LGnZBZkq1HkGAxd8U9RqoZ0lNW/sf2POZdbDV2
-         1TkXHF+LE05zecYKmP1IYhNVMjOioWfUXegRJzciqOtQNJ3wwDBmQu9V4ClaEbza4H2c
-         vihECAr+JkdJ7itKbh82cOQZjcVMc4kK5ZV6Bj7pfq4f7DDcnsW3OhTkHsXnFf5AfsbU
-         4wAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789747337; x=1790352137;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dFhy4My3gTfz46T+pP1ejh2aEiiK+pEn+gpbRz8FajE=;
-        b=s7SfVOCSLreh/UzHuZ/J9slQK9lcIZ64402QHslFqqL5LFrM5X9BqSGeQE5zYS1YNx
-         MC19x9yAnEJv5jNiXqn4X0P0AhA3H84SbzZqaky6oyfNQJv8l0WrQVx8bhBoNKQj82Wv
-         681cVICCXse+bEbbfS73Fa+PUTD7PLm9TlOUTYj3FPAfP7RYpytvnnu/tbhpiYvWcYaj
-         4BO3OUd/KnNSS5RicIVhnUtstxYxd6nx77CG+luPtbRd+9ka36X/fYCAibHitVpNuNH3
-         3TnV1+44MPBQgNJ2Uu+A5QbLsClJndZl7QfpkL/pTQj8NM7zrJOskPNA1ElldLGLKe/l
-         Dt/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzlqFBJufcDiDuQeW0ct1GRIWFV12C0zt4wziLs6J1W3LgnBIDn0R/HYNd+UpnHcOMX68o/pVaL1iEfo80=@vger.kernel.org
-X-Gm-Message-State: AFuF++mR264sbNYfIe6dFxkZ7g6zCq6Ingcf/EasjCdAvYg4BjwFlJMV
-	MxZAXOOgw/fHy1XXFK3D6sdjDx5pX0VsK/yQtG8cfBV4qskBpwh3Tz6gMmrDD3VAR5o=
-X-Gm-Gg: AYBFou144LsAHjx3/9S/5WbovXxE5mo8Ax5kNzfZH0TX4JgSRfQCBOw6GAWmVPTwbCE
-	e0p1DRGTucbB9qz3KrTi335oJ6+J5JA9WLeWukIki9r/FMZNTtqO86KibSe0YhJ+uO7kQ3wjpn2
-	HzCFbyTRE8D2JD0DcJU8QtJVSATP89fqyheaARvsDLBRQ5l0943FM2eGFbcHx+MwU+WyB1Qcpr7
-	a+FH5nvicRHrZf0K2Tb2haNxRwT20feN9+chaJna0HNDX/5YZ4UBqC0+11Dd/2hvH0zEp9e/EeC
-	ShM4IEM8t+2rNqUhHQoGiJIGMIDU5aTqrJdE5CwYnnqkqPeKSeNN0LIp2emrOhyp57xKjOADMN9
-	mqFs7f/BXevymVUvaJY+ZfJKTbI7RO7d/MkLe8Y+iHwFCL4q85q/SU5Pu5gfyMXflzBa+x4JN9D
-	IZxX/Nbxm3kNNLJSXwEv69Iw/PSHgSC9g9R0i55FP4Fqxc+tzonHMV6kJGDiRUkkRnUDefNJom/
-	DkM8nDsFipY6hIxaKpoBE0ep4mafrULhPavs5WBcSbuHe6BasLI3vQK/Q9ndw==
-X-Received: by 2002:a05:600c:6298:b0:49e:73e7:888c with SMTP id 5b1f17b1804b1-49fc5687acfmr41014655e9.4.1789747336842;
-        Fri, 18 Sep 2026 09:02:16 -0700 (PDT)
-Received: from localhost (p200300f65f19a90444c8989fe13f5be4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:44c8:989f:e13f:5be4])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fc59286b6sm53740535e9.4.2026.09.18.09.02.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:02:15 -0700 (PDT)
-Date: Fri, 18 Sep 2026 18:02:14 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Adam Azuddin <azuddinadam@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
-	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/tiny: Add RAiO RA8875 display controller driver
-Message-ID: <aq1f-jvrptlrgNO7@monoceros>
-References: <20260916175942.3186804-1-azuddinadam@gmail.com>
- <20260916180410.3188922-1-azuddinadam@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ursaNtXT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CFE92168F;
+	Fri, 18 Sep 2026 09:03:57 -0700 (PDT)
+Received: from [10.57.83.108] (unknown [10.57.83.108])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 610943F86C;
+	Fri, 18 Sep 2026 09:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789747441; bh=3do1fHEhpJFdddOzJMwgsSk4W5z16/aVCPPb79+UaWw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ursaNtXTCcqbQPlZcHlBtigESNoL8DsKRECG9Iqdkj3jgziA1On9agLeueKYJUzMZ
+	 VBJ8HQsbSdEVCjUBsfg35q+YGoQJpkq7G15flXI6Y15UjIywcb2nq3FBSi+KTOFB0D
+	 3OmrnfLX3muvFaMq+V/9S6YL7WX2+/DW0/+tjQys=
+Message-ID: <829523cd-85a4-4f8e-b9f2-f3c1d7ce4fb1@arm.com>
+Date: Fri, 18 Sep 2026 17:03:55 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wmm5bprmcbrsaq7g"
-Content-Disposition: inline
-In-Reply-To: <20260916180410.3188922-1-azuddinadam@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] arm64: use hw_pte_t for fixmap HW PTEs
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
+ <20260914-pte0_arm-v1-4-bb53b663e396@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260914-pte0_arm-v1-4-bb53b663e396@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
+> fixmap_pte() returns a pointer into bm_pte, and early_fixmap_init_pte()
+> installs those arrays as page tables. Their elements are therefore
+> HW PTEs.
+> 
+> Change the element type of bm_pte to hw_pte_t so it matches the HW PTE
+> pointers returned and passed to the accessors. This is needed before
+> ARCH_HAS_HW_PTE_T makes HW PTEs and SW PTE values distinct types; the
+> array dimensions and placement are unchanged.
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+>  arch/arm64/mm/fixmap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
+> index 237a9136bc73b..709a97fe327d8 100644
+> --- a/arch/arm64/mm/fixmap.c
+> +++ b/arch/arm64/mm/fixmap.c
+> @@ -31,7 +31,7 @@ static_assert(NR_BM_PMD_TABLES == 1);
+>  
+>  #define BM_PTE_TABLE_IDX(addr)	__BM_TABLE_IDX(addr, PMD_SHIFT)
+>  
+> -static pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
+> +static hw_pte_t bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
 
---wmm5bprmcbrsaq7g
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] drm/tiny: Add RAiO RA8875 display controller driver
-MIME-Version: 1.0
+I think in my original proposal it was impossible to have a hw_pte value; only a
+hw_pte pointer was possible. Being able to create hw_pte values means that it is
+possible that a hw_pte_t pointer is not actually pointing to an entry in a HW
+pgtable. The main motivation for this is that we want to dereference neighbours
+of a hw pte based on it's pointer and be confident that it is safe. I think this
+removes some of the safety.
 
-On Thu, Sep 17, 2026 at 02:04:10AM +0800, Adam Azuddin wrote:
-> +#include <linux/mod_devicetable.h>
+Clearly in this instance, bm_pte is still defined such that we have an aligned
+page worth of ptes, so its ok. I'm just concerned about the potential for
+changes that don't follow the rules (and don't get picked up by the compiler) in
+future.
 
-Please don't include <linux/mod_devicetable.h>. Both of_device_id and
-spi_device_id are provided by <linux/spi/spi.h> already without pulling
-in definitions for completely unrelated busses as dependency for your
-driver.
+I guess that's the trade off for having something that looks like a pointer
+instead of an opaque handle.
 
-Best regards
-Uwe
+Thanks,
+Ryan
 
---wmm5bprmcbrsaq7g
-Content-Type: application/pgp-signature; name="signature.asc"
+>  static pmd_t bm_pmd[PTRS_PER_PMD] __bss_pgtbl __maybe_unused;
+>  static pud_t bm_pud[PTRS_PER_PUD] __bss_pgtbl __maybe_unused;
+>  
+> 
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqtYIMACgkQj4D7WH0S
-/k6OKwgAo93p+YA+UUSlkto/NDiCvLUIcuiQ2j4Zy1SQo6yvwOwKtQhS0a9xRd70
-PJkLsOWZjvAvH9/VGKVv4rF+q4G/xoItjAtduwtvOjP2KYbO18leBThT6nYH+Jty
-dFY4f2Ojeh+KZ5S5RP1D1RNKDzDShLkMjyijFAAH1I8AT+ffQ+CWUSUKHuOQzj3V
-o0JibztPyaqUaMKdBJlGWrKBjs1H2fb8MzjqJMDyFoebhG1Y5TAToybnB1NaqS/I
-8oXtqsbZm4smXEbFtgSOGvjDxsnGIG9hsct26ZSFWIohO63PdRrRq1kmJ0YbyFbs
-vRBd3aUl/paAmNz3GgpU69S9MTyy3g==
-=yOZu
------END PGP SIGNATURE-----
-
---wmm5bprmcbrsaq7g--
