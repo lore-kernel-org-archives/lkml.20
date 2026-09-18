@@ -1,417 +1,456 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD1F4FDA68;
-	Fri, 18 Sep 2026 20:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD1B522699
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763590; cv=none; b=igLP4VUZGlh3d2rLf5NlW41HCtsC9TDRHxYbRjQAMzm9db8AqJjmauZipv39tI6wBzqt8aN15FixRWRsHa8nacGQTorl924ikcCe9oQaE4F/qJETdSWo3RVdyxI1jWdeYAyOTyEe80Ipp2UsapT/hMZND7T8rZcjJaT/G5DvPL8=
+	t=1789763619; cv=none; b=ca7qhXEhaolOB0pXam2l9cZtaHlZw1BxcuD078T1Nx9z0wHdHudH3/iVdDKx7x7ahp7tJ5gUn+IxEqmsuTB5dQyLiECARoyLIc3EmTMDav8HF1VjPIld34cW14vK/ay1UTrbVtK30PhsAPCjPN9bUGjhOgx7VUOuOePsLyrSb2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763590; c=relaxed/simple;
-	bh=Rnec9kno5YM6uc8Q7ljU6gUxJeh+FHwMKyko0Kl4dRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=D//idQ+aw8srDRzcF9l03bd6+fRjj+xwaB4f1BxvBQzTYwtf+zMuFZVf4z7c4S5Ho8gghDs71MvbhcgmXROSW8i1szGdwHhC5blaV26H2SbtF8xaYXldb09N1rAVLeO032x+V0MFXu+Z+XMOL/KMxeebk72MGkrWYyVJ2Cvrt9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F6+cgNtp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789763619; c=relaxed/simple;
+	bh=E3IP+cti3OScJ9UQpqnN/oX+XxvZL5cqfQvjmTuoNKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FllH6T1VIGspwdLM4WSARHYvPtRKHPvWu16W2baBRui3TExO0PaoEObOzRP9PtXggrmGzJofk1/HQPncfkjGO1kWSb5oZg6SrPYk5dhCrVmz/lKl882QUe3uAUP1hjxXmqJ0ksVNDwo0VyVBiWaOqMuzCIcFRGv908g+t4mLD/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YhtcGHBp; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F6+cgNtp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0B81F000FF;
-	Fri, 18 Sep 2026 20:33:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789763588;
-	bh=t63swa2vGWhSMVvriVniZSpmSRHDpgldIgevzPECtk0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=F6+cgNtpAs8cWclG8vebBy/tDEuG5j6L1uJ6WS/PuGce8mwRuhSBX713t9RIM5r6n
-	 igBpWAGnYuP+DzEp4mnkPwgCRd70Cc1CwHHFtcGneoxImOaAYDksjVdXDQ1QdQoo/R
-	 +b3j99RWqbUPGsyjPs63UPoODgsEakbvLPGQ3h6XAqucUapCH6yGTMlv/BF7qGodys
-	 RtUDMv9xMn2nX/nStscLCTq/rt2JZEPfaDjfU6GqT8wdjih6/mCy26sJmEZ4f9g503
-	 pmvDOMmKVQSdhVgYYDWQnE26JurBhOTHwCJIRHgzxECRuFjm16Yt+B+BzHxJ4/aE3t
-	 My7HMC2N3RmMQ==
-Date: Fri, 18 Sep 2026 15:33:07 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Pavel Shirshov <pshirshov@7mind.io>
-Cc: linux-pci@vger.kernel.org, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: PCI/ASPM: Intel Battlemage (Arc Pro B70) bricks at boot when
- `pcie_aspm.policy=powersupersave` enables ASPM_L1.1 on AMD root port link
-Message-ID: <20260918203307.GA1192845@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YhtcGHBp"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so8145545e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:33:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789763616; x=1790368416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DI1h+bo+XJYm1WE+Jgk1ei34ZXIhzktaevPvvHT2JHc=;
+        b=YhtcGHBpZbJS7YnqAOQKklbEQYkDKzSqBt9gn6O7WxXaK+NK+d2ahpbMJbrKNvZ8wu
+         i9aCSGobQVwxmPcf5I1iG2cAkwSjvBe32AuykhY1anyoSAKGckFR8YxPm+8eLAxqrIdp
+         L1xiFeC2PSUo3GduzGrrbt31hu8HxGgMRj19ks87dTt54YFQjJ+jobTUBlIFwzqtoAec
+         qD/d9PdgMMWK4J9IwXeaFuFG7tOcna+vMaV10yBaP3B9sbjztJ+HsxpuVvmeeZdp0dq6
+         cyz1CKyL+ctCCHFM3pumBQYq25lTHMR59qAkN1Nx5oaXnHxj0OiwrAiRjqgmwJ6qs8ot
+         JQkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789763616; x=1790368416;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DI1h+bo+XJYm1WE+Jgk1ei34ZXIhzktaevPvvHT2JHc=;
+        b=iKpBar7VnowEhHz1GbbTVla5eS8RX7MqXaGJMsj55gz3jiZEhxzM4D2/+SEwbZjVcV
+         Dz4fz7B10Rf9Ci7U7q2eO4NtSaYrAv2tVH2h5pVFQ5Je9HEXzZcmk5BkvxM0Gx4zE4XG
+         UkNI9WCQlHdQcgEm0AIxWs/6S+W51yaZYL/EWbZQNDpgILEq6i+wmvwbLn7JNCsc9qZC
+         lAXPtrWJ6hE9nIq4Lbeyf7PCxU/YIWGYZHLpAmV6XlkCRpqBOQkB+5EQnplvqQcXXgbw
+         h49WM61t8XxzblJHJhuPeEVlZ4GcFLzmEyzysYjuoO8p7M32d/XXtFL2DjAh74qhF1Oe
+         SdbA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjFxthtWsg8ieE91gnZv6TSqaSWiuoOhaBPAco9xs/bdGrKyqgMQlAcf8qr52Kqwcv0+QgPcZhp0vpThU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRMVwycRcvTVeHgN2TlC2uaVHKLidXPot4urDGJW1jFbits6Fc
+	3AVXhNQ3YqLItftIi0tQGcwImnOnm7XoIdeOAW+R2KyoP3EwCJd2Yccf
+X-Gm-Gg: AYBFou1pcvZJd34cAffDpJQY3ABoGwEcrw25fmdhoka/Ke8D59gbSgnxl88ogZYI1V+
+	IHB2lSxZdaKE8Y7oKsWW/JpNxqBMDj0BDgI3UCShvZAJzMw57G8So8DFLHecH6bjD+Bs9v7Ux6g
+	LkX/J2SHOV3PfuhQDJmpawNjdVC8TmN9Eu4khJZg2GfUv+8K+Zf+X1jGEsPBuFo/5puogpwMJvG
+	Al8Ts/551R07VTLgp2ekGvYtbOXpJNmcna3F7/w+Q9NP5RjbW0vWrlJl9TmpziAidhAl7fJFKXN
+	VFIGGMtLKUPu0gJIWiCyAX5/WB03l2enCuwdANza5ZToAPrtSiEZLG+xJvkCY1SYMzCsTfizUMB
+	YUwk33GjnC2MLH3BMN0GOloLlU2eGZBCSFLEtMNkKmAojAkVcAeKWzNEQNXf1ZoQkZwfcTOlfGf
+	wN+SLqYCUx9b4YB1YSIXetc9VNcg+vGhMf7GtJ/pVO3R87D/pHakdiu635KGtEGwacEkzRr5XUJ
+	4Cu45ilNNAlq6cI4OSYYm5UXdAXlyaTxJi9RLbPkim8MJg=
+X-Received: by 2002:a05:600c:4505:b0:49e:84bf:6121 with SMTP id 5b1f17b1804b1-49fc56dac58mr53431545e9.13.1789763615644;
+        Fri, 18 Sep 2026 13:33:35 -0700 (PDT)
+Received: from localhost.localdomain ([176.220.123.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0ece6esm27579435e9.2.2026.09.18.13.33.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 13:33:35 -0700 (PDT)
+From: Omer PALA <palaomer100@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v5] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Date: Fri, 18 Sep 2026 23:32:50 +0300
+Message-ID: <20260918203257.6034-1-palaomer100@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918194434.9240-1-palaomer100@gmail.com>
+References: <20260918194434.9240-1-palaomer100@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f0598ec-1f93-4817-b54d-c7433e03830e@app.fastmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, May 07, 2026 at 11:14:04PM +0100, Pavel Shirshov wrote:
-> The report and the patch below are completely claude'd but the quirk in the patch works.
-> 
-> PCI/ASPM: Intel Battlemage (Arc Pro B70) bricks at boot when
-> pcie_aspm.policy=powersupersave enables ASPM_L1.1 on AMD root port link
+Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+xilinx-xadc.txt file.
 
-I happened on this report that we never responded to.  I assume this
-is still a problem?
+Signed-off-by: Omer PALA <palaomer100@gmail.com>
+---
+ Changes in v5:
+  Fix validation bypass: xlnx,external-mux-channel could be set even
+  when xlnx,external-mux was omitted entirely, due to "not: properties:"
+  being vacuously true when the key is absent. Now uses required +
+  properties with if/else.
 
-It looks like it's not a regression, but should still be fixed.
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 -------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 190 ++++++++++++++++++
+ 2 files changed, 190 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 
-> ================================================================
-> SUMMARY
-> ================================================================
-> 
-> On Linux 7.0.3, an Intel Arc Pro B70 (Battlemage / BMG-G31, GPU PCI
-> ID 8086:e223) plugged into an AMD Ryzen 9 5950X system fails to wake
-> from D3cold during PCI core enumeration when the kernel is booted
-> with pcie_aspm.policy=powersupersave. The card is permanently
-> inaccessible until reboot with a different policy.
-> pcie_aspm.policy=powersave (L0s+L1, no substates) works correctly.
-> 
-> The failure surfaces in PCI core first; downstream xe driver bind
-> then fails with -EPROTO:
-> 
->     pcieport 0000:02:01.0: Unable to change power state from D3cold
->                            to D0, device inaccessible
->     pcieport 0000:02:02.0: Unable to change power state from D3cold
->                            to D0, device inaccessible
->     xe 0000:03:00.0: Unable to change power state from D3cold to D0,
->                      device inaccessible
->     xe 0000:03:00.0: [drm] Running in SR-IOV VF mode
->                      [misdetected: dead config space reads as 0xff]
->     xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to reset
->                      GuC state (-EPROTO)
->     xe 0000:03:00.0: probe with driver xe failed with error -71
-> 
-> After the brick, "lspci -vvv -s 03:00.0" reports
-> "!!! Unknown header type 7f" -- the canonical signature of a PCI
-> device whose config space reads return all-ones, i.e. the link to the
-> device is dead.
-> 
-> 
-> ================================================================
-> HARDWARE
-> ================================================================
-> 
-> CPU / root complex:
->     AMD Ryzen 9 5950X (Starship/Matisse). The root port hosting the
->     BMG card is 0000:00:01.1 -- "Advanced Micro Devices, Inc. [AMD]
->     Starship/Matisse GPP Bridge" (subsystem 1022:1453).
-> 
-> GPU:
->     Intel Arc Pro B70 -- 8086:e223 (BMG-G31, subsystem 8086:1701).
-> 
-> On-card topology -- the card has a two-layer on-board PCIe switch:
->     0000:01:00.0  Intel 8086:e2ff -- BMG card upstream switch port,
->                                      PCIe 5.0 x16 capable (currently
->                                      downgraded to Gen4 x16).
->     0000:02:01.0  Intel 8086:e2f0 -- BMG card downstream switch
->                                      port, PCIe Gen1 x1 internal.
->     0000:03:00.0  Intel 8086:e223 -- GPU endpoint, PCIe Gen1 x1
->                                      internal.
-> 
-> Other:
->     BIOS has PCIe ASPM enabled in firmware. pcie_aspm=force is NOT
->     set on the kernel command line. Motherboard: ASRock X570
->     (specifics in attached dmidecode.txt).
-> 
-> 
-> ================================================================
-> REPRODUCER
-> ================================================================
-> 
-> Boot any kernel >= 7.0 with kernel command line containing:
-> 
->     pcie_aspm.policy=powersupersave xe.force_probe=*
-> 
-> (Also reproduces under earlier 6.x kernels.)
-> 
-> Reverting the cmdline to "pcie_aspm.policy=powersave" and rebooting
-> restores the card. No firmware reset is required between attempts --
-> the brick is purely a runtime link-state failure during kernel boot.
-> 
-> 
-> ================================================================
-> ASPM NEGOTIATION
-> ================================================================
-> 
-> Captured with "lspci -vvv" on a working policy=powersave boot
-> (attached: 20260507-204348-powersave-7.0.3.tar.zst).
-> 
-> Link 1: 00:01.1 AMD root  <->  01:00.0 BMG upstream
->     Lower end (AMD root, L1SubCap):
->         PCI-PM_L1.2-  PCI-PM_L1.1+  ASPM_L1.2-  ASPM_L1.1+
->     Upper end (BMG upstream, L1SubCap):
->         PCI-PM_L1.2+  PCI-PM_L1.1+  ASPM_L1.2+  ASPM_L1.1+
->     Active L1SubCtl1 under policy=powersave:
->         PCI-PM_L1.2-  PCI-PM_L1.1-  ASPM_L1.2-  ASPM_L1.1-
-> 
-> Link 2: 01:00.0  <->  02:01.0   (card-internal switch)
->     No L1SS capability advertised on either end.
-> 
-> Link 3: 02:01.0  <->  03:00.0   (card-internal to GPU)
->     No L1SS capability advertised on either end.
-> 
-> Conclusion: only Link 1 -- the platform-facing AMD<->BMG link -- is
-> L1SS-capable on both ends, and the intersection is ASPM_L1.1 only
-> (the AMD GPP root port advertises L1.1 but not L1.2). With
-> policy=powersupersave, the kernel arms ASPM_L1.1 on this link. After
-> that, every D3cold->D0 transition fails.
-> 
-> Both ends advertise multi-retimer support (Retimer+ 2Retimers+ on
-> the AMD root port and on the BMG upstream port). Retimers + L1SS
-> have a history of wake-recovery problems on other platforms; this
-> may be the same class of issue.
-> 
-> 
-> ================================================================
-> TIMELINE -- failed boot, kernel 7.0.3
-> ================================================================
-> 
-> Excerpted from dmesg-relevant.txt in the powersupersave capture:
-> 
->     28.792s  pcieport 0000:00:01.1: PME: Signaling with IRQ 48
->                      [AMD root port for BMG]
->     28.842s  pcieport 0000:02:01.0: Unable to change power state from
->                      D3cold to D0, device inaccessible
->     28.843s  pcieport 0000:02:02.0: Unable to change power state from
->                      D3cold to D0, device inaccessible
->     ...
->     29.034s  xe 0000:03:00.0: Unable to change power state from
->                      D3cold to D0, device inaccessible
->     29.035s  xe 0000:03:00.0: [drm] Running in SR-IOV VF mode
->     29.035s  xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed
->                      to reset GuC state (-EPROTO)
->     29.035s  xe 0000:03:00.0: probe with driver xe failed with
->                      error -71
-> 
-> The PCI core's first wake attempt at 28.842s (the immediate parent
-> bridge of the BMG GPU) fails before any driver probe runs. This
-> confirms the failure is in the PCI/ASPM layer, not in xe; xe just
-> sees the resulting dead config space and misclassifies the PF as a
-> VF.
-> 
-> 
-> ================================================================
-> WORKING-POLICY LSPCI EXCERPTS  (relevant capabilities)
-> ================================================================
-> 
-> policy=powersave baseline, root port 00:01.1:
-> 
->     LnkCap:  Speed 16GT/s, Width x16, ASPM L1, Exit Latency L1 <64us
->     LnkCtl:  ASPM L1 Enabled
->     LnkSta:  Speed 16GT/s, Width x16
->     Capabilities: [370 v1] L1 PM Substates
->         L1SubCap:  PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1+
->                    L1_PM_Substates+
->         L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-
->         L1SubCtl2:
-> 
-> policy=powersave baseline, BMG upstream 01:00.0:
-> 
->     LnkCap:  Speed 32GT/s, Width x16, ASPM L1, Exit Latency L1 <32us
->     LnkCtl:  ASPM L1 Enabled
->     LnkSta:  Speed 16GT/s (downgraded), Width x16
->     Capabilities: [244 v1] L1 PM Substates
->         L1SubCap:  PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
->                    L1_PM_Substates+
->         L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-
->         L1SubCtl2: T_PwrOn=14us
-> 
-> 
-> ================================================================
-> PROPOSED FIX
-> ================================================================
-> 
-> Disable both L1SS substates on the BMG card's upstream switch port
-> (8086:e2ff) via a DECLARE_PCI_FIXUP_FINAL. Standard ASPM L1 still
-> applies, so the link still benefits from the deepest substate the
-> BMG silicon handles correctly. The quirk keys on the card upstream
-> port, which is shared across the BMG product family, so it covers
-> all current BMG SKUs without enumerating individual GPU-endpoint
-> IDs.
-> 
-> The patch is in the attached intel-bmg-disable-l1ss.patch. With the
-> patch applied, pcie_aspm.policy=powersupersave boots cleanly on this
-> hardware (verification in progress at time of report).
-> 
-> Empirical narrowing -- ASPM_L1.1 specifically is the trigger.
-> 
->   An intermediate version of the quirk passed only
->   PCIE_LINK_STATE_L1_1 | PCIE_LINK_STATE_L1_2 to
->   pci_disable_link_state(), leaving the PCI-PM substate bits armed.
->   After applying that variant, lspci reported
-> 
->       L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1+ ASPM_L1.2- ASPM_L1.1-
-> 
->   on the BMG upstream port -- i.e. only the two ASPM substate bits
->   were cleared, the PCI-PM substate bits stayed armed -- yet the
->   system booted, xe bound, and the GPU operated normally. Combined
->   with the AMD root port advertising only ASPM_L1.1+ (not L1.2),
->   this isolates ASPM_L1.1 as the specific bit whose activation
->   bricks the BMG card. The PCI-PM L1.x substates were also disabled
->   in the final patch for hygiene, but they are not load-bearing for
->   the fix on this hardware (the GPU does not enter D3hot during
->   normal operation, so PCI-PM substates are inert).
-> 
-> Remaining open questions for review:
-> 
->   1. Is the underlying defect in the AMD Starship root port (cannot
->      wake the link from ASPM_L1.1) or in the BMG e2ff upstream port
->      (cannot exit ASPM_L1.1 cleanly)? If the former, future BMG
->      cards on Intel platforms may not need this quirk; if the
->      latter, the quirk is correct for BMG everywhere. We do not
->      have a non-AMD reproducer to disambiguate.
-> 
->   2. Should the quirk also apply to the AMD Starship/Matisse GPP
->      Bridge itself (1022:1483 / 1022:1484-class IDs, see
->      lspci-nn.txt)? That would be a broader brushstroke but might
->      protect other devices presenting the same negotiation.
-> 
-> 
-> ================================================================
-> WORKAROUND IN USE
-> ================================================================
-> 
-> Until the quirk lands upstream, downstream users on this hardware
-> must boot with pcie_aspm.policy=powersave (or default), losing
-> ~25 W of idle savings that the deeper substates would otherwise
-> provide.
-> 
-> 
-> ================================================================
-> ATTACHMENTS
-> ================================================================
-> 
-> Tarballs produced by debug/20260507-aspm-capture.sh:
-> 
->     20260507-204348-powersave-7.0.3.tar.zst
->         -- working baseline
-> 
->     20260507-205055-powersupersave-7.0.3.tar.zst
->         -- failed reproduction
-> 
-> Each tarball contains:
-> 
->     manifest.txt           kernel, policy, hostname, GPU BDFs
->     cmdline.txt            kernel command line
->     uname.txt              kernel version
->     nixos.txt              userspace metadata
->     dmidecode.txt          BIOS/board info
->     lspci-tree.txt         PCI topology
->     lspci-nn.txt           PCI device list
->     lspci-vvv-all.txt      full system lspci -vvv
-> 
->     gpu-03_00_0/           per-device captures for the GPU and
->                            every PCI ancestor up to the root
->                            complex:
->         lspci-vvv.txt          GPU
->         parent-0-02_01_0.txt   BMG card-internal downstream switch
->         parent-1-01_00_0.txt   BMG card upstream port (e2ff)
->         parent-2-00_01_1.txt   AMD root port
->         sysfs.txt              selected sysfs attributes
-> 
->     dmesg-full.txt                full kernel ring buffer
->     dmesg-relevant.txt            filtered for PCI/xe/ASPM/L1
->     journal-kernel-current-boot.txt
->     journal-kernel-prev-boot.txt
->     drivers.txt                   xe / i915 driver state,
->                                   /sys/class/drm
-> 
-> Patch: intel-bmg-disable-l1ss.patch  (attached separately)
-> 
-> NixOS 26.05 (nixpkgsRevision:
->     549bd84d6279f9852cae6225e372cc67fb91a4c1)
-> 
-> Kernel:
->     7.0.3 #1-NixOS SMP PREEMPT_DYNAMIC Thu Apr 30 09:13:05 UTC 2026
-
-
-
-> PCI/ASPM: disable L1.1/L1.2 substates for Intel Battlemage discrete GPU upstream port
-> 
-> Intel Battlemage (BMG-G21 / BMG-G31, e.g. Arc Pro B70) discrete GPU cards
-> expose a two-layer on-card PCIe switch:
-> 
->     AMD/Intel root port  <->  8086:e2ff (BMG card upstream)
->                               8086:e2f0 (BMG card downstream)
->                               8086:e22x (BMG GPU endpoint, e.g. e223 = Arc Pro B70)
-> 
-> The platform-facing link (root port <-> 8086:e2ff) is the only link in the
-> chain that advertises L1 PM Substates support on both ends. On AMD
-> Starship/Matisse (Ryzen 5xxx) root ports, the intersection is ASPM_L1.1
-> only (the AMD port advertises L1.1 but not L1.2). When pcie_aspm.policy=
-> powersupersave arms ASPM_L1.1 on this link, the BMG card cannot recover
-> from the resulting low-power state on subsequent D3cold->D0 transition,
-> leaving the device permanently inaccessible:
-> 
->     pcieport 0000:02:01.0: Unable to change power state from D3cold to D0, device inaccessible
->     xe 0000:03:00.0: Unable to change power state from D3cold to D0, device inaccessible
->     xe 0000:03:00.0: [drm] Running in SR-IOV VF mode    [misdetected: dead config space]
->     xe 0000:03:00.0: [drm] *ERROR* VF: Tile0: GT0: Failed to reset GuC state (-EPROTO)
->     xe 0000:03:00.0: probe with driver xe failed with error -71
-> 
-> Reproduces deterministically on Linux 7.0.3 with an Arc Pro B70 in an
-> AMD Ryzen 9 5950X system. pcie_aspm.policy=powersave (L0s+L1 only, no
-> substates) works correctly; pcie_aspm.policy=powersupersave bricks the
-> card on every boot. The 6.x-era blanket `no_d3cold` quirk for Battlemage
-> was narrowed to ASUS NUC13 only in 7.0, but that change is orthogonal:
-> the failure here is link-state, not device-state, and surfaces
-> regardless of d3cold_allowed.
-> 
-> Disable all four L1SS substates (ASPM_L1.1, ASPM_L1.2, PCI-PM_L1.1,
-> PCI-PM_L1.2) on the BMG card's upstream port via a final PCI fixup.
-> Standard ASPM L1 still applies, so the link still benefits from the
-> deepest substate the BMG silicon actually handles correctly. The
-> quirk is keyed on the upstream-port device ID 0xe2ff so it covers
-> all current Battlemage SKUs (the GPU-endpoint ID varies by SKU, but
-> the upstream switch is shared).
-> 
-> Empirical narrowing (verified post-fix): with a partial mask that
-> disabled only ASPM_L1.{1,2} but left PCI-PM_L1.{1,2} armed, the
-> system boots and operates correctly. This isolates ASPM_L1.1 as the
-> specific trigger of the brick (the AMD root port advertises ASPM_L1.1
-> but not ASPM_L1.2, so ASPM_L1.2 cannot have been activated). The
-> PCI-PM substates only activate during D3hot transitions which the
-> GPU does not undergo during normal use; they are disabled here for
-> hygiene rather than necessity.
-> 
-> Reported-by: Pavel Shirshov <pavel@7mind.io>
-> Signed-off-by: <FILL IN BEFORE SUBMITTING UPSTREAM>
-> 
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6289,6 +6289,34 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56b0, aspm_l1_acceptable_latency
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56b1, aspm_l1_acceptable_latency);
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56c0, aspm_l1_acceptable_latency);
->  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x56c1, aspm_l1_acceptable_latency);
-> +
-> +/*
-> + * Intel Battlemage discrete GPU cards (BMG-G21 / BMG-G31; Arc B580,
-> + * Arc Pro B50/B60/B70) expose a two-layer on-card PCIe switch. The
-> + * platform-facing link, between the host root port and the card's
-> + * upstream switch port (PCI device ID 0xe2ff), is the only link in the
-> + * chain advertising L1 PM Substates on both ends. On at least AMD
-> + * Starship/Matisse root ports, where the intersection is ASPM_L1.1
-> + * only, arming L1.1 leaves the BMG card unable to wake from D3cold:
-> + *
-> + *   pcieport 0000:02:01.0: Unable to change power state from D3cold
-> + *                          to D0, device inaccessible
-> + *   xe 0000:03:00.0: probe with driver xe failed with error -71
-> + *
-> + * Reproduces deterministically with pcie_aspm.policy=powersupersave,
-> + * works correctly with policy=powersave (no substates). Disable L1SS
-> + * substates on the BMG card upstream port; standard L1 ASPM is
-> + * unaffected.
-> + */
-> +static void quirk_intel_bmg_no_l1ss(struct pci_dev *dev)
-> +{
-> +	pci_disable_link_state(dev, PCIE_LINK_STATE_L1_2 |
-> +				    PCIE_LINK_STATE_L1_1 |
-> +				    PCIE_LINK_STATE_L1_2_PCIPM |
-> +				    PCIE_LINK_STATE_L1_1_PCIPM);
-> +	pci_info(dev, "intel-bmg-aspm-quirk: L1.1/L1.2 substates disabled on BMG upstream port\n");
-> +}
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0xe2ff, quirk_intel_bmg_no_l1ss);
->  #endif
-> 
->  #ifdef CONFIG_PCIE_DPC
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078..000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+new file mode 100644
+index 000000000..07abe755b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+@@ -0,0 +1,190 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx XADC device driver
++
++maintainers:
++  - Omer PALA <palaomer100@gmail.com>
++
++description: |
++  This binding document describes the bindings for the Xilinx 7 Series XADC as well
++  as the UltraScale/UltraScale+ System Monitor.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    description: Address and length of the register set for the device
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  xlnx,external-mux:
++    description: Selects the external mux mode.
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description: >
++      Configures which pair of pins is used to sample data in
++      external mux mode.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,channels:
++    type: object
++    description: List of external channels that are connected to the ADC.
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    required:
++      - "#address-cells"
++      - "#size-cells"
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        properties:
++          reg:
++            description: Pair of pins the channel is connected to
++            items:
++              - minimum: 0
++                maximum: 16
++          xlnx,bipolar:
++            description: If set the channel is used in bipolar mode.
++            $ref: /schemas/types.yaml#/definitions/flag
++        required:
++          - reg
++        additionalProperties: false
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++allOf:
++  - if:
++      required:
++        - xlnx,external-mux
++      properties:
++        xlnx,external-mux:
++          enum: [single, dual]
++    else:
++      properties:
++        xlnx,external-mux-channel: false
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: single
++      required:
++        - xlnx,external-mux
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 0
++          maximum: 16
++      required:
++        - xlnx,external-mux-channel
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: dual
++      required:
++        - xlnx,external-mux
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 1
++          maximum: 8
++      required:
++        - xlnx,external-mux-channel
++
++examples:
++  - |
++    soc {
++      #address-cells = <1>;
++      #size-cells = <1>;
++
++      xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          channel@0 {
++            reg = <0>;
++          };
++          channel@1 {
++            reg = <1>;
++          };
++          channel@8 {
++            reg = <8>;
++          };
++        };
++      };
++      xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++      adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++    };
+-- 
+2.55.0
 
