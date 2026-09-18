@@ -1,94 +1,79 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC6548AE24
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC925208A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789757403; cv=none; b=ISsi49EMpH4t0lu2/mwLr5Rv7v0L49yi6tDgANgihsYs4X0aU+o9VxZpUMKESPKIOxmTgxASiSFj+Hf9+v1mDwG4qyj7Ybq25ia9nc1AoPjQkaF6IvILMgprGzygJgFFU2Fgo7izHNsEltNVQvGg1XdIL03BGjR6OKGHmGX2SBg=
+	t=1789757432; cv=none; b=jB/ius3iDYRfnUdegwCd8hn/M8CwbOElQk16OuVx+W+NTl0H74WPu9VUf0xG2ydyyfaMpRTI9ch1kLu9fKG9Gh3LmEDv8v2GduIJj/5o763GzXiXP7EaGogdE2zio2zlxylycx5zz8/CwlBpW17xGHy52i26bFhXQtY3kAvu4Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789757403; c=relaxed/simple;
-	bh=9oC39/JappGs0sqzr06Vb/T9nRG9qxulTyMwkYPuvjE=;
+	s=arc-20240116; t=1789757432; c=relaxed/simple;
+	bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KVnV7ecIvnEFEsgPW4nHDnA2BPd4kK4nfKRCymFGgA7BUF6QlhOp1HwsBHSFucwdfkBP13Y4FInoFmigs3K86OswrXjjX8ivsC9vTzUZDiNhYHy7IJr1YFuImQY/00w002PEbv/yJ0bj3F+cSxAIkptp0ZmacYAEc1dBZ0jSR8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pR6TXwrp; arc=none smtp.client-ip=74.125.231.204
+	 MIME-Version:Content-Type; b=nqT7lO/OcDK7aiRapIFUMZ/nliRKde37rhIl/eo/2t28EVEyxcP0cuw5YBzY3wKFmArkNKsulZ6IYrykm61SYAePEsrtRhlDMRskwq00Y9Pc7/2wWCvOPT+SgfAscH3wf3rnqcWAAsyst4+pJgiBsJw0ejjX53oWvfGCT8hW+TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtiS9ilW; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pR6TXwrp"
-Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a2ffee6so468737b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:49:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtiS9ilW"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so939366a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:50:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789757390; x=1790362190; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789757407; x=1790362207; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/Ph6ZaVxaO7CXgv08gaPlk+fBtFgV6Zs+sxg/G7AO88=;
-        b=pR6TXwrpMEITHw2br1BoaGrggsW7bp1HhgIFVbGpV1QTAcv4U+YsMI1N7ixc0z+hJb
-         ElQGHys3Gn8tXBrOXLBfNLXmaCLRZYpE4KdFuOOhyYqt9NFLm+3PrBq7MIePSjrPYmVk
-         hGeIT2CZL1Sru91/5dQHdJ2LWfSo08eKWWLyUBJQzpcvfsreXK1S7UO7vdEHbTnLp+jb
-         3ugysWsEf61cAExDw4/gmoaClvYMNtcqyFmTBFhVzzn8zKe2Smsau5ZsqYt5tD9Vaywr
-         3Ho8ozYTiLY9most3r4hMEN23idPpARFlwn8T4VLlOvSoUizBe5pmuuk2rq9WZdVN4fY
-         vRwQ==
+        bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
+        b=YtiS9ilWLBcMyWlv5Y2aFpH6jdxYPkOFOIGSCCxkUUdRY5aHDTyvSWq3MDlDVKkGuM
+         ma5QeEm071R26vJqv8UfBF3VXVPkcbEnX2ZuvPt6nKHYOq4KBc/nKI8YpPsrVk3JZrG0
+         +xcf7wndiGu/i13imu/C/UzEf6fy/oo4hQs6g/ZNZEcpGQPjtax+P4117eEjROAto3os
+         OhReYfUNZXLvAKnRAb1olp4LA6F9joIk8GLXYIlElfvC5WLjzoozoBibhNOI9cnrUTVu
+         EsGILpIlEM/8KJ/K8dQITUbaK+vaKpfvq4VcvF0WlapRF9fRyp7RkADNY6iaANBB1pep
+         3Vtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789757390; x=1790362190;
+        d=1e100.net; s=20260707; t=1789757407; x=1790362207;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/Ph6ZaVxaO7CXgv08gaPlk+fBtFgV6Zs+sxg/G7AO88=;
-        b=SP33it938aLDgxKgxXnWl+nvRMkFRt4usmZHSnJtqsuiooY3DCWy20XBSsRF6DcTj3
-         Ycgub7f6b3x0q+VjKppM37FG8Yjxy9cpyHdMnVadOpFWTQZMeht8iBq4wqSRfkgAta9t
-         Ae9D7w9xrykURp6Jrn8Wv/yaNATQQJXZZXfPcPEAgg/HzLpw+HBcRLqq87addBAOII4h
-         zjCWV38Rac+QtXCtQ0mmC6xUhPnpDLleBcU9Gfej//1VOBeF0U2HKkhH0kiT2mFbrfxH
-         /w15uuFKHkhzSMR4n0pKlBDKI1CN3U0vRWwCSDwsPwcrbs4cJHhGuc0k/fiHj4bZz4mN
-         ugOA==
-X-Forwarded-Encrypted: i=1; AKwUvBz5OLGSq0rv6T9QkchBdxfhiassUgYDWZ6UAWCoqzGpcB6kRh2VwEDTMyRRbCYsLSGV9/vAV1qQkGXKGcc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkYkGI8UYzEDYnbkJqQUn4KiHTAQ+8VaIrI0nYim+MMjQ5Uzg/
-	Hk2I/xWBy8tcaD11nU3FILo214RNvP+gvdlHvBnGsejyY8G+XJNRiV+M
-X-Gm-Gg: AYBFou0CNEFNkyc850t3URZAXDpKBqW4MwNYK2tw+OlwqOE2xxRhl3+501iGtG21w/P
-	xOUSkE+Ch0TndWJO4EzJvBohEy8ZcxEiZHWSnbMK1p3/gZku2JpgO6m3ZiHpcXZWn0MSG8ginQt
-	oVN9/m2F6potK/HTFXzSeMvebPn+BWY6xDfG5oV/Jwjffc7gw9M265Z62KfsHcYSijGdKhKww22
-	EiYmT/h+43JVBUiZz4TtzG2XW+xFUiQSTllNwTxmW/ekf8r9XjQxpDTVjwoWtLfAmMbIPO1eYXc
-	wXrtFhCu4/er+GQUi/3XdwesQt69DY3Wu3Wets+zpt0ZUmctPb+9Pi2VX5WlffE9jbrQCFVTq05
-	sK9furfvOpHujo+Ty3IncWOO4y0DTlTInSzz1GhKt2b9IOfaMKD6dUr4a++h+hG4AV8LU/MydqD
-	wy4Hbo9L0RbENkB3de/eaCfaZFQxCi+hSMnH38cWGSoIiI+r2ozzVk7/JmyLmNda9nx1F+8q+e8
-	UpoOZVAzwpdJ74m/Z4EocGnesmsbg==
-X-Received: by 2002:a05:6808:13cd:b0:4c1:83fb:8c7b with SMTP id 5614622812f47-4ccf6f9803amr3772164b6e.12.1789757390210;
-        Fri, 18 Sep 2026 11:49:50 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:17::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cf3f77781csm69823b6e.18.2026.09.18.11.49.48
+        bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
+        b=2hRa9cAr/3z+9H3DLlLn0qNsVHWEkJMp9KL6Gs0NnWlMN/oEYpfBY66Ztd09ipCBw/
+         g/uTdZYSGy63xiumegRIGZmYFNf6h5pKyI44rqZ8hllytkVC49GZssqWYlKu/gSnp+Kf
+         2DNZtXF/w0BpIGtZALKVJbo/KU8dNrl5IUJD3E99RjT+CoLZxGYzxfUmszTPyWSjpyG5
+         4X1B7yFY4Z53TH5i0LM/BPrZ6VIQX/y3Uq1ebEfF+foGN1kILaCVbtvNxTB6qq9vkYn6
+         MsaJfadjRehjCQYBXjrKI50CzF78hfYZBv5fcRTqaS8XXo46wdlLS0wqJj80y7rPHYUE
+         BoXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOEiOQX6HFE+mfrsW63et3n/pDH8Zq1nO919DLox+nN1GBAJMyJ3uaGi4lok0sBdkPTDsvcF04aqDUXqs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAp2U1eA+pY9EYdA4RvtCP5R0yDx0USA5ME0LbFtXKdrcKmi0r
+	uMTw9C20MgLT/SerufKxhFJgkcXblLa8+iMZq5KWtQTOk+ZcEMyW/ix/vXKhukCqXfXwTA7GiXE
+	=
+X-Gm-Gg: AYBFou0+t/4CXDbubdfWzTMeRAsf21AsHYaxTvSzH/tc1t/+rthdjTNC+R8hhQsLVbi
+	Ynrl9BUx4v8UVkTWgCKlLT0g43kquDAw4p2VOiEEJs5KmdhYYHwqX3rDSjJvfp4juMMGMhhhJdL
+	9pEeLWtMZHGzwWkHwTxvljs/vvZS8G6rR/glun5ZJdK+Fg0PR3ypzuMErlfPZWxhGfPf1y+FiJu
+	QN5t0GX5SXjxGgkVbDatDEiFPGv75stZDpB2m//i6ilwRaRMihfm6T8n91dm+Bdnht3KVP9VwwD
+	eVT1SzF2ymJ57mgSM+hSbnlf/5gB0+e56RJySyoYLToOOXidjs6yJ5G53ahI0H+YvdXRkR5oUH0
+	PbrhSKGGtuXIW6HUDo8vDmymS98VuYWsZV9PhvkmeUwvDLA0G4G9a6kMyF3cXK23M5VYPGWeczR
+	l3qflfZxHoW+bxY+g2EjI8l0qMdi7siwsmIiqm7qbyOELVr2OQYvi/JGSACMZeKvxjSCLa/Lhge
+	4Ep4q3qzpbb6oQ=
+X-Received: by 2002:a17:90b:56c5:b0:39d:f95d:bd08 with SMTP id 98e67ed59e1d1-39e55008a3amr13452150a91.14.1789757406972;
+        Fri, 18 Sep 2026 11:50:06 -0700 (PDT)
+Received: from arch.mshome.net ([115.243.91.113])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55bf991sm658555c88.6.2026.09.18.11.50.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:49:49 -0700 (PDT)
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-To: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Maxime Ripard <mripard@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v6 0/5] mm/page_counter: move stock from mem_cgroup to page_counter
-Date: Fri, 18 Sep 2026 11:49:45 -0700
-Message-ID: <20260918184947.3681164-1-joshua.hahnjy@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aqzulM8S63363Tr1@localhost.localdomain>
-References: 
+        Fri, 18 Sep 2026 11:50:05 -0700 (PDT)
+From: Daasaradhi Mannava <daasaradhimannava@gmail.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Denis Benato <denis.benato@linux.dev>,
+	Nikita Kravets <teackot@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: msi-ec: Report valid charge thresholds when unset
+Date: Sat, 19 Sep 2026 00:19:55 +0530
+Message-ID: <20260918184958.6211-1-daasaradhimannava@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <12cdf224-08aa-d19f-62fd-fbc6e26d6103@linux.intel.com>
+References: <12cdf224-08aa-d19f-62fd-fbc6e26d6103@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,85 +83,41 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026 09:58:17 +0200 Michal Koutný <mkoutny@suse.com> wrote:
+[Resending as plain text, the lists rejected my previous reply.]
 
-> Hi.
-> 
-> On Thu, Sep 17, 2026 at 10:57:00AM -0700, Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> > 
-> > This is true, but this is already the behavior for vanilla memcg.
-> > In this series I'm hoping to preserve all existing semantics without
-> > changing behaviors, so I can fix this problem in a separate issue.
-> > 
-> > Specifically, in vanilla try_charge_memcg:
-> > 
-> > done_restock:
-> > 	if (batch > nr_pages)
-> > 		refill_stock(memcg, batch - nr_pages);
-> > 
-> > ...
-> > 			current->memcg_nr_pages_over_high += batch;
-> > 
-> > So I've just preserved the exact semantics that we used to have before.
-> 
-> Kudos to you for the conservative approach.
+On Thu, 17 Sep 2026, Ilpo Järvinen wrote:
+> This seems similar to case in commits:
+>
+> 186bf9031666 ("platform/x86: asus-wmi: do not enforce a battery charge threshold")
+> 78bf392ba77d ("platform/x86: asus-wmi: temporarily revert to setting a charge limit")
+>
+> (The latter reverts first one as userspace could not handle -ENODATA but
+> thought the feature was available.)
+>
+> So ideally, I'd tend to think we'd want to return -ENODATA when the
+> threshold hasn't been set. But whether userspace survives that is a
+> question we cannot ignore.
 
-Hi Michal, thanks for your kind words : -)
+Hi Ilpo,
 
-> > 
-> > The problem isn't that big anyways though, it's a transient inflation
-> > in memcg_over_high and will be wiped on the next high handling run,
-> > and there is no effect on accounting or permanent inflations.
-> 
-> It reminds me [1] where stockage imprecision could even trigger OOM but
-> it was reportedly only visible in LTP.
+Thanks for the pointers.
 
-So I was thinking about this part quite a bit in the older versions of
-this series where I changed the draining from being async to sync.
+I agree -ENODATA describes the state better. The asus-wmi revert was
+caused by upower's udev rule reading the attribute to detect support
+(upower#347). That was fixed in upower 1.91.3 (commit 83f86c75,
+July 2026), but current stable distros still ship older versions,
+e.g. Debian 13 has 1.90.9 and Ubuntu 26.04 has 1.91.1. Returning
+-ENODATA from msi-ec now would hide the GNOME battery health toggle
+for most MSI users.
 
-If I understand the issue you saw in LTP correctly, it's not one of
-actual memory OOMs but that there was stock that the memcg could use,
-just not in the current CPU that was trying to fulfill the charge,
-and also the draining for the remote CPUs did not happen in the time
-that it took to run through 16 retry attempts.
+Unlike asus-wmi before 186bf9031666, msi-ec never writes the threshold
+at boot, so this patch only changes what is reported: today it is
+-10/0, which is outside the documented 0-100 range and makes the
+limit look set to 0%.
 
-IOW seems to me we are synchronously waiting for asynchronous drains.
+So I'd suggest taking this patch as is for now, and switching both
+drivers to -ENODATA together once a fixed upower is widely available.
+If you'd rather have -ENODATA right away, I'm happy to send a v2.
 
-To me this did sound a little bit unfortunate since there really is
-memory that the memcg could have used, just cached in the "wrong"
-place (and for some reason that CPU is too busy to do the drain).
-One of the versions that I worked on previously (v4, [2]) used an atomic
-for the stock so that we just always do a synchronous drain via
-cmpxchg and we wouldn't have the problem above.
-
-Obviously there are pros and cons. Synchronous means the reclaim path
-has the ability to reclaim more memory NOW and prevent futile reclaim
-retries, but also it makes each flushing operation more expensive as
-the cmpxchg operation is more expensive than acquiring a local trylock,
-even if it succeeds on the first try. 
-
-In my opinion just doing the synchronous reclamation makes a bit more
-sense to me since it gives a stronger guarantee that we are going to
-get the charges we need to fulfill the charge attempt NOW rather than
-spinning until some remote CPU gets scheduled to perform a local flush.
-
-But this is just personal taste, I haven't really seen too much 
-evidence that we are wasting too much time on the reclaims. So maybe
-asynchronous drains are OK here. I can do some more digging in our
-production data to see if we're ever just waiting for remote drains
-to finish.
-
-Anyways, I still intend on separating out the two efforts so that this
-one is just a simple code move (and make stock more scalable) for
-cgroup v2 users (and I hope not-so-big impact for cgroup v1 users)
-and I can work on removing the 7-slot limit and improving the draining
-as a follow-up work.
-
-> HTH,
-> Michal
-
-Thanks for your thoughts Michal. Have a great day!
-Joshua
-
-> [1] https://lore.kernel.org/all/20250530151858.672391-1-mkoutny@suse.com/
-[2] https://lore.kernel.org/all/20260623180124.868655-2-joshua.hahnjy@gmail.com/
+Thanks,
+Daasaradhi
