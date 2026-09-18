@@ -1,262 +1,196 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBFF49A3CF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9766126738D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765341; cv=none; b=CfBNVr7PnZ/S6C1slbrOQ/bFmHjaqUxQnKoWAvf7iYGw4crLvK44lmL5H6qfk/Uik5gSU8VNlCFUPGlGOyaoL1VrwdbgzhMD/+77dqxow3vZBjJlwet6dUwhHqp35W/PXKYUqzmRNPkuO+h0UvoP0181vvKk8NbXOGHcO+QvEB0=
+	t=1789765353; cv=none; b=d0Zoe8cHhXtmMGKxNr+HXiJvwkAQn0B82JO5u8GEPjmqWhLENZj+AerfDoShPIeMOr3DaHUuWS4TFtndTDCYg8HzmCuPd69212v8uw2FQGdSrXNo+7U8CkYblaMsHTjCQ7DjuMLzwXEBRp8tYlRUE8yNV1MTAb6MgPbGzEHG8AY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765341; c=relaxed/simple;
-	bh=5NRTfbaTrkCr5LOdsA5VA+Gzr3i5fzEHKnaeh5azfmE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oK8YIb2Te6I3lcZ6SYSeRvp6WfGVZ8rSmOQkozt463jL3aHhI8wTUkB9DhTl2kSMac7Afws8qkMwStsQanJ+/g4ao+c/crRjuRw1O7HPu2RRgJb/ziAFCsAlFlKthJXDwkHqjmAg8wSwdH3YUXbw/enh/zOWBR+c71i+wkjgOGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=paNAiLK9; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789765353; c=relaxed/simple;
+	bh=e8PaDl/CXFftkc9ZYUaqWXOwuO7aqaHmFlBjacti+z4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GOHhkTsL3ZwknhgfdC8mRDNkS+oP1QpwpXOamdMgPX/63wo9rUi46rp5XPLPCuRQy/VS/crVZD4XX67sRMgVL0rcHn3tKeH5dOd2SiJSFwBmCMC5b9E87xP7v00seqbQqSD7L366Kh6XzcCYsoBAAEViLv6c+ADMyZIBhLhNMiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/mV7mHb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="paNAiLK9"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1ab17a810so165921a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:02:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789765339; x=1790370139; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k1oWgDzzyzgn3DsMuIYLcEQN7MVtCq5GjZ4iffV4ihs=;
-        b=paNAiLK9RuG03u1uVXuUirFeZDheY4mty0mMBm9UN195EAZlFGP7fMMqczRZR0sw2h
-         /NS4imHDG0D4BdmTdo38axK8nnH3uQGqKxqHsfja7okaiu4nNXt55v89QkZulGM/SWHa
-         ui4R4CHnGIWdJY1BWu2NO8ud72UphcT6BdXX4NQHbCvRn83yYdOpZIe+q5J1T2HhfIKv
-         ieVKtG0cB4l6k+YYyIA/eUl1S7NWmXSHY32fHg291yvmxGmVaqRdGEf0/hxIv+c2Yblv
-         DRTcCqN3q/I+nb/Dl7TmnWRUA/XrXcGo5YMeThXaAGxWm8OL+yYNRJnL4VsfxJ2R516T
-         Jc8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789765339; x=1790370139;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k1oWgDzzyzgn3DsMuIYLcEQN7MVtCq5GjZ4iffV4ihs=;
-        b=w9zQSYk6oUikBhSEUJ+5hYKSFyGxGXP7yP4mU4PHqb1F1TQNlHP3Zn+aSKYOSK2jlY
-         8V8DgyAkeYK30dhSNMUasXk4XNv3JiQSNqsqq5wEcqGA6ZXrwCqW5C1yKK9y0PDfratX
-         hbNvOMIlpXJPPfz5mRW/9RGrDZzUT+3hKZ6lrLXiosgsbxJ0DUikTKGR28bgiEXigQHB
-         XP9EOHJDbWE72Ia8COTrYa2oxwbeEglk8ZAvN5J6Cq+noqqFII7es9ICRr7IcpKgHjNc
-         ysuFp9uem3KUdQZxG1fpC8hG4lEdlL2I6aRtHy3mGV+6uEIXLTH4fKZ0jLlQ+d3k7asr
-         eblw==
-X-Gm-Message-State: AFuF++k+y6N3fWHSztnRtrrH5tgS7OMNkW568L2dLg/LKKOqYTtEuxx9
-	M3/7BvRADmaFARDyHJz6oLtQICNwZvviJmFE3UOstXlNjQlV7DR87Div
-X-Gm-Gg: AYBFou2fqF9dCy3NPlGDebihr6O0fzy34Cn1vp1rt5hz8IOpRQ5DP1h5twY0IFZ8TBJ
-	Be9UpDXzdToVF0zwPnRV5+mjFjmYtI5QZxFR9H5Ciar+drSdSjo1M3KgWg3mdv8+QMDSTqabQP9
-	Yva97AwJlhKcdVID7OQhDLu9+3ADw0yfaa0T11/EFUra/bymyY5MoRZZao6ttoiravLPMQZ+WGk
-	wVlhynGaW4kArI7FKVnEvMdi1l8cGSH2MPxC5+P/SA/pM5v+burcM4JOTVg2TqFgHJAIZj6IdD2
-	nAWrM2yLOatvb9NAA2LWtY3h3GYZqpQH07BxAGJONzjokAX8VfacOSonSB5FbePsRPZ8du2vYdb
-	ZZIHHIT3yrr5QsXZIL5RVx9fqjESISzSAiUymYVwlxrJMBroAGQM72Zwx/eOzE9kBnpidD1xQS2
-	1RPvAPoQZ3lJ3/O//GXYXtvuDsXrtQe8ZQNYRJVqzHdZdUUE2VFzJWF9tPHN7YqHDz7my4Xuuel
-	sJhzOxn
-X-Received: by 2002:a17:90b:254a:b0:398:a2e4:c784 with SMTP id 98e67ed59e1d1-39e5940c49cmr6276032a91.1.1789765339319;
-        Fri, 18 Sep 2026 14:02:19 -0700 (PDT)
-Received: from [10.198.60.252] ([2409:40c2:5404:cbbd:a461:609f:eccf:23f])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55ab3a3sm1396904c88.5.2026.09.18.14.02.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 14:02:18 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sat, 19 Sep 2026 02:31:23 +0530
-Subject: [PATCH v3 2/4] regulator: dt-bindings:
- nvidia,tegra-regulators-coupling: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/mV7mHb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE211F00898;
+	Fri, 18 Sep 2026 21:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789765352;
+	bh=rT6GbagmOOTUela/pJbPVBxH2Xo3VSFNdj9hyDoNywA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I/mV7mHbfio5LCWlsIrA3VXWdNmX6zkN0T5K014oTYvj006zO3GzpLIXJ7CbJUA28
+	 YGQnYDEWeWsUNUDHGbYrpCHFqAOL6K9WO8od9M6vdofBGKlshgK9Fyk9U87ypOH3hX
+	 X1PJSRSsNWyftbusBP2eW9ZHRVfMSZCO2eAMvrcSQ5Y+Kp1dRmiHoV2op5NtccWp8D
+	 +2CyLiRi3SvZAgfYuGpTJaqj3FDviQpRSqZxVVd6poBv7C3ZbfQJ9B8KwseeoujDiA
+	 YnIiBhGed0ZjBazkYq/WEj6yWtsmKuinUwyeYpipgKNdciWrKR+fIodNVmm4rjpLOU
+	 5qLs9TMSsCYkg==
+Message-ID: <4015259a-cc44-4bfd-b9c4-39ae96d48057@kernel.org>
+Date: Fri, 18 Sep 2026 23:02:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/17] mm/huge_memory: move anon_vma handling into the
+ anon split helper
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
+ <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
+ Kairui Song <ryncsn@gmail.com>
+References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+ <20260915-swap-thp-cleanup-v5-12-39878b37dfb0@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260915-swap-thp-cleanup-v5-12-39878b37dfb0@tencent.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-ti-tps6586x-v3-2-63dd240f4684@gmail.com>
-References: <20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com>
-In-Reply-To: <20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
- Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789765290; l=6027;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=5NRTfbaTrkCr5LOdsA5VA+Gzr3i5fzEHKnaeh5azfmE=;
- b=Dblcb/wzIcyuZ9Qc+Jlt5lBSBRUbfl1pP3QmJWU/oxpdoLMqG2fr3Za6tjHJ7Qd0on2rJKGNt
- KcpF51Iu979AFq8ZabdLGx7W8ZK26OCYjHH+CT0QdAMfeJD2IBp5S/K
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
-Set additionalProperties true as this is shared schema.
+On 9/14/26 19:14, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
+> 
+> Only anon split needs the anon_vma, and it only needs it to unmap and
+> remap.  Move the folio_get_anon_vma()/anon_vma_lock_write() pair out of
+> __folio_split() into the anon helper next to the folio_mapped()
+> check that already gates unmap_folio().
+> 
+> This makes the anon_vma conditional on folio_mapped(), which is a
+> behaviour change but should be fine.  folio_get_anon_vma() returns
+> NULL whenever !folio_mapped(), so an anon folio with
+> folio_mapcount() == 0 used to get -EBUSY from split_huge_page() and is
+> now split instead.  A realistic case is a THP that has been fully
+> swapped out and is still in the swap cache: swap PTEs do not contribute
+> mapcount, so it is !folio_mapped() but still alive.
+> 
+> That should be safe and right to have because:
+> 
+> - folio_ref_freeze() below still rejects a folio that picked up any
+>   reference, a mapping or a GUP pin, in the meantime.
+> 
+> - A parallel split is excluded by the folio lock.  The anon_vma
+>   write lock was added to serialize split in commit 062f1af2170a
+>   ("mm: thp: acquire the anon_vma rwsem for write during split"), when
+>   split_huge_page() did not hold the folio lock throughout. commit
+>   e9b61f19858a ("thp: reintroduce split_huge_page()") later made the
+>   folio lock a caller requirement and added the folio_ref_freeze()
+>   scheme, so that has been covered ever since.
+> 
+> - Unmapped path is already exercised by folio_split_unmapped(),
+>   and the swap cache split already runs well for a partially
+>   swapped-out mapped THP.
+> 
+> - A !folio_mapped() folio cannot become mapped meanwhile: mapping it
+>   requires the folio lock.
+> 
+> For mapped folios the anon_vma write lock is now released before
+> __folio_split() unlocks the after-split sub-folios, where previously it
+> was held across that loop; that window is harmless as the sub-folios
+> stay folio-locked and referenced until it.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  mm/huge_memory.c | 58 ++++++++++++++++++++++++++++++--------------------------
+>  1 file changed, 31 insertions(+), 27 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 8fc1dd5b8354..a4c2e38f4a6d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -4029,16 +4029,38 @@ static int __folio_freeze_split_anon(struct folio *folio,
+>  	struct swap_cluster_info *ci = NULL;
+>  	int old_order = folio_order(folio);
+>  	struct folio *new_folio, *next;
+> +	struct anon_vma *anon_vma = NULL;
+>  	enum ttu_flags ttu_flags = 0;
+>  	struct lruvec *lruvec;
+> -	bool need_remap = false;
+>  	int ret = 0;
+>  
+> +	/*
+> +	 * Unmap/remap needs the anon_vma, so we first take a reference on
+> +	 * it to prevent it from disappearing, and lock it for write here,
+> +	 * letting unmap_folio() walk the rmap with TTU_RMAP_LOCKED.
+> +	 *
+> +	 * folio_mapped() is not stable here, but it can only change in
+> +	 * one direction while the folio is locked. The mapcount can drop
+> +	 * to zero at any time, zap_pte_range() takes no folio lock. It
+> +	 * cannot go up: swapin, migration and uffd move all lock the folio
+> +	 * before mapping it, and fork only copies PTEs that already exist.
+> +	 *
+> +	 * So if we see the folio mapped, the worst case is an empty rmap
+> +	 * walk. If we see it unmapped, it stays unmapped and needs neither
+> +	 * the reference nor the lock. Anything else needs a reference
+> +	 * first and folio_ref_freeze() below catches it.
+> +	 *
+> +	 * Note a swapped-out THP counts as unmapped here as swap PTEs do
+> +	 * not contribute mapcount, and they are splittable.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../regulator/nvidia,tegra-regulators-coupling.txt | 65 -------------------
- .../nvidia,tegra-regulators-coupling.yaml          | 74 ++++++++++++++++++++++
- 2 files changed, 74 insertions(+), 65 deletions(-)
+Helpful, thanks. I'd rewrite the last part to
 
-diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
-deleted file mode 100644
-index 4bf2dbf7c6cc..000000000000
---- a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
-+++ /dev/null
-@@ -1,65 +0,0 @@
--NVIDIA Tegra Regulators Coupling
--================================
--
--NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators.
--Thus on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30
--there are 2.
--
--Tegra20 voltage coupling
--------------------------
--
--On Tegra20 SoC's there are 3 coupled regulators: CORE, RTC and CPU.
--The CORE and RTC voltages shall be in a range of 170mV from each other
--and they both shall be higher than the CPU voltage by at least 120mV.
--
--Tegra30 voltage coupling
--------------------------
--
--On Tegra30 SoC's there are 2 coupled regulators: CORE and CPU. The CORE
--and CPU voltages shall be in a range of 300mV from each other and CORE
--voltage shall be higher than the CPU by N mV, where N depends on the CPU
--voltage.
--
--Required properties:
--- nvidia,tegra-core-regulator: Boolean property that designates regulator
--  as the "Core domain" voltage regulator.
--- nvidia,tegra-rtc-regulator: Boolean property that designates regulator
--  as the "RTC domain" voltage regulator.
--- nvidia,tegra-cpu-regulator: Boolean property that designates regulator
--  as the "CPU domain" voltage regulator.
--
--Example:
--
--	pmic {
--		regulators {
--			core_vdd_reg: core {
--				regulator-name = "vdd_core";
--				regulator-min-microvolt = <950000>;
--				regulator-max-microvolt = <1300000>;
--				regulator-coupled-with = <&rtc_vdd_reg &cpu_vdd_reg>;
--				regulator-coupled-max-spread = <170000 550000>;
--
--				nvidia,tegra-core-regulator;
--			};
--
--			rtc_vdd_reg: rtc {
--				regulator-name = "vdd_rtc";
--				regulator-min-microvolt = <950000>;
--				regulator-max-microvolt = <1300000>;
--				regulator-coupled-with = <&core_vdd_reg &cpu_vdd_reg>;
--				regulator-coupled-max-spread = <170000 550000>;
--
--				nvidia,tegra-rtc-regulator;
--			};
--
--			cpu_vdd_reg: cpu {
--				regulator-name = "vdd_cpu";
--				regulator-min-microvolt = <750000>;
--				regulator-max-microvolt = <1125000>;
--				regulator-coupled-with = <&core_vdd_reg &rtc_vdd_reg>;
--				regulator-coupled-max-spread = <550000 550000>;
--
--				nvidia,tegra-cpu-regulator;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
-new file mode 100644
-index 000000000000..aae951cdce8b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NVIDIA Tegra Regulators Coupling
-+
-+description: >
-+  NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators. Thus
-+  on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30 there are 2.
-+
-+  On Tegra20 SoC's - there are 3 coupled regulators:CORE, RTC and CPU. The CORE
-+  and RTC voltages shall be in a range of 170mV from each other and they both
-+  shall be higher than the CPU voltage by at least 120mV.
-+
-+  On Tegra30 SoC's - there are 2 coupled regulators:CORE and CPU. The CORE and
-+  CPU voltages shall be in a range of 300mV from each other and CORE voltage
-+  shall be higher than the CPU by N mV, where N depends on the CPU voltage.
-+
-+maintainers:
-+  - Dmitry Osipenko <digetx@gmail.com>
-+  - Thierry Reding <treding@nvidia.com>
-+
-+properties:
-+  nvidia,tegra-core-regulator:
-+    description: designates regulator as the "Core domain" voltage regulator.
-+    type: boolean
-+
-+  nvidia,tegra-rtc-regulator:
-+    description: designates regulator as the "RTC domain" voltage regulator.
-+    type: boolean
-+
-+  nvidia,tegra-cpu-regulator:
-+    description: designates regulator as the "CPU domain" voltage regulator.
-+    type: boolean
-+
-+additionalProperties: true
-+
-+examples:
-+  - |
-+    pmic {
-+        regulators {
-+            core_vdd_reg: core {
-+                regulator-name = "vdd_core";
-+                regulator-min-microvolt = <950000>;
-+                regulator-max-microvolt = <1300000>;
-+                regulator-coupled-with = <&rtc_vdd_reg &cpu_vdd_reg>;
-+                regulator-coupled-max-spread = <170000 550000>;
-+
-+                nvidia,tegra-core-regulator;
-+            };
-+
-+            rtc_vdd_reg: rtc {
-+                regulator-name = "vdd_rtc";
-+                regulator-min-microvolt = <950000>;
-+                regulator-max-microvolt = <1300000>;
-+                regulator-coupled-with = <&core_vdd_reg &cpu_vdd_reg>;
-+                regulator-coupled-max-spread = <170000 550000>;
-+
-+                nvidia,tegra-rtc-regulator;
-+           };
-+
-+           cpu_vdd_reg: cpu {
-+                regulator-name = "vdd_cpu";
-+                regulator-min-microvolt = <750000>;
-+                regulator-max-microvolt = <1125000>;
-+                regulator-coupled-with = <&core_vdd_reg &rtc_vdd_reg>;
-+                regulator-coupled-max-spread = <550000 550000>;
-+
-+                nvidia,tegra-cpu-regulator;
-+            };
-+        };
-+    };
+"Note that entirely swapped-out THPs are unmapped but can be split."
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-2.55.0
+Cheers,
 
+David
