@@ -1,163 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189F948C8B9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D51249739B;
+	Fri, 18 Sep 2026 07:04:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715045; cv=none; b=IUO9/A6haoUl2hGESbGQJhw7OyO1ECLdyuGctbPrE71QX3AV+401co6fOqPbToo/NIyonqqi7ciBTl8gWq5t4Rk6VteoVtoN+m+DkxW+SrU490Zrh9T60bguzl5ejBkw8osPPoyziBAeX/x84jHVSAqfM76DKQnUOjIy/Ryjw+8=
+	t=1789715068; cv=none; b=aJrcKYM93JwrYg89MLN14SJfmTGtAqtdagl7HQdL+ELv0jDp9WLmpWsWTPrUDhAUFmRN5lhfatRXfxK9M81Pz4o+5MT/04Ydij9P3XM2OEIK5gcrsddiwlHO/FUj2pPuuNzMAclKagUdkhunzEcNISAsh/HKW+17zsRo4IAGs5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715045; c=relaxed/simple;
-	bh=Mb9FIRj5zJe7+qRyZLtZb3L4D+AhdbFVxGPVVlJxegw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=skoyG64qoNkVFkMwDgxkje5KN9xgX0xgNJ3sBYLAgJpWE0eY/LDO6EkvldxNe3hssiYvZtt+7HVMyItb5Wc443MtNvrk1eVwe1cpj0Otvl7/goNlNpsnpAb9mPdMciIO35DSi/IHvBFS4my80Dedn3/gmnt5MdvwWV7cgwikMYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jWKDEaWg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789715068; c=relaxed/simple;
+	bh=LjBulbBPS4HQ+2+ENfpTJJe7kppwctse0hq8ahYzkC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l1/PAnBDhBxN5PCTSVLL4qNBBpjGFiZngwOUewlZ5CtOn4dxeM1sQQJQgWbmnpn7RCs/7zHst63gzwywCee5GpfRLlztQWbiEm1LIRqJaXwSdmeRS+Ymq7rV+cMaeI+fBwyhZASBIH5mMOHhFRPmNrVG30o13S54gxG2hwzuJ9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/LKqi2L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jWKDEaWg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136851F000FF;
-	Fri, 18 Sep 2026 07:03:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/LKqi2L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFB51F000FF;
+	Fri, 18 Sep 2026 07:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715043;
-	bh=C99qchwVmIf8eGzA2KZRAlNCqTMDn2E/1eNOjto5V1g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jWKDEaWgQ8tOV8amlp5t9MgYwzBijBFVifWz9yuQo8X4L5EFh32Flzu4XXAbDfnGm
-	 UDL93p7kB9G3Rd42nYwUtj6uT0m3roRBv2y8vs/mC/hhbavAalLWNzIamZ9CawgJa5
-	 pHnOvDOLIlc6CP9lOwT216XgLvfodA7hkiX+FB/0Ct+bfDmyj/AqncmimtUagrt8Eb
-	 oF0sbTAHHKTDObi0AO6aHDc2FHQ2Fy45mE5vliTDkO5ZU6YC6Yt14abrG5j+Mj0rNr
-	 Yjv8AMXd9/oiS5ceTffHmQV+p3xP+CkZLZuUIpC2CQ619hXKr9pxjr41fijo1ig8F1
-	 DgCMlNLI1L+8Q==
-Message-ID: <24aedc8c-a5c6-418b-a37e-051f0d6d9fa7@kernel.org>
-Date: Fri, 18 Sep 2026 09:03:55 +0200
+	s=k20260515; t=1789715066;
+	bh=h7MrO5kHfs9s9gpQkpstdAXZ31bb0e2lmCQcEqPnDlQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P/LKqi2LqAKG2z2uozCnUWME8OGZ9RbIIELAHHwTXvdmqJNNhcB+P6+T4o1eQ8bff
+	 emGEtPWT0PNKHunU+e67JP0rY4/3Tgr8kyp6GDWN5FCOr2JHeXpqhM1RzrzJHkb9Ew
+	 brC89Jmwg9/AeYM1XEAol1WvLn6e+jB9Z2r8WtID8EVVzKhebhWUcARXEcnzhnt6y3
+	 r34S5YxuU4zLWiUFw7Zf3wQagohKhQK4vsCUZTFh3QOxASwCM3MANSEXJOLdQMuvVu
+	 1hUCQ3DHh2wB0WW/fnGCHvw1eL+/L2pnuOVar83DD1+R3aG+zlkAmPp42idM32aMKO
+	 /aI0Z7fDCQizQ==
+Date: Fri, 18 Sep 2026 00:04:24 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Harry Yoo <harry@kernel.org>,
+	Tim Menninger <tmenninger@everpuredata.com>, linux-mm@kvack.org,
+	Chuck Lever <cel@kernel.org>, linux-nfs@vger.kernel.org,
+	Jon Curley <jcurley@everpuredata.com>,
+	Eric Badger <ebadger@everpuredata.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [SLUB] nfs_page cmpxchg_double_fail and perf lock perturbation
+ on dual-socket NFS/RDMA
+Message-ID: <aqzieNW5GmhnU_EJ@z2>
+References: <20260916232227.4098143-1-tmenninger@everpuredata.com>
+ <aqvq8-6IJBDer90O@thinkstation>
+ <aqvy8NqRRRmUlxjR@thinkstation>
+ <20260917152959.GI4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
- for PTE-level block mappings
-To: Barry Song <baohua@kernel.org>
-Cc: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
- catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
- will@kernel.org, Xueyuan.chen21@gmail.com, ajd@linux.ibm.com,
- anshuman.khandual@arm.com, david@kernel.org, dev.jain@arm.com,
- jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
- ryan.roberts@arm.com
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <20260917052933.188679-4-jiangwenxiaomi@gmail.com>
- <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
- <CAHKocdE_zyUQT459AiTBDzQHk0jh+VpXuSMDdgHjkg-dAkgBNg@mail.gmail.com>
- <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com>
- <2462f67c-f7d3-4eb3-a093-6a338ef49f14@kernel.org>
- <CAGsJ_4zMG6v-ioi8-NhveqowPVAnsHkFCNy_c7+KHDMRW3JH-Q@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAGsJ_4zMG6v-ioi8-NhveqowPVAnsHkFCNy_c7+KHDMRW3JH-Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917152959.GI4121339@noisy.programming.kicks-ass.net>
 
+Hello,
 
-
-Le 18/09/2026 à 08:14, Barry Song a écrit :
-> On Fri, Sep 18, 2026 at 2:05 PM Christophe Leroy (CS GROUP)
-> <chleroy@kernel.org> wrote:
->>
->>
->>
->> Le 17/09/2026 à 23:44, Barry Song a écrit :
->>> On Thu, Sep 17, 2026 at 10:41 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
-> [...]
+On Thu, Sep 17, 2026 at 05:29:59PM +0200, Peter Zijlstra wrote:
+> On Thu, Sep 17, 2026 at 03:10:47PM +0100, Harry Yoo wrote:
+> > ... now I realize we need to add PERFORMANCE EVENTS SUBSYSTEM folks 
+> > as well ;-)
+> > 
+> > Hmm, sounds like perf lock is somehow triggering slab allocations
+> > and interfering the workload.
 > 
->>>>>>
->>>>>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
->>>>>> index cdd68ed3ae1a9..349ced999f959 100644
->>>>>> --- a/include/linux/pgtable.h
->>>>>> +++ b/include/linux/pgtable.h
->>>>>> @@ -2134,6 +2134,35 @@ static inline int pmd_free_pte_page(pmd_t *pmd, unsigned long addr)
->>>>>>     }
->>>>>>     #endif      /* CONFIG_HAVE_ARCH_HUGE_VMAP */
->>>>>>
->>>>>> +/*
->>>>>> + * PTE-level block mappings for vmap.
->>>>>> + *
->>>>>> + * pte_set_huge() only has to be implemented by architectures whose
->>>>>> + * arch_vmap_pte_range_map_size() can return a size other than PAGE_SIZE.
->>>>>> + */
->>>>>> +#ifndef __HAVE_ARCH_PTE_SET_HUGE
->>>>>> +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
->>>>>> +                             phys_addr_t phys, pgprot_t prot,
->>>>>> +                             unsigned long size)
->>>>>> +{
->>>>>> +     WARN_ON_ONCE(1);
->>>>>
->>>>> BUILD_BUG_ON() would be better here.
->>>>>
->>>>> It should be possible because fallback arch_vmap_pte_range_map_size()
->>>>> will constant-fold PAGE_SIZE so pte_set_huge() will never be called.
->>>>>
->>>>
->>>> Agreed. These fallbacks exist only to keep the build working on
->>>> architectures with PTE-level block mappings and should never actually
->>>> be reached, so BUILD_BUG_ON() is right. I'll make that change in v9.
->>>>
->>>
->>> I am not quite sure. It won't be called at runtime because
->>> `vmap size`/`unmap size` return `PAGE_SIZE`, so the code won't
->>> reach this branch. But it will still be built.
->>
->> The fallbacks are defined as:
->>
->> #ifndef arch_vmap_pte_range_map_size
->> static inline unsigned long arch_vmap_pte_range_map_size(unsigned long
->> addr, unsigned long end,
->>                                                           u64 pfn, unsigned int max_page_shift)
->> {
->>          return PAGE_SIZE;
->> }
->> #endif
->>
->> #ifndef arch_vmap_pte_range_unmap_size
->> static inline unsigned long arch_vmap_pte_range_unmap_size(unsigned long
->> addr,
->>                                                             pte_t *ptep)
->> {
->>          return PAGE_SIZE;
->> }
->> #endif
->>
->> Therefore in:
->>
->>                   size = arch_vmap_pte_range_unmap_size(addr, pte);
->>                   if (size != PAGE_SIZE) {
->>
->> GCC knows 'size' is const and its value is PAGE_SIZE, so it won't emit
->> the branch at all.
->>
->> It is call constant folding, some explanation here:
->> https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FConstant_folding&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C869dac21f28d45988a3d08df154c225a%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639253088878897551%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Dvtz1%2FAHvAbVYO%2BRaHTOizcD%2FclJ9FqTcWXKMhIFVyw%3D&reserved=0
->>
->>>
->>> So, would a `BUILD_BUG_ON()` trigger a build failure here?
->>
->> It shouldn't, if it does it is a compiled bug or this is because someone
->> has redefined arch_vmap_pte_range_map_size() and not pte_set_huge()
->> which we'd better know at build time rather than at runtime.
-> 
-> Thanks, Christophe. I was also thinking about compiler optimization. I
-> was just a bit worried that we're touching the common MM code, which
-> affects almost all architectures, so I'm not quite sure whether this is
-> supported by all GCC versions used by those architectures.
-> 
-> If it is supported by all of them, I agree that `BUILD_BUG_ON()` is a
-> perfect approach.
+> perf should not have runtime memory allocation, its build to run from
+> NMI context. It can allocate some memory on event creation and the like,
+> but once its on, there should be no more allocations happening.
 
-AFAIU this is the assumption made by the kernel, see 
-https://docs.kernel.org/process/coding-style.html#conditional-compilation
+Right, perf lock record command will save the event info to a ring
+buffer without allocation.  It may lose some events when the buffer is
+full though.
 
-This is the same compiler, I see no reason why ability to constant-fold 
-would be dependant on architecture.
+Thanks,
+Namhyung
 
-Christophe
