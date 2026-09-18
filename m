@@ -1,89 +1,74 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5CA51121B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589254F93DD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738813; cv=none; b=RiQU3Tyq+l6gEEVh94w9LZNEat+AMLnfRs9RlYV8TMxe1nUQ2sSojvyp+FCXVmdMuLFdgj0o/uE7XVb5HuPIa4WUrEGVsiBBOZO/v+cmJT41C6IQd5WDKaFNhw9UrqjT4azd9/uknwZz+14XP3y9sBzP6r9Fft0PjQi6Xp6CF6Q=
+	t=1789738813; cv=none; b=qySbTYK+rszqpiFqrW2RjqM8fkfkLhGIkBi8lwTlqUaraErtJUEG4SztsgTrkVNaXNCFpSIZAkCs/wazCJwt4eNKjFJdk4vrpsPbXMlgKDMz64hyMu/YlE2Ktw65c/UpmJeDEf8QW8w+fZLEKOhAyGQLsAp7i0UiEJM86x5C8Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789738813; c=relaxed/simple;
-	bh=py0ZrKaM8DbzSWplMOWdiU7mC/SzmDtkED2SS4JnlbY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jQNooyYtV/ZG8/4+eZ+vXqgGHIkucKMG+ger+0mAo++H+Y2sV0Zo/RAux4zf61g0dzBuk/JJc3oi9DwdapGQiETL3cZtEhbNyBzjEkVIJDg/8hb/u/tqj20TDOARztT/ljux6PqR1w+E9teOMd4sB1vzJaZPV+oAESLQkleXqwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KllhrvJx; arc=none smtp.client-ip=74.125.227.171
+	bh=MkCaoljCfwO0UHai9egYkzKnMmf51ff6r89Fagqvxxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLro2anuPxsZtUDzlbcY+c+tKEUR/RqI7ts/74sEEdmihFabh/DVmLZQbUw7yLcdtTvcYvWFmrP9XtOFJm/2jR1yypzKGl9ZzYhYEhtbbIG2T6nhH59/FwmQEgFCe543mc8zRlVtKKLEyCFAAOegHFraT+3dgFHPsyo/fAEGOrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JoVMkcRu; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KllhrvJx"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so735170a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JoVMkcRu"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91a931f66so4773505ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789738811; x=1790343611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=47miggGna65qNmT8xI9ufxte8NSMbuV+wMsl3roErvo=;
-        b=KllhrvJxPPaQAm4itC6AAuwdWI5fyipgGpb82XDBO+s+Mbjav6GfhNZIzCGF4NaxtE
-         OfrS16FRPCH5589trDyEJVkHBLj9SWHWaOAcmxxOr+yFt4OQXa8SzVIYsCjpsMEhxNK4
-         Z7dOo4QFgXlVyxURw8w/Vk6RwDcIWZlHsjarYH9VvdmwMGR2CEhJ7tUUYd508Z2KLn8F
-         69FuZPAj8H8tWFngcdG/pntEK3QDNDTX1XMhsagHxarTKhMxaiLUNOMlDDRQ3Q4jLj5s
-         duMi9VDWHgRosA/EO1gOIcpwR4uW9YwOyUEmFFvV9M1euY/gO5LGBZfdyfNUCJubSH+k
-         9uPA==
+        d=gmail.com; s=20251104; t=1789738812; x=1790343612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mkji8nuCM5AKChpvLLQvTuvYia3k12Q8J0swVpD2+e4=;
+        b=JoVMkcRurWjCXGDGbjQ93FchHt2HGpFrsGrUYpg4dX61asw9Ax3uGpBzwgdVhYM6wd
+         xnhbaB93wkh0h14GexW0qFqei9I9c1xJwXOLaj1F/hcB8X0HaeSHwmBTgUqB6DC+HQ2t
+         wa105KExZ3ChYDvdEk+BKefbKZt53wr8soGqjI7WJfb2XNoz9VifpnwlCLmCvDMy8ia6
+         B9vkbJ6ptq9LkukoctWJAZ7C2/CbsAnzo+Xj744qRgJdCkXTWS9ow1GJz3fZrTys+lwn
+         CS+zOoAfmPkA2Y6zLdicKwN6pVN5uMAqFseTW8ufI5rhGuwgC1VRjuA2Iv0XyS+iIofA
+         TRbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738811; x=1790343611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=47miggGna65qNmT8xI9ufxte8NSMbuV+wMsl3roErvo=;
-        b=PXvmY/thoSVnn/Y92emWdKffO/698/x1VHAUVt4eVb2NjG40JKa+hV4snVUYJ+3BRo
-         RTEgKyvMiCWMX3xdqmDWpiIfD3R3TRb31JvFeKg8CHmVuGUiT7JYpvFwEvd4V4HSowvF
-         FaTXweJx6YJ0rU4pTju4J/lWy3Avr6mG2ykH/6Cg95px+E1g4FyxrzOhaLb7xjQBSIsA
-         MP1wawe0S1Ay5SoG4ENrWD8ILNUQZZ1Ql6F8wk4ZLTx6YQyraxpjbffc3rp9enLNC3LD
-         Pf2D8HZUgyE0N8G3kMFDS7kOGUkBidh/DkEalPo+0+OS2MzaKnHB/LlNg+zZI2V3nSnk
-         zkTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcbV+yaMQ/WXbMWl+VGT8gRe/9hlT2rgHL9Mn8n0WNe0PzTbHt0NvVVRdY2LgKMAB6ST3D+13ckD6iQUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwcdPLo7sKds3TT+q6Ygvf3QTSOWjunZZjpvInDQJoUwjjPPeD
-	GopFJGjFUJofF0aOp6YlfTySSNOL+fgNoCjq9W+gndXQENpFWayzvuBw
-X-Gm-Gg: AYBFou2l5bxTN09Nt1SSnm2JpXdgj9Mq32JQ7LQZQ/+7HUoVVlxcZJNJdRMDivNPedI
-	YI2BcegkZK8eOkWTmlL7ySVcKkYG66qj4KXJGm5XXX0z51rn3f45eQFPGY6I+87IrIrqaZ9UOgr
-	K9RUt0P/Q29x+43DAxIklKfQyFdkS2pDRhNjxokpHpMiG9bXCSxebWZhusVXyqdNKL30wybyMcT
-	9b617cm2+Zy2hLmCCo1U378GMlnyG7HC4NtvBbFpreHkOUtBB9X3c+oQ+9K7XlU1UJd7nXb+Jav
-	tHUWHJg8oiJjAfQfgBtO/dnmmhSp72BV3jYU3bzoRxgXsAoOEUCg8fvKbxUlPKos/Fboyw18sSh
-	6vHAelsMI/+1uh/09Y7A1E6ct+yVvf7wwVnzEIJcAuM+vgxuiuMiBl+RZgPbHY7F/HLOGA4wfsW
-	ORiRuYxWQHmhzqALiMjkO5O+P87IuK4ze7wnWiVEnNVaacGBdA60l4TlbnWAPWVxsr55gvusnv3
-	f5DDUxUXn2wr3nh1z1EdQk7m9w2gReelIW/zQywfRZxb3IQA3sCE8xJRnzeB2j4nbDtbDYYncUU
-	9fn19IdyNTZH5A==
-X-Received: by 2002:a17:90b:4b86:b0:39e:21a7:5dfe with SMTP id 98e67ed59e1d1-39e54c5a1ecmr10006575a91.3.1789738811052;
+        d=1e100.net; s=20260707; t=1789738812; x=1790343612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mkji8nuCM5AKChpvLLQvTuvYia3k12Q8J0swVpD2+e4=;
+        b=CDpYlb+FP2a5lCVwTUE/7/Ks5UJNW9JKTN4t5oOOrFAG05LTQVV1BkbGSW6SsOeL6O
+         Cb6ZWoWkdJ0LnF5L5QWSXwn/YO9Uy0RmyPmAwGMqujkiPJcdhNAmJ7uqt7sZ/buFTKCU
+         n9Ybb81gdzjJKBuRyV2eNmcvU3hOtYFDMPHI4bBBqu5fzHFwEXMSgEHuUtiH97qEam+k
+         eRJShzQ8yIaIihMwozdg5q2Af4AqArIj0ci9Amuk6Rzufd2+MUSP8OWVpOGLMNmn6O52
+         7TCfjyrKoI0J9yGVaUnxIoAJLhz6jwNFnGsosuFEjcQD4GvQqy7dX6habziYgd18XINR
+         WNOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkqonOwQ5IrXySmO6tGyE1+zdI/bbq7hoX0SrbYrsQ/j7EOjqYBmzhVbOh32phAnHHy0orTF4Z7LdiT7A=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3n8H+9Rt5eMMQwd8uOt093nT+d6VRjOg6g5Tu9IMUZkyTP6PU
+	l22sL6Sfw7EBmQ4O4G2zaXYE9FO/PAyS57wWVmSSJsmIN9ZzdByOTBsd
+X-Gm-Gg: AYBFou3sP0BWd1rSi3mVLPPGubP8/CYsEdGqurwE0VtgsB6ZYZeVDnpLlfv8N0/o+VC
+	98mo1FCfT3HtzGm8Z08lxA54wVgKtUrqf54Z9Su9eIE3ZDfxHi1ZYeBn27QlmrXhgJ+RM0H2cLy
+	l1TMAX+fnE4i4kLTZh+c/ohWfXea23bsSsFUS6hMWXBCEL2m8kRV7Jbl46Hp0CZ3m5ApE9qV3l+
+	bHR2O/D2ktznXt+qCXwkqlWdmL8MFYfF+Vq8sFYzxYjmOZrWcIZxyddIspDla6oVtvnvsQQ/y7r
+	o/ZOHnp1KVaLfB1ZNfQPCWw2ty0Q2mtKS16qsHaEtE4a5DpU2JuBK7bwoXAfdo7sR4WuF7KUv+S
+	4ZvkL/9SA8rZOdJpF7QKHTak7NNadz1gM8WUsYnOChG/hAp7EB0lrH93tBNPh+4Jwn8w/v4crBc
+	zpy0NjBnzUij58TvVeU3grqVo/gW2gajEwqkS2Av/IXiLIaCZd6nACEkZyaNZRQ6YNvs11IQj2w
+	eGY2neYA2NgIeK8o2EZwSi47MwYX1HqFWC83aT/WbJuqGFzaFzxCSwdfv0=
+X-Received: by 2002:a17:903:2f06:b0:2dd:8e7d:90f7 with SMTP id d9443c01a7336-2ddb1adb4a8mr62664555ad.9.1789738811267;
         Fri, 18 Sep 2026 06:40:11 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13253792a91.9.2026.09.18.06.40.07
+Received: from codespaces-2362ac.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net ([23.97.62.118])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb7524dc0sm8031585ad.14.2026.09.18.06.40.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 18 Sep 2026 06:40:10 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	cassiogabrielcontato@gmail.com,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: daehojeong@google.com,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 06/15] ASoC: mediatek: mt8192: Use dev_err_probe() in mt8192_init_clock()
-Date: Fri, 18 Sep 2026 20:39:02 +0700
-Message-ID: <20260918133912.133799-7-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918133912.133799-1-phucduc.bui@gmail.com>
-References: <20260918133912.133799-1-phucduc.bui@gmail.com>
+	Seongjae Jeong <jsjlee1020@gmail.com>,
+	syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com
+Subject: [PATCH] f2fs: reject device aliasing without a multi-device configuration
+Date: Fri, 18 Sep 2026 13:39:22 +0000
+Message-ID: <20260918133922.8163-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,57 +77,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+A malformed F2FS image can enable F2FS_FEATURE_DEVICE_ALIAS without
+providing a multi-device configuration. For a regular single-device
+filesystem, f2fs_scan_devices() returns without allocating sbi->devs.
 
-Use dev_err_probe() when obtaining clocks to avoid redundant error
-messages, particularly for probe deferral.
+In this state, f2fs_dev_is_alloc_blocked() passes the device alias
+feature check and dereferences FDEV(0), resulting in a NULL pointer
+dereference during segment allocation.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Device aliasing requires at least one secondary device. Reject
+superblocks that enable device aliasing without entries for both the
+main and secondary devices in sanity_check_raw_super().
+
+Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
+Reported-by: syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ae5b8eb92ed40411ce16
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
 ---
- sound/soc/mediatek/mt8192/mt8192-afe-clk.c | 24 ++++++++--------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ fs/f2fs/super.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-clk.c b/sound/soc/mediatek/mt8192/mt8192-afe-clk.c
-index 9b9a3465ddb5..c6ca4fe7fb19 100644
---- a/sound/soc/mediatek/mt8192/mt8192-afe-clk.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-afe-clk.c
-@@ -680,27 +680,21 @@ int mt8192_init_clock(struct mtk_base_afe *afe)
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 6a2f09c61dcd..f980f67cd199 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4153,6 +4153,12 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
+ 		return -EFSCORRUPTED;
+ 	}
  
- 	afe_priv->apmixedsys = syscon_regmap_lookup_by_phandle(of_node,
- 							       "mediatek,apmixedsys");
--	if (IS_ERR(afe_priv->apmixedsys)) {
--		dev_err(afe->dev, "%s() Cannot find apmixedsys controller: %ld\n",
--			__func__, PTR_ERR(afe_priv->apmixedsys));
--		return PTR_ERR(afe_priv->apmixedsys);
--	}
-+	if (IS_ERR(afe_priv->apmixedsys))
-+		return dev_err_probe(afe->dev, PTR_ERR(afe_priv->apmixedsys),
-+				     "Cannot find apmixedsys controller\n");
- 
- 	afe_priv->topckgen = syscon_regmap_lookup_by_phandle(of_node,
- 							     "mediatek,topckgen");
--	if (IS_ERR(afe_priv->topckgen)) {
--		dev_err(afe->dev, "%s() Cannot find topckgen controller: %ld\n",
--			__func__, PTR_ERR(afe_priv->topckgen));
--		return PTR_ERR(afe_priv->topckgen);
--	}
-+	if (IS_ERR(afe_priv->topckgen))
-+		return dev_err_probe(afe->dev, PTR_ERR(afe_priv->topckgen),
-+				     "Cannot find topckgen controller\n");
- 
- 	afe_priv->infracfg = syscon_regmap_lookup_by_phandle(of_node,
- 							     "mediatek,infracfg");
--	if (IS_ERR(afe_priv->infracfg)) {
--		dev_err(afe->dev, "%s() Cannot find infracfg: %ld\n",
--			__func__, PTR_ERR(afe_priv->infracfg));
--		return PTR_ERR(afe_priv->infracfg);
--	}
-+	if (IS_ERR(afe_priv->infracfg))
-+		return dev_err_probe(afe->dev, PTR_ERR(afe_priv->infracfg),
-+				     "Cannot find infracfg\n");
- 
- 	return 0;
- }
++	if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_DEVICE_ALIAS) &&
++	    (!RDEV(0).path[0] || !RDEV(1).path[0])) {
++		f2fs_info(sbi, "Device aliasing requires a multi-device configuration");
++		return -EFSCORRUPTED;
++	}
++
+ 	if (RDEV(0).path[0]) {
+ 		block_t dev_seg_count = le32_to_cpu(RDEV(0).total_segments);
+ 		int i = 1;
 -- 
-2.43.0
+2.53.0
 
