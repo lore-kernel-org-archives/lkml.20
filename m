@@ -1,195 +1,191 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f31.google.com (mail-wr2-f31.google.com [74.125.225.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B036545198C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C272749DC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716556; cv=none; b=SeSXrbnZgtrZRzTY3oKQSTRtgIgo8k2GCpjDgBms0KK2yJObCJwCXlfqnO03Nx/CqMAslAnkXeNV7zbKnCkNCiERDFlCUQh/e5hVDWEvEEpWSRrndyUb4iNdKECbPpekunumarFA+9sd99TNCv63Sw2VZD41Jbvr5P189NYSs7E=
+	t=1789716574; cv=none; b=DPQYCf6gzg4VeTyUfieEtxRf7cYaM2hKuTokV7/vnUOJcfjaF+C6oIchi0IBSoC/xAUM75PeEWG8gGrIlxg/LDNlALYx6JqCCPvb0ND5ViMHtMuRx9JuNu6ARjYB2MwOO7njN8y61mHqGUcXFDbAggUz8UlKXJTr66TXWnFQgrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716556; c=relaxed/simple;
-	bh=CrfB5Rz0RrvGaZsIayezXrztszc5vqvtS3GZl43Wk9M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KcvixI/aShpvNcZibJ+GdOYCFWuu7t8iJx1ilF7XnRQ6JTepqbJ+homh0Mx9lzo9eCRzSUl0WhLIqV15gwJwWRnFts2FWc4YIxLhQFGznESOX3hxMAOQwd69TLhfuoXXiz4M8Cv1+po7k+uqTpubdEiF78/QeTwrmtYsFi4mDV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MYxEEq2F; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789716574; c=relaxed/simple;
+	bh=WDDrsj3MP/rvTsNgD+qJqzzVmh4M8SD67CGugJwWT8Q=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YRFgno4R0dJD4SV7uzZTa0SKdSlRdCYKttZ2Ie0hzGNKxNAr12WSlvYfTqP8i4pmrmBGqMqgfpTCZd8M3SoIiM1/3ehbfFNC5ZFns3FwjG7mE7nkKjVUtTMpyn2GYWXwJ7wbbSA0awNc69gJRlnOQiOx0IfkwlleDEugE8DzSFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDUw60TG; arc=none smtp.client-ip=74.125.225.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MYxEEq2F"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso2835195e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:29:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDUw60TG"
+Received: by mail-wr2-f31.google.com with SMTP id ffacd0b85a97d-4843c2790ccso203038f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:29:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789716546; x=1790321346; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vR5Hf5/Fo4mKQwK6kNI3oaShZRKQk0ZPQPkNgIO7ehQ=;
-        b=MYxEEq2FXBwujNIcVknT6GwPJwpD7/dsir0fEmS03YiyVeRr4n1bllnboY3Tc15/me
-         lCPKnXK1O/rVflsbFuXekjSe9geavGpV+FCbNryr9zYI/gd87VsEsctJquWDVDzylcv5
-         TjHPAGXJ5ypVrCCxXl6tCImMwdWZgFY8zOmszuiH+DgE6lo540ChEFnCDT8LnSxdePMa
-         0l0Cy1TBma583PAApDTHfUaZncNVe1Q5V5oNoasEmo4Tv2E8SLzNU40FZ4mvpgQ5LAWe
-         ZV67KXOlnCdNWfbD17mD32axEIYPOrc6grqV5FrCrPFD7uwi6E6iZ43k1PZaWA9cQg5d
-         Gcvw==
+        d=gmail.com; s=20251104; t=1789716566; x=1790321366; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Vu0EvQrpbLKC29N+ScN0xiwtkq+vrGuM1q8m/KsCcg=;
+        b=PDUw60TGiqW73o9UVfcPA3/sg5xgUG9ne1AYaMML7XJ3D6stHyKMgW8gYm2gDGALXS
+         14x9JiD3+nlOpZC9MmezNBks2MONTg5xw45DiJO0hOopu2MqarsVHFe5D1HgNcEvDoAj
+         RE+hakAJt6zsQzC2o5t5QQZS3wtvXLhofKQ+JCSwhda3QKy44ipJmZcu/aHKtOtEnre/
+         SCOg2qv7kAFdr+KwKYM3HlGviFdAq7C7u/AqGZ46ikcmpHIPJTmmoEWhDC1cPdZWrSzt
+         kQPSQy8rUpsrWE3NYVnnOMOhpdvVtcliOwhC+ceqxkAYgGRNzvQRqhq9yWqkfAqgLyuq
+         Mmiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789716546; x=1790321346;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vR5Hf5/Fo4mKQwK6kNI3oaShZRKQk0ZPQPkNgIO7ehQ=;
-        b=iaPiYkziKqC47KfLMrqsC+jTQ3KbBF9RRQlwgzZS2f0O/nk9hvi0tA8fsCTy8j3+JN
-         l5in3xy1XRECDt0ksreGyFqDGGcUD+jWKzwjrsxviMeTcppFRQgH8C4pJz9lkFD6Mfy2
-         RzToIU80QLfhyqJylLgQcQunR3WCYY1uEhoAb6vhu1p68jZ+SiC29R9jL4BhUBy3qpS1
-         6sXEw/YTsg5c83xyBbN12YMMZbDeo7YEiq9/guSdOAJnRF2/ITCk+H9NrRIwmO7NEx5C
-         zcl+ejekRmAx+tv4bRVI4i9XCmjsRVrx3Uk/LVIKzjKAZTWCZB9TMDy1Qm9a8kOYaiUb
-         Dl2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwGuP3BUZM24B9JQHoWptXWi7/1XKd9SYFWxX5XIPbEdjKvAI4HTmYZCH8cmBwYgZOaLOJxKH50tu8YNxQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvvahhBUq8btKM2BdvpcnMQ36SiDb+tWkDqdjrGWzfyTyAQQJH
-	dxxaEgSaYVRPoXMHQelQw59TJSsIQlyXO4bPVSMKIlxgr2g5iFTHRRc2eUHXowJEXlQ=
-X-Gm-Gg: AYBFou0qzpey7Ol5EtSh5E5lao13oXN7UQwpGwXX/rMPQhSZhwphaXsgxpexQpOSJcc
-	XGJjWQREPFHWZQrJPsV4LZfT5feqK44w+NuxM5dO8b05UZHkpu8lePxu8GlVH+0FfLwZLOW9n5J
-	cc+2Yppp4lFaQcTsvfZoCdj1WVhaM3Q7mpE9yjwkLqZiGokB8i3ie8SRc79IBlaRrkGothI0TQ0
-	iuCC7xR4tCege7f/dZ75tFG8ABClMbHlEaN29YDXUL+i4DvksRtWkN/KiN2p5sEJLd7IyZ3VXEX
-	6uyj0Oc2pgWlapXjLLFJqT3MfmwzaQgVtbNayztKdif24FuFHaL92yJGlrFLMD9vI53C+kth4+k
-	4aTVb/c//nzek1bzVttrldVQw/JaveR6PdxlNlWf0VgXPE/KohsDUb1T/DTj5ecNwNW7+aFwJWX
-	HQQYtro/k0CcDoobR0EOEWggLFDiv8k/rIXhOmtumdqEGyVsSEDLL75IPXwpbeCIZ4xoBwWA==
-X-Received: by 2002:a05:600c:a085:b0:49f:bd3c:bc23 with SMTP id 5b1f17b1804b1-49fc5747887mr16339405e9.30.1789716545734;
-        Fri, 18 Sep 2026 00:29:05 -0700 (PDT)
-Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcab7e333sm8390505e9.7.2026.09.18.00.29.05
+        d=1e100.net; s=20260707; t=1789716566; x=1790321366;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7Vu0EvQrpbLKC29N+ScN0xiwtkq+vrGuM1q8m/KsCcg=;
+        b=vY2b6/wAywjFaSvw5Jzhgo1tK/ki/Umxg9dzySZj03XfFVOS0ALVWNNOeOV9wU/Zwa
+         8Qqn1i0nqkRHqHMKLOeeXfJcDP8VaP/iZjJKswxUxK+Ctl6F+0BMnuk6sVCPt3lGngYQ
+         HPwGxBrqJBCEkkd239PcnWZieieDkgqQ9wSTRiAQREfJAkZiIM2WDTEsObJi9C+9zmXS
+         X/qc6dalT5hwFSBwjntczFgEF69kN1UMR508JtJSbqdNueylGqGsGh/IIB+vxh3Luc3v
+         O857ufVfTzybs00TYWEikYwgyv52PQbLUWSDLR6aYrlL5jqN7m67c/g5/NheOXPbgpaf
+         YzWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOQLpOKoj9114rirl/4mYKVZc2F6nNlDuwoRUDhFMiiaCVlj4trsEP01w656Xhp7UhK6GAgcmpfQfB/Lo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGF953Tdr+Ao5X54dzdFK8Is4ZmiHJIiMztsDEvX3cG3Bxbajr
+	pXSx1TEPH+4EcA3/1aQ0UV+pHNoEtbCshyRP5SurOLEE/UvKzzP2KZS+
+X-Gm-Gg: AYBFou26YNdlt+jqs12qJjvUfo2+l+CH1yDgwj1T8Xlg/wYHyi/Zo8mH4kM+tUhde/0
+	q7tPSoq85aj/MunP4t+nLo6GFKreq03jZMI8NrjH3UYahuVnOnseIJi+yvVeXn3SY5hevcAO+P7
+	Naw3A748tgw5we6mKwCXwpOlOU/mfnlILRxXQQfSG1BkjUvYBguHueWA1rO8BTdz3dr0Y5PwLCF
+	D2+pOzCaOosv8egvSnk1CO5xNgBej8QDwRNpEYAFEHmCu9VYvpTIsAdol0pE6+RiMDFghjLjkmS
+	Jqt0IWg0l/jhw4/6mdCZY5wdx6mJQgUXgReoOm60n2ctctH9C6Ul6UhYqAhaEC/1N7crCOmRn2l
+	sQfXAECBEzEehNKfprJ2RL+xXcZ9n7RJIV6jiJYKm+Y5mwLrmBk3x+OHfUF5XFBLuEJ+GksmqRM
+	w2EtcyeVxDjGnf9KiuHKpQPUv/3TWS0xcPDFUSEjp8kstZ7AGalgCBSsjs+MWjW8ZDqJItxOQv1
+	0hCSCQebPD2wj7vxWEdU3WWKhcsJo/iZu05irH+DA==
+X-Received: by 2002:a05:600c:6211:b0:49f:bc28:e8b1 with SMTP id 5b1f17b1804b1-49fc5735be7mr35269585e9.14.1789716565774;
+        Fri, 18 Sep 2026 00:29:25 -0700 (PDT)
+Received: from Abds-MacBook-Air.local ([2a02:3037:31e:59ba:f5a3:393a:4cdc:d23f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7cebae2sm27323855e9.8.2026.09.18.00.29.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 00:29:05 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 18 Sep 2026 09:29:04 +0200
-Subject: [PATCH v2] soc: qcom: geni-se: provide PROG_RAM_DEPTH for I2S HUB
- Serial Engines
+        Fri, 18 Sep 2026 00:29:25 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: Zhihao Cheng <chengzhihao1@huawei.com>, song@kernel.org, yukuai@fygo.io,
+ xiao@kernel.org, magiclinan@didiglobal.com, eadavis@sina.com
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ chengzhihao1@huawei.com, yangerkun@huawei.com, yi.zhang@huawei.com
+Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
+ submitting IO
+In-Reply-To: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+Date: Fri, 18 Sep 2026 09:29:23 +0200
+Message-ID: <m233v7586k.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-topic-sm8x50-i2c-hub-fw-ram-v2-1-30e960966802@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAD/orGoC/42NSw6CMBQAr0K69pm2fCyuvIdhQcsDnlFKXgExh
- LsLeAGXk0xmFhGQCYO4RotgnCiQ7zbQp0i4tuwaBKo2FlrqTObqAoPvyUF4mTmVQNpBO1qo38D
- lC9LEpTK2mMnYiK3QM9Y0H/V78eMw2ge6YU/uRkth8Pw59pPavf9OkwIFdZJrk1XGmcrentSV7
- M+eG1Gs6/oFL3dp7tkAAAA=
-X-Change-ID: 20260917-topic-sm8x50-i2c-hub-fw-ram-54c503be6038
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3638;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=CrfB5Rz0RrvGaZsIayezXrztszc5vqvtS3GZl43Wk9M=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqrOhA/Onzy+tSI55tdZlZKmFochJqBLEWXzBpLSnq
- gO6t9guJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqzoQAAKCRB33NvayMhJ0SYiD/
- 0XXgwC1XShHhiYscX4bnV3Ya0b6UwdrvxsKczU2SWnSjFKPOJNfOC10+rOAIFK8oOow+Eqn5fY92ke
- tqAu0eHeiqX3xNS82DDMceAHeNJvmHFeX54cJDY63e7G7NWlw5nLpLHBwqcs/lenwcqgJK7ojaNln1
- aOOLpPTPk0YsAiNUx9mpsNK483+fHHtDUrM5sLoczEfs1B3qTkFziCDQ3r5l0RLBpFMew1aFJkRHqy
- OiOpsrj9yibeCuTk+g9vI5aW2f2vnx1/gRds1o/FenHG1fIbNCIhO15k9zDrBzqPgNGuyoHdC//DZa
- ArYNM1cKr2qcVr8XIvzLIdFQzPte+1DKJmPvTui9SHDqDC1tcSNjsKWSNKMyD2AXOjxPv3+OPhysWq
- D8ws0ijfZqXS1E508Zbg6vWgUvmcqTLgiJ1pi3T5Us8aH5D8mjiJM2D5tX9hLnhxwYsHTBmJwVT4zI
- 6ZsDzYjSHTpkOB9Vh82RckCUI4WLhU6y8pQFOJvHoXrwjxwvRzkqpi3Z1H0wEyaBJzMxMsiy0/JIfS
- Rmkz3NCj9aZ38NdHexJmmzjlyhegmAT7uHuHNWtmn8FdLKIK6lhaLmtC1IRba1dwhmIsIczRpmndPJ
- EuNYo47odSYipK2LiGnPVPYv35/aJlzwKFRcS/PYrfICpa5o98iKa2jj9aVA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Type: text/plain
 
-The I2C Hub serial elements lacks DMA, so the SE_HW_PARAM_2 register which
-is in the DMA register space doesn't exist for those instances.
 
-Provide the ram depth in the compatible data to be used instead
-of the reading the missing SE_HW_PARAM_2 register.
+Hi Zhihao,
 
-Fixes: 522bfb4f33c0 ("soc: qcom: geni-se: Use HW PROG_RAM_DEPTH to validate firmware size")
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
-Changes in v2:
-- Instead of ignoring the depth, use 1020 as the default HUB serial element depth
-- Link to v1: https://patch.msgid.link/20260917-topic-sm8x50-i2c-hub-fw-ram-v1-1-f49286d8c8db@linaro.org
----
- drivers/soc/qcom/qcom-geni-se.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
+> Concurrent processes md_stop and IO submitting could trigger a
+> null-ptr-deref of 'mddev->private':
+>
+>  BUG: kernel NULL pointer dereference, address: 0000000000000070
+>  RIP: 0010:_wait_barrier+0x2f/0x250
+>  Call Trace:
+>   raid1_make_request+0x150/0xf50
+>   md_handle_request+0x104/0x530
+>   md_submit_bio+0x76/0x130
+>   submit_bio+0xdd/0x250
+>   submit_bio_wait+0x1f/0x40
+>   __blkdev_direct_IO_simple+0x1f6/0x370
+>   blkdev_write_iter+0x3b2/0x520
+>   ksys_write+0x7d/0x190
+>
+>               P1
+>   fd = open(/dev/md0, O_RDWR)
+> 	                      P2 (forked from P1, fd' <= fd)
+>   write(fd)
+>    submit_bio
+>     md_handle_request
+>      raid1_make_request
+>       raid1_write_request
+>                                   ioctl(fd, STOP_ARRAY)
+> 		                   mddev_set_closing_and_sync_blockdev
+> 				   // check passed, mddev->openers = 1,
+> 				   // because md_open() is only called
+> 				   // once in P1->open
+> 				   do_md_stop
+> 				    __md_stop
+> 				     mddev->private = NULL
+>
+>        conf = mddev->private // NULL
+>         wait_barrier(conf, sector) // null-ptr-deref !
+>
+> It is a common problem for raid0/1/10/5, and __md_stop could be triggered
+> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
+> The caller dm_table_destroy() is guaranteed being invoked with device
+> suspended, so raid_dtr() could keep using mddev_lock_nointr().
+> The caller array_state_store() is guaranteed by the check
+> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone open
+> /dev/mdx, write something and close /dev/mdx, it won't trigger the
+> problem, all dirty pages can be flushed before mddev->openers decrement.
+> Besides, fail the submitting IO in md_handle_request() if the
+> 'mddev->pers' becomes NULL.
+>
+> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> ---
+>  v1->v2:
+>   1. Add 'mddev->pers != NULL' check before make_request
+>   2. Delete dm-raid caller(->dtr) modifications
+>   3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>  v2->v3:
+>   1. Remove modifications in array_state_store()
+>   2. update commit msg
+>  drivers/md/md.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..e73338c26d53 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+>  		if (!percpu_ref_tryget_live(&mddev->active_io))
+>  			goto check_suspended;
+>  	}
+> +	if (!mddev->pers) {
+Isn't this case already handled by md_submit_bio(). take a look in
+md_submit_bio()
 
-diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
-index 873bfbd6b2b7..893a917be527 100644
---- a/drivers/soc/qcom/qcom-geni-se.c
-+++ b/drivers/soc/qcom/qcom-geni-se.c
-@@ -101,22 +101,26 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(geni_se_regs);
-  * @base:		Base address of this instance of QUP wrapper core
-  * @clks:		Handle to the primary & optional secondary AHB clocks
-  * @num_clks:		Count of clocks
-+ * @prog_ram_depth:	Available CFG RAM depth for instance without SE_HW_PARAM_2
-  */
- struct geni_wrapper {
- 	struct device *dev;
- 	void __iomem *base;
- 	struct clk_bulk_data clks[MAX_CLKS];
- 	unsigned int num_clks;
-+	unsigned int prog_ram_depth;
- };
- 
- /**
-  * struct geni_se_desc - Data structure to represent the QUP Wrapper resources
-  * @clks:		Name of the primary & optional secondary AHB clocks
-  * @num_clks:		Count of clock names
-+ * @prog_ram_depth:	Available CFG RAM depth for instance without SE_HW_PARAM_2
-  */
- struct geni_se_desc {
- 	unsigned int num_clks;
- 	const char * const *clks;
-+	unsigned int prog_ram_depth;
- };
- 
- static const char * const icc_path_names[] = {"qup-core", "qup-config",
-@@ -1241,6 +1245,7 @@ EXPORT_SYMBOL_GPL(geni_se_resources_init);
- static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct firmware *fw,
- 					       enum geni_se_protocol_type protocol)
- {
-+	struct geni_wrapper *wrapper = se->wrapper;
- 	struct device *dev = se->dev;
- 	const struct elf32_hdr *ehdr;
- 	const struct elf32_phdr *phdrs;
-@@ -1306,8 +1311,11 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
- 			sefw->fw_size_in_items = cpu_to_le16(fw_size);
- 		}
- 
--		prog_ram_depth = FIELD_GET(PROG_RAM_DEPTH_MSK,
--					   readl_relaxed(se->base + SE_HW_PARAM_2));
-+		if (wrapper->prog_ram_depth)
-+			prog_ram_depth = wrapper->prog_ram_depth;
-+		else
-+			prog_ram_depth = FIELD_GET(PROG_RAM_DEPTH_MSK,
-+					readl_relaxed(se->base + SE_HW_PARAM_2));
- 		if (fw_size >= prog_ram_depth) {
- 			dev_err(dev, "Firmware size (%u) exceeds RAM size (%u)\n",
- 				fw_size, prog_ram_depth);
-@@ -1617,6 +1625,7 @@ static int geni_se_probe(struct platform_device *pdev)
- 		return PTR_ERR(wrapper->base);
- 
- 	desc = device_get_match_data(&pdev->dev);
-+	wrapper->prog_ram_depth = desc->prog_ram_depth;
- 
- 	if (!has_acpi_companion(&pdev->dev) && desc->num_clks) {
- 		int i;
-@@ -1669,6 +1678,7 @@ static const char * const i2c_master_hub_clks[] = {
- static const struct geni_se_desc i2c_master_hub_desc = {
- 	.clks = i2c_master_hub_clks,
- 	.num_clks = ARRAY_SIZE(i2c_master_hub_clks),
-+	.prog_ram_depth = 1020,
- };
- 
- static const struct of_device_id geni_se_dt_match[] = {
+> +		/*
+> +		 * The __md_stop() sets 'mddev->private' to NULL during
+> +		 * the IO submitting, check 'mddev->pers' before the IO
+> +		 * being processed by specific driver to avoid the
+> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+> +		 * safe because the IO has got the 'mddev->active_io'
+> +		 * reference, and all __md_stop() callers will wait for
+> +		 * the reference to be zero.
+> +		 */
+> +		bio_io_error(bio);
+> +		percpu_ref_put(&mddev->active_io);
+> +		return true;
+> +	}
+>  	if (!mddev->pers->make_request(mddev, bio)) {
+>  		percpu_ref_put(&mddev->active_io);
+>  		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+>  	case HOT_REMOVE_DISK:
+>  	case SET_BITMAP_FILE:
+>  	case SET_ARRAY_INFO:
+> +	case STOP_ARRAY:
+>  		return true;
+>  	default:
+>  		return false;
+> -- 
+> 2.52.0
+>
 
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-topic-sm8x50-i2c-hub-fw-ram-54c503be6038
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
-
+-- 
+Best Regards,
+Abd-Alrhman
