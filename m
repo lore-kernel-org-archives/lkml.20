@@ -1,140 +1,145 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3482B3BB9FD
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F47130D3F8;
+	Fri, 18 Sep 2026 15:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744868; cv=none; b=d4RZy5lRB+KtWc34OzFzZWR0HLBOkQ1JFy/00h8r2b6u5fPM0qrel6vCExnct8tXHY3XmGDg21960m7uEZPPbVBegVsr0K0wUHpRQSBHwAfc1P0nsFM5VKqvtbhBfSmQ7P3JxVUHySzxYu2mJhyrkne3+Dlk7NPQIKP1e20hB4g=
+	t=1789744978; cv=none; b=TM80qdKo9BrbI5WedzOdvWdnj6hEGjSnO8mJ1IWCXgnZPO6jkHPcVgC+j1gFDW+q/3abIzlIsNDUKAFb8G8epYpG+/HvwrWgUuWYbWUL8hcFxD/LIqVFm+SKQuUj1AagCeVAuaCFPkCOg5fOzLbiMDACL01FZx9KhalLHoSqwUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744868; c=relaxed/simple;
-	bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SUxxSSayCU6WAQFHcTZjnvbAOcxqNePSQZ0fo9AeyM33CsOuAY+R9el+S2c9C+OITnHZah07k+K22OoZaDJPOOe0BOANHbtDFsHlbsFMSKK4IxyoXMer+jY0az+xqZz3x0rD8rg8xG1fAvG9G0nKNi4Nf8dY5sBQQAzIwHtShNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mmrOxgiP; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789744978; c=relaxed/simple;
+	bh=t72dqDfvJNySTZ8XHz32yE1D7KDyjG7BBPWi8OxweCk=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=KbKSjvgD+i5tMTup7VSMbqvC6msWXhzHFEDZYGfyrvbo3dJx1vWnrDSXppjJrMnnaTJEt/B23NLbdH4AoRl1s+eRNUy0Bk3JPUb4oqRO8iigfuG7gQcX+wDWLBLtPEdDAHpUnjOLi6teknvhg5lQHa18Qzm78lenVB/1KVD0Up8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DzaEQETe; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mmrOxgiP"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74dbc7359so785876e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789744864; x=1790349664; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
-        b=mmrOxgiPFnEtt5N55QEkzwkEvhtWWFhlSh1OSE1NAchmYA7b1JdQtey0zb1zFaJz33
-         JK9r/rbyDChNepptOi4qRoViCtT5hvDCUSUUTqe8kPtCJYklUtxeIapuOXOO3NLPESFI
-         Axjedh0QUEyeO0qOppFFAtKFHTizzav2qkcWaY/gi++H1hYTY9xJRAxd5+/qPffl4Kib
-         fTFqL00+InPvGYc80NxvPCKlYV3wKCic53LSU7CSGaLC9dwv5KX8XjaqVtpNm7eGvOHi
-         Tqk1xDGXxG5/hdxkE/Jnvtf/1a4M8ozGk9GspMIiXtSOIcmpLPbHC6sQ7PQtEMKANOd5
-         ipfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789744864; x=1790349664;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
-        b=GSwcsMZxez84QvzwU2HrPnQQGquOfHvQ3JJVGO6KEhtRZ09kaKD5BF0ewCL7anghd9
-         EZoEU7aoxtpMN8Z27lQkxp+aGsharJFKvnNn8j/MaB8MVpZchwjtAJHXFWIFya4oCeM2
-         nNpYDVzxBaaxYJJpYku2cIBqljSuKiHWN8kE2XBFcw7J4kVSC2p7/WEGuJsYC4ottj4Q
-         V2qmOMmeyNH5mZJXXdMYCMu6+fmqU6J8ArGRwHENad0sBc/tXq0O+CZp2NeFYhfrXLtt
-         1fLVAEY131BGSnOwa9f8OlwRJm3FOIu+VPazzjxcepFWL5tcXcECCFd2YrZFgTEFSZ8o
-         rCWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwHmQFjKhjkL69KUm3yMgfh5B8R3YRhjSqUJ+A5RVrHMD/jJp3IRx7fteoO1HZAi9o5pja+QKAZWuR+vdk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l05yvjUBEYJNHCo+rM19jTOoKyxpQMa5v/rK5z5jJK6xxMbxrn
-	T9/L2cSriFfoaH+S4ukwlWc7nj7xoQ0to0IAzJpbBH+6Nl+YU8/Qs1TiMSMpKA==
-X-Gm-Gg: AYBFou0jMMvuXyoYEGIIlFbOXZH8p73blo1nHwl+jYAoYK0POPfco5dqX1qziJ14+VU
-	yEXiD2qK6OK5LFgUIt3g2z7P2J7moQKk7GTMwgjztYzRI/3g0JZA3tg6uzqzRlqf4GdqmW5IWua
-	Iy9r8kJqpXEni78xVHXvJPUmD/434W+rHUjc9ZSNwCXhX1SLGVf3cw+CBZt49ZwlEYLSoqdBBwG
-	WPt2CcDDlL5P5BWSzPwYMm/FsHLlpiclJc67iWD2Uw5Z5UlDpP00qNnGmt1BOnuSScV3mhrdp24
-	Weq8gqzSM9ouNVn5PDPocq1f06oVfjbFiehKRnuVWL+aJupgOKPOx1kbHSMUUe1vF6r0U8Mq1/a
-	GTbXBtXn4wFrxz1ZS2xsMXqit244HX3SW2Vkw0uMefEXWfg329T/dAw5cpGBmeWiU+3Q7lT5eyj
-	7bsNXMLX4LkoFeyd3/13GWTwPVCb4mRFT98kyrKZHl9x/9yL6JbZvajzLeQ2bShPauDyt87tn6O
-	FLTEdo/5id7WbWqIy+SmWoJBKupWKTKzF0MjT1FgeeibWEqYSrQonzNL9B+vYpHWtf7nB9Bz24e
-	D3NrcQ==
-X-Received: by 2002:a05:6512:1329:b0:5b6:1a7c:59d7 with SMTP id 2adb3069b0e04-5b8c184c9aemr844940e87.49.1789744863829;
-        Fri, 18 Sep 2026 08:21:03 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c270ea2bsm547830e87.8.2026.09.18.08.21.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:21:03 -0700 (PDT)
-Message-ID: <5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
-Subject: Re: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range,
- offset and 4-20 mA
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Arka Mondal <arka@arkamondal.net>, Jonathan Cameron <jic23@kernel.org>, 
- Nuno =?ISO-8859-1?Q?S=E1?=
-	 <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, Andy Shevchenko
- <andy@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, arkamondalofficial@gmail.com
-Date: Fri, 18 Sep 2026 16:22:27 +0100
-In-Reply-To: <20260918122032.134947-1-arka@arkamondal.net>
-References: <20260918122032.134947-1-arka@arkamondal.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DzaEQETe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789744976; x=1821280976;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=t72dqDfvJNySTZ8XHz32yE1D7KDyjG7BBPWi8OxweCk=;
+  b=DzaEQETean7KDyIbuvChs8atbmsKiVviOJPjUHn0snQT55hV8Y9gj8Dy
+   ONBkmIHtzWPpu26q+AMreHDjJrByTsZrAuJH0MF7w4cFhv23a/U+PVhZS
+   JE1/WKs9kN+fT+TA/Qb3krH7i91JcHlEebBcREr3bqSgx58oLZmebjwOl
+   qYJxuzZcKUN1XGypuuWsmKivv5418W/oa3NqzdPAqWjJQR4dxPvtM8syh
+   isT/DqBy/rEtb5Ji+OmgMx5ok3XRcGjB9oGRWs6INFk8ck5d2ECPocd3u
+   XJZnXqg7Y4KB8ZFDOY7gAqGpBzlOaqDPVDwla7oVVfePpRIvK5neBx6KT
+   A==;
+X-CSE-ConnectionGUID: D+EHtyK8R1iKC1CJM9+MBQ==
+X-CSE-MsgGUID: CZeYBlvtRWmIeKKzBqGoQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="94091923"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="94091923"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:22:56 -0700
+X-CSE-ConnectionGUID: JFnLB3ZQQwehP36s511sHA==
+X-CSE-MsgGUID: fdK71BD2R9KutAy7kkd1WA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="270752360"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:22:54 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 18:22:50 +0300 (EEST)
+To: Aaron Erhardt <aer@tuxedocomputers.com>
+cc: wse@tuxedocomputers.com, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v3 4/6] platform/x86/tuxedo: Fix keyboard LED map
+ ordering
+In-Reply-To: <dfa01359-e2b3-4e02-85d2-220e48b85594@tuxedocomputers.com>
+Message-ID: <4ecaf381-19b3-1473-6262-ebc8e0e471a2@linux.intel.com>
+References: <20260826081149.235487-1-aer@tuxedocomputers.com> <20260826081149.235487-5-aer@tuxedocomputers.com> <35453b67-df97-a5a6-99a1-9746500796e9@linux.intel.com> <dfa01359-e2b3-4e02-85d2-220e48b85594@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-952082327-1789744970=:17235"
 
-On Fri, 2026-09-18 at 21:20 +0900, Arka Mondal wrote:
-> The first attempt to send this series on 2026-09-18 was rejected by
-> the kernel.org mail servers, so it did not reach the lists. The patches
-> are unchanged.
->=20
-> This series fixes four bugs in the AD5758 driver, all present since
-> commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
-> takes two patches, one for the binding and one for the driver.
->=20
-> Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
-> it no longer shares a cacheline with other driver state. The 2022
-> conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
-> ____cacheline_aligned markings, and this driver had none.
->=20
-> Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
-> gives full-scale output.
->=20
-> Patch 3 fixes the offset for every range that does not start at 0.
-> The +-20 mA range reports -32 instead of -32768.
->=20
-> Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
-> driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
-> (Rev. B, Table 32) and the original text binding say range code 1010
-> is 4 mA to 20 mA. The old value is still accepted: the binding marks
-> it deprecated and the driver maps it to the corrected range, so
-> existing device trees keep working.
->=20
-> Compile tested only; no relevant hardware available. The binding was
-> checked with make dt_binding_check and with test device trees:
-> <4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
->=20
-> Arka Mondal (5):
-> =C2=A0 iio: dac: ad5758: Fix alignment for DMA safety
-> =C2=A0 iio: dac: ad5758: Reject out-of-range raw values
-> =C2=A0 iio: dac: ad5758: Fix the offset calculation
-> =C2=A0 dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA current r=
-ange
-> =C2=A0 iio: dac: ad5758: Fix the 4 mA to 20 mA current range
->=20
-> =C2=A0.../bindings/iio/dac/adi,ad5758.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
-> =C2=A0drivers/iio/dac/ad5758.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 18 ++++++++++++++----
-> =C2=A02 files changed, 18 insertions(+), 4 deletions(-)
->=20
->=20
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-LGTM,
+--8323328-952082327-1789744970=:17235
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+On Tue, 15 Sep 2026, Aaron Erhardt wrote:
+
+> Am 15.09.26 um 15:00 schrieb Ilpo J=C3=A4rvinen:
+> > On Wed, 26 Aug 2026, Aaron Erhardt wrote:
+> >=20
+> >> The LED mappings in sirius_16_[iso|ansii]_kbl_map did contain a
+> >> flipped line that caused LEDs to turn on in the wrong order when
+> >> counting up the Lamp ID.
+> >>
+> >> Cc: stable@vger.kernel.org
+> >=20
+> > And the Fixes tag?
+>=20
+> I assume this is mainly for the stable maintainers to be able to track do=
+wn
+> when the bug was introduced, right? I thought "Fixes:" would only be used=
+ for
+> regression bugs.
+
+Fixes tag is not limited to regressions but should be used with any bug=20
+to link the commits. And yes, it helps stable people among other things.
+
+Only "bugs" which aren't bugs (cannot be triggered) usually shouldn't have=
+=20
+one, or comment or style corrections, etc. changes that have no functional=
+=20
+impact.
+
+> The only commit relevant to this is the one that introduced the driver it=
+self:
+> cfd84b3f419bf0aec60ecddc92c61b539c339ec9
+>=20
+> I correct this in the next series.
+
+--=20
+ i.
+
+> >> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+> >> ---
+> >>  drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 8 ++++----
+> >>  1 file changed, 4 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platf=
+orm/x86/tuxedo/nb04/wmi_ab.c
+> >> index 8f1ffca0430d..2b985b030197 100644
+> >> --- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> >> +++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> >> @@ -232,8 +232,8 @@ static const struct tux_kbl_map_entry_t sirius_16_=
+ansii_kbl_map[] =3D {
+> >>  =09{ 0x2e, { 246000,  67500, 5250 } },
+> >>  =09{ 0x2a, { 269500,  67500, 5250 } },
+> >>  =09{ 0x53, { 294500,  67500, 5250 } },
+> >> -=09{ 0x55, { 311200,  67500, 5250 } },
+> >> -=09{ 0x54, { 327900,  67500, 5250 } },
+> >> +=09{ 0x54, { 311200,  67500, 5250 } },
+> >> +=09{ 0x55, { 327900,  67500, 5250 } },
+> >>  =09{ 0x56, { 344600,  67500, 5250 } },
+> >>  =09{ 0x2b, {  31000,  85500, 5500 } },
+> >>  =09{ 0x14, {  51500,  85500, 5500 } },
+> >> @@ -337,8 +337,8 @@ static const struct tux_kbl_map_entry_t sirius_16_=
+iso_kbl_map[] =3D {
+> >>  =09{ 0x2e, { 246000,  67500, 5250 } },
+> >>  =09{ 0x2a, { 269500,  67500, 5250 } },
+> >>  =09{ 0x53, { 294500,  67500, 5250 } },
+> >> -=09{ 0x55, { 311200,  67500, 5250 } },
+> >> -=09{ 0x54, { 327900,  67500, 5250 } },
+> >> +=09{ 0x54, { 311200,  67500, 5250 } },
+> >> +=09{ 0x55, { 327900,  67500, 5250 } },
+> >>  =09{ 0x56, { 344600,  67500, 5250 } },
+> >>  =09{ 0x2b, {  31000,  85500, 5500 } },
+> >>  =09{ 0x14, {  51500,  85500, 5500 } },
+> >>
+> >=20
+>=20
+--8323328-952082327-1789744970=:17235--
