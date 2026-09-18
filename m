@@ -1,103 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB8C515970;
-	Fri, 18 Sep 2026 16:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95F9516149;
+	Fri, 18 Sep 2026 16:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748880; cv=none; b=jORRdGQ8PgRGHN6N3w7+upHOSbWZ7nmMTy3U21ZTWrJ3rQ26KRBgBc+3DZAjkxxtPhxSWdjkJgZZjQTOu89FUba9T0Sc3FdXHKhBo98bYPALEYn0wBoRHRHzK+25h32bbbs94802mO7IGcG+h5SOb1B+R7xySyG9dulvtPk0MVw=
+	t=1789748899; cv=none; b=JtSWe9IYftQWcmvyIUKON1hk4UZdovSeByq9ifnSgVFGv4Gr4A7o+EOkz0uHVWGmg0uNNBahVO0tq/an9PDcitzOdAWpmQZyB050Hy55W/kRD4VfHM/zcRLeP9JZbLgoO0aAIAlbK87k8vhEDG0oxu5d9t9KSNj8w3+fgkTkXB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748880; c=relaxed/simple;
-	bh=ENg1B8J2XgujwhJsbFW+JURLUykzaMIaRBR8Q2TvvDo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SrDFhKt/jhEz1VDkcmPz5kFGHApCIwWMLIkdnLddwJiLA3Auku8SgXCMYNsO5JGzElvkyEb1Y/csu15i2dG02/u0s0CAcxgg52YL3JSjjnkG7ip1kQJydahxXQHxFNYzHxnK+MGDgQXFS+R+6LFXCjlyU5O1Iff5jY8koeZ1rus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oz5E76IC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789748899; c=relaxed/simple;
+	bh=hkOGfl3uMR+TD4cA7bZLolJR7gTPPKlkrku5dBBzcmk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ua0M1uphbYdHUks+3m/bpXmZLOINXbosXWXSS2iDz9zCa6GsfUBmW9b2xIcajYzCRCFXssvBwgn6zBwpy7o1xu2XfyA7NLRQcdpy/DCdQOkdFUQMJgKXYMUzHKogLT0T9LEnJgDDa1Ko8jm5SlAoTDYMzbnSUFqfR1GCELHGZiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8vteWUM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oz5E76IC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067F71F000FF;
-	Fri, 18 Sep 2026 16:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748870;
-	bh=RUrki9PiihwqQhD1He2HPnPY/iXNXQ626jiFsHj9jNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oz5E76IC1AW958/OUCiLVFPK5O7IA+IxOlkLIFaPL/lstGjxdAu9qkLwneHvOXAm8
-	 /xsMM1GKPycYfyUcVsfLeJ+zz/LmAi+r4ijC6UisTu8rfZKebDQTq3ndKWvKZRW6/L
-	 tvVmTbPn/42oV4pvF3FAVzMs1Fl2HNBs91bqs2Pi5Ni7+OPTKLwyaUz4vgyRcODGLM
-	 aa0zQzqttJ9ShuLZM7S32GyDsYhEUnp8A2mfzjxWzWxZ/QPHswu8KO9/EvikoSGcRI
-	 rMVHRJFoIEsgkxWwKuM3ET9catgXFbWZ2t17QkcjeUfJHfJkB3pmrB7GA56iZdyad7
-	 rSr3njC0LIivw==
-Date: Fri, 18 Sep 2026 17:27:43 +0100
-From: Will Deacon <will@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Samiullah Khawaja <skhawaja@google.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Kevin Tian <kevin.tian@intel.com>, iommu@lists.linux.dev,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, David Matlack <dmatlack@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [RFC PATCH v2 00/10] dma-mapping: Add preservation of direct
- allocations
-Message-ID: <aq1mf_EXzn2hUwy4@willie-the-truck>
-References: <20260708234854.4044652-1-skhawaja@google.com>
- <20260826183112.GA3703145@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8vteWUM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F2A80C32781;
+	Fri, 18 Sep 2026 16:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789748898;
+	bh=hkOGfl3uMR+TD4cA7bZLolJR7gTPPKlkrku5dBBzcmk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Z8vteWUMfZWnzD6qkN7QDGkZR2RwHqmxHIydOYb+9UTBQqrJVOt5GoZw4mBPtByAq
+	 atZ/69FXevdWOv3GcF3GOKMHSqEso1sYAbN6+SwNEUzfoF5sBNxrfaYnidE1zr5ppK
+	 Lm+EqZfooEHEGOa4y9xyxM4y3sZKsdu6Qqf0LFm0gZQd6ynkkyN4EwP1cKl13e6NeU
+	 /GaymeqD0/j+VI29mD+QP38ioY2rVRYpz9KSp1+btYzUxo5Z/n5DbmS+jHKcRyLkdt
+	 jn9mLEdPERKNGMRAY4Ie+3JUt5CesKtBXvLESZHAili4+DccjWcj0Nwm3mhhLhfAUt
+	 si8nEWmG6l/CA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA04FC982DF;
+	Fri, 18 Sep 2026 16:28:17 +0000 (UTC)
+From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
+Date: Fri, 18 Sep 2026 18:28:16 +0200
+Subject: [PATCH 4/4] wifi: ath12k: Connect to the QMI server belonging to
+ the device owned by this driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826183112.GA3703145@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-qrtr-multi-ep-v1-4-8a06caa368d3@oss.qualcomm.com>
+References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+In-Reply-To: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Chris Lew <christopher.lew@oss.qualcomm.com>, 
+ Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+ Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
+ Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4259;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=curbfmqjxjKsnWzL9i8aIUn+dQtL2mKCKSdc3ihT0zc=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqrWafO1di1O4lB6nHUNfWzvdQz+gMTm6+uqD9f
+ 2NI1o3gjLqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaq1mnwAKCRBVnxHm/pHO
+ 9dNECACBqfY4aXbYqtyfGh1aw0bHIUcBfUl/RrqJgbsU87TPa6Yil/k4pOBcfgsWi8H6LyL7L4L
+ 8MnL0j7MpsK5W/M3Fa0Rs9miENaW3fgyJ/Ds8k82EyAJX06ERwWPJBFPuUKIwIdAIl67F1YBW/t
+ xhTrc6kciZywKXMUiMRID8ePN9LAu/FY5tK2v7PQiI9b2PdUgGxOT6WuY/FppsvnmciD/xf68+J
+ MJBSC2m7ocBiOFoFFQY3WfhLcG7iDLysHmeWs5BPTSLekphfYyKpznypApBQZS3n9UW9PZskSQj
+ sCwsTbApOTAM2u3AZ4qQ716vhSy9uiP87Hr5JHNpPSDmj3Br
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-Endpoint-Received: by B4 Relay for
+ manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
+X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
-On Wed, Aug 26, 2026 at 03:31:12PM -0300, Jason Gunthorpe wrote:
-> On Wed, Jul 08, 2026 at 11:48:44PM +0000, Samiullah Khawaja wrote:
-> > This is an RFC v2 to discuss the preservation of DMA allocations for
-> > devices that are using direct allocation mode. Note preservation here
-> > means preservation of physical memory using KHO only. IOVAs and IOMMU
-> > mappings are out of scope.
-> > 
-> > The complexity and need of this was discussed in the thread mentioned
-> > below. It was proposed to allow preservation of only a subset of
-> > allocations with minimum support. Offline discussion with Will Deacon
-> > concluded that this series is still needed, because we still want to use
-> > coherent allocations for Arm sMMUv3 ste/cds, so sending this v2.
-> 
-> Was this before or after concluding that ARM was OK with using
-> cachable memory?
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-That discussion was primarily about the page-tables iirc.
+When two identical ath12k PCIe devices are connected to the same host, both
+advertise the WLFW service with the same service and instance id. The QMI
+lookup reports both servers to each device, so a device may connect to the
+firmware running on the other device.
 
-I still think drivers should be able to use the coherent DMA API and not
-have to use an entirely different interface depending on whether or not
-they need to support KHO.
+But now, QRTR provides each MHI endpoint a unique node id which is
+different from the node id announced by the device. So use the same id to
+pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
+the node id derived from the MHI controller index and zero for transports
+that do not assign one. In the new_server callback, skip any service whose
+node id does not match. A node id of zero disables the check, so transports
+that do not assign one keep their current behavior.
 
-> >  include/linux/dma-direct.h        |  29 +++++
-> >  include/linux/dma-map-ops.h       |  10 ++
-> >  include/linux/dma-mapping.h       | 100 ++++++++++++++
-> >  include/linux/kho/abi/dma_alloc.h |  32 +++++
-> >  kernel/dma/Kconfig                |  12 ++
-> >  kernel/dma/Makefile               |   1 +
-> >  kernel/dma/coherent.c             |  11 ++
-> >  kernel/dma/contiguous.c           |  27 ++++
-> >  kernel/dma/direct.c               | 189 +++++++++++++++++++++++++++
-> >  kernel/dma/direct_test.c          | 208 ++++++++++++++++++++++++++++++
-> >  kernel/dma/mapping.c              | 132 +++++++++++++++++++
-> >  kernel/dma/pool.c                 |  17 +++
-> >  12 files changed, 768 insertions(+)
-> 
-> Because this seems like quite a big change to swallow compared to just
-> using iommu pages.h
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+---
+ drivers/net/wireless/ath/ath12k/hif.h |  9 +++++++++
+ drivers/net/wireless/ath/ath12k/pci.c |  9 +++++++++
+ drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++++++
+ 3 files changed, 29 insertions(+)
 
-Maybe, but I think it's in the right place rather than scattered across
-a bunch of drivers. A good chunk of it is also test code and empty
-static inline functions.
+diff --git a/drivers/net/wireless/ath/ath12k/hif.h b/drivers/net/wireless/ath/ath12k/hif.h
+index 4de8667690e9..be9c070cf716 100644
+--- a/drivers/net/wireless/ath/ath12k/hif.h
++++ b/drivers/net/wireless/ath/ath12k/hif.h
+@@ -32,6 +32,7 @@ struct ath12k_hif_ops {
+ 	void (*get_ce_msi_idx)(struct ath12k_base *ab, u32 ce_id, u32 *msi_idx);
+ 	int (*panic_handler)(struct ath12k_base *ab);
+ 	void (*coredump_download)(struct ath12k_base *ab);
++	int (*get_qrtr_node_id)(struct ath12k_base *ab);
+ };
+ 
+ static inline int ath12k_hif_map_service_to_pipe(struct ath12k_base *ab, u16 service_id,
+@@ -162,4 +163,12 @@ static inline void ath12k_hif_coredump_download(struct ath12k_base *ab)
+ 	if (ab->hif.ops->coredump_download)
+ 		ab->hif.ops->coredump_download(ab);
+ }
++
++static inline int ath12k_hif_get_qrtr_node_id(struct ath12k_base *ab)
++{
++	if (!ab->hif.ops->get_qrtr_node_id)
++		return 0;
++
++	return ab->hif.ops->get_qrtr_node_id(ab);
++}
+ #endif /* ATH12K_HIF_H */
+diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
+index 6441927b5382..2b1b122bbb3b 100644
+--- a/drivers/net/wireless/ath/ath12k/pci.c
++++ b/drivers/net/wireless/ath/ath12k/pci.c
+@@ -10,6 +10,7 @@
+ #include <linux/pci.h>
+ #include <linux/time.h>
+ #include <linux/vmalloc.h>
++#include <net/qrtr.h>
+ 
+ #include "pci.h"
+ #include "core.h"
+@@ -1491,6 +1492,13 @@ static int ath12k_pci_panic_handler(struct ath12k_base *ab)
+ 	return NOTIFY_OK;
+ }
+ 
++static int ath12k_pci_get_qrtr_node_id(struct ath12k_base *ab)
++{
++	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
++
++	return qrtr_host_node_id(ab_pci->mhi_ctrl->index);
++}
++
+ static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
+ 	.start = ath12k_pci_start,
+ 	.stop = ath12k_pci_stop,
+@@ -1512,6 +1520,7 @@ static const struct ath12k_hif_ops ath12k_pci_hif_ops = {
+ #ifdef CONFIG_ATH12K_COREDUMP
+ 	.coredump_download = ath12k_pci_coredump_download,
+ #endif
++	.get_qrtr_node_id = ath12k_pci_get_qrtr_node_id,
+ };
+ 
+ static enum ath12k_device_family
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 280e50a1f31d..22b8cbbbf4f4 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -9,6 +9,7 @@
+ #include "qmi.h"
+ #include "core.h"
+ #include "debug.h"
++#include "hif.h"
+ #include <linux/of.h>
+ #include <linux/firmware.h>
+ #include <linux/of_address.h>
+@@ -3940,8 +3941,18 @@ static int ath12k_qmi_ops_new_server(struct qmi_handle *qmi_hdl,
+ 	struct ath12k_qmi *qmi = container_of(qmi_hdl, struct ath12k_qmi, handle);
+ 	struct ath12k_base *ab = qmi->ab;
+ 	struct sockaddr_qrtr *sq = &qmi->sq;
++	int node_id;
+ 	int ret;
+ 
++	/* Identical devices advertise the same QMI services, so connect only to
++	 * the QMI server on this device's node. A node id of 0 means the
++	 * transport has not assigned a unique node id, so accept the server
++	 * unfiltered.
++	 */
++	node_id = ath12k_hif_get_qrtr_node_id(ab);
++	if (node_id && service->node != node_id)
++		return 0;
++
+ 	sq->sq_family = AF_QIPCRTR;
+ 	sq->sq_node = service->node;
+ 	sq->sq_port = service->port;
 
-Will
+-- 
+2.43.0
+
+
