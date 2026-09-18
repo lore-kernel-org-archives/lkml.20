@@ -1,138 +1,107 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA39253951;
-	Fri, 18 Sep 2026 06:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8838C5C613;
+	Fri, 18 Sep 2026 06:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713509; cv=none; b=NRuSEERRVuAYVtc7Nx7FhQGLxbv2YQ+D0CcV2pwP5BIJkQU0C2CO85VpTbCEb/DvHmcchopLQx39oTVHVCwVN+ku8uaJOFRSRqadDHPmVXyTQlq4wRjhNsGDzzbsXxZ0iwQ/yCbYLETpMK+WRHERAxZDzM30qu+x78Ol0lSUaEA=
+	t=1789713514; cv=none; b=A/4qeuVjqvCtUlHrmVPe5dNvn0MYxU+mGkMqWf0vuLpa7rhCTI/a7WXSEcfJjCFyhynNJ8ZR6mXOIDmrkrMlHJt9n48lXPsaL0Ws/6F8gSmvd/egz0Z9ULNqUtnRF07f+KN5+hsqM5lAxPVxx7s00V3GO056/baNsFOhB9Jljbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713509; c=relaxed/simple;
-	bh=EvREG//rprTPwzkjU3xlpNpW9eqUNwyIliraATJKrZ0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
-	 References:In-Reply-To; b=Qn5fwTj0sscYKonTUiwDoFXYUxT6bxUdRqtpZihaEPFh0IrjCjgIIt2j/sLx4xuIKHe38HI0z9oomiska9385waDLIVUoawCqqeO9tctMOA2G0UbaKhlrQEAXUHbNRYn6mxltJQe7Iae/XsEPWk148lUaFSgIRZuH79OghbKLUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jPH/TTPb; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789713514; c=relaxed/simple;
+	bh=L9bvzIPM+ftK2bxDWRtS5jd/RgMKrldKEwiztXhRBqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DxMjRZGmYnVUMnwvKGxMpImDbA9kDdKQ76pK7XGER6BhM1R4nsOQkrXHrbxHavBelAsgbs5c3piejX1DcjvXOyI/i/1sNlHXkUD2XKHq0j1texgDelqVM78jx2/v/5MTBZ0O6xmCM3B9QGCKGE/OLsN+iVAVB+FqnFtGCreXb0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TncbaiR6; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jPH/TTPb"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 02D7A4E4081C;
-	Fri, 18 Sep 2026 06:38:26 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C4D2960649;
-	Fri, 18 Sep 2026 06:38:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AACCD11C7B021;
-	Fri, 18 Sep 2026 08:38:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789713504; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=RyoX66ARo1jdjaeeIXDPztqT4qPSKypJMdksTTMQhHc=;
-	b=jPH/TTPb9FOoRC5kvu6MMqiNDyg9OvecsolVYtmZiPny5z+PQmJ9B5g3grgQ2mluezmDxI
-	pl6eoQAlSEbRXNVjNgEgh8y0yb0/HntnH1eEZH5BDzqjY+czOGwL4cXp2SVmJJWh965kZ8
-	V02bAl8UTVmrWFad/eAMbHbA+7IRVeg8UufqosZd0N/H+Z3nNOMlarzCWwNmxyg6hz0G8L
-	m7ZeGkioDDOW1TrgGx+lut6d2AQmjBCAGNWwwmKpV2rm7LUfYMPTkCoYWKpPw4VRGzWykb
-	EOB+SCdbJ0Tta3pMAxAQG531DR/pGxvYwFb7Qd107TwYuqglFCptBMp3cLCLKw==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TncbaiR6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789713512; x=1821249512;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=L9bvzIPM+ftK2bxDWRtS5jd/RgMKrldKEwiztXhRBqA=;
+  b=TncbaiR6o2E0XC19all3o+N8MhLwQ4DxYdXodXt/zNciIg7aE9xQRpJ7
+   aBDCk+GANTkCrkl6Re1WC0Nb5X8Y/d8xnXwYeVoiORFFpjB+Zj535AX4y
+   Zs2j3jmHtqKp7tSJfqSn4PPq6tGIH0Mz2SD07OGCMz+B0zygBlLyZjoeq
+   OUoIWWd0z8HOSdMtja5WKulL6b7a16LALW7VJ1rvi7kNrOWNJ9WfTzpi3
+   FC4YYyrIYKc6roPwH+JxUwezudo1iaHfnqykdBdUWMeJdgxICJubiMtuR
+   FRBvIMfoepIkLTgyIrmIGdkFXVK3da3RM+0I+9IgourBHO4jqI507Onu+
+   g==;
+X-CSE-ConnectionGUID: 9xHbcQQnSXq6aZlSfNoExA==
+X-CSE-MsgGUID: sFMWokhASFSryUJNrxiZ3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90063035"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90063035"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:38:31 -0700
+X-CSE-ConnectionGUID: 16zabr9TRyyP+M/QWOEnIQ==
+X-CSE-MsgGUID: bsmVT5NNRnqbrTyfZQM6Yg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="299344374"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:38:29 -0700
+Date: Fri, 18 Sep 2026 09:38:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
+ path
+Message-ID: <aqzcXsWQnhOprEHp@ashevche-desk.local>
+References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
+ <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
+ <20260918032743.GA29370@rigel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 08:38:17 +0200
-Message-Id: <DLI8HIES5WAV.3A4W5G22Z6I1H@bootlin.com>
-To: "Madhav Khosla" <madhav.khoslaa@gmail.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>
-Subject: Re: [PATCH v2 bpf] selftests/bpf: Fix csum_partial() dropping
- trailing byte on odd length
-Cc: <alexis.lothore@bootlin.com>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan"
- <shuah@kernel.org>, "David S. Miller" <davem@davemloft.net>, "Jakub
- Kicinski" <kuba@kernel.org>, "Jesper Dangaard Brouer" <hawk@kernel.org>,
- "John Fastabend" <john.fastabend@gmail.com>, "Stanislav Fomichev"
- <sdf@fomichev.me>, "open list:BPF [SELFTESTS] (Test Runners &
- Infrastructure)" <bpf@vger.kernel.org>, "open list:KERNEL SELFTEST
- FRAMEWORK" <linux-kselftest@vger.kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, "open list:XDP (eXpress Data
- Path):Keyword:(?:b|_)xdp(?:b|_)" <netdev@vger.kernel.org>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260916112554.413933-1-madhav.khoslaa@gmail.com>
-In-Reply-To: <20260916112554.413933-1-madhav.khoslaa@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918032743.GA29370@rigel>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Madhav,
+On Fri, Sep 18, 2026 at 11:27:43AM +0800, Kent Gibson wrote:
+> On Thu, Sep 17, 2026 at 06:17:12PM +0300, Andy Shevchenko wrote:
+> > On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
 
-On Wed Sep 16, 2026 at 1:25 PM CEST, Madhav Khosla wrote:
-> csum_partial() computes num_u16 =3D len >> 1 and only sums that many
-> 16-bit words, so the last byte of an odd-length buffer never gets
-> added to the checksum. RFC 1071 says it should be padded with a zero
-> byte and summed as one more word, not dropped.
->
-> This backs build_ip_csum(), build_udp_v4_csum() and
-> build_udp_v6_csum(), used by flow_dissector_classification.c and
-> xdp_metadata.c to hand-build packets. No current caller builds an
-> odd-length payload, so nothing fails today, but a future one would
-> get a silently wrong checksum.
->
-> Also bump flow_dissector_classification's TEST_PACKET_LEN from 100 to
-> 99 so this actually gets exercised instead of staying latent.
+...
 
-Great, thanks for the update.
+> > It might be not obvious for a reader, perhaps a short comment why it's done
+> > here?
+> 
+> So we should always add comments highlighting initialisation of return values?
+> No problem with adding one here btw, as we do it elsewhere, just
+> wondering if you think this should always be the case.
 
-> Without the fix and with TEST_PACKET_LEN=3D99, flow_dissector_classificat=
-ion
-> fails under vmtest.sh:
->
->     test_flow_dissector_classification:FAIL:test third port unexpected
->     test third port: actual 0 !=3D expected 10
->     #137/6   flow_dissector_classification/ipv6:FAIL
->     #137     flow_dissector_classification:FAIL
->     Summary: 1/0 PASSED, 0 SKIPPED, 1/6 FAILED
->
-> Kernel just drops the packet over a bad checksum. With the fix, both
-> flow_dissector_classification and xdp_metadata pass.
->
-> v1 -> v2:
-> - comment style: opening /* on its own line, per BPF selftests style
-> - Retarget the Fixes tag to bcc00987bc56. commit f4504af68575
->   ("selftests/bpf: move ip checksum helper to network helpers") moved
->   the helper, but sizeof(iphdr) is always a multiple of 32 bit words /
->   4 Bytes (iph->ihl counts in 4-byte words), so the odd-length path
->   was never reachable through build_ip_csum(). csum_partial() first
->   gets called with a length that isn't guaranteed even in
->   bcc00987bc56, via build_udp_v4_csum()/build_udp_v6_csum().
-> - TEST_PACKET_LEN 100 -> 99 so an existing test catches this instead
->   of the bug staying unexercised
+Yes, when return value is initialised in case of error. We know that we are
+going to return an error, why would we initialise? So, the answer here is
+because we don't want to leak kernel memory to the user space. A short comment
+makes sense to me.
 
-Could you please move the patch changelog under --- so it does not end
-up in the commit once it is merged ? You can also drop the Link tag, one
-will automatically be added on the latest revision once it is merged.
+> Hmmm, after some sleep and taking another look, what does bother me is that
+> when the guard was added the behaviour of gpio_desc_to_lineinfo() changed,
+> in that it can now fail, but its signature did not.
+> As a consequence, lineinfo_get() and lineinfo_get_v1() now return
+> empty/zeroed line info and success when the guard has failed.
+> Elsewhere when the guard fails the operations return -ENODEV.
+> So, while this patch no longer leaks stack, it would be better to propagate
+> the failure.  That could also make the memset ordering mute, or even a
+> trivial waste of CPU time, as it could prevent ANY line info being copied
+> to user in the failure case.
 
-Up to some extent, you could also move the ./test_progs sample output in
-the comments under --- as well.
+Right, this can be done to cover all cases at once.
 
-> Fixes: bcc00987bc56 ("selftests/bpf: add network helpers to generate udp =
-checksums")
+-- 
+With Best Regards,
+Andy Shevchenko
 
-You chose to use bcc00987bc56 rather than e2a46d54d7a1, but I guess it
-is ok.
-
-> Link: https://lore.kernel.org/bpf/DLG5TIIHIMC2.2YCCY0UX86YQF@bootlin.com/=
-T/#t
-> Signed-off-by: Madhav Khosla <madhav.khoslaa@gmail.com>
-
-Thanks,
-
-Alexis
-
---=20
-Alexis Lothor=C3=A9, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
