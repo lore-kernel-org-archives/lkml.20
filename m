@@ -1,56 +1,56 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3775E407CD0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0669411FBF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771341; cv=none; b=NVmHqMF5VNkIZacqV61/c/+8AtyTBd9qzrxWqslsYrGDU8R80kE1hucTGFbE9JI+1dbH2RMzHwInmW6+Z9jckKDsfTxIjccKzR0l4m70HJPMbLVYf1NvxRfqzI3c5JtBtR6BHRRN3c4oFJKKrXRQfhJWl8FCrBhJLNy2IxfW35Q=
+	t=1789771346; cv=none; b=GbpIOwmGsQOj/MwMR71VLcFwDpx2QhVJGrpYXwF/7f7hUw8B+F+t9E96YvL0gDDr56A8p+xM2ze84v5ErF9R6f1S+wF7oOkkG5r/Sob3zsTDWp8BrCqw88m3BpHcJLqj/3eeMoa+0bqpeRlVL3wjvl6ww3mzJy1aifz2a2j+c+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771341; c=relaxed/simple;
-	bh=0Sts79fqaxmt9c1E05J5rCucrXkE/ddG+pevHVmB4Go=;
+	s=arc-20240116; t=1789771346; c=relaxed/simple;
+	bh=lJfFfm1bFHKCWC4uxJ9XC4jfsODKvNFJhFOzIi88rsw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gqK1637/GIqKyYfbQ9daWr0+pjHSSIgmh2hlrezqjXE3ZKsyC40N+g5XSDp3+uk6vFyzKNe/S3EAXt5xd3Rwu+TRrt4fnJqK/0XUAlfhd8ejHbmuw6KwIXrVISJVnqBrDn3hMYq8Dlyn9HWQ6ygLe+Z9Z4wZk3BtCsHXo3/VJxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HBQr4OGn; arc=none smtp.client-ip=209.85.215.198
+	 To:Cc:Content-Type; b=nECrKc2n07pfJ1jjbbnIPcKsJxiKZHnY4I/p6tQ14cEVE1am9BfzR0PAg+nxQqXQsZ96niTl+k+6ZND3b9/AGpt+TpF7Rkvh8ZI1A5/iE2JQTuVH5OY+fl6fH+ZgEiFZEyC/lqH3xdqOz4ZP7Qe/H2KQdSIffE9CmloIXeDeIcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=F2+snumM; arc=none smtp.client-ip=209.85.216.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HBQr4OGn"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b8088202so1100839a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="F2+snumM"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39533bb224cso2351108a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789771339; x=1790376139; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789771344; x=1790376144; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=piXxKwae9uzBpYIu/Zn6s/3PXKEGnNnie257UODpRQo=;
-        b=HBQr4OGnfp9ARpk+5IJpwia1/Uf2b+1BalvM6PrXzqC6MLeRWobYglMxyvuaEC0grK
-         s9ykKuQaDaVQm1vy+j1V5QAj1rIGul4dxaotffqgw3LLjlumpY26HUunxovOhanRgMbH
-         OFWO57lCa86xLYPcvsBUqCb1fbDyO3zp5VhqHqpAt64Vm1pbn2QMMy5AbJ61WEPozlkk
-         fMMT8d9KW9HaKivtOM1bVW4yiFaLxKRi05GkRyWcoMNn6qUGfW4552vkPRSCx8H3D/YE
-         U/AAePU4O4HZOEJsYNJPq4aSU17oN42Jyv42iktNjoY6B6SpVPkNcP4yMIz36aR7KMgN
-         tdvw==
+        bh=8mHsMxlxF7jEZ6HGllTaKlvOMS05kuhmKfHakCePxqc=;
+        b=F2+snumMRCKTfxxE5wQyD5yKRPQjUedELv34uhtljYJu7lyjJlSkdBuIKyrankuiuS
+         tge2GxmnKMEyt7q06WdmVod2tLtuUlk6Jp6PqttHIebEUHQjmWfj3Nd12GEJ2a/BFcPs
+         PfVI0v1Ksq993nykdbT3igah+/MNn/QT3Lgv+ci70eFyp6lhIdBaCFaB0uNnFhJogEZD
+         Fqo63NfM8iF49bDw6ZdkpiRbpGMNkcH/TWLQ1SYcLwMn4c4a2/gKkEzOLNWYavreJYpS
+         Aa3TexEt6uuq9Pdn3sx+3n2CQB4IZwblHyI5MJoAy329h4dAZhMN/x6hkrOsHCyQT9+L
+         OehA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789771339; x=1790376139;
+        d=1e100.net; s=20260707; t=1789771344; x=1790376144;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=piXxKwae9uzBpYIu/Zn6s/3PXKEGnNnie257UODpRQo=;
-        b=HBX9Po9RPgtIwwP7FZUqsUm3nKXUxzsgCpCnyORKxWZIWPvuOzrmNvTum8Q7UipQuC
-         uTUEN+DGweuxnuMDI2t8EwPIBWdu9veKLeCWMcyGaiSL8pcKYImnmMKqm4G1WPzaERFY
-         oP17V10ciHInIprotJejAC8+SHOmmzaZ4FE0d5fO8+2tD85+ijyBYMamFhzmvKepb2y1
-         JDYF/xL87JL2Y2GiaoT4RAwthpnadGXUZpQWK6nD7vcNE6ewLI5ktIbq2llrcBGvpmSW
-         +WuSd91gv7Vs6Xc55yAjlATwcXk0H8td8s8AVaUldxZ0peDsGdZURCWhQvHrVkz0QYcy
-         +//A==
-X-Forwarded-Encrypted: i=1; AKwUvBw0n2T8HAi17vmk2PsDFbCtzvsPamcnM6nVii/iyG+pGsqeWKiL8HoKlfPUde6xbk2rdAO1TaMsubdV+8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWrTmZAnNWSlRcUn5Spd0BdaFQhMqXs09lVbs0acXIOzWosRw6
-	xhjVrtN9DczeyqXaEOmczV+GA38SXzDnforoIUoavj80jH8bU/FDQrUJv3APsIWo6AiIwrU0WDH
-	gFbruRwp90PAMVuCQuR227nIC/A==
-X-Received: from pgbcm3.prod.google.com ([2002:a05:6a02:a03:b0:cc5:2930:2a60])
+        bh=8mHsMxlxF7jEZ6HGllTaKlvOMS05kuhmKfHakCePxqc=;
+        b=OCwbFWQuEGz4q7ozMfsrAj7NdnY5skuzUTXCIi4TdgxH/zyQf6jCH8bCH+GMXABnlI
+         JW+xQ8tnsGT9le+UgMORQ0SWKGRFoJHE+72Q12w+Z01iR1htlQ0IONhbUwpNw6BCPIAb
+         RPHEH+bI7yiaTZ08OqqICptdTzmv1U+cLiYnl0ypp9ILNJv55nzphGYCLGCluTmUdSsq
+         pOMUMuesEJqpazif+AAXnHqpbUQ0L/lu85qQazijGXBjONkjzW86olpLkZVLnPpSycIZ
+         kgmxl0dTo5trJthr7ACdGUZS9P3wODv9ShONAFiotHvQ+PKFYW6G1EB4z4AmD3v0YxrY
+         Lbcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwsmqHkmnjAGHSe/wq8Vu4jxc887KKlNvAJkEYNExyGPV///cfw6I4e5BLzG9bxSjA8vdYMjSfz3K95AA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3UaBPY75fdxbob0lVilQn8reSYMnl9UbwtS8qT7ylj6FH0pkI
+	B2c/Ii3XSi620q8F+oIrgKfZKD9g3mRSsf4VBogEQ/ZLAIvfyMC60Wo/J6g+EwJS2rK0RTLYOoz
+	ClvhzA6UlwkrBHy+CVCQGc2PDjQ==
+X-Received: from pjre5.prod.google.com ([2002:a17:90a:b385:b0:39d:635a:fb3c])
  (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:5483:b0:3dd:a196:3090 with SMTP id adf61e73a8af0-3dda19633c6mr1593487637.64.1789771339375;
- Fri, 18 Sep 2026 15:42:19 -0700 (PDT)
-Date: Fri, 18 Sep 2026 22:41:55 +0000
+ 2002:a17:90b:3c05:b0:39e:6c6a:4b72 with SMTP id 98e67ed59e1d1-39e6c6a5457mr1484601a91.60.1789771343989;
+ Fri, 18 Sep 2026 15:42:23 -0700 (PDT)
+Date: Fri, 18 Sep 2026 22:41:57 +0000
 In-Reply-To: <20260918224157.1471085-1-dylanbhatch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918224157.1471085-1-dylanbhatch@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918224157.1471085-10-dylanbhatch@google.com>
-Subject: [PATCH v7 09/11] arm64: entry: add unwind info for call_on_irq_stack()
+Message-ID: <20260918224157.1471085-12-dylanbhatch@google.com>
+Subject: [PATCH v7 11/11] unwind: arm64: Use sframe to unwind interrupt frames
 From: Dylan Hatch <dylanbhatch@google.com>
 To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
 	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
@@ -77,79 +77,302 @@ Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.micro
 	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Weinan Liu <wnliu@google.com>
+Add kunwind_next_regs_sframe() function to unwind by sframe info if
+present. Use this method at exception boundaries, falling back to
+frame-pointer unwind only on failure. In such failure cases, the
+stacktrace is considered unreliable. During normal unwind, prefer frame
+pointer unwind (for better performance).
 
-DWARF CFI (Call Frame Information) specifies how to recover the return
-address and callee-saved registers at each PC in a given function.
-Compilers are able to generate the CFI annotations when they compile
-the code to assembly language. For handcrafted assembly, we need to
-annotate them by hand.
+This change restores the LR behavior originally introduced in commit
+c2c6b27b5aa14fa2 ("arm64: stacktrace: unwind exception boundaries"),
+But later removed in commit 32ed1205682e ("arm64: stacktrace: Skip
+reporting LR at exception boundaries")
 
-Frame pointers alone are usually sufficient to recover stack frames
-(without CFI), except at the exception boundary, where more information
-is needed to determine if the LR is live.
+This can be done because the sframe data can be used to determine
+whether the LR is current for the PC value recovered from pt_regs at the
+exception boundary.
 
-Since an exception can be taken from call_on_irq_stack(), annotate it
-with CFI. The actual entry assembly functions are left untouched, since
-they are not expected to take exceptions themselves.
-
+Co-developed-by: Weinan Liu <wnliu@google.com>
 Signed-off-by: Weinan Liu <wnliu@google.com>
-Suggested-by: Jens Remus <jremus@linux.ibm.com>
+Reviewed-by: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
 Reviewed-by: Jens Remus <jremus@linux.ibm.com>
 Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
----
- arch/arm64/kernel/entry.S | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index f63049ac32dc6..3703acbeb16a5 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -30,6 +30,12 @@
- #include <asm/asm-uaccess.h>
- #include <asm/unistd.h>
+---
+
+Changes since v6:
+ - (sashiko) Fix cfa alignment check.
+ - (sashiko) Fix kunwind_next_regs_sframe() stub name.
+ - Switch sframe_find_kernel() call to sframe_find() after API change.
+ - Simplify FP and RA recovery logic to reflect simpler API and lack of
+   flexible FDE support.
+ - (sashiko) Simlify arch_stack_walk_reliable(), dropping unnecessary
+   data struct and dead code.
+---
+ arch/arm64/kernel/stacktrace.c | 186 ++++++++++++++++++++++++++++++---
+ 1 file changed, 174 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm64/kernel/stacktrace.c b/arch/arm64/kernel/stacktrace.c
+index 3ebcf8c53fb04..5aaeac9611015 100644
+--- a/arch/arm64/kernel/stacktrace.c
++++ b/arch/arm64/kernel/stacktrace.c
+@@ -13,6 +13,7 @@
+ #include <linux/sched.h>
+ #include <linux/sched/debug.h>
+ #include <linux/sched/task_stack.h>
++#include <linux/sframe.h>
+ #include <linux/stacktrace.h>
  
-+/*
-+ * Do not generate .eh_frame.  Only generate .debug_frame and optionally
-+ * .sframe (via assembler option --gsframe[-N]).
-+ */
-+	.cfi_sections .debug_frame
-+
- 	.macro	clear_gp_regs
- 	.irp	n,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
- 	mov	x\n, xzr
-@@ -866,6 +872,7 @@ NOKPROBE(ret_from_fork)
-  * Calls func(regs) using this CPU's irq stack and shadow irq stack.
+ #include <asm/efi.h>
+@@ -26,6 +27,7 @@ enum kunwind_source {
+ 	KUNWIND_SOURCE_CALLER,
+ 	KUNWIND_SOURCE_TASK,
+ 	KUNWIND_SOURCE_REGS_PC,
++	KUNWIND_SOURCE_REGS_LR,
+ };
+ 
+ union unwind_flags {
+@@ -45,6 +47,7 @@ union unwind_flags {
+  * @kr_cur:      When KRETPROBES is selected, holds the kretprobe instance
+  *               associated with the most recently encountered replacement lr
+  *               value.
++ * @unreliable:  Stacktrace is unreliable.
   */
- SYM_FUNC_START(call_on_irq_stack)
-+	.cfi_startproc
- 	save_and_disable_daif x9
- #ifdef CONFIG_SHADOW_CALL_STACK
- 	get_current_task x16
-@@ -876,6 +883,9 @@ SYM_FUNC_START(call_on_irq_stack)
- 	/* Create a frame record to save our LR and SP (implicit in FP) */
- 	stp	x29, x30, [sp, #-16]!
- 	mov	x29, sp
-+	.cfi_def_cfa 29, 16
-+	.cfi_offset 29, -16
-+	.cfi_offset 30, -8
+ struct kunwind_state {
+ 	struct unwind_state common;
+@@ -56,6 +59,7 @@ struct kunwind_state {
+ 	enum kunwind_source source;
+ 	union unwind_flags flags;
+ 	struct pt_regs *regs;
++	bool unreliable;
+ };
  
- 	ldr_this_cpu x16, irq_stack_ptr, x17
+ static __always_inline void
+@@ -181,7 +185,6 @@ int kunwind_next_regs_pc(struct kunwind_state *state)
+ 	state->regs = regs;
+ 	state->common.pc = regs->pc;
+ 	state->common.fp = regs->regs[29];
+-	state->regs = NULL;
+ 	state->source = KUNWIND_SOURCE_REGS_PC;
+ 	return 0;
+ }
+@@ -244,6 +247,162 @@ kunwind_next_frame_record(struct kunwind_state *state)
+ 	return 0;
+ }
  
-@@ -891,9 +901,13 @@ SYM_FUNC_START(call_on_irq_stack)
- 	 */
- 	mov	sp, x29
- 	ldp	x29, x30, [sp], #16
-+	.cfi_restore 29
-+	.cfi_restore 30
-+	.cfi_def_cfa 31, 0
- 	scs_load_current
- 	restore_irq x9
- 	ret
-+	.cfi_endproc
- SYM_FUNC_END(call_on_irq_stack)
- NOKPROBE(call_on_irq_stack)
++#ifdef CONFIG_HAVE_UNWIND_KERNEL_SFRAME
++
++static __always_inline struct stack_info *
++get_word(struct unwind_state *state, unsigned long *word)
++{
++	unsigned long addr = *word;
++	struct stack_info *info;
++
++	info = unwind_find_stack(state, addr, sizeof(addr));
++	if (!info)
++		return info;
++
++	*word = READ_ONCE(*(unsigned long *)addr);
++
++	return info;
++}
++
++static __always_inline int
++get_consume_word(struct unwind_state *state, unsigned long *word)
++{
++	struct stack_info *info;
++	unsigned long addr = *word;
++
++	info = get_word(state, word);
++	if (!info)
++		return -EINVAL;
++
++	unwind_consume_stack(state, info, addr, sizeof(addr));
++	return 0;
++}
++
++/*
++ * Unwind from a pt_regs according to sframe.
++ */
++static __always_inline int
++kunwind_next_regs_sframe(struct kunwind_state *state)
++{
++	struct unwind_frame frame;
++	unsigned long cfa, fp, ra;
++	enum kunwind_source source = KUNWIND_SOURCE_FRAME;
++	struct pt_regs *regs = state->regs;
++
++	int err;
++
++	if (WARN_ON_ONCE(state->source != KUNWIND_SOURCE_REGS_PC))
++		return -EINVAL;
++	if (WARN_ON_ONCE(!state->regs))
++		return -EINVAL;
++
++	/* FP/SP alignment 8 bytes */
++	if (state->common.fp & 0x7)
++		return -EINVAL;
++
++	err = sframe_find(state->common.pc, &frame);
++	if (err)
++		return -EINVAL;
++
++	/*
++	 * A kernel unwind should always end at a FRAME_META_TYPE_FINAL
++	 * frame. There should be no outermost frames within the kernel.
++	 */
++	if (frame.outermost)
++		return -EINVAL;
++
++	/* Get the Canonical Frame Address (CFA) */
++	switch (frame.cfa.rule) {
++	case UNWIND_CFA_RULE_SP_OFFSET:
++		cfa = state->regs->sp;
++		break;
++	case UNWIND_CFA_RULE_FP_OFFSET:
++		if (state->common.fp < state->regs->sp)
++			return -EINVAL;
++		cfa = state->common.fp;
++		break;
++	/*
++	 * UNWIND_CFA_RULE_REG_OFFSET and UNWIND_CFA_RULE_REG_OFFSET_DEREF not
++	 * implemented -- flexible FDEs are not currently generated by assembler
++	 * for arm64.
++	 */
++	default:
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++	cfa += frame.cfa.offset;
++
++	/* CFA alignment 16 bytes */
++	if (cfa & 0xf)
++		return -EINVAL;
++
++	/*
++	 * Consume RA and FP from the stack. The frame record puts FP at a lower
++	 * address than RA, so we read FP first.
++	 */
++	switch (frame.fp.rule) {
++	case UNWIND_RULE_RETAIN:
++		fp = state->common.fp;
++		break;
++	/*
++	 * UNWIND_RULE_CFA_OFFSET is currently not used for FP
++	 * (e.g. SFrame cannot represent this rule).
++	 */
++	case UNWIND_RULE_CFA_OFFSET_DEREF:
++		fp = cfa + frame.fp.offset;
++		if (!get_word(&state->common, &fp))
++			return -EINVAL;
++		break;
++	/*
++	 * UNWIND_RULE_REG_OFFSET and UNWIND_RULE_REG_OFFSET_DEREF not
++	 * implemented -- flexible FDEs are not currently generated by assembler
++	 * for arm64.
++	 */
++	default:
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++
++	switch (frame.ra.rule) {
++	case UNWIND_RULE_RETAIN:
++		ra = regs->regs[30];
++		source = KUNWIND_SOURCE_REGS_LR;
++		break;
++
++	/*
++	 * UNWIND_RULE_CFA_OFFSET doesn't make sense for RA.
++	 * The return address cannot legitimately be a stack address.
++	 */
++	case UNWIND_RULE_CFA_OFFSET_DEREF:
++		ra = cfa + frame.ra.offset;
++		if (get_consume_word(&state->common, &ra))
++			return -EINVAL;
++		break;
++	/*
++	 * UNWIND_RULE_REG_OFFSET and UNWIND_RULE_REG_OFFSET_DEREF not
++	 * implemented -- flexible FDEs are not currently generated by assembler
++	 * for arm64.
++	 */
++	default:
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++
++	state->common.pc = ra;
++	state->common.fp = fp;
++
++	state->source = source;
++
++	return 0;
++}
++
++#else /* !CONFIG_HAVE_UNWIND_KERNEL_SFRAME */
++
++static __always_inline int
++kunwind_next_regs_sframe(struct kunwind_state *state) { return -EINVAL; }
++
++#endif /* !CONFIG_HAVE_UNWIND_KERNEL_SFRAME*/
++
+ /*
+  * Unwind from one frame record (A) to the next frame record (B).
+  *
+@@ -259,10 +418,20 @@ kunwind_next(struct kunwind_state *state)
+ 	state->flags.all = 0;
  
+ 	switch (state->source) {
++	case KUNWIND_SOURCE_REGS_PC:
++		err = kunwind_next_regs_sframe(state);
++
++		if (err) {
++			/* Fallback to FP based unwinder */
++			err = kunwind_next_frame_record(state);
++			state->unreliable = true;
++		}
++		state->regs = NULL;
++		break;
+ 	case KUNWIND_SOURCE_FRAME:
+ 	case KUNWIND_SOURCE_CALLER:
+ 	case KUNWIND_SOURCE_TASK:
+-	case KUNWIND_SOURCE_REGS_PC:
++	case KUNWIND_SOURCE_REGS_LR:
+ 		err = kunwind_next_frame_record(state);
+ 		break;
+ 	default:
+@@ -393,21 +562,13 @@ noinline noinstr void arch_stack_walk(stack_trace_consume_fn consume_entry,
+ static __always_inline bool
+ arch_reliable_kunwind_consume_entry(const struct kunwind_state *state, void *cookie)
+ {
+-	/*
+-	 * At an exception boundary we can reliably consume the saved PC. We do
+-	 * not know whether the LR was live when the exception was taken, and
+-	 * so we cannot perform the next unwind step reliably.
+-	 *
+-	 * All that matters is whether the *entire* unwind is reliable, so give
+-	 * up as soon as we hit an exception boundary.
+-	 */
+-	if (state->source == KUNWIND_SOURCE_REGS_PC)
++	if (state->unreliable)
+ 		return false;
+ 
+ 	return arch_kunwind_consume_entry(state, cookie);
+ }
+ 
+-noinline noinstr int arch_stack_walk_reliable(stack_trace_consume_fn consume_entry,
++noinline notrace int arch_stack_walk_reliable(stack_trace_consume_fn consume_entry,
+ 					      void *cookie,
+ 					      struct task_struct *task)
+ {
+@@ -452,6 +613,7 @@ static const char *state_source_string(const struct kunwind_state *state)
+ 	case KUNWIND_SOURCE_CALLER:	return "C";
+ 	case KUNWIND_SOURCE_TASK:	return "T";
+ 	case KUNWIND_SOURCE_REGS_PC:	return "P";
++	case KUNWIND_SOURCE_REGS_LR:	return "L";
+ 	default:			return "U";
+ 	}
+ }
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
