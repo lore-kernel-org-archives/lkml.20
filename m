@@ -1,72 +1,45 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AC9392838
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5A14E73D7;
+	Fri, 18 Sep 2026 12:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733340; cv=none; b=SClSiJhziQpSLnH2ReX8uwxecANZjGI/3L5fNG9LWja9/Xoxj5UXyQXGpeDjbrg2mC9w5UE8AhFW1kvyzXlbToZBCh2T0RzNJROj2NbAzMNfDLwOjpP4CB2X0MOQ1DG3JnyvdrI5SOyxgNkijSm+2F3TNVWf3URm7JHDF6+BSTg=
+	t=1789733345; cv=none; b=qfGM5vyZkOMWFex1w9SuIIKIsLJMubko1dxrGM8+GfnpQyus2m95GM/lKszn1qN4WQ0PWHi/8so4KrSlcIfuZk+UAcqF3YW1pnqXVpsDuagQfupipWhvWrxkKF/jmzx34Dvkd+jGR83AlGxILXHFLFEynccGXt4onfwNfD9T14o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733340; c=relaxed/simple;
-	bh=D5wAVqifshoGV6GyWkI3fNfqvP+PxrNLxNJ3PFw/AL8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qfO5BSOd7gnJDXC+W759S9uW5YAy6Tfm6C04KCtMmT8OT2KRq3FKXmiSHb20lr5uh3nLf52YFSjpCR9s0N1AjPVh3VPR5pUuo1p1FH8hF9z2I+TfmDhZoXIbC1Mr9qIXSB269jMTA1FpGI183lM//uMcrqtm//3UG0W4ucCC/EU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJhOG6LG; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789733345; c=relaxed/simple;
+	bh=AuGGcs2DZDBo46I7ZfUCMBaHbY6VLc3FrWgL5mw3y6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uMqa9pP/1CZvyIwOgur9F2xh4/6Jc9k+3oqWZpC+WZ1bZo9MxkfjR+DNGIijQPeubFg4SJjiUFb5Ry7guSuCN4r/YZDgq/pgXhIG9iFpb5IrZCeLdjYnBNwsen4IDZxJMPvFZekAjXzLNqsoKEXLX8rjIZjJ/Eu7LU891r7hBjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+wqVm/e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJhOG6LG"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so590569a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:08:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789733338; x=1790338138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ha8wUO0vAad7WPPmqJPILgb1Ew3Bf7lbxU7bR2Z218I=;
-        b=pJhOG6LGq44KPdP6BAVT/qIW82Xlu4qwgz4rRjfAmOJ4yOwjilC5/+fh07tl5Q0ojL
-         gAg5qBKw+4v90uM+vGoTI50alwfusrbtgBwxMGHKlIW9ou9PAF5OAFmIJ9Xu4tLSr7xr
-         66biQOPl1MSHkBAyM/sV803VGBPaHkGZtXV6Q3OERgtgYHPuWYHMyB6iadX2+8Isx+IR
-         tpj3H7ImoeoCbL3wIbdVgwKtqeZEkPCVbll499bluKKh+fAMRDNVVa4ohAUJiDsnqeaP
-         AmCEqvvlctnAjDEPdWk5zeSVrD+gNp/DXLIK4zuhxlOjlp3V85ngs2dfEbhU0t+BrXRZ
-         Pvcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789733338; x=1790338138;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ha8wUO0vAad7WPPmqJPILgb1Ew3Bf7lbxU7bR2Z218I=;
-        b=a3O2q7hrCUMuIxYv9UXmVZiTX18sbeN7sXi27KwiIsSXTHZDNyZlI5C0XtyekcrjRs
-         gaLnakOLQyEHfuqHqwBsnh8s7Nsof1UYL3P1X7ynmtIdh/0sVY0IKkuw6A/WneDPPCfF
-         HEKv4Vr4asAqxjDOszFg/5TmKZgMbrt1hbEHXsaeypXUYYY+HgStyQPHYC+vpy904jnn
-         Z9FH4BTC+O1LJAtZyJXEkMoOgLbHAfi9b7rIcjCNNDskv/8xhZQonP/lfpMn/4z+yOtL
-         FDuif9jfr+EUtIjSAcc1XIRp/J0Xkio/dCB4Dq6fhSbvy+E1D7tus4XKBwJTb8pmnsOl
-         lPfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBOyrYqDM1WxE1CzpLkMchgdSHuWqPZWAMQWxFbOnxpz/WP14cvvwk3OXcNQb0DvWQWHn4teRb+f54GQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKrjYIxyejZIKQuSSXzQH9gaJ3rxZQvmXhjXSKIVXk02++EOCL
-	wGqxbgC3xTTmgPxs83XLVccO5tjhQR8hM1+d8bM5lFMXKqOiBsDIqN6c
-X-Gm-Gg: AYBFou1VXg2y7mybyOXof0a2Hw3as2kmMtBdxR0S75ydGfJFRXpnST5ILXeqf9beh8e
-	nt2HGYnT9k9yrfI8fYCF37Bx6f6oNH0WdJARbC4ZpZYw9CbKBcJql0Qp1rytrgmCvuGVf4r0kaV
-	hiGXMM41K4YUsfh62c1q4n0Zar2ZdjT8MhIMNh6cguGM6usoU43s3IyYhclEeDXw+4gv5MMjB4k
-	rNVs2r4WMdoeneFHMw6mpn6VZ1DPLkKhKeIRXu1XWm66Z5RT9LVg5m7fFTXmJo4GSSCJbvwFbl6
-	GwlrVOTCrs43XPsC6IsM/IUzuiA8j3wGL8M32U6NraUi/IXMqKxgGtuz0jI/+L3Ess7oCb9G14t
-	YQ+API70Zix4tFdyWqRWSoUdQiJqisYB3L9ouWtqItD5ZPlMuHFdQ95s/jJcG5fBw9KlIUFHcuC
-	LnUQAb3Dj00hx6Q442qEVmByNJ0YE0dH6R8fcB/nzomWL5Vd0KakxkGEGlt2+QpTEmUCI8l8YrN
-	6U4p1Q9QhcE
-X-Received: by 2002:a17:90b:398c:b0:39e:1c2c:1d4b with SMTP id 98e67ed59e1d1-39e54bcd0a9mr5392355a91.11.1789733338063;
-        Fri, 18 Sep 2026 05:08:58 -0700 (PDT)
-Received: from nevers1dd ([118.95.161.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c28180a4dsm5257193eec.0.2026.09.18.05.08.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 05:08:57 -0700 (PDT)
-From: Siddharth Karanam <sid9.karanam@gmail.com>
-To: nm@ti.com,
-	kristo@kernel.org,
-	ssantosh@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+wqVm/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868711F000FF;
+	Fri, 18 Sep 2026 12:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789733343;
+	bh=AqydT2a07F6CNIzT2/wSQmW267CmztIRsGov5rxbY2E=;
+	h=From:To:Cc:Subject:Date;
+	b=W+wqVm/eAtvb9DCToCnAlyzUiwjWzj5z/khmbzRI58rFlU8XUloqodDmEAprefx/n
+	 Pl43LS+bVyJxERtdcMwuzmnHT31iBsdNJPhFmlBcBQU3n5LbawB2RMKIeV5KnjiblT
+	 cWqevlvxjBVmcQOijQLIxIlxtLMMDnpa3cnLnM0Sf7Kd5Fu+cTXFs0ZqQzQ6vLFMG3
+	 O6bCDk2//OqQQ2es0DgeryuBULVr3vkTmjf+/QZeRfb6mvjrP4tqKP/DFbPCW0EOh+
+	 L2Tv+gX/GzKLfxANF/UBTMYYBR8VNWwzlF2UV1vKwkpU0GarEp39coGYmnvw/MXxR+
+	 +j0WBoCiz7mNA==
+From: Thorsten Blum <blum@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Thorsten Blum <blum@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Siddharth Karanam <sid9.karanam@gmail.com>
-Subject: [PATCH] firmware: ti_sci: replace kcalloc with kzalloc for buffer pointer allocation
-Date: Fri, 18 Sep 2026 17:38:39 +0530
-Message-ID: <20260918120839.207459-1-sid9.karanam@gmail.com>
+	linux-hardening@vger.kernel.org
+Subject: [PATCH] x86/setup: Annotate pci_setup_rom::romdata with __counted_by()
+Date: Fri, 18 Sep 2026 14:08:39 +0200
+Message-ID: <20260918120841.26125-2-blum@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,31 +47,28 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=702; i=blum@kernel.org; h=from:subject; bh=AuGGcs2DZDBo46I7ZfUCMBaHbY6VLc3FrWgL5mw3y6w=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlrNU8KOXXuVdK4VxPpp3Xx1aEAf77VRpUFfBGnuppf9 E+ZkFvfUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABNhvszI8Nxv7s+cEt4GWxuZ K0sKDjGoMf1ansXxT6/2gcp6AYbGdEaGBdnPHk/+sK9cdvlM+/dhCzb0PTM+vUGGYWP2oZJlfuY BbAA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Previously, the buffer pointer was being allocated via devm_kcalloc that
-would check for a mul overflow before allocating n * size bytes
-(size being desc->max_msg_size), but since n is 1 here, we can instead
-use devm_kzalloc that allocates the size directly.
+Add __counted_by() to pci_setup_rom::romdata to enable access bounds
+checking via CONFIG_UBSAN_BOUNDS and CONFIG_FORTIFY_SOURCE.
 
-Signed-off-by: Siddharth Karanam <sid9.karanam@gmail.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- drivers/firmware/ti_sci.c | 2 +-
+ arch/x86/include/asm/setup_data.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti_sci.c
-index 33d7c4a4181e..8e346440e539 100644
---- a/drivers/firmware/ti_sci.c
-+++ b/drivers/firmware/ti_sci.c
-@@ -4132,7 +4132,7 @@ static int ti_sci_probe(struct platform_device *pdev)
+diff --git a/arch/x86/include/asm/setup_data.h b/arch/x86/include/asm/setup_data.h
+index 7bb16f843c93..36ca725182f9 100644
+--- a/arch/x86/include/asm/setup_data.h
++++ b/arch/x86/include/asm/setup_data.h
+@@ -15,7 +15,7 @@ struct pci_setup_rom {
+ 	unsigned long bus;
+ 	unsigned long device;
+ 	unsigned long function;
+-	uint8_t romdata[];
++	uint8_t romdata[] __counted_by(pcilen);
+ };
  
- 	/* Pre-initialize the buffer pointer to pre-allocated buffers */
- 	for (i = 0, xfer = minfo->xfer_block; i < desc->max_msgs; i++, xfer++) {
--		xfer->xfer_buf = devm_kcalloc(dev, 1, desc->max_msg_size,
-+		xfer->xfer_buf = devm_kzalloc(dev, desc->max_msg_size,
- 					      GFP_KERNEL);
- 		if (!xfer->xfer_buf)
- 			return -ENOMEM;
--- 
-2.55.0
-
+ /* kexec external ABI */
