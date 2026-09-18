@@ -1,124 +1,168 @@
-Received: from outbound.ms.icloud.com (ms-2001d-snip4-11.eps.apple.com [57.103.73.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5FF3EC2EF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.73.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEEA51CF7E;
+	Fri, 18 Sep 2026 19:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758861; cv=none; b=LwPFKfAdlR5b7gtJVpUJR7qPdLVQ9Xgf6X7b4TcHqDMW8HturzdkVii9blDFeRq5n/Z8vIGn6afCfnNvY1wunTUwWOuF6m4AU7zqyelRiuAVh1O6U0OTskagtYjigEgZ87l+LlnqSDsSb9nxT8VnZfzHQH7UJt9DbV04IRlM818=
+	t=1789758884; cv=none; b=VNvdvmY2H6YozHERL/q0gey6/bLqkacfZZQxq6+PStb1rBFdJ0BBLBGpffOgGDsYkjM4JAnWoI2W08FgbYjPd/qHOTEub79Fl2R6okftN0Ek26sm3LF4AN6rQu95g+C9H5N7ugTvpE2zzcjAMPuJavAFppTjd2UnXhqHBCoRNe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758861; c=relaxed/simple;
-	bh=iMm9vMK9Xe+ef0KAk20+7SWzlYZ+nDsyks61rfIqBVA=;
+	s=arc-20240116; t=1789758884; c=relaxed/simple;
+	bh=1jzcMguIKA5Is93mmoKDoFmH31Cg2L7H6JApxy7LOZY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J5C+3amR7TEdVNyW3C+SyGlIOGqErSGl+qdk1hdJ1RSbNun+FM/eDQSyFghYdsphTkBzAtnlNc8yOTdfXeR+vM2IHhUVgxV/YJ6Bo0umk46LOGcId8KoTtCuCRK+HpkOTIyf3HdblQSDodq0NqgSuSS6G+BCOjSIiIqTdb9FZMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=Js38DULw; arc=none smtp.client-ip=57.103.73.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=q+MZEAYFTXV9yH2mAmx/mTZ/OpxMnhpdjf9m2B9lcPw64jjxyJPhW+DL6jQU1wkJDAIw08U167gMv/7Qyw2llhnnyKnYpLnVKMu/CgkHgBXo7Mrob3qfk/tMNDGFOdvOAjnFSOotlq6C7L9G4nLX9LOaYsiIHPwFGnfST062yxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=iBvlivrQ; arc=none smtp.client-ip=212.42.244.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="Js38DULw"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-2 (Postfix) with ESMTPS id C4116180014C;
-	Fri, 18 Sep 2026 19:14:10 +0000 (UTC)
-X-ICL-RepId: 01a0b5f0-c68c-78d1-94b1-522a552173d3
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhOAEMGWQdeCEwCQwZYClBcHA4PUQxHH3kRUAFYHlZeWhdeTVEPDxlaFFwYU0VRH1RYQQ4KWgtQUR1fAgoERwRbF0YDU0VfAxcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOEUhKeQlALUc7ai18XwMIbTB7MX0qcSp8N34tfEB6KAJOGQxKHVJWWxNVF0YJ
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789758854; x=1792350854; bh=zWqcj/x6eWYWbBAL8kl/ymZLuNhjh0BA6RJ6N290BcI=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=Js38DULwrukcCRSoJMjJBXBKxGgeLw2rwtAxJYs0TLF9Na00R3xPywULitqV1dAH6hG73N0k72FAgaJYgFGsncbGSuI+RvhOpYRwQkXiAVgMMOpHOdQlVOztqBTerafBroDU8kvXsEmNphsptgJ+pzkNyabexOnwe+ZD6e7L4YLz5fgqY/IdYhHXb9/WRAvXdij3RUOxy2/y+rxW4YZI7eKLrKr9d1DWPx6Jov63+R8hxYJlKjDaYrtiWuq8lEcBXxoDywAtPAQmDVWE7TD2R2E67wRd+Vv7bdt6o/X1RDOo0Sh59RxkNOeAeFyJZdoEPdOwH9KEu0ELDRD4CB98yA==
-mail-alias-created-date: 1772519804199
-Received: from BINGFANGGUO-MC0 (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-100-percent-2 (Postfix) with ESMTPSA id A4764180017D;
-	Fri, 18 Sep 2026 19:14:04 +0000 (UTC)
-Date: Sat, 19 Sep 2026 03:14:00 +0800
-From: Bingfang Guo <bfguo@icloud.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: bingfangguo@tencent.com, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] memcg: move memcg private ID refcount to objcg
-Message-ID: <aq2JdwFuKSUO24c_@BINGFANGGUO-MC0>
-References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
- <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
- <aq2AUmRISe3Nmfft@linux.dev>
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="iBvlivrQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1789758868; bh=1jzcMguIKA5Is93mmoKDoFmH31Cg2L7H6JApxy7LOZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iBvlivrQxoQVIHimQxNZwvRd0auQnJ2cPYzcf290Gf4rAfq8fQ2otWjes9JeDDVOp
+	 9COorSKA8vsE3iFyF1sfG/9oTUzSzrP53FcBlUVHjsNLG9T+7V+4dQ3hfkHI7fTIVm
+	 593kNAFWpPYrvZM/jUo3fNC9lYRinwYFoQEPX4mvgebtHcg+q0/jtPkBOqmycudB5h
+	 lvIMmcnbp2bzPo2XZvx7ZrQ7jQ1t22IlI2k7ztxPumNk/OSxuesoeZCK/V7PWxcyih
+	 T2d17vKvLAtj149Sa0VK3IjL7v6HgkKxjM2do6f5PI+WEYP/REwe6UuFcKm3AGm/bC
+	 anYFuFsiSaK5w==
+Received: from [212.42.244.78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6aad8d94-03d5-7f0000032729-7f000001b8e6-1
+	for <multiple-recipients>; Fri, 18 Sep 2026 21:14:28 +0200
+Received: from mail-auth.fritz.com (unknown [212.42.244.78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 21:14:28 +0200 (CEST)
+Date: Fri, 18 Sep 2026 21:14:27 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 04/20] kbuild: do not sort nm output where the order
+ is irrelevant
+Message-ID: <20260918-scrupulous-squirrel-from-nibiru-f017b4@l-nschier-aarch64>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-4-9ecf4163ff36@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aq2AUmRISe3Nmfft@linux.dev>
-X-Proofpoint-GUID: lM56lfooGkGx8VqIDgjmfZIh95NUhIJw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI3NyBTYWx0ZWRfXw7vRgnkvLACs
- zCN9QZxssgzuh/otDe5TsLrV1j+RR+aXz5C/AlQGc+eBg5RVjrPSMWEOK8+Ktae5tgqd4ywDH37
- W1YHLn5DonaEl1PJUiwPi0qyCXkvDnZBYCS7vPCPlKvGbix4+EL4Jy9tmR/AkkEpRwu71GJj1uJ
- GySFC9LJT1u4Bd2pSs1l2WE/B7et7oFkkyQBwB9v3kS0GyGtneOtuXFFQPZZFzoF1g0bwnMAaf9
- vu1v03YJQgLBtqgV1yfI0DjFTFwYIkMfv3lDparQW2tyimjwCquGrccSIgdRocjpmjLCUKAQ7vf
- cc6ZTS3g8VVJ+HZwtNNYKNSPCZhYsX4kQXnGggh/c1bjHrS58b5VvyUcW2hUaY=
-X-Proofpoint-ORIG-GUID: lM56lfooGkGx8VqIDgjmfZIh95NUhIJw
-X-Authority-Info-Out: v=2.4 cv=fPA0HJae c=1 sm=1 tr=0 ts=6aad8d85
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=N-mGDGxclJDxHLb_ER0A:9 a=CjuIK1q_8ugA:10
-X-JNJ: AAAAAAAB9jBc8wj8EuzGQJhAEc7+fSE+eTWbzq4/kImKkp555YMA7pXJyMEHsIEiaBAwrrL+zdncb89SvcQeTok9aX6ho0IGdn+BHJZ1jnZht8gj8eoiOGEkjJbIelVreiusVq8TGn9y4rZfSTg5bzCJ/zbUxDY/ssVTTCdhqho3xGGq0tb0ff1cOyDyPcWk3WdbFGa99CdjxY0XYmSGBn6oMh7C+BxOgXGIah0DhmTy8DYkt2ZKOAfTKG9Ua9VnXs2aH1gcT0qtD9NKMl7Ow8yBfxQWOdz4G4ofFlxJ5v04EkV82npleTwRn0pws8OYxNqDFUNoENuCjnwRTClH5nPHmRwlaCwSX3OGKY6in60vYO/A5bY1ds7z2Y8Zl55Gr6coQ+qaDw/00G6DMvp/Y4/r/GdplsjtHf6Wu93dVBs5ig758oOwgdq4UMnQDuVcvxRvQYfcu5DsEJK9WOxQtqn97pORomY38HCambcTn6xPcr54CnodGRrtCVWfKPZJjS2dJMLUPbqo2JHcB1feHWE34JftOkDsJ7dpZy00tXanoSyjrHl61wUw5OucAJzA65n6xv2/LnMObSP02FmEFXViXx+Owxe2J4B0zugC1Uw8RRcnaunfjIs0udGXt+DjtlUN45Oq3xr3LnO7GjsKxLpctoRnlzI1xf3vqpee2G1MCa+mJApmEhDLscvv1GopeqiTwN5UyIeeAxNDhYVcfXoFaasn/tgtUZrhLhv/bVVUTzmu5e5QG/q1hwGNXtAPPoxY/1NnUKuRJ3sCPgwSyF2Kq0aBpSz+TfXbCBqKBzoagZTxYlI++3iIu4H8MZshwBlydK+aw2/ixHJgJj6aY1neadshe+JaLBzjmELoLC7V8ie8HXo7ZizDNrymDRSgaog4qcgkz+aRnssRTEd4/gsxeHoyrJjTI3Ot6k6WBYXpI7Ieef01WnCiSDxFnvl6RbIwSVA8RT0U5WvQYlKStsewlv2TAXE
- zOCZHjy9lcQkkQdAzKTFad0qOh39Wr8GtgaAtvcOFupjc7jAI2LzMrd0pMLyIMJCK+3sLoI7hkCuTReukfp9OZl0AMPtjEs9LQvg4kDhc9m3PBI8HLJQASYVv9KCTr3OYbG9ispm4a2t9mXvhLWk3v6FhlwOx/scAXsFu3+AGgKrdprn8VEldZmmbFkCbCJHN1wddOO62TUV7gjKjKtnEhNxEzRnIzw39eP5pAIIKG2ytEl64aNp65RJnSy4fCtLoHes8E/e5gObzX+TxdBU2Z5ynVpyQ7xyCBauoDZpwf+lmO+aSetFqx8emV/YqkZWq10gacwOX386B8M4eyVeZ3r5srv+aVpz8z/+ZzTdcQ2fMsGqI704PjO9fB1IGPtcxGuKYgLeWHTaLX5bSsKrCClS9EOEAwCmX46lHUSZcElhVgEJFioQDPGWd1K3n207FZ/mci6eeYrzWsfD9YA==
+In-Reply-To: <20260917-build-speedup-v3-4-9ecf4163ff36@kernel.org>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1789758868-917F8EF9-6152DBF2/0/0
+X-purgate-type: clean
+X-purgate-size: 2955
+X-Notice: Whitelisted
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-02  mail-id: B809BA0456  external: no
 
-On Fri, Sep 18, 2026 at 11:19:08AM +0800, Shakeel Butt wrote:
-> On Fri, Sep 18, 2026 at 05:18:43PM +0800, Bingfang Guo via B4 Relay wrote:
-> > From: Bingfang Guo <bingfangguo@tencent.com>
-> > 
-> > diff --git a/mm/workingset.c b/mm/workingset.c
-> > index 8412f4840ae35..7e4fbc5a786d6 100644
-> > --- a/mm/workingset.c
-> > +++ b/mm/workingset.c
-> > @@ -281,6 +281,9 @@ static bool lru_gen_test_recent(void *shadow, struct lruvec **lruvec,
-> >  	unpack_shadow(shadow, &memcg_id, &pgdat, token, workingset);
-> >  
-> >  	memcg = mem_cgroup_from_private_id(memcg_id);
-> > +	if (!memcg)
-> > +		return false;
+On Thu, Sep 17, 2026 at 05:06:14PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Unless instructed otherwise, nm sorts by name.
 > 
-> You can not return here without initializing *lruvec as it might be used in the
-> caller. Also mem_cgroup_lruvec() can handle null memcg and will substitute with
-> root_mem_cgroup.
+> There are places where this is unnecessary - an invocation from
+> scripts/sorttable every vmlinux link, scripts/check-function-names.sh run
+> after every vmlinux.o link, and the x86 VOFFSET and ZOFFSET listings
+> between vmlinux and bzImage.
+> 
+> Both GNU nm and llvm-nm accept the same '-p' parameter to disable sorting
+> in these instances, so use that to prevent this unnecessary work.
+> 
+> Each nm run on its own, x86-64, median of 5:
+> 
+>                              GNU nm 2.47              llvm-nm 22
+>                           before  after   delta    before  after   delta
+>   defconfig
+>   sorttable, nm -S vmlinux 0.080s 0.039s -0.041s   0.265s 0.113s -0.152s
+>   check-function-names.sh  0.072s 0.033s -0.039s   0.244s 0.102s -0.142s
+>   VOFFSET                  0.077s 0.034s -0.043s   0.261s 0.113s -0.148s
+>   ZOFFSET                  0.007s 0.005s -0.002s   0.005s 0.005s  0.000s
+>   TOTAL                                  -0.125s                 -0.442s
+> 
+>   allmodconfig
+>   sorttable, nm -S vmlinux 0.156s 0.063s -0.093s   0.539s 0.223s -0.316s
+>   check-function-names.sh  0.149s 0.054s -0.095s   0.537s 0.217s -0.320s
+>   VOFFSET                  0.146s 0.052s -0.094s   0.524s 0.221s -0.303s
+>   ZOFFSET                  0.007s 0.005s -0.002s   0.006s 0.004s -0.002s
+>   TOTAL                                  -0.284s                 -0.941s
+> 
+> llvm-nm appears to be a lot slower than GNU nm, so these builds naturally
+> improve the most.
+> 
+> The four run one after another in the serial tail of every build that links
+> vmlinux so impact kernel builds directly.
+> 
+> In an allmodconfig the decompressor is built in parallel while the modules,
+> so only the two before the vmlinux link contribute to build time.
+> 
+> The build outputs remain unchanged.
+> 
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+> 
+>                                           before    after     delta
+>                                         ---------------------------------
+>   x86 defconfig, touch mm/vma.c, gcc        9.7s     9.5s    -0.18s (-2%)
+>   x86 defconfig, touch mm/vma.c, clang      9.3s     9.0s    -0.27s (-3%)
+>   x86 defconfig, clean, gcc                30.3s    30.1s    -0.16s (-1%)
+>   x86 defconfig, clean, clang              31.7s    31.2s    -0.55s (-2%)
+>   x86 allmodconfig, touch mm/vma.c, clang  36.4s    35.8s    -0.67s (-2%)
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  arch/x86/boot/Makefile            | 2 +-
+>  arch/x86/boot/compressed/Makefile | 2 +-
+>  scripts/check-function-names.sh   | 3 ++-
+>  scripts/link-vmlinux.sh           | 2 +-
+>  4 files changed, 5 insertions(+), 4 deletions(-)
 > 
 
-Oops. Thanks! Nice catch!
+Thanks!
 
-I made a mistake here and it managed to work so I didn't notice
-it...
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
 
-In the previous patch I left here unchanged and used the root.
-But then it struck me that maybe it is more consistent to make
-the classical LRU and MGLRU behave similarly by skipping the
-recency check for both of them.
-
-I'd like to hear about your suggestions:  Whether to simply
-remove the if statement and use the root only for MGLRU? Or to
-use the root and keep the test speculative for both the two?
-
-Thanks
-Bingfang
-
-> > +
-> >  	*lruvec = mem_cgroup_lruvec(memcg, pgdat);
-> >  
-> >  	max_seq = READ_ONCE((*lruvec)->lrugen.max_seq);
-> > @@ -470,7 +473,7 @@ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
-> >  	 * configurations instead.
-> >  	 */
-> >  	eviction_memcg = mem_cgroup_from_private_id(memcgid);
-> > -	if (!mem_cgroup_tryget(eviction_memcg))
-> > +	if (eviction_memcg && !mem_cgroup_tryget(eviction_memcg))
-> >  		eviction_memcg = NULL;
-> >  	rcu_read_unlock();
-> >  
-> > 
-> > -- 
-> > 2.43.7
-> > 
-> > 
+-- 
+Nicolas
