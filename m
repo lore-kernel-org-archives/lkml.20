@@ -1,91 +1,148 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB4E31E857;
-	Fri, 18 Sep 2026 07:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7FD31E857;
+	Fri, 18 Sep 2026 07:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714995; cv=none; b=ffseEx7BoiLJ7/kVuWkFVA/iYEegIBlj3y8BsoRe5zwo8idV31rTtlc4bcQc5jvqwA5fbbKYy0OgLYHZTmuPK4ZydNRtDjDopdjlRI2UmosH7ZnuXiiGk9anIYM1M/DQ5OiW16T939yCupQ/FG4uGyqiLm+l7QOEy04LsML1ya8=
+	t=1789715001; cv=none; b=mUL+U0BCavimihbinuJgX8UUTppY3cVmPL9Ln9nEZ5cythvKOfaWksRf9HCL54C/m5utUHbgsvq/jPY5zVuJL7iU5FU60HCootDRoQK7B46lNSd3Wodpogfw9D0gUz3cL/5KXc8AWvBkySwkqcq7ayY4NjQMVMsHxNVehG0PVU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714995; c=relaxed/simple;
-	bh=qKgn4VfjpM1+mtgs8P9dnXzjLcJPeaMJrhazv9TUqVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NAvjLp7Prglyectl+VlF0QxIpJT834REG6Qot66msGAa9zaL0kZ2yuJ3JYMJOWgY/DIagqzsDv8+TXo+s/r8wcdFHFByjW3C2BmYz5fRtN1FuKr6Kfn7QyNwkizwrkcotI3UxgwlYDck1gqBroQx5tiG8lGYxtfchmMqnrVAI0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=FYDKqqzf; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789715001; c=relaxed/simple;
+	bh=2LOaQR4JlbZn7aLRdToMdL5mIjIcL/5xMPl+nMEXaXI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MFRnMGXbBLGSz/6bIy8VVpmXDy+G+lqagcD7dnEOvA+YWQHxFfykeuVy88W7BemXpmJvVXOQsw667SG0wF7zg/WgE1p43NNug6afIntYYpz451WSrWFetdG9pY9uAEak1njtzN5zNAuLvS8Q/nIxhwsCm7OwMIAqdiHFk0MEJ7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=p2aFhi4g; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="FYDKqqzf"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8B41E3EF8B;
-	Fri, 18 Sep 2026 07:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789714985; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=GumGYp+cZSxuCV/vggU6CfFLl2osu3Yi7rq4u6xZB40=;
-	b=FYDKqqzfI1/+QmURCALbya+IA+a2XFEbhIRo17LICNpQ+8wkEYGhLoXcW5ctzp8bIv3PwZ
-	vOxVHg4bGmUqag6GP+/ZICgNNDxINxWJHtO+iAqGBnx13n59SX4a9U//0yoWUEXicpR1m8
-	+Hf9v/1T5WmdPB7pHMTYKWUVZyNYuKxfI01J3Lgg1asJKwIVOQbmOvC3HGHPcCuo9VzsC8
-	LFLTW7+EyoIGjmzV5B1X0iqotxwjSVRSrQXQW4lJE3j1lmVhYslcZCOFeXHutAgLrx8AD0
-	Me65WlIVo49WJWaDDgW05RUMTyq5SiLyVoGCrRwmBg9MSiD+Tp3reticC6b31g==
-Date: Fri, 18 Sep 2026 09:03:01 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 1/3] dt-bindings: net: wiznet,w5100: convert
- to DT schema
-Message-ID: <20260918070301.GA21010@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260915-wiznet-link-gpio-v8-1-d173622474cc@marmottus.net>
- <178967572953.22033.7825853149442957564@kernel.org>
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="p2aFhi4g"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=N1GcyRNtHdRTu5TiGzPOCZQaPlbdEFhtfkpRCs5i7/M=;
+	b=p2aFhi4ggavAOZ3bqL0jkYt1kQya1PvPUQsCTbO1Y0P115gA1rnq9zLZV9HcsPj2r3DaSlaTz
+	rdOHZlWHTeAMUELlg8cCe5GIPdHDulMVQsFpUMYh9n0CFGGgTf+1VEsu1xdNWq2nZDyIjVDV8cV
+	rYaWJekt9Qs7bvUp7mATsWM=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hmNb86wgXzKm8V;
+	Fri, 18 Sep 2026 14:52:04 +0800 (CST)
+Received: from kwepemp100010.china.huawei.com (unknown [7.202.195.10])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7BFFB4057C;
+	Fri, 18 Sep 2026 15:03:08 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp100010.china.huawei.com (7.202.195.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 18 Sep 2026 15:03:08 +0800
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 18 Sep 2026 15:03:07 +0800
+From: Xingui Yang <yangxingui@huawei.com>
+To: <john.garry@linux.dev>, <yanaijie@huawei.com>, <jejb@linux.ibm.com>,
+	<mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <yangxingui@huawei.com>, <liuyonglong@huawei.com>,
+	<kangfenglong@huawei.com>
+Subject: [PATCH v3] scsi: libsas: Fix SMP IO deadlock during HA resume
+Date: Fri, 18 Sep 2026 15:03:07 +0800
+Message-ID: <20260918070307.381207-1-yangxingui@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <178967572953.22033.7825853149442957564@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTG0WQYNJKjuTrZ7Jv8Q2MRe38byAzd4dVJebt3ZtAEPlfpgKrYdTS91pVnnM3Y85X9cS0VNpaaXXoocY/wzwmeDfS+MW5oBHdtRnUCADAqUuBVYUjKEzA3fVW+lcMOwVjvbC1C3lFKpq2s2kQjLvddX/w1Y3ulQmvZJR2O6wAIf/SBJ0PqWih2LJ1pOg0O3TYuLAfobQV3Sm6CApjYlU7F8CAI4y0eWcZ3yhP41mrrQgariGskOoByt6FlxiPUweaMaNc5z4N6cJK+h3gbVvSTOh/5ye7AFcNmIeN4C2Nkq4AQZJ3c37NCphFuMWg4xpcnpjZDctOaeqO5zvutgiEgmpLKctVwhNnZLm1+w1jNB2kAUmaM6UYUn3IuwnZG932HDvW9VBhOAV9KglywrEU5SoHlcv34P9sQ+1cc/iFGmcQ2KJz2PmMO7VU0hNnN2CBS7rjlEwY9Bp+YUE9HdMz8QJ1DbFmCHyJ8j8Jk2n+5JNiK8fePH++TwjTro/AuCLjcyuVe14Y5wlAFo+x2D3MVugFVv42yMSy24tnpTRNxuj0lFest6lhJX2NIzAwkMDOtW4T5DHKjJYlr9ndgDbmF6gZkfvd6lYXAyptk5OH8uSC/2S/W1E861nBM85i1/Evf9gWPTByjjmK8QdtV9PNHqEWacLnsdf803IQmKy58WVg
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-On Thu, Sep 17, 2026 at 08:08:49PM +0000, netdev-bot+sashiko@kernel.org wrote:
->[Severity: Low]
->The description says the 14 MHz limit applies only to w5100 while 80 MHz
->applies to w5200/w5500, but the single maximum: 80000000 is applied to all
->three compatibles.  Should the w5100 limit be expressed as a conditional so
->dt_binding_check can enforce it?
->
+When the controller resumes, sas_resume_ha() -> sas_drain_work()
+processes the DISCE_RESUME work, which restores the ATA ports through
+the libata error handler (ata_sas_port_resume() requests ATA_EH_RESET)
+and waits for it in sas_ata_flush_pm_eh(). For an expander-attached
+ATA device the hard reset in that recovery is an SMP PHY CONTROL
+command sent to the expander:
 
-The user should know which SPI speed to use here. I don't think
-leaving the scheme open to higher speeds is a real issue.
+  ata_eh_recover() -> ata_eh_reset() -> sas_ata_hard_reset()
+    -> lldd_I_T_nexus_reset() -> sas_phy_reset()
+      -> sas_smp_phy_control() -> smp_execute_task_sg()
 
->[Severity: Low]
->This changes the recommended trigger type from IRQ_TYPE_EDGE_FALLING in the
->removed .txt binding to IRQ_TYPE_LEVEL_LOW, and the deleted text also
->claimed "w5x00 natively generates falling edge interrupts".  Could the
->commit message mention this correction?
->
->The new value agrees with the driver, which requests the device interrupt
->level-low in w5100_probe():
->
->    err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
->                               IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->                               netdev_name(ndev), ndev);
->
->The commit message body only says the binding is converted from plain text
->to DT schema.  The only record of the trigger change is the v8 changelog
->line "Change edge-falling to level-low" below the --- separator, which git
->does not keep.
->
+For a runtime resume ha->dev is still RPM_RESUMING while the callback
+runs, so the pm_runtime_get_sync() in smp_execute_task_sg() blocks
+waiting for the resume to complete, but the resume is blocked in
+sas_drain_work() waiting for that very SMP IO — a deadlock.
 
-Nitpicky but I can add a line in the commit body.
+Use pm_runtime_get_noresume() to take the reference while
+SAS_HA_RESUMING is set, and pm_runtime_put() to drop it. The hardware
+is already initialized by the LLDD before sas_resume_ha() runs.
+SAS_HA_RESUMING is also set during a system sleep resume, where the
+usage counter is still held from the sleep prepare and the put is
+harmless.
 
-Arthur
+Outside of the resume window, convert the pm_runtime_get_sync() call
+to pm_runtime_resume_and_get() and check the result, so that an SMP IO
+is not submitted to a host whose runtime resume failed (the return
+value was previously ignored).
+
+Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
+(pm8001, isci, aic94xx, mvsas) are unaffected.
+
+Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
+Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+---
+Changes since v2:
+- Drop the reference with pm_runtime_put() instead of
+  pm_runtime_put_noidle().
+
+Changes since v1:
+- Use pm_runtime_get_noresume()/put_noidle() during HA resume instead
+  of skipping the PM reference entirely, so an in-flight SMP IO always
+  keeps autosuspend away.
+- Convert pm_runtime_get_sync() to pm_runtime_resume_and_get() and
+  check the result (pre-existing issue flagged by sashiko).
+
+ drivers/scsi/libsas/sas_expander.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/sas_expander.c
+index 811c9eb4fef1..5a8cdd3682fe 100644
+--- a/drivers/scsi/libsas/sas_expander.c
++++ b/drivers/scsi/libsas/sas_expander.c
+@@ -61,8 +61,22 @@ static int smp_execute_task_sg(struct domain_device *dev,
+ 	struct sas_internal *i =
+ 		to_sas_internal(dev->port->ha->shost->transportt);
+ 	struct sas_ha_struct *ha = dev->port->ha;
+-
+-	pm_runtime_get_sync(ha->dev);
++	bool ha_resuming = test_bit(SAS_HA_RESUMING, &ha->state);
++
++	/*
++	 * While the host is resuming, ha->dev may be RPM_RESUMING and
++	 * the resume blocked in sas_drain_work() waiting for this very
++	 * SMP IO, so waiting for the host to resume here would deadlock.
++	 * Hold the reference without resuming, the hardware is already
++	 * initialized by the LLDD before sas_resume_ha() runs.
++	 */
++	if (ha_resuming) {
++		pm_runtime_get_noresume(ha->dev);
++	} else {
++		res = pm_runtime_resume_and_get(ha->dev);
++		if (res)
++			return res;
++	}
+ 	mutex_lock(&dev->ex_dev.cmd_mutex);
+ 	for (retry = 0; retry < 3; retry++) {
+ 		if (test_bit(SAS_DEV_GONE, &dev->state)) {
+@@ -135,7 +149,7 @@ static int smp_execute_task_sg(struct domain_device *dev,
+ 		}
+ 	}
+ 	mutex_unlock(&dev->ex_dev.cmd_mutex);
+-	pm_runtime_put_sync(ha->dev);
++	pm_runtime_put(ha->dev);
+ 
+ 	BUG_ON(retry == 3 && task != NULL);
+ 	sas_free_task(task);
+-- 
+2.43.0
+
