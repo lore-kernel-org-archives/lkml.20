@@ -1,70 +1,78 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3384B048F;
-	Fri, 18 Sep 2026 11:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C724E3246;
+	Fri, 18 Sep 2026 11:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732445; cv=none; b=jD4hjVPqjQRw/qlDpGEUGW4X+DVZ1/inWLsT5F8AvIVzal1WVS28Kejja5Yv7yJJF8ubUzJJmLgyWcq+SF6lhOHZ7AapaHd/CjUGQ8TsEVS6r+odHX3mD6xggLad7Jld1t09yX9R0dM1mFKzFSRQXZ8wRXiRFf1YqkMwySinKM0=
+	t=1789732499; cv=none; b=Sug0ay1rLo83EIGLmIcrY4nOQubbV04wZRUP9FYFV7+8+BGg+pI2kWxmj4UIXrQT2f/mgfSuiRHoqPCuOKpTfdYsyS9+0jvVjOwlCiWY3BmpA+Q4e3Q4wzwE3Ze3XdP2tbe0tqxVtANnCZ+QJt85yXvxL+vgmGHppLahFN44G00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732445; c=relaxed/simple;
-	bh=Tg6sUZbO12kr69TGuRX2+TW8rG6HSgB8VQPilIPhGII=;
+	s=arc-20240116; t=1789732499; c=relaxed/simple;
+	bh=aUj1hyinUTbaDHYw84m2e/yMqAF8Bx2ivUBnt4Pmt4o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bbqyGupW9wMQ4rZJ2QNokAvmSa0PHP5g2wqWNwCTk/eCu0yrj5AzdDNEoZjnZnIRzOvqXm2MybIYfquPOa5RdC9L3wW0koFdx5JMNRubNm2985NHIqjNaXg4PGGgLIuc7KzfUUvSMt3yKGCnCD3LQBb/7NL/5YYAOpOcQacqVEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=cuFI9FDE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=tAB8c4IRRVsAQbunUVPOeiEeFCdI3JiGrPL180XAb9PbCU7yJJVmF2qLQRFBSaMlf7z9CLEeOhrqROBTMu9FSBJ3d2qy2aLxwCO3GyJQZmqK9cAcpKDHyUym6YLGX62+19DjrV6dlUYMTDTTtqG+OggAl9nli/9v/LiwlMHxM8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVYnJrwo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="cuFI9FDE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=19PmKoo5d7cVYVpSiRTEt7PfX902d55BNS+Eq3QkL8o=; b=cuFI9FDE5WIKKQNKCxDMX1Ruy5
-	k4FYVNSa9Dho+4uGi0ZjZY1l7Ier74EmfH/TUtoCSVp6AChYgjs1Ww8+rqoZn356cRGT7KODMR2Mn
-	knj1XbxvhWTRm4DRR15AQdVaC0iRH+MzrpcYfJ17+nZIOdBLcA6bdMqv/qtmbIGRGs+0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7XA7-005ri5-1N; Fri, 18 Sep 2026 13:53:51 +0200
-Date: Fri, 18 Sep 2026 13:53:51 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Yao Zi <me@ziyao.cc>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v1] net: stmmac: Default DWMAC_MOTORCOMM to m on
- MACH_LOONGSON64
-Message-ID: <f57f9a1d-72cd-4997-9895-202654a81b52@lunn.ch>
-References: <20260915073206.6665-1-yangtiezhu@loongson.cn>
- <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
- <f6b93b98-e0d3-9e28-e366-4df126e6ab5f@loongson.cn>
- <a10c8361-648e-476b-8b04-8716ad274fc4@lunn.ch>
- <36a43b65-f94e-4836-b511-715fb136c10d@loongson.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVYnJrwo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6242E1F000FF;
+	Fri, 18 Sep 2026 11:54:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789732498;
+	bh=kv9vWZ9ioKWdApWQR8wGrdnCIOGwP5JD+4GkiREsFMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XVYnJrwoQAMw5/SlcH0X6agq01PNi+Ml7wBGTFyh0qdEbUS8e/iCpvOvB9zK7x9aP
+	 exyxMIX1j1zCbF1PkmAiKGAt7B6QNcWXVcqyDQhqc7tSzt0ilXqAcyzPnAmTSa4z7p
+	 yboR48GdFUQ8yOnJLkuDBToRivSLQ3PeuPMMM0KVXuviZuPxsH9v+Kuz7u1/2bEKCT
+	 0ZiWSuXHZxbjaRAsqf+2p/LXXUkT6VthTi87x3AvxSo3BJqyO2jMvhdVOLr1QcyR1C
+	 SCW1nUXH0ixxpeMx7iwtYoW/HSANKWF0rxrr9XlK4erxMgCNM8o86Z4NdvTcfO2/Tf
+	 JNE2ojy8PSiAQ==
+Date: Fri, 18 Sep 2026 13:54:54 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Petko Manolov <petko.manolov@konsulko.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org, 
+	arnemaximilian.richter@draeger.com, martynas.grybauskas@draeger.com
+Subject: Re: [PATCH v6 1/3] dt-bindings: vendor-prefixes: add Draeger AG
+Message-ID: <20260918-prodigious-festive-puffin-af2f2e@quoll>
+References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+ <20260917163157.1380860-2-petko.manolov@konsulko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <36a43b65-f94e-4836-b511-715fb136c10d@loongson.cn>
+In-Reply-To: <20260917163157.1380860-2-petko.manolov@konsulko.com>
 
-> drivers/net/ethernet/marvell/octeontx2/Kconfig:54:	default m
-> drivers/net/ethernet/hisilicon/Kconfig:106:	default m
-> drivers/net/ethernet/hisilicon/Kconfig:134:	default m
-> drivers/net/ethernet/sun/Kconfig:77:	default m
-> drivers/net/ethernet/sun/Kconfig:81:	default m
-> drivers/net/ethernet/sun/Kconfig:89:	default m
-> drivers/net/ethernet/mellanox/mlxsw/Kconfig:37:	default m
-> drivers/net/ethernet/mellanox/mlxsw/Kconfig:47:	default m
-> drivers/net/ethernet/mellanox/mlxsw/Kconfig:67:	default m
-> drivers/net/ethernet/mellanox/mlxsw/Kconfig:86:	default m
+On Thu, Sep 17, 2026 at 07:31:54PM +0300, Petko Manolov wrote:
+> Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co. KGaA
+> Link: https://www.draeger.com/de_de/Home
+> 
+> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
 
-Look deeper at these. Apart from the sun cases, which are very old,
-default m is only used for optional parts of a module, not the module
-as a whole.
+<form letter>
+This is a friendly reminder during the review process.
 
-   Andrew
+It looks like you received a tag and forgot to add it.
+
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
+
+Best regards,
+Krzysztof
+
