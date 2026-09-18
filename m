@@ -1,153 +1,446 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5DA3F105D;
-	Fri, 18 Sep 2026 17:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5130543F4A2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789753645; cv=none; b=OxgXI99p1wvXqlAZ0w2gy3DloN5CzAVZ1kh7iYTiuHHgzP3wXkHjyJo8TE0QI0oxzt1z10nW/Az5/P/hb7CupOSGJGfWyBOIsM306y4r0dGoIyKptB43rEoz8LC+LNNN733GYXKYVQd9MOg67j10uN9itGeNFpc1LDYgEkSG124=
+	t=1789753723; cv=none; b=hwz7RddbTF0wSguIxVFbAkuq1mMXhAIxR/J0ybV6lcrnlZv8T0lyI92vR3yIj+7Ip2+i2gUGRs3+jbyldKOGg4ElLF76a7KoetLp+d+1gC9VBBaPqDcPrt4+DCboAy6Y3Gk3taxLGCuYxfSilGghvtjSgDiiQPol5ymR0vOh4UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789753645; c=relaxed/simple;
-	bh=eX2D8MQdRhq+4pOWVWDJoSjqfwyb+Xr1M+aNMMTwxE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTDI5FesBKPmthaYOPhOvQTKRtw7T/M33VV0qEAPXXxbkQZktA8hjvfkCAwFtyRr1XIy9rQ4CKdhsHRHK/vUWuLsE/+GAN0erTYfzz6iDArymkQ/cKiskaJ6Ml+OSJNVxsx89KMGHil0jgnOWac80RYE1Vk26j3AbSX3U5ZBbro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=NRdRIv5J; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789753723; c=relaxed/simple;
+	bh=OUN+pfzR5anohMB5Jqn5sg8VfCunB66oixWjJ/x8nhc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z1RkPTkGeyee43QHuScHimGfs6roDutDbLHcRHC4enrpQWoZAt1BGsWcplu6QfAPM+PVlhXj+6GbpCEqVI8T5erRbQuG7uiz/TXMrwRb8+3jSJn57Bhp/jBCJfBSJsat8L9yuCF+/jkTd4z8FpgPK6YCwN6TQDPQ3ANmP+J7AdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQsHxrON; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="NRdRIv5J"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IH1pOv660585;
-	Fri, 18 Sep 2026 17:46:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=7UxSnGfwu/IJRlG7OayfivP+4Kua5y
-	rtKWWb1Og1sco=; b=NRdRIv5JwMV0/sxo82VFgpjnx1/qLJ7EHq7HKftCr+t+by
-	H/vgI16WBKzfmE1pWH5IyUjnvO93kK64868Ch0l9BUJ5vBHlRDaPmA6cLXkQQeiG
-	ibnnxBtjZC43Ig0porKMxNan7VKx9CWLIvnsi+GqnWKxZA6V9xaqEZQU9dMLqfNq
-	hZS0kVDixXRRtQHRhwdozcsCqxR/8pq8ChF+Ir5Uda1y0PFKYiAUhrr27YoFw99Y
-	v4PrIUf+2FjeDaaCZOHAlabB47n5sWOe40QwZ9bJI8WhjPARqvUHaZZKChgSJm5X
-	W33+oEiDsHHpFw/75SsbScujf6ZpVIBW1FMkJ/iQ==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5eh1nj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 17:46:57 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IGoxDB964976;
-	Fri, 18 Sep 2026 17:46:56 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5fjrgc2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 17:46:56 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IHksNE40305122
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 17:46:54 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 563902004B;
-	Fri, 18 Sep 2026 17:46:54 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A524C20043;
-	Fri, 18 Sep 2026 17:46:52 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 18 Sep 2026 17:46:52 +0000 (GMT)
-Date: Fri, 18 Sep 2026 23:24:38 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Christophe Leroy <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] KVM: PPC: Fix callback check in
- kvmppc_gsm_refresh_info
-Message-ID: <20260918232327.23112614-5a-amachhiw@linux.ibm.com>
-Mail-Followup-To: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907145626.7675e892-56-amachhiw@linux.ibm.com>
- <20260918143124.9913-1-kaylovefoss@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQsHxrON"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so10231695e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:48:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789753713; x=1790358513; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kDUreuc76Q9stUrtsT2uw4I0y03Sjd0Pb3pKM1mRunI=;
+        b=XQsHxrON8Z4wIU88EqA03RDwB15mC/yqZhwCp4RZDBdaFmSDQLzMT/clTmlqJqndfE
+         3fj1NYWFbes1mkDvwjgBlSxhEw60BRmNKujYRuXmVp4kVbJ6Q73Jmbr5AGQQmHY3GO9X
+         zOicSeexWZOKoWEiAMalZSFMciN2cP/qO9klIQxUOpy+izhOCo0h4sm0hyCPUW0qeoCq
+         zMJB+zuCGteJKBjbPtj+0RYXdZExaBX6BOrBoC40zcikA7iX5rutwE+jd0iwtDZLxl6s
+         mLFjxUcnw6Ovs+wgfHYsQaUauer7JHFpbSWDIeEwaddXzM+7URbv8y/WAG8S77Z5Khsy
+         jV4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789753713; x=1790358513;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kDUreuc76Q9stUrtsT2uw4I0y03Sjd0Pb3pKM1mRunI=;
+        b=2mq2LP/RRy+5mwG2N3RjH6sOlmMNToSERtaUHwO8LcxBMKqpSonRP7f9g76AKR9EI+
+         Qxr5pl4v5bcCMGnLHpasNvNVxojo0FJ6taJjh3YLZMEes8dcmaAOpOWSk756c+UUtFHW
+         Wk1PlovuuCtXzdgObvUZ05IQ+5trT0K4Ovsvjhjsb/rPj1fmm5z7BEdRqqH1ZRvuyAKM
+         8enK7O3lEFyPtnTUedqpm6rymQhA7Nl18yVZVngfDDeacreylPYdupBddtRVzbRZA3l4
+         7JfYMF/kEqMJ+6Sk6dc1+df9AllIPeomgwKKE53ukKEJCxzSIe3NX1272UBOjIrczuRa
+         E3xg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2q9KcWTx/QWnGazSDrFxP5ZuBHvVOzovJT2Ymmh8UFLkmWOIPsqerAKjXFm6H3fvmTwEFzY3R+32Mv6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvxBjPijYkMOf4LSdOvlljUoOtavzq3UjQoDvc/6kJHd6tMdhk
+	1DCuYyNvL6Y7OE75ElY1dOULQ+6uPkSN2Knj3l4g60/HdM7yRGH/U9pr
+X-Gm-Gg: AYBFou2ydD3oVKJFkfqi6ygTMZKseDLsfBz8/WycXCceVravQHuYvkbuUaZ61lJwsEi
+	sSW/397tytpY6+7jQs7i4A9/NOpIp2dORfvBzvZaSXKvf7S12dqF/ekBKAEw4SpAKzrtF8uKIPl
+	TaR6vuzX721IDfKTV1bBD37yl34L7oVHBWd/k3YUp/PKcDlPPCDMOQ6a82shCoVEUKWr9xqLqYJ
+	pp5TuPQGTBss4qAu3utueCh2YqQY4Yfobyb3qCHFFSzXQRLS71r0+99k1twrC033j7zz9LpCO/3
+	2TV6ZUcTnZADq+A7IukIUc1MTCno5mrO/QL5BZtB99qldNgNHwXlxr0ePy1y8FZDg38f8yJDNoF
+	At3pdXJXT5edpD/0qjmozJc214KxLig/3im6Q4g/Zj8GmsbIGPV/kb4z5AM2RFWwkICrOmG0gWF
+	zzt6Qs1PmB80x6GokwRJEHwno8vQhYcAa2FV1u5Mw74euLIDieS2CVq/2yOKXvYM03+SaKnRwwQ
+	3mt+kKzWQAOOoM27ardJrIhMvFGnb2ED2Ud6QirO218GBGMyZgB40kbUA==
+X-Received: by 2002:a05:600c:8518:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49fc5741563mr45794005e9.29.1789753712600;
+        Fri, 18 Sep 2026 10:48:32 -0700 (PDT)
+Received: from localhost.localdomain ([176.220.123.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f8563sm9871595e9.6.2026.09.18.10.48.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:48:32 -0700 (PDT)
+From: Omer PALA <palaomer100@gmail.com>
+To: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Date: Fri, 18 Sep 2026 20:48:09 +0300
+Message-ID: <20260918174809.17502-1-palaomer100@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918145804.26957-1-palaomer100@gmail.com>
+References: <20260918145804.26957-1-palaomer100@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918143124.9913-1-kaylovefoss@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI1MSBTYWx0ZWRfXxo0Weyb6Nv18
- oSjAiTB1UtqtWeZjB4+nte5+1yeI0UtL8h4Bsl0vs0oRA/Wz7WgY/YCUzBB3fNt1/Qg2Ixh6ed6
- Ram/0J7IupAwLig3aJjxTHPOPJsgpRndq1Ue8BNw2s5QwtD/k+imM+TpjOjWY1IWIZHNhtWBTSu
- 2LoLJD0RDwOQeUb8J16CNnr/jIMytvEbO1ZYvjH4/u6TXof1vftiPozFquxixGnG+hu3YoWnw1O
- v6d5BNneaRcx+Ze5e0NE33qu1W1YaryMuJ2LNTlIQdSVK0wachQAxMGaPHvCmYjYtArwMg+ZCsg
- +8zER/EUduFpoY0SYQVcGV5bUo+3kJh3TLUPRZN7juIMsG/uphWH38RGiaJNsQHcs34ams5wytJ
- SmjcDiRbXEjf1HP+u8G6V28tIZeKm17prUXD79a012uvmXJFQOOukRmRbYVpfhig1VuXGSziyl8
- bya6NUqGFiUJZNTgB8A==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aad7911 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=-UEHelddAeA3dXerUxoA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: 1PPkUjuENsZQUl2Q8L4HkEQjhCoVyRfJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDI1MSBTYWx0ZWRfX04GLhenJ5PRK
- htoNYj4v8L3oKskVITFKnLNCWrQTH0rtbZUy7E1ZpGJZjijtQOHUAeX/d2JsFhGY3QbYKpZAf0r
- Ivyu3jpeU5uEDoPifFyod7yZzCxcAkA=
-X-Proofpoint-GUID: cqYzEWGtmFKJ198q4Na91n3TSWR5RyHy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_05,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180251
+Content-Transfer-Encoding: 8bit
 
-On 2026/09/18 09:31 PM, Bui Nguyen Nhu Quynh wrote:
-> The kvmppc_gsm_refresh_info() function incorrectly checks for the
-> presence of the fill_info callback instead of refresh_info.
-> 
-> This can lead to:
-> - NULL pointer dereference if refresh_info is NULL but fill_info is present
-> - EINVAL return if refresh_info is present but fill_info is NULL
-> 
-> Fix this by checking the correct callback.
-> 
-> Fixes: 6ccbbc33f06ad ("KVM: PPC: Add helper library for Guest State Buffers")
-> Signed-off-by: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>
-> ---
-> v3:
-> - Resend to fix whitespace handling issue on v2. No code changes.
+Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+xilinx-xadc.txt file.
 
-Thanks for fixing the spacing issues.  The patch applies fine now.
+Signed-off-by: Omer PALA <palaomer100@gmail.com>
+---
+ Changes in v2:
+ - Fix logic in xlnx,channels node by adding missing required properties
+   (#address-cells and #size-cells).
+ - Update conditional logic in allOf section to enforce required properties
+   for 'single' and 'dual' external-mux modes.
+ - Add SPDX license identifier header at top of schema file.
 
-Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+.../bindings/iio/adc/xilinx-xadc.txt          | 141 -------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 185 ++++++++++++++++++
+ 2 files changed, 185 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 
-Thanks,
-Amit
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078..000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+new file mode 100644
+index 000000000..f9b717c29
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+@@ -0,0 +1,185 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
++$schema: http://devicetree.org/schemas/meta-schema.yaml#
++
++title: Xilinx XADC device driver
++
++maintainers:
++  - Omer PALA <palaomer100@gmail.com>
++
++description: |
++  This binding document describes the bindings for the Xilinx 7 Series XADC as well
++  as the UltraScale/UltraScale+ System Monitor.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    description: Address and length of the register set for the device
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupt-parent: true
++
++  xlnx,external-mux:
++    description: Selects the external mux mode.
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description: >
++      Configures which pair of pins is used to sample data in
++      external mux mode.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,channels:
++    type: object
++    description: List of external channels that are connected to the ADC.
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    required:
++      - "#address-cells"
++      - "#size-cells"
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        properties:
++          reg:
++            description: Pair of pins the channel is connected to
++            minimum: 0
++            maximum: 16
++          xlnx,bipolar:
++            description: If set the channel is used in bipolar mode.
++            $ref: /schemas/types.yaml#/definitions/flag
++        required:
++          - reg
++        additionalProperties: false
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++allOf:
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: none
++    then:
++      properties:
++        xlnx,external-mux-channel: false
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: single
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 0
++          maximum: 16
++      required:
++        - xlnx,external-mux-channel
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: dual
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 1
++          maximum: 8
++      required:
++        - xlnx,external-mux-channel
++
++examples:
++  - |
++    soc {
++      #address-cells = <1>;
++      #size-cells = <1>;
++
++      xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          channel@0 {
++            reg = <0>;
++          };
++          channel@1 {
++            reg = <1>;
++          };
++          channel@8 {
++            reg = <8>;
++          };
++        };
++      };
++      xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++      adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++    };
+-- 
+2.55.0
 
-> 
->  arch/powerpc/kvm/guest-state-buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/kvm/guest-state-buffer.c b/arch/powerpc/kvm/guest-state-buffer.c
-> index 42843eca6727..aeb586ba4523 100644
-> --- a/arch/powerpc/kvm/guest-state-buffer.c
-> +++ b/arch/powerpc/kvm/guest-state-buffer.c
-> @@ -598,7 +598,7 @@ EXPORT_SYMBOL_GPL(kvmppc_gsm_fill_info);
->  int kvmppc_gsm_refresh_info(struct kvmppc_gs_msg *gsm,
->  			    struct kvmppc_gs_buff *gsb)
->  {
-> -	if (!gsm->ops->fill_info)
-> +	if (!gsm->ops->refresh_info)
->  		return -EINVAL;
->  
->  	return gsm->ops->refresh_info(gsm, gsb);
-> -- 
-> 2.54.0
-> 
