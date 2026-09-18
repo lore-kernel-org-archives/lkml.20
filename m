@@ -1,354 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3474AF9D4;
-	Fri, 18 Sep 2026 08:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9164B1D0B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721654; cv=none; b=qPmJOyOYt8BlBwG8IpJUH0HS/04KfhlRsCzdGdVUFqkqowBAGeXUEXj+z/V8w4FugRswblqJ7F9SB4mZB19T4j/Ob85vp/yIOBm1KB+9I3tldNcK/aeHNpjH4dlwtynjUJ15wVg5ai7YYdjwmUv5CZ7GxTGRyKRZ8f17fqIO9gc=
+	t=1789721668; cv=none; b=A3S89lQ+vlIVMTG8wJGBCGo/MAtDr3KLahMkGc52SrMhV8F2mB4t6E+ZQxFtOR3H0ZsxyGyp4g7kZ1N7BNii32I+aJRt18EUkQE4c+1jurbeU6suJm4toHMT8DORhfzeoxEU9CI0KXRxpjSaB93FcWqeGO1+NE1a8FqmgS3vUmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721654; c=relaxed/simple;
-	bh=uvxYPhXnD9Xyu596tyE92Pxw9pabuN43FRONm46s4dU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QFc8AkBBRXf+4m3x+8NS5VxpU/hEwKLBRrPvHdPAKL19C3YFwUCALwHvQXJy8VvTV+EykfgyPbBWSOK+TuUYVdK87aZzCV0r4hoaSe6UhuMwe+28nxySCOIrCXYFT9IM/UZFEKrxCEtZV1M04vkBOYQODF9RyWTFKmV9tZLzbLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wly/pW0Y; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789721668; c=relaxed/simple;
+	bh=GjJp4+MoOVgFz8FbjXWPExkscjTWKHrWx4K/ofPuzLg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JOPIeZo4nK9LE9yNsUeJce6Xx7T6uYg2tBU2SxyDIgMBgxmxJRA+i9nnKCP61dyOYqMi6kN9DyKlvxOm5xsXpxzUCpfWU/mm5nMe8O/Rbay1rE+qOMKWZ0221fYDwsVb8SchwpSBSR4oFABZZdYPhvq2lBiddOvr2lG4b5mFJYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxcA0Lod; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wly/pW0Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C45ECC4AF16;
-	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789721653;
-	bh=uvxYPhXnD9Xyu596tyE92Pxw9pabuN43FRONm46s4dU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Wly/pW0YakSnWm4V//GJHUCRnNiZopHhcN1H7CZKEQwR8vj6taYyOvz1w5nXamisK
-	 hEzMxdU199od6raczywc43sE33vITQ+RDcZa4cvo2D41E9N5BAqMGLwKCdTjSAsv7S
-	 Rjbf8RdOmPAkdECLMCs2yH5OXRZjOaLJQlUM75NPHzJwQD9Sel4MWOdrsWtJTNacHb
-	 ZI3jHGUZhduPxyA5uMPOnVhNKCqkBXEDtFx1p84QqYihosonlAiO8EwDisijtKuRK9
-	 NReholi9XrKWe26X4nTlMoC7WqBzSvhGNnVkgzKhQ9M6S4+LoQD9i3XUdEyoJYpF14
-	 X7sXW272RwHXg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5DF9C88E72;
-	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
-From: Jingxiang Zeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Date: Fri, 18 Sep 2026 16:53:45 +0800
-Subject: [PATCH 5/6] mm: memcontrol: add memory.memsw.max to the default
- hierarchy
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxcA0Lod"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ecdeso412747f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:54:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789721665; x=1790326465; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DX5xBtiBsqr4ICF7MQ+7hgta5AIRA84ekraA1M5DNPk=;
+        b=IxcA0LodBbQKBBwwBxfGrewYkONuGCXIrbJePx2Y3++MdGRcJo7Fmp9BpSGoTmikNz
+         GicvUUUnN8/iZpqzTubJveGdM3DVF7YWyEYEofJ8rTFRpqd2rpAUravggfMftKIFSXTj
+         /gUbknB43XebS60NSzV91RKlapK++gW+NqYME/6EN52yEKYcPHgmcEKpwDc6KqYOpYvh
+         j6qP+FL75QbMYuJLJVOikBzIP4XrcYKy0i5s12NKkiI9dW+/SrLQbg2N7v6dyCc/EYL5
+         CMtDai4CfNFDNGuCbmscA6X8Yk+ppFfJI32JlUbyAXpwoOrgPaEsZ3G23OX+1Xcugnam
+         R/Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789721665; x=1790326465;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DX5xBtiBsqr4ICF7MQ+7hgta5AIRA84ekraA1M5DNPk=;
+        b=pzJqj0SBG9h9U+disepBtztTwZbxNiTTw4NJwvok7VKGqF845AOHIXMmQAdX16Re2r
+         Qf4jY7hIjDMFNGuYTLxQf2l887SAOJCgMhEJt5hhNJQlsaisFrY/+Vqk68tx/kH9KDKE
+         BcDv2yl3n+EB9Ul9dbAdmJPVEhvpjnf8ieHU3MdfLTohC426noIj1o0oPMRh8/mtnwdf
+         T3/F9lbmvDqpiXhNwtDtL9jMo0i9chojEK0w/JB41zTy2ADTDLaF5jZW7Lx5DxAxKjsv
+         2jVkpO1YFlw2P7bZvqB1KpxTwVXpqqUowjoe1Hit3xvTA8GK+YWN8clmNJQh7dqNjl/T
+         Jr+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwSsC2iKHfFcCYVXCo5Nq/3TMhW6lb+gP6pCugKgaVHpgMtDDH/RzOH30moHIeUbidtn8i/A3P+YoVXpGM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPsg8D5k5K3hLcNp4LVGK0f2NuwNs0xPgNnATNLy1DdQRTrgJA
+	gUC15tyhiBltWVP2OHBSONPEcP3jU+dR0zxFwsoqWcC4KPULPYNPjO86
+X-Gm-Gg: AYBFou32GHPj+6i5HSNwpXp4pd6Wj6Oe5tGkPeRoAJnvhG4mNvI1X24ySO/cWGz8dIR
+	MkEF7Xx2MqRa5kCvKUdx8g0eVAvOGCGOOwi5sFbnxFUdnCiivtSoDzqtC+Mxj8rI1xRkaArStXH
+	qUb1pJKij2XvIj+PQB1dn2CdsCEaVjzIhqExpz8Wx6tX/nNPZiR6pYz22prWuUpziXWAP5zMYQU
+	xyBht0tVke9QdaRZa0Kp4WY058jxJjnHdG4EfcYUpUT+4kO0So0nQaS8I3xoBkvjhCXI7KNGDVB
+	jjRzxGfgh7F6wA12zP3UWq7ebsJFk8LrLrlc+PNKpZF76psXi/K3X6AiJ9ElkzPhrahke183fwy
+	llvZq2XbwXr8t7iD32AZpzmttH1gTioTetaIWtq7iMayfHmr2WmN6hc7ElnUgTo8dB08b/jcUJr
+	kN28cgaQww1oSVn7xh71RQF9AJm0ne6dpcXHjaRyLQb6vO4sNuGGTims7yKt43txEUvq/BHHOhe
+	wbkqkS5ImlXqdVxkaNG4DKPikqv3LHfYlA+jhlObg==
+X-Received: by 2002:a05:6000:2084:b0:486:f3db:e0f2 with SMTP id ffacd0b85a97d-4871e21b8d1mr2580511f8f.14.1789721664813;
+        Fri, 18 Sep 2026 01:54:24 -0700 (PDT)
+Received: from Abds-MacBook-Air.local ([2a02:3037:31e:59ba:f5a3:393a:4cdc:d23f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200737d6sm2651823f8f.24.2026.09.18.01.54.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:54:24 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: Zhihao Cheng <chengzhihao1@huawei.com>, song@kernel.org, yukuai@fygo.io,
+ xiao@kernel.org, magiclinan@didiglobal.com, eadavis@sina.com
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ yangerkun@huawei.com, yi.zhang@huawei.com
+Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
+ submitting IO
+In-Reply-To: <856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com>
+References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+ <m233v7586k.fsf@gmail.com>
+ <249f987d-9d2d-8f5c-91dd-3af6baefe587@huawei.com>
+ <m2zexf3r84.fsf@gmail.com>
+ <856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com>
+Date: Fri, 18 Sep 2026 10:54:21 +0200
+Message-ID: <m2wlsj3poi.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-descriptive-name-v1-5-dfcfdd91b456@tencent.com>
-References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
-In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Oscar Salvador <osalvador@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, cgroups@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- Jingxiang Zeng <linuszeng@tencent.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721651; l=10079;
- i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=O+UnCNXqeUosINeQRBcbUosVOEHXAvFyYevVXrvwqHw=;
- b=wUwcrPfS0kgUjJfvEvXnh4fH+Tr+1i59G8Jg1hull13COHjMDKJn7HeYYxUhyMXf1WQoEz9fR
- z/qv+9mCczGCHIU586g8PMfoaf7XvzzSJxKGLImoiM7gV4CY5M8a0FH
-X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
- pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
-X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
- auth_id=1017
-X-Original-From: Jingxiang Zeng <linuszeng@tencent.com>
-Reply-To: linuszeng@tencent.com
-
-From: Jingxiang Zeng <linuszeng@tencent.com>
-
-cgroup v1 can cap the sum of memory and swap through
-memsw.limit_in_bytes.  v2 only offers separate memory.max and
-memory.swap.max, so a workload that must be capped on the total of the
-two has no equivalent knob: memory.max alone can be met by swapping,
-and capping both separately reserves swap that the workload may never
-use.
-
-Now that the combined counter is maintained on both hierarchies, expose
-it on the default hierarchy:
-
-  memory.memsw.current  combined memory+swap usage
-  memory.memsw.max      combined memory+swap hard limit, default "max"
-
-A charge counted here is held for as long as the memory occupies either
-RAM or a swap slot, so reclaim cannot bring a cgroup back under the
-limit by swapping; try_to_free_mem_cgroup_pages() is called without
-MEMCG_RECLAIM_MAY_SWAP when the limit is written, and the cgroup OOM
-killer is the last resort, mirroring memory.max.
-
-Both writers enforce memory.max <= memory.memsw.max and return -EINVAL
-otherwise, so the two limits cannot be configured into a state reclaim
-could never satisfy.  This matches the invariant v1 keeps in
-mem_cgroup_resize_max(), including the serialization: the test and the
-store are done under a mutex, as two concurrent writers could otherwise
-both pass the check and leave memory.max above the combined limit.  The
-mutex is not held across reclaim.
-
-Since memory.max defaults to "max", a combined limit can only be
-installed once memory.max has been lowered, and updating both limits has
-to start with memory.memsw.max when raising them and with memory.max
-when lowering them.  Document that ordering next to the invariant.
-
-Print the combined counter in the OOM dump on the default hierarchy too,
-so a kill caused by this limit can be told apart from one caused by
-memory.max.  No failcnt is printed there: it is only tracked on v1, and
-a breach is already counted as MEMCG_MAX.
-
-The files follow the default-hierarchy naming convention
-(current/max) rather than v1's limit_in_bytes, and live in swap_files[]
-since a combined limit is only meaningful with swap configured.
-
-Signed-off-by: Jingxiang Zeng <linuszeng@tencent.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  32 ++++++++
- mm/memcontrol.c                         | 136 ++++++++++++++++++++++++++++++--
- 2 files changed, 163 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 8d2603751c51..dd0cf28d39d9 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -1881,6 +1881,38 @@ The following nested keys are defined.
- 	Swap usage hard limit.  If a cgroup's swap usage reaches this
- 	limit, anonymous memory of the cgroup will not be swapped out.
- 
-+  memory.memsw.current
-+	A read-only single value file which exists on non-root cgroups.
-+
-+	The total amount of memory and swap space currently charged to
-+	the cgroup and its descendants.
-+
-+  memory.memsw.max
-+	A read-write single value file which exists on non-root
-+	cgroups.  The default is "max".
-+
-+	Combined memory and swap usage hard limit.  Unlike memory.max,
-+	which can be met by swapping anonymous memory out, a charge
-+	counted here is kept for as long as the memory occupies either
-+	RAM or a swap slot.  Reclaim therefore cannot bring a cgroup
-+	back under this limit by swapping; only dropping pages, or
-+	freeing swap slots, does.
-+
-+	This is the default-hierarchy counterpart of cgroup v1's
-+	memory.memsw.limit_in_bytes and is useful for workloads that
-+	must be capped on the sum of the two resources rather than on
-+	each of them separately.
-+
-+	The limit must not be lower than memory.max: writes that would
-+	violate memory.max <= memory.memsw.max are rejected with
-+	EINVAL, in either file.  Since memory.max defaults to "max", a
-+	combined limit can only be installed after memory.max has been
-+	lowered.  To raise both limits, write memory.memsw.max first;
-+	to lower both, write memory.max first.
-+
-+	If the limit is exceeded and reclaim cannot bring usage back
-+	down, the cgroup OOM killer is invoked.
-+
-   memory.swap.events
- 	A read-only flat-keyed file which exists on non-root cgroups.
- 	The following entries are defined.  Unless specified
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1daa55f2e99d..9e8a176e7afb 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -1873,11 +1873,15 @@ void mem_cgroup_print_oom_meminfo(struct mem_cgroup *memcg)
- 	pr_info("memory: usage %llukB, limit %llukB, failcnt %lu\n",
- 		K((u64)page_counter_read(&memcg->memory)),
- 		K((u64)READ_ONCE(memcg->memory.max)), memory_failcnt);
--	if (cgroup_subsys_on_dfl(memory_cgrp_subsys))
-+	if (cgroup_subsys_on_dfl(memory_cgrp_subsys)) {
- 		pr_info("swap: usage %llukB, limit %llukB, failcnt %lu\n",
- 			K((u64)page_counter_read(&memcg->swap)),
- 			K((u64)READ_ONCE(memcg->swap.max)),
- 			atomic_long_read(&memcg->memory_events[MEMCG_SWAP_MAX]));
-+		pr_info("memory+swap: usage %llukB, limit %llukB\n",
-+			K((u64)page_counter_read(&memcg->memsw)),
-+			K((u64)READ_ONCE(memcg->memsw.max)));
-+	}
- #ifdef CONFIG_MEMCG_V1
- 	else {
- 		pr_info("memory+swap: usage %llukB, limit %llukB, failcnt %lu\n",
-@@ -2724,10 +2728,10 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 
- 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
- 	/*
--	 * The combined memory+swap counter is charged on both hierarchies.
--	 * Its limit is only configurable through v1's memsw.limit_in_bytes
--	 * for now and defaults to "max", so unless the user configures a
--	 * combined limit this never fails.
-+	 * The combined memory+swap counter is charged on both hierarchies:
-+	 * v1 exposes it as memsw.limit_in_bytes, v2 as memory.memsw.max.
-+	 * It defaults to "max", so unless the user configures a combined
-+	 * limit this never fails.
- 	 *
- 	 * Swapping does not reduce the combined charge, so when the combined
- 	 * limit is what we hit, reclaim must not count on swap.
-@@ -4981,6 +4985,14 @@ static int memory_max_show(struct seq_file *m, void *v)
- 		READ_ONCE(mem_cgroup_from_seq(m)->memory.max));
- }
- 
-+/*
-+ * Serializes memory.max against memory.memsw.max so that the two cannot be
-+ * tested and installed concurrently, which would let a pair of writers land
-+ * in a state where memory.max exceeds the combined limit.  Only held across
-+ * the check and the store, never across reclaim.
-+ */
-+static DEFINE_MUTEX(dfl_max_mutex);
-+
- static ssize_t memory_max_write(struct kernfs_open_file *of,
- 				char *buf, size_t nbytes, loff_t off)
- {
-@@ -4995,7 +5007,20 @@ static ssize_t memory_max_write(struct kernfs_open_file *of,
- 	if (err)
- 		return err;
- 
-+	/*
-+	 * Keep the basic invariant memory.max <= memory.memsw.max, so a
-+	 * combined memory+swap limit cannot be exceeded through the memory
-+	 * limit.  memory.memsw.max defaults to "max", so this only rejects
-+	 * writes once a combined limit has been configured.
-+	 */
-+	mutex_lock(&dfl_max_mutex);
-+	if (max > READ_ONCE(memcg->memsw.max)) {
-+		mutex_unlock(&dfl_max_mutex);
-+		return -EINVAL;
-+	}
-+
- 	xchg(&memcg->memory.max, max);
-+	mutex_unlock(&dfl_max_mutex);
- 
- 	if (of->file->f_flags & O_NONBLOCK)
- 		goto out;
-@@ -6204,7 +6229,108 @@ static int swap_events_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
-+static u64 memsw_current_read(struct cgroup_subsys_state *css,
-+			      struct cftype *cft)
-+{
-+	struct mem_cgroup *memcg = mem_cgroup_from_css(css);
-+
-+	return (u64)page_counter_read(&memcg->memsw) * PAGE_SIZE;
-+}
-+
-+static int memsw_max_show(struct seq_file *m, void *v)
-+{
-+	return seq_puts_memcg_tunable(m,
-+		READ_ONCE(mem_cgroup_from_seq(m)->memsw.max));
-+}
-+
-+/*
-+ * The combined memory+swap limit.  Swapping a page out does not release a
-+ * combined charge, so reclaim cannot use swap to get back under this limit;
-+ * only dropping pages, or freeing swap slots, helps.
-+ */
-+static ssize_t memsw_max_write(struct kernfs_open_file *of,
-+			       char *buf, size_t nbytes, loff_t off)
-+{
-+	struct mem_cgroup *memcg = mem_cgroup_from_css(of_css(of));
-+	unsigned int nr_reclaims = MAX_RECLAIM_RETRIES;
-+	bool drained = false;
-+	unsigned long max;
-+	int err;
-+
-+	buf = strstrip(buf);
-+	err = page_counter_memparse(buf, "max", &max);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Keep the basic invariant memory.max <= memory.memsw.max: a combined
-+	 * limit below the memory limit could never be met by reclaim.  Lower
-+	 * memory.max first to install a combined limit on a fresh cgroup,
-+	 * where memory.max still defaults to "max".
-+	 */
-+	mutex_lock(&dfl_max_mutex);
-+	if (max < READ_ONCE(memcg->memory.max)) {
-+		mutex_unlock(&dfl_max_mutex);
-+		return -EINVAL;
-+	}
-+
-+	xchg(&memcg->memsw.max, max);
-+	mutex_unlock(&dfl_max_mutex);
-+
-+	if (of->file->f_flags & O_NONBLOCK)
-+		goto out;
-+
-+	for (;;) {
-+		unsigned long nr_pages = page_counter_read(&memcg->memsw);
-+
-+		if (max != READ_ONCE(memcg->memsw.max))
-+			break;
-+
-+		if (nr_pages <= max)
-+			break;
-+
-+		if (signal_pending(current))
-+			break;
-+
-+		/* cgroup_rmdir() waits for us with cgroup_mutex held. */
-+		if (memcg_is_dying(memcg))
-+			break;
-+
-+		if (!drained) {
-+			drain_all_stock(memcg);
-+			drained = true;
-+			continue;
-+		}
-+
-+		if (nr_reclaims) {
-+			if (!try_to_free_mem_cgroup_pages(memcg, nr_pages - max,
-+					GFP_KERNEL, 0, NULL))
-+				nr_reclaims--;
-+			continue;
-+		}
-+
-+		memcg_memory_event(memcg, MEMCG_OOM);
-+		if (!mem_cgroup_out_of_memory(memcg, GFP_KERNEL, 0))
-+			break;
-+		cond_resched();
-+	}
-+out:
-+	memcg_wb_domain_size_changed(memcg);
-+	return nbytes;
-+}
-+
- static struct cftype swap_files[] = {
-+	{
-+		.name = "memsw.current",
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+		.read_u64 = memsw_current_read,
-+	},
-+	{
-+		.name = "memsw.max",
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+		.seq_show = memsw_max_show,
-+		.write = memsw_max_write,
-+	},
- 	{
- 		.name = "swap.current",
- 		.flags = CFTYPE_NOT_ON_ROOT,
-
--- 
-2.43.7
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
 
+Hi Zhihao,
+
+On Fri, Sep 18, 2026 at 16:34 +0800, Zhihao Cheng wrote:
+> =E5=9C=A8 2026/9/18 16:20, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
+>> On Fri, Sep 18, 2026 at 15:38 +0800, Zhihao Cheng wrote:
+>>> =E5=9C=A8 2026/9/18 15:29, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
+>>>>
+>>>> Hi Zhihao,
+>>>>
+>>>> On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
+>>>>> Concurrent processes md_stop and IO submitting could trigger a
+>>>>> null-ptr-deref of 'mddev->private':
+>>>>>
+>>>>>    BUG: kernel NULL pointer dereference, address: 0000000000000070
+>>>>>    RIP: 0010:_wait_barrier+0x2f/0x250
+>>>>>    Call Trace:
+>>>>>     raid1_make_request+0x150/0xf50
+>>>>>     md_handle_request+0x104/0x530
+>>>>>     md_submit_bio+0x76/0x130
+>>>>>     submit_bio+0xdd/0x250
+>>>>>     submit_bio_wait+0x1f/0x40
+>>>>>     __blkdev_direct_IO_simple+0x1f6/0x370
+>>>>>     blkdev_write_iter+0x3b2/0x520
+>>>>>     ksys_write+0x7d/0x190
+>>>>>
+>>>>>                 P1
+>>>>>     fd =3D open(/dev/md0, O_RDWR)
+>>>>> 	                      P2 (forked from P1, fd' <=3D fd)
+>>>>>     write(fd)
+>>>>>      submit_bio
+>>>>>       md_handle_request
+>>>>>        raid1_make_request
+>>>>>         raid1_write_request
+>>>>>                                     ioctl(fd, STOP_ARRAY)
+>>>>> 		                   mddev_set_closing_and_sync_blockdev
+>>>>> 				   // check passed, mddev->openers =3D 1,
+>>>>> 				   // because md_open() is only called
+>>>>> 				   // once in P1->open
+>>>>> 				   do_md_stop
+>>>>> 				    __md_stop
+>>>>> 				     mddev->private =3D NULL
+>>>>>
+>>>>>          conf =3D mddev->private // NULL
+>>>>>           wait_barrier(conf, sector) // null-ptr-deref !
+>>>>>
+>>>>> It is a common problem for raid0/1/10/5, and __md_stop could be trigg=
+ered
+>>>>> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+>>>>> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() caller=
+s.
+>>>>> The caller dm_table_destroy() is guaranteed being invoked with device
+>>>>> suspended, so raid_dtr() could keep using mddev_lock_nointr().
+>>>>> The caller array_state_store() is guaranteed by the check
+>>>>> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone o=
+pen
+>>>>> /dev/mdx, write something and close /dev/mdx, it won't trigger the
+>>>>> problem, all dirty pages can be flushed before mddev->openers decreme=
+nt.
+>>>>> Besides, fail the submitting IO in md_handle_request() if the
+>>>>> 'mddev->pers' becomes NULL.
+>>>>>
+>>>>> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=3D2=
+22020
+>>>>>
+>>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>>>> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+>>>>> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e1353f
+>>>>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+>>>>> ---
+>>>>>    v1->v2:
+>>>>>     1. Add 'mddev->pers !=3D NULL' check before make_request
+>>>>>     2. Delete dm-raid caller(->dtr) modifications
+>>>>>     3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>>>>>    v2->v3:
+>>>>>     1. Remove modifications in array_state_store()
+>>>>>     2. update commit msg
+>>>>>    drivers/md/md.c | 15 +++++++++++++++
+>>>>>    1 file changed, 15 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/md/md.c b/drivers/md/md.c
+>>>>> index 680b34a63cb3..e73338c26d53 100644
+>>>>> --- a/drivers/md/md.c
+>>>>> +++ b/drivers/md/md.c
+>>>>> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, stru=
+ct bio *bio)
+>>>>>    		if (!percpu_ref_tryget_live(&mddev->active_io))
+>>>>>    			goto check_suspended;
+>>>>>    	}
+>>>>> +	if (!mddev->pers) {
+>>>> Isn't this case already handled by md_submit_bio(). take a look in
+>>>> md_submit_bio()
+>>> Hi,Abd-Alrhman
+>>> I understand that 'mddev =3D=3D NULL || mddev->pers =3D=3D NULL' in
+>>> md_submit_bio() is a qiuck check, there still exists a small race windo=
+w:
+>>>        P1                     P2
+>>> md_submit_bio
+>>>    if (mddev =3D=3D NULL || mddev->pers =3D=3D NULL)
+>>>                           md_ioctl
+>>>                            mddev_suspend_and_lock
+>>>                            do_md_stop->__md_stop
+>>>                            // set mddev->pers/private as NULL
+>>>                            mddev_unlock_and_resume
+>>>    md_handle_request
+>>>     if (is_suspended(mddev, bio))
+>>>     percpu_ref_tryget_live(&mddev->active_io)
+>>>     mddev->pers // null-ptr-deref
+>>=20
+>> It makes sense. It would solve only the null pointer reference, but I
+>> see another issue. Look at the comment before calling
+>> mddev_set_closing_and_sync_blockdev() in md_ioctl(). it says "Need to
+>> flush page cache, and ensure no-one else opens and writes". The
+>> suspending happens after flushing the page cache, in this case,
+>> there might be other writes in-flight.
+>
+> At present, the current implementation does not align with the expected=20
+> annotations. Yu Kai privately gave me a feasible suggestion, which is to=
+=20
+> have md_ioctl operate on a character device(like /dev/mapper/control)=20
+> instead of an md block device. This fix patch will serve as a temporary=20
+> solution before the official implementation is merged. By the way, I=20
+> don't have much time to implment it, do you have time to deal with the=20
+> official solution?
+
+Thanks for the summary. I can take on the official implementation.
+Before I get started, could we align on the interface details and any
+other relevant considerations?
+
+>>=20
+>>>>
+>>>>> +		/*
+>>>>> +		 * The __md_stop() sets 'mddev->private' to NULL during
+>>>>> +		 * the IO submitting, check 'mddev->pers' before the IO
+>>>>> +		 * being processed by specific driver to avoid the
+>>>>> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+>>>>> +		 * safe because the IO has got the 'mddev->active_io'
+>>>>> +		 * reference, and all __md_stop() callers will wait for
+>>>>> +		 * the reference to be zero.
+>>>>> +		 */
+>>>>> +		bio_io_error(bio);
+>>>>> +		percpu_ref_put(&mddev->active_io);
+>>>>> +		return true;
+>>>>> +	}
+>>>>>    	if (!mddev->pers->make_request(mddev, bio)) {
+>>>>>    		percpu_ref_put(&mddev->active_io);
+>>>>>    		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+>>>>> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int =
+cmd)
+>>>>>    	case HOT_REMOVE_DISK:
+>>>>>    	case SET_BITMAP_FILE:
+>>>>>    	case SET_ARRAY_INFO:
+>>>>> +	case STOP_ARRAY:
+>>>>>    		return true;
+>>>>>    	default:
+>>>>>    		return false;
+>>>>> --=20
+>>>>> 2.52.0
+>>>>>
+>>>>
+>>>
+>>=20
+>
+
+--=20
+Best Regards,
+Abd-Alrhman
