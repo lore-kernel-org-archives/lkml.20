@@ -1,56 +1,56 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C710502576
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7D351614C
 	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739464; cv=none; b=swRYZfJkUIuzBTc9XJWH8P0eRf03QJRVcIdwm7cnXTETfHH0bCJf+D3VuY1Px6pAnhf7mIoja8WRrjqs2KS9qCx6rvywe8MiSv/k4NhU2jSr3u8yQqxhswZQZq12HmxGMK4o2X3vvO3Xu0P+9rXouN5z3uXCASdcj5wWx7welBY=
+	t=1789739464; cv=none; b=td9l6HaRvItzmJQ3xWCfGSTFyv9yT3NyH7VZYezt86tKdDiUBMuk8C9NYpV3Ng55frT9qhiIdF+urXGNJz2q2ZeQNIinAee1zSdD7h7iCoCYu8KoOkV9aAo3jp9JNaKjLFjSmVlT6w/ez80n+9phJfOaoE5UX6/7bndahIdQq2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789739464; c=relaxed/simple;
-	bh=bfRiqXgDCeNQNJnWYi30YmPa8Q/5PWYYWKP1ztp48hg=;
+	bh=mhhDSNnA91cSUqozlkAcmrulXDJP3EmnL3z1W2aW8vM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Thc9pd0bbCQewwGWZreE/3s9HTKP4K0YV7PFHq53jeGZk72XQRiPYqZPMYPIF7Ol1lQRexH0M3kvrHoPZHrfOSOXE2xbsUBslapr9Lr85bLW8TM6/wTz+o1xW72FpP/H892gzmMkNVnOPcj30a2ieLUsAKElSjhqk3B6M/2hNbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Oyg9Ghtg; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=R/ezg8t1VgN7IRRg+qhXuFPIy1CKJcOzWNBafUbu6zpb6LSQVNUv9P0zgolcJTgt6mA7cD08OLqoq50Qx16sG6ysg2J0VkyM3/u9VF4Qku7s+XpNfzaNGErco4OnIu1ia1UZo0uDlqTyzSSWvHBf4xg2nwyLwUBnsW5hLmeBovk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OVjtyRsX; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Oyg9Ghtg"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OVjtyRsX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1789739460;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AY5/dZdaTQo8bLuAFkIFIxr6e0AVfLjYr8zjWTqUO90=;
-	b=Oyg9Ghtgfyhb89xjWCUd+IjXc0sWpq4+6I2zVhQo4caR0k0kkzEjgoAVVoHkUMUuKNeVfn
-	6mZt+A94VlReytuhiHqXO4k1wW1Zn5iw9SCnPycXO9h9rWQNjtOCzRSkF4WSLLbDSeF71x
-	3g/So3fjJ6x6gLcle36Au99ZHlMGqIA=
+	bh=1mL5mmLijL/thbWxdihkf2vlVFU83INpCJw9BHQfp/4=;
+	b=OVjtyRsXVl/iMpf9IbYRLlhDhHkcBGcK3Ngh9iqhAQT2KOYTEITiUSpEzw9ea3v6WZHreD
+	vctRFEFhPXPeSkhcArdSM+qTDrl1cOfeW924y6ZM6OFBX/KVV3YMJniAnhBVJdxvQuTOUw
+	4HTtji67UF89WeNzF0kLi0A2iqGFRbw=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-498-zc5hdPVlNByuX0eVg9kL3g-1; Fri,
- 18 Sep 2026 09:50:54 -0400
-X-MC-Unique: zc5hdPVlNByuX0eVg9kL3g-1
-X-Mimecast-MFC-AGG-ID: zc5hdPVlNByuX0eVg9kL3g_1789739453
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-687-MmQOgwh9PpmA3vpCIIhl1w-1; Fri,
+ 18 Sep 2026 09:50:56 -0400
+X-MC-Unique: MmQOgwh9PpmA3vpCIIhl1w-1
+X-Mimecast-MFC-AGG-ID: MmQOgwh9PpmA3vpCIIhl1w_1789739455
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 644F51977680;
-	Fri, 18 Sep 2026 13:50:53 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CBE2C195606F;
+	Fri, 18 Sep 2026 13:50:55 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ADA14433;
-	Fri, 18 Sep 2026 13:50:52 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2DD38433;
+	Fri, 18 Sep 2026 13:50:55 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH 24/31] KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory attributes
-Date: Fri, 18 Sep 2026 09:50:23 -0400
-Message-ID: <20260918135030.171564-25-pbonzini@redhat.com>
+Subject: [PATCH 27/31] KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock
+Date: Fri, 18 Sep 2026 09:50:26 -0400
+Message-ID: <20260918135030.171564-28-pbonzini@redhat.com>
 In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
 References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,33 +63,77 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Ensure that mmu_invalidate_in_progress is not cleared until
+kvm_arch_post_set_memory_attributes() returns.
 
-Prefetched SPTEs are always given full access.  Do not prefetch GFNs
-that have memory protections applied.
+kvm_arch_post_set_memory_attributes() runs with the MMU lock taken
+exclusively, so a concurrent page fault would be blocked anyway, and
+delaying the clearing makes it possible to use cond_resched() within
+kvm_arch_post_set_memory_attributes().
 
-Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ virt/kvm/kvm_main.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 1ecb3f3fe832..3c926f95f87b 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -3187,6 +3187,11 @@ static bool kvm_mmu_prefetch_sptes(struct kvm_vcpu *vcpu, gfn_t gfn, u64 *sptep,
- 		return false;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 2045252bd9c9..eb4a661cd0f7 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2516,7 +2516,7 @@ static bool kvm_range_memory_attributes_need_sync(struct kvm *kvm,
+ 	return kvm_range_has_any_memory_attributes(kvm, start, end, mask);
+ }
  
- 	for (i = 0; i < nr_pages; i++, gfn++, sptep++) {
-+		if (kvm_get_memory_attributes(vcpu->kvm, gfn)) {
-+			kvm_release_page_clean(pages[i]);
-+			continue;
-+		}
+-static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
++static __always_inline bool kvm_handle_gfn_range(struct kvm *kvm,
+ 						 struct kvm_mmu_notifier_range *range)
+ {
+ 	struct kvm_gfn_range gfn_range;
+@@ -2566,6 +2566,8 @@ static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
+ 
+ 	if (found_memslot)
+ 		KVM_MMU_UNLOCK(kvm);
 +
- 		mmu_set_spte(vcpu, slot, sptep, access, gfn,
- 			     page_to_pfn(pages[i]), NULL);
++	return found_memslot;
+ }
  
+ static bool kvm_pre_set_memory_attributes(struct kvm *kvm,
+@@ -2603,10 +2605,11 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		.end = end,
+ 		.arg.attributes = attributes,
+ 		.handler = kvm_arch_post_set_memory_attributes,
+-		.on_lock = kvm_mmu_invalidate_end,
++		.on_lock = (void *)kvm_null_fn,
+ 		.may_block = true,
+ 	};
+ 	bool sync = false;
++	bool found_memslot;
+ 	unsigned long i;
+ 	void *entry;
+ 	int r = 0;
+@@ -2637,7 +2640,7 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		cond_resched();
+ 	}
+ 
+-	kvm_handle_gfn_range(kvm, &pre_set_range);
++	found_memslot = kvm_handle_gfn_range(kvm, &pre_set_range);
+ 
+ 	for (i = start; i < end; i++) {
+ 		r = xa_err(xa_store(&kvm->mem_attrs.array, i, entry,
+@@ -2650,7 +2653,12 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 	smp_store_release(&kvm->mem_attrs.generation,
+ 			  kvm->mem_attrs.generation + 1);
+ 
+-	kvm_handle_gfn_range(kvm, &post_set_range);
++	if (found_memslot) {
++		kvm_handle_gfn_range(kvm, &post_set_range);
++		KVM_MMU_LOCK(kvm);
++		kvm_mmu_invalidate_end(kvm);
++		KVM_MMU_UNLOCK(kvm);
++	}
+ 
+ out_unlock:
+ 	mutex_unlock(&kvm->slots_lock);
 -- 
 2.52.0
 
