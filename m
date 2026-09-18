@@ -1,120 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C5F4F4CF3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EE73DB31D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743695; cv=none; b=TQIwVXTtLed6qCgLENDZs/qCD7nCbGg+xeigvETNryveYmJXqYANWFuZ4L/08F5DEpj/l/+N5IZFFPI9x6zuOitqaKmO667uYwNs1xddBnCYlzOM1WaebdNt3J8XPE91/SKvHSbVR4t9dmpWUr6EPm9hdM36o/emz2Fqf54Hrcs=
+	t=1789743726; cv=none; b=g523dFz1jUs5OHrk7uJ5vTST4Kboo3rllBRfXteinxeakmIWEv7N9MtUoFaqTCI9mjzMeSnfS1KLzWvX+CLPjXxDkfhZy6U9C6R5850/4EL1TuMoZDOlodsDKvg53pBszA8v/pAh3UpYEISPjZnGWVn4opp2v5H22MlMGeIYvTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743695; c=relaxed/simple;
-	bh=/0o6u23Fq1Z60p1qHzz70dDTlO7zd+wzxJ09cBgL5QI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=BuZM0fQntNWIBc57kEEyHwoRKqXsw6cUvm93IYE1//wBT2LVI9230hl1wdUWyQ4gWPuyNlGYKaEJyrEfPOvz/5VZ7mbZUwA+B2ybSH+DRAwm3sefbF2MN6VQX18t94QvLjkLp8Wy5jxAdskFMZhV/+M+/VqC4ok+X7tiYMvpjP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lYtunU0L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789743726; c=relaxed/simple;
+	bh=JBX9sjk5h5aKyEfjTf+HGrmLEC5fsig/TxkkPbQjqYY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FC0RL/UoP3icBK6pj3rwRsOkK+elAJIWjRvH2vitAEoOeu7admY07I2xbayaBnJcLt2Zqhltw4oNQOelP1B7R/xvTrmWzEeIIsqG2JRClrUHrbvBJVqThGGko61WBL7Y1fSwJ2YGE9EBTDG8IJRQgRXilGRjRG9GTeFYhi6Kpeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZ/FGOlR; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lYtunU0L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DDD1F000FF;
-	Fri, 18 Sep 2026 15:01:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743693;
-	bh=YKI5+bKz/u5TUQe53gU8/jmtq5Ye1wah0IVTuXctBOo=;
-	h=Date:From:To:Cc:Subject;
-	b=lYtunU0LIXI0kdFnVndvU0qN5CMm9UtrVB4RjtpINBU8KSTI6MWxWwTq6crpIwzFF
-	 j9Yzc2R6XzWwjUfql5f+i9I0CVWEFX1RHbXxobmywLOVSAYSvddLAFzJd/fDb0zLvD
-	 Zd6C5WAYcUbq9UbX6eezQi+54xiJ2v/R1SbO6JvSi4aCw4m8a249I9MBkUfrGsUrfl
-	 ApspYgxbZNaYnNnGAoMuC+TI4FwHppzGTWAjbv4Y/VcnznkyDhNuR1C2ydrs0mOJUT
-	 Mtl3OQWM+kj5C0Y74x2YPywl7cIjKr5Jiz46QIthFguRn/p4JCBTMQ87Ma1TT73lUr
-	 2uO1ry9/OucKg==
-Date: Fri, 18 Sep 2026 16:01:28 +0100
-From: Will Deacon <will@kernel.org>
-To: torvalds@linux-foundation.org
-Cc: catalin.marinas@arm.com, mark.rutland@arm.com, maz@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel-team@android.com
-Subject: [GIT PULL] arm64 fixes for -rc4
-Message-ID: <aq1SSMDovHJhKmwF@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZ/FGOlR"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2caced6038eso7348995ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789743723; x=1790348523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSuAPMHh3HdKINu4DnR6P6a9C3K3MaRkYohJsQ48pe8=;
+        b=UZ/FGOlRFVZaNC4UBxwEB+20L33f/oSRiJKRjI5tGxFLB3dmpCbP7s3lZkMvfWGhVl
+         v33lVrNhLu9chm2FlmBeYonObSYIm6FVsuH1n5ESiHdtJCBRtAIndUhlMKsxxaNNIaMn
+         f/dFhWeO2n21/ehlIdl8WklNN81pxW8nYEIDeyexuHvv0u/F7a9orNQj4/ST321DMdYh
+         rba271dlQdmwMXv3RLA4hjr//VwYvlZNiLhc0ZIjqTWiqMVaLXFOJqgeLAAIJMWAm5e4
+         gl1UsmnU6lCA2+Q2+M5yWpc+FAxOtcbhNhd/NQSKQ3EIrS8IT8QmV0uBv/nmdkX0Eabo
+         Cq7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789743723; x=1790348523;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fSuAPMHh3HdKINu4DnR6P6a9C3K3MaRkYohJsQ48pe8=;
+        b=XwVgKj6cDpiiSS2E2L5/oIopH+CeAPZiz7cKqGQ+wDJ7LDbspTxzwIMpN6KxEpioha
+         /bkLMcPnxVQbcjNP1suANx5JC10vifmaTSuOM+qiP6TFw/h+qOJW+f+lig5CxavqaAoS
+         Lfa5aiX//8cMO54v5fZ3uDJzJXSvxfBYUr4YaWuGffPmDtKUqG1aC9UjezDMi4sVDqi2
+         B4/XpZPsHOPCXVF0ZIwyRmouxhHd1PhSneew3yPY2p+5g6J0IhgstgRFWrh28aO7BGoX
+         zhb2yJXMPyty1BZ33G72jBjJG86fwmre5uzJZ5uQc3MeaKZgLZ2LiyXDhjClkipdvyqE
+         bxHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOJClFrxWbbl68XfbJFrVmB2DPpsRQa/rDMOqjYrkvObzSFrhVI5FJMNLf6KhtVo7fUimHWgD4U+oLsgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4YcEH+0lVKulKTpDzGMRHt2MV7u/tdBK1xywUcGOE/D3jXRzk
+	UhDcEyrS1euWY9eSdvTB/coy+Xe0TW+u+Z0kWK9OWTVrgC2HPY0NS0xj
+X-Gm-Gg: AYBFou0507H0tkybVqUuhiUbF+BJ52P+bgnIqbmXbipJfH0qCr/IOXmtCT1+DFhllwy
+	UwFZscj+Sr1szuD9dE/KtGfIB3tScr9fFsPcGPTrBN5XUOeGT0XO7boQ4no0QUJOEDiNLEqyZ5l
+	7uxhgQSKV4ySOLQC1P009C39nXWxwbKgrBdtnhwrYEp0CWQcJHDtsm+ESIrab6kqm1KTb8VnrMh
+	vSbVUUCfcsv+geyrvR85gRs8ucDhiNJETPPGtMQuSo43b+iv4sa3tPwl+dSGyaPZsOjlemEV7GP
+	HBZBOrZ6bx1+VsjCX9pCVyfKsjveDMdRNZUSWuU0m3ZQmzpkVp1Ao4aI7mgtFk8JZQmmf6IutIq
+	qmrldrufbmn5V/h8diso0blbspyqVVPM4LGtMIghFAFtZaijh/8GKLVVMQVcFn4Vdiqy4TgPK+5
+	Dwh7gbEJ0whgjrlbJA+xZ9O/yVXhB0cUsp9GAspY9WL26IkYGdcrqJJUc0uZYNGIilZHdxh5Wpr
+	comNmgsB1kMj/GCDwrhwSEcDeNx/lAii2/PckHYuOXE5MJ7basoAhvctwM=
+X-Received: by 2002:a17:903:1103:b0:2dd:ad7d:72e1 with SMTP id d9443c01a7336-2ddad7d753amr51964175ad.24.1789743722329;
+        Fri, 18 Sep 2026 08:02:02 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb73dad31sm10106105ad.11.2026.09.18.08.02.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 08:02:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <c58dbf68-d94d-4116-afa6-ff2792d677a1@roeck-us.net>
+Date: Fri, 18 Sep 2026 08:02:00 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] hwmon: (lm75) Add support for Nuvoton NCT7715
+To: hsyemail2@gmail.com, linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918084042.19541-1-syhuang3@nuvoton.com>
+ <20260918084042.19541-3-syhuang3@nuvoton.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260918084042.19541-3-syhuang3@nuvoton.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+On 9/18/26 01:40, hsyemail2@gmail.com wrote:
+> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> 
+> The Nuvoton NCT7715 is compatible with the LM75 temperature and
+> limit register layout. Its 16-bit configuration register shares the
+> TMP112 configuration layout.
+> 
+> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-We've got a steady trickle of arm64 fixes coming in, but I figured it
-was better to send you what we've collected so far rather than keep
-waiting for it to settle down. I've already queued some more for next
-week.
 
-Anyway, in this batch we've got a couple of hibernation fixes, a couple
-of minor MTE fixes, some per-cpu codegen fixes (which were found as part
-of Mark's series adding preemptible this_cpu_*() operations) and a fix
-for the Arm CMN PMU driver. The summary is in the tag,
+For my reference (waiting for DT patch approval):
 
-Cheers,
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-Will
+Thanks,
+Guenter
 
---->8
+> ---
+> v4:
+> - Correct NCT7715 conversion-rate initialization during probe.
+> 
+> v3:
+> - Reuse the existing TMP112 handling for NCT7715 configuration,
+>    update intervals, and alarms.
+> 
+> v2:
+> - Use the standard SMBus word representation for the NCT7715
+>    configuration register, removing the NCT7715-specific byte swapping
+>    and updating its configuration masks accordingly.
+> 
+>   Documentation/hwmon/lm75.rst |  6 ++++++
+>   drivers/hwmon/lm75.c         | 18 ++++++++++++++++++
+>   2 files changed, 24 insertions(+)
+> 
+> diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
+> index ca46754e028b..fac0b8f29ddc 100644
+> --- a/Documentation/hwmon/lm75.rst
+> +++ b/Documentation/hwmon/lm75.rst
+> @@ -150,6 +150,12 @@ Supported chips:
+>   
+>                  https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
+>   
+> +  * Nuvoton NCT7715
+> +
+> +    Prefix: 'nct7715'
+> +
+> +    Addresses scanned: none
+> +
+>   Author: Frodo Looijaard <frodol@dds.nl>
+>   
+>   Description
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index 2d2d752aeac9..6b482f688c9f 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
+> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
+>   	max6626,
+>   	max31725,
+>   	mcp980x,
+> +	nct7715,
+>   	p3t1750,
+>   	p3t1755,
+>   	pct2075,
+> @@ -259,6 +260,16 @@ static const struct lm75_params device_params[] = {
+>   		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
+>   		.resolutions = (u8 []) {9, 10, 11, 12 },
+>   	},
+> +	[nct7715] = {
+> +		.config_reg_16bits = true,
+> +		.set_mask = 0x8060,	/* 12-bit mode, 4 samples / second */
+> +		.clr_mask = 0xc080,	/* no one-shot mode, clear conversion rate */
+> +		.default_resolution = 12,
+> +		.default_sample_time = 250,
+> +		.num_sample_times = 4,
+> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
+> +		.alarm = true,
+> +	},
+>   	[tmp100] = {
+>   		.set_mask = 3 << 5,	/* 12-bit mode */
+>   		.clr_mask = 1 << 7,	/* not one-shot mode */
+> @@ -417,6 +428,7 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
+>   		if (attr == hwmon_temp_alarm) {
+>   			switch (data->kind) {
+>   			case as6200:
+> +			case nct7715:
+>   			case tmp112:
+>   				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
+>   				break;
+> @@ -486,6 +498,7 @@ static int lm75_update_interval(struct device *dev, long val)
+>   		if (data->params->resolutions)
+>   			data->resolution = data->params->resolutions[index];
+>   		break;
+> +	case nct7715:
+>   	case tmp112:
+>   	case as6200:
+>   		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
+> @@ -848,6 +861,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
+>   	{ .name = "max31725", .driver_data = max31725 },
+>   	{ .name = "max31726", .driver_data = max31725 },
+>   	{ .name = "mcp980x", .driver_data = mcp980x },
+> +	{ .name = "nct7715", .driver_data = nct7715 },
+>   	{ .name = "p3t1750", .driver_data = p3t1750 },
+>   	{ .name = "p3t1755", .driver_data = p3t1755 },
+>   	{ .name = "pct2075", .driver_data = pct2075 },
+> @@ -972,6 +986,10 @@ static const struct of_device_id lm75_of_match[] = {
+>   		.compatible = "nxp,pct2075",
+>   		.data = (void *)pct2075
+>   	},
+> +	{
+> +		.compatible = "nuvoton,nct7715",
+> +		.data = (void *)nct7715
+> +	},
+>   	{
+>   		.compatible = "st,stds75",
+>   		.data = (void *)stds75
 
-The following changes since commit 5445d64199626974269fcdf347769ad44b0bb53b:
-
-  arm64: Don't read GMID_EL1 when MTE is disabled (2026-09-03 13:03:23 +0000)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git tags/arm64-fixes
-
-for you to fetch changes up to fdb9ebc7fb7788b8371fbef6c17dc5c8291e1429:
-
-  arm64: mte: Fix PTRACE_{PEEK,POKE}MTETAGS error documentation (2026-09-11 12:50:02 +0000)
-
-----------------------------------------------------------------
-arm64 fixes for -rc4
-
-- Fix hypercall arguments when resetting EL2 vectors during hibernation
-
-- Fix hibernation with 52-bit capable kernels on machines without
-  52-bit addressing, similarly to the recent kexec fix
-
-- Fix a bunch of clumsy codegen issues with our per-cpu accessors
-
-- Fix MTE ptrace documentation to reflect the de-facto ABI behaviour
-
-- Fix pthread_join() usage in MTE selftest
-
-- Fix port selection in the Arm CMN PMU driver
-
-----------------------------------------------------------------
-Bradley Morgan (1):
-      arm64: hibernate: pass HVC_SET_VECTORS args to the resume hvc
-
-Breno Leitao (1):
-      arm64: hibernate: clone only the linear map that exists at runtime
-
-Catalin Marinas (1):
-      arm64: mte: Fix PTRACE_{PEEK,POKE}MTETAGS error documentation
-
-Mark Rutland (3):
-      arm64: percpu: Fix this_cpu_write() casting
-      arm64: percpu: Fix this_cpu_and() mask generation
-      arm64: percpu: Fix LSE operations on {8,16}-bit types
-
-Shouping Wang (1):
-      perf/arm-cmn: Fix wp_dev_sel2 setting for multi-DTM configurations
-
-Thomas Huth (1):
-      kselftest/arm64: Fix size of thread_data values for pthread_join()
-
- .../arch/arm64/memory-tagging-extension.rst          |  5 ++---
- arch/arm64/include/asm/percpu.h                      | 20 ++++++++++----------
- arch/arm64/kernel/hibernate-asm.S                    |  2 ++
- arch/arm64/kernel/hibernate.c                        |  4 ++--
- arch/arm64/kernel/mte.c                              |  2 +-
- drivers/perf/arm-cmn.c                               | 10 +++++++---
- .../selftests/arm64/mte/check_gcr_el1_cswitch.c      |  2 +-
- 7 files changed, 25 insertions(+), 20 deletions(-)
