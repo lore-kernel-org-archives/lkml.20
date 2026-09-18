@@ -1,43 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1701140E5F;
-	Fri, 18 Sep 2026 03:49:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA2627B340;
+	Fri, 18 Sep 2026 03:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789703344; cv=none; b=MeHSbYqYiSQ2gYKREPbMMc2SBNgRq3FMuDjgv2KlySOc2o37kc4RlbEhGqsDPMDH9RgQ6OCvCbGEU3W+BrVJAzD71Wu2WaG4mEYs4CiW6cIXbbt36IrECF/i581I/ICqi31UIIyiQ0Fg74tQ41539E/LiywbMiRhUb4dZCrSFsU=
+	t=1789703617; cv=none; b=KDo/Lzoqm2cTqzTya7Ii+KTCUS66TyF6uAKEH71jp0igZbbPZW5IJ6unPNbARzR17qhw2DffxYC21SyVfm7gHx90Zdzia5RE2ajl2oV9eXBO4ZGBAoqJ1hd5gF2ZPJiNje7iOjTj3Y9+eJoIFMZ7OHFqXfn+kuoxPd/0mBeAFuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789703344; c=relaxed/simple;
-	bh=c4zruUhRlTCaZTakd8VSfyas0wFE1JULdP24VFneNvc=;
+	s=arc-20240116; t=1789703617; c=relaxed/simple;
+	bh=MbQDpK3U340+Kg33aXXDXgthI8PtnTnfsxxy+PLvzEs=;
 	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=kNIgsUV5LmQac5u6XPiL5VJg23h9YPeufR37Jh4RHbKR458DowgFDwZZWwKHiVkuBy+VprKbWwj/jgKefvqcKDqWCh0cfRaWJroMIu79LmnJ9u+oNbksNvBYbV3Zr2Gckk07gq46p2WVnADw7JU2tgpWswN8mqTAthHWTPmpApw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Gp+wsNqp; arc=none smtp.client-ip=100.103.45.18
+	 Mime-Version:Content-Type; b=cqO0lep3O3sxyGDjfwFhEXIuE7Iw2u3j2xXYVHmbi8Tcd8e5HsXZateCvhwdgmdum1BHn8NnSuezU04oCfKdRM0uILg+p+dUO8eQEnXwaFaalBWtIyO2eWn+L6T9COQPofx6DSnn9kitwqR6vnH0dLuoHMjj9COCLrT2+SK2PQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=faMWUe+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Gp+wsNqp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3D21F000FF;
-	Fri, 18 Sep 2026 03:49:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="faMWUe+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D4C1F000FF;
+	Fri, 18 Sep 2026 03:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789703342;
-	bh=R4q08ERpIGjLGCf1CNdAlc+T9V2LICMNbsbDVrMf148=;
+	d=linux-foundation.org; s=korg; t=1789703616;
+	bh=NyjeJYQAoIT6JPqi52GByedAXFRsvGfuaaVIMzoH39U=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Gp+wsNqpXSHoQgyqaAiMkwFieo3u6guFDNRHvmB2pdaa7h4DoXupHH121rpO462Hp
-	 4hT/7JdNNOOsujTnobpCQ061+0AHRj9EiwC7L+WL7b00jqY40azeolORSh7Pqyup35
-	 /+x0IhbEDxQ8WgK9jgR28vSQFDR1GhOIDP+OuOMk=
-Date: Thu, 17 Sep 2026 20:49:01 -0700
+	b=faMWUe+E92wqRxtkbgaWMXRYwf6KR2EqEIoqeW2C5x8Tk7PKPPibffuWfOOMaOnRJ
+	 mpr69blAKOn6oTolFU0h1fttVhImQOrJ+9OHLp6NW6w63EYu7M7joHbQ+8dYkv9PAo
+	 J6YjQQJYozXesL/9g+YQJEr51aieL7Rd2UoPU2X8=
+Date: Thu, 17 Sep 2026 20:53:34 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Hongfu Li <hongfu.li@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Colin
- Ian King <colin.i.king@gmail.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Mina Almasry <almasrymina@google.com>, Mike Kravetz
- <mike.kravetz@oracle.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/hugetlb_cgroup: move the per-node usage along
- with the folio
-Message-Id: <20260917204901.efd6e6908c85c104467fdeff@linux-foundation.org>
-In-Reply-To: <20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn>
-References: <20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn>
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
+ Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin
+ <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham
+ <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu
+ <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin
+ <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Shuah
+ Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>, Naoya
+ Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com,
+ jthoughton@google.com, rientjes@google.com, vannapurve@google.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Message-Id: <20260917205334.9ac84d529c686983ef420567@linux-foundation.org>
+In-Reply-To: <CAEvNRgExZM4ixMfrF_FMw2CTn6JqRX8s=cy0_-x5ypLxvQQuMQ@mail.gmail.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+	<20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+	<CAEvNRgExZM4ixMfrF_FMw2CTn6JqRX8s=cy0_-x5ypLxvQQuMQ@mail.gmail.com>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,26 +60,33 @@ Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 18 Sep 2026 10:56:09 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
+On Thu, 17 Sep 2026 20:05:33 -0700 Ackerley Tng <ackerleytng@google.com> wrote:
 
-> The per-node usage reported by hugetlb.<size>.numa_stat is accounted
-> against folio_nid() in __hugetlb_cgroup_commit_charge() and
-> __hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
-> stays charged on the same node and in the same hugetlb_cgroup.
+> > Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
+> > trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
+> > region_add file_region coalescing").
+> >
 > 
-> Two paths move a folio which stays charged, and neither moves the usage
-> with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
-> of a folio migrated to another node, and hugetlb_cgroup_move_parent()
-> only moves the page_counter charges and the hugetlb_cgroup pointer of
-> the folios of a dying cgroup. In both cases the node (or cgroup) which
-> was charged keeps a usage which never goes away, while the node
-> (or cgroup) which ends up uncharging the folio underflows as soon as
-> the folio is freed.
+> Your trillion-dollar sidekick got the right patch but the wrong hash :)
+> 
+> Fixes: 0db9d74ed884 ("hugetlb: disable region_add file_region coalescing")
 
-Thanks.
+Well, I only feed it $100/mo.
 
-> Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
-> Cc: stable@vger.kernel.org
+> I'll also reply to the last patch with the above. If there are no
+> further revisions required, could you please add the above tag in for
+> me?
 
-I'll queue these for the next merge window, with cc:stable.  I don't
-see a hurry to fix a four year old bug.
+Shall try to remember to to that.  Whack me if you see the
+"added-to-mm" email and I forgot.
+
+> > Our other little friend is talking to us:
+> > 	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
+> >
+> > I'd like to queue this up promptly because it fixes things.  But let's
+> > seek additional review input and argue with Sashiko before taking that
+> > step.
+> 
+> I'll copy Sashiko's comments onto this patch series in replies. :)
+
+Great, thanks.
