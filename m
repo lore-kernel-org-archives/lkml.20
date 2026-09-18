@@ -1,137 +1,166 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FBC51A132
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FE651A73C;
+	Fri, 18 Sep 2026 16:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750583; cv=none; b=E+Ma25Vj+W3Tx8E+GdqHt5ZmNSkhW2jLMp5sx4gO/2gIjrbHg0S/v6Ob66B9MR4/BuBSdw6Rga7gdyfO5xzrBOeUHpvnF1ycKZ/LuCW5RE8Hy6ilIp5/joUC7CJZYE7VKW1tprGkCBhy8/RTmHwIJ4soqdVrRnNniIjYecsYRX8=
+	t=1789750594; cv=none; b=GeFkE5IdhiRXS8K9xQaykqz5jGgL1jwlh49tju9plZX0LANnY+6iKaFkgCnaoSJp3am/KUVCBUcSmIlldGAZBAYiVyM4K0xdjNA78P0bb6ozOdbzfOlAhZ1ZKh/rUf9wQmSkPI3a8T4WlCQlMTRYcD+xHXZKx8AFTAGX7Hq99Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750583; c=relaxed/simple;
-	bh=H+ukdmwXP+tMkaQEpJ23doFZ9tvP/S4l/tdO9wntvVQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7l2z//XpGS9tdMmyu5xIVxog18lHsb8ub2zbZtdmz7Otzdugw713awQNNjW6WxUk/TZ3XMlFbJj4EGxNjyUE52y6uYYLxAs6gG1IG/Q9b2+/lUFwDzzLkIjdQDVzWyueAgKsB5R9BWPw5SpGAieUUnk+iND1rergQKE17FOwJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=don+vCZz; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789750594; c=relaxed/simple;
+	bh=XojK1aH6MJS/F4EwychKrgpBrWRhiK+a+PkzJpETGJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lAqAz0RQ/PUnTAcxrK9m2fJokEC/GDpmtGeifdQT053896hqNHIa+WsRpnev37RWsn3SJtH+Dl4KhbuGpK6AWHYuVuJHcWoGpxup17IYwaMb5c2IGUuBCgh0ZlQZtDBaXf9u+jJ9ti4PPD1qI2mdizJvx4MeCekstEfLO8ESvwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=JHtwdE0R; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="don+vCZz"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so6714845ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789750581; x=1790355381; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TZ4B6fQ0OaE27qFChHjfflbajHqzh3JOUdhhP8Vrl9E=;
-        b=don+vCZzE4jWR0Cuyc8swx8r/1ZzCoKa2h3pQqwyut2J8K/74Lyj7Y5mHNqNwF8O3/
-         E2yJjdTyKEMfbWukcSXwsMAYuk3zhHQI90EHwCcS7Xmp8pr2WQr9uuMjb4S1UwmXJDK/
-         HY/ceq1fhT5FTqzEhP1B9YlqqGMNOmrRRrbsDUMkNA9yt5Ofw7Z1sXKhJLKa91mejKn6
-         DxoAgp8bgdq4XLEqzPCR/DYXV4q0OJnM/VFdarKiY6dWs5tbZowRiiwkMNHWr9wpZD32
-         3LcUbVEUwqU6nEIr2AUBKs5KO7BOIQapGv34UlZbTTgllgtdgOs8ZJdKD9GIYRsKDRbj
-         JLKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750581; x=1790355381;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TZ4B6fQ0OaE27qFChHjfflbajHqzh3JOUdhhP8Vrl9E=;
-        b=SUGQyWzaY4YngXbOd/GXXQdW8rjvRSPn7EcITpl/jyIyZ9koVLRIarwQ/oPuiA37Ag
-         2bfzSGxyv37o3tHBJti28sxEB7VwB8y4q50juI2/DdYpiFjHHlSRZUoRlIWAClkAgDNB
-         Dz2rBg+qp/y5CCnHOTzIK3lgc6oOOGQ3wmgm6nyiErkBekWL24sxl0HRkNkAF8dT5hPC
-         2jpZra1hDjU7f18bbsr2rBgXw2XX4vavSTkM/uEQSwat1iL+wJlmBJYrnH1sGxDNFFPB
-         7hEFzpRaXyFI9VHHt580Vauc5Dnu1dMIHlv98jkkKrHFHGf6vEeYN9dPiXl/NYe7btyJ
-         ME5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgU5YO1tcMc47BbT2AfMNHP8o4+/7j9hc5D5VXOrviBFnJsYEWrh2dV43/KMaIWdYkur/sQLxQT8trixQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkPzLb98PT3ETLYGdUhkfUQYz/DqFTL60AyANYJqTMgJvEs4+j
-	hkwwmMfAp8OBtwjwZRKKmdlzJhW+/CLydizidWBerJivo9YS91B9AN8y
-X-Gm-Gg: AYBFou0QYZ8CMpzLgnMDU635qlTksm37NTGBarw816m8p2Z6RnK1vnZeC8WwjvuFTiu
-	8NT9nQajdm3HEBsQ/1IsUYqdFcZTiNv2BvyynMfsjGkjhrLOd6hXlqk++lqw8MUm4gfZvAd9sM3
-	uB6xKdNLWoO7VlPB6/zZlAongy6lak2ZkPqXYnhu4EDsYP8cYLfNlP5H+vBoUQHv/+KZ1qPQbs6
-	f6gXu5hpIfhfUozDxfR+6KkZ+mqZz1oS8Y+zigcZthkCN/6DaD0+Y3aSNtf2KTK9JN0TwTH6aYb
-	GJeOxg4cSWmmDUbuYNK2NAN0A+IEynIb6weVMzW2jHQL1P6zF6Ta0UwBCRM3NdvG7cpO1AgCNCN
-	zfp55R6vmi60PkN9QIBEPfDDalRJYMfbmIl9AT6m4twOPQqsWlstm1KjEHwxnrzIpZrBVSzxurZ
-	DRRDyspxpXVjAsyB+kBFRIB1E0ZavID9wlBLi+Ec8diUv6tNdcAq77DvzTYzUpznePQlpy1op+Q
-	MQ=
-X-Received: by 2002:a17:902:d2cc:b0:2dd:ad73:c982 with SMTP id d9443c01a7336-2ddb1ba0faamr58779045ad.26.1789750580884;
-        Fri, 18 Sep 2026 09:56:20 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb75bfe10sm11409685ad.64.2026.09.18.09.56.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:56:20 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Muchun Song <muchun.song@linux.dev>
-Subject: [PATCH 2/2] memcg: remove unused mod_memcg_page_state()
-Date: Sat, 19 Sep 2026 01:55:58 +0900
-Message-ID: <20260918165601.1014666-3-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918165601.1014666-1-ekffu200098@gmail.com>
-References: <20260918165601.1014666-1-ekffu200098@gmail.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="JHtwdE0R"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hmf0X0NG9z6LmM;
+	Fri, 18 Sep 2026 18:56:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789750588;
+	bh=XojK1aH6MJS/F4EwychKrgpBrWRhiK+a+PkzJpETGJc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JHtwdE0Ro0nfZfESGhetZliNaMXZJlll83bNUMjUk4Uw4qgzTCRrDobrFfkNphgdU
+	 ORz9sK3Zfphhcu5iCUeCSCvf1zYJYB6yL40lHI5/WiYa83NoTOFeigJhJcCN8w7qfW
+	 hSWJSDbl6vbZfVondy0HpnOcnPH3Tx9wt+xKnrWfQsQO/5ZqhDJPtBJ5LwY6x86X/i
+	 t+LIdy6668sHd4ghJjC1X0PFXM9GNJ1f0ZwH9t60rnn7L/wZ4zuKOLs0JVYdpws79m
+	 Y4SEtHkNLdJX29PQ4dWUBcsudlK9Na5eu74aqiG0QaNTq78lap/ezdpeuNRd1hWkR1
+	 nOKOvtkTcocvA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hmf0W6ksVz4y71;
+	Fri, 18 Sep 2026 18:56:27 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hmf0V3cJ5z8svY;
+	Fri, 18 Sep 2026 18:56:26 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id E7D6A5FA75;
+	Fri, 18 Sep 2026 18:56:20 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <85c50e6f-a270-4755-8576-c4ba2b961e26@leemhuis.info>
+Date: Fri, 18 Sep 2026 18:56:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] Revert "net: qrtr: Send HELLO message on endpoint
+ register"
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, Chris Lew <christopher.lew@oss.qualcomm.com>,
+ Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+ Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>, Takashi Iwai <tiwai@suse.de>,
+ Vlastimil Babka <vbabka@suse.com>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+References: <20260918101621.2848322-1-linux@leemhuis.info>
+ <lgyho3avi65edtr4xggbsrja47cjhqbamrnmchnfh4blmyygd6@bhotovqqqubj>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <lgyho3avi65edtr4xggbsrja47cjhqbamrnmchnfh4blmyygd6@bhotovqqqubj>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178975058160.2895271.1887392753712195921@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: E7D6A5FA75
+X-NC-CID: JT6oaaAe5xXcb6MDvAu5WoBsYUw6B6puDrFY4xUydwv4Kb1OK3k=
 
-Since commit c466412c73c3 ("mm: memcontrol: switch to native NR_VMALLOC
-vmstat counter"), mod_memcg_page_state() has no callers.
+On 9/18/26 18:37, Manivannan Sadhasivam wrote:
+> On Fri, Sep 18, 2026 at 12:16:21PM +0200, Thorsten Leemhuis wrote:
+>> This reverts commit 544d85de4dc22c01badfd8cefa59829ce35c4858.
+>>
+>> It causes suspend and resume problems for numerous people, including
+>> maintainers and developers of ath wifi drivers. A fix was proposed[1],
+>> but did not get any traction, so go for a revert instead.
+>>
+>> Cc: Chris Lew <christopher.lew@oss.qualcomm.com>
+>> Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Cc: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
+>> Reported-by: Daniel J Blueman <daniel@quora.org>
+>> Link: https://lore.kernel.org/all/20260909055846.16539-1-daniel@quora.org/ [1]
+>> Reported-by: Takashi Iwai <tiwai@suse.de>
+>> Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
+>> Reported-by: Vlastimil Babka <vbabka@suse.com>
+>> Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
+>> Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+>> Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
+>> Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+>> ---
+>>
+>> I'm not affected by this, but due to all those reporters mentioned above
+>> it seems it would be good to get this fixed for 7.3-rc4, as Linus' rule
+>> of thumb wrt to fixing regressions is "generally be 'within a week',
+>> preferably before the next rc". Which is why I currently plan to ask
+>> Linus to pull this directly. If this is a bad idea, just tell me.
+>>
+>> The patch from Daniel linked above[1] could have fixed the problem, but
+>> none of the developers of the culprit or the maintainers for this area
+>> commented on it within a week
+> 
+> Really?
+> https://lore.kernel.org/all/hcr4woicsnz3pbhzlguuwjlego7yli3znhjmsx4cdz66xa74zd@wjtle2yslc4b/
 
-So remove it.
+Apologies, I had forgotten about that one.
+> FWIW, I don't mind a revert too, but the comment was misleading.
+Just tell me what you would prefer, you are likely the best one to judge
+here. I just think it would be great to get this resolved for -rc4 and
+your option would really help there. Sounds like you would prefer that
+fix, is that right?
 
-No functional change.
-
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
- include/linux/memcontrol.h | 20 --------------------
- 1 file changed, 20 deletions(-)
-
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index b57a74617b0b..c0557e1e3d21 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -949,21 +949,6 @@ void mem_cgroup_print_oom_group(struct mem_cgroup *memcg);
- void mod_memcg_state(struct mem_cgroup *memcg,
- 		     enum memcg_stat_item idx, int val);
- 
--static inline void mod_memcg_page_state(const struct page *page,
--					enum memcg_stat_item idx, int val)
--{
--	struct mem_cgroup *memcg;
--
--	if (mem_cgroup_disabled())
--		return;
--
--	rcu_read_lock();
--	memcg = folio_memcg(page_folio(page));
--	if (memcg)
--		mod_memcg_state(memcg, idx, val);
--	rcu_read_unlock();
--}
--
- unsigned long memcg_events(const struct mem_cgroup *memcg, int event);
- unsigned long memcg_page_state(const struct mem_cgroup *memcg, int idx);
- unsigned long memcg_page_state_output(const struct mem_cgroup *memcg, int item);
-@@ -1396,11 +1381,6 @@ static inline void mod_memcg_state(struct mem_cgroup *memcg,
- {
- }
- 
--static inline void mod_memcg_page_state(const struct page *page,
--					enum memcg_stat_item idx, int val)
--{
--}
--
- static inline unsigned long memcg_page_state(const struct mem_cgroup *memcg, int idx)
- {
- 	return 0;
--- 
-2.43.0
-
+Ciao, Thorsten
