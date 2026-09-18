@@ -1,236 +1,235 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2596551E443;
-	Fri, 18 Sep 2026 20:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDCE4749EF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762600; cv=none; b=ojt+CgmomFRMeXuwCMV5R14H7tF6whFmGWDAK0iXmAa438YioRqCEwr9qnBzdnaLEzP8hcBQW2KCDi9sHrndOeoblBpHL8viqUQIQywpvKSsWL0EetiKRmlpmTr+ysuFY04nya3aIa7OPkcMUd+ke6kIqW83aBukJ89vNNTYDNg=
+	t=1789762667; cv=none; b=Qzk+IVOad1lio9NiyT+ZYA4BbtE/TwRoyX5Fwefmnbryf5BTFSQkJwle/zEp9KuI1ULJR53dox1ywjXNAq5ZqGWLitHt1wVf8pYsq1MFqtJYceEMSTJZEFyTwyXeg3Z+K4QEtCnSPfDCMl6vvGoumHqCWJFlzXd24yDLX4T80/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762600; c=relaxed/simple;
-	bh=cv8vVpnnj2UGKdGTLGRsq3sewTuHTVIFj4FS+qbfjPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DaH0+Z6ht5pGFdHzf5cXI9o6ckthveTukdij+oULYZTa3KIgZTyZpEb/8a2fmeutn1ya+w3pncTzm6pUErOkg2EYtAL2knwLwuPm/z3uNw8W3yzUSVUQKIdPrMBBniNJ52nYme5wjW0Uj4NevXIdDWoYd0ilMHtiXd3lUbVg++Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+iUhoEv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+iUhoEv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64EE61F000FF;
-	Fri, 18 Sep 2026 20:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789762598;
-	bh=VYaubdXxcUwKWOQn0o2fbISMmeIi1yDg6KMH9HfcrUU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=C+iUhoEvnenOGPfNailivpYzYDg4gP4jzv2/IuKp3jznRu06ADQgAx90OX+8tzfVM
-	 B9Yy395vy8nHpvbsNsEdnZK5BTNHynIWxmwy0l9LnA1UVoHyIG1OOQCcCRrzzuclMF
-	 //WgBqUYUiSUqV67tzfCKagvLO4BFwf5WHeCYWmAC9MqXMuul4bJCEz2EhZg1Uv2CY
-	 UD88hLIVddkWZCw39GqlrX9l/dWuu8zk1flxzWPU0XX+gPLgK5NcRtAoV8wHOegtM8
-	 Bhp5RIgTGmlvDgkT2ZcDFnxXk2SYgSfJuCQ3chKm5Usrxe2Vof2AwfYkbb2yNb8uVC
-	 I5+8TWkbDl+kg==
-Message-ID: <fb2237be-f7bc-4ad6-bcb0-7c3ef53136ef@kernel.org>
-Date: Fri, 18 Sep 2026 22:16:25 +0200
+	s=arc-20240116; t=1789762667; c=relaxed/simple;
+	bh=q0DqR53jvk8/6wDSZpNrXQ1oOkJBbuD4N9THdvot1fk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=SKwrGHZkDMWwoIc8mCvSiNkglPtzeiPSwksIyvhDxm2VUZhfbHfMF6wCGnSdP1B5GU2Nkl4nbB9aGG8+hIlEo7vdxQSNUl6CTPOcUIL7jskn1bvUp1heJWFNWz4WBkbd9f6dbuXoGmOHiUpOy/OoQZldhLB4+OsWB74cEanmk0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6b1b8f5a1d5so422752eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:17:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789762665; x=1790367465;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=31T92JRQIq//qGkaa1ybOrg/ZWigPJrzAlxjgm/xLN8=;
+        b=DFOAUpgNT9Px6dL2EjMn8jQexVD6HPYvVsqYDI94n5vih9cdcjHgt0kER4c1DuJ2qC
+         zQUY/AZYDHWd5w08/Iv5VrOYNY3dEZsVXrLSiZUh0wPsPSbGaDYtdmd8O+jaf2x5auAQ
+         /HFGh+fiWgJlcGOoA5u/HovMD+Lv7RZX0gKimCVZLHWojV5vT91y5e/I29IuHzlnllJi
+         juEsVE1AQjDq5I6W2PlSf5TMtB6w/bpCjRPLDbUdrcQ3YndmBdlgr6xwvGX9qc315U22
+         qVdQHQJjJvJfCsbkTZt0U6RuogQWGkf5qfUQDmtAm3HZSdxmGOw8+n7xOzIM72VCdSBR
+         bJDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwA7xEZqKJSV9MwexG8N0OApHHlnWamNbefeUXCpLrqPPea07dURPGGPDoL5Lbwf716qk/eaSFFiRUur6w=@vger.kernel.org
+X-Gm-Message-State: AFuF++laexwaxvBv+R4Y1d3vfD1mhFoB8OdO4mC1+7AnhBH1JBeGOTgy
+	Z7aKQbNwZ8/B2rS/au6te2ZTSJrhRC3IclLynML05RQKJ2lpKzqRzFc4nWOmLRKs1frzpAPXi2z
+	9iKTXjsvNM3UpdNf38BOOowfvBeaBU32gkXk7V2/g/Wt3WfpXMWl4U1Jehks=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/9] drivers/base/memory: count inherited poisoned
- frames into the block
-To: Breno Leitao <leitao@debian.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
- kas@kernel.org, kexec@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Brendan Jackman
- <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- hannes@cmpxchg.or, shakeel.butt@linux.dev, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com,
- riel@surriel.com, harry@kernel.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, kernel-team@meta.com
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-7-3bc7a57bd503@debian.org>
- <de41b78a-8471-4832-be0c-35d410a4499a@kernel.org>
- <aqpczrtIwSG948iv@gmail.com>
- <b8ad366a-a019-4462-9dce-f687f60ee7f2@kernel.org>
- <aqvHHHuWJ-y4WRJZ@gmail.com>
- <caac2cb9-8faa-49bc-ae8a-47c5fd7b7e58@kernel.org>
- <aq1RaH0eE0hZfNpr@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <aq1RaH0eE0hZfNpr@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:f031:b0:6ca:3ce1:ed48 with SMTP id
+ 006d021491bc7-6ca9a22ad94mr3839824eaf.11.1789762664824; Fri, 18 Sep 2026
+ 13:17:44 -0700 (PDT)
+Date: Fri, 18 Sep 2026 13:17:44 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aad9c68.87c06881.1db2b3.0024.GAE@google.com>
+Subject: [syzbot] [dm?] KASAN: slab-out-of-bounds Read in ctl_ioctl
+From: syzbot <syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/18/26 17:22, Breno Leitao wrote:
-> On Fri, Sep 18, 2026 at 02:18:03PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/17/26 15:01, Breno Leitao wrote:
->>>
->>> Fair point, I'll clean up the naming in the next revision.
->>>
->>> I'll also add that ->empty field, which should help locate this bit
->>> faster and may let us skip the bitmap query entirely on the happy path.
->>>
->>> Anything else you'd like addressed?
->>>
->>> Good to know this moved the needle from "David hates this feature" to
->>> "David only hates the naming" -- I'll take that as progress.  :-P
->>
->> ;)
->>
->> I think the crucial part is to find a way to cleanly distinguish our source of
->> information, and also how the source does only apply to some memory.
-> 
-> Right, we have two source for poisoned page information, today.
-> 
-> 1) LINUX_EFI_POISONED_MEMORY: Used to track memory block that got
->    poisioned, and will be passed around during kexec.
-> 2) PG_hwpoison on struct page: Used by the memory subsystem to avoid
->    touching it.
+Hello,
 
-How are both kept in sync? See below.
+syzbot found the following issue on:
 
-> 
-> And I understand that this design is fine, and we want to be easy to
-> identify what we are querying on function name. For instance,
-> I understand you confusion in range_contains_poisoned_memory() came
-> from:
-> 
-> range_contains_poisoned_memory():
->    * What the caller reads: 
-> 	* "is any memory in this range hardware poisoned?"
->    * What actually runs:
-> 	* "is any bit set in an EFI table that a PREVIOUS kernel wrote,
-> 	   at 2 MiB granularity, for this memory region?"
+HEAD commit:    5dd1818b15d9 Merge tag 'for-next-keys-v7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13ce47f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
+dashboard link: https://syzkaller.appspot.com/bug?extid=48d935cf48a4a76be346
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1124d7f9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17ce47f9580000
 
-Right, and we should use that only as a source for anything during early boot.
-So maybe it should hint at the "early" aspect somehow.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-5dd1818b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/efc8284ce34a/vmlinux-5dd1818b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/aeaa3f5a6989/bzImage-5dd1818b.xz
 
-Which brings me back to: is the bitmap kept in sync when memory gets hwpoisoned?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
 
-That is: as memory gets hwpoisoned, will the bitmap get set immediately?
+==================================================================
+BUG: KASAN: slab-out-of-bounds in instrument_copy_to_user include/linux/instrumented.h:129 [inline]
+BUG: KASAN: slab-out-of-bounds in _inline_copy_to_user include/linux/uaccess.h:201 [inline]
+BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x93/0xd0 lib/usercopy.c:24
+Read of size 312 at addr ffff8880511e2c00 by task syz.0.17/5924
 
-> 
-> So, I think think this is a naming issue, and I need to think more about
-> it. Maybe appending efiposioned (on data that is coming from EFI config
-> table). Let me think more about it.
-> 
->> Regarding this patch here, I'd assume it's sufficient.
->>
->> But I do wonder why we are walking pages when we have a bitmap to walk/process
->> at hand?
-> 
-> Because the counter has to agree with the page flag, and the page flag is
-> not the bitmap.
+CPU: 3 UID: 0 PID: 5924 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:186 [inline]
+ kasan_check_range+0x10f/0x1e0 mm/kasan/generic.c:200
+ instrument_copy_to_user include/linux/instrumented.h:129 [inline]
+ _inline_copy_to_user include/linux/uaccess.h:201 [inline]
+ _copy_to_user+0x93/0xd0 lib/usercopy.c:24
+ copy_to_user include/linux/uaccess.h:230 [inline]
+ ctl_ioctl+0x5c2/0xcc0 drivers/md/dm-ioctl.c:2225
+ dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2235
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0a62b9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff4ea84718 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f0a62e25fa0 RCX: 00007f0a62b9e159
+RDX: 0000200000000000 RSI: 00000000c138fd02 RDI: 0000000000000003
+RBP: 00007f0a62c3506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f0a62e25fac R14: 00007f0a62e25fa0 R15: 00007f0a62e25fa0
+ </TASK>
 
-But how could they go out of sync? I'd assume only for memory holes
-(!pfn_to_online_page), but for that we don't need to test actual page flags.
+Allocated by task 5924:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5414 [inline]
+ __kvmalloc_node_noprof+0x35b/0x9b0 mm/slub.c:7014
+ copy_params drivers/md/dm-ioctl.c:2098 [inline]
+ ctl_ioctl+0x944/0xcc0 drivers/md/dm-ioctl.c:2202
+ dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2235
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-> 
-> PG_hwpoison in a block is the union of every source that poisoned a
-> frame; the inherited EFI table is one of them, and it is the coarse and
-> partial one.
+The buggy address belongs to the object at ffff8880511e2c00
+ which belongs to the cache kmalloc-512 of size 512
+The buggy address is located 0 bytes inside of
+ allocated 305-byte region [ffff8880511e2c00, ffff8880511e2d31)
 
-So you're saying that this code is possibly racy with other setting code? Or
-which other sources might there be if the generically called
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x511e0
+head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c042c80 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c042c80 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5135, tgid 5135 (udevd), ts 53647527683
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ kernfs_fop_open+0x23d/0xd50 fs/kernfs/file.c:634
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+page last free pid 12 tgid 12 ts 52862857394 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_pages_ok+0x73b/0x1050 mm/page_alloc.c:1596
+ fq_reset include/net/fq_impl.h:386 [inline]
+ ieee80211_txq_teardown_flows+0x16f/0x280 net/mac80211/tx.c:1656
+ ieee80211_unregister_hw+0x5d/0x360 net/mac80211/main.c:1723
+ mac80211_hwsim_del_radio drivers/net/wireless/virtual/mac80211_hwsim_main.c:6256 [inline]
+ hwsim_exit_net+0x891/0x1500 drivers/net/wireless/virtual/mac80211_hwsim_main.c:7269
+ ops_exit_list net/core/net_namespace.c:200 [inline]
+ ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-range_contains_poisoned_memory()
+Memory state around the buggy address:
+ ffff8880511e2c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff8880511e2c80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff8880511e2d00: 00 00 00 00 00 00 01 fc fc fc fc fc fc fc fc fc
+                                     ^
+ ffff8880511e2d80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880511e2e00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 
-wouldn't be able to identify it (and it only queries the bitmap?).
 
-> 
-> You might ask why I do not just count the bits set in the bitmape and
-> multiply by the frames a unit covers.
-> 
-> That was my first try. It over-counts: a bit stands for a whole 2M unit,
-> but only the frames that reach __free_pages_core() get flagged -- CMA
-> comes back through __free_pages(), the initrd and __init memory through
-> free_reserved_pages(), and KHO-preserved frames never get an initialised
-> struct page at all.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Why are other hwpoisoned pages not flagged? If initrd or anything else is
-hwpoisoned, we should not be running this kernel?
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-> 
-> And the over-count cannot be undone later. 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-The inconsistency is worrisome.
-I wouldn't say that I hate it but it certainly has "great, more hwpoison hacks"
-smell to it.
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-We have enough semi-broken hwpoison ... stuff ... in our code base already. So
-I'm hoping we're not adding more to it?
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-> If the walk itself is what bothers you, the way out is not the bitmap
-> but counting as we flag: hwpoison_boot_page() already knows the pfn, so
-> it can bump a per-block-id counter in a small memblock array that
-> memblk_nr_poison_init() then just reads.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-The inconsistency is what worries me.
-
-And that we have pages we are told are hwpoisoned but we seem to ignore that and
-carry on with our kernel letting it boot?
-
-> 
-> Exact by construction, no walk. Happy to go that way instead if you
-> prefer it.
-
-Let me first try to understand the semantics here.
-
--- 
-Cheers,
-
-David
+If you want to undo deduplication, reply with:
+#syz undup
