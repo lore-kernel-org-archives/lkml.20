@@ -1,243 +1,82 @@
-Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85083B42D9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218F83A9018;
+	Fri, 18 Sep 2026 12:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734737; cv=none; b=bjVfhASPqkB0Cr48LXyDNpN6sFxsIC7EgyNGq+DwTJ+W5ECRQku0lPRU/gilLgYg2k/HIcc5++Or6yBdW0wb3LdCFob0R0ZNBBVEO1mnLPhQcDRE0/GM9t7FVDIraP6S6Ez3p5Bv28SFmIXNW8C3a3chVGX17sLRkuJAvYjXhz8=
+	t=1789734761; cv=none; b=UBA8soG8/ZLjU+ugSPnaLtuZnSu4tRoaVXqEmkjUfzqzdm08BD0i5IzQkicysepgpMkvYWPsAWf9HZMIa3tRe8QrA3ehYuFbT6gc9VjOMNdfCSQ6mP4SJAWHz6GfQZs3W7vuUX1k9fsbiqCLgu67VzYMCR01u4rcGbZG35lbIn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734737; c=relaxed/simple;
-	bh=8uiO9U/2BnEzChyrQLc5F2J6jU60oIiTWfMimwuv1Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XGUQdgeLJGVrs/iQpEO+Svy4mAaqX/4/5JJNq4FK0iGiELUH2U0Om+iN3k7u7VFaW3T652PPT26LMGXJXRf3YICDRSqI3WolizbgJD4GhRitgitIV/74wqKehhZ6/Ry+b+aE9TvtJm8bwazwCoX2ezOVkLpACHDsMuWklr/380o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gTtEmCTA; arc=none smtp.client-ip=91.218.175.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789734761; c=relaxed/simple;
+	bh=HUIJldC1s/B6sZJemVhJKLNHFeIiJ65p1mO123UEFds=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=iKlg/FFk7SXjeTA8y2Q5U9/psbAhH6cwvJEtSZWfhObJThutFEP9SWM69iq5Ej2SB9UW6H6LI0whaA2zOloiG64DJAw8youawSaKyV27W8Q7bTCS+nPcQ/KTrs4gYEaD4LygSrT6PMpXBEzGCqUIp/yhHSkgxb2Rsc5atQqwlKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gq9YnKT7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gTtEmCTA"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8uiO9U/2BnEzChyrQLc5F2J6jU60oIiTWfMimwuv1Kg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789734732; v=1; x=1790339532;
- b=gTtEmCTAcUNNprdk0kQth0n5JD2vR4ElmBeM8oV2qfJDu8lqPqd04e+6YfW+5vAaJer3vn2I
- 69HLTNJ8Qj9HQk1gPSQUJ4ilo8eEkOpqPBeSFXnLIiacpbckfx1Egn+Yx/aOlXs4MdWxwd2Cg3U
- kMh6VW8wkgb09Y6/zTfJgcF8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8eb446be46abee73;
-	Fri, 18 Sep 2026 12:32:12 +0000
-X-Mizu-Trace-ID: 8eb446be46abee73
-X-Migadu-Flow: FLOW_OUT
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	aleksander.lobakin@intel.com,
-	wojciech.drewek@intel.com,
-	marcin.szycik@linux.intel.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: [PATCH net v1] pfcp: fix socket lifetime on netdevice registration failure
-Date: Fri, 18 Sep 2026 20:31:58 +0800
-Message-ID: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gq9YnKT7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98FA91F000FF;
+	Fri, 18 Sep 2026 12:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789734757;
+	bh=TLqWruDjBIPGrL3/klNVugI9whrADCbcBIn7Tw/QjWc=;
+	h=Date:From:To:Cc:Subject;
+	b=Gq9YnKT7QcteBEKLcbYVCJH/1aBGhysFjrtp+C6NjhxrzSXz56eGQ89g8l0kgd1VG
+	 aY+xngLD386gHZEMbDfkL+w0wZU/enHAjuqdYUBAsYTingujQm8yYfSThGFceHNKD8
+	 HubNVfp+KwYfU8OZ5mWI15N8sBWoTqYDXrzxbOH8rzrHeVheC55nVmhnxV5jy25J8i
+	 rfizfSSJrZ8XJjr7t/xS+pe/wruTXTHJxNr4BqgUn3JW+UhkbXstkRFl4RXjq1Mada
+	 lAOsY5PyzEuJC1w9oIQq1FQI2L0i2fdtuLu4b9feP1TU9URWZUDgBypXYvguAE43m5
+	 bWcLlPQUvdX1Q==
+Date: Fri, 18 Sep 2026 13:32:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the amdgpu tree
+Message-ID: <aq0vYhZXtMqA41wZ@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zGdOPVzrSrrJ7Kw1"
+Content-Disposition: inline
 
-From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-pfcp_newlink() creates the UDP socket before register_netdevice().
-If registration fails after pfcp_dev_init() succeeds, the core calls
-pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
-The newlink error path then releases it again, causing a NULL pointer
-dereference. This was observed with failslab fault injection:
+--zGdOPVzrSrrJ7Kw1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  FAULT_INJECTION: forcing a failure.
-  kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
-  BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
-  Read of size 8 at addr 0000000000000120 by task ip/1037
-  Call trace:
-   show_stack+0x18/0x24 (C)
-   dump_stack_lvl+0x78/0x90
-   print_report+0x468/0x5cc
-   kasan_report+0xa4/0xf0
-   __asan_load8+0x7c/0xd0
-   udp_tunnel_sock_release+0x1c/0x50
-   pfcp_newlink+0x128/0x184
-   rtnl_newlink+0x848/0xe44
-   rtnetlink_rcv_msg+0x468/0x514
-   netlink_rcv_skb+0xc0/0x1f0
-   rtnetlink_rcv+0x18/0x24
-   netlink_unicast+0x4b8/0x558
-   netlink_sendmsg+0x2b8/0x584
-   ...
+Hi all,
 
-Create the socket in pfcp_dev_init() after initializing the GRO cells,
-and let pfcp_dev_uninit() release it on registration failure or removal.
+After merging the amdgpu tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-Move the RCU wait into pfcp_dev_uninit(), using synchronize_net() after
-socket release to drain receive callbacks before destroying the GRO cells.
+/tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:8=
+7:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_poo=
+l_create' [-Werror,-Wframe-larger-than]
+   87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t si=
+ze,
+      |                             =20
 
-Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
-Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
----
-A NULL check would fix the crash. Moving socket creation into ndo_init
-also removes the duplicate cleanup and ensures the receive state is
-initialized before enabling the socket's receive callback.
+I didn't investigate which commit triggered this, I have used the tree
+=66rom next-20260917 instead.
 
- drivers/net/pfcp.c | 90 ++++++++++++++++++++++------------------------
- 1 file changed, 42 insertions(+), 48 deletions(-)
+--zGdOPVzrSrrJ7Kw1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/net/pfcp.c b/drivers/net/pfcp.c
-index e1cca779d2ecc..3db813ba2344c 100644
---- a/drivers/net/pfcp.c
-+++ b/drivers/net/pfcp.c
-@@ -103,27 +103,63 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
- 	return 0;
- }
- 
--static void pfcp_del_sock(struct pfcp_dev *pfcp)
-+static struct sock *pfcp_create_sock(struct pfcp_dev *pfcp)
- {
--	udp_tunnel_sock_release(pfcp->sk);
--	pfcp->sk = NULL;
-+	struct udp_tunnel_sock_cfg tuncfg = {};
-+	struct udp_port_cfg udp_conf = {
-+		.local_ip.s_addr	= htonl(INADDR_ANY),
-+		.family			= AF_INET,
-+	};
-+	struct net *net = pfcp->net;
-+	struct socket *sock;
-+	int err;
-+
-+	udp_conf.local_udp_port = htons(PFCP_PORT);
-+
-+	err = udp_sock_create(net, &udp_conf, &sock);
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	tuncfg.sk_user_data = pfcp;
-+	tuncfg.encap_rcv = pfcp_encap_recv;
-+	tuncfg.encap_type = 1;
-+
-+	setup_udp_tunnel_sock(net, sock->sk, &tuncfg);
-+
-+	return sock->sk;
- }
- 
- static void pfcp_dev_uninit(struct net_device *dev)
- {
- 	struct pfcp_dev *pfcp = netdev_priv(dev);
- 
-+	udp_tunnel_sock_release(pfcp->sk);
-+	pfcp->sk = NULL;
-+	/* Wait for receive callbacks before destroying their state. */
-+	synchronize_net();
- 	gro_cells_destroy(&pfcp->gro_cells);
--	pfcp_del_sock(pfcp);
- }
- 
- static int pfcp_dev_init(struct net_device *dev)
- {
- 	struct pfcp_dev *pfcp = netdev_priv(dev);
-+	struct sock *sk;
-+	int err;
- 
- 	pfcp->dev = dev;
- 
--	return gro_cells_init(&pfcp->gro_cells, dev);
-+	err = gro_cells_init(&pfcp->gro_cells, dev);
-+	if (err)
-+		return err;
-+
-+	sk = pfcp_create_sock(pfcp);
-+	if (IS_ERR(sk)) {
-+		gro_cells_destroy(&pfcp->gro_cells);
-+		return PTR_ERR(sk);
-+	}
-+	pfcp->sk = sk;
-+
-+	return 0;
- }
- 
- static const struct net_device_ops pfcp_netdev_ops = {
-@@ -153,39 +189,6 @@ static void pfcp_link_setup(struct net_device *dev)
- 	netif_keep_dst(dev);
- }
- 
--static struct sock *pfcp_create_sock(struct pfcp_dev *pfcp)
--{
--	struct udp_tunnel_sock_cfg tuncfg = {};
--	struct udp_port_cfg udp_conf = {
--		.local_ip.s_addr	= htonl(INADDR_ANY),
--		.family			= AF_INET,
--	};
--	struct net *net = pfcp->net;
--	struct socket *sock;
--	int err;
--
--	udp_conf.local_udp_port = htons(PFCP_PORT);
--
--	err = udp_sock_create(net, &udp_conf, &sock);
--	if (err)
--		return ERR_PTR(err);
--
--	tuncfg.sk_user_data = pfcp;
--	tuncfg.encap_rcv = pfcp_encap_recv;
--	tuncfg.encap_type = 1;
--
--	setup_udp_tunnel_sock(net, sock->sk, &tuncfg);
--
--	return sock->sk;
--}
--
--static int pfcp_add_sock(struct pfcp_dev *pfcp)
--{
--	pfcp->sk = pfcp_create_sock(pfcp);
--
--	return PTR_ERR_OR_ZERO(pfcp->sk);
--}
--
- static int pfcp_newlink(struct net_device *dev,
- 			struct rtnl_newlink_params *params,
- 			struct netlink_ext_ack *extack)
-@@ -197,16 +200,10 @@ static int pfcp_newlink(struct net_device *dev,
- 
- 	pfcp->net = link_net;
- 
--	err = pfcp_add_sock(pfcp);
--	if (err) {
--		netdev_dbg(dev, "failed to add pfcp socket %d\n", err);
--		goto exit_err;
--	}
--
- 	err = register_netdevice(dev);
- 	if (err) {
- 		netdev_dbg(dev, "failed to register pfcp netdev %d\n", err);
--		goto exit_del_pfcp_sock;
-+		goto exit_err;
- 	}
- 
- 	pn = net_generic(link_net, pfcp_net_id);
-@@ -219,9 +216,6 @@ static int pfcp_newlink(struct net_device *dev,
- 
- 	return 0;
- 
--exit_del_pfcp_sock:
--	pfcp_del_sock(pfcp);
--	synchronize_rcu();
- exit_err:
- 	pfcp->net = NULL;
- 	return err;
--- 
-2.43.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtL2EACgkQJNaLcl1U
+h9DhHwf9GrDS3NNUvQK4/UYA3dq0Yhgt9uGuefF4/WJhPZcoZNZ8cqvlmiwuU2fJ
+gAQngRGbLsSfCfQIbDnaTnGpGNHti65CT39NufepA3ZLR0F3fWUZzunUQbekUPEp
+S14DQQ+cVQM7uEW39JTvTtQM0j713mjjXU35kpJejCkVB2wQM0i9v0Ev7+ZZugKb
+Ht0JrqEqWLNQijz1BRDKRdRNgeCgUX9A7HzARK416Z3IYbxusBSHJKt7UAFQ9ChQ
+adbDA8wGtRHR6b0Lp8UQTsjF58vLuG7mic5rmpvLt2Z3d9EuyfvS6MAVmBdQ+5Cw
+I9ajibZOkBLspGJqJ/ooRTZOpI9U7Q==
+=e1cd
+-----END PGP SIGNATURE-----
+
+--zGdOPVzrSrrJ7Kw1--
