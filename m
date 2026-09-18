@@ -1,56 +1,56 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2DC49D583
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DEB35C69F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719365; cv=none; b=SUkkgLCihi/Qo2o1pTXX2lvxHrJWO18EEBKy6InfAKwKswsVNKf5Z7p1j+lWN0eGRcaRA3pguGhldYMd/P7MQq6YAZnERq8qg75BY0R5NpQXSdn1oRD467X04XiEeoTF4E005ZrZ+C2s5PbVvM05jAwDbcvHydlgCpsehPLmgWs=
+	t=1789719369; cv=none; b=aRaRvAppF4RXdmdGaJXV7cOfZmiQ5Rw20zowerDUEr2kCc82QlWG3725p5gcgGK++G93r4XrVa++fND81jtoDgAPLY2jWgntbmFUX4wq6IUoJRCnwC2W0pDty/iOJ+EtW2v41YYggPE7Z0A5Jtmv6k2Y51rk8Wx+oXAbfUtBl20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719365; c=relaxed/simple;
-	bh=Tcp4fTVI0amjVPArGkLYPcjTd7iV6Y46W81dENOVLnk=;
+	s=arc-20240116; t=1789719369; c=relaxed/simple;
+	bh=0KSm60RmbVxBGC+ZwxwAp4zJAlyv12vvrsCfKg1n46o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RY/XuW6+x9b8ohPIPOUbPTjM0m2sY0I01PlIWuqVY2VKVvNCGAVcBAtNzladPt0tr6TkB90Peu94Ii0UHr8YW/2HMRbuXf+DO2z5TouQMZK6c3wOg52m+3PiGoBpLV3xR7YaBstQx5U6Dkk2DAdBYHAZJuVkG6NuwIXUrdlHadk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ca4C+mKR; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version:Content-Type; b=iCqcampJ2d/0w9gU/faWPAxEByjUSpHFJyCpjx5QtVLpW8vrL7FH+Ctbm8N7kcW1Pq+hSR1CQ0VKtjE+w/OdpKl+dEKkjoVy+j9/BG7uFXV0eJHQYEoGpvWIAVPXzRFsvMPSCndlvHevfVI9NnpEHWFrZZeka88ZG4hX9ySeiUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=az+fRn0O; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ca4C+mKR"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="az+fRn0O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789719358;
+	s=mimecast20190719; t=1789719360;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iVXB86C7ZXFdBtEEXIU4ekHGfWImSWkvjDcOJJv1cy4=;
-	b=Ca4C+mKRioIvGNpNgzMG46r/Aw26pjSp3fV3QblMGPyxJ2DrphqT38Cz5UweEd1sjy48y4
-	TiJHiqGfndCT6DnpaEBp8650AdChJVEIntuw1a13HTxdYnA2aWc+xM1aV1rc1OqfgUKta2
-	IkME5paY+ewYG092otnZKPDK3gnAnLQ=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=Ds2Lc+aMh2WymrMTxljwuJtfkBBHdr6kIvvoHFilRIs=;
+	b=az+fRn0OmzUGN9kB3/jfDZgsol3ANDBiIikxl4dtzJOvzhGee8jHM4sOEN4kyuS4wF5b/3
+	5/pMamq9zYeHCgxFV4/VDiJI0uTUNVI7IzdUfc5s6lOp/w7G28q+ImN1K4ZMTedhmIxGZ7
+	5G63q0m9tRrh1mAxpqr4nJEOgqUgduQ=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-447-47zKpceCNfWyDOkVs6hpjg-1; Fri,
- 18 Sep 2026 04:15:54 -0400
-X-MC-Unique: 47zKpceCNfWyDOkVs6hpjg-1
-X-Mimecast-MFC-AGG-ID: 47zKpceCNfWyDOkVs6hpjg_1789719353
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-446-QK---mVANnWbuPIW32toZw-1; Fri,
+ 18 Sep 2026 04:15:57 -0400
+X-MC-Unique: QK---mVANnWbuPIW32toZw-1
+X-Mimecast-MFC-AGG-ID: QK---mVANnWbuPIW32toZw_1789719356
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 92F1F1954236;
-	Fri, 18 Sep 2026 08:15:53 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0F89318512C6;
+	Fri, 18 Sep 2026 08:15:56 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E0EDE30001A2;
-	Fri, 18 Sep 2026 08:15:52 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 64DAD30001A2;
+	Fri, 18 Sep 2026 08:15:55 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH v2 10/28] KVM: pass kvm == NULL case to kvm_arch_has_private_mem
-Date: Fri, 18 Sep 2026 04:15:25 -0400
-Message-ID: <20260918081543.139871-11-pbonzini@redhat.com>
+Subject: [PATCH v2 13/28] KVM: Include memory protections in result of gfn->hva conversion
+Date: Fri, 18 Sep 2026 04:15:28 -0400
+Message-ID: <20260918081543.139871-14-pbonzini@redhat.com>
 In-Reply-To: <20260918081543.139871-1-pbonzini@redhat.com>
 References: <20260918081543.139871-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,45 +63,143 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Allow the architecture-specific code to enable
-CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES without exposing
-KVM_MEMORY_ATTRIBUTE_PRIVATE.  This is mostly for consistency after
-introducing memory protection attributes; non-x86 architectures
-might want to add support for protection attributes without having
-KVM_MEMORY_ATTRIBUTE_PRIVATE show up in KVM_CHECK_EXTENSION.
+From: Nicolas Saenz Julienne <nsaenz@amazon.com>
 
+All paths that lead to guest memory accesses now need to check whether
+memory attributes allow that access.  Users of gfn_to_hva,
+kvm_vcpu_gfn_to_hva and their *_prot variant can get it more or
+less for free via erroneous return values, so do this first.
+
+Note however that this is not true of the variants that take a cached
+kvm_memslots pointer.  These include caches (gfn-to-hva and gfn-to-pfn)
+and page faults, both of which will need specific changes; but the more
+optimized functions in virt/kvm/kvm_main.c such as kvm_read_guest()
+and kvm_write_guest() also retrieve the memslot high in the call chain,
+and therefore they will need changes in __kvm_read/write_guest_page().
+
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/include/asm/kvm_host.h | 2 +-
- virt/kvm/kvm_main.c             | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ include/linux/kvm_host.h | 18 +++++++++++++
+ virt/kvm/kvm_main.c      | 55 +++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 69 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index c08781bb0327..c619552740a8 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1853,7 +1853,7 @@ enum kvm_intr_type {
- 	 (!!in_nmi() == ((vcpu)->arch.handling_intr_from_guest == KVM_HANDLING_NMI)))
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index c215e3bdf043..01223301f0e5 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2620,8 +2620,26 @@ static inline bool kvm_mem_is_private(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return false;
+ }
++static inline unsigned long kvm_get_memory_attributes(struct kvm *kvm, gfn_t gfn)
++{
++	return 0;
++}
+ #endif /* CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES */
  
- #ifdef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
--#define kvm_arch_has_private_mem(kvm) ((kvm)->arch.has_private_mem)
-+#define kvm_arch_has_private_mem(kvm) (!(kvm) || (kvm)->arch.has_private_mem)
- #endif
- 
- #define kvm_arch_has_readonly_mem(kvm) (!(kvm)->arch.has_protected_state)
++static inline int kvm_mem_attributes_may_read_gfn(struct kvm *kvm, gfn_t gfn)
++{
++	unsigned long attrs = kvm_get_memory_attributes(kvm, gfn);
++
++	return kvm_mem_attributes_may_read(attrs);
++}
++
++static inline int kvm_mem_attributes_may_write_gfn(struct kvm *kvm, gfn_t gfn)
++{
++	unsigned long attrs = kvm_get_memory_attributes(kvm, gfn);
++
++	return kvm_mem_attributes_may_write(attrs);
++}
++
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 		     gfn_t gfn, kvm_pfn_t *pfn, struct page **page,
 diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 3d574e16de45..9d1836382d19 100644
+index f98104169862..b1cc570be8df 100644
 --- a/virt/kvm/kvm_main.c
 +++ b/virt/kvm/kvm_main.c
-@@ -2422,7 +2422,7 @@ static int kvm_vm_ioctl_clear_dirty_log(struct kvm *kvm,
- #ifdef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
- u64 kvm_supported_mem_attributes(struct kvm *kvm)
- {
--	if (!kvm || kvm_arch_has_private_mem(kvm))
-+	if (kvm_arch_has_private_mem(kvm))
- 		return KVM_MEMORY_ATTRIBUTE_PRIVATE;
+@@ -2767,13 +2767,38 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(gfn_to_hva_memslot);
  
- 	return 0;
+ unsigned long gfn_to_hva(struct kvm *kvm, gfn_t gfn)
+ {
+-	return gfn_to_hva_many(gfn_to_memslot(kvm, gfn), gfn, NULL);
++	unsigned long addr;
++
++	addr = gfn_to_hva_many(gfn_to_memslot(kvm, gfn), gfn, NULL);
++	if (kvm_is_error_hva(addr))
++		return addr;
++
++	if (!kvm_mem_attributes_may_read_gfn(kvm, gfn))
++		return KVM_HVA_ERR_BAD;
++
++	if (!kvm_mem_attributes_may_write_gfn(kvm, gfn))
++		return KVM_HVA_ERR_RO_BAD;
++
++	return addr;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(gfn_to_hva);
+ 
+ unsigned long kvm_vcpu_gfn_to_hva(struct kvm_vcpu *vcpu, gfn_t gfn)
+ {
+-	return gfn_to_hva_many(kvm_vcpu_gfn_to_memslot(vcpu, gfn), gfn, NULL);
++	struct kvm *kvm = vcpu->kvm;
++	unsigned long addr;
++
++	addr = gfn_to_hva_many(kvm_vcpu_gfn_to_memslot(vcpu, gfn), gfn, NULL);
++	if (kvm_is_error_hva(addr))
++		return addr;
++
++	if (!kvm_mem_attributes_may_read_gfn(kvm, gfn))
++		return KVM_HVA_ERR_BAD;
++
++	if (!kvm_mem_attributes_may_write_gfn(kvm, gfn))
++		return KVM_HVA_ERR_RO_BAD;
++
++	return addr;
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_gfn_to_hva);
+ 
+@@ -2799,15 +2824,37 @@ unsigned long gfn_to_hva_memslot_prot(struct kvm_memory_slot *slot,
+ unsigned long gfn_to_hva_prot(struct kvm *kvm, gfn_t gfn, bool *writable)
+ {
+ 	struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
++	unsigned long addr;
+ 
+-	return gfn_to_hva_memslot_prot(slot, gfn, writable);
++	addr = gfn_to_hva_memslot_prot(slot, gfn, writable);
++	if (kvm_is_error_hva(addr))
++		return addr;
++
++	if (!kvm_mem_attributes_may_read_gfn(kvm, gfn))
++		return KVM_HVA_ERR_BAD;
++
++	if (writable && !kvm_mem_attributes_may_write_gfn(kvm, gfn))
++		*writable = false;
++
++	return addr;
+ }
+ 
+ unsigned long kvm_vcpu_gfn_to_hva_prot(struct kvm_vcpu *vcpu, gfn_t gfn, bool *writable)
+ {
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
++	unsigned long addr;
+ 
+-	return gfn_to_hva_memslot_prot(slot, gfn, writable);
++	addr = gfn_to_hva_memslot_prot(slot, gfn, writable);
++	if (kvm_is_error_hva(addr))
++		return addr;
++
++	if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gfn))
++		return KVM_HVA_ERR_BAD;
++
++	if (writable && !kvm_mem_attributes_may_write_gfn(vcpu->kvm, gfn))
++		*writable = false;
++
++	return addr;
+ }
+ 
+ static bool kvm_is_ad_tracked_page(struct page *page)
 -- 
 2.52.0
 
