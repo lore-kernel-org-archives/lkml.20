@@ -1,47 +1,80 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2E242123A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB302FABFB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774956; cv=none; b=U6HumRkiceX/ys0JV5/txQVqdPVO1C4r9oAWWKlNuITWHr7UyXMDEDj3rCbAqRZ57cWxYHMI93ard4EkSQNswMfaPKi2nCBH9rJfEHK1Z9YEOk1a/IntheGgzn0xyBxeDngrLF5KkrZ4xsPNe9Hcbv6zIXUF/FGl29Zl8ep6iCs=
+	t=1789775025; cv=none; b=JwnSNDSSi3qIFHggEJamzganCUffBZVKxaGUzpbGVZn3E5QrQ4rx8IIGyxmDEoruuhx0U8Lzam2ipivU95fAtJMJDrXdLD9MLV85xuiOnwp/3SWIhKUTR9MvidbHjlyParOChNBhT+k6cUJ8WHXScCsJpMMsIXDotXjCXSUTJV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774956; c=relaxed/simple;
-	bh=lC+cCVH/Vq3HnTneYs+xNzFi6z6mlCn+/pJJg29y/QY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HQpmofoRiri8wAVRNTaVIo/1u+veSpAqgVHK0UikvFRdKHQxDc2qT85oti2upI1Yy26nC3ZXLK108uS1lAN2/rs7UkTn6/CVJ5lIwd4hnzGjVufIgxQzAF5CcbRJKGvv59b6zCqzsh2HKhM2+ZvKSeSw0vQPhqbaXIoa9Wcx+08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=3eQJ/ASa; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789775025; c=relaxed/simple;
+	bh=yVjbgC4CMiNqZuadtlsece2kkWi9WaJOKCsG9Uk68RI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CjNq9U7q6MAFM0wdB8diwkfPBjrZDOMuId27t1wqFWkZeSalDZ+pMjznRcGF0A4XlSjBpMa5MLkDTjr6nJVt8F6OD/kKWQYWAYAURLNX1vuL85L82uYkG5UrIoBiHTi2wbdtW1oihSzILMQkXKGIM1NAdjAPeE3kNOeDPlQ/+jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZXMSHp8; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="3eQJ/ASa"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=GkAK7Rok340HmOMZVxsU9ayK4Ahf0SiRK3fbh6XWXdI=; b=3eQJ/ASamNbxSm5H4MJ0mkVWTS
-	faJB5QRG5ilo2/L3ZLytDCI5vMSJ46A9CHjDtGAdprYV2hBBzLwxd/A1sTh5kS51hVhAwEv6Rm8xq
-	0NBu+1+Rwa9qAGqlcLlh7QHkIhpHdVB1PDESSdgm4Xfj9KpNmzD5oCIsFDgLag7QMgwSamzkHjTYX
-	FgaLaJmzfMQhqnkbkHDDBARWBZr3XtNdCST7S+DcUkNEevFi8hAdzuSi6w8WCQwMcjHkHYq1TzLuH
-	QAmyrBf75prsCT1hQ+POj4hAFKJg4PFJ0cF46Li5kN204asAukXLo+1kgme9XT8z8wtYGmJ4m8lN5
-	31gHdqhw==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7iDu-0000000FiDz-3uAR;
-	Fri, 18 Sep 2026 23:42:30 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/connector: repair kernel-doc descriptions
-Date: Fri, 18 Sep 2026 16:42:29 -0700
-Message-ID: <20260918234229.3168183-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZXMSHp8"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so435880f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:43:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789775022; x=1790379822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
+        b=NZXMSHp84YGtCFRmJFYCDqhkKxUslBDetCa5tIf4XG7TQ+1B1QCvp58Y3Iu5+1lS91
+         PYbPMj2w9WdusSxKYF4dWX0ZGBrlhBbpdkQXIQm3zYT0n4y3vmCQ3Bsrh0wkMGoS1lxg
+         m/exOdYTgivaMXMi8deGo+R+gYRTNRxRm77HwacrLOwGwXEhaNvipqYGb6pecKlUXMWA
+         HTkldxvBnQCelRpMxive7gCjNpN63ECWIgDiaAtoKweKizKXL/O6aLWBmH+e7q59bTVb
+         fkexvAMpQeUjW7sVen5rvgHRlO9XN82cnK3K0qKLbKVVEjeNa0B3uNMrnY6JOjaGn/6Y
+         +/uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789775022; x=1790379822;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
+        b=QyQkPcu+rV/50vn9dOXmqhtih2q/WlpKkgEM9LDhIQdu7vzi2ozW593gkyy098rIth
+         /6Stabn/D6zW4pA4X2J2s4z+GV2NP2pOHS7Eee4TK4KkZkkf1LqwCfo93gtOi7BBNGdp
+         c+diZciDTvJKJGZ5PgJqOe1vdS2fSnmyUaXMncYNlY0gIzXGj2VioqBoXWpSqmcip1dO
+         YpHROMZ0YNHJAvKfjAOYUQN568Y4CzsRRHHEy+YDkPkY2JbgsCkJo6d5CYYghVw4d072
+         CE6R7L0vFRZHvbvsAetTzBDOhdI2OQ8+Me6ThNncgscT1UA1oSD37Rvu5k0rkAGt4XXc
+         cF1A==
+X-Forwarded-Encrypted: i=1; AKwUvBy3bRikt5yVwgeMZzPgaKcnBwX+NpwGb1Mr5FUnyxOb7UR63468WCTH/pZkl4LK/G+PwoDRIApGTApMXeM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9yG3lXUwg6wgznj4m26RgbfQBBLquESSrgxWwFkW6l1aB1dxY
+	NouOTZFkePy9oxLs2Csyp8Lhu3jtlLXf7/Ycsey025Tt52JPifpP10/T
+X-Gm-Gg: AYBFou2YsiBkaGjIyYxf5uGrUPZLz/PD2pxkzfy4nd7ATlWgQ4yBBZIr0F2DvA1EKac
+	WqOYCWloF7l8WNanFdUqGIEV/PfqHpiiIk5vZk5I5wAAQ31znlLc0Z+iAGAsCfAMB9H6QzaA1ZR
+	DJo7CWsPm81wHR8lIYG14XdxR8uNmbQARfEJZPEOOfz1WPhyQHlHGcsUblH4kg4tiEN7YNM8Wyk
+	6q1JSEtEV3NmkhLifZhMuYdpX0GlZEwwDyGv8JK5pB982muMWmc1NCOS3PZK7H1Rpl5BK86N/fJ
+	uJFV7iBxTBDx8S+2ZapByTcEozLlWSK8MVJiA9Wq6sMKKO22xHQBcLruanjcfEDCpO4Ii8V7nfL
+	MMHsWfrXvan5cLAgpCSqhyw7H0YEz5fO+NlbJ/Ugq81yMVL/m0IU2cITPvoZcd9o3TD5IgeLQch
+	Om+jHSH6x70sJvCxpk/kdL9EadkMELzzC/kfchM4SSWs/0tikUfwlVtOrOOfx3FWPfRBDAdNtEl
+	N4iBK1hSN6b/P32aGST2cK54T2Zxa0S2ug7L/AFMTazQQYpfYn9yZJonIQuPgRkeLE=
+X-Received: by 2002:a05:6000:2688:b0:487:146f:7c88 with SMTP id ffacd0b85a97d-4871d98cdcfmr6375274f8f.4.1789775021601;
+        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487243cede9sm2482874f8f.0.2026.09.18.16.43.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>
+Cc: Benjamin Marzinski <bmarzins@redhat.com>,
+	Milan Broz <mbroz@redhat.com>,
+	dm-devel@lists.linux.dev,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] dm ioctl: don't let data_start run past the buffer
+Date: Sat, 19 Sep 2026 00:43:39 +0100
+Message-Id: <20260918234339.54105-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,47 +83,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix all kernel-doc warnings:
+struct dm_ioctl has seven bytes of trailing padding, so the smallest
+buffer userspace is allowed to ask for, offsetof(struct dm_ioctl, data),
+is seven bytes shorter than sizeof(struct dm_ioctl).
 
-WARNING: ../include/drm/drm_connector.h:292 struct member 'cnmvrr' not described in 'drm_hdmi_vrr_cap'
-WARNING: ../include/drm/drm_connector.h:292 struct member 'cinema_vrr' not described in 'drm_hdmi_vrr_cap'
-WARNING: ../include/drm/drm_connector.h:292 Excess struct member 'mcnmvrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cnmvrr', 'cinema_vrr')
-WARNING: ../include/drm/drm_connector.h:292 Excess struct member 'mcinema_vrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cinema_vrr', 'cnmvrr')
-Warning: include/drm/drm_connector.h:2658 No description found for return value of 'drm_connector_lookup'
+get_result_buffer() sets data_start to sizeof(struct dm_ioctl) without
+looking at how big the buffer actually is. Ask for the minimum and
+data_start ends up seven bytes past the end. Callers add it to
+data_size, and ctl_ioctl() copies that much back to userspace:
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+  BUG: KASAN: slab-out-of-bounds in _copy_to_user+0xad/0xd0
+  Read of size 312 at addr ffff8880169e4c00 by task repro-dm/140
+   ctl_ioctl+0x5e3/0xcb0
+   dm_ctl_ioctl+0x25/0x40
+  allocated 305-byte region [ffff8880169e4c00, ffff8880169e4d31)
+
+A DM_LIST_DEVICES with data_size set to 305 is enough to hit it, and the
+seven bytes that leak are whatever sat next to the allocation.
+
+Clamp data_start to the buffer size.
+
+Reported-by: syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=48d935cf48a4a76be346
+Fixes: 76c072b48e39 ("dm ioctl: move compat code")
+Cc: stable@vger.kernel.org
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org
+ drivers/md/dm-ioctl.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- include/drm/drm_connector.h |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index a6b8e97755cd..211569dd3c54 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -656,6 +656,13 @@ static void *get_result_buffer(struct dm_ioctl *param, size_t param_size,
+ {
+ 	param->data_start = align_ptr(param + 1) - (void *) param;
+ 
++	/*
++	 * The buffer can be as small as offsetof(*param, data), which is
++	 * less than sizeof(*param), so don't run off the end of it.
++	 */
++	if (param->data_start > param_size)
++		param->data_start = param_size;
++
+ 	if (param->data_start < param_size)
+ 		*len = param_size - param->data_start;
+ 	else
+-- 
+2.34.1
 
---- linux-next-20260918.orig/include/drm/drm_connector.h
-+++ linux-next-20260918/include/drm/drm_connector.h
-@@ -264,10 +264,10 @@ struct drm_hdmi_vrr_cap {
- 	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
- 	bool fva;
- 
--	/** @mcnmvrr: flag for Negative M VRR support */
-+	/** @cnmvrr: flag for Negative M VRR support */
- 	bool cnmvrr;
- 
--	/** @mcinema_vrr: flag for Cinema VRR support */
-+	/** @cinema_vrr: flag for Cinema VRR support */
- 	bool cinema_vrr;
- 
- 	/** @mdelta: flag for limited frame-to-frame compensation support */
-@@ -2652,6 +2652,8 @@ static inline u32 drm_connector_mask(con
-  *
-  * This function looks up the connector object specified by id
-  * add takes a reference to it.
-+ *
-+ * Returns: drm connector object if found or %NULL if not found
-  */
- static inline struct drm_connector *drm_connector_lookup(struct drm_device *dev,
- 		struct drm_file *file_priv,
