@@ -1,69 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CCF4E4305;
-	Fri, 18 Sep 2026 11:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828C748FF99;
+	Fri, 18 Sep 2026 11:27:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730821; cv=none; b=gK01sRng5xdc8j7opkUZuBh0ah+resVG6q/ExBZ8235h55RR8UbD4u4V1YA/0sEieoCQQD3koGkltf96uvC8p9aBz9dKVifqy3IUyvKm0y43HRFgGe857y9g8RA31fvsetc8jAw+xj1UpVMZESWzzJoEPc4MN65Hp9jOufrxxw8=
+	t=1789730833; cv=none; b=bjzzIvMRWSk9DZZD4LqC1DcGk/OTSI1aM6OS0IV5X3oHIOk+z03Vq2NTGgZ0VQfs6l6k1xoBK9N4/qHWCTeq7XDAytlsMGukoRjCmiOI1KPvcoqYpXY0p6Jr3SxdqTeVuEo0JsFF2Nw+eO4teG6WjAielQWjiE9xeaYKcM4yqHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730821; c=relaxed/simple;
-	bh=TdQGxkuEdE7R1M0nj31f1yB0sOxZGBoP6ChU17jobdA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e42gnh6vo0ShSHQ43Stv+sGAupeb4WlAuw/7kyco23w8D6OxXztZ8mCzAGN80iHdftlhk0eMXe5FL9a3ZdsFRUe/I6jw8wX4jKtxhTkZLtZU0HJMcHgRz5nKN+C/3YSkGd0PIcnWGnjN3QZmmnpjDVarB/IE60jQVkhXKQ1uEZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lchtrgx2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789730833; c=relaxed/simple;
+	bh=MTuf641jR4z9DAZ9uZUaNjh7g0R8Y2l3VjChqlVAxrE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j3iC5xsuuTAdNbx05k9KbWpmbPBaa8Spdj02yiaxsV2UbIpVF7bbkV2BeJ8TpKeTLJmd3lOtpX5xC3ywNGpCy1ORGc7E3ia7RiMlUUHsY6kHESq6NC6UJis92zOCKohq/teHqr09JgvIixkvrI3Mzh9VOG/7CClpQeiWMQaL4Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZgdtmtbO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lchtrgx2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C271F000FF;
-	Fri, 18 Sep 2026 11:26:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZgdtmtbO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BC71F000FF;
+	Fri, 18 Sep 2026 11:27:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789730809;
-	bh=rx9ZWGMxfrcUwXFlr3gvg3Bgz+hJZVKZ/ma27fs/PfQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Lchtrgx2zGQu2lYHfr6gssXLzk+UGIkGA2xRX5CF92vxPcOZiLPxZEEO1aYDkjvmQ
-	 kZx4Z0P8jhYpPXM12qu6XongV6EeyIKzT+TLoCnlRy324Hrh5qdPLZh3J0rc7cwwTJ
-	 0I63OEZIcsmoiy7ROdmITd4rZ60LG59cYaSQCi7TZYew21OqvxsnyKdJVdFmWtm6RQ
-	 bDUgxeJ/TWVzhYlPHTPhxtfSZ5kxH3NksxJdBc3tem+xGrDuEqnJgb0+3f3yZo1PWn
-	 XJSo0rFirDqOyA283iWjl+q80O78FcN0pQyhAZFLxAm8oiSYsj6+/fNidHU5Sl+YzI
-	 IjxsAB5FcFRqQ==
-Message-ID: <0693be81-8d89-4a18-9964-5f2c0ad62327@kernel.org>
-Date: Fri, 18 Sep 2026 12:26:45 +0100
+	s=k20260515; t=1789730825;
+	bh=MTuf641jR4z9DAZ9uZUaNjh7g0R8Y2l3VjChqlVAxrE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZgdtmtbO37i1L9n+C4k73ZyEKfQZdLUXTgNPGrIXQyENnXEBGG9RblJBxVKCGPSc/
+	 ubKiuN6HDTGptXbzh9OefaUNmzz5XAum/vtTm5KUQKHrlICBFRUPH7QTBlQFiRXmYg
+	 TUPLDPMbSlV+1OPoyzS/vJ50Lk3PrdWhcctFy0HApilY/agsH7Ac3pkf8cvpoXzaU+
+	 ibfYammaxYoavTyliWyZUecOQwcGiGaw1A3oxjw9lQFJ/dI3Krky6PhrhLjLeokJSb
+	 0R8waxd+2q9fSddqLHyuVrooclOjfK1hVu/kKAuTQuGapi+m1WHwuvYgXiF+8yetL6
+	 513t6lSd8W0yg==
+Date: Fri, 18 Sep 2026 13:27:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Omer PALA <palaomer100@gmail.com>
+Cc: nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org, 
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: iio: accel: add adi,adis16203 support
+Message-ID: <20260918-inescapable-crafty-cat-b03a46@quoll>
+References: <20260917080905.7654-1-palaomer100@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2 0/2] bpftool: Fix sparse CPU IDs
-To: Hui Su <sh_def@163.com>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, davem@davemloft.net, kuba@kernel.org,
- horms@kernel.org
-References: <20260918102052.1247819-1-sh_def@163.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20260918102052.1247819-1-sh_def@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917080905.7654-1-palaomer100@gmail.com>
 
-2026-09-18 19:20 UTC+0900 ~ Hui Su <sh_def@163.com>
-> bpftool currently assumes that possible CPU IDs are dense.  This is not true
-> when the possible CPU mask itself is sparse, such as 0,2-3.  In that case,
-> per-CPU map output labels and prog profile event-array keys can refer to the
-> wrong logical CPUs.
-> 
-> The first patch keeps dense per-CPU buffer slots separate from logical CPU
-> IDs when printing map values, and propagates errors from the shared output
-> path to its callers.
-> 
-> The second patch applies the same distinction to prog profile: userspace
-> keeps a compact CPU count for result buffers, while BPF event-array keys use
-> the logical CPU ID and the logical ID span.
+On Thu, Sep 17, 2026 at 11:09:05AM +0300, Omer PALA wrote:
+> Add adi,adis16203 support to adi,adis16201.yaml for
+> staging adis16203 driver
 
-Looks good to me, thank you!
+Bindings are not for drivers, but nevertheless you clearly did not read
+the discussions I linked in your previous post.
 
-Acked-by: Quentin Monnet <qmo@kernel.org>
+That's staging stuff. Are you again fixing some issues only because
+checkpatch told so?
+
+Best regards,
+Krzysztof
+
