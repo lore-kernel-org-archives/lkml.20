@@ -1,170 +1,151 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98CE35E956;
-	Fri, 18 Sep 2026 19:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B57522F18
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761591; cv=none; b=lGcXUfRSXMUi2C/0YgfGxhCIzKcCX9RUtQpXOWYibNobTFCZ5lJL3fhjpICVMvbVjnsYUcQJn0Qol9y/7hq2Gj20JAXCytIkP3iKI0xQHmqqK6GHhGBBUa+yrAn3V0juN28uIks+E70SapC2IEk1vBLwZTokXiQYzKDM6/FUaNc=
+	t=1789761591; cv=none; b=dQolROJy+XxeBJJYj5f8OT4u+wjdsGFPWzcXyz1s+3NC2+0kX2NTQx7ReXrpUUleiEd8f5oGasMo/KoeR4960tVEB+WAt2ku2sE9tm69NMNVPRyWjDRxT6AoXk9DPfMA0/D1WGUxqxJ+woJPwcYkptvaQpZxWaauFw/mDa4DDQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789761591; c=relaxed/simple;
-	bh=X9XU9RNBrOVJynv+zAUP6Ketsd7FbbI4e+VigF5/FUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JQcF4sGAa+z3rsYNbxUcheNWPH8MV+nzIMIFbCKfVRP8d0T3b/0LU7URWJRt0bbUG2GfY//vZPm4ftphfUgk8HE+BpGdcPvOGdADRzfTblnVKmsW80iTCqQGNU5TAkvej1NttrpPnBQCu5KYy9KfZ7wihxt8VfLlJSbCfP4dLdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rYYVoP6H; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=Jv9PmI2tuRQ6a0mGkf94vkgPMQlOdZGeXzjl16O8i00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uLEfyGeFdnm7JySBzuTXvRE63tQV9hoKtkseaWzXJQfb6Mn4hDQAKZ56ad46qlfnV1caQ4LqLr4j4cPBsMFO1PYjntWJk/s6/rbeHsS8+N7fVXi27CDobaWxjByOP0JwCgrJ6ZA8cE7ipE+eHwrbGIwqyU9TZdzZT36jdUrSc/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=ch2e604T; arc=none smtp.client-ip=74.125.224.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rYYVoP6H"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DDB474E4087E;
-	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 926E560649;
-	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC56010329075;
-	Fri, 18 Sep 2026 21:59:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789761580; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=15bsGnenTWO9f3acWlYUaevEUJQ4D57tNbNdixb/HX4=;
-	b=rYYVoP6HZ/kINjt3APcXnLuJqpawnWLKDB1V0qRK3Xqas5Ejw1IFJ6NIhtg2iZ+zzX35Dy
-	JEL/neYba+PerObIJn1zO/k4ML5KbV1zMQTPjQVho57lL/kjJLszyzbOxKA4mjGeYnusY3
-	Mz1RHbpix8RVFonFLdPwknzGmWm1decG68LShouuPCOWbo8tx5yF7JGuNuvD1PO4h8k/Z0
-	RlRFm2ujIU3x6Y3iAE/bbGqMh35UQFo/nfNgluTLoB0QS9NtrA/qV6GOP2AE2jmPGfj4uI
-	oKfJNNW5f2f7u9mfGh5TEoXfcVzXZS4+m8a+aSqm2d/VRN+Gj1MlfHEtuyRpDg==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 18 Sep 2026 21:59:35 +0200
-Subject: [PATCH net] net: macb: take bp->lock around NCR read-modify-writes
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="ch2e604T"
+Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so1070154d50.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1789761587; x=1790366387; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jFiXSu2V4pZ+QeomBn1c5HcWy5gtnzTo7Z55CduAixo=;
+        b=ch2e604TIxvi8hLh6mLXV0Kd6bTBiZI6iola+whhEHBQ/gRtNMLO9+O8h75SUTlcSD
+         ct4Fq4vTT/VWzsVFSc3o1K507n3fGuVDlzN1p1N7Lkdt1Oewd4iWhDCX9oexGV0yw1Uf
+         x2xfQyWszMMyEtpwNcapqacbwvHOBZrrOHwghHYVKP+FpxGbDBAq6+cwPnqMOmdXT/Wp
+         RmREmPUaX2sGnpVAZP5EJ1ONwPxNa2rNIQ/a9maVbyLwwsluXGxl9TM9z9D6C+ZEnGU5
+         8BEMTctHx5RvzLgo9Lu01MauixY+qjScYIhLTGc4EVl9uKr4tRuCeerFP6EutvGdfkxX
+         Sdmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789761587; x=1790366387;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jFiXSu2V4pZ+QeomBn1c5HcWy5gtnzTo7Z55CduAixo=;
+        b=pmYPFoaEcYU6vtjvzrADfsix92PvY6dMB7g0OlxaPNmUgLv6503ibczfnDMTSwAd15
+         SRTLvTfmI5T18pushK8vlA8leNof+sFhap0NTkbbJ7uE9FvR3kcwBemLUKgEyNUicQcy
+         MO1zcmhGU4lKwAnEtei1aUTNkaLLG43KgITsdSc1J8lIGXefYdnhKq+SxjFlEVqA9g/Y
+         rz/RtDUmkGOB+fL6ZXH9DRF8jy/AWJu+cvqY7z2b4CTXfXctfoLrzPoXoCy73lcbzSp7
+         zAHNiplaCFmx0x03yxoilfG+uUk2BpuCeKc8DbL6bk53/0siNp204DmFcdjJHx6HSjbJ
+         qpJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzm4LTwj8ILsgZujNk9El+KI2QNEQX1GaS/ShRV8AHrQ2diTFPZR0TuOUG42nkxTX/6RdQjiZRVvf7sgU4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2LCqePCRqX+z584VWPTLyUuFe+J8yxjh47pbw91TY/FTqQE+t
+	ycEK0ZKK+qCRuSxL86Gg73PriWoRFzBGpg4zNOv+x0QyUTjJc1k2DViOVTY1m+g/I8WO
+X-Gm-Gg: AYBFou0UcLXftQbmamCs5wdukOJtlzb+ewmspxwE7fXR5dEEyVWj6rJv3qwhTSEDG3+
+	CroZjb50A3RulgpAqOB9Ce43PNZLkY8cE3A4N6bpBQAiSbLvIk7RfRazLAJ512JRTIdUcgC8+Ar
+	SBGURJxhi6ITLxj4QVgyRqXD6awP89ZQP9a38LTnk7EkIXbUkGrxHdhyq8UzM0xvj2BMYV+JeXs
+	LOiKtBNmJBN5KTvZOot/nQFTHDu8ldNB/+ft/BHoJiydXttPrgwq5M4O8n5u1z0X/Wnd6gPYY6q
+	lnCcIi+tghx8z6ZOfSiou3d8plrOTSm0cyDWJdfJTWLMQJtJbwGHvLFQRAfCxQ3rk02i9P1fA0l
+	H4NefWFy4Seisn7TRpdT3pUUci4xudKd52qLFt89kK4WS1mARrU66laniAz+ReytM6JT5pOWy1v
+	0lXhZAuTC3inGWqH0fIH/UUUWVfmfrYeiwURup+nlkewWYpRYzZKC1HWdDiuyuiiXjj8QclDccp
+	psxoqaoF6u/qbufb1H4wkKyvT2/ElmQZ3nqLuKZKoJZcx2o3ZBljg==
+X-Received: by 2002:a05:690e:e89:b0:671:4d46:8d5a with SMTP id 956f58d0204a3-6717fcee54emr1347891d50.41.1789761587246;
+        Fri, 18 Sep 2026 12:59:47 -0700 (PDT)
+Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672990ab5desm406523d50.8.2026.09.18.12.59.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 12:59:46 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:59:49 -0500
+From: Andrew Halaney <andrew@amutable.com>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, bpf@vger.kernel.org, 
+	fsverity@lists.linux.dev, linux-doc@vger.kernel.org, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
+Message-ID: <aq2VxlttdlTNlHo6@toolbx>
+References: <aqyiCavj3xeNqyAo@kernel.org>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+ <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+ <715249.1789718726@warthog.procyon.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260918-macb-ncr-rmw-v1-1-30c3494f93cd@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2wrCMBAFf6WcZxeSFuvlV6QPTTzVFRplU61Q+
- u9GfZyBmQWZpsw4VguML816TwX8pkK89ulC0XNh1K5u3cHvZexjkBRNbJwlcOubHVs3uICSPIy
- Dvn+7ExIndH+Zn+HGOH1HWNcPyMFciHUAAAA=
-X-Change-ID: 20260918-macb-ncr-rmw-be5137e60f0b
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Sean Anderson <sean.anderson@linux.dev>, 
- Antoine Tenart <atenart@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <715249.1789718726@warthog.procyon.org.uk>
 
-NCR is read-modify-written from many contexts:
+On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
+> Jarkko Sakkinen <jarkko@kernel.org> wrote:
+> 
+> > This is great for discussion but what we want for the commit message
+> > is just motivation and resolution.
+> 
+> Actually, I think it's useful that Andrew wrote up the issues in the commit
+> message - and I think it shows part of the motivation.  The 'writing a fake
+> /proc/keys line in the description' is something I hadn't considered.
 
- - macb_mac_link_down() clears RE|TE,
- - macb_mac_link_up() sets RE|TE|PTPUNI,
- - macb_hresp_error_task() clears then re-sets RE|TE,
- - macb_start_xmit() / macb_tx_restart() / macb_tx_error_task() set
-   TSTART (already under bp->lock),
- - macb_interrupt() might toggle RE (also under bp->lock).
+I'll defer to what you all want in the message here, I found it valuable
+but I trend on the side of overly verbose admittedly!
 
-The first three risk concurrent RMW with anyone from the list as they
-don't grab bp->lock.
+> 
+> > I don't think we need all this just to say that /proc/keys in a racy
+> > query mechanism for production, which is an issue for dm-verity, given
+> > that nothing else is available.
+> 
+> I think at some point, we will need a system call to search all for all
+> accessible keys matching certain criteria by actually walking the key
+> database.  The problem there is that there may be multiple hits, so we may
+> need something like:
+> 
+> 	int count = find_key(key_serial_t start_id,
+> 			     const char *type, const char *desc_prefix,
+> 			     key_serial_t *results, size_t results_size,
+> 			     unsigned int flags);
+> 
+> Allowing you to do:
+> 
+> 	key_serial_t dm_key;
+> 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
+> 			 FIND_KEY_EXACT_DESC);
+> 
+> This wouldn't be as fast as a direct lookup since it would have to walk the
+> key tree, doing name comparisons and perm checks on each key of the type.
+> 
+> > And secondly special keys are meant for implicit keyrings so isn't
+> > that all there's to it?
+> 
+> I have no particular objection to setting aside a block of negative key IDs
+> for special keyrings that need to be accessed a lot - though I would make
+> common reg/unreg functions that take the ID to be registered and, say, set the
+> block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
 
-Theoretical bugfix only, it has never reproduced on hardware. Also note
-it does *not* take the lock hoping to protect against full races
-inbetween BH scheduling concurrently. We only want to ensure consistent
-NCR RMW operations.
+To be clear are you suggesting I do that for v2 here? Happy to make the
+change and add some reuse to the registration functions, etc. I'm
+guessing its fine to change the bpf id since its still only in -next?
 
-Fixes: 7897b071ac3b ("net: macb: convert to phylink")
-Cc: stable@vger.kernel.org
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+The only awkward bit with making that more generic is that dm-verity
+isn't __ro_after_init since its coming from a module possibly, and
+because of the module usage I also protected it with a spinlock in case
+someone's accessing it while you unload the module. Could just use one
+spinlock for the whole generic array, and drop the __ro_after_init I
+suppose.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..b58d3f01f2cc 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -777,6 +777,7 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
- 	struct net_device *netdev = to_net_dev(config->dev);
- 	struct macb *bp = netdev_priv(netdev);
- 	struct macb_queue *queue;
-+	unsigned long flags;
- 	unsigned int q;
- 	u32 ctrl;
- 
-@@ -786,8 +787,10 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
- 				     bp->rx_intr_mask | MACB_TX_INT_FLAGS | MACB_BIT(HRESP));
- 
- 	/* Disable Rx and Tx */
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
- 	macb_writel(bp, NCR, ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_stop_all_queues(netdev);
- }
-@@ -940,11 +943,13 @@ static void macb_mac_link_up(struct phylink_config *config,
- 	}
- 
- 	/* Enable Rx and Tx; Enable PTP unicast */
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR);
- 	if (gem_has_ptp(bp))
- 		ctrl |= MACB_BIT(PTPUNI);
- 
- 	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_wake_all_queues(netdev);
- }
-@@ -1995,6 +2000,7 @@ static void macb_hresp_error_task(struct work_struct *work)
- 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
- 	struct net_device *netdev = bp->netdev;
- 	struct macb_queue *queue;
-+	unsigned long flags;
- 	unsigned int q;
- 	u32 ctrl;
- 
-@@ -2003,9 +2009,11 @@ static void macb_hresp_error_task(struct work_struct *work)
- 					 MACB_TX_INT_FLAGS |
- 					 MACB_BIT(HRESP));
- 	}
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR);
- 	ctrl &= ~(MACB_BIT(RE) | MACB_BIT(TE));
- 	macb_writel(bp, NCR, ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_stop_all_queues(netdev);
- 	netif_carrier_off(netdev);
-@@ -2022,8 +2030,10 @@ static void macb_hresp_error_task(struct work_struct *work)
- 			     MACB_TX_INT_FLAGS |
- 			     MACB_BIT(HRESP));
- 
--	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
--	macb_writel(bp, NCR, ctrl);
-+	spin_lock_irqsave(&bp->lock, flags);
-+	ctrl = MACB_BIT(RE) | MACB_BIT(TE);
-+	macb_writel(bp, NCR, macb_readl(bp, NCR) | ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_carrier_on(netdev);
- 	netif_tx_start_all_queues(netdev);
+Let me know if I'm not following properly!
 
----
-base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
-change-id: 20260918-macb-ncr-rmw-be5137e60f0b
-
-Best regards,
---  
-Théo Lebrun <theo.lebrun@bootlin.com>
-
+Thanks,
+Andrew
