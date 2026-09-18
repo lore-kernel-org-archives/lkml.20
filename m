@@ -1,162 +1,202 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0A04BF944
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373EE3590AE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721984; cv=none; b=rSn0dJEHvWdxDs2K8B4nkAe9uQx03Hozagde5SDCq7KhMaj7zhJyj5yj+oA2ZyQ2skITMwGMaHnyCU+nhWdod4+gAgCdmWIxERcWu+A2vPvQrtY1EpEgwBmc19IsPSeTHqajYGg1I3DbzI0BcksezFQUTKJgOnxqBa3cxuTg6Nc=
+	t=1789722016; cv=none; b=WX5FIQhg6YQZPkaYtMWMiYbkNOetjTPJviMx2sieayMOI2npyQeoU/QjI+rw2fr1IG4x4fZmNoZhcqpNS57o5PTucq84p5E/lhZM+BTqREnBQdiSOquFeCaPhKu1HlzChiGJrK8UgftjwvWATknNcT6xPVeXXjfAmoP/G+sN81M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721984; c=relaxed/simple;
-	bh=ag8wHUMdvAkX5UXW/sgiiILfewkFHxwIL+3xC1CLLP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u/zMWoxCz0ztQovTc7n9OgIQcqJzTYMgGUqSd41Zx1uB5P2ZIBLjmzjU7Dkl3dQRCbRHgOobUXUivMYH6xTaICLcEvfGtInYgMuC0rYvJ2776Z5cyOZ4ODg4Zib8hX5+1nJNEh6MkRF4lRR7DQgfuUwWFZd0EroXPg2qbdquWOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tw7XcUZm; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789722016; c=relaxed/simple;
+	bh=4n1CyRHEyV5SVpfm1JQykNStsTaOrE34HywrL9qCtyk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HPB1sT69AlQVMTdeRZlqxATap8p26biPFRXE8DCcnVLIRkgQ8QK/KOjpo5H61GNgWPgm3XjzQr/oVTO4hAIBcIWcCvRRWz1oafBgMp99FyCIB9sVH0Dkvd9COfV3AGjfGam29LAJHdra957I9tXVxDhDWp7N34h1zOcF9oq+XxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Q+puGtie; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tw7XcUZm"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48431648f33so652234f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:59:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789721980; x=1790326780; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ebKeWW1b/FCTysKRCA2qCKC9jXPhUpw/tMxPeazltLI=;
-        b=Tw7XcUZm0rC0dkuh5w5E/veMnAhHyo0i7FcBH07sfDYi3aAAUsIle064UkwLQIZSMe
-         useq7JQAeSSaz08P4uG5jY5l10RZd7riLVIKipTE9RnSidBNPtYxPGEWSjBSnPqpNux2
-         qVzVyMbACCUE/cE4CgY/Kec/zkb0hCVMAz/BXbqxKszI3bTE5A3+TFTczN13inT5sLFt
-         Zm0WVYEHp4fl6PyZYQOO+yiI1UcBFS2DETFGYgkUW9tLY3uwCTRMSYNgt+A87U8/iJl8
-         fF4FViJlCDt6G3SGpB1D06SoBeUUvIyOIhYkF8ejii0kdeyP+cV23dJ4736Kqzd0u1H8
-         qbSg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Q+puGtie"
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E2FFC3F1E0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1789722009;
+	bh=+mE7Rgj77Vv+ava52jP42JJRVXXS81IMNvL+VWuifv0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=Q+puGtieaBe+wreza+617F0uQnfraruPrEBOqPvMdWE9fx3xN5m9/0+zIaq3UHYAW
+	 IpjtqZAvusmiuz8nieFT8rC51lPAo8/2hDjoCaNR/DSuKrrhdT4ZuapdSEdaKUc6hV
+	 ytPvWQk13fCBwhSORTt+JHBbktcoZdQF66oNYYeGJm+B4DIcnqf1Ytt3zyXzJk3yxB
+	 RuqzqPWLJJJsk0j9mymmO8UTMO1/GNxoMCz41gBQBAEOacOmdBIJe8c0yxXRBhcxZA
+	 086paiI0xFq2SHbs+8b2M3JfhIbyTpjWGieFzl5ixxZlidic5Ic4BhNxVZW2gdK+Og
+	 fT1zCvnhvpYJ/xqJ43AAiEhvrbLiozmQMQH5fC2ybjpBoZuvldYuRCCbzpgHQslghK
+	 gR6UB5lqkp/4SPXsugbgmv57lNPdqEVkk5mxDLQr4N8k/NQxVhFhC0pxz/4Prjpfnm
+	 z3Sr0EO8wi4HrAHFl50AJhNfA003JNlHNsQOEWI6D1Alj7mVMnTd+2gmVBOSoUDlNe
+	 4tdRFaE+/05/Ery+0zSpiVUS2hNoTUrYDpITEVjI4AtOU+c3f75J61L44Pf8mMBoym
+	 UlAr8a5N2s9OAi+nNlDzY75xje/dfjpA6Z9kNlxo2bGie4AibXXFLs4C8BYTeEkxW0
+	 crCJx5JqRQAFlk3X1MWULKSg=
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so913826a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:00:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789721980; x=1790326780;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ebKeWW1b/FCTysKRCA2qCKC9jXPhUpw/tMxPeazltLI=;
-        b=w9VIhKqph3D/JLHFnPd/MnphlYOfu18rrdTLEQ4bl0ChfSTIDjTvQlzmkYhwz+oOQI
-         GsNm5nZmOmXOacDT7aYt8RXRH+UlSgI2dfDCm4YPFZKjEG1LDQjjHJ9OLMf5UKuU6MOG
-         C7SPvVdsVTvrLVqOdS4bYNJsWUIr0diYTU80d8rXeG3KyAJmsbKDdd9IFjczZpVrd5Pa
-         XB6DcP/l482x+LQmeR4p9tUirHHbRhivxiEswOY96o2AhiIhf3r/iSZO8VcLq5Kr3wfZ
-         v86d6W/DLA8ckO9KAs4AVWT3jTGi+qFW2XDIh4t0CqReaxmV6rN+6Bbi+fuLGGbf5jEv
-         l77g==
-X-Forwarded-Encrypted: i=1; AKwUvBwUpMtcfoczY5rx9lDMojwZ/6GODqSL5a3fkQI+vb4wEDFPKjAqGNWO7NSc6neIcR/Iibs4En2z1UeML0E=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1k0xWFb6WB3r43GdHJZd7B2x+CrjYwNOdJibGo232xXQ2TIsb
-	luvCxlN+P7S5z+JukQ/cgQcQIc++0dhT+N6pUNFvVXbnRm0UGulB+H0YzvPGysXe
-X-Gm-Gg: AYBFou2i23eFztIEdC7lYmUyEhQOu9lsNIsZiXETCnyMS9v6icxcEXQtd7QEFhIpWXd
-	3Nw/UE01BKeTT8B2fVOarw/NlVTA4Lur/k4suiW6daJdGBR4p5al7R3kHFscfYzySVqGVT5X924
-	cHzQxnkMSussh92OBeNqjNwjrs8/oJtJdHWfKCdFl1Kx7zWmH6hUSlV67EXmdDF4IMkjHhZOG45
-	Jcp2NXyaNpzoXywOSdDy65hxqUp5NyhzD6sHmkt5qB8JYcDD3IR8jKzTggkePyFgn1qsLakZXxw
-	VtKPa94d8hexfCdWzX8rnyIkFK6+w+pDsz/Pp2uZbYiETFeu6rqiyPM4bEIGWr1nlR97KwUz8VL
-	pqug7GYKzyPw18KSm7qn01jqE03u3egOlSro138yIsDNBkCEJwAvatdScjoJHeEFpzlgmHLdsCi
-	8LEoq2+GrOosuvXRnvXvjq7Pw3zei+yCS6wkzAlJWDXeHFB4bNG18F95UxVNBcb2Yn89vRr7h+K
-	TPOnNirI8c3iYs2h5d6EIP332koHGYT94x+
-X-Received: by 2002:a5d:6f06:0:b0:485:8d9c:47d2 with SMTP id ffacd0b85a97d-48713c7ef38mr9129868f8f.30.1789721980248;
-        Fri, 18 Sep 2026 01:59:40 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008f34dsm2547841f8f.36.2026.09.18.01.59.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:59:39 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:59:38 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta
- <vgupta@kernel.org>, Guo Ren <guoren@kernel.org>, Yoshinori Sato
- <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, Chris Zankel
- <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann
- <arnd@arndb.de>, "Paul E . McKenney" <paulmck@kernel.org>, John Paul Adrian
- Glaubitz <glaubitz@physik.fu-berlin.de>,
- linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] lib: Add two-byte cmpxchg emulation function
-Message-ID: <20260918095938.6082a31a@pumpkin>
-In-Reply-To: <20260917163830.3748-2-brads@mainlining.org>
-References: <20260917163830.3748-1-brads@mainlining.org>
-	<20260917163830.3748-2-brads@mainlining.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20260707; t=1789722008; x=1790326808;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+mE7Rgj77Vv+ava52jP42JJRVXXS81IMNvL+VWuifv0=;
+        b=HQ77hIOTacJR+U6TRYGBoIcFo9/NI7vvrNEn839eD5P/EQJqQMK5YRcnLUPQ7eoTCG
+         OrlKiJUdUrMmeZig8GIpD9eLyyvnM9lyQlRJ9xj9eiM3zVkRv17uafjXGfh4JqMvi7mO
+         lZQh4Jst2Qf9c77wp/tsNrnkczoL3am10e/G5WSiLy9PxO+HhzYNbwfEBKnSJ5L6uvGU
+         hKDJ0+SED0iU7fMydtPpx+nCo+RzJj6MiKzdr62DgCKV78+zzWtb9uVXrqtETY6Wv402
+         UYpXpSZkCL2j8d6mRt0KwBCfIQPv6EjtWTViUovMXnXrDCW3Jik5n+cvLYp3Qk3qAsdc
+         LUpA==
+X-Forwarded-Encrypted: i=1; AKwUvBy294moIKhj/NCBhPjPBAJE9mnF/AcuPBl7Wia/bk6GoOYpb3NQzyYnlM/2LceWzWbpqYWYSZDb5qTqqEk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4SMKJyz5uuYxdIm6YlNzCpy0nUAvIWiD98Qzq9Nk/y93512Yh
+	UUmRMjS/6qHxlbkEmHz/0jyrzZOhgogOna3+ShfIcoHn9K3euJP/3T3pBu/ShU4Edm6DlTI8f75
+	q9JyDWMUcIzyq6cqE1eJ12s9hOhnEj+e5iMpJD4njMZQjKNcIhu3gn7p8KoM44pDNp0l4nA8lj/
+	9I5dNTig==
+X-Gm-Gg: AYBFou0D0TPAd3lopDGj++IkMLLfS9jowmvFoEvH9gnjn6Tgo/PqXKiy7i+gs3BjR98
+	hdS3kEdA0obtrkPF09+qZ6I7i+J10Atf+nZiGaiJXiWfF75zyRbWUDU8WcWuUhjkbA0tONkVjBw
+	4N+2N5aTkGj9xHtziUfxl/n/v6cKJ5YYI5ozmQeGJTRUqpD+SsygxfVcZnH2bOwfgQB6I3+8RxH
+	HHlAbh/5N+iWHTfsCLZLd/42/3Ho8OinPOrx3tuxIB0L3iXtjKnHLy0Iys+Bh8IeFEvYLfNVgFF
+	Xa6wKOk154aTYBvIT5nDRa6cIB6aNI1uziAL3AXd5rXYoSCuMzu1vpPIu7lKL60TftJdvWoADWA
+	Bn6iFU4P2l056XNY=
+X-Received: by 2002:a17:90b:57c5:b0:39e:3554:4d0e with SMTP id 98e67ed59e1d1-39e54c584c7mr7802655a91.1.1789722008396;
+        Fri, 18 Sep 2026 02:00:08 -0700 (PDT)
+X-Received: by 2002:a17:90b:57c5:b0:39e:3554:4d0e with SMTP id 98e67ed59e1d1-39e54c584c7mr7802548a91.1.1789722007897;
+        Fri, 18 Sep 2026 02:00:07 -0700 (PDT)
+Received: from [192.168.192.72] ([50.47.147.90])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39e5a50cd09sm2095690a91.7.2026.09.18.02.00.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 02:00:06 -0700 (PDT)
+Message-ID: <da2651ff-ecc8-4b7d-b9f3-99f148844ff3@canonical.com>
+Date: Fri, 18 Sep 2026 02:00:05 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] apparmor: Fix label reference leak in aa_unix_file_perm()
+To: Greg KH <greg@kroah.com>
+Cc: Ryan Lee <ryan.lee@canonical.com>, Wentao Liang <vulab@iscas.ac.cn>,
+ apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, paul@paul-moore.com,
+ serge@hallyn.com, stable@vger.kernel.org
+References: <20260917164136.2162858-1-vulab@iscas.ac.cn>
+ <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
+ <760b1f31-32f6-44c6-8a5b-991f228a327f@canonical.com>
+ <2026091851-recent-ungraded-23eb@gregkh>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <2026091851-recent-ungraded-23eb@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 16:38:26 +0000
-Bradley Morgan <brads@mainlining.org> wrote:
-
-> cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
-> cmpxchg() for the architectures lacking native one-byte atomics.
-> The same architectures also lack native two-byte cmpxchg(), where
-> such an operation is not supported and either fails to compile via
-> BUILD_BUG() or fails to link, because the bad pointer sentinels
-> these architectures declare are never defined.
+On 9/18/26 01:24, Greg KH wrote:
+> On Thu, Sep 17, 2026 at 01:18:20PM -0700, John Johansen wrote:
+>> On 9/17/26 12:19, Ryan Lee wrote:
+>>> On Thu, Sep 17, 2026 at 11:59 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
+>>>>
+>>>> The inner block in aa_unix_file_perm() re-declares plabel, shadowing the
+>>>> outer variable that is released at the out label. The reference taken by
+>>>> aa_get_label_rcu() is thus lost when the block exits, and aa_put_label()
+>>>> at out is a no-op on the still NULL outer plabel, leaking one label per
+>>>> permission check on a non-filesystem unix socket.
+>>>>
+>>>> Drop the shadowing declaration so the outer plabel is used and released.
+>>>>
+>>>> Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correctly updated.")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>>>> ---
+>>>>    security/apparmor/af_unix.c | 1 -
+>>>>    1 file changed, 1 deletion(-)
+>>>>
+>>>> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
+>>>> index fdb4a9f212c3..ecb40cfe7e14 100644
+>>>> --- a/security/apparmor/af_unix.c
+>>>> +++ b/security/apparmor/af_unix.c
+>>>> @@ -758,7 +758,6 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
+>>>>                              unix_fs_perm(op, request, subj_cred, label,
+>>>>                                           is_unix_fs(peer_sk) ? &peer_path : NULL));
+>>>>           } else if (!is_sk_fs) {
+>>>> -               struct aa_label *plabel;
+>>>>                   struct aa_sk_ctx *pctx = aa_sock(peer_sk);
+>>>>
+>>>>                   rcu_read_lock();
+>>>> --
+>>>> 2.34.1
+>>>>
+>>>>
+>>>
+>>> NACK: this exact patch has been proposed before, and unfortunately
+>>> exposes an additional latent bug around plabel handling that results
+>>> in a use-after-free if the shadowed declaration is removed without
+>>> additional fixes.
+>>>
+>>> I can try to dig out the relevant exchange from the AppArmor mailing
+>>> list later, if you'd be interested.
+>>>
+>> The series Ryan is referring to is in Linus's tree, so you should see the
+>> fix rolling out to stable kernels as well soon.
+>>
+>> 6d25e7b47616c apparmor: fix refcount leak when updating the sk_ctx
+>> b1aea2c196077 apparmor: fix race in unix socket mediation when peer_path is used
+>> 4483efe4f2151 apparmor: fix shadowing of plabel that prevents cache from being updated
 > 
-> Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
-> word with READ_ONCE(), splices the two target bytes through a union
-> and loops on cmpxchg() of the full word until the compare succeeds.
-> Like cmpxchg_emu_u8() it is fully ordered.
+> These are all in stable released kernels already for many weeks, so how
+> is any of this still being reported?
 > 
-> Unlike cmpxchg_emu_u8() it casts the old and new values to u16
-> internally and returns unsigned long, taking the old and new values
-> as unsigned long, per the suggestion from David Laight. The switch
-> statements in the architecture macros instantiate every size case,
-> so a cmpxchg() on a pointer type checks the two-byte case as well,
-> and a u16 parameter or return would make the macro casts and return
-> conversions warn there. With unsigned long parameters and return the
-> call sites need no narrowing casts, pointer exchanges compile warning
-> free, and the function still compares and returns exactly the 16 bits
-> the caller asked for, which matches the hardware cmpxchg r16
-> behaviour where a 16-bit compare only looks at the low 16 bits of
-> the register.
-> 
-> The Kconfig symbol gating this file is renamed from
-> ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
-> selects both the one-byte and the two-byte emulation.
-> 
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Suggested-by: David Laight <david.laight.linux@gmail.com>
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> ---
-...
-> diff --git a/lib/cmpxchg-emu.c b/lib/cmpxchg-emu.c
-> index 27f6f97cb60d..ac1c84383887 100644
-> --- a/lib/cmpxchg-emu.c
-> +++ b/lib/cmpxchg-emu.c
-> @@ -1,10 +1,11 @@
->  // SPDX-License-Identifier: GPL-2.0+
->  /*
-> - * Emulated 1-byte cmpxchg operation for architectures lacking direct
-> - * support for this size.  This is implemented in terms of 4-byte cmpxchg
-> - * operations.
-> + * Emulated 1-byte and 2-byte cmpxchg operations for architectures lacking
-> + * direct support for these sizes.  These are implemented in terms of
-> + * 4-byte cmpxchg operations.
->   *
-> - * Copyright (C) 2024 Paul E. McKenney.
-> + * Copyright (C) 2024 Paul E. McKenney <paulmck@kernel.org>
-> + * Copyright (C) 2026 Bradley Morgan <brads@mainlining.org>
->   */
->  
->  #include <linux/types.h>
-> @@ -40,6 +41,35 @@ uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t new)
->  		instrument_atomic_read_write(p, 1);
->  		ret = data_race(cmpxchg(p32, old32.w, new32.w)); // Overridden above.
->  	} while (ret != old32.w);
-> -	return old;
-> +	return (u16)old;
->  }
->  EXPORT_SYMBOL_GPL(cmpxchg_emu_u8);
-
-Where did the (u16) cast come from?
-If you want to mask 'old' to 8 bits it would be more reasonable to change
-the function prototype.
-(Although I can never remember whether the caller or called code is
-responsible for masking the value.)
-
-David
+> confused,
+> I don't know, my guess is either using a distro kernel, or not having updated
+to a newer stable kernel. I should not have said "stable", I should have said in
+updated kernels.
 
