@@ -1,82 +1,134 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AD44B0CBD;
-	Fri, 18 Sep 2026 08:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20769485CF7;
+	Fri, 18 Sep 2026 08:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721540; cv=none; b=dLG7VhfrTbUNSQyd4KHtWrD9HZat8HI4b/mEHhTPHn7YzXXgsTzpfQi2INrLb7szIQD8dgpqOp4dfX8+iOfXJyUo1l7jPSzIqbYuZiYXMWyFcdPCfvUduHmT5TK+yuWmS7dwNynbhsb9NXtGMqsVjDTQGGRaOnymC8MJqKglX3Q=
+	t=1789721654; cv=none; b=KouslKIsBpgfLYbRRbseNlQsx0/rVIHg4Jp60rAMbHh4zJ47xBGx5PCaJtBVsEKf2nJzohwe3qXEmEON9B67Zq4reNgCn4pPEB+FvRcj5CyF/67faB1fBav+vUOWSRLv609BtAxn8XLGRNoT1e1ERd1/nS0BPyKCIA9pWPvdXpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721540; c=relaxed/simple;
-	bh=oGSwTCGLU0lDyVnVluF/I13nX51dTEK+ToseuDxh2K4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sqit6MzpCXm6zLnNHyENyTkbbhOgunaUyyDB5sLFmEjhJdy6S3faQQP0BWoNebEx2EWijcPwA85Xo7pg2k9HMNzxPWHOPC6PzJhu7eE1DjVNR1Smp2mduawxtaTRqDFSIaWWDPnbyW62SAn/oANEFlcXfbpP1rQj8WaVPefUtCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=rXjMkOHs; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1789721654; c=relaxed/simple;
+	bh=/9TCN4nj48er2nF+5svVR6bjZx5z5MT9HxKzhS8mbPg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VjClmcu1YEKIssIlpIa6gFH0hLzvQkd+1RmucAfhLTU162ioQUkiPDTyX3lGU2Z0iP3QFe6JqYX+Y2loweaxynZZQI9POzsNPuTT9UivgnTY03Ix99EtPkK/SPPLrOwWJXq+0jC8totVXo05MQLyIAxCkYfp2DJznrzRCjZNGgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5heMBhi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="rXjMkOHs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=jZLW6WJFVhU+LLcc0daYjVscse94JVPYOxGjDJR0vBY=; 
-	b=rXjMkOHsvMByvr71y5p+y0r71KilPSIYOu8eNXw4WC11O8yYs1nKEia7AM4+cPvShrLMqUt47Q0
-	sJa7OEkh787LVVtCyhijiuxdIwOQeh8O0hVjbVKxIXQ2dm69mDKnkR+ARJBt1342sfRUfT9ZO59iT
-	24+C/ghYXwyoFhtEhtgYrX1CqN89hUlOxKK4yznXp4/2eGCh1qO/9vNZcm0AufNs8x+c8dq4c2Au+
-	7bTxnzb5LskhfBBGYPcZ1fq9XHORGFwA1EAZEaJBK1LRYQ0yoGeM7Vdy4rnGR0IvzZxnYyxUtpv1E
-	eJfVXsCJg8gmkGo69Oexa/aZDUYaV2R9pTNg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7UKD-0000000FKg2-0EvH;
-	Fri, 18 Sep 2026 16:52:06 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 18:52:05 +1000
-Date: Fri, 18 Sep 2026 18:52:05 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-Cc: clabbe@baylibre.com, davem@davemloft.net, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: amlogic: Fix IRQ handler return value and
- fallthrough logic
-Message-ID: <aqz7tT10SEMCrwV4@gondor.apana.org.au>
-References: <20260908160120.4805-1-raizudeen.kerneldev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5heMBhi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A092FC2BCFA;
+	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789721653;
+	bh=/9TCN4nj48er2nF+5svVR6bjZx5z5MT9HxKzhS8mbPg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=N5heMBhiUdbRycjA66PMTBjUd0NULsArduaj8elWTzE33EG7piDFAIG+MbpZXUE7C
+	 9MchWNwOnUb29ixyQdfT3izy59RGjld9d2btsoo/Y+9MR/FaQ1BL/DUrlYAcKDUIY+
+	 un7RBXjSSb4beSCa9lXywyg4W/dMrbDB/JdEXz7BWmMowjkNVkKNrYlylOhpVr8lmV
+	 bfIaT6ZcX6xqI31PW5kI4+Yr8F21uQ0c6qlaBGY0BDo83wHhPuDPVx2oOBsALW+Ch3
+	 y2ab+He++k1KQJYad2IFexvES7WJX3+jihVtp9Dhz83sHgM8OHu1wTYO2CevZ7j5S8
+	 M1vNLO+Dou2xg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8257AC982D2;
+	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
+From: Jingxiang Zeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
+Date: Fri, 18 Sep 2026 16:53:43 +0800
+Subject: [PATCH 3/6] mm: page_counter: drop protection fields from struct
+ page_counter
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908160120.4805-1-raizudeen.kerneldev@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-descriptive-name-v1-3-dfcfdd91b456@tencent.com>
+References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
+In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Oscar Salvador <osalvador@suse.de>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, cgroups@vger.kernel.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ Jingxiang Zeng <linuszeng@tencent.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721651; l=1721;
+ i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
+ bh=GADlg4c7MuNMFrgGvBXbc27o0HpJUKcrZX5lbsFPXjs=;
+ b=1jXeFmMF4d9zQQS9hsdMiN/aPBms3k02q4O+kWhQZ8m+MkzNteDbtTrmxJgIpSWeZDVGUAUdr
+ L4jsYEoTO8mCLqkgVNx9pNECUvDG3RsxJoXyoLpns9C1TmS/Ppv9kUl
+X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
+ pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
+X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
+ auth_id=1017
+X-Original-From: Jingxiang Zeng <linuszeng@tencent.com>
+Reply-To: linuszeng@tencent.com
 
-On Tue, Sep 08, 2026 at 09:31:20PM +0530, Mohamad Raizudeen wrote:
-> In irqreturn_t_meson_irq_handler(), when an interrupt matches a flow
-> but the status register is empty, the driver prints an error but
-> doesn't return. It falls through the loop and incorrectly prints an
-> `unknown irq` message.
-> 
-> Fix this by returning IRQ_HANDLED immediately after the error print.
-> 
-> Additionally, the handler returns IRQ_HANDLED for genuinely unknown
-> interrupts. This masks false interrupts and prevents the kernel from
-> detecting interrupts. Return IRQ_NONE instead for unhandled
-> interrupts.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
-> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> ---
->  drivers/crypto/amlogic/amlogic-gxl-core.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+From: Jingxiang Zeng <linuszeng@tencent.com>
 
-Please check
+The protection state now lives in struct page_counter_protection, so
+remove the emin/min_usage/children_min_usage, elow/low_usage/
+children_low_usage, min, low and protection_support fields from struct
+page_counter.
 
-https://sashiko.dev/#/patchset/20260908160120.4805-1-raizudeen.kerneldev%40gmail.com
+Also drop the now-orphaned _pad2_ padding and its comment: with the
+protection fields gone it no longer separates the read-mostly fields
+from anything, and the structure's cacheline alignment already pads the
+tail out.
 
-Thanks,
+swap/memsw, kmem, tcpmem and hugetlb counters no longer carry this
+unused state: on 64-bit the structure shrinks from three cache lines to
+two, saving one cache line.
+
+Signed-off-by: Jingxiang Zeng <linuszeng@tencent.com>
+---
+ include/linux/page_counter.h | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+index 5020e62aacb4..27467bf3b8e6 100644
+--- a/include/linux/page_counter.h
++++ b/include/linux/page_counter.h
+@@ -56,27 +56,11 @@ struct page_counter {
+ 
+ 	CACHELINE_PADDING(_pad1_);
+ 
+-	/* effective memory.min and memory.min usage tracking */
+-	unsigned long emin;
+-	atomic_long_t min_usage;
+-	atomic_long_t children_min_usage;
+-
+-	/* effective memory.low and memory.low usage tracking */
+-	unsigned long elow;
+-	atomic_long_t low_usage;
+-	atomic_long_t children_low_usage;
+-
+ 	unsigned long watermark;
+ 	/* Latest cg2 reset watermark */
+ 	unsigned long local_watermark;
+ 
+-	/* Keep all the read most fields in a separete cacheline. */
+-	CACHELINE_PADDING(_pad2_);
+-
+-	bool protection_support;
+ 	bool track_failcnt;
+-	unsigned long min;
+-	unsigned long low;
+ 	unsigned long high;
+ 	unsigned long max;
+ 	struct page_counter *parent;
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.7
+
+
