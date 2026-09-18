@@ -1,384 +1,207 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14443DEFF0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDBE3F1051
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771330; cv=none; b=t3QbGCzsZrKUXwWDagioVrKriBs0hqrfcGMVVO1dZv1Ynq4SjW86OKXeFHPg/Q3+ABX09sYJaDcOao0XYNiLkjsTIsXj3/zHSkvH9+waSY1UP/pFFz4um3rYz+86ffEHZcREcS2Y2l7+p34ivYdOairdoDf9sYOHGNFdSlzmW14=
+	t=1789771333; cv=none; b=Qefx2UF5Gs5H8PopmpxyJ6M6yyTucQJtmDW4kD7AiqunTbJfVa2GGaGM7DoVgzJ2a5eECVlC4SSslf+BKx0eMZltxy6aHvErRFy05m8ZFZP49NtAqtwXXOjBztT+FR0anXBYkuwWjX8iA8IV5vn1DkRS4TarOb+QYaIZYKf46AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771330; c=relaxed/simple;
-	bh=UvOTjNjhRMWn+6aReyecUeMOnxhlWC+ElJeng3V4UkE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=fZUvKrxZ1xIh+V3LBtW2T9rXdGPDsMAa85yhB2sn7qxpUTdprM4wiow6Wc81kiT7/KvwNMrK+Kucj5djaG4IsJhW8M8Q1ihhGtT25euG871S5Z+VYpQhangwGNYqyOfd8nq/UXjatjDSdIyu5MjxKXZLY9+LCnf5DlHhpaoeZms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZWtwpMkN; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
+	s=arc-20240116; t=1789771333; c=relaxed/simple;
+	bh=MDJCbyT1cZKehkQnaZ+gHgHSuZG6wMy9EnrQdAHKmyE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MqcHEW0BiuM6KjA7oIcCDfVxs6/qxRR6FvxV60KrQeVQrG9dXoVf6Rrs4vyJJxpaQY9tpSilTTWoJDnjboepdjeQNtXKfP/DW1e/HUNu+S/lVd/5Ur6xeFat2ZRHB7vgCmMMRs7ZU5EFnUhUX35y1eByvQw+dmmsr0rymhN9Xag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kdog0l9G; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZWtwpMkN"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39e3dad7ab3so1722889a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kdog0l9G"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so774400f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789771327; x=1790376127; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FdiHHTW8jQdaUExNu6inxQj8ZzPR+EGZJy91h77Y1gw=;
-        b=ZWtwpMkNEkDeAJcWLLQs8GAM/7rk0xQ5AX3O6NQdKYFYOE63qV2czawyvwzTgGO59B
-         MVRNx366a86x4fhWoV/RfctBbh09JGCMQ7ZnwbpMkicCUxXhpU0ok9lQrunX+1VETNMb
-         skYxGrq/UhCHpNOhF4jFQUWV+xG3oL/g3unPli+IlPRQzbO08ay9Pm6stAEM89p2ZJyU
-         H+rIAoe08+bh+Uk6mH4DyKQTlImdRXblU/wqY5kr7U8WcN1kar/RmQDOt+DIbhWLkHL8
-         /Su5M8NGgahdkXVZbEDTmNqGYASmFic9hcyog2uQRs8yAJL8UBZlDXbnS9uv7lNkdjgo
-         H0vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789771327; x=1790376127;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789771329; x=1790376129; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FdiHHTW8jQdaUExNu6inxQj8ZzPR+EGZJy91h77Y1gw=;
-        b=byTm6gQK7PEesBqB01DfB49naIrANl6WxOSqDPmPJrUQzkRLx5q55g1ruZloAIqXM8
-         JwNVPtuIdZohWuah53rr63HPdYL6J/aUkQxTVvWtMacq/T/MMaV7KNhW4ngsNzERu8Sm
-         ywox/ITJXqMwcwClsOmCJUVi2mP5oDBDx3ESz6zpUyuX2+sGZ7sRaR1TCfVRG+ZjlyjI
-         GZTXsWX7i4LVnFiC3mPTyv3tuhldeQnYBPLWAEumWzK/X68upSadvWmX9h63+I08Lvj2
-         wUPdGI5KBP/mSlBmjvPHlhEZ8N6BdPwMrFLjEQc7Js1bp5xX8g/dF4Ho9q3sq7YhqKkh
-         y2wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzhMr4tEn0Sq0bH82bHr2zQrnBgpFxjGoeag0q1Adg9x4rB9ht0V9HGpUgYGV2TQ+l22cKYKZruApZj7pI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMTdTJ8rIa9EhHOE3um84jS6I/anskVwsqBlk1O5ezLGCoEuBu
-	QKLTObhpsCOe//5S2X4bwSqYStCALRyPiAyVS8LQX9YDurmazJ5geJVAjX3D3zH+1GqM30NB5vC
-	alQ3/rpsK1B/wVYSk4u9224zVKA==
-X-Received: from pjbsu6.prod.google.com ([2002:a17:90b:5346:b0:39b:a3c6:1ea1])
- (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:4b85:b0:39e:6c6a:2096 with SMTP id 98e67ed59e1d1-39e6c6a22e1mr1278154a91.55.1789771326899;
- Fri, 18 Sep 2026 15:42:06 -0700 (PDT)
-Date: Fri, 18 Sep 2026 22:41:48 +0000
-In-Reply-To: <20260918224157.1471085-1-dylanbhatch@google.com>
+        bh=QQ881rFR4Wp25hA4A3PpgsR4qeoeCRIW/99haQ5+2Ks=;
+        b=Kdog0l9Gs/Xi50rhgcwgQjCLXO9AiCs5F7/EXOdT99b+GHQ4+QmfEB0i8dy5U7bt7E
+         sTyYDt3i2zZTakZAKX592tGbyXiRw9PM2tlpI+rBIZl3Mr/bF8bziluEXGqLNlD6Y3Fb
+         t2lWolLKr2G/PdqUpDeAiP7JJzMg9jplGbKStrNNLn1Vk/btAT+QGGuX+uj/rvEIVKcD
+         gyxlgzIOvhmbdEfLmcDq86nKrR2LDbKXOZTbClOhu0QffNAcM5GmtOwS3wz1t0VUc8Ob
+         LKeZq7fDjQxRsZ18qgocou8tdrnt3j61gYKQpLBt/x+P6H2/bA/Vjik4QBtpK3B7TeNm
+         zU/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789771329; x=1790376129;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QQ881rFR4Wp25hA4A3PpgsR4qeoeCRIW/99haQ5+2Ks=;
+        b=cz72fgsjmDo8QzDXabnyuIH84ssTCGGr4tx+B20iYulrHZtdtRXxiMC/jU0uIujOqC
+         ibvtIgeb1TMt8KRsTPeJBU5gYuf1P3OPWRmqAvR2UQ9872t+vv1p/oN79U+JefUkJ5Nk
+         f4nA3122TMH0u9bDRsqElQvFHsL5slP6WtHsbvWQe7bQC1NGp6UvhtsNh5W4tmopJ7Tb
+         nKOVgFQf6q5GqlYJGsq+XbwHlL+KZM/X+fFNtAVuVAG2lZP4ZGJLh6Fa3Edy02NOFb2b
+         aIgGCJEVagFjykplJmhVc67XJx3UX6/aq3T3fQQEjNveDhEQ6npx2rviVXgPniQxXSTr
+         q+Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwjIqvQA0JXVFd5dPhNFflwcH28FOM+29saYsVa/5ARiMSQ2mq3gXJ7zxB3Oxx1gB5wr6htM0DVanXObFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lybZP7vADvE7fWLy0ZBJpi8rg7+zKA+TWgoAWIwUgUGXtY3e7h
+	bsKozgF5LDcMb1YeL3GZ0rOrSvP7OviPMb/KnQOaBpTsFtPzomtybte3
+X-Gm-Gg: AYBFou30YLaPmHhvC3TKKiXo6vz5857rLgDRSb7SuRVZB4mdSJoNq8hP7ElkL6o3cz8
+	hPosIaMS4OaPGTsoNKpqWjlxGelRSJeJdLTRyZMpdHe/2CR6hrWAwPy73piBEyoajr9gXMtR+8u
+	UOvvRMfQLN7b19r0zu9mkWFEOZQGmcClaKxUfVxdMIyl0yEmQn6xDIm1EdAI249cvMeUOjOkc5P
+	0LZR/pR8rHdegyDUv4tUg9yJs0HR3TGRyKIFAu0CZLn9sHOEfpl+vRyRDT/P3ahiHVy6XU/DPJf
+	Hsxdfszn+RZMbVW07YlL0frdZPPTyncRhe8oGrf/o3nubmsRRrETLptn0PIsMIbB2hxPHDxeJQO
+	6nHYSGiNgjcDXtszS5JknzWKX+pCQRR1VQrODuPsdS71L7w5gxeaWaglz88EkPiUsXM6pLDhE4+
+	BrwGJCkraTz0QRkWx4+mB54zwiy9ljDA7EyGhzMg5HPbMREHKzGRDI2/6f5vMP8lCeF9vHfEZUR
+	DHCtP7GaWAEsQ7rX0Tpj8ZS3LAddU9FZKpXRGWgMmA+ROc1YCQdHL9JhiEOvg==
+X-Received: by 2002:a05:6000:2304:b0:484:3200:b7a1 with SMTP id ffacd0b85a97d-4871e25d894mr9927251f8f.13.1789771329034;
+        Fri, 18 Sep 2026 15:42:09 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.102.245.114])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459d72esm2052930f8f.34.2026.09.18.15.42.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 15:42:08 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com,
+	glider@google.com,
+	dvyukov@google.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+Subject: [PATCH v3] dcache: unpoison the inline name buffer in __d_alloc()
+Date: Fri, 18 Sep 2026 23:42:04 +0100
+Message-ID: <20260918224204.3056-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914192926.1591-1-drifabdelmalekmohamedsaid@gmail.com>
+References: <20260914192926.1591-1-drifabdelmalekmohamedsaid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918224157.1471085-1-dylanbhatch@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918224157.1471085-3-dylanbhatch@google.com>
-Subject: [PATCH v7 02/11] arm64/sframe: Read vmlinux .sframe header
-From: Dylan Hatch <dylanbhatch@google.com>
-To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
-	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Indu Bhagat <ibhagatgnu@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Jiri Kosina <jikos@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Jens Remus <jremus@linux.ibm.com>
-Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>, 
-	Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>, joe.lawrence@redhat.com, 
-	linux-toolchains@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	live-patching@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Randy Dunlap <rdunlap@infradead.org>, Mostafa Saleh <smostafa@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Josh Poimboeuf <jpoimboe@kernel.org>
+syzbot reported:
 
-In preparation for unwinding kernel space stacks with sframe, add basic
-sframe compile infrastructure and support for reading the .sframe
-section header. Add init_sframe_table() to read the vmlinux .sframe
-header at boot.
+    BUG: KMSAN: uninit-value in dentry_string_cmp fs/dcache.c:291 [inline]
+    BUG: KMSAN: uninit-value in dentry_cmp fs/dcache.c:322 [inline]
+    BUG: KMSAN: uninit-value in __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
 
-[ Jens Remus: Add support for SFrame V3.  Add support for PC-relative
-FDE function start offset.  Cleanup includes and indentation. ]
+     dentry_string_cmp fs/dcache.c:291 [inline]
+     dentry_cmp fs/dcache.c:322 [inline]
+     __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
+     lookup_fast+0x194/0xa40 fs/namei.c:1854
+     lookup_fast_for_open fs/namei.c:4545 [inline]
+     open_last_lookups fs/namei.c:4579 [inline]
+     path_openat+0x9ef/0x6540 fs/namei.c:4856
+     do_file_open+0x2aa/0x680 fs/namei.c:4888
+     do_sys_openat2+0x17c/0x390 fs/open.c:1395
+     do_sys_open fs/open.c:1401 [inline]
+     __do_sys_openat fs/open.c:1417 [inline]
+     __se_sys_openat fs/open.c:1412 [inline]
+     __x64_sys_openat+0x240/0x300 fs/open.c:1412
+     x64_sys_call+0x2445/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:258
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-[ Dylan Hatch: Repurpose patch for arm64 vmlinux. ]
+Uninit was stored to memory at:
+     copy_name fs/dcache.c:3031 [inline]
+     __d_move+0xd29/0x21f0 fs/dcache.c:3099
+     d_move+0x71/0xf0 fs/dcache.c:3147
+     vfs_rename+0x2619/0x2770 fs/namei.c:6085
+     filename_renameat2+0xa59/0x1230 fs/namei.c:6188
+     __do_sys_rename fs/namei.c:6232 [inline]
+     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
+     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
+     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-Reviewed-by: Indu Bhagat <ibhagatgnu@gmail.com>
-Co-developed-by: Jens Remus <jremus@linux.ibm.com>
-Signed-off-by: Jens Remus <jremus@linux.ibm.com>
-Co-developed-by: Dylan Hatch <dylanbhatch@google.com>
-Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
+Uninit was created at:
+     slab_post_alloc_hook mm/slub.c:4617 [inline]
+     slab_alloc_node mm/slub.c:4939 [inline]
+     kmem_cache_alloc_lru_noprof+0x376/0x1230 mm/s
+     __d_alloc+0x52/0x9f0 fs/dcache.c:1902
+     d_alloc+0x57/0x300 fs/dcache.c:1981
+     lookup_one_qstr_excl+0x19d/0x7a0 fs/namei.c:1806
+     __start_renaming+0x341/0x850 fs/namei.c:3888
+     filename_renameat2+0x625/0x1230 fs/namei.c:6163
+     __do_sys_rename fs/namei.c:6232 [inline]
+     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
+     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
+     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
+     do_syscall_x64 arch/x86/entry/syscall_64.c:63
+     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+The race is between a concurrent open() and rename() of the same path.
+
+__d_alloc() only stores the name itself and its terminating NUL, so the
+rest of the inline buffer (d_shortname, DNAME_INLINE_LEN bytes) is left
+uninitialized.  copy_name(), called from rename(), copies that buffer as a
+whole, so the uninitialized tail is propagated into the dentry that is
+being moved.  Meanwhile __d_lookup_rcu(), called from open(), is an
+optimistic lockless lookup: it checks d_name.hash_len first and leaves the
+seqcount retry to its caller, so it can end up comparing against a dentry
+whose name a rename is rewriting in place, using a stale (longer) length.
+The comparison then runs past the terminating NUL and reads bytes of the
+uninitialized tail, which KMSAN reports.
+
+The read is harmless by design: it stays inside the buffer, the name is
+still NUL-terminated, and the result is thrown away by the seqcount retry.
+It is not specific to KMSAN either - with CONFIG_DCACHE_WORD_ACCESS
+enabled the very same bytes are read by read_word_at_a_time(), which is
+__no_sanitize_or_inline and therefore invisible to KMSAN.  KMSAN builds
+only see the instrumented byte-at-a-time dentry_string_cmp() because
+CONFIG_DCACHE_WORD_ACCESS is disabled when KMSAN is enabled on x86:
+
+commit 7cf8f44a5a1c ("x86: fs: kmsan: disable CONFIG_DCACHE_WORD_ACCESS")
+
+Zeroing the inline buffer would hide the report, but it would add a
+memset() to a hot allocation path just to initialize bytes that are never
+used as part of a name.  Instead, tell KMSAN the inline buffer is
+initialized: kmsan_unpoison_memory() compiles to nothing unless
+CONFIG_KMSAN is set, and doing it at allocation time is enough for every
+dentry, because copy_name() and swap_names() copy the whole buffer and
+thus propagate its shadow.
+
+Reported-by: syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7ff3adde89dd795ad4c4
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+
+Changes in v3:
+- Annotate for KMSAN instead of zeroing, as suggested in review: the read
+  is harmless, so unpoison the inline buffer in __d_alloc() with
+  kmsan_unpoison_memory() (a no-op unless CONFIG_KMSAN) rather than adding
+  a memset() to the dentry allocation path.
+- Document why only KMSAN builds report this at all: with
+  CONFIG_DCACHE_WORD_ACCESS the same read goes through
+  read_word_at_a_time(), which KMSAN does not instrument.
+- Rewrite the commit message; the previous one had several truncated
+  lines.
 ---
+ fs/dcache.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This patch is adapted from commit c7db518447c6 ("unwind_user/sframe: Add
-support for reading .sframe headers"), and includes the header/init
-portions of v6 patch "sframe: Allow kernelspace sframe sections" in this
-series.
-
-Changes include:
- - kernel/unwind/sframe* is repurposed exclusively for kernel .sframe
-   sections, under CONFIG_UNWIND_SFRAME_LOOKUP.
- - Replaced copy_from_user() with direct memory pointer access when
-   reading the SFrame header.
- - (sashiko) Moved header size check to take place before any header
-   fields are checked, to ensure safe memory access. Also dropped the
-   (header + auxiliary) size helper, since non-zero auxiliary size is
-   not currently supported.
- - Dropped unused userspace section tracking functions
-   sframe_add_section(), sframe_remove_section(), free_section()
- - Dropped text_start/text_end section fields, since kernel/module
-   section boundaries can be examined directly without saving.
- - Squashed in changes adding vmlinux-tracking kernel_sfsec and
-   init_sframe_table(), to read vmlinux .sframe header at boot time.
----
- MAINTAINERS               |  1 +
- arch/arm64/kernel/setup.c |  2 +
- include/linux/sframe.h    | 32 ++++++++++++++++
- kernel/unwind/Makefile    |  3 +-
- kernel/unwind/sframe.c    | 80 +++++++++++++++++++++++++++++++++++++++
- kernel/unwind/sframe.h    | 78 ++++++++++++++++++++++++++++++++++++++
- 6 files changed, 195 insertions(+), 1 deletion(-)
- create mode 100644 include/linux/sframe.h
- create mode 100644 kernel/unwind/sframe.c
- create mode 100644 kernel/unwind/sframe.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6c1c95979e437..eaa691abd7a2e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28519,6 +28519,7 @@ M:	Josh Poimboeuf <jpoimboe@kernel.org>
- M:	Steven Rostedt <rostedt@goodmis.org>
- S:	Maintained
- F:	arch/*/include/asm/unwind_sframe.h
-+F:	include/linux/sframe.h
- F:	include/linux/unwind*.h
- F:	kernel/unwind/
- 
-diff --git a/arch/arm64/kernel/setup.c b/arch/arm64/kernel/setup.c
-index 29c6100f0c50b..84983df605ed5 100644
---- a/arch/arm64/kernel/setup.c
-+++ b/arch/arm64/kernel/setup.c
-@@ -32,6 +32,7 @@
- #include <linux/sched/task.h>
- #include <linux/scs.h>
- #include <linux/mm.h>
-+#include <linux/sframe.h>
- 
- #include <asm/acpi.h>
- #include <asm/fixmap.h>
-@@ -373,6 +374,7 @@ void __init __no_sanitize_address setup_arch(char **cmdline_p)
- 			"This indicates a broken bootloader or old kernel\n",
- 			boot_args[1], boot_args[2], boot_args[3]);
- 	}
-+	init_sframe_table();
- }
- 
- static inline bool cpu_can_disable(unsigned int cpu)
-diff --git a/include/linux/sframe.h b/include/linux/sframe.h
-new file mode 100644
-index 0000000000000..54e5cb76cb92c
---- /dev/null
-+++ b/include/linux/sframe.h
-@@ -0,0 +1,32 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _LINUX_SFRAME_H
-+#define _LINUX_SFRAME_H
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 1b1a81f10da6..a66be85f9d01 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1916,6 +1916,10 @@ static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
+ 	 * be overwriting an internal NUL character
+ 	 */
+ 	dentry->d_shortname.string[DNAME_INLINE_LEN-1] = 0;
 +
-+#include <linux/init.h>
++	/* Racy __d_lookup_rcu() walk may read past the NUL; harmless */
++	kmsan_unpoison_memory(dentry->d_shortname.string, DNAME_INLINE_LEN);
 +
-+#ifdef CONFIG_UNWIND_SFRAME_LOOKUP
-+
-+struct sframe_section {
-+	unsigned long	sframe_start;
-+	unsigned long	sframe_end;
-+
-+	unsigned long	fdes_start;
-+	unsigned long	fres_start;
-+	unsigned long	fres_end;
-+	unsigned int	num_fdes;
-+
-+	signed char	ra_off;
-+	signed char	fp_off;
-+};
-+
-+extern struct sframe_section kernel_sfsec __ro_after_init;
-+
-+void __init init_sframe_table(void);
-+
-+#else /* !CONFIG_UNWIND_SFRAME_LOOKUP */
-+
-+static inline void __init init_sframe_table(void) {}
-+
-+#endif /* CONFIG_UNWIND_SFRAME_LOOKUP */
-+
-+#endif /* _LINUX_SFRAME_H */
-diff --git a/kernel/unwind/Makefile b/kernel/unwind/Makefile
-index eae37bea54fdb..c5f9f8124564e 100644
---- a/kernel/unwind/Makefile
-+++ b/kernel/unwind/Makefile
-@@ -1 +1,2 @@
-- obj-$(CONFIG_UNWIND_USER)	+= user.o deferred.o
-+ obj-$(CONFIG_UNWIND_USER)		+= user.o deferred.o
-+ obj-$(CONFIG_UNWIND_SFRAME_LOOKUP)	+= sframe.o
-diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
-new file mode 100644
-index 0000000000000..5f49f05e6226d
---- /dev/null
-+++ b/kernel/unwind/sframe.c
-@@ -0,0 +1,80 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Kernel sframe access functions
-+ */
-+
-+#define pr_fmt(fmt)	"sframe: " fmt
-+
-+#include <linux/mm.h>
-+#include <linux/string_helpers.h>
-+#include <linux/sframe.h>
-+#include <asm/sections.h>
-+
-+#include "sframe.h"
-+
-+static bool sframe_init __ro_after_init;
-+struct sframe_section kernel_sfsec __ro_after_init;
-+
-+static int sframe_read_header(struct sframe_section *sec)
-+{
-+	unsigned long header_end, fdes_start, fdes_end, fres_start, fres_end;
-+	struct sframe_header *shdr;
-+	unsigned int num_fdes;
-+
-+	header_end = sec->sframe_start + sizeof(struct sframe_header);
-+	if (header_end >= sec->sframe_end) {
-+		pr_debug("header struct doesn't fit in section\n");
-+		return -EINVAL;
-+	}
-+
-+	shdr = (struct sframe_header *)sec->sframe_start;
-+
-+	if (shdr->preamble.magic != SFRAME_MAGIC ||
-+	    shdr->preamble.version != SFRAME_VERSION_3 ||
-+	    !(shdr->preamble.flags & SFRAME_F_FDE_SORTED) ||
-+	    !(shdr->preamble.flags & SFRAME_F_FDE_FUNC_START_PCREL) ||
-+	    shdr->auxhdr_len) {
-+		pr_debug("bad/unsupported sframe header\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!shdr->num_fdes || !shdr->num_fres) {
-+		pr_debug("no fde/fre entries\n");
-+		return -EINVAL;
-+	}
-+
-+	num_fdes   = shdr->num_fdes;
-+	fdes_start = header_end + shdr->fdes_off;
-+	fdes_end   = fdes_start + (num_fdes * sizeof(struct sframe_fde_v3));
-+
-+	fres_start = header_end + shdr->fres_off;
-+	fres_end   = fres_start + shdr->fre_len;
-+
-+	if (fres_start < fdes_end || fres_end > sec->sframe_end) {
-+		pr_debug("inconsistent fde/fre offsets\n");
-+		return -EINVAL;
-+	}
-+
-+	sec->num_fdes		= num_fdes;
-+	sec->fdes_start		= fdes_start;
-+	sec->fres_start		= fres_start;
-+	sec->fres_end		= fres_end;
-+
-+	sec->ra_off		= shdr->cfa_fixed_ra_offset;
-+	sec->fp_off		= shdr->cfa_fixed_fp_offset;
-+
-+	return 0;
-+}
-+
-+void __init init_sframe_table(void)
-+{
-+	kernel_sfsec.sframe_start	= (unsigned long)__start_sframe;
-+	kernel_sfsec.sframe_end		= (unsigned long)__end_sframe;
-+
-+	if (sframe_read_header(&kernel_sfsec)) {
-+		pr_warn("invalid vmlinux SFrame header\n");
-+		return;
-+	}
-+
-+	sframe_init = true;
-+}
-diff --git a/kernel/unwind/sframe.h b/kernel/unwind/sframe.h
-new file mode 100644
-index 0000000000000..bf895107c2070
---- /dev/null
-+++ b/kernel/unwind/sframe.h
-@@ -0,0 +1,78 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * From https://www.sourceware.org/binutils/docs/sframe-spec.html
-+ */
-+#ifndef _SFRAME_H
-+#define _SFRAME_H
-+
-+#include <linux/types.h>
-+
-+#define SFRAME_VERSION_1			1
-+#define SFRAME_VERSION_2			2
-+#define SFRAME_VERSION_3			3
-+#define SFRAME_MAGIC				0xdee2
-+
-+#define SFRAME_F_FDE_SORTED			0x1
-+#define SFRAME_F_FRAME_POINTER			0x2
-+#define SFRAME_F_FDE_FUNC_START_PCREL		0x4
-+
-+#define SFRAME_ABI_AARCH64_ENDIAN_BIG		1
-+#define SFRAME_ABI_AARCH64_ENDIAN_LITTLE	2
-+#define SFRAME_ABI_AMD64_ENDIAN_LITTLE		3
-+
-+struct sframe_preamble {
-+	u16	magic;
-+	u8	version;
-+	u8	flags;
-+} __packed;
-+
-+struct sframe_header {
-+	struct sframe_preamble preamble;
-+	u8	abi_arch;
-+	s8	cfa_fixed_fp_offset;
-+	s8	cfa_fixed_ra_offset;
-+	u8	auxhdr_len;
-+	u32	num_fdes;
-+	u32	num_fres;
-+	u32	fre_len;
-+	u32	fdes_off;
-+	u32	fres_off;
-+} __packed;
-+
-+struct sframe_fde_v3 {
-+	s64	func_start_off;
-+	u32	func_size;
-+	u32	fres_off;
-+} __packed;
-+
-+struct sframe_fda_v3 {
-+	u16	fres_num;
-+	u8	info;
-+	u8	info2;
-+	u8	rep_size;
-+} __packed;
-+
-+#define SFRAME_FDE_PCTYPE_INC			0
-+#define SFRAME_FDE_PCTYPE_MASK			1
-+
-+#define SFRAME_AARCH64_PAUTH_KEY_A		0
-+#define SFRAME_AARCH64_PAUTH_KEY_B		1
-+
-+#define SFRAME_V3_FDE_FRE_TYPE(info)		((info) & 0xf)
-+#define SFRAME_V3_FDE_PCTYPE(info)		(((info) >> 4) & 0x1)
-+#define SFRAME_V3_AARCH64_FDE_PAUTH_KEY(info)	(((info) >> 5) & 0x1)
-+
-+#define SFRAME_FDE_TYPE_DEFAULT			0
-+
-+#define SFRAME_V3_FDE_TYPE_MASK			0x1f
-+#define SFRAME_V3_FDE_TYPE(info2)		((info2) & SFRAME_V3_FDE_TYPE_MASK)
-+
-+#define SFRAME_BASE_REG_FP			0
-+#define SFRAME_BASE_REG_SP			1
-+
-+#define SFRAME_V3_FRE_CFA_BASE_REG_ID(info)		((info) & 0x1)
-+#define SFRAME_V3_FRE_DATAWORD_COUNT(info)		(((info) >> 1) & 0xf)
-+#define SFRAME_V3_FRE_DATAWORD_SIZE(info)		(((info) >> 5) & 0x3)
-+#define SFRAME_V3_AARCH64_FRE_MANGLED_RA_P(info)	(((info) >> 7) & 0x1)
-+
-+#endif /* _SFRAME_H */
+ 	if (unlikely(!name)) {
+ 		name = &slash_name;
+ 		dname = dentry->d_shortname.string;
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.43.0
 
