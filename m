@@ -1,148 +1,202 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD17299922
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D39F207E00
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737549; cv=none; b=R1iFQYPSsYCBdaT4IzG1VhqI43ZeJk5y0kvQ8m5zdIxvqHSFcB19QnJrYF6BQ/pH70pD/2uZSZdErUEZhMkI+zJ0s0HMkNa1+TQQrpUZiF3UZrIdJorpvO9Gl8UlXH8vGr5AckEOsxtX0/j4tItUmfIGbRP2R4Rs/Mi3dQb+CTo=
+	t=1789737573; cv=none; b=cfxMO7bHeZYtqQzJtRi1agKV/uktOL8Zu3/9AnVRnUUKUzeZjRRKGTHum8vbjvJ5xzXM2VxavDs/mQKtjF1O0XY8pdgmo+gYVFaas5aO5K3iva4Xk6DVKCAjItU0lpJuycRWG6oSSJP+8V3lC4gr+7clX2KCQ5TMOkpt6TQwAZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737549; c=relaxed/simple;
-	bh=Ixxw6mUKGozOVNHy36L9BvzO5kqYLozMBT/gU9qeUOE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Ab5giJjhM3o62kvlxku9j7q8Nt9Hm9evKjWG6zyMP5Iv34WVZ5uhseOcB8NCxKdB1fepdkgVxKPZKILYkzISULnw8YkeWwKb3BrsBl133cAoKy3EvXUeKgy/ziEy6sQM7sBEfh4NuJyAHWZgfgXYVoTAWQjEiSzDYF3A1LM9Ztk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O9osNgLc; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	s=arc-20240116; t=1789737573; c=relaxed/simple;
+	bh=E7xSFqkfXWjBwE2qgXNp1xHWqOsbleGRIC95heJTD58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LPtLsile3QFFULfSbYg6/uCVapMKL5i4k6+F6l8My7ZUFG2WiKv+GnmIqDNaAOZecmhcu3vO12BMgYogoO5C6tCfpq/TD64Ve667JR3UaGTn6fNA1maMIYPDDysNiQe7DYq9y24FQTwBinlRCwV1kPAunHtkWjzT35TXlBona7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jUQsl5bo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dI3bG+G7; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O9osNgLc"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e823c4868so6258045e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jUQsl5bo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dI3bG+G7"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ICtwFX3584205
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=yicWu9NySxrVOc5shYeVRk0PMByyu7NiHY7
+	V2FUnQbM=; b=jUQsl5boAOqle3e6o6Kxc6DkIpY6pF8xbiGD+87w16w9MDebzpp
+	uI3wYKiHqiQacOztcAr6e4pBESb4BpfREXIHpfUyGZh1VkniNqCuXUmYi0qxWTeB
+	tIzQMJvflm0IBU5aNxS3TP5Mi371Pz+yLMN3uBgGQxZqv97rjboxkW79KSIXfagj
+	vwqrOOt0sjP38V0Kg/uyeTAFBN47ysibDj/96uy3pA2hWh2LVLwnhGB9qaQB5nLP
+	1Zp1C45L06ufriWWhpDcTvbMCbiFCaYkzhR0P+DKVGV/LpJOYwO7PrtiCF3K1f4g
+	ak/Zf5azFiUiAcZjwgFDmb6JAel1vvtY79Q==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs37dgpqw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:30 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a05d645acso164119285a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789737545; x=1790342345; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=otp0k2i4YCw4bQ4ES7pDpC2btKFgr9S5MNUmkPBiGJY=;
-        b=O9osNgLcrZyNEBaBbNDdTnP1aNwi2TUECCahZuj6vIvG/y8Adh+8gr8Owk3tf9NOvY
-         JxzHit8WjeS3ZtdHI4G9kspD1L0f3ytS8SVmB/wSdM2dKHj1+FOZsI0/TUntnJzXgcVL
-         VJ15kJG6IqpbMX25Y41tEdqu2UwwbiMigWgOoDDRLvXh+HSyd7n8eW7oylWMQzCcguoN
-         L19RNojLMTSpi8UDdtdWKTUC+P/1e/zxd6Ig5Dsb7s6UIV/dKEWEppVdNKwQiNrFy/+B
-         I9mNeDWww4SomkyIpNDrTNxr9C/sbu9fMQReyerLc6ItQ3J9vAngqkRfbp38opgmSTdD
-         Awwg==
+        d=oss.qualcomm.com; s=google; t=1789737569; x=1790342369; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yicWu9NySxrVOc5shYeVRk0PMByyu7NiHY7V2FUnQbM=;
+        b=dI3bG+G7mcC2f5EpKS8pVEGA12FiD5ghIcqsz/3dgmhhAp8hLHMQwmYaTnDMXBNSW6
+         vlqy4CHquQiLZQ0x4z9h+a4ovJ6ql8fLnVlqJosuWXgGS8zVxBtgUySHJ09o7jQaYLbI
+         OJDkqkwzxMMgYwEoVjl4Yc7reCu2LUu9I1oJodpVLlkxUcaGFfvpLuWGZW9g90gYqF8s
+         DT8Pd8T/q7dUCZ1f/wQ2Uv0Je7payA6PleZ4r79/MQQ94d45IDm1IyaSI36THynkkdCv
+         fU5w/n6Nuh+kKya2qhBmvPqSVAZghb5hi6TUe2Q54TCNqJ12YrlHFEUla7XKLIbCRnEn
+         CQWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737545; x=1790342345;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789737569; x=1790342369;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=otp0k2i4YCw4bQ4ES7pDpC2btKFgr9S5MNUmkPBiGJY=;
-        b=glTbBrYSYAXZSOHjF8EXow6Ca9WRNWxupGqBDtqZGBPBpTMXW2KDiaypPSD6sN0poV
-         Qi4nKdiYgQxRt0LN5Bm2hKnTeV4RBThjrUkxWYTMMSc60ycybxs4p77RiGJ0MUn6vDB+
-         S0VBck8Wh9tDIwnx1yYPZE85Cc6IJIs+3+5dwpVkFzFzaZnO3JDBg67UuXrRg3EIdPm0
-         0oV7pEABsqYKR2x84q9rLGR8E2MaDuI0xj6nd4BkhCIvxWyO6TzKFCi40lvIpH5z6whp
-         pmuTZOSSWuc9AJ/7DS7xaAPe/b7YKt1TjlgGwOp1vWgnLJIMH3QoYgXW6O32KV2Xcw0n
-         2Few==
-X-Forwarded-Encrypted: i=1; AKwUvByuPTg3DqFbcYPSeyupZxj650slagsWpkFdW/An5q7zkmfSc57jBCGUibRx9kmozrNpffCeLEstoFpA2dY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYk6F36SExZPuzz30hLJ4a8F+IWzTTGl948l5x/isi6DLkUVb8
-	or81bbc5Xh7z9kLf+wzX3Cs1UkW+7hw1c44NMsfgCn7d/ZMCNJQivEHXCfHCEPh8HfxuhqD+UvD
-	eKtccu5bnS/GcqgpPBLXdJw==
-X-Received: from wmps28.prod.google.com ([2002:a05:600c:319c:b0:49c:caed:426c])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:64c5:b0:49e:6c11:c4fc with SMTP id 5b1f17b1804b1-49fc56aa4e7mr86535595e9.7.1789737545460;
- Fri, 18 Sep 2026 06:19:05 -0700 (PDT)
-Date: Fri, 18 Sep 2026 14:16:56 +0100
-In-Reply-To: <20260918131656.3710047-1-vdonnefort@google.com>
+        bh=yicWu9NySxrVOc5shYeVRk0PMByyu7NiHY7V2FUnQbM=;
+        b=05AtD4d0RXxplocSSKbKmeQ86YZrDZ3/weCtulNg6lvE14mvIK3OHZytgyLHcTX3SV
+         74Aq83Wfom4Lc3W/uKHhRkYUZuJ+rtgUxbzSTeJQUkOZvryn+TOwSn3fLnIUncMx8EA0
+         +S8MdfpNgi7XyLzN2Jdi1pjlJndVsMiPM3FWi/8k/tu7Rb0qPl1duk2mVqSYzCn/oUMb
+         oVRIAPcl6/6357x+j5yXZppMu+p1UggiJ81UYsS+XOJpZSnXB/w2TTFYjf8ur/GqDhW/
+         d/8EVmHQsvWq0RkqupW6CUXOVBFoqMkSLBDcZksN/ckAScg7h+cE+FIIrzacTUsjrPrT
+         XzuA==
+X-Forwarded-Encrypted: i=1; AKwUvByJPsPBwvs/K6u3qa6hVqGVRjEYDM14V7KbEyEzaX3zE0FnBZPL6lYWZAumkwu4k3sMqpouZTvwHqfU+LY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mea6UV6popX42hn+Ad2kFSZcekni+TArW7TJRgYbpMMCsa2mMn
+	FDU79rBIM8Z+RF4uqCXx1Hm66y5KU36m+aXgaAhe7aDEvZ5ZTcnX+KewAe+yXpWyBnkZr/f8ugJ
+	fwrq5lKVNyX/JcuzvyJdPf63RE+/k2tB3kR76UwKgoj1ADRzHEmJouqMK08CZfmexInHhg7bts0
+	U=
+X-Gm-Gg: AYBFou0q1o3XFTKNhWSEqCH6Krty57j/OvlcIk9Hhp/fGiyZfcwUBkxS5g/aRB1nJXb
+	URFaclIqtSj09BI4KvoL2idswfZV1B7vJlm8vwfi4tDQvr18mQ6QILHs/ac0tuczwoN/dzuBowR
+	SYjgArCYNxI2mSvDyVUx08VR3Kfng34dmEZLg+Q1hRLgJbClasZbw38JoLxbynRSe5hIEQcks0G
+	PDmEl5apEUO0VrtyePzJiPlC548bfk9bsEIk+6Cwl00QPBdSzpolnlRJ4KT83PhsgTr9XCKtM+/
+	K6dFtYsdvRrM5rZxJpzo6gTXKfb+c3OXFm/EJJS+M9x6pMSg3yKcTmKksnegki6+RdPgSToiW+U
+	C1Q30J5GLHEmCAA==
+X-Received: by 2002:a05:620a:6886:b0:93b:d79b:9a6b with SMTP id af79cd13be357-93bdcad865bmr320852685a.76.1789737568901;
+        Fri, 18 Sep 2026 06:19:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:6886:b0:93b:d79b:9a6b with SMTP id af79cd13be357-93bdcad865bmr320844485a.76.1789737568132;
+        Fri, 18 Sep 2026 06:19:28 -0700 (PDT)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7cebae2sm48254015e9.8.2026.09.18.06.19.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:19:27 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v4 0/8] ASoC: Qualcomm Tambora (WCD9378) SDCA codec
+Date: Fri, 18 Sep 2026 14:19:05 +0100
+Message-ID: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918131656.3710047-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918131656.3710047-5-vdonnefort@google.com>
-Subject: [PATCH v1 4/4] arm64: mm: Allow can_set_direct_map() on BBML3 systems
-From: Vincent Donnefort <vdonnefort@google.com>
-To: catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org
-Cc: mark.rutland@arm.com, lenb@kernel.org, pavel@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, thierry.reding@kernel.org, rppt@kernel.org, 
-	Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE4OSBTYWx0ZWRfX5PeHmlUI3RB2
+ owuiQb8W6S6Afiu6D8DoceJOxj710F3s7BcTJr+P5KU/EFozMLGlyJV4Nk1cjgm95FNEJff4xH0
+ ONpPiTLirHI4tadH16LLiIaEY3VeoyI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OSBTYWx0ZWRfX8teNZwwEJX2F
+ +NieoIipfInO3CQ+TwL85WAYOKjMtgkYoNLdb0HACOMqZ/cb6PNRFKvw3e+tJLCy189556xqceR
+ drBW1yi5PPaAgSnKbt9eQnmxrXaJkPC1FGHAeQCx1hmmbE1SdXBXKM5tkj1eJm7gaTvzubGOZBJ
+ ipKP7t6We+PaRQ60YjRcpIFw7W69tD6hQ+4+QbZoAvoRdBjzN9emmLe6dEZYrehvk+nNqQPRpyu
+ tz41QZo6Y6S9WfbPf9L00b8VThTS3m+U5cLefnCN1da+YXVs+2zSswLahTGFo3mDUYWonlBA68R
+ jrDI2A4Z72rvKehkpUrjVSfkO1do4WEvO0Db/IzOgrsh1Iw2IO2oLC+qZotn7/JDLP1NBSpQYat
+ Me4JcThtmOtq82a8JGCXSX+0V9Sbq8ExTkgux3/seIJ5QQUa7+30GnPe+kH8Hv7bfZCLyBr0SQP
+ 3oKtRsoHPPMepkjofPA==
+X-Proofpoint-GUID: p_teHGBKtydreLQINjOGTdi0ejGaNjfi
+X-Proofpoint-ORIG-GUID: p_teHGBKtydreLQINjOGTdi0ejGaNjfi
+X-Authority-Analysis: v=2.4 cv=R+mWitRX c=1 sm=1 tr=0 ts=6aad3a62 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=eAt5nrnh09IFEUH19A4A:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180189
 
-On BBML3 systems, block mappings in the linear map can be split
-dynamically at runtime without break-before-make faults. In such
-systems, allow can_set_direct_map() to enable set_direct_map_* users.
+Add support for the Qualcomm Tambora (WCD9378) headset codec in
+SDCA-compliant mode over SoundWire. On ARM/DT platforms without
+ACPI/DisCo firmware, the SDCA topology and SoundWire port properties
+are supplied as static data through the codec driver.
 
-split_kernel_leaf_mapping() must now allow splitting for BBML3 systems
-where no feature requires a split (i.e. !linear_map_needs_set()). As a
-consequence, it can't solely rely on linear_map_requires_bbml3 anymore.
-Instead, deduce force_pte_mapping() value and filter out non-lm
-addresses.
+Patches 1-6 extend the ASoC SDCA class framework so that a
+class-based codec driver can be built on ARM/DT: allow builds
+without ACPI, expose the SoundWire probe/remove library entry
+points, add class_ops with a populate_function hook, translate
+sound-dai cells by entity index, and add a
+sdca_apply_default_control_classifiers() helper.
 
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- arch/arm64/mm/mmu.c      | 24 +++++++++++++++---------
- arch/arm64/mm/pageattr.c |  2 +-
- 2 files changed, 16 insertions(+), 10 deletions(-)
+Patches 7-8 add the WCD9378 dt-binding and driver. The same
+silicon can be fused for a mobile (non-SDCA) or an SDCA-compliant
+mode; the two share the SoundWire class-ID compatible
+(sdw20217011000) and are selected apart by the new
+qcom,sdca-compliant boolean property.
 
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index c18ed601f0a8..4c345065d33f 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -811,24 +811,30 @@ static bool linear_map_requires_bbml3;
- 
- int split_kernel_leaf_mapping(unsigned long start, unsigned long end)
- {
-+	bool force_pte;
- 	int ret;
- 
- 	/*
- 	 * If the region is within a pte-mapped area, there is no need to try to
--	 * split. Additionally, CONFIG_DEBUG_PAGEALLOC and CONFIG_KFENCE may
--	 * change permissions from atomic context so for those cases (which are
--	 * always pte-mapped), we must not go any further because taking the
--	 * mutex below may sleep. Do not call force_pte_mapping() here because
--	 * it could return a confusing result if called from a secondary cpu
--	 * prior to finalizing caps. Instead, linear_map_requires_bbml3 gives us
--	 * what we need.
-+	 * split:
-+	 *
-+	 * Do not call force_pte_mapping() here because it could return a
-+	 * confusing result if called from a secondary cpu prior to finalizing
-+	 * caps. Instead, retrieve that value with linear_map_requires_bbml3.
-+	 *
-+	 * Additionally, CONFIG_KFENCE may change permissions from atomic
-+	 * context so for this case (which is always pte-mapped), we must not go
-+	 * any further because taking the mutex below may sleep.
-+	 *
-+	 * Finally, set_memory_* can be called on PTE-mapped vmalloc mappings.
- 	 */
--	if (!linear_map_requires_bbml3 || is_kfence_address((void *)start))
-+	force_pte = !linear_map_requires_bbml3 && linear_map_needs_set();
-+	if (force_pte || is_kfence_address((void *)start) || !__is_lm_address(__tag_reset(start)))
- 		return 0;
- 
- 	if (!system_supports_bbml3()) {
- 		/*
--		 * BBML3 systems should not be trying to change
-+		 * Non-BBML3 systems should not be trying to change
- 		 * permissions on anything that is not pte-mapped in the first
- 		 * place. Just return early and let the permission change code
- 		 * raise a warning if not already pte-mapped.
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index c1ba74eb602f..f952cc125705 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -89,7 +89,7 @@ bool rodata_full __ro_after_init = true;
- 
- bool can_set_direct_map(void)
- {
--	return linear_map_needs_set();
-+	return linear_map_needs_set() || system_supports_bbml3();
- }
- 
- static int update_range_prot(unsigned long start, unsigned long size,
+Testing: HPH playback and headset-mic capture tested on the
+Snapdragon X2 Elite Glymur CRD and Lenovo T14s Gen7.
+
+Jack detection is not wired up in this series.
+
+Changes since v3 [1]:
+ - dt-bindings: sound: qcom,wcd9378-sdw.yaml -- drop the
+   qcom,wcd9378c front compatible so the schema plays nicely with
+   the SoundWire class-ID compatible; introduce a
+   qcom,sdca-compliant boolean flag to select the SDCA fuse; drop
+   the fake top-level wrapper node so the slave sits directly
+   under the SoundWire controller; drop '|' from qcom,port-mapping
+   description (Krzysztof).
+ - ASoC: codecs: wcd9378-sdca: gate probe on qcom,sdca-compliant.
+ - set SDCA_NO_INTERRUPT correctly on controls, (Mark)
+
+[1] https://lore.kernel.org/all/20260915165652.914893-1-srinivas.kandagatla@oss.qualcomm.com/
+
+Srinivas Kandagatla (8):
+  ASoC: SDCA: allow building without ACPI
+  ASoC: SDCA: export PM helpers keyed on sdca_class_drv
+  ASoC: SDCA: expose class SoundWire probe/remove as library
+  ASoC: SDCA: add class_ops with populate_function
+  ASoC: SDCA: class_function: xlate sound-dai cell by entity index
+  ASoC: SDCA: add sdca_apply_default_control_classifiers() helper
+  dt-bindings: sound: qcom: add Tambora WCD9378 SDCA codec
+  ASoC: codecs: add Qualcomm Tambora (WCD9378) SDCA codec
+
+ .../bindings/sound/qcom,wcd9378-sdw.yaml      |  102 ++
+ include/sound/sdca.h                          |   23 +-
+ include/sound/sdca_class.h                    |   70 ++
+ include/sound/sdca_function.h                 |    2 +
+ sound/soc/codecs/Kconfig                      |   11 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/wcd9378-sdca.c               | 1058 +++++++++++++++++
+ sound/soc/codecs/wcd9378-sdca.h               |   20 +
+ sound/soc/codecs/wcd9378-sdw.c                |   51 +
+ sound/soc/sdca/Kconfig                        |    6 +-
+ sound/soc/sdca/sdca_class.c                   |  148 ++-
+ sound/soc/sdca/sdca_class.h                   |   35 -
+ sound/soc/sdca/sdca_class_function.c          |   45 +-
+ sound/soc/sdca/sdca_device.c                  |    4 +
+ sound/soc/sdca/sdca_functions.c               |   31 +
+ 15 files changed, 1537 insertions(+), 71 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+ create mode 100644 include/sound/sdca_class.h
+ create mode 100644 sound/soc/codecs/wcd9378-sdca.c
+ create mode 100644 sound/soc/codecs/wcd9378-sdca.h
+ create mode 100644 sound/soc/codecs/wcd9378-sdw.c
+ delete mode 100644 sound/soc/sdca/sdca_class.h
+
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.53.0
 
