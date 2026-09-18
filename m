@@ -1,121 +1,140 @@
-Received: from out198-9.us.a.mail.aliyun.com (out198-9.us.a.mail.aliyun.com [47.90.198.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7E248CD55;
-	Fri, 18 Sep 2026 08:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648A44B1295;
+	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721817; cv=none; b=fmb0f7/mmQptom1WJYik6ITRx2VgduTuik1EoRQon4ZHtFoeNiCTZ99Zh3GcEMx42lwVsXNJMeZaVPIo2l5TOef1v5E8O56uXFltPiC8/zEVyIe1NUPOnWLYM+buFqpFAJQVCxZwAQ/eSTiNnugwkFcxzeAyXlM427Z0GmgNj08=
+	t=1789721841; cv=none; b=UgmWIP5JxClk6j/GIp7YxIKiVuAsWbHVFgNtBr0tNf7U7O0amdDKuI+2O4Oy4FEBAHq57HO5SuHtI6RzA41WHXPzo5JAbrLJT+NIEhZCUHoOnMi+pp6s47tRF/57eqXVpTI6IpMEXt5VLVeANQ+pS09959yAyaLJIlhfnnAFvNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721817; c=relaxed/simple;
-	bh=BHNgv2FTupZU8JntjR1wmat88mdo8D11gHTxj+pZr/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=afs5EW8r0qHcsk0q2I32GcRXVAN8BUJbztfdV4Cv4zIvUkvMN/XtfSkM1l8s4kueO8fWTMEES0P+W3JxShlcztSRyKo0JGdqBfNm25RWlFok1kNhogA38oWZn8YvdUZ8bWtbLwXw2phMo0+kFMrHxt5GSLwBev38lCZx0VJnOFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=47.90.198.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1630166|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0297771-0.000281065-0.969942;FP=17185029095361038327|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jGgS5O5_1789721786;
-Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jGgS5O5_1789721786 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 16:56:26 +0800
-From: Tina Zhang <zhang_wei@open-hieco.net>
-To: Sean Christopherson <seanjc@google.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	zhouyanjing@hygon.cn,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 1/8] KVM: x86: Provide INVLPG linear address to intercept handlers
-Date: Fri, 18 Sep 2026 16:56:11 +0800
-Message-ID: <2d608f82681532f3010db14ff8d4293f57620514.1789721173.git.zhang_wei@open-hieco.net>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1789721173.git.zhang_wei@open-hieco.net>
-References: <cover.1789721173.git.zhang_wei@open-hieco.net>
+	s=arc-20240116; t=1789721841; c=relaxed/simple;
+	bh=fATAoFphE4zN5/jUqdjLv54m7Qirr58ksJqt/9i/hWk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tZxB5OM3vnCkjk6idKOaVcNKNEaO031WfNuXuCun96LQSwlwBTYQiTmhmc7IfaC6mT46ixCpHIZS9dpLEC48Qew4vEBRw6YgsyQMxhavHGbvByVVljPrnXh+bzDBnVsUcHXjy8Q0KiFGsWOPdNRFvA0ZMpx1Qj2+iCy3yH2HAIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nEnxBOlh; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nEnxBOlh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BA4AC2BCF6;
+	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789721839;
+	bh=fATAoFphE4zN5/jUqdjLv54m7Qirr58ksJqt/9i/hWk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=nEnxBOlh8pof3SEL6aPEL0vOk6qFPPaKiBJZE0a1VdOtak7uwM0eSF0d8TgDrnwsc
+	 AQ1fmyp+BYPirNTNZ/Ukt40A0LSBlstgaI4sTbuGHGLMsInrWPhSv/EX0j57GhWQpf
+	 46ADfFf4gS5txsOfXOVq8qb8s6WRVH2DnvAa9N9OOlavtEnoZVBMGfTpg5xlcFP//Y
+	 0DZSm5G6zsVuBS0bH/p51ghPTfGVcANQhdlYUmXI+jAfCqSHso50fzW0ksNl4QkG/N
+	 xgeGBYvpPqopTtif9ekTKVFfszlIgfNT2+0mCcefiQt0UUbJLqiq/e/K4ypUIdjCxA
+	 6pyxDmSYwYUFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DCAAC982D2;
+	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Fri, 18 Sep 2026 16:57:17 +0800
+Subject: [PATCH 02/21] media: i2c: it6625: propagate control-update errors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-2-78d72d7886a5@ite.com.tw>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=2441;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=Wu6oxlWNkGLpHo/RmSh9dUsCuP2b2+83EwxRGB5e1D4=;
+ b=RlU/Qf+rDPlwqR1YBCM1C5YMsX3cf/mJrEpXgdDpTeIMU2UM3G/W4E4NR87Q1woSw7im6Hg6z
+ VTXApez6ku/Di26mH0J4SmYduvp2tCTVtO14bNPANxR9kiduYYbqZnL
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-INVLPG's memory operand is decoded with NoAccess, and thus src_val does
-not contain the operand address.  Intercept handlers therefore cannot
-construct exit state that reports the linear address from the existing
-x86_instruction_info fields.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Add get_invlpg_linear_addr() to compute the address through __linearize(),
-using the same flags as em_invlpg(), and pass the result through
-x86_instruction_info.
+it6625_v4l2_sd_ctrl_update() discarded the return value of all three
+v4l2_ctrl_s_ctrl() calls it makes. Make it return int, run the updates
+sequentially, and return the first error; both call sites now check
+and log it.
 
-Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+None of the three controls has a driver .ops, so the only failure path
+in v4l2_ctrl_s_ctrl() is range validation, and every value this driver
+passes is always in range -- this is an error-handling correctness fix
+responsive to review, not a fix for an observed runtime failure.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- arch/x86/kvm/emulate.c     | 23 +++++++++++++++++++++++
- arch/x86/kvm/kvm_emulate.h |  1 +
- 2 files changed, 24 insertions(+)
+ drivers/media/i2c/it6625.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-index c1b21282187f..2972a35b0ac0 100644
---- a/arch/x86/kvm/emulate.c
-+++ b/arch/x86/kvm/emulate.c
-@@ -411,6 +411,9 @@ static int em_salc(struct x86_emulate_ctxt *ctxt)
- 	_fault ? X86EMUL_UNHANDLEABLE : X86EMUL_CONTINUE; \
- })
- 
-+static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt,
-+				  enum x86_intercept intercept);
-+
- static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
- 				    enum x86_intercept intercept,
- 				    enum x86_intercept_stage stage)
-@@ -428,6 +431,7 @@ static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
- 		.src_type   = ctxt->src.type,
- 		.dst_type   = ctxt->dst.type,
- 		.ad_bytes   = ctxt->ad_bytes,
-+		.invlpg_linear_addr = get_invlpg_linear_addr(ctxt, intercept),
- 		.rip	    = ctxt->eip,
- 		.next_rip   = ctxt->_eip,
- 	};
-@@ -684,6 +688,25 @@ static __always_inline int __linearize(struct x86_emulate_ctxt *ctxt,
- 		return emulate_gp(ctxt, 0);
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index da17e5d5ce9e2dd1060abba1598b0e3f78857e9c..5d267676606e340ad0ee5ad2b78e5acb50a32980 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -889,11 +889,19 @@ static int it6625_s_ctrl_audio_present(struct v4l2_subdev *sd)
+ 				audio_present(it6625));
  }
  
-+static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt,
-+				  enum x86_intercept intercept)
-+{
-+	unsigned int max_size;
-+	unsigned long linear = 0;
+-static void it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
++static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
+ {
+-	it6625_s_ctrl_detect_hdmi_5v(sd);
+-	it6625_s_ctrl_audio_sampling_rate(sd);
+-	it6625_s_ctrl_audio_present(sd);
++	int ret;
 +
-+	if (intercept != x86_intercept_invlpg)
-+		return 0;
++	ret = it6625_s_ctrl_detect_hdmi_5v(sd);
++	if (ret)
++		return ret;
 +
-+	/*
-+	 * Use the same address calculation as em_invlpg() for the address
-+	 * reported to L1.  Ignore address-check failures, as __linearize()
-+	 * sets linear before reporting a failure.
-+	 */
-+	__linearize(ctxt, ctxt->src.addr.mem, &max_size, 1, ctxt->mode,
-+		    &linear, X86EMUL_F_INVLPG);
-+	return linear;
-+}
++	ret = it6625_s_ctrl_audio_sampling_rate(sd);
++	if (ret)
++		return ret;
 +
- static int linearize(struct x86_emulate_ctxt *ctxt,
- 		     struct segmented_address addr,
- 		     unsigned size, bool write,
-diff --git a/arch/x86/kvm/kvm_emulate.h b/arch/x86/kvm/kvm_emulate.h
-index 3e375af15c03..d05558ef28ae 100644
---- a/arch/x86/kvm/kvm_emulate.h
-+++ b/arch/x86/kvm/kvm_emulate.h
-@@ -51,6 +51,7 @@ struct x86_instruction_info {
- 	u8  src_type;		/* type of source operand		*/
- 	u8  dst_type;		/* type of destination operand		*/
- 	u8  ad_bytes;           /* size of src/dst address              */
-+	u64 invlpg_linear_addr;	/* linear address, if INVLPG */
- 	u64 rip;		/* rip of the instruction		*/
- 	u64 next_rip;           /* rip following the instruction        */
- };
++	return it6625_s_ctrl_audio_present(sd);
+ }
+ 
+ static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+@@ -1136,9 +1144,12 @@ static void it6625_clear_timings(struct it6625 *it6625)
+ static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+ {
+ 	struct v4l2_subdev *sd = &it6625->sd;
++	int ret;
+ 
+ 	it6625_clear_timings(it6625);
+-	it6625_v4l2_sd_ctrl_update(sd);
++	ret = it6625_v4l2_sd_ctrl_update(sd);
++	if (ret)
++		dev_err(it6625->dev, "%s: failed to update controls: %d", __func__, ret);
+ }
+ 
+ static void it6625_irq_hdcp_change(struct it6625 *it6625)
+@@ -2297,7 +2308,9 @@ static int it6625_probe(struct i2c_client *client)
+ 	it6625_debugfs_init(it6625, client);
+ 
+ 	it6625_initial_setup(it6625);
+-	it6625_v4l2_sd_ctrl_update(sd);
++	err = it6625_v4l2_sd_ctrl_update(sd);
++	if (err)
++		dev_err(it6625->dev, "%s: failed to update controls: %d", __func__, err);
+ 
+ 	err = v4l2_async_register_subdev(sd);
+ 	if (err < 0) {
+
 -- 
-2.43.7
+2.34.1
+
 
