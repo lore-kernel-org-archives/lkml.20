@@ -1,133 +1,162 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93502FBDE0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41452D8762
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718891; cv=none; b=XkwimHROVaAl8EyhgWxi13UofD48qA2hBZErVRvWpSP5tmYWnaneeDHRFW/nngnw2wOXA4CUY8/r6X2XHox2YMJxjih8fTUyCY+wAvuxgKauiRGDqpWyl/mDavE2If23EMw8UNpYMZudUpSYL5dsNIOzhz9skTKcHNMJZM1yxCI=
+	t=1789718899; cv=none; b=qSzpc0si1xBD1YQ8ehDPm4PYGisH53pbbudPlviNi4nHLcVYaDI3Ljj6bm9Rh8lPrjb5iyWOslIOY3iAdRc7F3LTqWVmMnRKpzQOKyDtx1K9/dyWRM1iYqWh2zXZbwWq4uGw0JcRqjwVKgKr0gn1IyzR3vzM8hho26zo05dISuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718891; c=relaxed/simple;
-	bh=tRzdU/vAvNMbNQzpdwsvb3t+9DA58n2vx1/A2sIx8Fg=;
+	s=arc-20240116; t=1789718899; c=relaxed/simple;
+	bh=xyISkBw574ZsXxKvu3xwdAxcFPyzjbZIs1ckRKr/QYs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sj3uxHfi0p7+0sU3XCr1NFcN75jKp3zyfR0iT7B+IpjpFsbhCA1+gApMVvmwgdWNgRiA6CKY0/gPP+VVrpogdBH2nJ6wx2U7a8rvKKsSAfzD9ORmE+VGnva/hUpyMHEEINKlaREdy2uUNN3icLNWLmCxNkSu6XG30dAuhleVXPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=QryDg0O2; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=k6z9u0F0cgyB11wQTBwy6ZVcHzYRQT/72/HdYKbqJG3McMrV6wVisP7Bu8pYYYYyBVKFBysROpXtcdnVIM/5WrUkCXui6G1X2woVDjUKy79EfH1AoryNx2IM43Njq2BIP5hyLP8Ee2+A9AHuYkUMp1tkFOOmo4kZIVksiolV7jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GYOIjE9T; arc=none smtp.client-ip=91.218.175.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="QryDg0O2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=v+SeOsRk1Xof0yv2frfPr5ERXPlgMXtJkQoLxg9lVcA=; b=QryDg0O2MyTv7RxPdeRo9XSW0E
-	prH/77QGmExO1cVoNcs+KPyLiTa1dOmzILNTseBXWphMMjuk6qIUY4rUNpbzjqVk24iDZ8ppINyC5
-	90tzkiZ4BTUa5erUuLAbV4gYVEDff4eu1bdIMiDob5f2C7ko0Prp4uimbY6bxZy3323QbVpiE/7ze
-	5dwKgKAaxLr7YUwAuoubEMLCa7jPQmLOAYgaq+sUO/957RZZKOia1iM8QzGnlfDz8E2N4cTwvdwDt
-	2FGVzV32E8kr2INLQkDWzPMJCwWAqvVAEQ4dokF6yHV1ieX1wpCetx1wYCmdIZQfnQzmPrRkvo43t
-	QmvKfK0Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7TdO-0000000GUXT-3ZYR;
-	Fri, 18 Sep 2026 08:07:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id BAB373008E2; Fri, 18 Sep 2026 10:07:49 +0200 (CEST)
-Date: Fri, 18 Sep 2026 10:07:49 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Suleiman Souhlal <suleiman@google.com>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	zhidao su <soolaugust@gmail.com>, John Stultz <jstultz@google.com>,
-	Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org,
-	Waiman Long <longman@redhat.com>
-Subject: Re: [RFC PATCH 00/12] FUTEX_PING: A stealable futex using Proxy
- Execution.
-Message-ID: <20260918080749.GI1837346@noisy.programming.kicks-ass.net>
-References: <20260917043339.2093426-1-suleiman@google.com>
- <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
- <CABCjUKBmmh4sn0A3H6RJgASgqBg-E7LEFNQGmL=xJCmtP03qUQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GYOIjE9T"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xyISkBw574ZsXxKvu3xwdAxcFPyzjbZIs1ckRKr/QYs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789718893; v=1; x=1790323693;
+ b=GYOIjE9TCS52kB3fasEHvocV/8o9kyickSQMkR89NrjEqDrcRo7nQvB/cqQnO+0Tj5dPpoTG
+ nBygKi9DiR9Q8JDpWZYaeMzZhRwyJr700RwTNBDgmq+K6LMw5VsDWStD4oF15tqYBf9N6CpOzZE
+ iQwloIBn/uTyOTtX1ltiWxJE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id e05f79cdbbeb581e;
+	Fri, 18 Sep 2026 08:08:13 +0000
+X-Mizu-Trace-ID: e05f79cdbbeb581e
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 16:08:10 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
+	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
+Message-ID: <aqzxavL91icLw-Xv@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-7-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABCjUKBmmh4sn0A3H6RJgASgqBg-E7LEFNQGmL=xJCmtP03qUQ@mail.gmail.com>
+In-Reply-To: <20260902073116.802752-7-chenwandun1@gmail.com>
 
-On Fri, Sep 18, 2026 at 03:07:56PM +0900, Suleiman Souhlal wrote:
-> On Thu, Sep 17, 2026 at 5:58 PM Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > On Thu, Sep 17, 2026 at 04:33:24AM +0000, Suleiman Souhlal wrote:
-> > > Hello,
-> > >
-> > > This patch series adds a new type of PI futexes, PI Next Generation,
-> > > or PING (name coined by Steven Rostedt) (but other name suggestions
-> > > are welcome!), that differs from classic PI futexes in that they can
-> > > be stolen from the top waiter, and use Proxy Execution instead of
-> > > rtmutexes internally.
-> > >
-> > > The reason to allow the futexes to be stolen is that with classic PI
-> > > futex's strict handoff to the top waiter, new contending lockers are
-> > > now forced to wait in queue, which means that any locking operation
-> > > now becomes a scheduling event. With stealing, a contending locker has
-> > > the chance of taking the lock without blocking. The longer wait time
-> > > of blocked tasks can be mitigated by forcing the lock to be handed
-> > > off to them in a way that can't be stolen, when they've been stolen
-> > > from too much, to ensure they don't get starved.
-> > >
-> > > The use of Proxy Execution lets us also get Priority Inheritance for
-> > > for fair tasks, which PI futexes don't really allow.
-> >
-> > https://patch.msgid.link/1490204338-1856-1-git-send-email-longman%40redhat.com
+On 09/02/26 at 03:31pm, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> I was not aware of this, thanks!
-> It actually seems very similar to this patchset (but much better written).
-> The main functional differences that I can see from a cursory look are
-> that on unlock it doesn't preserve the waiters bit, while PING does,
-> and that TP futex also supports userspace rwlocks, unlike PING.
-> And of course the fact that PING also uses Proxy Execution.
-> So now I know that I'm not completely crazy for wanting this. :-)
+> Add MEMBLOCK_NODUMP to mark regions that should be excluded from
+> kdump vmcores.
+> 
+> The flag is meant for reserved memory that carries no data useful for
+> crash analysis. Reusable reserved regions such as CMA may hold useful
+> data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
+> patches wire this up for /reserved-memory and /memreserve/ entries.
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> ---
+>  include/linux/memblock.h |  9 +++++++++
+>  mm/memblock.c            | 16 ++++++++++++++++
+>  2 files changed, 25 insertions(+)
+> 
+> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> index d62db9e776cf..b2fcf11fba2b 100644
+> --- a/include/linux/memblock.h
+> +++ b/include/linux/memblock.h
+> @@ -52,6 +52,8 @@ extern unsigned long long max_possible_pfn;
+>   * kernel that we know is good to use. It is the only memory that
+>   * allocations may happen from in this phase.
+>   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
+> + * @MEMBLOCK_NODUMP: exclude from kdump vmcore. It carries no data useful
+> + * for crash analysis (e.g. firmware carveouts).
+>   */
+>  enum memblock_flags {
+>  	MEMBLOCK_NONE		= 0x0,	/* No special request */
+> @@ -63,6 +65,7 @@ enum memblock_flags {
+>  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
+>  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
+>  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
+> +	MEMBLOCK_NODUMP		= 0x100,/* exclude from kdump vmcore */
+>  };
+>  
+>  /**
+> @@ -160,6 +163,7 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
+>  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
+>  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
+>  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
+> +int memblock_mark_nodump(phys_addr_t base, phys_addr_t size);
+>  
+>  void memblock_free(void *ptr, size_t size);
+>  void reset_all_zones_managed_pages(void);
+> @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
+>  	return m->flags & MEMBLOCK_KHO_SCRATCH;
+>  }
+>  
+> +static inline bool memblock_is_nodump(struct memblock_region *m)
+> +{
+> +	return m->flags & MEMBLOCK_NODUMP;
+> +}
+> +
+>  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
+>  			    unsigned long  *end_pfn);
+>  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index f2952d725c10..2e87f39826dd 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
+>  				    MEMBLOCK_KHO_SCRATCH);
+>  }
+>  
+> +/**
+> + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
+> + * @base: the base phys addr of the region
+> + * @size: the size of the region
+> + *
+> + * Mark the region as not to be included in crash dumps.
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
+      ~~~~~~~~~~~~~~^
+Is it impossible to use at runtime even thought it claims to be generic?
 
-Well, you all seem to be in violent disagreement with yourself. On the
-one hand you call your feature Priority Inheritance Next-Gen, while at
-the same time you're arguing you do NOT in fact want the strictness of
-PI/RT.
 
-You cannot have it both ways.
-
-
-But yes, FUTEX_LOCK/FUTEX_UNLOCK is desirable for a fair number of
-reasons, and Waiman's earlier attempt basically died because neither
-Thomas nor me found time to do a proper review :-(
-
-One of the very few things that I remember being annoyed with is that it
-did handoff in the futex code, while mutex_unlock() already has this.
-But other than it being a annoyance, I never had enough time to dig in
-to understand if this was fixable or not.
-
-Anyway, back then the motivation for FUTEX_LOCK was to get optimistic
-spinning for 'free' by using mutex, much like how FUTEX_LOCK_PI uses
-rt_mutex. These days, you'd get proxy exec as well.
-
-But like I mentioned elsewhere, the whole futex/proxy thing needs a
-deadlock detector, something we don't really need for in-kernel code,
-since it is a hard requirement for kernel code not to have lock cycles
-(barring ww_mutex, which will resolve them etc.). But we cannot trust
-userspace to play nice.
-
-Doing it at schedule() time is very much not ideal, this is something
-much better done at block time, not least because it is the ideal
-context to return -EDEADLK, but also because you but the cost of
-verifying it in the right context.
+> +{
+> +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> +				    MEMBLOCK_NODUMP);
+> +}
+> +
+>  static bool should_skip_region(struct memblock_type *type,
+>  			       struct memblock_region *m,
+>  			       int nid, int flags)
+> @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
+>  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+>  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+>  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
+> +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
+>  };
+>  
+>  static int memblock_debug_show(struct seq_file *m, void *private)
+> -- 
+> 2.43.0
+> 
