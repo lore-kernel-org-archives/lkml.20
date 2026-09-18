@@ -1,140 +1,94 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12BC50B429;
-	Fri, 18 Sep 2026 17:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752841; cv=pass; b=DDpGMYbLOAFBYrTHUIv0NFloAifdlzp7kfcsJEk9mx++LvquhSWpoiAYnIoi7jm2sQCea7g+MmdCcmCNHmdAOUdvYdI3HPxKlKFc2/eupVnzc/V9sdbtX+1JGeaNLb1yk0Q8epy/GNN61Adyhh310Q3ZxHpkYxAUDPfTJCsMrZs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752841; c=relaxed/simple;
-	bh=8tTAq7PRpppAiq9MepwRR/uRrA5oR+wi/G59SzwmcOg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nRXWo5V9EuRQCemJUFmX2pYn2rjDdkEcy0iDekUDGegI8WuYhv7QEzBmKnLx4XqEY5noLdgD7WZ5s0qSN2JNE5kaP0KXRxKACIujatxw65sEJtPzYH1otADEWA4G0G4V+tAgmhKyOBwddc6oz03mvD09M2YZB8tf90DeXM1swWo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Ytf7sL9B; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=mUOzr/Ox; arc=pass smtp.client-ip=85.215.255.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3576251B161;
+	Fri, 18 Sep 2026 17:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789752930; cv=none; b=Mu8GpBViF59ydGn3p0HTmTaFJm8rDSZn6BZOFD1g4J3BatzV8SicmlJGnVWXftRn2l/cuP/JHu8GfFNpvdYzn1UYudbOPaKFxDQa2E7Oqda7XAioSrSBRqnxGWFLxvmC5yHOagQEb6CcO1QYRKtVnQ0oWGGRBEGK375unfq7jaM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789752930; c=relaxed/simple;
+	bh=VPuSfA8wdKPO6eJHp+i37UT+Fqd1ri4UVn0vQRWA5rM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=iHdI6MzJMp65as7lmB+4ej929CgzLwDZAPiM8/b9syIBT6UIEl5d3n2ygt95VdXxEfmIoDkkqundvE+da58N3znY1l31NjWqkhhAw3sTZm7mv9tN7h/vF5o52d4IwSYVcgeFX4oSLRTaAUTzmPo/iTLDElnxqGwYTuGiBG/8O3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cTWOIWES; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Ytf7sL9B";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="mUOzr/Ox"
-ARC-Seal: i=1; a=rsa-sha256; t=1789752829; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=UQnKet5JPe0MfvPZ97021x9NBtUsKYgAGsap/vxAgLFfU53gOhXlPeU7bEbkErB7w+
-    axr8MvyxO4y5usYeehB/w+q5wDU9puSrQURZq7hR3wT/3FzqgLwFfWbpPa54JRW/sMpf
-    D0C2drVk7pQ176w1nNXYv/32n7Qh6cz2HXGKvnmNDZFxjG4dbXfEuPmftuek+oAYs12v
-    3871tJlSdW6tjxww7ktk1IrTzUKev3YCZWSRdU7wu0xy5C4uoy1jFvosjYTq/14ywsL4
-    c+FRRqhjcQ3pUecmkVPuso8WNlyVsjuNnzFX4PPkvvEryTIXc3Ra2gv5jGe4lDDnfRHw
-    mm8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789752829;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
-    b=WywTT95Ppo4/phRPT3x4yFP59YFXzM/JURAWMOfi1hdyDuGRcEPdtBL7j9aCUiKAof
-    5m59V7BmUpjNHkFq162NAnSJl1ee3+RNk9/Q10fZQbu4ryQCLzwt4weGF84x8Z04p+Hw
-    NDGO8Gio7EaDpsOeiTVwysPMlgSS9kDwYKbMhKvcPdtsON2BbJQDVbc0+QUoXQ7vlw2w
-    GqNgTX0XWZqv79PbymiIjwpvuAnopsp6QV05zo85MJb6DaIAGLEP34PJ8LlUESI0nG88
-    m1TVzPhq2dFDL9FRUvfxYD6n5uiC0BFLEiYQ2yXnYCJyC0mv7G3bBQQpvZrAX7K0Y9aC
-    kCkw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789752829;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
-    b=Ytf7sL9BV7V6ipwZY/oigCk8tXYAFb7LtzD2Q9EP1YILjBC+HaIRr7u6VXA+sM4mLD
-    i1MhFeuXgtrDGAw0UJWVuCuAFD98BALTIN6FsdpG4oEpzqO0S5iMOqJnmaWg/DxgWplt
-    TCZyeL0vypWinSMTSLGDJquI7cNoe/kHbzgNzJvCBYBT/OhJ4JuQo/EAvXzgnM279fYJ
-    aNes8p1Y2dRUKErcTQUpBtF09zy+VzoIjMrCc/wlVS9MCK56a2vClZIPT0TIe3H9grd3
-    n0TFDnyRPUCCNmwn0uAni//sDyfrnZMPsZ2+5yt6J6UHrk5WYbzpGEDdbUd/uQLAfRHG
-    PlFA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789752829;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
-    b=mUOzr/Oxy4HoCSZNKczpOI+X7UIE8Ikw5UOXHXz6q8jOB3xSKpNyd2Y4soKXd/A+2K
-    1gngOrEKvrvQSu7nowAA==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tStBLZ9Neyb6Xno1pYqM="
-Received: from [10.91.122.125]
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K171b728IHXmkvw
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 18 Sep 2026 19:33:48 +0200 (CEST)
-Message-ID: <490282e1-a6dd-40ee-8be7-0a311b2b0141@hartkopp.net>
-Date: Fri, 18 Sep 2026 19:33:41 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cTWOIWES"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789752926; x=1821288926;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=VPuSfA8wdKPO6eJHp+i37UT+Fqd1ri4UVn0vQRWA5rM=;
+  b=cTWOIWESbBrAxAiczshfHVjdmZJtImGzPVsy0Gqe9sEhdC93ZFl1BRJq
+   /B05dv2tOkdadVG6je0B5PsDoOTqUti3YQr1g8UcAc7VZjR9UI9hvM8/a
+   yZ175L2bvx3UcUpME6h2DQPCk0YBEe7NfEIdGKC6HBv40PXGN7pfFnIhc
+   hRWIPREmI3i5CzBT1DaANE1emE9cUIJTwAhYywVstGkJPKNU8DhEn6see
+   jXKN08+lsMItIBjT+UBj8xTAxaSiUWegZ97T1mW8ooUoiQY/UuulwoKQK
+   tmK7XFS4qeKAEh/fj8jL76VQbXBuo8GQZMzV6ni4d/99X2h1OhfjtahzS
+   w==;
+X-CSE-ConnectionGUID: FcsTXCmhSayRDLye8NeTVw==
+X-CSE-MsgGUID: wVuaWBSHTZK1ZMxZhKVEPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100874436"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="100874436"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:35:23 -0700
+X-CSE-ConnectionGUID: bae00GW5TayTjVXTuWnyaA==
+X-CSE-MsgGUID: +LLSkHFFQ32G2lnqI1rIlQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="279733547"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:35:20 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 20:35:17 +0300 (EEST)
+To: Justin Vargas <justinyvar@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+    Krishna Chomal <krishna.chomal108@gmail.com>
+cc: jlee@suse.com, W_Armin@gmx.de, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: acer-wmi: Remove unused platform_profile_support
+ variable
+In-Reply-To: <20260902193039.21725-1-justinyvar@gmail.com>
+Message-ID: <f76315ab-b16c-e4e3-c3c0-6d7963e9671d@linux.intel.com>
+References: <20260902193039.21725-1-justinyvar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] can: dev: fix missing skb header initialization in
- init_can_skb
-To: Shaunak Datar <shaunakkdatar@gmail.com>, mkl@pengutronix.de,
- mailhol@kernel.org
-Cc: pabeni@redhat.com, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-References: <20260918151606.765490-1-shaunakkdatar@gmail.com>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260918151606.765490-1-shaunakkdatar@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hallo Shaunak,
+On Wed, 2 Sep 2026, Justin Vargas wrote:
 
-many thanks for your patch. But there's already a fix awaiting upstream:
-
-https://lore.kernel.org/linux-can/20260917123716.63116-1-ndaugoing@gmail.com/
-
-Best regards,
-Oliver
-
-On 18.09.26 17:16, Shaunak Datar wrote:
-> __alloc_skb() sets skb->mac_header to (typeof(skb->mac_header))~0U via
-> __finalize_skb_around(). skb_reset_mac_len() checks if the value has been
-> updated via the skb_mac_header_was_set() and fires
-> DEBUG_NET_WARN_ON_ONCE(1) if not.
+> The platform_profile_support variable is assigned during platform
+> profile setup but is never read anywhere in the driver. Remove it.
 > 
-> init_can_skb() previously included three header reset calls:
-> 
-> - skb_reset_mac_header(skb)
-> - skb_reset_network_header(skb)
-> - skb_reset_transport_header(skb)
-> 
-> Commit 9f10374bb024 ("can: remove private CAN skb headroom
-> infrastructure") dropped these calls which leads to the skb->mac_header
-> retaining the original value.
-> 
-> Restore the three missing calls in the init_can_skb().
-> 
-> Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-> Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
-> Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Justin Vargas <justinyvar@gmail.com>
 > ---
->   drivers/net/can/dev/skb.c | 3 +++
->   1 file changed, 3 insertions(+)
+> Found while reading through the driver. Compile tested only, as this
+> is a pure dead-code removal.
 > 
-> diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-> index 95fcdc1026f8..9cbddc1edd41 100644
-> --- a/drivers/net/can/dev/skb.c
-> +++ b/drivers/net/can/dev/skb.c
-> @@ -210,6 +210,9 @@ static void init_can_skb(struct sk_buff *skb)
->   {
->   	skb->pkt_type = PACKET_BROADCAST;
->   	skb->ip_summed = CHECKSUM_UNNECESSARY;
-> +	skb_reset_mac_header(skb);
-> +	skb_reset_network_header(skb);
-> +	skb_reset_transport_header(skb);
->   }
->   
->   struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
+> hp-wmi.c and asus-wmi.c appear to carry the same unused variable -
+> declared and assigned once, never read. All three were converted to
+> devm_platform_profile_register() in the same series, which may be where
+> the last reader went, though my clone is too shallow to confirm that.
+> Happy to send patches for the other two as well if that is useful; I
+> left them out here to keep this patch focused on the driver I use.
+> 
+> If the intent was for this variable to be checked somewhere rather than
+> removed, let me know and I will send that instead.
 
+Now this is interesting, git grep finds 6 platform_profile_support words 
+(3 variables in two drivers) and none of them are in use. :-/
+
+I'm not convinced there's going to be any use for any of them, probably 
+leftover from past. Can you make a series to remove them all, one patch 
+per driver.
+
+-- 
+ i.
