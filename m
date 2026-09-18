@@ -1,112 +1,88 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B332A37A832
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E8536683B;
+	Fri, 18 Sep 2026 04:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706526; cv=none; b=SgEFAQGmzQ6Ftt1BB7GttA1NlV+xhBC9WUVevt5GsRRHiHza1j4Xz88y0pthUuCVV9EmUwT/OVa+lLGw7jod4wyCPM+5nPkFnOXl20+jopdSlo0X/35dISqDWNCdjMDZXwRbJyg/eYGMoM1JN+9sX1l1An3BkTWxC78iI1gL0TY=
+	t=1789706570; cv=none; b=XExLUjRA0H7pzPG+kEDQMbNhFbj6LCy/R4dM9jKZK18cqeXac6aWIERfl1lbgIHt6NnGlys+pGCcM62c/mf/nxqrhQylBrm5ngyvZ+JvdcAh3zO6X3vZ+hz8TTLuR7sbity36QsgCp/+Fbr//NHkIDrlA8cU9WBZJVgtJ3R58v8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706526; c=relaxed/simple;
-	bh=EEwItVDn4j3sjRXIFX6oSgxd5iEJbZVXKN97spsMCpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bFY5Uz3MvUel4/VLUNIIknpn1yBmu97I5wBIcKMrG10T5JpAmnSnvsNPI4ztsn5Fzhrm8SgD8lTSpd/p8w07BlMzr5kknPlbzqba20XtnuiLnkPC8wTjso4BHCnXIx9a+nzdVqz+PUj48+hFiSj6ena3D9S6I5r2u0xNGRh6h3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULEDbFCn; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789706570; c=relaxed/simple;
+	bh=D4upwOpfbyrRpYXuHH8jrQqsfj7I6iDeJpXMxZ/4lBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WHJ6j1deaFm6QVe0hTw0yeCOZSqlEvBqfauRdkwzjcNo6zFvmsthgT7najaVCudyrfMYIypceHWwKZCB+9D+S5h1FD2MGzacDa1xrMjESc3uqZVRVHQQIiCGs5oSDARCj8YNahbm6f3H/OAVHoDjY+wLYarvNk+gwon6cf0pspk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=QE+xiJh8; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULEDbFCn"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f9bso2630285ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:42:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789706524; x=1790311324; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jLhSQVS66izuo4+FI7QDBqq9bxYvfIHSP1AdZGaUGT4=;
-        b=ULEDbFCnojf41EW8LgBff1WUFxx0EjLxHQO6nR8smTdvHT85ZMLicU25QS/fR5Fn7e
-         cMtGWQQBq43wlI3w9bgL9EmWNGNHOc3vg+iuAEU8Fow/ZtypmGBiMb2ly33+OdpZUz9u
-         PN/vyNDaW3CfsWNbUhIthPRbOTc0wdZSQyjxSzCPJ5/gg2fSd5R/xvQvyN9HV2cCgBmj
-         TypjXFOr4VwqI4tHkDxcEvRfSBS5YlZT9bu4/9D32uyjmwO0US6ykSHYUC+d1B1EI8RG
-         T6eJwC7DqqBIqMHy/d5KZmyS21guiIsNJEYlpCxMANSU9ZCpYpZMnak6rFKJ9bi7itb6
-         se6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789706524; x=1790311324;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jLhSQVS66izuo4+FI7QDBqq9bxYvfIHSP1AdZGaUGT4=;
-        b=AopNbfJ/SA6BDA/09jcdkucS2tOCUIHHRCER5oFJd13GJUvltkjjy5fl/uIKo8JQrZ
-         TW4fmPoe5tMamXu49TcDfCpoL1oB9E3H7ucxXl5Dw7DUDNK0mGtYnvAh1nBxFhPOfTK6
-         186oROlr9nGAwKVftHXGfaKD83fDatGCJdP0cHmGkRRGFwvk7BMZkhIyMQTB0uAoo541
-         7asrErmoT/Nb/X1PMdXfhC1BYLh8Ku+rlv5RnNqqnFTq4vEsHKu39OFdA3NfmNtrVbtU
-         DFaGSSDmqUHZeBpq2aCUVc3VKf8+aJZYOHEgzr8NwfhyYNbRfpmi+4KDZLvT5rO/uLCb
-         I3GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ17uDkrYNPvzMYbgpwC5FK7F8KI/dMKUrp0b/l+ytBAx/wTwZhM7L0pz3Oy8340fLDsHwYnvdh7SIn74=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQZKSK4SFZy9+nzZa/nrxAUW0rBctqEq3Fd+QhfIii5wsS+9+C
-	ju5rzUi1CSys7PCcnD9Wsjju04ZqcFUOpha77sYz7CQkkj2hZwNuktXElDLxxZk=
-X-Gm-Gg: AYBFou2tqNH87wMOt/oFaw8oxKuF22jpdrBDp2t32a2UMI+0dYwXMiAhCR6xRG5sV7A
-	Jvzn/mK8oiNMj9OnhtfkI2kOTScgixhZJJzo3YKCNKVayQAp6Q6Y8yVlNWU4PbjywhBhW/qrW4m
-	xgDQLjd4d9One/sQC2dDo/G2PU8haed66OfUQpb3bPcuYhaTzTBzxvR8ro06V1jHHOe4NCikS8L
-	L9wut5vGGY8zGB5+4n/BY3SDIQsAQly8UtIloUJ4C3Z3JzcUL2RYNsKuXQxbGy3Qbj1fEjRpxqB
-	av7j31DvUywm3xaNrgMRCJPL5EPCmZw/QwpWMk4+JRRTyaEkPBeJwxHxsfXV5LlHhHyRZVwd6N2
-	BO/6gpMDTvzm/YJNFLM0LCZHXe0DQJWDcfB4a4z2HUJitTS4ONYKkx8G3twKn7qXTA4ZIEAhGrj
-	2R6LZvU5CO7V//ncvoZLLjwh0OzZqgGtSikFd602G7wRAayCXKLucJ1wTXg/PzMSKw7rE2OWEOo
-	5IjntitAbFEx6rpj1ntUh0=
-X-Received: by 2002:a17:902:d4c2:b0:2d8:de9f:9a44 with SMTP id d9443c01a7336-2ddb1c15766mr23812395ad.19.1789706523953;
-        Thu, 17 Sep 2026 21:42:03 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb760d684sm1704675ad.81.2026.09.17.21.42.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 21:42:03 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: sboyd@kernel.org
-Cc: bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	florian.fainelli@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	mcanal@igalia.com,
-	wahrenst@gmx.net,
-	triet.hoang.dev@gmail.com,
-	linux-clk@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="QE+xiJh8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=MDWxXMOAn28ufDEjnxDRQRbRnBgPwhCMg+M+IS6dN5w=; 
+	b=QE+xiJh8/ZERmL6lxHJE59n3ea4ANyDWC9dWxmgxyzfSR0zQZ0Lj05kIlogOsuPPaSw+ASgy1JO
+	Y4tFVdLDmLCKV71U8W9aD3jag8HCW+V1zm1/PkPcWF0ZxEsvNXIGk76uhhrDCVA7RpGuwj1kt/ElA
+	Xo56DNKfJOOkpU+QgsPcMPARW+QaeAG8BIyZ28Ri/nuJ13X/qliAYK+7SDoq22nyj4QFGqqRQA7ac
+	X85ILznCda9+cl8BfijZDUJjVX48m48J3lqMRNNNA0eKMh6E3j4n7UMEE9Klcj6qBklMy6OiXxspz
+	ncf98K+c5ft4YYmDwMUJBZYAXlwQkO0xuq3A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7QQa-0000000FH7W-3efI;
+	Fri, 18 Sep 2026 12:42:25 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 14:42:24 +1000
+Date: Fri, 18 Sep 2026 14:42:24 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+Cc: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] clk: raspberrypi: Handle cpufreq device registration failure
-Date: Fri, 18 Sep 2026 11:41:30 +0700
-Message-ID: <20260918044131.608482-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+Message-ID: <aqzBMBaXnIZZMX70@gondor.apana.org.au>
+References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
+ <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
 
-Check the return value of platform_device_register_data() when
-registering the raspberrypi-cpufreq device and propagate the error
-if registration fails.
+On Mon, Sep 07, 2026 at 11:16:03AM +0800, lianfeng.ouyang wrote:
+> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> 
+> Rework the StarFive TRNG driver to address hardware-specific requirements
+>   for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
+>   ensures clocks are gated before asserting reset during teardown for
+>   JHB100, while JH7110 retains the original reset-first sequence.
+> 
+> Add per-compatible match data (struct starfive_trng_data) describing the
+>   clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
+>   select the ordering from it.
+> 
+> Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
+>   paths, manage PM and the clk/reset teardown via devm so all error paths
+>   unwind correctly, run the SEU-triggered reseed from a workqueue instead
+>   of hard IRQ, and serialise the command sequences with a mutex.
+> 
+> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> ---
+>  MAINTAINERS                          |   2 +-
+>  drivers/char/hw_random/jh7110-trng.c | 297 +++++++++++++++++++++------
+>  2 files changed, 239 insertions(+), 60 deletions(-)
 
-This prevents the clock driver from reporting a successful probe
-when the cpufreq device could not be registered.
+Please take a look at
 
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
- drivers/clk/bcm/clk-raspberrypi.c | 2 ++
- 1 file changed, 2 insertions(+)
+https://sashiko.dev/#/patchset/20260907031603.188483-1-lianfeng.ouyang%40starfivetech.com
 
-diff --git a/drivers/clk/bcm/clk-raspberrypi.c b/drivers/clk/bcm/clk-raspberrypi.c
-index f1a99de6de4f..9882f243d681 100644
---- a/drivers/clk/bcm/clk-raspberrypi.c
-+++ b/drivers/clk/bcm/clk-raspberrypi.c
-@@ -553,6 +553,8 @@ static int raspberrypi_clk_probe(struct platform_device *pdev)
- 
- 	rpi->cpufreq = platform_device_register_data(dev, "raspberrypi-cpufreq",
- 						     -1, NULL, 0);
-+	if (IS_ERR(rpi->cpufreq))
-+		return PTR_ERR(rpi->cpufreq);
- 
- 	return 0;
- }
+Thanks,
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
