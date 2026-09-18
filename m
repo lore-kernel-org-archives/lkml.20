@@ -1,110 +1,73 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F2E36605E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1701140E5F;
+	Fri, 18 Sep 2026 03:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789703267; cv=none; b=srrPJw0m11lnwgwniPt3PzYce4NYLqf8a9p5rrM72SPjBg88eG11JJYXztyi1VRlnGORXs7OLLrCYEleRNOvRer0IKexOR37qCohSCTh/YO2psfaTLZl75Pajpe+pfEZI4hmCd8xJiN/xwayqGf2ZbSDtyrppcXD879h+F0LnrQ=
+	t=1789703344; cv=none; b=MeHSbYqYiSQ2gYKREPbMMc2SBNgRq3FMuDjgv2KlySOc2o37kc4RlbEhGqsDPMDH9RgQ6OCvCbGEU3W+BrVJAzD71Wu2WaG4mEYs4CiW6cIXbbt36IrECF/i581I/ICqi31UIIyiQ0Fg74tQ41539E/LiywbMiRhUb4dZCrSFsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789703267; c=relaxed/simple;
-	bh=OZFz7FV+Ns8YSEl8n3PTLzmOdx9IwQQiCOjBnJtXyTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W+RZ0CCla1D5T2b5Iq3NmCEDEczDn9CrhaqKADPkZqAiS5zMG+3V7XNMe4M3xKFBq0cH7mMILw3Bc/xBUq47icEfBbxUvivnRkDki+NwDpo9tECWK1rZ/GbcukaTwg07NDQfPWTLdIEOGxFy/HGKbnn2ErPiTz9lL7TKCxQlQBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVQ6RmSo; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789703344; c=relaxed/simple;
+	bh=c4zruUhRlTCaZTakd8VSfyas0wFE1JULdP24VFneNvc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=kNIgsUV5LmQac5u6XPiL5VJg23h9YPeufR37Jh4RHbKR458DowgFDwZZWwKHiVkuBy+VprKbWwj/jgKefvqcKDqWCh0cfRaWJroMIu79LmnJ9u+oNbksNvBYbV3Zr2Gckk07gq46p2WVnADw7JU2tgpWswN8mqTAthHWTPmpApw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Gp+wsNqp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVQ6RmSo"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so2506025ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:47:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Gp+wsNqp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3D21F000FF;
+	Fri, 18 Sep 2026 03:49:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789703259; x=1790308059; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qr1pHP/iCGIz1D7JJO5YGZs0OF8AJhVgDqynMNvIAUU=;
-        b=nVQ6RmSov9B86grXopmjVPYQjdshjUaviDqQFeaopFJ4UnMAqJAch+7jsnEjBlItLo
-         8YSpkxtsrSmoUE7NaobzlMSlAM7sn+1PhN24JFOLBtMpYj8Sbo5LyOdVLMmnna3ItTDi
-         kyPr0z/yKyc5LdqyspvyQ08Rqe0zzxC999K1gue0VPrVqKWPkcBoHESfFI5nM7Tr0vLP
-         dvoCJwjrpS37IQMlmE7KBDZ6PVP3p9TMzTOJ3K9+O0e6socPG7qv/KPXUvDJMxvnMHhU
-         lcfIM4EaqqNBRQfMN7HT6pNxorGi9Ci9tNXA7x7RsBbaFzGzswEjMs3MDJTxYVmMO9pv
-         kIvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789703259; x=1790308059;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qr1pHP/iCGIz1D7JJO5YGZs0OF8AJhVgDqynMNvIAUU=;
-        b=cB8/moLfhkf1w2ANl2hA6vU1Rumzv3716EhlKSwAMHXwFRYnCPpv9CqaktkuU2wxTQ
-         Lbf/YmE64urTSW0Qc0BAgUbkSVjEsOQRYyWpuMaO5ZbENUI7zj7y6/0z3knwuWDWxdi/
-         WIl5b2TdtsHg6BUotuOkzUtrKTJ521ud1/lNzn9BZABYe/tayjhbzcA4ml0E276oHs9X
-         k5ojXnuWYG51owR46vlPxwSJLUheOVQzysDMf8F/9+/glizqFH5CJisNDXQhvkzSARJa
-         AHYBFx1/yrG9F8xM4WTowIfX6kJATefk9AliYwTeWdhVpEj/rFY+AApRRRDfRFe1hMqO
-         s4Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBylhxXZ9I8R3CC2caIR1OYdYceRmsB5/bOL/uGOQ8gDSfEh+75yypWGAhQU0X6ZV28xQM91UwgLQuIaUEw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrFRSPzZxneA1Fhk82tZrqQBNYlpwBLuAnZb9W9aqJHgEEpH3k
-	xvNhPwV0T2TTmn9v9BiGsZqQt1GnksubGCqomyOZExZwTGBRDPZgGSm0
-X-Gm-Gg: AYBFou00xsg5+xItKNEGh3mAJJk2Bn2A8xajrlQJmoANRUvUgOGGs0T25DFrDvIboIH
-	xlhxvDnRcFleiyLywzUkwxw1pyLDpvscDIgPUmXBRd3r/kSrIBduJmjq+q3OFSp7J3jbh5JOmM6
-	qzohw3lhow41LPQ94SF17+COmu1Ws+MThp8N4YJYJ9NPkdG2YY/4Qvj+k1ErBxTAzKJh4fteU1B
-	MtcEgv5mPO58VjZkpFy/HvUyf1aPa7B+GGrb26ONgSX6JIn9yRFCuMeSABRtZC8GQxogduaMWvB
-	g4RqdfHOhGd6AKUo8Qy8Yacg/E8PZSctNJ64L9e2gsUezArpZXrVvevq8DAnRyzcYhR5WnpS2ep
-	8mNH7KC/1HDmCyY+oHjH1xtUmSHmM1z/RosfKgsJT09QH/IeJ78pLyeSk9TOjitBwck5f4q0BlP
-	RieMVZEKCEHgtIfGQ8js2nPJ7gAHOQayPclR1+AHYazysGeR0EK/aE9bE3L1eYzhs=
-X-Received: by 2002:a17:90b:3909:b0:39e:1f16:6167 with SMTP id 98e67ed59e1d1-39e54aa348bmr2812569a91.3.1789703259451;
-        Thu, 17 Sep 2026 20:47:39 -0700 (PDT)
-Received: from adi.. ([122.171.17.124])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c284a8c65sm752205eec.4.2026.09.17.20.47.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:47:39 -0700 (PDT)
-From: Adi Prasan <itsadi2409@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: johannes@sipsolutions.net,
-	linux-kernel@vger.kernel.org,
-	Adi Prasan <itsadi2409@gmail.com>,
-	syzbot+847847e76c6983a5b3dd@syzkaller.appspotmail.com
-Subject: [PATCH] wifi: mac80211_hwsim: handle invalid tx rate index
-Date: Fri, 18 Sep 2026 03:47:17 +0000
-Message-ID: <20260918034717.22104-1-itsadi2409@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	d=linux-foundation.org; s=korg; t=1789703342;
+	bh=R4q08ERpIGjLGCf1CNdAlc+T9V2LICMNbsbDVrMf148=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Gp+wsNqpXSHoQgyqaAiMkwFieo3u6guFDNRHvmB2pdaa7h4DoXupHH121rpO462Hp
+	 4hT/7JdNNOOsujTnobpCQ061+0AHRj9EiwC7L+WL7b00jqY40azeolORSh7Pqyup35
+	 /+x0IhbEDxQ8WgK9jgR28vSQFDR1GhOIDP+OuOMk=
+Date: Thu, 17 Sep 2026 20:49:01 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hongfu Li <hongfu.li@linux.dev>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Colin
+ Ian King <colin.i.king@gmail.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Mina Almasry <almasrymina@google.com>, Mike Kravetz
+ <mike.kravetz@oracle.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] mm/hugetlb_cgroup: move the per-node usage along
+ with the folio
+Message-Id: <20260917204901.efd6e6908c85c104467fdeff@linux-foundation.org>
+In-Reply-To: <20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn>
+References: <20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-mac80211_hwsim_get_tx_rate() calls ieee80211_get_tx_rate()
-without checking whether the rate index is valid.
+On Fri, 18 Sep 2026 10:56:09 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
 
-A monitor frame with an invalid or missing legacy rate can leave
-rates[0].idx set to -1. This triggers the WARN_ON_ONCE() in
-ieee80211_get_tx_rate().
+> The per-node usage reported by hugetlb.<size>.numa_stat is accounted
+> against folio_nid() in __hugetlb_cgroup_commit_charge() and
+> __hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
+> stays charged on the same node and in the same hugetlb_cgroup.
+> 
+> Two paths move a folio which stays charged, and neither moves the usage
+> with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
+> of a folio migrated to another node, and hugetlb_cgroup_move_parent()
+> only moves the page_counter charges and the hugetlb_cgroup pointer of
+> the folios of a dying cgroup. In both cases the node (or cgroup) which
+> was charged keeps a usage which never goes away, while the node
+> (or cgroup) which ends up uncharging the folio underflows as soon as
+> the folio is freed.
 
-Treat a negative rate index like the existing MCS/VHT case and
-return NULL. The caller already handles a missing tx rate.
+Thanks.
 
-Reported-by: syzbot+847847e76c6983a5b3dd@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=847847e76c6983a5b3dd
-Signed-off-by: Adi Prasan <itsadi2409@gmail.com>
----
- drivers/net/wireless/virtual/mac80211_hwsim_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+> Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
+> Cc: stable@vger.kernel.org
 
-diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-index 02b6d81cccd1..e7bf91e06e40 100644
---- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-+++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
-@@ -1332,6 +1332,9 @@ mac80211_hwsim_get_tx_rate(struct ieee80211_hw *hw,
- 	    (IEEE80211_TX_RC_MCS | IEEE80211_TX_RC_VHT_MCS))
- 		return NULL;
- 
-+	if (info->control.rates[0].idx < 0)
-+		return NULL;
-+
- 	return ieee80211_get_tx_rate(hw, info);
- }
- 
--- 
-2.43.0
-
+I'll queue these for the next merge window, with cc:stable.  I don't
+see a hurry to fix a four year old bug.
