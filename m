@@ -1,146 +1,171 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B0538E5DC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB7F2E040D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741053; cv=none; b=W9FvctI7pCkBkZD7t0kzNrwD1Be+cVF34gvkB+HYCbn0+e1QM5Fc8bt2Dd0jdjGxormNJsLgnecxVdnxzgkgZSeLopUFZPIUpko1ThHLAO5RrzbHhpwheghlAglinPQx8+Y0aorx2+nKlVsuqMDZjXf4/1tPedboHMIw7pAWo5s=
+	t=1789741083; cv=none; b=k1EApAAIzlTDo+X5uMEyOFd4dM7lAC4Q9EI/kZnIURVmGwJr1LVo8uvfyLmOZpSIpgVbSaloeWhrUVaBAqkLCExpR77pC/L+TJESJEEDMm8UCdGE0rVndNpyI/hUPBurlYi4QWkZvwdmdJn+dEK8qSR2fpEpAiJTkAg1+g6XWs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741053; c=relaxed/simple;
-	bh=0SUOoIAUaLT7F1Gk4YYUyXePP6L3UTYZWjgmxML1hhk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tc1JxyQbRtRier2N4R1xWH+6msM1O4RQcNx9jon8TfrkZxuT2QkW5VkQRxnU/kuaIYsFT/JzGJEPrS47fcjs31/+SL0/cGLQmma/FKuSSQxOHuTf3Gr1p27wxrkU7M2Q3FqnVb8mR0K+ufQyZ5YLO4D2A6z2mUhJjhR9/jgN2ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=tbnp0DPF; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1789741083; c=relaxed/simple;
+	bh=6pYUc+Yv8IiiqD40mWlSDSz316uwJ0Iap7UVSWMfMiQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TMUnOo5oio04oxO/KJZmzd7y1NbuGeEAGB9jwbsn/EEE/CpREzSBeWPV4cgZlvHp+UrI0VnBZ2mW6byCWKe3bZq4I6tIYyFUAGuxEfs8D6APgqFzCdaeJ/GOknJHyEtCjT9A6lNN4WVcjI4qb29NZGAEL65fsG0PFXtvdsoLizo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEH3ovrj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="tbnp0DPF"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-52fb769ca17so6301081cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789741051; x=1790345851; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uadj5t2QE0GhPwN/LGtDC4GsH7sMKtOhGKh1V/7jDls=;
-        b=tbnp0DPFZzCzJI92LO+DZBa4LFBADqSgbjMCOiVY0f04DmdXMo7xhxkmxpftADnhCX
-         vEmsFrGVJC5hraBVWBUbx+1ApcBwRU2hbl2Wp7frwdHb3Qsa8rmbKo8WtS4qynZMxFnO
-         X3eZceM3ShMYND/1X5fbiTV9ARGkdeEz+BaLOKxYg+qRtUxjy8AHHyDRUMeWiFv5eiwZ
-         6cqp7hZL1h/ASPxGHzYH3jl4HBlrgFi1BmLeqvg/AXAgSO5gJPs6O+RfUuMOdXKhBsso
-         D3kC6Phnj1Ob5lyLRkVkfaFhgBaqWv/Yy0JGoLndPS0E2qi0mz5d+vGtuXl1EEJugffC
-         M2bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789741051; x=1790345851;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uadj5t2QE0GhPwN/LGtDC4GsH7sMKtOhGKh1V/7jDls=;
-        b=eV9XDlwmbZvhNGja52/4Vvs+yLDu2l7r1JmEK+0jHsv/SecIiTRkvVLYi4QIfh99II
-         7wOVws9MENCUPsu+KgWRcveoO9iupOpBzff7b/y4Ff3Pmh1OgPNB6sqnntvBbGzjZUe4
-         egSEqPXZpUM9xrTrqbAgJvPpz5k3hHvCKZlGvmNUvEBYewpmxYurOnpJrAV8ulwAL0AX
-         hyPGNqoVfEhKAU/GXllAAhj4Y5Fh79iSS/tVXvp7v7bh6U5o1BnmGSBdzoYj/Fnq5ilq
-         rfPx7TJYwemlUcmTjAMrZlrqTfigctfUXCzJfIRWqsypositIIV5vPMJOeVXRkYP3Dsa
-         jSFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdp0eMJWd+/sTp8pYhRadKT7yLXWcdo3DiHOtm2UEdkiXPOROb2grEPnQ3JmsjD3GKiQlVhzK9Asm8/vo=@vger.kernel.org
-X-Gm-Message-State: AFuF++neDP0NxK7P0F/YbVZV0dx2VGr509Te2JbKmZis4ciNeBfIul78
-	QPKrRKrUeFeiMQJy7qMXYBV1/McOqTHeKSckN5jlGqkX3+qJPjHKgX3XyfAdl49FhQ==
-X-Gm-Gg: AYBFou1Gp7s1o9dQRO75M68K4crKHWbXSy/bTFfVgEUhAd0FfxMpD7MuDEapZaoGyjI
-	QuAJC2JCqxIY2f6UMxuGBTNx43fU01ZMAqMXMTGbI+uAWT1VM+WFbSHGqIyGKJZgm/m5lIS6cFt
-	12Rum6d/GwDQY7Oz5E3Zu/oudIh8Uc4+Lp+sBMp7HqQwJuBkVGMXYOB9fa2DN6iQ7mYLoL8WfZ4
-	9s/CCFPD56CrQ5K/X8BufdvicSMFeedI0lEL2QiTn43nffrRBSQLEAW6+FB/fttuDqrILzW4A5X
-	E6uTEB3PV198lXE4SiSHxZzDZ+a2+I+sWPy57gc8ZeHoea+XwnCKdaVLFfriAg1+j8xbqhQhD+n
-	OL8QFI7V1nOfBD+wMyU21rD5N7ibIpuHeffP3iEviUj71wfzXbgA+gwKJLeDoPlPhIWpqJxY7qY
-	GfO29suidjjwJ2uI65i3fVE4cXusLxlflDoB5syWmaseloCYB4TyCAr4kBtmqd5rztB3Sc8T3X
-X-Received: by 2002:a05:622a:4c16:b0:52d:28f8:578c with SMTP id d75a77b69052e-5329e393052mr40542951cf.31.1789741050517;
-        Fri, 18 Sep 2026 07:17:30 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ac48dfc9sm1986711cf.8.2026.09.18.07.17.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:17:28 -0700 (PDT)
-Date: Fri, 18 Sep 2026 10:17:25 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <fd663410-6aff-42f1-a6e7-652f073fdafe@rowland.harvard.edu>
-References: <1a93bb26-9ded-4b71-b409-62896a2681a6@rowland.harvard.edu>
- <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
- <0b6b13ff-789e-4ba4-9765-1052a154ef27@rowland.harvard.edu>
- <CAFmvuTXeg2LykJa060WUYAhhQpdwGV74VFkMb6Wu5zjyqWzxmw@mail.gmail.com>
- <f42b44ef-b083-4976-bf06-f2a21098474b@rowland.harvard.edu>
- <CAFmvuTUZ+iP313qz5J5vaT7QGz2y-tHQ6XMrq2tnvStZqXDECg@mail.gmail.com>
- <7a87e293-633c-4100-aa8d-91560ba5e5c5@rowland.harvard.edu>
- <CAFmvuTU9xfCWFaoXzE6J0uC6y6eCZ43CRg+JWkLV3dgLNYu5Cw@mail.gmail.com>
- <9c07ce98-a5bf-4bcc-9304-e7f5e1747842@rowland.harvard.edu>
- <CAFmvuTW5kqF8zNp7wSxB3abhD9ZvfJ0gu9Si8kRTiwcuXOeVuw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEH3ovrj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E70FB1F000FF;
+	Fri, 18 Sep 2026 14:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789741081;
+	bh=OAmEu+JzoTJ/Pl+tJn1qfGMuXEXO8fVcBtsv/kGUTWg=;
+	h=From:Subject:Date:To:Cc;
+	b=BEH3ovrjR/dhG7b8SfpwfXi6yYsWESHl/lOAxpgcJF5F6merXkcChLNSJI/ULjJMn
+	 sY0VdWzM5/aUebfqRe2pGxysVOXDs3j5z14f4bJLAzttJr0LY7xzjVN+DeUghh5tBv
+	 l/GRl7dHekXKxwdO7LTusrMxc3xOnGz6QnEgtX+M1/MbBVP/Wbpn//gqse7ulDiy3Z
+	 CsrMIrubS6Vje2Al7wYEio7doFmPd27jThzkr0jA8pbdDg7M0LC2YX5b4TXQ2a+TjL
+	 8ELcGE4F5CLiDCddcZIWWN0Cwq8dv5/bLnBVsB6q0G378BzPBTcJzcQhu8rb2jhlpw
+	 wSXbxN+8j49lA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 00/13] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 18 Sep 2026 16:17:49 +0200
+Message-Id: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTW5kqF8zNp7wSxB3abhD9ZvfJ0gu9Si8kRTiwcuXOeVuw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XQS07DMBAG4KtEXjPIj7i2u+IeiIVjj1OLJoGxi
+ Yqq3h2nXVQIVSz/keabx5kVpIyF7bszI1xzycvcQv/UsXDw84iQY8tMcrnjhluINAFhwQql+oq
+ Qjn4EmQY5aCNEcoa11g/ClE9X9vWt5UMudaHv65RVbNV/wFUAh6BMDM7q3ur48o404/F5oZFt4
+ irvihXygSKbgm4XUCglTPyrqLviHu6imuK41oYnZY3vfymX27mEn1/tefV2Mxt8QQjLNOW67zZ
+ 1yiXAjKcK2zDgDoRpzZcfKLBI5IEBAAA=
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4467; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=6pYUc+Yv8IiiqD40mWlSDSz316uwJ0Iap7UVSWMfMiQ=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPfiztyhWL1ih4jT3voL0T+kjihufdnc0TvwvbrN0S
+ 4eA+d3DHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi/54zNrz6/PvRCWOz31le
+ Emv9p6lxfu48fCNdqq/WULuv6c5l07YTC54tmX3wtfKyXqO5V//2LmJseFyzVicimvf/EY/mfNd
+ N/pv7/orcsJcpiQt5eP+l3XYPm7+zLh964/Tgh9v2OQsqpz03BQA=
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-On Fri, Sep 18, 2026 at 10:30:00PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> > I wonder which part of the code was holding udc_usage above 0?
-> 
-> It was the udc_usage increment in ep_aio() during request submission.
-> The increment occurs before dev->lock is released to call
-> kiocb_set_cancel_fn() and usb_ep_queue(), and the corresponding decrement
-> occurs after usb_ep_queue() returns:
-> 
->     ++epdata->dev->udc_usage;
->     spin_unlock_irq(&epdata->dev->lock);
-> 
->     kiocb_set_cancel_fn(iocb, ep_aio_cancel);
->     value = usb_ep_queue(ep, req, GFP_KERNEL);
-> 
->     spin_lock_irq(&epdata->dev->lock);
->     --epdata->dev->udc_usage;
-> 
-> In the matched control, a request with a length of 64 bytes took the
-> direct giveback path, where dummy_queue() calls
-> usb_gadget_giveback_request() before returning to usb_ep_queue().
-> usb_gadget_giveback_request() synchronously invokes the request's
-> completion callback, which was ep_aio_complete() in this test. Because I
-> held ep_aio_complete() at the diagnostic gate immediately after
-> iocb->ki_complete() returned, the nested giveback call could not return.
-> Consequently, neither dummy_queue() nor usb_ep_queue() had returned, and
-> ep_aio() had not reached the decrement. gadgetfs_unbind() therefore saw
-> udc_usage at 1 and waited.
+Hi,
 
-Of course.  Now I get it.
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-> In the normal transfer test, by contrast, usb_ep_queue() returned and
-> ep_aio() decremented udc_usage before the later completion callback ran.
-> I confirmed this ordering in three runs without enabling a callback
-> gate.
-> 
-> I verified the sequence for direct giveback with markers after the
-> increment, after usb_ep_queue() returned but before the decrement, after
-> the decrement, and immediately before and after the unbind wait. In each
-> of three runs, markers with the same dev pointer showed ep_aio()
-> incrementing udc_usage to 1 and gadgetfs_unbind() entering the udc_usage
-> wait with the count still at 1. After I released the diagnostic gate,
-> usb_ep_queue() returned, ep_aio() decremented the count to 0, and
-> gadgetfs_unbind() left the wait.
-> 
-> > I will submit the patches, with your Signed-off-by:
-> > added to this one also, if that's okay with you.
-> 
-> Yes, that is okay with me. Please add it as:
-> 
-> Minseo Kim <neck3922@gmail.com>
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-I will, and I will CC: you on the submissions.
+The bulk of the series extracts the state insertion logic from each
+drm_atomic_get_*_state() into standalone helpers, since the
+fill_with_defaults path creates states through atomic_create_state()
+rather than atomic_duplicate_state() and cannot reuse the existing
+functions directly.
 
-Alan Stern
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
+
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
+
+And we have IGT tests as well:
+https://lore.kernel.org/igt-dev/20260916095159.2896630-1-mripard@kernel.org/
+
+This series relies on all drivers implementing atomic_create_state.
+The conversion is in progress but not yet complete.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
+
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
+
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
+
+---
+Maxime Ripard (12):
+      drm/atomic: Switch to krealloc_array() in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_connector_state()
+      drm/atomic: Create function to insert CRTC state into a commit
+      drm/atomic: Create function to insert plane state into a commit
+      drm/atomic: Create function to insert colorop state into a commit
+      drm/atomic: Create function to insert private obj state into a commit
+      drm/atomic: Create function to insert connector state into a commit
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/vkms: Switch container_of helpers to container_of_const
+      drm/vkms: Add driver-specific plane property for testing
+
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+
+ drivers/gpu/drm/drm_atomic.c      | 347 +++++++++++++++++++++++++++++++-------
+ drivers/gpu/drm/drm_atomic_uapi.c |  18 ++
+ drivers/gpu/drm/drm_ioctl.c       |   4 +
+ drivers/gpu/drm/vkms/vkms_drv.h   |  11 +-
+ drivers/gpu/drm/vkms/vkms_plane.c |  61 ++++++-
+ include/drm/drm_atomic.h          |   3 +
+ include/uapi/drm/drm.h            |  10 ++
+ include/uapi/drm/drm_mode.h       |  14 +-
+ 8 files changed, 398 insertions(+), 70 deletions(-)
+---
+base-commit: 7bb81171930435e6658ca4c5a5c03152e3b877c5
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
