@@ -1,122 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C4E397949;
-	Fri, 18 Sep 2026 06:40:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15755365A14;
+	Fri, 18 Sep 2026 06:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713610; cv=none; b=IDLZpquisBGxXue2ZuGUm+ze0KJBNGIrnvzhLz46303ikHlgDIBqjvlQDtIqTJxfsl5b4veGR4BPW6U/O8eY6gWKVfQ+JqhITivGu4JDpxP4oQRGDjz6bE+l5FbOcfq56KP8+cH82vooYVhPJvlfJa1KWFM1QbhEO+IX4zNwLBc=
+	t=1789713614; cv=none; b=dqEQ9E451ZCI1CEGlLdePK+dMsUqKxzKhaLKMbQdB5HEaNtMnlLnSSbM/h6bXHTvMyhDbFHfWKJQZNhCmKwYwk86Kq41v4+V228Pn93/qBUMD+kWI2lyaSyLs4MZxgXniNTBcc9bIjaO7Il/DuOSIjUzfIoh9lPlCoJahhyWzuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713610; c=relaxed/simple;
-	bh=qH80mGE9pCwDhwBrlDfTjjf9ew0D0sIRmxCNxFsJE7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=piIPtJ2+okAE44hyoqiPb4vi3THLn2BHVT5j5U2L0r/17i9ncB3IW5zjMZA8XGn3oDVr223LL4pPpkwFR+0kqGDkwlvCNcWsIURFAbx6pSzZ8qabzB9HolzraL6wh92nsTxBgMF+vzlqpnDmkNCZnA6RApLGK70e/0g+5v28vOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhxD1Y+e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789713614; c=relaxed/simple;
+	bh=jbCz3/l/IS3j3i0ZlvXXWgqv2Qhoy5HUJUfa0PhdFB4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sKfzkmNiM0xDt3gIYk3e5qPvscWxD7i8th5IZ+fWcf3hQugQ7XGAoPt+4Vf+QNXWtqW6yXPTOLohIFLHQop7pJV1Iv8xa33qKBWphKN/NlNh0wak9+vzP4PiAdwe2JVv9CHA05KPY/etfWI4YrljMTfxtS9eBnlT809IM2S1LbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gr6iWbfN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhxD1Y+e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE98C1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gr6iWbfN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D771F000FF;
 	Fri, 18 Sep 2026 06:40:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789713608;
-	bh=THnFdyTeq0KsVfc/2yhY0wS2msxeEvDxKlZCMnDU5UE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IhxD1Y+eG3fxALQgFkFo2XLbW64HqLJNRzjmbOs/Ikg9+PONsCFrD9QDsnEVouFtt
-	 GudWuCnVij2L/v17xwmSJwVzq1b5bvF5NCm8HsjMqkPLi+c3SG5qECyRlptHwYE1RE
-	 i5yk8Hq7z8fnB0DGgQnZkTZZYD5e11WmZh4sgj3gvS+K3D0qo9STpuS8e6FBp+Xjhx
-	 j4eWxnZ13irnAO8ZbbbLjT0qOOBoXlgw1NXQ22udx23Hf/T6qhlmCIg8e2xntf34/q
-	 Qv2SwRMlmB8tPsm7A9pMSYcZKW3ahYhnlI1adxMOBhN83PQOzEens4su2tCJi0x2P6
-	 0s9gjw5iGkRPQ==
+	s=k20260515; t=1789713612;
+	bh=hDfUhIaZu4KPqHePo0HBKv6V2o+AaHKMEhi4wd6/0Kw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gr6iWbfNeA85FUBO4vzbDmRqzAzqO/U6FyVeujEvSVdtuiMSQXXNP0JJ3mFzxgfxj
+	 pQWXc8thrMBiOyfp4JXjDpmnDu0FuuVs99NSQNAVwQTvIoYFpGKuxr+Jce8GRu076W
+	 zqPXGkP4aBvOQLE/w+dOcWtZ0KQ1u+DbDPJyuqHfp42X67GKQYTcfpcwjD0tVN9TGn
+	 aocNjhWuPZgDolbOCpssn9tVuMGldBcAmIMpOvdlx0Noj9/RAE/8DRuQE1zGdyFBjl
+	 nws+0zfzdfG3PL/GpqFg05fhvKhPtsgRAJF/qkvwgGygZtiP3rO0mDqv9JxZrV+h4A
+	 mqKeVU6T4oeeg==
+Message-ID: <23676471-d90c-40cd-a357-e71b3d426425@kernel.org>
 Date: Fri, 18 Sep 2026 08:40:05 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Kees Cook <kees+treewide@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: st_lsm6dsx: Allocate ext_channels with
- ARRAY_SIZE()
-Message-ID: <aqzcxf84JEdoyzwA@lore-qca>
-References: <20260917211350.i.934-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wbQJT2YbkD8xj2MZ"
-Content-Disposition: inline
-In-Reply-To: <20260917211350.i.934-kees@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+To: Salvatore Dipietro <dipiets@amazon.it>, hannes@cmpxchg.org,
+ akpm@linux-foundation.org
+Cc: abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+ dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+ hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-xfs@vger.kernel.org,
+ mhocko@suse.com, ritesh.list@gmail.com, rvvandan@amazon.com,
+ stable@vger.kernel.org, surenb@google.com, willy@infradead.org,
+ ziy@nvidia.com
+References: <aqlvnm8AKp5f_UhG@cmpxchg.org>
+ <20260918063203.2802342-1-dipiets@amazon.it>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918063203.2802342-1-dipiets@amazon.it>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---wbQJT2YbkD8xj2MZ
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/18/26 08:32, Salvatore Dipietro wrote:
+> 
+> On Tue, Sep 15, 2026 at 04:17:00PM +0000, Johannes Weiner wrote:
+>> It would be possible to remove the costly_order gate here and just
+>> bail on __GFP_NORETRY. But no strong feelings.
+> 
+> Will do, I'll drop the costly_order gate and bail on __GFP_NORETRY.
+> 
+> Andrew, since you dropped v5 and restored v4 in mm-unstable, I'll send a
+> v6 (v4 plus the above change) unless you'd rather have an incremental
+> patch on top of v4. Let me know if anything else is needed on my side.
 
-> From: Kees Cook <kees+treewide@kernel.org>
->=20
-> In preparation for making the devm_kmalloc family of allocators type
-> aware, we need to make sure that the returned type from the allocation
-> matches the type of the variable being assigned. (Before, the allocator
-> would always return "void *", which can be implicitly cast to any
-> pointer type.)
->=20
-> This is allocating a copy of magn_channels, which is an array of struct
-> iio_chan_spec, but the size was taken from the whole array, which would
-> make the allocation type a pointer to the array rather than the
-> "struct iio_chan_spec *" being assigned. Allocate ARRAY_SIZE-many
-> entries instead. The resulting allocation size is the same.
->=20
-> Build tested ARCH=3Dx86_64 allmodconfig with GCC 16.2.0:
-> drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.o
->=20
-> Assisted-by: LLM coccinelle
-> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+v4 is in mm-hotfixes-stable now, so an incremental fix will be easier now I
+think.
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> Thanks,
+> Salvatore
+> 
+> 
+> 
+> 
+> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+> 
+> 
+> 
 
-> ---
-> Cc: Lorenzo Bianconi <lorenzo@kernel.org>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: David Lechner <dlechner@baylibre.com>
-> Cc: "Nuno S=E1" <nuno.sa@analog.com>
-> Cc: Andy Shevchenko <andy@kernel.org>
-> Cc: <linux-iio@vger.kernel.org>
-> ---
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.c b/drivers/iio/i=
-mu/st_lsm6dsx/st_lsm6dsx_shub.c
-> index d6a1eeb151ca..cbc47fa5b101 100644
-> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.c
-> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_shub.c
-> @@ -766,8 +766,8 @@ st_lsm6dsx_shub_alloc_iiodev(struct st_lsm6dsx_hw *hw,
->  			IIO_CHAN_SOFT_TIMESTAMP(3),
->  		};
-> =20
-> -		ext_channels =3D devm_kzalloc(hw->dev, sizeof(magn_channels),
-> -					    GFP_KERNEL);
-> +		ext_channels =3D devm_kcalloc(hw->dev, ARRAY_SIZE(magn_channels),
-> +					    sizeof(*ext_channels), GFP_KERNEL);
->  		if (!ext_channels)
->  			return NULL;
-> =20
-> --=20
-> 2.34.1
->=20
-
---wbQJT2YbkD8xj2MZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqzcxQAKCRA6cBh0uS2t
-rI17AP0fAoZ0k4l8NkWBt1GT/hkmsWRWMZ2bReA5VRyYonj21AEA2AEKuZmVysDv
-uxhbCT+fCsUIVmBlGYCPLXgeAMfbtwk=
-=VerI
------END PGP SIGNATURE-----
-
---wbQJT2YbkD8xj2MZ--
