@@ -1,120 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770394FB9AC;
-	Fri, 18 Sep 2026 13:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AB15012A2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739044; cv=none; b=PYkChg4/uhbjZU+m4Zzzuhim0DQz4CARuaZzWciLU+DdpSN1mJhLxT+Y+lIOYJq82sJh/PV0T9GmFg9vPscESETKGkoK4OQtWN1cP5Fqg753AucSYfNM3uwJcUm0Jtio3J0A0LHPNpwJ8CsmQYm2iKDkWHCwKBxTyZ+9WU8lU2E=
+	t=1789739050; cv=none; b=iaP34LYOF1QvKi9hJ/VSSZ1oz9roZ7yqaoRT4DDMUGwSFMVxIHRtpzQ13P8XCvapXsxLKE3Cp1Qaqjwk3GuE9N9KiGWLUtOWdNkQnBVs0dlTsIOg22Gkh5JC5Bj7bjkaYcfGMl07lpl9tYwGpG7QaI7QFQ+/8cEY4jiqRvtS24A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739044; c=relaxed/simple;
-	bh=yGMtRd61rRS94U/00A/0H+Rce5rS/B5Qs5GeuBD+vmU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=JOWATluvT0AhmLFHS88TeYHSi4g67Nf6r1dyDkm459s7/zoy0FGUxuf2SLs1GHoAz/A1AHmkwqE3Pf7ASLo78WnWwYu7lR/zclfLS2EPyXxmsacKqpKqYd6WvgGWQhvJUIUzvJA1ShdOwpP5IU+BNQTP6DwZaYFKoqxU1Nef58k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nszbkpiK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789739050; c=relaxed/simple;
+	bh=uJsQzfWCDIRCob0IF7snybE9f9o4EOemrRTYpIkms8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=AzOOCCVQS0OOZZUeobwdo1in0v6wrcjhu82aK4uMMn5v5RVX01JCAc7V/oFf9ZVoXn15Lh+tqZlGqMxwirQAI44DFYvHbocgyi/my6GvfxUE/XdZWaJisEZ/8UGEk4sQs/y90InOQJ8LTH1e9Pv1RQB9UiNNIx6/g3gdfYj7a2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=BvdJV45B; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nszbkpiK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF5EA1F00899;
-	Fri, 18 Sep 2026 13:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789739042;
-	bh=jkAm1g0TDipHkkW/+0ajE5dEmwaCcQEDVisudq9c+fk=;
-	h=Date:From:To:Cc:Subject;
-	b=nszbkpiKW7Etg0/i6J2c8WZrrgkUs2dcwZ/t0cP6yPUwIuhw5rppgsNEQ5F9p4RX5
-	 r7+NxI3b6tWnrbDeEDZXZt8vZT4gHK7gt1scz35aqmF92maYA1UACDxxF85utx2dF0
-	 jy+sm1wQYsN1ii3SBHWtuWq6gZ7R/DOjnkZPKcEGZRIDIdbAN2VEC/fH2u5uuF05/p
-	 8JogiAxOSMa2pWYwVQlVRMq8CHFDKr9WhK5twkX1dW7aAbsDpRFnYZ8xh2ZfPuzYJY
-	 4aW38On6XOTzQu6+mrZoDXc8Jf0iMlwrXfuqSs78x0fvxSEZJy7yAbth5+QkwyQMDG
-	 Q3lwaQed9Mn3Q==
-Date: Fri, 18 Sep 2026 14:43:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 18
-Message-ID: <aq1AH0YRkElOLKT_@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="BvdJV45B"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260918134404epoutp02ab4b851dbb26281450ed47a729204b29~Wbi2iG7nH2250922509epoutp02s
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:44:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260918134404epoutp02ab4b851dbb26281450ed47a729204b29~Wbi2iG7nH2250922509epoutp02s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789739044;
+	bh=M/6THK5ybFgfnJ44IwMV41p5iO6sYAnbdxfxWAQES9w=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=BvdJV45BfaSNm3RBet5A4cWePbMXofrFm/MfD3erSc3oygiJg4jzT6iesCSkZBSIt
+	 7esRhTulZAIixielR7/NYvk28QLkI8TlZ5S8eN9v04wmQ2FXZfjkteXFt0cihMirdV
+	 UeG4gHNUPJPn7hvXKKwQLnnEebgzWKMZvbYNYQ68=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260918134403epcas5p259a04e149d24f77658758604afbc56b2~Wbi16PIyF3098530985epcas5p21;
+	Fri, 18 Sep 2026 13:44:03 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmYkV3WySz6B9m6; Fri, 18 Sep
+	2026 13:44:02 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260918134401epcas5p34a132942523dca5b7e6831894b7ae494~Wbi0dtpu52504725047epcas5p3C;
+	Fri, 18 Sep 2026 13:44:01 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260918134358epsmtip1c1a77ba9b4a8af69fba914d4067d77f4~WbixpWZaJ2193021930epsmtip1S;
+	Fri, 18 Sep 2026 13:43:58 +0000 (GMT)
+Message-ID: <14b69f98-7fd9-4b66-a1c0-0d1c29ab25b0@samsung.com>
+Date: Fri, 18 Sep 2026 19:13:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Gd3pXMNhe/mgyk4J"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
+ ARM/SAMSUNG entry
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
+	Thinh.Nguyen@synopsys.com, mani@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
+	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
+	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
+	thiagu.r@samsung.com
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <20260918-eminent-wooden-shark-97b8be@quoll>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260918134401epcas5p34a132942523dca5b7e6831894b7ae494
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
+	<20260916122229.2604003-2-selvarasu.g@samsung.com>
+	<20260918-eminent-wooden-shark-97b8be@quoll>
 
 
---Gd3pXMNhe/mgyk4J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 9/18/2026 3:28 PM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 16, 2026 at 05:52:27PM +0530, Selvarasu Ganesan wrote:
+>> Add the Samsung USB devicetree binding file path under the existing
+>> ARM/Samsung SoC maintainership.
+>>
+>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> ---
+>>   MAINTAINERS | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index a53620839407..87a1ab24a375 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -3576,6 +3576,7 @@ F:	Documentation/devicetree/bindings/arm/samsung/
+>>   F:	Documentation/devicetree/bindings/hwinfo/samsung,*
+>>   F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
+>>   F:	Documentation/devicetree/bindings/soc/samsung/
+>> +F:	Documentation/devicetree/bindings/usb/samsung,*
+> I think this is not really needed. First of all, files will be covered
+> by N: pattern further in the entry. Second, patches for these should go
+> via USB, but listing here the directory could create impression that
+> Samsung SoC is responsible.
+>
+> This one entry is harmless, but if adding this, then next time we got 15
+> more updates for each of Documentation/devicetree/bindings/*/samsung*
+> files. Is it worth?
+>
+> Interested people can add themselves to the bindings maintainers entry,
+> that's always welcomed.
 
-Hi all,
+Hi Krzysztof,
 
-Changes since 20260917:
+Thanks for your detailed explanations.
 
-The bpf-next tree acquired a conflict with the bpf tree.
+Agreed. We will drop this patch in the next version.
 
-The drm tree acquired a conflict with the drm-fixes tree.
-
-The drm tree acquired multiple conflicts with the drm-misc-fixes tree.
-
-The amdgpu tree acquired a conflict with the drm-fixes tree.
-
-The amdgpu tree acquired a conflict with the drm-misc tree.
-
-The amdgpu tree acquired a build failure, I used the version from
-next-20260917 instead.
-
-The drm-xe tree acquired a conflict with the drm-fixes tree.
-
-The char-misc tree acquired a conflict with the char-misc.current tree.
-
-Non-merge commits (relative to Linus' tree): 7328
- 7818 files changed, 399202 insertions(+), 125673 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 428 trees (counting Linus' and 133 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---Gd3pXMNhe/mgyk4J
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtQB4ACgkQJNaLcl1U
-h9BXzgf+Ih7cJiqk7gXb/FDnsOWriTemYsMWqiHExPPrNDwOrhPohIn3DqyxO2Jr
-24WI0jafX6MN2IZXSBJ251heVquZp+2AwiRYEGyplqlnR2Wg8iP8w/3/m6vDqtLl
-sVbLMuzCrAg5ET/fPI74cDfq3hypcrbjwSPMcfYjI44e+DV6vO810D4IUkcZlkOP
-9aJzF0fuXR623oG7EzZYr1whOQNveQA0gQJxgT+ya/6HWbnwapMWs4Gcv8jfOYPi
-BQa6aYP8NwKAbaZeWif4W8nPQ5yMXkUXRynJKuBGjjgD7I75WG2zo77i/T1iwRgs
-3GtyCc8oNowRV2rT27h7nG/zkMTHbQ==
-=abmj
------END PGP SIGNATURE-----
-
---Gd3pXMNhe/mgyk4J--
+Thanks,
+Selva
+>
+> Best regards,
+> Krzysztof
