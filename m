@@ -1,94 +1,122 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C757E502778
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC9B38D3FE;
+	Fri, 18 Sep 2026 15:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745284; cv=none; b=qYX1Gf4jMR2mXDQnLoyMAxezWWjJj6jpgdDW2+t+ONboxQvvv0Z9Hwf/ebSvQvpMjNUH5sxbHhyvc8XECmfrq9ovg/SnfrrHN/Km3hl74bOiJN10X6qmzmX/vMCpngC70mazo0qhV8nT1/Fs6oZPowKw7bKHBoQx6IC/jQHAcTk=
+	t=1789745319; cv=none; b=HugzTVoMMb8wLPoJpvRq5Mhtn4j7xJz3nOTGRu8ETHuSIZmB+BehcVTWDlxvyn6hQN/fRrgXVxTYhqFU5s9ORPG5Azf1eQwvbkB+bgNIUXMDg9sCz+T6P447Am+Vwm6hBRMCeQp/IotvMg2tFOIKR1bX/2AHYZgAMGG6oxAoobE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745284; c=relaxed/simple;
-	bh=/N+Wr2lqiEc14QrSYc6Mojm+2/XyhAhYfHXp8M+/36k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jKQUhI6IvWgvuhc1/l5/lfbVgcZiY4fZw9oZUx0XtYTExB9EwtBRcO3X5e4ApUYca45Y94iAtw1+FFtNH/7zyQJKEiwGqpMA52iQV/lgsMylfHKv8PeT0N8D//tgizHQfAq2uJopAcUnj29H/rEFIqEpTLMQJVt4hrUl8j+6xD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9833bd5daffso160977241.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:27:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745278; x=1790350078;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HjakjLYspnOJ8onlNzONdcAHxzWjqeFinrALgAM9nQs=;
-        b=jUBlK3aw8SLaqLenZXaqowX+R+CAB/NQNI4uS9KlyZwNhouoav+zf/nvDOOwi8jUUW
-         viWhBvWUgCDQ8Qc1yABDmOUw9vtlUSExvpykgi3yZrP7ZlwlRRQQUFYLo0kfeTmyPmUe
-         XDgF27vB+uR1dGB0iuVKYo+vtpAn2A0CgcScrowKhvdWNJqc86fzqeNBPNdCopoCepgJ
-         DhewlJnajM898Cup8jeTSmBvP8FyVnQPQvxbu3kbgDJEds+B5QGeteXBMX8VVHrRduYX
-         p+jgjgMag6QNtX1sLzzuxjB2KgcoBMC5YJ++0AuuapyEX1TfmvolPQCmcOfNCoQ/pECI
-         ++ag==
-X-Forwarded-Encrypted: i=1; AKwUvBwb/H2tonEprXlQDFa2/DQMX3vmTKVoefteGtYKtIIALGW2ZFpjzHYzA9BR6YIzMMHUgNeXQfoR9Nm1Ceg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGBwoMUzGr7qpNjoFafvr0okn0v5nMNSP/uw7h/EQEUcp0ih3T
-	x6PR7BvUYcmHuzXQHOi5g/Uo/z98ivMzCK9fACljMduhhDGkJDD1K6+qzG0Cd3qNRR4=
-X-Gm-Gg: AYBFou14QGsQ1TMEOSqHxCN5NBz06CGuj3nzkAbEZc2NmXrkLv3Tsjw37F0nj9X+Sz5
-	ja0FuhuXG5dGvaDM5hOLKjBtxKqu857vkZ8hx09lz9GNdemk36zvAVxPP1Rw7Oow3MWCeivLiGc
-	6exS9YmC9btJajSeMmZvF3WwNtRjN7KebYo4iCxbLRWuQWYLfOAqkvoUbMplRKsX+iRB1jqks2Q
-	Ew+vqmPV7PjLIuOSfaD2HVadqYvvHuVGD7/s9IiBLRUpFOhOq5V4RTjA3lvJ1j66mSSZQ5OjanL
-	0Qf7eU8YSsfb5rtzuB2/ozDc0QzzAoXfgCEcw+UrYU0jwORCn+obsFYYI7gK3Jp0OkGAnPCl1Mk
-	zlkP7d+s6/FIBQJUzAYSezBF0EQHuOYSleuf7gcIHKpx7eHBuocmdywvpovlcLrA9cflBdB6NA1
-	AsA12jrMI7tXY733voQ3oINETwe3krAN6Ogmn3GifmK+vMoWTwc3WJXn/MFasD7ncVYaMcDtQm0
-	SQc6xh1qVc+WEJ1EJsX06gVdYwRm47eDtMk
-X-Received: by 2002:a05:6122:130a:b0:5bf:a179:b2be with SMTP id 71dfb90a1353d-5c9b8a8a64cmr1225369e0c.7.1789745277680;
-        Fri, 18 Sep 2026 08:27:57 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98337e3835dsm1922445241.12.2026.09.18.08.27.56
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 08:27:57 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059f9so401775e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:27:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByjUbhtJu8JtNeudJJPlpWMBMgPRo+oDQKLOOiQOC9+bQwdFBlFjNX0amHULX31NVCAvHGGkdqGQm8oHA0=@vger.kernel.org
-X-Received: by 2002:a05:6122:3d0c:b0:5c9:a617:5812 with SMTP id
- 71dfb90a1353d-5c9b8b73530mr1233261e0c.15.1789745276684; Fri, 18 Sep 2026
- 08:27:56 -0700 (PDT)
+	s=arc-20240116; t=1789745319; c=relaxed/simple;
+	bh=ngmES3BBLORNxEz8n977DCLtmYVSg69M3kgrGcvdz2g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mBqzjtnBfjLYszXGcqXrykT0n9OnA3HmHPySilRXlpYRGJJU+V+ajMsy/jY06OKG+TB/CzvvVsQla8OgHL0lYbKTbmZzHIYA/YD4BczIvoEcw3Whiyd1NWt+wi8gfCzxGu4IGRRgoBg280ZONY95h6AgE8Wf0fNeZ8kcscxjoVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=E6tJ35Nq; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="E6tJ35Nq"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CAA864E0526;
+	Fri, 18 Sep 2026 17:28:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789745309; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=0Y9J5x0tYH+0hJYFkpp+HLGTvqzSO32qI3TlQ/QV85o=;
+	b=E6tJ35Nq9qwYkHaEqZVHc2gBjfod0K2buyZuZkzK+LuvP98NuXzJkEBgq7WSjBI88vsan8
+	nKvMwa5bQl4wcw12qsTUqG8l+4Rb8uNiHJjGpKKoBLuopxtdY0j4SQ63XOIEUyBKGah2wu
+	3A5svhKGTMkt7JgZy9LMqnhF9A7TNmrorHu7ZPm0KxaXOwJ1N4TbT4yCyasy53S/ZvNl9a
+	+pceUULsLrWYnlPC6SjWYcrvL17AoxKsTYBO7QB4yzDUzQ7OMDz1NfL2xzxXgDWx1Ouwog
+	5EJ+P+Z3jHMX9ypqaJ6P2P8CDG4bJP6YFgeNMwV7CmZQSiBGBKm+6p5zw2qAnA==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	naseefkm@gmail.com,
+	robh@kernel.org,
+	tglx@kernel.org,
+	grandmaster@al2klimov.de,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v8 0/5] clocksource/timer-econet-en751221: Support irq number per timer
+Date: Fri, 18 Sep 2026 15:28:17 +0000
+Message-Id: <20260918152822.343811-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918141557.3022820-1-peng.fan@oss.nxp.com>
-In-Reply-To: <20260918141557.3022820-1-peng.fan@oss.nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 18 Sep 2026 17:27:45 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVz94+WKGzsZUhCh8t-YxWJe+991QiSTNbgm0B_DxvP4w@mail.gmail.com>
-X-Gm-Features: AcwNN1XEDVdZFSroHZTnJUBYk3oywIwwiJ3nogrK7Tf7Uo1t2UiQ2DDcnuOLA4c
-Message-ID: <CAMuHMdVz94+WKGzsZUhCh8t-YxWJe+991QiSTNbgm0B_DxvP4w@mail.gmail.com>
-Subject: Re: [PATCH] auxdisplay: panel: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Willy Tarreau <willy@haproxy.com>, Ksenija Stanojevic <ksenija.stanojevic@gmail.com>, 
-	Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Miles Krause <mileskrause5200@gmail.com>, linux-kernel@vger.kernel.org, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 18 Sept 2026 at 16:18, Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+This timer appears on both the EcoNet EN751221 (34Kc) and on the
+EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+uses a percpu interrupt while on the others it uses an individual
+IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+Add support for IRQ number for each CPU timer under the
+econet,en751627-timer compatible.
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Changes since v7:
+* Use %zd for logging with ARRAY_SIZE to avoid compiler errors if
+test-compiling on 64 bit.
 
-Gr{oetje,eeting}s,
+Changes since v6:
+* Rebase to tip/timers/core (base-commit below)
 
-                        Geert
+Changes since v5:
+* Integrate patch fix refcount leak from:
+Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+* NULL econet_timer.membase after unmapping
+* NULL check dev->event_handler in case clockevents_config_and_register
+  failed to fully register.
+* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
+
+Changes from v4:
+* Fixed incorrect compatible in DT schema
+* Bracing in out_irq_free if statement
+* I did not move cpuhp_setup_state past the point of no return
+* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
+
+Changes from v3:
+* off-by-one in out_irq_free
+* Gracefully fail if too many address resources are provided in the DT
+* Allow fewer actual timers than num_possible_cpus, as long as they
+never start
+* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+
+v3 note:
+
+I decided to take this patchset in a slightly different direction from
+v2. There is a certain amount of initialization that once it has run,
+it cannot be reverted in case of error. The original driver init was a
+mixture of revertible and non-revertible code which made it too easy
+for code which is designed with best practices in mind to in fact
+introduce a bug. Therefore I start by making the init process more
+legible but without any business logic changes, then fix a race
+condition by keeping IRQ disabled until after cevt is setup, then
+finally add non-percpu IRQ support.
+
+* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
+
+Changes from v1:
+* Split changes over 3 refactoring patches + main patch
+* Remove driver discussion from dt commit message
+* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
+
+
+Alexander A. Klimov (1):
+  clocksource/timer-econet-en751221: fix refcount leak
+
+Caleb James DeLisle (4):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+
+ .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+ drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+ 2 files changed, 159 insertions(+), 53 deletions(-)
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.39.5
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
