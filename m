@@ -1,68 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36BC4B44B4;
-	Fri, 18 Sep 2026 10:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541484B5409;
+	Fri, 18 Sep 2026 10:12:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726279; cv=none; b=beZfXtijSbyURuUMhSWQXp1bBPx/Yr3yShPBoThQpSCwBEHvt4iulL1zdEiYwPcwEq8WG1uG0sjoWOksce9Q4PukUoCFlkRiYf+Gmm1zFkTXgytgI0YFFiqyA5bcemSgz+efvEE/Av9fUzAVhbP3s9J2M30i/GRyyU9S4cvX0go=
+	t=1789726335; cv=none; b=s0WY+xrE9bTk+IZdx8xzECvitnL8YhGhvz4hKL9O9yEbEZqLIbbbYeUWEVe+PqWkqTULCYwZr5YB8K5XOUnYaotnnWqADCVz0JuuQgETtYIET/KQnI9/kNS6u9q71tJlNX7o9/CxSIJW2/ihGnpbZnX5gE2yStJ0FwA3VkMTxJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726279; c=relaxed/simple;
-	bh=EbvgUlDhMfv5xqDyq41yarwe4vF9IcejR9w9IshiD48=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S3irTf8kSZuYnos3QVqLoLLFZ75nA9umR/6Z4HdCaURkPehGKCvjqWPjnPXANvY0Sew27bZDqzsIdLe+QmOYIXVNkrz83iOXUaTaltnCrKqRN9DnlnAQNadCOV+9yybv+8lbzpG9oZScnWLhRdltvpeUW+S9F18Ze//ZANfi5CM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llH/FkFI reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789726335; c=relaxed/simple;
+	bh=Pt1cke3CLObQrYz2qqjU7Zf9MlmuF0TI7eNOZ4I4vIM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R+3uEIFruJo7LI3MkyGFFH5How48F4kKNRXiGu84AsvX1yQtejmyFe1s8xFQAbggZbKsOCj3mN63sYuBOLT8ppf5NteghXl34yzUyIWF2poh5Zsc50AaoHsrXrh64J+JBYDUQksXT6un810VYsbdhzxtzHm0O7aI9QSMNJkkPV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GiV39HcW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llH/FkFI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FCD41F000FF;
-	Fri, 18 Sep 2026 10:11:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GiV39HcW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D0C1F00893;
+	Fri, 18 Sep 2026 10:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789726277;
-	bh=EbvgUlDhMfv5xqDyq41yarwe4vF9IcejR9w9IshiD48=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=llH/FkFITAB5xWYHwFUPLbdE2EaF3GC1eSoCiDjrZavq4ujmqfQALeKu52aFVVMuR
-	 pBuHSv80cKI3j9Mho4y3xdPug+GfNG/zgAkh8wZ7OoahnhoGS7E5dhRdqhsQ+I51pr
-	 f7NWcn+fOKRoo9iweVcxsXDWvRhgpceUNC6h8Ptlkps8SWZs2CmTh5980BC6sEHNlB
-	 0CM2Rk/czy1YuvNhpd/QUpJNpu47BkJRGDZBlBtd4x1ODrJ76w2qvFvIEJ442SLha5
-	 zUwFARxcYBBM4yGx2Endjllgko7Mxt/Jea4yXamZO8XPgdLllRtjg2f1JDx3w8mdGp
-	 uPU0nMOTpRphQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/17] crash: Extract crash_get_memory_ranges()
- helper
-Reply-To: sashiko-reviews@lists.linux.dev
-To: maddy@linux.ibm.com, tglx@kernel.org, loongarch@lists.linux.dev, hbathini@linux.ibm.com, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, guodongtai@kylinos.cn, jbouron@amazon.com, thuth@redhat.com, mark.rutland@arm.com, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, gshan@redhat.com, sourabhjain@linux.ibm.com, chao.gao@intel.com, piliu@redhat.com, eric.devolder@oracle.com, baoquan.he@linux.dev, pratyush@kernel.org, ruirui.yang@linux.dev, bgwin@google.com, chenhuacai@kernel.org, linux-arm-kernel@lists.infradead.org, maqianga@uniontech.com, bp@alien8.de, tangyouling@kylinos.cn, mingo@redhat.com, driver-core@lists.linux.dev, blum@kernel.org, takahiro.akashi@linaro.org, coxu@redhat.com, linux-mm@kvack.org, palmer@rivosinc.com, akpm@linux-foundation.org, ruanjinjie@huawei.com, vishal.l.verma@intel.com, npiggin@gmail.com, dave.hansen@linux.intel.com, liukexin@kylinos.cn, hpa@zytor.com, chleroy@kernel.org, sshegde@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, robh@kernel.org, lizhengyu3@huawei.com, leitao@debian.org, yeoreum.yun@arm.com, kees@kernel.org, linux-fsdevel@vger.kernel.org, mclapinski@google.com, james.morse@arm.com, pasha.tatashin@soleen.com, dakr@kernel.org, will@kernel.org, zhangtianyang@loongson.cn, me@lin
- ux.beauty, ritesh.list@gmail.com, gregkh@linuxfoundation.org, kernel@xen0n.name, seanjc@google.com, x86@kernel.org, rppt@kernel.org, rafael@kernel.org, graf@amazon.com, adityag@linux.ibm.com, mpe@ellerman.id.au, ardb@kernel.org, kas@kernel.org
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-11-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-11-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:11:14 +0000
-Message-Id: <20260918101115.1FCD41F000FF@smtp.kernel.org>
+	s=k20260515; t=1789726332;
+	bh=bBzIZTXLbuSGJU4gy/OmKtQhw84C0Ie8W4f3SHToX+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GiV39HcW5PXF2oPhAD2lcax6Ppyjl7xDnBvt2fXJ2aSIZOVP0ob6roqs9vfr7lyya
+	 +/oRzs2+uFUHpTjUDTzC97vlJLgfxi68xgE/BLKBmkANgf4fZGkzyOoGJcXrK1nKjl
+	 FLQSyTYYbkPMNm6QLlaPQ7vPhl8Orpdpp39PZG3uVXQgpr+O0CGDqON7EN5S2HPPDQ
+	 coITKsezQs7EcYj1+T89UE4GppWDLOLbXX+oUCX+2It0wn6SWK2cbKZ0/RL+N7DUab
+	 khaX5HQ8YRRdFwwA3dAniTrV+QCZrFxltdCpGdVwJRP/KPW4MmXfLgBZpx7Gmp9e5u
+	 fyeCKQFLJe5IQ==
+Date: Fri, 18 Sep 2026 11:12:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] regulator: add regulator driver for the Nexperia
+ NEX10000UB
+Message-ID: <731ebfd1-4080-4343-afc7-95af081a9990@sirena.org.uk>
+References: <20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org>
+ <20260918-topic-sm8x50-nex10000ub-v1-3-5afe06bace03@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="N5WKgnQX/Wzww4uf"
+Content-Disposition: inline
+In-Reply-To: <20260918-topic-sm8x50-nex10000ub-v1-3-5afe06bace03@linaro.org>
+X-Cookie: Dental health is next to mental health.
 
-> Factor out the crash memory range collection logic from
-> crash_prepare_headers() into a separate function. This allows
-> the memory hotplug path to obtain and modify the range list
-> (e.g. remove offlined memory) before generating the elfcorehdr.
->=20
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Dave Young <ruirui.yang@linux.dev>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+--N5WKgnQX/Wzww4uf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D10
+On Fri, Sep 18, 2026 at 09:25:39AM +0200, Neil Armstrong wrote:
+> Add regulator support for the Nexperia NEX10000UB dual output LCD
+> bias power supply which provides programmable positive and negative
+> output voltages mainly for display panels applications.
 
+> +static int nex10000ub_of_parse_cb(struct device_node *np,
+> +				  const struct regulator_desc *desc,
+> +				  struct regulator_config *config)
+> +{
+> +	struct gpio_desc *ena_gpiod;
+> +
+> +	ena_gpiod = fwnode_gpiod_get_index(of_fwnode_handle(np), "enable", 0,
+> +					   GPIOD_ASIS, desc->name);
+
+This is GPIOD_ASIS so the direction might not have been configured.
+
+> +	if (IS_ERR(ena_gpiod))
+> +		return PTR_ERR(ena_gpiod);
+
+The binding says the property is optional.
+
+--N5WKgnQX/Wzww4uf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtDncACgkQJNaLcl1U
+h9Dyuwf/dZMKKFYpFNY7fri+vtRcVkLdrirMZhn0H9L4QFsUACH9vAOK5fTdqsR5
+v3IqCEGNN9GuLMCldIsXTjoRIq4j81aoCzGzO42AWHj+I/0pOJDqh9ZVSvrc/+j8
+kUlFy/rdD+O3itLXJIt572iVcoXIgGDOJrySNEQa4POgloDWgUu268s8SOVlcJdy
+JkPI++oq9HOSnzFyhz+DmwV//6QLDWpR9opN8wQHwM4BW57SvJHVZRAv/6EZycCD
+WrpzblJ1RgjOZSzT0Vq9QS37elu/y9795nJfr110yFIj0e7qVUpBL8JTAKPuK8as
+UNp3KpYQQIrKHsUzZs1Y2b0xv6rqMg==
+=HJjm
+-----END PGP SIGNATURE-----
+
+--N5WKgnQX/Wzww4uf--
