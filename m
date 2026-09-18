@@ -1,269 +1,131 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD1132FA2E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691486; cv=pass; b=gzWg8cbO5coLcdqY3ZqNv3AfdFsuoffwD6OZarSDLgSUIWktuk8lwBnQtCE4Krm6UxV3RUeXUegBEFZPZVtrFLxLwRGv44t2e/24rR/b3/uQo2vYtDdovy+gANuAiSvf/i2uiHbGjDd1L9B4EDWi96qZIELEpvA5YUtbvmhGxE4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691486; c=relaxed/simple;
-	bh=62wtTovHiueYQ9NH1Smsv23tVsNU365MRTK5PZgQJ8c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t15h22lF+643l9qEg/EPY/TfV9HgelveYQONTnl3gO1YpCSGWcnmx1D8EA9OVOskEidc5/f2ubIyQONkv37OD+7luMTB79mRMyYU7nRCyPv1kkKFYjJVoY8SN5sBhnNwnYmS+m4jFDCT/2TYvsr8KBX/l7iiy98x72/sHkLvuIw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hKKEB7n+; arc=pass smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A15C345EB7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789691711; cv=none; b=b2lhiH3DotQ7QHoh8xBFghbIfSLcrJtKWy+gkJRd/qp/TkIa/DsUzae9mbEpzHcR42QhPLRR8xFyOraxIfQe0HB8C4CND3zzS6HnyVWdLAFmxbiR27HY9nEFgIspIHxSNuHu9iaBoJQk13cmgaNQcllTuSAC40Xs/lvOiQKolgA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789691711; c=relaxed/simple;
+	bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=OE0aluOJKdz9o1+e2DJyRnS2MT0FepEgvwYDldrLroCfvbir01BhwtHLHATHKK2MQ6DRfld9Uv5vmOTMek2RXFunUBXoqZDdcEZEEboaAaHHi0zhbcHGRH43Y+QFJqYRQDNju30xLRunMY2vJGifLj4ZlKfRsNYX17XXZICbjTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=g5frHq5i; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hKKEB7n+"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-498012a61f6so39405e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:31:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789691483; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q8dSOFC3ruM0tyXzfEz77I1rVbh5boIs6a+ju2cn8oBWpt6/3QzNmtby3oxAH/c2PW
-         P/U1/LcsC3P/o21ofC8+QC+HR8KjeynrtQ8c2kL+gvDicv7n9mzjaCgFfvdfPEhRcilH
-         5uXoJOufnikcDzE5pnj5lFOLjJD1dfRgvOSDM2gulE4fqMi+V5e27BimiWaPzQV5ggJM
-         gjAhaGGMnxDKyjKebgS0VOrk+uSzv4dKS3Ge+m7slcgIIeN8lCIYKyLXShiPMpj3c8jr
-         z8iWuFVdQkzN0dknucdWim8FxBNL+whifn0er9lJAB9ViEOGZBoAOOeTRU1ijHNAHmu8
-         5XEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
-        fh=TVJ++p4NqykmLqG4g13wG+VuSGsVKCq6Gbx04/sCZXo=;
-        b=YUn1uiRdqjJCHYu/NlPLBzRDEUwgcj6c2EcqfY1f8m10El87NJyEPD3mOXn4aN65FE
-         57qzJslP2pfLdyvh34ueAXUUGXp+urP73yt0/qn3bHZktkWi9eX0YMNR4jONIky12TGF
-         6zhcORpOvIB60yP5ypz5dSP1+fLh/vBexZg2V4DFS9s1zIfwuDlwmQAKAikBKk9isoXP
-         2UuCfPUTdb6t+s5TR1bQe0GVOv+S/IIKFZjTNyuG3ESsXA9GgY/xcoLNiOu9oD/5Iylo
-         N/XrifY+MiUz2+EvOlEYwctjErzxo2t+Y/EcQ97JRVv6JczdX4pP16B0Em/ow0Wa5cGO
-         J3Eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789691483; x=1790296283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
-        b=hKKEB7n+giNlrbNc10+CHkJmlf2Zx/vJoLmbbrM6Mu03oXxqeRYWjT76O3C3d+kpWV
-         52gJWqf11fl1x4qLtTs5aDmgNH4hdjXgXtajzVo+5OUWB190DQeVz3IhqguFKFKuCOlV
-         l3paSo0O0P0vpJITJrCxgdAgHr3+iui/MCMIZPev1N8QHbt/vO7qu80hw+h0H7S/OvnR
-         rCLX0YUWdi2cgH5k8jA66A+nyl5jyOmdldT+oSRO6sQG/KobbZ/rVmDaCyROaKP0Txrv
-         sahKa9TDTnXni6wXFnYzPqs2sYPMx7Q27ifbNhWPmiakuThvAIU3JTgRnCQuC4eKR/Ie
-         UTdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789691483; x=1790296283;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
-        b=Kz3Ciqs0EbEu2BU7kWPJdePzua8i2kVVyeG9zIG+CYPNlhL4JEf3Y8xsVX4+j4bsjY
-         3u/0YVVyz0zxJyB1fKZNNCxEQRbMtbj8Rq4+cG+e3ciOB24W2s/tVNcTPgHc681uUydF
-         dNiwvB3Z7lENcmR1HQEXVQdekC1sG1y5rs/g+zq1ZkSdPF2YvVPfJ/7jjsdn5EGxhhK0
-         GcHGpNqPkwA1CPHt/zqV1Kylw5gm5eK47y5VASayp0SA/JN/GbSaEs9Q1t8cy5HpqBjw
-         S63U+Mk1RSGQObX6Ld4E7hbgA6MvNAruzoOW0SBeS818SdSf8VLvEuUq7nZ+DBZ++I5+
-         ihOw==
-X-Forwarded-Encrypted: i=1; AKwUvByAPiSbJFBLBWsppFqYXAkoFhsylES9UlyXBix/seTirSZoMzDXf6oNp6LivWwJP9rTYPmq3eQPZZd3dkE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQeFVJgN9xA/YdfrffSXZiREeZWlZvsn3xFm+OmFqEXRdsHP75
-	gdsdhgGjYraH58YsgwkSPIfrHBKc2ojBX1RRa8t8cmaQY9QBqOLGP9xidnAVL2OZZP19oH8vsUr
-	y6NGzRItmVSwohA3F6utsBqWyCPRSVpv+hMR82k6b
-X-Gm-Gg: AYBFou05CB/ZYvxVKoEeBJAtJ3k4Ko40KFtJjD/5OG0jaGd6zzaouGNViA5KlSkZUUN
-	atSEPS8cBIKWx8W6qtn+cREu8vuC4dcAWCl/dHlQMlcjAukzPNoAlls7242ra2iAm6nmcWKygkW
-	A9tsRWI5XpDe0xpxZ1b2f+eE28Yk7RSoKZTdPE/bpIrwTA+8MtlO8xUMAHG+9xEVdNY/9GdjBBL
-	o/uwSXAvXsEh44SEAr5ayJQSpeZjtjA9g9BwJV8m6vcOBrAGtiPCsZj9O2wnKg3RNoWk5cCuOdY
-	2xJglDFo6nvQLiIpanXMQcANkoWaQ6Uo6HgbDyHt1s/6cTI4pPDPTxWkciPK/lFz3M0ZWz6CXpD
-	k9zNn7z6ihzI=
-X-Received: by 2002:a05:600d:6501:10b0:499:fa56:f542 with SMTP id
- 5b1f17b1804b1-49fc4949b4fmr320535e9.8.1789691482464; Thu, 17 Sep 2026
- 17:31:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="g5frHq5i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1789691702;
+ bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
+ b=g5frHq5iolSfhZmMT1S+3FKrIYFMmLUvGiIXBDitA8INAs4gwmSKvWPoJO+WDpb6z8JX4MxqX
+ hxcczVcils9C8wzRGU8weDzfrhV/6NOvJKq6TWVV2HP1FlGb7PMONOJIXrTYJyjBRlcy33F2Gcu
+ f9fpuJ5IzldaEB+PDjBp383WuIYR8RjED63ma3p02k+xy4BebkbufLlmhuqB00NjuBYLiOA/Gqn
+ WaSjR4AbRalGjLvLW88dW2ErzJhCgFGAv00+uf+P/nE8VYe0tOWkpDWw3qtYsA0bqH05odCSCof
+ P7q31N3Tu7847u0RIxS1e/RI8btpQZPsBNctW8nUZ95w==
+X-Forward-Email-ID: 6aac871042fb3e762f6d18f9
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260812231905.2956588-1-tjmercier@google.com>
- <15342d9c-d823-427d-9ce8-04cf48c6854b@gmail.com> <CABdmKX1kM+ZRoj6R9R61kQv3dGQ=5ar8YPX=YdqtdJ1DO_-ZOQ@mail.gmail.com>
- <CAEf4BzbWRBDF8XaV-TAwyWFyko6JuquSbEJfztE_1sRKauXBqQ@mail.gmail.com>
-In-Reply-To: <CAEf4BzbWRBDF8XaV-TAwyWFyko6JuquSbEJfztE_1sRKauXBqQ@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Thu, 17 Sep 2026 17:31:10 -0700
-X-Gm-Features: AcwNN1UaUqRlAC75yFCE-OsogF-1f8zPvdFLJSVysDHZNKz42uwuh-8kPqrvLlA
-Message-ID: <CABdmKX1MgFbADOsVTHPCAnnfOX3mQS50pLA6mWDg19UV8X+pOw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v4 0/2] bpf: htab: Reduce memory use of hash maps
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, 
-	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
-	emil@etsalapatis.com, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Thu, 17 Sep 2026 20:34:18 -0400
+Message-Id: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>
+Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
+ <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
+ Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
+ "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, <linux-phy@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <mfd@lists.linux.dev>,
+ <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
+ <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
+ <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+X-Mailer: aerc 0.21.0
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com> <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com> <20260917-mutant-chamois-of-competence-46ca77@quoll>
+In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
 
-On Thu, Sep 17, 2026 at 2:21=E2=80=AFPM Andrii Nakryiko
-<andrii.nakryiko@gmail.com> wrote:
+On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+>>=20
+>> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+>> functions as both a PHY provider for the controller and as a clock
+>> provider for the variable pixel clock (hdmi_pclk), which it generates
+>> from its refoclk.
+>>=20
+>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 >
-> On Thu, Sep 17, 2026 at 9:31=E2=80=AFAM T.J. Mercier <tjmercier@google.co=
-m> wrote:
-> >
-> > On Thu, Sep 17, 2026 at 9:10=E2=80=AFAM Mykyta Yatsenko
-> > <mykyta.yatsenko5@gmail.com> wrote:
-> > >
-> > > On 8/13/26 12:19 AM, T.J. Mercier wrote:
-> > > > Memory is expensive and scarce these days. This series reduces the
-> > > > memory use of BPF hash maps by eliminating the per-element overhead=
-s
-> > > > below. This saves up to 50% of per-element memory use for standard =
-and
-> > > > PCPU hash maps. The memory use of LRU hash maps is unaffected.
-> > > >
-> > > > Map Type & Configuration            | Old size | New size | Savings
-> > > > ------------------------------------|----------|----------|--------
-> > > > Standard (key <=3D 8 B, val <=3D 8 B)   |   64 B   |   32 B   | 50.=
-0%
-> > > > Per-CPU (prealloc) (key <=3D 8 B)     |   64 B   |   32 B   | 50.0%
-> > > > Per-CPU (non-prealloc) (key <=3D 8 B) |   64 B   |   40 B   | 37.5%
-> > > > LRU (Any key/value size)            |    -     |    -     | 00.0%
-> > > >
-> > >
-> > > T.J. are you still interested landing this? Maybe respin the series?
-> > > Alexei was away back when you sent this.
-> >
-> > Hi Mykyta, thanks for following up. Yes, I'd still like to land it. I
-> > took a break during the merge window which coincided with a vacation,
-> > where I broke my collarbone on a mountain bike jump gone wrong. Then
-> > surgery and recovery, and I'm still catching up on everything from
+> While I appreciate other people looking at this, I don't think review
+> here applies. It was a blanket tag, given to the entire series, with
+> exception that it is from newbie, thus I want to ask: was this binding
+> REALLY reviewed by Joshua?
 >
-> oh, wow, hope you'll heal fast and well!
+> Are the rest of the patches actually reviewed or just "looks good to
+> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
+> of doing review.
+>
+>
+I commented on v3 saying that I would test if I could. I don't just
+throw "Reviewed-by" on everything I look at.
 
-Thanks! The surgery already made a huge difference, so now I'm waiting
-for bone to grow and it'll be a few months before I'm back on a bike.
+If anything, I've been trying to be more honest in reviews, and only
+review ones that I actually care about[1].
 
-> > while I was out. I plan to rebase this and send it out again before I
-> > head out for pre-LPC travel next week.
->
-> have you considered splitting lru and non-lru flavors of hashtable
-> before doing this optimization? I'm wondering if it will allow to
-> clean up some parts of it, while also making map struct itself smaller
-> for non-lru map (there is that LRU-specific piece in the union which
-> artificially blows up the size of any hash map).
->
-> I am a bit concerned about that key offset, even if the microbenchmark
-> doesn't show much difference. What if we put hash itself before
-> per-element header, so that key/value are always at the same offset.
-> For cases where key size > 8 we'll just access hash at
-> addrof(htab_elem) - 8, while smaller key sizes will just directly
-> compare keys.
+If reviewing patches isn't a good way for newbies to start getting
+familiar with the kernel code (especially a NEW driver), then I don't
+know what is.
 
-This is an interesting idea and I think it will work. Let me try this
-first, and then I will take a look at splitting out LRU hashtables
-aftewards.
+And to be clear, I'm not using a LLM to review. I am using actual
+intelligence. For the JH7110 PR specifically, I did actually go through
+and review each commit, because I wanted to learn what was happening
+and why. Actually, that's why I asked where the data sheet was[2].
 
-> Just some high level thoughts, haven't really coded any of that, so
-> hard to tell upfront if it's worth doing.
->
-> >
-> >
-> > > > 1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1=
-)
-> > > > struct htab_elem is used for all hash map types, and includes field=
-s
-> > > > that are not always used (bpf_lru_node, ptr_to_pptr). For standard
-> > > > (non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (un=
-ion)
-> > > > are entirely overhead and can be eliminated. Non-preallocated PCPU =
-maps
-> > > > only need the 8 byte ptr_to_pptr which is currently unioned with th=
-e
-> > > > unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
-> > > > eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 by=
-tes
-> > > > of overhead can be saved.
-> > > >
-> > > > 2) Hash caching for small keys (patch 2)
-> > > > For hash maps with small key sizes (<=3D word size), comparing keys=
- only
-> > > > requires a single instruction. Currently the 4 byte hash value (8 b=
-yte
-> > > > aligned and padded) is used for this, but offers no performance
-> > > > advantage in this case and can be eliminated.
-> > > >
-> > > > The implementation splits htab_elem into dedicated structures for t=
-he
-> > > > different map types (htab_elem_lru, htab_elem_pcpu, htab_elem) whic=
-h
-> > > > share a common initial sequence (struct htab_node), but contain
-> > > > additional map-type specific fields where necessary. This means the
-> > > > placement of the key for each element varies with the map type, and
-> > > > key_offset is added to bpf_htab for this purpose.
-> > > >
-> > > > While using key_offset and conditional hash checks adds new pointer
-> > > > dereferences and branching during element traversal,
-> > > > run_bench_htab_mem.sh shows no significant performance regression a=
-cross
-> > > > 10 runs on my 3995WX.
-> > > >
-> > > > Benchmark (all in kops/sec)  | Avg. Before | StDev | Avg. After | S=
-tDev
-> > > > -----------------------------|-------------|-------|------------|--=
-----
-> > > > prealloc overwrite           | 115.11      | 4.10  | 115.45     | 5=
-.24
-> > > > prealloc batch_add_batch_del | 127.14      | 4.32  | 127.06     | 2=
-.32
-> > > > prealloc add_del_on_diff_cpu | 23.22       | 0.93  | 22.91      | 1=
-.60
-> > > > normal overwrite             | 78.52       | 3.05  | 80.40      | 3=
-.25
-> > > > normal batch_add_batch_del   | 45.37       | 0.69  | 47.71      | 0=
-.66
-> > > > normal add_del_on_diff_cpu   | 12.02       | 0.73  | 12.48      | 0=
-.70
-> > > >
-> > > > ---
-> > > > Changes in v4:
-> > > > Removed inline from new functions per BPF CI (netdev/source_inline)=
-.
-> > > >
-> > > > From Mykyta Yatsenko:
-> > > > Factor out duplicate lookup_elem code into __lookup_elem_raw.
-> > > > Use offsetof instead of sizeof for key_offset assignments in
-> > > > htab_map_alloc (patch 1).
-> > > > Eliminate branching and htab_elem casting in htab_elem_hash /
-> > > > htab_elem_set_hash.
-> > > >
-> > > > Changes in v3:
-> > > > From Sashiko on torn reads/writes:
-> > > > Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of mem=
-cmp /
-> > > > memcpy for atomic key comparisons for hashless elements.
-> > > >
-> > > > Changes in v2:
-> > > > Make maximum key_size for !has_hash depend on word size for atomici=
-ty
-> > > > on 32-bit.
-> > > >
-> > > > From Mykyta Yatsenko:
-> > > > Put the htab_elem* common initial sequence in its own struct (htab_=
-node)
-> > > > and reuse it across all element types that share it. Eliminate
-> > > > associated BUILD_BUG_ON additions.
-> > > > Replace both the hash and key fields with data[].
-> > > > Store has_hash in struct bpf_htab, and avoid per-element reads of i=
-t.# Please edit the description for the branch
-> > > >
-> > > > T.J. Mercier (2):
-> > > >   bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_ele=
-m
-> > > >   bpf: htab: Reduce elem_size by 8 bytes for small key sizes
-> > > >
-> > > >  kernel/bpf/hashtab.c                          | 418 ++++++++++++--=
-----
-> > > >  kernel/bpf/map_in_map.c                       |  13 +
-> > > >  kernel/bpf/map_in_map.h                       |   2 +
-> > > >  .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
-> > > >  4 files changed, 289 insertions(+), 146 deletions(-)
-> > > >
-> > > >
-> > > > base-commit: cfce77b63375dac81d53f2f85593c548415206b7
-> > >
+So if you really want to, drop the Reviewed-by tag. And if it makes
+you feel better, I'll leave the series alone.
+
+-Josh
+
+[1] I won't be reviewing PRs around devicetree since I'm not confident
+(or frankly, interested) in it at this point. https://lore.kernel.org/all/D=
+L94TU52KBMO.2HAKJMJXV2CPE@ubuntu.com/
+
+[2] Michal giving me the hardware info:
+https://lore.kernel.org/all/071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.co=
+m/
