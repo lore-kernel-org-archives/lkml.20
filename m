@@ -1,76 +1,80 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63524FE2CF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918EF35838F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743513; cv=none; b=YRDiFrv0i0tWqejtAn/tqPXFWshUd5tXMsGneOekNgWre07nYf9U48w4JTyFWoBsJ4wX5NndqOnH41q1oQB2ntuFDIrCqxT2Dm/ggcsSfb7Bz18aiS08ESOL0wupmOwkAPDfgxKYiPK3NFzRMk+U89iYLMjwFJkQeIgbG6Wpe3o=
+	t=1789743524; cv=none; b=Ao3G7HRaWWfuGS5uaHGs92O9wf0mK7KF90XWECn1ASgoTorwFGMy6jmB2lCbMZ37SPacbs13cyQwfxgf5U2AHGaBrA9xmZBy/2LZ/VRUAf9Jt50X8erCghT+HGuAgWoAcqgG4e31PQ5lN/uokLT7XFt7TpuYDhc8Up68NV0WPHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743513; c=relaxed/simple;
-	bh=gM3dN3vn0teyG2eo0migns+FOD8Hc/tmEG6a/GRXaWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iUUKRmeFJZ0i1X+eJjcDrb1lon8gAgBR9oa5pezE6U/8pNXQanbPgSat/uFTNBcSORPTnM5V2AsCvHOV11xwAV2DkPnxUix+mqsgNS15fhdtO5m1YpH7k4/LeH9zVJ5BYpLW1Mk2cTpvyzmE4ualoDCdFSWAu4N2Pw8uDIyrm18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=As4Ukfbb; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1789743524; c=relaxed/simple;
+	bh=zoNTVsFn2L8ZQUpNzfD8JMrdLAz6HTNoSDK6XN9I9T0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tf9Ci9ii36nmtY07XYYe8Wgo7nkVu9WR/v+W5cqub9sdXdpVT0mL1QLA3UKO2hrSAXCAFJGuFxRh9b4uTEOkCirVtxp+uRaMyZR4FAZWBbD5fbxfNFyrX7f2e5zEE9L92phl+QyXgomutkLW5i2xkRwQRSp+f0SPg3WkdApPzQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=seKNOR9/; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="As4Ukfbb"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so6093555e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="seKNOR9/"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso484056a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789743509; x=1790348309; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789743522; x=1790348322; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VEqgVyr0IKosewJ1enUgGbXkimIQHDNWyRi2d4RqJp4=;
-        b=As4UkfbbA56uLOkK1Fc4H2XMww/nYoGWu9U16lg2GxtBe/20H3q1l/3rYAv+IJsuiE
-         Xj5d9p4MMnl3OfTrzY6nymlZmBVGst95WLqk2zKzijRqttdZwUDc7VQu+tkITKg0Yy0t
-         Z4WQgfFG+q9n4rwP52FXyHhX9NiQhiZduDtc5uFNEw4wTpcW8Xf3UsHEVL9rYhof2PHE
-         IZ6jKIxl/iZTkLcVmKHseTEiNxbLm6FMB4gSOYVNBFFwkl5IAcq+pI/R43NqCaeAlM8P
-         XbB7lOIsD5oQ3n51+PrEZRuRZ/lzx1oq2Fh17yltTC2bvZCIuy75uoOtFjUM0PmNlcwt
-         cSoA==
+        bh=eGf6+GV3IIEO6NYP1DELXeYxIupStmMlcHdqZNWtH0E=;
+        b=seKNOR9/8koI9tnFQ+ChF4kzmXWLW/oMqCfWRNRvrhNMXMKs5caedlQKhbwKh/8NvT
+         NALCpmoTabo2+S9Yr0z7Kp/tpU27nAfy1y/dpxvi/cB4OAfxNpENWXht5S9Wo7mMRgeW
+         uDM2oXvfUNZj2GmMmSfreSp/fgrJhuHEBVXtd0rjQQLn168N1QqxdwdSUn7M7FXGv5rj
+         AIplP5pblejPuTRq23D6rlxU6wRtA8dSfMs1Dt8OUwPIVPF+WkXVjB5nFHNDNrjSwgYa
+         xJHEBk5mAO28is4YBNy83EYUnvm3wzyZhodH3fOZOoBpOKKN4l9SpUdIvvxLo7MRlSYI
+         a6fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789743509; x=1790348309;
+        d=1e100.net; s=20260707; t=1789743522; x=1790348322;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VEqgVyr0IKosewJ1enUgGbXkimIQHDNWyRi2d4RqJp4=;
-        b=Qj4RwQaNMPnMHrrN/Pwv6TKPpldtJU/OxN3dje1Mg2XapWDNDNY84aa71c6Rv9+gnW
-         5/tQmq4eR5ei9OmRpcMKAw8RfpnpgsHu6KaEvU9uZIP+XPSgzru/oa61ZbdlEnfAQZs6
-         HW3M9nfD6OT1UP18RK+FUB5EnC7+gB2uw/DkGjBHMJW5Lb4CdrbsuvNw/ofxDz9Aw7uT
-         qfOtsOD8CUSnG0AnqkxMzyXga5KoAtVIzlgmJEOogqezrEPYgP18Q8jvdjuxmagBpvJi
-         hJOUVpLTQAJqa9EbL4T3AMZ142ffQod5wYBBVrL5sm2QG/izv+tbhsWfbeQvMaGVjM6L
-         lw6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz0S4Ly3/NU+4u9xcMnHMeoVuex8iTV0g1VBpHWUvCp6GbxG2lymzyZCqoIUujLRCTBt6rV95+Zqryn6/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR7qco6KsXixiKTclfEpYxuIK4UMcwYGDoJafWPWqSouqOg1oq
-	LhfljSs7/ozQ/IBgqa+lBGrqkc25G0o9O4vbQTsR413y+PrvbrRhs06b
-X-Gm-Gg: AYBFou0Haq0MC+jZwMYegQVg8Bw/tuzq3GUDAwmZkC9PlDJ1ZKdcR9Ix4J6w9OlMShE
-	Vly13F1IaD9hWArAD1DN/lZr0lvkNMxpEVm7DIIiERxDwunxLeUaxAA6YqPTqy4s15jou14jzt3
-	vE48792KUfsnBB4GjJQf9Pd+OJNXR1hQxt2GqfvFyDijPLJ3/+nS9HQucJgnZ3R1954T56/DKCM
-	txWk8ZtTA5s+sSIglpA+ItaF7vIMd3gT2ctcHxDSZuGv4mKQ1lM9uasn3OpA1KjAGEQQS+e5SXx
-	LH364/sKDFOkG33kvQbeN1bu3X9lJNYgHGFgsucByqyK9iJNQNDZO50tTqrjgVHe546JYTfXsVW
-	2XB4uCtKjpep5vn6PQgXQw4rco3er3Ag5OX8tAcbnKF8jxjbihSONVrnncc08E9g13yzX8OEYhN
-	sodNYMiisnUXtWjDOl+LUVJ6pjV8ibo4S3hbedGdiMO5KxpwdEOMmyUe3bvzHpQQAdaegMBd6ps
-	csRVv9qRsdibSz2q1jUBBDtWPYm8tSYXUkCbURC28bdlg==
-X-Received: by 2002:a05:600c:8518:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49fc5741563mr38720975e9.29.1789743508528;
-        Fri, 18 Sep 2026 07:58:28 -0700 (PDT)
-Received: from localhost.localdomain ([5.176.179.200])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d46399sm80345295e9.12.2026.09.18.07.58.26
+        bh=eGf6+GV3IIEO6NYP1DELXeYxIupStmMlcHdqZNWtH0E=;
+        b=Bwb2IMTqWB+6HcmANX56d3pQcK6Sl2k/7BqflKarOs43VgCt49IupQN5r/FB2n59HR
+         Fsa/zg7jLV2CRiXhhxbNy8EBc9BJmqSeDFjPzkSMqV3KiBIWnXcN6iKCNjRaerBckKq8
+         wsbagoOxkAJZ/VV3iZsXp0YOGoOLiFUyUhgkw/BcA71HCzKqVH3LHpe1XSoNCNTcXOHZ
+         zNLMpj+YikQ2+DZ00Xs+BOJwZTo+rQe1bQeILHFaVE+GHiWb3ldSFN4+vvIgzY+OY3xi
+         UHvSJSTmNdZiiq3urnUQKcVymBQar9NR8Oedfl1g/w/t9usMvjlQxh2Tqokt2xrN3MMU
+         P/GA==
+X-Forwarded-Encrypted: i=1; AKwUvBykgUV6xsTYmRjKtmhsge8V9aekjxOjMKlKfZLLnLbvwpUWTHQy4w6YUaQuuZXNqnwCmiz8EjBZ5XS/aLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mc1+yqBWIxHQsklasAjOcNPO1hZuhCBCUH9m41L+ETfdBh+Nau
+	P+MFWhsTzMNYmJ9oPVfUOjWHAaYJZ0Sl/5F8tGGSImCxxWFZxxgIsOSZ
+X-Gm-Gg: AYBFou0KGmCMJVijJCThQEIXlZR/pseDnHOgNJRgI7NNVgk2yKBmurKCCQS55h9VN4n
+	66g4zG6r0Z0OCbxmCq330gwr4R2jiIyXEqkCvjrhKk1j9DyQBDX/gBwya4RHgz91SgZC+6OCLYa
+	NFimJmJoQTQqqgE3AvZ2kLdlY431RbZpZQ69fybgfLbvseE6tlvynuU6y3Ig1uHTEZRNg0vJ5Ks
+	ogvmDl+dU7fX2ewqDUqcIRjVomkaDRyhNfU/TCbVWlW5KDcFEDiv9V9nBvQuNondb5lCTUk8gJh
+	AZNG7Q4nPfUJNkJ0WYfHRHsqYb2At3wBp9Z2TkC35z0fTp71v4zWtViUuW3aO35LDWlKvCGqgUR
+	WZkAGJ9xwZQVdEtsT+dY+pwrb+8oj4CettxMO4zdr2hyExgMXzox3Uq78fXiZvjU6Mt7e52pBoa
+	sh3ftvgtFAB0l9cyyUMo1b0Uzi2Dfxf0wqTX9SvLXiOHvc0bWhCz+SqhepVR47eJX55EQHVs6jB
+	odklO+89+xLvw9Trf+69iLvFwpGISoU
+X-Received: by 2002:a17:90b:3ccb:b0:39e:4c7e:f03e with SMTP id 98e67ed59e1d1-39e54f2158bmr6529020a91.27.1789743521728;
+        Fri, 18 Sep 2026 07:58:41 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50c9fasm3954108a91.8.2026.09.18.07.58.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:58:28 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-Date: Fri, 18 Sep 2026 17:58:04 +0300
-Message-ID: <20260918145804.26957-1-palaomer100@gmail.com>
+        Fri, 18 Sep 2026 07:58:41 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-afs@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org,
+	co+c09f7e87f6209a56@bugs.sh
+Subject: [PATCH net] rxrpc: rxgk: Initialize challenge control message
+Date: Fri, 18 Sep 2026 22:57:07 +0800
+Message-ID: <20260918145705.1511737-3-bestswngs@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,330 +84,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
-xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
-xilinx-xadc.txt file.
+rxgk_challenge_to_recvmsg() copies the complete rxgk_challenge structure
+into an RXRPC_CHALLENGED control message.  The pad member of the embedded
+rxrpc_challenge is not assigned, so the copy can disclose one byte of
+kernel stack memory to userspace.
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
+Initialize the whole structure before filling its meaningful fields so
+that the reserved byte is always zero.
+
+Cc: stable@vger.kernel.org
+Fixes: 9d1d2b59341f ("rxrpc: rxgk: Implement the yfs-rxgk security class (GSSAPI)")
+Reported-by: <co+c09f7e87f6209a56@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- .../bindings/iio/adc/xilinx-xadc.txt          | 141 ----------------
- .../bindings/iio/adc/xlnx,xadc.yaml           | 159 ++++++++++++++++++
- 2 files changed, 159 insertions(+), 141 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
- create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+ net/rxrpc/rxgk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-deleted file mode 100644
-index f42e18078..000000000
---- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-+++ /dev/null
-@@ -1,141 +0,0 @@
--Xilinx XADC device driver
--
--This binding document describes the bindings for the Xilinx 7 Series XADC as well
--as the UltraScale/UltraScale+ System Monitor.
--
--The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
--The XADC has a DRP interface for communication. Currently two different
--frontends for the DRP interface exist. One that is only available on the ZYNQ
--family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
--on all series 7 platforms and is a softmacro with a AXI interface. This binding
--document describes the bindings for both of them since the bindings are very
--similar.
--
--The Xilinx System Monitor is an ADC that is found in the UltraScale and
--UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
--communication. Xilinx provides a standard IP core that can be used to access the
--System Monitor through an AXI interface in the FPGA fabric. This IP core is
--called the Xilinx System Management Wizard. This document describes the bindings
--for this IP.
--
--Required properties:
--	- compatible: Should be one of
--		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
--		  configuration interface to interface to the XADC hardmacro.
--		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
--		  interface to the XADC hardmacro.
--		* "xlnx,system-management-wiz-1.3": When using the
--		  Xilinx System Management Wizard fabric IP core to access the
--		  UltraScale and UltraScale+ System Monitor.
--	- reg: Address and length of the register set for the device
--	- interrupts: Interrupt for the XADC control interface.
--	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
--	  when using the axi-xadc or the axi-system-management-wizard this must be
--	  the clock that provides the clock to the AXI bus interface of the core.
--
--Optional properties:
--	- xlnx,external-mux:
--		* "none": No external multiplexer is used, this is the default
--		  if the property is omitted.
--		* "single": External multiplexer mode is used with one
--		   multiplexer.
--		* "dual": External multiplexer mode is used with two
--		  multiplexers for simultaneous sampling.
--	- xlnx,external-mux-channel: Configures which pair of pins is used to
--	  sample data in external mux mode.
--	  Valid values for single external multiplexer mode are:
--		0: VP/VN
--		1: VAUXP[0]/VAUXN[0]
--		2: VAUXP[1]/VAUXN[1]
--		...
--		16: VAUXP[15]/VAUXN[15]
--	  Valid values for dual external multiplexer mode are:
--		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
--		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
--		...
--		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
--
--	  This property needs to be present if the device is configured for
--	  external multiplexer mode (either single or dual). If the device is
--	  not using external multiplexer mode the property is ignored.
--	- xnlx,channels: List of external channels that are connected to the ADC
--	  Required properties:
--		* #address-cells: Should be 1.
--		* #size-cells: Should be 0.
--
--	  The child nodes of this node represent the external channels which are
--	  connected to the ADC. If the property is no present no external
--	  channels will be assumed to be connected.
--
--	  Each child node represents one channel and has the following
--	  properties:
--		Required properties:
--			* reg: Pair of pins the channel is connected to.
--				0: VP/VN
--				1: VAUXP[0]/VAUXN[0]
--				2: VAUXP[1]/VAUXN[1]
--				...
--				16: VAUXP[15]/VAUXN[15]
--			  Note each channel number should only be used at most
--			  once.
--		Optional properties:
--			* xlnx,bipolar: If set the channel is used in bipolar
--			  mode.
--
--
--Examples:
--	xadc@f8007100 {
--		compatible = "xlnx,zynq-xadc-1.00.a";
--		reg = <0xf8007100 0x20>;
--		interrupts = <0 7 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&pcap_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--			};
--			channel@1 {
--				reg = <1>;
--			};
--			channel@8 {
--				reg = <8>;
--			};
--		};
--	};
--
--	xadc@43200000 {
--		compatible = "xlnx,axi-xadc-1.00.a";
--		reg = <0x43200000 0x1000>;
--		interrupts = <0 53 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
--
--	adc@80000000 {
--		compatible = "xlnx,system-management-wiz-1.3";
--		reg = <0x80000000 0x1000>;
--		interrupts = <0 81 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-new file mode 100644
-index 000000000..6031de763
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-@@ -0,0 +1,159 @@
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
-+$schema: http://devicetree.org/schemas/meta-schema.yaml#
-+
-+title: Xilinx XADC device driver
-+
-+maintainers:
-+  - Omer PALA <palaomer100@gmail.com>
-+
-+description: |
-+  This binding document describes the bindings for the Xilinx 7 Series XADC as well
-+  as the UltraScale/UltraScale+ System Monitor.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,zynq-xadc-1.00.a
-+      - xlnx,axi-xadc-1.00.a
-+      - xlnx,system-management-wiz-1.3
-+
-+  reg:
-+    description: Address and length of the register set for the device
-+    maxItems: 1
-+
-+  interrupts:
-+    description: Interrupt for the XADC control interface.
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  interrupt-parent: true
-+
-+  xlnx,external-mux:
-+    description: Selects the external mux mode.
-+    enum: [none, single, dual]
-+    default: none
-+
-+  xlnx,external-mux-channel:
-+    description: >
-+      Configures which pair of pins is used to sample data in
-+      external mux mode.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,channels:
-+    type: object
-+    description: List of external channels that are connected to the ADC.
-+    properties:
-+      "#address-cells":
-+        const: 1
-+      "#size-cells":
-+        const: 0
-+    patternProperties:
-+      "^channel@[0-9a-f]+$":
-+        type: object
-+        properties:
-+          reg:
-+            description: Pair of pins the channel is connected to
-+            minimum: 0
-+            maximum: 16
-+          xlnx,bipolar:
-+            description: If set the channel is used in bipolar mode.
-+            $ref: /schemas/types.yaml#/definitions/flag
-+        required:
-+          - reg
-+        additionalProperties: false
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+allOf:
-+  - if:
-+      properties:
-+        xlnx,external-mux:
-+          const: single
-+    then:
-+      properties:
-+        xlnx,external-mux-channel:
-+          minimum: 0
-+          maximum: 16
-+
-+  - if:
-+      properties:
-+        xlnx,external-mux:
-+          const: dual
-+    then:
-+      properties:
-+        xlnx,external-mux-channel:
-+          minimum: 1
-+          maximum: 8
-+
-+examples:
-+  - |
-+    soc {
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+
-+      xadc@f8007100 {
-+        compatible = "xlnx,zynq-xadc-1.00.a";
-+        reg = <0xf8007100 0x20>;
-+        interrupts = <0 7 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&pcap_clk>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          channel@0 {
-+            reg = <0>;
-+          };
-+          channel@1 {
-+            reg = <1>;
-+          };
-+          channel@8 {
-+            reg = <8>;
-+          };
-+        };
-+      };
-+      xadc@43200000 {
-+        compatible = "xlnx,axi-xadc-1.00.a";
-+        reg = <0x43200000 0x1000>;
-+        interrupts = <0 53 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          channel@0 {
-+            reg = <0>;
-+            xlnx,bipolar;
-+          };
-+        };
-+      };
-+      adc@80000000 {
-+        compatible = "xlnx,system-management-wiz-1.3";
-+        reg = <0x80000000 0x1000>;
-+        interrupts = <0 81 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          channel@0 {
-+            reg = <0>;
-+            xlnx,bipolar;
-+          };
-+        };
-+      };
-+    };
+diff --git a/net/rxrpc/rxgk.c b/net/rxrpc/rxgk.c
+index 77a67ace1d248..799772b0d8472 100644
+--- a/net/rxrpc/rxgk.c
++++ b/net/rxrpc/rxgk.c
+@@ -756,7 +756,7 @@ static int rxgk_challenge_to_recvmsg(struct rxrpc_connection *conn,
+ 				     struct sk_buff *challenge,
+ 				     struct msghdr *msg)
+ {
+-	struct rxgk_challenge chall;
++	struct rxgk_challenge chall = {};
+ 
+ 	chall.base.service_id		= conn->service_id;
+ 	chall.base.security_index	= conn->security_ix;
 -- 
 2.55.0
 
