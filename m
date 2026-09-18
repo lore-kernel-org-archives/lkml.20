@@ -1,119 +1,74 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A484450B41F;
-	Fri, 18 Sep 2026 17:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A36551C065
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752939; cv=none; b=Xd8eIyk6plpz9mmYCiDGKd5sQ63BRpazbdVc9/3er3EDxVHo9SR6tUmGs5zJd5wf3JB/qITen/MyOLWASGG/gcKyY6oSQ4hZcoVGv2vJ0+3xtM4bjx4tEuGgNgc8qXeg2B0pU4ImJUPfrVUVUTGL3fcVygJzK6dgOrPZFw7Lb2A=
+	t=1789752964; cv=none; b=ZnaHKkm36wIL+SJuWSMZ/x9YGm8UTdEM39V+JzeqNOVk2DJvGumEuNhIOGePUWVVq793Ml2x1Qf/djdxWqlbTwuhtS2Zetmjh6nbjI2XnMreRpI8MyazVdDLAupk2A8tnztVBMBHnj73yZn40kD/KvIvK0cZ5euE+i57R2uA4C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752939; c=relaxed/simple;
-	bh=P+jWLtwhsHc5uFRJj2NgqeGk8G9ZVO4cpG8ggNqZnGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ovM/LGGPve06IsTuNYr3syqO5zhcvGjDASJgR7U4DYCei3uGkTfFzW/GY/G8AFcqKjXc5ocQt+c/Zecyf93PSq+kxhjMnpxml+iC5EZyDNqObapIs/EzxYtyAMmWN6M0B6o5maplZ+A3LEyNtB29/v/YQTlcj6RpB9wSZyOiupE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=VQELq/Qx; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jOBwhIf7; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1789752964; c=relaxed/simple;
+	bh=s/nhuRlp4yxDKWWjYclhsUSG9rqWL5fQH2n/khGHRd8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=cjRJ0BIg8E8dZazqFRhC6R9afFcyohfeKN+usA0SL0Jhe6cLkqchPvMkqq5v2RFINWcXc8FBZ2e9OFgyZFuh/Jf4oIC3EjtefVRqH+Y59ARAm7fGrQ5NFl/cdNuhLjRa+j9Z7D6jfW084G6p15Sr5BiWRQwcw6qemdP8wYI6oLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=a9iMDKr6; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="VQELq/Qx";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jOBwhIf7"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id CCE1EEC00DA;
-	Fri, 18 Sep 2026 13:35:32 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 18 Sep 2026 13:35:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789752932; x=1789839332; bh=rzDey28tI/
-	mS2ZHYPWScIGdxmqa0tFs0gJXsP/XSisc=; b=VQELq/QxD6pe1etmzR5LukEn7b
-	v9p/7ja7DBXXqoS6oSLwLVi8R1+YKcTx1v7Gzito7nPNuIIs9HOf91viYisqsfIn
-	JL+EHl+b/gX59bPQTFlDNn5/dLUoYyqY3SpYN+09iM0D+wPbB7MH9HjV99MOxo48
-	oFqrX8YEaipI7nomm23U5ysdOS3aFz+qTJWNSd6EyFqfUnbnAdoNBmOgyx0XX3NI
-	DazHVSrITstqowZQgNvl5144XthtxZ0YOXbcYT6UKV3LKEkOkK+d/nD3qN2fO8qp
-	+Mj4d2fqYZVeoSwkomjuVPLjEegrNhpItr7avAmQNpm/Q2xKTJXyzXJTBjMg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789752932; x=1789839332; bh=rzDey28tI/mS2ZHYPWScIGdxmqa0tFs0gJX
-	sP/XSisc=; b=jOBwhIf7SUwI+axW+wlF4xcU9BulSVMDRBMBBwI1oTvgLE47XVp
-	oAd/7/hjeSWbwCKi5Xw6GRkFJsUDFvx/+kNZjdxZoOjPaqyHaMybpR99RnXkQ2dm
-	WFd7ObI5PllyyjZOtoAf5B2CWMdSwxE3pQgNJDPPmGPxhxCRazwk2mXve1zd7YWf
-	XMdjkQTC8PfGeUkIBpevq9pMEjE8Am7fOvlmF9uv6x3OrAHvCCke38rpN8iH84AE
-	5HgOIbHHYuPL8m3IU9QHVhK/15BfFN2BV54BxegxuNxP0IqR8hynG3RKP6TaBic3
-	pst5e1ldYfUrB38CyamqZVnAwIanpT7Z8FA==
-X-ME-Sender: <xms:ZHatauhW4VnbZA3SVKssamRSTG49bwng6ZtioA8ZC2gUHQo6E7fX1w>
-    <xme:ZHatalbvUFnbCinY0yE9cqjveQCc19csJ0vqddkh95iVpdrkAX7qJVweKRbfXmEsy
-    Nq94ZqUl63YrnRG2iKEsLp0fhNzz-qf7YxumJyLP0B94MVJ6b8>
-X-ME-Received: <xmr:ZHataiVNtXISQO280dnOmYQRlI7Ef_Vh28jBnMnTTBY8fNJgLt0P9BCHRtWn>
-X-ME-Proxy-Cause: dmFkZTE1OwfNUp3MGBXSuAN4San3uDtZChVwo8xtE87Fm4jKFN7Uvf0E5xDblVuJ/CA0g5
-    rg/FZdULmzCcK58enxtTMWumdvu3mzbd65iAymGtJJbM3TZeUi4Xo6qD1SoLT1sw8WwOLk
-    stS+HZ93imbLJ9xwNU/I3Ci/lvuo4sc+hRy+IZ+XrvwwBC3buaeQTlZK61qtJFMKMIOca/
-    BrUy0/eqrUtNcCy8KONBvTilw01HqG7rpDej49D0jDWEoCAE5+Ph5BgQmO+Lp+pROKCQf3
-    2VKZklzQk60ERR3xoIeDinw38dUs+jM/WbuF280amEDHy2/aDpGNW63qBzqyDyetdDFvSJ
-    ElduYY+s7dBzGWjnZU3PIdq2I+u15/mQ4wDiySZnPwKED5YSTGDETJYGKNJGmaroy5+wbi
-    h6DJV9Dr1tVaDLDHbQhVrLOs6WN11Z0SwtkYfm+x0SAeijGZxVJVNNJ3oi+5B7qw1NRcJW
-    GUaAtMJ3HVtBr4zI9Fafqgjb6VrpLzCXNS+tot94VYbMKP/5ZkeUaaWzTIsrraPftHxrC0
-    EfZRSbgNdazcIBoO6aKgf6HfwM/o77E6b7wjYCGfiEprZTK47E9EPMHeGwB4GafMv/u46V
-    NRFY9frtwT5V8NHg2+hEh0bswtjuNAjwRS9jhHihaN/9cfSJ/cYEJRyPsrgw
-X-ME-Proxy: <xmx:ZHatalG2ClTQdbyKaQg8xX8UavUZxfNmOvt34-zD3_u1T_eIETy7tg>
-    <xmx:ZHatakZx8lEps2eikDu_S5ZOnvDA-d03JnTh7cR4jCbYCMJKLer9UQ>
-    <xmx:ZHatasFqMeSuvLNfpCCvxV1_GDiiDtyahchiXmvwIkphZtI-7DTGyg>
-    <xmx:ZHatai29zdCyFNCq2mmfhXnXxzhLIcsCeNgwV6FDqA_sIAZn9Nq8yw>
-    <xmx:ZHatanOSvREtTLy0hQrbD-3ZeUUGJRkssPmBsZolFABMPU5Hd7yw6fp6>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Sep 2026 13:35:31 -0400 (EDT)
-Date: Fri, 18 Sep 2026 18:33:36 +0100
-From: Greg KH <greg@kroah.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Carlos Llamas <cmllamas@google.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Tomer Pomeranc <tomerpo@gmail.com>
-Subject: Re: linux-next: manual merge of the char-misc tree with the
- char-misc.current tree
-Message-ID: <2026091827-actress-irritate-95c7@gregkh>
-References: <aq0wIywjYmlWf77i@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="a9iMDKr6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:Message-ID:From:To:Subject; bh=YBc386ksOhTVi74
+	e8wzGXeF03+MExlN3zVdgvS/zqmU=; b=a9iMDKr6/Pl9D9lZxnB5S+0fw8CD7Pk
+	GP/8zvCECAoBxJstcaxtfiFZutYy8isk+5hN8yfs9ZPX20a7RyzFdHoRTl2zv40U
+	pgM23JZCT+8mr5aWjdtS12Q6knEwZsSdsgIQVNeTXU/s8jlIDPbj1LCWOXf/bOIl
+	dmcaFAZHt5YU=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3J50Zdq1q2whmBg--.18635S2;
+	Sat, 19 Sep 2026 01:34:18 +0800 (CST)
+Date: Sat, 19 Sep 2026 02:34:17 +0900
+Message-ID: <fe5e2c51f5b90447bbedde4eabf4cfd4.sh_def@163.com>
+From: Hui Su <sh_def@163.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	hannes@cmpxchg.org,
+	surenb@google.com,
+	jstultz@google.com,
+	connoro@google.com,
+	metin.kaya@arm.com,
+	sh_def@163.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] sched/core: Account PSI IRQ time to the execution context
+In-Reply-To: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
+References: <20260918132915.1236312-1-zhanxusheng@xiaomi.com>
+X-CM-TRANSID:_____wD3J50Zdq1q2whmBg--.18635S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfUUq2MUUUUU
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhqpCWqtdhqDMwAA3j
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq0wIywjYmlWf77i@sirena.org.uk>
 
-On Fri, Sep 18, 2026 at 01:35:47PM +0100, Mark Brown wrote:
-> Hi all,
-> 
-> Today's linux-next merge of the char-misc tree got a conflict in:
-> 
->   drivers/android/binder.c
-> 
-> between commits:
-> 
->   c4c02084d6687 ("binder: fix leaked fd fixups on TF_UPDATE_TXN supersede")
->   22c135635fdd9 ("binder: fix is_failure flag for superseded transaction cleanup")
-> 
-> from the char-misc.current tree and commit:
-> 
->   fd2bc059ed466 ("binder: rm -f binder.c")
-> 
-> from the char-misc tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
-> 
-> (Deleted the file)
+> I did not construct a case where donor and curr differ.
 
-that's the correct fix, thanks!
+I tested two proxy-execution processes in separate cgroup v2 cgroups.
+The owner held a CPU0 mutex for 20s; a SCHED_FIFO donor blocked on it.
+On x86_64 QEMU (4 vCPUs, 2 GiB), with PSI and IRQ time accounting enabled,
+the irq.pressure total deltas (us) were:
+  unpatched: owner 22,053, donor 401,127
+  patched:   owner 552,740, donor 31,566
+Both runs completed successfully, and attribution moved to execution context.
+This exercises the donor != curr case missing from the original test.
 
-greg k-h
+Tested-by: Hui Su <sh_def@163.com>
+
