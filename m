@@ -1,46 +1,47 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012046.outbound.protection.outlook.com [52.101.53.46])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9457381EBB
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED1C39C006
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693710; cv=fail; b=BUCIHKskJuks/9Ef/rnPcrBXXxG2cPPwbayT6mm+LX3LRXRgeaaPRIM3lHNx9vp6cGDPeyY91oMeTArjNethmtPyLcqEDCTYUoURPQtme6eK9oKyul/TgRGlJhUTqXkB/WNZMMbRSQGJD1GMO89DxMa9act1/rJ8F7GhFeG2UYE=
+	t=1789693710; cv=fail; b=sAkyfgEcBmg6pkiL/jYkbNe4ujUHYBvpD2biil7hqDTEB0EV62AugbLMckpccSlO7T1UnD21b0MJcC8RF8I2ySp+xj+2v6QPDLzQMA9qejyuDXBXofUQOi1pZ/wLwee5Do8PcCEEPIZLipXYWAu+ga0it2/EYy1DdjCU/CpX+rA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789693710; c=relaxed/simple;
-	bh=reKypDvBHNWTtPfxIQ4A2TvMuDWnHLkLUrJbwLQFcjw=;
+	bh=D+/GP/N9wPfzIZ7gkFzoxmGXAMynPSR7ik85bU2AsZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IoMYi9PUNiznpCK1PzNdGcLGlSeDWwM7SKbIdSC8q2BOWUzf0c0cOcCH2vHK8zKCK38/A8sc4x7nACezLDafeEvOb7Aho1gMSb5Gat14sh3y9w+2PnpX4GahvmY/DSR0EhaJ8mg0IN0JJI9l0TwbkW7E75viWGg99sxDZ1geSqM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PzuSNc7h; arc=fail smtp.client-ip=52.101.53.46
+	 Content-Type:MIME-Version; b=kvLkHarD344e9ETB/2mpkR5B7a97/g91+kx4ft5g934F4lVKBBk7U5SgZREOHAFCmSBohaVR2eqEe6ozUuOBB4BnLBPIDI0gr5bvRZ11qAqjww3WnI1uwEmDmtrpO6+4m04nHhVyZzv1TPW/L6YENQnufsGFkR63tVQFqRlMAkg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FsrTQOzP; arc=fail smtp.client-ip=52.101.53.36
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PzuSNc7h"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FsrTQOzP"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TtpHOxvmX7H1ghARGGWk75iG4yD73GopPb4l4tsmNwE+a+acibOr5Obnh0HbwbFmjh1p6G9GZNlUE0psxc64qE1VpmIkNS0Si2rkMpdBwQG/uDazERmxAj5OZsuP93L9L9KQl5ChI5/9B3ugatI++muW5ppx61DA5CHAqntD0Il9XB96FJA0C+HeeclrWrg19Sl82JLLNRZ9GytdYx3/ZCoVP3YGHsyxbr3/6JBoboJ6oFDwN269C3WbTp5R1AqQjTcKsmq0Lq9zszjLPNkriBOeLMQJXkqtV0OrVD6W7CYnCgoKf+rEm0wn9u1qhu+5B4wu/5sf+3EPeTEI/EBCrQ==
+ b=O6AdUi/mTvNgAQzsqteVuTpJ5cvt+qOxEQnd+vM/Dou+RD2rQ2o3qlIAVq32DUzJ0/lAakS1gskVrupV35RgSzC5IfLkxI1NTyIMDoTrMW2NRvQg3GfebfDzA8ssViB+tlOSSysa5QrU7q8qg3Qkopn0ArHg4dxCumZytR+PVHAgJxlwEjyfisAivEiMSVm1cgoodBlRdgQtwAX208njkqOLJ5SYc0VYrGKmbt2PBM1UXTeTnVgpKLghSez0xS+xPrU4XIRsRXYfHSSrC6IpZr0skf76/e1zBxzEixgNpPbIz12WGrR+R5/GkM248AR8AhW4l+fYkuPZUx5oLm5fcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EXIHEdmFg0BtGAPz8ULt7ygDZF43nRDD4S9nQ5mNwRY=;
- b=YGNJeP1tEbR3eFuzTzYzUHCWUQSCk4alKpW4kigo1hZXAfsWOHCYgw0QTWZUz1wDS9pZqbkwQ8dIgdLjtX2Sjf9y9vienMqxyUrHtNH6GWdKTzboVhNQfP9O2qBIn0+WVisgyU3GCpsAFBYWRRuNZ2YACeD4AlNlEY/IJSu3RHNsL8Qy7WwYUMZa6ivuhgIjm/zO3c/4FAkT/8saSn/g2eHscpnt51VCerh48JiZEXh/DdU3+zQJdHCCbGOQWesXWH7obG7yRIvQF+CyBJ0xCm/c1YiIATDrhUQ9stpZ66tdbuziA5lowW9p2XMSxFri3oNrubxPkAGWmCRwgjp8OQ==
+ bh=qDIBfgdaOzvFIBwKl8c69FOSuhG+V+vcbH6JOu0XyK0=;
+ b=J6Gfh/zYJUc6JTApa5EGeidX5DrVlJDFHg4VaHrINgtdhCtWyBw8MuXNjvvA3NzHk82fUWQ8LDvaGSVRusIIL9c1f/iEHSCT6UqgW+Hks1ZPGxkNxY+4289y5pYbk4wgcVl/S3wiFnj5H3tJFOfzJaS7iDzMHRmKTZViTcnyQghoHq1k1IacuGhN02QfRwqg98vxJ2KKLmWIDRUGoNFpi+wag9r9Vjn++9vtrIf3Yz46IQvHz4Cws3PSeOQ5sD99YLkDiMj+NkD8PiBNpso/Wb80rHGDkEZL6d9Q7Y9dN1ajIXrUEe8K44fpTAxPFN74n9Z3RgI2jG/o5jxA/2WBEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EXIHEdmFg0BtGAPz8ULt7ygDZF43nRDD4S9nQ5mNwRY=;
- b=PzuSNc7hMAapkOAOvGBeIXovUcIggXwC8voXl9C2zwDIZ1ufzgEFTxbtmO/TD3KBpE5uzn9Ans2ylPNZ72RdocjvgLcNjkQAlSU1id+Vd1ZFyyomvj0nKDdeTepKt7hRV4a/hGqbSt6wRkqf7IVp7dW3hoYq1hH2+YsVimrx3bcIchKvQm/WqxDDB/RE7o1PKjdFeFEd1ZPYpynAPVyBR+RYkxvQeWiXF9uUOgcuob2aYM+iLmLAb3xpvRpT4TNyQzc/7doNRa5bIfnLWXhR8n/iGCSvGzMboRgKLwvXo83JMDyI3yO1Jn3sqKclX9YkjCwC5/Yi4K9siUUZuUVEzg==
+ bh=qDIBfgdaOzvFIBwKl8c69FOSuhG+V+vcbH6JOu0XyK0=;
+ b=FsrTQOzPEBoRFPeLkUJONJTqO91uoAeCLiI/SysrqcliCN/8K4Ns+dd1ZhHT5Du1CNFf0ZG8/PT7PGUdVuHUsWnIF4MOLRkX6JgVjePc2Hia/LB5sBYwprVxi7FHldmySaVVcNS6huuTZN9MHyJtLwFcfFpdiEAPtOmIU8FgNXcGjWScvesw7uTOJh6Ln3Nfi5vsV6yuuzr7vHYV1zAGG3Be09Z0ijmVzH4QNG0lguuNpI9+VnQQ0G2jFmQZ+6CI6zmY4faeF4BQGipRFGuBM9DWWrxv5KwAP6/V4aYeMm02D3KgtBQVGo75noy+BfzlZa4r8dF1f/xpqyG5bOaHsg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB5888.namprd12.prod.outlook.com (2603:10b6:8:7b::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.13; Fri, 18 Sep 2026 01:07:45 +0000
+ IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 01:08:03 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 01:07:45 +0000
+ 01:08:03 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +64,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v3 16/33] gpu: nova-core: move the bootloader DMEM descriptor out of FWSEC
-Date: Thu, 17 Sep 2026 18:07:02 -0700
-Message-ID: <20260918010719.1176945-17-jhubbard@nvidia.com>
+Subject: [PATCH v3 21/33] gpu: nova-core: gsp: add the GSP_INIT request builder
+Date: Thu, 17 Sep 2026 18:07:07 -0700
+Message-ID: <20260918010719.1176945-22-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918010719.1176945-1-jhubbard@nvidia.com>
 References: <20260918010719.1176945-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0059.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::34) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR05CA0084.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::29) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,214 +83,299 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB5888:EE_
-X-MS-Office365-Filtering-Correlation-Id: dad7cc7a-f9d5-4225-a4b5-08df15213f25
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c50cd31-73e1-4b32-e12d-08df152142dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|3023799007|5023799004|56012099006|6133799003|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|3023799007|11063799006|10067099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	tYrw+pqjLLlGPLTSSuQcngB8LFTvIPdIaE7PWoTGifVNjys6/XiXFkyGEyPzRt2vOsJdEvVBPjVP57+VAtdLpyRFSxXGbjE52wuDQo09f5ElyatuTw11PLLwJS2RCW1jLCAdB5hHeuGXWfINT1AGyPHP3PnuKhl+jOWzNY46H08womR2xP4OopdXE2gnOv/iTfyKUNM9sX2hHKRC4n/3nKtDCcGvy58olDVoDHkJp9lv4/Y909tIkz4ZXZ8xGJdU83K/QQMiR3va+O+GhD8L45FcMFGxBjlRxS+AFnovKUnuOm5y23hJYAZD8M29HmT6vKd1m6+q+veiYc7HJ70TZTwnW/JtgD2odOylC44hnVU30Jgptn424rHQeF+TuzIRoj84NIutA1IFWpx3TC8iJK/snYKcjbF9MGy6cGt8+0EbkgQPXU33uQ1a2y79Whr9AH8+DrCPmch2TU+8pWo4s0o2mIlxwNKxey/JdYDPSmVm5IpVtMA1nApux7m34Eho4pkkcOBQvxLEAQe4KKeexqWiMaJYrlek8diZnJNdqhF7m6Axc4Yf3VxvuYUHyT2jDqU8vCaNrIIHgPrg1nOiQgnvAQXuzAjglw1QUdl1wNdo3rgJ8am/fTYCpWM6KIb0yXQd1kzJwgQYe9L1NSrO9ZCJSNgSWuFWXlVZZuzPL10=
+	0eUmZukZV1t59P4w7YP/5p0XlNzaXqzbOMXRVYOp8sLl1yh46dDoocCWj06Po9JqYcQVyaw19gCGAjOwST1MJzkf7umRWcuYdWHzBM94krrOO/CAFpcSr3DM9PmJd18IePRcPezgxMtxl9Jcg+kzACSWjkkPw8DD17rnIaWdYTPMy4/3bew73muiB6tTiB5cHhQxXcoT5CeGQZ9cG1a/3j0HFYPhZT3iOX1rJyPqIk+FZ3cwgb89tXKG8GrnQbPVjtPoMVZCeUBusD9YAIWfTTmwS/cc+h2H48dJucI3GzyYiaIEkvqBRTr0/DD6qu6RjWT8y0fVY1QV6MrAuGcp9hnXg8YOuV2TSk2YmmTB0gr/sNzSIjvJDhp18hiX+ATKRs1wIJVvaoG7uRWaO6x6L9QRHKHggqjBu1TOVadkgtXkeCctLIZ3R1eAMI1mbo5CZGbNioCAr0ZEg3cWDf1xjOt6sUqLQSf/X+A4dx6/Vk2KPieobCmvdeWcfrisBFfFaTX3goi+OGxGbJ1K86Jb+bcBPFkI5WDffnbmiUt+0ka4Akc2Ylre0XrFy7CxbaO0Yt8tQXoWE9ggyF0vWc3m3KNJmiLMdK9wmrx6PdpvDx6jbbAMiW+Z72ZDtk8V9yHxkNqqcZ4ms+grfoujcogQRAMluP35PoIt0wxHOGKHh5I=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(3023799007)(5023799004)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(3023799007)(11063799006)(10067099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?toGCrZ8qwn3nbmBQ5jhkOg0xPuDnTB6FRFj2giBdL0zkjS9h10g145qGGMS+?=
- =?us-ascii?Q?XPwtV40LcrZAfn03WuvYyMpxgq1hI8b7i9i+85Nvu46wbQ8/wJI/jIGg6OgV?=
- =?us-ascii?Q?Q2rnA7RR9YvIbHx+wr2NXxnjz8YmNM0e17SvuH1Gu94MNSG0IwyFNk1Dy9GU?=
- =?us-ascii?Q?YxDnbfEpdM9SJp7hd3Rk/U9paFdfVceo/6o0UklPwSWdITDUCWQtul5EPqug?=
- =?us-ascii?Q?6f42IKsCyEFbG3A57e+XNdLuYhio3nlEaq4Izdg0IWR9DJZZWYy4A6+Hap4O?=
- =?us-ascii?Q?mjehKiKIxQOdCV5rn0JAYsvsAzSKje3rDLiUjGxe8+MsxMoLXixeQoboDDlx?=
- =?us-ascii?Q?pfn0IX8UmxackI8dg2HPUoBrw7CGoo4HCIvG/oqiExvziPkl/bjSxOqUs0NW?=
- =?us-ascii?Q?A6rxbCJ23f+2i3GKl69T5+9I/jRwGs8wjX+coatQ/o+Cy4fYs4gUcnw+TVWf?=
- =?us-ascii?Q?jMLqSFH/vLaTBB7vyk1GRk1f6ugjF5jTGJOd+QHsMvBx8+CXYr/j3azKs4GO?=
- =?us-ascii?Q?9oUak2S0eYpwwqfh/d53ZNkQXPC/CFYA3CrIzFIfBRLYg4mYN5knGyg9mxgH?=
- =?us-ascii?Q?yFub8yxiuG98WzMbmMqmWl/3+GSBQzZ4MahbhfBORNIdF9NIlJ8yZmxGAwAF?=
- =?us-ascii?Q?dKQDlK+AxQUrKgv3gNOryZSEJKk/wNT6vSTXAK8ukdn/Y1iy1+PTEAsFRuC/?=
- =?us-ascii?Q?W4PE4Kxvg0m0YXzvIo9vVWy2Ra9zMHn7PK0SmEeYq3W0QbqdZsmno2sjC1pP?=
- =?us-ascii?Q?46suYyLlvzdN50Nkxm1LzS47D9YC09TB3xgjjl47szOCi8/02X+/VnVj4mEl?=
- =?us-ascii?Q?QtzVI5t9ZpwXLb5qRspOsTWUQ6ya/7JmmiUalUZConjCX22SBTWI+sd8Nh1N?=
- =?us-ascii?Q?vST4K41gfJHEPWhut5ErPsU6yQrE/KaNfOU8wUVcA2HGoa9vyDH0jPiVywoN?=
- =?us-ascii?Q?xEXPx4t9TjqFxU2SpyZA95WmZNDMJD/FrPO/ZvagYtZJjCuG+lGLuEbYDjxO?=
- =?us-ascii?Q?dB3NBzC2qTfQPGol2MXqNhw6VXdNuQ61qNFUNn6hRIDwoJmhWGwkSyptR3zA?=
- =?us-ascii?Q?MoYDnb34h9crlvJRlelanLyqmu62yHjhmss8+jPpftBVgszBrFtt9pKPh31r?=
- =?us-ascii?Q?NZMJyzRkjZ3OXQsmnIDcsKUTweLpE1nqADADZ3ba9f/y4KpZHVc3SiOMbzes?=
- =?us-ascii?Q?/BUE9yLVjVlwmXnUTy20wHK90PqJXo7Ypg200NrLXzR57wX+fp8hwMlPqBob?=
- =?us-ascii?Q?qp+Gc7AY4Z6lh3sncUCua1gVeMVpYV57mRZ7l/QtvZzRxpIFt0zgFMrSaEuy?=
- =?us-ascii?Q?5efg8SVKG2u5hSAG8tALTLcUf15sHZIwCCqbPDKdrjm+6jX0FPFZu3/3LR77?=
- =?us-ascii?Q?Woqn5ESRmWyig7LTxZ0yIrXNRoVUvYMqwOFcVOD1SkqPfS1AEDFnT/i2jW9p?=
- =?us-ascii?Q?Rr9X/gtYH4WYLqz8qkwiSLARHlh+QQc3k1/5ZJ3M2zIrshzQmEiSXRknT/2k?=
- =?us-ascii?Q?S3cHG/3BdwUq24RIXgmjG0E8YVu4u9iIPYnupq+R+vQxPItOzWldN39PA2gr?=
- =?us-ascii?Q?P+vvMtAJoYU3xNVFa8B7q8usdI4fW+kWILbWZtWGiktyM2vBpatPRznn4Wxg?=
- =?us-ascii?Q?nqbR7Br9du086bXKzjKOf963ZK69TjPBU8XaW8yivQLrNJ/JKJ+7+LE5WpNq?=
- =?us-ascii?Q?cOnkM+OaUNyEwlvobRdLt0CtTa9i8IOVuFPrxs6ZI8T++aCr1pSW8cY2efV+?=
- =?us-ascii?Q?2DwEBlVb4g=3D=3D?=
+	=?us-ascii?Q?Q2vTn9Bj3G+BKHZZiEVb+MI9npSs9PBibBQiQ7i9MhiJjPplb6r4odtQAtZE?=
+ =?us-ascii?Q?T18Kkq79lUY/Dbpliydf0FbeqEfQ0jeJXkujz8aDUf7OORDEUKARvvXk9BxZ?=
+ =?us-ascii?Q?Iys6WD/VRMwAbhjILO4lwGLr0H3HQSmXEj88NM9bd6SFbryItr/VMdzZ8hXm?=
+ =?us-ascii?Q?qh1oOu5c38kYIK78P/s+blCQ5Zqd7A4MoMrVEAPMQY59rolpPUy7j7JOiHTK?=
+ =?us-ascii?Q?yz25trhQwOJdF/whoQuHlS1gKYKdtInOrepMgbi36l+SNjQBC79xbhKQi6fr?=
+ =?us-ascii?Q?GdegcI8E4mamGcbLZ2jDhuQhB1nsxWid+EAtc4dbDSeaBx82Ggsr5aWHvERW?=
+ =?us-ascii?Q?obBBvy+W0lK1cca8Zfo9mz8gro4l88wEEoOYRAe6lWLGo2QHLvCyqN58LSpD?=
+ =?us-ascii?Q?lBuqtY5oblZS1gC8I6kSlSo+MmBWQ9Nqrr8iUAL54JXG3M2Ii+MQ2G6apwdj?=
+ =?us-ascii?Q?vWFWCGqOfV6eTsk1WK8inry0ylQTG7fxy7s0VCz3chAh/dnSSXSwy3E8JKBx?=
+ =?us-ascii?Q?pv7C46CzN8kc9PF749KCUeBdJBmC1La5R992VfJn8e06CExF+3SqkFgQHOUM?=
+ =?us-ascii?Q?udKg8G0jy6kEt3nCQkuQ4qJuwpCTeGNl4embJWChVSNAX3/odQPyEe3N961h?=
+ =?us-ascii?Q?m0BHWA537hLvinvCNdbxW/lJbE7atJ5MmLvM19o4nOSpuUWGjtLqtXACcxaI?=
+ =?us-ascii?Q?5FD6xkpkIAECINXgPAO6Q9GXPhE2bNBskC3Q8/YeFMIVG20uts3nHyFgG40R?=
+ =?us-ascii?Q?67Xbj2gkObTkPjH4EJlfx/arc6WYjbZo9TfwOuKCSV8okwMLQYfpYtbxfZIx?=
+ =?us-ascii?Q?ZxcHdVJpGX9yrtun5qJOnnzcAneEvrQiOpsm6upSkTpOjwWqg6m65rDIQH6r?=
+ =?us-ascii?Q?WTjDYWtOCCBIJHf89Kx0lJ69uXUps4odTRwp3LDBdQC/VMlInYjfMKcpmYnQ?=
+ =?us-ascii?Q?Sf17OLXWe7AaDUlTm7D2GJ0mAOjMqWhH92trWzzMfPkkdfnJInb8Kp4sh5hf?=
+ =?us-ascii?Q?Fac2VXvCUvFOklmvKRGMXl+k0hLSSZP1lVAv+adN5oNmLE/7tY1gxA72Iez9?=
+ =?us-ascii?Q?ycdat47EH+KjTyMmkRsvhAytxtCbmtD/iWzUmvEdn8d4NK3qCRPMEAgxng4Q?=
+ =?us-ascii?Q?z501gBWtiIYrYhAAe6o4Z44N5We3lPzIcg8LP7kSu8APaUzZ4e3cmCYXciL/?=
+ =?us-ascii?Q?xvELve7cT5ezouugWIlyYISENefkSo6yKi3WkMEfRJVxfohgq705/CVrCewH?=
+ =?us-ascii?Q?/u3sc8lGfCSI8jMqvsrmWhNIY6d8ti6zTTlJHpKAOVXAvd2YFy6yUiYzBVtn?=
+ =?us-ascii?Q?FY/2RDqEVuSvyEJZ9kI9yWLnF39qD4ZBtQY53xUs3Y7QnH6Re/P9CopmRlkP?=
+ =?us-ascii?Q?pUiPWtGRW21qjQUmfO1ZvIDca1MvO6Gq2K5oApkiZ3cC78It/ISVa1TQK8TN?=
+ =?us-ascii?Q?YlVZjWJOa3GYlkB41VvFtpUKe0WNQ0nUQQepuMhDmDXbwNMOJOaWF5B6Q7aQ?=
+ =?us-ascii?Q?414ymyV0oU3UtQxQxFA/iWrY1Eqn4N4AAHz/5JG0eZGW7NA56fEBMAc4C4h0?=
+ =?us-ascii?Q?fMcrjaWxn+a858RhRAmb6FrHar65jLP6SwFUZi6Sx7+OwDrGEvZ2cFBnC6x5?=
+ =?us-ascii?Q?poMwzGHmwtBRLU1VHQMzjGSOKIsO4nLOihn9OealrdghgaAM89dT2QB7V1bZ?=
+ =?us-ascii?Q?xSt1rtnlubYAebrb8XA/t9XGPhn0HcG8JXkFWJExzYFQlfXRb+hS6gzWS7oT?=
+ =?us-ascii?Q?TGUICAC2IA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dad7cc7a-f9d5-4225-a4b5-08df15213f25
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c50cd31-73e1-4b32-e12d-08df152142dc
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:44.9152
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:07:51.0941
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HpEsDX6BAFXpR+x+kfvGqwymLMFOWchl6W643oFk69PNMFO5X4Sjtd3NDhgalHGW+3W0S7kV9MTllBL6Exyp0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5888
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8LJcSTKs1e+ujpoAfb22QyFkGvVPjLZEfzZirbJ67VOmGau4YOFhMXHKbyHW5MFQ8ZY8OqNWNsFCkp4jO0rEhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 
-The generic falcon bootloader reads its load parameters from a
-descriptor that the driver places in DMEM. The r000 load-and-execute
-bootloader event carries such a descriptor, so its handler in the
-following patch needs the descriptor type.
+The r000 boot protocol replaces the system-info, registry and
+static-info commands with one GSP_INIT request, whose payload is an NVKV
+stream of key-value pairs.
 
-The descriptor was defined in the FWSEC code, which was its only user.
+Nova-core had the NVKV codec and the GSP_INIT schema, but no builder
+that filled the schema in from the PCI device.
 
-Move the definition, unchanged, into the generic bootloader module. Its
-fields become pub(crate) so that the FWSEC code can still fill them in.
-
-No functional changes.
+Add the builder. It carries over the registry keys that the r570
+registry command sent, and it reports the architecture that the kernel
+is built for. GSP-RM reads the GPU's PCI location as one word holding
+the domain, bus and device number. That word is not the bus, device and
+function triple that PCI_DEVID packs, so the builder assembles it rather
+than using PCI_DEVID.
 
 Assisted-by: LLM
+Reviewed-by: Timur Tabi <ttabi@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- .../nova-core/firmware/fwsec/bootloader.rs    | 52 ++-----------------
- .../gpu/nova-core/firmware/gen_bootloader.rs  | 48 +++++++++++++++++
- 2 files changed, 52 insertions(+), 48 deletions(-)
+ drivers/gpu/nova-core/gsp/commands.rs    |  23 +++++
+ drivers/gpu/nova-core/gsp/fw/commands.rs | 110 +++++++++++++++++++++--
+ 2 files changed, 125 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 1584a4b814d2..96ad223df16f 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -35,60 +35,16 @@
-     },
-     firmware::{
-         fwsec::FwsecFirmware,
--        gen_bootloader::GenericBootloader, //
-+        gen_bootloader::{
-+            BootloaderDmemDescV2,
-+            GenericBootloader, //
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index d866297fa0a5..2c7965174445 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -30,8 +30,14 @@
+         },
+         fw::{
+             self,
++            commands::GspInitRequest,
+             MsgFunction, //
+         },
++        nvkv::{
++            Encodable,
++            EncodedStream,
++            Encoder, //
 +        },
      },
-     gpu::Chipset,
-     num::FromSafeCast, //
-     regs,
- };
+     sbuffer::SBufferIter,
+     vgpu::VgpuState, //
+@@ -264,6 +270,23 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
+     }
+ }
  
--/// Structure used by the boot-loader to load the rest of the code.
--///
--/// This has to be filled by the GPU driver and copied into DMEM at offset
--/// [`BootloaderDesc.dmem_load_off`].
--#[repr(C, packed)]
--#[derive(Debug, Clone)]
--struct BootloaderDmemDescV2 {
--    /// Reserved, should always be first element.
--    reserved: [u32; 4],
--    /// 16B signature for secure code, 0s if no secure code.
--    signature: [u32; 4],
--    /// DMA context used by the bootloader while loading code/data.
--    ctx_dma: u32,
--    /// 256B-aligned physical FB address where code is located.
--    code_dma_base: u64,
--    /// Offset from `code_dma_base` where the non-secure code is located.
--    ///
--    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
--    /// expected to be a mirror image of its loaded state.
--    ///
--    /// Must be multiple of 256.
--    non_sec_code_off: u32,
--    /// Size of the non-secure code part.
--    non_sec_code_size: u32,
--    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
--    ///
--    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
--    /// to be a mirror image of its loaded state.
--    ///
--    /// Must be multiple of 256.
--    sec_code_off: u32,
--    /// Size of the secure code part.
--    sec_code_size: u32,
--    /// Code entry point invoked by the bootloader after code is loaded.
--    code_entry_point: u32,
--    /// 256B-aligned physical FB address where data is located.
--    data_dma_base: u64,
--    /// Size of data block (should be multiple of 256B).
--    data_size: u32,
--    /// Number of arguments to be passed to the target firmware being loaded.
--    argc: u32,
--    /// Arguments to be passed to the target firmware being loaded.
--    argv: u32,
--}
--// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
--unsafe impl AsBytes for BootloaderDmemDescV2 {}
--
- /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
- /// operation.
- pub(crate) struct FwsecFirmwareWithBl<'a> {
-diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-index 65af57a34940..943a5bc16e93 100644
---- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
-@@ -12,6 +12,7 @@
-         Alignable,
-         Alignment, //
-     },
-+    transmute::AsBytes, //
- };
- 
- use crate::{
-@@ -27,6 +28,53 @@
-     num::FromSafeCast, //
- };
- 
-+/// Structure used by the boot-loader to load the rest of the code.
++/// Builds the NVKV-encoded payload of a `GSP_INIT` request for `pdev`.
 +///
-+/// This has to be filled by the GPU driver and copied into DMEM at offset
-+/// [`BootloaderDesc.dmem_load_off`].
-+#[repr(C, packed)]
-+#[derive(Debug, Clone)]
-+pub(crate) struct BootloaderDmemDescV2 {
-+    /// Reserved, should always be first element.
-+    pub(crate) reserved: [u32; 4],
-+    /// 16B signature for secure code, 0s if no secure code.
-+    pub(crate) signature: [u32; 4],
-+    /// DMA context used by the bootloader while loading code/data.
-+    pub(crate) ctx_dma: u32,
-+    /// 256B-aligned physical FB address where code is located.
-+    pub(crate) code_dma_base: u64,
-+    /// Offset from `code_dma_base` where the non-secure code is located.
-+    ///
-+    /// Also used as destination IMEM offset of non-secure code as the DMA firmware object is
-+    /// expected to be a mirror image of its loaded state.
-+    ///
-+    /// Must be multiple of 256.
-+    pub(crate) non_sec_code_off: u32,
-+    /// Size of the non-secure code part.
-+    pub(crate) non_sec_code_size: u32,
-+    /// Offset from `code_dma_base` where the secure code is located (must be multiple of 256).
-+    ///
-+    /// Also used as destination IMEM offset of secure code as the DMA firmware object is expected
-+    /// to be a mirror image of its loaded state.
-+    ///
-+    /// Must be multiple of 256.
-+    pub(crate) sec_code_off: u32,
-+    /// Size of the secure code part.
-+    pub(crate) sec_code_size: u32,
-+    /// Code entry point invoked by the bootloader after code is loaded.
-+    pub(crate) code_entry_point: u32,
-+    /// 256B-aligned physical FB address where data is located.
-+    pub(crate) data_dma_base: u64,
-+    /// Size of data block (should be multiple of 256B).
-+    pub(crate) data_size: u32,
-+    /// Number of arguments to be passed to the target firmware being loaded.
-+    pub(crate) argc: u32,
-+    /// Arguments to be passed to the target firmware being loaded.
-+    pub(crate) argv: u32,
-+}
-+// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
-+unsafe impl AsBytes for BootloaderDmemDescV2 {}
++/// # Errors
++///
++/// - `ENOMEM` if the request or the encoder buffer cannot be allocated.
++#[expect(dead_code)]
++pub(crate) fn build_gsp_init_payload(
++    pdev: &pci::Device<device::Bound>,
++    chipset: Chipset,
++    vgpu_state: VgpuState,
++) -> Result<EncodedStream> {
++    let mut encoder = Encoder::new();
++    GspInitRequest::new(pdev, chipset, vgpu_state)?.encode(&mut encoder)?;
 +
- /// The generic falcon bootloader image and its IMEM load parameters.
- pub(crate) struct GenericBootloader {
-     /// Bootloader code, zero-padded to a whole number of falcon memory blocks.
++    Ok(encoder.finish())
++}
++
+ pub(crate) use fw::commands::PowerStateLevel;
+ 
+ /// The `UnloadingGuestDriver` command, used to shut down the GSP.
+diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
+index f0a2d023f560..4fdd6ff23dc1 100644
+--- a/drivers/gpu/nova-core/gsp/fw/commands.rs
++++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+@@ -18,7 +18,8 @@
+ use crate::{
+     gpu::Chipset,
+     gsp::GSP_PAGE_SIZE,
+-    num::IntoSafeCast, //
++    num::IntoSafeCast,
++    vgpu::VgpuState, //
+ };
+ 
+ use crate::gsp::nvkv::{
+@@ -258,6 +259,25 @@ pub(crate) enum HostArch {
+     Riscv64 = 5,
+ }
+ 
++impl HostArch {
++    /// Returns the variant that names the architecture for which this kernel is built.
++    fn host() -> Self {
++        if cfg!(target_arch = "x86_64") {
++            Self::X86_64
++        } else if cfg!(target_arch = "aarch64") {
++            Self::Aarch64
++        } else if cfg!(target_arch = "powerpc64") {
++            Self::Ppc64le
++        } else if cfg!(target_arch = "arm") {
++            Self::Arm
++        } else if cfg!(target_arch = "riscv64") {
++            Self::Riscv64
++        } else {
++            Self::None
++        }
++    }
++}
++
+ // TODO[FPRI]: This is a temporary solution to be replaced with the corresponding derive macros once
+ // they land.
+ impl TryFrom<u32> for HostArch {
+@@ -284,7 +304,7 @@ fn from(value: HostArch) -> Self {
+ 
+ nvkv_encode! {
+     /// A GSP registry entry.
+-    struct RegKey {
++    pub(crate) struct RegKey {
+         key_name: Key<&'static [u8], { Self::REGKEY_NAME_KEY }>,
+         key_value: Key<u32, { Self::REGKEY_VALUE_U32_KEY }>,
+     }
+@@ -294,6 +314,17 @@ impl RegKey {
+     // Define the Key IDs read/written by GSP.
+     const REGKEY_NAME_KEY: KeyId = 0x3070;
+     const REGKEY_VALUE_U32_KEY: KeyId = 0x3071;
++
++    /// Creates a registry entry.
++    ///
++    /// `key_name` must include its NUL terminator, which GSP-RM counts in the encoded name
++    /// length.
++    pub(crate) fn new(key_name: &'static [u8], key_value: u32) -> Self {
++        Self {
++            key_name: key_name.into(),
++            key_value: key_value.into(),
++        }
++    }
+ }
+ 
+ impl Encodable for KVVec<RegKey> {
+@@ -329,22 +360,40 @@ impl VfInfo {
+ 
+ nvkv_encode! {
+     /// Payload of the `GSP_INIT` command.
+-    // TODO: expect() doesn't work here due to Self:: reference, fixed in 1.97.0
+-    // https://github.com/rust-lang/rust/pull/154377
+-    #[cfg_attr(not(CONFIG_KUNIT), allow(dead_code))]
+-    struct GspInitRequest {
++    pub(crate) struct GspInitRequest {
+         pci_device_id: Key<u32, { Self::PCI_DEVICE_ID_KEY }>,
+         pci_sub_device_id: Key<u32, { Self::PCI_SUBDEVICE_ID_KEY }>,
+         pci_revision_id: Key<u32, { Self::PCI_REVISION_ID_KEY }>,
+         pci_config_mirror_base: Key<u32, { Self::PCI_CONFIG_MIRROR_BASE_KEY }>,
+         pci_config_mirror_size: Key<u32, { Self::PCI_CONFIG_MIRROR_SIZE_KEY }>,
+         host_arch: Key<HostArch, { Self::HOST_ARCH_KEY }, u32>,
+-        bus_device_func: Key<u64, { Self::NV_DOMAIN_BUS_DEVICE_FUNC_KEY }>,
++        domain_bus_device: Key<u64, { Self::NV_DOMAIN_BUS_DEVICE_FUNC_KEY }>,
+         regkeys: KVVec<RegKey>,
+         vf_info: Option<VfInfo>,
+     }
+ }
+ 
++bitfield! {
++    /// A GPU's PCI location, encoded as GSP-RM decodes it. Despite the name that GSP-RM gives
++    /// the key, the function number is not part of the value.
++    struct DomainBusDevice(u64) {
++        63:32 domain;
++        15:8 bus;
++        7:0 device;
++    }
++}
++
++/// Registry entries that the driver sends to GSP-RM on every boot.
++///
++/// `RMSecBusResetEnable` enables PCI secondary bus reset. `RMForcePcieConfigSave` makes GSP-RM
++/// preserve PCI configuration registers across any PCI reset. `RMDevidCheckIgnore` lets GSP-RM
++/// boot when the PCI device id is absent from its product name database.
++const REGISTRY_ENTRIES: &[(&[u8], u32)] = &[
++    (b"RMSecBusResetEnable\0", 1),
++    (b"RMForcePcieConfigSave\0", 1),
++    (b"RMDevidCheckIgnore\0", 1),
++];
++
+ impl GspInitRequest {
+     // Define the Key IDs read/written by GSP.
+     const PCI_DEVICE_ID_KEY: KeyId = 0x0001;
+@@ -354,6 +403,51 @@ impl GspInitRequest {
+     const PCI_CONFIG_MIRROR_SIZE_KEY: KeyId = 0x0011;
+     const HOST_ARCH_KEY: KeyId = 0x0070;
+     const NV_DOMAIN_BUS_DEVICE_FUNC_KEY: KeyId = 0x1020;
++
++    /// Creates the request for `dev`.
++    ///
++    /// The registry keys are [`REGISTRY_ENTRIES`], plus `RMSetSriovMode` when `vgpu_state` reports
++    /// that vGPU is enabled.
++    ///
++    /// # Errors
++    ///
++    /// - `ENOMEM` if the registry list cannot be allocated.
++    pub(crate) fn new(
++        dev: &pci::Device<device::Bound>,
++        chipset: Chipset,
++        vgpu_state: VgpuState,
++    ) -> Result<Self> {
++        let mut regkeys = KVVec::new();
++        for &(name, value) in REGISTRY_ENTRIES {
++            regkeys.push(RegKey::new(name, value), GFP_KERNEL)?;
++        }
++        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
++            regkeys.push(RegKey::new(b"RMSetSriovMode\0", 1), GFP_KERNEL)?;
++        }
++
++        let mirror = chipset.pci_config_mirror_range();
++        // `PCI_DEVID` packs the bus, device and function as the low half of a `Dbdf` does.
++        let dev_id = Dbdf::from(u32::from(dev.dev_id()));
++        let domain_bus_device = DomainBusDevice::zeroed()
++            .with_domain(dev.domain_nr())
++            .with_bus(u8::from(dev_id.bus()))
++            .with_device(u8::from(dev_id.device()));
++        let device_id = (u32::from(dev.device_id()) << 16) | u32::from(dev.vendor_id().as_raw());
++        let sub_device_id =
++            (u32::from(dev.subsystem_device_id()) << 16) | u32::from(dev.subsystem_vendor_id());
++
++        Ok(Self {
++            pci_device_id: device_id.into(),
++            pci_sub_device_id: sub_device_id.into(),
++            pci_revision_id: u32::from(dev.revision_id()).into(),
++            pci_config_mirror_base: mirror.start.into(),
++            pci_config_mirror_size: (mirror.end - mirror.start).into(),
++            host_arch: HostArch::host().into(),
++            domain_bus_device: u64::from(domain_bus_device).into(),
++            regkeys,
++            vf_info: None,
++        })
++    }
+ }
+ 
+ // Decode:
+@@ -753,7 +847,7 @@ fn gsp_init_request() -> Result {
+             pci_config_mirror_base: 0x1234_5678.into(),
+             pci_config_mirror_size: 0x1000.into(),
+             host_arch: HostArch::Aarch64.into(),
+-            bus_device_func: 0x0001_0203_0405_0607.into(),
++            domain_bus_device: 0x0001_0203_0405_0607.into(),
+             regkeys,
+             vf_info: Some(VfInfo {
+                 total_vfs: 8.into(),
 -- 
 2.55.0
 
