@@ -1,141 +1,107 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45E4B4915B4;
-	Fri, 18 Sep 2026 06:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE1348E0F6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714135; cv=none; b=epJW/BJtN8NDQwTd9mT6A9Qf1KGXVkuNPwm1Ng/5VUE2I+M6IYZJbK7F2gjVJF8oaySaziqwCvA2C5Geu5P/Hq+znyF9utUHL0I8iMIggTbuKDeLKBaKgySulj0M3SLXPhtk1n+DmleuIrS5hR5L805VSW08inXXAZP9YXQtztI=
+	t=1789714135; cv=none; b=CnOQqdDYrc5mcVYT+WakdZ/fV9xgjIs9Be9W925MTLaNWhBvhCFcTl3yT/nBHGqsU91ORDkg/0YbvfQuWiy3EUz4hDPwCBaljYzprmmRxYLSOlW6VVxuX3N31revxQ+w8JL7qorN8WUGp6pliSBeLhPV45a658Xxoq1EmlShd4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789714135; c=relaxed/simple;
-	bh=scOg0zkY929U7MefX1SWenzzv/DGXcB5ud9XJmcHH+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AycpeCoPV6zApOZqmMSedrSTqux/Q3c7SrVEFu2d8ZGG1LWzS6Fd1J+mS5kUPPrP1+nSkU5/FI0eoGjXnCrBRB/HIR+Hqq1Nzf3j5K/9r7c9vCxew2a3mMkQIiXXeY8SFE/iHKzo9/zs3E/B8ElqKFGJytbL1okkFo861RzLOjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=lTE5wuVi; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	bh=7rQrFMtJ55G2Mrb8g+3bc3TGIQwSJ1ztALOvfNmBOuM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W0NpehczdSu4gJ0bt8oNboou4/8lk+QC4TqvTxcw4VZonQNQ9DYBgfnCS2H95F6WMbqxMgH0pbfvbUevV8bBEBCyiZZIPt7HtRN6FBWyUXJc4uEQHUMnCUAOd9rUJ5i8vjFMgJzq7W03bkSNcF+pzKNJHUBFUIQUxmmpYAicrvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iHqYSQyy; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="lTE5wuVi"
-Received: by linux.microsoft.com (Postfix, from userid 1134)
-	id A9B9420B7166; Thu, 17 Sep 2026 23:47:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A9B9420B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789714074;
-	bh=5t9cgIT5f9rP+bBZj+k2OohF1bEsiI+o9JoKpM8YBmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lTE5wuViE5zsPSQWG4RRydfhk85bXsmJErXz0umjjbR5/VO1bnR8U+it7k8TayikU
-	 vZ/mNjtzJcRBnQwSoKeqBCWc8kh4W4DOCi9QnypUMZa3yMiqqmNfuZDSUlGHxwqwOj
-	 cmVOZzZADm26KnVYNsRaIbzx2A9Z1XyPKUSPj4Ro=
-Date: Thu, 17 Sep 2026 23:47:54 -0700
-From: Shradha Gupta <shradhagupta@linux.microsoft.com>
-To: "K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Michael Kelley <mikelley@microsoft.com>,
-	linux-hyperv@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, namjain@linux.microsoft.com
-Subject: Re: [PATCH v2] arm64: hyperv: run VMBus kexec handler via syscore
- shutdown
-Message-ID: <aqzempJPsZ41cOsk@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <20260907092544.230338-1-shradhagupta@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iHqYSQyy"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso292576a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:48:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789714118; x=1790318918; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z6wREiIJDBBh1DL3Ex8v99bfdwJWaSg/ozdZvFtc4WM=;
+        b=iHqYSQyyXr5OV0WxGbrCjp9ewO6g5Gaf6AaB7+VU43sx5UZhZGsAPRRiEPTeYxn8g9
+         WP3d03fcRt0P4zfcNU8BP8Rau98JR1WBD0uHK0rqQK98OdGtRWlDd7SkIkhDKMeGNOCj
+         kAd53ggo3KRCcP+xSNgQhDvWf4MpRK6UfsnCvgdvuhYJPcMEijkcFIvO4KYqX7Avr63F
+         Ga6qVjrX0j6ftchJ07oake6DOX/Rv0Fbc0LK0ese7nEvYXNB2z1phnowMwm9FqC/6KSW
+         zjq5vORfFiGWtEorKuCmR+uJ82PFy7RQDF2/Jee4EdprGOof4jhLYdUL4usPYBzkus7R
+         P4HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789714118; x=1790318918;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z6wREiIJDBBh1DL3Ex8v99bfdwJWaSg/ozdZvFtc4WM=;
+        b=1Sc0rxny7aoOc374eZyLEKImGHJ+hJBmzgUgKM57jc+FgNb1kwBLJsgl8js2YHXgR7
+         HT+MPwnJrg8yy8F7vFWukF/WuRHbgb1Dfl3ZK3OQYPGcaz4iMOM8DdNTSpW/9y9cf7Qg
+         IJ4xOEEaeH4QaOrozWubSWt/LAHdZAynH8i7kTwF9iSMF3BE51gaK+iyEvY+WXRgg91j
+         RQZmMH1S3DNZuu8xy3GuV5GI/e8NDAlKFksEGd4+PcCJGlt2jX8aH7SzILANWhy4ARzc
+         VWFlHTvsNmNz/y+cYvSEL9gsjQC3iROwcrrTOrRGKaV3JjgRzXnPGudsoysCfzlvdouS
+         GcEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfB64zJgRQq6VkLsvF0suvjLIbIEoecCw3WJcEQlabpI4mM9knRPUn7h2Bbd4Z0Ow225cZwGt2pYE7Lsw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlNxJXGxEVko0s9F3Y4Qa1TBS7cEcPIo71c97yyN6ncL93BuP/
+	u+Z2vogZbLtthf0VCC6Tym0tqog26KmABg7QCpid7+cjEud2pdLONoM=
+X-Gm-Gg: AYBFou2xCq9ztY2yFRvThaHDQ3eZiYjUQsidGwa8zaIqeIbuMcECHl36jp38CJXBukk
+	Uv9de+dWDyYCNXvY67QMk0jetRkupZskEHpo4eolUIPTHIlNYhDACNti9p1LCXHz96MYSdOE2jS
+	mgf1O+t1VHp2BIu+vEEh/Gq0hVbHZyzT1mGqjeBjJUypkhOniSPJeEfwD9Ud0zW5DnBvDEKbhwQ
+	mvBgvlSmy5aiNXi4TlRzdVaXphGWka7lK+Lzew8lr8MVFjVro0R7T+EjYrPzJLpofMi6su5TlAz
+	EG5gFhXPJXErmxguvW+J/WO2NBnh4Qsg/Dg6RHlA1Os4dmhIvQ1ZbCeUNPkQVt4CoH1LtXLywr3
+	iwdyrEyAw2h5afGnVTixp4pSw16MYNLyGpq1jO6KhCNGw4CMWJo+EifcPBGOjKIh2mypAgjZ2mj
+	TNOn8VdC2onr3oTOqkQCPx0uLShcDmasMVTbAj+5z2EZ1+cEg8wjKIgPxpCxUEgqqYjjBzRFQ4p
+	LdwWr/6ErFtztapoSfN8Ck=
+X-Received: by 2002:a17:90b:4a03:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-39e54d38c48mr5637761a91.8.1789714118110;
+        Thu, 17 Sep 2026 23:48:38 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([103.63.104.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50d332sm1578331a91.9.2026.09.17.23.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 23:48:37 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: tomi.valkeinen@ideasonboard.com
+Cc: kernel-list@raspberrypi.com,
+	mchehab@kernel.org,
+	naush@raspberrypi.com,
+	sakari.ailus@linux.intel.com,
+	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Triet Hoang <triet.hoang.dev@gmail.com>
+Subject: [PATCH] media: raspberrypi: Fix error handling for media_entity_remote_source_pad_unique()
+Date: Fri, 18 Sep 2026 13:48:32 +0700
+Message-ID: <20260918064832.891339-1-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907092544.230338-1-shradhagupta@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 02:25:42AM -0700, Shradha Gupta wrote:
+The media_entity_remote_source_pad_unique() function returns an error
+pointer on failure, not NULL. Fix the check to use IS_ERR() and return
+PTR_ERR() to correctly handle allocation failures.
 
-Gentle reminder.
+Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+---
+ drivers/media/platform/raspberrypi/rp1-cfe/cfe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> On ARM64, machine_shutdown() does not provide a platform hook between
-> device_shutdown() and smp_shutdown_nonboot_cpus(), unlike x86's
-> machine_ops.shutdown. This prevents the Hyper-V VMBus kexec handler
-> from running at the correct point during kexec shutdown, causing
-> kexec reboot to fail on ARM64 Hyper-V guests.
-> 
-> Use syscore_ops.shutdown instead: syscore_shutdown() runs in the same
-> window (after device_shutdown(), before CPUs are taken offline) where
-> VMBus UNLOAD and cpuhp_remove_state() must execute.
-> 
-> Provide ARM64-specific overrides of hv_setup_kexec_handler() and
-> hv_remove_kexec_handler() that register/unregister a syscore_ops
-> shutdown callback, replacing the __weak no-op stubs in hv_common.c.
-> On x86, the existing machine_ops.shutdown mechanism is unchanged.
-> 
-> Fixes: 9d7cf2c96758 ("Drivers: hv: Add arch independent default functions for some Hyper-V handlers")
-> Link: https://lore.kernel.org/all/20260814093133.3191250-1-shradhagupta@linux.microsoft.com/
-> Suggested-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-> ---
->  Changes in V2
->  * Use syscore_ops.shutdown instead of a bare function pointer hook in
->    machine_shutdown(), per Catalin's suggestion.
-> ---
->  arch/arm64/hyperv/mshyperv.c | 40 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
-> 
-> diff --git a/arch/arm64/hyperv/mshyperv.c b/arch/arm64/hyperv/mshyperv.c
-> index 4fdc26ade1d7..e608e546a395 100644
-> --- a/arch/arm64/hyperv/mshyperv.c
-> +++ b/arch/arm64/hyperv/mshyperv.c
-> @@ -15,10 +15,50 @@
->  #include <linux/errno.h>
->  #include <linux/version.h>
->  #include <linux/cpuhotplug.h>
-> +#include <linux/kexec.h>
-> +#include <linux/syscore_ops.h>
->  #include <asm/mshyperv.h>
->  
->  static bool hyperv_initialized;
->  
-> +/*
-> + * Kexec handler registered by VMBus.
-> + *
-> + * On ARM64, machine_shutdown() does not provide a platform hook between
-> + * device_shutdown() and smp_shutdown_nonboot_cpus(), unlike the
-> + * machine_ops.shutdown mechanism used on x86.  Use a syscore_ops shutdown
-> + * callback instead: syscore_shutdown() runs after device_shutdown() and
-> + * before CPUs are taken offline, which is the same window VMBus needs to
-> + * run its UNLOAD message and cpuhp_remove_state() during kexec.
-> + */
-> +static void (*hv_kexec_handler_fn)(void);
-> +
-> +static void hv_kexec_syscore_shutdown(void *data)
-> +{
-> +	if (kexec_in_progress && hv_kexec_handler_fn)
-> +		hv_kexec_handler_fn();
-> +}
-> +
-> +static const struct syscore_ops hv_kexec_syscore_ops = {
-> +	.shutdown	= hv_kexec_syscore_shutdown,
-> +};
-> +
-> +static struct syscore hv_kexec_syscore = {
-> +	.ops		= &hv_kexec_syscore_ops,
-> +};
-> +
-> +void hv_setup_kexec_handler(void (*handler)(void))
-> +{
-> +	hv_kexec_handler_fn = handler;
-> +	register_syscore(&hv_kexec_syscore);
-> +}
-> +
-> +void hv_remove_kexec_handler(void)
-> +{
-> +	unregister_syscore(&hv_kexec_syscore);
-> +	hv_kexec_handler_fn = NULL;
-> +}
-> +
->  int hv_get_hypervisor_version(union hv_hypervisor_version_info *info)
->  {
->  	hv_get_vpreg_128(HV_REGISTER_HYPERVISOR_VERSION,
-> -- 
-> 2.43.0
+diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+index 8375ed3e97b9..91e9fa0341e0 100644
+--- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
++++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+@@ -1779,7 +1779,7 @@ static int cfe_video_link_validate(struct media_link *link)
+ 		link->source->entity->name, link->source->index,
+ 		link->sink->entity->name, link->sink->index);
+ 
+-	if (!media_entity_remote_source_pad_unique(link->sink->entity)) {
++	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity))) {
+ 		cfe_err(cfe, "video node %s pad not connected\n", vd->name);
+ 		return -ENOTCONN;
+ 	}
+-- 
+2.53.0
+
