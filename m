@@ -1,96 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664413290A6;
-	Fri, 18 Sep 2026 12:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D7377023
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736174; cv=none; b=Jf4HnWEwOc+kSkhA7cUAnjHOQIX/CfR2ZWJmF6Ju+eaPXUpmu1ZS77fkPXvd0naouHRuRsmaEWnS3qlB+8Iiit05AZQs7/KZuFGT7x8CpLSaEZRhnM4cCDAcrZAVIdcUJKwRBzcqUlyOtrYX5Z+w/HX2BlfTp2j0rRye8s8jEcU=
+	t=1789736215; cv=none; b=MsJgND/pgTJB2IfdZKRsc32IsAKcB7nFxGfq4tzWovLEzAQzDLMYwk63i187b3Ht2UW+jEWTEwF3SudzrHMDDznA1BtbTj6QdX8Uxo0JUeKm+TkTkNKNUztgVmyaPJg33uMU/GxsouZ/u5HHdfrzu9ULs3NYc7L8XwXrc2Ystj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736174; c=relaxed/simple;
-	bh=RBXYEjHF/EWP9iukfkuHgom2R/J9ihTDzvMV0PEXWn4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m0kgFfCf59ce06YQYe8IqVfB82RZZlkRmcTZ89hxp8ziYZk1u8NMF4gL/UXPPjVPbIllyE/+2P4kLj7IvNVjrQ67W8S0AojbypY9cqJKCCYqmRv+09AgjS/kRB0IiH85gy6fKk4p8FwYbQkMG9QYhtljj6jYf3ePbogZPnAKexI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=im6zGlq1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789736215; c=relaxed/simple;
+	bh=gpmTmvtZCfCL7JGUtP0qUUwW6FBPgLdvpGuS4uKcWwc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=orgF1qLD/wk3Hygcv/gxtxXqOOg+2hdU3jsRgAyFGaKQh1Lp+4ZRrFvvMXsXn7Ut7NKJOpiq66U5J6Q4LBrB5WroOBdxCp4VQiGJfDlBIRYp8VwGQUoWcdv6k9z0XfkRBopvVmDx4msZAOGCraggaLRTCTbduuJrhjRyuZdlWBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RqChSqHE; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="im6zGlq1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1841F000FF;
-	Fri, 18 Sep 2026 12:56:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789736173;
-	bh=J/k/w1B8of/PqrcuFgrWv1Alar7pC652sY+HmgTQ7ZU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=im6zGlq1sW0eexQqwTbDpMfwxn/B6XmuCoktMjwlDeHct1/HEwclInfWXA2kAg9Xq
-	 U1HLJ2FMWXsDx5M9wXzpgohBUOcF8FL1PK11XFGYGSpfhECuIEZLYu+gBKZzRjtyOE
-	 b8aPExCBpmLUG4BkchoXW/uunWzcRXwPUcyHRRb7stjjIctjrwVUKDT0rdq0Wi3lWA
-	 H8b+MzBx0Jjc5MLtIf+fT88GFafz0soIczuGUEEe3FH69abNSFWkF50CL6fDmb88WZ
-	 PMzxdaOGZMpdWmSk2lsxRotrrxEHVwHJvzlnmPqki22X5fbTQzzPwliEX6wdwOdFli
-	 Ju4s+d5bgAwJQ==
-Date: Fri, 18 Sep 2026 14:56:10 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH 5/5] arm64: tegra: Add thermal senser for Jetson AGX Thor
-Message-ID: <aq00xANbqBoo-PrG@orome>
-References: <20260918-tegra264-i2c-v1-0-3adac7aae717@nvidia.com>
- <20260918-tegra264-i2c-v1-5-3adac7aae717@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RqChSqHE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789736212;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+EW9HBLqFjeeRJTJ16lzHbG7wT3rvh/CLpehC+VpLhw=;
+	b=RqChSqHE52gEPUiHO0CXHzoSYcquRInGlA2zklksIj4nJiIFcvdrHmdphpY3iND/YkQe66
+	dztFP4tvM+gamsBdM//nkAfWQXNEgQAUaV3t2J2s4DvwM/0GuZ/N3HoVwbxLXXyO/Zkpfz
+	WxGCn823bDCPo4t2kEHpaEiG9ZT9Fyo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-257-f5nU6dCQNv6Gy4MFf2zR1w-1; Fri,
+ 18 Sep 2026 08:56:47 -0400
+X-MC-Unique: f5nU6dCQNv6Gy4MFf2zR1w-1
+X-Mimecast-MFC-AGG-ID: f5nU6dCQNv6Gy4MFf2zR1w_1789736205
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1B1B61802170;
+	Fri, 18 Sep 2026 12:56:45 +0000 (UTC)
+Received: from fweimer-thinkpadp1gen4i.stuttmso.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 741E318004D4;
+	Fri, 18 Sep 2026 12:56:41 +0000 (UTC)
+From: Florian Weimer <fweimer@redhat.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>,  Rich Felker
+ <dalias@libc.org>,  Matthew Wilcox <willy@infradead.org>,
+  linux-fsdevel@vger.kernel.org,  linux-api@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  brauner@kernel.org,
+  viro@zeniv.linux.org.uk,  jack@suse.cz,  alx@kernel.org
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+In-Reply-To: <CALCETrVnE2unnjHokG=bGLEXAeC0U8QRx_wb8fQDh-Fe5O6PBg@mail.gmail.com>
+	(Andy Lutomirski's message of "Thu, 17 Sep 2026 10:03:36 -0700")
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+	<aqcmz5uI7PgN5CT7@casper.infradead.org>
+	<20260913235145.GY25906@brightrain.aerifal.cx>
+	<eeb50cae-87af-4a40-b9c6-f4fa9981425e@peda.net>
+	<CALCETrUgLj4Dz0s6PMofViJwausRWCvNvJphxWHUeWCCaRBtQg@mail.gmail.com>
+	<f61886ed-3026-4db7-ae22-b882264141bd@peda.net>
+	<CALCETrVnE2unnjHokG=bGLEXAeC0U8QRx_wb8fQDh-Fe5O6PBg@mail.gmail.com>
+Date: Fri, 18 Sep 2026 14:56:39 +0200
+Message-ID: <lhu5x02vhtk.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="exzpwnb5s2wwqjns"
-Content-Disposition: inline
-In-Reply-To: <20260918-tegra264-i2c-v1-5-3adac7aae717@nvidia.com>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
+* Andy Lutomirski:
 
---exzpwnb5s2wwqjns
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/5] arm64: tegra: Add thermal senser for Jetson AGX Thor
-MIME-Version: 1.0
+> I think I mostly agree with your analysis except that I really don't
+> like the ENOSPC.  The kernel actually has the ability to commit to
+> having space for pending writes on an fd *without syncing*, then I
+> think that capability should be expose to userspace.  fsync is a
+> pretty poor alternative for code that just wants to make sure that, in
+> the absence of a bug, crash or physical failure, the data won't be
+> lost.
 
-On Fri, Sep 18, 2026 at 11:06:57AM +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
->=20
-> The Jetson AGX Thor module contains a thermal sensor that can be used to
-> read out the local temperature. Add a device tree node describing this
-> sensor.
->=20
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+It's something we might want to call from fflush.
 
-FWIW, I fixed up the stupid typo in the subject. For some reason it only
-stood out at me when looking at the patchwork listing.
+As a replacement, dup3/close doesn't quite work because it releases
+POSIX advisory locks on the original descriptor (as they are per
+process, not per descriptor).
 
-Thierry
+Thanks,
+Florian
 
---exzpwnb5s2wwqjns
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtNOoACgkQ3SOs138+
-s6EUxw/+MwOQuWdUCVkR+SPKW8jPXk6hRuQXGyXpNSV0y0IVpmTrDDuMY98wsTAK
-L/crMDZNdf2Q1uN/fvgQP9a190AXGmUFkUu8UkbTHDV7MP46XdNL07/EIrhFxDZc
-3+y9s9QMMCmdtpiXWd9u1quegzxOdiUxZtM2ZDAh74FGE526Wtprvj/N/WaLLx6I
-K1J+kJNhQVWLsRVV+97kQ6YmHcjqYo/Bfi89HGqHjv/ST3rynr9FYDe36lNNeMgJ
-xBQ+dkrjWFklBYnsqU0JPfEpbLuDuLhxPbhIMAEujWdrpsnPOGs56ElspxDW4meJ
-eetVna5gMSvizncRHdrQHdpUq9Q6c3CS61OdFoabU+7N7CUNiDDpXQFzgypgsRWQ
-gLTWo8mSYh7ddpCarz0waNYovnY6lQBtpXrRDnHLP109P0oPmvYbTh2SU2dOkjoy
-Fj/krG6GKk16QxzNRNmwwRnWqkAZGfLnK+yyBfLIelbezFuMp3eOmyy+2PL03z4p
-zPTtlEN7M+XixUi1D2nfkBDGRkRKxOLZmLvhh7XlhYuJSJNSuZW0ddqeFHLOtrLw
-znqYEnNWFGdSqHgZARkPtNYDMhu93FFwdZIJTKXeKb6MXU2DJSMhy9PVtjAVH3vB
-gNNUMRNA+9eIJ36YyU4cLPJ+WiqVz584L8VSBbSJOhag7cu3P4k=
-=vIr1
------END PGP SIGNATURE-----
-
---exzpwnb5s2wwqjns--
