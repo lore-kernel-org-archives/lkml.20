@@ -1,220 +1,143 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8D94E73A4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731835; cv=none; b=KYC0I387Wre0K4Z5A3txC/E/vpuxb4rWDLGnelx4Q5/objG7TZIuv2SgwRBe00RXQJFnAqUgm6/h7RQmXzgSbOgwF6K/hW9qNyktSqtnY0VLM4W3HvaC0vRAu9VPuD+sXPI0Olj0di+0NUUeBBaAQLtCoE34k7XO2bO8/ZzbpI0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731835; c=relaxed/simple;
-	bh=Us8cofqcFXbDtFaXelWJxwYr3mK/i18OI7D5yUMNU3k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZKFWASH7jRPd26ZyzLzdeT3ukCIR/dfFD5HdGhV2GhUU9ZqQraTf6UIbIL5NYNSSzjYtEhjqO8OXu66NpMTcT9/98ldMSx7Me6AdnqFo/WApptRP7PJ9OwMc4BH+zZ61ULDAqY4dMom/xn6UuK2G5kKPeYGteot8sAj6YRhyDXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Jcy4kvb6; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE024E77F6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789731841; cv=pass; b=RsQgY6eBVTJ66pKqqME7drRLZJSz7PjAclEEqBFyja8ZyXDpei8sQovSKSubDYapyNeiz6fImL/1neo5h/uBrQCMU3Xg8KwlDdUcg/DLx0epArlDFMDVccZskBVmA0/yzsPbDkTjYoPZ/wsfN58oSgtYtjIGEE7MnaWzdHh4qgw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789731841; c=relaxed/simple;
+	bh=7YChWHA/9zL79y+NcFgTh/UhwmYRTNb0NTKwCE5ZPiA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qtpj5siN/JFwUWVhr4GY0mSzODKO5RM08azOn8Huf8xvIoq17dxsUuwt4PDVqzjTpvX/cNRmLKUYjWLVL8L8HnmpStEULfndGYy/Dt6GTqF0lnR10Z2jBDC5ltUewlVEaq9Yio4qNOe7CnbAVcKn4FdFnpAQwEsbMEElIfPq8xA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=s59GE/IM; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Jcy4kvb6"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=X/nASaHEAycknDEMuta+KNUeT5Wrc8KXViYcggb/2yo=;
-	b=Jcy4kvb63Kd+VZhYjHZYKpY67W9Xd6KABsG992lmGW2zrTseGfuQ52OHyGQEZzxrRbyUkrB/K
-	cdndwnyhcyC+iQamuToJ/tTBJGjQP/hyJ2Cwo5YWJVQoed/M0sk2HT9b4g3ILxC3M/PrMXDv08n
-	/vVJpGvLLRziSwq9yAu9jxY=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hmVpy5S4nz1K96s;
-	Fri, 18 Sep 2026 19:32:42 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id DCA5B40572;
-	Fri, 18 Sep 2026 19:43:42 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 18 Sep 2026 19:43:42 +0800
-Message-ID: <d039151a-d114-47fd-988d-df80751f1c97@huawei.com>
-Date: Fri, 18 Sep 2026 19:43:41 +0800
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="s59GE/IM"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f70553dso81288366b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:43:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789731837; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mdKlLdLXWGnwB+vK6B7+iM3ZX8xapXeeGHvrM02wVxsEAxyItKz1ySGgxtNYIKDTOq
+         Y3PCo10v+9j4QDSbVwXNUnRm+Mn59BiTWKrnfQ6o40QSk8XBtl8XmU08xEjzaPdgygmJ
+         WNztq/okKKzVhcZJfISGBMfv141SuLGZt28tDaL0W+extsQCAsBVKGRY9WcG8XQC7DDl
+         idAs5jUuXJ88ZGU2egcLwzRQdrT0JX58euAYq30kkHzgOouQtOTMPLxL7+28+t1TL129
+         KtHQ1gJImvALquxxJwKlWvStzlCunEQBm1N+SU0HwqMc1DsAMSZrbNXB4s56YXiTmzUe
+         Dk6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
+        fh=HIPJc/5Pi2zc9z9Qx3JQ9G/EEjK62mqBy23mwekUwyA=;
+        b=hd5Uj7tmWus1JHd1yrRuhYvRJy+zXvalyfX/NV8A45cI0LdIrTNP1kQIeP8wgJHFQV
+         FLdDg7+ElswBO7g/h5KR6HWI0kpgFRx8a4IbCf6i5fZqXrCjC6OLnn8ncunfv1m8e8vW
+         B/KxrtSF4m4bItymbJ/j8X0ugnzs980lH8jw4vLu+kR5vXtDAVhsd9YsfdDLjOB4dxwk
+         MgDv3SzebY17TtljvkkKuPbw1YGUkmQZQf8IBt6xuESqYFGiX++Lxam8ITRzxdfNJYUr
+         HDHMe9TP3iljPXsTXCLR0UN3+oApvr8hG5u9+suQ/iI5MmsLzlXBhyoCdGzWaSOUILcm
+         At5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1789731837; x=1790336637; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
+        b=s59GE/IMjZMml4lH3UIQsPnVnyW1/VfJi1460mzb18VOnjlX0b3Tvf3HBnOfdQa2yR
+         iKTONSyNujv65B54HMS9koiMwvsDFPh3K2OorV0YKTxFJgVH8vamlxpeKCRVjHZPI8X5
+         Ly5M9HMZlu3fuWt6hY5cw3fbiQqBHdh0HXRvJkqGDP6/QNeZGhK8v21cAuS4sfXLiP5+
+         HkDCEhsOPtjAH/zMS65kGZHXn/Fow+mYtF/GwBwcYduTG7cQRMtY0yGFpZIInuGQCGhY
+         c/JRj9PoUwFC5OW3e76C/mf6hC+exiFaLiH5k/i30pM4Ro5GWaXr9R60jL95JXGgydRj
+         j9OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789731837; x=1790336637;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
+        b=0exJb2463o88AuxYYoKou7OlXSArB6+ELAMG+ZyABp0XoeQTseBok9bPUGkT//+Ze2
+         3j02sQ1zl6zwi3w+blYCO6+a5zw9uZGNl7Z7uIhBgji/KJr5BpMYy1vj4DC0nn8bHm64
+         Qg0wEcQoNqcS590ecvNdHhy5ZK+WcXoxwj09wN9CcMjCJnfirP2DYjJ1nkqJD0OC3W7B
+         blHeeyYv1xERxEhnBQ89pEp9/84m/PTumoegUAkojGcteB2m7aBrQL1f8bJWhRbQm569
+         1cPc39p31qLjRwueXsToH00NIVnPFs9nsyg1FIjmNoBJbYG6Fj5qm9joqWoD82Ta/UfV
+         rM9w==
+X-Forwarded-Encrypted: i=1; AKwUvByscCOwbFSQXV4QFtS9p0/lt3y8Y0FNahSBS6HZSXLUT+m6goLcRQVKBncja4CzdT65qLg2o02bPMCGIoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9xvB9pqom8gEFw0vTt+UyzoxLTIh4CkFCPh6R+cGSOx6ko3HN
+	0bqtTImL2l3KozREZlp+quIBYXauylPpFZm4qrQNoyDASd52erTi798bQWzLN0JoTUQOS8FvLkV
+	tkZIZKptMFoPdKnUMYN9tq422pKu08oAPpCFMqRO4rw==
+X-Gm-Gg: AYBFou2ZrD/N2oKD6lguzS9bYcSigUB1jfcgxk4sTA7Je1YUSiiBt4ShWuPkqzUFdu0
+	1QcjqDtoXaLzm7YzDVlztCXQwwq/rjK8Dg7lDvWvgFSqDWkX5YoIgawAepzNcVQ9e7pdPl6CmbA
+	ugXzmo3fBNS7zVgHlXsCbOP1K727DHGrd3ae+xCcNqG4qiNwW2203K1b5T0E7Q9cQ1sSxF9Ru26
+	RJKuez3+4fBXjIF30qCFKoPuTiUrqdSxIPt7Eo+okGqgFAAcspMCZ5xi8LX13rq4/ir+nKprtwy
+	/3NSu4dx6vTkSSW+TzI2uZJue6pAWT4rcQ9SiOrEa8r8aKftvYoAECxEPQ==
+X-Received: by 2002:a17:906:9f96:b0:c29:dd71:7521 with SMTP id
+ a640c23a62f3a-c2a159ad211mr257665166b.13.1789731837170; Fri, 18 Sep 2026
+ 04:43:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from
- S2AP_W to DBM
-To: Leonardo Bras <leo.bras@arm.com>, Marc Zyngier <maz@kernel.org>
-CC: Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, Joey
- Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K
- Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Tian Zheng <zhengtian10@huawei.com>
-References: <20260901171558.2674031-1-leo.bras@arm.com>
- <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org>
- <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org>
- <aqp73SxO78o7LJTs@LeoBrasDK> <86fqz95qwe.wl-maz@kernel.org>
- <aqqY1QiB0ZBAQkwc@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <aqqY1QiB0ZBAQkwc@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+References: <20260917151350.597953846@linuxfoundation.org>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Fri, 18 Sep 2026 20:43:40 +0900
+X-Gm-Features: AcwNN1V6GXuA7B8FEhCBQCqFU7EygjeCV0Wpnd9XyhRDhPC2vNktE2fyei7DI0M
+Message-ID: <CAKL4bV7ZN6mZMySE5tAwDwPEAYaXu5Bx3dQc-gieRheB8vGJXA@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Greg
 
+On Fri, Sep 18, 2026 at 12:35=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.7-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-On 9/16/2026 9:25 PM, Leonardo Bras wrote:
-> On Wed, Sep 16, 2026 at 01:20:33PM +0100, Marc Zyngier wrote:
->> On Wed, 16 Sep 2026 12:22:05 +0100,
->> Leonardo Bras <leo.bras@arm.com> wrote:
->>>
->>> On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
->>>> On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
->>>>>> Yes, the HW should ignore it. But we have also
->>>>>> seen quite a few broken designs in this area...
->>>>>>
->>>>>
->>>>> I lack experience on what bad thing could happen. So I will expand on what
->>>>> I belive to understand up to here:
->>>>>
->>>>> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
->>>>> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
->>>>> - For HW pagetable walking, maybe some faulty implementation may rely on
->>>>>    bit51 being RES0, and fault otherwise.
->>>>>
->>>>> If that's the case, then we would have to actually support both encodings,
->>>>> and only enable the new one if HAFDBS is available in the system.
->>>>>
->>>>> I just wonder how high are the chances to have such a broken design,
->>>>> or other broken designs did not come to my mind, and if we have to start
->>>>> with that multiple-encoding option.
->>>>
->>>> FWIW, the host stage-1 already uses the DBM bit unconditionally,
->>>> treating it as a software bit on implementations without HAFDBS.
->>>> Although given the quality of any garden variety Arm MMU I understand
->>>> where Marc is coming from.
->>>>
->>>> I don't think the HAFDBS enablement is complicated enough to be done in
->>>> a separate series without any meaningful users, nor would I really be
->>>> interested in taking it without, say, HDBSS.
->>>>
->>>> Can you please work with Tian to get a combined series out for this?
->>>>
->>>
->>> Hi Oliver, thanks for reviewing!
->>>
->>> Sure, one of the reasons I sent like this is so Tian could use it as a base
->>> for his next version.
->>>
->>>
->>>>>>> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
->>>>>>> index 17123f0b6dab..eb8dfffc32c7 100644
->>>>>>> --- a/arch/arm64/kvm/nested.c
->>>>>>> +++ b/arch/arm64/kvm/nested.c
->>>>>>> @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
->>>>>>>   	}
->>>>>>>   
->>>>>>>   	addr_bottom += contiguous_bit_shift(desc, wi, level);
->>>>>>>   
->>>>>>>   	/* Calculate and return the result */
->>>>>>>   	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
->>>>>>>   		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
->>>>>>>   	out->output = paddr;
->>>>>>>   	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
->>>>>>>   	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
->>>>>>> -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
->>>>>>> +	/* Takes care of both RO/RW and RO/WC/WD encodings */
->>>>>>> +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
->>>>>>> +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
->>>>>>
->>>>>> Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
->>>>>> if it did, you are now actively corrupting memory by turning a RO
->>>>>> mapping with a spurious DBM bit set into a writable mapping.
->>>>>> VTCR_EL2.HD exists for a reason.
->>>>>>
->>>>>> Do you see why your blanket approach of equating DBM with writable is
->>>>>> plain wrong?
->>>>>
->>>>> Sorry, not really... please help me understand it.
->>>>>
->>>>> When you say a spurious DBM bit, what does it mean?
->>>>
->>>> You've implemented the exact sort of bug that was alluded to above. In
->>>> this case it's a software page table walker consuming DBM regardless of
->>>> the value of VTCR_EL2.HD.
->>>>
->>>
->>> So you mean that DBM being treated as "writable" could _only_ happen if we
->>> have VTCR_EL2.HD=1? I was previously under the impression that it could be
->>> used regardless of HD value.
->>
->> Then you have failed to understand the architecture. When
->> VTCR_EL2.HD==0, DBM can be treated as RES0, RES0, or RES0.
->>
->> R_XZFQH and R_BRFGY are pretty clear that DBM can only be evaluated
->> when dirty hw update is enabled, and I_MHJZP tells you what it means
->> for S2 to have this enabled.
-> 
-> Right, I_MHJZP says that if VTCR_EL2.HD is 1, then dirty state hardware
-> management is enabled.
-> 
-> Then, R_XZFQH and R_BRFGY say that if (DBM+S2AP) bit combination is the
-> given and the dirty state hardware management is enabled then a block
-> descriptor is WC/WD.
-> 
-> R_XZFQH header, as an example:
-> For each translation stage using Direct permissions, if all of the
-> following apply, then a Block descriptor or Page descriptor is described
-> as writable-clean[...]
-> 
-> It says:
-> "if all apply, the block is WC",
-> it does not say
-> "only if all apply, the block is WC".
-> so it forces one way, but not the other.
-> 
-> So I previously understood that we could also use the encoding for WC/WD in
-> software, to avoid having 2 distinct encodings, when VTCR_EL2.HD=0.
-> 
-> If that's not possible, as you mentioned, then yes, I failed to get that
-> part. I also see that you mention it being RES0 when VTCR_EL2.HD==0, but I
-> honestly could not find reference to that. :(
-> 
-> What I could find on Arm ARM M.cc was Table D8-53, which states for
-> bit 51 that it's DBM if indirect permissions are disabled, or PIINDEX[1]
-> if they are enabled. There is also no such information in D8.5.2 about this
-> res0 behavior.
-> 
-> So I am possibly missing the proper place to look for that information.
-> Could you please share that with me so I can improve and maybe avoid being
-> a inconvenience in the future?
-> 
-> Thanks!
-> Leo
-> 
+Linux version 7.2.7-rc1 tested.
 
-Hi Leo, Marc,
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-On the NV side, KVM itself already limits the L1-visible
-ID_AA64MMFR1_EL1.HAFDBS to AF-only in limit_nv_id_reg(), so bit 51 has
-no architectural meaning to L1, and an L1 using it as software metadata
-would have its read-only pages misread as writable by the union read in
-walk_nested_s2_pgd() — the memory corruption Marc described. Since NV
-has no HAFDBS emulation today, I'd suggest we simply revert this hunk
-for now and keep reading writability from S2AP[1] alone:
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-```
-out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-```
+[    0.000000] Linux version 7.2.7-rc1rv-gb4c9ab9b68c7
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Fri Sep 18 19:56:17 JST 2026
 
-It seems we can address the NV side later, once nested HAFDBS is
-actually supported.
-
-That's what I did when picking the series up for HDBSS v5: patch 1 drops
-the nested.c hunk.
-
-Thanks,
-Tian
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
