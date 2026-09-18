@@ -1,687 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010062.outbound.protection.outlook.com [52.101.228.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F74222590;
-	Fri, 18 Sep 2026 11:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732019; cv=none; b=NmCfZQQUKlr/1yW27cU19LnHSVAMR+vi8z4SjLW4Z3gvWqGWSaV0A+x+Xzv09FA+chCw6eaOhnBtNgKGVHLQqpc16+ANbrU5IYgtpIQjL9hxUF3LZbiWHmEkZ261USQ84kHDNYtikutecRC5kGIwyiEWJyE0Q+EN7W90tZxld3I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732019; c=relaxed/simple;
-	bh=667YBIs+6FXtK1wCSff64+JefrWTmxnHZkcoK5aMyVI=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=umGjjx+f0FI9kEhpJnaJC9UhkrJNlF3f45gcxaci1dPJ9oP5fthlwl90816M9/CNzWXbNgERPy3cWFhNfhYAfH/mlYOeOMRxkaOvZ86CT6kNw/ZMYmStETlojwtHnRcQ1PSVIf1VEXnoj1F2PQZfTDYjhcmbmaX0QsfsPE2oMKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RbvZ/QlN; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8475C47F773;
+	Fri, 18 Sep 2026 11:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789732051; cv=fail; b=RmVC+YexC3o6mz9sl+V+uT/4GSMi8+GswwXJV7DaksZvhfajEUzyry4YxMcQpbrNayKWdueKhJugydZ9TPzyfhAMM5LFy/tJ7K1ND9s6EmiusHsnLpKUeXBdUUhpQwFw2JqBivJyKT2j036TOZ2cssrCIfN2J4k7o2s0cLPynEo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789732051; c=relaxed/simple;
+	bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=V3sqYM2Q6y/svrzpvagCcXW0/xsTjrBSNkuHql/6QGDBYAe2VXu8aIOGbr4wYXZjrYLxQpi3eRWTf4om2BLpvjjNY5yT+OdoJiZUX50honNUba6TMCq1UTJe5y7j1iMjhr5PQOOmKpNai0mOzw1+rJDUGyIyveq3qTXB1H/ZRHo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=NdLY99H4; arc=fail smtp.client-ip=52.101.228.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RbvZ/QlN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789732017; x=1821268017;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=667YBIs+6FXtK1wCSff64+JefrWTmxnHZkcoK5aMyVI=;
-  b=RbvZ/QlNj5QmBpOkpLBtMTKw0JnpgwoxSsTIAVKVk/pX5tQsoa/BM90R
-   p3bi3vgnxxivVVCQzstbS7entKSe0B8UAzCZS6AoA1gEGRjGxpcHXMIfv
-   qi+5gmuhU4xFCCbvk8Aq9M8ghgUwW6TuntnrN9zS452lKnwSLlIvVj03D
-   wX84MrGJ5NArMnK4+hYhLJqTBqja9ubUTbbFVfwjoO/IAMAma8N20pa72
-   t3fjn6cSFv+vOzKlCigKxGC+x2HI/myjKvLRS+ExqI6LwXvqU9AdboLA/
-   HUuCvLYuWa2y0QxPAtH0E9COtEwdWW30aTmBdgRkirGEWXO70HlCVoP34
-   Q==;
-X-CSE-ConnectionGUID: 3ZUYQACeRSeM12DOBG5V5A==
-X-CSE-MsgGUID: 5xLM2F67TM+haLYqtA0wUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="90364379"
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="90364379"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:46:56 -0700
-X-CSE-ConnectionGUID: ybZfwN1FR9+3OtLecemLTQ==
-X-CSE-MsgGUID: igx4XDpSRpCalpAUznUDSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="2596878"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:46:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 14:46:50 +0300 (EEST)
-To: Muralidhara M K <muralidhara.mk@amd.com>
-cc: Mario.Limonciello@amd.com, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH v5 1/4] platform/x86/amd/hsmp: Add HSMP client support
- for Family 1Ah
-In-Reply-To: <20260901045134.2833282-2-muralidhara.mk@amd.com>
-Message-ID: <cff48de0-9df5-6339-9874-95d3706f4b48@linux.intel.com>
-References: <20260901045134.2833282-1-muralidhara.mk@amd.com> <20260901045134.2833282-2-muralidhara.mk@amd.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="NdLY99H4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FHJGw3Y5JceUrUgpO2HvG9oB3JmDTUc3NcDC+SEE8lc1easZAkifMQmPQx2qR1gdiVEjE22xYgjLY+Kc8K2bRHhr9RCEzY16FeoRJANY9h9Ld/bPHhoxKj3DXFy4hOgaaTF2ej9pnEWfxb6jhYdifN9iTfin1TMaHTkuX4E+Y/TQL205ON5+IMEcBhMZTY3JKjofc3qXUGgiDto7nO8y+F3C1HXlN+iNvAMoEfDIlpnFqRWvBE/egrbpy642oC2md9sFoyqeTSksitPhNmgnGoWv17cOD4vgeTAP717cj8OICJloUbzRuQw6KHMyuOYYCSoflj1cn7XjAx+TNJvILA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
+ b=zJZS94w6UqHjrs+j+zCEDg20PvhZSuKHC8wINpDYBKayHKxLD/SIQLIqu94ubzX/RwjeqGKM5Tljtv+ApAqfhb0rrv+IqlUlalIrWTwyMmD4wDWCFNw3sO4HHBc9zYWKvPyhQZqtHcr5lj9e0KxWpRQkKJNDcSqRGtQ3Zs78U1yHk1elJ5dcCqIio2DZLDI5O7REQjIdv3wj1L9ignQKYhl/erfAYaqRWS1WmxqXNi3VJLVKfFrBTkFBpuaKlggJPapMa2UqwWf5peXRPXSP7UVHS8d68ocLzw6pBzeoTf/Fsmor1wrkzKkR+iQ1FbFomNgN1GhvdigUWKfGSkd9Fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AJBVyKydl4avZlT1RUy7wmn+wYiZxH8gZLF12H6jiyg=;
+ b=NdLY99H4H1ocJnMJBY1+0ysK2qiT7i4md3vH26RRIOvItJ2Xh8LD2/hD3sNCK0m9aVEvWC4ZiMIaJzDYq4eVPJKmQvqbH2kpS9y9Oxu/ZWT3p7qYBmzGeOqAuTbc22ma4c7lgbQlkKtdMIM1iXQfiiVXshx3ijiYg2HEFXHViw0=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYWPR01MB10660.jpnprd01.prod.outlook.com (2603:1096:400:2a1::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 11:47:24 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
+ 11:47:24 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>
+CC: Paul Elder <paul.elder+renesas@ideasonboard.com>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>, Ulf
+ Hansson <ulfh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham
+	<kieran.bingham+renesas@ideasonboard.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: RE: [PATCH 07/10] media: rcar-fcp: Handle resets
+Thread-Topic: [PATCH 07/10] media: rcar-fcp: Handle resets
+Thread-Index: AQHdRp3mCxXFrz2IzU+X9ezmKYJ2XLbUK1MQgAAETYCAAAmpwA==
+Date: Fri, 18 Sep 2026 11:47:24 +0000
+Message-ID:
+ <TY3PR01MB11346DA80F07E2FC76110984886872@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References:
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-7-4c72d4e086dd@ideasonboard.com>
+ <TY3PR01MB113464309AC8B77BA471A31DC86872@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260918111119.GF59058@killaraus.ideasonboard.com>
+In-Reply-To: <20260918111119.GF59058@killaraus.ideasonboard.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYWPR01MB10660:EE_
+x-ms-office365-filtering-correlation-id: 993da096-ddf7-4d22-0edd-08df157a9b2b
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|10067099003|11063799006|5023799004|18002099003|56012099006|4143699003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ V+lpikGDQTJWlSTdPNMZ90/doMaH+fV0h38tGp3+9KRCXQm6QA/01nGqiFGoiOob+NK5SWQERN+OR/8fqUuW1MmU/B03gkmFreMash6u659VQf8ZN0tFmXuLTQpdHKbilFUSgTAa2O84/9Z/XazuCeEMOXZNV3/c+iFJoUWtV7d3HrdjMoECzpgnccokBbYvOO25J2ex8HKm12yK2DYygDq/4x1l0wO+3os58+5A3SWFrofhfxuv+gsCsISdNqaqqAauPTpG0XkqKmHY2xy4zt7FlreSe8b4KuO4DdICUlfL8qycM9Fo1Sb9IR3C0In+MqXPBrNDUR7YsaPQvuGLM1UP3bkLrF3bWutf73ofJ2QkFakyX6wvuhog7q4jUd8NBBwi/+9aV4PySZQnMOTNdlItZs3gIuXZFOvXLJ3K2fMz5kFVPuU2NJ2nUz2E2L7jqN8ZmQwBFdi5kRua8pZPsi3ay6Km+Zon9s6fk2PjUCAVv1F69D6fM+HzTsgWGJD3pMFisUD+4geftsTovslfYD5RlVE2WM/yupF4v830t92Dn+eqpd55MmlukIwMx+Tvj4WMdzg5pnhdL7VAdd5i8WMEgDEHPaLwYa/PoNU4IW212gHHg8cPvRIAHR5cMoVo31RByFnNAZCjjakmOpX7o8D/DKaK0nkKykC/OrlDecTmZ9egEmANqN6FDDC1Iqw3vYFANxjCmaC73qAza/pZBQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(10067099003)(11063799006)(5023799004)(18002099003)(56012099006)(4143699003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?L01qeDFxUUlJcmpBbzZ3STA2cEJXTlZpK003R2psRFJQTEhmYXRySUpUZ1lW?=
+ =?utf-8?B?Y2cwVDVTRjRPWk83M0FqaDlrWjBiNXdrdnpNNFdkbGMwU3dNUVhMUzAxdWFo?=
+ =?utf-8?B?eVZKQ1lTMlEwYXVZVTh4SkJOMGFqZnR4eUZpTW50eXdIVG9JSVdrVnBaTnls?=
+ =?utf-8?B?dW9qbmtKWm84c0ZDNjJVS0hUamZ6aUZPc01oUitXTmVtcUUxTDc5THI5S281?=
+ =?utf-8?B?eXNvdEFwNHFZbTVzUWFvSGRJdE9BM0F5UmUzSmxTeEhUVENJVVZSUnVuODAy?=
+ =?utf-8?B?TDY4bHVDcDI4Z09FN01XNi9LblF1dVg4b2hpTjlyT29sKzlaQ2dpMWZWbjFl?=
+ =?utf-8?B?OUljcGloRUpuQTh1Z2RvRDAwUTBJYlJ3NDE2TnJDNXJ2MTJoUndlTGs2RVBp?=
+ =?utf-8?B?NmpUeVVNMy9hdmsrWlcrZ1loeWhPTit3M1EvNkQ1ckl2VWNGTEcyY2NFWVE4?=
+ =?utf-8?B?cnFxRzA1UytCRlVsZ2J0SEZmM0M5MytNNkFnNmVtTmRWR3J6MmRxam5mdkxW?=
+ =?utf-8?B?VDJxb0FTS0wyWGZkTEhrZWM1ZkRYTTBKTkdLcFFtOStwQ1R4RldadDY1MGVR?=
+ =?utf-8?B?NjNaYWhvcHJhN2VyL0FBeWk0MWdFWTAzOFZyL01XK2J5cU1EWkFFcmN1R1NC?=
+ =?utf-8?B?M3pCVGtVWmR1Uy9EY3N4RGc5V3BpNmhqWFdSQWFZU2VlcCtodi9Xd0dxQ3Rs?=
+ =?utf-8?B?SE5XZC9IaS8yNFgramRwd2VHamJIY1pQaHYzNS9UM05iTS9zNFZ4MW5NM1RN?=
+ =?utf-8?B?MmFtelROK2UzeGRWcDY0VzhleEU0THU3ZDc4RmhEbWlueVIxY1R6dE5lVmxN?=
+ =?utf-8?B?RnlBUzcrZ29FZEI2VU14dURtaWt3V0s2OWE1VjVHWkJ2S2sxTzlTNlNBMG1E?=
+ =?utf-8?B?c1A2V2l6UHhsT1FjcXhjcE5DRHE5L3VSeGp4cjRyRmxNMEpreUZ6QVgyUmFX?=
+ =?utf-8?B?dEZxeW1RRHM5QkorYlZueFpOQ1lHUDhUTnczRHpKc2ZmU0ZXQWM5STdGcjVD?=
+ =?utf-8?B?akxkTUhqNnkzS05IaWdtOE1CM3V4dEYzUit0d0hyNWFyUmZ5T1VKWE1qRWR2?=
+ =?utf-8?B?dkhzSlE3MHVjZlBUOE1yZVpXSjRyT2ZjWk5BaEdqaW9wOVc0cnl6cFRtV0do?=
+ =?utf-8?B?TE81eWJRcEhudGhyYmN3RUtiVFZZM1pyaHg2bVdsdW94WVRLMWlrL0doMURP?=
+ =?utf-8?B?UytoQWJ0Sk1zb01OUXp6WEQveEQyL3gvelFlcFBJQ0V0ZmIxS245bjRPTTVm?=
+ =?utf-8?B?aXREZk11Zmp3RnNpZStpNGZrOWs4dlo2QkpPTzcwWTRTUkdHaFdJcEdnTWJR?=
+ =?utf-8?B?c1RtM3NNSVE1QUNTM0pZZWNUNFc3dkRBS2RqdGZVTzFhc3ordmgrT0JobXhU?=
+ =?utf-8?B?OUphaXRES25oK2xnUmw2RHBnRjBhMkdSNXh3T3BzcVQ4TWpDTVl6K1VTTVFx?=
+ =?utf-8?B?bVdEcUJXYk9VcWdNUlh6OGI4bHJTQ1VOWEJlQXpSaG9UMDY0Z2x1WGNCdUYv?=
+ =?utf-8?B?RzgxdDNFT2RDOTJRS1dvOGJ4YytJaXExOFRXa1VYcUU4K2MzS0JzVllZdlp5?=
+ =?utf-8?B?YXRES2hQbzhZMDdyVk13YzVraEpLNE5tdFR0OGNFSng0aUlMaEZEL2pLTnFF?=
+ =?utf-8?B?WnpVaUpPR0JFckxKZmdtZXE1ZUZhTnBidDVjZmhBZTFBdGI2eEY5bVN6NDQ0?=
+ =?utf-8?B?V3NyY3NPTjFlRitQT2hXdFBXZUpOM0ZGOUxuTXZDMFRUSTVrRHlkQXdLQ0Np?=
+ =?utf-8?B?dWU5TWl0bi81TDlXZHBrbEcxY1Uxb0tSY1pIS3hpVUYvU3NZeGtEYWpOQlN2?=
+ =?utf-8?B?K2d2TXdWUU9KeWFQR0hjRGFuNGFzb0xMSWZxRmswK09Hb0xta1dTbXZzVUky?=
+ =?utf-8?B?U0NtRmsxdTFXQUw1VDh0Q3YyMHZ4a0pGQXg2NzNEL0pxb3ppR2hxWlZ5cUxW?=
+ =?utf-8?B?ajFCSzJCWE91SEtFallOSkJvdG9leUY1R0RkUDIrT1UvK1l3SmZJKzlCeHdM?=
+ =?utf-8?B?R3huYXQxTzJxR2RNYVJBdVhKcEMrOXFlY2ExUUJ3dml1UXpBdVdramlSSjgy?=
+ =?utf-8?B?dW5WTWw0M2hCejJCdDB5ckIzT0p3bTVRRUJHNFMySFoxWkJSWDN3TDZVNG85?=
+ =?utf-8?B?MVk0UEtrMEJUTTVzQXZzeVhhZmZ0RU80YWdXQ1hqZEZaOU4xczFvRGhPQXhy?=
+ =?utf-8?B?eWVScVN0alN1U1l3NWs0ejVrbE45QjF0NVFUM1U3eWxXUDBiaStPTW9vYVFH?=
+ =?utf-8?B?TStlRGtIaUdrcHZGTmFkNVZ3MXZ0U1IvRyt0UEF2QVhDSSttaCtyVjBxZThu?=
+ =?utf-8?B?d3JLdzZzd0llbVFLR3psd3RSc0hNVXV6SjZTOTI0YWwvNUsyMWRlUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 993da096-ddf7-4d22-0edd-08df157a9b2b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 11:47:24.3310
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: us3Fym9PlDhJ62V1/hN4fU30MSyEgW7VDQqXBUg1Qf60sC61EO+ja+o2o0N/pLlrSmrBkx/ZJyFtNmn7mGddS5Ct5+BtAQ/NSyWVr/Z66i0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10660
 
-On Tue, 1 Sep 2026, Muralidhara M K wrote:
-
-> Enable the HSMP driver on the Family 1Ah client platforms, Models
-> 80h-8Fh and E0h-E3h. These parts speak the Ryzen Master SMC (RMSMC)
-> message set instead of the server HSMP messages, but describe their
-> mailbox via ACPI _CRS/_DSD the same way a server socket does, so only
-> the ACPI driver needs to probe them.
-> 
-> Add the client message set to the UAPI header and its descriptor
-> table to the driver. struct hsmp_plat_desc picks the right table and
-> driver-issued message IDs once per boot based on the ACPI-reported PM
-> profile, which tells client and server apart without pinning the
-> driver to a fixed set of family/model ranges. Document the client
-> models in amd_hsmp.rst.
-> 
-> Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
-Sashiko claims wrong interface (client/server) msgs can be issued on a 
-platform with the other interface (from hwmon code and some other cases). 
-Please check if that's legit or not.
-
--- 
- i.
-
-> ---
->  Documentation/arch/x86/amd_hsmp.rst  |  10 +-
->  arch/x86/include/uapi/asm/amd_hsmp.h | 135 ++++++++++++++
->  drivers/platform/x86/amd/hsmp/hsmp.c | 255 ++++++++++++++++++++++++---
->  drivers/platform/x86/amd/hsmp/hsmp.h |  27 +++
->  4 files changed, 398 insertions(+), 29 deletions(-)
-> 
-> diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
-> index fa1fc240e212..b95f09945193 100644
-> --- a/Documentation/arch/x86/amd_hsmp.rst
-> +++ b/Documentation/arch/x86/amd_hsmp.rst
-> @@ -8,6 +8,13 @@ Newer Fam19h(model 0x00-0x1f, 0x30-0x3f, 0x90-0x9f, 0xa0-0xaf),
->  Fam1Ah(model 0x00-0x1f) EPYC server line of processors from AMD support
->  system management functionality via HSMP (Host System Management Port).
->  
-> +The Fam1Ah(model 0x80-0x8f, 0xe0-0xe3) client line of processors is
-> +supported as well. Those models share one mailbox and speak the Ryzen
-> +Master SMC message set instead of the server HSMP message set, so the
-> +message IDs accepted on them are the HSMP_CLIENT_* ones listed in
-> +arch/x86/include/uapi/asm/amd_hsmp.h. The character device and ioctl
-> +interface described below are the same.
-> +
->  The Host System Management Port (HSMP) is an interface to provide
->  OS-level software with access to system management functions via a
->  set of mailbox registers.
-> @@ -17,7 +24,8 @@ More details on the interface can be found in chapter
->  Eg: https://docs.amd.com/v/u/en-US/55898_B1_pub_0_50
->  
->  
-> -HSMP interface is supported on EPYC line of server CPUs and MI300A (APU).
-> +HSMP interface is supported on EPYC line of server CPUs, MI300A (APU) and
-> +the Fam1Ah client models listed above.
->  
->  
->  HSMP device
-> diff --git a/arch/x86/include/uapi/asm/amd_hsmp.h b/arch/x86/include/uapi/asm/amd_hsmp.h
-> index eda336bfd3e9..00ca7855ca00 100644
-> --- a/arch/x86/include/uapi/asm/amd_hsmp.h
-> +++ b/arch/x86/include/uapi/asm/amd_hsmp.h
-> @@ -664,4 +664,139 @@ struct hsmp_telemetry_data {
->  #define HSMP_IOCTL_GET_TELEMETRY_DATA \
->  	_IOW(HSMP_BASE_IOCTL_NR, 1, struct hsmp_telemetry_data)
->  
-> +/**
-> + * enum hsmp_client_message_ids - Ryzen Master SMC (RMSMC) message IDs
-> + * @HSMP_CLIENT_TEST: 01h. Test message. input: args[0] = xx. output:
-> + *	args[0] = xx + 1.
-> + * @HSMP_CLIENT_GET_SMU_VER: 02h. Get MP1 firmware version. output:
-> + *	args[0] = MP1 firmware version.
-> + * @HSMP_CLIENT_GET_INTERFACE_VER: 03h. Get interface version. output:
-> + *	args[0] = interface version.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE_VER: 04h. Get metrics table version.
-> + *	output: args[0] = metrics table version.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE: 05h. Get metrics table. No arguments.
-> + *	Success means firmware has written the metrics table to the DRAM
-> + *	address reported by @HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR: 06h. Get metrics table DRAM
-> + *	address. output: args[0] = address[31:0], args[1] = address[63:32],
-> + *	args[2] = table size in bytes.
-> + * @HSMP_CLIENT_SET_CORE_PSM_MARGIN: 07h. Set core voltage margin. input:
-> + *	args[0] = ApicId[31:16] + margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN: 08h. Set voltage margin for all
-> + *	cores. input: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_FAST_PPT_LIMIT: 09h. Set APU fast PPT limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT: 0Ah. Set VDDCR_VDD TDC. input:
-> + *	args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT: 0Bh. Set VDDCR_VDD EDC.
-> + *	input: args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_TJ_MAX: 0Ch. Set maximum junction temperature. input:
-> + *	args[0] = temperature in degrees C.
-> + * @HSMP_CLIENT_SET_FIT_LIMIT_SCALAR: 0Dh. Set failures-in-time limit
-> + *	scalar. input: args[0] = scalar (0 to 100).
-> + * @HSMP_CLIENT_ENABLE_OVERCLOCKING: 0Eh. Enable overclocking. No
-> + *	arguments.
-> + * @HSMP_CLIENT_DISABLE_OVERCLOCKING: 0Fh. Disable overclocking. No
-> + *	arguments.
-> + * @HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES: 10h. Set all-core overclock
-> + *	frequency. input: args[0] = frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE: 11h. Set per-core overclock
-> + *	frequency. input: args[0] = ApicId[31:16] + frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_OVERCLOCK_VID: 12h. Set overclock VID. input:
-> + *	args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY: 13h. Set FCLK overclock on
-> + *	the fly. input: args[0] = FCLK in MHz[15:0].
-> + * @HSMP_CLIENT_GET_CORE_PERF_ORDER: 14h. Get core performance order.
-> + *	input: args[0] = ApicId[15:0]. output: args[0] = frequency in
-> + *	MHz[15:0].
-> + * @HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT: 15h. Set SOC sustained power
-> + *	limit. input: args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_SLOW_PPT_LIMIT: 16h. Set APU slow PPT limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT: 17h. Set VDDCR_GFX EDC.
-> + *	input: args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT: 18h. Set VDDCR_SOC TDC. input:
-> + *	args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_FAST_SPM_LIMIT: 19h. Set fast SPM limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_SLOW_SPM_LIMIT: 1Ah. Set slow SPM limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_GET_CORE_PSM_MARGIN: 1Bh. Get core voltage margin. input:
-> + *	args[0] = ApicId[15:0]. output: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_GET_GFX_PSM_MARGIN: 1Ch. Get graphics voltage margin.
-> + *	output: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SPARE_0X1D: 1Dh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X1E: 1Eh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X1F: 1Fh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X20: 20h. Reserved.
-> + * @HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID: 21h. Set GfxClk
-> + *	overdrive by frequency/VID. input: args[0] = frequency in
-> + *	MHz[31:16] + voltage in mV[15:0].
-> + * @HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE: 22h. Disable GfxClk overdrive.
-> + *	No arguments.
-> + * @HSMP_CLIENT_SET_GFX_PSM_MARGIN: 23h. Set graphics voltage margin.
-> + *	input: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_CCLK_FMAX_OFFSET: 24h. Set CCLK Fmax offset. input:
-> + *	args[0] = maximum frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET: 25h. Set core power limit
-> + *	offset. input: args[0] = limit in mW.
-> + * @HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND: 26h. Add extra core PSM
-> + *	guardband. input: args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX: 27h. Add extra graphics PSM
-> + *	guardband. input: args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_SET_GFXCLK_FMAX: 28h. Set GfxClk Fmax. input: args[0] =
-> + *	maximum frequency in MHz[15:0].
-> + * @HSMP_CLIENT_MSG_ID_MAX: Number of message IDs, not a valid ID itself.
-> + *
-> + * Message IDs accepted on the Family 1Ah client platforms, Models 80h-8Fh
-> + * and E0h-E3h. These parts drive one mailbox and speak the Ryzen Master
-> + * SMC message set instead of the server HSMP message set enumerated in
-> + * &enum hsmp_message_ids. Not all platforms support all messages; consult
-> + * the supported list of messages in the HSMP chapter of the respective
-> + * family/model PPR. Unsupported messages return -ENOMSG.
-> + */
-> +enum hsmp_client_message_ids {
-> +	HSMP_CLIENT_TEST = 1,
-> +	HSMP_CLIENT_GET_SMU_VER,
-> +	HSMP_CLIENT_GET_INTERFACE_VER,
-> +	HSMP_CLIENT_GET_METRICS_TABLE_VER,
-> +	HSMP_CLIENT_GET_METRICS_TABLE,
-> +	HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR,
-> +	HSMP_CLIENT_SET_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_FAST_PPT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_TJ_MAX,
-> +	HSMP_CLIENT_SET_FIT_LIMIT_SCALAR,
-> +	HSMP_CLIENT_ENABLE_OVERCLOCKING,
-> +	HSMP_CLIENT_DISABLE_OVERCLOCKING,
-> +	HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES,
-> +	HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE,
-> +	HSMP_CLIENT_SET_OVERCLOCK_VID,
-> +	HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY,
-> +	HSMP_CLIENT_GET_CORE_PERF_ORDER,
-> +	HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT,
-> +	HSMP_CLIENT_SET_SLOW_PPT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_FAST_SPM_LIMIT,
-> +	HSMP_CLIENT_SET_SLOW_SPM_LIMIT,
-> +	HSMP_CLIENT_GET_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_GET_GFX_PSM_MARGIN,
-> +	HSMP_CLIENT_SPARE_0X1D,
-> +	HSMP_CLIENT_SPARE_0X1E,
-> +	HSMP_CLIENT_SPARE_0X1F,
-> +	HSMP_CLIENT_SPARE_0X20,
-> +	HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID,
-> +	HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE,
-> +	HSMP_CLIENT_SET_GFX_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_CCLK_FMAX_OFFSET,
-> +	HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET,
-> +	HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND,
-> +	HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX,
-> +	HSMP_CLIENT_SET_GFXCLK_FMAX,
-> +	HSMP_CLIENT_MSG_ID_MAX,
-> +};
-> +
->  #endif /*_ASM_X86_AMD_HSMP_H_*/
-> diff --git a/drivers/platform/x86/amd/hsmp/hsmp.c b/drivers/platform/x86/amd/hsmp/hsmp.c
-> index 5e123a4ecea9..e8fac2d299f3 100644
-> --- a/drivers/platform/x86/amd/hsmp/hsmp.c
-> +++ b/drivers/platform/x86/amd/hsmp/hsmp.c
-> @@ -10,6 +10,8 @@
->  #include <asm/amd/hsmp.h>
->  
->  #include <linux/acpi.h>
-> +#include <linux/array_size.h>
-> +#include <linux/build_bug.h>
->  #include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-> @@ -45,8 +47,197 @@
->   */
->  #define CHECK_GET_BIT		BIT(31)
->  
-> +/* Indexed by enum hsmp_client_message_ids; see there for per-message details */
-> +static const struct hsmp_msg_desc hsmp_client_msg_desc_table[] = {
-> +	/* RESERVED */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_TEST */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_SMU_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_INTERFACE_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE */
-> +	{0, 0, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR */
-> +	{0, 3, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SET_CORE_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FAST_PPT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_TJ_MAX */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FIT_LIMIT_SCALAR */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ENABLE_OVERCLOCKING */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_DISABLE_OVERCLOCKING */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_VID */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_GET_CORE_PERF_ORDER */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_SLOW_PPT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FAST_SPM_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_SLOW_SPM_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_GET_CORE_PSM_MARGIN */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_GFX_PSM_MARGIN */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1D */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1E */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1F */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X20 */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_GFX_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_CCLK_FMAX_OFFSET */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_GFXCLK_FMAX */
-> +	{1, 0, HSMP_SET},
-> +};
-> +
-> +/* Catch a table left out of sync with its enum at build time */
-> +static_assert(ARRAY_SIZE(hsmp_msg_desc_table) == HSMP_MSG_ID_MAX);
-> +static_assert(ARRAY_SIZE(hsmp_client_msg_desc_table) == HSMP_CLIENT_MSG_ID_MAX);
-> +
-> +/* Per-platform message set: which table to use, and driver-issued msg IDs */
-> +struct hsmp_plat_desc {
-> +	const struct hsmp_msg_desc	*msg_desc;
-> +	u32				num_msgs;
-> +	u32				test_msg;
-> +	u32				proto_ver_msg;
-> +};
-> +
-> +static const struct hsmp_plat_desc hsmp_desc_server = {
-> +	.msg_desc		= hsmp_msg_desc_table,
-> +	.num_msgs		= HSMP_MSG_ID_MAX,
-> +	.test_msg		= HSMP_TEST,
-> +	.proto_ver_msg		= HSMP_GET_PROTO_VER,
-> +};
-> +
-> +/* The client drives a different mailbox with the Ryzen Master SMC message set */
-> +static const struct hsmp_plat_desc hsmp_desc_client = {
-> +	.msg_desc		= hsmp_client_msg_desc_table,
-> +	.num_msgs		= HSMP_CLIENT_MSG_ID_MAX,
-> +	.test_msg		= HSMP_CLIENT_TEST,
-> +	.proto_ver_msg		= HSMP_CLIENT_GET_INTERFACE_VER,
-> +};
-> +
->  static struct hsmp_plat_device hsmp_pdev;
->  
-> +/*
-> + * Resolved on first use and cached, since is_client_platform() always
-> + * settles on the same descriptor once booted. Concurrent first callers are
-> + * benign: every one of them computes and stores that same pointer, so
-> + * READ_ONCE()/WRITE_ONCE() only need to keep the access from being torn or
-> + * reordered by the compiler, not order it against anything else.
-> + */
-> +static const struct hsmp_plat_desc *hsmp_desc_cache;
-> +
-> +static inline const struct hsmp_plat_desc *hsmp_desc(void)
-> +{
-> +	const struct hsmp_plat_desc *desc = READ_ONCE(hsmp_desc_cache);
-> +
-> +	if (likely(desc))
-> +		return desc;
-> +
-> +	desc = is_client_platform() ? &hsmp_desc_client : &hsmp_desc_server;
-> +	WRITE_ONCE(hsmp_desc_cache, desc);
-> +
-> +	return desc;
-> +}
-> +
-> +/* Returns NULL if msg_id is out of range or reserved for this platform */
-> +static inline const struct hsmp_msg_desc *get_msg_desc(u32 msg_id)
-> +{
-> +	const struct hsmp_plat_desc *desc = hsmp_desc();
-> +
-> +	if (msg_id >= desc->num_msgs)
-> +		return NULL;
-> +
-> +	if (desc->msg_desc[msg_id].type == HSMP_RSVD)
-> +		return NULL;
-> +
-> +	return &desc->msg_desc[msg_id];
-> +}
-> +
->  /*
->   * Gates the AMD HSMP data plane against socket bring-up and teardown.
->   *
-> @@ -184,30 +375,29 @@ static int __hsmp_send_message(struct hsmp_socket *sock, struct hsmp_message *ms
->  
->  static int validate_message(struct hsmp_message *msg)
->  {
-> -	/* msg_id against valid range of message IDs */
-> -	if (msg->msg_id < HSMP_TEST || msg->msg_id >= HSMP_MSG_ID_MAX)
-> -		return -ENOMSG;
-> +	const struct hsmp_msg_desc *desc;
->  
-> -	/* msg_id is a reserved message ID */
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_RSVD)
-> +	/* Unknown or reserved message ID for this platform */
-> +	desc = get_msg_desc(msg->msg_id);
-> +	if (!desc)
->  		return -ENOMSG;
->  
->  	/*
->  	 * num_args passed by user should match the num_args specified in
->  	 * message description table.
->  	 */
-> -	if (msg->num_args != hsmp_msg_desc_table[msg->msg_id].num_args)
-> +	if (msg->num_args != desc->num_args)
->  		return -EINVAL;
->  
->  	/*
->  	 * As the HSMP protocol evolves, newer platforms may define more
->  	 * response arguments for existing messages.  Use an upper-bound
->  	 * check so that older userspace callers requesting fewer response
-> -	 * words than what the current hsmp_msg_desc_table[] defines are
-> -	 * still accepted, while rejecting requests that exceed the
-> -	 * hardware capability.
-> +	 * words than what the current descriptor table defines are still
-> +	 * accepted, while rejecting requests that exceed the hardware
-> +	 * capability.
->  	 */
-> -	if (msg->response_sz > hsmp_msg_desc_table[msg->msg_id].response_sz)
-> +	if (msg->response_sz > desc->response_sz)
->  		return -EINVAL;
->  
->  	return 0;
-> @@ -316,7 +506,7 @@ int hsmp_test(u16 sock_ind, u32 value)
->  	 * Test the hsmp port by performing TEST command. The test message
->  	 * takes one argument and returns the value of that argument + 1.
->  	 */
-> -	msg.msg_id	= HSMP_TEST;
-> +	msg.msg_id	= hsmp_desc()->test_msg;
->  	msg.num_args	= 1;
->  	msg.response_sz	= 1;
->  	msg.args[0]	= value;
-> @@ -338,12 +528,12 @@ int hsmp_test(u16 sock_ind, u32 value)
->  }
->  EXPORT_SYMBOL_NS_GPL(hsmp_test, "AMD_HSMP");
->  
-> -static bool is_get_msg(struct hsmp_message *msg)
-> +static bool is_get_msg(const struct hsmp_msg_desc *desc, struct hsmp_message *msg)
->  {
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_GET)
-> +	if (desc->type == HSMP_GET)
->  		return true;
->  
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_SET_GET &&
-> +	if (desc->type == HSMP_SET_GET &&
->  	    (msg->args[0] & CHECK_GET_BIT))
->  		return true;
->  
-> @@ -354,6 +544,8 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  {
->  	int __user *arguser = (int  __user *)arg;
->  	struct hsmp_message msg = { 0 };
-> +	const struct hsmp_plat_desc *plat_desc = hsmp_desc();
-> +	const struct hsmp_msg_desc *desc;
->  	int ret;
->  
->  	if (copy_struct_from_user(&msg, sizeof(msg), arguser, sizeof(struct hsmp_message)))
-> @@ -361,23 +553,25 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  
->  	/*
->  	 * Check msg_id is within the range of supported msg ids
-> -	 * i.e within the array bounds of hsmp_msg_desc_table
-> +	 * i.e within the array bounds of the platform's descriptor table
->  	 */
-> -	if (msg.msg_id < HSMP_TEST || msg.msg_id >= HSMP_MSG_ID_MAX)
-> +	if (msg.msg_id < plat_desc->test_msg || msg.msg_id >= plat_desc->num_msgs)
->  		return -ENOMSG;
->  
->  	/*
->  	 * Sanitize the user-controlled msg_id against speculative
->  	 * execution.  The bounds check above retires the out-of-range
->  	 * case with -ENOMSG, but a mispredicted branch can still let the
-> -	 * CPU speculatively use msg_id as an index into
-> -	 * hsmp_msg_desc_table[] (here and in validate_message() /
-> -	 * is_get_msg() called downstream via hsmp_send_message()), and
-> -	 * pull arbitrary kernel memory into the cache (Spectre v1,
-> -	 * CVE-2017-5753).  Clamp once into msg.msg_id so every downstream
-> -	 * dereference sees the sanitized value.
-> +	 * CPU speculatively use msg_id as an index into the message
-> +	 * descriptor table, here and again in validate_message() called
-> +	 * downstream via hsmp_send_message().
->  	 */
-> -	msg.msg_id = array_index_nospec(msg.msg_id, HSMP_MSG_ID_MAX);
-> +	msg.msg_id = array_index_nospec(msg.msg_id, plat_desc->num_msgs);
-> +
-> +	/* Rejects the reserved IDs the table describes as such */
-> +	desc = get_msg_desc(msg.msg_id);
-> +	if (!desc)
-> +		return -ENOMSG;
->  
->  	switch (fp->f_mode & (FMODE_WRITE | FMODE_READ)) {
->  	case FMODE_WRITE:
-> @@ -385,7 +579,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  		 * Device is opened in O_WRONLY mode
->  		 * Execute only set/configure commands
->  		 */
-> -		if (is_get_msg(&msg))
-> +		if (is_get_msg(desc, &msg))
->  			return -EPERM;
->  		break;
->  	case FMODE_READ:
-> @@ -393,7 +587,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  		 * Device is opened in O_RDONLY mode
->  		 * Execute only get/monitor commands
->  		 */
-> -		if (!is_get_msg(&msg))
-> +		if (!is_get_msg(desc, &msg))
->  			return -EPERM;
->  		break;
->  	case FMODE_READ | FMODE_WRITE:
-> @@ -410,7 +604,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  	if (ret)
->  		return ret;
->  
-> -	if (hsmp_msg_desc_table[msg.msg_id].response_sz > 0) {
-> +	if (desc->response_sz > 0) {
->  		/* Copy results back to user for get/monitor commands */
->  		if (copy_to_user(arguser, &msg, sizeof(struct hsmp_message)))
->  			return -EFAULT;
-> @@ -685,11 +879,16 @@ EXPORT_SYMBOL_NS_GPL(hsmp_get_tbl_dram_base, "AMD_HSMP");
->  int hsmp_cache_proto_ver(u16 sock_ind)
->  {
->  	struct hsmp_message msg = { 0 };
-> +	const struct hsmp_msg_desc *desc;
->  	int ret;
->  
-> -	msg.msg_id	= HSMP_GET_PROTO_VER;
-> +	msg.msg_id	= hsmp_desc()->proto_ver_msg;
-> +	desc = get_msg_desc(msg.msg_id);
-> +	if (WARN_ON(!desc))
-> +		return -ENOMSG;
-> +
->  	msg.sock_ind	= sock_ind;
-> -	msg.response_sz = hsmp_msg_desc_table[HSMP_GET_PROTO_VER].response_sz;
-> +	msg.response_sz	= desc->response_sz;
->  
->  	ret = hsmp_send_message_locked(&msg);
->  	if (!ret)
-> diff --git a/drivers/platform/x86/amd/hsmp/hsmp.h b/drivers/platform/x86/amd/hsmp/hsmp.h
-> index 8dbff16a87b1..890cfb664829 100644
-> --- a/drivers/platform/x86/amd/hsmp/hsmp.h
-> +++ b/drivers/platform/x86/amd/hsmp/hsmp.h
-> @@ -10,6 +10,9 @@
->  #ifndef HSMP_H
->  #define HSMP_H
->  
-> +#include <asm/amd/hsmp.h>
-> +
-> +#include <linux/acpi.h>
->  #include <linux/compiler_types.h>
->  #include <linux/device.h>
->  #include <linux/hwmon.h>
-> @@ -17,6 +20,7 @@
->  #include <linux/miscdevice.h>
->  #include <linux/mutex.h>
->  #include <linux/pci.h>
-> +#include <linux/processor.h>
->  #include <linux/rwsem.h>
->  #include <linux/semaphore.h>
->  #include <linux/sysfs.h>
-> @@ -32,6 +36,29 @@
->  
->  #define DRIVER_VERSION		"2.6"
->  
-> +/*
-> + * Family/model ranges need a driver update every generation and miss new
-> + * client parts until then. The ACPI-reported PM profile does not: it says
-> + * what kind of system this is regardless of which CPU is in it.
-> + */
-> +static inline bool is_client_platform(void)
-> +{
-> +	if (!IS_ENABLED(CONFIG_ACPI))
-> +		return false;
-> +
-> +	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
-> +		return false;
-> +
-> +	switch (acpi_gbl_FADT.preferred_profile) {
-> +	case PM_DESKTOP:
-> +	case PM_MOBILE:
-> +	case PM_TABLET:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->  struct hsmp_mbaddr_info {
->  	u32 base_addr;
->  	u32 msg_id_off;
-> 
+SGkgTGF1cmVudCwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXVy
+ZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb20+DQo+IFNlbnQ6
+IDE4IFNlcHRlbWJlciAyMDI2IDEyOjExDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMDcvMTBdIG1l
+ZGlhOiByY2FyLWZjcDogSGFuZGxlIHJlc2V0cw0KPiANCj4gT24gRnJpLCBTZXAgMTgsIDIwMjYg
+YXQgMTE6MDM6MjVBTSArMDAwMCwgQmlqdSBEYXMgd3JvdGU6DQo+ID4gT24gMTcgU2VwdGVtYmVy
+IDIwMjYgMTM6MDUsIFBhdWwgRWxkZXIgd3JvdGU6DQo+ID4gPg0KPiA+ID4gW1lvdSBkb24ndCBv
+ZnRlbiBnZXQgZW1haWwgZnJvbSBwYXVsLmVsZGVyK3JlbmVzYXNAaWRlYXNvbmJvYXJkLmNvbS4N
+Cj4gPiA+IExlYXJuIHdoeSB0aGlzIGlzIGltcG9ydGFudCBhdA0KPiA+ID4gaHR0cHM6Ly9ha2Eu
+bXMvTGVhcm5BYm91dFNlbmRlcklkZW50aWZpY2F0aW9uIF0NCj4gDQo+IERvbid0IHdvcnJ5LCB3
+ZSBwbGFuIHRvIHdvcmsgb24gVkNPTiBzdXBwb3J0IGZvciBYNUgsIHlvdSB3aWxsIGdldCBtb3Jl
+IGUtbWFpbHMgZnJvbSBQYXVsIDotKQ0KDQpPay4NCg0KPiA+ID4gT24gc29tZSB2ZXJzaW9ucyBv
+ZiB0aGUgRkNQLCBzdWNoIGFzIHRoZSBvbmUgb24gdGhlIFg1SCwgcmVzZXQNCj4gPiA+IGNvbnRy
+b2wgaXMgcmVxdWlyZWQgdG8gb3BlcmF0ZSB0aGUgRkNQLg0KPiA+ID4NCj4gPiA+IEFkZCBzdXBw
+b3J0IGZvciBoYW5kbGluZyByZXNldHMgb3B0aW9uYWxseSwgdG8gY29udGludWUgc3VwcG9ydGlu
+Zw0KPiA+ID4gdmVyc2lvbnMgdGhhdCBkbyBub3QgcmVxdWlyZSBpdC4NCj4gPiA+DQo+ID4gPiBT
+aWduZWQtb2ZmLWJ5OiBQYXVsIEVsZGVyIDxwYXVsLmVsZGVyK3JlbmVzYXNAaWRlYXNvbmJvYXJk
+LmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4gIGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vcmVuZXNhcy9y
+Y2FyLWZjcC5jIHwgMzQNCj4gPiA+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0NCj4g
+PiA+ICAxIGZpbGUgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4g
+PiA+DQo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3Jj
+YXItZmNwLmMNCj4gPiA+IGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3JjYXItZmNw
+LmMNCj4gPiA+IGluZGV4DQo+ID4gPiBkOTliM2ZmOTc2ZTgwZjI3NWFmMTllNWRjMDJjNmUxZGU5
+OGMzOGEzLi4xNWJjYmJkYTNiODUzZjcxNzgwYWFlODc2Zg0KPiA+ID4gNjQ0MGIzM2FkZGYxOTMg
+MTAwNjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3JlbmVzYXMvcmNhci1m
+Y3AuYw0KPiA+ID4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9yZW5lc2FzL3JjYXItZmNw
+LmMNCj4gPiA+IEBAIC0xOCw2ICsxOCw3IEBADQo+ID4gPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRm
+b3JtX2RldmljZS5oPg0KPiA+ID4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+DQo+ID4g
+PiAgI2luY2x1ZGUgPGxpbnV4L3Byb3BlcnR5Lmg+DQo+ID4gPiArI2luY2x1ZGUgPGxpbnV4L3Jl
+c2V0Lmg+DQo+ID4gPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4NCj4gPiA+DQo+ID4gPiAgI2lu
+Y2x1ZGUgPG1lZGlhL3JjYXItZmNwLmg+DQo+ID4gPiBAQCAtNjMsNiArNjQsOCBAQA0KPiA+ID4g
+ICNkZWZpbmUgUkNBUl9GQ1BfUkVHX0JBX1JFRl9ZMiAgICAgICAgICAgICAgICAgMHgwMTE4DQo+
+ID4gPiAgI2RlZmluZSBSQ0FSX0ZDUF9SRUdfQkFfUkVGX0MgICAgICAgICAgICAgICAgICAweDAx
+MWMNCj4gPiA+DQo+ID4gPiArc3RydWN0IHJlc2V0X2NvbnRyb2w7DQo+ID4gPiArDQo+ID4gPiAg
+ZW51bSByY2FyX2ZjcF90eXBlIHsNCj4gPiA+ICAgICAgICAgUkNBUl9GQ1BGLA0KPiA+ID4gICAg
+ICAgICBSQ0FSX0ZDUFYsDQo+ID4gPiBAQCAtNzMsNiArNzYsNyBAQCBzdHJ1Y3QgcmNhcl9mY3Bf
+ZGV2aWNlIHsNCj4gPiA+ICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2Ow0KPiA+ID4gICAgICAg
+ICB2b2lkIF9faW9tZW0gKmJhc2U7DQo+ID4gPiAgICAgICAgIGVudW0gcmNhcl9mY3BfdHlwZSB0
+eXBlOw0KPiA+ID4gKyAgICAgICBzdHJ1Y3QgcmVzZXRfY29udHJvbCAqcnN0YzsNCj4gPg0KPiA+
+IFlvdSBjb3VsZCBkcm9wIHRoaXMgZ2xvYmFsIHZhcmlhYmxlLiBQbGVhc2UgU2VlIGJlbG93Lg0K
+PiA+DQo+ID4gPiAgfTsNCj4gPiA+DQo+ID4gPiAgc3RhdGljIExJU1RfSEVBRChmY3BfZGV2aWNl
+cyk7DQo+ID4gPiBAQCAtMjYyLDEyICsyNjYsMTkgQEAgc3RhdGljIGludCByY2FyX2ZjcF9wcm9i
+ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQ0KPiA+ID4gICAgICAgICBmY3AtPmRldiA9
+ICZwZGV2LT5kZXY7DQo+ID4gPiAgICAgICAgIGZjcC0+dHlwZSA9IChlbnVtDQo+ID4gPiByY2Fy
+X2ZjcF90eXBlKWRldmljZV9nZXRfbWF0Y2hfZGF0YSgmcGRldi0+ZGV2KTsNCj4gPiA+DQo+ID4g
+PiArICAgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGZjcCk7DQo+ID4NCj4gPiBUaGlz
+IGNhbiBiZSBtb3ZlZCBhZnRlciB0aGUgdXNlci4NCj4gPiA+ICsNCj4gPiA+ICAgICAgICAgZmNw
+LT5iYXNlID0gZGV2bV9wbGF0Zm9ybV9pb3JlbWFwX3Jlc291cmNlKHBkZXYsIDApOw0KPiA+ID4g
+ICAgICAgICBpZiAoSVNfRVJSKGZjcC0+YmFzZSkpDQo+ID4gPiAgICAgICAgICAgICAgICAgcmV0
+dXJuIFBUUl9FUlIoZmNwLT5iYXNlKTsNCj4gPiA+DQo+ID4gPiAgICAgICAgIGRtYV9zZXRfbWF4
+X3NlZ19zaXplKGZjcC0+ZGV2LCBVSU5UX01BWCk7DQo+ID4gPg0KPiA+ID4gKyAgICAgICBmY3At
+PnJzdGMgPSBkZXZtX3Jlc2V0X2NvbnRyb2xfZ2V0X29wdGlvbmFsKCZwZGV2LT5kZXYsDQo+ID4g
+PiArIE5VTEwpOw0KPiA+DQo+ID4gcnN0YyA9IGRldm1fcmVzZXRfY29udHJvbF9nZXRfb3B0aW9u
+YWwoJnBkZXYtPmRldiwgTlVMTCk7DQo+ID4NCj4gPiA+ICsgICAgICAgaWYgKElTX0VSUihmY3At
+PnJzdGMpKQ0KPiA+ID4gKyAgICAgICAgICAgICAgIHJldHVybiBkZXZfZXJyX3Byb2JlKCZwZGV2
+LT5kZXYsIFBUUl9FUlIoZmNwLT5yc3RjKSwNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAiZmFpbGVkIHRvIGdldCByZXNldA0KPiA+ID4gKyBjb250cm9sXG4iKTsN
+Cj4gPg0KPiA+DQo+ID4gICAgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIHJzdGMpOw0K
+PiANCj4gSSdkIHJhdGhlciBrZWVwIHRoZSByY2FyX2ZjcF9kZXZpY2Ugc3RydWN0dXJlLiBXaGVu
+IHdlJ2xsIGFkZCBjb21wcmVzc2lvbiBzdXBwb3J0IHRvIHRoZSBGQ1AgZHJpdmVyLCB3ZQ0KPiB3
+aWxsIG5lZWQgdG8gYWNjZXNzIHJlZ2lzdGVycyBhbmQgb3RoZXIgZmllbGRzIG9mIHJjYXJfZmNw
+X2RldmljZS4NCg0KQWNrLg0KDQpDaGVlcnMsDQpCaWp1DQo=
