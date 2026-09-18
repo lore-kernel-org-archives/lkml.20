@@ -1,110 +1,212 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290AA48E0E9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3411F427FBE;
+	Fri, 18 Sep 2026 10:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726467; cv=none; b=fQj/bJTZxl4UiL2QMaPG3sUD42fp9os7DDcvUrjAh/ldz4JjLywpwaPNkhWrMYxIo4kGHatKoQ2Uu7fZiDzGIJMI58vFGYvh4+yfi5MoOypq2DMTFE8WdHoM+mbPYjjRuHB1tv4AV2BZmAYPik/VrTPzqWlGwHzV568Toxbh4F0=
+	t=1789726498; cv=none; b=l3SFYwo8H0JTdUrNpPvQWQEuzfyqTB099en8n6Z4qtlEEJFMLGUHkwy3p6G+WBMROI3Q0jCzsZt0z4ZZPpD7JIgjvYNppVp96Lq+gtA1F/7OjvHLaedjEJJuI3UfxTrPpJHa/KHFt/hxg/Bb/vxQ3xBZS19puS4Yi9ZBDtxC2xE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726467; c=relaxed/simple;
-	bh=s4NszV1LAjsfPGh2AYlQJm8DMiRBqi3Wr7v2mRKxub0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SwK7S0mMBRXNOjAwMd6d7vbJN+fuGfaschYdSXLwg9ir5a0V3xg3iHqEQx74TULm1Vs/MIAzSDqi6vq7IoMy+6p5n/KDvsirdYVKows0czVuk5pAUuZHCHtVfUOQWmyl1q2mhpGmiOJ7EcO0hDw2QBQe67pJ0hvxGyeTnGuPs2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wn/UYE70; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789726498; c=relaxed/simple;
+	bh=+rYtUuYwm0FagpNisTceSQiqzxwaoX4/vQuLlPZ6HUw=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=M3dVWkKNBYTEWGcHzZPILsyqlSWOCnMKjeiBZrmlGZf19CoLyxDWbmoHJHroOJ4XKl/vg1SgL26iVKcLlyBg+Ckj/+f7fMQ/Fro5ezxfGLXgQu62Tnf27vFW0b94mmTRfSLPhcfMsGFrnO88HLppFKIhQlLr8jg+kjHGgnM/A2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Awvsj8ms; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KXONSfyx; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wn/UYE70"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d2fe2056so306857a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789726465; x=1790331265; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DcJ7z7pjuPgGZIi0pC2sSQMK73f03/U0vs3UawuRDsQ=;
-        b=Wn/UYE70WGMC4XpRoc7ZZplGpk0P5bHPkmfS8gdtwZHXqIE/LNfzMkWerVa9WgZd9i
-         jvpY3orYt/jA64AcpieOJe2Pv05uS0ZpZT9eAaOjh2MPQVuoXNR8tzTHNTHVVXh8XS/K
-         0ZL0js29F+JiXmevjXhSbNOrvn4MB2+Uh63tLcMfXxEiHeyC29svRHKoH2Y6I3OvpvlZ
-         pF4boTi8nS7aR3mk6Ohp3TmlIdFfQbulgxIxObHt5coCU5MM2j/rUIl8jAJ5ivflh5RT
-         TuoJ/XU92AY9XSNsPisyJQtgAHrXNMSzzodJV6+shcJMUtK+P1MPY6CYwAeUKk6fB4M6
-         6tIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789726465; x=1790331265;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DcJ7z7pjuPgGZIi0pC2sSQMK73f03/U0vs3UawuRDsQ=;
-        b=FQxjz4vrMsqXLV+q8bkRYegRDarDoxWQ3kHLnW6KlDPNeB9zbjA42ibmY8jVHhklSe
-         LIJexXQ9g4POzotFhVM7/ffOFBAgG0aAophcFJiaSaKJaDki+4fIIWGJDoDS5hgzgCbv
-         pw7IidHOSLI1ScZXBbPPf6/gBogm28tSAJ4SkOqgY4Uxk/Pl6qyxlONjkj2YFtnjqkcQ
-         UxFNBSPv4i9Sl9BnGxr/Jg2iPs+BGu7pltDuahb/I++BucAcXNmMAwNzOWpFFedxye01
-         uPWigER2aTsM/ekaabevKttsMTf7l7ssiJwtnsxGhpicnjS/ZibDYJCkKfw/eqleqrWM
-         32nQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0HU72hq4X220fCPEx4PUlYZxWDIcuL6+O7bx30qW2DRqTxyXnX6Ve+6m0bNvTTCZcYtf5N68PhNQMafA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzY/vWfFbHivIWTzUB8RJhDOw7/PY1Msg1N67FtrVoVk/bu8a5
-	zJ4ZeOCsFTN6PHPtdA6vDXrulhAEU3oQbUwRX4x1eBB/uHRnvPjiNPjq
-X-Gm-Gg: AYBFou0FYlemEL6Mqbz6CP6RX0Mm3w5TiV4az1WEH9gHQ1JRZSm4QFJmlQSQxmo14u1
-	KXPliRN8YPs3r4cuTw4MojXiAHqPrXXjfqGi9ab+ENUm3dtcfi4tnbZvyEFt+QWAgf67gOQZgqO
-	DmNUwUaQarJCB8Oiikhn90to8pevfBnVc157nAM8C2xyxT4hdtQ7fKag3TFSTRFj9RG0tNevip+
-	ejH9UOlAF+16+sbOw5AwnwWRm+5wVbllmF1lb8gEuk8ybyJKpoYOMugVlrBKfyfZkQlc4dfyku4
-	y/f1uF3rAxSdyDvNs75fHcb041OVRvUCNPnZks/UP++CuS3JjGSjWB9//vLSux43b2tlRObX2BZ
-	8qkECNRAKQbheFx0iE4ji76kapWOEQ4MZ8ZYX1SNT+6VQ6xt5S6EFK80P4WvidyaFwDENUsbf4l
-	gUF25YdfEcjn6sro1R28yoR7ZY8QqYp2mV8iMmRMfDZbY1A9S1p7O6nKHZu+d3ODqcAPfloYN6L
-	zLIZjsKvxyM/oeXNJgWsSrR7Rhf
-X-Received: by 2002:a05:6a21:6e4c:b0:3dd:85aa:4528 with SMTP id adf61e73a8af0-3dd8c501970mr4608478637.35.1789726465018;
-        Fri, 18 Sep 2026 03:14:25 -0700 (PDT)
-Received: from drobotics-thinkpad-t14p-gen-1.. ([117.133.183.250])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c50e7433sm720513a12.28.2026.09.18.03.14.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 03:14:24 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Eugeniy.Paltsev@synopsys.com,
-	vkoul@kernel.org
-Cc: Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH] dmaengine: dw-axi-dmac: demote apb_regs warning to debug
-Date: Fri, 18 Sep 2026 18:14:14 +0800
-Message-Id: <20260918101414.4104604-1-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Awvsj8ms";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KXONSfyx"
+Date: Fri, 18 Sep 2026 10:14:51 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789726492;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nufUQbjt/kCTYf/ft4jwyFaJw+AQ/fgpNVKcWHQ/QWI=;
+	b=Awvsj8msND3XFsLsrKQzlxHhDLfSFj3Sg7HcpruiI9QhAe4iKz2JMeWd/+7lc2sz7LpB7V
+	I45YhMTOcT1g7Mr0g6hlTju4BwBfEUvFSZKn/aFsnXZeyXjVsNTsPYjE7zHzcp4H8X51AZ
+	rtctk5UpBfqQ7B5qZIz4wLAueDxeA8tvS5euVkZ8IWHoLmGd6wP9TmSKupjp9jaoGi7nrl
+	Xm3oKM8DSeXHsclloGgwJEt1V9WzN8uea0+Rtza9zxigMibCYDFrINhIfk8kI6/izXRGJd
+	BN/itYSMNK05/RA6bk0BEyyHV6RPpOjWvp2AoCetKtcDNlpr4fvq71juMogIZg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789726492;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nufUQbjt/kCTYf/ft4jwyFaJw+AQ/fgpNVKcWHQ/QWI=;
+	b=KXONSfyxLQ530k9VOdh6F5Pfnz8r1c2Znwrg61l4HEj0woQlXcr67+xLHQbSyL0VqowU+E
+	2Dg2lzu5e5shY/BQ==
+From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: objtool/core] objtool/klp: Add test for Clang switch jump tables
+Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-58-song@kernel.org>
+References: <20260916184351.2720310-58-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <178972649117.1720534.9271166336504429408.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-dw_axi_dma_set_hw_channel() logs "apb_regs not initialized" at err
-level when apb_regs is absent. However, only Intel KeemBay
-("intel,kmb-axi-dma") carries apb_regs; all other supported SoCs
-(snps,axi-dma-1.01a, sophgo,cv1800b, starfive,jh7110/jh8100) operate
-without it. For those, reaching this path during slave/cyclic prep and
-terminate is the normal no-op case, not an error, and the err log spams
-dmesg on every transfer.
+The following commit has been merged into the objtool/core branch of tip:
 
-Demote it to dev_dbg to match the identical check in
-dw_axi_dma_set_byte_halfword().
+Commit-ID:     c2f95342225ff6c37ebdf11525769a2e94009b99
+Gitweb:        https://git.kernel.org/tip/c2f95342225ff6c37ebdf11525769a2e940=
+09b99
+Author:        Song Liu <song@kernel.org>
+AuthorDate:    Wed, 16 Sep 2026 11:43:50 -07:00
+Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
+CommitterDate: Wed, 16 Sep 2026 17:21:47 -07:00
 
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+objtool/klp: Add test for Clang switch jump tables
+
+For a dense enough switch Clang emits the targets as a table in
+.rodata..Lswitch.table.<function> -- named after the function but not part
+of it.  The patched function indexes into that table, so a clone which does
+not bring it along jumps through whatever the kernel's copy holds, which
+after a patch that changed the switch is the wrong set of targets.  An
+indirect jump to a stale address reports nothing at build or load time.
+
+The fixture asserts its own premise twice over, since both halves depend on
+what this Clang chose to do: that a table was built rather than a chain of
+comparisons, and that the added case actually changed it.
+
+objtool has no switch-specific code -- the table is carried by the general
+mechanism for data a cloned function references -- so this guards that
+mechanism reaching an easily-mishandled shape rather than a particular
+line, and the test says so.  Making the table uncorrelated, the nearest
+available sabotage, does not change the outcome.
+
+Assisted-by: Claude:claude-opus-4
+Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Song Liu <song@kernel.org>
+Link: https://patch.msgid.link/20260916184351.2720310-58-song@kernel.org
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/objtool/tests/generic/fixtures/switch_rodata.c | 31 ++++++-
+ tools/objtool/tests/generic/test-switch-rodata.sh    | 53 +++++++++++-
+ 2 files changed, 84 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/switch_rodata.c
+ create mode 100755 tools/objtool/tests/generic/test-switch-rodata.sh
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index bcefaff03b5c..d829b9af5491 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -574,7 +574,7 @@ static void dw_axi_dma_set_hw_channel(struct axi_dma_chan *chan, bool set)
- 	unsigned long reg_value, val;
- 
- 	if (!chip->apb_regs) {
--		dev_err(chip->dev, "apb_regs not initialized\n");
-+		dev_dbg(chip->dev, "apb_regs not initialized\n");
- 		return;
- 	}
- 
--- 
-2.34.1
-
+diff --git a/tools/objtool/tests/generic/fixtures/switch_rodata.c b/tools/obj=
+tool/tests/generic/fixtures/switch_rodata.c
+new file mode 100644
+index 0000000..817ddac
+--- /dev/null
++++ b/tools/objtool/tests/generic/fixtures/switch_rodata.c
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A switch dense enough that Clang builds a jump table for it, in a section=
+ of
++ * its own: .rodata..Lswitch.table.<function>.
++ *
++ * The table belongs to the function and has to travel with it.  It is named
++ * after the function but is not part of it, so klp diff has to associate the
++ * two rather than treating the table as unrelated data.
++ *
++ * The patch adds a case, which changes the table's contents and length.
++ */
++
++static const char __modinfo[]
++	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
+x";
++const char *status_to_string(unsigned int c)
++{
++	switch (c) {
++	case 0: return "idle";
++	case 1: return "running";
++	case 2: return "stopped";
++	case 3: return "error";
++	case 4: return "paused";
++	case 5: return "waiting";
++	case 6: return "starting";
++	case 7: return "stopping";
++#ifdef PATCHED
++	case 8: return "completed";
++#endif
++	}
++	return "unknown";
++}
+diff --git a/tools/objtool/tests/generic/test-switch-rodata.sh b/tools/objtoo=
+l/tests/generic/test-switch-rodata.sh
+new file mode 100755
+index 0000000..fb27e96
+--- /dev/null
++++ b/tools/objtool/tests/generic/test-switch-rodata.sh
+@@ -0,0 +1,53 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# A Clang switch jump table travels with the function it belongs to.
++#
++# For a dense enough switch Clang emits the targets as a table in
++# .rodata..Lswitch.table.<function>, named after the function but not part of
++# it.  klp diff has to associate the two: the patched function indexes into
++# that table, so a clone which does not bring it along jumps through whatever
++# the kernel's copy holds -- which, when the patch changed the switch, is the
++# wrong set of targets.
++#
++# That is an indirect jump to a stale address, not a missing symbol, so noth=
+ing
++# reports it at build or load time.
++#
++# objtool has no switch-specific code: the table is carried by the general
++# mechanism for data a cloned function references.  So this is a regression
++# test on that mechanism reaching a shape it is easy to get wrong, not a gua=
+rd
++# on a particular line -- making the table uncorrelated, the nearest sabotag=
+e,
++# does not change the outcome.
++#
++# Covers the same ground as corpus/x86_64-llvm-switch-rodata/
++# clang-switch-rodata-assoc in Joe Lawrence's klp-build unit test corpus.
++
++. "$(dirname "$0")/../lib.sh"
++
++clang_only "only Clang emits switch jump tables in their own section"
++
++setup
++build_pair switch_rodata.c
++
++# The premise: this Clang really did build a table rather than a chain of
++# comparisons, and the added case really did change it.
++tbl=3D.rodata..Lswitch.table.status_to_string
++has_input_section orig.o "$tbl" ||
++	probe_skip "this clang built no jump table for the switch"
++# readelf prefixes each line with "[nn]", which splits into one or two fields
++# depending on the index, so strip it before counting columns.
++tbl_size()
++{
++	in_sections "$1" | sed 's/^ *\[[ 0-9]*\] *//' |
++		awk -v s=3D"$tbl" '$1 =3D=3D s { print $5 }'
++}
++[ "$(tbl_size orig.o)" !=3D "$(tbl_size patched.o)" ] ||
++	fail "fixture's added case did not change the jump table"
++
++run_diff
++
++assert_patched status_to_string
++assert_section "$tbl"
++assert_reloc_sym .text.status_to_string "$tbl"
++
++pass "Clang switch jump table carried with the function it belongs to"
