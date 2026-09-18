@@ -1,176 +1,109 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623AB3D4121
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F422931F8;
+	Fri, 18 Sep 2026 19:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760404; cv=none; b=AK2dH921Lqj7HC3QlxJfuA+ZyIHkzn3FKnOxEvPky7r6jpUQpww7mRvO+BNUUBYNIR/++IdfENCcRnbUAhaz6Dou+35koU1Ce8paKzX9xLLtYeximgUEq3guEX1/4ClOpsPSlHrPQv58/G9gtWglaOPqUQ0oxSsyazbYfGYp/Vg=
+	t=1789760415; cv=none; b=LI46YPoahelWrWmba8QHofrdepQyJjLcxFUKq8rfx3WZBdnPO2iO59sy7IWVdx948M050ocMP1PI0JKTkl1DTIeP0IpiSXFm6BzkGAYgceOMOoBTQNUtIBGQOLVzJXXrMK/IKUb75e7DTlft/I97nVEpHLo917qJWDoUC0WtqHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760404; c=relaxed/simple;
-	bh=aluPD1H8ZhbUZyaIGRmSfAZiwosda9+zGSjWlUx2qVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E5D9uXfIOtkCE2Rd213G+XS93cEayjw7ScNjoTf/lhxgDdmYBUcK5L1LJl4Z2LP2Cp4OeIOZPMW8Pro5BwaDFLh5iWx1nP/9IWlvsh6f7MdORKCk0JU1cTERTcHShrGX6tpXp2gC5o9cyhcQgymyp/Bxu6W7VAFU5gqIpeRO8vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OwKcvcFp; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789760415; c=relaxed/simple;
+	bh=Kk3ar4q45siHy1y0rPnYfhOrE+vVoxmAnZK8w5kMOiw=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=OTFQ6+aomGsXsOr0YIeRK9gExMd6+vr68CB3LyY8kbzuULJy/YDm0jOZIax1tqlhA1Nu/6K7OH3lsAGmBcXnzTPrkXxKbHVxNW4Y0WBMIWIiqvERF8SD4wfaApwdXfaTeEe+LPjSKKM+o0P9DKa9zpCH1dhriPa5A7bT7BohzLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=p1hFKb1F; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OwKcvcFp"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so7317335e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:40:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789760400; x=1790365200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=piGCPJ2qCNdqMxLVvRBEnvJKlYbS6Cmm7RmQcfiGn0Q=;
-        b=OwKcvcFpT0Yv7vrRt1TYs35iaTIJoMj0VbKI9lCBazHe7SiTmH1PW61TkkFbrhDsva
-         SuNPDqsA49DduiGCpr5hz+eCPeLgj80g/bjG72tWZnr/ZYNoDMwD6W6/Cyc3P9ImYO4e
-         csOln1/t9B+ukd+YNyduXs/lPdvQVNjKK+/BTKBDcE+47j364IVTfeFj8w8HzICcHIed
-         nacAf7E3eHOSu46d5u6TAnKyXW78Ir1HWWujfOSA+jX3ibFgjFIuF1AC/H/BvNfXQ0Bf
-         U18teNhkwr24gJ2ytuOxvDXoN52IGL88hietGUMQo6/d8vG4Ys1lxUhB13shArgHeLdz
-         Rfww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789760400; x=1790365200;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=piGCPJ2qCNdqMxLVvRBEnvJKlYbS6Cmm7RmQcfiGn0Q=;
-        b=dfR521zYliA/9Gjqs65Ux6BcFfv8QCSzh8rpd1zXvevlU6RYxP1o19UvXZukyyK6QI
-         Oatot5V2rmQCi7pkjuDyJwPz0Nj4TIe5xQ8IAz8Y69GF5Xo4t/pe4ad2e2+uAmDUacuD
-         yuvcuXIOQ4DoNzqkAMmKFibqxngbXl3rX3yrCW7ISHpz+Qs+u6cnVdSuQg4pnqy0IWJR
-         OKFcnraxlR8UBHs5+fRR/ZKn/ClhFUwjox3dO+tdw4IneLVRlEf0uKgPQfDb+QCuJHQa
-         P8ucsb1AoMGHglukMnzbMouszu4tMMx5icfLVfg0y4PR2qc6aW/1DJ/fM/ricHQpinZu
-         O4lA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3U6D2T0/qKnQ2NiPNRCxyH7fOwoIT6nJKntqdUe2nZQltOib8Xyrqfckw7Ybn0Dn53oQPAVUI1QbnPs4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUj+fY8bZBQSr6njxUQ1pPydcYicdQVgSdx1dBIc1EsSOgNllO
-	VManzm7Pu0mNBR+hnNKJNX7k2CFFT9e5P2NS7rUx6KQajmwaMhQRRClf
-X-Gm-Gg: AYBFou11v0R/aBL/QdJQ9lYrz6U2Nr4ndXICvdF8U0onrD87I7zcl4TD0RyTsz4X1ik
-	KKVSHvg6FLQKNQJKG9oFNOmDXpZb51L6lbFC0hFLvkNyk7mfyboLQybV4g9FqraqmxdnjIu83EC
-	l09Oy2gGgqx3XI2MC3NbNe7us3uboBDcHeIfFiSV6sT4ULReJOijM2+DzNNLRn8j1AVvHytqGld
-	IW5lXYCF2B/jwTm3Sb0haUHr2Cdh/E8CydUT58UTuJzTTZFTa/R3WcLq6MhVOQMD6XZm8yE04ur
-	5HRLlA6Rrda96bHhZggZ6a3MzFaua7grSwvcQTqTpveYmhPXAkvk7OIv71L2lzkZjiKMR8h7MwZ
-	xlPPjFXTVADndacolRWe1a1otSvc4JEZHZ/0L1ksOyDEeunWIzdZlV3F+furJtr4L+oph3UzGs5
-	xEXM2nmRpcqahBnmpwC4wKP4DWKNQWNSOl34/MvWp+y0qtShVL7iLHTj52O+eg4lwl91e3LR3Z7
-	haMi+gJWBW7CNVTgDhA6cb5bfCyUTaLVZs4iOr8bhyL1LVXIQaTIUH7WcoJlvt0kQcXsB3SR5ZX
-	2/xKgIij
-X-Received: by 2002:a05:600c:34c7:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49fc5726cfcmr113665925e9.11.1789760400301;
-        Fri, 18 Sep 2026 12:40:00 -0700 (PDT)
-Received: from fedora ([41.198.134.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd2f7ef3sm10386765e9.0.2026.09.18.12.39.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 12:39:59 -0700 (PDT)
-From: jackyphuti <jackympoka22@gmail.com>
-To: bjorn@mork.no,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jackyphuti <jackympoka22@gmail.com>,
-	Copilot <223556219+Copilot@users.noreply.github.com>
-Subject: [PATCH] net: usb: qmi_wwan: add common Huawei modem IDs
-Date: Fri, 18 Sep 2026 21:36:45 +0200
-Message-ID: <20260918193645.59374-1-jackympoka22@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="p1hFKb1F"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=lQAIrUFP3+D+tD4U17DzHrKkOc11Ho5y+ORRcF4NPXs=; b=p1hFKb1F/D9iIDg6hNHtr8GiM2
+	l37aQ39NUCI6IRV6cw9gskBQm2rzWzmoVGB1A1sSt6dz5QZVE29rnly2O4sra+jAVtX5GubBbhzIT
+	estioaTW7b42lemwzxUqTkaexKwqWBQXacYsSjVZzNvKbOFT+MjWkLM0OirZSxU2f7sT+NKmqaUfV
+	o2SyHTECs+cKETwfqStVBNeQngTXT/DtkXdqEV9Mma6d2VcU0eUSuvkbsuX6aqp80gMFjKciNXgwC
+	YI36SyWZbHBozXXE9/fXLmwHKXHr3dGHRBoTkxESWTCrljgEUe7uToA9S6ifHB5P/eblW6xIUFZVM
+	uH56LcFg==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7eRN-0000000CrxC-0gtG;
+	Fri, 18 Sep 2026 13:40:10 -0600
+Message-ID: <19bee27e-17d7-4b67-b796-ca5bb44e8de7@deltatee.com>
+Date: Fri, 18 Sep 2026 13:39:55 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-3-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-3-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 03/18] PCI/P2PDMA: Derive routing from directional ACS
+ controls
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Add common Huawei product IDs to qmi_wwan fixed-interface mappings
-for broader generic Huawei modem coverage.
 
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
-Signed-off-by: jackyphuti <jackympoka22@gmail.com>
----
- drivers/net/usb/qmi_wwan.c | 38 +++++++++++++++++++++++++-------------
- 1 file changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
-index fdfdcf24ddcf..2809b6985f7a 100644
---- a/drivers/net/usb/qmi_wwan.c
-+++ b/drivers/net/usb/qmi_wwan.c
-@@ -216,10 +216,10 @@ static int qmimux_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 		if (netif_rx(skbn) != NET_RX_SUCCESS) {
- 			net->stats.rx_errors++;
- 			return 0;
--		} else {
--			dev_sw_netstats_rx_add(net, pkt_len);
- 		}
- 
-+		dev_sw_netstats_rx_add(net, pkt_len);
-+
- skip:
- 		offset += len + qmimux_hdr_sz;
- 	}
-@@ -946,6 +946,13 @@ static const struct driver_info	qmi_wwan_info_quirk_dtr = {
- };
- 
- #define HUAWEI_VENDOR_ID	0x12D1
-+#define HUAWEI_PRODUCT_E1750	0x1406
-+#define HUAWEI_PRODUCT_E173	0x140c
-+#define HUAWEI_PRODUCT_K4505	0x1464
-+#define HUAWEI_PRODUCT_K3765	0x1465
-+#define HUAWEI_PRODUCT_K4605	0x14c6
-+#define HUAWEI_PRODUCT_E1820	0x14ac
-+#define HUAWEI_PRODUCT_E173S6	0x1c07
- 
- /* map QMI/wwan function by a fixed interface number */
- #define QMI_FIXED_INTF(vend, prod, num) \
-@@ -1024,23 +1031,23 @@ static const struct usb_device_id products[] = {
- 	},
- 	{	/* Novatel USB551L and MC551 */
- 		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0xb001,
--		                              USB_CLASS_COMM,
--		                              USB_CDC_SUBCLASS_ETHERNET,
--		                              USB_CDC_PROTO_NONE),
-+					      USB_CLASS_COMM,
-+					      USB_CDC_SUBCLASS_ETHERNET,
-+					      USB_CDC_PROTO_NONE),
- 		.driver_info        = (unsigned long)&qmi_wwan_info,
- 	},
- 	{	/* Novatel E362 */
- 		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0x9010,
--		                              USB_CLASS_COMM,
--		                              USB_CDC_SUBCLASS_ETHERNET,
--		                              USB_CDC_PROTO_NONE),
-+					      USB_CLASS_COMM,
-+					      USB_CDC_SUBCLASS_ETHERNET,
-+					      USB_CDC_PROTO_NONE),
- 		.driver_info        = (unsigned long)&qmi_wwan_info,
- 	},
- 	{	/* Novatel Expedite E371 */
- 		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0x9011,
--		                              USB_CLASS_COMM,
--		                              USB_CDC_SUBCLASS_ETHERNET,
--		                              USB_CDC_PROTO_NONE),
-+					      USB_CLASS_COMM,
-+					      USB_CDC_SUBCLASS_ETHERNET,
-+					      USB_CDC_PROTO_NONE),
- 		.driver_info        = (unsigned long)&qmi_wwan_info,
- 	},
- 	{	/* Dell Wireless 5800 (Novatel E362) */
-@@ -1228,8 +1235,13 @@ static const struct usb_device_id products[] = {
- 	{QMI_QUIRK_SET_DTR(0x05c6, 0x9625, 4)},	/* YUGA CLM920-NC5 */
- 	{QMI_FIXED_INTF(0x0846, 0x68a2, 8)},
- 	{QMI_FIXED_INTF(0x0846, 0x68d3, 8)},	/* Netgear Aircard 779S */
--	{QMI_FIXED_INTF(0x12d1, 0x140c, 1)},	/* Huawei E173 */
--	{QMI_FIXED_INTF(0x12d1, 0x14ac, 1)},	/* Huawei E1820 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E1750, 1)},	/* Huawei E1750 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E173, 1)},	/* Huawei E173 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K4505, 1)},	/* Huawei K4505 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K3765, 1)},	/* Huawei K3765 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K4605, 1)},	/* Huawei K4605 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E1820, 1)},	/* Huawei E1820 */
-+	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E173S6, 1)},	/* Huawei E173s-6 */
- 	{QMI_FIXED_INTF(0x1435, 0x0918, 3)},	/* Wistron NeWeb D16Q1 */
- 	{QMI_FIXED_INTF(0x1435, 0x0918, 4)},	/* Wistron NeWeb D16Q1 */
- 	{QMI_FIXED_INTF(0x1435, 0x0918, 5)},	/* Wistron NeWeb D16Q1 */
--- 
-2.55.0
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> pci_bridge_has_acs_redir() treats Request and Completion Redirect as
+> interchangeable. On asymmetric fabrics, a control for only the reverse TLP
+> direction can unnecessarily force P2PDMA through the host bridge.
+> 
+> Evaluate Request Redirect for client Requests and Completion Redirect for
+> provider read Completions. Continue treating enabled Egress Control
+> conservatively as a Request redirect.
+> 
+> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
+Core patch seems fine, minus one minor point below:
+
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+
+> @@ -1132,10 +1173,10 @@ EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
+>  /**
+>   * pci_p2pdma_map_type - Determine the mapping type for P2PDMA transfers
+>   * @provider: P2PDMA provider structure
+> - * @dev: Target device for the transfer
+> + * @dev: Client device that initiates the transfer
+>   *
+>   * Determines how peer-to-peer DMA transfers should be mapped between
+> - * the provider and the target device. The mapping type indicates whether
+> + * the provider and the client device. The mapping type indicates whether
+>   * the transfer can be done directly through PCI switches or must go
+>   * through the host bridge.
+>   */
+> 
+
+This hunk does not seem like it belongs in this patch.
