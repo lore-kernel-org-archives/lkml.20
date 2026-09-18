@@ -1,107 +1,195 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6517C4BA1E0;
-	Fri, 18 Sep 2026 10:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD94D4B44CC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789728231; cv=none; b=YoA6qZB19I+BJ/psczwDN8z2qj257trCVUNMiOSz9KA8S+N+RNjA3nghG0UIcB0ARixaM2/mIR7EEof6M5ywG8n56Os+/PZtKztGj2tywRgeMG5K5KRtJjuCkoKRDkKfBLG1xZKm4vpCoq6tR6aOp7hB076EkTlmvWjU7v4Zy2g=
+	t=1789728249; cv=none; b=FdRvIwq2UdN4ajdMtgUyXFVU/NZMDAYPjqMw+8hyNCJzInpa8qVAvIwm0w4mqNsoguJgmbSdasL9lLduFLFATQoSIoESyUGnUnj8383Be86GURNQZygJpMv2HGsexHJGOGcS9siL81vFbzgoxVO5tiZ4+zCk91UtDS803rpqH5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789728231; c=relaxed/simple;
-	bh=4+vvzHzG0DzCFQhtqKXeSvm6fSUrgbGBjid2fbwe/Eo=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=dHIsPEcRQaZVFKnFkwT/0QoDBewptQMA9b9uBhJbnUGbDBkgK0rpHzRb9f4KTDrpk9KppviAZxS3yVZQIoxJZC133/KU737lIabpUa3lAXh3r4igkxfiR43lg3MRc2XWRVwtzmcBgORckW3guOi7KZGRtk6Hxbbc/RqQhped54Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=cjHw+FAK; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789728249; c=relaxed/simple;
+	bh=25KoN45DFO+5TO3s3t48+URwbBPvv7hMTJZwBaafVvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EDeG+vv0S+mDsw9Zd3wDpqZcXXidNT5LTBEAawHpTFBepSIBcVW/idTMwO6cTnXy5mN6Jkskgk1H/JQdI+Mtkstin2ewyLaN++LxB6Wghqq75nUBRZ6t7Ibbwx4/AxVXComxnxsecGogEe7oy10WYnvhJqR3fJmP7b02aKzdRzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dAo1nz81; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="cjHw+FAK"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 23664A927F;
-	Fri, 18 Sep 2026 12:43:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789728225; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cBS9jomX1/O/L/Bls6/vweIhM6Xf83WcCYutAT3K5mQ=;
-	b=cjHw+FAK0UAXDPh1/u+WbaTlhbPLaOdfJucZZGOT8AnHLdrsFYMSc5Mg8qFFS95u4XpWoH
-	A1PhdFlfSGUHQEjpeqHsdTsERgXX71ph3Yx3lblop5TO5zzPbqg6jYSbujGNrtwt3JXWLm
-	StYasiq5pfMnVZuAn+mEu691EuraCZ0HZLaBtFOZJcXhw68hngBRqm/7xOEigOXboQ/AtK
-	T8PoAegE+dNT2IPrP/Q2tMe+ISlwOAhwoOiLxrTiTy5xFIxGhRwUfs7HvmHnZ06qn1zT7n
-	+22uEsKmedgISA3dfhCRJR10IkDaBDY1BbJR5J9rYrKjUWfUywwBXrOmYG8okg==
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dAo1nz81"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=30G0DuF4TUWn1IDJFhjGeypVIwcR3gbMKVFWKjxu2e0=; b=dAo1nz81ooGUcmmsF9HuEj0dta
+	pMpFLqeqOuhCRi8+heqvw1VZr2EnGI6R+Q/dFjshTl+Wj7ZQ62TPZiJJqmyoQZRfKk9RCfsSYyuSy
+	5Sn+SI/vgKjqDVVmWAhM+yPsgm4gcWfXV9aqVbFaGfQND4jOryV37vi+Ryks2eJ0QRsq1lj84GBSN
+	jDKX5tpnPjUqmljBXu07LHxwHkG0vwsCMBnDSXnPgjLmVewezkX3bMTbbAt9NrDDTnPerVDud8cvS
+	lck0RYBJjL4uQELnzFbSUJuffSkJkAeBBUQv465VNQNOMiUM/INFZY4zw8v2/XEMvbhwHjhts13LS
+	jr76IpYQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x7W4L-0000000GyrP-3ijx;
+	Fri, 18 Sep 2026 10:43:49 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 17D27300328; Fri, 18 Sep 2026 12:43:49 +0200 (CEST)
+Date: Fri, 18 Sep 2026 12:43:49 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
+Message-ID: <20260918104349.GL776954@noisy.programming.kicks-ass.net>
+References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 12:43:43 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Cursor <cursoragent@cursor.com>, Doug Berger
- <opendmb@gmail.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 4/8] net: bcmgenet: clean up RX NAPI on
- bcmgenet_init_rx_queues failure
-In-Reply-To: <20260918000732.276506-5-florian.fainelli@broadcom.com>
-References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
- <20260918000732.276506-5-florian.fainelli@broadcom.com>
-Message-ID: <d8b67a2402ec38f7cb374c5b223afb81@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
 
-Hi Florian
+On Fri, Sep 18, 2026 at 01:34:54AM +0000, Jiakai Xu wrote:
+> mm_get_cid() spins forever when no CID is available. All callers hold
+> either a runqueue lock or mm::mm_cid::lock with interrupts disabled,
+> so the loop relies on another CPU releasing a CID within a short
+> window.
+> 
+> That assumption fails in two ways:
+> 
+>  1) In steady state per task mode CIDs are owned by their tasks for
+>     their whole lifetime and are only released on task exit or
+>     execve(). When the CID bitmap is exhausted, the spinning task
+>     blocks everything on its CPU with interrupts disabled, which
+>     escalates to RCU stalls and can lock up the machine when e.g. a
+>     text_poke IPI targets the spinning CPU.
+> 
+>  2) During a mode transition the fixup thread has to acquire the
+>     runqueue lock of the spinning task's CPU to release per CPU owned
+>     CIDs. That lock is held by the spinning task, so neither context
+>     can make progress - a livelock.
+> 
+> Bound the retry loop and return MM_CID_UNSET on exhaustion. All call
+> sites cope with that:
+> 
+>  - The schedule in paths (mm_cid_from_task()/mm_cid_from_cpu()) set
+>    both the per CPU and the task storage to MM_CID_UNSET and retry on
+>    the next schedule in. The plain per CPU value left behind by
+>    mm_drop_cid_on_cpu() has no owner in the bitmap anymore, so the
+>    task must not adopt it as its own CID. A task running with an
+>    unset CID is an already established state for lazily assigned
+>    tasks (see mm_cid_fixup_cpus_to_tasks()).
+> 
+>  - sched_mm_cid_fork() stores the unset CID in the task and the per
+>    CPU storage, which the schedule in path handles the same way.
+> 
+> This also prevents an exhausted allocation from feeding MM_CID_UNSET
+> into the transition bit handling, which would later hand MM_CID_UNSET
+> as bit number to clear_bit().
 
-On 18.9.2026 02:07, Florian Fainelli wrote:
-> bcmgenet_init_rx_ring() registers a NAPI instance for each RX ring via
-> netif_napi_add(). If bcmgenet_init_rx_queues() fails while initializing
-> subsequent rings, bcmgenet_init_dma() frees the RX buffers and page 
-> pools
-> but fails to clean up already registered NAPI instances with
-> bcmgenet_fini_rx_napi(). This leaves stale NAPI structs on the 
-> net_device
-> napi_list.
-> 
-> Call bcmgenet_fini_rx_napi() in the error handling path of
-> bcmgenet_init_dma() when bcmgenet_init_rx_queues() fails.
-> 
-> Fixes: 1c1008c793fa ("net: bcmgenet: add main driver file")
-> Assisted-by: LLM
-> Co-authored-by: Cursor <cursoragent@cursor.com>
-> Change-Id: I45982e0e198a44f3f56b1300f462870462b81108
+This all sounds horribly wrong. It fails to explain why the transition
+isn't happening, nor does it explain how it doesn't utterly
+violate/break user space.
+
+> Fixes: 9a723ed7facff ("sched/mmcid: Provide new scheduler CID mechanism")
+> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 > ---
->  drivers/net/ethernet/broadcom/genet/bcmgenet.c | 1 +
->  1 file changed, 1 insertion(+)
+>  kernel/sched/sched.h | 51 ++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 45 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
-> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index bfb74dca55d6..ef155a170fa6 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> @@ -3167,6 +3167,7 @@ static int bcmgenet_init_dma(struct bcmgenet_priv 
-> *priv, bool flush_rx)
->  	ret = bcmgenet_init_rx_queues(priv->dev);
->  	if (ret) {
->  		netdev_err(priv->dev, "failed to initialize Rx queues\n");
-> +		bcmgenet_fini_rx_napi(priv);
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index e656c7059bf86..6de25f546e3a6 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -3964,11 +3964,27 @@ static inline unsigned int __mm_get_cid(struct mm_struct *mm, unsigned int max_c
+>  	return cid;
+>  }
+>  
+> +/*
+> + * The retry loop covers the transient contention window where a CID is
+> + * concurrently released. It must be bound because all callers hold a
+> + * runqueue lock or mm::mm_cid::lock with interrupts disabled. An
+> + * unbounded wait livelocks with the context which is expected to
+> + * release a CID: in steady state per task mode CIDs are owned by their
+> + * tasks until exit and during a mode transition the fixup thread needs
+> + * the runqueue lock which the spinning task holds.
+> + *
+> + * On exhaustion MM_CID_UNSET is returned, which all callers handle by
+> + * letting the task run without a CID. It retries on the next schedule
+> + * in or fork.
+> + */
+> +#define MM_CID_GET_RETRIES	32
+> +
+>  static inline unsigned int mm_get_cid(struct mm_struct *mm)
+>  {
+>  	unsigned int cid = __mm_get_cid(mm, READ_ONCE(mm->mm_cid.max_cids));
+> +	unsigned int tries = MM_CID_GET_RETRIES;
+>  
+> -	while (cid == MM_CID_UNSET) {
+> +	while (cid == MM_CID_UNSET && tries--) {
+>  		cpu_relax();
+>  		cid = __mm_get_cid(mm, num_possible_cpus());
+>  	}
+> @@ -4030,9 +4046,22 @@ static __always_inline void mm_cid_from_cpu(struct task_struct *t, unsigned int
+>  			else
+>  				cpu_cid = cid_to_cpu_cid(tcid);
+>  		}
+> -		/* Still nothing, allocate a new one */
+> -		if (!cid_on_cpu(cpu_cid))
+> -			cpu_cid = cid_to_cpu_cid(mm_get_cid(mm));
+> +		/* Still nothing, allocate a new one. On pool exhaustion
+> +		 * set both storages to MM_CID_UNSET: the plain per CPU
+> +		 * value left by mm_drop_cid_on_cpu() no longer has an
+> +		 * owner in the bitmap and must not be adopted by the
+> +		 * task. It will be retried on the next schedule in.
+> +		 */
 
+This comment style is broken and inconsistent with your earlier comment.
 
-napi->dev is still NULL here, bcmgenet_init_rx_ring() only fails before
-netif_napi_add().  netif_napi_del() does netdev_lock(napi->dev), so this
-oopses on -ENOMEM at first open.
+> +		if (!cid_on_cpu(cpu_cid)) {
+> +			unsigned int ncid = mm_get_cid(mm);
+> +
+> +			if (ncid == MM_CID_UNSET) {
+> +				mm_cid_update_pcpu_cid(mm, MM_CID_UNSET);
+> +				mm_cid_update_task_cid(t, MM_CID_UNSET);
+> +				return;
+> +			}
+> +			cpu_cid = cid_to_cpu_cid(ncid);
+> +		}
+>  
+>  		/* Handle the transition mode flag if required */
+>  		if (mode & MM_CID_TRANSIT)
+> @@ -4065,9 +4094,19 @@ static __always_inline void mm_cid_from_task(struct task_struct *t, unsigned int
+>  			else
+>  				tcid = cpu_cid_to_cid(cpu_cid);
+>  		}
+> -		/* Still nothing, allocate a new one */
+> -		if (!cid_on_task(tcid))
+> +		/* Still nothing, allocate a new one. On pool exhaustion
+> +		 * keep the CID unset. It will be retried on the next
+> +		 * schedule in.
+> +		 */
 
-rx_queues is 0 in all hw_params anyway, so there is nothing to clean up.
-Drop this one?
+Again, broken comment style.
 
->  		bcmgenet_free_rx_buffers(priv);
->  		bcmgenet_destroy_rx_page_pools(priv);
->  		kfree(priv->rx_cbs);
-
-Thanks,
-Nicolai
+> +		if (!cid_on_task(tcid)) {
+>  			tcid = mm_get_cid(mm);
+> +
+> +			if (tcid == MM_CID_UNSET) {
+> +				mm_cid_update_pcpu_cid(mm, tcid);
+> +				mm_cid_update_task_cid(t, tcid);
+> +				return;
+> +			}
+> +		}
+>  		/* Set the transition mode flag if required */
+>  		tcid |= mode & MM_CID_TRANSIT;
+>  	}
