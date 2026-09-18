@@ -1,102 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB043F39E4;
-	Fri, 18 Sep 2026 21:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85C93F39E4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767855; cv=none; b=azkf0Zp1Ozr89/j14Fhz/lEqdQzAEkUJ7mlLnOYpbOjRQLywmVkW6c9+upmlG19ciKXqBVOiNZrem1qLboXZ82L4h2MdzVtAjuTmoTbHsg/VkNG1QAr/o/IF4zmCpcW4lA7QRHF/iuLbmDPRcLnd0pDRCToNH0y3C+Zr+IwIVmw=
+	t=1789767884; cv=none; b=CfmZ47qSc8ZDfhuq3ABI1ys+s7leRcb5Y+DnGd8Ol31KdpDZgZeLkiNpgjtMETKW9gnuLNKKfP8WkTZoUwcd/0sDFJ926CAPFrN6Ru+sRbvGGra8BN9SsK3TetTSAJmOsuks8nuw2VW/RM+yMPGV0TeNul6X+xQjt0zl66lMlWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767855; c=relaxed/simple;
-	bh=lGcZs9Ya685F4IECF8X0D5dii1TMdSeuiUW9ZnB0SuU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qM+P8wrSlh9v6j7TL3b7zr8P+wHZcC4xtkx2ByjKnggDdrfKz2wutT1EGyfZCILOHPGm9AhhRSaRLSsMm5YWMEkmsFjGA9Ry3SxFCvkE7CPAwzjMrM8WWGRyRQJYazrT6rvGVioRQ8DeoBq0eytbjqqJMRkKTbsAH2NpwHT8stA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIqIr83l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789767884; c=relaxed/simple;
+	bh=CDs76baU83eu9YSB4XXMekCzKsbmc98nJgjLbBum6Ho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DTu8ZkwNiQYk6UXweNb8LQbhUpSPf5qoaK1cNK4cyKfwK2WPRdkRUhlacoxuoijpFW8xVjth07WEpXba2K7m/FpRdUtHF46/rORckqO1wTjivWjWUXNEp9cqWFBD02t4GyO7GtdyXJBLncXiArXnsENbI/WHfOqHb9vuenKjB1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIGpJNV/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIqIr83l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC6D1F000FF;
-	Fri, 18 Sep 2026 21:44:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIGpJNV/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4458E1F000FF;
+	Fri, 18 Sep 2026 21:44:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789767854;
-	bh=j5IG9Rqy0v+njwZWEYcAlUJQDLI7QibMVy2LlvQ4GpE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IIqIr83l9kya388yLaqvpfg+q9HbEyZsQDdFgpJFCLvoJxuY5G0bbsuOHd/Sb/RXP
-	 3lrhoyKHdPCqQrl1eZ/Iwg+ykLzyYbCS6G4AZPbfgWh05ZUaT0YefFz64xtO7XrrDV
-	 D0CvvVI7WqfcJMEPbT0/Xu55v/Y49I5mT/TWoy4y/zf68ZTM/gsh700Fm27aV3Hwf4
-	 SKh8Qgwu1uXDR4dt0E7U4Fp8kuxdBEd146dnUPxMldoREWCuH+e1KDGg8cydrggAnf
-	 HRYzsNkW2Zw178WBoEXmRiYeamu8tP3p2g/FQdnipYJG/Ru0dEC0en5K71uFBfPjIP
-	 LNtUKmrOYgA6g==
-Message-ID: <91b23d5a-b923-48da-9ab5-bf2aabe1afca@kernel.org>
-Date: Fri, 18 Sep 2026 22:44:12 +0100
+	s=k20260515; t=1789767883;
+	bh=55kCVMsbTazCq+1cTovBkH53ynwUrxyYXS6l9My9w+8=;
+	h=From:To:Cc:Subject:Date;
+	b=oIGpJNV/8v9VRDSUfiGhmPOivTFJ7a82xowvZKG7VE7y+q9wEmYhdwo+N+rsBgcWV
+	 KSOlyXokLvaKPxL7ByKdzU43kqvCnpWtBGenge9b0uh9Rzw9YP09wOcoeDgHRS7xQo
+	 qHNYIzLqwML0IXNXdtfjDF4KyqNV9gOX8JQ8CGfCPhQEzHiMqsotBpTt/lYQe1V8qp
+	 Y5eCcacCOtgkEHzfHfp2HPIuBqfzLW00YncwfsurvwSrEz4EYmY3pKOVsqY4BoMiF1
+	 1SaR+1ZesHT1WuA/PhkgB4kY7874eMkuJ5xoWSCQWw+Qg4UY3alOIyUbnctUxkrAJF
+	 GTKOpSmK3zDgw==
+From: Thorsten Blum <blum@kernel.org>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/sysfs: Use NSEC_PER_USEC for wait time conversions
+Date: Fri, 18 Sep 2026 23:43:41 +0200
+Message-ID: <20260918214341.271211-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmem: u-boot-env: Fix mtd reference leak in
- u_boot_env_probe()
-To: Wentao Liang <vulab@iscas.ac.cn>, a.fatoum@pengutronix.de
-Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- rafal@milecki.pl, srini@kernel.org, stable@vger.kernel.org
-References: <20260917123839.2151503-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260917123839.2151503-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2899; i=blum@kernel.org; h=from:subject; bh=CDs76baU83eu9YSB4XXMekCzKsbmc98nJgjLbBum6Ho=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlrN/QWHeTkUTYwKVg5/2u+zvzZKoUhZQavGrfOu/yH4 7HNyra3HaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRnz8Y/qelxa5uK9ua0SF5 mn/WPvXWnD9rsxOWpUxYu+1e1ccfvsUM/5N3dgSeOxeVdi4/Rpol++KUFOk0/x9+GW13e598v3P /EiMA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
+Replace the hard-coded conversion factor 1000 with NSEC_PER_USEC to
+clarify the units. Fix the comments describing the conversion from
+time-base ticks to nanoseconds. Also rename rem_us to rem_ticks since
+the remainder is measured in ticks.
 
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/powerpc/kernel/sysfs.c | 35 ++++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 17 deletions(-)
 
-On 9/17/26 1:38 PM, Wentao Liang wrote:
-> of_get_mtd_device_by_node() takes a reference on the returned MTD device
-> that the caller has to drop with put_mtd_device(). The probe function
-> returns early when devm_nvmem_register() or u_boot_env_parse() fails
-> without releasing that reference, so add the missing put_mtd_device()
-> calls on both error paths.
-> 
-> Fixes: d5542923f200 ("nvmem: add driver handling U-Boot environment variables")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/nvmem/u-boot-env.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/nvmem/u-boot-env.c b/drivers/nvmem/u-boot-env.c
-> index ced414fc9e60..893fbd2a8520 100644
-> --- a/drivers/nvmem/u-boot-env.c
-> +++ b/drivers/nvmem/u-boot-env.c
-> @@ -52,6 +52,7 @@ static int u_boot_env_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct device_node *np = dev->of_node;
->  	struct u_boot_env *priv;
-> +	int ret;
->  
->  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->  	if (!priv)
-> @@ -71,10 +72,16 @@ static int u_boot_env_probe(struct platform_device *pdev)
->  	config.size = priv->mtd->size;
->  
->  	priv->nvmem = devm_nvmem_register(dev, &config);
-> -	if (IS_ERR(priv->nvmem))
-> +	if (IS_ERR(priv->nvmem)) {
-> +		put_mtd_device(priv->mtd);
->  		return PTR_ERR(priv->nvmem);
-> +	}
-> +
-> +	ret = u_boot_env_parse(dev, priv->nvmem, priv->format);
-> +	if (ret)
-> +		put_mtd_device(priv->mtd);
->  
-> -	return u_boot_env_parse(dev, priv->nvmem, priv->format);
-> +	return ret;
-
-consider devm_add_action_or_reset() that should cover one more case this
-patch missed.
-
---srini
->  }
->  
->  static const struct of_device_id u_boot_env_of_match_table[] = {
-
+diff --git a/arch/powerpc/kernel/sysfs.c b/arch/powerpc/kernel/sysfs.c
+index 329c1690b5ed..2e3ef6df8837 100644
+--- a/arch/powerpc/kernel/sysfs.c
++++ b/arch/powerpc/kernel/sysfs.c
+@@ -6,6 +6,7 @@
+ #include <linux/init.h>
+ #include <linux/sched.h>
+ #include <linux/sysfs.h>
++#include <linux/time64.h>
+ #include <linux/export.h>
+ #include <linux/nodemask.h>
+ #include <linux/cpumask.h>
+@@ -245,10 +246,10 @@ static unsigned int get_idle_ticks_bit(u64 ns)
+ {
+ 	u64 cycle;
+ 
+-	if (ns >= 10000)
+-		cycle = div_u64(ns + 500, 1000) * tb_ticks_per_usec;
++	if (ns >= 10 * NSEC_PER_USEC)
++		cycle = div_u64(ns + NSEC_PER_USEC / 2, NSEC_PER_USEC) * tb_ticks_per_usec;
+ 	else
+-		cycle = div_u64(ns * tb_ticks_per_usec, 1000);
++		cycle = div_u64(ns * tb_ticks_per_usec, NSEC_PER_USEC);
+ 
+ 	if (!cycle)
+ 		return 0;
+@@ -324,15 +325,15 @@ static ssize_t show_pw20_wait_time(struct device *dev,
+ 					PWRMGTCR0_PW20_ENT_SHIFT;
+ 
+ 		tb_cycle = (tb_cycle << (MAX_BIT - value + 1));
+-		/* convert ms to ns */
+-		if (tb_ticks_per_usec > 1000) {
+-			time = div_u64(tb_cycle, tb_ticks_per_usec / 1000);
++		/* Convert time-base ticks to ns */
++		if (tb_ticks_per_usec > NSEC_PER_USEC) {
++			time = div_u64(tb_cycle, tb_ticks_per_usec / NSEC_PER_USEC);
+ 		} else {
+-			u32 rem_us;
++			u32 rem_ticks;
+ 
+-			time = div_u64_rem(tb_cycle, tb_ticks_per_usec,
+-						&rem_us);
+-			time = time * 1000 + rem_us * 1000 / tb_ticks_per_usec;
++			time = div_u64_rem(tb_cycle, tb_ticks_per_usec, &rem_ticks);
++			time *= NSEC_PER_USEC;
++			time += rem_ticks * NSEC_PER_USEC / tb_ticks_per_usec;
+ 		}
+ 	} else {
+ 		time = pw20_wt;
+@@ -446,15 +447,15 @@ static ssize_t show_altivec_idle_wait_time(struct device *dev,
+ 					PWRMGTCR0_AV_IDLE_CNT_SHIFT;
+ 
+ 		tb_cycle = (tb_cycle << (MAX_BIT - value + 1));
+-		/* convert ms to ns */
+-		if (tb_ticks_per_usec > 1000) {
+-			time = div_u64(tb_cycle, tb_ticks_per_usec / 1000);
++		/* Convert time-base ticks to ns */
++		if (tb_ticks_per_usec > NSEC_PER_USEC) {
++			time = div_u64(tb_cycle, tb_ticks_per_usec / NSEC_PER_USEC);
+ 		} else {
+-			u32 rem_us;
++			u32 rem_ticks;
+ 
+-			time = div_u64_rem(tb_cycle, tb_ticks_per_usec,
+-						&rem_us);
+-			time = time * 1000 + rem_us * 1000 / tb_ticks_per_usec;
++			time = div_u64_rem(tb_cycle, tb_ticks_per_usec, &rem_ticks);
++			time *= NSEC_PER_USEC;
++			time += rem_ticks * NSEC_PER_USEC / tb_ticks_per_usec;
+ 		}
+ 	} else {
+ 		time = altivec_idle_wt;
