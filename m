@@ -1,195 +1,152 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D0C4BE450;
-	Fri, 18 Sep 2026 10:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF1D4C042D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726050; cv=none; b=Pg1sBKyBdfiyobfEayPy/PT2NOKooqrT/v9ikJPrQR+Sh/eeq6sunnrMBzQvmWUYAfu/oURuvVeb9VXWRFyRCV+qS16r0tXu+3KGbE4Zbt5xhzvd09Dmw4msFlvQXhsVa771WYYHZv4p0Ct3FvmMsEIdlco0kVfbXaAJQOI76TA=
+	t=1789726063; cv=none; b=duDW/9Z9sF/0oWrDZ3i6ByKonpuOVxnzuvTaYEGythZGbj4xYnb9mUOKj0T/5p+XudxPhLac519AXKtZdKJjczM9FbPG/fiEzw+gXOefDwM1Y2N1SK8DTYdAkNx8QWxSJJusqXGu3MOEzSiRTnEbIkIHssM4uhuWaRP5zgC7ZGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726050; c=relaxed/simple;
-	bh=qQAXMpl6kaEpRcN4/tOcZYMxGs17v3oKNSI/FOISC9k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r2Pyn6bmY7nmk/1PDYJMm9fmt8VJ0LE58hE+qfBM3kMRzJRPsHpL90rydNuLaSfZUFuqTzqtAW+YazzJ61+1kMwsnXs1A4geNqiypLmLAcja5E/gDsCzVlMDstgo/P9/Qu+BW1yQpq6qwAwkxNKLhSdOMkD1g28VcsCio1eucx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXXDpTDa1qEnAICA--.4167S2;
-	Fri, 18 Sep 2026 18:07:15 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: Petr Pavlu <petr.pavlu@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Shyam Saini <shyamsaini@linux.microsoft.com>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Kees Cook <kees@kernel.org>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH v2] params: serialize lookup_or_create_module_kobject()
-Date: Fri, 18 Sep 2026 10:07:12 +0000
-Message-Id: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789726063; c=relaxed/simple;
+	bh=sXtgV8XIR6GTJEx5iIjPWXzdIUReRNQpTPU9/R0McPA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N8ukf4xOoACe7FT7C8iPJeev+4xsvZxcjpQLD1Kr3kd2zgw9zWqpx07IfjbGcV9PfWQ4KczoS8YzYc5DwMkOPDaphGNtjY8dD+XvI84vR2n4HYaIchVvxcpVBtVZKSwkSEa6UpeuEBo1KJ3DJG8QWDI5EVkdIrHsif4QIb4GMDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lVuMsVk9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PwlmQd7h; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lVuMsVk9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PwlmQd7h"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9eE9V522593
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:07:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cTJkcejpzyl7UHyeLK4klNTLMnqbEC9yIm+DzH4e1kY=; b=lVuMsVk9uP1WfMif
+	E1VDzNRvbs09IIFxDOm+TLCQLnkYGKE9pzb29KEMJkbYJGMvQAVq6BmtUwiZ/U73
+	+rosOfuy0ExE7nMz/T44XfjlGvZUMk0xMkPOb3mjYD26x/VHaAVUcFHrNsGIGDHJ
+	SZ5TOUY6NHm7JvVVC1ndYmGr3qh7/XU2jmUK4c9697TUqy7u0HEpvaDzrHssGqP/
+	3PBtAse4iP2wQ50Y4UQJQhly9ACcUnPR3fX0WfPwn8dnqcStNp+IEPkddfkUDBuw
+	zKJ5mZrwZGzqnLz9bJHwB5i8KY6FYhhuc/pvI/Qu0b+N53m2yfFwY4i5nExn9ggd
+	LSWfrw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grnqebcxn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:07:40 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9103df70f2fso1541286d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:07:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789726059; x=1790330859; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cTJkcejpzyl7UHyeLK4klNTLMnqbEC9yIm+DzH4e1kY=;
+        b=PwlmQd7hbvDlCT/mqIrUhLrFkmxEyTTnS4EQKwMBrMIPFZGivnImdPFxO44DA08I1O
+         5jWJc1KxRdMSGMgD+FBOXUWebDqbq70s5LdLFPMPufE3EXvaaxANVwLnhuXYAdCBlNCQ
+         3fzQeVtqKuZ5tuH3g7BxEoZgcqj4dNtxY62ChEZr16QhwcbFQrRZXEpCiCCDPhjq9Pgi
+         aKdQYvfvnITkZjMTO0ZvcGMlQEU45YO9WVVmd3r1jTCv03FW+YNOTDqOyygJk1KijoAM
+         XrzvXLAgOq5qDlLPdJH6Ee364F2ayPdO7oYN01SitvEUV0IcgEC2pA7og9olUzbaf5UQ
+         yRow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789726059; x=1790330859;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cTJkcejpzyl7UHyeLK4klNTLMnqbEC9yIm+DzH4e1kY=;
+        b=cE/zwkeMfqIeUNAZioFqyaxzlj0upJxOWCWrQ9LUHVfJ5i8a4PCzbmaPn4/vXJlfCy
+         +OkcoWujHx2N4ugI02f7XKaObIvbHIvwGamAi7F6dUpS8nupLXeFKMAftYQ9Xf2BhbOh
+         iSVGNVw6/tEgzBe6C1zZRCbK3MjLfqoauz8YK/NIBi2yxaT/Z8NvuEN7xPKWe/SwnAOK
+         sw//mjJ6SLzlMMF2azxcWSQ8X6O0p1FtMsiW0w1lxZa7ZGgnjWCUAPwz0b/cKfTNCTvR
+         PAORientjvxHqulzalzZyFIj7WiDTiZ5qtJ38G/HaVXj1b0TRtsFmlHtZ+wwDbwsAGfi
+         HyhA==
+X-Forwarded-Encrypted: i=1; AKwUvBya3y6jzxyBU7aYtrcysAOkk/GswrCCJ94XNmEYhqShPPDH145vCQEOeSUPV2dEizRH+Uj/1i4agb8uks0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUcdbKGCCT8ZUagypRNGcEQy4+DkhBKno3KO0CRCtf73Fqvtf6
+	N6tbEDE9sNpcRGsL6ZATrIYoJW9AEq+VcWC/057ddI0phZ8MnI/ob5J6UGrWdY/tD56K5mod2/3
+	ran0AgUuUU16l0lK9gvz85Pf2gcdzGVRDnlaISMd1wiJ1ArHgEtJ0auRAJVi+AB7DjmouK0vDez
+	g=
+X-Gm-Gg: AYBFou0resJq79RFds6+RDLqSiFIj9UOC0h+YblJIhD6W2Bo5aXcuieciAv7N4Lxbd/
+	5+blcBkYnvmxM48lVV+vLjnm9erEsMYaiLG+gHBmyscEZROaxok4ykkkkmxkKN6B1KwjhkHjopK
+	W21i85SmB0mWfnREFzeW4ICx7rhPe5PAeL6432cTrfd3J7ASh8qIzkLRbM5GxhHg4n63MfR2Ry8
+	FdEYGnxaWszmJXqlIQy8nVJ6u2gkhZCIU4fv6XYCt3eD0wb78B8N0W3qxKUtSlbaqu/1LPeI1JJ
+	H0gT2+dvOmpL1onTJP4xenCgCxE8JfkasNtKvMWvGYYCGja3cpgfYz5Ta4ks5P4t0rhG15/84Rm
+	CDrYpShVdm5MSh7XRqXu8Bg==
+X-Received: by 2002:ad4:53a4:0:b0:912:c74:ea6a with SMTP id 6a1803df08f44-91254c2f01emr25542466d6.1.1789726059436;
+        Fri, 18 Sep 2026 03:07:39 -0700 (PDT)
+X-Received: by 2002:ad4:53a4:0:b0:912:c74:ea6a with SMTP id 6a1803df08f44-91254c2f01emr25542146d6.1.1789726059027;
+        Fri, 18 Sep 2026 03:07:39 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa58d56a5dsm650749a12.3.2026.09.18.03.07.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 03:07:38 -0700 (PDT)
+Message-ID: <a744dd21-b957-497d-bb45-a0cf0998f52c@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 12:07:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXXDpTDa1qEnAICA--.4167S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr13uF4UWr1ruF43Aw15CFg_yoWxGFW3pr
-	WYqrZ0k3y8XFs7Ca97A3WkZ34fX3WkZrW7WFZ3Kw1avF1Yyr1vvFnrKrySvF1UA340yay2
-	qF1UArs0kFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
-	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbMKZJUUUUU==
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/15] arm64: dts: qcom: sm8350: Move PCIe phy and
+ GPIOs to root port node
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260917-root_port_v2-v2-0-6272b7caae9a@oss.qualcomm.com>
+ <20260917-root_port_v2-v2-9-6272b7caae9a@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260917-root_port_v2-v2-9-6272b7caae9a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: JZ8JjSoNb6I1plLNkkzYXqaVpmTJCsi8
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6aad0d6c cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=6pHcnep46kEejBPVP2gA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: JZ8JjSoNb6I1plLNkkzYXqaVpmTJCsi8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfXx7J1WPc/LqaF
+ qxLQbAyN9le577fynXxGOlnjWCyR5AJJ4IP8es81SmdCRwIalGhWPRBft7wQXYQmjZrEPe+S2tR
+ 3sWuSqMhOtIZflg3GVTwuzyHtT8eE4+A2pScN0ngCK6/eACAcp6Q0I7zqewuCa07paCL3jv96Un
+ 5MwUdBFrOLMJ6754/9uuYri1IAoT2fb68sSCMfF2wNrliuXixSZlKsIIYJ5yKJLnGOcu1B14w98
+ JdH1Kf9omRqvZTNFriJGQiMAEo3t23hgfNSUKcAhroDPKlpkJIXExYBfCKm0Syj5twedFoLqLrc
+ 4wbDifRWhoOfXUQuXu7fJm88bSAOruOfJM/3H2oyt6PVu+H7pHTkBcrETOMvmI8cI8XzsL24Haz
+ y3mTbxF/9jEEOTDNL5n2T9FL8T80Um8B70mfNc+7sPF95RwRt/2KAnkFQytMGlcoB6jig0Gv/gP
+ Rf2OwrFNaTZ1vslDJMw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX+dEpMadu9oxk
+ A97T2iKfledTSKosX9k/ndc0Pw5yPkGhGilqkzox4qcMStfCxl0oUk4uLmeRE1bLDU/7kLrT7nw
+ pNFqg11+Xg3eFDFbqCGrx0HGG7ujHAE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180140
 
-lookup_or_create_module_kobject() first looks up the module kobject with
-kset_find_obj() and, if not found, creates a new one with
-kobject_init_and_add().  The function is called at runtime from
-module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
-module_kobject creation"), which means two concurrent driver
-registrations for the same built-in module name can both miss the
-lookup and race to create the same kobject.
+On 9/17/26 2:25 PM, Krishna Chaitanya Chundru wrote:
+> The PCIe phy reference and the perst/wake GPIO properties are
+> per root port and belong in the root port node (pcie@0), not in the
+> RC controller node. Move phys and phy-names from the controller to
+> pcie0_port0 and pcie1_port0, adding labels to these nodes to allow
+> board-level overrides. Move perst-gpios/wake-gpios from the
+> controller overrides to the respective port nodes in the board file,
+> renaming perst-gpios to reset-gpios to match the binding used in the
+> root port context.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
 
-The loser of the race gets -EEXIST from kobject_init_and_add() and its
-kobject is removed from module_kset by kobject_add_internal() before
-the failure is reported.  The error path then calls kobject_put(),
-which invokes module_kobj_release(), but that only completes
-->kobj_completion and never frees the dynamically allocated
-module_kobject, leaking it (96 bytes) along with the object having been
-detached from the kset.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This is triggerable by unprivileged users, e.g. by concurrently issuing
-the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
-"raw_gadget" driver on the gadget bus:
-
-  sysfs: cannot create duplicate filename '/module/raw_gadget'
-  ...
-  Adding module 'raw_gadget' to sysfs failed (-17), the system may be
-  unstable.
-  ...
-  unreferenced object 0xffff8880188dacc0 (size 96):
-    backtrace:
-      lookup_or_create_module_kobject+0x47/0x100
-      module_add_driver+0x73/0x1b0
-      bus_add_driver+0x1d9/0x340
-      driver_register+0xde/0x170
-
-Fix it by serializing the lookup and the creation with a mutex, so that
-the second caller finds the kobject created by the first one instead of
-racing with it.
-
-Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
-Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
-Cc: stable@vger.kernel.org   # v6.15+
-Assisted-by: OpenCode:DeepSeek-V4-Flash
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
----
-V1 -> V2:
-- Use guard(mutex) to hold mod_kobject_mutex instead of the explicit
-  mutex_lock()/mutex_unlock() pair with the goto out unwinding, as
-  suggested by Greg Kroah-Hartman.
-- Fix the multi-line comment style at the mod_kobject_mutex
-  declaration ("/*" on its own line).
-- Add the missing "Cc: stable@vger.kernel.org" tag, as both Fixes
-  commits are in v6.15.
-- Add the "Assisted-by: OpenCode:DeepSeek-V4-Flash" tag per
-  Documentation/process/coding-assistants.rst.
-
-V1: https://lore.kernel.org/all/20260918013445.1849655-1-xujiakai24@mails.ucas.ac.cn/
----
-
- kernel/params.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/kernel/params.c b/kernel/params.c
-index 8b25133fed242..a45a0201cb4fb 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -3,6 +3,7 @@
-  * Helpers for initial module or kernel cmdline parsing
-  * Copyright (C) 2001 Rusty Russell.
-  */
-+#include <linux/cleanup.h>
- #include <linux/ctype.h>
- #include <linux/device.h>
- #include <linux/err.h>
-@@ -20,6 +21,12 @@
- /* Protects all built-in parameters, modules use their own param_lock */
- static DEFINE_MUTEX(param_lock);
- 
-+/*
-+ * Serializes module kobject lookup and creation in
-+ * lookup_or_create_module_kobject()
-+ */
-+static DEFINE_MUTEX(mod_kobject_mutex);
-+
- /* Use the module's mutex, or if built-in use the built-in mutex */
- #ifdef CONFIG_MODULES
- #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
-@@ -754,6 +761,13 @@ lookup_or_create_module_kobject(const char *name)
- 	struct kobject *kobj;
- 	int err;
- 
-+	/*
-+	 * The lookup and the creation must be done atomically, otherwise
-+	 * concurrent callers may race to create the same kobject, and the
-+	 * loser of the race gets -EEXIST from kobject_init_and_add().
-+	 */
-+	guard(mutex)(&mod_kobject_mutex);
-+
- 	kobj = kset_find_obj(module_kset, name);
- 	if (kobj)
- 		return to_module_kobject(kobj);
--- 
-2.34.1
-
-
--- 
-Crash report (raw_report0) of the syzkaller crash this patch fixes:
----
-BUG: memory leak
-unreferenced object 0xffff8880188dacc0 (size 96):
-  comm "syz.3.569", pid 12998, jiffies 4294992047
-  hex dump (first 32 bytes):
-    12 4e fe 86 ff ff ff ff c8 ac 8d 18 80 88 ff ff  .N..............
-    c8 ac 8d 18 80 88 ff ff 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 8dccd85e):
-    kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4696 [inline]
-    slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4996 [inline]
-    __kmalloc_cache_noprof+0x1bf/0x420 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:5559
-    _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:991 [inline]
-    _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:1312 [inline]
-    lookup_or_create_module_kobject+0x47/0x100 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/kernel/params.c:761
-    module_add_driver+0x73/0x1b0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/module.c:46
-    bus_add_driver+0x1d9/0x340 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/bus.c:767
-    driver_register+0xde/0x170 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/driver.c:174
-    usb_gadget_register_driver_owner+0x50/0x140 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/udc/core.c:1752
-    raw_ioctl_run home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:596 [inline]
-    raw_ioctl+0xa26/0x1830 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:1307
-    vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
-    __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
-    __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
-    do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-
-<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
-
----
-
+Konrad
