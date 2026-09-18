@@ -1,306 +1,202 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8863B1022;
-	Fri, 18 Sep 2026 07:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45882499F07;
+	Fri, 18 Sep 2026 08:00:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718396; cv=fail; b=lHtjfCBToMVmbvSKzRevrD/+NTTrmArNGm657JgHH36lzmEMSodXoHSCIWB5uDJn+gpU91zYZi6QHSlTKSy8Lv2/gB9UffYan2lOf4op6SWBSUNiBxHERq63KB1xkuyD2Y9aoFEhHNFJqFZQ19hUAPlhC5/aRQAwfrWa/27Qs/w=
+	t=1789718420; cv=fail; b=qwWIhouAaQavCWB3nS9U069TamauCg45g5LF3q17o8BcKsSR0yi8DAppLMGxY75ZaUuw+sSSrKbRvN0MIA04ZLBj0VcRCherMPhRUNpDxeNSUTea+l+JjL5JWf829NYnFv2VT/0GNKRMSZH6Ni1wcQdOzy27frJ3sR+4ILMEyH8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718396; c=relaxed/simple;
-	bh=6nIoZuqZRSXvzfoR/cdJPvMBI5sqFtKkX+4RLQXbvqw=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cyodbx46nzTe0ke5+odisCuB56HFwKXW1U4mSR+28FOHrpROX1VLIIMbD3idyDhFFLMaBrQu9l0e8dcseL6ZzIqGNqFZ72m8XP0wzKQEyJPgO1eGXvEgVstk8nGFcsNknHgIdMcI4m6xKBmj8VIq2xxz9FXv8AirVyy5V4arl2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=T6T6UENI; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=rY7gZub4; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1789718420; c=relaxed/simple;
+	bh=f7j/m6YxgUUGLqxryUVkEdTzg++SiJlWamR7UGNsQoo=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=u7WHXG/YO6UDq3nPWajmHbdBlkpy5LCw6rIWVkqSlxkVSWq+XPC1HUVGlaqM4XWFjTDvE6Bll2126DVjqN4xAJHlduCJ2Q/Ohq7+eCjXvH8WzuFQw14yh+wQzfxOCtSlXB5rUUYVNESvpnDDDFZrCqTKpU8IBVYRhK6Vo3wGNOE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FUgsPgVA; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="T6T6UENI";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="rY7gZub4"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68I6cubw885058;
-	Fri, 18 Sep 2026 02:59:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=QjmfEWWaPDUZ2
-	dnwP8uMK+tJaeuzmAVnNgJ3Pds2BjA=; b=T6T6UENISH2Hyafst7YDiLEIlM9p5
-	ff/MiDWkGlBLmx7GvmbxYZzRDRQRMd9MFriepnrZWBInGdC3RzJL9Kqaw8NKts5/
-	QfzAJDeZwVX/aGMgGzTiNFxMuuzK33B1+qama8l2GQv73Gk32DUsZ6ivPVTm7j2H
-	wKP81gkq3rqJJMvrK4dLmGafE//C59hghntoN60+KDzm2I9WvFqVNVOlUPTLR/Ok
-	PXpu7o9Dobijxl2mcUiyUZyaM/4AhwXZiOQAiJFMngBFY6RmMtG54rwmEPdz8NlB
-	VKEHIb3ByuMfk8Y73C7OGToScDDr1seqcTyvinptdXWxRht0k2peaVA/w==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011031.outbound.protection.outlook.com [52.101.57.31])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4grr9hbdnv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 02:59:37 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FUgsPgVA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789718417; x=1821254417;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=f7j/m6YxgUUGLqxryUVkEdTzg++SiJlWamR7UGNsQoo=;
+  b=FUgsPgVA0bCpdtqgzDq9lUAhXqv+KGKjKHNboTz9ovAs7rC8FCQDuao+
+   Qo+rCH8x1/s1mxnsEuvYE6GQFuiFTSyD6M2TakhQkXfXL0maJadR5emi0
+   WqCNgMQKW1NBkWZbu3g1L7DSo8J8lvqiI7GQ1cyKkGm7FE9Z9lfuHx1vJ
+   1AEPXBMU+hOa8Xt8jp74TGLp1u3n/pt9J3FwP+WyhDNZZAj2UWQzRXd3x
+   bgFjX21+cKzrjSQbhGnesOLrbqQL9SJZNHvlI82lCjBGR2pUOnMuBXvqd
+   SzjDPFIoEuGILrZ/SrkHJUHREej07cwjkq93oqSs4+hN+Wxjp0l1hO8H3
+   Q==;
+X-CSE-ConnectionGUID: 861mcAsBSei1TD19HYfTww==
+X-CSE-MsgGUID: M6lPU7I1Qa6+ltSAU+ZXvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101554398"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101554398"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:00:16 -0700
+X-CSE-ConnectionGUID: W4+/GpAHR3mfGVcDJkE9Ug==
+X-CSE-MsgGUID: dXKXh3P0RA228IYR5SHTXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="299373237"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:00:16 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 18 Sep 2026 01:00:16 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 18 Sep 2026 01:00:16 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.49) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 18 Sep 2026 01:00:15 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a0F+6Ty51f8b15Z4ykYWH49H6Bg5YpgapVspgoqtUfK3BGwFfhXup+C0gFUAIQ/0AxCn5I0vx789wrFUcq9FK+3qTGHCK17r2ArL0aNWwChWM9rgk84fahGY0nGYvij7YbkkQ33xlEZ+d6nKP+IhJgJIK0Ed0h1RWHsHHqP0KnVAi5MjDGNTzT3vz/1E6mpqUPquTHlaNsLSgF8sEkjUTsi2ObN2eLZw/tsqJMvD3Ev+X6X9VQg9fUlJcgfwxMoxNOjiPKfNQ910y32Qn0bBdsSgdQwxYF/KDRJP8mRCEO78OpScfh6M08/HfAP7csyegeh8ucKzp81O9NwoxW7Szw==
+ b=Y1sx2vfthDeTxHJ8waBSIhGUnCIhBls7PNk20WHKuzr9cOWHOLs0udI4VEj3E9QxQtEOeqNlmMsiJqznw2WVxuBDpTiSnCyUUOBweDI+G+P9lKrqFp2J3Py+tRWOiTbgAkTCm55FxOlCt4ve6lF3wX2aBHyroWEEfNXH1wx40QMaEtdeqCT0xk8D0spAT0uVriueYAzqkEXsrg/I9QCGnjpUJwBrwvZag8ejq8a/UNSLk3ekWC1vgEHxEtVwEKugWuIzSPPZ6B7GoZ8pbydwZ7xmebxH09fBqlV9nQvXVOTLKbrTSfanyb+b+I8vakGjuOCt+lleMSQFijEqbZ011w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QjmfEWWaPDUZ2dnwP8uMK+tJaeuzmAVnNgJ3Pds2BjA=;
- b=MwOs6wHjxEkG5o/+PgqIL5QGKuwPkA5l49ZAJZIZ+bWNdcK/50mcj5W/Rmf1ExfjzWDESncOTXD+SZSwpG/lSoMoQMbSvUJSnNyQV0pDpwWKlZNoPFFlH6HSUyhltr3n66e/2TUnA+jiqVrqehWD0uSPpVH6Bi9DfkvFZXNwhlmc9Gsy6SG27NyYXkNybm43+OrOgJ1K0sdIIYsbNUw5TSmKv/Py318eRGbQS2F4n+oOCQ7NVr2p9HMgjSNnNWwufnHbzeaRoR11e92xOgA/+fOISYrGqAiRUgxtvRc0Z3EWhIxZ21W0SoIGvrG/MmHD47wNUCLWvJK8ZtbBZmdImQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=lunn.ch smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QjmfEWWaPDUZ2dnwP8uMK+tJaeuzmAVnNgJ3Pds2BjA=;
- b=rY7gZub4d5es9lawDX5Ae+s58wnN66WlJJpOw1XAW7gWcAEVBmc09hFiADTbLTkXT9aM3isV/wGdqSzuuyLZiSn5aLtFIvcj1iLG2h3BlRTbWBhDPpDqUPuPxGx+8PvsKW+DhN440UoSOCOwHZZ4MVlWDp7tqbL2Nf0MxvSxqYk=
-Received: from BN9PR03CA0717.namprd03.prod.outlook.com (2603:10b6:408:ef::32)
- by DSVPR10MB997889.namprd10.prod.outlook.com (2603:10b6:8:3e1::17) with
+ bh=Af0RswwoKa/qCGkdix3WK9jlQ2XSyUYhMjR1JKS+xbY=;
+ b=uPBE6O7xIHZB2mCpM1j7r+9HUaGHwX0GBtaoJR7cGX4KKE1Dh4MYEhfX/72ddltMRQITM9p+u1zfYi7Q6y7iJzQuFJ3sKPiKI+WlmlXM2PNCUhOLtQbIYUuPtg0G9Ga9D0RhEYNMa+PrjzVcpz9EP4eVEp2hLPhMkf6OnrnR8+YNvs4i7+JIVnMCb7+Pjes+KbIr+TN4ZRkEL/TiQGVPGCJQbOsr2wUTlzNT4JRsYWVU+0h1t0H0oTETOYNpc8X+2BT7EKP4sED2j6SUUlOhTpa0BEzNlQzzHCf8N1A/dAyLp+X0/peVtmcqguAeY5/rJ/wPKWrMnan9xD7k4MlfJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
+ by PHXPR11MB9663.namprd11.prod.outlook.com (2603:10b6:510:3cb::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Fri, 18 Sep
- 2026 07:59:33 +0000
-Received: from BN2PEPF0000A992.namprd04.prod.outlook.com
- (2603:10b6:408:ef:cafe::1a) by BN9PR03CA0717.outlook.office365.com
- (2603:10b6:408:ef::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 07:59:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN2PEPF0000A992.mail.protection.outlook.com (10.167.248.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 07:59:32 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 02:59:30 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 02:59:30 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 18 Sep 2026 02:59:30 -0500
-Received: from fllv0122.itg.ti.com (fllv0122.itg.ti.com [10.247.120.72])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I7xUJu388704;
-	Fri, 18 Sep 2026 02:59:30 -0500
-Received: from localhost (danish-tpc.dhcp.ti.com [10.24.73.69])
-	by fllv0122.itg.ti.com (8.14.7/8.14.7) with ESMTP id 68I7xSiA024679;
-	Fri, 18 Sep 2026 02:59:29 -0500
-From: MD Danish Anwar <danishanwar@ti.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Siddharth Vadapalli
-	<s-vadapalli@ti.com>,
-        Roger Quadros <rogerq@kernel.org>, Kees Cook
-	<kees@kernel.org>,
-        MD Danish Anwar <danishanwar@ti.com>,
-        Stefan Wiehler
-	<stefan.wiehler@nokia.com>,
-        Chintan Vankar <c-vankar@ti.com>, Simon Horman
-	<horms@kernel.org>,
-        Arnd Bergmann <arnd@arndb.de>, Vignesh Raghavendra
-	<vigneshr@ti.com>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-omap@vger.kernel.org>
-Subject: [PATCH net] net: ti: am65-cpsw-switchdev: flush dynamic FDB entries by port on delete
-Date: Fri, 18 Sep 2026 13:29:26 +0530
-Message-ID: <20260918075926.3616434-1-danishanwar@ti.com>
-X-Mailer: git-send-email 2.34.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 08:00:11 +0000
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
+ 08:00:11 +0000
+Message-ID: <b6409b6e-0a82-485a-b45f-0b291fc55a3a@intel.com>
+Date: Fri, 18 Sep 2026 10:00:05 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: codecs: wm8958: Add const to enum texts allocation
+ types
+To: Kees Cook <kees@kernel.org>
+CC: Kees Cook <kees+treewide@kernel.org>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Richard
+ Fitzgerald" <rf@opensource.cirrus.com>, Kuninori Morimoto
+	<kuninori.morimoto.gx@renesas.com>, bui duc phuc <phucduc.bui@gmail.com>, "Al
+ Viro" <viro@zeniv.linux.org.uk>, <patches@opensource.cirrus.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-hardening@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+References: <20260917211102.i.029-kees@kernel.org>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20260917211102.i.029-kees@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VIUP296CA0083.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:349::7) To PH7PR11MB6006.namprd11.prod.outlook.com
+ (2603:10b6:510:1e1::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A992:EE_|DSVPR10MB997889:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95740bc5-9838-437c-9ab7-08df155ac65e
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|PHXPR11MB9663:EE_
+X-MS-Office365-Filtering-Correlation-Id: 209e2ecf-5934-4534-f624-08df155add4e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|921020|10067099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Oq6GJH8uGPiowclLdeJPDVNe4k/kucAAJFyIw1LHo2y86cQfb45jKPlYHx/zRX3ufQJmcCyk0vgFgMmaVDQrgOp/wwetb7ZYQqTYyICVjRbV4uZr6Yhj/KZaNB/KTjKBehoMqf8mHEQCBtwUvBbBL6EU0UjIAsKSUVSluRXGZH2k3dGNDIOZzt4BKQ1/nYVbwLHCuZj78M21FApA/zmsyB+SLdTdLvxeNMGVgZ0DWyV/rrrkh/Z5XnIPGcWXa3fTe2rJQJ/O6l8PDqgjjYLWumV+8TSUmUB83SzL+gitL8oaDDr1aTqMfZXj10rQOYfcW7r36r0+cL623YhM76vV3/FqWjrhY8uAm2cAgBnC3n2LGU8X0LpsYTTIZo9M9SoGXcZvebuLmotgVv7RlIz42eTJQ3lFH2A6xlGOheC5al6ESUk63wUugirYBnXtIchUo/PJ+eTyYtANl62UfFwvbAWqGl5mMAZSfK6jKQRIOfA56gVEZjBrQnGwgPAh6RUQlY/ZhUA56AnI8iUyHqHu1wN/jGWJEfg3DhL2d9HHE1HJhQ0eZYzUj2TVmn4vzV8uLW+MAysdZb/K/KFiO39bA06lwI3r+8l0eidPt4DwdUe+OBID8ml6VQJqjMWt9wULxB4zV3cnoET2iKw68KSVKNaD9Z9qoaHyQunMNO5pqG19d32XKdEJZsLl5ptyjq8r//mAMGW++38ZKGjSuiCSWJWxv1BMHPJWAqXGmi2k+gy2p0pYKpdKMCnLpQ8H+ux/
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(921020)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 52fwRAqmt6YpSAkYtAZnbj0rKtaciS+zr0R7pOdvarnhb4SbI/6jaTV5+8boaveB4iMuEqofDnuUynI8u2seDaBRu2TPB7eeAH6o87lHywUfv7LNVn2JxVN2ZIzh6u8prGZ8ineaf4tZ8SjAgRUwr3EBFsf1+9E4pA8GYj48zUQnIMvKEE+7VqmWUq28cWLWROIHhJLhThqZwrOWJ9NhiKRlTyAXQj80C7xJ/Ff9KBxVEz+UyzFYsAeOuXCbP+TIwlSTAzvXud7M8JWn4kj2OqgbByG0Lf4dJf/+xUP6Hpme3Plqij9txxoNXfFN6WMteD4UGSLwncvzV8eFQ7L25hD6oAt4XVpk+hMxN1MnGWpfRq7ZbTzDbIk7qH747ILdMg/4r19uE8LjGCrVwU1xx2qZv+uqxakCb2UOgson2o4jwizkwu3G4aUxGw28BftpbmzYiqKAZZXdiltK6mJCCBQ76RSAiSXvpYWcmUjx1BUky2SF2BUuHOhubncejHGPp41Afr2hjVrCDQKor+NPeqkgSk64ZcXiJFDZxXN9uA5a1Pjw9gVC5dc1YRmQSPuqq5Bb69RuvshFWgRAcOXnyEvT4hHOLuEpNiQBFMpLJD+KJ13RSYRDOW9LSgRw3q8YEDrEDfEysIZwigsla1BWoaQhOHeAp+BPgUb2GEaEvqg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3DVVo4FSLccXtaJpzeDxNUxvK9R56LAoo2GYJ2Fqe2ckyCGD4EfAitgmzOOfQ/ZlyHeuQMwfQAU7y1AS2bIf4q5+tCs3tdPWVxzebKckvnps2oMtcW7YQpUJgztN9C/vznuj/XVyMJtz/FN9IwSVOAWXF7tmgNiDc6YyzCWvB/cVI0Ljyb50/9Evc18h4zTxUjhI4daHJajyBJlAEsfneO3ythxsVytqX7xFI9heCCk86sbQ0Cf0SQySvcMpZ7hmr3rsGDyPj4mXSF0OXm1apGZmUGWaemRSO4MMQbAF6Y0bsnPRWXl0UI0zSYD5uxLo2bKaxpYXdy2IR4/T7pAmIVtyxQBf2uotWJoxSK71b1RB4M4i06rH9qg9Ctph9P0da3OMPqDgThcSJtMl34dtKPLReD44DhxQz4KcXzXWV4+XmCswghBWOrB2Nb/KQkEc
-X-Exchange-RoutingPolicyChecked:
-	cyF3v3zPhB9QWqQZhpbqc1MAz+NyR3oRQAZPNLz+rwkr8GYsgppsX2MTd7sVg09liHOl9VlKOEqpv8fOODPemkQ3P048cwrECMQCSISNxbyWWzYDW4uR3hVBytXs9r5hbnpbN8aGJbZLFt+KxtF36H5iG38PyFH3sWbUF+Brj/btAi0EbYb2Rycdr3yyvK5hZiY5S2904D16KfSxHbiv8wH27RI67AzGRrUtfCxVVRBF5pRpAL91JfR3w6VFlGjmEy4Vh8cpc9j5DXZ9PFdcoIko+8P54DPxTgmEoChsbJoa89SynfWgVaUgXOVpLHicAN45cXGHo17j1L5tUEfn5A==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:59:32.7959
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2dZakF6WnhVN21scDZVb1VORU9YMldvaHg4S1VraEdmTkhRNDdrazluNHdU?=
+ =?utf-8?B?eTFhUGx1Q1o5QnJITEtwdHM5aCtDS3JGTWMvNGFqc28rRWNUU3pQL1VvOGQ3?=
+ =?utf-8?B?K3AvbjJrN2xzcjZ0bzZDL3NEcmJZNlhsc0xaZ0VYWXVveXNaR1E3K2YxSEJV?=
+ =?utf-8?B?QVZ0SnB2cjFVTUFtNDkzMURYN3ZpVGFoOHBWU3FPWmw5cEYwZGxib1Y2Q0dr?=
+ =?utf-8?B?ckRVWFJVakMrQ0J4S0hiRE9WV0gyelZBZ3RCazVrUFE3bGFyWkRDZGtYcnFL?=
+ =?utf-8?B?TkFJK3VINVNZaGpBWFRjSmMwUkFCVzFPUGNlNzlSWjhyL09sTW9BbS9lTzB5?=
+ =?utf-8?B?VmZWSkpaVjRWSTRRQnJSNnp2NkVaMzBhUmZWQVQxNy9tQXJkQ0ZlRkNVQWZt?=
+ =?utf-8?B?aEhsSkhIMDdZTmJxcGxTVmg5UnE3R1grV1pDWERUUFE4T0hmcmVENHZyeHUz?=
+ =?utf-8?B?VlliMERqbWlmV3ltWnlHR3J1N2FMeWxjSUJNd1N0S2Fjc1JxTEZYLzdhU1F4?=
+ =?utf-8?B?ejlYdzJDNTJrd2pDVVJveVdXTFQzZTBENFpSU3hJdkY0a3V1dWxoVWpObUpU?=
+ =?utf-8?B?QlZFUEVDNCs2L3R4ZExZSHFLbmRnUVh2VjdXYUlzbC9QeFd6SHIzQ2xGQWVj?=
+ =?utf-8?B?eW52bzVtTXExL0E1dmt6NEFobWQwZ3VMRm5WQUlTdTRqTk5IZjRLT3dCL0RX?=
+ =?utf-8?B?Vm52N1dudUdVYWszSXVvdFEzVk1JSjZKa3lRQ1lmWER2aG5jaUFGbWc5OHFi?=
+ =?utf-8?B?bzBKcGw5QngrM0dsMi9HSStHL0RjVVo0NkZ0UlFIS1BSRG4wK29zNVJyVDI3?=
+ =?utf-8?B?YzNwZDU0akYvNlFZa0hrNFlpd3JkWXRpSVBCWVZUNjQ0VnVuM0lSSkxNaXor?=
+ =?utf-8?B?OUtwMk1jRDM3WmlkV0luaEJpbkpCUVozK01DRnRFdGF5UzAxWXljc2p4QS9B?=
+ =?utf-8?B?TnFsMGlTcHRQTkRidmhFU0c4UG0yNTA5dlF0aG5YVGZFWWFDTUdTbzVJbzlh?=
+ =?utf-8?B?SUR1NzBUak13REo0YUY4V1dWcmptUVFqUnh3bG1kdkNraE00LzZKN1luQUJU?=
+ =?utf-8?B?N3hORTg4S3FsdUE5U1FNb1FJYzRUNzZxWjdJNHB3bzMrRXNYVlAvWU5tOTdj?=
+ =?utf-8?B?NGtPYWdKdTQrNWxmZlBuTzJQaG8vdktrc0JXaG9IUHZsWktxY3haa1BLSVA5?=
+ =?utf-8?B?OUtITW1GTVJ2NHZySVgyNXNmVXluZlBiUGF5eFE2TDdhWHUvUFBnak44SzI2?=
+ =?utf-8?B?VXFveHoyV1owemhBRHJMY2xXUXFGR2h5RXFFSE9yajB0RWlBSmRNQzUvUEdv?=
+ =?utf-8?B?blZueHpmVzE1NC9mMkgvL0E2SDFnMGhEdW9GaGt5dlFCNkVDOGdKV1hqa09N?=
+ =?utf-8?B?TDEyZzVGbUJXMUUrNkdyV1hRdklqV05TL2s5dFIvWmZVVmdURnJweVEvRGhL?=
+ =?utf-8?B?RjdmMUhSUWpoYkxUdFdHWGRQS3o0WU9WM2JIZjFpWWNXcEYwRVJnMmozbytz?=
+ =?utf-8?B?K1p5TDJzcVVzdnhzWHo0QXJkVUdTRm1HTDFDdkNqK2cxaE96QkFPcWF0YkVt?=
+ =?utf-8?B?dDY0WHVONzFlU1JGR1ZYdWltSU9XMEY0Ylh1MkRqYkFBUnZxVExQZWRmU0dD?=
+ =?utf-8?B?elh2cWJMSWtqZEk5SjNRcDR2dWE1RTNrWjl3NjFraDRpL2ZZVTRUSmRBVkl1?=
+ =?utf-8?B?dHpjQWJiamZQMVllbjdUS3QzNHdFWVlGSlBnMGJIZXp2RjBTNGVpYUdYZVF6?=
+ =?utf-8?B?WDdMVFVVbWhjcDgyNE9YdGlLaUlQMnVtaFdyNTdvZ2dSd3RkZUJmenBXWUxm?=
+ =?utf-8?B?RS9MOCs0L0pqQkdGK2IwQnNvMEVtRHA5UjJOenVldkJxNWNzMmJ4T0JFUEFy?=
+ =?utf-8?B?Und1M0VudFVnUlRoaFhET2VpRWdpdi95NTNnQ1haS0tqNUQrcTZRNzJLSExr?=
+ =?utf-8?B?dno5ZUlEZGhZc2d5bG1XOFdCVTV3bEl4a0pSeWIzcDV3Zm9hTkNzcnpxSkVk?=
+ =?utf-8?B?YytaZmNCZ0FHanAwT3dKN0QxaytIZHJSWmRXYTd3R2RhTlhHNnl3TFFZaFhk?=
+ =?utf-8?B?L2hCdVZieGROUVp1Y2xWeVZDOFY1clgzY3FzbTk2M1NKUFZSeklnRVNJL2ho?=
+ =?utf-8?B?L0RqWHRIaXdQYXlBa08wOG0xcWlIeEpYOW1nb1J5b1BkaFJ4c21CcThJQUQx?=
+ =?utf-8?B?K3RmZWpUYTdaWHVGd1RiQVFDWTNWWUJVVFZGZklUelhWdmxCbDhjZ2lhUFRS?=
+ =?utf-8?B?NUl6RDlNQXR2SCtDNnJmVlBvcGJ2KzhORm5sUWYxR1Nsc1crTUp1dEJTVHZ6?=
+ =?utf-8?B?SlV2TGoyUmJYNURqL2Zpcm1EaFVWelg5NEhNU09QUEg5MnF5dkpLdVUva1V6?=
+ =?utf-8?Q?6eqUcoTdD/ba8DJg=3D?=
+X-Exchange-RoutingPolicyChecked: UAzUPyQmi2/gOxrpefyAigPgG8P8PE/FSmVDxxdO1Emm3OIfeB7xrEQBRc+pP3IwFRZiji1mUwzdU1mYTYQ1h3K3cAO9xEpSzMDNiEQdqppSVT/dipYyKTR6rYV1JD2QcWEF0YAvW+mraF+TSAlqiZ6MsseZWWYcISe8rw6rfiwNhNsGTdT8Ic2x4mxvyX4yqaC5HjqerpFzxJVnx+TbxApa6GWcTz+hGNTgufkkEsDWnBkO4GJIemVWqPj6bdmvaj+NJMvTL9DUFW/Y5obPe8Di6mJ2gSqQQXzY/ENmZvpLAYCQ3ksp1v/Eyr6mZ2/i/PBduL2kuUXCkTCb+2Ohsg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 209e2ecf-5934-4534-f624-08df155add4e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 08:00:11.6452
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95740bc5-9838-437c-9ab7-08df155ac65e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A992.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR10MB997889
-X-Proofpoint-ORIG-GUID: ZvXqtB1zeprBxR_WJcWcLWY6Fd1T_Lnf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEwOCBTYWx0ZWRfX9rfE25d0gcHq
- 8flzAKoFBtfmFxypVlNXrbbCsfFzF+CgQh1xJbbZR7Hm81aDD1Qxfz0Qoar38eHeJNr3qigHGbD
- MGlUyjF4yqq0Y7JZuKdVre8vCYctqVwquAQOhAZLxMF9shcyTQWO/lC9ehFypc7zOmAVzScri3N
- fV25e4VOAAQ6VoevkASl6CezUW68mnV2VVWUgdy4JxP2YyH1r/5k+TFB0R6djfO5/BzipjZilzc
- Y0UTvJIvdToowc3ihiXrAH8+ayufkn2NVWvCCRhwQuvlJVp6JXmuiVGHy7oHnZzr7vFIBzJuUHu
- sXsUXVNwecO/9NQvxcO0u5jn79dQYxtkzARP5YusNAqKKSvHsh9Q0Y62VVDpxFJd345VO35L8R1
- Z47oOug+FDC0aXxedZbNho2CHAn4ZPXP0th/ReFNhgyvF6HiOi/QXGQCAI9IIj//pICtvahwTbi
- za6RhLSb7YvDUdmnQYQ==
-X-Proofpoint-GUID: ZvXqtB1zeprBxR_WJcWcLWY6Fd1T_Lnf
-X-Authority-Analysis: v=2.4 cv=eeCo7LEH c=1 sm=1 tr=0 ts=6aacef69 cx=c_pps
- a=r1suf/lb2duQPz5POPReZg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=y4oAsXJ5e_F-6x_5lpYA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEwOCBTYWx0ZWRfX2M/T8GTfo2d/
- ZyPq93zIx0NsX0CS+Ka+NKN1JpTjfeTZ00hh1EVfXXUMBCyu2t8UCX9Q10jsyGeLXWePpWjRqe4
- 0Xrlp7xBFCuw5zq4NCVyOgTEQUKIVCA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180108
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yYpjtNbwtdf3tgEE++bsgIuOaLd64tcSDvc3rdEMfTk9vKm++oTrQ63ibPS1rE+KVNin+r5pDFxLmSL5H7X7HeIutelho0TbSm9CvlHBWN0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR11MB9663
+X-OriginatorOrg: intel.com
 
-On an FDB flush, dynamic ALE entries don't get deleted. They stay stale
-until the ALE ages them out on its own ~30 seconds later. Two issues in the
-DEL_TO_DEVICE handling cause this.
-
-First, the delete was gated on the same "added_by_user" check used for
-ADD, so every dynamic delete was dropped before reaching
-cpsw_ale_del_ucast() at all. Drop that gate. Dynamic deletes are the only
-way to remove a hardware-learned entry early; the ALE never reports upward
-when it ages one out.
-
-Second, dropping the gate alone isn't enough: ALE_VLAN_AWARE is always
-on in switch mode, so a dynamic entry is stored under a real, nonzero
-vid (possibly several, if the same MAC was learned on more than one
-vid on a trunk port). With the bridge's vlan_filtering off, the bridge
-core never learns the real vid and reports vid=0 on delete, so
-cpsw_ale_del_ucast()'s exact (addr, vid) match never finds the row it
-returns -ENOENT and the entry is left in place. For this vid=0-ambiguous
-case, use a new cpsw_ale_del_ucast_dynamic_by_port() that matches by (addr,
-port) instead of guessing one vid, clearing every dynamic row for that MAC
-on that port regardless of vid.
-
-Fixes: 86e8b070b25e ("net: ti: am65-cpsw-nuss: Add switchdev support")
-Signed-off-by: MD Danish Anwar <danishanwar@ti.com>
----
- drivers/net/ethernet/ti/am65-cpsw-switchdev.c | 16 +++++++--
- drivers/net/ethernet/ti/cpsw_ale.c            | 36 ++++++++++++++++++-
- drivers/net/ethernet/ti/cpsw_ale.h            |  2 ++
- 3 files changed, 50 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/ti/am65-cpsw-switchdev.c b/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-index 53cdac272b583..8b4640809cf5b 100644
---- a/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-+++ b/drivers/net/ethernet/ti/am65-cpsw-switchdev.c
-@@ -397,13 +397,23 @@ static void am65_cpsw_switchdev_event_work(struct work_struct *work)
- 			   fdb->addr, fdb->vid, fdb->added_by_user,
- 			   fdb->offloaded, port_id);
- 
--		if (!fdb->added_by_user || fdb->is_local)
-+		if (fdb->is_local)
- 			break;
- 		if (memcmp(port->slave.mac_addr, (u8 *)fdb->addr, ETH_ALEN) == 0)
- 			port_id = HOST_PORT_NUM;
- 
--		cpsw_ale_del_ucast(cpsw->ale, (u8 *)fdb->addr, port_id,
--				   fdb->vid ? ALE_VLAN : 0, fdb->vid);
-+		if (!fdb->added_by_user && !fdb->vid)
-+			/* vid=0 here just means "bridge doesn't know the
-+			 * real vid" (vlan_filtering=0) -- the dynamic entry
-+			 * may be stored under any nonzero vid, or several.
-+			 * Delete by (addr, port) instead of guessing a vid.
-+			 */
-+			cpsw_ale_del_ucast_dynamic_by_port(cpsw->ale,
-+							   (u8 *)fdb->addr,
-+							   port_id);
-+		else
-+			cpsw_ale_del_ucast(cpsw->ale, (u8 *)fdb->addr, port_id,
-+					   fdb->vid ? ALE_VLAN : 0, fdb->vid);
- 		break;
- 	default:
- 		break;
-diff --git a/drivers/net/ethernet/ti/cpsw_ale.c b/drivers/net/ethernet/ti/cpsw_ale.c
-index e202bba494807..1a2aceda3dbe3 100644
---- a/drivers/net/ethernet/ti/cpsw_ale.c
-+++ b/drivers/net/ethernet/ti/cpsw_ale.c
-@@ -249,7 +249,7 @@ DEFINE_ALE_FIELD_SET(mcast_state,	62,	2)
- DEFINE_ALE_FIELD1(port_mask,		66)
- DEFINE_ALE_FIELD(super,			65,	1)
- DEFINE_ALE_FIELD(ucast_type,		62,     2)
--DEFINE_ALE_FIELD1_SET(port_num,		66)
-+DEFINE_ALE_FIELD1(port_num,		66)
- DEFINE_ALE_FIELD_SET(blocked,		65,     1)
- DEFINE_ALE_FIELD_SET(secure,		64,     1)
- DEFINE_ALE_FIELD_GET(mcast,		40,	1)
-@@ -441,6 +441,40 @@ static int cpsw_ale_find_ageable(struct cpsw_ale *ale)
- 	return -ENOENT;
- }
- 
-+int cpsw_ale_del_ucast_dynamic_by_port(struct cpsw_ale *ale, const u8 *addr,
-+				       int port)
-+{
-+	u32 ale_entry[ALE_ENTRY_WORDS];
-+	int type, ucast_type, idx;
-+	u8 entry_addr[6];
-+	int deleted = 0;
-+
-+	for (idx = 0; idx < ale->params.ale_entries; idx++) {
-+		cpsw_ale_read(ale, idx, ale_entry);
-+		type = cpsw_ale_get_entry_type(ale_entry);
-+		if (type != ALE_TYPE_ADDR && type != ALE_TYPE_VLAN_ADDR)
-+			continue;
-+		if (cpsw_ale_get_mcast(ale_entry))
-+			continue;
-+		ucast_type = cpsw_ale_get_ucast_type(ale_entry);
-+		if (ucast_type == ALE_UCAST_PERSISTANT ||
-+		    ucast_type == ALE_UCAST_OUI)
-+			continue;
-+		if (cpsw_ale_get_port_num(ale_entry, ale->port_num_bits) != port)
-+			continue;
-+		cpsw_ale_get_addr(ale_entry, entry_addr);
-+		if (!ether_addr_equal(entry_addr, addr))
-+			continue;
-+
-+		memset(ale_entry, 0, sizeof(ale_entry));
-+		cpsw_ale_set_entry_type(ale_entry, ALE_TYPE_FREE);
-+		cpsw_ale_write(ale, idx, ale_entry);
-+		deleted++;
-+	}
-+
-+	return deleted ? 0 : -ENOENT;
-+}
-+
- static void cpsw_ale_flush_mcast(struct cpsw_ale *ale, u32 *ale_entry,
- 				 int port_mask)
- {
-diff --git a/drivers/net/ethernet/ti/cpsw_ale.h b/drivers/net/ethernet/ti/cpsw_ale.h
-index 87b7d1b3a34a9..69b004cbb1c76 100644
---- a/drivers/net/ethernet/ti/cpsw_ale.h
-+++ b/drivers/net/ethernet/ti/cpsw_ale.h
-@@ -166,6 +166,8 @@ int cpsw_ale_add_ucast(struct cpsw_ale *ale, const u8 *addr, int port,
- 		       int flags, u16 vid);
- int cpsw_ale_del_ucast(struct cpsw_ale *ale, const u8 *addr, int port,
- 		       int flags, u16 vid);
-+int cpsw_ale_del_ucast_dynamic_by_port(struct cpsw_ale *ale, const u8 *addr,
-+				       int port);
- int cpsw_ale_add_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
- 		       int flags, u16 vid, int mcast_state);
- int cpsw_ale_del_mcast(struct cpsw_ale *ale, const u8 *addr, int port_mask,
-
-base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
--- 
-2.34.1
-
+On 9/17/2026 11:11 PM, Kees Cook wrote:
+> From: Kees Cook <kees+treewide@kernel.org>
+> 
+> In preparation for converting the kmalloc family of allocators to the
+> type-aware kmalloc_obj family, we need to make sure that the returned
+> type from the allocation matches the type of the variable being
+> assigned. (The kmalloc family returns "void *", which can be implicitly
+> cast to any pointer type.)
+> 
+> The assigned types of mbc_texts, vss_texts, vss_hpf_texts, and
+> enh_eq_texts are "const char **", but the converted allocation types
+> would be "char **", which is the same type without the const qualifier.
+> As there is no general way to safely add const qualifiers, take the
+> sizes from the assignment targets instead. No change in allocation size
+> results.
+> 
+> Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
+> sound/soc/codecs/wm8958-dsp2.o
+> 
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+> ---
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Richard Fitzgerald <rf@opensource.cirrus.com>
+> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Cc: bui duc phuc <phucduc.bui@gmail.com>
+> Cc: Al Viro <viro@zeniv.linux.org.uk>
+> Cc: <patches@opensource.cirrus.com>
+> Cc: <linux-sound@vger.kernel.org>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
