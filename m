@@ -1,108 +1,110 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AF8509F14
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B15502D59
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746240; cv=none; b=CAFSU+64nUkY6AhKQmBwhnrIS7bdpk7Tlv3LVMo0qZfyvb5Mn7si+ULeNtks2LAU+o05GHa3NFYzD9VAcqoEDPh1CihzgNG8PuSWQiznTkj8XhpNQGUHUTh31mw/0tNtlKHTBexlflRtHtNjIv2addjnpmBhRiPckQJVWUUHluQ=
+	t=1789746241; cv=none; b=tGvBT/dZ/eguzTzqnLLTskfN1aXnv5ss1mL+awFVdYHc8DJm1vythsOZ8qNtIuIPmcz41X6zsWp8DZPWNDkIaZa9UwfigwsXuIZbycvoztAUYczoDDZqXnwRY8Jk4JA5dqIOrSRZRsbYrNRR/eBF5+6DR4secoyph2fs7N/Cc6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746240; c=relaxed/simple;
-	bh=C5AWntZI5VfsdkhVNOlhJWjuARyHAh4CGfTREDIJj+8=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
-	 References:MIME-Version; b=Dg6vb46Eb81WFJMvkWJFWI9KYTZvnkJGhMKo/v6+5DsLPiNGCTdDHOhhtyqb+fnCHw9ZfO8qELg3TKq9QODJq7tE3Ko20PApI8ul3AdpbLz2/wchpmPFooDVT61mGMRxDmhtvmPuORGxMzydDuab/sXLVOMiuX6yADPfL89QeTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aR9+soVg; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789746241; c=relaxed/simple;
+	bh=7Dh9Y0nv+LiYZ8pue7OgfGIuG+rnljMeagzvREQ6whc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=X0KrR9omyOLvDgIEC4m6Nl6ikLkmLjvMtNKlAULvIRSX/zSyJ6AumE6jPSYjaCk9KSHvnHiGv/IpTSamJxX1rNvhibg5mNoJpgRiN74kejRLXkIsqRDoKyFPfCuZJ7IehK5RovJbsS26+fs88+UL4hQwXQzLRHivKtV/hxeYFW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=IUL7CjHj; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aR9+soVg"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so141636866b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:43:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789746235; x=1790351035; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C5AWntZI5VfsdkhVNOlhJWjuARyHAh4CGfTREDIJj+8=;
-        b=aR9+soVgGL4K0KTpu5HjNLJkXqcbTxvb57pKBs5lIyj7YfMZkK00Eb2bOLDkyqgy6q
-         W1BGp77qdE4WpZWCKpfmoja4QWPd2MV5G5jIBsMvXST1gfwrLivSA+QkPgjBaZpNzB+s
-         HpmuRVzdX2T4sgB96qkMRSo8Aw0CYEg8fA2WTTJC88IMnjRogv1MjPgeiFD5SEUu8zQm
-         DuiOpXt7kQ07aFZSvXKBZxh8KbGD5Ud6g72zEW9TmBILUu7VwmQlWAJI3LAt1pDR3xUC
-         6AQQX7ePR04BdAMldOJPlbxd/x+OSEc5Ii3zsZBAj77GAv0qrXrRE4kQ7GHmcLeGBzJJ
-         pZzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789746235; x=1790351035;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C5AWntZI5VfsdkhVNOlhJWjuARyHAh4CGfTREDIJj+8=;
-        b=cWbjT6QKMM4v1YIa75Z0wr3EkOYofyu1PdcOQh10910BnT/9Ji86BObwqyFTkGpUEg
-         BamNpM1g/0m6REvgmFHkMYcWyuetqeespzsxQTJMiPshR482HzHVx1gCFGwcsHLsfHd8
-         SVVVdl+Byu0yqQpW9tnzp1QnVGoybe6KMPc2TveCUHvJZBWZU6z1xrISH/exGL+rGy0/
-         AK4vEKqV1ZVZkVGrGyf5Ozv/fOKK+ROkoD5FXjSDuNDlYMW1qqRFdyZJrjysSEIMBwXE
-         TrnhEsqGLk2lV2AOLZPMkd+dqvIJGOy44+RainOFvgfcdB1WgIIfpgvEDHBISIBHWgbA
-         SfQg==
-X-Forwarded-Encrypted: i=1; AKwUvBwSEhoESU/HHtXC1xhl4/t5zknLixJ47uR3yTXaHKMELKxSJpdfzU88cLAGJctmzWgRNvXKiu87AsTTkE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrKBb2VUqx97gqQMTME5iHF3ddhcQoh54dh+JjZj8J5v5PNLbu
-	RRv0f5BYtIDKMNiH9k2uOc2SSiDGyaN4VVD5M74+tuwLyEHcljNRC8rS
-X-Gm-Gg: AYBFou32cVqDup5JhiWwVsRJhk1o/StiWkKjhnRCffX6Cp90c5COEL7DGEHAIleK0Sd
-	1BfgYtx1hrCp51qb9c19FaK+E68gCPTn8Q44O4SePXcClUK006VpeG4JYu7QqN5fnzoi5l4lBQ3
-	0XNGnItR+J+2972tXiYw5HySCV21IYdpCQL9EbMoa2WVQUWU8RNT5paaRQHReKLh1nqK1jxXUU8
-	Z37At/YlDbb2eTInoTe2njh4/PEWYHLtss/xtWmYq6qP7DDepf3lr9vbwY+z7tDWpvGo/MLQJM/
-	pCJ93osJO6kEawjK2pA4jwEooNxUEQpWWcw/bQqoWZ9HmWIay99P5sSGCuzCkXIj21+vckO/o12
-	jniCMmRddLFg+f5yVS7K1CnokXYq7CLnykXSQkdRK/k8HKJxuxm5fmeYFC714UgEG3wQLHJA6zu
-	yKqIZlfUFdR/6HcNTK6Hfm4MBVAnUgzCBQS/iB147mRwUvVnvfoirxSPNXvgLrgDkKi/FJ9jVgi
-	mnnH5Qzuh5vu/aRGGQzGwSYJNtUz07EGc/8H7npet0cKBZ0jhDJtVqerIv24B1WuYhKWeEsS7wt
-	rtUckklgefXj3Hw=
-X-Received: by 2002:a17:907:3f17:b0:c26:19de:9126 with SMTP id a640c23a62f3a-c2a15b3401dmr300021466b.25.1789746234745;
-        Fri, 18 Sep 2026 08:43:54 -0700 (PDT)
-Received: from localhost ([153.61.198.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1b7a442bsm78355366b.4.2026.09.18.08.43.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 08:43:54 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 15:43:50 +0000
-Message-Id: <DLIK37JYD35X.3NZ4ZHTHDKAFX@gmail.com>
-Subject: Re: [RFC PATCH v5 1/5] blk-iocost: add BPF struct_ops cost model
- support
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Tao Cui" <cui.tao@linux.dev>, <tj@kernel.org>, <josef@toxicopanda.com>,
- <axboe@kernel.dk>, <ameryhung@gmail.com>
-Cc: <cgroups@vger.kernel.org>, <linux-block@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>, <andrii@kernel.org>,
- <eddyz87@gmail.com>, <daniel@iogearbox.net>,
- <linux-kselftest@vger.kernel.org>, <cuitao@kylinos.cn>
-In-Reply-To: <20260918031751.1255420-2-cui.tao@linux.dev>
-References: <20260918031751.1255420-1-cui.tao@linux.dev> <20260918031751.1255420-2-cui.tao@linux.dev>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="IUL7CjHj"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260918154350euoutp0277fb1485726df4fb8e887a9b4562655b~WdLa-XpOH0831108311euoutp02L
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:43:50 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260918154350euoutp0277fb1485726df4fb8e887a9b4562655b~WdLa-XpOH0831108311euoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789746230;
+	bh=FkgqxxyQJ4n9EEccZ2uoqpxYUHuS8uCVszSzBVFosd8=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=IUL7CjHjdrdsj507LyPW5toMb5iHVqF3/uGWZ6Q4TvNxJ90IJSGVDpGiDcRw6ZRYr
+	 4dWSgBvqVQ4JFXyfCd9gE2rwuKkgTE4lB4FXsUhxz/hRl04rBWK5/AQ5XZx6EBgNqW
+	 NCAcJv7USNDhAuExpXVdgrkGCVwv1uAwHWrzX+Ew=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260918154349eucas1p22281b383a4c3795b2b60b86e4a87a56d~WdLavyB5t2573425734eucas1p2u;
+	Fri, 18 Sep 2026 15:43:49 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260918154348eusmtip140f57867049c46dc8361bccc3ceb9083~WdLZ5luZr1768717687eusmtip1F;
+	Fri, 18 Sep 2026 15:43:48 +0000 (GMT)
+Message-ID: <e66fc610-c174-4295-b15d-d82589a646d4@samsung.com>
+Date: Fri, 18 Sep 2026 17:43:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH RFC 0/2] iommu/dma: Fix DMA_ATTR_MMIO swiotlb rejection
+To: Peng Fan <peng.fan@oss.nxp.com>, Leon Romanovsky <leon@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)"
+	<joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe
+	<jgg@ziepe.ca>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, Peng
+	Fan <peng.fan@nxp.com>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <aq1GyO3vv8W6Adlr@shlinux89>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260918154349eucas1p22281b383a4c3795b2b60b86e4a87a56d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260918140812eucas1p28a4d680f405cc3a8e1a4f1a8d1bcfb70
+X-EPHeader: CA
+X-CMS-RootMailID: 20260918140812eucas1p28a4d680f405cc3a8e1a4f1a8d1bcfb70
+References: <20260916-iommu-dma-fix-v1-0-a59a0c45ec5b@nxp.com>
+	<20260918123736.GW13683@unreal>
+	<CGME20260918140812eucas1p28a4d680f405cc3a8e1a4f1a8d1bcfb70@eucas1p2.samsung.com>
+	<aq1GyO3vv8W6Adlr@shlinux89>
 
-On Fri, Sep 18, 2026 at 11:17 AM Tao Cui <cui.tao@linux.dev> wrote:
-> The registration and binding model follows the TCP congestion
-> model registration pattern: registering a struct_ops makes the model
-> available by its name (char name[IOCOST_MODEL_NAME_LEN], validated at
-> init_member), while
-> io.cost.model binds one registered model to a device with
-> "model=<name>" and unbinds with "model=linear" or "ctrl=auto/user".
-> Unregistering a model removes it from the registry, but its name
+On 18.09.2026 16:12, Peng Fan wrote:
+> On Fri, Sep 18, 2026 at 03:37:36PM +0300, Leon Romanovsky wrote:
+>> On Wed, Sep 16, 2026 at 11:23:32PM +0800, Peng Fan (OSS) wrote:
+>>> Commit f9374de14c0e8 ("iommu/dma: implement DMA_ATTR_MMIO for
+>>> iommu_dma_(un)map_phys()") and commit c288d657dd515 ("iommu/dma: implement
+>>> DMA_ATTR_MMIO for dma_iova_link().") added DMA_ATTR_MMIO support to skip
+>>> swiotlb bouncing and cache flushing for MMIO resources. However, both
+>>> implementations placed the DMA_ATTR_MMIO check inside the swiotlb bounce block,
+>>> causing non-page-aligned MMIO mappings to be rejected outright instead of
+>>> skipping the bounce and proceeding to create the IOVA mapping.
+>>>
+>>> This breaks dma_map_resource() for any non-page-aligned device register when
+>>> behind an IOMMU: DMA controllers that map peripheral FIFO addresses
+>>> (e.g. SPI controller TX/RX data registers) through an IOMMU for per-channel
+>>> isolation.
+>>>
+>>> Both patches move the DMA_ATTR_MMIO check before the swiotlb block so MMIO,
+>>> resources skip the entire bounce path and fall through directly to the IOMMU
+>>> mapping function.
+>> While I understand the rationale behind the first patch, why do we need the
+>> second one? Do we want to allow unaligned addresses for the _link_ as well?
+>> Current users don't need it.
+> My intention with the second patch was to make the DMA_ATTR_MMIO handling
+> consistent with iommu_dma_map_phys(), since MMIO cannot be bounced by
+> SWIOTLB in either case.
+>
+> However, I don't have a dma_iova_link() user that requires an
+> unaligned MMIO address, so no need to relax the existing restriction there.
+>  
+> I'll drop the second patch and keep this fix scoped to iommu_dma_map_phys()
+> in v2. Does that sounds good to you?
+>
+> BTW, does patch 1 look good to you?
 
-I don't think it's what Tejun asked for in v1. He asked for a per-device
-struct_ops instance where attaching switches the device to bpf and
-detaching switches it back. Instead there is a global name registry,
-a lifecycle list, an "unregistered but still bound" state and a
-refcount_t on top of bpf_struct_ops_get(), and every version since v3
-had a lifetime bug in exactly that code.
-Do it like hid_bpf_ops does with hid_id: device in the struct_ops,
-bind in .reg, unbind in .unreg, and le
-t struct_ops own the lifetime.
 
-pls wait for Tejun's feedback before respinning.
+The first patch looks good, I will apply it as is. For the link case I think that
+it needs to be properly documented that non-aligned mapping is not supported.
 
-pw-bot: cr
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
