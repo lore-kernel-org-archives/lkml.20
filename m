@@ -1,243 +1,155 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3DB3A6B76
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FBE38F65B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741598; cv=none; b=cZSUd6BWqZbgcVshR/CV7SgZjj/QIqmTE0YegJS0CK+XpQIPxe37PFuuEaMpzulkVEFfK5DekDnU08K6iYVuBbm3z0XtPyoqRwy3y3CFrqfBL9q7kd/c4X0mom7adTKw6qKFa2+uJV7yoBNrbvv83TIvlYtru0eQkXJxQdX5EOY=
+	t=1789741666; cv=none; b=gFrRLWE9BTfZKsJdGednwnF+Xx8atJxNOd1d094xPfcjgDjFNL9mCQOBRA40t+zYGZAwFzjoWz/jdPAA3r7S3j3QnzH4uTYPqEq72sUBOJUEqR57JLb7y9S3uQb7/b1ASRyaUd4cnMFejIQ/Cjc0tnYdp/VANWT1yBx4LyAI3fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741598; c=relaxed/simple;
-	bh=V/ao0xgrL052+a77Zs37pNAkv8uUAgXm6H+hU649GVA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:In-Reply-To:Subject:
-	 From:To:References; b=CpYP9jRgd40T6NnHIby/XJhC/r0hQTfDomsMhW7sDi3Hg9mqoK3AW25VrMOChO5ewjBT8UJMjKwdu43PbkWreUxywtqiFvJo3TrT5CWR10RGSPFlnUBHky+4bSDNPPm3nAh8ee6xsqoqed1y4jrXP7dFIBWUmAq21q3ID8ySKbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maxwelld.cc; spf=pass smtp.mailfrom=maxwelld.cc; dkim=pass (2048-bit key) header.d=maxwelld.cc header.i=@maxwelld.cc header.b=AtF6Oa1s; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=ED4xUpx2; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maxwelld.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maxwelld.cc
+	s=arc-20240116; t=1789741666; c=relaxed/simple;
+	bh=sgunm2sNjagt46bq1ZIC/qX8k5vKqpE4P8hC394mvU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t3ToGO2uCz2a3VMqekdHTBOJKFhy3YXAHn9NHJwJmQhkJiUetlJoIXU2LKemrez0fvBv7DsYKSlpU/i4pXoqSwtNaPZlhi5gt7Zwnf9N4+8d95JGuMQKjklxqm4Dh87cLWPv+c8q/nQFiwoaDr0Gi1z06UOA3aOOHffCfcWjZs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q0c/haM4; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=maxwelld.cc header.i=@maxwelld.cc header.b="AtF6Oa1s";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="ED4xUpx2"
-DKIM-Signature: a=rsa-sha256; b=AtF6Oa1s/AL2tmQTFwmhbhlh/8MOdpMs8SUG6UZTZYISeQJ/ayQcdGgRWU2djKsKNrX6mMAlvgfsAosXfH0wLl2engdC7HQdXbV90KTqwIjvnZPVZ6uumYWSAEZmidY9fdLKY5po0q4Pq9MOLumlS2IPu0gQhnKTqNw3+cnfimIvRVHkNNUd/TgLWWdIEoRa7aECaQWMvPDdbfABMfHhC3SRAMyTb0Ilbug9LR4+zB+t1NfZQVVPFzIjgGx0RuyuP/Ho6qVURB5rtise/aiF/OXLHgb/mfqNgpPRP4/T0TmFbtT/d22WqTR1X2se8UIkdNLMj/tJKBGYVaanq18HFg==; s=purelymail2; d=maxwelld.cc; v=1; bh=V/ao0xgrL052+a77Zs37pNAkv8uUAgXm6H+hU649GVA=; h=Received:Date:Subject:From:To;
-DKIM-Signature: a=rsa-sha256; b=ED4xUpx2J63TAftELukA7kr8PI3mk3R0lFd5SnAegjO9DChMy1EK8tueJw8/fKfMXL5F9MUMGoiYgFjEz2olnsImSCQFk9MUwNq9uIRVkNP46iCxz4FW0vC/lr8JPjxRFbJLsa+Hb/28BABjghUEt0kmocrayQXg4lvXxeIHeRa2gyNwY7SPT+gRgNzWifIr8QLw/Z/QHIdT2AFVYLOTWgeZEkcxSDOr0+ZaEPvdxhDzex7wHs8IOck/g98/iChe54dic8yckhX1ZBPOzDtTv9XSPsZ4mNaGaPrFXkMy59ebhlvXZyfnW7hV9NtvtSQ213Qirnn93LtsUVBAu/9rzg==; s=purelymail2; d=purelymail.com; v=1; bh=V/ao0xgrL052+a77Zs37pNAkv8uUAgXm6H+hU649GVA=; h=Feedback-ID:Received:Date:Subject:From:To;
-Feedback-ID: 1013395:40550:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -954385832;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Fri, 18 Sep 2026 14:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q0c/haM4"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056c2064so941697a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789741663; x=1790346463; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BnD2Ei89mkiOFb1zZQQ79Aq7EmWfIQzBftxY+5mS48k=;
+        b=Q0c/haM434hFxRb9HrsA8HMhQ0aOYGv8PgHBrbqBJeyp/+aT5rApMn3T0JqghomwUW
+         q8y2OWHAWCdnBzrh1nqiidF/S8Hp98uwPim6fYZfFsVX690bH/yv3113Q00lT7nb3fNG
+         CRscyAc6emTw4eOnjRlzLsRVxc512gqkfkRZb8oypb7n9gFZJfIxA1B4OsUlwzlLOvFA
+         zJ12gqU0/I1Hr+dE+lUijjXGRIQ5yD3533ZduBBF9fOnaawbEWC3xH6nXnGF9l9rT3ua
+         qcY/rZJw9ABTJUHRati5Vdte22n0RM8V8fdXj/jf2ptSov9y9/iL+XoITfh6OSdpv4Ta
+         W04g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789741663; x=1790346463;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BnD2Ei89mkiOFb1zZQQ79Aq7EmWfIQzBftxY+5mS48k=;
+        b=bsq6iNX0SHlfLaickJoQ9iNyEucOiFvndz9kxqdYK6u65LRhsMN3bEIeLrYJD9+f2y
+         0CV4nRUQwwXJueh2f7+rqCv34kOTIYh7TPi2pQnTjEemKvlavDSyW4SSuNniQbMsyo+H
+         GDmgV1DCRl0r+B6zxtPyBB/uKz98Jra+C/C3Q2h4ADiOsAlU8Ib7hN6d7uvN5kSd7Y36
+         I1bOoNf90H8gyxW97ZSC9CF1K3BtN4/jAQk/sffh4T0IB47gFvR1D9Q/W5JC0TZssWdh
+         7Z8eDamiyBSCiowi+sU1etZtm7oa5Uhb6RJ8QhimEtwTnfLtoegkxlzcscrybkAdXBYp
+         8L0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxUMJ8Lf2BS45Zy5yhhEziLW1e9aqDgfMy0UokmM/rsqI7dZ/c0n/s1Gvif6a/2+fMp0HGfHdKinMz5wu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8q70xf84o4oQRraksutytPf10EtcZPrC6v0HNzDKDOw8aq0ti
+	1DEqdyDInLY74zPZEulhSb8wcgxC28l8zJF7AfAuF0l1lsN6GLNmRGkeG9m71nkskYY=
+X-Gm-Gg: AYBFou2O78eKDRgEaLA/mIjo1QmTv+RmkeffdlnnuUYntVQ0VBxKsaJZQEJiRWP8Dco
+	5us3wel2tvH5cZ+LB3PAxJchJrl74R5GSzaad1MAYIBUQs6izGZtwY41lLXhLLYKBhHjvUMEFze
+	rFm5sYlgafxvpXp8i+GZGjbiJayNd9iPopD/rnGeo9mdfs9LvlATkL/qa2Dse75AKmOXau1OBGI
+	UGgqXDPX82lVBBhzY9qtTrR/aApLaf6J6NQJUxW4qL1SzqQ2RMN/y5xaM0xuSokxmM/floDMg16
+	EZpf8iNXEAjJB0OYIbQ4e2qtBODIr8QFk/vy1oMjv3zfcgQvFZ5k1a1btOHZYSsGirZQ01i/R/C
+	4kR8Qlj7Ic5LaNDEvoc662AvWV578+nCZObbjKdy46FsvTyuMCrWPy9zvIZrQWTvSmMXBKBlNOB
+	j+uOAzuOXrNFmuITMlAJibouctI7bQJrP7ZApjv+LgIUKtOiUzXHO0HOG173mIZP6dbMU22OxWO
+	wPyv6pgKA==
+X-Received: by 2002:a17:906:478d:b0:c29:5a76:72be with SMTP id a640c23a62f3a-c2a157c41a8mr252060066b.24.1789741662748;
+        Fri, 18 Sep 2026 07:27:42 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.4.225])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb8ba5bsm61582566b.45.2026.09.18.07.27.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 07:27:42 -0700 (PDT)
+Message-ID: <fd6bf432-0ce8-4793-821f-f08321b13a5b@linaro.org>
+Date: Fri, 18 Sep 2026 15:27:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 09:26:04 -0500
-Message-Id: <DLIIFO80EL2F.1KMD8IOGGTS1Y@maxwelld.cc>
-Cc: <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260918134019.1101308-2-jmatko@utu.fi>
-Subject: Re: [PATCH 1/3] iio: chemical: sgp40: Implement
- get_serial_number-command
-From: "Maxwell Doose" <maxwell@maxwelld.cc>
-To: "Jaakko Koivisto" <jmatko@utu.fi>, "Andreas Klinger" <ak@it-klinger.de>,
- "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260918134019.1101308-1-jmatko@utu.fi>
- <20260918134019.1101308-2-jmatko@utu.fi>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 2/6] phy: core: Add phy_get_by_of_node()
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
+ <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-2-dc244e124e71@linaro.org>
+ <211caa95-dfbc-427d-8ce8-49cc76c24124@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <211caa95-dfbc-427d-8ce8-49cc76c24124@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi there Jaakko,
+On 18/09/2026 15:10, Neil Armstrong wrote:
+>>   EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+>> +/**
+>> + * phy_get_by_of_node() - lookup and obtain a reference to a phy by 
+>> device_node
+>> + * @np: node containing the phy
+>> + *
+>> + * Returns: the phy associated with the device node or ERR_PTR.
+>> + */
+>> +struct phy *phy_get_by_of_node(struct device_node *np)
+>> +{
+>> +    struct of_phandle_args args = { .np = np, .args_count = 0 };
+>> +    struct phy *phy;
+>> +
+>> +    mutex_lock(&phy_provider_mutex);
+> 
+> I don't really understand the usage of lockdep_assert_held(), but why
+> does _of_phy_get() uses lockdep_assert_held() and here you use mutex_lock()
+> like before patch 1 ?
+> 
+> Neil
 
-Firstly a (rather important) question I have is what's the point? I'm
-not sure that anyone will need the serial number on the fly (assuming a
-business would be using this, they will likely keep records of their
-parts). Though maybe I could be wrong (so feel free to prove me wrong).
+assert_lockdep_held() is just an assertion that the lock is held, Loic 
+suggested adding it BTW. It ensures that when another function calls 
+this function it holds phy_provider_mutex.
 
-On Fri Sep 18, 2026 at 8:40 AM CDT
-Jaakko Koivisto <jmatko@utu.fi> wrote:
+i.e.
 
-> -Retrieve the chip serial number.
-> -Present the serial number to userspace as device attribute.
-> -Rename the tg_measure -struct now that is is used for multiple
-> commands.
->
+phy_get_by_of_node()
+{
+	mutex_lock(&phy_provider_mutex);
+	_of_phy_get();
+	mutex_unlock(&phy_provider_mutex);
+}
+EXPORT_SYMBOL(phy_get_by_of_node);
 
-Last one should be left out and put in a separate patch.
+_of_phy_get()
+{
+	lockdep_assert_held(&phy_provider_mutex);
+	/* happy days */
+}
 
-Also, commit message needs a bit of work, something like:
-	"Add support to the SGP40 driver to enable retrieval of the
-	serial number from the chip and add new sysfs attribute to
-	expose the serial number to userspace."
+phy_broken_locking()
+{
+	_of_phy_get();
+}
+EXPORT_SYMBOL(phy_broken_locking);
 
-> Signed-off-by: Jaakko Koivisto <jmatko@utu.fi>
-> ---
->  drivers/iio/chemical/sgp40.c | 78 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 76 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/iio/chemical/sgp40.c b/drivers/iio/chemical/sgp40.c
-> index b2b5e32a9eb2..c1e2a992ec2a 100644
-> --- a/drivers/iio/chemical/sgp40.c
-> +++ b/drivers/iio/chemical/sgp40.c
-> @@ -35,6 +35,7 @@
->  #include <linux/mutex.h>
->  #include <linux/i2c.h>
->  #include <linux/iio/iio.h>
-> +#include <linux/iio/sysfs.h>
-> =20
->  /*
->   * floating point calculation of voc is done as integer
-> @@ -53,11 +54,12 @@ struct sgp40_data {
->  	int			rht;
->  	int			temp;
->  	int			res_calibbias;
-> +	u64			serial_number;
->  	/* Prevent concurrent access to rht, tmp, calibbias */
->  	struct mutex		lock;
->  };
-> =20
-> -struct sgp40_tg_measure {
-> +struct sgp40_command {
->  	u8	command[2];
->  	__be16	rht_ticks;
->  	u8	rht_crc;
-> @@ -70,6 +72,18 @@ struct sgp40_tg_result {
->  	u8	res_crc;
->  } __packed;
-> =20
+_of_phy_get()
+{
+	lockdep_assert_held(&phy_provider_mutex);
+	/* wails plaintively into the void */
+}
 
-Name change should be put in a different patch or just left out
-entirely.
-
-> +/*
-> + * Datasheet table 16. Serial number is given as 48-bit value 0xAAAABBBB=
-CCCC.
-> + */
-> +struct sgp40_serial_number_result {
-> +	__be16	A;
-> +	u8	A_crc;
-> +	__be16	B;
-> +	u8	B_crc;
-> +	__be16	C;
-> +	u8	C_crc;
-> +} __packed;
-> +
-
-Perhaps this but maybe this could be implemented as an
-annonymous struct instead.
-
->  static const struct iio_chan_spec sgp40_channels[] =3D {
->  	{
->  		.type =3D IIO_CONCENTRATION,
-> @@ -162,6 +176,40 @@ static int sgp40_calc_voc(struct sgp40_data *data, u=
-16 resistance_raw, int *voc)
->  	return 0;
->  }
-> =20
-> +static int sgp40_get_serial_number(struct sgp40_data *data)
-> +{
-> +	int ret;
-> +	struct i2c_client *client =3D data->client;
-> +	struct sgp40_command get_sn =3D {.command =3D {0x36, 0x82}};
-> +	struct sgp40_serial_number_result res;
-> +
-> +	ret =3D i2c_master_send(client, (char*)&get_sn, sizeof(get_sn.command))=
-;
-> +	if (ret !=3D sizeof(get_sn.command)) {
-> +		dev_err(data->dev, "i2c_master_send ret: %d, expected %zu", ret, sizeo=
-f(get_sn.command));
-
-Missing '\n' here (sashiko).
-
-> +		return -EIO;
-> +	}
-> +	msleep(1);
-> +	ret =3D i2c_master_recv(client, (char*)&res, sizeof(res));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret !=3D sizeof(res)) {
-> +		dev_err(data->dev, "i2c_master_recv ret: %d, expected: %zu", ret, size=
-of(res));
-> +		return -EIO;
-> +	}
-> +
-> +	if (crc8(sgp40_crc8_table, (u8*)&res.A, 2, SGP40_CRC8_INIT) !=3D res.A_=
-crc ||
-> +	    crc8(sgp40_crc8_table, (u8*)&res.B, 2, SGP40_CRC8_INIT) !=3D res.B_=
-crc ||
-> +	    crc8(sgp40_crc8_table, (u8*)&res.C, 2, SGP40_CRC8_INIT) !=3D res.C_=
-crc)
-> +	{
-> +		dev_warn(data->dev, "CRC error in get_serial_number");
-
-Probably should return either -EIO or -EREMOTEIO here (sashiko).
-
-> +	}
-> +
-> +	data->serial_number =3D 0LL | ((u64)be16_to_cpu(res.A) << 32) | ((u64)b=
-e16_to_cpu(res.B) << 16) | (u64)be16_to_cpu(res.C);
-> +	dev_dbg(data->dev, "serial number: %llu", data->serial_number);
-> +
-> +	return 0;
-> +}
-> +
->  static int sgp40_measure_resistance_raw(struct sgp40_data *data, u16 *re=
-sistance_raw)
->  {
->  	int ret;
-> @@ -169,7 +217,7 @@ static int sgp40_measure_resistance_raw(struct sgp40_=
-data *data, u16 *resistance
->  	u32 ticks;
->  	u16 ticks16;
->  	u8 crc;
-> -	struct sgp40_tg_measure tg =3D {.command =3D {0x26, 0x0F}};
-> +	struct sgp40_command tg =3D {.command =3D {0x26, 0x0F}};
->  	struct sgp40_tg_result tgres;
-> =20
->  	mutex_lock(&data->lock);
-> @@ -311,9 +359,31 @@ static int sgp40_write_raw(struct iio_dev *indio_dev=
-,
->  	return -EINVAL;
->  }
-> =20
-> +static ssize_t serial_number_show(struct device *dev,
-> +				  struct device_attribute *attr,
-> +				  char *buf)
-> +{
-> +	struct sgp40_data *data =3D iio_priv(dev_to_iio_dev(dev));
-> +
-> +	return sysfs_emit_at(buf, 0, "%llu\n", data->serial_number);
-> +}
-> +
-> +static IIO_DEVICE_ATTR_RO(serial_number, 0);
-> +
-> +static struct attribute *sgp40_attributes[] =3D {
-> +	&iio_dev_attr_serial_number.dev_attr.attr,
-> +	NULL
-> +};
-> +
-> +static struct attribute_group sgp40_attribute_group =3D {
-> +	.attrs =3D sgp40_attributes,
-> +};
-> +
-> +
->  static const struct iio_info sgp40_info =3D {
->  	.read_raw	=3D sgp40_read_raw,
->  	.write_raw	=3D sgp40_write_raw,
-> +	.attrs		=3D &sgp40_attribute_group,
->  };
-> =20
->  static int sgp40_probe(struct i2c_client *client)
-> @@ -347,6 +417,10 @@ static int sgp40_probe(struct i2c_client *client)
->  	indio_dev->channels =3D sgp40_channels;
->  	indio_dev->num_channels =3D ARRAY_SIZE(sgp40_channels);
-> =20
-> +	ret =3D sgp40_get_serial_number(data);
-> +	if (ret)
-> +		dev_warn(dev, "failed to retrieve device serial number\n");
-> +
->  	ret =3D devm_iio_device_register(dev, indio_dev);
->  	if (ret)
->  		dev_err(dev, "failed to register iio device\n");
-
+---
+bod
