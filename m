@@ -1,54 +1,51 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0000947CC6F;
-	Fri, 18 Sep 2026 19:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D88E521218;
+	Fri, 18 Sep 2026 19:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759214; cv=none; b=Xe0b3X75WisVzu0EZFjIBKFJjY07P+JX0kkDbuAN2W9M1Laa3WkrfuDpQhOOQS/biGCaJLGnHiBp9Be6mIfwcG9YbTlT0+52dCzNg34eZ4k87IulvSqXYs450YRopsG++ny9UXBeQDg3zVcr8WlZiJgNCwZyHRVaA7UpWslDMww=
+	t=1789759219; cv=none; b=qPvnkleyMJ49dg5WgDgbr8IljpLTRc7mx2ZkA4v6qK6b6ofJrzvFZLR/zV57RYelIaIRlBcDUZpsWAxp7fJGY4XwR2zSWvcGLpEWT17x9Qwcs4h4FKKJqyUh89JuVwGHk8S++fOY7VdyjGWrczz3RVK/FxLliYNo9kyRIBbCbkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759214; c=relaxed/simple;
-	bh=wyR7tDwGJcqIcgmBM+MMn+Ss9unScCWQlLCpyOrSdRQ=;
+	s=arc-20240116; t=1789759219; c=relaxed/simple;
+	bh=qBCkCtt6f0YGV88mwdCDaDu5Uof23h12kf5312BTeUM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=daXZxCX+DCcN8BFUQOH/PWqlq51se7cHPrucZP0w9Pxfjf9Y/iYIfBSfrhlv/ud2TYHANwQfL7T9xu657mfp++fY0ovzWybqDbeVFifUAt881R/umbJdsUtLGJ/3ytXMRlPLmA2kh8/OufD4JFI2rfGizyBtWCBg1laTUCNu1WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=S36cJkBT; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=eTtUezKu+U+/dwCd9IhiQK8RUx56o2awYxXlwiD2aqOsc7ywoXab8AvXce6XZDEezLtSrN6pYGVk8z3JWnj2/Eo316SW1R8BE/stcPF7zijcgH2+Oi6AsxhGHy+2EhFcLNKAIV7wMCtdF4TE/K+z+1RGs204TXNVvECUH47Bvvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsvMH284; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="S36cJkBT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WGy/w99RgFFH0BgQXIibBFWxvu+YAccLW9hQJQLUIQU=; b=S36cJkBTrhdlH5QRn1ezqEr9GC
-	9HKp3viWEpLw+dLc23GGna0M7fGOleMzC4vy0AoRygPqXz3irQUiI8ChP+cJUq7YsM4nJMCF6ajMP
-	yoEARAThqLt4VLoHcXbNGbxfFrzE+BMZMGpd5cjPfr7SqGTlX2xfS68i/k1Cthw037GwyrwRi6KtP
-	lsHVss1hnzdA8ZDovPPtk/7/mPrrx2Hmh2S6/AOXPnvCzAKplX46ktgbIJXk26uWe1HIexvE2HNXv
-	WtcNCehV+hN+xnE02KZteyHGzxZxIef16mP7fZ4J3vSM3m5jSOS5QJf11YA43ETI7LHaDCcF/pw9D
-	RZbG/yWg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <carnil@debian.org>)
-	id 1x7e7w-0006Sz-2c;
-	Fri, 18 Sep 2026 19:20:04 +0000
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 7C193BE2EED; Fri, 18 Sep 2026 21:20:03 +0200 (CEST)
-Date: Fri, 18 Sep 2026 21:20:03 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: stable <stable@vger.kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	James Clark <james.clark@linaro.org>,
-	Collin Funk <collin.funk1@gmail.com>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>
-Subject: Re: Please backport subset of 2f5d370dec3f ("perf test: Change all
- remaining #!/bin/sh to #!/bin/bash") for stat_bpf_counters.sh script to
- v6.12.y and older
-Message-ID: <aq2O42fwBRdHELBC@eldamar.lan>
-References: <aq2MQLKmyrxkFd0Y@eldamar.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsvMH284"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6FE1F000FF;
+	Fri, 18 Sep 2026 19:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789759214;
+	bh=wezTXlpBdA+wJTIARYjMTiZlMLPhFPe4lv1SIcKvFyc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fsvMH284ig4xcLTpLnDPeuONsoGN8ikE7Y6mcvsLLUCNRU//VybNhurSHlfHEnHH8
+	 DbTW8k4vbYk+DYC4j9Jo83a2BkvscXK9vmbpPc7vaHbps3XLlaKvWe1I1kLY38dW2Y
+	 /IHekHTPRxs/mqzLUlOdkb5ShSegJFkTTYTvsrJZavjuXhZGUUbZDeb3L49ehvvxLf
+	 eNzCHTCpej02+tESCaC2l4wDNmUz2UcO4gt8PJ1EKEfO1yMxiuKjOBsfoZenVn/GfV
+	 fttRUsUugQTlMgSbJR+bZzN8HVlbidzbOvwdtwROzOfZk36OCDNy0EzqoJ2qDcvpIL
+	 wJQ5njr+5I4nw==
+Date: Fri, 18 Sep 2026 14:20:12 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+Message-ID: <20260918192012.GA1465432-robh@kernel.org>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+ <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
+ <aqLaLmz7n31P6igy@SMW015318>
+ <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,94 +54,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aq2MQLKmyrxkFd0Y@eldamar.lan>
-X-Debian-User: carnil
+In-Reply-To: <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
 
-Hi,
-
-On Fri, Sep 18, 2026 at 09:08:48PM +0200, Salvatore Bonaccorso wrote:
-> Hi
+On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> Hi Frank,
 > 
-> Recently for v5.15.221, v6.1.188, v6.6.157, v6.12.110, v6.18.52 and
-> v7.2.6, the commit b02027776ac5 ("perf tests: Fix flakiness in BPF
-> counters test on hybrid systems") was backported, but it introduced
-> bash specific syntax.  For versions after 2f5d370dec3f ("perf test:
-> Change all remaining #!/bin/sh to #!/bin/bash") aka before v6.17-rc1
-> this is not a problem.
+> Thanks for reviewing this so quickly.
 > 
-> The proposed patch is a stable series backports specific one, as one
-> cannot simply backport 2f5d370dec3f ("perf test: Change all remaining
-> #!/bin/sh to #!/bin/bash") without picking as well some other context
-> related changes to make it possible. So I was proposing to only change
-> shebang to #!/bin/bash in stable series were it is a problem, as in
-> the stat_bpf_counters.sh script.
+> On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
+> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > >
+> > > Toradex boards route the sideband signals of their 24-pin camera
+> > > connectors to different GPIO controllers. Camera overlays which name
+> > > those controllers directly must therefore be duplicated for each host
+> > > board.
+> > >
+> > > Describe reset, power-down, detection and power-control as
+> > > connector-local GPIO functions. This lets an accessory overlay remain
+> > > independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
+> > > remain described separately because the GPIO nexus does not abstract
+> > > them.
+> > >
+> > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > ---
+> > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
+> > >  1 file changed, 86 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> > > new file mode 100644
+> > > index 000000000000..06e6836e1aa6
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> > > @@ -0,0 +1,86 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > +
+> > > +title: Toradex camera connector GPIO nexus
+> > > +
+> > > +maintainers:
+> > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > +
+> > > +description: |
+> > > +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
+> > > +  clock, power, and sideband GPIO signals. This binding describes the sideband
+> > > +  signals as a GPIO nexus. The other connector resources remain described by
+> > > +  the surrounding board device tree.
+> > > +
+> > > +  The nexus exposes connector-local GPIO function numbers to camera overlays
+> > > +  and maps the functions wired by a carrier board to their GPIO controllers.
+> > > +  GPIO specifiers contain a function number followed by standard GPIO flags.
+> > > +  A board may omit functions which it does not wire.
+> > > +
+> > > +  The function numbers are:
+> > > +    - 0: Camera reset, connector pin 11
+> > > +    - 1: Camera power-down, connector pin 22
+> > > +    - 2: Camera identification, connector pin 23
+> > > +    - 3: Camera power control, connector pin 24
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: toradex,camera-connector
+> > 
+> > Name is too generally, suggest use board name, we got similar comments at
+> > 
+> > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
+> 
+> I saw that and it made me reconsider this name.
+> 
+> However, I believe that in our case it is specific enough. It is really
+> the same on all our carrier boards, and Toradex specific. It's also only
+> for cameras, which is more defined than just "io". Curious to see if
+> others agree or if we should come up with a name for this.
+>  
+> > > +
+> > > +  "#gpio-cells":
+> > > +    const: 2
+> > > +
+> > > +  gpio-map:
+> > > +    minItems: 1
+> > > +    maxItems: 4
+> > > +
+> > > +  gpio-map-mask:
+> > > +    items:
+> > > +      - const: 0xffffffff
+> > 
+> > are you sure need full 32bit, only 4 pin, maybe 0xf should enough?
+> > 
 
-"Obviously" there was a typo in the commit message and a missing
-explanation, thus v2 of the proposed change as follows.
+0x3 is enough for 4 pins...
 
-Regards,
-Salvatore
+> 
+> Indeed we could reduce the size of the mask, but I don't really see the
+> value in it. Isn't it good that a user can pass through the full GPIO?
 
-From 804ae26dab32c846467d7b7887d8f7dcd3348fa5 Mon Sep 17 00:00:00 2001
-From: Salvatore Bonaccorso <carnil@debian.org>
-Date: Fri, 18 Sep 2026 20:48:59 +0200
-Subject: [PATCH] perf tests: Change shebang for stat_bpf_counters.sh to
- #!/bin/bash
+This is what you are matching against. You don't want 0x12345671 to 
+match the 0x1 entry. So yes, all 1s is correct.
 
-When commit b02027776ac5 ("perf tests: Fix flakiness in BPF counters
-test on hybrid systems") was backported to several stable series
-(v5.15.221, v6.1.188, v6.6.157, v6.12.110, v6.18.52, v7.2.6) it
-introduced specific bash syntax. For versions after 2f5d370dec3f ("perf
-test: Change all remaining #!/bin/sh to #!/bin/bash") in v6.17-rc1 this
-is not a problem as the shebang was already changed to #!/bin/bash. For
-the older stable series this introduced invalid syntax if #!/bin/sh is
-not bash:
+> 
+> > > +      - const: 0
+> > > +
+> > > +  gpio-map-pass-thru:
+> > > +    items:
+> > > +      - const: 0
+> > > +      - const: 0xffffffff
+> > > +
+> > 
+> > missed
+> > 	gpio-controller: true
+> > 
+> 
+> This is one thing I didn't fully understand about the GPIO nexus
+> concept, why would we need this gpio-controller flag? Isn't the gpio
+> controller behind the nexus? The nexus just maps onto it. The actual
+> controller would be on the SoC or an expander.
 
-	$ sh -n tools/perf/tests/shell/stat_bpf_counters.sh
-	tools/perf/tests/shell/stat_bpf_counters.sh: 12: Syntax error: "(" unexpected
+Correct. You don't want 'gpio-controller' here. That and 'gpio-map' are 
+mutually exclusive just like interrupts. There is an exception for 
+interrupts for when a PCI host controller is the interrupt controller 
+for PCI interrupts.
 
-	$ checkbashism tools/perf/tests/shell/stat_bpf_counters.sh
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 52 (bash arrays, ${name[0|*|@]}):
-		base_instructions=$(perf stat --no-big-num -e instructions:u -- "${workload[@]}" 2>&1 | \
-					awk -v i=0 -v c=0 '/instructions/ { \
-						if ($1 != "<not") { i++; c += $1 } \
-					} END { if (i > 0) printf "%.0f", c; else print "<not" }')
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 57 (bash arrays, ${name[0|*|@]}):
-		bpf_instructions=$(perf stat --no-big-num --bpf-counters -e instructions:u \
-					-- "${workload[@]}"  2>&1 | \
-					awk -v i=0 -v c=0 '/instructions/ { \
-						if ($1 != "<not") { i++; c += $1 } \
-					} END { if (i > 0) printf "%.0f", c; else print "<not" }')
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 68 (bash arrays, ${name[0|*|@]}):
-		stat_output=$(perf stat --no-big-num \
-			-e instructions/name=base_instructions/u,instructions/name=bpf_instructions/bu \
-			-- "${workload[@]}" 2>&1)
-
-Change shebang for the stat_bpf_counters.sh script to #!/bin/bash.
-
-No upstream commit exists for this change as for versions post 6.17-rc1
-the scripts were converted to #!/bin/bash already.
-
-Signed-off-by: Salvatore Bonaccorso <carnil@debian.org>
----
-v2:
-  - Fixed a typo in commit message: hanged -> changed
-  - Explicit state to what shebang was changed for stat_bpf_counters.sh
-    script.
-
- tools/perf/tests/shell/stat_bpf_counters.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/tests/shell/stat_bpf_counters.sh b/tools/perf/tests/shell/stat_bpf_counters.sh
-index 76d4a7f15a43..c4f71bfc0fc6 100755
---- a/tools/perf/tests/shell/stat_bpf_counters.sh
-+++ b/tools/perf/tests/shell/stat_bpf_counters.sh
-@@ -1,4 +1,4 @@
--#!/bin/sh
-+#!/bin/bash
- # perf stat --bpf-counters test
- # SPDX-License-Identifier: GPL-2.0
- 
--- 
-2.55.0
-
+Rob
