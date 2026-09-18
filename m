@@ -1,120 +1,125 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A464AA3E4
-	for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D86352F95;
+	Fri, 18 Sep 2026 00:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789689592; cv=none; b=dtOKhJL1JZm2HN7yx4pCHzoH9BhBRIHCyALpjzuh2i1/I+otHm6HHk1Xl9PUvF7RVQ63X7kgsxAhUbdqqwSxAt7FwrI3AWdKKb5Pio3nCHNaxVX15cUZsX9PmTIHiaU0xGmZQhIKD0mgNKu2ps1nW/sggv7cV2IhE174aSGM7W4=
+	t=1789689645; cv=none; b=Ors1ohWRXCL9dCLLjwuXR4VlgvltyO34Pap7By95XTe8ykSODIAtA/CHwkuDiajrcnHwi5ApZlrSWnTpppFEsdMxlwZ8AgjxC/G982oq+eJphZlZmPORFalyGo0SM/RhEYU1agxv7hJE7BR01t4Ay8A0S7INP/IYDC3wjnl9ZA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789689592; c=relaxed/simple;
-	bh=X5fBI29rdRgQVD/lVN6Y+RY6XP/n3DxCK2eTWygRAJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iRnH7eDmIwvwup3QvbBr7Bw3kYyssX6ddDrLH0AHssO/UUvVkc1XcpeLkDvwEQtTmqqeOuFo/8boEXObLumVDQCrWEAEkr+fspBm9uYPppXCQRmvwJuX0tOgiY8l7rRD89scvF/t7jg6CAYF2ibLpQj+TU1sZ4fnmMPHlRc1Xg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bnfiiOZF; arc=none smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789689645; c=relaxed/simple;
+	bh=rl1IPRYrZA5ZJXNeyvLPx6hLjnGt6ykbVMhqaWryNHs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=fzD/4AN3nsy/Mpc9kRE5iOg8TknFjnyKatYm49S2D99U3xhwgt70QdfhCnHGzhFTbtrX7YadK5+Z7xyCHsI3OJ+No6XHDJKmJ1A2mGtRWzzBWdawxXgnrfSklvw+mh3Po3f71lW4Zo8MDD9TLivrUXn8aDjqhFHTsxJHE0q045A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOXsPO3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bnfiiOZF"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae7089c0so88837eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 16:59:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789689585; x=1790294385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qXNjnaKjCC9zA9Voyk96teJyXfaJqLPqZodkmIpeNdc=;
-        b=bnfiiOZF9vVf60nLw/WuDtszEvQJREgpavcWGqg8LOBIW98u+ziHqNVyvWimISovqh
-         FEfY5wevRgbIIfZgluZjW0TGKlHcaLPb8QrBG7F/Ykba7/tboZAS4RTK1YWecZsrE7cm
-         lqseVNuonJMhkRcpp7x42MwgAQUp1APM1YfhpvIAD2h/0NCSJ4JzH0gKV49WdwQwG6r0
-         2Kd5K1+KuO8Yij1inpsK8/W24QzGWJqe6fBoPP1/1xjCmTC6WLnLaNWwnqdncnt/vEx8
-         JqiJjaPEq09QgwT5vgINdFaechkY5Uil5DMew1/hlFE+Ma/kCobE35ZEZz3ADpn9XIZ0
-         YL6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789689585; x=1790294385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qXNjnaKjCC9zA9Voyk96teJyXfaJqLPqZodkmIpeNdc=;
-        b=VU2dMh1e8bsUvLXyKdyrKoLXzhBW3nMx/T/k/oEiwk62KkRNJSxy9bSAfymmWxiBeD
-         iMIiW3LNagFaiYk5592uHEreuqUr4jXlFvcn+EI4VmIsVE/2nQN8f5MusYTaoDNV3VSl
-         okfsfCKBixcLWVygFf92p6bZdJWEgbVKKmQpQquxq6t8odsILG9S6/jT5MYmzuMWeBmO
-         xzv4OT72vRVOnj1UBnQHSslu1ZB4nP3SFWFpwzm1FLaMeq0vjT7nAMAFtD+e/TE9tZKf
-         1TmjTWwxeZfSz6kJaSuYy7G+z/r/5kb9ls6NYkquF3Ac5316luxsnTtnGJDU4hxK7M5D
-         70aA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQtnXztsm/rHnFJmgznglyoN/geioW5S7rsmlzakEz20s0yHrtwFbjFdYPWB/inhppIBBNo+gZMa+5MDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++njn5vS8+hg+Lf6bePpNtUPPozqjOzUCX81LCGItiVI8y9Ntcoi
-	SLc2JLU1kjv85Vo7aPneXanPari4IsqRfaQaFrl2LCBJffDzzy3OaTUi
-X-Gm-Gg: AYBFou1GoSd8rgEe5Yp53LM0gGKQJn+Uwy/TUjlkYakDflL2j1aBMzEwTr64UYB30V8
-	r879VDY8UvSnYkj9L8e9399XBz3d694glKzqxpEPCOUbeiMcob2h6rzsv5B3RMRcyT9c6/hSIVg
-	s5tnib+dTQ8/drX9libl3eL17lXPEDgFsvi4EGQiBBZkyFaLyH/2nvDKZqEj6yrTjvUgwaUuzPp
-	S/noAuiOhr5HvDUeTLDJ4lYNvJtoMTcZXzA2bDFNDRu/mkXmUdVQDLFZNGXxNlFo5JIjRQoGRPw
-	Deh8xCsyo75eQqheb1gC02fvTnDbXhWUQCDVbpt04/wGRc3kvcojYK15Bu0B195uDBOUJaumXyl
-	61yAb2T+a3+L3ptQavU7lpZpdIGLrk0eGdPscTMODtS4tlzr9Fptj3N6jVcvhNe4R1LQJ+BjwlF
-	B9lQVnKeB5FMZ1w6KKorIJt/4719a2KqJt2ZtfbBkWShJ6r/xYFVuXRW+iiDBbSwuaWe3Vp/41D
-	eqKx5SFiR1Bv6By/vjIEQhXTXU0GHIet3BYXiFJWxPP9Q==
-X-Received: by 2002:a05:6820:4d06:b0:6be:7782:5a40 with SMTP id 006d021491bc7-6ca9ac3f6f7mr779525eaf.28.1789689584793;
-        Thu, 17 Sep 2026 16:59:44 -0700 (PDT)
-Received: from cachyos-x8664 (fixed-186-96-141-48.totalplay.net. [186.96.141.48])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4870b228179sm237307fac.9.2026.09.17.16.59.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 16:59:41 -0700 (PDT)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: Patrice Chotard <patrice.chotard@foss.st.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Kerello <christophe.kerello@foss.st.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-Subject: [PATCH] memory: stm32_omm: fix child clock leak on set_amcr() error path
-Date: Thu, 17 Sep 2026 17:59:25 -0600
-Message-ID: <20260917235925.44185-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOXsPO3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C11C1F000FF;
+	Fri, 18 Sep 2026 00:00:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789689643;
+	bh=Pwy7lAr6hzhWtQyhO2xpyNkZkRHrhmyKH1VIR30q6HI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LOXsPO3G/AuiYSmXUV0aQv0HKHJcfm7TTeqn/rWxKV/RGlyKCSkC4eEiw/jZNULds
+	 khyrc9CGPyI/hebp7OxaXnDSdXmqEjRc4n5kP/L55S2auvWX7ATFJlnEYNmNX+6mSJ
+	 r6Ii0Q2pB77KlXXUIYJD3/3Lg7puEuDsM5+MKuVIBi8ZFzpuBpuVv2wCo7GCEFe23f
+	 G24V+HAoiz+U+UrABUeuaMbFHwHe4XIEuza/9VvfuUvI1AxJkNn2pGYZJXwzwQfKZv
+	 pDbS0sqoCrVfNhB4B0IhsKsNVo2fwA5KPLExzI2heOOBQ5TaPLRSU9NeufO+EV7ixn
+	 WKa2M9EGLLjXg==
+Date: Fri, 18 Sep 2026 09:00:38 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: David Carlier <devnexen@gmail.com>
+Cc: rostedt@goodmis.org, mathieu.desnoyers@efficios.com, martin@kaiser.cx,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] fprobe: Terminate the fgraph_data list when the
+ reservation is not filled
+Message-Id: <20260918090038.8bb79d5b132ea82846a4c9c5@kernel.org>
+In-Reply-To: <20260917212407.384468-1-devnexen@gmail.com>
+References: <20260917212407.384468-1-devnexen@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When the mux is enabled, stm32_omm_configure() enables the two OSPI
-child clocks via stm32_omm_toggle_child_clock(dev, true); they are meant
-to stay enabled for the device's lifetime and are disabled again in
-stm32_omm_remove() and on the devm_of_platform_populate() error path.
+On Thu, 17 Sep 2026 22:24:07 +0100
+David Carlier <devnexen@gmail.com> wrote:
 
-However, if the subsequent stm32_omm_set_amcr() call fails, the function
-jumps to the "error:" label which only calls pm_runtime_put_sync_suspend()
-before returning, leaving the two child clocks enabled. As this happens
-during probe, the error is propagated and .remove() is never called, so
-the clock enable references are leaked. devm_clk_bulk_get() only releases
-the clock handles on unwind, it does not undo clk_prepare_enable().
+> fprobe_fgraph_entry() reserves shadow stack space for every fprobe with
+> an exit handler, but only fills it for those whose entry handler returns
+> 0. fgraph_reserve_data() does not clear the area, so fprobe_return()
+> parses the unused tail as headers left over from an earlier call, and an
+> exit handler can run twice or despite its entry handler asking to skip
+> it.
+> 
+> Write a zero word after the last entry to terminate the walk. A zeroed
+> slot does not decode to a NULL fprobe on the arches that encode the
+> header into one unsigned long, since arch_decode_fprobe_header_fp() ORs
+> in FPROBE_HEADER_MSB_PATTERN, so make read_fprobe_header() return NULL
+> for a zeroed slot.
+> 
 
-Disable the child clocks on the set_amcr() error path, mirroring the
-cleanup already done on the devm_of_platform_populate() failure path.
+This fix looks good to me. Let me pick this.
 
-Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
----
- drivers/memory/stm32_omm.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks!
 
-diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-index 84eb23c824f5..3599683ab04a 100644
---- a/drivers/memory/stm32_omm.c
-+++ b/drivers/memory/stm32_omm.c
-@@ -274,6 +274,8 @@ static int stm32_omm_configure(struct device *dev)
- 	writel_relaxed(omm->cr, omm->io_base + OMM_CR);
- 
- 	ret = stm32_omm_set_amcr(dev, true);
-+	if (ret && (mux & CR_MUXEN))
-+		stm32_omm_toggle_child_clock(dev, false);
- 
- error:
- 	pm_runtime_put_sync_suspend(dev);
+> Fixes: e0a384434ae1 ("tracing: fprobe: do not zero out unused fgraph_data")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  kernel/trace/fprobe.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+> index 1e9b00997ff2..9f2d98181779 100644
+> --- a/kernel/trace/fprobe.c
+> +++ b/kernel/trace/fprobe.c
+> @@ -171,6 +171,11 @@ static inline bool write_fprobe_header(unsigned long *stack,
+>  static inline void read_fprobe_header(unsigned long *stack,
+>  					struct fprobe **fp, unsigned int *size_words)
+>  {
+> +	if (!*stack) {
+> +		*fp = NULL;
+> +		*size_words = 0;
+> +		return;
+> +	}
+>  	*fp = arch_decode_fprobe_header_fp(*stack);
+>  	*size_words = arch_decode_fprobe_header_size(*stack);
+>  }
+> @@ -203,6 +208,12 @@ static inline void read_fprobe_header(unsigned long *stack,
+>  {
+>  	struct __fprobe_header *fph = (struct __fprobe_header *)stack;
+>  
+> +	if (!*stack) {
+> +		*fp = NULL;
+> +		*size_words = 0;
+> +		return;
+> +	}
+> +
+>  	*fp = fph->fp;
+>  	*size_words = fph->size_words;
+>  }
+> @@ -635,6 +646,10 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
+>  		}
+>  	}
+>  
+> +	/* Terminate the list, fgraph_reserve_data() does not clear it. */
+> +	if (used && used < reserved_words)
+> +		fgraph_data[used] = 0;
+> +
+>  	/* If any exit_handler is set, data must be used. */
+>  	return used != 0;
+>  }
+> -- 
+> 2.55.0
+> 
+
+
 -- 
-2.55.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
