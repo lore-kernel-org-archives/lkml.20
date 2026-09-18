@@ -1,82 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210AC270575;
-	Fri, 18 Sep 2026 21:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DF652D2A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767650; cv=none; b=VvfXo2TDENlidyFCgV/nz8yUiepj7JTJRmSwTlaY2DPArfhEQ+YnFzbR/06iOaObgrEtMZotIi/IXnVzzaxmy2wTAXI5vZ7UX9bo8Qi/CpYr0e1SOblEI3kRO7lIp7qQRiomOO4bVcaFSicniWIT76UbELY6k/7lZEJql7Z2TIo=
+	t=1789767672; cv=none; b=RlcrhwxNSOg60DNbocf7cFBLVOLl0ngLpTsyxt7G0YK8/tCKOMhGO575P+lNVglCFgqXQbzKi96bD3zVHaAiIpKS64mtddVumwUAJCR31jhxJKGaSc+51dVqHvgwlMrml2dI5bDIKLPDt/oOEMlnUeE+5DGL14Or4PGT3jjG5ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767650; c=relaxed/simple;
-	bh=Lv1aUjpHiM+ZpoixPXC1t7RIfxI1hsCjCKdjkeyW7Ac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lea5yjWE3NACy+QeZng5YoIVn2yV2k1RBzXZWQIFjjJianv0ebFHSojNwUNLjBqvo5E/B+q4gAub6bX6q13JOBexA7RwaB1VvWbiTfNiPJbuf0DTeg9VAXAtPNqC9Dknk10+VU8HcO21ngePYp8+CeGB5ta2w7u7TuZc8hOvPwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdgbQzPn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789767672; c=relaxed/simple;
+	bh=nDTmUj7sxiRZWw0UZ3oWow7n2lAuqZkJ8d5o3RIweZM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=flEN2QZ8pjqMd3/jK6Noy5t9PpKu2Q5OKItPWI6YPS6BHLAiGNK+KsGT1ErTUEuxoj1bpvteEzRInE0JGcNDygiEVTLqpoANnFmKD0HLSP/WyNEcF0W4CuSB52iCvbDngBStPdI2pdM1eDodI4KZzCHfUdXvJYLieNyPbaVN9fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Uyh4QE9y; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdgbQzPn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71371F000FF;
-	Fri, 18 Sep 2026 21:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789767648;
-	bh=OuoHiyIJPzQjjc8nJ4SI/y9+bjZS6wJxmuFUU8K9JVA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MdgbQzPnI5p9zA1klESPlN1jFMwXwCA8bqbQb7PXk0PdmJXwCEHLWnTDVmv4+58hz
-	 D2Ai8y6rPYFAETkwWC5U2q012Sh+UQNIicZwN2MC8npsxxYtGg9PP/sQIMX/LX1WU0
-	 d+hTDzuozeTCdt6VYK/oTCwWKbmGZ2QhxynYxcBB9gjlSc0CUE8GN7Ab4JedMSNogP
-	 Be7DVGctCO5KQiFtDnydmRPOoO/EKdODvTnXRPKyEIKCL2GofPXbkpninQ7lCMsSnq
-	 QjsMEbF7I/vLWmnO6pDSAASLR9etEVkF00nIrI0fHgpxIrACq9qcauwtUOSMhJSCeN
-	 edBbN76HmXWZw==
-Message-ID: <6b916ff3-aeed-4d7e-af81-65ba8cb6d66f@kernel.org>
-Date: Fri, 18 Sep 2026 22:40:46 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Uyh4QE9y"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1047752a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789767670; x=1790372470; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :message-id:date:references:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1bBne8O0S6mfXSySaLyMvwVSNnSHmNTMqD1uvwMapRY=;
+        b=Uyh4QE9yq9i2Si2Nk9BMCwdAirU2AySP0L3BL+k8Sup/IOG7eafHN4ivvJYe8RxkfJ
+         EZmYYPH2vevDqN6VDegn8Mv3aVDi3fo0vvtNEG01o3wzQd1ku6LFtZvDi8WUVyRG+bfb
+         xE3mod/ONhwQAV/M36DOGyEzIYBPRlx0F98Puq8ElBV9nmQguICXf+nluum7KTGF4yxO
+         JeDVW3Q6NzliGzT74piRr1Wcj+df/obHo8rd8IsWn/5mjcShZGCiiL2tCsmzMP3R+1lq
+         6HuEiNj3rwchLlre7YcLvzNws8YQn+4el1gKhRlhMhJVVEayYkjzjORcAg5i2YXglP0J
+         6eng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789767670; x=1790372470;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :message-id:date:references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1bBne8O0S6mfXSySaLyMvwVSNnSHmNTMqD1uvwMapRY=;
+        b=VVnYHFVgUiEE666drlOB3N4skkdFBOa27kPqUVgSvkJ78Zm2qSY0On1wLdpgXPxl5o
+         p4H+eLa21HyvyQK0EgTL/uA/2b6+tyZjehYymXQeghrCcTAwRUgIsmN7mtMRUh9T5Kox
+         BYij79ZBDsmWpwc7hGVXjP5Fi+CxwVrPEA49C5wGAHhSw2pYqmLA3cCzGVLdz2BQUwou
+         HSckj4QL4w8cZlV9P476wDQxwroZD9SEHEIN1LVR6xMeM3wgTG2e0jR39biZw6Wr7Rer
+         7eqrJz5cWJO4dFI3uqiUGCNnNYGuKHTaEkezx16xGI7UULhoEpVMQ/LgaB998SuQG+h2
+         p0YA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+mjSrdCRn07AJMhGg9tkZtqp0jbMliMzutSNXRt1N8B5KArT3RWVPQA0wsBiBWAwE2cYk8BGbMqhBz9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8Pw8ZqYd0ygL3hDuwp5oVlJWCbgE3jXgGh/rTwOW4HAiQ7rBn
+	2XNtuj4OlJRHviEpt5Utgvo9HcZ7xAFKrfDrk5GGcMRNRIAPifpS2FyO4zYqyzjBWw==
+X-Gm-Gg: AYBFou3PU50RwSmH4SfPB5oImFTI7cdhPpvUtyOgPbmOWXrKPNqArTz42j8FSx95M2S
+	bYP6l+mHGVt9pQXu2ZbxZPJfdQstRFXi7xBxLcYcyZRPftr54fFMcoTvEJBujivqk57IaaoKo/u
+	nFET+T3p7VmNfzcmrkPauHPN2eulNSE1Ari4QTEti3dEXi3xlJIhTycYeJjD58DsWDaka3DFec6
+	GXlgyFzJY2axhcVsTcUL7mY3rzcaxbh3zxSLTjMWHAsKMhu5E4feED+E8A7uxP37s8bBcUIvzd9
+	Zn2JOus4T+yaDAqh/TArz8UmyYMdlhQETe8mwY1s26KUUm9KCDUsgLkKfFAEIDPiK2INMxihpX3
+	7Zlxq0GPrCWP6+wiMh4LJjIv7ZZind1yzW/AunhIZIEJixZxpqsAAsw6sOtUfVU7EiCPRlkIpVN
+	I1owbhQ82rHhCrEoVLN6s/srH1LVYbGPORE32QJbfVw1HOUloZ3rw2aAIoWjC1Xr5qmu309pXfw
+	C0N9aU=
+X-Received: by 2002:a05:6300:6cd1:10b0:3dd:a006:7b3b with SMTP id adf61e73a8af0-3dda0067bb0mr1085141637.58.1789767670167;
+        Fri, 18 Sep 2026 14:41:10 -0700 (PDT)
+Received: from bsegall27.localhost ([98.45.141.147])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55d2269sm1072505c88.11.2026.09.18.14.41.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 14:41:09 -0700 (PDT)
+From: Benjamin Segall <bsegall@google.com>
+To: Zhe Liu <liuzhe1@kylinos.cn>
+Cc: tj@kernel.org,  hannes@cmpxchg.org,  mkoutny@suse.com,  corbet@lwn.net,
+  mingo@redhat.com,  peterz@infradead.org,  juri.lelli@redhat.com,
+  vincent.guittot@linaro.org,  skhan@linuxfoundation.org,
+  rdunlap@infradead.org,  dietmar.eggemann@arm.com,  rostedt@goodmis.org,
+  mgorman@suse.de,  vschneid@redhat.com,  kprateek.nayak@amd.com,
+  dtcccc@linux.alibaba.com,  changhuaixin@linux.alibaba.com,
+  shanpeic@linux.alibaba.com,  cgroups@vger.kernel.org,
+  linux-doc@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-kselftest@vger.kernel.org,  Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH v3 1/3] sched/fair: remove quota/burst write-order
+ dependency
+In-Reply-To: <20260911092258.660771-2-liuzhe1@kylinos.cn> (Zhe Liu's message
+	of "Fri, 11 Sep 2026 17:22:56 +0800")
+References: <20260911092258.660771-1-liuzhe1@kylinos.cn>
+	<20260911092258.660771-2-liuzhe1@kylinos.cn>
+Date: Fri, 18 Sep 2026 14:41:05 -0700
+Message-ID: <xm2633v6w83y.fsf@google.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmem: layouts: onie-tlv: Fix np reference leak in
- onie_tlv_add_cells()
-To: Wentao Liang <vulab@iscas.ac.cn>, gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, miquel.raynal@bootlin.com,
- srini@kernel.org, stable@vger.kernel.org
-References: <20260917123514.2151346-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260917123514.2151346-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Zhe Liu <liuzhe1@kylinos.cn> writes:
 
+> Burst validation currently depends on the active quota, so the same quota
+> and burst values may be accepted or rejected depending on the order in
+> which userspace updates them.
+>
+> Make burst validation independent of the current quota while preserving,
+> for finite quotas, the previous maximum configurable burst at
+> max_bw_runtime_us / 2. Keep the configured burst across quota updates and
+> cap the effective burst to min(burst, quota) when CFS runtime is refilled.
+>
+> Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
+> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
+> Tested-by: Tao Cui <cuitao@kylinos.cn>
+> Reviewed-by: Michal Koutn=C3=BD <mkoutny@suse.com>
 
-On 9/17/26 1:35 PM, Wentao Liang wrote:
-> of_get_child_by_name() returns a node with an elevated reference count.
-> nvmem_add_one_cell() only takes ownership of that reference on success,
-> so the caller must drop it when the call fails. Add the missing
-> of_node_put() before returning so that cell.np is not leaked.
-> 
+Yeah, all the state validation that winds up requiring doing edits in a
+particular order is annoying and imo not particularly valuable.
 
-Same comment, do not waste time with duplicate patches.
+Reviewed-by: Ben Segall <bsegall@google.com>
 
---srini
-
-> Fixes: d3c0d12f6474 ("nvmem: layouts: onie-tlv: Add new layout driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/nvmem/layouts/onie-tlv.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
-> index 0967a32319a2..3d77680f089b 100644
-> --- a/drivers/nvmem/layouts/onie-tlv.c
-> +++ b/drivers/nvmem/layouts/onie-tlv.c
-> @@ -128,6 +128,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
->  
->  		ret = nvmem_add_one_cell(nvmem, &cell);
->  		if (ret) {
-> +			of_node_put(cell.np);
->  			of_node_put(layout);
->  			return ret;
->  		}
-
+>  kernel/sched/core.c | 3 +--
+>  kernel/sched/fair.c | 3 ++-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index b998ef6b87af..c399f0a59c25 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -10181,8 +10181,7 @@ static int tg_set_bandwidth(struct task_group *tg,
+>  	if (quota_us !=3D RUNTIME_INF && quota_us > max_bw_runtime_us)
+>  		return -EINVAL;
+>=20=20
+> -	if (quota_us !=3D RUNTIME_INF && (burst_us > quota_us ||
+> -					burst_us + quota_us > max_bw_runtime_us))
+> +	if (burst_us > max_bw_runtime_us / 2)
+>  		return -EINVAL;
+>=20=20
+>  #ifdef CONFIG_CFS_BANDWIDTH
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index ade1eceb39b8..e6f9d9296fd2 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_band=
+width *cfs_b)
+>  		cfs_b->nr_burst++;
+>  	}
+>=20=20
+> -	cfs_b->runtime =3D min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
+> +	cfs_b->runtime =3D min(cfs_b->runtime,
+> +			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
+>  	cfs_b->runtime_snap =3D cfs_b->runtime;
+>  }
