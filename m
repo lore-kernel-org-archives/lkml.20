@@ -1,189 +1,72 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE03A49F111
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7D0498915;
+	Fri, 18 Sep 2026 19:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760708; cv=none; b=G5osk5yBVMXe4ALs25kln1ua3ViJOhG6gu1SrKenmymDsski4F/e8DbYBOX5XyAyv4F+t5vWMzrrIRbjn26y9rObMPVbXYGthTJqFiGeOTfmkjEeWLw7iVl2FIToKYVB0nXOTntq8oef0hYpoHbriB3xuJAk7liHHJikShzev5M=
+	t=1789760754; cv=none; b=tF+b4WJzttdHjrxu9+oRcUzuv9B0IHn6eToRY6ZTlSYts0CJm88qw1moeUuaMbeiSwib9bXOgxI1gepzaXhXAsQeVRfmrSkoZyn2tCdJuwg+sqSUhizykbxuPpA+ddrYvU09gWo3itkhtm1VchSiVHRbfgqyMqi3LciGXFmxeto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760708; c=relaxed/simple;
-	bh=8ZTrrIxJky21okgg3OV+LOiHHfsI6KM7FDw7JnLT294=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QdpmuUGyMBLnWCo5iRNhNC1evWUFHKLThPb9zRsEZTNpPd/d2i2w8cgzpebziJ+het/E3giTgFZEhsswv10yi7yT59cteqa3FWTymV/kzKMhMvZo9wZszGKREsb61YCUJT/sj5GL0I2549UnAOXNf6aZhGrCVmjV2C5W6sr0C6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HkdNQCCU; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789760754; c=relaxed/simple;
+	bh=lJGnWAY5jJsT2hCJBGWpALsy7J3/tbAT0eNUqjOW/jE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l26n8mIvHeQKw6VPE3Vs138WUq4EZtP1IRJJlHiblqf0nXHRcyHS9nYpBMApZLpRGyWJ7qUj7HpUJRzOCv+Aoa/Oky2/XO2T8Knuj+p0agPZhBryhxBMaxqqmAYpemD/1PIXoiEgv5oMO4vIBEeFGVYtmDtp0XFCHiHH/qnkqSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI1OY0Ms; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HkdNQCCU"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6185so7656385ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789760706; x=1790365506; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=szCxdCB52TPTOMoJOhzrKbvc6KVcFeMOqRe/OAFYPcE=;
-        b=HkdNQCCUSzoRPufrnynAs9T6fTxmu4H2nO7mxIszLEOl9Yl4l7RKzLs8TBuG5Jdf1q
-         /UK/KOHfhtFF54ibrxFbzw39YAQolmjoJsRaNS+VXFhTappT6SwpHf0ybYh90ExHX5Gg
-         QppZmOINR6aj3WnNvkIFxHCyj7eYV18+5qsC7ZOERFEpIMSuZgofK14hrtgnh5F2xR3r
-         iF9QhUY3wrjQa6lAc+wETeQdjkM5GvIygA49Ah0VyMakgy7t6Q3S5txQ9uFygov9DaXW
-         z72AAQL6Ym/5heeIEeN6x3ijKNFuRbjV5AFjO+MEA9pvHto2VBBbDriMfqirB5lRqCnL
-         TSew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789760706; x=1790365506;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=szCxdCB52TPTOMoJOhzrKbvc6KVcFeMOqRe/OAFYPcE=;
-        b=l8Jacw5pXctMIsgko+AB624rVxC/umEdTaMzPdTxdT5QPBs+eQ2fxbuHUZhcxJnefW
-         IiaNrlCGNl53Vwrz/4dEzDmZZBCpDHdwWIR6p38BHtDvnUPHs5NhxbWPxSFUhj/My0Vh
-         Fw3h5PsAApNnHIGU6MH1KbE6O9WPDAoeP3tj8DgJ6GoOV183t+X4eHYByV0r/Y5OZ4L9
-         xh7Gl+kREv49cQYAYyyK063vTWHDeHnXaPvFRgvBzyplYfgklZ786Ef3Clpvy4+A3Ge+
-         hrtsawOxEVOjzfgxADTinDpcfVbPm/+NGWql8PjzV0RXc2L/HgueZKuMDqVI2b++TXaI
-         Mx5A==
-X-Forwarded-Encrypted: i=1; AKwUvByqkiWOsajT8U8tBV5s8okeIlxQ8pvryx4qHK2/io1fLbkidjkHaEVcmJ52ZPhnnQdw1xZN31VVnl3A+qQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzcKXu9XqjYvtFNKgOPSWK8bb6MqWhDtWfeezBi8L8msrvD9+e
-	PvGEqflnV9qffWre1OPs9wEUUYRfDtRx8IrXQZNcrw7bw1DAn9f4QkPm+6OPgA==
-X-Gm-Gg: AYBFou0V6/MwWHS2Twpk13QqrA1SrLPekQDM1p2jVtgBaPcJzUDejmsx/a6HZ3nAgZb
-	5cz/zgqRNssNKaKeHJwjYJjJgr7Io/4nRz8ESwAB37brBlBeZiBJbvm2RILPv5fts/b+S7sYKZA
-	1XImlgTJ3vR1GZ0Sav7yb0p1f2zdPWn80HLLX3jV37awwHo1rPsKG+ssz8nwoav+VUr6kS2AhcA
-	V4eMuxuQFexXuCqO0i39Bm4WDaQuDJwNUrkGef5mODmcCYyt/YohwIdSEjAyLEwLCDgdDjmfg5V
-	uPMlMV7md3DdEE8LU+LyDyQ/lb85buszE+UJDe9xR07WnWCCTwnwyEcGB09NVgV/MZZWNMfmJQe
-	cDtux0CVCAsJjJnV3BznN1ROn7FImkfKgHim4uJor5238V8mjXiVyTJihjNmVn20LnoNfN8hWu+
-	/ye8hwm3JKu2W59AD0iSvLm7l5Hn9V9VjaM8xJVSDm8GiXJifcjaiWVBU8hO1r61vQTa1MiscJr
-	aG0tsc=
-X-Received: by 2002:a17:902:fc4b:b0:2dd:ad74:ac2f with SMTP id d9443c01a7336-2ddb1ba7187mr75143905ad.24.1789760705947;
-        Fri, 18 Sep 2026 12:45:05 -0700 (PDT)
-Received: from [192.168.2.190] ([24.23.128.127])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331b0d6esm670462eec.27.2026.09.18.12.45.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 12:45:04 -0700 (PDT)
-Message-ID: <b115ece2-33a1-412e-ac25-38f339a13599@gmail.com>
-Date: Fri, 18 Sep 2026 12:45:01 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI1OY0Ms"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB61F1F00899;
+	Fri, 18 Sep 2026 19:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789760750;
+	bh=eeIhXIUuXsObJh6Pqk8zY8SHLOxVY4tbbQP/IzP42ho=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PI1OY0Ms3CDl3JKFnt4JjbFhZNu6Ev1DspE78DVx9Hp1xtL6HoYcljzqliVtt1Gta
+	 BSFghvgfA5u3msnlR/mbDrD0kbbpQqsYeXkjGKsy8GjIDT/4SSNHnC2nNCWjChYgsR
+	 MwOkG2mFAyzcSDM9Wlm1guMua7YUTscugiJ92rhwPLuGJAnfFAM3cEbmvWQhYJ9/iA
+	 g1ylj/ViwtlQW4mGSHD4ibjuzId8hLcNYf2mpMsWmY6/d3WM750TfW5IjXUD56diXW
+	 HDYRaSmF83nJdQl+dPvPqH9aAPyKkLZcUqZkTXrY61YWIzloxCdCkqGv2g/7af4+aL
+	 oH7zAI/fW5nAw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Johansen <john.johansen@canonical.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Kentaro Takeda <takedakn@nttdata.co.jp>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jann Horn <jannh@google.com>,
+	Kees Cook <keescook@chromium.org>,
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 5.15.y 2/2] selftests/landlock: Add tests for whiteout object creation
+Date: Fri, 18 Sep 2026 15:45:30 -0400
+Message-ID: <2026-09-18-daily-reply-0003-re-landlock-whiteout-5-15@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <88432dfe86f2aaa9ae499587fd7acff9d34a338b.1789655723.git.mic@digikod.net>
+References: <88432dfe86f2aaa9ae499587fd7acff9d34a338b.1789655723.git.mic@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v12 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-To: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
- David Hildenbrand <david@kernel.org>, Barry Song <baohua@kernel.org>,
- Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-References: <cover.1789714023.git.zhuhui@kylinos.cn>
- <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
-Content-Language: en-US
-From: JP Kobryn <inwardvessel@gmail.com>
-In-Reply-To: <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 11:58 PM, Hui Zhu wrote:
-> From: Hui Zhu <zhuhui@kylinos.cn>
-> 
-> BPF programs can observe memory pressure on a cgroup, e.g. refault
-> stats via bpf_mem_cgroup_page_state(), but cannot act on it:
-> triggering reclaim requires writing to memory.reclaim, which BPF
-> cannot do.
-> 
-> Add bpf_proactive_reclaim(), a sleepable kfunc performing one
-> proactive reclaim pass on a memcg, like a write to memory.reclaim
-> but without retrying until the target is reached, so that when and
-> how hard to reclaim is BPF policy rather than hard-coded thresholds.
-> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
-> as high_work_func() does for memory.high; reclaiming more is left to
-> the program, which can call the kfunc once per bpf_wq callback and
-> stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
-> other sleepable programs may run with filesystem locks held, on
-> which the reclaim path could deadlock via filesystem shrinkers.
-> 
-> Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
-> macros to an enum so that they are emitted into BTF and usable from
-> BPF programs via vmlinux.h.
-> 
-> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-> ---
->   mm/bpf_memcontrol.c | 62 ++++++++++++++++++++++++++++++++++++++++++++-
->   mm/internal.h       | 10 +++++---
->   2 files changed, 67 insertions(+), 5 deletions(-)
-> 
-> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
-> index 716df49d7647..c5d7f29ade85 100644
-> --- a/mm/bpf_memcontrol.c
-> +++ b/mm/bpf_memcontrol.c
-> @@ -8,6 +8,8 @@
->   #include <linux/memcontrol.h>
->   #include <linux/bpf.h>
->   
-> +#include "internal.h"
-> +
->   __bpf_kfunc_start_defs();
->   
->   /**
-> @@ -159,6 +161,48 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->   	mem_cgroup_flush_stats(memcg);
->   }
->   
-> +/**
-> + * bpf_proactive_reclaim - proactively reclaim memory from a memory cgroup
-> + * @memcg: the target memory cgroup to reclaim from.
-> + * @size: the amount of memory to reclaim, in bytes, clamped to
-> + *        MEMCG_CHARGE_BATCH.
-> + * @swappiness: the reclaim swappiness, in the range [MIN_SWAPPINESS,
-> + *              SWAPPINESS_ANON_ONLY], or -1 to use the memcg's own
-> + *              swappiness.
+> [mic: Backport: add enforce_fs() and the missing s3 fixture paths, and
+> adapt tests to ABI 1 without REFER]
 
-The ANON_ONLY enumerator shouldn't be included as part of the range. I
-would change this to [MIN_SWAPPINESS, MAX_SWAPPINESS] and then specify
-that ANON_ONLY is a special mode like -1 is.
+Queued for 5.15, thanks.
 
-> + *
-> + * Performs one proactive reclaim pass on @memcg, like a write to
-> + * memory.reclaim but without retrying until @size is reached. Call it
-> + * repeatedly to reclaim more than one batch.
-> + *
-> + * Only available to BPF_PROG_TYPE_SYSCALL, because other sleepable programs
-> + * may run with filesystem locks held, which the reclaim path can deadlock
-> + * on via filesystem shrinkers.
-> + *
-> + * Return: The amount of memory reclaimed, in bytes, or a negative error.
-> + */
-> +__bpf_kfunc long bpf_proactive_reclaim(struct mem_cgroup *memcg,
-> +				       unsigned long size,
-> +				       int swappiness)
-> +{
-> +	unsigned long nr_reclaimed;
-> +	unsigned long nr_pages;
-> +
-> +	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
-> +		return -EINVAL;
-
-Related to the previous comment, you treat the special values as part of
-the range. It works currently, but creates a layout dependency on the
-enum. I think it would be more future-proof if you did:
-
-if (swappiness != -1 && swappiness != SWAPPINESS_ANON_ONLY) {
-	if (swappiness < MIN_SWAPPINESS || swappiness > MAX_SWAPPINESS)
-		return -EINVAL;
-}
-
-The previous comments I brought up are now resolved, so assuming you'll
-make the changes above you can include:
-
-Reviewed-by: JP Kobryn <jp.kobryn@linux.dev>
+-- 
+Thanks,
+Sasha
