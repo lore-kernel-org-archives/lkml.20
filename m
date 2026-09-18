@@ -1,161 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF66D35674A;
-	Fri, 18 Sep 2026 21:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931A9479890;
+	Fri, 18 Sep 2026 21:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767322; cv=none; b=DNe4Pi9dSwJb9sokug6ZDP4GZv859Lw1oA0r7Nfr/xB6YSrF4qa0lfsdV8RONc0m9fF3p+Kbszd89I8uNwscaK37E/tkStVXUohoHjfKWAUfRA5GMnPLPnCzUtKK9HUbFECSI3LAA1ZxUyHSOTukNcUOO/u+Ef/F1KHUzeSRc8Q=
+	t=1789767472; cv=none; b=JY+NdMAEB+ZQyZtlXwrQzbussPVdWcfkpUxcr0pBGazuIpgeHknpkR1a79qcU2lXVLGz4CYQyA4TQ/JP+dq2Ef3cF3Xqbjzi0xLXfBJ7HpzkSlJib9qLknGvCQ9nTDplPam5FTG8bPgV50sMxdDtJ0qQQxIeNek5IXy3/0sLHdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767322; c=relaxed/simple;
-	bh=cRJ+PVM/y4zy/Zu1yfhqH5rqt0ISqNKOL1eFVVH+e3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZSr8dL1+vdNIuXu6WZ0EntSS2uoDg3rLSL1fUQromNBGLLctDSi4lD52SVinrCdADLzQaEZeqTaAf9Y33BFDz3WTwTP33CqAL5miUs2lvKiy3vKua/3l6EbWSXLd0H/CKUy0dFlCpi1iILMGXy5L5yoN+YzsVRU/Ujprwsa8JxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U3D8k9lf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U3D8k9lf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333951F000FF;
-	Fri, 18 Sep 2026 21:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789767320;
-	bh=ej3xKpckrpjvUc2u6qoLx+3TMAOcBxUdzeIFFyYah/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U3D8k9lfVGUmG3mrLdr956SF7/Qr5CBRsP2flicGDEQ75+/x23Gz7gEdh0FeSfeOc
-	 PtLQM0QAfD4jSijXXjL4vzXI/6kdfmRD88xSJ3dmf+R3sAyp21mlzRfKw1lTn0TlzF
-	 hqAhbwz9JnTygIoS1AqYKAxjH+LxQNrOjuS/SYtCmlfLlojf8j18w8Z9scv2QOkyBp
-	 atgWD6pI9o9jsvuHdvoiMD7K1I57B49g/DdD+oFyuxRM89OeePA1MRjBeXiiHtFqZP
-	 1dax3Bv/8ODg6IBwW/ZFtA5wD5LFllEGvbfA4UlFc84SJQItxe8xF9MlnBv/5mbZST
-	 GvNXUIA+atX0A==
-Date: Fri, 18 Sep 2026 16:35:18 -0500
-From: Rob Herring <robh@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	s=arc-20240116; t=1789767472; c=relaxed/simple;
+	bh=GCoKTXUa2TwqPEb3JbcqHa0fdFjnPNd75LgVBDUqqmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ed/tMRsK2wcTIiA0UuJpQrdnYG9wO92B9hC0WDhmVf34mnQvoUb6zVIGtc9SpaxvTO6mCYDOHd2wpBbDjf5eOBkb4nxN7ivb3Z1ErgYGEPpCoH46IJKDhfQxLhxmYIpOBUE7LwpattAQg+rSvnIfVN8LyyrFaTxDm3QU264i7CM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; arc=none smtp.client-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+From: Paul Cercueil <paul@crapouillou.net>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Add Novatek NT37705
-Message-ID: <20260918213518.GA2337779-robh@kernel.org>
-References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
- <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paul Cercueil <paul@crapouillou.net>
+Subject: [PATCH v3] ARM: dts: samsung: exynos4210-*: Fix Bluetooth nodes
+Date: Fri, 18 Sep 2026 23:29:23 +0200
+Message-ID: <20260918212923.148505-1-paul@crapouillou.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 04:40:04PM +0200, Luca Weiss wrote:
-> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
-> 
-> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
-> from BOE) using it.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org/
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->  .../bindings/display/panel/novatek,nt37705.yaml    | 72 ++++++++++++++++++++++
->  1 file changed, 72 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
-> new file mode 100644
-> index 000000000000..1c796599f6fc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
+The BCM4330 Bluetooth chip is capable of doing 4 Mbps over UART. The
+Exynos 4210 however, can only do a maximum of 3 Mbps. Add this
+information to the Bluetooth nodes using the 'max-speed' property.
 
-Did novatek,nt37705 get dropped as a compatible, but the filename 
-remains?
+This fixes extremely choppy audio when connected to external Bluetooth
+speakers.
 
-> @@ -0,0 +1,72 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Novatek NT37705-based DSI display panels
-> +
-> +maintainers:
-> +  - Luca Weiss <luca.weiss@fairphone.com>
-> +
-> +description:
-> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED panels.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    contains:
+The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-rtscts'
+property. The driver does not seem to check for it but that still should
+be there.
 
-As sashiko reports, "contains" is too loose.
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
 
-> +      const: boe,bj631jhm-t71-d900
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vddio-supply:
-> +    description: I/O voltage rail
-> +
-> +  dvdd-supply:
-> +    description: Digital voltage rail
-> +
-> +  vci-supply:
-> +    description: Analog voltage rail
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reset-gpios
-> +  - vddio-supply
-> +  - dvdd-supply
-> +  - vci-supply
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        panel@0 {
-> +            compatible = "boe,bj631jhm-t71-d900";
-> +            reg = <0>;
-> +
-> +            reset-gpios = <&tlmm 12 GPIO_ACTIVE_LOW>;
-> +
-> +            vci-supply = <&vreg_l19b>;
-> +            vddio-supply = <&vreg_l9b>;
-> +            dvdd-supply = <&vreg_oled_dvdd_1p2>;
-> +
-> +            port {
-> +                panel_in_0: endpoint {
-> +                    remote-endpoint = <&dsi0_out>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
-> -- 
-> 2.55.0
-> 
+    Apologies if you receive this email for the second time. I messed up
+    on the previous one and forgot to Cc the lists. Since nothing
+    changed, this is still v3.
+
+    Cheers,
+    -Paul
+
+    Changes:
+    
+    V1 was: "ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node"
+    
+    -v2: Drop max-speed property. It's only supposed to be used in some
+         cases, which don't apply here. As this was the "fix" for getting
+         Bluetooth to work on my device, which will be applied to the
+         driver instead, the Fixes: tag was removed.
+
+    -v3: Re-introduce max-speed property :)
+         Turns out the use case does indeed apply here.
+	 Also update the other Exynos4210 based boards.
+
+ arch/arm/boot/dts/samsung/exynos4210-i9100.dts          | 4 ++++
+ arch/arm/boot/dts/samsung/exynos4210-trats.dts          | 5 +++++
+ arch/arm/boot/dts/samsung/exynos4210-universal_c210.dts | 5 +++++
+ 3 files changed, 14 insertions(+)
+
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+index 7da64500246c..ff369eac344f 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+@@ -868,9 +868,13 @@ &serial_0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&bt_en>, <&bt_res>, <&uart0_data>, <&uart0_fctl>;
+ 
++	uart-has-rtscts;
++
+ 	bluetooth {
+ 		compatible = "brcm,bcm4330-bt";
+ 
++		max-speed = <3000000>;
++
+ 		shutdown-gpios = <&gpl0 4 GPIO_ACTIVE_HIGH>;
+ 		reset-gpios = <&gpl1 0 GPIO_ACTIVE_LOW>;
+ 		device-wakeup-gpios = <&gpx3 1 GPIO_ACTIVE_HIGH>;
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-trats.dts b/arch/arm/boot/dts/samsung/exynos4210-trats.dts
+index eb286e25835e..c517f6d1d7c2 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-trats.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-trats.dts
+@@ -537,8 +537,13 @@ &serial_0 {
+ 	pinctrl-0 = <&uart0_data &uart0_fctl>;
+ 	pinctrl-names = "default";
+ 
++	uart-has-rtscts;
++
+ 	bluetooth {
+ 		compatible = "brcm,bcm4330-bt";
++
++		max-speed = <3000000>;
++
+ 		pinctrl-0 = <&bt_shutdown &bt_device_wakeup &bt_host_wakeup>;
+ 		pinctrl-names = "default";
+ 		shutdown-gpios = <&gpl1 0 GPIO_ACTIVE_HIGH>;
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-universal_c210.dts b/arch/arm/boot/dts/samsung/exynos4210-universal_c210.dts
+index 71df3843d8ba..9b345e16c44f 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-universal_c210.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-universal_c210.dts
+@@ -630,8 +630,13 @@ &serial_0 {
+ 	pinctrl-0 = <&uart0_data &uart0_fctl>;
+ 	pinctrl-names = "default";
+ 
++	uart-has-rtscts;
++
+ 	bluetooth {
+ 		compatible = "brcm,bcm4330-bt";
++
++		max-speed = <3000000>;
++
+ 		pinctrl-0 = <&bt_shutdown &bt_device_wakeup &bt_host_wakeup>;
+ 		pinctrl-names = "default";
+ 		shutdown-gpios = <&gpe1 4 GPIO_ACTIVE_HIGH>;
+-- 
+2.53.0
+
