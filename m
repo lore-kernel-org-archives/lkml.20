@@ -1,132 +1,203 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010013.outbound.protection.outlook.com [52.101.61.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB1A47A0DA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ABC519905;
+	Fri, 18 Sep 2026 18:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754883; cv=pass; b=KHkzBuRIApAAL4ZhhF9JTLt+/H5KabGnVWWE/DGBK12LMek4r8sYMTu3ZaRD2UvYa5YyrCEMX9OLrB427jGiaciWNY0aEr2BgTPlG+MFerKmjND1p+93J0NEXone6mZ6y2DtfJP3M8QGULLjo3HAc2r3N5jATnmG8E//Im+iH9E=
+	t=1789754948; cv=fail; b=fzGXlDr2ePahakHq/FIO/qdVujDtuuwd3G4ehx67JK15A7Az9eQz22w8AamDbIt/plYqPO5Y6QuAV553KcrK93i3Nu3Ez86yIg0SaNQiMD+juuFLz83dYLmZOCR8wRWw43Pt5n6kzeZdpl7qzb3zX6rMNTQoExSR0OZQXHAS/5w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754883; c=relaxed/simple;
-	bh=yrQsHhy6u3WkbV5pxscEOWCkYhTAD9EPZK+ycsiqyqo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lBAX9FoSrgvajKWqux7OuUPh5bT2ZbaNx+OQoS56za7fTUeE3tn2jeWviK3fQogHrRpj1+PRB0sd+0Y4oyUZSZb+UZte9bay8sequ66qT2rZafT0/Qjxqpi3Subng3ieowsS4bWQx0MkHKTY0HZ4DITxmeFGtWhQzRsOt1ciKmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EFdB0PDB; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789754948; c=relaxed/simple;
+	bh=HzpIzenAX7CNaBEqYdky39pqaTon3FH5HvOUIR+4CzA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WjSCc8uQtzihIIjEsUBsBdZKs2J49isobzx11wJMl5n6EHKu6JqnApSAxNpHrxJDOG9+ERAu8TJask0OTEdId9+dZ4hOctFh1jPVUQCdZNWAE9097U95UeW+f/fMBs2FDVCfiE4AiBp/DwKz8vCatrKc5fDSPekJzMXqu40TjVM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ixj5bkQo; arc=fail smtp.client-ip=52.101.61.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EFdB0PDB"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso11193495e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:08:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789754880; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oBa4WlMjnTimWBxOIMZju295Gc0cLi7ojKbIBamKdAcH8CiMoNsy2+Ci9gKAFPfgCk
-         hRveqAItogFlMDW9wz+PzQS1SCNrsVyZNOLsG0H7zgX4WWSh/wDcuyhgF/CqNCf21eVU
-         cO2U2F5W2UGYrJ/RDpiOfGQ2dUTO4540Taxn3aezwV89iHNAEe5Ihlt/G/t2+2XA/ezm
-         L/0RWDMX8yKlqrphWDG8hICjj65VxREx3XRHJzs+hmuIv+7BXB6kguAVWs6mtZUWv3Nf
-         rJWi6TsaEHNSYtLMCz7jH17C1MeQSpa/P+LSOstFKvkt5RqCXASmTwfFzyBMFwAM7A1e
-         wzdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yrQsHhy6u3WkbV5pxscEOWCkYhTAD9EPZK+ycsiqyqo=;
-        fh=mmFZJktNaNo7c/D7fwMtiMt6EVTJONz8RNWTrsT2HLE=;
-        b=lagYtvqzUctvEq52QiSEQH7/C0nzjYLa7hJukiT9Dg8Vs2GEX4796VLfkarpNN56oD
-         fTgFHNncfVzopJKDvl8E/gi3cS1d0Lvu2KpHzPqbgEI+TfW+KLIuTcDvLSa8IfxynXL7
-         VbmSbpD3yQwcFcWjHLF9cMaT6g2ObV8iyh4tsVZVGUjgdg2n0HgHRpP+zUEjAHRS6F0f
-         A3p9+w9J7XGUMDQbv0J9KGgEpfxzDr98v51VKTgrQatLE8bX0thjqNrlypUh8Io/9M+y
-         l/RDvtHJynhT9jzJPwTUZ6/vEl4nDnN5JWdqrLN1yErBXhYCaohNyE+mKIF8wfSV1cMO
-         nWig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789754880; x=1790359680; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yrQsHhy6u3WkbV5pxscEOWCkYhTAD9EPZK+ycsiqyqo=;
-        b=EFdB0PDBAhvDmfeWtaf3KANVyFj61W9HtDi5x2q869KfI8khgld2pCeVBNyHs5FySx
-         ONN7y71eZGT6Ms66pZQ0fCn3QRk9UrNZNWtjKeTb25IlwkNKnCj0py1HSuP8GmuXds15
-         VHFkvyE0mNOnsqXQzJDNERWfYDiKtNqQj0fDW3uBOwI2ALkDZoIxgF5gHFzVDtwtXxkn
-         QKQokm67izVyLwY3DJ0cPQhGpkg6PbjraJhYmvqqVwXARYCBZDHLutPtWablS8nxGc9p
-         DfcYIkZoeSxg/wq2sSOtqFXgjJQEKdQVy0M5UsVn4xJTUgNhSqETl0y8VTItoTdIPEMn
-         GmWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789754880; x=1790359680;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yrQsHhy6u3WkbV5pxscEOWCkYhTAD9EPZK+ycsiqyqo=;
-        b=GPbISmfmDQ/yiNtZLtC5KGXUqHjtUxkClKtfQ2H4N64Q1dfGZtUABrBmy1qosv/1HP
-         60U2YjLSerSPH+2G0LG8EQ5bmVgsW83tPPHca7QU1DWEo4cOQFqTerzbaMolVyaoKpQ5
-         kq+Q9HWE9oXbooEPnFYKX5Oq9Wp12UoS/0Bgca/W5KPWwCHKzE9Sb+bmZfxg4sGUKnVn
-         h457pxQTuwy8wdiUQGaO57aTV7ectNsSKocFWnVFlOpJn/OqQRD5qZBoGIEXJ3QGwD6n
-         z6Pa/gwgiZkbDoTQTmnXNN5PgBKy/a/HADtQp1eBFwNGH0tYTsO/GeOTFD08VGPw1wGY
-         7KqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzejvlqqpaLXsQtTGYbDI/cn0btV/tTeUIllIGIlK3nd8HwPHKq1xtY5EidrZGFQbyWBnjbupd83dfunEA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lruOb6xQR5DOkgc3NBbw6D/DhyPU/aIXczF4tsB3dBu2qnnwyT
-	BUfsS6GrbycCHOZMEDgZ8kdsw748c837h4NNl6o3sQW5rlD/5+boJBCT6LTHhRvSxWJriy3T9ma
-	OZPPT4L/m+dM5BZ23U8BwrtiN1HqzrCA=
-X-Gm-Gg: AYBFou3c7M6ZS4WrYL8SyIbIIsFvz4S9CxY3sZkR2Ib/xdNy0F2G2sxIXxMYuU0V0Oo
-	4F8b0J+gtefU51A6EDEaJcJ2qfXbImbTVPr92svtdA0WXTtHI2y2+iQuMKBG7VD2rRH8asBRpON
-	FsovRhdL4DrU2rjTg42DhqsdUfmgScW19pfIQ5FeRdxk4YeHkvKMcThiCdtj3L8IULdIGhkBiMn
-	vd8HWKrgO8rpvllvdM/t0jpdY8+Y7LVgBuhFExrvrJJ5jyBucUL0d1J9N+ydqE16p0v/FSt+v6x
-	R1SVqUbG/M8d0sJoBjB6Vno5eaX26EXJ7SVDGDdX2MFcStZ0DlP5b01xq/alCzFW3x2ZQuZ1HC+
-	d31NEwTE4w+o=
-X-Received: by 2002:a05:600c:c8f:b0:49e:6c9b:4e94 with SMTP id
- 5b1f17b1804b1-49fc5743124mr44989645e9.28.1789754879842; Fri, 18 Sep 2026
- 11:07:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ixj5bkQo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DJxbTzlxGfTjZR6bG3MYa7IuBq8M1524DckJpSb0932W3vPUxXfXNNEOscQ3z35AkOxktRhbxGKMuUzOyOM0coC+dDPPI7ruPMr0QOrXIvXQS9FUcI27NrEmfgCHcx5iAMw8jPdtvE/T2O7bsriIGudPj1vWvaO+oCk541UkiryuEDe3eRexyAMv94hBua3Tbp4bzcj1xrn+PTmaYH4mnFKZXlsGOF65iXIj4UFugme+Pu1LDwPFdEPdBSBHBrt7hFJzgiMaxNYdka/ek8iBtQrEriUipTMZJXfdSJ4XAXKZRkvzhKM/YTsZIq1sLAWWdZKDPxo9EIga9AU47mJJQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
+ b=emLHPk4rTaG+eHf5oZO+sdjWG3FBZAx37TaajsjBmvyEXei3g2m5xDZtaF3dB1SMOvxm/toK5nEfI27McHRS9CzWmqaa710rwviVRiAJtyzArC2U2D0hyL0aKjnEdZW3IHLmsGu/doUswT7AHKIsfnMkYXKLpFi79OtGwNBwdgrPKVtb/lLJB1D4dZEummV2sxM8BiSkA/pnDHKhZWkCxTlAKi8OfP6pEyIIIQNuu9SckfNroUIv14KaSMp49nRzHTPJBio/qZr/oE2gkWO3aCWiIc7mzh/+8Usg95I/9469CSerVs9cLS2Mc6NNix/OhMJIhAORUaUDFfe5ZPaj5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
+ b=ixj5bkQoIM9qbAJ+EePAm10K5cRhFrhgTG17dCeqBsQTfGyl7QIGBYR2gIi6zXpBGsiTdR0WXsWt6BhMtggKHSGuHY3KUDqIJ9XcnvySvuoCA9BUNKacGPus7IRMJTqPx7DoU+0tfMOl9rUdMhXDzaYDiFhvxXHyxPzLBVTr3sc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS7PR12MB9551.namprd12.prod.outlook.com (2603:10b6:8:24f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 18:08:57 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0428.008; Fri, 18 Sep 2026
+ 18:08:57 +0000
+Message-ID: <18a8b7ee-d588-48be-bfe4-0b79309e3339@amd.com>
+Date: Fri, 18 Sep 2026 12:08:55 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR
+ failure
+To: Arthur Heymans <arthur@aheymans.xyz>, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ michael.mityushkin@amd.com, nicholas.kazlauskas@amd.com,
+ qingqing.zhuo@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ "Zhang, George" <George.Zhang@amd.com>
+References: <20260912151137.3913987-1-arthur@aheymans.xyz>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260912151137.3913987-1-arthur@aheymans.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0154.namprd03.prod.outlook.com
+ (2603:10b6:303:8d::9) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn> <CAKEwX=PEEkYiNRaVhCuM4E6mxB9huPKfkDa4m62VMTzedg1oYw@mail.gmail.com>
-In-Reply-To: <CAKEwX=PEEkYiNRaVhCuM4E6mxB9huPKfkDa4m62VMTzedg1oYw@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 18 Sep 2026 11:07:48 -0700
-X-Gm-Features: AcwNN1XGRA_fvsrUeEhqxwkqGz--tC36CQoczmeazWAt0rrZHU3NzipYJr2xKaU
-Message-ID: <CAKEwX=N0FGDH=A9-j7uG6Pf3EqyGWkhqbqdpE7jG7owdzmyeLw@mail.gmail.com>
-Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, baohua@kernel.org, youngjun.park@lge.com, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB9551:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca8ef721-8615-402e-1462-08df15afe867
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	YY1HkPNCNaKASMRMUYi+Q4dpHEpJkrmwnWh6uUqO9jXz1gkUHZ5u3ZQkPpZ4+y/3HnGr20IXlbaggIi192eIij27PeRGFVZBB3sqtCjwhtbwlUuQ4I6OytoQ7swSwUCcnMnTX+lr2AZbr/wZ9DjNGfOo6vHecf98Fdhd+x1j9M57b+OrDLCCYMCIyEvC1sUFmrKLujAv60KOAKLCyvVN8p6m6PNHPnPBmEso/CCkBJOIkp4p/HpuS0ydLohrXLwn2m6BSckvi/jrvvMJE4pP0S7IlWOb9ipUh/lCNhhWJ3Tv0bQ0k7kjrz+br7NGQVTpDHhZjceIzUzAy7foPpHTUe0Bx0uqL1/PTSEb4K2MNw0zlRNwBRCemmnR3okjroxNREIDbcCGWyNiB76DDtZs9JBihWEsdnVRAWNmjqKf5LOr8i67bqOQgsHfFxBtgJkAxjHwbrxl928t2ImJnf/hW0o9HTXEThhuVW4DPBKYOCoPvfdW41c7hNNxzWlwdbsf/JD8GhdHrzy8AODSmFwIqd9byMqC+fV4a+Yd4nBXVZBSYBfg1V7N2AkfEib0kICgrvg2a6dYA7PaEcfqc9KhMtL03tfLHHCyLZAGjQ+vggYWZuJzH/fMQQU48f9hdeoO7Vh6G1ackTNLK6CtyFBu92Asel7eas90AnHqmka0z90=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UWNuQTJDZE1YQ1FHczVLZnNLTkpuTGJsclQxZmpESTNVU0M5WGV4UVppQlF1?=
+ =?utf-8?B?SWRIckJuWE4yLzVDd2RPRDByUlBxV3h1Mlc4ckxwSGo0NUFSWTIzNmpEOEd5?=
+ =?utf-8?B?L3d3aVFicE5UcExrMXIwT3Q0MWlkNU10Q1o4anVreklDdFVNVFdtdWhVRWp0?=
+ =?utf-8?B?MzlXYllNZTliaWlWdldwbCtBMGRMaWdINWMraktPWG81RDhVT3Y2d3BHTUdn?=
+ =?utf-8?B?dXlNQ29BUmdmUVpqaTZSUjduTk1HdlRBYWtoalNSQnZGb3hZRE1jVFVYWUNX?=
+ =?utf-8?B?ejJiR2FlYkhxNWtyeDEzQjVGQU1KZ2Yxem9EZ1ZQZVNtNGxzcXZzTDV0T3N0?=
+ =?utf-8?B?NDg5MnlnQnJOTGNWZkxiNDBoajJBMEU5TGp5NGFJNXJUdTVleHRFdS9yT0Jn?=
+ =?utf-8?B?SWZUakJIcUE0ZnVkUXlrRTFVem8xQldSNE9ITDdpemZmYkRHd0hlWlhZSkNT?=
+ =?utf-8?B?S1dTZHJWazFidDZ2MXNrMnhrcWdDYm9vdm94TkZtMmtyWS93NHdkTDVzNHRX?=
+ =?utf-8?B?VTJ2cC96VDFrbzRNQ0dKVDl6YW01YkVlTllPbmUzbzZFUUJUUDFaT1FncGRO?=
+ =?utf-8?B?c2lNVU8vQ3FiaVNHbmlidmhvRXFsSHpVVzlJYWRvcmFmemVCWFlWaU5FUjBD?=
+ =?utf-8?B?NGlRRkIwMXYzZUdFRUdrNTlKTGtXKzBhQ0hWN0hXNy82QXhrTE1oZ1RDRzJk?=
+ =?utf-8?B?eXhuMmo4bllFU1pocUhOWmsycUc1bTkxNUJBMllJandsUnVIWWljdG5aaS91?=
+ =?utf-8?B?MHlwMU1rTllOZlhoVTlTYTBsUVdpNTducjZlbStwN1RLQnJIT0pLcDAwWi91?=
+ =?utf-8?B?QlorYmNVSFlTWE9XN0U2ZHBZaXhPb2Nwa3hCMmhwSVNrc0xLeDRwcHBjN2Fq?=
+ =?utf-8?B?M2xnbnpUVFI2ZzY0QUtmd2lzSFFYWUNzbWNCT29rdXNxZVo4b3dBenZodG1B?=
+ =?utf-8?B?WExHNFlCS09NRjNLR1ZOQjlHYTlhNkU4T2I5NzhGbkhjYUFCL1FWT1dMRm9W?=
+ =?utf-8?B?TWNXVWNIdG8wYnhXMEd1Ym5tVVR0dzdxR0U4eUF3VFExM1BINjFVUVh0bzY3?=
+ =?utf-8?B?NE14Z0dZRDJxZnZKZmR2YWtvNVpHVlF0ZFpiSFdPZERDT2wyZHp1NndOYnVt?=
+ =?utf-8?B?OGlSK1pOYlZubUVPVDRIWU01L0JpMGdHSUZzcXArMHI1aGwySHVDUWFmQUlt?=
+ =?utf-8?B?V2hUaG5jTEVGOUl4cjNUVjl0WWVhRUVPVXBJQ0gwYWNNOG1qVVpRWDQyalVv?=
+ =?utf-8?B?dGQ2MGQraHk5YlNNWWd4U1hSNGFvYlZ2ck5SOGNPNllPMGR0MmhZQjk4Sk13?=
+ =?utf-8?B?cHdCUjQvV0wxVVJYVUV0L2JWUkd0QjM1UE93R29DSmZ6KzREQkVGTnYydnI5?=
+ =?utf-8?B?N01VV0lKQ2grMDJmdDQ3YWlENUJZblhpK0orQVAyRHBSRitwbGJ6Tm1tbEFJ?=
+ =?utf-8?B?Q2d3US8zbnViZS8vcVBUd3A5TXNYQUtVSVArQTY0NlhiN1hNbjhja0hDckhM?=
+ =?utf-8?B?WGtlWG00czlaSGNBSzAvMFNacHMyd2xlSklXU2NZTnh2RzJBRUdtQ1ZnbXpU?=
+ =?utf-8?B?TUY3S2I4K3hiaWMvK0NxdTdnUGIxWXMvWnVkczdIbzF0SEFYYm12YzJwbytJ?=
+ =?utf-8?B?MjVzVmlhNENMUlFtd1J6U3VYbXl4UmJVa0hub3BlZDhiRnF4bmJrSzZsa0dt?=
+ =?utf-8?B?bUNQUUJkSmJXeVZVblBSQXAySFhFWTdZUjdXaXZnWGJ5NUtFKzlWQ1dsYTVr?=
+ =?utf-8?B?ZlBvYTNnVXZRYUlwSTlrdXc3YytkSm14K3BaQ3BxRnVXWHRjaUlwazVzY3ZC?=
+ =?utf-8?B?RU9tU0pKSFoyb3dFUGZqOW9hVmhjTi9tVHlrZ2RnZGVvWmg3c0ZsVE5mUlFD?=
+ =?utf-8?B?NVIvWkZ1RmQ0ZGNQNk5Sa3N0SmlZRFRKc0NQeUZjTlBZeUt1bXUrK3EwZ2Fz?=
+ =?utf-8?B?dS80RFMyTml4Y0NNWVBhNVB4K3grbkp3aVQ1dlpNN2VZTFBBM0EwMXpuRFVJ?=
+ =?utf-8?B?OTNKS2lZa3pkQmNhbWs4dTlkU1NnaGtYb3ZwLzc5TjR5dEY1RlBONTdLMDkx?=
+ =?utf-8?B?a3lKVEF5d29LMnkvM0RKeEN2VWRFNW5EbTQ4akRFNkF5Y2RjOWgvZk1BRUNj?=
+ =?utf-8?B?Vi9FQUk4OVRTblFzUkNXbDVsUmowYUJvYWFpZEhKMG90ekZ1NTdINGlRcWRE?=
+ =?utf-8?B?VmdKMWhyRW1uTzg0ek1aMjROYzROQ2NRd2ZHcGNkMUQ1T00wQ0EzRUs5cytK?=
+ =?utf-8?B?UjlNVmkvVHFpWHREM0JWK2NEb3NnMlMzdnJrWVhHTjRSQU9yTElKZkJJUU5M?=
+ =?utf-8?Q?7tWn2wZMhzeKsi7vIK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca8ef721-8615-402e-1462-08df15afe867
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 18:08:57.4351
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kVVfWpJLv5FM0+u4T7Fg+DYxZNgeCoOJvHxvHhw7uZLcGCi+zsPYJxA+/RdJzNMXjBrnGfbBCPssDEA+NQSoEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9551
 
-On Thu, Sep 17, 2026 at 5:13=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wrote=
-:
->
-> On Wed, Sep 16, 2026 at 3:19=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn>=
- wrote:
->
-> Constraint liberates; liberty constrains.
->
-> So let me flip it on its head. What if we keep the interface I already
-> have, and use your data structure instead? I tried that too [2], and it
-> was significantly easier, because it is just a data structure change,
-> without having to accomodate for the full interface of swap device.
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-Here's an updated version of this proposal:
+On 9/12/26 09:11, Arthur Heymans wrote:
+> [Some people who received this message don't often get email from arthur@aheymans.xyz. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
+> reinitializing hardware") made ASSR failure fall back to the default panel
+> mode unless eDP mode had previously been applied.
+> 
+> However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
+> Before the first call to dp_set_panel_mode(), panel_mode therefore looks
+> like a previously applied default mode. If ASSR setup fails during the
+> first link training attempt, the driver incorrectly trains the eDP link
+> using the default scrambling mode.
+> 
+> On a Google Vilboz Chromebook running self-built coreboot firmware and
+> PSP verstage, this leaves the panel mostly black with corrupted output
+> along the top edge.
+> 
+> Track whether panel_mode has actually been initialized, and only consult
+> the saved mode after it has been applied. This retains the recovery
+> behavior while preserving eDP mode during initial link training.
+> 
+> Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
+> Cc: stable@vger.kernel.org # v6.4+
+> Assisted-by: Pi:gpt-5.6-sol
+> Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+> ---
+>   drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
+>   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index 4ecd5699ac5e..0db55a73da0c 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -1912,6 +1912,7 @@ struct dc_scratch_space {
+>          struct ddc_service *ddc;
+> 
+>          enum dp_panel_mode panel_mode;
+> +       bool panel_mode_initialized;
+>          bool aux_mode;
+> 
+>          /* Private to DC core */
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+> index 9883216dcc9d..cd90576bc6f0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+> @@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
+>          }
+> 
+>          link->panel_mode = panel_mode;
+> +       link->panel_mode_initialized = true;
+>          DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
+>                                   link->link_index,
+>                                   link->dpcd_caps.panel_mode_edp,
+> @@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
+> 
+>                  result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
+> 
+> -               if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
+> +               if (!result && link->panel_mode_initialized &&
+> +                   link->panel_mode != DP_PANEL_MODE_EDP)
+>                          *panel_mode = DP_PANEL_MODE_DEFAULT;
+>          }
+>   }
+> --
+> 2.55.0
 
-https://lore.kernel.org/all/20260918180241.3424851-12-nphamcs@gmail.com/
-
-Per your earlier request, I also:
-
-1. Moved the virtual_table inside struct swap_cluster_info (since the
-virtual table is the only new field now), and deleted the new dynamic
-cluster struct.
-
-2. I skip the shrinking mechanism, but instead I dynamically freed the
-virtual table to minimize metadata overhead of free clusters.
-
-I have not run performance tests yet, but it has survived a couple of
-simple stress test rounds that I threw at it so far.
-
-If you think this is a good proposal, please pick it up and drive it.
-The code is yours :)
