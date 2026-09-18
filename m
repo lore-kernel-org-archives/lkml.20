@@ -1,156 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4A52CCF8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CE525C818;
+	Fri, 18 Sep 2026 21:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766559; cv=none; b=MMzB189SA3ryJANN1ChyXsOeUwfffKdR9eCAVk9mHbcB7dH4HT9IeFxCiuyqS+nS/ZoBfJYQ2KvQ1hAjLWYMC/OJrAasDlVmc0ztqG8N+AppV2f4KPF50xvyte4Xwl8lbcYTm17Y6+Tp5fZYplIcUaKk09k5WkYc73tnlU9ScYE=
+	t=1789766575; cv=none; b=f5sdaH3Kpmy5VtgAieDQRvUlwF54vjkU0A3EOkx58IFR3QDZ0RZGV9RJ/AQTNyslz1UCSf/CBPnamQ7BuGDreZG6rRfCoE13av1t8deSckEpwUr3ibaNCx1e/EKWwoUMmIGxxGnBy4BN9kdgNtUAvsHOej0xS5Mz1fbGHnGmYAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766559; c=relaxed/simple;
-	bh=pBa4BPJqXRcLuaQWWToSymupvQ2ECd6V9b0S+yahvTY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rONsXbWnAnFMc5t8xsdLWnFhtKIml6nSV+M7lp1hoT3fy7pVRLV7YRZKyWnakfZWDBwJxaMyh0moMNgsV8yyBGy3LiEXOz+hOVsC1riTrnW6W9kUjrzVtFHsNzQdhF1x07bf/FcH7rBt4TXf+ew0WO8+7CShVJ71IqmnU/fUQK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8KzO6ly; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789766575; c=relaxed/simple;
+	bh=krTl9gy5WAWQ2E0Ab2wQOTrZCi5f+MXRi+LzOKMWU94=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pp7/TIxbLJLuY5lWUJQFsN2KoAr/WjpiPhioG0uHF1dnrAo8k9iR4HFSkS36m2Opt3o5rBX7bn6XUYil1f+BwcHB+Gt+z7/QTajk6lEIAWEZk5h9ECs0zAfWesSqRSw/XcH9E4kLOVDwP7t68o+6WSjrnf3tNt5vi5pFJKHNZtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ObNJCzNx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8KzO6ly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DBB1F000FF;
-	Fri, 18 Sep 2026 21:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ObNJCzNx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80B71F000FF;
+	Fri, 18 Sep 2026 21:22:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789766557;
-	bh=C73E6Le+67WYIluMdsgmrs2q/oVPB+LK1n/ed4dGSno=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B8KzO6lysIoyffMg2GGY6hxUGrTPlq5HDRDp45GMbDnFnHPrfc/rKa07eAN1espP9
-	 w25mOHnGeumnnk+YMtk9hfHgMOtM4wRF4ZtE8r1gnaBcoYGQGH134kZ+LAGp/kAnoj
-	 Qrqqb8cz3YoZo/dvTElPbvISAGhsIXgRMaabG2EQLwoL6WbqWK7lwVrhtztRnqn0wK
-	 o6qMA9yhjR46HAZuBjpW5d48VZu2t/tJqryIHHrX1wBWRU9otRFxDjPop/ysX1Tr2k
-	 bqdXTZVJ3i7jXIPUN5hw48c6VbLjErL15WGD1dCYdiF5u+1m7UKPaadvMHALHWs+ez
-	 GaJceCdAzuK8g==
-Message-ID: <47ccd5ce-2301-4ddd-881c-d57cb82b562c@kernel.org>
-Date: Fri, 18 Sep 2026 23:22:26 +0200
+	s=k20260515; t=1789766574;
+	bh=s4bY/lwMBPYFBKAC6dm6oIbJefCADIz69WJC7Hc6mg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ObNJCzNxtIoISUL+7iKZWeuy7/awVKJ37kCAQbFyqR8Hj0H+6e3/MYkCZ+smzZMBD
+	 yYJpixbKavYzU2tzBkGxVdVrCzYPgwMww7CNwYYkQXRjoQjafdL4J1gW/R9JEV5Yyi
+	 Rn4+YczuZDyZiN2Y4eot0Qd3ShUSPYHvr+6GneY3nrAE9RqktQ8IuRSkgIMLWblj6W
+	 PjilhkzUGI1GfiJ3jlqwfIAgRMK5XwX7L/OLlHP8I7qSsWD+XQPb/XusJB28bHZt4P
+	 Bbm4oa0eISRIGo+bBbwHO1wvZOK6km4pQuirYwDAM3SqYJqVudK70Cm/GU5f+9/T5c
+	 1J+c0m+/5S8XQ==
+Date: Fri, 18 Sep 2026 16:22:52 -0500
+From: Rob Herring <robh@kernel.org>
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mohit Sharma <mohit.sharma@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] ASoC: qcom: q6apm-dai: add SCM buffer assignment
+ for mDSP platforms
+Message-ID: <20260918212252.GA2258003-robh@kernel.org>
+References: <20260918-vmid-v3-v3-0-f1cbf47bf173@oss.qualcomm.com>
+ <20260918-vmid-v3-v3-3-f1cbf47bf173@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 04/29] powerpc: mm: add PMD swap-exclusive helpers
-To: Usama Arif <usama.arif@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com,
- Madhavan Srinivasan <maddy@linux.ibm.com>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-5-usama.arif@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260914122950.3283997-5-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-vmid-v3-v3-3-f1cbf47bf173@oss.qualcomm.com>
 
-On 9/14/26 14:27, Usama Arif wrote:
-> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
-> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
-> not just in a swap PTE.
+On Fri, Sep 18, 2026 at 07:19:37PM +0530, Ajay Kumar Nandam wrote:
+> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
+> (mDSP) which runs in a stage-2 protected context. Unlike ADSP targets
+> where SMMU-mapped system RAM is directly accessible, the mDSP cannot
+> reach the PCM buffers unless they are explicitly SCM-assigned to the
+> appropriate Virtual Machine IDs (VMIDs). Without this assignment, audio
+> does not function on these platforms.
 > 
-> book3s64 builds a swap PMD by running the PTE encoding over pmd_pte(), so
-> the PMD helpers use the same _PAGE_SWP_EXCLUSIVE bit. It is also the only
-> powerpc variant that selects ARCH_HAS_PMD_SOFTLEAVES, via PPC_THP.
+> At probe time, the driver reads the GPR domain_id from the parent APM
+> device to determine which DSP serves audio. When domain_id matches
+> GPR_DOMAIN_ID_ADSP the existing SMMU/iommus path is taken and no new
+> code is exercised. When domain_id matches GPR_DOMAIN_ID_MODEM, the
+> driver verifies that qcom_scm is available (deferring otherwise) and
+> that iommus is absent (the two mechanisms are mutually exclusive), then
+> enables the SCM assignment path.
 > 
-> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> In the SCM path the driver parses the optional memory-region entries in
+> DT. The first entry (memory-region[0] / audio_heap_mem) is the
+> control-path carveout used by the DSP firmware for command traffic; since
+> the mDSP operates on stage-2 protected memory, this carveout must be
+> SCM-assigned at probe time itself for the firmware to function. It is
+> SCM-assigned to HLOS (retained as source owner, RW) plus MSS_MSA and
+> LPASS (consumer VMIDs, both RW) and restored to HLOS-only ownership via
+> devm_add_action_or_reset() at device removal. The second entry
+> (memory-region[1]) is the data-path buffer pool from which per-stream
+> DMA buffers are carved out. This pool is attached via
+> of_reserved_mem_device_init_by_idx() so that PCM buffers allocate
+> directly from the carveout instead of system RAM. Individual buffer
+> slices are SCM-assigned in pcm_new() after allocation and unassigned in
+> pcm_free(), so only the actively used slices are shared with the modem
+> and unused carveout memory remains HLOS-owned.
+> 
+> The VMIDs are static per SoC and hardcoded in the driver (HLOS, MSS_MSA,
+> LPASS) rather than read from DT, following the upstream pattern used by
+> rmtfs_mem and qcom_q6v5_pas. Buffer constraints are capped at
+> reserved_buf_size when the data-path pool is present, and
+> snd_pcm_set_fixed_buffer_all() is used for both paths so the carveout is
+> not subject to the preallocate_dma module parameter.
+> 
+> The DT binding is updated to add an optional memory-region property (1-2
+> entries) and to make iommus optional (removed from the required list),
+> since mDSP platforms have neither IOMMU nor VMID DT properties.
+> 
+> All new code paths are gated on use_scm_assign (false when domain_id is
+> not GPR_DOMAIN_ID_MODEM), ensuring existing ADSP/iommus targets are
+> completely unaffected.
+> 
+> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 > ---
->  arch/powerpc/include/asm/book3s/64/pgtable.h | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
-> index dff8790a047db..28943ef3c1c80 100644
-> --- a/arch/powerpc/include/asm/book3s/64/pgtable.h
-> +++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
-> @@ -699,6 +699,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
->  	return __pte_raw(pte_raw(pte) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
->  }
->  
-> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-> +{
-> +	return __pmd_raw(pmd_raw(pmd) | cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
-> +}
-> +
-> +static inline bool pmd_swp_exclusive(pmd_t pmd)
-> +{
-> +	return !!(pmd_raw(pmd) & cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
-> +}
-> +
-> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-> +{
-> +	return __pmd_raw(pmd_raw(pmd) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
-> +}
-> +#endif
+>  .../devicetree/bindings/sound/qcom,q6apm-dai.yaml  |  12 +-
 
-This should likely go below the pmd_swp_mksoft_dirty() handling block?
+Bindings are separate patches. Run checkpatch.pl, it will tell you this.
 
-For softdirty it's e.g.,
-
-#define pmd_swp_mksoft_dirty(pmd)	pte_pmd(pte_swp_mksoft_dirty(pmd_pte(pmd)))
-
-
-Why can't we follow a similar model here?
-
--- 
-Cheers,
-
-David
+>  sound/soc/qcom/Kconfig                             |   1 +
+>  sound/soc/qcom/qdsp6/q6apm-dai.c                   | 260 +++++++++++++++++++--
+>  3 files changed, 252 insertions(+), 21 deletions(-)
