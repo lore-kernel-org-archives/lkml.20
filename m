@@ -1,51 +1,35 @@
-Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A25C24E4C6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1066237BE84;
+	Fri, 18 Sep 2026 22:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771816; cv=none; b=nfn0XBowxmHQc0gYV8pGBCc27rcs9knKqUEyBRe2G6+9pikAzJUeQFXkNCVQ7VOQwizmA2fleisBmpnDud0HRXNols7OUBo0LJyjSoZ12h/QmoPmbcpo6ME3GmA6iNw7jPYG4rF5taG8NTcqY66vQN+BV/AdBiCwokv8prE7Boo=
+	t=1789771886; cv=none; b=Jt5n7uXRzU970xW6ZKLD97oL649cvo64HlO2KESdBBet398Vj7K61UR0ZQlSXe14YPE5+Xahbe5hli78JDbTivRV8CMgG9xERVzAQuY0dOkXF4llL99mRfllbh1bYwUab/4FJIwOONgUHGq6VKb1E5fiLwigmuspqK2qWrXbsFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771816; c=relaxed/simple;
-	bh=c9a7BgfKyXpFpPzPymrjIgQx/Q/FQ8LhZrbtEMRk4pA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jetTeuNc7GO75MbAjOdcru+mJXcBirAzNbaWGDvZ5H2OdfKHkasMNUekWNFoVkviG6q2t9g1SuBOb+HFqDEK/v0JYSYLinH3nV4JWI/jW6Y6FDLoolEi77XeJmCQAuGzD9tPpI/JQCYPM+5owEGUVrm5BtXJ9FrFXWxsY9EC1E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=l4T+guds; arc=none smtp.client-ip=185.136.65.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1789771886; c=relaxed/simple;
+	bh=U5v0btgtclZk54nmhxVfszjH+0mPB8dQGNxmEoCzxjk=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=lz2UCClO6ffDPRbW0TMaIgXoqkq3Y8RJEhLeUF1Fy+oEBVPgSqq1sceJ9z0PbchdzyCkKT4inIKYq7RoUJZhV6YW5qHy8OC4cEHU9tPqwaxE6t7yvD+6mDp79L7xijQ4hEEhuOk1/Atm5LcXhai5HtAAOk18wCOBx09Atovv3iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLzl0m4Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="l4T+guds"
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 20260918224946c2c40c331c0002071d
-        for <linux-kernel@vger.kernel.org>;
-        Sat, 19 Sep 2026 00:49:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alessandro.zini@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=Idf8+02UMvhb6WU2BN5Xp0LSgr1Y02lP+wrZ3oddczE=;
- b=l4T+gudsDujoJfQUZn5qu24EZvK5Pka46dfYI1uRCxZEf5coILK0Ydh0+HJoQvUXiUOOI7
- 9IyG97R3HA8kun/fCj9HqJSlexDspsadryMgZcSeb+O7VrI4bLtW5omJHFI1thL5k3nyNhv2
- 8nCTQvcxmDDltuHxIEuHmrdLLsfFxz6g9AK0pTCSnvKsAehpA/ksX40Fo5KkQMHkdPxdauho
- JLIhe139xD4aRdMRay8RYN89j2nWOLB2IQvJcvTdD1uVgSvZQ8Qp4Jb+OZgYz81uxBB255M6
- B8bMQuVDvXoGt5xBr7wTHqUnaWFIrn6evBq0FVgPPkvWtwSUUlYDaOoA==;
-From: Alessandro Zini <alessandro.zini@siemens.com>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Ciprian Regus <ciprian.regus@analog.com>,
-	Qingfang Deng <qingfang.deng@linux.dev>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alessandro Zini <alessandro.zini@siemens.com>
-Subject: 
-Date: Sat, 19 Sep 2026 00:49:30 +0200
-Message-ID: <20260918224934.51998-1-alessandro.zini@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLzl0m4Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F5C91F000FF;
+	Fri, 18 Sep 2026 22:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789771884;
+	bh=731a6XXeceztXL+ac+gkERlPUJ3cREl5p8bl8/NcrVo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hLzl0m4YKl6hlT7zNLemKa+uY5mMBThfRbfwb7wkVXmNUKHb+pX1HgD/Sgt1d9+zy
+	 5TMFya3Ly67PVe3CXn+Idn2AsOTZ60ko7pYgrUU7cHGjb+ersmoqxa1MmKpt1lP4b2
+	 rZqVkLmog2qVjeZ1Y20RI8EaXzouyqCMh6CJks37wIwARZGqIvP18OeTFJEemhgf40
+	 y/ouYmzNitzaOLqrx4UK0uyu3pvldpaQM4rPN5f2zHariYPvZidnosS6n/Xa9Y8SBb
+	 hoDoq6COg2Ab4+iy36+peVot1ObiWIf5dyr6a1+HraDejHUmA7RBbzzEv15/b9oyGw
+	 kGO6ieWT2bI9Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A02381196A;
+	Fri, 18 Sep 2026 22:50:18 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,58 +37,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-1327013:519-21489:flowmailer
+Subject: Re: [PATCH] net: fs_enet: fix platform info memory leak on remove
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178977181739.1178488.919668465552936249.git-patchwork-notify@kernel.org>
+Date: Fri, 18 Sep 2026 22:50:17 +0000
+References: <20260916031414.2875022-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260916031414.2875022-1-lgs201920130244@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: pantelis.antoniou@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, jeff@garzik.org, scottwood@freescale.com,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Subject: [PATCH net-next v3 0/4] net: ethernet: oa_tc6: add reset-gpios
- support
+Hello:
 
-This series adds optional reset GPIO support for OPEN Alliance 10BASE-T1x
-MAC-PHY devices using the OA TC6 library, and documents the property for
-the two MAC-PHYs currently bound to it.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Patch 1 and 2 document the optional reset-gpios property for the Microchip
-LAN8650/1 and for the ADI ADIN1140/AD3306.
+On Wed, 16 Sep 2026 11:14:14 +0800 you wrote:
+> fs_enet_probe() allocates the platform information structure with
+> kzalloc_obj() and stores it in fep->fpi.
+> 
+> The probe failure paths release this allocation with kfree(). However,
+> after a successful probe, fs_enet_remove() tears down the network
+> device without freeing fep->fpi, leaving the platform information
+> structure allocated after driver removal.
+> 
+> [...]
 
-Patch 3 converts oa_tc6_init() to return an ERR_PTR instead of NULL, so
-that -EPROBE_DEFER from the GPIO lookup added in patch 4 reaches the
-driver core instead of being turned into -ENODEV.
+Here is the summary with links:
+  - net: fs_enet: fix platform info memory leak on remove
+    https://git.kernel.org/netdev/net-next/c/4a6764900678
 
-Patch 4 implements optional reset GPIO handling in the common oa_tc6
-library. The reset line is requested asserted, kept asserted for 10 us and
-1 ms of settle time is allowed after deassertion for the crystal
-oscillator startup, before the OPEN Alliance TC6 communication is started.
-
-Changes in v3:
-- Picked up Acked-by tag from Krzysztof on patch 1.
-- Added patch 2, documenting the property for adi,ad3306 as well, since
-  the reset handling lives in the common library and the adin1140 driver
-  gets it too.
-- Added patch 3, converting oa_tc6_init() to ERR_PTR, so that
-  -EPROBE_DEFER is not lost.
-- In patch 4, requested the GPIO with GPIOD_OUT_HIGH and dropped the now
-  redundant gpiod_set_value_cansleep() call, as suggested by Qingfang
-  Deng, propagated the dev_err_probe() return value, reworded the comment
-  and sorted the new includes.
-
-Changes in v2:
-- Moved reset-gpios handling from the lan865x driver into the common oa_tc6
-  library (drivers/net/ethernet/oa_tc6.c), so all MAC-PHY devices can make
-  use of it, as suggested by Parthiban Veerasooran.
-
-Alessandro Zini (4):
-  dt-bindings: net: microchip,lan8650: add reset-gpios property
-  dt-bindings: net: adi,ad3306: add reset-gpios property
-  net: ethernet: oa_tc6: return ERR_PTR from oa_tc6_init()
-  net: ethernet: oa_tc6: add reset-gpios support
-
- .../devicetree/bindings/net/adi,ad3306.yaml   |  5 ++
- .../bindings/net/microchip,lan8650.yaml       |  5 ++
- drivers/net/ethernet/adi/adin1140.c           |  4 +-
- .../net/ethernet/microchip/lan865x/lan865x.c  |  4 +-
- drivers/net/ethernet/oa_tc6.c                 | 46 +++++++++++++------
- 5 files changed, 47 insertions(+), 17 deletions(-)
-
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
