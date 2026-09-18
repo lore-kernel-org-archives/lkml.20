@@ -1,134 +1,153 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B873644DE;
-	Fri, 18 Sep 2026 03:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FEF54705D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789703934; cv=none; b=T1tZbRozSV1cRIbeep3SmeQX4Agy+o3Zjqtpi2hyjrPMS/DROd90h5i0+qedCNqwrGXTCs04c/EC1IsHyUOm+9NUmePeDIGFe8YXxBfVdljJqnHlar9qbxFyf8Ee2DRxecj0eHC6HFJvs5r/DQX4M5+fW3gKRQhZjwNIWMUndyk=
+	t=1789703935; cv=none; b=FiCkiOTVA8Rq2spev2izkEps6cM71YEuzzZc2L/fdO6JsIQZubpJrqGAK18sp6s1/RM4qM2Xk6VvtNFiQ6R1XJGKWH2HU1tSipWK59C7J0vTmGs8NN8GgCX6jmhInJ1Caf7dI8SNtTMKKbTemxK8iWJrXoAESh9QRWMsL123p+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789703934; c=relaxed/simple;
-	bh=pkNHXt5gdQSHxwxTqenzPOdTbJOI7BzP6Y7cUui9JRk=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=fZarMVvbZf1/Kvz6bAv+hfP5x3N2Uv2Olz3p+pj6NuOi/V4lQnKeLbxoNUjnBFWNf4rDeOzRsrtTnniQkONg+G+/5SISKkNmDXdJnffd3vuAQ38XunxH2PogU21VFIQVvCJYSdoR3uBBw0edtZOCFuH8XxS9ZSP2FCyjPb6UyVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com; spf=pass smtp.mailfrom=net-swift.com; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=net-swift.com
-X-QQ-mid: esmtpsz20t1789703772t7637d381
-X-QQ-Originating-IP: 2w5xdtdlO4Bev8ojz+MFY/d6nb+kMkzlVODl9mwoWCA=
-Received: from smtpclient.apple ( [125.118.25.28])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 11:56:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3536635797696143373
-EX-QQ-RecipientCnt: 14
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1789703935; c=relaxed/simple;
+	bh=qHRRxczt8J4eG+g2sOw/jM5GfYGKQK5Jkmn5R9iUIKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dyPZG4x3g1pZrkbSVNvnEpp0KnLGFc3rD9BvG6V9k+zgX+EUlkTqSgyeYZjqKP/L0Hj5m4jMBE6UwlYWsLztIhacwKKH3voZnzBCFJWS8S5qu5Y62711fbWUqqWJH9V7qMX9VdNcxCkiSNmtSUFcar8xon+/mVdB+MsWCx/uJRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JeIoQ6cm; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JeIoQ6cm"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789703930; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Gj7KZoF9VTbSXIKMoovF+7EFs6uTwEiek6buK+yA5uo=;
+	b=JeIoQ6cmErZLfOR6mUd6fPoUPJjFWcAsjiHSrYTrC3y7UqTNShVVN+CvatlUACIzk+b4++uNMkQHzMMENLy3BINxVDKYov3v6Crq5x3GWSNmnvnyVHquVg81GoQPDKyOQ/3zHIXsj2AB3ahgOtJQXUiRmFHoS4+0xcwfgHh6UTA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XB9o3aj_1789703928;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XB9o3aj_1789703928 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 11:58:49 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	hughd@google.com,
+	david@kernel.org
+Cc: ziy@nvidia.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 02/12] mm: khugepaged: drop the hugepage_madvise()
+Date: Fri, 18 Sep 2026 11:58:33 +0800
+Message-ID: <e4d6918e2e420a2378e8f8c502ccfbad2a7bc2d1.1789701677.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
+In-Reply-To: <cover.1789701677.git.baolin.wang@linux.alibaba.com>
+References: <cover.1789701677.git.baolin.wang@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH net 2/2] net: ngbe: clear DRV_LOAD bit when ngbe_open()
- fails
-From: "mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>
-In-Reply-To: <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-Date: Fri, 18 Sep 2026 11:55:59 +0800
-Cc: netdev@vger.kernel.org,
- jiawenwu@trustnetic.com,
- andrew+netdev@lunn.ch,
- davem@davemloft.net,
- edumazet@google.com,
- kuba@kernel.org,
- pabeni@redhat.com,
- aleksandr.loktionov@intel.com,
- leitao@debian.org,
- weirongguang@kylinos.cn,
- u.kleine-koenig@baylibre.com,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9D109671-17F9-4BA3-8814-534E238FA0E2@net-swift.com>
-References: <20260917090050.1927999-1-zhangyunfei1@kylinos.cn>
- <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-To: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:net-swift.com:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MWVuLC+RRZkhTjy/+VTTMVohWNz8gnLeSJe3xkP9nKrLgXFGLvY7fRBj
-	koUoN8pjr7/5NGmQjWXVSs8XR3oKlP9zBJTBxPQCnzBJXV6l/iQiCYtPRmnH01ktG4bw3L4
-	EHzl+2HmVntckinWE0stzDy1NT/ksVajvx/0q6GYYf2xNoP4874uQFW02UkN4fryn5Egh/X
-	U01DO3c7h3vpjX+ADDsui5g8pBaywyIrkw78uXPBeW+20cpfZNMv1bclJkt8/GIVJtjRNM7
-	sLBUWw68BzEoEHqXZ4aHiVTSFkNV9fUal13YS550MIwLitLU/2wPVqnLmCL6u0p1oeay+Ll
-	/k3yy0gNG4+eDoDzFTteXCwQ7lulTQVhK8NBpA7Otu9KH/Wre1LQLrMbBApoTL7uIiG+CKZ
-	0qaXA7nZIvk0RLcrEIh8PT70j2xIkDKwRlh24I6EBWWY7tmYIExdWoeXqUMikhJ3LLqZOKz
-	JtVvwRewa1up3bKAiAh6sZ6tJCOci9wyIidbBX42tsUFhBixJvjuInN6efVB/eNRjIYK3zx
-	T3kUb2v2wLKJ/AvwNl2I7L1hbV5FcOJ2WjGpEmEtG3RhICZ/NHJPvRfGnUKvHMR9apSqlXI
-	LjLwV4iYVDZq70uvaiK1cX5pIBCEP9pFf2mhNz5n3iPgW1xudY6IbDHZl0ZN0bXax6fByBY
-	h/ZZ2e7pqhwVWZhyMxkdP0qMIWIv8ETOzku5DpOidSebc7RUk+FyWU57dE1qFYfea+zod1I
-	aUfOK30wNBlC5CCsJhj3eq/LfumePlmjRkGNuM7J4lrwRi7bHMPJcBNEcSnlXwQjuQcPQvD
-	I6w5jN4Dd98s3fYalTEtaq2vUqdhBseVvE4ndyUtMCfSi5MpP+mLVoXXtdxlD/jat9hOnRa
-	cA/HZK1gsuDcB0tgIh8OyoMwlIwzVz6fWXkhir+VL77fxWIGl0/1QfADAuyDjD7iYrd/i1x
-	B2GpMH+7C7a98PwEAmqr7GL42tNluzBdLL+A87SbwYkgCYRbUhhPWjTJFLFiSg675DiMkFI
-	Gar6fKbx2+Mf6c2LmnrTkFVJ3Ha0l+sTZTtmDdgS4ftsxpSsTbRvAIYycmw3sGgxaXWz7BI
-	+7M8dcRtKW3
-X-QQ-XMRINFO: Mp0Kj//9VHAx235w5pKcATsBnINcSeXWMQ==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+After commit 2fd4e7693674 ("mm: fix incorrect vm_flags usage when checking
+allowable orders for tmpfs"), hugepage_madvise() no longer calls any
+khugepaged related functions and only updates the VMA flags. So remove this
+helper and update the VMA flags directly in madvise_update_vma(), which
+simplifies the code.
 
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+ include/linux/huge_mm.h |  8 --------
+ mm/khugepaged.c         | 22 ----------------------
+ mm/madvise.c            |  8 +++++---
+ 3 files changed, 5 insertions(+), 33 deletions(-)
 
-> 2026=E5=B9=B49=E6=9C=8817=E6=97=A5 17:00=EF=BC=8CZhang Yunfei =
-<zhangyunfei1@kylinos.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> ngbe_open() sets the WX_CFG_PORT_CTL_DRV_LOAD bit via
-> wx_control_hw(wx, true) to tell the management firmware that the
-> host driver has taken over the port (NCSI/OOB firmware stops using
-> its management channel). Every error path of ngbe_open() returns
-> without clearing it, leaving rings, IRQs and the PHY torn down
-> while the firmware still believes the host owns the port, an
-> inconsistent driver-firmware handshake state that persists until
-> the next successful ifup.
->=20
-> Roll the bit back on all open error paths, matching ngbe_close()
-> and ngbe_dev_shutdown(), which already clear it.
->=20
-> Fixes: e7956139a6cf ("net: ngbe: Add irqs request flow")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-
-Reviewed-by: Mengyuan Lou <mengyuanlou@net-swift.com>
-
-> ---
-> drivers/net/ethernet/wangxun/ngbe/ngbe_main.c | 4 +++-
-> 1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c =
-b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> index 6d8289e2532d..88f00b72a512 100644
-> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> @@ -494,7 +494,7 @@ static int ngbe_open(struct net_device *netdev)
->=20
-> err =3D wx_setup_resources(wx);
-> if (err)
-> - return err;
-> + goto err_control_hw;
->=20
-> wx_configure(wx);
->=20
-> @@ -526,6 +526,8 @@ static int ngbe_open(struct net_device *netdev)
-> err_free_resources:
-> wx_free_isb_resources(wx);
-> wx_free_resources(wx);
-> +err_control_hw:
-> + wx_control_hw(wx, false);
-> return err;
-> }
->=20
-> --=20
-> 2.25.1
->=20
->=20
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index 8ca0fa3be2ac..334c387ad997 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -508,8 +508,6 @@ change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 			__split_huge_pud(__vma, __pud, __address);	\
+ 	}  while (0)
+ 
+-int hugepage_madvise(struct vm_area_struct *vma, vm_flags_t *vm_flags,
+-		     int advice);
+ void vma_adjust_trans_huge(struct vm_area_struct *vma, unsigned long start,
+ 			   unsigned long end, struct vm_area_struct *next);
+ spinlock_t *__pmd_trans_huge_lock(pmd_t *pmd, struct vm_area_struct *vma);
+@@ -707,12 +705,6 @@ static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
+ #define split_huge_pud(__vma, __pmd, __address)	\
+ 	do { } while (0)
+ 
+-static inline int hugepage_madvise(struct vm_area_struct *vma,
+-				   vm_flags_t *vm_flags, int advice)
+-{
+-	return -EINVAL;
+-}
+-
+ static inline void vma_adjust_trans_huge(struct vm_area_struct *vma,
+ 					 unsigned long start,
+ 					 unsigned long end,
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 21d75f5b4b4d..f81ecaaa4890 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -380,28 +380,6 @@ static unsigned int collapse_max_ptes_swap(struct collapse_control *cc,
+ 	return cc->policy.max_ptes_swap;
+ }
+ 
+-int hugepage_madvise(struct vm_area_struct *vma,
+-		     vm_flags_t *vm_flags, int advice)
+-{
+-	switch (advice) {
+-	case MADV_HUGEPAGE:
+-		*vm_flags &= ~VM_NOHUGEPAGE;
+-		*vm_flags |= VM_HUGEPAGE;
+-		break;
+-	case MADV_NOHUGEPAGE:
+-		*vm_flags &= ~VM_HUGEPAGE;
+-		*vm_flags |= VM_NOHUGEPAGE;
+-		/*
+-		 * Setting VM_NOHUGEPAGE will prevent khugepaged from scanning
+-		 * this vma even if we leave the mm registered in khugepaged if
+-		 * it got registered before VM_NOHUGEPAGE was set.
+-		 */
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+ int __init khugepaged_init(void)
+ {
+ 	mm_slot_cache = KMEM_CACHE(mm_slot, 0);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index eb491fa88325..4150f6a8cf64 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1598,10 +1598,12 @@ static int madvise_vma_behavior(struct madvise_behavior *madv_behavior)
+ 			goto out;
+ 		break;
+ 	case MADV_HUGEPAGE:
++		new_flags &= ~VM_NOHUGEPAGE;
++		new_flags |= VM_HUGEPAGE;
++		break;
+ 	case MADV_NOHUGEPAGE:
+-		error = hugepage_madvise(vma, &new_flags, behavior);
+-		if (error)
+-			goto out;
++		new_flags &= ~VM_HUGEPAGE;
++		new_flags |= VM_NOHUGEPAGE;
+ 		break;
+ 	case __MADV_SET_ANON_VMA_NAME:
+ 		/* Only anonymous mappings can be named */
+-- 
+2.47.3
 
