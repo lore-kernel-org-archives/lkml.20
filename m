@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A2B4B1D19;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441934BF933;
 	Fri, 18 Sep 2026 08:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721842; cv=none; b=XdtfCMZ5+9xDvnRYEvEP2mt5wy698AF3+0UFDTxv7tLFzbFvp/4OPrsFe+DKzm4HLPyYyyls+o+DmVl2NMLvu92lmbEjz6DY25BmqvJ0gYfRtgBeqpkottSL7dMG2PHmhGK+TDiwoD3QEcNJk8VhucgjN54cv/yNoXnLwJqwG0k=
+	t=1789721842; cv=none; b=C771IAnxcx/IPM98P6ifGpLRVMyi0nIKXlfKk2MiqA93NNbzMW6YguM2ayEnmgGcKk0fWENmlmXWffg68JfrgXjFIaXVrrnJ24t8jqYh9t1z39olGQgdNY07gcnzb1O+dzt5WYQMviaewez5Db1O2GA2PJIwJ1k3zwse2pukTaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789721842; c=relaxed/simple;
-	bh=YpzryN/jqffQtkoAJf0qlEIxY6wpQ4aEFwp/t0r701U=;
+	bh=CQO3KyXjcEOh1cJImvayR9pN1O2Gi+6chTdyTr2q23c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P7r6AscdQFLwzOdN7EEJZGrRaKMg8b2q87Q+eOpzDB4NQC1dXvPG9QRxUFAPYT2bKYJbdnJaDiY9QSSv4CIVBZCmJarHtRMedAh5IL1OlcDVxSSmYZu11q9jv8X+q1UAOBtiXepfzJm293m3HvLBtjK4vRD9Ns+VKKiJZUzQbTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPvPGNyU; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=gdtH3RiFCdRH7qNTXH9rjK2qXi4en9zpC1uheddzBPLRKhnW7jxIx3bs+9RNN+h35fxRct4QAh7KF4zyU4s1WCwug1j70tXnc28ALTkRRbZKjNybPPjnY+N5jHsLv3qSJ9MqRqpVgRGOr6wM4ocF2owg5FKzpSglpngrlDCNlro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiiUXy/M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPvPGNyU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A670C4AF11;
-	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiiUXy/M"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 64D4FC32781;
+	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789721841;
-	bh=YpzryN/jqffQtkoAJf0qlEIxY6wpQ4aEFwp/t0r701U=;
+	s=k20201202; t=1789721840;
+	bh=CQO3KyXjcEOh1cJImvayR9pN1O2Gi+6chTdyTr2q23c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PPvPGNyULxOqMMPnE6yvOeXnyKggWMg7EMOY9crTCITikYZCYFSW7tleyhgx7xLuX
-	 bCsShiKPl99vkOBrJSLetAEczaTD5Re2SGdo2t+p0kYvmQ13D9Dcmbb9LgbdsYNgJ6
-	 IAuLgmLXDS7XdlwR1wdGWJ0L2MCwzh/rMC19y7BYri2znpPFKpxH5M0jDMtJuOZIxO
-	 NGdFtNVvEzqBfb+u3ZxhJZJqf3TnslRHB9qS2zD6PYAEDx2BswN8mC+ADUUxtpEeb8
-	 YrnZzS0f58k+iI7v9Es7PKBu6+fVnRx0qjG/dxK1he3U0zrVUwnFfrTbOlmwyQoJMh
-	 0okSd098FP5Qg==
+	b=hiiUXy/MYf+LhIkuAehHEFuDk4Tgy/3F5R9qZalTDIHYogFC8EMY50VhTve5zNM3k
+	 9rtzqbQI5RtK7o6WUDORZjhVpeL9/3T2zjW+vHwYgwLl6KK/bemBxaFQoPm5abeYW8
+	 4KsPbOy3EmGV6g83xH19hxiDaaU3Udx0T+ioWBM21Tm8C0qf1Zj36qiFYssUN2pC1y
+	 W+pVyeaxAl4c/oK4BL2gt24Jrnx38CkXRvMUdVS9ztiEHDy5kLQVNMeddJkRY18MMT
+	 pWQ5gFjJ/gxE2E/l8YFVz5YgT4RpAEr6sb+/z9NP9FQbgaFSFyUgYmGojAlnD8Cfao
+	 NBgGqp0cXmVUQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B615C982DA;
-	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FEAAC88E72;
+	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:36 +0800
-Subject: [PATCH 21/21] media: i2c: it6625: use enable_streams and
- disable_streams
+Date: Fri, 18 Sep 2026 16:57:26 +0800
+Subject: [PATCH 11/21] media: i2c: it6625: use unsigned int indices in EDID
+ read/write
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-21-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-11-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=3281;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1460;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=PmFwvFAlIGe8S5KkdJ/0dJSm3Ai5OjykPBxjocuRLS8=;
- b=pzg0mXTeiUoizaAnBVMTecVitw6D/qbWMbgqWu7RkNbG+vrol9O4e0pUXFH4uag8CLYkMdXvT
- K27Qx+tvexPAVVABJ4Z5YxusCgmv5j4VfLMGKwesNZacVpQyMQYErWL
+ bh=NqCXYn3xhZ1IIhlAVGE1HXgnu3CsRL/n6ZRVnjAh6nw=;
+ b=jOqA6KM0UKYUdWwV5r7kuGILkpP2dbium/P6VXPD81QNlemTzlveDZvPh0hKIHB27t1EEKvBG
+ 8vCfFbOiyCMDwmL2pH3gvOk3512qvUjzrTQObPOXpHHk4Lr6nu3i9nb
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,90 +66,43 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The .s_stream video op is deprecated; add .enable_streams()/
-.disable_streams() pad ops instead and keep v4l2_subdev_s_stream_helper
-for legacy .s_stream callers, matching the same-device-class precedent
-in lt6911uxe.c.
-
-it6625_enable_streams()/it6625_disable_streams() call
-it6625_enable_stream_locked() directly rather than the removed
-lock-taking it6625_enable_stream() wrapper: v4l2_subdev_enable_streams()/
-disable_streams() already lock the active state -- and hence
-it6625_lock, shared as sd->state_lock since the previous change --
-before calling into these ops.
-
-Do not set V4L2_SUBDEV_FL_STREAMS: this device has a single,
-non-multiplexed source pad, so the core's implicit stream 0 is
-sufficient and v4l2_subdev_s_stream_helper() already handles that case
-without it. Error handling is unchanged from the locked helper these
-ops now call directly, so streaming failures are reported to the core
-instead of being silently absorbed.
+it6625_read_edid() and it6625_write_edid() iterate their block loop
+with signed i/bank_ctrl locals holding only non-negative values; make
+them unsigned int and keep err signed. Reorder the declarations to put
+the pointer before the scalars while these functions are already being
+touched.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ drivers/media/i2c/it6625.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 550eb95c6f74a81fc11cc055b4590159ac50e969..680f27a4587eccfb863bb091c1dede290e57e909 100644
+index b580256d32f51465a620b639fc0134366cc6fcc1..328bd99f27cf84722caa184302cddeb9c3e667fb 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -936,12 +936,6 @@ static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
- 	return it6625_update_config(it6625);
- }
- 
--static int it6625_enable_stream(struct it6625 *it6625, bool enable)
--{
--	guard(mutex)(&it6625->it6625_lock);
--	return it6625_enable_stream_locked(it6625, enable);
--}
--
- static int it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
+@@ -660,8 +660,9 @@ static u64 it6625_get_pclk(struct it6625 *it6625)
+ static int it6625_read_edid(struct it6625 *it6625, u8 *edid, int start_block,
+ 			    int num_blocks)
  {
- 	u8 mipi_data_type;
-@@ -1503,11 +1497,22 @@ static int it6625_dv_timings_cap(struct v4l2_subdev *sd,
- 	return 0;
- }
+-	int i, bank_ctrl, err = 0;
+ 	struct device *dev = it6625->dev;
++	unsigned int i, bank_ctrl;
++	int err = 0;
  
--static int it6625_s_stream(struct v4l2_subdev *sd, int enable)
-+static int it6625_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
-+{
-+	struct it6625 *it6625 = sd_to_6625(sd);
-+
-+	return it6625_enable_stream_locked(it6625, true);
-+}
-+
-+static int it6625_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
+ 	if (!edid) {
+ 		dev_err(dev, "edid buffer is NULL");
+@@ -699,8 +700,9 @@ static int it6625_read_edid(struct it6625 *it6625, u8 *edid, int start_block,
+ static int it6625_write_edid(struct it6625 *it6625, u8 *edid, int start_block,
+ 			     int num_blocks)
  {
- 	struct it6625 *it6625 = sd_to_6625(sd);
+-	int i, bank_ctrl, err = 0;
+ 	struct device *dev = it6625->dev;
++	unsigned int i, bank_ctrl;
++	int err = 0;
  
--	return it6625_enable_stream(it6625, enable);
-+	return it6625_enable_stream_locked(it6625, false);
- }
- 
- static int it6625_enum_mbus_code(struct v4l2_subdev *sd,
-@@ -1795,7 +1800,7 @@ static const struct v4l2_subdev_core_ops it6625_core_ops = {
- 
- static const struct v4l2_subdev_video_ops it6625_video_ops = {
- 	.g_input_status = it6625_g_input_status,
--	.s_stream = it6625_s_stream,
-+	.s_stream = v4l2_subdev_s_stream_helper,
- };
- 
- static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
-@@ -1810,6 +1815,8 @@ static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
- 	.s_dv_timings = it6625_pad_s_dv_timings,
- 	.g_dv_timings = it6625_pad_g_dv_timings,
- 	.query_dv_timings = it6625_pad_query_dv_timings,
-+	.enable_streams = it6625_enable_streams,
-+	.disable_streams = it6625_disable_streams,
- };
- 
- static const struct v4l2_subdev_ops it6625_ops = {
+ 	if (start_block < 0 || num_blocks <= 0 ||
+ 	    start_block > EDID_NUM_BLOCKS_MAX ||
 
 -- 
 2.34.1
