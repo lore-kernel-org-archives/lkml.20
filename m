@@ -1,247 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010059.outbound.protection.outlook.com [52.101.69.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AF74FDA4B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741121; cv=none; b=kBaIofuuBnAGBNGUYgxdoURtXoah0jIRur9vAmcsxMgzNWTUQG0vVAxFLEQj08EPOjonc9tGM1wZ8ad3iTT318Sn7q2sfVn9puOGLNaZuZ8gsg4Idk9Xt8rdhOwMA7dVKMc//tVhoWK3Os15FVv9B3J5qXi8qxYI6ZBg8NZJ7Bs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4FF4FDA57;
+	Fri, 18 Sep 2026 14:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789741121; cv=fail; b=l2AaLYCl1Jaq7mSDAvBTlu1fMyaU7q4jcT3KhvtqMosGGiYlDEWbVNE7RvlaXsY9qkOvHHx0S9DTGhXLmN+XAsP7rB+LVp+PDS5tudWBzLtn4P2o5aYmA3lQ9H7H9oGf/QqwPg2IYpXMX83nsh9MKgN9uPj7lBwgW/zQasHJwok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789741121; c=relaxed/simple;
-	bh=inWTgkDtp0vChZ9VKuHwhKGj/PyO3yywRvlVuv2aAuM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hyHUAT5YIMoOemMiDiQRPVQ6ue00T8zNYBWfZEgAOht9Vw6efqPIjQxktHM5VmBpJpjc1vduQKi7QNoK1jhG9EoAGJ6e81Mzf0Kui55oESR889vY2Dhn8OqoHU7lKPFfHCCxUhm59BghiSbt/EKGr1E6ut11XLDXLzNXy/3MhSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SEgeU/Hn; arc=none smtp.client-ip=100.103.45.18
+	bh=14PMA+rdeb7H/ptKNQ2ggXX8ZxU+eMj3QdCeaSLx8Og=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PdXrTw1uZNRDDoxaGhQXJef/DhZHGOnkC0zQZYhq8KO5D9UThxXOYMGyM5cik2RltKOqLUiRRHpipxC5kD/xxY1b9PD7lP8DDm550fwT0kBRho9jO8OZ1habw8Vhz5jmYCo8Nv4SRlZ6oJL2ly36r+5GiU98qWI1Z4J4ZVqUnzQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Iip/7DYD; arc=fail smtp.client-ip=52.101.69.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SEgeU/Hn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0D41F000FF;
-	Fri, 18 Sep 2026 14:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789741119;
-	bh=XS3XWsQS/wsJtDoSQO+mZMWhw7DtPyBFXXLY/FPwBKQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SEgeU/HnYxhDq5V1fO8AS+IuEcp0vYFEr9p9DXDBIHAeE4XesjOMgUkzj35OsPhr5
-	 rL2truSuMKBXLNs3CDla6u4QbEI9+w7MiMo/2sDP5vh3BbQxaiWirnjCCNdE8DhRRO
-	 EgwyFG5tnPyRglSa5X+rtgaLmqYPBjwvLMViGgS/8DLvwaBOAcX6RXkNwZW1SZHZyd
-	 zcf9a7NG7uxGV5iDHSUmIAbxkAxE7wG9NQqEEnn5FHtAFhT3vJwO8Y7yaMA4etVzUa
-	 STejFyRM+Uuo/QCsOh4lBHgEsQoi7SvZi1Ogad0B292RpFKFTDvcfXu3aTX4rZCjdG
-	 jqHrDp1SW8nlQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 18 Sep 2026 16:17:59 +0200
-Subject: [PATCH v4 10/13] drm/atomic: Allow filling a commit with pristine
- object states
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Iip/7DYD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MUnLp42mbbHcBcNoTfIvokzWWY0n8sYSGvnCv3b0LYrGBGmEIVBvgbTgfyVi1/dpXIlCAUV/6URdkQJhG3bVU/VaPRsM123KQuKlkAoHp/n2yrCqVj2Ism/Q8tF+1hhVCZbV8blN+hXB680BUhavZ5vqcws+KfIIUhbtjdARM8/OyDVSja0XR6vRklUVqpIpE+SEr43CSqF+jOkP8qjY1PSzklLg375GRZwCc+fkqgkBco7Tj8c02agcQkaeqxdZCm8Ys97Nb0uK5ZwEA2KoIQpQwdVodI46iNBi0oNBKHv7FJNJOvk8SBWE2SfJUQnVedGjCaTC9U7Nc+py4BMyqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=omu3cSDVEe3cPu0jpTj8/D0kl3wygES0hsgK9tje/RQ=;
+ b=udO6D8mqyrBx1NR0OY9MsOKm3jkSDRPpxHF/rZgK5sbMQU26wxaGJ7OBTn6GEBMD+F6oMLcBzazUhtaQb1GGmRfHSSsRjQOTNDlYKnYpKXUGl8qFvgtZU0CmsFKhAlRygLkJ4lP8/uQlHEbtBEM/AUFWsLkXUpzDSshjGG7OUB2zHO3yRB1L4wqUuGSzd1gI0Bdg9VjmBtVBAIWkAMw0hiSRibyOv/HvtpynTVGwnAgeRZ0hgtPh5ORLNc4pHMF7MNC/MO16dSiPsfzYQemG63betLKvjHA1L7VyBqO0cZPl3AAAt1LGPY8Q6byTRsLSFwSP1i/SBzoxmyyoR4p45w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=omu3cSDVEe3cPu0jpTj8/D0kl3wygES0hsgK9tje/RQ=;
+ b=Iip/7DYD3esqDBsRQ7Ox1yXL+z4PGVSn4Z4DyBUCq1gLX6OioEl6agrxpZx2O2VppKijDDIMWhI1SO4wJWNt47WUBfT/B/oBqK3naJA0M+faC4LzDnB2dLbUN6R7RhHCEbWmZbvuUfGIk9jneRgdFShoMA9mYG710U2ObSY7yvsVZO4MTj4GnsmzR7gLp/M+YUqTNzsBKmuZteL3CYPcUszL+UgkWrRGXBTCE6GfEOsf9Ln6Ef1xpu55FteOYmAZ++OWTWjMQPII1bxfg41aM9IoOTa8LeM7KXPUxPFhj42VAPqtejKtnVge7tajDGC3M1baV59oii0I6WvFp9WbKg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by MMZPR04MB960486.eurprd04.prod.outlook.com (2603:10a6:190:54::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 14:18:37 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 14:18:37 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Denis Efremov <efremov@linux.com>,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Hongyan Xu <getshell@seu.edu.cn>,
+	Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Cc: linux-kernel@vger.kernel.org,
+	drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org
+Subject: [PATCH] block: use assign_bit() where applicable
+Date: Fri, 18 Sep 2026 22:16:04 +0800
+Message-ID: <20260918141609.3022848-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0086.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d8::18) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-drm-reset-state-flag-v4-10-5ad106370f05@kernel.org>
-References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
-In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6028; i=mripard@kernel.org;
- h=from:subject:message-id; bh=inWTgkDtp0vChZ9VKuHwhKGj/PyO3yywRvlVuv2aAuM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPYTjFF9ZagTnT2eXnnfP8HyvOHdUg2SHcU56WlTfk
- tL/M9s6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwEQuGDM2PGeJVuX54uanYXhO
- cYYr0/5La7QYGjO2NPyNXf9mr9TZl4e80kV/nf27rHP1gnNZRaf+M9apJzBHrypfcE1Z/OGxOXe
- vHFwo96dSepJ39vrwTtdfSZbtb5fsDDzGnvjwNkuz9pH3bsEA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|MMZPR04MB960486:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83d8bd99-2c89-40c7-f2a1-08df158fbaad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|19092799006|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RrczN+o0siR/7RjGPu68BNRy0vQhet3FlyNrMZx9iEFqWzeL+Ar6qc9AInMaKteWq2IsClFJTRfgqiyXafAvrk9IxMkG5APffQXPekFHGWsHqH2EkAeXDxcQgHX2Q+UtRoq2nEBl5duJNxHHc8XDb9mRERR6YDyjRtCu9/xwPAr+OzfwMGNI39WCfjEpadSSTdAeZdDyPiy2QG8eTHlS5XqyQfYEbkSMopDhXdwh2/crjjtkGtOrDX35gc6cTpfPsOq+GZahG7QEze3Ys9bdRKY8DYHA0PftJkUQUhD19E6IJ1SLyeGRrpr4x2qIzxWVD0dsa9UMgT1YILedhLklsCIN6IIM2juFTgU9CtHDlJgDNLiOLDCXwMdmGU1EcZ39ke0IIk/+9NwtstImydmymAYwncoUXN4vKfOrvKgtV4J2aByrjOcxY3/91zwr4uDiVJ6SspQfjAe8B6LTi+UGibrDVH3MSr53jPhez3hr3KjYNzgwvx5R5/bRs/h18OLHpYXrtBOJpcmduOIlUjIkIbgOu5nAa+vTHFDp2apvbBsdlS4soXrvi2Vxi9dkn3Ln2Vhyl3ySa508XVOnotahJ8TKK13RrcONIolsH1dvtEZbnhEEjxiUS7jIdW7B5IpsrrfOL+mHa3Hp/hClaBRGLfbixEPO4GrJ7d59Gew8cpY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(19092799006)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uRXcXXPTLPEWA2pvOISyqFI0tIIv0UUky+h/nx385ne51TqvhbZOvkQ40rWe?=
+ =?us-ascii?Q?uEmFcJxaZD3H/Lfx2RowtFCviwVy/MVi0fzUSIjVvV4B0T8Oq2HkvkdtnMsv?=
+ =?us-ascii?Q?aH0UbJsW3rXfNih5ctRQlR+n3iUXfzkaNY0L1t2hwrte1JE/aNxM1vRSl9l2?=
+ =?us-ascii?Q?mvGb5JnQ3V4qz4AXv9BtEJ1G/jGCSoulbSs5Tm0yeWyKaz7pSNJiFaNmRZvr?=
+ =?us-ascii?Q?QjaH1+/PZQ+wo0LtWGgbgWXrI7r1KNWwTg2MA6appL1YUXYdeyvNv5sL6zke?=
+ =?us-ascii?Q?Gx2befkD53Hfvh5lZfl5F6FJfTvpG2B0cNZ2LHMQcAYFrlzK90khOYlubDnH?=
+ =?us-ascii?Q?qdDcmUc2nFTeuJJYcHdxPxkjfVVgYGoCHlfyhaYB8MvRmkATx0YJ74FsHdjV?=
+ =?us-ascii?Q?Mlgx0bULjpHf2hVhl+Z2H+LB59qqFsbj/uWyJec6w+6NYxkdVWWKgou3oHc/?=
+ =?us-ascii?Q?UbtbVPNMpMGO6AnSmLtHWLnAiaCOjdz83G/z/DrWNBr8/8/e01WbpzatWfD5?=
+ =?us-ascii?Q?tsQV/Ou/W46cX80wd6aFKBfEwJKX5tLD+Lk6rnvmXf3eio4qQHfj2VbNPH9m?=
+ =?us-ascii?Q?Zaj/YMBsq3tbqh/K32Suh+bATbNOtlv8q2XZu4CSvHulQRChMF5yCd3RAwHo?=
+ =?us-ascii?Q?WQKizrrSV5vLXZh65dHcu054/gSeX836QGUAi0L0wfR+SHwnQP9paUsNpApX?=
+ =?us-ascii?Q?PExXkoDjx7zx3/Xsd3Lx+EmGo8nyLd68pPJmad1ThsdQGev1GIxVlv+4Gb9z?=
+ =?us-ascii?Q?HKwcmHPIh2xQMOGnjtlTNtEuqcz6JIge6PpTe1KNoHJotQYumTLutgC7Rn8N?=
+ =?us-ascii?Q?lj7XMcKvKcsSuzxOmeKKUr2u5bxU6ihWrbghOD3B+Zm4vPPkP/pOznP8i+oI?=
+ =?us-ascii?Q?3Z1QWNCRG3KRbz6N19zBwcpHRtpSmLoUclKnwv6oLc2Ik4JUEe8jsKq/JdR0?=
+ =?us-ascii?Q?fdUiSV5JPoJgrXSeUdk6RUdNKcrUXna5cAfxLxqT5oECnypNmN6z/Lur0U/V?=
+ =?us-ascii?Q?lpK80gQOY7bO1SgDwGR9TgLSKFRoUcNmz0diiUJnCg91aAJEAWPtSCsqlOET?=
+ =?us-ascii?Q?D7J7FFmZIb8FmDw45xtw6tY53j9hQFSvdFOSVxjkVu2eIUCb4h0q6ukspjBb?=
+ =?us-ascii?Q?JHqA6u94V5rcUcIz2RQSSuit63wR+P3rBuOqKsrrGtPA+Iyn1gcxOyKkUdpi?=
+ =?us-ascii?Q?gnw5h2gN4oj/a2YhfxSdvfx17rA5G+wAixGarxrA/PwzE/hT6jArZM3LwcIq?=
+ =?us-ascii?Q?PsHhoN899zB34cuPLTP6z8BRPVgea7h7Fh+mhiVN2L2S1OeUFbyxvKkpkiLt?=
+ =?us-ascii?Q?SSOO5eau/+Actm997sEEyegHBv4kgIug1aBin3WMmp2oh7K+010d2LvqnWrh?=
+ =?us-ascii?Q?XQ52iSyn4sjEqKCG3VPbvjiCqnjC9ZlMNEl+dTfbOniV8cditIYp2fUbfmmr?=
+ =?us-ascii?Q?HfI46BmE4BKUiV99SLWBDzWJAJh0U6ghBqP88APDvt584ILowrarfSyjcbSk?=
+ =?us-ascii?Q?EUgV/4usVIA/9RbR7vuh/UqgwANnxyigDihJ0jL503+fwuUSsdV3S5Dp9fKe?=
+ =?us-ascii?Q?b2J9XT4TWIzYAHpPUJk06ib5c4cCLpNf8Ky/IkEmQ9ZKzeOL44yszypchgFX?=
+ =?us-ascii?Q?8zjaD/qih5NvfBD3faUqUOHZCfRFEWFLdSSLGfbOn4WbzkLCbvnM/Zcl2kr1?=
+ =?us-ascii?Q?jNC1j0j6bjz+XQYNdk+jGijSV6KAFVeSEsenH1BTfy3bdwNTgJxDGIBjvYV3?=
+ =?us-ascii?Q?ox5dw9369NHD0kGKTq0eIlhT+Ihqx3ML4KT7Knl4VCxDNvdqt8wn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83d8bd99-2c89-40c7-f2a1-08df158fbaad
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:18:36.9212
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3yNMHhRrDb7qt5rosRY4RiWDim5RqEr9r9nxZVlvaocia/5FhOfgFiAsB7jl0AVfOUOksq0GhgUUGAcVG4vWffEYER6WXiBI/GAj/jCUArLu/vPdaTpHHjftxUofX9jk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB960486
 
-The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
-commit that brings the entire device back to a pristine state, as if
-no configuration had ever been applied.
+From: Peng Fan <peng.fan@nxp.com>
 
-Create drm_atomic_commit_fill_with_defaults() which iterates over all
-CRTCs, planes, connectors, and color operations in the device and
-inserts a fresh default state for each one into the commit. This uses
-the atomic_create_state() hooks rather than atomic_duplicate_state(),
-since atomic_create_state() provides exactly this pristine state on a
-per-object basis.
+Convert open-coded if/else with set_bit/clear_bit and their
+non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
+API.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Done with Coccinelle semantic patch:
+    // set_bit -> clear_bit => assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        set_bit(bit, addr);
+    -else
+    -        clear_bit(bit, addr);
+    +assign_bit(bit, addr, cond);
+
+    // clear_bit -> set_bit => assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        clear_bit(bit, addr);
+    -else
+    -        set_bit(bit, addr);
+    +assign_bit(bit, addr, !cond);
+
+    // __set_bit -> __clear_bit => __assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        __set_bit(bit, addr);
+    -else
+    -        __clear_bit(bit, addr);
+    +__assign_bit(bit, addr, cond);
+
+    // __clear_bit -> __set_bit => __assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        __clear_bit(bit, addr);
+    -else
+    -        __set_bit(bit, addr);
+    +__assign_bit(bit, addr, !cond);
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/gpu/drm/drm_atomic.c | 108 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c  |   1 +
- include/drm/drm_atomic.h     |   3 +-
- 3 files changed, 111 insertions(+), 1 deletion(-)
+ drivers/block/drbd/drbd_nl.c       | 16 ++++------------
+ drivers/block/drbd/drbd_receiver.c |  5 +----
+ drivers/block/floppy.c             |  8 ++------
+ drivers/block/mtip32xx/mtip32xx.c  |  6 ++----
+ 4 files changed, 9 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 7a77051096c9..b039edaa3271 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1647,10 +1647,118 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
+diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
+index b77f901fc3ef..b24fb2cc2f70 100644
+--- a/drivers/block/drbd/drbd_nl.c
++++ b/drivers/block/drbd/drbd_nl.c
+@@ -1665,10 +1665,7 @@ int drbd_nl_chg_disk_opts_doit(struct sk_buff *skb, struct genl_info *info)
+ 	else
+ 		device->ldev->md.flags |= MDF_AL_DISABLED;
  
- 	return true;
+-	if (new_disk_conf->md_flushes)
+-		clear_bit(MD_NO_FUA, &device->flags);
+-	else
+-		set_bit(MD_NO_FUA, &device->flags);
++	assign_bit(MD_NO_FUA, &device->flags, !new_disk_conf->md_flushes);
+ 
+ 	if (write_ordering_changed(old_disk_conf, new_disk_conf))
+ 		drbd_bump_write_ordering(device->resource, NULL, WO_BDEV_FLUSH);
+@@ -2031,10 +2028,7 @@ int drbd_nl_attach_doit(struct sk_buff *skb, struct genl_info *info)
+ 
+ 	/* Reset the "barriers don't work" bits here, then force meta data to
+ 	 * be written, to ensure we determine if barriers are supported. */
+-	if (new_disk_conf->md_flushes)
+-		clear_bit(MD_NO_FUA, &device->flags);
+-	else
+-		set_bit(MD_NO_FUA, &device->flags);
++	assign_bit(MD_NO_FUA, &device->flags, !new_disk_conf->md_flushes);
+ 
+ 	/* Point of no return reached.
+ 	 * Devices and memory are no longer released by error cleanup below.
+@@ -2053,10 +2047,8 @@ int drbd_nl_attach_doit(struct sk_buff *skb, struct genl_info *info)
+ 	drbd_bump_write_ordering(device->resource, device->ldev, WO_BDEV_FLUSH);
+ 	unlock_all_resources();
+ 
+-	if (drbd_md_test_flag(device->ldev, MDF_CRASHED_PRIMARY))
+-		set_bit(CRASHED_PRIMARY, &device->flags);
+-	else
+-		clear_bit(CRASHED_PRIMARY, &device->flags);
++	assign_bit(CRASHED_PRIMARY, &device->flags,
++		   drbd_md_test_flag(device->ldev, MDF_CRASHED_PRIMARY));
+ 
+ 	if (drbd_md_test_flag(device->ldev, MDF_PRIMARY_IND) &&
+ 	    !(device->state.role == R_PRIMARY && device->resource->susp_nod))
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 2135c14354a8..4dd651568411 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -920,10 +920,7 @@ static int conn_connect(struct drbd_connection *connection)
+ 		kref_get(&device->kref);
+ 		rcu_read_unlock();
+ 
+-		if (discard_my_data)
+-			set_bit(DISCARD_MY_DATA, &device->flags);
+-		else
+-			clear_bit(DISCARD_MY_DATA, &device->flags);
++		assign_bit(DISCARD_MY_DATA, &device->flags, discard_my_data);
+ 
+ 		drbd_connected(peer_device);
+ 		kref_put(&device->kref, drbd_destroy_device);
+diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
+index f04397b8e381..2ca99a57b401 100644
+--- a/drivers/block/floppy.c
++++ b/drivers/block/floppy.c
+@@ -1580,12 +1580,8 @@ static void check_wp(int fdc, int drive)
+ 			  "checking whether disk is write protected\n");
+ 		debug_dcl(drive_params[drive].flags, "wp=%x\n",
+ 			  reply_buffer[ST3] & 0x40);
+-		if (!(reply_buffer[ST3] & 0x40))
+-			set_bit(FD_DISK_WRITABLE_BIT,
+-				&drive_state[drive].flags);
+-		else
+-			clear_bit(FD_DISK_WRITABLE_BIT,
+-				  &drive_state[drive].flags);
++		assign_bit(FD_DISK_WRITABLE_BIT, &drive_state[drive].flags,
++			   !(reply_buffer[ST3] & 0x40));
+ 	}
  }
- EXPORT_SYMBOL(drm_atomic_implements_create_state);
  
-+/**
-+ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
-+ * @commit: atomic commit to fill
-+ *
-+ * Iterate over all CRTCs, planes, connectors, and color operations in
-+ * the device and insert a freshly created default state for each one
-+ * into @commit. The states are created through the atomic_create_state()
-+ * hooks, producing the same initial state the driver starts with rather
-+ * than a copy of the current hardware state.
-+ *
-+ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
-+ * needs to bring the device back to a known baseline before applying
-+ * userspace property changes on top.
-+ *
-+ * Returns:
-+ * 0 on success, or a negative error code on failure.
-+ */
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit)
-+{
-+	struct drm_device *dev = commit->dev;
-+	struct drm_mode_config *config = &dev->mode_config;
-+	struct drm_crtc *crtc;
-+	struct drm_plane *plane;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_colorop *colorop;
-+	int ret;
-+
-+	drm_WARN_ON(dev, !commit->acquire_ctx);
-+
-+	/*
-+	 * Private objects are ignored because none have userspace
-+	 * properties we might want to reset. atomic_check
-+	 * implementations will derive or infer their private obj state
-+	 * from the state that will end up being committed anyway.
-+	 */
-+	drm_for_each_colorop(colorop, dev) {
-+		struct drm_colorop_state *colorop_state;
-+
-+		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+
-+		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
-+	}
-+
-+	drm_for_each_plane(plane, dev) {
-+		struct drm_plane_state *plane_state;
-+
-+		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		plane_state = plane->funcs->atomic_create_state(plane);
-+		if (IS_ERR(plane_state))
-+			return PTR_ERR(plane_state);
-+
-+		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-+	}
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		struct drm_crtc_state *crtc_state;
-+
-+		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-+		if (ret)
-+			return ret;
-+
-+		crtc_state = crtc->funcs->atomic_create_state(crtc);
-+		if (IS_ERR(crtc_state))
-+			return PTR_ERR(crtc_state);
-+
-+		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
-+	}
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *connector_state;
-+
-+		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
-+		if (ret) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+
-+		connector_state = connector->funcs->atomic_create_state(connector);
-+		if (IS_ERR(connector_state)) {
-+			drm_connector_list_iter_end(&conn_iter);
-+			ret = PTR_ERR(connector_state);
-+			return ret;
-+		}
-+
-+		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
-+		if (ret) {
-+			connector->funcs->atomic_destroy_state(connector, connector_state);
-+			drm_connector_list_iter_end(&conn_iter);
-+			return ret;
-+		}
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
-+
- /**
-  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
-  * @state: atomic state
-  * @encoder: DRM encoder
-  *
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 9039a39c4324..0dbf04d4aa9e 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -31,10 +31,11 @@
- #include <linux/export.h>
- #include <linux/nospec.h>
- #include <linux/pci.h>
- #include <linux/uaccess.h>
+diff --git a/drivers/block/mtip32xx/mtip32xx.c b/drivers/block/mtip32xx/mtip32xx.c
+index 113bdb868c46..ff39ea9928e5 100644
+--- a/drivers/block/mtip32xx/mtip32xx.c
++++ b/drivers/block/mtip32xx/mtip32xx.c
+@@ -1166,10 +1166,8 @@ static int mtip_get_identify(struct mtip_port *port, void __user *user_buffer)
+ #endif
  
-+#include <drm/drm_atomic.h>
- #include <drm/drm_auth.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
- #include <drm/drm_ioctl.h>
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 94356566a514..841a11ee2fda 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -700,11 +700,12 @@ int drm_crtc_commit_wait(struct drm_crtc_commit *commit);
+ 	/* Check security locked state */
+-	if (port->identify[128] & 0x4)
+-		set_bit(MTIP_DDF_SEC_LOCK_BIT, &port->dd->dd_flag);
+-	else
+-		clear_bit(MTIP_DDF_SEC_LOCK_BIT, &port->dd->dd_flag);
++	assign_bit(MTIP_DDF_SEC_LOCK_BIT, &port->dd->dd_flag,
++		   port->identify[128] & 0x4);
  
- struct drm_atomic_commit * __must_check
- drm_atomic_commit_alloc(struct drm_device *dev);
- void drm_atomic_commit_clear(struct drm_atomic_commit *state);
- 
--bool drm_atomic_can_create_state(struct drm_device *dev);
-+bool drm_atomic_implements_create_state(struct drm_device *dev);
-+int drm_atomic_commit_fill_with_defaults(struct drm_atomic_commit *commit);
- 
- /**
-  * drm_atomic_commit_get - acquire a reference to the atomic state
-  * @state: The atomic state
-  *
-
+ 	/* Set the identify buffer as valid. */
+ 	port->identify_valid = 1;
 -- 
-2.55.0
+2.51.0
 
