@@ -1,95 +1,173 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38397471CE1;
-	Fri, 18 Sep 2026 20:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DF0293B75;
+	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764625; cv=none; b=Drvo0BFdtJL4nyy+/woBPHLIWGXRPsV2/BAAe6RnOQxJUUf/X/VXdAxVi8MWTqcWjVy/lnbFRdiwKItVPHahmtb0l3e69w3GA00YJyzt+Oa3O1uwsIp/4QJ7QrrBUz+lWH7oqK3BUdgvWMxLoDfDsnyURl7zPeRZQD7gcsK8j1E=
+	t=1789764700; cv=none; b=CTeiLv04BP5by5YOuRMcwanZnIjeCKR0hiiMYznZ59BfD+aUvmCV7hxZrCMSgbJd3vW4FnYz5MlXWHEXtjjyYxsUPl/Pnly+5BMgZSHXdi+zO8aEgJ74nu2c4A6qfmoqqDldwAkSDb6acoXz3rrYAZGTK3/HlsUMnRwq45RJTlQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764625; c=relaxed/simple;
-	bh=R1NtC5lchfgyPlaBjuFMvS/9OeEp/0zoPHG1Z4EcnHo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=rDhsd7k4CI1i3vTddAN+kjMHw4DE0QS7KWckAhKQMY4S4iwKFtrT7POKu7syFqroiSbBSJjJLH99gjinfpfXe8hEWrkGCkQd1Q2jUMLkYuOH+dZivtIFqy2grjPa/1Gmg8rKEXCqpnighTfpRAtUgMubv+r9JswiECujwx64/SU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 9DAB192009C; Fri, 18 Sep 2026 22:50:21 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 96C4092009B;
-	Fri, 18 Sep 2026 21:50:21 +0100 (BST)
-Date: Fri, 18 Sep 2026 21:50:21 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: WangYuli <wangyuli@uniontech.com>
-cc: guanwentao@uniontech.com, linux-kernel@vger.kernel.org, 
-    linux-mips@vger.kernel.org, niecheng1@uniontech.com, 
-    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, zhanjun@uniontech.com, 
-    =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: Re: [PATCH v2 3/6] MIPS: dec: Create reset.h
-In-Reply-To: <3AD7E5DDE3F05C6D+20250422102253.137944-3-wangyuli@uniontech.com>
-Message-ID: <alpine.DEB.2.21.2609182143320.57799@angie.orcam.me.uk>
-References: <24EC7D2CA58B25F5+20250422101855.136675-1-wangyuli@uniontech.com> <3AD7E5DDE3F05C6D+20250422102253.137944-3-wangyuli@uniontech.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1789764700; c=relaxed/simple;
+	bh=QCIJObhinfLLP3u8ve1yUqV6GMr/mmcL9F5ebTD8qqo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ApnyWwzVBTPSskokw9D5R45uoxdIPaV1WUExz90qGVO1QKkinsEveI6MyYmxNwEwe29VRt7A+fyZF8z+hU4wAw+n/jqCjntwqfZlePtojiwgyfbhVU8deFMUx11v7pTXGLAbTFaDuU28DvvrCVDRDAkWaZuY1B3zePqTDULvIJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdcp6bEs; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdcp6bEs"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 57618C2BCB8;
+	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789764700;
+	bh=QCIJObhinfLLP3u8ve1yUqV6GMr/mmcL9F5ebTD8qqo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=fdcp6bEs+hbnE3DeTTyKxZf0XWRDOIAYoM8Nv6qphc/EvBFO+jB2U5g9uNCiXdEPL
+	 u4ax7UL0CxKHY8LwJjrpuhB3dqXVEGIWV1WBvTLnzwPL04df53rJObOmeWBqsg08AO
+	 GyA+bWNEN3jevDpW2bT33c5EUZguC5nNNTtD4FGxiZQb9RGnCbEQSmr6kqeQrtFfQb
+	 5/5Y/sVF8WS6kpuPS4/zovcekmi1P01pIkkRXWIYLBVnBUrm/uExTHApFjgz5C+Asb
+	 zQ3IL9ZdWZOZYPZq1sSPdcumWRZ5UZ1ZTdefxluRa3EzgrZErJuFtRVftYVqzl25ko
+	 6x85mtEx/ViAA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A8FC982D8;
+	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
+From: Avalon Vargas via B4 Relay <devnull+avalon.vargas.centeno.est.una.ac.cr@kernel.org>
+Date: Fri, 18 Sep 2026 14:51:36 -0600
+Subject: [PATCH] arm64: dts: qcom: Fix backlight control on Dell Inspiron
+ 7441
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-dell7441-backlight-v1-1-f7646ae30cae@est.una.ac.cr>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWiKQRqtXMS4GmMIoUgNoTJreX
+ dDl+/nvrVAoMxU4DytkenPhJTVQuwFswORJsGsMWuqDPKlJOIrxOI5KGLT3yD5UIaVWGmfpUE3
+ QxGemmT+/6OX65/IyN7K1l/rDYCFhMiYb+rRk9pz2DyyVMmzbF4efdZOWAAAA
+X-Change-ID: 20260918-dell7441-backlight-00212af0da18
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Laurentiu Tudor <laurentiu.tudor1@dell.com>
+Cc: Rafael Dettogni Guariento <rafael.guariento@ufms.br>, 
+ Val Packett <val@packett.cool>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789764699; l=3410;
+ i=avalon.vargas.centeno@est.una.ac.cr; s=avalon-una-20260914;
+ h=from:subject:message-id;
+ bh=u1ZQbSAfwqgtkK6O3ck7wrXaPpGTJgsfRfeZp/Dum9o=;
+ b=NSvKR5ItR/Oz/hETmop6P86/UAhimlz7RdxF5dxrGq3/54atF0ntlj1lafEpn/GUPJJTR4ioM
+ bovpfN74o6jDNqbjWke+hZ3L72DSQWyc4iXOt/A/6wv9tmLOCaSP5FF
+X-Developer-Key: i=avalon.vargas.centeno@est.una.ac.cr; a=ed25519;
+ pk=I7FZ301yhA9Jl2LReBEqv+9LUrd5zi397CIT2gTB6RE=
+X-Endpoint-Received: by B4 Relay for
+ avalon.vargas.centeno@est.una.ac.cr/avalon-una-20260914 with auth_id=1032
+X-Original-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+Reply-To: avalon.vargas.centeno@est.una.ac.cr
 
-On Tue, 22 Apr 2025, WangYuli wrote:
+From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
 
-> Declare externally used functions in reset.c to resolve compilation
-> warnings.
+The AUO B140QAX01.H panel on tested Dell Inspiron 14 Plus 7441 units
+advertises PWM brightness control but not AUX brightness setting.
+Without a backlight described in the device tree, the panel falls back
+to the AUX helper, which registers a backlight with max_brightness=0.
+Brightness adjustment is consequently unavailable.
 
- OK, so I got this sorted independently with commit 0eb77376912e ("MIPS: 
-DEC: Fix prototypes for halt/reset handlers").  However there are a couple 
-of bits here that I encourage you to resubmit.
+Enable PMK8550 PWM channel 0, route it through GPIO5, and connect a PWM
+backlight to the panel. Provide an interpolated brightness table with
+101 levels and a default level of 80.
 
-> In passing, also correct the include file ordering in setup.c as it
-> doesn't merit a separate commit.
+Fixes: e7733b42111c ("arm64: dts: qcom: Add support for Dell Inspiron 7441 / Latitude 7455")
+Reported-by: Rafael Dettogni Guariento <rafael.guariento@ufms.br>
+Tested-by: Rafael Dettogni Guariento <rafael.guariento@ufms.br>
+Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+---
+Equivalent configurations have been tested on two Dell Inspiron 7441
+units. Rafael tested this patch's resulting nodes on his stock DTB,
+verified the live interpolated table, and confirmed brightness control,
+Fn keys, no low-brightness flicker, and successful suspend/resume.
+His Tested-by was supplied by direct email.
 
- Specifically this stuff, i.e.:
+The 4266537 ns PWM period is borrowed from the upstream ThinkPad T14s
+LCD configuration. It works on both tested units but has not been
+measured from Dell firmware. Feedback on that choice is welcome.
 
-> diff --git a/arch/mips/dec/setup.c b/arch/mips/dec/setup.c
-> index 87f0a1436bf9..6b100c7d0633 100644
-> --- a/arch/mips/dec/setup.c
-> +++ b/arch/mips/dec/setup.c
-> @@ -18,10 +18,10 @@
->  #include <linux/memblock.h>
->  #include <linux/param.h>
->  #include <linux/percpu-defs.h>
-> +#include <linux/pm.h>
->  #include <linux/sched.h>
->  #include <linux/spinlock.h>
->  #include <linux/types.h>
-> -#include <linux/pm.h>
->  
->  #include <asm/addrspace.h>
->  #include <asm/bootinfo.h>
+Validation: strict checkpatch has only the missing public report URL
+warning for Reported-by (the report was direct email). GCC/dtc DTB build
+and dt-validate against this tree's bindings pass, with the same dtc
+warnings as the unchanged base. The kernel dtbs_check target was not run.
 
-(please always submit one self-contained feature or fix per patch).
+This is scoped to the 7441. The earlier report of working AUX control
+on a 7445 with the same panel model remains to be compared for platform,
+EDID and DPCD differences.
+---
+ .../qcom/x1e80100-dell-inspiron-14-plus-7441.dts   | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-> diff --git a/arch/mips/include/asm/dec/reset.h b/arch/mips/include/asm/dec/reset.h
-> new file mode 100644
-> index 000000000000..c1557b88264c
-> --- /dev/null
-> +++ b/arch/mips/include/asm/dec/reset.h
-> @@ -0,0 +1,20 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Reset a DECstation machine.
-> + *
-> + * File created to eliminate warnings; copyright from reset.c.
-> + *
-> + * Copyright (C) 199x  the Anonymous
-> + * Copyright (C) 2001, 2002, 2003  Maciej W. Rozycki
-> + */
-> +
-> +#ifndef __ASM_DEC_RESET_H
-> +
-> +#include <linux/interrupt.h>
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+index 75e10d97c..98632cccd 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+@@ -10,6 +10,19 @@
+ / {
+ 	model = "Dell Inspiron 14 Plus 7441";
+ 	compatible = "dell,inspiron-14-plus-7441", "qcom,x1e80100";
++
++	backlight: backlight {
++		compatible = "pwm-backlight";
++		pwms = <&pmk8550_pwm 0 4266537>;
++		power-supply = <&vreg_edp_3p3>;
++
++		brightness-levels = <0 10 20 30 40 50 60 70 80 90 100>;
++		num-interpolated-steps = <10>;
++		default-brightness-level = <80>;
++
++		pinctrl-0 = <&edp_bl_pwm>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &sound {
+@@ -42,6 +55,25 @@ &iris {
+ 	status = "okay";
+ };
+ 
++&mdss_dp3 {
++	aux-bus {
++		panel {
++			backlight = <&backlight>;
++		};
++	};
++};
++
++&pmk8550_gpios {
++	edp_bl_pwm: edp-bl-pwm-state {
++		pins = "gpio5";
++		function = "func3";
++	};
++};
++
++&pmk8550_pwm {
++	status = "okay";
++};
++
+ &remoteproc_adsp {
+ 	firmware-name = "qcom/x1e80100/dell/inspiron-14-plus-7441/qcadsp8380.mbn",
+ 			"qcom/x1e80100/dell/inspiron-14-plus-7441/adsp_dtbs.elf";
 
- And then also this inclusion (in a separate patch).
+---
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+change-id: 20260918-dell7441-backlight-00212af0da18
 
-  Maciej
+Best regards,
+--  
+Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+
+
