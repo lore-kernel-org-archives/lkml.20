@@ -1,83 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ironport.ite.com.tw (unknown [210.202.87.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC30F3A9618;
-	Fri, 18 Sep 2026 10:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F69947ECCE;
+	Fri, 18 Sep 2026 10:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725791; cv=none; b=jgi0twOt+IgYYl07Vh9aSZ2zoO+/B99cB2zy0fyIb9vqNiV9sMHBhw9UkQ/z+wAOE79vc/vThVAvzpHIC/s/xG0K72x0bYTb1W/8H/TfLI2v7aFD/Kbg/DM173vxtPY8xGp1zIBDleHHw+KwN3NTQrAJKam3tyV/PNDG7V2Tuk4=
+	t=1789725799; cv=none; b=JFK/SId/2Xuh+STXkgg3ObfyqBqBgOrpwbLZURa6S0yn7ur8fL+8O3hUXtUUq4r/Ok46xnC3/qh/9uTyAW6poUV9d9R4flNPhscA6VMBF7UGuWI7Pk4oHBawsyev7NmHOwcSNyJ1gSnkVWp+R+9m6MZgNqoFDejfK+6lqIM3USo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725791; c=relaxed/simple;
-	bh=TdNYXAYUV9FHNGtoMSe/Np7+t/AHRfyYybjepLwFF5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXt9uEGFfLcVZJTmbE4wc2c9r6HlQhfdMxCtc5ZS//h3tOcuv4SRfKMaUyseRZimUbQ8JsYXVjdvyn7O/6WnRPSvXnklGm25E+Al7PjYV7TCs0IELI9BpxVu+4aJ99OKYhH13trFqIera6fU5Pra1cfkVUqM7rPE/1HRi52J21E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0rPo6nq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789725799; c=relaxed/simple;
+	bh=wVX/E/WKP8d+K2pokBGNsc7HNgEOc8KxCYsn0Hi1Si8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X0g51dqB5ee3/fVuckIrm6QIq4ue4mnDivxDK1iv+yxKQWOmM4G+8bb3d284EmVdWYy1ZJZHJf1oGwRqvU4jkFh4IIfOuspEbN60bSgV1MILQRLzaZUnw6dxJHzhU36H8Quwdfcbyjn+H47w4ygmN/AQb1y6w5Jsqp6vUvOLHzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=o4fYDtgq; arc=none smtp.client-ip=210.202.87.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0rPo6nq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898D51F000FF;
-	Fri, 18 Sep 2026 10:03:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789725789;
-	bh=m+kqKJnO8xx6EaG+eu2tJnKPZxO0X2dKDXSpHvQ+rhs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0rPo6nq1WqCyyKQA0jpNXoAt9ibIizz+aqA0zFGxiHaue7h0djSha/rygE/IO/iD
-	 /e4a+bOMqhs+m94aE+dWjY3Wt4fHqi22vcu9ES0XXf6B9SQj5cGTtB5Urrvk05DEcc
-	 6N5BUEoKRKNJlWcWWbAWE8dMDDd9YVjXjw522XVSDCqAtmYSPupGZ4N/i7EYfOoFKd
-	 TZZ+1ZVpqsEjj/PXsT/BmAim3P1R8rhO7v/CTZF3750i2EqUz5+M0/+YXIK5rSfe4+
-	 u/pdsqTE+v3QuHWHM0I9dMs7peaYjvyNDpXdYHGwWOI4zhdkM1HhWTXo0+4mlqcMxY
-	 jJDPvHksi45nw==
-Date: Fri, 18 Sep 2026 12:03:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, iommu@lists.linux.dev, 
-	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v2 07/19] dt-bindings: arm: qcom: Document MSM8952 SoC
- binding
-Message-ID: <20260918-complex-bee-of-serendipity-cb6157@quoll>
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-7-798c2602dde1@mainlining.org>
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="o4fYDtgq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=j6P3eS9ZkDCv+tl1JCX93LlRmz4nBFRjsa7L4E8adFU=;
+  b=o4fYDtgqqYiRwnXJy9p2IIAbk8yxL1Wrqc86rUhCOmdryQ6Hv3Fw81bV
+   /irv1659QE7qmScTltCOpJWKYAnWWg3U0S9hG3MKBtYjmZG7Nig2k+hyU
+   SLb/ck+3j+U3UdQyghRp7qyJRXT4wjsog2YSrxKd3oLfbA+iDZAQRYt5h
+   v2S7olyPlCCQtwLEdy2WBXx48VQBo2h8VjZvuyQemvsm88UiX/ucAxxs+
+   rJ8OCPwgL/JeeP3EX5yQsxCMpEFy37K2GAtS6yWM9/WuP+34+MrftDwC0
+   q0jVGhp3/BsbY6q3s8n8ioyaUFb67TMCtsO0bZMg6Yitc/iKZU5t8cXPL
+   g==;
+X-CSE-ConnectionGUID: 2P9KLz3YRDGskrPcI/s7PQ==
+X-CSE-MsgGUID: 5KZwht9kTg6jnDZICFXXGg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 18:03:06 +0800
+Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
+	by mse.ite.com.tw with ESMTP id 68IA33qc091796;
+	Fri, 18 Sep 2026 18:03:03 +0800 (+08)
+	(envelope-from ite_pd@ite.com.tw)
+Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
+	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 40F962D58;
+	Fri, 18 Sep 2026 18:03:03 +0800 (CST)
+From: Amber Kao <ite_pd@ite.com.tw>
+Subject: [PATCH v2 0/2] usb: typec: ucsi: Add ITE IT527x/IT885x and
+ DisplayPort alt mode support
+Date: Fri, 18 Sep 2026 18:03:42 +0800
+Message-Id: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916-msm8952-initial-support-v2-7-798c2602dde1@mainlining.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2pJO5aUr/8OwaMsgYyKQtiCG8
+ O8W3LuZ5OTee2YFT47JwzVZwdHMnoc+gjolYDvdP0hwExmUVIW8IIrJehYcaGzizVW5iNxUpS5
+ Ql2gMxN3oqOXlcN7rH/vJPMmGXbQ3OvZhcJ/j6Yx7759/RiEFZraSGerW5OdbjFM7vNLwhnrbt
+ i+E0iHUxQAAAA==
+X-Change-ID: 20260911-ucsi-itepd-it527x-5b87a61a71bb
+To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
+        Yaode Fang <Yaode.Fang@ite.com.tw>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
+X-Mailer: b4 0.15.2
+X-MAIL:mse.ite.com.tw 68IA33qc091796
 
-On Wed, Sep 16, 2026 at 05:22:12PM +0300, Muzaffer Kadir wrote:
-> Document the MSM8952 and add General Mobile shamrock to it.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
+This series extends the itepd UCSI driver with support for more ITE
+Type-C PD controllers, and adds DisplayPort alternate mode handling.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The IT527x series and the IT8855, IT8856 and IT8857 run the same UCSI
+firmware codebase as the IT8851 and are software compatible with it, so
+they are described as fallbacks to "ite,it8851". The IT8853, IT8856,
+IT8857, IT5272 and IT5274 drive two Type-C connectors, the other
+variants drive one.
+
+For DisplayPort alternate mode, the driver queries the current
+alternate mode from the PPM, configures the Type-C mux and retimer
+accordingly, and reports HPD state and HPD IRQ through the DRM
+auxiliary HPD bridge.
+
+This series depends on the following series, which has not been picked
+up yet:
+
+  https://lore.kernel.org/linux-usb/20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw/
+
+Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+---
+Changes in v2:
+- dt-bindings: drop the second example, it only differs by the
+  compatible string.
+- dt-bindings: express the IT527x series, IT8853 and IT885[5-7] as
+  fallbacks to "ite,it8851"; all parts run the same UCSI firmware
+  codebase, so the driver needs no per-part handling.
+- dt-bindings: add IT8855, IT8856 and IT8857.
+- dt-bindings: move the variant description out of the 'compatible'
+  property and shorten it.
+- dt-bindings: fix indentation in the existing example.
+- driver: drop the "ite,it5271" of_device_id entry, now covered by the
+  fallback.
+- driver: update MODULE_DESCRIPTION and the Kconfig prompt to cover the
+  IT885x and IT527x series.
+- Link to v1: https://patch.msgid.link/20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw
+
+To: Amber Kao <amber.kao@ite.com.tw>
+To: Jeson Yang <jeson.yang@ite.com.tw>
+To: Yaode Fang <Yaode.Fang@ite.com.tw>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Amber Kao (2):
+      dt-bindings: usb: ite,it8851: Add IT527x and IT885x series support
+      usb: typec: ucsi: itepd: Add DisplayPort alternate mode support
+
+ .../devicetree/bindings/usb/ite,it8851.yaml        |  49 ++-
+ drivers/usb/typec/ucsi/Kconfig                     |   8 +-
+ drivers/usb/typec/ucsi/ucsi_itepd.c                | 404 ++++++++++++++++++++-
+ 3 files changed, 435 insertions(+), 26 deletions(-)
+---
+base-commit: a8092db1cf4c3fd6cad36c5a10dcaa60d95ef114
+change-id: 20260911-ucsi-itepd-it527x-5b87a61a71bb
 
 Best regards,
-Krzysztof
+--  
+Amber Kao <ite_pd@ite.com.tw>
 
