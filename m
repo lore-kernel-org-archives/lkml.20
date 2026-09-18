@@ -1,90 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6780425B090;
-	Fri, 18 Sep 2026 09:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F078129D288
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723911; cv=none; b=FRzDLS5O919vgQMfnxQJotRBJmpnzS7FUPgIHAysTdruys8g3drB/Q2Hnl4arZPn+khpXCmm8w22Pb2RSQxSeyWM9OLjIAGSySXt+7K9VFqHYy1rs5CuMRutsJIfRWg0MC7w9GyCyT5zOnMMmAu5SZwsgj1IJbymr9RNpFMlKfY=
+	t=1789723911; cv=none; b=PRka+Tff/8LoUlVGJXC0Or46d6sUOvPJrSWnwlxi1m9U2pBSKcAJSJcYnaC/98BK8BnbrFIIqL8kLNeeT/Y3pUKAnP+k3kAGGePZHnPyX7JNQjjOrqJZBVT7nxV0Kd/Gq4scpp5TZD0NQaFGphjuIJVR6eyM9AXarNSVrSHC6Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789723911; c=relaxed/simple;
-	bh=PIFZ7+2BrddEIwhUiMwHBAQz8mIGh5IsBxHAndWEBDo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YaRHvr2aQ8QXQzAMImHXreQsOEZ82PRrxcn8ZKTBhU9SZ0zYX716b6jU2eSgcf+NpbGhMPqrooMM3joe7EN9T1oJbKMGmsTD306NX2d53Lm2RwTVO+cb8hVZfXVd/7k0NijVksblCivRWSZdp2kcP13ZJ9MYLOj85ZAA/ToUxPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOUWT7xN; arc=none smtp.client-ip=100.103.45.18
+	bh=7KkFC+pvw0s1k9KDVYnc7bLxAb9S4MPwQrKPXJcPkz8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ONIBHRhhLa02WqK74xQ6Btbm2Q0C0wOyoAbBGKPPnfWV71dFI160htefXZVRy/1Lkh+Kcp0LLTXndskcJ3E0GEItHCJNWvXNA02uwTOm2Z/DqdbEB0jjbtHnQvU8D6BG4V6OTJGl49rBISiKcp5VnJw8c4JLR75wC5RpBp59858=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=nvyNkoPW; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOUWT7xN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2691F000FF;
-	Fri, 18 Sep 2026 09:31:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789723910;
-	bh=kgEdmmO3+FEkPk8QUS5qayHDPrjZUEa4ovao0BEowLc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JOUWT7xNRGITV0nwyyEbwObErvER/uggawLu0A10/bdO6Qaz/232R5QU1gyc1TtGW
-	 PuBMkwGJCQTPAl7T3eGIWo3spG7l9jfjdBZAYI/869SqX3GnE4ZKUcsSZy1pmeV5IG
-	 vursiyryJSpJDqg9pqFFQQr9JHN9lIIheXgmvi6hHxG4K/JfjCUYcVQ9uwu0XpOBp1
-	 VMizaYv/FXZH59DfdnypuARUzXi1FwOl9dOfvfLoNnrnFq7nhEGokwlzt1J28V1zkR
-	 pa/rJfAjwfnMEO4BCkj7jKyyD4AYkAQcltJlDNLTA29LfDbym12MUqQi2jtmH2JNN4
-	 X1/vi/WWTOwMw==
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: digetx@gmail.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260917142535.2156720-1-vulab@iscas.ac.cn>
-References: <20260917142535.2156720-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] regulator: core: Fix c_rdev reference leak in
- regulator_resolve_coupling()
-Message-Id: <178967518636.285745.1939777277384704372.b4-ty@b4>
-Date: Thu, 17 Sep 2026 20:59:46 +0100
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="nvyNkoPW"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789723900; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=nebxqloBPR+qahIcZagugq7FoabEe/MUo9EvuHQcjxY=;
+	b=nvyNkoPW3xzHLVN4j6MDpgjAld6qeMkFLnmHnR2stm+woaM/hr9LN765I6WOeGcS86iFyUtd8ksvHtwIrbwCeTxYoKut/AFouy3QvTFcWfcVfvBmKj7WTSqqxeXxTXSGteXbDE3wRThQaYfWvI2G4QzyB/POwxfzKUHUCFwWuvs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XBAoOVz_1789723897;
+Received: from 30.74.144.124(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBAoOVz_1789723897 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 17:31:39 +0800
+Message-ID: <31658d2e-6e97-4771-aca3-ddc60484f326@linux.alibaba.com>
+Date: Fri, 18 Sep 2026 17:31:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/12] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-10-kirill@shutemov.name>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260916093145.4022188-10-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1174; i=broonie@kernel.org;
- h=from:subject:message-id; bh=PIFZ7+2BrddEIwhUiMwHBAQz8mIGh5IsBxHAndWEBDo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqrQUCcvt6RQOBhlKZw+Rcaz51TuSspHrXfj6At
- qiu0nfL3YqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaq0FAgAKCRAk1otyXVSH
- 0L66B/oCOCvsx/ybU6ZBFvKAqf+1Xr6R0m6kWnUJwdJvs+dmPbgQwyqHqUcSkSr1N1sADyLZQoe
- toACTWxcX9CduEZlu70txMPO3d/u1V0iF/pEcHrYxKTkGy36DNnJMQgz4aIqzMYRN8l+aurrdS7
- o5Q2Cn7KEDsUW/2HSs0U4oj+hHbVUa6uOyFUTkS640M4edFG6MovCnD6ZWp/qOCGcDhQHjatK0a
- wLZ2Y/eG2bW9DD3y90A2dmgxIApfWdMBKvh6G/sToUVYr6+suhUReLUMjgy8N4p7I+Q08rpoToP
- pY0/s/wmp3poh9KcOUQWBvuzMcc7DcEonQuvooPFyE7oR0mr
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 17 Sep 2026 14:25:35 +0000, Wentao Liang wrote:
-> regulator: core: Fix c_rdev reference leak in regulator_resolve_coupling()
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+On 9/16/26 5:31 PM, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
+> contract.  The scan is called with mmap_lock held for reading and returns
+> with it still held.  The collapse is called without it.
+> 
+> collapse_single_pmd() kept that boundary inside itself.  It dropped the
+> lock on some paths and not others, and reported which by way of a bool its
+> callers had to carry along and then act on.
+> 
+> Open-code it in the two callers.  Each scans under the lock it already
+> holds and, when the scan found work, gives the lock up before running the
+> collapse.
+> khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
+> the code dropping the lock is now the code that wanted to know.
+> 
+> khugepaged's walk carries on to the next table while the scan keeps
+> refusing, and ends once a collapse has taken the lock from under it.
+> madvise_collapse() re-finds its VMA after a collapse, which it did before,
+> and now uses a NULL vma to say that it has to.  It still reports the drop
+> to its own caller, from the line that does it.
+> 
+> The lock is given up and taken again at the same points as before.  No
+> functional change.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
 
-Thanks!
+Thanks for removing the ugly 'lock_dropped', and I also did some testing 
+with my shmem mTHP collapse, and no issues found. So,
 
-[1/1] regulator: core: Fix c_rdev reference leak in regulator_resolve_coupling()
-      https://git.kernel.org/broonie/regulator/c/c41b69e9f76f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
