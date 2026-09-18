@@ -1,75 +1,104 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C914C226E;
-	Fri, 18 Sep 2026 11:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC1C4AA56F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732290; cv=none; b=K90hBuB8TdyDXBZNdtrxWhi17LdR2UdNqP30eX6AZM8GguQwsFU74lqeTQ0IIMmWgt1AyYWGioGcmCktuDjqD5tKPyPWccl2buq3tqBJ7q1PUAp+1tBhCCUO9+W/+tDVprQ8+bhQs/Vhzp/Nnsb3G+ysBMEJOrbvPdJIwBHDP44=
+	t=1789732392; cv=none; b=dgD6lsciDwicuf9DvwYqoqlPHuzJeDZPKcJljqbnFNfhiFcKKx3NxUM5Km44MkQ0g4lEzTOpOrOQFkcSh91TkI9+C6VEFb4bOsYVwj3Dvt7WbFa9EnhTGZcw0dbBl5QbZCtrGVSWXH+BFRxZkKwa9GBdydAUMyksN+LLbHBj3Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732290; c=relaxed/simple;
-	bh=jQj8j7/MpUHFoOIcbUDA4h6+pn5febKM1rz7kTRuPNI=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=RCMG6ON7x0gfinGwmPz3LgeGbZyAxChXx0sxdsSzUk9wXuM4YF3uGaKZl1EyWFGHJO6sk/xt+u812xzdukDGt0JPOuRi3JCCIkDJbjYY5fKtrUnaZmaf9zB/bQJ2euXimGSLspVduin6J9eR8G2LgC4jRkp0aDeE5QqRXsLaXJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=uDfZOzDV; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789732392; c=relaxed/simple;
+	bh=Us9LrP9tn+cuJ23nFB72OLu50wkifpY3Zpopv4/iL6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qE5FUfsYYwXTVMAIdgFOBqvyS/2kbTWaO5dB1xf5e0h4qh1aDV1VmYCHvakZX0A6BlC1oBP6uGPNXNidep7aoGNT/FpWGTPN3AghhULckXWZ/RjZKlNWIdb/wL5imYeIf1xFoHMEHwLKNZADKiQrykzeI3w5X82HtvC6ixoCucE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jimenezcarrero.com; spf=pass smtp.mailfrom=jimenezcarrero.com; dkim=pass (2048-bit key) header.d=jimenezcarrero.com header.i=@jimenezcarrero.com header.b=d/f5oLl/; arc=none smtp.client-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jimenezcarrero.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jimenezcarrero.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="uDfZOzDV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0828EA50C5;
-	Fri, 18 Sep 2026 13:51:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789732284; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=bzwUFzxNStbeC5AJy25lOTYmfriyH5qibHDFZbGncIc=;
-	b=uDfZOzDVNpZDIVekSq3KLiHLs3l4EQU+uW/bCecH5URqdBuck542vpm8QEfIOFr2OlyM/r
-	AN6FKOqrnnCC+C61f1xrVg15dlUP8uNv5eFJSlPOvXnR764wbAmuIpSahsInRWa/DsD9ue
-	TlYjO5F3qHzsd0M5D+eFa44SGH8xIBCxIt2/9rpzcLEaJjKZ11DUAGXSWEXNfHOzPltFFj
-	3P6+YleNRyl7vR4RtPVtP9YfZYp4UXU/NhG1QE5q/VyNZhOGFPNpoyJ80hoqP9qMipSbIJ
-	KH6C1jeEMlFkXBO8P9+N/yEqYfGfZ8MSQXYoJDNLh6BAYqGldUE/i8fUEEDsXA==
+	dkim=pass (2048-bit key) header.d=jimenezcarrero.com header.i=@jimenezcarrero.com header.b="d/f5oLl/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Us9LrP9tn+cuJ23nFB72OLu50wkifpY3Zpopv4/iL6Y=;
+ c=simple/simple; d=jimenezcarrero.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789732387; v=1; x=1790337187;
+ b=d/f5oLl/SH336LyEBGAZxWL2G4XFl5CeATmwv/LL33SBRxdOil55kxUaJcrxiJ8lZB5xVx/2
+ Ywm1zltLTipe4xxje7No+Q4L/V6dKSGS3ABQph+bQKWUQj4YBxq9dDXLCYT3SRqCkI+JalnN5+G
+ 5doz8fpnoerAYriWv9DA88JUqr7lmGd4Y9cgI1V/6Fvep9q7zCL3AbABd7EyRmNJpYQvGhROUiE
+ KxzkFmxP22QQpFexXb5vw/3VOfjER0hRzqDjUvmGU/UObPsdk93f2OxiNOO+0OT3Glpn430On9y
+ O69c622QDZtMhzEqZSSKDYqsnQH+w8UTLSCv6VULmZD7A==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4f71428dc03b4a63;
+	Fri, 18 Sep 2026 11:52:57 +0000
+X-Mizu-Trace-ID: 4f71428dc03b4a63
+X-Migadu-Flow: FLOW_OUT
+From: Juan Jimenez Carrero <juan@jimenezcarrero.com>
+To: rf@opensource.cirrus.com,
+	khalilst@gmail.com
+Cc: khalil@rentman.nl,
+	broonie@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	patches@opensource.cirrus.com,
+	linux-spi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	daniel@zonque.org,
+	haojian.zhuang@gmail.com,
+	robert.jarzmik@free.fr
+Subject: Re: [PATCH v3 0/3] Fix CS35L56 amplifier on Intel LPSS SPI with broken ACPI cs-gpios
+Date: Fri, 18 Sep 2026 13:52:40 +0200
+Message-ID: <20260918115240.29204-1-juan@jimenezcarrero.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <a15eae4d-d533-4280-986c-5de90d5fd2e4@opensource.cirrus.com>
+References: <a15eae4d-d533-4280-986c-5de90d5fd2e4@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 13:51:22 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/3] selftests: drv-net: Check the features
- set by set_ethtool_feat()
-In-Reply-To: <20260918112529.96039-3-ovidiu.panait.rb@renesas.com>
-References: <20260918112529.96039-1-ovidiu.panait.rb@renesas.com>
- <20260918112529.96039-3-ovidiu.panait.rb@renesas.com>
-Message-ID: <fa78063df06ec598208eff3d9708c38d@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Ovidiu
+On Thu, 17 Sep 2026 14:42:18 +0100, Richard Fitzgerald wrote:
+> The latest BIOS (01.06.02) is reported to fix the problem:
+> https://bugzilla.kernel.org/show_bug.cgi?id=221064#c23
 
-On 18.9.2026 13:25, Ovidiu Panait wrote:
-> Read back the features after running ethtool -K to check if they were
-> actually applied. The drivers might refuse to set a feature silently 
-> and
-> the test could run with a different configuration than the requested 
-> one.
-> 
-> Add a 'check' parameter to skip this, as the GRO "hw" mode handles the
-> case where HW GRO is cleared by the driver.
-> 
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-> ---
+Thanks, Richard. Confirmed on the same machine as my earlier report:
 
-> [...]
+  HP EliteBook 8 G1i 14 inch, DMI board 8D8A, SKU D75TQET#ABE
+  BIOS X91 Ver. 01.05.02 -> X91 Ver. 01.06.02 (dated 07/22/2026)
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+I dumped the ACPI tables before and after the update. The only change
+in Scope (\_SB.PC00.SPI0) is the cs-gpios property:
+
+   "cs-gpios",
+  -Package (0x01)
+  +Package (0x05)
+   {
+  +    Zero,
+  +    GSPK,
+  +    Zero,
+  +    Zero,
+       Zero
+   }
+
+CS0 stays on the native chip select and CS1 becomes GpioIo resource 0
+of GSPK, which is the same GPIO that 2/3 installs. Device (GSPK) is
+unchanged between the two versions.
+
+On 01.06.02 with an unpatched kernel (7.2.5, no out-of-tree modules,
+taint 0) both amplifiers probe, the calibration is applied and the
+speakers play. The "cs1 >= max 1" error is gone.
+
+With 2/3 and 3/3 still loaded on 01.06.02, the quirk matches the DMI
+entry but returns early because cs < num_chipselect, so the series
+does no harm on the fixed firmware. On 01.05.02 it is still needed,
+and my earlier Tested-by stands for that case.
+
+One small detail in case there is a v4: the DMI entry's .ident says
+"HP EliteBook 8 G1i 16 inch", but board 8D8A is also the 14 inch model
+I tested on.
 
 Thanks,
-Nicolai
+Juan
