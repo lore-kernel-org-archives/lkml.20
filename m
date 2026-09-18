@@ -1,140 +1,166 @@
-Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA523B47E3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6260E3D300E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699957; cv=none; b=bDFolGERh+nyJl10rWdBKvpz3nymONrbV1LRrnCZewX1ku+rWBSswwy3a9hlJwMOXQTxkj/wPJZLEpEUuIhHXvAZXnMb80Pq9AHUsL2NbStA7jmgl9e9aXRrjXmDiml81KqL1AIjBpZvtfscltIqPIe6gw9UmCudmpGuJJ3qEQs=
+	t=1789700044; cv=none; b=QWhWFKyCbP2vCFJOtF4fQtOzG/zVGQX7rlSsDgcruup6gyo+zRS/PGk9djt4lQv05atiEwebfk/endqpiX9ruL5oAYkFmPvUQBDQ8iea+iSaA9mP9t5r76eMR0iFmddEoArQWUcna+wqqDkmPvwcpw0uW45BqNF1i58CVVrV1yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699957; c=relaxed/simple;
-	bh=LskNNPuSB8QoudevYzVr17nYyrlTqFaZBhdrhrFkhzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BrtXvgX/j34qh7knO0BwrkXF32K1iW3XFoRj7tpckpGkFsgvf0bGclXvTozlTraU1Ce4G/Uvgmc1kT9rBZ/F8dbNwG/sq1XGNFGYuldl4Jg0wtqYZ7YLXO86Lck5gmPgro3usAELfHlNqVZtG0YOxzUIS82iUt0I8bzoiDNW9o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=n4xknpOB; arc=none smtp.client-ip=91.218.175.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789700044; c=relaxed/simple;
+	bh=/UX8ZmEQnH8EqOiIKE7Z5WAxMATgJMUKVfNeyfd6Ujo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=oC3Gxozp1EX9CWJ/e3Vv//r7oa/aO7XdOrpVyGWFFPSFuAijpDQYBTii/cgGrgSuskzh5q2hKqF3O7VgZiRRPnsMoC9Jc/8LWrvDfvD71u6oa0BG/qY7KZEhvaeiZhakx6JzjpgMuPQaceheeG/exAFdIxIORMCdT9JXc0DEcTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gCjwF2LW; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="n4xknpOB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LskNNPuSB8QoudevYzVr17nYyrlTqFaZBhdrhrFkhzE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789699948; v=1; x=1790304748;
- b=n4xknpOBPPEXMDCffjNgIvAWGb62BDrs4DleaYuZxUEDkNfBWXRIwzKw+466pivTS4bSZQYT
- vsmvnqXeXyFLdAYvHtbZ7YH7rSctHvc+yO6w4qF+8W8tYc18nBIHsyGenWHDptP9JPoA12bbKGg
- 9BY86SGdjL87zt5oDYkamfW4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b61aff39c1dfddae;
-	Fri, 18 Sep 2026 02:52:28 +0000
-X-Mizu-Trace-ID: b61aff39c1dfddae
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: kas@kernel.org,
-	david@kernel.org
-Cc: lance.yang@linux.dev,
-	akpm@linux-foundation.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the huge zero page
-Date: Fri, 18 Sep 2026 10:52:14 +0800
-Message-ID: <20260918025214.89109-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <aqwPHfWhKGty-Q_4@thinkstation>
-References: <aqwPHfWhKGty-Q_4@thinkstation>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gCjwF2LW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789700039; x=1821236039;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=/UX8ZmEQnH8EqOiIKE7Z5WAxMATgJMUKVfNeyfd6Ujo=;
+  b=gCjwF2LW4F7x1byVZ3h0iI01HkHOgrsggOSma6BNcMqqbWW8ICWpiYAo
+   uiZOisJGOb29/Sbe9DzVeUtsV0+er/3NCp1s0WyWbOKwmzXC34SPXoZy4
+   2LgQNm/AdFi7Yba5rxQeFFg7ZUkxoSNgkVxvTx1lb2PNY9xKFf57NPdll
+   jMC8l6dDrPMQ9TyVufXQYsh7ATAo3vMHs0DEYIdjTlkS0BehVvkuxVEb5
+   TmzZMXHz8LaWDklfMHjg7Q55lP/41/0+s1kR5m380oAEGLgKi245DMb/T
+   mklrafUwvxuSN5gqeMPxlgX+Ga/giTa9flfR35wonR34ixWSmzabXVfjD
+   Q==;
+X-CSE-ConnectionGUID: yesE6TzfSEO8PhywExT15Q==
+X-CSE-MsgGUID: lL1JEOL+QhqA0ry9RtOuDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90042848"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90042848"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 19:53:56 -0700
+X-CSE-ConnectionGUID: sCP42L+oSTKgd75DmuHK7A==
+X-CSE-MsgGUID: uQU1abiJQ6m+0aqMRvJ32g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2363142"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 19:53:55 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7OjY-00000000994-1fsf;
+	Fri, 18 Sep 2026 02:53:52 +0000
+Date: Fri, 18 Sep 2026 10:53:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Christian =?utf-8?Q?K=C3=B6nig"?= <christian.koenig@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <bbrezillon@kernel.org>
+Subject: drivers/gpu/drm/imagination/pvr_ccb.c:584:17: sparse:
+ sparse: incompatible types in comparison expression (different address
+ spaces):
+Message-ID: <202609181026.bSBKMAwH-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+commit: f4cc3ab824d6772a48ca9d9c74ac623b3309985d dma-buf: protected fence ops by RCU v8
+date:   7 months ago
+config: arm64-randconfig-r1302-20260917 (https://download.01.org/0day-ci/archive/20260918/202609181026.bSBKMAwH-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609181026.bSBKMAwH-lkp@intel.com/reproduce)
 
-On Thu, Sep 17, 2026 at 05:03:09PM +0100, Kiryl Shutsemau wrote:
->On Thu, Sep 17, 2026 at 05:29:48PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/17/26 16:32, Kiryl Shutsemau wrote:
->> > On Thu, Sep 17, 2026 at 08:10:10PM +0800, Lance Yang wrote:
->> >> vm_mixed_zeropage_allowed() validates zeropage insertion into
->> >> VM_MIXEDMAP VMAs. No in-tree user needs to insert the huge zero page
->> >> through vmf_insert_pfn_pmd().
->> >>
->> >> Return VM_FAULT_SIGBUS if vmf_insert_pfn_pmd() is asked to map it.
->> >>
->> >> Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
->> >> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
->> >> Suggested-by: David Hildenbrand <david@kernel.org>
->> >> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->> > 
->> > The patch looks fine, but don't we want to cover the same for non-huge
->> > zero page in vmf_insert_pfn_prot()?
->> 
->> Why would the zeropage be a problem in PFNMAP mapping?
->
->Nothing enforces that it is read-only.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609181026.bSBKMAwH-lkp@intel.com/
 
-No in-tree user inserts the zeropage through vmf_insert_pfn_prot(), so
-rejecting it there should be fine.
+sparse warnings: (new ones prefixed by >>)
+   drivers/gpu/drm/imagination/pvr_ccb.c: note: in included file (through drivers/gpu/drm/imagination/pvr_rogue_fwif.h, drivers/gpu/drm/imagination/pvr_ccb.h):
+   drivers/gpu/drm/imagination/pvr_rogue_fwif_check.h:487:1: sparse: sparse: static assertion failed: "struct rogue_fwif_hwrtdata is incorrect size"
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_ccb.c:562:22: sparse: sparse: undefined identifier '_res'
+>> drivers/gpu/drm/imagination/pvr_ccb.c:584:17: sparse: sparse: incompatible types in comparison expression (different address spaces):
+   drivers/gpu/drm/imagination/pvr_ccb.c:584:17: sparse:    struct dma_fence_ops const [noderef] __rcu *
+   drivers/gpu/drm/imagination/pvr_ccb.c:584:17: sparse:    struct dma_fence_ops const *
+--
+   drivers/gpu/drm/imagination/pvr_queue.c: note: in included file (through drivers/gpu/drm/imagination/pvr_rogue_fwif.h, drivers/gpu/drm/imagination/pvr_cccb.h):
+   drivers/gpu/drm/imagination/pvr_rogue_fwif_check.h:487:1: sparse: sparse: static assertion failed: "struct rogue_fwif_hwrtdata is incorrect size"
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: got ,
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: Expected ) in function call
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: got ,
+>> drivers/gpu/drm/imagination/pvr_queue.c:197:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
+   drivers/gpu/drm/imagination/pvr_queue.c:197:25: sparse:    struct dma_fence_ops const [noderef] __rcu *
+   drivers/gpu/drm/imagination/pvr_queue.c:197:25: sparse:    struct dma_fence_ops const *
+   drivers/gpu/drm/imagination/pvr_queue.c:223:13: sparse: sparse: incompatible types in comparison expression (different address spaces):
+   drivers/gpu/drm/imagination/pvr_queue.c:223:13: sparse:    struct dma_fence_ops const [noderef] __rcu *
+   drivers/gpu/drm/imagination/pvr_queue.c:223:13: sparse:    struct dma_fence_ops const *
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_queue.c:252:17: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_queue.c:902:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
+   drivers/gpu/drm/imagination/pvr_queue.c:902:25: sparse:    struct dma_fence_ops const [noderef] __rcu *
+   drivers/gpu/drm/imagination/pvr_queue.c:902:25: sparse:    struct dma_fence_ops const *
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: undefined identifier '_res'
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: undefined identifier '__VA_OPT__'
+   drivers/gpu/drm/imagination/pvr_queue.c:1269:17: sparse: sparse: undefined identifier '_res'
 
-Something like:
+vim +584 drivers/gpu/drm/imagination/pvr_ccb.c
 
----8<---
-The huge zeropage is reclaimable, but a raw PFN mapping does not pin it.
-A PMD mapping of huge_zero_pfn can therefore outlive the folio.
+cc1aeedb98ad34 Sarah Walker 2023-11-22  568  
+cc1aeedb98ad34 Sarah Walker 2023-11-22  569  /**
+cc1aeedb98ad34 Sarah Walker 2023-11-22  570   * pvr_kccb_fence_put() - Drop a KCCB fence reference
+cc1aeedb98ad34 Sarah Walker 2023-11-22  571   * @fence: The fence to drop the reference on.
+cc1aeedb98ad34 Sarah Walker 2023-11-22  572   *
+cc1aeedb98ad34 Sarah Walker 2023-11-22  573   * If the fence hasn't been initialized yet, dma_fence_free() is called. This
+cc1aeedb98ad34 Sarah Walker 2023-11-22  574   * way we have a single function taking care of both cases.
+cc1aeedb98ad34 Sarah Walker 2023-11-22  575   */
+cc1aeedb98ad34 Sarah Walker 2023-11-22  576  void pvr_kccb_fence_put(struct dma_fence *fence)
+cc1aeedb98ad34 Sarah Walker 2023-11-22  577  {
+cc1aeedb98ad34 Sarah Walker 2023-11-22  578  	if (!fence)
+cc1aeedb98ad34 Sarah Walker 2023-11-22  579  		return;
+cc1aeedb98ad34 Sarah Walker 2023-11-22  580  
+cc1aeedb98ad34 Sarah Walker 2023-11-22  581  	if (!fence->ops) {
+cc1aeedb98ad34 Sarah Walker 2023-11-22  582  		dma_fence_free(fence);
+cc1aeedb98ad34 Sarah Walker 2023-11-22  583  	} else {
+cc1aeedb98ad34 Sarah Walker 2023-11-22 @584  		WARN_ON(fence->ops != &pvr_kccb_fence_ops);
+cc1aeedb98ad34 Sarah Walker 2023-11-22  585  		dma_fence_put(fence);
+cc1aeedb98ad34 Sarah Walker 2023-11-22  586  	}
+cc1aeedb98ad34 Sarah Walker 2023-11-22  587  }
+cc1aeedb98ad34 Sarah Walker 2023-11-22  588  
 
-No in-tree user needs either mapping, so reject both with VM_FAULT_SIGBUS
-rather than risk making either shared zero page writable.
+:::::: The code at line 584 was first introduced by commit
+:::::: cc1aeedb98ad347c06ff59e991b2f94dfb4c565d drm/imagination: Implement firmware infrastructure and META FW support
 
-Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
-Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
----
-
- mm/huge_memory.c | 3 +++
- mm/memory.c      | 3 +++
- 2 files changed, 6 insertions(+)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index b49bffe36d22..de34d64aa763 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1723,6 +1723,9 @@ vm_fault_t vmf_insert_pfn_pmd(struct vm_fault *vmf, unsigned long pfn,
- 						(VM_PFNMAP|VM_MIXEDMAP));
- 	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
-
-+	if (unlikely(is_huge_zero_pfn(pfn)))
-+		return VM_FAULT_SIGBUS;
-+
- 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
-
- 	return insert_pmd(vma, addr, vmf->pmd, fop, pgprot, write);
-diff --git a/mm/memory.c b/mm/memory.c
-index 9e4a70421a6b..5d2d73c69fed 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2956,6 +2956,9 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
- 	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
- 	BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn));
-
-+	if (unlikely(is_zero_pfn(pfn)))
-+		return VM_FAULT_SIGBUS;
-+
- 	if (addr < vma->vm_start || addr >= vma->vm_end)
- 		return VM_FAULT_SIGBUS;
+:::::: TO: Sarah Walker <sarah.walker@imgtec.com>
+:::::: CC: Maxime Ripard <mripard@kernel.org>
 
 --
-
-That would keep both zeropages out of writable raw-PFN fault mappings ...
-wdyt?
-
-Cheers, Lance
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
