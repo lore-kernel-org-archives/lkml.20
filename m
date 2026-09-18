@@ -1,167 +1,253 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012051.outbound.protection.outlook.com [52.101.66.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f24.google.com (mail-pz2-f24.google.com [74.125.228.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1444FE2D5;
-	Fri, 18 Sep 2026 14:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741277; cv=fail; b=BIIr+nuCpjl7HreZJPw/nH+wx3odCfQqooGtSB1Yu60VuHuh5qGEiMJLcLTcGtCWTRuXB6pRIVvBErGESAvp7t32wBB3Mr/x/Fu7UfB6BckznbyB40DrGxeQjo8+VCpkAP7i0PmkRipUskBENjTfUp0Z3kx3ddLCCbbds42HPs0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741277; c=relaxed/simple;
-	bh=FBRjRFtTBPawkvahLb2KbZudhv/rSQ1Tn43YP4AaPj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=jR0r1C5tHMj31/G3Ho3Yez3GiZUinJ0WS4IUJtgv2xaTTq8Xp/ywDwYQhVm3Ke8jLArweE6awTe0JMs2g7AD0JIzXOnGe4FlZK55RoDh82cryfAc/sXE/as7lQ2sUoHrkt7BBK2HIw8zwc8XjF+ArTZC0AuUAKQOLka0su+0CNQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=shcEyYmj; arc=fail smtp.client-ip=52.101.66.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450FF4FECDD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.24
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789741282; cv=none; b=juf184q73RkmK+XqvBISe+mLdDTPVAlP1ZRqfL/ZN1oq/KezkBbskNExGP+gAHuVe6FN3Ch/T3BxMiuELOrezTXzPm9hzX5wMD7jq1AcQ9mOLyARzGZ2K+wacywv+JvuZ8gD8wqjeBnP6VlTHM/uI4Z1m1d8DJQkuBbZDIt6s7o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789741282; c=relaxed/simple;
+	bh=rdkuxtYhkkz5bw7bkfe0Y9gpgI/oRos0ZP5NsumQ488=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jXKYQowxhpeGdd61DGIZpxOK3xxL+TkAXW3kBnxpTCkIFIPVn+eU9wMTUYs7PVVP8NGUiv4yQ04Ds/E4kUqVMMNDhQWq3tgln/6ZDXtKK6synIYmysXt0Aq8wrQOy84bxYQkgDEDajKcnmCn2NJwMvj+Eeq4mRC57tiWLJI65Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wh6ySA0g; arc=none smtp.client-ip=74.125.228.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="shcEyYmj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vXxbMWgPRa2qfxm115dhZP8Ul2rI7wMkhVoSAK1DwJ024va/gQ0K8aHm00aUE81Xi7q5HtnJjN6RZOR2+u5GXBkos4g24f8jlYM3yAlqIoIkWo/SCgZ1HyrEinzgykY1PYv+lmguv8/0qBA8FZahlzRm/1L2O8UQ2soY8BKlGZAin+IREDXrlGx3pkfa292quHK2VoD5vFt8BP2JKqhYcAkxDTRiniEk/UJUVKvmnmwNGYPjwKLUSJP6XyAExu3r+Ltq2BsIo/pT4QyOpoEX7YrAk0onZNsHrNCsjptl/4QeTrWfF7YQe1goqPM7cSDl43serL0TrNpG8J32VF0lGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1wNuHPtm4JuuIr3zjQAcbbirUuSbdXgYbfwlndLXnRQ=;
- b=l3dExR/Vui9OL3LAcsBbjSOc/4jc/DMLEUApwQ+AcOnqns021EP6dQ4TPCRmGgA0xmriS4qUh+dO1yc7lujsRelALyNEJoJ4nVSMzJQR7/HbK9sgoLbQzjjKHJFFiJE9Bs5J2DzWyIi+8TDgKXxAYScUPPt+bkHm5Y1ewclhE8C/rBS0OXBf6lxdSboUJa+bgw1XMiDVGuufs4+YjMXM/S1VDJy6b5xLP21risfKioVYUcvzAtTurVBASdY/7NN4FWEw1Rg0TIsxJcmjOufuNAXO+QhkpjB88krQN2sNLMiH4h9kH+fSRuNjNrYFwUwUmn9mSOJaX/pi+aFkAce1cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1wNuHPtm4JuuIr3zjQAcbbirUuSbdXgYbfwlndLXnRQ=;
- b=shcEyYmjIOofQTL/e+kzITm+v6tBQP0TMQE1i/N3h4l/kMpvsKeISpyazEjCM3nmADUtq6qXotZmGPfrSR8oaRVjAhdaw+dCg01ZiN9loeEXFlS5HeM30tvvHbXqkKmgf/c6HFyzzNo9LYXtFifdJPPpzXBzdYoH7TfGftXcJuDjNZNTK/spdEpUOetRkIiHpmAXxw5jXN9++8Z9c2W/M07ZH9BN55+MBFHl0NxvrkxEanDW1rN6RZY4R3SbNdq5lMrSAeVIX1gvRwMOPK0u7JMC93peJ3YUTjOaAH0kHn4um+Ek3D6gPkRs+0JC5aTM2PS2RQaRqauXPxgnzKq55A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by GVXPR04MB10069.eurprd04.prod.outlook.com (2603:10a6:150:121::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 14:21:10 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 14:21:10 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>,
-	linux-serial@vger.kernel.org
-Subject: [PATCH] tty: use assign_bit() where applicable
-Date: Fri, 18 Sep 2026 22:18:41 +0800
-Message-ID: <20260918141842.3023147-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SG2P153CA0012.APCP153.PROD.OUTLOOK.COM (2603:1096::22) To
- AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wh6ySA0g"
+Received: by mail-pz2-f24.google.com with SMTP id 41be03b00d2f7-cc4ab4fe290so188385a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:21:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789741279; x=1790346079; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t6++YPkG1Ju+PwnB1ApEm7KTa+NYDmrm6+vHdir/OXs=;
+        b=Wh6ySA0gJoK5q7GylEoTNkH2wcS5xvymx3+zilbI6e21o826XZbGOdYTYyfqVk4JFQ
+         mFd+DsRrjKsvZSESjSUOuSP5yDYIbJiMxIAQ4LElBA74tRqGGCobPCxcaGWC2CuiGrVr
+         iOB5L9MwWZRBavK/wU3UyBrYNmFt4XPttzE3S7h/GYOjT7m1GIdO9tTPJ3SSQOSQY0GW
+         rdB+IhO+MfKZ+7A+8g2YqyFY5rIg/2iFRHz2lYRIC2oQuvZO1QzY27DfwWfWWajxEZmv
+         Qdz+9CR2rnPCfsyCafNuxwyvxDkMra/p1CHVr7z1sFPE8yCBi4Dn+b7HPcrCjB7dE6te
+         mAnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789741279; x=1790346079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t6++YPkG1Ju+PwnB1ApEm7KTa+NYDmrm6+vHdir/OXs=;
+        b=S8xxQ1TssnnyvdShte9KRnmurJjkbDvdw4ZJTk6dEPfSjBuxAJCZgAYq5pQWQYXQfJ
+         EWwxmEzqfcxdUIDI8JtrQYL/v+Ma5J087a6IZphpfVUgzARj+eMziF3QzkqDqXXUW+Jc
+         yjJ50Ke1SBnffq1j8QF0jlJe50RqYrlCT9bp+GATIMI/dyOoSHse+OdwkaouE55P5O+Y
+         cKil5Vis0cn7vlA39RrixX2zy4KeT3sJvouOOhBBlNnO/ioIfCwL/CpqvoeSijq8wWi1
+         wok1GrFexI/jjPvkwCeDzpbxrZzOhSjPUNICskRh6gf8VoibM+BO3EWtGToBcA/j9pTE
+         RHhw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKYPrOfRIDj7QausdiPSjTl8NEFidwLnq6f36YU6+gU9AG1BeA+XhcfXp+SV7HrGv5XQRadQBscGEMmpk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuUHPmfJ4ntfWXqsq5t4wxldk0KWvAgfUl6u0IUilYLEcEIwpv
+	uFOAPxCXg5bcj885kwvSmaBvHzqjOAFJJg1k3ZVgiC+k9RP59xSS4tXM
+X-Gm-Gg: AYBFou0YKkNqHgY1mX+b5cdngyw8FMPimnfeJLjpWrw5GeC6x4Xe451COcji1KOpuOD
+	63WWRFqwsC7/zoWiX/sSLgfT5R8BiwR9jwuZauKjlCNR5yHaHaJc2bcDVGum3MzWbpTAgKhH53F
+	hH5t5RyhH31WgJ64mL0qLt0+gVx5qo8LV5Af9g1gxJ1NEhPWzw/0L2dUiyp/jEW75uCUurvcROr
+	tHzpBTGZEdQYb66/HlEuo7hU7todNhAlrVyM8B6hJ8M4zdsB6BWujKRJ9i9rYerqiTdjNRIinuS
+	OnX6oM/xb4ru+gXV4VtFrN8KABFgLnF9TlTGa0xhoBRxi4au7uITKhTRdugbPtxgEZDickCU+Xx
+	Fvk6S/RFVLsxHxXra97nU5t3IHgkTFCiTEZfbHAlAI0woxXkoYT6PWXGkitEixmbwgV/5yK/uT5
+	bbq8BikTX3bsDb+LRYuyYF35IVKxa10yK4qROvvCSKmcUV+u5M6SSy61y6aYUOeVYI2y8jOe85n
+	KW96OwwLxdfIaKcdO9bE7g=
+X-Received: by 2002:a17:90b:4c87:b0:39e:4c7e:bc6 with SMTP id 98e67ed59e1d1-39e5573521amr3158853a91.20.1789741279214;
+        Fri, 18 Sep 2026 07:21:19 -0700 (PDT)
+Received: from x1c ([2405:9800:b670:b64b:f2cd:1bf9:a704:c687])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13420739a91.9.2026.09.18.07.21.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:21:18 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH v2] KVM: selftests: Test partial KVM_CLEAR_DIRTY_LOG requests
+Date: Fri, 18 Sep 2026 21:20:52 +0700
+Message-ID: <20260918142053.10127-1-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GVXPR04MB10069:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04e1dc4c-fcef-450d-fb48-08df15901637
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QhgF0Wf9Yn1yIoeKCXLor/nPEeab46df2/sUowizv2NW6slceGG8Fn/F/Zsusm34fmJiQD62le0Y+db6J8agrCCrWPKiR7obVBx8KdZUNIyIWpE4Pk6H5fkyWoKEjKXiAitIpplUWMB1YlW0Cul5iCXDQYqEIpKw5lS65B0jnGD+i1SscjtVE5vWijCVIIKhGrzf9JQyjksq5QgVwLG+neDX00suu9uS5rb9P//9AN9lSvfo54gQEsUdomvgmLx6V1JKfIOPgBo5offX9BJ2gaCPX0x6laR2hQpnbN/RsH0umkKnh6TG6qy3Lq80KYJDWVqCkgJoJm2kvSE1wWdJWxIXsh77uApoXZK37StT2YGZ+KhWzuMWvr3iwPnpscC+D2vMDLDlAClGXHJa2eLVuheDM+LZFPCQ+AV/WSq3dgONVoRHCigjcf+Yz9NpNLkR3IC4oOlWMgvQCCNGWSRl1YsgCW38rMgV4m19KTGPJMMpVEP5Z9zxfdVGOdTlfw38eXzpBnrJ/4ICFBkDknuPPj4HT3WYhtvUdVOOjLEdMOdudcqK/S3lTM2cpPYef3iIJcIPezjDjI3rBqeFd6KzwkvYyJXZq7agz5b1ekjZiUB+nBIqj8zub1R7Sl3xxfShaSeiGavrjL9tpAgkr3AivgRoo7Be87Q2qbmUN46Kk3M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?M3P/jeL9zrpO4uDuWpAAcO09Ua+aAAFemzZu9zHJvyRl5LMl8MS9JBPaXdUG?=
- =?us-ascii?Q?2pTHSY9phlNT4BP5BqkJBxIojjxWob2WFT8t/hA+v1sJo170HeX115CVZKaf?=
- =?us-ascii?Q?fA3rN2diQqp2EsY0Ro34VQy4cH3M4hLNX3l4PzNXFaJ8CmUG8slH15kp6e6I?=
- =?us-ascii?Q?G/2duViXp2dFVeJQFHKYGo+YLwiQhNlKs5J7kSjNaHfNa5DlsADZH9BEy2SY?=
- =?us-ascii?Q?PAorIn2OOs25JVnUhQQ7DlwSaSS1eX30mqAzU2zeb/Y66vY5kxfW8gwAwstW?=
- =?us-ascii?Q?vuFMNeabnWIPNySuNFV8nyxXI+jKFQl4cB7EOxz3gJWY2q5llmoBbvwlnm8H?=
- =?us-ascii?Q?x6pKpmqv+ksx71U0RAnTKDuGK0q2kDaVAcnNrWztjmKL82RcHQc4D7UAzCFQ?=
- =?us-ascii?Q?T28ewFxG/2BHW3IjHmSkYXITjaogFvTOkBElfL7jELpqZMi5J3FFzconHUbx?=
- =?us-ascii?Q?J4wVgMEzWH8c7/v/apRrTMgZcMK0QUa+97kBatzsaUL44bkf2RQh2RqiNra3?=
- =?us-ascii?Q?zd0ist9X9Qn6WhLRJ3M6/9Kt9xdc/zdmY4jqbM6Th4VfJDHfo5nRnHAEZHBC?=
- =?us-ascii?Q?W9i9UaeACnQv4x2AyyQq3VWoRCymHHfxvqdr5RCWN4hbYDgR031EzBUr5vEi?=
- =?us-ascii?Q?MoYoQuIp2atSFlEbF7B1BMSWYn/a796t6BdSwkh27tD0g/ZZ+XmzwwUfxCTi?=
- =?us-ascii?Q?Vu2ufloNhywvWj7MmnTOdBPctfrHmzvlwzCF7+7QBOAymhn4paeTEZctQdPf?=
- =?us-ascii?Q?mu6geC7SJfmWi/lAa0P3meGocwG/HaUR2pcuPBF16KD5KNAPEmgl0mtCU9wh?=
- =?us-ascii?Q?L/NhKPtU268fNkTmm8XXKqmn4FSUIIEOy+Q2MAyUTk91AGBN0Amw4CB88vxp?=
- =?us-ascii?Q?wqmkdeVhGToflOA4P8sVGR5m3AyQAhpQku4ujdDmcURK5rBcATb5PgHBx6xh?=
- =?us-ascii?Q?ej7PE8S0UJsfvEbjsnBUzRFUZMdjl7klJ2Gsb3pFDXZhyz7mMYdLK1N1wH+K?=
- =?us-ascii?Q?0zO8kDJPi5Bb/pqTecL49dXgiTGvY6iUHQ5/4MkVHUKrvmG3tlgA8F5ClRux?=
- =?us-ascii?Q?5TNd5Dvi+dYEHCpCRVc74ysXZftwoedV5rDENB8aepj34XHVz4s7LEJEsi8S?=
- =?us-ascii?Q?sv10Neypsb0zGsrl6i2ghcfMsetvqASsI3LLGAMsQAJWZKqAKY5YzBtIzDF6?=
- =?us-ascii?Q?Ur/NFE6OWOmIWcRYGmPrvt6kUYPn/+e5NW0jP9aFwVhF0W/rCTJC4I/mroWH?=
- =?us-ascii?Q?TemHheAq3aOpyrgeMvx4pYxlcwsbBVvJN6kpb0xvdzvY/GlFO7RVHuWegLnr?=
- =?us-ascii?Q?Ig8K3uJBbA8WRZj1sxE0TKfjucvzv8bmFdQI5sCggRhc5+yzcHj4Z6fLF0i8?=
- =?us-ascii?Q?oxzBjkk2BvofRXf8C1hUbQUl7b7AELJK3G4PVTK9MUV3+Ij30cX/DlSv/rD+?=
- =?us-ascii?Q?6fPDBs2/ruTT0FDXAUw8jSdd0zo9gK7ZXx3KLu7AP3RizBFu2rQCw9TwbGRg?=
- =?us-ascii?Q?mLbXbvRnJOzuKw/TGIzBk+Nhda0tKLFw+ITFjXTjlkZdRFIL6VnBXo74b7ck?=
- =?us-ascii?Q?x9CWfcTwcvDmDXsooJFhDkw6rlIYZ3S1y4OzacPIPIzJl1u4lN9ZYKmnZcfw?=
- =?us-ascii?Q?5ZC1hzHKoW+SVyNjinDmFlyjPU+EAyc8xfo0pA71hHK+n10TTQoCzhLcvG8K?=
- =?us-ascii?Q?Jy+WnwilIGLGcVM71hNeZB84EDGu56YkYbn3FMlZ+9Zye2sEmu2nEjkxy/WR?=
- =?us-ascii?Q?Kp6WoSwzvv4wT/Bdza1p/NWCgRRRa8NQi9X/ba/PuVf2cr4uBhb0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04e1dc4c-fcef-450d-fb48-08df15901637
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:21:10.3096
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kAi/0VppUcWQWl3d0lkCLRpbE9oTcLxUViwoP4zsgfXTykL7HL3Q+Q/nSKd/loAO0eoH19qSXYxQqDEor3o9roRu6z9Lvp0aXZ/UFz7rKj450ff9LVatldDAadNgR32s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10069
+Content-Transfer-Encoding: 8bit
 
-From: Peng Fan <peng.fan@nxp.com>
+The clear-log mode invokes KVM_CLEAR_DIRTY_LOG with first_page set to
+zero and num_pages covering the entire memory slot. But the clear-log
+allows targeted clearing. So, the test does not verify that KVM
+correctly applies a bitmap relative to a nonzero first_page,
+or that pages not selected by a partial request remain dirty.
 
-Convert open-coded if/else with set_bit/clear_bit and their
-non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-API.
+Add a focused test that creates a memory slot with
+KVM_DIRTY_LOG_INITIALLY_SET, then submits a 64-page clear request
+starting at page 64 with only bitmap bit 1 set. Verify that memslot page
+65 becomes clean while every other host-page bit remains dirty.
 
-Done with Coccinelle semantic patch.
+Write to page 65 from the guest and verify that dirty tracking was
+re-enabled and the page becomes dirty again.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
 ---
- drivers/tty/pty.c   | 5 +----
- drivers/tty/sysrq.c | 5 +----
- 2 files changed, 2 insertions(+), 8 deletions(-)
+Changes in v2:
+Address two issues from Sashiko's review
+ - Address Out-of-bound guest access when host page size
+exceeds the guest page size by sizing the test memslot from 192 host
+pages, converting to guest pages before applying the allocation
+adjustment. 
+ - Skip the partial-clear test if KVM_DIRTY_LOG_INITIALLY_SET is not
+supported, since the test requires the bitmap to start with all
+pages marked dirty.
 
-diff --git a/drivers/tty/pty.c b/drivers/tty/pty.c
-index cc7f7091ed9a..9a37008c4e91 100644
---- a/drivers/tty/pty.c
-+++ b/drivers/tty/pty.c
-@@ -138,10 +138,7 @@ static int pty_set_lock(struct tty_struct *tty, int __user *arg)
- 
- 	if (get_user(val, arg))
- 		return -EFAULT;
--	if (val)
--		set_bit(TTY_PTY_LOCK, &tty->flags);
--	else
--		clear_bit(TTY_PTY_LOCK, &tty->flags);
-+	assign_bit(TTY_PTY_LOCK, &tty->flags, val);
- 	return 0;
+Test Results:
+- on x86_64 with 4K host and guest pages:
+	./dirty_log_test -M clear-log
+	PASS
+- on arm64 Rock 5B with 4K host pages, including 4K, 16K and
+64K guest page modes:
+	./dirty_log_test -M clear-log
+	PASS
+---
+ tools/testing/selftests/kvm/dirty_log_test.c | 112 +++++++++++++++++++
+ 1 file changed, 112 insertions(+)
+
+diff --git a/tools/testing/selftests/kvm/dirty_log_test.c b/tools/testing/selftests/kvm/dirty_log_test.c
+index af5eb0334a74..3976748f3940 100644
+--- a/tools/testing/selftests/kvm/dirty_log_test.c
++++ b/tools/testing/selftests/kvm/dirty_log_test.c
+@@ -815,6 +815,114 @@ static void run_test(enum vm_guest_mode mode, void *arg)
+ 	kvm_vm_free(vm);
  }
  
-diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
-index c2e4b31b699a..f4571d05b496 100644
---- a/drivers/tty/sysrq.c
-+++ b/drivers/tty/sysrq.c
-@@ -911,10 +911,7 @@ static bool sysrq_handle_keypress(struct sysrq_state *sysrq,
- 		 * keyboard state so we can release keys that have been
- 		 * pressed before entering SysRq mode.
- 		 */
--		if (value)
--			set_bit(code, sysrq->key_down);
--		else
--			clear_bit(code, sysrq->key_down);
-+		assign_bit(code, sysrq->key_down, value);
++/* Use the 2nd 64-page range to exercise a non-zero offset. */
++#define TEST_CLEAR_LOG_FIRST_PAGE	64
++#define TEST_CLEAR_LOG_NUM_PAGES	64
++#define TEST_CLEAR_LOG_BIT		1
++#define TEST_CLEAR_LOG_PAGE		(TEST_CLEAR_LOG_FIRST_PAGE + \
++					 TEST_CLEAR_LOG_BIT)
++static void guest_code_clear_log(void)
++{
++	u64 addr = guest_test_virt_mem + TEST_CLEAR_LOG_PAGE * host_page_size;
++
++	while (true) {
++		vcpu_arch_put_guest(*(u64 *)addr, 1);
++		GUEST_SYNC(1);
++	}
++}
++
++/*
++ * Verify KVM_CLEAR_DIRTY_LOG only clears (and re-arms) the requested range:
++ * with KVM_DIRTY_LOG_INITIALLY_SET every page starts dirty; clearing a single
++ * page must leave its neighbours dirty and must write-protect the page so the
++ * next guest write re-dirties it.
++ */
++static void run_clear_log_partial_test(enum vm_guest_mode mode, void *arg)
++{
++	unsigned long *bmap, *clear_bmap;
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	u64 page;
++
++	/* Allocate enough memory for three 64-host-page range */
++	guest_num_pages = vm_adjust_num_guest_pages(mode,
++			vm_num_guest_pages(mode, 3 * 64));
++
++	vm = create_vm(mode, &vcpu, 2 * guest_num_pages, guest_code_clear_log);
++
++	guest_page_size = vm->page_size;
++	host_num_pages = vm_num_host_pages(mode, guest_num_pages);
++	host_page_size = getpagesize();
++
++	guest_test_virt_mem = DEFAULT_GUEST_TEST_MEM;
++	guest_test_phys_mem = (vm->max_gfn - guest_num_pages) * guest_page_size;
++	guest_test_phys_mem = align_down(guest_test_phys_mem, host_page_size);
++
++	bmap = bitmap_zalloc(host_num_pages);
++	clear_bmap = bitmap_zalloc(BITS_PER_LONG);
++
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
++				    guest_test_phys_mem, TEST_MEM_SLOT_INDEX,
++				    guest_num_pages, KVM_MEM_LOG_DIRTY_PAGES);
++	virt_map(vm, guest_test_virt_mem, guest_test_phys_mem, guest_num_pages);
++
++	sync_global_to_guest(vm, host_page_size);
++	sync_global_to_guest(vm, guest_test_virt_mem);
++
++	kvm_vm_get_dirty_log(vm, TEST_MEM_SLOT_INDEX, bmap);
++	for (page = 0; page < host_num_pages; page++)
++		TEST_ASSERT(test_bit_le(page, bmap),
++			    "Page %lu should be dirty after INITIALLY_SET", page);
++
++	__set_bit_le(TEST_CLEAR_LOG_BIT, clear_bmap);
++	kvm_vm_clear_dirty_log(vm, TEST_MEM_SLOT_INDEX, clear_bmap,
++			       TEST_CLEAR_LOG_FIRST_PAGE,
++			       TEST_CLEAR_LOG_NUM_PAGES);
++
++	kvm_vm_get_dirty_log(vm, TEST_MEM_SLOT_INDEX, bmap);
++	for (page = 0; page < host_num_pages; page++) {
++		if (page == TEST_CLEAR_LOG_PAGE)
++			TEST_ASSERT(!test_bit_le(page, bmap),
++				    "Cleared page %lu should be clean", page);
++		else
++			TEST_ASSERT(test_bit_le(page, bmap),
++				    "Page %lu should still be dirty", page);
++	}
++
++	/* The cleared page is now write-protected; a guest write must re-arm it */
++	vcpu_run(vcpu);
++	TEST_ASSERT(get_ucall(vcpu, NULL) == UCALL_SYNC,
++		    "Unexpected guest exit: %s",
++		    exit_reason_str(vcpu->run->exit_reason));
++
++	kvm_vm_get_dirty_log(vm, TEST_MEM_SLOT_INDEX, bmap);
++	TEST_ASSERT(test_bit_le(TEST_CLEAR_LOG_PAGE, bmap),
++		    "Page %lu should be dirty again after re-arming",
++		    (u64)TEST_CLEAR_LOG_PAGE);
++
++	free(bmap);
++	free(clear_bmap);
++	kvm_vm_free(vm);
++}
++
++static void test_clear_log_partial(void)
++{
++	host_log_mode = LOG_MODE_CLEAR_LOG;
++	if (!log_mode_supported()) {
++		print_skip("Log mode '%s' not supported",
++			   log_modes[host_log_mode].name);
++		return;
++	}
++
++	if (!(kvm_check_cap(KVM_CAP_MANUAL_DIRTY_LOG_PROTECT2) &
++		KVM_DIRTY_LOG_INITIALLY_SET)) {
++		print_skip("KVM_DIRTY_LOG_INITIALLY_SET not supported");
++		return;
++	}
++
++	for_each_guest_mode(run_clear_log_partial_test, NULL);
++}
++
+ static void help(char *name)
+ {
+ 	puts("");
+@@ -913,5 +1021,9 @@ int main(int argc, char *argv[])
+ 		for_each_guest_mode(run_test, &p);
+ 	}
  
- 		if (was_active)
- 			schedule_work(&sysrq->reinject_work);
++	if (host_log_mode_option == LOG_MODE_ALL ||
++	    host_log_mode_option == LOG_MODE_CLEAR_LOG)
++		test_clear_log_partial();
++
+ 	return 0;
+ }
 -- 
-2.51.0
+2.53.0
 
