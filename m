@@ -1,113 +1,132 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856004F96C4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E405F502D43;
+	Fri, 18 Sep 2026 13:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738608; cv=none; b=gjrsBT7a5pGV5MpJNnbkEwjug/ishCPw+MDBBId6hr0+LOOErom3FyX/NjsFtb+dqzPYD7WWwEdkCOHKO3Y0zuThO12m3XfB9H7SzMkhD4G/Xk2BCAjvaAc6TqivcqWViwOvr1m61d/d7gVFwA31YSPkI2Mfv9wZTTsQ26Xd1Dg=
+	t=1789738615; cv=none; b=jnmSdVLTC0rfl5HHI0iw0vpWIUy4HWRQDMU/khhJ5rzpyyk8xNRKfqhHGnVbil5de3249hY9JSHyKPi5u4hQmF+YtAeVSQsMi0KXXDxQo7U92aUNDbY4VoGYPKU/qzDFmU9r9h4p5ALGeahzHY8dOx9qZXX6+YpBa9Z3hAo1S0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738608; c=relaxed/simple;
-	bh=/RJxtpnY3VFIjvsJUYAM2o2Owc7T+CeSxdmnbQ2prls=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=clb0VTgOa+UhZ3FqZ4pS5D+SXBKCPveTnsyL1oyLwsu8PUAK8xqAs3B/U7dS+W6cw8ZD45xA0kzP5xCHU62o4AJuTjy6UMCVLIYmPpL+xxPH5qfoPeXr5OjAJSibOGeMCNEkky8yjlHjYgY/2j1q971vHQG/O3vr1g9D72KdSRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xt1SxfDO; arc=none smtp.client-ip=91.218.175.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xt1SxfDO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/RJxtpnY3VFIjvsJUYAM2o2Owc7T+CeSxdmnbQ2prls=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789738604; v=1; x=1790343404;
- b=xt1SxfDOYrRyXZL3fDSqb/F3T7SjaagMgXBuuO2vIuhBTaP+fl6tLL9ZOsmdaS+PlMhMm5CV
- IRURWDKn4kW9StxNaHLg5bCCJU33/FMk3qrbJmSxjINPmIjKnVb20vkPpFruNNcYZDotQnOgzlH
- W0OcTUhx/e8G/F/Z1QtlLIYM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bdf97a7d395ac53b;
-	Fri, 18 Sep 2026 13:36:44 +0000
-X-Mizu-Trace-ID: bdf97a7d395ac53b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <908dd7ec-1d03-4d2f-814b-9e1c67f337b2@linux.dev>
-Date: Fri, 18 Sep 2026 21:36:37 +0800
+	s=arc-20240116; t=1789738615; c=relaxed/simple;
+	bh=H2dI1h5h+c5Uh/u2gvvatOss6nAl1NmWk5puAsF+4dQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fk79fL1WO8JKnziS86UBsTgSqVy8O1PiVMGSnjcgN12vUGBntERzSTHXKueWiIlzs2Ju4YsMw2yU37IrY/Bm29UByZZqQdqtV1Nj7VYq36aCaii/YsIr3OsTP85yX+yi+Q5Gk31VtjIBX/JQD0R5hcftTwhf1/mWj7wuJEPPgSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 5B92B68BEB; Fri, 18 Sep 2026 15:36:49 +0200 (CEST)
+Date: Fri, 18 Sep 2026 15:36:49 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, hch@lst.de,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	vdubeyko@coreweave.com, willy@infradead.org, brauner@kernel.org,
+	djwong@kernel.org
+Subject: Re: [PATCH v4 4/7] hfsplus: add iomap operations for regular file
+ data
+Message-ID: <20260918133649.GE18107@lst.de>
+References: <20260914233941.2966421-1-slava@dubeyko.com> <20260914233941.2966421-5-slava@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v3 3/3] selftests/bpf: Add iter subtest using
- lskel in global_data_init
-To: bot+bpf-ci@kernel.org, tweek@google.com, qmo@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, shuah@kernel.org, kpsingh@kernel.org, emil@etsalapatis.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, ihor.solodrai@linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260918040919.3402577-3-tweek@google.com>
- <b1a854da66d611f079d8ff186b9bf73845ee18b73fac2481ef468a86fc777990@mail.kernel.org>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <b1a854da66d611f079d8ff186b9bf73845ee18b73fac2481ef468a86fc777990@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914233941.2966421-5-slava@dubeyko.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 2026/9/18 13:05, bot+bpf-ci@kernel.org wrote:
->> In test_global_percpu_data.c, dump_percpu_data is defined after two
->> non-autoload SEC("?kprobe") programs (verifier_strncmp and
->> verifier_snprintf). If bpftool does not skip non-autoload programs when
->> generating light skeletons, dump_percpu_data.prog_fd is left invalid or
->> unpopulated.
->>
->> Factor out a test_global_percpu_data_iter_fd() helper that operates
->> directly on prog/map file descriptors, and add an iter_lskel subtest to
->> verify that dump_percpu_data is properly loaded and executes correctly
->> when using the light skeleton.
->>
->> Fixes: 4c9241bd731a ("selftests/bpf: Add tests to verify global percpu data")
->> Fixes: 1ed2294b31fc ("selftests/bpf: Test verifier log for global percpu data")
->> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
-> 
-> Are the Fixes: tags appropriate for this commit? This patch only adds new
-> test coverage (a new iter_lskel subtest) and refactors existing test code
-> (factoring out test_global_percpu_data_iter_fd() with no behavioral change
-> to the existing "iter" subtest). It doesn't fix anything that
-> 4c9241bd731a or 1ed2294b31fc got wrong.
-> 
-> The bug being tested is in bpftool, introduced by d510296d331a
-> ("bpftool: Use syscall/loader program in "prog load" and "gen skeleton"
-> command.") and actually fixed by the two preceding patches in this series
-> (202ee90dee368 and 843762e6f4665), both of which already carry the correct
-> Fixes: d510296d331a tag.
+On Mon, Sep 14, 2026 at 04:39:38PM -0700, Viacheslav Dubeyko wrote:
+> This patch adds iomap.h and iomap.c files. The iomap.h contains
+> declarations of hfsplus_iomap_ops, hfsplus_write_iomap_ops,
+> hfsplus_writeback_ops, and hfsplus_write_dio_ops operations.
+> The iomap.c implements __hfsplus_iomap_begin(),
+> hfsplus_write_iomap_end(), hfsplus_iomap_cont_expand(),
+> hfsplus_writeback_range() methods that become the basis of
+> HFS+ iomap operations.
 
-Agreed.
+Adding this without the users in the last two patches is odd, as this
+isn't really the kind of atomic change we're usually doing in Linux.
 
-The Fixes: tags of this patch can be dropped.
+I'd vote for merging this and the last two patches into one.
 
-Others lgtm:
+> index 000000000000..5723e854e58e
+> --- /dev/null
+> +++ b/fs/hfsplus/iomap.c
+> @@ -0,0 +1,192 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * iomap callback functions for the hfsplus filesystem
 
-Acked-by: Leon Hwang <leon.hwang@linux.dev>
+In Linux terminology these are methods, not callbacks.  I'd probably just
+drop this comment entirely, as it doesn't really add value, though.
 
-> 
-> There's also a backport concern. The Fixes: tags make this patch a
-> candidate for AUTOSEL/stable pickup independently of 202ee90dee368 and
-> 843762e6f4665. Since this is the last patch of the series, backporting it
-> alone would land the new iter_lskel subtest in a tree with the unfixed
-> bpftool, where skel->progs.dump_percpu_data.prog_fd is left at 0 and
-> bpf_link_create(0, 0, BPF_TRACE_ITER, &opts) fails. The subtest would fail
-> by construction.
-> 
-> Should the Fixes: tags be removed, or if they're intended to be kept,
-> should the dependency on the two bpftool patches be stated via
-> Cc: <stable@vger.kernel.org> prerequisite lines?
-> 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35306404663
+> +static int hfsplus_iomap_begin(struct inode *inode, loff_t offset,
+> +				loff_t length, unsigned int flags,
+> +				struct iomap *iomap, struct iomap *srcmap)
+> +{
+> +	return __hfsplus_iomap_begin(inode,
+> +				     offset, length, flags,
+> +				     iomap, false);
 
+Odd formatting.  Why not:
+
+	return __hfsplus_iomap_begin(inode, offset, length, flags, iomap,
+				     false);
+
+?
+
+Also may_alloc as flags with a readable flag name might be nicer here.
+
+> +}
+> +
+> +static int hfsplus_write_iomap_begin(struct inode *inode, loff_t offset,
+> +				     loff_t length, unsigned int flags,
+> +				     struct iomap *iomap, struct iomap *srcmap)
+> +{
+> +	return __hfsplus_iomap_begin(inode,
+> +				     offset, length, flags,
+> +				     iomap, true);
+> +}
+
+Same.
+
+> +const struct iomap_ops hfsplus_iomap_ops = {
+> +	.iomap_begin = hfsplus_iomap_begin,
+> +};
+
+Please use the new iomap next scheme merged in 7.3-rc.  In fact
+the old begin/end methods were supposed to be removed after -rc1,
+but someone they managed to still stay around.
+
+> +
+> +/*
+> + * hfsplus_write_iomap_end()
+
+Duplicating the function name adds no value.
+Same for the other functions.
+
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * iomap callback declarations for the hfsplus filesystem
+> + */
+
+Same comment as for iomap.c.
+
+> +static inline
+> +int iomap_dio_end_io(struct kiocb *iocb, ssize_t size,
+> +		     int error, unsigned int flags)
+
+Odd formatting, normally we'd do:
+
+static inline int iomap_dio_end_io(struct kiocb *iocb, ssize_t size, int error,
+		unsigned int flags)
+
+or:
+
+static inline int
+iomap_dio_end_io(struct kiocb *iocb, ssize_t size, int error,
+		unsigned int flags)
