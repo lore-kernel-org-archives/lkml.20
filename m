@@ -1,85 +1,98 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3673E0097
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AAD3B0586;
+	Fri, 18 Sep 2026 12:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734820; cv=none; b=dq35ns8ghP9blfVtwbqnMPTCccPeb3V3xOY+uU612tHlPSuJlC5V+/+oJQdvmukd1zupN/rOuLjk9mHRq0IoOsOk0bCqHZ71vs5EapjvHUumPrCY4Uw3AuBG5p5l4dzl5bLltLXmG5RhNNUfIuoPBqLJxbm3HCB26gKGLj8uU3Q=
+	t=1789734952; cv=none; b=BNtN0lDWkDvrbqxeZIYuZH45lQfLZqU+ZvXDJAQgZ8vOFZtmoo7swXnf7SjXZPIA6N0xqhw/iQakp8YW+TJIvRG1+K3GlRgEOAy3dTREB5ixb5PNH+PQhnyl3OHy1Y4UeLkBK5X4/GGSq/05zu8qC8gJwLqhkk6zAw9pGoshSmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734820; c=relaxed/simple;
-	bh=Is7wvlCDNFuTkMIQjkA29Su/3CAb75DA3JyfIB3ZuZ0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=FRF2otGEIK9iCTi+EiFH8EwroQ0hFdi2idScWdalvc1ywrVSeHYiacKHHOEJgpSlOO1mughJ+KHxH6lTqRyU3/tWdhRd5RKGwxvi7kkll40pfhex5RhMo1zSCqUH+eAig6OGLJBPPEMgOYB9Sf7mrBueCLFLIRWQB7nnqTLEgW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c1e5079d43so964838eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:33:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789734815; x=1790339615;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f+f+vVZ9rR97mcx0fgnCBsCIXu6W0ty4resqWReSqJY=;
-        b=F7F2pwVODGmoPxZG7QyUYujxQ+Ebazt2W9880nCXpRnrY8VlKDiECOF0XkGQqVS/m3
-         Ho5QIgpgYjvZ1QNXob1UF98TF5H3GZIUaEVQmyJR8lgL0EMMR7+KCVGc4n2VCBJQoqyQ
-         TWPa5GcPNiiZdMLCcAUXJqY2VRMO7S5CrVYD6kD0KUasT5KNJc07VVyVbpB5WUCEAFe0
-         KnP1Dx/gZJtL4Df1cGlukOYPfstVlBuPHq3v9oLj7k51JNNHHiWhjYAPdHi1yE1t2cvz
-         jb25kE+C1sXiZxCBSSSoHX4UUnZYGC3HyYJUCNCFpesQlmFVaDywW1DLQBefDb4nMhQi
-         21MA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVDz9EBC2yg1ujq+tOk0PO43h9rcfve3Z5WK1rLMtFySqlc9usFTakiq5njBW/zxyFoHBLpBwteIV8cv4=@vger.kernel.org
-X-Gm-Message-State: AFuF++muL4leHvkpoeF7tEL/lY+AMa7+PxCEXOIF0v9SN5U/sF36VQEX
-	yECx6V5M//iz0Kw7sDMMXL4G28CVmuGMxXTreJDgNWSAfDaeaeQwB5Q/ngBP3MR/WnrIfj6nNFc
-	XmJOlzI+TFfDABFdRKd30E/2j4DlLKGaVcVAvt51/0McntcnuFcamNPH6At8=
+	s=arc-20240116; t=1789734952; c=relaxed/simple;
+	bh=lFb/ccV6+jizE6TGIAjcwsK07RZ9vzh/fvmX6XrndLA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=EFtAJ7w2GUzzsHaTZqbsyr24KZFZnYR7esYY/k1j1ahvwXpWKfJQebma1cQIdpBNCxBC+YJODaG2bpJODp9AIJNM5gClwS9ijE0JtDpKp+7mGzf9DF5mTEct2qiOgYklWwJ74kVIjhxBZ+ysLXTm1oy9JnC0iFRgue6fNMFxCD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hh1ioEfM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hh1ioEfM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989021F000FF;
+	Fri, 18 Sep 2026 12:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789734951;
+	bh=PnfTQJIwz2bXz4YR/myW/Xmj/jc4ylC9Ppwvk0wRffc=;
+	h=Date:From:To:Cc:Subject;
+	b=hh1ioEfMS9xPALHNoT9qZJiv0YxV7bSXFUOjwijx0U9D0XvAx2cvZ42jQ3x9wQcFD
+	 dIaZKzeqTPRZAjjBA1DaFzHPEnFA25EQm9Am80Qjl4MC9G6XDRMdFWZTznczCRw78k
+	 Ih+kx3gF0PqPcGO5tWtZZJu8+AZh4Tc5KfU9xdjkj35thh+AwFpxyPsFZOETVUjAGN
+	 tMceet5uQkMbrXxY+rsVLLqSR0++j+A72syILlY0aWhV9kQBB+kTz0i7HmjZ9E7c3p
+	 DY1lkyHcPgt/kyZ9ZrV9oTURS80qp+pSGTFHQ/enleiUgE7HkEGMpke996X41En6bM
+	 w73VsqIjNPOJA==
+Date: Fri, 18 Sep 2026 13:35:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg KH <greg@kroah.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: Carlos Llamas <cmllamas@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Tomer Pomeranc <tomerpo@gmail.com>
+Subject: linux-next: manual merge of the char-misc tree with the
+ char-misc.current tree
+Message-ID: <aq0wIywjYmlWf77i@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a0b:b0:6c9:8460:c85d with SMTP id
- 006d021491bc7-6ca9d44ebd6mr1825972eaf.69.1789734815312; Fri, 18 Sep 2026
- 05:33:35 -0700 (PDT)
-Date: Fri, 18 Sep 2026 05:33:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aad2f9f.71f81b7d.278072.002a.GAE@google.com>
-Subject: [syzbot] Monthly xfs report (Sep 2026)
-From: syzbot <syzbot+list69597c5575cf360a0538@syzkaller.appspotmail.com>
-To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="97e8isr3gG5KNoN9"
+Content-Disposition: inline
 
-Hello xfs maintainers/developers,
 
-This is a 31-day syzbot report for the xfs subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/xfs
+--97e8isr3gG5KNoN9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-During the period, 1 new issues were detected and 1 were fixed.
-In total, 10 issues are still open and 35 have already been fixed.
+Hi all,
 
-Some of the still happening issues:
+Today's linux-next merge of the char-misc tree got a conflict in:
 
-Ref Crashes Repro Title
-<1> 901     Yes   possible deadlock in xfs_icwalk_ag (3)
-                  https://syzkaller.appspot.com/bug?extid=789028412a4af61a2b61
-<2> 2       No    WARNING in xfs_bmapi_convert_delalloc (3)
-                  https://syzkaller.appspot.com/bug?extid=0ce92d16209e30011ebc
-<3> 3029    Yes   INFO: task hung in sync_inodes_sb (5)
-                  https://syzkaller.appspot.com/bug?extid=30476ec1b6dc84471133
-<4> 13      No    KASAN: slab-use-after-free Read in xfs_defer_item_unpause
-                  https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
+  drivers/android/binder.c
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+between commits:
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+  c4c02084d6687 ("binder: fix leaked fd fixups on TF_UPDATE_TXN supersede")
+  22c135635fdd9 ("binder: fix is_failure flag for superseded transaction cl=
+eanup")
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+=66rom the char-misc.current tree and commit:
 
-You may send multiple commands in a single email message.
+  fd2bc059ed466 ("binder: rm -f binder.c")
+
+=66rom the char-misc tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+(Deleted the file)
+
+--97e8isr3gG5KNoN9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtMCIACgkQJNaLcl1U
+h9DpYQf/Sq+rPDC+ufY6VoLrpav6sS3qn/IVVYGX+0G7yec0tRFWowf7F6Xjufnw
+EpUfVGxM/FblwE/1S0TejMgFKlR8k/ATBj0g000r+GBBd7YvKSomehFuhqqZosOH
+cd02THrSb/o2xmHGJ46zh+RTQgE3RpvGckbo73ZlTQ20M1iucib+Y1otynjWCUS6
+/SRK6Mh2+Ukmg5jZtAvrqnx3oQMxtS5kF/LhoZuk1hBm7bnwnpOfwTJKa8l4nXq9
+jSS1jfJI3ZeP4dYzcnDXgavdAqTOpGJ5pI3eqrymeUJlCaIBTPIQSE1DgrYYgKkU
+9EGtN+NGR3xhHgA0w6nq94NM+/zCkQ==
+=kYo8
+-----END PGP SIGNATURE-----
+
+--97e8isr3gG5KNoN9--
