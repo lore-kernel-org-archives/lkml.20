@@ -1,216 +1,213 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D88377A9B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7EF2BE639
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723493; cv=none; b=c9d6zJlf9YcED/gSMVbK/gDoZRtDXY8JDg/7vuFwh8OgZcZS/mVQXEOdHYg1hwzghj9/alkBn1j+V3JBVAoy/9x+5dniOm9zC8sGD6HnuLhA/o8qnRpgXZLQvsPVSpM9s68HRgpAmt7ap1HqR91rF4Tl5XZPL+vNyde+e8VcI0o=
+	t=1789723559; cv=none; b=MHJb096dHtRQOquXKzCSbhmLuZzViQv7mcurwK7IWc91ggv5YyEyx/vU/uAUV217Fc1KjDbnTF1yggK05ubUrR8hSTP5bnzVcPW5vrJsgp9xXyr+Q6g6MFlV4TKCuIfnsPBZGekviiEk/neXBtTYlRL9SEzM/g/nOYyIwAV7WqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789723493; c=relaxed/simple;
-	bh=a+Q7v0i4oUBDGIVKI9qESILy03zS5iR9AHdSgVZnVBA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OxdnUDXJEOPAjNYHtZfEZH/xzuUM8VoTKYzL2Lo+/ZywGUX7BcEZWPdP+VRz95jez7GkCiCaWXdYJX0XRlaxT4y4az67B8YwI25ohfqvLIOBBgKFS7WBSSvNpmFqiQxJotaPLNT3xiTRHlBwe2ByZl4KjmTK/2HKi8Cg+nMovyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ipjkdrOR; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789723559; c=relaxed/simple;
+	bh=heL+cffpBwzuaE5Wczk3qdf8ZhzTAHZTw+cfNwtLmDs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
+	 References:In-Reply-To; b=UZgO5jRFOjkCVCqpwOlsbxULNeHE9xmA0EsqzkKoINBeGPFZ2IzerIJe2eeM5Lv0UYhLZhqq0WKbachP+ZH8xuRMvyzCFppWyuRIqf7pksmQMITScxQ35vm3vwEwG8Z0jgPc3lwPRW3LZr1ByFS3lCNDyjHVMvj6QmLH3Jl4DnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ccn64BYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ipjkdrOR"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so455792a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:24:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789723491; x=1790328291; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w6vnmAHaEKQvF5gCbmOjaBzceKMsg0XSgaVR/HCDL7Q=;
-        b=ipjkdrORFEJpmLoiURrABbjn/oPkSa/u2Wi41h7Y7Vw/gDz7wCil8O4ljeKFRlE1Yo
-         p0vK6+7m0he3fBm1cVxc9m09wDLQkSFRSaXsObJtPKH6m6ym8O8Gzy+ftgK8tyO/vuOF
-         UtgZTL8hG98b3vN+sJ2w1KcE4ALEPrZ4yqw1E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789723491; x=1790328291;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=w6vnmAHaEKQvF5gCbmOjaBzceKMsg0XSgaVR/HCDL7Q=;
-        b=VWOQk4AESayD9jv8ZITakjZrVH/715q344bAOR+JT4KpIczfv02A95//Jg74lbxlUC
-         Y0HPtcOP2C3Te4AxOTM0iYo944wreORcNYwYCE/pkca6odR6l6tDSlp5AhcmB2qyb5ar
-         iN7MZl3J7JL2WW1Pvfy91Ih/TMkVNS45ZJHELdW6H+56dj+YlfdotViqVYbhUpI3Otr0
-         zjEKsLXRjM74p1FQrkJGXjbH6e8G345Lcp8ayC99BQT1G9LdboyFF8KdPU25Pnl6ITG7
-         Kjt1OxV/lvWiHehVh7+VEGBNCJRqnmQ9jNUAS4BVuOTy3ffVrFsomGNZmTjqBTicksch
-         fRqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcW9ZkR+hWHpPiVYhovfV13+/RLcMhG0CzFQ/XFIx2VHMhC/3fJQJTIDdDx8Br99lozo6Ezx7Od4VMXYQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBqvqZV4bwGkaX1woChYchqa+62E1TsEEhdexftcEtfMB9EQq5
-	jbdDJm/uakGEFafEWGT8dIFsJc9CAwntFGSqAaqyMeHLsi4IMRJGNP/62SGsh7f6MkRf/meD0pO
-	DfEE=
-X-Gm-Gg: AYBFou3U/QLULpiT96Q1RB2tabokcYC7EMq9jgjcVOgIecwCozgoW66qpIGpRlZ28iX
-	4E+tEPSmvKrjBe7ePkGYbHO+8u8Jc6MCYK0W/wVveV5dWuKr6IXBRHXs1+NOtPAGwRs0BXhy5EP
-	9QcVJQlEzGV+ew3Ul3ng4cDCYZaJ/GuJtS4Hvv0NBCQZ07NrrQtu5lJ6FUjwTjfhhiZbmim16Pk
-	FpTn2Ifapzzfj+ECOhTo1YfE8xo/itQYC1DCWq0jHNAZhrBlyiIOnoXLHERTpGkflIpr4DifKKK
-	FGPoe8IIaN51nNGVtxpLfZ4hh8iv4VXfdrfkDdCmeNW+WsYS0hEROK43GuDbHsfdyfHsfGJVS+W
-	xHl8CzVbsObfpFP9vOZQ+6ypv5GgQKbQKPBT/lHQyGy33iFwJJa2i/cbvg4K4bJjh/vdJvqss8T
-	adGZIpdwTN7o79kOFBmthHmhe8rCBib2GtSJDhfchDyz0e19UnV4GEKUP9PjwPkL1Y7tDkstNMp
-	2JFK8Yowzl4/o1gM9G6cP0kpsrOTAzHKzaR6w==
-X-Received: by 2002:a17:90b:3d92:b0:398:c315:fa6f with SMTP id 98e67ed59e1d1-39e54b78015mr4597042a91.14.1789723491418;
-        Fri, 18 Sep 2026 02:24:51 -0700 (PDT)
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com. [74.125.227.141])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35b6a350sm10748243a91.0.2026.09.18.02.24.50
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:24:50 -0700 (PDT)
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39e03468a5fso490803a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:24:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy6i93WrD7Vx3sjsk9VlRSuTOkY82GAtO+Q0HAbt2YBb5yz/X983icNmWD0OGTt+VZm4j4WHITMClXyZNQ=@vger.kernel.org
-X-Received: by 2002:a17:90b:2243:b0:39d:f770:774 with SMTP id
- 98e67ed59e1d1-39e54c9c1bamr4114268a91.20.1789723489907; Fri, 18 Sep 2026
- 02:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ccn64BYk"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4A28D1F00893;
+	Fri, 18 Sep 2026 09:25:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789723557;
+	bh=YA3D7d7673ng+vCGSnDfbJ9kCQKY2wZxGLeBmg2P7TY=;
+	h=Date:To:Subject:Cc:From:References:In-Reply-To;
+	b=ccn64BYka7ATtK7+UUgxRAm1d59KpdPr5/XTRK7AHbFMfS2A3BF2W7DM8ganhNgBz
+	 U2Y4MPt5ucLzNhwAKDgIrEoxVOqG8Lhbe8iXjlzynnOJ3xS5S3NdcLv4ltAGn4iIhv
+	 qUutjqIIsZtp2c4ookfoaXpO6IUuzOvjhPngD2JdixRAv9HcGIcJlPHV0g7AYx9MsM
+	 PP3nafCC+m+aP8alJFs8DPFl5Kex94xm/AGRdz5Gpdr0zqRmx5/CjeN2RcV5d5Plae
+	 TAOIah3xIxX7Iqh/lyW79syanUaxLe1bnWiAGjgI7GyXRpvgZfVeeSmlXC31h6KJoO
+	 EAI2j3DaNoUTw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260917212951.558283-1-henry.paradiz@gmail.com>
-In-Reply-To: <20260917212951.558283-1-henry.paradiz@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 18 Sep 2026 11:24:36 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VQ-ralS2wlFfVEQO0FI9zCtwWQvGAVmdb-2nyKo8qFJX7tYvzulGq70JA
-Message-ID: <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
-To: Henry Paradiz <henry.paradiz@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=070b8133b41b52338b365b906ef7a26c768052edd877178f524788085723;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Fri, 18 Sep 2026 11:25:54 +0200
+Message-Id: <DLIC1UB6I4TK.20EG74BVIVUGC@kernel.org>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
+Subject: Re: [PATCH v2 2/2] mtd: spi-nor: issi: Add support for is25wx01g
+Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Richard Weinberger" <richard@nod.at>,
+ "Vignesh Raghavendra" <vigneshr@ti.com>
+From: "Michael Walle" <mwalle@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260914-mtd-spi-nor-new-issi-chip-v2-0-3cd4d7e434b2@analog.com> <20260914-mtd-spi-nor-new-issi-chip-v2-2-3cd4d7e434b2@analog.com> <DLF3H41RCZJF.37WOY30CYJ4AY@kernel.org> <aqgRsP3cxzcLok5C@nsa> <DLGK0FH8L7PM.1JRX5777NZQQF@kernel.org> <aqpTO-5LTLtRXaY4@nsa>
+In-Reply-To: <aqpTO-5LTLtRXaY4@nsa>
 
-Hi Henry
+--070b8133b41b52338b365b906ef7a26c768052edd877178f524788085723
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Fri, 18 Sept 2026 at 02:35, Henry Paradiz <henry.paradiz@gmail.com> wrote:
+On Wed Sep 16, 2026 at 10:44 AM CEST, Nuno S=C3=A1 wrote:
+> On Wed, Sep 16, 2026 at 09:14:52AM +0200, Michael Walle wrote:
+>> On Mon Sep 14, 2026 at 5:31 PM CEST, Nuno S=C3=A1 wrote:
+>> > On Mon, Sep 14, 2026 at 04:04:40PM +0200, Michael Walle wrote:
+>> >> On Mon Sep 14, 2026 at 3:42 PM CEST, Nuno S=C3=A1 wrote:
+>> >> > (*): I should note that the command actually failed with -EIO but i=
+t
+>> >> > actually unlocked the chip! And the reason is because the flash as =
+the same
+>> >> > FSR register than the micron-st flash. So WEL is set to 1 but can o=
+nly
+>> >> > be cleared when clearing the FSR register.
+>> >>=20
+>> >> Why doesn't this affect only the locking operation? WEL polling is
+>> >> used also during write and erase.
+>>=20
+>> Sorry I meant WIP.
+>>=20
+>> > Not sure if I fully understand. But AFAICT, the reason why erase and
+>> > write is silent is because the default spi_nor_sr_ready() only looks a=
+t
+>> > SR_WIP [1]:
+>>=20
+>> So usually, the WEL is cleared automatically by whatever needs the
+>> WEL in the first place, i.e. program or erase, write (status)
+>> register. That should also be the case for this flash.
+>>=20
+>> Now for this flash (as well as the st/micron ones), there is one
+>> peculiarity. Whenever there is an error bit set in the FSR, the WEL
+>> cannot be cleared by a write disable command. Which we shouldn't
+>> need anyway because it should be cleared automatically if nothing
+>> goes wrong.
+>>=20
+>> Also the write status register won't set the error bits if i read
+>> the datasheet correctly and it will always disable the WEL, see
+>> Table 29 ("WRITE REGISTER Operations") in the MT35XU512ABA datasheet
+>> and Table 8,8 ("WRITE REGISTER Operstaions") in the IS25WX01G
+>> datasheet.
+>>=20
+>> > OTOH, on the unlock path we do spi_nor_write_sr1_and_sr2_and_check() a=
+nd
+>> > give no special handling to WEL so I imagine that we try to set it as =
+0
+>> > but read it as 1 (given that it clears only with FSR) and hence I got
+>> > the -EIO in [2].
+>>=20
+>> We do a RMW, so my guess is that it's the other way around. We read
+>> it as 1, but then after writing the SR, it's 0 (see above). That
+>> actually assumes, that if the WEL and any error bit in the FSR is
+>> set, a write status register will clear the WEL anyways. Could you
+>> debug that so we are sure, this is what actually happens?
 >
-> The eEver Live Streaming USB Device HDMI capture card (1e4e:7102,
-> bcdDevice 1.00) exposes two problems when HDMI is connected but the
-> input signal does not lock.
+> Sure I'll do some debugging on the unlock path. The DS seems a bit
+> unclear. It also states (for the WRITE DISABLE)
+>
+> "...In case of a protection error, WRITE DISABLE will not
+> clear the bit. Instead, a CLEAR FLAG STATUS REGISTER command must be issu=
+ed to
+> clear both flags.
+> "
 
+Not sure, this contradicts each other. As I read it:
 
-Could you please share the output of lsusb -v -d 1e4e:7102
+ - Write (status) register will always clear a WEL, the only open
+   question is, does it also clear it if the protection bit in the
+   FSR is set
+ - Write disable won't clear the WEL if the protection bit in the
+   FSR is set.
 
->
-> While idle, the device disconnects shortly after entering USB runtime
-> suspend and repeatedly re-enumerates. Keeping it runtime-active stops
-> this loop. Enable the existing UVC_QUIRK_DISABLE_AUTOSUSPEND for this
-> USB ID to avoid the repeated USB, UVC and USB-audio discovery messages.
-> Normal USB disconnect handling is preserved.
->
-> On each enumeration, VIDIOC_TRY_FMT takes about 920 ms per call because
-> uvcvideo negotiates with the device through UVC probe control transfers.
-> PipeWire queries nine MJPEG frame sizes for colorimetry on its main loop,
-> blocking unrelated audio mute and volume requests for roughly eight
-> seconds while audio playback continues on a separate thread.
+> But the truth is that the second unlock I did came without an error.
 
-Isn't this a userspace or device issue?
-If VIDIOC_TRY_FMT stalls the device, shouldn't you simply not call
-VIDIOC_TRY_FMT?
-
-This looks more like a hack than a quirk.
+Which might indicate that a write status will clear the WEL anyway.
+But then it might also be interesting to see if the PROT bit in FSR
+is still set. IOW, if a new write enable is sent, a write disable
+might fail even if there was no actual error.
 
 >
-> Add UVC_QUIRK_SKIP_TRY_FMT_PROBE to answer this device's TRY_FMT calls
-> using the parsed format and frame descriptors. The advertised frame
-> buffer sizes match the observed probe results for all nine resolutions.
-> S_FMT continues to negotiate with the hardware, and other devices retain
-> their existing TRY_FMT behavior.
+>>=20
+>> But the question is who is setting the error bit in the first place.
+>> And I guess it's the testing sequence for the locking when you try
+>> to write to a locked range. So you could also actually test the
+>> locking/unlocking without writing any data to the flash just to see
+>> if that is the case.
 >
-> Both quirks are enabled by one device-specific entry. The card can still
-> provide diagnostic frames without an HDMI signal; HDMI signal recovery
-> and capture configuration continue through the normal driver paths.
+> Pretty sure the above is the case! If you look at other tests after
 >
-> Signed-off-by: Henry Paradiz <henry.paradiz@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  4 ++++
->  drivers/media/usb/uvc/uvc_v4l2.c   | 19 ++++++++++++-------
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 17 insertions(+), 7 deletions(-)
+> "Once we trust the debugfs output we can use it to test various
+> situations. Check top locking/unlocking (end of the device):"
 >
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -3055,6 +3055,10 @@
->           .bInterfaceSubClass   = 1,
->           .bInterfaceProtocol   = 0,
->           .driver_info          = (kernel_ulong_t)&uvc_quirk_probe_def },
-> +       /* eEver Live Streaming USB Device HDMI capture */
-> +       { USB_DEVICE_AND_INTERFACE_INFO(0x1e4e, 0x7102, USB_CLASS_VIDEO, 1, 0),
+> Everything worked nicely given we were just doing lock/unlock. The DS is
+> also clear about this (table 8.11):
+>
+> "...When a command is applied to a protected sector, the command is not e=
+xecuted,
+> the write enable latch bit remains set to 1, and flag status register bit=
+s 1 and 4 are set.=20
+> If the operation
+> "
 
-Please keep the list sorted by vid:pid
+Ok.
 
-> +         .driver_info = UVC_INFO_QUIRK(UVC_QUIRK_SKIP_TRY_FMT_PROBE
-> +                                     | UVC_QUIRK_DISABLE_AUTOSUSPEND) },
->         /* The Imaging Source USB CCD cameras */
->         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
->                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
-> --- a/drivers/media/usb/uvc/uvc_v4l2.c
-> +++ b/drivers/media/usb/uvc/uvc_v4l2.c
-> @@ -241,7 +241,7 @@
->  static int uvc_v4l2_try_format(struct uvc_streaming *stream,
->         struct v4l2_format *fmt, struct uvc_streaming_control *probe,
->         const struct uvc_format **uvc_format,
-> -       const struct uvc_frame **uvc_frame)
-> +       const struct uvc_frame **uvc_frame, bool probe_device)
->  {
->         const struct uvc_format *format = NULL;
->         const struct uvc_frame *frame = NULL;
-> @@ -336,10 +336,14 @@
->                 probe->dwMaxVideoFrameSize =
->                         stream->ctrl.dwMaxVideoFrameSize;
->
-> -       /* Probe the device. */
-> -       ret = uvc_probe_video(stream, probe);
-> -       if (ret < 0)
-> -               return ret;
-> +       /* Some devices stall on probes during idle format enumeration. */
-> +       if (probe_device) {
-> +               ret = uvc_probe_video(stream, probe);
-> +               if (ret < 0)
-> +                       return ret;
-> +       } else {
-> +               probe->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
-> +       }
->
->         /*
->          * After the probe, update fmt with the values returned from
-> @@ -432,7 +436,7 @@
->         if (fmt->type != stream->type)
->                 return -EINVAL;
->
-> -       ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame);
-> +       ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame, true);
->         if (ret < 0)
->                 return ret;
->
-> @@ -649,7 +653,8 @@
->         struct uvc_streaming *stream = handle->stream;
->         struct uvc_streaming_control probe;
->
-> -       return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL);
-> +       return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL,
-> +               !(stream->dev->quirks & UVC_QUIRK_SKIP_TRY_FMT_PROBE));
->  }
->
->  static int uvc_ioctl_enum_input(struct file *file, void *priv,
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF   0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF         0x00020000
->  #define UVC_QUIRK_MSXU_META            0x00040000
-> +#define UVC_QUIRK_SKIP_TRY_FMT_PROBE   0x00080000
->
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED                0x00000001
->
+> I also did tested with basically the same code as in micron-st and then
+> ERASE and PROGRAM commands just return -EIO.
 
+But the unlocking does not return EIO anymore when it's executed
+successfully?
 
--- 
-Ricardo Ribalda
+>> >> > AFAICT, we should do something similar as micron so the writing to =
+an
+>> >> > actual protected region fails rather than being silently discarded =
+with
+>> >> > that status bit set. The question would be how to do it? The code i=
+s
+>> >> > pretty much identical to [1]. The masks, the opcoded... So should w=
+e
+>> >> > somehow handle this in the core (by having some common helper) that
+>> >> > could be set in .late_init() under a common MFR_FSR flag? Or just k=
+eep
+>> >> > both implementations separate for now?
+>> >>=20
+>> >> I'd like to keep that out of the core.c, but also like to avoid any
+>> >> code duplication esp. because there is already handling for the
+>> >> intel spi controller in there. So maybe move it it into a new
+>> >> common.c.
+>> >
+>> > Also don't like the dup tbh. Could that be a follow up or should it be
+>> > v3. From the top of my head I could think on a mfr_common.c kind of th=
+ing.
+>> > Don't thing this FSR register is standard?
+>>=20
+>> Not really.
+>>=20
+>> But (at least) parts of the datasheets are actually copied verbatim
+>> between micron and issi, I wonder if we shouldn't just put the ISSI
+>> part in micron-st.c. (Yes vendor will be wrong, but I plan on
+>> deprecating that sysfs property anyway).
+>
+> Also works for me. Say the word and I can send v3 with this in
+> micron-st.c.
+
+Yes. But also please verify the our guesses about the root cause of
+this and what's the actual behavior of the write disable.
+
+-michael
+
+--070b8133b41b52338b365b906ef7a26c768052edd877178f524788085723
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaq0DohIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/iaGwF+MoU+b1VgCkmAmyRW3et6lz82JxdRGJbb
+yjHLv71zW39zdHJYK3DSD23Cb294mrC3AX4u1bKHXzit2qgzCBjzfQ9wuiNijGgY
+KKpg9YblJlmVkTyPYbTQDZRILzaj6ygYCMc=
+=FEeo
+-----END PGP SIGNATURE-----
+
+--070b8133b41b52338b365b906ef7a26c768052edd877178f524788085723--
