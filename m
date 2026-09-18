@@ -1,249 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE062E040D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8658C38E5DC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742282; cv=none; b=Xdtas5jSI/LZOjxvfPOhrH0eq9Ga0tVwTaxj8xJCsNVSJMYoVkd8s6o2qNhoZwrgNgfqlLSWtd3nPzJpa8suABvr31lmn3UdiMJ7C3HcLX+eHNmL/VdNgcJbXjYV4cYK3Q9w30X+BngKfRCV8HKLluapACvJ+/ciGwOVz8j8B2Q=
+	t=1789742293; cv=none; b=iLv2KDQf27QNELkct1MlCtx3lmaOKK9N8ShWJXukT07zxE3KmSoM1st9yXV5Cl6PIh7Xa3yEI2n7s9KO2ziuhlgQjAh1Aj4xdghTYxVJBnSr8VaeLB+E0wxzvLEbKPdxY/J2b+Eznpvc+UXd6mw4r6GSgwj1Pg+Hej+n3yklYiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742282; c=relaxed/simple;
-	bh=4ZilZJNHHY87uCtwLNAsqLEpobd2WFMMgoU4Rj3aqPI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZVu+zD0YPDC9LVhQ0vVDkaNP1T/GS0Qk4H/Du2lm0zN9GVq6Ol9ZZABcMlsJ5jugMVeWqjWDUXiPz1EW76yvHB8fK74RKxNT5dR/ClTd8iNClweEj6vn4ar7siaFUriY2/IBwmH3rBk6QNZ5iOvEJaDoqh0ACokKD7UeUzC74go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2dv6BPy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789742293; c=relaxed/simple;
+	bh=ALnEEwpHOzDzKQ5ZfKXrVVwr7CBVn2mhElkd105Nrx0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=bHYx1h1kAftRn6uKwcXO/j0bQf0n7FxdJUqvgrIkVA0tzsnVVOBkf99kHoOvwPTQ3/x3ybTCz+X44UANAnZMUQDJjURq/BlRa4eYctT7IB8gMA/cWGM4KT0Hsdpkv3abUdJJI1hVgQA7RTSGElAp6OQ5eXRyQCE08Lbrs6QjOuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lsuS/gxF; arc=none smtp.client-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2dv6BPy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727431F0089B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:38:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789742280;
-	bh=KBw1bExSXtsJEi/GDDkJ47SHkVdg0QHT3EHGaCOfe8o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=m2dv6BPyx3Zy0FMn6TPuVg7/QX11VEhW37M9oxxdKp0jNtCn17z/OrIpFaV/c10vJ
-	 Wb8255I3NUyDZSP0NtNYbHkOgKimMPPu9LGMjgs1XaFefwD5l11n58XV94KQoFi0FY
-	 OdoEUzjtdG3sOL5VhWAjcV7u6opNo3CXZh5pWdJLny8dJ2wqQgBEjxt6d8tdncdY0X
-	 r2yUAJOFHG7mpFrxJcr9xDqYaz/OteVE3u9Ybb1TIZOdtVDokQ6svAY8y4tG5byVI0
-	 mH/b1Tlk+H/xlq0fv9GEPDU/QL7VR9podspu67YlGNX46TjUsu6ZzgK+uMw0+iwh49
-	 JQ0nzmAcAd+0Q==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d4688decso8098671fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:38:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzPbkkt/MiHswwgbywEuRqyhm29raN6aOT+XextaHa6P4QKIqLLqG9N0YEUPxmZFgCbeWAXMuNi0ySdzuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfvNZrxA9fsL2nuYyoPr0kpXJXPGAENuyDE0W4g9ZPO/jwL7o/
-	1VsRUgT74aQmYNuMXOrmfQzx/Zxcvif3aGKK5lr47UIU/2fxyiyxy2rEGTyj3JFs4JHMKFXpQd9
-	nTBYzof8XsUn9RkJ/YHUrdWrxwvtmZ5Y=
-X-Received: by 2002:a2e:be1b:0:b0:39a:da70:2c77 with SMTP id
- 38308e7fff4ca-3a5fbf05d53mr6133881fa.3.1789742278585; Fri, 18 Sep 2026
- 07:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lsuS/gxF"
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8688139460bso975369b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789742292; x=1790347092; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mVsKL8NE/0t29NRucsWzOF3ilHFFoLHZPjXxcOdF8T4=;
+        b=lsuS/gxFWAl7XkEA0SC9M4kOw/YejZ5HGleCHtX+MU4Bp0KiW153Q6QFMTRH6jiDZ5
+         zBfFGAfaWCllaLX5Ih/LcNMsVjYlhH9foyad7nQRi6Jnw+lf0Aj5NhftrgX4Pq+iv0s9
+         Z7Q3o4Z6Sy5WXAwWa8oNIX0onmzPsHxzbmXs6GfXbd+RnJE0Y1d+e4TAreFhQENmPyac
+         m8BYpB+MnvTm7nZk6cGNxj0SIyAM+EVxR9WZgRHai2EfJvqjK5vevS93jkNUYAYny9N0
+         g+BB1OM6AOl2a9XKp76Z3IhJUe0/p6xXqq0FHP6hZ8j4jUQCTxcEol+MIB5pazwBVnRN
+         u6PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789742292; x=1790347092;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mVsKL8NE/0t29NRucsWzOF3ilHFFoLHZPjXxcOdF8T4=;
+        b=eveGsWhizgMj8vFxl13yU92i9Pcpz6UrheJl4HsNxeLz9dK2vSlOrGH8tqGr7B/Ia2
+         O4Lb+68i28p9M+HY0KNHL0Yp873X3KgjjeEkbRhMfARq0LwrojglA5vnEmGOknoBLEjr
+         FesTkhKJK7pT09oowk9rheBFe5Ts6fkQzX2NAQwcHr3I6I1+X2FPMoi80qPhLayuvCY2
+         RrlALZsNDuA55pZdYOoMhx++IMRtkIv6S/SQ/JtiIIO+Xy1bMWwGbE99bGSJimwnkLit
+         tVkpVYHycSJt+vdA4abLrZiHXME/lXkGrzGJsi7ZUzuCG39smRxlBKIjwx/Qu1v7HKHS
+         nk3g==
+X-Forwarded-Encrypted: i=1; AKwUvByWuaxcKkwkXj5SBPDeHp4S4uPj1Fk/UlOMTFFzVfYgKdWoI3WAXrxlHxcOxcG2/0NbYkpyT9+dFcFCcJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMhhoa3mJfJqOvd2CnVT8wUAFtH0xBOXe1wE4VNsVVu9j8gx3g
+	qW2wNdbVKvOSp2+DFGEKVwtin4BEBNncpUNnEDNzH4ypRc/AlXeo8hQHl0csST0H3rb+cAytR5i
+	57LcpK579R4zuNRX22rsXeQ==
+X-Received: from pfqp29.prod.google.com ([2002:aa7:9e9d:0:b0:869:37f5:4d1d])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:2913:b0:874:706d:962c with SMTP id d2e1a72fcca58-874de20be19mr5756265b3a.30.1789742291327;
+ Fri, 18 Sep 2026 07:38:11 -0700 (PDT)
+Date: Fri, 18 Sep 2026 22:38:06 +0800
+In-Reply-To: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260819085528.575-2-baorliu@amd.com> <20260917143116.445-1-baorliu@amd.com>
-In-Reply-To: <20260917143116.445-1-baorliu@amd.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 18 Sep 2026 16:36:31 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jb7QNF32To0AoOBxXHObUAS7QCrFAGObFJU1=VtOqm+w@mail.gmail.com>
-X-Gm-Features: AcwNN1V21dznaWjpABNHjALTzsqliOCTgu4KiEbEf1Vn8RT6Yw4NYIp6-UdFsSY
-Message-ID: <CAJZ5v0jb7QNF32To0AoOBxXHObUAS7QCrFAGObFJU1=VtOqm+w@mail.gmail.com>
-Subject: Re: [PATCH v3] ACPI: button: Report wakeup key only for power button wakeups
-To: "Baorui.Liu" <baorliu@amd.com>
-Cc: rafael@kernel.org, lenb@kernel.org, robert.moore@intel.com, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	acpica-devel@lists.linuxfoundation.org
+Mime-Version: 1.0
+References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918143809.3034592-1-stanleyjhu@google.com>
+Subject: [PATCH v2 0/2] scsi: ufs: core: Fix unsafe MMIO reads and redundant
+ CQ sweeps in MCQ reset
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <martin.petersen@oracle.com>, Bean Huo <beanhuo@micron.com>, 
+	Bart Van Assche <bvanassche@acm.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stanleyjhu@google.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 4:31=E2=80=AFPM Baorui.Liu <baorliu@amd.com> wrote:
->
-> The ACPI button driver reports KEY_WAKEUP from the Power Button input
-> device to let userspace know that the system was resumed by a power
-> button wakeup.
->
-> However, reporting KEY_WAKEUP from generic system resume paths can make
-> userspace observe a Power Button wakeup even when the system was resumed
-> by a different wake source.
->
-> This is reproducible on an AMD Android 15 Xen guest. With a kernel
-> without this fix, a non-power-button S3 resume:
->
->   echo mem > /sys/power/state
->   xl trigger android s3resume
->
-> makes the Power Button input device report KEY_WAKEUP. The same test on
-> a kernel with this fix no longer reports KEY_WAKEUP from the Power Button
-> input device.
->
-> Track whether a power button event/notify is observed while the ACPI
-> button device is suspended, and report KEY_WAKEUP on resume only in that
-> case. Do not synthesize a Power Button input event from generic ACPI
-> sleep resume code.
->
-> Signed-off-by: Baorui.Liu <baorliu@amd.com>
+During Multi-Circular Queue (MCQ) error recovery and host reset,
+ufshcd_mcq_compl_pending_transfer() sweeps or polls completion queues to
+reap pending transfers. Two bugs exist in this path:
 
-Please see
+1. Unsafe MMIO read and spurious errors while HCE = 0 (Patch 1/2):
+   ufshcd_host_reset_and_restore() stops the controller (HCE = 0) before
+   calling ufshcd_mcq_compl_all_cqes_lock(). Calling
+   ufshcd_mcq_update_cq_tail_slot() at the end of the sweep reads CQTPy
+   over MMIO while HCE = 0, directly contradicting the function's own
+   documented contract that reading host controller registers is unsafe
+   when the controller is disabled. In addition, passing expected empty
+   slots during a full-ring sweep into ufshcd_mcq_process_cqe() prints
+   spurious "Abnormal CQ entry!" errors.
 
-https://sashiko.dev/#/patchset/20260917143116.445-1-baorliu%40amd.com
+2. Redundant per-request CQ sweeps and polls (Patch 2/2):
+   ufshcd_mcq_compl_pending_transfer() runs hardware queue completion
+   sweeps (force_compl == true) or CQTPy polls (force_compl == false)
+   inside blk_mq_tagset_busy_iter() callbacks, repeating whole-queue
+   operations once per busy request instead of once per hardware queue.
 
-and tell me what you think.
+Patch 1/2 synchronizes hwq->cq_tail_slot = hwq->cq_head_slot in software
+and extracts ufshcd_mcq_compl_cqe() so full-ring sweeps skip empty slots
+silently. Patch 2/2 sweeps or polls each hardware queue once before
+iterating residual requests and removes ufshcd_mcq_compl_one().
 
-Thanks!
+Changes since v1:
+- Split into a two-patch series separating ring sweep safety from
+  per-request tagset iteration.
+- Extract ufshcd_mcq_compl_cqe() to skip empty slots without double CQE
+  checks (dropped Peter Wang's v1 Reviewed-by due to this change).
+- Decouple hardware queue polling/sweeping for both force_compl paths
+  and remove ufshcd_mcq_compl_one().
 
-> ---
->  drivers/acpi/button.c | 13 ++++++++++++-
->  drivers/acpi/sleep.c  | 41 -----------------------------------------
->  2 files changed, 12 insertions(+), 42 deletions(-)
->
-> diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-> index cdbb1023a8ee..7a708fe351fb 100644
-> --- a/drivers/acpi/button.c
-> +++ b/drivers/acpi/button.c
-> @@ -191,6 +191,7 @@ struct acpi_button {
->         bool last_state;
->         ktime_t last_time;
->         bool suspended;
-> +       bool wakeup_pending;
->         bool lid_state_initialized;
->         bool gpe_enabled;
->  };
-> @@ -476,6 +477,9 @@ static void acpi_button_notify(acpi_handle handle, u3=
-2 event, void *data)
->
->         acpi_pm_wakeup_event(button->dev);
->
-> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->suspend=
-ed)
-> +               button->wakeup_pending =3D true;
-> +
->         if (button->suspended || event =3D=3D ACPI_BUTTON_NOTIFY_WAKE)
->                 return;
->
-> @@ -498,6 +502,11 @@ static void acpi_button_notify_run(void *data)
->
->  static u32 acpi_button_event(void *data)
->  {
-> +       struct acpi_button *button =3D data;
-> +
-> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->suspend=
-ed)
-> +               button->wakeup_pending =3D true;
-> +
->         acpi_os_execute(OSL_NOTIFY_HANDLER, acpi_button_notify_run, data)=
-;
->         return ACPI_INTERRUPT_HANDLED;
->  }
-> @@ -508,6 +517,7 @@ static int acpi_button_suspend(struct device *dev)
->         struct acpi_button *button =3D dev_get_drvdata(dev);
->
->         button->suspended =3D true;
-> +       button->wakeup_pending =3D false;
->         return 0;
->  }
->
-> @@ -523,12 +533,13 @@ static int acpi_button_resume(struct device *dev)
->                 acpi_lid_initialize_state(button);
->         }
->
-> -       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER) {
-> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->wakeup_=
-pending) {
->                 input =3D button->input;
->                 input_report_key(input, KEY_WAKEUP, 1);
->                 input_sync(input);
->                 input_report_key(input, KEY_WAKEUP, 0);
->                 input_sync(input);
-> +               button->wakeup_pending =3D false;
->         }
->         return 0;
->  }
-> diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-> index 132a9df98471..7296e4bb0e4d 100644
-> --- a/drivers/acpi/sleep.c
-> +++ b/drivers/acpi/sleep.c
-> @@ -104,8 +104,6 @@ u32 acpi_target_system_state(void)
->  }
->  EXPORT_SYMBOL_GPL(acpi_target_system_state);
->
-> -static bool pwr_btn_event_pending;
-> -
->  /*
->   * The ACPI specification wants us to save NVS memory regions during hib=
-ernation
->   * and to restore them during the subsequent resume.  Windows does that =
-also for
-> @@ -484,7 +482,6 @@ static int acpi_pm_prepare(void)
->   */
->  static void acpi_pm_finish(void)
->  {
-> -       struct acpi_device *pwr_btn_adev;
->         u32 acpi_state =3D acpi_target_sleep_state;
->
->         acpi_ec_unblock_transactions();
-> @@ -503,23 +500,6 @@ static void acpi_pm_finish(void)
->         acpi_target_sleep_state =3D ACPI_STATE_S0;
->
->         acpi_resume_power_resources();
-> -
-> -       /* If we were woken with the fixed power button, provide a small
-> -        * hint to userspace in the form of a wakeup event on the fixed p=
-ower
-> -        * button device (if it can be found).
-> -        *
-> -        * We delay the event generation til now, as the PM layer require=
-s
-> -        * timekeeping to be running before we generate events. */
-> -       if (!pwr_btn_event_pending)
-> -               return;
-> -
-> -       pwr_btn_event_pending =3D false;
-> -       pwr_btn_adev =3D acpi_dev_get_first_match_dev(ACPI_BUTTON_HID_POW=
-ERF,
-> -                                                   NULL, -1);
-> -       if (pwr_btn_adev) {
-> -               pm_wakeup_event(&pwr_btn_adev->dev, 0);
-> -               acpi_dev_put(pwr_btn_adev);
-> -       }
->  }
->
->  /**
-> @@ -626,27 +606,6 @@ static int acpi_suspend_enter(suspend_state_t pm_sta=
-te)
->         /* Reprogram control registers */
->         acpi_leave_sleep_state_prep(acpi_state);
->
-> -       /* ACPI 3.0 specs (P62) says that it's the responsibility
-> -        * of the OSPM to clear the status bit [ implying that the
-> -        * POWER_BUTTON event should not reach userspace ]
-> -        *
-> -        * However, we do generate a small hint for userspace in the form=
- of
-> -        * a wakeup event. We flag this condition for now and generate th=
-e
-> -        * event later, as we're currently too early in resume to be able=
- to
-> -        * generate wakeup events.
-> -        */
-> -       if (ACPI_SUCCESS(status) && (acpi_state =3D=3D ACPI_STATE_S3)) {
-> -               acpi_event_status pwr_btn_status =3D ACPI_EVENT_FLAG_DISA=
-BLED;
-> -
-> -               acpi_get_event_status(ACPI_EVENT_POWER_BUTTON, &pwr_btn_s=
-tatus);
-> -
-> -               if (pwr_btn_status & ACPI_EVENT_FLAG_STATUS_SET) {
-> -                       acpi_clear_event(ACPI_EVENT_POWER_BUTTON);
-> -                       /* Flag for later */
-> -                       pwr_btn_event_pending =3D true;
-> -               }
-> -       }
-> -
->         /*
->          * Disable all GPE and clear their status bits before interrupts =
-are
->          * enabled. Some GPEs (like wakeup GPEs) have no handlers and thi=
-s can
-> --
-> 2.34.1
->
+Tested: Verified MCQ host reset, I/O completion, and queue pointer
+  integrity on QEMU ARM64 without MMIO aborts or spurious error logs.
+
+Link: https://lore.kernel.org/r/CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com
+
+Stanley Jhu (2):
+  scsi: ufs: core: Avoid unsafe MMIO reads in
+    ufshcd_mcq_compl_all_cqes_lock()
+  scsi: ufs: core: Decouple CQ sweep from request iterator in MCQ
+
+ drivers/ufs/core/ufs-mcq.c | 35 +++++++++++++++++++++++------------
+ drivers/ufs/core/ufshcd.c  | 31 ++++++++++++-------------------
+ 2 files changed, 35 insertions(+), 31 deletions(-)
+
+-- 
+2.55.0.1082.g2b9226bbc0-goog
