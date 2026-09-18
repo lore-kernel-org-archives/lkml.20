@@ -1,63 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3411F427FBE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21703D8900;
 	Fri, 18 Sep 2026 10:14:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726498; cv=none; b=l3SFYwo8H0JTdUrNpPvQWQEuzfyqTB099en8n6Z4qtlEEJFMLGUHkwy3p6G+WBMROI3Q0jCzsZt0z4ZZPpD7JIgjvYNppVp96Lq+gtA1F/7OjvHLaedjEJJuI3UfxTrPpJHa/KHFt/hxg/Bb/vxQ3xBZS19puS4Yi9ZBDtxC2xE=
+	t=1789726498; cv=none; b=CshrDlH3DVlxSwsETKFzHtvTjlrvwBNQEdwtAZfmFqPrmN6C45fVgCbtdXkQXpHOR440qA3Zrw5VxvFdm1ABvNRW4DvBWBPG0xOAOLH+iRTWLsJiiIEDWlunidIIOcOCHqneGinLSk0QlYmJ/oBmwPiEiDZOhCFAydunxBEs58Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789726498; c=relaxed/simple;
-	bh=+rYtUuYwm0FagpNisTceSQiqzxwaoX4/vQuLlPZ6HUw=;
+	bh=017hUXfNbNW4Sq0+ASUODj8OajcfYz92mM1VnlF6qwc=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=M3dVWkKNBYTEWGcHzZPILsyqlSWOCnMKjeiBZrmlGZf19CoLyxDWbmoHJHroOJ4XKl/vg1SgL26iVKcLlyBg+Ckj/+f7fMQ/Fro5ezxfGLXgQu62Tnf27vFW0b94mmTRfSLPhcfMsGFrnO88HLppFKIhQlLr8jg+kjHGgnM/A2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Awvsj8ms; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KXONSfyx; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=LYeqRc7uN5Z1gWN3J9iL7VEwb0KsLis6g8tE7ejbi4r7HVQag/n4ZqKs+PSsYhU0bePNLhJQgnaL/YQepyzF19vmMUlvDD1hmkSKBbr8lQcUxFC/hEw/azhdB5h8oqWeoYJHJXecOcok/SqGE9zhGNiNcGZouWjfdrd9ZDd5Z08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nbCUjV++; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hzD4z4SX; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Awvsj8ms";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KXONSfyx"
-Date: Fri, 18 Sep 2026 10:14:51 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nbCUjV++";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hzD4z4SX"
+Date: Fri, 18 Sep 2026 10:14:49 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789726492;
+	s=2020; t=1789726491;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nufUQbjt/kCTYf/ft4jwyFaJw+AQ/fgpNVKcWHQ/QWI=;
-	b=Awvsj8msND3XFsLsrKQzlxHhDLfSFj3Sg7HcpruiI9QhAe4iKz2JMeWd/+7lc2sz7LpB7V
-	I45YhMTOcT1g7Mr0g6hlTju4BwBfEUvFSZKn/aFsnXZeyXjVsNTsPYjE7zHzcp4H8X51AZ
-	rtctk5UpBfqQ7B5qZIz4wLAueDxeA8tvS5euVkZ8IWHoLmGd6wP9TmSKupjp9jaoGi7nrl
-	Xm3oKM8DSeXHsclloGgwJEt1V9WzN8uea0+Rtza9zxigMibCYDFrINhIfk8kI6/izXRGJd
-	BN/itYSMNK05/RA6bk0BEyyHV6RPpOjWvp2AoCetKtcDNlpr4fvq71juMogIZg==
+	bh=qmgChE4nnc2qzO9Vs7aCDlJsCf/9r8kOGRHt0wpcHFM=;
+	b=nbCUjV++XirMyeITDYheL0fpcIjlz1/6cU/Lmoewlj8YxZuWKsy1uVUzfuhG0dcLiBqycd
+	e+hNgXIz6xIpJkYwEuknnAGT8HLm8Q/XSyZTOCqDYVBAhN0P78pCVmfvffdBCSsfrF9hkK
+	EnT7I7COzedZIN+JZkWW2sWRaHE9GA+AWBGb0DKoKU6SjY1toTb0q0bqlzNS2ru73yZK7J
+	iO6C2gPlcdWlyiSJ6EIGFkYpz+XYT/1JQOxNXrxSh4W4CHt27oVMwAS1CJaw1rGtQ0toDW
+	QkxzrcXhAlGTXg/BfC/A0RYEZMRaSbHN/x9zXJ1HzpwOgoBvjGa/GMkg4ADdKw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789726492;
+	s=2020e; t=1789726491;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nufUQbjt/kCTYf/ft4jwyFaJw+AQ/fgpNVKcWHQ/QWI=;
-	b=KXONSfyxLQ530k9VOdh6F5Pfnz8r1c2Znwrg61l4HEj0woQlXcr67+xLHQbSyL0VqowU+E
-	2Dg2lzu5e5shY/BQ==
+	bh=qmgChE4nnc2qzO9Vs7aCDlJsCf/9r8kOGRHt0wpcHFM=;
+	b=hzD4z4SXtUTflkhGud7ruB0NTJ18+ErYS2btxAJ9rVMRCCfzGeI8uRpiN0RK62dXWYUIot
+	HWDewBUbINhmK+Bg==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: objtool/core] objtool/klp: Add test for Clang switch jump tables
+Subject: [tip: objtool/core] objtool/klp: Add test for ThinLTO symbols sharing
+ a demangled name
 Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-58-song@kernel.org>
-References: <20260916184351.2720310-58-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-59-song@kernel.org>
+References: <20260916184351.2720310-59-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178972649117.1720534.9271166336504429408.tip-bot2@tip-bot2>
+Message-ID: <178972648977.1720534.15444723518677488125.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,146 +67,209 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     c2f95342225ff6c37ebdf11525769a2e94009b99
-Gitweb:        https://git.kernel.org/tip/c2f95342225ff6c37ebdf11525769a2e940=
-09b99
+Commit-ID:     6ecc854643e6fd6a2d07bc8d83015c7c34a951eb
+Gitweb:        https://git.kernel.org/tip/6ecc854643e6fd6a2d07bc8d83015c7c34a=
+951eb
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:50 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:43:51 -07:00
 Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
 CommitterDate: Wed, 16 Sep 2026 17:21:47 -07:00
 
-objtool/klp: Add test for Clang switch jump tables
+objtool/klp: Add test for ThinLTO symbols sharing a demangled name
 
-For a dense enough switch Clang emits the targets as a table in
-.rodata..Lswitch.table.<function> -- named after the function but not part
-of it.  The patched function indexes into that table, so a clone which does
-not bring it along jumps through whatever the kernel's copy holds, which
-after a patch that changed the switch is the wrong set of targets.  An
-indirect jump to a stale address reports nothing at build or load time.
+A file-local symbol which ThinLTO has to make visible is renamed
+helper.llvm.<hash>.  With two such helpers in one link, the original and
+the patched object hold two each, all four spelled differently, and
+demangling gives "helper" for every one of them -- so the name alone cannot
+say which corresponds to which.
 
-The fixture asserts its own premise twice over, since both halves depend on
-what this Clang chose to do: that a table was built rather than a chain of
-comparisons, and that the added case actually changed it.
+Three translation units, two with a static helper of the same name and a
+third calling into both, which is what forces the promotion.  Only one
+helper changes: paired correctly that means exactly one is cloned, and
+paired the wrong way round the other is, or both are.  Had both bodies
+changed, both would be cloned either way and the test would prove nothing
+-- which is how the first version of this was written.
 
-objtool has no switch-specific code -- the table is carried by the general
-mechanism for data a cloned function references -- so this guards that
-mechanism reaching an easily-mishandled shape rather than a particular
-line, and the test says so.  Making the table uncorrelated, the nearest
-available sabotage, does not change the outcome.
+The outcome is asserted, not the machinery.  With the clang tested here the
+pairing survives disabling the .llvm.<hash> suffix map and stubbing out
+llvm_suffix() entirely, so no single-line sabotage distinguishes it; the
+tiered matcher this case was written for is not needed for this shape.  The
+test says so rather than implying otherwise.
 
 Assisted-by: Claude:claude-opus-4
 Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-58-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-59-song@kernel.org
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/tests/generic/fixtures/switch_rodata.c | 31 ++++++-
- tools/objtool/tests/generic/test-switch-rodata.sh    | 53 +++++++++++-
- 2 files changed, 84 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/switch_rodata.c
- create mode 100755 tools/objtool/tests/generic/test-switch-rodata.sh
+ tools/objtool/tests/generic/fixtures/thinlto_ambiguity.c | 57 +++++-
+ tools/objtool/tests/generic/test-thinlto-ambiguity.sh    | 77 +++++++-
+ 2 files changed, 134 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/thinlto_ambiguity.c
+ create mode 100755 tools/objtool/tests/generic/test-thinlto-ambiguity.sh
 
-diff --git a/tools/objtool/tests/generic/fixtures/switch_rodata.c b/tools/obj=
-tool/tests/generic/fixtures/switch_rodata.c
+diff --git a/tools/objtool/tests/generic/fixtures/thinlto_ambiguity.c b/tools=
+/objtool/tests/generic/fixtures/thinlto_ambiguity.c
 new file mode 100644
-index 0000000..817ddac
+index 0000000..b88830f
 --- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/switch_rodata.c
-@@ -0,0 +1,31 @@
++++ b/tools/objtool/tests/generic/fixtures/thinlto_ambiguity.c
+@@ -0,0 +1,57 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * A switch dense enough that Clang builds a jump table for it, in a section=
- of
-+ * its own: .rodata..Lswitch.table.<function>.
++ * Three translation units linked with ThinLTO, two of which have a file-loc=
+al
++ * helper of the same name.
 + *
-+ * The table belongs to the function and has to travel with it.  It is named
-+ * after the function but is not part of it, so klp diff has to associate the
-+ * two rather than treating the table as unrelated data.
++ * TU_C calls into both of the others, so ThinLTO imports entry_a and entry_b
++ * and with them the static helper each one calls.  A file-local symbol which
++ * has to become visible is renamed helper.llvm.<hash>, and the hash is cont=
+ent
++ * derived -- so the two helpers get different hashes from each other, and
++ * TU_A's gets a different one again after the patch changes it.  Only TU_A's
++ * changes: were both bodies to change, both would be cloned whichever way
++ * they were paired, and the pairing would not be observable.
 + *
-+ * The patch adds a case, which changes the table's contents and length.
++ * That leaves klp diff with two symbols in the original and two in the patc=
+hed
++ * object, all four named differently, which have to be paired up correctly.
++ * Demangling alone gives "helper" for all of them; something else has to
++ * decide which is which.
++ *
++ * Only TU_A's helper changes.  That is what makes a wrong pairing observabl=
+e:
++ * paired correctly, one helper is changed and the other is not, so exactly =
+one
++ * is cloned.  Paired the wrong way round, both look changed -- or the wrong
++ * one does.  If both bodies changed the outcome would be the same either way
++ * and the test would prove nothing.
++ *
++ * BASE differs between the two so their bodies are not identical to begin
++ * with.
 + */
 +
++#if defined(TU_C)
++extern int entry_a(int x);
++extern int entry_b(int x);
++int glue(int x) { return entry_a(x) + entry_b(x + 1); }
++#else
++#ifdef TU_B
++#define ENTRY entry_b
++#define BASE 5
++#else
++#define ENTRY entry_a
++#define BASE 10
 +static const char __modinfo[]
 +	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
 x";
-+const char *status_to_string(unsigned int c)
-+{
-+	switch (c) {
-+	case 0: return "idle";
-+	case 1: return "running";
-+	case 2: return "stopped";
-+	case 3: return "error";
-+	case 4: return "paused";
-+	case 5: return "waiting";
-+	case 6: return "starting";
-+	case 7: return "stopping";
-+#ifdef PATCHED
-+	case 8: return "completed";
 +#endif
-+	}
-+	return "unknown";
++static __attribute__((noinline)) int helper(int x, int len)
++{
++	int sum =3D 0, i;
++
++	for (i =3D 0; i < len; i++)
++#if defined(PATCHED) && !defined(TU_B)
++		sum +=3D i * 2 + BASE;	/* only TU_A's helper changes */
++#else
++		sum +=3D i + BASE;
++#endif
++	return sum + x;
 +}
-diff --git a/tools/objtool/tests/generic/test-switch-rodata.sh b/tools/objtoo=
-l/tests/generic/test-switch-rodata.sh
++
++int ENTRY(int x) { return helper(x, 4); }
++#endif
+diff --git a/tools/objtool/tests/generic/test-thinlto-ambiguity.sh b/tools/ob=
+jtool/tests/generic/test-thinlto-ambiguity.sh
 new file mode 100755
-index 0000000..fb27e96
+index 0000000..34f4f3a
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-switch-rodata.sh
-@@ -0,0 +1,53 @@
++++ b/tools/objtool/tests/generic/test-thinlto-ambiguity.sh
+@@ -0,0 +1,77 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# A Clang switch jump table travels with the function it belongs to.
++# Two ThinLTO-promoted symbols sharing a demangled name must be paired up
++# correctly.
 +#
-+# For a dense enough switch Clang emits the targets as a table in
-+# .rodata..Lswitch.table.<function>, named after the function but not part of
-+# it.  klp diff has to associate the two: the patched function indexes into
-+# that table, so a clone which does not bring it along jumps through whatever
-+# the kernel's copy holds -- which, when the patch changed the switch, is the
-+# wrong set of targets.
++# A file-local symbol which ThinLTO has to make visible is renamed
++# helper.llvm.<hash>.  With two such helpers in one link the original and the
++# patched object hold two each, all four spelled differently, and demangling
++# gives "helper" for all of them -- so the name is not enough to say which
++# corresponds to which.
 +#
-+# That is an indirect jump to a stale address, not a missing symbol, so noth=
-ing
-+# reports it at build or load time.
++# Getting it wrong is silent and specific: the patch is built against the wr=
+ong
++# body, so one call site gets the other helper's arithmetic.  Nothing fails =
+to
++# build and nothing fails to load.
 +#
-+# objtool has no switch-specific code: the table is carried by the general
-+# mechanism for data a cloned function references.  So this is a regression
-+# test on that mechanism reaching a shape it is easy to get wrong, not a gua=
-rd
-+# on a particular line -- making the table uncorrelated, the nearest sabotag=
-e,
-+# does not change the outcome.
++# test-thinlto-local covers the unambiguous case, one promoted symbol whose
++# hash moved.  This is the case where demangling alone is not an answer.
 +#
-+# Covers the same ground as corpus/x86_64-llvm-switch-rodata/
-+# clang-switch-rodata-assoc in Joe Lawrence's klp-build unit test corpus.
++# The outcome is asserted, not the machinery: with the clang tested here the
++# pairing succeeds even with the .llvm.<hash> suffix map disabled and with
++# llvm_suffix() stubbed out, so no single-line sabotage distinguishes it.  T=
+he
++# tiered matcher this case was written for is not needed for this shape.
++#
++# Covers the same ground as corpus/x86_64-llvm-thinlto/
++# thin-lto-demangled-ambiguity and thin-lto-demangled-global-match in Joe
++# Lawrence's klp-build unit test corpus.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
-+clang_only "only Clang emits switch jump tables in their own section"
-+
 +setup
-+build_pair switch_rodata.c
++clang_only "ThinLTO requires clang"
 +
-+# The premise: this Clang really did build a table rather than a chain of
-+# comparisons, and the added case really did change it.
-+tbl=3D.rodata..Lswitch.table.status_to_string
-+has_input_section orig.o "$tbl" ||
-+	probe_skip "this clang built no jump table for the switch"
-+# readelf prefixes each line with "[nn]", which splits into one or two fields
-+# depending on the index, so strip it before counting columns.
-+tbl_size()
++find_thinlto_toolchain ||
++	probe_skip "no matching clang/lld pair for a ThinLTO link; set THIN_LD to o=
+ne"
++
++build_thinlto()		# $1 output object, $2 extra flags
 +{
-+	in_sections "$1" | sed 's/^ *\[[ 0-9]*\] *//' |
-+		awk -v s=3D"$tbl" '$1 =3D=3D s { print $5 }'
++	local t
++	for t in "" -DTU_B -DTU_C; do
++		$THIN_CC -flto=3Dthin -O2 -ffunction-sections -fdata-sections \
++			$2 $t -c "$FIXTURES_DIR/thinlto_ambiguity.c" \
++			-o "$workdir/tu$t.o" 2>/dev/null || return 1
++	done
++	"$THIN_LD" -r "$workdir/tu.o" "$workdir/tu-DTU_B.o" "$workdir/tu-DTU_C.o" \
++		-o "$1" 2>/dev/null || return 1
 +}
-+[ "$(tbl_size orig.o)" !=3D "$(tbl_size patched.o)" ] ||
-+	fail "fixture's added case did not change the jump table"
++
++build_thinlto "$workdir/orig.o" "" ||
++	probe_skip "ThinLTO build failed ($THIN_CC, $THIN_LD)"
++build_thinlto "$workdir/patched.o" -DPATCHED ||
++	probe_skip "ThinLTO build failed ($THIN_CC, $THIN_LD)"
++
++# The premise: two promoted helpers per object, and exactly one of them kept
++# its hash -- the one the patch did not touch.  Without that there is nothing
++# to disambiguate.
++orig_syms=3D"$(in_symbols orig.o    | grep -oE 'helper\.llvm\.[0-9]+' | sort=
+ -u)"
++new_syms=3D"$( in_symbols patched.o | grep -oE 'helper\.llvm\.[0-9]+' | sort=
+ -u)"
++[ "$(echo "$orig_syms" | wc -l)" =3D 2 ] && [ "$(echo "$new_syms" | wc -l)" =
+=3D 2 ] ||
++	probe_skip "ThinLTO did not promote two distinct helpers here"
++
++kept=3D"$(comm -12 <(echo "$orig_syms") <(echo "$new_syms"))"
++moved=3D"$(comm -13 <(echo "$orig_syms") <(echo "$new_syms"))"
++[ "$(echo "$kept" | wc -w)" =3D 1 ] && [ "$(echo "$moved" | wc -w)" =3D 1 ] =
+||
++	probe_skip "expected one helper to keep its hash and one to move"
 +
 +run_diff
 +
-+assert_patched status_to_string
-+assert_section "$tbl"
-+assert_reloc_sym .text.status_to_string "$tbl"
++# Exactly one helper is cloned, and it is the one whose body changed.  Cloni=
+ng
++# the other, or both, is what a wrong pairing looks like.
++assert_not_patched "$kept"
 +
-+pass "Clang switch jump table carried with the function it belongs to"
++n=3D"$(out_sections | grep -cE '[[:space:]]\.text\.helper\.llvm\.[0-9]+[[:sp=
+ace:]]')"
++[ "$n" =3D 1 ] ||
++	fail "expected 1 cloned helper, found $n"
++
++pass "ThinLTO helpers sharing a demangled name paired up correctly"
