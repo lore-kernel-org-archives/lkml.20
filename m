@@ -1,162 +1,110 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C298A4F7999
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F481CAA6C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737524; cv=none; b=uNDKC0Wqu8rgDov+fnaD3cb9dWUPOti5cdCRjUXQP6HadgyOFV6CABULLKR0Jgw3iUnmUEW2Dh++2wR96pxbX3tsPM4VKLHC4WJmsL1t+FIfm0Cu5xtDbH/arUp7AWtXTQ5yhN6wsK3TK4RKd8SGu2Pw7avYhtAKJCnvH/qzxk8=
+	t=1789737544; cv=none; b=TykXqWYswgdvyQhJ6+HeeREPlGZUNAJAw5FVufCbYF4NOA9SwrProTbRxg8yTQ9IgnviksZ1Yrv02852UwkmjzLVIzKiGFedJGSZPCc5q8tjc5C+Waxwfq6VGK0/AuKP/lhFgz7nxz4NsrPtGxfK7070/No1zsT6yUGvw7ODHVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737524; c=relaxed/simple;
-	bh=MXMecSS5un1Vw5RPUBhc/MQTR/N1uDtr5TFfUDNnDkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pJE9dlkLBEIGswWdXDizW1MsDlUjK9SxWVkbg/8EYvagg5Y2o7vs4i1AawF3ZiznBlgGoqMx5XzF9KtTVey3YfndFKRnOEMRPPzAbh1MHN7P9+PPNrG8xamm/ubRdj29U0u4J6yfTlXatxPg95dlOkom/BANs4havEMdssR1MUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMp35hXi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789737544; c=relaxed/simple;
+	bh=rz+u7nKKPKCkeRipCcTkGP8jjZ5LSw18vUegoNJmQYY=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=H05+5uJI6QuAxxv5qfNXUxVTWd3voTo2NKfixzXHbhO/nXlM+kBsKtt0qdw0PQjniibLXPtQwKs8Esiy1vunKjSNgpebeNZjmcyrawtjOcrpw+17WLInwECB73PaGB+KMFryEH46xZIeAutBw0sIEr4eLH6XCTb4VsY2aOIabK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l3DfI1zm; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMp35hXi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so4241045e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l3DfI1zm"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4957287363bso7023525e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737519; x=1790342319; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
-        b=SMp35hXiJaeVNxYiS6HIgTgEB/vqI1gkvKZ56xzpON6sbNsdZriJw+qSAgJ3MRE77i
-         QudT/8aAVob0I/o06oGLP1KdduYUkzMv9TzJgqw+ua2H1ZS5kEbvxdyjmOW0thayeBGN
-         PwXhOg2FqNZaAs/HQTmG6QIi/Ag1ma56Hr3aJ9wVb8vKLo0hj3xKcxqu0C2bcM5UTxRp
-         SvSLsuj2+kyqHPuHW6eX0L3VWcB2kGshWm6ki3LNZ52lb05hZslT/5RKGiKOBlD37BuM
-         s/MhhDs7/Y4hWSd4GC+hWI5iQK8XV5qULBYcnesbbyceJjZ22PsvgQozbJlRflDIDV/M
-         pa4A==
+        d=google.com; s=20251104; t=1789737540; x=1790342340; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k3SNv/hlO2h0xkklONRKfGgBfOPQjFyFw6MzNkTps1c=;
+        b=l3DfI1zmBQITvwk2y1uZjuastry2Vsl6i8GCMuVWq37Eumzbq9OZny7HJ5pSAgwZNb
+         Jexu/vTuVvx4jBJteC3n6+GrkUxhUkbCqcNG/4uU/rh8tuuyh74osur/LPb03c0QP9da
+         XE00WfQhdQkgSRidQFIjt68GNW9vcb6PpoTo/6x0YTwt5mVukuis3rXHWClrx/Vul+xP
+         uI+iuGxsNYS3Wbn7wKtiqRJT/t8XMJIdnf219kDpB4wGcnHMelL4g2Pf5/m2Ts0IgJEg
+         xsMaq6pydpwHV/Ru7xe11NWM/FEk9pU11nZhkbHEfF9SEx4pI1wfjowAKXdEjuLdjjMM
+         vdHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737519; x=1790342319;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789737540; x=1790342340;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
-        b=zyZ0eExqzZ1X2ZJsjhRSbItT49Rh8+kYZTmvmNoQhByCYOJKkwUeos+x35B0qCX+hi
-         Du5m+oDBIHUIynbm7GkTYh29l0I5BWvlkipqXcz13miDmP07a7lPYc3eP58oorMKBg9c
-         QNcLM9R7Rwz1T9iBrsIg4alug6CJx7h52cROgEsotfNFePDbjQyEGoElACf3ClKV76Mc
-         al1ramB0nKyLMBqdyDwejBmFmLkW+dGLJkbKrhahFLGSZ9epKfJFtKes2VAUeurL+apq
-         p51+a0z31F91UITCl+QqG1wFlXkgO0AwFpq9CHGYV3GQZ6VxjZKYK0dlGGUsSYkR46wI
-         BfAA==
-X-Forwarded-Encrypted: i=1; AKwUvByWjIaiyYeMSG2A+rb+t9cv9iMYiaJz3xPu4RFoVdJVnB3Dz4vR3ZRIxRRCoyt6avwgsp4LKWvIcBWKYGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8nkFIlR0mdukqf8yBK3pSCCFTeTILH3JyBpST70uzUvNSkvDS
-	je5PpqwKVsN5rkIXSq/2KNNFm5MTfhO47B/0G0SWU+wDr6yJqkMcGaMq
-X-Gm-Gg: AYBFou22eTbqk4M+/lqPv3Uo7uJavxChlUo81ZQOQ+FwnGeQgwXTyNReByvWu1X0HOG
-	FoHoYrDCjIjRuXsshmX7ZBOJryTu8DpU8ZmqKyYPXAzgpgZASMKmSb2V19NWl1gQRJvSG2JZjYb
-	IDc2+C88H5fp/8UBP7eWaIbBAUvEnPsufAfBl5rSOZoXFFNJSxgQHwzMU/KW4ZZXv9Lwlorom9N
-	EYwnwcrmregEAtN86+8TEgs6/Smr30Hr2LYZ+bwAxgYUNnKNb96ugp5WBDSOVhexO4HGPaIsiv/
-	Ns6axw+g7vVdtDUkGEguX9+xd4SyOr6bXANr3Vr8f00ABWLS4pEEAeJ2flDxn0l2fHPFOYJhfp4
-	O0Lblu3L49jauFgPii36vsPHIPOiRe0ouRhkQ9n6+Y9HhwAo5ki9b69vhx9104eisFjKMRp6AoE
-	S29kJXJsrXTBQck6wdEmf5HU/fxvqe3LWkpfUpTudlbR0Jqe5xbqgWEVUm8VPy7acLOlpl
-X-Received: by 2002:a05:600c:548c:b0:49e:6e7c:d895 with SMTP id 5b1f17b1804b1-49fc584fee0mr32705835e9.26.1789737518934;
-        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008fe3csm4156879f8f.37.2026.09.18.06.18.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
-Date: Fri, 18 Sep 2026 16:18:34 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
- uvc_mapping_get_menu_value()
-Message-ID: <aq06Kq-3n2R79YZL@stanley.mountain>
-References: <aq0siVcghDe6x9cs@stanley.mountain>
- <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+        bh=k3SNv/hlO2h0xkklONRKfGgBfOPQjFyFw6MzNkTps1c=;
+        b=lqCrwtbe+j86dvgv5n5n0h8SCMNfmaRA17+TMm+9KOwh0ctgisNHl7XhbmdbuOm1ef
+         wL+ywCtkCqT8f2LMGYReA+IlfTJIM5V1qICH5QFg+1nkPcr1moSGJ78ePt58nff9Fd6L
+         wW6jB0+KNO6zeDwyh+XvrHYmTQyX+bwJ/Gp6n0GEGxFzXxhzxcDPnR/sqkVwYEvrttpz
+         q+5AQCLqsFREiqz8RnfnuSnassFAbjBB+ty7pQXxZjbCrQrp5H6AoZwbw18SwgBPyZM7
+         cVzgAY6AAEtnwoXLALN1IUlzIrKc2geXVXHqCedG2GTxnpR7aXlVryY3GoElP/EmDynw
+         3t1w==
+X-Forwarded-Encrypted: i=1; AKwUvByp/kb/yLUKdZX61ohyUAcTX3TdgYY0vci4RuUxth7Fo1FcsQXQtxNiqV2LLYX6FzPzw8BQAeGuIhqMyoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCCexZv5RtqszUwwNpVr4P994RPBcXFWsLQnEaMcRNC7ca0hLR
+	UFLZvTTHiI6JDbLip8RLmLCL+cu98W85wRqvINkbKiL4V9oqDGQ7J5qbpnvARsaIgjyMK9EASM3
+	JxzvzrWqlCY52o5s3QHdghQ==
+X-Received: from wmrk15.prod.google.com ([2002:a05:600c:b4f:b0:49c:e349:ff6f])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr32982165e9.2.1789737540280;
+ Fri, 18 Sep 2026 06:19:00 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:16:52 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918131656.3710047-1-vdonnefort@google.com>
+Subject: [PATCH v1 0/4] arm64: mm: Allow set_direct_map functions on BBML3 systems
+From: Vincent Donnefort <vdonnefort@google.com>
+To: catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org
+Cc: mark.rutland@arm.com, lenb@kernel.org, pavel@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, thierry.reding@kernel.org, rppt@kernel.org, 
+	Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
-> Hi Dan
-> 
-> I believe that for all the uses of uvc_mapping_get_menu_value we are
-> already doing bound checks:
-> 
-> index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
-> value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
-> BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
->
+This series is a fork of [1] which creates a new CMA pool for FF-A lent
+memory which unmaps that memory from the linear map as a mitigation of
+CPU speculative access to Secure memory. [1] creates a PTE-level region
+to enable setting the direct map, but BBML3 systems shouldn't need it.
 
-The problematic caller is uvc_set_le_value().
+Currently, can_set_direct_map() only returns true if a feature forces the
+linear map to be mapped at PTE granularity. This prevents systems
+supporting BBML3 from enabling set_direct_map*() functions yet safe.
 
-	value = *(s32 *)v4l2_in;
+To enable them, this series:
 
-Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
+ 1. Use the fixmap for hibernation. This removes the need for handling
+    atomic context in split_kernel_leaf_mapping().
 
-drivers/media/usb/uvc/uvc_ctrl.c
-  2772          data = memdup_user(xctrl->ptr, size);
-  2773          if (IS_ERR(data))
-  2774                  return PTR_ERR(data);
-  2775  
-  2776          return mapping->set(mapping, size, data,
-  2777                              uvc_ctrl_data(ctrl, UVC_CTRL_DATA_CURRENT));
+ 2. Breaks the dependency between linear_map_requires_bbml3 and
+    can_set_direct_map()
 
-But maybe that mapping->set can't point to uvc_set_le_value.
+ 3. Allow split_kernel_leaf_mapping() even when no feature requires to
+    set the direct map.
 
-> In any case, I think this patch is still worthwhile. It will help us
-> avoiding bugs in the future (have you found this with a new test for
-> smatch?)
-> and if we go that way it is probably a good idea to also "fix"
-> uvc_mapping_get_menu_name()
-> 
-> 
-> On Fri, 18 Sept 2026 at 14:20, Dan Carpenter <error27@gmail.com> wrote:
-> >
-> > The "idx" value is a user controlled u32 so we have to bounds check it
-> > before calling test_bit() to avoid reading beyond the end of the bitmap.
-> Maybe change the commit message as well to avoid stable cherry picking
-> it blindly (sorry seems like I am more picky than usual  :) )
-> 
+[1] https://lore.kernel.org/all/20260902104712.2399797-1-vdonnefort@google.com/
 
-I mean if uvc_set_le_value() turns out not to be a bug then, of course.
+Vincent Donnefort (4):
+  PM: hibernate: Add arch specific hooks for hibernate_map/unmap_page
+  arm64: hibernate: Use fixmap for hibernate_map/unmap_page
+  arm64: mm: Introduce linear_map_needs_set() helper
+  arm64: mm: Allow can_set_direct_map() on BBML3 systems
 
-> >
-> > Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
-> I believe this should be:
-> Fixes: 40140eda661e ("media: uvcvideo: Implement mask for V4L2_CTRL_TYPE_MENU")
-> or no Fixes at all.
-> 
-> 
-> 
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
-> > ---
-> >  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> > index 3ca108b83f1d..f157ed99be4e 100644
-> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> > @@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
-> >  static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
-> >                                       u32 idx)
-> >  {
-> > -       if (!test_bit(idx, &mapping->menu_mask))
-> > +       if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
-> >                 return -EINVAL;
-> 
-> What about using BITS_PER_TYPE(mapping->menu_mask) to be consistent?
-> 
+ arch/arm64/include/asm/fixmap.h |  3 +++
+ arch/arm64/include/asm/mmu.h    |  1 +
+ arch/arm64/kernel/hibernate.c   | 12 +++++++++
+ arch/arm64/mm/mmu.c             | 46 +++++++++++++++++++++++++--------
+ arch/arm64/mm/pageattr.c        | 12 +--------
+ include/linux/suspend.h         |  2 ++
+ kernel/power/snapshot.c         | 10 ++++---
+ 7 files changed, 60 insertions(+), 26 deletions(-)
 
-Sure.
 
-regards,
-dan carpenter
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
