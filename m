@@ -1,465 +1,152 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BCC4A2630
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F9948FF67;
+	Fri, 18 Sep 2026 13:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736528; cv=none; b=HkZ7+a5KkcexJwaX29mRtiaCBjaWbhMdwJm5EpMZARqfmc2V4LV/J9LIWgmUnBNTw3cHYpsZ/oMGaGCgneJ/fQBBfp6T0UWZTLc26oVXhXb/zydkha7dm2c6rgD3ObDWnwFjgRb2I1Pq5Ia6NfrVoDmsPw9Ey3m4IsFzpHOGJXY=
+	t=1789736560; cv=none; b=W0dxzbHNrne/+ijhIq1qUx8xRXwewk2HtKa5k2OcZSiYaNF6yEy4UN0y3Lg4t1sx38U469Li+SW0Us1wJuTdAEs1KfbVtL651UyTWrE4qZFx0RLy26czI69GrC+2oEhqzMTqwL/Wt61EUiNWUUzgegQkRuv0wlD194BkCNIfdU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736528; c=relaxed/simple;
-	bh=uQuDrQC54rH73rDKSYpShBEhGdmb7pu28vKNxMjdMYA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JlPg3o+T/drI1lVeClG+hRhZIwspHOM8Oo+nOLcpent6Rbx6fxiy0nrS3gnKbDFi9tnmWmjTUIhTMfEZEOMFuKuFN5QtCAOgPCAGJdnYFigFuFcqP3/brKApf9SGgmsIkW+YRFuHc2FwWHCvMX1zBGV4GVSJsBiQ1JpjFUP/qGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=TiEzSBW3; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="TiEzSBW3"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso3831645e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789736523; x=1790341323; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EOCNg+dN98nBmxQbC7nXxjUH9WHqr4W+3IIRIsKj1vs=;
-        b=TiEzSBW3jNjaaQmnPuUbb+aq2CgWDRQ3bNpfU7QVXpPy8mwYgw73Hw0IgMsX6CxmXI
-         CaOaqlJMCySe6Ics6vIGkiczfcg17y1ps3Vv7JMD98VjjyyPnHA/GQDnMAufrLF2h8oz
-         0eXg68HRlxrVfoHCVZSMJhR6rZCZmHivCcY47y0lG1E8nk9G7Rtdx+1cxQ1hMQJbcIdx
-         365Y92wX4WzW0D1MHntvEO4KQtDRsKA/mSoubmnqD5AXF6GcDf8AL0ws/jX6x851MJlC
-         h87L+zDZ9zGqJ+9h8Qd3nCFcyYA+kZEaW6E0qtZQQJkO2UW03CdcIV30KK2uMsxc5JiS
-         iuuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789736523; x=1790341323;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EOCNg+dN98nBmxQbC7nXxjUH9WHqr4W+3IIRIsKj1vs=;
-        b=pO+8aOPi+QPfixl7jjVPPFsbtZvvTaQ8z2ryVjEn5ly+BXOstnoPzqOR8xckYaDiqg
-         uTEW8RmhUR+8HoI4MPRRGbyVggzuH58xwduRhd229HvP5dKtKyhk2THlWajOnCUrm1pY
-         ZR6IE7WfdcMWWyyZIavxgKApeW5/KMUwjGOJd1hATqpHaDaqgSMxNENNw9v8a2T1rtXZ
-         6zscwHmQ13Mc2zaUnYq7fJltdMsvRi088Kl3Lk9Xbm3wFGf02tQiW5kes9b+ZhzGeuTK
-         Pzeksd+hW0UWskpDJM2SegGKx/hF+Q0WRDTNRdUqJUNLlmWdze4mrbVDPENFLIvqJEeN
-         btDw==
-X-Forwarded-Encrypted: i=1; AKwUvBxayLxaEfX76X4pmU9tN2VQfFwFSeiYFIxsfepJqDZvttUVRhEzPpFer9A+Hi8CMjN2wTecz8Hs+DREE0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHN0ey2ZWTRz0qFJ/yxIgwkTCCA/7GJgsj2z+Km4nYG+37eiL9
-	oUWbGUHKmc2TjCJylCHaPKSOLoW50KKos2ipwv1D7T/n+0296ZE7iZZ5s9b7O9ZEuKs=
-X-Gm-Gg: AYBFou3ZBvBMTYwNVVDYPqbn4tFwGiEw52jI+QKo4wHixTKji3tBVtZteYyWdcXNLFR
-	tTuUSlK82H3/Y7eYLGMcfv0pBndpSz0sFd7+dROUzytX+aahFBaaz6JD4emfGvsCZdIJ/rLbXPO
-	EUAPHQQLCODltAO2xF7Kklgkl7k8F5d+zZyZVTSsRvLgApuTgViUChyUGd4K0qMJMOUObtZY+H3
-	7IwBk3wHTIqsMgler/SQOhBCNx8lx6RzURdG00Yz773KOW9Eok40bxuujtMFE1Cu9xzl8n60Kec
-	Pd9MoGttp6Pzez/9mMjhvFJ1i6DXm9tjNhCu89yfwiuFAXhCtMgtjg/8CVXFdrWw5BhSGYaRyb0
-	kfxBYfnRdzQtlIRAnjDPhobHkdwcVEDH+SH5rZMoJFq2lfoEzlSa233ygAgp+UYTS7S3vQianeN
-	OfiygyUK/ZdOyASwJZMwUK1EtRWWo/dOpDnk+K6Z1daPMi0MstQTVN9OVUZk//91AXMFjtzVIiq
-	9LLUbSAzAfK9yk=
-X-Received: by 2002:a05:600c:8584:b0:49f:cbf1:e76d with SMTP id 5b1f17b1804b1-49fcbf1e9a5mr8437375e9.0.1789736522589;
-        Fri, 18 Sep 2026 06:02:02 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:767:e33f:e8e7:bc85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd24034esm188663345e9.15.2026.09.18.06.02.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:02:01 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Fri, 18 Sep 2026 14:01:51 +0100
-Subject: [PATCH 2/2] i2c: busses: use named initializers for acpi_device_id
+	s=arc-20240116; t=1789736560; c=relaxed/simple;
+	bh=yVcEqSXbP/8mFfz7dHA2v+SFBTVxlkUsy2wH62WCuGg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=bkz57M5Dqi0UzjeV364SclpinvmLP7ZYIV/tJe7tI4Y9OdIROTB96cXRNYq2vELWSFD49Bg7SSQIQokl3kErtxoaZKZ9RWK1SmWit8FmJN8x9ktjTs5D4ZFNdWdUtvXKXB6KrBfwnLckskxUP3drwQGRNz4TPYCVCBQGYFhsupc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Message-ID: <29506e08-9337-487f-af2d-b75f5aa8341e@mainlining.org>
+Date: Fri, 18 Sep 2026 16:01:43 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Subject: Re: [PATCH v2 01/19] dt-bindings: clock: qcom: Add MSM8952 global
+ clock controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
+ <20260918-liberal-significant-crow-f1e66f@quoll>
+Content-Language: en-US
+In-Reply-To: <20260918-liberal-significant-crow-f1e66f@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-acpi-i2c-v1-2-caf4bea4886c@thegoodpenguin.co.uk>
-References: <20260918-acpi-i2c-v1-0-caf4bea4886c@thegoodpenguin.co.uk>
-In-Reply-To: <20260918-acpi-i2c-v1-0-caf4bea4886c@thegoodpenguin.co.uk>
-To: Andi Shyti <andi.shyti@kernel.org>, 
- Mika Westerberg <westeri@kernel.org>, 
- Shyam Sundar S K <shyam-sundar.s-k@amd.com>, 
- Elie Morisse <syniurge@gmail.com>, Benson Leung <bleung@chromium.org>, 
- Guenter Roeck <groeck@chromium.org>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Devyn Liu <liudingyuan@h-partners.com>, 
- Oleksij Rempel <o.rempel@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Binbin Zhou <zhoubinbin@loongson.cn>, 
- Khalil Blaiech <kblaiech@nvidia.com>, Asmaa Mnebhi <asmaa@nvidia.com>, 
- Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
- Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Dmitry Osipenko <digetx@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Hu <hanshu@zhaoxin.com>, 
- George Cherian <gcherian@marvell.com>
-Cc: linux-i2c@vger.kernel.org, linux-acpi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, chrome-platform@lists.linux.dev, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789736516; l=13774;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=uQuDrQC54rH73rDKSYpShBEhGdmb7pu28vKNxMjdMYA=;
- b=mmV8nSqpS6TG7XYJiURdQ7w4GuYjUmy7J6hKP9xFaptGqBL9K2aUTD5JRl3498IAVGRzuiIDc
- 40THKzjx2INDZqWshrv7JhKZ+YsJJ55ouYgxNk+4VAUf1eFbdJpE0gL
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+Hi Krzysztof,
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
+On Fri, 18 Sep 2026 12:02:02 +0200, Krzysztof Kozlowski wrote:
+> On Wed, Sep 16, 2026 at 05:22:06PM +0300, Muzaffer Kadir wrote:
+>> Add a device tree binding to describe clocks, resets and power domains
+>> provided by the global clock controller on MSM8952 SoC.
+>>
+>> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> Please run scripts/checkpatch.pl on the patches and fix reported
+> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+> patches and (probably) fix more warnings. Some warnings can be ignored,
+> especially from --strict run, but the code here looks like it needs a
+> fix. Feel free to get in touch if the warning is not clear.
+> 
 
-Unify list item alignment to have a single space padding between the
-brackets.
+Then I will ask a few things,
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
- drivers/i2c/busses/i2c-amd-asf-plat.c       |  2 +-
- drivers/i2c/busses/i2c-amd-mp2-plat.c       |  2 +-
- drivers/i2c/busses/i2c-cros-ec-tunnel.c     |  2 +-
- drivers/i2c/busses/i2c-designware-platdrv.c | 42 ++++++++++++++---------------
- drivers/i2c/busses/i2c-gpio.c               |  2 +-
- drivers/i2c/busses/i2c-hisi.c               |  2 +-
- drivers/i2c/busses/i2c-imx.c                |  2 +-
- drivers/i2c/busses/i2c-ls2x.c               |  2 +-
- drivers/i2c/busses/i2c-mlxbf.c              |  8 +++---
- drivers/i2c/busses/i2c-qcom-geni.c          |  4 +--
- drivers/i2c/busses/i2c-qup.c                |  2 +-
- drivers/i2c/busses/i2c-scmi.c               |  8 +++---
- drivers/i2c/busses/i2c-synquacer.c          |  4 +--
- drivers/i2c/busses/i2c-tegra.c              |  8 +++---
- drivers/i2c/busses/i2c-usbio.c              | 12 ++++-----
- drivers/i2c/busses/i2c-viai2c-zhaoxin.c     |  2 +-
- drivers/i2c/busses/i2c-xgene-slimpro.c      |  6 ++---
- drivers/i2c/busses/i2c-xlp9xx.c             |  6 ++---
- 18 files changed, 58 insertions(+), 58 deletions(-)
+WARNING: DT binding headers should be licensed (GPL-2.0-only OR .*)
+#88: FILE: include/dt-bindings/clock/qcom,gcc-msm8952.h:1:
++/* SPDX-License-Identifier: GPL-2.0-only */
 
-diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
-index b0b40fe1d79bf..2a5711411ee5c 100644
---- a/drivers/i2c/busses/i2c-amd-asf-plat.c
-+++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
-@@ -354,7 +354,7 @@ static int amd_asf_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id amd_asf_acpi_ids[] = {
--	{ "AMDI001A" },
-+	{ .id = "AMDI001A" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, amd_asf_acpi_ids);
-diff --git a/drivers/i2c/busses/i2c-amd-mp2-plat.c b/drivers/i2c/busses/i2c-amd-mp2-plat.c
-index 9fdd6a5fb8b65..cc5961364bcc0 100644
---- a/drivers/i2c/busses/i2c-amd-mp2-plat.c
-+++ b/drivers/i2c/busses/i2c-amd-mp2-plat.c
-@@ -341,7 +341,7 @@ static void i2c_amd_remove(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id i2c_amd_acpi_match[] = {
--	{ "AMDI0011" },
-+	{ .id = "AMDI0011" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, i2c_amd_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-cros-ec-tunnel.c b/drivers/i2c/busses/i2c-cros-ec-tunnel.c
-index 208ce4f9e782c..a83e735d2086c 100644
---- a/drivers/i2c/busses/i2c-cros-ec-tunnel.c
-+++ b/drivers/i2c/busses/i2c-cros-ec-tunnel.c
-@@ -300,7 +300,7 @@ static const struct of_device_id cros_ec_i2c_of_match[] __maybe_unused = {
- MODULE_DEVICE_TABLE(of, cros_ec_i2c_of_match);
- 
- static const struct acpi_device_id cros_ec_i2c_tunnel_acpi_id[] __maybe_unused = {
--	{ "GOOG0012", 0 },
-+	{ .id = "GOOG0012" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, cros_ec_i2c_tunnel_acpi_id);
-diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
-index 447af5523c2e4..1da6b0314b6a0 100644
---- a/drivers/i2c/busses/i2c-designware-platdrv.c
-+++ b/drivers/i2c/busses/i2c-designware-platdrv.c
-@@ -260,27 +260,27 @@ static const struct of_device_id dw_i2c_of_match[] = {
- MODULE_DEVICE_TABLE(of, dw_i2c_of_match);
- 
- static const struct acpi_device_id dw_i2c_acpi_match[] = {
--	{ "80860F41", ACCESS_NO_IRQ_SUSPEND },
--	{ "808622C1", ACCESS_NO_IRQ_SUSPEND },
--	{ "AMD0010", ACCESS_INTR_MASK },
--	{ "AMDI0010", ACCESS_INTR_MASK },
--	{ "AMDI0019", ACCESS_INTR_MASK | ARBITRATION_SEMAPHORE },
--	{ "AMDI0510", 0 },
--	{ "APMC0D0F", 0 },
--	{ "FUJI200B", 0 },
--	{ "GOOG5000", 0 },
--	{ "HISI02A1", 0 },
--	{ "HISI02A2", 0 },
--	{ "HISI02A3", 0 },
--	{ "HJMC3001", ACCESS_INTR_MASK },
--	{ "HYGO0010", ACCESS_INTR_MASK },
--	{ "INT33C2", 0 },
--	{ "INT33C3", 0 },
--	{ "INT3432", 0 },
--	{ "INT3433", 0 },
--	{ "INTC10EF", 0 },
--	{ "LECA0003", 0 },
--	{}
-+	{ .id = "80860F41", .driver_data = ACCESS_NO_IRQ_SUSPEND },
-+	{ .id = "808622C1", .driver_data = ACCESS_NO_IRQ_SUSPEND },
-+	{ .id = "AMD0010", .driver_data = ACCESS_INTR_MASK },
-+	{ .id = "AMDI0010", .driver_data = ACCESS_INTR_MASK },
-+	{ .id = "AMDI0019", .driver_data = ACCESS_INTR_MASK | ARBITRATION_SEMAPHORE },
-+	{ .id = "AMDI0510" },
-+	{ .id = "APMC0D0F" },
-+	{ .id = "FUJI200B" },
-+	{ .id = "GOOG5000" },
-+	{ .id = "HISI02A1" },
-+	{ .id = "HISI02A2" },
-+	{ .id = "HISI02A3" },
-+	{ .id = "HJMC3001", .driver_data = ACCESS_INTR_MASK },
-+	{ .id = "HYGO0010", .driver_data = ACCESS_INTR_MASK },
-+	{ .id = "INT33C2" },
-+	{ .id = "INT33C3" },
-+	{ .id = "INT3432" },
-+	{ .id = "INT3433" },
-+	{ .id = "INTC10EF" },
-+	{ .id = "LECA0003" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, dw_i2c_acpi_match);
- 
-diff --git a/drivers/i2c/busses/i2c-gpio.c b/drivers/i2c/busses/i2c-gpio.c
-index 6294b0b0cc8f7..56d6847cbf6d7 100644
---- a/drivers/i2c/busses/i2c-gpio.c
-+++ b/drivers/i2c/busses/i2c-gpio.c
-@@ -664,7 +664,7 @@ static const struct of_device_id i2c_gpio_dt_ids[] = {
- MODULE_DEVICE_TABLE(of, i2c_gpio_dt_ids);
- 
- static const struct acpi_device_id i2c_gpio_acpi_match[] = {
--	{ "LOON0005" }, /* LoongArch */
-+	{ .id = "LOON0005" }, /* LoongArch */
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, i2c_gpio_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-hisi.c b/drivers/i2c/busses/i2c-hisi.c
-index ba5c9579ae190..fca1ca011312d 100644
---- a/drivers/i2c/busses/i2c-hisi.c
-+++ b/drivers/i2c/busses/i2c-hisi.c
-@@ -516,7 +516,7 @@ static int hisi_i2c_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id hisi_i2c_acpi_ids[] = {
--	{ "HISI03D1", 0 },
-+	{ .id = "HISI03D1" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, hisi_i2c_acpi_ids);
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index 19ec056b00afe..e5fb493327b10 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -349,7 +349,7 @@ static const struct of_device_id i2c_imx_dt_ids[] = {
- MODULE_DEVICE_TABLE(of, i2c_imx_dt_ids);
- 
- static const struct acpi_device_id i2c_imx_acpi_ids[] = {
--	{"NXP0001", .driver_data = (kernel_ulong_t)&vf610_i2c_hwdata},
-+	{ .id = "NXP0001", .driver_data = (kernel_ulong_t)&vf610_i2c_hwdata },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, i2c_imx_acpi_ids);
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index af7bf61b0f4d7..ef2e2a26981e5 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -356,7 +356,7 @@ static const struct of_device_id ls2x_i2c_id_table[] = {
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
- 
- static const struct acpi_device_id ls2x_i2c_acpi_match[] = {
--	{ "LOON0004" }, /* Loongson LS7A */
-+	{ .id = "LOON0004" }, /* Loongson LS7A */
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, ls2x_i2c_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-mlxbf.c b/drivers/i2c/busses/i2c-mlxbf.c
-index 24ccc4546ab88..0cc8b9e5f3336 100644
---- a/drivers/i2c/busses/i2c-mlxbf.c
-+++ b/drivers/i2c/busses/i2c-mlxbf.c
-@@ -2198,10 +2198,10 @@ static struct i2c_adapter_quirks mlxbf_i2c_quirks = {
- };
- 
- static const struct acpi_device_id mlxbf_i2c_acpi_ids[] = {
--	{ "MLNXBF03", (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_1] },
--	{ "MLNXBF23", (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_2] },
--	{ "MLNXBF31", (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_3] },
--	{},
-+	{ .id = "MLNXBF03", .driver_data = (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_1] },
-+	{ .id = "MLNXBF23", .driver_data = (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_2] },
-+	{ .id = "MLNXBF31", .driver_data = (kernel_ulong_t)&mlxbf_i2c_chip[MLXBF_I2C_CHIP_TYPE_3] },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(acpi, mlxbf_i2c_acpi_ids);
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 00013b41a6f59..37a071b885f0b 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -1303,8 +1303,8 @@ static const struct geni_i2c_desc sa8255p_geni_i2c = {
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id geni_i2c_acpi_match[] = {
--	{ "QCOM0220", (kernel_ulong_t)&geni_i2c},
--	{ "QCOM0411", (kernel_ulong_t)&geni_i2c},
-+	{ .id = "QCOM0220", .driver_data = (kernel_ulong_t)&geni_i2c },
-+	{ .id = "QCOM0411", .driver_data = (kernel_ulong_t)&geni_i2c },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, geni_i2c_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-qup.c b/drivers/i2c/busses/i2c-qup.c
-index ee7915ee2ba2f..ce30634e1f402 100644
---- a/drivers/i2c/busses/i2c-qup.c
-+++ b/drivers/i2c/busses/i2c-qup.c
-@@ -1688,7 +1688,7 @@ static void qup_i2c_disable_clocks(struct qup_i2c_dev *qup)
- }
- 
- static const struct acpi_device_id qup_i2c_acpi_match[] = {
--	{ "QCOM8010"},
-+	{ .id = "QCOM8010" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, qup_i2c_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-scmi.c b/drivers/i2c/busses/i2c-scmi.c
-index 324a63efa1ab9..37442c9ee2229 100644
---- a/drivers/i2c/busses/i2c-scmi.c
-+++ b/drivers/i2c/busses/i2c-scmi.c
-@@ -42,10 +42,10 @@ static const struct smbus_methods_t ibm_smbus_methods = {
- };
- 
- static const struct acpi_device_id acpi_smbus_cmi_ids[] = {
--	{"SMBUS01", (kernel_ulong_t)&smbus_methods},
--	{ACPI_SMBUS_IBM_HID, (kernel_ulong_t)&ibm_smbus_methods},
--	{ACPI_SMBUS_MS_HID, (kernel_ulong_t)&smbus_methods},
--	{"", 0}
-+	{ .id = "SMBUS01", .driver_data = (kernel_ulong_t)&smbus_methods },
-+	{ .id = ACPI_SMBUS_IBM_HID, .driver_data = (kernel_ulong_t)&ibm_smbus_methods },
-+	{ .id = ACPI_SMBUS_MS_HID, .driver_data = (kernel_ulong_t)&smbus_methods },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, acpi_smbus_cmi_ids);
- 
-diff --git a/drivers/i2c/busses/i2c-synquacer.c b/drivers/i2c/busses/i2c-synquacer.c
-index 0216e398f2740..968cbe32161ed 100644
---- a/drivers/i2c/busses/i2c-synquacer.c
-+++ b/drivers/i2c/busses/i2c-synquacer.c
-@@ -622,8 +622,8 @@ MODULE_DEVICE_TABLE(of, synquacer_i2c_dt_ids);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id synquacer_i2c_acpi_ids[] = {
--	{ "SCX0003" },
--	{ /* sentinel */ }
-+	{ .id = "SCX0003" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, synquacer_i2c_acpi_ids);
- #endif
-diff --git a/drivers/i2c/busses/i2c-tegra.c b/drivers/i2c/busses/i2c-tegra.c
-index 9c281b4905ebd..76d21bc51c618 100644
---- a/drivers/i2c/busses/i2c-tegra.c
-+++ b/drivers/i2c/busses/i2c-tegra.c
-@@ -2486,10 +2486,10 @@ static const struct dev_pm_ops tegra_i2c_pm = {
- };
- 
- static const struct acpi_device_id tegra_i2c_acpi_match[] = {
--	{.id = "NVDA0101", .driver_data = (kernel_ulong_t)&tegra210_i2c_hw},
--	{.id = "NVDA0201", .driver_data = (kernel_ulong_t)&tegra186_i2c_hw},
--	{.id = "NVDA0301", .driver_data = (kernel_ulong_t)&tegra194_i2c_hw},
--	{.id = "NVDA2017", .driver_data = (kernel_ulong_t)&tegra410_i2c_hw},
-+	{ .id = "NVDA0101", .driver_data = (kernel_ulong_t)&tegra210_i2c_hw },
-+	{ .id = "NVDA0201", .driver_data = (kernel_ulong_t)&tegra186_i2c_hw },
-+	{ .id = "NVDA0301", .driver_data = (kernel_ulong_t)&tegra194_i2c_hw },
-+	{ .id = "NVDA2017", .driver_data = (kernel_ulong_t)&tegra410_i2c_hw },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, tegra_i2c_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-usbio.c b/drivers/i2c/busses/i2c-usbio.c
-index 259754e5fd05b..66da1e90848ae 100644
---- a/drivers/i2c/busses/i2c-usbio.c
-+++ b/drivers/i2c/busses/i2c-usbio.c
-@@ -24,12 +24,12 @@ struct usbio_i2c {
- };
- 
- static const struct acpi_device_id usbio_i2c_acpi_hids[] = {
--	{ "INTC1008" }, /* MTL */
--	{ "INTC10B3" }, /* ARL */
--	{ "INTC10B6" }, /* LNL */
--	{ "INTC10D2" }, /* MTL-CVF */
--	{ "INTC10E3" }, /* PTL */
--	{ "INTC1118" }, /* NVL */
-+	{ .id = "INTC1008" }, /* MTL */
-+	{ .id = "INTC10B3" }, /* ARL */
-+	{ .id = "INTC10B6" }, /* LNL */
-+	{ .id = "INTC10D2" }, /* MTL-CVF */
-+	{ .id = "INTC10E3" }, /* PTL */
-+	{ .id = "INTC1118" }, /* NVL */
- 	{ }
- };
- 
-diff --git a/drivers/i2c/busses/i2c-viai2c-zhaoxin.c b/drivers/i2c/busses/i2c-viai2c-zhaoxin.c
-index 764a2dbc957ab..81f0bfdf919f8 100644
---- a/drivers/i2c/busses/i2c-viai2c-zhaoxin.c
-+++ b/drivers/i2c/busses/i2c-viai2c-zhaoxin.c
-@@ -345,7 +345,7 @@ static const struct dev_pm_ops zxi2c_pm = {
- };
- 
- static const struct acpi_device_id zxi2c_acpi_match[] = {
--	{"IIC1D17", 0 },
-+	{ .id = "IIC1D17" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, zxi2c_acpi_match);
-diff --git a/drivers/i2c/busses/i2c-xgene-slimpro.c b/drivers/i2c/busses/i2c-xgene-slimpro.c
-index b29dec66b2c33..08a126aa83dfa 100644
---- a/drivers/i2c/busses/i2c-xgene-slimpro.c
-+++ b/drivers/i2c/busses/i2c-xgene-slimpro.c
-@@ -539,9 +539,9 @@ MODULE_DEVICE_TABLE(of, xgene_slimpro_i2c_dt_ids);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xgene_slimpro_i2c_acpi_ids[] = {
--	{"APMC0D40", XGENE_SLIMPRO_I2C_V1},
--	{"APMC0D8B", XGENE_SLIMPRO_I2C_V2},
--	{}
-+	{ .id = "APMC0D40", .driver_data = XGENE_SLIMPRO_I2C_V1 },
-+	{ .id = "APMC0D8B", .driver_data = XGENE_SLIMPRO_I2C_V2 },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, xgene_slimpro_i2c_acpi_ids);
- #endif
-diff --git a/drivers/i2c/busses/i2c-xlp9xx.c b/drivers/i2c/busses/i2c-xlp9xx.c
-index ad0e5cd218f0f..44cad95ee8abc 100644
---- a/drivers/i2c/busses/i2c-xlp9xx.c
-+++ b/drivers/i2c/busses/i2c-xlp9xx.c
-@@ -570,9 +570,9 @@ static void xlp9xx_i2c_remove(struct platform_device *pdev)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xlp9xx_i2c_acpi_ids[] = {
--	{"BRCM9007", 0},
--	{"CAV9007",  0},
--	{}
-+	{ .id = "BRCM9007" },
-+	{ .id = "CAV9007" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, xlp9xx_i2c_acpi_ids);
- #endif
+As I said on cover, I originally based on msm8939 gcc,
+would it cause license problems with file if I fix this
+warning?
 
--- 
-2.43.0
+Some patches say "has style problems, please review."
+Is this related to formatting of code inside patch ?
 
+WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#16: 
+[1] https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/clk/qcom/clock-gcc-8952.c
+
+Should I move these to "Link:" to fix this type of warnings?
+Wouldn't moving them cause a bit understanding loss?
+
+grep: warning: stray \ before -
+What does this mean ?
+
+Thanks
+
+>> ---
+>>  .../bindings/clock/qcom,gcc-msm8952.yaml           |  56 ++++++
+>>  include/dt-bindings/clock/qcom,gcc-msm8952.h       | 217 +++++++++++++++++++++
+>>  2 files changed, 273 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+>> new file mode 100644
+>> index 000000000000..274dde633e17
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+>> @@ -0,0 +1,56 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Global Clock & Reset Controller on MSM8952
+>> +
+>> +maintainers:
+>> +  - Muzaffer Kadir <muzafferkadir@mainlining.org>
+>> +
+>> +description: |
+>> +  Qualcomm global clock control module provides the clocks, resets and power
+>> +  domains on MSM8952.
+>> +
+>> +  See also::
+> 
+> git grep "also::" -- Documentation/devicetree/bindings/clock/
+> 
+> I asked you month ago here:
+> <e3fb3794-ca7a-4794-8036-b69e563aaa57@kernel.org>
+> to not work on old forks.
+> 
+> Old fork which you should not use is postmarketos, lineageos, whatever
+> Android fork kernel, and whatever other tree which is not upstream from
+> kernel.org.
+
+I created all of this before sending pinctrl. I tried to clean up by
+reading others in upstream before sending but I guess I didn't
+noticed that, sorry about that.
+I didn't reused fork and mainly used upstream after your reply.
+
+Best regards,
+Muzaffer Kadir
