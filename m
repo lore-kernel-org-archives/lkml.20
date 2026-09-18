@@ -1,119 +1,149 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1FC5172D7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750274; cv=none; b=VsD8NVVR/s+MmTw0wFRg2xf74HlTo0fecYHi60Z6K7zlEi6IxyTCic+BHZ6mBcPSOacPy/io8uYRVtWyRnYdvDVM21RGBXuY3wCyjyDSunU/kCATNpYjjO2V4tnOGr+nRGnsTZdZlnaImFkOQADIy24WCSA8CJFQnlI7EALu+rs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750274; c=relaxed/simple;
-	bh=PJZCqNz/EWydbRV7255ZT5ETxs8mwt5+88gHtRiMO/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lLWQT5GL/werVwLq/HlGuiYmUhJtrsP9WZQJc9E8396TtQ4fbjLqAk4OkFodYJRZ7sAPYyfizT8NZdiH9EAOZVcxa2w2NM9pthm5XnurJoNKu2HnLzLDrYOk/F+Vz0P6wlq2bv3QTxsN0MLnjSzYohGPTz0ECQTcUHFnLPzUYbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YUpzv/yh; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F543955E3;
+	Fri, 18 Sep 2026 16:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789750327; cv=pass; b=DsT9c3+QK+q3sYqLDwT08g+dwcbBvB5uR7MxqVTJSSDjVpZJ6JkyHt3bRprLk7noiV7HflAQrwraKn6DU/ySkkcvSTOeRqS2sncsEP7Bne7WaFt83xmCTfsajaVxOs4nM388FEXCRatwkph+HG5t0x0wwxQlpHuV740BpvqMZG4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789750327; c=relaxed/simple;
+	bh=ggW8CJoWtogF4vp7qmnYr+2cHYO378fD70zSL4eILSE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=K5s6jgT1Ayr/gD7OU0rSNI99BoiBYLNDEvCv5tVGuFdqgsobzD1kz8tTOvfK/A4X7bw5423tQMj4/KBXBuzeWNms1FE/hUw/58YfqfP03hf89Qxtq4unw5clWChWC+MSFzXU4NjyJ8sjUoxgrUMBmtfDXryaRHUv1CwtZmFms4E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=VhzfLo5S; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YUpzv/yh"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fdc579daso10953925ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789750273; x=1790355073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MfsShWeiS4tZlSkNs80JEvfqVPZ9mGtd0aKlxlb8/So=;
-        b=YUpzv/yhKsqRHI4/ibSJEZu4BqSN4HkqPCyqrLiBFYbiC56WrdMjhoCU5mVE0kVbIH
-         LqXdi+ADbK85xG+s9cMp2HUsd/6Evu3v0qdUXLv5sBebSTbyWVYtYJqlmp/3YT4TblZG
-         yvYyWIHQ+QjDnRSSYYWOUX1nEXatLfkF53yGYwlEx0VgD+YJCVxbTGal2N6nc9IKWYgA
-         5QvQbm0JsBq4lDZ4johrDgVqT+yBRCp0IBBlooNHxsDLwtJGjvBfA9FCjra5A58jJqJi
-         2xbTPWhk2/QGSMvQMvd5UuvAaJNpvCe8vIumEbXzeRIMios4ksgQcxmI/IrfRDJkNMlp
-         N8ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750273; x=1790355073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MfsShWeiS4tZlSkNs80JEvfqVPZ9mGtd0aKlxlb8/So=;
-        b=nnh8nHtpl4d/9f586ojD275mj1IHRwitYw4qjrtyFM9gdnQN0Sf9n88piDSZvqr3M0
-         zAUcr+XonGLifWjSBLMv94LA5dbA1XcJQHgKKwoPrNh+bi5gqIBHHesiuM5VPgidzO8g
-         Ybm5pUZez1zsqTA1EQv/czv6LCEtybcJ+ufJaCvRt/DPMrWTLr6ISh+4BO6e3nNEPiFl
-         fy3AblbCqw45BxPRBDJfrhzUi9/QuU/iYvVUFetBvxC4J/ADaH3JrLP9Q+cQN8B4bHyG
-         zvlyxOoT1Y2GbmCEcApem0SdVW0qtw/BQOSpxLpZglb9QUdcc1+92HXHyft3it2W+loa
-         UBqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwI0im6i+OEtOnI6F5BqZCOHWYi511Q3Oy5xDaLTt1+hW9iVZxFyo56Ruz/b/gnijeuUuHSXWiFmRCOjlo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVGtOM366GxaK4pHBH2lATE4Z0p8W49MYpYflgGhtQepZdqu4Y
-	wjmRnclGiXOtUIUS+0JJ+BacfL5ArPSDhYFZ6HuRirOsOab5UYjiMwzn
-X-Gm-Gg: AYBFou3j99fzPNuytyoaU3BffQ+fSqfP0/R4tReeVAI2ZAQDM0dQklmTNIsgFB0JTWp
-	cKuvur6+iWkZB9C1l3f2wi5k19R3NIzXIZc3JtRB5Q0kx9m6kMNLasx+4FKXXp5qvk4Bnc8AEdh
-	q5cj31MYc8Z2/TP9VtmeWiHU5E6VGcy86XjWmP0eJk48cWX57wNFVXEt9ue4UIhZ69qESIWvJ/n
-	cksewR5nfNhSue8CuMzWSg6jAacEqhwQ20bD2jDqEi8sSyiUaNpq47fTbSw8Wim1sbCRyPkh/6c
-	dGxmyS1BUdjDQaNLFeRm2ioQmzmNBkPSVYbTIBO62AMiSqAYXf2ztohh5h6fXMthvAL++JExX7R
-	9boNgYdrKuwr5vxsbFLuoEd86DW/Qgz1Un9gNLHiOceiO3xbMlHVAipXdvhQ7nmWdPCvTZ62weq
-	Ft4Ut/dtkTS2HdD0r8VNtJdvDL0dZt9Ng/CKucZ3/cSRDY2P16RU1o4QqgTvMv/o1O
-X-Received: by 2002:a17:903:1b47:b0:2dd:ad74:ac24 with SMTP id d9443c01a7336-2ddb1be939emr75755475ad.31.1789750272857;
-        Fri, 18 Sep 2026 09:51:12 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddba2a8c5dsm9630595ad.29.2026.09.18.09.51.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:51:12 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs: remove unused vfs_empty_path()
-Date: Sat, 19 Sep 2026 01:51:03 +0900
-Message-ID: <20260918165105.1013792-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="VhzfLo5S"
+Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hmdvL4tQ9z10xl;
+	Fri, 18 Sep 2026 19:51:58 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1789750319;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CFniBaOSSNu6ZtH5eqeRT+EniF5CxizeWe0To5zvrfE=;
+	b=VhzfLo5S4zh0u9wc0N2akvtg+8LkLb2zV7g+rlnt1F7jJA5M8VLZsTXxBiVTtkjH3y7Vbi
+	CtDGuE+/A0BS22iS/1wWAjk85WsBSDObsV3pH5gj2i0x+FonDkvIOmZEqfpCx3dN9cjaag
+	jBZwLfdXE5l6f+fULYigxLHimm2mJuc=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789750319;
+	b=S0I0hwUNMpd7V2MfAi17dTDR6Sll29moaKL2IysYVw4MkmDD4bkPcNnAogQIGfNdVd1uc6
+	LQANxPhXS7LmKpMp6Gn75bEe/BuBO2nCrFwSrTKZ0heCwBtS4NusLgpADlXodgJ0uW/nen
+	xmjw2wsmy2iRJs+8bcgpIuuqrtS6N34=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1789750319;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CFniBaOSSNu6ZtH5eqeRT+EniF5CxizeWe0To5zvrfE=;
+	b=QIktM2zi8H0JXvJzWz+bR7zDbMa/pGmgZOoZfFaHYuvzEilfQZ5s+zGiHGFR4vbwEFx00+
+	yLYbDM6scLow6FXE0beGVqOhAjY850Xfwfp8mvNrc2TGN33YHJtC1vrGcnf5WY95RDjPuj
+	gmXUyrs402doWlGJoR9MgNuQ2LyDM7c=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B1C91198004A;
+	Fri, 18 Sep 2026 12:51:57 -0400 (EDT)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 12:51:57 -0400
+X-ME-Sender: <xms:KmytapBsr5nVa4ZmIXQgAUHhnxcugE7AYvX-BVSdRtLb2oVUesP23w>
+    <xme:KmytaiVtidsR99LVGcbNAtdXQAYhwkcUG4u0grycuuQ5FPvFVWSMTBGw4_ZU8T3fh
+    HAkUljZQ7wbGcNEJyIUYUTqIkJt-xYLCBl6z2yXoGXwnFfDEO1ZH4it>
+X-ME-Proxy-Cause: dmFkZTGNcKeUoS6p/UeL/gMh5UWUFiVWwbx7ey0te+Xw5EsHIe1Jj1XU6ZjsITNOQ19Y+i
+    VO3vGx9rSUSiH+cpHXFrz3vu5iYTny/gJtxLwbH/A9AzR8Y28HIgvPhmGgZWvPjbakCjL2
+    N/asmkHvVR55YKiLvZhYMa8ulw8RrSp1bwaZQ30gIZBNOnaBO72XfV+QAA8qyaai2JgJ6j
+    v1WuIKrPMLrpJoYn143VO76r03KpZy6s4dklI1gj6XxQpxS3xtcj5UTJEoXyFvpBZHDbXa
+    saeU1eyzCus1XNzSNAQA2h6HR/HsRioTLJRfR9X/K7Fq0YTCvlqOn8VfTbE6/UOJBs8fcv
+    NIonDAHwo64bLyPRkOI1KQ3Elyb7xUBnKjpoOAB1+IXONZETBHmbVEJ0QTzk7jRt8qR8yQ
+    Z+U9yeeqKDFVw28zEXiQZd6qMN/w2modqQAR1FbHCE+FhfALnZ1WhwIzLQlEeitZJ1019k
+    Ei2/mry44zBMp0IhyvZw95OZZshGs5VmrpXbBEuOcmbhjvu8Dx4VN5LfsJaq2+foI6E6HN
+    DRXvPJkx24Ux1HGcZLPYjw6cRrWCIMnpYoaY17rorTQQ5WNW55oWBw1er3EuiwsZLuuL86
+    OkSR4QXXmiH/HG3sQA6sppP8DKHzFFSOKec3AO/BSFgp3+ZvqWbxmvdJhv/Q
+X-ME-Proxy: <xmx:LWytatbbSBa4wPl4UqfeGYn_EY5mEACuxOWO7uyDWJQM8F1Nn23bSA>
+    <xmx:LWytaggNcoj0hVvts8pFL-SuQYlbvb0qK--o2GnDbvFPgdccSR69wQ>
+    <xmx:LWytarwI76vUO6slFD6xsrxkI9YGluJ7sKm9vpfcVGz8GcOf1N593g>
+    <xmx:LWytak87TJ9aR6FgmiM4xxz-EUtbf1jjkplUArwf7nReTCSfdJA4Dg>
+    <xmx:LWytaozrkHyLbHBVUwu8yvRvxRwP-4_cmsNp0JVTE5oTWW_uyvTY24GF>
+Feedback-ID: i02414972:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5863EF80089; Fri, 18 Sep 2026 12:51:54 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AbqzItSRZteg
+Date: Fri, 18 Sep 2026 19:51:33 +0300
+From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
+To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>,
+ "Manivannan Sadhasivam" <mani@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Jeff Johnson" <jjohnson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Chris Lew" <christopher.lew@oss.qualcomm.com>,
+ "Deepak Kumar Singh" <deepak.singh@oss.qualcomm.com>,
+ "Raj Kumar Bhagat" <raj.bhagat@oss.qualcomm.com>,
+ "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>, "Mihai Moldovan" <ionic@ionic.de>,
+ david@3adesign.co.uk, nakonechnij.sergsj@gmail.com
+Message-Id: <cb6766f8-54b9-435f-a69a-e712727dabdb@app.fastmail.com>
+In-Reply-To: <20260918-qrtr-multi-ep-v1-4-8a06caa368d3@oss.qualcomm.com>
+References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+ <20260918-qrtr-multi-ep-v1-4-8a06caa368d3@oss.qualcomm.com>
+Subject: Re: [PATCH 4/4] wifi: ath12k: Connect to the QMI server belonging to the
+ device owned by this driver
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Since commit e896474fe485 ("getname_maybe_null() - the third variant of
-pathname copy-in"), vfs_empty_path() has no callers.
+On Fri, Sep 18, 2026, at 19:28, Manivannan Sadhasivam via B4 Relay wrote:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> When two identical ath12k PCIe devices are connected to the same host, both
+> advertise the WLFW service with the same service and instance id. The QMI
+> lookup reports both servers to each device, so a device may connect to the
+> firmware running on the other device.
+> 
+> But now, QRTR provides each MHI endpoint a unique node id which is
+> different from the node id announced by the device. So use the same id to
+> pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
+> the node id derived from the MHI controller index and zero for transports
+> that do not assign one. In the new_server callback, skip any service whose
+> node id does not match. A node id of zero disables the check, so transports
+> that do not assign one keep their current behavior.
+> 
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-So remove it.
+CC'ing Mihai. He is known to have a platform with two ath12k cards,
+but he said he's been busy recently, so his testing input is uncertain.
 
-No functional change.
+Also David and Serhii have found the bug at Bugzilla and may
+be able to help with testing. (CC'ing them too)
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
- include/linux/fs.h | 17 -----------------
- 1 file changed, 17 deletions(-)
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=218480
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 05d05bb9c951..ef8eb5af06c5 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -3653,23 +3653,6 @@ extern int vfs_fadvise(struct file *file, loff_t offset, loff_t len,
- extern int generic_fadvise(struct file *file, loff_t offset, loff_t len,
- 			   int advice);
- 
--static inline bool vfs_empty_path(int dfd, const char __user *path)
--{
--	char c;
--
--	if (dfd < 0)
--		return false;
--
--	/* We now allow NULL to be used for empty path. */
--	if (!path)
--		return true;
--
--	if (unlikely(get_user(c, path)))
--		return false;
--
--	return !c;
--}
--
- int generic_atomic_write_valid(struct kiocb *iocb, struct iov_iter *iter);
- 
- static inline bool extensible_ioctl_valid(unsigned int cmd_a,
--- 
-2.43.0
+Here's the patchset in an easier-to-access format:
+https://github.com/Mani-Sadhasivam/linux/commits/qrtr-multi-ep/
 
+Also, I have suggested that at $DAYJOB we'd switch to a newer LTS kernel
+with better ath12k support. This may take some time, but there is a
+possibility I'll be able to finally get ath12k cards working. This might
+allow me to test this with ath12k cards, porting the patches to 6.12 or
+6.18 kernel. But that will take time (the kernel switch; backporting is
+easy for such simple patches).
+
+BR, Juha-Matti
