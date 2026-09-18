@@ -1,152 +1,781 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365E751CF67;
-	Fri, 18 Sep 2026 18:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E29E51DAEB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755814; cv=none; b=MocHa8mMicf4Z8BDilmxv+p+Gajng59yS+/FvmbFtnLOZq4qkp3pnPlOYGwjGOp/yBbqhHxSNTKYFMzUwT2M2LUX2aHwxJEiBQT5ot4YIIuIv4+sT5R0pI3Risjld5W6CSOkzlvzogl6uTidqU9Te7yKiAR7hkC3gZaUOwntPi0=
+	t=1789755812; cv=none; b=XWcJerpi83/hKE5yl+DLYgyQhczHxMPdo3iAJ3NR45Vc9zPMW46IR+oeqAT2exD9sgr7tlqdPqnI0IvCzO/RwUjpjq5bZeTfrIje2abIUwjuMm/abhKR3koAOrYXYftL5rpsB2Xojg+o5NwOImPczJ+s3rbOGw49Oqkr2C4l5A0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755814; c=relaxed/simple;
-	bh=v9QzBZRR/rsPC8cL/L499YoI9tzLVE1L+j/RF50vIGA=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=CgMMXuokU3iAwLvqOuz9KJTC6DSOvihyYeH45KLIxX/sx4aCmishHre0uBb+6u7ciXLiKYTzf2aIkVSK1KOMfVYdtaRU32Z+UVGEY/7ZoN3UPf222ywmtgmKvryAu0dezcPZV99LbHg37HUj1MtLjbFkpz7/m8tv0/XrgNR5dtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjkrMvvM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789755812; c=relaxed/simple;
+	bh=sGMYDDZ7k5ZqRWCYv/WBmFGQKM5vvRS2PSTulQw8OEg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oEVvvR9nqngMb7okircM95jsLyy0UayHoDcLg+qNquq6LFB0uTl0P3N0QiMQBVCJNAC+Ypqzc+r/2bihh2DlFhnp91q2nrlfCDPCrJoLQSSpsW3a12TwWNzp2ibnoSMI2h6FFA0J6W1swjnoo3sdFRJKl5msZ34SvJvLZqibAC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L7qumqIH; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjkrMvvM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C404C1F00898;
-	Fri, 18 Sep 2026 18:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789755812;
-	bh=iauEUtXSy+XwVmAgos5x1s9SmYPLjXW+NuFLuggjAMs=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fjkrMvvMaq/Y7ifszl9uib5Fs8ev8rsOOMhiO/hf9/n+M69y6TX+eXLMWrsLjz9gx
-	 6uVadPhssrHmFEBWvRdCqYb3HCL/JH2BOh2kX0iuSiMgrmrDAqQ5TGoy0VnzfBXQ4m
-	 C2/bnjkJDFVDWI0P1GkuFpSCUVSQUZaMtlFNOHNNXSFSORQ9UjmMwLhQN3bUHcnDHl
-	 74pOOqk11PFkgB1EDiBQ/DWDoSS72w4iFLsUIZBK/0n+K/V+M/Fnp8vEtlIAt2XLpJ
-	 qxbMAl9uGeR/jQic1+wZovLmHcz6N7Bxq7N7ELgEtjDtK0b7UXV0BxpY4puhwfybCp
-	 qS5nF3vw8fjTQ==
-Content-Type: multipart/mixed; boundary="===============0751353136014118925=="
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L7qumqIH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D23141A0997;
+	Fri, 18 Sep 2026 18:23:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E7ED60649;
+	Fri, 18 Sep 2026 18:23:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F03B010329075;
+	Fri, 18 Sep 2026 20:23:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789755802; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZMXnIXyPwUkbW91H4N8feuaRinxKpmvG1l6jbaK9JbY=;
+	b=L7qumqIHpT90hDhH/TCjf0aLmNmppqM3OGvOtlqpy1T1+WsboEF/Pn8d7q3XIqk2Wa/YCO
+	glsS3enwfH/sd6UbNrUPmFYbSIlJ0BlDIi4RNdF/y22Q4/rLj2MTjCAFSO/Hxw3OOLZlxo
+	84IiIOP4gFnBjlk/W/kqsaFUaJrpZWzkWVQWQpgNY+HJHN8sdiC/AkXq5AY4iWwrWNdDdi
+	CXGi9nM31Wys6eCqFH42WJcP3QMxgYHPsQLhamOgEhnDjA5/3lYZ3yTt6Zi0rA0bW/RAkH
+	qU4zkgjtF4z+YgfaD/KQds/9c/F3JnfSrDgMjXdOiG9O7BRZqEdyvdqNWqOIzw==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Fri, 18 Sep 2026 20:22:58 +0200
+Subject: [PATCH 6.12.y 2/3] netfilter: conntrack: check NULL when
+ retrieving ct extension
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <1849fead1d504dc0df3da3fdc274efb9b21ffb0007ca5e42090d5180a7f94c56@mail.kernel.org>
-In-Reply-To: <20260918172407.3459188-2-sh_def@163.com>
-References: <20260918172407.3459188-2-sh_def@163.com>
-Subject: Re: [PATCH bpf 1/3] bpf: Report BPF_F_PREORDER in cgroup program queries
-From: bot+bpf-ci@kernel.org
-To: sh_def@163.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: yonghong.song@linux.dev,qmo@kernel.org,martin.lau@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,sh_def@163.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 18 Sep 2026 18:23:31 +0000 (UTC)
-
---===============0751353136014118925==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-cve-2026-80668-v2-v1-2-fcefceb49144@bootlin.com>
+References: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
+In-Reply-To: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
+To: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Florian Westphal <fw@strlen.de>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
+ Sasha Levin <sashal@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789755780; l=24001;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=TvXW5w65EGZoh8cbKgXRmLeDy7Af2WDcBiKO4pNkYU4=;
+ b=nJHa+CyodSX50PLFnPnfYwKQcbzQOmFeAxr4shWCH46Gf4gYDYxpqLOEPjuec+ofgSXuurE4f
+ H2DJ2kxBWhAAiSA6R6VdFagKl4EdJsDsA+TfLq1t5wcEFR/IyXefUeS
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-> diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-> index 149672c76c49c..e7c7efa1baa75 100644
-> --- a/kernel/bpf/cgroup.c
-> +++ b/kernel/bpf/cgroup.c
-> @@ -1353,19 +1353,19 @@ static int __cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
->  				id = prog->aux->id;
->  				if (copy_to_user(prog_ids + i, &id, sizeof(id)))
->  					return -EFAULT;
-> +				if (prog_attach_flags) {
-> +					flags = cgrp->bpf.flags[atype] |
-> +						(pl->flags & BPF_F_PREORDER);
-> +					if (copy_to_user(prog_attach_flags + i,
-> +							 &flags, sizeof(flags)))
-> +						return -EFAULT;
-> +				}
->  				if (++i == cnt)
->  					break;
->  			}
->
-> -			if (prog_attach_flags) {
-> -				flags = cgrp->bpf.flags[atype];
-> -
-> -				for (i = 0; i < cnt; i++)
-> -					if (copy_to_user(prog_attach_flags + i,
-> -							 &flags, sizeof(flags)))
-> -						return -EFAULT;
-> +			if (prog_attach_flags)
->  				prog_attach_flags += cnt;
-> -			}
->  		}
->
->  		prog_ids += cnt;
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-This changes BPF_PROG_QUERY to report a new flag value (BPF_F_PREORDER)
-that was never reported before. Could this cause compatibility issues
-with the stable backport?
+[ Upstream commit e3cd138e560764299965fba5ec5240281a7faca2 ]
 
-Before this patch, prog_attach_flags[i] could only contain
-BPF_F_ALLOW_OVERRIDE (0x1) and BPF_F_ALLOW_MULTI (0x2). After this patch,
-it can additionally carry BPF_F_PREORDER (0x40), producing new values 0x40
-and 0x42 where 0x00/0x02 appeared before.
+nf_ct_ext_find() might return NULL if ct extension is not found.
 
-Existing in-tree userspace does exact-match formatting on these values.
-tools/bpf/bpftool/cgroup.c, show_attached_bpf_progs(), before commit
-2af5b738880b2 (the third commit in this series):
+Add also the null checks to:
 
-    attach_flags = prog_attach_flags[iter] ?: p.attach_flags;
+- nfct_help()
+- nfct_help_data()
+- nfct_seqadj()
+- nfct_nat()
 
-    switch (attach_flags) {
-    case BPF_F_ALLOW_MULTI:
-            attach_flags_str = "multi";
-            break;
-    case BPF_F_ALLOW_OVERRIDE:
-            attach_flags_str = "override";
-            break;
-    case 0:
-            attach_flags_str = "";
-            break;
-    default:
-            snprintf(buf, sizeof(buf), "unknown(%x)", attach_flags);
-            attach_flags_str = buf;
-    }
+This is defensive, for safety reasons.
 
-The series' third commit documents the fallout: bpftool displays
-"unknown(40)" when BPF_F_PREORDER is present alone, or "unknown(42)" when
-combined with BPF_F_ALLOW_MULTI.
+nf_ct_ext_find() used to return NULL if the extension is stale for
+unconfirmed conntracks if the genid validation fails.
 
-Within this series that is resolved (bpftool is fixed in commit 3), but
-the tagging creates an asymmetry: this commit carries Fixes: 4b82b181a26c
-(v6.15) which drives stable selection, while neither the selftest nor the
-bpftool commit carries a Fixes: tag or stable Cc.
+Skip NULL check in nf_nat_inet_fn() given this is valid to be NULL
+for non-initialized ct nat extensions.
 
-A stable backport of this commit alone would land the new query output on
-a stable tree whose bpftool still has the exact-match switch, turning
-bpftool cgroup show output from "multi" into "unknown(42)" for pre-ordered
-attachments. The same skew applies to any distro bpftool older than
-commit 3.
+While at it, fetch ct helper area in nf_ct_expect_related_report() only
+once and pass it on to other ancilliary functions. Replace WARN_ON()
+by WARN_ON_ONCE() in nf_ct_unlink_expect_report().
 
-Should the Fixes: tag be dropped, or should the bpftool commit also carry
-the same Fixes: tag so the two are backported together?
-
-Also, the commit message does not state that BPF_PROG_QUERY starts
-returning a previously-unreported bit in prog_attach_flags[]. Could that
-compatibility fact be stated explicitly for reviewers?
-
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Stable-dep-of: 979c13114c0b ("netfilter: nf_conntrack_expect: store master_tuple in expectation")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ include/net/netfilter/nf_conntrack_helper.h |  2 ++
+ net/ipv4/netfilter/nf_nat_h323.c            | 12 +++++++++
+ net/ipv4/netfilter/nf_nat_pptp.c            | 14 +++++++---
+ net/netfilter/nf_conntrack_broadcast.c      |  3 +++
+ net/netfilter/nf_conntrack_expect.c         | 33 ++++++++++++-----------
+ net/netfilter/nf_conntrack_ftp.c            |  6 +++++
+ net/netfilter/nf_conntrack_h323_main.c      | 18 +++++++++++++
+ net/netfilter/nf_conntrack_pptp.c           |  9 +++++++
+ net/netfilter/nf_conntrack_proto_gre.c      | 10 +++++++
+ net/netfilter/nf_conntrack_sane.c           |  3 +++
+ net/netfilter/nf_conntrack_seqadj.c         | 17 ++++++++----
+ net/netfilter/nf_conntrack_sip.c            | 41 +++++++++++++++++++++++++++--
+ net/netfilter/nf_nat_sip.c                  | 12 +++++++++
+ net/netfilter/nfnetlink_cthelper.c          |  6 +++++
+ 14 files changed, 159 insertions(+), 27 deletions(-)
 
-Alexei Starovoitov raised a concern about the Fixes tag and target tree.
-Alexei noted that this is not a bug fix but a user-space API change, and
-existing bpftool will display "unknown(42)" for programs with
-BPF_F_PREORDER. The suggestion was to target bpf-next (not bpf) and drop
-the Fixes tag to prevent backporting to stable kernels.
+diff --git a/include/net/netfilter/nf_conntrack_helper.h b/include/net/netfilter/nf_conntrack_helper.h
+index 24cf3d2d9745..d3186624272e 100644
+--- a/include/net/netfilter/nf_conntrack_helper.h
++++ b/include/net/netfilter/nf_conntrack_helper.h
+@@ -132,6 +132,8 @@ static inline void *nfct_help_data(const struct nf_conn *ct)
+ 	struct nf_conn_help *help;
+ 
+ 	help = nf_ct_ext_find(ct, NF_CT_EXT_HELPER);
++	if (!help)
++		return NULL;
+ 
+ 	return (void *)help->data;
+ }
+diff --git a/net/ipv4/netfilter/nf_nat_h323.c b/net/ipv4/netfilter/nf_nat_h323.c
+index 10e1b0837731..183e8a3ff2ba 100644
+--- a/net/ipv4/netfilter/nf_nat_h323.c
++++ b/net/ipv4/netfilter/nf_nat_h323.c
+@@ -100,6 +100,9 @@ static int set_sig_addr(struct sk_buff *skb, struct nf_conn *ct,
+ 	__be16 port;
+ 	union nf_inet_addr addr;
+ 
++	if (!info)
++		return -1;
++
+ 	for (i = 0; i < count; i++) {
+ 		if (get_h225_addr(ct, *data, &taddr[i], &addr, &port)) {
+ 			if (addr.ip == ct->tuplehash[dir].tuple.src.u3.ip &&
+@@ -184,6 +187,9 @@ static int nat_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
+ 	int i;
+ 	u_int16_t nated_port;
+ 
++	if (!info)
++		return -1;
++
+ 	/* Set expectations for NAT */
+ 	rtp_exp->saved_proto.udp.port = rtp_exp->tuple.dst.u.udp.port;
+ 	rtp_exp->expectfn = nf_nat_follow_master;
+@@ -325,6 +331,9 @@ static int nat_h245(struct sk_buff *skb, struct nf_conn *ct,
+ 	int dir = CTINFO2DIR(ctinfo);
+ 	u_int16_t nated_port = ntohs(port);
+ 
++	if (!info)
++		return -1;
++
+ 	/* Set expectations for NAT */
+ 	exp->saved_proto.tcp.port = exp->tuple.dst.u.tcp.port;
+ 	exp->expectfn = nf_nat_follow_master;
+@@ -404,6 +413,9 @@ static int nat_q931(struct sk_buff *skb, struct nf_conn *ct,
+ 	u_int16_t nated_port = ntohs(port);
+ 	union nf_inet_addr addr;
+ 
++	if (!info)
++		return -1;
++
+ 	/* Set expectations for NAT */
+ 	exp->saved_proto.tcp.port = exp->tuple.dst.u.tcp.port;
+ 	exp->expectfn = ip_nat_q931_expect;
+diff --git a/net/ipv4/netfilter/nf_nat_pptp.c b/net/ipv4/netfilter/nf_nat_pptp.c
+index fab357cc8559..fed5249001a4 100644
+--- a/net/ipv4/netfilter/nf_nat_pptp.c
++++ b/net/ipv4/netfilter/nf_nat_pptp.c
+@@ -53,11 +53,13 @@ static void pptp_nat_expected(struct nf_conn *ct,
+ 	struct nf_conn_nat *nat;
+ 
+ 	nat = nf_ct_nat_ext_add(ct);
+-	if (WARN_ON_ONCE(!nat))
++	if (!nat)
+ 		return;
+ 
+ 	nat_pptp_info = &nat->help.nat_pptp_info;
+ 	ct_pptp_info = nfct_help_data(master);
++	if (!ct_pptp_info)
++		return;
+ 
+ 	/* And here goes the grand finale of corrosion... */
+ 	if (exp->dir == IP_CT_DIR_ORIGINAL) {
+@@ -132,11 +134,13 @@ pptp_outbound_pkt(struct sk_buff *skb,
+ 	__be16 new_callid;
+ 	unsigned int cid_off;
+ 
+-	if (WARN_ON_ONCE(!nat))
++	if (!nat)
+ 		return NF_DROP;
+ 
+ 	nat_pptp_info = &nat->help.nat_pptp_info;
+ 	ct_pptp_info = nfct_help_data(ct);
++	if (!ct_pptp_info)
++		return NF_DROP;
+ 
+ 	new_callid = ct_pptp_info->pns_call_id;
+ 
+@@ -204,11 +208,13 @@ pptp_exp_gre(struct nf_conntrack_expect *expect_orig,
+ 	struct nf_ct_pptp_master *ct_pptp_info;
+ 	struct nf_nat_pptp *nat_pptp_info;
+ 
+-	if (WARN_ON_ONCE(!nat))
++	if (!nat)
+ 		return;
+ 
+ 	nat_pptp_info = &nat->help.nat_pptp_info;
+ 	ct_pptp_info = nfct_help_data(ct);
++	if (!ct_pptp_info)
++		return;
+ 
+ 	/* save original PAC call ID in nat_info */
+ 	nat_pptp_info->pac_call_id = ct_pptp_info->pac_call_id;
+@@ -241,7 +247,7 @@ pptp_inbound_pkt(struct sk_buff *skb,
+ 	__be16 new_pcid;
+ 	unsigned int pcid_off;
+ 
+-	if (WARN_ON_ONCE(!nat))
++	if (!nat)
+ 		return NF_DROP;
+ 
+ 	nat_pptp_info = &nat->help.nat_pptp_info;
+diff --git a/net/netfilter/nf_conntrack_broadcast.c b/net/netfilter/nf_conntrack_broadcast.c
+index 93c501d9d399..c23f75649118 100644
+--- a/net/netfilter/nf_conntrack_broadcast.c
++++ b/net/netfilter/nf_conntrack_broadcast.c
+@@ -29,6 +29,9 @@ int nf_conntrack_broadcast_help(struct sk_buff *skb,
+ 	struct nf_conn_help *help = nfct_help(ct);
+ 	__be32 mask = 0;
+ 
++	if (!help)
++		goto out;
++
+ 	/* we're only interested in locally generated packets */
+ 	if (skb->sk == NULL || !net_eq(nf_ct_net(ct), sock_net(skb->sk)))
+ 		goto out;
+diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
+index a8929885485b..07b279f59aa6 100644
+--- a/net/netfilter/nf_conntrack_expect.c
++++ b/net/netfilter/nf_conntrack_expect.c
+@@ -52,8 +52,7 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ 	struct nf_conntrack_net *cnet;
+ 
+ 	lockdep_nfct_expect_lock_held();
+-	WARN_ON(!master_help);
+-	WARN_ON(timer_pending(&exp->timeout));
++	WARN_ON_ONCE(timer_pending(&exp->timeout));
+ 
+ 	hlist_del_rcu(&exp->hnode);
+ 
+@@ -61,7 +60,8 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ 	cnet->expect_count--;
+ 
+ 	hlist_del_rcu(&exp->lnode);
+-	master_help->expecting[exp->class]--;
++	if (master_help)
++		master_help->expecting[exp->class]--;
+ 
+ 	nf_ct_expect_event_report(IPEXP_DESTROY, exp, portid, report);
+ 	nf_ct_expect_put(exp);
+@@ -405,10 +405,10 @@ void nf_ct_expect_put(struct nf_conntrack_expect *exp)
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_expect_put);
+ 
+-static void nf_ct_expect_insert(struct nf_conntrack_expect *exp)
++static void nf_ct_expect_insert(struct nf_conntrack_expect *exp,
++				struct nf_conn_help *master_help)
+ {
+ 	struct nf_conntrack_net *cnet;
+-	struct nf_conn_help *master_help = nfct_help(exp->master);
+ 	struct nf_conntrack_helper *helper;
+ 	struct net *net = nf_ct_exp_net(exp);
+ 	unsigned int h = nf_ct_expect_dst_hash(net, &exp->tuple);
+@@ -436,10 +436,9 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp)
+ }
+ 
+ /* Race with expectations being used means we could have none to find; OK. */
+-static void evict_oldest_expect(struct nf_conn *master,
++static void evict_oldest_expect(struct nf_conn_help *master_help,
+ 				struct nf_conntrack_expect *new)
+ {
+-	struct nf_conn_help *master_help = nfct_help(master);
+ 	struct nf_conntrack_expect *exp, *last = NULL;
+ 
+ 	hlist_for_each_entry(exp, &master_help->expectations, lnode) {
+@@ -452,13 +451,12 @@ static void evict_oldest_expect(struct nf_conn *master,
+ }
+ 
+ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
++				       struct nf_conn_help *master_help,
+ 				       unsigned int flags)
+ {
+ 	const struct nf_conntrack_expect_policy *p;
+ 	struct nf_conntrack_expect *i;
+ 	struct nf_conntrack_net *cnet;
+-	struct nf_conn *master = expect->master;
+-	struct nf_conn_help *master_help = nfct_help(master);
+ 	struct nf_conntrack_helper *helper;
+ 	struct net *net = nf_ct_exp_net(expect);
+ 	struct hlist_node *next;
+@@ -467,10 +465,6 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ 
+ 	lockdep_nfct_expect_lock_held();
+ 
+-	if (!master_help) {
+-		ret = -ESHUTDOWN;
+-		goto out;
+-	}
+ 	h = nf_ct_expect_dst_hash(net, &expect->tuple);
+ 	hlist_for_each_entry_safe(i, next, &nf_ct_expect_hash[h], hnode) {
+ 		if (master_matches(i, expect, flags) &&
+@@ -493,7 +487,7 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ 		p = &helper->expect_policy[expect->class];
+ 		if (p->max_expected &&
+ 		    master_help->expecting[expect->class] >= p->max_expected) {
+-			evict_oldest_expect(master, expect);
++			evict_oldest_expect(master_help, expect);
+ 			if (master_help->expecting[expect->class]
+ 						>= p->max_expected) {
+ 				ret = -EMFILE;
+@@ -514,14 +508,21 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ int nf_ct_expect_related_report(struct nf_conntrack_expect *expect,
+ 				u32 portid, int report, unsigned int flags)
+ {
++	struct nf_conn_help *master_help;
+ 	int ret;
+ 
+ 	spin_lock_bh(&nf_conntrack_expect_lock);
+-	ret = __nf_ct_expect_check(expect, flags);
++	master_help = nfct_help(expect->master);
++	if (!master_help) {
++		ret = -ESHUTDOWN;
++		goto out;
++	}
++
++	ret = __nf_ct_expect_check(expect, master_help, flags);
+ 	if (ret < 0)
+ 		goto out;
+ 
+-	nf_ct_expect_insert(expect);
++	nf_ct_expect_insert(expect, master_help);
+ 
+ 	nf_ct_expect_event_report(IPEXP_NEW, expect, portid, report);
+ 	spin_unlock_bh(&nf_conntrack_expect_lock);
+diff --git a/net/netfilter/nf_conntrack_ftp.c b/net/netfilter/nf_conntrack_ftp.c
+index 617f744a2e3a..02ede9be47ca 100644
+--- a/net/netfilter/nf_conntrack_ftp.c
++++ b/net/netfilter/nf_conntrack_ftp.c
+@@ -387,6 +387,9 @@ static int help(struct sk_buff *skb,
+ 	int found = 0, ends_in_nl;
+ 	typeof(nf_nat_ftp_hook) nf_nat_ftp;
+ 
++	if (!ct_ftp_info)
++		return NF_DROP;
++
+ 	/* Until there's been traffic both ways, don't look in packets. */
+ 	if (ctinfo != IP_CT_ESTABLISHED &&
+ 	    ctinfo != IP_CT_ESTABLISHED_REPLY) {
+@@ -548,6 +551,9 @@ static int nf_ct_ftp_from_nlattr(struct nlattr *attr, struct nf_conn *ct)
+ {
+ 	struct nf_ct_ftp_master *ftp = nfct_help_data(ct);
+ 
++	if (!ftp)
++		return -ENOENT;
++
+ 	/* This conntrack has been injected from user-space, always pick up
+ 	 * sequence tracking. Otherwise, the first FTP command after the
+ 	 * failover breaks.
+diff --git a/net/netfilter/nf_conntrack_h323_main.c b/net/netfilter/nf_conntrack_h323_main.c
+index c42547284f35..2e8595f2adcd 100644
+--- a/net/netfilter/nf_conntrack_h323_main.c
++++ b/net/netfilter/nf_conntrack_h323_main.c
+@@ -75,6 +75,9 @@ static int get_tpkt_data(struct sk_buff *skb, unsigned int protoff,
+ 	int tpktlen;
+ 	int tpktoff;
+ 
++	if (!info)
++		return 0;
++
+ 	/* Get TCP header */
+ 	th = skb_header_pointer(skb, protoff, sizeof(_tcph), &_tcph);
+ 	if (th == NULL)
+@@ -1214,6 +1217,9 @@ static int expect_q931(struct sk_buff *skb, struct nf_conn *ct,
+ 	union nf_inet_addr addr;
+ 	struct nf_conntrack_expect *exp;
+ 
++	if (!info)
++		return -1;
++
+ 	/* Look for the first related address */
+ 	for (i = 0; i < count; i++) {
+ 		if (get_h225_addr(ct, *data, &taddr[i], &addr, &port) &&
+@@ -1327,6 +1333,9 @@ static int process_rrq(struct sk_buff *skb, struct nf_conn *ct,
+ 	const struct nfct_h323_nat_hooks *nathook;
+ 	int ret;
+ 
++	if (!info)
++		return -1;
++
+ 	pr_debug("nf_ct_ras: RRQ\n");
+ 
+ 	ret = expect_q931(skb, ct, ctinfo, protoff, data,
+@@ -1365,6 +1374,9 @@ static int process_rcf(struct sk_buff *skb, struct nf_conn *ct,
+ 	int ret;
+ 	struct nf_conntrack_expect *exp;
+ 
++	if (!info)
++		return -1;
++
+ 	pr_debug("nf_ct_ras: RCF\n");
+ 
+ 	nathook = rcu_dereference(nfct_h323_nat_hook);
+@@ -1415,6 +1427,9 @@ static int process_urq(struct sk_buff *skb, struct nf_conn *ct,
+ 	int dir = CTINFO2DIR(ctinfo);
+ 	int ret;
+ 
++	if (!info)
++		return -1;
++
+ 	pr_debug("nf_ct_ras: URQ\n");
+ 
+ 	nathook = rcu_dereference(nfct_h323_nat_hook);
+@@ -1449,6 +1464,9 @@ static int process_arq(struct sk_buff *skb, struct nf_conn *ct,
+ 	__be16 port;
+ 	union nf_inet_addr addr;
+ 
++	if (!info)
++		return 0;
++
+ 	pr_debug("nf_ct_ras: ARQ\n");
+ 
+ 	nathook = rcu_dereference(nfct_h323_nat_hook);
+diff --git a/net/netfilter/nf_conntrack_pptp.c b/net/netfilter/nf_conntrack_pptp.c
+index 759683d7de4f..6eb7f98c003e 100644
+--- a/net/netfilter/nf_conntrack_pptp.c
++++ b/net/netfilter/nf_conntrack_pptp.c
+@@ -202,6 +202,9 @@ pptp_inbound_pkt(struct sk_buff *skb, unsigned int protoff,
+ 	u_int16_t msg;
+ 	__be16 cid = 0, pcid = 0;
+ 
++	if (!info)
++		return NF_DROP;
++
+ 	msg = ntohs(ctlh->messageType);
+ 	pr_debug("inbound control message %s\n", pptp_msg_name(msg));
+ 
+@@ -329,6 +332,9 @@ pptp_outbound_pkt(struct sk_buff *skb, unsigned int protoff,
+ 	u_int16_t msg;
+ 	__be16 cid = 0, pcid = 0;
+ 
++	if (!info)
++		return NF_DROP;
++
+ 	msg = ntohs(ctlh->messageType);
+ 	pr_debug("outbound control message %s\n", pptp_msg_name(msg));
+ 
+@@ -447,6 +453,9 @@ conntrack_pptp_help(struct sk_buff *skb, unsigned int protoff,
+ 	int ret;
+ 	u_int16_t msg;
+ 
++	if (!info)
++		return NF_DROP;
++
+ #if IS_ENABLED(CONFIG_NF_NAT)
+ 	if (!nf_ct_is_confirmed(ct) && (ct->status & IPS_NAT_MASK)) {
+ 		struct nf_conn_nat *nat = nf_ct_ext_find(ct, NF_CT_EXT_NAT);
+diff --git a/net/netfilter/nf_conntrack_proto_gre.c b/net/netfilter/nf_conntrack_proto_gre.c
+index 79b63df84a10..22c27782674f 100644
+--- a/net/netfilter/nf_conntrack_proto_gre.c
++++ b/net/netfilter/nf_conntrack_proto_gre.c
+@@ -94,6 +94,10 @@ int nf_ct_gre_keymap_add(struct nf_conn *ct, enum ip_conntrack_dir dir,
+ 	struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
+ 	struct nf_ct_gre_keymap **kmp, *km;
+ 
++	if (!ct_pptp_info)
++		return false;
++
++
+ 	kmp = &ct_pptp_info->keymap[dir];
+ 	if (*kmp) {
+ 		/* check whether it's a retransmission */
+@@ -129,6 +133,9 @@ void nf_ct_gre_keymap_destroy(struct nf_conn *ct)
+ 	struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
+ 	enum ip_conntrack_dir dir;
+ 
++	if (!ct_pptp_info)
++		return;
++
+ 	pr_debug("entering for ct %p\n", ct);
+ 
+ 	spin_lock_bh(&keymap_lock);
+@@ -331,6 +338,9 @@ void gre_pptp_destroy_siblings(struct nf_conn *ct)
+ 	const struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
+ 	struct nf_conntrack_tuple t;
+ 
++	if (!ct_pptp_info)
++		return;
++
+ 	nf_ct_gre_keymap_destroy(ct);
+ 
+ 	/* try original (pns->pac) tuple */
+diff --git a/net/netfilter/nf_conntrack_sane.c b/net/netfilter/nf_conntrack_sane.c
+index 13dc421fc4f5..9cf4a22eca4a 100644
+--- a/net/netfilter/nf_conntrack_sane.c
++++ b/net/netfilter/nf_conntrack_sane.c
+@@ -74,6 +74,9 @@ static int help(struct sk_buff *skb,
+ 		struct sane_reply_net_start repl;
+ 	} buf;
+ 
++	if (!ct_sane_info)
++		return NF_DROP;
++
+ 	/* Until there's been traffic both ways, don't look in packets. */
+ 	if (ctinfo != IP_CT_ESTABLISHED &&
+ 	    ctinfo != IP_CT_ESTABLISHED_REPLY)
+diff --git a/net/netfilter/nf_conntrack_seqadj.c b/net/netfilter/nf_conntrack_seqadj.c
+index b7e99f34dfce..220216a4edc5 100644
+--- a/net/netfilter/nf_conntrack_seqadj.c
++++ b/net/netfilter/nf_conntrack_seqadj.c
+@@ -18,9 +18,12 @@ int nf_ct_seqadj_init(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
+ 		return 0;
+ 
+ 	spin_lock_bh(&ct->lock);
+-	set_bit(IPS_SEQ_ADJUST_BIT, &ct->status);
+-
+ 	seqadj = nfct_seqadj(ct);
++	if (!seqadj) {
++		spin_unlock_bh(&ct->lock);
++		return 0;
++	}
++	set_bit(IPS_SEQ_ADJUST_BIT, &ct->status);
+ 	this_way = &seqadj->seq[dir];
+ 	this_way->offset_before	 = off;
+ 	this_way->offset_after	 = off;
+@@ -39,10 +42,8 @@ int nf_ct_seqadj_set(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
+ 	if (off == 0)
+ 		return 0;
+ 
+-	if (unlikely(!seqadj)) {
+-		WARN_ONCE(1, "Missing nfct_seqadj_ext_add() setup call\n");
++	if (unlikely(!seqadj))
+ 		return 0;
+-	}
+ 
+ 	set_bit(IPS_SEQ_ADJUST_BIT, &ct->status);
+ 
+@@ -125,6 +126,9 @@ static unsigned int nf_ct_sack_adjust(struct sk_buff *skb,
+ 	struct nf_conn_seqadj *seqadj = nfct_seqadj(ct);
+ 	unsigned int dir, optoff, optend;
+ 
++	if (!seqadj)
++		return 0;
++
+ 	optoff = protoff + sizeof(struct tcphdr);
+ 	optend = protoff + tcph->doff * 4;
+ 
+@@ -175,6 +179,9 @@ int nf_ct_seq_adjust(struct sk_buff *skb,
+ 	struct nf_ct_seqadj *this_way, *other_way;
+ 	int res = 1;
+ 
++	if (!seqadj)
++		return 0;
++
+ 	this_way  = &seqadj->seq[dir];
+ 	other_way = &seqadj->seq[!dir];
+ 
+diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
+index 4f975b83c84f..366f6c062801 100644
+--- a/net/netfilter/nf_conntrack_sip.c
++++ b/net/netfilter/nf_conntrack_sip.c
+@@ -887,6 +887,9 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
+ 	struct hlist_node *next;
+ 	int found = 0;
+ 
++	if (!help)
++		return 0;
++
+ 	spin_lock_bh(&nf_conntrack_expect_lock);
+ 	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
+ 		if (exp->class != SIP_EXPECT_SIGNALLING ||
+@@ -910,6 +913,9 @@ static void flush_expectations(struct nf_conn *ct, bool media)
+ 	struct nf_conntrack_expect *exp;
+ 	struct hlist_node *next;
+ 
++	if (!help)
++		return;
++
+ 	spin_lock_bh(&nf_conntrack_expect_lock);
+ 	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
+ 		if ((exp->class != SIP_EXPECT_SIGNALLING) ^ media)
+@@ -940,6 +946,11 @@ static int set_expected_rtp_rtcp(struct sk_buff *skb, unsigned int protoff,
+ 	u_int16_t base_port;
+ 	__be16 rtp_port, rtcp_port;
+ 	const struct nf_nat_sip_hooks *hooks;
++	struct nf_conn_help *help;
++
++	help = nfct_help(ct);
++	if (!help)
++		return NF_DROP;
+ 
+ 	saddr = NULL;
+ 	if (sip_direct_media) {
+@@ -1005,7 +1016,7 @@ static int set_expected_rtp_rtcp(struct sk_buff *skb, unsigned int protoff,
+ 		exp = __nf_ct_expect_find(net, nf_ct_zone(ct), &tuple);
+ 
+ 		if (!exp || exp->master == ct ||
+-		    exp->helper != nfct_help(ct)->helper ||
++		    exp->helper != help->helper ||
+ 		    exp->class != class)
+ 			break;
+ #if IS_ENABLED(CONFIG_NF_NAT)
+@@ -1230,6 +1241,9 @@ static int process_invite_response(struct sk_buff *skb, unsigned int protoff,
+ 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
+ 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	if ((code >= 100 && code <= 199) ||
+ 	    (code >= 200 && code <= 299))
+ 		return process_sdp(skb, protoff, dataoff, dptr, datalen, cseq);
+@@ -1247,6 +1261,9 @@ static int process_update_response(struct sk_buff *skb, unsigned int protoff,
+ 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
+ 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	if ((code >= 100 && code <= 199) ||
+ 	    (code >= 200 && code <= 299))
+ 		return process_sdp(skb, protoff, dataoff, dptr, datalen, cseq);
+@@ -1264,6 +1281,9 @@ static int process_prack_response(struct sk_buff *skb, unsigned int protoff,
+ 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
+ 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	if ((code >= 100 && code <= 199) ||
+ 	    (code >= 200 && code <= 299))
+ 		return process_sdp(skb, protoff, dataoff, dptr, datalen, cseq);
+@@ -1282,6 +1302,9 @@ static int process_invite_request(struct sk_buff *skb, unsigned int protoff,
+ 	struct nf_ct_sip_master *ct_sip_info = nfct_help_data(ct);
+ 	unsigned int ret;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	flush_expectations(ct, true);
+ 	ret = process_sdp(skb, protoff, dataoff, dptr, datalen, cseq);
+ 	if (ret == NF_ACCEPT)
+@@ -1319,11 +1342,15 @@ static int process_register_request(struct sk_buff *skb, unsigned int protoff,
+ 	union nf_inet_addr *saddr, daddr;
+ 	const struct nf_nat_sip_hooks *hooks;
+ 	struct nf_conntrack_helper *helper;
++	struct nf_conn_help *help;
+ 	__be16 port;
+ 	u8 proto;
+ 	unsigned int expires = 0;
+ 	int ret;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	/* Expected connections can not register again. */
+ 	if (ct->status & IPS_EXPECTED)
+ 		return NF_ACCEPT;
+@@ -1369,7 +1396,11 @@ static int process_register_request(struct sk_buff *skb, unsigned int protoff,
+ 		goto store_cseq;
+ 	}
+ 
+-	helper = rcu_dereference(nfct_help(ct)->helper);
++	help = nfct_help(ct);
++	if (!help)
++		return NF_DROP;
++
++	helper = rcu_dereference(help->helper);
+ 	if (!helper)
+ 		return NF_DROP;
+ 
+@@ -1424,6 +1455,9 @@ static int process_register_response(struct sk_buff *skb, unsigned int protoff,
+ 	unsigned int expires = 0;
+ 	int in_contact = 0, ret;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	/* According to RFC 3261, "UAs MUST NOT send a new registration until
+ 	 * they have received a final response from the registrar for the
+ 	 * previous one or the previous REGISTER request has timed out".
+@@ -1553,6 +1587,9 @@ static int process_sip_request(struct sk_buff *skb, unsigned int protoff,
+ 	union nf_inet_addr addr;
+ 	__be16 port;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	/* Many Cisco IP phones use a high source port for SIP requests, but
+ 	 * listen for the response on port 5060.  If we are the local
+ 	 * router for one of these phones, save the port number from the
+diff --git a/net/netfilter/nf_nat_sip.c b/net/netfilter/nf_nat_sip.c
+index 6b00c81084fe..9c4f6a339395 100644
+--- a/net/netfilter/nf_nat_sip.c
++++ b/net/netfilter/nf_nat_sip.c
+@@ -106,6 +106,9 @@ static int map_addr(struct sk_buff *skb, unsigned int protoff,
+ 	union nf_inet_addr newaddr;
+ 	__be16 newport;
+ 
++	if (!ct_sip_info)
++		return 0;
++
+ 	if (nf_inet_addr_cmp(&ct->tuplehash[dir].tuple.src.u3, addr) &&
+ 	    ct->tuplehash[dir].tuple.src.u.udp.port == port) {
+ 		newaddr = ct->tuplehash[!dir].tuple.dst.u3;
+@@ -158,6 +161,9 @@ static unsigned int nf_nat_sip(struct sk_buff *skb, unsigned int protoff,
+ 	__be16 port;
+ 	int request, in_header;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	/* Basic rules: requests and responses. */
+ 	if (strncasecmp(*dptr, "SIP/2.0", strlen("SIP/2.0")) != 0) {
+ 		if (ct_sip_parse_request(ct, *dptr, *datalen,
+@@ -342,6 +348,9 @@ static void nf_nat_sip_expected(struct nf_conn *ct,
+ 	int range_set_for_snat = 0;
+ 	struct nf_nat_range2 range;
+ 
++	if (!help)
++		return;
++
+ 	/* This must be a fresh one. */
+ 	BUG_ON(ct->status & IPS_NAT_DONE_MASK);
+ 
+@@ -406,6 +415,9 @@ static unsigned int nf_nat_sip_expect(struct sk_buff *skb, unsigned int protoff,
+ 	char buffer[INET6_ADDRSTRLEN + sizeof("[]:nnnnn")];
+ 	unsigned int buflen;
+ 
++	if (!ct_sip_info)
++		return NF_DROP;
++
+ 	/* Connection will come from reply */
+ 	if (nf_inet_addr_cmp(&ct->tuplehash[dir].tuple.src.u3,
+ 			     &ct->tuplehash[!dir].tuple.dst.u3))
+diff --git a/net/netfilter/nfnetlink_cthelper.c b/net/netfilter/nfnetlink_cthelper.c
+index eee6dbebb2b1..2ee5910363ce 100644
+--- a/net/netfilter/nfnetlink_cthelper.c
++++ b/net/netfilter/nfnetlink_cthelper.c
+@@ -101,6 +101,9 @@ nfnl_cthelper_from_nlattr(struct nlattr *attr, struct nf_conn *ct)
+ 	struct nf_conn_help *help = nfct_help(ct);
+ 	const struct nf_conntrack_helper *helper;
+ 
++	if (!help)
++		return -EINVAL;
++
+ 	if (attr == NULL)
+ 		return -EINVAL;
+ 
+@@ -118,6 +121,9 @@ nfnl_cthelper_to_nlattr(struct sk_buff *skb, const struct nf_conn *ct)
+ 	const struct nf_conn_help *help = nfct_help(ct);
+ 	const struct nf_conntrack_helper *helper;
+ 
++	if (!help)
++		return 0;
++
+ 	helper = rcu_dereference(help->helper);
+ 	if (helper && helper->data_len &&
+ 	    nla_put(skb, CTA_HELP_INFO, helper->data_len, &help->data))
 
-Should this series target bpf-next instead of bpf, and should the Fixes
-tag be removed?
+-- 
+2.55.0
 
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35376083935
---===============0751353136014118925==--
