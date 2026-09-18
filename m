@@ -1,86 +1,91 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C14B7A35
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A02C40F726
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722700; cv=none; b=ipXq89gbIv1i2nj+fkfMZdzPUQ7KSmi1g7Kb+2ffknqmW6+fPn4lSuHsBwSwKNZu33m/01fI8OWanqEKkR731ZEPstBPW0xBpPHQZ+n0eoBFm8BKN7I3EwWJJYWOkNME+ClCuVyOBZRwOph8MNYxFP/DZ2AdFHnvhxr6LDYZO4Q=
+	t=1789722699; cv=none; b=QaMX/c+MiTRyYFtLBXx73ngx4P87/oTYuPxdaEYdYKmUeC3W/wMssbTgay2UG/a1SNdV7q6iEVkQDomrogqTXE4nY12DplI8fx3S07onlbsOu/dFMPEnYfeRL/F/GSXFWmPnS/Jm0SCVMOMrYAlvqHAZ8XaVv/Bd5457orQ2rN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722700; c=relaxed/simple;
-	bh=wAiKM2GbjVAaJOG3T4th+tKZWnW5DbfM/sH35qLt13k=;
+	s=arc-20240116; t=1789722699; c=relaxed/simple;
+	bh=GnQNNaO2NdAe4bfr6j79tdcCpkRyZDIf9oDO6K4Un58=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aUHAva5VvvUOZAeBMMhuDx8rer7HlAYJ5E8l+HuE3kiHReLJBa7gyS0u2fLJYSJSnw/TLhEasCsaoL5oWXLEf/Lvv9ZLCyn+WuAac4SPIFoevM/akmh5zDEc3y/v/ii+gD1lfgU/5MAlijblND3/wNTYAi6NgIdpbv1aTPXu3Wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VpCwDl9N; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=ZLCM2WkzSNoyPtoisDoiNprZFkTGEo+6ouT6Uiz6iIUN1ykYw71LQyFxFgDk4P2NDYPBzfJAHiJqzRB2lptVyl92Pzkg+KXHwUuCumE0n5GwbD6XvBLZT0v1IiD8SANU8Y22JeEOTxLZvyx1VJmQ32N94G9kRpo3HqWYy7cmLxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WSMkcGyL; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VpCwDl9N"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b93204449so167295e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WSMkcGyL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso2496805e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789722697; x=1790327497; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789722696; x=1790327496; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yZ/vqBSgFHqCJoAqatA3IE2jvlq836FlV9wvuCTBolI=;
-        b=VpCwDl9NwhnCzL6tzt1DQO31T0MUc+u9/zaQqGPJuRlPCux2GqE9b1hLgtTRh/HLI+
-         HlsPIUMSbVxc0Nf4MkFCVWY1hZWQfDu1soDTOGG3kvdn8/4TVNn49qRpMsNxKdrBd+UE
-         0qnqu1bfvqnLYyS+sA1PRpPaNyGfoI9VcDBhwe5WIh6k8a3Oijv3IHAHYIQtaIGRAFva
-         AaEy55vwoeCHWz47WWdwL697qNdtmf1WTnkdHBviQnqRHxzCCzbo7TXrYQsjzI/BlT6D
-         3Tlk7wmRheoqqEmqsiA0Hr9GCgEswNEmJA6d5Wjp/aS9Eag7kfxRTiIYcvweOd+xtPdy
-         9lYQ==
+        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
+        b=WSMkcGyLeThcjPB3yQKMfLgB5NXcufEm5GIyDXYbj1CFeGUzHHz3bgvzQNk0GylDjA
+         PYo1FlOUkTdD5dG/ms9avQEdlevkcRbj6VTpBy2bEuV7u7rcPq5kbl0aT1DoTosBfW13
+         2PamQ8/eN91LUJAKp5USHESSY4R7t1SbWVIvFkcNMmtJwN81fCZY9VBxqKKnp+CwnCj3
+         06P0OHPFHr2oxfaRW3itkjbndyUnujIuPPlm1PTzMl1bvg5ZFO3isyYwl05CEIse4kDf
+         psyRujXW5Q1LyL46x169UqAkQNlwJP/Kh8mRL94ddGcQtPOwMTvAv264EhIzvlbeu55d
+         secg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722697; x=1790327497;
+        d=1e100.net; s=20260707; t=1789722696; x=1790327496;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yZ/vqBSgFHqCJoAqatA3IE2jvlq836FlV9wvuCTBolI=;
-        b=Vl52rPwAE6ZYV2mayqnPwEFT5gHFJl95vwQ79hTmOrXWFhPRy3NrKp10vx/NKP5BuO
-         vD+PQQqJPE7RRx1nrP8Th2gNd6oc0DWI40gR04vC6LxOtHSYMJ6lZqMSopkiZdWLiVmQ
-         /TapBwlsl5W7Y9e+z98ghjZFg+WeNteFXAmzbASlIFAL+XP2Ek9dve6oVty6bgR7wftf
-         290kjQfz+nq0jJiGqHX1RbdoaFlY8HlCFz9bQ57ibvhq8dfzPv8cgiEGPLO6bl96eV2R
-         EQHX8fUpa+xmYteWCb8r2yTDpNHaUk6f/MjFNGsrSwU1KTRiS3rJzgU9O+jAfcRUxIwj
-         8XBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPpqacls2CuPoIs49OskoCGtPOUgXdaKcSSqRxlF4JpMwmdPgUvpLotK7SqmYDyG/iCJQkAprLyA0/yOM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfk+NN+Pg1Syhs9PNThTrCV+GInN5JcX0+HxH3ukKBOw4MpFWX
-	FW1ZWQv2SCtCGPxlXhh36e+hNpm8psAHbd30hZSyMhtQcsKbnicbwlzi
-X-Gm-Gg: AYBFou24cKdVzh+tauCcXvkimJrDDYA2p96HQSCU1ORFuC/HRX0EguWVYo96ti+nGe2
-	Czsc+89u05jOoKQRLxy0oChkiRolLy8X0vKFDuv3WksOAKKTx+PfDSggN2uoXyH8iwC2GbaHYgm
-	sq8bhqMqhaI1huuCECX/Dcz81pFfj+xbW8wowTfW3PmBDhS4jwTDU4gEvyHgiL41RpZAE3R3QdJ
-	uIrtprXiuDdFIbig8IZk/fETJcK+RoW89lMu6zXE9iYepSxHAKeBlouaTCNf64FRrvO+zXOJmLb
-	WaTGhI65mnwJ50K4C7L6STLn4vxMjuPRpeSfaqto5vgWYy+Eubi55Qri7RqF64GM48ZxToXFmSM
-	32i/l2PzgKmXMGf2fO+mNbc2+WK/aCck2rsoLdhLQ2LrjDZ2RC++aopju5kBRpIpAp0+WZyf0XH
-	zlMFlBV4lmzRtUw/2CcM/OyOiIHxJfOsEKLUOIjHK7k7pepgGksFxe7KJYGn3Ntf3Yhvk5vwd2c
-	k3HkIY7aqI+TFrK7Bi1Xw6EsZe2Jiet7QmZgX0k5pvznid3FvZYxWGB2GhmfIN+avRM0u3MZl8q
-	Dvjs
-X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fc7f2bdc8mr18281725e9.2.1789722696430;
-        Fri, 18 Sep 2026 02:11:36 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B829B006E521A2A508563A3.dsl.pool.telekom.hu. [2001:4c4e:1b82:9b00:6e52:1a2a:5085:63a3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7cfd1dasm37167425e9.9.2026.09.18.02.11.35
+        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
+        b=WhBic9H/yfEX0xOlTSQ0Om6fO0DmXwMo5dRz+/84YrRstaBlwr0FvBjB9TD6PF0z8t
+         AiFn0x8XjMZ7h0rZTA9gfoDteMmu7Qwj3z/2930sGhJ5yB+Vjdqv4yl40irsIBJZ1Mib
+         Ns3z3/QB+/355wwsQT3pFhtNA6ovlZOFeLtCaNA1TF5ShEr9fO3oJ4sDkPdVnkRKZ0Cj
+         yVDwEAa8b8qKoEqW6NSrdaFSD3QgJHYL6mj96Kp2jto0JgV2cKSo35QlVzLASodKq7SB
+         Rvt8NUjL5/NEq7kMBX+mUfGiyW77DitTaJB8uHylXVab5b/t3G/L/7gaFNnJKH3QkvXl
+         Mjxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvLnRvRb3RMehRimhgnvCTEhp4miarrzY5X9B8n9U6SVFyMiyOzvcZxvuCLBkijQoTaKEEpbaBN+vmwNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAEZ47xxKuq7hGbZHV35sKZKmTzpregcjVigFxah1Gu1g+CDBk
+	QWpEtGMJzOqmFJF3ea/xcE1MxxuNew8Gb4zR2hMTooNFlOGWlBLheIyt
+X-Gm-Gg: AYBFou1TlhlJ9zw6NYXM+0kNOp/6vCTDM+vnfN9OUwFVwFudLpBOqne9j+hj2oFXKvX
+	n6TEeO6SZc9yJ+KpB1ZvOxKCmSQ0gClUNqW94IwgZ/h+J9O4UtSu52CepL4hQ0zvIxRr9KdBbbw
+	7kNI4pSyZoQJ9yRKlWXhEZsRTSw8qC4hisTmunT0AP4eGHVCaBU8HO/WUxtseEOO9KABIIzN1sG
+	q4B37xK/aWj7nJb4rm1eOF1PxyTB1/eJa/5Pr9/aFhx9DmSsFuLJnfEUcIqvZXaiu6BqRVKntq+
+	zBNwWGu+kAfqJf0M9FZX0BldEe06cnHq+gDpTcRik4z4VjqhWzJMMrS6WnbbpWQ9y+pgLVwugJo
+	97dVqbj+z0B/bKJEoqcgonCb/9Dqac46OI38bSGdcA783xySgLXNm8+OWVTLBq3r7qAp2QGD8uR
+	TrRfRy6HUhfjnAwSCChhx+znEQ1MNJHzzS/DPW/UTKEvhgd0Gw6gJH4Uh5PpEyOlLMtLcJZb47b
+	O3jPZXTXeamdNm7wcckViBeaw==
+X-Received: by 2002:a05:600c:3550:b0:49e:7d74:7b7a with SMTP id 5b1f17b1804b1-49fc56db8f3mr21040695e9.6.1789722695703;
+        Fri, 18 Sep 2026 02:11:35 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm138774275e9.2.2026.09.18.02.11.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 18 Sep 2026 02:11:35 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: bpf@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	kernel@collabora.com
-Subject: Re: [PATCH 5/5] usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
-Date: Fri, 18 Sep 2026 11:10:32 +0200
-Message-ID: <20260918091032.15593-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
+	linux-mm@kvack.org,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	brauner@kernel.org,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	kpsingh@kernel.org,
+	ljs@kernel.org,
+	matt@bobrowski.net,
+	memxor@gmail.com,
+	song@kernel.org,
+	sun.jian.kdev@gmail.com,
+	utilityemal77@gmail.com,
+	viro@zeniv.linux.org.uk,
+	tasos.papagiannnis@gmail.com
+Subject: [PATCH bpf-next v8 5/5] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
+Date: Fri, 18 Sep 2026 12:10:58 +0300
+Message-ID: <20260918091058.297740-6-tasos.papagiannnis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
+References: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,34 +94,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sebastian,
+Add a sleepable BPF LSM program attached to bprm_check_security to test
+bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str().
 
-With this patch applied, the series fails to build when dwc3 is
-host-only and USB_GADGET is either disabled, or a module while the
-glue is built in. I built it on top of v7.3-rc1 for arm64 (allnoconfig
-plus a fragment, gcc 13.3) with USB=y, USB_DWC3=y, USB_DWC3_HOST=y,
-USB_DWC3_ROCKCHIP=y and USB_GADGET unset:
+Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
+contiguous NUL-separated argument and environment data. Then use
+bpf_copy_from_user_mm_str() to read each argument and environment string
+separately, advancing the offset by the length returned from each call.
 
-  aarch64-linux-gnu-ld: drivers/usb/dwc3/dwc3-rockchip.o: in function `dwc3_rockchip_set_role':
-  dwc3-rockchip.c:(.text+0x270): undefined reference to `usb_udc_vbus_handler'
+Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+---
+ .../bpf/prog_tests/copy_from_user_bprm.c      | 65 +++++++++++++++++
+ .../selftests/bpf/progs/copy_from_user_bprm.c | 69 +++++++++++++++++++
+ 2 files changed, 134 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+ create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
 
-With USB_DWC3=m and USB_DWC3_ROCKCHIP=m, modpost reports
-usb_udc_vbus_handler as undefined. With USB_GADGET=m and the glue
-built in, the link error is the same. With patches 1-4 only, all
-three configs build.
+diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+new file mode 100644
+index 000000000000..310370689427
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <errno.h>
++#include <sys/wait.h>
++#include <unistd.h>
++
++#include <test_progs.h>
++
++#include "copy_from_user_bprm.skel.h"
++
++void test_copy_from_user_bprm(void)
++{
++	char data[] = "first\0second-argument\0SOME_ENV=a\0OTHER_ENV=something";
++	char arg0[] = "first";
++	char arg1[] = "second-argument";
++	char env0[] = "SOME_ENV=a";
++	char env1[] = "OTHER_ENV=something";
++	struct copy_from_user_bprm *skel;
++	pid_t child;
++	int status;
++
++	skel = copy_from_user_bprm__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "open_and_load"))
++		return;
++
++	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
++		goto out;
++
++	child = fork();
++	if (!ASSERT_GE(child, 0, "fork"))
++		goto out;
++
++	if (!child) {
++		char *const argv[] = { arg0, arg1, NULL };
++		char *const envp[] = { env0, env1, NULL };
++
++		skel->bss->monitored_pid = getpid();
++		execvpe("true", argv, envp);
++		_exit(errno);
++	}
++
++	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
++		goto out;
++
++	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
++		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
++
++	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
++	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
++	ASSERT_EQ(skel->bss->data_len, sizeof(data), "data_len");
++	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
++	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
++	ASSERT_EQ(skel->bss->arg0_ret, sizeof(arg0), "arg0_ret");
++	ASSERT_EQ(skel->bss->arg1_ret, sizeof(arg1), "arg1_ret");
++	ASSERT_EQ(skel->bss->env0_ret, sizeof(env0), "env0_ret");
++	ASSERT_EQ(skel->bss->env1_ret, sizeof(env1), "env1_ret");
++	ASSERT_EQ(memcmp(skel->bss->data, data, sizeof(data)), 0, "data");
++	ASSERT_EQ(memcmp(skel->bss->arg0, arg0, sizeof(arg0)), 0, "arg0");
++	ASSERT_EQ(memcmp(skel->bss->arg1, arg1, sizeof(arg1)), 0, "arg1");
++	ASSERT_EQ(memcmp(skel->bss->env0, env0, sizeof(env0)), 0, "env0");
++	ASSERT_EQ(memcmp(skel->bss->env1, env1, sizeof(env1)), 0, "env1");
++
++out:
++	copy_from_user_bprm__destroy(skel);
++}
+diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+new file mode 100644
+index 000000000000..00ecba3ea567
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+@@ -0,0 +1,69 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include "vmlinux.h"
++
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++#include <errno.h>
++
++char _license[] SEC("license") = "GPL";
++
++int monitored_pid;
++int bprm_argc;
++int bprm_envc;
++int data_len;
++int invalid_flags_ret;
++int copy_ret;
++int arg0_ret;
++int arg1_ret;
++int env0_ret;
++int env1_ret;
++char data[64] = {};
++char arg0[32] = {};
++char arg1[32] = {};
++char env0[32] = {};
++char env1[32] = {};
++
++SEC("lsm.s/bprm_check_security")
++int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
++{
++	u32 pid = bpf_get_current_pid_tgid() >> 32;
++	struct mm_struct *mm;
++	u64 offset = 0;
++
++	if (pid != monitored_pid)
++		return 0;
++
++	mm = bprm->mm;
++	if (!mm)
++		return 0;
++
++	bprm_argc = bprm->argc;
++	bprm_envc = bprm->envc;
++
++	/* this is the total size of args and envs starting from bprm->p */
++	data_len = bprm->exec - bprm->p;
++
++	invalid_flags_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, ~0ULL);
++
++	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, 0);
++	if (copy_ret)
++		return 0;
++
++	/* arg0 is at bprm->p */
++	arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
++	offset += arg0_ret;
++
++	/* arg1 is at bprm->p + arg0_ret */
++	arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
++	offset += arg1_ret;
++
++	/* env0 is at bprm->p + arg0_ret + arg1_ret */
++	env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
++	offset += env0_ret;
++
++	/* env1 is at bprm->p + arg0_ret + arg1_ret + env0_ret */
++	env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
++
++	return -EPERM;
++}
+-- 
+2.55.0
 
-dwc3_rockchip_vbus_handler() checks dwc->gadget only at runtime, so
-the call to usb_udc_vbus_handler() is always compiled in. That
-function is only built with USB_GADGET (drivers/usb/gadget/udc/core.c)
-and has no stub in include/linux/usb/gadget.h, and USB_DWC3_ROCKCHIP
-does not depend on the gadget side.
-
-The same test run also shows that the two EXPORT_TRACEPOINT_SYMBOL_GPL
-lines in 4/5 fix the modpost error I reported on v14. With them
-dropped, dwc3=y/glue=m (the v14 case) and dwc3=m/glue=m, both with
-tracing, fail with the same four undefined tracepoint symbols.
-
-This was a build test only; I did not run anything on a board. An LLM
-assistant wrote the build script and helped draft this mail.
-
-Igor
