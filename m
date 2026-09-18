@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98BB25B0B6;
-	Fri, 18 Sep 2026 00:11:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9304924BBEB;
+	Fri, 18 Sep 2026 00:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789690275; cv=none; b=iAdVQvP1p4c+t1ljfQkNTd8Z0to0tyOW4tmYesqRQKW1UfkyRC3ZUHuQlo4MB9DIZd/+qDSqxQylkp2H7w/N8oWqk/id1lV1H6F0UXNrFQak/6yzLNvys3dPB1a5th62EXBMr3kHLSMzPDubu3oxeVQTGP9Fop8tNnLzV6LRtJo=
+	t=1789690280; cv=none; b=alH8GHrz/QSWbqGnIkJy6WDYYvhpaUwyNBemvbuZ7UwJefXQ/7SYwX1k/II/MpQ+XWTx/1Q85vtz6lV37W6lpd63ZRmJVJ4/T4RkEk13gVJ9BhZ9Qy6bjVjrfy/RKFPqHqS0Nev86hRHxd2MplKxSgRCNkMYjlntEJ4u6giyykw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789690275; c=relaxed/simple;
-	bh=v4alhD8JbNPOTZqEh3EYRowAzcAr2o6IQ6QQC/iISYw=;
+	s=arc-20240116; t=1789690280; c=relaxed/simple;
+	bh=KUd7GMM4bx7huwiUqN8UXHIQg4swWBcFU8kNP3qC7R0=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Of8G4T/f+l4Q5dx8Mh9/Epci/sU0dCnZPLl5l7CDBARCRmHzxbuaNGyc635wrkUswYUAU+9ibvw1nqhIGVe2+ldU+SR0qN9JkxO7T1Mq/7EjwLu/LSjgpCM59hQph8K+dCLyN+OawPN+BFA/BrMLWAtZ2+nsnhbz645jBqkiL0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+t0q79B; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Gr859UjT8MfYuqgSpUFLks52jupU5QuJO4YY1l/KVYCpnA0MPcnPV5fIU/PFJ1RYK5yr7k9C4mKNGqmH4rrr120Di5BiiKf8sYdo04j3yQLo8gzJl+xMmYvz7sKgNOfQNDA1/xgHS5dhQl8hEP2Kk1Us8+lvjCugScQZfAyhwuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddi1RNQb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+t0q79B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7124C1F00893;
-	Fri, 18 Sep 2026 00:11:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddi1RNQb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33ADE1F00898;
+	Fri, 18 Sep 2026 00:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789690273;
-	bh=aL3/urrrSHWm+dFAubRby0+Nofe6hzEHZq0YfSTyfXk=;
+	s=k20260515; t=1789690279;
+	bh=pVHCPTLLZxYwMNUFm4GzFWylUOsYbhB5GcBZowUNl78=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=i+t0q79BukwlW222H5njMlKLlteeyzrzj3gHumlSKC2LcCu2bm8q6u8UQnGc+8tB3
-	 V4733vbC7Esf7PrLUAh9hnVZARpy5c6HJ8nIAtCqRTA/Q1ET/O7TBZB3kHvU9YdBoy
-	 VChcW/JjZvcyabE+/J7DiNE2ufQOWuWlSsgu0IuPRy89XLqNRbQDkf4c1fv9UHtUO2
-	 BFHpXdSeUJQX+3xsySb0KfgpiSE8wyiWn53mpOvbOO1cQWLoa3ELP2vFzqgofn2vAS
-	 YtlHHpKevbAj7rj9RNuecL2p+BFyySgpEyobkTUgX54g06RuR1qrZDTNi7Rv7bQo8l
-	 +qWV8PKBjD5/Q==
+	b=ddi1RNQbB9VbSc4kLmX9KfFmmaH0218TKHN3xIc3ZqJpjlkCxUNqGurm0JWxis3U4
+	 vict35VvADDH25vdCgs2iff9g5Ogg5G81tZCCHU/rh7Lc/atPvTglK/nnURcOOR2Cu
+	 4U81drNaa2676hKd2/Ik6kUJbcwASbjOxGbHXktLTYm3KsTnVuQIOBhPhvLwdFaEyu
+	 Ag1vtpVwARPTbUcdUAiZ+TVIvQaS9B61kbO80mOKEbtI4N5uXVQuFV9HM8gxWnffIt
+	 4rbnlHb0ZYo903BDw46kz6YikJIKG0IWU+tV7vkuSulKQP/0ZmT2p4kY8/TRS7tDiB
+	 PhNeIjxxYPInA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19C1B380820D;
-	Fri, 18 Sep 2026 00:10:08 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A02380820D;
+	Fri, 18 Sep 2026 00:10:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,42 +37,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v5] net: pcs: rzn1-miic: Fix config array
- initialization
+Subject: Re: [PATCH net v3 0/2] net: phy: qca808x: fix the active-high LED
+ polarity mode
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178969020663.191233.11908163427391514070.git-patchwork-notify@kernel.org>
-Date: Fri, 18 Sep 2026 00:10:06 +0000
-References: 
- <20260915-rzn1-miic-fix-array-v5-1-b7173fd5b97d@reliablecontrols.com>
-In-Reply-To: 
- <20260915-rzn1-miic-fix-array-v5-1-b7173fd5b97d@reliablecontrols.com>
-To: Kyle Hendry <khendry@reliablecontrols.com>
-Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, geert+renesas@glider.be
+ <178969021237.191233.5401753089399778631.git-patchwork-notify@kernel.org>
+Date: Fri, 18 Sep 2026 00:10:12 +0000
+References: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, daniel@makrotopia.org, rosenp@gmail.com,
+ ansuelsmth@gmail.com, sashiko-bot@kernel.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 15 Sep 2026 10:39:20 -0700 you wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
+On Wed, 16 Sep 2026 07:31:36 +0900 you wrote:
+> A QCA8081 with an 'active-high' LED node does not work today, in two
+> separate ways, so this is now two patches: qca808x_led_polarity_set()
+> rejects the mode outright, and once it stops doing that
+> qca808x_config_init() still will not put the bit back after the reset
+> phy_init_hw() runs.
 > 
-> Fix memset parameters to initialize the entire DT value array
-> 
-> Fixes: f39e968dc168a7bd ("net: pcs: rzn1-miic: Move configuration data to SoC-specific struct")
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> Tested in QEMU against a synthetic MDIO bus that answers as a QCA8081 and
+> emulates MMD7 0x901a, with the reset clearing BIT(6) as f203c8c77c76
+> describes. One kernel, one harness, three arms, x86_64, 7.3.0-rc2+:
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v5] net: pcs: rzn1-miic: Fix config array initialization
-    https://git.kernel.org/netdev/net/c/daf677c2c644
+  - [net,v3,1/2] net: phy: qca808x: accept the active-high LED polarity mode
+    https://git.kernel.org/netdev/net-next/c/5117ce8c35d1
+  - [net,v3,2/2] net: phy: qca808x: keep an explicit active-high LED across the reset
+    https://git.kernel.org/netdev/net-next/c/f1b4766d67bb
 
 You are awesome, thank you!
 -- 
