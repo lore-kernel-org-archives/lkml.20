@@ -1,131 +1,97 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51BB3D75BE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EACE3CA4BB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700396; cv=none; b=Cm4Gx9Qh5Yu7WswVAEpLxNhm5hf1t0A/+B3F26QXV6PyZSGWa0aNZpnzGb6e8a1pG/oESVdZv5JgLFX6aWk/5UvbwK3Ndow7ieGpGzazDOI4tot2CxlFpBQL2XfND7vOjOHimQ7MeRzuptGR/7cAGv+BEGKv1hwT8aLHSeBsb2Q=
+	t=1789700443; cv=none; b=U9Y3MhKav1GFMH37p8gTEqkvYzIBiaFA9MYBo6eT8CnuiRckv7jLb1X20i5s2KME367TvUfTKC4SQZImsae//RC6ii4nv1XxQtNADo7d4Q4H9oR9waSUuYsaBwB+UgT1ZU1zAODGubcIfZkHZR+4c1nAIn1qxFiEClt5onMOFxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700396; c=relaxed/simple;
-	bh=IA0A2RgVsub/BbYG7H2jzk5weAVNHePmc5M43c0YUF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EJFiwRNPA5k2SavM7O6aATjviTVgUxxiY47hB4mCFkwoSRuh2dQmWmzD++JXEra94VVIUmXI+BZ9K1ofID68mK3SnpcmJQzRvcSu4BomLG5W9GYqC8wlbKtsJgpjuaqH3VKIxdK9QKrKgT4sdEbMrTDKlTlT5IEnMYLDMk2qq4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VZ4YAcoE; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789700443; c=relaxed/simple;
+	bh=GHQTKoIXhNNoU3fdktsqcQzosZ5PZu724WYv5roiu7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k8wDwXmNrXo5cDab53cNeOmV5GDzt1Xqw3ktiLoouvk11vlDx62sjNPUzWHChBYdnR4S+T11jMICpXPMqwimxJMs+Gvq9UvJAVoEdwselIC3vKaryOTjlbckOVRlwEyV7NSk8yZWPi449c6KVRKIRBAYSTsy6NHPBFdesiH19n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tmv5QcA2; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VZ4YAcoE"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so35165ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:59:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tmv5QcA2"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so208047a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:00:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789700389; x=1790305189; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789700438; x=1790305238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IA0A2RgVsub/BbYG7H2jzk5weAVNHePmc5M43c0YUF0=;
-        b=VZ4YAcoESXMR1y7IzOkXzB6P/7dzuq9f7uY9pGfvgr+8tO5CbQMFOpQObOTgtCSbeV
-         oe4sOlpyMbUbhCUJmDSLVUjCnDQXACNHrfrAxWa6CQ9HpPxiMORqNPlpIZsUPvzbZ59Z
-         R+x4mVCH27/enXK/7KKRWOBCiXIFFNgpexLto4hs8mxWIMstcSRxFsJwAqVYvYVeDHYZ
-         gk+TBeCUZ4g0ofbz71aXfqS/KfdW0PAzJJWrQXDuV3eXtMml0cXpXxlRvrlX8HkuFdzd
-         GHnXPCxrrgyHvfn8etux7OhtDTyUIrQ0kRUjBxnW7G0PQgfjyeYE8Z3uIP09xUCv3rf2
-         knlg==
+        bh=GHQTKoIXhNNoU3fdktsqcQzosZ5PZu724WYv5roiu7c=;
+        b=Tmv5QcA2fRRqTwkOvvS1wR+3kQN3Lcsmtfhg+hFrepPp5YdM5Xi6lLwRgwaM/TOqnJ
+         iy9yjHLyWL3oZ66Ac5hXMnG/URCAM++YDBs9rXEE3llrGArEiMbI9zc2DFUJa0+38ixZ
+         X5hVyT92SlKigDO9qo5STIo49GjepcdDE0Njtss5Vjs4tRPqHO7amAnUhIfLrEjwQ14w
+         3qjkJaRCMIAzjuwN54pvQBEBSmvmFz/C/BY4bW/jqXSnl8Drq+vl6oX2PWKdGT07vnA8
+         o4bcLuxxjmFtxe27xc4po2e6accp7AjsI56jJgx4ndagYr+ixmB1h96Bl8jh1SYeiQy8
+         n7Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789700389; x=1790305189;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789700438; x=1790305238;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IA0A2RgVsub/BbYG7H2jzk5weAVNHePmc5M43c0YUF0=;
-        b=j4UvK6OxpwX6Gf4t6ZQTIloCkZ1hchx2sw7zTtOUaZmOz7v/obMMWCaTwxLbvHa3Gs
-         pCU4Kl3mfp+dxE0a9pMTgfiVAWX1OlXepD53UUQrhC/zktk8bdn1sOXjbbPjHV6s88Yt
-         pIrJlvxcIumbhUxY1uqI8GdLRaHEA6oBU18dFzX6y88tYnZ/1jddbr/7c6CMtEiKxRA2
-         sOeOieps0gIDiN8dZA71/udg2QItfaXJcPSsiGQPlTECN+x4H7OBG+UWhymEJz4XBLVQ
-         xeA3KiR8V/KwcycBUct6aOKqqvtyoBlGhtb+1x0PNs3kRa2gLjM2ttK2VhNZCD1A8/zn
-         nrCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwt3Bv/FA6hppr6RcnKco7kkFKTddeMnNrCLxgIjEt9ShJ8H2uVROBI1Hs7CGga3tV62OkPn0/EHzlfjBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++liVGda7EB5ZBpZm+gSwG8ht/psl1nli1pdZlKi6sd3RP1DV9eQ
-	F6hZeJ4SKhUp2Fp4eAanIm0nO58w0J2yx8D7Sgz3Zii/0b79s6w/HiBEMrhaC293iQ==
-X-Gm-Gg: AYBFou2kidtHsutAZ71knx+LUcUjpKoQnMdvdNl5xy1ZqyHALvJOfNPoyMnxNomK94U
-	cy/ttiZmYqOvLKpYIwqg6RRbhsMoAZTnmu2cB/SlQ9lefHFfa5c+HHnCZIK6GNR1W0xDijEKVwH
-	6qtr1U9fcPmy1fMmEvwuTclM/KIb9zcjApPMpi3nIRRcLSfQkrNd4N8jfrwrUHUKH3soVMszrPn
-	3/pbT22RWag8wQ9oxKrUhRS6dZ9RqAvoT8StnPNygdpDphFPsfyuHN+M/5cIfbOnIUyEmL3wTVa
-	PB5DWFUPJbWwGJN6ASdFwMNebn+ugqKhTUvKa74sIA8T5tA+rK6RmzZgfV+Y6ENs3vRZleLHpZd
-	l9qWPbPY7Z7CKRAprKgUdT2SIPPAL/lsUdlkodRt7Jqxua8PCz6RtsqTQ42gdXmm+Vm/TtVuQJk
-	6TSvzLUeSPnR/PBGtK7wa/f16n3WRP2rFY7UjDKQTWYINqHBRVzPnyoFNv2+asnWn3/n/iSMpnZ
-	P/00x7RcCAvSQsFvPmomB8F5HR04pX7qxyQ2L9SPyXwwujZLaOEQhql8gShwlQOfYQKpQxbg+F5
-	+xgW
-X-Received: by 2002:a17:903:4b08:b0:2ca:6bf:5bac with SMTP id d9443c01a7336-2ddb13465cfmr4177465ad.8.1789700388427;
-        Thu, 17 Sep 2026 19:59:48 -0700 (PDT)
-Received: from google.com (210.87.127.34.bc.googleusercontent.com. [34.127.87.210])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55412d51sm555950a91.2.2026.09.17.19.59.47
+        bh=GHQTKoIXhNNoU3fdktsqcQzosZ5PZu724WYv5roiu7c=;
+        b=yYNaCLOyXqc8yWNEOt2wNVF+DdaxkmBsDq/u+vn7cDsGIxUCMcvr9WqyayFJS0C6qL
+         Jow8jF3sMBJlJPPuLWEnhL8PwmYuZW0EOAqFg4j7x9V3lique4K2bVZRPcquhks412Bu
+         zI0hx4o7XjFXlLQhI3S1rgQzJ8s7UOLbSL35WKgBLJvCY+qsYsSQe1pwZ0SvJQzVZrX9
+         MN+p3E3iRCJL57Ry7vK9WOnguk+/9GooTVKzrn5cCswgRCl+EeN3kRina1NaqgkU8aSh
+         Ex+2DtzcicTHrf1nidKc1ErqJBGNdFSfUckMux/jZO4aOJnw1YRFh1mNXOUUUBTmzkXU
+         4bnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxi2wjJ7c4mK7QWZ7IvKZ6iT9a/nN1LXkaUrhbsIG6z1iomxUBdXB/9mNk5QirRpM4EK6z6yaoogggAqdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCX2J5E3xF3665yObdwJj+5sVs2a1+yLouthfbk/h4jfEagQ/1
+	l+5XAyJmy3BcgmPcaPQdPViiaRi8xU2KX5tZvnTTZt5R8cbw3ChdICHP
+X-Gm-Gg: AYBFou34ovtfZGwDB2BVa1oKcxg1nnZnf/7iheEpADxGIJp7MhpQB9gv4M4ArfHUnDS
+	EA/+GC4UbAKKGm08Sgi+42uDFqbSQWxFzG8m+kr6LEhREYs8bskrlWbfZt35mRcpxPwRT9MLMgi
+	NpUZmPvmDSVAuVgGL8Xzz0UADKLw8g2HoqsGqapnqvwCeUujzD5f7uKKH6UB+wkJld44My2vFFs
+	j3AlkkFmxw0LYUldcq2Cgnp3GLF83hE19BpbBQwEZyw3ZEuoTws2U3Z0+Gc4a0s8QBBIXBPZYei
+	R8gm/14fBosO8sggXMW0z5gvtuizwvtX9UrYN9YW1NxdbXeL6SgpqM3yLGD2RGV73kaYCG8GhU/
+	kHgg8j28+vjgzMQy7cmupmgvhYnuzQCLK7/SqbNt3RMUCGDO61H0hK/2CI+lx5w2KWj/SmPkJTJ
+	W6CGHKvnYNqxULru7P7VFlu9nxmoMYfutyUzpLy1sYYR93XeAmu5u7iRLOfOx4vH7J
+X-Received: by 2002:a05:6a20:4386:b0:3da:f969:b077 with SMTP id adf61e73a8af0-3dd8c425bdbmr2587035637.11.1789700437925;
+        Thu, 17 Sep 2026 20:00:37 -0700 (PDT)
+Received: from dev ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c50cb2e6sm120905a12.24.2026.09.17.20.00.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 19:59:47 -0700 (PDT)
-Date: Fri, 18 Sep 2026 02:59:43 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Baolu Lu <baolu.lu@linux.intel.com>, 
-	David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v4 12/18] iommu/vt-d: Handle reattach of the restored
- domain
-Message-ID: <aqyW3RzBGQyZebsG@google.com>
-References: <20260808022723.3893618-1-skhawaja@google.com>
- <20260808022723.3893618-13-skhawaja@google.com>
- <5b920299-260b-4025-ac4f-e8f83beebf95@linux.intel.com>
- <apBso6So7UqwR3AX@google.com>
- <bb7052d7-51fa-42e0-9eb5-ba4743956688@linux.intel.com>
- <20260828143546.GC3769797@ziepe.ca>
- <apGpHv8vy4SWIEaV@google.com>
+        Thu, 17 Sep 2026 20:00:37 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: Yuya Kusakabe <yuya.kusakabe@gmail.com>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stefano.salsano@uniroma2.it
+Subject: Re: [PATCH net] seg6: keep room for the mac header when growing the headroom
+Date: Fri, 18 Sep 2026 12:00:26 +0900
+Message-ID: <20260918120026.1205447-1-yuya.kusakabe@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260917182826.452d987261004173916e9722@uniroma2.it>
+References: <20260917-seg6-maclen-headroom-v1-1-02ccec50f096@gmail.com> <fd0ffc06-f1c5-42d6-ae16-b592208c6d69@gmail.com> <20260917182826.452d987261004173916e9722@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <apGpHv8vy4SWIEaV@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 04:15:56PM +0000, Samiullah Khawaja wrote:
->On Fri, Aug 28, 2026 at 11:35:46AM -0300, Jason Gunthorpe wrote:
->>On Fri, Aug 28, 2026 at 09:55:18AM +0800, Baolu Lu wrote:
->>>That looks reasonable to me. I have no concerns about keeping ATS
->>>enabled on preserved devices across kexec reboot, as long as the
->>>software state is synchronized in the new kernel.
->>
->>The new kernel should issue an ATC flush when it changes away from the
->>inherented domain.
->
->Yes, I will make sure this happens when we do the retrieval side. It
->should mostly work well with the existing replace machinery.
->>
->>>By the way, is disabling ATS an option?
->>
->>No, many devices require ATS.
->
->Agreed on the ATS requirement. I had Nicolin's patch series for CXL
->devices in mind here.
+On Thu, 17 Sep 2026 18:28:26 +0200 Andrea Mayer <andrea.mayer@uniroma2.it> wrote:
+> I would fix dst_dev_overhead() itself rather than patching every
+> caller individually, that covers all callers at once and protects
+> any future user of the helper.
 
-Having implemented this now, I am thinking about this again with respect
-to the scope of this series. To limit the scope of this series I am
-going to refuse preservation of devices that have ATS enabled. Once the
-base preservation logic goes in, I can add a separate series on top of
-it to add that support.
+Agreed, I will send a v3 with it and a Suggested-by.
 
-The ATS adoption would need new helpers in the PCI core, handling of the
-ATS state in the context entries, and the disable-to-enable,
-enable-to-disable and STU mismatch for a live device. That is worth its
-own review rather than part of an already large series.
-
-This essentially means that preservation is supported if pci=noats is
-used, since by default ATS is enabled if the device supports it.
-
-Thanks,
-Sami
-
+v2 crossed with your mail and still patches the callers; please ignore
+it.
