@@ -1,146 +1,169 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52344308F07
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14AD308F07;
+	Fri, 18 Sep 2026 08:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719597; cv=none; b=ne6UIyoLTAnr3D9cAN6SVHwwmDcY9GbmIx/UJIWVihY68n2onl9z8jC1BaM9ZohgPZeB9XrDmRaNlq98yQOZa1v6Y0HjYRLO4spIUl4NEAmLY6ttrYZkFnGR0+cieVNR9Mg80rIRyDjNy5cF5+9aZX3f3zI0/LQFwFPkyvFFiyY=
+	t=1789719632; cv=none; b=VobZamXOmcndL1VslmNINep5txmKmcXTaA04qqyJamslGrWFv1q+WI1k5YLnXi7IlVpvdlerBUJt0p7oT1OlriF026BC3YV0y+RVbYADZudWt/7Kh6cby7mejbc3lrTgxg1TIe/5j1ehorP4gDYz5pgmVD24bd1nuBqGmJBkfMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719597; c=relaxed/simple;
-	bh=rdD5DFf0CswBRPuluX8/U0n+XrJZbh8ApTW4obbySCI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cTGCaExAZLv9a+8j9SwGS37kkXR4vnXJ00TNiZXMzuEgsKFqDSnZMHcDUbyVlgthe86bsbrRWDkSRftcZNz5oMbLUGdedZ/yRfFlljGX2VB0sdttmCfEqZoy1QBWJxUKm3+tLN8hlPDlkr80yOuwo2Bym4+EY7OxKamUmws4/8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pkQLqgMT; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789719632; c=relaxed/simple;
+	bh=JNIK7u6mInvCMxY6FaQiAgHvzKb1MvHSQiv5hjoikNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q+RNPXfJ1jReUBpxe1GNvC9J5t4DM1mNqd7Q7u6xsSolDZ9+dvsizNZTq1mC3uKdFEaGT5v52Xghq6o4k9KMj9U8VQFwbLVLuIoh1Av+aPUEZ3LyFu4UhYwU5SN1MDBy+ph8pJaUVSqrPXz8tuspFS6eopdvY4wc8eXOa3HXmhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MnzEimwo; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pkQLqgMT"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so223203a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:19:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789719595; x=1790324395; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
-        b=pkQLqgMTgtMMdaRM68lWFGcLo4fqAAmq/MNA2k8fcK12N3cPCZMN59/w/3hJWgptZr
-         jP/gjh2iUou0RKJgGnoICEne4qcuKgI3cE7k/2L/hguT+5xsiJh3YR0Z5VSw2jfHRJni
-         cfBJIbv4baTwrqYa1XxFV2nzwu8z42XOz2h68qXnlFcP5a+zs44xqEUfFiWqwUCOWemi
-         WrFqk5Qg+3jgLgK3OPZKQQXGhfb0HnXuv5be0ufNBZg0sCcC1TV/sMZlgQJtL+te8k+O
-         rIA1lcG2etjYCKAN+9brwdTh493ySUDAUP3dbhfSE3B2S2NXG8CnBfLkXyGJm+qPwBQW
-         NCeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789719595; x=1790324395;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jVdvgZ3mBIXnAi5+B7rUQd/+WHdfPalGGkadsUCWlhs=;
-        b=c6sTplI3yROGjMYL3t4IDmTILoJv+76cZTiLlSke/ON8jGRumlmAcvlLxhUp63aaK0
-         1xtvXo28OSdzeA7HXvlk9lVu597dslS1N+MXuWMh6o194MHT6wmScnjUTIDdjexIXLhn
-         3OmxQVLUo3USbVo3p5j1O779MVvUOhHv7eWBzqb2RYMUFj9GkUFNVUOU7OAM7wKVvFSL
-         6Xu9DogzdVj33Bn+beWtP/cBPgPPGMo/fFHLdXVB71m46MOrSL3T4yXPwTx5nizouo1x
-         M4jJrmNSmVWF+/ofmD9sAvMJAgb89zgadeE4+X5XG5RTVZOMvh4IiURvsIBrZapuDsU1
-         uWbw==
-X-Forwarded-Encrypted: i=1; AKwUvByfAyi/ehfan83Ugmvx/cMddtU1+0fn2YrJ6JaJDnP5QdSTQMVTDL45w6SdmIpNKbgnJhm5QORt1USRPCc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUFRQKXzEvjIfvJZV0ONc3qSW3YXFCCcf9sLduLYt1tcSlNWFT
-	2nF3FEuQKJTJ+KSSXp1plSh164JRiKl5AxkOZ3SlOF4G2kbbUpU7veeG
-X-Gm-Gg: AYBFou1qBuCiZ2wESzkDGnu6Ov07BAxPrfWMOlaQdcMNHJcm0XFU4bUbiFnnLGx+sE5
-	qRE3k94WLtA34Q5hwJ91SWavJPrLnDHhU/BoBNAggvxUCaRHqcPea+xn6LhpRXvGb7rm887bZB1
-	3XvJM7J1Q7d+QNSB6wE+9Qz5QUNstItIZ5AutgqpGybSjpkZI7G9TcgmGMlsXGU5n0tj5SNeUyY
-	wojq+/IS8pppM2uL4AJ7Vbk+tapukrBipY9B+Sa57tx6/lBbq+S7ysDM6yT5DxJu3RAtp4r9/TI
-	nXtlsyyryiykLQ/uHMAr2FTUdkNpWVh17nRl5gxny+PZcpJRf0X0fT0Qd8xCYTrt9WaS+TxBjT2
-	ptzXuUGWZH4CjBUGzhi+1ZNqj1+i8+x84P+6X62+bLMD11LDslDlUFfhDXjHQfIJAbIFJ719eYV
-	CtrfTdVTdJ/BoHf3HhPkTix3vKE+1XDDyZ8Mv4EVFWE7FAf7rtPiNiKQwnm7V50j8drT/p9/BYb
-	Z2XTYOtnw==
-X-Received: by 2002:a17:90b:2f50:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-39e54e3c71emr7234090a91.9.1789719595407;
-        Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce065314sm2947550c88.14.2026.09.18.01.19.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:19:55 -0700 (PDT)
-From: Priyanka Mani <priyankamani2100@gmail.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Robert Mader <robert.mader@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com,
-	Priyanka Mani <priyankamani2100@gmail.com>
-Subject: [PATCH] dma-buf/udmabuf: don't warn on oversized allocation requests
-Date: Fri, 18 Sep 2026 08:19:17 +0000
-Message-ID: <0a3814afb3419bb1106cf0ff1734a6b7a85f9335.1789707887.git.priyankamani2100@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MnzEimwo"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61q9u498803;
+	Fri, 18 Sep 2026 08:20:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:sender:subject:to; s=pp1;
+	 bh=9ebaq4jI8BxC90+bE9u0d7hONVv9ZncHpvrVPI4KBVw=; b=MnzEimwodcTv
+	GxqA3OD+pv07TmF2nN67QUy0aWGUtdtSK8CFSJFtf+zVWK/hyEgI1mUvg0jRD2gg
+	PorIbezpFlRZabIXnmbvZ6ikZuEwdgCIRj8IjDmO8PIyvJTG6RHJsjnTxoE1ujiR
+	d9xjWhihjvEgyQHzpWwYMmH7ggw+W13NTxKlr00sHaEeTj19wi0FexGloM/pKvTw
+	3HAPMS0ZZZa3GZNAjCZP2B4MPx9+VssKrHc1yIV4Cog/XVkLeKfUQneV/TuvtBDx
+	tmoJ6RuRJuUoOAnbpeQxujF7xaZDTxT2CcGxbnXIlGBTcBO5n90qkeFLgVThfWeY
+	UorEYIYdDw==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvechn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 08:20:29 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I652Zw246075;
+	Fri, 18 Sep 2026 08:20:28 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffef44-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 08:20:28 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8KOve46268778
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 08:20:24 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BCC5220043;
+	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A910F20040;
+	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
+Received: from p14sgen6-pf6akexs (unknown [9.224.70.27])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
+Received: from bblock by p14sgen6-pf6akexs with local (Exim 4.99.5)
+	(envelope-from <bblock@linux.ibm.com>)
+	id 1x7TpY-000000011ut-1noS;
+	Fri, 18 Sep 2026 10:20:24 +0200
+Date: Fri, 18 Sep 2026 10:20:24 +0200
+From: Benjamin Block <bblock@linux.ibm.com>
+To: Niklas Schnelle <schnelle@linux.ibm.com>
+Cc: Gerd Bayer <gbayer@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+        Farhan Ali <alifm@linux.ibm.com>, Julian Ruess <julianr@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ramesh Errabolu <ramesh@linux.ibm.com>,
+        Tobias Schumacher <ts@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>,
+        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] s390/pci: Fix leak of struct pci_dev reference in
+ zpci_report_status()
+Message-ID: <20260918082024.GA241998@p14sgen6-pf6akexs>
+References: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
+ <20260916-fix_zpci_report_status_pdev_leak-v3-1-61a2f980e71d@linux.ibm.com>
+ <20260918081749.GA39182@p14sgen6-pf6akexs.fritz.box>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918081749.GA39182@p14sgen6-pf6akexs.fritz.box>
+Sender: Benjamin Block <bblock@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEwOSBTYWx0ZWRfX+JRTk+8mHucR
+ +0TUJ/zIhzHKzWOmsdpDrbuwsTjexLRH33rZ9Uhugk0ymFwJAz3HdkygJAZ4aaksT9v7r5e3xbj
+ YRS+KvTW+PmVjQlv7gpjRt1HZxhErJU=
+X-Proofpoint-ORIG-GUID: Nr913FyeI6ekTHtiDhAfOZ2_ko73Z_Ws
+X-Proofpoint-GUID: Nr913FyeI6ekTHtiDhAfOZ2_ko73Z_Ws
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEwOSBTYWx0ZWRfXz7ocu++5y+k1
+ mc2mF8qtEVShht3edzLXM4Axt3C0m4rz8NHbr6+Fye80Z3eDjOJJKeh+vRtUkHaraTtcRkAqt3B
+ E23VX3j2cXqULD9JNAFDE2nLFe1PLiaDvfMoIiqvsywM/HVmEqnJo8vyzmwTc9OkJZOymghLT99
+ chgUUbsFxSHtHboLpy0UytTVtT1hSMHAFb86oXEcKnGmKCHBQgihQsMDEDSCypS3IOrBB0Jy8oi
+ IhS7J2crR5cDv/FHQ1t2PnCPhgQNuT+wD1cMhJJACIg9sGEN55wd0D7zr+buP8fIuUIrXUNd6Qv
+ M+3bpu6QdN0ldLBqg0cUS/+R458Uez7APAScElmxDX5a8u8ud6W27yjvGXY6WrrULf/+iWy88ju
+ wGUgf2WPWX7t8pVY2Kk/z0BCjI2LRzFuw43GCZgHSJeZRqh64QBs7HwEBx2tIp4sjuXrz3yi2Zp
+ U0SwTMs70Sy4GgCdGtw==
+X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aacf44d cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=StGZvYVBVS-s6NpHmy0A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180109
 
-udmabuf_create() derives the number of pages to allocate directly from
-the size supplied by userspace, bounded only by the size_limit_mb module
-parameter. Since commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size
-limit by default") that parameter defaults to INT_MAX, which puts the
-page count limit at roughly 5.5e11 pages, i.e. no limit in practice.
+On Fri, Sep 18, 2026 at 10:17:49AM +0200, Benjamin Block wrote:
+> On Wed, Sep 16, 2026 at 05:14:10PM +0200, Niklas Schnelle wrote:
+> > In zpci_report_status(), a reference to the pdev associated with the
+> > zdev being reported about is acquired using pci_get_slot(). This
+> > reference needs to be dropped with pci_dev_put(), but this call is
+> > missing, thus leaking the reference. On subsequent hot unplug, this will
+> > cause the struct pci_dev to not be released, leaking memory and
+> > preventing reattach.
+> > 
+> > At the same time, the only existing caller already holds a pdev
+> > reference. So instead of reacquiring and then dropping another reference,
+> > simply pass the existing pdev pointer to zpci_report_status(). This gets
+> > rid of the need for pci_get_slot() as well as the zdev->zbus check.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
+> > Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
+> > ---
+> >  arch/s390/pci/pci_event.c  |  2 +-
+> >  arch/s390/pci/pci_report.c | 11 +++++------
+> >  arch/s390/pci/pci_report.h |  4 +++-
+> >  3 files changed, 9 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/arch/s390/pci/pci_event.c b/arch/s390/pci/pci_event.c
+> > index f317a1465dad..3b4941b65840 100644
+> > --- a/arch/s390/pci/pci_event.c
+> > +++ b/arch/s390/pci/pci_event.c
+> > @@ -298,7 +298,7 @@ static pci_ers_result_t zpci_event_attempt_error_recovery(struct pci_dev *pdev,
+> >  	pci_uevent_ers(pdev, PCI_ERS_RESULT_RECOVERED);
+> >  out_unlock:
+> >  	device_unlock(&pdev->dev);
+> > -	zpci_report_status(zdev, "recovery", status_str);
+> > +	zpci_report_status(zdev, pdev, "recovery", status_str);
+> 
+> Hmm. Wasn't one of the previous fixes to move the lock below the status
+> report?
+> 
+> Why is that missing here again?
 
-init_udmabuf() then asks kvmalloc_objs() for pgcnt * sizeof(struct page *)
-bytes. __kvmalloc_node_noprof() refuses any request larger than INT_MAX
-and splats WARN_ON_ONCE(!(flags & __GFP_NOWARN)) on its way out, while
-kvmalloc_objs() defaults to a plain GFP_KERNEL.
+Ah, nevermind, it's in the next patch. Bit confusing. Anyway, since it doesn't
+make things worse, and it's fixed one patch later this should be fine.
 
-A single UDMABUF_CREATE against /dev/udmabuf with a sufficiently large
-size is therefore all it takes to trigger:
 
-  ------------[ cut here ]------------
-  WARNING: mm/slub.c:7022 at __kvmalloc_node_noprof+0x412/0x5a0
-  Call Trace:
-   udmabuf_create+0x11f/0x540
-   udmabuf_ioctl+0xf1/0x190
-   __x64_sys_ioctl+0x91/0xe0
-   do_syscall_64+0xdd/0x4a0
+Reviewed-by: Benjamin Block <bblock@linux.ibm.com>
 
-The size is entirely userspace-controlled and allocation failure is
-already handled by returning -ENOMEM to the caller, so this is not a
-condition the kernel needs to complain about. Pass __GFP_NOWARN and let
-the existing error path do its job.
-
-Note that capping the limit instead would change the error reported to
-userspace from -ENOMEM to -EINVAL and would reintroduce a fixed ceiling
-that the above commit deliberately removed, so __GFP_NOWARN seems the
-more faithful fix.
-
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Signed-off-by: Priyanka Mani <priyankamani2100@gmail.com>
----
- drivers/dma-buf/udmabuf.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd0046242..127369e502a3 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -190,11 +190,13 @@ static void unpin_all_folios(struct udmabuf *ubuf)
- 
- static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
- {
--	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
-+	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt,
-+				    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pages)
- 		return -ENOMEM;
- 
--	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
-+	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
-+					    GFP_KERNEL | __GFP_NOWARN);
- 	if (!ubuf->pinned_folios)
- 		return -ENOMEM;
- 
 -- 
-2.43.0
-
+Best Regards, Benjamin Block        /        Linux on IBM Z Kernel Development
+IBM Deutschland Research & Development GmbH    /   https://www.ibm.com/privacy
+Vors. Aufs.-R.: Wolfgang Wendt         /        Geschäftsführung: David Faller
+Sitz der Ges.: Ehningen     /     Registergericht: AmtsG Stuttgart, HRB 243294
