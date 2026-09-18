@@ -1,161 +1,89 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E7050C285
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AADD2EEE8A;
+	Fri, 18 Sep 2026 15:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746775; cv=none; b=SIaUgDSaalMAKR0a5e4eFdKsLcu7mh5Rt9YW2+6M9nc4TyBvoernju5FoxXt7mGbOlTghcRiu0PsDVuG/wpyVPDt1EoQWZMpVoEc2hCvgZoehbY3efxLrKVjLCnGay00PB3QrbZHJCMEbd9aucQjgHHPZseigHfJx+c8OcWtf4M=
+	t=1789746835; cv=none; b=DHSWBHU2lCublLHbjrpNT4TXoUTqfl7Qc1F+NPZXdxHEx+UqoSOPitAghU3qPWjbKUGX5g2dP93jj8i0xBSEmcM6Xxdf/YQOM3PQlM4ZldvXNxSLrL51K5MMRqI9Ygxe3iONFAOxD+9fm7QjkkKMf+7dvnLBCZ04SCMRdbgyl1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746775; c=relaxed/simple;
-	bh=bKoAKaYVqYSejGK91K7wvuWekpoWN56qy7KmibjB/TE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=CWTJriCGYV/NxTTjxlmVGt51/PI93Nnv16gFHBxxVbF8nOhSPyBGkpJsH+RTqy/tjhMXXMqrErJHZPKkeZaUIjLp/3Hn9QQfGX/En3tPb5MoOtc3Y58r9A/sYLB5LN4w/e4dwzltuvpCB8Yukh6fLoPrwKVbCPCdLuh9FFMOVA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R3DtHrnS; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789746835; c=relaxed/simple;
+	bh=Zz0HowFz1DRXJxqvbviPYdYtj5Lq4iMssj0Vb4eQCqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hTeUfzXJbnpRh3g9wpPpK8yQEu/6c0dUIu62puuaijCVb/tSzACWU6UFH4AykWuWdGrxRuEMk+pudyXIjFS3YktPI1SDn1+BWeTtqSEWrxlOM4Sffqpk9Gx/FKjG3PISSs5MAfZm05N/7+8hh3OBWyg+HdY4ygcb/nYcILmrvwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIEriSXV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R3DtHrnS"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cec4226c70so12006545ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:52:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789746774; x=1790351574; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ktxsxbM2vcYpa5w2sIzlpjNQbQQ80zGB82S0F5fT6e4=;
-        b=R3DtHrnSVPUwFzW4hn1W8jBQktThNpwpDX/uuyislhscBy35uIe+547e5hEtoNrf0f
-         gsXWegxTmMni3c9Ep/gQIc6S6nZOUidtfiUgM/QnPV9Vln/7zzqRejGvqhtPsPxH8R3i
-         t+F/KMcSj+xD5jJVSYl93x3RQxCAlPV4Qgrm951ZR1eza3oLlkbu8tjR0Zr5sJLYD3OG
-         nhmSBEPsotfm026r5Zz9L44Xo0RBnL9Zctvl2vH+c5zUujJ7jB0STBZMOMAXi2iFbiS5
-         GxJPll4AormR0vlRfN5Q2+i48pWrnOM+v8JrxXNZwV5EYk4uFSMDj4nhqJaaetBnMRFi
-         ucBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789746774; x=1790351574;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ktxsxbM2vcYpa5w2sIzlpjNQbQQ80zGB82S0F5fT6e4=;
-        b=GFMyQzuyM2Zzfaevp7xaOxrescWvG2ObT2f3uMH4yZPkbCzK2bsKLx9r3QsGZva1pp
-         meG/UdX5LEKqrPxeWzbBcwXevH+jlpmgHFxAkmlUwS6Tb2/ZYrnJZ+2NC4BZ2QCsclYT
-         MO8Z06Xq2jz5pLOYshce3HQ3sFog33qDEhoyUJygYNIiMM5vsUa5gt+T1MdZk97I0WRP
-         /NWdy4ntgyQjL+/3QThSSioW2moQXtyB4vM4ao8S8cmVF+XizIFOjg1qweZpOX/5QsYW
-         MAI/Aq04OubmwcMp/XB0NBIBNsYF9R2TY7nxMcrXG3PAuhJ2FoqosvCYICFLc+BnYQUI
-         mhTg==
-X-Forwarded-Encrypted: i=1; AKwUvByRk9mMwBa4BV3l7I69f9rv0fuKZxvOUL5l1ZseM4ShXFmGeQ70Uz6wBWn/xcSdrSk4uAW3rxMjLxI6DxM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEZE2QcvXll70pAkj0R1WyEQs12FQfcxHQcJ29I6kNptZ9DtfZ
-	sfLnrotejX81AhMdzaawsJUGGQdopXIv+cnoIASbj0U0zAVutWJ5le/kHv+qaYRy5v58crQBSv7
-	rs+2soA==
-X-Received: from plad17.prod.google.com ([2002:a17:902:e151:b0:2db:79ec:b693])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f609:b0:2dd:c0ff:e72f
- with SMTP id d9443c01a7336-2ddc0ffe9c2mr732965ad.65.1789746773557; Fri, 18
- Sep 2026 08:52:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 08:52:52 -0700
-In-Reply-To: <aqPdrVJjJFBmC1m1@tachyon.qsoe.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIEriSXV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5BA1F000FF;
+	Fri, 18 Sep 2026 15:53:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789746834;
+	bh=lbVpbtgdB6gGZcR4lzgAB3myFCTkj71uHlYAh1fjtFc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IIEriSXVzQQIbmH/FW5DBcrqsy76Yaczc0C0Ik4WHYjVQnzytaQllHxVnCbSmc/wf
+	 3ip1FhCfubcWvgEFGaFqhoSBjDlBrbvhIHU25A/1RM1nk2BmIm70/Hxw8/S+DydAV0
+	 3SGFaiA3XRt4FWTK9+c0V8lv5q/l4wftpnHooY14rs1ubyLM6hw2/hfF2VKKSwVh1e
+	 FhOV+8MyczBeZB8UNCkeyseDoJ5Ct12tMLHGuGVDnY5b3vFJgGhlAZihGM0UyCgXsG
+	 35aKDXN/yNndhmB4yIr2PssE15X1XCIQ3h0rbbmm3vNlaIAaUfJsNDydr5HXuEh6Xe
+	 SOp7bD+QGVffA==
+Date: Fri, 18 Sep 2026 16:53:52 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	sashiko-reviews@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>, hannes@cmpxchg.or, 
+	Borislav Petkov <bp@alien8.de>, Danilo Krummrich <dakr@kernel.org>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, x86@kernel.org, kas@kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Oscar Salvador <osalvador@suse.de>, "Rafael J. Wysocki" <rafael@kernel.org>, shakeel.butt@linux.dev, 
+	Johannes Weiner <hannes@cmpxchg.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Ard Biesheuvel <ardb@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Mike Rapoport <rppt@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Ingo Molnar <mingo@redhat.com>, linux-mm@kvack.org, kexec@lists.infradead.org, 
+	linux-cxl@vger.kernel.org, linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rmikey@meta.com, kernel-team@meta.com, driver-core@lists.linux.dev, 
+	riel@surriel.com
+Subject: Re: [PATCH v5 6/9] mm/memory-failure: efi: answer whether a range is
+ poisoned
+Message-ID: <aq1eWgGenthqMNd7@thinkstation>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-6-3bc7a57bd503@debian.org>
+ <20260915134535.C3FC91F00899@smtp.kernel.org>
+ <edafd246-0bd8-4335-9037-77f552968b56@kernel.org>
+ <aq1Xr4b7BXZForCe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <aqPdrVJjJFBmC1m1@tachyon.qsoe.net>
-Message-ID: <aq1eVEMxlmyHiuNi@google.com>
-Subject: Re: [PATCH] x86/acrn: Set the LAPIC timer period from CPUID leaf
- 0x40000010 EBX
-From: Sean Christopherson <seanjc@google.com>
-To: Yuri Zaporozhets <yuriz@vodafonemail.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Fei Li <fei1.li@intel.com>, acrn-dev@lists.projectacrn.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq1Xr4b7BXZForCe@gmail.com>
 
-On Fri, Sep 11, 2026, Yuri Zaporozhets wrote:
-> ACRN guests without a TSC-deadline timer currently always need the PIT:
-> apic_needs_pit() returns true because lapic_timer_period is never set,
-> even though the hypervisor knows the LAPIC bus frequency and could
-> provide it, in the same way it already provides the TSC frequency.
+On Fri, Sep 18, 2026 at 08:27:40AM -0700, Breno Leitao wrote:
+> On Wed, Sep 16, 2026 at 08:44:30AM +0200, David Hildenbrand (Arm) wrote:
+> > On 9/15/26 15:45, sashiko-bot@kernel.org wrote:
+> > >> The bitmap an earlier kernel filled in gets in this one through EFI,
+> > >> but nothing reads it back yet.
+> > >>
+> > >> Introduce range_contains_poisoned_memory(), which the page allocator
+> > >> will use to ask about a block before handing it out.
+> > >>
+> > >> Signed-off-by: Breno Leitao <leitao@debian.org>
+> > >
+> > > Sashiko has reviewed this patch and found no issues. It looks great!
+> > >
+> >
+> > David has reviewed this mail and it annoyed him.
 > 
-> The ACRN timing information leaf 0x40000010 only defines EAX (TSC
-> frequency in kHz); EBX, ECX and EDX are reserved and return zero.
-> Define EBX as the LAPIC bus frequency in kHz and use it to preset
-> lapic_timer_period, so that the kernel skips both the PIT and the LAPIC
-> timer calibration. This mirrors what Hyper-V (HV_X64_MSR_APIC_FREQUENCY)
-> and VMware (VMWARE_CMD_GETHZ) already do, and matches the register layout
-> VMware defines for its own timing information leaf, which also lives at
-> 0x40000010.
-> 
-> Hypervisors which do not implement this return zero in EBX, in which
-> case the current behaviour is kept.
+> Breno is curious what annoyed David here.
 
-If you actually have access to ACRN, can you weigh in on a very related rework
-of all the guest-side PV clock/timing stuff?  Thanks!
+Harry assumed David was annoyed by Sashiko replying with
+every 'LGTM' email :-)
 
-https://lore.kernel.org/all/20260806233609.212337-1-seanjc@google.com
-
-> Signed-off-by: Yuri Zaporozhets <yuriz@vodafonemail.de>
-> ---
->  arch/x86/include/asm/acrn.h | 10 ++++++++--
->  arch/x86/kernel/cpu/acrn.c  | 15 +++++++++++++++
->  2 files changed, 23 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/acrn.h b/arch/x86/include/asm/acrn.h
-> index fab11192c60a..5db1b6e17f7c 100644
-> --- a/arch/x86/include/asm/acrn.h
-> +++ b/arch/x86/include/asm/acrn.h
-> @@ -12,10 +12,11 @@
->  
->  /*
->   * Timing Information.
-> - * This leaf returns the current TSC frequency in kHz.
-> + * This leaf returns the current TSC and LAPIC bus frequencies in kHz.
->   *
->   * EAX: (Virtual) TSC frequency in kHz.
-> - * EBX, ECX, EDX: RESERVED (reserved fields are set to zero).
-> + * EBX: LAPIC bus frequency in kHz (0 if not provided by hypervisor).
-> + * ECX, EDX: RESERVED (reserved fields are set to zero).
->   */
->  #define ACRN_CPUID_TIMING_INFO		0x40000010
->  
-> @@ -35,6 +36,11 @@ static inline unsigned long acrn_get_tsc_khz(void)
->  	return cpuid_eax(ACRN_CPUID_TIMING_INFO);
->  }
->  
-> +static inline unsigned long acrn_get_lapic_khz(void)
-> +{
-> +	return cpuid_ebx(ACRN_CPUID_TIMING_INFO);
-
-Stating the somewhat obvious, this will conflict with:
-
-https://lore.kernel.org/all/20260806233609.212337-13-seanjc@google.com
-
-> +}
-> +
->  /*
->   * Hypercalls for ACRN
->   *
-> diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
-> index 2c5b51aad91a..23b6d895cccd 100644
-> --- a/arch/x86/kernel/cpu/acrn.c
-> +++ b/arch/x86/kernel/cpu/acrn.c
-> @@ -31,6 +31,21 @@ static void __init acrn_init_platform(void)
->  
->  	x86_platform.calibrate_tsc = acrn_get_tsc_khz;
->  	x86_platform.calibrate_cpu = acrn_get_tsc_khz;
-> +
-> +	/*
-> +	 * Set the LAPIC bus frequency if provided by the hypervisor (EBX of
-> +	 * leaf 0x40000010). Hypervisors which do not implement this return 0,
-> +	 * which has no effect. When set, apic_needs_pit() returns false and
-> +	 * the kernel skips PIT initialization entirely.
-> +	 */
-> +	if (boot_cpu_has(X86_FEATURE_APIC)) {
-> +		unsigned long lapic_khz = acrn_get_lapic_khz();
-> +
-> +		if (lapic_khz) {
-> +			lapic_timer_period = lapic_khz * (1000 / HZ);
-> +			pr_info("ACRN: LAPIC bus frequency: %lu kHz\n", lapic_khz);
-
-and this will conflict with:
-
-https://lore.kernel.org/all/20260806233609.212337-2-seanjc@google.com
+-- 
+Cheers,
+Harry / Hyeonggon
