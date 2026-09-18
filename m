@@ -1,74 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D7A51A75D;
-	Fri, 18 Sep 2026 16:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750617; cv=none; b=CGpxkORszjScT7jGS1uMolf+9pYOuKROqSkazSi+xVYaIpOECjEvux4kxB4aWRc/EcMboMIOdIOYpynNxe9ZOqV90ve4GJreYWw4bBW33bPaOlJoFXSZ2Y5L+e4I40/SLN8fGfy1mUo3/EbHOhd8f3Sc7u7trTaBiT2dFv+mlVE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750617; c=relaxed/simple;
-	bh=MbovEWrsKQOf3HbwdVxgqrUqtCvg9UF/wwVzhM9nbpM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Tl/x9XklXY3pVWYwvtPlRIlQmq6UFDByCL4fIIwxWlJQtePnZ7rVxraEMD27Ttm7lAuNM1dr6rGIFjqEsq4l1t4BO0C8MWmbAl6eATTtIMrIQm1zqpXZxXARKcRyCSnRAb9peWgTleq3ppUoGW0EcoDAy4ypsfB9WBCP2LSt2GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/51VNLT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B0351A13D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789750633; cv=fail; b=SqWgk8reD7ahQo4Ezha42qMxlGo/Qe7aYIKelcrd66n06AcJ9mL4sN+dTwQux8BgCv5WvoNbtnsBipV1AahGv204kg5Qp/nrBkLOAsd8BHGxNUII28NRenbEXjRJ0VEQXN48JwQ0Xs8k99YbEKjU2rCJ0Ee3APvpopnbbVJ+mQ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789750633; c=relaxed/simple;
+	bh=f92ifh8mXaN7zb3Z1iOqZTXQ9Do0Ovb9qCPXyH2evgc=;
+	h=Content-Type:Date:Message-Id:Subject:To:From:References:
+	 In-Reply-To:MIME-Version; b=mzJDyRNL9GO7yWU228AI2whnLnlSWZC1q3bxyaeTEi78DttrkpCs9i8h3HvFNjHaftGNXR0y/QUi3Q1s4wKhsURCyefQXiNcVXAv/j93GuLej+lFM33au13S398u5bLepLdkGcxNA2iNmPnCKpxX6qRcbVHlvqJU4acoVBlfGdg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=J4q06CEu; arc=fail smtp.client-ip=52.101.53.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/51VNLT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13DF81F0089D;
-	Fri, 18 Sep 2026 16:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789750615;
-	bh=Tkh8StBLrIR798qullxHP+gv6+qnLT+lMNbe5AiUb/4=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=B/51VNLT3GT/VPjS6AlDjXV0+FmDMLzzyMRWYKLASHBiw5deZDugCQhuMx8Z84T58
-	 YgW7UmdNY7rrpsae6IVk9uBIlSAU4ozUOW95bgn766HcRW/XUtwmUFWnA01o+6sQJU
-	 IWApHCWhD5X7XwRk95LMfgg1Lz1fwohTOI6DNebxUp/W4csj3Q7IzChS96bmo9WINk
-	 J4306L1ajWDsYdopYY6lvwBlTM8TEuDnYJ1d/esBmHIB3iNBmAiHCVzv98OIi1KvXX
-	 VUQkWhBPbukhyef9P5ZNYUSwSdOB3YC+WzWMxtNSYujqeOsxFCenFxAhhsIwgC7gQa
-	 zy3UrKeVP8nmQ==
-Message-ID: <bbfa8707-7362-44fb-bd8e-5f948be02e8f@kernel.org>
-Date: Fri, 18 Sep 2026 11:56:54 -0500
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="J4q06CEu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bw9+P6iNn/K6C/mHon7WKWw8Jc1tdN9ZkD8+te32rmfsNUszbgfJ2c6x03NEVCPgKluNV31xgzueKEyfVavYEoP47csrqH5s6iG3Vzr5ti7aBr9E0f9pUzFHK53eJfLX7jrIWyAfMjQnqVURfLGLNYFcTPZ8uwDdilhsvS5I88Lc5LGbIfmaTISKOsPvtahSC4IKOuB/uqvArzimB7gt6WLm5DzCVtX2LY+W1VSHBt0fdZ1Ey3iv/2nCdz4Rs4SI5iXTVy6sYjVE/hW92L4xFry7BveUpexEe6TI2PME0CgLSS+sL5+izQWc16207pUh8luCG+Atz+GxFhzYhuuAEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GtYQbNW/+kj4mH5TXU7lE8M/uEyCkXWcWPlPOBQXds0=;
+ b=vUBVquuqv1Kx0sfYySVI8GKx61BZ1Rx4WJLn+RzP48j00hzbHadlPXxzbJju5X16pyAf3qCsSnDx+flb0SjcdqU+NOvgl/t4hOkEwSo6lXMWi5QuDUNyZxMkMDOuFyxxS97xRBis0TKATarVViezKV/LG3jrFg2cGp7ike5kF44AjgYlGVHEMF2E4aTD0LXWq4AJFtVwCnI2YLKrr0qstAX7OVGncf6BZz7jNB/y+r+C8P8f7snMcgHEPiEi6W/P7cK3Ydp7S0jW0FcgEFzxJVGpCRB1AxWPAuroPSj/PrbxDLM72dMsRhC5rdO43WvIWDc+wcmr4AzVLQw8fnHU6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GtYQbNW/+kj4mH5TXU7lE8M/uEyCkXWcWPlPOBQXds0=;
+ b=J4q06CEuDX/UtzBtWq82QfCzD+7ngBlhelTD077lCqhNQJOiBtBGfMuJ1aRqG/+uc9vH+T7+TIzTI5JFUj9N7KkYw8BK7p+Auy33WTmbS4csAMefC66iUeR49XTPnGI4Aam3970IcRTY/eGjAeho2XmeQD+AHzClbsU8xoP6gdE+ifUdjvEvwm/FuNiaqGuWBQvUjjildTwiFVoleAnlBBv4LozrQfO88GYsFWNYEZnqo8DZ23oK96PXL4Oh41mmoqQJk2nftc/Bwq7m+OmQEwDIzjjU9RNSH+VVa13NA/7J5vtTKt9E/b8f39aa8JZlQ8l8kHskbEzoZgfoctbHtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB7617.namprd12.prod.outlook.com (2603:10b6:610:140::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 16:57:03 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 16:57:03 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 12:57:02 -0400
+Message-Id: <DLILN9GUNDMG.1BNRQJEWPQGF8@nvidia.com>
+Subject: Re: [PATCH 2/3] MAINTAINERS: move memory tiering under MEMORY
+ MANAGEMENT - NUMA PLACEMENT
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Matthew Brost" <matthew.brost@intel.com>,
+ "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Byungchul Park"
+ <byungchul@sk.com>, "Gregory Price" <gourry@gourry.net>, "Ying Huang"
+ <ying.huang@linux.alibaba.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Rakie Kim" <rakie.kim@sk.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
+ <20260918-maintainers-mempolicy-v1-2-9a94cac6d135@kernel.org>
+In-Reply-To: <20260918-maintainers-mempolicy-v1-2-9a94cac6d135@kernel.org>
+X-ClientProxiedBy: MN2PR08CA0010.namprd08.prod.outlook.com
+ (2603:10b6:208:239::15) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] clk: socfpga: convert clock managers to
- CLK_OF_DECLARE()
-Content-Language: en-US
-To: adrian.ho.yin.ng@altera.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1789096458.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <cover.1789096458.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB7617:EE_
+X-MS-Office365-Filtering-Correlation-Id: d37db73c-474a-4fdb-af8a-08df15a5dd20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10067099003|921020|4143699003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Phe5v4VLqp1W+dPjszkCQWuAVNgjtx5g/HSplkFKwPG1Z4YRwFyWKB+ERABdzB/pnU7o2AzoD1NTE8CocSIwmy33qNnK3nJ+sWEY+kHuBKVIZNrnfbxfZBr+Ao1K7xHuwba0GRfH9q+utMsB3720SoSUk21cwoqcYSF9dtEwkT3Cql8CwOZJqWZTLKeX8mTgqhrobluKVqoHvqjQV4496AmQWIfMMWTE7UpDuWwX4asgT1xvl7Duwd83oatdM4/fJESjp7aERFj7DmW67vHC65O32+VapIPol122aa5ROb6FnAO8XfaTvqxAeB5k4K+pPP/Z2yZwNcolsM/keDvs64CZEMgY4S9CjVZJ7GwIzEeLrIKUun1/+wPQzZeK0tISzXOB6Nf5BLOXhqtPTkJ3RBJG/X6GH0DfJroNBbKtQUJAsUkHniwt7EUreDC0blLp0zq8zOg/kzO+JBEMJdOgh6TPPzGBxvVSW4pVQLqmyoaM8NN4PkLmUGXeMn6SdaQhdUMJ9tsCpOlp5+AxUTDu4TdNYkihLyW8qnb0F0CCrOQwWq0QyMljzlRdl9l010cz9qvwGwpCbStNTAukzwgu8Usa0N+JmEVBK2S8+Atg6rOEMuXRGSpV4qmkQRhru6yMKCd9dCBV5pCK0ftUrrWvwtxnV39bFu2P5+Vn9OKAcGFbjSnpgNAlKxzkHvU7BMN4oBAoLw/CGr9JyB1ef3v/xw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10067099003)(921020)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OVVKNE9pQno4bUZtYUZDdFVnZVVIVisvNU5Fbk10TlZneUNNNjRFQmF5ZUd5?=
+ =?utf-8?B?VFl3OVpNUkpralRHdzlwVkFTNkV2Uk90QWlNcXdpYWt0SkZzWnFabkEveGEz?=
+ =?utf-8?B?UHFRZWNaUUhVbDI3QTFjbWNGeHVMTzNRQ1AzT2RLRzdUYXRQQ2ZwVzB1a2hQ?=
+ =?utf-8?B?UWhPeEp2UmFjZzVGclZ4L29JT0dYbjdWQytGQXV3cGx2cm9qOFJ4a2FHQk9q?=
+ =?utf-8?B?WWZBSlhQbFVFQ1locUN2Wi9mVW16OGtHVVhPTGZtTjQvRFFwa0hwWHdOOEJX?=
+ =?utf-8?B?VERGaDJuVEY3a3dXeWRneEY3eXk1OVludU9NMXhyTzlNWlhCRldJOTVKUUtI?=
+ =?utf-8?B?c1lzS3EvYWF0NXpDUG00bWpIUXRtUGZNS2ZrbmVNa1ZMd3V2K3hlRWRLZ0E4?=
+ =?utf-8?B?WWJOQUlJTlhzK1BPMndhWGNOb1krSWhENy9yZ2tNZk5YN3E3ODlJNzRBTWJq?=
+ =?utf-8?B?cGtZUWZWZ3BqTzY4bU9qOEpGRFc1bG5XTGg3QUdRQ0U1ZmMrMERmVlBmYUlt?=
+ =?utf-8?B?bVZYYTdOajhRNmhvVHhBcXppUTA3NWVITlZEMGZXaVA2ekxucVhyNkZNWVJB?=
+ =?utf-8?B?L2pkUlkzUmorU2FkaUlRQWcyWk1oeW8wblZTc0tuKzd0TzdheFQ5L3Z5bmx5?=
+ =?utf-8?B?RVJ6NVpzVktZQWN4RlNnSU4xdTlCQ01OME5mTE5DVTNJS0NBNUdRbkRtam9W?=
+ =?utf-8?B?S3hiTUo5UUpsK2lyUDMzdk14MVlRaFJNM3cxWTNSVmc1U2lBVWhWRGsvK245?=
+ =?utf-8?B?NWZTWWQ4MTJZRzljT3VnNExoeVZpYUFSMTNhd2d0K3krYXBwZXRFekM5TWxH?=
+ =?utf-8?B?UzdURXJLQk5PK1pVeWE4NW5rOWxaZFpBN0ZtVkhwdVcrZTU3eG51cnZIM1ho?=
+ =?utf-8?B?ZTJYTHB0cERiWGIvcmwrU1Jtc3BwTVNwVU1FbVpheWxjU3NBalFKTjhZV2hv?=
+ =?utf-8?B?SnhoUFdaZEgycFV1ejZqM1IyKzRhUHd6TjRRdktDWVFFWUlaSHArY3ladnBD?=
+ =?utf-8?B?cHo3bmVrMkVrZzE2dkFkRU5ucGpSK05teEtZL0xrajRFeGdsNnpYS0l4YTZh?=
+ =?utf-8?B?Y1lxdjc3MGlPck1LS0dsVW51T3pKRERqeFpsM0ZJM0RrM3ZOWEM0Vmw2ek1M?=
+ =?utf-8?B?TWdhcHBCQmN1a1pmQXZENHUwRjhtNi9FYlF0VWV2VDBvZnBHWmlMMndxUldP?=
+ =?utf-8?B?WlVxRjNlTkoxQWUyQnc0b1Y5UjVlQXdnT25HUURmeTl5Zi96OUpreUZ6bU1C?=
+ =?utf-8?B?eDRzekdmdHRRNVd0Mmd3YTRmaDllYmpBZEVsNVdhczRLODdMZGJpQkZmanZx?=
+ =?utf-8?B?eEpLai84V3Fta1A5RnU4andQNUxyUXNLUTdRMUhOU1dmR1V3RWRlbXJZMHVw?=
+ =?utf-8?B?elVHOFB4OXNZTnN5bnB2eHlGeTBmSVJiOUNhRzc1czJRcXBYNHR5RlBXK0Ft?=
+ =?utf-8?B?S0dldElWeFVGQTMvM01xOVpmdE1lUnQ3RWxtUzA0VFpEK0Q3djlUVFU2bTVT?=
+ =?utf-8?B?L0M5eVJzSGJ1ZXVpQ0hJUDVERjkveUtud3kwUlI2WEtaSGdOSDVzWHN5MXB5?=
+ =?utf-8?B?Y0FkTjgwSVNuV3RYcFh1V0VUTndCVTFEZm5ybEYrZFQ4QjNMT2dldmhHc2g5?=
+ =?utf-8?B?cWRSbk5KU2RlR0U2U2lwdEJrcjVLQXBlS29Wc3BJSEhHVmVTZmlnTzJ4d0l0?=
+ =?utf-8?B?Qi92UnhRMVFtVDREczV2ZjQxRW5nVGZrZFFaR0VhdEl4SXRKS1hHVytaMURF?=
+ =?utf-8?B?QmlET3ZwNTNjRWdOZ2FQZy9ldnMrK3lsMEt3dFZINXdrQzlZVjFHcno2aDBx?=
+ =?utf-8?B?TEZqVWJ6MlAwdGJuNUFCWXY3TEtWZmhqVjdhOTlScWVZa2ZqK3BndnltVHZW?=
+ =?utf-8?B?ZWN4VUNZN1ZpNWUvOVpTSVNSV2RiZVZJTzJ1MmRNSGJpNEw3YUczcTBxZVNx?=
+ =?utf-8?B?NmN2TC9tVGxudG0vNjRuRk1jQmg5NFNxT3M4dlRaVlcwS25ZYmsxV3puMlZF?=
+ =?utf-8?B?YkVxN3RQNnFndDU4SERzVEJzYkptaG8vZTdTc2RzQnQvYW1JdXlwQXdtKzQ0?=
+ =?utf-8?B?SzRBM1I5bkxneXREc29lQjZucDh4aWVRTDRaMk9WVVVPRTVCS1VTQ3BiRjNt?=
+ =?utf-8?B?Q1NMU1pmajBSbzBkU1U4THBpUm5WczRyd1lzZnhObyt2SEkzT3oraVEySWcv?=
+ =?utf-8?B?U1ZicFZQRG5Jbnd3MEk5WXZjRkErWWt2d3VENHVNVlN2MnJmL0NQcGFOazB5?=
+ =?utf-8?B?QWdyVGhsaTEzNU5XR2ZCbVJ3dzVmYmJQZEwza0UzRWpCTno1ejVOTnY3bk9n?=
+ =?utf-8?Q?JFQkCqiDNiBXqvPqYl?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d37db73c-474a-4fdb-af8a-08df15a5dd20
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:57:03.4590
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S5gc8DrFEe/hnWnHp2LtXMbuW97kKcqOAZpR9pNeEZsblL4YaKK83hIhkt4YhK7s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7617
 
+On Fri Sep 18, 2026 at 12:34 PM EDT, David Hildenbrand (Arm) wrote:
+> NUMA PLACEMENT is a better place for memory tiering.
+>
+> My best guess is that existing MISC reviewers are not that interested in
+> memory tiering, so don't carry any over.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  MAINTAINERS | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
 
+I agree.
 
-On 9/11/26 02:01, adrian.ho.yin.ng@altera.com wrote:
-> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> 
-> The SoCFPGA Stratix10, Agilex, and Agilex5 clock managers are currently
-> registered as platform drivers via core_initcall(). That is too late for
-> early OF clock consumers: TIMER_OF_DECLARE callbacks run from time_init()
-> before those drivers probe, and the DW APB timer cannot defer, so
-> clk_get() fails and the timer is never brought up.
-> 
-> As discussed on the list [1], convert these drivers to CLK_OF_DECLARE()
-> so the providers are registered from of_clk_init() and clocks are
-> available before platform devices probe.
-> 
-> This series applies the same conversion to Agilex (including eASIC N5X),
-> Agilex5, and Stratix10.
-> 
-> Boot-tested on Agilex7 (agilex7dksiagf014eb): dw_apb_timer registers as
-> clocksource early, with no clk_get() failures.
-> 
-Please provide these details in each of the commits.
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-Thanks,
-Dinh
+--=20
+Best Regards,
+Yan, Zi
+
