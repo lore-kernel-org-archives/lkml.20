@@ -1,96 +1,110 @@
-Received: from mail-ed2-f30.google.com (mail-ed2-f30.google.com [74.125.228.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE333537F7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942CC304BB3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719940; cv=none; b=GLX5z3ZZrkdHxwL260RuBVJtFoDvI7fDkweWC5MsEf3x+2M6KUT1NAdljh9HsjX7i62ZdVP0GiylVWbYVmPTwpGfSmUURf1qD02CYr2uxrIiCozaMqmmByrdNQPvKeNlFP8BHtV521xUJ9FQwSsgbobbHW5K6OzpLPAERzN0vbM=
+	t=1789719944; cv=none; b=iRvKSg39S5k0LcaekBRC0+zKlMriq0zaCZUSPX5jOYvQj5v/ncMuKT/NMaGPUhGj33/6wbDKRICHL95xxtikQlo0eILzy8KCfhM1dz+m9g+ESS1hG1MV271FUR3N5hBsrwwQKiMh1UTOqseiW478yJZNUa0UHViAEe013+jdtR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719940; c=relaxed/simple;
-	bh=ooDqp28BSX8C4SXyppIAKvDz7sucljsaMY9GFgwSBFQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YiHHGal78ET9IXNDNQUf1OqUYAODnnKem2xl/kyQVkwDlAM//LsVDKyPrAF9YIb1xG9fOmhraI1+Nmlxt7tPpo4eBVyYgZ6Xp9ftPq3znHcjPkWNmxcNOPhPhchSUzozFo4sjh0+77OJ5W5H1CF2q1gQi9KkEWmlgffMNZXY5EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gMRx/cPM; arc=none smtp.client-ip=74.125.228.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789719944; c=relaxed/simple;
+	bh=OVSd8RME9OuZsgnJlbNMCkSZ9p1Q9mtnasNnOqICh+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UiW4qfyxChWr7HbNrgr8KYqbskfk45l0Gm2R3Fo1cNGySSwjOXwhDQNuTNld0yb4LvUARN/JQ3KEqY5VLQcbzwaWfmuuumkC7Df0rD9oNd+RPw5SAXHGjwjO2IWI3pNtCJBte2ZKsmZqlW3jKkgdOxq9yvtAXc74AOUYeM3Ox2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=D1GNbUG/; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gMRx/cPM"
-Received: by mail-ed2-f30.google.com with SMTP id 4fb4d7f45d1cf-6aa06e51bc3so703581a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789719936; x=1790324736; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ooDqp28BSX8C4SXyppIAKvDz7sucljsaMY9GFgwSBFQ=;
-        b=gMRx/cPMWcl1E+8YCuBm61yN3C7YYrWH768CxqTtnwm65LOk6az/NYCaQ2HOGgXCo1
-         gOdwHdLqQvEQAGZqtevlKAUyXK5Nh/o+Zwt7a1le7A1H3HwIzlRUjO47vtu2nE0s77vk
-         RXNE0WfhYFFJNSODGyFsF9Scq8rk+gzVdvxQPebw03Yj9gch6hI0HY4HKz8mcvdX6yc2
-         Lq7EK0SEhOq+9OmdCXsydTp5wjlP1XFX43mIZM9s05AI53UEos9FbTa3K52m6PI+MlAc
-         7wrKsW5lj9ybIcf3vXwvT4YvFfjKXfc2osDz82URcUj/CXJeD1aQ9wf55Su9e/YChLHy
-         v12A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789719936; x=1790324736;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ooDqp28BSX8C4SXyppIAKvDz7sucljsaMY9GFgwSBFQ=;
-        b=ADBfWCIvYqYApS1TRDCcfdNvssNnzEf0SgFNa5DMFWhtVsNNDLbNOcEDGa4PHPt8yQ
-         Fi6CLJjy3Bx/yF2KYhFZya/0mNv4+r/CDGCLteYVge+7C8HIVcC54IuwIrt5PAhvH+W/
-         cGoO7kKuFyu8fnRnhJyZbwGPhVHB4FhdWV/K6cKDCP58y06njlM/aolcXvEHGa2+NUyM
-         MZ2oYCw7O98Fjj2nFCPbjIqqnyVhK9ghmGuI7cyr/rUKD+QWhefEoEYYQsOCXSq/ZpmI
-         ydwD9t4s/lWoNVAOz1lWcNffsn/RcwnAso/gVrr00jGe+q3Qsg7DZvTGOFiGflpWS3Wb
-         sHsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzWIL0miStSKePA3Ee1WyfH4r+n/TDlnUFynrlTulvtn9iXQJiLxSLT7SyVH0EoLcrqvwUeAiPUA04nELY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbEtP9jfRJ3DbsZfa7dUXDvSX7OEAy88u5KjYuvPjg+8xdC58b
-	bFfIgeOvaiZVegJmqfLnxYYitWOnGlRd2llQrk/cTMuXy1yBqNygD8gqhD/y2IbjzDI=
-X-Gm-Gg: AYBFou3kRFD7JKnDkfHHVi8qvJms9jnLbS4rHyAXyPi02naOBtpsfJ1YmFr0R9JtxQa
-	Bw7/JvvpP6eY+ihkeF5/RSPxtGYdCEGhbgGsbSI8VXg4ms1MZe4iWQ8i98ZRXFjEVGoQcBfsHGY
-	4osYDaf4jZPqTvk9iY7Y/6RF4vtXxstB4leJgjMQEmsptjmS72fkzylWF4ztgJn9p5OHmq6SUei
-	/KthSVEcSli8rH9m2G7+A1uF6r3uDcey2s+FbZW5mA9GV7OyQqdFLYW+BHyX5dodm62fKLjgCDE
-	AZAcXRG+VeOcOycWBFSFUb8bgo/QNqJOGpeW0fAYbWXSM2envxTo8jMGmZR4je+DEEv2F4RBijP
-	WDYnQRAV6pvM9gjh41K7zR8bSDNHCtRZdRS3lprYLWUHDpO5+Dt9AIHRmyKk8G6XZi360TGoPT4
-	3GUkZJPddeXV5KraDhY1nZoMPwpKOjDwmlefcskb3g7S9MkC3qMtVH6L0XFopx2JPWw5IUWCIvs
-	qk=
-X-Received: by 2002:a17:907:c318:b0:c29:5326:5a63 with SMTP id a640c23a62f3a-c2a159adca8mr151942066b.16.1789719936083;
-        Fri, 18 Sep 2026 01:25:36 -0700 (PDT)
-Received: from draszik.lan ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb0715esm31148966b.20.2026.09.18.01.25.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:25:35 -0700 (PDT)
-Message-ID: <45086d36bd16a3475f43be03f34b9d712ec8bff9.camel@linaro.org>
-Subject: Re: [PATCH v5] mfd: Fix typos in comments
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>, Lee Jones <lee@kernel.org>, 
- Support Opensource <support.opensource@diasemi.com>, Matti Vaittinen
- <mazziesaccount@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Botsz HUANG
- <huang.botsz@gmail.com>,  Nick Huang <sef1548@gmail.com>,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org
-Date: Fri, 18 Sep 2026 09:26:59 +0100
-In-Reply-To: <20260917054045.15805-1-hemanth.selam@gmail.com>
-References: <20260917054045.15805-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="D1GNbUG/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tPNb/aYvU+uuosEYZ4H97aC9kQi9HXuc+lrfHV96kgI=; b=D1GNbUG/t50gSF74u+1cjHW7uh
+	iQDfDyfSe0EtUEjOmKoEVy/63nPEaGJAz/66r+PyetubhthFGsb7a8OqJD4nAH2JQcHD8625jxm3o
+	E1VRjc8XFPvKmRs4Vj20UbOTgD+i0mc9iHYpu+ByuhqV67CppjWYj5vHt2uxYK3SqUpeJMVqTwK/G
+	+mUJJXM2HiC784wSOu1DOFsfJxNgd8ROw8NWUiYZwwb8VyLFPt19aLHPs2x2xKnuUdNmC+f0JN2uW
+	p5KvTOe6rfCFmaBI4rccm7ISB9n2Yq3Ft6Df8CiJu8M0b9zlrV7+7OxlSD9iCpyIcHBc58gvhITjR
+	Wfrqi22w==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x7TuU-0000000GXTH-0Vmc;
+	Fri, 18 Sep 2026 08:25:30 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A6CAC3006DD; Fri, 18 Sep 2026 10:25:29 +0200 (CEST)
+Date: Fri, 18 Sep 2026 10:25:29 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: John Stultz <jstultz@google.com>
+Cc: Suleiman Souhlal <suleiman@google.com>, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	zhidao su <soolaugust@gmail.com>, Qais Yousef <qyousef@google.com>,
+	ssouhlal@freebsd.org
+Subject: Re: [RFC PATCH 00/12] FUTEX_PING: A stealable futex using Proxy
+ Execution.
+Message-ID: <20260918082529.GJ1837346@noisy.programming.kicks-ass.net>
+References: <20260917043339.2093426-1-suleiman@google.com>
+ <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
+ <CANDhNCp0fufkpOSRQz15YQNDKkR=1-CC9QAsXujikz-DY05EoQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANDhNCp0fufkpOSRQz15YQNDKkR=1-CC9QAsXujikz-DY05EoQ@mail.gmail.com>
 
-On Thu, 2026-09-17 at 11:10 +0530, Hemanth Selam wrote:
-> Fix misspellings in comments across the MFD drivers and headers, found
-> with scripts/checkpatch.pl using the list in scripts/spelling.txt.
->=20
-> Only touches comments, no code changes.
->=20
-> Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
+On Thu, Sep 17, 2026 at 10:53:47AM -0700, John Stultz wrote:
 
-Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+> > Also, the goal is to eventually delete rt_mutex and have it be the
+> > normal mutex, in which case the existing FUTEX_*_PI things will
+> > automagically work.
+> 
+> Indeed, moving rt_mutexes to proxy is a goal.  Though the performance
+> concerns from FUTEX_*_PI have to do with the semantics it (and
+> rt_mutex) promises: strict RT prio order handoff - esentially FIFO for
+> SCHED_NORMAL.  Not so much the mechanism it uses for boosting.
+
+Yeah, mutex will probably need to grow a few feature when doing that.
+
+> That's why it seems a new FUTEX op is needed. Since we 1) need to
+> communicate the owner to the kernel 2) want different semantics for
+> lock-handoff and stealing.
+
+So I'm not convinced. One could argue the strict requirements are
+dependent on the scheduling class, not the lock type. It should be
+feasible to make stealing behaviour depend on the lock owner or waiter
+class for instance.
+
+> > So I'm thinking all of this is way premature.
+> 
+> So it is just an initial RFC, and we are looking for input.
+> 
+> But there is a strong appetite to solve this, as we're already seeing
+> vendors doing less ideal things, like passing who the waiter thinks
+> the owner is (racy) in via unused fields of FUTEX_WAIT, so that
+> out-of-tree custom scheduler boosting can (temporarily - as again it
+> can be wrong) try to get that owner to release the lock. The longer we
+> go without a usable upstream solution, the more entrenched these less
+> ideal solutions become.
+
+So this does sound a little like blackmail. If vendors want this, then
+vendors had better help out upstream. If vendors don't give a toss about
+upstream, then why should I give a flying fuck about them?
+
+It is then on Google to tell vendors to put up or shut up. Just tell em
+their hacks are no longer allowed once we have something upstream. Break
+their toys and tell em to kindly go cry in the corner.
+
+So no, we don't rush this.
