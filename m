@@ -1,56 +1,56 @@
 Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245EA4FDA70
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:33:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0383C50278F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:33:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745608; cv=none; b=OTRU18jeHFMVYts9HuYb9ik5WJq6Bi+4kVyfv4zc0SGDz7gJowCTDhZ4VR0nPmasQfTWrTfdBd6lwngB+m1U+TvMT582HRUweFvs/MH9fcQsu35J+t4TLs7jYU2kL+v4W6tE9XRzqpOeD1QLm4WXLhSTccU5nrh1/qPsq5qtxiY=
+	t=1789745609; cv=none; b=lfFW4s51sfJSOYL+wOFMz9RHMJWH3xA5AcuCJGQhcun6jrVZ2lML11N1NNFkwxwHQ+0Sx7aMdFuLyOzZ5HGE4Jt/ZDq+gEXW8SvtN86fUvJ96gvt6/JPjWH4I8q/3HCTufSQygmFh/cf5A6yr1zyFuS5AzVmfq+Xv/dB8vGW1wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745608; c=relaxed/simple;
-	bh=ZATjr9vGIRP9OJ8ChECjJEnnBK9wQJMcxZJyHJQjVtM=;
+	s=arc-20240116; t=1789745609; c=relaxed/simple;
+	bh=rN+E4/FWjcs5I7cZl7CmbMADuFHOc37MDHiG5PLssiM=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IVyS3YZy8theyPVZgLRmgnfA3fCVgl25thGEU/I3k1hTUPSjYWrMqnpKV79DS57/r2sw0E4Jiq0QiObfOEVweRkl6crRvvyHrGcbnnUV5bsVr/7LB3yODBeKzAJSFJCVgsiTqCjKD+ZxtvOuL5kEBTiaLwRRKtcPHeBOhYHJ4dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Jbi4SaKD; arc=none smtp.client-ip=209.85.216.70
+	 To:Cc:Content-Type; b=t0KC9QLzv6OUW1UF6+kChVOe7H22nSWw9tU7viJ8RZ0IhMdmNw8nuwTWxLH3+7BZOD2y2wuZHwUAvKrjfCqS4P3mvGaF9qFm/bjVeyVe+OlXl83zg/G/1jSOJG+rvi9RcpAon/stGcU+ETMoQDE6a9i7IoKR/1/9cIrOW34z4Rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Se+S8G68; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Jbi4SaKD"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so1322971a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:33:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Se+S8G68"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39de1f85cb2so1218856a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:33:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789745605; x=1790350405; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789745607; x=1790350407; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CWMWdX0M04Ux74D6qkwQk3CE9vSTuvtr+k+ENnhVHRs=;
-        b=Jbi4SaKDJnoj7+oL7aOgG5N7stSClc24YawhC3gJLGTjWM2cLx7WK0l4NO0tzrp9+b
-         CxQ+T8bwKlcddit8pqgyt9UiyZBSINpPK4GJkxhpiJSF9huJZ6mmu9UKU0EREwryTa5Z
-         wlXxJQYd2vrEB/Zb+JOwXze15MqgK8oo8jpqwJmESx5pVamg5lkz97FMEmjFbCn0FDpF
-         lAaxBbh2NXGQGLNrXxcNawzS/hdwBdAnAThMkVusIc1/TtRXkXTIYKyRWKYScoZspdqN
-         x0YgmboI+abv1+u/rrGw6xNSPDom0I5Zq7yDz6TQycKYCryUz1aRIAx7n3dSaI4nq7Va
-         iQEg==
+        bh=31y1T2wCgzpuS+JdcRd/GVSVXNd4Xu5+lzNmsg6bK28=;
+        b=Se+S8G68oVIA79n1uHICdL1hSRiKVACNImzOu2avfAXMGEWLYy5J0+43diH9su/S+K
+         6pIM4z2iRrzTo2/DjHvc+9eEymTIw4vITyNPK94Xe1hx1epA81CsBu2M1n24+cuRA3Xf
+         /5YAvr/rlj3+ntEgbn5RXkJ6gezl7T2JnvKO37oTb3+tus0pSyvagAAAlSftPUn7adAE
+         qo58fXFAcPx78aefdisUCLFYtZTy/Sg6gUMt7Ma3bbHVrtlJeZeT16jCjhv63ST/wf2G
+         KcoT8JlLhk1X4OIhaUYnvLsUqYPgimxOWFwCk4V1nTieRqZ7leVeRLMun+nd4baMlqRo
+         lYnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745605; x=1790350405;
+        d=1e100.net; s=20260707; t=1789745607; x=1790350407;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CWMWdX0M04Ux74D6qkwQk3CE9vSTuvtr+k+ENnhVHRs=;
-        b=O2NVSHoRS76Cj5WH54pELOxBL2YGomAQnUTD+vhsduiqPB+IrMD2QC/BXltOuV/z1m
-         alvyefoYbePZPvxGgwziEWJVWQVPfJrvR+WcmBMa3TaVBkM8rne2wM8tcZqfrJCAurGX
-         fv1HA2gzMpKmPTQJUiJD3hZJ+aO4WxaViP+QWYG+YB8qBWfLzMuUy9YfdS+m30YT0uGR
-         qFnAUM9ED48sJ8ePgiHxzAyGb089iHK/JCdHOaq1C5pVfuCVIC8dldkiO0gL9z5XwbI8
-         afw4JNLbN21jEJFmT/NfNVk0HT14FOy9sMpWD6XT9HXPNyWA8hx2chZixrbLqJdcdmFt
-         fD+w==
-X-Forwarded-Encrypted: i=1; AKwUvByfJgbbAYovuhjP5kvCI800ov1ElpK4cnmGH9WlJWnPhoj0CSdON6DtnSglrwp/nNHrPtB/iGUclKot2o0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHx5Om7ll+J/KrvHiLKGwN1Ejgbsk9I1tzOQYPWJHN/9dG2Hu9
-	eoZHgV6rYqa6a/NcGW/Yin9VzaNcqcpb7D19cr5H8b1LLi+gGlLZwdAzLJxOZdQJUvNuN7zDZ6D
-	n6CSDjg==
-X-Received: from dlev11.prod.google.com ([2002:a05:701b:464b:b0:143:966c:32eb])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1d47:b0:39e:6a81:5a91
- with SMTP id 98e67ed59e1d1-39e6a815e2cmr504732a91.37.1789745605293; Fri, 18
- Sep 2026 08:33:25 -0700 (PDT)
-Date: Fri, 18 Sep 2026 08:33:13 -0700
+        bh=31y1T2wCgzpuS+JdcRd/GVSVXNd4Xu5+lzNmsg6bK28=;
+        b=vdI00lpKb79VEnLuPsvRDCL8NAwa+OIzDW96N88rDnCjPdLoq97Iq4vU1sOJmnSVfW
+         wWLs6i8HZUisuc/5RRjPHb839Yd44hwuz0erUmEE2KOL4D9tFbsnpD8GR1QsBN9KBWRo
+         7kZhn1qXlMt1BixuumNXBxZkzyzPs9zCrksSXsoXZoiRtXuDnkCRPIz7G7Tkv8RjqBqQ
+         MrUpJmthxn0AmU3Ht9RYuvO01npGj5jHr5fSpHBYuDuOJ1UY4kdfs3JTrIZ2GsVXyKM8
+         KrSoNpYmUgyepdHKX5usQR+UZ+gvFQoZwh4SPcSqpnxtCksaG7d09L9sB8ZNOf4oEJPo
+         AiDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxC4IIWwIxr8uWVAZP7MrqMYhtiQfz/USB6zCnxsFHuBLvu2pcJPtDrRKi1Ez9FYPJ/gOEOOkfm1JmWDYQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhO0XMEZIwF/yabjfPgeboCjju6EbciaViXBuSn4oDS/qSzBJT
+	8cjmtub6UvDe15RjTgIEurOe0w0/hca9hjOPilQ+jM6zstZM6s7yW2hCzauPRy29yfzOXyZGTI8
+	t86nbIQ==
+X-Received: from dlan4-n2.prod.google.com ([2002:a05:7022:eb44:20b0:144:d2ba:3139])
+ (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2ecb:b0:39e:31ec:ba55
+ with SMTP id 98e67ed59e1d1-39e54d36b09mr7394741a91.7.1789745607146; Fri, 18
+ Sep 2026 08:33:27 -0700 (PDT)
+Date: Fri, 18 Sep 2026 08:33:14 -0700
 In-Reply-To: <20260918153318.758387-1-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,170 +60,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918153318.758387-1-surenb@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918153318.758387-3-surenb@google.com>
-Subject: [PATCH v5 2/7] proc/task_mmu: remove unnecessary inlines in function definitions
+Message-ID: <20260918153318.758387-4-surenb@google.com>
+Subject: [PATCH v5 3/7] proc/task_mmu: clarify shmem mapping walk conditions
+ in smap_gather_stats()
 From: Suren Baghdasaryan <surenb@google.com>
 To: akpm@linux-foundation.org
 Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org, 
 	willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de, 
 	xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, surenb@google.com, 
-	Usama Arif <usama.arif@linux.dev>
+	linux-fsdevel@vger.kernel.org, surenb@google.com
 Content-Type: text/plain; charset="UTF-8"
 
-It was pointed out in the previous reviews of this code that many
-functions are specified as inline, which is unnecessary as the compiler
-can make that decision by itself. Cleanup these definitions.
+smap_gather_stats() optimizes stats gathering by skipping the walk for
+shmem mappings in certain conditions. Update the comment to clarify
+these conditions and use vma_is_cow_mapping() for CoW identification
+instead of open-coding it.
 
-No change in the resulting binary file size with gcc v15.2.0.
 No functional change intended.
 
+Suggested by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Usama Arif <usama.arif@linux.dev>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/proc/task_mmu.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+ fs/proc/task_mmu.c | 23 +++++++++--------------
+ 1 file changed, 9 insertions(+), 14 deletions(-)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 191a054d7e40..8a72dc0dc945 100644
+index 8a72dc0dc945..f1ce15981253 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -130,7 +130,8 @@ static void release_task_mempolicy(struct proc_maps_private *priv)
- }
- #endif
+@@ -1274,23 +1274,18 @@ static void smap_gather_stats(struct proc_maps_private *priv,
  
--static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-+#ifdef CONFIG_PROC_PAGE_MONITOR
-+static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
- {
- 	int ret = mmap_read_lock_killable(lock_ctx->mm);
+ 	if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
+ 		/*
+-		 * For shared or readonly shmem mappings we know that all
+-		 * swapped out pages belong to the shmem object, and we can
+-		 * obtain the swap value much more efficiently. For private
+-		 * writable mappings, we might have COW pages that are
+-		 * not affected by the parent swapped out pages of the shmem
+-		 * object, so we have to distinguish them during the page walk.
+-		 * Unless we know that the shmem object (or the part mapped by
+-		 * our VMA) has no swapped out pages at all.
++		 * CoW mappings might map anon folios that do not belong to
++		 * shmem. Perform a less efficient page table walk in this
++		 * situation, unless we know that the shmem object (or the
++		 * part mapped by our VMA) has no swapped out pages at all.
+ 		 */
+-		unsigned long shmem_swapped = shmem_swap_usage(vma);
++		const unsigned long shmem_swapped = shmem_swap_usage(vma);
++		const bool is_cow = vma_is_cow_mapping(vma);
  
-@@ -139,8 +140,9 @@ static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
- 
- 	return ret;
- }
-+#endif
- 
--static inline void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-+static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
- {
- 	mmap_read_unlock(lock_ctx->mm);
- 	lock_ctx->mmap_locked = false;
-@@ -177,8 +179,8 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
- 	return vma;
- }
- 
--static inline bool fallback_to_mmap_lock(struct proc_maps_private *priv,
--					 loff_t pos)
-+static bool fallback_to_mmap_lock(struct proc_maps_private *priv,
-+		loff_t pos)
- {
- 	struct proc_maps_locking_ctx *lock_ctx = &priv->lock_ctx;
- 
-@@ -194,7 +196,8 @@ static inline bool fallback_to_mmap_lock(struct proc_maps_private *priv,
- 	return true;
- }
- 
--static inline void drop_rcu(struct proc_maps_private *priv)
-+#ifdef CONFIG_PROC_PAGE_MONITOR
-+static void drop_rcu(struct proc_maps_private *priv)
- {
- 	if (priv->lock_ctx.mmap_locked)
- 		return;
-@@ -202,7 +205,7 @@ static inline void drop_rcu(struct proc_maps_private *priv)
- 	rcu_read_unlock();
- }
- 
--static inline void reacquire_rcu(struct proc_maps_private *priv)
-+static void reacquire_rcu(struct proc_maps_private *priv)
- {
- 	if (priv->lock_ctx.mmap_locked)
- 		return;
-@@ -211,6 +214,7 @@ static inline void reacquire_rcu(struct proc_maps_private *priv)
- 	/* Reinitialize the iterator. */
- 	vma_iter_set(&priv->iter, priv->lock_ctx.locked_vma->vm_end);
- }
-+#endif
- 
- static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
- {
-@@ -1230,7 +1234,7 @@ static const struct mm_walk_ops smaps_shmem_walk_vma_lock_ops = {
- 	.walk_lock		= PGWALK_VMA_RDLOCK_VERIFY,
- };
- 
--static inline const struct mm_walk_ops *
-+static const struct mm_walk_ops *
- get_smaps_walk_ops(struct proc_maps_private *priv)
- {
- 	if (priv->lock_ctx.mmap_locked)
-@@ -1238,7 +1242,7 @@ get_smaps_walk_ops(struct proc_maps_private *priv)
- 	return &smaps_walk_vma_lock_ops;
- }
- 
--static inline const struct mm_walk_ops *
-+static const struct mm_walk_ops *
- get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
- {
- 	if (priv->lock_ctx.mmap_locked)
-@@ -1572,7 +1576,7 @@ struct clear_refs_private {
- 	enum clear_refs_types type;
- };
- 
--static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr, pte_t pte)
-+static bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr, pte_t pte)
- {
- 	struct folio *folio;
- 
-@@ -1588,8 +1592,8 @@ static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr,
- 	return folio_maybe_dma_pinned(folio);
- }
- 
--static inline void clear_soft_dirty(struct vm_area_struct *vma,
--		unsigned long addr, pte_t *pte)
-+static void clear_soft_dirty(struct vm_area_struct *vma, unsigned long addr,
-+		pte_t *pte)
- {
- 	if (!pgtable_supports_soft_dirty())
- 		return;
-@@ -1620,7 +1624,7 @@ static inline void clear_soft_dirty(struct vm_area_struct *vma,
- }
- 
- #if defined(CONFIG_TRANSPARENT_HUGEPAGE)
--static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-+static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
- 		unsigned long addr, pmd_t *pmdp)
- {
- 	pmd_t old, pmd = *pmdp;
-@@ -1646,7 +1650,7 @@ static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
+-		if (!start && (!shmem_swapped || (vma->vm_flags & VM_SHARED) ||
+-					!(vma->vm_flags & VM_WRITE))) {
+-			mss->swap += shmem_swapped;
+-		} else {
++		if (start || (shmem_swapped && is_cow))
+ 			ops = get_smaps_shmem_walk_ops(priv);
+-		}
++		else
++			mss->swap += shmem_swapped;
  	}
- }
- #else
--static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-+static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
- 		unsigned long addr, pmd_t *pmdp)
- {
- }
-@@ -1848,7 +1852,7 @@ struct pagemapread {
  
- #define PM_END_OF_BUFFER    1
- 
--static inline pagemap_entry_t make_pme(u64 frame, u64 flags)
-+static pagemap_entry_t make_pme(u64 frame, u64 flags)
- {
- 	return (pagemap_entry_t) { .pme = (frame & PM_PFRAME_MASK) | flags };
- }
-@@ -3390,7 +3394,7 @@ static const struct mm_walk_ops show_numa_vma_lock_ops = {
- 	.walk_lock = PGWALK_VMA_RDLOCK_VERIFY,
- };
- 
--static inline const struct mm_walk_ops *
-+static const struct mm_walk_ops *
- get_show_numa_ops(struct proc_maps_private *priv)
- {
- 	if (priv->lock_ctx.mmap_locked)
+ 	if (!start)
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
