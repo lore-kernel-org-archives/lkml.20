@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3964B44B9;
-	Fri, 18 Sep 2026 12:04:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E971438024
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733073; cv=none; b=qxIztTIl3xO7U8m+r277DbtZycZwwiozXMRKWG0xTk8Ju44PR/Guv5bHnL3uRjYSsNtVXd86VSSgmNlqqd/zJlWxjeZUK1QeMdK/VfsyJRUr+K5nFwNbY7WTOOJrOhIBft9WDadCVtBQlHhCz2zMUFwEf2XF+STshBsxCKfbCRo=
+	t=1789733118; cv=none; b=gn7x1Le4BL8xT1OH2aelKcdBzNb/oqOChU32jO8iWLAUVSDvLn3wpQBvo4mxhWIV/a/0MwZ3jIsTkl+pK/TtAZNvZnCF1A107oD/zDtZQ2sZkwwEuvgYDFbw3kAm6uGSQNXs8zfAiTvk42S+X0MgE2AftErLZXNDYgvRsqYf7us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733073; c=relaxed/simple;
-	bh=REeRW8ImNjKxDQ7NTGvHx9ytsKTTv4jcl392qyr4xJQ=;
+	s=arc-20240116; t=1789733118; c=relaxed/simple;
+	bh=qxXx5NAZZJyu13LeAPP97eRX9WbR71NsZO56HhFQZXk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BNRJklaoxRLBOjS92yQnAZJZTAjmPdcvUYhvTFmAuInAoKINYwEzXwE48Vc156D9VXiMQ9Mgw8L+2E8CVsMqtx82jMoxsmRLQN7yJe2wl2lK7PYbyVwx/o0HzUaNbOrM1mLQrpX+LcSr3p/a5KSyZn9DJrTU+VcSvJWIxyHivoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTbPGGwe; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=j50A6m8Td4Or2GxF13JjwLn7cyhD3kg9KmTeGrkoR2yc0omyGQes3fYCtkoWSMaTHpuf1A705YNWBowwhQ6I4NdyufhIljbQQKoREpWPHeHWSyu9rLgufvc4j4/QbzkNVEj84cpSJX77vxu2oOARBcON+Sjs7v7SPNR15EUGAdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feuOnPyn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTbPGGwe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077FC1F00893;
-	Fri, 18 Sep 2026 12:04:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feuOnPyn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092AD1F000FF;
+	Fri, 18 Sep 2026 12:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733071;
-	bh=FBog0tEIxtunDlmJCDqYkdnZ6FAZrrX2ZayQiJl9Uzg=;
+	s=k20260515; t=1789733117;
+	bh=cSiQ3QMreWpLjgxso1PqR96WBdVagKdVsODyghsTQXE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HTbPGGwelMhMsEqlgkhCIeYpAKWYO1pWQSabgJE6oYkB6oCr6m55UmbuXQiqXOvpY
-	 FqjSJ4BY060C/DJEoM1KyyDLyRhcaj08m6pCJDVF6HcYnAvMsgCgcQRtceqsJj+8hx
-	 ABzj4ttpLlFP6zD6t1zperT6GtrKJD31K0VZ6chJIX9pxNnZW/IBksh18FxQIFVlkB
-	 Rn0rAX3CbZQS+ymsFg9IX3ynUPFJVqM+wGooQRbCzGs71nRNBE6H1VELBoQFgy4tfK
-	 g4iPIZMVSP8PenNrOa4rGc311wG1z1suhG4MEcVqTwKzu7eoAM41InyyJMcI8x2shP
-	 /qCuVR3QyOYbA==
-Message-ID: <44d70b77-8ef0-4eb1-9f6a-11c244086761@kernel.org>
-Date: Fri, 18 Sep 2026 14:04:15 +0200
+	b=feuOnPynGATQzBm+y5Y0N8iVZf3OcStsF8Lj1jKsGJsLKUfiFJa6BoCVk/JaYVQyk
+	 OxfyjPWu+TfwGnIs4ArII6v83x/jIgYGSa9659+haoeGP6g1uDAwjoIG055ijR47jv
+	 AxEik0AMjOpisiDDEZf3jK9UlykYZnSbRqhqvS6UIob1bQ/BnBH56dNFsNYvM9v5Qz
+	 u85GnqQwFf7PetGzpkpWyy6BMKwFisHo9GUzMbxkcjxPfdyGWktdFd0L1zTJI9c20n
+	 20knn2MbkptmWjYIVD1/fUc0fgmoKzUkxyS6xrsWAYpUPJ2psc6ULCUqpGyj0sVi3g
+	 BCRycWP02kM5g==
+Message-ID: <9d3355f2-2d3d-4767-9972-ea57ac50ff79@kernel.org>
+Date: Fri, 18 Sep 2026 14:05:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,17 +35,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v7 1/5] mm: Add copy_remote_mm_str()
-To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>,
- andrii.nakryiko@gmail.com, ljs@kernel.org
-Cc: akpm@linux-foundation.org, andrii@kernel.org, ast@kernel.org,
- bpf@vger.kernel.org, brauner@kernel.org, daniel@iogearbox.net,
- eddyz87@gmail.com, kpsingh@kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, matt@bobrowski.net,
- memxor@gmail.com, song@kernel.org, sun.jian.kdev@gmail.com,
- utilityemal77@gmail.com, viro@zeniv.linux.org.uk
-References: <CAEf4BzaH=PJh7QUhh7szGL+gCieYLOSbhriFWaZG92xFWDeGig@mail.gmail.com>
- <20260918091359.297923-1-tasos.papagiannnis@gmail.com>
+Subject: Re: [PATCH v3 1/3] mm/vma: const-ify vma_assert_stabilised() and
+ associated functions
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260917-vma-is-faulted-v3-0-5c22314a72e7@kernel.org>
+ <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -92,21 +109,22 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260918091359.297923-1-tasos.papagiannnis@gmail.com>
+In-Reply-To: <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/18/26 11:13, Anastasios Papagiannis wrote:
->> AI has a point, declarations in mm.h are not guarded by #ifdef
->> CONFIG_BPF_SYSCALL, no? These look generic, I'd remove BPF_SYSCALL
->> guard
+On 9/17/26 21:47, Lorenzo Stoakes (ARM) wrote:
+> The vma pointers are not modified in any of these functions so make it
+> official by const-ify them.
 > 
-> Yes, this sounds reasonable. I have removed the #ifdefs in v8 [1].
+> Propagate this throughout the call stack.
 > 
-> CC David, who proposed removing the #ifdefs from the header file in [2],
-> and Lorenzo, who has already acked the patch.
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-No string opinion, fine with me.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
