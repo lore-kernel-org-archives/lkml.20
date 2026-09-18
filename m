@@ -1,69 +1,39 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B63C4E36E6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FD04E66C9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733525; cv=none; b=J4ETGx6/DYlCP0Ynh2KqyWDEccTyt63zgkgsveAZpl9Vguwj2UFRWgfmDkqP3fShg6FMSxnztUUSz7mfT8VBe4hhw4q+f9NoO7fa0n7mkBAWX5h9APsTH5RmZgEa963/pWyHf501EU3Ta9K3dcjdD89TrG0RNa4iENCTGMmMyiE=
+	t=1789733529; cv=none; b=i18uCqkYEv1vGS0U6oFRhkPlqLRwX90fJp+KvQVhLSpWHjnzbTeCAho90HigrGjs7eKQtcvab/lKcLXsoh/KtGrgimui40G3x5HV3rv2bP/eOtRnQ609efcdAJmFwJA99ab21Bdq5BYkSlSldoUo0facxR33Sqtf7iT0pioZ9cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733525; c=relaxed/simple;
-	bh=mAvuQoR2beZSVJa/s8v3xFsx9u6xc7n3wi2c5JSHdto=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kiqjOzBqOQk0pGn2AHFk3JDK9573MROhfNF4R/UWTNX3r8AKA85k5JlLtbe846UEMXZycUSjJtamA8Xlc44FLH7XkNr7XoskGG6zJDzoirnx2+bA9qj7xfWo+XSPOQ9t4JUWxDfnduCxHMrcaoMDb6Qq4+LBExtLb3exsY/AxyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g5up6taS; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789733529; c=relaxed/simple;
+	bh=TdiLMOTdn65x8zfrZgCJK+E9kr5MGZzQAPPBGunaXxM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CuldXKbzUHrEvK+78MGtv6+cVCY+cWJzic+mbZaplFNMcGlY+CsRDWSkPS8JJx/GAcQK+DbwsuY9JijJVjOFt+Cs2xxCEuJb9bPBvR4o6UmUFaFAk/VvrL15lbnn166FziRAubGHD+YfDAWuEO4o7u/kmQ8IRcEdem8xUxsiT/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=gdwBrRdX; arc=none smtp.client-ip=49.212.243.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g5up6taS"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso5087045e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:12:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789733521; x=1790338321; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ORqkD8N1WSCgJ6FcZd1LHwMkHXALqMzVIogbGqJecbM=;
-        b=g5up6taSuU09HkH+NLMQmqgmJk0hnlmvKuKrXNn5GZAZiRH/VClmFRrXo14QWvgErD
-         7jRHW25EssgWMysgB7hFFz7JACckcKOD+qMwX94TOUSQVHFlik6D3jUe/164ROP5uJKI
-         EdZk0EcrlPrrxXpVLiGc12gDnYys9Jf9+eerEHE1wlThIJaZOhdNkv2UzQs6g1tDSH6K
-         UUdFuzv9taWAuDi8fP58oQjO6TgTDeMQoBgeXU4cKWdmON3b6jbj0vqQHAAwHI15kX3h
-         u2lQ3k8DFoFPTv+ClriU6IzHvBZBwwW8OlMSrTLzdk5aRn5Q/RHOmGx4MhpByduRCQWo
-         K5mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789733521; x=1790338321;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ORqkD8N1WSCgJ6FcZd1LHwMkHXALqMzVIogbGqJecbM=;
-        b=pKggGWGNzd28em2LtsXducDzZ7yFjR6f6fZR/AVXvK1VWxSfoKIsAlNOXaN43tKdE1
-         B3i1jnDYGZaLPuRspd15pFmkn3N74LGLxKLrQHw+6HOgpTZZSkvYBBV+EpauTpZUYxfI
-         CicXiG9P+FD9k5jcRwNaMFgV2FJC6V5C/Hkwe+hKceBYvgMCo1DQRngNBHf8CAExsBjH
-         g+ajcgsMT1mO9hk+6bQDghA1K3Yfl+pvyKM00lncB0Ktuk2GHwUcl6xSd7RxRzM73MLL
-         IbkL/QJTcBzKob5Bjlpz8VckCIru3RArli7+3whmyXqT1ZZJvRDUdGgyT434Ft+w7rYd
-         RqOg==
-X-Forwarded-Encrypted: i=1; AKwUvByhR91m2JLuMQwr8I6LEU6xXt4PoTkwWfH6tUz/+FZRU1H8Ny3va1Z3/EyYSQ0YH1+o8btlyCFgCfEgA7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ9rT5cblXhX3IxjGepz+0yJYBtapQW1nZtJjEM4xhxtp6Y9ey
-	/awJXXgAZsWWzWSYX3vRxJnUJEhMV52jSwN38eefROLjm+ozagmEayOPfQFTyXH4rjvvIyBYFds
-	QvlWp
-X-Gm-Gg: AYBFou0/us74vS/p6xZDwyFzPdfj7vq5ZK7QKP0DnvXW1uStJl+RkXYXYWmrVMNFQJn
-	Xh95OjGQkuDFWk4ro3VobyNQsjVG7RrSXldTj9a0GeRWbOoeNsqO0XfX4GI+3jJfCyslP55aXwQ
-	CryhIS3AkAz8lb0Hoxri/CIakcIk4FJkMjgI0sKjEIytl2QHXyUM/o+gGGHFFwx43VHN5sQvBt/
-	OJmsoYvuI7Dp/Ovb5VuBUhxAydP98MZQMwcNFQjoodcVEcptF5oZhnczAkFop2Wpck4fsDIWmVJ
-	kaxVM75En/Dz9ux6mVhgSc/bHXfsdApJeC1wEbnNB8khIZy9Flxj90Ed+3kv07qyU44oXcrXqWN
-	KeAWR3bTyYI9fYX/4FlTMWzjA7hnXGMinB2UzinN+pDXVsII1lwRoqzJ4dnP58SQtGKZJHA+vGu
-	U2LGA9XzXeG6oqilu/cyt61iUCm8cAvY2iXnCkabUqk3V/c2tHAJPkRPFmH+E0g6E9is2APUq5+
-	JL5Tr+4HM67MUKKepQptu9vZYxcao/9nT55/Q3ovYFtNGR4xC7tFgCmzAxufCkC
-X-Received: by 2002:a05:600c:1c09:b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-49fc57479c9mr38337555e9.31.1789733521251;
-        Fri, 18 Sep 2026 05:12:01 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc? ([2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7ce0050sm59868415e9.4.2026.09.18.05.12.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 05:12:00 -0700 (PDT)
-Message-ID: <91c73c90-9aed-4f27-9791-6cb091f03eb0@linaro.org>
-Date: Fri, 18 Sep 2026 14:12:00 +0200
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="gdwBrRdX"
+Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
+	(authenticated bits=0)
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68ICC4oI045599
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Fri, 18 Sep 2026 21:12:04 +0900 (JST)
+	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=O45OBg23J/3oHx2lRf9Yr5ZgoFt2a7CrhzAaB/z4DUY=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=From:Message-ID:To:Subject:Date;
+        s=rs20250326; t=1789733524; v=1;
+        b=gdwBrRdXb4kOUDph0TGZ2TULlcnxCtlxvATeO1mntbAb9m/6wPYiVGLYLBWWP4LM
+         WwpYgHFOeU/zSWR+or1xdde0JQen1RkAIuq+qX23uT6mapPJEaPFqcHRxaBhZcEi
+         NvrFRao73Y2JuIWMsauB1Z3KPJbBuAAGClMHCSwFhM5EqJUkgQpWbbryU1fOLjG2
+         z8E2bTh0PkaH8ezj5DDAfulRVs7dyP80fRs1Uzz5E5bLy/llriPzWKjige03k6Iq
+         klbMcYoITiKdAH1HS1rJxy1qBj6JknfUqoS9KXVqiDI9eOEF5sEsStseMtKOuLYe
+         z6SK2nyXabwKywnYw9ZNpg==
+Message-ID: <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
+Date: Fri, 18 Sep 2026 21:12:03 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,73 +41,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/3] regulator: add regulator driver for the Nexperia
- NEX10000UB
-To: Mark Brown <broonie@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org>
- <20260918-topic-sm8x50-nex10000ub-v1-3-5afe06bace03@linaro.org>
- <731ebfd1-4080-4343-afc7-95af081a9990@sirena.org.uk>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <731ebfd1-4080-4343-afc7-95af081a9990@sirena.org.uk>
+Subject: Re: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
+To: Honglei Huang <honghuan@amd.com>,
+        Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+        David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+        Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+        dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+References: <20260918095940.2253018-1-honghuan@amd.com>
+ <20260918095940.2253018-3-honghuan@amd.com>
+Content-Language: en-US
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260918095940.2253018-3-honghuan@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/18/26 12:12, Mark Brown wrote:
-> On Fri, Sep 18, 2026 at 09:25:39AM +0200, Neil Armstrong wrote:
->> Add regulator support for the Nexperia NEX10000UB dual output LCD
->> bias power supply which provides programmable positive and negative
->> output voltages mainly for display panels applications.
+On 2026/09/18 18:59, Honglei Huang wrote:
+> Add a userptr address field so userspace can request a blob backed
+> by an existing process mapping. A non-zero userptr selects that
+> path; probe VIRTGPU_PARAM_USERPTR before using the field.
 > 
->> +static int nex10000ub_of_parse_cb(struct device_node *np,
->> +				  const struct regulator_desc *desc,
->> +				  struct regulator_config *config)
->> +{
->> +	struct gpio_desc *ena_gpiod;
->> +
->> +	ena_gpiod = fwnode_gpiod_get_index(of_fwnode_handle(np), "enable", 0,
->> +					   GPIOD_ASIS, desc->name);
+> GPU-readonly backing is requested with the virtio CREATE_BLOB wire
+> flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
+> VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
+> resource. The guest pins without FOLL_WRITE only when the device
+> advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
 > 
-> This is GPIOD_ASIS so the direction might not have been configured.
-
-Will fix
-
+> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> ---
+>   include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
+>   include/uapi/linux/virtio_gpu.h |  6 ++++++
+>   2 files changed, 19 insertions(+)
 > 
->> +	if (IS_ERR(ena_gpiod))
->> +		return PTR_ERR(ena_gpiod);
-> 
-> The binding says the property is optional.
+> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
+> index 95587e12ae..80f73b3276 100644
+> --- a/include/uapi/drm/virtgpu_drm.h
+> +++ b/include/uapi/drm/virtgpu_drm.h
+> @@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
+>   #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported capability set ids */
+>   #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug name from userspace */
+>   #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment requirements for blobs */
+> +#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is supported */
+> +#define VIRTGPU_PARAM_BLOB_READONLY 11 /* VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
+>   
+>   struct drm_virtgpu_getparam {
+>   	__u64 param;
+> @@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
+>   #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
+>   #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
+>   #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
+> +/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
+> + * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
+> + */
 
-Good catch, forgot to make it mandatory.
+According to Documentation/process/coding-style.rst, the preferred style 
+for long (multi-line) comments is:
 
-Thanks,
-Neil
+	/*
+	 * This is the preferred style for multi-line
+	 * comments in the Linux kernel source code.
+	 * Please use it consistently.
+	 *
+	 * Description:  A column of asterisks on the left side,
+	 * with beginning and ending almost-blank lines.
+	 */
+
+So please avoid putting text on the same line as the opening /*.
+
+Furthermore, because this is a UAPI header (defining the interface 
+between userspace and the kernel, rather than the guest and the host), 
+it should use terminology appropriate for userspace. Kernel-internal 
+implementation details like FOLL_WRITE and terms like "guest" shouldn't 
+be mentioned here.
+
+That being said, I don't think this comment is necessary in the first 
+place. Anyone who needs to know the exact behavior will look at the 
+virtio specification. I recommend just dropping the comment entirely.
+
+> +#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
+>   	/* zero is invalid blob_mem */
+>   	__u32 blob_mem;
+>   	__u32 blob_flags;
+> @@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
+>   #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
+>   	__u32 blob_hints;
+>   	__u32 pad2;
+> +
+> +	/*
+> +	 * Guest VA to pin as blob backing. Non-zero selects the userptr
+> +	 * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
+> +	 * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
+> +	 */
+
+This comment is useful since it discusses UAPI specifics. However, 
+please avoid the term "Guest VA". Since guest userspace has no concept 
+of a "host" or "PA" (physical address), simply saying "address" is 
+sufficient and more concise.
+
+Regards,
+Akihiko Odaki
+
+> +	__u64 userptr;
+>   };
+>   
+>   #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
+> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
+> index 3d4dfadc9d..33f5332e59 100644
+> --- a/include/uapi/linux/virtio_gpu.h
+> +++ b/include/uapi/linux/virtio_gpu.h
+> @@ -72,6 +72,10 @@
+>    * must be aligned to that value.
+>    */
+>   #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
+> +/*
+> + * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
+> + */
+> +#define VIRTIO_GPU_F_BLOB_READONLY       6
+>   
+>   enum virtio_gpu_ctrl_type {
+>   	VIRTIO_GPU_UNDEFINED = 0,
+> @@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
+>   #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
+>   #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
+>   #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
+> +/* Device MUST NOT write. Driver may pin read-only guest pages. */
+> +#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
+>   	/* zero is invalid blob mem */
+>   	__le32 blob_mem;
+>   	__le32 blob_flags;
+
