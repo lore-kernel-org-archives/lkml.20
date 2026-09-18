@@ -1,150 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A456557C9F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A88331A48
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721066; cv=none; b=a5XcvyZa6u9PSV+UNgi5VdEQmIuY3GC3BniY8GiW/O1x3+zwIS+Hfum60f/bL98AQmMlVhchZAxyHH97bPiTon+xQxeRXAT//I+8ALHvsN+1Cn83o9By+61DL42FndSMz9rcFTikow6jzmo4+3n4hMhwiVDGPqgANmZ/QkznvoE=
+	t=1789721138; cv=none; b=Die1+JSdsbA+Vd29zklJ5XTUsG61ovEGYuZ/TEFlPP5sr4IlnNe91iRE2+nh8OQ8d+PAl8e17e7oLnJRkWbIjB8pDojpGh19LdN5bN/MsTXYvot8dzwI/jU7Y+5G8OyfZUuOZr6Hv75YRCXHS6etavZUK+u92u33DBkCw6KgAiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721066; c=relaxed/simple;
-	bh=cNFhVnrlwM+QAwtxDolxFAettrVvgK29GFIGt6hoRP4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l3YGkB7qUatnSBW8pBMZXD9/ZtfunxHsaR1SPCVvprUHcyCEEzOl2ay7qd6ByFl/zK9mXkG0/Q3QReislcncVIUelYZf4Rv+PXSKYOzT10EAXdY9dQ1UpaSdsiwavFXuz7H0k3u0ouAkmE38QiII2FzGLMw24NIyQHpyIQTflqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKQpoPYK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789721138; c=relaxed/simple;
+	bh=qo4345K2DRgT+zBVme7jTN8AnlDOs0KOI4ite+KktiI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L0xUGloonMT1zB9WZ3r73nkk6jZynZNbsBaNwdiv/AqGBv39JuuajyXIt5eVXOdYnGGUEaKNb1JekiHtlkZhy08WqvqUaheyNB6Nywv+ied4a5VwUr2AsJDK2Z4eAD+nFhQK9XEg8pyqBk3E6/boY+GB+EEKyUhosu6GjQVkJOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=oIo1uD8r; arc=none smtp.client-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKQpoPYK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FB31F00899
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789721065;
-	bh=yfptLJpLwa1HkLn6r+lnBSBB9zhrI022aUyQ/n+iqZI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WKQpoPYKtLvvrsANllnpazyBLjRD4QmuKuAgFZJ+R23L2z9t4yAN+ACJErx1PPLcp
-	 YtolKadJaCrAtitOs8awaYY/VMbJ8Q6/L36/H0qNStZMmY1edyfG1bkb+dO8M0daCj
-	 25bn53UilLvQYI1zKM5frfrxRWf45TEef5EH/K6kUxnvY0h3OG0YNQ241FqO+AVgh5
-	 /1vNxD6Ah+KlqPlGnrXYjy62/4wfCjSsu3CmlZ2awkanq/i4MdIQk5y6nr/N5thZul
-	 tzkhmvRWaSDcQUfWZGzo2paV/vNvrN2/R03Ja6OCm+ttH82QbijLXDvQ6H9U3Cp01O
-	 nYQuqkIXgMEBw==
-Received: by mail-qk2-f20.google.com with SMTP id af79cd13be357-939656ff6d9so56207885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:44:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxPBkss86BVgQg+z6ts8lRrd8Z5BB3leIbPQneq7okdoc11pJV7i6UoQIZ3oMvkGM+oLxJrrdh41BS3+nA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh4k+b5X6WR2MQluhsgazGZgf7qLLVskwtC36wqJp+ZIrGX3n5
-	wmjW3WVrLVdz017QAm3gUOpUXalwY4mvqFcUQibE2UuYr38mTWQA9PCBTFdI8uDsJXNi1vjbzLT
-	NRUmVnCcZYowTBF67VwhpFJodhHXvzBE=
-X-Received: by 2002:a05:620a:280a:b0:936:dbd7:fcb3 with SMTP id
- af79cd13be357-93bdc6de89amr218538285a.21.1789721064703; Fri, 18 Sep 2026
- 01:44:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="oIo1uD8r"
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id 7GOxxGxXxv0nd7UDwxCHBk; Fri, 18 Sep 2026 08:45:36 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 7UDwxaXPWghBm7UDwxdA9J; Fri, 18 Sep 2026 08:45:36 +0000
+X-Authority-Analysis: v=2.4 cv=Hsd2G1TS c=1 sm=1 tr=0 ts=6aacfa30
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=Gzq6y406HWcBfBk9GMIA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zHAf4d3TEBd6lDVNA/O3WyOUHSVEkKySTXdJiZEf9FA=; b=oIo1uD8rbue3Cu1gidrFu1q5je
+	4Gc+wmg2F/kCOBf02dsM8wxQFcmh7SXLfAMX6wJSylqBOytjbh2Ub5BhMsh5HQxKa+w9YoiwTVq0a
+	oTOUD+LvDGlni+8yR5nCnb7tl02YxilYjy8pC8LVsd/9qS5/uhO9kQBPsEoEBoFqc1Qkdo6x3Qbno
+	W3Geu74iUY84uZM2a87OV2DlSktY7QzK4e79WZ+hFJU9/+c1dRx1sp2kPS/cUBgsUmAMdX0N3ajiM
+	nJlDICWikb/S7QY3WLRYksB2HzyYe2BcLJNmQ1gYHoX/QeL4NG3yU73lFO/urW42kRcr6nhXv0Qt8
+	yTM/ZTNQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:60220 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x7UDv-00000002je9-1UTC;
+	Fri, 18 Sep 2026 02:45:35 -0600
+Message-ID: <df230679-639f-419b-836f-619ccfbff4c3@w6rz.net>
+Date: Fri, 18 Sep 2026 01:45:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <20260917052933.188679-3-jiangwenxiaomi@gmail.com> <58e3b456-7389-4752-8de5-1cc82964c3c7@kernel.org>
-In-Reply-To: <58e3b456-7389-4752-8de5-1cc82964c3c7@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 18 Sep 2026 16:44:13 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wKG91hd1Y3W4mbdh6B8Kq09JyDjyvXeeCmQj+L6bHm2A@mail.gmail.com>
-X-Gm-Features: AcwNN1U1UKmWK4_bdU3CXRYgsAbkO0CRi4o48diyrNchNw7WdNKVQp3kHhkJ8xY
-Message-ID: <CAGsJ_4wKG91hd1Y3W4mbdh6B8Kq09JyDjyvXeeCmQj+L6bHm2A@mail.gmail.com>
-Subject: Re: [PATCH v8 02/10] powerpc/8xx: add pte_set_huge()
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org, 
-	catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com, 
-	will@kernel.org, Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, 
-	anshuman.khandual@arm.com, david@kernel.org, dev.jain@arm.com, 
-	jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org, 
-	ryan.roberts@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151551.901433442@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x7UDv-00000002je9-1UTC
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:60220
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGDhze+fa/aEoRa5BSyLUZECiKpahsVA8+aE7FT6WLqmc2HQ1pja/taBPk0wQ5oW3sn1c5YpE1hBFUKTA1Om+X+fapnGcp2FW8WmsgNaLEqUta2GtnKL
+ ytSFDraT4hnSSajKBuqLtuf7C7aKtJOD6j5A11L4Pne016qFRgMw7eGKQqoQyuZ+Rzft0m8n5r8voT3U0PpIQZcfWInkE+A29k4=
 
-On Fri, Sep 18, 2026 at 2:14=E2=80=AFPM Christophe Leroy (CS GROUP)
-<chleroy@kernel.org> wrote:
+On 9/17/26 07:56, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.53 release.
+> There are 1250 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 >
+> Responses should be made by Sat, 19 Sep 2026 15:13:46 +0000.
+> Anything received after that time might be too late.
 >
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.53-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
 >
-> Le 17/09/2026 =C3=A0 07:29, Wen Jiang a =C3=A9crit :
-> > From: Wen Jiang <jiangwen6@xiaomi.com>
-> >
-> > vmap installs PTE-level block mappings (SZ_16K/SZ_512K on powerpc/8xx)
-> > by reusing set_huge_pte_at(), a HugeTLB helper gated by
-> > CONFIG_HUGETLB_PAGE. This makes the feature silently unavailable on
-> > CONFIG_HUGETLB_PAGE=3Dn kernels and couples mm/vmalloc.c to HugeTLB
-> > internals it does not otherwise need.
-> >
-> > Add pte_set_huge() to powerpc/8xx, next to the existing
-> > pmd_clear_huge()/pud_clear_huge() in mm/nohash/8xx.c. It builds the hug=
-e
-> > PTE and writes it into the backing cells directly, without going throug=
-h
-> > set_huge_pte_at(), so it does not depend on CONFIG_HUGETLB_PAGE.
-> >
-> > No pte_clear_huge() is needed: 8xx does not implement
-> > arch_vmap_pte_range_unmap_size(), so the vmap unmap path never takes th=
-e
-> > block-mapping branch.
-> >
-> > In practice PPC_8xx selects HUGETLBFS unconditionally, so
-> > CONFIG_HUGETLB_PAGE=3Dn does not occur there today; this is a decouplin=
-g
-> > cleanup rather than a new configuration.
+> thanks,
 >
-> 8xx selects CONFIG_HUGETLB_PAGE because it uses set_huge_pte_at() to map
-> kernel text with large pages. That was added by commit 34536d780683
-> ("powerpc/8xx: Add a function to early map kernel via huge pages")
->
-> But now pte_set_huge() could be used instead in
-> __early_map_kernel_hugepage() and then CONFIG_HUGETLB_PAGE could be remov=
-ed.
+> greg k-h
 
-Hi Christophe,
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Do you mean the code below? If so, it sounds like a good place to
-clean this up for powerpc as a separate cleanup patch.
+Tested-by: Ron Economos <re@w6rz.net>
 
-diff --git a/arch/powerpc/mm/nohash/8xx.c b/arch/powerpc/mm/nohash/8xx.c
-index 2518d2a6bdb4..830cdb391161 100644
---- a/arch/powerpc/mm/nohash/8xx.c
-+++ b/arch/powerpc/mm/nohash/8xx.c
-@@ -87,9 +87,7 @@ static int __ref
-__early_map_kernel_hugepage(unsigned long va, phys_addr_t pa,
-        if (WARN_ON(!ptep))
-                return -ENOMEM;
-
--       set_huge_pte_at(&init_mm, va, ptep,
--                       arch_make_huge_pte(pfn_pte(pa >> PAGE_SHIFT,
-prot), shift, 0),
--                       1UL << shift);
-+       pte_set_huge(ptep, va, pa, prot, 1UL << shift);
-
-        return 0;
- }
-diff --git a/arch/powerpc/platforms/Kconfig.cputype
-b/arch/powerpc/platforms/Kconfig.cputype
-index f0adbf7ecb7f..efba4d960083 100644
---- a/arch/powerpc/platforms/Kconfig.cputype
-+++ b/arch/powerpc/platforms/Kconfig.cputype
-@@ -41,7 +41,6 @@ config PPC_8xx
-        select FSL_SOC
-        select PPC_KUEP
-        select HAVE_ARCH_VMAP_STACK
--       select HUGETLBFS
-
- config 44x
-        bool "AMCC 44x, 46x or 47x"
-
->
-> >
-> > There is no caller yet: mm/vmalloc.c is converted later in this series,
-> > once the generic fallbacks are in place.
-> >
-> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
->
-> Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-
-Best Regards
-Barry
