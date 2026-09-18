@@ -1,111 +1,310 @@
-Received: from outbound.mr.icloud.com (mr-2004k-snip4-2.eps.apple.com [57.103.69.133])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4B34EFFAA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.69.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DAB4F3EA4;
+	Fri, 18 Sep 2026 13:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737372; cv=none; b=Q8TcusvVgrM7LgCg5mQWBLioEpeQ01UzsIs5xZ/1ur0dN2Exlcj5nczn0Y/WYeNxQG6e2sCElNGVsn8+zOe7RmDY3nX6ceARRxBBeoCth2e66hZoDTgczd7t+Ev5dH8EUCc3BNGO+ApI+aFCacR3Jz2Vw6IT/ZARTH937RGK5OY=
+	t=1789737372; cv=none; b=d2FdskMGeHKj4REPgDbCWwmC9i2RVY7joFcuUWTs97szyivWNHyTh1fuki08p48cGrTxPcDYZUVsrUgm3Y6IqDT8fW8V1VDOK5qLdXZ0+a/zMnvUlk89I19yvHvfafrYs3NmqfeuyQ12bSdiH96oxJZP/JzHyM30ARW1+k+AuV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789737372; c=relaxed/simple;
-	bh=RYjjAWhldRR12gUEAyfROW7R4rjrniv8kAmmtO92paE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QMT7OvoR/iT+/sZYKMUmPL1n0DgmAvbl2hWDgdYS9whbooSqFZj2iTn6jIu5RlTAaJye1N6aSSIEwhtGYdk3fJ3+kNfcVQ349md4tIDD2wtFWccxQ/6F4KynJDIHMLTEeoNO85pc1NjofrUigExaTggH7i5v8DZBJDiZxHMQJL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=049qh9FN; arc=none smtp.client-ip=57.103.69.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	bh=qynii6GhHzMVM5/DVjoMe1a+dw4Z0EH+QolcTdLlVb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kXzXfY/dcPuhTW1AxP/szzwueMUcqlSZcgpdWQrHmWGGqh5vwIW3DgrwhH54fTagqegzi2OCiHOjG3BXyk9ZwsXaPBMltSyLoZgA0CBKhm21Yn7chbsODYTZoOIDGBBFXpzDUvHf3SgeEm9eV4ELDJ9aTRPNxqC2G+64vEwfiv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AWKbNfvS; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="049qh9FN"
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id DBD1E180187D;
-	Fri, 18 Sep 2026 13:16:04 +0000 (UTC)
-X-ICL-RepId: 01a0b4a8-ed1b-7b2e-a36d-1946784ff1ec
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGBV0NQQpaAFIBQV9MBlh3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737369; x=1792329369; bh=M6VefbtsHJ7I4h07saTtcrarG1Wa53XZiIB66Lz9ZuM=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=049qh9FNIufGO4G7gKITPeJTHKuvL0j6Xx5fUWMS/2tzTgH2Hpk3vego3oPBZ9lB2UJ94bgnfQLWFoKtpUAWBgvQM0rrmufduLaLjnL37CBbrxYUL84aQ0mnpVyldU+Y8AktgCDyLd+xBaHzfjQa1ppz7PTVOOFYsXfu3v/oIdk6NkWqkFWN2/KKY8yZZkQfLnDEc0L4P/qhNGudUqebC/GezIT2ICgSCPc+GrimlQ8XvMigoaBRxrETc0T7f07ikFrMJ5WwJInk01hkqB2+k/cUnRyQwYuhDS3agYuW10Hk2LRcOcn2ZDMlNpCH6HmlAEus7X/jtcnH7xD90h7nUQ==
-Received: from [127.0.0.1] (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id F41F318003FF;
-	Fri, 18 Sep 2026 13:16:00 +0000 (UTC)
-From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Fri, 18 Sep 2026 15:15:12 +0200
-Subject: [PATCH 07/14] arm64: dts: apple: t602x: add avd nodes
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AWKbNfvS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=JK
+	CbNkXuGe65gq/og33BZJ1qzVcPVm7F2fi1/Rwdm5s=; b=AWKbNfvSLOZOu4c6cM
+	yF1iYocFbTSxmHnu0lH6E2J/z3iwHscimKTZc/wNimmoyTRIeUP2LnhZnmqYsS/c
+	bw5lZW1RvXGifeh6uAP4/+8v9aSC3Of+MQRHt0/iItvNMKy6f5eDgjn6gl2u3745
+	uIkaY0wRAAexaYROUPTrfJ8co=
+Received: from LAPTOP-BJS5C4G0 (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgBnT8p9Oa1qcK1bAA--.11188S2;
+	Fri, 18 Sep 2026 21:15:43 +0800 (CST)
+From: Heyang Tan <thy15333007817@163.com>
+To: jeff.chen_1@nxp.com
+Cc: francesco@dolcini.it,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] wifi: nxpwifi: bound debugfs output to the allocated page
+Date: Fri, 18 Sep 2026 21:15:36 +0800
+Message-ID: <20260918131537.904-1-thy15333007817@163.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-avd-v1-7-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
-In-Reply-To: <20260918-avd-v1-0-49977931f455@icloud.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- Sofus Forstreuter <sofus.c@icloud.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX588aZ3KYV6wg
- X8haV0Pcti2l5eSp8AD/8MJhXircof/+GasuOuCHzQIT+T+bOigU8ZD+6K3CFfMxRN824P5lBAR
- XhLv98VgP9upJS873i0ux1rkHdFjEX8m44Y9rrxpm8mnPjoVk5V8Q9282ylOgMl/JRTz2PBg9PR
- f+a9dwNKruVmMvfP1QVjqziXxsFxmq+UftF6bWQcYJG/85BEnACfFDpfU2S23Z7rm83nShT832m
- ysR+KsKTM0qd2hAFJ/6f8pbiiBfiDLmFgXTEu9ajj7Z46EtXpy1WhKyfoknIFd8qtooB3QBEX0m
- oEm6UxDP2j9Ew6NQHXw/aIFu1B27r1Q/TFsgfNSQXnFb6FBNWHcw0Zxsp2IR20=
-X-Authority-Info-Out: v=2.4 cv=DIeCIiNb c=1 sm=1 tr=0 ts=6aad3997
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=UcMGxPN7aOZqZ3wHYxQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: Yl4RZ3YIdaJBHUuIETWnsy915N6kVXIw
-X-Proofpoint-ORIG-GUID: Yl4RZ3YIdaJBHUuIETWnsy915N6kVXIw
-X-JNJ: AAAAAAABI/t4w5EZW1dmIGamvZ/3T9+UqM+bgZ2ODOl4KhrjM8JnwkfzrGG/3M+ek5JRgMnSCmpSTPdmH/Pwl/gibkr9QslF71IyVwFcBdVBrPEoi37OLRFq7GPlcpxaaNaOCCiOAKc291b22F/1zvt9qIZA+rFNhHEWD+Bt0riEziOI0RrDockHaQrgHtXjlP+a8/IW8dyR/Tg2h4Y7i6rmx7Z/A3Zl9hgXex0ukAEo+dcp2YTP0/sPKMHYljlZInOAj8ojdLLmYxJH+oXMbXRE+Vo7jdJhxcCnQa9zoTDMIpNScEMcmEM9QkmlzXvY1evHsL6/bRQDVygaCZ/cSNQa/Iz7peZ8F2jmWM2buRN9m9fZUuQJ+8XkEw+6eqRTbGCQEohltpRsAFsY8cCz4xQ4nc0S0xAz4lpvfqSI+znsWTB2z6L/LkBWPYEYklsoCPaeb0fue0KuklEWSPJIPrUeQVmRDNCd4JXdAN3xLBBHTz1etzGRAaL0ZEkDgZ+wzJtjKAlUTYRrnUidGxR3OSMs3RRThIRidd4aGPcF3BqXvlnTgCe+jFMyvFLvg9OxZp7uxYu9+8sGPspLYCzeAY608ES+celvE2U6TzDtwyFydRid33cRl8UPdEVd/KxvOmxaZKiy1RhGI6EphA/Y6nQQUQzhvW6cXXcbaYJ6PcjEMY8Hls5XF0dKQeTqo00CZaUPPcNMqp8eUoNkRtRM0kGyJcnztmok7hYWyY8fYxfc1oKWATevvuoyRLkrqa8pGeDcmkDsDfr8gYvfU6ESBSnAiMaWCsoM1GDD0emEs2l1TpjI9qVYEUVWSkilrraq6iJFB5MP281SgvCuUyC3jrOaHzfwDAvFa8qxEayrAHF+fChx6q0TbthQMc96CpXzljg=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgBnT8p9Oa1qcK1bAA--.11188S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKr1xZw13ZFW5Zry8XFyUtrb_yoWfCw4fp3
+	y5KrWjqw4xXrnxGrykta1UAw1FqwsFvrW3WrZ5Cw43ZayqyryFvryFgFWFqry5Cr4xtF1S
+	vrs8K345K3WUGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeD73UUUUU=
+X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC-h9zHWqtOX9yXAAA3g
 
-Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
+This patch fixes two page-buffer overflows in the nxpwifi debugfs
+read paths.
+
+Both nxpwifi_histogram_read() and nxpwifi_debug_read() allocate a
+single get_zeroed_page() buffer and then format driver state with
+unbounded sprintf() calls.  nxpwifi_debug_read() goes through
+nxpwifi_debug_info_to_buffer(), which has no buffer-size parameter.
+
+With enough populated histogram bins, nxpwifi_histogram_read() can
+produce more than 25 KB while only 4096 bytes are allocated.  With
+16 Rx reorder entries and win_size capped at 64,
+nxpwifi_debug_info_to_buffer() can produce about 5168 bytes, also
+past the page boundary.  This is therefore a potential local kernel
+memory corruption / DoS when the nxpwifi debugfs directory is
+readable.  The debugfs files are created with mode 0644, although the
+default debugfs mount is 0700, so the actual exposure depends on the
+debugfs mount mode.
+
+Fix this by:
+
+  - converting the histogram formatter to scnprintf() with the
+    remaining page capacity;
+  - adding an explicit buf_size argument to
+    nxpwifi_debug_info_to_buffer();
+  - updating the debugfs and devcoredump callers;
+  - clamping tx_tbl_num, rx_tbl_num, and win_size to the fixed array
+    sizes before formatting.
+
+The patch passes:
+
+  git apply --check
+  scripts/checkpatch.pl --no-tree --strict
+
+checkpatch reports 0 errors, 0 warnings, 0 checks.  I also compiled
+the patched driver on x86_64 with CONFIG_NXPWIFI=m,
+CONFIG_CFG80211=m, and CONFIG_DEBUG_FS=y; the kernel build and both
+nxpwifi.ko and cfg80211.ko completed cleanly with no compiler or
+modpost errors.
+
+I do not have nxpwifi hardware or a runtime test environment, so the
+overflow sizes above are static upper-bound estimates and have not
+been reproduced with KASAN.  The practical exposure also depends on
+the debugfs mount mode, as noted above.
+
+Assisted-by: LLM Codex
+Signed-off-by: Heyang Tan <thy15333007817@163.com>
+
 ---
- arch/arm64/boot/dts/apple/t602x-dieX.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/net/wireless/nxp/nxpwifi/debugfs.c | 31 +++++++++-------
+ drivers/net/wireless/nxp/nxpwifi/main.c    |  5 ++-
+ drivers/net/wireless/nxp/nxpwifi/util.c    | 43 +++++++++++++---------
+ drivers/net/wireless/nxp/nxpwifi/util.h    |  1 +
+ 4 files changed, 48 insertions(+), 32 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi b/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
-index ae3d535c5acb..4b169a2cb9c8 100644
---- a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
-+++ b/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
-@@ -23,6 +23,30 @@ DIE_NODE(cpufreq_p1): cpufreq@212e20000 {
- 		#performance-domain-cells = <0>;
- 	};
+diff --git a/drivers/net/wireless/nxp/nxpwifi/debugfs.c b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+index ccaf0eae3..cd6e73a21 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/debugfs.c
++++ b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
+@@ -211,25 +211,26 @@ nxpwifi_histogram_read(struct file *file, char __user *ubuf,
  
-+	DIE_NODE(avd): avd@287080000 {
-+		compatible = "apple,t6020-avd";
-+		reg = <0x2 0x87080000 0x0 0x10000>,
-+		      <0x2 0x87090000 0x0 0x10000>,
-+		      <0x2 0x870a0000 0x0 0x4000>,
-+		      <0x2 0x87100000 0x0 0x10000>;
-+		reg-names = "code", "sram", "mbox", "ctrl";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1088 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1089 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+		resets = <&DIE_NODE(ps_avd_sys)>;
-+		iommus = <&DIE_NODE(avd_dart) 0>;
-+	};
+ 	phist_data = priv->hist_data;
+ 
+-	p += sprintf(p, "\n"
++	p += scnprintf(p, PAGE_SIZE - (p - (char *)page), "\n"
+ 		     "total samples = %d\n",
+ 		     atomic_read(&phist_data->num_samples));
+ 
+-	p += sprintf(p,
++	p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
+ 		     "rx rates (in Mbps): 0=1M   1=2M 2=5.5M  3=11M   4=6M   5=9M  6=12M\n"
+ 		     "7=18M  8=24M  9=36M  10=48M  11=54M 12-27=MCS0-15(BW20) 28-43=MCS0-15(BW40)\n");
+ 
+ 	if (ISSUPP_11ACENABLED(priv->adapter->fw_cap_info)) {
+-		p += sprintf(p,
++		p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
+ 			     "44-53=MCS0-9(VHT:BW20) 54-63=MCS0-9(VHT:BW40) 64-73=MCS0-9(VHT:BW80)\n\n");
+ 	} else {
+-		p += sprintf(p, "\n");
++		p += scnprintf(p, PAGE_SIZE - (p - (char *)page), "\n");
+ 	}
+ 
+ 	for (i = 0; i < NXPWIFI_MAX_RX_RATES; i++) {
+ 		value = atomic_read(&phist_data->rx_rate[i]);
+ 		if (value)
+-			p += sprintf(p, "rx_rate[%02d] = %d\n", i, value);
++			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
++				       "rx_rate[%02d] = %d\n", i, value);
+ 	}
+ 
+ 	if (ISSUPP_11ACENABLED(priv->adapter->fw_cap_info)) {
+@@ -237,27 +238,31 @@ nxpwifi_histogram_read(struct file *file, char __user *ubuf,
+ 		     i++) {
+ 			value = atomic_read(&phist_data->rx_rate[i]);
+ 			if (value)
+-				p += sprintf(p, "rx_rate[%02d] = %d\n",
+-					   i, value);
++				p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
++					       "rx_rate[%02d] = %d\n",
++					       i, value);
+ 		}
+ 	}
+ 
+ 	for (i = 0; i < NXPWIFI_MAX_SNR; i++) {
+ 		value =  atomic_read(&phist_data->snr[i]);
+ 		if (value)
+-			p += sprintf(p, "snr[%02ddB] = %d\n", i, value);
++			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
++				       "snr[%02ddB] = %d\n", i, value);
+ 	}
+ 	for (i = 0; i < NXPWIFI_MAX_NOISE_FLR; i++) {
+ 		value = atomic_read(&phist_data->noise_flr[i]);
+ 		if (value)
+-			p += sprintf(p, "noise_flr[%02ddBm] = %d\n",
+-				     (int)(i - 128), value);
++			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
++				       "noise_flr[%02ddBm] = %d\n",
++				       (int)(i - 128), value);
+ 	}
+ 	for (i = 0; i < NXPWIFI_MAX_SIG_STRENGTH; i++) {
+ 		value = atomic_read(&phist_data->sig_str[i]);
+ 		if (value)
+-			p += sprintf(p, "sig_strength[-%02ddBm] = %d\n",
+-				i, value);
++			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
++				       "sig_strength[-%02ddBm] = %d\n",
++				       i, value);
+ 	}
+ 
+ 	ret = simple_read_from_buffer(ubuf, count, ppos, (char *)page,
+@@ -299,7 +304,7 @@ nxpwifi_debug_read(struct file *file, char __user *ubuf,
+ 	if (ret)
+ 		goto free_and_exit;
+ 
+-	p += nxpwifi_debug_info_to_buffer(priv, p, &info);
++	p += nxpwifi_debug_info_to_buffer(priv, p, PAGE_SIZE, &info);
+ 
+ 	ret = simple_read_from_buffer(ubuf, count, ppos, (char *)page,
+ 				      (unsigned long)p - page);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/main.c b/drivers/net/wireless/nxp/nxpwifi/main.c
+index 55b962430..b4cac1df9 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/main.c
++++ b/drivers/net/wireless/nxp/nxpwifi/main.c
+@@ -1113,7 +1113,10 @@ void nxpwifi_drv_info_dump(struct nxpwifi_adapter *adapter)
+ 				continue;
+ 			priv = adapter->priv[i];
+ 			nxpwifi_get_debug_info(priv, debug_info);
+-			p += nxpwifi_debug_info_to_buffer(priv, p, debug_info);
++			p += nxpwifi_debug_info_to_buffer(priv, p,
++					  NXPWIFI_FW_DUMP_SIZE -
++					  (p - (char *)adapter->devdump_data),
++					  debug_info);
+ 			break;
+ 		}
+ 		kfree(debug_info);
+diff --git a/drivers/net/wireless/nxp/nxpwifi/util.c b/drivers/net/wireless/nxp/nxpwifi/util.c
+index bbfefb81d..27a91e205 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/util.c
++++ b/drivers/net/wireless/nxp/nxpwifi/util.c
+@@ -220,19 +220,24 @@ int nxpwifi_get_debug_info(struct nxpwifi_private *priv,
+ }
+ 
+ int nxpwifi_debug_info_to_buffer(struct nxpwifi_private *priv, char *buf,
++				 size_t buf_size,
+ 				 struct nxpwifi_debug_info *info)
+ {
+-	char *p = buf;
++	size_t used = 0;
+ 	struct nxpwifi_debug_data *d = &items[0];
+ 	size_t size, addr;
+ 	long val;
++	u32 tx_tbl_num, rx_tbl_num, win_size;
+ 	int i, j;
+ 
+ 	if (!info)
+ 		return 0;
+ 
++	tx_tbl_num = min_t(u32, info->tx_tbl_num, ARRAY_SIZE(info->tx_tbl));
++	rx_tbl_num = min_t(u32, info->rx_tbl_num, ARRAY_SIZE(info->rx_tbl));
 +
-+	DIE_NODE(avd_dart): iommu@287010000 {
-+		compatible = "apple,t6020-dart", "apple,t8110-dart";
-+		reg = <0x2 0x87010000 0x0 0x4000>;
-+		#iommu-cells = <1>;
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1095 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+	};
-+
- 	DIE_NODE(pmgr): power-management@28e080000 {
- 		compatible = "apple,t6020-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
- 		#address-cells = <1>;
-
+ 	for (i = 0; i < num_of_items; i++) {
+-		p += sprintf(p, "%s=", d[i].name);
++		used += scnprintf(buf + used, buf_size - used, "%s=", d[i].name);
+ 
+ 		size = d[i].size / d[i].num;
+ 
+@@ -260,41 +265,43 @@ int nxpwifi_debug_info_to_buffer(struct nxpwifi_private *priv, char *buf,
+ 				break;
+ 			}
+ 
+-			p += sprintf(p, "%#lx ", val);
++			used += scnprintf(buf + used, buf_size - used, "%#lx ", val);
+ 			addr += size;
+ 		}
+ 
+-		p += sprintf(p, "\n");
++		used += scnprintf(buf + used, buf_size - used, "\n");
+ 	}
+ 
+-	if (info->tx_tbl_num) {
+-		p += sprintf(p, "Tx BA stream table:\n");
+-		for (i = 0; i < info->tx_tbl_num; i++)
+-			p += sprintf(p, "tid = %d, ra = %pM\n",
++	if (tx_tbl_num) {
++		used += scnprintf(buf + used, buf_size - used, "Tx BA stream table:\n");
++		for (i = 0; i < tx_tbl_num; i++)
++			used += scnprintf(buf + used, buf_size - used, "tid = %d, ra = %pM\n",
+ 				     info->tx_tbl[i].tid, info->tx_tbl[i].ra);
+ 	}
+ 
+-	if (info->rx_tbl_num) {
+-		p += sprintf(p, "Rx reorder table:\n");
+-		for (i = 0; i < info->rx_tbl_num; i++) {
+-			p += sprintf(p, "tid = %d, ta = %pM, ",
++	if (rx_tbl_num) {
++		used += scnprintf(buf + used, buf_size - used, "Rx reorder table:\n");
++		for (i = 0; i < rx_tbl_num; i++) {
++			used += scnprintf(buf + used, buf_size - used, "tid = %d, ta = %pM, ",
+ 				     info->rx_tbl[i].tid,
+ 				     info->rx_tbl[i].ta);
+-			p += sprintf(p, "start_win = %d, ",
++			used += scnprintf(buf + used, buf_size - used, "start_win = %d, ",
+ 				     info->rx_tbl[i].start_win);
+-			p += sprintf(p, "win_size = %d, buffer: ",
++			used += scnprintf(buf + used, buf_size - used, "win_size = %d, buffer: ",
+ 				     info->rx_tbl[i].win_size);
+ 
+-			for (j = 0; j < info->rx_tbl[i].win_size; j++)
+-				p += sprintf(p, "%c ",
++			win_size = min_t(u32, info->rx_tbl[i].win_size,
++					 ARRAY_SIZE(info->rx_tbl[i].buffer));
++			for (j = 0; j < win_size; j++)
++				used += scnprintf(buf + used, buf_size - used, "%c ",
+ 					     info->rx_tbl[i].buffer[j] ?
+ 					     '1' : '0');
+ 
+-			p += sprintf(p, "\n");
++			used += scnprintf(buf + used, buf_size - used, "\n");
+ 		}
+ 	}
+ 
+-	return p - buf;
++	return used;
+ }
+ 
+ bool nxpwifi_is_channel_setting_allowable(struct nxpwifi_private *priv,
+diff --git a/drivers/net/wireless/nxp/nxpwifi/util.h b/drivers/net/wireless/nxp/nxpwifi/util.h
+index 1a47c8c5b..a0ec722e6 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/util.h
++++ b/drivers/net/wireless/nxp/nxpwifi/util.h
+@@ -82,6 +82,7 @@ static inline dma_addr_t NXPWIFI_SKB_DMA_ADDR(struct sk_buff *skb)
+ }
+ 
+ int nxpwifi_debug_info_to_buffer(struct nxpwifi_private *priv, char *buf,
++				 size_t buf_size,
+ 				 struct nxpwifi_debug_info *info);
+ 
+ static inline void le16_unaligned_add_cpu(__le16 *var, u16 val)
 -- 
-2.55.0
+2.34.1
 
