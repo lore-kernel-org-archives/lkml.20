@@ -1,87 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3621E30D3F1;
-	Fri, 18 Sep 2026 08:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D034957C9F;
+	Fri, 18 Sep 2026 08:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721037; cv=none; b=LO02gTE8sz4aqqtWEMi2oqtWMj3P++RY2Aa9m18RL0GnaCXuSZJV3hcJ3T7T1suep5sr3CxftFc3kNTjRUO6JqE6TNilMHV2Sz+fBHefQtPzhsIeOMWkyMXRhtwyneeLeCqaXCy6IFf1C/vd/yYnPdSgg2UcRxxT6296yxdww/w=
+	t=1789721040; cv=none; b=ofCasQF7Hqub6TeQtvrVQ3VMhy475kWoMTg1xu2/hvfYlXamS9EkSxMDhALqAHPqHCaTyi2ewBvXzkEywBB2mWBGhUlMU49q/ZkjP4WgXc5tnEwgzoQnWs14pxV4I1rQ3Vt0bx8WaX15rP3ZsjM5MN0FZqdciygYNkjPaarcLx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721037; c=relaxed/simple;
-	bh=ydMCf8UeCKVTabrS2pzlAs+ixDGgnsY1Oj1eP8jCuVY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZoiYjqiUCVQPdsl0hfEzPYUw0v6bKTRnW26+uuokea9JpFjEEm9w/BAheBoIQUANeTs4W7hpjfwElPOOnPyYUNqgDJHKeAwSqQkl9qFPsNRdx6G6Pq+dhNjzYPz9pdw449nUeVDn4/kUXMaiteOHkxrUp2ey8Ldjfeql5kSqUJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2w0L1Ea; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789721040; c=relaxed/simple;
+	bh=If0woU3wB/U0GPMkW/UBmPHM9mrWMkULYMmonKX54CE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ougxVD+A+inh+gbZDj9lzIhDW+qhAdo1YDfVY3eFhfeqbD5JfVr/6OSu5Z13ujVADXxwGbgBUpAAgHkuAUjcREl9OMCfu4hqutwdQjAFIrdaL6vyGxR/5NFoyGvLVKWe9iLxcFmfsOglfnAzRCX2RRA9Sv9VSgGC14mfpJIy0eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=sldqc943; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2w0L1Ea"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F911F000FF;
-	Fri, 18 Sep 2026 08:43:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789721036;
-	bh=p7yW5RQQpzce61fxOhF/6V3uC/yEcVaMlk0RaYCfGUI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l2w0L1EaCBM+Y6IyCZk0McWa1cU1klEYgp9+DejVz4E8TGx02JDSLpInw1Rtsb+G7
-	 8PzZLnXoeZ1ZKX1GSfunBrrR+/z8odss8QPpEz4cpU9rlESsLV234fcMqZDegSNWuj
-	 uGr2+GJQb4oi2TrlLgFQt0zoqFciEC163dJHSDeWkIDhA/Mo1YwLQXhbnNDGz2gcCy
-	 zYRknFQZHNSJGB3PaPJjIWbusT2TU3fxBiuaSfwJexAxwfe6ijtoZjIEgp9GCpWQP4
-	 hcEjFcBzGXFVTJJSaowXo8RcXhHlcgtV+f5syvI5rj7UZq2QT9NqYMuOZHKsz7n56l
-	 2Hg22LcJULBVA==
-Message-ID: <aa563c53-2d79-483a-999e-159006d59026@kernel.org>
-Date: Fri, 18 Sep 2026 09:43:52 +0100
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="sldqc943"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lnb1HsHPC7o9LX8c5eToyfaI+3ww1o3UsgtWogez0oY=;
+	b=sldqc9435XhYZkkErI8ITZ3BKXKuMG89YSDpE7Q+IpZU3aMkDd7u+aNynGpJyLWyB+ulU0CT8
+	PKEmZwwBy4KtFo/6H59LCQ6vy5eKTvagVY8+fw5A/RGnDCJpHgmeTz1r6/34K/IWgpejOXXcy+G
+	HAE3YSRcGMLc+MHHi2HlZYA=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hmQqF3FVGz12LFc;
+	Fri, 18 Sep 2026 16:32:41 +0800 (CST)
+Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8007420333;
+	Fri, 18 Sep 2026 16:43:48 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by whupemk100014.china.huawei.com
+ (7.152.184.20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 16:43:47 +0800
+From: Longfang Liu <liulongfang@huawei.com>
+To: <alex.williamson@redhat.com>, <jgg@nvidia.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liulongfang@huawei.com>
+Subject: [PATCH v4 2/2] hisi_acc_vfio_pci: reject live migration on 64KB page with QM_HW_V3 hardware
+Date: Fri, 18 Sep 2026 16:42:44 +0800
+Message-ID: <20260918084244.1485837-3-liulongfang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918084244.1485837-1-liulongfang@huawei.com>
+References: <20260918084244.1485837-1-liulongfang@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v3 1/3] bpftool: Skip non-autoload programs when
- generating light skeletons
-To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
- KP Singh <kpsingh@kernel.org>, Leon Hwang <leon.hwang@linux.dev>,
- Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260918040919.3402577-1-tweek@google.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20260918040919.3402577-1-tweek@google.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemk100014.china.huawei.com (7.152.184.20)
 
-2026-09-18 14:09 UTC+1000 ~ Thiébaud Weksteen <tweek@google.com>
-> When generating a light skeleton (bpftool gen skeleton -L),
-> bpf_object__load() skips loading programs marked as non-autoload (e.g.
-> SEC("?...")), so the generated loader program only records and populates
-> file descriptors for autoloaded programs.
-> 
-> Previously, bpftool emitted struct bpf_prog_desc fields, link fields,
-> and attach/detach/destroy functions for all programs in the BPF object,
-> causing the loader program to store subsequent program FDs into
-> incorrect skeleton struct fields when non-autoload programs were
-> present.
-> 
-> Furthermore, bpf_object__load() can update a program's autoload status
-> during preparation (e.g. for struct_ops programs when resolving kernel
-> BTF members or adjusting autoload based on map autocreate settings).
-> Move bpf_object__gen_loader() and bpf_object__load() out of gen_trace()
-> into do_skeleton() before counting programs and emitting struct fields so
-> that struct field declarations and attach/detach/destroy functions all
-> observe the final post-load autoload state.
-> 
-> Skip programs with !bpf_program__autoload(prog) when counting programs
-> and generating progs/links struct fields as well as attach, detach, and
-> destroy functions for light skeletons.
-> 
-> Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" and "gen skeleton" command.")
-> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
+On QM_HW_V3 (VF_CTRL mode) hardware with 64KB pages, the functional
+region and migration registers share one BAR2 physical page with no
+isolation, which leaks migration registers to the guest and causes
+guest kernel calltrace under the KVM emulated device scheme.
 
+The previous fix rejected the device in hisi_acc_vf_qm_init() during
+open_device, returning -EINVAL and breaking passthrough entirely.
+Move the drv_mode check into a helper called from probe() so that a
+VF_CTRL device on a 64KB page is bound to the generic ops, keeping
+passthrough working while disabling live migration.
 
-Reviewed-by: Quentin Monnet <qmo@kernel.org>
+Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live migration")
+Signed-off-by: Longfang Liu <liulongfang@huawei.com>
+---
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 32 ++++++++++++-------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-Thanks!
+diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+index 8ff69c8d1ff7..1c9f5cfa5c32 100644
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1198,13 +1198,6 @@ static int hisi_acc_vf_qm_init(struct hisi_acc_vf_core_device *hisi_acc_vdev)
+ 	struct hisi_qm *vf_qm = &hisi_acc_vdev->vf_qm;
+ 	struct hisi_qm *pf_qm = hisi_acc_vdev->pf_qm;
+ 	struct pci_dev *vf_dev = vdev->pdev;
+-	u32 val;
+-
+-	val = readl(pf_qm->io_base + QM_MIG_REGION_SEL);
+-	if (pf_qm->ver > QM_HW_V3 && (val & QM_MIG_REGION_EN))
+-		hisi_acc_vdev->drv_mode = HW_ACC_MIG_PF_CTRL;
+-	else
+-		hisi_acc_vdev->drv_mode = HW_ACC_MIG_VF_CTRL;
+ 
+ 	if (hisi_acc_vdev->drv_mode == HW_ACC_MIG_PF_CTRL) {
+ 		/*
+@@ -1672,19 +1665,34 @@ static void hisi_acc_vf_debugfs_exit(struct hisi_acc_vf_core_device *hisi_acc_vd
+ 	hisi_acc_vdev->debug_migf = NULL;
+ }
+ 
++static enum hw_drv_mode hisi_acc_vf_get_drv_mode(struct hisi_qm *pf_qm)
++{
++	u32 val;
++
++	val = readl(pf_qm->io_base + QM_MIG_REGION_SEL);
++	if (pf_qm->ver > QM_HW_V3 && (val & QM_MIG_REGION_EN))
++		return HW_ACC_MIG_PF_CTRL;
++
++	return HW_ACC_MIG_VF_CTRL;
++}
++
+ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ {
+ 	struct hisi_acc_vf_core_device *hisi_acc_vdev;
+ 	const struct vfio_device_ops *ops = &hisi_acc_vfio_pci_ops;
++	enum hw_drv_mode drv_mode = HW_ACC_MIG_VF_CTRL;
++	resource_size_t func_len;
+ 	struct hisi_qm *pf_qm;
+ 	int ret;
+ 
+ 	pf_qm = hisi_acc_get_pf_qm(pdev);
+-	if (pf_qm && pf_qm->ver >= QM_HW_V3) {
+-		if (pdev->is_virtfn)
+-			ops = &hisi_acc_vfio_pci_migrn_ops;
++	if (pf_qm && pf_qm->ver >= QM_HW_V3 && pdev->is_virtfn) {
++		func_len = pci_resource_len(pdev, VFIO_PCI_BAR2_REGION_INDEX) >> 1;
++		drv_mode = hisi_acc_vf_get_drv_mode(pf_qm);
++		if (drv_mode == HW_ACC_MIG_VF_CTRL && func_len < PAGE_SIZE)
++			pci_warn(pdev, "migration not supported on 64KB pages with QM_HW_V3\n");
+ 		else
+-			pci_warn(pdev, "migration support failed, continue with generic interface\n");
++			ops = &hisi_acc_vfio_pci_migrn_ops;
+ 	}
+ 
+ 	hisi_acc_vdev = vfio_alloc_device(hisi_acc_vf_core_device,
+@@ -1692,6 +1700,8 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
+ 	if (IS_ERR(hisi_acc_vdev))
+ 		return PTR_ERR(hisi_acc_vdev);
+ 
++	hisi_acc_vdev->drv_mode = drv_mode;
++
+ 	dev_set_drvdata(&pdev->dev, &hisi_acc_vdev->core_device);
+ 	ret = vfio_pci_core_register_device(&hisi_acc_vdev->core_device);
+ 	if (ret)
+-- 
+2.43.0
+
