@@ -1,65 +1,46 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222104A0EF5;
-	Fri, 18 Sep 2026 07:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A9133F58D;
+	Fri, 18 Sep 2026 07:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715812; cv=none; b=ah/eDxwkRt1JCxSk9zUVx1VWtPGf5NfAoB0Sy1Rgr6yNk0HEbe5m/F2qRBZN9vz9AJWHBAjwDHh4TdJ+3x8fGlphqOzVTbggA6/SIH5F5akOuFEgt5yq+x/KxKUPQSdAZ9gT3EzlCnEVuqiEB2TKmO+u9lSi02dQmYuuoX8UoFk=
+	t=1789715826; cv=none; b=IS+veSgn6jDgyZNLn9LvO10gWqMvi6LWeWAHT4wXqB0HVh19n7wKevpGeFzhgLFL+1zv5ew5fNWx1uLs5zKjREc3n8c78qJ+MRzBatFY6y4rxKFRC+5srHL8vFoQAbkRqTX8lE9x0Dzg4BEbJnF+r8Pl/d/FxoR/ssKL/Ulib8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715812; c=relaxed/simple;
-	bh=f6I8ZBvZY5b21kGT4hWsOkKu80+mgenojDFqc2dTPTY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=S7Wdkr+018o3jajjz0kEWdV1sPznRpuV8GQkqQifywy9Q0+xS0xA0xLemlllhKleYhJXPF9m3OIKRUvfk6T/k2p4X/FWI6Y+mPsOMCdAPJCghyEblMynNUpWwBQs2ekYLyRDDe4RXarGuiddCn7oDkHNMJSo+GsfMl1jjiVcaIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=WrJC3pZw; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789715826; c=relaxed/simple;
+	bh=vVHtmstrQVXoPO4Wgtv4WNm7Eo/RvWmdG7G5nDuT2aU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NbhQd+4Y79WtjnI3c3nlG1frjU4vpZJNRGaSQmbbZBaxSX+b+qPmlMsFhX9Ym3eJZr8eS7fQTJnH1aAd2pkD+rWNjNSKKps9XHXFqQcXdxXM3K0UUXTQQ2xR1JXBHYTYaEXrQxuw7iVyj+9H4+Cl1C5VR5ghjltU3RZnlhRqx/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=iy6BSnpt; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="WrJC3pZw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789715737;
-	bh=f6I8ZBvZY5b21kGT4hWsOkKu80+mgenojDFqc2dTPTY=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=WrJC3pZwa8kQeoG6k0N37cfJLqpzQUjjJQrxbc9wbxxM6QGGdnC5B+0hx/NBzv+aA
-	 fCypG/M8TIAeNAsLlM4lL6ISMWCsnuAvwgTYjRDeaO2h6kHI3RgmyPC8r1lqcsITiK
-	 zOUkAvGUf75VUccmzSzc1orLwVuaawmJLGbywz7I=
-X-QQ-mid: esmtpgz12t1789715731t572d7bc9
-X-QQ-Originating-IP: I0E+fPeRutq4gtKTkzyRE+aUiarVISFWz028LK/FdjA=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 15:15:28 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8646419534417741583
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
-Date: Fri, 18 Sep 2026 15:15:18 +0800
-Message-Id: <20260918071517.60561-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="iy6BSnpt"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=h90PgzraUO12tjqHfMCcOTpkxEXvZivlcpNjX7iY9jQ=;
+	b=iy6BSnptFCHTyKZjyp2K3u8K5Z7llD4atisDvy+lurmWUdTtt1MkXc2Vg+Ucg2GeChV/YCK5I
+	PA2hWkzgimVdACSMheDuj3NR807+DzDWJMGTXcgftFL2ypAcWSZlpmZ5thacKzr9LC0+B+vtN2D
+	sxDPgTUx4BGjbzO0cgpu2S8=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hmNv74QCGzRhXR;
+	Fri, 18 Sep 2026 15:05:55 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id F0F5C20333;
+	Fri, 18 Sep 2026 15:16:52 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
+ (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 15:16:51 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <song@kernel.org>, <yukuai@fygo.io>, <xiao@kernel.org>,
+	<magiclinan@didiglobal.com>, <eadavis@sina.com>, <abd.masalkhi@gmail.com>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
+Date: Fri, 18 Sep 2026 15:09:00 +0800
+Message-ID: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,39 +48,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NchHDkd43sBtypd/+GxbJW6Jgl+QTZMYD215Mp7+HZa1U9c8mgo10YE3
-	uZUD3gGiLYm/beBuBLcUmUzUKijO7bIJs8wWNdloQnK8P9B6941qq5F31aWVhZisGdwP4YI
-	c35f5XC/ouZ9GIlEUiA77xLohD83ah7PCgogIIeOxdnD/Ywm9QZRkyyf0PPh9HNJVrNjAKB
-	CjmzO8VcBPcOu12Me1w7+UgwbesXZngLe2XPPoLm9ytYPzHYFTZhhvN7y0d1aq+lCMeBK/D
-	wd1ycCrH7ztAqrvlmIOIcRFBpc/B8hSMqtHMdPog6c1n9QS+RvfaD+fI7TghPxIB3o1bf9P
-	WLEqhrBz2P/hLoaHCXKttNrh1Ys1Z1EWL5rJMjLd+OFXnHuQqJXv2Zq+EukKuKZcl83+ekQ
-	qaXnD2soyKRG7bAnsgokEn9cRb+ysRhyQwaTJKR2YP0FXDqZ5aTXzDIu3LQDltgGKxk8SK0
-	HQQG2wN2StYUwD/ETbojozqveXOXMP8k0aLadbV1T6AHkO/bTH+wqS01kp3CawtaN5ikuTl
-	0w3FVdTlJFc1Ufe677ibNLmSqxW+vjkjvTotNyqYZ81sMm0YSIAh4pGoPvmnnHjNfJJI2i9
-	wCoWehl7WSc8/7RQL7OVXv5DQxhVhiCGE3h33rvIwoAEsa2o3BVi5fRiKW8u7MwBFjab/Uz
-	HcsTkr5Pc7EsaRG2Y4U3iLf8mbREnTzc37mFCkl3fFlIxghB+DTzZEicAYfpPX5k1XsRcwQ
-	QcZkmMwOk+Hgw5OKzSGd5yQ5uWIXechpvtEXYOKtbeOH+TjZc7FLZHs8y33vnFCUNZZntzS
-	SOS3eBGrbDhwQ5dDS1mUgPd0Enas0HmWKswsCwiWvZiPc2Hd/JCzpJpYN4+gj94QY/vXwjA
-	wJ3x1v1rxtNp26Nf87eY5IUOF6VyGi+MWsvs1YvN2aPL/mYtoA1lVzPlcz6ovXLQWc9lVRl
-	7Rs+PbJ81thoazXQlrNliciVS9UfHaH1E5jmf5iESXgESd0vOTYBYJXXj7knz4ALgJVrYcT
-	xZWdWdP7/6pi8kXUBVxUEORW5dP/GCqpSy8y5bYbZXYDfLw24OFqUcSY4eubin5n3Ze+GRL
-	oKGaX25Pz85
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+Concurrent processes md_stop and IO submitting could trigger a
+null-ptr-deref of 'mddev->private':
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+ BUG: kernel NULL pointer dereference, address: 0000000000000070
+ RIP: 0010:_wait_barrier+0x2f/0x250
+ Call Trace:
+  raid1_make_request+0x150/0xf50
+  md_handle_request+0x104/0x530
+  md_submit_bio+0x76/0x130
+  submit_bio+0xdd/0x250
+  submit_bio_wait+0x1f/0x40
+  __blkdev_direct_IO_simple+0x1f6/0x370
+  blkdev_write_iter+0x3b2/0x520
+  ksys_write+0x7d/0x190
 
-Best Regards
-Wentao Guan
+              P1
+  fd = open(/dev/md0, O_RDWR)
+	                      P2 (forked from P1, fd' <= fd)
+  write(fd)
+   submit_bio
+    md_handle_request
+     raid1_make_request
+      raid1_write_request
+                                  ioctl(fd, STOP_ARRAY)
+		                   mddev_set_closing_and_sync_blockdev
+				   // check passed, mddev->openers = 1,
+				   // because md_open() is only called
+				   // once in P1->open
+				   do_md_stop
+				    __md_stop
+				     mddev->private = NULL
 
-Log:
-Linux version 7.2.7-rc1-gb4c9ab9b68c7 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Fri Sep 18 07:06:00 CST 2026
-Linux version 7.2.7-rc1-gb4c9ab9b68c7 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Fri Sep 18 07:24:55 CST 2026
-Linux version 7.2.7-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Fri Sep 18 07:42:35 CST 2026
-Linux version 7.2.7-rc1-gb4c9ab9b68c7 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Sep 18 06:40:08 CST 2026
+       conf = mddev->private // NULL
+        wait_barrier(conf, sector) // null-ptr-deref !
 
+It is a common problem for raid0/1/10/5, and __md_stop could be triggered
+by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
+The caller dm_table_destroy() is guaranteed being invoked with device
+suspended, so raid_dtr() could keep using mddev_lock_nointr().
+The caller array_state_store() is guaranteed by the check
+mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone open
+/dev/mdx, write something and close /dev/mdx, it won't trigger the
+problem, all dirty pages can be flushed before mddev->openers decrement.
+Besides, fail the submitting IO in md_handle_request() if the
+'mddev->pers' becomes NULL.
+
+Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+---
+ v1->v2:
+  1. Add 'mddev->pers != NULL' check before make_request
+  2. Delete dm-raid caller(->dtr) modifications
+  3. Move memalloc_noio_restore after mddev_unlock_and_resume
+ v2->v3:
+  1. Remove modifications in array_state_store()
+  2. update commit msg
+ drivers/md/md.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..e73338c26d53 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+ 		if (!percpu_ref_tryget_live(&mddev->active_io))
+ 			goto check_suspended;
+ 	}
++	if (!mddev->pers) {
++		/*
++		 * The __md_stop() sets 'mddev->private' to NULL during
++		 * the IO submitting, check 'mddev->pers' before the IO
++		 * being processed by specific driver to avoid the
++		 * null-ptr-deref of 'mddev-><member>'. The check is
++		 * safe because the IO has got the 'mddev->active_io'
++		 * reference, and all __md_stop() callers will wait for
++		 * the reference to be zero.
++		 */
++		bio_io_error(bio);
++		percpu_ref_put(&mddev->active_io);
++		return true;
++	}
+ 	if (!mddev->pers->make_request(mddev, bio)) {
+ 		percpu_ref_put(&mddev->active_io);
+ 		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+@@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+ 	case HOT_REMOVE_DISK:
+ 	case SET_BITMAP_FILE:
+ 	case SET_ARRAY_INFO:
++	case STOP_ARRAY:
+ 		return true;
+ 	default:
+ 		return false;
+-- 
+2.52.0
 
