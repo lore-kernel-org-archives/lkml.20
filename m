@@ -1,111 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1173D432BC3;
-	Fri, 18 Sep 2026 17:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130C84D598C;
+	Fri, 18 Sep 2026 17:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750979; cv=none; b=aawmlGXKurlOHSQ224RzdF/aCqGKxFF6LTkPBS7zd+03teSiiDzLzx+6DW5QAZmW94JVihdzccOmfeWueXcHRhdDOrciTkwmvcSre19//5fcXoOCcQvZnOfquDjFIKVhacLZdW+XkamR62YCsp3oI5bHrm5/tr39xRtbY2jVAqo=
+	t=1789750981; cv=none; b=FrfUN0l3oIN0kL2Ve0y2m1QyvkkhZBivSe4HnS+E+ntfVcSU/Dh1UDUayHLVZJRASubWFOGgfUpHIqOZlpyLPzlC7/lskbg867NwV2Cts7OXfkyrp4UzW36chDjQg8tRjawDIGvqbHTgMiadxkfXBSOCDTH9vyeBKdcByi2vK70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750979; c=relaxed/simple;
-	bh=PpUq25wPm/jfx2F62tUw4ZCTLMWc1hTT6ZkJwbhoS2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TM2Z1LV4zrk3vywka7wr3qQ3MfksA2hEq0Y3e0IPfP6ev5KxZ83fqVhfFk/LUiNGxkTzxOO6pRdwJP5qfcVGi242vhgvJOFerTuf7QYxQNytbW+Rg2La2LpJcbHf0K5egxj3xDTEFu/MtxLYC8QZ3vcAzHRY4weH8wQ0m/ZxBrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqM1BNkd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789750981; c=relaxed/simple;
+	bh=asQGZXBqPwc40v+1IHCxrKjtk5cmKY6XVm4QKcR3Knk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bPrIuDXs+v2fUsAFKcZc6jS80I5NHMrf5/IU2D8kWlqJ1OcUf+XJPlFlU+JKOaXDSW4K2ty/jNID+UTuxH3kIqux4WLgDvPtQxGGxamIs+CXPmxGCMH6BhmgGkhGnIjk6EqjvlSsE4cO01mBqnecKTgsJs0h7IOhzXneIbofy2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kN0S1/ri; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqM1BNkd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E8F1F000FF;
-	Fri, 18 Sep 2026 17:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789750977;
-	bh=SZZ14vgPCBujECBZ2B1QditiMj4rHjKuyn6K/jxHEWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZqM1BNkdN7ygvjf3DI1xQO8LW4R0T/Z0dMQ0AUybpQ2ZRPO6oatl/7BZj3xhWK1Lr
-	 XPrexxdjYhtlGrlcFwGyR3AcV4rvNpchmz/zgG8YjWLQvxUwTkXpNI81G0h6qQ4bwM
-	 ACOHz+2u3p3o3lCUWQ02nxFLL13dQzMwGlCeJcYiwPacEpKT8DhpAHxgXWDA3DSajg
-	 0cRRqbHQRqbrJ6wIh8BMjtkVdZ13PVW9CtzHhUW07/Kwl59JnkbDbgep08RMBftnSQ
-	 DrKE+VNY5c0D6cS0m6C6YFFuAXuO5L5AxVj2cWbwrlph2inisi+QPEYBHwyJL6zlv8
-	 sKNiBgUcKjT9A==
-Date: Fri, 18 Sep 2026 19:02:37 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
-	Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>, 
-	Takashi Iwai <tiwai@suse.de>, Vlastimil Babka <vbabka@suse.com>, 
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Subject: Re: [PATCH net] Revert "net: qrtr: Send HELLO message on endpoint
- register"
-Message-ID: <35spnanlpb6tefiqvc4spzufecgwsikv5ruzdwzfmap4gu6pda@6yfsalrk3d7y>
-References: <20260918101621.2848322-1-linux@leemhuis.info>
- <lgyho3avi65edtr4xggbsrja47cjhqbamrnmchnfh4blmyygd6@bhotovqqqubj>
- <85c50e6f-a270-4755-8576-c4ba2b961e26@leemhuis.info>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kN0S1/ri"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789750980; x=1821286980;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=asQGZXBqPwc40v+1IHCxrKjtk5cmKY6XVm4QKcR3Knk=;
+  b=kN0S1/riN7A41eO4kBJQ/KGHw6j+Vbrk1K4P4TyQJqKiOb6cI/4DWF0u
+   gDkYA3hg5pVtweicuZr8Z1u1queKE2Nj17XSKP2LF38anCzSVxchhq6t5
+   +O5pmXApOW1BMDkD+73AWe6vIZSvST7EKdbGJ7zFmO5Edjy7zlgTHHX2y
+   A2IQ2MT3R2sPSFmRVK9XNaG+7nClAO8ovfU68BkoSRt/iebz/TbawuxA3
+   //92ed5C0JGN4OWKoR0CBrDE+VQV1zsxWObq5ZQTNE74sOUhzNcNCtvX8
+   L6wPsjR8RYVWvUNY8zYl3igwOqsGglIVXEATXA65vzj+krrYtvSYc+hQj
+   Q==;
+X-CSE-ConnectionGUID: mgo6vIWMT9Cmgv4hmCf4Mw==
+X-CSE-MsgGUID: WR8+fEbUTyaV+uggvFsF4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="783460"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="783460"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:02:51 -0700
+X-CSE-ConnectionGUID: Zw2LwmXHQ7ySKFwhJmtFDg==
+X-CSE-MsgGUID: x2GKyjZCSySyeDCzgcFzlA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="2701457"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.117]) ([10.125.109.117])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:02:50 -0700
+Message-ID: <ab129288-17e8-440d-b544-70ada8925cf0@intel.com>
+Date: Fri, 18 Sep 2026 10:02:48 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <85c50e6f-a270-4755-8576-c4ba2b961e26@leemhuis.info>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] dax: Fix Device DAX range allocation validation
+To: Muchun Song <songmuchun@bytedance.com>, Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Joao Martins <joao.m.martins@oracle.com>, nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ muchun.song@linux.dev
+References: <20260915095621.3744167-1-songmuchun@bytedance.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260915095621.3744167-1-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 06:56:19PM +0200, Thorsten Leemhuis wrote:
-> On 9/18/26 18:37, Manivannan Sadhasivam wrote:
-> > On Fri, Sep 18, 2026 at 12:16:21PM +0200, Thorsten Leemhuis wrote:
-> >> This reverts commit 544d85de4dc22c01badfd8cefa59829ce35c4858.
-> >>
-> >> It causes suspend and resume problems for numerous people, including
-> >> maintainers and developers of ath wifi drivers. A fix was proposed[1],
-> >> but did not get any traction, so go for a revert instead.
-> >>
-> >> Cc: Chris Lew <christopher.lew@oss.qualcomm.com>
-> >> Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> >> Cc: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
-> >> Reported-by: Daniel J Blueman <daniel@quora.org>
-> >> Link: https://lore.kernel.org/all/20260909055846.16539-1-daniel@quora.org/ [1]
-> >> Reported-by: Takashi Iwai <tiwai@suse.de>
-> >> Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
-> >> Reported-by: Vlastimil Babka <vbabka@suse.com>
-> >> Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
-> >> Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-> >> Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
-> >> Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
-> >> ---
-> >>
-> >> I'm not affected by this, but due to all those reporters mentioned above
-> >> it seems it would be good to get this fixed for 7.3-rc4, as Linus' rule
-> >> of thumb wrt to fixing regressions is "generally be 'within a week',
-> >> preferably before the next rc". Which is why I currently plan to ask
-> >> Linus to pull this directly. If this is a bad idea, just tell me.
-> >>
-> >> The patch from Daniel linked above[1] could have fixed the problem, but
-> >> none of the developers of the culprit or the maintainers for this area
-> >> commented on it within a week
-> > 
-> > Really?
-> > https://lore.kernel.org/all/hcr4woicsnz3pbhzlguuwjlego7yli3znhjmsx4cdz66xa74zd@wjtle2yslc4b/
+
+
+On 9/15/26 2:56 AM, Muchun Song wrote:
+> While working on the HugeTLB Vmemmap Optimization (HVO) generalization,
+> Sashiko reported that memmap_init_zone_device() could be asked to
+> initialize struct pages with a large-page order for a physical range
+> that was not naturally aligned to that order.
 > 
-> Apologies, I had forgotten about that one.
-
-Np :)
-
-> > FWIW, I don't mind a revert too, but the comment was misleading.
-> Just tell me what you would prefer, you are likely the best one to judge
-> here. I just think it would be great to get this resolved for -rc4 and
-> your option would really help there. Sounds like you would prefer that
-> fix, is that right?
+> Following the Device DAX call path confirmed that the condition was
+> reachable. Device DAX range validation checks the range size, but not
+> its start address. An unaligned range can therefore reach
+> memmap_init_zone_device() after the device binds, and a subsequent write
+> to a userspace mapping may trigger a kernel panic. With the help of an
+> LLM, I was able to reproduce the failure.
 > 
+> The automatic resize path has a related problem. It can split an aligned
+> size request across arbitrary free gaps, consume an unaligned fragment,
+> and leave the resize partially applied when a later allocation fails.
+> 
+> This series validates both the start and size of every Device DAX range
+> and makes automatic resize account only for usable aligned space. It
+> also fixes the mapping sysfs attribute to propagate validation failures
+> instead of reporting success without allocating the requested range.
+> 
+> Muchun Song (2):
+>   dax/bus: fix Device DAX range alignment validation
+>   dax/bus: fix mapping attribute error reporting
+> 
+>  drivers/dax/bus.c | 144 +++++++++++++++++++++++++++++++++++-----------
+>  1 file changed, 109 insertions(+), 35 deletions(-)
+> 
+> 
+> base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
 
-Yes, even if my comment about kernel-doc is not addressed.
+This commit does not exist in Linus's tree. Can you please base the series on top of the latest 7.3-rc tag so sashiko can look over it? Thanks!
 
-Let me ping netdev folks in that thread again.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
