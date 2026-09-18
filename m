@@ -1,149 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681BA3D5C31
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E814848A2;
+	Fri, 18 Sep 2026 05:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710345; cv=none; b=sA4QhfGF2BXxuRcpVhn4vgRbKf1rqUN3FcjURe41AikCFqaTmISVBuE97GzLjMke0ZBGoy5LdCl7SN+AK9J+6rg0KjRmo6HK4i4vwkt3eITtXpk6aqR5o/1vSIEw2y+11PZZpSPE865clXVWmvt0E0erOukNdPuQ5XxR2lytIGU=
+	t=1789710422; cv=none; b=PeH5OMhVh3AiP+uaN/EaYodBiXWBH9NeDulyIKl/JG2jUr6DYT8LP8gR4YfWuowr2HnNaEPinxz/4ajjmEjKB2tI8efnv1JkiUFq4AdYMiXzp8nwcTGKoApNkZQj1dQfwS1AiOU8E8lY9L3x+T966U+bYud3pvW7LyQRd4Jgj8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710345; c=relaxed/simple;
-	bh=kJBZ10JYEP0JwjjJzcoK9xihABAg2dVb9qqp6sKh8aA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=if/0CxbpY7OkI4Lqnng0lrs7hF7dWxwnxgdXhyDv8PHQQuBG6vcaE53iB2PsmZKqPB0YQ2HaTBZAOcDmHHwPW+ksWlPGh5r2GieE6kFIwBgsoGka2ieAQe+hi9e2TjS+AKfL4mr0kjiJxDj9KHK/MiIOsEPnPLHD0ZTdBHZ9DIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGzlyAgD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789710422; c=relaxed/simple;
+	bh=krSGbGiEbDxXzAEfj6+tgz7u+3qEseaxnZFfxWuJsOg=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=OK/xq8+9d541n1GGuVnw5iqkmYEqu0SHlb9tl0k2UGrqlVi6ZZjFtE/PPNHKfhX5QTxSN18oZ/gET5QOlucyThgP+2yku4s8k5ZniCGFRQQkPRT8oYWc2mnPSs1WQLmZPr8wr/R64Tv2p2RY1aN8FGphJn6U2R7kP5aoNZ1C1OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=c5GHBC89; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cwrMGDmH; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGzlyAgD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D15D1F00899
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789710344;
-	bh=tZIBQYdIkUIAuzb3c6Yftyghs4HLNorlFCx2qvx3BqI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IGzlyAgD5iCGTIAwfOZCRmAvZgLKKhKgnpxCzV6AaVy5VpNIeXJHRznv4261V4RD1
-	 P+rc0RyTn3gLXrafh6fGhL2wNnN2DNxiujRfGvHXPImPlZ3Rq0gNsZpVmydyb45d/4
-	 5AreMdB+Ig85mAN4h2+5fo7zhElIlp/y0H5oAJg/GlyjtZMOZ/d8joRoSfPEgZfHaZ
-	 TNBbiVFoG/GzqWerMJPbDs8wr1nJ7TjHTzOW8nfx0NDAewSaL2PbqvXXufzDVqKP7Q
-	 qOIGxfFNTVWEkvBcfYf+wWs5cTfsDYOItUG7LkFRZ9c2Rkkhxaa5WkRdvgeIvfYYQb
-	 S9XX0cUt1mGfg==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109fafd7so32328685a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:45:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz+M1bx03DhkLB4ix+VEr+k8o8MdikffKPj/qiPOWoPwxkKG6mCy3nV/opCWXImKlfF/Dm0nfKlYMSL3DA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8MTHqMkm7P2bpYd3Any95ttg0RJzya+mcmwK0DHH0zEmCJDwj
-	abYOagVt0bC9qSDkUAZaVfFDlJS5xwBKtTeYaTOIowatFKzYClUaBK701q2pxw2qCCn9gfn16hf
-	+mfgVrH5S7s16WTmf2+Ze0vzxBLmi9tU=
-X-Received: by 2002:a05:620a:4047:b0:93b:d7d7:8739 with SMTP id
- af79cd13be357-93bdc7abb16mr192170885a.46.1789710343466; Thu, 17 Sep 2026
- 22:45:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="c5GHBC89";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cwrMGDmH"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 75A69EC01E1;
+	Fri, 18 Sep 2026 01:46:55 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 01:46:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789710414;
+	 x=1789796814; bh=vOQuQl4xHHsYUfV8IRt8LMVoVN43GEAALICbdkpOnwk=; b=
+	c5GHBC89/s1hAHxNTUo8NCa7NKYdQyoxRykEfZyL49V+tNXU7S9IqENKUYYogY5u
+	TrXxouQNJk+/ukGxgr9NknzN4BSCVi1vpR5efoqRYitejvjK5tf743bZF0XTTM5b
+	dfX//JrDEeE5kPvJDagxX6DXDe4zxVABUUkjfL1SunTFEHESuilyakwK1n16zAUp
+	r6e+OYfP4iuiBOgkshONPsKeF6230D4P0KYhQy0qnMmgGMC4uKaQgLn0L48LrOvc
+	hIsOk5RZsp63UWcHkqEu0F1d4CSDeel9tcqqW7l4vNuMPDf/tEXBOFV3gOHuCUnk
+	32DSwwP7YEJQzAso3MYmig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789710414; x=
+	1789796814; bh=vOQuQl4xHHsYUfV8IRt8LMVoVN43GEAALICbdkpOnwk=; b=c
+	wrMGDmHD5MmmDR3xs+YhVGGiybgFiVCH2vZ3SUf6aGtZhku0SSlYJH4/ErgJAuRj
+	+1riSm/EamIGfl2Fxk8IOBX0Ac0NZ7Kuk1uj+LEg0V4dz9lnUkdlCxf3d6OsOk1q
+	bzyPK0GWEzNoQi8A4zRdyAsVyVRi8vOe0HCc1f6ogix1AqTyOWjI4eEL8JYR8Ykc
+	VEWrtwTVVCj1o2QJSDaB1W44kjc91ODT3+bfttEquCcj8jFsFOI37NsnRC9I7kFN
+	SdBZRvi9dI45VMSbkXpefayq/qcn9Zgig5+h9E0bHJXvPNShF1I7HXo5rZEc369+
+	3bU/wPioWzRe6rkWUifHw==
+X-ME-Sender: <xms:SdCsaqg2_UVmxD2QC5Nl2F_uy1ndELKzOzO9NrVLSZd_p-m72Fs15Q>
+    <xme:SdCsal0JWjpPUeMlNTQQET40FqTB2xpfDqCtdn88KlU-a9xFi8kTpXAXITIgvCC5d
+    iJaLo9lWWbh9eatrF1hwh4vkHZcgFy60t8vE2W5fgNCT07r-WuwTU1C>
+X-ME-Proxy-Cause: dmFkZTEYtRs0FMD0kTrhm17Art1N+H9Q4KIvT46UAFNPk7EDAm27bGjO2gB+rUw61KBpBc
+    N/NOlpeBwTJV750SUVWhoqe465YW3OhPE7ybCjaKfhhSTQ4cUuPVRuWZUngKUruwRfYPn9
+    /XKe+EiuHME6hif9UgDmQbEBUuXsGNOhyLiaHh06uObloHDh25jR69e4gfWbsYm6eCWiHT
+    dNV1zwF3UIrYSoETX4EuMxaifvVZN9qCTQUsDFHwddpmb73lMFQKpKZt4Dev3MfR1hjD/s
+    3Nzcoj6FPHAB02qFpS+loscNni7+4WNKnkQgBlDhkALW950KBLdQp+nSxBfGxU+w4gKbUO
+    lycrwjZI3E2Ow/DqbTPEoj0glfcAtS/ADI91hAAjgMzku4/Yrwq+TDybw2h4OQ0KMzQTO7
+    Ygu5W7hUt+fMR1Kg4c20ZSUsRKwFDVIwYE/oV+OmvzHeMr0bNkEC6JM6GDcZ417Ggk7IPb
+    H1pOVj/4NAxHZ8+uK3SXL/w2xDr5mOo216qo3rDCJ60kQS4rp8K5yngJ1OVPEw/5D1eEpW
+    nquPZMFIek4tpY/7dMK/RSTrbpQkNX89VvrNg/iOCl6jc5qoywlsSE/KKI3gIF8BEeB+Rp
+    1YxzX7lycbnVGxe98b1dbxC9e4gIGw6G3u37DfyvlkTopr0wQ4s9mSUok7kA
+X-ME-Proxy: <xmx:S9CsatF_qsk182wVJpA3lz2o5A86ug6hxGSGoe4pw0axhv3WJvd2hw>
+    <xmx:S9CsarHNQrxA4dRP0cfZ9gtrgUIB4sGD0VXyO4dUVxEwfSFDrdTVLA>
+    <xmx:S9Csat25CZVD6B_6lfV8t9NTEaEH4FWkTplIPkxxJwgAHIrN7_nCOw>
+    <xmx:S9CsaldI95E6jk_5DVgVZLec53xnYDNQg-cFBbIQbHRoAc5cCWwPTw>
+    <xmx:TtCsaipDFXDBPFz1X8UV0J2_D3uxYHL49Qb4-3inkgdWZNJehpr46lvW>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3822632A0084; Fri, 18 Sep 2026 01:46:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789701677.git.baolin.wang@linux.alibaba.com> <eeb806b057f2097a4d8d2edcb9ccf850aad8f38d.1789701677.git.baolin.wang@linux.alibaba.com>
-In-Reply-To: <eeb806b057f2097a4d8d2edcb9ccf850aad8f38d.1789701677.git.baolin.wang@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 18 Sep 2026 13:45:32 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wRWYx8QkBNQqLUDwcBr014dErSqj4mmwL6u+3w7U2QPA@mail.gmail.com>
-X-Gm-Features: AcwNN1U4ukXCswakzGtSkgTbKuubC_WAgMbaEn_3U3tuvbZJPBNgMp1ALv2pB_M
-Message-ID: <CAGsJ_4wRWYx8QkBNQqLUDwcBr014dErSqj4mmwL6u+3w7U2QPA@mail.gmail.com>
-Subject: Re: [PATCH 03/12] mm: shmem: don't expose 'deny' and 'force' via the
- kernel command line
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, hughd@google.com, david@kernel.org, 
-	ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, lance.yang@linux.dev, 
-	usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: A1v-knPnKEnN
+Date: Fri, 18 Sep 2026 07:46:28 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Bjorn Helgaas" <helgaas@kernel.org>
+Cc: "Semih Baskan" <strst.gs@gmail.com>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ "Manivannan Sadhasivam" <mani@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ bhelgaas@google.com, "Ray Jui" <rjui@broadcom.com>,
+ "Scott Branden" <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, "Rosen Penev" <rosenp@gmail.com>,
+ rani.hod@gmail.com
+Message-Id: <8f36b2ea-38e0-4b57-86c9-9efef8fa8fa8@app.fastmail.com>
+In-Reply-To: <20260917214801.GA1054958@bhelgaas>
+References: <20260917214801.GA1054958@bhelgaas>
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 11:58=E2=80=AFAM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
+On Thu, Sep 17, 2026, at 23:48, Bjorn Helgaas wrote:
+> On Thu, Sep 17, 2026 at 10:27:54PM +0200, Arnd Bergmann wrote:
+>> On Thu, Sep 17, 2026, at 20:36, Bjorn Helgaas wrote:
+>> 
+>> It feels wrong to me to change the devicetee file when that arguably
+>> describes the device correctly, and we still need the node for the
+>> bcma bus probe in the end.
 >
-> Based on the previous discussion with Lorenzo[1], the 'deny' and 'force'
-> options are testing-only configurations and shouldn't be exposed via the
-> shmem kernel command line.
+> I don't think pcie-iproc-bcma.c needs anything from DT at all.
+> Everything it needs is in EROM.
 >
-> So drop these debug options from the shmem kernel command line and update
-> the documentation to make this clear.
+> Some PCI drivers, e.g., wifi, need DT nodes, and I think those need to
+> be enclosed in a node for the PCI host controller, but
+> pcie-iproc-bcma.c itself doesn't care.
 
-If it is a debug option, it should not be exposed through sysfs :-)
+I understand that it just works without that, my only concerns is
+that having a DT node (which is required for adding child nodes)
+without a compatible string is going to cause problems later,
 
-Maybe we could rephrase this to say that it can only be switched at
-runtime through the `shmem_enabled` sysfs interface?
+From the DT perspective, it would be better to add a second
+(or third) compatible string to identify the device better and
+keep the existing generic string as a fallback. The
+pcie-iproc-platform driver can then skip the device based
+on the more specific string.
 
->
-> [1] https://lore.kernel.org/all/6e4aae7b-2c71-4109-945c-6481efde3636@linu=
-x.alibaba.com/
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> ---
-[...]
-> +static int shmem_parse_huge(const char *str, bool skip_deny_force)
->  {
+Simply replacing the existing compatible string with a new one
+would solve the probe order problem and at least leave a
+well-formed device node, but this would still count as an
+incompatible binding update, which we try hard to avoid.
 
-The name is a bit weird. What about `allow_deny_force`?
-
->         int huge;
->
-> @@ -683,9 +683,9 @@ static int shmem_parse_huge(const char *str)
->                 huge =3D SHMEM_HUGE_WITHIN_SIZE;
->         else if (!strcmp(str, "advise"))
->                 huge =3D SHMEM_HUGE_ADVISE;
-> -       else if (!strcmp(str, "deny"))
-> +       else if (!strcmp(str, "deny") && !skip_deny_force)
->                 huge =3D SHMEM_HUGE_DENY;
-> -       else if (!strcmp(str, "force"))
-> +       else if (!strcmp(str, "force") && !skip_deny_force)
->                 huge =3D SHMEM_HUGE_FORCE;
->         else
->                 return -EINVAL;
-> @@ -5680,7 +5680,7 @@ static ssize_t shmem_enabled_store(struct kobject *=
-kobj,
->         if (count && tmp[count - 1] =3D=3D '\n')
->                 tmp[count - 1] =3D '\0';
->
-> -       huge =3D shmem_parse_huge(tmp);
-> +       huge =3D shmem_parse_huge(tmp, /*skip_deny_force=3D*/false);
-
-/*allow_deny_force=3D*/true
-
->         if (huge =3D=3D -EINVAL)
->                 return huge;
->
-> @@ -5807,7 +5807,7 @@ static int __init setup_transparent_hugepage_shmem(=
-char *str)
->  {
->         int huge;
->
-> -       huge =3D shmem_parse_huge(str);
-> +       huge =3D shmem_parse_huge(str, /*skip_deny_force=3D*/true);
-
-/*allow_deny_force=3D*/false
-
->         if (huge =3D=3D -EINVAL) {
->                 pr_warn("transparent_hugepage_shmem=3D cannot parse, igno=
-red\n");
->                 return huge;
-> @@ -5822,7 +5822,7 @@ static int __init setup_transparent_hugepage_tmpfs(=
-char *str)
->  {
->         int huge;
->
-> -       huge =3D shmem_parse_huge(str);
-> +       huge =3D shmem_parse_huge(str, /*skip_deny_force=3D*/true);
-
-/*allow_deny_force=3D*/false
-
->         if (huge < 0) {
->                 pr_warn("transparent_hugepage_tmpfs=3D cannot parse, igno=
-red\n");
->                 return huge;
-> --
-> 2.47.3
->
-
-Best Regards
-Barry
+        Arnd
