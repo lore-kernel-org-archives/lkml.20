@@ -1,420 +1,137 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057C446E010
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F2746F4BE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710272; cv=none; b=sicn3oUBL2kUshhILvGY9Roy9DXyBkGIzDZgYxpHpww4V9pR8bMnioY4A9wYELyOXoA7CmfZucpI7nXU4jRIKTJZkhGJkHrM9QEd51KDTQ0AoJdwslefB/Wy8OSOW1/7Mh8GsKGY8tpDdaP1j02ESL2behIZzxJkWZ3+C5N7vs8=
+	t=1789710276; cv=none; b=AbqXC3us/Utj4UQqhIFz4Wd3Sy7b0ojG3Mu15wY3xJaURdUZ03079+p5lnMO1Gath1fJHpUHbU7MoFsn717peBkcVux70cnp7tr8F6WhQdtCrcP9SVZlmQNFdDCF7/wtt8p/SWiKAQylhY+onciFIOgibbXsmszeA29Z6z+iHNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710272; c=relaxed/simple;
-	bh=0EcWla/t7r2Is/Gsalb7DquSD5xPWNfAMnNZ1W4EqQ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SlYw9y3D8TTve2uASbO29BKEByO2JPo/4W4GKQOwaKG1bJzrzj6rpDiwxzxdmYfOVYmfZ4dbha+vD+KFL5L0R3BBY7u9qBFTH80Wl/bLKwTfXQDYFXFztQZ99tHOSHSlJOyLIpn/ZMKtKmF6Je6E2GRnTqzi+VN5v5vChgcWogs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iD6LUm8g; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789710276; c=relaxed/simple;
+	bh=rCv6s6H6j29TvkAkp/AsAzYsZj8a1EHgr/XGLtqd+eM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nwPH4K5ZWTukXA1IxtvOOk2+wryUDSEszb8WYc7XTNmIJw6y+M7+Gj2aQ9KFnwLCicBzzCJU00gz7S5jGFsRK/uM1OeDCwT1ZIcMNE8C+IeZAZEg/X5b9/8OVHys3kVUw2EA2HrLIuGZ8H6T2nM3cz80ucO3MTYY1Qij485gpJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pADFO+VS; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iD6LUm8g"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a856865so357871b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:44:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pADFO+VS"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so159879f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:44:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789710270; x=1790315070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DICFuZRT/wM26itDo1qul7ObG4+wCWuvarS8L5JEZpg=;
-        b=iD6LUm8gu/+9qIkeAYgZ06uD8K2AzEfa/PjpUsXvIaANekpFA5IsIrTSTnHbJ7uhYi
-         p8mm/ge2NatOxiLy0s01fxQcQUTq433w8dYKpxjh0ZeDAl4ukl0rNs4maYa2W6aejIiT
-         dZrnRww3qyHAUdQpHPiWJdFVdYeOpsOe6Hmq9uKqkf7XnzPIi1QFZQzc/YIzMgfHJ+J6
-         BFh9un4Cv2kJfDDHLvTHAs5qqT5Qoqy+3nTQc5lwtAPjTt95s2lLXJuR2KeyYWXdxr3p
-         vYWkoSEF2+yO7L5X4xuBSV9PknyPYbxrHOz5vvF29MX373HbfNrkO7H/RtnpfPM+l7vp
-         1OYw==
+        d=baylibre.com; s=google; t=1789710273; x=1790315073; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rCv6s6H6j29TvkAkp/AsAzYsZj8a1EHgr/XGLtqd+eM=;
+        b=pADFO+VSrDD+enyIw6/7dNub7l/OWodGCD9OrW4fyoVgUGVwh50ugGZ0oRlqdc7wu/
+         zqY+/nmXZqJHo84Xpnq9tlM410llWSpQmw5ggceHRIJRXwkWxUsGlBHk/uBS5YTdJHKj
+         i31Dz60o4VEXDBgFMclIcfUUi8bXbSDijxqxjwTH22qoYWJz5v/9yIyH/nwa5GmdJdkb
+         zC7LyCMluqrJpkRY9CjgTtEbSmHthCDtThLguKqeZY4fLR95crrnWbs0qprAodqi8CuS
+         DZhOkMGbJeeN6J7HuUHui10KeeEw8YkK/L6h5tsKjTvONLOV4fAbVklaF+RQBpWjjRev
+         6h8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789710270; x=1790315070;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DICFuZRT/wM26itDo1qul7ObG4+wCWuvarS8L5JEZpg=;
-        b=Zm+S1hEpKOmFm0fXLYejdRkFLK21y6FUyt5RJM+BZ8LEMnOWUc1J1G6/Oqg2ojwCYO
-         H3zW4Yg6SO3vG78XbEtfRDJBtubQsr0WpJxY4sO2bBsd5IR4Dfp3SOBRDViVisSXzIrE
-         z9bUopzFgswds3zBS2c3ZXcKGNbt93UFXyT0CjtZffunZCNuE1w8wjEboi8ma+o2L5Xi
-         ThJfiPWYvHtgjan9m/0gh0eyQZZrwN1jTs6a9k9egD1i0rF975aaKDkqGyypbdIwUrNH
-         Q8s/BsNZEsSRSDlr1jyO/z5cjPXgdPewp0oKpbrONxCihMDASAq+ORMck7m+/ptcX//2
-         Z1oA==
-X-Forwarded-Encrypted: i=1; AKwUvByHHuPsYkerVUyza5P7t4gzVqE30STDBn5m5i9ix8nP1N5nOyp/aWLjSpAaj8vmNAwD9tpqHnUwtE1s/a0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1MkYXYJ3CudHrLxubH5mh5vIB1ABnURqVNyCE5Zzyx/Ht8qDl
-	oO41AdqK+Gr9PZCGKvLjTTVAwe0dl45S9gDGjVzXCvUSARc+rLR2KpxP
-X-Gm-Gg: AYBFou0B+n0VjPqb1NSGBSaY2o8hGsArGtKquf0WD3ps+2aQMK//+7HqnWX9290/o7S
-	9nphvHuLyJc9dPw4fU4nqzYMhuZjfZsMMpqgdppJho7zdLy6eHQ2uLfN6lR8PmuJBgJnIjCg0/z
-	Ezs+45d2CzsD/53HT9Eg320d/HokoTwNaNDIRpW9pooYrQROXqfwZKzdGEcREXochBV5/DStWXG
-	tMVYAGwl3TzcvCmCUQic9HBnnduBch3AeJwrh7XQ5Rvu03aNy2r7ZHY1s4RQsZQK6WSJxA/Cl4g
-	/q2nYWjMbl5qDXo4zZuN6kQhIlyEPDpHziHB92HC0oDGvgUgyedd7stpR+WSdDdA7Z/Mkg31GnB
-	M2YyzM40iHz2gO6QgifhYCec5jEk+KVJEcD5257BibTKHbox3HSMKKtXFhBOXT6djwOP2/AUBTr
-	0vzBYaKN8kkmOQI1+6lAlXwkd7a6uEIwkIYy55mTFxj+/gMwJwrtk8tF65Y4VYlRblFqVr3Sn+n
-	Q7+omv0nuYc
-X-Received: by 2002:a05:6a20:2d08:b0:3dd:85a8:4c61 with SMTP id adf61e73a8af0-3dd8c5c9c87mr2704565637.40.1789710269816;
-        Thu, 17 Sep 2026 22:44:29 -0700 (PDT)
-Received: from 10-86-27-207.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce052a20sm1690447c88.12.2026.09.17.22.44.27
+        d=1e100.net; s=20260707; t=1789710273; x=1790315073;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rCv6s6H6j29TvkAkp/AsAzYsZj8a1EHgr/XGLtqd+eM=;
+        b=CLFP4YF/mXPZ2zWjeOQken/w/+Djo92mLkRrOeB8RHFXHliODacGNHFojzt8FZ4F1S
+         IHYePI5gLSemteBj0xRKs8Wqji6zLjrSQtQZQ86CqKTaghQ5ARcWwW+CWz2bqetLXAEt
+         cbLVl5FCCvjLrRbjGxtCXonjzW99pwSVXflWn/nVB3jOnELr/DIZUZ1ccypWJYxAudU4
+         jwhIeo2tZ1BNcm7Lrzh9uL1YMK/JRU6f1OH7m5An5bnx6kOEU5x6MkiIvKH9SzMqvIaj
+         VDay+a+H6P/VC7dDjdYk3Eev7p8MDPUO8dUQK16WxW0gygS42smRqzA7prWLaf7FFonC
+         puRA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3Cupqxnee+d2Rp2YnWx4PQPwfKl8OfRECOQJ7omShHVpF48RvI9xPw5pWUuBNP7jbCch7whAiGGGDL1M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKq+CuPZwdh5zs/9js4Ldg1CzyyxOah3CcckAIECN2L3yU5exD
+	vUEn1tbl+pF2Pmh2ojFK8RbAinRxhQa2/K79YKU7/Crh1CjYgTTdtWk1Y0ZlchR+RSw=
+X-Gm-Gg: AYBFou0gIpBS4VptC1PvhxJPROkh4vOVwFGYdQwvSxfdLCofby8EHKeNuZW58EEwuB7
+	RP+Fp4pg2pXk1u8fgLRUnQG9uf0WzZXNkyvicGxxAyVgQLr5vQPJLqm0ndCz+yqyZXFi9mKVVEb
+	ATV/EHWUzeaVSkJseQJNDw0ZO7LO6/oey1xdcpOAgK70XTwbjwpUrjSQthqrwbJb+kDkpocFUwP
+	shMbC1HxsXro83ElKdd5t71OSF6ZyYTRJmPpLUHrb0qstZjlm2w4SfSJPF5KBfb39szmAOqXB3R
+	3J6OepAVbK6yP4brQx9d2ROuUo28UFsbTg7C8+OoYdyP7obVTBRSH7W1Xe5nVGrt6Rn/5NRxHlV
+	hFe4R5b4+pSQ4uPrKBDk0eOgy1WYAOAeJLp2Bb+IfaT3c/v31DCuppzpoWlabDsYEG6ykTyhZFn
+	c5NJPcFqqMjn0qrRaOij6V3Tisz8W0WrJlrpFg/c+Q5PeREkHcfwJTwG9/bibEPjCiP6q7DiPp2
+	VrQKGwU4XhJ8w==
+X-Received: by 2002:a05:600c:46c5:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-49fc573e80fmr23829995e9.15.1789710272498;
+        Thu, 17 Sep 2026 22:44:32 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fc7cebae2sm21277355e9.8.2026.09.17.22.44.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 22:44:29 -0700 (PDT)
-From: Gokul K <gokul02k@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Cc: Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] KVM: selftests: Move test_read() into elf.c and delete lib/io.c
-Date: Fri, 18 Sep 2026 11:14:20 +0530
-Message-ID: <20260918054420.338842-1-gokul02k@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        Thu, 17 Sep 2026 22:44:31 -0700 (PDT)
+Date: Fri, 18 Sep 2026 07:44:30 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Arnd Bergmann <arnd@kernel.org>, Peter Huewe <peterhuewe@gmx.de>, 
+	Li Jun <lijun01@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm: remove extraneous #ifdef
+Message-ID: <aqzOnj9-35h3gAPD@monoceros>
+References: <20260915201305.3529682-1-arnd@kernel.org>
+ <aqyMnwklQX3ciUzf@kernel.org>
+ <aqyNgA5NdSTdrP_6@kernel.org>
+ <aqyOUgIa4lsUwO0I@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-lib/io.c has outlived its purpose.  test_read() has exactly one caller,
-lib/elf.c; test_write() has none at all; and test_seq_read() is a
-declaration in test_util.h with no definition anywhere in the tree.
-
-Both surviving helpers open with
-
-	TEST_ASSERT(count >= 0, "Unexpected count, count: %li", count);
-
-which can never fire, because @count is a size_t.  Building with -Wextra
-points this out:
-
-  lib/io.c:51:27: warning: comparison of unsigned expression in '>= 0'
-                  is always true [-Wtype-limits]
-  lib/io.c:128:27: warning: comparison of unsigned expression in '>= 0'
-                  is always true [-Wtype-limits]
-
-The comment above each assertion is worse than the assertion itself: it
-cites the read(2) and write(2) manpages to claim that a count of zero is
-allowed, but a zero count lands in "case 0" and fails the test outright.
-The helper has never accepted what the comment promises.
-
-Move test_read() into elf.c as a static elf_read(), named for what it
-does rather than reading as "test the read() syscall", and assert that
-@count is non-zero, which is what the code has always required and what
-every caller already passes.  Drop the commentary describing retry
-behaviour that the code makes obvious.  Nothing is then left in
-lib/io.c, so remove the file along with test_write() and the stale
-test_seq_read() declaration.
-
-No functional change intended.
-
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Link: https://lore.kernel.org/all/aqxNbR9u5F1sqB3p@google.com
-Signed-off-by: Gokul K <gokul02k@gmail.com>
----
-v2: Implement Sean's suggestion instead of the original one-line
-    deletion: move test_read() into elf.c as a static elf_read(),
-    assert @count is non-zero rather than >= 0, and delete lib/io.c
-    along with test_write() and the test_seq_read() declaration.
-    v1: https://lore.kernel.org/all/20260917181028.288194-1-gokul02k@gmail.com
-
-The only deviation from the diff Sean posted is the indentation of the
-continuation line in the last elf_read() call: elf_read is one character
-shorter than test_read, so checkpatch --strict flags the alignment.  With
-that the patch is checkpatch-clean apart from the MAINTAINERS warning any
-file deletion produces, and MAINTAINERS covers the directory rather than
-lib/io.c individually.
-
-Built with and without -Wextra: both -Wtype-limits warnings are gone, and
-the patch introduces no diagnostic the tree did not already have.
-kvm_binary_stats_test and ten other x86 selftests give identical results
-before and after, which exercises the moved code for real -- every VM
-goes through kvm_vm_elf_load(), which is the only caller of elf_read().
-
- tools/testing/selftests/kvm/Makefile.kvm      |   1 -
- .../testing/selftests/kvm/include/test_util.h |   4 -
- tools/testing/selftests/kvm/lib/elf.c         |  48 +++++-
- tools/testing/selftests/kvm/lib/io.c          | 157 ------------------
- 4 files changed, 43 insertions(+), 167 deletions(-)
- delete mode 100644 tools/testing/selftests/kvm/lib/io.c
-
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 96bab7002d39..d12c1c738956 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -6,7 +6,6 @@ all:
- LIBKVM += lib/assert.c
- LIBKVM += lib/elf.c
- LIBKVM += lib/guest_modes.c
--LIBKVM += lib/io.c
- LIBKVM += lib/kvm_util.c
- LIBKVM += lib/lru_gen_util.c
- LIBKVM += lib/memstress.c
-diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-index a6a3e1657895..e558346c3b69 100644
---- a/tools/testing/selftests/kvm/include/test_util.h
-+++ b/tools/testing/selftests/kvm/include/test_util.h
-@@ -49,10 +49,6 @@ do {								\
- 
- #define TEST_REQUIRE(f) __TEST_REQUIRE(f, "Requirement not met: %s", #f)
- 
--ssize_t test_write(int fd, const void *buf, size_t count);
--ssize_t test_read(int fd, void *buf, size_t count);
--int test_seq_read(const char *path, char **bufp, size_t *sizep);
--
- void __printf(5, 6) test_assert(bool exp, const char *exp_str,
- 				const char *file, unsigned int line,
- 				const char *fmt, ...);
-diff --git a/tools/testing/selftests/kvm/lib/elf.c b/tools/testing/selftests/kvm/lib/elf.c
-index 1924a9895834..d5adb68fd7c0 100644
---- a/tools/testing/selftests/kvm/lib/elf.c
-+++ b/tools/testing/selftests/kvm/lib/elf.c
-@@ -12,6 +12,44 @@
- 
- #include "kvm_util.h"
- 
-+static ssize_t elf_read(int fd, void *buf, size_t count)
-+{
-+	ssize_t rc;
-+	ssize_t num_read = 0;
-+	size_t num_left = count;
-+	char *ptr = buf;
-+
-+	TEST_ASSERT(count, "Count must be non-zero");
-+
-+	do {
-+		rc = read(fd, ptr, num_left);
-+
-+		switch (rc) {
-+		case -1:
-+			TEST_ASSERT(errno == EAGAIN || errno == EINTR,
-+				    "Unexpected read failure,\n"
-+				    "  rc: %zi errno: %i", rc, errno);
-+			break;
-+
-+		case 0:
-+			TEST_FAIL("Unexpected EOF,\n"
-+				  "   rc: %zi num_read: %zi num_left: %zu",
-+				  rc, num_read, num_left);
-+			break;
-+
-+		default:
-+			TEST_ASSERT(rc > 0, "Unexpected ret from read,\n"
-+				    "  rc: %zi errno: %i", rc, errno);
-+			num_read += rc;
-+			num_left -= rc;
-+			ptr += rc;
-+			break;
-+		}
-+	} while (num_read < count);
-+
-+	return num_read;
-+}
-+
- static void elfhdr_get(const char *filename, Elf64_Ehdr *hdrp)
- {
- 	off_t offset_rv;
-@@ -31,7 +69,7 @@ static void elfhdr_get(const char *filename, Elf64_Ehdr *hdrp)
- 	 * the real size of the ELF header.
- 	 */
- 	unsigned char ident[EI_NIDENT];
--	test_read(fd, ident, sizeof(ident));
-+	elf_read(fd, ident, sizeof(ident));
- 	TEST_ASSERT((ident[EI_MAG0] == ELFMAG0) && (ident[EI_MAG1] == ELFMAG1)
- 		&& (ident[EI_MAG2] == ELFMAG2) && (ident[EI_MAG3] == ELFMAG3),
- 		"ELF MAGIC Mismatch,\n"
-@@ -79,7 +117,7 @@ static void elfhdr_get(const char *filename, Elf64_Ehdr *hdrp)
- 	offset_rv = lseek(fd, 0, SEEK_SET);
- 	TEST_ASSERT(offset_rv == 0, "Seek to ELF header failed,\n"
- 		"  rv: %zi expected: %i", offset_rv, 0);
--	test_read(fd, hdrp, sizeof(*hdrp));
-+	elf_read(fd, hdrp, sizeof(*hdrp));
- 	TEST_ASSERT(hdrp->e_phentsize == sizeof(Elf64_Phdr),
- 		"Unexpected physical header size,\n"
- 		"  hdrp->e_phentsize: %x\n"
-@@ -146,7 +184,7 @@ void kvm_vm_elf_load(struct kvm_vm *vm, const char *filename)
- 
- 		/* Read in the program header. */
- 		Elf64_Phdr phdr;
--		test_read(fd, &phdr, sizeof(phdr));
-+		elf_read(fd, &phdr, sizeof(phdr));
- 
- 		/* Skip if this header doesn't describe a loadable segment. */
- 		if (phdr.p_type != PT_LOAD)
-@@ -186,8 +224,8 @@ void kvm_vm_elf_load(struct kvm_vm *vm, const char *filename)
- 				"  expected: 0x%jx",
- 				n1, errno, (intmax_t) offset_rv,
- 				(intmax_t) phdr.p_offset);
--			test_read(fd, addr_gva2hva(vm, phdr.p_vaddr),
--				phdr.p_filesz);
-+			elf_read(fd, addr_gva2hva(vm, phdr.p_vaddr),
-+				 phdr.p_filesz);
- 		}
- 	}
- 	close(fd);
-diff --git a/tools/testing/selftests/kvm/lib/io.c b/tools/testing/selftests/kvm/lib/io.c
-deleted file mode 100644
-index fedb2a741f0b..000000000000
---- a/tools/testing/selftests/kvm/lib/io.c
-+++ /dev/null
-@@ -1,157 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * tools/testing/selftests/kvm/lib/io.c
-- *
-- * Copyright (C) 2018, Google LLC.
-- */
--
--#include "test_util.h"
--
--/* Test Write
-- *
-- * A wrapper for write(2), that automatically handles the following
-- * special conditions:
-- *
-- *   + Interrupted system call (EINTR)
-- *   + Write of less than requested amount
-- *   + Non-block return (EAGAIN)
-- *
-- * For each of the above, an additional write is performed to automatically
-- * continue writing the requested data.
-- * There are also many cases where write(2) can return an unexpected
-- * error (e.g. EIO).  Such errors cause a TEST_ASSERT failure.
-- *
-- * Note, for function signature compatibility with write(2), this function
-- * returns the number of bytes written, but that value will always be equal
-- * to the number of requested bytes.  All other conditions in this and
-- * future enhancements to this function either automatically issue another
-- * write(2) or cause a TEST_ASSERT failure.
-- *
-- * Args:
-- *  fd    - Opened file descriptor to file to be written.
-- *  count - Number of bytes to write.
-- *
-- * Output:
-- *  buf   - Starting address of data to be written.
-- *
-- * Return:
-- *  On success, number of bytes written.
-- *  On failure, a TEST_ASSERT failure is caused.
-- */
--ssize_t test_write(int fd, const void *buf, size_t count)
--{
--	ssize_t rc;
--	ssize_t num_written = 0;
--	size_t num_left = count;
--	const char *ptr = buf;
--
--	/* Note: Count of zero is allowed (see "RETURN VALUE" portion of
--	 * write(2) manpage for details.
--	 */
--	TEST_ASSERT(count >= 0, "Unexpected count, count: %li", count);
--
--	do {
--		rc = write(fd, ptr, num_left);
--
--		switch (rc) {
--		case -1:
--			TEST_ASSERT(errno == EAGAIN || errno == EINTR,
--				    "Unexpected write failure,\n"
--				    "  rc: %zi errno: %i", rc, errno);
--			continue;
--
--		case 0:
--			TEST_FAIL("Unexpected EOF,\n"
--				  "  rc: %zi num_written: %zi num_left: %zu",
--				  rc, num_written, num_left);
--			break;
--
--		default:
--			TEST_ASSERT(rc >= 0, "Unexpected ret from write,\n"
--				"  rc: %zi errno: %i", rc, errno);
--			num_written += rc;
--			num_left -= rc;
--			ptr += rc;
--			break;
--		}
--	} while (num_written < count);
--
--	return num_written;
--}
--
--/* Test Read
-- *
-- * A wrapper for read(2), that automatically handles the following
-- * special conditions:
-- *
-- *   + Interrupted system call (EINTR)
-- *   + Read of less than requested amount
-- *   + Non-block return (EAGAIN)
-- *
-- * For each of the above, an additional read is performed to automatically
-- * continue reading the requested data.
-- * There are also many cases where read(2) can return an unexpected
-- * error (e.g. EIO).  Such errors cause a TEST_ASSERT failure.  Note,
-- * it is expected that the file opened by fd at the current file position
-- * contains at least the number of requested bytes to be read.  A TEST_ASSERT
-- * failure is produced if an End-Of-File condition occurs, before all the
-- * data is read.  It is the callers responsibility to assure that sufficient
-- * data exists.
-- *
-- * Note, for function signature compatibility with read(2), this function
-- * returns the number of bytes read, but that value will always be equal
-- * to the number of requested bytes.  All other conditions in this and
-- * future enhancements to this function either automatically issue another
-- * read(2) or cause a TEST_ASSERT failure.
-- *
-- * Args:
-- *  fd    - Opened file descriptor to file to be read.
-- *  count - Number of bytes to read.
-- *
-- * Output:
-- *  buf   - Starting address of where to write the bytes read.
-- *
-- * Return:
-- *  On success, number of bytes read.
-- *  On failure, a TEST_ASSERT failure is caused.
-- */
--ssize_t test_read(int fd, void *buf, size_t count)
--{
--	ssize_t rc;
--	ssize_t num_read = 0;
--	size_t num_left = count;
--	char *ptr = buf;
--
--	/* Note: Count of zero is allowed (see "If count is zero" portion of
--	 * read(2) manpage for details.
--	 */
--	TEST_ASSERT(count >= 0, "Unexpected count, count: %li", count);
--
--	do {
--		rc = read(fd, ptr, num_left);
--
--		switch (rc) {
--		case -1:
--			TEST_ASSERT(errno == EAGAIN || errno == EINTR,
--				    "Unexpected read failure,\n"
--				    "  rc: %zi errno: %i", rc, errno);
--			break;
--
--		case 0:
--			TEST_FAIL("Unexpected EOF,\n"
--				  "   rc: %zi num_read: %zi num_left: %zu",
--				  rc, num_read, num_left);
--			break;
--
--		default:
--			TEST_ASSERT(rc > 0, "Unexpected ret from read,\n"
--				    "  rc: %zi errno: %i", rc, errno);
--			num_read += rc;
--			num_left -= rc;
--			ptr += rc;
--			break;
--		}
--	} while (num_read < count);
--
--	return num_read;
--}
--- 
-2.54.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fx6n3tb2n2barde5"
+Content-Disposition: inline
+In-Reply-To: <aqyOUgIa4lsUwO0I@kernel.org>
 
 
+--fx6n3tb2n2barde5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] tpm: remove extraneous #ifdef
+MIME-Version: 1.0
+
+Hello Jarkko,
+
+On Fri, Sep 18, 2026 at 04:05:22AM +0300, Jarkko Sakkinen wrote:
+> On Fri, Sep 18, 2026 at 04:01:57AM +0300, Jarkko Sakkinen wrote:
+> > I pushed this to for-next-tpm, which mirrors to linux-next.
+
+I don't spot it in
+
+https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git for-=
+next-tpm
+
+, do I look at the wrong tree?
+
+> > However, since this is -next only bug, I guess I should squash these to
+> > the original commit?
+> >=20
+> > Just sanity checking before taking action :-)
+>=20
+> My suggestion would be to amend Co-authored-by to the original commit
+> message as two bug fixes is significant amount of effort to make the
+> change right.
+
+I don't care much about my Tested-by: tag, so feel free to drop it.
+Promoting that to a Tested-by: on the squashed commit is wrong for sure.
+
+Best regards
+Uwe
+
+--fx6n3tb2n2barde5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqsz7sACgkQj4D7WH0S
+/k6LYggAqj4Q4ZuiEmUBIkUhtlL31ErLVXbu4uyQVdW76MnLeYBtJPk1nZJvDeTg
+onhM1jLxNxV0qwkOUtYAe3c1OiBt3WfZtyhM7rolIXanvUybk93QwFjHHqh5o9YU
+f3AfFHu/AeqX8rNkfaYPDbKGz2cJdMZVIcy5o7m84yJf+kkJX6MBmIob0Iatv3wq
+X3ezfmelhtHkTGamLnGqPgGe/lMjiRC5ypWE5NLzWWMu6G7+QLDZ2GUcrcE/Dh3X
+sjZDQQwT30fmEew5EEu1LH4BjWueuO1vocKSVIltR8VBc6y20ztkLO6jOBU0m0aH
+nOAJlOqZ00N/DHGkoDpy85lXtbitrQ==
+=ikNW
+-----END PGP SIGNATURE-----
+
+--fx6n3tb2n2barde5--
