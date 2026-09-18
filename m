@@ -1,131 +1,102 @@
-Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com [74.125.230.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38D639CCF4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.75
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F2AE49D587
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742200; cv=none; b=K5f5ftpI6EW7QqEcraXZIHcre/cU0U1LYddPjcZ8k0mzVd5rY/na9YNzFHzzVmbjd9BW07POUE++Q+I8kMfVGG3YPwN+lP7b7ggQhgNasne+Vtp47eZmxVKzINoC6VCT/VArk30s/jwjVDyq9mJQtqcb1mdOVEsoNFUA+mwGsZM=
+	t=1789742249; cv=none; b=q+msHdcjooTDJwhEj37bdloi/cbv+ndkxNPMu1t5BS7Nw7X1+DOoWnXVrv1YCHV6JtzW6petjeJdRP6Ek4jeq/VpXIEAqbabYs1e40UNFb7wMlpdUA9w6za2NQwXVZMipOKEJZtewRUiIWN8UnJRSmTo7IGHaFm5uqmR/nnjdd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742200; c=relaxed/simple;
-	bh=LNSIAKB/LfKHM4jWjZllEh8pyKx290EXKu4c57L9ets=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0DuZXSePAy6Q7qSz3sxdC4kxlkZrVV6W1ElwVnIIRuRBFKorLjq40wRfy5VjIwUlbhr/WmUsAC4n5hm+ivGv7Aj1fM+srrdKcMSkOWRakf7rWqx+BN0EDS0mWVYj06afo83KXatlW9RsLnFgWC4YGGekpZpS4s4t4ye604cWdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZG8nbHw6; arc=none smtp.client-ip=74.125.230.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789742249; c=relaxed/simple;
+	bh=nacEL1uGwpxZuinjCmReWWulVFg0ZqGJwfhAlGL5iaU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NvSLaVuH8Qpl1dgwwz5BLtz6YqIYUDD6l64n8PWeB78ABoLDzgZKNNul1tA+eDXCfkC0LiZbjsp0wOutfTXTLGEwcvlyATd98OLa36Z8C8b6GzszaSJCCTaKCv8zYGHFPztIajQGwzJppOs8zr1SLDaA3g45ZsxIqNEo1cDr0Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=f7mfK3yi; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZG8nbHw6"
-Received: by mail-lr2-f11.google.com with SMTP id 38308e7fff4ca-3a5b0adf48fso4622241fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:36:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789742195; x=1790346995; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LOhMfXD0/BBBcEGxBgCARg4zRQIYPTh+PJcHIjkoFCo=;
-        b=ZG8nbHw63g6tsfb1KRT6C3GtJw+1TN/i3RVhFommchjBKT4KAdmWAL7CgqjTiA2QUG
-         Z2ELc4J6Z3WPB30jqiyqlceqmxFU0x+HXfPZCeO4GISGGnUW+Ye/f7Eo0gu5PSfS2Bk+
-         gdrAXfnmt44QIwj76/FSd6KNhssshpSikpjFwj+sFH5a/s9AokRiHzKQJeAUzdM42nQK
-         TgSJsZW0JOkpuaLAnWieJNxvQxd0ki8S+p8kksDGvQsmKtRLvZLoRxOq2EZcfOwO9nrf
-         AIy/RtKE5CAKvbpy5KPxzkfuOv8viKBHbzQgl0dYgiiSn0yQXi9DqaWfB38YcibIbUOJ
-         aPMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742195; x=1790346995;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LOhMfXD0/BBBcEGxBgCARg4zRQIYPTh+PJcHIjkoFCo=;
-        b=XK6SEK34XRqazDym533Y/M2QOV2oiapwwjrZ24itfACnMJMyDl5j28Hi7edPxjYIHP
-         JPvXXFuaTN0CKLHnuz2uiZA7koGhcGn60R8wapoigNdUQlegoCJXQsCHwfX1BCHfllIC
-         JlJYwa7PDH2Y+1rKfQvQAslvyeBsZueXZIuoHrMYSqVgqrqxOp6b/r5rre0PPpRQ84ny
-         9IJ1G08DJ+bHgIfEusJVwkAawgi7zw9RItjWEoE1+UjzSLFWRrJYjzMtT1OldqGCbOsv
-         7xmLxWZMp8/HUNtoWbUlUwcoV9emZDAll4t4BrobSorP2SZnAqQyIzMj8AxiJeGDjPQr
-         WPZA==
-X-Forwarded-Encrypted: i=1; AKwUvByUrAmyCAn0zzwLJiiqg2Ixo0LekyPSRW+xadxQb5nFmtVvP3kQsuBErygrDe3yyNZLZBsp8pxDCWK3igs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX8r9jz0QcsaGd3WV3ciEyqpmdzIvVHsankl0SEqru2wNWXemD
-	KkWqc9LjetRQHFaHX3HTrsh9LveKQQE3NvF4Ek60ou3wf1tnBeysOZ0d
-X-Gm-Gg: AYBFou0zJv0M4vLxMBqJ3GK9IUve1YD6lvQRzHW9olKGURHPmM0GSOKSebz42KyVi5o
-	88hns0d1KFSfxO2RUSB0Ha8BIvXDdP06e99Ro/F3m1Jvd0qY+zrKewAyOnGbofqYNErjAwveO9n
-	4UsszBpuF86C1qmzaHSG9+BDFuc17cWjxcEdA9ziWUcN5rH+F4A3RklzElazUO0xDBAibGLMKHE
-	uyeqqEJmxzt/i+qJ2N1mZFIOjf26aJ7c38SkF6V8v4Bdi5Vkj5coQvpLsK/182C/poF+IU40LB6
-	nQsEi1b0Z9KuzDgDET4NQB0kbAF+XjJsEqElS/raCGFdZvrZfW35WhA8Dyiqi4zTnU6MeWeCt1t
-	va0evlMvqaX/mVNHG9qYR+7L/ZRkg4cSjcyZrk29vIK7iRdp6NnR5Apm7L2ny9lX6lFoHpkOdQ5
-	p7Ug3bZyUvqTvgnS2WMiYkfQRwWjeyMPMxwlAGZbsCXK8j/F3yXM6oBGpdSGqB9z/QmJL3GuQPb
-	eBdpg==
-X-Received: by 2002:a05:6512:3985:b0:5ae:bf3b:c98 with SMTP id 2adb3069b0e04-5b8c1813cc2mr949113e87.10.1789742195038;
-        Fri, 18 Sep 2026 07:36:35 -0700 (PDT)
-Received: from linux ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c276dd43sm475819e87.83.2026.09.18.07.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:36:34 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Kalle Valo <kvalo@codeaurora.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Eugene Krasnikov <k.eugene.e@gmail.com>,
-	wcn36xx@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10] wifi: wcn36xx: fix heap overflow from oversized firmware HAL response
-Date: Fri, 18 Sep 2026 17:36:25 +0300
-Message-ID: <20260918143627.97927-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="f7mfK3yi"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8EDD168F;
+	Fri, 18 Sep 2026 07:37:22 -0700 (PDT)
+Received: from [10.2.212.23] (unknown [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 42FB43F86F;
+	Fri, 18 Sep 2026 07:37:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789742246; bh=nacEL1uGwpxZuinjCmReWWulVFg0ZqGJwfhAlGL5iaU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=f7mfK3yiL3US/L7PJH89zOj7e+kubNDSs2tsIQLAa2xE7vCLh+ldz0Tj32zdpLX5R
+	 VDSZh2KGicd7d87mRx73q1p8yjdDhiucgsDS7dcnP0zm/m9CkVIaySavYbm6KRk+Ri
+	 F+IokM6Xu/S09LC+TUlZIN8tQSiZHOI/WtDeaxhc=
+Message-ID: <8f449ded-b4ca-401d-9225-6d1f9ac93e08@arm.com>
+Date: Fri, 18 Sep 2026 15:37:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/2] iommu/dma: skip swiotlb bounce for DMA_ATTR_MMIO
+ in iommu_dma_map_phys
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Peng Fan <peng.fan@nxp.com>
+References: <20260916-iommu-dma-fix-v1-0-a59a0c45ec5b@nxp.com>
+ <20260916-iommu-dma-fix-v1-1-a59a0c45ec5b@nxp.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260916-iommu-dma-fix-v1-1-a59a0c45ec5b@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On 16/09/2026 4:23 pm, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> MMIO resources mapped via dma_map_resource() carry DMA_ATTR_MMIO. These
+> never need swiotlb bounce buffering, but the current code enters the
+> swiotlb path when the physical address is not page-aligned, then rejects
+> the mapping because MMIO cannot be bounced.
+> 
+> Move the DMA_ATTR_MMIO check before the swiotlb block so the entire bounce
+> path is skipped for MMIO, falling through directly to __iommu_dma_map()
+> which creates the IOVA mapping.
 
-commit 88a240d86d3d64521f9194abe185ac71cc74d0bd upstream.
+Acked-by: Robin Murphy <robin.murphy@arm.comn>
 
-The firmware response dispatcher copies all synchronous HAL responses
-into the 4096-byte hal_buf without validating the response length. A
-response exceeding WCN36XX_HAL_BUF_SIZE causes a heap buffer overflow
-with firmware-controlled content.
+I'd agree that we shouldn't need patch #2 - I don't see any good reason 
+to ever try to use dma_iova_link() instead of dma_map_resource() for 
+mapping actual device data registers, and for the link API use-cases 
+where the "MMIO" is peer device memory and IOMMU isolation is more 
+relevant, it seems sensible to keep the alignment constraint unless and 
+until there is a definite compelling need to do otherwise.
 
-Add a bounds check on the response length.
+Thanks,
+Robin.
 
-Fixes: 8e84c2582169 ("wcn36xx: mac80211 driver for Qualcomm WCN3660/WCN3680 hardware")
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260421135018.352774-2-tristmd@gmail.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2026-74341
-
- drivers/net/wireless/ath/wcn36xx/smd.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/wcn36xx/smd.c b/drivers/net/wireless/ath/wcn36xx/smd.c
-index 900ee1e8ffdd..c02526468c9c 100644
---- a/drivers/net/wireless/ath/wcn36xx/smd.c
-+++ b/drivers/net/wireless/ath/wcn36xx/smd.c
-@@ -2835,6 +2835,10 @@ int wcn36xx_smd_rsp_process(struct rpmsg_device *rpdev,
- 	case WCN36XX_HAL_8023_MULTICAST_LIST_RSP:
- 	case WCN36XX_HAL_START_SCAN_OFFLOAD_RSP:
- 	case WCN36XX_HAL_STOP_SCAN_OFFLOAD_RSP:
-+		if (len > WCN36XX_HAL_BUF_SIZE) {
-+			wcn36xx_warn("HAL response too large: %d\n", len);
-+			break;
-+		}
- 		memcpy(wcn->hal_buf, buf, len);
- 		wcn->hal_rsp_len = len;
- 		complete(&wcn->hal_rsp_compl);
--- 
-2.53.0
+> Fixes: f9374de14c0e8 ("iommu/dma: implement DMA_ATTR_MMIO for iommu_dma_(un)map_phys()")
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>   drivers/iommu/dma-iommu.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 65d692ec7fced..26b9c2d71cd30 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1228,9 +1228,9 @@ dma_addr_t iommu_dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
+>   	 * If both the physical buffer start address and size are page aligned,
+>   	 * we don't need to use a bounce page.
+>   	 */
+> -	if (dev_use_swiotlb(dev, size, dir) &&
+> +	if (!(attrs & DMA_ATTR_MMIO) && dev_use_swiotlb(dev, size, dir) &&
+>   	    iova_unaligned(iovad, phys, size)) {
+> -		if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT))
+> +		if (attrs & DMA_ATTR_REQUIRE_COHERENT)
+>   			return DMA_MAPPING_ERROR;
+>   
+>   		phys = iommu_dma_map_swiotlb(dev, phys, size, dir, attrs);
+> 
 
