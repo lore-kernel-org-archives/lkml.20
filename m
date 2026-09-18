@@ -1,547 +1,377 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A2751A73C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D839E519926
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750374; cv=none; b=Y/oFFITYnC7nA6FxQOz8g7XiYgeXsCH7ICQCPtR5vLa6zA5kzjdeM8FeqooRAF6GAC4xddOSUra7BAEiEJNhpfefX+5tEuuAJaQFRxu48lMiPhe/ClzFJcMIl60ojh3Mj0vDvobmdhKMXQUcyMpOcfqqnN2LUYR/HJiow9qWg+A=
+	t=1789750392; cv=none; b=Dh7MG1I49v3N68wXq8f6sPX/SR9Aqd6y0xEIQrTuC4UrRoisuF70diIFtuejB00yEksTFARttJSmym1cOib+Viou3375WtwwsPqQS6Hfm0h1HYb/oLhWkgHhspHx9n2VuZrYJeXzAtllEWZyKo3/nIqByvdF+VU6vwD9lwLkHaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750374; c=relaxed/simple;
-	bh=cgdTIsvLN3k4z3Fy399y3RouzNXlDfdM4GxnaFqKo1k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fEm0E8t5fhFTwbWgY8UKhPrsPnxElJZ0B5nv3nOQlxkRiMDTs82ZDSp1QVUgFo5uKrDIiqcnSR+OM044vw5msiuWneDuozREh6uV9Yagzu8LFZ008b0LR1x8kBcTzXiiR/1DHnxQ/2Pw0AF9NMAue3nr7ofDBM9jJ831J6qd+RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=ZGuBLRhE; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1789750392; c=relaxed/simple;
+	bh=4OXnZKkUpscaJ3yhanUbyWFQMneI+Ix+qGFvNQmT5Fo=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=qprf6LYCDR3jxurat9hnxVqwjA6pOgJ/iLMS8wX4jlv/3Cs1I2xwn8s5nSOh5FGoKisLdusPHoy2bBRzEAXdkhk6X+46H0Woc4oBF+k6LJ1C2LhAbcvrNIRNpQRVeAKB8pgbgLSPdA0GBVCKQZwqQ4uZnwOOksYslhps6fQw1lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k83+LX/g; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="ZGuBLRhE"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530301ff353so10544001cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:52:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789750363; x=1790355163; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gz0Z8UG5CcnMHKyka9HjZDC5AoEUzK6J1rcdnedS7dE=;
-        b=ZGuBLRhEWxWTofIWK9EjJQXgcSEQTXyA69bDSRqmg90Hdp6XXFj7PA2J4ra1QqC1fi
-         KmMaH9+EaT5qZtxfexMRB0/LrdSdI1mxYKk1wzpQPROE/18Qjx6qhRtA2lO1jtAAagvc
-         rq3lfn0x6jY+CFVBJzfsnRTRFQgENQvHhct+hDxDj0DBp0ZfJv5xNpVjsQ9S2IG4JXBx
-         VmMbE5f0k4m4PoTIgj/hew+TAOL454A0D6vWp7UPwVYGk8jt6qUzQdxFgXfjLAWC8JRM
-         +KC384/g2hoOAC9WLAdOzFmHwLAZDXhxpP+c1BUvknMRfMq6zj42G9R9MeOzIpne3RRr
-         74qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750363; x=1790355163;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gz0Z8UG5CcnMHKyka9HjZDC5AoEUzK6J1rcdnedS7dE=;
-        b=PnhY7ifKdUU1ezCHrFnT/AhlOpeHwlJYPVRZK7JurKtxqB0UYvikdifc6FHe7YttBd
-         sTMekv/99oSqylnTGV9qD5WT5pCQLLQPoypyLHRBQDRYZuZk36NFwjvwNeXtLBT+y1+8
-         Rr/r2iLX5oEQkaSli/uwBc1Sg9LJ1AKOgM7q5W1e/gDOTiQqpnrbPHVKtfmviX9Hgy6X
-         Nsr5iDGVcLNC7ryLCzMdHIvIofhJ1l40Cx0Hx+jgrePPpjp8sVDlRd52pksZnwmDC+HL
-         25mwqwUuiCW7BvHFjn5m/JFHXIOasNPKC2ZbczfeK5P1x1DwNMaqCw82CAHKgESEE0C6
-         SmxA==
-X-Forwarded-Encrypted: i=1; AKwUvBxw5vFg6GmS8GRy/oQhYOY0VNG9PjJNEc8o3rJF5AZxXiLPJq6qty00AnyfFJB/iPv+RItQtgCfQ55dICY=@vger.kernel.org
-X-Gm-Message-State: AFuF++knkwTy4DHeFx5HWcGV0AU8BNFHKrekioBikjBVVOeV/SwE4MMG
-	FBM7Xh0SBrrNgBYGC7NY5prLqfobDr+Rkdy16mm7M/eAfblzpHpXH2F+aHorXdfXmok=
-X-Gm-Gg: AYBFou098iZ35yMPy1Wa1k5cfiHW8HP0qYd1QTQ9xOaQHGLBJtuU7+ajKjKyW7b5Q2h
-	97tQhWwH0OLSBlxDeYrrbACpW4rgUqWORrhhvoM4kpeiUTqSg49kx6H+q5znn6i1f7Nm7nq+fcl
-	lnHrJh4mi945SMKiVXa/AsXkXJNeKvoNic3bRlU4oHmNcMSckEvoIt6jq+ReUsbFPNR4gixQ3UT
-	zlOnFRRXeMCI9RsI3PBTMJ67dYUQsr3D9nZCV3sTw120ABZR0Hes8r3+kL7AW7b2eNx0lmMpOmB
-	PMGYjd50O7Ke1MB5cNvAbhE1TrqljsGCseLclBSJ/czKXYIu5StMASoDDXM1LN3kBIrGM1i8MRg
-	Q2mafR/smGjwejqtC1BN3aJkPvPoLszJCslHTAwrt55oMHOw0l6cgJrjwmp+EFY1zbRjWzKEz4T
-	qR5wuE/+ySRPGOU9nk3hyUrD8jcLccLbjWzDAjcdqa0KT/8jzRqcV/F1mR4CMl+2VreO3uMp7uo
-	GhG
-X-Received: by 2002:a05:620a:2587:b0:939:6dea:374c with SMTP id af79cd13be357-93bdc8cb85dmr437348985a.48.1789750362574;
-        Fri, 18 Sep 2026 09:52:42 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0f0762dsm183582785a.39.2026.09.18.09.52.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:52:42 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: sboyd@kernel.org,
-	bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	lee@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	p.zabel@pengutronix.de
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset driver
-Date: Fri, 18 Sep 2026 11:52:32 -0500
-Message-ID: <20260918165234.687224-4-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260918165234.687224-1-elder@riscstar.com>
-References: <20260918165234.687224-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k83+LX/g"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789750386; x=1821286386;
+  h=date:from:to:cc:subject:message-id;
+  bh=4OXnZKkUpscaJ3yhanUbyWFQMneI+Ix+qGFvNQmT5Fo=;
+  b=k83+LX/gpcyoCJdxstFQYm2yOsLvrAHemv4Bi67BY8EPW8jth6mG9uj3
+   j31pugvkmuL6A/j29EcgCJwoGYiPgsZY9kP5oc2toD8C+XxgslBwahIxm
+   N/L92d0iI/6VpXVXtIlI70vS7TWkmuSWnFZ99c4guIG8BlO2TSoB5nPmM
+   aFVWQPUB5yjBd9+XIgLL60BhNtuES6jnCG3WmvWzI0jnP5n8/CHYCu8iB
+   Ln6tP79Sc/0sG6AGavSR7iyzwZ3NW1PpLN/v7VQzqLOfVVgIQeV+JQcVm
+   89E0Q905Qk19P/nb5VkFCLHmxqTJVhefUDqvwtCx/UNG0gHrmG7nYRjdC
+   g==;
+X-CSE-ConnectionGUID: qZqx3C82RUm0JvLRiOyZ+g==
+X-CSE-MsgGUID: v8wHjqMHSlKEBfaGWC38cQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="77835094"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="77835094"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 09:53:02 -0700
+X-CSE-ConnectionGUID: Hido/MwRQemsMJjGkItygA==
+X-CSE-MsgGUID: 1JLXSGz7Ro+91Fs2fnXdRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="268218726"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 18 Sep 2026 09:53:01 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7bpa-00000000A6K-2AYE;
+	Fri, 18 Sep 2026 16:52:58 +0000
+Date: Sat, 19 Sep 2026 00:52:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alexei Starovoitov <ast@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: kernel/bpf/fixups.c:1021:44: sparse: sparse: cast truncates
+ bits from constant value (c000100000000000 becomes 0)
+Message-ID: <202609190058.KHAkcKqr-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Define a new platform driver that manages clock and reset signals
-within the TC9564 SoC.  There are 21 clocks, which can only be
-enabled and disabled, as well as 13 reset signals.
+Hi Alexei,
 
-Two registers manage the state of the clocks and two others manage
-the state of the resets.  The registers are accessed via a regmap
-supplied by a system controller, which coordinates access to a
-region of memory that will be shared with another driver.
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
 
-Access to the memory region is provided via a BAR on a PCIe endpoint
-function embedded in the TC9564 SoC.  For that reason, neither the
-PCIe clock nor PCIe reset can be manipulated by this driver (they
-are assumed always on and deasserted, respectively).
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   5dd1818b15d98d4a20806cd00b1b40320b06004f
+commit: 449f08fa59dda5da40317b6976604b877c4ecd63 bpf: Move fixup/post-processing logic from verifier.c into fixups.c
+date:   5 months ago
+config: powerpc64-randconfig-r1301-20260918 (https://download.01.org/0day-ci/archive/20260919/202609190058.KHAkcKqr-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 11.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609190058.KHAkcKqr-lkp@intel.com/reproduce)
 
-Similarly, control is not available for the I2C clock and reset,
-because the PCIe subsystem on the TC9564 relies on I2C
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 449f08fa59dd ("bpf: Move fixup/post-processing logic from verifier.c into fixups.c")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609190058.KHAkcKqr-lkp@intel.com/
 
-Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- MAINTAINERS              |   1 +
- drivers/clk/Kconfig      |  11 ++
- drivers/clk/Makefile     |   1 +
- drivers/clk/clk-tc9564.c | 366 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 379 insertions(+)
- create mode 100644 drivers/clk/clk-tc9564.c
+sparse warnings: (new ones prefixed by >>)
+   kernel/bpf/fixups.c:2202:38: sparse: sparse: subtraction of functions? Share your drugs
+>> kernel/bpf/fixups.c:1021:44: sparse: sparse: cast truncates bits from constant value (c000100000000000 becomes 0)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 66d0e7e65adcb..39346a5cd9a7f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
- M:	Daniel Thompson <danielt@kernel.org>
- S:	Maintained
- F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
-+F:	drivers/clk/clk-tc9564.c
- F:	include/dt-bindings/clock/toshiba,tc9564.h
- 
- TOSHIBA TC9564 PCI DRIVER
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index f9592fd9ec2bb..50efa10d48450 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
- 	  clock. These multi-function devices have two (S2MPS14) or three
- 	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
- 
-+config COMMON_CLK_TC9564
-+	tristate "Toshiba TC9564 clock support"
-+	depends on TC9564_PCI
-+	default m
-+	help
-+	  This enables support for the clock and reset controller embedded
-+	  in the Toshiba TC9564 (and Qualcomm QPS615) SoC.  The state of
-+	  clock and reset lines is controlled by MMIO to a region managed
-+	  by a system controller; this ensures access to the region is
-+	  coordinated between this and other drivers.
-+
- config CLK_TWL
- 	tristate "Clock driver for the TWL PMIC family"
- 	depends on TWL4030_CORE
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index b18af485d7f03..a98ea8ff92066 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -110,6 +110,7 @@ obj-$(CONFIG_COMMON_CLK_SI570)		+= clk-si570.o
- obj-$(CONFIG_COMMON_CLK_SP7021)		+= clk-sp7021.o
- obj-$(CONFIG_COMMON_CLK_STM32F)		+= clk-stm32f4.o
- obj-$(CONFIG_COMMON_CLK_STM32H7)	+= clk-stm32h7.o
-+obj-$(CONFIG_COMMON_CLK_TC9564)		+= clk-tc9564.o
- obj-$(CONFIG_COMMON_CLK_TPS68470)      += clk-tps68470.o
- obj-$(CONFIG_CLK_TWL6040)		+= clk-twl6040.o
- obj-$(CONFIG_CLK_TWL)			+= clk-twl.o
-diff --git a/drivers/clk/clk-tc9564.c b/drivers/clk/clk-tc9564.c
-new file mode 100644
-index 0000000000000..4f900bc8994a7
---- /dev/null
-+++ b/drivers/clk/clk-tc9564.c
-@@ -0,0 +1,366 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk-provider.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
-+
-+#include <dt-bindings/clock/toshiba,tc9564.h>
-+
-+#define CLK_CTRL0_OFFSET	0x1004
-+#define RST_CTRL0_OFFSET	0x1008
-+#define CLK_CTRL1_OFFSET	0x100c
-+#define RST_CTRL1_OFFSET	0x1010
-+
-+struct tc9564_clock_init {
-+	const char *name;	/* NULL means unused entry */
-+	u32 offset;
-+	u32 mask;
-+};
-+
-+struct tc9564_clock {
-+	struct clk_hw hw;
-+	u32 which;
-+	u32 offset;		/* CLK_CTRL0_OFFSET or CLK_CTRL1_OFFSET */
-+	u32 mask;		/* Zero means undefined clock */
-+};
-+
-+struct tc9564_reset {
-+	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
-+	u32 mask;		/* Zero means undefined reset */
-+};
-+
-+struct tc9564_clocks {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct reset_controller_dev rcdev;
-+	size_t clock_count;
-+	struct tc9564_clock clocks[] __counted_by(clock_count);
-+};
-+
-+#define TC9564_CLOCK_INIT0(_name, _bit)	__TC9564_CLOCK_INIT(_name, 0, _bit)
-+#define TC9564_CLOCK_INIT1(_name, _bit)	__TC9564_CLOCK_INIT(_name, 1, _bit)
-+
-+#define __TC9564_CLOCK_INIT(_name, _reg, _bit)		\
-+	[CLOCK_##_name] = {				\
-+		.name	= #_name,			\
-+		.offset	= CLK_CTRL ## _reg ## _OFFSET,	\
-+		.mask	= BIT(_bit),			\
-+	}
-+
-+#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _bit)
-+#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _bit)
-+
-+#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
-+	[RESET_##_name] = {				\
-+		.offset	= RST_CTRL ## _reg ## _OFFSET,	\
-+		.mask = BIT(_bit),			\
-+	}
-+
-+static const struct tc9564_clock_init tc9564_clock_init[] = {
-+	TC9564_CLOCK_INIT0(MCU, 0),
-+	TC9564_CLOCK_INIT0(INTC, 4),
-+	/* TC9564_CLOCK_INIT0(PCIE, 9), */
-+	/* TC9564_CLOCK_INIT0(I2C, 12), */
-+	TC9564_CLOCK_INIT0(SRAM, 13),
-+	TC9564_CLOCK_INIT0(UART, 16),
-+	TC9564_CLOCK_INIT0(MSIGEN, 18),
-+	TC9564_CLOCK_INIT0(PLL, 24),
-+	TC9564_CLOCK_INIT0(SGMII, 25),
-+	TC9564_CLOCK_INIT0(REFCLKO, 26),
-+
-+	TC9564_CLOCK_INIT0(MAC0_TX, 7),
-+	TC9564_CLOCK_INIT0(MAC0_RX, 14),
-+	TC9564_CLOCK_INIT0(MAC0_125M, 29),
-+	TC9564_CLOCK_INIT0(MAC0_312_5M, 30),
-+	TC9564_CLOCK_INIT0(MAC0_ALL, 31),
-+
-+	TC9564_CLOCK_INIT1(MAC1_TX, 7),
-+	TC9564_CLOCK_INIT1(MAC1_RX, 14),
-+	TC9564_CLOCK_INIT1(MAC1_RMII, 15),
-+	TC9564_CLOCK_INIT1(MAC1_125M, 29),
-+	TC9564_CLOCK_INIT1(MAC1_312_5M, 30),
-+	TC9564_CLOCK_INIT1(MAC1_ALL, 31),
-+};
-+#define TC9564_CLOCK_COUNT	ARRAY_SIZE(tc9564_clock_init)
-+
-+static const struct tc9564_reset tc9564_reset[] = {
-+	TC9564_RESET_INIT0(MCU, 0),
-+	TC9564_RESET_INIT0(MCU1, 1),
-+	TC9564_RESET_INIT0(INTC, 4),
-+	/* TC9564_RESET_INIT0(PCIE, 9), */
-+	/* TC9564_RESET_INIT0(I2C, 12), */
-+	TC9564_RESET_INIT0(UART, 16),
-+	TC9564_RESET_INIT0(MSIGEN, 18),
-+
-+	TC9564_RESET_INIT0(MAC0_MAC, 7),
-+	TC9564_RESET_INIT0(MAC0_PMA, 30),
-+	TC9564_RESET_INIT0(MAC0_XPCS, 31),
-+
-+	TC9564_RESET_INIT1(MAC1_MAC, 7),
-+	TC9564_RESET_INIT1(MAC1_PMA, 30),
-+	TC9564_RESET_INIT1(MAC1_XPCS, 31),
-+};
-+#define TC9564_RESET_COUNT	ARRAY_SIZE(tc9564_reset)
-+
-+static const struct tc9564_clock *hw_to_tc9564_clock(struct clk_hw *hw)
-+{
-+	return container_of_const(hw, struct tc9564_clock, hw);
-+}
-+
-+static const struct tc9564_clocks *
-+tc9564_clock_to_clocks(const struct tc9564_clock *clock)
-+{
-+	u32 which = clock->which;
-+
-+	if (which >= TC9564_CLOCK_COUNT)
-+		return ERR_PTR(-ENXIO);
-+
-+	return container_of_const(clock, struct tc9564_clocks, clocks[which]);
-+}
-+
-+static int tc9564_clk_manage(struct clk_hw *hw, bool enable)
-+{
-+	const struct tc9564_clock *clock = hw_to_tc9564_clock(hw);
-+	const struct tc9564_clocks *clocks;
-+	u32 offset = clock->offset;
-+	u32 mask = clock->mask;
-+
-+	clocks = tc9564_clock_to_clocks(clock);
-+	if (IS_ERR(clocks) || !mask) {
-+		dev_err(clk_hw_get_dev(hw), "invalid clock (%s id %u)\n",
-+			enable ? "enable" : "disable", clock->which);
-+		return -ENXIO;
-+	}
-+
-+	return regmap_update_bits(clocks->regmap, offset, mask,
-+				  enable ? mask : 0);
-+}
-+
-+static int tc9564_clk_enable(struct clk_hw *hw)
-+{
-+	return tc9564_clk_manage(hw, true);
-+}
-+
-+static void tc9564_clk_disable(struct clk_hw *hw)
-+{
-+	(void)tc9564_clk_manage(hw, false);
-+}
-+
-+static const struct clk_ops tc9564_clk_ops = {
-+	.enable = tc9564_clk_enable,
-+	.disable = tc9564_clk_disable,
-+};
-+
-+static void tc9564_clock_disable_all(struct tc9564_clocks *clocks)
-+{
-+	for (int i = 0; i < clocks->clock_count; i++) {
-+		const struct tc9564_clock *clock = &clocks->clocks[i];
-+
-+		if (clock->mask)
-+			regmap_update_bits(clocks->regmap, clock->offset,
-+					   clock->mask, 0);
-+	}
-+}
-+
-+static struct clk_hw *tc9564_clk_hw_get(struct of_phandle_args *clkspec,
-+					void *data)
-+{
-+	struct tc9564_clocks *clocks = data;
-+	unsigned int i = clkspec->args[0];
-+
-+	if (i < clocks->clock_count)
-+		return &clocks->clocks[i].hw;
-+
-+	dev_err(clocks->dev, "invalid index %u\n", i);
-+
-+	return ERR_PTR(-EINVAL);
-+}
-+
-+static struct tc9564_clocks *tc9564_clk_init(struct device *dev)
-+{
-+	struct tc9564_clocks *clocks;
-+	size_t clocks_size;
-+	int ret;
-+
-+	clocks_size = struct_size(clocks, clocks, TC9564_CLOCK_COUNT);
-+	clocks = devm_kzalloc(dev, clocks_size, GFP_KERNEL);
-+	if (!clocks)
-+		return ERR_PTR(-ENOMEM);
-+
-+	clocks->dev = dev;
-+	clocks->clock_count = TC9564_CLOCK_COUNT;
-+
-+	clocks->regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
-+	if (IS_ERR(clocks->regmap)) {
-+		dev_err(dev, "failed to get config regmap\n");
-+		return ERR_CAST(clocks->regmap);
-+	}
-+
-+	for (u32 i = 0; i < TC9564_CLOCK_COUNT; i++) {
-+		const struct tc9564_clock_init *clock_init;
-+		struct clk_init_data init = { };
-+		struct tc9564_clock *clock;
-+
-+		clock_init = &tc9564_clock_init[i];
-+		if (!clock_init->name)
-+			continue;
-+
-+		init.name = clock_init->name;
-+		init.ops = &tc9564_clk_ops;
-+
-+		clock = &clocks->clocks[i];
-+		clock->hw.init = &init;
-+
-+		ret = devm_clk_hw_register(dev, &clock->hw);
-+		if (ret) {
-+			dev_err(dev, "failed to register clock \"%s\"\n",
-+				init.name);
-+			return ERR_PTR(ret);
-+		}
-+
-+		clock->which = i;
-+		clock->offset = clock_init->offset;
-+		clock->mask = clock_init->mask;
-+	}
-+
-+	ret = devm_of_clk_add_hw_provider(dev, tc9564_clk_hw_get, clocks);
-+	if (ret) {
-+		dev_err(dev, "failed to add clock hardware provider\n");
-+		return ERR_PTR(ret);
-+	}
-+
-+	return clocks;
-+}
-+
-+static const struct tc9564_clocks *
-+rcdev_to_tc9564_clocks(struct reset_controller_dev *rcdev)
-+{
-+	return container_of_const(rcdev, struct tc9564_clocks, rcdev);
-+}
-+
-+static int tc9564_reset_manage(struct reset_controller_dev *rcdev,
-+			       unsigned long id, bool assert)
-+{
-+	const struct tc9564_clocks *clocks = rcdev_to_tc9564_clocks(rcdev);
-+
-+	if (id < rcdev->nr_resets) {
-+		const struct tc9564_reset *reset = &tc9564_reset[id];
-+		u32 mask = reset->mask;
-+
-+		if (mask)
-+			return regmap_update_bits(clocks->regmap,
-+						  reset->offset, mask,
-+						  assert ? mask : 0);
-+	}
-+
-+	dev_err(clocks->dev, "invalid reset (%sassert id %lu)\n",
-+		assert ? "" : "de", id);
-+
-+	return -ENXIO;
-+}
-+
-+static int tc9564_reset_assert(struct reset_controller_dev *rcdev,
-+			       unsigned long id)
-+{
-+	return tc9564_reset_manage(rcdev, id, true);
-+}
-+
-+static int tc9564_reset_deassert(struct reset_controller_dev *rcdev,
-+				 unsigned long id)
-+{
-+	return tc9564_reset_manage(rcdev, id, false);
-+}
-+
-+static const struct reset_control_ops tc9564_reset_control_ops = {
-+	.assert		= tc9564_reset_assert,
-+	.deassert	= tc9564_reset_deassert,
-+};
-+
-+static void tc9564_reset_assert_all(struct tc9564_clocks *clocks)
-+{
-+	for (u32 id = 0; id < TC9564_RESET_COUNT; id++)
-+		if (tc9564_reset[id].mask)
-+			tc9564_reset_manage(&clocks->rcdev, id, true);
-+}
-+
-+static int tc9564_reset_init(struct tc9564_clocks *clocks)
-+{
-+	struct reset_controller_dev *rcdev = &clocks->rcdev;
-+
-+	rcdev->ops = &tc9564_reset_control_ops;
-+	rcdev->owner = THIS_MODULE;
-+	rcdev->dev = clocks->dev;
-+	rcdev->of_node = dev_of_node(clocks->dev);
-+	rcdev->nr_resets = TC9564_RESET_COUNT;
-+
-+	return devm_reset_controller_register(clocks->dev, rcdev);
-+}
-+
-+static int tc9564_clk_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct tc9564_clocks *clocks;
-+	int ret;
-+
-+	if (!dev_of_node(dev))
-+		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
-+
-+	clocks = tc9564_clk_init(dev);
-+	if (IS_ERR(clocks))
-+		return dev_err_probe(dev, PTR_ERR(clocks),
-+				     "failed to initialize clocks\n");
-+
-+	ret = tc9564_reset_init(clocks);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize resets\n");
-+
-+	/* Force all resets to be initially asserted */
-+	tc9564_reset_assert_all(clocks);
-+
-+	/* Force all clocks to be initially disabled */
-+	tc9564_clock_disable_all(clocks);
-+
-+	platform_set_drvdata(pdev, clocks);
-+
-+	return 0;
-+}
-+
-+static void tc9564_clk_remove(struct platform_device *pdev)
-+{
-+	struct tc9564_clocks *clocks = platform_get_drvdata(pdev);
-+
-+	/* Leave all resets to be deasserted when done */
-+	tc9564_reset_assert_all(clocks);
-+
-+	/* Leave all clocks disabled when done */
-+	tc9564_clock_disable_all(clocks);
-+}
-+
-+static const struct of_device_id tc9564_clk_ids[] = {
-+	{ .compatible = "toshiba,tc9564-clock" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, tc9564_clk_ids);
-+
-+static struct platform_driver tc9564_clk_driver = {
-+	.probe	= tc9564_clk_probe,
-+	.remove	= tc9564_clk_remove,
-+	.driver	= {
-+		.name		= KBUILD_MODNAME,
-+		.of_match_table = tc9564_clk_ids,
-+		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+};
-+module_platform_driver(tc9564_clk_driver);
-+
-+MODULE_DESCRIPTION("Toshiba TC9564 Clock and Reset Driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+vim +1021 kernel/bpf/fixups.c
 
+   975	
+   976	int bpf_jit_subprogs(struct bpf_verifier_env *env)
+   977	{
+   978		struct bpf_prog *prog = env->prog, **func, *tmp;
+   979		int i, j, subprog_start, subprog_end = 0, len, subprog;
+   980		struct bpf_map *map_ptr;
+   981		struct bpf_insn *insn;
+   982		void *old_bpf_func;
+   983		int err, num_exentries;
+   984		int old_len, subprog_start_adjustment = 0;
+   985	
+   986		if (env->subprog_cnt <= 1)
+   987			return 0;
+   988	
+   989		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+   990			if (!bpf_pseudo_func(insn) && !bpf_pseudo_call(insn))
+   991				continue;
+   992	
+   993			/* Upon error here we cannot fall back to interpreter but
+   994			 * need a hard reject of the program. Thus -EFAULT is
+   995			 * propagated in any case.
+   996			 */
+   997			subprog = bpf_find_subprog(env, i + insn->imm + 1);
+   998			if (verifier_bug_if(subprog < 0, env, "No program to jit at insn %d",
+   999					    i + insn->imm + 1))
+  1000				return -EFAULT;
+  1001			/* temporarily remember subprog id inside insn instead of
+  1002			 * aux_data, since next loop will split up all insns into funcs
+  1003			 */
+  1004			insn->off = subprog;
+  1005			/* remember original imm in case JIT fails and fallback
+  1006			 * to interpreter will be needed
+  1007			 */
+  1008			env->insn_aux_data[i].call_imm = insn->imm;
+  1009			/* point imm to __bpf_call_base+1 from JITs point of view */
+  1010			insn->imm = 1;
+  1011			if (bpf_pseudo_func(insn)) {
+  1012	#if defined(MODULES_VADDR)
+  1013				u64 addr = MODULES_VADDR;
+  1014	#else
+  1015				u64 addr = VMALLOC_START;
+  1016	#endif
+  1017				/* jit (e.g. x86_64) may emit fewer instructions
+  1018				 * if it learns a u32 imm is the same as a u64 imm.
+  1019				 * Set close enough to possible prog address.
+  1020				 */
+> 1021				insn[0].imm = (u32)addr;
+  1022				insn[1].imm = addr >> 32;
+  1023			}
+  1024		}
+  1025	
+  1026		err = bpf_prog_alloc_jited_linfo(prog);
+  1027		if (err)
+  1028			goto out_undo_insn;
+  1029	
+  1030		err = -ENOMEM;
+  1031		func = kzalloc_objs(prog, env->subprog_cnt);
+  1032		if (!func)
+  1033			goto out_undo_insn;
+  1034	
+  1035		for (i = 0; i < env->subprog_cnt; i++) {
+  1036			subprog_start = subprog_end;
+  1037			subprog_end = env->subprog_info[i + 1].start;
+  1038	
+  1039			len = subprog_end - subprog_start;
+  1040			/* bpf_prog_run() doesn't call subprogs directly,
+  1041			 * hence main prog stats include the runtime of subprogs.
+  1042			 * subprogs don't have IDs and not reachable via prog_get_next_id
+  1043			 * func[i]->stats will never be accessed and stays NULL
+  1044			 */
+  1045			func[i] = bpf_prog_alloc_no_stats(bpf_prog_size(len), GFP_USER);
+  1046			if (!func[i])
+  1047				goto out_free;
+  1048			memcpy(func[i]->insnsi, &prog->insnsi[subprog_start],
+  1049			       len * sizeof(struct bpf_insn));
+  1050			func[i]->type = prog->type;
+  1051			func[i]->len = len;
+  1052			if (bpf_prog_calc_tag(func[i]))
+  1053				goto out_free;
+  1054			func[i]->is_func = 1;
+  1055			func[i]->sleepable = prog->sleepable;
+  1056			func[i]->aux->func_idx = i;
+  1057			/* Below members will be freed only at prog->aux */
+  1058			func[i]->aux->btf = prog->aux->btf;
+  1059			func[i]->aux->subprog_start = subprog_start + subprog_start_adjustment;
+  1060			func[i]->aux->func_info = prog->aux->func_info;
+  1061			func[i]->aux->func_info_cnt = prog->aux->func_info_cnt;
+  1062			func[i]->aux->poke_tab = prog->aux->poke_tab;
+  1063			func[i]->aux->size_poke_tab = prog->aux->size_poke_tab;
+  1064			func[i]->aux->main_prog_aux = prog->aux;
+  1065	
+  1066			for (j = 0; j < prog->aux->size_poke_tab; j++) {
+  1067				struct bpf_jit_poke_descriptor *poke;
+  1068	
+  1069				poke = &prog->aux->poke_tab[j];
+  1070				if (poke->insn_idx < subprog_end &&
+  1071				    poke->insn_idx >= subprog_start)
+  1072					poke->aux = func[i]->aux;
+  1073			}
+  1074	
+  1075			func[i]->aux->name[0] = 'F';
+  1076			func[i]->aux->stack_depth = env->subprog_info[i].stack_depth;
+  1077			if (env->subprog_info[i].priv_stack_mode == PRIV_STACK_ADAPTIVE)
+  1078				func[i]->aux->jits_use_priv_stack = true;
+  1079	
+  1080			func[i]->jit_requested = 1;
+  1081			func[i]->blinding_requested = prog->blinding_requested;
+  1082			func[i]->aux->kfunc_tab = prog->aux->kfunc_tab;
+  1083			func[i]->aux->kfunc_btf_tab = prog->aux->kfunc_btf_tab;
+  1084			func[i]->aux->linfo = prog->aux->linfo;
+  1085			func[i]->aux->nr_linfo = prog->aux->nr_linfo;
+  1086			func[i]->aux->jited_linfo = prog->aux->jited_linfo;
+  1087			func[i]->aux->linfo_idx = env->subprog_info[i].linfo_idx;
+  1088			func[i]->aux->arena = prog->aux->arena;
+  1089			func[i]->aux->used_maps = env->used_maps;
+  1090			func[i]->aux->used_map_cnt = env->used_map_cnt;
+  1091			num_exentries = 0;
+  1092			insn = func[i]->insnsi;
+  1093			for (j = 0; j < func[i]->len; j++, insn++) {
+  1094				if (BPF_CLASS(insn->code) == BPF_LDX &&
+  1095				    (BPF_MODE(insn->code) == BPF_PROBE_MEM ||
+  1096				     BPF_MODE(insn->code) == BPF_PROBE_MEM32 ||
+  1097				     BPF_MODE(insn->code) == BPF_PROBE_MEM32SX ||
+  1098				     BPF_MODE(insn->code) == BPF_PROBE_MEMSX))
+  1099					num_exentries++;
+  1100				if ((BPF_CLASS(insn->code) == BPF_STX ||
+  1101				     BPF_CLASS(insn->code) == BPF_ST) &&
+  1102				     BPF_MODE(insn->code) == BPF_PROBE_MEM32)
+  1103					num_exentries++;
+  1104				if (BPF_CLASS(insn->code) == BPF_STX &&
+  1105				     BPF_MODE(insn->code) == BPF_PROBE_ATOMIC)
+  1106					num_exentries++;
+  1107			}
+  1108			func[i]->aux->num_exentries = num_exentries;
+  1109			func[i]->aux->tail_call_reachable = env->subprog_info[i].tail_call_reachable;
+  1110			func[i]->aux->exception_cb = env->subprog_info[i].is_exception_cb;
+  1111			func[i]->aux->changes_pkt_data = env->subprog_info[i].changes_pkt_data;
+  1112			func[i]->aux->might_sleep = env->subprog_info[i].might_sleep;
+  1113			if (!i)
+  1114				func[i]->aux->exception_boundary = env->seen_exception;
+  1115	
+  1116			/*
+  1117			 * To properly pass the absolute subprog start to jit
+  1118			 * all instruction adjustments should be accumulated
+  1119			 */
+  1120			old_len = func[i]->len;
+  1121			func[i] = bpf_int_jit_compile(func[i]);
+  1122			subprog_start_adjustment += func[i]->len - old_len;
+  1123	
+  1124			if (!func[i]->jited) {
+  1125				err = -ENOTSUPP;
+  1126				goto out_free;
+  1127			}
+  1128			cond_resched();
+  1129		}
+  1130	
+  1131		/* at this point all bpf functions were successfully JITed
+  1132		 * now populate all bpf_calls with correct addresses and
+  1133		 * run last pass of JIT
+  1134		 */
+  1135		for (i = 0; i < env->subprog_cnt; i++) {
+  1136			insn = func[i]->insnsi;
+  1137			for (j = 0; j < func[i]->len; j++, insn++) {
+  1138				if (bpf_pseudo_func(insn)) {
+  1139					subprog = insn->off;
+  1140					insn[0].imm = (u32)(long)func[subprog]->bpf_func;
+  1141					insn[1].imm = ((u64)(long)func[subprog]->bpf_func) >> 32;
+  1142					continue;
+  1143				}
+  1144				if (!bpf_pseudo_call(insn))
+  1145					continue;
+  1146				subprog = insn->off;
+  1147				insn->imm = BPF_CALL_IMM(func[subprog]->bpf_func);
+  1148			}
+  1149	
+  1150			/* we use the aux data to keep a list of the start addresses
+  1151			 * of the JITed images for each function in the program
+  1152			 *
+  1153			 * for some architectures, such as powerpc64, the imm field
+  1154			 * might not be large enough to hold the offset of the start
+  1155			 * address of the callee's JITed image from __bpf_call_base
+  1156			 *
+  1157			 * in such cases, we can lookup the start address of a callee
+  1158			 * by using its subprog id, available from the off field of
+  1159			 * the call instruction, as an index for this list
+  1160			 */
+  1161			func[i]->aux->func = func;
+  1162			func[i]->aux->func_cnt = env->subprog_cnt - env->hidden_subprog_cnt;
+  1163			func[i]->aux->real_func_cnt = env->subprog_cnt;
+  1164		}
+  1165		for (i = 0; i < env->subprog_cnt; i++) {
+  1166			old_bpf_func = func[i]->bpf_func;
+  1167			tmp = bpf_int_jit_compile(func[i]);
+  1168			if (tmp != func[i] || func[i]->bpf_func != old_bpf_func) {
+  1169				verbose(env, "JIT doesn't support bpf-to-bpf calls\n");
+  1170				err = -ENOTSUPP;
+  1171				goto out_free;
+  1172			}
+  1173			cond_resched();
+  1174		}
+  1175	
+  1176		/*
+  1177		 * Cleanup func[i]->aux fields which aren't required
+  1178		 * or can become invalid in future
+  1179		 */
+  1180		for (i = 0; i < env->subprog_cnt; i++) {
+  1181			func[i]->aux->used_maps = NULL;
+  1182			func[i]->aux->used_map_cnt = 0;
+  1183		}
+  1184	
+  1185		/* finally lock prog and jit images for all functions and
+  1186		 * populate kallsysm. Begin at the first subprogram, since
+  1187		 * bpf_prog_load will add the kallsyms for the main program.
+  1188		 */
+  1189		for (i = 1; i < env->subprog_cnt; i++) {
+  1190			err = bpf_prog_lock_ro(func[i]);
+  1191			if (err)
+  1192				goto out_free;
+  1193		}
+  1194	
+  1195		for (i = 1; i < env->subprog_cnt; i++)
+  1196			bpf_prog_kallsyms_add(func[i]);
+  1197	
+  1198		/* Last step: make now unused interpreter insns from main
+  1199		 * prog consistent for later dump requests, so they can
+  1200		 * later look the same as if they were interpreted only.
+  1201		 */
+  1202		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+  1203			if (bpf_pseudo_func(insn)) {
+  1204				insn[0].imm = env->insn_aux_data[i].call_imm;
+  1205				insn[1].imm = insn->off;
+  1206				insn->off = 0;
+  1207				continue;
+  1208			}
+  1209			if (!bpf_pseudo_call(insn))
+  1210				continue;
+  1211			insn->off = env->insn_aux_data[i].call_imm;
+  1212			subprog = bpf_find_subprog(env, i + insn->off + 1);
+  1213			insn->imm = subprog;
+  1214		}
+  1215	
+  1216		prog->jited = 1;
+  1217		prog->bpf_func = func[0]->bpf_func;
+  1218		prog->jited_len = func[0]->jited_len;
+  1219		prog->aux->extable = func[0]->aux->extable;
+  1220		prog->aux->num_exentries = func[0]->aux->num_exentries;
+  1221		prog->aux->func = func;
+  1222		prog->aux->func_cnt = env->subprog_cnt - env->hidden_subprog_cnt;
+  1223		prog->aux->real_func_cnt = env->subprog_cnt;
+  1224		prog->aux->bpf_exception_cb = (void *)func[env->exception_callback_subprog]->bpf_func;
+  1225		prog->aux->exception_boundary = func[0]->aux->exception_boundary;
+  1226		bpf_prog_jit_attempt_done(prog);
+  1227		return 0;
+  1228	out_free:
+  1229		/* We failed JIT'ing, so at this point we need to unregister poke
+  1230		 * descriptors from subprogs, so that kernel is not attempting to
+  1231		 * patch it anymore as we're freeing the subprog JIT memory.
+  1232		 */
+  1233		for (i = 0; i < prog->aux->size_poke_tab; i++) {
+  1234			map_ptr = prog->aux->poke_tab[i].tail_call.map;
+  1235			map_ptr->ops->map_poke_untrack(map_ptr, prog->aux);
+  1236		}
+  1237		/* At this point we're guaranteed that poke descriptors are not
+  1238		 * live anymore. We can just unlink its descriptor table as it's
+  1239		 * released with the main prog.
+  1240		 */
+  1241		for (i = 0; i < env->subprog_cnt; i++) {
+  1242			if (!func[i])
+  1243				continue;
+  1244			func[i]->aux->poke_tab = NULL;
+  1245			bpf_jit_free(func[i]);
+  1246		}
+  1247		kfree(func);
+  1248	out_undo_insn:
+  1249		/* cleanup main prog to be interpreted */
+  1250		prog->jit_requested = 0;
+  1251		prog->blinding_requested = 0;
+  1252		for (i = 0, insn = prog->insnsi; i < prog->len; i++, insn++) {
+  1253			if (!bpf_pseudo_call(insn))
+  1254				continue;
+  1255			insn->off = 0;
+  1256			insn->imm = env->insn_aux_data[i].call_imm;
+  1257		}
+  1258		bpf_prog_jit_attempt_done(prog);
+  1259		return err;
+  1260	}
+  1261	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
