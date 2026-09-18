@@ -1,126 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED02391842;
-	Fri, 18 Sep 2026 07:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEC53E44ED
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715738; cv=none; b=ulj98p/qUCG9J1ztGJdFgfhL3P1TO69oIu8Pny+xHb2unEKAfNO3H3jzahWmtP7kZLRXSOmUhMGMYlzIUS2fBOKU/qLb/znfPSSipi/7Lr4+Ywoq+1JIXRkYQgSl22Xcuagzc3vge/ojdcFVpc50zd0eE5sEiGkeukOxGiEstH4=
+	t=1789715779; cv=none; b=d74ah2bCV85IRPXu3Pgayp7whzBJWw6OuHXqpQi1UQfSm8cRSYli9361p7Oep8VFRYSQ0i0NOx9hujrFOaNGUuc+0eaDenvuwIehC0DtY8R3t12ThNBFVx7Jl1fY+IbOAq6fO8jTR1wRrNKjFEmFGHslLwcV2v0bwZA+fkWm6BQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715738; c=relaxed/simple;
-	bh=IyQG4uF4U2HMYFS0whlenRlq0+4izpBq85YAFExkrKM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sDjMH4h+zmyPI1Af5WNUMlsKY/qPyC1fOYokACApIey0BCZHAFftodUORbt4P0Czg59AFqPXpZTratSABZ3XhspF+50p9/67exnLZ3SvZavZsrHR/6xKdd23skUVz85ZhR/p5EyNmL7im0yeSAf/+Quadc8OwecOShkGCf9GMb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhrdEkJP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhrdEkJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559BC1F00893;
-	Fri, 18 Sep 2026 07:15:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715725;
-	bh=yGXP8T1zvW5Ml5ZoTKLO3915Guu8fl2jGwWEp0ekuH8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hhrdEkJPsCM1e0xAT8nx+2dL6Mk346k4lOVF4xldrlPrjN5pRcKLlC36i5umsgAEX
-	 Mp9h8oSRLYPkXnX0ofmhNPnYdlFaaDlt75luOA2LPxQMGglwZYxE8YneYoFFIrm9VI
-	 BlQBv75lqp6fBDi3G2QcfvUEtdAqHwbvPo2DdlOaS6Q4KNMSO4H/eGby5OJ08w8Jj5
-	 Rqe5dl6AsQrb2fKQkEJpUbf3d2BeXzwkYnUjSNr6T93S99i6Iv352HA7tpVBA4Q3UO
-	 Lgv9HZaeycMuaLOLue3xeMnw41S7U8WqPV4QoW/jUnIAui9ss1pj6XqDza7wqdaL1k
-	 YsEo9YjVPbeIw==
-Date: Fri, 18 Sep 2026 09:15:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 05/15] dt-bindings: gpio: pl061: add Ambarella CV75
- variant
-Message-ID: <20260918-affable-aardvark-of-superiority-6a5ed2@quoll>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-5-3297d3fbc9c0@ambarella.com>
+	s=arc-20240116; t=1789715779; c=relaxed/simple;
+	bh=mhUyMvHcN4TX949sQh/esZBXP5LhyBsWejVcPg2AphE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IBZvwvzHQhpRvz9kIoIzO2qqyKyCY0iJVOZosL7PuAmchO3BngA+QLpY3V1IdrY1+fENneZVnnr9iHkq9Iqvw5LX92u4Mju+FjWYjr8xMlh5Xjp5EfJZ8EkBJFUGEEK8kY4OCfetpSjNMG+Qk7bkm4H5g2pujF3cNyfg24B7lZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so110350e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:16:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789715776; x=1790320576;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bqMe/meCGvroxGnBcwNhNK9UqrtwhnE2+lm9mYH3a/0=;
+        b=0dsNTxTUPl/7huHGLhzebx805qxiZbIPRx1VlMkaUHqsgOLwcQeeuA1gXXScvys7rZ
+         u6SOzTZeYqddx8j0/NGoocdYBYHiVbs/wtquDBWu13jX4TIipgMxXfZtz4trwEDdgKkH
+         U2DpmiCUx7Fs0xlm7/oKHFPBw7T81lHbGrmlzWbQRZKVEKVYcDCqPxSjVRhrKLAtmUvs
+         OZWHr1xzeEBaLVBm6G3Q2LVgxYAdI5hWIzTHuesG3abTQDaacn3i2b2uOzugAGrMDbc7
+         tigfLHGuxeDQ63bM9vIhFNpPc7SYkG6ThT2NTIUzVPw2nb17tdUvzJmmd4tUEHG4mstp
+         PgKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4aMAQOm3zDNvEv1UmoURqub6XkLULoCDGAzjqZlPJEhtCvHpsfxxcp2Cy86P0fMVZLiIhcKWJhBJS3t4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3KINvRZHWBYnO1NDYeIXvwr38r84uZYGiqNJyMYy1gePO+6yq
+	jnPs5HDFTGXYysRD+VJnmAHlAoLMkmcsch9TjMN4Pn9dFoe8DvQVZTERYyw/fkFI
+X-Gm-Gg: AYBFou3PyaziQ7cFZBqJi5na1YX6C/bmsVkaOMoCy9ymrPxDpsQWA0UnLI5G1iCdn4j
+	n3KLiv3xYL8A8RLEM8D1V/l3wPu2hlyPFW3BGDPmhZfhOFxEI7Ye8j0fhRym9uA/mEivkvYayup
+	KPUb2QC669ZLE+fGYW3XcY5hS/DEt/CggmPLxlXI7es3Uo+T7etJ8U5kkyM4JlusCgsX52fazEe
+	kTxeO01RfniW9G/BA0gvdI+OWwPXh5STNFDjHTCT3de4Qr+c0Y9JEbmYOm1wFUXEMkUJ6KKn+lh
+	oiocb8K4U7oDeZysmZbJCfskUuYhZe0beKy9tV1RTdIIDL8ftq94k8ANMxY7GGt1iagTBP4sspU
+	7fywRDysQoPKovQPid8WnHNi57V7uC21nRxmUf/8If0tiUOt2cFVpMDs0nTev1NcntliqjXib+z
+	BvAd2F/GIWGxCmDoIrwVF7kN4ik+CX2LVJyIbUYOOi+GZx+vrxgtrHKkE+jFYVn/7DwacTy7352
+	fxS5iH+PxAJdlEIcyz4ZadM2b043zX7lQdD
+X-Received: by 2002:a05:6122:30e6:b0:5c9:54c6:b4c6 with SMTP id 71dfb90a1353d-5c9b58ecf23mr663818e0c.2.1789715775923;
+        Fri, 18 Sep 2026 00:16:15 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9b81eecd5sm788205e0c.2.2026.09.18.00.16.15
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 00:16:15 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78564319a92so105134137.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:16:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwEno3qFQf0fxE7W+jyf6sisl63W+1fh3pZXvepW03zpqW0ToK5WbLbapT9fjRBuAw5JDfbHLKxVXxQAZk=@vger.kernel.org
+X-Received: by 2002:a05:6102:54a4:b0:790:fd7:cf36 with SMTP id
+ ada2fe7eead31-7a55b94efeamr554171137.11.1789715775067; Fri, 18 Sep 2026
+ 00:16:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915-cv75-v5-v7-5-3297d3fbc9c0@ambarella.com>
+References: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
+In-Reply-To: <a7f69e8d-1140-44b5-baf8-bacb8c30c01a@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 18 Sep 2026 09:16:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXASe0VkAwaKedwA_4R3y9ob+n61JBVYODOEves62K_Fw@mail.gmail.com>
+X-Gm-Features: AcwNN1WvhK3fTlIFBM3xM76KqQ_q75nJQb86r9gVZkwCkG2xgXVRLjSNKLjz2rc
+Message-ID: <CAMuHMdXASe0VkAwaKedwA_4R3y9ob+n61JBVYODOEves62K_Fw@mail.gmail.com>
+Subject: Re: 2026 LF Technical Advisory Board election - call for candidates
+To: David Hildenbrand <david@kernel.org>
+Cc: tab-elections@lists.linux.dev, tech-board-discuss@lists.linux.dev, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, ksummit@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 07:15:35PM +0800, Long Zhao wrote:
-> Add ambarella,cv75-gpio as a PrimeCell-compatible PL061 variant, with
-> arm,primecell-periphid and gpio-ranges required. Reference
+Hi David,
 
-You just described the diff, but this should explain why you do these
-changes. Why a fixed periphid is needed? Isn't it implied by compatible?
+On Thu, 17 Sept 2026 at 20:53, David Hildenbrand <david@kernel.org> wrote:
+> The 2026 election for membership on the Linux Foundation Technical
+> Advisory Board (TAB) will be held electronically after the 2026 Linux
+> Plumbers Conference, from October 8 to 15.  This announcement covers
+> both the call for candidates and the details of voting in this election.
 
-> primecell.yaml and use unevaluatedProperties.
-> 
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 +++++++++++++++++++---
->  1 file changed, 22 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> index 4d970e55104b..00d0d8ddd2c9 100644
-> --- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> @@ -15,17 +15,36 @@ select:
->    properties:
->      compatible:
->        contains:
-> -        const: arm,pl061
-> +        enum:
-> +          - arm,pl061
-> +          - ambarella,cv75-gpio
->    required:
->      - compatible
->  
-> +allOf:
+Thank you!
 
-allOf should be placed after "required:" block.
+> The public minutes from TAB meetings can be found in this repository:
+>
+>     https://git.kernel.org/pub/scm/docs/tab/tab.git/
 
-> +  - $ref: /schemas/arm/primecell.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ambarella,cv75-gpio
-> +    then:
-> +      properties:
-> +        arm,primecell-periphid:
-> +          const: 0x000e8061
-> +      required:
-> +        - arm,primecell-periphid
-> +        - gpio-ranges
-> +
->  properties:
->    $nodename:
->      pattern: "^gpio@[0-9a-f]+$"
->  
->    compatible:
->      items:
-> -      - const: arm,pl061
-> +      - enum:
-> +          - ambarella,cv75-gpio
-> +          - arm,pl061
+No minutes since last election?
+Thanks again!
 
-So a PrimeCell-compatible PL061 variant which is not compatible with
-PL061? You have entire commit msg to explain that and say something
-non-obvious about the hardware.
+Gr{oetje,eeting}s,
 
->        - const: arm,primecell
->  
+                        Geert
 
-Best regards,
-Krzysztof
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
