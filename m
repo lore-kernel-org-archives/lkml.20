@@ -1,131 +1,125 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5890352B1D3;
-	Fri, 18 Sep 2026 21:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865D03D7D9F;
+	Fri, 18 Sep 2026 21:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789768209; cv=none; b=jTFKExPnN4C4iMs2jDSHX2zNI6L6wZxkl/TCiNhBoKpxxuG/oXnsT4MgNpvwXsizOpy7WtscZ5fhYXoYipzDCXOY+I+L8JseWY3UAtVBvL9cGeiPlX5teFrIwE9uJts03ZY0oDQ04pfbwtX3TI7R1K+fsr3VPdkpIK8I7whPtwM=
+	t=1789768380; cv=none; b=rZFf9rTuocU2pnaP9rU5fdPI/HaW17d/versdH37PQR422osgSrRVP4AVEZxNenmFFBElmIAPHpM3Pr9NYD6q+FtUdX4BshlKjjwIsVfmO2A2GStFsSx/Q5GjxbOs59vHM7bZlUZ5EStY38nrY7YmCw1oLoTH4HFjlREoqVZKR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789768209; c=relaxed/simple;
-	bh=Cko9Zwq3Vh7ZcfuOeKNRCO4UyO3g4kNbUEW/7FT5nns=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=PWx5/ueOXBu7yDgwJjBllEux1ubMLDcn6gBqwkBz4cjW057CSrbPNgaWfF31vSW0Zz+CJ+1R79g0znHhRQbc6p9RGwiteryNuWFM8+W6GAdiVsxSz9yLN6bdKJE3HMJt5tCihrcjAeo8gPtFFCEyDHQrWXcspnBTZ/KM5TWaHDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Av/RJSfR; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789768380; c=relaxed/simple;
+	bh=PxHZY7gPLw6GvHpgwubriVfc/bvdEiuUW0dJeJaGNd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IGTNbvtgIlbE7Ka5b43Sf7NCmt1uAa7387eAfJu0Pv1p8SoMcUimKWWfzASSWzGpZH4E36nZR5nMdOK95EXZgEBWfVUzgIIp15Kn8fEkBKYKgiLNOEJM5rVWt1oahZuiFR/OpCNDrpyuCVQRafpWy7dbFMcgty3rgfE8lt+xtVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4e2esu+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Av/RJSfR"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IKVhiC1094215;
-	Fri, 18 Sep 2026 21:49:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=37ntVI
-	DIWX9UKzB+TsdGFUb+iaRVQhISSLkL9LJYvrQ=; b=Av/RJSfRAUdJeRi+8xO0bL
-	TMgrFF8izryjQ2KM/Lu3nHKNWr4fcCHPZEb7vUaJAzd68M/wkbawGT3UGIi/GuQ4
-	bFb6xtwQQcOganPb7NIntcQj0RLX+35C6w4luUhFQ6xKG4sMC4CjgoEarIOC1877
-	BUorOroOdOAyP/Sa6TwNpGuNee2jbSBOkpOEQ+V0PB6BhcmhC84aU3HJva1qISuh
-	8nWqsikXwVLWr2e99/We90BaB7M4o12odZJ+6enD80/3twWmP5UCS+FpdfyokLOr
-	hgDnH66cLU4stF5640smNqlBLa85bYp2dcNXXk6pITaInxhbR+lTKMZZdJFs0c4w
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5ehx0v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 21:49:46 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IKK5v81234619;
-	Fri, 18 Sep 2026 21:49:45 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gs56qa3jg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 21:49:45 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ILnjjA8192640
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 21:49:45 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 388835803F;
-	Fri, 18 Sep 2026 21:49:45 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 289AC58054;
-	Fri, 18 Sep 2026 21:49:44 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.133.121])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 21:49:44 +0000 (GMT)
-Message-ID: <4086ad937c14946de11dcd01ce6d46c0e1458620.camel@linux.ibm.com>
-Subject: Re: [PATCH v3 2/2] integrity: Replace integrity_audit_message()
- with integrity_audit_msg()
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Frederick Lawler <fred@cloudflare.com>,
-        Roberto Sassu	
- <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-        Eric Snowberg <eric.snowberg@oracle.com>,
-        Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-        "Serge E. Hallyn"	 <serge@hallyn.com>
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-In-Reply-To: <20260916-report-hash-error-v3-2-73e5d95e9efe@cloudflare.com>
-References: <20260916-report-hash-error-v3-0-73e5d95e9efe@cloudflare.com>
-	 <20260916-report-hash-error-v3-2-73e5d95e9efe@cloudflare.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 17:49:43 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4e2esu+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD681F000FF;
+	Fri, 18 Sep 2026 21:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789768379;
+	bh=8W8XO/Ae5cM2yDYef7QCLLw8szG6m9g5X/FwN3K83rI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=N4e2esu+nbbszP6tLi19HQcyp3UTfm/8Ra6HgTLuOQ+lNSqq8wN+HG+5h6voAyqvw
+	 JBkuq0O+9qHVnNQbBgRtykiL9pO3Vt6BwH2Sj8pF/dmFnLgHgRR7aDvmMyMcioECsa
+	 G+aklz+r4vk8Zf6tskvGHkWPFLLypq9CoO1qx+wVAOYydQqrmMy3HKK6igwX3IHg5M
+	 sLlhMMa99E+cjHdfktxpavspkszmjIeW8oThUebLcBwp6ttL7d/w/VRXtIXH6Xkzw9
+	 4QKPO2HHZrpt/1GgREjb06tQk9uZU3M+lxyfNiL7jZ1dCpQEMKqJ0qcVPg0k4lI7VI
+	 ypWSSAtI1vISw==
+Message-ID: <abbbc648-6284-49b0-b362-5d41e34b3e42@kernel.org>
+Date: Fri, 18 Sep 2026 22:52:55 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDMxMSBTYWx0ZWRfX2l+YI1sEkM4t
- IoDfOZ7Ff5C+9hQinuopmSqW52VEOtfBLAW5ZfIR0eDiPz9JxzsThpSvllZPHukGGxJJkGCwvXx
- sZdWLC+YK4XN9J4dO2LiRPKWcA4L1kWtmq86B6NTMm07E0Zxcd8cXL0nVpy2GUFicohG4bTVEPx
- XlMxAArktCiKSDjvjlMiodIoVSKxhtWgmv4N72cv1jigJaQsPpCmqCY/j8houcdTxJLG2qARtU7
- DnB9fwLp2aeEAj43NAIQsZw/sSo7rtkjo4f3gdIpRqfl7LSCQv5vncaI7I1fK5kMNHMafGeuHBJ
- Txf6czzrBX3EBuBwHu0BvdntRzehzQpiUUitPZiWRGTq1bcdfove9Xi2mGsQJwwlwEgyJFkxsWY
- YlobSS9uWpbY7kh3r3cI38pmXEaEL3rTtlUbwTIoBh+n11Hv8hCbWBTo3t5xcu7fEiPIxe5M5OT
- y7842gMWOFKVSpIM2mQ==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aadb1fa cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=EG7W4yiQAAAA:8
- a=KUfPkIi8R2PQVBz8DpUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 6--v3iu37kEqKOUMuRmLZDAcreEhe69N
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDMxMSBTYWx0ZWRfXyMJhwbIC7Us+
- JBff6eHf+dL5yZeQ8/2ZP+15hJ+1ed5BPrpELfCXOWdM/5KLrmYgeUH879cRE7I5Ihd387cWHag
- BP6FXczMi2Vo0h6+vRFF+aP6XcrPa+g=
-X-Proofpoint-GUID: QkOwZOtJYh65AHxg1MNbWxz0N8ip1kA7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_06,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180311
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] nvmem: mtk-efuse: mt6572 support
+To: rva333@protonmail.com, Srinivas Kandagatla <srini@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Lala Lin <lala.lin@mediatek.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Fred,
 
-On Wed, 2026-09-16 at 16:36 -0500, Frederick Lawler wrote:
-> integrity_audit_msg() wraps integrity_audit_message(). Replace remaining
-> call sites with the truncated function name. Then remove it since there
-> are no more callers.
->=20
-> Signed-off-by: Frederick Lawler <fred@cloudflare.com>
 
-I agree with Enrico on the 1/2 patch description.  This patch description
-similarly should say something like:
+On 9/9/26 11:48 AM, Roman Vivchar via B4 Relay wrote:
+> This patch series adds MediaTek mt6572 efuse support. Unlike newer SoCs,
+> its efuse controller doesn't work properly with 8-bit reads, leading to
+> invalid data with current mtk-efuse driver implementation.
+> 
+> This behavior can be observed with devmem (0x10009174 and 0x10009178 are
+> thermal calibration cells):
+> ~ # devmem 0x10009174 32
+> 0x00CDD4CD
+> ~ # devmem 0x10009178 32
+> 0x0F76865D
+> ~ # devmem 0x10009174 8
+> 0xCD
+> ~ # devmem 0x10009175 8
+> 0x00
+> ~ # devmem 0x10009176 8
+> 0x00
+> ~ # devmem 0x10009177 8
+> 0x00
+> ~ # devmem 0x10009178 8
+> 0x5D
+> ~ # devmem 0x10009179 8
+> 0x00
+> ~ # devmem 0x1000917a 8
+> 0x00
+> ~ # devmem 0x1000917b 8
+> 0x00
+> 
+> Patch 1 adds dt-bindings compatible for the mt6572,
+> Patch 2 adds platform data option to use aligned 32-bit reads instead
+> of plain readb().
+> Patch 3 adds platform data for mt6572 SoC.
+> 
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+> Changes in v3:
+> - Pick up Rob's r-b tag for dt-bindings
+> - Patch 2 and 3 unchanged, for some reason cover letter and patch 1 were
+> missing on the web mirror...
+> - Link to v2: https://patch.msgid.link/20260724-6572-nvmem-v2-0-e58d16a29621@protonmail.com
+> 
+> Changes in v2:
+> - dt-bindings: make mediatek,mt6572-efuse standalone compatible
+> - Driver: add 'mtk_reg_read_aligned' helper instead of modifying 'mtk_reg_read'
+> - Link to v1: https://patch.msgid.link/20260715-6572-nvmem-v1-0-9c13be99d077@protonmail.com
+> 
+> ---
+> Roman Vivchar (3):
+>       dt-bindings: nvmem: mediatek: efuse: add mt6572
+>       nvmem: mtk-efuse: add support for 32-bit aligned reads
+>       nvmem: mtk-efuse: add mt6572 support
+> 
 
-Now that integrity_audit_msg() accepts an errno parameter, it is equivalent=
- to
-integrity_audit_message(). Convert the couple of integrity_audit_message()
-callers to integrity_audit_msg() and remove integrity_audit_message().
+Doesn't apply cleanly pl resend.
 
-Mimi
-
+--srini
+>  .../devicetree/bindings/nvmem/mediatek,efuse.yaml  |  5 ++-
+>  drivers/nvmem/mtk-efuse.c                          | 41 +++++++++++++++++++++-
+>  2 files changed, 44 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+> change-id: 20260710-6572-nvmem-eb98c7a73351
+> 
+> Best regards,
+> --  
+> Roman Vivchar <rva333@protonmail.com>
+> 
+> 
 
