@@ -1,118 +1,124 @@
-Received: from smtpdh17-1.aruba.it (smtpdh17-1.aruba.it [62.149.155.116])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88F549A3B0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1653D8900;
+	Fri, 18 Sep 2026 07:53:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717999; cv=none; b=G+5TBjFFmCbSqGh4piMmIEyNBHhJ5nfScpgUY6Zp1pA0H9yLl+9SFDweRQ3XUNpVYEu4pd0WCjxfsHglA0VwOa/5zf77pVOUP/24XnNrNqfAp91B+O84GM5WswQOdFCpfCiRNWQAcdRTt/DZzBM36DqTfAkbmBEvSb98SkVvx3A=
+	t=1789718002; cv=none; b=QWgzL62OkkFTQq/JomNmATlMMep3At4jXGkQMRazwlw2jtOZRAN17bEvV+yKRVMdXtPKiE7LUmE8D7vqDmpnPp7bgGEANH2vsBF5eVSGuJ/E4Vp5wfonPIwmTCactaUhsM7BqzKb3z38MQt8T9D3061WgDhtnRT/3OqDdZFHsiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717999; c=relaxed/simple;
-	bh=rs7o5fyQ69KDrE4c+f68M3f72xhlbarCxw5Wnu1QAAE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e4dgNW0uWjvD5CLMyLxkgpKB1P6LqbxtdBqF50XrdlYC9UCPug3V433/J4mtoOoqrEYZyq+WvZB331LE8x86rtFFxqhIvIdLkGlApx9PgozA+FStHaqoSAZaSiR/lCuQUsD754ptPk1Lbuz5NRueYaeBsTLBW/zD8yXHyLy3/v8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=kjEtN2hu; arc=none smtp.client-ip=62.149.155.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1789718002; c=relaxed/simple;
+	bh=1kalJkD2AC88fzQVG0vNoQck71hbfcCsC1uiYAkmkE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iBorHifmZigkxvc03xnejzpjo52ZtqSUxRdEm0jFNfnHbeT7Uuot5zndWZnq21EosulKfSKkPXW/AoGHayfs8BRH7hruEIGj7rzwWCK3RsoefmT/N6fh04+WLnqXPzCNJoqd9pBLIeqGYgBec7zn3N1CKJj2pHgpbirsIwu8Hdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LV6beOBw; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="kjEtN2hu"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id 7TM8xO8s9r6Qv7TMExPQZT; Fri, 18 Sep 2026 09:50:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1789717806; bh=rs7o5fyQ69KDrE4c+f68M3f72xhlbarCxw5Wnu1QAAE=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=kjEtN2huOHW3xgbhld+RwCowjLq2BuNcwUVVX3tgTJY0Ci1NBStJrRJO389DsmEki
-	 rJm1Pgnmy/i3wfBfCwFk4gu7VJ/29P/WUaBeiyjG/T3C3Vyuq3LvNXR08m/2BNCeTv
-	 RrrxKf9drcDOASh9bAPANwV4OnTJl9PNZSCvS296C9tqEDnhSmqkcTzyVwQFhhA7D5
-	 U5FYrLL4sO/iQe3TebkeuIgMKVVEcYybxeGuXLm3/4pH0YNfGFzMPonYwvFqMwXiI8
-	 NCOhP4lTLiIjICNrgQ3hnA4v+pJbvQZXW6z8EMULbH+eSVLUhqLp5EcEm4290F9fY/
-	 uHHfV1pwHTwVg==
-Message-ID: <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
-Date: Fri, 18 Sep 2026 09:50:06 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LV6beOBw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789718001; x=1821254001;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1kalJkD2AC88fzQVG0vNoQck71hbfcCsC1uiYAkmkE0=;
+  b=LV6beOBwiiaV9JZWHkuOJsGX2P8EI3B5Bl2pwrefuOzovYtkNaCK9NGN
+   4xPidkOIFhG4dnEC6C5WQC/5g2Zg8BE94uVrTZQX8d2dhLdhXWYgqEKi0
+   tWcC3cN1kunUvoW7Cl0l9kGDNXp61PKh2EejQVEbFvUTtG+6cCQMpe12X
+   L2AMlJ2LoFP/htfLbxWgjil+ZHW6Rt6vqWW1JdBIzlWG93g8L0dK1asCZ
+   Ya1piXd57HSuyKB8vQmLIzOa4Pl0WwhnWzo7GVcpLaIDZHCpD2ETMGNKA
+   C0k8BlcYaFIPHEAZfq/j/6ZCbdFAroPxf/iBVmcmgHXovoW7vDWkU02f5
+   w==;
+X-CSE-ConnectionGUID: KxCFZBw9R96C7ZNJMNj4DA==
+X-CSE-MsgGUID: m8p1l/bYR7efD5uVdBvVew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100803041"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100803041"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:53:20 -0700
+X-CSE-ConnectionGUID: RiNtwVriQZaCxAyHeSuvCg==
+X-CSE-MsgGUID: oJy3azIKS/6kIjzAeA2nzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="299371428"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 18 Sep 2026 00:53:18 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 2178F99; Fri, 18 Sep 2026 09:53:17 +0200 (CEST)
+Date: Fri, 18 Sep 2026 09:53:17 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Xu Yang <xu.yang_2@oss.nxp.com>
+Cc: badhri@google.com, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, jun.li@nxp.com
+Subject: Re: [PATCH] usb: typec: tcpm: advance vdm_discovery_state on
+ Discover Identity Not_Supported
+Message-ID: <aqzt7dDNdHd22rY3@black.igk.intel.com>
+References: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
-Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260916182641.9768-1-farbere@amazon.com>
- <20260917075611.47881-1-farbere@amazon.com>
- <20260917075611.47881-3-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260917075611.47881-3-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfLgmRDpKuM+x+ItopsDtC5jCo5SJhcfgPi3w64jVBCfoRUs58T6+lOO33oI0jbFPoZAN8bhO2nDKqmhAkjMtZWw438wPSNR8k6lM22RgKFFl8Ma7W588
- 6+a2UFHEFz7T+21W9dfOmdU07HwCmM8XKY7je7q9TjbkYOw8f3zAQwbivq5qR6Q1D3e232Kg3tiaSiUcr1HTvWa53z/xYVNgx3arwOkONjLx7VrEUQebf/50
- w5vKYO6K3cCSQZQovs5UfbT3F+91oQ2eXOWssy1M50Fd/237JxGzUkVq200tJSdU9MjQVJM2lWwXQmZfQXY4smMIBbRLq56n0GFeMMHe1wPh9Tt73B+2idJt
- G+R9zIWkfY9Y4Z5d8EbvntHU10OCya0WYwO3/bmBXkoxqc5asc+BtUqtClnpNiWRVprkF45DWunk+3f/4e2nKzomzuZAip3QIfht7BZ8sMSYx4RPRoh08I5z
- xHIVwJJdAKE/sgeKhAJm1VkQzFrlm2bXb9eRXy/ZmmxAKGy+Tkd2V+J2NkBm9GGthKBAZ3soW1kP+DvP2J4pbx6ja7tIzzFBD8Ihgw==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
 
-On Thu, Sep 17, 2026 at 07:56:10AM +0000, Eliav Farber wrote:
-> Document the optional "default" and "inactive" pinctrl-names and show
-> both in the example.
->
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
+On Mon, Sep 14, 2026 at 05:38:28PM +0800, Xu Yang wrote:
+> From: Xu Yang <xu.yang_2@nxp.com>
+> 
+> Commit fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop
+> on Control Message reject") advances vdm_discovery_state to
+> VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
+> advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
+> 
+> This can re-arm another vdm_discovery_work if the port is going to
+> respond with PD_CTRL_NOT_SUPP to the partner.
+> 
+>   tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
+>     tcpm_queue_message();
+>       mod_tcpm_delayed_work();
+>         tcpm_state_machine_work()
+>           tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
+>           run_state_machine()
+>             case SRC_READY:
+>             case SNK_READY:
+>               mod_vdm_discovery_delayed_work(port, 0);
+> 
+> If both the port and its partner do not support modal operation, they
+> will send DISCOVER_IDENTITY to each other infinitely.
+> 
+> Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
+> well, mirroring the existing handling for the SVDM CMDT_RSP_NAK case.
+> 
+> Fixes: fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop on Control Message reject")
+
+I can't find that commit from anywhere?
+
+Thanks,
+
+> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
 > ---
-> diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> index 383a838744eb..db6ecb17cb54 100644
-> --- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> @@ -28,6 +28,19 @@ properties:
->      description: Indicates a falling edge assert, when present. Rising edge if absent.
->      type: boolean
->
-> +  pinctrl-names:
-> +    description:
-> +      When the PPS input is muxed through a pin controller, the standard
-> +      "default" state selects the PPS/GPIO function and is applied by the
-> +      driver core before probe. If a state named "inactive" is also present,
-> +      it is selected when the driver is unbound or the system is shut down,
-> +      handing the pins back to their alternate function. The "inactive"
-> +      state, if used, requires a "default" state; its position among the
-> +      names does not matter.
-> +    minItems: 1
-> +    contains:
-> +      const: default
-> +
->  required:
->    - compatible
->    - gpios
-> @@ -40,8 +53,9 @@ examples:
->
->      pps {
->          compatible = "pps-gpio";
-> -        pinctrl-names = "default";
-> +        pinctrl-names = "default", "inactive";
->          pinctrl-0 = <&pinctrl_pps>;
-> +        pinctrl-1 = <&pinctrl_pps_inactive>;
->          gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
->          assert-falling-edge;
->          echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
+>  drivers/usb/typec/tcpm/tcpm.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index 2d6b14aa2085..cc9ea5d5e78a 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -3891,6 +3891,9 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
+>  		case SRC_READY:
+>  		case SNK_READY:
+>  			if (port->vdm_state > VDM_STATE_READY) {
+> +				if (port->ams == DISCOVER_IDENTITY)
+> +					tcpm_update_vdm_discovery_state(port,
+> +									VDM_DISCOVERY_COMPLETE);
+>  				port->vdm_state = VDM_STATE_DONE;
+>  				if (tcpm_vdm_ams(port))
+>  					tcpm_ams_finish(port);
+> -- 
+> 2.34.1
 
-I tried:
-
-   $ make DT_SCHEMA_FILES=Documentation/devicetree/bindings/pps/pps-gpio.yaml \
-          dt_binding_check
-
-and it gave me:
-
-   pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names:
-         ['default', 'inactive'] is too long
-         from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
-
-Ciao,
-
-Rodolfo
+-- 
+heikki
