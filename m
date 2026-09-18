@@ -1,145 +1,263 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010052.outbound.protection.outlook.com [40.93.198.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB933A4F3D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695655; cv=none; b=ssgSgX7q4ejDBET9MzADE1MMiQgehqYODvci+6PVHT7jA2kxOfy7mzxh/ocR9N5shcRmW0RHyGqpW394jizpteQ5wjcS9Znt+SPl6bULR6z5Wn7cZEDVk4bz+4Dfb7voDHWNiVw39HIGH2K8ETfahoUdL3kuoTGPHhhC+jRlykw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695655; c=relaxed/simple;
-	bh=Eo/yga4vDEGayDHqVP6iJdYvyA2lrJe+j+Dvmd1JbAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YOqQN9Ct7TpfcL5aOarARhgFufGCZJpsjbVO2bCKz3Bvn8OXrj0tavh0yeraCUq3bsyLBEdKUa0TzN0bYFTZLq/AoQmXaIaBJ48ovRtCj/VtI4q5T82ZQ1BXgXO5PRssu1Puz8V2MO0NLldiTQQ1wxzdNrJBvJ9OMeUqWRYD/Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mGODxZPG; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2CC39FCCD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789695717; cv=fail; b=rjh8Wzhlqnoreo2ajmV5BJLWxxQV68+Zz7UVULsowcOfuM8emiLgw29QNN9omIxBK/bDQXpg06Cy0LyFNCctKaj84Kc0XA0bxFZbyCeS7oBxH+it9N538/jq0FopQOft6FcIi1nHMhYYXSkRNNLVl5z9rm70DcXQ3tnhGAuHgZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789695717; c=relaxed/simple;
+	bh=KLTdA5fUM71FOCM1HyMvFVdhh1+wyLeL2uvVLuUwvBc=;
+	h=Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To:MIME-Version; b=lJnpRmbYr7z3I9fVyCakoe0Q5SQ1p71eVktmZcxgDI4ZjO07NMA2GZOUaYaSS2Zu8fQ2BFIFyHxZWwyfPO/cTyTGt0GEf5PUHPumaP9u+LWTvQaZ+DVtKXUyQTbay3KupVo+vDCHYN5Xyitvr6RMQ0nD/lA0En3/ZD4vuzWnvLA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RXn4OVEy; arc=fail smtp.client-ip=40.93.198.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mGODxZPG"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so31125ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789695651; x=1790300451; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=76px+Ex0r5rs6bbVIuEECvEPc+oBZjVRzvMFC1AHdA8=;
-        b=mGODxZPGmp4Gdmnap0fOCFwlstLS+6T+Ak9EigAGvei6IWTd5xh5f0lhBDolSuV4Qa
-         Mj6IVGf+qeVqlURhLCx8r16hI39W4K8mGkWVQAvV0DjJsWMs/OECj1qtIbEstV29xhjH
-         DrrprQbdseo/DSVmi0noPc9DlLSj1tRWW2AV7JjoH7m2FImDfqG7ukg2YDUc/JKQ6X9y
-         dt5cA9F1pRP96HQRBXWf/PGb6jNzM27k2yMowMsrws7rxa7NKIqMkgGSlLIe7pv2GMMG
-         cvbE9cpWRF7Itf6s0XKXvSf3mUOhwjwEPTy6J8px8lndxJxjwrP/HLH/tfcO0a7zS7gn
-         3tVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789695651; x=1790300451;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=76px+Ex0r5rs6bbVIuEECvEPc+oBZjVRzvMFC1AHdA8=;
-        b=FkRjggXIalxfQY25paAS1XmpgvXcnOul3HLR/awt6LAb9c1X5Q2Y64JiXGlneUlXQB
-         RZ2MeGSL/gXvLZBeM6WYvgatgMtcgenZzD6cPYXHUh8jNCWtU4ZfSTS2U2ZX2M2ykKMd
-         PhMwEOxru54Oge/x761gynfzjlcZexeYZljWxLT9Ii5UuqS96/dKBUAk8xlfVtFQ8KkF
-         4IVb6JiTGJpP4V3mTNLIdGcY1EaJvctt+/+euRpLIHPfdpHh2cr46zmEM5gXSVKMkJCv
-         YXCtn7ehj32DleOxoIEiRLMmowHW8rlK74K/NU3pA3/65BUZTKaWpFiCtihDBQDSEs6L
-         1ImQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxrjJ1pGA1I18wZbfeRIGW0YxEjKTAfl448rfAFioBcuDEktvBOr86gq6+HUMWa8kS47TME9epdnQyrZn0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzpog3c67YQekZi3yW/9U1AcrwuiMyYKWaaYAqk8FfShcVSTyF
-	mFS5IrZAGvk+Z1oOfx3xXZn+VR/bIG8N665vsKmrAk8B3CfTgbqY+pYRfGX3NuLgcw==
-X-Gm-Gg: AYBFou37Ce+JfvDszVEXmdMoixbqKQvrOxzunRrEWzsmNvD1/pZVJdyje/AvoZzTMkj
-	j4TQQuOo/p4InZSBtj2KzLjEmgNg137QtIg6eAGXR8UNC9onknrj6XhnuGUDe7yArb2N41Fb1Mn
-	5zea7K3aj22lQNcXnsn5N3GbvIeCPXTEK3sUZMDd2eWynSio6xsxuyyzGNoTLeDhb5gcliqPhzK
-	6Fnm+macf3k1OCuZBnqt7mGDSTeaGMGdJkBMSS187LXlgAkUXGddD4xpLBHOgdfrnMEJ0VaJeEe
-	UhQbJBXXELwID2+jSc7O6Ug/gF+V7Hbws6xSgrZ42lzfy/hX3ZhXoHXDnXyM24L+qgugcxV8buu
-	JBqhKAY0HL+LG/P8WmHY3+zfVZlONW+CYD0l3mMb4Fa/Sv8TnJJaaYKsxJp422wR7YKzO9D+uf/
-	001CwTxzEPmNudrc3YiJX0b9CfVqPnOAKwk3VBUvbQSTydlU9WHhs3VJnnCrCRZWt2Ly4fAylKU
-	PIlwQQOLclTsAgaP6hNjoXzsUKqBWlJ
-X-Received: by 2002:a17:903:4b4c:b0:2dd:3a08:d47b with SMTP id d9443c01a7336-2ddb2bdaca1mr2575225ad.13.1789695649908;
-        Thu, 17 Sep 2026 18:40:49 -0700 (PDT)
-Received: from google.com (230.0.127.34.bc.googleusercontent.com. [34.127.0.230])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e36116920sm7796342a91.5.2026.09.17.18.40.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 18:40:49 -0700 (PDT)
-Date: Fri, 18 Sep 2026 01:40:45 +0000
-From: Lisa Wang <wyihan@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Ackerley Tng <ackerleytng@google.com>,
-	Andrew Jones <ajones@ventanamicro.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Chenyi Qiang <chenyi.qiang@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Erdem Aktas <erdemaktas@google.com>,
-	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Roger Wang <runanwang@google.com>,
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v14 03/22] KVM: selftests: Initialize the TDX VM
-Message-ID: <aqyWnaGBa7Az5sND@google.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-3-15ad654a50db@google.com>
- <c8b7a800-58ed-4ef7-91bd-31da77763717@intel.com>
- <ap_Bpe7dZm_eWsJ2@google.com>
- <CAEvNRgFHTAPYTVQ8a_PVdFLqQ8z07Uep2XhA9r_Ypw+D0WAC8w@mail.gmail.com>
- <07cf5761-48fe-40b7-9310-b64712f5e314@intel.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RXn4OVEy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I0H1lUnB7a0cYAbwjcbdg38z0PPEfe3W4ohq8Pwf8lyD+mXylypnTvMucWNe7bHCr6xvq/jF9wOTK2HVZOls58nsi87QKDjoBIEKuiT9h6bImZ/MfxWCpIUiNsbD8OjxIzgAlQf6RUm3rRXSdAUZ/Eoyc1TrENHIy/5Uv+sDQw1qkxAuEV87KnTpxjDG8lxtkTOJkW9SomTTflLjnXr+wfOk4Q3nFLPfFTDakynJcTs7p1FwQzwuO9XhCgyA939Rxi9VgprMPHCEaZtAQ9XkEuyk0W17qNxzUYdMLbXv5lfOiirpVP7va+0ur4nkChIeklqh+E2WCuLnuIBzmQbiVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z/WTC3cPvJQR9oV7HuuRV1dhz2Xdf7s8w/uglsOZvrg=;
+ b=dsoMEL4oTSlCb7bOK8SEqC8jpNGV/o32wKLDRMZlmuf3pc67mO4lqgFlhNPofRixMMmK+swXGl93tX9s7SZnnF8OmNpA0BzTKXUUNkdK96+u1zJCDhCofsYc8T9IptiIqYDSeFPfpdO1z8D+SFZeqr0JOXU+t1Ny45poD7T+VTPpy9bmwB1mit07aJcaKLV9S1N1mWdhAggkpfPDnJEgaYE0CJOTGFM8jwMFQkYqf5M7dJhmasBNXC6vyv11AFMbnu3XmypVkJ5BLtvnIqUifX19zRNz8E4ajTHSvFAIJKERxTq6yKyNgS9gRjbeItuYuX9s+3jaSIuhUMRgxMzUzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z/WTC3cPvJQR9oV7HuuRV1dhz2Xdf7s8w/uglsOZvrg=;
+ b=RXn4OVEy1VcomS0wOvfJXgnqbILjp53RUzC8GPddWBZQ4Bye7hG1rfwEEtrxNBFcFRy5bg+tt6nzrp/QVagCnL812ISq/8AZzLbb5OV8hKKTe1fgT/PigaATHqSpTjYydgED4I+l/qmAHV0hhSeuR7zgWrFN8qhP1lgbCskrc4WduiuPDivsM99IwNy/kTud+tb4fyjgOG/J0t9ZRIm/E/zoWMRyC7swYOoYGzXbLeiegIQSwAcwL7wYWVRzrUke2Qxe7ocqEEyuZWk8zOiC/nJ/hX6t8EcuWJShpnscZu7agIDgDIgxhbfSVi744x7GiU09aoMlPDhxi3wKvgBfRQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH2PR12MB4261.namprd12.prod.outlook.com (2603:10b6:610:a9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
+ 2026 01:41:48 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 01:41:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 21:41:43 -0400
+Message-Id: <DLI26G4YSWIO.E52DKMAH6ZSG@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Muchun
+ Song" <muchun.song@linux.dev>, "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Mike
+ Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
+ "Michal Hocko" <mhocko@suse.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
+ Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
+ Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
+ Arif" <usama.arif@linux.dev>, "Gregory Price" <gourry@gourry.net>, "Ying
+ Huang" <ying.huang@linux.alibaba.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng"
+ <qi.zheng@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>, "Kairui
+ Song" <kasong@tencent.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v4 05/16] mm/hugetlb: use direct assignment instead of
+ folio_change_private()
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Oscar Salvador"
+ <osalvador@suse.de>
+X-Mailer: aerc 0.22.0
+References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
+ <20260913-remove-pg_private-v4-5-848550f7574e@nvidia.com>
+ <CC279633-6F0F-440C-BCDF-1D5362C4CB7B@nvidia.com>
+ <c7a5ff0c-126d-4762-8b04-5897da09b8b1@kernel.org>
+In-Reply-To: <c7a5ff0c-126d-4762-8b04-5897da09b8b1@kernel.org>
+X-ClientProxiedBy: YQZPR01CA0168.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07cf5761-48fe-40b7-9310-b64712f5e314@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH2PR12MB4261:EE_
+X-MS-Office365-Filtering-Correlation-Id: d429d0f7-c941-4016-58a1-08df1525ffea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	n1VpvE6/F/Fdbm9prxSXr8eyUlomrQTIA6VBfxh/WQchareTC8X8yDMh+4k5TodXmS5Xh2yYa6KFshDJL/RAatCgfo2EdyWgoOK09/gSJLt3C27eEvxJmEQ/lazvgWBier1ZV9p20Qp0e8/cQsdTBObDDdgT+iLpHdbpAlzzHLWrIU4NHoJxAIbmsIkWkl/CRWJ4GJWlHOZZigCij66z4h+QlX/tiGgOrPlmCI29UoCxOpZoOpwCXGXAPhfCgIaZ433830fevxBKmrQ0MESH7jpa/5v6Dl4TGfl4UQ6AkMYlo76AkXEMnnbifoYdmaYuMI/D8C0xXOTZFq3mJs0ycukHwtv9A1dIBefe+VuP5CioF9rnJIx48jYIMsD9CZjO/u270PBTTml+jdozUhU1MZBF1bFD0LyirYeeKWrkVV3ShCQOTxX/0+qQC0EoQ0NbaLPUfE1L1LckMOj0OYFWxnuL10xzhLaCE8bGHKUUsr+bCgfwMt092w8G4+v+NfKaJBqGdzofdFlR7Hc6mcRRscmIXuSWqIV85UIY3MhLl/MBShmjuF718UivNFj0YS1Di/n7gFgiRObHLidHX6eWWjbY6yUwieGRKjez64wjUceicgqEWMAqYdSFDCFLVYQijk3O9SiVKGw1+YwHaMgGGz7SAJbJGUuLI5pIUjdPGBgPRzwf9Yz4Ga1VgtAkM4qq5HL7TU6PdnLtHCdBy5FBgw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MXVkWXVNR2tEWXZ2T2NHWTZ3M3BtOHJ3NUVuS1VhMkg1Z2xTU1FiNHV4Z0xp?=
+ =?utf-8?B?bW1ZM1pSQ1J4ZjkwNHZwTmM1ZHZlcFAyalJEV0VWamxvNEZxUDNFdGkzQmVa?=
+ =?utf-8?B?SDU4dUZtWXQycUVvZkhydkY4Y0xVQVJ2a0Z4M3A5NWJWSnZlTlVXanA0REdj?=
+ =?utf-8?B?ZFhjNloybVZITWV4ckxMOW5ONzBITEZ6YWV2RzBwcy9ZYmNDZ0tXUDRtRW5m?=
+ =?utf-8?B?MVRWTXpNc2pLZTUySXQyenBneGJBT1ZteU9lMEhwRUlMVTlxV1dKRDI5R0Ur?=
+ =?utf-8?B?MUxqRzNIcHEvRVVNeTExWUVCL0VqTFBTZTc0NU1kK3ZaQjl3NHZacm4yUEZp?=
+ =?utf-8?B?cHNUTy84Q01Cc0I1OUltY1BjNzd3MlQyeVlRYlJWYzhBZzRWbldKOFBFT3hQ?=
+ =?utf-8?B?Uzd3WkV2a1lzUDI0Zy9XZThtTkkwVFJ1RUJ4YlJUS3RCUDVXVWY5aG1kRW5k?=
+ =?utf-8?B?V290L0VlZGVkQ3kwTU1rUElycUdPdzFscmM3Q00vak5YZGRtMFRKeS80Ny9i?=
+ =?utf-8?B?bS9DMUh2czNEMlVBdkNFdEZTL3NWeFZ1NmxuUE5ScktTWjFMZWZldkdjN1dT?=
+ =?utf-8?B?UFJQaHQxeWk5elU5Tk5Zdm9Rc2RUNEZBNW9STEVKUGxNZFBoNk9hTWdJYjI2?=
+ =?utf-8?B?alE5ZEdZL1R0ZkdqeTBMbmVWNll6eDRnSVlVUzRNNjVpaS83RXZUZHFBRFdD?=
+ =?utf-8?B?OVVwMlZTdzdDcnBCd09Wd2pCRHNzUmduL3VUd2JqZysrUXF3dHZhcFVJUXlq?=
+ =?utf-8?B?QnY2WGxIV1lrN3k5c0k2SzNtSE0vUzNlUC85bUFTRkh2ZGNldExYUUtyNHpC?=
+ =?utf-8?B?T0JJQ28zR3VPQnFiSXdXeUY2MkZONlROTUpxa3ZsdVBlamhoalJKWjRMNHJY?=
+ =?utf-8?B?bG1tcWVXWlNrOXRud2VveHd2VHV4cGw5ZURtOU41S3pnaTFXOHZleXZiNkp0?=
+ =?utf-8?B?TmQ2TDNHaDJ4VXNGSUh3YTRkR2hYWnB0QWlhRzhJYUlPWXczTEQ5MzQ4cTFr?=
+ =?utf-8?B?SUQ5TURCWU5odzJCYmFhZzEyam9JM2s5OVVad0RJVUlvdjhqWjNCNXhWaDJp?=
+ =?utf-8?B?ZnZHS3RDTWF6ckdHanRDUnRFU25NY2pCVlRpMVp6bTVQM3haVG9jRmY3Z2VS?=
+ =?utf-8?B?VHRzUUxlcVVpWmxiOUZtbjg0MEh6UkJ6Ny9KMTNUUlFqMEw1Ynh1WWV3NjBG?=
+ =?utf-8?B?TWNpTkdGM0JDcHB0UTNEZElPblduWDl4WStuOHI2TWtQK2Y5QnNIVG9WUkFq?=
+ =?utf-8?B?SWJBbk81VWF3ME1qTlJSRGxsR1B1MXF4UWNQTm9RQVFEb0tITDIzT0VtRW0v?=
+ =?utf-8?B?Y3lYMXFPL3VvSGVDZWJPc01qNnU0TXYyMjdycU9nN0YrN1BaRXNtZDVnZmR3?=
+ =?utf-8?B?bFNCUEpYUjZSMGhPZTYydCtvaVVkOURNYlVZdXo2aHN6eERVeGhwWmhRd0g3?=
+ =?utf-8?B?L2sxTi80d1dXMXlYRWVIcGJXUk5zcVIrNXFVbVJncEgzUWdabHpWeHZZME0z?=
+ =?utf-8?B?UTZYcCtmTXNZUXg0aktQNUZ0ZmtlV0g1aTVnc0xSeFpnL3dFdlNacUZtYXpY?=
+ =?utf-8?B?SENYOHN2VHJ6OVF6blpvc1Y4dUtYTURIWkRXQ1BNQ3BIRHF5L2xQbHJWUFRz?=
+ =?utf-8?B?MTBsN0gwTDkyK1VYQ1NVeS9EeGI5NU4ySDdIb0JBWkV5STJpc3RncFRnVEU1?=
+ =?utf-8?B?NUJpZFRxWmxWSHE3a002QjA5M1hmbkdsVVpmQzJ6T2N3RlBVTDJ6RmlFWUVM?=
+ =?utf-8?B?T0dxQUs0RDdiaHFiaThhV1FzSFllc0ZSRW9pNUNibmFVSHhzL2szUGJNSUZ4?=
+ =?utf-8?B?cE5QRjJISExlTmFLV3MrbjFidDZzS3FhN0cwYUtVRGdQS2IrOUJUc1RtcUdO?=
+ =?utf-8?B?eEZhZnJKQTg2OWpMMVd0N2lxVTBwYTNPVzdZQTZOdGF0R0JJMXBzbU8rNWI5?=
+ =?utf-8?B?eEFOb0Z3UmhRakJXMzYrOWVLWlZibFk4VEFJRkZCRzBQU1NUSlQ0M3p6YTQ3?=
+ =?utf-8?B?RWVtZEI1S1ViSm9tSGgzb211L3hjaFpuTVZFOGFCOWpmWkhiSCtrdzUycEJo?=
+ =?utf-8?B?K3BoUER2aFVGTFFnb1A5eVpqMkRTZEpwT0JTTzNjeDBzWVNjYVdCMDBsenVD?=
+ =?utf-8?B?cDZhRjhXT2hNcnFoQW4vL2RjL3UzUjlacWV4dGI1Wk8yc1J1aU15VFhrYWhG?=
+ =?utf-8?B?K2RLSkhRSklFOGtKNWhFcHVmZHhqeG5pcDhkbG5JZ1cvYWtVV1FRN3FReHMr?=
+ =?utf-8?B?QTJnalFvQVJ2bGVub2pRajZvcmN3bzJSUFJmSWRMWmI0QnF5VUlBRkNLTjdV?=
+ =?utf-8?Q?IJRvNBIUPlDfgMffoh?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d429d0f7-c941-4016-58a1-08df1525ffea
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:41:46.2928
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gImkg9UW5/AbUyT7i3ZrMW8L30E1InJroUKmeAc4afkncbrWfp4g/Vp4P/KihlSA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4261
 
-On Wed, Sep 09, 2026 at 06:00:53PM +0800, Xiaoyao Li wrote:
-> >> The reason we could not use __TEST_ASSERT_VM_VCPU_IOCTL() directly[2] is
-> >> because it formats ther return value as %i (32-bit), whereas
-> >> __tdx_vm_ioctl might return a u64 hardware error code.
-> >>
-> 
-> Since we cannot simply use hw_error to replace ret, there will be not 32bit
-> vs 64bit issue. But ...
-> 
-> >> I agree with your suggestion to introduce a new
-> >> TEST_ASSERT_TDX_VM_VCPU_IOCTL() macro to print out u64 hardware error
-> >> code properly.
-> 
-> ... if we want to print hw_error as well, we still need a new macro.
-> 
-> >> [2]: https://lore.kernel.org/all/a58e2941-77f9-43cf-a54d-023506dd7eb0@linux.intel.com/
-> >>
-> > 
-> > Is tdx_vm_ioctl() the only place where TEST_ASSERT_TDX_VM_VCPU_IOCTL()
-> > is going to be used though? If so, maybe we should defer introducing
-> > TEST_ASSERT_TDX_VM_VCPU_IOCTL() till later.
-> 
-> I think tdx_vcpu_ioctl() will use it as well?
+On Wed Sep 16, 2026 at 2:12 AM EDT, David Hildenbrand (Arm) wrote:
+> On 9/16/26 03:56, Zi Yan wrote:
+>> On 13 Sep 2026, at 22:24, Zi Yan wrote:
+>>=20
+>>> folio_change_private() should be used along with folio_attach_private()=
+ and
+>>> folio_detach_private(), where adding and remove ->private content requi=
+res
+>>> folio refcount change. add_hugetlb_folio() simply sets folio->private t=
+o
+>>> NULL without refcount manipulation. Change it to direct assignment to a=
+void
+>>> semantic confusion.
+>>>
+>>> It prepares for a future commit that remove PG_private.
+>>>
+>>> No functional change intended.
+>>>
+>>> Assisted-by: LLM
+>>> To: Muchun Song <muchun.song@linux.dev>
+>>> To: Oscar Salvador <osalvador@suse.de>
+>>> To: Andrew Morton <akpm@linux-foundation.org>
+>>> Cc: David Hildenbrand <david@kernel.org>
+>>> Cc: linux-mm@kvack.org
+>>> Cc: linux-kernel@vger.kernel.org
+>>> Acked-by: Usama Arif <usama.arif@linux.dev>
+>>> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>> ---
+>>>  mm/hugetlb.c | 7 ++-----
+>>>  1 file changed, 2 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>> index d3a0650ff6905..8d551cdaef9db 100644
+>>> --- a/mm/hugetlb.c
+>>> +++ b/mm/hugetlb.c
+>>> @@ -1446,11 +1446,8 @@ void add_hugetlb_folio(struct hstate *h, struct =
+folio *folio,
+>>>  	}
+>>>
+>>>  	__folio_set_hugetlb(folio);
+>>> -	folio_change_private(folio, NULL);
+>>> -	/*
+>>> -	 * We have to set hugetlb_vmemmap_optimized again as above
+>>> -	 * folio_change_private(folio, NULL) cleared it.
+>>> -	 */
+>>> +	/* Clear all folio->private flags except hugetlb_vmemmap_optimized. *=
+/
+>>> +	folio->private =3D NULL;
+>>>  	folio_set_hugetlb_vmemmap_optimized(folio);
+>>>
+>>=20
+>> Sashiko[1] said when a CMA hugetlb folio is freed but fails vmemmap rest=
+ore,
+>> add_hugetlb_folio() clears HPG_cma. It either bypasses
+>> hugetlb_cma_free_frozen_folio() due to the missing HPG_cma flag, or
+>> skips cma_release() and causes a CMA memory leak if it is free directly
+>> to buddy allocator. Sashiko also asked if HPG_temporary should be preser=
+ved
+>> as well HPG_cma.
+>>=20
+>> Answer:
+>>=20
+>> Missing HPG_cma is a real issue. It can be fixed by checking
+>> folio_test_hugetlb_cma(folio) at the beginning of add_hugetlb_folio() an=
+d
+>> setting HPG_cma after folio->private is assigned to NULL.
+>
+>
+> Maybe we should just simply only clear flags we actually want to clear ..=
+.
 
-Thanks for replying.
+And it turns out to be a clean result (see below). add_hugetlb_folio()
+adds a hugetlb folio back to freelist, so prior operations like
+remove_hugetlb_folio() should clear hugetlb flags, like HPG_freed,
+HPG_restore_reserve, HPG_migratible. HPG_temporary is only set in
+one callsite in free_huge_folio() and is cleared before the folio is
+passed to add_hugetlb_folio() via update_and_free_hugetlb_folio().
+HPG_raw_hwp_unreliable probably can stay, since it preserves poison
+information. The remaining HPG_cma and HPG_vmemmap_optimized are the two
+we want to preserve.
 
-I agree all of the other parts of your comments.
+Muchun, maybe you can chime in about the patch below. It can be a
+follow-up patch after this series.
 
-Just wanted to point out one detail: tdx_vm_ioctl() is the only place
-that actually needs to evaluate hw_error right now. Unlike the VM-scoped
-ioctls in the x86 kernel code, the functions dispatched via
-tdx_vcpu_unlocked_ioctl() (such as tdx_vcpu_init or
-tdx_vcpu_init_mem_region) do not currently return the TDX SEAMCALL error
-codes into the hw_error field.
+Thanks.
 
-Thus, I would prefer to inline TEST_ASSERT directly inside tdx_vm_ioctl()
-instead of introducing a new TEST_ASSERT_TDX_VM_VCPU_IOCTL() right now.
 
-Lisa
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 8d551cdaef9db..bc772954e5685 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1446,9 +1446,6 @@ void add_hugetlb_folio(struct hstate *h, struct folio=
+ *folio,
+ 	}
+=20
+ 	__folio_set_hugetlb(folio);
+-	/* Clear all folio->private flags except hugetlb_vmemmap_optimized. */
+-	folio->private =3D NULL;
+-	folio_set_hugetlb_vmemmap_optimized(folio);
+=20
+ 	arch_clear_hugetlb_flags(folio);
+ 	enqueue_hugetlb_folio(h, folio);
+@@ -1736,6 +1733,7 @@ void free_huge_folio(struct folio *folio)
+ 		h->resv_huge_pages++;
+=20
+ 	if (folio_test_hugetlb_temporary(folio)) {
++		folio_clear_hugetlb_temporary(folio);
+ 		remove_hugetlb_folio(h, folio, false);
+ 		spin_unlock_irqrestore(&hugetlb_lock, flags);
+ 		update_and_free_hugetlb_folio(h, folio, true);
 
-> > I think the issue with if (ret) is just that TEST_ASSERT(!ret) already
-> > does that same check, and so we can drop the if (ret) part.
-> > 
+
+--=20
+Best Regards,
+Yan, Zi
+
