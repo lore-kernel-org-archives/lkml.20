@@ -1,141 +1,203 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299004AA56F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 473B43FE344
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732802; cv=none; b=istzB7+/Qg67xzpvYwtZY9KndCqEH3iE+p7Fy5iU4yxEWVNmX/PbUm5CaTGSq2r4F2n7udIfx+L0kU9+JrpIw4mP0GVzSTbOs1A6CwHLD+A2bSuYTEufW6CMbzu//eRdjs74fiCnLPBWrP0bkzWxyPhyf1cFj84tiPPBx5j8a0g=
+	t=1789732826; cv=none; b=oPfxCmbymwGHIJ/UkM93DZEGCCijstmdY0jzTVrBsniMq5Xnsijc2Nq77UViSTxIrCHu1CXBncJh1PQXDRfafQTRNU25gzT5FKbt7yJuHPjbGGa3UBjvt89IRsHqPws4iQbWnv+U0MQ2t6dzPTz645ofN2el9mE1g869ZYcodjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732802; c=relaxed/simple;
-	bh=txhqtuEPWi7nD3urKElDbbpKMOAPkwNT8dosnT1pZE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gi796guVSDDEcUhlcum7ifk9U2JBuxsuOKcivzF6bJIkrtDebkuq1k989lG045Is+dJmYcXl+faoNckfexzPGl5i0hbbJ5Fb/9CuYypIAd3X5Ia+IjJ8cgxW4FNOeFmcj2vZ1/E9vLrac6ehenLu6ETZw6Vodggddn7wtmmDkk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mCiSmCRR; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789732826; c=relaxed/simple;
+	bh=bM7kA5yXVpAe2N81reCqQxQTOv0RJe1wxSCWH8EsWr8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BpHzMkrUg4+ap1sIwfp7TGINED5uAOPv5F6wQUbYxYB8qoj3ImuZ72sN+wOfanpdGZMlMHChw5JCb59vzMdC4GLDKKMezNyxVfdCErvfyzZ6AqkBeYmiwGeShVDjxSA7y8b8bj0u5o4VXs22/UP1J2RqUr9bYQ0Msf+T1/t4jCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XkEDabmB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCiSmCRR"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91a931f66so4117385ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789732800; x=1790337600; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xYcJRra+LcCNHLwBdH8ymzEfMxOB7CWtfUUDK8cCiZQ=;
-        b=mCiSmCRRXRTw81ytFymGzhKFcq+EM6p0FTeNRtVASeu7qaMcuILfgl42DAChfoB3RS
-         S4mBT0fvnmc8ny+pLciMQ9F3Lkb4Rq4mmMi+5dX5vQTbZH6si3lSEcDnOAyP3sY6hNkr
-         g2/H04cnZ7fW7XFYqV16nBQAkJoHRW26WiE4O5hnmzqseDTThD419+1VtdvEwc7yAawJ
-         OY7SgH3n7YjJ1oJl4u2/yZ45ki4huvPd5vVQmohnmYb0E5vVjG3KK/RUuTkcEUFVP1VC
-         NDgewBmjmiwr8dkCyXc+VG9SwrYp7jwo90Avt/NUGaEL+nMXyDCS1kSC2VIpIHgj2FT4
-         GEdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789732800; x=1790337600;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xYcJRra+LcCNHLwBdH8ymzEfMxOB7CWtfUUDK8cCiZQ=;
-        b=idfzpFnDxSjPw4jHN9nu59nU+0S5CseIMe8GjMhRhF68Kx6vRxLjc5a9PvQiKdpllf
-         iHDkY0VZetDhYXjp6z3ieUZS9llB++P0fmb5AmELVAoFr4TIcVyOuf23R3ma0993+3xd
-         1CinTHwOK6d19SUm/VU7R31rXNMfmhqxbq+Md/OEQxM+3nkZ9aZTC576iRYeEV3Ymvdm
-         cSJViqAxKlENsUVI8gNMm6+Hi7UB33RunPGNP+Y15UlO/0pqAi6VJkER/bDBCuGUPOBQ
-         zEcbkCCZzS/6kPN8OKz13kxuFCrNYErRGiPngqwUEp0ROU3EUq4P3g7phyWVcpTYyswx
-         kQQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzG40f0P4H0KNxwJgkMRM7ZRE11Ho9LnxDK4oTLThkslLJwKa6lAeSDe6AHJNJ91qqB93Aa33FNKgwBkUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8WrEbsjhaKRlEkUCJ3kxLmTYd4iWfWJmZkeEXLE9ohdxkISJp
-	kKUG/x8DqYNv0gBdc974QJI7D1Cw8wZI00AKWWuAJv3E51uUyjERv/h/
-X-Gm-Gg: AYBFou21yVotCDlp72KxAHAF/qfEjtsi6+BUejBLafmNoFtiZCwmHmAy86E5s4Y0gWw
-	7tetInFkbDt8HHW8e66GSzi5Isos5Bs6k9wUy6epWNrAaodHjid4FJuCJnPh7Zb1tPnF6v9X6T7
-	wJ8IAETQ+7EouVN3gaOlH3U+PrxuyTpN0xRxSUs2JcPxAia7UTRd3aD9eyhlXDFU2N1oZcbPe1B
-	a592K9Nk602lj1Hk1f2XV+HoGrAaljbfVeglhrFnMNKPsk6oa3R7q68ERlUOiwBZTG4JPi68S1N
-	K09RZpgUy3trsIXHUMKvD9DxHuNbYapvU6SIZdhcGoJV+NHlT2yc+mb7APigsCH+I9F03+OoGHX
-	ff9C+J/GCW/UVSWEp/N76xseYf97arODJz548ze+bEuNUO83xWfsQlFB+N9rbba9x4nTzzMXDK1
-	dknQdfvRkAj9MkVQ3QW8PIisQrYrUf8Wq/3CuNgf9fRn+egoaGBe+b162UZnNkXFvwhcKd+xC78
-	UNdO7MLUOpe35dp7BQ=
-X-Received: by 2002:a17:90b:4b87:b0:39e:345b:3323 with SMTP id 98e67ed59e1d1-39e54fb121dmr4831022a91.22.1789732800428;
-        Fri, 18 Sep 2026 05:00:00 -0700 (PDT)
-Received: from kernel ([103.219.206.97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2876a52esm4179626eec.20.2026.09.18.04.59.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:59:59 -0700 (PDT)
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: clabbe@baylibre.com,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] crypto: amlogic: Fix IRQ handler return value and fallthrough logic
-Date: Fri, 18 Sep 2026 17:29:50 +0530
-Message-ID: <20260918115950.9121-1-raizudeen.kerneldev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XkEDabmB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C284143D;
+	Fri, 18 Sep 2026 05:00:20 -0700 (PDT)
+Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED1AB3F882;
+	Fri, 18 Sep 2026 05:00:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789732823; bh=bM7kA5yXVpAe2N81reCqQxQTOv0RJe1wxSCWH8EsWr8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XkEDabmBheiCe+/LaTlra5Vgi0cko0/XOIWyrmpjZSq+2fx3JjNly9HRswxfFDJ8D
+	 QCJkqQ9h5uNJ65tgfG+ovxBfylbiwy/IA/69AlPOrJoa+lPSPvIc5MQDXTTuKK9Mxp
+	 fYBqHrIco/556kXQKvnR6cpLIs+1WlhFKgG1/pdo=
+Message-ID: <830ad111-e819-43c2-b0a2-248e0542d7f2@arm.com>
+Date: Fri, 18 Sep 2026 14:00:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] firmware: smccc: lfa: Add timeout and trigger
+ watchdog
+To: Nirmoy Das <nirmoyd@nvidia.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>, Salman Nabi <salman.nabi@arm.com>,
+ Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-4-andre.przywara@arm.com>
+ <20260710100830.65336-1-nirmoyd@nvidia.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260710100830.65336-1-nirmoyd@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-In meson_irq_handler(), when an interrupt matches a flow but the status
-register is empty, the driver prints an error but doesn't return. It
-falls through the loop and incorrectly prints an `unknown irq` message.
+Hi,
 
-Fix this by returning immediately. For empty status registers, return
-IRQ_NONE instead of IRQ_HANDLED to avoid masking spurious interrupts and
-allow the kernel to detect interrupt storms. Also use
-dev_err_ratelimited() to prevent console lockups during an interrupt
-storm.
+On 7/10/26 12:08, Nirmoy Das wrote:
+> On Mon, 6 Jul 2026 15:44:43 +0200, Andre Przywara wrote:
+> 
+> Hi Andre,
+> 
+>> From: Vedashree Vidwans <vvidwans@nvidia.com>
+>>
+>> Enhance PRIME/ACTIVATION functions to touch watchdog and implement
+>> timeout mechanism. This update ensures that any potential hangs are
+>> detected promptly and that the LFA process is allocated sufficient
+>> execution time before the watchdog timer expires. These changes improve
+>> overall system reliability by reducing the risk of undetected process
+>> stalls and unexpected watchdog resets.
+>>
+>> Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> ---
+>>   drivers/firmware/smccc/lfa_fw.c | 43 ++++++++++++++++++++++++++++++---
+>>   1 file changed, 39 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+>> index b333b1e28c0d..357e41f95206 100644
+>> --- a/drivers/firmware/smccc/lfa_fw.c
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -6,11 +6,14 @@
+>>   #include <linux/arm-smccc.h>
+>>   #include <linux/arm-smccc-bus.h>
+>>   #include <linux/array_size.h>
+>> +#include <linux/delay.h>
+>>   #include <linux/fs.h>
+>>   #include <linux/init.h>
+>>   #include <linux/kobject.h>
+>> +#include <linux/ktime.h>
+>>   #include <linux/list.h>
+>>   #include <linux/module.h>
+>> +#include <linux/nmi.h>
+>>   #include <linux/psci.h>
+>>   #include <linux/stop_machine.h>
+>>   #include <linux/string.h>
+>> @@ -27,6 +30,11 @@
+>>   #define LFA_PRIME_CALL_AGAIN		BIT(0)
+>>   #define LFA_ACTIVATE_CALL_AGAIN		BIT(0)
+>>   
+>> +#define LFA_PRIME_BUDGET_MS		30000		/* 30s cap */
+>> +#define LFA_PRIME_DELAY_MS		10		/* 10ms between polls */
+>> +#define LFA_ACTIVATE_BUDGET_MS		10000		/* 10s cap */
+>> +#define LFA_ACTIVATE_DELAY_MS		10		/* 10ms between polls */
+>> +
+>>   /* LFA return values */
+>>   #define LFA_SUCCESS			0
+>>   #define LFA_NOT_SUPPORTED		1
+>> @@ -276,6 +284,7 @@ static int call_lfa_activate(void *data)
+>>   	struct fw_image *image = data;
+>>   	struct arm_smccc_1_2_regs reg = { 0 }, res;
+>>   
+>> +	touch_nmi_watchdog();
+>>   	reg.a0 = ARM_SMCCC_LFA_ACTIVATE;
+>>   	reg.a1 = image->fw_seq_id;
+>>   	/*
+>> @@ -299,6 +308,7 @@ static int call_lfa_activate(void *data)
+>>   
+>>   static int activate_fw_image(struct fw_image *image)
+>>   {
+>> +	ktime_t end = ktime_add_ms(ktime_get(), LFA_ACTIVATE_BUDGET_MS);
+>>   	int ret;
+>>   
+>>   retry:
+>> @@ -314,8 +324,14 @@ static int activate_fw_image(struct fw_image *image)
+>>   	}
+>>   
+>>   	/* SMC returned with call_again flag set, or with LFA_BUSY */
+>> -	if (ret == -LFA_CALL_AGAIN || ret == -LFA_BUSY)
+>> -		goto retry;
+>> +	if (ret == -LFA_CALL_AGAIN || ret == -LFA_BUSY) {
+>> +		if (ktime_before(ktime_get(), end)) {
+>> +			msleep_interruptible(LFA_ACTIVATE_DELAY_MS);
+>> +			goto retry;
+>> +		}
+>> +
+>> +		ret = -LFA_TIMED_OUT;
+>> +	}
+> 
+> msleep_interruptible()'s return is ignored (here and in the PRIME
+> loop), so a pending signal can turn this into premature retries.
 
-Additionally, the handler returned IRQ_HANDLED for genuinely unknown
-interrupts. Return IRQ_NONE instead for unhandled interrupts.
+Ah, thanks, that's a good point. I fixed that now. I don't think it 
+really matters for the 10ms delay here, but it would break the outer 
+timeout as well, which is a couple of seconds.
 
-Cc: stable@vger.kernel.org
-Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
-Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
----
-I have addressed the IRQ specific issues in this v3. The other
-pre-exisiting issues mentioned by Sashiko are already addressed in my
-separate patch.
+Cheers,
+Andre
 
-Changes in v3:
-- Revert accidental clock management changes that were squashed into v2.
-
-Changes in v2:
-- Return IRQ_NONE instead of IRQ_HANDLED when status register is empty
-  to avoid masking spurious interrupts.
-- Use dev_err_ratelimited() to prevent console lockups.
-
-Link to v2: https://lore.kernel.org/all/20260918110504.7207-1-raizudeen.kerneldev@gmail.com/T/
-
- drivers/crypto/amlogic/amlogic-gxl-core.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
-index 169c6eeb51e5..09d3ccd92b80 100644
---- a/drivers/crypto/amlogic/amlogic-gxl-core.c
-+++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
-@@ -37,12 +37,13 @@ static irqreturn_t meson_irq_handler(int irq, void *data)
- 				complete(&mc->chanlist[flow].complete);
- 				return IRQ_HANDLED;
- 			}
--			dev_err(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
-+			dev_err_ratelimited(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
-+			return IRQ_NONE;
- 		}
- 	}
- 
--	dev_err(mc->dev, "%s %d from unknown irq\n", __func__, irq);
--	return IRQ_HANDLED;
-+	dev_err_ratelimited(mc->dev, "%s %d from unknown irq\n", __func__, irq);
-+	return IRQ_NONE;
- }
- 
- static struct meson_alg_template mc_algs[] = {
--- 
-2.53.0
+>>   
+>>   	lfa_cancel(image);
+>>   
+>> @@ -328,6 +344,7 @@ static int activate_fw_image(struct fw_image *image)
+>>   static int prime_fw_image(struct fw_image *image)
+>>   {
+>>   	struct arm_smccc_1_2_regs reg = { 0 }, res;
+>> +	ktime_t end = ktime_add_ms(ktime_get(), LFA_PRIME_BUDGET_MS);
+>>   
+>>   	if (image->may_reset_cpu) {
+>>   		pr_err("CPU reset not supported by kernel driver\n");
+>> @@ -335,6 +352,8 @@ static int prime_fw_image(struct fw_image *image)
+>>   		return -EINVAL;
+>>   	}
+>>   
+>> +	touch_nmi_watchdog();
+>> +
+>>   	reg.a0 = ARM_SMCCC_LFA_PRIME;
+>>   retry:
+>>   	/*
+>> @@ -353,8 +372,24 @@ static int prime_fw_image(struct fw_image *image)
+>>   		return res.a0;
+>>   	}
+>>   
+>> -	if (res.a1 & LFA_PRIME_CALL_AGAIN)
+>> -		goto retry;
+>> +	if (res.a1 & LFA_PRIME_CALL_AGAIN) {
+>> +		int ret;
+>> +
+>> +		/* SMC returned with call_again flag set */
+>> +		if (ktime_before(ktime_get(), end)) {
+>> +			msleep_interruptible(LFA_PRIME_DELAY_MS);
+>> +			goto retry;
+>> +		}
+>> +
+>> +		pr_err("LFA_PRIME for image %s timed out",
+>> +		       get_image_name(image));
+>> +
+>> +		ret = lfa_cancel(image);
+>> +		if (ret != 0)
+>> +			return ret;
+>> +
+>> +		return -ETIMEDOUT;
+>> +	}
+>>   
+>>   	return 0;
+>>   }
+>> -- 
+>> 2.43.0
+> 
+> Regards,
+> Nirmoy
 
