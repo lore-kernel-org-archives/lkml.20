@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D763A9D83;
-	Fri, 18 Sep 2026 01:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562783B2FCC;
+	Fri, 18 Sep 2026 01:50:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696203; cv=none; b=fZ/YnQdQuuDmyfx228Wj6O8Dvt9VIfb1/PqpnSSwuYFLjIxMCrXZCOckKMXh2wzbySIXzTixSZLsirsYlwKalNCI28NUJe+SM6+YNsEEU+TqFj2ksyFu0KbHYB+FVCWvOSlVmPF8NSW/SW1yr48aMiV+ayv+A8jihjvRoKdI0cs=
+	t=1789696208; cv=none; b=cXtsU8o1EK1Wu7tFtyNEniXw+RgMf2M1BNQllD2bIer/l9knumsop66TyhlExpoA+v/9I5KeHoKM7oOWHIZpvbUQNFVdg3vb6yq8NjUijyoad28O7XI/O/v4IUAXEKKBh3hIRl4Zmq6j02yqGPejYo3zwZy2uyRZsO7mZU/ui48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696203; c=relaxed/simple;
-	bh=iDcjO7SQOM0BL8BXFxOYfo8RpBFZmH8NcvcYto9LC98=;
+	s=arc-20240116; t=1789696208; c=relaxed/simple;
+	bh=x+1tVwXpSU7bYwCOlibIFALsDLth7WpIMQl9PJhDdFI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AyAoonCppJmQ3KBfUig/hXj7ApSRYmKRtPLQ2xSuJRJQ62xkOKgH5ND8MDmC9dT41QVO6fBj5+F4M3gaY7nKc5ox37C3O+fiZdP/qIlIdbr2F+mUFAs8PEfkIBzIOCQfSfHP3F/LYc2B+M7p6deLGqGKVqCrSKTPskoMb0Z9XJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAANUbdt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=a8ZR43KPsfKYH+UmUEAqF4ps699GrGR2OCYwqgNX4JOrrFVZgUfeq2Xu8VhcCsnLqlXWqyok51HCqBxrRhMo7vUtcXQt/i3CZYJhrBAvmcpPQvLcijr8qZhmOoCQviaNYm83rdkGJ/u8LThN47KXYrS1G2jTaO0+qWT0Cb93vKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2O1UsLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAANUbdt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8029E1F000FF;
-	Fri, 18 Sep 2026 01:49:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2O1UsLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8507F1F008A3;
+	Fri, 18 Sep 2026 01:50:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789696195;
-	bh=HjlJkfWxEJHuY15pqHOvaOL0dZgn3vW47MuqmveYFyk=;
+	s=k20260515; t=1789696202;
+	bh=gEUVOrbpBu1dM5VeWAospmgxWNDwIPpTDlXrM9WjyNA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WAANUbdt77eHtm/ALgZAq0ESgwRqRCS/9O9xT04+vNooxbA2dGpqAahq23WFKLO/s
-	 m3yFwJViXzPC59wIEmfCw3l7LHN8bpv+gBUfxqss/tgs7D1X63N10HCnuX3evEg7oM
-	 B8aLvRadheVX7JmJOrxVGo0jIbTAxr6PLPHJuAPg9gepPw0uct0yXOh5JcgF1DusOk
-	 vxaFWpBvtLRtIR6U6dOEZE9Iht6NvTi2cXhPvlMiBfXQQspicZDvUVCneQ8CLGnwfb
-	 kdXwb1L28bg8JTyhEm8OmqwOuGBnQo+Q+uYgNSgMJ6WySxAsP21GqcMboXTKxuLIkz
-	 k59CDLxL3qplg==
+	b=O2O1UsLKdNLUFOforAPxQ4Wu5uFgVSdTTqf7pRRB0BUTHdpAmsoH6Q9t8J21/mh+v
+	 /pSvB0k4D6d9F2ngOhfxC7jqbTbgi8rndWSgn+vw1Gn+Z8/z+0Y9rvyC5LrVrobljv
+	 NORI7hCoBgrWf/BSo2KO67qOyamaoOTtlIaq/JdbmFjJDUDIsYQI++OZTGQb9uwCSp
+	 0uUQo21PxBiaFg84YWeXolC9zrwtXGwpOc1Smd+gIV9t8x2k91+8/cBFe0pyLTYaXA
+	 hohxs/GxF58dnUl6GsJcUPccNad0e4q47CXRdN244veQbsCNQP0KiPwL2mjhOnFmlB
+	 PiS6Wddk+Ku5g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Brian Masney <bmasney@redhat.com>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 0/4] driver: core: add subsys_platform_driver() to reduce boilerplate code in drivers
-Date: Thu, 17 Sep 2026 20:49:44 -0500
-Message-ID: <178969618825.1582337.11100417882754456102.b4-ty@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Xilin Wu <sophon@radxa.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as dma-coherent
+Date: Thu, 17 Sep 2026 20:49:50 -0500
+Message-ID: <178969618826.1582337.6658511312541652648.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com>
-References: <20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com>
+In-Reply-To: <20260909-sc8280xp-fastrpc-dma-coherent-v3-1-d38184e8cf9d@radxa.com>
+References: <20260909-sc8280xp-fastrpc-dma-coherent-v3-1-d38184e8cf9d@radxa.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,30 +51,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 08 Sep 2026 13:47:17 -0400, Brian Masney wrote:
-> There are a fair number of clk drivers that are registered at the
-> subsys_initcall level since some clk drivers need to be initialized
-> early for other drivers. Let's add a new macro
-> subsys_platform_driver() similar module_platform_driver() to eliminate
-> some boilerplate code in the drivers.
+On Wed, 09 Sep 2026 16:08:53 +0800, Xilin Wu wrote:
+> The FastRPC context banks are DMA-coherent on SC8280XP. Describe this in
+> the device tree so that the DMA API uses the appropriate coherency
+> attributes for their mappings.
 > 
-> This series converts the Qualcomm and Renesas clk drivers to show the
-> code savings that can be achieved. Once this lands, I'll convert the
-> remaining clk drivers this development cycle if all of this can go
-> through the clk tree.
+> When FastRPC allocates shared buffers from the system DMA heap, the
+> missing property can cause intermittent failures while loading DSP
+> libraries. Both fastrpc_test and the QAIRT platform validator can fail
+> with DSP loader errors such as "mmap hdrs failed" and "bad address".
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] driver: core: add subsys_driver() macro
-      commit: 255a14e7c16569f75248640dbd854c632b9d4bee
-[2/4] driver: core: platform: add subsys_platform_driver() macro
-      commit: 5065ca1325639b0341521f2057e6e2f3b52241a6
-[3/4] clk: qcom: convert drivers over to use subsys_platform_driver()
-      commit: 51c6b675682a9cf5546fb057fed8f99361b56cf2
-[4/4] clk: renesas: convert drivers over to use subsys_platform_driver()
-      commit: d11a91e088cefa4b56d7877b49492d8e1dc818dc
+[1/1] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as dma-coherent
+      commit: 3ca6796122d931ed3923884b019b0a32c26cade6
 
 Best regards,
 -- 
