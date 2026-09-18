@@ -1,128 +1,136 @@
-Received: from mail-pj2-f35.google.com (mail-pj2-f35.google.com [74.125.227.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54054220F2A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69DD4B2045;
+	Fri, 18 Sep 2026 11:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731801; cv=none; b=R+l6TvxnMtwoWthUpL32Ei/hI7Q055ZXJJjD/rLTSP48AhHsNwcp6P1JoxLQ30BmqTgharmthMPH1F4xecd4yF5V6c7ll2fIA0iyyPhdoT6xgK8vBg3lc5uQ52i+BMN9Q1fM6OK2ogzRnnAT/GsokO6fEZXqhuqgI5nlF1Wohlc=
+	t=1789731808; cv=none; b=CiAH/s48AfgcnPToqWGDyKmB++oSntaG9x5qB7h/f8qzaeDhPJq0ydvu0qWdNcdZkD6U4jIYptUrtCMCOq0736zVhMPzwezHFmv294VMal876Tzfe1ZAYufNpsSwHHgLuD44ohLcfW9gYeU0xwTOQcKZjycUGzg6cg8nnaUNroI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731801; c=relaxed/simple;
-	bh=y/6rkcYR6tmvs24rDeEbZaj7hbvTLRhxny3OHHiTUYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IcO+BK0StN5mmvIS+IHVgY0+PDdFq/fWEM5EkrVgYk8D+ClWgl8J6hDUzem0pVLDuhucX0kKTj6fol+G/5/aQaBZ2Ks3VnKyE2PV456VLPNqHru/dn4pegvJkvJZIA1wsfomlgoTTFuU1hLWLsOCP94Ei0ubLoz1wmdNUxxCY0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DE5fEGBL; arc=none smtp.client-ip=74.125.227.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789731808; c=relaxed/simple;
+	bh=QMeZrYDzre/+sEvhSk284/MnAA+Vg6kRV3OSduWrkkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h827/xFDja0EQkVyE41LQy/klr2XM/Bz87/wF8ORgGtTX2sOVrENuncPnk7vaz8K1LwM1Hb1Z1HAQ7IySwEOcEsnEb5FAsRHNqs4GwrFpS5TYGqnBiS+zocaQFS6Nr04y2ZmhLPCVziS/CTrDjbYdE+efhZ4dk9HgCecsvBBtaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pQCkn9lX; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DE5fEGBL"
-Received: by mail-pj2-f35.google.com with SMTP id d9443c01a7336-2dd77300825so6059215ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:43:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789731798; x=1790336598; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8kyloGp73jNN9aWd5AokYOutez5h9JeIEBv6OC0m1qs=;
-        b=DE5fEGBLC4/12wDJ044Q5vujnK3c68n+OoaHdPJ8T13Wd0wrSlKIGfVH3rOZeAmGT+
-         mRcPm1ENYm8vdySPB9zW20hNFsnUvGFbmaa3BPfh+GSOhViki2iau9XSTUb0J6S/76uk
-         7/Sc65Qp3d2pkJBohIoFsSF0OuQqZOYwC6QN4CjEfAQcdk8XEzeMS3y06Q8PrdOhs6aI
-         qizWQcBbSS1c1fYFDB8EoxEVIHUpvizPl8z2ClpMKA4FDb7fJgWXH5W8zWNVtlX9DTIi
-         gh/FIvWsaLxTpS0rvt2hhIsNVW95RlpCix59cPFHdbGL2vYc8WxjXnF+1jX5IhweXaC1
-         XiRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789731798; x=1790336598;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8kyloGp73jNN9aWd5AokYOutez5h9JeIEBv6OC0m1qs=;
-        b=Q7GMZm07wABV/bplzUKh/+1kCu1eEvrZ5bXKL4nuar35ozbG0aAhh1BDkrNPiGsWkZ
-         uT02Gtx7UTfLK44JHyhkiq4v89byI4RMhmGI6d4eio8ztrk+Z8yiNVD4QUbfJP3K2DBg
-         4K3l2aaz5ZImDptqt2XmLZclNbW9tmWR1ivaYtB1HU/pjfg2UdE78bwGPNXtlUvjfkFU
-         q/X/LKVelPbjtSjhFfvRczVhET8R6juUWvDZCfoUt+aNtKb67n7zpmlpDrgWLKc7Gp6Y
-         0eSM/BcItPxAVTwxtp6X3aCtvVPMl3LIhkAeuXUIYxjTx99RZRzIj8dPmhnF9nJpDuS1
-         aiQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxBMbGHPFr0XwEE71nV8zdQIsZ92RjTc5KVw8CEsMeQQ0GolTdch96LkXZOoqQdujAAWGR/7DYmYWRT9b8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxe1Q/rI15EW8rNNyu49nmMjPvUebnP8yKmjIwMZXTW5TsXvrA
-	PY0NxeGB54pLoSMT/+T26TQj+oAMZXJVyccw4m4uPRvGTdT4hWxthFe4
-X-Gm-Gg: AYBFou1rcCw3jIgkGISMSO/6vNa+gxI1bSgO1EUlCXgw1bGruFuNdKTuuBmvJf2sqhV
-	fuE7BCGTcjpV1JjTf6ze884TyAudeTdAUmbZuF1H4KHdqtuorwWgYFzLXPOwRLHHw9DF26H1sKg
-	Hz1lDxGsi5+hnvFAfpEQ7PCF+dPlVKdrxna+az58BZTE4MWMfTGHfk4wvuGZUsiVFfvdKxay3+F
-	hqLHvtQUyZ37PU9wED7u+ry/lC0zDK/2zuUuSm3PdNhc7oynvhXc6ar13MXsEDlMqNTqA5jaXhu
-	IbWFaLEMGcTfNMCpC8+YGCKWUcZYHVWXUEjRVj+ojTAwNpwKHwx3utqL3P+ilrEyvv3iK4oWzAH
-	pVKNvjtxH8sqAwnHZwQIrdI2gx4wLZCx9aYXqTGXyuVWCaro+2eOf05nSm2mSz+v212ov69FPih
-	xD+rxGN5vYDBIRGl/M8cIcYohGl/uLNcMn1MrzAG4Uz9HpbZtaMYoB2lbS1hEl+cK0pQ8p5lbE2
-	iPJhP4WJkvf7jRaN9igGg==
-X-Received: by 2002:a17:902:ce07:b0:2da:f1b1:56c4 with SMTP id d9443c01a7336-2ddb1ab3254mr53010075ad.3.1789731798119;
-        Fri, 18 Sep 2026 04:43:18 -0700 (PDT)
-Received: from 73ebd4c7787b ([183.194.144.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c286d98e7sm4603983eec.9.2026.09.18.04.43.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:43:17 -0700 (PDT)
-From: Yuchao Zhang <ndaugoing@gmail.com>
-To: Oliver Neukum <oneukum@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Dave Carey <carvsdriver@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH 1/1] USB: cdc-acm: skip URB restart in port_shutdown if disconnected
-Date: Fri, 18 Sep 2026 19:43:09 +0800
-Message-ID: <20260918114309.3659635-2-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260918114309.3659635-1-ndaugoing@gmail.com>
-References: <20260918114309.3659635-1-ndaugoing@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pQCkn9lX"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IA2lqT990951;
+	Fri, 18 Sep 2026 11:43:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=2LoGXw0vF7PSPv9HSZL/ELxJsaHAFx
+	bAysiISHbsK5o=; b=pQCkn9lXqPzXXAKuy1bFv2f5r5YKH0Pfc83IdXH2GehNi0
+	SFSKVE3OiLTOcepGCq21AUKe35WmqgfEH0i463GDMMyJOhFprGzzU8+Ha8VBXjLM
+	MC+ERFrhAt+ilPHo98zKu5XnghixoXtbVjz3iFuoOs9hx5yV0Q7o8SHzFT2e/Ihf
+	L7Jun554aw4toSCdAUbhIra/nDj6FoGjLWDI0kMvNgP9JIuxH7ZHIbrU5YdshJ9+
+	8Jm0EbMisBfB4Te5o7JugSQn+d7qB7WNE0EYo1CEOKjl5uAtTpJtOgCP0vzU4vHS
+	GKKftHg/AjantG6j5MO3JyMQP5jqXr6yJPiF/46A==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvf6be-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 11:43:23 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9oCpr507795;
+	Fri, 18 Sep 2026 11:43:22 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3yx6p9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 11:43:22 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IBhJCC12583306
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 11:43:19 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0A15820043;
+	Fri, 18 Sep 2026 11:43:19 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D679320040;
+	Fri, 18 Sep 2026 11:43:18 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 11:43:18 +0000 (GMT)
+Date: Fri, 18 Sep 2026 13:43:17 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>,
+        kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] s390/uv: Rework page allocation for guest variable
+ storage area
+Message-ID: <b7e43e18-db98-427c-b34a-2fd0a3a89088-agordeev@linux.ibm.com>
+References: <20260915144307.2367089-1-hca@linux.ibm.com>
+ <1a53b72c-b215-496c-b9f0-04f3afd09693-agordeev@linux.ibm.com>
+ <20260917193540.13842A26-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917193540.13842A26-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE2MiBTYWx0ZWRfX1vUZ0oYPn7Ul
+ tiaJAJbkg0/uA3axkbz2ujoytWAowvlL8VWgzcaY8wnQbvByTe8ei4/y7tQF0Q1kKmJBhdQnzEL
+ f2CqABzl+qYkkdwNoNlMYopXxy2c+Ks=
+X-Proofpoint-ORIG-GUID: 0qDW1QWeFwf0ieSqupZb0xkiZ5tv5ycG
+X-Proofpoint-GUID: 0qDW1QWeFwf0ieSqupZb0xkiZ5tv5ycG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE2MiBTYWx0ZWRfX3TrCqZdNw4im
+ pO4TS2jY8+9+6QchIXJ7IBiGsuwoonMboq6Kix/hS7wk0oPG6kq6vlCrMFlMpQMnN3zb3Y7L+GI
+ CF2CU+RttUg/he6CHIylh3TwD8kGlSio+vDVW7zT1+wNXHC3VLQOH07zSI37S5/U/9bPE465lAQ
+ zwbheXyjxInjQ1Yf46kJIKc/+FMaqSo1AU8edUGcQebOqrrw6fWKiH0LRp/AFLJ6k9U4HWiqSHQ
+ OueAvbEcKQ9pidwHqOB31WgXEv6LIwwcNEXbzV4VWXDVirgUDcPabr/DhQ7AsDD5/oSxTAkBJx5
+ gpc2YKi0D1UYxBPSnZH2EoSNQ/QH6Jw69deZB00KMr1VRXo3DHgHsHum+CpElvoAqM/EDH9EDro
+ 58KuvEig9gZmbIuOAsUto0ofkcsccBVl0J+4EMtavW+0I22kVR4p0pEQzbYX1Zfzlpy4dkrgEen
+ wuiNQ7xCanTdMPShLjQ==
+X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad23db cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=1LgmpdHpANVJ5neRkZwA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180162
 
-acm_port_shutdown() is called from the tty-port machinery whenever the
-last user closes the port.  acm_disconnect() sets acm->disconnected and
-calls tty_port_tty_vhangup(), which eventually triggers port_shutdown().
-At that point acm_disconnect() has already called acm_poison_urbs() and
-is about to free the control and read URBs.
+On Thu, Sep 17, 2026 at 09:35:40PM +0200, Heiko Carstens wrote:
+> On Thu, Sep 17, 2026 at 12:26:55PM +0200, Alexander Gordeev wrote:
+> > On Tue, Sep 15, 2026 at 04:43:07PM +0200, Heiko Carstens wrote:
+> > Hi Heiko,
+> > ...
+> > > +	for (i = 0; i < nr_pages; i++) {
+> > > +		pages[i] = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);
+> > > +		if (!pages[i])
+> > > +			goto free_pages;
+> > > +	}
+> > ...
+> > > +	for (i = 0; i < nr_pages; i++) {
+> > > +		if (pages[i])
+> > > +			__free_page(pages[i]);
+> > > +	}
+> > 
+> > Why not alloc_pages_bulk()/free_pages_bulk()?
+> 
+> That's because alloc_pages_bulk() contains this:
+> 
+> 	/* Bulk allocator does not support memcg accounting. */
+> 	if (memcg_kmem_online() && (gfp & __GFP_ACCOUNT))
+> 		goto failed;
+> 
+> Which does not work with GFP_KERNEL_ACCOUNT.
 
-However, acm_port_shutdown() unconditionally calls acm_unpoison_urbs()
-and, when the ALWAYS_POLL_CTRL quirk is set, immediately re-submits the
-ctrlurb and all read URBs.  If the concurrent acm_disconnect() then
-frees those URBs and their DMA buffers while they are in-flight, the
-result is a use-after-free in acm_ctrl_irq() or acm_read_bulk_callback()
-accessing the freed DMA memory.
+Thanks for the clarification!
 
-Fix by checking acm->disconnected after draining the delayed anchor and
-returning early: if we are in a disconnect path the URBs must remain
-poisoned and must not be resubmitted.
-
-The early return is placed after the delayed-anchor drain loop because
-that loop only cancels write-side accounting (wb->use = false and
-autopm counter) and does not touch the hardware path.
-
-Fixes: f58752ebcb35 ("USB: cdc-acm: Add quirks for Yoga Book 9 14IAH10 INGENIC touchscreen")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
- drivers/usb/class/cdc-acm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 7bc5329fa3ed..a7ef89a8da84 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -788,6 +788,9 @@ static void acm_port_shutdown(struct tty_port *port)
- 		usb_autopm_put_interface_async(acm->control);
- 	}
- 
-+	if (acm->disconnected)
-+		return;
-+
- 	acm_unpoison_urbs(acm);
- 
- 	if (acm->quirks & ALWAYS_POLL_CTRL) {
--- 
-2.53.0
-
+Acked-by: Alexander Gordeev <agordeev@linux.ibm.com>
