@@ -1,136 +1,120 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3557537187E;
-	Fri, 18 Sep 2026 06:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712681; cv=pass; b=Qg9XGsRVSjtb+EMYPMnyJ/FdDPwGzRuGHdJGlfcbNeaAR5dK+d+/ZqYJeO+9m5v2WjAzwAafUzQa4+GJttCshc3PX4D7KAmASPflnaxxu1ABojooeDHldQEEmngTkbHrRk5yQ4zE5RbOPK1CZqfT8Ir5yoTTA+mK+4WWHajE6c4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712681; c=relaxed/simple;
-	bh=MgYRcqrrPR+pmr4ZfrOx8DSOTQ2aU6Q8fwh6LPUstbg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=huYCPX907C1Mg/NLZb99/QboJrMBHcXTqP9ivGdSEIgSMyZemRVHkwYY2eN3vEiaMdj1+2dR1FrXxdd6GJOkg2dc4Zh35QsKh0Oe5Zgzji/DCJCxW4yhDOe3TuGPnVHYfYtEEaBqnJbkEeIhWss5lOxw8iZJwY4gPq90CKerQck=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=DZAmBKx9; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C56D48551F;
+	Fri, 18 Sep 2026 06:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789712707; cv=none; b=VfLpGu8UfFFPIXN4E0UemQAleAh6p+yAjuSzwohLF5V6GvBuwFKMywHVx7OSrWRo/mod/OPaOPVy9cAze+oyDzBOg7jvPkrxaykgLfoj0guLKCw8hFR5Z3HNPeX+TslFXiD06UAASLrhNGiXcGwZJAfMXVsriH1dYu3ExUK+rs4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789712707; c=relaxed/simple;
+	bh=kMWoUije5yTrC+y3H2eCV42peF2ZwHmEpdZ1AzMBN08=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DQDeeBD9EUEkXsBHmnEJEnBpUisxDPzQ/H9kzx7eSX5mjiJvOVUD88YNP+Fjc3dHeQg9W6JMokVtQ81+4UJUjUr6PAlNNGmrvSmj9BqpKS1hMuef8CjMb/GxRsz/6dx9u6HVlzcjPhQ1cEaQ9QydMVDH6UWWi/zSuSoLViW300E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q/G8cbH8; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="DZAmBKx9"
-Received: from fauth-c1-smtp.messagingengine.com (fauth-c1-smtp.messagingengine.com [204.75.18.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4hmMzM3F23zyPw;
-	Fri, 18 Sep 2026 09:24:30 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1789712673;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Utn4YPDnwDWDiEHtSEYn9vYIonNp3xKbLi0xHIMoSJw=;
-	b=DZAmBKx9a5AYL8v8Rw/xgspyq/9yJtval4otTmfGRTEtsbkSvVoO8PrdLoqJK6p3/8eEmB
-	xvZ/NPDubXepn5S8UmBPTlTNcSykLyL2cfqUDd7JkXSqwT6TGsnVHn5ws2wQU8gOJYKo/n
-	egikt+rL1G7Z0fOtKM61J+Uifcqctk4=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789712673;
-	b=DD/yGEYGpCsqIeC12y+RrqAMVQ7CmpX64MsxWDOSqmTOgyvS3plQgvYxBWkY6q/3EjIVCH
-	ybZsLaEspvNuyb/ymffeGpe0eiTD376i8q729KlbOvmpyxJ8JgHglddIMyyfTTa2A44Bmp
-	VmdsntABKnnaxSs1aUXt2JFvp47Hyr4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1789712673;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Utn4YPDnwDWDiEHtSEYn9vYIonNp3xKbLi0xHIMoSJw=;
-	b=cGo+/Bi9SjwGvyxoaS4TxMjtwEMmfnbxiv7bB+O0IklxkFpXpcOp56H0Inmip6gNTPj1kT
-	NOkPpDeUYhMYbHHM93B3Wk1nY5ZyU2IYKFhAZOYSlIaT9P9FwSg7WBO57PeRJjJ52EuT5+
-	10krgdNWRLAg5jXXAXZUEgU+KkJCZzI=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id ECEDB198003A;
-	Fri, 18 Sep 2026 02:24:29 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 02:24:29 -0400
-X-ME-Sender: <xms:GtmsasZSldZjBkFz_WJVQZEs5UjywjLFU2n1E4XPlW4cAkZf2LKxNA>
-    <xme:GtmsaiP2CGTsUN2CnwzkVB-KDUJM1YNv1W92IFFG9_Eq_yrSd8QJXFnh3v86Vwwni
-    CNkPdtLIovqk6M6HpgOYLr_7iAZkx063K6sjfMyDmjb7QA9CTfgt_kC>
-X-ME-Proxy-Cause: dmFkZTGSQzkLHL20dI75v5KezdrR4/54n/FI7hF+bC7Q1yK6wOtpVo6TuJQUEPuDh31dsb
-    1ffrVC9rw69TEmxHIkji76ul0+KSPvDqPDDlixfmostS9mk/hXKpw9WgeghXAiMxb9iFEI
-    6wK0BpZhd/9VrFcYBUf0tiLPFrYEk/e0Kt0Q2/or9cMoOT9ndhwCtauEfcfEdGU7BPXx8A
-    Kfr/3Jcso5z7tfdqDqQ1uPpEp3muBglFn8fmUd41iqOXFr+hR6O1NU8YHpFBanA0ZwHhqf
-    Qm2UlHYgwBOfDwRJNVQCiIVwgqqLvOXS/eqrKqEJzm+qFrdWJtEOCEV7D5LhNwHCyfPWYd
-    LWxQTl5tJYZE0SwZ0LmJefWEgd+7eWTcnKEjrEf1alX99BTOcDzMDvLXJ0gGoQpNmfIMDi
-    WIEVg8HZzPFdx8kRudDCnNQcVnR0AlipijaAty0J27ZagaJoDMjBEa8s5++ZU27p9vBWqx
-    Y/HYB/moUWPwyh7rIf73gwCHoKTs5x38FEaZKJyApyd2tw0/qEJ6cw2RqPoVmATYF5zRwx
-    Y6egJAysP2b4e39DA8rmIsKqikL6IKpDayj+TofjQxtohllnUZxW/dDr6PaJ3n9UmnP5zD
-    4Sh8yHaCRd9BGAg+CmiUYFXmPqIN9wh4sx5k0pXkwEfwSDzlzbm0qfF4pPRg
-X-ME-Proxy: <xmx:Hdmsarh1TLmd2g4qin5IG6Bb8x7s9IJ0jMQ7jCqKbry52eP7LdUr0g>
-    <xmx:HdmsajeBOqx1e5YPWdeP7o-v_kc8s3FI6XiFpc-zsGabUBFxB9WcjA>
-    <xmx:HdmsapyUpQUUemavGFRAsE82BNgLQPhZn4ooxQuSXPjS2QEbNPLOCA>
-    <xmx:HdmsaladdsvHVav1idVfoZ2Zvfb8UA76u-hR6tvQS_Zj1pLzkVb4IQ>
-    <xmx:HdmsavKNbvouncS0j1xMW34rey0AGVqSY4Uu0Oy1Ywr1MopH7FtvHpz8>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6B303F8008E; Fri, 18 Sep 2026 02:24:26 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q/G8cbH8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789712705; x=1821248705;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kMWoUije5yTrC+y3H2eCV42peF2ZwHmEpdZ1AzMBN08=;
+  b=Q/G8cbH8IYMGqS6X4PrOGD9B4Uj4DLhriKBGgwAFnZJHC0k66Rfjj8/r
+   JCs0ZdNyhLnvLU/i5/WeNEjFli9LTSnLHCIUqaLc7GQKK/JhQM48I6fZ/
+   GJwFnb8rVLpeBWGGMOtYxcPdNqv0T/AjCk7TEe+UpZBmGYaDDPyhRhQye
+   Z77ILAeM4WSIGcTesrRZNfgfO3ZVZAXwtzr6AxYqTePpT8dZqlVXHUaDX
+   PDzHcFn9NYjh10gFOxcy+Tv9yZ3zevGHxOMLDAbqKfBNw8wVRbeGlJpvv
+   iaBrLo2W5wodrZBpMDtEBQdwYu2FFCC8SsxP7r4Nh9g8FD0up5UnE6AoT
+   Q==;
+X-CSE-ConnectionGUID: ZeIFikmlSJC5X9dMXTk/WA==
+X-CSE-MsgGUID: 7HxR9GM6SNaee240pnEuOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77761328"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77761328"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:25:04 -0700
+X-CSE-ConnectionGUID: nik7p8FETbK9DCqO6zw0zw==
+X-CSE-MsgGUID: VmqEWhMvSN6swG9gHq3yag==
+X-ExtLoop1: 1
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:24:59 -0700
+Date: Fri, 18 Sep 2026 09:24:57 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
+ new header
+Message-ID: <aqzZOZ2ovBc6affP@ashevche-desk.local>
+References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
+ <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+ <aqgCQvRw9fns__0d@SMW015318>
+ <aqjzvxI4ecoFvRLT@ashevche-desk.local>
+ <aqlpoBJJXfZgsMxT@parshuram>
+ <aqlwRkNcs_UqKjWs@parshuram>
+ <aql6u3T0nnSVr-FC@SMW015318>
+ <aqws8pN2rfS9-dCC@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A0bevnK5BUW7
-Date: Fri, 18 Sep 2026 09:22:40 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Jakub Kicinski" <kuba@kernel.org>
-Cc: "Manivannan Sadhasivam" <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
- "Jeff Johnson" <jjohnson@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- "Eric Dumazet" <edumazet@google.com>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
- "Willem de Bruijn" <willemb@google.com>,
- "David S . Miller" <davem@davemloft.net>, "Simon Horman" <horms@kernel.org>,
- "Mihai Moldovan" <ionic@ionic.de>, "Denis Kenzior" <denkenz@gmail.com>,
- "Marcel Holtmann" <marcel@holtmann.org>, "Andy Gross" <agross@kernel.org>,
- linux-kernel@vger.kernel.org, mhi@lists.linux.dev,
- linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
- ath12k@lists.infradead.org, netdev@vger.kernel.org
-Message-Id: <9837273a-c62f-456e-9aa0-567b0d3a6f29@app.fastmail.com>
-In-Reply-To: <da6003cf-515b-4d97-8059-3f4553d0251d@app.fastmail.com>
-References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
- <20260915154705.67cfb94f@kernel.org>
- <da6003cf-515b-4d97-8059-3f4553d0251d@app.fastmail.com>
-Subject: Re: [PATCH v7 00/15] QRTR Multi-endpoint support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqws8pN2rfS9-dCC@parshuram>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 16, 2026, at 08:53, Juha-Matti Tilli wrote:
-> On Wed, Sep 16, 2026, at 01:47, Jakub Kicinski wrote:
-> > On Tue, 15 Sep 2026 08:41:52 +0300 Juha-Matti Tilli wrote:
-> > > Subject: [PATCH v7 00/15] QRTR Multi-endpoint support
+On Thu, Sep 17, 2026 at 11:39:54PM +0530, Vinod Koul wrote:
+> On 15-09-26, 12:04, Frank Li wrote:
+> > On Tue, Sep 15, 2026 at 09:50:22PM +0530, Vinod Koul wrote:
+> > > On 15-09-26, 21:22, Vinod Koul wrote:
+
+...
+
+> > > > > Traditional naming would be
+> > > > > dma/engine/provider.h
+
+(Actually majority of the subsystems use driver.h.)
+
+> > > > > dma/engine/consumer.h
+> > > >
+> > > > consumer and provider and good names.. I would retain the full dmaengine
+> > > > everywhere please. dma causes confusion already!
+> > >
+> > > Thinking about it again, drivers/dma/dmaengine.h should be the provider
 > > 
-> > qrtr usually goes via core networking tree.
-> > Please make sure you base your patches on net-next/main
+> > There some dmaengine code outside drivers/dma directory, like
+> > drivers/crypto/ccp/ccp-dmaengine.c
 > 
-> https://github.com/jmtilli/linux/tree/netnextmain_multi_qrtr_v8_multi_ath11k_ath12k_v5
-> 
-> That will be the next version. I'll wait for a while to see if other
-> review comments pop up for v7, then I'll post v8. At least the
-> current v8+v5 QRTR works just fine on my multi-card setup.
+> They chose to be outside, their choice... They need to be updated as
+> well to point to ../../dma/dmaengine.h :-)
 
-Hello,
+Hmm... It's rare to make such a requirement in the kernel for the resources
+like this. All I know about (GPIO, regulator, pwrseq, IIO), they split and
+provide the interfaces to the whole kernel.
 
-Some positive news. There will be no next version, as Qualcomm is going
-to provide a superior patchset that I tested. It's easier to backport,
-cleaner design, fewer lines changed, has 1 author as opposed to 3, and
-most importantly, it worked just fine on my 2x card setup. 
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Thus, I'm going to abandon this patchset.
 
-BR, Juha-Matti
