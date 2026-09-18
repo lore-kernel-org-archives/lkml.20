@@ -1,123 +1,163 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC925208A1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E674051DE06;
+	Fri, 18 Sep 2026 18:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789757432; cv=none; b=jB/ius3iDYRfnUdegwCd8hn/M8CwbOElQk16OuVx+W+NTl0H74WPu9VUf0xG2ydyyfaMpRTI9ch1kLu9fKG9Gh3LmEDv8v2GduIJj/5o763GzXiXP7EaGogdE2zio2zlxylycx5zz8/CwlBpW17xGHy52i26bFhXQtY3kAvu4Js=
+	t=1789757559; cv=none; b=Jz2/X86Y4I9kgz9T9Uccip+CnSoj+pXn1UDYtUEyg/3dfsCB24HEeuJJKCAmdJ4uUYkQD6jpeaF0Sw5JKhOhs2n4SwIkATdQYm2tEjTAYx+lVQSNn1/s6XVAa0IHhbCFoIzkfRlg8pW3Dt3zXf1MfdrlLxb0VsQVpUM+HuvY3Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789757432; c=relaxed/simple;
-	bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nqT7lO/OcDK7aiRapIFUMZ/nliRKde37rhIl/eo/2t28EVEyxcP0cuw5YBzY3wKFmArkNKsulZ6IYrykm61SYAePEsrtRhlDMRskwq00Y9Pc7/2wWCvOPT+SgfAscH3wf3rnqcWAAsyst4+pJgiBsJw0ejjX53oWvfGCT8hW+TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtiS9ilW; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789757559; c=relaxed/simple;
+	bh=jSplCp608W8zvy/HRNFhJGdjTGJXQewtsjhDhe7O3fk=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WjaOglGsIZspxYj6W5FTpI0BHbmubZLR9yPcips9Y8LJC2Xml+m0fx23wycFEan1KthVqJrIm8eUouTA1hnjf7PPXaij1nWph1L8uQ3VJZ4nuR3E3kE2wm2Zhg5qs9iz494JeU3BLAKXACmg28lgNlvE8dOD2xt5uzoX745cqOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=dc+Wqg4n; arc=none smtp.client-ip=115.124.28.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtiS9ilW"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so939366a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:50:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789757407; x=1790362207; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
-        b=YtiS9ilWLBcMyWlv5Y2aFpH6jdxYPkOFOIGSCCxkUUdRY5aHDTyvSWq3MDlDVKkGuM
-         ma5QeEm071R26vJqv8UfBF3VXVPkcbEnX2ZuvPt6nKHYOq4KBc/nKI8YpPsrVk3JZrG0
-         +xcf7wndiGu/i13imu/C/UzEf6fy/oo4hQs6g/ZNZEcpGQPjtax+P4117eEjROAto3os
-         OhReYfUNZXLvAKnRAb1olp4LA6F9joIk8GLXYIlElfvC5WLjzoozoBibhNOI9cnrUTVu
-         EsGILpIlEM/8KJ/K8dQITUbaK+vaKpfvq4VcvF0WlapRF9fRyp7RkADNY6iaANBB1pep
-         3Vtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789757407; x=1790362207;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E0dIEkBrNpsavfmz8terpzu9tdJ/O2kWHmDPwT1Sr0E=;
-        b=2hRa9cAr/3z+9H3DLlLn0qNsVHWEkJMp9KL6Gs0NnWlMN/oEYpfBY66Ztd09ipCBw/
-         g/uTdZYSGy63xiumegRIGZmYFNf6h5pKyI44rqZ8hllytkVC49GZssqWYlKu/gSnp+Kf
-         2DNZtXF/w0BpIGtZALKVJbo/KU8dNrl5IUJD3E99RjT+CoLZxGYzxfUmszTPyWSjpyG5
-         4X1B7yFY4Z53TH5i0LM/BPrZ6VIQX/y3Uq1ebEfF+foGN1kILaCVbtvNxTB6qq9vkYn6
-         MsaJfadjRehjCQYBXjrKI50CzF78hfYZBv5fcRTqaS8XXo46wdlLS0wqJj80y7rPHYUE
-         BoXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOEiOQX6HFE+mfrsW63et3n/pDH8Zq1nO919DLox+nN1GBAJMyJ3uaGi4lok0sBdkPTDsvcF04aqDUXqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAp2U1eA+pY9EYdA4RvtCP5R0yDx0USA5ME0LbFtXKdrcKmi0r
-	uMTw9C20MgLT/SerufKxhFJgkcXblLa8+iMZq5KWtQTOk+ZcEMyW/ix/vXKhukCqXfXwTA7GiXE
-	=
-X-Gm-Gg: AYBFou0+t/4CXDbubdfWzTMeRAsf21AsHYaxTvSzH/tc1t/+rthdjTNC+R8hhQsLVbi
-	Ynrl9BUx4v8UVkTWgCKlLT0g43kquDAw4p2VOiEEJs5KmdhYYHwqX3rDSjJvfp4juMMGMhhhJdL
-	9pEeLWtMZHGzwWkHwTxvljs/vvZS8G6rR/glun5ZJdK+Fg0PR3ypzuMErlfPZWxhGfPf1y+FiJu
-	QN5t0GX5SXjxGgkVbDatDEiFPGv75stZDpB2m//i6ilwRaRMihfm6T8n91dm+Bdnht3KVP9VwwD
-	eVT1SzF2ymJ57mgSM+hSbnlf/5gB0+e56RJySyoYLToOOXidjs6yJ5G53ahI0H+YvdXRkR5oUH0
-	PbrhSKGGtuXIW6HUDo8vDmymS98VuYWsZV9PhvkmeUwvDLA0G4G9a6kMyF3cXK23M5VYPGWeczR
-	l3qflfZxHoW+bxY+g2EjI8l0qMdi7siwsmIiqm7qbyOELVr2OQYvi/JGSACMZeKvxjSCLa/Lhge
-	4Ep4q3qzpbb6oQ=
-X-Received: by 2002:a17:90b:56c5:b0:39d:f95d:bd08 with SMTP id 98e67ed59e1d1-39e55008a3amr13452150a91.14.1789757406972;
-        Fri, 18 Sep 2026 11:50:06 -0700 (PDT)
-Received: from arch.mshome.net ([115.243.91.113])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55bf991sm658555c88.6.2026.09.18.11.50.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:50:05 -0700 (PDT)
-From: Daasaradhi Mannava <daasaradhimannava@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Denis Benato <denis.benato@linux.dev>,
-	Nikita Kravets <teackot@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: msi-ec: Report valid charge thresholds when unset
-Date: Sat, 19 Sep 2026 00:19:55 +0530
-Message-ID: <20260918184958.6211-1-daasaradhimannava@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <12cdf224-08aa-d19f-62fd-fbc6e26d6103@linux.intel.com>
-References: <12cdf224-08aa-d19f-62fd-fbc6e26d6103@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="dc+Wqg4n"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789757534; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=HaB/sL6M7ENFIsdooYd7DiubYpOPtvusj4eMYtWGeO4=;
+	b=dc+Wqg4nxJ2yetUsXBBuCQoU1MPE9Yeg6ZZXr/dZfPW0iALZea7/l7AAGnZY+9B2z3on1B/6BtF5FDQNobYqMY2lrJRFM0wHAEUftk1A3vFJJDiVJFBXx8fu2xp2CIp+QWCUgFsqXA416Jvhiyluspw3MGKLBkS6m8Dn30oiiwg=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07598486|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0147701-0.00349097-0.981739;FP=18298854939386791537|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jH0QdR7_1789757532;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jH0QdR7_1789757532 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 19 Sep 2026 02:52:13 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: horms@kernel.org,
+	netdev@vger.kernel.org,
+	netdev-bot+sashiko@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	ilane@ti.com,
+	david@ixit.cz,
+	linville@tuxdriver.com,
+	oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
+Date: Sat, 19 Sep 2026 02:49:30 +0800
+Message-ID: <20260918185209.2675909-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260917132433.GE51261@horms.kernel.org>
+References: <20260913101309.891633-1-liuc63@xiaopeng.com> <178938411495.22033.4311942083485691702@kernel.org> <20260917132433.GE51261@horms.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-[Resending as plain text, the lists rejected my previous reply.]
+Hi Simon,
 
-On Thu, 17 Sep 2026, Ilpo Järvinen wrote:
-> This seems similar to case in commits:
->
-> 186bf9031666 ("platform/x86: asus-wmi: do not enforce a battery charge threshold")
-> 78bf392ba77d ("platform/x86: asus-wmi: temporarily revert to setting a charge limit")
->
-> (The latter reverts first one as userspace could not handle -ENODATA but
-> thought the feature was available.)
->
-> So ideally, I'd tend to think we'd want to return -ENODATA when the
-> threshold hasn't been set. But whether userspace survives that is a
-> question we cannot ignore.
+Thanks for stepping in. Answering this is on me, and v2, posted
+right after this mail, covers the other form.
 
-Hi Ilpo,
+To your question: no, I don't think any of the three should block
+this patch. The TOCTOU race and the conn_info lifetime problem are
+pre-existing and this patch widens neither. I'd rather fix them in
+follow-ups than fold a lifetime fix into a 5-line bounds check.
 
-Thanks for the pointers.
+On the UAF, you wrote that it "may actually be made worse" by
+this patch. I don't see how. The guard adds no dereference the
+loop doesn't already perform: with the check removed, the next
+iteration still reads the same field through the same unlocked
+pointer, and the list walk is unlocked either way. If you have a
+concrete window in mind, please spell it out.
 
-I agree -ENODATA describes the state better. The asus-wmi revert was
-caused by upower's udev rule reading the attribute to detect support
-(upower#347). That was fixed in upower 1.91.3 (commit 83f86c75,
-July 2026), but current stable distros still ship older versions,
-e.g. Debian 13 has 1.90.9 and Ubuntu 26.04 has 1.91.1. Returning
--ENODATA from msi-ec now would hide the GNOME battery health toggle
-for most MSI users.
+> - [High] Incomplete fix: a controller-supplied
+>   conn_info->max_pkt_payload_len of 0 (or 1) is still consumed by
+>   nci_hci_send_data() in net/nfc/nci/hci.c ...
 
-Unlike asus-wmi before 186bf9031666, msi-ec never writes the threshold
-at boot, so this patch only changes what is reported: today it is
--10/0, which is outside the documented 0-100 range and makes the
-limit look set to 0%.
+Agreed, pre-existing and not made worse by this patch. Sashiko is
+right that "nci_queue_tx_data_frags() is the only place that loops"
+was too broad; nci_hci_send_data() loops over the same field. Two
+scope facts, though: the RF path uses ndev->rf_conn_info (allocated
+in nci_rf_disc_rsp_packet(), limit set from ntf.max_data_pkt_payload_size
+in nci_rf_intf_activated_ntf_packet()), while the HCI path uses
+ndev->hci_dev->conn_info (allocated in
+nci_core_conn_create_rsp_packet(), limit set from
+rsp->max_ctrl_pkt_payload_len). Different objects, so the patch
+doesn't miss the bug it fixes, but the sentence oversold it. v2
+rewords it.
 
-So I'd suggest taking this patch as is for now, and switching both
-drivers to -ENODATA together once a fixed upower is widely available.
-If you'd rather have -ENODATA right away, I'm happy to send a v2.
+The new check can still reject a zero on the HCI path, but that
+buys little. For non-empty payloads the unsigned underflow in the
+loop above drives len past skb->end into skb_over_panic() -> BUG()
+before nci_send_data() is ever called, and what does reach
+nci_send_data() gets there only after skb_put_data() has run. So
+the path needs its own fix.
+
+That fix belongs where the response is parsed, before the conn_info
+is published. rsp->max_ctrl_pkt_payload_len is available as soon as
+rsp is set up (rsp.c:315); the object is allocated after that, and
+is on ndev->conn_info_list (rsp.c:342) and installed as
+ndev->hci_dev->conn_info (rsp.c:345) before the field is written
+(rsp.c:348). A check at parse time means the object is never
+published, nothing to unwind. A check at the assignment comes too
+late: the object is already linked and already pointed at, and the
+existing error path (free_conn_info, rsp.c:352) only covers the
+pre-list_add allocation failure, with no list_del and no clearing
+of hci_dev->conn_info. A zero there can only be the controller
+reporting a broken limit, so rejecting the response outright is
+the right call.
+
+The RF path is the opposite case. nci_rf_disc_rsp_packet()
+devm_kzallocs rf_conn_info, so zero is its legitimate initial
+state, the "not yet activated" value, not something the controller
+reported. The activation notification can't cover that window, and
+rejecting a zero there only restores it for the next transmitter.
+The reproducer walks exactly this path: RF_DISCOVER_RSP creates
+rf_conn_info, the injected ACTIVATED_NTF stores zero, the target
+still activates, the next data frame spins.
+
+The entry path doesn't help either. nci_send_data() takes the
+non-fragmenting branch only for skb->len <= max_pkt_payload_len,
+so with a zero limit a non-empty frame reaches the fragmentation
+loop no matter what the writers do. The check at the point of use
+covers every producer of a zero limit: initial state, the
+notification, any future writer. That's why it lives there for RF
+and won't for HCI.
+
+The arithmetic in nci_hci_send_data() needs its own fix regardless.
+With max_pkt_payload_len 0 or 1, i + max_pkt_payload_len -
+(skb->len + 1) is evaluated unsigned and wraps, the "last packet"
+branch is always taken, len becomes the whole payload, and
+skb_put_data() runs past skb->end into skb_over_panic() -> BUG()
+instead of merely spinning. A plain != 0 test wouldn't cover that.
+I'll send the arithmetic fix plus the parse-time zero check for
+that path.
+
+> - [High] TOCTOU: the new guard reads conn_info->max_pkt_payload_len
+>   once but the fragmentation loop re-reads it on every iteration.
+
+Agreed, the window is real and pre-existing. I've folded Sashiko's
+snapshot into v2 rather than deferring it: the loop re-reads the
+field either way, so the race itself is old, but the new check
+shouldn't be bypassable by the store it guards. v2 snapshots the
+field once with READ_ONCE() and uses the snapshot for both the
+check and the min_t() bound.
+
+> Pre-existing issues:
+> - [High] Use-after-free of struct nci_conn_info ...
+
+Agreed. Unlocked list walk, devm_kfree() straight from the rx
+worker, and nci_rsp_packet() dispatching CORE_CONN_CLOSE_RSP with
+no outstanding command. The HCI side has the same shape:
+nci_core_conn_close_rsp_packet() clears ndev->rf_conn_info but
+leaves ndev->hci_dev->conn_info (written only at rsp.c:345, never
+cleared) pointing at the freed object. I'll do the lifetime work
+as its own series rather than smuggle it into a 5-line bounds fix.
+
+v2 follows this mail with the changelog correction and the
+READ_ONCE() snapshot; the HCI loop gets its own patch after that,
+then the lifetime series.
 
 Thanks,
-Daasaradhi
+
+Liu Chao
