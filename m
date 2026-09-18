@@ -1,63 +1,63 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA904E36C0;
-	Fri, 18 Sep 2026 10:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1968A4B44AD;
+	Fri, 18 Sep 2026 10:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726533; cv=none; b=NLzKsLOm/BK8fQMIJrhE3XXRNc5toOoThV5xXk6ZWH9WT1yw1WZnz2VE/zJax9HwDEHMMKia3G9xc1ZuVf5J+UjwQKE8jgu5MFUM8q2JmtnpWgmfY39uzlq4AHo3+QbsaohB0CcfgaGhkcj2sJnVkfVVNc22y1QNKb6SIZKevb4=
+	t=1789726536; cv=none; b=UUc0Ah6fkgZWCb0T67zUuwDXih0OpV+JYp5lWMScqOmkFpCbxtnhihJuTicKSF5mtlYKCiaZBUD5Ky5ZzFli0wLQY+QFRYx5tC0CLEsiww9bKCAl08xGesIzZY7GMHN90a7zhuvYOJkLiT/bA7yeALpXOD3VY1WxQpfNJ/OfVB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726533; c=relaxed/simple;
-	bh=akgzGfm9hRRy0B9FBhaAd0YP247l/1uENcYatargLB8=;
+	s=arc-20240116; t=1789726536; c=relaxed/simple;
+	bh=8W79zYiUsG4PaZYGerKXYmidyjhUWephxcpvr6fHyCc=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=ML2lIjuRLG7E1AmWGxF9QFvMjEQn7N/u7FxeQvLHIqIrgE17mEpusfE86DeBfXFzHhPZ0+21NMOWYKUSuS+z4REFARwInDCdHzpkLqFmThyA+3dSa2Bzb8AhiOq/L8QBTuMQAHlWk6GkYPTqqqqx/hmMBC0I4bXv17uz2gwro+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Z0dIMQtx; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mChXJ18+; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=AjXI8dSLYxVpyg9m+wXPAXLauohfzdqptWDQ4k2YBc01cW9OVlZndoHCZNA5H5vh+OJTJG+3MVUyicfGT8XOGqz+C4YnX7cGWuG5W4LZ0Dr4R/lHK8gflDZWTBaRXM1TSeO5S/sq6FQJ7Lr7vqXA67NAQOaq0HwgGwBJh24OeKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iQVS4uoh; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=8WVYj2Qd; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Z0dIMQtx";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mChXJ18+"
-Date: Fri, 18 Sep 2026 10:15:24 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iQVS4uoh";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="8WVYj2Qd"
+Date: Fri, 18 Sep 2026 10:15:27 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789726527;
+	s=2020; t=1789726528;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gMCkzvdVdRiiZqlr6hHpaUGgPq7QsJXALILhLxwuoOM=;
-	b=Z0dIMQtx6tDXDDYZopXy0sLL4f7Pkprm/PFaoponBhUjS6FujdvIwZuvKMF+Q2iLCqYDm3
-	DDaEBsQp+4uI68et3dIgzgI1wqvHrFiRvBCGeipwwuhxg3HY4l8siMmQ13EF86xnkIpl3c
-	++DUIkkjgG4oEVGStlLgVgOKafNAGicb2/EK/5Ed3jTT/J5sTp0a9dbjdkeGltSMgDvzMh
-	A7bowj4FH4kmSvAQ6VpVM9+BTNUlWPYiUiPWKK6xPrz3sn0E3a8Dsk7E1hrLVWGZFG1buv
-	z3Dw8i4IoGQM9DLXoUNJUJZFdGwStIZxt2SU/62Um7kVwcoG4YRgvL76JcGW9A==
+	bh=d5Vrud+pnbr9I5vmSAMawcjAc1j+gsBKe4ZgTco8pxk=;
+	b=iQVS4uohpma91fVifc4+95mApsUm7XneCiRrUZUoZghkp6o5Tvp0oAcXqCu5bwaULONdR8
+	SY8tYqneCH2LPex1Zyp5RyhlyoQ+2cFMkmK0+5VTJTx/wEmUo1M4l0l0kf95nCJ9drHI7M
+	5QnwOMVEvxk7dPHyUhxHM7LYXqrrBYeblcJTrm8a4YAHfaB4WFJyi9pPAJ/fx0IaYthGF+
+	FVhUYnN2eI/rMECzx7c0/MOJ9zT0ODtpeMl7C/IG+hDTV/JR7S0k+zskI8j9wGVIBW3Xj7
+	s2qwpucO6ifTEPwdNKNQupYiJ3yfYD5zdp9B8G3DVp9gL0+ZMQ+2Ht2/P7eHVA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789726527;
+	s=2020e; t=1789726528;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gMCkzvdVdRiiZqlr6hHpaUGgPq7QsJXALILhLxwuoOM=;
-	b=mChXJ18+qbjrS2vhPLhz1BBOGd3l7beo3dJUPITpWKFeEGmjCcQMfMXMazmW+oLZJ9ru5c
-	xIsdUawUatqH95BQ==
+	bh=d5Vrud+pnbr9I5vmSAMawcjAc1j+gsBKe4ZgTco8pxk=;
+	b=8WVYj2QdLvmGMjx6RnKb5u0CFb1CvjzHcXbJ+7TEuegu9Lj9LD8f4h5qN/YqkeRf3Mp6db
+	cq6RsGy6MzWsWaAQ==
 From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
 Subject:
- [tip: objtool/core] objtool/klp: Add test for position-independent checksums
+ [tip: objtool/core] objtool/klp: Add test for recorded checksum values
 Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-37-song@kernel.org>
-References: <20260916184351.2720310-37-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-36-song@kernel.org>
+References: <20260916184351.2720310-36-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178972652464.1720534.12343052645245725993.tip-bot2@tip-bot2>
+Message-ID: <178972652700.1720534.5279771302264811833.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,160 +67,80 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     fe1cf315e826774dd53cd45ac2dd6d91a0eacf0d
-Gitweb:        https://git.kernel.org/tip/fe1cf315e826774dd53cd45ac2dd6d91a0e=
-acf0d
+Commit-ID:     4f49c0a593a51cfee15456c079def320fc0ccad1
+Gitweb:        https://git.kernel.org/tip/4f49c0a593a51cfee15456c079def320fc0=
+ccad1
 Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:29 -07:00
+AuthorDate:    Wed, 16 Sep 2026 11:43:28 -07:00
 Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
-CommitterDate: Wed, 16 Sep 2026 17:21:38 -07:00
+CommitterDate: Wed, 16 Sep 2026 17:13:29 -07:00
 
-objtool/klp: Add test for position-independent checksums
+objtool/klp: Add test for recorded checksum values
 
-A function that only moves has not changed, and its checksum must not move
-with it.  Otherwise every patch reports as changed everything that shifted
-because something ahead of it grew.
+Whether klp diff treats a function as changed is decided by its checksum,
+and until now nothing looked at one.  A test asserting only that the right
+functions were cloned cannot tell a correct checksum from one that happens
+to differ.
 
-The fixture is built with -fno-function-sections, overriding the harness
-default: with per-function sections every function sits at offset 0 of its
-own section and nothing ever moves, so the test would prove nothing.  It
-also calls across to another function rather than looping within itself --
-a loop branch keeps the same displacement wherever the function goes, so it
-is not position-dependent to begin with.
-
-This tests the behavior of commit cca84cb12908 ("objtool/klp: Fix
-position-dependent checksums for non-relocated jumps/calls").
+Asserts both directions -- the changed function's checksum moves, the
+untouched one's does not -- and that checksumming identical input twice
+gives the same answer, since otherwise every rebuild reports spurious
+changes.
 
 Assisted-by: Claude:claude-opus-4
 Based-on-test-by: Joe Lawrence <joe.lawrence@redhat.com>
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-37-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-36-song@kernel.org
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/tests/generic/fixtures/checksum_position.c | 42 ++++++-
- tools/objtool/tests/generic/test-checksum-position.sh    | 51 +++++++-
- 2 files changed, 93 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/checksum_position.c
- create mode 100755 tools/objtool/tests/generic/test-checksum-position.sh
+ tools/objtool/tests/generic/test-checksum-value.sh | 37 +++++++++++++-
+ 1 file changed, 37 insertions(+)
+ create mode 100755 tools/objtool/tests/generic/test-checksum-value.sh
 
-diff --git a/tools/objtool/tests/generic/fixtures/checksum_position.c b/tools=
-/objtool/tests/generic/fixtures/checksum_position.c
-new file mode 100644
-index 0000000..4320bc2
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/checksum_position.c
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A function whose position in the section changes between the two builds,
-+ * without the function itself changing.
-+ *
-+ * target() calls callee() twice, and a call within the same section needs no
-+ * relocation: the displacement is in the instruction.  It is that displacem=
-ent
-+ * which moves, and hashing those bytes makes the checksum move with it.  Bo=
-th
-+ * must therefore share a section, which is why the test passes
-+ * -fno-function-sections.
-+ *
-+ * What has to change is the distance between the two, and PATCHED changes it
-+ * by aligning them rather than by inserting a function between them.  Where=
- a
-+ * compiler puts an added function is its own business: gcc emits these in
-+ * source order, so a function written between callee() and target() separat=
-es
-+ * them, but clang emits target() immediately before callee() whatever the
-+ * source says, and an added function lands ahead of both.  That moves targe=
-t()
-+ * without moving it relative to callee(), the displacement comes out identi=
-cal
-+ * in both builds, and the test passes without having asked anything.
-+ *
-+ * Alignment moves the functions apart on both, and moves neither function's
-+ * own instructions -- which is exactly the distinction under test.
-+ */
-+
-+#ifdef PATCHED
-+#define MOVED	__attribute__((aligned(64)))
-+#else
-+#define MOVED
-+#endif
-+
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+__attribute__((noinline)) MOVED static int callee(int x)
-+{
-+	return x * 5 + 1;
-+}
-+
-+__attribute__((noinline)) MOVED int target(int x)
-+{
-+	return callee(x) + callee(x + 1);
-+}
-diff --git a/tools/objtool/tests/generic/test-checksum-position.sh b/tools/ob=
-jtool/tests/generic/test-checksum-position.sh
+diff --git a/tools/objtool/tests/generic/test-checksum-value.sh b/tools/objto=
+ol/tests/generic/test-checksum-value.sh
 new file mode 100755
-index 0000000..5ae759e
+index 0000000..feae6a1
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-checksum-position.sh
-@@ -0,0 +1,51 @@
++++ b/tools/objtool/tests/generic/test-checksum-value.sh
+@@ -0,0 +1,37 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# A function's checksum must not depend on where the function sits.
++# The per-function checksums klp checksum records are what klp diff uses to
++# decide which functions changed.  A checksum covering too little misses a r=
+eal
++# change and the patch silently omits the function; one covering too much, or
++# unstable across identical input, clones functions nobody patched and drags
++# their dependencies in with them.
 +#
-+# A jump or call without a relocation encodes its target as an offset from t=
-he
-+# instruction.  Hashing those bytes makes the checksum change whenever anyth=
-ing
-+# ahead of the function changes size -- so an unrelated edit elsewhere in the
-+# file reports this function as changed too, and the patch grows to include =
-it
-+# and everything it references.  Nothing fails; the livepatch is just larger=
- and
-+# riskier than the patch it came from.
-+#
-+# Here the "patch" moves target() away from callee() and changes nothing els=
-e:
-+# both are aligned to 64 in the patched build, which shifts them apart witho=
-ut
-+# touching a byte of either.  See the fixture for why it is done that way.
++# test-basic covers which functions got cloned, which is downstream of this =
+and
++# passes for either kind of wrong checksum as long as the two errors do not
++# happen to cancel.  This checks the checksums themselves.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
 +setup
++build_pair basic.c
 +
-+# -fno-function-sections, or each function is at offset 0 of its own section
-+# and target() never moves.
-+build_pair checksum_position.c -fno-function-sections
++assert_input_symbol changed
++assert_input_symbol untouched
 +
-+assert_input_symbol target
++run_checksum
 +
-+# The fixture is only meaningful if the displacement target's calls encode
-+# actually changed, and that is the distance to callee() -- not target's own
-+# offset.  A compiler which shifted the two by the same amount would move
-+# target and leave the distance alone, and then the bytes are identical and
-+# the checksum matches for the uninteresting reason.  Ask about the distance.
-+sym_off()   # $1 object, $2 symbol
-+{
-+	in_symbols "$1" | awk -v n=3D"$2" '$NF =3D=3D n { print $2; exit }'
-+}
++# The edited function's checksum has to move, the untouched one's must not.
++assert_checksum_differs changed
++assert_checksum_matches untouched
 +
-+orig_t=3D"$(sym_off orig.o target)";    orig_c=3D"$(sym_off orig.o callee)"
-+new_t=3D"$(sym_off patched.o target)";  new_c=3D"$(sym_off patched.o callee)"
++# And it has to be a function of the code, not of the build: checksumming the
++# same input twice has to give the same answer, or every rebuild reports
++# spurious changes.
++first=3D"$(checksum_of orig.o changed)"
++build_pair basic.c
++run_checksum
++[ "$(checksum_of orig.o changed)" =3D "$first" ] ||
++	fail "checksum for 'changed' differs between builds of identical source"
 +
-+[ -n "$orig_t" ] && [ -n "$orig_c" ] && [ -n "$new_t" ] && [ -n "$new_c" ] ||
-+	fail "target or callee missing from one of the objects"
-+
-+orig_gap=3D$(( 16#$orig_t - 16#$orig_c ))
-+new_gap=3D$((  16#$new_t  - 16#$new_c ))
-+[ "$orig_gap" !=3D "$new_gap" ] ||
-+	probe_skip "this compiler kept target() and callee() the same distance" \
-+		   "apart; the call displacement did not change"
-+
-+assert_checksum_matches target
-+
-+pass "checksum unchanged when the function only moves"
++pass "checksums track the changed function and are stable across rebuilds"
