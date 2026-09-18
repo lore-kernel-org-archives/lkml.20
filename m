@@ -1,207 +1,596 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDBE3F1051
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D5C3AAF74
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771333; cv=none; b=Qefx2UF5Gs5H8PopmpxyJ6M6yyTucQJtmDW4kD7AiqunTbJfVa2GGaGM7DoVgzJ2a5eECVlC4SSslf+BKx0eMZltxy6aHvErRFy05m8ZFZP49NtAqtwXXOjBztT+FR0anXBYkuwWjX8iA8IV5vn1DkRS4TarOb+QYaIZYKf46AA=
+	t=1789771331; cv=none; b=jmC2yPDsYkHUNyEHdOlQFt6A9weuY5pRj0Ks02LegSGuBmV6pRXLK+M1qxLTO+kvLs31Lp43bf52yfira3nuI5twIpaStbc/ySxllbvlfUQop+Hs6NSrddiZNVjM8bkzK5wiMZBz+0DqBMnxDV2//mwIqLldyDdnE7yMIsEe4Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771333; c=relaxed/simple;
-	bh=MDJCbyT1cZKehkQnaZ+gHgHSuZG6wMy9EnrQdAHKmyE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MqcHEW0BiuM6KjA7oIcCDfVxs6/qxRR6FvxV60KrQeVQrG9dXoVf6Rrs4vyJJxpaQY9tpSilTTWoJDnjboepdjeQNtXKfP/DW1e/HUNu+S/lVd/5Ur6xeFat2ZRHB7vgCmMMRs7ZU5EFnUhUX35y1eByvQw+dmmsr0rymhN9Xag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kdog0l9G; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789771331; c=relaxed/simple;
+	bh=SGUYHXjM+C5nZyPU8wt0s1Tt1BXzuslRfVOLM8pV5Fg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=mtgx5ngSSHL90B31k3//diRg2e8dQEGde+kFheu+HgvZE+7HZZnPj+6DZAsJzinXdYvSCK64xM8Sm9+Tq4u9QoO8iErW+W/wuOXIo9gfsbdaFZvAvchkbMj05PPIQi0fbIezN/cNZyceMfLT7MpUk2m1G/LF3ZhwofSVyURMhgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CXW4avnP; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dylanbhatch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kdog0l9G"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so774400f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CXW4avnP"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso897145a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:42:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789771329; x=1790376129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QQ881rFR4Wp25hA4A3PpgsR4qeoeCRIW/99haQ5+2Ks=;
-        b=Kdog0l9Gs/Xi50rhgcwgQjCLXO9AiCs5F7/EXOdT99b+GHQ4+QmfEB0i8dy5U7bt7E
-         sTyYDt3i2zZTakZAKX592tGbyXiRw9PM2tlpI+rBIZl3Mr/bF8bziluEXGqLNlD6Y3Fb
-         t2lWolLKr2G/PdqUpDeAiP7JJzMg9jplGbKStrNNLn1Vk/btAT+QGGuX+uj/rvEIVKcD
-         gyxlgzIOvhmbdEfLmcDq86nKrR2LDbKXOZTbClOhu0QffNAcM5GmtOwS3wz1t0VUc8Ob
-         LKeZq7fDjQxRsZ18qgocou8tdrnt3j61gYKQpLBt/x+P6H2/bA/Vjik4QBtpK3B7TeNm
-         zU/w==
+        d=google.com; s=20251104; t=1789771329; x=1790376129; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aqeltcbk5Y0DT3NsWMqHIyENcVAY79AXe5OsLKEh8Rw=;
+        b=CXW4avnPr5zutKLQK7Fekwx/VObkENnW9PYz5esY9mHR1asZ/UOETNgOA4ocGSKN4I
+         xJNd26kfamqr9PdupvQzZ5cq6V3SOrz8Aaudmmrwu9xDCe1byG7amzwiMsAScPlJx0OE
+         pr7VHW8VlKUPMdvAbM1Mq+OCbeyeIKIFXfhCgVkzVMBJXnW82pPd0NC/u6+tHx9EMoTR
+         QlYGa/eDANj7so/C/e6pd85bYPp71UNQqPd9jAClEN+hbA0PDTacNVYqSmcBl7zCFukt
+         umslAqRmM1NuORcddJ3nz5AObvj3D//zahLMYi6ASJJ1Cov4ynniof+ARuzNI6KKMFjq
+         cRgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789771329; x=1790376129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QQ881rFR4Wp25hA4A3PpgsR4qeoeCRIW/99haQ5+2Ks=;
-        b=cz72fgsjmDo8QzDXabnyuIH84ssTCGGr4tx+B20iYulrHZtdtRXxiMC/jU0uIujOqC
-         ibvtIgeb1TMt8KRsTPeJBU5gYuf1P3OPWRmqAvR2UQ9872t+vv1p/oN79U+JefUkJ5Nk
-         f4nA3122TMH0u9bDRsqElQvFHsL5slP6WtHsbvWQe7bQC1NGp6UvhtsNh5W4tmopJ7Tb
-         nKOVgFQf6q5GqlYJGsq+XbwHlL+KZM/X+fFNtAVuVAG2lZP4ZGJLh6Fa3Edy02NOFb2b
-         aIgGCJEVagFjykplJmhVc67XJx3UX6/aq3T3fQQEjNveDhEQ6npx2rviVXgPniQxXSTr
-         q+Jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjIqvQA0JXVFd5dPhNFflwcH28FOM+29saYsVa/5ARiMSQ2mq3gXJ7zxB3Oxx1gB5wr6htM0DVanXObFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lybZP7vADvE7fWLy0ZBJpi8rg7+zKA+TWgoAWIwUgUGXtY3e7h
-	bsKozgF5LDcMb1YeL3GZ0rOrSvP7OviPMb/KnQOaBpTsFtPzomtybte3
-X-Gm-Gg: AYBFou30YLaPmHhvC3TKKiXo6vz5857rLgDRSb7SuRVZB4mdSJoNq8hP7ElkL6o3cz8
-	hPosIaMS4OaPGTsoNKpqWjlxGelRSJeJdLTRyZMpdHe/2CR6hrWAwPy73piBEyoajr9gXMtR+8u
-	UOvvRMfQLN7b19r0zu9mkWFEOZQGmcClaKxUfVxdMIyl0yEmQn6xDIm1EdAI249cvMeUOjOkc5P
-	0LZR/pR8rHdegyDUv4tUg9yJs0HR3TGRyKIFAu0CZLn9sHOEfpl+vRyRDT/P3ahiHVy6XU/DPJf
-	Hsxdfszn+RZMbVW07YlL0frdZPPTyncRhe8oGrf/o3nubmsRRrETLptn0PIsMIbB2hxPHDxeJQO
-	6nHYSGiNgjcDXtszS5JknzWKX+pCQRR1VQrODuPsdS71L7w5gxeaWaglz88EkPiUsXM6pLDhE4+
-	BrwGJCkraTz0QRkWx4+mB54zwiy9ljDA7EyGhzMg5HPbMREHKzGRDI2/6f5vMP8lCeF9vHfEZUR
-	DHCtP7GaWAEsQ7rX0Tpj8ZS3LAddU9FZKpXRGWgMmA+ROc1YCQdHL9JhiEOvg==
-X-Received: by 2002:a05:6000:2304:b0:484:3200:b7a1 with SMTP id ffacd0b85a97d-4871e25d894mr9927251f8f.13.1789771329034;
-        Fri, 18 Sep 2026 15:42:09 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.102.245.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459d72esm2052930f8f.34.2026.09.18.15.42.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 15:42:08 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com,
-	glider@google.com,
-	dvyukov@google.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH v3] dcache: unpoison the inline name buffer in __d_alloc()
-Date: Fri, 18 Sep 2026 23:42:04 +0100
-Message-ID: <20260918224204.3056-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914192926.1591-1-drifabdelmalekmohamedsaid@gmail.com>
-References: <20260914192926.1591-1-drifabdelmalekmohamedsaid@gmail.com>
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Aqeltcbk5Y0DT3NsWMqHIyENcVAY79AXe5OsLKEh8Rw=;
+        b=Bbt4wucTyE/4KCEpreJb5R7kb18/yhk8UErttCpAHSzfS8Jru5EInE4WX1dA8VfMrF
+         Vp8wCFh9H7vsYUveBFyiYDSo9MR8ZrKzx08sT/g9Hl01v4SbshAhgLT4BjhvBrUGL+rg
+         9uQVSHkC7IuY+uS7z8FAw5IVQsLBfsEqrFrbP6j4sNNV+doYS6cPOOnlN6pwr/1KmYDS
+         UUvlk4UKDbK/2XX7GNZQog5wPe7uZyNXsZhxk4manVMEZu1RiPwriDBaqrNqZnGomeI6
+         YDikm7oS+GThiS9+vLKUzDo0yacmF8TXKO+nuC+gaben5GRzhIUlgsdpSQgVNClJUAKo
+         73Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxElR3M547DVRRsXyP+pFPRv1ghZzmQmLy7K6YKMjwbuh9MK9aTN9Gp3IxQDJyMQqLsAfRPhjahDo1xcdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQZ7X09SHXPkCjp5l5bjBEJW2soEMuFDWbkqIUkF6l7i0Y8AUg
+	+nwBo0RHuBrK0wpzBU233Hl758mRbX6dOSkZmRVbdXNmuzvXql9Nlrt52Sct36gEiQd+DEfKJmv
+	AKen8qYisYO3F6o3uj10VsB+FqQ==
+X-Received: from pfbgo3.prod.google.com ([2002:a05:6a00:3b03:b0:851:7d32:90e0])
+ (user=dylanbhatch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:517:b0:3dd:a196:30a9 with SMTP id adf61e73a8af0-3dda196341emr1224576637.89.1789771328828;
+ Fri, 18 Sep 2026 15:42:08 -0700 (PDT)
+Date: Fri, 18 Sep 2026 22:41:49 +0000
+In-Reply-To: <20260918224157.1471085-1-dylanbhatch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260918224157.1471085-1-dylanbhatch@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918224157.1471085-4-dylanbhatch@google.com>
+Subject: [PATCH v7 03/11] sframe: Add support for reading vmlinux .sframe contents
+From: Dylan Hatch <dylanbhatch@google.com>
+To: Roman Gushchin <roman.gushchin@linux.dev>, Weinan Liu <wnliu@google.com>, 
+	Will Deacon <will@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Indu Bhagat <ibhagatgnu@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Jiri Kosina <jikos@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Jens Remus <jremus@linux.ibm.com>
+Cc: Dylan Hatch <dylanbhatch@google.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>, 
+	Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>, joe.lawrence@redhat.com, 
+	linux-toolchains@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	live-patching@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Randy Dunlap <rdunlap@infradead.org>, Mostafa Saleh <smostafa@google.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="UTF-8"
 
-syzbot reported:
+From: Josh Poimboeuf <jpoimboe@kernel.org>
 
-    BUG: KMSAN: uninit-value in dentry_string_cmp fs/dcache.c:291 [inline]
-    BUG: KMSAN: uninit-value in dentry_cmp fs/dcache.c:322 [inline]
-    BUG: KMSAN: uninit-value in __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
+In preparation for using sframe to unwind kernel space stacks, add an
+sframe_find() interface for finding the sframe information associated
+with a given vmlinux text address.
 
-     dentry_string_cmp fs/dcache.c:291 [inline]
-     dentry_cmp fs/dcache.c:322 [inline]
-     __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
-     lookup_fast+0x194/0xa40 fs/namei.c:1854
-     lookup_fast_for_open fs/namei.c:4545 [inline]
-     open_last_lookups fs/namei.c:4579 [inline]
-     path_openat+0x9ef/0x6540 fs/namei.c:4856
-     do_file_open+0x2aa/0x680 fs/namei.c:4888
-     do_sys_openat2+0x17c/0x390 fs/open.c:1395
-     do_sys_open fs/open.c:1401 [inline]
-     __do_sys_openat fs/open.c:1417 [inline]
-     __se_sys_openat fs/open.c:1412 [inline]
-     __x64_sys_openat+0x240/0x300 fs/open.c:1412
-     x64_sys_call+0x2445/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:258
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Treat a RA offset from CFA of zero as indication that the RA is not
+saved (on the stack).  For the topmost frame treat it as indication that
+the RA is in the link/RA register, such as on arm64 and s390, and obtain
+it from there.  For non-topmost frames treat it as error, as the RA must
+be saved.
 
-Uninit was stored to memory at:
-     copy_name fs/dcache.c:3031 [inline]
-     __d_move+0xd29/0x21f0 fs/dcache.c:3099
-     d_move+0x71/0xf0 fs/dcache.c:3147
-     vfs_rename+0x2619/0x2770 fs/namei.c:6085
-     filename_renameat2+0xa59/0x1230 fs/namei.c:6188
-     __do_sys_rename fs/namei.c:6232 [inline]
-     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
-     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
-     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[ Jens Remus: Add initial support for SFrame V3 (limited to regular
+FDEs).  Add support for PC-relative FDE function start offset.  Simplify
+logic by using an internal FDE representation.  Rename struct sframe_fre
+to sframe_fre_internal to align with struct sframe_fde_internal.
+Cleanup includes.  Fix checkpatch errors "spaces required around that
+':'". ]
 
-Uninit was created at:
-     slab_post_alloc_hook mm/slub.c:4617 [inline]
-     slab_alloc_node mm/slub.c:4939 [inline]
-     kmem_cache_alloc_lru_noprof+0x376/0x1230 mm/s
-     __d_alloc+0x52/0x9f0 fs/dcache.c:1902
-     d_alloc+0x57/0x300 fs/dcache.c:1981
-     lookup_one_qstr_excl+0x19d/0x7a0 fs/namei.c:1806
-     __start_renaming+0x341/0x850 fs/namei.c:3888
-     filename_renameat2+0x625/0x1230 fs/namei.c:6163
-     __do_sys_rename fs/namei.c:6232 [inline]
-     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
-     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
-     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[ Dylan Hatch: Adapt for in-kernel unwinding. Squash parts of patches by
+Jens Remus <jremus@linux.ibm.com>:
+ - "unwind_user: Enable archs that pass RA in a register"
+ - "unwind_user: Flexible FP/RA recovery rules"
+ - "unwind_user: Flexible CFA recovery rules"
+ - "unwind_user/sframe: Add support for outermost frame indication" ]
 
-The race is between a concurrent open() and rename() of the same path.
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Co-developed-by: Jens Remus <jremus@linux.ibm.com>
+Signed-off-by: Jens Remus <jremus@linux.ibm.com>
+Reviewed-by: Indu Bhagat <ibhagatgnu@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Co-developed-by: Dylan Hatch <dylanbhatch@google.com>
+Signed-off-by: Dylan Hatch <dylanbhatch@google.com>
 
-__d_alloc() only stores the name itself and its terminating NUL, so the
-rest of the inline buffer (d_shortname, DNAME_INLINE_LEN bytes) is left
-uninitialized.  copy_name(), called from rename(), copies that buffer as a
-whole, so the uninitialized tail is propagated into the dentry that is
-being moved.  Meanwhile __d_lookup_rcu(), called from open(), is an
-optimistic lockless lookup: it checks d_name.hash_len first and leaves the
-seqcount retry to its caller, so it can end up comparing against a dentry
-whose name a rename is rewriting in place, using a stale (longer) length.
-The comparison then runs past the terminating NUL and reads bytes of the
-uninitialized tail, which KMSAN reports.
-
-The read is harmless by design: it stays inside the buffer, the name is
-still NUL-terminated, and the result is thrown away by the seqcount retry.
-It is not specific to KMSAN either - with CONFIG_DCACHE_WORD_ACCESS
-enabled the very same bytes are read by read_word_at_a_time(), which is
-__no_sanitize_or_inline and therefore invisible to KMSAN.  KMSAN builds
-only see the instrumented byte-at-a-time dentry_string_cmp() because
-CONFIG_DCACHE_WORD_ACCESS is disabled when KMSAN is enabled on x86:
-
-commit 7cf8f44a5a1c ("x86: fs: kmsan: disable CONFIG_DCACHE_WORD_ACCESS")
-
-Zeroing the inline buffer would hide the report, but it would add a
-memset() to a hot allocation path just to initialize bytes that are never
-used as part of a name.  Instead, tell KMSAN the inline buffer is
-initialized: kmsan_unpoison_memory() compiles to nothing unless
-CONFIG_KMSAN is set, and doing it at allocation time is enough for every
-dentry, because copy_name() and swap_names() copy the whole buffer and
-thus propagate its shadow.
-
-Reported-by: syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7ff3adde89dd795ad4c4
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-
-Changes in v3:
-- Annotate for KMSAN instead of zeroing, as suggested in review: the read
-  is harmless, so unpoison the inline buffer in __d_alloc() with
-  kmsan_unpoison_memory() (a no-op unless CONFIG_KMSAN) rather than adding
-  a memset() to the dentry allocation path.
-- Document why only KMSAN builds report this at all: with
-  CONFIG_DCACHE_WORD_ACCESS the same read goes through
-  read_word_at_a_time(), which KMSAN does not instrument.
-- Rewrite the commit message; the previous one had several truncated
-  lines.
 ---
- fs/dcache.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 1b1a81f10da6..a66be85f9d01 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -1916,6 +1916,10 @@ static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
- 	 * be overwriting an internal NUL character
- 	 */
- 	dentry->d_shortname.string[DNAME_INLINE_LEN-1] = 0;
+This patch is adaped from commit 9f0daa3a841e ("unwind_user/sframe: Add
+support for reading .sframe contents"), and squashes in part of:
+
+ - 79313210e44e ("unwind_user/sframe: Add support for outermost frame
+indication")
+ - 70b5d8a3ddc0 ("unwind_user: Enable archs that pass RA in a register")
+ - 29774da9d30f ("unwind_user: Flexible FP/RA recovery rules")
+ - 9c9b953fe83c ("unwind_user: Flexible CFA recovery rules")
+
+all of which are from Steven's sframe/core branch.
+
+The patch also squash the relevant parts of the following two patching
+from v6 of this series:
+
+ - sframe: Allow kernelspace sframe sections
+ - sframe: Provide PC lookup for vmlinux .sframe section
+
+Changes include:
+ - Replace user-access sections with direct pointer reads.
+ - (sashiko) use get_unaligned() when reading packed .sframe contents.
+ - Create include/linux/unwind_types.h to define SFrame unwind rules.
+ - Implement sframe_find() to perform an SFrame IP lookup on
+   kernel_sfsec.
+ - Squash in SFRAME_V3_FRE_RA_UNDEFINED_P(fre->info) to support Arm64 RA
+   behavior.
+ - Omit kernel/unwind/sframe_debug.h, added in later patch.
+---
+ include/linux/sframe.h       |   4 +-
+ include/linux/unwind_types.h |  34 ++++
+ kernel/unwind/sframe.c       | 349 +++++++++++++++++++++++++++++++++++
+ kernel/unwind/sframe.h       |   1 +
+ 4 files changed, 387 insertions(+), 1 deletion(-)
+ create mode 100644 include/linux/unwind_types.h
+
+diff --git a/include/linux/sframe.h b/include/linux/sframe.h
+index 54e5cb76cb92c..c1fe8ac7df7b3 100644
+--- a/include/linux/sframe.h
++++ b/include/linux/sframe.h
+@@ -3,6 +3,7 @@
+ #define _LINUX_SFRAME_H
+ 
+ #include <linux/init.h>
++#include <linux/unwind_types.h>
+ 
+ #ifdef CONFIG_UNWIND_SFRAME_LOOKUP
+ 
+@@ -22,11 +23,12 @@ struct sframe_section {
+ extern struct sframe_section kernel_sfsec __ro_after_init;
+ 
+ void __init init_sframe_table(void);
++extern int sframe_find(unsigned long ip, struct unwind_frame *frame);
+ 
+ #else /* !CONFIG_UNWIND_SFRAME_LOOKUP */
+ 
+ static inline void __init init_sframe_table(void) {}
+-
++static inline int sframe_find(unsigned long ip, struct unwind_frame *frame) { return -EINVAL; }
+ #endif /* CONFIG_UNWIND_SFRAME_LOOKUP */
+ 
+ #endif /* _LINUX_SFRAME_H */
+diff --git a/include/linux/unwind_types.h b/include/linux/unwind_types.h
+new file mode 100644
+index 0000000000000..d0e69189af2ab
+--- /dev/null
++++ b/include/linux/unwind_types.h
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_UNWIND_TYPES_H
++#define _LINUX_UNWIND_TYPES_H
 +
-+	/* Racy __d_lookup_rcu() walk may read past the NUL; harmless */
-+	kmsan_unpoison_memory(dentry->d_shortname.string, DNAME_INLINE_LEN);
++enum unwind_cfa_rule {
++	UNWIND_CFA_RULE_SP_OFFSET,		/* CFA = SP + offset */
++	UNWIND_CFA_RULE_FP_OFFSET,		/* CFA = FP + offset */
++	/* REG and DEREF variants not implemented -- flex FDEs not supported. */
++};
 +
- 	if (unlikely(!name)) {
- 		name = &slash_name;
- 		dname = dentry->d_shortname.string;
++struct unwind_cfa_rule_data {
++	enum unwind_cfa_rule rule;
++	s32 offset;
++	unsigned int regnum;
++};
++
++enum unwind_rule {
++	UNWIND_RULE_RETAIN,		/* entity = entity */
++	UNWIND_RULE_CFA_OFFSET_DEREF,	/* entity = *(CFA + offset) */
++};
++
++struct unwind_rule_data {
++	enum unwind_rule rule;
++	s32 offset;
++};
++
++struct unwind_frame {
++	struct unwind_cfa_rule_data cfa;
++	struct unwind_rule_data ra;
++	struct unwind_rule_data fp;
++	bool outermost;
++};
++
++#endif /* _LINUX_UNWIND_TYPES_H */
+diff --git a/kernel/unwind/sframe.c b/kernel/unwind/sframe.c
+index 5f49f05e6226d..f3975c7e89493 100644
+--- a/kernel/unwind/sframe.c
++++ b/kernel/unwind/sframe.c
+@@ -8,6 +8,9 @@
+ #include <linux/mm.h>
+ #include <linux/string_helpers.h>
+ #include <linux/sframe.h>
++#include <linux/unaligned.h>
++#include <linux/unwind_types.h>
++#include <linux/kallsyms.h>
+ #include <asm/sections.h>
+ 
+ #include "sframe.h"
+@@ -15,6 +18,352 @@
+ static bool sframe_init __ro_after_init;
+ struct sframe_section kernel_sfsec __ro_after_init;
+ 
++struct sframe_fde_internal {
++	unsigned long	func_addr;
++	u32		func_size;
++	u32		fda_off;
++	u32		fres_off;
++	u32		fres_num;
++	u8		info;
++	u8		info2;
++	u8		rep_size;
++};
++
++struct sframe_fre_internal {
++	unsigned int	size;
++	u32		ip_off;
++	s32		cfa_off;
++	s32		ra_off;
++	s32		fp_off;
++	u8		info;
++};
++
++static __always_inline unsigned char fre_type_to_size(unsigned char fre_type)
++{
++	if (fre_type > 2)
++		return 0;
++	return 1 << fre_type;
++}
++
++static __always_inline unsigned char dataword_size_enum_to_size(unsigned char dataword_size)
++{
++	if (dataword_size > 2)
++		return 0;
++	return 1 << dataword_size;
++}
++
++static __always_inline int __read_fde(struct sframe_section *sec,
++				      unsigned int fde_num,
++				      struct sframe_fde_internal *fde)
++{
++	unsigned long fde_addr, fda_addr, func_addr;
++	struct sframe_fde_v3 *_fde;
++	struct sframe_fda_v3 *_fda;
++
++	fde_addr = sec->fdes_start + (fde_num * sizeof(struct sframe_fde_v3));
++	_fde = (struct sframe_fde_v3 *)fde_addr;
++
++	func_addr = fde_addr + _fde->func_start_off;
++
++	fda_addr = sec->fres_start + _fde->fres_off;
++	if (fda_addr + sizeof(struct sframe_fda_v3) > sec->fres_end ||
++	    fda_addr + sizeof(struct sframe_fda_v3) < sec->fres_start)
++		return -EINVAL;
++	_fda = (struct sframe_fda_v3 *)fda_addr;
++
++	fde->func_addr	= func_addr;
++	fde->func_size	= _fde->func_size;
++	fde->fda_off	= _fde->fres_off;
++	fde->fres_off	= _fde->fres_off + sizeof(struct sframe_fda_v3);
++	fde->fres_num	= _fda->fres_num;
++	fde->info	= _fda->info;
++	fde->info2	= _fda->info2;
++	fde->rep_size	= _fda->rep_size;
++
++	return 0;
++}
++
++static __always_inline int __find_fde(struct sframe_section *sec,
++				      unsigned long ip,
++				      struct sframe_fde_internal *fde)
++{
++	unsigned long func_addr_low = 0, func_addr_high = ULONG_MAX;
++	struct sframe_fde_v3 *first, *low, *high, *found = NULL;
++	int ret;
++
++	first = (void *)sec->fdes_start;
++	low = first;
++	high = first + sec->num_fdes - 1;
++
++	while (low <= high) {
++		struct sframe_fde_v3 *mid;
++		s64 func_off;
++		unsigned long func_addr;
++
++		mid = low + ((high - low) / 2);
++
++		func_off = get_unaligned((s64 *)mid);
++		func_addr = (unsigned long)mid + func_off;
++
++		if (ip >= func_addr) {
++			if (func_addr < func_addr_low)
++				return -EFAULT;
++
++			func_addr_low = func_addr;
++
++			found = mid;
++			low = mid + 1;
++		} else {
++			if (func_addr > func_addr_high)
++				return -EFAULT;
++
++			func_addr_high = func_addr;
++
++			high = mid - 1;
++		}
++	}
++
++	if (!found)
++		return -EINVAL;
++
++	ret = __read_fde(sec, found - first, fde);
++	if (ret)
++		return ret;
++
++	/* make sure it's not in a gap */
++	if (ip < fde->func_addr || ip >= fde->func_addr + fde->func_size)
++		return -EINVAL;
++
++	return 0;
++}
++
++#define ____GET_AND_INC(to, from, type)					\
++({									\
++	type __to;							\
++	(__to) = get_unaligned((type *)(from));				\
++	from += sizeof(__to);						\
++	to = __to;							\
++})
++
++#define __GET_AND_INC(to, from, size, u_or_s)			\
++({								\
++	switch (size) {						\
++	case 1:							\
++		____GET_AND_INC(to, from, u_or_s##8);		\
++		break;						\
++	case 2:							\
++		____GET_AND_INC(to, from, u_or_s##16);		\
++		break;						\
++	case 4:							\
++		____GET_AND_INC(to, from, u_or_s##32);		\
++		break;						\
++	default:						\
++		return -EFAULT;					\
++	}							\
++})
++
++#define GET_UNSIGNED_AND_INC(to, from, size)			\
++	__GET_AND_INC(to, from, size, u)
++
++#define GET_SIGNED_AND_INC(to, from, size)			\
++	__GET_AND_INC(to, from, size, s)
++
++#define GET_AND_INC(to, from, size)				\
++	_Generic(to,						\
++		 u8 :	GET_UNSIGNED_AND_INC(to, from, size),	\
++		 u16 :	GET_UNSIGNED_AND_INC(to, from, size),	\
++		 u32 :	GET_UNSIGNED_AND_INC(to, from, size),	\
++		 u64 :	GET_UNSIGNED_AND_INC(to, from, size),	\
++		 s8 :	GET_SIGNED_AND_INC(to, from, size),	\
++		 s16 :	GET_SIGNED_AND_INC(to, from, size),	\
++		 s32 :	GET_SIGNED_AND_INC(to, from, size),	\
++		 s64 :	GET_SIGNED_AND_INC(to, from, size))
++
++static __always_inline int __read_fre(struct sframe_section *sec,
++				      struct sframe_fde_internal *fde,
++				      unsigned long fre_addr,
++				      struct sframe_fre_internal *fre)
++{
++	unsigned char fde_type = SFRAME_V3_FDE_TYPE(fde->info2);
++	unsigned char fde_pctype = SFRAME_V3_FDE_PCTYPE(fde->info);
++	unsigned char fre_type = SFRAME_V3_FDE_FRE_TYPE(fde->info);
++	unsigned char dataword_count, dataword_size;
++	s32 cfa_off, ra_off, fp_off;
++	unsigned long cur = fre_addr;
++	unsigned char addr_size;
++	u32 ip_off;
++	u8 info;
++
++	addr_size = fre_type_to_size(fre_type);
++	if (!addr_size)
++		return -EFAULT;
++
++	if (fre_addr + addr_size + 1 > sec->fres_end)
++		return -EFAULT;
++
++	GET_AND_INC(ip_off, cur, addr_size);
++	if (fde_pctype == SFRAME_FDE_PCTYPE_INC && ip_off > fde->func_size)
++		return -EFAULT;
++
++	GET_AND_INC(info, cur, 1);
++	dataword_count = SFRAME_V3_FRE_DATAWORD_COUNT(info);
++	dataword_size  = dataword_size_enum_to_size(SFRAME_V3_FRE_DATAWORD_SIZE(info));
++	if (!dataword_size || !dataword_count)
++		return -EFAULT;
++
++	if (cur + (dataword_count * dataword_size) > sec->fres_end)
++		return -EFAULT;
++
++	/* Flexible FDEs not supported */
++	if (fde_type != SFRAME_FDE_TYPE_DEFAULT)
++		return -EFAULT;
++
++	fre->size	= addr_size + 1 + (dataword_count * dataword_size);
++
++	GET_AND_INC(cfa_off, cur, dataword_size);
++	dataword_count--;
++
++	ra_off = sec->ra_off;
++	if (!ra_off && dataword_count) {
++		dataword_count--;
++		GET_AND_INC(ra_off, cur, dataword_size);
++	}
++
++	fp_off = sec->fp_off;
++	if (!fp_off && dataword_count) {
++		dataword_count--;
++		GET_AND_INC(fp_off, cur, dataword_size);
++	}
++
++	if (dataword_count)
++		return -EFAULT;
++
++	fre->ip_off	= ip_off;
++	fre->cfa_off	= cfa_off;
++	fre->ra_off	= ra_off;
++	fre->fp_off	= fp_off;
++	fre->info	= info;
++
++	return 0;
++}
++
++static __always_inline int
++sframe_init_cfa_rule_data(struct unwind_cfa_rule_data *cfa_rule_data,
++			  u8 info, s32 offset)
++{
++	switch (SFRAME_V3_FRE_CFA_BASE_REG_ID(info)) {
++	case SFRAME_BASE_REG_SP:
++		cfa_rule_data->rule = UNWIND_CFA_RULE_SP_OFFSET;
++		break;
++	case SFRAME_BASE_REG_FP:
++		cfa_rule_data->rule = UNWIND_CFA_RULE_FP_OFFSET;
++		break;
++	default:
++		/* Flex FDEs not supported; base can't be another register */
++		return -EINVAL;
++	}
++
++	cfa_rule_data->offset = offset;
++
++	return 0;
++}
++
++static __always_inline void
++sframe_init_rule_data(struct unwind_rule_data *rule_data, s32 offset)
++{
++	if (!offset) {
++		rule_data->rule = UNWIND_RULE_RETAIN;
++		return;
++	}
++	/* Flex FDEs not supported; always deref */
++	rule_data->rule = UNWIND_RULE_CFA_OFFSET_DEREF;
++	rule_data->offset = offset;
++}
++
++static __always_inline int __find_fre(struct sframe_section *sec,
++				      struct sframe_fde_internal *fde,
++				      unsigned long ip,
++				      struct unwind_frame *frame)
++{
++	unsigned char fde_pctype = SFRAME_V3_FDE_PCTYPE(fde->info);
++	struct sframe_fre_internal *fre, *prev_fre = NULL;
++	struct sframe_fre_internal fres[2];
++	unsigned long fre_addr;
++	bool which = false;
++	unsigned int i;
++	u32 ip_off;
++
++	ip_off = ip - fde->func_addr;
++
++	if (fde_pctype == SFRAME_FDE_PCTYPE_MASK) {
++		if (!fde->rep_size)
++			return -EFAULT;
++		ip_off %= fde->rep_size;
++	}
++
++	fre_addr = sec->fres_start + fde->fres_off;
++
++	for (i = 0; i < fde->fres_num; i++) {
++		int ret;
++
++		/*
++		 * Alternate between the two fre_addr[] entries for 'fre' and
++		 * 'prev_fre'.
++		 */
++		fre = which ? fres : fres + 1;
++		which = !which;
++
++		ret = __read_fre(sec, fde, fre_addr, fre);
++		if (ret)
++			return ret;
++
++		fre_addr += fre->size;
++
++		if (prev_fre && fre->ip_off <= prev_fre->ip_off)
++			return -EFAULT;
++
++		if (fre->ip_off > ip_off)
++			break;
++
++		prev_fre = fre;
++	}
++
++	if (!prev_fre)
++		return -EINVAL;
++	fre = prev_fre;
++
++	if (sframe_init_cfa_rule_data(&frame->cfa, fre->info, fre->cfa_off))
++		return -EINVAL;
++
++	sframe_init_rule_data(&frame->ra, fre->ra_off);
++	sframe_init_rule_data(&frame->fp, fre->fp_off);
++	frame->outermost = SFRAME_V3_FRE_RA_UNDEFINED_P(fre->info);
++
++	return 0;
++}
++
++static __always_inline int __sframe_find(struct sframe_section *sec,
++					 unsigned long ip,
++					 struct unwind_frame *frame)
++{
++	struct sframe_fde_internal fde;
++	int ret;
++
++	ret = __find_fde(sec, ip, &fde);
++	if (ret)
++		return ret;
++
++	return __find_fre(sec, &fde, ip, frame);
++}
++
++int sframe_find(unsigned long ip, struct unwind_frame *frame)
++{
++	if (!frame || !sframe_init)
++		return -EINVAL;
++
++	return  __sframe_find(&kernel_sfsec, ip, frame);
++}
++
+ static int sframe_read_header(struct sframe_section *sec)
+ {
+ 	unsigned long header_end, fdes_start, fdes_end, fres_start, fres_end;
+diff --git a/kernel/unwind/sframe.h b/kernel/unwind/sframe.h
+index bf895107c2070..17daf68309e61 100644
+--- a/kernel/unwind/sframe.h
++++ b/kernel/unwind/sframe.h
+@@ -74,5 +74,6 @@ struct sframe_fda_v3 {
+ #define SFRAME_V3_FRE_DATAWORD_COUNT(info)		(((info) >> 1) & 0xf)
+ #define SFRAME_V3_FRE_DATAWORD_SIZE(info)		(((info) >> 5) & 0x3)
+ #define SFRAME_V3_AARCH64_FRE_MANGLED_RA_P(info)	(((info) >> 7) & 0x1)
++#define SFRAME_V3_FRE_RA_UNDEFINED_P(info)		(SFRAME_V3_FRE_DATAWORD_COUNT(info) == 0)
+ 
+ #endif /* _SFRAME_H */
 -- 
-2.43.0
+2.55.0.1082.g2b9226bbc0-goog
 
