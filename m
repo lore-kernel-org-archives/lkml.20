@@ -1,180 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643AC2E229F;
-	Fri, 18 Sep 2026 22:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B86C3AFCED;
+	Fri, 18 Sep 2026 22:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789769197; cv=none; b=ugttG3mRhnCTSrLZWSX2uraHFE6FMXO+sEt8kKXim+BWzIy9V23ODWFy7/WYTJfUVRMNJZnPvhMNx2Z5lyTJoiKoUqn22ls3ycSHgaP5yVeeleEpNKyMDyLGAgoeMyANuwtQr0vkL5USYuetCaQV3K4b7Rm6sNeo9BmGmZyQDEE=
+	t=1789769236; cv=none; b=urYxUdJ6DsNJF7hVj/T+keVU/8HmlTvwB1Lp2712ClR7yU0X4wELL0lTkOvreb7jYYCaGpxoJ1tttMY7UrMyOIGhFH94vM/Tug3eIxMmk9b0y+CAQauI2T6B1Rv2z7+syfAckm3U/wMAEgWtEd7kO4OBpppFzgrJ/Vbob6psUjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789769197; c=relaxed/simple;
-	bh=xnLsNoSw5HMqOCWdSt6MKGnhKvFUd5872n1Ks2lzvi4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fh5ehb/KT5+kVJN0g3EmcLN9BJpF8rUgyBRnHh0hJ5/zm8kQl0g+5XmQ/qPArGkoNw9Q4hepsB4cldmLsAynPn/86GqTtMyJn4iHBBUnw+z0hV6xJLQFNnAD7btEgxUPQPHNMgf0YQl1Oksgjb3yxtN2OXBy8h2tIUcit8BK7nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlVldnl7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789769236; c=relaxed/simple;
+	bh=/c1oMlmLTWJaN6avLnnwg95XZGTSRowOmDi8dACzT6g=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=dAvMFvZquEPKcP1qMkaIBNf1awbnSTI3GkSOJBfHefQqbmDe0/IjbgPPDEop0fGVgChGxJf0pm/8ZJWNlGL7oezyZZUul6u7cjClUI2FWPEexQ8eIq+tB0FuqPGJHkW0obaaQqMvtIzv/Fp3DD0kWOY2PQ+uRmm9hE6UTKtmeTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=NatcX72N; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlVldnl7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D6B1F000FF;
-	Fri, 18 Sep 2026 22:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789769196;
-	bh=sdkH+9Eyo8lwBnyWL3D0AXJdYxWgcTzyUyAN9ex0Fds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dlVldnl793sIzCA+QOGOpldMSTPn+NoZMEZeCGm5bhJCO8q2JcX7ccwfRYmlVBKT/
-	 +8uQjid3nEOdVeZrg8T5nlETCUAVjTreiu0IP2BEz+aYFlKOS6J14Tu24PWqd2Gh2w
-	 KxEvQJwf1TV+FrjB16PbBRzFK/5rauXPTzc7e5dOMd+/XxY2AYQaz3N5EwkHd/mjix
-	 /UN4o5DDWRVqQ2yj06BKUXrTriaZx2AVekXsV1SsEuNrUW6EvP/ru3omAjVf3HS8fk
-	 7PFRofebNSd1Q4ovkxbWzaFZ5d4QgSEx1uKhRjh74tVxEZURcKNXlqI+DPPOduAmVz
-	 n9xCx7E6n4WrA==
-Date: Fri, 18 Sep 2026 17:06:34 -0500
-From: Rob Herring <robh@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>,
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	John Stultz <john.stultz@linaro.org>,
-	Moritz Fischer <moritz.fischer@ettus.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Andre Draszik <andre.draszik@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, mfd@lists.linux.dev,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH v25 05/10] dt-bindings: arm: Document reboot mode magic
-Message-ID: <20260918220634.GA2441717-robh@kernel.org>
-References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
- <20260914-arm-psci-system_reset2-vendor-reboots-v25-5-4aaf5c09b5c2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="NatcX72N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=m94KH1rUE8xsCRUl4tYdgtiOBSbe9rGzqg8G+EWYrUw=; b=NatcX72NhP8Ze5rzpAsyRpUcdz
+	FRPn6jS30hDGnefYxuDW0GkBaqg7MW48ZwDR0idErdzBHZUekbclVL44XaibfKaaZP9r/bM9mkDbD
+	/oLY18+T20Vaq0isjzqm1AVuf0bC3P8M3+q52j9/jmXCUGHMz92M677710hG5qzR3NsUDuBjTjLgm
+	TyNzT1XctON/nZCdB4mcZ3BWHznHMhOcsHhPLeb1mRP2caOwURJ3wLJi0H3bBpcbrrtuPZaorvDYe
+	0L8T3j227XdyusqKBPRmoc8qoVOuXKzLEaKivPhHiFk0qbgxJ12d/VhLO8BBZye8CxEb7M58xRli5
+	sCK0wg0w==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7gje-0000000Ctdy-3n0O;
+	Fri, 18 Sep 2026 16:07:11 -0600
+Message-ID: <0671be58-45d0-4448-a83f-eeae466c22cb@deltatee.com>
+Date: Fri, 18 Sep 2026 16:07:08 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-5-4aaf5c09b5c2@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-9-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-9-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 09/18] PCI/P2PDMA: Route Relaxed Ordering Completions
+ directly
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Mon, Sep 14, 2026 at 08:29:09PM +0530, Shivendra Pratap wrote:
-> Add bindings to describe vendor-specific reboot modes. Values here
-> correspond to valid parameters to vendor-specific reset types in PSCI
-> SYSTEM_RESET2 call.
+
+
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/psci.yaml | 60 +++++++++++++++++++++++++
->  1 file changed, 60 insertions(+)
+> ACS P2P Completion Redirect leaves Completions carrying the Relaxed
+> Ordering attribute alone. PCIe r7.0 sec 6.12.1.1 redirects only those "that
+> do not have the Relaxed Ordering Attribute bit set", and sec 7.7.12.5
+> describes the enable bit as "applicable only to Completions whose Relaxed
+> Ordering Attribute is clear". P2PDMA reports one answer for every kind of
+> TLP, so a client whose provider returns such Completions is sent through
+> the host bridge for a redirect that never happens to it.
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
-> index 0d04389c81fa..8b6a28b81ed7 100644
-> --- a/Documentation/devicetree/bindings/arm/psci.yaml
-> +++ b/Documentation/devicetree/bindings/arm/psci.yaml
-> @@ -98,6 +98,43 @@ properties:
->        [1] Kernel documentation - ARM idle states bindings
->          Documentation/devicetree/bindings/cpu/idle-states.yaml
->  
-> +  reboot-mode:
-> +    type: object
-> +    $ref: /schemas/power/reset/reboot-mode.yaml#
-> +    unevaluatedProperties: false
-> +    properties:
-> +      # "mode-normal" is just SYSTEM_RESET
-> +      mode-normal: false
-> +    patternProperties:
-> +      "^mode-.*$":
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        minItems: 2
-> +        items:
-> +          - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-> +            minimum: 0x80000000
-> +          - description:
-> +              arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-
-Drop. Types are per property, not per item.
-
-> +          - description: arg3 (cookie_lo in 3-cell form)
-> +            $ref: /schemas/types.yaml#/definitions/uint32
-
-Drop.
-
-> +        description: |
-> +          Describes a PSCI SYSTEM_RESET2 vendor-specific reset type. The string
-> +          after "mode-" maps a reboot mode to a vendor-specific reset.
-> +
-> +          A vendor-specific reset takes two arguments, a 32-bit reset_type and a
-> +          64-bit cookie. The arguments are encoded as up to three 32-bit cells.
-> +          Each mode property is encoded as mode-xxx = <arg1 arg2[, arg3]>,
-> +          where:
-> +
-> +            - arg1 is reset_type and must be >= 0x80000000.
-> +            - In 2-cell form, arg2 is lower 32 bits of cookie.
-> +            - In 3-cell form, arg2 is high 32 bits of cookie
-> +              and arg3 is low 32 bits of cookie.
-> +
-> +          All values should be provided as per the PSCI SYSTEM_RESET2
-> +          specification.
-> +
->  patternProperties:
->    "^power-domain-":
->      $ref: /schemas/power/power-domain.yaml#
-> @@ -137,6 +174,15 @@ allOf:
->        required:
->          - cpu_off
->          - cpu_on
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: arm,psci-1.0
-> +    then:
-> +      properties:
-> +        reboot-mode: false
->  
->  additionalProperties: false
->  
-> @@ -260,4 +306,18 @@ examples:
->          domain-idle-states = <&cluster_ret>, <&cluster_pwrdn>;
->        };
->      };
-> +
-> +  - |+
-> +
-> +    // Case 5: SYSTEM_RESET2 vendor resets
-> +    psci {
-> +      compatible = "arm,psci-1.0";
-> +      method = "smc";
-> +
-> +      reboot-mode {
-> +        mode-edl = <0x80000000 0x00000001>;
-> +        mode-bootloader = <0x80010001 0x00000002>;
-> +        mode-vendor = <0x80000000 0x00000001 0x00000002>;
-> +      };
-> +    };
->  ...
+> Add enum pci_p2pdma_tlp_flags and let a caller state that property.
 > 
-> -- 
-> 2.34.1
-> 
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
