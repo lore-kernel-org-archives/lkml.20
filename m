@@ -1,116 +1,151 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA075481DD;
-	Fri, 18 Sep 2026 13:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903BB4A263A;
+	Fri, 18 Sep 2026 13:07:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736801; cv=none; b=JnWnf01uvCdZ5n7j8XgpK7iHqPJRhPj1i0fLic6CGxKcM98sU8Z3t7ha9PfJj3lWOljmIAkj7izpiVqh6I0B2LWaNBTO9X/D3PclJs76pRdtBB01tVxKGOmWLCzZ+92vN+8NcPZ39hTrWUlzb26x3UnZnS8XgALbyYqrNwfa6FU=
+	t=1789736860; cv=none; b=lloVa9Bhxl4ku4jKH6EjK7RxtFBqfMjg8ScNGxdldKvJ/InzmRhVLzxTylo3Dy65DsPJvbA/pC+Y5YqJcP4aDd/fmgf6CvjKcw2QZS7/Smy0J2K97669jjRV7mgupTBmmcZ132ZijYNwQTJVC/DyzXk5AgBcTUQLEcHK8+4z3ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736801; c=relaxed/simple;
-	bh=/nakVwmxaeeJTK5KzN//btReFIAOeTh6IiuKR27HZzc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ko+nbYv6IPoS7dHbXozlj3jXc4JQf3EzGWXQB0ODkmWUYxW4L5n4aNFAkX71w3lQI135mxI595SW7Y4DWvaQPIpPYP7v+5Wg+2OsFV7BCULCi9tJTPYnBQhdlgIJSf9PpYN10uvTKg3s4wyD1Gfr4u6riuY6yux/JujFpT6U+K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=u9AhtPcn; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=u9AhtPcn; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789736860; c=relaxed/simple;
+	bh=yLRKkVjHFH2CAOoqG8ghcoAuUHWfmqtMg8pbmAm89bY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TTFsnfCijM9VdCftWYbeDNuQ4VPP2O91S+2q+bPpzM6WcMgAXq9vfPehSYu9Es91RlxHz9eOLQUu9nxv5GA9lepELCRlWg6jvXQKzzGqv3VzGnA3+o23n4zg/+LuM5iq9JVyf/dq7V5YtRDM97AjbzUsy8+7JtsE416XMcFfwwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=YhQgO8y9; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="u9AhtPcn";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="u9AhtPcn"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hmXvB5JlbzKp22;
-	Fri, 18 Sep 2026 15:06:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789736790;
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="YhQgO8y9"
+Message-ID: <bca0facb-8840-4691-aebc-e3063c6c3d14@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1789736850;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+TtMD/N6SgzaMVWEle+qL0jO4JALOAaC+jKdUPI5lys=;
-	b=u9AhtPcnvF9+I6+HfzGgIs8skVxl4znEFMhyXZQcV2/+6IS2t9zquv/iYXC/IVhDgG0chh
-	ZC7rLTgNMIZzGLwd8nm8PdD4cqEBXH6/1/nDwAGTg7FPuchY/EMcKOmMWolwepmrIptica
-	O+BHVRZeh7hgfjcbNYS0L00bSi78f0OLDnErGomHpoRJVCOhM6inGq1szTrIaaWTPaemDF
-	rwF1tD7ZP2MeQdpxcnLJtzEhS//VWelGi2oanYNGqlpZRHcUAFazR3xLHzjAX6Kz1jXsRN
-	N/EI6cMZ5rTXl75Z/i5SfI0NIoSA8tlzpHOaqJ9rjVrHwEFrzhupxMNGdk+8cg==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789736790;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+TtMD/N6SgzaMVWEle+qL0jO4JALOAaC+jKdUPI5lys=;
-	b=u9AhtPcnvF9+I6+HfzGgIs8skVxl4znEFMhyXZQcV2/+6IS2t9zquv/iYXC/IVhDgG0chh
-	ZC7rLTgNMIZzGLwd8nm8PdD4cqEBXH6/1/nDwAGTg7FPuchY/EMcKOmMWolwepmrIptica
-	O+BHVRZeh7hgfjcbNYS0L00bSi78f0OLDnErGomHpoRJVCOhM6inGq1szTrIaaWTPaemDF
-	rwF1tD7ZP2MeQdpxcnLJtzEhS//VWelGi2oanYNGqlpZRHcUAFazR3xLHzjAX6Kz1jXsRN
-	N/EI6cMZ5rTXl75Z/i5SfI0NIoSA8tlzpHOaqJ9rjVrHwEFrzhupxMNGdk+8cg==
-To: Christian Brauner <brauner@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux kernel <linux-kernel@vger.kernel.org>,
-	kernel-janitors <kernel-janitors@vger.kernel.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Yi Xie <xieyi@kylinos.cn>,
-	Manuel Ebner <manuelebnerli@mailbox.org>
-Subject: [PATCH] ipc/sem: Fix kernel-doc notation of perform_atomic_semop_slow()
-Date: Fri, 18 Sep 2026 15:06:03 +0200
-Message-ID: <20260918130604.452053-1-manuelebnerli@mailbox.org>
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SUk0QaHaOHcefy3cF34cxRQ5NlHqBn6AdrcK4LTyzD0=;
+	b=YhQgO8y9BMFmml0KZlH0FT3AzNCrA9YHyuNWujznrpuMnz1ALgUCyFNCQ8kHqjn9e3LP1W
+	C5qUW5G85qOui0zY9hOqpaMHc7EvyGHSn3yeHxWUIbU8xYCU7D/G7VTfm7soeMTiaukDR6
+	qvQmbtZSe39IrGiLUQtLtTiEuaJwd+4=
+Date: Fri, 18 Sep 2026 15:07:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 4417f5af454c730b19d
-X-MBO-RS-META: jqeizzsb3xfmaop5wao5pknayjfwx9z7
+Subject: Re: [PATCH v2 05/10] mailbox: apple: Add DockChannel FIFO controller
+To: michael.reeves077@gmail.com, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ iommu@lists.linux.dev, linux-input@vger.kernel.org,
+ Yureka Lilian <yureka@cyberchaos.dev>, Julian Braha <julianbraha@gmail.com>,
+ Sasha Finkelstein <k@chaosmail.tech>
+References: <20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com>
+ <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Adopt strict kernel-doc notation to make doc recognizable, this fixes:
+On 9/18/26 13:06, Michael Reeves via B4 Relay wrote:
+> From: Michael Reeves <michael.reeves077@gmail.com>
+>
+> DockChannel is a hardware FIFO used by Apple coprocessors for
+> low-latency byte-stream communication with the AP.
+>
+> Add a mailbox controller that preallocates RX storage, tracks IRQ
+> enable state in software, and reports TX completion from the TX-empty
+> interrupt.
+>
+> Reject messages larger than the FIFO and return -EBUSY while the
+> previous message is still pending. This keeps the provider usable for
+> future small-message clients such as serial transports without a TX
+> worker.
+>
+> Handle RX and TX interrupts in a thread so mailbox callbacks and locking
+> run outside hard-IRQ context.
+>
+> Co-developed-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+> ---
+>   MAINTAINERS                               |   2 +
+>   drivers/mailbox/Kconfig                   |  12 +
+>   drivers/mailbox/Makefile                  |   2 +
+>   drivers/mailbox/apple-dockchannel.c       | 371 ++++++++++++++++++++++++++++++
+>   include/linux/mailbox/apple-dockchannel.h |  29 +++
+>   5 files changed, 416 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7fe2ebb5e..e5be5934c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2677,6 +2677,7 @@ F:	drivers/input/touchscreen/apple_z2.c
+>   F:	drivers/iommu/apple-dart.c
+>   F:	drivers/iommu/io-pgtable-dart.c
+>   F:	drivers/irqchip/irq-apple-aic.c
+> +F:	drivers/mailbox/apple-dockchannel.c
+>   F:	drivers/mfd/macsmc.c
+>   F:	drivers/nvme/host/apple.c
+>   F:	drivers/nvmem/apple-efuses.c
+> @@ -2695,6 +2696,7 @@ F:	drivers/video/backlight/apple_dwi_bl.c
+>   F:	drivers/watchdog/apple_wdt.c
+>   F:	include/dt-bindings/interrupt-controller/apple-aic.h
+>   F:	include/dt-bindings/pinctrl/apple.h
+> +F:	include/linux/mailbox/apple-dockchannel.h
+>   F:	include/linux/mfd/macsmc.h
+>   F:	include/linux/soc/apple/*
+>   F:	include/uapi/drm/asahi_drm.h
+> [...]
+> diff --git a/drivers/mailbox/apple-dockchannel.c b/drivers/mailbox/apple-dockchannel.c
+> new file mode 100644
+> index 000000000..d0a66e1b7
+> --- /dev/null
+> +++ b/drivers/mailbox/apple-dockchannel.c
+> @@ -0,0 +1,371 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> +/*
+> + * Apple DockChannel mailbox controller
+> + *
+> + * Copyright The Asahi Linux Contributors
+> + *
+> + * DockChannel is a byte FIFO used by Apple co-processors. This driver exposes a
+> + * single FIFO pair as a Linux mailbox channel and moves payload bytes with PIO.
+> + * There is no DMA involved, so relaxed MMIO accessors are sufficient for the
+> + * FIFO accesses themselves.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/mailbox/apple-dockchannel.h>
+> +#include <linux/mailbox_controller.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/unaligned.h>
+> +
+> +#define APPLE_DOCKCHANNEL_FIFO_SIZE	0x800
+> +
+> +#define IRQ_MASK			0x0
+> +#define IRQ_FLAG			0x4
+> +
+> +#define IRQ_TX				BIT(2)
+> +#define IRQ_RX				BIT(3)
 
-$ ./scripts/kernel-doc -none ipc/sem.c
-Warning: ipc/sem.c:629 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
- * perform_atomic_semop[_slow] - Attempt to perform semaphore
+The dockchannel interface used for dockchannel-uart / DebugUSB uses 
+different bits here, so these should probably be read from the device 
+tree if the mailbox driver is supposed to be somewhat generic.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- ipc/sem.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/ipc/sem.c b/ipc/sem.c
-index 5ec41de7e85b..642be4170065 100644
---- a/ipc/sem.c
-+++ b/ipc/sem.c
-@@ -627,8 +627,8 @@ SYSCALL_DEFINE3(semget, key_t, key, int, nsems, int, semflg)
- }
- 
- /**
-- * perform_atomic_semop[_slow] - Attempt to perform semaphore
-- *                               operations on a given array.
-+ * perform_atomic_semop_slow - Attempt to perform semaphore
-+ *                             operations on a given array.
-  * @sma: semaphore array
-  * @q: struct sem_queue that describes the operation
-  *
-@@ -642,6 +642,8 @@ SYSCALL_DEFINE3(semget, key_t, key, int, nsems, int, semflg)
-  * Returns 0 if the operation was possible.
-  * Returns 1 if the operation is impossible, the caller must sleep.
-  * Returns <0 for error codes.
-+ *
-+ * This description is also valid for perform_atomic_semop(), the function below
-  */
- static int perform_atomic_semop_slow(struct sem_array *sma, struct sem_queue *q)
- {
-@@ -716,6 +718,10 @@ static int perform_atomic_semop_slow(struct sem_array *sma, struct sem_queue *q)
- 	return result;
- }
- 
-+/*
-+ * The description of this functions is the same as the one for
-+ * perform_atomic_semop_slow(), see the kernel-doc above.
-+ */
- static int perform_atomic_semop(struct sem_array *sma, struct sem_queue *q)
- {
- 	int result, sem_op, nsops;
--- 
-2.55.0
-
+> [...]
