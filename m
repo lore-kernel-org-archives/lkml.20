@@ -1,285 +1,188 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC93725A2A2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745023; cv=fail; b=f0xTNTP7m5L1QHwgPXupGGUrvIY0zHYrBMN6GUJGTKuust4yaL4geqXBBHZQ2OJda1FAFDGPXuEEegqSydxlg7R4JqkSwExEsRkiT68FfYvldm+D5DwxatGo6hUCgLwXUwnVxAU2DSlUl7I6wVELMT2yQIztJNXM3edaxCby6q4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745023; c=relaxed/simple;
-	bh=xViq7zdASak9kWDNmx+3gPCMi05Bw761UdRIEilmVKA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Vlk6thg7N6iPDGEEnN0BK1skgfGaiUPqXiicIhNpWqA6aOZVufljyBzqvVt6R9rNcKLPH/nXPe31tckIEVYVz3eWp63+r+E6iZGsYYW9kcklQucNX+8ciqUuuHBENyN2RjE8lBkjwUiwWnlZxCAtHELOw1YWEs85SA0iGi0lEYc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=e7+nWHkF; arc=fail smtp.client-ip=40.107.208.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6118502D55
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789745032; cv=none; b=SeVeyM9xRDWvzDbGxSjijGyCKyyPZYV2gPvv12n5G0kp6xyDEQH9FzfeetZNqMNP6ZgqDR5l5pjIYaA4wDsEGWymrwYLJIuXx85mQ/XQEYjfuhTdlW5OvfltIdmBam4JXFuJqG1/vwfTU6fwDCc1nSVvuf0OiLbvVgbDb82CZNE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789745032; c=relaxed/simple;
+	bh=Gw3zHBlfnMG0KsBOjIRgY29OGazqLY2sJsesKjOTX44=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Phw+bZouhR07ijgQpoCTsyHdgAIhUOEDXa2f6we93VVutIgbyGZwKrncFEBISdZg9JU3djvAGv9O6caOkShyRRaG3eYHc2i4NXCg/NYHG8LlFdcer6TIehBBYOQS3ALjrk/NQMhMVLTNqblOvxlV06NUoWXbfdNVLpf71YIabm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=K287R4Qn; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="e7+nWHkF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s7ZfUdd5HHiW6pUjUNNmy7DvqJZM4RYntHvWvvt5vpTZWWcob0AXtegwj6hMZM3EGxMNoZ7yVLNFnsnPJXl3PUD9LL885VQJGnY8ogcNrStvL08Qi2MDl4ZmZkvC75HbB8qOMaYuzimjyu9LQF1ncqBuK/yfU644cNOXmIK1N8T6PAN9FfKSF7SOyqP6ogxHcrCyKlbb5hLlzYw4W1AjTOfzm4cTD0rXlY0rloQgvD40BoXDawtyII5nz8EmX3wGU0jbRf5XcMFCOUJk6fVgicP8g/pzu2qcstDeWlYomF7N9gFHE39vxT3rcGcE2/3sVKNkWaOIP5IYYEA1Sbj4PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L8Zv5TBPNyEFHc5wUzOU6C5JU8jClmUyr8X0Da0LvnM=;
- b=TG2H5GdTZBaHE4Rn20CP8zIXNy9U5+c5hWeKZf5ia+kkQx0KQ1c4kZzsNWENMLIUynEjXmbUszdkTqrg0bDgwGKsvjK4QVe9g59/6ELSdcot921TK/VpStFUHwzpSZTxvd8ychuvDDTa1CVo2GuKYqUe4WMTKuh0ZnEY1twY8QaFNbyLYgD/oIiD82i++E0P8ZOJSNGfUfh5fTHdWNftcM9FUGxD5uvVcyPo1yjtI2kGUr+myVAmAZJx9VV1fuUdVV0PcE7cKYMk5WzGVwy6gHlR35PUKE9SwJhwpLhSrOIViPE83xYxjlwy58MO5zpxMRRzAXW4BJB3/wbCAL/fEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L8Zv5TBPNyEFHc5wUzOU6C5JU8jClmUyr8X0Da0LvnM=;
- b=e7+nWHkFKxEs4xjclsVDiyYvOw/7y7ZG2JOMhNxYcVAZDVdDLhj2uJTT0sp+TEBhiHFqUlwFDq5hsKkH56sFsfqL2uxkNYWK12afL1B+1yoylIDbW/FCOpA7cuWN0ULJwyb92/UnSo5m9FYFzFo5r++J7IaByPwx+ngyjPFbHPw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4442.namprd12.prod.outlook.com (2603:10b6:303:55::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 15:23:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 15:23:37 +0000
-Message-ID: <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
-Date: Fri, 18 Sep 2026 17:23:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
- alignment for cc-shared buffers
-To: Catalin Marinas <catalin.marinas@arm.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Thomas Gleixner
- <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, "T.J. Mercier" <tjmercier@google.com>
-References: <aq1V3oeDdvXobt8J@arm.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aq1V3oeDdvXobt8J@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0204.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ad::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="K287R4Qn"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so789704e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:23:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789745027; x=1790349827; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h9t3rJF/06ZDlRm69Ehr2E4atplDzwTzK8abOoc4YU4=;
+        b=K287R4QnHyfU+XE5Q4mmXejZndaD+f5yxWLYQjEYIpkKtuzYSPRm1ZlCv7TARtz73x
+         ZZG5Mj7qVZKIO7eZ4XG9dtFSaOivS5rddPJowjFmv0nfQFG9NDA9tlgG8OGLjQ9tFlvn
+         hXRrgGkgXF+xUywYucdv8fzCWQfwHtvihBV89NYGcfqloEzDedHONukPfn2F+6aW3kZb
+         +DM90fJp3EP0HMdaVsn2/x+fuqD604SURTgczYrXzZiR0ASpDdePOazrMtDE84qtexiz
+         E0QpdEy2epi/t+N2dTRX8z+sw4MA0pzPfxEJ/nnDKzQ6XPeGj6Fmmu0m6tCpykjAj8Dw
+         KdCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789745027; x=1790349827;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h9t3rJF/06ZDlRm69Ehr2E4atplDzwTzK8abOoc4YU4=;
+        b=uIim62OtMxZGlBm6/5v5ykAycnsS1UejyEi5vaR6WWQn6wbBLmlKSTFX5GhpJCQyYT
+         4QUp0p6QJzvCsxnx0EaCoHn59PAL+3J47tCgsLFEPLTjCB0vYryYoXNzUJfUFqfMEB9V
+         NeRhlVodm1MhVPRUHeNbSYAu09104OMfMGKW5l1nvYh/3NOugTjpfvxg9uOkguP9P0+P
+         oohBGJX5gM9BH/TPZfWXzG4Ty8ERClkMu8kkTA1zKwt1vFilMolIk6sgoSMbAepHXt5r
+         91iqN5fY/uEuRXYxUE7h2Zk3LRyxbvBKQHcRV33crUet6SrmwaBBrHwTZPDW+8cVlC9U
+         czlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1q4w82N+5ZLwfnlTiIPMKTGSzfPmO0MYENRkCMavI+xNvR247NQdwKl5cx8yXfUTcadsZxfvADYub3Ug=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTW504SnNf9e1NzURmKSkuiqjbsrv4Mgx6fU2TNiVUY6S2pXc5
+	SHpmJcgohdLY6dRgeQpv7PuUwuqACooikOFSgfK9s21kRUk1p2FV+kq4mj1DouR6bMo=
+X-Gm-Gg: AYBFou0pc/OkkWBQG8s1a9HlLxW9yqLoGLQuX8LGm/Q5b2wzFLZqMWfVHLaODKcMdzF
+	mIP0ehCZ6w+F0zcuL0decyZQ7yRgKwN2cLEpxP75B4KdWi+MdSjVaHzizEUWf1RNod2xNGMSN37
+	ZTCSs5lWEate+g00WK3GuSpssfn/p9e1cDQ9hzL1/a/0/sOrq1EgZJn0NT1E57eHuoq8tYI1pdD
+	lr8i7XSuPKRZSgeYBqD4bGm6KqBhHDZIgaEzkKrDMfTgNK0VdZ64xPqgAceJVGPq8VqwsOEh4IM
+	u0lfxp9wsq/fquANLo/TvBdddeaY3e2GY9ZSp8L7sJtfl3CYeXetnpsYkJDayBTy0dq8FFqbWJV
+	j2J8fHxlwi2rEBTObsVIlsyxD7StditdvPR8BQDnk5LXLASyqi4GZnvbCKetumZlFlXAAoXzLHe
+	ZqC7s1g3EQG+vAHS4py+oXEkaft3b6XG30JoMGp1nUeNJjurbkarDZ7Cn3OpljnzlD4wwdgNM=
+X-Received: by 2002:a05:6512:1389:b0:5ae:b969:417d with SMTP id 2adb3069b0e04-5b8c179c3b9mr1020325e87.0.1789745026603;
+        Fri, 18 Sep 2026 08:23:46 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c274e5afsm547909e87.18.2026.09.18.08.23.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 08:23:46 -0700 (PDT)
+Message-ID: <1105786b-7c2a-4f52-ba5b-324dcd68c094@riscstar.com>
+Date: Fri, 18 Sep 2026 10:23:41 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4442:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5c21178-2935-4c17-2af9-08df1598cfd8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	9QRZpg1ESsyFKWkH+5GD5lwJXKhfvKSo18efzukus27ugsy2Xs/Fu/7r23KR8PuVykP2FKvSB8/8nxtn26PdOgANFMBMM8xwPyGnunL7X7aH2ZBOpjrzXrjLC8BzG6e+82BfDbyiEDO7Z3IC2QQyqgGNPqjVquEXyaGg2C0zWEk3yFU4NGHI5uMUyp6WtoisJHmFA/FGitcG08181Bhko4aT6AMmMhcd4RxuvI2UeZtn5ibMB15WrOk05jPjF7IriWaP/Mf3VzZgPpe/nd+oRjOf9q0yrnGp1urRxnxMp59vONzRdLa8r+Jos3odOX8myMhLMfodN+Aj+ZZlbl8AQduc/XtLjen6dBfrdothIthpHB2vm8khHzwUYe5GalCaQw9Dg06J3zMtblGzLnAJ1BPfKafIhcXp9HsJxqjEHju7L9QcNbm6DMhCBGxkHdgne+4n8AC6vsaACsRegcLpH/1yeKfVuE9l+J1A44tagv3PAdDrNtVXe+s5fSabEFLSSQYYn26LhBp8JB3VmzaYuMFUvwQN2ClUk9TRn/pibsZdhZNX0mgHYDrrfAWjLrLwsU7s+aJVCbOyeMQo0g6/4gL2lp9ivhHyP9dmAmGwJVJVBnw7KSw0w2FCkz1j561yTs6R/s+zto/IX5mtpZaZV/H2eTPJMu6oIA4nk0f3r7s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUJDVFNUeTNFZHRyZFJPS01VdUx6RzErSDVIWW5Qak93anZLZHpoVW1ZYUpj?=
- =?utf-8?B?QXZ5T1lTa25rRlBPTHZsVGJQZGZQQjc2U1hUYU5jSnhpSytwaVJpMmpzdW9r?=
- =?utf-8?B?K0l0SmJ2aHZBTnZjaWRiNktrWjRRT0FISjJZSGJOSEZJNi9nYjQzcEJiL010?=
- =?utf-8?B?WFNreU51L3JLYjg3eGNJMWFZZnVYRVpTeWNtb2JHc0FiWU9hZnZVSXJHY21D?=
- =?utf-8?B?V0RBcDI5ZDFmdjNuSjI1YWxVNEhvZjNkZ3BHVGhrNjNQNmNMeGlkSldLa2o4?=
- =?utf-8?B?emU4YUJ4TEZXS0t0Njd4dCtmcGFKY1c0amtZak82ZWlaT29ZZ0taN29WMGRC?=
- =?utf-8?B?dmUreDNZY21LSnVVelc4QkFGNlZPNUl3clZvdnR6cU1yYi9WWVlzTVRSUlZL?=
- =?utf-8?B?dXErR1BkWk5kZExPSEM5U1VZblhDSlJ4b0pTa2pIMnJ5akp5MHlNV1BmSHFN?=
- =?utf-8?B?c1VIRFNRTFRFQTJZekg5WncvVW5MWGdwZzdDQVRpVGpNUGV1MXE0RGRlYWVw?=
- =?utf-8?B?Qjh1aHhmaHRmdUcvQk1vaWoxU1dIYmdFa2J6MzQ5ZFdlZWQ4ZXRmVTNiOXA3?=
- =?utf-8?B?SWo5NGU4YTJpSEY1QVBwYkl5Rnl4WldqODJVaWpNbTNQVkkzd2pJN08wOU8v?=
- =?utf-8?B?NkUvMWVZM05rYjhMc0NyT2c5eER5SDE3TzdrcnBpVzV3MnhaNERvc0VDUHNQ?=
- =?utf-8?B?Z1dKVTV5dFdNR1V4S2grQVIxcm1KVWQzWFB1YXdLR1BEUE5Wd1dSUklzOUp3?=
- =?utf-8?B?RWJFaStnMUJzWU5iZjhLTVJFNzA4bkV2aFhLVGhyQncwVTBkNi9xSkgxanUw?=
- =?utf-8?B?QmpmRXhnekV3L0JDWmNXYTExeU9GZ3Z6T2V3OFhHOHdWbklWUVV1MXV4alpn?=
- =?utf-8?B?Nlh6UjA5MUkrMmpIazNyOWY3Q1B0L3BXYUQ3Nmh5RFM4bGl5MVYvNzJXSXo4?=
- =?utf-8?B?TURTRjFqeWpJSlBQcGN2RXJHMGZEWmlGMGw5RnBsaXZ3alhidFU5ZndtRWpk?=
- =?utf-8?B?MjFEYVg2TDlObS85UHJ5RjREd0ZTUDZCRFdGZldBNjg1QnpvaVJXSldDajJI?=
- =?utf-8?B?S3ZrVit5eHV6dW5GT0UrNTRXL1B1dEtueVNYSHRTL0h2b3RkbW1tMXpKcUZy?=
- =?utf-8?B?Y1RYcDdQeWhmakhVSFJmdUk2UHhMbGJxMlgxeDQ3b2hJcG5GK3dobjF1VUly?=
- =?utf-8?B?d1VKalBMeXAvdFpiOVd4dEE3Umh1T2FHeDE0amZ4QVFJTmZUNXBMOXowTXcx?=
- =?utf-8?B?bTJuNExWVHhMYm5QODVIVnJUTnUzR2ZnWGpocWJnNFFWZ2U0bFBxRjI3UUhm?=
- =?utf-8?B?cHcxVEpRTW9qZm9FdXV2a1FGRmQ1V1dwUDZrazUzZHlCclorUmhraHRLeVQx?=
- =?utf-8?B?a0wxTWFsVjY0cGFQRXlPUjdyOTJoWHYzaFVXSlNCM25UMW5wNFloaDJpVlBF?=
- =?utf-8?B?Y090VnBybnJ6ZkptN0FmNjRTUU9ucm5lTzgrY1l1OU9tUUZVaWpLbFhQbGpW?=
- =?utf-8?B?ZytUMnhuakZyZkYwcEhkYVc3TzIvcGZmYnVLa0lWMC9hREluMGFlaXNDQUpT?=
- =?utf-8?B?blR0OSs3aTh6UTJUdmRsSVNlWnZwdWErSzdaK2lPQm94MEZsbWo0VFVFVS82?=
- =?utf-8?B?ZUlXQk9XQ2cydGMrdWtlRko4eEJHUnhtRXU4SXVBQk9CeHNnbTBzVU9tY1g1?=
- =?utf-8?B?eWhIclV5L2xSL0VtTzBWSHJYS1dHNDR6UVNMak9wMWxhVVdWZWdpTXhYajgz?=
- =?utf-8?B?c05YN2JsaXEyRTl3QWd6elpRYXhFdjNVTlFJanBuZElpZWd4NDhmU2xweE12?=
- =?utf-8?B?TFByWE96bDlMODRvbDZFcnhZK2t3VEw0OTNRR3YxZzQvMG5uRHZlT25MNDRj?=
- =?utf-8?B?OUFEQ09sdjdKNGl4UVRMeUltMElGYkY4Z05ZeFVOUjcySE05U0swM1FXT3U1?=
- =?utf-8?B?S1ZmcS9oWWpqSVF5bFVTRGtZeVVsTG1vV3hsa043bGMzUU5jampLVStJWE9l?=
- =?utf-8?B?ZmJPWDV2ZEtkYVo1cHlnWVhRODJ2ZmNiTnRaN2EzcVFuSGoxNTJpVFdnbVUy?=
- =?utf-8?B?VmdyUnlnMTJ5UnVTUkxnUXlZaUY5RGdESUpYZS9YbXNyTlpjZU5VWWtxUXZm?=
- =?utf-8?B?cXFBMVlUUXBUTkNjOUJMcC94SUNBaFJ6c2xmYXFLN2ZmY1pld0xrSWR3ZUFh?=
- =?utf-8?B?Vk9tbUtPcnRMVU1YdE9WNUg3dkpqTVdXNk1VV204blQ1aG0yTVNwSXovV3Y4?=
- =?utf-8?B?c3l1dTVzN3YwVE5RcWlkalB2Yy9kNXlmMU1ocTJ4QzRzbFAyWmhyR1doV1F1?=
- =?utf-8?Q?r15hC43LoXYMYoD+bD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5c21178-2935-4c17-2af9-08df1598cfd8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 15:23:37.7630
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d3Q4zDZETqKadT+q0wgEDbDaPceJt4fXR/MgVrG/jUWz3d6DE++cQMFY56KeXTDA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4442
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] PCI: of: update endpoint ranges dynamically
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com
+Cc: lizhi.hou@amd.com, herve.codina@bootlin.com, andrea.porta@suse.com,
+ daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
+ mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260910021919.3421449-1-elder@riscstar.com>
+Content-Language: en-US
+In-Reply-To: <20260910021919.3421449-1-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 9/18/26 17:16, Catalin Marinas wrote:
-> First, none of the DMA-BUF maintainers have been cc'ed. It might be fine
-> for an RFC but this series got to version 6. We need their feedback.
+On 9/9/26 9:19 PM, Alex Elder wrote:
+> A PCI endpoint bus is a devicetree construct that allows a PCI
+> endpoint (function) to have sub-devices defined that are accessible
+> in an SoC via the PCI endpoint's BARs.  Such a bus is represented as
+> a devicetree sub-node for a PCI function having the name "pci-ep-bus".
+> There can be one or more pci-ep-bus nodes.
 
-Yeah, thanks for doing this.
-> On Fri, Sep 04, 2026 at 04:04:50PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> The system heap can allocate buffers that are decrypted and shared with the
->> host. For confidential-computing guests, those shared buffers must cover
->> whole shared-buffer granule; otherwise a userspace mmap of the dma-buf may
->> expose only part of a host-managed granule and allow unintended access to
->> adjacent private memory.
->>
->> Require cc-shared system-heap allocations to have a size aligned to
->> mem_cc_shared_granule_size(), and allocate pages at least as large as the
->> required granule. Keep the allocation bounded by the existing heap orders,
->> but fall back to an exact minimum-order allocation when the required
->> granule is not one of the preferred heap orders.
+Does anyone have any questions about this?
 
-Uff, I don't think we can do that.
+The devicetree pci-ep-bus mechanism defines one or more buses
+under a PCI endpoint function node (either one per BAR, or one
+node representing more than one BAR).  Being a bus, it depends on
+ranges properties to translate between the local (BAR) address
+space and the parent (PCI) address space.
 
-That is massively platform specific behavior in a non platform specific code.
+If a devicetree node is predefined (as is the case for the Toshiba
+TC9564 SoC), it cannot correctly define an endpoint's ranges
+property, because the PCI address space is determined dynamically
+during the PCI enumeration process.
 
-When the architecture can only expose unencrypted memory in larger chunks than the only real alternative is to use bounce buffers and those are incompatible with DMA-buf.
+This series addresses that by replacing the PCI function's
+devicetree ranges property at runtime, to reflect each BAR's
+assigned addresses.
 
-Additional to that you can trivially circumvent this with a memfd and udmabuf, so you most likely don't win anything with that.
+There exist other users of the pci-ep-bus, and in particular
+the LAN966x driver generates an entire devicetree node to
+represent the PCI endpoint function--including dynamically
+generating this ranges property.
 
-Regards,
-Christian.
+This series intentionally reuses the code that generates
+the ranges property for the "fully dynamic" case used for
+LAN966x.
 
->>
->> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
->> ---
->>  drivers/dma-buf/heaps/system_heap.c | 50 +++++++++++++++++++++++------
->>  1 file changed, 41 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
->> index c8959eadc71d..9cbfcebe2088 100644
->> --- a/drivers/dma-buf/heaps/system_heap.c
->> +++ b/drivers/dma-buf/heaps/system_heap.c
->> @@ -55,7 +55,6 @@ struct dma_heap_attachment {
->>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
->>  				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
->>  				| __GFP_COMP)
->> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
->>  /*
->>   * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
->>   * to match with the sizes often found in IOMMUs. Using order 4 pages instead
->> @@ -375,26 +374,44 @@ static const struct dma_buf_ops system_heap_buf_ops = {
->>  	.release = system_heap_dma_buf_release,
->>  };
->>  
->> +static struct page *system_heap_alloc_order(unsigned int order)
->> +{
->> +	gfp_t flags = order ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
->> +
->> +	if (mem_accounting)
->> +		flags |= __GFP_ACCOUNT;
->> +
->> +	return alloc_pages(flags, order);
->> +}
->> +
->>  static struct page *alloc_largest_available(unsigned long size,
->> -					    unsigned int max_order)
->> +					    unsigned int max_order,
->> +					    unsigned int min_order)
->>  {
->>  	struct page *page;
->>  	int i;
->> -	gfp_t flags;
->>  
->>  	for (i = 0; i < NUM_ORDERS; i++) {
->>  		if (size <  (PAGE_SIZE << orders[i]))
->>  			continue;
->> -		if (max_order < orders[i])
->> +
->> +		if (max_order < orders[i] || orders[i] < min_order)
->>  			continue;
->> -		flags = order_flags[i];
->> -		if (mem_accounting)
->> -			flags |= __GFP_ACCOUNT;
->> -		page = alloc_pages(flags, orders[i]);
->> +
->> +		page = system_heap_alloc_order(orders[i]);
->>  		if (!page)
->>  			continue;
->>  		return page;
->>  	}
->> +	/*
->> +	 * The required minimum order might not be one of the preferred heap
->> +	 * orders. Allocate exactly min_order when it does not exceed the
->> +	 * remaining size.
->> +	 */
->> +	if (min_order && min_order <= max_order &&
->> +	    size >= (PAGE_SIZE << min_order))
->> +		return system_heap_alloc_order(min_order);
->> +
->>  	return NULL;
->>  }
->>  
->> @@ -409,6 +426,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->>  	unsigned int max_order = orders[0];
->>  	struct system_heap_priv *priv = dma_heap_get_drvdata(heap);
->>  	bool cc_shared = priv->cc_shared;
->> +	unsigned int min_order = 0;
->> +	size_t cc_granule_size;
->>  	struct dma_buf *dmabuf;
->>  	struct sg_table *table;
->>  	struct scatterlist *sg;
->> @@ -425,6 +444,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->>  	buffer->heap = heap;
->>  	buffer->len = len;
->>  	buffer->cc_shared = cc_shared;
->> +	if (cc_shared_buffer(buffer)) {
->> +		cc_granule_size = mem_cc_shared_granule_size();
->> +		if (!IS_ALIGNED(len, cc_granule_size)) {
->> +			ret = -EINVAL;
->> +			goto free_buffer;
->> +		}
->> +		min_order = get_order(cc_granule_size);
->> +		if (min_order > max_order) {
->> +			ret = -EINVAL;
->> +			goto free_buffer;
->> +		}
->> +	}
->>  
->>  	INIT_LIST_HEAD(&pages);
+This series (or another doing something comparable) is
+required for the TC9564 SoC to function using pci-ep-bus.
+
+					-Alex
+
+
 > 
-> You need to get a proper base so that Sashiko can review this series. I
-> ran it through Claude and the above is wrong to go to free_buffer which
-> walks over the pages list that has not been initialised yet.
+> A PCI function with a pci-ep-bus devicetree node must also define
+> "#address-cells", "#size-cells", and "ranges" properties, to specify
+> how endpoint bus addresses are translated to the PCI parent bus.
 > 
-> Another issue, I'm just copying it verbatim:
+> An endpoint bus address has three cells; the first indicates which of
+> the function's BARs the address is associated with, and the other two
+> specify a 64-bit (2 cell) offset within the BAR's region.
 > 
-> drivers/dma-buf/heaps/system_heap.c:379 (patch 7/9)
-> system_heap_alloc_order() picks "order ? HIGH_ORDER_GFP :
-> LOW_ORDER_GFP".  HIGH_ORDER_GFP clears __GFP_RECLAIM and sets
-> __GFP_NORETRY, which was fine while orders 8/4 always had order 0 as a
-> fallback.  The new min_order fallback at line 411 has no smaller order
-> to fall back to - it is the mandatory minimum.  On a 16K-page host with
-> a 4K-page guest, min_order = get_order(SZ_16K) = 2, which is not in
-> orders[] = {8, 4, 0}, and order 0 is filtered out by "orders[i] <
-> min_order".  Every tail allocation below 64K therefore goes through the
-> non-reclaiming fallback and returns -ENOMEM under pressure that ordinary
-> reclaim would have cleared.  Note any fix must keep __GFP_COMP:
-> compound_order()/page_size() are used on the result
-> (system_heap_set_page_decrypted(), the free paths and sg_set_page()).
+> BAR base addresses are determined dynamically by the PCI enumeration
+> process, so generally it's not possible to include them in a static
+> devicetree file.  When this addressing scheme was introduced, this
+> was not a problem because the devicetree content was generated
+> dynamically--after booting--based on the information (including BAR
+> addresses) available following PCI enumeration.
 > 
+> It is possible (and in some cases, necessary) to define the devicetree
+> nodes that represent PCI devices ahead of time, in a statically-defined
+> devicetree file.  In order to support the PCI endpoint bus model in this
+> case it is necessary to dynamically update the static devicetree so that
+> the BAR base addresses assigned during enumeration are reflected in the
+> endpoint's "ranges" property.
+> 
+> This series implements that dynamic update, leveraging the same code
+> used to create the "ranges" property when PCI_DYNAMIC_OF_NODES is
+> enabled.  The first patch makes an argument to of_pci_get_addr_flags()
+> optional.  The second patch separates the code that dynamically builds
+> the property value into a helper function, and the last arranges for a
+> statically-defined devicetree node for a PCI endpoint to have its
+> "ranges" property updated (if it includes a "pci-ep-bus" sub-node)..
+> 
+> 					-Alex
+> 
+> Note: this series is built upon these patches:
+>    https://lore.kernel.org/lkml/20260908213459.2519059-1-elder@riscstar.com/
+> 
+> The entire series (based on v7.3-rc2 and including those prerequisites)
+> is available here:
+>    https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v2
+> 
+> 
+> Between version 1 and version 2:
+> - Included the first patch (which was previously posted in a different
+>    series)
+> - Modified the last patch so the ranges property is updated only for
+>    PCI endpoints having at least one "pci-ep-bus" node
+> - Rebased on v7.3-rc2 (and the prerequisite series)
+> 
+> 
+> Version 1 is available here:
+>    https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
+> 
+> 
+> Alex Elder (3):
+>    PCI: of: make a flags argument optional
+>    PCI: of: introduce of_pci_build_prop_ranges()
+>    PCI: of: introduce of_pci_update_endpoint_node_ranges()
+> 
+>   drivers/pci/of.c          |  89 ++++++++++++++++++++++---
+>   drivers/pci/of_property.c | 137 +++++++++++++++++++++++++-------------
+>   drivers/pci/pci.h         |   1 +
+>   3 files changed, 173 insertions(+), 54 deletions(-)
+> 
+> 
+> base-commit: 857c3561ea9f2c3107b5c6d830d3b3face159cbc
 
