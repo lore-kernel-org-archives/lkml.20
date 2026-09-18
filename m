@@ -1,111 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664663D9680;
-	Fri, 18 Sep 2026 02:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385E72135B8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699256; cv=none; b=kBvSN2+MYKt0qjsCjR+HEZbIwMilgt+xGE869+lbETFZYLQvtUkN+IjpGAJZodlSvoum2x+c1EuD6yYm9ZEWfsaKI7DdXPxKK4YG8Qk9XDBJDColCV8fs2iom1Gwa6pjSuybb2ak+tvolEkSzM3vaMtF94gtdq+tghyFi9TaftE=
+	t=1789699387; cv=none; b=K3qwGATobipFc1OwECqNVNntVSi2RfNuehHtn08LjXwka0s3uyQjvFRgQHzFmlU3RiEnc3myO3C63Vw8Vd6rD85u8SeC/t9u2pNNgFhpYyvb9xp7ZAVrdHHngG8e7MZbuthntq0eOeMauS1I6eqTJylOt0qMHz7KQ7l/evpHkl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699256; c=relaxed/simple;
-	bh=vX1oH9OH1GKzwXjdYNaZSPlTagRimiE4pEJyduCBULA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=omTIARyc91bwF3eWwyhaCWCgFhTiC7vsIBmYf6usVR8QP0sf9cS/Qi9ggJTz8/oS/tMEPvhxnZdYIsxCkOpwczcVxvTrjURsQclUCondUQ26K1Gji/YjcYkxQTOYd95EcimIRA998TttiABZdEwoEzixbDSt0yYLBaUN6J/jD8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQdS4Tk1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789699387; c=relaxed/simple;
+	bh=G3dURyHBUsICEwcTyMrIFBFXHTdN1aL9C3KaqyOtbJY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=YIg/AwQBF19l9JJP49KMLyKR44zsqbJ635Qfzaadct1D98XrQjiJld4M/Mqtljp+Rs1XG1JSj5Zn4gxJajMQkBXsnKRgGg7Pq76qwQFlNjRXvAXHIwTzUDO896j+UuFsMiLcLJbVuBWa6ir6FHqeAq7CZ7bencgW714DTu821xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RxgqVmHB; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQdS4Tk1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E32D1F00899;
-	Fri, 18 Sep 2026 02:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789699242;
-	bh=5IeGjUN7fXw7p9Xz+5Tbudirtuv11NiQpLTAxyNiadk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KQdS4Tk1uWgHQaFv98UNLA8tQ4F7LMlO26PIbaun98U7pnsFLktqyO4rBxIJGDyi7
-	 VLJ+4vELWdYbwvUuRn95XFscFcCddNGz7Q9TH6y8TvhBIDAO4v04w+fdEAABZh+5Xg
-	 ol5uIEislJNS39VC3A5qrg0dU7zayRb1copPl0FvZrn4yYy9DSIO8/826UikCpcfSH
-	 wwuaoa8X9x0SUGyRTu20Rhz4YuLo2BMVV0zHMxXZYZXLjQGeLwZSxXQseUys67CtkE
-	 S0JUrGA7gjyyOYVf9Xmm6t4GuJ/QmLwrGjwrjgZ/YV/tpKPmqHWP7+MQ4yW7pica5c
-	 6VG2IiVNUzFAQ==
-From: Yixun Lan <dlan@kernel.org>
-Date: Fri, 18 Sep 2026 02:40:15 +0000
-Subject: [PATCH 3/3] dts: riscv: spacemit: Add power domain nodes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RxgqVmHB"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so180429a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789699367; x=1790304167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pChBH6fnUF5InIxQDkQOn83gyJog7ZSG5ECzSiY4hs8=;
+        b=RxgqVmHBuiFZlbddKnPcO7EnEgutRDYgwrLSdLO2TOaVOxBWqlWwsFXwYNdECzF2z+
+         xkJv7/nLlKjg+dByOv2+uqXo/aZ2xsPaLkPjeBjlpiMnKiJlW9XGA6aXPo6weh7exsMA
+         ddY/IdqmL9dTlWsncRwb50RFbHtGhzQMGXkVpfQTUtR0BJzuEYAujT5+WioVGb2oZoph
+         vPrpMW4P27PWLft6gFo5pGfZP6EIiAmIMHrFrhUoGO5OpgheHl3pFlBUkkgLLyu3IFhg
+         faFafbq48CZ+92oCqUbjzLotDQEIzpVWUfhpjZO/rl/d+yZJ2PHjH2XvImXVJ8t6x6SR
+         uu+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789699367; x=1790304167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pChBH6fnUF5InIxQDkQOn83gyJog7ZSG5ECzSiY4hs8=;
+        b=oMhgSgqJwdWOUMYw3sL25vDsaxetM3LXyIZbFVoq0jomDQS2WOWOTVpdUl3IKRtQIs
+         tL39dgIOhEylnh3cUBz5DXDqjarDLy1BlQBI469epQw7MXORN9aX5BBCKhHhiY+71Bdm
+         EibKKdh8AlJS9Yx16q2khrx2LdsA+JzbWWx/SM31J+OWYZWTJj0hk2lgbtftixQKS4qy
+         Zeeo3aknZh4jG/rFAMl3Qbyq4VIYWQvTYT5g2Yiga4n8q1BrsEBTbVU9dDi2fcS/MCcf
+         Ms/QaPyzKD01sb7BXdZRxqZRLi5w/EfLISW3B6E09x/lS3WOjbOq9ukWCsvZbfo74WQh
+         XK6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwjDpQXlYKYKubnteiB2gD3V1pu623imRFMEr+WKbwLQ6TNA4GXqodENiCbXRn1iwwZhBOqlIV5KQcQODA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ng+Y0u7YZpZxjHP0a3LqedyZKa9iQsCmaJzFk0JH8gmkyM4bAo
+	Xy6LtDzjPS5/wGH0keyLs5e0L7oO5qyTW1tVLM3x2ZB51ClIHzitQ8UX
+X-Gm-Gg: AYBFou2uj9mw9BqVkpOK+DSLoo+cFJ0BQV4nU6d3yAXv1EEenWGP3eX1oQnABLyjPNW
+	eadY762Fd1I5tj8rRUsb0ZGQxtCNIy8ErpHRZWLzsMFp3cdaWTWlnD80JpImoti8rlYdf1ND6Ji
+	wUbJKULMPPz07EIwssNAKgySFtlshSUgngCV2IRp7D2FEDTf/cLgfZbkdwvreBK8nduDJ9cJDKZ
+	LODKqHew+tOa6A+qIlpW2V58z20uQxyKpEfNF80E9a5hYpMydeMyharH1MBZP/SWDIVWqeBHDQf
+	3hYf0N7ynZpEBe5EOPNpfqfqxXAEUBJdnZnPjkhOWhvRAq7b2P3HErBMumhmZFe9Bag75Tfazl1
+	C+BKl/KfhLxX3PPYrRSAGGp4TXU+7yzGsJgUEaatguoeRjC6wvF9NKly8lBZde182ylvn9Jr3gs
+	xeibiyW8fPaUMDAbfFdWapqny3zFsNWEB/w7ElRQidSBuAn5Q7sVBWn02l7mOHOnzM2GFL1cug7
+	6JB+YAX8uUHRgM5Sv0cz4Fjo4o=
+X-Received: by 2002:a17:90b:39ab:b0:39e:34d6:7eb5 with SMTP id 98e67ed59e1d1-39e54b85746mr2288555a91.9.1789699366611;
+        Thu, 17 Sep 2026 19:42:46 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a53e4e1sm550938a91.13.2026.09.17.19.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 19:42:46 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: kmanaouil.dev@gmail.com
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 4/4] mm: adjust free_pages to make __zone_watermark_ok() mTHP-aware
+Date: Fri, 18 Sep 2026 10:42:38 +0800
+Message-Id: <20260918024238.31128-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260917171642.b4pkhqmvjwnq3vmq@wrangler>
+References: <20260917171642.b4pkhqmvjwnq3vmq@wrangler>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-04-k3-pm-support-v1-3-0acd2b36b96f@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-In-Reply-To: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1187; i=dlan@kernel.org;
- h=from:subject:message-id; bh=vX1oH9OH1GKzwXjdYNaZSPlTagRimiE4pEJyduCBULA=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqrKSYUhRJxzcpB1oSOW2nwIHpBOLxwgymvV4sZ
- Zmsmiq81tqJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqykmBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1xiA/9Fezfv05YmStKUfOLohH7paXlxs9vU1Fs21qaZNxdYpg8xj7+ZH9g1
- HSn0f6zqSa8EkEOZtHAc19ifc0lLKOhMut2cinhP8QkQMr1qH2NS42Y/RifE+x9TJEsEPbvvUi9
- 3+0ty1MibOUBI9oTdPSi2XROGHD7ydw2VCPZfBsy/BRHp1p71XEDJn9irkGVUbLUyjy+1DpJp/c
- j8472nDjbNDraMwh3HGUEAjSY3gLnV4KbsQyjGoeEdbVv8zLoky0OUljxqMFwllM14Yefac9q48
- 8+Ar6xPGnZjYqFj8TzkzeOjrga06kkeB4JukvLInvhaB6OmOJdEu1MOr6pys9uoSQVuJz2HS2rt
- 4+hyu9VvifpnwZbQh3vb9IgDmDkGolyZM6P4Y4jCObu/jy4/bWeJeQD0htZxOKK45W+D2D4Hp6J
- 1ZaMYo6oQIZynXMlvXqba4nbhLS4yI3njX7ir0NbGnrYTUtkM4hTmzwSzmgqOa/fC+FaS/N6QTn
- rJzCeJUmZiXRD32e7YvdKoTJpnYMIPFV/ttKewnZI8KYU+i0tE3EBuiXdnnmTAMNtBYsywEojIE
- JuxQ3DhZ7dUKxwH5es1ubSTtnj+Pakis3BCgBPb29EQ7+ruhy8SC/MobRyw3UdWP6RhyPiafKzG
- tYR+Af4YQcKAkO/54KJ3BOmMWGeFHQ=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
+Content-Transfer-Encoding: 8bit
 
-Populate the power domain device tree nodes for K1/K3 SoC.
+On Thu, Sep 17, 2026 at 06:16:42PM +0100, Karim Manaouil wrote:
+> > +	if (READ_ONCE(huge_anon_orders_always) && order == compact_hpage_order()) {
+> > +		unsigned long free_pages = 0;
+> > +
+> > +		for (int o = order; o < NR_PAGE_ORDERS; o++)
+> > +			free_pages += zone->free_area[o].nr_free << o;
+>
+> I understand that you don't need a precise value here, but in every
+> instance in the kernel source tree where nr_free is accessed, it's
+> accessed under the zone lock. Do we need to use READ_ONCE()?
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- arch/riscv/boot/dts/spacemit/k1.dtsi | 6 ++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++++++
- 2 files changed, 12 insertions(+)
+Good point, thanks. The nr_free read here is an intentional lockless
+estimate. I'll annotate it with data_race(), matching how
+fill_contig_page_info() in mm/vmstat.c reads the same
+zone->free_area[].nr_free field without the zone lock:
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 3fabfd34114b..871c913e6fb4 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -1352,4 +1352,10 @@ emmc: mmc@d4281000 {
- 			};
- 		};
- 	};
-+
-+	pwrc: power-controller {
-+		compatible = "spacemit,k1-power-controller";
-+		spacemit,apmu = <&syscon_apmu>;
-+		#power-domain-cells = <1>;
-+	};
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index c3f2dce0969c..1bf25a657762 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1306,4 +1306,10 @@ maplic: interrupt-controller@f1800000 {
- 			status = "reserved";
- 		};
- 	};
-+
-+	pwrc: power-controller {
-+		compatible = "spacemit,k3-power-controller";
-+		spacemit,apmu = <&syscon_apmu>;
-+		#power-domain-cells = <1>;
-+	};
- };
+	free_pages += data_race(zone->free_area[o].nr_free) << o;
 
--- 
-2.55.0
+data_race() documents the intended racy read and keeps KCSAN quiet.
+Happy to use READ_ONCE() instead if you'd prefer.
 
+Bo
