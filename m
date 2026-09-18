@@ -1,126 +1,179 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00A63B71DF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697456; cv=pass; b=kAe/zdMG0UahPZdbt+mNd/Huc6VT+Sg58VoiUWIoVyH5uh4alUfWQbIVtqJUN88S8yCJzSWcFpttXq75uq5I/H1/QsQvYPV4HWlWBp/QdeE/0lemNAqzjCtB5jWa8raBgsVaWZWknYsYdlJpe4iJg8mUn3mjJiFkN4kjvf81uPc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697456; c=relaxed/simple;
-	bh=1sQBP7SrkiTRTrgayl1ZMm59v8E7DacBcXYFi37yUzk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RiuFTta7WnMLv9FhoxTeUO0XUmNM3wWAz2Q0Q62GLALecEmmodGKb5u6H1G1p5jjWWV/Kv/PgZcNarbgStgzIh3UsTfJXe5N5dRphE7xq4PbglhCMcRutGPwFWX6DrGY8Ar+/gWlVRdGKAu4ipTjcXVkkIe7LchhksxxrcHEi10=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PHl6crkm; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFAC3BBA1D;
+	Fri, 18 Sep 2026 02:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789697474; cv=none; b=j7+txDAPVDYTVJAw9TvtYieFeDWfq6DG9NNcLsYF9tmRoOBlWY+foVvS2zEli24uQvEbsfii6rhh3ufF6V8p8zTHdbSnnuqW+odYLrwCGolpN75V1ZpmaAreXf59ji11BLYioPODZ+lN2n5gL0+VCAjJf3Icd2woiTS2PEFneeQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789697474; c=relaxed/simple;
+	bh=xbiuMgJRxS3Joty81s86GEbj8KsBkj8yZdH5VKGvbXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D/j6o/XhKwGwnhzqfId57FSUSZBfYj2NpbSG1Mmkf5D1ofHziyP+YsnB1XCwNzWHKoVZtpRQ8JYFTWDDT3RTP6nLuXO2arI8FQ9sRrrXuigdZ86sRLmYHqv1kc1c8/xXObHViOQE5krb3JcBeM9qp6SKvXm85SAe8rLwSX+Rk3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gv6JPFnu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PHl6crkm"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334ddcso2011585ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:10:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789697438; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hSKXtXD6/hW6Vio1TGV5ivWUGG9kjoVvORfhjOL6bJWByCKDdSmttbUM/YG3Gf/Xh9
-         yqIUkflWQfoSYRYGZ591TANWI18rRsW6jAcUQOnC6Z/xK9ulhLQ3KWH2WClPkl0Dd53m
-         Ae/0P4LDp6eZ+xoxZ1ug+HAAbef+iSu9enOuvSuVcoW6csX9WtxKqwPQl/d1MzR8uoOj
-         AImYtoVxh/JsX2hSwuVpK8W1D3SmZ2YXhHjO+q4FkCMMGtQfxI363pHScRcw0RizAOyS
-         +UU9RFbiu6ISh8nPsQ2KeA+DHujJo/d95fbjH511Ysnp8K7DFJy6YF0ZKyyY1Mu8ZH0t
-         EHlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1sQBP7SrkiTRTrgayl1ZMm59v8E7DacBcXYFi37yUzk=;
-        fh=owtJG34zXOFk3gCm/R2fbTtlMM+WtslJPkis8KNMGYM=;
-        b=sdiYhURfnyf8giyT/YBneSpCTeIewMzbyjZHAAv/z0/+6tB3VR1eS9GxVyxTmZOzpy
-         Jce3mQK269OQt0TOG3dY4znsGGAbgS1g5WvRNPEmZ9xyu21I0pi1CrCQofLB/OGeFvuD
-         w8rDrtUctzrWbCMpUaUHW2kj2LGu0PpNn3h1YXh9qC/x0GFTOSFI2w4l0GW8gPHI8NgG
-         kX2+0ZCYa8vpPCgIl0NF/wAv5cjzVX71rfS0ozX9Bx80lA7jgAArpEXi5mm74HG3kPGa
-         OJE+AjI9galKt1u6CKRMQtBKKQOluyYBQjCH+z5yFOLsFsVFmFxB7afCA37t3WB+4FQx
-         NztA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789697438; x=1790302238; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1sQBP7SrkiTRTrgayl1ZMm59v8E7DacBcXYFi37yUzk=;
-        b=PHl6crkm73fjSPV3qwbNtdvvgUWfbFJUu75vjkG0WS8aNCEeA9ORcN7EEAakPNDLZ5
-         YB0c1l6muddfY2jMfAQbqpw4I4dWROiCXZF1IOOVHmkEtTxJa7U1UFn9/7Rjzgsq4gqj
-         mGosE/A6baJb9wFmCGHdBM8339JPjthQurWwpUx8s1xPYo7g5HZRuOKQzWDUcuPv67RV
-         gcwXPG5GYg9XVP9gBkTahTWAq7ffG0ho0Oe4OAspYvF/cVgFb4gtmCith421CtJ5jkNj
-         D+sOxmb3qQRRU1EFopCNaNUCXF6nV8AU0QoV5yzEmMUQo5QRJMI6Bav76IMMwcKU4C8x
-         vbVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789697438; x=1790302238;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1sQBP7SrkiTRTrgayl1ZMm59v8E7DacBcXYFi37yUzk=;
-        b=dkVETUBk8Q2viy9AUvQBRky97S+sLUCWTdqt1G21ddDbjDFR9lM2aCOOoNwjN+8UpW
-         +RNEPK3GA8B8JUn35dfU6xPZqHdbMYpJsZeC60sQ1aG7TZingMx0TsfMD18KMuTLBvAy
-         BkkAC2UbCXGwCAV8Tsn5RaAWUVz7BRBhJ8akPlIm9Lcn4d+yD5FyUwxnzrxvqB64P+eJ
-         PXo7ZD5UYLo4N9z09Lz6iIeOMPkvR+94AaNsSgh8X+/GCSZBgnncMU7lWii6i0mutUby
-         93We1uRGS/4A0faW/nR+V796ZC+ckQzNbdSTOESwwRqQt87Zlwqc8jSOciVxlZ+fPVf6
-         e/MA==
-X-Forwarded-Encrypted: i=1; AKwUvByadXPx22bxKgcZw6KdMO2kCLg9qjOOtSfEz8A6NmhfI441AjYRacX9blzdxcf87caXu5uc0xcXS186kMo=@vger.kernel.org
-X-Gm-Message-State: AFuF++me0pD4I5BzDJHXne+r57y7LTTu9tTHrRx+Xtvwr06uuPu0DVa/
-	GaVqpStwHmML6aMB2Q5VLwQ6ebTBwSJP3Yz6Ej/XYsYLiJQW6wyywmCt99mCUTc4yVaa+9iSl1z
-	obhr/2dQyirDtn6Ttri7SEet4pSu+Oj0=
-X-Gm-Gg: AYBFou0rDp2LfyKwCi0lRuSeWu45IYBFUaWuTjOLvh0u658v6fbQd7uZVDmEDejzkoB
-	Muf5XPxq6Tybc9JZCWA4EpWHz6iXL86talCOVVgQ2hJHJdVSL6fmMRH4aQpq2JlaJBEpyPSG3ru
-	TxYmmWWDVfr17R8mml+9ucj0Bx+TWOEsVqzI+6/zgakt86odc67kFhXx8y7IxoQd0WkrVOLSUr/
-	Z0BUng2KJXv/jGzdNGPfcGj3lkPqAu7LbZeOY81Iaz2QNJ50DjPrANXIcBpEFqyg7BXajhLBg3S
-	tdZ4aCrQMT4VHfu4AzC6Owyyvl3dhiq8hFIbBPG+Knb+XPkqz2/dlLBmAO/FurtOoSf0wHMIq7a
-	4GiP0g/gJpYKfEySqmgFK1+QmBLREc5ypolI3EqQKhcy2zAq69oG57jCoo1bVMjtA8T1MhQ5kiQ
-	==
-X-Received: by 2002:a17:902:f68b:b0:2d6:fee6:65ae with SMTP id
- d9443c01a7336-2ddb1ab3983mr24249855ad.4.1789697438293; Thu, 17 Sep 2026
- 19:10:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gv6JPFnu"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 40E871F000FF;
+	Fri, 18 Sep 2026 02:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789697455;
+	bh=KddPLoNfzs7OEm8VmRCHbNNf5ZVXDctzT84aZOT3unQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gv6JPFnurqYQiNm/uWlm5SIR4LG2I+YvdZTB6CHx2LEdJut+BRtdKkHUUGODUADOz
+	 7klD1SQQvdd8bPXtBZH8CV/k0zO0MSc4xnjKEyox5eIxDnfkbnjUxCgK2lKuJxUCGe
+	 nUVg2/tGBQ8M1RvwoHHS4Q1V+NQwILeQ79xTJrqc3rHLrMqlnovVo7SDOzljfY+x4q
+	 gUanXCK2SmzHZGIiQ4fRzJHoFHhLLT7Bpd9dWpeZ2GbK7weta85yu97G+K8ulZELra
+	 cf91M3FazVeSNtqFZRuacFuO/bl4Da6mErQwynfy3Gnz4NL6mkqh3bdul0l/r5jrXz
+	 SJsCYkHSxtaUw==
+Date: Fri, 18 Sep 2026 05:10:51 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH v2] keys/trusted/tpm2: Validate TPM2_Create object sizes
+ separately
+Message-ID: <aqydqxpVmp67kTQO@kernel.org>
+References: <20260910100222.247529-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911135711.109338-1-jiayuan.chen@linux.dev> <20260917185926.1bb7c430@kernel.org>
-In-Reply-To: <20260917185926.1bb7c430@kernel.org>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Thu, 17 Sep 2026 19:10:27 -0700
-X-Gm-Features: AcwNN1X9hXr2f0Sb6Klu9W7uMPQkOFPox7maFcjw4UGshBodQT-bZgDlH6jEEwg
-Message-ID: <CAADnVQKaXUj2uxgqerh7N_CDxneg2AgF9VJ2SddG=rgn1de1sQ@mail.gmail.com>
-Subject: Re: [PATCH bpf v3 0/2] net: xdp: fix bpf_xdp_shrink_data() page
- handling on generic XDP and veth
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, bpf <bpf@vger.kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Hangbin Liu <liuhangbin@gmail.com>, 
-	Martin Karsten <mkarsten@uwaterloo.ca>, =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>, 
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, Eelco Chaudron <echaudro@redhat.com>, 
-	LKML <linux-kernel@vger.kernel.org>, Network Development <netdev@vger.kernel.org>, 
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910100222.247529-1-ssrish@linux.ibm.com>
 
-On Thu, Sep 17, 2026 at 6:59=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Fri, 11 Sep 2026 21:56:50 +0800 Jiayuan Chen wrote:
-> > I'm always confused which tree(net or bpf) should XDP target.
->
-> Selfishly Id prefer net so that all our CI would just run without any
-> manual effort on my part :) But perhaps BPF folks will disagree using
-> basically the same argument.. :S If not perhaps please switch to net?
+On Thu, Sep 10, 2026 at 03:32:22PM +0530, Srish Srinivasan wrote:
+> TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
+> creationTicket in its response parameter area. However, only outPrivate and
+> outPublic are included in the trusted key blob. The size of the blob is
+> therefore not determined by the size of the complete response parameter
+> area.
+> 
+> tpm2_seal_trusted() currently compares the size of the complete response
+> parameter area against MAX_BLOB_SIZE. This can reject a valid response
+> when the remaining response outputs cause the entire response parameter
+> area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
+> TPM2B structures consumed by tpm2_key_encode() remain small enough to be
+> encoded in the key blob.
+> 
+> This is observed when creating larger trusted keys using an swtpm TPM 2.0
+> emulator backed by libtpms.
+> 
+> For example, requesting a 113-byte key succeeds, 114 fails.
+> 
+> ~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
+> 520504613
+> ~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
+> add_key: Argument list too long
+> ~$
+> 
+> Remove the MAX_BLOB_SIZE check on the complete response parameter area.
+> Instead, use the response length passed to tpm2_key_encode() to validate
+> that the outPrivate and outPublic TPM2B structures are fully contained
+> in the response before accessing them.
+> 
+> Previously, a response parameter area larger than MAX_BLOB_SIZE was
+> rejected with -E2BIG before ASN.1 encoding. With this change, if the
+> resulting encoded blob does not fit in payload->blob, the error returned by
+> asn1_encode_sequence() is propagated instead.
+> 
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> ---
+> Changelog:
+> 
+>  v2:
+>   - Exclude a comment pointed out by Jarkko
+> 
+>  security/keys/trusted-keys/trusted_tpm2.c | 35 +++++++++++++++++------
+>  1 file changed, 27 insertions(+), 8 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> index 01f18bb37047..cbec4f591952 100644
+> --- a/security/keys/trusted-keys/trusted_tpm2.c
+> +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> @@ -24,24 +24,42 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+>  			   u8 *src, u32 len)
+>  {
+>  	const int SCRATCH_SIZE = PAGE_SIZE;
+> -	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+> -	u8 *work = scratch, *work1;
+> -	u8 *end_work = scratch + SCRATCH_SIZE;
+> +	u8 *scratch;
+> +	u8 *work, *work1;
+> +	u8 *end_work;
+>  	u8 *priv, *pub;
+> -	u16 priv_len, pub_len;
+> +	u32 priv_len, pub_len;
+>  	int ret;
+>  
+> -	priv_len = get_unaligned_be16(src) + 2;
+> +	if (len < sizeof(__be16))
+> +		return -EFAULT;
+> +
+> +	priv_len = get_unaligned_be16(src);
+> +	if (priv_len > len - sizeof(__be16))
+> +		return -EFAULT;
+> +
+> +	priv_len += sizeof(__be16);
+>  	priv = src;
+>  
+> +	if (len - priv_len < sizeof(__be16))
+> +		return -EFAULT;
 
-yes please :)
-all of xsk, xdp, veth can (should?) go through net tree.
-We can deal with sockmap poster child until it's cured of bugs.
+This caused for me some head scrathing tbh.
+
+See:
+
+1. len >= 2
+2. priv_len <= len - 2
+3. 2 - priv_len + priv_len <= 2 - priv_len + len - 2 
+4. 2 <= len - priv_len
+
+Is this check required?
+
+> +
+>  	src += priv_len;
+>  
+> -	pub_len = get_unaligned_be16(src) + 2;
+> +	pub_len = get_unaligned_be16(src);
+> +	if (pub_len > len - priv_len - sizeof(__be16))
+> +		return -EFAULT;
+> +
+> +	pub_len += sizeof(__be16);
+>  	pub = src;
+>  
+> +	scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
+>  	if (!scratch)
+>  		return -ENOMEM;
+>  
+> +	work = scratch;
+> +	end_work = scratch + SCRATCH_SIZE;
+> +
+>  	work = asn1_encode_oid(work, end_work, tpm2key_oid,
+>  			       asn1_oid_len(tpm2key_oid));
+>  
+> @@ -336,10 +354,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
+>  		goto out;
+>  
+>  	blob_len = tpm_buf_read_u32(buf, &offset);
+> -	if (blob_len > MAX_BLOB_SIZE || buf->flags & TPM_BUF_INVALID) {
+> -		rc = -E2BIG;
+> +	if (buf->flags & TPM_BUF_INVALID) {
+> +		rc = -EFAULT;
+>  		goto out;
+>  	}
+> +
+>  	if (buf->length - offset < blob_len) {
+>  		rc = -EFAULT;
+>  		goto out;
+> -- 
+> 2.53.0
+> 
+
+BR, Jarkko
