@@ -1,276 +1,246 @@
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3E14B0E3B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B57838330E;
+	Fri, 18 Sep 2026 08:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721337; cv=none; b=BzyVadojl+AjlchV1Dl3Rkr/UgJZLR3nShhTTe5lk4TYL6oI9Q3skrRpKvECIgrczLRf7CwyuIbPkKx8HkH7LJTF35zTQ32KvoiUKyoraltTkdFD1ICuE2zL4Cki/Zr1JQYCgffkgrKnZhuM+RPks7y3hya5FIqNtSlzeVW5QtI=
+	t=1789721340; cv=none; b=nRpADxN2QJOH+hpuL8S1Par6lQH2K5AauGrIKKmI5R5PTaNJDo2VHhtlpG2DZnCn1rGTool5Em6RHRaH2JT6aPg37c/NGtwlrIsj6J+cT/rmffHlGEDziTQK8+5nVikbCDLs0RvPbIwLsGWRyk8jIWXbgieB5tP9pLFnN4Ge2tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721337; c=relaxed/simple;
-	bh=BGRV/j7qC/zFRryyQ69/Qz6UrrritH2vK+O2tUc3+pA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AoQqksCgzY9w7KoDuGP1yhGPLzincl0VwcvT5ovdIlrCSU0T0hnxOJloC9+gcR9FTDjorvDPACR0iIQXCU6Dn7Vg4+83w//hNhowmVzZbnqyiCgOa/dOEVXUjlf48NXlv2KmVcmdNnkc8amTtc6LSIntpO+a2x4GtyqQbd079Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N+eIauUv; arc=none smtp.client-ip=91.218.175.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789721340; c=relaxed/simple;
+	bh=eRKI4hMcS2Wg6ZS51a9HVHd1Gm00mnYcLUI0HEzLMX4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o4ht7xcmiVFnLil+uvcwvNak9VmGvDVuDmHjC2GFPFMFkdIpXn+b672nlEQktJVwsURx5C9G9tHemoYhmkyUY+8zX8myaNKcxjuZPOyHLtRlHoWEUAErxTWmXrz6tc6tRidLSMa8DxoSJR2ohM1K67X2SIcmTcj1tkxjTykhieQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hTUnCbv/; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N+eIauUv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BGRV/j7qC/zFRryyQ69/Qz6UrrritH2vK+O2tUc3+pA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789721328; v=1; x=1790326128;
- b=N+eIauUvk9q0yZwY04e7hswM20JaJhHMg1rsm5Pxz8h9GmWgeU/13NnFpzrfk/AH2+YXEgIk
- d3p51EiZ3CrKDfboFo/JBI9HuHIizs67n7gGPFEhJikQH8YQ8rYal/OzX4pV1O/sDf8J0JYoltL
- 0NwFltHidckM8QCMAq/h/144=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 308a52a5f758be34;
-	Fri, 18 Sep 2026 08:48:48 +0000
-X-Mizu-Trace-ID: 308a52a5f758be34
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 16:48:41 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun <chenwandun1@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
-	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
-	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH v6 03/10] crash_core: fold duplicated memblock arch hooks
- into the weak default
-Message-ID: <aqz66dMlp3NiMifc@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-4-chenwandun1@gmail.com>
- <aqzolBceoRchBdbx@fedora>
- <c58e9b6a-e421-4265-aa77-48c07a4fb8e4@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hTUnCbv/"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61wxq313724;
+	Fri, 18 Sep 2026 08:48:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=t7kkPPAQLSU9pnkgf
+	BPz6kp1jSQR3q76w6P8dKTtqXQ=; b=hTUnCbv/QSsSVIxqTjAvP/5Crlq0IhRub
+	tvb5VXgiQMPZuxy2L9ytp/ODznJQv3TskAH3ejDugK2w5QeLRnuoHKyC27xSmK8V
+	Y3jUCGR+so63Yv4kgurpq+lYg79PxkDacKXw8QFElyRN++hoH56XHMKHJAzcDjFg
+	g2CVzg1oGF2EhF/GGkZ8XrmU9jOFWvXUFOTwlgvX5eQfdR/kwzcHJ5/0JxsX+FkE
+	2U71zU4RTM4tKR/R0qpyJc2ZH8dLmbkvIpggAjPF/sfuo1kDZVUgwXQaTctGfd32
+	0uuHWtOtJsx+haKmrYvo+W6WqYpwO1GQAkHgD6WIOrzr2TMygYPPw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5j6upd-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 08:48:48 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I655nJ251904;
+	Fri, 18 Sep 2026 08:48:47 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3ywm6r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 08:48:47 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8miJg32178450
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 08:48:44 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0E0512004B;
+	Fri, 18 Sep 2026 08:48:44 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D7E9F20043;
+	Fri, 18 Sep 2026 08:48:43 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 18 Sep 2026 08:48:43 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Mete Durlu <meted@linux.ibm.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Juergen Christ <jchrist@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [PATCH v2 06/12] s390/percpu: Rename inline assembly symbolic names
+Date: Fri, 18 Sep 2026 10:48:36 +0200
+Message-ID: <20260918084842.2333237-7-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918084842.2333237-1-hca@linux.ibm.com>
+References: <20260918084842.2333237-1-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c58e9b6a-e421-4265-aa77-48c07a4fb8e4@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX4DG0BHPZtreE
+ ocxnQvYf5Z358wR1ESNNaXopSXUpcwLPCB+v3jK1dpW+a3kU2J1b5Rva0jnxkGdZ0OoufWYfTWf
+ GxJU4t1HkifsJkVxlxuK8lUL8qaOn4/bhwV5meOPnJrf2ZYVP77s7eFaKfniB7WYkYIyITfGniL
+ Dc4dsQRbv9mMsO1+ukOglq3oX1JH8EI7C0uc9cpygLqoW88rVGhGp536a9BTnKXxRKTnkV30WAD
+ 4jpK+O/4dBR1iwdOHCgPu73r+IHo+wpsQnDIYRrw2c2PWt7lm6Ufpq43xgDALTotZeEcThkJYPc
+ kbvw8ge4EdIBQdRjtqYPwKbjnFb3Jzb84d9Wg7Zs1P4RcKACSFmGOuM+osgifulnFcGv6dfEekw
+ FWRmiYGdobtTBftBTw+6QsGDZFfFJippJok1jW8lGdxkocE/OTGQfrt8whuZnKtuNaajVcOH1XO
+ d59RBYI/RpUrGtZ1+pw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX/hBiQ6ZFIaEA
+ bSFqOdHpystdhsIYG2W6Su4yyP4AeIcHBUQVXCOapctljnP20cL/5sGoz1rdgIOksNb/sOQXCph
+ kzfj2M8JQzhATs1gUSZtTF0/C8OB1cU=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aacfaf0 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8 a=4HBEOGDHSRqv0w81nQsA:9
+X-Proofpoint-ORIG-GUID: 5Iuqbgl9mjihvIJLwh2hPAZzGjPMYu87
+X-Proofpoint-GUID: 5Iuqbgl9mjihvIJLwh2hPAZzGjPMYu87
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180117
 
-On 09/18/26 at 04:45pm, Wandun wrote:
-> 
-> 
-> On 9/18/26 15:30, Baoquan He wrote:
-> > On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> >> From: Wandun Chen <chenwandun@lixiang.com>
-> >>
-> >> arm64, loongarch and riscv open-code the same memblock walk in
-> >> arch_get_system_nr_ranges() and arch_crash_populate_cmem(). Move it into
-> >> the __weak defaults in kernel/crash_core.c and delete the arch copies.
-> >>
-> >> No functional change.
-> > 
-> > In one version, you also tried to remove these functions on x86, I could
-> > remember it wrong. 
-> 
-> Yes, the x86 implementation can also remove these functions and use the same
-> approach as arm64, RISC-V, and LoongArch. However since this change would not
-> reduce the vmcore size on x86 at all, I did not include it in the current series.
-> 
-> I plan to refactor this part on x86 after this series.
+Rename perpcu inline assembly symbolic names so they match (more) what is
+specified with input operands. A trivial change which is supposed to make
+the code a bit more readable.
 
-OK, that's fine. I remember I saw the code, but couldn't find it in this
-patch. Thanks for telling.
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/include/asm/percpu.h | 60 +++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
 
-> 
-> 
-> 
-> > 
-> > Anyway, this looks good to me.
-> > 
-> > Acked-by: Baoquan He <baoquan.he@linux.dev>
-> > 
-> >>
-> >> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> >> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> >> ---
-> >>  arch/arm64/kernel/machine_kexec_file.c     | 29 ----------------------
-> >>  arch/loongarch/kernel/machine_kexec_file.c | 27 --------------------
-> >>  arch/riscv/kernel/machine_kexec_file.c     | 26 -------------------
-> >>  kernel/crash_core.c                        | 25 +++++++++++++++++--
-> >>  4 files changed, 23 insertions(+), 84 deletions(-)
-> >>
-> >> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-> >> index 854d872dfd0f..34d944d3f22f 100644
-> >> --- a/arch/arm64/kernel/machine_kexec_file.c
-> >> +++ b/arch/arm64/kernel/machine_kexec_file.c
-> >> @@ -14,7 +14,6 @@
-> >>  #include <linux/kernel.h>
-> >>  #include <linux/kexec.h>
-> >>  #include <linux/libfdt.h>
-> >> -#include <linux/memblock.h>
-> >>  #include <linux/of.h>
-> >>  #include <linux/of_fdt.h>
-> >>  #include <linux/slab.h>
-> >> @@ -39,34 +38,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
-> >>  	return kexec_image_post_load_cleanup_default(image);
-> >>  }
-> >>  
-> >> -#ifdef CONFIG_CRASH_DUMP
-> >> -unsigned int arch_get_system_nr_ranges(void)
-> >> -{
-> >> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
-> >> -	phys_addr_t start, end;
-> >> -	u64 i;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end)
-> >> -		nr_ranges++;
-> >> -
-> >> -	return nr_ranges;
-> >> -}
-> >> -
-> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
-> >> -{
-> >> -	phys_addr_t start, end;
-> >> -	u64 i;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end) {
-> >> -		cmem->ranges[cmem->nr_ranges].start = start;
-> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> >> -		cmem->nr_ranges++;
-> >> -	}
-> >> -
-> >> -	return 0;
-> >> -}
-> >> -#endif
-> >> -
-> >>  /*
-> >>   * Tries to add the initrd and DTB to the image. If it is not possible to find
-> >>   * valid locations, this function will undo changes to the image and return non
-> >> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
-> >> index 5412aa9f3568..481b8f906a56 100644
-> >> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> >> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-> >> @@ -13,7 +13,6 @@
-> >>  #include <linux/ioport.h>
-> >>  #include <linux/kernel.h>
-> >>  #include <linux/kexec.h>
-> >> -#include <linux/memblock.h>
-> >>  #include <linux/slab.h>
-> >>  #include <linux/string.h>
-> >>  #include <linux/types.h>
-> >> @@ -56,32 +55,6 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
-> >>  }
-> >>  
-> >>  #ifdef CONFIG_CRASH_DUMP
-> >> -unsigned int arch_get_system_nr_ranges(void)
-> >> -{
-> >> -	int nr_ranges = 2; /* for exclusion of crashkernel region */
-> >> -	phys_addr_t start, end;
-> >> -	uint64_t i;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end)
-> >> -		nr_ranges++;
-> >> -
-> >> -	return nr_ranges;
-> >> -}
-> >> -
-> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
-> >> -{
-> >> -	phys_addr_t start, end;
-> >> -	uint64_t i;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end) {
-> >> -		cmem->ranges[cmem->nr_ranges].start = start;
-> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> >> -		cmem->nr_ranges++;
-> >> -	}
-> >> -
-> >> -	return 0;
-> >> -}
-> >> -
-> >>  /*
-> >>   * Add the "mem=size@start" command line parameter to command line, indicating the
-> >>   * memory region the new kernel can use to boot into.
-> >> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-> >> index 808e872f4063..fdc6695e8588 100644
-> >> --- a/arch/riscv/kernel/machine_kexec_file.c
-> >> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> >> @@ -37,32 +37,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
-> >>  }
-> >>  
-> >>  #ifdef CONFIG_CRASH_DUMP
-> >> -unsigned int arch_get_system_nr_ranges(void)
-> >> -{
-> >> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
-> >> -	u64 i;
-> >> -	phys_addr_t start, end;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end)
-> >> -		nr_ranges++;
-> >> -
-> >> -	return nr_ranges;
-> >> -}
-> >> -
-> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
-> >> -{
-> >> -	u64 i;
-> >> -	phys_addr_t start, end;
-> >> -
-> >> -	for_each_mem_range(i, &start, &end) {
-> >> -		cmem->ranges[cmem->nr_ranges].start = start;
-> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> >> -		cmem->nr_ranges++;
-> >> -	}
-> >> -
-> >> -	return 0;
-> >> -}
-> >> -
-> >>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
-> >>  				 unsigned long cmdline_len)
-> >>  {
-> >> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> >> index 2b36aa9fade0..77285ae3ce60 100644
-> >> --- a/kernel/crash_core.c
-> >> +++ b/kernel/crash_core.c
-> >> @@ -281,8 +281,29 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
-> >>  	return cmem;
-> >>  }
-> >>  
-> >> -unsigned int __weak arch_get_system_nr_ranges(void) { return 0; }
-> >> -int __weak arch_crash_populate_cmem(struct crash_mem *cmem) { return -1; }
-> >> +unsigned int __weak arch_get_system_nr_ranges(void)
-> >> +{
-> >> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
-> >> +	phys_addr_t start, end;
-> >> +	u64 i;
-> >> +
-> >> +	for_each_mem_range(i, &start, &end)
-> >> +		nr_ranges++;
-> >> +	return nr_ranges;
-> >> +}
-> >> +
-> >> +int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
-> >> +{
-> >> +	phys_addr_t start, end;
-> >> +	u64 i;
-> >> +
-> >> +	for_each_mem_range(i, &start, &end) {
-> >> +		cmem->ranges[cmem->nr_ranges].start = start;
-> >> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
-> >> +		cmem->nr_ranges++;
-> >> +	}
-> >> +	return 0;
-> >> +}
-> >>  int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0; }
-> >>  
-> >>  int __weak arch_crash_exclude_mem_range(struct crash_mem **mem,
-> >> -- 
-> >> 2.43.0
-> >>
-> 
+diff --git a/arch/s390/include/asm/percpu.h b/arch/s390/include/asm/percpu.h
+index 770fe4be65dc..0df47ec2e6c7 100644
+--- a/arch/s390/include/asm/percpu.h
++++ b/arch/s390/include/asm/percpu.h
+@@ -151,29 +151,29 @@ do {										\
+ 	if (__builtin_constant_p(val__) &&					\
+ 	    ((szcast)val__ > -129) && ((szcast)val__ < 128)) {			\
+ 		asm volatile(							\
+-			MVIY_PERCPU("%[disppcpr]","%[ptr__]")			\
+-			AG_ALT("%[disppcpo]", "%[ptr__]")			\
++			MVIY_PERCPU("%[lcreg]","%[ptr__]")			\
++			AG_ALT("%[lcoff]", "%[ptr__]")				\
+ 			op2 "   0(%[ptr__]),%[val__]\n"				\
+-			MVIY_ALT("%[disppcpr]")					\
++			MVIY_ALT("%[lcreg]")					\
+ 			: [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
+ 			  "=m" (((struct lowcore *)0)->percpu_register)		\
+ 			: [val__] "i" ((szcast)val__),				\
+-			  [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-			  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++			  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++			  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 			  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 			: "cc");						\
+ 	} else {								\
+ 		asm volatile(							\
+-			MVIY_PERCPU("%[disppcpr]", "%[ptr__]")			\
+-			AG_ALT("%[disppcpo]", "%[ptr__]")			\
++			MVIY_PERCPU("%[lcreg]", "%[ptr__]")			\
++			AG_ALT("%[lcoff]", "%[ptr__]")				\
+ 			op1 "   %[old__],%[val__],0(%[ptr__])\n"		\
+-			MVIY_ALT("%[disppcpr]")					\
++			MVIY_ALT("%[lcreg]")					\
+ 			: [old__] "=&d" (old__),				\
+ 			  [ptr__] "+&a" (ptr__),  "+m" (*ptr__),		\
+ 			  "=m" (((struct lowcore *)0)->percpu_register)		\
+ 			: [val__] "d" (val__),					\
+-			  [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-			  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++			  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++			  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 			  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 			: "cc");						\
+ 	}									\
+@@ -190,16 +190,16 @@ do {										\
+ 									\
+ 	ptr__ = PERCPU_PTR(&(pcp));					\
+ 	asm_inline volatile(						\
+-		MVIY_PERCPU("%[disppcpr]","%[ptr__]")			\
+-		AG_ALT("%[disppcpo]","%[ptr__]")			\
++		MVIY_PERCPU("%[lcreg]","%[ptr__]")			\
++		AG_ALT("%[lcoff]","%[ptr__]")				\
+ 		op "	%[old__],%[val__],0(%[ptr__])\n"		\
+-		MVIY_ALT("%[disppcpr]")					\
++		MVIY_ALT("%[lcreg]")					\
+ 		: [old__] "=&d" (old__),				\
+ 		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
+ 		  "=m" (((struct lowcore *)0)->percpu_register)		\
+ 		: [val__] "d" (val__),					\
+-		  [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-		  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 		  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 		: "cc");						\
+ 	old__ + val__;							\
+@@ -216,16 +216,16 @@ do {									\
+ 									\
+ 	ptr__ = PERCPU_PTR(&(pcp));					\
+ 	asm_inline volatile(						\
+-		MVIY_PERCPU("%[disppcpr]","%[ptr__]")			\
+-		AG_ALT("%[disppcpo]","%[ptr__]")			\
++		MVIY_PERCPU("%[lcreg]","%[ptr__]")			\
++		AG_ALT("%[lcoff]","%[ptr__]")				\
+ 		op "    %[old__],%[val__],0(%[ptr__])\n"		\
+-		MVIY_ALT("%[disppcpr]")					\
++		MVIY_ALT("%[lcreg]")					\
+ 		: [old__] "=&d" (old__),				\
+ 		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
+ 		  "=m" (((struct lowcore *)0)->percpu_register)		\
+ 		: [val__] "d" (val__),					\
+-		  [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-		  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 		  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 		: "cc");						\
+ } while (0)
+@@ -245,14 +245,14 @@ do {									\
+ 									\
+ 	ptr__ = PERCPU_PTR(&(pcp));					\
+ 	asm_inline volatile(						\
+-		MVIY_PERCPU("%[disppcpr]","%[ptr__]")			\
+-		AG_ALT("%[disppcpo]","%[ptr__]")			\
++		MVIY_PERCPU("%[lcreg]","%[ptr__]")			\
++		AG_ALT("%[lcoff]","%[ptr__]")				\
+ 		op "	%[res__],0(%[ptr__])\n"				\
+-		MVIY_ALT("%[disppcpr]")					\
++		MVIY_ALT("%[lcreg]")					\
+ 		: [res__] "=&d" (res__), [ptr__] "+&a" (ptr__),		\
+ 		  "=m" (((struct lowcore *)0)->percpu_register)		\
+-		: [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-		  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++		: [lcreg] "i" (LC_PERCPU_REGISTER),			\
++		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 		  "m" (*ptr__),						\
+ 		  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 		: "cc");						\
+@@ -271,15 +271,15 @@ do {									\
+ 									\
+ 	ptr__ = PERCPU_PTR(&(pcp));					\
+ 	asm_inline volatile(						\
+-		MVIY_PERCPU("%[disppcpr]","%[ptr__]")			\
+-		AG_ALT("%[disppcpo]","%[ptr__]")			\
++		MVIY_PERCPU("%[lcreg]","%[ptr__]")			\
++		AG_ALT("%[lcoff]","%[ptr__]")				\
+ 		op "    %[val__],0(%[ptr__])\n"				\
+-		MVIY_ALT("%[disppcpr]")					\
++		MVIY_ALT("%[lcreg]")					\
+ 		: [ptr__] "+&a" (ptr__), "=m" (*ptr__),			\
+ 		  "=m" (((struct lowcore *)0)->percpu_register)		\
+ 		: [val__] "d" (val__),					\
+-		  [disppcpr] "i" (LC_PERCPU_REGISTER),			\
+-		  [disppcpo] "i" (LC_PERCPU_OFFSET),			\
++		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
++		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
+ 		  "m" (((struct lowcore *)0)->percpu_offset)		\
+ 		: "cc");						\
+ } while (0)
+-- 
+2.53.0
+
