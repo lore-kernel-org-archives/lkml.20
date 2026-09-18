@@ -1,173 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F411F5842
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589D215075;
+	Fri, 18 Sep 2026 00:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789690089; cv=none; b=RCq2/WX/lFjnRYPephjQf8lO8w4zWd1epmp+yvAJUjI60YmhK/mlLpyMASmEoAMFpcIc7ThVUsY2oMcU29vK0Haa5cYKK8G96PqALaJauyuu/70lGBVKBtNCT3EL4b9H8F2nlwZ2bLCWrqb+eZPblVZN8PsYb28l0nJbtTnuDtg=
+	t=1789690106; cv=none; b=b8lvCMu/JCLf/8JOKt+Rb+D/NsUx7nt9th7FAM7jqKMeNj8E0fteHTKwU+uqn2epBg3BP6Zh+ZsoLN8QgOAyWpiSFht/wKXjCpX9pQe0uzAysk6+YuXdBUEq5gVmdfjFyn63+t2FnoaG0Sf6u3zKfRGo2XUmhsdDUnmDWbE849E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789690089; c=relaxed/simple;
-	bh=9cTmBbQi79bUMqVlswKYULGfTGkVMRwUrT/vU2uSWI0=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=SLoHUThAPNda4dG0TMp79EA5Y8fMOkjbkF4zlv/hZlORtMiw18AEIMjqegYDKDTYgnXbtJ4YNDFcZ1oghY3M/Ma3URU++xwROKWe3xL2Ia5QNLjFkd0nlGOtL2+X3lkVGsmpNGmLVRoINYSjk/H024b9qEdUPPTD3znux/L5rpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bv7xvDIQ; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789690106; c=relaxed/simple;
+	bh=bRpVdYQx6iYLeWrHXp9Ny4rnmAQ1K+WqtwYWne90iGc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=goJyEwq+JyPDXxkLLurKCpI+0OHzEucMLDtJIgBNqM0mOgLtkZsReuLvq5Tk/ZeJBkRJv7DZ0sfcwM4Qc5fCaKrtbQXyY5iLAYsHTGtNYJLyCYhq80NxTtzsJFem6U2IrhLP8ZYlDVTLr/G/eQOHYGwQ8Qp+AVOk1v2+/ac4aTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=IRnmqpPw; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bv7xvDIQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789690087; x=1821226087;
-  h=date:from:to:cc:subject:message-id;
-  bh=9cTmBbQi79bUMqVlswKYULGfTGkVMRwUrT/vU2uSWI0=;
-  b=Bv7xvDIQ/8wCec+gjPE12mUPpnEHc9H2fEN1BHQgtgwMDiTLOCHYFgGU
-   jJmk5OJuIH5r+nxtkQIfZ01Hg2KPXkyKp9f7+Ghnx2VqEy+/iYa3iHiKP
-   aWVkMU+tkL2qGyqP00rDpbRkgcP2FAChVYy806eWMkxWK8cVWEr0zMH9p
-   DOVlNPuyHbD1PPs6Z4qfOpMASrI15Hzd7wpY2L+l/zgCsoF2aplf8CtCm
-   f6HwksvlBeCAmLgyT1f1u4MGN16TkrM7MQvCsQNc5OfVRcZ76i8URR9jy
-   0L7LyMABuHTVV2YeneKl3O1NsO96+/VDld9EDBICpw/k94PripGdgEVAp
-   g==;
-X-CSE-ConnectionGUID: SdZqGJKlSXiif5WFPdP+Xg==
-X-CSE-MsgGUID: xne8Z3ujTkegyjF/WMf9gQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92674219"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92674219"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 17:08:07 -0700
-X-CSE-ConnectionGUID: cyQ5qIzFSEO6Nqray6Jl6Q==
-X-CSE-MsgGUID: x/eodvKvSvK31Zh43oXPzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2296966"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 17:08:05 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7M94-000000008oh-353M;
-	Fri, 18 Sep 2026 00:08:02 +0000
-Date: Fri, 18 Sep 2026 08:07:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Simon Richter <Simon.Richter@hogyros.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: drivers/nfc/microread/microread.c:489:26: sparse: sparse:
- cast to restricted __be16
-Message-ID: <202609180724.WqXUgoWn-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="IRnmqpPw"
+Received: from [172.27.3.124] (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 68I07oYR3566522
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Thu, 17 Sep 2026 17:07:51 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 68I07oYR3566522
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1789690072;
+	bh=6kBTD2Ow5ari7NgIizG1exdB4ovI+H1dTdCVAKQkXnc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=IRnmqpPwCOdvZf1J5qa6ajyPYLbgNept9V+/ToOvjJOu/8RtZ898S1hldNTP0p4Za
+	 do9xN2Umq3TnPBvqNJFIBk/qQ9AjTvzvglJiL7W83y4dqko6/R5oB1Zu8kayXJ9oB/
+	 uVoeSZGc6W5dmYQBKBVaKYkQrYML6Uh1kEkV+jhNRgQkxtCNzo+zoKsg1K6jtMUf/l
+	 yJhkO0dQAZMmL3EWuKXPJpp1SvaFThBLURg1lR3HyAzzazdZltUK6iwWVLeTXCUhoi
+	 +br4AUf/FM91fMhvgV86jU6f1FKTvIXPwVtfG/Jz7+nqIKJhk+IGVuTEXdV7BxI7JW
+	 2W/yzuioxXkOw==
+Message-ID: <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
+Date: Thu, 17 Sep 2026 17:07:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/fred: Reconstruct the #GP context for rejected
+ INT instructions
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, Xin Li <xin@zytor.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        Paul Gofman <pgofman@codeweavers.com>,
+        Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+        Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
+References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
+ <20260917230907.2080792-2-matthew.schwartz@linux.dev>
+Content-Language: en-US, sv-SE
+From: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <20260917230907.2080792-2-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-commit: 25f9b0d351552f63ac3f72e6c655bc8f9994f7d2 misc/mei: Allow building Intel ME interface on non-x86
-date:   8 months ago
-config: powerpc-randconfig-r1308-20260917 (https://download.01.org/0day-ci/archive/20260918/202609180724.WqXUgoWn-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 148ee2b266b73a49f1f31d0bd17d4818b91bee9f)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180724.WqXUgoWn-lkp@intel.com/reproduce)
+On 2026-09-17 16:09, Matthew Schwartz wrote:
+> FRED event delivery does not use the IDT, so the gate DPL check that
+> rejects a user INT n falls to software (Intel FRED specification [1],
+> section 8.3). fred_intx() rejects the same vectors as IDT delivery, but
+> reports a zero error code and the IP after the INT. This breaks the
+> signal ABI. Wine uses the error code to recognize INT 0x2d, so the
+> changed context turns a handled breakpoint into an access violation in
+> Elden Ring.
+> 
+> Rewind IP using the instruction length in the augmented SS and
+> synthesize the IDT selector error code, (vector << 3) | 2. Set RF in the
+> saved flags, as the CPU does for a #GP fault. Section 5.2.1 defines the
+> saved vector, instruction length and RF state. The supplied length
+> handles prefixes without reading user memory. Limit the changes to
+> already-rejected software interrupts, preserving the accepted INT3, INT4
+> and enabled INT80 paths and hardware exceptions. With IA32 emulation
+> disabled, INT 0x80 now reports the same #GP as the DPL 0 gate IDT
+> installs there. The rewound IP also stops fixup_iopl_exception() from
+> inspecting the byte after the INT.
+> 
+> Also clear the software event flag. Section 6.2.3 specifies that ERETU
+> with this flag and TF set traps before executing any user instruction. A
+> tracer that suppresses SIGSEGV and resumes with TF set expects the next
+> instruction to run first, as after IRET. The sigreturn path clears the
+> same flag for this reason in prevent_single_step_upon_eretu().
+> 
+> [1] Intel Flexible Return and Event Delivery (FRED) Specification,
+> revision 9.0 (346446-009US), sections 5.2.1, 6.2.3 and 8.3.
+> 
+> Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
+> Reported-by: Paul Gofman <pgofman@codeweavers.com>
+> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15745
+> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16132
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 25f9b0d35155 ("misc/mei: Allow building Intel ME interface on non-x86")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609180724.WqXUgoWn-lkp@intel.com/
+Reviewed-by: H. Peter Anvin <hpa@zytor.com>
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/nfc/microread/microread.c:489:26: sparse: sparse: cast to restricted __be16
-   drivers/nfc/microread/microread.c:503:26: sparse: sparse: cast to restricted __be16
-   drivers/nfc/microread/microread.c:521:25: sparse: sparse: cast to restricted __le16
+This really should go into -stable.
 
-vim +489 drivers/nfc/microread/microread.c
+	-hpa
 
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  467  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  468  static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  469  					struct sk_buff *skb)
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  470  {
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  471  	struct nfc_target *targets;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  472  	int r = 0;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  473  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  474  	pr_info("target discovered to gate 0x%x\n", gate);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  475  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  476  	targets = kzalloc(sizeof(struct nfc_target), GFP_KERNEL);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  477  	if (targets == NULL) {
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  478  		r = -ENOMEM;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  479  		goto exit;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  480  	}
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  481  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  482  	targets->hci_reader_gate = gate;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  483  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  484  	switch (gate) {
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  485  	case MICROREAD_GATE_ID_MREAD_ISO_A:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  486  		targets->supported_protocols =
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  487  		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A_SAK]);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  488  		targets->sens_res =
-cfad1ba87150e19 Eric Lapuyade 2012-12-18 @489  			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A_ATQA]);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  490  		targets->sel_res = skb->data[MICROREAD_EMCF_A_SAK];
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  491  		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A_LEN];
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  492  		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  493  			r = -EINVAL;
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  494  			goto exit_free;
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  495  		}
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  496  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_A_UID],
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  497  		       targets->nfcid1_len);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  498  		break;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  499  	case MICROREAD_GATE_ID_MREAD_ISO_A_3:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  500  		targets->supported_protocols =
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  501  		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A3_SAK]);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  502  		targets->sens_res =
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  503  			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A3_ATQA]);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  504  		targets->sel_res = skb->data[MICROREAD_EMCF_A3_SAK];
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  505  		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A3_LEN];
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  506  		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  507  			r = -EINVAL;
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  508  			goto exit_free;
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  509  		}
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  510  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_A3_UID],
-d07f1e8600ccb88 Dan Carpenter 2014-09-01  511  		       targets->nfcid1_len);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  512  		break;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  513  	case MICROREAD_GATE_ID_MREAD_ISO_B:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  514  		targets->supported_protocols = NFC_PROTO_ISO14443_B_MASK;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  515  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_B_UID], 4);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  516  		targets->nfcid1_len = 4;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  517  		break;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  518  	case MICROREAD_GATE_ID_MREAD_NFC_T1:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  519  		targets->supported_protocols = NFC_PROTO_JEWEL_MASK;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  520  		targets->sens_res =
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  521  			le16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_T1_ATQA]);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  522  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T1_UID], 4);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  523  		targets->nfcid1_len = 4;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  524  		break;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  525  	case MICROREAD_GATE_ID_MREAD_NFC_T3:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  526  		targets->supported_protocols = NFC_PROTO_FELICA_MASK;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  527  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T3_UID], 8);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  528  		targets->nfcid1_len = 8;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  529  		break;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  530  	default:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  531  		pr_info("discard target discovered to gate 0x%x\n", gate);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  532  		goto exit_free;
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  533  	}
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  534  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  535  	r = nfc_targets_found(hdev->ndev, targets, 1);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  536  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  537  exit_free:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  538  	kfree(targets);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  539  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  540  exit:
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  541  	kfree_skb(skb);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  542  
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  543  	if (r)
-17936b43f0fdede Joe Perches   2013-04-05  544  		pr_err("Failed to handle discovered target err=%d\n", r);
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  545  }
-cfad1ba87150e19 Eric Lapuyade 2012-12-18  546  
-
-:::::: The code at line 489 was first introduced by commit
-:::::: cfad1ba87150e198be9ea32367a24e500e59de2c NFC: Initial support for Inside Secure microread
-
-:::::: TO: Eric Lapuyade <eric.lapuyade@linux.intel.com>
-:::::: CC: Samuel Ortiz <sameo@linux.intel.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
