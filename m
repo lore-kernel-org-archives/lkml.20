@@ -1,126 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DF83F20EC;
-	Fri, 18 Sep 2026 12:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FE24E73CC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:20:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733980; cv=none; b=NVAZ5hb3EhR+9Dzs39avwZUdKq0XcIVL0FLYi870iMLwTYZQTLJSbShq9/nBNQFpb4uZXPqwJtVpYk+j5xBO/SEC5Ilr/kZyhGvVHvoDo1VkCkekXubqY/Kh8ekWMJvRxWpBZCGNzI4a1UXSXoRvrq2dI2dpiL2I1rNYF6Eb2yA=
+	t=1789734036; cv=none; b=g+y6/ZjheQsV/56LxLyzt4+LFT9F/0aJBNjodjh26qdHIrnWfoRTIvefH0YnKyH2OHJ3AKRr0bFfB0RqNV0VCxLC61ljizWNTnIufqXW09RDDS7eis6YGs4F4oNKPKteTVYeKzS+YfbaKWmJ51qIrk4Uh8EsMtS6bV1wsnFAcqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733980; c=relaxed/simple;
-	bh=MZro/A7ro5nz7JLZ+GIpyBsLqovSBy1yv895sHvWpJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KV0Z9gNcMe1il9Eu0yIIAZTPHdvcaO4UhlwZuTCS2FX5ePCyFfy0AC18vrFi7Gn1rIAPvS25HXkzuHUuhJjbgmzCA4dZTLUaILhUT16CypB06Jn4qoO2LJyWKcxvLkcJ+xNFE3k8QpmpEBzUBBTLgdHqUXI0lVpdhWSth6r9WkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQzb9XWT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789734036; c=relaxed/simple;
+	bh=Uvo7ny/vdoSMMXn3s6ScqNW2b/mk6SSiroCPEQIUC8M=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=XvO9g9PGzeRJbKOz9iM87VHqYgV1b20lONbp/XmBqklYnQJSdWIfnZMuoUFKS8+11MPRikWzAEfygZ5QlvoyOMSgE7Ad19EEcjgfmizyIUay75jIrfRHytD7zO62SWQd2DyGX5hZ8lcKYT5tz4su2VLIsqJtJ5mRAtvW+01zrY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ks+SVIe9; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQzb9XWT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E151F000FF;
-	Fri, 18 Sep 2026 12:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733978;
-	bh=xoVozf3XKNPP3HzK2ZeGqkN76iLDIyMvofa8UkB13XE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aQzb9XWTRDCZMybJH4mwB1FxibMeY01qhn0jfSxrNWuWxWmkhrPW7DE1zJuekgZcf
-	 83ltZ1DVSUTvqw5zWhms2UYvFk5M6Cl5dvWVXBoWZnFBdcsJnHAjN595+QcILI3tEd
-	 GBKHUQkPZU3AOJAHjA7ESfyzPAoUzCw6/+8m9XKSB00fNfZqJaXdeH4N9VlWXEc1KB
-	 go0ui7kDDeFbExGkAo4xviLdPd2M6WdGWjPGgotXZsDgXtprDqX1pM154F4MS1Olbs
-	 RqLpfGcPXYHZK5YzKrrBrJBeJMN5IHXUaLX4oOywEp+/xvXD0wqUckPF0qnEYMenf6
-	 myzdJxEuSd7aQ==
-Date: Fri, 18 Sep 2026 14:19:36 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Charan Pedumuru <charan.pedumuru@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH 1/8] ARM: tegra: Clean up AHUB on Tegra124
-Message-ID: <aq0sR4k96fGs1MY-@orome>
-References: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
- <20260902-tegra-ahub-dt-cleanup-v1-1-028f3c5e72f6@nvidia.com>
- <1114db1e-55fa-4056-bcdd-f1512bac70c5@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ks+SVIe9"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so477823f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:20:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789734029; x=1790338829; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xCzi81HLZxZMux1T+BtO3glGJsw6KpWZnk7OAVt0O+0=;
+        b=Ks+SVIe9tnfOV2ncbsKrA6nj0VFDPYVdHkg/5+1KcZPrDnaWium7iaIWqib7R5AcEw
+         vyqSHpEtj6WlkmWsagOI8TooZDNXAR7tXpUnkzawoo/C7X09HRHvJd1novQ/WelpEUgd
+         DQqA/TJwbgZrnzBoEr/3JEsiGjtqwNyns/9lMl0THXYu1qu6oMotHOUEAacMBlDeskzP
+         Bg8aP5iAiK4fgczpuAAckjXGTv+NDUbLUymW+L96zKa73DS3wFhjlCdRT+8eUdrHi7ma
+         AorIoVEA6qbYLWgT3kzD0fC6+W10L8dZw7hWzJa4k67x+EoyTL53/vDeUa67Px/AeiON
+         5HsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789734029; x=1790338829;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xCzi81HLZxZMux1T+BtO3glGJsw6KpWZnk7OAVt0O+0=;
+        b=keCvw3+VzaWLD72iE3JCzJaw+dS+cPdaRWrixFDHBOfswvFTdFE34sNeoCe8Ohdbyg
+         0RHhWXOK3L/GvT8mcV3ayZ83duGbdg0VanbGOVciSALkWIn1K2/fk4J877b72KneTutL
+         cBYAUPe1g3Oxzs7pe4+9oIt6M71UfoqbzC82TKcHwXdJZIS8Etg+lcGHiQ16oEIpOEie
+         ABUN8DqnWL6uG2GO/FIO8StZ/6SsdcKPHM1/CWorn8w5xDkDWPVsza9mE8Ss0vB7dStJ
+         mhvax8soW8ah85zU9QE2RhhsHKW63XW1goE4jZG2D8yziSAOB6NWXRSrYDv3rL410Vm4
+         M40Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwVY9MRh2e9TPTNJr/U9Cb2Bn+Wv2YLB1Ni9YEgptpqiOHHdFYF0UOI0plA+vEV5jji/GsgDtIu8GJs3S4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGCJrSwHTAyY/gnNx4o9775mGf1XL6IAKJYSeXdXWYB6X41GIk
+	5RXI0eQUA5Asbvq2BhKdY4f+Y2N0LNLWUHRda43uqSeyRN02/7h3056h
+X-Gm-Gg: AYBFou1TpGqZbXh+ItAVRdPLXrBIxqESI8f5fnSSF6hqV5BiZ+m0LcpXm9amjtkYWOH
+	f2a8Rc0wu6ITIhAgPWbLOu2sNcO/iqd0qydaq1pQi7mHGgUDCNHMytfGh6ROwSytfVJANR+d4q9
+	rpZRLvx98g0jf+XAiajIxI2Iwk/pEHWbIclsePmDQPxuS6mtXwuipNn4ecG4Xy2mLXXF8JfRfZe
+	Q6PeMdjoJFvYv3ouIH/oM2QixSGLtQGh5FOFxekd6+q6VVAu6P3p9fvrV9P+uacVeXDEt0BqmYk
+	u+5GDLkN4PF1K1WkfrskDz4I2q8hcDTJAxVsz9+30x2KNKoW0eBIi8EbZcaAWb4kGiYhen87QV/
+	lrQAYF1QOaCZjZHzLnpIKQHoHKX6zmIgwFchEsM1j0d1K+mNXK33myc7W/XsbFaUPA5KEDjlag1
+	WJRUApBHtLj1oK8z/QPXOCtLzfMHF6GDCW4SX5nuzxnIcZz3WMjyrSkkyjRcoT+XCztrs=
+X-Received: by 2002:a05:6000:186f:b0:487:36a:c870 with SMTP id ffacd0b85a97d-4871e2123damr3702576f8f.11.1789734029028;
+        Fri, 18 Sep 2026 05:20:29 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5d63sm4086611f8f.3.2026.09.18.05.20.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 05:20:28 -0700 (PDT)
+Date: Fri, 18 Sep 2026 15:20:25 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: Fix buffer overflow in
+ uvc_mapping_get_menu_value()
+Message-ID: <aq0siVcghDe6x9cs@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rzyhrhrctqple7na"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1114db1e-55fa-4056-bcdd-f1512bac70c5@nvidia.com>
+X-Mailer: git-send-email haha only kidding
 
+The "idx" value is a user controlled u32 so we have to bounds check it
+before calling test_bit() to avoid reading beyond the end of the bitmap.
 
---rzyhrhrctqple7na
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/8] ARM: tegra: Clean up AHUB on Tegra124
-MIME-Version: 1.0
+Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+ drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Thu, Sep 17, 2026 at 09:01:54PM +0100, Jon Hunter wrote:
-> Hi Thierry,
->=20
-> On 02/09/2026 11:17, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > Use #address-cells =3D <1> and #size-cells =3D <1> because we don't need
-> > 64-bit register addressing for this hardware. While at it, also adjust
-> > the ranges property to encompass the entire AHUB range as per the TRM.
-> >=20
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > ---
-> >   arch/arm/boot/dts/nvidia/tegra124.dtsi | 16 ++++++++--------
-> >   1 file changed, 8 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/arch/arm/boot/dts/nvidia/tegra124.dtsi b/arch/arm/boot/dts=
-/nvidia/tegra124.dtsi
-> > index ce4efa1de509..7a71dba42dc0 100644
-> > --- a/arch/arm/boot/dts/nvidia/tegra124.dtsi
-> > +++ b/arch/arm/boot/dts/nvidia/tegra124.dtsi
-> > @@ -1114,13 +1114,13 @@ ahub@70300000 {
-> >   			    "rx3", "tx3", "rx4", "tx4", "rx5", "tx5",
-> >   			    "rx6", "tx6", "rx7", "tx7", "rx8", "tx8",
-> >   			    "rx9", "tx9";
-> > -		ranges;
-> > -		#address-cells =3D <2>;
-> > -		#size-cells =3D <2>;
-> > +		ranges =3D <0x7030000 0x0 0x70300000 0x10000>;
->=20
->=20
-> I noticed a regression on Tegra124 Jetson TK1 today and I am seeing ...
->=20
->  tegra30-i2s 70300000.ahub:i2s@70301100: error -EINVAL: invalid resource =
-(null)
->  tegra30-i2s 70300000.ahub:i2s@70301100: probe with driver tegra30-i2s fa=
-iled with error -22
->=20
-> Looks like the first address in the above is missing a 0 and we
-> should have 0x70300000 and not 0x7030000.
->=20
-> Let me know if you want to fix up or what a patch to fix.
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index 3ca108b83f1d..f157ed99be4e 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
+ static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
+ 				      u32 idx)
+ {
+-	if (!test_bit(idx, &mapping->menu_mask))
++	if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
+ 		return -EINVAL;
+ 
+ 	if (mapping->menu_mapping)
+-- 
+2.53.0
 
-Should be fixed now, thanks for reporting this.
-
-Thierry
-
---rzyhrhrctqple7na
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtLFgACgkQ3SOs138+
-s6H5/BAAwPKkJgykHi8AKsVAlex59IAoVpE8yH72tGIA8Fk2Kd9Uz4iHxcqlgZTr
-NrfX0DKELHIawjqbeI5AYkTFtPDl4gx0FzvKwbp/C+FQrzQgu9d8wqz36qHzr1QW
-W06eiWaUtgJe/HXmfUX5a82JUJdtrhPfHxDtUoiuwdhArPz9B4v5i2pC+49A2esM
-u5tW+IydQLBmA2MBf9pImDptXhTj7XYk2fuQGPhqYlkCvrU1T7s6/QhHYnGxbQ4r
-WC6g5IB+rQilgL4g+LnoOnnq8sKDIc7mEHHNL3VXryFVjj5tc5GdkSh3i27VwrD4
-CRWdZrCkwRFPUAi8klqh3mlB4OaWFAViI4PX6ffkXuQRfpi1JxH4somPt0guD2/y
-TLw1SsUKr1u5Mc6RzhXG5KCh6dz6WZ3B7zDt88kD8R3WdWZth6/fsjhsQdFzeTTt
-xs0LqJ57DW5iQmqnu7AaVrPksyH3Nk4iJ5EmnSUmKpfFPn9j2F3eC2JdJ2+W4iqD
-NWiKeLQFyZtG3/F3H2ENr+iwJHmsEaAedUHeDFr634E2ESYrHTQjbUBdCKRYKRCO
-l8d/xI1Nw09pR5cgMOPSqb38TAx/mT26kBwX1geNfvH28S9xmhmvdneKPBc6prSH
-ISYY5g6h+M1vgxtMyPnmwfTKKi4yz0uDD2ZDI8WhH7vJ8EVGbjY=
-=s++q
------END PGP SIGNATURE-----
-
---rzyhrhrctqple7na--
