@@ -1,99 +1,170 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9871466B17;
-	Fri, 18 Sep 2026 19:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98CE35E956;
+	Fri, 18 Sep 2026 19:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761547; cv=none; b=HpBZ4UQlCT8ADuDd4K3yT929e8zF3ScotXzU6xnqkltRPSxQ4f7SbZoA7kQRUssnHDPNMwuZjrmysjfO5o7JXlDkbr8Ruxq0RotlfaBdmoszUVNthPbN3J4NC4XjupTseSFmXlUpK7w1w6qxwl6Yh3WGlagqtoYrnn3aeGkflck=
+	t=1789761591; cv=none; b=lGcXUfRSXMUi2C/0YgfGxhCIzKcCX9RUtQpXOWYibNobTFCZ5lJL3fhjpICVMvbVjnsYUcQJn0Qol9y/7hq2Gj20JAXCytIkP3iKI0xQHmqqK6GHhGBBUa+yrAn3V0juN28uIks+E70SapC2IEk1vBLwZTokXiQYzKDM6/FUaNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789761547; c=relaxed/simple;
-	bh=/4f16jk0w1SZlOazZG/EvX8VDTn9PFtJwde9AsBZ1oE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aGAvfo8V+rjYcrJGfv0pq8g3ogUiEJY3FD1p/XxdVsJIBY3HUoaFSItFouKXMmi/DPzy4RRlqJwc6OkM/54PrBqdVVE4E0oqItgCyaAeGtABPV7/SNTBNsH9+uJVVAZA0ARzLIuif17wopfvYfZq2i/vlG04ZlPo7Ga/GCzta98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=enFP9GrW; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789761591; c=relaxed/simple;
+	bh=X9XU9RNBrOVJynv+zAUP6Ketsd7FbbI4e+VigF5/FUY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JQcF4sGAa+z3rsYNbxUcheNWPH8MV+nzIMIFbCKfVRP8d0T3b/0LU7URWJRt0bbUG2GfY//vZPm4ftphfUgk8HE+BpGdcPvOGdADRzfTblnVKmsW80iTCqQGNU5TAkvej1NttrpPnBQCu5KYy9KfZ7wihxt8VfLlJSbCfP4dLdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rYYVoP6H; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="enFP9GrW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=k+xIqsm9yQ1hNrqrX4cwXF5kuEUp8+h4riZn/pmeeOU=; b=enFP9GrW0aNsR1AnDePgll6kXa
-	vIUTHl3x2i7bi0JOHfQhu/GOcv4bXVvs7H5FJfUcCgjOyeKGTjts+iY1Zvkws7+bj7Qysy9o3dwQp
-	xRnQUwJYGvxW7K6ziJ/X2c4IGHstnPwpuLIWaPspZ6i2NvsdSv/1rckyjGt70edc8ML4QTeCAiLcl
-	QTj7TgByRBDVHi0zdfzfoH8zLfAzXgfzAiiGDCO9uNWclsaKQAzFS3Q5hVrC+7tWPJz33DZbFXBjA
-	5QKIVmcofx7BtJd1lIuoonuJ29TYG0eaWljjEEWJh0M7olZde1T4okg1Fc4blXbk4fy64HDParCMP
-	bQHv07LQ==;
-Received: from [177.172.123.214] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x7ejU-0046be-TI; Fri, 18 Sep 2026 21:58:52 +0200
-Message-ID: <77321b17-c533-4287-9b05-98003959da70@igalia.com>
-Date: Fri, 18 Sep 2026 16:58:50 -0300
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rYYVoP6H"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DDB474E4087E;
+	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 926E560649;
+	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC56010329075;
+	Fri, 18 Sep 2026 21:59:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789761580; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=15bsGnenTWO9f3acWlYUaevEUJQ4D57tNbNdixb/HX4=;
+	b=rYYVoP6HZ/kINjt3APcXnLuJqpawnWLKDB1V0qRK3Xqas5Ejw1IFJ6NIhtg2iZ+zzX35Dy
+	JEL/neYba+PerObIJn1zO/k4ML5KbV1zMQTPjQVho57lL/kjJLszyzbOxKA4mjGeYnusY3
+	Mz1RHbpix8RVFonFLdPwknzGmWm1decG68LShouuPCOWbo8tx5yF7JGuNuvD1PO4h8k/Z0
+	RlRFm2ujIU3x6Y3iAE/bbGqMh35UQFo/nfNgluTLoB0QS9NtrA/qV6GOP2AE2jmPGfj4uI
+	oKfJNNW5f2f7u9mfGh5TEoXfcVzXZS4+m8a+aSqm2d/VRN+Gj1MlfHEtuyRpDg==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Date: Fri, 18 Sep 2026 21:59:35 +0200
+Subject: [PATCH net] net: macb: take bp->lock around NCR read-modify-writes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 03/13] scripts/syscall.tbl: Use the common table
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-References: <20260917-tonyk-syscall_table-v7-0-f4cd8f8e3265@igalia.com>
- <20260917-tonyk-syscall_table-v7-3-f4cd8f8e3265@igalia.com>
- <6cd76fb4-0834-457c-8188-c68a507b6a6f@app.fastmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <6cd76fb4-0834-457c-8188-c68a507b6a6f@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260918-macb-ncr-rmw-v1-1-30c3494f93cd@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2wrCMBAFf6WcZxeSFuvlV6QPTTzVFRplU61Q+
+ u9GfZyBmQWZpsw4VguML816TwX8pkK89ulC0XNh1K5u3cHvZexjkBRNbJwlcOubHVs3uICSPIy
+ Dvn+7ExIndH+Zn+HGOH1HWNcPyMFciHUAAAA=
+X-Change-ID: 20260918-macb-ncr-rmw-be5137e60f0b
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Sean Anderson <sean.anderson@linux.dev>, 
+ Antoine Tenart <atenart@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-Em 18/09/2026 03:34, Arnd Bergmann escreveu:
-> On Fri, Sep 18, 2026, at 01:46, André Almeida wrote:
->> Remove some of the duplicated code by using the common syscall number
->> table.
->>
->> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->> ---
->>   arch/arm64/tools/syscall_32.tbl | 69 -----------------------------------------
->>   scripts/Makefile.asm-headers    | 15 ++++-----
->>   scripts/syscall.tbl             | 69 -----------------------------------------
->>   3 files changed, 8 insertions(+), 145 deletions(-)
-> 
-> This somewhat desyncs the two copies of the arm32 table, which
-> isn't great.
-> 
->> diff --git a/scripts/Makefile.asm-headers b/scripts/Makefile.asm-headers
->> index f1c3d287c14b..b09dbc8992c3 100644
->> --- a/scripts/Makefile.asm-headers
->> +++ b/scripts/Makefile.asm-headers
->> @@ -15,9 +15,10 @@ all:
->>
->>   src := $(srctree)/$(subst /generated,,$(obj))
->>
->> -syscall_abis_32  += common,32
->> -syscall_abis_64  += common,64
->> +syscall_abis_32  += clone3,common,32
->> +syscall_abis_64  += clone3,common,64
-> 
-> The clone3 variant is wrong on nios2 and openrisc, as they need the
-> __clone3 version. These currently redirect it using a macro from
-> syscall_table.c doing
-> 
-> #define sys_clone3 __sys_clone3
-> 
-> which will continue to work here, but I don't like how this is
-> inconsistent between the architectures. Let's use either
-> syscall_abis_* or a macro to pick the clone3 variant on
-> all architectures, but not both.
-> 
-Ok, I have dropped the sys_clone3 macro and added clone3/__clone3 for 
-the all archs that uses scripts/syscall.tbl for the next patch revision.
+NCR is read-modify-written from many contexts:
+
+ - macb_mac_link_down() clears RE|TE,
+ - macb_mac_link_up() sets RE|TE|PTPUNI,
+ - macb_hresp_error_task() clears then re-sets RE|TE,
+ - macb_start_xmit() / macb_tx_restart() / macb_tx_error_task() set
+   TSTART (already under bp->lock),
+ - macb_interrupt() might toggle RE (also under bp->lock).
+
+The first three risk concurrent RMW with anyone from the list as they
+don't grab bp->lock.
+
+Theoretical bugfix only, it has never reproduced on hardware. Also note
+it does *not* take the lock hoping to protect against full races
+inbetween BH scheduling concurrently. We only want to ensure consistent
+NCR RMW operations.
+
+Fixes: 7897b071ac3b ("net: macb: convert to phylink")
+Cc: stable@vger.kernel.org
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+---
+ drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index b8234ac4b602..b58d3f01f2cc 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -777,6 +777,7 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
+ 	struct net_device *netdev = to_net_dev(config->dev);
+ 	struct macb *bp = netdev_priv(netdev);
+ 	struct macb_queue *queue;
++	unsigned long flags;
+ 	unsigned int q;
+ 	u32 ctrl;
+ 
+@@ -786,8 +787,10 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
+ 				     bp->rx_intr_mask | MACB_TX_INT_FLAGS | MACB_BIT(HRESP));
+ 
+ 	/* Disable Rx and Tx */
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
+ 	macb_writel(bp, NCR, ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_stop_all_queues(netdev);
+ }
+@@ -940,11 +943,13 @@ static void macb_mac_link_up(struct phylink_config *config,
+ 	}
+ 
+ 	/* Enable Rx and Tx; Enable PTP unicast */
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR);
+ 	if (gem_has_ptp(bp))
+ 		ctrl |= MACB_BIT(PTPUNI);
+ 
+ 	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_wake_all_queues(netdev);
+ }
+@@ -1995,6 +2000,7 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
+ 	struct net_device *netdev = bp->netdev;
+ 	struct macb_queue *queue;
++	unsigned long flags;
+ 	unsigned int q;
+ 	u32 ctrl;
+ 
+@@ -2003,9 +2009,11 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 					 MACB_TX_INT_FLAGS |
+ 					 MACB_BIT(HRESP));
+ 	}
++	spin_lock_irqsave(&bp->lock, flags);
+ 	ctrl = macb_readl(bp, NCR);
+ 	ctrl &= ~(MACB_BIT(RE) | MACB_BIT(TE));
+ 	macb_writel(bp, NCR, ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_tx_stop_all_queues(netdev);
+ 	netif_carrier_off(netdev);
+@@ -2022,8 +2030,10 @@ static void macb_hresp_error_task(struct work_struct *work)
+ 			     MACB_TX_INT_FLAGS |
+ 			     MACB_BIT(HRESP));
+ 
+-	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
+-	macb_writel(bp, NCR, ctrl);
++	spin_lock_irqsave(&bp->lock, flags);
++	ctrl = MACB_BIT(RE) | MACB_BIT(TE);
++	macb_writel(bp, NCR, macb_readl(bp, NCR) | ctrl);
++	spin_unlock_irqrestore(&bp->lock, flags);
+ 
+ 	netif_carrier_on(netdev);
+ 	netif_tx_start_all_queues(netdev);
+
+---
+base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
+change-id: 20260918-macb-ncr-rmw-be5137e60f0b
+
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
+
