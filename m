@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5099B51588D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C393513550
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748071; cv=none; b=nnWEHy8UWXcEgBuOc4OaqiIbzOAJh2Mw+nPaLWx9/Pyp2WIrZkMmf4+Vj9JCQHbV+aM9OhakdQTZh0LDhnGhvEfi74/V66EfJ0vzUHUmbWqwvJ0lZz8jpD+Y4zit0I5Lv2wFhAA+3MQepR0i3c1kxT5RcMSei1U4C4ezuvPo2+4=
+	t=1789748075; cv=none; b=m205Bf57szdzwELfQuUvC33mFjVPc4XEIilaA7KtSAoGTSVzJjIsiVQyTsvO5kkN0rG1pYyD5+4rJ4ijnXSuLIk8R0R11PzhdkHetH09xB7ZS/fXv8TsFj2nvwapab8W+Ub5tFS1q+f+L31rxCrutkSwiht56EkyZuGuF4YcEfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748071; c=relaxed/simple;
-	bh=qskTDOTZ3X/eC+QtrSnYkRmfA8VXtYLdU8LszGaACHQ=;
+	s=arc-20240116; t=1789748075; c=relaxed/simple;
+	bh=/MNpjrsAdeuGBr8lafXjVrXztBQBNQ9r8wMeiWGBFZI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FFbvKjB8SqmHExhPZM7W5dUxwOD5xTI8y8eneLRhI0wcqLyTHzlYruY/l8C/Do3uGmf5vp0xgL2ZQ9mQqtyaFbKg5iVXoSG3ZpSgCw8omLOpNJ/GrLK8flT01esyDnorqsnQiZvZMXYEm7N8sw/Q+Gf93IbyjUnn0i/RZRMnxyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Edp8R+bB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ggqpM5b0xU5X5iBzBLPtkOTIxeq92Fmff/DBIQeQ84w+Zn8hY4eITJs0pY0kNGfR7/I5j14zXgEBnlx4q3js2ppNH+LE/4jdzg+sNCPa7UwGMBn+w9wVNyYtoUgxZRROK0UMeMRn/qrTLxOELBPpZAzWXLH91jLdxtFizsK3Wgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z2FrRP/u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Edp8R+bB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07361F000FF;
-	Fri, 18 Sep 2026 16:14:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z2FrRP/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C651F0089A;
+	Fri, 18 Sep 2026 16:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748069;
-	bh=aHMoz1vySQvYeQW+hJXZKhFp+T//bo0AG/CTIQJNNJo=;
+	s=k20260515; t=1789748073;
+	bh=2tB1KkXkaU5QmWVylv9lGv4ky5kgG3UAVpPmpa8Uw3I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Edp8R+bBPQqImx1+AnsYjmOnuRIOuZBNv9WinTHaoT2DaiptqJx27nbkcCY8+1zLU
-	 peekFHkhOw2J1WKN44ohH3bDuRpgH1lqV8GkyKcFKG1KjapgQHnyVDf0Sslq++JjFa
-	 2kRTowqnTeUg37ewHZQ7yuWYaGpnjk4GrQ6UN/jeec3jsd/wCXHG8NF475UmF3JIPI
-	 +NqXQs5Mow6EX4NSCPmfNjqJmyTm5paYlW2mbLzrjMxhw/HWMXejN/5sONfC8hsm9g
-	 qKS8tHj98Eh8MQxxT0DUmDbARLdqk3QEXt+tCJIfBgSM+KErRj8J243E/rwLS/pYfG
-	 tY0NDIM1gutHg==
+	b=Z2FrRP/uuCgfSvknfub0VLAy0QKjf0HMfhws0VgGmRM40vLVDGdAQfPs0Fc8Ql4H9
+	 xi1hQrIyyIi3VgRo+Qx0mLrMkRRauAt+aKSCSILzyoi+pbWICaAE8D33XDWiZ5DBBB
+	 DsofAeVnKxVJ0hcMm0LypJhxiy1eVgUwiMdpzPSVKUbQHiWbELkxUANc/+6rMR98Jm
+	 vKoJYf10/mdQ8lYdLlZoC//ub3yliJaIgYDssRyayNTAqO6Z4Jd/A3zgY+qlXT2IoU
+	 fVf13W1KBziWhUy2WtTRZVBDsAju8ljxebcLGO8/fCOQ+2clCC2RLvfqvcch8m6OzL
+	 TKsVdmCuJf5iQ==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 04/21] arm64: bpf: Add support for generating reads of TPIDRRO_EL0
-Date: Fri, 18 Sep 2026 17:13:48 +0100
-Message-ID: <20260918161407.2300-5-will@kernel.org>
+Subject: [PATCH v2 05/21] KVM: arm64: Protect TPIDRRO_EL0 across guest entry/exit
+Date: Fri, 18 Sep 2026 17:13:49 +0100
+Message-ID: <20260918161407.2300-6-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918161407.2300-1-will@kernel.org>
 References: <20260918161407.2300-1-will@kernel.org>
@@ -56,41 +56,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for storing 'current' in TPIDRRO_EL0, add support for the
-instruction encoding of "MRS Rt, TPIDRRO_EL0" to the BPF JIT.
+From: Mostafa Saleh <smostafa@google.com>
 
-Cc: Mark Rutland <mark.rutland@arm.com>
+To prepare for using TPIDRRO_EL0 to hold 'current' and repurposing
+SP_EL0 as an overflow stack pointer, eagerly switch both registers when
+entering and exiting the guest.
+
+Signed-off-by: Mostafa Saleh <smostafa@google.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/include/asm/insn.h | 1 +
- arch/arm64/net/bpf_jit.h      | 2 ++
- 2 files changed, 3 insertions(+)
+ arch/arm64/include/asm/kvm_asm.h           | 10 ++++++++++
+ arch/arm64/kernel/asm-offsets.c            |  1 +
+ arch/arm64/kvm/hyp/entry.S                 | 12 ++++++++----
+ arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h |  2 --
+ 4 files changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/include/asm/insn.h b/arch/arm64/include/asm/insn.h
-index 1ce75a442638..0e739740513d 100644
---- a/arch/arm64/include/asm/insn.h
-+++ b/arch/arm64/include/asm/insn.h
-@@ -136,6 +136,7 @@ enum aarch64_insn_special_register {
- };
+diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
+index e5b92ac09e69..1cfe9216a2ff 100644
+--- a/arch/arm64/include/asm/kvm_asm.h
++++ b/arch/arm64/include/asm/kvm_asm.h
+@@ -408,6 +408,16 @@ void __noreturn __cold nvhe_hyp_panic_handler(u64 esr, u64 spsr, u64 elr_virt,
+ 	msr	sp_el0, \tmp
+ .endm
  
- enum aarch64_insn_system_register {
-+	AARCH64_INSN_SYSREG_TPIDRRO_EL0	= 0x5e83,
- 	AARCH64_INSN_SYSREG_TPIDR_EL1	= 0x4684,
- 	AARCH64_INSN_SYSREG_TPIDR_EL2	= 0x6682,
- 	AARCH64_INSN_SYSREG_SP_EL0	= 0x4208,
-diff --git a/arch/arm64/net/bpf_jit.h b/arch/arm64/net/bpf_jit.h
-index b2fe6e6dcf44..df469a005373 100644
---- a/arch/arm64/net/bpf_jit.h
-+++ b/arch/arm64/net/bpf_jit.h
-@@ -331,6 +331,8 @@
- 	aarch64_insn_gen_adr(0, offset, Rd, AARCH64_INSN_ADR_TYPE_ADR)
++.macro save_tpidrro_el0 ctxt, tmp
++	mrs	\tmp,	tpidrro_el0
++	str	\tmp,	[\ctxt, #CPU_TPIDRRO_EL0_OFFSET]
++.endm
++
++.macro restore_tpidrro_el0 ctxt, tmp
++	ldr	\tmp,	  [\ctxt, #CPU_TPIDRRO_EL0_OFFSET]
++	msr	tpidrro_el0, \tmp
++.endm
++
+ #endif
  
- /* MRS */
-+#define A64_MRS_TPIDRRO_EL0(Rt) \
-+	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDRRO_EL0)
- #define A64_MRS_TPIDR_EL1(Rt) \
- 	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDR_EL1)
- #define A64_MRS_TPIDR_EL2(Rt) \
+ #endif /* __ARM_KVM_ASM_H__ */
+diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
+index 6038ab3beb25..cb8448cc5f51 100644
+--- a/arch/arm64/kernel/asm-offsets.c
++++ b/arch/arm64/kernel/asm-offsets.c
+@@ -108,6 +108,7 @@ int main(void)
+   DEFINE(VCPU_HCR_EL2,		offsetof(struct kvm_vcpu, arch.hcr_el2));
+   DEFINE(CPU_USER_PT_REGS,	offsetof(struct kvm_cpu_context, regs));
+   DEFINE(CPU_ELR_EL2,		offsetof(struct kvm_cpu_context, sys_regs[ELR_EL2]));
++  DEFINE(CPU_TPIDRRO_EL0_OFFSET, offsetof(struct kvm_cpu_context, sys_regs[TPIDRRO_EL0]));
+   DEFINE(CPU_RGSR_EL1,		offsetof(struct kvm_cpu_context, sys_regs[RGSR_EL1]));
+   DEFINE(CPU_GCR_EL1,		offsetof(struct kvm_cpu_context, sys_regs[GCR_EL1]));
+   DEFINE(CPU_APIAKEYLO_EL1,	offsetof(struct kvm_cpu_context, sys_regs[APIAKEYLO_EL1]));
+diff --git a/arch/arm64/kvm/hyp/entry.S b/arch/arm64/kvm/hyp/entry.S
+index 308100ed25de..4c89931a6a92 100644
+--- a/arch/arm64/kvm/hyp/entry.S
++++ b/arch/arm64/kvm/hyp/entry.S
+@@ -30,8 +30,9 @@ SYM_FUNC_START(__guest_enter)
+ 	// Store the hyp regs
+ 	save_callee_saved_regs x1
+ 
+-	// Save hyp's sp_el0
++	// Save hyp's sp_el0 and tpidrro_el0
+ 	save_sp_el0	x1, x2
++	save_tpidrro_el0 x1, x2
+ 
+ 	// Now the hyp state is stored if we have a pending RAS SError it must
+ 	// affect the host or hyp. If any asynchronous exception is pending we
+@@ -66,8 +67,9 @@ alternative_else_nop_endif
+ 	// when this feature is enabled for kernel code.
+ 	ptrauth_switch_to_guest x29, x0, x1, x2
+ 
+-	// Restore the guest's sp_el0
++	// Restore the guest's sp_el0 and tpidrro_el0
+ 	restore_sp_el0 x29, x0
++	restore_tpidrro_el0 x29, x0
+ 
+ 	// Restore guest regs x0-x17
+ 	ldp	x0, x1,   [x29, #CPU_XREG_OFFSET(0)]
+@@ -146,8 +148,9 @@ SYM_INNER_LABEL(__guest_exit, SYM_L_GLOBAL)
+ 	// Store the guest regs x18-x29, lr
+ 	save_callee_saved_regs x1
+ 
+-	// Store the guest's sp_el0
++	// Store the guest's sp_el0 and tpidrro_el0
+ 	save_sp_el0	x1, x2
++	save_tpidrro_el0 x1, x2
+ 
+ 	adr_this_cpu x2, kvm_hyp_ctxt, x3
+ 
+@@ -161,8 +164,9 @@ SYM_INNER_LABEL(__guest_exit, SYM_L_GLOBAL)
+ 	// mte_switch_to_hyp(g_ctxt, h_ctxt, reg1)
+ 	mte_switch_to_hyp x1, x2, x3
+ 
+-	// Restore hyp's sp_el0
++	// Restore hyp's sp_el0 and tpidrro_el0
+ 	restore_sp_el0 x2, x3
++	restore_tpidrro_el0 x2, x3
+ 
+ 	// Now restore the hyp regs
+ 	restore_callee_saved_regs x2
+diff --git a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
+index c382848d3194..b5f7ef8e6371 100644
+--- a/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
++++ b/arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h
+@@ -66,7 +66,6 @@ static inline void __sysreg_save_common_state(struct kvm_cpu_context *ctxt)
+ static inline void __sysreg_save_user_state(struct kvm_cpu_context *ctxt)
+ {
+ 	ctxt_sys_reg(ctxt, TPIDR_EL0)	= read_sysreg(tpidr_el0);
+-	ctxt_sys_reg(ctxt, TPIDRRO_EL0)	= read_sysreg(tpidrro_el0);
+ }
+ 
+ static inline bool ctxt_has_mte(struct kvm_cpu_context *ctxt)
+@@ -209,7 +208,6 @@ static inline void __sysreg_restore_common_state(struct kvm_cpu_context *ctxt)
+ static inline void __sysreg_restore_user_state(struct kvm_cpu_context *ctxt)
+ {
+ 	write_sysreg(ctxt_sys_reg(ctxt, TPIDR_EL0),	tpidr_el0);
+-	write_sysreg(ctxt_sys_reg(ctxt, TPIDRRO_EL0),	tpidrro_el0);
+ }
+ 
+ static inline void __sysreg_restore_el1_state(struct kvm_cpu_context *ctxt,
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
