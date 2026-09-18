@@ -1,89 +1,127 @@
-Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521CB1FF5E3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54453AD501
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701561; cv=none; b=F7fm9yMxMmJrPRtDlQh/MEWUAHapp3d94cyYPs9W6421rrQimIYMAf9e97DKyaIx8i6aQufys45n1sfUtWG/gOHPtZxcmQzYIfv5MeQZ+DEQVa1cQcfAOiJACqmSKCntPE/UwHvo9vMm+jvlRq4V3eQuOUfD2kxaeUg70hYdwQI=
+	t=1789701566; cv=none; b=GOa036o3SPggaYruvZnaMtw+CQysfohu+oQNlAgaBXb+1zdzOk707r3rLd5F+B31+k1gGWujCobPJFzVMoLwYtwCeVr9K/dyjD+5+eFp6liPWQIivCWwU0bypkgKQe3WdvlSmMjA0Mlr5HS6uD/5PUkKPVgLp5+4tb0zmMmpJxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701561; c=relaxed/simple;
-	bh=j2Lw8GZEQcOr2+soUoWbEZu1bj00nT++axnccGw8S08=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d1jv8q+uR2XOVe3xsVeBCBnwiKdsnh3miw87wJKb0SeVTT8u3+1Bj6xDTx6P4v5+M6xwe1/oUKqjnYxjzRq8zWTNfl3kO0HTnXFiEX4IjuiaQFxwGk9RXbbMFit2gR/2ZlJdsV7cXGVmnZTIrpbJezHVy+CGYuDoF80kn1XsH4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rNPZfB+m; arc=none smtp.client-ip=91.218.175.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789701566; c=relaxed/simple;
+	bh=FVLb/9tqKLCgDSW4Yyg9YW80snztJMnzKO2aSwSdmXw=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=cXia5miu+YqE/hsWVTUuGt718U10Nh0aH5402pEpx2JGBZLiSvLuH19n8uSFo2h9JO01hKBiYMYz4PdZaZ0LAMRobm7u4JrKbCwmHoY1p+o2J+umuJ6iBd8mVn9kVN5UpjXoW081oUlT4ar2L0uhckT2TPjwGswyLmihVajrTVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=EQxAx70B; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rNPZfB+m"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=j2Lw8GZEQcOr2+soUoWbEZu1bj00nT++axnccGw8S08=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789701555; v=1; x=1790306355;
- b=rNPZfB+mFrG02kcVRXctAqSTPXGWU4QTkdnvSrN9tbnLbAk5yQ/IB6dodLVwRK5krObz4GSk
- hW4wO7sD/BgZLzP31rbGAjU876ThbGJFDVf3UWXHnS6K+rXFg7ON1PZ3QtFMKpNaJybzwCATRx3
- NgE2BBJAahV5xB3PChgxFDQI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a4960d5e0aaf2f40;
-	Fri, 18 Sep 2026 03:19:15 +0000
-X-Mizu-Trace-ID: a4960d5e0aaf2f40
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: akpm@linux-foundation.org
-Cc: lance.yang@linux.dev,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] mm/huge_memory: simplify pgtable deposit detection
-Date: Fri, 18 Sep 2026 11:19:05 +0800
-Message-ID: <20260918031905.92493-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260917161359.9ba88d2bcab42db8111130e1@linux-foundation.org>
-References: <20260917161359.9ba88d2bcab42db8111130e1@linux-foundation.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="EQxAx70B"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918031915epoutp04c7e49d7ab4c618b733af4095ee36188b~WTBUjbhk00081000810epoutp04K
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:19:15 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918031915epoutp04c7e49d7ab4c618b733af4095ee36188b~WTBUjbhk00081000810epoutp04K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789701555;
+	bh=HKnmLzLUgthxmMsJgAHHDg791TGmTKkEbBQOle2AQa4=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=EQxAx70BgAMbeQjPN03QPSCdtTJoMWBCiuQaiXLyqB8k2WTR2AJJnHSoUtWNxDFMl
+	 X17swJE/eybHVt50yrWC1p1554LLztXK0LD64x9yq58S6lZJyiDrSPlbcB7dYyxgaV
+	 7e8vTEZO+kKR/OzyFRJ6B0HDF2EyLHZ3OzLc1flQ=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260918031914epcas5p4317137185eac02f3cbd6d83eac1a8a07~WTBT4RTGW0273202732epcas5p4D;
+	Fri, 18 Sep 2026 03:19:14 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hmHsY6F4Mz2SSKY; Fri, 18 Sep
+	2026 03:19:13 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260918031913epcas5p48cf1033745bf88d80a3b0c355cf76310~WTBSQ-IGk0273202732epcas5p4-;
+	Fri, 18 Sep 2026 03:19:13 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260918031910epsmtip13eff1b3e2ad0dd2db9ce3ea5448d3bb8~WTBPgtuoX2962729627epsmtip19;
+	Fri, 18 Sep 2026 03:19:10 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Selvarasu Ganesan'" <selvarasu.g@samsung.com>, <krzk@kernel.org>,
+	<peter.griffin@linaro.org>, <gregkh@linuxfoundation.org>, <robh@kernel.org>,
+	<conor+dt@kernel.org>, <Thinh.Nguyen@synopsys.com>, <mani@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Cc: <jh0801.jung@samsung.com>, <h10.kim@samsung.com>,
+	<dh10.jung@samsung.com>, <akash.m5@samsung.com>, <hongpooh.kim@samsung.com>,
+	<eomji.oh@samsung.com>, <shijie.cai@samsung.com>,
+	<muhammed.ali@samsung.com>, <thiagu.r@samsung.com>
+In-Reply-To: <20260916122229.2604003-2-selvarasu.g@samsung.com>
+Subject: RE: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
+ ARM/SAMSUNG entry
+Date: Fri, 18 Sep 2026 08:49:08 +0530
+Message-ID: <058201dd471c$7a543be0$6efcb3a0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGcfDqIrCW7OKewQ35ZfbAvR1onfQLSUTwAAgT4kRu3LoX/AA==
+Content-Language: en-us
+X-CMS-MailID: 20260918031913epcas5p48cf1033745bf88d80a3b0c355cf76310
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
+	<20260916122229.2604003-2-selvarasu.g@samsung.com>
 
 
-On Thu, Sep 17, 2026 at 04:13:59PM -0700, Andrew Morton wrote:
->On Thu, 17 Sep 2026 13:40:15 +0800 Lance Yang <lance.yang@linux.dev> wrote:
->
->> Whether a PMD has a deposited PTE page table only depends on whether the
->> architecture requires deposits or the VMA is anonymous.
->> 
->> Implement this rule directly in vma_has_deposited_pgtable(), avoiding
->> mistaking a non-anonymous raw PFN PMD for one with a deposit and attempting
->> to withdraw a page table that was never deposited.
->
->A large part of my life is asking $LLM "what are the userspace-visible
->runtime effects of this bug".  Because NOBODY EVER TELLS ME!!!
 
-That's on me ... I trimmed too much from v1.
+> -----Original Message-----
+> From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> Sent: Wednesday, September 16, 2026 5:52 PM
+> To: krzk@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com;
+> gregkh@linuxfoundation.org; robh@kernel.org; conor+dt@kernel.org;
+> Thinh.Nguyen@synopsys.com; mani@kernel.org;
+> selvarasu.g@samsung.com; linux-arm-kernel@lists.infradead.org; linux-
+> samsung-soc@vger.kernel.org; linux-usb@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
+> Cc: jh0801.jung@samsung.com; h10.kim@samsung.com;
+> dh10.jung@samsung.com; akash.m5@samsung.com;
+> hongpooh.kim@samsung.com; eomji.oh@samsung.com;
+> shijie.cai@samsung.com; muhammed.ali@samsung.com;
+> thiagu.r@samsung.com
+> Subject: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
+> ARM/SAMSUNG entry
+> 
+> Add the Samsung USB devicetree binding file path under the existing
+> ARM/Samsung SoC maintainership.
+> 
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> ---
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
->This time it says "Processes using PMD-sized raw PFN mappings can
->trigger a kernel NULL-pointer dereference when the mapping is torn
->down", which sounds kinda important if true.
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a53620839407..87a1ab24a375 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3576,6 +3576,7 @@ F:
+> 	Documentation/devicetree/bindings/arm/samsung/
+>  F:	Documentation/devicetree/bindings/hwinfo/samsung,*
+>  F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
+>  F:	Documentation/devicetree/bindings/soc/samsung/
+> +F:	Documentation/devicetree/bindings/usb/samsung,*
+>  F:	arch/arm/boot/dts/samsung/
+>  F:	arch/arm/mach-exynos*/
+>  F:	arch/arm/mach-s3c/
+> --
+> 2.17.1
 
-There is no known in-tree workload that triggers it, though. Mostly a
-defensive/simplifying change.
 
->Help me out here?
->
->Also, thanks ;)
-
-Thanks!
