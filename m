@@ -1,121 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9932D3563E1;
-	Fri, 18 Sep 2026 12:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F303B42E0;
+	Fri, 18 Sep 2026 12:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736035; cv=none; b=rX/s4P/OqJQdVQIi12Odf9nhiNOmsAXLuWwwRiTay9ByREx/27LNXXGkiVQLFIfXJJYu3asaxBaI3T6xVws6Wm/hxzV2W4VE0kpozgr7viFaiGD/9195jME+EBajDdn90pbvwWLkOwJlp7KZyXbG7Wxh7Pgd1kqV1NIX1MGZ1J8=
+	t=1789736052; cv=none; b=mAdZ7pFowGHXoOeYHLngRZWsrAKBRPyYX/ZrY5EVgHdY5GTlernw/tsv3mvTccPahDmGlvm5rGUUvP3nxBHVgzYjyyw853C8fbUpa2Nxvg2Dv/BHdalpif8NlYP2fBIPiADHJaTanAe5J5k0NlabanbjwIvSe89bULBoH1pTcFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736035; c=relaxed/simple;
-	bh=rB73sE3JR3O84Z62NqemZbNv/vfm9hqhHWsaEn9tnjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h8bELeprqCJo2r2Ble9V3S7z8E7MzKTxOFEAtTcxY5hN6N0HOIsbJfZ3Ul92WolaTCP6IyMqNVwz94smOe06dUGd2CHShYchIBIkqDizQLVgFu0Qq/OT+sOq5tbHHb0ZuJdm9YKms9JZXaeOihcvo8n+m3Bt7UHMRf+V5/kjlJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOvhNAH9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789736052; c=relaxed/simple;
+	bh=2iNBoZxSstrk0r9oQODWfc6wCfvzQI153E4ct4gGy3c=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=OTBbiaS6c23Dk8KQ3TfPvgCpRN3JXOok2aXa4RLKmogkBtcS0rgMilSisuMu3xiMgsu3ekEGJgW67c3ZJG4lj1EFWxbWFgmu3cNepbeEPsKADnZHBUWMZvUov92e6rSgyIS132N76dW2wXA5wSH4d1EDn6bDJbxa3xPSZfrg+Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Uhc8NhEo; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qjmDHYnZ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=HSdZuaf4; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=lcWbmhkY; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOvhNAH9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A728C1F00898;
-	Fri, 18 Sep 2026 12:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789736034;
-	bh=IZSVa0g2ztWQ8+r1qgpcbkI2lI4vaWG+BMaMpsWGUjs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eOvhNAH9jJfve68zgfKNDmGY89el9cOkf2NIB06BpJLj53pc9qiqRSzrucRtJzCCp
-	 h2tqnDvQ03aQIYDWbL4nVJObNeOWUZT2GPrI9o4llobNMwAkkyVL4hP66hkLudqA0m
-	 56/0Y4QHnVhrCbfxYWokAaR5NVn+h2zEDZQsf1kOlWgdub1iVzObD4ooMdu6g99ZNb
-	 WikShDV3gpkWy9APDZtbCZ0WqHgW5CdQ4ZVYnYp9bKn4MeLY1jkD0hhlhmHxPam8S6
-	 3Y11SOUY8xQba25BtAaqGIrFJeSnWqMr3dkw1NpngGRLEhhfvCTBQeAjLvt7L9mShC
-	 9+A9gxqAZZtbA==
-Date: Fri, 18 Sep 2026 14:53:52 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
-	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Richard Acayan <mailingradian@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH v6 1/6] arm64: dts: freescale: Convert to new media
- orientation definitions
-Message-ID: <aq00WXsI5T7Vjz4K@orome>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
- <20260918-kbingham-orientation-v6-1-5e8b1f01be29@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Uhc8NhEo";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qjmDHYnZ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="HSdZuaf4";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="lcWbmhkY"
+Received: from pobox.suse.cz (unknown [10.128.32.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 210E721DAC;
+	Fri, 18 Sep 2026 12:54:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789736044; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lBBBWCqHsiNlUhjmYq/WLrwwKy4QikepSdDZAZ5FYWE=;
+	b=Uhc8NhEo9yHWmXYQH7OPyVPZp2eAwQJmfdPh7QamrcDP1KS7L2A3sqMu7g5JV66aG0dSA+
+	P5x51YICGkhkCQI+38+SmE88IxxUczGk6N7nUDBShig4kiDH3KdZxneckYIOo2ydrdpU0/
+	kjaw3NILGcrLk69YdHv7KLztZDQdPR4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789736044;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lBBBWCqHsiNlUhjmYq/WLrwwKy4QikepSdDZAZ5FYWE=;
+	b=qjmDHYnZjY5hxTMQigxWcbufakKNaslXXtfGKVefnNcosdCgAsoZrCiTF55gGeNlpvDSQQ
+	DiFomEScvRROXvBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789736040; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lBBBWCqHsiNlUhjmYq/WLrwwKy4QikepSdDZAZ5FYWE=;
+	b=HSdZuaf40j2m39W2xQR8dOdWUqbgXCUo7JO1DOEeLK+L0ymbJoc5n+O/8b1OfBG84W+3Y6
+	EngDrOJt8YDCoDY63BRZdjIxUtE/vHTeNxa1e4HNCAfN3uv9FrYj4Bm9ozM2xptUTTV3BN
+	DfdT3xt0R7peOulXgy1CfEoSNZVzU1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789736040;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lBBBWCqHsiNlUhjmYq/WLrwwKy4QikepSdDZAZ5FYWE=;
+	b=lcWbmhkYzV6dX3VO/ezupKZFQ9YxxYdpuYTU75Kbd80ZyjMsY2LuHFS+RRsl2wrsOEj/D1
+	+3GQQf8oD1ZPkeBw==
+Date: Fri, 18 Sep 2026 14:54:00 +0200 (CEST)
+From: Miroslav Benes <mbenes@suse.cz>
+To: Petr Mladek <pmladek@suse.com>
+cc: sashiko-reviews@lists.linux.dev, Harry Hsu <x90613@gmail.com>, 
+    joe.lawrence@redhat.com, jpoimboe@kernel.org, song@kernel.org, 
+    shuah@kernel.org, live-patching@vger.kernel.org, jikos@kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/5] livepatch: Fail object initialization on duplicate
+ patched function
+In-Reply-To: <aqAHU9Qecqvl88VT@pathway>
+Message-ID: <alpine.LSU.2.21.2609181452160.21788@pobox.suse.cz>
+References: <20260908120325.299649-1-pmladek@suse.com> <20260908120325.299649-2-pmladek@suse.com> <20260908121744.81D641F00A3A@smtp.kernel.org> <aqAHU9Qecqvl88VT@pathway>
+User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6wdh2b42vbclylnf"
-Content-Disposition: inline
-In-Reply-To: <20260918-kbingham-orientation-v6-1-5e8b1f01be29@ideasonboard.com>
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ZERO(0.00)[0];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,redhat.com,kernel.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pobox.suse.cz:helo,pobox.suse.cz:mid]
+X-Spam-Flag: NO
 
+On Tue, 8 Sep 2026, Petr Mladek wrote:
 
---6wdh2b42vbclylnf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 1/6] arm64: dts: freescale: Convert to new media
- orientation definitions
-MIME-Version: 1.0
+> On Tue 2026-09-08 12:17:44, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [High] Atomic replace patches will fail to load if previous patches targeted aliased functions.
+> > --
+> > 
+> > commit e5553650270f93e11fe885d264a3829802223d3a
+> > Author: Harry Hsu <x90613@gmail.com>
+> > 
+> > livepatch: Fail object initialization on duplicate patched function
+> > 
+> > This commit introduces a check to prevent patching multiple aliases of a
+> > function within a single livepatch. It fails object initialization if aliases
+> > resolving to the same address are detected.
+> > 
+> > > diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
+> > > index a240d1144e89c..a6762cbe74b70 100644
+> > > --- a/kernel/livepatch/core.c
+> > > +++ b/kernel/livepatch/core.c
+> > [ ... ]
+> > > @@ -885,6 +885,21 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+> > >  		if (ret)
+> > >  			return ret;
+> > >  
+> > > +		/*
+> > > +		 * Aliased symbols share one address, so they would resolve to
+> > > +		 * the same klp_ops and stack up on a single ops->func_stack,
+> > > +		 * leaving the redirection ambiguous.
+> > > +		 */
+> > > +		klp_for_each_func(obj, prev_func) {
+> > > +			if (prev_func == func)
+> > > +				break;
+> > > +			if (prev_func->old_func == func->old_func) {
+> > > +				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
+> > > +				       prev_func->old_name, func->old_name);
+> > > +				return -EINVAL;
+> > 
+> > [Severity: High]
+> > Will this check inadvertently reject nop functions generated by an atomic
+> > replace patch when previous patches targeted aliased functions?
+> > 
+> > If previously loaded livepatches targeted aliased functions (for example, one
+> > patch targets __do_sys_fork and another targets __x64_sys_fork), they were
+> > permitted since they resided in different patches.
+> > 
+> > When an atomic replace patch is loaded, klp_add_nops() loops over all
+> > previously patched functions and adds nops for them to the new patch. Since
+> > nop deduplication is based on old_name, nops for both aliases are added.
+> > 
+> > Later, this check in klp_init_object_loaded() resolves their addresses and
+> > finds duplicate old_func addresses. This causes the initialization to fail
+> > with -EINVAL, which prevents the system from atomically replacing existing
+> > livepatches and might force a reboot if the old patches cannot be safely
+> > disabled manually.
+> 
+> Wow, this is a nice catch. I would say that it is a corner case but
+> the problem seems to exist. Now, the question is how to deal with it.
+> 
+> I see three possibilities:
+> 
+> 1. We might detect the aliases in klp_find_func() and create only
+>    one "nop" entry or do not create it all.
+> 
+> 2. The problem might be easier to solve after adding
+>    the provides/obsoletes, aka replace set, feature [1].
+>    It should prevent loading the other livepatch for the aliased
+>    symbol in the 1st place.
+> 
+> 3. Just document the problem as a limitation. It might be hit only
+>    when installing more liveapatches in parallel that current
+>    wild way.
+> 
+> I personally prefer to wait for the provides/requires feature.
 
-On Fri, Sep 18, 2026 at 11:44:13AM +0100, Kieran Bingham wrote:
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
->=20
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the freescale/NXP device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> Reviewed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> ---
->  .../boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso      |=
- 3 ++-
->  arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi                      |=
- 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
+Perhaps.
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+Could we also check prev_func/func->nop in the check in 
+klp_init_object_loaded() and have a pass if true?
 
---6wdh2b42vbclylnf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtNF8ACgkQ3SOs138+
-s6FhoBAAmy8KNMV4HskuU6PSl9pgsRdWX8u79Y1uLeY0OEPdqN8zN04yU9vPBd3j
-gFwQSlydnv11bvR6t4TI96MCj+ywVc+PtdTnyFIXnbj9g/oHFczVj4MuARWOi1F3
-rA1znqZNfPOQrqkXDseRP8h3vrzAsJJcE/3xC7ak15m8gCCjQaY3MJEogRIsqLfj
-Z7IQ1HSaEJyfOfk/HJ2MGzLvgF0eV/EsNOSZaTtjA10WLWeCXffPGocBG6DvsN44
-J9d1NyiMS3GPQiAhwukkDJtS/+qKd7ebtDa/kgKq0vXLRLudY/d73FGAbpmYJjBb
-RDr2fxeK6L/7iuJnhzUd+9hWb3o1wJBehyDQMk1VTQ3cs7kVvmvMFAlIFJaNcIvY
-pZ/UHqmMWO3cZc15hxezUpSD4nwPIXHF3/Rrpu4KpuvQ2qvfQ6Dmo/Si1QNrF3Kw
-iedvIhm6NcO4lXgJ3kwHxS1yh/x8ZKe0Sg42B4X2oR0RfFhPtsDLCL2b0mpyoub9
-fbKcVmleDcA3AUEAX8Q0dipTpyF1uSzNgp9w+3M7UQLfCeXpiVmXoSl0ALqhd/Kb
-O0RmNU/AubW0LVBBDbobrI5TxS7EtdPt2SJP0I+x6JRFFBvd91smEBNSciFoauKO
-L90R0Zfcrac0q8D3mb+pO7zJn1kkzm3j+abTzj3YHJ3FC92Q/xQ=
-=7yvd
------END PGP SIGNATURE-----
-
---6wdh2b42vbclylnf--
+Miroslav 
