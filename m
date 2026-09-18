@@ -1,103 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B026C369217;
-	Fri, 18 Sep 2026 05:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725B6370AF3;
+	Fri, 18 Sep 2026 05:40:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789709916; cv=none; b=ZR94eHSGmDvQfX5VPx9grfwjWXPTwAVP4qpMStGA7W+DUuV6RYVB6G/1K6nEOW9+qIZvMdDwNavxRbok6Vcw5+5ZiUV9BZQ0agTvxqIRvX4Icm2KaaOFOLukgjOcUFJST48QvbNiLU4BpZmuy6RnRfcwoTgbla2o5OOGDNc6uIA=
+	t=1789710052; cv=none; b=bHH+Itb17PW8g8tSZXWPu0uQy/nwINaD0PgzATioOgbkJP9EKp7guR2rEIrW/lUMjVnBpvKt4J5rHKAgoDgG+PS9iSbfxo8mFeyyMxk/teo871x4oWhPJs4A6n5HhvlqKfUkUReP5bKbtTrbmT1BUkgj39GqXkocl+CQGiLdGBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789709916; c=relaxed/simple;
-	bh=t2ClplML9zkcPCXZKC8gHHRapTDjWXKKbzD2Gn6eQVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XmGV5xCxs9oM6c+P9PlXiLstrTMZ5Np/jyy5qHua9wCE8012iQ6BsoKx14XpaqaM39GD3+AUxkSBxF1MipPj0ndLBsHPoIjVTTI84Z4x5+EPq6jqyrCj4E47A5+8QZEfRnMDuFIHAPHzonqZR/stFXUS4PvTXZJ/nxko0XCdlSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JYzdrC0o; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789710052; c=relaxed/simple;
+	bh=2oCic7brQwDjiuLicskbX68+8F87e81/EfieKTtr6JA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HDOJGUJrwogQ5gmNQZK3le383NCxK93GYA8W690FAMfNT6OJKGdHV3wHjFTPkI28A0Owl/7VnOeg0eXa957fGCdC3/2CBRyoLB7fBpuX71hC68uCGcRTf6GaKCgAGDcp5YD7k4Cmqzz4cgvQ7gp0W7MaLXjVu+WIYkHO+FNzm3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=QoZ9KifO; arc=none smtp.client-ip=188.68.61.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JYzdrC0o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789709914; x=1821245914;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=t2ClplML9zkcPCXZKC8gHHRapTDjWXKKbzD2Gn6eQVc=;
-  b=JYzdrC0o3ZvIgTWXGUlCbsk9OgiDl2pXs+mVU5Ucu0A7MFne2xJtKy/Y
-   GIcrwizOUdLqBsG7ohcdfwPMxBzvkWgC+i/+Og5Zq8jWWJ8490kN3lI/P
-   himhQGzkU64IiGa1uh7cuIK09s9rfECXM6kDQGkIvczsa9kuZFKzbvO0w
-   iKMeRCtiL6Mea3n/DLs4sLaBHzqxh9BuwVblRBxLnBTkb//114OkGdkus
-   4anELqby0PGJJA4WWbV8Abj6tIQhzMLcHMbapOGRoWjgdHr5UAzQ1q+G6
-   9TwgWC77AzjtCG4y9HsllrCKPRHnEF1/KlcHxsvPJr+XacPWjWBjktSTr
-   A==;
-X-CSE-ConnectionGUID: p6FI4CZ+TfuUylvgn2plaw==
-X-CSE-MsgGUID: /KLxcZ5eQlOxnsaY5AMAgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="94024578"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="94024578"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:38:33 -0700
-X-CSE-ConnectionGUID: hOPFj521SaCpoVOQSvCFZA==
-X-CSE-MsgGUID: PAqmF9ZgRZKu1G5YeZANdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271550870"
-Received: from wgawrons-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.112])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:38:28 -0700
-Date: Fri, 18 Sep 2026 08:38:25 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Liam Merwick <liam.merwick@oracle.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Ninad Naik <ninadnaik07@gmail.com>,
-	Joerg Roedel <joerg.roedel@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	coconut-svsm@lists.linux.dev
-Subject: Re: [PATCH v2 6/8] KVM: SEV: Add SNP vCPU state get and set commands
-Message-ID: <aqzOUb1m-v-kG5v-@tlindgre-MOBL1>
-References: <20260908103338.427254-1-joro@8bytes.org>
- <20260908103338.427254-7-joro@8bytes.org>
- <aqksXLLcmFDkM9Xj@tlindgre-MOBL1>
- <aqrDUgB7nfdgzXpQ@8bytes.org>
- <aquIYzwDOx6jzy3T@tlindgre-MOBL1>
- <aqv-FtT1v1FjDZJD@8bytes.org>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="QoZ9KifO"
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hmLz42ZB1z85D7;
+	Fri, 18 Sep 2026 07:39:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789709952;
+	bh=2oCic7brQwDjiuLicskbX68+8F87e81/EfieKTtr6JA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QoZ9KifOGx8q3p0C+RT139x+z/y0GVIKf5apDm4ZpUkuK0jU5vejS33h9Uyzaq3BD
+	 ki+Ds+H3d+jJS6RIg10lASH0ZnFeoO2+6gOD2C+Ylo5RXUFVIvha+HxnA2AUl5r/Ee
+	 XNqazIFukWe4MPftwBLzNDceook6jWSqPEjaFx8wwnBC6bWpFUD8x+Yi9rrz5Bf/Av
+	 nCFyvhsmDwTXGKMb69BXfQeMr4Q7vsXKRrds02s4jYyCaIZghKmZdRERx9gu5rjVEB
+	 rS09sZGL1TLWihto0I3DxWmn86BmGHcTOjbu3RE+eIxJh55URj5witmsJACuavbs81
+	 0NaVJLv7qt00g==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hmLz41qbDz85KL;
+	Fri, 18 Sep 2026 07:39:12 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hmLz30gJJz8tbx;
+	Fri, 18 Sep 2026 07:39:11 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 2691A5FAD0;
+	Fri, 18 Sep 2026 07:39:10 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
+Date: Fri, 18 Sep 2026 07:39:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqv-FtT1v1FjDZJD@8bytes.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
+ link
+To: Bjorn Helgaas <helgaas@kernel.org>, Andreas Wild <andiwild@gmail.com>
+Cc: linux-pci@vger.kernel.org, bhelgaas@google.com, macro@orcam.me.uk,
+ linux-kernel@vger.kernel.org, M M <restafvalendergelijke@outlook.com>,
+ regressions@lists.linux.dev, restafvalendergelijke@outlook.com
+References: <20260917233355.GA1115024@bhelgaas>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260917233355.GA1115024@bhelgaas>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178970995084.148782.7225326446830493101@mxe9fb.netcup.net>
+X-NC-CID: PLBxsupKr9TEn6xctqYG3iq+VDfVEoMCZf5Vwra4pqISi6IDXdg=
 
-On Thu, Sep 17, 2026 at 04:59:37PM +0200, Jörg Rödel wrote:
-> Hi Tony,
+On 9/18/26 01:33, Bjorn Helgaas wrote:
+> On Sat, Aug 01, 2026 at 10:11:48PM +0200, Andreas Wild wrote:
+>> From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+>> Since commit 72780f796468 ("PCI: Always lift 2.5GT/s restriction in PCIe
+>> failed link retraining") the Target Speed quirk lifts a firmware-imposed
+>> 2.5GT/s restriction on any downstream port, without checking whether the
+>> link is up.  Where nothing is plugged in, the retraining that follows can
+>> never complete, so each attempt costs PCIE_LINK_RETRAIN_TIMEOUT_MS.  The
+>> quirk makes two of them -- the initial one and the restore on the error
+>> path -- adding a fixed 2 s to every boot.
+>>
+>> On an MSI PRO Z690-A WIFI DDR4 (Intel 600 Series PCH) with one empty x1
+>> slot, running v7.2-rc5:
+>> [...]
+>> Fixes: 72780f796468 ("PCI: Always lift 2.5GT/s restriction in PCIe failed link retraining")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Andreas Wild <andiwild@gmail.com>
+>> Closes: https://lore.kernel.org/lkml/20260801092152.5643-1-andiwild@gmail.com/
+>> Tested-by: Andreas Wild <andiwild@gmail.com>
+>> Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+>> Signed-off-by: Andreas Wild <andiwild@gmail.com>
 > 
-> On Thu, Sep 17, 2026 at 09:27:47AM +0300, Tony Lindgren wrote:
-> > Oh OK, so calling for both hypervisor and confidential VCPU state would be
-> > needed. The difference could be specified in the struct kvm_vcpu_transfer
-> > flags?
+> I provisionally applied this on pci/misc.  It seems to address at
+> least part of a v7.2 regression, so it probably should go on
+> pci/for-linus for v7.3.
 > 
-> Or hypervisor state is migrated outside of the CVM live migration interface? From QEMUs
-> perspective it is not different to other state like for emulated devices and
-> such. Does TDX also have per-cpu hypervisor state that needs to be migrated?
->
-> In any case, for SNP this state must be settable from QEMU to correctly support
-> IGVM loading, so an interface outside of live migration is needed :)
+> But I'd like to have it in -next for a bit before asking Linus to pull
+> it. [...]
 
-Oh OK so the per-cpu hypervisor state is part of the IGVM loading.
+Great, thx -- and yes, -next sounds totally fine for me, as this fixes a
+delay, not a hard breakage.
+> But IIUC Aoxtj still sees issues with 72780f796468 ("PCI: Always lift
+> 2.5GT/s restriction in PCIe failed link retraining") even with this
+> patch
+> (https://lore.kernel.org/all/331e97c7-e422-420d-9f3e-5d9f734464b3@axtjblog.cc)
+> 
+> And M M / Mich (BCC'd) also reports an issue that (IIUC) is not fixed by
+> this patch (https://bugzilla.kernel.org/show_bug.cgi?id=221919#c3)
+> 
+> So evidently there are still issues but maybe this patch fixes part of
+> them?
+Yeah, Maciej ten days expressed that we to look into this. Anyway, I
+suggest someone that is affected by that problem starts a new thread
+(please CC all those that are affected by it and the regression list)
+with summarizing the current state + this patch, as this thread got a
+bit confusing... (please drop a link to that thread here afterwards)
 
-Yes the per-vcpu migration is a bit different for TDX. No two separate
-steps like you're describing for vCPU migration (per-cpu for vCPU
-registers and per-cpu for hypervisor state).
-
-After stopping the TDX source, the VM state is migrated. And then the
-per-cpu state. The per-vcpu state is just a QEMU VMState for TDX too,
-and it needs the help of KVM to export the state into an encrypted blob.
+Ciao, Thorsten
