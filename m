@@ -1,91 +1,53 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A02C40F726
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2103AAF49;
+	Fri, 18 Sep 2026 09:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722699; cv=none; b=QaMX/c+MiTRyYFtLBXx73ngx4P87/oTYuPxdaEYdYKmUeC3W/wMssbTgay2UG/a1SNdV7q6iEVkQDomrogqTXE4nY12DplI8fx3S07onlbsOu/dFMPEnYfeRL/F/GSXFWmPnS/Jm0SCVMOMrYAlvqHAZ8XaVv/Bd5457orQ2rN0=
+	t=1789722729; cv=none; b=suqLjXJLaexYBEHK6fd8otI2TDRE2bf9xwzT4N1i9Y+lWnmvzoJ1Bfs/G2EzB+V+6/EzMVlBSvS/feXi5ckBIS57Sv7B568cPbQeyFYOzv7eUTUTE1JekjMiFdF31puAjeIEXNikLte603zqMCbN5zFKMK13/aD6+Yrhz6/pBpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722699; c=relaxed/simple;
-	bh=GnQNNaO2NdAe4bfr6j79tdcCpkRyZDIf9oDO6K4Un58=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZLCM2WkzSNoyPtoisDoiNprZFkTGEo+6ouT6Uiz6iIUN1ykYw71LQyFxFgDk4P2NDYPBzfJAHiJqzRB2lptVyl92Pzkg+KXHwUuCumE0n5GwbD6XvBLZT0v1IiD8SANU8Y22JeEOTxLZvyx1VJmQ32N94G9kRpo3HqWYy7cmLxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WSMkcGyL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789722729; c=relaxed/simple;
+	bh=g7wfjJEL8gVj/CIJMly7y7ctAD3Uac7c8Z190Y6bP+g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fGBJOU8r5jqeNtSC1diVn/IlJCtOxpb27i+AAd/OGfBm+v8BaGNM8rlmMhm7ovqOHTDbzxZdGHei/XRpd9Vm5VXAN3S1Zh23BIWoL+JQbVyC+DBERRj9vTuUAgYso7SMuwxMtUpTifd4yVulAxqVYEdUIpWaLZxBEUaUWBK2SZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ZaFWGK1z; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WSMkcGyL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso2496805e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789722696; x=1790327496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
-        b=WSMkcGyLeThcjPB3yQKMfLgB5NXcufEm5GIyDXYbj1CFeGUzHHz3bgvzQNk0GylDjA
-         PYo1FlOUkTdD5dG/ms9avQEdlevkcRbj6VTpBy2bEuV7u7rcPq5kbl0aT1DoTosBfW13
-         2PamQ8/eN91LUJAKp5USHESSY4R7t1SbWVIvFkcNMmtJwN81fCZY9VBxqKKnp+CwnCj3
-         06P0OHPFHr2oxfaRW3itkjbndyUnujIuPPlm1PTzMl1bvg5ZFO3isyYwl05CEIse4kDf
-         psyRujXW5Q1LyL46x169UqAkQNlwJP/Kh8mRL94ddGcQtPOwMTvAv264EhIzvlbeu55d
-         secg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722696; x=1790327496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
-        b=WhBic9H/yfEX0xOlTSQ0Om6fO0DmXwMo5dRz+/84YrRstaBlwr0FvBjB9TD6PF0z8t
-         AiFn0x8XjMZ7h0rZTA9gfoDteMmu7Qwj3z/2930sGhJ5yB+Vjdqv4yl40irsIBJZ1Mib
-         Ns3z3/QB+/355wwsQT3pFhtNA6ovlZOFeLtCaNA1TF5ShEr9fO3oJ4sDkPdVnkRKZ0Cj
-         yVDwEAa8b8qKoEqW6NSrdaFSD3QgJHYL6mj96Kp2jto0JgV2cKSo35QlVzLASodKq7SB
-         Rvt8NUjL5/NEq7kMBX+mUfGiyW77DitTaJB8uHylXVab5b/t3G/L/7gaFNnJKH3QkvXl
-         Mjxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvLnRvRb3RMehRimhgnvCTEhp4miarrzY5X9B8n9U6SVFyMiyOzvcZxvuCLBkijQoTaKEEpbaBN+vmwNw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAEZ47xxKuq7hGbZHV35sKZKmTzpregcjVigFxah1Gu1g+CDBk
-	QWpEtGMJzOqmFJF3ea/xcE1MxxuNew8Gb4zR2hMTooNFlOGWlBLheIyt
-X-Gm-Gg: AYBFou1TlhlJ9zw6NYXM+0kNOp/6vCTDM+vnfN9OUwFVwFudLpBOqne9j+hj2oFXKvX
-	n6TEeO6SZc9yJ+KpB1ZvOxKCmSQ0gClUNqW94IwgZ/h+J9O4UtSu52CepL4hQ0zvIxRr9KdBbbw
-	7kNI4pSyZoQJ9yRKlWXhEZsRTSw8qC4hisTmunT0AP4eGHVCaBU8HO/WUxtseEOO9KABIIzN1sG
-	q4B37xK/aWj7nJb4rm1eOF1PxyTB1/eJa/5Pr9/aFhx9DmSsFuLJnfEUcIqvZXaiu6BqRVKntq+
-	zBNwWGu+kAfqJf0M9FZX0BldEe06cnHq+gDpTcRik4z4VjqhWzJMMrS6WnbbpWQ9y+pgLVwugJo
-	97dVqbj+z0B/bKJEoqcgonCb/9Dqac46OI38bSGdcA783xySgLXNm8+OWVTLBq3r7qAp2QGD8uR
-	TrRfRy6HUhfjnAwSCChhx+znEQ1MNJHzzS/DPW/UTKEvhgd0Gw6gJH4Uh5PpEyOlLMtLcJZb47b
-	O3jPZXTXeamdNm7wcckViBeaw==
-X-Received: by 2002:a05:600c:3550:b0:49e:7d74:7b7a with SMTP id 5b1f17b1804b1-49fc56db8f3mr21040695e9.6.1789722695703;
-        Fri, 18 Sep 2026 02:11:35 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm138774275e9.2.2026.09.18.02.11.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:11:35 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ZaFWGK1z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789722690;
+	bh=vfmQoCbf3aPR+Q4tJH4y0MAOS76O3srgC81W3d4qba8=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=ZaFWGK1zrdg4tJ78KcIM8AdRqefA3q0kPGdQ1vD9H1a618awmlNfxHkrw1PcD4sXz
+	 iJzjOMKF/+BKshfd6aCYJr7QHINKSE+oVPxyRkoK9oSl8KJO+Izp++COvBoWeT5V1M
+	 xaR9FKP2bZc4H1USts8EwiEsySFydn+tbf/xXb44=
+X-QQ-mid: zesmtpsz7t1789722671t3d6fea4e
+X-QQ-Originating-IP: wUWN+trQuf5Xsuoapoek2ccn3WeJL1Zum6UXO5Gi2Y4=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 18 Sep 2026 17:11:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4785908314946589804
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: kprateek.nayak@amd.com
+Cc: guanwentao@uniontech.com,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk,
-	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v8 5/5] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
-Date: Fri, 18 Sep 2026 12:10:58 +0300
-Message-ID: <20260918091058.297740-6-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
-References: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
+	linux-pm@vger.kernel.org,
+	ray.huang@amd.com,
+	ronforever@outlook.com,
+	scardracs@disroot.org,
+	stable@vger.kernel.org,
+	superm1@kernel.org
+Subject: [PATCH v3] cpufreq/amd-pstate: Skip auto_sel write when it already matches the mode
+Date: Fri, 18 Sep 2026 17:09:10 +0800
+Message-Id: <20260918090909.86544-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com>
+References: <c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,169 +55,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NZDQV+yaJ13ifOXyVfw8cu+W4eRl9BU2qvyp1ByQTD6Qk1mY9FxW99+7
+	kyrwlkO75hhprXrAD3ZlRBaUbvJwM/G5qhm+yn5HAK70p+XZ8wV+TmMqJ3eK6jylQE0TLi0
+	e20Hq1pnI+4L9WPKbH6eonH7Bsls5uv/G/zZN2qbx/PV1Ba8t6YBu0QXsnKF01U+zvIeOye
+	y3P4IqoGQ1y84F236MS/oGJPusReoG6pCbIMBoiZ4Hh/jzY/Lpp2tRtf4bvCWZQMHILqOZq
+	5yraEb889Ql3Yz55/YOkwr0dfyIrcUhll5W7HrTgAiDNiMFSvKB47xKjuJ5lUnckfcJ5LSR
+	B+5jR1EpgN6HIGA/7LY6poKO0bTnW0GueG7s/2GEQh08R2HwamecJ8qMIir2yK156ukidwW
+	uFiAuTr/RcyVDiMyo4cf4BZsgOqSCpFq08TN32Ooovm63ZfIOFFOEZXJnor7rCbFBzIwG9B
+	niZaYO4ZbY0zBBRp2unD0zxNV+IZ5OVcOACoHMDp3DMN4ymoBB0vgOwiBTEfK25MVvgQ6Jy
+	VC5KZe4bna8zNbzCMNV5TUP7i5j6UPmpMDmIA37C8avPdTn3Ov1tBw7SrjtwwcIAQX3FbN+
+	xB1YEDrclCPjGx12NOqGM37uZZ8qxrj6HxbxRtUCb8JnqcMjTCtruQLzCj0cqp9YMMOiEpb
+	35cOuyjlvL7X76RfiBOWoTaGz7lEZj1dKElzpJx7MtwY1EI80PbmnKh1ez6nlA0ME2cklen
+	eWPqzc+Fsn1A2xHkBITQilncxMK46Nq6lpB/7vwdM0l5L3tzUdzQlecuACcOxbUFUuqGdPY
+	XpRZ9EQ9+YCDe5KqMMq0Or2WrUkW+y2FJdVwOYoQBnmQbWP7Ub16+pbD8o0LvMMO1DOkTKL
+	DQEhhhfEoSjM7UMzPgYTXLzg+hifx3RJRr92/61ZAcZ6vkh48llT8rWlVZjsVRrs0m5B0RW
+	XUKBuJ/JgW9W+I97AuluZy0hwVdBBGYZxsQwbef3vDQOtjUb+qC2zS09d64P9bMRwOeMwVz
+	omZIECv5FfbWR+ukQgHeaTuaypcjmiiknXRT1ZOSrlfaGaBvY+9u7VM4mVRACcnv3a9nj54
+	wpb+zrg6TZ/7GSeqnJLCXOdUvC9Mbo1M9OBe5V/FzqvsxudxJrulB7jJH9M5HziH1H/yBzw
+	uMXEGzK3CqyadyiUjYp7f5CPig==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Add a sleepable BPF LSM program attached to bprm_check_security to test
-bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str().
+Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+mode on shared memory systems"), shmem_init_perf() programs
+AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
 
-Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
-contiguous NUL-separated argument and environment data. Then use
-bpf_copy_from_user_mm_str() to read each argument and environment string
-separately, advancing the offset by the length returned from each call.
+Platforms that exclusively support autonomous selection report this field
+as an Integer of 1, as required by the ACPI specification, instead of as a
+register descriptor.  cppc_get_reg_val() reads such a field back
+successfully, but cppc_set_reg_val() rejects the write with -EOPNOTSUPP
+because the entry is not an ACPI_TYPE_BUFFER.
 
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
+fails, cpufreq_register_driver() ends up with an empty policy list and
+returns -ENODEV, and amd-pstate refuses to load at all:
+
+  amd_pstate: failed to set auto_sel, ret: -95
+  amd_pstate: Failed to initialize CPU 0: -95
+  ...
+  amd_pstate: failed to register with return -19
+
+Skip the write when the register already holds the value the requested mode
+needs.  Active and guided mode are fixed on these platforms, which report
+auto_sel as 1, while passive mode still fails to load on a platform that
+cannot disable autonomous selection, exactly as it did before the
+offending commit.
+
+Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
+Cc: stable@vger.kernel.org
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: LFRon <ronforever@outlook.com>
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- .../bpf/prog_tests/copy_from_user_bprm.c      | 65 +++++++++++++++++
- .../selftests/bpf/progs/copy_from_user_bprm.c | 69 +++++++++++++++++++
- 2 files changed, 134 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
- create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+changelog v3:
+Include the K Prateek Nayak reviews to remove that ternary op base on current 
+condition now have.  
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..310370689427
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <errno.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include <test_progs.h>
-+
-+#include "copy_from_user_bprm.skel.h"
-+
-+void test_copy_from_user_bprm(void)
-+{
-+	char data[] = "first\0second-argument\0SOME_ENV=a\0OTHER_ENV=something";
-+	char arg0[] = "first";
-+	char arg1[] = "second-argument";
-+	char env0[] = "SOME_ENV=a";
-+	char env1[] = "OTHER_ENV=something";
-+	struct copy_from_user_bprm *skel;
-+	pid_t child;
-+	int status;
-+
-+	skel = copy_from_user_bprm__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
-+		goto out;
-+
-+	child = fork();
-+	if (!ASSERT_GE(child, 0, "fork"))
-+		goto out;
-+
-+	if (!child) {
-+		char *const argv[] = { arg0, arg1, NULL };
-+		char *const envp[] = { env0, env1, NULL };
-+
-+		skel->bss->monitored_pid = getpid();
-+		execvpe("true", argv, envp);
-+		_exit(errno);
-+	}
-+
-+	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
-+		goto out;
-+
-+	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
-+		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
-+
-+	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
-+	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
-+	ASSERT_EQ(skel->bss->data_len, sizeof(data), "data_len");
-+	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
-+	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
-+	ASSERT_EQ(skel->bss->arg0_ret, sizeof(arg0), "arg0_ret");
-+	ASSERT_EQ(skel->bss->arg1_ret, sizeof(arg1), "arg1_ret");
-+	ASSERT_EQ(skel->bss->env0_ret, sizeof(env0), "env0_ret");
-+	ASSERT_EQ(skel->bss->env1_ret, sizeof(env1), "env1_ret");
-+	ASSERT_EQ(memcmp(skel->bss->data, data, sizeof(data)), 0, "data");
-+	ASSERT_EQ(memcmp(skel->bss->arg0, arg0, sizeof(arg0)), 0, "arg0");
-+	ASSERT_EQ(memcmp(skel->bss->arg1, arg1, sizeof(arg1)), 0, "arg1");
-+	ASSERT_EQ(memcmp(skel->bss->env0, env0, sizeof(env0)), 0, "env0");
-+	ASSERT_EQ(memcmp(skel->bss->env1, env1, sizeof(env1)), 0, "env1");
-+
-+out:
-+	copy_from_user_bprm__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..00ecba3ea567
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <errno.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+int monitored_pid;
-+int bprm_argc;
-+int bprm_envc;
-+int data_len;
-+int invalid_flags_ret;
-+int copy_ret;
-+int arg0_ret;
-+int arg1_ret;
-+int env0_ret;
-+int env1_ret;
-+char data[64] = {};
-+char arg0[32] = {};
-+char arg1[32] = {};
-+char env0[32] = {};
-+char env1[32] = {};
-+
-+SEC("lsm.s/bprm_check_security")
-+int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
-+{
-+	u32 pid = bpf_get_current_pid_tgid() >> 32;
-+	struct mm_struct *mm;
-+	u64 offset = 0;
-+
-+	if (pid != monitored_pid)
+v2 link: 
+https://lore.kernel.org/stable/c3eb86bd-70a6-4bb2-8eff-b2a3c0817514@amd.com/#R
+changelog v2:
+Accecpt and tested the K Prateek Nayak reviews.
+v1 link:
+https://lore.kernel.org/stable/20260918054808.48999-1-guanwentao@uniontech.com/#R
+---
+---
+ drivers/cpufreq/amd-pstate.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+index 80d99ba1902c9..2d1f5292d1738 100644
+--- a/drivers/cpufreq/amd-pstate.c
++++ b/drivers/cpufreq/amd-pstate.c
+@@ -532,8 +532,10 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+ 		return 0;
+ 	}
+ 
+-	ret = cppc_set_auto_sel(cpudata->cpu,
+-			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
++	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
 +		return 0;
 +
-+	mm = bprm->mm;
-+	if (!mm)
-+		return 0;
-+
-+	bprm_argc = bprm->argc;
-+	bprm_envc = bprm->envc;
-+
-+	/* this is the total size of args and envs starting from bprm->p */
-+	data_len = bprm->exec - bprm->p;
-+
-+	invalid_flags_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, ~0ULL);
-+
-+	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, 0);
-+	if (copy_ret)
-+		return 0;
-+
-+	/* arg0 is at bprm->p */
-+	arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += arg0_ret;
-+
-+	/* arg1 is at bprm->p + arg0_ret */
-+	arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += arg1_ret;
-+
-+	/* env0 is at bprm->p + arg0_ret + arg1_ret */
-+	env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += env0_ret;
-+
-+	/* env1 is at bprm->p + arg0_ret + arg1_ret + env0_ret */
-+	env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+
-+	return -EPERM;
-+}
++	ret = cppc_set_auto_sel(cpudata->cpu, !auto_sel);
+ 
+ 	if (ret)
+ 		pr_warn("failed to set auto_sel, ret: %d\n", ret);
 -- 
-2.55.0
+2.30.2
 
