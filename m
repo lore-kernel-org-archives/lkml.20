@@ -1,185 +1,213 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F16843A81A;
-	Fri, 18 Sep 2026 11:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729800; cv=none; b=exG9LtiuFjBdmLX7+K0Yqlpik5M3rKUKtlOm+Q0V4+ycraQUhG8GiXOYjaGR10PNetJ8jzgcVd6BccIDjZAla43x/5DzNA9bDdzk6Zdl4tby7/+xDtQ0TpGehTSAPS5WDRFoBZa56nMROWvVkdLCsE09GrIMpojgOCDoK2YMFTU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729800; c=relaxed/simple;
-	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=cgfcFJ9RjRbtnyxrL0qZ1JlMxeIPYy3330KnB3DtTGRVLJcnA+ga71QD811Y/ZLYUywfnQ7Fn/sfv5bAHERFQGCRmB9GNiNTWezJvRlPWwvq6FzuEdeQvUkC8425sHVSY3zAVT9rwG81bbk1pvY1SWSa4i50I/zAAAdxZSxny5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jxOa3RnE reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3458249AA44
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789729819; cv=pass; b=GlqHUmPeSZl/XvDtYUJrqWACxx1RbEKoQpJqKpP/eWKTS0vQLd50DziMss/NyxX5ry9FFKMQWetbE05PGQHkxwpPBmdQuKWkRLB40ZKUB9KiRaiaWlkpexlKlysVopi2X4lVbqRg09+2V1pcuaRBKIqUURQllP/jXgMzwxZG+yo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789729819; c=relaxed/simple;
+	bh=7mYi1pmpp8N50UyfrIRnukXbXF0A2XFwLce49LgYwEw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c9a4ZV1JcaZuVa37Ku74ha7UzHcB2OCcPA1uTFgpTBg4Tyr7EKCx0P+C3xHdSvqa+u2KWa41Chv4mTL9DUOmsP85juX2YHb4DRBFm/YOFckJgNj/Z86Q36MIAZtOzX4abWKdqlGzUDUlGc7zkDCYXBzHchkszcqHqs1mTvmyr3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mgP9DmFX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gIedg0ub; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jxOa3RnE"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B1D6B1F8;
-	Fri, 18 Sep 2026 13:08:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789729691;
-	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=jxOa3RnEq2/CNxX0bfR1kunUgikbVV//SkHNMNfoRZorxeiHSqlD/OAOpbwivtvav
-	 Ss3ClSRi+SGjDqFsdOHunjq21sBvn+l6vcL7XA4PZJtbw/CIofCZGd9tP3WmyTqmZz
-	 IcBATwYWqSR9FPPPmRwDQmdmq/LgcbVR0zFsmoos=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mgP9DmFX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gIedg0ub"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9ddf13801936
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:10:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hHGk/fFt22iEw0C1ik4cFkKxs940DakHET+Ju6KARfQ=; b=mgP9DmFX8HWxEggU
+	u2fsHlEJMTq8nqwX6n/+W2q8jM8JzZBOwzbEjpc1BAuenRDbTfigAwrIVSQDihz+
+	oAmp5opCWo7rbCOo1qn4s+cjO64AxZpNzFlF1qYTJNxUn5yKnPEhTpKBN6jl8dUs
+	Rk6RBHk048Snhp/ujycxGmbKEnw7BhHXr8/8rMJz3foMqzI5H9yFXhwXp8D7pYEz
+	a1qh+6N4KDp1XY6lmaQO/RJomZIFmk/DKRPymPFS9T/ceMgDUSS+JPm7/YEN/Hm2
+	qqmMldp+QqsdR49Eeb6OqP78oAkchXL1ly/MljRT7GJ0+NZOv/uX+FWf0lPLNorQ
+	Hvhayw==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grq2ku888-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:10:15 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-86e8abd7136so6325367b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:10:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789729815; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r3WCsCdXOFGt1AYQUphSVChwfARsTiBAvFKX3HDA3pJPTeW37BXP+nwYM0rYEjNpjN
+         XWC6UTqI3YmvBWQ58wIhTjXZ4J8eK1eEBJlD5ec5hbjcm0LGrP0tzY7aT6F/uqYIGyEm
+         9Tcts9JPXTKTygeWENkneyhuW0MucnH4HJ7ItuoMEdWl6qNEqSLmy/kK5m2sq+MJZcaR
+         1KXEQj6DY/4SjxNJTGoaP76tDJyGrCW//7hDZ8Nymb6F2OrbIeXilD+uwmqJV+SmumoN
+         noCoQw5fTpdgKIQauw7JUqiRS/G/iNUmB66mPTAk8ALOel5lfkRb8LeMozqhHNAZ2vVd
+         SwEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hHGk/fFt22iEw0C1ik4cFkKxs940DakHET+Ju6KARfQ=;
+        fh=TxY23/BH42183wBnCoR7Df+P2jM7K7ystZJ35Cy5QIA=;
+        b=p2aTXeCnH0ltyOR5KMyX9pNNAmCdeG6LMCzOVh1eM1B+cjsZQismP6HL4EEbl4xg4s
+         dM1bpNyLmGUxsUBOfy3Xq0+6ouEvqgfdPN7iTq7rkU9aMv60EeE55w8LbKwNmCz67y6R
+         yWe3daW7xu4IaFbvfoZzMl7YVkKyJ/M9SqTb2+TExWjiqCn1owUDDwj5XbXTeMLYq4c1
+         60NWMJTrLO2Cgo5tVXp1zNXTiU8CJ4nOdpLOjAM4CyQy8PgQxuZeHUHjj604G44wZSJT
+         T7fV26GflhYpDZFjgqXMQFmligHvVEmq3KJ1XNWQznkvuz0QdWMG0EzpgsMhBlx+j4hK
+         FLhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789729815; x=1790334615; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hHGk/fFt22iEw0C1ik4cFkKxs940DakHET+Ju6KARfQ=;
+        b=gIedg0ub5NUV/rWfSkCStuIyFYFCFrm1XCEweAYbfGcIqKD76RmJjohFpCc4TJKHpc
+         0QwqnS9H6VHjnSdOsLl9XZMHgiVawLW4bBTWoVhkpnFps7ukjoRLvAOfoMgEH3iQGdPT
+         OdzbpG4Td7yMn3kzV9FvALRwZ4RdYDJ7eXJ7XWY87drX/H2cUV3BfnW+AhHSMnAVz4FN
+         7T4aetpEN7XWmE2cg2D0JIUQ8z5Sx94zwTEp0FiAcXFVkO+e7NJWkCe3ffWQBcSYoEvu
+         LyHU8/YMeA0Tq+XMvs71OmeSSRB8keODAiYJwLDFeCYR/KFBMWk2O7hn6A8wX5J6Q0uy
+         OOFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789729815; x=1790334615;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hHGk/fFt22iEw0C1ik4cFkKxs940DakHET+Ju6KARfQ=;
+        b=iA+idc9TP6V8s6VK+H1UoKar0YULERD55CLbJ7OiSHX5rr46vjwhjUmvF2ZCb+wBQv
+         NGflvJUlYZZpD9/dqvJ5s5C0Jd9XGugc4dnF3bxy75xWi7MScWiA9LGKi8f9NUmBAPn6
+         JyV5hqBGCXx21LdWJMwf93LRp9BqfCEC6zuP870ynFGgTyW/gk0Q0nJd270FJsmYqT8j
+         SLDZIh0u9/f7kqaehAFhBNa4eoiahOyJ3JKyx25faB7wJYjMapfqtW13DXInyJCWbCjE
+         Ev9cWpVM7KorSOyd3xhYmh5kk/SSoK1KeGlM++gxAI1HEv7eMdCCWrHSkOgPOEaNPVVd
+         YYVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyfdrqQ5VXIgM2rZxrDjNe8xAqQrURLakMWy2szL+c5xlNJB/m9sEf9XEv9BuAhVEXeoiqHJkTpu7uyLw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mm4jF2ZebHNCNECBRCFQYSvTBVRGr4x69JI2GUQl94kQa40d6I
+	evJptMi9qcCB9oBqJKqGJDv/am3xG3MjRcw7AOMQ18+1eiv67Ij17Aco5tnFqw9PnXVQ63Mm5+X
+	TD2a2CzgclA+Sbp0JEBqJfAJHNBKpWk4gQqaz/nEagZgmIH84i8qLCz9XwyNlBcA08yRvgYKc9V
+	WG74JMk02pqdGC91+Ccpqpzw+IK3RvXq6lEv8yIbcjDA==
+X-Gm-Gg: AYBFou1DK7qpqKNYk1bNFdQrdWsm9CdugnhYffI0+X7FKjj3Y4pRJN3UBqza5l0AVke
+	8SmYjiOGnoaAgn4+XdJEopYl7QTeuRoXPN0JjNg3O+LFJivjgv2e3qzUk+qbueD4somZ5gJgPvj
+	VZjuNTd+guY8GkI76fua7fKG2ZnUEJvoK/zMnokJJIUZDrQnK1s1j7cp6Qdg==
+X-Received: by 2002:a05:690c:6609:b0:864:a8f4:faf0 with SMTP id 00721157ae682-897308fc29fmr6613257b3.10.1789729815297;
+        Fri, 18 Sep 2026 04:10:15 -0700 (PDT)
+X-Received: by 2002:a05:690c:6609:b0:864:a8f4:faf0 with SMTP id
+ 00721157ae682-897308fc29fmr6613187b3.10.1789729814904; Fri, 18 Sep 2026
+ 04:10:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
+ <20260911-video-optee-pas-v1-v1-2-7bbddaaac5ba@kernel.org>
+ <38fa7602-f03a-4343-9999-0eda108332e3@oss.qualcomm.com> <CAGptzHNO02tQJypLjQD+nKWW76m5R2fo-s=bAJhN=Hmu_oVvng@mail.gmail.com>
+ <d293c3a5-7318-4ef4-978e-2bf1c064d0fe@oss.qualcomm.com>
+In-Reply-To: <d293c3a5-7318-4ef4-978e-2bf1c064d0fe@oss.qualcomm.com>
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 16:40:04 +0530
+X-Gm-Features: AcwNN1Upb_pgvF3uaRc1g74qFaXIbjn35IiykJbFBoflQjt_WLzyJvnHVSN59JU
+Message-ID: <CAGptzHN5uTR8w2b3ODHoSTcys4woRBmAf0fa=93H34ZDV+=ymw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: iris: Skip SCM call for non-SCM PAS backend
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com> <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
-Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media orientation definitions
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>, Jonathan Hunter <jonathanh@nvidia.com>, Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Magnus Damm <magnus.damm@gmail.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, Matthias Fend <matthias.fend@emfend.at>, Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Mikhail Rudenko <mike.rudenko@gmail.com>, Paul Elder <paul.elder@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Quentin Schulz <quentin.schulz@theobroma-sy
- stems.com>, Richard Acayan <mailingradian@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>, Svyatoslav Ryhel <clamor95@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Thierry Reding <thierry.reding@kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>
-Date: Fri, 18 Sep 2026 12:09:51 +0100
-Message-ID: <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE1NiBTYWx0ZWRfXzHUCoKFydz9W
+ CtRdnO0iYhfeBVQzNfjBOgbeANFGtI+g9WV/FmT5ZlVK6rRRd7c2R2dkmQrNNR0+SxWL0fpAucw
+ SpmUZkNWXJEQPJnK9wNFUWpxFjPQhKpYGGsTTkPYv9AvvcHH5cyNGIHAyFv8d73FysxV+5OVahf
+ wVvU0H8BJY2bMn2SPeD8+dBoNIJYn6w5DJiprKhfJZ3yQFOPG6/LFof0tgGwxnqt3w0YJrjBUxI
+ Gz75g5RNGGKBuOTOZc9csGXHs7p81kBTJ3VgJGM2VytCf779bu0dJFlVooWuDPMX6aWZqyMl8Vw
+ MdA1L4339Qe/mWoSfIaiV/Gp/UqZrzWpR7sh0jhSIf0gafnnU4l3GzqJktGWd8Mmkk7TLNBQTxd
+ kQbqvvi0KD/qsHPTrKvBKkP8Cuo0t7kWPaU33dgzmyAXlrYlgbsVIdn/1fJ5pP1VK76F9jYxS1u
+ w9Q4TE2jatJKMfqvbWw==
+X-Proofpoint-GUID: I2jWDNyLCw7q7Jesyc5ermmKn4XEPcrB
+X-Authority-Analysis: v=2.4 cv=bcD+w+PB c=1 sm=1 tr=0 ts=6aad1c17 cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=JgrgwxYoxep7DTiRX_4A:9 a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE1NiBTYWx0ZWRfX02VbeFnmXtT+
+ GI6GV6HseSMi6k5Bc48kIwcemK3S+8FB124Gmn/6Z6ZoKbHoET2FVRiaKV4J42I0LjIIZgUD02q
+ pnf6zkEQD+kAH1uTxP8HKaTOedphDoM=
+X-Proofpoint-ORIG-GUID: I2jWDNyLCw7q7Jesyc5ermmKn4XEPcrB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180156
 
-Quoting Kieran Bingham (2026-09-18 11:44:14)
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
->=20
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the qualcomm device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: David Heidelberg <david@ixit.cz>
+Hey Vikash,
 
-Sashiko has noted that there is another new dts added in dts/qcom since
-I wrote this patch.
-
-I don't want to invalidate the above reviews by adding another change,
-so I will send the single update to the new file separately as the core
-definitions are already accepted now.
-
-If someone /really/ wants me to add the change to
-arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
-please let me know.
-
-it looks like this:
-
------------ arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi ------=
------
-index 945127dacc82..f86d3e0d51a6 100644
-@@ -3,10 +3,11 @@
-  * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
-  */
-
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/phy/phy.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/usb/pd.h>
- #include "sm8250.dtsi"
- #include "pm8150.dtsi"
-@@ -571,11 +572,11 @@ camera_front: camera@10 {
- 		reset-gpios =3D <&tlmm 109 GPIO_ACTIVE_LOW>;
-
- 		pinctrl-0 =3D <&cam_mclk3_default &camera_front_active>;
- 		pinctrl-names =3D "default";
-
--		orientation =3D <0>; /* Front facing */
-+		orientation =3D <MEDIA_ORIENTATION_FRONT>;
- 		rotation =3D <270>;
-
- 		port {
- 			ov8856_front_ep: endpoint {
- 				data-lanes =3D <1 2>;
-
-
---
-Kieran
-
-
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> ---
->  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
->  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
->  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
->  3 files changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/ar=
-m64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> index f41ad446a39e..e2b7f1bd05ab 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> @@ -13,6 +13,7 @@
->  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
->  #include <dt-bindings/leds/common.h>
->  #include <dt-bindings/media/video-interfaces.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
->  #include <dt-bindings/sound/qcom,q6asm.h>
-> @@ -701,7 +702,7 @@ camera@10 {
->                 pinctrl-0 =3D <&cam_mclk3_default>;
->                 pinctrl-names =3D "default";
-> =20
-> -               orientation =3D <0>; /* Front facing */
-> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
->                 rotation =3D <270>;
-> =20
->                 port {
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
-/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> index 218573a97785..3b5f6a29e969 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> @@ -11,6 +11,7 @@
->  #include <dt-bindings/input/gpio-keys.h>
->  #include <dt-bindings/input/input.h>
->  #include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
->  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> =20
->  #include "sc8280xp.dtsi"
-> @@ -683,7 +684,7 @@ camera@10 {
-> =20
->                 clocks =3D <&camcc CAMCC_MCLK3_CLK>;
-> =20
-> -               orientation =3D <0>;      /* Front facing */
-> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> =20
->                 avdd-supply =3D <&vreg_l6q>;
->                 dvdd-supply =3D <&vreg_l2q>;
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm670-google-common.dtsi
-> index b4854801a5f5..7880d85b52fe 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> @@ -9,6 +9,7 @@
->  #include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/input/input.h>
->  #include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  #include <dt-bindings/power/qcom-rpmpd.h>
->  #include "sdm670.dtsi"
-> @@ -460,7 +461,7 @@ camera@1a {
->                 pinctrl-names =3D "default";
-> =20
->                 rotation =3D <270>;
-> -               orientation =3D <0>;
-> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
-> =20
->                 port {
->                         cam_front_endpoint: endpoint {
->=20
-> --=20
-> 2.52.0
+On Thu, Sep 17, 2026 at 5:11=E2=80=AFPM Vikash Garodia
+<vikash.garodia@oss.qualcomm.com> wrote:
 >
+> Hi Sumit,
+>
+> On 9/14/2026 11:44 AM, Sumit Garg wrote:
+> > Hey Konrad,
+> >
+> > On Fri, Sep 11, 2026 at 7:54=E2=80=AFPM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 9/11/26 2:38 PM, Sumit Garg wrote:
+> >>> From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+> >>>
+> >>> qcom_scm_mem_protect_video_var() is only serviced by the SCM backend;
+> >>> with OP-TEE the TEE owns secure memory protection. Use
+> >>> qcom_pas_get_backend() to issue the SCM call only for the SCM backend=
+.
+> >>>
+> >>> Assisted-by: Copilot:claude-opus-4.8
+> >>> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
+> >>> Co-developed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> >>> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> >>> ---
+> >>
+> >> [...]
+> >>
+> >>> +     /*
+> >>> +      * qcom_scm_mem_protect_video_var() only applies to the SCM bac=
+kend;
+> >>> +      * other backends (e.g. OP-TEE) own secure memory protection an=
+d do
+> >>> +      * not service this call.
+> >>
+> >> Can you not just stub it out in TF-A then?
+> >>
+> >
+> > Please don't, we don't want to support these random SCM calls ABI per
+> > subsystem with the open boot stack. All the config in this case for
+> > video is handled by OP-TEE itself.
+>
+> Could you please help me understand the demerit in stubbing it out and
+> let that be a dummy ABI in OPTEE world ? that way client driver can
+> remain agnostic of the calls being routed to OPTEE or QTEE
+>
+
+The main disadvantage is that we don't want to carry these custom SCM
+ABIs per kernel subsystem with the open source TF-A/OP-TEE boot stack.
+ABIs always come with maintenance burdens, especially the custom ones
+we have in this case.
+
+Since we started from scratch for the open source boot stack, the
+motivation is to keep the TZ ABI minimal and that too with
+discoverable OP-TEE services like the PAS service.
+
+-Sumit
