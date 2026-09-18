@@ -1,76 +1,73 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6D43B38B9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADCA2DA75A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702196; cv=none; b=Z74/grQKla9/PyGYDOy7lG5gErA8iHdskt5oK7L4zFFO1aGSRvqW2ilAuZEhVZq8QENvOSM+dlGEp7vtYBcVEePu4ew8jd+mBz1OT1XVpMlRsowu5bD+fS2hBBqaVAoGQN64K6w08Wcs8a+xijae5VCZCjeix93wcxOiGcIkakU=
+	t=1789702234; cv=none; b=MoguU6I+5EXpOE3b6+5KbCVelE8CGh7MjcXn1wUsEyqm+6dhGR0TsZg0chSWD3vmgo6rymNQ3B/IMKeO8fh47yqVJqyfS/qrg9D31Xev0unoFG84ZnEXyWO+BKVzRFAvfScVYZaRXlD36KBDJYXVwO1M2QeLWZ1s1ckrXKeYHIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702196; c=relaxed/simple;
-	bh=OrS6U01+iuao8UmR3n3HuiCLZRiCE5UJWbtnDDZt3zc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eftuteo3hMgixFO1owvD2KXc57ZiaPXqLGE+323ibHty/cS8vElPtFZiu8/q3CisEX0sjm0IUGFaXJfQPDiPo6IXya42gsSTF67pj7FvpN4JNDYwMiHT5Nsgh16Zg2atOw+qqEdBI9hkJtZL73FsfGzCBsnrfYd/XpADflA5dfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nbi73fqX; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789702234; c=relaxed/simple;
+	bh=oL7iBYRGTXGLUYEI615o03nOb0m0bTLF3HdlXZTknbY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhjze0lDQgMJHShKUxyqyH+jvSTL46XDJXv1iWGokcxuF8uVukrDQB0gN68yGVxCpfe6teS1nObfphdkVsVn6fW9cka0IMAtAcWQd8gEsToF+AUvHepcOvBhxp6GpNfoNv9fRBIbbty/Kt3vorQvaSKAeSuoTdNksFGX0SZYUik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mhkmqi3n; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nbi73fqX"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334ddcso2353855ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:29:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mhkmqi3n"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so245057a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:30:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789702195; x=1790306995; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789702232; x=1790307032; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YMfMBVGtPSJljFVAV+D5AOSbTsYVYsLFP8jVbT0c8EY=;
-        b=nbi73fqX0OZBZeppzXw6XrogpyDRJR4XW0M5fmaSlyRjK37/Ptci2CsEikuXN7RC+N
-         ssX7W+XXDRVaVo6nADqimOg3D38DoTy14WUj0WljX7tNa5Eza0Ak9DGKMLzoksByfRLZ
-         jSEbesvJyOAZuzX2Z9jfMmvqiliJgseU1pfJ/oNmhAVSB8hgeTCP7OOZx3mUf0dfHjS9
-         oAgbSJag96AAulbrLEaKzLJXC9goaf+seuk5bze9tDzMnf5lLQkQX+CEI7F878gX5s3U
-         OFcY2TwaaTVfP7y4GF59jLE1IJzs4opPxGo4JGVhU1zDnVQT73h+ms7z4Y9ttR4Wc9bh
-         HsyQ==
+        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
+        b=Mhkmqi3n/qPy4geBhcotXJHzyx2Es70VcFh2hL+VhOw/XMh+f+hDb5mxtWhGN0XO0s
+         bQvMZG6gHxAEMcxBe/kjtedQ680T7cMj/xeYppEoWDZLDFdehcsyoIQeoC5qwll8ac+1
+         716FO/PcB52SwuwUl3+u48UZIQbLJyPJtkjq3xVzFYH34m7q0YGVoXGQ5jN2w/C+qpq9
+         CCAAbmPZos3NCYYd48Qn4AmVS8t5vjT/l1IEoNO1f8lRsd655QyoM0fJkV4soOlxeQkK
+         YF01lYpwfVQA6BZI9oXZOnyqoDphQrBLAWFsMNQXe8Ek0T0Tot1ykXSdZzCl9xoS8yxb
+         CkDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789702195; x=1790306995;
+        d=1e100.net; s=20260707; t=1789702232; x=1790307032;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YMfMBVGtPSJljFVAV+D5AOSbTsYVYsLFP8jVbT0c8EY=;
-        b=k1cBqXODYMw6zsoCy6PWAb9W4JzFW1fjJi6L+5PdjPGWnLaNbmxzX0OGulghfFY54i
-         ARc33L5uq7vdCUJ2liVGZR535AQKlYAXVjnekMinInTKjEfB3GgyVfN3ni4equzAKgpK
-         IM8sirv+ZE+kRO1snBdBYz2toCKV1mqdx4JCE52678S0BOAzMDCIOX2KiwZUTj6d+w8q
-         DPzJU4QjfPnLUDwPh/tz0wPec9gnLf+kwWRIU6ee/+uV01+nb3ydyhvK0rv4zEfdfhuX
-         ZP8Ch+sb8vaIxL81DeGcIva07zjXRL4j5kDPLFy0AFrz5/yUFtk9dEpkK/uPdAniWWVQ
-         GB5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx3zrRqKvHZxVJOI6kdy9/SHxzotOTOtbBiLmbCejnREqaOBD5gaM6mnKRa1JScIMJ6ei7Wyrb5DI8Y4ss=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbq9KJPJq25NS0ILBH40N2S0Vku0DNFreEpBNFwxgTuuXkQEbi
-	o2sZ1EygsjNSJPR+gIOHlbT2y4IxCyoy/IibpCtgDAKDSPZlTsOsBvii
-X-Gm-Gg: AYBFou3QuzR0DrcgEftayr4MYCkqrBYzhMPYtXBwL40hMXw+jOlLF9nCyKlnufO82PI
-	8L6KVu7kYcKVua8bQKLM+CpuwvaflOzuRWlQd8g8B+PZeZDhEO6r05zRIy5Ttr4QreJ40L2x1fU
-	bBtiTxe9WD7UQ2UNsNRJSumNTA1boN7XkuZzO7dK79vAisEQCD9HyTmenoX7e4UIiC0N0/rr2Kt
-	MXB5Ci91ThWr3NkRnQ51irKEJmkCCrTJRlMVDK8vvbY4W8ya9bebb40nFGzChhBay7QxLDNo/Ra
-	YrfVAAqKoDBNfl+C9H1hl5xKdZQV+RNiVgmMKWox0g8PXJHVhOAzTc+ddxRQO0KrSY13phdkoK7
-	LwT9vqO8pYYSGCL+oyaT4sgPiX+gMRA0ZWjXglJZn+CvX16ghD4Aw2FZgY1tUjrMW8ALhZ1mw9H
-	9JzJgAUnW+DBX/qlcZQs+KEzGK5peE9sfyCCnhrs3MOSz5YVde7rQ2bL+/ZR6WoKLUc+ha5JchU
-	SbP3CGcS0bvB/z/PWk6jIdEVD+jkpm0hsX/F/3UzTFz1KLE5dLKyOCL+IrAlsFIzmUqe5ddMw==
-X-Received: by 2002:a17:903:4b03:b0:2dd:ad73:c937 with SMTP id d9443c01a7336-2ddb1b989dfmr26313645ad.24.1789702194774;
-        Thu, 17 Sep 2026 20:29:54 -0700 (PDT)
-Received: from secrnd-cstp.tailb7f510.ts.net ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb757b22esm1033265ad.50.2026.09.17.20.29.52
+        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
+        b=JcVijHp8Q1JxiLqdZ1/GAeGcZAs7Zg3DHv195bSmE28lUlv9Lo8izx/KmyHGxHeFGu
+         gShivMtsS906MsUDAYvyeUkSNexVHouY5JxOR/oOJ/6iu8OMOMMpxt+fAkpvZ7Kwa8VK
+         l0Jwr0L0CQbktOkZ78wVUiEnZD4Eyea82rwf0zdtzJ35SXnQE+EY6WyvKlhheRXidcWN
+         /JrE2niyIXP0xtG7ZAjhCwVyzTjhw1Y29GbvlWFa44q6ui71V0z47nBBel6B36C9X1d+
+         86h1JvC1v9bG5Q6ow5gzTao8ThusVWg5QZQcCkmpa6WHw8f5Enchb+HvNVbiX/MbrdjJ
+         6k2g==
+X-Forwarded-Encrypted: i=1; AKwUvBym8FZQT7qbzEp4j6Rk9TvwLBTH/qpGcpUzkEqyWb/geBAmO0YjFKsuMzB42uyGH6xxhTVl/VQqaBYNz7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAnj65Ztsq8k3mWu0tu/JbVmB2ISQcBUttF7jCCZ1ABqcunpFj
+	zVVN2Jp/BFtd9OpV5359sgrqpdh5B+DvwedZSkC1gTezs2bTVgLvnKZ6QX7byA==
+X-Gm-Gg: AYBFou0iYPfkl3UnpZp7QxdsDFVt9Etevqi2PayEUSg3spyHouLBsAMLnPhwA2phMrm
+	5Ht+EXmSWq5zYhhtizS+m4QBxsVzeu4t9rDcCW8RUCAXTkMFsmgM+a4wyPulmo5c+JtJpW/1XOu
+	dCJjb8fEjGjgyzGvu3G2pleKnUEQg10oKwM5zC2Zkrz3O0+cH4LqZk0OmqxzmMzKyNXOSa3q1gZ
+	5WB8vQwzmbttvDRp/2FCcac5Fu5UxhAml8AlJFy/yOT0CKMSUPuYBMqoW2M/PrZnllGNS0+rcir
+	EFrF8Ff6BIr9oK0c+X+SoJUqU5yD2vvXwCdRbb9aOsw1fnevNC5x0OA6Ius4Inn8xne/jDBgDyC
+	uL3CHjdMQwdijxHImtxViqORbOPvoZLYa3YRBOOsllkaxp0ovLgVKfonT7euQMW407uxfri3KIb
+	RMqRcdpgFkXwFgUAD9QkSQ9Lfptc+ktomxSCfc9DvqO7yqHIW1tK7sfg==
+X-Received: by 2002:a17:90b:4acc:b0:39e:5ba1:ccee with SMTP id 98e67ed59e1d1-39e5ba1d12amr457366a91.24.1789702231551;
+        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2874bb0csm613271eec.16.2026.09.17.20.30.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:29:54 -0700 (PDT)
-From: Sanghyun Park <sanghyun.park.cnu@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Sanghyun Park <sanghyun.park.cnu@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Stevens <dlstevens@us.ibm.com>,
+        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Ed Blake <ed.blake@sondrel.com>,
+	linux-pwm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] vxlan: use one headroom snapshot for neighbour replies
-Date: Fri, 18 Sep 2026 12:26:58 +0900
-Message-ID: <20260918032842.502409-2-sanghyun.park.cnu@gmail.com>
-X-Mailer: git-send-email 2.48.1
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] pwm: img: stop using autosuspend on remove
+Date: Fri, 18 Sep 2026 11:30:17 +0800
+Message-ID: <20260918033017.3441183-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,59 +76,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vxlan_na_create() samples LL_RESERVED_SPACE() to size the reply skb and then
-samples it again to reserve headroom. A concurrent vxlan_changelink() can
-update needed_headroom between the two reads, creating a TOCTOU race. The
-second value can exceed the allocation and make the Ethernet header write out
-of bounds.
+img_pwm_probe() enables runtime PM autosuspend with
+pm_runtime_use_autosuspend(). The probe failure path disables
+autosuspend again, but the remove path only disables runtime PM.
 
-The race is reproducible on the unpatched kernel. It occurred when
-vxlan_na_create() generated a neighbour reply while vxlan_changelink() changed
-the link headroom. KASAN caught a four-byte write two bytes beyond a 704-byte
-skbuff_small_head allocation.
+As a result, the runtime PM autosuspend setting is left enabled after
+the driver is unbound.
 
-Snapshot the headroom once and use that value for both allocation and
-reservation.
+Call pm_runtime_dont_use_autosuspend() from img_pwm_remove() to undo
+the setting established during probe, matching the probe error path
+and the runtime PM API requirements.
 
-Fixes: 4b29dba9c085 ("vxlan: fix nonfunctional neigh_reduce()")
-Signed-off-by: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+This issue was found by manual code inspection.
+
+Fixes: e690ae526216 ("pwm: img: Add runtime PM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-v2:
-  - Improve the v1 changelog
-v1: https://lore.kernel.org/r/20260831054614.2069896-2-sanghyun.park.cnu@gmail.com
+ drivers/pwm/pwm-img.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/net/vxlan/vxlan_core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index c1d54339fa2b..3390e341d1e5 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -1958,13 +1958,15 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
- 	struct ipv6hdr *pip6;
- 	u8 *daddr;
- 	int na_olen = 8; /* opt hdr + ETH_ALEN for target */
-+	int headroom;
- 	int ns_olen;
- 	int i, len;
+diff --git a/drivers/pwm/pwm-img.c b/drivers/pwm/pwm-img.c
+index 91e0b19f0c08..c0747f5e0020 100644
+--- a/drivers/pwm/pwm-img.c
++++ b/drivers/pwm/pwm-img.c
+@@ -339,6 +339,7 @@ static void img_pwm_remove(struct platform_device *pdev)
+ 	struct pwm_chip *chip = platform_get_drvdata(pdev);
  
- 	if (dev == NULL || !pskb_may_pull(request, request->len))
- 		return NULL;
- 
--	len = LL_RESERVED_SPACE(dev) + sizeof(struct ipv6hdr) +
-+	headroom = LL_RESERVED_SPACE(dev);
-+	len = headroom + sizeof(struct ipv6hdr) +
- 		sizeof(*na) + na_olen + dev->needed_tailroom;
- 	reply = alloc_skb(len, GFP_ATOMIC);
- 	if (reply == NULL)
-@@ -1972,7 +1974,7 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
- 
- 	reply->protocol = htons(ETH_P_IPV6);
- 	reply->dev = dev;
--	skb_reserve(reply, LL_RESERVED_SPACE(request->dev));
-+	skb_reserve(reply, headroom);
- 	skb_push(reply, sizeof(struct ethhdr));
- 	skb_reset_mac_header(reply);
+ 	pm_runtime_disable(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		img_pwm_runtime_suspend(&pdev->dev);
  
 -- 
-2.48.1
+2.43.0
+
