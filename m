@@ -1,124 +1,220 @@
-Received: from mail-ej2-f40.google.com (mail-ej2-f40.google.com [74.125.228.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214484B489A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2983D79E2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:17:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719425; cv=none; b=AWrmOOj8GCST9y5OTA90ENm9oOWC994D38QeBaV3E4hoxSYxhYRVzEoS6A7HBjnZYBSF6m8k70ynpZevFGgbINYWuayjoMi4eTFLAtDTV81K9e7ONdyDRJQ8neqTBEUSl/U6h+jmDcNNR8X9Gy7UGdt/vPG5zJIHGe/c43VlQ0o=
+	t=1789719440; cv=none; b=m/k9vwc+JXoJPTHkJoUUYg/pj8BUZsXpi8XT4+f2Fg9ZoxhZ64eglz2bWko6DWb7ulmkkwYjpJxUFD0c0EXEyaveYtntJoRoUgj3Or0J/b1Z9p5Yi9IOM9BmfhcE/YkAlpWIy+sy/Wu4m+kr4Q9jWFwfI+SxMxUJyH6b4TEOyqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719425; c=relaxed/simple;
-	bh=3Vb/Q5gFmB9GEcWuixSJnDg8oOAAOJry8Kj0f4JNoZk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jkrUFBvWymfAotJVx5W5VoL6XsjzXUs8WYCvZxqIcM9ro58BbbfBIMCuRZXdltb9FoWnSFQZ68pN17E8/WdLEeoNShzSzYJNoQq7xEooHfLeByrInTWwK9Z4LNVfBsdGa9gJ/71RXNu+XXtuM49Ra5Z82EGJV3JK1uV8ZZKBoGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=f/ZuQw+U; arc=none smtp.client-ip=74.125.228.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789719440; c=relaxed/simple;
+	bh=/u2eXRmSb4OcUZDZD3lQ9FKQXOfh/RXNS6kZGoIaOLE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zx/MB7sodqXRP8kMGsPcApjXTOgs3uBKBVrpd8kU+1J+6Om3R0PUhok8wsMmmZJNwoC631qWTkHJ5H0Zw59YtglVy9rMo+SK2oBejXlAp/ci4ACtUjxvYbmOT0zdZNj0t58Fe3Cw+lU7JvjFNCP5J+bOHLECS1Jn4C5wOIMkEGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0kPn+oNs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="f/ZuQw+U"
-Received: by mail-ej2-f40.google.com with SMTP id a640c23a62f3a-c2a1a631f6aso38462366b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789719422; x=1790324222; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4kVqeGTAB3R+JJC+QW2Gmsm/OFhxPzA+cRh/xOgn5H4=;
-        b=f/ZuQw+U6Oou4+0wxLQVaTn8sEDXNSjmna2q7eqbF0jBzljRtSjZkishgGWJ9tLwdW
-         uJvWi8HD/Ua78NnS6cpHA162DnYi+814p379aFP6RqUnLSq+tEYAFjA9LORXqlRQWLSE
-         W3Njy2xMyDkRgHoRsmel36brh4QS3edDNP0mmqce9FY4JMsviHXG2GXco0sLgmcEqyB5
-         66YEFGfDKae/nNklAm/LdVrMw6cUYKEYoFq3h1/NDqSOcrvFHyAPpce9mdQUtbMCivA2
-         /gt8Yednq5j04iNF6PQYPnJlsfS9HJyKZ9D47NUKvBmn8tVpy6+eFrJXz1Dj78OPERoL
-         kuyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789719422; x=1790324222;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=4kVqeGTAB3R+JJC+QW2Gmsm/OFhxPzA+cRh/xOgn5H4=;
-        b=oMq8VCrwggmiKz9nSrlyofxvx/c6Oji6d6MnFO3cXrp6MUZ+o7aAWX8CFHC3IOSmU3
-         crWZ7gXpJUymipikVSaHacbn/I7tYKQaLUT9/l8zGUPOHKPaz0+5h/dpSpBM3ll+8MQj
-         CeCi41DTLYQISwhp192p7a6eQqhRQkglVqnwK7OqJOci6AKBu9Nz8BRdm8nVGHbErADz
-         NgtPrDveEsRFcbVqpNcvVd46wU7DxcMTTaFCid1qbpe97f4LbAr90L3XOyykTfnnm2wz
-         vGqlxUPyAYvIcSMO9+w9tsOrmgpy/6jWovggRcHsbuMcWVh1KhfXgzGfhyUGIVKv7lz4
-         CYCg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1gzj9DiO//ItFWJXdrHohT8AH9ty+z4/pKon+7lJm+dmHfllR2VYh02CmG8eNfzE8Wz2luPjgPJp6MoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgxpBe1JDgQegaR6tlNPQG1dLVs8OmLo/a/drLSRkK2LJwwVa6
-	GNLM59R3DMf0eESjE3bszuyXBEMLhOdn+Kxlx6KOBdNNfYRFODiSa1Dw/18nHVZ5z18=
-X-Gm-Gg: AYBFou1XdgS7Kl1hgnMafkqGDRNiNm9Ms3OON+WQxY+WDeEclWPlGuO7/b2nRX+aAAf
-	wMKgmhzsxffHM6Vo5cZm6rzS4dsT/HHjGAPUf7UlLAWanGlnWpuMBqlflFP3pqmEFpFxNMF/ot2
-	oXKG7F6DMVwKRbd9zN+G437C7StxcSIfeLlyZYFtKQ8MLrRfrJiD8hUUlRy8YgBY8b08mveDlCw
-	hNMZFckKLsnLxoER+JG8LGHYVgoJM++X07m9REkOI64asFJ4hz8+4krYWW0ZwHmTAO0pC8/iVyB
-	xozMGmPgoyXQwQuviVl90RIT8ebO3cdIdbYZFKmmGtBQH6Nzsmhuk4GJFF49dSuI9NU1RLQfz2+
-	7ju5k44rwKgpBQxZBJZmWkKXZdBATGqygXdXa6e/0NEdlFF4iaM3ovTo4nTYyJ2K0MawOb9WoZI
-	uc3JcIhS+Gz4B9e4voW+Po8PKret1fK33vT66T9upfaveUAR2TnS1H9BcAI26elMHw8B2D+swjL
-	ftxXPGnFUf1uqw9eJpJDphcoGAWvJC1EDbtgjVvmagBNgURN+VY
-X-Received: by 2002:a17:907:3cc4:b0:c29:f5d5:5aa0 with SMTP id a640c23a62f3a-c2a159a977bmr170225166b.42.1789719422087;
-        Fri, 18 Sep 2026 01:17:02 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb43a37sm30344066b.23.2026.09.18.01.17.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:17:01 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 18 Sep 2026 10:17:00 +0200
-Subject: [PATCH] nfc: st-nci: Use print_hex_dump_debug() in NDLC_DUMP_SKB()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0kPn+oNs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8769A1F000FF;
+	Fri, 18 Sep 2026 08:17:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789719439;
+	bh=MUrsCjZc6euzUQ7OuHMOKoSdi0r9jYkb2LhwvEX8C0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=0kPn+oNsVLh4AduVSrGyi9UaFNo8r7V7Z/dqYwyTZkD0JD1Mmk5f26Z8MHez0enAY
+	 MdLOOMnCg2ljGGwdQfgKNLL9xGRTEe9ns46+toyogg/yvuNG2EzSzABy8/UTsc2nHs
+	 2KfV3IiXjkqPNe9IFKuza1e+SeHgZLjV+crGqWJQ=
+Date: Fri, 18 Sep 2026 09:15:22 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Cc: Petr Pavlu <petr.pavlu@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shyam Saini <shyamsaini@linux.microsoft.com>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] params: serialize lookup_or_create_module_kobject()
+Message-ID: <2026091813-stuffy-tusk-3d31@gregkh>
+References: <20260918013445.1849655-1-xujiakai24@mails.ucas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-stnci-ndlc-debug-v1-1-48d370af9c6a@fairphone.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDug8Se1VxEXJhl1iqQloyKId
- zfq8lu8t4NQYBL4JDsEWln45yOyVwJ27PxAyC4aVKqqtM7eKLO3jN5NFh2ZZcDcaFWVhTZalxC
- zf6Cet3vZtI9lMV+y8/WB4zgBGa5/CXQAAAA=
-X-Change-ID: 20260918-stnci-ndlc-debug-3b726547b775
-To: David Heidelberg <david@ixit.cz>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Kristian Brox <isyourbrainfoss@proton.me>, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789719421; l=1184;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=3Vb/Q5gFmB9GEcWuixSJnDg8oOAAOJry8Kj0f4JNoZk=;
- b=aVqV952H3U9RE4pnVYs1xz5MaLGPVT6K6cveb1CJo3CvPPyUkSeZdwykELjdRwogWB6L7Db2D
- q0SaOd5RYEzDSPlDvAIj+bLA5G5NT1n8jKCHnxSq6ZCA8qGBcSxQIkC
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918013445.1849655-1-xujiakai24@mails.ucas.ac.cn>
 
-print_hex_dump() will output when just the console log level is set to
->= 7, which is different than the pr_debug() on the line before, which
-will be going through the dynamic debug feature.
+On Fri, Sep 18, 2026 at 01:34:45AM +0000, Jiakai Xu wrote:
+> lookup_or_create_module_kobject() first looks up the module kobject with
+> kset_find_obj() and, if not found, creates a new one with
+> kobject_init_and_add().  The function is called at runtime from
+> module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
+> module_kobject creation"), which means two concurrent driver
+> registrations for the same built-in module name can both miss the
+> lookup and race to create the same kobject.
+> 
+> The loser of the race gets -EEXIST from kobject_init_and_add() and its
+> kobject is removed from module_kset by kobject_add_internal() before
+> the failure is reported.  The error path then calls kobject_put(),
+> which invokes module_kobj_release(), but that only completes
+> ->kobj_completion and never frees the dynamically allocated
+> module_kobject, leaking it (96 bytes) along with the object having been
+> detached from the kset.
+> 
+> This is triggerable by unprivileged users, e.g. by concurrently issuing
+> the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
+> "raw_gadget" driver on the gadget bus:
+> 
+>   sysfs: cannot create duplicate filename '/module/raw_gadget'
+>   ...
+>   Adding module 'raw_gadget' to sysfs failed (-17), the system may be
+>   unstable.
+>   ...
+>   unreferenced object 0xffff8880188dacc0 (size 96):
+>     backtrace:
+>       lookup_or_create_module_kobject+0x47/0x100
+>       module_add_driver+0x73/0x1b0
+>       bus_add_driver+0x1d9/0x340
+>       driver_register+0xde/0x170
+> 
+> Fix it by serializing the lookup and the creation with a mutex, so that
+> the second caller finds the kobject created by the first one instead of
+> racing with it.
+> 
+> Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
+> Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
+> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+> ---
+>  kernel/params.c | 29 ++++++++++++++++++++++++-----
+>  1 file changed, 24 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/params.c b/kernel/params.c
+> index 8b25133fed242..78f00d3f6a165 100644
+> --- a/kernel/params.c
+> +++ b/kernel/params.c
+> @@ -20,6 +20,11 @@
+>  /* Protects all built-in parameters, modules use their own param_lock */
+>  static DEFINE_MUTEX(param_lock);
+>  
+> +/* Serializes module kobject lookup and creation in
+> + * lookup_or_create_module_kobject()
+> + */
+> +static DEFINE_MUTEX(mod_kobject_mutex);
+> +
+>  /* Use the module's mutex, or if built-in use the built-in mutex */
+>  #ifdef CONFIG_MODULES
+>  #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
+> @@ -754,13 +759,24 @@ lookup_or_create_module_kobject(const char *name)
+>  	struct kobject *kobj;
+>  	int err;
+>  
+> +	/*
+> +	 * The lookup and the creation must be done atomically, otherwise
+> +	 * concurrent callers may race to create the same kobject, and the
+> +	 * loser of the race gets -EEXIST from kobject_init_and_add().
+> +	 */
+> +	mutex_lock(&mod_kobject_mutex);
+> +
+>  	kobj = kset_find_obj(module_kset, name);
+> -	if (kobj)
+> -		return to_module_kobject(kobj);
+> +	if (kobj) {
+> +		mk = to_module_kobject(kobj);
+> +		goto out;
+> +	}
+>  
+>  	mk = kzalloc_obj(struct module_kobject);
+> -	if (!mk)
+> -		return NULL;
+> +	if (!mk) {
+> +		mk = NULL;
+> +		goto out;
+> +	}
+>  
+>  	mk->mod = THIS_MODULE;
+>  	mk->kobj.kset = module_kset;
+> @@ -771,12 +787,15 @@ lookup_or_create_module_kobject(const char *name)
+>  		kobject_put(&mk->kobj);
+>  		pr_crit("Adding module '%s' to sysfs failed (%d), the system may be unstable.\n",
+>  			name, err);
+> -		return NULL;
+> +		mk = NULL;
+> +		goto out;
+>  	}
+>  
+>  	/* So that we hold reference in both cases. */
+>  	kobject_get(&mk->kobj);
+>  
+> +out:
+> +	mutex_unlock(&mod_kobject_mutex);
+>  	return mk;
+>  }
+>  
+> -- 
+> 2.34.1
+> 
+> 
+> -- 
+> Below is the crash report:
+> BUG: memory leak
+> unreferenced object 0xffff8880188dacc0 (size 96):
+>   comm "syz.3.569", pid 12998, jiffies 4294992047
+>   hex dump (first 32 bytes):
+>     12 4e fe 86 ff ff ff ff c8 ac 8d 18 80 88 ff ff  .N..............
+>     c8 ac 8d 18 80 88 ff ff 00 00 00 00 00 00 00 00  ................
+>   backtrace (crc 8dccd85e):
+>     kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/kmemleak.h:44 [inline]
+>     slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4696 [inline]
+>     slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4996 [inline]
+>     __kmalloc_cache_noprof+0x1bf/0x420 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:5559
+>     _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:991 [inline]
+>     _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:1312 [inline]
+>     lookup_or_create_module_kobject+0x47/0x100 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/kernel/params.c:761
+>     module_add_driver+0x73/0x1b0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/module.c:46
+>     bus_add_driver+0x1d9/0x340 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/bus.c:767
+>     driver_register+0xde/0x170 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/driver.c:174
+>     usb_gadget_register_driver_owner+0x50/0x140 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/udc/core.c:1752
+>     raw_ioctl_run home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:596 [inline]
+>     raw_ioctl+0xa26/0x1830 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:1307
+>     vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
+>     __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
+>     __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
+>     do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
+>     do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
+>     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> 
+> <<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
+> 
+> ---
+> 
 
-Use print_hex_dump_debug() to have both prints be controllable via
-dynamic debug.
+Hi,
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- drivers/nfc/st-nci/ndlc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-diff --git a/drivers/nfc/st-nci/ndlc.c b/drivers/nfc/st-nci/ndlc.c
-index be4808859cfa..89a13a439279 100644
---- a/drivers/nfc/st-nci/ndlc.c
-+++ b/drivers/nfc/st-nci/ndlc.c
-@@ -39,7 +39,7 @@
- #define NDLC_DUMP_SKB(info, skb)                                 \
- do {                                                             \
- 	pr_debug("%s:\n", info);                                 \
--	print_hex_dump(KERN_DEBUG, "ndlc: ", DUMP_PREFIX_OFFSET, \
-+	print_hex_dump_debug("ndlc: ", DUMP_PREFIX_OFFSET,       \
- 			16, 1, skb->data, skb->len, 0);          \
- } while (0)
- 
+You are receiving this message because of the following common error(s)
+as indicated below:
 
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260918-stnci-ndlc-debug-3b726547b775
+- You have marked a patch with a "Fixes:" tag for a commit that is in an
+  older released kernel, yet you do not have a cc: stable line in the
+  signed-off-by area at all, which means that the patch will not be
+  applied to any older kernel releases.  To properly fix this, please
+  follow the documented rules in the
+  Documentation/process/stable-kernel-rules.rst file for how to resolve
+  this.
 
-Best regards,
---  
-Luca Weiss <luca.weiss@fairphone.com>
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
+thanks,
+
+greg k-h's patch email bot
