@@ -1,62 +1,64 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CEA4F4D11
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25494F6460
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737387; cv=none; b=k1CikIYRihr5g0mry1RaBMYzO0S1BvFADPTyC1Xf3B1f4A5Dnz0t9opB6xOcqglAZYsp3wsFFxTkIY2CegKzU5DsSjfuKEe1bdhASvQ8z/b589B+yBHPuSIXUb0iU/jpKUpIO/QNrSRuNBK138dfLiMI2pF2Nnd64Zlfck1W/8M=
+	t=1789737388; cv=none; b=rSgNoxz+dSpwvSV01DFTzQnyyK73BfJbYDUG0fN15M2V0hKgYbzMe+/mub7yT7gfCrsF7qeiXH7uybHIhjJmFKI7H9hRizw/MPJhmY5rYuD9xmkOcBaZh+Mp48fzQoQ3lf5YNpxPmJa1JIGjLJR55yu8eIgr6oYoFs6mmMYN3eQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737387; c=relaxed/simple;
-	bh=20mvTsdpLEDFfyWyGEhYqouKU7zctNL945btXR14cyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KcGtur0Gc4VzSacGlzGxSmf5xqVZujloJhGtL76M43YDxh+vKkwbjIiGVjNC+wioaFNHSKYGpk8ESTtkMbWPvgr6j5TtHBuyw9fEhwNAzW4QbCjSJ8jRGyjjYh5jTRf/O1gO1jmD5E62w5+a41VtQ8GuwVX4s3XGHUg88DNhF/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghq0bGY3; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789737388; c=relaxed/simple;
+	bh=3fBo8hNW0MWM/bX/SqnAHR9KMvYrbDBSWDD9TTtMK6M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cvEvvNxXeaBeL0cXIrN+madkjEYY0HcyfMZMZy6huxh65w32n2bvpMn9AcJg8QVOliBeuzTp1xLTI2/+gchR63S1XxE3nu6y4njCbdEJv675q01gInHEVBceULiXKAB7hT/994riwTSPEdhg2+/agyf99eT8J1GyMvCLAGgmuvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2fF8MEw; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghq0bGY3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356f6bso582767f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:16:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2fF8MEw"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48437356d60so375188f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:16:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737383; x=1790342183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5wyvtDe6AEfbt4jvUldi9B/KYnA6W2vv8pFn6fJzAVs=;
-        b=ghq0bGY3CldwAcGX9idFKafZnQhffG2TlxArgONUWBvOSMeAl2cli43SiIasL0o0tl
-         s/UptYufEN0jS2Z8Etny8kXGFbHsUDjgcTQ4iBinVNs+6q1i7cAWgNygNNgq+pgqKzQm
-         57S3lYOIyQWOLXrcmczVYE1mGJL5NfRVkXdEZ7J6TZN0q3XoKJprBK6ybnBcggCVl/Z0
-         rGxe6IlYMm8DHnM137EZzMhMPeArpjc4qQXdvTkUFeX9MrhhVB/UDJC3Bo/PRQDJXUUi
-         1bU3lNQtE2hBCN1I7mVsepQsdKnQG08ShjslFIeA5hiPr37tXpWK0URBUvPnZN70HVIT
-         XPDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737383; x=1790342183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789737384; x=1790342184; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5wyvtDe6AEfbt4jvUldi9B/KYnA6W2vv8pFn6fJzAVs=;
-        b=Di7viceQXWysB2SjINI/E7G4JGRfuUg4UTaD5jSikH0dtiEIgwSRmpiQw9NlIb2mmX
-         i5/tWmQO4oEj1azAswCkmY5dNCXvaiqGZvl9OKui+q4/+q39Qewc27a56EaQzDRbKayW
-         Qi4076u/fRq709GuGjuaxp/ZUDPFVF88uhPr7B9eXkxLu7bt4YrwlcuT52xeINwqx1Xv
-         9LxH7mjDUwMCmSHhpTFcSuWrG9qPCsd3N3BBGw2Rrs+Z4/L33t1RqSKyPa3sTnlrekRE
-         1uK/NwJ7KpkXMEwiTSnr70083KpGwoT5cZgbgj+xof14p/4FJlPa0OYyPrbJvtRm7Eg/
-         TU9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwW7AXYvAD3hnnIx/Qp2bFlY+CtipRusW+azfIdvZmcsg2hP0H/GDuOQicc57E5r1qzCR7su51XlKX3JIg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9ickgEcFtDgF0VwvbDQO+wZrFyhbBrZXmIRmM/QXv963YX5kJ
-	xdkhUTM6YSww6wdD0whZ3ZH+cv+ZOWb0eMLsB+pGjHlxHx+y+2bYLRCC
-X-Gm-Gg: AYBFou3mrgIWlMYv2iv6cjEC34R7dDjhINeOJAWuZJa2l5ZQfEFfw6xZ0JyGQptAktr
-	KQz8BN/huRrz6RcGpiuvunM8ytVhtNsmpwsX+A1MVLV8QfpAmpYHrUiVkd7d6Bx+QIog0TFS9IP
-	80I7PhE1rMqk1BBPK9Gv2ID7ipkA3GBAfMfCqA+zMX5aYuFE49s6k/bn1Fc8ySLvlMJzql+ORBy
-	mitU+EnpGHSmkK7OD05syvULFsLOaZUNkAD6OsMf/bw1z5iFrDwJqxDf6nNmwR1TC3t/Ks87k1P
-	CIb8soHrjAjtIhattlzBx1xE/9FtX8VseKjio3om2IlcTIDTPPBd1HSfE0mRWEhDxEzzLLZVqx5
-	CNF2bxPWHxOQnqIi4ufb6J4EsZHn9WGC4eWDM1WCi9yXZtdGv52HTmjUVZN2TOu9Rq7G4MFJJlY
-	C7LO0jZJ79PTEhE/veah3+gVDzp9ZJOL9K/CiixEHV0IPjLIsodVBy28K0IPPrJfzMiKbBPTUui
-	ZKif85Dmx8=
-X-Received: by 2002:a05:6000:2f87:b0:487:c3e:8df8 with SMTP id ffacd0b85a97d-4871e20f764mr6206001f8f.5.1789737382476;
-        Fri, 18 Sep 2026 06:16:22 -0700 (PDT)
+        bh=FZS4CiCQN/3yr16/M/PFmnufnsKta51fgde7Cv0nVKI=;
+        b=p2fF8MEwh2Y9L3C5O3HFUi4yy25LTdFmjDyUkIaMxclTnRzBSf6cYRoZq3KeEOnC+D
+         KSfExV6SKRqk0F6tsIM7uZhgfnfL/CoFoWu7LQeOOGhZln3HJCO8l/3EnT+00oEy+Af2
+         EJcucINk7+egYyMygbJL3AGFip5smUqLiq0Dnwl0DtPz/5SHHHAcKukLYXwfjQ65XPlK
+         solHDye+ChDdr1VeA8MmG5D9x+MwRUUwTuuPD4M8UgV2I+bGtvacHje6k22K2EhegOjD
+         JVHrLWTRWEGxsYZvPjHIImYcWOghvjJS9tNMs5qL0ADy9EjvQLOpYbgd5NXFyAyGeFjM
+         HOrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789737384; x=1790342184;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FZS4CiCQN/3yr16/M/PFmnufnsKta51fgde7Cv0nVKI=;
+        b=qcZzqoanCjyRh5+1Z4OZDBaZYETGsv4lkJEpP7HAxAa8OH08E5DlVamGG//ZL8+gcE
+         6ze9lhiq040zgyyXafHUF475jb/xbeBUWrUlcqkXrYUj4LmG1Eg3AfuvLfTthWx7ndzp
+         1++PP6FJMzamii99gN3KuO5r/rJY6KvgVcIoy58jI5+mhgevl75MsJMvhjGS5+ONwd5z
+         urUabbP0LcjfQDAWgEnyjOM457Y7PuYt5iD40TVanN0z98HSrAap9WcxSxIa6Bq5Yfry
+         Q4dHQ/jvSAKxCTTnxXCQ0M/QjO2aTgebG5VmJ6LqwbH15uMaabqhlbUA6VUf4MMPPbRD
+         RhsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwmtorhPXvloj0p6zwNg/n1AGHh8aEQERglre8TfiyCQZGTDrG5IXfd8bAQDq8wWIHgxXUenxrRtI6pxhA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCDBR2w2v6egbJoP+APtqOyjuD/1YtLVmtxLaPwJSoS/VVqRR8
+	oJIgi5xrjCcC5DY29jU/DqLiEmRSUhmWUTNWb0cHCvu3kV5v1Sc1zSRz
+X-Gm-Gg: AYBFou1yUhBlQBMHSRs943tiiE6zjk+Q2ST5MK857nCoOKJkgGrolsBEQzhtVaIGhnO
+	dF4bNZ+RyhjTUrS+z3s4DDGf5ovNDxsh1oSj6eGIfpC/04MABqr/HVk4Tb9xNnrNbh0ZRvDpAhj
+	8oXEptA/wPYvGKo5Qd3BysvjYv1DSZcmZhPNBT1ptb1m0mmYaWmb+u+44WvuicPFB2ZOErTjChc
+	UaaUaR4zD/p1zwq3+vI1JiO5rYmmVzpmakD9lnCpMhLiOSC/2lLEdrsRVJ4AEJCfY0mTUfNEt6x
+	Db9yK+rMQnunRb+3eoi7xOhAvx6SrAyF8xmovOYG0V+8RhXwN6GnXkzWWvha1+w/ViWJw2qpz/U
+	oFMe4ee4tQXjS67bmSTyrGplH5Rcy0L2/2ymcCXnR+LY3eTEKdd0MsCBOoUZVitdiVV6+kMoA+c
+	qU36otVcHB+/SzO1dSmFpSghSW10iaD7xQKVlC7C+X6szGT4pzWluS1HmGBBQqmqw3UfSmsBa78
+	zPfs0G5NS4=
+X-Received: by 2002:a05:6000:70f:b0:487:b50:101c with SMTP id ffacd0b85a97d-4871e215a94mr3116370f8f.5.1789737383660;
+        Fri, 18 Sep 2026 06:16:23 -0700 (PDT)
 Received: from fra-x8664.wind3.hub ([151.16.209.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm4487572f8f.34.2026.09.18.06.16.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm4487572f8f.34.2026.09.18.06.16.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:16:21 -0700 (PDT)
+        Fri, 18 Sep 2026 06:16:23 -0700 (PDT)
 From: Francesco Magazzu <postadelmaga@gmail.com>
 To: Lyude Paul <lyude@redhat.com>,
 	Danilo Krummrich <dakr@kernel.org>
@@ -65,10 +67,12 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Dan Carpenter <error27@gmail.com>,
 	Karol Herbst <kherbst@redhat.com>
-Subject: [PATCH v3 0/4] drm/nouveau: fix list cursor use after loop in the clk pstate paths
-Date: Fri, 18 Sep 2026 15:16:16 +0200
-Message-ID: <20260918131620.405133-1-postadelmaga@gmail.com>
+Subject: [PATCH v3 1/4] drm/nouveau/clk: fix list cursor use after loop in nvkm_clk_ustate_update
+Date: Fri, 18 Sep 2026 15:16:17 +0200
+Message-ID: <20260918131620.405133-2-postadelmaga@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918131620.405133-1-postadelmaga@gmail.com>
+References: <20260918131620.405133-1-postadelmaga@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,77 +81,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series deals with the three places in the nouveau clk pstate code
-where the list_for_each_entry() cursor is used after the loop, plus one
-unrelated fix.  They are exactly the three sites Dan Carpenter listed in
-2022.
+From: Dan Carpenter <dan.carpenter@oracle.com>
 
-The only change in v3 is the one Lyude asked for: patch 1 is Dan's
-original patch again, with his authorship and his Signed-off-by
-restored.  The code is unchanged from what he posted; I only expanded
-the commit message and noted that below the ---.
+If list_for_each_entry() exits without hitting a break then "pstate" is
+not a valid pstate pointer.  Introduce a "found" variable instead.
 
-His Signed-off-by is kept with the address he signed it with in 2022
-(dan.carpenter@oracle.com); .mailmap already maps it to the address he
-uses today, and I did not want to rewrite someone else's tag.  Say the
-word if you would rather have error27@gmail.com in there.  Dan is Cc'd
-at that address this time - the v2 went to his old linaro.org one, which
-is dead, so he most likely never saw it.
+The check is reachable from userspace: nvkm_clk_ustate_update() takes the
+pstate id straight from the 'pstate' debugfs file, so requesting an id
+that is not in clk->states - or any id at all when the perf tables are
+broken and the list is empty - makes the pstate->pstate != req test
+dereference the list head cast to a struct nvkm_pstate, which is an
+out-of-bounds read.
 
-Patches 2, 3 and 4 are unchanged from v2 and carry Lyude's Reviewed-by.
+Fixes: 7c8565220697 ("drm/nouveau/clk: implement power state and engine clock control in core")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+[Francesco: rebased on drm-misc-next, expanded the commit message]
+Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
+---
+This is Dan's 2022 patch, reposted with his authorship restored as asked
+in the review of v2.  The diff is byte for byte what he sent; the commit
+message keeps his original two sentences and adds a paragraph on how the
+check is reached from userspace.
+Link: https://lore.kernel.org/dri-devel/YvSkKAdk8Pe0g2K9@kili/
 
-Only patch 1 fixes a bug that can actually be triggered:
-nvkm_clk_ustate_update() takes an arbitrary pstate id from the user and
-never checks that a matching entry exists, so if it does not the cursor
-ends up pointing at the list head and the code reads past it.
+ drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Patches 2 and 3 fix the same pattern in nvkm_pstate_prog() and
-nvkm_control_mthd_pstate_attr(), but neither is triggerable as the code
-stands: the callers of nvkm_pstate_prog() clamp the index against
-clk->state_nr first, and nvkm_control_mthd_pstate_attr() already rejects
-args->v0.state >= clk->state_nr before the loop.  Both are hardening, not
-bug fixes, and they carry no Fixes: tag on purpose.  The point is to stop
-the two functions from being correct only by virtue of what their callers
-do.
-
-Patch 4 is unrelated and is a real bug, though a modest one:
-nvkm_cstate_prog() overwrites the reclock status in 'ret' with the status
-of the voltage/fan restore calls it makes afterwards.  The only consumer of
-the return value is an error message in nvkm_pstate_work(), so the
-observable effect is that a failing reclock is never reported in dmesg.
-
-Compile-tested only.  All the affected paths are reachable only by root,
-through the 'pstate' debugfs file, so I could not exercise them in any
-other way.
-
-The two follow-up patches for nvkm_pstate_prog() that Lyude also reviewed
-apply on top of this series and are not resent here:
-https://lore.kernel.org/dri-devel/20260727152821.128432-1-postadelmaga@gmail.com/
-
-v3: restore Dan Carpenter's authorship on patch 1 (Lyude), collect the
-Reviewed-by tags, rebase on drm-misc-next.
-Link to v2:
-https://lore.kernel.org/dri-devel/20260712123616.1180830-1-postadelmaga@gmail.com/
-Link to Lyude's review of patch 1:
-https://lore.kernel.org/dri-devel/ad023b5df1495ced25aa681d10f57628df41ac13.camel@redhat.com/
-Link to Dan's original patch:
-https://lore.kernel.org/dri-devel/YvSkKAdk8Pe0g2K9@kili/
-
-Dan Carpenter (1):
-  drm/nouveau/clk: fix list cursor use after loop in
-    nvkm_clk_ustate_update
-
-Francesco Magazzu (3):
-  drm/nouveau/clk: don't use the pstate cursor after the loop
-  drm/nouveau/device: don't use the pstate cursor after the loop
-  drm/nouveau/clk: don't clobber reclock status when restoring volt/fan
-
- .../gpu/drm/nouveau/nvkm/engine/device/ctrl.c |  8 ++++-
- .../gpu/drm/nouveau/nvkm/subdev/clk/base.c    | 31 +++++++++++++------
- 2 files changed, 28 insertions(+), 11 deletions(-)
-
-
-base-commit: bc47d5937f21c5fc94504f03e18f1adb56d97634
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+index 572e63846..5da82db71 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+@@ -473,6 +473,7 @@ static int
+ nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)
+ {
+ 	struct nvkm_pstate *pstate;
++	bool found = false;
+ 	int i = 0;
+ 
+ 	if (!clk->allow_reclock)
+@@ -480,12 +481,14 @@ nvkm_clk_ustate_update(struct nvkm_clk *clk, int req)
+ 
+ 	if (req != -1 && req != -2) {
+ 		list_for_each_entry(pstate, &clk->states, head) {
+-			if (pstate->pstate == req)
++			if (pstate->pstate == req) {
++				found = true;
+ 				break;
++			}
+ 			i++;
+ 		}
+ 
+-		if (pstate->pstate != req)
++		if (!found)
+ 			return -EINVAL;
+ 		req = i;
+ 	}
 -- 
 2.55.0
 
