@@ -1,797 +1,344 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD163D25C2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742946; cv=pass; b=Bq0Wm+PQ2wgm0zdPP4/xUwxyXKqLpvjJ2e861eGRnkfs4OgYxDBXMJXcsd9xOBHBITbx5sPIcOjX47Qw3az9DGnnZyTZgRtxQeNWkyeOkjuEXNZaZ5cidzjBW6K8RDpEOgqXuKIHDBNbwhwcO/YqeuRSIWGgbvcZl1ebZaUi7mQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742946; c=relaxed/simple;
-	bh=x/yebZqqN+tRIG8jG2KHZidMMSZsb9AxMrLIFF+xxGU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fNAxVf/Ozq9jFSYxyd6nGKhe/arWiUqg/RT7rC8cJ1LfI1/uQMJHNr5kg3y0eEJKIxxip66WxWWHI6I1aAcWPu+Pf6cVMnrqh+NXPLMJtefOKjpEBHPhAZHN1lSdmzP0+8mkgXTGrZ+sX4KKBy+VEjTtWmt/zdwW6VQz6tL58II=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LLOgrs4D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VkHmycO8; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF0449D594
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789742988; cv=none; b=JZHQegJMiOSQ/3Y5jEzhyKHlfT7wZXtei6+Nhu9rag9jxZGWvx9RuZ7C6YGy8hZgP5QS+gwl2qLw+tDHjp4QontMf+c+jkQszrAV/xpRAeV3WMMyWqVt0+lehlPLk7F+x61IC1wGWaVq8tf6j6OgwKc6xfp7H1FHXGuF2YJMSCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789742988; c=relaxed/simple;
+	bh=nVRI2iS5SJPI0UIAyaf7kiy21X18lzaxRK2+gPRlH0U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XhIY0Z5h4JgTSBFzsdql8NjErQETMoK0Q5QJoGKLxyOd/IslDIA4sSt8QnQ/zz5Ess4K7W0agonIC0eiZJn3qdMgntV9wWLQGwJJ5Bm401NRppepMCJ+pvECVBCUHdl1hgVNBx8qz8pjSeENLC8u7meyqQ8IbEI2E5+oI5Q19fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=aGxXBikW; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LLOgrs4D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VkHmycO8"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOU7A3645849
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=; b=LLOgrs4DT+9Vc1vi
-	MNlXr7JfWI8SmDFzOFkc5B8ntgMZ8DjC3vAsuIPm6e04Ou1sRs9/NNeAUNSLl2WN
-	W4GRJPksrRCy2nTxQZoJgUdpWIxYYTaB6U8xajpW6XcJzIsAr8BVd9ZeH348pIy9
-	w9geNSeXForzpPy40YganKlpS+XbFiQ6q0Kj8/eOnzGSTAoajBr7Eo8U0bTvcOoR
-	pmE36av5U5X/U529RT6rnCacu6QomBFO1bAjZGUo8JHQCI5ACkcgAlHVezGzHCmg
-	Lgfm4dMS2lXZM6Gz3xCPC8M20meleyZ82wcMqZg2F6ECF8k2zGz9FnYBSoQgd3ki
-	+mUVTQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs37dh2ft-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:49:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a0312937eso110902885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:49:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789742941; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FmJX2JsR9ZnR0KMoNuU/BNXQ+3A9q5jb2n8A+xiGjqWfpJdlaPf+j0PfaqzARQvWSJ
-         BgDPTpisM+cVzThp4FDoS/ml70SNeCjjEJmDrfbI7akY21Ap6+gHJldEky3V9aSiabzx
-         GP2lPbjy5jRIrG5Rjn40f6UwR5Xr+WM3Gwsq5i25jZYk4eCLhTfaFmlxB/RHno9fzr7u
-         E2hTiCL9ME0qvcO1nrSwYA5VXCsgZuanNw1Lxryo7D57gdGSL9XY0Y33WpoCyrFgcFxQ
-         93FCJldY/HduO0QuTGNxZpmne5s6sRuvINbhmklUbCKYj5kXgjvgIXi6Es3lAngx+qvA
-         0pwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        fh=9zwWv6e5QsCwfiLYG4hza/vxTJQiPscMfSRhQul3TuQ=;
-        b=HnQJpFK2nt2M1tGjf3tcYLSbtonZBHmpcaXq7Au9akdWCAMCZKXBT33I4J+C2vzN+b
-         2x1t3cNbgjgS/TpmR91zk4FU5UjWh5/Q5lqW9mzEokAySFawT6qELjYNMfo6y/9RYyr9
-         KIHt/vYI+ZKxVR8dvfAL4flhDbuNhqxE9WVbSiLSIH3/oaAv4QebwTWAMk9Y0eoJHN6i
-         V4L3QCDyP+5rPKejfGyUgUL2ugKlZDZ4sqI9VX1tYHz5UarxE0TloWrhjy543dhtFRpt
-         2c8U7tXBfD0v1wUKX699RjkiNMUlPSgK0iPsIcj3hJ6ZyPj4+Zn+0tbDl0E8AaSdkBWl
-         ogcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="aGxXBikW"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148aso7065806d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:49:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789742941; x=1790347741; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        b=VkHmycO8uv3vmP+eywM401ZA6mTL3xcLZB7XAu8mHc88Kb4NQWfxbWLJ97L5jmldEf
-         kEv5fiX53x+kG3t4t+xhIlds3vTvH++2u4QXhlu4huTQ9Wdmq1fK4f2CdiHdXxddGw4k
-         2VSTRtA2G76QEB/PzySyMPRjDWNck8xpgZB4do3KvNDBSd1An8deYkgcUKOtdpzQBSYM
-         m4G1oSvGPVACTPlkPJm7C2CHkFL2T3Wq//ZPiaSzOnFsB8gR1PIJVTC3PIq912o1fMsk
-         aaRieCwihNQpS0hF9VlYo5u8QRj2j0uSesq/mfzqBjDQkklRkJssMMDNFlDOdQg0fFJ/
-         aAEw==
+        d=toxicpanda.com; s=google; t=1789742984; x=1790347784; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uOvKZ7jMCmx8fIKUFee0Ich1k1yQqSbNT6X8Lv9nECM=;
+        b=aGxXBikWNoLh5ik5Czgw1S74rjDwYrXGl4cNOubyh4bMNuayEf9e733zHufejfIpac
+         HzkVhfs2tjkP7b66U3S6tEvO0IOjflOk3oUjSQgByNNJWq2pBRoWANAnFrI6gwOt5bKk
+         hldgz0U2SsJ7gU3TmEoQ7H9NPgk0/RmIHF8Pb5niUatHgOO3G28S1QoJYPCuDvORDYv8
+         Gx61UhVxNgmqa/khvqxEHaVkL8LafKeG/mnx4PpqWHYTjMDBr0kI8sLOgBtxSoa4wxne
+         ulT9iys2HBIiXsyGy304fv8ORekGOOsy3Uj+5Huw8O23H82bwpMZym5veNRKzscelaGW
+         EV/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742941; x=1790347741;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aEGKJWdKLpnMw2Gs047wbG5R/aVqF4YyIyQhsfAjLnQ=;
-        b=UVtyMEoQhAjRaqUQdAWu2BNCmp+tF64twE+oPqty+rTWBbEW82mhejMzG5PXmdEZTl
-         pjq00Hrmv9FTcUFQHQLg1YFnEC3+wU3pS5R6BsYZnnR0DBTmShG9iWZHXNHQnEJsZI2r
-         6GF1fbPolHqff1Ok7vLu0yCdHjPfX2MZCi4VG0rOxVmCoHHtF+QlpC+9ABajbD8ZElkx
-         uhspbAOgykvAh+SeBnB5uRnKOfUd/v3vRaQYPEEViSADCP4UscggM5CQnS4iWho09WtM
-         jhHLtJ4kklAikPa5Q+ZvjgKGIuzgSHDv1xH9HaXhGa8q5YM4MIyy346Vws5RPwrXsMTh
-         c6dQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxk/04LwhsRw4WAMTpo/+VRfbOnCeuyiqqDDnRtmvE6syRySJJt6neKhAc8RLUUsnU65rLXe2Jz7wYymg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn2lKoTof57XuSxSljxUtqje90Z1jmF4kAH8BeXoTVov4CITIN
-	gLdd/3PG0HF/HYx+DYysPcy66qjgQA/oQ31PwnYr/3QsIqqtDFdDpVoQNkslsIIM0DYUFDY58u3
-	qBBQKKh46bRLOyxwrtIl2PzbhMFFjkWHtzi0kb1vb4h/Ewgcg6cy4KWHRCnyFY5vAUx2EnMxy4q
-	BBRG/LZim6Gidbfa/lB1V34mPOqAaMDgU3LGVgSO39PA==
-X-Gm-Gg: AYBFou1ExNCvaDofEfFIiydYkoo6/31lVdBpkl7uYPVxGaR2RUsYi9MBbki741dLJvi
-	Urkv6W1EHcZaYfFGX/vpOwMLLbHHIk4LdzGuIKOtucy78CXhS2ilQIaSUPDFm5cmaMT9OIRLXGK
-	/K9DEPaRcEKvVyd9Jje8Zh2h+x5Ps2vdJ6EgvbROnEu/gwx0kFajfdrirWkiVr2gfbMaP9dc8Ob
-	4tsPRG4jvfPaTy4Puf8bXFFRskgL1sZ+9iIFT+sYcZsPJtBi3hvi26/2n6Tjtlf+tsM2CqaYA==
-X-Received: by 2002:a05:620a:3193:b0:93b:c581:2e16 with SMTP id af79cd13be357-93bdc70a9e2mr380951185a.30.1789742940755;
-        Fri, 18 Sep 2026 07:49:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:3193:b0:93b:c581:2e16 with SMTP id
- af79cd13be357-93bdc70a9e2mr380942685a.30.1789742940098; Fri, 18 Sep 2026
- 07:49:00 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789742984; x=1790347784;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uOvKZ7jMCmx8fIKUFee0Ich1k1yQqSbNT6X8Lv9nECM=;
+        b=XW62uEs6AOyry6+oU5LxRJino3YoFN4opV277RUK1TXVYbsc/L+HPM9uNbFx3i3cYJ
+         phVCW8xslDcLY55lTGtDFWQ252VQbKagKQNQXURQVYDmo7isiKsQ8xxaLPhpHJME3Nrz
+         5C09NSqJwL6xyz50smIKcs+duOQizgnymxRkUy5kDP+smZiv3E8ErgzXejeixGLdaKMK
+         /gF3dgLMij1GE6GvO3q5KYMjL0S64GNxvIfNWXfj4vVFbzD1pfYAQv3d3kAnvWZ1S4vJ
+         jvkkfxuln8WSKFgcqNREsTjyEIqmKq3S/4VkVuzI7yYHSWvj2NpB/pRo5PvP7atEpslQ
+         +Kig==
+X-Forwarded-Encrypted: i=1; AKwUvBzzyX7/5zqzDmP7unr3REQAmcqpOgx7CEYLj2jKVZh2ZFYGYVAfiCd00W+hTjmZdgJzUvSg0mXWbbdbQIQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mX8u/x2Mcf3t8KmZKe9p9/uBqgVUUzG/M3whnL4lKadwCGcRpb
+	52XcafGsC8rWRdgYIB5ANQzsAwThIbjDikh2fC9p7XyoLy17iU/v/QS/mfFEpQl8g0w=
+X-Gm-Gg: AYBFou3iuc6Wclll1y+sjNIDpoKpKvFfae46l+/SgOKM7HqTym7JEoSBhJCRoZsUMy2
+	WwDdx79yzzWrOrVU58mJzAuo7tGFyNNQYyPeaW1Tc8uyi2nLf0ylb4Y3ALqfClZ4NKX7/Cj7+SM
+	7kqAmSUqP4d9GCM/kF3F9TCxIix6njq2B+LSNIO+QZnW4vmF+Ac3ncWcGAez7zZsUOzkBeoSuY9
+	inBriUZIFWSacTYv3WrjwPd6VyUhn0ES1xy+Wm+RVVNXvE4NCk/8j3vQZu92WbW6qsS/ARdBc7N
+	XKvweFPGtCfSz9ww/mOpHQBwadilrZyyhEfkfhxdF9qH7lMZQjGdyiKrj0vTx0IkhQhYluysASy
+	F+hugfHxLyI2XRxMUtFX7fOMPWmHlGPyKUkZ57B3KDUz1u31KRPxmzXQeozLVzNRZnx6B2ddJM2
+	qX3dR09Hv/z56PafY+h1mCmo43ROrtkvdq//C0Es2D4irh+R9Ka9Jjh64IBEc9EIxe67h0Ouznn
+	QEIi1cO0vWjWwADZQMgV1CUn+bMpIMMq3La4tIAiZf1hmswotYCXG3W
+X-Received: by 2002:ad4:4ae2:0:b0:910:1989:a61a with SMTP id 6a1803df08f44-91254b8fdebmr32250336d6.9.1789742983465;
+        Fri, 18 Sep 2026 07:49:43 -0700 (PDT)
+Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91257f2e58asm14263116d6.2.2026.09.18.07.49.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:49:42 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH RFC v4 00/13] rcu-tasks: build Tasks RCU on Tasks Trace
+ readers in trampolines
+Date: Fri, 18 Sep 2026 14:49:19 +0000
+Message-Id: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
- <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
-In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 16:48:47 +0200
-X-Gm-Features: AcwNN1VyQc5hTFTyVwqM2V6ETDD0juMD_-9QG-ROfpg2um5lYUHYKTebxcRhbR4
-Message-ID: <CAFEp6-37YmRR147eH_wfnD-eQPpg2Fy-jc3QNx5VyiFLkmzG_g@mail.gmail.com>
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Oleg Keri <okerixx@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxMSBTYWx0ZWRfX3sBjiAov0+lJ
- H4OLGdzjPjJsCTr0h/4hZYFUb1QD0uXlhNJ8IccCM6FZWWIVQkUl0FrFF2VFvmjjiX8uz8yr+Gb
- Y5KcIkSZKHqUdyxffxtvP+G1u28KeGk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxMSBTYWx0ZWRfX1jQPW458Jm2x
- nk/C/Xkor8sjBbdUQzKLvpoRWAXIYSY3D6yr6AaGduVdSedzT06sT8zQBFziobbzQv6eXe8ATBU
- /x26NjZO3brZLYi0nykt0aspHRnnhjHufEdWOWzeoaqBs0Eqtr1s7uPJ7aMHVUN/B8qLx87p0CV
- uce9x/I3flLpRyJdegIHkBK1yx5LlTW9N5gnwEIvVcMp48c5l9gDfGPcSvcDDHEWqddHGZxdvD6
- +SfuOV1ZNlpiw+thW09OooGZiXJWn20CErw3AgIupe0nmrUDAOLrF2u18s7xtGVKcfY6xJgP+Yh
- 4y5zvv+3PcbpA+IDjw1Bj2BuGm17QsiNra7ZhglgsoP1a9bPBOyp+7a0OdDwJz3l6BNo/+seJyY
- kP11OaFlFvJTA2ArG26Ef+x0XkhrhgPGmiKF//o22n4NbAee4QWM3/0zuCY3pT3dcoDLmTho/Q8
- DaaVlvsWG993qNnjYFw==
-X-Proofpoint-GUID: RTft79b7-YeSMCB0P70tzdrOz72eCarY
-X-Proofpoint-ORIG-GUID: RTft79b7-YeSMCB0P70tzdrOz72eCarY
-X-Authority-Analysis: v=2.4 cv=R+mWitRX c=1 sm=1 tr=0 ts=6aad4f5e cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=DJpcGTmdVt4CTyJn9g5Z:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
- a=fKnwG9EHs3sFRsC3j0wA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 clxscore=1015
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180211
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHBPrWoC/4XOwU7DMAwG4FeZciYsSd1O44Q0iQfgijg4jkszW
+ NslWTU09d1Jw2USmzj6j/3lv4jIwXMUT6uLCDz56Ic+D/CwEtRh/8HSuzwLo0yjtlpJCzLQSSa
+ Mn1GOgfkwJnmMEpRuW6ihqWkj8nV+av25yG/i9WUn3n/DeLJ7prSYy5rFyNIG7Klboq9xbWFdw
+ lu/LBedj2kI36XxpAv/b7lJSyUdQLNtgUgr/ZyGs6cRe4ePNBxKuclcY/o+ZjLGiNhodsYh3MS
+ qa6y+j1UZU+gqRUA18+YPNs/zD+q4d2SmAQAA
+X-Change-ID: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>
+Cc: Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789742979; l=12201;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=nVRI2iS5SJPI0UIAyaf7kiy21X18lzaxRK2+gPRlH0U=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QGSSszuFkwNYW13g7UbMZ/uKcGE7zBiDRtSatX6MTARbwezhPrC0ErVvu6KywLXNx40Pit80HwV
+ IpJmIrJhiigM=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Fri, Sep 18, 2026 at 3:56=E2=80=AFPM Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
->
-> Add the ability to use a PHY pointer which interacts with the standard PH=
-Y
-> API.
->
-> In the first instance the code will try to use the new PHY interface. If =
-no
-> PHYs are present in the DT then the legacy method will be attempted.
->
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Gl=
-ymur)
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+v1: https://lore.kernel.org/all/20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com/
+v2: https://lore.kernel.org/all/20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com/
+v3: https://lore.kernel.org/all/20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com/
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+v3->v4:
+- BPF: the reader is emitted by the x86-64/arm64 JIT around the
+  fentry/fmod_ret and fexit regions instead of taken in the C glue (Alexei).
+- An idle CPU only counts as quiescent while in an RCU EQS (Sashiko).
+- Dropped the rcu_read_lock_trace() lockdep/inline patch; BPF CI bot nits.
+v2->v3:
+- Reworked per Alexei and Paul: trampolines take rcu_read_lock_trace(),
+  and Tasks RCU on x86-64/arm64 becomes a per-CPU pass plus a Tasks Trace
+  grace period instead of a new per-task counter.
+v1->v2:
+- Sashiko/AI review fixes, Paul's and Steve's comments (see v2 changelog).
 
-> ---
->  drivers/media/platform/qcom/camss/Kconfig        |   1 +
->  drivers/media/platform/qcom/camss/camss-csiphy.c | 200 +++++++++++++++++=
-++++--
->  drivers/media/platform/qcom/camss/camss-csiphy.h |  11 +-
->  drivers/media/platform/qcom/camss/camss.c        | 104 ++++++++++--
->  drivers/media/platform/qcom/camss/camss.h        |   1 +
->  5 files changed, 285 insertions(+), 32 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/pl=
-atform/qcom/camss/Kconfig
-> index 4eda48cb1adf0..1edc5e5a1829e 100644
-> --- a/drivers/media/platform/qcom/camss/Kconfig
-> +++ b/drivers/media/platform/qcom/camss/Kconfig
-> @@ -7,3 +7,4 @@ config VIDEO_QCOM_CAMSS
->         select VIDEO_V4L2_SUBDEV_API
->         select VIDEOBUF2_DMA_SG
->         select V4L2_FWNODE
-> +       select PHY_QCOM_MIPI_CSI2
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/m=
-edia/platform/qcom/camss/camss-csiphy.c
-> index 539ac4888b608..aaed7d0309dd6 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-> @@ -13,6 +13,8 @@
->  #include <linux/io.h>
->  #include <linux/kernel.h>
->  #include <linux/of.h>
-> +#include <linux/of_graph.h>
-> +#include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <media/media-entity.h>
-> @@ -131,10 +133,10 @@ static u8 csiphy_get_bpp(const struct csiphy_format=
-_info *formats,
->  }
->
->  /*
-> - * csiphy_set_clock_rates - Calculate and set clock rates on CSIPHY modu=
-le
-> + * csiphy_set_clock_rates_legacy - Calculate and set clock rates on CSIP=
-HY module
->   * @csiphy: CSIPHY device
->   */
-> -static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
-> +static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
->  {
->         struct device *dev =3D csiphy->camss->dev;
->         s64 link_freq;
-> @@ -200,7 +202,7 @@ static int csiphy_set_clock_rates(struct csiphy_devic=
-e *csiphy)
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -static int csiphy_set_power(struct v4l2_subdev *sd, int on)
-> +static int csiphy_set_power_legacy(struct v4l2_subdev *sd, int on)
->  {
->         struct csiphy_device *csiphy =3D v4l2_get_subdevdata(sd);
->         struct device *dev =3D csiphy->camss->dev;
-> @@ -219,7 +221,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->                         return ret;
->                 }
->
-> -               ret =3D csiphy_set_clock_rates(csiphy);
-> +               ret =3D csiphy_set_clock_rates_legacy(csiphy);
->                 if (ret < 0) {
->                         regulator_bulk_disable(csiphy->num_supplies,
->                                                csiphy->supplies);
-> @@ -254,7 +256,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->  }
->
->  /*
-> - * csiphy_stream_on - Enable streaming on CSIPHY module
-> + * csiphy_stream_on_legacy - Enable streaming on CSIPHY module
->   * @csiphy: CSIPHY device
->   *
->   * Helper function to enable streaming on CSIPHY module.
-> @@ -262,7 +264,7 @@ static int csiphy_set_power(struct v4l2_subdev *sd, i=
-nt on)
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -static int csiphy_stream_on(struct csiphy_device *csiphy)
-> +static int csiphy_stream_on_legacy(struct csiphy_device *csiphy)
->  {
->         struct csiphy_config *cfg =3D &csiphy->cfg;
->         s64 link_freq;
-> @@ -306,11 +308,98 @@ static int csiphy_stream_on(struct csiphy_device *c=
-siphy)
->   *
->   * Helper function to disable streaming on CSIPHY module
->   */
-> -static void csiphy_stream_off(struct csiphy_device *csiphy)
-> +static void csiphy_stream_off_legacy(struct csiphy_device *csiphy)
->  {
->         csiphy->res->hw_ops->lanes_disable(csiphy, &csiphy->cfg);
->  }
->
-> +/*
-> + * csiphy_stream_on - Enable streaming on CSIPHY module
-> + * @csiphy: CSIPHY device
-> + *
-> + * Helper function to enable streaming on CSIPHY module.
-> + * Main configuration of CSIPHY module is also done here.
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csiphy_stream_on(struct csiphy_device *csiphy)
-> +{
-> +       u8 bpp =3D csiphy_get_bpp(csiphy->res->formats->formats, csiphy->=
-res->formats->nformats,
-> +                               csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
-> +       struct csiphy_lanes_cfg *lncfg =3D &csiphy->cfg.csi2->lane_cfg;
-> +       struct phy_configure_opts_mipi_dphy *dphy_cfg;
-> +       union phy_configure_opts dphy_opts =3D { 0 };
-> +       struct device *dev =3D csiphy->camss->dev;
-> +       u8 num_lanes =3D lncfg->num_data;
-> +       s64 link_freq;
-> +       int ret;
-> +
-> +       dphy_cfg =3D &dphy_opts.mipi_dphy;
-> +
-> +       link_freq =3D camss_get_link_freq(&csiphy->subdev.entity, bpp, nu=
-m_lanes);
-> +
-> +       if (link_freq <=3D 0) {
-> +               dev_err(dev,
-> +                       "Cannot get CSI2 transmitter's link frequency\n")=
-;
-> +               return -EINVAL;
-> +       }
-> +
-> +       ret =3D phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num=
-_lanes,
-> +                                                        dphy_cfg);
-> +       if (ret < 0) {
-> +               dev_err(dev, "Invalid config for link frequency %lld\n",
-> +                       link_freq);
-> +               return ret;
-> +       }
-> +
-> +       ret =3D phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
-> +       if (ret) {
-> +               dev_err(dev, "Failed to set phy mode\n");
-> +               return ret;
-> +       }
-> +
-> +       ret =3D phy_configure(csiphy->phy, &dphy_opts);
-> +       if (ret) {
-> +               dev_err(dev, "failed to configure MIPI D-PHY\n");
-> +               goto error;
-> +       }
-> +
-> +       return phy_power_on(csiphy->phy);
-> +
-> +error:
-> +       return ret;
-> +}
-> +
-> +/*
-> + * csiphy_stream_off - Disable streaming on CSIPHY module
-> + * @csiphy: CSIPHY device
-> + *
-> + * Helper function to disable streaming on CSIPHY module
-> + */
-> +static void csiphy_stream_off(struct csiphy_device *csiphy)
-> +{
-> +       phy_power_off(csiphy->phy);
-> +}
-> +
-> +/*
-> + * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-> + * @sd: CSIPHY V4L2 subdevice
-> + * @enable: Requested streaming state
-> + *
-> + * Return 0 on success or a negative error code otherwise
-> + */
-> +static int csiphy_set_stream_legacy(struct v4l2_subdev *sd, int enable)
-> +{
-> +       struct csiphy_device *csiphy =3D v4l2_get_subdevdata(sd);
-> +       int ret =3D 0;
-> +
-> +       if (enable)
-> +               ret =3D csiphy_stream_on_legacy(csiphy);
-> +       else
-> +               csiphy_stream_off_legacy(csiphy);
-> +
-> +       return ret;
-> +}
->
->  /*
->   * csiphy_set_stream - Enable/disable streaming on CSIPHY module
-> @@ -572,16 +661,16 @@ csiphy_match_clock_name(const char *clock_name, con=
-st char *format, ...)
->  }
->
->  /*
-> - * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resou=
-rces
-> + * msm_csiphy_subdev_init_legacy - Initialize CSIPHY device structure an=
-d resources
->   * @csiphy: CSIPHY device
->   * @res: CSIPHY module resources table
->   * @id: CSIPHY module id
->   *
->   * Return 0 on success or a negative error code otherwise
->   */
-> -int msm_csiphy_subdev_init(struct camss *camss,
-> -                          struct csiphy_device *csiphy,
-> -                          const struct camss_subdev_resources *res, u8 i=
-d)
-> +int msm_csiphy_subdev_init_legacy(struct camss *camss,
-> +                                 struct csiphy_device *csiphy,
-> +                                 const struct camss_subdev_resources *re=
-s, u8 id)
->  {
->         struct device *dev =3D camss->dev;
->         struct platform_device *pdev =3D to_platform_device(dev);
-> @@ -709,6 +798,54 @@ int msm_csiphy_subdev_init(struct camss *camss,
->         return ret;
->  }
->
-> +/*
-> + * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resou=
-rces
-> + * @camss: CAMSS structure
-> + * @port: DT port index
-> + *
-> + * Return 0 on success or absence of link, negative error code otherwise
-> + */
-> +int msm_csiphy_subdev_init(struct camss *camss, u8 port)
-> +{
-> +       const struct camss_subdev_resources *res =3D &camss->res->csiphy_=
-res[port];
-> +       struct csiphy_device *csiphy =3D &camss->csiphy[port];
-> +       struct device *dev =3D camss->dev;
-> +       struct device_node *ep, *remote;
-> +       int ret;
-> +
-> +       ep =3D of_graph_get_endpoint_by_regs(dev->of_node, port, -1);
-> +       if (!ep)
-> +               return 0;
-> +
-> +       remote =3D of_graph_get_remote_port_parent(ep);
-> +       of_node_put(ep);
-> +       if (!remote)
-> +               return 0;
-> +
-> +       if (!of_device_is_available(remote)) {
-> +               of_node_put(remote);
-> +               return 0;
-> +       }
-> +
-> +       csiphy->phy =3D devm_phy_get_by_of_node(dev, remote);
-> +       of_node_put(remote);
-> +       if (IS_ERR(csiphy->phy)) {
-> +               ret =3D PTR_ERR(csiphy->phy);
-> +               goto done;
-> +       }
-> +
-> +       csiphy->camss =3D camss;
-> +       csiphy->id =3D res->csiphy.id;
-> +       csiphy->res =3D &res->csiphy;
-> +
-> +       snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy-=
->id);
-> +
-> +       return 0;
-> +
-> +done:
-> +       return ret;
-> +}
-> +
->  /*
->   * csiphy_link_setup - Setup CSIPHY connections
->   * @entity: Pointer to media entity structure
-> @@ -743,8 +880,12 @@ static int csiphy_link_setup(struct media_entity *en=
-tity,
->         return 0;
->  }
->
-> -static const struct v4l2_subdev_core_ops csiphy_core_ops =3D {
-> -       .s_power =3D csiphy_set_power,
-> +static const struct v4l2_subdev_core_ops csiphy_core_ops_legacy =3D {
-> +       .s_power =3D csiphy_set_power_legacy,
-> +};
-> +
-> +static const struct v4l2_subdev_video_ops csiphy_video_ops_legacy =3D {
-> +       .s_stream =3D csiphy_set_stream_legacy,
->  };
->
->  static const struct v4l2_subdev_video_ops csiphy_video_ops =3D {
-> @@ -758,8 +899,13 @@ static const struct v4l2_subdev_pad_ops csiphy_pad_o=
-ps =3D {
->         .set_fmt =3D csiphy_set_format,
->  };
->
-> +static const struct v4l2_subdev_ops csiphy_v4l2_ops_legacy =3D {
-> +       .core =3D &csiphy_core_ops_legacy,
-> +       .video =3D &csiphy_video_ops_legacy,
-> +       .pad =3D &csiphy_pad_ops,
-> +};
-> +
->  static const struct v4l2_subdev_ops csiphy_v4l2_ops =3D {
-> -       .core =3D &csiphy_core_ops,
->         .video =3D &csiphy_video_ops,
->         .pad =3D &csiphy_pad_ops,
->  };
-> @@ -785,10 +931,15 @@ int msm_csiphy_register_entity(struct csiphy_device=
- *csiphy,
->  {
->         struct v4l2_subdev *sd =3D &csiphy->subdev;
->         struct media_pad *pads =3D csiphy->pads;
-> -       struct device *dev =3D csiphy->camss->dev;
-> +       struct camss *camss =3D csiphy->camss;
-> +       struct device *dev =3D camss->dev;
->         int ret;
->
-> -       v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-> +       if (camss->legacy_phy)
-> +               v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
-> +       else
-> +               v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-> +
->         sd->internal_ops =3D &csiphy_v4l2_internal_ops;
->         sd->flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
->         snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
-> @@ -816,9 +967,22 @@ int msm_csiphy_register_entity(struct csiphy_device =
-*csiphy,
->         ret =3D v4l2_device_register_subdev(v4l2_dev, sd);
->         if (ret < 0) {
->                 dev_err(dev, "Failed to register subdev: %d\n", ret);
-> -               media_entity_cleanup(&sd->entity);
-> +               goto media_entity_err;
-> +       }
-> +
-> +       if (!IS_ERR(csiphy->phy)) {
-> +               ret =3D phy_init(csiphy->phy);
-> +               if (ret) {
-> +                       dev_err(dev, "%s init fail %d\n", csiphy->name, r=
-et);
-> +                       v4l2_device_unregister_subdev(sd);
-> +                       goto media_entity_err;
-> +               }
->         }
->
-> +       return 0;
-> +
-> +media_entity_err:
-> +       media_entity_cleanup(&sd->entity);
->         return ret;
->  }
->
-> @@ -828,6 +992,8 @@ int msm_csiphy_register_entity(struct csiphy_device *=
-csiphy,
->   */
->  void msm_csiphy_unregister_entity(struct csiphy_device *csiphy)
->  {
-> +       if (!IS_ERR(csiphy->phy))
-> +               phy_exit(csiphy->phy);
->         v4l2_device_unregister_subdev(&csiphy->subdev);
->         media_entity_cleanup(&csiphy->subdev.entity);
->  }
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.h b/drivers/m=
-edia/platform/qcom/camss/camss-csiphy.h
-> index 9d9657b82f748..7a357044b9fdb 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.h
-> @@ -12,6 +12,7 @@
->
->  #include <linux/clk.h>
->  #include <linux/interrupt.h>
-> +#include <linux/phy/phy.h>
->  #include <media/media-entity.h>
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-mediabus.h>
-> @@ -97,6 +98,7 @@ struct csiphy_device_regs {
->
->  struct csiphy_device {
->         struct camss *camss;
-> +       struct phy *phy;
->         u8 id;
->         struct v4l2_subdev subdev;
->         struct media_pad pads[MSM_CSIPHY_PADS_NUM];
-> @@ -104,6 +106,7 @@ struct csiphy_device {
->         void __iomem *base_clk_mux;
->         u32 irq;
->         char irq_name[30];
-> +       char name[16];
->         struct camss_clock *clock;
->         bool *rate_set;
->         int nclocks;
-> @@ -118,9 +121,11 @@ struct csiphy_device {
->
->  struct camss_subdev_resources;
->
-> -int msm_csiphy_subdev_init(struct camss *camss,
-> -                          struct csiphy_device *csiphy,
-> -                          const struct camss_subdev_resources *res, u8 i=
-d);
-> +int msm_csiphy_subdev_init_legacy(struct camss *camss,
-> +                                 struct csiphy_device *csiphy,
-> +                                 const struct camss_subdev_resources *re=
-s, u8 id);
-> +
-> +int msm_csiphy_subdev_init(struct camss *camss, u8 port);
->
->  int msm_csiphy_register_entity(struct csiphy_device *csiphy,
->                                struct v4l2_device *v4l2_dev);
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 2123f6388e3d7..84097d82d99c9 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4799,8 +4799,43 @@ static int camss_parse_ports(struct camss *camss)
->         fwnode_graph_for_each_endpoint(fwnode, ep) {
->                 struct camss_async_subdev *csd;
->
-> -               csd =3D v4l2_async_nf_add_fwnode_remote(&camss->notifier,=
- ep,
-> -                                                     typeof(*csd));
-> +               if (!fwnode_device_is_available(ep))
-> +                       continue;
-> +
-> +               if (camss->legacy_phy) {
-> +                       csd =3D v4l2_async_nf_add_fwnode_remote(&camss->n=
-otifier, ep,
-> +                                                             typeof(*csd=
-));
-> +               } else {
-> +                       struct fwnode_handle *phy_out, *phy_node, *phy_in=
-, *sensor_ep;
-> +
-> +                       phy_out =3D fwnode_graph_get_remote_endpoint(ep);
-> +                       if (!phy_out)
-> +                               continue;
-> +
-> +                       phy_node =3D fwnode_graph_get_port_parent(phy_out=
-);
-> +                       fwnode_handle_put(phy_out);
-> +                       if (!phy_node)
-> +                               continue;
-> +
-> +                       phy_in =3D fwnode_graph_get_endpoint_by_id(phy_no=
-de, 0, 0, 0);
-> +                       fwnode_handle_put(phy_node);
-> +                       if (!phy_in)
-> +                               continue;
-> +
-> +                       sensor_ep =3D fwnode_graph_get_remote_endpoint(ph=
-y_in);
-> +                       fwnode_handle_put(phy_in);
-> +                       if (!sensor_ep)
-> +                               continue;
-> +
-> +                       csd =3D v4l2_async_nf_add_fwnode(&camss->notifier=
-, sensor_ep,
-> +                                               struct camss_async_subdev=
-);
-> +                       fwnode_handle_put(sensor_ep);
-> +                       if (IS_ERR(csd)) {
-> +                               ret =3D PTR_ERR(csd);
-> +                               goto err_cleanup;
-> +                       }
-> +               }
-> +
->                 if (IS_ERR(csd)) {
->                         ret =3D PTR_ERR(csd);
->                         goto err_cleanup;
-> @@ -4819,6 +4854,29 @@ static int camss_parse_ports(struct camss *camss)
->         return ret;
->  }
->
-> +static void camss_detect_legacy_phy(struct camss *camss)
-> +{
-> +       struct device_node *remote;
-> +       struct device_node *ep;
-> +
-> +       camss->legacy_phy =3D true;
-> +
-> +       /* Find first remote-endpoint and determine if its a PHY */
-> +       for_each_endpoint_of_node(camss->dev->of_node, ep) {
-> +               remote =3D of_graph_get_remote_port_parent(ep);
-> +               if (!remote)
-> +                       continue;
-> +
-> +               camss->legacy_phy =3D !of_node_name_eq(remote, "phy");
-> +               of_node_put(remote);
-> +               of_node_put(ep);
-> +               break;
-> +       }
-> +
-> +       dev_dbg(camss->dev, "legacy phy mode %s\n",
-> +               camss->legacy_phy ? "true" : "false");
-> +}
-> +
->  /*
->   * camss_init_subdevices - Initialize subdev structures and resources
->   * @camss: CAMSS device
-> @@ -4832,14 +4890,21 @@ static int camss_init_subdevices(struct camss *ca=
-mss)
->         unsigned int i;
->         int ret;
->
-> +       camss_detect_legacy_phy(camss);
-> +
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> -               ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
-> -                                            &res->csiphy_res[i],
-> -                                            res->csiphy_res[i].csiphy.id=
-);
-> +               if (!camss->legacy_phy) {
-> +                       ret =3D msm_csiphy_subdev_init(camss, i);
-> +               } else {
-> +                       ret =3D msm_csiphy_subdev_init_legacy(camss,
-> +                                                           &camss->csiph=
-y[i],
-> +                                                           &res->csiphy_=
-res[i],
-> +                                                           res->csiphy_r=
-es[i].csiphy.id);
-> +               }
-> +
->                 if (ret < 0) {
-> -                       dev_err(camss->dev,
-> -                               "Failed to init csiphy%d sub-device: %d\n=
-",
-> -                               i, ret);
-> +                       dev_err(camss->dev, "csiphy %d init fail\n",
-> +                               res->csiphy_res[i].csiphy.id);
->                         return ret;
->                 }
->         }
-> @@ -4917,6 +4982,11 @@ inline void camss_link_err(struct camss *camss,
->                 ret);
->  }
->
-> +static inline bool csiphy_enabled(struct camss *camss, struct csiphy_dev=
-ice *c)
-> +{
-> +       return camss->legacy_phy || c->phy;
-> +}
-> +
->  /*
->   * camss_link_entities - Register subdev nodes and create links
->   * @camss: CAMSS device
-> @@ -4930,6 +5000,9 @@ static int camss_link_entities(struct camss *camss)
->
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
->                 for (j =3D 0; j < camss->res->csid_num; j++) {
-> +                       if (!csiphy_enabled(camss, &camss->csiphy[i]))
-> +                               continue;
-> +
->                         ret =3D media_create_pad_link(&camss->csiphy[i].s=
-ubdev.entity,
->                                                     MSM_CSIPHY_PAD_SRC,
->                                                     &camss->csid[j].subde=
-v.entity,
-> @@ -5056,6 +5129,9 @@ static int camss_register_entities(struct camss *ca=
-mss)
->         int ret;
->
->         for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> +               if (!csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       continue;
-> +
->                 ret =3D msm_csiphy_register_entity(&camss->csiphy[i],
->                                                  &camss->v4l2_dev);
->                 if (ret < 0) {
-> @@ -5131,8 +5207,10 @@ static int camss_register_entities(struct camss *c=
-amss)
->
->         i =3D camss->res->csiphy_num;
->  err_reg_csiphy:
-> -       for (i--; i >=3D 0; i--)
-> -               msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       for (i--; i >=3D 0; i--) {
-> +               if (csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       }
->
->         return ret;
->  }
-> @@ -5147,8 +5225,10 @@ static void camss_unregister_entities(struct camss=
- *camss)
->  {
->         unsigned int i;
->
-> -       for (i =3D 0; i < camss->res->csiphy_num; i++)
-> -               msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       for (i =3D 0; i < camss->res->csiphy_num; i++) {
-> +               if (csiphy_enabled(camss, &camss->csiphy[i]))
-> +                       msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +       }
->
->         if (camss->tpg) {
->                 for (i =3D 0; i < camss->res->tpg_num; i++)
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
-atform/qcom/camss/camss.h
-> index 93d691c8ac63b..ba3d51d9c0bf8 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -138,6 +138,7 @@ struct camss {
->         struct device_link *genpd_link;
->         struct icc_path *icc_path[ICC_SM8250_COUNT];
->         const struct camss_resources *res;
-> +       bool legacy_phy;
->  };
->
->  struct camss_camera_interface {
->
-> --
-> 2.55.0
->
+What it does now:
+
+Every trampoline whose lifetime Tasks RCU guards (ftrace_caller and its
+copies, the optprobe template, BPF trampolines, out-of-line direct-call
+trampolines) takes rcu_read_lock_trace() around its call-out, open-coded
+in asm / by the JIT. That leaves the few trampoline instructions outside
+the reader, the static ftrace stubs and x86 return thunks that carry a
+trampoline address, and the kprobe jump-optimization window. A task can
+only linger in those by being interrupted there, so on x86-64 and arm64
+the Tasks RCU grace period becomes: wait for every CPU to pass through
+__schedule() or sit in an EQS (the irq-exit preemption checks the
+interrupted IP first and briefly makes a task caught in such text a
+holdout), then synchronize_rcu_tasks_trace(), then one more pass for the
+trailing instructions. It runs from the existing rcu_tasks kthread, so
+call_rcu_tasks() and friends keep their names and callers; there is no
+task-list scan and no dependence on voluntary context switches, and
+cond_resched_tasks_rcu_qs() becomes unnecessary there. Other
+architectures keep the classic implementation.
+
+Testing is still QEMU: x86-64 PREEMPT_LAZY (PREEMPT_RCU=n) and
+PREEMPT_DYNAMIC, PROVE_RCU, lockdep. synchronize_rcu_tasks() against a
+30s in-kernel spinner is 20-70ms (classic: 29.7s), ftrace instance
+teardown ~0.2s, optprobe register+unregister ~0.6s, the direct samples
+cycle in about a second, and fentry+fexit attach/hammer/detach on
+do_sys_openat2 and hrtimer_interrupt runs and detaches in 50-100ms with
+the return-to-user reader assertion quiet. arm64 is build-tested;
+hardware numbers for both are still owed.
+
+Open questions:
+ - Paul: whether an alternate gp_func on the rcu_tasks kthread is
+   acceptable as the first step, with Frederic's core-RCU variant as the
+   follow-on you suggested.
+ - The open-coded reader is ~9 instructions each side in ftrace_caller and
+   at four points in the BPF trampoline. rcu_read_lock_tasks_trace() would
+   be shorter but needs a slot for the cookie.
+ - CONFIG_TASKS_TRACE_RCU_NO_MB depends on RCU_EXPERT, so non-expert
+   x86/arm64 builds get the smp_mb() in the reader despite
+   ARCH_WANTS_NO_INSTR; the asm follows the C but that looks unintended.
+
+--- Original email (v1) ---
+
+Tasks RCU only treats a voluntary context switch, usermode or idle as a
+quiescent state, because a preempted task may be sitting in a trampoline
+that is about to be freed. That was a fine trade when PREEMPT_NONE
+servers compiled Tasks RCU away and PREEMPT desktops rarely ran
+long-lived in-kernel loops. PREEMPT_LAZY changes both halves at once:
+Tasks RCU is now real on server configs, and cond_resched() is a no-op,
+so a CPU-bound kthread or kworker only ever loses the CPU by being
+preempted, which is exactly the event Tasks RCU refuses to count.
+
+The way this showed up for us was a cgroup writeback worker draining a
+very large cgwb for around eleven minutes on an arm64 box. Nothing wrong
+with that on its own, but a BPF program detach on another CPU went
+bpf_trampoline_update() -> ftrace_shutdown() -> synchronize_rcu_tasks()
+while holding trampoline_mutex, forty-odd tasks piled up behind the
+mutex, and the hung task detector panicked the machine. The kprobe jump
+optimizer is worse in principle: it does synchronize_rcu_tasks() under
+kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
+kthread can stall static key updates and CPU hotplug for its whole run.
+The current answer is to find each such loop and add
+cond_resched_tasks_rcu_qs() to it, which is the kind of annotation
+PREEMPT_LAZY was supposed to let us stop writing.
+
+This series tries the other direction: have the trampolines say when a
+task is inside them, so that a preemption anywhere else can be a
+quiescent state.
+
+ - task_struct grows an int, rcu_tramp_nesting. Every trampoline whose
+   lifetime Tasks RCU guards increments it before calling out and
+   decrements it before returning: ftrace_caller and its dynamic copies,
+   the BPF trampoline (which drops it again around the call to the
+   original function, since im->pcref covers that), the x86 optprobe
+   template, and out-of-line register_ftrace_direct() trampolines. Only
+   current writes it and nested users are balanced, so it is a plain
+   non-atomic inc/dec, one load of current plus one RMW per entry/exit.
+
+ - The inc/dec are inside the trampoline, so there is a window of a few
+   instructions on each side where the count is zero but the task is in
+   (or on its way into) trampoline text. Nothing there can be preempted
+   synchronously, only from an interrupt, so the irq-exit preemption path
+   looks at regs->ip and holds the count across preempt_schedule_irq()
+   when the IP is somewhere the counter cannot cover: outside core and
+   module text (all the dynamically allocated trampolines and slots), in
+   the static ftrace stubs or the x86 return thunks that still hold a
+   direct-call target, in a module that hosts its own direct trampoline,
+   or inside the bytes after a kprobe that the jump optimizer may be
+   about to rewrite (the one synchronize_rcu_tasks() user that is not
+   about trampolines at all).
+
+ - With those in place, rcu_tasks_classic_qs() also clears the holdout
+   flag on a preemption when the count is zero, on architectures that
+   opt in. x86-64 and arm64 do so here. Everyone else keeps the
+   voluntary-only rule and is untouched apart from the (unused) field.
+
+A running holdout already gets poked via rcu_request_urgent_qs_task(),
+which makes the next tick set NEED_RESCHED, so with this the resulting
+preemption retires it and a Tasks RCU grace period is bounded by roughly
+a tick plus the longest preempt-off section rather than by the longest
+stretch without a voluntary schedule().
+
+Patches 1-12 are scaffolding and change no behaviour on their own; patch
+13 flips the rule and selects the option for the two architectures.
+
+Testing so far is QEMU only: x86-64, PREEMPT_LAZY with PREEMPT_RCU=n,
+PROVE_RCU and lockdep, with and without PREEMPT_DYNAMIC. A kthread
+spinning in-kernel for 30s with the function tracer, an ftrace kprobe,
+an optimized kprobe and fentry/fexit programs attached:
+synchronize_rcu_tasks() goes from 29.7s to 0.1-0.3s, tearing down a
+DYNAMIC ftrace_ops (tracefs instance function -> nop) from 27s to
+0.2-0.8s, and the ftrace-direct sample modules load, fire and unload in
+about 2.5s each while the spinner runs, with no warnings and the new
+return-to-user assertion quiet. arm64 is build-tested only at this
+point; real hardware numbers for both are the obvious next step and I
+did not want to sit on the idea waiting for them.
+
+Things I would particularly like opinions on:
+
+ - Whether hooking rcu_tasks_classic_qs() is the right place, or whether
+   Paul would rather see this expressed differently inside Tasks RCU.
+ - return_to_handler and the rethook/kretprobe trampolines are not
+   instrumented. Their C callees take the ftrace recursion lock before
+   touching any ops and the trampolines themselves are static text, so I
+   believe they do not need it, but I would like Steven and Masami to
+   confirm.
+ - The register_ftrace_direct() contract change: out-of-line direct
+   trampolines now have to maintain the count themselves (the samples
+   are converted). I do not know of out-of-tree users beyond BPF, but
+   this is the one place an existing user could be silently weakened.
+ - Whether arm64 folks are comfortable with the ldr/add/str in
+   ftrace_caller and the BPF trampoline, and with treating all of
+   ftrace_caller as trampoline text for the IP check.
+ - If this holds up, cond_resched_tasks_rcu_qs() and
+   rcu_softirq_qs_periodic() become unnecessary on the opted-in
+   architectures; I have not touched them here.
+
+Based on v7.3-rc2+ (893e11787f78).
+
+---
+Josef Bacik (13):
+      entry: Pass pt_regs to irqentry_exit_cond_resched()
+      rcu-tasks: Add a Tasks RCU implementation for reader-marked trampolines
+      kprobes: Expose the optprobe jump window to Tasks RCU
+      ftrace: Mark modules hosting direct-call trampolines for Tasks RCU
+      x86/ftrace: Take a Tasks Trace reader around ftrace_caller's call-out
+      x86/kprobes: Take a Tasks Trace reader in the optprobe template
+      bpf, x86: Take a Tasks Trace reader in the trampoline around its call-outs
+      arm64: ftrace: Take a Tasks Trace reader around ftrace_caller's call-out
+      bpf, arm64: Take a Tasks Trace reader in the trampoline around its call-outs
+      samples: ftrace: Make the direct-call trampolines Tasks Trace readers
+      rcutorture: Make Tasks RCU readers Tasks Trace readers where required
+      rcu-tasks-trace: Assert no reader is held on return to userspace
+      x86, arm64: Build Tasks RCU on Tasks Trace readers in trampolines
+
+ .../RCU/Design/Requirements/Requirements.rst       |  24 ++
+ Documentation/RCU/checklist.rst                    |   7 +-
+ arch/arm64/Kconfig                                 |   1 +
+ arch/arm64/kernel/asm-offsets.c                    |   8 +
+ arch/arm64/kernel/entry-ftrace.S                   |  74 ++++
+ arch/arm64/kernel/ftrace.c                         |  20 +
+ arch/arm64/net/bpf_jit_comp.c                      |  90 ++++
+ arch/x86/Kconfig                                   |   1 +
+ arch/x86/kernel/asm-offsets.c                      |   8 +
+ arch/x86/kernel/ftrace.c                           |  43 ++
+ arch/x86/kernel/ftrace_64.S                        |  69 +++
+ arch/x86/kernel/kprobes/opt.c                      |  44 ++
+ arch/x86/kernel/vmlinux.lds.S                      |   4 +
+ arch/x86/net/bpf_jit_comp.c                        | 113 +++++
+ arch/x86/xen/enlighten_pv.c                        |   2 +-
+ include/linux/irq-entry-common.h                   |  15 +-
+ include/linux/kprobes.h                            |   8 +-
+ include/linux/module.h                             |   7 +
+ include/linux/rcupdate.h                           |  24 +-
+ include/linux/rcupdate_trace.h                     |   7 +
+ include/linux/sched.h                              |   1 +
+ kernel/entry/common.c                              |  14 +-
+ kernel/fork.c                                      |   1 +
+ kernel/kprobes.c                                   |  50 +++
+ kernel/rcu/Kconfig                                 |  28 +-
+ kernel/rcu/rcutorture.c                            |  10 +
+ kernel/rcu/tasks.h                                 | 476 ++++++++++++++++++++-
+ kernel/rcu/update.c                                |   2 +
+ kernel/trace/ftrace.c                              |  39 ++
+ samples/ftrace/ftrace-direct-modify.c              |   9 +
+ samples/ftrace/ftrace-direct-multi-modify.c        |   9 +
+ samples/ftrace/ftrace-direct-multi.c               |   5 +
+ samples/ftrace/ftrace-direct-too.c                 |   5 +
+ samples/ftrace/ftrace-direct.c                     |   5 +
+ samples/ftrace/ftrace-direct.h                     | 126 ++++++
+ 35 files changed, 1326 insertions(+), 23 deletions(-)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
+
+Best regards,
+--  
+Josef Bacik <josef@toxicpanda.com>
+
