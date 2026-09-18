@@ -1,38 +1,33 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057903E4117;
-	Fri, 18 Sep 2026 21:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4A352F27C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789768575; cv=none; b=tKw6j6tpMe+YotVNf5pcbWcZFWzmXEVySAYQTrQe0yFoKMVeIGkxKOtYpQ5pTdACqaXrquc8+7Mpdd2ZBthHjq6292XEacn5jQ74+2lGkGIcFjFpLfYlbed652Ax7WvGQ+J+RmGT7UfWZRuLxZ1aVEny7zxyBGmXQrJuknavCkc=
+	t=1789768597; cv=none; b=LuKKVQfHBKsaDnY1bUKI6KPF1rEHFKVNNffV8dFrIQpEujl6zA9fu4r2zT2JQV2PNGQ8HiA2TRIbG1AJhiHngwBJw/LjDuyZcVEOF1rfrdgcH25iqGR/Uyf70TIR3jzQoPG3fYAeZ4Wpf4/1GvgRX2PxLaGQbtGK8IfAt5KZeDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789768575; c=relaxed/simple;
-	bh=wSd+7xxm/Jk4mb/OlPys26D/2/ycFjXxQT7dww+dnGY=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=ZGvI48oulwI15nsz6TcF97/tQI5nqSbamfk2311hHmNNSmNzGgxC8TA9cag5+63SgFK9epQL8SFFJv4kPpDHXni6LtlsgaoxWw7KySYIjpzVFu55a0BqVYdwrK8p8HSqf89iPJk6b76ueK2VXc9VWyS6HbVZI5Vbf2UFF3qQnGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=V7/dGNn8; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789768597; c=relaxed/simple;
+	bh=HwPIykWQF2Voy1TVPppzAdxt2T8/+oL7xoMNzqtX1UY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NrD9+QdA+9cmFxfqXW8hDZ39V5WqK0hvB75Sb1u1KobNWTb9pUyqKYqhK3S6NJZz+RkuzSxaZdDDWLi4a/uJ8ID9+zBhvqNfaQjPNRIXlk6RTlQgAyI8v4mjUkZofSKF5CixGEY8oYDY5lz0ADaj08qgkP5MlDq0dHZ0/ox51E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XB65sneM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="V7/dGNn8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=1u/pZfJXhGil71agQiDuc1fg1s4Wvg6SbnxIE4w9uUY=; b=V7/dGNn8rpaLuDMtEQbu4NwVat
-	r6CU1FoTHRfd6LZTn8ZTJbZnNalXfOJahoFWdWsNQ0a3oePx4O7x7puIWxrpPMVuaoTdhgqXjXlL+
-	Hy+zOTdWSciE50KlVhUJDXZnQyOtMz2BCb30ESsBoG+qyFKiMNWStyTNLuZ0t+6caRQ1pzDbzxhMZ
-	tbijgnjt7Na9oR4dxe9UVOvo3Te834VI2eG2mnRpKkczJldWteEbXEGzQTHXCe3J93gGy89XvQbEb
-	87v4jvbZ7xBiMlHXKeoWtiUe01dL3bDO9ClLyjTsK+9Rzl1EYSq31rXPsmgXYSKxO8pZPL1pHZ7dT
-	vVNdli6A==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x7gYz-0000000CtIG-2R2G;
-	Fri, 18 Sep 2026 15:56:10 -0600
-Message-ID: <5ee9b103-85ea-47e0-9397-b1e2dc2a9dcc@deltatee.com>
-Date: Fri, 18 Sep 2026 15:55:57 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XB65sneM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074981F000FF;
+	Fri, 18 Sep 2026 21:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789768595;
+	bh=OAk72ickShxyJvFA5YeKR74a2fmwIdRBZIAeemruYsU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XB65sneM2a63IsZ87kuQsI3f1vWdWz99Ik+6ztN6zUGP/Sq9slNqoHDXisEf2fuj5
+	 ynkG6VbCzPASLkjL3wkbBgNR1IIUTnHmA+BASmqqmhVUhjP9JkSjhgfO+bl0PFn8AP
+	 oUTbqQLI3fFwFe3DYOC+EZfqSpj6u1NVMv2axil5YHLq/AJ0g7fUB/HVsaibGzfjeN
+	 AiDDdJPvjsi0XIjYTD3Qp3SWnh23eb1ciSWWOEFG2zC9RTaL7V7dk/wuamZOh5dHPc
+	 BdNj0na5q+HNJXaXMScKLSf4JnTPk5mvPjjHOfim3AM8WwrV00fp3ycF+FzVogLkpw
+	 MGORCIMKd73/w==
+Message-ID: <bb4f8cf3-afb4-4497-adc8-6d8fa8982090@kernel.org>
+Date: Fri, 18 Sep 2026 23:56:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,56 +35,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
- <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
- <20260914-fix-p2p-acs-v4-0-v6-8-5ef07ec9ef06@nvidia.com>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-8-5ef07ec9ef06@nvidia.com>
+Subject: Re: [RESEND v7 08/29] mm: recognize PMD swap entries in the softleaf
+ layer
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-9-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-9-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v6 08/18] PCI/P2PDMA: Answer routing per TLP class
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
+On 9/14/26 14:27, Usama Arif wrote:
+> Reclaim splits a PMD-mapped anonymous THP into PTE-level swap entries
+> before unmapping it, so an ordinary swap entry has never had to appear in a
+> PMD. Later patches install one there instead, and the softleaf layer is
 
+"Prepare for ..."
 
-On 2026-09-14 05:22, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
+> where every consumer decodes non-present PMDs.
 > 
-> calc_map_type_and_dist() returns one mapping type per provider and client,
-> valid only for strictly ordered Requests carrying an Untranslated address.
-> Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
-> do with their traffic.
+> Accept swap entries as valid PMD softleaves and add pmd_is_swap_entry().
+> A swap entry carries no PFN, so make pmd_softleaf_to_folio() warn and
+> return NULL rather than interpret a swap offset as a page frame number.
 > 
-> Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
-> to ask about one. The topology walk and the ACS Control reads do not depend
-> on the class, so decide all of them from the one walk and cache them
-> together, four bits each. Every class still answers alike; the controls
-> that tell them apart come next.
+> Unlike migration and device-private entries, a PMD swap entry can also
+> carry the swap-exclusive marker, which softleaf_from_pmd() has to strip
+> before decoding. Strip all three overlays unconditionally while we are
+> here: each clear is a plain bit clear, so testing first only buys a branch.
 > 
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
 
-I'm not sure I fully understand all of this big patch, but I tried and
-couldn't find any obvious issues. For what it is worth:
+[...]
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> +/**
+> + * pmd_is_swap_entry() - Does this PMD entry encode an actual swap entry?
+> + * @pmd: PMD entry.
+> + *
+> + * Returns: true if the PMD encodes a swap entry, otherwise false.
+> + */
+> +static inline bool pmd_is_swap_entry(pmd_t pmd)
+> +{
+> +	return softleaf_is_swap(softleaf_from_pmd(pmd));
+>  }
+
+We don't have a pte_is_swap_entry(), I guess because we always want to handle
+different softleaf types through softleaf_from_pte() first.
+
+>  
+>  /**
+>   * pmd_is_valid_softleaf() - Is this PMD entry a valid softleaf entry?
+>   * @pmd: PMD entry.
+>   *
+> - * PMD leaf entries are valid only if they are device private or migration
+> - * entries. This function asserts that a PMD leaf entry is valid in this
+> - * respect.
+> + * PMD leaf entries are valid only if they are device private, migration,
+> + * or swap entries. This function asserts that a PMD leaf entry is valid
+> + * in this respect.
+>   *
+>   * Returns: true if the PMD entry is a valid leaf entry, otherwise false.
+>   */
+> @@ -660,10 +670,12 @@ static inline bool pmd_is_valid_softleaf(pmd_t pmd)
+>   * pmd_softleaf_to_folio() - Convert the PMD softleaf entry to a folio.
+>   * @pmd: PMD entry.
+>   *
+> - * The PMD entry is expected to be a valid PMD softleaf entry.
+> + * The PMD entry is expected to be a valid PMD softleaf entry that references a
+> + * PFN, that is a migration or device private entry. A PMD swap entry is a valid
+> + * softleaf entry but encodes swap slots rather than a PFN, so it has no folio.
+>   *
+> - * Returns: the folio the softleaf entry references if this is a valid softleaf
+> - * entry, otherwise NULL.
+> + * Returns: the folio the softleaf entry references, or NULL if the entry is not
+> + * a valid PMD softleaf entry or does not reference a PFN.
+>   */
+>  static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
+>  {
+> @@ -673,6 +685,10 @@ static inline struct folio *pmd_softleaf_to_folio(pmd_t pmd)
+>  		VM_WARN_ON_ONCE(true);
+>  		return NULL;
+>  	}
+> +	if (!softleaf_has_pfn(entry)) {
+> +		VM_WARN_ON_ONCE(true);
+> +		return NULL;
+softleaf_to_folio() does a
+
+	VM_WARN_ON_ONCE(!softleaf_has_pfn(entry));
+
+Just curious: why is that not sufficient? Which could would we expect to call
+into this fuction with nonesense? (same applies to the existing runtime check)
+
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
