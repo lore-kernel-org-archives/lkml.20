@@ -1,49 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300B61A38F9;
-	Sat, 19 Sep 2026 09:16:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2F92E888A;
+	Sat, 19 Sep 2026 09:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789809403; cv=none; b=Nja85eThY0y4zHl9Gt3pjn3jgSi2HfH7AEKPh2Qz+71Mtix5qeWXnXhyKhJt1EvSJFTosfh0Yoax4OpHQMmU9JUttDZysJek6wFyvTtxKvgvMDPzjRUIkDFreyJyAQ/e0kkqMDr+VAdig3l1xIF5KH4XrX2vbw8nxmrNvDNfNDE=
+	t=1789809408; cv=none; b=t4qJV5zMRY8VMAq2AjG2o1TqAs63Bfr55Q+BtOgEeZano0KvjER/CSdC89z9SwBa5z3f8yWnuQftL57gTfWbbxa1R+ycJ2iCmFcC/x3rOohEcxOaiY3Qw9cM/n/kbyS5hZ7kJPMGisSWFZVkrJQonDKuECnY1sk46qDnSIeV/1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789809403; c=relaxed/simple;
-	bh=qnd/nkXcuexVseV8EYVmcbGzT1DYZ2xFuSzOikjh8y4=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=BijCwVzDDp28x5Ma8HK+oYX6hkxKYInahYEWX9RAn29yrk7FnwNniYiUQd7+81Qdjj/EXephRuty3ZKAdT/MFLAAAxsoMJ/+pJYEzIENZ4juR1CIqzdP5omzXmjLN344clSMIcuA7t8MjuN+bwF8FlEV5QqqJ++aARMS/9CTigU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6bTLqfU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789809408; c=relaxed/simple;
+	bh=jt9VtQwbyOGQ+PL9s8wTrMgvNOfgIkxlvQU7cFQBXIc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Zk/woN7XhpjC+b8vCgqlRDzGRthzgWldv1MPUmTivV8+KcmHD83JwRO5q8fBblx4iuRzNyH9l1BjZUecTmfzhnG6tFEI8KwI2lhAGGgU2/2R2AtzDtB9GPlxqJvXs5ADzfKDU9EbN2WeTogJjiy+wwVkvpfyWlYtACwQ2LxK2RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SrZJlnpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6bTLqfU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11DF1F00898;
-	Sat, 19 Sep 2026 09:16:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SrZJlnpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740DF1F00898;
+	Sat, 19 Sep 2026 09:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789809401;
-	bh=Awg67cxHl18a2D/zvjxAJGydZiXsMD2cX9Cd0uol1eY=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=D6bTLqfUcwgwHXNN2m8iiQmju3ywMCqfUeA8Pxi83jxqjKXay6zBuctYKlYwrKJhA
-	 Ooni5TFUpqMA9Sb5sSEvvwXHNLyzfJ+cZ5X72yu3cv7wwZESuuqCEFd+t4ibZ10NEO
-	 Bu+UJRtBBMGOFdgZKofYdY0rDHQZ/sO1WLtuE/S27fEqXuJ92zZQDexgbIbStF27kY
-	 cmolrPno6YL/0ofzxDFVaANbY87g1ti0ihrIJobilNiO8imtHCDFEBC3eR/CfOFC3h
-	 qJTCN8JcY1idmW2VjWjUN3TsfcRgkjOuRPPq3d7Ras1fjmcBqjpBEL1g0swX+iL2Eo
-	 xYouV74JzK4KA==
+	s=k20260515; t=1789809407;
+	bh=4Py1+GgfuEnxk9UkTp+lp/VRKiZSQ9m4yRbBLVPlpb8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SrZJlnpt83mg0MZ/YbXrfGEP6A9UQTjRuRz5/7hIMl2fzZ4VsSLMkUvuP4h+pBKlP
+	 XHof2KTkCIXvPJ1zz8Jl9ABmmAIJmUT6AZh7nY/RWiHFCvLuPHagY/6I8FQo9Ivbnv
+	 1xy2foa92/qIDjUzcj+se55/tWNHtJhX3Fo7ks/S9v4amOXVw77eTngti+n0qsrtCb
+	 62ai6FBurxlnDyBzSiam3Tt79FhZZVrVKxfbAD6kpQaj/zSn3e9kjAu5MRPZQIz6iO
+	 +47EI0/jmI2MfW4WocIYrGArMDg4kMzzqB2SMK0YdUfpaikQ248s4UaIsotoVxQ65y
+	 J3M7I4Uae5KJA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Cyril Chao <Cyril.Chao@mediatek.com>, Darren Ye <darren.ye@mediatek.com>, 
- Rosen Penev <rosenp@gmail.com>, Daniel Golle <daniel@makrotopia.org>, 
- bui duc phuc <phucduc.bui@gmail.com>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Christian Marangi <ansuelsmth@gmail.com>
-In-Reply-To: <20260908090448.3332-1-ansuelsmth@gmail.com>
-References: <20260908090448.3332-1-ansuelsmth@gmail.com>
-Subject: Re: [PATCH v6 0/5] ASoC: Add support for Airoha AN7581
-Message-Id: <178976668737.1863384.7459518219395606759.b4-ty@b4>
-Date: Fri, 18 Sep 2026 23:24:47 +0200
+To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
+ Karl Asseily <karl@asseily.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260918182317.143223-1-karl@asseily.com>
+References: <20260918182317.143223-1-karl@asseily.com>
+Subject: Re: [PATCH v4 0/4] ASoC: add ESS Technology ES9039Q2M codec driver
+Message-Id: <178976645820.1863384.17210158696737260030.b4-ty@b4>
+Date: Fri, 18 Sep 2026 23:20:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,15 +47,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
 
-On Tue, 08 Sep 2026 11:04:42 +0200, Christian Marangi wrote:
-> ASoC: Add support for Airoha AN7581
+On Fri, 18 Sep 2026 21:23:13 +0300, Karl Asseily wrote:
+> ASoC: add ESS Technology ES9039Q2M codec driver
 > 
-> Add all the patch and documentation to support Airoha AN7581
-> sound driver.
-> 
-> The card follows similar implementation with Mediatek with
-> the codec present on i2c but with a simplified implementation
-> register wise and additional frequency supported.
+> This series adds support for the ESS Technology ES9039Q2M, a 32-bit
+> two-channel audio DAC with an asynchronous sample rate converter,
+> controlled over I2C. The part also has a hardware mode strapped by
+> HW0/HW1/HW2 with no control bus at all; this driver implements the
+> software mode that MODE = GND selects.
 > 
 > [...]
 
@@ -72,16 +64,14 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: dt-bindings: Add Airoha AN7581 AFE Sound card
-      https://git.kernel.org/broonie/sound/c/78da571393da
-[2/5] ASoC: dt-bindings: Add Airoha AN7581 AFE with WM8960 Codec schema
-      https://git.kernel.org/broonie/sound/c/8fcf0497e6da
-[3/5] ASoC: mediatek: common: permit to provide dedicated regmap for irq
-      https://git.kernel.org/broonie/sound/c/b49799e40313
-[4/5] ASoC: airoha: Add AFE driver for Airoha AN7581
-      https://git.kernel.org/broonie/sound/c/4974ffa0d6c2
-[5/5] ASoC: airoha: Add machine driver for Airoha AN7581
-      https://git.kernel.org/broonie/sound/c/272d6e51bc1f
+[1/4] dt-bindings: vendor-prefixes: add ESS Technology
+      https://git.kernel.org/broonie/sound/c/beb56d1d3de5
+[2/4] ASoC: dt-bindings: add ESS Technology ES9039Q2M
+      https://git.kernel.org/broonie/sound/c/ab1a02163fcd
+[3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
+      https://git.kernel.org/broonie/sound/c/004e260a5475
+[4/4] MAINTAINERS: add entry for the ES9039Q2M codec driver
+      https://git.kernel.org/broonie/sound/c/10d321c76b1e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
