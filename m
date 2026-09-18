@@ -1,140 +1,103 @@
-Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DD8370AF3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:36:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B026C369217;
+	Fri, 18 Sep 2026 05:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789709796; cv=none; b=Yh4t4VdOuC+nBIGIt8b+7vJZ4uoK+sfQm4Q+lUjj3csqU4QQnf6W42RPbCRXK87vsVI0jZxN9xY8dQxcYJ9ocmch9C8hQP1GvvNo2sVeiz178EMUd72B9NFqOaM4mINunk4kMn7QG7NK8PlffKBfC0nPOcTdaICFtPSCJTE+YqQ=
+	t=1789709916; cv=none; b=ZR94eHSGmDvQfX5VPx9grfwjWXPTwAVP4qpMStGA7W+DUuV6RYVB6G/1K6nEOW9+qIZvMdDwNavxRbok6Vcw5+5ZiUV9BZQ0agTvxqIRvX4Icm2KaaOFOLukgjOcUFJST48QvbNiLU4BpZmuy6RnRfcwoTgbla2o5OOGDNc6uIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789709796; c=relaxed/simple;
-	bh=NsABBcb3EIyxT70PI8GRlp7BkYxP4/kjhi7H46Bdmcs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m4Klx93HNI8iM8dirZtIfit+Uegzznhez3iKohmlP9fjlDkMt5LY87vJcqscCHTzXkNAP6qXp27bxdxu5DjbfxIBuGVQyRHu2d9UsjnIly3OuOskW3xzA8UQKQShKbMwInarhuq5v2+3QvcPnm6L07mHgJm+zGDfbvLoYm/FJCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AV7+b2kh; arc=none smtp.client-ip=74.125.231.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789709916; c=relaxed/simple;
+	bh=t2ClplML9zkcPCXZKC8gHHRapTDjWXKKbzD2Gn6eQVc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XmGV5xCxs9oM6c+P9PlXiLstrTMZ5Np/jyy5qHua9wCE8012iQ6BsoKx14XpaqaM39GD3+AUxkSBxF1MipPj0ndLBsHPoIjVTTI84Z4x5+EPq6jqyrCj4E47A5+8QZEfRnMDuFIHAPHzonqZR/stFXUS4PvTXZJ/nxko0XCdlSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JYzdrC0o; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AV7+b2kh"
-Received: by mail-oi2-f6.google.com with SMTP id 46e09a7af769-7f748fe2947so105624a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:36:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789709794; x=1790314594; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wzYREWP6rj7hgGP9HuQBvFreYOKOzskxVTsd3aB8HvI=;
-        b=AV7+b2khtmkzQU/ptzlZIYf67PGTb27yZFWmZTAZxmFJe8iHNs+ZxjWSy06dCZbCQx
-         FhqjN3w+v5VzL6VgHwT81GUDpmRFlLA49yDvtmJxmuWexgdW2Su6qPqNlAmjFONE+wDK
-         E4Gztfv/xLN65+lEJzjiE0WjEPq0N7cOeM3QOa2LfNBvaW+zUl7YwwgDEJHBOLeecgGh
-         T2HVKAUa62dBPmGILbigcg6cCrTOYx18VzmxJScEeVkWLwbAyv6tDq5TmlbCJBI9NnC/
-         Jxm497Vx38N4UwBnoQj3nFOWKLsTNxZBcoSUznw5NEemZd+xm/YcdZDiuLBfsa+9o8xv
-         992w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789709794; x=1790314594;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wzYREWP6rj7hgGP9HuQBvFreYOKOzskxVTsd3aB8HvI=;
-        b=gSWG3r8B9JKd6aHJJzDm8j5lqqypiDPooLBVgXW2/gioatUyXOKumLhY9u27jViuWF
-         4DRHdr38+nsv5E8NjDG5aNf+Sew7oIfCf+hNP9WdY57TIOL4ke66w5/WYQcZrvFyWKW5
-         6DalZsNOw33jaz19Mwo86sxqJSy4if7hnq1+vR0pb3ZRfwvIWaE7JbmYvgkNhWKCw6R/
-         ENmksQUnit3LyVkcv6qy8SO++9wDXVogV+RS9hZnWP4g62vR2T0X8ZRf1rHVsqUZJlGb
-         5iK9EP4nov+p/QNg1HAwKzuwnAfXxDEN5M0rYJD+vgqrPT6IusQkZkg+u3gh/BXpMHhq
-         ckDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXeYmwH1rs4p70SiwPngkk4IU36K4OVZ0d1YeYin+1iKVdAyuF6qdUjAb62emaXjvWnej3b7kQdNahf7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxZ+7n+9B2P80WVF5eAf9ydPBTiAXZ8VQfer4EBBcaEpmhJjmt
-	wsdZ7r2yPdTwKZElOvMEjzNG4DTnuS8Zxy6CFLEQU02C3rOTe2xi1RmZ
-X-Gm-Gg: AYBFou1Snmd3b8Lq/QrMbQ/nnDf2UYHGGXKlbWVJrcFVvo0oU6D3N6os1P+olkOQmYs
-	3czIsyJmqnCGaA8s/ZYZHreJkmCX9+rYMZRDwQP7LjMuOjrAdQYIyQJPSuv0DSIpolhNjxahNJg
-	PT5ZwK0u8ML20zRmxmedisBsArv8Vz0k8DbQn3exUegdogq00M+v66fexddNLAGdx6+O/is3M0U
-	8mFnkhdH3Bgw48Nuvvc7/MbvIPX9vxULgmYWCHc5gmU6+wVfXOZBgdHoe8JBVvkdmDmeW6L0lzC
-	V1/Ler39+ny5LdjxHqOp2oBxNiD8YxbGezzfvb8LeewGpimzqpkJqOTZ3HFiZzmya9Hc6xNT6+3
-	lL+LNgRY41cgEoNE5cMCOh3Owf2aoQU5uB1w3HAteybs+vVHrwFSkSjNSVohAHnLkZrSVR5x6+r
-	jCpTI/9AmGVAb1ewbvY7ygLg2a5ZskjyZFAzcZMbvvAQhd61IKVVXfKUJczFoG7ZDF6Q==
-X-Received: by 2002:a05:6830:6616:b0:80a:45e1:7677 with SMTP id 46e09a7af769-80de2ee8133mr1570219a34.23.1789709793953;
-        Thu, 17 Sep 2026 22:36:33 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80e5226786csm591006a34.22.2026.09.17.22.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 22:36:33 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 18 Sep 2026 00:36:31 -0500
-Subject: [PATCH] dt-bindings: power: supply: battery: allow longer
- ocv-capacity tables
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JYzdrC0o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789709914; x=1821245914;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=t2ClplML9zkcPCXZKC8gHHRapTDjWXKKbzD2Gn6eQVc=;
+  b=JYzdrC0o3ZvIgTWXGUlCbsk9OgiDl2pXs+mVU5Ucu0A7MFne2xJtKy/Y
+   GIcrwizOUdLqBsG7ohcdfwPMxBzvkWgC+i/+Og5Zq8jWWJ8490kN3lI/P
+   himhQGzkU64IiGa1uh7cuIK09s9rfECXM6kDQGkIvczsa9kuZFKzbvO0w
+   iKMeRCtiL6Mea3n/DLs4sLaBHzqxh9BuwVblRBxLnBTkb//114OkGdkus
+   4anELqby0PGJJA4WWbV8Abj6tIQhzMLcHMbapOGRoWjgdHr5UAzQ1q+G6
+   9TwgWC77AzjtCG4y9HsllrCKPRHnEF1/KlcHxsvPJr+XacPWjWBjktSTr
+   A==;
+X-CSE-ConnectionGUID: p6FI4CZ+TfuUylvgn2plaw==
+X-CSE-MsgGUID: /KLxcZ5eQlOxnsaY5AMAgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="94024578"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="94024578"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:38:33 -0700
+X-CSE-ConnectionGUID: hOPFj521SaCpoVOQSvCFZA==
+X-CSE-MsgGUID: PAqmF9ZgRZKu1G5YeZANdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271550870"
+Received: from wgawrons-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.112])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:38:28 -0700
+Date: Fri, 18 Sep 2026 08:38:25 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Liam Merwick <liam.merwick@oracle.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	Ninad Naik <ninadnaik07@gmail.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	coconut-svsm@lists.linux.dev
+Subject: Re: [PATCH v2 6/8] KVM: SEV: Add SNP vCPU state get and set commands
+Message-ID: <aqzOUb1m-v-kG5v-@tlindgre-MOBL1>
+References: <20260908103338.427254-1-joro@8bytes.org>
+ <20260908103338.427254-7-joro@8bytes.org>
+ <aqksXLLcmFDkM9Xj@tlindgre-MOBL1>
+ <aqrDUgB7nfdgzXpQ@8bytes.org>
+ <aquIYzwDOx6jzy3T@tlindgre-MOBL1>
+ <aqv-FtT1v1FjDZJD@8bytes.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-rbrue-suez-upstreaming-battery-ocv-table-128-v1-1-f477ef39ef0d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQqDMBBA0avIrDtgErCmVyldZHS0A22USSK24
- t0bunyb/w9IrMIJbs0BypskWWKFuTQwPEOcGWWsBtvarvXmikpaGFPhL5Y1ZeXwljgjhZxZP7g
- MG+ZAL0Zje/QUejd5ZxwR1OSqPMn+390f5/kDCOWi4H4AAAA=
-X-Change-ID: 20260917-rbrue-suez-upstreaming-battery-ocv-table-128-9ba83f9313bb
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789709793; l=2304;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=NsABBcb3EIyxT70PI8GRlp7BkYxP4/kjhi7H46Bdmcs=;
- b=8RcHojJeCCDh+w91/otTDYKnBOGvtzo4VWyFpp7W6H8wedK1LB8MqkV1m88L2p7oVOhXRrZpp
- NzZxm4zVsEXBwHXt+gQVmq2MsB/VBx7gt2LPyURgsFXfS5pjsz9KKTb
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqv-FtT1v1FjDZJD@8bytes.org>
 
-ocv-capacity-table-N has been capped at 100 points since battery.txt was
-converted to YAML, where the limit arrived without a stated reason.
+On Thu, Sep 17, 2026 at 04:59:37PM +0200, Jörg Rödel wrote:
+> Hi Tony,
+> 
+> On Thu, Sep 17, 2026 at 09:27:47AM +0300, Tony Lindgren wrote:
+> > Oh OK, so calling for both hypervisor and confidential VCPU state would be
+> > needed. The difference could be specified in the struct kvm_vcpu_transfer
+> > flags?
+> 
+> Or hypervisor state is migrated outside of the CVM live migration interface? From QEMUs
+> perspective it is not different to other state like for emulated devices and
+> such. Does TDX also have per-cpu hypervisor state that needs to be migrated?
+>
+> In any case, for SNP this state must be settable from QEMU to correctly support
+> IGVM loading, so an interface outside of live migration is needed :)
 
-The MT6397 fuel gauge is characterised per temperature by a table the
-Amazon Fire HD 10 (2017) vendor device tree carries with 126 points, of
-which 122 are expressible here - the remainder are greater than 100%
-discharged, so the binding excludes those points. Boards carrying this
-PMIC fuel gauge would need more than 100 points to describe the pack with
-the generic property. Raise the cap to 128.
+Oh OK so the per-cpu hypervisor state is part of the IGVM loading.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-No kernel change goes with this. power_supply_get_battery_info() sizes each
-ocv-capacity-table-N from the property itself -- it reads the length with
-fwnode_property_count_u32() and devm_kcalloc()s that many entries -- so
-maxItems in the binding is the only cap on points per table.
-POWER_SUPPLY_OCV_TEMP_MAX bounds the number of tables, not their length.
+Yes the per-vcpu migration is a bit different for TDX. No two separate
+steps like you're describing for vCPU migration (per-cpu for vCPU
+registers and per-cpu for hypervisor state).
 
-The consumer that wants this is an MT6397 PMIC fuel gauge not yet posted;
-its pack is characterised at 126 points per temperature in the vendor's
-kernel (Amazon Fire OS, based on Linux 3.18), with 122 of those points
-being expressible with the generic property (the rest are greater than
-100%).
----
- Documentation/devicetree/bindings/power/supply/battery.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/power/supply/battery.yaml b/Documentation/devicetree/bindings/power/supply/battery.yaml
-index 8ebf05d9497c..a6d4822f591c 100644
---- a/Documentation/devicetree/bindings/power/supply/battery.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/battery.yaml
-@@ -154,7 +154,7 @@ patternProperties:
-       of the battery and corresponding battery capacity percent, which is used
-       to look up battery capacity according to current OCV value. And the open
-       circuit voltage unit is microvolt.
--    maxItems: 100
-+    maxItems: 128
-     items:
-       items:
-         - description: open circuit voltage (OCV) in microvolts
-
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-rbrue-suez-upstreaming-battery-ocv-table-128-9ba83f9313bb
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+After stopping the TDX source, the VM state is migrated. And then the
+per-cpu state. The per-vcpu state is just a QEMU VMState for TDX too,
+and it needs the help of KVM to export the state into an encrypted blob.
