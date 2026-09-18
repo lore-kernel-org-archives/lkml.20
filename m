@@ -1,188 +1,132 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-lr2-f25.google.com (mail-lr2-f25.google.com [74.125.230.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6118502D55
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745032; cv=none; b=SeVeyM9xRDWvzDbGxSjijGyCKyyPZYV2gPvv12n5G0kp6xyDEQH9FzfeetZNqMNP6ZgqDR5l5pjIYaA4wDsEGWymrwYLJIuXx85mQ/XQEYjfuhTdlW5OvfltIdmBam4JXFuJqG1/vwfTU6fwDCc1nSVvuf0OiLbvVgbDb82CZNE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745032; c=relaxed/simple;
-	bh=Gw3zHBlfnMG0KsBOjIRgY29OGazqLY2sJsesKjOTX44=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Phw+bZouhR07ijgQpoCTsyHdgAIhUOEDXa2f6we93VVutIgbyGZwKrncFEBISdZg9JU3djvAGv9O6caOkShyRRaG3eYHc2i4NXCg/NYHG8LlFdcer6TIehBBYOQS3ALjrk/NQMhMVLTNqblOvxlV06NUoWXbfdNVLpf71YIabm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=K287R4Qn; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F4F4F68DE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.89
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789745035; cv=pass; b=X+Qjz1Tn5Oe8WBTBCaGC3QCHI0+nSBzaFVeA8iVSPZHf2WKAkxS76Tpg8fYvrYyWGijpxxLXiJm+K/JxbAJCd0nm3bH/c1EHU/fvl+sNUjhb37iiBB9RuJgYoKGlTQKw3ihWA4o+GWnVPDAm9ppYYY/vREU4yfEK4MAQLyMzTM4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789745035; c=relaxed/simple;
+	bh=+A907ps0OvgW9qmIZ/gkLQ92Dib2y/unczUul+r1qMk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oy5xeERQMqW4Msi+gAHprtcb5+/hl9cOFEl4zYpYfx1NqGZtDIjLiX9y53R0oA58XSnkwfmWRIRVyO3C7pUR9olfAGOXzlMAJYjOkVuRzrg073O8BhD1EU7BdsQ+Lve1ZnoLFSvVN7AJyZHYk+D7/+lKXmeGPFEhr96V+ghoDnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=F4PCi4SN; arc=pass smtp.client-ip=74.125.230.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="K287R4Qn"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so789704e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:23:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="F4PCi4SN"
+Received: by mail-lr2-f25.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso9535391fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:23:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789745030; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O18MLlbkv32ixhLjojR2jPio8WEfTsBfXvq9KGN8C4F02kF/wthEYvrM7KwicNslpf
+         sOogHthZ3J8wTsijbDl/Fv5BeLKgmLDbRqAa4oPE5B21bMsTRTNh/HO4NrbWEvqWwiQT
+         31f/oPGmFsCg/zTuj1bXWl+NRcN35C6P5B8Tf5I2ybgPJWTK0Q1jueMqKC+F/XgBT1GI
+         X3YxvS4aEh+tKEHk7fbGTl5xxW4jgl79fqlMNtuzedGz3LT3iRBZQJjDwwpPQX1BpCz1
+         W8pp9qgcS5dszXZzO3U1l7WohnSODxj32DDwgFXSlk0nCyok+AX3q6xKeo8tMCj73EBx
+         if1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+A907ps0OvgW9qmIZ/gkLQ92Dib2y/unczUul+r1qMk=;
+        fh=g4UDRYtbpS3YYo+WHQ7FrPmtobm0Htd1kaw7Mm47yoI=;
+        b=RSjso30AGJ+pl6gJ9Xl2AQrX+U+zmjpqtXnBLyK5gNYMzdqXp1PcOqKiHn7i77Kv2s
+         R3knhZ5iIAt0NG9zvsrzw2ehCe0hzp4KHztndnEEzC4/dhufG661xsTKlNl22HnepzPJ
+         LWGzkWiKzkrKRodpduVTdYmkarVmpFLxU6uEs8P5HpJJlfOnvOJEOuqiCjuiHn9WPMVS
+         84t4hr59qgodZ/aEPjdQtRxVE1aUQGWtgSuIgnRUVNxMSGnnQ+wiOTIh9aiAEiovdBzC
+         jN0SN9loe0LotxSwSsBuvUBuSoG0kdfPSXF/cgqhwUtSYekju2ScMMh9gT1zpzRnp8Hv
+         aSuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789745027; x=1790349827; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h9t3rJF/06ZDlRm69Ehr2E4atplDzwTzK8abOoc4YU4=;
-        b=K287R4QnHyfU+XE5Q4mmXejZndaD+f5yxWLYQjEYIpkKtuzYSPRm1ZlCv7TARtz73x
-         ZZG5Mj7qVZKIO7eZ4XG9dtFSaOivS5rddPJowjFmv0nfQFG9NDA9tlgG8OGLjQ9tFlvn
-         hXRrgGkgXF+xUywYucdv8fzCWQfwHtvihBV89NYGcfqloEzDedHONukPfn2F+6aW3kZb
-         +DM90fJp3EP0HMdaVsn2/x+fuqD604SURTgczYrXzZiR0ASpDdePOazrMtDE84qtexiz
-         E0QpdEy2epi/t+N2dTRX8z+sw4MA0pzPfxEJ/nnDKzQ6XPeGj6Fmmu0m6tCpykjAj8Dw
-         KdCQ==
+        d=suse.com; s=google; t=1789745030; x=1790349830; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+A907ps0OvgW9qmIZ/gkLQ92Dib2y/unczUul+r1qMk=;
+        b=F4PCi4SNEoAoBUSqRwZOPxn0rHxKyV5gh4m9w21dBNRQWm49PpcLTp0y/6Mq/4kDXv
+         kj+S+C5ACx8Ojv8cp4r14khV5KB/BvgKYmtehEKZh/h4XrVnwoh+DLDrAY0P3Z4ynNte
+         9NwMFQEH3Qe+KVyGeQ7l9wLq5rLgurIBZx0h/ycK1g29TOUyMRVmvL+2ijY0xKsxyY4C
+         H6Drks1gKMS/qfTmPHAQkf0Lc/gtIt7oREgvptJ2yJ51zoMi5C37oCQKEfsYnWqnxN+7
+         s9TX3ZaMoYKa+sejdNTRuSNoRW4RwGNYnquL07Ji/cj3V6r2XdfWHDQCvCz+O0/l5war
+         civA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745027; x=1790349827;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h9t3rJF/06ZDlRm69Ehr2E4atplDzwTzK8abOoc4YU4=;
-        b=uIim62OtMxZGlBm6/5v5ykAycnsS1UejyEi5vaR6WWQn6wbBLmlKSTFX5GhpJCQyYT
-         4QUp0p6QJzvCsxnx0EaCoHn59PAL+3J47tCgsLFEPLTjCB0vYryYoXNzUJfUFqfMEB9V
-         NeRhlVodm1MhVPRUHeNbSYAu09104OMfMGKW5l1nvYh/3NOugTjpfvxg9uOkguP9P0+P
-         oohBGJX5gM9BH/TPZfWXzG4Ty8ERClkMu8kkTA1zKwt1vFilMolIk6sgoSMbAepHXt5r
-         91iqN5fY/uEuRXYxUE7h2Zk3LRyxbvBKQHcRV33crUet6SrmwaBBrHwTZPDW+8cVlC9U
-         czlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1q4w82N+5ZLwfnlTiIPMKTGSzfPmO0MYENRkCMavI+xNvR247NQdwKl5cx8yXfUTcadsZxfvADYub3Ug=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTW504SnNf9e1NzURmKSkuiqjbsrv4Mgx6fU2TNiVUY6S2pXc5
-	SHpmJcgohdLY6dRgeQpv7PuUwuqACooikOFSgfK9s21kRUk1p2FV+kq4mj1DouR6bMo=
-X-Gm-Gg: AYBFou0pc/OkkWBQG8s1a9HlLxW9yqLoGLQuX8LGm/Q5b2wzFLZqMWfVHLaODKcMdzF
-	mIP0ehCZ6w+F0zcuL0decyZQ7yRgKwN2cLEpxP75B4KdWi+MdSjVaHzizEUWf1RNod2xNGMSN37
-	ZTCSs5lWEate+g00WK3GuSpssfn/p9e1cDQ9hzL1/a/0/sOrq1EgZJn0NT1E57eHuoq8tYI1pdD
-	lr8i7XSuPKRZSgeYBqD4bGm6KqBhHDZIgaEzkKrDMfTgNK0VdZ64xPqgAceJVGPq8VqwsOEh4IM
-	u0lfxp9wsq/fquANLo/TvBdddeaY3e2GY9ZSp8L7sJtfl3CYeXetnpsYkJDayBTy0dq8FFqbWJV
-	j2J8fHxlwi2rEBTObsVIlsyxD7StditdvPR8BQDnk5LXLASyqi4GZnvbCKetumZlFlXAAoXzLHe
-	ZqC7s1g3EQG+vAHS4py+oXEkaft3b6XG30JoMGp1nUeNJjurbkarDZ7Cn3OpljnzlD4wwdgNM=
-X-Received: by 2002:a05:6512:1389:b0:5ae:b969:417d with SMTP id 2adb3069b0e04-5b8c179c3b9mr1020325e87.0.1789745026603;
-        Fri, 18 Sep 2026 08:23:46 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c274e5afsm547909e87.18.2026.09.18.08.23.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 08:23:46 -0700 (PDT)
-Message-ID: <1105786b-7c2a-4f52-ba5b-324dcd68c094@riscstar.com>
-Date: Fri, 18 Sep 2026 10:23:41 -0500
+        d=1e100.net; s=20260707; t=1789745030; x=1790349830;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+A907ps0OvgW9qmIZ/gkLQ92Dib2y/unczUul+r1qMk=;
+        b=zS3iS12zw9OGtWlOtFbOSSI3O/GtQiBcJD4F+PryPAvUU0uRiRmJyH+d4pKuauOXFM
+         f1ur4tjdVqetwoyiu7pVsowCgYWuU9D0yHDJDMncS+n3XZip2bk8QRLpVk/ghvSfgUK+
+         5VLmEmX+gIBjtoqeEeQ/mFlIWo9qdkrQXzV+aArnpIKn22IM6v7a7yr8gfSxVofknyuK
+         H1P48TmR22+CUAg6CfQS9ZiXlKMXmuzHI24Stefka5I5nLwiHd6g2CBrws0iB9ATEaJF
+         a9u0KALezTra/rZipcooVsYaWh+QDWcsrvu+yKPP1/OA4pFZAjg0jOL276DAGHPrBogF
+         GtSg==
+X-Forwarded-Encrypted: i=1; AKwUvBx11m0y9/9wpFm2CgvcIGZ0MqoxEI2ol4t04ggtQhipkTrFhN7Gv/c2du1weuM+dQU62TJPlDb7kKxLjDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq6E+Y7aImxKR2DkaEw+BfivGeopZI/2jqv/az1SoeoHXwLuIS
+	QZbjQlAm86rXyUo8xc6unEAMxse/c2WdQqLriUUzPjbgDwmVMMWF+jBtcQVfHtCukiuMHCM8x5Z
+	CxKWTw8dH7our9oDC8K9lnxG0aWpwpvjH2B62DqtR1g==
+X-Gm-Gg: AYBFou39pXlCVfcGMUrrmh2k1eQvdWNbZBAr9Jq20xuhpn1gHRw7F3XU7WMMP8Q+vRn
+	d1jP80rq1gfGSC9Roew697A551bQRYv4XUkUeJg4pSL1Pwj9iNT7zwWtRFLvZsvc3uDgm/sRQ3N
+	Gr/9atFfGUgccCMKpBOwhS6dKZUNqJ1Pn9KXfMTtwneNfxAaHJVBi9q/mdEenmMmPAPna1+WUH4
+	ST/+HfMACKl5rxWS5qKuH9IJZF0LI/Tda5LM1hU337utkY2ud9n/nsU38k8JNNIJHaDDuMb9jvy
+	35aEXxvQTaZMVRSZTFp7TklePz9U07CAHA9DCyZHnA5xgeZ2MFKPIYy7+68tnzZKt+WmpKCmS5o
+	Eey/ZPWDmIzjLJLX+QZ7oXnQ=
+X-Received: by 2002:a2e:b8cb:0:b0:3a5:f041:d7c3 with SMTP id
+ 38308e7fff4ca-3a5fbfe6b1emr6793651fa.16.1789745030361; Fri, 18 Sep 2026
+ 08:23:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] PCI: of: update endpoint ranges dynamically
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com
-Cc: lizhi.hou@amd.com, herve.codina@bootlin.com, andrea.porta@suse.com,
- daniel@riscstar.com, mohdayaa@qti.qualcomm.com, lbiancon@qti.qualcomm.com,
- mani@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260910021919.3421449-1-elder@riscstar.com>
-Content-Language: en-US
-In-Reply-To: <20260910021919.3421449-1-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org>
+In-Reply-To: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Fri, 18 Sep 2026 17:23:38 +0200
+X-Gm-Features: AcwNN1VqEsuDF4Fn54jMToSR2ryF3Q33Voj6xcxHRXJ7DkDQtD_MIEaNFYoKoHk
+Message-ID: <CAAofZF4pM4N3MmCiM-j04OG2jYYjzwF9z5_BBs7dM-1utJZT2A@mail.gmail.com>
+Subject: Re: [PATCH RFC 0/3] workqueue: Take the pwq backend from the attrs
+To: Breno Leitao <leitao@debian.org>
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/9/26 9:19 PM, Alex Elder wrote:
-> A PCI endpoint bus is a devicetree construct that allows a PCI
-> endpoint (function) to have sub-devices defined that are accessible
-> in an SoC via the PCI endpoint's BARs.  Such a bus is represented as
-> a devicetree sub-node for a PCI function having the name "pci-ep-bus".
-> There can be one or more pci-ep-bus nodes.
+Hello,
 
-Does anyone have any questions about this?
+On Fri, Sep 18, 2026 at 4:25=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
+ote:
+> [...]
+> Not done: the switching itself. concurrency_managed is fixed when the
+> workqueue is created and is not exported through sysfs, so nothing takes =
+a
+> workqueue onto the backend or off it yet. WQ_BH is still its own path
+> rather than a third backend, the static per-cpu pools are still looked up
+> outside unbound_pool_hash, and callers still pass WQ_PERCPU rather than
+> asking for the attrs they want.
 
-The devicetree pci-ep-bus mechanism defines one or more buses
-under a PCI endpoint function node (either one per BAR, or one
-node representing more than one BAR).  Being a bus, it depends on
-ranges properties to translate between the local (BAR) address
-space and the parent (PCI) address space.
+I personally think it is better that way indeed, with WQ_PERCPU present.
 
-If a devicetree node is predefined (as is the case for the Toshiba
-TC9564 SoC), it cannot correctly define an endpoint's ranges
-property, because the PCI address space is determined dynamically
-during the PCI enumeration process.
+I started an RFC about WQ_PREFER_PERCPU, still not published: the idea
+would be an unbound workqueue that can be per-CPU (using affinities)
+but without CM; so when CPUs are isolated, these WQ_PREFER_PERCPU WQs
+can act as unbound. So the CM flag you added makes sense to me.
 
-This series addresses that by replacing the PCI function's
-devicetree ranges property at runtime, to reflect each BAR's
-assigned addresses.
+I tested my code a bit on the wq/for-7.4 branch, and it seems to be
+working, but I will wait to see what happens with this series, before
+sending mine.
 
-There exist other users of the pci-ep-bus, and in particular
-the LAN966x driver generates an entire devicetree node to
-represent the PCI endpoint function--including dynamically
-generating this ranges property.
+Let's hear Tejun opinion about all of this; I'm also interested
+regarding my series, so I can change if I'm not heading in the right
+direction.
 
-This series intentionally reuses the code that generates
-the ranges property for the "fully dynamic" case used for
-LAN966x.
+Thanks!
+--=20
 
-This series (or another doing something comparable) is
-required for the TC9564 SoC to function using pci-ep-bus.
+Marco Crivellari
 
-					-Alex
-
-
-> 
-> A PCI function with a pci-ep-bus devicetree node must also define
-> "#address-cells", "#size-cells", and "ranges" properties, to specify
-> how endpoint bus addresses are translated to the PCI parent bus.
-> 
-> An endpoint bus address has three cells; the first indicates which of
-> the function's BARs the address is associated with, and the other two
-> specify a 64-bit (2 cell) offset within the BAR's region.
-> 
-> BAR base addresses are determined dynamically by the PCI enumeration
-> process, so generally it's not possible to include them in a static
-> devicetree file.  When this addressing scheme was introduced, this
-> was not a problem because the devicetree content was generated
-> dynamically--after booting--based on the information (including BAR
-> addresses) available following PCI enumeration.
-> 
-> It is possible (and in some cases, necessary) to define the devicetree
-> nodes that represent PCI devices ahead of time, in a statically-defined
-> devicetree file.  In order to support the PCI endpoint bus model in this
-> case it is necessary to dynamically update the static devicetree so that
-> the BAR base addresses assigned during enumeration are reflected in the
-> endpoint's "ranges" property.
-> 
-> This series implements that dynamic update, leveraging the same code
-> used to create the "ranges" property when PCI_DYNAMIC_OF_NODES is
-> enabled.  The first patch makes an argument to of_pci_get_addr_flags()
-> optional.  The second patch separates the code that dynamically builds
-> the property value into a helper function, and the last arranges for a
-> statically-defined devicetree node for a PCI endpoint to have its
-> "ranges" property updated (if it includes a "pci-ep-bus" sub-node)..
-> 
-> 					-Alex
-> 
-> Note: this series is built upon these patches:
->    https://lore.kernel.org/lkml/20260908213459.2519059-1-elder@riscstar.com/
-> 
-> The entire series (based on v7.3-rc2 and including those prerequisites)
-> is available here:
->    https://github.com/riscstar/linux/tree/outgoing/dynamic_ranges-v2
-> 
-> 
-> Between version 1 and version 2:
-> - Included the first patch (which was previously posted in a different
->    series)
-> - Modified the last patch so the ranges property is updated only for
->    PCI endpoints having at least one "pci-ep-bus" node
-> - Rebased on v7.3-rc2 (and the prerequisite series)
-> 
-> 
-> Version 1 is available here:
->    https://lore.kernel.org/lkml/20260813220717.1394644-1-elder@riscstar.com/
-> 
-> 
-> Alex Elder (3):
->    PCI: of: make a flags argument optional
->    PCI: of: introduce of_pci_build_prop_ranges()
->    PCI: of: introduce of_pci_update_endpoint_node_ranges()
-> 
->   drivers/pci/of.c          |  89 ++++++++++++++++++++++---
->   drivers/pci/of_property.c | 137 +++++++++++++++++++++++++-------------
->   drivers/pci/pci.h         |   1 +
->   3 files changed, 173 insertions(+), 54 deletions(-)
-> 
-> 
-> base-commit: 857c3561ea9f2c3107b5c6d830d3b3face159cbc
-
+SUSE Labs
