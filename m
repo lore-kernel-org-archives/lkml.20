@@ -1,101 +1,111 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64FE50B8A1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1173D432BC3;
+	Fri, 18 Sep 2026 17:02:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750968; cv=none; b=O6ypBRpUHJrnuftI8yiVgkjBtxXO1i3HKXxPPC2ZQT0XPTQ37DzZUP80JG8C3hZRWRgBdO2chZSzeuMqt3XtVX844/gIEjd+uTYkURTakZ0s1m6HtzOovlVrxb87omm6G/rHr6ohgk3YIeJrkyzta9JsFElf0D/zFRyRv9k04NY=
+	t=1789750979; cv=none; b=aawmlGXKurlOHSQ224RzdF/aCqGKxFF6LTkPBS7zd+03teSiiDzLzx+6DW5QAZmW94JVihdzccOmfeWueXcHRhdDOrciTkwmvcSre19//5fcXoOCcQvZnOfquDjFIKVhacLZdW+XkamR62YCsp3oI5bHrm5/tr39xRtbY2jVAqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750968; c=relaxed/simple;
-	bh=bDpGvspOu4nFgSreC2Aw9attytrT9KqmqH3NWl0cZ7g=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Vtz3Sbfz1P0dbMV+2c7DFvilm0bS7W8JWF54uCjK/ZVUXmLy/cOIyS1BDdaPcH3r8DXYtMojn/kpTdDjVaomkC7D3KC24ynFdCugPVU4I4NXeUeGHCYf5N+19iD1yMLGDQsf4O/qNYzlGq74mwkUkgIfv+LzM3MTTz4dAG2Ae+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gOGp/X5O; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1789750979; c=relaxed/simple;
+	bh=PpUq25wPm/jfx2F62tUw4ZCTLMWc1hTT6ZkJwbhoS2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TM2Z1LV4zrk3vywka7wr3qQ3MfksA2hEq0Y3e0IPfP6ev5KxZ83fqVhfFk/LUiNGxkTzxOO6pRdwJP5qfcVGi242vhgvJOFerTuf7QYxQNytbW+Rg2La2LpJcbHf0K5egxj3xDTEFu/MtxLYC8QZ3vcAzHRY4weH8wQ0m/ZxBrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqM1BNkd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gOGp/X5O"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfa4e4684bso22407685ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:02:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789750966; x=1790355766; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NSaA4/uDxQE6ypmPHF+DraAaXm7U/OoqsySVnlQHd24=;
-        b=gOGp/X5OCAeXmkvZ6r/Rs8YgHIjxwsD4iWl8xR6EtKhO+1n4tmQvRRh0oN/g1vaJFu
-         nRFnfmsKiwTaDwsW9ABmVAFhLI62xiMEqch1O0weqCakyYiHZmAujXnJ8XB4/0yelwsB
-         jiews6SI5vLdvuetGbilTiBz5P1vMAKLxeZQxPOIYz9Kt7L+4ep1QM9Z8dr6QMwqg4E1
-         FNjGrx/goyoZggC21S6a/or1wwh22RrZqZNByU7MV/Sna5n64S+9/zE+dNaRlFPS4sQ/
-         ZFAtE9e52SoSEnxFZnoicfy8e0rIJGjpXBJx8qeSdbZZbGuyGqkXQk6vU1Om/k1s/ewp
-         1leg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750966; x=1790355766;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NSaA4/uDxQE6ypmPHF+DraAaXm7U/OoqsySVnlQHd24=;
-        b=jCKnoWnsngccXe4c7X+8DCpny62sb69LWBYD7RIHs7n+//o5S1PQHcsfbDqRgjwnbL
-         hXFQltRlUKXCbEDuxUtn6wzV3ULm7TjmBHNsy2HUXxkUEFbiArq4dRoCJfxrkV2iyKJl
-         B/yovQrn7jEIvg+e7NbIh1+O7rx1G0Npbsx6wiwQcbAv8Rx1XWiHvh33WEhz5rAMlLuv
-         M5DspFhW8XPIkV21u34+DvTlYD+qZ7SiliaYQktwHOCZTNdhuJnDfBrJL4ECbSe7HkCT
-         n1YhVyX9xjeNgO8hw8xbUggRGflxjAl9Fm/6N6wy0HF1DGV6NjNsQBuq7Zf/EI3XAmNF
-         7m9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwHVCigvsw9kOx0wFR+XhxgebYApWIuE4Tgt0oDvtqnZA9q8qqMEbYXAYd3cTRLlO9Ai8GweYGbZqzjsuk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksB4k0xgzNOSUbHEDZKlF5fS1FvZ2nm4+BcofnNFDS10yyRdes
-	UWpNyz+xdOxW27+iGcM4w+OKlYrdUWkHRz42Z3GZY1UV+TPqi+JxKKPeXuqScurs4QTe/a/nrT1
-	1wB2EvhaUpuzhK+Dm7aSdNFuP7MSZvFxhcA==
-X-Received: from plld8.prod.google.com ([2002:a17:902:7288:b0:2db:60a3:afae])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2388:b0:2dd:ad74:ac1d with SMTP id d9443c01a7336-2ddb1bb0740mr74481335ad.24.1789750965612;
- Fri, 18 Sep 2026 10:02:45 -0700 (PDT)
-Date: Fri, 18 Sep 2026 17:02:44 +0000
-In-Reply-To: <20260904-pcie-link-endpoints-v3-0-4b9a91bd4b35@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqM1BNkd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E8F1F000FF;
+	Fri, 18 Sep 2026 17:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789750977;
+	bh=SZZ14vgPCBujECBZ2B1QditiMj4rHjKuyn6K/jxHEWs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZqM1BNkdN7ygvjf3DI1xQO8LW4R0T/Z0dMQ0AUybpQ2ZRPO6oatl/7BZj3xhWK1Lr
+	 XPrexxdjYhtlGrlcFwGyR3AcV4rvNpchmz/zgG8YjWLQvxUwTkXpNI81G0h6qQ4bwM
+	 ACOHz+2u3p3o3lCUWQ02nxFLL13dQzMwGlCeJcYiwPacEpKT8DhpAHxgXWDA3DSajg
+	 0cRRqbHQRqbrJ6wIh8BMjtkVdZ13PVW9CtzHhUW07/Kwl59JnkbDbgep08RMBftnSQ
+	 DrKE+VNY5c0D6cS0m6C6YFFuAXuO5L5AxVj2cWbwrlph2inisi+QPEYBHwyJL6zlv8
+	 sKNiBgUcKjT9A==
+Date: Fri, 18 Sep 2026 19:02:37 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+	Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>, 
+	Takashi Iwai <tiwai@suse.de>, Vlastimil Babka <vbabka@suse.com>, 
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Subject: Re: [PATCH net] Revert "net: qrtr: Send HELLO message on endpoint
+ register"
+Message-ID: <35spnanlpb6tefiqvc4spzufecgwsikv5ruzdwzfmap4gu6pda@6yfsalrk3d7y>
+References: <20260918101621.2848322-1-linux@leemhuis.info>
+ <lgyho3avi65edtr4xggbsrja47cjhqbamrnmchnfh4blmyygd6@bhotovqqqubj>
+ <85c50e6f-a270-4755-8576-c4ba2b961e26@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904-pcie-link-endpoints-v3-0-4b9a91bd4b35@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918170244.75711-1-rathodpriyank@google.com>
-Subject: Re: [PATCH v3 0/3] PCI/pcie: Add PCIe Lane Margining at Receiver
- (LMR) support
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>
-Cc: "=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <85c50e6f-a270-4755-8576-c4ba2b961e26@leemhuis.info>
 
-Hi Bjorn, Ilpo,
+On Fri, Sep 18, 2026 at 06:56:19PM +0200, Thorsten Leemhuis wrote:
+> On 9/18/26 18:37, Manivannan Sadhasivam wrote:
+> > On Fri, Sep 18, 2026 at 12:16:21PM +0200, Thorsten Leemhuis wrote:
+> >> This reverts commit 544d85de4dc22c01badfd8cefa59829ce35c4858.
+> >>
+> >> It causes suspend and resume problems for numerous people, including
+> >> maintainers and developers of ath wifi drivers. A fix was proposed[1],
+> >> but did not get any traction, so go for a revert instead.
+> >>
+> >> Cc: Chris Lew <christopher.lew@oss.qualcomm.com>
+> >> Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> >> Cc: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
+> >> Reported-by: Daniel J Blueman <daniel@quora.org>
+> >> Link: https://lore.kernel.org/all/20260909055846.16539-1-daniel@quora.org/ [1]
+> >> Reported-by: Takashi Iwai <tiwai@suse.de>
+> >> Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
+> >> Reported-by: Vlastimil Babka <vbabka@suse.com>
+> >> Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
+> >> Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+> >> Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
+> >> Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+> >> ---
+> >>
+> >> I'm not affected by this, but due to all those reporters mentioned above
+> >> it seems it would be good to get this fixed for 7.3-rc4, as Linus' rule
+> >> of thumb wrt to fixing regressions is "generally be 'within a week',
+> >> preferably before the next rc". Which is why I currently plan to ask
+> >> Linus to pull this directly. If this is a bad idea, just tell me.
+> >>
+> >> The patch from Daniel linked above[1] could have fixed the problem, but
+> >> none of the developers of the culprit or the maintainers for this area
+> >> commented on it within a week
+> > 
+> > Really?
+> > https://lore.kernel.org/all/hcr4woicsnz3pbhzlguuwjlego7yli3znhjmsx4cdz66xa74zd@wjtle2yslc4b/
+> 
+> Apologies, I had forgotten about that one.
 
-Gentle ping on this series - it has been two weeks since v3 was posted
-and I haven't seen any feedback yet.
+Np :)
 
-v3 restructured the original monolithic LMR driver (v7) into the 3-patch
-stack Ilpo suggested during the v7 review, moving the link endpoint
-traversal into the PCI core rather than duplicating it in the feature
-driver:
+> > FWIW, I don't mind a revert too, but the comment was misleading.
+> Just tell me what you would prefer, you are likely the best one to judge
+> here. I just think it would be great to get this resolved for -rc4 and
+> your option would really help there. Sounds like you would prefer that
+> fix, is that right?
+> 
 
-  1/3 PCI: Add pcie_get_link_endpoints() helper
-  2/3 PCI/ASPM: Add pci_aspm_inhibit() helper for temporary link state
-      suppression
-  3/3 PCI/pcie: Add PCIe Lane Margining at Receiver (LMR) support
+Yes, even if my comment about kernel-doc is not addressed.
 
-The LMR driver itself is now strictly self-contained in
-drivers/pci/pcie/margin.c, with no modifications to drivers/pci/pci.c,
-drivers/pci/pci-driver.c or drivers/pci/pci.h. The series builds clean
-with W=1 and is checkpatch clean on x86_64 and arm64.
+Let me ping netdev folks in that thread again.
 
-Feedback on patches 1 and 2 would be especially useful, since they are
-the core helpers patch 3 builds on. I'm happy to respin if the split
-isn't what you had in mind, or to rebase onto a newer base if that helps
-review.
+- Mani
 
-Thanks,
-Priyank
+-- 
+மணிவண்ணன் சதாசிவம்
