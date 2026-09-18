@@ -1,98 +1,110 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24134E01EC;
-	Fri, 18 Sep 2026 11:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A6D4DEC22;
+	Fri, 18 Sep 2026 11:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729219; cv=none; b=EatyC4Snxwd16NdqVa2HDg8XrwOiupiz98nUaquGfnP3nl30QjFDyLKCkVZD3fb0sCogjHGWCBBEf81VGa2FEzZIC9DYfa6CuS9Ek3XEW6cGyxSuvRUAmJ5FrvqA76t2H4bYjMMkNOO8m4/Sg3ju7rDUqDn7/9SkhmA1a9yquJs=
+	t=1789729258; cv=none; b=FVQp2vWjw9DkBC6oN+GadxXIRPtUa/hL8wb1wRc9KY+OyK04i+sPx8iQr6rpPPHRbn/HLOeW+mCRrVs3Daq6cgEWTdRjawj04QGg8K2TapYqluaSaaQcNJ9YvlO3IRhm2MhKRUz2rEM8WNHhIm91azj4ElWEBqA9coThBgJjR80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729219; c=relaxed/simple;
-	bh=NS4fGbANKphK6JQB+dGaH5aA7OWUMehYWv+i5//7lQ8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=hygMdFUAiCiOIeLF0O2Sbvl8n8H/QZLt/YkfX6YmvL0KafYJIY/9VV/ErBiiDkaoObV28fLZVkleeVs38HRCjybpiExgi2SAIdRRf4XpoZohQ2pP8+vsmEg1HqpkMslHWkMM3f8U+VToq8OA9wbDXYpFoRUGe/VbnL5bukyMvPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=sk2hkMkx; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789729258; c=relaxed/simple;
+	bh=gVUYx2dOVJqTII3X9FjwQ7gUD2UY2GUKlymHS2FDOBA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VOF4FErjkgxSMDA1YOmXCYH8CK4R9JfASp+2VHAmFb7gEU61vvq3i0zzGf0nu3pVXGuCtvZWofJ+h5GE/ly2AdboM/tePyZuwx+Ef7gCrtdcPJz5gFa4L3vc8jg+UCzrT4v9VpekRvzFvjJdyAX17EeeiuPzKeuKCH4AAh/ibaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=j2JWkD3s; arc=none smtp.client-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="sk2hkMkx"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E66AEA9002;
-	Fri, 18 Sep 2026 13:00:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789729214; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=B5bm9Lnqeni2x171qc2CycGUoE7qJlNcyPEqd/0tD/4=;
-	b=sk2hkMkxUM4pqO8H+ytYRovE0BWV0LQyUBWlWfaiLghNTJEX/T4vtqp5Q32X43gqLdV18z
-	gWGVNz+ClmrHP9uuOA4dTXtThUrAbC2cZFQuXJwjmVJRqE7SujsDE7NOJYIUuaBopXdWjS
-	tc8XmvRrdflTDIL258rJBLrsC1sSEqRWZ/E92CxGbNesleSW60qUTvQcmRfoEoLsFQLa+o
-	RbJI/ExHXwJV1V2f/pKicmvyagJ2i7pc/I7oMCdaARFMAvRU/y9mZDkavuMQ1sYfT6Y57R
-	uWz8Ov5y8HcvW6ccJJM+pObRF/R7aQylMJPRXfCXu4q4Mh2vqRSYDAbrKLUeWg==
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="j2JWkD3s"
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hmV5v6bQKz4BsF;
+	Fri, 18 Sep 2026 13:00:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789729235;
+	bh=gVUYx2dOVJqTII3X9FjwQ7gUD2UY2GUKlymHS2FDOBA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=j2JWkD3s8AZ0P+BX/AkjoXJI1VJva8Kk344VAXH/quFhbjMiJO4BAp3dgEfcObQ0w
+	 dkNGzYZxsjxeMSUdzJZpYjCwIA7QSLVNpDaEmmlSyCANQO9VteZRmj9/Afo6zVNoNb
+	 n3zDHkU7StRSgwVbF/aKnnMpTZTtm7dxGJZEt/yqsQuNAp+gXNQKrgH04XVll8jUBd
+	 xrCGNcvpI8VPgQxjtjZJvlRttEaTETB2SaYiY3rfd9t734EHD0P63fk5Vx/OgUiBRL
+	 ArTT91KEAXfnVe8YWg8TmtPmbreiZnCV40rsIJKMhOWkjCJpRJVvHL45nBAccCFawI
+	 Qf1neuZUB2qvw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4hmV5K628Cz4Cn7;
+	Fri, 18 Sep 2026 13:00:05 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hmV5K1P80z8sch;
+	Fri, 18 Sep 2026 13:00:05 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 685FC5F949;
+	Fri, 18 Sep 2026 13:00:04 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <6846f455-fc77-4cec-974f-6b9d72ae0654@leemhuis.info>
+Date: Fri, 18 Sep 2026 13:00:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 13:00:13 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Cursor <cursoragent@cursor.com>, Doug Berger
- <opendmb@gmail.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 6/8] net: bcmgenet: validate Ethernet address in
- bcmgenet_set_mac_addr
-In-Reply-To: <20260918000732.276506-7-florian.fainelli@broadcom.com>
-References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
- <20260918000732.276506-7-florian.fainelli@broadcom.com>
-Message-ID: <486f79b9a0435e4cb4ecf2f8657da262@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
+ link
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Andreas Wild <andiwild@gmail.com>,
+ linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-kernel@vger.kernel.org, M M <restafvalendergelijke@outlook.com>,
+ regressions@lists.linux.dev
+References: <20260917233355.GA1115024@bhelgaas>
+ <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
+ <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-PPP-Message-ID: <178972920486.686618.11852165451493012845@mxe9fb.netcup.net>
+X-NC-CID: MZlRa8Hguy5St8D9XDiCRIjyBNIzUNoCfoLkOHnXxDd7DmDRMZo=
 
-On 18.9.2026 02:07, Florian Fainelli wrote:
-> bcmgenet_set_mac_addr() did not check whether the provided MAC address 
-> is a
-> valid Ethernet address before applying it. Userspace could configure an
-> invalid address (such as all zeroes or a multicast address) while the
-> interface is down.
+On 9/18/26 12:39, Maciej W. Rozycki wrote:
+> On Fri, 18 Sep 2026, Thorsten Leemhuis wrote:
 > 
-> Add a call to is_valid_ether_addr() and return -EADDRNOTAVAIL if the 
-> MAC
-> address is not valid.
-> 
-> Fixes: 1c1008c793fa ("net: bcmgenet: add main driver file")
-> Assisted-by: LLM
-> Co-authored-by: Cursor <cursoragent@cursor.com>
-> Change-Id: I1cae9178ff2c9243510556f42a194058c10aea7e
-> ---
->  drivers/net/ethernet/broadcom/genet/bcmgenet.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
-> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index 799da63e3a4e..90ca4f220cc7 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> @@ -3635,6 +3635,9 @@ static int bcmgenet_set_mac_addr(struct 
-> net_device *dev, void *p)
->  	if (netif_running(dev))
->  		return -EBUSY;
-> 
-> +	if (!is_valid_ether_addr(addr->sa_data))
-> +		return -EADDRNOTAVAIL;
-> +
->  	eth_hw_addr_set(dev, addr->sa_data);
-> 
->  	return 0;
+>>> But IIUC Aoxtj still sees issues with 72780f796468 ("PCI: Always lift
+>>> 2.5GT/s restriction in PCIe failed link retraining") even with this
+>>> patch
+>>> (https://lore.kernel.org/all/331e97c7-e422-420d-9f3e-5d9f734464b3@axtjblog.cc)
+>>>
+>>> And M M / Mich (BCC'd) also reports an issue that (IIUC) is not fixed by
+>>> this patch (https://bugzilla.kernel.org/show_bug.cgi?id=221919#c3)
+>>>
+>>> So evidently there are still issues but maybe this patch fixes part of
+>>> them?
+>> Yeah, Maciej ten days expressed that we to look into this. Anyway, I
+>> suggest someone that is affected by that problem starts a new thread
+>> (please CC all those that are affected by it and the regression list)
+>> with summarizing the current state + this patch, as this thread got a
+>> bit confusing... (please drop a link to that thread here afterwards)
+>
+>  It remains on my radar, no worries.  Hectic time here, a lot is going on.  
+> I'll do my best to look into it as soon as possible.  Also I'll be at LPC 
+> in Prague in a couple of weeks' time, so this may be an opportunity to 
+> discuss the issues in person.
+Sorry, I didn't want to prod you; I mainly wrote what I wrote because
+the reports about the two problems got mixed up, so things became
+confusing -- which is why I think a new thread starting with a summary
+might be best for all of us.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+That being said and wrt to the "a lot going on": seems this causes some
+devices to not work for iirc at least two reporters. Would it maybe be
+better to revert the culprit and reapply it later once that is sorted
+out? Or is this not an option or a bad one for some reason? Reminder,
+normally Linus in a situation like this wants regressions ideally 'fixed
+"within a week", preferably before the next rc':
+https://lore.kernel.org/all/CAHk-%3Dwi86AosXs66-yi54%2BmpQjPu0upxB8ZAfG%2BLsMyJmcuMSA@mail.gmail.com/
 
-Thanks,
-Nicolai
+Ciao, Thorsten
