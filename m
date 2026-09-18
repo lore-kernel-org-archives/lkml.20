@@ -1,218 +1,97 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E29D5221F7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE68522682;
+	Fri, 18 Sep 2026 18:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755938; cv=none; b=aqdxHkjcE+hy410id1BtbfDOgcAHOeOiVR7i1Qj2l91jymtnqlWNMnBsT/oWxVqmxgVJ6erudFp8NU0/x541DDYQSFo6LK5WQZiWwU8S54NEFKQTe/eRx125l+HoxZB1oQ0j8tiGwh9egCud7HoLfs3nJ72DFxV9+kXctPo+UwU=
+	t=1789755941; cv=none; b=nEp0QhSQy+AllYe8XvmjuFchdeYILxVBrJeYlf+qmdG6VRZP0zcxsX57rzImT2czI9WqxBd8zQEzd8LDyYM8GlXVFyonNY0NY8wcRwYo5Dfa6Z43SJ8jJfHao3fQI1vtikWtI6BAJ6z0gZ02ojevVOQPjUXTxGxABlN3my4D5/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755938; c=relaxed/simple;
-	bh=R9dGmC+v2bw7NAh5ww8FtZ986UH1u92ISE+NGE6Rr5s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kd7Nrai2QINSGHla1s6aT5vIys1FZsGgIomjf+ME0GPHkzRAbg52pb3zaLQdELx5IB6JcomXSUSuQtYsIUtfvApPlw78IYTPZQ9vlWPHH2gu+F6yHM9+k7PT2xbEIEPxS48DQom28jf4oXxqKZrleeeearbsiZZB8+/85c3cIh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BuDhUrlx; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789755941; c=relaxed/simple;
+	bh=o6tW1Fcd1iAuSID45p63fNJeLNYN3rmbbvowUKi4SVg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gubrjNFBFx2GRSwKGwcJwiwPYPvhqcJ583Kw6TXoat9gSWO1B8iWOTE5uyEl/VPfeHLUARWEg/vSAmT8RZ3WY9qA/dkOQG8Vr4I6ynLcBDdCZWJzSos9OH+t0MgNfH8j0vHobxJoC8x5tJbz05ytCNBjEVTcvpU+qcKMPWA+MeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=legIm51x; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BuDhUrlx"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so11319295ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:25:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789755934; x=1790360734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s2CKXsU1UIOkbMCPUX3VEuk4lYZb15gx+txcbf/aJKQ=;
-        b=BuDhUrlxhnKebOyxuOHfj0fzA4OdpGJp11GULD0VVXcPu3aVt1licKZgF/rwY+ewJC
-         WUMX7fGpTcsjjU3gmtm/dH9hmk77t1Tpl+CjfSSIJiUdBEZRmAigflBnSgQYtbWOLI1A
-         CtDmqYFyK7e8L28Xjg0AMFWhUiHzycvFeQLugBIEHcb/Bbyglpjer3CNQIR1v0lUPsW3
-         med8s7ToVe3xsl59BYWaAUVZPUlTuNeZ12r3vsHJNnX1/tDsH+5xQHMOpdd2nYSYbCHl
-         WCogODA9FYSMc6I1cjBpw6zUgsAuP0MBKO+lpJYPa/nSpsB3OHngeKVmVvxIPSUCXkO6
-         hp/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755934; x=1790360734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s2CKXsU1UIOkbMCPUX3VEuk4lYZb15gx+txcbf/aJKQ=;
-        b=2ZT1ucVOjt3AeJynz5Zb663ctaPqj/uOJ74ptfG+6yWJ0kA7VQjmpD03+WivUwrLb3
-         DQlTESmr/33v10b6CgRhyeGI6cR8oSEboNMUfGMZ5eDYaHIWLoVi8CspcYea6rv7r+f/
-         nnskfn4S0DAGc9uS3Y7iCQf+0aXpX8pX42z4GxEeN5uzvjLdMZlIFzpZxujXfKm8LRxF
-         bkwtog8xP7iCK51sRTuPerP1Rv5yPRNP4n3MoZ2YlMcnO1RXJsCCFe+57df2mVNMR/j9
-         5r2wQlpz41/zvDEGIFSMruH3NXKioQKRHVycp5ukBZWM85BvSpjrIlT4zwAN1N1379jT
-         WHzA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVVCkZRPEuv6TbKKh+nchj7B0atQX7ibq9NT5thhkX51+e58yti2cY4scSB9V5lqT2s6JTLQhCTQGdQKM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWlzpofq7wOt0BQ7xtK61qms3TAkc1H2xGMiJQbpAuI2YlGZsH
-	SeA7x1LPo0lrskwuvUdOfW9PVKgtAIbOjR6nMa0+HpzUFlYPAJIUSZ52
-X-Gm-Gg: AYBFou0pnsTbpX3iVWgw4hZ8T4+w3BIW5a0y3hRMV/7oR2TDwKuQ8m86rCF4OLW0FxP
-	7edEACeVzB3AXYQ9kTFwOzLUGJ+/s7IKEIo/MqJKedxolDG+GvZoXlaxsYIdiTYuIAA/b3ZfSn/
-	d7lfMtg4KMKjQ8p2TYU1Y5ezv1wEqPR1S18xAMZOI7A5iBvewKOaLxiaH/3S4KcpjY3pYmtGmPS
-	KSCHVdp/vd8nek/h/t2T3zpOq9jDrF8l6FiqmFL3Xu2ND+YIMCBGwcD9bRHxQ5d0gpoRwHv06yW
-	rVcQDtHv3JBwLjlRQM88UbqpNNbo26TSrYWyn2oO6AA7mwD8eVLXMqxhkIfyTGsYWSFHdEyY6mb
-	yHLInyz/Pq/bBEdl8yIayeiTN+bysOobTSWDORGEV3tkivo3fCpDHQ+7BzpjsYgbY9xg+Yck1y6
-	ejMVT9ne8rNwBNqZ7AzkmPUvYIJuRC/aY2ldzak6fZ9LkFX5KuhYkdoUJdB2/YnG+Y6d/XXFrqz
-	jrcyp9ZR6Uas+PCTQdoDlL50IjIspDwn7waPINjW/tIi+45qLKvuZ60CDSj7gtBS+6OpzS5rITR
-	3ONlRo/a
-X-Received: by 2002:a17:902:8496:b0:2dd:c053:a6f6 with SMTP id d9443c01a7336-2ddc053a766mr7512155ad.40.1789755934291;
-        Fri, 18 Sep 2026 11:25:34 -0700 (PDT)
-Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b49casm871895ad.7.2026.09.18.11.25.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:25:33 -0700 (PDT)
-From: Jinseob Kim <kimjinseob88@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andriy.shevchenko@intel.com,
-	linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org,
-	joshua.crofts1@gmail.com,
-	u.kleine-koenig@baylibre.com,
-	julianbraha@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v10 2/8] Documentation: iio: add Open Sensor Fusion driver overview
-Date: Sat, 19 Sep 2026 03:24:40 +0900
-Message-ID: <9fdbc924bf3387a4d33d1258ea21ac33abef65bb.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="legIm51x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789755939; x=1821291939;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=o6tW1Fcd1iAuSID45p63fNJeLNYN3rmbbvowUKi4SVg=;
+  b=legIm51xXDMg4nubacHO3wFlCLIn28mDp0jrKzYHv/xiVIXWIY33CVym
+   QBZCzGlfEUcU3HC+t3Ldrj1bumc1rSAIQ7PREQ4mpLbn3MKK8MIP+EgFv
+   RZjAqCi99fZ/wrl7Vmbl3dhaPt6elpxUZa913tzZyJpBXJPgJE9qNs/PI
+   OkwF+WKrvTi98ISRfmuN5HGB/8AhhQDBajH3AGFJlY3dUTSW8sskqnG3O
+   ELwWXhH2uB2GQLUVHjowm/W/7WjgIovQ41x3D+6d7tMS1Y7DA3Kz6F4Nv
+   zZKR3bFHaxNB5leEkn6jrfCUz5StCPwbuoibGKHdLGp9rEeE0ZkdmTtFf
+   Q==;
+X-CSE-ConnectionGUID: s2rXrthFQBO5w35dA3RP7Q==
+X-CSE-MsgGUID: /A97j6p8TkKOzWjEhlZ2pg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90297758"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="90297758"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:25:39 -0700
+X-CSE-ConnectionGUID: jb9oh7hcQkm9AwI524GUdw==
+X-CSE-MsgGUID: EorkJM73Sl6TVzq7hQFDyw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="268252842"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:25:36 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Kurt Borja <kuurtb@gmail.com>, Rickey Bartlett <subtexel@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+ Dell.Client.Kernel@dell.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20260828145756.341733-1-subtexel@gmail.com>
+References: <20260828145756.341733-1-subtexel@gmail.com>
+Subject: Re: [PATCH v2] platform/x86/dell: alienware-wmi-wmax: add
+ Alienware Area-51 AAT2250
+Message-Id: <178975593156.29716.322413351276895971.b4-ty@b4>
+Date: Fri, 18 Sep 2026 21:25:31 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Document the supported OSF receiver profile, runtime sensor discovery,
-IIO channel units, scale validation and session lifetime.
+On Fri, 28 Aug 2026 07:57:56 -0700, Rickey Bartlett wrote:
 
-Link the project-maintained fixed wire specification instead of
-duplicating its layouts and compatibility policy. Explain host IIO
-timestamps and the explicit rebind needed after a changed inventory.
+> Add the Alienware Area-51 (2025 desktop, model AAT2250) to the AWCC DMI
+> table. G-Mode is not applicable to this desktop, so generic_quirks is
+> used. The full product name is matched to avoid colliding with the
+> "Alienware Area-51m" and "Alienware 16/18 Area-51" laptop entries.
+> 
+> Tested on hardware with BIOS 1.6.0: loading with
+> force_platform_profile=1 force_hwmon=1 exposes a working platform
+> profile (quiet/balanced/balanced-performance/custom) and a fully
+> functional hwmon interface (6 fans - CPU, 3 top, 2 front - with fan
+> boost control and temperature sensors).
+> 
+> [...]
 
-Assisted-by: LLM
-Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
----
- Documentation/iio/index.rst              |  1 +
- Documentation/iio/open-sensor-fusion.rst | 77 ++++++++++++++++++++++++
- MAINTAINERS                              |  1 +
- 3 files changed, 79 insertions(+)
- create mode 100644 Documentation/iio/open-sensor-fusion.rst
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index b02b879b053a..c2b7963348fd 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -40,4 +40,5 @@ Industrial I/O Kernel Drivers
-    adxl345
-    bno055
-    ep93xx_adc
-+   open-sensor-fusion
-    opt4060
-diff --git a/Documentation/iio/open-sensor-fusion.rst b/Documentation/iio/open-sensor-fusion.rst
-new file mode 100644
-index 000000000000..03ab36aca5f8
---- /dev/null
-+++ b/Documentation/iio/open-sensor-fusion.rst
-@@ -0,0 +1,77 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+Open Sensor Fusion
-+==================
-+
-+Open Sensor Fusion is a sensor aggregation hub interface. The Linux IIO driver
-+receives device-to-host frames over UART and discovers sensor channels from
-+capability reports. Device Tree describes the hub using the
-+``opensensorfusion,osf`` compatible; individual sensors are discovered at
-+runtime. See the binding in
-+``Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml``.
-+
-+The OSF Device-to-Host 0.0 specification is maintained by the Open Sensor Fusion
-+project. The canonical specification_ defines the wire layout, compatibility
-+rules, reserved fields and physical units. This document describes the Linux
-+receiver profile and its mapping to IIO.
-+
-+.. _specification: https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
-+
-+Supported receive profile
-+-------------------------
-+
-+The driver supports the fixed OSF0 frame layout with protocol major version 0.
-+Compatible minor versions use the same known message layouts. The decoder
-+requires exact lengths for known messages, validates CRC and bounds before
-+interpreting payloads, and tolerates reserved padding. Unsupported majors and
-+unknown message types are ignored. Unsupported capability entries are skipped
-+individually. A CRC-valid application rejection consumes the complete frame;
-+an invalid frame candidate is resynchronized without trusting its payload length.
-+
-+The receive path handles sensor samples, complete capability reports and
-+device status. Its limits are 4096 bytes per frame and 16 supported sensor
-+descriptors. These are implementation limits, not protocol-wide maxima.
-+
-+IIO mapping
-+-----------
-+
-+The supported sensor classes map to:
-+
-+* accelerometer: ``IIO_ACCEL`` X/Y/Z, in m/s^2;
-+* gyroscope: ``IIO_ANGL_VEL`` X/Y/Z, in rad/s;
-+* magnetometer: ``IIO_MAGN`` X/Y/Z, in gauss;
-+* temperature: ``IIO_TEMP``, in millidegrees Celsius.
-+
-+Each registered channel exposes signed ``RAW`` data and descriptor-derived
-+``SCALE``. Multiplying RAW by SCALE gives a value in the channel's IIO unit.
-+Buffered samples use signed 32-bit values with native CPU endianness. Active
-+channels are packed into the scan, with initialized padding before an optional
-+64-bit timestamp.
-+
-+Discovery and session lifetime
-+------------------------------
-+
-+The driver validates all supported descriptors before registering IIO devices.
-+An empty or entirely unsupported initial report leaves discovery open for a
-+later supported report. Supported descriptors must advertise a nonzero scale.
-+A sample's channel count, format and scale must match its registered descriptor
-+before it can update the latest RAW cache or be published to a buffer. A
-+rejected sample preserves previously accepted data.
-+
-+Repeated reports are compared by sensor type and index, independently of entry
-+order. Reserved padding, advisory flags and unsupported additions do not change
-+the supported inventory. A supported key appearing or disappearing, or a
-+change in its channel count, format or scale, faults the bound session.
-+
-+After a session fault, new cache updates and buffer publication stop, and
-+direct RAW reads fail. Existing IIO devices remain until driver teardown.
-+An equivalent report does not clear the fault; explicit unbind/rebind starts
-+fresh discovery. No fault-specific userspace ABI is exposed.
-+
-+Timestamps
-+----------
-+
-+Buffered samples use the selected IIO host clock when they are pushed into
-+the buffer. The device timestamp is not correlated with that clock and is not
-+used as the IIO buffer timestamp. Device timestamp or sequence discontinuities
-+alone do not start a new host session.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9463b8111d52..26b9b2862724 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20515,6 +20515,7 @@ OPEN SENSOR FUSION
- M:	Jinseob Kim <kimjinseob88@gmail.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
-+F:	Documentation/iio/open-sensor-fusion.rst
- K:	opensensorfusion
- 
- OPENCOMPUTE PTP CLOCK DRIVER
--- 
-2.43.0
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86/dell: alienware-wmi-wmax: add Alienware Area-51 AAT2250
+      commit: 1ac4912106627ff77287b7ad5b11e3e6f5690f6c
+
+--
+ i.
 
