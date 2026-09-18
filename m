@@ -1,244 +1,112 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F72495AE6;
-	Fri, 18 Sep 2026 10:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726673; cv=fail; b=rXz1jo8rlmb2/62ebCz4BtGoiTIpYTi1onB7J4l19Ymo1Z4QEIIPfnois4Q04/AoJr5JS+cXdgagiZXT+rjvGdVKUn+5qcV5oRueq+kN5v10TMisPoF0WGJBbGlVXOuYe8brGf9fkaNosZm6A3pWlW2cgMEK9O8ck9RgEnmEvfU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726673; c=relaxed/simple;
-	bh=b+Qg3yZsVMyJOGfh1Ua0Hp4GDSYecMgE85astY3+V6s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LS3Qkr3TAROu/EfZKmSRiNj+s+iAtNTUS6CouJseFp3xRfgFDSGrIpRRIl+Aort9pzEOpimMAGfZT3TI247h2VDhVfTEe7mKzh8JSDW0iXQafMMuuHf84k+wo5gE1trCzPnYiyYLPDZ4DdG/TdQkgXdl1bolYF9GXiaaD/Mbxvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=nEa5kcFA; arc=fail smtp.client-ip=52.101.46.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEE84D37B6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789726684; cv=none; b=ji0Vf0UduNQK8m7ktOY6H3AbFsOVmJ2lZ24cx6Zr0FSUmDany8zZuJGWStdWmhq4uZluiXK1kDIaitsC6RqIMKYYS1QMiRA7xsVnrFgp+xEmeX7O41CtkdxbUqmC+lMQawiVWbaida6O/bsDzRr1Ep5rHP4QHTpDn0OrqLKc2w0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789726684; c=relaxed/simple;
+	bh=18ClDMS337/UyOV8Vwvx8OEa0L/tY5i0i9rO5jDrfLs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m7eXYfwWOnLUAGcpmu5VMI1tdkUgl+vBuvyFuWZYz9xuiZFxLQkdiSV0y8Cy3OBMdqnF4wOHXf3rGbHkaydWzIs3KLUpDMYcQeq2MEPc8mivWLtK41nW3iFLL0EehcbzLG4tgsE7a/nq+XH22jT+ONyt1JVkJUZEi2NsHal55PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVXiiKnQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="nEa5kcFA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m8iJ/2a7dv1ihJXU+EhJ28NEidNWpbY7u+Xt1pxf3rBdqIlZdwy/9+TFreH956MCVqg5ycdWOABoAw+1CS+LZduisIfb7psXPwQKV4rCicVJlfS+WjWJ7DKAjYiMXSatBNm11pB88siyaLaezvaSZUJae2WkZIgxLnl5tWqA5zXexiMXmpAamQk5PFTy86fUuxXcYKC6Pp8FQwe11NwqJsg77SWyqnL9ommcZhl9H13cot7vDvpSLs3u1biZEEVtbdfF2CxBQilFAKiC9VfkzIUvgQszcG2my5TZl1xYKRUYiybjsnoOK5AUWlUUEFvi5H+V7c72MgOYz1L5g+gQiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Feqrde7+ggaNMunwruDbVaelRY84nC19U+LFWW7yEZ8=;
- b=EVnkW8YeVxIQRv0GN/XlDtMP/pSoXqNuxtVtVs8cY4dPEdb0P0IwVLZNSGxMtpy2e8Vit/Uv/pa9aBBUjy+TNoZxUVLjlvrWFCB2G+cXIRkMXA56OGZaGpoKCOFS3qs9Ums8grXjzNbnZVTVhh9hPolY8P1YYBdEq/Yk5Wpg8flOqbXDW4r9IkRexvu8nA1cNGgb//oycmAbIDqyQcbvkHmwgdDbogIXcYHqDfbZ+0cDbOQLJ9Cr9UtpxfHZGh3XN8QIXYHHW74wS+hu3332o8IelJJhzxMn9tSL0Te4Ta3M7WIRbqwI32p455Br/tpjNPpPvso79tIUrkVGpnjCyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Feqrde7+ggaNMunwruDbVaelRY84nC19U+LFWW7yEZ8=;
- b=nEa5kcFAB7oW1F42kyB9qCse82LZEE3QiBE9rhL6n6qGMx+7HD60oPXRFQV60KFboFYHUKwxluBsWjr1lEzlzAR5SDdeaLCkVd+ztck3XknEqKkTjTaOuln8lU+BXIxFwKrJOmfobcrZPu9aVeoh78bHQq+yK9en7J1dFe8tBH4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB7016.namprd12.prod.outlook.com (2603:10b6:303:218::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 10:17:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 10:17:33 +0000
-Message-ID: <a35cd398-4e98-4d19-bd6a-3c7ec0feeebe@amd.com>
-Date: Fri, 18 Sep 2026 12:17:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in
- init_udmabuf()
-To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>, Gerd Hoffmann
- <kraxel@redhat.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org
-Cc: Huan Yang <link@vivo.com>, Robert Mader <robert.mader@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVXiiKnQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83FA01F00893;
+	Fri, 18 Sep 2026 10:17:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789726678;
+	bh=ypCsA238jQaSsrumZecpZnUkEvEZS1oyy492kHC+ewk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iVXiiKnQuX8gPgjXoAgMgL7aWzEcOontGC2Ias7Jg2S2qHLJEP0ddGOSQCD8G2E76
+	 P5KAZ+m32dDsuC7uziPL+ovDNjfDYhO0DjgZ2pIKyMD7Y3ILe7mPgg2QwlA2vZUuNO
+	 S07EjaeLi8PAiDtVF6v/GDd4XIKuPi/ar9Ek4ZeztNzz09Sio/UFKNVoDk/OCtwgHD
+	 Vhvko2aXexcEdJkJFXkoK1dfZJxEighusXao+5D53Sk4v59fK9TI0gwCyBFoBF7SPC
+	 8yKHbBiRs68qj5n2zHx9iDimwaQC6Iih62wdlJ3bzVQAlFpj39+u9DNIFAgfgmoMk5
+	 M3jtaXySjPdWg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A903E1980050;
+	Fri, 18 Sep 2026 06:17:48 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 06:17:55 -0400
+X-ME-Sender: <xms:zA-tank5xMVXkupold9m9PdHtzpFh7-ihnntztTn7Yc6fkdmmeBMIg>
+    <xme:zA-tal0U0sLE2yKUnNwuiJ5GoWr0DHpOjGzqHTOlUgfkizGcSkB8ai9lne9-m07CN
+    T38RI3K_bt0BfQ4KjWc6vn-IbJDTY9JuV2GFrUstvAD3bEVEKLhefGH>
+X-ME-Received: <xmr:zA-tasrtKjAZMMqdmt4O8viPFWAKIZPdJoqKtY-IRSTyj6x4nYj_ajHKnRg>
+X-ME-Proxy-Cause: dmFkZTFOJ04tLraS8Ld6DiNC03fk1U1TPxXokJj5HDUNGVOCuzuERevcrpAkfuxcfgiX8C
+    PQsHD5glq2gHcWyZk3QJbD/+NzFO+t4/s+FrJRSqoqIIL9uunXdzdBOYKFPiOB4rpx65nu
+    G+AIbYPCRMp4607LbXCbnze2tVSWmUT7XBOzlaE2m6cYsXs488RvxnRKmukIxwfeZKeKCf
+    cfZdvKfeq99gzENIngK3Z1slqai4Uhq9Uf2ES5OypkYOMOQEMH+lGml5bFXXrhsoqG83bL
+    Qe0BpFnxcfjw2CAHHyY1EUcwCqOmcMKwSQE3J/yxMJXzBxZaa4lJJgagI6vJq9i3GJjWEs
+    BTjz1z43/a//Tbn3h4wrXht4u5Se3Ogk9iRhBuS85wqjuQWYl/KnVrAdP5i0srvaDsR6MY
+    JxVI0cY3EUxQrjfFHnW2/M9heFSV4mCpgv4J1XKw9CcQ0C+7UEVJiEaoG/9rdYG/5pzB0j
+    a3JRoxUTjd/0fW2Ph9TN8j7zRECA3vRubUjAj6LLlmnS0JiXrKT+12pZfnQayN6d8fgXm2
+    ya/GwkoSI1iYZGGfzo3VHM39NclDpxhhUUpf7C+F3aq6Zsv5JQG20GheFhKNBrTVMm1ndb
+    P/1Vmml24MxTaVNUyUx4wmdIhsnP1SveU59HnTqTxeRX3YUXkfbc15k0CCfA
+X-ME-Proxy: <xmx:zA-tahTONOE_LRuJVOINMxPoiDr0FjcZPaN9FYT2Fh3FvqAODlY0qw>
+    <xmx:zA-talfDq-dL0jw0-6M966q6vDtUyj_wTcUeHOxEowv9ZbqRo6VQQA>
+    <xmx:zA-tajS3Vuk-zgx_kHA2Hn4uNF2A8NDOWO2mTlnUOvdbkDKfWAe4wg>
+    <xmx:zA-tavCLRehoQGfgw1mpG2b6ZVl7Css4TeaI-2UONHw4IARA7xW_nw>
+    <xmx:zA-talrurcJ-XoXojc9qMEEhWNNCeYrCwCJN1zLcf2SumuaISrYydCkR>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Sep 2026 06:17:47 -0400 (EDT)
+Date: Fri, 18 Sep 2026 11:17:46 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	Suren Baghdasaryan <surenb@google.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ 	Vlastimil Babka <vbabka@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ 	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ 	Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, 	Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ 	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ 	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 	Chengming Zhou <chengming.zhou@linux.dev>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ 	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Chris Li <chrisl@kernel.org>, 	Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, 	Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ 	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>,
+ 	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ 	Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, 	Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 	Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ 	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org
-References: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAP220CA0003.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Subject: Re: [PATCH v3 1/3] mm/vma: const-ify vma_assert_stabilised() and
+ associated functions
+Message-ID: <aq0Pn6EBVu1jugKB@thinkstation>
+References: <20260917-vma-is-faulted-v3-0-5c22314a72e7@kernel.org>
+ <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7016:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f045dcf-f3b9-4889-35e8-08df156e0d87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|56012099006|10067099003|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	U0Ocr5D/K/duXc/Ovf+X7dPjyxxSq3RtDGlqxWidV13SJFnB3MU9PLhqioc+tqRHJT0N/5wC0UBa5TuuO2sVi9EsPUL4gQmESiK1rkgnjtDDA9ODYYFLE/Q8v5fX5kI+7fVK5CcgYG5bqbua3yZqPBWkYlNNX+KoKNe1mHM1QyJscZX8RPc7rOI1R29BJKmd373eKVBXv+XlUL+fk795mcGeiSwt2RG0QOhKWQr36TUo9tW3YU7xkA2f/XGZqeqdquLVpd2kKEr4yHzQPHohgKwKMv0eTIi+jCJUsHGdQWFIewjLEgoTRi2gn1EDenTwqCgvkOGhd7qnXFSLcxGJmgqx5a+DxTxB6hE+UuNKhugG750HaF8z+4YFpwRnCM+pcKIC3eCMukBv2Jls0AEUg1VbyA3gydY9oi11VddxSdd9zuCTxVkBC1DmwDy0ZmpsxgFF3w3QPqP7G7TnyvGvxtyyjZAaGuhrs7682dR+Kmr3GRMyc0Kct0qYjMQHtxx+evNyCuGr5FefJHXxNfGj9jmrBDZ5Fvulx1/CdmV62xZGvgeYcm4xbZYHKlR34tfohL63CbYMf28fMf8yUuWtVmfmolPWYMgTfgKPeacRyo3c0Q6p3kWEtxkCUnHmTYqdL5grLNlu++I0E+7koeNv+iJ5Fd8LhGczg1GOUX7zaKA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(56012099006)(10067099003)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0puaGJMbmd4SmYwN0YxaXhnZllJNmFPeW1jSlY2dzZZZzVNcDd1V2UvWVRS?=
- =?utf-8?B?K24xOTNCa1hWd1pNTFBWK1lUbFo1L0xLTzcxTlVvWDd4S2tlcWlUZ05pdWw1?=
- =?utf-8?B?bzlSQkZUWVRheEFMbC9nZlFGcDNVMDI1aHpxV3gyNXlmL3l6ZnN1cTkyRmdJ?=
- =?utf-8?B?eExyenNRY25WdEMxdG9rM0hCS2hPNWNWOFFxOUUvRXJaVnRraFFSeWFBNjN0?=
- =?utf-8?B?WU5IRkRNMWh6QmVZUS9hQXgvV2ZqSFFQWlFTYW9YQVJHM3NKMEJZTEZLb1Ix?=
- =?utf-8?B?WFFuMmpEV0xZTE5UTlhLOHV6UWxjb2N5WE1BbUFvb0IvUWl1MGVkS0VLZ3dm?=
- =?utf-8?B?QitjVDVPWXZWWXZaRmVncm44UmpTTy8yZDNZYktyZnNWV2JwQ040c09oZkF2?=
- =?utf-8?B?ZVQ3T0FZS245aytFT3lZcEpZaWR5UDJ4VmtLcHRnVzhLdWUxNFNCYURnZE8v?=
- =?utf-8?B?TXNkejBVU2RLZEM2MGtnaUk3ekZWQTVGU1Mwemk3ak0vdm1ZRjhTMUFTQ2l5?=
- =?utf-8?B?aEU0NTRqTTFYRTFKMS9BRnhoNEM5bUJ6TVhRS0FqM2VzMHkwYXpPaC92M1JQ?=
- =?utf-8?B?VGlQanQ0T3ZTSnJUOEJRUjJIeEFJckN0UVpod05DNkt6US9GdkhOa2pqSUxv?=
- =?utf-8?B?WFF4OHAxQy9EZkNUbGNzMkRHK3lJc2xuaXY2bytpM3N5TGUvOElEbDNEVEhp?=
- =?utf-8?B?SjExNUxCWUVyWEoyd0grRXpTdjkvRkFoZVg2WXRUcnl1TmZtVTVRdXpMVVdx?=
- =?utf-8?B?L25WZGZRaW41SVgybnpqaEJnRFZySE41YmswUmVGRU43NHRKMkJBLzdxWmZj?=
- =?utf-8?B?ZE9KTUVjdzlscDFnWVFMcWg2U0RZL1hncGM5YzVUR1BUeWdSNHlKMmZKbTBV?=
- =?utf-8?B?cmlTYTduUGFlWGVpbm1tTk5yRHlPdjVrTE1KS0ZYMWdESDgxMU9NYy9pL25x?=
- =?utf-8?B?Y1NNSmZaMTRUbXZQSUlseXFFT2NkT3gvV2VIaFpzQUdJb1dxNVZZOHZlVUd0?=
- =?utf-8?B?U0NIOGZPTWs3eVF4QlFRaVJ3bUFFWnpNR3FrQzVlRk5tRFVtYWltMm1rL1BB?=
- =?utf-8?B?cUxxa2pNendBVTlXZ1JTWUN3dmdKbHlSL1Z3MHZKQ0kwbWIrcGIyZHJmbGpz?=
- =?utf-8?B?NnM3SUJiY3loejNoZEpNL0lSelhVcy9SVjFmcmx4d2EwYjh0cHJIODY0aUFZ?=
- =?utf-8?B?QWVMUkxzcUNVRGhWck40YVAra3B5R3E3Vk1BNHJIdlpFN2dXZlVycnVBTHJM?=
- =?utf-8?B?L1pvOEdJZklybGRuNk4yUTU5SlFSL2tHUkErdlFRZnRVQW5Odi82SXN6b0l6?=
- =?utf-8?B?dG0vQWt0M1JTVUs5MEI4dExNSFVlVkQ1SS9WeFZVT21rUERzSEVTbnNIcXQ5?=
- =?utf-8?B?Z1hSdnBBS1VIbzE3K09qREJOb3MwTCtUUXVRR3pFVm9YNC9DaldGTW5wR1Q0?=
- =?utf-8?B?ZVJ0K0VIeVlWRis3RjdEVmN6Y0FaYUlsdEdMeTYwSEJuVUx0VXNYT1NnT0NB?=
- =?utf-8?B?NzNLNjNIb01IbVNFejBGWmwwTFJ5d25mSXgxbjVqYld1elVRN0NHRkUyajlD?=
- =?utf-8?B?MFFUWnVRc0Fya3hiZWRUaStGRk5WRDFWNVk5RExadTBxZkM2cThRU1N6NW9x?=
- =?utf-8?B?M1hlTUVFTUh5Yy9ramJtczMwcFEreHRaWjlQdTc3c1EwYzV5NktGU2ZPNzA0?=
- =?utf-8?B?MXhBVDZsa0VRalVva3AzK2xHTkorYVhvOHh3dnJZc2tuMW0xeUhxK21PVHMz?=
- =?utf-8?B?VFlEQTVzVnNWbHJ2WTdydlRFR1JYRk01ZkZ1NlVZZ2dycW53N0dydC9UbFBp?=
- =?utf-8?B?dmRLVmF2YjhzZzFWWEwyUGsvVkpiNDdjVUxWWENVQkRsZTdBZ25IYlFGR2lz?=
- =?utf-8?B?ekpFNlMxaWNIdElxZW5lZVFYMThCT2xCSkpzclp1N1N1dVY3amc4aGc3clUr?=
- =?utf-8?B?M29LMWdLNUJsb0lmTE92WkorRVlzOWJBbldTZi9Jak1wQWVGZTM1K0dmWUkr?=
- =?utf-8?B?RldhdDFmSVBlTk0zQXp1ZjdzL21hRUlHV2U2ckE0ZDIyMXd1YVkxRE8ra0hs?=
- =?utf-8?B?Vm5URm1VT3FTY0NmSVJnQjVyWlZ3MWtrZWZGMG5lbUc3Ymo0bE15WU1RaDky?=
- =?utf-8?B?SHl3TmlVRTZqdWZiTW11ZXVvQnk0dWRJRzRUWHpBRTE3R29wWTVxdzVlZ2dl?=
- =?utf-8?B?bGhwaUpvS2M5U1N0TjZvazRZTE1sVjN1Z3JKSGZIMktzdTllZGFqV0R1akpZ?=
- =?utf-8?B?aVFsaDYyTUJMQllEU0lnRlBpdVpDdjdoUXlPbkkwb0owZ2FKN2tRczEwYlNJ?=
- =?utf-8?Q?ICytXV4NC7RB1Gys1N?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f045dcf-f3b9-4889-35e8-08df156e0d87
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:17:32.9078
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vrnoLlhA+hhhSScBrJNDuA48aTFNb+TOTglu1Y6T6pX9TdSUrP5mIKm3y5gQStdM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7016
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
 
-On 9/18/26 03:34, Jiakai Xu wrote:
-> init_udmabuf() allocates two pointer arrays with one entry per page of
-> the created buffer.  Since commit 1c0844c6184e ("udmabuf: change folios
-> array from kmalloc to kvmalloc") these arrays are allocated with
-> kvmalloc(), which warns and fails when the requested size exceeds
-> INT_MAX bytes.
+On Thu, Sep 17, 2026 at 08:47:41PM +0100, Lorenzo Stoakes (ARM) wrote:
+> The vma pointers are not modified in any of these functions so make it
+> official by const-ify them.
 > 
-> With the default size limit of 64 MB the largest possible request was
-> far below that threshold, but commit 44e9eb5a7621 ("dma-buf/udmabuf:
-> Disable the size limit by default") raised the limit to INT_MAX MB.
-> With 4K pages, creating a buffer of more than INT_MAX / 8 pages (about
-> 1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
-> WARN_ON_ONCE(), which is trivially triggerable from unprivileged users
-> through the UDMABUF_CREATE ioctls:
+> Propagate this throughout the call stack.
 > 
->   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
->   Call Trace:
->    udmabuf_create
->    udmabuf_ioctl_create_list
+> No functional change intended.
 > 
-> Fix it by rejecting buffers whose page count exceeds what the pointer
-> arrays can address before calling init_udmabuf(), returning -EINVAL.
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-I was already wondering if we won't hit some allocation limit when we drop the general limit.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Please don't add any new check, but rather give a reasonable default size limit.
-
-> 
-> Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to kvmalloc")
-> Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-
-Two fixes tags usually doesn't make much sense.
-
-Regards,
-Christian.
-
-> Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-> ---
->  drivers/dma-buf/udmabuf.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index df6dd00462423..25984e75d7ff3 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice *device,
->         if (!pgcnt)
->                 goto err_noinit;
-> 
-> +       /*
-> +        * init_udmabuf() allocates two arrays of pointers, one entry per
-> +        * page, with kvmalloc(), which cannot handle sizes larger than
-> +        * INT_MAX bytes.
-> +        */
-> +       if (pgcnt > INT_MAX / sizeof(struct page *))
-> +               goto err_noinit;
-> +
->         ret = init_udmabuf(ubuf, pgcnt);
->         if (ret)
->                 goto err;
-> --
-> 2.34.1
-> 
-> 
-> --
-> Below is the crash report:
-> ------------[ cut here ]------------
-> WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-> Modules linked in:
-> CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full)
-> Tainted: [W]=WARN, [L]=SOFTLOCKUP
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-> RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-> RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-> R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-> FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-> DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-> PKRU: 80000000
-> Call Trace:
->  <TASK>
->  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
->  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
->  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
->  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
->  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
->  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
->  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> RIP: 0033:0x590d6d
-> Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-> RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-> R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
->  </TASK>
-> ---[ end trace 0000000000000000 ]---
-> ---
-> 
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
