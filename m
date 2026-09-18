@@ -1,84 +1,98 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AA23FBB4D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9227123E334;
+	Fri, 18 Sep 2026 05:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710894; cv=none; b=aIZYqoxWR5ytR8hG0U/PaalkhcT18STHn/o5fEE66OxazIxvz+Xe05z/IJfJbMYt1Gj1gymBJnPgzmc8NKp+KGNTJyb61RKaLjgeoSdx5OO8+obgCn6e2A/UPwXUhNx6pNzPquXyjzw/At/CPZ6NbbtLtHur49X6YgmsmDZKWZc=
+	t=1789710967; cv=none; b=b2G32Xtiz9OudgNCPx5jCzvNcfJ3wunQQ2G0dUo3YHxf3eFLXpX2mIApbK8Hhhq1z5djvBP0EKGLXXyTm0vwr3120buVdipHM3lgrIrVgVAbIMNsYgLnoylasITErywiTzFuI+XC014WlVMKgt3rsv7j49D7mjWIo1aktgaQGe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710894; c=relaxed/simple;
-	bh=zrpDkUQfMRHu0Us/2fqfv8LqW+wKZbN/oHOukJzfpXs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BXXsgOcYwwuzYz4AXMGFfjrK+bAaQSpkKPseMxPcGnYGEE5wjn7LD5A2cJWi7VYprxJ0p06XMvkUZhV9wdtyHTCiKetAXbbFaesey2S75tcR5QvqGxMpEE36LRoonNjqXyMYROCDNyFCHUbvMNdFqTzgtArYHd6GQsenaGpLVrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=DBk75F8t; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789710967; c=relaxed/simple;
+	bh=KCFGA4rDMcZIHlBCko152R4ud+YTFm/tOcNyS3NmT/0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BGnDOc1xMtV1F7DXxU7DNYnGsx/p/m4MXNvbfqzGnxla7VzOt9ygztz0SXsWF8cJsv+peltlph/DUBo9mxzOB3pDolOMMocBgRgarLMmMWlffktRpBW18FNP8cMCd5E8tlXu45iavR4917++tOAzN/i/Ex/UfSbx8FVk9MorUDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=QyOoXlrc; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="DBk75F8t"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9A90240E022C;
-	Fri, 18 Sep 2026 05:54:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id i6yDuIx6WCdF; Fri, 18 Sep 2026 05:54:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789710871; bh=pSpxYod43eZw4CXX4s4Wm/tJB/z5NfsUGkSXzuduo3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DBk75F8tI4cYYE37kq243QoW1mkQEvXzmNDB+Zkx+CfRpt1srio76Two6jOnZmIfR
-	 KsheWGpuHDzNBs2+q7BI6tDwBiGlSI8VByLyjTW8d+CaPUd6Yw4g6rFuuzP3NTndSR
-	 WZ/nzjAXmS8I27ZhNgFz+zdWnPvz0qy7LPHToy9nn3EqDu19axCW9tJiS3JoKi0dQk
-	 SDzfIApluv16fyMU6bHg59t7S1FhA5xe6kWl6EBST/l++izRio96EzDK+U7bmiGNL9
-	 wTU1Omi9CNW8NNMyWnwzw6D0M9vY7ZDz89NF9Fi+yh4mL1mmzBJcPTnZtSusG1+HN+
-	 9xAaCFvgWGGk4rB/o3+Gy2P53fGCAtIccg8mqFxVpZ+U3yXOyVZMXgt2x5LGtA23nt
-	 otr4ZIRZ4Vx8q3JH6QdoGnpDSby/bldRg+dysedrh1SvRUsgwhLHMWSh/uvUADPNed
-	 3aSZ/FboFVv4IMUy3Va67R8JrhxHe5oeNcu0nQK2DB9v8FcIfY4m/+LQqwQlca5qUc
-	 RyXE5EKzBadv2+ValnBkA0UV2nhUT3oLKsgCFgx1LmFOFwj+38yvWRXcVDvQax+HSq
-	 /nJTe6fk23T5UA7TYm+UHy8e0paIKUhnjiut7TddOsIwssU984UKDHGw6m3SCx/P7Q
-	 l27/Hu8jdE4p8hAIFv7iJL3I=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 360CC40E00B9;
-	Fri, 18 Sep 2026 05:54:27 +0000 (UTC)
-Date: Thu, 17 Sep 2026 22:54:23 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Aithal, Srikanth" <Srikanth.Aithal@amd.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	"Nayak, K Prateek" <kprateek.nayak@amd.com>
-Subject: Re: [patch 5/5] clocksource: Rewrite watchdog code completely
-Message-ID: <20260918055423.GCaqzSDxu2xBB-aXK0@fat_crate.local>
-References: <20260123230651.688818373@kernel.org>
- <20260123231521.926490888@kernel.org>
- <20260309154317.GPaa7qlRzYcQY1dBU3@fat_crate.local>
- <87pl5are5q.ffs@tglx>
- <e4a41d43-4d60-4132-aa2d-70e038a3e9dd@amd.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="QyOoXlrc"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I3PU3Q2583830;
+	Thu, 17 Sep 2026 22:55:57 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=r
+	We8Si240QbrqgFU1KotVBvNd4i388rrhWqARcyxb1c=; b=QyOoXlrcGlu4EOBNC
+	WBgMnTbi2M8fwU6KPZHasUkD/x3BuUG2b2cVkzcGE/2A7MQWmqnVYEMai32CUBN5
+	Phuk5ZlsOcMMc7kAK69G0TyLQwYRbeHINaIIvffGQhl12+QpmCf+vp3snvFO6fYP
+	IYKu70HOIFgB+mYPo+km3r3JwNoKgFVatrsztbGP84t8Sxevtnez7UpC5msw4AYK
+	rtUShQsSAysaFu4za/Gi3t/pqNDuN5378gHUPcGx/7HOhBzltigoGfeJycbNm/AW
+	8pvDouALAw81wsHrudVsd00VTZIglyA0bd3QVP1y8POBp73lOUxPI7B702yGnFKC
+	7t5hg==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4grwcjrjsd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 22:55:57 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Thu, 17 Sep 2026 22:55:56 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Thu, 17 Sep 2026 22:55:56 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id B7F8B3F7055;
+	Thu, 17 Sep 2026 22:55:52 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:25:46 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <davem@davemloft.net>, <gakula@marvell.com>, <lcherian@marvell.com>,
+        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <sgoutham@marvell.com>, <andrew+netdev@lunn.ch>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <saikrishnag@marvell.com>
+Subject: Re: [PATCH net] octeontx2-af: guard is_pf_cgxmapped() when PF to CGX
+ map is absent
+Message-ID: <aqzSYu6KduRWM42T@rkannoth-OptiPlex-7090>
+References: <20260915022952.886639-1-rkannoth@marvell.com>
+ <178970941782.22033.17901214089531533321@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <e4a41d43-4d60-4132-aa2d-70e038a3e9dd@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178970941782.22033.17901214089531533321@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA3NyBTYWx0ZWRfXxvRfNTULVq7+
+ +pFCrNiUDIe16hXwXYj7PijQi6WW9mH7g+/WDp1wfe0iE7k8QqaCjytHzBdBfAuTqj76UYPL8aM
+ xoR/LHJdktiP0en59M8nOJyfpW0TegLsq8DoQRrGkQU86oSkf1s9Im3ct//6PU2CgMX5urk1SSI
+ fqInAykHyYqVD7lj5goLjJZrVdxzg88ixd6fHxBTB7rUr5R9v7nUvgO3W0PqNkz9Bl2IqKRjzUE
+ VDJhu244k1J48m8hhBidn4w4a+cNMd4dL7cNWeO/cU4c/sD6ELkTp99vCMgCvYUN9qsEqGQNqV9
+ PHLjMwp6j6zVcfnYhVC3jb/Qc6u5UNdPo9zsb9Z57dMFIg+VakKzds7hTDRcZzG5GlTTxNTVB0g
+ bt75SVOPNSqxYlN1D1fRwKeYidnzt4o7aszpGcNWW2Y6qELhkye01vJClZVqz31X/dIFf6ttA8V
+ zxWptuhqJqkyf4nY6wQ==
+X-Authority-Analysis: v=2.4 cv=bYr+w+PB c=1 sm=1 tr=0 ts=6aacd26d cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22 a=VwQbUJbxAAAA:8
+ a=8DdJMXqlxYccBHa1dKUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA3NyBTYWx0ZWRfXxpMTYLin0o90
+ eqoyD3BEKLgnqL349bc6dkdg1BfytjfcA+BDH9KXeTYxXfjLwzISJvTsRwmT6Y9P2kVzB3kIIqr
+ 3MCFFeSSUhQuMDdQJX3RMoCBscFxKCA=
+X-Proofpoint-ORIG-GUID: t2Ey05JUBUVkElddBAblltZQilMwb48Q
+X-Proofpoint-GUID: t2Ey05JUBUVkElddBAblltZQilMwb48Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
 
-On Fri, Sep 18, 2026 at 09:16:19AM +0530, Aithal, Srikanth wrote:
-> We have been seeing intermittent early-boot guest hangs in our CI for some
-> time. Guests stop making serial progress during the first few seconds after
-> SMP bring-up - no panic, no oops, no other error messages the vm just hangs.
-
-Please enable CONFIG_CSD_LOCK_WAIT_DEBUG and run it again. That might tell us
-something more about what's going on.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+On 2026-09-18 at 11:00:17, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+>
+> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+>
+> - [Medium] The added `if (!rvu->pf2cgxlmac_map) return false;` in
+>   `is_pf_cgxmapped()`…
+Will modify the commit message and will post v2 to net-next as a hardening patch.
