@@ -1,167 +1,158 @@
-Received: from mta0.migadu.com (out-70.mta0.migadu.com [91.218.175.70])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90106485CF7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E526D366806
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718100; cv=none; b=eIxFAN4JDRjtmkO3ai2UYF4dgcpR+pigEejCrAJG1SuvU/XygQrm/TCSb8E2wWxqPZgomxSQdRISI0tRGM1fzaZlAr5/rU8m8NE8n/gCNge1I1fwggD1Z4yn7WEBvcWm9tIpFfEkP/3l9YGO4U9PilPzRP2YIBC96iH0UyXZTw0=
+	t=1789718172; cv=none; b=DhXdgyTo5YwDq8JCfO23bb0elRGMfTnXKujdIBvn6ib7qYoAskBeMlYdan5LkSyR8Sa+/HjDYbDV3KE92cammNjVv9OVM8mHBDY6kJFnsL7dGS4azynDpQ8ARZFbQk9ogCJJorqJIhR7OpM52rBXn/j9jGH8o1jUEnzspM9nbV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718100; c=relaxed/simple;
-	bh=w1C6Uq5LGLS5v5+hUhhr7wym9SsyY1oKg1mT464GIeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SsJGqxsPYKC6zXPIqz92T8QEk3Q3ihI4w/VyDY5fVhdCcacjiV/436LZFq7x+UmEz0aKPoHXrCCGBuVGB5eVNwIeiU5uoOcp8TQUJVbNHjbZJEgqkl+jKy6UFtrWDGMMfeHpjdI/kw8cpv0Zo5M7fVbTbUwuStxPaSActcYz8PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cQTyQpN7; arc=none smtp.client-ip=91.218.175.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789718172; c=relaxed/simple;
+	bh=E5lJFa48JLe3JtulsGSEAqeCO2Wce69bO6my0/dJXaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QESvzwD4rb9or1fWjdwyMmkQBMaEvFS5TBSmke5XDNvGNmYzWS5LLQ4dpeOd8M8Iu8AZXeCUQlQzWVXu22JSxsrWqy/dRI4W2Og8cI0qJ22b1YMwuzPs4djx2AhMPJcG47TCvFP99Ku7syjxQ7NnHilkpJVwStNm1tiJFtzAQk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HeIwTZlW; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cQTyQpN7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=w1C6Uq5LGLS5v5+hUhhr7wym9SsyY1oKg1mT464GIeo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789718096; v=1; x=1790322896;
- b=cQTyQpN72GWh0vFSP2OSSt6OoeLakd/ZFjqWUqc1nDBXGR9zWWRQY06J5rh0UbilUNacd91L
- F3G0c+rlbShg36Rvo036m6CEVa69aFhh/lsy8ZZlyrfMz+5viDApJz7MxT8J9PiA6S061DCLYQJ
- YoLnqz8tCr2yoVDATrSIr4e0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id ea360a8e458d95f5;
-	Fri, 18 Sep 2026 07:54:56 +0000
-X-Mizu-Trace-ID: ea360a8e458d95f5
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 15:54:48 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
-	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
-	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH v6 04/10] crash_core: serialize crash header preparation
- against hotplug
-Message-ID: <aqzuSJKR03zEOCan@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-5-chenwandun1@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HeIwTZlW"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so415970a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:56:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789718170; x=1790322970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yn5DIqQw4q6rC7tHkuAinbNEk6nv+wVGhTyoKH5xIz4=;
+        b=HeIwTZlWILDeufklzoptdsOj1F9yRTeRz7F/1qtWhAIo2WreN7eNzC6Ep2OMafAsne
+         MHDK6QoMmov7zBdZekQ627nhezJxTlakqfNbF9r0CYr1REiq+oXeq8y0CtiF8I5sU6KB
+         e+3TK8cV5bhS98ACLWjHBAcJ+m1jioS3LbZN/FeU+QvfG+zCnbLQuFp8Aa6a7MWiUrDN
+         qSKBv2qMu8QEIjiVPqmUW7lH8i6vSTOESfXwm4mqGf7A68XT0LlhWsDTBeSLIP4+ldP1
+         IVSHtjXTCwei38sCi+BSgirpTorM4S4ubc1vBntDiU4exZdvMpLF5MLK5pOKxq2D6dMl
+         Qv0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789718170; x=1790322970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yn5DIqQw4q6rC7tHkuAinbNEk6nv+wVGhTyoKH5xIz4=;
+        b=HUoi4CsNBOuZXfjtMIjNFwEFvWkjvyyUcdU/uAIJ3hKVHfju4Z3b46O2I2QSFUJ8kP
+         FGOVawhNSY9DcLIWVWAZLxoQWCJhePDxryFLGKFGaBnJeZwdsPp0MQMRD4jJf2BWcBYh
+         GEeiC5lUTxnQfHVKCYl8WfdosDQ1kEZGE4b4F02EcCfJc+jSwU2w3zGQENRyP5l774f/
+         BkrlhsgGpga3erYzmODyOlKFKAgFK/D8IXG4wZu26Ldh9+sqmUZdFHqGylryrQtauIie
+         MarXEh81TjsUEocu9hoEkxfFCRbA5piZsELzXOo+cfRFFNfHZhR53utP2G/EFgGr4Te9
+         9aUg==
+X-Gm-Message-State: AFuF++lzLx+msm2WL/D33Wk2iHD40ufDVLTIVK4XnLh7k92+fAkBQduN
+	IqI1Ir6DklRzG0GTkARL6Zy1WgGABrXffXXKYTDk15A0cwv6eRUwgL0B
+X-Gm-Gg: AYBFou3znanVyciu/bWoKeMZSE+r9L5ErhXH8g5r2kWEN6WpDkPmiuubrysa3jRrDz6
+	3M8ObYAIFjz61mCdaVk6v4sPW9J6eJTxhirdvjingqmaQki2Ya61hFm6nncV3AndY055dExTHRh
+	BIWudpuEmNv7R3vawlMl0mnOUJUIX5tebdz5R9imS89G5S1VeRvvm01nlHEzRRlNIXfQG+FguRW
+	fj02N8G0lgqjQ5Tw13PLgPm35yI1w/1kG/P4lhEstz+1F7T3nLOjDfXjzW+Ip6o+lJ5A3m4wtsp
+	vh9pPiG9X2yGO1avCI3GlirHPg48clWvRSae4Sbt5j5+SuzT+MrErSesjf8eVuBzKlSi60SrA8e
+	y5D4dgQuyYsQ1e/P3XOGIJ5L4TAZO4Ac/U7ltrxyVisBH4fKcv1fglX8xiEIKtiklhUKs4SpHPw
+	9n7n2TcF4tq8kkGVj9IsZbkkA/7hbNdDNsSOR6L9JoOPK0wX6cduld0G4rwJoxPFAuQvbPjF0zk
+	G0HpNV9yfKPMsmpJ4myys77ox5cX0vR
+X-Received: by 2002:a17:90b:4e8c:b0:39b:2c55:365 with SMTP id 98e67ed59e1d1-39e54b457a8mr4076007a91.12.1789718169851;
+        Fri, 18 Sep 2026 00:56:09 -0700 (PDT)
+Received: from thangnn-Dell.vingroup.local ([202.60.105.126])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e36116884sm9214715a91.6.2026.09.18.00.56.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 00:56:09 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v2] Bluetooth: af_bluetooth: Fix double list_del and UAF in accept_q
+Date: Fri, 18 Sep 2026 14:55:35 +0700
+Message-ID: <20260918075535.886816-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902073116.802752-5-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> crash_prepare_headers() counts memory ranges before populating the
-> allocated crash_mem array. The weak implementation used by ARM64,
-> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
-> two-pass operation over system RAM resources. Concurrent memory hotplug
-> can change range source between the two walks and make the populate
-> pass overflow cmem->ranges.
-> 
-> Take device_hotplug_lock when preparing crash headers during
-> kexec_file_load(). The x86 memory hotplug path already takes
-> device_hotplug_lock, so call __crash_prepare_headers() directly
-> to avoid recursive locking.
-> 
-> Sashiko reported this issue in [1].
-> 
-> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
-> ---
->  arch/x86/kernel/crash.c    |  2 +-
->  include/linux/crash_core.h |  2 ++
->  kernel/crash_core.c        | 17 +++++++++++++++--
->  3 files changed, 18 insertions(+), 3 deletions(-)
+bt_sk(sk)->parent is a raw pointer with no refcount backing it, so a
+child sitting in the listening socket's accept_q can outlive it. When
+the child's channel is torn down independently (e.g. hci_error_reset()
+-> l2cap_conn_del() -> l2cap_sock_teardown_cb()), bt_accept_unlink()
+dereferences the freed parent, corrupting its accept_q_lock and list.
 
-LGTM,
+Additionally, if multiple threads concurrently tear down the child
+socket, bt_accept_unlink() can be called multiple times. Without
+checking if the socket is still in the list, the second thread will
+perform a double list_del_init(), causing list_del corruption (kernel BUG).
 
-Acked-by: Baoquan He <baoquan.he@linux.dev>
+Fix this by:
+1. Taking a reference on parent in bt_accept_enqueue() and dropping it
+   only when actually unlinked in bt_accept_unlink().
+2. Checking !list_empty(&bt_sk(sk)->accept_q) inside the accept_q_lock
+   to prevent double unlinking.
+3. Moving sock_put() outside of the spinlock to avoid sleeping in an
+   atomic context.
 
-> 
-> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> index e681ec9cf1dc..284d78bc3fd0 100644
-> --- a/arch/x86/kernel/crash.c
-> +++ b/arch/x86/kernel/crash.c
-> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
->  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
->  	 * memory resources.
->  	 */
-> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
-> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
->  		pr_err("unable to create new elfcorehdr");
->  		goto out;
->  	}
-> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-> index bc087124cd78..28e7a81cf263 100644
-> --- a/include/linux/crash_core.h
-> +++ b/include/linux/crash_core.h
-> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
->  				       void **addr, unsigned long *sz);
->  extern int crash_prepare_headers(int need_kernel_map, void **addr,
->  				 unsigned long *sz, unsigned long *nr_mem_ranges);
-> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			    unsigned long *nr_mem_ranges);
->  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
->  
->  struct kimage;
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 77285ae3ce60..3adee1ae120c 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mm.h>
->  #include <linux/cpuhotplug.h>
->  #include <linux/memblock.h>
-> +#include <linux/device.h>
->  #include <linux/kmemleak.h>
->  #include <linux/crash_core.h>
->  #include <linux/reboot.h>
-> @@ -338,8 +339,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
->  	return 0;
->  }
->  
-> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> -			  unsigned long *nr_mem_ranges)
-> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			    unsigned long *nr_mem_ranges)
->  {
->  	unsigned int max_nr_ranges;
->  	struct crash_mem *cmem;
-> @@ -376,6 +377,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
->  	return ret;
->  }
->  
-> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-> +			  unsigned long *nr_mem_ranges)
-> +{
-> +	int ret;
-> +
-> +	lock_device_hotplug();
-> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
-> +	unlock_device_hotplug();
-> +
-> +	return ret;
-> +}
-> +
->  /**
->   * crash_exclude_mem_range - exclude a mem range for existing ranges
->   * @mem: mem->range contains an array of ranges sorted in ascending order
-> -- 
-> 2.43.0
-> 
+Reported-by: syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=534002670dd34a114fdc
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2:
+ - Add !list_empty() check inside accept_q_lock to prevent double list_del.
+ - Move sock_put() outside of the spinlock to avoid sleeping in atomic context (suggested by Paavo Helde).
+
+ net/bluetooth/af_bluetooth.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
+index 411d66f24393..7797b1052808 100644
+--- a/net/bluetooth/af_bluetooth.c
++++ b/net/bluetooth/af_bluetooth.c
+@@ -224,6 +224,10 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
+ 	else
+ 		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+ 
++	/* Hold a reference on parent so it cannot be freed while sk keeps
++	 * a raw pointer to it via bt_sk(sk)->parent.
++	 */
++	sock_hold(parent);
+ 	bt_sk(sk)->parent = parent;
+ 
+ 	spin_lock_bh(&par->accept_q_lock);
+@@ -257,15 +261,24 @@ EXPORT_SYMBOL(bt_accept_enqueue);
+ void bt_accept_unlink(struct sock *sk)
+ {
+ 	struct sock *parent = bt_sk(sk)->parent;
++	bool unlinked = false;
+ 
+-	BT_DBG("sk %p state %d", sk, sk->sk_state);
++	if (!parent)
++		return;
+ 
+ 	spin_lock_bh(&bt_sk(parent)->accept_q_lock);
+-	list_del_init(&bt_sk(sk)->accept_q);
+-	sk_acceptq_removed(parent);
++	if (!list_empty(&bt_sk(sk)->accept_q)) {
++		list_del_init(&bt_sk(sk)->accept_q);
++		sk_acceptq_removed(parent);
++		unlinked = true;
++	}
+ 	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
+-	bt_sk(sk)->parent = NULL;
+-	sock_put(sk);
++
++	if (unlinked) {
++		bt_sk(sk)->parent = NULL;
++		sock_put(parent);
++		sock_put(sk);
++	}
+ }
+ EXPORT_SYMBOL(bt_accept_unlink);
+ 
+-- 
+2.43.0
+
