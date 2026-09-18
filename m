@@ -1,170 +1,196 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E233514776
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E8E4973B9;
+	Fri, 18 Sep 2026 16:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748181; cv=none; b=r01l1pxRshPhLNcpP8ac/57UctG8Do93Vq6QbpQMXn2N9tiCj3OsYZJg8CDj4t90I6/XyML/oLgP279/hQ0CMsVMEYTfbc+Dk6RBji9xPOJ0WDxjt9Swnbru3bb+KnUz3tZrpNKHgcaPbHKfn2PjoquS0X2627gJkvkTAoGx5sE=
+	t=1789748319; cv=none; b=OQdmvpM96XOh09DcBBSL3SodenFZbxme2IZMrrscOB6UIp50DFLCjCK2QiUlMEcNgTqFq8nXHi4EoKBybsuk15QnHrudu4odOCtRPmIt+lcdnkbP33hoYjwAExE8LwGljzXCu/vFMp4Z2LHi61Bzx63Vyn6eZkGbMkuV2NkeE/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748181; c=relaxed/simple;
-	bh=RVsUQU/Ro7R2F4xpGYXv0UWITAgZwghcEwzYUcts//o=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BqxsxK/7ygOa/2/N4hOC3BA4LcpFSHbhjl6GgAQV9yd2pfvMUY76Oqhmg96YsnjTHSuXpTcn8f9t+D5Qhjbbfw67luqJoR6sP+rC8bZpCzpUjMQJZY9Pr3NsLektZRWTeFI78j+vZriEeSQcohcmg7brPmnB7qjV+J9Pt23TMbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o0w/Xvls; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789748319; c=relaxed/simple;
+	bh=a5xY3F5hJTZZ2dhneKi/TS8TliENLtPR+poXokB0mFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dIbxfIJaWioG+hF/Xav27TEcI8mBVSHcSzZAfPUqACxI29WrJaPnAm5ddXEzPHJ4vp6E9CBRHLjOGjDmgj0B9TWo6qPUfdrr7rOKkrpOwl5a8+TQEX0rkagpI+KO3+9xhvdde3k2aSBO3wnzMEbAGHnvSqwtXyXEY8f8LjAUxIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCjvW0JL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o0w/Xvls"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so1863514a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:16:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789748179; x=1790352979; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GRTs38TMbxGOFAG8NUirRaUDwmENku4BcrpfCubKTX8=;
-        b=o0w/Xvls2Fx6cnvUxr3muRO2BR/rjtrybIlG2kxL71F3AddNHRGD5cdJNR51DSNP10
-         YbQzVgIqQZMt36grV9xGeNDB/1RipWwsT2b0Cp9xkJoeF8mNCrTMSJtMLA4vPq7wPfRE
-         j8I60BIhFP88PKe7uiEvGlCpchCaY0nRMWMZH/4J+K7NZ/r9ipmjdYJxs6+CtRF+TbW0
-         3YUrAouyM6PN9NAjlf9KnPEnhPF+oDNqCxYar/mAMVgzifL/O7PNIsmQ5G+sHjWMjH5z
-         Yp3M99Y0ets7daTuEyhyS77CBJmyr9eq24XMau2Coa964dSYxIBnaJjJWF7+d77S+8WE
-         lk2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748179; x=1790352979;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GRTs38TMbxGOFAG8NUirRaUDwmENku4BcrpfCubKTX8=;
-        b=E3y634zzXTd12yApNgkUec8Q8bLGiZCjPT9fEbaPF68tijp5+/tq90m1E1L2DbfYD2
-         ugeP1lPM1dgH3op1DQfteluu522yaw7IWq0KiIQEdQ7soNzWTpFeP63oW+BxlXji6vh9
-         RVqPP/FZZwFbOqIq7bAxmxl+npiPLa+F4b/qC126jyy2gKQ101yE0cYHys5EUB2yml4l
-         1VnLLleR31U0b0+xk/9pH/o7QD0MZMASm6RzwBBTvj+YN/QR2ADbFvYGHlTkgOl/JIO4
-         14+JzLbPF7WHeB7EPQlR5/BkHTk/2DddZsra2gR1+qa6WN0HJI1S2XCsM//WpbMZYNvs
-         R6xA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwg8lEijdndrn79sdEbTAgWClP3pcF3m3wD1zAvuRfDj6ezq9KCw/DR6x654yBNU9FgTgM1rV2hpO0W7U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpAq1+zF8pqavLkKyZTVjUuHrUgBLsiKig6kVO+LCElJ6u2Qxe
-	hCNGHioEsy0C5abSlzZub3YDEcUUD1pg50gDkbhxo5HojFXt3NRiWd2t/Siitcul/xG3tE4CGJt
-	9yb5a3g==
-X-Received: from pjbmg8.prod.google.com ([2002:a17:90b:3708:b0:39d:b566:bcb6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2243:b0:39d:f770:774
- with SMTP id 98e67ed59e1d1-39e54c9c1bamr6325374a91.20.1789748178634; Fri, 18
- Sep 2026 09:16:18 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:16:17 -0700
-In-Reply-To: <20260918160006.61816-1-absandze@amazon.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCjvW0JL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF0861F000FF;
+	Fri, 18 Sep 2026 16:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789748317;
+	bh=AtP45Vc9PjcrbxAfypTuhGfztdb/0M88gKRbEhBnpgM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lCjvW0JLwlPE9FJ9dsR0IX1u95tD5JK6GbFzV0Qh1Ed6WL48Atvk2tVsXSv+ynpkJ
+	 jnfLtToWyHtwZea/NQfb0UzJl1diPp4/pa1Krtm5+TSmHFyf6c8rCJgPt5ZC2I2M3v
+	 wRzrkorxyaCDuspkkGp0tTwrY0H/ASSAb6lDXcjnq1MGQcqJD1+NwWrkXiAvbCt1pq
+	 Gs9vsvGXFpJwenRXGfth4C6HIFrMGnET7QUxwHhDQxGkfRlDyrjrvX2xJnMqDIyCK4
+	 HBPkBoOWV1mAcL1xn5iwNbnicF0Ob5NsC5SQQPm+4l/qq/BNgXSCZVAG4og1f7GqJT
+	 k6IOAQERUfd2w==
+Date: Fri, 18 Sep 2026 18:18:32 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Ruzal <daminovruzal7@gmail.com>
+Cc: jikos@kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
+ touchpad
+Message-ID: <aqwUYWPz_nORoFr6@beelink>
+References: <20260814171247.16707-1-daminovruzal7@gmail.com>
+ <20260819123326.3242-1-daminovruzal7@gmail.com>
+ <aquWNXpJuQr8HLBU@beelink>
+ <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918160006.61816-1-absandze@amazon.de>
-Message-ID: <aq1j0aUKpr15AiqS@google.com>
-Subject: Re: [PATCH] KVM: x86/pmu: Don't retry a counter whose config was rejected
-From: Sean Christopherson <seanjc@google.com>
-To: Luka Absandze <absandze@amazon.de>
-Cc: pbonzini@redhat.com, sandipan.das@amd.com, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
-	hpa@zytor.com, dwmw2@infradead.org, kvm@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com>
 
-On Fri, Sep 18, 2026, Luka Absandze wrote:
-> kvm_pmu_handle_event() re-arms the reprogram bit for every failed
-> reprogram, on the assumption that the failure is transient and a later
-> refresh will succeed.  That is true for contention, e.g. the -EBUSY from
-> x86_reserve_hardware(), but not for a configuration the host PMU driver
-> rejects outright.  A rejected config can never succeed on retry, so the
-> counter is reprogrammed on every PMU refresh for as long as the guest
-> leaves it enabled, and every attempt fails the same way.
+On Sep 17 2026, Ruzal wrote:
+> On 9/17/26 10:30 AM, Benjamin Tissoires wrote:
+> > Hi,
+> > 
+> > sorry it looks like this one fell through the cracks.
+> > 
+> > On Aug 19 2026, Ruzal Daminov wrote:
+> >> The Goodix GXTP7863 touchpad controller (VID: 0x27c6, PID: 0x01e0)
+> >> found on Honor MagicBook laptops (e.g. FMI-76 / X14 Plus)
+> >> was missing from the mt_devices[] table.
+> >>
+[...]
+> >>  
+> >> +	/* Goodix GXTP7863 Touchpad */
+> >> +	{ .driver_data = MT_CLS_WIN_8,
+> >> +	  HID_DEVICE(BUS_I2C, HID_GROUP_ANY, I2C_VENDOR_ID_GOODIX,
+> > 
+> > I'm puzzled here: HID_GROUP_ANY? How can this even be working with hid-multitouch?
+> > 
+> > Are you sure the touchpad part is not already handled by hid-multitouch, but only
+> > the telemetry/phantom event gets assigned to hid-generic?
+> > 
+> > Can you share the report descriptors of all nodes with hid-recorder so I
+> > can understand why we suddenly have to map to non multitouch devices.
+> > 
+> > Cheers,
+> > Benjamin
 > 
-> Skip the re-arm for -EINVAL, one of the errnos the x86 PMU drivers use
-> for a config they will never accept.  Note this becomes reachable on AMD
-> only with the patch linked below, which starts rejecting the Merge event
-> (PMCxFFF) a guest programs as part of a Large Increment per Cycle pair;
-> on Intel it is already reachable today via the INTEL_FIXED_VLBR_EVENT
-> check in intel_pmu_hw_config(), where the config is likewise a function
-> of fixed guest state and can never start being accepted.
+> Hi Benjamin,
 > 
-> Link: https://lore.kernel.org/all/20260916123315.89042-1-absandze@amazon.de/
-> Signed-off-by: Luka Absandze <absandze@amazon.de>
-> ---
->  arch/x86/kvm/pmu.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+> Thanks for pointing that out. You were completely right, and I apologize
+> for the inaccurate explanation in my previous commit messages.
+
+no need to apologize, we can make mistakes, and that's our job as
+maintainers to catch them :)
+
 > 
-> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> index a7d60c8785cd..b9945a6256ed 100644
-> --- a/arch/x86/kvm/pmu.c
-> +++ b/arch/x86/kvm/pmu.c
-> @@ -680,8 +680,14 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
->  		 * reprogram bit, i.e. opportunistically try again on the next
->  		 * PMU refresh.  Don't make a new request as doing so can stall
->  		 * the guest if reprogramming repeatedly fails.
-> +		 *
-> +		 * -EINVAL means the event's config was rejected outright and
-> +		 * can never succeed on retry, so don't re-arm; the guest can
-> +		 * still do so itself by rewriting the event selector.
->  		 */
-> -		if (reprogram_counter(pmc))
-> +		int r = reprogram_counter(pmc);
-> +
-> +		if (r && r != -EINVAL)
->  			set_bit(pmc->idx, pmu->reprogram_pmi);
+> I re-checked the device binding: the touchpad is indeed claimed by
+> hid-multitouch out of the box under HID_GROUP_MULTITOUCH_WIN_8 (using
+> MT_CLS_WIN_8). It was never claimed by hid-generic.
 
-Hmm, would it instead make more sense to explicitly check for -EBUSY?  -EINVAL
-isn't the only fatal error code.
+Well, I guess it was the first time you started the laptop, until
+hid-multitouch gets loaded.
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index a7d60c8785cd..5296ee8f32af 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -681,7 +681,7 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
- 		 * PMU refresh.  Don't make a new request as doing so can stall
- 		 * the guest if reprogramming repeatedly fails.
- 		 */
--		if (reprogram_counter(pmc))
-+		if (reprogram_counter(pmc) == -EBUSY)
- 			set_bit(pmc->idx, pmu->reprogram_pmi);
- 	}
- 
-Though I guess one could argue -ENOMEM is also transient?  I definitely prefer
-an "allow"-list though.  And I find it easier to read if 'r' is declared outside
-the loop (and less of a chance of variable shadowing; the odds of returning a
-stale value are quite low given there is no return value, and probably never will
-be a return value).
+> 
+> The actual root cause is that MT_CLS_WIN_8 sets `.export_all_inputs = true`.
+> Because of this, hid-multitouch exports the vendor application collection
+> (Usage Page 0xFF01, Usage 0x01, Report ID 8) to an input node.
 
-E.g. this? (completely untested)
+Actually, it's even worse than that.
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index a7d60c8785cd..03a470c49a74 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -662,7 +662,7 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
- 	DECLARE_BITMAP(bitmap, X86_PMC_IDX_MAX);
- 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
- 	struct kvm_pmc *pmc;
--	int bit;
-+	int bit, r;
+Because some vendors are not using standard HID usages, we do have a
+`HID_UP_HPVENDOR2` definition of (Usage Page 0xFF01). And hid-input.c
+considers that this is only used by HP laptops/keyboards, and then we
+have some fancy mapping of non standard usages.
+
+The real fix would be to actually ensure this mapping is only triggered
+for:
+- keyboards
+- HP platforms
+
+But, there is always a but, `HID_UP_HPVENDOR` was there since the origin
+of time (git conversion IIRC), and `HID_UP_HPVENDOR2` appeared in 2012.
+
+We do have some info on the affected devices (VID/PID) but nothing else
+like the report descriptor. So it's the typical case of "damn, we can't
+fix this without possibly regressing a lot of existing hardware".
+
+> 
+> As captured in the hid-recorder trace below, the firmware sends a 1-Hz
+> heartbeat packet on Report ID 8:
+>   E: 000000.000000 30 08 ab 00 00 2a ...
+>   E: 000001.006503 30 08 ab 00 00 2a ...
+>   E: 000002.012748 30 08 ab 00 00 2a ...
+> 
+> hid-input interprets these changing payload bytes as key events, resulting
+> in the endless KEY_BRIGHTNESSUP autorepeat loop.
+> 
+> So, adding the device entry with HID_GROUP_ANY to mt_devices[] is indeed
+> completely redundant. The only thing needed is to ignore the 0xFF01 vendor
+> collection so that no phantom input node is created for it.
+> 
+> Here is the report descriptor and event recording from hid-recorder:
+> 
+> # GXTP7863:00 27C6:01E0
+> # 0x05, 0x01,                    // Usage Page (Generic Desktop)        0
+> # 0x09, 0x02,                    // Usage (Mouse)                       2
+[...]
+> # 0xc0,                          // End Collection                      624
+> # 0x06, 0x01, 0xff,              // Usage Page (Vendor Usage Page 0xff01) 625
+> # 0x09, 0x01,                    // Usage (Vendor Usage 0x01)           628
+> # 0xa1, 0x01,                    // Collection (Application)            630
+> # 0x85, 0x08,                    //  Report ID (8)                      632
+> # 0x09, 0x01,                    //  Usage (Vendor Usage 0x01)          634
+> # 0x19, 0x00,                    //  Usage Minimum (0)                  636
+> # 0x29, 0xff,                    //  Usage Maximum (255)                638
+> # 0x15, 0x00,                    //  Logical Minimum (0)                640
+> # 0x25, 0xff,                    //  Logical Maximum (255)              642
+> # 0x95, 0x40,                    //  Report Count (64)                  644
+> # 0x75, 0x08,                    //  Report Size (8)                    646
+> # 0x91, 0x02,                    //  Output (Data,Var,Abs)              648
+> # 0x09, 0x01,                    //  Usage (Vendor Usage 0x01)          650
+> # 0x19, 0x00,                    //  Usage Minimum (0)                  652
+
+Technically, we could simply convert these 0x01 and 0x00 into 0x05 and
+this would make the mapping ignored by hid-input.c
+
+However, when changing those bytes in the hid-recorder output and
+replaying the device this creates a 10 seconds freeze on my desktop
+because some component is not happy about the empty input node it creates.
+
+I'm trying to investigate what is going on, without much success. I'll
+continue working on it on Monday.
+
+> # 0x29, 0xff,                    //  Usage Maximum (255)                654
+> # 0x15, 0x00,                    //  Logical Minimum (0)                656
+> # 0x25, 0xff,                    //  Logical Maximum (255)              658
+> # 0x95, 0x1d,                    //  Report Count (29)                  660
+> # 0x81, 0x02,                    //  Input (Data,Var,Abs)               662
+> # 0xc0,                          // End Collection                      664
+[...]
+> 
+> Would you prefer handling this by simply dropping the 0xff010001 collection
+> in mt_input_mapping() in hid-multitouch, or should this device quirk be
+> implemented via HID-BPF instead?
+
+So:
+- mt_input_mapping() in hid-multitouch -> probably not. Having such
+  quirk in the hid-multitouch code would be better handled with a proper
+  quirk, not a random check in mt_input_mapping().
+- HID-BPF: so far, if it weren't for that 10s freeze, I would have said
+  yes, go for it. But right now there is something fishy in the code
+  that creates empty input devices that are not properly cleaned up by
+  hid-input and that messes up userspace.
  
- 	bitmap_copy(bitmap, pmu->reprogram_pmi, X86_PMC_IDX_MAX);
- 
-@@ -676,12 +676,14 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
- 
- 	kvm_for_each_pmc(pmu, pmc, bit, bitmap) {
- 		/*
--		 * If reprogramming fails, e.g. due to contention, re-set the
--		 * reprogram bit, i.e. opportunistically try again on the next
--		 * PMU refresh.  Don't make a new request as doing so can stall
--		 * the guest if reprogramming repeatedly fails.
-+		 * If reprogramming fails on a transient condition, e.g. due to
-+		 * contention, re-set the reprogram bit, i.e. opportunistically
-+		 * try again on the next PMU refresh.  Don't make a new request
-+		 * as doing so can stall the guest if reprogramming repeatedly
-+		 * fails.
- 		 */
--		if (reprogram_counter(pmc))
-+		r = reprogram_counter(pmc);
-+		if (r == -EBUSY || r == -ENOMEM)
- 			set_bit(pmc->idx, pmu->reprogram_pmi);
- 	}
- 
+Ideally we should fix the generic mapping, but that has a strong chance
+of regressing existing HW, which is a PITA.
+
+And to add to the bucket, when replaying your device, I see that fwupd
+is trying to communicate with the device, so we should be sure to not
+break this as well :(
+
+Hopefully I'll have a better understanding next week.
+
+Cheers,
+Benjamin
