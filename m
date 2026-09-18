@@ -1,237 +1,244 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF08395ADA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704316; cv=none; b=FwRVeyPCqv7blB1orxmBlK9lt8fcmk2EolGiOQKbD8eHF5pmuw9U8VKZ12xfWvBuxuQgEU7PRTkHcbiDCsSMFa6TiPcK3FlS7E3Xv7RVwGHysBYYVazv8ftVWpkVVP3V0EjNcN5TZSSj1ecYUoaWPgB2wONM3nOtd7ZfgqDogow=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704316; c=relaxed/simple;
-	bh=DbHpwwZHwcETFHq7bJfxk4QzBcPRR3fpqfQprJCF1z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MZ1tbAqCUPzIfstkANxSdV1b5zIHQpNRqCqDCX/PBUyZp+1QYC3nHqC1we821O9/KaO52xdjttkmEpGb32rrax5VS84DYI0erQQfZVnv8nVmO3Y0mTIg+NZrjLjCu7hMpEll31Fdx0TzrAxJ+lJo3xGqXEuwTALpd3JsTI5vRGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lrobaThB; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB12B30BB8D;
+	Fri, 18 Sep 2026 04:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789704354; cv=fail; b=dChetyk8jmrrJzUlghtQL2MRVyhu9OyQvYCp9Rqa+ZLwARYFzASbsUyG8KCaMAd8YjN9DlQcBepVSAX3uIAMXBxTpKZxhQNOaipKrKm/PSRgWVjuilkLONoqOv3KL/UG1XMjh133H/RxGxcaLi2FBUt1/By7IU3mO/oX6XerM0Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789704354; c=relaxed/simple;
+	bh=2MILFJsiDrqCv2NswIkwxbniXNZRf0yfl6c5mwpQUFs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=LUKYwa3gTO569D7t/tlqcEWUJfdH/AF1JxJNtM1SlF63sTOURQOFolfh6KGQ6bCl+pDsX7D0rz3Jzrxijx/VBke8EB6RF/Pvawdh/H5IFbLtbnJLVM7KyLyusEoa+7vua3UHquWu4Icpy6MAa6Uim7ht+SAZQU3Go0/au5+GDyw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=h/6Zfr2y; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FgzYCVFy; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lrobaThB"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so216075a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:05:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789704313; x=1790309113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ugi6RUPBClqMIR7An2++qau8YtbA8aE1nyg7UAqNky4=;
-        b=lrobaThBqmkmmwQD3sN0GGF26ayUVmjraBdBz/k6NBZNnzxTFZ/jm9f94Wwkmeg+wa
-         g/bhy8hI09cnkqQceGTtzL1qaFgCal/wHcQPvGjKTBuDfdTrzWv4g1cRUHzoNHH8epBU
-         C7xi/NeJ3YR5EF5RQhmThb5sWiYZxV7pooNg/GxgWluuowG8NnDKxgxq6//SOM16kmjn
-         jPYH3ebj/gaglbKn3Jy2tpHw6iCmxpuQxgZxO30CV4wvVrqe9yMszTJo4S0D40ts0bsq
-         2h2g9mslLw26JHLRC6Dx9xG5y5OCq/BHs3sB/0eO9ZkaVS0I4hU0wMY7XvJoUQcx3JIu
-         wpBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789704313; x=1790309113;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ugi6RUPBClqMIR7An2++qau8YtbA8aE1nyg7UAqNky4=;
-        b=qD9poRhU4h4ErGm3xHsOpYpNwUv3ZEwvfdprk5rmKZBU6DqTtJQzyaI3W4x8IOyIg5
-         hAZxupEDuCkEYSH9kywTjtltZ2Xl8575o8B535SHBhl9tJV67L7I6h/yMxI6F639jHZ0
-         JQGeFC8YwfVfRdbgWzMSnd5h1OqrlJbkcwzcQPSWaB04U9L5mrx80k8jAVhTp+FRoMth
-         kxjbft5iuD36wdGRF2JbCdq3a3Gw5p0kNYeGR9w/GnlzZTCQXgJSo+BWqasdB8jeaQ5L
-         6WqawLdrfvsrDboRW7XH8Uk1gkSXem1Cj/5pC59EhkO/cgOIuyhoMfmmb8nqw4NS1od0
-         nMhg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/h6R7HGWx7qbx4tS7nIO0FM92xYFqrDY0DnsgN/rbuHIkJslrpkcYue8GsaamlZ1K6U2bpz42ZGqQ2xI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIamvQ44916TNQL+ALtq2mjkEdEa23CE8FgAX/1e40+VGlSLlK
-	LRc9ipEmLVu8N6ccsVXLtP9W++9AsJfRgEHTtq5OuIWP9CcKVLkDQD96usx5G7vF
-X-Gm-Gg: AYBFou0IRYjFf0iNl4TkofacjGBC6goj+y/3Z0SppNZusCF+7CsrUui1RyeQPbFvcbO
-	UlT3oKE7g25vyyfhJgQ5ZHuTeGT/QdI+bFyH9GWe9VeUcpjL062l5lJy0jKxmW9KXtK20mEz+2t
-	E/GLAuX9Isq7zF/G0uCNMiQwyn43+mMtRJQMJphhmky73utUBkuFVNkG7xBuyYiI0u4qhQD3dQn
-	UulczEcX8IYaF2AmXzqjTgP7+fDCf03YaUg4M5oqCZmd71F4c1ddSqBfntnwh08Def7MgYlr4LL
-	qDg+LSGQlBz09LXIzpnfPh0omDkRoiVziBML9CeDWhi4Q0a/CLtIP5emwdco9XKBUrTDKdGJQB5
-	/H0+2yhfKbmpQcIxXc4R0NTP1edxzb6QEmdmPzOPoRPTugDyzzqHZ/hbnckk5y5KB324bAMmpQe
-	27zcOy07A3Vu2rLuZQJDsvQVVP5WaQQudQgkAmX3/y4s5eM8ld5Y9EpZsRoSuCJIZHk32xnniK5
-	ygePt/Rg3TXLCi5mJzhWYmS68N6Puiyd9YkUC6L04XH1djf16Hj/Hs6tj4cDz4I9EqTk6Pg7z0s
-	6anU949aDxpVcmiB8gCpxMQp8IR/OVS+O55HlYFuKWaiOOg=
-X-Received: by 2002:a17:90b:518c:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39e54e3f439mr2781326a91.16.1789704313097;
-        Thu, 17 Sep 2026 21:05:13 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.59])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce065314sm1155861c88.14.2026.09.17.21.05.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 21:05:12 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com
-Cc: sashiko-reviews@lists.linux.dev,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [PATCH v2] vhost-vdpa: drop the parent's vq callback before the call fd is released
-Date: Fri, 18 Sep 2026 14:04:36 +1000
-Message-ID: <20260918040436.47982-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907173931-mutt-send-email-mst@kernel.org>
-References: <20260907173931-mutt-send-email-mst@kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="h/6Zfr2y";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FgzYCVFy"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VG7Y3382663;
+	Thu, 17 Sep 2026 23:05:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUm
+	bM=; b=h/6Zfr2yvCdlwqKa1//LbZ69wxSTCqjLTl7ozUyoilAt6BB0Lun0bs7Lv
+	v9PuiKCChYFU4Xyfg8SuOdWoVXwFZHp78obmBMhbaWm+2JKbNDLq60XvP21SclzN
+	Q72zBmwvv4bMominbs1y838YCDs5ZbOKm7e9Swm4oPqWOVygYtyZOHUqtQS9skSW
+	K/5JXM/CjqvAEiUhVPXJNWn7LalOQIYPPzmk/5xoRo7teKUSaeKKdEVA8YDSF+r6
+	BhizbKPWX7+nlzlCmCSiCAKVSLl9Xo8uvGYDGskr/zMmkxhTmjUW5JCrdH/864Cf
+	XFeegI+gGIEWEEgmJH5Bl71DjY8nA==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4grqn028ur-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 23:05:46 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iX9XZAvLDR5TAh8eJ5t2vbIDbUka6lYl1zuegZtNDq7o0p5MmsUoUvrzELaWw/zqnPDfdj3UVua9AeLT5ltD5p9DTmIdLc831fSqpIluRsCD023q4WY/KE1FaG4dS0kdmJnqdgMNdG0EW3JlHicyI4mCx2lIhdeW/R15fK80GACdns9waCLIEM2+oSPaWaM/sy9vygNUznVeVo6Icw3Lghp/rf176lYBCXuF+pNkun5iKKa9NdcZJJRbg+uDCwQN9zoCiR297UmanFxPO1jgoj3eIUeAqGOZ8T9YZFDNb9mAvQY9yB9egfOi1NaEDGYJbCMH8rovcmydvZWMUj5kRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
+ b=dIDALHZOF+dChV5jiEix2PeKwE0/eWRvPZ9h4bVCWPvJiNMItEuQhuHruEc1+hM+c37S6JVGubnpmXWezzy2Q5jSlIrjDUSh4gEgzZQu6cAmnfBAbsxc4/YSDUjpuo2WzWKBp+eDpmHQQwy4pLyQN22X6uZWRDjiAFXMz2YlcaD92jLLlto4Xe+J1kYaN1n/q310EuYOAkemLmUUQJKkOqzzxLngsnNkTtOQ39XMvLl4Kb1Q8W4WDmLs569jF8BiyqCO2Sz+uO//I5N9KbngqMzRaVSX7qyjCMrUZo6W03TUoI6O1qEBq/Nsit8WUNQYtYadOTT9VNSaxjSXu9GBBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
+ b=FgzYCVFyoHAgJINyuRYcgIDl25afMf6l45Zi5m5PjbefEH8dR5q3IOHDc0KYf20bDAPdeGcjDrj6OxYH+y5/2uNHT4ExA8CByfMki9CoR/GeKtpKJXUi2f557NsmA34Knd6basN+7+6ORynlCHsIHg8va9naiLieoddHr7zot4c=
+Received: from CH2PR03CA0003.namprd03.prod.outlook.com (2603:10b6:610:59::13)
+ by SA1PR10MB7792.namprd10.prod.outlook.com (2603:10b6:806:3b5::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 04:05:42 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:59:cafe::70) by CH2PR03CA0003.outlook.office365.com
+ (2603:10b6:610:59::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
+ 18 Sep 2026 04:05:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:05:42 +0000
+Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 23:05:27 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 23:05:27 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 17 Sep 2026 23:05:27 -0500
+Received: from [172.24.28.100] (lt5cg60819vj.dhcp.ti.com [172.24.28.100])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I45NPH986369;
+	Thu, 17 Sep 2026 23:05:23 -0500
+Message-ID: <dd95a15f-1ba0-4575-a0af-e0cb5ea5ec56@ti.com>
+Date: Fri, 18 Sep 2026 09:35:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty FIFO
+ read
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+CC: Moteen Shah <m-shah@ti.com>,
+        Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, <krzk+dt@kernel.org>,
+        linux-serial
+	<linux-serial@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>,
+        "Jiri
+ Slaby" <jirislaby@kernel.org>, <devicetree@vger.kernel.org>,
+        <gehariprasath@ti.com>, <vigneshr@ti.com>, <nm@ti.com>,
+        <a-limaye@ti.com>, <y-abhilashchandra@ti.com>, <u-kumar1@ti.com>
+References: <20260916085520.2259420-1-m-shah@ti.com>
+ <20260916085520.2259420-3-m-shah@ti.com>
+ <5fe0efdf-6d61-dba4-9703-269dfd68ae13@linux.intel.com>
+ <5801b899-8090-4bff-b4e2-c3e8c97b0eb3@ti.com>
+ <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
+Content-Language: en-US
+From: "Kumar, Udit" <u-kumar1@ti.com>
+In-Reply-To: <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|SA1PR10MB7792:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|56012099006|6133799003|22082099003|18002099003|4143699003|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	4cGkCP+lU4KlhFvYtnrC3kdL4fB7Su7an3dz3YH1HgRKffDUeBzGjn7YMJ0M+9bXMvEdO9qzkBMCcg0TyXbGILEUXZVB8z8xxC5EsU+zzTFHFnuz44ZUw/drTY9PWtNdM53luRXdELF+UBCa6kbA+2ejmUTQeM5CunxgGaihrIO+AeeoakX0UebrXooBr3yDAY6LWcpjH1VTh8l6UCY55OpAeA/hxlgPtKtsGQfmf1Rkn2r4+I75XWnkP0ehL44TYGn7+oxMH/RqYOb7zy3K+SLQ0lShz6GNGbpemKjD1VkGlfisM1FWIUwkTWB0euQsFpCJoq0oZSuBpJ/ryi9mkGA/9w3pq62ryiMP2p8qcAYcfYcSaG1NXhrBLPVVtxPkbyKZhu9t3c1vHGE/eTGKvQHn0R0/1p8+6iJnqGtCe/M2SeC0gCIkdSZHX54qJrL5ZSAObS9QWUiFTdXMprQbMEf51OWivvHMN70ztT2OAGpC0HPnWXpcfamq3yBOaCHwM6LS/wz8bicF5urLvY9kxGzegr4xra6AyP9mDT55uZxt8M4zUjxupFKYYWsJuyaIh9hOtTIXoBsVWXXNS/PMlrUX0pRZFbtJAMQukeGQ/cfYvdUcCIA+oYiiJ0o4mYNvX9lLAG3eo1pwQowREXA4tXwdHzEKsFLTRBZP5WiWDsU=
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jh8uijmFnFiFoVn7W2YeM4OwFyv0UEQpv3mAJapxg1+zTxM2uTw5L4P18dA4ET7JCDL1oAT+Td8EpSXDSuL4Xsscj5kUxYX6WgS/vFx38XN0um2KAq72QUPsxf1j4TrSp0F8UcG1glZnp6gH6GpFZydVfFQLMc5m7BJX4MXew8S1YAtbQIYHMWFLJqEt1gHKvHOWqRYuyOfOCg51ZFvYbvS+iOfkZVYGlPOplDewfVuAlP/MsUk1h+oH5XNlsewHQik8SFUpyCNtZ+EHBgRZdY2M6yQuE6OJjUpKnAz3POQ086ZJYm4ZBd5ibIpgexFy0NEBxbjG+Zv0IfaG2ATpzEH8JWUxe0QZUkSOsosXhHgXltPZ1uqhKXyh3Ccpaim2IxS6DBkXIrNU9xAwBqdt+dXfD928GCMI9bsxlFqFsOGnyfmG76o8pAIO8wpLnfyo
+X-Exchange-RoutingPolicyChecked:
+	pAQhQxAVIpfj4XmN4XwBuYddSZDYMMJY+g5jyO4xfGAfmzBJgMIypICM+UzMzNRielEOAHx/NDkqaS5lx9NwGIxY4OIRFmsVQwnjEFN6yrE3Wy6wHF9brA+q+VEoN7mbnOuYkAcTnGR3BGS1HIFHAmTalP1veegUMViktBxEL/fmkYPpCitVw3SIoLwmlY6FIsnEvzfG99O3wMPJGtNt0XtkIVbvbIKEVKALLAdPf4H53D6nNpKoBf15LKRC/liGzFJMhhnsHCfd8vInrPE10BlEwghgAnGsfBeHTUGAdoCFgsyXraXgDQJdDzQKZ485uBFQ6cChoZkfJji7swxiqg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:05:42.4574
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7792
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXzbQeOFzo7/1q
+ NtCN3DEUKkL+QsOzqUeHryxxBgOB0l8a5j3UCyvrbcUmG81/IJTwU+xCtqdOuT21KcnCCMx3ixL
+ vLJI+d6WZ5k+rb/VspSRYMshBvwlu+PZdLgFML0mMA3uG2OswhBOH2m0Nst/TH3U72rBOd93+R8
+ IvIdEXGfEne1f3r0Vh/AWxHZhFk0FkKoSHtLpTEMY1vmo5SZhrk8naqpP3+NOh7gRnKUcUyU6yN
+ 1b9YcrluXbYekjellsgnPYUV4O3GLdVyg8QoOECWhB0/e6k/ZDxPZGCkP1uYTR4OCc/VvCo1wia
+ Amlt6Mc0RL5AvoWitREpF2vYxr9k8nYcoe1298Yd4Dqi68fMz+kz0rVpb4fbBtsKh00rSdIVg9C
+ DfLP0gMe7ySbVwE4QzK2uht0dC2hn2ALhBY3IYmw/7b/cq4YF6vo32BLyIOi09XbHtNwRvhSESK
+ RcbTmWqPY4xvOM8zslA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXwm+vK3JjFUS2
+ 8yEjtQ6Xp0Ieh19JhDxXo1jztOzEl37vCBqMt38AyUXyxXGXzaZ1PtgL1WeNxm1HNZLel0O87CT
+ kIq0Jeh4ufynPDxf4cYEpGxJU7iiVzw=
+X-Proofpoint-ORIG-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
+X-Authority-Analysis: v=2.4 cv=XcccX455 c=1 sm=1 tr=0 ts=6aacb89a cx=c_pps
+ a=NNTlVNVDZfSUkWkRvmJkNA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
+ a=TxhyHGSeAAAA:8 a=sozttTNsAAAA:8 a=y5ittif9tQIw1IVr7QMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=VRTRSrWG77IPp_BSX07q:22
+X-Proofpoint-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 impostorscore=0
+ bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180049
 
-VHOST_SET_VRING_CALL releases the previous call eventfd inside
-vhost_vring_ioctl() -- it swaps the new context into vq->call_ctx.ctx
-and then eventfd_ctx_put()s the old one, which is a synchronous
-kfree(). The parent vdpa device is only told about the change
-afterwards, when vhost_vdpa_vring_ioctl() reaches ops->set_vq_cb().
 
-Parent drivers cache the pointer handed to them in
-vdpa_callback::trigger and do not take a reference on it, so
-throughout that window the parent holds a dangling eventfd_ctx and may
-signal it. The documentation added with the field describes what
-signalling it means but says nothing about how long it stays valid.
 
-This is the same hazard that "vhost_vdpa: assign irq bypass producer
-token correctly" addressed for the irq bypass producer token, by
-moving vhost_vdpa_unsetup_vq_irq() ahead of the vhost_vring_ioctl()
-call. The producer token was only one of the two consumers of that
-pointer; the one the parent keeps via ->set_vq_cb() was left behind
-the free.
+On 9/17/2026 3:10 PM, Ilpo Järvinen wrote:
+> On Wed, 16 Sep 2026, Kumar, Udit wrote:
+>> On 9/16/2026 4:22 PM, Ilpo Järvinen wrote:
+>>> On Wed, 16 Sep 2026, Moteen Shah wrote:
+>>>
+>>>> dw8250_handle_irq() does a bogus RX read on RX_TIMEOUT with no data
+>>>> present, to avoid an interrupt storm. The UART core also performs
+>>>> unconditional reads on the empty FIFO during startup and shutdown
+>>>> of the port. On the IP version used in TDA54, that interrupt storm
+>>>> no longer occurs, but reading an empty FIFO instead triggers a data
+>>>> abort.
+>>>>
+>>>> Add a new capability to guard against the empty FIFO reads, avoiding
+>>>> the data aborts.
+>>>>
+>>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
+>>>> ---
+>>>>  drivers/tty/serial/8250/8250.h      |  1 +
+>>>>  drivers/tty/serial/8250/8250_dw.c   | 16 +++++++++++++++-
+>>>>  drivers/tty/serial/8250/8250_port.c | 12 +++++++++---
+>>>>  3 files changed, 25 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+>>>> index 77fe0588fd6b..45e13c3a8c14 100644
+>>>> --- a/drivers/tty/serial/8250/8250.h
+>>>> +++ b/drivers/tty/serial/8250/8250.h
+>>>> @@ -86,6 +86,7 @@ struct serial8250_config {
+>>>>  					 * STOP PARITY EPAR SPAR WLEN5 WLEN6
+>>>>  					 */
+>>>>  #define UART_CAP_NOTEMT	BIT(18)	/* UART without interrupt on TEMT available */
+>>>> +#define UART_CAP_RXFIFO_EMPTY_READ	BIT(19) /* UART needs LSR_DR check before RX read (TDA54) */
+>>>
+>>> IMO, this define naming contradicts with the comment because you 
+>>> effectively say "capable of reading Rx while receive buffer is empty", not 
+>>> that it needs DR check before issuing that read on buffer (~ named exactly 
+>>> opposite of the actual meaning it is being used in the code).
+>>>
+>>
+>> I echo your comments; the naming should reflect that the IP does not
+>> allow reading an empty FIFO.
+> 
+> I now recalled we've also the pending RBR -> SRBR change:
+> 
+> https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong@picoheart.com/#t
+> 
+> I wonder if a similar thing would help in this case as well?
+> 
 
-With VDUSE the window is directly reachable from userspace, because
-the device emulation daemon can inject an interrupt at any time from a
-different fd, and neither side shares a lock with the other: VDUSE
-takes vq->irq_lock, vhost takes vhost_dev.mutex + vq->mutex.
+Thanks for this patch, we are using similar IP but not same.
+Let's consume above patch and revert.
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x76/0xe0
-  Write of size 4 at addr ffff8881084e8788 by task vduse_uaf/2987
+Thanks
 
-  _raw_spin_lock_irqsave+0x76/0xe0
-  eventfd_signal_mask+0x69/0x120
-  vduse_dev_ioctl+0x337/0x1a60     <- vduse_vq_signal_irqfd(), inlined
-  __x64_sys_ioctl+0x120/0x170      <- VDUSE_VQ_INJECT_IRQ
 
-  Allocated by task 2986:
-   do_eventfd+0x50/0x200
-   __x64_sys_eventfd2+0x2e/0x40
+> I understand this patch covers more ground than the SRBR patch but can the 
+> IP used in this case read SRBR without aborting?
+> 
 
-  kmalloc-64, freed 64-byte region [ffff8881084e8780, ffff8881084e87c0)
 
-One thread loops VHOST_SET_VRING_CALL on /dev/vhost-vdpa-N with a
-fresh eventfd and then unbinds it, while another loops
-VDUSE_VQ_INJECT_IRQ on /dev/vduse/<name>. This reproduces in 5 out of
-5 ten-second runs on v7.1.6 and 3 out of 3 on v7.2-rc6. With the patch
-there are no reports in 3 out of 3 runs on either, while the same
-workload still gets ~30000 interrupts per run delivered into live
-eventfds, so the path is still being exercised.
-
-Tell the parent to drop the callback before vhost_vring_ioctl() can
-free the eventfd, mirroring what is already done for the bypass
-producer, and restore it if the ioctl fails -- on failure the swap
-never happened, the old context is still installed, and leaving the
-parent without a callback would silently drop that vq's interrupts.
-
-Clearing the callback only stops a parent from starting to use the
-context; a handler that already loaded it can still be running. For
-parents with a real interrupt, wait for it with synchronize_irq() on
-the vq's irq. VDUSE does not implement get_vq_irq, so that case stays
-covered by the teardown above.
-
-Fixes: 5e68470f4e80 ("vdpa: Add eventfd for the vdpa callback")
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
-v2, addressing the review on v1:
-
- - synchronize_irq(): valid, fixed.  Clearing the callback only stops a
-   parent from starting to use the context; a handler that already
-   loaded it can still be running.  The teardown now ends with a
-   synchronize_irq() on ops->get_vq_irq() where the parent has one.
-   VDUSE does not implement get_vq_irq, so it is a no-op there and that
-   case stays covered by the teardown alone.
-
- - torn read of the callback struct yielding a NULL cb.private: I do not
-   think it applies here.  cb.trigger has exactly one consumer -- apart
-   from vhost/vdpa.c assigning it, the only reads are in
-   drivers/vdpa/vdpa_user/vduse_dev.c -- and VDUSE serialises both
-   sides: vduse_vdpa_set_vq_cb() takes vq->irq_lock around the stores,
-   and vduse_vq_irq_inject() and vduse_vq_signal_irqfd() take the same
-   lock before using the fields, so VDUSE cannot observe a torn update.
-   For parents that do a bare struct copy (vp_vdpa_set_vq_cb() is
-   vring->cb = *cb) the hazard is real, but it is not introduced here:
-   this function already performs the identical three NULL stores
-   through ops->set_vq_cb() in the existing else branch below, which
-   userspace reaches with VHOST_FILE_UNBIND.  Defining the store order
-   and the matching loads has to happen on the parent side, which this
-   caller cannot do; happy to send that separately if you want it.
-
- - retested on v7.1.6 with KASAN: no reports in 5 out of 5 runs with the
-   patch, 3 out of 3 runs report the UAF without it, and the workload is
-   not slowed down -- 16k-19k call fd swaps and 1.5M-1.9M injections per
-   30s run, against 10k/0.9M measured for v1, with 48k-89k interrupts
-   still delivered into live eventfds.
-
- - rebased on the config_ctx fixes now in mainline.
-
- drivers/vhost/vdpa.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index a317867..e1def23 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -767,13 +767,46 @@ static long vhost_vdpa_vring_ioctl(struct vhost_vdpa *v, unsigned int cmd,
- 			if (ops->get_status(vdpa) &
- 			    VIRTIO_CONFIG_S_DRIVER_OK)
- 				vhost_vdpa_unsetup_vq_irq(v, idx);
-+			/*
-+			 * The parent caches call_ctx.ctx in cb.trigger without
-+			 * holding a reference, so it has to stop using it
-+			 * before vhost_vring_ioctl() drops the last one.
-+			 */
-+			cb.callback = NULL;
-+			cb.private = NULL;
-+			cb.trigger = NULL;
-+			ops->set_vq_cb(vdpa, idx, &cb);
-+
-+			/*
-+			 * A parent interrupt handler that loaded the callback
-+			 * before that store can still be running, so wait for
-+			 * it to finish with the context too.
-+			 */
-+			if (ops->get_vq_irq) {
-+				int irq = ops->get_vq_irq(vdpa, idx);
-+
-+				if (irq >= 0)
-+					synchronize_irq(irq);
-+			}
- 		}
- 		break;
- 	}
- 
- 	r = vhost_vring_ioctl(&v->vdev, cmd, argp);
--	if (r)
-+	if (r) {
-+		/*
-+		 * A failure here means the swap never happened and the old
-+		 * context is still installed, so give the parent back the
-+		 * callback that was torn down above.
-+		 */
-+		if (cmd == VHOST_SET_VRING_CALL && vq->call_ctx.ctx) {
-+			cb.callback = vhost_vdpa_virtqueue_cb;
-+			cb.private = vq;
-+			cb.trigger = vq->call_ctx.ctx;
-+			ops->set_vq_cb(vdpa, idx, &cb);
-+		}
- 		return r;
-+	}
- 
- 	switch (cmd) {
- 	case VHOST_SET_VRING_ADDR:
--- 
-2.43.0
+>> At the same time, I am thinking, reading the FIFO based on the
+>> UART_LSR_DR bit being set in the serial8250_clear_interrupts and
+>> serial8250_do_shutdown functions.
+>> Do you see any side effects to this?
+> 
+> 
+> 
 
