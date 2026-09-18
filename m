@@ -1,71 +1,146 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E89A4E4302;
-	Fri, 18 Sep 2026 11:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488714A64EE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730209; cv=none; b=EMLJ5W/vVzWewmPpDCJ1zvDSCbZxBx1Qbube4BDeV5FXBu56gKOHB8V8/Ta6tRld2T4WsHNR8pvk2kVoPXTu8BKwTXbhEf8sLcRJJEKKLJ0WDJdc+ikbh6IkbVsdr5qNZbh7HJ0Nrx2qDdOtdu9AT0tpWGVW+R2T/QXNPA7BtYU=
+	t=1789730338; cv=none; b=P0DVh87wtDzLM7kAQF6Hzi6fa1Gm9kMTlMOzV+XAsVGKSxtYYxyF3VFBFGld1ok9gr1oP6CkbUd8VoegN/YotVRw0oadqKyxe526rZpxkVKpNW2cYPqa2ToCzt5Gusb/lsmQVG6xPuEaO3dgsElghO3w19xvGwB+Z04XJLt5dE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730209; c=relaxed/simple;
-	bh=+QPM9RAzDnrAzUPQMgUBgpfhbSWglRjQvNnPQ++gRBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uNFsuYZzEJOkRMgS5HsK7KBBe7C2LH06yo7RM+Ts0b6b7Q4xHnhJ17WliVqM9cey51ZQCilFVqAtan+sWmN/Xl/cW+ovJ+XsjzFGO61Kazxw9vWU23pqzBCZKF5w6dFdYoKeKciK9Qk7Agxs8xZyvCvOEwn5iHOl/iC1v5abuUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=PjkcvBhx; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1789730338; c=relaxed/simple;
+	bh=Z7v4qnq8aw0x5iEmhBG1pSTK1bzA6es6jG4hCbsdcO8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AbgeWUG2LV5aoz777s2sUthcQsj+GYoHCSU8SRk9WF+sFhgqvqyXFBzr4TD3cLMVOWXouqhtXQx9WL6Dh1QmZtMDFachPOrt87SzQQv7047GV5u8VfKOUwIuSZ1c+o8vvrEIBiki8eTaClggH1sXJihUhDqT3tEZ9z4o4G+BtaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jt4xRAbb; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PjkcvBhx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=x77G3CVaJyxKp4fAHlS9sAQa88nysPfN50+PoRK8Zvk=; b=PjkcvBhx5loAG0ay8nQTiq7R1/
-	WP14xLTb+wHZbnww6bMJoLSeWn8M68JXLZ9X59VsRDO9EKWzw7nMY6Rlvq41+Co3IoLHKP/PQTYAd
-	eoGJByFaIoNJ6fshTMdFlqDyPncP8bbj6k/oH7D6cpxfls8wW2q9EkE41OzwR53wzzERTCdSnZrgi
-	WCtLBfbrgzCRoBYRj0TiiMs/JSMT5g1x2YLthiigZcsDt51OWwnqS2e+bGJY+KDNBZPpHVHdJRrCo
-	sFpbv/RanOdlxHi5DbxSHGtNwxY9xQD4tOU0NS894qoKHD51no1A6CHHqjPZ8aJyeiQlOvuaiRqPA
-	tm41zjKQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7WaE-0000000ECn4-2dga;
-	Fri, 18 Sep 2026 11:16:46 +0000
-Date: Fri, 18 Sep 2026 04:16:46 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>,
-	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xfs: replace kvmalloc_array with kvzalloc_objs
-Message-ID: <aq0dnoWhkq9JZkiu@infradead.org>
-References: <20260917200835.31027-1-lalitshankarch@gmail.com>
- <aqzHPqgh-rKqHRo-@nidhogg.toxiclabs.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jt4xRAbb"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2ddaa08c890so5252045ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:18:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789730336; x=1790335136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YmpCaksYD9t+NIH9u4y2WiH2f+2khrN9+kqRKuQHjsw=;
+        b=Jt4xRAbbctTppsAM2zeCCehJYAGtEYYThv5H2h+0003MoCcIt4p1RinisTH1oyBMR4
+         /0wtjqVra+G830fZOCHXG0X2cQvWWjZGHlv6BvqNJlS5t0IIDtjGePnmagMRqWQUEoKV
+         8uXtqZnYbaKTTHAKwJoeswjtiKocqnE6NuOLo+9b93+Zw0EsE8pxM6m7j72zom27cqyP
+         CVLGteegCGn7B9Y6BbRvkrTnon6+t4jmZDaifLL5gh1WU3w/GBwFg3GOh9R453uuNw1m
+         UnoS/j93wYC+PP09AdayzVrcA6H0O8u2W2g5t79xWAMuFxRcc90FKp4xwXZnglVSdOLS
+         KCHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789730336; x=1790335136;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YmpCaksYD9t+NIH9u4y2WiH2f+2khrN9+kqRKuQHjsw=;
+        b=F98tGE0i9PJQ49OFP3pteLJNzn5JTFWAqSvmnWNvZR0/58saoA6zoSB3RpSPFBV55S
+         t/CP1IctGUPJRZ49qj4hgxob6fCZTmxJCNLiIQnc/+zw8igc+CDoUdl0KpVWGi9Z2/2C
+         RDWq+DYNddW0xwrxjmHvwNxufbaTRn1pvOKFf04FJTkZ8qJLUmbSoUu3YI2FKdGAmK0Y
+         8RadoRow9tPDRJwZT+naEnG27WTjSFuEBU15evZhWOg1rDSlz1a5yeTQGtBUZbhENZhD
+         cKLucJ4n6BhO38pvhiD4eOd3Chx0xa3azmKj4ykhpFqO7t1TL+WjiyKdOlW7joDCfJbN
+         E6Wg==
+X-Forwarded-Encrypted: i=1; AKwUvByf2rRM5fUNfdRoeUwS+uIGqK1gE+L3+6XT4RaE7DJ7ol1OPEyulUuXTW2lP9dgt+1YZVq71FrwPt0CM+Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++ks3yF6ceUdOJS14i86kruTZIu2xpasD4ozQ3LnWvd2P/nVepxE
+	JqZRKrewztIW9P+xRacZyOcC3NEpBSuBWg1vVzsPqXOaKwVkApFLenvn
+X-Gm-Gg: AYBFou3He1vF8zkxKinrv8TEAsykdG27mNmBXG9lXS6agUoO+nrlaTpgWj1Vlo2mgjP
+	l96o51HWWwuXgqo1Z9jDPldXPLESQ0hXpE8P7XYjETcvL8ai29waFK27DU9ekJnzMnlvXy/qD95
+	xzTh0xFvi45NHUgzggYH1NHsbBREBYnecYtr9Iyln/qg8IY15ypPvW0v/k1qweUt36LjJZwsn8y
+	J+6cQ0Rf1AVT5pLMiUFJ7b6PxVY+2spDM358+ZOWtnxxCPJfvZUg7Gzf81BIzxMl0our5EDGeDP
+	S7xjKmD/AbIq7iKvrw3Hy9+lir0ckL0L/5PbHWOWB1N6vctD/LBdXgokMLZy527mGrm/1mvVazL
+	GErPkZWCsyoKjk18Ehtq/sIT2eBqXqr61Cq+4VYqGSjrVeCdYxLSb23XVT/DQOgva3hWqToMAqz
+	WCezF8w0xjdCXgCUDtDpGn3g9ClEZ0QirOPmp9JX3aCAJIQaEhTHvdO0i8J41ZYi/VGUTKIeVrM
+	10+AI+CTZDqvMRF7F3tiLI=
+X-Received: by 2002:a17:902:e803:b0:2d6:fd55:3a9d with SMTP id d9443c01a7336-2ddb1b7a160mr42116225ad.3.1789730336227;
+        Fri, 18 Sep 2026 04:18:56 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb75c1f25sm5984955ad.68.2026.09.18.04.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:18:55 -0700 (PDT)
+From: MarkLee131 <kaixuanli0131@gmail.com>
+X-Google-Original-From: MarkLee131 <kaixuan.li@ntu.edu.sg>
+To: linux-ext4@vger.kernel.org
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	Andreas Dilger <adilger@dilger.ca>,
+	"Theodore Ts'o" <tytso@mit.edu>,
+	Jan Kara <jack@suse.cz>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ext4: don't read past the UAPI struct in GROUP_ADD
+Date: Fri, 18 Sep 2026 19:17:42 +0800
+Message-Id: <20260918111742.827428-1-kaixuan.li@ntu.edu.sg>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
+References: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqzHPqgh-rKqHRo-@nidhogg.toxiclabs.cc>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 07:16:32AM +0200, Carlos Maiolino wrote:
-> On Thu, Sep 17, 2026 at 08:08:35PM +0000, Lalit Shankar Chowdhury wrote:
-> > Replace kvmalloc_array() with the more concise kvzalloc_objs()
-> > implementation.
-> > 
-> > Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-> 
-> NAK...
-> 
-> This is used to allocate composite objects managed through a
-> slab cache. This is not for fundamental basic data types....
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-I don't think so.  While the naming of the helper is a bit
-unfortunate, it is intended for allocating arrays.
+EXT4_IOC_GROUP_ADD casts the user pointer to struct ext4_new_group_input,
+its UAPI type, but sizes the copy by struct ext4_new_group_data, the
+internal type:
 
-But this function really should not exist, instead bitmap_alloc/free
-should be switched to th kvmalloc family so that it will just work
-for large allocations and we can kill the wrappers in XFS.
+	struct ext4_new_group_data input;
 
+	if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+			sizeof(input)))
+
+The UAPI struct is 40 bytes, the internal one 48.  A caller that follows
+the UAPI and allocates 40 bytes gets 8 bytes read past its object, and the
+ioctl returns EFAULT when those bytes are unmapped.  The two structs have
+differed in size for as long as I can see back -- v6.12.9, v7.2.4 and
+current master all have 40 against 48 -- so the copy has been over-reading
+the UAPI object throughout.
+
+The first 40 bytes of the two structs have identical layout, so copying
+that much fills every field the UAPI defines.  Zero the rest:
+free_clusters_count is overwritten by verify_group_input() anyway, and
+mdata_blocks is read only by ext4_resize_fs(), which builds its own
+group_data array.
+
+Reproducible on v6.12.9 and v7.2.4 by placing a 40-byte struct at the end
+of a mapped page whose successor is unmapped: the ioctl returns EFAULT.
+
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+---
+v2: done the way you suggested -- one struct on the stack, one copy, and a
+memset of the tail, rather than v1's second struct and six field
+assignments.  The only change from your sketch is the cast in the memset
+address: &input is a struct ext4_new_group_data *, so &input +
+sizeof(*uinput) would advance by 40 * 48 bytes.
+
+Built fs/ext4/ioctl.o warning-free with W=1 on x86_64 (clang 21), and
+checkpatch-clean.  The EFAULT reproducer behaves as before on v6.12.9 and
+v7.2.4; the fix itself was not runtime-tested.
+
+ fs/ext4/ioctl.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1674,12 +1674,15 @@
+ 	}
+ 
+ 	case EXT4_IOC_GROUP_ADD: {
++		struct ext4_new_group_input __user *uinput = (void __user *)arg;
+ 		struct ext4_new_group_data input;
+ 
+-		if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
+-				sizeof(input)))
++		if (copy_from_user(&input, uinput, sizeof(*uinput)))
+ 			return -EFAULT;
+ 
++		memset((char *)&input + sizeof(*uinput), 0,
++		       sizeof(input) - sizeof(*uinput));
++
+ 		return ext4_ioctl_group_add(filp, &input);
+ 	}
+ 
