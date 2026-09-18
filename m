@@ -1,62 +1,64 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5843B9DA2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3723B7B7F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697069; cv=none; b=Gut/FnjBxZGZ8zqcGcaFSqpnkRHLPD8hnL5P2ssW/+/R+vVGpDqwD3rsAgvsp7rF+QcMFI7dm3ibKtjVb1ZE5IGWAUZLURnnq1BOkNXhBhDvFR0jJTrnVnwwlYPw7kKUltXSj1R7+dk7GpggDXIgWfvZ1SBxGE7XfvWut6OCfyc=
+	t=1789697072; cv=none; b=lxJxvEwAXdl61IIH3NvlWwm3Ucv1p4AcwSJzlHao1F8KwSaMLSu0pG9MTi+k12E5wd/vf3rSC0bv3cw5XuzEuzQMld7xyp35mj/h6VH7TSYL3WQlWR4NxdWYVB7Q3oCaSF7iFi5TI7JRgXYkzQzgQEY3Ovp8caGAYPh2JM8pK6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697069; c=relaxed/simple;
-	bh=GqEmDjbmlD43nKcKkz3682LJMrGqtTA7m5Mhi4U8TjI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jbRvNEdHTB63OUCojv6zP5v0gI3qPEZiEYgJUIC0yYOhjqKaaSMx6nZIdXoLQSK+TO5/IXjoEpCUZQoCgR8c5tmlAdn8ZfoNCp7yBNiMNDQSSnFTygQxmWZbAa7jzRNNfKnDomPvW7dFGin5dQ12FecNx7+SnXnkpeTv8UYnjiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DQI9n4X8; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789697072; c=relaxed/simple;
+	bh=UkhzmiDRxOJm/KkY5kZc/kXeWdTV119sUKWsG2ZBJ0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HOlElBHoCkPf6DdwNikTZ529t5nEpq3bymf81xuTbk4Ne2WQ3MwvVLudyTgyBie87DZuejYQy14iMiaw7t1EimFbX9oCFd/v8vYW3Sh6Awyrua/ek9v1/0wm+Bixds8O3reEHUVgNswUqBwXFoCj8HFGGLRohuuk13tTIFmpYws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jELWBBhT; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DQI9n4X8"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so259423b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:04:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jELWBBhT"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8674704dab1so417228b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:04:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789697061; x=1790301861; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y8IHVPQTh4E48RsfYHS1AOxQ6DrEMP7aqWgbccraUDI=;
-        b=DQI9n4X8v9uHILIdBUDpz7OpGvJXBhMGCjM/mESEz1FeDQvp+nySIgdM5uS3LCgjvu
-         8bvZumz4fBHcd0MjRZX/nOV2kUFLBWB8BIhOGQv1HLzhVvEO2NRpTRBCp6wB6XRGCRzu
-         dHN1k1Kh4w/YTpc5iExFUuFn9KqOUkYFX9Mt/T4ARATwICip7sYunMN1sqx6fR5oPfo2
-         C/2CFBgThuGRuPfjEAVYiMgEubZNnArsRxp4B+xE9IyonJqUkXPsmxVHmEUxEH8DOVhB
-         Wk2QB56tiWgQRvnlIq7YILvmrThyPVv3YsX9zMo7C6oiC/ivwBpxGAdKHC3L7NZaNO9x
-         DWfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789697061; x=1790301861;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789697065; x=1790301865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y8IHVPQTh4E48RsfYHS1AOxQ6DrEMP7aqWgbccraUDI=;
-        b=EZedQpT5DiprLnCAVukDG69F9J03J/eOTH7BZKo8vo2fr1sSHQLbt/gJuN1jnI0kgp
-         QTYJbunNjbtyZqPfx7+3ILP2t7vCc1ToY4wyIdMj3CKJMs1vvJbmL7XEyMtDs4eaXQrD
-         z8aeo8Zl1sg1DNODkZeS7g0Q20ZbKCHFZrAMxsYEHAHF6YcsDXBO65I/9ZoMPplsX1Zm
-         JTW9A+0lv2jr/fr+o31liQ3pnyeTZI9JwffK39ocycTgm8T2GQxOr4OB49EFaQ8/so+M
-         7m82M16Pm6oWRg0kcHm1CWITIFs/Ag3885k3ztVvPP6fcEhpU1nwy/dfkjh7kwj9Vlj1
-         gpwg==
-X-Forwarded-Encrypted: i=1; AKwUvBycjtmbg++qbeU82F7Y/gYxXHdDs0jrgpzF4X06z5Rkob2c6sHnFNMqCajtEpSpwOC3VTw9ymeFq7/l3YQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuEa45INI92d0V4drctED82cgZ6ufGr031oKkefxOuwjnOvH7S
-	P6oR0JL92KxtYpxL1nyxMGhuhSX6bqEOpdyH/+zqWq/xJUiEc3+EuTHH
-X-Gm-Gg: AYBFou21LryobPBh51UE8/OpMHs6LCsAB/3cRSy0od/WpXjeugDrmcV9Jct0GhnKV9e
-	o3WiXpP//3PRKqkKraLGqz1OBJux1guy7QGgqYTdQqvPR16QBANJVzdAKdtQMvpjPB/o2gjtFI2
-	Bikb9Jcmwga6CclHrrXPMfKVXy40O1suILjlNaRR/mD0hV92sYUGmrXj6UMwUruqaSQUEB5HN69
-	YJvTuAaSqzJe+zrk95R03aUdMVNee6dIVR0HbqXl7BZG+VlUceh6rFsBWThxwwIxvn6Q1jZkqHw
-	MbCBtB4Yfgx341YwQBKmkT5ie0SJwdujZBVSCyrwTVpadm57OXgr2Idcl1XuGtMPscDYCImtHlY
-	q9ght87vO1+/8C80u3RlppCRYOhCO87zjo8H88jNWNgDOLrMhlMPmbGXYRpH6kHBFW9waGlr/F6
-	Hu1R30t2GCiLmF2TQJfAlH7GTZwu6t4ZrDZwzIy+w4M7wH7sH0bzm74Y5ltDO7GehiyCcuU/FvC
-	AnLkAYX026FVkkkPl+JqYS5eYVZ8TNjdrJLWwo=
-X-Received: by 2002:a05:6a20:a11d:b0:3d0:ba81:79b9 with SMTP id adf61e73a8af0-3dd8c41fd70mr1660945637.12.1789697061119;
-        Thu, 17 Sep 2026 19:04:21 -0700 (PDT)
+        bh=k+ZmYKPJxwk4ppbLxhtM923pOwtZYQbBQl5io1pIn2g=;
+        b=jELWBBhTNaYxjuEQzafD4ICzvqECtnk5UIDQH4e1cHpg3oae9s1iqZ8TW3gIlQeRkH
+         JPLeYQQAzw6p5K3xcxHKhGxI1JBzfTD5mkOCI+GwtmoQihOTk3EXvqgcsRo0IZ8cEf/K
+         KbeZ47H/kfeGbIDYE1AKVB2X/Q69zqb9+zCX2a02ISI40CVB+Cv+rKTPWCi5EVXimJLX
+         +kNn1HGluS83//RngeWft3BO0fbPU/WIAanciH7s5cAVGMypvmc8lJashoE3Xxulttqq
+         7NLhop9JRcVxHrI0yqEOjRXgqIrBFLLn0efVA8Dlxrz3OqeY+h6zHkAp+8H5K0+O/E4F
+         RRyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789697065; x=1790301865;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k+ZmYKPJxwk4ppbLxhtM923pOwtZYQbBQl5io1pIn2g=;
+        b=OWgU0ylEHQPGp9N2rDudsFLwvgdbiaWGQIZ6NFtW1N6Cd1SxgtnRY4yXsGnSQmvcKW
+         Nwm8VmL+afbBjvGwwcroftnVNjwND5KT+CcdcZCsnRVuTkPdeuP4skjldjmzR8OmveCo
+         GL5HfHvB9AiBvAjWV8gKC20TTj/hnW+DC07PmZChDH47Bn3AChtrx7h6fM08nnwl+Vg4
+         GLCr0V81a4fNhT4oobpa0Vto82iowQCRqKgeXarQ3MhW7FEkUbGvw1/R1H+zlzQDPO0v
+         5AsAMtVAAxAAy6b8Lvr1sCnvx76DSFWl6nu+KOuu33L8EObPdtmcpMntRAwQPhUjVAA6
+         J3iw==
+X-Forwarded-Encrypted: i=1; AKwUvBymdUUDKpIEghC0Y6+NL1ym8j9A9n0NrhOq1KpPko+0Sd3xa5h0Gs4d9bfLA3ZWgxaw/QmJd1LGEZQH3tc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m++2BXFFbtrSE843L8WhJiW5FcOwGwYDB3SukGAcgP9YQamkfM
+	TAlyeWPg60KqS67l7PoHOk+0hADBorLKgYzXaa9Gu+7/stq/AVRmn/iq
+X-Gm-Gg: AYBFou37+4CYMt8GKBsSxInifNi130WL6be+wW0Ls5jmOZQ2/vGRcQLE3xrJ+F9MV+j
+	0fXomOTvxltPOGonM05a/adByOjRFhyOKZA3yMmR19fQqpgW59YIbgRxt4lXPaaVhEox6QcG+zk
+	WMhmPx6pxSTsphqNQFxuD9awcN6RPR1mlNnSHe9ryqLvj68FBrb9ZX4dd+u+vo+RTIIXgLvK2cD
+	z7ln75sh9IpyPCrugv1xx3nGH3kf6nXYUMzlM6hUIRJyyQVOfSTeLarx82FOs+QMEPvuWGenrlg
+	kJDQ67PpsTECyoL/s8MowSSeFP9oFyp+ex25ibZbbxIPAzxk9PurHnn3fDP0WhJOzYBxEtxBOeE
+	LGXcWh0ibkoSU3FedtGdntJvHOlzdcLGaf4tIKmjrYp+BLB5kW9oLBvAgneWnfu8cOx7LKfqhjq
+	9Db/vMHPXR/z7BZLiPp04N1cEgCED6JmICZ1Chv6+zPqMjQaLmdMGkcKGnuAL9MH8UTv6p3DNyD
+	6e69WpXl6f/mbDZkiuHn3glypCgfmNsujFMkWM=
+X-Received: by 2002:a05:6a20:c989:b0:3dd:85aa:4532 with SMTP id adf61e73a8af0-3dd8c5eaf0emr1932234637.36.1789697064675;
+        Thu, 17 Sep 2026 19:04:24 -0700 (PDT)
 Received: from localhost.localdomain ([2409:8a1e:2e81:7320:79ca:7a54:4576:24ac])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2890b915sm136049eec.30.2026.09.17.19.04.18
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2890b915sm136049eec.30.2026.09.17.19.04.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 19:04:20 -0700 (PDT)
+        Thu, 17 Sep 2026 19:04:24 -0700 (PDT)
 From: zjamg <ndaugoing@gmail.com>
 To: David Heidelberg <david@ixit.cz>
 Cc: Christophe Ricard <christophe.ricard@gmail.com>,
@@ -68,11 +70,14 @@ Cc: Christophe Ricard <christophe.ricard@gmail.com>,
 	oe-linux-nfc@lists.linux.dev,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH 0/1] nfc: nci: do not process unexpected or invalid CORE_CONN_CREATE_RSP
-Date: Fri, 18 Sep 2026 10:04:11 +0800
-Message-ID: <20260918020412.82878-1-ndaugoing@gmail.com>
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] nfc: nci: do not process unexpected or invalid CORE_CONN_CREATE_RSP
+Date: Fri, 18 Sep 2026 10:04:12 +0800
+Message-ID: <20260918020412.82878-2-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260918020412.82878-1-ndaugoing@gmail.com>
+References: <20260918020412.82878-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,89 +88,154 @@ Content-Transfer-Encoding: 8bit
 
 From: Yuchao Zhang <ndaugoing@gmail.com>
 
-Hello,
+When an NCI_OP_CORE_CONN_CREATE_RSP packet is received,
+nci_core_conn_create_rsp_packet() parses it and creates a logical
+connection entry in ndev->conn_info_list.
 
-This patch addresses several issues in the NCI core logical connection
-handling where an unsolicited or malformed CORE_CONN_CREATE_RSP packet
-can corrupt connection tracking, shadow the static RF connection, and
-cause TX queue stalls or hung waiters.
-
-Problem Overview:
-=================
-In the NCI core stack, logical connections can be created by sending
-NCI_OP_CORE_CONN_CREATE_CMD to the NFCC, which answers with
-NCI_OP_CORE_CONN_CREATE_RSP. nci_core_conn_create_rsp_packet() parses
-this response and adds a new struct nci_conn_info to ndev->conn_info_list.
-
-However, nci_core_conn_create_rsp_packet() had several vulnerabilities:
-1. No Pending Command Check:
-   It did not check whether a connection creation command was actually
+However, nci_core_conn_create_rsp_packet() suffers from several issues:
+1. It does not verify that a connection creation command is currently
    pending. An unsolicited or delayed CORE_CONN_CREATE_RSP packet
-   unconditionally allocated and inserted a connection into
-   ndev->conn_info_list, and called nci_req_complete(ndev, status),
-   prematurely completing whatever unrelated request was in-flight.
-2. Connection ID Collision & Shadowing:
-   Dynamic logical connections allocated by the NFCC must not use
-   NCI_STATIC_RF_CONN_ID (0x00) or collide with existing connections.
-   Furthermore, nci_core_conn_create_rsp_packet() used list_add() to
-   prepend the new connection to ndev->conn_info_list. Because
-   connection lookups (e.g. in nci_tx_work() and
-   nci_data_exchange_complete()) use first-match semantics, prepending
-   allowed an injected connection with conn_id = 0 to shadow
-   ndev->rf_conn_info. This caused:
-   - Cross-connection credit accounting in nci_tx_work().
-   - TX queue stall when credits == 0 (frame wedged without timer).
-   - Dropped RX completion (cb == NULL on the rogue connection, hanging
-     the real waiter registered by nci_transceive()).
-3. Missing Length Validation:
-   The handler accessed payload fields without checking whether
-   skb->len >= sizeof(struct nci_core_conn_create_rsp), risking
-   out-of-bounds reads.
-4. Spurious HCI conn_info Assignment:
-   ndev->hci_dev->conn_info was updated whenever cur_params.id matched
-   hci_dev->nfcee_id. Because both default to 0, non-NFCEE connections
-   (such as loopback) erroneously updated ndev->hci_dev->conn_info.
+   unconditionally creates a rogue connection and calls
+   nci_req_complete(), prematurely completing unrelated in-flight
+   requests.
+2. It lacks bounds checking against sizeof(struct nci_core_conn_create_rsp)
+   for the packet payload, leading to potential out-of-bounds reads.
+3. It does not validate rsp->conn_id. Dynamic logical connections
+   assigned by the NFCC must not use NCI_STATIC_RF_CONN_ID (0x00) or
+   collide with any existing connection ID.
+4. It inserts the new connection at the head of ndev->conn_info_list
+   via list_add(). Because connection lookup (e.g. in nci_tx_work() and
+   nci_data_exchange_complete()) uses first-match semantics, prepending
+   allows a newly created connection with a duplicate ID to shadow the
+   static RF connection or earlier connections.
+   Furthermore, ndev->hci_dev->conn_info is mistakenly updated even
+   when the destination type is not NCI_DESTINATION_NFCEE because
+   cur_params.id and nfcee_id both default to 0.
 
-Solution:
-=========
-- Add an NCI_CONN_CREATE_PENDING flag in enum nci_flag to track
-  in-flight connection creation commands, and reject unsolicited or
+Fix this by:
+- Adding an NCI_CONN_CREATE_PENDING flag in enum nci_flag to track
+  in-flight connection creation commands, and rejecting unsolicited or
   delayed responses.
-- Validate packet length before reading payload fields.
-- Reject responses that allocate NCI_STATIC_RF_CONN_ID or duplicate
+- Adding packet length verification before reading payload fields.
+- Rejecting responses that allocate NCI_STATIC_RF_CONN_ID or duplicate
   existing connection IDs.
-- Append new connections with list_add_tail() instead of list_add().
-- Restrict ndev->hci_dev->conn_info assignment to NFCEE destination
+- Appending new connections with list_add_tail() instead of list_add().
+- Restricting ndev->hci_dev->conn_info assignment to NFCEE destination
   types.
 
-Non-overlap with adjacent fixes:
-================================
-This issue does not overlap with the adjacent upstream fixes in this
-area: Lin Ma's commit 1b1499a817c9 ("nfc: nci: fix the UAF of
-rf_conn_info object") addresses a use-after-free in the conn_close
-path, and Yun Zhou's commit d56575a2595e ("nfc: nci: fix use of
-uninitialized memory in CORE_INIT_RSP parsing") addresses a different
-packet. The problem fixed here is the list_add() head-insertion
-combined with first-match lookup semantics (core.c:43-54), which lets
-a forged connection shadow the real one.
-
-Testing:
-========
-Verified with QEMU arm64 empirical test harness. Unsolicited
-CORE_CONN_CREATE_RSP frames were rejected with a rate-limited warning;
-conn_count remained 1, and the static RF connection was not shadowed.
-Verified with module compilation and checkpatch.pl (0 errors, 0 warnings).
-
-Thanks,
-Yuchao Zhang
-
-Yuchao Zhang (1):
-  nfc: nci: do not process unexpected or invalid CORE_CONN_CREATE_RSP
-
+Fixes: 736bb9577407 ("NFC: nci: Support logical connections management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+---
  include/net/nfc/nci_core.h |  1 +
  net/nfc/nci/core.c         |  2 ++
  net/nfc/nci/rsp.c          | 37 ++++++++++++++++++++++++++++++-------
  3 files changed, 33 insertions(+), 7 deletions(-)
 
+diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
+index 664d5058e66e..a4652ffc173d 100644
+--- a/include/net/nfc/nci_core.h
++++ b/include/net/nfc/nci_core.h
+@@ -31,6 +31,7 @@ enum nci_flag {
+ 	NCI_DATA_EXCHANGE,
+ 	NCI_DATA_EXCHANGE_TO,
+ 	NCI_UNREG,
++	NCI_CONN_CREATE_PENDING,
+ };
+ 
+ /* NCI device states */
+diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+index 5f46c4b5720f..b5fa17f0524e 100644
+--- a/net/nfc/nci/core.c
++++ b/net/nfc/nci/core.c
+@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
+ 	}
+ 
+ 	ndev->req_status = ndev->req_result = 0;
++	clear_bit(NCI_CONN_CREATE_PENDING, &ndev->flags);
+ 
+ 	return rc;
+ }
+@@ -709,6 +710,7 @@ static void nci_core_conn_create_req(struct nci_dev *ndev, const void *opt)
+ {
+ 	const struct core_conn_create_data *data = opt;
+ 
++	set_bit(NCI_CONN_CREATE_PENDING, &ndev->flags);
+ 	nci_send_cmd(ndev, NCI_OP_CORE_CONN_CREATE_CMD, data->length, data->cmd);
+ }
+ 
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index b0ab4f5acbce..a56a7392ab5e 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -305,15 +305,37 @@ static void nci_nfcee_mode_set_rsp_packet(struct nci_dev *ndev,
+ static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
+ 					    const struct sk_buff *skb)
+ {
+-	__u8 status = skb->data[0];
+ 	struct nci_conn_info *conn_info = NULL;
+ 	const struct nci_core_conn_create_rsp *rsp;
++	__u8 status;
++
++	if (skb->len < 1)
++		return;
+ 
++	status = skb->data[0];
+ 	pr_debug("status 0x%x\n", status);
+ 
++	if (!test_and_clear_bit(NCI_CONN_CREATE_PENDING, &ndev->flags)) {
++		pr_warn_ratelimited("unexpected CORE_CONN_CREATE_RSP\n");
++		return;
++	}
++
+ 	if (status == NCI_STATUS_OK) {
++		if (skb->len < sizeof(*rsp)) {
++			status = NCI_STATUS_SYNTAX_ERROR;
++			goto exit;
++		}
++
+ 		rsp = (struct nci_core_conn_create_rsp *)skb->data;
+ 
++		if (rsp->conn_id == NCI_STATIC_RF_CONN_ID ||
++		    nci_get_conn_info_by_conn_id(ndev, rsp->conn_id)) {
++			pr_warn_ratelimited("invalid or duplicate conn_id 0x%x\n",
++					    rsp->conn_id);
++			status = NCI_STATUS_REJECTED;
++			goto exit;
++		}
++
+ 		conn_info = devm_kzalloc(&ndev->nfc_dev->dev,
+ 					 sizeof(*conn_info), GFP_KERNEL);
+ 		if (!conn_info) {
+@@ -339,21 +361,22 @@ static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
+ 		 */
+ 
+ 		INIT_LIST_HEAD(&conn_info->list);
+-		list_add(&conn_info->list, &ndev->conn_info_list);
++		list_add_tail(&conn_info->list, &ndev->conn_info_list);
+ 
+-		if (ndev->cur_params.id == ndev->hci_dev->nfcee_id)
++		if (conn_info->dest_type == NCI_DESTINATION_NFCEE &&
++		    ndev->cur_params.id == ndev->hci_dev->nfcee_id)
+ 			ndev->hci_dev->conn_info = conn_info;
+ 
+-		conn_info->conn_id = rsp->conn_id;
+ 		conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
+ 		atomic_set(&conn_info->credits_cnt, rsp->credits_cnt);
+ 	}
+ 
++	nci_req_complete(ndev, status);
++	return;
++
+ free_conn_info:
+-	if (status == NCI_STATUS_REJECTED)
+-		devm_kfree(&ndev->nfc_dev->dev, conn_info);
++	devm_kfree(&ndev->nfc_dev->dev, conn_info);
+ exit:
+-
+ 	nci_req_complete(ndev, status);
+ }
+ 
 -- 
 2.53.0
+
