@@ -1,80 +1,89 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B20B5172CD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E0E5172CC
 	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738858; cv=none; b=A+Ap6f1GtnD0ausFNrQl15Ijz4DWDPww2U0iN8zhepqorDOTe8NpUrGOQT74ilZFLtx6FGlTWJl3dfpIYNI0eZkq54hLY+Qr6mKAJ3pZiIRVVJzzsvpOpGckS0kJTBgxtzCtagL+bdh06lc211WcX5A/g5P0gRryjh6SZvfs2vM=
+	t=1789738859; cv=none; b=Vk6oruwgxp7dPYrBVcS9t4lsc+bQDVA9p2PP3OAK79eIrK0qgLpVSuacr889fu57+anZ3Ql9zQ0XrS2zS3L4pOj/+Ew3JsCap8vY/24QdbppHn0Gy4h+jxSuCfNT6hufi8EtagjT3HVRGZQ0DktbcOn71cmX1Tpm1YSW6QdC0L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738858; c=relaxed/simple;
-	bh=qhyuo27wL8dOZ4t7i/6sns1OCJ7PshGao21UmCh/3iA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a7XYU4IwBNzGusXJlhJvJc47/xNHw7n4UmcpIjyvBTxA/U35McsZzcfsfE7uyXtTHjFXJR8ctJfnNx2rwHvzF4YH8G2BI/uiT5c4xMmgw2zQTCMa7eQqhFTAG54Dr+7spWYdMlbRfeNqawJf1XCgOkhWNbdfNIXgXKlGHIXRfr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3VQqOnq; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789738859; c=relaxed/simple;
+	bh=GNGNIrC4ZR1bsnFxd4Y9nTX3VMaDT+bQeH8lbriz1X0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r3CxSZGpXtp9jQTkFIY2lr3x46EWx9DtVsR+kDonbFCDAeJdmRrUACk5MVdkYi01p+cnYihmSmjbRs0mlRQxGszuuiJL8EwQmh/boBYVvu9tv2vdwM2LZLf0ItmlAgY4Dpg70lS69NBVR8lKJVX0yWui0uy/F2uvCkVjWFS7xM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMxuhM+A; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3VQqOnq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so398772f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMxuhM+A"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso828664a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789738852; x=1790343652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A7hk4kSUlQH1wBSNdgK7hn061of3Ek8pFYZgMv0vOlo=;
-        b=n3VQqOnqX+Aje+gLo3NPBgQcGs1lOzw+0JBQug3/tV4zoXV5Z48cvgOAKFelh+Apw/
-         GjtHg/s+zbXYilCh70oh3sNYMiMDb13RgtRMGr4O2LYupEd4LBI6gsLlsKMFosnHxwNF
-         UoPpl5XiNixwJJMgbHDpffPPf8KurIeq+MZfe8bOccfDo6EjCU4Kq2rZTzWc++H/JFEo
-         Nm4hIQL9LLi9Qqf+idWA/DvT6lqQFTBG3lFaUsm7Fm583cYkzV5HvQColeZgoSWYQp3i
-         QCDe/SiGQ5425OdLuxVbcwAa99uC6d4FshAShUkW2cth83tHU82IieIDwahaLThDhVjx
-         Rixg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738852; x=1790343652;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789738855; x=1790343655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A7hk4kSUlQH1wBSNdgK7hn061of3Ek8pFYZgMv0vOlo=;
-        b=m563u5FODj0Ahs92QDwtl7tO0gcSLIkXa8aSHL6fPU5SIYSUCCNcnTaZg+LcS+npVL
-         wf52/WP9ykVI44k4iYSc9PXvCNlPrI8jiv57ri4OAq/eNo/FvzfgZqEeyvufYTpWKuoG
-         ZJGRO4bpi2hVZxmOWRaCheIHVJm3Ii4TtHc+4lp0crDQYPCu0DnPs7ctdpw9uX/6+ycO
-         +9DmBkH68dibb54WX0kadJbTt7PEw15iPPnTpkm438n3hsYzQdp6++2P2TtGKWq4rxnI
-         ctJ7m2KTMb8qAiy+nRIRRJijpdFD2CinwqIeIs6VUDY3yyVztlVPSImnxaSOF8YieXwC
-         ko0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxfoQKmzm2f8P2GT/yoKUSCCiDWMUb2rZjW9sNuCt5c0wCEOPjfyec+Pq4KXSR717lZg7yd8N1tFiFv61E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mylKgLNaKLr/69j/x9q+8Uj/6b8mQqmJVVXCXlrJPK7OvMBm1L
-	QjtehNquYv/rqotSE/5sODss0G9x1sVeaHakgWy16n9rwLiXLakkvq1D
-X-Gm-Gg: AYBFou0odB8H0dQLyGVohu/OwAD9pDkS7lXqCIB2kLmlCLKA5KcxlVbPY40qAu0chCk
-	L9OK3WA6gX3sXSHCyuBlO82dpEzvOGVHuL6Qh6FNGaB1lduqP3QC6OwOEK+GNUozZvIrtv9F/BW
-	ML2dJ/oRdmsnz+tpy5GNB9wf+4D/+axL4AW4BGr/tArfb+lwRKkcIh6dS8iMRjWlkDFGlI0RT2n
-	QoUF9KO6qYEhU+JuP9R8zVnlSoI7sY5cco5oqs0xwCM0I4iNWU04P6SgLufikLVxFFx6HHrCgJU
-	C815PyDmIudMTFKgXcOz1HG4ajXSvSg+Vp2JupUGwSH2jUqCdP01KbbP3NdlnQFSP21xS+uCYSz
-	8P1T4vU3aE8efmO0cYPB67TKUzRtaedmNpLy3R1pkNr2bUX6b2BLq/Sg4BYg8noq6Ju7kgH5H5q
-	PV5j8UhB67CZjuHTa7lOdPlffPU+Ri/KEmhtGcUy7wuy5eLUKKUnQr7vFjVqAZ/3EgNWeZ7wcIM
-	fF3S3GHbjOaVH35/ZGTZWXQ25Ajx9h7HAO3edvnwUB4gPaG85a1N1VJS+njULeIkhL9dw4Px0sJ
-	QfF+YPvqC5UspZATfkPJXa2Zj3FglkSOGDmu3H+flVIWNC/aAw==
-X-Received: by 2002:a05:600c:474c:b0:49e:817a:ca7 with SMTP id 5b1f17b1804b1-49fc56c3c34mr35521715e9.8.1789738852113;
-        Fri, 18 Sep 2026 06:40:52 -0700 (PDT)
-Received: from localhost.localdomain (p54a14b85.dip0.t-ipconnect.de. [84.161.75.133])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd225898sm168149865e9.9.2026.09.18.06.40.51
+        bh=8LClDxrITmybPw/RDvdGi/ZCnnnT6FM/8jbV0TZBMMY=;
+        b=EMxuhM+AoTnleJ/82eqgpYNNiDm8vJsTHeYx6YVZEc7aFYDSxOzp2s5QTc2CIzIMtt
+         iAAksvs8EQ+WMYtUiewclSzLmAZ1EB74dh/bgwM4u+xocDrpaSOKAVFvUnlrbam91qS/
+         OTnnmvj+tx/GJYG2iAt/IEpp8tE/LC9lnzteC6LujUL3O4kSY1lDexnxq0GOextiBqgo
+         Xh8huYpmzkq2BoPJKb9Vhq5FLXNOB1qE2ZkGFIzTGwQqGze5hCIf1iCAITCePScb2/wT
+         NaA8J8L+zm8A1N1xmcqKJceiZKMBsiGk59qZvTqsROoeKEv/58utYjPrINbX5S8CiXcs
+         7DLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789738855; x=1790343655;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8LClDxrITmybPw/RDvdGi/ZCnnnT6FM/8jbV0TZBMMY=;
+        b=m1XN4mvTJgzCmlmuo5Wo9V1FJGb9YpZo61uFBT2gw2QnM4nK6P55VDmJzcvI2K31pJ
+         NkEuOg2ivoiEzL0NxfZIN7MaxjKqFZwLIM8YgWb6N76nq8zU0c+bkX6y27mq0PvitYxs
+         wzmHtH147e0Z015bCXBN7fftsafPbHg9QRXCNBFrGInmj2p4bifH7dlqz9+iZD4TkXDY
+         4H0e9ScLvOZr4M9UTmmXJ0TqaxrdaPO4DXK/y3fVAVvfAWR9CPDMusyygodHNygzBsQw
+         QtgIko9lTIJ/pqsZAh5fwUl/tFOeZXJewwhH3BKFn9hFPDrpXMR6qUME6iL5OSdvU76G
+         aZcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwuxhLd+yYpIoyRRBxoWyt57VHYFzv8eVu3KeEsnU0+eE7DQn3QvtUw+gJtevz9SaM3C886wG8Aq9gL0Ss=@vger.kernel.org
+X-Gm-Message-State: AFuF++luZ5vl8D3r1J/qYMEoIw3RbaBKSccYfwhUdW/+x6JWL5kAHMuc
+	SSY8ssGeqTvuRndj722qVEFLLlCRQFwOQBBRLb5rR3q6wz8ao7iZoYlf
+X-Gm-Gg: AYBFou3e2hX7b+eOt99rXMJy0yfEsf7tqciProp69D80rSGuXVA/ed9O163ndxrS5wX
+	KMeM3gL0WWLqZ90/NcGyUYY+mMNiUbDU+S+N4fu1SUgXUyhTW3SYwHB76RvIr/wQgyZ2YSaEEs9
+	wqDd1tcde3Ky2rsuLhPO6WJ5liAVi/q8k+CuC3octZAnrGBYNEa0GdY+1uUUOuvYKR1+r6+fqZZ
+	c/wzR24ghc/89P1gRjmnc1rRGfApqHP+tAdb0Vx1uRHsnA4UBp/BFZROZ9dYqLjtFk1w7QZCTqA
+	bIwLHFAqk9D0zaD96Ha3jN2uWbvChRHpvfqL216h3miHvIaJCWQGzca50Yxz149flCOwooNqub9
+	QQUjGc2z3bv/Hxp75qpoeSM3wif6kNU0s/5ad8v1X+C7Vr2Lf/dqLcQRAq0zpBZXzFz77x/tyuP
+	JPP49YJFexmJN0cPTpafmW2mlgRfxAKomXxCw9m7fB9SxsMAL1EzjrKW/y4j2T8jbo7N/ryirZn
+	VQm1OyD3LmEVr4qcjxm5IhdNH2DoPy2cYGPqT5o0Aqno7H2f+A4hpnFMlW8iM6bk80Tb/vDep2k
+	uxVea6+3tS+4UQ==
+X-Received: by 2002:a17:90b:53c4:b0:39e:d2a:e2dc with SMTP id 98e67ed59e1d1-39e54d1ea4dmr6218148a91.12.1789738855077;
+        Fri, 18 Sep 2026 06:40:55 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13253792a91.9.2026.09.18.06.40.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:40:51 -0700 (PDT)
-From: Bernard Ladenthin <bernard.ladenthin@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Bernard Ladenthin <bernard.ladenthin@gmail.com>,
+        Fri, 18 Sep 2026 06:40:54 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	alexander.potapenko@gmail.com
-Subject: [PATCH] net/sched: fix potential stack infoleak in em_text_dump()
-Date: Fri, 18 Sep 2026 15:39:37 +0200
-Message-ID: <20260918133953.12494-1-bernard.ladenthin@gmail.com>
-X-Mailer: git-send-email 2.49.0.windows.1
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 15/15] ASoC: mediatek: mt8192-mt6359: Fix error handling in MTKAIF calibration
+Date: Fri, 18 Sep 2026 20:39:11 +0700
+Message-ID: <20260918133912.133799-16-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918133912.133799-1-phucduc.bui@gmail.com>
+References: <20260918133912.133799-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,53 +92,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-em_text_dump() allocates struct tcf_em_text on the stack without zeroing
-it.  strscpy() writes the algorithm name and a NUL terminator into
-conf.algo[], leaving the remaining bytes uninitialised.  nla_put_nohdr()
-then copies the full struct to the netlink response.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-KMSAN on Linux 7.2-rc6 reports two kernel-infoleak splats from this path,
-one triggered via "tc filter show" and one via a raw RTM_GETTFILTER dump:
+mt8192_mt6359_mtkaif_calibration() ignored the return values of
+pm_runtime_get_sync() and mt8192_afe_gpio_request(), which could
+leave PM runtime references or GPIO state unbalanced on failure.
 
-  BUG: KMSAN: kernel-infoleak in _copy_to_iter+0x1c9/0x2620
-    nla_put_nohdr+0x83/0x130
-    em_text_dump+0x291/0x550
-  Local variable conf created at: em_text_dump+0x5d/0x550
-  Bytes 168-179 of 199 are uninitialized
+Switch to pm_runtime_resume_and_get(), check each GPIO request,
+and unwind on error.
 
-I am not certain whether this constitutes a real security problem in
-practice: the test was conducted in a controlled KMSAN environment and
-the leaked stack bytes may or may not carry sensitive data on actual
-production kernels.  I am reporting it because KMSAN flagged it as a
-kernel-infoleak and the fix is straightforward.  I can provide a
-userspace reproducer on request.
-
-The original code used strncpy() which zero-pads to the destination size.
-Commit b04202d6065c ("net/sched: replace strncpy with strscpy") replaced
-it with strscpy(), which does not pad, creating this condition.
-Zero-initialising the struct closes it.
-
-Fixes: b04202d6065c ("net/sched: replace strncpy with strscpy")
-Link: https://lore.kernel.org/netdev/20250327143733.187438-1-richard120310@gmail.com/
-Assisted-by: Claude:claude-sonnet-4-6 [KMSAN]
-Signed-off-by: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+Fixes: 18b13ff23fab ("ASoC: mediatek: mt8192: add machine driver with mt6359, rt1015 and rt5682")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- net/sched/em_text.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 37 +++++++++++++------
+ 1 file changed, 25 insertions(+), 12 deletions(-)
 
-diff --git a/net/sched/em_text.c b/net/sched/em_text.c
-index 343f1aebeec2..4132f8c3c5fc 100644
---- a/net/sched/em_text.c
-+++ b/net/sched/em_text.c
-@@ -113,7 +113,7 @@ static void em_text_destroy(struct tcf_ematch *m)
- static int em_text_dump(struct sk_buff *skb, struct tcf_ematch *m)
- {
- 	struct text_match *tm = EM_TEXT_PRIV(m);
--	struct tcf_em_text conf;
-+	struct tcf_em_text conf = {};
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index c86348691641..b010726e9b57 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -163,12 +163,23 @@ static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
+ 	int chosen_phase_1, chosen_phase_2, chosen_phase_3;
+ 	int counter;
+ 	int mtkaif_calib_ok;
++	int ret = 0;
  
- 	strscpy(conf.algo, tm->config->ops->name);
- 	conf.from_offset = tm->from_offset;
+-	pm_runtime_get_sync(afe->dev);
+-	mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA, 1);
+-	mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA, 0);
+-	mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA_CH34, 1);
+-	mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA_CH34, 0);
++	ret = pm_runtime_resume_and_get(afe->dev);
++	if (ret < 0)
++		return ret;
++	ret = mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA, 1);
++	if (ret)
++		goto err_pm_put;
++	ret = mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA, 0);
++	if (ret)
++		goto err_disable_adda_1;
++	ret = mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA_CH34, 1);
++	if (ret)
++		goto err_disable_adda_0;
++	ret = mt8192_afe_gpio_request(afe->dev, true, MT8192_DAI_ADDA_CH34, 0);
++	if (ret)
++		goto err_disable_adda_ch34_1;
+ 
+ 	mt6359_mtkaif_calibration_enable(cmpnt_codec);
+ 
+@@ -289,10 +300,14 @@ static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
+ 
+ 	mt6359_mtkaif_calibration_disable(cmpnt_codec);
+ 
+-	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA, 1);
+-	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA, 0);
+-	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA_CH34, 1);
+ 	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA_CH34, 0);
++err_disable_adda_ch34_1:
++	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA_CH34, 1);
++err_disable_adda_0:
++	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA, 0);
++err_disable_adda_1:
++	mt8192_afe_gpio_request(afe->dev, false, MT8192_DAI_ADDA, 1);
++err_pm_put:
+ 	pm_runtime_put(afe->dev);
+ 
+ 	dev_dbg(afe->dev, "%s(), mtkaif_chosen_phase[0/1/2]:%d/%d/%d\n",
+@@ -301,7 +316,7 @@ static int mt8192_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
+ 		afe_priv->mtkaif_chosen_phase[1],
+ 		afe_priv->mtkaif_chosen_phase[2]);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int mt8192_mt6359_init(struct snd_soc_pcm_runtime *rtd)
+@@ -319,9 +334,7 @@ static int mt8192_mt6359_init(struct snd_soc_pcm_runtime *rtd)
+ 	afe_priv->mtkaif_protocol = MTKAIF_PROTOCOL_2_CLK_P2;
+ 
+ 	/* mtkaif calibration */
+-	mt8192_mt6359_mtkaif_calibration(rtd);
+-
+-	return 0;
++	return mt8192_mt6359_mtkaif_calibration(rtd);
+ }
+ 
+ static int mt8192_rt5682_init(struct snd_soc_pcm_runtime *rtd)
 -- 
-2.49.0.windows.1
+2.43.0
 
