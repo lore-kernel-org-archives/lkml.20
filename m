@@ -1,106 +1,209 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A68485944;
-	Fri, 18 Sep 2026 05:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2901048593E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710770; cv=none; b=XCGB7R+nHG9AFwL/NPgS1H5dykJCNwerygFmE1kGRqyK5imzw3kJc8zw2rUjbZbfP4DrbAoYXhu3np1qIeEj+lNszvBh8be7f9Fk1wyN9U/12cZyJ+tHfkI4xp9N55IXR5K8K7LpVmdEGWm/aODTXl4Y8nOfn6Oz2d/II5Bp/Yo=
+	t=1789710775; cv=none; b=BSl7x45OQ4+chkLJ/1ybnHyMh8lQhjnoy6oLXg6PmvUQ9+I8M/Ks58UoGexr8OkFUWJMx9MSuUC+KB0fVuOXzFJ5x6r0Ch3GDNBN/wnfUD9rmXXRCzdx7An0Q89lPeZq6al+EJ0VSjF/hQ+hkEd5v38/eQdUlVL6wDIXKZ9txsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710770; c=relaxed/simple;
-	bh=9gDLaSvfEcxCMzM5UNGOW/P0V0j0lNB4HEBNmiKWMzU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VK4Z2yCIO97/Nkr+BdINhlys1hQhZoH5Ws3h2AGQX+53P6AgbcjuftPSXDBvwFkZi1tDKAm3fLhzpXRWPs2ziXOVv73DhJBZlgrfQcZcoP6uEwusiNTK9OAP5rMkbhlt5HkMEI84NS/v7BwZriBUway9SMhfTXPmZfnnJfQMTKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-01 (Coremail) with SMTP id qwCowABnOe2i0axqXE9ICA--.14577S2;
-	Fri, 18 Sep 2026 13:52:35 +0800 (CST)
-Message-ID: <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 18 Sep 2026 13:52:34 +0800
-In-Reply-To: <20260918030125.315978-8-a0987203069@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-	 <20260918030125.315978-8-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1789710775; c=relaxed/simple;
+	bh=V99jLj2gEYsH462fTqhUwsqP0GqMQkk41b67V5dynz0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=JCL5NiezHYDu6hSKPbSqEaY+hRQfKm+lYEhTdEBAMCeqMdib1/IdKXMNZwbb1ntJoZw8FwJK97WAOeiofHajtMTC6GpxB2SCdnm/yuoNofkR7rpcJ9CbYfaP6IomU1DC7HdqsP2RapBm2uLD25CbBTlM8D7dphVD8vNa1Po+r58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LH1/Yndx; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LH1/Yndx"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so185247a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:52:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789710773; x=1790315573; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RoqQBX0V764x0A/v/amZwGuN9suY1fEbdmSCiYW1k5w=;
+        b=LH1/YndxdKdTqJTRoOSlt0kiCmgEVtwTVWQ2dNzfDSEY9XCp7y4XkQQsRQsO5sGLdv
+         u4MsRZUs9PrK9+cdV4t88JtvJCAHyKi7lNtx55zWSiC5jvb5+vGABqO1ZZumgYbJtFfJ
+         hY4c6wdKEssCOyGYKh06SJaa/wuFCT8ZXM07tBmeEZ8bfCdXgVdRoxZk4hnY9hIbiwDQ
+         KzveBiurcVwDtjShw5SNupSOCA/2HmuyCAD/Gc8sxGi23g7IZ1kBi4MTd8At3tM73xaK
+         AAeJV9jgE6XlxjBVIofS387c2mof0UM1QiHLKWeCk3NUhc00RRKMxAcZyHpxohn3BaN7
+         XU9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789710773; x=1790315573;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RoqQBX0V764x0A/v/amZwGuN9suY1fEbdmSCiYW1k5w=;
+        b=ZAYJowmmvwu5F1VKG/5gkaS9pNMpjBaqkoaNMQWPd/6MWxkXjT4On45Kr1sw6WukQJ
+         fGQs+xPsdq+a+/zDVmwviUMVcMCxgPF23DZRZWPaDTSyMEIy9bwBqpqS5BouPfviVgQp
+         BIH+ba/KcGRs/3aQADXNotVsrt37PFV1mT2KqwBZl1H8xYtnbL9P91fdvYkd+YLz4Oam
+         g3CRcG+2Ci3A5v3UUvv4c/63IWnWxA/cvzLGpuspSd8VWQhJDANjzSo6Wn5j3iRKciGX
+         dhUfzGZeM1OuNGqsh2k/oAdoZE1LNiy1h4Fz3pszzwI7CqwPvra345AhMVFHTTVlfPXe
+         EWJA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8AKVME3H/Di0BoAm99qAnDGcWSt5tPZuog+mexo/DcGoiRfcpYLM7BkTHX4r9YqZr9GzqUPiDF/vS7s4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mx0nNsXJcz2SaNAGOy8gfpxjF+ZRXkae76EsYyikPGkQbYVL5y
+	dpOpzmdMbK3lW7Pq+LYIvqTPeFT4g50KqIGIhD0xsTTLetnKGwgcF2Hq
+X-Gm-Gg: AYBFou2QPzj7Vh8Fcmhc8QvVG+KDJEGaoSXOntRFOvLXe4M1b/R4dhPZo0XJEC+y8Th
+	73pp8jVjnZwSn1d2/fqAmbsEaVPmIyzybioRozavJPw0fUeTmT/8pkD4V/EXeXsv95ikGhsNjK3
+	ytWthFncVvPQvSWTSqe2Eo8BY6RVUf/4s6EVp7PbF2rL4LPuclUXKKdnOTdEvMN7amS5guuxFik
+	R646jekb6zoaRhUuQCPaChDqLm7ot8ryE6AHo62uh/eQ6kVZC58xMFXYtSFIdvVQrR5D3Q9C8LN
+	ajyoXeRXy6KnoXwjQ3siFFBOackoD410m16iJE6gR6rHlPQyLw8sAplZGDhqdPLYIqqe+fHb6Fz
+	wcte4ZUSY0m++fIT+Lz2pm//CM4/3Q1loFpbUNmqnvowG0Va3eEhSUX6UEnXWR6e+aN88vj1p60
+	FleXSH/3mTwxYBaHxyzrYk78v+C3g4rvKYJR0FpGYM8EE7BUVqjiLAkNOBgWh+Rz44U92b034Cc
+	pcL5/DYr8iNDPpoUBvyn4vt8g==
+X-Received: by 2002:a05:6a21:9e0f:b0:3dd:85a8:caca with SMTP id adf61e73a8af0-3dd8c47d1c6mr2792351637.33.1789710773192;
+        Thu, 17 Sep 2026 22:52:53 -0700 (PDT)
+Received: from localhost ([13.93.150.60])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c28721895sm1518873eec.13.2026.09.17.22.52.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 22:52:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-CM-TRANSID:qwCowABnOe2i0axqXE9ICA--.14577S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWrXF1kJw48ZF43CF1ftFb_yoW8Ar1DpF
-	4ay3y8KF4rXayj9FyxtFWvgFyYv3W7J34fG3y8G3sIvrn8ta9xWFy8tFyxta4DWrZrAF4S
-	vFs29w47Cr1jkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07jUb18UUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 05:52:50 +0000
+Message-Id: <DLI7IPF4DIYX.3BAFFWR52DHUY@gmail.com>
+Subject: Re: [PATCH net-next v2 2/2] selftests: net: test untracked NA
+ recovery of FAILED neighbors
+From: "Lawrence Lee" <lfqlee314@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>
+Cc: <dsahern@kernel.org>, <idosch@nvidia.com>, <davem@davemloft.net>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <rdunlap@infradead.org>, <netdev@vger.kernel.org>,
+ <aajith@arista.com>, <roopa@nvidia.com>, <jhpark1013@gmail.com>,
+ <corbet@lwn.net>, <skhan@linuxfoundation.org>, <shuah@kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <alex.aring@gmail.com>,
+ <linux-wpan@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>
+X-Mailer: aerc 0.17.0
+References: <3f33052571409614b953a3dc7778114c51c43669.1789448374.git.lfqlee314@gmail.com> <178966456270.22033.8952247046783062389@kernel.org>
+In-Reply-To: <178966456270.22033.8952247046783062389@kernel.org>
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
-> VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
-> the primary plane on DC8200-family hardware actually leaves the
-> framebuffer enable bit instead of clearing it.
->=20
-> This bug predates this series: it was carried over unchanged from
-> vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
-> introduce per-variant hardware ops table" split the DC8200-specific
-> implementation out into vs_dc8200.c.
->=20
-> Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon
-> display controllers")
+> [Severity: Low]
+> Should verify_ndisc() also check the link-layer address that the
+> advertisement carried?
+>
+> The seed in test_unsolicited_na_common() deliberately creates the entry
+> without one:
+>
+> 	${IP_ROUTER} neigh replace "${HOST_ADDR}" dev "${ROUTER_INTF}" \
+> 		nud failed extern_learn
+>
+> while the recovery path in net/ipv6/ndisc.c:ndisc_recv_na() pulls the tar=
+get
+> link-layer address out of the options and passes it down:
+>
+> 	lladdr =3D ndisc_opt_addr_data(ndopts.nd_opts_tgt_lladdr, dev);
+> 	...
+> 	__ndisc_update(dev, neigh, lladdr,
+> 		       new_state, update_flags, neigh_failed,
+> 		       NDISC_NEIGHBOUR_ADVERTISEMENT, &ndopts);
+>
+> Since the only assertions here are the state substring and extern_learn,
+> would a change that moves FAILED -> STALE but installs no lladdr, or an
+> incorrect one, still report OK?  Comparing the resulting lladdr against t=
+he
+> host veth MAC would close that gap.
+>
+I will update the tests to verify the lladdr
 
-Maybe it'd be better to fix this before adding DC variant abstraction,
-for easier backporting.
 
-Thanks,
-Icenowy
+> [Severity: Low]
+> Can this switch actually isolate the mode 2 in-prefix gate?
+>
+> Moving HOST_ADDR from 2000:20::2 to 2000:21::2 changes the source address=
+ of
+> the advertisement, its target address, and the key of the seeded neighbou=
+r
+> entry all at once, while the router keeps 2000:20::1/64.
+>
+> The advertisement under test comes from addrconf_dad_completed(), and
+> ndisc_send_na() uses the same address for both fields when it is local:
+>
+> net/ipv6/ndisc.c:ndisc_send_na() {
+> 	ifp =3D ipv6_get_ifaddr(dev_net(dev), solicited_addr, dev, 1);
+> 	if (ifp) {
+> 		src_addr =3D solicited_addr;
+> 	...
+> 		.target =3D *solicited_addr,
+> }
+>
+> so saddr =3D=3D target for every packet this test generates.  The kernel =
+gate is
+> source based:
+>
+> net/ipv6/ndisc.c:accept_untracked_na() {
+> 	case 2:
+> 		return !!ipv6_chk_prefix(saddr, idev->dev);
+> }
+>
+> and Documentation/networking/ip-sysctl.rst describes mode 2 in terms of "=
+the
+> source IP address".  Would a change that tested msg->target instead of sa=
+ddr
+> leave both new mode 2 rows green?  Keeping HOST_ADDR fixed and instead
+> varying the prefix configured on the router side would exercise the gate
+> without also moving the target and the entry key.
+>
+Will update the tests to cover one source address outside the prefix and=20
+one inside.
 
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> index f72da10295e1b..25b5906a1c5fc 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> @@ -70,8 +70,8 @@ static void
-> vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
-> =C2=A0
-> =C2=A0static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
-> unsigned int output)
-> =C2=A0{
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			=C2=A0 VSDC_FB_CONFIG_EX_FB_EN);
-> =C2=A0
-> =C2=A0	vs_dc8200_plane_commit(dc, output);
-> =C2=A0}
+> [Severity: Medium]
+> The comment says "add a delay to ensure neighbour processing is done", bu=
+t
+> link_up, start_tcpdump and verify_ndisc run back to back with no sleep an=
+d no
+> retry.  Where is the delay?
+>
+> start_tcpdump() blocks on:
+>
+> 	${IP_ROUTER_EXEC} timeout 15s \
+> 		tcpdump --immediate-mode -tpni ${ROUTER_INTF} -c 1 \
+> 		"icmp6 && icmp6[0] =3D=3D 136 && src ${HOST_ADDR}"
+>
+> but the AF_PACKET tap that satisfies -c 1 is fed from ptype_all delivery =
+in
+> __netif_receive_skb_core(), which runs ahead of the state change the test
+> looks at:
+>
+> ipv6_rcv() -> icmpv6_rcv() -> ndisc_recv_na() -> __ndisc_update() ->
+> neigh_update()
+>
+> Does tcpdump exiting really order against that update, given verify_ndisc=
+()
+> takes a single un-retried snapshot of ip neigh show?
+>
+> There is a second effect for the new rows.  In the four expect-FAILED=20
+> cases:
+>
+> 	test_unsolicited_na_combination 0 0 1 failed
+> 	test_unsolicited_na_combination 0 1 0 failed
+> 	test_unsolicited_na_combination 1 1 1 failed
+> 	test_unsolicited_na_combination 0 2 1 failed 0
+>
+> the expected value FAILED is exactly the state the entry was seeded with,=
+ so
+> "still FAILED" and "the advertisement was never processed" look identical=
+.
+> Would a bounded poll for the expected state, or an explicit settle, make
+> these rows able to distinguish the two?
+>
+> Related question on ordering of the capture: tcpdump is started after
+> link_up, so can the single unsolicited advertisement emitted at DAD
+> completion be missed if the fork and exec are slow?  In that case timeout
+> exits 124 while set -e is in effect inside start_tcpdump, which aborts th=
+e
+> whole script rather than failing one row.  Would arming the capture befor=
+e
+> link_up avoid that?
+>
+Will change the tests to start the capture prior to bringing up the host=20
+side
 
