@@ -1,195 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDC63ACA6A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB78B3D9DB6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722676; cv=none; b=Pw2THH2SJUP5Alz7v5AxU8ZPTWOAB+Enp0iKY/LXArOd6kx0y7jg6Apf5Ck0e3IFxgeKAWdWguC+RVnONMQ9sk2X+XwddsWk9bs5gCPGmzt0t+rTHkAidNq5RXFlKR48rLwp+092J9z2UKlgkCAVeTXBLFdVvOUfm4/4K5zCy7s=
+	t=1789722679; cv=none; b=knAdef/GNAzkGQld6BwZkpyZg3qxfCybpkaKON7jPv29PFTJ+1Zmqv4uek86fYJB30eMmuTAZcGbksxvKrfau91LpTjaG9neq9b2i0qwh5KXqkz8af+bsDYY1ycshFlX+3nvfNqWQTpGAxTM5usyqWoV5eQoN6ZGyer0+VE61dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722676; c=relaxed/simple;
-	bh=t6uvVarY0wjy8REg6s8wu0xQ+fvJYL0Ij6Nf6nylnLM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
-	 References:In-Reply-To; b=KyQGcbeDL6RTac9v305D5BWqyYuhS8lOI55RCOZQZgBfngCexRXi5hCnM7SjyGOTT0dgPXq9HwGFEwakkmWb4FCPmAFa3G+2ZLpgeMg0hf7vdKfFWrX6C+ij8fM/kbmUGUr8G293BVfn4LpP1MAfPv/v45Qi8EOWiht1Enrh1oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1HBNKwN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789722679; c=relaxed/simple;
+	bh=N8gcGlhbhPcsyAylvjuJEfdtlvvs1cgODZctSBueXDg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ai/hgzFBCjyxhtmR4xiyMnRsLlNTbBGdkszjVZGqfNavR/OPDGI7vob4lSRP2GE5Gh3fxL8VTbXw1zJxCS8Anz+wz++9noOY9iBw1tjAwZRn4lz8MtvMZEejgEZ7IAgdko7P/VAVsGttrNqrmRh8S2SOrZfif7XLDHD7yhGlXMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qm/SB2h4; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1HBNKwN"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3E89E1F00898;
-	Fri, 18 Sep 2026 09:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789722674;
-	bh=//A6nFUT1fgpq48JhsGCVi6sK5GUd9rpMaDF4/M8Wx0=;
-	h=Date:From:To:Subject:Cc:References:In-Reply-To;
-	b=Z1HBNKwNnL+VznfivuiwGM6M1Xcx0DfMoCACjps4yaIMqU7+cFoYA7IPC0wsSl3Q3
-	 edGuJ0slgW2lnGD3+0B9vrjG7igsaf7/YAs/HD8Lvv3r4xzA+HAJ3BVkTf0SzFf+CC
-	 VHtWuEaFQEh6l7Xm+kLSbjcLUfK5swVok5GZJF/c/fSqWymaKGB7wBub4qATvxD5nW
-	 Zl5NuwQmrb+KX8JBTs+rQv/lEG2KWLjEc9gOXZGxrcokejQ9kUqlwMkZ6K9Rahom6z
-	 edZpSL4lV7XQCx3QN8pc5tvJQog1WR3VSuT/9f4MdI1k0LlWDSKtJ7EBvkZDGMpyuZ
-	 VyGTyuE3MGcnA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qm/SB2h4"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so2572805e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789722675; x=1790327475; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SHLSHkTPbt9kkxq29Sn3Lw/rKmJD8RTBCnKLHusuNiA=;
+        b=qm/SB2h49H169CQH3xuQMEhJUiTo/iUHgkCwzwnUEtEuYQGwXibhFzcummvwESxoLK
+         0MmfmXnSgXCkb2uLVqZOu/8+YDDDeEPLgSYVPShPLdA6Xm3Z7vcry6Dl9LwyeAlvrAT0
+         Md6GZmKTzhLhIhsBIemtpurqcw/+Cv58dTrtLfurxbMyyjzlff24omx9eBDSx2AugzUn
+         zwyvRXSyqAGJo2b5rZtPkGQ7T+RbZZFdtkX1Qr2wGRU61NvIcbWmpzW0FZ+qYjqkgRMR
+         IZMlIVGdCwPHQa8yfRUQFyuFcanrLcT2R6ZYpSmW1cDEBgDJFtDLNea2ecExWsCCbwt1
+         hDSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789722675; x=1790327475;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SHLSHkTPbt9kkxq29Sn3Lw/rKmJD8RTBCnKLHusuNiA=;
+        b=sW6Np3kG3jQuhJ1Eyjja5D3VdPmbk2DFWxUigSu1T5qZgHlQvxpGvDB6bGo1wNpkNh
+         wYuXIbRT8cvtf+01xMaMswv8TFlggzj1pja3ZKgEqREKXQgmR55RLl+ImrrvJ5vX/eeu
+         vHpgbFhbGTuxXBuYs3hs3iGswUKG2qlcXoGt6pW7YKbA223zsDPi3SClxr53xGYRZYNQ
+         vsDAsu8y64dRln+VlFGCHbUNog/SlJz9Vvaon0/JQLx1yN8Y2qgmINTYRbHkigkIutza
+         QPAW1GPfN4X9yPzgTN8P+GEXXpGaEwSji3gUnfBZODpoH7TY+1pYKAyHZUijAdFV9g7L
+         GG+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzdLdMx8Bv/P2HYBu56XQjgGOan69qtmb28yU5zJHM7WQ9XUuUm9x0yQ8lk/is4IOD5OZ92YyESqXw0wV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++moehMQ1e0HYa7DYj1SkSMaxhJ6VZu7o11FSLDr+ibuWgyD3ydc
+	5sS0HDw5dqboyAHub5OamBCm3NUTaWHtuEKetWOtaVif8YNG8SN/i5uK
+X-Gm-Gg: AYBFou0j5YO0QvUDajt30hM6Gm0ziAxdMpBgG8W0o0jXhWHx/vx4nz9J1MEsTDwOCWT
+	iHrFkRkd9BsmrxQ2kgf7BDsdM8EyXMmS9bLHUUzxxZGPDrlMVRbYN+f1ROYyqvI26MuizDRJnNH
+	XVWB7VlTZALh/Bg0px9BNwS3ZekNhfdszXhe3tRF4yDFTNDWG5LCQY1YmuiqnAgddinW+/CaPJ/
+	+4mRi3eX4tA1F2j0S9t+7ALqWeHLi7ma7hYZZrPHp7YC4RonZeOiBruAXxmEGG8A2dj9gAitJlt
+	DcXvy1PN0zY595few3YNadiQFsOpSczAmOdnnBUp+G14tsR7acclOb2vfgvtiUkb1w1vI6ZuLeq
+	fN1fcK0w9q34EjrQzE4MJ9XgHeK/Qb27ydJaK7w2SpNpXR4/dRQyMEY9IxWD4hl9I6RSZg8nDVT
+	7jPsq7lGLbgKymrP+KqGs/vP6/OpwndRLDGdf7edMXc52rDQL11oSvWEmZrVUKKdQzreVGMjUKc
+	Zs5Oppx3UWZ2Rgtv0NiUSDY8w==
+X-Received: by 2002:a05:600c:1d06:b0:49e:8222:3451 with SMTP id 5b1f17b1804b1-49fc5001358mr26352405e9.14.1789722674633;
+        Fri, 18 Sep 2026 02:11:14 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm138774275e9.2.2026.09.18.02.11.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:11:13 -0700 (PDT)
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: bpf@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	brauner@kernel.org,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	kpsingh@kernel.org,
+	ljs@kernel.org,
+	matt@bobrowski.net,
+	memxor@gmail.com,
+	song@kernel.org,
+	sun.jian.kdev@gmail.com,
+	utilityemal77@gmail.com,
+	viro@zeniv.linux.org.uk,
+	tasos.papagiannnis@gmail.com
+Subject: [PATCH bpf-next v8 0/5] bpf: Add user memory access kfuncs for mm_struct
+Date: Fri, 18 Sep 2026 12:10:53 +0300
+Message-ID: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=d80592fc061c79ef1f409235a484d6b7475357f9ff155bde2579abd6de22;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 18 Sep 2026 11:11:10 +0200
-Message-Id: <DLIBQKG04DIF.1FKAYOEZH6ZU0@kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Pratyush Yadav"
- <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>,
- "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra"
- <vigneshr@ti.com>
-Subject: Re: [PATCH 16/25] mtd: spi-nor: winbond: Prepare introduction of
- W25QxxPW-Q/N parts
-Cc: "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Steam Lin"
- <STLin2@winbond.com>, <linux-mtd@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-0-c1b20c39dd1f@bootlin.com> <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-16-c1b20c39dd1f@bootlin.com>
-In-Reply-To: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-16-c1b20c39dd1f@bootlin.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---d80592fc061c79ef1f409235a484d6b7475357f9ff155bde2579abd6de22
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On MMU systems, during exec, argument and environment strings are copied
+into the new address space held by struct linux_binprm before that address
+space is installed on the task_struct. Existing BPF user memory helpers
+operate on the current address space or one associated with a task_struct.
+Because no task_struct refers to the new address space at this point,
+programs cannot access these strings from the bprm_check_security LSM
+hook.
 
-On Wed Sep 9, 2026 at 5:25 PM CEST, Miquel Raynal wrote:
-> There is an ID collision between chips of same density from the JW
-> family (which it self conflicted with yet another family) with new PW
-> parts. Chips are very similar in practice, it is mostly a matter of
-> electrical differences (mostly power consumption being lower) as well as
-> the addition of inline ECC capability for the higher devices (> 32Mb).
->
-> Chips with ECC capability protect 16 bytes chunks are against single
-> errors. In case a non-aligned write happens, ECC is locally disabled
-> until the next erase.
->
-> Another significant difference is that PW chips identify themselves as
-> supporting the new SFDP (rev F) QER field which forces an alternate
-> write SR2 opcode (0x31).
->
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
->  drivers/mtd/spi-nor/winbond.c | 55 +++++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 55 insertions(+)
->
-> diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.=
-c
-> index fbad9e408d7a..efa9de1f0f66 100644
-> --- a/drivers/mtd/spi-nor/winbond.c
-> +++ b/drivers/mtd/spi-nor/winbond.c
-> @@ -71,6 +71,41 @@ static bool winbond_rv_match(const struct spi_nor *nor=
-)
->  	return nor->sfdp && is_w25qxxrv(nor);
->  }
-> =20
-> +static bool is_w25qxxpw(const struct spi_nor *nor)
-> +{
-> +	struct sfdp_header *sfdp_h =3D spi_nor_sfdp_get_header(nor);
-> +
-> +	/*
-> +	 * W25QxxPW chips re-use the same ID as the W25QxxJW/NW family.
-> +	 *
-> +	 * Chips are very similar, W25QxxPW brings mostly performance and power
-> +	 * consumption improvements. One key difference in behaviour is the
-> +	 * automatic 16-byte based error correction.
-> +	 *
-> +	 * They can be distinguished based on their SFDP minor revision:
-> +	 * W25QxxJW:       JESD216B, minor revision =3D=3D 06h
-> +	 * W25Q51/01/02NW: JESD216B, minor revision =3D=3D 06h
-> +	 * W25QxxPW:       JESD216F, minor revision >=3D 0Ah
-> +	 */
-> +	return sfdp_h->minor >=3D SFDP_JESD216F_MINOR;
-> +}
-> +
-> +static bool winbond_pw_match(const struct spi_nor *nor)
-> +{
-> +	return nor->sfdp && is_w25qxxpw(nor);
-> +}
-> +
-> +static bool winbond_pw_with_ecc_match(const struct spi_nor *nor)
-> +{
-> +	const struct spi_nor_id *id =3D nor->info->id;
-> +
-> +	if (!winbond_pw_match(nor))
-> +		return false;
-> +
-> +	/* W25Q33PW chips (id[2] =3D=3D 0x16) do not have built-in ECC support =
-*/
+This series adds two sleepable BPF kfuncs for copying bytes or
+NUL-terminated strings from a trusted struct mm_struct. It also marks
+linux_binprm->mm as trusted-or-null, allowing BPF LSM programs to pass it
+to the kfuncs after a NULL check and inspect exec arguments before
+allowing the exec to continue.
 
-The commit message mentions ECC is available for >=3D 32Mbit. Doesn't
-align with this comment. Also about the 8MBit and 16Mbit ones?
+To make the trusted-or-null annotation safe, the exec paths are hardened
+to clear bprm->mm before dropping the reference it owns.
 
-"W25QxxPW chips smaller than 32MBit doesn't provide built-in ECC support"?
+On NOMMU systems, exec argument and environment strings remain in
+bprm->page[] until they are transferred to the new process stack. They
+cannot be accessed through bprm->mm at the bprm_check_security hook.
+The new kfuncs remain available on NOMMU for address ranges represented
+by a supplied struct mm_struct.
 
-If you like I could rewrite it as I'll apply it. The rest of this
-series looks good.
+The series adds selftests covering both kfuncs while reading argument and
+environment strings from linux_binprm during exec.
 
-> +	return id->len =3D=3D 3 && id->bytes[2] >=3D 0x17;
+Changes in v8:
+- Removed CONFIG_BPF_SYSCALL #ifdefs from mm/memory.c and mm/nommu.c.
+- Reformatted the selftest to use 120-character lines.
+- Removed the CONFIG_MMU check from the selftests.
+- Removed the extern declarations from the selftests, as they already 
+  exist in vmlinux.h.
+- Moved the checks to user space in the selftests.
 
-Then this makes more sense.
+Changes in v7:
+- Use execvpe() instead of a hardcoded /bin/true path in the
+  copy_from_user_bprm selftest while retaining the controlled environment.
+- Remove the unused bpf_misc.h include.
+- Rewrap the invalid-flags kfunc call to stay within 80 columns.
+- Fix indent in mm patches.
 
--michael
+Changes in v6:
+- Drop redundant extern keywords and CONFIG_BPF_SYSCALL guards from the
+  remote memory copy declarations.
+- Drop the explicit bpf_copy_from_user_mm() prototype and share copy 
+  logic through inlineable static internal helpers instead of calling 
+  between kfunc/helper entry points.
+- Validate flags and zero-length requests before acquiring the task's
+  mm, preserving existing behavior and ensuring internal helpers are 
+  called only with a live mm.
+- Drop the verifier relaxation for unchecked reads through trusted-or-null
+  pointers and its tests.
+- Fix the existing LSM selftest to explicitly NULL-check bprm->mm after
+  marking the field trusted-or-null.
 
-> +}
-> +
->  static int
->  w25q128_post_bfpt_fixups(struct spi_nor *nor,
->  			 const struct sfdp_parameter_header *bfpt_header,
-> @@ -201,6 +236,22 @@ static const struct spi_nor_fixups winbond_nor_partn=
-ame_fixups =3D {
->  	.post_sfdp =3D winbond_nor_partname_post_sfdp_fixups,
->  };
-> =20
-> +static int winbond_nor_ecc_configuration_post_sfdp_fixups(struct spi_nor=
- *nor)
-> +{
-> +	/*
-> +	 * PW chips feature automatic error correction. Non 16-byte aligned
-> +	 * writes work, but disable error correction on the region until next e=
-rase.
-> +	 */
-> +	nor->params->writesize =3D 16;
-> +	nor->params->flags |=3D SNOR_F_ECC;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct spi_nor_fixups winbond_nor_ecc_configuration_fixups =
-=3D {
-> +	.post_sfdp =3D winbond_nor_ecc_configuration_post_sfdp_fixups,
-> +};
-> +
->  static const struct flash_info winbond_nor_parts[] =3D {
->  	{
->  		.id =3D SNOR_ID(0xef, 0x30, 0x10),
-> @@ -622,6 +673,10 @@ static const struct spi_nor_fixup winbond_fixups[] =
-=3D {
->  	  .fixups =3D &winbond_nor_multi_die_fixups },
->  	{ .id =3D SNOR_ID(0xef, 0x40, 0x22), .match =3D winbond_jv_match,
->  	  .fixups =3D &winbond_nor_multi_die_fixups },
-> +	{ .id =3D SNOR_ID(0xef, 0x60), .match =3D winbond_pw_with_ecc_match,
-> +	  .fixups =3D &winbond_nor_ecc_configuration_fixups },
-> +	{ .id =3D SNOR_ID(0xef, 0x60), .match =3D winbond_pw_match,
-> +	  .fixups =3D &winbond_nor_partname_fixups },
->  	{ .id =3D SNOR_ID(0xef, 0x70), .match =3D winbond_rv_match,
->  	  .fixups =3D &winbond_nor_partname_fixups },
->  	{ .id =3D SNOR_ID(0xef, 0x70, 0x18), .fixups =3D &w25q128_fixups },
+Changes in v5:
+- Move the shared wrappers to mm/util.c and handle zero-length requests
+  at the entry points.
+
+Changes in v4:
+- Add negative verifier tests for atomic RMW and load-acquire accesses
+  through trusted-or-null BTF pointers.
+- Preserve explicit nullability-marking coverage for tracepoint
+  arguments, dentry->d_inode, and sched_ext .dispatch.
+- Use the already-nullable mmap_file argument for the negative store
+  test, avoiding dependency on the later linux_binprm->mm marking.
+- Clarify the bprm->mm lifetime invariant and move its lifetime fix
+  before the mm_struct kfunc patch.
+- Reword the trusted-or-null read change in imperative mood and remove
+  its redundant before-and-after summary.
+- Document that the existing task-based user-memory interfaces delegate
+  to the new mm-based implementations, reorder the string-copy kfuncs to
+  remove an unnecessary declaration, and annotate the remaining
+  declaration with __bpf_kfunc.
+
+Changes in v3:
+- Replace the linux_binprm-specific kfuncs with generic struct mm_struct
+  kfuncs, as suggested by Andrii Nakryiko.
+- Move the kfuncs next to the existing user memory helpers and make the
+  task-based variants delegate to the new mm-based implementations, as
+  suggested by Andrii Nakryiko.
+- Clear bprm->mm before dropping its reference on exec error paths.
+- Mark linux_binprm->mm as trusted-or-null.
+- Allow fault-protected reads through trusted-or-null BTF pointers to
+  preserve compatibility with existing BPF programs, as suggested by
+  Andrii Nakryiko.
+- Add verifier and runtime selftests for trusted-or-null BTF pointer
+  reads.
+- Rename __copy_remote_vm_str() to __copy_remote_mm_str(), as suggested
+  by Andrii Nakryiko.
+- Clarify that reading exec strings through bprm->mm is limited to MMU
+  systems, while the generic mm-based kfuncs remain available on NOMMU.
+
+Changes in v2:
+- Register the kfuncs on NOMMU systems and return -EOPNOTSUPP when called,
+  as suggested by Justin Suess.
+- Add selftest coverage for reading environment strings, as suggested by
+  Justin Suess.
+- Clarify that copy_remote_mm_str() leaves the destination untouched when
+  called with a zero-length buffer.
+- Use sizeof() instead of hardcoded argument lengths in the selftests.
+- Use ~0ULL for invalid-flags checks in the selftests.
+
+v7:
+https://lore.kernel.org/bpf/20260915080255.48929-1-tasos.papagiannnis@gmail.com/
+
+v6:
+https://lore.kernel.org/all/20260908135302.74963-1-tasos.papagiannnis@gmail.com/
+
+v5:
+https://lore.kernel.org/bpf/20260907165220.52431-1-tasos.papagiannnis@gmail.com/
+
+v4:
+https://lore.kernel.org/bpf/20260904145340.40212-1-tasos.papagiannnis@gmail.com/
+
+v3:
+https://lore.kernel.org/bpf/20260831092305.42062-1-tasos.papagiannnis@gmail.com/
+
+v2:
+https://lore.kernel.org/bpf/20260820131801.68759-1-tasos.papagiannnis@gmail.com/
+
+v1:
+https://lore.kernel.org/bpf/20260812111140.7762-1-tasos.papagiannnis@gmail.com/
+
+Anastasios Papagiannis (5):
+  mm: Add copy_remote_mm_str()
+  exec: Clear bprm->mm before dropping its reference
+  bpf: Add user memory access kfuncs for mm_struct
+  bpf: Mark linux_binprm->mm as trusted-or-null
+  selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
+
+ fs/exec.c                                     |   7 +-
+ include/linux/mm.h                            |   8 +-
+ kernel/bpf/helpers.c                          | 130 ++++++++++++++++--
+ kernel/bpf/verifier.c                         |   5 +
+ mm/internal.h                                 |   3 +
+ mm/memory.c                                   |  43 +-----
+ mm/nommu.c                                    |  43 +-----
+ mm/util.c                                     |  62 +++++++++
+ .../bpf/prog_tests/copy_from_user_bprm.c      |  65 +++++++++
+ .../selftests/bpf/progs/copy_from_user_bprm.c |  69 ++++++++++
+ tools/testing/selftests/bpf/progs/lsm.c       |   5 +-
+ 11 files changed, 339 insertions(+), 101 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+ create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
 
 
---d80592fc061c79ef1f409235a484d6b7475357f9ff155bde2579abd6de22
-Content-Type: application/pgp-signature; name="signature.asc"
+base-commit: 961b8946acb482b6d7a39c266d623e5f9c4e873f
+-- 
+2.55.0
 
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaq0ALhIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/iveQGAuJyWeW0wXUfXFLHPDows5VvT5IWhUubH
-H/e7kQt1ufblzGdN6udJUkpRU4G/pvlSAYDp8WCbbI2mwN0iGRXhVZM0XGIvj9fl
-5A6hzQuU71gIBz32tfEKn5iIYfyL31ueuVU=
-=xsj5
------END PGP SIGNATURE-----
-
---d80592fc061c79ef1f409235a484d6b7475357f9ff155bde2579abd6de22--
