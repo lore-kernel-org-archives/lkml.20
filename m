@@ -1,139 +1,85 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7C33B774B;
-	Fri, 18 Sep 2026 15:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B2C502776;
+	Fri, 18 Sep 2026 15:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744982; cv=none; b=GqrEl4ldW73+1R7vrVy/Tx+21/dTmheZ0F9URG8wv/L0jdzbrCHHOO9j3/fnrOWdeQ5daw9FCnoH+rokLdThqD0QHiD8oMas7nIPyse9fOWxqcv6JmIawt3+zjDJK3Xn1gqYuwQrUWq6t1cB08CTNTWyHBFttdmW21JBCS4kVwk=
+	t=1789744990; cv=none; b=UlykrqNy3rFJkI32YjE855LGJiOF7NoPw12gBVnTQFmktYkAirXpnGK6iTwka14SoajnVG5abDKIPUXdA5Ks616DuNg8Yf/vYx9W0A8WIEN5wZBr+WWJAwfpp9Fe+kVEFhMonKu3bkutsx2bTQM3pkEJzjF8D87y+gt7li5icU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744982; c=relaxed/simple;
-	bh=A0XsLMYpFvVUHG3YpC8n4NO8S2r6vxPhQ2H+eRf9bWQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=mIwbxWRPBuaJGUOUifxtDzjpEBsOrg5/3Fcdai1JAE5YpMFu5HkwnFQ1n2F6IMb+gVXYeEwQ7/jm+8gXUSZ4KdK4eH2qgWZe4uxs+3zF51ZKE4phpPwL7QaTr3W7pYxEXE7TPvj/9tTrvCXVT/sih114HGd6foFk/Enn/qz7qdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cg6ZBC5W; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cg6ZBC5W"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id DC2F6C58475;
-	Fri, 18 Sep 2026 15:23:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 018BD60649;
-	Fri, 18 Sep 2026 15:22:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E965110328FD9;
-	Fri, 18 Sep 2026 17:22:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789744975; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ri8MoCutLUnAxAJvx/W7d6M2QnpZ79h8pcccg60WaOM=;
-	b=cg6ZBC5WDILhswpSgON8oRSwmK/S8wqQRKQmx7TRN6JCs9US64BvsaQYq9DSkjFFAGTnVH
-	S7umg7XDZscGtph1aZjbzeVU3uqFZVCH3suMEQfLLFHqaDVi/k8MN6rQyijpct5j7Vgzjz
-	S3+WUoi92vFTtl4ZEmbumeEzL7fXe6f55NtEcHLr9msBCb1zT562hPRhFGeTI1jyLvYFht
-	FZmoGz6h9gE+VkBkOuLISfunIGOea/hNpD3GZKLILfYLvjugtkAjLVhudKcNXYIvV6FpJj
-	a4dYiXzEGw+7mDxHJV4hz9u6qF/+PTjv4PayBd2txng68vGzkIZseRrvtTsjMg==
+	s=arc-20240116; t=1789744990; c=relaxed/simple;
+	bh=fL7MQlNOKmTkLIyBArEuxwuAjlxrPp4JGa+0SDpk/P8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=n8kdxzhD9DNtPkJ0ta2WowBWc2LstirJafN3ghoMvvzg5Ao7Ub9aibtQpOemPCvXAiGI5xitZ5CjNoyF7l7RaufscMivJtLQJS8MnVHG0eZvjES5UzTmwHOJ+uHlocqHCalG/DEunrbW913g+8is4SF2TOKJq8l4nZU46H4dhZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3AA822018B6;
+	Fri, 18 Sep 2026 17:23:01 +0200 (CEST)
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <jre@pengutronix.de>)
+	id 1x7aQX-001awp-0Q;
+	Fri, 18 Sep 2026 17:23:01 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Fri, 18 Sep 2026 17:22:48 +0200
+Subject: [PATCH v4 2/9] spi: spidev_test: clarify help text for --size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 17:22:49 +0200
-Message-Id: <DLIJN4CDS11K.RVJGK3UALMJE@bootlin.com>
-Subject: Re: [PATCH v2] net: macb: add TX stall timeout callback to recover
- from lost TSTART write
-Cc: "Lukasz Raczylo" <lukasz@raczylo.com>, "Steffen Jaeckel"
- <sjaeckel@suse.de>, "Drew Streib" <dtype@dtype.org>
-To: "Andrea della Porta" <andrea.porta@suse.com>, <netdev@vger.kernel.org>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rpi-kernel@lists.infradead.org>, "Nicolai Buchwitz"
- <nb@tipi-net.de>, "Conor Dooley" <conor.dooley@microchip.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <468f480454a314303bac6a54780b153f689f2267.1781598350.git.andrea.porta@suse.com>
-In-Reply-To: <468f480454a314303bac6a54780b153f689f2267.1781598350.git.andrea.porta@suse.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-spi-sun4i-spidev_test-v4-2-5ffacb1a4ebd@pengutronix.de>
+References: <20260918-spi-sun4i-spidev_test-v4-0-5ffacb1a4ebd@pengutronix.de>
+In-Reply-To: <20260918-spi-sun4i-spidev_test-v4-0-5ffacb1a4ebd@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1190; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=fL7MQlNOKmTkLIyBArEuxwuAjlxrPp4JGa+0SDpk/P8=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshaGx6o8seuJ/TcRvMj5+TEvJ/pf7ZQ7fBg7DnnL3Cp+
+ JO0/y/hjlIWBjEuBlkxRZZYNTkFIWP/62aVdrEwc1iZQIYwcHEKwEQ2tzIy/J/YH+3K9bHZfqpq
+ xe2dU7Zc7s2WWmi7pzZaMVOEaabVXkaGR7GPnk28Gn9yndsR3gNZT851CgRvXd8oIL71OKOfbo4
+ 5EwA=
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-Hello all,
+It is slightly confusing that spidev_test by default transmits the
+predetermined message default_tx but random bytes given the --size
+parameter.
 
-On Tue Jun 16, 2026 at 3:23 PM CEST, Andrea della Porta wrote:
-> From: Lukasz Raczylo <lukasz@raczylo.com>
->
-> The MACB found in the Raspberry Pi RP1 suffers from sporadic stalls on
-> the TX queue.
-> While the exact root cause is not yet fully understood, it is likely
-> related to a hardware issue where a TSTART write to the NCR register
-> is missed, preventing the transmission from being kicked off.
->
-> Implement a timeout callback to handle TX queue stalls, triggering the
-> existing restart mechanism to recover.
+Clarify this in the help text.
 
-Any news on this topic?
+While at it, make the -p help text consistently lowercase.
 
-There was a guess that a "flush PCIe posted write after TSTART
-doorbell" patch [0] could solve it but I was sceptical [1]. We never
-landed that and only took the Tx timeout implementation. If it ever
-triggers then the kernel log gets a "NETDEV WATCHDOG: ..." critical
-line appended [2].
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ tools/spi/spidev_test.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I got reminded because I came across on this wiki page [3] about the
-issue, whose author is in Cc. As an aside, I landed there by testing out
-the Marginalia search engine and queried "macb driver" (as one does).
+diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
+index bd5ee7a6ac82..f5ab67236fac 100644
+--- a/tools/spi/spidev_test.c
++++ b/tools/spi/spidev_test.c
+@@ -191,8 +191,8 @@ static void print_usage(const char *prog)
+ 		 "data:\n"
+ 		 "  -i --input          input data from a file (e.g. \"test.bin\")\n"
+ 		 "  -o --output         output data to a file (e.g. \"results.bin\")\n"
+-		 "  -p                  Send data (e.g. \"1234\\xde\\xad\")\n"
+-		 "  -S --size           transfer size\n"
++		 "  -p                  send data (e.g. \"1234\\xde\\xad\")\n"
++		 "  -S --size           transfer the given number of random bytes\n"
+ 		 "  -I --iter           iterations\n"
+ 		 "additional parameters:\n"
+ 		 "  -b --bpw            bits per word\n"
 
-Main discovery of the day: it happens on EyeQ5 & latest net/main
-(46bc52d13594) as well. Thanks to Andrea for the quick reproducer.
+-- 
+2.56.0.rc0.108.gf0ef1b96a0
 
-	# udhcpc -i eth1
-	...
-	# iperf3 -c $IP -P10 -t3000
-	...
-	^C
-	# dmesg | grep eth1
-	[    2.182191] macb 2b00000.ethernet eth1: Cadence GEM rev 0x00070200 at 0=
-x02b00000 irq 35 (00:28:f8:94:24:69)
-	[   23.570335] macb 2b00000.ethernet eth1: PHY [2b00000.ethernet-ffffffff:=
-0e] driver [Marvell 88E1510] (irq=3DPOLL)
-	[   23.570981] macb 2b00000.ethernet eth1: configuring for phy/rgmii-id li=
-nk mode
-	[   27.783260] macb 2b00000.ethernet eth1: Link is Up - 1Gbps/Full - flow =
-control tx
-	[   42.182370] macb 2b00000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transm=
-it queue 0 timed out 5088 ms
-	[   51.158331] macb 2b00000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transm=
-it queue 0 timed out 5004 ms
-	[   56.262381] macb 2b00000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transm=
-it queue 0 timed out 10108 ms
-	[   61.126317] macb 2b00000.ethernet eth1: NETDEV WATCHDOG: CPU: 3: transm=
-it queue 0 timed out 14972 ms
-	[   67.206322] macb 2b00000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transm=
-it queue 0 timed out 5004 ms
-
-Note: the initial reproducer was `iperf3 -c $IP -P10 -t3000 -w4M`.
-I can reproduce without -w4M but -P10 is required even though we reach
-line rate with a single stream. This points to a race/mb issue in
-macb_start_xmit?
-
-I'm posting to see if anyone has theories. I'll be posting some race
-fixes soon but they don't fix it (not surprising as they are unrelated).
-I have many ideas but I need more time for testing; it'll be much easier
-now with a reproduction setup.
-
-[0]: https://lore.kernel.org/netdev/20260514215459.36109-2-lukasz@raczylo.c=
-om/
-[1]: https://lore.kernel.org/netdev/DIK002QFFNBY.31C3KUX2SQC6W@bootlin.com/
-[2]: https://elixir.bootlin.com/linux/v7.2.5/source/net/sched/sch_generic.c=
-#L563-L569
-[3]: https://dtype.org/wiki/Cm5_macb_network_hang
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
