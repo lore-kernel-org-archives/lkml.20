@@ -1,72 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1408D1DF248;
-	Fri, 18 Sep 2026 19:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80B451DB01;
+	Fri, 18 Sep 2026 19:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761057; cv=none; b=WC1oujm32tsxDoMBHGeuLZTen/8e77C8ALuNnD+90k58o92E9MnimTbjUQi4k3RQ3d/TEDftiDmJNgRzYaC3uu2FF2CoSmvPajRO+Ji1bk6vf7BPWtSEpKXcz5PjVMo1gp9Z3dWYnYqLJpVbVwk7atpNzsDUcqFSuoFn/gF+GPo=
+	t=1789761091; cv=none; b=vFPJncPRgWOZQTVWbo/i9noxqDjJ84zjyYPI14ow+wAC3S4rEjRGVx9M8KcK2ekSRuU3lZGHmMkmgollDIh+ZbfK+xNBW59D+KRGcveg7kKOLxErAv6v+mCxPNNIgibdRWPRrOrcRiz8AvLVZ2wiolhrMPHNGZwc4xGwQIizcwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789761057; c=relaxed/simple;
-	bh=zYTZ+a3hvb3MO2zc8985ACXIphue/Oi0UNjX/6mxJ2Y=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=TuWkgGppkLXRG4ieIdDgj9jMLvz/VMw16O/o8TpkplhNN2D/FejPAoYxaWK3TxcvsanhPeGamkKgXRFiKYCdiXVHEBd/2NBpfnpa6ObnEyKujv4Biv35h5iwSYM1Uu4KbptTWIsK6QH+L0ReJxtZQz7jJm1LIx9TDPnVk95Ityc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=t6x4ghAH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789761091; c=relaxed/simple;
+	bh=leG1surbbAGzFqImsj1nRlYADVAoFUfkGP9usQfU0ZY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sda17OY1h9qtQLzuqxvmBR7GeMz2qaCxzMaYqwV5JzbnqM8rPG/OGaBpuALsLGL7ar8t2g4562FGyGIdLos6wh9p/UHLSp65sesq+yfKMTbXYpZYYxuF1smHVY9cXByvUvG2x1OSkeJwNKgJ76lEH5e4QKzFYkHByYlSl4XnFqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=CwUTTwfQ; arc=none smtp.client-ip=212.42.244.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="t6x4ghAH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A521F000FF;
-	Fri, 18 Sep 2026 19:50:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789761055;
-	bh=oK9evgZZNkEjZWEHUtv6caDlyb48jPUVEPSBClyBGM0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=t6x4ghAHbv1VQgBHnN35Y+v+6gqPbE3L6Oh7kMmnGTgCMMB4pAn0U1Lhso5WvJBoR
-	 7GbAJGyG1fjkTcbZyD18iQn+XdKkW1L3338hN+7gJ/4Hmc+U3ghxTOooh7a+NRbMXt
-	 OSxfaanc6e+ZMBl8vAr7031V/wto/32CRB9nR4kA=
-Date: Fri, 18 Sep 2026 12:50:54 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, Shuah Khan
- <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>, Jason
- Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>, Zi Yan
- <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache
- <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
- <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>, Anshuman Khandual
- <anshuman.khandual@arm.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 0/6] selftests/mm: separate GUP microbenchmarking
- from functional testing
-Message-Id: <20260918125054.f22d85a4def29dba081fd07e@linux-foundation.org>
-In-Reply-To: <20260918112234.195857-1-sarthak.sharma@arm.com>
-References: <20260918112234.195857-1-sarthak.sharma@arm.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="CwUTTwfQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1789761087; bh=leG1surbbAGzFqImsj1nRlYADVAoFUfkGP9usQfU0ZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CwUTTwfQ0nDfM8KmKEGWxW3N9BGzebJ7oxpcse/seHt1EanTZdQmQsCRUSPmw+40W
+	 WlAtsMpEXNVrU77mdkPu6WvEobutBsQvh9ZoOMQjhKEBDrFLZp/pyZy7amGwaHBqUX
+	 h/f9FtMXnzpRuanVqUGDUlA2NAqPev4jpkSzX+gywfZoneCagdfhwi/nitq1v0s8Kr
+	 4P+SuZ1vWe1+VMnamkZN9HQmcXD/7JQkY13HyBLC4hMeS8Y8THgYzPyM1uzRlvcmQR
+	 VxRy+V8I9xw3dIh5udQWYQqkAAA9/EYJiwjcs9lLCoxMH6ail+PCTL8XDeIIKIsQ+2
+	 7AaSZLQoGXL+Q==
+Received: from [212.42.244.78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6aad963f-0449-7f0000032729-7f000001be40-1
+	for <multiple-recipients>; Fri, 18 Sep 2026 21:51:27 +0200
+Received: from mail-auth.fritz.com (unknown [212.42.244.78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 21:51:27 +0200 (CEST)
+Date: Fri, 18 Sep 2026 21:51:26 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Kees Cook <kees@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 08/20] kbuild: cache list, composite object state per
+ object
+Message-ID: <20260918-godlike-devious-perch-707bf6@l-nschier-aarch64>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-8-9ecf4163ff36@kernel.org>
+ <202609171110.438BC7477A@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <202609171110.438BC7477A@keescook>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1789761087-10796965-85223B4E/0/0
+X-purgate-type: clean
+X-purgate-size: 512
+X-Notice: Whitelisted
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-01  mail-id: C3121A0619  external: no
 
-On Fri, 18 Sep 2026 16:52:28 +0530 Sarthak Sharma <sarthak.sharma@arm.com> wrote:
-
-> gup_test.c currently serves two separate purposes: benchmarking
-> (GUP_FAST_BENCHMARK, PIN_FAST_BENCHMARK and PIN_LONGTERM_BENCHMARK) and
-> functional testing (GUP_BASIC_TEST, PIN_BASIC_TEST and
-> DUMP_USER_PAGES_TEST). Keeping both in one program makes the functional
-> tests harder to run and report individually, while run_vmtests.sh has to
-> invoke the program repeatedly with different options.
+On Thu, Sep 17, 2026 at 11:11:41AM -0700, Kees Cook wrote:
+> On Thu, Sep 17, 2026 at 05:06:18PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Fix the issue by caching this data and looking it up instead of getting it
+> > over and over again.
 > 
-> Separate these roles into tools/mm/gup_bench for benchmarking and
-> tools/testing/selftests/mm/gup for functional testing. Move the shared
-> file and hugepage helpers to tools/lib/mm/ so both programs can use them
-> without duplicating the implementation.
+> Nit: I would describe this as "calculate these once". It _is_ caching,
+> but I think with Makefiles there is an implication the "caching" means
+> "write to disk". But maybe that's just me.
 
-Thanks, all queued up.  Including [1/6]'s read_num() fix.
++1
+
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+
+-- 
+Nicolas
