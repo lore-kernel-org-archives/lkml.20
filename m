@@ -1,43 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A291E222580;
-	Fri, 18 Sep 2026 20:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E29A3822AB;
+	Fri, 18 Sep 2026 20:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763148; cv=none; b=QerfR3XrIJZkeYz3e65N1q+GqQp3BNXBsVZLjKKPZg/KkE8lss0fZRgWcwB/NFfUvG/T+cGoA2de547gKBhXxluLp9yjZBQNDQ/LqZbV4P0seIghhSXwHJdIKCeUWyyLypfJQKcgyU+g2uHCNwW0QWF5/ocqWZyKY46EnOFvNWo=
+	t=1789763366; cv=none; b=HgDZ7neCegRQ0+MxRs0KsF9qDK9pARQNUvTEOxuS7ZpV1Br+MgWu0sK2N/cyQCbbHPF7eRzsEe9PCD2BFXZ5wtVmIHobCZUh2XwITmTMMqeeUAfUvFVfC/+DXFKrH4fX2xamWs8BMmkpmJWK2XhIrW3PsMDwP34hVRHf+VDxL2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763148; c=relaxed/simple;
-	bh=aTkksyFCHrBAJh/IUy70zWptJPV7UEtTa7WTDM/j7C0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pPR/v3DlWxUommlQsGOj45Bpf7xz5/ULkMK4ZG5rGQnM+o46/gsaP7NmIu3OqmbaB+berLVIub25WiKN+aMAo+1WkVKqhPSor2Fxk1E1naoqUYbkkkraY+q+qaWxmoAGL8eDTrdRIKMAMD2EIx4o/qgd8G16j/WhhCCemFWbreY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoiyP1cb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789763366; c=relaxed/simple;
+	bh=QSPlHzjfqGQHz5rYsLmYmjhWMFsDZLXBK8ZbBsuZT4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=RGBbUd+QezIdDdhQlF2MlJqWj4g3uDh8pw+cY4wviGx0M2qYOdiURYiSYsckmV6n0nWxx9NWVWKGo2kGhabhyBT+35KYiH/88FOsyT6nWQOQpJGCk6Fojsw4WKsEax26d0JovNxDWJUixNv0vEqOpt1g+y3GWSQnhvMHZJ6psaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPX8YLEq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoiyP1cb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24E31F000FF;
-	Fri, 18 Sep 2026 20:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPX8YLEq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 720D21F000FF;
+	Fri, 18 Sep 2026 20:29:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789763147;
-	bh=HLs6wnc1t/Daa6z92qDpMvkWXFtfd9WHahD5G72w6gI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LoiyP1cb0DwcWj1kowjAhqYxfAqHFWzAi5FYITmQ1nIA+8PL9tMOgdssSKVBBvBXf
-	 yp+zPjY5vp+hFZuuzgP1YW3Jndt2tCJo3AZ+aV3RzKElRU+HWfKIDw2ocCg2taryWS
-	 gxdYdbiEv8iW5vdgZ+YVeH4UWqN6Nzy147UwgXrXf7VZSVgdLLuJGosPy4XSqe2W7F
-	 8SdQgEWMcjNXVhrGcJMTgF6gIsR4euThx499EZzWZy6lgzXL5VXCwKYV5/tZbTAcLE
-	 +vjx85GyH1qgqTG34g4iWHvcPkmxDchS/Qu3E8YiU0TEt95JHPX4uRDzii0D5B58kp
-	 UcGGmVNiszLdA==
-Date: Fri, 18 Sep 2026 17:25:43 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: namhyung@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
-	jolsa@kernel.org, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, mingo@redhat.com,
-	peterz@infradead.org, tmricht@linux.ibm.com
-Subject: Re: [PATCH v3 0/3] perf srcline: Fix addr2line cache and fallback
- bugs
-Message-ID: <aq2eR9pezbRheQgR@x2>
-References: <20260916063545.3103314-1-irogers@google.com>
- <20260916234402.437113-1-irogers@google.com>
+	s=k20260515; t=1789763363;
+	bh=0JsPjrcrxVszax6GzSwyEEMk274SAvTkKeqYWmVA7/8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=ZPX8YLEqSW7OEBK5foj4Z40rjGX4pZyBjaejyk2vJB9dXeIxQxrrmYHYBVZtnE6KR
+	 SR7LTNWIXgYEb4jEMSNX4QlFTbkEvqN89TN7DAz3kEOzIHYT70n2xhlYZbvW12kuky
+	 jpR1ZYVus2nSwT/Gr5G2OEWFDLD81yh8FVVGbxzZFEpQFfKponNDPUEchkc8XLKhQM
+	 vqS74uVApCxC5sYj8IzI6mcFuU1l3oTTT934CudENH5vXEga8LbrSKWr2rWuMHpj7l
+	 KTc43zBhbdE79buJqcDFA3qNPTO00WbuJKreSOFnu6FRYaYc4gLocjcwkuKCHCMyop
+	 yo1unuLtM5T5Q==
+Date: Fri, 18 Sep 2026 15:29:22 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org>
+Cc: bhelgaas@google.com, eduardo.habkost@lambdal.com,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bilbao@vt.edu
+Subject: Re: [PATCH] PCI/ASPM: Don't reconfigure ASPM entering low-power state
+Message-ID: <20260918202922.GA1192452@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,43 +42,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916234402.437113-1-irogers@google.com>
+In-Reply-To: <20260507214914.GA22065@bhelgaas>
 
-On Wed, Sep 16, 2026 at 04:43:59PM -0700, Ian Rogers wrote:
-> Three fixes to source line resolution, all on the addr2line paths.
+On Thu, May 07, 2026 at 04:49:14PM -0500, Bjorn Helgaas wrote:
+> On Mon, Apr 27, 2026 at 09:01:04PM -0700, Carlos Bilbao (Lambda) wrote:
+> > From: Carlos Bilbao <carlos.bilbao@kernel.org>
+> > 
+> > Reconfiguring ASPM when a device transitions to low-power state can enable
+> > L1.1/L1.2 substates on the PCIe link at a time when the device is sleeping
+> > and may be unable to exit them. ASPM should be reconfigured on D0 entry
+> > (resume), not on the way down.
+> > 
+> > pci_set_low_power_state() calls pcie_aspm_pm_state_change() after writing
+> > D3hot to PCI_PM_CTRL. pcie_aspm_pm_state_change() resets link->aspm_capable
+> > to link->aspm_support and then calls pcie_config_aspm_path(), which can
+> > enable ASPM L1.1/L1.2 substates on the PCIe link. If the device cannot
+> > recover the link from L1.2 while in D3hot, subsequent config space reads
+> > return 0xFFFF ("device inaccessible") and pci_power_up() fails with message
+> > "Unable to change power state from D3hot to D0, device inaccessible".
+> > 
+> > This was observed on NVIDIA H100 SXM5 GPUs bound to vfio-pci when Linux
+> > runtime PM suspends them to D3hot: the GPU becomes permanently inaccessible
+> > and disappears from the PCIe bus.
+> > 
+> > The call to pcie_aspm_pm_state_change() in pci_set_low_power_state() was
+> > restored by commit f93e71aea6c6 ("Revert "PCI/ASPM: Remove
+> > pcie_aspm_pm_state_change()""), which reverted
+> > commit 08d0cc5f3426 ("PCI/ASPM: Remove pcie_aspm_pm_state_change()").
+> > The revert was necessary because the
+> > removal broke suspend/resume on certain platforms that required ASPM to be
+> > reconfigured on D0 entry. However, the revert restored the call in both
+> > pci_set_full_power_state() (D0 entry) and pci_set_low_power_state()
+> > (low-power entry).
+> > 
+> > Only the D0-entry call is needed to fix the suspend/resume regression. The
+> > low-power-entry call is harmful: reconfiguring ASPM immediately after
+> > putting a device into D3hot can enable link substates that the device or
+> > platform cannot exit while the device is sleeping.
+> > 
+> > Remove the pcie_aspm_pm_state_change() call from pci_set_low_power_state().
+> > ASPM will still be reconfigured correctly when the device returns to D0 via
+> > pci_set_full_power_state().
+> > 
+> > Fixes: f93e71aea6c6 ("Revert "PCI/ASPM: Remove pcie_aspm_pm_state_change()"")
+> > Link: https://lore.kernel.org/r/20240102232550.1751655-1-helgaas@kernel.org
+> > Signed-off-by: Carlos Bilbao (Lambda) <carlos.bilbao@kernel.org>
 > 
-> 1) libdw is pointed at the wrong file. dso__libdw_dwfl() opens the Dwfl
->    with the name of the file the samples came from, but when the debug
->    information is in a separate file, symbol loading records that as the
->    dso's symsrc filename and the Dwfl is left referring to a file with
->    no DWARF in it.
-> 
-> 2) The dso addr2line cache is shared between implementations. The libbfd
->    reader caches a struct a2l_data and the command line fallback caches
->    a struct child_process through the same pointer, so once a dso has
->    fallen back from one to the other the cached object is read back as
->    the wrong type.
-> 
-> 3) libbfd only reports success when the caller asked for a file name.
->    addr2inlines() doesn't, so srcline.c treats a resolved address as a
->    failure and tries the next implementation, which appends its own
->    frames to the ones libbfd already appended. Every frame that isn't
->    inlined is then reported twice. This is the default when perf is
->    built with libbfd but without libdw:
-> 
->      $ perf record --call-graph dwarf -- perf test -w inlineloop 1
->      $ perf script --fields +srcline
->      ...
->                  56051a99503a inlineloop+0x8a (perf)
->          inlineloop.c:47
->                  56051a99503a inlineloop+0x8a (perf)
->          inlineloop.c:47
->      ...
-> 
->    With addr2line.style set to "libbfd,addr2line" so the fallback is
->    taken, the script output for that workload drops from 288 lines to
->    176, and each repeated frame goes from appearing 16 times to 8.
+> Applied to pci/aspm for v7.2, thanks!
+>
+> > ---
+> >  drivers/pci/pci.c | 3 ---
+> >  1 file changed, 3 deletions(-)
+> > 
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index b2ccb8e122f2..8b47887019f9 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -1542,9 +1542,6 @@ static int pci_set_low_power_state(struct pci_dev *dev, pci_power_t state, bool
+> >  				     pci_power_name(dev->current_state),
+> >  				     pci_power_name(state));
+> >  
+> > -	if (dev->bus->self)
+> > -		pcie_aspm_pm_state_change(dev->bus->self, locked);
 
-Thanks, applied to perf-tools-next, for v7.4.
+While backporting this, Sashiko noticed that "locked" is no longer
+used and could possibly be removed from the set_low_power paths.  I
+guess ASPM needs "locked" because it holds pci_bus_sem while
+evaluating all the devices in the path to the device, but since we're
+not touching ASPM in the set_low_power path, we don't need that.
 
-- Arnaldo
+> >  	return 0;
+> >  }
+> >  
+> > -- 
+> > 2.50.1 (Apple Git-155)
+> > 
