@@ -1,128 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEE0140E5F;
-	Fri, 18 Sep 2026 04:44:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706666; cv=none; b=kmWezw9TxTtbELslxAYLZCaetbZypWKjbXIDZbhDWvkJcjBNzm1wZv+JOlOYgkFMRbuF5G2M4JAY1uzkrhTPTAMbGYl3u2P77pgEQpN54H+5suiNZqhAq8gYUEJok+4akwKvhrHzQ158UCzT6YtinNmraiQz7WRqpaI3stbliHI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706666; c=relaxed/simple;
-	bh=nRntUvG8VfqjqmV6gXAQEPBy9XEX9TT0/57eELrdPC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n8h86vK21yBtnR+CjzxHxAMkjUUg69FGNv+o0lA+dQi41Yf2/Asy5PqXa19FP+UlJVcz1V6Dxz2X2HmeZ+F7v9rnLL8ZOaaDsuf+TzuwikzKs2KoxzIFywzA3PUU45RT4qcw/pIla7Px9C43jXGNkVPv9bkZDz3VuGi3lG9+/zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRJTfYRa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BF34CFDD;
+	Fri, 18 Sep 2026 04:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789706737; cv=fail; b=uUMSi1CvErukQHJsELQh4zGemCjsCoL0fI68QyyypMDMcCsVScOMkqbYmpGg7fj8aELkPbMD9Q52wRRMerRXo+aodWAZqvKZRVNXQqWOnWS6rLT+vMG8tg/aBMAjmOjt9Ewuw5sgPceCoKW0dfMkwq5u/ZNfHS2ZhlhFB7Os2no=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789706737; c=relaxed/simple;
+	bh=n9VMxM6jl9G+mAy6XqpKLpb+jw8gQH+C2SLhjVOtXpI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jODHq5dUyq02DSe77ziO1rsCuyT8CghRx6/JIElbBH/VrqwsG8O81W8YKNaG4EweDJPF5dlB2SNNw81I7QnrYeJ3dcDthvNkr77qt4SidY6XLD47CnAM4rsV8+5p8mOu4K3an5Ev2/kWEgK5D+tkUiQ6MBwNqKeff840Eln0VJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DJ1L9I8S; arc=fail smtp.client-ip=52.101.56.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRJTfYRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7BBD1F000FF;
-	Fri, 18 Sep 2026 04:44:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789706664;
-	bh=bqZx/AptVhZLcudKvv7eqc5S9GWWoF0mLVu5mPMuXVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hRJTfYRamoTrmtZroOVByfenuYfGDp7MAxXhTqbsJrtj0eHWEbinP0LsZWILEq+XD
-	 OikV6J85b7zSxwh87Jb/ngzwEe6TQTPZxtT9eHmp/66v0Gc75aPTGTthkiqQLOdlYe
-	 qYTEfEURoLvzbT9rOGpjjnSsMmQWWjtMDvS8dZoc5ls+HJcvM9EDRA1tJjv4BNpzKk
-	 j7xKqxF2anKKWQ67STCZVhSh5UZ5d+MNO5B66dAmPxWJgfVu+5+V3BTAONMkZxsyu+
-	 FphLF7BOAaSJ1VxHjt5+8ncx7gpMmCitABngv2FjDsJH7Nyc5mgeR7imudcUYsMgbc
-	 i/8dYQEK1Smgw==
-Date: Thu, 17 Sep 2026 21:44:24 -0700
-From: Kees Cook <kees@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 11/20] kbuild: avoid re-running compiler and linker
- probes
-Message-ID: <202609172130.3DF0D66@keescook>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-11-9ecf4163ff36@kernel.org>
- <202609171154.BEA5134F7@keescook>
- <20260918012119.GC1585590@ax162>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DJ1L9I8S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EDjEpd9qqQyAEjtyxqtzzsv8ePtKtFuOqmQnS4D7MIOsYGsDUgj5O52Hl+872CXcofLtGwLUvEiLmkLxuVtJcldwkTHzWFnodI6xM418VW+mmx5aXMJbd6skoYkPvieGoYSGCqQNVEl8mm46cHyYAkHYsRsjaJ9TvADdoA2hQJkwOFXMN191/n/seGDeDOuGF8dQ55LGe6gyO7MYrkdAQvKHs+rewLUzwX2oY20QBr0dPF6wAPX61IYWNpIvKtjrh4Epxk8jXDjnJ/6pYRRjmjeFRGm/PwcGnUCbKn5XQvqzX1cU5bU34h1jB3Suhnu0DUDrwg/9AUSUXnfA/ov3lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
+ b=pkcJTNrd9NJB+/iINDvrHiLDo2Fh27eKBwC06ChbMSXW2F1eHcHjyLJ0rGXYoin2YaHRWOg4bSdcJ6esv9iBVHH8E15ttWroYXyRK6gepgGBGTxHE898bC9H/dw7pJN8WXuKk1hap4gKM8fzhMcwGGirdbxIM46AwmOBtH/7Ar21O8CbvaCB5R9U28xqkY/z1Y+tUSCSVStb7PHNZCzfxj7qPkvwMfjHVlXbbW0SPbUXQlRpuRN6DXTUv5FH/tmLvaSTl2YkQHyjMAx/HzEfRP160TXdkQjy56dfk8I4a282XT5wSmp4JIO6jZHjYYe6e8jFINo8YMZYWUAjCCotHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
+ b=DJ1L9I8S2XpC9d59SGMJHlkrjwQkWKk4Buv3aTL5yssC9r8aUaJEzZ28xF+n51+2XFCtduAHJozvNX4uh8PzV91xEngGzgfVURvSuyCfavTtijnULqUnLhvKcjZitpOPVklYGovsSBV/VQET9IwtH8hyOx7uAiNPaf4vv67Zruk=
+Received: from MW3PR06CA0029.namprd06.prod.outlook.com (2603:10b6:303:2a::34)
+ by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Fri, 18 Sep
+ 2026 04:45:32 +0000
+Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
+ (2603:10b6:303:2a:cafe::81) by MW3PR06CA0029.outlook.office365.com
+ (2603:10b6:303:2a::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 04:45:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:45:31 +0000
+Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 23:45:28 -0500
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: <iommu@lists.linux.dev>
+CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
+	<arunkod@amd.com>, <joro@8bytes.org>, <will@kernel.org>,
+	<robin.murphy@arm.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] iommu/amd: Fix IRTE allocation when DMA translation is off
+Date: Fri, 18 Sep 2026 04:45:15 +0000
+Message-ID: <9a0c163409807c709511c335018c9e5b504abbb4.1789705496.git.Ankit.Soni@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918012119.GC1585590@ax162>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|PH7PR12MB6810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	18WAfZ5sABdU3aPZ78hysvFHyXLqhTPu2q0kB9muUR9D+U37vZn/g6WVKPquclrMzb1gYSmH2/q3eGfA/pl6p18Z1VPqCM3Jyeui7K994zCOSLk5XASid4sEjmNrlYojB0rpWQ08jLaX2Qny5q+/7pMNjwar3oh7VBAqnf7NuL9KjHABpoxGD9G0g4L7gBQxIP5BmYh8aqpGVsgEklVCdTZEhmFzSxvSMgEDSUfy8AK8+qXfKZvaW7VcZ2cDNqSB+ah9W322N5Y2kAO1pw3xKW6KljLpmgmMwY749Ioh1gAulv03lEpdc5hyGz6AF+6ZO0imE+p570neJV7lAK0Zxasu3mITzNwvrUvQ75Ur9OIqlhmzEmySGEN3dQJD4D//5NwvPN3qphZveI+O3zaNLVeIBNBz6CDf3izTePkh6+8qdh0jG10mefzBpWp5l6SElpEmwyG6bhU/9QbtL7bpZOTTjqNXm4hjy5rs1J1C7IQ1VXU/6idca+R+QdgryqlbOMuThZyDcoH358wCjROWcpZiWF5RdMgKPat/sGXQtdVoHlha0XihfttnfyH3r9a9AGhoT8XP8otXgTTks8hd7I6XbBrzEAlv9wxUwsEReGCqkmWeUHQKJqtyt7XrVndNKX44smu+Lq9szpr6vd2GLBbuyLQG3CyNOiHcRQhvEidQl6TF8OsQ8eDz7tZRzSf4n3Tw5HnKLetVmpx+9fCHHQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ThhRgmBjpERyZ1FCOnv32kKJ7bHzR3dq/jxXghBJuWxAEWic/GRKSTMjo4lVLagklepoUEjEBFbhfelFta0zCU5aYIz+ru8mfe6hn8WQs3TSd7YNIrrkMWS5RAFOWNV6e23uB8ym4UcXgKP/uQ28iCdU6469GlXZI0vBeBvvbkfwFuhNzPGHfjdfbNVEEbmnaqAHKUCvILStv/MdvZC6G/ZknJcqVSJXNegnqvAycIVo2aGNSXSDBjRLrd1X9kSbccWF92y1e2lqTDzdZoKvj3x73m8GCym7BmZeO9uQr9n2zvDxEyrEGx8SdwtCjafNZ2mnyvarsBpyw6TPCbCBditQZHFJXG0mbmuO6M2v3EJwG7bZZ7Va5D8pdLs1/LiIVcHPo0OZGr0FGtEJazImz6Ovil2saHzfbJsUBM/CVTfWbRzrxeLEWr7NBCHm/P0/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:45:31.9502
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
 
-On Thu, Sep 17, 2026 at 06:21:19PM -0700, Nathan Chancellor wrote:
-> While we could certainly try to cook something like this up, we could
-> also avoid the split across two files by just defining the flags in
-> Kconfig directly and using them in the Makefile through their symbol,
-> like we already do for -Wimplicit-fallthrough. For example, instead of
-> 
->   config CC_HAS_STRICT_FLEX_ARRAYS
->       def_bool $(cc-option,-fstrict-flex-arrays=3)
-> 
->   KBUILD_CFLAGS += $(if $(CONFIG_CC_HAS_STRICT_FLEX_ARRAYS),-fstrict-flex-arrays=3)
-> 
-> We would just do
-> 
->   config CC_STRICT_FLEX_ARRAYS
->       string
->       default "-fstrict-flex-arrays=3" if $(cc-option,-fstrict-flex-arrays=3)
-> 
->   KBUILD_CFLAGS += $(CONFIG_CC_STRICT_FLEX_ARRAYS)
-> 
-> While we still get the duplication (and we could look at getting rid of
-> it with your cc-option-str idea or whatever), it is at least contained
-> to the same location, so out of sync issues should be much rarer. I do
-> diff Kconfigs so this might make certain issues with checks a little bit
-> more obvious if something changes on the compiler side.
+On an emulated IOMMU, DMA translation can be off while interrupt remapping
+stays on. Probe path skips DMA setup as intended, but it also skips IRQ
+table size setup. Interrupt remapping then fails with "Failed to allocate
+IRTE".
 
-Yeah, and note that cc-option-bit already exists. It's just a weird name
-is all and there isn't an ld-option-bit.
+Fall through after the PD_MODE_NONE check so the IRQ table size is still
+set.
 
-As for naming conventions, I think "CC_OPT_" would be a good prefix. And
-this works today with no change:
+Fixes: 3222b6de5145 ("iommu/amd: Fix error path in amd_iommu_probe_device()")
+Cc: stable@vger.kernel.org # 6.19+
+Suggested-by: Sairaj Kodilkar <sarunkod@amd.com>
+Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+---
+ drivers/iommu/amd/iommu.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-config CC_OPT_STRICT_FLEX_ARRAYS
-	string
-	default "$(cc-option-bit,-fstrict-flex-arrays=3)"
-
-(do we need "def_string" now?)
-
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 56262f6b1f70..77ef2749206a 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -2531,7 +2531,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
+ 		pr_warn_once("%s: DMA translation not supported by iommu.\n",
+ 			     __func__);
+ 		iommu_dev = ERR_PTR(-ENODEV);
+-		goto out_err;
+ 	}
+ 
+ 	iommu_completion_wait(iommu);
 -- 
-Kees Cook
+2.43.0
+
