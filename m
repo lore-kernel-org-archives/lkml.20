@@ -1,32 +1,49 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFCE36B918;
-	Fri, 18 Sep 2026 03:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2302D3B52E1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702609; cv=none; b=lDd70LhDEahvh2ss8/JABkfzFyzcdxjThwo8VTDYCiU8x+IbtECBTTnNh60dcJ/U9Q0Tb2nEZjv+em3gpDpT1r8myLMz6y7xiEhIuQLKfBB0Ej2JL5WwrXg/rGirej+u5LhUY+6KDp56gJ53m6QIm/cAupNNuuG0h5D1qHWM2eM=
+	t=1789702630; cv=none; b=aDxikywz9HWE4/SiUrmMzaVTs6zJLaLbnyxviDiQZ88UNwjOwub5hUPwIqnxTdFegoeqZ6BJND2y2+qbKSUzw5Ht3oQWRp5fzORLoGkG3XYK6QFgb4KjxNqMSw26B5UQ9MISEPMlmA9v9dv0TTSEmk4tmsf5EaGOYIMpVzObLRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702609; c=relaxed/simple;
-	bh=7SRUDjHVlFq/XtjwKeAdhlDkeFdcP/gVV2vWBIupXu8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=naxf7o/MuQCOKQuQp7b+MdMNJeFkXNxUiIFN0IPArEZ3brN+9+sSzlSSoo2XhcYpksJcEp5ashWRvbh8p+XK7QHLPxr+WK6lXS3NJDiz11FBIFoHMgi3BD0wzKDaxu+vDZe7Jy4CTrIqM3AwU6Ss3wktNaUP8Enzqia3gCnWSHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xzdmggnj; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789702630; c=relaxed/simple;
+	bh=TZI0X3+I1L1Wmpg84vIuKoIdqolxovT8iqYRB9KXvp8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=H4x+JSl3KlVAOs1gCsN64+o3Ifxq3Oh8uOGYoYA0uAnpdWlUxutLTnium1UbPKFXJCgQiA6/vtJLE9USqCosBNv24IyQHcWb5lST4/np5GEbcOU17w6L7Mc/XuYqLAMwP0ytjrW88HmTXg6ZSPcW3IfQFZtj2HweMXkf4uJE0+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=TZ7epole; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xzdmggnj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789702601; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=c5IgYQhJIaLET5VUZswXngb8vhELaOWEAGHyCwS5Ja8=;
-	b=xzdmggnjpDGFP1hhDpwq5MKvzMjFIVUOQNKq6u7r/Dldn2xKYRCC2NxXj7Pn3Qep0AlqEQA7EGjHqnzblapwKRBd62VBQxPa8dSnCsEPtAH1cfW7l29tw9MIu4/UXFYrIwe3uxTsO8flSAz/NO7/rVRJE9pv2P3owMNYbXETSVQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XB9qv0d_1789702593;
-Received: from 30.178.69.151(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XB9qv0d_1789702593 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 11:36:39 +0800
-Message-ID: <c875638e-d14d-4237-9824-57d6c0f4a2ef@linux.alibaba.com>
-Date: Fri, 18 Sep 2026 11:36:33 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="TZ7epole"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260918033702epoutp02e264a0adf36c9de86e91a7e44cc79513~WTQ11YuyJ1952519525epoutp025
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:37:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260918033702epoutp02e264a0adf36c9de86e91a7e44cc79513~WTQ11YuyJ1952519525epoutp025
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789702622;
+	bh=wVNZNX6eNlyCyjqKZuhGwmsTwuDYuVKLYvCN2QvkmDQ=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=TZ7epoleif9/tjTCcwO93NSveNWPb4CaXuiXxPkjyTfMyLKPfIi3GW7o0WGU20lu3
+	 Kx/Je1eQy2oWYSd9deri3WFiDdKCCi6uGV5DWMsPwy5SMiyA9GpIAZ22FkouOtm1v8
+	 JK+WiKXzaPImGziv4DNIlpUOgAg+8lqHmr71x2eQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260918033701epcas5p28c94072e3b67ed14d50879deaf09bbfb~WTQ1SToQ_1503415034epcas5p2S;
+	Fri, 18 Sep 2026 03:37:01 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hmJG4309hz3hhT8; Fri, 18 Sep
+	2026 03:37:00 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260918033659epcas5p3efc91b48516c12b52293604b2c272239~WTQzosaGy1269112691epcas5p3b;
+	Fri, 18 Sep 2026 03:36:59 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260918033656epsmtip1d0d87fe4e19cc56648a53ea55d7ab60f~WTQw35rEG1575715757epsmtip1V;
+	Fri, 18 Sep 2026 03:36:56 +0000 (GMT)
+Message-ID: <c74dda5e-7fc7-49e8-befc-7def930e8bb3@samsung.com>
+Date: Fri, 18 Sep 2026 09:06:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,96 +51,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] mm: memcg: don't hand out large folios above
- memory.high
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@suse.com,
- roman.gushchin@linux.dev, muchun.song@linux.dev, david@kernel.org,
- ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- xlpang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, usama.arif@linux.dev, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, chris@chrisdown.name,
- kasong@tencent.com, linux-mm@kvack.org, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260915042546.279410-1-qinyuntan@linux.alibaba.com>
- <20260915042546.279410-2-qinyuntan@linux.alibaba.com>
- <aqx5kcqRrbkuay4i@linux.dev>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <aqx5kcqRrbkuay4i@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
+To: Alim Akhtar <alim.akhtar@samsung.com>, krzk@kernel.org,
+	peter.griffin@linaro.org, gregkh@linuxfoundation.org, robh@kernel.org,
+	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com, mani@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <058301dd471d$5d985170$18c8f450$@samsung.com>
 Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260918033659epcas5p3efc91b48516c12b52293604b2c272239
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
+	<20260916122229.2604003-3-selvarasu.g@samsung.com>
+	<058301dd471d$5d985170$18c8f450$@samsung.com>
 
 
-
-On 9/18/26 9:26 AM, Shakeel Butt wrote:
-> On Tue, Sep 15, 2026 at 12:25:46PM +0800, Qinyun Tan wrote:
->> memory.high is enforced on return to userspace, and synchronously in
-> 
-> Over time I feel like this sync throttle for memory.high was a bad decision but
-> that is an orthogonal discussion.
-> 
->> try_charge_memcg() for large overcharges, but only when the charge gfp
->> allows blocking.  A populate loop - mlock(), MADV_POPULATE_*, any
->> GUP-driven population - never returns to userspace, and large folios are
->> charged with the THP allocation gfp, which does not allow blocking under
->> the default defrag=madvise without MADV_HUGEPAGE, nor under defrag=defer.
->> So neither runs: usage grows from memory.high straight up to memory.max
->> with no reclaim and no penalty sleep.
+On 9/18/2026 8:55 AM, Alim Akhtar wrote:
+>
+>> -----Original Message-----
+>> From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> Sent: Wednesday, September 16, 2026 5:52 PM
+>> To: krzk@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com;
+>> gregkh@linuxfoundation.org; robh@kernel.org; conor+dt@kernel.org;
+>> Thinh.Nguyen@synopsys.com; mani@kernel.org;
+>> selvarasu.g@samsung.com; linux-arm-kernel@lists.infradead.org; linux-
+>> samsung-soc@vger.kernel.org; linux-usb@vger.kernel.org;
+>> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
+>> Cc: jh0801.jung@samsung.com; h10.kim@samsung.com;
+>> dh10.jung@samsung.com; akash.m5@samsung.com;
+>> hongpooh.kim@samsung.com; eomji.oh@samsung.com;
+>> shijie.cai@samsung.com; muhammed.ali@samsung.com;
+>> thiagu.r@samsung.com
+>> Subject: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
 >>
->> mlock(200M) in a cgroup with memory.high=30M and memory.max=140M.  Of the
->> 110M between high and max, the burst consumed:
+>> Add the Samsung Exynos8855 DWC3 binding using a flattened node
+>> representation, where the DWC3 controller is directly addressable rather
+>> than nested as a child node of a glue layer.
 >>
->>   4K pages                       3M in 5s, then still throttled
->>   THP, defrag=always             6M in 5s, then still throttled
->>   THP, defrag=madvise          110M in 13ms, then OOM killed at 16ms
->>   THP, defrag=madvise, patched   3M in 5s, then still throttled
-> 
-> I don't really like polluting non-memcg MM code with memcg internal details.
-> Let's first discuss the semantics we want here. Please tell why getting
-> oom-killed by kernel in the scenario you have described (mlock() larger than
-> memory.max) is wrong. How does throttling it will help? What can the external
-> observer (userspace oom-killer) do other than killing it? Or you are thinking
-> that the workload itself is observing itself and change the behavior (though
-> the big mlock one can't do anything).
-> 
-> What I am looking for is the real use-case you have for this case. Not
-> mlock()ing big chunk or creating a lot of unreclaimable memory and going over
-> memory.high. For example the reason I added the sync throttle in memory.high was
-> to implement a feature Google has in their internal kernel where a workload hits
-> its memory.max limit, kernel delays the kill for couple of seconds and during
-> that time, the node controller may decide to increase the limit based on the
-> memory situation of the memory. However even with sync throttle, we couldn't
-> reliably implement the alternative because applications there have thousands of
-> threads and there is threading library which keeps cloning more threads if it
-> observes threads getting throttled.
-> 
-> So, let's talk about some real use-case and then we can decide if throttling
-> makes sense here. If we decide to allow throttling in such cases, I would rather
-> do it in memcg code i.e. somehow inform memcg code that this is THP allocation
-> and can be throttled.
+>> This is the first Samsung Exynos binding using the flattened representation.
+>> The existing samsung,exynos-dwc3 binding describes the parent and child
+>> representation used by existing Exynos SoCs, which can be migrated to the
+>> flattened model.
+>>
+>> Samsung Exynos SoCs sharing the same flattened model can be added by
+>> using the samsung,snps-dwc3 fallback compatible and extending the
+>> compatible enum with per SoC clock and property constraints.
+>>
+>> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> ---
+> Thanks for using flattened node representation. Are you planning to migrate other existing SoC as well?
+>
+> Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
-Hi Shakeel,
+Hi Alim,
 
-Thanks for the detailed review.
+Thanks for your comments.
 
-Honestly I don't have a real use-case. I ran into this while testing THP
-under memory.high, so it's a semantic inconsistency I noticed rather than
-a workload I'm fixing. 
-
-The thing that seemed off is just that memory.high enforcement depends on
-the folio order the workload happens to fault in - order-0 gets
-throttled, THP under the default THP settings doesn't - which the user
-has no control over. 
-
-I don't have a firm view on the right semantics here either, and I think
-you're right that that's the thing to pin down first. Whether the
-order-dependence above is worth doing something about, or whether it's
-acceptable for large folios to skip memory.high, I don't have a strong
-opinion on - I'm happy to go with whatever the discussion settles on, and
-if it's working as intended, that's just as useful to know.
-
-And if it does turn out to be worth throttling, I'd be happy to rework it.
+Yes, We are planning to migrate other existing SoCs to the flattened 
+node representation as well.
 
 Thanks,
-Qinyun Tan
+Selva
