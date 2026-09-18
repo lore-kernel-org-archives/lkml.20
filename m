@@ -1,46 +1,64 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4163B6C18;
-	Fri, 18 Sep 2026 09:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8ED36B938
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724711; cv=none; b=Zqy8rqFm2Z3bEq3yM2wbRG17LFp1KaByusrXXdBNTF8Z/WoyqBIkO/q490M8H6QmpmqKJgZizYLO5gnFGKp9bK1JP9CgaQlDyEW/iKKGQ5618OjWr04fnAIL91MXY1k55NOfK1ehQ3DaVvwP5ohcCEtXi81FnmgeJ3JXPHllmTg=
+	t=1789724722; cv=none; b=mlMG9PPTk/ZiaXfSSp/xMF052vq41kVmFJKnzQu53CO/Ynfvxrbu2X1K/GQjLoWXGNxEZB8fiDv7vHpEa6V2T5d/HS8zb+8qXGPv6AYzA7o/mpDUNuEK30TikZbaIKeZzN4nGB8NZX2X/K0PCSVzJI4ojQ7qut9EzU1eCx+Q+iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724711; c=relaxed/simple;
-	bh=6TLYglIIwwxsfigPK5nWuJReyXADwLqn8qkd0xAjO+g=;
+	s=arc-20240116; t=1789724722; c=relaxed/simple;
+	bh=imvGqAJsdDloML4ECKUpkPV0DcICx3LvQjsFZoOnsRo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bodAKi12N9MK/zfqhTK8UAbHj/dovG+Yd3nZKDWRAD22Fkzn1vyP/d06O+zNjMePGwsq4jocQYSxxmdszQXjDkI2RUPUFapFj3eNaThchkzNvVr+As9dkywnGHNXjRsyroj6BiPrz9/NexkQ0LVM93gBqwes8w670YY3I0SkzG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Yp9qO/vO; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=qsviLgSD4j0fPg4Gyjt936NwkyMMZITGwpTcFhGKCjJr5W3m2D1704vxZJ+kyHL6bBqOAsYLe8bdeEcmyTflO7AZGTRfvdPWO5onllKTipvtNYKfmxQqcGvVj9rFcdtXJxtdQ7Or/IDexXYj2E4Ox18ouTrfwX1kGTeslJTpH/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lZlj2dd/; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Yp9qO/vO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=qAOOBoHhyrohJBgPrS8sxicttEG9Cbl+gLJb3pcYjq8=; 
-	b=Yp9qO/vOulz2Ge8C6NtxVrB6ALquU9jI79c7EUPdKD8yQWMa99kqjMcchYxRqjuXWmjg76HnTLa
-	DAAkRh4+v1nYnD/pCHIMR/YjP8L3M9BQij1g2DCQjSOrQJlACpHUA5To9y8V3sJ3TaSukFWh5OEqs
-	w2VoiIpkICDryt/INZHX3Uf9HPZK1Tyveb+gJ2O/4lXvFc19mvmmqqhD7TEY+vGsGR0YR7jrshMiH
-	pWAP2Ibq/tBwG9JWcnJBb8Ecup1vmwSeu2ihkGtu+a9uwkfqVQw+/bChkWYMY6OZxvarp3CVJHMH6
-	91JJ785wjlRq7AsDz15rWqgudieSV/neDGHg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7V9T-0000000FLqd-3Oum;
-	Fri, 18 Sep 2026 17:45:04 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:45:03 +1000
-Date: Fri, 18 Sep 2026 19:45:03 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: markdamirkan@gmail.com
-Cc: "David S. Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lZlj2dd/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789724721; x=1821260721;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=imvGqAJsdDloML4ECKUpkPV0DcICx3LvQjsFZoOnsRo=;
+  b=lZlj2dd/PpAiUSWaS3iWELpJMigmERZP9HLV3ohoyUPQ5xMLoDC6/UEH
+   5KpEhFgveQhTq+mN+JTH2uHDMtpABTxQVQjlq/mzCggwIkQjmq+HYtbD6
+   JocHbH+rfdKctqroumGFWP0C/cJQlG7ZI2ndlfeySEaEsUn3bV7xDw58o
+   LnLDZXIjeIgrlkuYsMUpTSy7N/6eNUAt8zK0gNQMXYQU8mUbFA8sky99S
+   k04fhmfjXfmxmpILMVgEyDnFSW5GZiWYH/yB+1+KIudsZUnHmgypWcU7V
+   U0MudZcqCJNR9lipHkdUm5TaJK3lWx5kC/9DK99pCBSPlSe0S7YbFr8IW
+   g==;
+X-CSE-ConnectionGUID: +fmE2BTsRsqeiAGugSJgUQ==
+X-CSE-MsgGUID: wFTGH+XfRsONH9CyV00COg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90350147"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90350147"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:45:20 -0700
+X-CSE-ConnectionGUID: VpCEzmjyTeuar7b0bifrrw==
+X-CSE-MsgGUID: I8Py8lRESVKOmZD3jd0Nzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276287154"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:45:18 -0700
+Date: Fri, 18 Sep 2026 12:45:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ziran Zhang <zhangcoder@yeah.net>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>,
 	David Howells <dhowells@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH] crypto: af_alg/hash: Report errors that discard hash
- state
-Message-ID: <aq0IH8mFkBUaJkzR@gondor.apana.org.au>
-References: <20260912-afalg-b4-send-20260912-v1-1-c6cf966d3f1a@gmail.com>
+	Jonathan Corbet <corbet@lwn.net>,
+	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
+	Marco Elver <elver@google.com>, Nilay Shroff <nilay@linux.ibm.com>,
+	Edward Cree <ecree@solarflare.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] list: add missing empty list check to
+ list_cut_before()
+Message-ID: <aq0ILEtZRbqpYt7w@ashevche-desk.local>
+References: <20260918081026.8050-1-zhangcoder@yeah.net>
+ <20260918081026.8050-2-zhangcoder@yeah.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,53 +67,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260912-afalg-b4-send-20260912-v1-1-c6cf966d3f1a@gmail.com>
+In-Reply-To: <20260918081026.8050-2-zhangcoder@yeah.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Sep 12, 2026 at 01:11:14AM -0700, Mark Amirkan via B4 Relay wrote:
-> From: Mark Amirkan <markdamirkan@gmail.com>
+On Fri, Sep 18, 2026 at 04:10:25PM +0800, Ziran Zhang wrote:
+> list_cut_before() lacks the list_empty() guard present in
+> list_cut_position().  With an empty head, the function falls through
+> to the pointer updates instead of returning early.
 > 
-> hash_sendmsg() processes large requests in several batches.  If a later
-> batch fails, the common error path calls hash_free_result() and clears
-> ctx->more.  The next operation therefore starts a new hash request.
+> Both helpers share the same kernel-doc wording:
 > 
-> The function nevertheless returns the number of bytes processed by earlier
-> batches.  With failslab, a 262144-byte SHA-1 send without MSG_MORE returns
-> 262128 when the result allocation fails.  A digest read then returns the
-> digest of an empty input.  Retrying the last 16 bytes instead returns the
-> digest of only those 16 bytes.
+>   'You should pass on @entry an element you know is on @head.'
 > 
-> Return the error whenever the request state is discarded.  This also
-> restores the error-first behavior used before the request batching code was
-> reworked.
-> 
-> Fixes: c662b043cdca ("crypto: af_alg/hash: Support MSG_SPLICE_PAGES")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Symbolic
-> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
-> ---
->  crypto/algif_hash.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/crypto/algif_hash.c b/crypto/algif_hash.c
-> index 6e8b5fb82a7f1..7c1910c370ad6 100644
-> --- a/crypto/algif_hash.c
-> +++ b/crypto/algif_hash.c
-> @@ -184,7 +184,7 @@ static int hash_sendmsg(struct socket *sock, struct msghdr *msg,
->  	err = 0;
->  unlock:
->  	release_sock(sk);
-> -	return copied ?: err;
-> +	return err ?: copied;
+> Nevertheless, list_cut_position() returns early for an empty head,
+> and list_splice() also checks its source list before doing any
+> pointer updates.  Make list_cut_before() consistent with them for
+> the empty-list case.
 
-This could be simplified to:
+OK, the reasoning sounds good to me,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-		err = copied;
-	unlock:
-		release_sock(sk);
-		return err;
-
-Thanks,
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+With Best Regards,
+Andy Shevchenko
+
+
