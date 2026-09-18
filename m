@@ -1,324 +1,202 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010035.outbound.protection.outlook.com [52.101.84.35])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7024432E65;
-	Fri, 18 Sep 2026 14:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741208; cv=fail; b=c7Y7FMd1r6Pl1YkwwyTtrMj6XbCYk0gL0iAoWWDtcQGDp93bpP9fqsFbE7H+hg6GzKkAg/N2Wc1eUvNE6mFFdjp98LC+Ty/C5IUCYUZAu2Yqv/FV6a7qkTeztQl++C0DjTQ9UhOqqfULtX4j6ZUUfsO3mpAr5H3X4utqolJLO00=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741208; c=relaxed/simple;
-	bh=amZcJb0lWgLi+35dHfglcL7dKtVPOpZl2MYRHJNsJ1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=h3BctYmT3Kd6IXoZhVeYFPeyGyeh6Ja9JvXvvorpT10vg2+lTCNCAmpWXQOecpOJiliDhw/MmmRU210XWvZf8tdXOYd8nJVPQRmBVBQS6hsamT/UNaXmJIV0nV8Y/vN4I8ZKcBSlGZJRrUA5xOtmXa1UpNSuNU1ZSghXdWDGC3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=acdeoYm7; arc=fail smtp.client-ip=52.101.84.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CBE4E36FB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789741228; cv=none; b=Ns+u1Ioscq+LE+/jrIOnpXp5r7togSwLg4Q4hbuLcwFZkLuUUjD6L5EMqmYaMJCqUI4LzUUPSZXRMd7WOqKtp0PfERHBz+9Q3vbPkxk3ccvDIhxwVMKfZzXRp6L3ueTx5yOV7vGNUFzQl44KCXUc9SYG2tr9MW+cZDWsFQaQlxU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789741228; c=relaxed/simple;
+	bh=gJTLMCNpjxCPB/O/GnGRRpYU4FhUYAffCj2gOaX4u8Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nyqpDbsgraNc+A23aroezG6pFWlt4BgJB9vmT4mMhrptryk5XgGsF3P5p8SxkkUAKxtjObC8txjpQ9KC4s9MXLfUaKhbKECAV0DTMgO2HnJ5nHwbYwRehJjLiQu4AZJvB8hZHl8tFZmJCxtcZrOM7sQB6hcASpOeEJ+3ZOnk/9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gsrtoD1o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jGgLZcdW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="acdeoYm7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fpb5OTyOVJdq7YmfN56yvAISjdu+vUjUwCn16U+9njBcpFCP7vVFZBVAP0zu9Q3LmBXjfBJSddXQfTdTMI35ZNefhxaPUij2QoJiEwvXoC/1HAY5OW/8cPm4BsUe3Lkp7dsom/uEuQIJNGhgqPqjrUhgigEHWeF76VW5AS4pZsqOYsBMtWLBG7Z8GdWKqhH/JBvwlGQrvpsUDts5uvopxhCZ8Z5dsTcsGmDqZZulzhyO9y/iJWUEfgHQS6I183yOTVjQQMmgGiqAJag+kE/P1sA4NuYOoYMEuDlgucNM1nLjM/0RB4EDsfwHHC+5jGcP5WBkEzi3eu2JSffN0sAd2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EnuAIwCxIRaQdlFGA1SdVYNBIF/QA22srvw5iwnXjq4=;
- b=Flxac4YMLvjur848LUWD/h3Pojp+hCFijoeUEombMm9PpPb4/Go+sZaHi9xzL3H+GKNve4YZB0qWdVNJr+zc2/G4eYj1BQF18Su1G9ON8bR1hqqUYf6Rl1e+dIxVo1w3GKrppomURVvIkX5WbsPdgDZXq7F91oVZMr/EeBjvLNWZCc0ffTjrl6YVfYHJPhrVf4VDXEfuqQxUDKjXuCrdsoJZnuekX3lwkDPgQpnFAQ8iGMh7bZsCKgMAKN+XSDzhFc2rmIHj0HSrFkHbVL6AiTSqbg3voGm0+qYaZHQtn8bKAWyJgeBjY6pZHjyAIF1TTucCSEwlfzGBMS91l7N1Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EnuAIwCxIRaQdlFGA1SdVYNBIF/QA22srvw5iwnXjq4=;
- b=acdeoYm7N3PCnH9hsDh/3dNn/v5M5aT6AtTk4SIQbn9E3R/ctTRfEea9WjumdPUgrdUrqJvHpWiJ8eT4PDOe3JSPy/OzsYPFkCU3RsFuNPwzmJAL0a+xituyPOSZ1qy5x5s7vyghQldeP0jFpeZkXIrZ3pcQUzDZsVwFm7dGGNILYG+nXEMnzgonPeKFIIrSjqK9HCIS0zPsgT4l8afxYCRpGbT8iFqHe+4y9CdSEVDyvOMEwtMJhIRL4P5vX+oQvVDWloaQTY+l88Ag+Tu1oZ3tkT6LJvZ/I8haiaH5MhbnVNmL9hMpbREn/3PfE1CWvN9tuHE6WxK10sZkUQMu+Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by ZR6PR04MB296659.eurprd04.prod.outlook.com (2603:10a6:910:e1::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 14:20:03 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 14:20:03 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>,
-	dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org
-Subject: [PATCH] md: use assign_bit() where applicable
-Date: Fri, 18 Sep 2026 22:17:35 +0800
-Message-ID: <20260918141737.3023011-1-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0028.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::21) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gsrtoD1o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jGgLZcdW"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDP2CP637478
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:20:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/lCFRHFwb/IgtpvGJjUvtZPXMkXwFzU0Kc0GzdJqTRU=; b=gsrtoD1oE4vbHlyj
+	YPwx6i6qASESItiVEtczLACbXnj7z/2yGZm2Byj/2zQT3KFQ2D6iSoekt07Wlltj
+	yLttejpJ+M3IVSKuKb7xJXiRULU196VIExn+Yb2sX12XCTTbPyQ4fF48nHvFQ5Oh
+	PNbj6it5UC7uc+m0jHzEI9cXg9ZQ/PvB0Bs3RMIi0sYdDytnKnzRGR/jpl/G69nf
+	mnsOlR1UFBikOT8NUmKAiD76N5bDLLlyBEkN2NRFeQDORgG+oIdxenYgu5CoOFxY
+	JWJCLC31f+ChCsnwnXN95Pkapz7gV3GwT8KryyS2GtgebsqFNYa8hRZqSSw3/gWY
+	fIDDzA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gry2bt2th-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:20:25 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a05d645acso178045085a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:20:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789741225; x=1790346025; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/lCFRHFwb/IgtpvGJjUvtZPXMkXwFzU0Kc0GzdJqTRU=;
+        b=jGgLZcdW+WlEp46eF+hiDATS8uyXY94yeogJ8I0lkxJ1fnc0u5xMPLqWKV3j0qt/HO
+         bPR/WP/7+mH7gtKDDiYEusnVibGNzCCX2LAt6/Ok1eT420lcKFGqQYetyi4e1Nt1bQY6
+         PbvjjcfnHwlpKlxYWgntsH5pXC5UhtyoHktHDUwwH+1ndtaqQBtQuAHQ6pBuuxXTwlri
+         O5xDpTsO2DVGyq3+FKkNTI8AU4dBjLp1evOlfmcbRRjnDuKDwYTYTzjMCFvHSoMh4F9+
+         wBOCCAuEsU2XQ8OF78lrqTjWu5DfvNtsJZzJu5Dt67EkfHBwfLOAIzv+Mwe29gCQnF3G
+         UK0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789741225; x=1790346025;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/lCFRHFwb/IgtpvGJjUvtZPXMkXwFzU0Kc0GzdJqTRU=;
+        b=mM7TvJeyKDteQmmwRkkPGP9uN1XuwKeUJ2npu+sgUgK4WmdoJdLGAB2kEyWL4f1PKq
+         KVinJvT73ZRO+kqWuX5pQ3C2ayBY1/dAe69lG23DiP5G7JSF9J3aZ6rrQSfL9YPc+URm
+         RU6ZGR6JKTmPN5lqmqYtWJlVRR95LY9dtDEJlwhU41KvK7TyJI8jgeHfrcuN+rmdtRpM
+         SHf9ZFKi2SGn3yQFiJFcruo+pCfkTLXWEWX2UCetqiiiSFbN8toKoL64ZFHoIQ0dlCuP
+         dR3bGIFOzQU4/aWEixmQ2ua5gv2eq8qlysAIn++o5A1Ui7gnpFBFKc/S/U14Z0SbRU5y
+         DgwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOZuvnJXwj4UV4rTQhd6lBKkP4AQzPPXuLa+ssfH/jhfAn6NJb4YzrTSoh734U8BFvcaEwk/1xdR6mAbA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmfnaUegS+xDzgBFMVv2phzNNkjmWqQmZ/kdywnSJmnkR+xvpQ
+	CSSpWOYiKNOvjl3kMGZt9EVuPI0M6yBv5id32PC66fXnM15xGLazE0p9Gwepz7BkLn6nwzxS1sQ
+	kWmlmerowVYtftp9gcuHuWz8fuPbdpFQXBUr5y/3c7j5Z8+lF/vVsmoDx+Qvlm8QM2rU=
+X-Gm-Gg: AYBFou35tRAxngjWB3fL0sfmLbZp0B4undZhW9BHe4kb/HQ4uz/HaU24RNBVSURVUwW
+	8gYwJbEoxiV88qITidp+XCxDw2dFSx1CUnV8ldkqwqK0Dzrl3Yn6CPvVDZfVw11zCPdwJ/BjNf4
+	ZbH6P5i6w1XWCxtm5lTxO4PpTJZOQgbSoExJbn3/QWXtlzP4QXmlm5Tlt7PXBdmS1DEobK7sD2z
+	PMn8g8n8TJhC0Nlv3A4AqPLXspLE1t5WuwZIPEbIZKpyplt1EtjvByjb8tAzo4N6rY43p5v3ENa
+	fb1EZnqRxi2H/F0a8yh0XTVz7deg/4+EeyaU+96zYJCXU04dhMPlZAMhukiSVeoGWBSBfWBad6Z
+	emfRkPQur6+9zKfpI5Isq6NgckfI=
+X-Received: by 2002:a05:620a:8909:b0:933:aa0:bb83 with SMTP id af79cd13be357-93bdc747954mr372713785a.34.1789741224635;
+        Fri, 18 Sep 2026 07:20:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:8909:b0:933:aa0:bb83 with SMTP id af79cd13be357-93bdc747954mr372707685a.34.1789741224091;
+        Fri, 18 Sep 2026 07:20:24 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c2a1bb8a1d2sm62661166b.40.2026.09.18.07.20.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 07:20:22 -0700 (PDT)
+Message-ID: <13ed4e23-1092-4e6a-82ce-b36c1a0016f0@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 15:20:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|ZR6PR04MB296659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b7da716-5b02-47c7-6b51-08df158fee5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|19092799006|1800799024|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CHJEK1ECK9N6+KlWMRr/m1rgFhGagyKlr/AdHyemZYWgtbOQGO2EDWr6hLmDW8dGS3vfRAKdfwzkbdZvSLBQsC3knVnbHG2ZTE0J0z4ysOS6+CvycSnLPDxw1V9JwqGWDsIWx+5wEzIX0G7yMACo/NfFqCTWS0MKjPBAyRE/VJZEBEwy+VpqSWVfpevzGFJSb7Tyr17c1r8XOVcUvs0pnZAM9fpNzS1aNk/7yCPAfsh5/JcWAwLoPI+cK4e10Gec9hEaXpJtWEx8IqEzm7BryD9D+B1sDdk+DSRsoQsded+hbMrT5o3V/QYggYcM2ob3uqAhE7n7rbeBUtKD2QGNPZmSiPvtruU8c8mHA4gHqC97AXovdFtNoyeM6aYVrFNBgR+eT73oIvycJ0AJUu7V5CRoE0S1WsVRhIkbkHkd/CY+4lgCssDqGr6+AU95ncT+q3kqglw6zVZ9FBHFMMXgcDyWQPVqOHV9t1j0ZyD8u+Qr+xvHx1DaShpofGGgvbJEoPq7W4Lf83uAbmV38qWI+WXFy/5/Mrc3+GqhkrB8Lj6er80+3rYjCwmqbJgaCmwldfGeKqQ9gmzczxIvlU8htIc86ZoHAdiEpJF++Jb/7+XFIf3txRJOwZVSqOyFc86Cd0zTjKhdZ2rg1SM0QYcsq92OTsbsjgys/TqDNBgd62k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5TtoYqva9Og4MPCC2YAOI+KSpaaY1+2J+MUnUineOPw42RBEU6t8rFAVkUjz?=
- =?us-ascii?Q?yhr4TLvwJ7mY0hOAaJ7jrsK7JT8UBZDt4US5tdbOQQsnIwp4huDKRlf9aUxx?=
- =?us-ascii?Q?mndETMUeOChxqmeBRXTBZj/J7MZMCO5BJLeTHZO8Nj9S/he/nVTMP8PELrmF?=
- =?us-ascii?Q?KuRrbUUjrN8T/GJAYZ5IOmgUylhe0UN2AED7sM6NIA351M9SxzDhZasYqF1x?=
- =?us-ascii?Q?825e9WSaJEK5oaHbQTRVwPxhNm/DdFji27C8Hvu7ujNcJcjCg3n5xt2RypeV?=
- =?us-ascii?Q?+drzt/ndMCcOXfvdhBYB1Jo+YUoJtuFp1ArZ6YBxmv5C++ngelDhEqMZf24y?=
- =?us-ascii?Q?Q2oHCs9qoCHCJNRQZ0VYBm5+WsaPyk36mBLktjVXlGXRn3lIt5c+ZfM/mgVM?=
- =?us-ascii?Q?NDH5AUw4UL9QYU6fg28qSlfgf1+yI+tESZ9ytov1zdYaMMXOQ1eFui3AhCba?=
- =?us-ascii?Q?gI1XnGPJ+HX+CNWTQATyz4PcBxvU9dLAjcYIPhqR0+181JNKIorvlS/DrMuR?=
- =?us-ascii?Q?sK0rqhLiH6AnoqtlvIDFngzIavYwOr2OhzyuEQmiSUCkAAlWpjsvomEp5G+Q?=
- =?us-ascii?Q?oDM8/ndRMFGJo6jRXfKs002q4ApZmKL0hSIaY9QIKElfmQ7h66buoQjqw4Vi?=
- =?us-ascii?Q?bGobLlQbcjkSwwLdEaqKNZsE7QxzyY1ARhlKhOtMgFTvhxqmELUY7q9Bgpx9?=
- =?us-ascii?Q?FUACQQQWBlUiQ7h3/MGNUNEIgRBOuZVP+bc7KfZppYwgV3YonHBF1r1bnPUb?=
- =?us-ascii?Q?n+BkRzyNT7zshsG5ppmKCst7Me8RncnKDSJSyRpK9C0Z/Ew4tZDbrd7BnFU8?=
- =?us-ascii?Q?kXrL74OGHaKZlrAzaXPoFEOWeYgJjnRLQ5wBwdrN3cGc6S8fB4R+pSX/2045?=
- =?us-ascii?Q?TGVk238ZlGTEFgB2/kZ7F5FczLb5i9kXfHJv7F5+wnr7TaIOOOnuYs5rPOpQ?=
- =?us-ascii?Q?uFwGh1wlK2PAxy37K/aum+ll/g7LTUVi4d+sOeLN6XaFyzt/g7iIbSxRn886?=
- =?us-ascii?Q?td63AzFDbsuQHwjtsXvkL0EMFcDHaM4T0Ba+CeJ1ITdtdmsA2z/Y9u1sLLcp?=
- =?us-ascii?Q?LjnZm6neEzLqjWjiEX1fkGCZgUcqQp47BdHMdp4HUHi325vmYPFnWfJNqYND?=
- =?us-ascii?Q?6qbMi10h4DWabhN5vWOTOtcK5XTX+w+gQJQp0gs1hy8qk05JhByhZ3jO1i6/?=
- =?us-ascii?Q?qkmoztsaHAs/b/kgKw2g6ebBn7fbryysBPjk7BU0mmbqROxM+ITA/lx6Db9W?=
- =?us-ascii?Q?983RJdOUFFYg0vHxR+WvPPF/1mcGhhaJuEApT3q6dDA0zbkbYcV5rAEmG/2q?=
- =?us-ascii?Q?U4A0zYUdWZqtX45SV6wXLRq71kh2m6c1M0zrlsFbWWrU8dc6WZAEzFClKssO?=
- =?us-ascii?Q?EnwYJg/TFfQU9v5dnueqEECVIdUizXOg9zpK3RiI5/rFJyS7aBQrf1WWWh5I?=
- =?us-ascii?Q?I+qDa2ZtEsQ5pe2OxbZPdzQqkXzGqF2Q0ERIvCF0tiDkND5mhDOYbq7BzHqc?=
- =?us-ascii?Q?yA7PR8Zv0HxUwQjZYz2MHuQb/5Du9Ka76E98T7PIecIhRzDAVGxumhYu9w0q?=
- =?us-ascii?Q?1JOUp6/JXCBSr97aePiXOlDdS6ILUZ/CVcds1bGXrc1jG1FaQRgqqy4pmATZ?=
- =?us-ascii?Q?5wwmmgAenJDCGGi21sfgRv0slvN6SNKkn3WwIPU0KEvqv6BOSaXLu8HmPoA4?=
- =?us-ascii?Q?vQlAKkKXNf0S24o9NF1HgFiOgKhcBmeb6Qlnzg6mQriEfUQKuI10nr2SefyU?=
- =?us-ascii?Q?r66+BKXge/ZxP6BtDo95aIZqm1wRP94yrttEJ5FrA4AOtwgQbJS+?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b7da716-5b02-47c7-6b51-08df158fee5a
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:20:03.5898
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r8WuUSQ8kga0gA6bknZ5Ed6UM7FAwc2gZaCaEOChJAbA4jv47UEHoITrKOtD8kQVVEci9mcLkPAZHDa602pZtuEe8QGKVQF86//t/88rxKxGogAFJucdBFtlAZV2InMP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB296659
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/8] ASoC: SDCA: add
+ sdca_apply_default_control_classifiers() helper
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        patches@opensource.cirrus.com
+References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260918131914.681588-7-srinivas.kandagatla@oss.qualcomm.com>
+ <aq1Hsw0se8zKVQSE@opensource.cirrus.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <aq1Hsw0se8zKVQSE@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIwNCBTYWx0ZWRfX33q1fJlZAAdm
+ 5GWyU+SS29vGT8QzzMYE7L4vM40/TwGZxjvPYxHy4mQXZ0vX6nVj1/T4TvDKAordJuPxnABLIqp
+ DIfd7Vv7NTlTXQfpv0H6Nca0NsLjHpcRqIjMOG1RPagyrbCcpwQb3C8YG+rR6iiXqhB0W7U/Fdy
+ PTibo302UIH0FWNj5qbRugcZDhnNVuf1/yQgQwUNVQSWdfloVDho+9kdMXIw/Q96/mkXRz2kBfJ
+ BV3ruLDSPBPVExcoGnaMKRUI5LduF/R/f+hO7q3uDdXXfqmW4X3wLVwU8iCLOJe3hbu/YVZNufd
+ Ch1DSts8icVQSSz3TMvAcV1EZqAKe7hzOEUxzE4y4HfID+vre6IQJlIbrWqO+PhV8t4S9Mbb37t
+ qgPBrdq7Oey2BxsI9Ggu5WvHtweXMiuLQXPbxKLTJoTedBtCUXi7ikldhWs3lHAxj+duy+FBd7N
+ K/QAiFngBimKur4Z2jA==
+X-Proofpoint-GUID: PTCoW4rheBLaO-dnrYk1ixv7dwxdUbbK
+X-Authority-Analysis: v=2.4 cv=bYP+w+PB c=1 sm=1 tr=0 ts=6aad48a9 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=bNv17eZGp78-fAQ_3FUA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIwNCBTYWx0ZWRfXwkZRJEpeFnxG
+ 7EUZoltfi/8elV7IBh+RrYovIGKEh8b7OLspQZOvCxBz2sy8nq1i90oyjGTDsCjdEom+OPMTG5T
+ bLufhVSxUi+J6wjGLG2msKFoTZ5OheA=
+X-Proofpoint-ORIG-GUID: PTCoW4rheBLaO-dnrYk1ixv7dwxdUbbK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180204
 
-From: Peng Fan <peng.fan@nxp.com>
+On 9/18/26 3:16 PM, Charles Keepax wrote:
+> On Fri, Sep 18, 2026 at 02:19:11PM +0100, Srinivas Kandagatla wrote:
+>> sdca_parse_function() derives is_volatile (see c7b6c6b60594) and the
+>> spec-defined reset value (see 02d851b46b36) from each Control's
+>> (entity type, selector, access mode). Codecs that ship static SDCA
+>> tables via populate_function skip that path, so RW1S action Controls
+>> end up with is_volatile=0 and get replayed on every regcache_sync.
+>>
+>> Add sdca_apply_default_control_classifiers() to re-run those two
+>> classifiers over a Function. Elevate-only, so codec-set flags win.
+>> Call from the tail of populate_function.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>> +/**
+>> + * sdca_apply_default_control_classifiers - apply framework-known Control fields
+>> + * @function: Function populated via static tables (populate_function path).
+>> + *
+>> + * Runs the same per-Control classifiers as sdca_parse_function() so both
+>> + * entry paths land on identical @is_volatile and @has_reset/@reset fields.
+>> + * Elevate-only: codec-set flags/values are preserved.
+>> + */
+>> +void sdca_apply_default_control_classifiers(struct sdca_function_data *function)
+>> +{
+>> +	int i, j;
+>> +
+>> +	for (i = 0; i < function->num_entities; i++) {
+>> +		struct sdca_entity *entity = &function->entities[i];
+>> +
+>> +		for (j = 0; j < entity->num_controls; j++) {
+>> +			struct sdca_control *control = &entity->controls[j];
+>> +
+>> +			if (!control->is_volatile)
+>> +				control->is_volatile =
+>> +					find_sdca_control_volatile(entity, control);
+>> +
+>> +			if (!control->has_reset)
+>> +				find_sdca_control_reset(entity, control);
+>> +		}
+>> +	}
+>> +}
+>> +EXPORT_SYMBOL_NS(sdca_apply_default_control_classifiers, "SND_SOC_SDCA");
+> 
+> Just set the values correctly in the tables in the driver, I
+> don't really like this going back and fixing the tables up leaves
+> the driver tables looking slightly confusing.
+That is one way to do it, I was trying to be more align with what was
+getting done after parsing the acpi tables. But I dont mind updating the
+tables directly aswell.
 
-Convert open-coded if/else with set_bit/clear_bit and their
-non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-API.
+I will try to document this so that in future if someone is converting
+any acpi tables directly and then they need to mash up few things before
+passing to sdca core.
 
-Done with Coccinelle semantic patch:
-    // set_bit -> clear_bit => assign_bit
 
-    @@
-    expression cond, bit, addr;
-    @@
+--srini
+> 
 
-    -if (cond)
-    -        set_bit(bit, addr);
-    -else
-    -        clear_bit(bit, addr);
-    +assign_bit(bit, addr, cond);
-
-    // clear_bit -> set_bit => assign_bit
-
-    @@
-    expression cond, bit, addr;
-    @@
-
-    -if (cond)
-    -        clear_bit(bit, addr);
-    -else
-    -        set_bit(bit, addr);
-    +assign_bit(bit, addr, !cond);
-
-    // __set_bit -> __clear_bit => __assign_bit
-
-    @@
-    expression cond, bit, addr;
-    @@
-
-    -if (cond)
-    -        __set_bit(bit, addr);
-    -else
-    -        __clear_bit(bit, addr);
-    +__assign_bit(bit, addr, cond);
-
-    // __clear_bit -> __set_bit => __assign_bit
-
-    @@
-    expression cond, bit, addr;
-    @@
-
-    -if (cond)
-    -        __clear_bit(bit, addr);
-    -else
-    -        __set_bit(bit, addr);
-    +__assign_bit(bit, addr, !cond);
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/md/dm-mpath.c                  |  5 +----
- drivers/md/dm-zone.c                   |  6 ++----
- drivers/md/md.c                        | 22 ++++++----------------
- drivers/md/persistent-data/dm-bitset.c |  5 +----
- drivers/md/raid5-cache.c               |  6 ++----
- drivers/md/raid5.c                     |  6 ++----
- 6 files changed, 14 insertions(+), 36 deletions(-)
-
-diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-index 7cb7bb6233b6..ae9318f5f21b 100644
---- a/drivers/md/dm-mpath.c
-+++ b/drivers/md/dm-mpath.c
-@@ -1604,10 +1604,7 @@ static void pg_init_done(void *data, int errors)
- 		goto out;
- 
- 	if (test_bit(MPATHF_PG_INIT_REQUIRED, &m->flags)) {
--		if (delay_retry)
--			set_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
--		else
--			clear_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
-+		assign_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags, delay_retry);
- 
- 		if (__pg_init_all_paths(m))
- 			goto out;
-diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
-index f29acf64429a..35916c6e490e 100644
---- a/drivers/md/dm-zone.c
-+++ b/drivers/md/dm-zone.c
-@@ -447,10 +447,8 @@ void dm_finalize_zone_settings(struct dm_table *t, struct queue_limits *lim)
- 	struct mapped_device *md = t->md;
- 
- 	if (lim->features & BLK_FEAT_ZONED) {
--		if (dm_table_supports_zone_append(t))
--			clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
--		else
--			set_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
-+		assign_bit(DMF_EMULATE_ZONE_APPEND, &md->flags,
-+			   !dm_table_supports_zone_append(t));
- 	} else {
- 		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
- 		md->disk->nr_zones = 0;
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..6b2a397f8a9c 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -3586,10 +3586,7 @@ static ssize_t recovery_start_store(struct md_rdev *rdev, const char *buf, size_
- 		return -EBUSY;
- 
- 	rdev->recovery_offset = recovery_start;
--	if (recovery_start == MaxSector)
--		set_bit(In_sync, &rdev->flags);
--	else
--		clear_bit(In_sync, &rdev->flags);
-+	assign_bit(In_sync, &rdev->flags, recovery_start == MaxSector);
- 	return len;
- }
- 
-@@ -5915,10 +5912,7 @@ fail_last_dev_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (ret)
- 		return ret;
- 
--	if (value)
--		set_bit(MD_FAILLAST_DEV, &mddev->flags);
--	else
--		clear_bit(MD_FAILLAST_DEV, &mddev->flags);
-+	assign_bit(MD_FAILLAST_DEV, &mddev->flags, value);
- 
- 	return len;
- }
-@@ -7574,14 +7568,10 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info)
- 		}
- 
- 		clear_bit(In_sync, &rdev->flags); /* just to be sure */
--		if (info->state & (1<<MD_DISK_WRITEMOSTLY))
--			set_bit(WriteMostly, &rdev->flags);
--		else
--			clear_bit(WriteMostly, &rdev->flags);
--		if (info->state & (1<<MD_DISK_FAILFAST))
--			set_bit(FailFast, &rdev->flags);
--		else
--			clear_bit(FailFast, &rdev->flags);
-+		assign_bit(WriteMostly, &rdev->flags,
-+			   info->state & (1 << MD_DISK_WRITEMOSTLY));
-+		assign_bit(FailFast, &rdev->flags,
-+			   info->state & (1 << MD_DISK_FAILFAST));
- 
- 		if (info->state & (1<<MD_DISK_JOURNAL)) {
- 			struct md_rdev *rdev2;
-diff --git a/drivers/md/persistent-data/dm-bitset.c b/drivers/md/persistent-data/dm-bitset.c
-index 00c0a3f186b7..6680f05c25ec 100644
---- a/drivers/md/persistent-data/dm-bitset.c
-+++ b/drivers/md/persistent-data/dm-bitset.c
-@@ -59,10 +59,7 @@ static int pack_bits(uint32_t index, void *value, void *context)
- 		if (r)
- 			return r;
- 
--		if (bv)
--			set_bit(bit, (unsigned long *) &word);
--		else
--			clear_bit(bit, (unsigned long *) &word);
-+		assign_bit(bit, (unsigned long *)&word, bv);
- 	}
- 
- 	*((__le64 *) value) = cpu_to_le64(word);
-diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-index 7b7546bfa21f..b442a4de61fb 100644
---- a/drivers/md/raid5-cache.c
-+++ b/drivers/md/raid5-cache.c
-@@ -432,10 +432,8 @@ static inline void r5c_update_log_state(struct r5l_log *log)
- 			wake_reclaim = true;
- 		clear_bit(R5C_LOG_CRITICAL, &conf->cache_state);
- 	}
--	if (free_space < 3 * reclaim_space)
--		set_bit(R5C_LOG_TIGHT, &conf->cache_state);
--	else
--		clear_bit(R5C_LOG_TIGHT, &conf->cache_state);
-+	assign_bit(R5C_LOG_TIGHT, &conf->cache_state,
-+		   free_space < 3 * reclaim_space);
- 
- 	if (wake_reclaim)
- 		r5l_wake_reclaim(log, 0);
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..713596ee933c 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -4748,10 +4748,8 @@ static void analyse_stripe(struct stripe_head *sh, struct stripe_head_state *s)
- 				       RAID5_STRIPE_SECTORS(conf)))
- 			set_bit(R5_ReadRepl, &dev->flags);
- 		else {
--			if (rdev && !test_bit(Faulty, &rdev->flags))
--				set_bit(R5_NeedReplace, &dev->flags);
--			else
--				clear_bit(R5_NeedReplace, &dev->flags);
-+			assign_bit(R5_NeedReplace, &dev->flags,
-+				   rdev && !test_bit(Faulty, &rdev->flags));
- 			rdev = conf->disks[i].rdev;
- 			clear_bit(R5_ReadRepl, &dev->flags);
- 		}
--- 
-2.51.0
+> Thanks,
+> Charles
 
