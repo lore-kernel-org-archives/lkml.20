@@ -1,335 +1,140 @@
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C28039184B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA523B47E3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699843; cv=none; b=YnZ9Q6gUpSuWScOGAL1pZC/7FUZ5/G6Qw68zcY9FvruXzNqVSbZ0TkFFIl/NfGEAX9R612tTihyjciTIwfg7ACXsr8BRbRxKYAC7GN+mAFp7GsU5P1TM+SADfceKsFy7hbH5ECAVYSXxLsL6xarnixVSxhM2uoY/msom7xUUDfU=
+	t=1789699957; cv=none; b=bDFolGERh+nyJl10rWdBKvpz3nymONrbV1LRrnCZewX1ku+rWBSswwy3a9hlJwMOXQTxkj/wPJZLEpEUuIhHXvAZXnMb80Pq9AHUsL2NbStA7jmgl9e9aXRrjXmDiml81KqL1AIjBpZvtfscltIqPIe6gw9UmCudmpGuJJ3qEQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699843; c=relaxed/simple;
-	bh=N6CEd0l0gJW6eAjQ3ySm2d8Yd/dkGeFlWotcwVS5SyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hm5od8LJdh5o16scb5XkRl+b9hi5C3NN3xn5Uoukjj2aG+D8i6wYWQm2BGrM1zPERGsWAodQ/nKf4Qs44DlWWcllymGTl1uSlIhDV6EtZv6rzXDmsFKTgD5jQL/e+zlD1IHMjBc8DuJO53EGgGHvq7nY2K5YBuyYEo/pNcBOnPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q8L+LzCh; arc=none smtp.client-ip=91.218.175.6
+	s=arc-20240116; t=1789699957; c=relaxed/simple;
+	bh=LskNNPuSB8QoudevYzVr17nYyrlTqFaZBhdrhrFkhzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BrtXvgX/j34qh7knO0BwrkXF32K1iW3XFoRj7tpckpGkFsgvf0bGclXvTozlTraU1Ce4G/Uvgmc1kT9rBZ/F8dbNwG/sq1XGNFGYuldl4Jg0wtqYZ7YLXO86Lck5gmPgro3usAELfHlNqVZtG0YOxzUIS82iUt0I8bzoiDNW9o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=n4xknpOB; arc=none smtp.client-ip=91.218.175.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q8L+LzCh"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="n4xknpOB"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=N6CEd0l0gJW6eAjQ3ySm2d8Yd/dkGeFlWotcwVS5SyY=;
+DKIM-Signature: a=rsa-sha256; bh=LskNNPuSB8QoudevYzVr17nYyrlTqFaZBhdrhrFkhzE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789699832; v=1; x=1790304632;
- b=q8L+LzChO5BJ4zN/c+/2DaJ/1RGJ8LSa8XmeBKkXK9Y3/ees52CMnAbfwvYH6EP/oxh/quPU
- vLr0ldVTl6kib3XrtDxoqBVQTeJ7NV8dfPT1xrWAA/54XuhOOQsNqcswzNpU8g61oSv/rqkvYbv
- Ul2ToTd5G9rOUsAnk23E8rTI=
+ t=1789699948; v=1; x=1790304748;
+ b=n4xknpOBPPEXMDCffjNgIvAWGb62BDrs4DleaYuZxUEDkNfBWXRIwzKw+466pivTS4bSZQYT
+ vsmvnqXeXyFLdAYvHtbZ7YH7rSctHvc+yO6w4qF+8W8tYc18nBIHsyGenWHDptP9JPoA12bbKGg
+ 9BY86SGdjL87zt5oDYkamfW4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9d9f438652b75181;
-	Fri, 18 Sep 2026 02:50:12 +0000
-X-Mizu-Trace-ID: 9d9f438652b75181
+Received: by smtp.migadu.com with ESMTPS id b61aff39c1dfddae;
+	Fri, 18 Sep 2026 02:52:28 +0000
+X-Mizu-Trace-ID: b61aff39c1dfddae
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <887bab46-1959-4e1b-acba-082f91294055@linux.dev>
-Date: Fri, 18 Sep 2026 10:51:10 +0800
+From: Lance Yang <lance.yang@linux.dev>
+To: kas@kernel.org,
+	david@kernel.org
+Cc: lance.yang@linux.dev,
+	akpm@linux-foundation.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the huge zero page
+Date: Fri, 18 Sep 2026 10:52:14 +0800
+Message-ID: <20260918025214.89109-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <aqwPHfWhKGty-Q_4@thinkstation>
+References: <aqwPHfWhKGty-Q_4@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/6] module: introduce SH_ENTSIZE_STANDALONE for
- separately allocated sections
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-4-hao.ge@linux.dev>
- <CAJuCfpHz6V0zT5+QkYdQsBzG9kWCFhP+gris2XRrvSu4hHD6Hw@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpHz6V0zT5+QkYdQsBzG9kWCFhP+gris2XRrvSu4hHD6Hw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Suren
 
-On 2026/9/18 01:25, Suren Baghdasaryan wrote:
-> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> SHF_ALLOC means, per the ELF spec, that a section occupies memory
->> during process execution. Some module sections occupy memory
->> outside the regular module layout, for example the percpu section
->> with its per-CPU allocations. The loader currently excludes such
->> a section from the layout by clearing its SHF_ALLOC, which
->> overloads the flag with a loader-internal meaning.
->> apply_relocations() needs a special case for the section, and
->> find_sec(".data..percpu") returns different results before and
->> after layout_and_allocate().
->>
->> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
->> allocation. The percpu section is its first user. layout_sections()
->> and move_module() skip marked sections, and apply_relocations() goes
->> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
->>
->> .data..percpu keeps SHF_ALLOC, so it would now show up under
->> /sys/module/*/sections/. The section has one instance per CPU and no
->> single address to report, and the entry never existed before, so
->> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
->> array and skips it too. No functional change otherwise.
-> 
-> And IIUC no userspace-visible changes too, right?
+On Thu, Sep 17, 2026 at 05:03:09PM +0100, Kiryl Shutsemau wrote:
+>On Thu, Sep 17, 2026 at 05:29:48PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/17/26 16:32, Kiryl Shutsemau wrote:
+>> > On Thu, Sep 17, 2026 at 08:10:10PM +0800, Lance Yang wrote:
+>> >> vm_mixed_zeropage_allowed() validates zeropage insertion into
+>> >> VM_MIXEDMAP VMAs. No in-tree user needs to insert the huge zero page
+>> >> through vmf_insert_pfn_pmd().
+>> >>
+>> >> Return VM_FAULT_SIGBUS if vmf_insert_pfn_pmd() is asked to map it.
+>> >>
+>> >> Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
+>> >> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+>> >> Suggested-by: David Hildenbrand <david@kernel.org>
+>> >> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>> > 
+>> > The patch looks fine, but don't we want to cover the same for non-huge
+>> > zero page in vmf_insert_pfn_prot()?
+>> 
+>> Why would the zeropage be a problem in PFNMAP mapping?
 >
+>Nothing enforces that it is read-only.
 
-Right, I'll fold this into the commit message for the next version:
-"No functional or userspace-visible changes otherwise."
+No in-tree user inserts the zeropage through vmf_insert_pfn_prot(), so
+rejecting it there should be fine.
 
->>
->> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
->> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
->> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> 
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
->
+Something like:
 
-Thanks.
+---8<---
+The huge zeropage is reclaimable, but a raw PFN mapping does not pin it.
+A PMD mapping of huge_zero_pfn can therefore outlive the folio.
 
-Best Regards
-Hao
+No in-tree user needs either mapping, so reject both with VM_FAULT_SIGBUS
+rather than risk making either shared zero page writable.
 
->> ---
->>  include/linux/module.h   |  2 ++
->>  kernel/module/internal.h |  8 ++++++++
->>  kernel/module/kallsyms.c | 13 +++----------
->>  kernel/module/main.c     | 32 +++++++++++++++++---------------
->>  kernel/module/sysfs.c    | 17 +++++++++++++----
->>  5 files changed, 43 insertions(+), 29 deletions(-)
->>
->> diff --git a/include/linux/module.h b/include/linux/module.h
->> index 96cc98568eea..0c6f32ddcbf2 100644
->> --- a/include/linux/module.h
->> +++ b/include/linux/module.h
->> @@ -325,6 +325,8 @@ enum mod_mem_type {
->>         MOD_INIT_RODATA,
->>
->>         MOD_MEM_NUM_TYPES,
->> +
->> +       MOD_STANDALONE = -2,
->>         MOD_INVALID = -1,
->>  };
->>
->> diff --git a/kernel/module/internal.h b/kernel/module/internal.h
->> index 061161cc79d9..4c738074a27b 100644
->> --- a/kernel/module/internal.h
->> +++ b/kernel/module/internal.h
->> @@ -29,6 +29,14 @@
->>  #define SH_ENTSIZE_TYPE_MASK   ((1UL << SH_ENTSIZE_TYPE_BITS) - 1)
->>  #define SH_ENTSIZE_OFFSET_MASK ((1UL << (BITS_PER_LONG - SH_ENTSIZE_TYPE_BITS)) - 1)
->>
->> +/*
->> + * Marker for sections with a separate allocation, which are not placed
->> + * into mod->mem[].
->> + */
->> +#define SH_ENTSIZE_STANDALONE                                  \
->> +       (((unsigned long)MOD_STANDALONE & SH_ENTSIZE_TYPE_MASK) \
->> +        << SH_ENTSIZE_TYPE_SHIFT)
->> +
->>  /* Maximum number of characters written by module_flags() */
->>  #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
->>
->> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
->> index f23126d804b2..0dca6d40160e 100644
->> --- a/kernel/module/kallsyms.c
->> +++ b/kernel/module/kallsyms.c
->> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
->>  }
->>
->>  static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
->> -                          unsigned int shnum, unsigned int pcpundx)
->> +                          unsigned int shnum)
->>  {
->>         const Elf_Shdr *sec;
->>         enum mod_mem_type type;
->> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
->>             !src->st_name)
->>                 return false;
->>
->> -#ifdef CONFIG_KALLSYMS_ALL
->> -       if (src->st_shndx == pcpundx)
->> -               return true;
->> -#endif
->> -
->>         sec = sechdrs + src->st_shndx;
->>         type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
->>         if (!(sec->sh_flags & SHF_ALLOC)
->> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
->>         /* Compute total space required for the core symbols' strtab. */
->>         for (ndst = i = 0; i < nsrc; i++) {
->>                 if (i == 0 || is_livepatch_module(mod) ||
->> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
->> -                                  info->index.pcpu)) {
->> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
->>                         strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
->>                         ndst++;
->>                 }
->> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
->>         for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
->>                 kallsyms->typetab[i] = elf_type(src + i, info);
->>                 if (i == 0 || is_livepatch_module(mod) ||
->> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
->> -                                  info->index.pcpu)) {
->> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
->>                         ssize_t ret;
->>
->>                         mod->core_kallsyms.typetab[ndst] =
->> diff --git a/kernel/module/main.c b/kernel/module/main.c
->> index c1b34dc1e89a..ae2678ac7840 100644
->> --- a/kernel/module/main.c
->> +++ b/kernel/module/main.c
->> @@ -1619,12 +1619,13 @@ static int apply_relocations(struct module *mod, const struct load_info *info)
->>
->>                 /*
->>                  * Don't bother with non-allocated sections.
->> -                * An exception is the percpu section, which has separate allocations
->> -                * for individual CPUs. We relocate the percpu section in the initial
->> -                * ELF template and subsequently copy it to the per-CPU destinations.
->> +                *
->> +                * Note that .data..percpu has separate allocations for
->> +                * individual CPUs. We relocate the section in the
->> +                * initial ELF template and subsequently copy it to the
->> +                * per-CPU destinations.
->>                  */
->> -               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
->> -                   (!infosec || infosec != info->index.pcpu))
->> +               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
->>                         continue;
->>
->>                 if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
->> @@ -1715,7 +1716,7 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
->>
->>                         if ((s->sh_flags & masks[m][0]) != masks[m][0]
->>                             || (s->sh_flags & masks[m][1])
->> -                           || s->sh_entsize != ~0UL
->> +                           || s->sh_entsize != ~0UL /* offset or standalone */
->>                             || is_init != module_init_layout_section(sname))
->>                                 continue;
->>
->> @@ -1745,16 +1746,10 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
->>  /*
->>   * Lay out the SHF_ALLOC sections in a way not dissimilar to how ld
->>   * might -- code, read-only data, read-write data, small data.  Tally
->> - * sizes, and place the offsets into sh_entsize fields: high bit means it
->> - * belongs in init.
->> + * sizes, and place the offsets into sh_entsize fields.
->>   */
->>  static void layout_sections(struct module *mod, struct load_info *info)
->>  {
->> -       unsigned int i;
->> -
->> -       for (i = 0; i < info->hdr->e_shnum; i++)
->> -               info->sechdrs[i].sh_entsize = ~0UL;
->> -
->>         pr_debug("Core section allocation order for %s:\n", mod->name);
->>         __layout_sections(mod, info, false);
->>
->> @@ -2822,7 +2817,8 @@ static int move_module(struct module *mod, struct load_info *info)
->>                 Elf_Shdr *shdr = &info->sechdrs[i];
->>                 const char *sname;
->>
->> -               if (!(shdr->sh_flags & SHF_ALLOC))
->> +               if (!(shdr->sh_flags & SHF_ALLOC)
->> +                   || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
->>                         continue;
->>
->>                 sname = info->secstrings + shdr->sh_name;
->> @@ -2954,6 +2950,7 @@ core_param(module_blacklist, module_blacklist, charp, 0400);
->>  static struct module *layout_and_allocate(struct load_info *info, int flags)
->>  {
->>         struct module *mod;
->> +       unsigned int i;
->>         int err;
->>
->>         /* Allow arches to frob section contents and sizes.  */
->> @@ -2967,8 +2964,13 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
->>         if (err < 0)
->>                 return ERR_PTR(err);
->>
->> +       /* Repurpose sh_entsize to track where each section is allocated. */
->> +       for (i = 0; i < info->hdr->e_shnum; i++)
->> +               info->sechdrs[i].sh_entsize = ~0UL;
->> +
->>         /* We will do a special allocation for per-cpu sections later. */
->> -       info->sechdrs[info->index.pcpu].sh_flags &= ~(unsigned long)SHF_ALLOC;
->> +       if (info->index.pcpu)
->> +               info->sechdrs[info->index.pcpu].sh_entsize = SH_ENTSIZE_STANDALONE;
->>
->>         /*
->>          * Mark relevant sections as SHF_RO_AFTER_INIT so layout_sections() can
->> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
->> index 01c65d608873..15c6baeb39c4 100644
->> --- a/kernel/module/sysfs.c
->> +++ b/kernel/module/sysfs.c
->> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
->>         kfree(sect_attrs);
->>  }
->>
->> +/*
->> + * .data..percpu has a separate allocation per CPU and no single
->> + * address to report.
->> + */
->> +static bool sect_visible(const struct load_info *info, unsigned int i)
->> +{
->> +       return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
->> +}
->> +
->>  static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>  {
->>         struct module_sect_attrs *sect_attrs;
->> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>
->>         /* Count loaded sections and allocate structures */
->>         for (i = 0; i < info->hdr->e_shnum; i++)
->> -               if (!sect_empty(&info->sechdrs[i]))
->> +               if (sect_visible(info, i))
->>                         nloaded++;
->>         sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
->>         if (!sect_attrs)
->> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
->>         for (i = 0; i < info->hdr->e_shnum; i++) {
->>                 Elf_Shdr *sec = &info->sechdrs[i];
->>
->> -               if (sect_empty(sec))
->> +               if (!sect_visible(info, i))
->>                         continue;
->>                 sysfs_bin_attr_init(sattr);
->>                 sattr->attr.name =
->> @@ -159,7 +168,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
->>         /* Count notes sections and allocate structures.  */
->>         notes = 0;
->>         for (i = 0; i < info->hdr->e_shnum; i++)
->> -               if (!sect_empty(&info->sechdrs[i]) &&
->> +               if (sect_visible(info, i) &&
->>                     info->sechdrs[i].sh_type == SHT_NOTE)
->>                         ++notes;
->>
->> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
->>
->>         nattr = &notes_attrs->attrs[0];
->>         for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
->> -               if (sect_empty(&info->sechdrs[i]))
->> +               if (!sect_visible(info, i))
->>                         continue;
->>                 if (info->sechdrs[i].sh_type == SHT_NOTE) {
->>                         sysfs_bin_attr_init(nattr);
->> --
->> 2.25.1
->>
+Link: https://lore.kernel.org/linux-mm/f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org/
+Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+---
+
+ mm/huge_memory.c | 3 +++
+ mm/memory.c      | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index b49bffe36d22..de34d64aa763 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1723,6 +1723,9 @@ vm_fault_t vmf_insert_pfn_pmd(struct vm_fault *vmf, unsigned long pfn,
+ 						(VM_PFNMAP|VM_MIXEDMAP));
+ 	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
+
++	if (unlikely(is_huge_zero_pfn(pfn)))
++		return VM_FAULT_SIGBUS;
++
+ 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
+
+ 	return insert_pmd(vma, addr, vmf->pmd, fop, pgprot, write);
+diff --git a/mm/memory.c b/mm/memory.c
+index 9e4a70421a6b..5d2d73c69fed 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2956,6 +2956,9 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+ 	BUG_ON((vma->vm_flags & VM_PFNMAP) && vma_is_cow_mapping(vma));
+ 	BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn));
+
++	if (unlikely(is_zero_pfn(pfn)))
++		return VM_FAULT_SIGBUS;
++
+ 	if (addr < vma->vm_start || addr >= vma->vm_end)
+ 		return VM_FAULT_SIGBUS;
+
+--
+
+That would keep both zeropages out of writable raw-PFN fault mappings ...
+wdyt?
+
+Cheers, Lance
