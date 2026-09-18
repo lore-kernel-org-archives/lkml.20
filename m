@@ -1,111 +1,153 @@
-Received: from outbound.mr.icloud.com (mr-2004l-snip4-11.eps.apple.com [57.103.69.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFBC4F4D11
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.69.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CEA4F4D11
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737378; cv=none; b=QPQ75Fy+ODh6AkpAYsFZKG5VppCS2Ul4vQ+Pbkzd50qXDDLQZan6rptQBgS+z8M+pC1DWizaRdW9GkiVOdeGYkVzrBCtTWlS7ewRr6AqfBiAE9ecC/hbJtuRIA0VTtomfW8FFeXbcOmIalap3FhM/DxaXGQSSWCuDJMId7mmup8=
+	t=1789737387; cv=none; b=k1CikIYRihr5g0mry1RaBMYzO0S1BvFADPTyC1Xf3B1f4A5Dnz0t9opB6xOcqglAZYsp3wsFFxTkIY2CegKzU5DsSjfuKEe1bdhASvQ8z/b589B+yBHPuSIXUb0iU/jpKUpIO/QNrSRuNBK138dfLiMI2pF2Nnd64Zlfck1W/8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737378; c=relaxed/simple;
-	bh=CuSgv6w5hPAR6Ha7x5yAF9ThiEbhk17qwZZWg9Qx64A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r5xanct32yZUPaYz5+trxLaGRTB3FzqlhQgtshWGXW319rz/za+coL/jgqNTcUgzClh5LfJDD6ddCFksqGKsc219HPNf+niNfrSqqMpr32n5d0fTJ9OAxPYhZNqa30TxkClDESfgN0G38JYnrDPe2z+ld3h0YgCPE2CXRNKY+Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=ZP0BWKqJ; arc=none smtp.client-ip=57.103.69.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1789737387; c=relaxed/simple;
+	bh=20mvTsdpLEDFfyWyGEhYqouKU7zctNL945btXR14cyM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KcGtur0Gc4VzSacGlzGxSmf5xqVZujloJhGtL76M43YDxh+vKkwbjIiGVjNC+wioaFNHSKYGpk8ESTtkMbWPvgr6j5TtHBuyw9fEhwNAzW4QbCjSJ8jRGyjjYh5jTRf/O1gO1jmD5E62w5+a41VtQ8GuwVX4s3XGHUg88DNhF/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghq0bGY3; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="ZP0BWKqJ"
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 6B49A1800364;
-	Fri, 18 Sep 2026 13:16:11 +0000 (UTC)
-X-ICL-RepId: 01a0b4a9-06a6-7e78-9b84-7b2d922ed33c
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGC10NQQpaAFIBQV9MBlh3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737376; x=1792329376; bh=DcCDTQc07A7TDdFj59KiYFwuhrizZITMxq2+rV42wrA=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=ZP0BWKqJ76a9QIho05vUDNPW8lM7SUK7DyeoxOWciIck7eqxtyb7kHCoCHG1/2LAa9hagJDa2+emdzsAJgerIwuATLLmibXjurXgXCaoz09hHYuFqfldh7PdsmYBpljdPZwzr9QAXKCKz/m91FIzUhjlcWNoBGnjsV5oP+eU71cq2QbeqjGdGAYLGOnYDoeLfrz3cjRdzN1f70ifG7Qi7X4oCVXurhTojgmWT73wwqcxD8nkx8IuKFJvxjJYfP4s3wqFTQYBS8sdRTUkZqpYUSgkTyGGamLxWYKYwoLdUjBSDH8nMEMBMlQn+rwVQyhMvi+9l6Zqymt9t9dEoAYTLQ==
-Received: from [127.0.0.1] (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id 8765D180187A;
-	Fri, 18 Sep 2026 13:16:07 +0000 (UTC)
-From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Fri, 18 Sep 2026 15:15:14 +0200
-Subject: [PATCH 09/14] arm64: dts: apple: t6031: add avd nodes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghq0bGY3"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356f6bso582767f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789737383; x=1790342183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5wyvtDe6AEfbt4jvUldi9B/KYnA6W2vv8pFn6fJzAVs=;
+        b=ghq0bGY3CldwAcGX9idFKafZnQhffG2TlxArgONUWBvOSMeAl2cli43SiIasL0o0tl
+         s/UptYufEN0jS2Z8Etny8kXGFbHsUDjgcTQ4iBinVNs+6q1i7cAWgNygNNgq+pgqKzQm
+         57S3lYOIyQWOLXrcmczVYE1mGJL5NfRVkXdEZ7J6TZN0q3XoKJprBK6ybnBcggCVl/Z0
+         rGxe6IlYMm8DHnM137EZzMhMPeArpjc4qQXdvTkUFeX9MrhhVB/UDJC3Bo/PRQDJXUUi
+         1bU3lNQtE2hBCN1I7mVsepQsdKnQG08ShjslFIeA5hiPr37tXpWK0URBUvPnZN70HVIT
+         XPDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789737383; x=1790342183;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5wyvtDe6AEfbt4jvUldi9B/KYnA6W2vv8pFn6fJzAVs=;
+        b=Di7viceQXWysB2SjINI/E7G4JGRfuUg4UTaD5jSikH0dtiEIgwSRmpiQw9NlIb2mmX
+         i5/tWmQO4oEj1azAswCkmY5dNCXvaiqGZvl9OKui+q4/+q39Qewc27a56EaQzDRbKayW
+         Qi4076u/fRq709GuGjuaxp/ZUDPFVF88uhPr7B9eXkxLu7bt4YrwlcuT52xeINwqx1Xv
+         9LxH7mjDUwMCmSHhpTFcSuWrG9qPCsd3N3BBGw2Rrs+Z4/L33t1RqSKyPa3sTnlrekRE
+         1uK/NwJ7KpkXMEwiTSnr70083KpGwoT5cZgbgj+xof14p/4FJlPa0OYyPrbJvtRm7Eg/
+         TU9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwW7AXYvAD3hnnIx/Qp2bFlY+CtipRusW+azfIdvZmcsg2hP0H/GDuOQicc57E5r1qzCR7su51XlKX3JIg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9ickgEcFtDgF0VwvbDQO+wZrFyhbBrZXmIRmM/QXv963YX5kJ
+	xdkhUTM6YSww6wdD0whZ3ZH+cv+ZOWb0eMLsB+pGjHlxHx+y+2bYLRCC
+X-Gm-Gg: AYBFou3mrgIWlMYv2iv6cjEC34R7dDjhINeOJAWuZJa2l5ZQfEFfw6xZ0JyGQptAktr
+	KQz8BN/huRrz6RcGpiuvunM8ytVhtNsmpwsX+A1MVLV8QfpAmpYHrUiVkd7d6Bx+QIog0TFS9IP
+	80I7PhE1rMqk1BBPK9Gv2ID7ipkA3GBAfMfCqA+zMX5aYuFE49s6k/bn1Fc8ySLvlMJzql+ORBy
+	mitU+EnpGHSmkK7OD05syvULFsLOaZUNkAD6OsMf/bw1z5iFrDwJqxDf6nNmwR1TC3t/Ks87k1P
+	CIb8soHrjAjtIhattlzBx1xE/9FtX8VseKjio3om2IlcTIDTPPBd1HSfE0mRWEhDxEzzLLZVqx5
+	CNF2bxPWHxOQnqIi4ufb6J4EsZHn9WGC4eWDM1WCi9yXZtdGv52HTmjUVZN2TOu9Rq7G4MFJJlY
+	C7LO0jZJ79PTEhE/veah3+gVDzp9ZJOL9K/CiixEHV0IPjLIsodVBy28K0IPPrJfzMiKbBPTUui
+	ZKif85Dmx8=
+X-Received: by 2002:a05:6000:2f87:b0:487:c3e:8df8 with SMTP id ffacd0b85a97d-4871e20f764mr6206001f8f.5.1789737382476;
+        Fri, 18 Sep 2026 06:16:22 -0700 (PDT)
+Received: from fra-x8664.wind3.hub ([151.16.209.67])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm4487572f8f.34.2026.09.18.06.16.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:16:21 -0700 (PDT)
+From: Francesco Magazzu <postadelmaga@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Dan Carpenter <error27@gmail.com>,
+	Karol Herbst <kherbst@redhat.com>
+Subject: [PATCH v3 0/4] drm/nouveau: fix list cursor use after loop in the clk pstate paths
+Date: Fri, 18 Sep 2026 15:16:16 +0200
+Message-ID: <20260918131620.405133-1-postadelmaga@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-avd-v1-9-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
-In-Reply-To: <20260918-avd-v1-0-49977931f455@icloud.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- Sofus Forstreuter <sofus.c@icloud.com>
-X-Mailer: b4 0.15.2
-X-Authority-Info-Out: v=2.4 cv=A89h/qWG c=1 sm=1 tr=0 ts=6aad399d
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=i4oxPFHrzJf6BXMseXkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: c0EIi3ogtwusjNxhSgGy5S1iAqzWfLzB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX6vlJ1p/jkrE6
- 1dxKRe9ot+Aj+yMc1rjBaC435oWFlEjCUC5FL2l1+VAJPEcjA28ENkzskilsEDoZ4HZ0sEiwzJz
- YsWJVi2DXZZwdhMvYbvqgNasR9ivuTN0I7MtVa8qEiKoOWS5S9Whnh1l6PcklvtI+/n74FiG7yw
- 4yYzv7oWehCpHjTnA8oMe+Qre0+8EjwIK+sWKZS3DeMYQkBLpctsGesXgQKBjJ38paHaQ3dwtQf
- Ye34Rc0UP/WzdJiFu5R9FiXUYWq0Ok42gF0zwdv2yEWdkbQtD/zlr9laLdNxlj0OIWN5P3Cd5uf
- dFsc8kl+jB6gnUtRZ8FCbRfYd3OugZ6z4OpT9CYdgqLosQoTq+1gBLyLsWpGo8=
-X-Proofpoint-GUID: c0EIi3ogtwusjNxhSgGy5S1iAqzWfLzB
-X-JNJ: AAAAAAAB4Wl49F+tIp8pRKLmkT+eRNtcIhhIQ+tJ75569LCQGzxZgutXv4Bm+qVMK8Wv/DiE4QmHduSojOTxlfww+NhBR7mSncdxGBAu/XdlS3RISxMT45UVTUHqzWAUlr7EN3tfWt6gDETPaEPwWTruUtviAcn5VP7j3TLT4mq6lANxXdghpR79dz5Sreyuw9MNdnD5LKuzBCgyv08dYlSzdFlBa2iCqGYrNO23bwX2zQ6cKd7VKYx1pEnsQZgJpuvqvbcdNwbHG/iLQsmYigyPVFhCQ6Hy2PxABC0EV2MJon/uB/8rEFn3ceXYxjo5AdddDS9UmmSauxLXXrKoZPC2PIWttbYVVW1pbVv1Xfb8Lx2BFU+y2hyfT1mhYR5/TwNJNxzKCX+Uv9iJPYIU4TSqDef44LlXUoUktu2CRa7HenV5sa3dMynZHfVQmRQt19HRWOzaTDB9lHvvi/ZL7WZTQHvwm/hNRWEScKqm40IJ0VVfV/6PC/VBBdZDSYlz6Y2++8dkmxmlBVOqJyV5CzcKOiztc6wfInsHeXpWHolpauYMlro1KpaQv2ho59WztYHeFvUxWOeX0y307gwgh4xDrIvNgIdXxqLnIGgRk63nT7TCIpLPxqr7PH1dw4totbOwiQGhz4r2XWi/C0FJ2vaBoHP7hZe5fPa4Ec4og8IC3q4FIfACvPqzgXAzGyeYfGI93LlardSGFT2J44Aoj5whOTzmMdGSnrSLvYWYXQrZhF3tCMJD7iUI1cfdHLmgSO+J5PdfPJK5tWYsijH+JRKqtAh2xNM7Fh6EFWpd9NWM5GVN2Okr5iEOIvj6WimNedgK0N+xYi/yDBaZT+kEIdAqiun028lbGSUhVBXqEW0V+9Jufe91hxf/hcS05WeIETvO/NN3
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
----
- arch/arm64/boot/dts/apple/t6031-dieX.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+This series deals with the three places in the nouveau clk pstate code
+where the list_for_each_entry() cursor is used after the loop, plus one
+unrelated fix.  They are exactly the three sites Dan Carpenter listed in
+2022.
 
-diff --git a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi b/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-index 2e9d3d2e6dea..431d13ec41a9 100644
---- a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-@@ -73,6 +73,30 @@ DIE_NODE(pinctrl_aop): pinctrl@2a8824000 {
- 				<AIC_IRQ DIE_NO 601 IRQ_TYPE_LEVEL_HIGH>;
- 	};
- 
-+	DIE_NODE(avd): avd@2cd080000 {
-+		compatible = "apple,t6031-avd", "apple,t8122-avd";
-+		reg = <0x2 0xcd080000 0x0 0x12000>,
-+		      <0x2 0xcd092000 0x0 0x12000>,
-+		      <0x2 0xcd0a4000 0x0 0x4000>,
-+		      <0x2 0xcd100000 0x0 0x10000>;
-+		reg-names = "code", "sram", "mbox", "ctrl";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1185 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1186 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+		resets = <&DIE_NODE(ps_avd_sys)>;
-+		iommus = <&DIE_NODE(avd_dart) 0>;
-+	};
-+
-+	DIE_NODE(avd_dart): iommu@2cd010000 {
-+		compatible = "apple,t6031-dart", "apple,t8110-dart";
-+		reg = <0x2 0xcd010000 0x0 0x4000>;
-+		#iommu-cells = <1>;
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1192 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+	};
-+
- 	DIE_NODE(pinctrl_ap): pinctrl@2b3000000 {
- 		compatible = "apple,t6031-pinctrl", "apple,t8103-pinctrl";
- 		reg = <0x2 0xb3000000 0x0 0x4000>;
+The only change in v3 is the one Lyude asked for: patch 1 is Dan's
+original patch again, with his authorship and his Signed-off-by
+restored.  The code is unchanged from what he posted; I only expanded
+the commit message and noted that below the ---.
 
+His Signed-off-by is kept with the address he signed it with in 2022
+(dan.carpenter@oracle.com); .mailmap already maps it to the address he
+uses today, and I did not want to rewrite someone else's tag.  Say the
+word if you would rather have error27@gmail.com in there.  Dan is Cc'd
+at that address this time - the v2 went to his old linaro.org one, which
+is dead, so he most likely never saw it.
+
+Patches 2, 3 and 4 are unchanged from v2 and carry Lyude's Reviewed-by.
+
+Only patch 1 fixes a bug that can actually be triggered:
+nvkm_clk_ustate_update() takes an arbitrary pstate id from the user and
+never checks that a matching entry exists, so if it does not the cursor
+ends up pointing at the list head and the code reads past it.
+
+Patches 2 and 3 fix the same pattern in nvkm_pstate_prog() and
+nvkm_control_mthd_pstate_attr(), but neither is triggerable as the code
+stands: the callers of nvkm_pstate_prog() clamp the index against
+clk->state_nr first, and nvkm_control_mthd_pstate_attr() already rejects
+args->v0.state >= clk->state_nr before the loop.  Both are hardening, not
+bug fixes, and they carry no Fixes: tag on purpose.  The point is to stop
+the two functions from being correct only by virtue of what their callers
+do.
+
+Patch 4 is unrelated and is a real bug, though a modest one:
+nvkm_cstate_prog() overwrites the reclock status in 'ret' with the status
+of the voltage/fan restore calls it makes afterwards.  The only consumer of
+the return value is an error message in nvkm_pstate_work(), so the
+observable effect is that a failing reclock is never reported in dmesg.
+
+Compile-tested only.  All the affected paths are reachable only by root,
+through the 'pstate' debugfs file, so I could not exercise them in any
+other way.
+
+The two follow-up patches for nvkm_pstate_prog() that Lyude also reviewed
+apply on top of this series and are not resent here:
+https://lore.kernel.org/dri-devel/20260727152821.128432-1-postadelmaga@gmail.com/
+
+v3: restore Dan Carpenter's authorship on patch 1 (Lyude), collect the
+Reviewed-by tags, rebase on drm-misc-next.
+Link to v2:
+https://lore.kernel.org/dri-devel/20260712123616.1180830-1-postadelmaga@gmail.com/
+Link to Lyude's review of patch 1:
+https://lore.kernel.org/dri-devel/ad023b5df1495ced25aa681d10f57628df41ac13.camel@redhat.com/
+Link to Dan's original patch:
+https://lore.kernel.org/dri-devel/YvSkKAdk8Pe0g2K9@kili/
+
+Dan Carpenter (1):
+  drm/nouveau/clk: fix list cursor use after loop in
+    nvkm_clk_ustate_update
+
+Francesco Magazzu (3):
+  drm/nouveau/clk: don't use the pstate cursor after the loop
+  drm/nouveau/device: don't use the pstate cursor after the loop
+  drm/nouveau/clk: don't clobber reclock status when restoring volt/fan
+
+ .../gpu/drm/nouveau/nvkm/engine/device/ctrl.c |  8 ++++-
+ .../gpu/drm/nouveau/nvkm/subdev/clk/base.c    | 31 +++++++++++++------
+ 2 files changed, 28 insertions(+), 11 deletions(-)
+
+
+base-commit: bc47d5937f21c5fc94504f03e18f1adb56d97634
 -- 
 2.55.0
 
