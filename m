@@ -1,152 +1,161 @@
-Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B733515DC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720174; cv=none; b=cF6WwJmKmbpZEu5+Yu6C0X+U0ndAnezqBjeVcmgrEsEao9GbpETCYo4SGC0AhQEOTaRkF8ewhJ9rRqzokjY7iZUiyX3mO98ERND6oUHIAlDVzvDV4u8zng4pjJ2ieGsoPHxrzCnSjzpGVWQ4tsif9WOs0G9TnPbYmdfWLcsKX6o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720174; c=relaxed/simple;
-	bh=f8H5E/YfBBH82cx965GQK3srFAvkp6XlE1/3CJPT5mQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ME7M9F3WZlUueHnz9xAUgOzSH455Id+/YK07c/Jybo/He8uvUdMIURylfWBkIiw3z3kPc4WWe8cy1NDOuj36LAYmk8NSBJ2aCTKHnLgJPjuWdM065cLPmuRfSPQoY9WvkFCMk1UpxhdrOHQQoCj1Vc2knjaun96K8LAZ6zrvvA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=osYXZErk; arc=none smtp.client-ip=74.125.225.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3CF2E7386
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789720206; cv=pass; b=lGyrk5ZoMgVew+wtiWf1TqY+hhlJS0QAKb/uSEA3Ko2svHAb8LcGsKnqN94mhcy2jZMxr2CCcKYoh3ptIogSX7xKtGJ/qMZg872MuAlIwfhQ/WwqFqSqRExWqrzvt/l0g7Tn1dz+VKzRu9PTxdlZD2NLae3MNRfeH+rvojpC3qQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789720206; c=relaxed/simple;
+	bh=WbnawmQyDpkbaTjWoYue2BZ58MDCbSdSqHChLN8rpps=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TZag0Hz5r3BGqK/CLEwXbKsgLrH9Dxx3EC/4ws1SJ8nBnADahQmCM/sftGrlTokuEcD7QB47nEs6keBXKVjhi7IO1m4bDPVGsHI9K7g19XqYElSX48zENrLUdPtQ6U7SGe906ZiD4yt5lKlE8Z9ExYz6zl4goh/Lco5TM3QFgHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bp5fE2i1; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="osYXZErk"
-Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so235778f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:29:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bp5fE2i1"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b35601so293813b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:30:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789720204; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O6h/jv3v6qNFB7XaSrokii0PIUyE+J96yPU+YAxjfASk4WYnHfSqpA4k3jDeot1APP
+         Z2XY7VsBzVydyoO+Ddj7lWDalBXLBuIxR4SaVwSqsnMuP+mE6l6/K4ki9EeNqqQPOTSS
+         HBlaI+vqLpHtlej8KQKAWlpL8iUiuU/PPLTKxmJHFY8AfU5ldgyeQv7ggtuTZluse9SA
+         HPc2+cLsS4AwDamY15n3MvBNeYNzY22m5cPZEUbbPTHQ7mwXYUaAIa+M2siwTczAgfw5
+         VozA6Y1XdxIL/q5DXMdjKan3aAlniMX8m4oaNJZbXRF5RIpz5KGZvx8LKhV+/G7wKkKF
+         6/gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=48Dk3iwNBX2jdzyXIh2OB09+BWpkuBMXHAxnmCdSn4s=;
+        fh=cUqPFelcnJ/0jNie1J/J+SN/HiZyDTFKnrUXPkWkxPg=;
+        b=pkoOo0LBFXPuxdLmiVKqxn/DlzGSHInMao5XRBoTkr5SjGTiX9ofF2My2FgZ/ORNUT
+         C0K6kO6E7Udjo2l/hfhMZ43NRtDLtCllT0OPJl8QN+6siL/tiRx9r3H6BToku+3vU2ZX
+         i74DF06sR6YcTGMvtybGvz7xUCPNeLXbQ3sI+2LwUYl75WaqOv1kSUSE6saMme7/qBF/
+         U2knaIqaQrEHPjTw73tBp0TQOdPkiG0Oap9IogW8Z9l3X742S2wPy9VuxHxQ/azHJ6+p
+         oS1ua0cK9U24mDx4EZX/csu2BxA1R5fQrMvkS4IoGMnrJkGZdvXajadWxdVea+soH25b
+         WySw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789720169; x=1790324969; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=26+NgLjZ67QyyrIUh0oGlFjqG371VHNZMs6LZelIEuE=;
-        b=osYXZErk6pwltVeCLBjvweMqp55g8cy0g6NAp/xF1w4LV9QvMGYM0MNIyny1OsqS+m
-         67sXBtdcTp5ksedPLzFDlA/6HbZvUcELsmaWHEKWHBpDw/lbSUr8EpHY7Gcv1iSMRWpg
-         GxfW/AwmgrB9SqxI3hIrRa4AIkfKSxx9olea31YdtTRNEy6fEsI3YSLwpW901pUHU4du
-         8RTx8FN579t6cLjzO2t+UxUDZsvtgDcV1RMswjbQeAf9+x06VoxoOjbhj52ueKwe+Ln+
-         BE2OBn6yQnafh7fpW92LU1MVu3B1vefYaXUjzlQDWjIRaCwYyOuDEKjGLiYSYWcegSS8
-         qxzw==
+        d=gmail.com; s=20251104; t=1789720204; x=1790325004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=48Dk3iwNBX2jdzyXIh2OB09+BWpkuBMXHAxnmCdSn4s=;
+        b=Bp5fE2i1/p2Tqw+5tdmX69eGrfFyCBrWbE8baJI7ceEjEZPRoBZTUI1/Mz+qIac5/G
+         IoZuPhVrGvnHXS6SJrG04L2gwEQMgbs3OtT2Y70iZAfaDSvGxpfuvJDScRRLSms1umAt
+         FLFkL1igU6RfWWKSqYIZBoRG11uqyK6TaSotIqsCvcO1wlCCY7AjApsG8dDiSXZJ6JD+
+         +mp7vF6iLM1Gic/tk2IxYyVXy7fRSlYa1ebvIPS58q0nKElT1rS7/8K1TWxkZiIk0T8I
+         cP0eF8iy7nt+1wdGHwFMgupAZeB3wv3X4Kx8SQ8lgp9jnD9OOE5cW5yLv8TQbhLT26N0
+         dbeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789720169; x=1790324969;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=26+NgLjZ67QyyrIUh0oGlFjqG371VHNZMs6LZelIEuE=;
-        b=tb+Px059QjIe0BkJwubk1xk9pXbm1p8UIFp0fPrnFFotqQoHmzyRanMpIeZrwFwCA1
-         zTfgros3fMyP2wYds0nVpaQlRjzhnZ6W6hdansgKLB8ETM/rxG1n77FiY4O2RLROwUvm
-         pv1T+AeglN7nEo6ACTvzItVb8hb13EChf/wdKV6sv30xMZa6Z31eBgFPmDegsl3NPj9P
-         5XxjkAbIvmvV6UH6ylHe/bgqRhviWep851P7TT9IWbTi5GKQhmniNxPheo7N6iXb5Bn8
-         hjxI19RTdIxLXo5y+tTF5ONUO6qEKZRhICucmr+b2+DxCsL6AAIE7Twi8ltzIF5A+IQc
-         Pjqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwEmjcbsPa+40lrhVwu8lwaD0iSLSYeSCMYtck8vshoa2it3MGHpuhSPaEwcL6EL43zav79HCTs6GPOZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNIbNdyXVjK+vdUKLToMFBxM529Ly4jUtTem2q9IqA3mDGUvZm
-	DiwpyDDpXqOef5VQdkCcoiHxQXvj7blqBFOhN3+j3VpxwsYFvt4++33EUtpvRKZ/KU8=
-X-Gm-Gg: AYBFou0rjMfDfWd1o7PLIiQLNYbtPWe6tUXZDc2P9PI4JW83cWiuGTblTcBTFblKtMz
-	pBMF861wXIKTQ4j0QucAJQAEhitM3962xNVRElssRFoAHL0sDp98vx6yvL4zB3N63m2GZ1uURal
-	CC2nT3Rt6B56F6LG0QLV1Kj3I9JohVg7JdSHbPC4a4GBW28HEdPiNgnsX6CUqb5iCcX6gFxk168
-	JI/fjGn22QmViRzaNKF4WktwCKDhNpvIt5SxST+goGzVP6f0n0T1Uq9Q6InKVdnqyBScnd2MGkE
-	aMhpJ+Sh8a9W8aEekD0i76Au1M0ssGyhPhPw+e/7bhPcuypQGEKw1ySVEqv2FrkMzjxiiQtGfTG
-	1xMaHA9Hd0zPbEJ8NvAyrzhKJPO3fUf/vtBMBBPwrZBMnx3tHpaR1mKkyAcvDsGL/sfXeN5lCVd
-	05JBXtzVQgBTleOq7CRJBRtvDv4l73blxmNUjOCl2Woc49gMUjovaIHUv4jqwCWKQT37g=
-X-Received: by 2002:a05:6000:1885:b0:487:c4b:7bd7 with SMTP id ffacd0b85a97d-4871e261f7bmr2008031f8f.34.1789720169186;
-        Fri, 18 Sep 2026 01:29:29 -0700 (PDT)
-Received: from localhost ([2001:4090:a244:8223:7a95:1dd3:2926:35eb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff5605dsm2337466f8f.19.2026.09.18.01.29.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:29:28 -0700 (PDT)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Fri, 18 Sep 2026 10:29:14 +0200
-Subject: [PATCH] can: m_can: Fix suspend deinit() error path
+        d=1e100.net; s=20260707; t=1789720204; x=1790325004;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=48Dk3iwNBX2jdzyXIh2OB09+BWpkuBMXHAxnmCdSn4s=;
+        b=tPLl5iWfNMHGhflgFuOsNwW5DnZ5CL8KknZGkK2P8Xnw+qwS+MWrQlO79Z6bYXGfed
+         IvkmX3L2sipN/liJNIJQ0L45bHr1C0ytJTuyZRumhe1TDtOTcwPgGi71BOWCS+qUPRVQ
+         SqtdA8CeEVWPs4kzJqbrVfaHWo7vkbNqQ1oExlI7czdW6gcll61eyKQA+7wh/7oIlqQa
+         gF/yLJotvsEiEJTgw0zqYBNBTcNHYpKNejeAaxXB1TBoPj3gmF7fIFMQ3xwJLYEeBYaF
+         zpCbsIGrCVhl+oWJ2W6nzhHbok/2N7XIhh3JEqbJYmFX4dZgqvvH2Pg1fjWwKj+e9ad6
+         0gCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrHiQ9+x7gWk3VxKuPIx7Lu/qhI6rlM3nd3AD1+OI0KKwISiAVMdDOq2uggR3y8VqQs8Sz/kH5Km2PyGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfjazirvB5ccJTY0FyG1NfuX892KSMFeLEMCuT9/zPbl8HS6Hz
+	qqEhgAb9pszOGBZMqZVLAsKCwWOeWNoo6gMOoNq36SnmHrosD2gwSzSbYXkPU1RjK6IdMsEeufy
+	kL8rucxiD0nVN96IrDVbQSAZGJNzDcIM=
+X-Gm-Gg: AYBFou11MLflisdEIVjpW9se2tOGTqNd4ExoHSDRcfaZXKeOI1Of548sRHbrqw+3gbb
+	r7X8oHJf9WC1sTN8AzEyM6t/PsCmYy82ZL6nrGBV7mUoQ1/CeRc0hezrbc8/uVbIUnSP+mm9HyQ
+	xlDeGFrVQUQmPPR1qIHyXF4jKWmE1N7tuwGYgPWqxRhBIprix50M95a/dDs1zS7nFWS2fiBcL/F
+	i72UDj1HfrV9u7LFrXb2AXc+cgoSzS6m/uRF2HU8U2L4VYPwOhqMuqCO6DZaJY6xBz55vQ1KZZn
+	FxInJ7H99esmXzNuWG8+Latj8mwxP6yP7gY5YZ7dN1WGkcTxP+VKPAwWYHlexZckQKxfZRVW7vS
+	Qy97xcmmxubYG4JaspL7QeiFKOHEVPQMjaVw=
+X-Received: by 2002:a05:6a00:1f06:b0:857:73e2:9108 with SMTP id
+ d2e1a72fcca58-874ddbffd9bmr3487891b3a.24.1789720204444; Fri, 18 Sep 2026
+ 01:30:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-v7-3-topic-mcan-suspend-fix-fix-v1-1-e24fa70c754e@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAFn2rGoC/yWNQQqDMBBFryKzdkCjaNOriAtNJjqFxpBRKYh3b
- 9TFX7y/eO8Aocgk8M4OiLSz8OITlHkGZh78RMg2MahCNYUua9xbrHBdAhv8msGjbBLIW3T8uzf
- qutJK25cjB8kSIqX7LnT9w7KNHzLrpYXz/AME4GW0gwAAAA==
-X-Change-ID: 20260914-v7-3-topic-mcan-suspend-fix-fix-b943929d8fef
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, Sean Nyekjaer <sean@geanix.com>
-Cc: Kendall Willis <k-willis@ti.com>, linux-can@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2018; i=msp@baylibre.com;
- h=from:subject:message-id; bh=f8H5E/YfBBH82cx965GQK3srFAvkp6XlE1/3CJPT5mQ=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhqw132KMn09Z2pwSXZN067hyp0W0tEXOtD1M+6Rux6g4c
- L4o5kzvKGVhEONikBVTZOlMDE37L7/zWPKiZZth5rAygQxh4OIUgInMrGFkWLWA66jiNiVHr3UO
- R3L5WOZePqt3M/XZnHwHxrplDlMFdzAy7FnE+sLrU3Pso4AclWCeq3IWa+IMzhjYf2O/cOW3vJ0
- +MwA=
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+References: <20260917183602.GA1036092@bhelgaas> <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
+In-Reply-To: <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Fri, 18 Sep 2026 11:29:53 +0300
+X-Gm-Features: AcwNN1Vmx2igfjBEkpa8Vuj31sAw9NZLYiN87fYoRwyCYEORDw-WFA-KB1pOT20
+Message-ID: <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com>
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, bhelgaas@google.com, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	bcm-kernel-feedback-list@broadcom.com, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Rosen Penev <rosenp@gmail.com>, rani.hod@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When suspending mcan, deinit is called and its return value is returned,
-but nothing is restored. Returning an error in the suspend function will
-stop suspending and resume the system immediately. So on error the
-device should be restored to its previous state.
+On Thu, Sep 17, 2026 at 10:27:54PM +0200, Arnd Bergmann wrote:
+> Would it be help to change the probe order so the bcma driver
+> always comes before the platform driver?
 
-Fixes: ad1ddb3bfb0c ("can: m_can: call deinit/init callback when going into suspend/resume")
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
----
- drivers/net/can/m_can/m_can.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Only where the DT window matches the EROM one, because that is where
+the platform driver backs out.
 
-diff --git a/drivers/net/can/m_can/m_can.c b/drivers/net/can/m_can/m_can.c
-index 16f80607e150..91a0c5eca260 100644
---- a/drivers/net/can/m_can/m_can.c
-+++ b/drivers/net/can/m_can/m_can.c
-@@ -2612,8 +2612,14 @@ int m_can_class_suspend(struct device *dev)
- 			hrtimer_cancel(&cdev->hrtimer);
- 			m_can_write(cdev, M_CAN_IE, IR_RF0N);
- 
--			if (cdev->ops->deinit)
-+			if (cdev->ops->deinit) {
- 				ret = cdev->ops->deinit(cdev);
-+				if (ret) {
-+					netdev_err(cdev->net, "failed to deinit device while suspending %pe\n",
-+						   ERR_PTR(ret));
-+					goto err_restore_interface;
-+				}
-+			}
- 		} else {
- 			m_can_stop(ndev);
- 		}
-@@ -2625,6 +2631,21 @@ int m_can_class_suspend(struct device *dev)
- 	if (!m_can_class_wakeup_pinctrl_enabled(cdev))
- 		pinctrl_pm_select_sleep_state(dev);
- 
-+	return 0;
-+
-+err_restore_interface:
-+	if (netif_running(ndev)) {
-+		if (cdev->pm_wake_source) {
-+			/* Enable interrupts that trigger immediately if
-+			 * something is there and keep the hrtimer off
-+			 */
-+			cdev->active_interrupts |= IR_RF0N | IR_TEFN;
-+			m_can_write(cdev, M_CAN_IE, cdev->active_interrupts);
-+		}
-+		netif_device_attach(ndev);
-+		netif_start_queue(ndev);
-+	}
-+
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(m_can_class_suspend);
+In the tree as it is, the platform driver binds first.
+bcma_bus_register() populates the axi node's children before it
+registers the cores (drivers/bcma/main.c), and with both drivers built
+in the two PCIe drivers are already registered by then (both are
+device_initcall and drivers/pci links before drivers/bcma), so the pcie
+platform devices are bound as soon as they are created. The order of the
+two objects in drivers/pci/controller/Makefile does not change that.
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260914-v7-3-topic-mcan-suspend-fix-fix-b943929d8fef
+I tried both orders on an RT-N18U (BCM47081, revision 0x01) with both
+drivers built in, on an OpenWrt 6.18 kernel with pcie-iproc-bcma.c as
+in this patch and no wifi driver built.
+
+With the platform driver first, the board did not come up, on two
+flashes. The same tree built with only the BCMA driver boots it.
+
+With of_platform_default_populate() moved after
+bcma_register_devices() as a test, it boots. pcie-iproc-bcma takes the
+first controller and enumerates the BCM4360 as before. The platform
+driver then probes the same node and fails in
+devm_pci_alloc_host_bridge(), which it reports as -ENOMEM:
+
+  iproc-pcie 18012000.pcie: resource collision: [mem
+0x08000000-0x0fffffff] conflicts with PCIe MEM space [mem
+0x08000000-0x0fffffff]
+
+On the second and third controllers the DT window is
+0x20000000/0x28000000 and the EROM one 0x40000000/0x48000000, so the
+platform driver's request goes through and its probe carries on with
+the DT window until the link check, which fails because nothing is
+connected to those two on this board. That is as far as this board can
+show.
+
+On the first controller the DT window and the EROM one are the same,
+so the window plays no part in the no-boot. With PCIE_IPROC_BCMA not
+set at all the board did not come up either. Clearing
+has_apb_err_disable for IPROC_PCIE_PAXB, one line, makes that
+platform-only kernel boot and enumerate the BCM4360; nothing else
+differs between the two builds. The flag makes the driver read and
+write APB_ERR_EN (0xf40) around every config access to bus 1 and
+above (538928fd6ce8). In the bcma-first build the platform driver
+never reached bus 1. The PAXB_BCMA register table has no such
+register, and 404349c5c806 ("PCI: iproc: Add BCMA type") describes
+the BCMA-based NS as a legacy PAXB with some registers missing. On
+Rafa=C5=82's BCM47094 (revision 0x07) the platform driver as shipped
+enumerates both BCM4366s. I could not see what the access to 0xf40
+does on revision 0x01, only that the board comes up without it.
 
 Best regards,
---  
-Markus Schneider-Pargmann <msp@baylibre.com>
-
+Semih
