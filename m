@@ -1,347 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9704551C325;
-	Fri, 18 Sep 2026 18:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0495151812E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:15:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755314; cv=none; b=ULqiyKu69VtqE6YE9im9AfGZK+A0QZII/+GxKxqAj2BzP6IACgj6JDlpGWOkx3HFAmVk4ZcS2u2cSCpuUICvYzATA19BFERbIHlFc0D7qEZ7/c+tUhEiE7fvRKYONcoQYgKzKSl+6ltsYcWnwkLHZpcpzkdwqcNHnnKA6x5wGxo=
+	t=1789755357; cv=none; b=fhfu4fm9CKCaDJA4lDjSywI3Rj4a7CcVtnEBqUK2IUexmNdaYo+27pVq4jloKPLgakbGmXCjtExhRAXojkkstaFLONxBWDdmiM4J08Jz6E314/sz5g8vr8xqzB7XFr/X+9bGPotrqYj7biaVmoGVRFW/NxtFnwxbJjihuebMyHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755314; c=relaxed/simple;
-	bh=KesATRdhFDzUzoGKlmNPfiHB+MI42bRZAdGLQVkZ+RA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UyFO+XiOBuWgblaSUlqj6M5sV23WzCxhx5ndvLPkTfo05Q2M1F61NyYgLTBd0gWp+HCXhcNRMGcMEl3tfpj1aaLwkYZITj7tGkP7PbuKeS3ZuwWIXxuFRex4qQ4lIS14OJ+8vL7C+z/jyzyar+yTHZwhKLmaLglcz5p5nvCuSCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktj/G0Wq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789755357; c=relaxed/simple;
+	bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=cH2rVpXZwRBqQMgVCZUscjxvTlk5awU1TNb6TEAZqAXlSyr7gilWNFcvQlab/r8t0gISrWPER04kC8/qAFCbTZ0FNhqdl9P9I9VONH+YaNK2tzNrk53rmATxeh2CXWNwi4VJLyIYSx3AparxC5M2Wj8mNbLVLxNNJjbmotuUL78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YdcTGLxk; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktj/G0Wq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C71E1F000FF;
-	Fri, 18 Sep 2026 18:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789755312;
-	bh=CbhXPRPJzPhnC7eGr+2poQlhUAHpaFK7HRpRDPeuPsU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ktj/G0Wqt43Q8JVUKtdjIxDlECxpTb81j7LuFwY4MTGxTsji3X8jAIGFdYMZzuvIj
-	 ztAD59fwFf5BXIdZ7RlnUUPYA/mcko7PcO280exjookUWqGxa6StWCAYvhUaAfURuB
-	 HwvD4heR9IXqrZVolpO7TgFiOPm5ZHN7iBUZ3QT3pQTpoNjR9sERxPWiEVf4yLK3gi
-	 vnmPh/URbMpnWMpHImcd9xjoL11mAFcErmviIk+2M+IKo4aAl4IBSfw3K/sibAa3sm
-	 mBKeQrVEoUvivqKAY32Gypywqsvj0PYafjlQZvdQZTVSoM/F1G1nOuk8Up55dgyGly
-	 4SModAFf5nk+A==
-Date: Fri, 18 Sep 2026 13:15:10 -0500
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Neeli <srinivas.neeli@amd.com>
-Cc: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com,
-	git@amd.com
-Subject: Re: [PATCH net-next v2 1/8] dt-bindings: net: add Xilinx TSN
- Endpoint Ethernet MAC
-Message-ID: <20260918181510.GA1086854-robh@kernel.org>
-References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
- <20260909-patches_v2_external-v2-1-3a40babaff4c@amd.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YdcTGLxk"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso1848956a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:15:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789755355; x=1790360155; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
+        b=YdcTGLxkxlZi8gNpmY5tjK9DZdC5iSaM9lHUXPIzh3mQg0ZQFZ7eJp1IWrhzV5jkav
+         Ib7uGMOdg6zA6aNkLemrtHSCu+IKfPQCkrXa/LAk8a0MBtr7EwvHcQKWKUp0mG30c+NJ
+         TahKQ/tIx0iphsg/JJxqjWzn1G6DQRRmJmHh7RePSOQDFK9Mr8LpRBq8K5qLJaAUIXt2
+         ateDWYELUv7xbccRIac8RR7bcviBC37xneeFr6xIbswqx+9lMUer6nqbOMFVAaWDaiEJ
+         bmPIpbKJh/t2CjH59eVYKRjeC3bzpZ6X4ZR6RVWiT0tdO1Zzs3ONUOk1uHnHy3jH5Gzq
+         oJJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789755355; x=1790360155;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
+        b=0xKlFuPhijgw3f0M1hwjboH/PINcDDZCe7JcnB5BuUlQyY7oEgblktc07KvwfRmmmu
+         v0glfK+ulF2uYIFCpIfLHaS0Ia76M1PSoUgyLvv5zftEIrvvp0YG0k9aHyzYq+nM+p3P
+         UMcKoc8QE3GSItNq+8SJDMmt6j7O0Nf+duHjbTBQrqBunkcs0+nY9mhunE25fBO/Inmc
+         2raLoijCL05ej5/W9wiD7ymE61mObNLvUIDKcW2Zr3AQZnMUu0wLEQHgp24yKmrl8tCk
+         TofC5TkCxFMectf8JaV8cps9mzGBkifyOJqfClUq0OsImSHt6fOPgGtsDvK21Br3sTrU
+         JkAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwa3HiA6fpe0zCqaiL9AYKmnS2v711xq+ZNC3wZ5rO1Y4fUp8M5ooYj0FCMrr5xpp811uJyrErWGzX+v0o=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2tg2ngfeoyF0xTsXrcoh4ztJiJuZ20E5XYDjR+B+qKJ0qZEif
+	M2jgYVbOrI70WNFCdcyFSar/lDuetJyXH711JBdO0B7scCmE4X2XEAD8yYgSNip5LuvvBAS+bMl
+	6fjCwPpeOKFjs+bNmVBot98aJfQODga53sA==
+X-Received: from pjbiw4.prod.google.com ([2002:a17:90b:4204:b0:39d:a2e8:6890])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:d40e:b0:39e:6c6a:656f with SMTP id 98e67ed59e1d1-39e6c6a6787mr605040a91.50.1789755355148;
+ Fri, 18 Sep 2026 11:15:55 -0700 (PDT)
+Date: Fri, 18 Sep 2026 18:15:54 +0000
+In-Reply-To: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-patches_v2_external-v2-1-3a40babaff4c@amd.com>
+Mime-Version: 1.0
+References: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918181554.132414-1-rathodpriyank@google.com>
+Subject: Re: [PATCH v4 0/2] PCI/AER: Fix ghes_estatus_pool memory leaks in
+ error handling
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Dave Jiang <dave.jiang@intel.com>, 
+	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 12:49:49AM +0530, Srinivas Neeli wrote:
-> Add a binding for the Xilinx TSN Endpoint Ethernet MAC IP. The
-> top-level node describes the IP wrapper, which owns the six shared
-> IP clocks and the xlnx,num-priorities parameter, and has two
-> children:
-> 
->   - xlnx,tsn-ep-mac: the endpoint MAC, owning the host-side DMA
->     channels (dmas / dma-names / tx-queues-config).
-> 
->   - xlnx,tsn-switch: the three-port Ethernet switch covering the
->     switch fabric and the two per-MAC register windows. The MDIO
->     controllers and PTP register blocks sit at fixed offsets inside
->     the per-MAC windows, accessed through the mdio-1 / mdio-2
->     children and per-MAC interrupt-names entries. Each external
->     port@N references its PHY through a phy-handle in the matching
->     mdio-<N> child.
-> 
-> Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-> Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-> Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
-> 
-> ---
-> Changes in v2:
-> - Describe only the Bridged Endpoint configuration. The IP has so far been
->   simulated only as a bridged endpoint, so the binding and driver describe
->   that configuration alone. Support for an Endpoint-only design will be added
->   once that IP variant is simulated.
-> - Rename ep-mac@ to ethernet@ and mdio-mac1/mdio-mac2 to mdio-1/mdio-2, and
->   anchor the node names (^ethernet@[0-9a-f]+$, ^switch@[0-9a-f]+$), per
->   ethernet-controller.yaml and mdio.yaml.
-> - Cap TX at 8 and RX at 8 channels. The IP exposes 8 priorities, so it
->   drives at most 8 TX and 8 RX MCDMA channels. dma-names lists both
->   directions, so its combined maxItems is 16 (8 TX + 8 RX). V1 allowed up
->   to 16 per direction, which the hardware cannot use.
-> - Set additionalProperties: false on tx-queues-config and its queue nodes.
-> - Drop reg from the wrapper node. It has no registers of its own, ranges
->   already describes the child windows.
-> - Add minItems: 7 to the switch interrupts to match interrupt-names.
-> - Use a ^(ethernet-)?ports$ container with additionalProperties: false and its
->   own #address-cells/#size-cells, and require either ports or ethernet-ports.
-> - Require ethernet on the CPU port@0.
-> - Add reg (enum [1, 2]) on the external port@[1-2] ports and require reg,
->   phy-mode and phy-handle. MAC1 and MAC2 use gmii/rgmii/rgmii-id.
-> - Require port@0, port@1 and port@2. The IP is a fixed three-port bridged
->   design (port@0 CPU, port@1 MAC1, port@2 MAC2), so a device tree missing
->   any of them cannot describe working hardware.
-> - Add #address-cells and #size-cells (both const 1) on the wrapper node,
->   which the child ethernet@/switch@ windows need now that reg is dropped,
->   and set unevaluatedProperties: false on the endpoint node.
-> ---
->  .../net/xlnx,tsn-endpoint-ethernet-mac.yaml        | 364 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 371 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
-> new file mode 100644
-> index 000000000000..4e65d1710da7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
-> @@ -0,0 +1,364 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/xlnx,tsn-endpoint-ethernet-mac.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Xilinx TSN Endpoint Ethernet MAC
-> +
-> +description:
-> +  TSN Endpoint Ethernet MAC IP implements IEEE 802.1 Time-Sensitive
-> +  Networking (TSN) standards and provides low-latency network connectivity
-> +  in the Bridged Endpoint configuration. The IP integrates a three-port
-> +  switch, with two ports connected to the external network and one port
-> +  connected to an internal endpoint. It also supports GMII/RGMII interfaces
-> +  for connection to an external PHY, enabling full-duplex operation at
-> +  100 Mb/s and 1 Gb/s speeds.
-> +
-> +maintainers:
-> +  - Srinivas Neeli <srinivas.neeli@amd.com>
-> +  - Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: xlnx,tsn-endpoint-ethernet-mac-3.0
-> +
-> +  clocks:
-> +    items:
-> +      - description: GTX clock for transmitter logic and RTC
-> +      - description: GTX 90-degree phase shifted clock for RGMII
-> +      - description: Host RX FIFO clock
-> +      - description: Host TX FIFO clock
-> +      - description: Reference clock for IDELAY control
-> +      - description: AXI-Lite register interface clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: gtx
-> +      - const: gtx90
-> +      - const: host_rxfifo
-> +      - const: host_txfifo
-> +      - const: ref
-> +      - const: s_axi
-> +
-> +  ranges: true
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
-> +  xlnx,num-priorities:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 2
-> +    maximum: 8
-> +    description:
-> +      Number of traffic classes (priorities) configured in the IP.
-> +      This is an IP configuration parameter that determines the number of
-> +      priority queues available for QoS scheduling. Traffic classes map to
-> +      IEEE 802.1Q priority levels (0-7).
-> +
-> +patternProperties:
-> +  "^ethernet@[0-9a-f]+$":
-> +    type: object
-> +    $ref: /schemas/net/ethernet-controller.yaml#
-> +    unevaluatedProperties: false
-> +    description:
-> +      Endpoint MAC sub-node. Provides the host-side data path through the
-> +      DMA channels described by its dmas / dma-names.
-> +    properties:
-> +      compatible:
-> +        const: xlnx,tsn-ep-mac
-> +
-> +      reg:
-> +        maxItems: 1
-> +
-> +      dmas:
-> +        minItems: 2
-> +        maxItems: 16
-> +
-> +      dma-names:
-> +        minItems: 2
-> +        maxItems: 16
-> +        items:
-> +          pattern: "^(tx|rx)_chan[0-7]$"
-> +        description: |
-> +          Names matching the entries in 'dmas', one per DMA channel and in
-> +          the same order. TX channel names use "tx_chan<N>" and RX channel
-> +          names use "rx_chan<N>", where N is 0..7. Example: "tx_chan0",
-> +          "tx_chan1", ..., "rx_chan0", "rx_chan1", ....
-> +
-> +      tx-queues-config:
-> +        type: object
-> +        additionalProperties: false
-> +        description:
-> +          TX queue configuration node that maps IP priority queues to
-> +          DMA TX channels. The TSN IP supports multiple priority queues for
-> +          QoS scheduling, and each queue can be connected to a specific DMA
-> +          channel. This mapping defines which DMA TX channel is used to
-> +          transmit packets for each priority queue. For example, queue0
-> +          with xlnx,dma-channel-num set to 5 means priority queue 0 uses
-> +          tx_chan5 for data transfer.
-> +
-> +        patternProperties:
-> +          "^queue[0-7]$":
-> +            type: object
-> +            additionalProperties: false
-> +
-> +            description:
-> +              Each subnode represents a priority queue. The
-> +              xlnx,dma-channel-num property specifies which DMA TX channel
-> +              (tx_chan0 to tx_chan7) is connected to this queue for
-> +              transmitting packets.
-> +            properties:
-> +              xlnx,dma-channel-num:
-> +                $ref: /schemas/types.yaml#/definitions/uint32
-> +                description:
-> +                  DMA channel that transmits this priority queue, given as
-> +                  the N of the tx_chanN entry in dma-names.
-> +                minimum: 0
-> +                maximum: 7
-> +
-> +            required:
-> +              - xlnx,dma-channel-num
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +      - dmas
-> +      - dma-names
-> +      - tx-queues-config
-> +
-> +  "^switch@[0-9a-f]+$":
-> +    type: object
-> +    $ref: /schemas/net/dsa/dsa.yaml#/$defs/ethernet-ports
-> +    description:
-> +      Three-port Ethernet switch sub-node. Contains the switch fabric
-> +      register window and the two per-MAC register windows. Each per-MAC
-> +      window houses an MDIO controller and a PTP register block at fixed
-> +      offsets. The IP's per-MAC and PTP-timer interrupts are exposed here.
-> +
-> +    properties:
-> +      compatible:
-> +        const: xlnx,tsn-switch
-> +
-> +      reg:
-> +        items:
-> +          - description: Switch fabric register window
-> +          - description: MAC1 register window (includes MDIO and PTP)
-> +          - description: MAC2 register window (includes MDIO and PTP)
-> +
-> +      reg-names:
-> +        items:
-> +          - const: switch
-> +          - const: mac1
-> +          - const: mac2
-> +
-> +      interrupts:
-> +        minItems: 7
-> +        maxItems: 7
-> +
-> +      interrupt-names:
-> +        items:
-> +          - const: ptp_rx_mac1
-> +          - const: ptp_tx_mac1
-> +          - const: mac_irq_mac1
-> +          - const: ptp_timer
-> +          - const: ptp_rx_mac2
-> +          - const: ptp_tx_mac2
-> +          - const: mac_irq_mac2
-> +
-> +      mdio-1:
-> +        $ref: /schemas/net/mdio.yaml#
-> +        description:
-> +          MDIO bus controller for MAC1. Registers reside inside the mac1
-> +          reg-names window.
-> +        unevaluatedProperties: false
-> +
-> +      mdio-2:
-> +        $ref: /schemas/net/mdio.yaml#
-> +        description:
-> +          MDIO bus controller for MAC2. Registers reside inside the mac2
-> +          reg-names window.
-> +        unevaluatedProperties: false
-> +
-> +    patternProperties:
-> +      "^(ethernet-)?ports$":
+[+cc Kuppuswamy, Jonathan, Ilpo, Dave - you have reviewed most of the
+ recent aer.c changes, so adding you here]
 
-'ethernet-' doesn't need to be optional for new bindings.
+Hi all,
 
-> +        type: object
-> +        additionalProperties: false
-> +
-> +        properties:
-> +          '#address-cells':
-> +            const: 1
-> +
-> +          '#size-cells':
-> +            const: 0
-> +
-> +          port@0:
+Adding the reviewers who have been active in drivers/pci/pcie/aer.c, as
+this series has not had review feedback since v1 (3 Aug).
 
-ethernet-port@0
+Short summary: ghes_handle_aer() hands a ghes_estatus_pool allocation to
+aer_recover_queue(), which returns void, so ownership sits with the AER
+code. Two paths drop it without freeing - kfifo overflow in
+aer_recover_queue(), and a dequeued record with no matching pci_dev in
+aer_recover_work_func(). Under a sustained error storm this drains the
+pool, which then breaks GHES hardware error reporting system-wide.
 
-> +            type: object
-> +            unevaluatedProperties: true
-> +            description:
-> +              CPU port. Wired internally to the endpoint MAC sibling.
-> +
-> +            properties:
-> +              reg:
-> +                const: 0
-> +
-> +              phy-mode:
-> +                const: internal
-> +
-> +            required:
-> +              - ethernet
-> +
-> +        patternProperties:
-> +          "^port@[1-2]$":
+v4 adds the Fixes: e2abc47a5a1a tag and Cc: stable that earlier
+revisions were missing, and is rebased onto v7.3-rc3+ (applies cleanly
+to pci/next as well).
 
-ethernet-port
+Review feedback very welcome - happy to respin in whatever shape you
+prefer. One open design question I would specifically like an opinion
+on: patch 1 frees the buffer inside aer_recover_queue(), which bakes the
+ghes_estatus_pool ownership assumption into an exported symbol. The
+alternative is to make aer_recover_queue() return int and let
+ghes_handle_aer() free its own allocation. I went with the former
+because aer_recover_work_func() already frees unconditionally to the
+pool, but I am happy to switch if you consider the exported-API
+contract cleaner.
 
-Rob
+Thanks,
+Priyank
