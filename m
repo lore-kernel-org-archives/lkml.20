@@ -1,91 +1,33 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26534B2714;
-	Fri, 18 Sep 2026 09:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722765; cv=fail; b=eMLKVpG+EJ5+F64as075w39QxozWvcKelsk9PAs/lPFq3sXk4y6/ne9fODjnQt6aDp+W7unFrt4LI4EoR/TD9mm2F4Kxn+VxmCRPLRLjPR/9/YnxETKrOgWm5OYIah89vsiCMLTZy2CSISNbcTxMXx/LDT1XbWhePZ2Xrp6d6QY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722765; c=relaxed/simple;
-	bh=qdrcWf1iIS5UPgGvb1m7OYJs7TcX7BdXBvsKJNMlU7s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=CIxFBknPZS0sOxaIM9Xxuumk1z58iUNYkGBEZCYzNnL44qD2qpUOrdWfON2XIWe49qdqU4uIZsA2+Bb4I4+omUTiQYa5FGSYrViw+r6QDWFAPfbCiSFkP8jr97CZ/stTPL70jdKU4cTAx0qqWW51mRCdPv9yFT6+XVo44IdmSeg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=IaxaS3yL; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=gJ2t5pp6; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B07628FFF6;
+	Fri, 18 Sep 2026 09:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789722805; cv=none; b=ZodcOG820Ih/6Ka1akEmhEfi89YI51WGt67MZOKKK4p6oLHZRbA2D9mk2ViAwCBVIt8tRclUx0RpDvtcXoJIefdP1jEaVD9LayMiCsBh7wA/li6x6NiczsvdfeTr+mwPAs+4D6zrlRS+VGBE/tDnk+H1H087OcAm1Dv0abmXqk4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789722805; c=relaxed/simple;
+	bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Oh3O2HOcfK3dy0nAqzThCrwV0cx5XCmJybFRRgzpZ9VRMKgEZZw7nIyDMKnXodxn8my+IdO+V4isZUEOejn2VraYpVxN04AZz0dhN0Ah9JV37uQh7doAAg7tPC8DrjKf4jIHss5XSjYRB5hsrior79h6BrRSJadARD3sOhWvVPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UiUs1nAk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="IaxaS3yL";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="gJ2t5pp6"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68I6cqb13509542;
-	Fri, 18 Sep 2026 04:12:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=YI8WcpGJdAKEeMXJ+hu8TElQI+8e9V/xrvOfMu3DG
-	hM=; b=IaxaS3yLwzuPbQO2etKjjU+XC8wpNYAgoedSKefwd6nUy/GCGWHg4IKk8
-	XfcivwE0jp6af6E4JNVJEajRJfAuunEdjBujQHuDu2oxRHAa/OhHObneeIWMS87Z
-	W1Z3TUgBMwMh2lJljOBqtugfzXOtwCfh1R6IojiAHAnXJROW/Iy0Q4D9IkrhOimC
-	c+xyl5SKEHUA1+zUM2+3+8zbGOTTNYCnPOT+CRY0IQuOFBw/NgzeAZ5ljuZXy5fy
-	i6HRB3jdEJVtd91Oz5OQaklhpfX11o/FdgHNwSQCVbVRtgR35sIMH40khyhDdKth
-	p+TybDnvyKGESfIZwlv9JAqrwcwWQ==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010033.outbound.protection.outlook.com [52.101.201.33])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4grx6d9m48-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 04:12:40 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xMiZ2HTjcfeygQmyi3dTFnHeDejELjw20JoZhua+Z8zczzGlhoy2GEVeHsgUxHOL4VSMIydlM7kfxjZRDSPGRlNDvsZdTGMRb1PmpItiqEvXtk/xMnowNL71uEKZWR7I990paWnBEt4JJ7f10f3C/UWgKr/ePK6TKEr4zYRaLYaU7B7OrpzVhjhsEfvRSC6sYS+IMSQfGhxKM69zE3QoNj5fxFTuENUZJZmwFzBQhvLjcVKMi8qUnjXHpfOC1zcScQEyjrOXpQasVbTzdMjxTi58Tp9xQmXIYc4WGcP9WVV8KfH53Lgw410b+5CeOQKjmqPd/kYx/QQljVR0cB2lLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YI8WcpGJdAKEeMXJ+hu8TElQI+8e9V/xrvOfMu3DGhM=;
- b=yYegq3nb5IGdk5hC7JFq0Rn1u45lK0cmbPOFliSYH/8qcL/FleR4bHf391yJHqYjglIJPyaIgR+PWu3NNOEGhEPmtQqGyA9bNPgUEGtFx7VwT94xWB6WkV0c3EOwz1FFQVTvsBa9zwrjXO4i2Tyd/ZV5/O6AfGlptWJ3h2zrtwT4sTlS5camvpceYZdD8vD81IgA3x4Jje6VdjLyG5jB5SaMbD9OzDqb8+0xbXIYxqf5V2paSivLv/k9tttDaoSI2d6mBm7D9NwLQMWbrKEpLnnEkD5MSXnJ0e2oPFIetHedEAbmQENarMkZO4CrtjEeCV510pVfUBXyzzwWQtRhBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YI8WcpGJdAKEeMXJ+hu8TElQI+8e9V/xrvOfMu3DGhM=;
- b=gJ2t5pp6U7KbCu6FHUSrWDtt0wI1W97/RPhey813kv+OjEbg7elIFsBxlzQBy8x5ssGTczD0fBV2EE9NfH4K7M6GEU+MEKgNFSKyB2Wmy39qqdaPo/Ol5bcybxqLpgC1/511cd93fFIFziobU3O05T6pZ7Y7hTu0Tqef12YHU4U=
-Received: from SJ0PR03CA0248.namprd03.prod.outlook.com (2603:10b6:a03:3a0::13)
- by MW4PR10MB6630.namprd10.prod.outlook.com (2603:10b6:303:22f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Fri, 18 Sep
- 2026 09:12:37 +0000
-Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::1b) by SJ0PR03CA0248.outlook.office365.com
- (2603:10b6:a03:3a0::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 09:12:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 09:12:35 +0000
-Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 04:11:59 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 04:11:59 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 18 Sep 2026 04:11:59 -0500
-Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I9BuLc504834;
-	Fri, 18 Sep 2026 04:11:57 -0500
-Message-ID: <49db9182-8129-4f5a-b355-be8dcc01c994@ti.com>
-Date: Fri, 18 Sep 2026 14:41:56 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UiUs1nAk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C70D9168F;
+	Fri, 18 Sep 2026 02:13:19 -0700 (PDT)
+Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD1073F882;
+	Fri, 18 Sep 2026 02:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789722803; bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=UiUs1nAknVTTZqJd6p1FKPJi36Cxru2zHT5tFAh9A9BueBYDI9fjsdcdK3j20Mgy1
+	 KFlKccCWspaqDmbD6qtWVhyxoefAUxd7IBOtNM+OwvuIxsvd93D423qChlUE3nzCUN
+	 NC+X+NenfPTFz/PoNrBwihSNdNaoFsH35vtZnCCU=
+Message-ID: <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com>
+Date: Fri, 18 Sep 2026 11:13:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,147 +35,318 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] media: imagination: e5010: Fix clk never enabled
- without CONFIG_PM
-To: Brandon Brnich <b-brnich@ti.com>, <mchehab@kernel.org>,
-        <hverkuil@kernel.org>, <sebastian.fricke@collabora.com>,
-        <benjamin.gaignard@collabora.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <stable@vger.kernel.org>
-References: <20260831213231.2125544-1-b-brnich@ti.com>
- <20260831213231.2125544-3-b-brnich@ti.com>
-Content-Language: en-US
-From: Devarsh Thakkar <devarsht@ti.com>
-In-Reply-To: <20260831213231.2125544-3-b-brnich@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
+ <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-3-andre.przywara@arm.com>
+ <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+Content-Language: en-GB
+In-Reply-To: <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|MW4PR10MB6630:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e1f6526-2690-49ca-d343-08df1564fa87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|22082099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5A5+3Qm5hiRPdp+ekFYT37EnxdtAjTynuYDg89Epq6N1aWyg+BxlRkJp6fcKFu+RM30U2A1jzdwGD5kdOtaFZ6o3KFK7O5jAgqQi9ugwoTJ4IiC/rbmew21D7CaQ4hTHQYtbToc5AtKJIV2SHGahZ0/+pzXVis0quJFDAF9QiaUQlq3MFcBPJPrmfeYgkumjFMh7LYltnYO5JxeByNfwyy4ovGuSYYYYfYoct5uT7Uwrq8Cp5/6Q4HHJZBARgcNH58WTQXncP5byZw6jxRYvVxLr5x/pdDIGLIqGtN3BwyhgLZbU+hmlpUHYElkKO75AfY67Oo36zkPeEXYEEIlBK+axrMuK7+B9R9i4S2XoB2e5RTkYY9HWT3Im8CvoievdA9o4tFWaIMXSwM3AE8PYd+VtaXQD9WqutyfipKG7d4pB/RWtyave6MI5rGb6hcoihIsJNCYC/Y7wBzhri49bHJ0x76au53swFWkRYZe7mU37cohvUyIaWm9xWOsvi9akmLlFPt/ArudX4u4u+EpIQOuUupIufFjbioBnqTQi+7Qf2kf+hBC51kp8HPNgSrp+ncE7p4m5cxcpudh6xQ9pEBhI934RMGMLIZycNlz+enkdP+eAJC2smVTYDDzXhRV1hgCJcUGV5kBnpe8yLDUPaaRBt6Sp41GrbWdpwg9Z0jeTu8KESGbkFgmp5OhPPk6TzgX3gSKocGocf54lH+DxXw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Ml2ONUIWM46/TZKedfgOUOSgBm3fQADOTv0L3kvRTkmY21WZ3bf39rl4TKBijz6F6Lp5kq7fJ5XAl1AxLpTT1K28QB9EZkESCDus5VZTuA8N50ydgxGPXHjj1FSVMgAdidg7k7o5tIxyAmIa73VB6pSJhq4nOmp/XrBTlsf6gQt3KgSPjuBnyHvAoFUi4diS99nspUbC0gdnhLEv/qYCoPUUF9VuSXOAQw4MYuEn8S9Gosq2NOU+eDYXnnCd1EdUFgXiKPeWx4LJGSDEiGM+srDJ9RxULAkiRymngXBH8Yj/lST2yqZU+MFJdwUcYUWITW1x9Xpg2V7UQDDdO+fLPNAXgWHDLlvBE57/YJLeyacqTie1Z35ylgPqp8AggcrPFm0qUOjHowZsXy1TGq/ewlZ67TPeB2X5ze9147QbCwY4bb4g9eXZtAxfRs91K8rh
-X-Exchange-RoutingPolicyChecked:
-	1lLsXQ/+MJo8H76v0TzQlRS1qbukjhGbGaz79s66Uiurgs26DE05KhIzVJdMjpbsa31WlYFo9yme/Y1UD+TIl9090wfXX/VXQQh8MQ5ZkfbP4O/RN1yWzTFLuceVtDhI1lnRKs8sUBD+Ig70Idy4PU3gTHHfMf9hGxc53UYGBjvZ4BezoJIMJ+8PyX4F1AHJqdxtWrlXOKMCZ63PPFNHQla6nKbAXkMFev1QFLzw2Pe6IvRV1TdkUjjTmYMK2D/42sMUy9GihAYYkHv1FHiCBEhQ5c+8LAZXMVSGH+BVjPlHaG3xfgbpmtN8hfXGN23yYc3T5NjAKth3SRLFaBOEbA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 09:12:35.2684
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e1f6526-2690-49ca-d343-08df1564fa87
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB6630
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEyNiBTYWx0ZWRfX9vsUZg2P40pH
- y/c06yA8iznAAFFDd58HiiBvXJVEdbmbXM75w1WAvr8qwHcUPllFh7rBQVBPJEr7hmhRAcFevPE
- SzR1JgHhVskNU+1Yr3kLp164o8Eewj4=
-X-Authority-Analysis: v=2.4 cv=Cswq4X4D c=1 sm=1 tr=0 ts=6aad0088 cx=c_pps
- a=EZwmcie8zcfNvCQIxZ7BwQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=pbraIn_b0vyewlqHF90A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEyNiBTYWx0ZWRfX2LTKWq5QSOjb
- lAeCcDgTL2wKaNJXFfilco6WsHuYSIdsbjPZX/pfEG+QyWy9E8pxEhlgm/qfyW9mEccbID9mzW0
- 2LdC22s6GvwcgJoONh+S39NOVX5tXrkQJmtP3M0F4ntxupOLuz6SWBfknqFOix0bTA69nyrO16k
- JhLl7VLj5ftqR+o+KOY3yD5o7gi5U6xMkPQ2D5FlWMe4obTYnA2y2bmncvgkVDUa4tPzBDjgCmg
- cvmsfITZPPXoGWdzP+0PjQBq9hfaYQn48yuae9OLslFLYuMprzrVRBiZRK/gw0W/ex5NPSRf68D
- aUXVEMC3OZzRD7IP1o/g2pDKliKaFPHP9Je9DkQomdnBOt3zsUXuQBHa7v4FR5x7kwpf9RBPFjI
- KeGOz7ORAx5Lw4B9FjOf3YDc06/DtYCIOXkED8nOSNgE3EIlWI7oH3lBHhC9wzWRmt8LzruNsdL
- UL/rmB2POU0suq3We8A==
-X-Proofpoint-ORIG-GUID: rpjyeEPauoaQ_kM5afJdodmieNNyalI1
-X-Proofpoint-GUID: rpjyeEPauoaQ_kM5afJdodmieNNyalI1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180126
 
-Hi Brandon,
+Hi Sudeep,
 
-Thanks for the patch.
-
-On 01/09/26 03:02, Brandon Brnich wrote:
-> clk_prepare_enable is not called anywhere unless CONFIG_PM is set. This
-> means without CONFIG_PM, the JPEG Encoder will not function properly.
+On 7/17/26 11:03, Sudeep Holla wrote:
+> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
+>> From: Salman Nabi <salman.nabi@arm.com>
+>>
+>> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+>> activating firmware components without a reboot. Those components
+>> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+>> usual way: via fwupd, FF-A or other secure storage methods, or via some
+>> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+>> at system runtime, without requiring a reboot.
+>> The specification covers the SMCCC interface to list and query available
+>> components and eventually trigger the activation.
+>>
+>> Add a new directory under /sys/firmware to present firmware components
+>> capable of live activation. Each of them is a directory under lfa/,
+>> and is identified via its GUID. The activation will be triggered by echoing
+>> "1" into the "activate" file:
+>> ==========================================
+>> /sys/firmware/lfa # ls -l . 6c*
+>> .:
+>> total 0
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 47d4086d-4cfe-9846-9b95-2950cbbd5a00
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 6c0762a6-12f2-4b56-92cb-ba8f633606d9
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 d6d0eea7-fcea-d54b-9782-9934f234b6e4
+>>
+>> 6c0762a6-12f2-4b56-92cb-ba8f633606d9:
+>> total 0
+>> --w-------    1 0        0             4096 Jan 19 11:33 activate
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_capable
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_pending
+>> --w-------    1 0        0             4096 Jan 19 11:33 cancel
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 current_version
+>> -rw-r--r--    1 0        0             4096 Jan 19 11:33 force_cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 may_reset_cpu
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 name
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 pending_version
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # grep . *
+>> grep: activate: Permission denied
+>> activation_capable:1
+>> activation_pending:1
+>> grep: cancel: Permission denied
+>> cpu_rendezvous:1
+>> current_version:0.0
+>> force_cpu_rendezvous:1
+>> may_reset_cpu:0
+>> name:TF-RMM
+>> pending_version:0.0
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # echo 1 > activate
+>> [ 2825.797871] Arm LFA: firmware activation succeeded.
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 #
+>> ==========================================
+>>
+>> [1] https://developer.arm.com/documentation/den0147/latest/
+>>
+>> Signed-off-by: Salman Nabi <salman.nabi@arm.com>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> ---
+>>   drivers/firmware/smccc/Kconfig  |  10 +
+>>   drivers/firmware/smccc/Makefile |   1 +
+>>   drivers/firmware/smccc/lfa_fw.c | 725 ++++++++++++++++++++++++++++++++
+>>   drivers/firmware/smccc/smccc.c  |   5 +
+>>   include/linux/arm-smccc.h       |  15 +
+>>   5 files changed, 756 insertions(+)
+>>   create mode 100644 drivers/firmware/smccc/lfa_fw.c
+>>
+>> diff --git a/drivers/firmware/smccc/Kconfig b/drivers/firmware/smccc/Kconfig
+>> index 15e7466179a6..7fd646d515f8 100644
+>> --- a/drivers/firmware/smccc/Kconfig
+>> +++ b/drivers/firmware/smccc/Kconfig
+>> @@ -23,3 +23,13 @@ config ARM_SMCCC_SOC_ID
+>>   	help
+>>   	  Include support for the SoC bus on the ARM SMCCC firmware based
+>>   	  platforms providing some sysfs information about the SoC variant.
+>> +
+>> +config ARM_LFA
+>> +	tristate "Arm Live Firmware activation support"
+>> +	depends on HAVE_ARM_SMCCC_DISCOVERY && ARM64
+>> +	default y
+>> +	help
+>> +	  Include support for triggering a Live Firmware Activation (LFA),
+>> +	  which allows to upgrade certain firmware components without a reboot.
+>> +	  This is described in the Arm DEN0147 specification, and relies on
+>> +	  a firmware agent running in EL3.
+>> diff --git a/drivers/firmware/smccc/Makefile b/drivers/firmware/smccc/Makefile
+>> index 68bbff1407b8..cddf2c460ab9 100644
+>> --- a/drivers/firmware/smccc/Makefile
+>> +++ b/drivers/firmware/smccc/Makefile
+>> @@ -2,3 +2,4 @@
+>>   #
+>>   obj-$(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)	+= bus.o smccc.o kvm_guest.o
+>>   obj-$(CONFIG_ARM_SMCCC_SOC_ID)	+= soc_id.o
+>> +obj-$(CONFIG_ARM_LFA) += lfa_fw.o
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+>> new file mode 100644
+>> index 000000000000..b333b1e28c0d
+>> --- /dev/null
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -0,0 +1,725 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2025 Arm Limited
+>> + */
+>> +
+>> +#include <linux/arm-smccc.h>
+>> +#include <linux/arm-smccc-bus.h>
+>> +#include <linux/array_size.h>
+>> +#include <linux/fs.h>
+>> +#include <linux/init.h>
+>> +#include <linux/kobject.h>
+>> +#include <linux/list.h>
+>> +#include <linux/module.h>
+>> +#include <linux/psci.h>
+>> +#include <linux/stop_machine.h>
+>> +#include <linux/string.h>
+>> +#include <linux/sysfs.h>
+>> +#include <linux/uuid.h>
+>> +#include <linux/workqueue.h>
+>> +
+>> +#include <uapi/linux/psci.h>
+>> +
+>> +#undef pr_fmt
+>> +#define pr_fmt(fmt) "Arm LFA: " fmt
+>> +
+>> +/* CALL_AGAIN flags (returned by SMC) */
+>> +#define LFA_PRIME_CALL_AGAIN		BIT(0)
+>> +#define LFA_ACTIVATE_CALL_AGAIN		BIT(0)
+>> +
+>> +/* LFA return values */
+>> +#define LFA_SUCCESS			0
+>> +#define LFA_NOT_SUPPORTED		1
+>> +#define LFA_BUSY			2
+>> +#define LFA_AUTH_ERROR			3
+>> +#define LFA_NO_MEMORY			4
+>> +#define LFA_CRITICAL_ERROR		5
+>> +#define LFA_DEVICE_ERROR		6
+>> +#define LFA_WRONG_STATE			7
+>> +#define LFA_INVALID_PARAMETERS		8
+>> +#define LFA_COMPONENT_WRONG_STATE	9
+>> +#define LFA_INVALID_ADDRESS		10
+>> +#define LFA_ACTIVATION_FAILED		11
+>> +
+>> +/*
+>> + * Not error codes described by the spec, but used internally when
+>> + * PRIME/ACTIVATE calls return with the CALL_AGAIN bit set.
+>> + */
+>> +#define LFA_TIMED_OUT			32
+>> +#define LFA_CALL_AGAIN			33
+>> +
 > 
-> Add this call during the probe sequence to properly configure the device.
-> If video_registration fails after clk is enabled, clk would be left on.
-> Make a label to cover this case.
+> Why do you need this if it is purely internal in the driver ?
+> What is the guarantee that LFA spec doesn't use these in the future ?
+> It shouldn't be big problem, but I do expect things may get bit complicated
+> during transition to a firmware version may start using it.
+
+Yeah, I don't like it either ;-)
+I now reworked the error numbers, so i switch to Linux errno numbers 
+earlier, which means I can use -ETIMEDOUT and -EAGAIN here, and can 
+avoid inventing artifical numbers. So those definitions just go away.
+>> +#define LFA_ERROR_STRING(name) \
+>> +	[name] = #name
+>> +
+>> +static const char * const lfa_error_strings[] = {
+>> +	LFA_ERROR_STRING(LFA_SUCCESS),
+>> +	LFA_ERROR_STRING(LFA_NOT_SUPPORTED),
+>> +	LFA_ERROR_STRING(LFA_BUSY),
+>> +	LFA_ERROR_STRING(LFA_AUTH_ERROR),
+>> +	LFA_ERROR_STRING(LFA_NO_MEMORY),
+>> +	LFA_ERROR_STRING(LFA_CRITICAL_ERROR),
+>> +	LFA_ERROR_STRING(LFA_DEVICE_ERROR),
+>> +	LFA_ERROR_STRING(LFA_WRONG_STATE),
+>> +	LFA_ERROR_STRING(LFA_INVALID_PARAMETERS),
+>> +	LFA_ERROR_STRING(LFA_COMPONENT_WRONG_STATE),
+>> +	LFA_ERROR_STRING(LFA_INVALID_ADDRESS),
+>> +	LFA_ERROR_STRING(LFA_ACTIVATION_FAILED)
+>> +};
+>> +
+>> +enum image_attr_names {
+>> +	LFA_ATTR_NAME,
+>> +	LFA_ATTR_CURRENT_VERSION,
+>> +	LFA_ATTR_PENDING_VERSION,
+>> +	LFA_ATTR_ACT_CAPABLE,
+>> +	LFA_ATTR_ACT_PENDING,
+>> +	LFA_ATTR_MAY_RESET_CPU,
+>> +	LFA_ATTR_CPU_RENDEZVOUS,
+>> +	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
+>> +	LFA_ATTR_ACTIVATE,
+>> +	LFA_ATTR_CANCEL,
+>> +	LFA_ATTR_NR_IMAGES
+>> +};
+>> +
+>> +struct fw_image {
+>> +	struct kobject kobj;
+>> +	const char *image_name;
+>> +	int fw_seq_id;
+>> +	u64 current_version;
+>> +	u64 pending_version;
+>> +	bool activation_capable;
+>> +	bool activation_pending;
+>> +	bool may_reset_cpu;
+>> +	bool cpu_rendezvous;
+>> +	bool cpu_rendezvous_forced;
+>> +	struct kobj_attribute image_attrs[LFA_ATTR_NR_IMAGES];
+>> +};
+>> +
+>> +static struct fw_image *kobj_to_fw_image(struct kobject *kobj)
+>> +{
+>> +	return container_of(kobj, struct fw_image, kobj);
+>> +}
+>> +
+>> +/* A UUID split over two 64-bit registers */
+>> +struct uuid_regs {
+>> +	u64 uuid_lo;
+>> +	u64 uuid_hi;
+>> +};
+>> +
+>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+>> +static const struct fw_image_uuid {
+>> +	const char *name;
+>> +	const char *uuid;
+>> +} fw_images_uuids[] = {
+>> +	{
+>> +		.name = "TF-A BL31 runtime",
 > 
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
-> ---
->   .../media/platform/imagination/e5010-jpeg-enc.c    | 14 ++++++++++++--
->   1 file changed, 12 insertions(+), 2 deletions(-)
+> This doesn't make any sense to me. Why do you want kernel to assign
+> some random name base on UUID. Userspace is well place to deal with
+> UUID and give it any fancy name it wants.
+
+Well, the whole interface is quite usable without any accompanying user 
+space tools, so just from the shell, but then identifying  firmware 
+components by their GUID becomes a major pain and leaves users 
+completely clueless.
+And while we indeed will never be able to fully catch up with all the 
+firmwares out there, especially not with vendor specific ones, there are 
+some standard firmware components that I think warrant some name.
+TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in 
+the mainline repository, and since BL31 is also an LFA agent, it's quite 
+likely we encounter this component. Even when vendors typically use 
+downstream TF-A ports, those GUIDs would stay the same.
+So yes, it's more opportunistic than complete, but I think it would help 
+to identify at least those well-known firmwares. Anything not named then 
+would use the GUID, and can indeed be resolved by (a yet-to-be-written) 
+userspace component.
+
 > 
-> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> index d3c11337c815d..e98fcd3fcd9ae 100644
-> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-> @@ -1099,19 +1099,28 @@ static int e5010_probe(struct platform_device *pdev)
->   		goto fail_after_video_register_device;
->   	}
->   
-> -	pm_runtime_enable(dev);
-> +	ret = clk_prepare_enable(e5010->clk);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to enable clock\n");
-> +		goto fail_after_video_register_device;
-> +	}
-> +
->   
->   	ret = video_register_device(e5010->vdev, VFL_TYPE_VIDEO, 0);
->   	if (ret) {
->   		dev_err_probe(dev, ret, "failed to register video device\n");
-> -		goto fail_after_video_register_device;
-> +		goto fail_after_clock_enable;
->   	}
->   
-> +	pm_runtime_enable(dev);
-> +
->   	v4l2_info(&e5010->v4l2_dev, "Device registered as /dev/video%d\n",
->   		  e5010->vdev->num);
->   
->   	return 0;
->   
-> +fail_after_clock_enable:
-> +	clk_disable_unprepare(e5010->clk);
->   fail_after_video_register_device:
->   	v4l2_m2m_release(e5010->m2m_dev);
->   fail_after_v4l2_register:
-> @@ -1126,6 +1135,7 @@ static void e5010_remove(struct platform_device *pdev)
->   	struct e5010_dev *e5010 = platform_get_drvdata(pdev);
->   
->   	pm_runtime_disable(e5010->dev);
-> +	clk_disable_unprepare(e5010->clk);
+> [...]
+> 
+>> diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
+>> index 4de81848fe2e..956a5af96c70 100644
+>> --- a/include/linux/arm-smccc.h
+>> +++ b/include/linux/arm-smccc.h
+>> @@ -304,6 +304,21 @@
+>>   			   ARM_SMCCC_OWNER_STANDARD,		\
+>>   			   0x53)
+>>   
+>> +/* Live Firmware Activation (LFA) calls (defined by ARM DEN0147) */
+>> +#define ARM_SMCCC_LFA_FN_BASE					\
+>> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,			\
+>> +			   ARM_SMCCC_SMC_64,			\
+>> +			   ARM_SMCCC_OWNER_STANDARD,		\
+>> +			   0x2e0)
+>> +#define ARM_SMCCC_LFA_FN(n)		(ARM_SMCCC_LFA_FN_BASE + (n))
+>> +#define ARM_SMCCC_LFA_GET_VERSION	ARM_SMCCC_LFA_FN(0)
+>> +#define ARM_SMCCC_LFA_CHECK_FEATURE	ARM_SMCCC_LFA_FN(1)
+>> +#define ARM_SMCCC_LFA_GET_INFO		ARM_SMCCC_LFA_FN(2)
+>> +#define ARM_SMCCC_LFA_GET_INVENTORY	ARM_SMCCC_LFA_FN(3)
+>> +#define ARM_SMCCC_LFA_PRIME		ARM_SMCCC_LFA_FN(4)
+>> +#define ARM_SMCCC_LFA_ACTIVATE		ARM_SMCCC_LFA_FN(5)
+>> +#define ARM_SMCCC_LFA_CANCEL		ARM_SMCCC_LFA_FN(6)
+>> +
+> 
+> Do you expect these to be used outside of the driver(for now atleast) ?
+> If not move it into the driver.
 
-I think you should only disable if driver was not suspended as you 
-already do a clk_disable in suspend path, i think it should be :
+OK. I was under the impression that all SMCCC services would list their 
+function IDs here, but that's probably only for those where we have 
+multiple users (like TRNG in KVM and hw_random).
+Moved them to the driver now.
 
-         if (!pm_runtime_status_suspended(&pdev->dev)) 
+Cheers,
+Andre
 
-		clk_disable_unprepare(e5010->clk);
-
-Regards
-Devarsh
->   	video_unregister_device(e5010->vdev);
->   	v4l2_m2m_release(e5010->m2m_dev);
->   	v4l2_device_unregister(&e5010->v4l2_dev);
+> 
+>>   /*
+>>    * Return codes defined in ARM DEN 0070A
+>>    * ARM DEN 0070A is now merged/consolidated into ARM DEN 0028 C
+>> -- 
+>> 2.43.0
+>>
+>>
+> 
 
