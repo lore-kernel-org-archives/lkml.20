@@ -1,65 +1,119 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9983A5453
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A743C942C;
+	Fri, 18 Sep 2026 08:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720468; cv=none; b=ADWreWzfV4Oadee1Aby2M9JOxGaISDQd7KBChHNSUevtl4R0AlDBT856QDvfgy9oEyPIx2wUL1KolHi55hsYuY3XcxyTqzd1oozie+lKmCsZYRnESEiassSKtfCyY+gRdvDDluKzJXF01WOtJK+jTUf21sFdQao6mGVAucuIx30=
+	t=1789720474; cv=none; b=sxVyNqOjivV9OwqL9KoGYFOMQBBjBtPcnMLo6Z7/5yl3w98qhlUz4BQprkq3rzZOdZLV58AVyy0jcE1/72GDuvwOPBJnamzU9YuBsisOumUnbOYFyG1GOHKmPc866hw20X6J6fNXPPXynIHcVxhxpfLGmCaB+mbLG0kfydyIWpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720468; c=relaxed/simple;
-	bh=/ZOtUMA9yO0D3BNU0UQopLjFzKN7eZUaphdnwnk5D1s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M7mH8Sy5ZHjFBrvJnMp1K3By+gnv/SgZ9wtyqhJUbsYmkPsvCqSNm8X4dAL1OUmG+GZkAc7tIvP2MOgah4htDpO5wp2/BVut2PKxi4eFzmObwpohEDmoh6GWBltWQmq0WXUIUF86e9fTiiiwm/6Smedcv4GXsGlRNhDuQA75dpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=uRXQDTWy; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789720474; c=relaxed/simple;
+	bh=A+U9NeyCw2uUc/iR5VKPiZXuak/wBBYadp2bG6uegDY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=WJBu+yxNAPUpOqTHSWgY9QTfgm4Si2UHH1Ih1BedTszJE6HD2lPe7+V6Yp1oK1LZM3G6N41vLbrBDP7YQs+uDVH0Xb0E9Q9iUi6pNeU4SSVQXSgAYjyFZX7kNLLzBbTYxHpwfEbKVge2LmPg92/E+gcwjpHnDwl07YqFIwUYD0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=W60BaHoP; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uRXQDTWy"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789720463; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=WWLXM9j2Xl4HSK1CsuZG/egpI0kp+xihUtRUm8SGEIE=;
-	b=uRXQDTWyZ3hGeAydYuWbycpjtTuhpIfliLCndz5nqHNCkBRN6hTZBkcdxjmgF3qclbZs6olycAcOa7nd1cfXIboAp1l7wa/V0guC841GBHU5ZE3BKdz/XPqdgXNAxW76pQyZbReMhwxnln2kIF8OtbTfs+dLhzh0DDVhR9MthuE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XBAfAEz_1789720461;
-Received: from 30.74.144.124(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBAfAEz_1789720461 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 16:34:22 +0800
-Message-ID: <a93d4942-8e21-4205-9f5a-395b8038ee4f@linux.alibaba.com>
-Date: Fri, 18 Sep 2026 16:34:21 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="W60BaHoP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=A+U9NeyCw2uUc/iR5VKPiZXuak/wBBYadp2bG6uegDY=; b=W
+	60BaHoParjrLUjIpIbGTR86wL4FMUqI3CTHzYhLCuakgAEm7b2KGZOm9QxFHF7Q7
+	nHMIP9B++Yf+DQVScw6asQW8f0C+zb40TNbLN+M02ux7nmA28szYUxuyAuIekado
+	TemWxt/GPOCYizg7vocTYzkUhIV8ljZsSBbhC87j/U=
+Date: Fri, 18 Sep 2026 16:33:13 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: "Long Zhao" <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH v7 05/15] dt-bindings: gpio: pl061: add Ambarella
+ CV75 variant
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20260918-affable-aardvark-of-superiority-6a5ed2@quoll>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <20260915-cv75-v5-v7-5-3297d3fbc9c0@ambarella.com>
+ <20260918-affable-aardvark-of-superiority-6a5ed2@quoll>
+X-NTES-SC: AL_Qu2TC/uZv0si5SebYOkcn0wRhug/UMa4u/sm3YNXc+4EmTLm2QYGZWdKNl/tzP+PED+yqxGsciBy6c5ic7Z9DiZ4Z4Mjf+qV5QMl6Un47w==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] mm/huge_memory: simplify pgtable deposit detection
-To: Lance Yang <lance.yang@linux.dev>, akpm@linux-foundation.org,
- david@kernel.org
-Cc: ziy@nvidia.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, kas@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260917054015.23553-1-lance.yang@linux.dev>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260917054015.23553-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <258a5ebc.76e6.1a0b3a5f810.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:aSgvCgBnH7lJ96xqT21HAA--.51648W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7QnVR2qs90mJ9AAA3z
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-
-On 9/17/26 1:40 PM, Lance Yang wrote:
-> Whether a PMD has a deposited PTE page table only depends on whether the
-> architecture requires deposits or the VMA is anonymous.
-> 
-> Implement this rule directly in vma_has_deposited_pgtable(), avoiding
-> mistaking a non-anonymous raw PFN PMD for one with a deposit and attempting
-> to withdraw a page table that was never deposited.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> ---
-
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+SGkgS3J6eXN6dG9mLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LCB3aWxsIGZpeCB0aGUgY29tbWl0
+IG1lc3NhZ2UgYW5kIFlBTUwgb3JkZXIgaW4gdjguCgpUaGUgQU1CQSBjb3JlIG1hdGNoZXMgdGhl
+IFBMMDYxIGRyaXZlciBieSBQcmltZUNlbGwgSUQsIG5vdCBieSB0aGUgRFQgY29tcGF0aWJsZSBz
+dHJpbmcuIFRoZXNlIGJhbmtzIGRvIG5vdCBpbXBsZW1lbnQgdGhlIHN0YW5kYXJkIFBMMDYxIElE
+ICgweDAwMDQxMDYxKSwgc28gYXJtLHByaW1lY2VsbC1wZXJpcGhpZCBtdXN0IGJlIHNldDsgMHgw
+MDBlODA2MSBpcyB0aGUgSUQgdGhlIGRyaXZlciB1c2VzIGZvciB0aGUgQW1iYXJlbGxhIGxheW91
+dC4KClRoZXkgc2l0IG9uIHRoZSBQcmltZUNlbGwgYnVzIGJ1dCBhcmUgbm90IHJlZ2lzdGVyLWNv
+bXBhdGlibGUgd2l0aCBhcm0scGwwNjEgKDMyLWJpdCwgMzIgbGluZXMsIGV4dHJhIG1hc2svZW5h
+YmxlKSwgc28gYXJtLHBsMDYxIGlzIG5vdCBhIGZhbGxiYWNrLiBJIHdpbGwgc3BlbGwgdGhhdCBv
+dXQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlLgoKYWxsT2Ygd2lsbCBtb3ZlIGFmdGVyIHRoZSByZXF1
+aXJlZDogYmxvY2suCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhhbwoKQXQgMjAyNi0wOS0xOCAxNTox
+NToyMSwgIktyenlzenRvZiBLb3psb3dza2kiIDxrcnprQGtlcm5lbC5vcmc+IHdyb3RlOgo+T24g
+VHVlLCBTZXAgMTUsIDIwMjYgYXQgMDc6MTU6MzVQTSArMDgwMCwgTG9uZyBaaGFvIHdyb3RlOgo+
+PiBBZGQgYW1iYXJlbGxhLGN2NzUtZ3BpbyBhcyBhIFByaW1lQ2VsbC1jb21wYXRpYmxlIFBMMDYx
+IHZhcmlhbnQsIHdpdGgKPj4gYXJtLHByaW1lY2VsbC1wZXJpcGhpZCBhbmQgZ3Bpby1yYW5nZXMg
+cmVxdWlyZWQuIFJlZmVyZW5jZQo+Cj5Zb3UganVzdCBkZXNjcmliZWQgdGhlIGRpZmYsIGJ1dCB0
+aGlzIHNob3VsZCBleHBsYWluIHdoeSB5b3UgZG8gdGhlc2UKPmNoYW5nZXMuIFdoeSBhIGZpeGVk
+IHBlcmlwaGlkIGlzIG5lZWRlZD8gSXNuJ3QgaXQgaW1wbGllZCBieSBjb21wYXRpYmxlPwo+Cj4+
+IHByaW1lY2VsbC55YW1sIGFuZCB1c2UgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzLgo+PiAKPj4gU2ln
+bmVkLW9mZi1ieTogTG9uZyBaaGFvIDxsb25nemhhb0BhbWJhcmVsbGEuY29tPgo+PiAtLS0KPj4g
+IC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL2dwaW8vcGwwNjEtZ3Bpby55YW1sICAgICAgIHwgMjUg
+KysrKysrKysrKysrKysrKysrKy0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDIyIGluc2VydGlvbnMo
+KyksIDMgZGVsZXRpb25zKC0pCj4+IAo+PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL2dwaW8vcGwwNjEtZ3Bpby55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL2dwaW8vcGwwNjEtZ3Bpby55YW1sCj4+IGluZGV4IDRkOTcwZTU1MTA0
+Yi4uMDBkMGQ4ZGRkMmM5IDEwMDY0NAo+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvZ3Bpby9wbDA2MS1ncGlvLnlhbWwKPj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZp
+Y2V0cmVlL2JpbmRpbmdzL2dwaW8vcGwwNjEtZ3Bpby55YW1sCj4+IEBAIC0xNSwxNyArMTUsMzYg
+QEAgc2VsZWN0Ogo+PiAgICBwcm9wZXJ0aWVzOgo+PiAgICAgIGNvbXBhdGlibGU6Cj4+ICAgICAg
+ICBjb250YWluczoKPj4gLSAgICAgICAgY29uc3Q6IGFybSxwbDA2MQo+PiArICAgICAgICBlbnVt
+Ogo+PiArICAgICAgICAgIC0gYXJtLHBsMDYxCj4+ICsgICAgICAgICAgLSBhbWJhcmVsbGEsY3Y3
+NS1ncGlvCj4+ICAgIHJlcXVpcmVkOgo+PiAgICAgIC0gY29tcGF0aWJsZQo+PiAgCj4+ICthbGxP
+ZjoKPgo+YWxsT2Ygc2hvdWxkIGJlIHBsYWNlZCBhZnRlciAicmVxdWlyZWQ6IiBibG9jay4KPgo+
+PiArICAtICRyZWY6IC9zY2hlbWFzL2FybS9wcmltZWNlbGwueWFtbCMKPj4gKyAgLSBpZjoKPj4g
+KyAgICAgIHByb3BlcnRpZXM6Cj4+ICsgICAgICAgIGNvbXBhdGlibGU6Cj4+ICsgICAgICAgICAg
+Y29udGFpbnM6Cj4+ICsgICAgICAgICAgICBjb25zdDogYW1iYXJlbGxhLGN2NzUtZ3Bpbwo+PiAr
+ICAgIHRoZW46Cj4+ICsgICAgICBwcm9wZXJ0aWVzOgo+PiArICAgICAgICBhcm0scHJpbWVjZWxs
+LXBlcmlwaGlkOgo+PiArICAgICAgICAgIGNvbnN0OiAweDAwMGU4MDYxCj4+ICsgICAgICByZXF1
+aXJlZDoKPj4gKyAgICAgICAgLSBhcm0scHJpbWVjZWxsLXBlcmlwaGlkCj4+ICsgICAgICAgIC0g
+Z3Bpby1yYW5nZXMKPj4gKwo+PiAgcHJvcGVydGllczoKPj4gICAgJG5vZGVuYW1lOgo+PiAgICAg
+IHBhdHRlcm46ICJeZ3Bpb0BbMC05YS1mXSskIgo+PiAgCj4+ICAgIGNvbXBhdGlibGU6Cj4+ICAg
+ICAgaXRlbXM6Cj4+IC0gICAgICAtIGNvbnN0OiBhcm0scGwwNjEKPj4gKyAgICAgIC0gZW51bToK
+Pj4gKyAgICAgICAgICAtIGFtYmFyZWxsYSxjdjc1LWdwaW8KPj4gKyAgICAgICAgICAtIGFybSxw
+bDA2MQo+Cj5TbyBhIFByaW1lQ2VsbC1jb21wYXRpYmxlIFBMMDYxIHZhcmlhbnQgd2hpY2ggaXMg
+bm90IGNvbXBhdGlibGUgd2l0aAo+UEwwNjE/IFlvdSBoYXZlIGVudGlyZSBjb21taXQgbXNnIHRv
+IGV4cGxhaW4gdGhhdCBhbmQgc2F5IHNvbWV0aGluZwo+bm9uLW9idmlvdXMgYWJvdXQgdGhlIGhh
+cmR3YXJlLgo+Cj4+ICAgICAgICAtIGNvbnN0OiBhcm0scHJpbWVjZWxsCj4+ICAKPgo+QmVzdCBy
+ZWdhcmRzLAo+S3J6eXN6dG9mCg==
