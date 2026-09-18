@@ -1,127 +1,126 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F8250B41B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6E18A4F3ED4;
+	Fri, 18 Sep 2026 15:56:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746963; cv=none; b=rOcTHmDlsOPJ0VVHoHEqRPXjFXljw2zEbs9syNL8V6E7SgLtW4aTlzYENDN/izjsnRULcw4k3dJ8mgskuTmvW4B5Plm4oleIRZinFAI6aCeVxH8zJYfG/jKFIZxSCVccmqouG7IWktFk0Mq65HO+KkaWa+fxbSCE7nlXo65IIs0=
+	t=1789746985; cv=none; b=IhadfvHHnbxhW5gQ1QEhuw4I8VD9E5fSWWtHxrtdW1FK8WOmZoH5tLaSPT/In+9Gq0Cbq8W5AtFCaj4pbboiR4devJXMAWidHxquqx0XCWa6ZWUD9m/7kNc06xlo+60muRNl0cFSb0UeHPd/0KTKV/hyHMdNXoJ0u/iuJcJ4XxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746963; c=relaxed/simple;
-	bh=VzBIg2DX36nG7X+/n7IlCo2fJMZUGrggpdgEwOAV7I0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=cqXk14XAvG4dEhRS858SEyjMaAYdzC24w9x87L7Qg9aLc5Zw5AbCQ5vaZG/ve88T2xfEKVVr0l0QjBtfi+cd0Nj6txmmI2IRIs09QY8z0KzNH10jrEjd/xO14pmKL+phJ0n6KRHz+DGSRHljy1JWGc+OeMlQrSYqaWcHR1DBQsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p2hMNglS; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789746985; c=relaxed/simple;
+	bh=Yztiuro1Xc4OykaRC7nI2YhmfOG7q71r/xjUWYC+jiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rzbbxZPGDDOjzTXF3sOBdiJhij436FvUyrTZwLC5ZCheMnFh+efnjsA+oqqsIqYEVMzpdAzDAZAWRVQLU5h386kXChpk5d0XY5B7gbNNKwsCdj6Q8gH2S5NHefS8tM+xEgE5lxNj4aFgOZkYqqzuKDk6oId2FXaLZSJaoxAV8ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=k8+yX0WZ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p2hMNglS"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so1234073a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789746961; x=1790351761; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iBkctlRBevMkXW3iFcvrG/AH6FpsnkeJtwK+1UWTkNM=;
-        b=p2hMNglSnFx7HTcQKFe5jAbvd0RDevERIaZMchDjV3AmlsWBJJu/N2yL0Skxy8KB26
-         ei2XPZi9h+A99UmHIPYtRc+/W5P2ADr9G0QzLFoux5P0wEqWs8aX1ww3JoREuFV8p8zl
-         yKlOp+OW3qGNf6rQK4n079oV8pV/HuuznElZxq0atQTA8o2sXmitrRzCShjRGZ+0dEhH
-         TI3odKSDrvLNrXkDvm2waaNNnrGd4H4t6jVsiaWbK9dtanC/xeWDDk79xXHImYOqWYyv
-         WpIiJV2o9bYhDFMu88uyyXuRUvplX6ZnVZmwMrTRGSpUeCnVRnGp2jDXXMuhhS3nAk1n
-         7GOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789746961; x=1790351761;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iBkctlRBevMkXW3iFcvrG/AH6FpsnkeJtwK+1UWTkNM=;
-        b=SSCDEL5+F4wIDYA3UpY99OuxHxHKg/4gV9enho5coXlrG6UhVDHsB2RLbTukb+o/rf
-         ufOSkOlSjXTBCRSvkJPIDjpiKiYqTq+Dl4u2Wk36AcIWMSZndhSapKGB6qWvFDvRYa/5
-         YjsiqyjUcZbGU1NeMr9d3iHnUNFXbgds/9vHu2QFzaLx7ge3wUOpBQ3UneLj4PdgsVrW
-         /sC2HZH4mPGP7P0QM0iec+6l8fPu5aS6hJ6IDLKU0aNsXDQO58I3fzC+9dIk8+UoQ8DR
-         KduCWsk9lJCrFbgONHTLanNtvx56u+3UTXzKaJc8DFRvihoPOHt19jxLHcpHMPjvyxjm
-         wxFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXNHCYTjIq8E9XPunLRanUc6sTLeTe1zDHQrL9rSyeWEeT6rClMnmpx4KQEf1Xxanqfvg3E5wbPyCEJH0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKqD2fmYNxsiboCaOn1nCJWnOOoowq7vpA+VB38gBMZZUZ8RZe
-	4VzAIjRAvgcc6SbO6KhzFcPKVJGyMdeYrTYbifR4yowFUDCpxDLh+Uj4PGc2WcldzIMyVAlxNRq
-	4wjXmeg==
-X-Received: from pjbpm7.prod.google.com ([2002:a17:90b:3c47:b0:39e:64b2:d2e7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:50cc:b0:39d:e43c:5a0d
- with SMTP id 98e67ed59e1d1-39e54ce0f4cmr7161460a91.8.1789746961199; Fri, 18
- Sep 2026 08:56:01 -0700 (PDT)
-Date: Fri, 18 Sep 2026 08:56:00 -0700
-In-Reply-To: <20260918154530.4129698-1-jmattson@google.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k8+yX0WZ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F24BC168F;
+	Fri, 18 Sep 2026 08:56:18 -0700 (PDT)
+Received: from [10.57.83.108] (unknown [10.57.83.108])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D24E43F7B4;
+	Fri, 18 Sep 2026 08:56:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789746982; bh=Yztiuro1Xc4OykaRC7nI2YhmfOG7q71r/xjUWYC+jiY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=k8+yX0WZ+rqA/zHh0tPVeR+rCnkkhVppK+TFsnAsx1MVJp9p/INl8Xqdh1PFciqLa
+	 Ht6MB/DHCzgmdORKU98cHJb5LEiEMSNgI53Sl4eu8dgPwvgZaI1gJ2AGYSnqO9pgbW
+	 3zEuzJlYEW4yLfB4bv2Ny6h1LJ1ATOXA1EjmCQik=
+Message-ID: <37bb7c39-f16b-494a-ab96-771b2d4f6b85@arm.com>
+Date: Fri, 18 Sep 2026 16:56:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918154530.4129698-1-jmattson@google.com>
-Message-ID: <aq1fEBajndF8qRV-@google.com>
-Subject: Re: [PATCH] KVM: x86: Disallow EFER.LMSLE when EferLmsleUnsupported
- is set in guest CPUID
-From: Sean Christopherson <seanjc@google.com>
-To: Jim Mattson <jmattson@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Nikunj A Dadhania <nikunj@amd.com>, Yosry Ahmed <yosry@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] arm64: convert between HW PTEs and SW PTE values
+To: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
+References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
+ <20260914-pte0_arm-v1-3-bb53b663e396@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260914-pte0_arm-v1-3-bb53b663e396@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026, Jim Mattson wrote:
-> Reject guest writes to EFER (and nested VMRUN with VMCB12 EFER) that set
-> EFER.LMSLE when CPUID.80000008H:EBX.EferLmsleUnsupported[bit 20] is set
-> in the guest's CPUID.
+On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
+> __ptep_get() returns a SW PTE value, and __set_pte_nosync() accepts one.
+> When HW PTEs use a distinct hw_pte_t, directly reading or writing *ptep
+> as a SW PTE value no longer satisfies those interfaces.
 > 
-> Commit c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by
-> hardware") prevented EFER.LMSLE from being enabled in supported_efer_bits
-> on hosts that set EferLmsleUnsupported, but missed checking the guest
-> CPUID capability in __kvm_valid_efer(). As a result, on a host that
-> supports EFER.LMSLE (e.g. Rome), a guest whose userspace VMM sets
-> EferLmsleUnsupported in guest CPUID (e.g. for migration compatibility
-> with Milan, Genoa, or Turin) can still set EFER.LMSLE without triggering
-> a #GP.
+> Use __pte_from_hw after READ_ONCE() to obtain a SW PTE value and add
+> __hw_pte before WRITE_ONCE() to form an HW PTE.
 > 
-> Fixes: c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by hardware")
-> Assisted-by: LLM
-> Signed-off-by: Jim Mattson <jmattson@google.com>
+> Define __hw_pte for both the wrapper and alias configurations so the
+> same accessor code works in either case.
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 > ---
->  arch/x86/kvm/msrs.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  arch/arm64/include/asm/pgtable.h | 4 ++--
+>  include/linux/pgtable_types.h    | 2 ++
+>  2 files changed, 4 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-> index dd3bb04878ca..6dbaf063cc8d 100644
-> --- a/arch/x86/kvm/msrs.c
-> +++ b/arch/x86/kvm/msrs.c
-> @@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
->  	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
->  		return false;
+> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+> index 4768ec59de555..67c4a6179e154 100644
+> --- a/arch/arm64/include/asm/pgtable.h
+> +++ b/arch/arm64/include/asm/pgtable.h
+> @@ -360,7 +360,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
 >  
-> -	return true;
-> +	if (efer & EFER_LMSLE &&
-> +	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
-> +		return false;
+>  static inline void __set_pte_nosync(hw_pte_t *ptep, pte_t pte)
+>  {
+> -	WRITE_ONCE(*ptep, pte);
+> +	WRITE_ONCE(*ptep, __hw_pte(pte));
+>  }
 >  
-> +	return true;
+>  static inline void __set_pte_complete(pte_t pte)
+> @@ -381,7 +381,7 @@ static inline void __set_pte(hw_pte_t *ptep, pte_t pte)
+>  
+>  static inline pte_t __ptep_get(hw_pte_t *ptep)
+>  {
+> -	return READ_ONCE(*ptep);
+> +	return __pte_from_hw(READ_ONCE(*ptep));
+>  }
+>  
+>  extern void __sync_icache_dcache(pte_t pteval);
+> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+> index ee4eace5c3e1c..b5862a16aa497 100644
+> --- a/include/linux/pgtable_types.h
+> +++ b/include/linux/pgtable_types.h
+> @@ -9,11 +9,13 @@
+>  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
+>  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+>  #define __pte_from_hw(pte)	((pte).__pte)
+> +#define __hw_pte(pte)  ((hw_pte_t) { (pte) })
 
-In case anyone else was wondering, this is NOT whitespace damage, the "movement"
-of the "return true" is due to deleting a trailing spurious newline, e.g. my
-configuration of diff yeilds:
+same comment as for patch 2; wouldn't this be better off in the generic series?
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index dd3bb04878ca..6dbaf063cc8d 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- 	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
- 		return false;
- 
-+	if (efer & EFER_LMSLE &&
-+	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
-+		return false;
-+
- 	return true;
--
- }
- bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- {
+Thanks,
+Ryan
+
+>  
+>  #define hw_pte_val(x)  pte_val((x).__pte)
+>  #else
+>  #define hw_pte_t pte_t
+>  #define __pte_from_hw(pte)	(pte)
+> +#define __hw_pte(pte)  (pte)
+>  
+>  #define hw_pte_val(x)  pte_val(x)
+>  #endif
+> 
+
