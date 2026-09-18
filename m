@@ -1,154 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECA03FCB3D;
-	Fri, 18 Sep 2026 09:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F158137A845
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725100; cv=none; b=QiLsrMnuK+zgaSk17pS92T8NjORolLjfLanzosjixmAJ59rnmUYll6cp/u/uUHpmZeR9InpLTKgCjDBoXFtKqd8MdQXJZFjBmtzOCVnR+zT1KhXr8Ei1JXwSs+N0oLWWx7Tv6ir729VWF9MIjiVCLFVbqRNYJ71uyM/RIVuHhWM=
+	t=1789725107; cv=none; b=QR0sviMyeK0HaQHsbFxGK7LoLdYmR3G/B2RoUEW7f/UduqB/fcBR5N9El143FhQUymytnl4fx3kpxR9DQczrToNowVHhNRcwQx0jWoyufqA4+iYS5MzPevvpf+LchWQHQ2ZFtUs4HWs0SZvhN6UIZ/iOIHSelKDubXYBJDa5FV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725100; c=relaxed/simple;
-	bh=Ap44lbM4H0d5i6d9TTif8rcALcODXGrK6BA7mAJhPR0=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=SkwWTaNI9oudFQdpgXO99jNoAbyMjJ0MxjrcMmGAe+eOci6eBQbok5QzUWXGEW7SaJJwo45xYJhqEiipqRG69jOFCTTnb5qlv7WujpDa9mJRAHnHVaCu2je0sjyJBNo7SslofYtpfeMrjSHnD42BVr6BjN69XG5EPmcFXC2HPIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjtpKzLD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789725107; c=relaxed/simple;
+	bh=evzl+Hpp+IV7r6sq9RYlAQhlhstCAiZc+kjLirAEVUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MTiHBb4YdNsmDNLqhquuD/AF7zMO7grziWP9h5usAsQReajVAYHQa66Ng49PMkZtGHNWh8pfjx8BlNLZrX9xtIvGFG8Y8oDD70zfG+s3e7+HxSuUScwWTsuFcfO3x7tXc9ToTFrfo9O3qNX8yADOTnvOOHBbTOOO3ROT2G2gD80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LcFU0Iae; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjtpKzLD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9008B1F000FF;
-	Fri, 18 Sep 2026 09:51:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789725098;
-	bh=pIeSjUP6pelSiOVn9QZc67xovoxMXQZc3F1Y0h1vU2Q=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=YjtpKzLDubYhkAosaf7zfaAOoLO/yyOjsazOlYBqOyb3ThMWK7PmM4dwudRUyR/Og
-	 LuGCF/SNG0hU2uzZlPi80kfnVfAqxRj2OfoJMsHtfAX+EgQCD/ffX3itxKoX2rDyu/
-	 c9OvSl7NBjICbo8NN3kfy0HqwiihXrGiW5wj5YaFP5BKKhdxI+BV5sSa7MYCqUQHS3
-	 5HO92sGfnhWwBF0qBdHfzQwQDBx3Zt/+KghZyPwSfHwdDC3MtNnQz/EmxG/7kNfRGS
-	 RE1DwUkD/IkB9UBabeUhLuVesVu1ts4JvVWxp50MJEBg6JrNJ1SPd7c2bEf7CQgjtl
-	 SKgPqMeKMvlLA==
-Content-Type: multipart/mixed; boundary="===============7454123760235835643=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LcFU0Iae"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so2993895e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:51:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789725104; x=1790329904; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ISL90nqpfEm1wYjlP2uZ/EAEmky5Z6krLJs1OIlmB5U=;
+        b=LcFU0IaeQKk/Uwy9VYasBD54Z7EMSupJUx7b0akDHOXOujRiX6/MZNt+4QCdVn7cBi
+         mA9Z+udG27unmzr71W85MSKHeKMIGgIn3wQxH5mtKQqm6W35+vyk7wZ5FzroOIl4nwad
+         ru5HN7Mkxf47EuM62LqoledUk1ULBTtMEIhvm4B54+LsKsfg0fuOVPAEwkysV3o0npFR
+         0HOu23LhsEoV9Am6tHYvayMo0CJ2bYFGVZJKgTPw3IbBRFnF93ALcqGr4n2+UnNNvyIe
+         EB/6rwxXEgjpmDhGTgxVCMSr4mgcvzQjoPfv4nWq5DE93PjaQB5/65IOeGyuzfR0WWoJ
+         +9Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789725104; x=1790329904;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ISL90nqpfEm1wYjlP2uZ/EAEmky5Z6krLJs1OIlmB5U=;
+        b=tD6YBZLFD5Yffkfqhqz7n/7UsqzNqJZ1vAm4htJXL+bqlWWqzNZeWe4GAcODHVeRbc
+         J8G6Unw3/KJPtWF6I3plOZ5hMZN7HkxDm+g38mZORi0hziY0m1DYfeOAVb8oBaZElmjg
+         M2omRtQwv66nBlQDZFDU6DUCpS/xeRy2YVHZnQzFUky95JiwVVfZQpsS1H5yUZj/Pdbc
+         o3TbEF2CMFcYIjpLl50CzAzDryCQ5XnukzQeDt3mznrP9P425Raehqo7N8yP0lVyhg10
+         yBLEWgC6pFkQ0lGYuWeST/hJzCRetep1yaQfNhTFHoL7b6I8RlApd/A+KRe/yC02eXQv
+         ekwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkb70Tj1+0KfTZXS9VZq0eR95GM4DSJOBwJZeyemwROYDDt5xHQDzJjYs5k1+uVnRCe31Lm78M+60lUGg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndWwQjkY09ek6Nr11cN0rgspTIugaKghXzaqGeVXTcNzcburP0
+	b5JF8qZWjgU5D/4E8+Op1Ew/92AWPPjmMDSZxIlPQXvmv/uabfG3Y9ho
+X-Gm-Gg: AYBFou1tDAs3Q9DJKv3+xu8K/4B7byem0U4KC4UQ5JYnBFTTuDXEGomQcjVs1zZ2iuT
+	luQ25fWJ1MygdIf0oNFetbnjzV6Xi7d5NENQ7myWEcH5GiTkCA/5RzaP7qJEOZKQ2jBslSvMY3q
+	vygw4FiklvaJheEAmY2sepmOJR4wtj0h7Vy+09oQbUwqWMkBEeN/f9Ujt6hcmrGnEBd72U9RvOA
+	wCUgobN9tL5NyfcyvZ1Dm5nvR9y6jvDyo+tVTa03V0PIxLHwNHFHg/JazCVuPxXw1mupjaT/yrY
+	3wg+FFMME9ckbVlt7WK/G8gdIFoyBXdU2PsVeQqBCnlcnz7dZr4B47ZmotRiJ2vVU65s/7Y5et8
+	qH6R0by7p2k+SHu14b2bujs+a6TzYt4BIqyK1dhLVGunlMBhfi/c9P+2AYQRlX26iuI4MR7OCiC
+	1SFdJbSVoLg/UyOa5YDuipWYyItJBZkHIij92NJxFIIsfqQcsRP3I3YSe6B2KWSnzJM9FJYILUT
+	57lEZua//TJ/NIjwbUAOGiAz85CgKiXAAKT
+X-Received: by 2002:a05:600c:83cd:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49fc56f7a11mr20119345e9.14.1789725104138;
+        Fri, 18 Sep 2026 02:51:44 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d468b3sm40811125e9.13.2026.09.18.02.51.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:51:43 -0700 (PDT)
+Date: Fri, 18 Sep 2026 10:51:42 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Cc: quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>, Neal Cardwell
+ <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S.
+ Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Matthieu
+ Baerts (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat
+ Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to
+ sk->sk_err
+Message-ID: <20260918105142.3dc675eb@pumpkin>
+In-Reply-To: <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
+References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
+	<20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <437383abef881a965c3ad04222c851a7958b9f5b931927d23b0514aa09db24ca@mail.kernel.org>
-In-Reply-To: <20260918084123.39477-2-jiayuan.chen@linux.dev>
-References: <20260918084123.39477-2-jiayuan.chen@linux.dev>
-Subject: Re: [PATCH bpf-next v8 1/3] bpf: arena: allocate the fault-in page outside the lock
-From: bot+bpf-ci@kernel.org
-To: jiayuan.chen@linux.dev,bpf@vger.kernel.org
-Cc: jiayuan.chen@linux.dev,emil@etsalapatis.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 18 Sep 2026 09:51:37 +0000 (UTC)
-
---===============7454123760235835643==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-> arena_vm_fault() allocated the page while holding arena->spinlock, so it
-> could only use the non-blocking allocator, which never reclaims. Once the
-> memcg is at memory.max that allocation just fails, the fault turns into
-> VM_FAULT_SIGSEGV, and the process gets a SIGSEGV on a perfectly valid
-> arena address. Hitting memory.max is routine (e.g. page cache from
-> reading a big file), so this kills innocent processes over memory that
-> reclaim could have freed.
->
-> Rework the fault handler:
->
-> - Preallocate the page before taking the lock, like do_anonymous_page()
->   does, so it can sleep and reclaim, instead of turning a routine
->   memory.max into a fake segfault. The allocation uses
->   __GFP_RETRY_MAYFAIL so it never invokes the OOM killer: the page is
->   charged to the map's memcg, which need not be the faulting task's, so
->   an OOM there could kill unrelated tasks in the map's cgroup while a
->   foreign faulter could never be its victim. Like the other bpf map
->   allocators it places the page on the map's numa_node rather than
->   following the task's mempolicy; arena memory is shared, so the map's
->   node is the right placement policy.
+On Thu, 17 Sep 2026 06:41:22 -0700
+Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org> wrote:
 
-This isn't a bug, but since arena_map_alloc() rejects BPF_F_NUMA_NODE,
-map->numa_node is always NUMA_NO_NODE here. Is the numa_node rationale in
-the changelog saying more than 'unchanged, still the local node'?
+> From: Quanye Yang <quanyeyang@proton.me>
+> 
+> BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
+> 
+> read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
+>  instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
+>  sock_error include/net/sock.h:2565 [inline]
+>  do_recvmmsg+0x50c/0x580 net/socket.c:3049
+>  __sys_recvmmsg net/socket.c:3144 [inline]
+>  __do_sys_recvmmsg net/socket.c:3167 [inline]
+>  __se_sys_recvmmsg net/socket.c:3160 [inline]
+>  __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
+>  x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
+>  tcp_recv_should_stop include/net/tcp.h:3086 [inline]
+>  mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
+>  inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
+>  sock_recvmsg_nosec net/socket.c:1151 [inline]
+>  sock_recvmsg+0x11a/0x140 net/socket.c:1173
+>  ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
+>  ___sys_recvmsg+0x116/0x160 net/socket.c:2975
+>  __sys_recvmsg net/socket.c:3008 [inline]
+>  __do_sys_recvmsg net/socket.c:3014 [inline]
+>  __se_sys_recvmsg net/socket.c:3011 [inline]
+>  __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
+>  x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> value changed: 0x0000006b -> 0x00000000
+> 
+> Reported by Kernel Concurrency Sanitizer on:
+> CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
+> Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+> 
+> do_recvmmsg() and getsockopt(SO_ERROR) call sock_error() without the
+> socket lock. sock_error() clears sk_err with xchg(), which races with
+> unmarked loads of the same field.
+> 
+> KCSAN reported the unmarked peek in tcp_recv_should_stop(). The same
+> lockless writer races with the other plain sk_err reads on the TCP
+> send, recv and splice paths.
+> 
+> Annotate those peeks with READ_ONCE(). No extra ordering is needed:
+> the value is only used to decide whether I/O should stop. This does
+> not consume sk_err; the check-then-sock_error() TOCTOU on the no-data
+> paths is a separate issue. MPTCP peeks are handled in the next patch.
 
-> - On allocation failure fall through to the locked recheck rather than
->   failing right away: a page a concurrent allocator installed meanwhile
->   is used, otherwise the non-blocking fallback fails and we return
->   VM_FAULT_SIGBUS. Not VM_FAULT_OOM: nothing ran the OOM killer, and the
->   fault path would just retry it forever.
->
-> - A lockless probe skips that preallocation when a page is already mapped
->   (e.g. allocated by the bpf program), so the common case wastes no
->   allocation. The rare race where such a page is freed before we take the
->   lock falls back to the non-blocking allocator under the lock.
->
-> - Return VM_FAULT_SIGBUS for the other non-recoverable errors (lock
->   failure, range-tree and page-table failures) instead of
->   VM_FAULT_SIGSEGV; only BPF_F_SEGV_ON_FAULT, and a scratch-page hole
->   under that flag, is a real user addressing error and keeps
->   VM_FAULT_SIGSEGV.
+Don't they need annotating with data_race() ?
 
-Small changelog nit: the lock-failure path already returned VM_FAULT_SIGBUS
-before this patch -- would it be clearer to list only the range-tree/
-page-table/allocation failures as the ones changing from VM_FAULT_SIGSEGV?
-
-> - Tidy up the error labels.
->
-> Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
-> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-> index 7b6847200b431..2d0efc0232afd 100644
-> --- a/kernel/bpf/arena.c
-> +++ b/kernel/bpf/arena.c
-
-[ ... ]
-
-> @@ -489,59 +490,108 @@ static vm_fault_t arena_vm_fault(struct vm_fault *vmf)
->  	kbase = bpf_arena_get_kern_vm_start(arena);
->  	kaddr = kbase + (u32)(vmf->address);
->
-> -	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags))
-> +	page = vmalloc_to_page((void *)kaddr);
-> +	if (!page && !(arena->map.map_flags & BPF_F_SEGV_ON_FAULT)) {
-> +		/*
-> +		 * Preallocate outside the lock so the allocation can sleep and
-> +		 * reclaim, which the non-blocking allocator under
-> +		 * arena->spinlock cannot. __GFP_RETRY_MAYFAIL: reclaim, but
-> +		 * never OOM-kill in the map's memcg, which need not be the
-> +		 * faulting task's. On failure, fallthrough: the locked
-> +		 * recheck below picks up a page a concurrent allocator may
-> +		 * have installed meanwhile, and otherwise the non-blocking
-> +		 * fallback fails and we return VM_FAULT_SIGBUS. Not
-> +		 * VM_FAULT_OOM: nothing ran the OOM killer, and the fault path
-> +		 * would just retry it forever.
-> +		 */
-> +		bpf_map_memcg_enter(&arena->map, &old_memcg, &new_memcg);
-> +		new_page = alloc_pages_node(map->numa_node,
-> +					    GFP_KERNEL | __GFP_ZERO |
-> +					    __GFP_ACCOUNT | __GFP_NOWARN |
-> +					    __GFP_RETRY_MAYFAIL, 0);
-> +		bpf_map_memcg_exit(old_memcg, new_memcg);
-> +	}
-> +
-> +	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags)) {
->  		/*
->  		 * A failed lock means a possible deadlock was detected. Don't
->  		 * return VM_FAULT_RETRY: this handler never took mmap_lock, but
->  		 * the fault path would re-take it on retry and deadlock. Fail.
->  		 */
-> +		if (new_page)
-> +			free_pages_nolock(new_page, 0);
->  		return VM_FAULT_SIGBUS;
-> +	}
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35327041280
---===============7454123760235835643==--
+David
