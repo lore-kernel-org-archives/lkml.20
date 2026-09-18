@@ -1,67 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E5752268B;
-	Fri, 18 Sep 2026 19:46:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37A75221E4;
+	Fri, 18 Sep 2026 19:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760765; cv=none; b=G141XV3eKcI+T/HbeT4GAGudIfoacVqaDgXtlCTR7bCbAGxpnXS7PZyNoJzBE4XcFXldHCChJtmOMU5S/fNtw9PK7+arsWF2faRkWeLlI+qxapm5w4EOHPDnU/PnxS0zrCfPULg1rLmpGz59060YZpF/6C8ghTbA/hEnBpLVOS0=
+	t=1789760785; cv=none; b=FjCrR6DZvvNZUq5JH2K0kh09KNR0gQjYXDayVfFXAiRyZQYBKOBW2ViRGySpFBhp1xepuBq3PySLDgHWlKf70eEKrHVwHoVTxFVZzk/g5QWdIGzb4GsqmFhJ86QHRLqAtHP8KTLRxzaCT9ZskpfwqYK9Nmxg89QZDG4AqX5mnbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760765; c=relaxed/simple;
-	bh=/bD0Uow6so+oX6k2ENX4c65mEUUXEMsNJp0sLKteHT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oXtRsElxEbCFfNfKFm9qnHhRORv/+s9LFB/meKqXQfOOdeaGW7+Dfe4mwINXa4NfDzO3Ho4RX7FpZz5cYI5W3ZMke+m985G+WW8A6R654NesvVXXDYu44PXf2Xy5d0Kw1lmLpRRfAoooV8KXeJPLA6P12VCf5B7fKyBbKxA00kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFTzgnSD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789760785; c=relaxed/simple;
+	bh=f0JU1pyxHZVmz6TgK6400JtLaWcqGYzGch+FcIDdcKQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eG9U7wUspVStgBsLY6410QCm36s95BBXjrwbElNMliyTfN3VZxmauwu7xvIHMYcEQ78XOL+ytxzPlbpAH0Ru6aDFpyniViNmvGHigmyCYQcKEGz/3j4jr0mJpb6nUqaYGpzzIQ57XTQ3iFtrhj7pSyGeB3UsJRGWIBcKff5JtgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCgqvQSg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFTzgnSD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD691F00899;
-	Fri, 18 Sep 2026 19:46:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCgqvQSg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 136491F000FF;
+	Fri, 18 Sep 2026 19:46:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789760763;
-	bh=/phLdOBpmLzAzvZ+7BP2DEYeMuD5Zc8KKAaWORy5oA0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lFTzgnSDc/TnnTmWHCJJbE4VP4cnSv9X5KkaA84PmMeU8pR5U8BcWjZpzkOyscQ9q
-	 B6r5+JVH1dF/Lqoro7F3BCxMpJU0KKPkN52mOj/Zt2kD1wGufWEwTew9DgPVjpajvR
-	 Zd0vXqWzezD6jym4cW0hWhctiuRBVltS9QmhqruoKnb0Mcy9lCVE1N6+mCnwMTN5ml
-	 Uosb12LJKsOGk/d/v9j5+qPbPd+1tqTf/iErn39h+3md2mTIDI8YiMSw7IpLoVMQqC
-	 b2opzS5DJGoo4hXQG5ixLijAJXdUg/b0ZDDnJYc3fIpjC2QoCBHQrYS+SDRBrevGC4
-	 SL8YeBJTv3c4Q==
-From: Sasha Levin <sashal@kernel.org>
-To: "rafael@kernel.org" <rafael@kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
-	"nathan@kernel.org" <nathan@kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	Philippe Schenker <philippe.schenker@impulsing.ch>
-Subject: Re: [PATCH v2] rtc: cmos: Use platform_get_irq_optional() in cmos_platform_probe()
-Date: Fri, 18 Sep 2026 15:45:42 -0400
-Message-ID: <2026-09-18-daily-reply-0015-re-rtc-cmos-irq-optional@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d35e7730006ac5a2ccaa08092201994afea668cb.camel@impulsing.ch>
-References: <d35e7730006ac5a2ccaa08092201994afea668cb.camel@impulsing.ch>
+	s=k20260515; t=1789760783;
+	bh=0xKONjRtCurc8WbnVsXxctUnGulmYkSraLp8ZuykmOI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lCgqvQSgcziEjU4PZtqtEprTy6iKuFyOEE9BW3tqy44D9VL04HVsRwqvwKmKyGPZE
+	 NwXHSur8WSM1IPdNOmQP+APLeUJ1RgNieNoT1ANmj/YhATUjVAcPfRgrYZM7TZM+N+
+	 bMcfMFu0SMYn3hjJ7O9KN5RVCaf7IcpOhjjBsP+dzV3ywNB7ghaQOrg8gutdNiu1k0
+	 3CNauiux7L+ru4TiIBlqXV3+OrXmwOHNXonb0u4a1KKeHVKyatPX6HGHjJif/WeWei
+	 deOCnWZK7ivR8UQYr8Q9r/ovO/8j6VpqEaUN+qwysGhODUQPRDPqCsR7gIx3J3phz2
+	 s2ZawkkrqOC2g==
+Date: Fri, 18 Sep 2026 14:46:21 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Ricardo Pardini <ricardo@pardini.net>
+Cc: Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-rockchip@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, nic_swsd@realtek.com,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	devicetree@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH v5 1/7] dt-bindings: net: add Realtek RTL8125 PCIe
+ Ethernet
+Message-ID: <178976078089.1640411.4176382061491076376.robh@kernel.org>
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+ <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-1-c1b9e5f10cd6@pardini.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-1-c1b9e5f10cd6@pardini.net>
 
-> Stable team, could you please queue it for 6.18.y? Any other stable
-> series that received the rtc-cmos platform device binding backport
-> would need it as well.
 
-It is queued for 6.18.
+On Thu, 10 Sep 2026 22:07:51 +0200, Ricardo Pardini wrote:
+> Add a binding for fixed/soldered Realtek RTL8125 PCIe Ethernet
+> controller. As a PCIe device, its "pci10ec,8125" compatible is the
+> Open Firmware spelling auto-derived from its PCI-SIG vendor/device IDs
+> and is already covered by the generic dtschema pci-device.yaml. The
+> compatible itself therefore needs no binding to be valid.
+> 
+> A dedicated binding is needed because board DTs describe these
+> soldered function nodes in order to attach ethernet-controller
+> properties to them: a placeholder local-mac-address that the bootloader
+> fills in today, and potentially nvmem-cells, phy-handle, etc. in the
+> future. This binding references ethernet-controller.yaml so those
+> properties are validated on the RTL8125 PCI function nodes.
+> 
+> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+> ---
+>  .../devicetree/bindings/net/realtek,rtl8125.yaml   | 43 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 44 insertions(+)
+> 
 
-6.18 is the only tree that needs it. 7.2 carries both commits in its base
-already, and no tree from 6.12 down ever took 1ae2f435350e ("ACPI: x86:
-cmos_rtc: Create a CMOS RTC platform device"), so none of them can hit this.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-Thanks,
-Sasha
