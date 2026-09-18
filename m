@@ -1,65 +1,32 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012045.outbound.protection.outlook.com [40.107.200.45])
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EE1355F49;
-	Fri, 18 Sep 2026 03:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702554; cv=fail; b=Rt5Ez6tkymyHOCsSIhLN8Iyu7HWkBsUfyXailHLD+HDgaswabMk4jMNHApte9n93arAF5XLyI8wtcaYA1bDrvYtJgMetdJQvPLHcbp4yqVYzamlmLBTGXE9vZl5lafIZKeKQ4J+2oGi0k3bDuYo7PwhaSuVj8R/tAJVvUlMTRR0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702554; c=relaxed/simple;
-	bh=tIbGvkY6FRSjxxPL8/U///IG4UQGyc7JIm3G8L8du2s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=j1FQjUdiLhJbwxOxL2ZOPoTCkanfxggHO5emcZatgWC3BgnGFFia74KEZOfWvXXpuseiIy1apy6t2Rqp6R2bQ0cOmEO3guAWbzHFQjZJ2O4jD031msealV5OE0MBt2rES1LgynL0qgTqxZuh/DSpzrq73v7K/K6sYdrSYAyj/44=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=mXAAEkwN; arc=fail smtp.client-ip=40.107.200.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFCE36B918;
+	Fri, 18 Sep 2026 03:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789702609; cv=none; b=lDd70LhDEahvh2ss8/JABkfzFyzcdxjThwo8VTDYCiU8x+IbtECBTTnNh60dcJ/U9Q0Tb2nEZjv+em3gpDpT1r8myLMz6y7xiEhIuQLKfBB0Ej2JL5WwrXg/rGirej+u5LhUY+6KDp56gJ53m6QIm/cAupNNuuG0h5D1qHWM2eM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789702609; c=relaxed/simple;
+	bh=7SRUDjHVlFq/XtjwKeAdhlDkeFdcP/gVV2vWBIupXu8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=naxf7o/MuQCOKQuQp7b+MdMNJeFkXNxUiIFN0IPArEZ3brN+9+sSzlSSoo2XhcYpksJcEp5ashWRvbh8p+XK7QHLPxr+WK6lXS3NJDiz11FBIFoHMgi3BD0wzKDaxu+vDZe7Jy4CTrIqM3AwU6Ss3wktNaUP8Enzqia3gCnWSHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xzdmggnj; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="mXAAEkwN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y02U4U23IjlVofIBmmT1mVshACaN3/AXnyDOYvmd58zdUGfSdREUsUHT6gvje/Zr7QH8TIUHdK7WhwOCZOdnvlCbOjT+AQXhz5ai7ilVKUnKdL1AAAH5bSwZfKHhG3UH3G5vpvs9jNB8oEscbfRDxbEVxfuazhgZGTA2rnGGQiUR208vCwwbYNZm2YXSnUKwciFZAPptmfo3foaCMbJy0A19QNHWzPW3bgZzzSsNzCFv1wlEfi1MedEfu8/nOD9/4Q9yuI4wH3E/GKKBWF6gePHAClCF/IHDbPxaGXVYqyuBSxgAQoFninMv/iKzw4Zs7AAre6yDLATYocS1cyy3yQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R2XybF9sGK0Y4cM6MHdbvfhuFAoBgiJOmdg6COYj23E=;
- b=ejRzFJ/waeFZ+mnwfs85nQHwsgRe+PUhL66pxc89Cm30KgKpQhs5sWiWYSF7d5cwrfSStk0VWrFq75JYlgWmsrDBv5aXCDzzgLkPXJVb8CSADX4Y/TOzv4dCy/ZRgSIaieZzlpun/neiv4IQZT7qcEPlb0Gg29bEUpkk5V+d83GOk8Sa7uybiSdgKiT74GWM2YgfXg/JyY64hkQmu3ZadxX1Zg7e/Mlm/BtdHP48uNiBuU6nbKnewvo9es9mbyuJG2PJyfswGNmHy2/hrbe9c1ZXSmU6emrRpL+o7bW6h4ayj7Gr4cHU3QcTwHK2KcU45ue0hDNOmPz1YK+zrC5m4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R2XybF9sGK0Y4cM6MHdbvfhuFAoBgiJOmdg6COYj23E=;
- b=mXAAEkwNxEXh689cSb179XpIi602t8NFEFo21Ctb17h3icOV/0awKNIVURZTKPGdlWuD7fK2sJ3uoUSfJzPYsqC7gf1XgqWgD6Mkp74256hRovzjUdYmPR2+s1FPzd3c/UjKAhq23dluo5xYagoHSGQ8QgsqFIt55LaJU59Xq4I=
-Received: from MW4PR03CA0100.namprd03.prod.outlook.com (2603:10b6:303:b7::15)
- by DS2PR12MB9640.namprd12.prod.outlook.com (2603:10b6:8:27d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Fri, 18 Sep
- 2026 03:35:45 +0000
-Received: from MWH0EPF000C6195.namprd02.prod.outlook.com
- (2603:10b6:303:b7:cafe::8c) by MW4PR03CA0100.outlook.office365.com
- (2603:10b6:303:b7::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Fri,
- 18 Sep 2026 03:35:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6195.mail.protection.outlook.com (10.167.249.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 03:35:44 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 22:35:44 -0500
-Received: from [10.85.43.235] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 17 Sep 2026 22:35:40 -0500
-Message-ID: <4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com>
-Date: Fri, 18 Sep 2026 09:05:34 +0530
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xzdmggnj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789702601; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=c5IgYQhJIaLET5VUZswXngb8vhELaOWEAGHyCwS5Ja8=;
+	b=xzdmggnjpDGFP1hhDpwq5MKvzMjFIVUOQNKq6u7r/Dldn2xKYRCC2NxXj7Pn3Qep0AlqEQA7EGjHqnzblapwKRBd62VBQxPa8dSnCsEPtAH1cfW7l29tw9MIu4/UXFYrIwe3uxTsO8flSAz/NO7/rVRJE9pv2P3owMNYbXETSVQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XB9qv0d_1789702593;
+Received: from 30.178.69.151(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XB9qv0d_1789702593 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 11:36:39 +0800
+Message-ID: <c875638e-d14d-4237-9824-57d6c0f4a2ef@linux.alibaba.com>
+Date: Fri, 18 Sep 2026 11:36:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,131 +34,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/12] perf mem record: Use the IBS swfilt filter when
- available
-To: Namhyung Kim <namhyung@kernel.org>, Arnaldo Carvalho de Melo
-	<acme@kernel.org>
-CC: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>, "Ian
- Rogers" <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, "Clark
- Williams" <williams@redhat.com>, <linux-kernel@vger.kernel.org>,
-	<linux-perf-users@vger.kernel.org>, Arnaldo Carvalho de Melo
-	<acme@redhat.com>, Ravi Bangoria <ravi.bangoria@amd.com>
-References: <20260916114740.48230-1-acme@kernel.org>
- <20260916114740.48230-13-acme@kernel.org> <aqsRVABj23jaaiSq@google.com>
-Content-Language: en-US
-From: Ravi Bangoria <ravi.bangoria@amd.com>
-In-Reply-To: <aqsRVABj23jaaiSq@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v2 1/1] mm: memcg: don't hand out large folios above
+ memory.high
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@suse.com,
+ roman.gushchin@linux.dev, muchun.song@linux.dev, david@kernel.org,
+ ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ xlpang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, usama.arif@linux.dev, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, chris@chrisdown.name,
+ kasong@tencent.com, linux-mm@kvack.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260915042546.279410-1-qinyuntan@linux.alibaba.com>
+ <20260915042546.279410-2-qinyuntan@linux.alibaba.com>
+ <aqx5kcqRrbkuay4i@linux.dev>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <aqx5kcqRrbkuay4i@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6195:EE_|DS2PR12MB9640:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56e2fcff-3e88-4333-e2c7-08df1535ec15
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|7416014|36860700016|18002099003|6133799003|10067099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	dxNZaQ2hz96Qt0h4Duw2zuLDzWQ6BCZLSVdKPu2e0A1dr9Y71l8VEXgIJlOXdBeVYTU4JEQlJWM3/sHyDS7ohR7sYFK4qWv4Yy/B6KU0dUig07NEDcFCKuokJ9hiPmmeETCXlgxmrD59GRgpj7cX3Cdqu/Tvl+HwFPEHl90PDXpdRyVHxUDGATan03ytZOXCGWWRkIk30jX/+y6dwz3+NbOOoQeGdMfWj71IUNc5nfFhCN+bpRyoHAuEtVKWVXQ4KZqfAdvoC30l8A/z5q0FXweAe5e8TTLzIPGi1xkdSeULz/6o86+fbKyxf/LcK814ea6wim8AKK/c4zHO/d5y/tVXMLOOPK1RK4G3ZJgAPmwGHPhL+psYhxexf2fJf2hxt7ZZ3qHGqCSIrmpBtS98V9BQS7ZB81aPbPIbEXgHkydSNLo7aEpYGLxkjU8fF4i6SA7nb/LmI+0jQWWpfJbf1E5riFGGOlrkx22m6dka8TE7kHmnEfHQvZlWhVszdPStgEnxKCS9xzPeH+dfJ2aKxdlui/i++8bjx6mXXGJjGtJ9ZggDMxIrjS6zZfk51bUBOnztVF1P9re2V1HEi80KUJ1xxKIR0E1SD4b84yo2PEBWjJv8RUcS30Cg8PC+KOgIw33j2p28oCS1WqKSsybRpEv7v96tY+lVa0LPZh9RMgyDggOoQUqacHr9NiD7WcTr2yobSxmeXGwlnt4hRiBOVQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(7416014)(36860700016)(18002099003)(6133799003)(10067099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Zh35vAgGEGF7KaOtu/vNSCW/pvvu4IhsBnXvP/wSipQsxNezl58zofXXBfyeqf6aZRFUVP+M2EAhQ9QafJDvzK84FKMC2/ANgRh66d2OlYjvAKU9bMlohiafKeekCYhYhwgKTxoVHNRgimNRWKExfdjYjq0tICxABN/Xltl94AM6O3kUHMY/3/aWr/GafM5rnwix7Rkb7GSSzTcPn8QDnO8CFiEF6sqLa9gJEiQfhwtmx+RshdaacUj9y3lEpKB949t3tvA5E2wkKtAqDMdHQ0XuEdNBUolN4EqKs6LqlMmjgyZPDug7bD/KdbFaES1upZAQDSj9dIShgShIVJJbtCoMmAiWKiFY6lxbftb6ENUTDRvajoJOiwtkcaQdd0aj8bOCeUjvv09iQdZ4SkRk/CtSqtCnfaswrHsZGMhI1FnZvPyw/V4TvDPopITDWPcd
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 03:35:44.7513
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56e2fcff-3e88-4333-e2c7-08df1535ec15
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6195.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9640
 
-> It's a bit unfortunate we hardcode "swfilt" here.  Probably better to
-> have it in the mem-events array and add it to the name format
-> dynamically.  But as it's only needed for IBS, I think it's ok for now.
 
-Something like this? (Untested):
 
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff..816c73d75bc4 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -27,8 +27,20 @@ struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E("mem-ldst",	"%s//",		NULL,	false,	0),
- };
- 
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E("mem-ldst",	"%s/swfilt=1/",	NULL,	false,	0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,				NULL,	false,	0),
-+	E(NULL,		NULL,				NULL,	false,	0),
-+	E("mem-ldst",	"%s/ldlat=%u,swfilt=1/",	NULL,	true,	0),
-+};
-diff --git a/tools/perf/arch/x86/util/mem-events.h b/tools/perf/arch/x86/util/mem-events.h
-index 11e09a256f5b..f707de380370 100644
---- a/tools/perf/arch/x86/util/mem-events.h
-+++ b/tools/perf/arch/x86/util/mem-events.h
-@@ -6,6 +6,8 @@ extern struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX];
- 
- extern struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX];
- 
- #endif /* _X86_MEM_EVENTS_H */
-diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/util/pmu.c
-index 2c24ef3140da..fd4491fda117 100644
---- a/tools/perf/arch/x86/util/pmu.c
-+++ b/tools/perf/arch/x86/util/pmu.c
-@@ -333,6 +333,7 @@ static void uncore_cha_imc_adjust_cpumask_for_snc(struct perf_pmu *pmu, bool cha
- void perf_pmu__arch_init(struct perf_pmu *pmu)
- {
- 	struct perf_pmu_caps *ldlat_cap;
-+	bool swfilt_format;
- 
- 	if (!strcmp(pmu->name, INTEL_PT_PMU_NAME)) {
- 		pmu->auxtrace = true;
-@@ -348,7 +349,10 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 		if (strcmp(pmu->name, "ibs_op"))
- 			return;
- 
--		pmu->mem_events = perf_mem_events_amd;
-+		swfilt_format = perf_pmu__has_format(pmu, "swfilt");
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_swfilt :
-+				  perf_mem_events_amd;
- 
- 		if (!perf_pmu__caps_parse(pmu))
- 			return;
-@@ -358,7 +362,9 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 			return;
- 
- 		perf_mem_events__loads_ldlat = 0;
--		pmu->mem_events = perf_mem_events_amd_ldlat;
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_ldlat_swfilt :
-+				  perf_mem_events_amd_ldlat;
- 	} else {
- 		if (pmu->is_core) {
- 			if (perf_pmu__have_event(pmu, "mem-loads-aux"))
+On 9/18/26 9:26 AM, Shakeel Butt wrote:
+> On Tue, Sep 15, 2026 at 12:25:46PM +0800, Qinyun Tan wrote:
+>> memory.high is enforced on return to userspace, and synchronously in
+> 
+> Over time I feel like this sync throttle for memory.high was a bad decision but
+> that is an orthogonal discussion.
+> 
+>> try_charge_memcg() for large overcharges, but only when the charge gfp
+>> allows blocking.  A populate loop - mlock(), MADV_POPULATE_*, any
+>> GUP-driven population - never returns to userspace, and large folios are
+>> charged with the THP allocation gfp, which does not allow blocking under
+>> the default defrag=madvise without MADV_HUGEPAGE, nor under defrag=defer.
+>> So neither runs: usage grows from memory.high straight up to memory.max
+>> with no reclaim and no penalty sleep.
+>>
+>> mlock(200M) in a cgroup with memory.high=30M and memory.max=140M.  Of the
+>> 110M between high and max, the burst consumed:
+>>
+>>   4K pages                       3M in 5s, then still throttled
+>>   THP, defrag=always             6M in 5s, then still throttled
+>>   THP, defrag=madvise          110M in 13ms, then OOM killed at 16ms
+>>   THP, defrag=madvise, patched   3M in 5s, then still throttled
+> 
+> I don't really like polluting non-memcg MM code with memcg internal details.
+> Let's first discuss the semantics we want here. Please tell why getting
+> oom-killed by kernel in the scenario you have described (mlock() larger than
+> memory.max) is wrong. How does throttling it will help? What can the external
+> observer (userspace oom-killer) do other than killing it? Or you are thinking
+> that the workload itself is observing itself and change the behavior (though
+> the big mlock one can't do anything).
+> 
+> What I am looking for is the real use-case you have for this case. Not
+> mlock()ing big chunk or creating a lot of unreclaimable memory and going over
+> memory.high. For example the reason I added the sync throttle in memory.high was
+> to implement a feature Google has in their internal kernel where a workload hits
+> its memory.max limit, kernel delays the kill for couple of seconds and during
+> that time, the node controller may decide to increase the limit based on the
+> memory situation of the memory. However even with sync throttle, we couldn't
+> reliably implement the alternative because applications there have thousands of
+> threads and there is threading library which keeps cloning more threads if it
+> observes threads getting throttled.
+> 
+> So, let's talk about some real use-case and then we can decide if throttling
+> makes sense here. If we decide to allow throttling in such cases, I would rather
+> do it in memcg code i.e. somehow inform memcg code that this is THP allocation
+> and can be throttled.
 
----
+Hi Shakeel,
+
+Thanks for the detailed review.
+
+Honestly I don't have a real use-case. I ran into this while testing THP
+under memory.high, so it's a semantic inconsistency I noticed rather than
+a workload I'm fixing. 
+
+The thing that seemed off is just that memory.high enforcement depends on
+the folio order the workload happens to fault in - order-0 gets
+throttled, THP under the default THP settings doesn't - which the user
+has no control over. 
+
+I don't have a firm view on the right semantics here either, and I think
+you're right that that's the thing to pin down first. Whether the
+order-dependence above is worth doing something about, or whether it's
+acceptable for large folios to skip memory.high, I don't have a strong
+opinion on - I'm happy to go with whatever the discussion settles on, and
+if it's working as intended, that's just as useful to know.
+
+And if it does turn out to be worth throttling, I'd be happy to rework it.
 
 Thanks,
-Ravi
+Qinyun Tan
