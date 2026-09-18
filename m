@@ -1,62 +1,64 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856F43546E2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812F93624A8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789692888; cv=none; b=cj4sVAYUN/b+QDVQNV7EHGPlc+dLIyEDZS20x5PoCZ/HLkHC+wYaoV1eodWefiz9pSSInsPuGJyfhEDNBsJcLnAmez2DIGFSur93BIOcK2t7eyltc0JQsByoklB4+s4Ii8pn8VJRdYKQ9OerE8+cuEJs3il5cfCGtltIx9Ds690=
+	t=1789692892; cv=none; b=Z08KlGgJSkUuoqTKO1j/ASxVfgV7I5T6HB+L+7TetU7sE9NhkGmVYKOT2DulDNxWcwVRW6tyPFS/BqGDAA/MbC31tJxPGceJ+2IOTNms4nuvO/TkmAzHjZuNDXHpR5OhroOLn2MUHzELiCQQc1Q0g9CiYfiv52C5GRRSt8K19Lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789692888; c=relaxed/simple;
-	bh=bHsl1RoAZ+2PQm2x9KmmGpx92l8JkWFWcET72A1oqAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lAx/3r+XKK8oSrqtsH5dVm59S2CTH/RygYpKX2BQh2Jvo8Ibi0M3ZYN2iIgELUk1+TmgOrTIX6aDub8f7neDH0OGMWczpDstAxWagKUwTN7Ed8iXLg3YyjsHMZ5sCXuvaZMvdOu4ZzyjmZAMOiDYVaEYcFGfVncDwOcLwdkOXz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V44ttv4d; arc=none smtp.client-ip=74.125.228.42
+	s=arc-20240116; t=1789692892; c=relaxed/simple;
+	bh=qCrvnwnw2ZmTpdL+R/0NITnHZPsB2ITSD1FJ8dZiKL0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bs6Vo/aUiyHahpAx12Hdhb5EudHtm+GJPjktuTSHGQXuXIWJWafowdM5cYEGHN3hQFTMagbmsfDhPq8joS8OFpQ0yilwguv9mnRaXON5SwAFIAXMckkj+/Z3nZiUoCGpIDL/GT+x2sedvS2Khla2ndoe46p/I0jlSXM1iyF2E/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZENtkiI; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V44ttv4d"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so61417a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:54:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZENtkiI"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50db3so58266a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:54:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789692886; x=1790297686; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GSXKLzJLu9wuKLJMxpq//1SCFGckwLL0KtALmCoAmP8=;
-        b=V44ttv4dzDdNfhYqOIi0wP20mDKM7xULbIjV7+vyj2rrA+qsXuWdeZaL3mrgrEZ/ga
-         FwLp15vNV7eZupclhjYKMoALxt5TsT7/+FhOnzXCtvoLmjhEEsmmba9+VmpBzBCkhpNW
-         IiTKLuaBC90DVe8xP4m5JHqezTzQ42ob6xpe9WdH3is+e2cWAYoZGalZCa+jvna4I6x/
-         flSCIvqqr1QapjVMgpiL/uWZMNf+/vbIVvEXLLBFKhPHc3aG6rltahR0n5mHWU80A9jd
-         lFucpPPqnBIOxJmgu26d8lT/N5kHzSUFq7k4ge+Tqsx3q2NjClzFE7QDcGkXushGQe+q
-         Mj5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789692886; x=1790297686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789692888; x=1790297688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GSXKLzJLu9wuKLJMxpq//1SCFGckwLL0KtALmCoAmP8=;
-        b=P6X8AOpaGedkLEI5HrT9M0ej7V5gX6iXcAhIQZt4ZxEgP8I4t0JOTFlin/GNBxosz2
-         y3mpAsX3DivOsNrcK4ONoobCrSQkfqYOCo8AA09/ES+cu0y81ulgez0QRBfCApx1gU68
-         qRNp1rrEVi+pXDprF4NlRClRfzA28cOad4+JDVR2lgOshV09mJiBAwWLOCNpXIBhUUVY
-         ABdSuhHME94hjtE/pSyFjLfWFd+B5nD+4Pnl2Q9Q0+yWSZ/T37kpJt+Ue9SXiQg0uuOn
-         ugzQclDOZvPAMye81rAclFj2r/UW6s6nE1TS6KWqJrZSC5DeZLN78rVzVmHMh3e9zlZE
-         xMrw==
-X-Forwarded-Encrypted: i=1; AKwUvBygITz6Ys7MmeesKIS5jh8Dim2qXFLPpE93nOzQtI1TCgFgPbQL/axen/2OtiB5+5QRC8gYbbSs+hMDmeA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kP1LxssaBhxv1Fl3cL/eKgmW5cUv/lHLAtLNcjKMZLf1h3igMd
-	AGOEH2NdGohqmieHAlDhGisiKzGV9+Khn0iRXTBu9wOTmoMFGynAGv3e
-X-Gm-Gg: AYBFou0ZUc/NxVqvjoR5AFU6WvI95NfP+eg0JvJymwQjjJtKlvmg2c/ZZeW/RaPxyT/
-	HG1ShDednlru/PbMycsXwqSbE9r5OUTz0GeJYBXR7o2yZT9IJVdKJhzOCLt76HJR1HhYHtswYYJ
-	csUTPafQCt55OnaYSGCFtGqX6Q2VRzR3vXhyEa4Tmxfydiku7GYk7Im5vQ1TaoZt4FnzPIjx/gZ
-	CCF2rLjr/fqDevGIVGaUcie+yNh+QrIsCSDUXVeRQCx+DX6dMFXhRk64oCnbhRP0mW2VLo/qdfl
-	y+Oogg3Lr4mspVdtk7C171OB+S+xCD8R/W9j/0Zd+AA8p9BYbC9MyTSCGi8pHLgWxMoRhZI8poX
-	tz/y2V3mp5JRZSt7uPWi+U4P1O9CNqRdGhXuhAuiE184lVp8yQGo+rVOi5DyympZDTo3AHVpxOM
-	H+oySwvyOA2QxcombbInGytch1apoq1weiYoy3XsrOeBGFScJby/35GcxXmHstkChrPqajVN334
-	BxXfzZU7uMsP2kFnICy9kV+ClAiyoAOeyM=
-X-Received: by 2002:a05:6a20:4307:b0:3d1:39e9:b267 with SMTP id adf61e73a8af0-3dd8c3fadabmr1664295637.3.1789692885701;
-        Thu, 17 Sep 2026 17:54:45 -0700 (PDT)
+        bh=vorPSln8DTStAoGWTmO2QfiwSgMRhe3eQ+sYKlZMfk4=;
+        b=UZENtkiISEgDw+Y/0Yg2iBk8HMlhWmF6+JjFAjbySgUqb+faetKAghjCCjMPnvgZP2
+         m2oiLmuAvaPUQpPMxuI21Sgh9rfrLhXxsrDlD9w3Rs9vE5JbeTl/swGA/2ooAveq3dXW
+         0wbv85HOSKmLFq/vns3flsTYc9kr9OYrNwEUKuEppTJ4XgAKpEUyqcW8D/QiMtGrnK+g
+         yilLi3dwWtjtySgM895QAauezGs2z4KDQI4IKagke/HtPcdldpIuL3dsh+LnrMRW5FZM
+         fi4zapgUQzhrO7F/7hBN2Hqk90eY6WBDFfJZD8yBBiWGoeHpI9wZ8rm9JBjuCPWU+KuW
+         y/TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789692888; x=1790297688;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vorPSln8DTStAoGWTmO2QfiwSgMRhe3eQ+sYKlZMfk4=;
+        b=tAgw5k8mO2T95LJU7UnLBH7bQj2CC6fjWc2yMrpByx5CSchqr3OalCTT4O4pDPQ7B7
+         q59AcxE/C16h+qGuSSdCuK8dKnUg3Mc7TCso1cXEtMkDZul1xPwpa0zp9mm2/hjUYQIF
+         La2eC7MjbZLZ1Lt9w5lPV/psRCt6xZafZiJXf1WesGDzTEE1xYlNmYJ6u3GCV4xwUZgA
+         3xexyM2v9xroZ2LFZOdLgnFe/9Gi13fMvmAs/+q9v/RIzicObIPv9oIRddwcisejXj03
+         LIPIG9023j0tEFY/zEZdEj0c5jj1kMvQwDUlHv/iUJJkVA7DT0VH7o7R6Pz3Y036Nir6
+         QZKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNEdX/xqYHhd1OZiwjBWS+fkgL4xFZfE0xXeIBaC/N8jwtPHBxnjjg9R5jecokKxTdxJgMmooNKhAEZVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPYEGXrfVINrN1RhY4IXkx20nVjS+5+gIDjHcUhJUeiO/QvyRe
+	5nTIjbYgOZbuSqpfIW5zCJ1rGyPjNqfAwYR6zQ+GgUN3Ra4gmkgC+scM
+X-Gm-Gg: AYBFou23HQwUUNumRtp1HR7Nh5afvczgtOOWI5Kn0xWdrEbaFQ314sjKTj7U8InhhZ7
+	+McVXRVgi5Lvzsz7OXZUzoo/RGA4ywN52PscFxSr2BLm0YjUMacG4g1y6J5EdstJAyQLwCM+PAp
+	1afXVdoekylUDRqPZa8ImKYk5wbK+/wwkWM+K5PKZY7Bk5L1dXPd4pZMWMzFak4CuEga/jrlWif
+	crpOwdJ8a1CxHqt8L9xAoiqom8lagw+WL5sxu/q+KsKHF1bPYEFEHXiUKFbpC0qBjMtHUUAyG+C
+	O7rTDMKdrl8L331oCFudTRbVXoT2x3QD+JlZJN82nx9OMakGjzzpVecp4mlxrjf5aRmnrXQwVNd
+	l9hQYshVXt3xwckVI4IjbgCJbWouKsgwyB9+PXQojN6fwTCXsKJEnCoZCLZsJIYyJSsJ/+vfz5O
+	TVdyMG+fo1BLUk6UtsU7J13tqEOuZWjTbZhH6tXqDWiiLBtC2xCr74uEy+wIOmCLTGm4Rfvh+K+
+	4+pipgfe7rW05lQ+QnQWkOsQss+KIt7Aw==
+X-Received: by 2002:a05:6a20:c989:b0:3d1:c99f:efbf with SMTP id adf61e73a8af0-3dd8c43822fmr1616231637.14.1789692888530;
+        Thu, 17 Sep 2026 17:54:48 -0700 (PDT)
 Received: from localhost.localdomain ([2409:8a1e:2e81:7320:84a7:aa72:4f01:6c70])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bfb19f8cesm25238885eec.2.2026.09.17.17.54.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bfb19f8cesm25238885eec.2.2026.09.17.17.54.46
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 17:54:45 -0700 (PDT)
+        Thu, 17 Sep 2026 17:54:48 -0700 (PDT)
 From: zjamg <ndaugoing@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Michal Nazarewicz <mina86@mina86.com>,
@@ -64,11 +66,14 @@ Cc: Michal Nazarewicz <mina86@mina86.com>,
 	Felipe Balbi <balbi@ti.com>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [RESEND PATCH 0/1] usb: gadget: f_fs: fix NULL pointer dereference in FUNCTIONFS_ENDPOINT_DESC
-Date: Fri, 18 Sep 2026 08:54:37 +0800
-Message-ID: <20260918005438.81263-1-ndaugoing@gmail.com>
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: [RESEND PATCH 1/1] usb: gadget: f_fs: Fix NULL pointer dereference in FUNCTIONFS_ENDPOINT_DESC
+Date: Fri, 18 Sep 2026 08:54:38 +0800
+Message-ID: <20260918005438.81263-2-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260918005438.81263-1-ndaugoing@gmail.com>
+References: <20260918005438.81263-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,55 +84,84 @@ Content-Transfer-Encoding: 8bit
 
 From: Yuchao Zhang <ndaugoing@gmail.com>
 
-Hi,
+When user space sets up FunctionFS with only full-speed descriptors
+(e.g., flags = FUNCTIONFS_HAS_FS_DESC) and the gadget operates at a
+higher speed (such as USB_SPEED_HIGH or USB_SPEED_SUPER),
+config_ep_by_speed() detects that the function lacks descriptors for
+the current speed, logs a warning, and falls back to full-speed
+descriptors. The endpoint is then successfully enabled via
+usb_ep_enable(), and epfile->ep becomes valid.
 
-This patch addresses a kernel NULL pointer dereference panic in
-FunctionFS when calling the FUNCTIONFS_ENDPOINT_DESC ioctl.
+However, when user space subsequently issues the FUNCTIONFS_ENDPOINT_DESC
+ioctl to query the endpoint descriptor, ffs_epfile_ioctl() selects the
+descriptor index solely based on gadget->speed:
 
-In FunctionFS, user space can legitimately supply only a subset of
-speed descriptors (e.g., only full-speed descriptors via
-FUNCTIONFS_HAS_FS_DESC). When the USB gadget is subsequently connected
-to a high-speed or super-speed host:
-1. composite.c:config_ep_by_speed() detects that the function lacks
-   descriptors for the current speed and gracefully falls back to
-   full-speed descriptors (f->fs_descriptors).
-2. The endpoint is enabled via usb_ep_enable(), and epfile->ep becomes
-   valid.
-3. However, when user space calls ioctl(fd, FUNCTIONFS_ENDPOINT_DESC),
-   ffs_epfile_ioctl() selects the descriptor index solely based on
-   epfile->ffs->gadget->speed (desc_idx = 1 for HIGH, 2 for
-   SUPER/SUPER_PLUS).
-4. Because user space only supplied full-speed descriptors,
-   epfile->ep->descs[desc_idx] is NULL.
-5. The subsequent memcpy(&desc1, desc, desc->bLength) immediately
-   dereferences the NULL pointer, causing an instant kernel crash:
+	switch (epfile->ffs->gadget->speed) {
+	case USB_SPEED_SUPER:
+	case USB_SPEED_SUPER_PLUS:
+		desc_idx = 2;
+		break;
+	case USB_SPEED_HIGH:
+		desc_idx = 1;
+		break;
+	default:
+		desc_idx = 0;
+	}
+	desc = epfile->ep->descs[desc_idx];
+	memcpy(&desc1, desc, desc->bLength);
 
-[    2.154836] Call trace:
-[    2.154836]  ffs_epfile_ioctl+0xe14/0x2c40 [usb_f_fs] (P)
-[    2.155003]  __arm64_sys_ioctl+0x128/0x1a4
-[    2.155298]  invoke_syscall.constprop.0+0x64/0x260
-[    2.155374]  el0_svc_common.constprop.0+0xa0/0x240
-[    2.155441]  do_el0_svc+0x3c/0x60
-[    2.155494]  el0_svc+0x38/0x98
-[    2.155547]  el0t_64_sync_handler+0xa0/0xe4
-[    2.155606]  el0t_64_sync+0x198/0x19c
-[    2.156463] Kernel panic - not syncing: Oops: Fatal exception
+Because user space only supplied full-speed descriptors,
+epfile->ep->descs[1] is NULL. Dereferencing desc->bLength triggers an
+immediate kernel NULL pointer dereference panic.
 
-The fix restores the speed fallback loop mirroring config_ep_by_speed()
-and historical f_fs behavior, defensively checks epfile->ep->ep->desc
-as a fallback, and returns -EINVAL safely if no valid descriptor is
-found.
+Fix this by falling back through lower speed descriptors if the current
+speed descriptor was not supplied, matching the fallback logic in
+config_ep_by_speed() and historical f_fs behavior. If still missing,
+fall back to epfile->ep->ep->desc (the active descriptor), and return
+-EINVAL safely if no valid descriptor is found. In addition, mark desc
+as const to match struct usb_ep::desc and avoid discarding qualifiers.
 
-Testing with QEMU ARM64 using dummy_hcd confirms that after applying
-this patch, the ioctl succeeds and returns the fallback descriptor
-cleanly without any crash.
-
-zjamg (1):
-  usb: gadget: f_fs: Fix NULL pointer dereference in
-    FUNCTIONFS_ENDPOINT_DESC
-
+Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descriptor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+---
  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++++--
  1 file changed, 13 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 43962e05eacf..c64a268e98a4 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1877,8 +1877,9 @@ static long ffs_epfile_ioctl(struct file *file, unsigned code,
+ 		break;
+ 	case FUNCTIONFS_ENDPOINT_DESC:
+ 	{
++		const struct usb_endpoint_descriptor *desc;
++		struct usb_endpoint_descriptor desc1;
+ 		int desc_idx;
+-		struct usb_endpoint_descriptor desc1, *desc;
+ 
+ 		switch (epfile->ffs->gadget->speed) {
+ 		case USB_SPEED_SUPER:
+@@ -1892,7 +1893,17 @@ static long ffs_epfile_ioctl(struct file *file, unsigned code,
+ 			desc_idx = 0;
+ 		}
+ 
+-		desc = epfile->ep->descs[desc_idx];
++		do {
++			desc = epfile->ep->descs[desc_idx];
++		} while (!desc && --desc_idx >= 0);
++
++		if (!desc)
++			desc = epfile->ep->ep->desc;
++		if (!desc) {
++			ret = -EINVAL;
++			break;
++		}
++
+ 		memcpy(&desc1, desc, desc->bLength);
+ 
+ 		spin_unlock_irq(&epfile->ffs->eps_lock);
 -- 
 2.53.0
+
