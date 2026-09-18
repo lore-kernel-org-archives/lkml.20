@@ -1,57 +1,125 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BF94E9C0E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6441392838;
+	Fri, 18 Sep 2026 12:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733313; cv=none; b=p7uz/19o/PPKhDlEDGTkQkecw1fULg+7xaJYO0HCoCdpUWmr4hk+DmNM9TwrVEpUXL+LC0HCYa6IFPvyc98ZhLV8pCoLGhHmigx9AlIwlbhP1fBGIrkD1bY8AHwSeBeaw947niKYV6dRR3aG8MA5rdVt8gB1Q5VFjNNpaAPDYnQ=
+	t=1789733329; cv=none; b=XXT3lTBAS9OXlti75rtWhS6aEcXeKg0azzGPK5hEXhRDAM+e10sGQwQX2LzM0dkwGffpaCJTUiF61XMsUxtXnFcajOa7xsdV5TlVISic8sTCWIRYrW2XFv/WlfZ+Yc5xrFvlQ+TQPqEq5/RiFAylRlhjiIWC++SaWEg6q+iibig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733313; c=relaxed/simple;
-	bh=IyHQhhtBW/xXuMdUpr+WJrwDcpG8BeKtRMRvIs7SLQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KztVY3dER1aWPekwx94uHpqnk2JMg+ck77CGRmqXAMBgLu7ppv02bBVJ1CuXKZq6KgOv+E+W1P8OzKrjzjfmWV+npPRH/IDPucdWOpv4hJ6G5fLC+LWo7/uVgxfiVgq1tjUOhHPIxX9w57y5xWkXsvQhQvSbsZ/o0vGa136QOZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 1D0ED68BEB; Fri, 18 Sep 2026 14:08:26 +0200 (CEST)
-Date: Fri, 18 Sep 2026 14:08:25 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Nilay Shroff <nilay@linux.ibm.com>
-Cc: hch@lst.de, kbusch@kernel.org, sagi@grimberg.me, kch@nvidia.com,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	gjoyce@linux.ibm.com
-Subject: Re: [PATCH 1/2] nvmet: defer setting ns->enabled to false in
- nvmet_ns_disable()
-Message-ID: <20260918120825.GA16547@lst.de>
-References: <20260916151012.3702896-1-nilay@linux.ibm.com> <20260916151012.3702896-2-nilay@linux.ibm.com>
+	s=arc-20240116; t=1789733329; c=relaxed/simple;
+	bh=3HbIWXGLsOu382WvPEzkFJrJvJlDUfpVXL/Umg8mu3w=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ge9WOYGD58gjNk7ne/Wd5xWyeFt4JMwz+NLBBhj8p+ruAzVIJRov824GB4QU7CDpmJ5zGcd35s9bJ1RqCufIormsmqs59waLtW0X2ssg3A0sQrfC2hPIPWp4l1mgDu6+M8ndjZRRPJVzfVbSsS4luamIQ+0GB4tytBzovLmkMC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZOcONQZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZOcONQZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996E91F000FF;
+	Fri, 18 Sep 2026 12:08:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789733328;
+	bh=G4d5dLgZ43pLk8TSCsaTKNXKqimNxe33+rcdWHI4/Ps=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hZOcONQZM/7dyiIb7+ABgovOGFzxsjfE2GXrUOCGH3p9zOIG/4jfmxC5JYF5R9Sxp
+	 qTDnAMT/Ef0urHdJFDozTZ2B0qR2F3RRtYT0qWVv57+fZraHO+fzv210gGOILxIDie
+	 v7e+pclrwT/8hXbswE+Lt+7bM/Lq/6fXNzwO/myEvu2IqBgIqzZcR6PcMA9TIsReeZ
+	 FpSDpRBecChPm4MR7yYy226fD6lD//juIo8yyt8yIlbxWerkFMKtvBNX0Fiy+ZEi9q
+	 A4ivdS240J/HG8JJGwUt7DtTaVk6iSPpL3KlPk6W4YWmyVAH0IyHBQ2c1kYs694LUQ
+	 0ar2KY27fkkmA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x7XOY-0000000Aaln-1a8h;
+	Fri, 18 Sep 2026 12:08:46 +0000
+Date: Fri, 18 Sep 2026 13:08:45 +0100
+Message-ID: <861paq69te.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yize Wang <wangyize7@huawei.com>
+Cc: <kvmarm@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>,
+	<oupton@kernel.org>,
+	<catalin.marinas@arm.com>,
+	<will@kernel.org>,
+	<fuad.tabba@linux.dev>,
+	<joey.gouly@arm.com>,
+	<seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>,
+	<yuzenghui@huawei.com>,
+	<mark.rutland@arm.com>,
+	<zhengchuan@huawei.com>,
+	<jiangjiacheng@huawei.com>,
+	<yize_w1110@163.com>
+Subject: Re: [PATCH 0/2] Batch register access for live migration optimization
+In-Reply-To: <20260918081930.4014735-1-wangyize7@huawei.com>
+References: <20260918081930.4014735-1-wangyize7@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916151012.3702896-2-nilay@linux.ibm.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: wangyize7@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, zhengchuan@huawei.com, jiangjiacheng@huawei.com, yize_w1110@163.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Sep 16, 2026 at 08:39:59PM +0530, Nilay Shroff wrote:
-> In nvmet_ns_disable(), keep ns->enabled set while existing namespace
-> references are being drained, so namespace configuration remains blocked
-> until all in-flight I/O has completed. Set ns->enabled to false only
-> after the namespace references have been drained and the namespace
-> device has been disabled.
+On Fri, 18 Sep 2026 09:18:13 +0100,
+Yize Wang <wangyize7@huawei.com> wrote:
 > 
-> Since setting ns->enabled to false is deferred in nvmet_ns_disable(),
-> use the NVMET_NS_ENABLED XArray mark in nvmet_req_find_ns() to
-> determine whether a namespace can accept new I/O.
+> This series adds batch register access support to KVM/arm64 to reduce
+> syscall overhead during VM live migration.
 > 
-> Similarly, use the NVMET_NS_ENABLED XArray mark in nvmet_ns_disable()
-> to prevent concurrent callers from starting namespace disable.
+> Currently, QEMU issues one ioctl per register when saving/restoring VGIC
+> state. On large VM configurations this means tens of thousands of syscalls,
+> where lock acquisition and context switch overhead dominates migration
+> downtime. Thus, we provide a batch register method to allow userspace
+> read/write multiple distributor and redistributor registers in a single call.
+> In this way, we can significantly reduce syscalls and migration downtime.
+> 
+> Test the VM migration time under pressure conditions.
+> The VM specifications for migration are as follows:
+> - VM use 4-K page;
+> - the number of VCPU is 160;
+> - the total memory is 320Gigabit;
+> - use 'Redis SET-benchmark' to pressurize VM;
+> 
+> Performance results (3-run average, ms):
+>     | Metric              | Without patch | With patch | Improvement |
+>     |---------------------|---------------|------------|-------------|
+>     | Migration downtime  |        536    |     321    |     40%     |
+>     | Source (total)      |        344    |     230    |     33%     |
+>     |   - VGIC put        |        158    |      40    |     75%     |
+>     |   - VGIC get        |        120    |      19    |     84%     |
+>     | Destination (total) |        192    |      91    |     53%     |
+>     |   - VGIC put        |        132    |      27    |     80%     |
+> 
+> Yize Wang (2):
+>   KVM: arm64: Add batch group constant and data structure to UAPI header
+>   KVM: arm64: Add VGIC v3 batch register access implementation
 
-This does look sane, but have you looked at profiles if getting the
-xarray tag might touch a lot more cache lines vs the flag?  It might
-make sense to turn enabled into an atomic bit mask and just have two
-flags in there.
+Questions:
+
+- Why only the MMIO registers?
+
+- Why not the sysregs?
+
+- Why only the GIC?
+
+- Why not all of the state?
+
+- Where is the corresponding userspace code?
+
+More importantly, since this is about batching system calls:
+
+- Why can't this be done with io_uring instead?
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
