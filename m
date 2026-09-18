@@ -1,66 +1,94 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B78515998;
-	Fri, 18 Sep 2026 16:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF8D4B4864
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749028; cv=none; b=BctpL1GDjG+lgz0jhsCMaVqQS7bWIL7poAYcqrG2ILLcEhuVZ3Fuvn2iMpSiQ217PKPQky4ZOEj5K+L7RlONMVGLyECDXFdJnRkAcjh0T0H2sAzQhZY4zOxuyeo+4Y2yZ0o4xPedhEXPt4YEAu/cSoy7jM9lruZ+ay+z2O0Fo7g=
+	t=1789749289; cv=none; b=lREQOz6Ty4Qd8MN+o3gBq+Xi71EST1P8b44MBfaCTDkKTVXKGtGuYUCMhvrflIr3oNew6LQqTJlwMnMif165Ueo36Ug1Tqi/7Kk15zemlQi9Xr5NuKHoUhB04H5YiLpWhWdO8Wtsxv9hlvdu2pNYZNb61HCF2vFHw1S9+UZi9H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749028; c=relaxed/simple;
-	bh=C7tZbt3UhzAnW98cTTSadqBCoS0ctOd08BJmKMbroTg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ljukIkj4kRfSF9bYLmyJUb5fyHAFjfITnFKMF4ZU0tq+M6xmwDXbxdAKMPeM0YtLZwnVboQKrxSgz8AOIzn9RPT3f/wYFJaZZZy0BbOaoY4ytq6Ie5tB2642qJxlvHyXquBCKZYbqMvDtnxVS0kUJoOWj00YPVM/Pys3r0f0wAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=TP4ufNAb; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789749289; c=relaxed/simple;
+	bh=KlIUYYGrvd+OtGlPnQ0kH51TWAVclS+RYyBAJa4uKB8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To; b=YtKd/7T5mMgUENzueIoPMeFW1nWmTlCHOadAS3xBq9q0l/pIZ18KframK78CmD0jR2G7FyAQegr6emWeHmZkIDDk4U1v7mKPY5oA40fJ59QVv3Jbynif6SgO/5C76g+eBYVZMWgVkMlnHwfiaRmV5oWiL2vA5ZBZBTcx+Tv8Pag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ND8hzEqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="TP4ufNAb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Co3xVIDXNLBJrFTLjjbjwYnTnYTLOg/RMWAScp3+boQ=; b=TP4ufNAbqFlNPjN2V0G7gQeang
-	VUuchqOV31oH2h7zhcLaiHIyfwMELf0aCS/Lsi1Dyti/hWKD+hIbp41j7b2BWPz9epJQBENDLmSgL
-	dvdYL9E91EC7LtIBER7lt/edWqjr/sWlFqyl9A1i44o4xaJVdpR6MEhly2WwnXMoqXno=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7bTK-005ts4-4w; Fri, 18 Sep 2026 18:29:58 +0200
-Date: Fri, 18 Sep 2026 18:29:58 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net-next] net: phy: mediatek: do not match MT7530 PHY if
- 10/100 only
-Message-ID: <4fe68c4b-b72e-4cbb-9a0e-2731ec68888c@lunn.ch>
-References: <20260918161156.377822-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ND8hzEqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9681F00898;
+	Fri, 18 Sep 2026 16:34:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789749288;
+	bh=rwnH9zVddDW2WUbNCyZTKKy1dimOqgY9DBfn9f/BDW0=;
+	h=From:Subject:Date:To;
+	b=ND8hzEqBL5+6BA/fPxbZhb/Hh0KOSEtEecFHP9zPRhpsDq+ekU0Lc2oDt16kKFVba
+	 CgKpaO8BXrzeRyfP3T8HcekIWowMb/O+mR6TI03+1pwNetUr1gKR16ByCTNFP5q8yt
+	 yGYT5neQ/Tceap7kjtgBi3M+SDsZB7aMUMiuxuiKLmbG9XOUq78C3+i+4de/OHxOMP
+	 yXLHKowVdc//Be5Y7qyDBkuEcmd1X6ZSHIU3Q+gzfnwvw5ZTZJQaEwvYl2omFVkG2z
+	 i8N9h+ldKgSMdoolRYGXDdZPUGcgarlAqVegcagAV3oHjUAopEB1AkDyH1Fw1q2Mk5
+	 NimC8zF3S73LQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/3] MAINTAINERS: rework MEMORY MANAGEMENT - MEMORY POLICY
+ AND MIGRATION
+Date: Fri, 18 Sep 2026 18:34:23 +0200
+Message-Id: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918161156.377822-1-cjd@cjdns.fr>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA9orWoC/yXMOw6DMBCE4augrWPJPBW4SpQCOwNshA3ykigIc
+ XccKKb4ivk3EgSGUJNsFPBl4clHpLeE7ND6Hopf0ZTprNJ1eleuZb/EIYhycPM0sl2VrkyXF6a
+ sYXOK3zmg49/ZfTwvy8e8YZd/jPb9ADhO71p5AAAA
+X-Change-ID: 20260918-maintainers-mempolicy-06bf34b59ec3
+To: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Gregory Price <gourry@gourry.net>, 
+ Rakie Kim <rakie.kim@sk.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=838; i=david@kernel.org;
+ h=from:subject:message-id; bh=KlIUYYGrvd+OtGlPnQ0kH51TWAVclS+RYyBAJa4uKB8=;
+ b=kA0DAAgWx+nLGEVVu3kByyZiAGqtaBygwtYkDfAiMd8cRS5X2ycFUgJ9qMC6q7TbJd2hUNcie
+ Ih1BAAWCAAdFiEEUlPfMOnprn17Rg4Dx+nLGEVVu3kFAmqtaBwACgkQx+nLGEVVu3lZrAD/WZsa
+ l6CrLM3p8DGMdCvXefasFsISZ3KgP97oJtxRQC4BAKfh1H1N/uAOFGC6oI1JQUmLnTuJG//72Yt
+ wqlRUQ7AA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Fri, Sep 18, 2026 at 04:11:56PM +0000, Caleb James DeLisle wrote:
-> An EcoNet SoC 10/100 PHY uses the same ID as the MT7530 PHY, but a true
-> MT7530 PHY always has gigabit support so they can be distinguished by
-> the presence of the ESTATUS_1000_TFULL flag. Add a match_phy_device
-> which refuses to match if the PHY is not gigabit.
+Let's rework MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION.
 
-Don't you also need the opposite in mtk-fe-soc.c? Otherwise don't you
-rely on the load order of the PHY drivers?
+As I can use some maintenance help in that area, add Gregory as
+a new co-maintainer for the split out MEMORY MANAGEMENT - NUMA PLACEMENT
+section.
 
-    Andrew
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+David Hildenbrand (Arm) (3):
+      MAINTAINERS: split up MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION
+      MAINTAINERS: move memory tiering under MEMORY MANAGEMENT - NUMA PLACEMENT
+      MAINTAINERS: make Gregory a co-maintainer of MEMORY MANAGEMENT - NUMA PLACEMENT
+
+ MAINTAINERS | 68 ++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 40 insertions(+), 28 deletions(-)
 
 ---
-pw-bot: cr
+
+base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+
+change-id: 20260918-maintainers-mempolicy-06bf34b59ec3
+
+--
+
+Cheers,
+
+David
+
