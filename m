@@ -1,341 +1,188 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72403A5E90
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABE349D5A1;
+	Fri, 18 Sep 2026 07:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716992; cv=none; b=t0YWTtIYgTlEzzhofY74qUr8ObdGBb3ExVWX/DZhnuM6KpwNzYPVQUeEEqprsjzFNKxm8KLpEewA1lO6tYEU+QyYNKW3+twzS2ByWJPMmWyPlLOZ/RQX+ukB3/CJAKjV5BaksKm9/h0HOI4rutqlty3D61KxwV0iWBhkcrc6V/4=
+	t=1789717013; cv=none; b=OpCPK/qwTuIuIaulsY/7cvG5YZ2Cc9/HPayjI4/pKjiiT+zIrfCESAqzPJ/ruv7MEtU//FF9dmxvgNGt2XxBjoECL+VQBcAtzivUzSUjUCbJN0i7fKn3fQiVrJDnURU+n/RSqKUSiI2KDJcMmgmteNh1oCVS69F0QRcDrSNfWXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716992; c=relaxed/simple;
-	bh=CWxp2gJBf/OVUhKfgwW76OTA4hT5pppevN4HpR9nt6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YIf3miVfPwxa2S+IbhBV4Nf++GaWSApDuVPUDGVfSSk+J26ar060PmAFTu5REvyzch3OYaM1oHO723dWTEvamiBr3QKb0EbQRnwfemvKb5/pWjfLIghA9f8wS94Y8zvBSSaC5xjLj3IUmWID0nyCU9mIoRUd8LBoSQbWPdwUL1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m7zdLFPA; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789717013; c=relaxed/simple;
+	bh=VhMAE3ufNZbB0YJLoZN9BJs9K3vI9jhjkDTfXq7XvE8=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M436sLvzQHCEKj0MDWamZG6lLOzJ35cXxaK0P/5pDcNQ3Fyf4tA/7koTT8DXn+yXsxoog0j6QNyN2FTajk1C9rDZq/KdLDp0lAunOUQNXLuTWu3cnSWt47Z6lMYh9fLUR3qVpLKy0QVMq4pInyFpCMyIHcnNLCYxmZeCsE5pM2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=GzoHavaf; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m7zdLFPA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789716985; x=1821252985;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CWxp2gJBf/OVUhKfgwW76OTA4hT5pppevN4HpR9nt6M=;
-  b=m7zdLFPA0IMA1caytyLC8BCJmIKs+3P+razEh3yeXPqFsKTS7RqXULHO
-   UryePQQBuKiYH504BqFtLHr3To/OVD2fX06UvQ19oOisq6bzkb/nd8Cii
-   wmLi7PW4TvyOUdOETijhTMWuhFmB4lZeqhuWOCtzKn1TMXdpGw13CnZJh
-   thT9xxXvxTAvWCOSGoF18UvhXiZz2FG3zzXQJxcfuXWbzLwfBnh7DLRAS
-   Qs0httdYygDsvqCkEeJ4TB8emcuXn+RFhEZPjnBp6wcz2S01pnLuSJkqx
-   n2T+L+p0g5OmArkQuv/HHCu/SYg99+/pAYUhJKqrk0AohUQPfA5A5bUAA
-   w==;
-X-CSE-ConnectionGUID: BILS7NwRQOixXvtE0ALbQw==
-X-CSE-MsgGUID: ylKgXb8zS3qg5ainHEJa7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107707891"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107707891"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:36:14 -0700
-X-CSE-ConnectionGUID: O+8XaV7xRoSfGB2R+i2yGA==
-X-CSE-MsgGUID: PbGuIm+BTUG5jYauOPEVzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279507029"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 18 Sep 2026 00:36:10 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7T8h-000000009Px-25YR;
-	Fri, 18 Sep 2026 07:36:07 +0000
-Date: Fri, 18 Sep 2026 15:35:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>,
-	Ning Sun <ning.sun@intel.com>
-Cc: oe-kbuild-all@lists.linux.dev, Baolu Lu <baolu.lu@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org, iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>
-Subject: Re: [PATCH 1/1] x86/tboot: Add support for parsing DTPR table and
- disabling TPRs
-Message-ID: <202609181503.HTEk09e5-lkp@intel.com>
-References: <20260917094133.765149-1-michal.camacho.romero@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="GzoHavaf"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I5wceu255622;
+	Fri, 18 Sep 2026 03:36:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=r6JyW
+	2APjiiJ2Tv21NG+40B9kelFs3J7hgA1aU4MYww=; b=GzoHavaftT/YKnhw6v2XJ
+	4avBPpS9P57035k8JvlN5WalkB+DP55n6sPVf5kAL7E6aYFkYX7qyfPPv8ZtfZ5F
+	R0anumZNEaT3SIjAVoe7gLAfaxt2bN5xr0FWLoRZohqfs4Ajr3Ke6ZKunDRsQAD4
+	pGd1oyQsvTbq2LPQP9SU9LbLiL/cFprmW6bAFWtY888zj898MMa4hOD/gIKqF4Se
+	SMGFzFe8zOij/VCWV9Dk+o09Yq/IXsM1E1jHbgtj2J6agSMfgH4aMyKVC1vclBGg
+	N5rCKG+0GtPyEbWNiGzNC+l+1I/rHcX/yeU0UafSAl+j7OEBKJR4MFcDp6s3AqYI
+	w==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4grm943db9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 03:36:28 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68I7aRwL011071
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 18 Sep 2026 03:36:27 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 18 Sep
+ 2026 03:36:27 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 18 Sep 2026 03:36:27 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.219])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68I7ZjpX019677;
+	Fri, 18 Sep 2026 03:36:19 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Michael Hennerich <Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah
+ Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Marcelo Schmitt <marcelo.schmitt@analog.com>,
+        Joshua Crofts
+	<joshua.crofts1@gmail.com>,
+        Radu Sabau <radu.sabau@analog.com>, Salih Erim
+	<salih.erim@amd.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Jakub
+ Szczudlo <jakubszczudlo40@gmail.com>,
+        <linux-iio@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>
+Subject: [PATCH v2 5/6] iio: adc: ade9000: add support for ADE9430
+Date: Fri, 18 Sep 2026 10:35:34 +0300
+Message-ID: <20260918073537.1572-6-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917094133.765149-1-michal.camacho.romero@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=AcckjHXG c=1 sm=1 tr=0 ts=6aace9fc cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=zlWSOBlsY_1KlUt2hasA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEwMiBTYWx0ZWRfX72zr1mxz+3NQ
+ QcP9e0DpyfuM0n3Xwus24acJ8Htr+l4Ih3+poYW7cR7cNs4WmzO1eI9s5YercGJb7DN2/5Vooe6
+ ppdCL+7EgmlHiiPQj81V0vchIIbHzwaXDF5OijQnX/0A5t91ix+I
+X-Proofpoint-ORIG-GUID: CvdzLwUUP3eKmIKiLRTQAytXEqJ1NX5P
+X-Proofpoint-GUID: CvdzLwUUP3eKmIKiLRTQAytXEqJ1NX5P
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEwMiBTYWx0ZWRfXxiYSNhtzbSth
+ 2ik39xCjDbbo0bXwEj4K9Q136Y+PTMupYjUKrulzF/xZMJBRjQVUljWengiKd0l8eFtu2D6RKlj
+ s1ppKYtzyNt0CKY+PH6YR11qIZBRhxn7LvtCadbRuVnLs912d0XeuwFypli5+UNYPqtmbE+aowh
+ oetnShlJoZ9bmouRKWoxGCJTOV02fgFso1te7YdXLo+qtu/HbbRzXTpfTdSxSOguOsclWJxpP0f
+ XEXz+PawifEk4eW+UeM+gEaaTlGC7E7kshOawrchxw+Fm60sVUNiMS89BS4sax0eASSCzUsGKC/
+ kOTZSsWsKj+FYLS6MWEGSZvn5zS4HBu14c8sqVOq14WyTBpIPtBeWGRMrwIEvYU1PJ9iY+dpV8l
+ aQ18DPsEsGfsPZbYgFBL2qovbNULRtY05B+vRUaJwXlg/qBXSixTu02EPcVwnM4tj95SI7mJRBT
+ 97XsZtTtYZ1lflAtQbQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180102
 
-Hi Michal,
+The ADE9430 is a polyphase energy metering device that is register
+compatible with the ADE9000. The differences relevant to the driver are
+the absence of the on-chip dip/swell detection and the absence of an
+on-chip digital integrator (the ADE9430 uses an external analog integrator
+for Rogowski coils, so the DICOEFF register does not exist). Its full-scale
+ADC codes are the same family-A values as the ADE9000.
 
-kernel test robot noticed the following build errors:
+Add a chip_info for the ADE9430, reusing the dip/swell-less channel table
+first added for the ADE9078, and explicitly set has_digital_integrator to
+false so the DICOEFF write is skipped. Wire up the SPI and OF device tables
+and Kconfig.
 
-[auto build test ERROR on tip/x86/core]
-[also build test ERROR on tip/master linus/master tip/auto-latest v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+---
+Changes in v2:
+- reuse ade9078_channels instead of adding a duplicate channel table.
+- move the DICOEFF gating to a separate precursor patch.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Michal-Camacho-Romero/x86-tboot-Add-support-for-parsing-DTPR-table-and-disabling-TPRs/20260917-114133
-base:   tip/x86/core
-patch link:    https://lore.kernel.org/r/20260917094133.765149-1-michal.camacho.romero%40linux.intel.com
-patch subject: [PATCH 1/1] x86/tboot: Add support for parsing DTPR table and disabling TPRs
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260918/202609181503.HTEk09e5-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609181503.HTEk09e5-lkp@intel.com/reproduce)
+ drivers/iio/adc/Kconfig   |  1 +
+ drivers/iio/adc/ade9000.c | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609181503.HTEk09e5-lkp@intel.com/
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index 7a60ffd0ddd8..3a3ae09fc10f 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -587,6 +587,7 @@ config ADE9000
+ 	  integrated circuits:
+ 	    - ADE9000
+ 	    - ADE9078
++	    - ADE9430
+ 
+ 	  The devices feature high-precision analog-to-digital converters
+ 	  and digital signal processing to compute RMS values, power factor,
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index 0167d5bcdb74..e0113b62a261 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -695,6 +695,16 @@ static const struct ade9000_chip_info ade9078_chip_info = {
+ 	.has_digital_integrator = true,
+ };
+ 
++static const struct ade9000_chip_info ade9430_chip_info = {
++	.name = "ade9430",
++	.channels = ade9078_channels,
++	.num_channels = ARRAY_SIZE(ade9078_channels),
++	.rms_full_scale_codes = 52702092,
++	.watt_full_scale_codes = 20694066,
++	.pcf_full_scale_codes = 74532013,
++	.has_digital_integrator = false, /* no on-chip digital integrator */
++};
++
+ static const struct reg_sequence ade9000_initialization_sequence[] = {
+ 	{ ADE9000_REG_PGA_GAIN, ADE9000_PGA_GAIN },
+ 	{ ADE9000_REG_CONFIG0, ADE9000_CONFIG0 },
+@@ -1859,6 +1869,7 @@ static int ade9000_probe(struct spi_device *spi)
+ static const struct spi_device_id ade9000_id[] = {
+ 	{ .name = "ade9000", .driver_data = (kernel_ulong_t)&ade9000_chip_info },
+ 	{ .name = "ade9078", .driver_data = (kernel_ulong_t)&ade9078_chip_info },
++	{ .name = "ade9430", .driver_data = (kernel_ulong_t)&ade9430_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, ade9000_id);
+@@ -1866,6 +1877,7 @@ MODULE_DEVICE_TABLE(spi, ade9000_id);
+ static const struct of_device_id ade9000_of_match[] = {
+ 	{ .compatible = "adi,ade9000", .data = &ade9000_chip_info },
+ 	{ .compatible = "adi,ade9078", .data = &ade9078_chip_info },
++	{ .compatible = "adi,ade9430", .data = &ade9430_chip_info },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ade9000_of_match);
+-- 
+2.43.0
 
-All error/warnings (new ones prefixed by >>):
-
-   arch/x86/kernel/tboot.c: In function 'tboot_check_dtpr_size':
->> arch/x86/kernel/tboot.c:255:16: warning: unused variable 'j' [-Wunused-variable]
-     255 |         u32 i, j, ref_tpr_cnt;
-         |                ^
-   arch/x86/kernel/tboot.c: At top level:
->> arch/x86/kernel/tboot.c:583:8: error: redefinition of 'struct heap_ext_data_elt'
-     583 | struct heap_ext_data_elt {
-         |        ^~~~~~~~~~~~~~~~~
-   In file included from arch/x86/kernel/tboot.c:19:
-   include/linux/tboot.h:68:8: note: originally defined here
-      68 | struct heap_ext_data_elt {
-         |        ^~~~~~~~~~~~~~~~~
-   arch/x86/kernel/tboot.c: In function 'tboot_get_dtpr_table':
->> arch/x86/kernel/tboot.c:758:22: warning: comparison of distinct pointer types lacks a cast [-Wcompare-distinct-pointer-types]
-     758 |         } while (elt <= sinit_mle_end);
-         |                      ^~
-   arch/x86/kernel/tboot.c:760:17: warning: comparison of distinct pointer types lacks a cast [-Wcompare-distinct-pointer-types]
-     760 |         if (elt >= sinit_mle_end){
-         |                 ^~
-   arch/x86/kernel/tboot.c: In function 'tboot_parse_dtpr_table':
->> arch/x86/kernel/tboot.c:800:13: warning: variable 'ref_tpr_cnt' set but not used [-Wunused-but-set-variable]
-     800 |         u32 ref_tpr_cnt;
-         |             ^~~~~~~~~~~
-
-
-vim +583 arch/x86/kernel/tboot.c
-
-   582	
- > 583	struct heap_ext_data_elt {
-   584		u32 type;
-   585		u32 size;
-   586		u8  data[];
-   587	} __packed;
-   588	
-   589	struct sinit_mle_data {
-   590		u32                      version;             /* currently 9 */
-   591		struct sha1_hash         bios_acm_id;
-   592		u32                      edx_senter_flags;
-   593		u64                      mseg_valid;
-   594		struct sha1_hash         sinit_hash;
-   595		struct sha1_hash         mle_hash;
-   596		struct sha1_hash         stm_hash;
-   597		struct sha1_hash         lcp_policy_hash;
-   598		u32                      lcp_policy_control;
-   599		u32                      rlp_wakeup_addr;
-   600		u32                      reserved;
-   601		u32                      num_mdrs;
-   602		u32                      mdrs_off;
-   603		u32                      num_vtd_dmars;
-   604		u32                      vtd_dmars_off;
-   605		u32                      proc_scrtm_status; /* version 8 or later only*/
-   606		struct heap_ext_data_elt ext_data_elts[];
-   607	} __packed;
-   608	
-   609	struct acpi_table_header *tboot_get_dmar_table(struct acpi_table_header *dmar_tbl)
-   610	{
-   611		void *heap_base, *heap_ptr, *config;
-   612	
-   613		if (!tboot_enabled())
-   614			return dmar_tbl;
-   615	
-   616		/*
-   617		 * ACPI tables may not be DMA protected by tboot, so use DMAR copy
-   618		 * SINIT saved in SinitMleData in TXT heap (which is DMA protected)
-   619		 */
-   620	
-   621		/* map config space in order to get heap addr */
-   622		config = ioremap(TXT_PUB_CONFIG_REGS_BASE, NR_TXT_CONFIG_PAGES *
-   623				 PAGE_SIZE);
-   624		if (!config)
-   625			return NULL;
-   626	
-   627		/* now map TXT heap */
-   628		heap_base = ioremap(*(u64 *)(config + TXTCR_HEAP_BASE),
-   629				    *(u64 *)(config + TXTCR_HEAP_SIZE));
-   630		iounmap(config);
-   631		if (!heap_base)
-   632			return NULL;
-   633	
-   634		/* walk heap to SinitMleData */
-   635		/* skip BiosData */
-   636		heap_ptr = heap_base + *(u64 *)heap_base;
-   637		/* skip OsMleData */
-   638		heap_ptr += *(u64 *)heap_ptr;
-   639		/* skip OsSinitData */
-   640		heap_ptr += *(u64 *)heap_ptr;
-   641		/* now points to SinitMleDataSize; set to SinitMleData */
-   642		heap_ptr += sizeof(u64);
-   643		/* get addr of DMAR table */
-   644		dmar_tbl = (struct acpi_table_header *)(heap_ptr +
-   645			   ((struct sinit_mle_data *)heap_ptr)->vtd_dmars_off -
-   646			   sizeof(u64));
-   647	
-   648		/* don't unmap heap because dmar.c needs access to this */
-   649	
-   650		return dmar_tbl;
-   651	}
-   652	
-   653	struct acpi_table_dtpr *tboot_get_dtpr_table(void **heap_base)
-   654	{
-   655		void *heap_ptr, *config, *sinit_mle_end;
-   656		struct sinit_mle_data *sinit_mle;
-   657		struct heap_ext_data_elt *elt;
-   658		u64 heap_end, heap_size, sinit_mle_size, heap_section_size;
-   659	
-   660		if (!heap_base)
-   661			return NULL;
-   662	
-   663		if (!tboot_enabled())
-   664			return NULL;
-   665		/*
-   666		 * ACPI tables may not be DMA protected by tboot, so use DMAR copy
-   667		 * SINIT saved in SinitMleData in TXT heap (which is DMA protected)
-   668		 */
-   669	
-   670		/* map config space in order to get heap addr */
-   671		config = ioremap(TXT_PUB_CONFIG_REGS_BASE, NR_TXT_CONFIG_PAGES *
-   672				 PAGE_SIZE);
-   673		if (!config)
-   674			return NULL;
-   675	
-   676		/* now map TXT heap */
-   677		*heap_base = ioremap(*(u64 *)(config + TXTCR_HEAP_BASE),
-   678				    *(u64 *)(config + TXTCR_HEAP_SIZE));
-   679		heap_size = *(u64 *)(config + TXTCR_HEAP_SIZE);
-   680		heap_end = (u64)*heap_base + heap_size;
-   681		iounmap(config);
-   682	
-   683		if (!(*heap_base))
-   684			return NULL;
-   685	
-   686		/* walk heap to SinitMleData */
-   687		/* skip BiosData */
-   688		/* get BiosData section size */
-   689		heap_section_size = *(u64 *) (*heap_base);
-   690		if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, *heap_base,
-   691		                                         heap_section_size, "BiosData")) {
-   692			return NULL;
-   693		}
-   694	
-   695		/* skip OsMleData */
-   696		heap_ptr = *heap_base + heap_section_size;
-   697		/* get OsMleData section size */
-   698		heap_section_size = *(u64 *)heap_ptr;
-   699		if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-   700		                                         heap_section_size, "OsMleData")) {
-   701			return NULL;
-   702		}
-   703	
-   704		/* skip OsSinitData */
-   705		heap_ptr += heap_section_size;
-   706		/* get OsSinitData section size */
-   707		heap_section_size = *(u64 *)heap_ptr;
-   708		if (!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-   709		                                         heap_section_size, "OsSinitData")) {
-   710			return NULL;
-   711		}
-   712	
-   713		/* jump to the SinitMleData */
-   714		heap_ptr += heap_section_size;
-   715		/* now points to SinitMleDataSize; set to SinitMleData */
-   716		sinit_mle_size = *(u64 *)heap_ptr;
-   717		if(!tboot_check_txt_heap_section_bounds(heap_end, heap_base, heap_ptr,
-   718		                                        sinit_mle_size, "SinitMleData")) {
-   719			return NULL;
-   720		}
-   721	
-   722		heap_ptr += sizeof(u64);
-   723		sinit_mle = (struct sinit_mle_data *)heap_ptr;
-   724		sinit_mle_end = (void *)sinit_mle + sinit_mle_size;
-   725		if (sizeof(struct sinit_mle_data) > sinit_mle_size) {
-   726			pr_err("SinitMleData size is smaller than expected.\n");
-   727			goto err;
-   728		}
-   729	
-   730		if (sinit_mle->version < 9) {
-   731			pr_err("Unsupported SinitMleData version: %u\n", sinit_mle->version);
-   732			goto err;
-   733		}
-   734	
-   735		heap_ptr += sizeof(struct sinit_mle_data);
-   736		if (heap_ptr > sinit_mle_end) {
-   737			pr_err("SinitMleData header out of bounds.\n");
-   738			goto err;
-   739		}
-   740	
-   741		elt = sinit_mle->ext_data_elts;
-   742		do {
-   743			if ((u8 *)elt + sizeof(*elt) > (u8 *)sinit_mle_end) {
-   744				pr_err("SinitMleData element header out of bounds.\n");
-   745				goto err;
-   746			}
-   747	
-   748			if (elt->size < sizeof(*elt)) {
-   749				pr_err("Invalid SinitMleData element size: %u\n", elt->size);
-   750				goto err;
-   751			}
-   752	
-   753			if (elt->type == HEAP_EXTDATA_TYPE_END || elt->type == HEAP_EXTDATA_TYPE_DTPR) {
-   754				break;
-   755			}
-   756	
-   757			elt = (void *)elt + elt->size;
- > 758		} while (elt <= sinit_mle_end);
-   759	
-   760		if (elt >= sinit_mle_end){
-   761			pr_err("Reached the end of SinitMleData without finding DTPR nor END"
-   762			       " element.\n");
-   763			goto err;
-   764		}
-   765	
-   766		if (elt->type == HEAP_EXTDATA_TYPE_END) {
-   767			pr_err("DTPR element not found in SinitMleData\n");
-   768			iounmap(*heap_base);
-   769			*heap_base = NULL;
-   770			return NULL;
-   771		}
-   772	
-   773		if ((u8 *)elt + elt->size > (u8 *)sinit_mle_end) {
-   774			pr_err("DTPR Table exceeds SinitMleData bounds.\n");
-   775			goto err;
-   776		}
-   777	
-   778		if (!tboot_check_dtpr_size((struct acpi_table_dtpr *)elt->data,
-   779		                           elt->size - sizeof(*elt))) {
-   780			pr_err("Invalid DTPR Table size.\n");
-   781			goto err;
-   782		}
-   783	
-   784		return (struct acpi_table_dtpr *)elt->data;
-   785	
-   786	err:
-   787		iounmap(*heap_base);
-   788		*heap_base = NULL;
-   789		return NULL;
-   790	}
-   791	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
