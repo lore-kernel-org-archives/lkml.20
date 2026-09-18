@@ -1,147 +1,115 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C99C51A13F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E75450E59E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752306; cv=none; b=guoVLYpOfZ1LbhAU97f+0RipRpv2zw9su464c+fJrZdPBHT0xzwoX+1qMjqiVH6FfBaFdxsECHMHsb+eCKS7L/NYZY54iD1MjjcJstH/mTGLCc4/+dcUH50uGGKURbUKYfT7MP/vgA+EqMCuS+wwEYYhcfqC+c1xlx4i8SyhMAg=
+	t=1789752362; cv=none; b=TXY+J5bezo0JJWZZnCTNi72U9ksw5YPckwlOJ2PwHLPIgUuBBeGIh0SIc6ldgLx4wurS4uQMeRMEm0oepTXykAha0haWBxIoyGEgm7jNTMSx4TdfhQ5YLZVyXR5+zUm1ND00v5ItthZUpgNyCc17mpNeSoCUcokv8jHXrSY1nT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752306; c=relaxed/simple;
-	bh=gyzu7hiJ3Qnl1lJv3yLmoKcTJ7DYT/6eEZnrdziKtHA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gERho+CAsh/WeblTpYzH1gN0PatXnw5YNZHAs0at7T+G+llcoDskLFHBzOi9tww3g11PR6uU3w2xNDROQ7axYrjywxJuser+4bulIvmPhKL0vlAUYeP92Db6rrA7NFvfVtYUu2G4RWNGIy5c/h4KjVrMxIokv0zygeW3MzgFp8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Pq/mvND6; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1789752362; c=relaxed/simple;
+	bh=cZKn69nF+ltHhO2GnIWhmR8Ldl8qwapZb+XHEzvz4/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cUuNhQNOhy8H5Q0n+gyTQHdpQ0ix83PmGKFGoAOBblRs6p6m7+S14DO82wshApF+uh0Bpfj/hdk+SuiWtsIVLOwS9sSCFHTsCOrve1gcUFyaDcoXtkICeBrVlIji90eCRX9e58ZiMyXTUclltGv/rdFaJ1gIajmoGmU1WUjmlVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nA7MHShR; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Pq/mvND6"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso1898999a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:25:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nA7MHShR"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so330939a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:25:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789752302; x=1790357102; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2+kfPgEY96uE/H1ipyuvALA/uo1X/ydteu6QiwY353A=;
-        b=Pq/mvND6DlrflQpBcuNad5p/op3caMU9JmIRjYQ9tqkQNQM7bBZc31WxZb47zo6c8c
-         /RjvGU7UObK/LC2bF6sAigCAcrpeuYTaBcGU6+PwCZQJ5MJKdj6PClf0pUB+yOeF0FWH
-         +T4uFHigBlKQJIVa3wUqUi7K7NfccEN15qDiSk0g0e3GROoxrpQo8N/TarEiCpFHm71V
-         2kIaLCbEm762C5s71BB+2xJfj0A2fSJPm9lsccbWZchFk4UoJxE/+axNy6TPO9ac1PPN
-         7LCQW2pd7/sxtlSvYEPCdJqKpTcWyScLnpHux3fE94RosSd8Of5kGhT+qfmHAFnnc3Z6
-         nkkQ==
+        d=gmail.com; s=20251104; t=1789752351; x=1790357151; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7w41cGtnpU1fKAfJJK8XLWeOJGEaeMvKYoPj2+vL5e8=;
+        b=nA7MHShREbJeQLkNa6zVyADyKV4Ml/X87W5j71Hi6xnXjmBNrME+Rd54rWgt+MADca
+         UTHxfCPjAE08EAzLxYjo0R1m3VW/DBnyDP/uIKbrMz0SClqqxXHSpBQh4TUXuRCnspnd
+         Fpbhix9XYFjuZ/8/1EmcTgpY4idHjxrji6Cvi6ALTlztH25j1j59u64vFu/0AQhY0wV4
+         q5HZsSmGYkS8jKrytDRIBOwjQmmJashQzISHs5tP7i4KqG7mlNIlS4zNdtfTU3TYuqPT
+         fR5V1itwB/0bEAUf7WvRaglINbFbskS+RRjv+FFED0SLIvBDh/72whxGvgxKfbmQx0HL
+         k0vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752302; x=1790357102;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789752351; x=1790357151;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2+kfPgEY96uE/H1ipyuvALA/uo1X/ydteu6QiwY353A=;
-        b=h1ltc5mx5kwpI21a9S1xJILF6oKBME98wUoQnLDlPjfqB9inh+JSxWJtKdhiqNhAS+
-         u+BixAKgw/ezWvhUaugPVAIQApygEohrk58rq7QXCIsXQE8jaTXWOYW+UvO4UCJu7nvw
-         z5SNLMwrfUzwSbkDzP33aEZn2/lIDmDykM/80I0smsBtYtdgjQVfF5zZJ4XrrxXFPCyR
-         0Udu8GV6yhqLQpPpXyGFGfj9Mvzm30AJLjY8PnD+jwcojuvkh0EZMcIzC3ibiq3IIgTH
-         G+Kbqf4e+d2iirtLk1k6fC9/Jv/oFVWFKU30PCSTZMb3lmDivKFHSucrMTfQKtz3ceAH
-         B6fQ==
-X-Forwarded-Encrypted: i=1; AKwUvByg7EReZ3oyUQf8U6YXKKCKkHZxZiNdSW7Ot8vAQ04+oFXvdoGOpum0gQbOGTtyJTfY+jbxMz1i2c47TpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/2ahELgmBYxXXsiOoMAI8ajbcIFCQTpnqZn5xMssD22kQ21+7
-	mzJgJtwl0Ll8OFh3VmLpunsfzepW5usC3FNvcwKkz3r3iuqfUoHLAabvItWJ2CKjMEgUUG2vXHW
-	/lzaGSglGbXB1UjWADcKjci+10TZx7zLvCw==
-X-Received: from pjbin15.prod.google.com ([2002:a17:90b:438f:b0:39e:5e7e:fbe7])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:3f08:b0:39e:6a81:5a98 with SMTP id 98e67ed59e1d1-39e6a815e38mr670166a91.44.1789752301759;
- Fri, 18 Sep 2026 10:25:01 -0700 (PDT)
-Date: Fri, 18 Sep 2026 17:25:00 +0000
-In-Reply-To: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
+        bh=7w41cGtnpU1fKAfJJK8XLWeOJGEaeMvKYoPj2+vL5e8=;
+        b=Qp0hmtNoOsbdfBDWGcSX/E53MT/2yJ8yfjMhRrRuphdD1WKH8t4mgqPRdSab5+90xU
+         a+kCdyg7KGmMuXxHRbuHVMcHpog98eT79uf/ErBgDzhf54Kjzmb5H2hoXoMCXjNXRzOe
+         jSl7mn8xj4cQje1NglYSDRhlaT54UY1SCkKA8S29TrxlqLXclMxlEjEFAmRULMZF4adM
+         /o3C5YfwAewbduKHYJ7DbhUJ8Yoth54BF7sJAFmSSMhihfj471F6nYZf/QjFxdm+MpJ5
+         WVSFq1WBctYzoU+XGzWZT5E4Gwa03i2l65P6NdoMeqvirbZTxDKXL88JNUMOvFennF4Q
+         6M6A==
+X-Forwarded-Encrypted: i=1; AKwUvBywm8zdaaNr56mbrEfAEEhwqpJdw14PbRe2HKWx4HqzOU0RtrfPpItQsKbVevYSJUEdeAEsaOV/xjwatmE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9eTvf6+sHHEApMvs/2L9o/+Ip2ockEd/rAayhAslNjFyuTA4V
+	Mus68Ndt8Ce20VlVPU6D4j7sYinXCoImdQFWhdPoFaj7NewitT5JXT8E
+X-Gm-Gg: AYBFou1JMQ0F2JtqA7CnxzlM78wFkeKNtlvB2iRP5a7GAOfKkZmHke51hDC/t+Ej4ux
+	JfisZ8AvYUKUdMinehx4m+yOVZBA+KGXp/YD1Oi3T32IOae7bha6q99UqyiS1s414EOEEej2iUO
+	iDMqoqFvglrqrGs0KjGPmH+Zc7Fgenffpb2Y1nvDTekKee+witwIpqQXtuIWBb1InffK5p254/z
+	9iM5wrv4lsG59AbUcC4nk1CX1/bqQinW8CZglfocq4Xk1eHEz4A25haGCDdqinHBL+9TBzI3Ctv
+	3Q7ME+Jes0ScPNeFzkcJxxsYT9kr40igY6o0nmqioyUak1/eA3sn3sbRhWmAmuz/VCRzymmYbyK
+	RCkObr3uZZlijokywzGYgqwFXuQByLERptpXVmsP4IgUwczdAe2BACLnrKtJlwdumCQ6kdwasfl
+	J4wooGWX6lCEucASuvyAhSIRxNraDGDOUwSb+nNm7ShS8RkL6Iap1/1Q==
+X-Received: by 2002:a17:90b:51c1:b0:39e:6c68:fd92 with SMTP id 98e67ed59e1d1-39e6c68fee8mr313201a91.39.1789752350791;
+        Fri, 18 Sep 2026 10:25:50 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cae997csm395136a91.11.2026.09.18.10.25.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:25:50 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Anil Ravindranath <anil_ravindranath@pmc-sierra.com>,
+	James Bottomley <James.Bottomley@suse.de>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: pmcraid: decrement adapter count on remove
+Date: Sat, 19 Sep 2026 01:25:41 +0800
+Message-ID: <20260918172541.3599902-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
-X-Mailer: b4 0.14.3
-Message-ID: <20260918-b4-fix-aer-memleaks-v4-2-f0a2c21ed1d1@google.com>
-Subject: [PATCH v4 2/2] PCI/AER: Fix memory leak in aer_recover_work_func()
- when pci_dev is missing
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>, linuxppc-dev@lists.ozlabs.org, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Priyank Rathod <rathodpriyank@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
-for aer_capability_regs (entry.regs) from ghes_estatus_pool and queues
-the entry into aer_recover_ring.
+pmcraid_probe() increments pmcraid_adapter_count when an adapter is
+being initialized. All probe failure paths decrement the count again,
+but the normal remove path does not perform the corresponding cleanup.
 
-In aer_recover_work_func(), items are popped from aer_recover_ring via
-kfifo_get(). If pci_get_domain_bus_and_slot() fails to find a matching
-pci_dev, the code previously executed 'continue', bypassing the call to
-ghes_estatus_pool_region_free(). As a result, the memory allocated for
-entry.regs from ghes_estatus_pool was leaked.
+As a result, the adapter count remains incremented after a device is
+removed. Repeated bind and unbind cycles can eventually make the count
+reach PMCRAID_MAX_ADAPTERS and prevent otherwise valid adapters from
+being probed.
 
-This is reachable whenever the device reported by firmware is not (or is
-no longer) present in the PCI device tree, e.g. after hot-removal or when
-firmware reports an error for a device the kernel never enumerated.
+Decrement pmcraid_adapter_count in pmcraid_remove(), matching the probe
+error path.
 
-Refactor aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
-is called unconditionally for every dequeued entry, releasing the pool
-memory even when pci_dev is missing.
+This issue was found by manual code inspection.
 
-Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
+Fixes: 89a368104150 ("[SCSI] pmcraid: PMC-Sierra MaxRAID driver to support 6Gb/s SAS RAID controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/pci/pcie/aer.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+ drivers/scsi/pmcraid.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index b013b853b555..a6600801af6e 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -1366,14 +1366,13 @@ static void aer_recover_work_func(struct work_struct *work)
- 	while (kfifo_get(&aer_recover_ring, &entry)) {
- 		pdev = pci_get_domain_bus_and_slot(entry.domain, entry.bus,
- 						   entry.devfn);
--		if (!pdev) {
-+		if (!pdev)
- 			pr_err_ratelimited("%04x:%02x:%02x.%x: no pci_dev found\n",
- 					   entry.domain, entry.bus,
- 					   PCI_SLOT(entry.devfn),
- 					   PCI_FUNC(entry.devfn));
--			continue;
--		}
--		pci_print_aer(pdev, entry.severity, entry.regs);
-+		else
-+			pci_print_aer(pdev, entry.severity, entry.regs);
+diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
+index 942a99393204..da80f1d39ec4 100644
+--- a/drivers/scsi/pmcraid.c
++++ b/drivers/scsi/pmcraid.c
+@@ -4778,6 +4778,7 @@ static void pmcraid_remove(struct pci_dev *pdev)
+ 	iounmap(pinstance->mapped_dma_addr);
+ 	pci_release_regions(pdev);
+ 	scsi_host_put(pinstance->host);
++	atomic_dec(&pmcraid_adapter_count);
+ 	pci_disable_device(pdev);
  
- 		/*
- 		 * Memory for aer_capability_regs(entry.regs) is being
-@@ -1385,13 +1384,15 @@ static void aer_recover_work_func(struct work_struct *work)
- 		ghes_estatus_pool_region_free((unsigned long)entry.regs,
- 					    sizeof(struct aer_capability_regs));
- 
--		if (entry.severity == AER_NONFATAL)
--			pcie_do_recovery(pdev, pci_channel_io_normal,
--					 aer_root_reset);
--		else if (entry.severity == AER_FATAL)
--			pcie_do_recovery(pdev, pci_channel_io_frozen,
--					 aer_root_reset);
--		pci_dev_put(pdev);
-+		if (pdev) {
-+			if (entry.severity == AER_NONFATAL)
-+				pcie_do_recovery(pdev, pci_channel_io_normal,
-+						 aer_root_reset);
-+			else if (entry.severity == AER_FATAL)
-+				pcie_do_recovery(pdev, pci_channel_io_frozen,
-+						 aer_root_reset);
-+			pci_dev_put(pdev);
-+		}
- 	}
- }
- 
-
+ 	return;
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.43.0
 
