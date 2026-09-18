@@ -1,183 +1,214 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F133AD501;
-	Fri, 18 Sep 2026 02:12:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697574; cv=fail; b=GO4jqyj8/JuL86eFVWG/FDOPLp/Et1YhsNblgdJEzI3d22Ovuv/1RzgqQCbUfD8RAns+4Vy6Sm0g34fgv4WgQGaO+iOzxKhckPvhQwbqwpVYCpJSUUdkW91bevkuoxmWzvcYmMnwXUDjDerPIl4EXJ2oLrDJCbnMMPYiAPi6dhc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697574; c=relaxed/simple;
-	bh=a9dSXRSdWextCygxyURcu0kZmov4hz8ko4HHRL/73k0=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=luPYxRgzXCFyBEw3L5KjZ+vTYP7ICHfAZ9mmYqEiCRDXXbGdjF3SrdKymp0BQ16oMZuN36IYK0/IcnXhN7nqbF7TYG/EI66NmPF++v6B/1+aY5VoY/6/uIbEpJWSDB/57EK48ykFf1Pr4yUrKlqdlcfqS323txo4+R6h1pD2DmA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aUv8brKD; arc=fail smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237633B9D99
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:12:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789697578; cv=none; b=OEla0J5r4A3pZ+3vX6wgwEggbrk1kFTbfr2KcYw42XONBPBUZiDOxbXy9OgxUS3NodMB3xqBzjE0XN/LkQWpkqq2mjpZM68XJj85XS7/R3tKJFdWFBcro1scTMYZ0g7fbPlfzro4mXwcnpA04AWfDaHk/n048n9iSt+VoMzCNfE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789697578; c=relaxed/simple;
+	bh=kQvImw+M8oW97C4OuIFHYNrBrNt0ZvV2KwIXHOOruKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Bq2RX4q9OG3oLsVqcaNINn6K30dHWVLi2/b7KIagVduzPVB0zmrOLR1BjkF9KW89gFmX6IzKe78/2GRjvFuUZccc3fYweMtPmoWer0rsPLxRBVyC0OgC26DzR2Re64x2NihRTEVSfyPtbvSB7UI0/Nx3frt1bEMQ8MZ33qBA/3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qpel0en0; arc=none smtp.client-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aUv8brKD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789697573; x=1821233573;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=a9dSXRSdWextCygxyURcu0kZmov4hz8ko4HHRL/73k0=;
-  b=aUv8brKDd1q0t20TLOfSCSfwrR3zdjLBeBWfWjrfCoSDTs8KFWCyR9bd
-   BrxsJPSPcjZBzgzKLi3ZjDGEx8B2F+lMKzE85lTTwBU8p+WtwhKFkbzzx
-   LrvU6Kw1Prn387H3SIVyqCDaHVyoQUdaRLiOSYOIgIuBsqiY2hJROctcu
-   +K/Nt5J6zo0LOr9GLLDD9sbDSrtQX43u4J01z0ixsyghqdlRWz4nSQgxd
-   MXJMPd9h2vExoHU8v2L1ovr1ABrlfeGZCyxoRZvVSXmFmgfFERsFLuqWX
-   B0thtvkwmAO9d8ebNUHH9wE5OwUnDgFCZt0frSB5/vO21SUZ9Zne/mTuE
-   A==;
-X-CSE-ConnectionGUID: DtRsFmgUSIyFnKuyTkFQkw==
-X-CSE-MsgGUID: GXKfyTh8TL62i35COs0dow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77741294"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77741294"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 19:12:52 -0700
-X-CSE-ConnectionGUID: 2R4DMddtQD+1blizWmVY7g==
-X-CSE-MsgGUID: auwWQbTqQZiacpm7zRyNYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269850946"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 19:12:52 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 19:12:51 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 19:12:51 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.6) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 19:12:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=djMC+vvDmOLEHF3RU/M+L8yDK2PDEASgiTwDGiZZ/l1fZ37iextOs/D4Uy4EIzqiHdpi6Ibhij8ayCeW6EkB7Gcs70cu42BEF45KshlYH5qzzNhu7El5UNlcEAbMzCE/D2LjewyRIXCPRthaHopiB9LkGSu5rfNg/Er/aWaTppduZPU7YwP8WR5Duv0scvqd1hvHHlfeHdp9TeJWebCn6c0XDnId4GTIdEMI9sEihjjzmrhx8sz08oBvR7GTgo18gQEw9Z4pNMu41dS+VWWtYr3OMQ6NeZ+Obh8+kZae4mQ/U5pvTMOzeunqYTqJFNRaDveI7CjyOpKhF6aB1kIC1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FMejUc15OMxTSV38LGXJ9P8zG3uXAjcWulG2HHeR9jE=;
- b=h7kK6JqL0SQTTrRjH+ua9NKFv9s+EVAqXdlILroPWmXt6H/3+fkq10iVrmojWjnNQCpT/ut75tnCEz7cmaUnJcgnE4FPkT2OBmfmTvW8vwj31nHJ+4O0lJXmxxLRXA4MNNalBG6Nj1ZO4L5vFIQUtCKpJFnqWxeZh8g47a/0DOhwb9QgNdv8wiAch4wH5MMiQ2YjKEp6XXwUc1gP2uMzOczxHstEuWUBNnWJsO4HN9gXNxCKeivsASLeJv1PXiq3OhegEHgHsC97fks9VrbbiEemj3u7cFxGGdCiSV7bV2qheek4O1JXrajskbV/C/GX65Yren1oArKR2hYMelnYXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
- by PH0PR11MB4886.namprd11.prod.outlook.com (2603:10b6:510:33::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 02:12:42 +0000
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d]) by DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 02:12:42 +0000
-Date: Fri, 18 Sep 2026 10:12:10 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "kas@kernel.org" <kas@kernel.org>, "linux-efi@vger.kernel.org"
-	<linux-efi@vger.kernel.org>, "ardb@kernel.org" <ardb@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>, "bp@alien8.de" <bp@alien8.de>
-Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
-Message-ID: <aqyd+rhamNei92Nz@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260914183745.37538-5-ardb@kernel.org>
- <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
- <aqvrUeIfpE4D-Ol0@thinkstation>
- <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
-X-ClientProxiedBy: TPYP295CA0057.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:8::8)
- To DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qpel0en0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kQvImw+M8oW97C4OuIFHYNrBrNt0ZvV2KwIXHOOruKs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789697574; v=1; x=1790302374;
+ b=qpel0en089rC2FycTFqty9QFPMP5sNLmGimIfJZa2ToeVuuRNVqPfly3zYkGBxpcXF0n/rZV
+ yIRvBXR/3PwJanMSTlXAY9OE7Y22ydraAy8yQ9RH0vs08YFOAXouNOinxKvtnWSy7FMCV8kIvfP
+ QEtP+EVTaHg5Xu3g1ACuv2+o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c1077d3109a1d2e;
+	Fri, 18 Sep 2026 02:12:43 +0000
+X-Mizu-Trace-ID: 9c1077d3109a1d2e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <188835d7-64c1-422a-8a64-6b5e0e960ee1@linux.dev>
+Date: Fri, 18 Sep 2026 10:12:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR11MB9579:EE_|PH0PR11MB4886:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5bffd34-0068-42d8-7b2c-08df152a51e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|5023799004|56012099006|11063799006|6133799003|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: c5lLPMt65owlYquZkEAtdJSObzeeMyaE1JDnJ5GqIII3X/4Ppy5XinydOrqJeytdzIsaC+cCdTNSRXY+UapRLXxW3pDn9nQ9ORgbTlcuG33jizBkGdQFobdKkrhE5MveINwnvZoOgo4jgoETys4XiQfLBQ3OO0Z5yvI9HS1SQtf9KreaLRJZl9ybkKSlP5IA9tWKAzEf4r74ytNlLZPQ1xDwA48PF8ZFYQt10mSOfppqFovjbsExGj7a822ZXeJoKRvWdB/MUg4fpuw22dLp9V7q7jxqozn4Z5KvM7Fe/E3QgFQxzU7ibjh7qVUZz6/on7v69QN0haFwulm+biNU7aYwPnzZ5BnrIa6Eu5bN5hC6Ohyuy+G+ZEgiuUVIwICZuKdp9faebUOIPgOn/Ihtl9iViPWpl8GCKZlZW4xCjsrds4jK4NzkaI5Me6CqPNTOnlq4btB8JH8Otvux/akp6iy/JXm6cgeN1IbXbz5wBYuQm5D05tZlHTDlEg7A1c85Ouq7BbFUOiLR7xJmlOnvD1jxalWyZdhO2MwY+eLTg4bfVOcFjcNU1QHkiIhIJ/46J2/3x5AL3l9BMbNaQXc0wsOSlR+mIvGB6RvsBpOGJKdPGbQ/ZEP4lYz06FoahCTx4WJXx0dlDIzv6GPR6wlUKnQkqNnBaPP9yD7UW6hYHBU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR11MB9579.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(5023799004)(56012099006)(11063799006)(6133799003)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?go5A/2zJKWScc3PvHE5tnguew/Xrp/vfxLtT8DAk70LJtxFGgKP0zVdbzc46?=
- =?us-ascii?Q?QzQQALBqmkx3hSXfC26BMgqISryeUzxz1/mQlbYyfgNqSXk1KpMU4imm8Pk0?=
- =?us-ascii?Q?JEE2BL2snZwuQjQyPz9TVse2jgva/NhpdLNcCJG9NXudcM4RLlCB/VnYHrMh?=
- =?us-ascii?Q?G6UgRiUg3hZqZ4NAD8gJuNSj+gRDRSxOKFOJK5DHK5k0sp6oRMNfgIlAl5dU?=
- =?us-ascii?Q?1aMH3vU/achQz9/1EXCKaAw8UsBIWyfWZV4DzOl1WmlW8wWiIHKWn9swMQFD?=
- =?us-ascii?Q?porD5sCMeyihfk6c3x15VqzSkrFK1FxWY/xiBzcO1UDHiZRV8llsm6bazeQO?=
- =?us-ascii?Q?xnxjqJdhNo8ckzLGQ8onX9trd3l5DyvwOEe76wK6b9Vocb4/K7mTfBPOV+wc?=
- =?us-ascii?Q?3LtPTVrmepushthe/i/YeswZUdruqyjZKjeS1ckP7z8BspS+BSy5pZi2TSVn?=
- =?us-ascii?Q?YJ7Apz210PfWkiOB4eTKFd71WOzL7Gciq1lIiuLtEkkKv+BobnXD/DazNuAQ?=
- =?us-ascii?Q?8iSnytWczyz9v1to1yoi7hgedsC7xHVAXqIUmKtFaEYI/+ar1QSQ9d5LyExS?=
- =?us-ascii?Q?ic8Ljzvi8CFsP5OuV8935dnmkntRs9D2Zd6dOxMw9Ha+ECK1Yebrpsx6851V?=
- =?us-ascii?Q?rS6FWTD2y8npaI4T9Cepz7ikgnrj9xUEmWgY+UBJOT918ROaRGci/ePrn8x/?=
- =?us-ascii?Q?IilAoNlB15QL/s3mHGlZvLeiOvw0cuYpmIynRaXBDo16a4rXwC/pGak1QS8W?=
- =?us-ascii?Q?Ye4wVzZX0QKZnnAc4j4A2Xlvhp0+rvYwVdzTWYjbJ72+jkgDodmOYrzzMr7s?=
- =?us-ascii?Q?Rv/wfGlOzD12RUl+/5sz2LFIvvIPJpnIeXc3+Man+ZrCg5c1U2D2Mo8dtQ3Y?=
- =?us-ascii?Q?wX4bcGq1Zoy4H0D4cgQkBWCkXEjk3NaCrjhbYZ8KKxVv/IxMbnJH/WJOdjDk?=
- =?us-ascii?Q?UZyTpvIE2F5vV+SiN/IxH4QP5YVMDqRj/Z3kMrV52rHw/gWBCPObvYJkVRMK?=
- =?us-ascii?Q?AI3u93fic2RTEuIOlvBEP8qKAvCkziKFdNoU21ANWLDQDGew3//k7koWrzt7?=
- =?us-ascii?Q?JRgjUasRyfSrQMvAfOBYtX08CsW+xqoJVCpaWxoCHPxDM3jH5kQNZH45L6T0?=
- =?us-ascii?Q?86M1WDaGFkt65XapdngfOTJwI8MfUTictzh16FLxQdaHUV2sf57JcEtEZ1BV?=
- =?us-ascii?Q?RTQssylpF27X9HJILiMdSKlVzcHqsXMAjjtb/MdRgSJg/KOIdn/OWCXqE+0n?=
- =?us-ascii?Q?gAnYAabm7gEVOLYwL/MWBENV7lj+py8E44F7D48ClbLGLxciTeqUpziQRHhm?=
- =?us-ascii?Q?1LhtjMyzKz139l8XJBV7JFKJcEsiAfxR68tgnjCdTb1eG9pU1Fe4/Yfa5ijf?=
- =?us-ascii?Q?4/HGYZV/Z30V0t0PUKoivIfTDLYAObC+Kav3UYN1KM/FyNmyo/CphVGKNYF8?=
- =?us-ascii?Q?GWycgkfg1oNXg3cHK62Wgg6mfLArEX7PXBUP8h+FkxtgZFuD530DQgGfZFxC?=
- =?us-ascii?Q?xaxzjjMnoUmwfEmyMiNdCI0qHZW/LXE3kanbKEUa1ATpvLVTpf+Lgub2wmQA?=
- =?us-ascii?Q?ihYb8XFv6YTdSRiZ95D1Q4qpj6RSnIbTtgsJJQKl3VftOY/dlbdmtaplZn3N?=
- =?us-ascii?Q?PwehfMwouQODM6aFxnfVY4vlNf28sCffxb5dppsfKc5z4KywgkT6SNjxEbPD?=
- =?us-ascii?Q?7vYm4ieXHU6OquAleHf1CitqMuMxrzn9W/5UDoMadST4y0uHhcHXtLQt29q1?=
- =?us-ascii?Q?GL/tiy90sA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: 3Y2xlVrgM04FwDACmO29LLDMRh0feKHwTc8EOmS1ADo8ZUTeJj3/rPxBQxJ7oqy8WjTbzt6byPmGHTtFovpAwZJgU9pSrcvb2Rdk2uMbplHmA+qQz/eg8jUdJP+U163V6uweCQOddTPCeZcW2zPm2rc5XUrpJ9am96bCvgRMThdSZqAwTuh6fi6GdDgiwL4ejMNVE0sw6xH1D1YJgeTVTX3qePinQr3SVNit2sz/cIfL1ro5ZbB2BHrfxCjn4hjv8LDWd15aA/n9Yle+lEZnuQ2FLlhFs2urNvvhRHVLHMeSbJPvvuAT50HfxzeDdc+XCr0gd0QshJTtXr4vizW+sg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5bffd34-0068-42d8-7b2c-08df152a51e5
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR11MB9579.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 02:12:41.9463
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZHM8bCw+NNK3l99UiATvM407tkXeq2YrmcZl43DFVbrL6oWsaWjJdBUKm3Fo666jdOh3Gjac5AynE9+FOORB3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4886
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH mm-new v9] mm: vmscan: retry folios written back while
+ isolated for traditional LRU
+To: Barry Song <baohua@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
+ linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+References: <20260916123846.1242548-1-ridong.chen@linux.dev>
+ <CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 02:29:55AM +0800, Edgecombe, Rick P wrote:
-> +Yan 
+
+
+On 9/17/2026 5:25 AM, Barry Song wrote:
+> On Wed, Sep 16, 2026 at 8:39 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> As commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back
+>> while isolated") mentioned:
+>>
+>>    The page reclaim isolates a batch of folios from the tail of one of the
+>>    LRU lists and works on those folios one by one.  For a suitable
+>>    swap-backed folio, if the swap device is async, it queues that folio for
+>>    writeback.  After the page reclaim finishes an entire batch, it puts back
+>>    the folios it queued for writeback to the head of the original LRU list.
+>>
+>>    In the meantime, the page writeback flushes the queued folios also by
+>>    batches.  Its batching logic is independent from that of the page
+>>    reclaim. For each of the folios it writes back, the page writeback calls
+>>    folio_rotate_reclaimable() which tries to rotate a folio to the tail.
+>>
+>>    folio_rotate_reclaimable() only works for a folio after the page reclaim
+>>    has put it back.  If an async swap device is fast enough, the page
+>>    writeback can finish with that folio while the page reclaim is still
+>>    working on the rest of the batch containing it.  In this case, that folio
+>>    will remain at the head and the page reclaim will not retry it before
+>>    reaching there".
+>>
+>> The commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back
+>> while isolated") only fixed the issue for mglru. However, this issue
+>> also exists in the traditional active/inactive LRU and was found at [1].
+>>
+>> It can be reproduced with below steps [3]:
+>>
+>> 1. Compile with CONFIG_TRANSPARENT_HUGEPAGE=y
+>> 2. Mount memcg v1, and create memcg named test_memcg and set
+>>     limit_in_bytes=1G, memsw.limit_in_bytes=2G.
+>> 3. Create a 1G swap file, and allocate 1.35G anon memory in test_memcg.
+>>
+>> It was found that:
+>>
+>>    cat memory.usage_in_bytes
+>>    1073700864
+>>    cat memory.memsw.usage_in_bytes
+>>    1413124096
+>>
+>>    free -h
+>>                  total        used        free
+>>    Mem:           1.6Gi       1.2Gi       299Mi
+>>    Swap:          1.0Gi       678Mi       346Mi
+>>
+>> As shown above, the test_memcg charged about 324M swap (memsw.usage minus
+>> usage), but almost 678M swap memory was used, which means that 350M+ may
+>> be wasted because other memcgs can not use these swap memory.
 > 
-> On Thu, 2026-09-17 at 14:32 +0100, Kiryl Shutsemau wrote:
-> > > I guess the caller could care about TDX_PAGE_ALREADY_ACCEPTED errors. But
-> > > SNP
-> > > doesn't do anything for this case. It seems like part of the problem is that
-> > > we
-> > > are passing errors back that the caller can't feasibly handle.
-> > 
-> > Maybe. I don't understand SNP model and why they don't care about errors
-> > here.
-> > 
-> > Do you have a proposal here?
+
+Thank you for your review.
+
+> I don't like the way you describe the problem as "wasted" swap.
 > 
-> Yan pointed out that future TDX modules will not take an S-EPT entry lock on
-> accepting a NP S-EPT entry. However, I think this won't prevent guest caused
-> busys on re-accept attempts?
-Re-accept attempts may occur due to:
-(a) two concurrent ACCEPT TDCALLs, where the one that arrives slightly later
-    returns either TDACCEPT_ALREADY_ACCEPTED or TDX_OPERAND_BUSY.
-(b) two successive ACCEPT TDCALLs on the same GPA.
+> The real problem is that those folios skipped
+> `folio_rotate_reclaimable()`, so they were added back to the head
+> instead of the tail, where rotation could have moved them to the tail.
+> This resulted in a cold/hot inversion.
+> 
+> The swap entries they are using now will eventually be released when
+> we scan those folios again and reach the head of the list, so this is
+> not actually wasted swap space. You are probably right, on the other
+> hand, that if those head folios hold swap entries and the swap is
+> full, this could prevent the reclamation of folios at the tail, making
+> it even harder for us to reach the head.
+> 
 
-Since Linux guest always invokes ACCEPT TDCALL before a memory access, and
-accept_memory() always checks the unaccepted_table->bitmap before invoking the
-ACCEPT TDCALL, case (b) should be impossible in practice, right?
+This issue was observed with unexpected OOM. For example, Docker A swapped out 2 
+GB, but it held more than 8.5 GB of swap on the host. Those 6.5 GB could not be 
+used by other Docker containers, which could trigger OOM. So it seems the swap 
+was "wasted." After all, it is a global resource, yet it was held for a private 
+cgroup even though that cgroup did not need so much swap.
 
-Is case (a) a valid scenario, and does it actually occur in a Linux guest?
+>>
+>> This issue should be fixed in the same way as mglru. Therefore, the common
+>> logic was extracted to the 'find_folios_written_back' function firstly,
+>> which is then reused in the 'shrink_inactive_list' function. Finally,
+>> retry reclaiming those folios that may have missed the rotation for
+>> traditional LRU.
+> 
+> I wouldn't necessarily call it a fix, as keeping the swap cache for
+> those folios can sometimes help with future hits. For example, we may
+> hit those folios again before they are reclaimed. So it's a
+> double-edged sword.
+> 
+> That said, the cold/hot inversion is a real problem that we should
+> fix. Ideally, we should find a way to restore the missed
+> `folio_rotate_reclaimable()` behavior, conceptually something like:
+> 
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index fde28d0a647d..5ee296474b48 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -891,7 +891,10 @@ long remove_mapping(struct address_space
+> *mapping, struct folio *folio)
+>    */
+>   void folio_putback_lru(struct folio *folio)
+>   {
+> -       folio_add_lru(folio);
+> +       if (folio_has_been_writtenback_due_reclaim(folio))
+> +               folio_add_lru_tail(folio);
+> +       else
+> +               folio_add_lru(folio);
+>          folio_put(folio);               /* drop ref from isolate */
+>   }
+> 
+
+That is a good idea. But I am not sure I can find the correct way to do it. I 
+will give it a try and get back to you.
+
+> But if that turns out to be impossible or practically infeasible,
+> leveraging MGLRU's approach could still be a possible workaround, as
+> it would at least be better than the current behavior.
+> 
+> On the other hand, the fast swap-out cases should be similar to zram
+> and zswap, as Yu Zhao mentioned in his previous commit:
+> 
+> "This problem affects relatively slow async swap devices like
+> Samsung 980 Pro much less and does not affect sync swap devices like
+> zram or zswap at all."
+> 
+>>
+>> After change, the same test case only wasted about 2M swap. The swap
+>> device usage matches what the memcg actually charged.
+>>
+>>    cat memory.usage_in_bytes
+>>    1070301184
+>>    cat memory.memsw.usage_in_bytes
+>>    1412448256
+>>
+>>    free -h
+>>                  total        used        free
+>>    Mem:           1.6Gi       1.2Gi       299Mi
+>>    Swap:          1.0Gi       327Mi       696Mi
+>>
+>> [1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
+>> [2] https://lore.kernel.org/linux-kernel/CAGsJ_4zqL8ZHNRZ44o_CC69kE7DBVXvbZfvmQxMGiFqRxqHQdA@mail.gmail.com/
+>> [3] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@linux.dev/
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+> 
+> Thanks
+> Barry
+
+-- 
+Best regards
+Ridong
+
