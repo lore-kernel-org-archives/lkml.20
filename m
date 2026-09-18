@@ -1,106 +1,196 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E28524B1D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C0344AB6B;
+	Fri, 18 Sep 2026 20:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762850; cv=none; b=rY3ht4QQzdAlk3lmGKk42gVMDN7LQAgcKsuUMqDngFksa3P34d87BvDgZzOpiGZzdXUNOUAykwIaXX5tCkCTkmM+gP8vZZOlMfjUcJMIob1bks8qoneAHgGhKOxVAryeK2UIHriDf5s3xOnO9nO9tgDXJrEq8qp3sDslx8d2JiI=
+	t=1789762864; cv=none; b=At78aW6zhwFDIMaj3NzgC3upkFP5MBhLNmHLwh/KRPbAvKYksM1O2HdPATcNQpuxMcDK5Odikyr542KvW+pMWeDOvoYaHLtz0anmhx5Y/zBh2Gifp9gMH9EPcRVAsbjmSOIz0GqfRumyNRPKQovEcy6e2Xf+q9vhpi88+zBUn14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762850; c=relaxed/simple;
-	bh=nu8qU1YZwp97dnkL+bX+96A8g+p6R7Z6RfF1S27tVbI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=NTkt0tVSq5pNGTDBtP2n1GKDYPrqFHqDEA2sT9sXDk3VevOw7VRqYXhNCBZqtCCQhvMGzlug6S7yCc3FmUXWpZPi0MVt8dK1R/XjZsDvmc/bUgrfkwWqKzzotQhiTXd1zj9wEqJWhCvhHRwbwkia1XJuTYjzavlvj0FOnR4o+2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GDtvkj0c; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789762864; c=relaxed/simple;
+	bh=azlxrbn+NnkNuE4YAHISYDnwn2oYdZK1G+9IWJiUqxI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gCeGQcXWRTitGQso5W2UXxa6f6T595l5pj0GEmeUJTCZiG/SBuXj7sMzRS2OIp6bY5l1svQRunZtXNepjQCO5/tOYGfBn26LIefuD/ksVu0HX0uFXm9Yhd290ALEZD5DW4Au7LmWAMK7ManUVt5c36CZMYCPGR0E74VHhlQQQkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5I4A1B2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GDtvkj0c"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d8facae850so23885ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:20:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789762848; x=1790367648; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PKHYiIXSy/sUkOC1RnRyCN5D48PNPtcysE7SZpaqPCg=;
-        b=GDtvkj0ctido5RDXvBBl6jYZ1YS3JEwQ5Qm3tRX11VHF9QSF7XXSUT/+NyFrAGZ4zf
-         TzkRHqTQ94l+0PuBPKcJ23LVdoR2ujrxi4WRZOj/jcdRSffyzAxG5MA79fmMyHGQFV16
-         Nb+5SN4VKFWyILzKFzvg/oXcU1r5LhP9lp8KKOdZfOA/c5G7+9BZrrtKgqGKGMAg/TDC
-         QPxiO5+usNxVRLEo2c9Ger6ResXtjGkoXsBCFvVwXBBw2m6483+5n2We7bVOgp+qWwYv
-         W1bC0xtC+mZ7ZNi4SiRr1vgVPxK45lhf7F7462lDm4FIe8cyG1ghEn6UYUDHqe2Tq2wL
-         gjNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789762848; x=1790367648;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PKHYiIXSy/sUkOC1RnRyCN5D48PNPtcysE7SZpaqPCg=;
-        b=FlTkwTVy1E8CAgIajJY5woqWntJ66968RmRGWs2ekLGGpLR+4lKl9zfrl0MUiju69n
-         42IFMVvuq7SIdshsD3QuCJoDUKOthO/eyDL9IMhggnhuiDht44GIAiv/43s43ODSkB9t
-         lxM/T3Yrx8zA53kI+tb+WA9jgwU+LMSLAxsbnzN7m0oqWljbUw9jT+kGbZ4aZg3KOe9X
-         9oEl9bBvgbOGn8QO3g25zu4l1E8yB/0uZZXfrBEje5wcPRP9LTm1EjTjDoTnPwjwRZfu
-         yhCHFm1nm+6Zbsxf0+0cdFiYffjbXTMAz6/Cf7DWludqnOiJ/Nxm4072MTkv0VE8iBNf
-         I/pA==
-X-Forwarded-Encrypted: i=1; AKwUvByFXAnf2ucMXuU5nFAh5wxNmfjZe4kshas5/lzR/NDLbyYhaFP6O+X5OWhaK/2GoOls8hmbWoi8zeq3W8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln+eBSpGRl16hUmqLsAvGC+2I8JQeFU4V3qzhVDhzvcTJaZvhJ
-	wgFfvF1B0DB0dMeR22saeaR7CYgFd0TFb4PpEVBpvZ8mBWvj/bgWe2U/74NoliVv2g==
-X-Gm-Gg: AYBFou23lUELpcHQKrW/pRCi+Qif3Acx2ziAM9bRxH+HhRIEi0CUirzioVNAijcnREO
-	kwJqMCf6RwVDlQSNF77lQKeVUGWjYgfoHgSYccRsJjbE/UwtgAtRXonD9EWO38rajGllugLBtN/
-	e5aTWSIQAJYn9A3wWG0B5paqdl3s12qoOjW+O1GayUCQKcSKzpCqOxbvnacZlTKS8u0hSDLTXNw
-	LvCjGAi7vG/m1OjI9yWsp2k3MtuOhFxy9KfN6LqZXtotGYar/GBM0HSZVIBiDmgpBkjbp4Y1K3T
-	4Vj2Lt10SPGFaIT0gNXL9soKwh5Rr7d99ps4hDGYcHVp4rJ3wutydE7X7jXO46vPeKw8HF+gxAD
-	cpsbhk12yBtyTr8EF0d/7oziPHdn5pk5/e3iBkrVMbWysLRYKHqpdzy7sHXrp9hEwCpgiInPfAx
-	tjXzD4AIIzd3rspDPDkS6L+O7jYscfreNC2UQAuW7VjgrgKb1zaQgnO+GWP5EXKPvTgHE2ntJMa
-	l1+8AiCZYt0ixVeiRNhCh+qIAq437FVmi1duUoa9mop5A35HOGLKugOQbPlv/6G3AzXdTWkismA
-	oYexQtM5CBI38zY7H5wioq4+hSSiEbpKlxOFj30KLV9QYNCXVNPR1Aj+VSuYNEXM6ujNQOo32+q
-	7KjPnsg0=
-X-Received: by 2002:a17:902:f610:b0:2d5:c090:3810 with SMTP id d9443c01a7336-2ddc165e533mr2194815ad.2.1789762847953;
-        Fri, 18 Sep 2026 13:20:47 -0700 (PDT)
-Received: from [2a00:79e0:2eb4:9:9a8c:9370:b2fc:a09a] ([2a00:79e0:2eb4:9:9a8c:9370:b2fc:a09a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm947935a91.0.2026.09.18.13.20.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 13:20:46 -0700 (PDT)
-Date: Fri, 18 Sep 2026 13:20:45 -0700 (PDT)
-From: David Rientjes <rientjes@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-    Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>, 
-    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org, 
-    linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [patch v3] mm: test_vmstat: add synthetic benchmark for vm
- stats
-In-Reply-To: <20260911223728.dfceedb4135e0b758df0ddd6@linux-foundation.org>
-Message-ID: <1e628c9c-47de-1552-7a04-11a1c6c46e60@google.com>
-References: <014ef68b-6312-bcdc-f432-34c31476fe77@google.com> <20260911223728.dfceedb4135e0b758df0ddd6@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5I4A1B2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B51D1F000FF;
+	Fri, 18 Sep 2026 20:20:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789762863;
+	bh=U9Btssn2Vdt4f1rDfXSpe3SvMf7Al9iM0BYQM0epkxU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K5I4A1B26PMHt8oPJgzgCMhlS4wSzBW0xEdgRbYlFQ1L5+hcNK9ojIVPnuzpqrdbT
+	 jd7Bsbd9/3qi1WJCFDFEn1cF/K3pKWl1vPLikx7h1QC9/76xJNN+kAQuaQvJ8YE1y2
+	 kp3ao0JkBouMOZwr3Ia5Qz68qTIGvmqoUZjV0y0o/Wkk80NxQReNfEfIzJxvF5Hf+T
+	 86SBEURe95FNDjfSYUC0ZfDHH/jL97aBVufgWmldki1cC3Q6moSNid+uoLdUysA5vW
+	 IHkh/zc5jxj/o9IiRwQtcD5yXGTXsyAfIhh+Wx3RP0y/ENE5y4vHqvd4IhEKCME0UR
+	 kkCkah9a/d9Pg==
+Message-ID: <0b064fe6-ddb3-4f26-a1f2-2e9dd88d590f@kernel.org>
+Date: Fri, 18 Sep 2026 22:20:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+To: Andrew Morton <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>,
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>,
+ Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org,
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 11 Sep 2026, Andrew Morton wrote:
-
-> > Add a synthetic benchmark that can be used to measure performance of VM
-> > statistics.  This is used to analyze any improvements or regressions in
-> > functions that are frequently used in hot code paths.
-> > 
-> > The test is run by KUnit or doing modprobe vmstat_kunit directly.
+On 9/15/26 03:08, Andrew Morton wrote:
+> On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 > 
-> Can you please quote some typical kernel output in the changelog?  That
-> will help others to review the proposed change.
+>> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+>> properties:
+>>
+>> ...
+>>
+>> It's all rather a mess.
+>>
+>> This series brings some order to things by both limiting what drivers can
+>> do with VMA flags and switching to using predicates that describe
+>> behaviour, not arbitrary flags.
 > 
-
-Ack, will include the output in v4.
-
-> Sashiko made what appear to be some good points:
-> 	https://sashiko.dev/#/patchset/014ef68b-6312-bcdc-f432-34c31476fe77@google.com
+> That's a lot of patches.
 > 
+> Review is thin and I expect this won't improve a lot.  Lots of "no
+> functional changes" changes.
 
-Got it, I'll use NR_MLOCK instead of SLABS_SCANNED since it's display only 
-and won't have any side effects at runtime.
+I'll expect to go through all of them. Might just take a bit ;)
 
-Instead of switching the type of the "rem" variable as suggested, we can 
-just remove it entirely.
+-- 
+Cheers,
+
+David
