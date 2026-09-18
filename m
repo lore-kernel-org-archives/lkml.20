@@ -1,106 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8EF2749DC;
-	Fri, 18 Sep 2026 01:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E91931352B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693965; cv=none; b=hHPec4Z4Jjt2o8RrdYFRT/N1uyAO3NmKLpnGjX9hXb1gegTP02/4WAyNrK3vD2tLpwHGOPc3xaeSWeKGw324GzswulGx/wfA/c4xVKR9om1P2Fs4pgXFsZPPWmVxLKeWs2j25ao3mfeZArwrNwwmW6Rheha6x0p1w+fVw7W1q9w=
+	t=1789694058; cv=none; b=hrWW4HKxUDFFe6rdaCBySrFP5zRv43+HNEBNcrcAK/LfqvW1H/xhl96T4PeIVfCVF39L9fTEwE7qiGmpDN/6ElqKGK0NZU9U9tkfbFm1DGOhaQENRKF0J0U4yMn2+tnoJzFKn0n7kOFkHRZTvApxLonzsOBhkqmeWqUaEOy7ooo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693965; c=relaxed/simple;
-	bh=u6p9v/sQpbAvDgX6JM9uTM03Yy7+MS4LqF7SpSntSW8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=POhXJbIVHMM/PAdWEAjwiPxoUZI4oUXNB6z2GeLNtguIU/jjj3U3U0yaMnDQujvPQZm2ikfeKhH3S98NMKVH/mb2tjsJFPGb0X4h7HLo3BAFe8aVfwmgcdZXQD0vbxJ9ME+hdSzjz9QQZaoR8y3Q/4KOIrVzX+4fTRh1UIpNV/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mWPITrmm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789694058; c=relaxed/simple;
+	bh=xd3HLoWCvqAvLmFf1rcOFjGuOS7Rbqozm40WR+knmgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lezJSuWceDv/ONtUi+mt0Er6OwEprzs48WrVEku7e3ueXWhqcuaJex2Vjt3e1DcKItFaY9zpLly+VBaT5r4LiojTkpPA5rKPUxupcjZCXS50ZhKA+GJfWhkjfuNHGUeFTv+r3Own5RikXxFixbetHzsdPmeWgAoWESYXnzuupXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MgD/1O1n; arc=none smtp.client-ip=91.218.175.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mWPITrmm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535D71F000FF;
-	Fri, 18 Sep 2026 01:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789693963;
-	bh=F/YlIWDvAo1XjVKHwEMXxvDrzwtCtsm1MWgy0h+IsGo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mWPITrmmTzETtVKysrDIuRf9zsa3ilEIob2YbzSHsXyA7WH906ymUXY4sUCzEu2A5
-	 ksKouLF+OPo9KYnwHzd8kYd+rENhyGNPAUa5f8w8gOr/eguiZaIZ4nEL6JTfpIl02T
-	 fgwiZU7m6vsW8uvCvv4JXpfB3KV2otl1mo4mJJ/UpCha0Kb3QfGQgYFPEtMoaxUrT1
-	 eDGqWnyiH8DtLZkPXefWXchabKZrJ38og3DRP84TUqGrR/OhII1O/eFk5P4N8Ed2xG
-	 WzDMyAXwEXyLqglGox+HxULYf3WHHh5kIYqyKb/KMGbrVmI5rRBZiAHYLAQbsmWKLB
-	 ySYWUwjZdaZlQ==
-Date: Fri, 18 Sep 2026 10:12:38 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Kees Cook
- <kees+treewide@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] tracing/probes: Add const to new_argv allocation type
-Message-Id: <20260918101238.62bc61f7a4c55bcc1ab83ab8@kernel.org>
-In-Reply-To: <20260917211022.i.677-kees@kernel.org>
-References: <20260917211022.i.677-kees@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MgD/1O1n"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xd3HLoWCvqAvLmFf1rcOFjGuOS7Rbqozm40WR+knmgo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789694053; v=1; x=1790298853;
+ b=MgD/1O1nHCFy5UJMXRpRv9e/PAXTgqh7zpohvNNOBzry2FJlKlJfjv8VUVfOEF2AIJnKTAkH
+ wjEVosSIUK7TKL78dpu5NRwPrAsHq2okpd4JD2X3TDGDQrCOuGzlLucMusyd3OaxW9mIOBKLlzN
+ SxQEu9jWVK31SsKLkTv49sJI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 1ba77223abdbd243;
+	Fri, 18 Sep 2026 01:14:03 +0000
+X-Mizu-Trace-ID: 1ba77223abdbd243
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 09:13:47 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	idosch@nvidia.com, alex.aring@gmail.com, justin.iurman@gmail.com,
+	bestswngs@gmail.com, stefano.salsano@uniroma2.it, xmei5@asu.edu,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] ipv6: rpl: fix NULL dereference of idev in
+ ipv6_rpl_srh_rcv()
+Message-ID: <aqyQS7knJ2SwKxPG@fedora>
+References: <20260817132644.2223-1-andrea.mayer@uniroma2.it>
+ <aqjflqdySFG51YEa@fedora>
+ <aqk49jT8tGsqn61d@fedora>
+ <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
 
-On Thu, 17 Sep 2026 14:10:23 -0700
-Kees Cook <kees@kernel.org> wrote:
-
-> From: Kees Cook <kees+treewide@kernel.org>
+Hi Andrea,
+On Thu, Sep 17, 2026 at 07:41:28PM +0200, Andrea Mayer wrote:
+> On Tue, 15 Sep 2026 20:24:22 +0800
+> Hangbin Liu <hangbin.liu@linux.dev> wrote:
 > 
-> In preparation for converting the kmalloc family of allocators to the
-> type-aware kmalloc_obj family, we need to make sure that the returned
-> type from the allocation matches the type of the variable being
-> assigned. (The kmalloc family returns "void *", which can be implicitly
-> cast to any pointer type.)
+> > On Tue, Sep 15, 2026 at 02:03:12PM +0800, Hangbin Liu wrote:
+> > > Hi Andrea,
+> > > 
+> > > While reviewing the SRv6 code, I noticed you added an `idev` check in
+> > > `ipv6_rthdr_rcv()`. I’m wondering whether it makes sense to also halt
+> > > processing for `IPV6_SRCRT_TYPE_2` when `!idev`, given that IPv6 is
+> > > disabled on that device.
+> > > 
+> > > If so, could we drop the skb early at the entry point of `ipv6_rthdr_rcv()`?
+> > > The downside is that subsequent processing and `__IP6_INC_STATS()` would be
+> > > skipped.
+> > 
+> > Oh, another behavior change. At present, if !idev, we can still process the
+> > IPV6_SRCRT_TYPE_2 message. And the process will be skipped if we return early.
+> > I'm not sure if this kind of change is acceptable or not in kernel.
+> > 
+> > But on the other hand, is it correct to accept and forward SRCRT Type 2
+> > packets on device that IPv6 is disabled?
+> > 
+> > Thanks
+> > Hangbin
 > 
-> The assigned type is "const char **", but the converted allocation type
-> would be "char **", which is the same type without the const qualifier.
-> As there is no general way to safely add const qualifiers, take the size
-> from the assignment target instead. No change in allocation size
-> results.
+> Hi Hangbin,
+> 
+> One case is when IPv6 is already disabled as the packet arrives:
+> ip6_rcv_core() drops the packet before ipv6_rthdr_rcv().
+> The other is the transient window: dev->ip6_ptr can be cleared after
+> that check, and ipv6_rthdr_rcv() can then find idev NULL.
+> In that window the TYPE_2 path can run without idev. ipv6_srh_rcv() and
+> ipv6_rpl_srh_rcv() cannot: they read idev->cnf. That is why the check
+> sits before those two calls.
 
-This looks good to me. Let me pick it for-next.
-
-Thanks!
+Thanks for your reply. So in fact, if IPv6 is disabled on an interface,
+*all* SRCRT types get dropped in ip6_rcv_core(). The idev check inside
+ipv6_rthdr_rcv() exists to close this transient window.
 
 > 
-> Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
-> kernel/trace/trace_probe.o
-> 
-> Assisted-by: LLM coccinelle
-> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
-> ---
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: <linux-trace-kernel@vger.kernel.org>
-> ---
->  kernel/trace/trace_probe.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-> index 804442b2f7d2..cfb710095f65 100644
-> --- a/kernel/trace/trace_probe.c
-> +++ b/kernel/trace/trace_probe.c
-> @@ -2316,7 +2316,7 @@ const char **traceprobe_expand_meta_args(int argc, const char *argv[],
->  	else
->  		*new_argc = argc;
->  
-> -	new_argv = kcalloc(*new_argc, sizeof(char *), GFP_KERNEL);
-> +	new_argv = kcalloc(*new_argc, sizeof(*new_argv), GFP_KERNEL);
->  	if (!new_argv)
->  		return ERR_PTR(-ENOMEM);
->  
-> -- 
-> 2.34.1
-> 
+> On the counters: __IP6_INC_STATS() goes through _DEVINC(), which skips
+> the per-device bump when idev is NULL and still increments the per-net one.
+> Stopping TYPE_2 in that window as well is a behaviour change, and I think
+> it would need a reason of its own.
 
+My understanding is that handling TYPE_2 within that window is also mismatched
+with ip6_rcv_core(), theoretically it should not be processed.
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+However, since there is no harm for TYPE_2 with the current code. We can
+retain the existing behavior unless someone reports issues, or until I have
+time to restructure this function.
+
+Thanks
+Hangbin
