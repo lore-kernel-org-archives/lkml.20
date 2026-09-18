@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E6C514768
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93404516176
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748085; cv=none; b=I0BPYdsJurOOVOlj3iJUOFYmBjin79G2gXksEstIr44pc0liCoM+EmrGYWoGtRlwPm9alcrljDEiTj/B5dcc5w/BkTQUr1fh721LYmGUh+8kNGYrLuPQI0gBiWur1KGiYzR4laxoBrxGquoOzCmdCZegKJUCF/4yFy4PQ9pmR90=
+	t=1789748088; cv=none; b=pL+mw5ybao+AaZpXSz0Ksm5e530qRcOF8pXOfkNYfY228KCidUOBdvijW93Fwe3zfM7d6lwT8xglqIQ0hflvch25m4Dw64cWwkZtimJ2UzZimezxCvH7gAHRO04LQSpno26gYtDs+Amg+DI4q1ZuXYi7Vtz7lrfXSEfnmruQTkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748085; c=relaxed/simple;
-	bh=3sRKcASsIcsNqAQEzNR/dM3ekLNXwXnihrjiprdTOjU=;
+	s=arc-20240116; t=1789748088; c=relaxed/simple;
+	bh=JmhJGumalitAnkG+Of4OIu81PtkNzTEqVBPSWVBLvmo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qiLo2tvkIQ5tt379GduGO4khaIzpRJulvgjFsJyXCFI1eGTLH50jJw28iLXuAd9wAhtTiVFDwBp55LoK6i0jES6lEPDc7XsZet5jF/MFAG4m2+Rn1wabO2O7YHm3re797t6T90AIeTmKk8JgGRXtMbfeZavO/VErocqoww8I2Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZTfdxI/T; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=IBZmVSog9XduiHZMPDJl2K1d5fuiqccC0rfyJVFlRXw2vmAVBL2K/JQ46SjyrxviYzvGaQO+iuUwU/I1RGFFNDCxGMo7obq8cnLzTNxhPgaA1lIGgdH5iLYYoOoNNmoeT7T/L6MqPgICpHxoPWxipio81XwODJZpVW1a5NgjSrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qb0YxHlt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZTfdxI/T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22DF1F000FF;
-	Fri, 18 Sep 2026 16:14:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qb0YxHlt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650CE1F00898;
+	Fri, 18 Sep 2026 16:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748083;
-	bh=mq6/KTZTkKh5H1ZNq8kaadqg9w0eqgaS+tnd4DM5ipU=;
+	s=k20260515; t=1789748087;
+	bh=dtOLc80ZchH1SrJFHNt1KR4Dm3KMyagivA2zXxrs1go=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZTfdxI/T41330h7hOs9oLlabWGQj6ipTXbgPriHVmHvk71Wlp7PeCePz04WCyZaP8
-	 wyvskyGxz9QMIB0KsVPPzIuFF/1J+Ublo2aWOy9uXnJJY2WS7+0eKMh4sMQGYonxyx
-	 D3gM6BLQ8PxWakQ6wbZrW2JcxXBPYT9EVJVF9NrSdNvZU8MAegdiXxrbnt29AyrAtB
-	 nkDPDvbSKtoQXwOgyKmxMRKQqw6YqhiOpxly/XUuu0ptIFrnRoIyChWkDRfwamGf75
-	 8sfLH+hPb8jKn+pDtKsp7G0lTrmGueKzpK3MawloUhVZZfpoLPHmhn/yCBfC9t+Vcj
-	 hD9t6H8/MiD/w==
+	b=Qb0YxHlt3q2DkGZ8Sdf5eTPdlGv44KUoKGREksMF7S+ufmYvYiQYiXZeo/ew3aUr3
+	 4BtWfDhb/8qtxjgh1uAA7jqIAUiCI3k1MCNgIQRA9D/zNy1p8vG9szNXJod811+iX2
+	 ltFzvp0/byPOhWY9lnSUdbO0nKnElVNG1C4vEh3LqYbuZNVFemTx1ddedSqmccvTdI
+	 mUXS9g5py+KBJnKBFbz+FQkejtujW0lysjn7/7mqKoSL2BU+dd+IvncGgSmOECsljt
+	 dV5UihvAzdi+mCEBychIY6zIeobzLCtiwlsZZ181aUFQA8iolhFMhQJtp+Kftj2Wbp
+	 HVOW7lca2e+YA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 08/21] scripts/gdb: arm64: Use TPIDRRO_EL0 instead of SP_EL0 for 'current'
-Date: Fri, 18 Sep 2026 17:13:52 +0100
-Message-ID: <20260918161407.2300-9-will@kernel.org>
+Subject: [PATCH v2 09/21] arm64: stackprotector: Re-enable per-task stackprotector
+Date: Fri, 18 Sep 2026 17:13:53 +0100
+Message-ID: <20260918161407.2300-10-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918161407.2300-1-will@kernel.org>
 References: <20260918161407.2300-1-will@kernel.org>
@@ -56,28 +56,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current task pointer now lives in TPIDRRO_EL0 instead of SP_EL0, so
-update the gdb 'cpus.py' helper script with the new register allocation.
+Now that 'current' resides in TPIDRRO_EL0, update the per-task
+stackprotector compiler invocation to use the new register.
+
+Note that this requires a very recent build of clang [1], as (unlike
+GCC), it historically rejected all registers other than SP_EL0.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
+Link: https://github.com/llvm/llvm-project/pull/188054 [1]
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- scripts/gdb/linux/cpus.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/Kconfig  | 3 +--
+ arch/arm64/Makefile | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/scripts/gdb/linux/cpus.py b/scripts/gdb/linux/cpus.py
-index 6edf4ef61636..547a623280ae 100644
---- a/scripts/gdb/linux/cpus.py
-+++ b/scripts/gdb/linux/cpus.py
-@@ -185,7 +185,7 @@ def get_current_task(cpu):
-             var_ptr = gdb.parse_and_eval("&current_task")
-             return per_cpu(var_ptr, cpu).dereference()
-     elif utils.is_target_arch("aarch64"):
--        current_task_addr = gdb.parse_and_eval("(unsigned long)$SP_EL0")
-+        current_task_addr = gdb.parse_and_eval("(unsigned long)$TPIDRRO_EL0")
-         if (current_task_addr >> 63) != 0:
-             current_task = current_task_addr.cast(task_ptr_type)
-             return current_task.dereference()
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index b8270b301809..020fcaf36b1b 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -2450,12 +2450,11 @@ config RANDOMIZE_MODULE_REGION_FULL
+ 	  exhaustion, modules might be able to fall back to a larger 2GB area.
+ 
+ config CC_HAVE_STACKPROTECTOR_SYSREG
+-	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=sp_el0 -mstack-protector-guard-offset=0)
++	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=tpidrro_el0 -mstack-protector-guard-offset=0)
+ 
+ config STACKPROTECTOR_PER_TASK
+ 	def_bool y
+ 	depends on STACKPROTECTOR && CC_HAVE_STACKPROTECTOR_SYSREG
+-	depends on BROKEN
+ 
+ config UNWIND_PATCH_PAC_INTO_SCS
+ 	bool "Enable shadow call stack dynamically using code patching"
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+index 6b005c8fef70..a293ab67818f 100644
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -72,7 +72,7 @@ ifeq ($(CONFIG_STACKPROTECTOR_PER_TASK),y)
+ prepare: stack_protector_prepare
+ stack_protector_prepare: prepare0
+ 	$(eval KBUILD_CFLAGS += -mstack-protector-guard=sysreg		  \
+-				-mstack-protector-guard-reg=sp_el0	  \
++				-mstack-protector-guard-reg=tpidrro_el0	  \
+ 				-mstack-protector-guard-offset=$(shell	  \
+ 			awk '{if ($$2 == "TSK_STACK_CANARY") print $$3;}' \
+ 				$(objtree)/include/generated/asm-offsets.h))
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
