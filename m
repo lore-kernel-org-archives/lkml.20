@@ -1,99 +1,87 @@
-Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEDE3A5453
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9562B3C3F76
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:12:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718998; cv=none; b=gY1r8eM3UvGWCHhARzO2vSVQJwKao6kVIAgIP0IICRQYATwv5weo/Y1RjfUsvz6focM6d3w29TcVDNIMgn2lQ1Y760hPrmMPzUF5DpTEIA1vlrhlq6BGte/5zQLnfoxl1r7UO9T3U3d4I3b3tG9ffeJviZWeLwNiwu+waNZjVUc=
+	t=1789719136; cv=none; b=BwBAZD0ZlKH4lGSXkI1e81QTBLZzwc4FmrnIaOOwreeWhLWdkGNo4e5cHYwBLxU2znl6umCxGIKq9DiET5DvZ09pwbWxl2lChHgXm0yJIUJVzU+/Ef9cVFelvCRq5uLffBw+3jDxZAb8CQWg2Wnw6SbzSVUww1fpF7WG2Wh1jvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718998; c=relaxed/simple;
-	bh=nOrA6LUUXVDyAS34aH1r5AVGEJg8nxE5D7IKoW8+wIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ey1V75k+5zOV3Ds5O0litNRgj/aLvdkSbIvEQHftcIcOISpmBwHmk4cvl25zLO5ZXVWTpI2puewgMChCIpYimf/djECUPn7IIRtHrE1gPOuAkQvfu2GBIF+VQa5984h6xwwHHjaFQddsVUOyadVWVUFI5c3g0B2EUknK6Hplma4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ADFQDA+8; arc=none smtp.client-ip=91.218.175.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789719136; c=relaxed/simple;
+	bh=hvh7Fm/j3aBL/wBpwy/HKc/4RjZNtLWRXqjw4OYPCZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SWnpylDxnQCp4kFl12Deg6MhUM8OfiDx/RbTrxfttjIM0ii+UTxnGm+6dE7dzjcySnyOzS557L4GHcM7KHp1kJVs9gSAqeQaqqb81sqtJFTnMx4NxpvqRvp5QCYIiZMwKjoVtng9qwws2WA2LJji7XJrLfveFi6hJNFQM22GOdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net; spf=pass smtp.mailfrom=yeah.net; dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b=l71f0IUv; arc=none smtp.client-ip=220.197.32.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yeah.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yeah.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ADFQDA+8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nOrA6LUUXVDyAS34aH1r5AVGEJg8nxE5D7IKoW8+wIQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789718994; v=1; x=1790323794;
- b=ADFQDA+8TsnOkukS5fm8rZm9Oyd+Iw4z2srzzl8WrTbKLBBVgPWXUyKgqFQPgR/K+hDwYhDb
- B7cGxqBI2yqG31O7adiQ76NoqZ5urKgGQZj3OxckVHflyNIep9ss948jyETzhw6XZeHIrjthTbY
- RT0ebUOZjFCZglV1SThXrPuE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id db6dbc05fe83f0e0;
-	Fri, 18 Sep 2026 08:09:53 +0000
-X-Mizu-Trace-ID: db6dbc05fe83f0e0
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 16:09:37 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
-	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
-	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: Re: [PATCH v6 10/10] crash_core: skip MEMBLOCK_NODUMP regions when
- building vmcore ELF header
-Message-ID: <aqzxwd6TXxbempxx@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-11-chenwandun1@gmail.com>
+	dkim=pass (1024-bit key) header.d=yeah.net header.i=@yeah.net header.b="l71f0IUv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=HG
+	O/EJNlhwEgKvNl0pFOLbWwNg/SsXvmoRzHr86FwAY=; b=l71f0IUvljqiMCHUmS
+	KwagzAd8hxC6oQ4U0PAyrIgib+dEnViQY6kbVoiQzx8dJ9xwiiVv8+DTT1tAxUBp
+	6QvgU02HvI6UknPHHnFW9Q+kCC/xzNaC0yAGRUKPx9GZ5Rd7WYSca23nlmYO1SLA
+	F4VUskhHcbtQ1t/arAk+N66VQ=
+Received: from deepin (unknown [])
+	by gzsmtp3 (Coremail) with UTF8SMTPA id M88vCgD3P5cQ8qxqHkUlAA--.61508S2;
+	Fri, 18 Sep 2026 16:10:57 +0800 (CST)
+From: Ziran Zhang <zhangcoder@yeah.net>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
+	Marco Elver <elver@google.com>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Edward Cree <ecree@solarflare.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	linux-kernel@vger.kernel.org,
+	Ziran Zhang <zhangcoder@yeah.net>
+Subject: [PATCH v3 0/2] list: add missing empty list check to list_cut_before()
+Date: Fri, 18 Sep 2026 16:10:24 +0800
+Message-ID: <20260918081026.8050-1-zhangcoder@yeah.net>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902073116.802752-11-chenwandun1@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:M88vCgD3P5cQ8qxqHkUlAA--.61508S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4DKr4DGFWUWr18Cr48Zwb_yoW3KFg_W3
+	40k3s5Cr4kZa1UtayxJF9ayFZ5uay7Xrn5ZF1xWr13Cry29w1UGFykCrnxX3Z5Wr9YqFyx
+	W34kA3Z5ZrnYvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UUUUUUUUU==
+X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiNBGGR2qs8hES+gAA3p
 
-On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> Reserve regions (for GPU, DSP, ...) carry no data useful for crash
-> analysis. Exclude MEMBLOCK_NODUMP regions from the vmcore ELF header to
-> reduce vmcore size and capture time. crash_should_skip_region() now also
-> returns true for MEMBLOCK_NODUMP.
-> 
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> ---
->  kernel/crash_core.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+v3:
+- Elaborate the rationale in the commit message, as requested
+  by Andy Shevchenko.
+- Add Reviewed-by from Andy Shevchenko to patch 2/2.
 
-Acked-by: Baoquan He <baoquan.he@linux.dev>
+v2:
+- Add a KUnit test case as requested by Andy Shevchenko.
+- Patch 1 adds the missing list_empty() guard, patch 2 adds the
+  test case.
 
-> 
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index bd64cf585795..b0e618e13588 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-> @@ -270,10 +270,10 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
->  	return 0;
->  }
->  
-> -/* Exclude NOMAP regions from the vmcore. */
-> +/* Exclude NOMAP and NODUMP regions from the vmcore. */
->  static bool crash_should_skip_region(struct memblock_region *reg)
->  {
-> -	return memblock_is_nomap(reg);
-> +	return memblock_is_nomap(reg) || memblock_is_nodump(reg);
->  }
->  
->  static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
-> -- 
-> 2.43.0
-> 
+v1:
+- https://lore.kernel.org/all/20260916100001.10634-1-zhangcoder@yeah.net/
+
+Tested with:
+  tools/testing/kunit/kunit.py run --kernel_args=kunit.filter_glob='list-kunit-test'
+
+Test result:
+  [PASSED] list_test_list_cut_before_empty
+  Testing complete. Ran 40 tests: passed: 40
+
+Ziran Zhang (2):
+  list: add missing empty list check to list_cut_before()
+  list: add KUnit test for list_cut_before() empty list case
+
+ include/linux/list.h  |  5 +++++
+ lib/tests/list-test.c | 18 ++++++++++++++++++
+ 2 files changed, 23 insertions(+)
+
+-- 
+2.51.0
+
