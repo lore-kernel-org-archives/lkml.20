@@ -1,105 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f15.google.com (mail-pj2-f15.google.com [74.125.227.143])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA8150B8B2;
-	Fri, 18 Sep 2026 16:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA3D511E60
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748441; cv=none; b=VTrnFfsRCskmxudesLqi4DL9Q1D8sYE6QiyMUvZB2yo5jLUGAT1hvU/aUg9ayp5exkQXNhGjTF0vRr2iGUHUCykBwlgP4iImSElqfAhasOKwnUEtk9uCZ6uGTqS9ia41IPWg6ic6wOfrK/imRdm4S0JSpJ2P2kNQLTK/E0smiy8=
+	t=1789748446; cv=none; b=T19MpQNirnWff3M9jRW/0xwiB10nE+/hksVeP7ydjHw4bj2PoxCrUHyo0pZ8D7geDfdTGZ8JEMGbpAayipeljkKwZ1ntnPnWO/sxvbYa/7KthHAGZi42MS7+XtkZF+DUdxPgiANnHHY9CJf7oScetgbzNQuUje59CsFtkENnYvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748441; c=relaxed/simple;
-	bh=4djSnnE8LHSvuIWChsZNA6rJeO1kVt9fIDqJ3xZZlt8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TeUHSBJIR/txdxkaw1ZQxYv6SLj19DLO1Q2nVl1YSf0V8zO3XyHcvRZCfLdWVaU2LdS8fHnHObQKcMs9IKCxik1jcYfTt4wS5uIQ/ZnlJvPF8HaZRCdhpMOcLwgdG/wztOP+Hy3/OU0MmvjCR7rC7wx4FP2AuoLhwaOaSKSiNEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HT4sl0pU; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789748446; c=relaxed/simple;
+	bh=URGeA7w/chQlkU/MBb4klfhc6jrTrNP9CDBMx9r9OmI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RGGKjZXcBmW+kg/docaCOYdk4LixNYOp35kF++ZI91/qSCuhW2yjOYhKFCF5OGy2/UM9n8nSmF2jANP/Ya6WzoVX96vPyGoZ1QIgFobrvbwq3SUI26Y4JoxQgzW92zTILikbxw8WeKTjeX2UKGBzWC5+RA8Wph61zxQRdUsokB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3upBK2w; arc=none smtp.client-ip=74.125.227.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HT4sl0pU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789748439; x=1821284439;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4djSnnE8LHSvuIWChsZNA6rJeO1kVt9fIDqJ3xZZlt8=;
-  b=HT4sl0pUx3eq1ZQZA+scdhCD7bvCMXd98xFd1ckqeEDwvnr7iApC7qRo
-   NxHy96xM2AEFXN81B1fjmRE6gQlhHBHhModQORSZWbAuQQU8eeCIFid+B
-   mZtgwl7PIq3824Go1k5mXpDNzEYAdv7LAEdRnQj2zfvI7jtF3GbVJn+e5
-   sgCD/f1+BXH85ko6voNMSY7dsVHRHM9SNPWiESELwzTeVUydAw0mv10oL
-   FFIwpUPPzYA1rif0lrjlO8CgqfMM76v582OJPgxbppEMS16tssmRCLNCd
-   H1wwcXT43LBX7yzQLm5e7OGjGo1DT758IeO+9ya8isQ9C/K/M4ItXU+Re
-   A==;
-X-CSE-ConnectionGUID: ZeoVLRYgTQ6eDCW2IyQCZA==
-X-CSE-MsgGUID: I26FS0uqQ4WNG3t815jyHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90398002"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="90398002"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 09:20:38 -0700
-X-CSE-ConnectionGUID: AJZIHhFXSm6nS/LH7M5ZBQ==
-X-CSE-MsgGUID: 8EW7TYFNSMudkTYpY4fi6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="268211319"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa009.fm.intel.com with ESMTP; 18 Sep 2026 09:20:37 -0700
-Date: Sat, 19 Sep 2026 00:20:12 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3upBK2w"
+Received: by mail-pj2-f15.google.com with SMTP id d9443c01a7336-2d747f01363so8354205ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:20:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789748442; x=1790353242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SActHdUMawXLcOqYGrSqy2fZIutS+3r6VSMbaH7My1U=;
+        b=U3upBK2wYBVgkVhgr9zS7GTwFP4KLofvXiuxSkXsh7hNgGT6sGRiKWCy1dIAdxyWZ+
+         EjLqs8mHKD+pNG+K3IdhUEphVdlEgx0FKkZwLQLQpLMHEyD0G1PNx1peqh77te4WPamo
+         UqBw2fP94/ZGwwxwfTmBmLGADWzHTqKwX4eU0E6gcc3UHlZn54n3lGsuO/Vy85evwQmh
+         L36x/dR1LhCrNJuVT5OdCyNClXHTAanxFmlVXQXdwlADEZK60r/epH4sK4kQwUdGGtD3
+         UVBr3gfIAB+EOZNnDHUYelGKC8KIYX4fEUBaOTfvB8hX6/PsiHf6A+m5ftodZl3gc/bN
+         Hrkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789748442; x=1790353242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SActHdUMawXLcOqYGrSqy2fZIutS+3r6VSMbaH7My1U=;
+        b=kATPEPoybU9LICrG0nDXVbcczNSsEwZxc0KXfhdjdot2x279hzDyWSJtaxDn/+RNqJ
+         TmDzJ6peIrfd15Jr6SZjr3ZTtbgN09KfdXuADybjMJEOz7iDvUuh6nUmgXkHpmLzp+T2
+         4NmWmc+F9uTL3d7LcVfljudHhvE2/1e++SSViOUXlVwVUInVAzrLdOKv3Lj1qSkmeS0t
+         gXfJMGf5a67pGnKYCdOqOA8A4kyKjE4s5sgIIVn9FLpujvSdCxhrTTmB5a9p5EGgPkko
+         B8ODg81Tquv5Qnw9rkZXU4vk78I1koRJfZnlTR72XGKwBArbso4ZIhCfO06tMOKpaj4n
+         KyUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdxaieV1KKbiUP8dpzhMnhP4bNbtW2950o1IWKubaRRky1+uON3O9VyMPVDD+bLn3JIEfw2iBFWzqNgX0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nt32aggERQLohNiSF8W9v54VXBR/M2Ylk33LHq+IFyxaZQh6Mn
+	gkqzdWy3Wyl7718p2+l4MpNOGtiGMjQ/OInveFNljmFqIB8alXemA6G3
+X-Gm-Gg: AYBFou0pEEv+gSXSKpEJjry7QfX/9xzT6rkJDGga/9N6rknx5Q3zsjoUlaKOjEHvnvY
+	3VsbJLl887j6zlunnwww/PM/eln6FZDBy18kUhtHbPe0j55Ile4QOiEpl9H5GTj7vXSiO2iHazL
+	eXdQGfIPuBsTqfqYs1KDE4rmnAdB8OK3e9t7do9veutnpDARYOTKssqios/0Madp1EdG9OjNY/u
+	RJ080jQ9qLOxvBFxs2ed/UKApwQJndxU/T5V4OiGNl+/L3I9DUXWj/eDOIc2meBmvzH9eeqZmeF
+	wRSZeIIuMyqIgHZk3VTQ1VrSI0l7GKw0pXwlwvMEY7djwb0LChj5D/SeA67Zao3m/n4jzNKDeP6
+	EECeX7RX4Diu+GGLzryc9k7ds31yrakjMU/5LQMke44a/Ekc1BhWktQoC2yk5fiDElcbsYwdnjW
+	DPJ0wiKi5L2U0PhE3v9liNXM4C+CkFVJ0EQfihpNAJoRUc1F2eT/kspjPiFpt7nxhqKoiuEFl/Y
+	Qr8+JHpuyh8
+X-Received: by 2002:a17:903:1b6b:b0:2dd:c100:942d with SMTP id d9443c01a7336-2ddc1009b84mr1946445ad.43.1789748442410;
+        Fri, 18 Sep 2026 09:20:42 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c288f088bsm5668038eec.28.2026.09.18.09.20.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:20:41 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fpga: altera-cvp: Retry teardown and reset CVP state
- on failure
-Message-ID: <aq1kvDQyIWUjBciz@yilunxu-OptiPlex-7050>
-References: <20260915062734.42964-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Subject: [GIT PULL] watchdog fixes for v7.3-rc4
+Date: Fri, 18 Sep 2026 09:20:41 -0700
+Message-ID: <20260918162041.18444-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915062734.42964-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Transfer-Encoding: 8bit
 
-> +static int altera_cvp_recovery(struct fpga_manager *mgr,
-> +			       struct fpga_image_info *info)
-> +{
-> +	struct altera_cvp_conf *conf = mgr->priv;
-> +	int ret, retry;
-> +
-> +	ret = altera_cvp_teardown(mgr, info);
-> +	for (retry = 0; ret && retry < CVP_TEARDOWN_MAX_RETRY; retry++) {
-> +		altera_cvp_disable_cvp_mode(conf);
-> +		ret = altera_cvp_teardown(mgr, info);
-> +	}
+Hi Linus,
 
-If one retry is sufficient, no need to define CVP_TEARDOWN_MAX_RETRY, no
-need to loop.
+Please pull watchdog fixes for Linux v7.3-rc4 from signed tag:
 
-	if (ret) {
-		/*
-		 * IIUC, say something like CVP_STATUS may stuck and you
-		 * re-activate the CVP_STATUS then try teardown again.
-		 * Please re-org the word.
-		 */
-		altera_cvp_disable_cvp_mode(conf);
-		ret = altera_cvp_teardown(mgr, info);
-	}
+    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git watchdog-fixes-for-v7.3-rc4
 
-> +
-> +	if (ret)
-> +		dev_err(&mgr->dev, "Tear-down failed after %d retries\n",
-> +			CVP_TEARDOWN_MAX_RETRY);
+Thanks,
+Guenter
+------
 
-You always retry once when failure, no need to tell I've retried.
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-> +	else
-> +		dev_info(&mgr->dev, "Tear-down successful\n");
+  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
-Only speak up when something goes wrong or suspicious.
+are available in the Git repository at:
 
->  
->  	return ret;
->  }
+  git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/watchdog-fixes-for-v7.3-rc4
+
+for you to fetch changes up to 7cb575b71ab98194d2e040bded3a7281e089c5ed:
+
+  watchdog: da9063: fix suspend/resume handling of HW_RUNNING watchdog (2026-09-18 08:10:45 -0700)
+
+----------------------------------------------------------------
+watchdog fixes for v7.3-rc4
+
+* da9062, da9063: Fix suspend/resume handling of HW_RUNNING watchdog
+
+* digicolor, rtd119x, and rzv2h: Avoid division by zero if clock rate is 0
+
+* msc313e: Fix premature reset during timeout update, and propagate error
+  code in resume()
+
+* sp5100_tco: Fix pci_dev reference leak in sp5100_tco_init()
+
+* starfive-wdt: Fix runtime PM leak in starfive_wdt_pm_start()
+
+----------------------------------------------------------------
+Li Jun (2):
+      watchdog: da9062: fix suspend/resume handling of HW_RUNNING watchdog
+      watchdog: da9063: fix suspend/resume handling of HW_RUNNING watchdog
+
+Tzung-Bi Shih (5):
+      watchdog: digicolor: Avoid division by zero
+      watchdog: rtd119x: Avoid division by zero
+      watchdog: rzv2h: Avoid division by zero
+      watchdog: msc313e: Propagate error code in resume()
+      watchdog: msc313e: Fix premature reset during timeout update
+
+Wentao Liang (2):
+      watchdog: sp5100_tco: Fix pci_dev reference leak in sp5100_tco_init()
+      watchdog: starfive-wdt: Fix runtime PM leak in starfive_wdt_pm_start()
+
+ drivers/watchdog/da9062_wdt.c    |  4 ++--
+ drivers/watchdog/da9063_wdt.c    |  4 ++--
+ drivers/watchdog/digicolor_wdt.c | 13 +++++++++----
+ drivers/watchdog/msc313e_wdt.c   | 16 +++++++++++++---
+ drivers/watchdog/rtd119x_wdt.c   |  7 ++++++-
+ drivers/watchdog/rzv2h_wdt.c     |  7 ++++++-
+ drivers/watchdog/sp5100_tco.c    |  6 +++++-
+ drivers/watchdog/starfive-wdt.c  |  2 +-
+ 8 files changed, 44 insertions(+), 15 deletions(-)
