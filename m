@@ -1,50 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797C530B53E;
-	Fri, 18 Sep 2026 12:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730B4BD370
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734504; cv=none; b=kfZPf6PdzbNwxrdhGpssGpH6q8lr1DUwkiowLXqa2ReeTOQnBUqE7yqFWtWjkGeHUmW6ZCzyzl9fNGYvtjcouxcQfgweCGJcFAJPdYluM0WZEx41S7Hdce2F2qk5fMXaRCsm8UejMnGWsI4kJjcNecpHXn5V5vGwlyOQv76b204=
+	t=1789734506; cv=none; b=VuGIPqhxqN8oqDBRNzUEuKVW8AlAu4pf+2WdfHtxPmpn/NHiJDgh9k/GVUKxb3qcROECivOYwTjLGbhoUYz+3Ss33vMUDXTz9cy0AhQMnusw4PLXnQhpnbo5cdOirVBBwpfWJ+XcRJCKhEUfYkiRsmWD5wUA9vbkYhzMrNghLz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734504; c=relaxed/simple;
-	bh=sFgd2AHXuL8t5mnllgJ9v+bBdWF3SiwzYQwOTUCwaCA=;
+	s=arc-20240116; t=1789734506; c=relaxed/simple;
+	bh=TuhrUaCZHe3buS1Z91faDV7r/isOQ93qEaUSQqtXd4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eUv1UEze3BvjWronIXqPfxVFr3eVmE7pvi2Sr9C/SCrB2Uk496vhwtgSVs6yrr2PMhoP91HUgikhgxqMB3Sl1jsjiskGCE64bnJ2+pR8wnEPvwhbdudWyXQtxLjY095ojTo4RcftOfpEqTQ2UR2/0rkHivhFcLTRCLGnoTYDrNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aavxnDm3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=BSmuXN5N4Ij1M5mVv1uNJbQZXTXdPbQC+QlqYV//K4Bhvr3RFi23BpfksSll60Nx6/EKo93oSzsSG2xiN8eZZST+5ibhGh64Ua8csqTmdMDkiOSBvqrcsLBR7N5sKj+2A9HFdxazak5Yn2Wkbf6NwucBjOCdGdjTC2KEPS9VWLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EthI15cg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aavxnDm3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB0A1F00898;
-	Fri, 18 Sep 2026 12:28:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EthI15cg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94F41F0089B;
+	Fri, 18 Sep 2026 12:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789734501;
-	bh=GF57Guc/hEoVR1W9U/7839FvcxFLrW5Z7yneN/laqwY=;
+	s=k20260515; t=1789734504;
+	bh=U85I0+4wNOSGacaQS9fkT6Xhn7ekRJlDjzLJdB2UOOE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aavxnDm3rLFcdc2xDDtdRHhWAkkn7ROT0+84yG6Q0r1tqZQkC8NNmYieKrOnZhOgJ
-	 r7obWAvVm9jfF2yObC61EHeJ5I8YFL6pXuLcu0G9ri2VKMANMM914vGlN0vcu6BgjJ
-	 6ePy4bH4JivPjNbWt6Unug5Ot45RmMrkAWJzI4JAHFoXHi+nRgjuDXpAD2MnhVfOmg
-	 9fjg/RpM/DUNo8sR6wTPYB8bRlYBLz361d9E97CFMtAHGTFztPRlJCK9lnL0C+M3qk
-	 MX+LmyaQsQEBrPC5nBhbWbB7UXQ1ReX9dNHfghvU2ar606E3E/xsbLT3BssLxJ9JPV
-	 itc4mogiZzE6Q==
+	b=EthI15cgtSIZ1jSy/TAl/GNPqI4psYUk9weO3zc8EdTH8cn/6LopsmWvoZq2Sietz
+	 blOikGFtyxynFn0f4+4KCuFTdOeWYnuff0kKn5bUb/QsuZqdBXM80hHH+Ll8l3SADz
+	 XI7HUGQO22IMSzbDktFr/F3nozN6zX4KRkUdz8WYEqL5tXqaUdEXOCerzJ7h/91bk+
+	 KA1x1jiY81xTQiLZtBk5oEK6ZotNev9M9d7fJ4byCN4btdohVRn3L5vivZWbf952Qz
+	 VwOySqqIbZ1NdR2TuA+nQeOQQR27D9LS3dwpSiFzQQCslVswQxy+9G5dOoOgoff9jp
+	 IvZvMUFCU2gCw==
 From: Will Deacon <will@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Yureka Lilian <yureka@cyberchaos.dev>
-Cc: kernel-team@android.com,
+To: anshuman.khandual@arm.com,
+	gshan@redhat.com,
+	catalin.marinas@arm.com,
+	suzuki.poulose@arm.com,
+	Zeng Heng <zengheng@huaweicloud.com>
+Cc: mark.rutland@arm.com,
+	kernel-team@android.com,
 	Will Deacon <will@kernel.org>,
-	linux-doc@vger.kernel.org,
+	zengheng4@huawei.com,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	asahi@lists.linux.dev
-Subject: Re: [PATCH RESEND] arm64: Add override for WFxT
-Date: Fri, 18 Sep 2026 13:28:07 +0100
-Message-ID: <178973022288.2321839.7112827418351546215.b4-ty@kernel.org>
+	wangkefeng.wang@huawei.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: io: Reject non-user protection in ioremap_prot()
+Date: Fri, 18 Sep 2026 13:28:08 +0100
+Message-ID: <178972997621.2320119.5986862527529026747.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260911-idreg-override-wfxt-v1-1-7917636741f3@cyberchaos.dev>
-References: <20260911-idreg-override-wfxt-v1-1-7917636741f3@cyberchaos.dev>
+In-Reply-To: <20260911015859.71164-1-zengheng@huaweicloud.com>
+References: <20260911015859.71164-1-zengheng@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,21 +54,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 19:02:10 +0200, Yureka Lilian wrote:
-> Add an override for WFxT support within ID_AA64ISAR2_EL1 to allow
-> it to be disabled using the new arm64.nowfxt command line parameter.
+On Fri, 11 Sep 2026 09:58:59 +0800, Zeng Heng wrote:
+> Mapping a stack-top page via /dev/mem with PROT_NONE and then
+> reading that process's /proc/<pid>/cmdline triggers a spurious WARN
+> in ioremap_prot() through generic_access_phys():
 > 
-> This accompanies the idle=nop param introduced in a previous patch
-> series [1] in dealing with misbehaving WFI and WFIT instructions on
-> Apple Silicon SoCs, and eases debugging of other quirky WFxT
-> implementations.
+>   WARNING: ./arch/arm64/include/asm/io.h:275 at generic_access_phys
+>   Call trace:
+>     generic_access_phys+0x1c8/0x228 (P)
+>     __access_remote_vm+0x2b4/0x398
+>     access_remote_vm+0x14/0x30
+>     get_mm_cmdline+0xf8/0x2a0
+>     proc_pid_cmdline_read+0x68/0x120
 > 
 > [...]
 
 Applied to arm64 (for-next/fixes), thanks!
 
-[1/1] arm64: Add override for WFxT
-      https://git.kernel.org/arm64/c/baaa9b126b87
+[1/1] arm64: io: Reject non-user protection in ioremap_prot()
+      https://git.kernel.org/arm64/c/bb756b11ad63
 
 Cheers,
 -- 
