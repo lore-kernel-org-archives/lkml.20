@@ -1,114 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955813CAE75;
-	Fri, 18 Sep 2026 07:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B0949B460;
+	Fri, 18 Sep 2026 07:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715649; cv=none; b=oLngFfnSY0xUVoRvD3b0+wDskuVixJR9ws0IJgd21/UR1Wq64gBW/6Csop/wjTL/4Ku8YuRdE9LdskuxVEED4BA3ah99E9mYF8OVsraeg9mOIHweRvFtjRl26VQ+LO7JCxtLC/hLS2zOampKQ6cnl+bmJ8tENCHr8MxgmKj5RvM=
+	t=1789715656; cv=none; b=s8tawFrI++Lj8Vr0HfwjHFqkUTJTNSOkVJUNTvtBYE+vwwcdRZiP0PTLQT+/tb2N+7XCLqA/9POMK0wIiFS9BJeLyVpyX75gTaSbu9PHfzdfh9hBdN5hJKoS/FUFLyEbpFYJ6U6mamU5WcBwB/37jsG3bL/QjBpSyyli3dzmf70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715649; c=relaxed/simple;
-	bh=ydmkQPxhqPwIQuxAl2L1p97L9blpffUYBII7HgSj8ug=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D+uybpcCnVjbx26t4p1HatqwwBYEC7XsPCf06YO48NiIlbvMSL+8Bzs8orntYRJ8NuG0YANPLeOkefyMM+Xy5Pj7Y33BhiKYdB+piY4dIcDN2Snfb1Mgg0eSHyU8HI4n1hcT3k5mZEKiXrfWZRaDmul7WX4WuL0P1J0ssaKTQ7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwQ9+HE4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789715656; c=relaxed/simple;
+	bh=JKzm/+/moTGkRwZZ555XaG2rt7I4Sk2JiqKSwNii+dg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=jXe/EFVSwE/juJoEByfc17OqgIF7UyyktBCLW3vWxtNfcXtNrG4G5PVWpi0iNmzx7RX4Mwxg1rEYEfb/6zfzNRprtnqsrv+B7pbIan7W2UrvMEW31RzSjymx3Ay52PDnjGfol97sSYPS3cpGRvkf0xyY+Q/DM/IjN+4vhhVwyLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ko5U5Hyd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwQ9+HE4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8311F00893;
-	Fri, 18 Sep 2026 07:14:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ko5U5Hyd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D737D1F000FF;
+	Fri, 18 Sep 2026 07:14:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715645;
-	bh=qPja/cjHElFD0uzEegkx8fIwtmRtWZZ628xauj+vnig=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VwQ9+HE4NY0tnT9IpCZZjkrYpUgU+Q3MI0b8/kYWYNXLBz0OBgneUCZ0sypjFtJsp
-	 uk8yMrodDG/EeLJ8Cw8NNo8KiwNI51f8ZD8ksE/h0ATyzWe0rOhA2zD55Bv4UGXOqW
-	 XN8cdNsIiGEswI8idXhx9LsXVV8pMBpdua0A2GKBMdibbYRuZmFHYhRVj+1e05f18V
-	 eH2pa2QHQGVyGAQKDpc8Rp21vRQpejf9qtKhrlKELzpduu2vOfPRzZeJau0po3nnmS
-	 8o+tIVL/BCsxVeANYa0wNC3Hgxqs9ydfhcyzw7TqvV+sVHAZ3QOve+6n3SeMFjIw8i
-	 5ToAQGv9yBMiQ==
-Date: Fri, 18 Sep 2026 00:14:02 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Tim Menninger <tmenninger@everpuredata.com>, linux-mm@kvack.org,
-	Chuck Lever <cel@kernel.org>, linux-nfs@vger.kernel.org,
-	Jon Curley <jcurley@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
+	s=k20260515; t=1789715652;
+	bh=JSN/3RICUGwBIu5VwI98GdvFqpcrp4blbXSy58qpsRU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Ko5U5HydpSiCUC607T3WB/2e0AHn/OAQOLnxt0skGjaJ6dlvhiveUPAe5HA2uE/PT
+	 /hc+DeZpWm/sd4F8F5oAdb0eLJNrmiRC+bntUlPg4EDlGiIcfENFfIbBGiIxZDGJK+
+	 wUq6IdZ/oaxCSHRvKEaIWY6++Qi6+D40+DXu4AW9PP3xG3yH/xeFAfC9eAUQ8BglQC
+	 k3mFx4QcVIodeIsTG2wP5wzvEjPZ+f94XFWjmYH+IIE1de1/4uniXYM9JgPIaPqejU
+	 MOnV3VtS8mgbZEoQ/cKvMnpocjve8EM2tRtFBwQoUzlU/nCjp62BkJGkb9lbetw+5s
+	 qREbZFA6/p+FA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [SLUB] nfs_page cmpxchg_double_fail and perf lock perturbation
- on dual-socket NFS/RDMA
-Message-ID: <aqzkugwB_I5X2JYx@z2>
-References: <20260916232227.4098143-1-tmenninger@everpuredata.com>
- <aqvq8-6IJBDer90O@thinkstation>
- <aqvy8NqRRRmUlxjR@thinkstation>
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v4 3/5] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+In-Reply-To: <aqwPKO80ZEn0cqa7@arm.com>
+References: <20260914070135.313337-1-aneesh.kumar@kernel.org>
+ <20260914070135.313337-4-aneesh.kumar@kernel.org>
+ <aqwPKO80ZEn0cqa7@arm.com>
+Date: Fri, 18 Sep 2026 12:43:59 +0530
+Message-ID: <yq5a1par116w.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqvy8NqRRRmUlxjR@thinkstation>
+Content-Type: text/plain
 
-On Thu, Sep 17, 2026 at 03:10:47PM +0100, Harry Yoo wrote:
-> ... now I realize we need to add PERFORMANCE EVENTS SUBSYSTEM folks 
-> as well ;-)
-> 
-> Hmm, sounds like perf lock is somehow triggering slab allocations
-> and interfering the workload.
-> 
-> It could be because SLUB is merging nfs_page cache with some other
-> cache that perf uses.
-> 
-> Could you please check if it reproduces with slab_nomerge kernel
-> parameter?
-> 
-> On Thu, Sep 17, 2026 at 02:46:24PM +0100, Harry Yoo wrote:
-> > Hi Tim and Chuck, thanks for reporting this to linux-mm.
-> > Will take a look at this but let me Cc SLAB ALLOCATOR folks here first.
-> > 
-> > -- 
-> > Cheers,
-> > Harry / Hyeonggon
-> > 
-[SNIP]
-> > On Wed, Sep 16, 2026 at 11:22:27PM +0000, Tim Menninger wrote:
-> > > My questions are:
-> > > 
-> > > 1. Do the uninstrumented cmpxchg_double_fail rates above look abnormal
-> > >    for this workload/topology, or are they within the range one would
-> > >    expect from this degree of concurrency and NUMA placement?
-> > > 
-> > > 2. Is there a less invasive way you would recommend measuring the
-> > >    nfs_page list_lock/freelist contention? I would like to distinguish
-> > >    the steady-state behavior from what is observed during the perf-lock
-> > >    capture.
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-You can use the BPF version of perf lock to check lock contention like
-below.  (it only work with 'contention' subcommand.)  It won't create
-a data file and just shows the result.
+> On Mon, Sep 14, 2026 at 12:31:32PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> +/**
+>> + * swiotlb_adjusted_size() - get the prospective adjusted SWIOTLB size
+>> + *
+>> + * Return the size that confidential-computing guest sizing would select for
+>> + * the default pool, without changing the configured SWIOTLB size. An
+>> + * explicit swiotlb= size is always preserved. An explicit area count is
+>> + * included in the size calculation. Automatic area sizing is initialized
+>> + * later from the running kernel's possible CPU map and any resulting size
+>> + * adjustment is therefore not reflected in the returned size.
+>> + */
+>> +unsigned long __init swiotlb_adjusted_size(void)
+>> +{
+>> +	unsigned long nslabs, size = swiotlb_size_or_default();
+>> +
+>> +	if (swiotlb_default_size_changed() ||
+>> +	    !cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+>> +		return size;
+>> +	/*
+>> +	 * For SEV and TDX and CCA, all DMA has to occur via
+>> +	 * shared/unencrypted pages. Kernel uses SWIOTLB to make this
+>> +	 * happen without changing device drivers. However, depending on
+>> +	 * the workload being run, the default 64MB of SWIOTLB may not be
+>> +	 * enough and SWIOTLB may run out of buffers for DMA, resulting in
+>> +	 * I/O errors and/or performance degradation especially with high
+>> +	 * I/O workloads.
+>> +	 *
+>> +	 * Adjust the default size of SWIOTLB using a percentage of guest
+>> +	 * memory for SWIOTLB buffers. Also, as the SWIOTLB bounce buffer
+>> +	 * memory is allocated from low memory, ensure that the adjusted
+>> +	 * size is within the limits of low available memory.
+>
+> Nit: if SWIOTLB_ANY is passed, do we still allocate only from low
+> memory? I think this comment made sense on x86 but it's not valid for
+> s390, pseries with the changes so far.
+>
 
-  $ sudo perf lock con -ab sleep 10
+I'll remove that part of the comment, as the code does not check the
+adjusted size against the low-memory limit.
 
-or
+>
+> Otherwise:
+>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 
-  $ sudo perf lock con -ab -E 5 sleep 10
-
-to see top-5 locks only.
-
-Thanks,
-Namhyung
-
+-aneesh
