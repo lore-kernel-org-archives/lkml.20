@@ -1,112 +1,66 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4D24DAFBD;
-	Fri, 18 Sep 2026 10:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32644C957B;
+	Fri, 18 Sep 2026 10:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729095; cv=none; b=J9xjXiFafc3I34LLU4jwPHbgnSZjO+0jj2gm33bjiJCtl8phOiEAhb/xyl3TYutJFprlxTY+ssz5/Y1yQqP+KqUiPP3s3tvQ3E85cT1QHdVbSis1WLArgyzF+tl4cnQHbsZ+9eJjYfECeFTjhohiB1jFCj52E1VT5dq8GUcVv9I=
+	t=1789729102; cv=none; b=n6+oi6LKC7H04V5iE1y2mpzvODcnxwxQwPjW02qQEVBOk71BG4oQeNeN1bJXaBA+Ep279QlMOnQm1hzFCd3HGGyFw7o88YbL1RHRTFydjjYiu0DR6HhraFY0ZdRtBB7z+s/jImZcsNq4wrSGrj+EHOixsKFW29Mp6m3lNJt8U7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729095; c=relaxed/simple;
-	bh=B0uBxqEaUhsKhXHsmjabxELUlEyZk4RyHLgcvfGW7+k=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=pBU+0j4nuaiu0mD5W1/jqAAe7qZsa/pijQKP2+aDx4g7WjwNBG/q8nsoz9u/QzxYYpJtQQT665uRHDGhXgfWlITG5ZnXSGrC+UMIwpFwMSKwX/JX2bk8tPyZ3CKOE9gV8W18ALZjvGEDPLRGwjfjnZFnc5o+ZLjBgQmqdihrcHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=s2EHhi5S; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789729102; c=relaxed/simple;
+	bh=dMVUjPAPcZ5t0i73zThqgVGb8fVx+3qXaQRGh15EfhQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gzrX9GmoozEgydcfz4rYiHBkLgXsyoWX0u7D49LWo8JFcRPR/OskHW8vml31G4RL9onpFcvErYmemSIdAUSPQXgIj4d8KYN1tOa8wnRgnJOwUtzozoTZgq0T9Cf/GhwGFrbfBtEHLekbnhkXBzTjynbi4eFLA7+/gVXNoBhhWUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX6miYZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="s2EHhi5S"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5145A9002;
-	Fri, 18 Sep 2026 12:57:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789729073; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fIJFLBN3RmDaM9t5gQobFaKnJjoalt7iRSzoTab2m5g=;
-	b=s2EHhi5Scz+i+R/r5c1fIMI0WKQHgBlxftx+7kKPfQyX5ILt+cMBU4Dn4xrJsH8e4fAVt7
-	w0YBNGoy0dx5tlsRHTChSeLA+gL+ZowKAb+QlUtKT5X4Lq74h4oaMgiJ/NXfq34k6GXosR
-	xqc3EU3O1irdIvY27gKIwG1yka91Jp4U/z+vo8F6mFZf31umilcahi3wLa1VEOlAoi/fQW
-	hEuAQH8DvrglFtpCGQMMOeRqqFfl28J+A69/KTMQA3NQuDuEwgUSA6+8F4p6TR2bnfSVy8
-	KAqKERSgu26WDI0Lcr9LwAUowm9mMQ+ovd8Q8KbeayV8i0lBcr7XYOj2VpQtOQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX6miYZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DAB01F000FF;
+	Fri, 18 Sep 2026 10:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789729097;
+	bh=m1S/tznoTQw+vAi7GEBuHVHmSR4dRiXITXrdjAtyCJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gX6miYZROM/WCUo/3itVv5k9IdhKCUOYp45hmLgEMGezllawSb1SK0j27sP7PNRCn
+	 4i7yDH67yBdTDtQNUZqOFuPJYGe0WA4hGMYwjSOhrVM20eKubFyzoz9ZTj6WmAQZGp
+	 /BSCgWIeBaeq5Ye6kmnQdQISJQqTHoonzTc/c7PiuqpunDvjxrZ5fFsBZFihX/2wh1
+	 5RxQTqW6FG4hcfTu2piIweKyYI8IB6d8hZlqF1/is8ons7X1fRY2506Ne9Stii2JHN
+	 3BiRmQIQlXBW5pwGxMky03hSWjCP6oLU+sMNqYWTbF0Ssie/sVgKZYhcdC6WQSY/Nj
+	 SxmNIETMxSgiA==
+Date: Fri, 18 Sep 2026 12:58:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: phy: ti,tcan104x-can: Document
+ Microchip ATA6563
+Message-ID: <20260918-energetic-cheerful-hoatzin-aac346@quoll>
+References: <20260917062543.534416-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 12:57:51 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: netdev@vger.kernel.org, Cursor <cursoragent@cursor.com>, Doug Berger
- <opendmb@gmail.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
- <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 5/8] net: bcmgenet: acquire ring lock with BH disabled
- in bcmgenet_dump_tx_queue
-In-Reply-To: <20260918000732.276506-6-florian.fainelli@broadcom.com>
-References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
- <20260918000732.276506-6-florian.fainelli@broadcom.com>
-Message-ID: <f00892b2a993b3cd333f54660c53632c@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917062543.534416-1-marex@nabladev.com>
 
-Hi Florian
+On Thu, Sep 17, 2026 at 08:25:26AM +0200, Marek Vasut wrote:
+> Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
+> It is pin-compatible with TI TCAN1042 and has a compatible programming
+> model, therefore use ti,tcan1042 as fallback compatible.
+> 
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-On 18.9.2026 02:07, Florian Fainelli wrote:
-> bcmgenet_dump_tx_queue() is called from bcmgenet_timeout() in process 
-> or
-> timer context and acquires ring->lock using spin_lock(). If a softirq
-> such as TX NAPI (bcmgenet_tx_poll()) fires on the same CPU while the 
-> lock
-> is held, it will deadlock trying to acquire ring->lock.
+I'll fix up the binding constraints.
 
-AFAIU bcmgenet_timeout() only runs from dev_watchdog(), so BH is already
-disabled and no deadlock?
 
-> 
-> Use spin_lock_bh() and spin_unlock_bh() in bcmgenet_dump_tx_queue(),
-> matching bcmgenet_tx_reclaim().
-> 
-> Fixes: 13ea657806cf ("net: bcmgenet: improve TX timeout")
-> Assisted-by: LLM
-> Co-authored-by: Cursor <cursoragent@cursor.com>
-> Change-Id: I0c4c6392590b2d16abd44f75d3f6974f3e1b874b
-> ---
->  drivers/net/ethernet/broadcom/genet/bcmgenet.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
-> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index ef155a170fa6..799da63e3a4e 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> @@ -3508,14 +3508,14 @@ static void bcmgenet_dump_tx_queue(struct 
-> bcmgenet_tx_ring *ring)
-> 
->  	txq = netdev_get_tx_queue(priv->dev, ring->index);
-> 
-> -	spin_lock(&ring->lock);
-> +	spin_lock_bh(&ring->lock);
->  	intsts = ~bcmgenet_intrl2_1_readl(priv, INTRL2_CPU_MASK_STATUS);
->  	intmsk = 1 << ring->index;
->  	c_index = bcmgenet_tdma_ring_readl(priv, ring->index, 
-> TDMA_CONS_INDEX);
->  	p_index = bcmgenet_tdma_ring_readl(priv, ring->index, 
-> TDMA_PROD_INDEX);
->  	txq_stopped = netif_tx_queue_stopped(txq);
->  	free_bds = ring->free_bds;
-> -	spin_unlock(&ring->lock);
-> +	spin_unlock_bh(&ring->lock);
-> 
->  	netif_err(priv, tx_err, priv->dev, "Ring %d queue %d status 
-> summary\n"
->  		  "TX queue status: %s, interrupts: %s\n"
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Regards,
-Nicolai
+Best regards,
+Krzysztof
+
