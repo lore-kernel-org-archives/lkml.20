@@ -1,39 +1,33 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FD04E66C9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43ECA4CDDF6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:14:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733529; cv=none; b=i18uCqkYEv1vGS0U6oFRhkPlqLRwX90fJp+KvQVhLSpWHjnzbTeCAho90HigrGjs7eKQtcvab/lKcLXsoh/KtGrgimui40G3x5HV3rv2bP/eOtRnQ609efcdAJmFwJA99ab21Bdq5BYkSlSldoUo0facxR33Sqtf7iT0pioZ9cY=
+	t=1789733661; cv=none; b=kaLWe3GTac4esxvp+/YbnGMDIQp8mOJKKipGgD84QaE+mh5veJfN5zVDlXzhrceSipO6itVozK4JXDBjmLqPVd7USdXV995EK0+PKBH14g6M+iLM0Qc6bFNR9Xk5DYvajv59H/H9JAoIljeJpPnJhBbt+UmXBNAWCBDO9D5t/eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733529; c=relaxed/simple;
-	bh=TdiLMOTdn65x8zfrZgCJK+E9kr5MGZzQAPPBGunaXxM=;
+	s=arc-20240116; t=1789733661; c=relaxed/simple;
+	bh=BPNBcGpuGRhvdMc4YrO6ki8ijJRRZS5L+Lf4Zbq9Duo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CuldXKbzUHrEvK+78MGtv6+cVCY+cWJzic+mbZaplFNMcGlY+CsRDWSkPS8JJx/GAcQK+DbwsuY9JijJVjOFt+Cs2xxCEuJb9bPBvR4o6UmUFaFAk/VvrL15lbnn166FziRAubGHD+YfDAWuEO4o7u/kmQ8IRcEdem8xUxsiT/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=gdwBrRdX; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	 In-Reply-To:Content-Type; b=NsRL3821qvkm8SzEb3brJS7CSO8wlF6vgcYbRLZRlQSA8+IcIMmHutmX7GVORImxQeCQCu7x6jFjk1WtRJm/BBJ3Rn5j2ozHPEQVUTuzOIDZVGrWBQe0MiPnjZ8V3lw1g+D5/PaI6kBEqSv3+fjnjsqxC/Yq1QDfni53kIYA/B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLouqUR6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="gdwBrRdX"
-Received: from [133.11.54.183] (h183.csg.ci.i.u-tokyo.ac.jp [133.11.54.183])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68ICC4oI045599
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Fri, 18 Sep 2026 21:12:04 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=O45OBg23J/3oHx2lRf9Yr5ZgoFt2a7CrhzAaB/z4DUY=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250326; t=1789733524; v=1;
-        b=gdwBrRdXb4kOUDph0TGZ2TULlcnxCtlxvATeO1mntbAb9m/6wPYiVGLYLBWWP4LM
-         WwpYgHFOeU/zSWR+or1xdde0JQen1RkAIuq+qX23uT6mapPJEaPFqcHRxaBhZcEi
-         NvrFRao73Y2JuIWMsauB1Z3KPJbBuAAGClMHCSwFhM5EqJUkgQpWbbryU1fOLjG2
-         z8E2bTh0PkaH8ezj5DDAfulRVs7dyP80fRs1Uzz5E5bLy/llriPzWKjige03k6Iq
-         klbMcYoITiKdAH1HS1rJxy1qBj6JknfUqoS9KXVqiDI9eOEF5sEsStseMtKOuLYe
-         z6SK2nyXabwKywnYw9ZNpg==
-Message-ID: <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Date: Fri, 18 Sep 2026 21:12:03 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLouqUR6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A891F000FF;
+	Fri, 18 Sep 2026 12:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789733659;
+	bh=LDkqCMSPvMO2LfbIEM1B2j2kfABaQmmAyskL3eqNU7Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VLouqUR6gfx9icyXJBo4LjZ6iZlDqmiQDr3vxu36bF4NJ/8Iq1dVf2kn2uk0WCnUD
+	 bKyOpjQxAsy1MfR8CyolNrGLaOmfyopVj7OAI3CbX5kRQgqr4YPMWajP+aUMYcBSUZ
+	 YF6hOUSnmwAS5yaB+0h8g5nYBil0pkQq/DINfM+4e+zS0Qnld5RWhN4egQh1vs4l+8
+	 5JMqphBBfNZO/pqKJ00cB9ARIYFw3zw/FNW7A3jPIx9T+Fw5bkCoxTthZCy3jRkWXw
+	 GA4DuLqGLdclOIjytELUxeijcCLwNm+WJsW+JjXkFAhoO4oKVvuYrugPmYBmanyEw9
+	 +M/VcwTG4GlTA==
+Message-ID: <b1ba175c-ceb2-4e00-b233-d51dd8a2f4cb@kernel.org>
+Date: Fri, 18 Sep 2026 14:14:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,133 +35,202 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
-To: Honglei Huang <honghuan@amd.com>,
-        Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-        David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-        Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
-        dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
-        linux-kernel@vger.kernel.org
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-3-honghuan@amd.com>
+Subject: Re: [PATCH] mm/memory: reuse the whole exclusive large folio on a
+ write fault
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, liam@infradead.org,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260918064238.868-1-aa9736195201@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260918095940.2253018-3-honghuan@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260918064238.868-1-aa9736195201@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2026/09/18 18:59, Honglei Huang wrote:
-> Add a userptr address field so userspace can request a blob backed
-> by an existing process mapping. A non-zero userptr selects that
-> path; probe VIRTGPU_PARAM_USERPTR before using the field.
+On 9/18/26 08:42, Yuan-Hao Hsu wrote:
+> fork() maps the anonymous pages of the parent read-only and clears
+> PageAnonExclusive on them.  Once the child has exec'ed or exited, a
+> write fault of the parent ends up in the reuse path of do_wp_page():
+> wp_can_reuse_anon_folio() finds that all references to the folio come
+> from mappings in this MM, the page is marked exclusive again and its PTE
+> is made writable.
 > 
-> GPU-readonly backing is requested with the virtio CREATE_BLOB wire
-> flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
-> VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
-> resource. The guest pins without FOLL_WRITE only when the device
-> advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
+> For a large folio that check is about the folio, and what it finds holds
+> for every page of it.  Still only the page that faulted is marked
+> exclusive and only its PTE becomes writable, so each of the other pages
+> takes a write fault of its own, and each of those takes the large
+> mapcount lock to find out the same thing again: 16 faults for a 64K
+> folio, 512 for a 2M THP that is mapped by PTEs.  The same THP mapped by
+> a PMD is reused by one fault in do_huge_pmd_wp_page(), do_swap_page()
+> maps all PTEs of an exclusive large folio writable at once, and
+> numa_rebuild_large_mapping() upgrades all PTEs of the folio from one
+> hinting fault.
 > 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
-> ---
->   include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
->   include/uapi/linux/virtio_gpu.h |  6 ++++++
->   2 files changed, 19 insertions(+)
+> Commit 1da190f4d0a6 ("mm: Copy-on-Write (COW) reuse support for
+> PTE-mapped THP") left this for later because faulting around might
+> increase the COW latency.  Numbers for that are below.
 > 
-> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
-> index 95587e12ae..80f73b3276 100644
-> --- a/include/uapi/drm/virtgpu_drm.h
-> +++ b/include/uapi/drm/virtgpu_drm.h
-> @@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
->   #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported capability set ids */
->   #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug name from userspace */
->   #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment requirements for blobs */
-> +#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is supported */
-> +#define VIRTGPU_PARAM_BLOB_READONLY 11 /* VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
->   
->   struct drm_virtgpu_getparam {
->   	__u64 param;
-> @@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
->   #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->   #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->   #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-> +/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
-> + * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
-> + */
+> When a large folio has been found exclusive, walk the part of it that
+> this page table maps inside the VMA.  PTEs that still map it read-only
+> are batched with folio_pte_batch_flags(), their pages are marked
+> exclusive, and where can_change_pte_writable() agrees the batch is made
+> writable with modify_prot_start_ptes()/modify_prot_commit_ptes(), the
+> way mprotect() does it.  That leaves NUMA hinting and uffd-wp PTEs
+> alone, keeps soft-dirty tracking exact, and on arm64 writes a contpte
+> block back as a whole where ptep_set_access_flags() on a single PTE has
+> to unfold it.  Pages that cannot be made writable are marked exclusive
+> all the same, so their own fault skips the folio check.  The PTE that
+> faulted is in one of the batches and is then completed by
+> wp_page_reuse() as before.  Small folios, PMD-mapped THPs, unsharing
+> faults and the copy path are not changed.
+> 
+> x86-64, i7-12700KF, 256 MiB of anonymous memory, fork(), the child
+> exits, then the parent stores to the memory.  Medians of 15 runs, two
+> boots of each kernel, taken alternately:
+> 
+>                           v7.3-rc3+           patched
+>   one byte per page, a clock_gettime() between the stores
+>     write faults
+>       4K pages            65,601              65,601
+>       64K mTHP            65,601               4,161
+>       1M mTHP             65,601                 321
+>       2M THP, PTE-mapped  65,601                 193
+>       2M THP, PMD-mapped     193                 193
+>     time (ms)
+>       4K pages            29.7 / 30.1         30.0 / 31.1
+>       64K mTHP            29.4 / 29.7          5.5 /  5.6
+>       1M mTHP             29.3 / 29.8          3.9 /  3.9
+>       2M THP, PTE-mapped  29.9 / 29.2          3.8 /  3.9
+>       2M THP, PMD-mapped   2.5 /  2.5          2.5 /  2.6
+>   memset() of all of it (ms)
+>       4K pages            57.2 / 56.5         56.9 / 57.1
+>       64K mTHP            56.5 / 56.3         39.0 / 38.7
+>       2M THP, PTE-mapped  58.6 / 56.5         36.8 / 37.7
+>       2M THP, PMD-mapped  37.5 / 35.9         35.9 / 36.5
+>   8 threads, one byte per page, random order (ms)
+>       64K mTHP             6.1 /  6.2          0.9 /  1.0
+>       2M THP, PTE-mapped   6.0 /  6.7          0.7 /  0.7
+> 
+> The latency of the one fault that now does the work for the folio,
+> measured as the time of the store that takes it, against 420 ns for a
+> reuse fault today (medians, ns):
+> 
+>                           reuse fault   fault that     COW fault that
+>                           (patched)     allocated it   copies 4K
+>       64K mTHP                   730          4,600          1,500
+>       1M mTHP                  5,500         63,000          1,500
+>       2M THP, PTE-mapped      10,100        126,000          1,500
+> 
+> That is 14 to 20 ns per PTE.  Builds that differ only by NOPs in front
+> of the new function take either 10,100 or 7,500 ns for the 2M folio,
+> with a period of 32 bytes: it is the loop of modify_prot_commit_ptes()
+> that changes speed with its address.
+> 
+> Capping the walk to the 16 PTEs around the fault instead was measured as
+> well: it takes 5.4 ms where the above takes 3.9 ms on 1M and 2M folios,
+> it is slower than today when only one page per 64K is written (3.1 ms
+> against 1.9 ms, the whole folio takes 1.5 ms), and it is only ahead when
+> no more than one page per 2M is ever written (0.1 ms against 1.3 ms for
+> the 256 MiB).
+> 
+> Redis 7.0.15 with 1.3 M keys of 512 bytes on 64K mTHP, BGSAVE and then
+> 1,000,000 SETs: the faults of redis-server during the SETs go from
+> 262,100 to 18,500, its CPU time from 1.48-1.53 s to 1.25-1.33 s, and
+> redis-benchmark reports 742,000 to 794,000 requests per second instead
+> of 652,000 to 658,000.  With THP off all three stay where they were.
+> 
+> arm64 was only run under QEMU, for the counters and with DEBUG_VM and
+> PAGE_TABLE_CHECK: the faults are the same as above, and with 64K folios
+> the first pass after fork() unfolds every contpte block today (512
+> contpte_convert() calls for 512 blocks, and nothing folds them again)
+> while none is unfolded with this patch.
+> 
+> What does not get faster on x86 are stores to pages that this CPU still
+> has a read-only TLB entry for.  The fault makes the PTEs writable but,
+> like mprotect(), does not flush, so such a page still takes a fault, a
+> spurious one that costs about the same as the reuse fault it replaces.
+> That happens to pages that were read since fork(): reading the 16 pages
+> of every 64K folio before storing to them takes 65,500 faults and 28 ms
+> before and after.  And it happens in a loop that does nothing but store
+> one byte to every page in ascending order, which is what the reuse-byte
+> mode of David's pte-mapped-folio-benchmarks does (120 ms before and
+> after for 1 GiB of 64K folios; 2M folios: 119 ms to 18 ms; the reuse
+> mode, a memset(), goes from 232 ms to 157 ms with 64K folios): while the
+> first store of a folio is faulting, the CPU has already run the next
+> stores speculatively and has filled the TLB with the read-only
+> translations of their pages.  Counting with kprobes, such a run enters
+> handle_mm_fault() 135,687 times and do_wp_page() 8,457 times; with an
+> LFENCE after every store the faults are 4,100 instead of 65,400 and the
+> loop takes 4 ms instead of 29 ms.  The PMD-mapped case, which this patch
+> does not touch, shows the same: 8,800 faults for 128 THPs, 133 with the
+> LFENCE.
+> 
+> With a flush_tlb_local() in the new function, as an experiment, the
+> ascending loop takes 4.1 ms instead of 28 ms on 64K folios, the
+> read-then-store loop 5.3 ms instead of 28 ms and the memset() 21 ms
+> instead of 38 ms, for a fault of 870 instead of 730 ns and 11% more time
+> for the pass with the clock_gettime().  Generic code has no way to ask
+> x86 for a flush that stays on this CPU, so that is left for later.
+> 
+> Assisted-by: LLM sparse
 
-According to Documentation/process/coding-style.rst, the preferred style 
-for long (multi-line) comments is:
 
-	/*
-	 * This is the preferred style for multi-line
-	 * comments in the Linux kernel source code.
-	 * Please use it consistently.
-	 *
-	 * Description:  A column of asterisks on the left side,
-	 * with beginning and ending almost-blank lines.
-	 */
+My review backlog is large enough for me to just go through this wall of text.
 
-So please avoid putting text on the same line as the opening /*.
+There were previous discussions on this, in particular around how much we should
+actually try operating around the target PTE.
 
-Furthermore, because this is a UAPI header (defining the interface 
-between userspace and the kernel, rather than the guest and the host), 
-it should use terminology appropriate for userspace. Kernel-internal 
-implementation details like FOLL_WRITE and terms like "guest" shouldn't 
-be mentioned here.
+How did you use the LLM for coming up with this patch + description?
 
-That being said, I don't think this comment is necessary in the first 
-place. Anyone who needs to know the exact behavior will look at the 
-virtio specification. I recommend just dropping the comment entirely.
+-- 
+Cheers,
 
-> +#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
->   	/* zero is invalid blob_mem */
->   	__u32 blob_mem;
->   	__u32 blob_flags;
-> @@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
->   #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
->   	__u32 blob_hints;
->   	__u32 pad2;
-> +
-> +	/*
-> +	 * Guest VA to pin as blob backing. Non-zero selects the userptr
-> +	 * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
-> +	 * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
-> +	 */
-
-This comment is useful since it discusses UAPI specifics. However, 
-please avoid the term "Guest VA". Since guest userspace has no concept 
-of a "host" or "PA" (physical address), simply saying "address" is 
-sufficient and more concise.
-
-Regards,
-Akihiko Odaki
-
-> +	__u64 userptr;
->   };
->   
->   #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
-> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-> index 3d4dfadc9d..33f5332e59 100644
-> --- a/include/uapi/linux/virtio_gpu.h
-> +++ b/include/uapi/linux/virtio_gpu.h
-> @@ -72,6 +72,10 @@
->    * must be aligned to that value.
->    */
->   #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
-> +/*
-> + * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
-> + */
-> +#define VIRTIO_GPU_F_BLOB_READONLY       6
->   
->   enum virtio_gpu_ctrl_type {
->   	VIRTIO_GPU_UNDEFINED = 0,
-> @@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
->   #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->   #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->   #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-> +/* Device MUST NOT write. Driver may pin read-only guest pages. */
-> +#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
->   	/* zero is invalid blob mem */
->   	__le32 blob_mem;
->   	__le32 blob_flags;
-
+David
