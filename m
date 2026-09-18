@@ -1,125 +1,275 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f23.google.com (mail-ej2-f23.google.com [74.125.228.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B344FD794
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739246; cv=none; b=J55qcxm13wPUcMVbEpmTWN7ELmMw1iI619IBDIFy/MZTs1BlBgFzkiMTcTpElPB7LVtvfdTROIVpFyInqABe9WpadaGWxqkX8M0fkJbg8SmzHyFg0LJuoedplH4pjiK1h5kIqWDauEAhGdyLe5CMycEBy1vR1haTacWr5T/KQ1Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739246; c=relaxed/simple;
-	bh=vRhekCbcc3+pAPZNXd8eQ0Vpow3bKuWj40H6tyImgyk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cWf6J0HySJy/fnIoYmMzBTBlCxkM8YvSz93fyAjUdTB3QUuWLI89tbbDqoNV62jodz5ldTx74OI03RcIPPxINd9LL2MJiWY5K3Smv3R5lxbwYAGlGctsSwKu43XhAysFd/CkbsN2o9+qJAycK+Cs4Ff211XefWZKM6kC1ur5TyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFxgHBw5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C53D502D43
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.151
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789739252; cv=pass; b=kQch4BzH5Y6TuXG5O9hWFak8O80nrxUx1mT2Fnou6VqHsBrnHSpd5Hm1ngGiUFSEK/dXG/ple72Doab8ibPBToTJoS3OFgDGjiZYIZdMn0hCtHDZ4I7vnEYAFzXAYHaLBLIaFIUo4WFxKrnvM0wwAmJ4jWyUxCHPa2nhil1MO2Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789739252; c=relaxed/simple;
+	bh=fudkRpOvqijVuJwy/VHO9zMcAmf9hSjmeOSE6UueqG0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cq92U4h5l1Xhh48tEzYJKjo9RoIN3We4PF/F9jTaH2wJIFq287ubcasVErMVlq+1fc+infN0N4ZDonXCuusN7ciHISfPy3BZ1kaehm9rlM7QmSnMZC2vtiHqwRWZtPB+CYsKfJOCLZ/8tsfNtym4HqROQrncYe1q+5jwZDgpRwM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FuA/HkPG; arc=pass smtp.client-ip=74.125.228.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFxgHBw5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBDA1F000FF;
-	Fri, 18 Sep 2026 13:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789739245;
-	bh=/62Itz9ZVEP0zggPXLCqWvGm+Y+VvQklNgINkbgT9M4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TFxgHBw5WL1s4T0/X9Swei6eD4x4Z2OYGP+cC9STQoY8kz375zB/9zhqEA3d/XnAd
-	 0wKyjB9TZGfdqdfVhbuSXnB/M+SI+XP58hhmyQ5E2V/ytQxA9s5nmP79DcU9zIqvq5
-	 Dc7D3iDql6zv0Qhb/twW8G03PPJ/6mjh0Hp4UqdBh3iocoBvjP4TCbc2eSJ+IYYGMv
-	 YJB29ic4HQny56fh+laAy9BrT631vFzEb+5TdeqIG/7k4s+/n9OaMchNPur7fs46el
-	 FjK2YHZIIqfDcr9oGQQVnmqIBo5KrHcb1PP5ZUI0IDJL7/Kv/xNFsde0aojCvSHfT0
-	 4RUrN4Q0AI1wA==
-Date: Fri, 18 Sep 2026 14:47:12 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Jann Horn <jannh@google.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] mm: update comments to refer to anon rmap rather
- than anon_vma
-Message-ID: <aq0_uROeGtsyVJgU@gremlin>
-References: <20260917-vma-is-faulted-v3-0-5c22314a72e7@kernel.org>
- <20260917-vma-is-faulted-v3-3-5c22314a72e7@kernel.org>
- <aq0dInU5aaJN_eMa@pedro-suse.lan>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FuA/HkPG"
+Received: by mail-ej2-f23.google.com with SMTP id a640c23a62f3a-c25ef7a3ce9so96636666b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:47:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789739249; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FryzZ82OCnDpLaBS/e3ueye5brhjh3rzLhqHo5H5MT7NC+kERVo6kxXflWly/aCz1l
+         gKgUtGB22Qux4qyPkxVer5cwNL5kaMAkcbDQREQMsH4GqqECDAeRuOzohGm33swdkp55
+         y+0bj/a5J2SBRuuvLNctZmbn8rSF00ZhvrgahC81iSRflpbTPXO5+of+nhQFkWtXA7px
+         iiHnOmHPsbFYkKtwroi6sOkyrvyppor6JbVtfTCf+jHiL/YZvnM71wOrFDxEBJdZB1+s
+         6Tl0VVjuJcqN9Puwxtt4TxfQDiBGm8Zas9oP4ueUFauV6gtEdrSo82+G9wiNG5xLWM0/
+         4sdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QO8ZLWws9kX6Lxf9eVXFyTYmcZBNVguGNqNy3JkPkOY=;
+        fh=Y/gtngCBubBFIfDli1I8piWqmeoABz8ZXn0T0kjzajg=;
+        b=LNXfwiAEP5XFm/YAW+A8476hPBnxn+rCN5tyT9Uv4UkFKk8oU1wIxtQcOpdrZDbgiR
+         bCH3mlnpukGWO2I9rG39dbTl5uaFnFA4SdbalQZgJUILqKCicS25AJy7jn+aNg/TFRoq
+         n/i+nJ6XIsLBsuqXwuuiTFlcih8KlnJ/lz5Eh8sy6siBbc5JF1/ztwFlFTx15WAO586j
+         y6PCdrXCl41hEgkmnbioJQTCoINop3NkEilB8iv9cJhon4UwGvQ1PYMb1CUHYSFsWXqs
+         9naHJYMgDVGF6FIa4B1qDcKjTHnzSNH7dvFGEMlOOpQmZeZhZCnha3nayd6G4zolC44Q
+         XJgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789739249; x=1790344049; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QO8ZLWws9kX6Lxf9eVXFyTYmcZBNVguGNqNy3JkPkOY=;
+        b=FuA/HkPG+vVEQoZv3L8gIP7ubjwnz/F9kId+vgTAAEGuPZonzjMBEEdT6S4AF0EQWy
+         UYt1SiwIpCSNiVFHTpQlluXnXB3ogytUaUuXxiGkNqKvRrbjF82yF3plSDcNIqtd1719
+         OxqVwBcllaPcb7vLuScjiy5u7CLBTlx9kWk+Tx3zY7cseNWy3cz1S09OgzIQFP8euR51
+         HYJXoph7PorVWFfvDJ7rpsZI75LWrHkGA873olAPMSCO7LsrmN470RH49IQogIRshkPV
+         vzwWfmQEdDlJU8q0u1vT/kgH8qxJ6MRkfow7z4FFd5TtcBndN656eePmr7297F8J0k9l
+         TAfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789739249; x=1790344049;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QO8ZLWws9kX6Lxf9eVXFyTYmcZBNVguGNqNy3JkPkOY=;
+        b=rDCVf1MjHiJA/mjfzE7Lzq/I0IDIpKYQ+0b3xRn8zcEyOK5UW4MmEf3mFJ4DN4FPDX
+         kEU8MZzkEt5ciEZg+85KybRad7WmSUY2PInDZC8r3mh7qsb0LqpKkS9puI8zfD3fpS+o
+         TFLYizw2xxzeXkd3Lh9FbOPoJFCKh+9ZsvT7cw+1M2nBHjVZ8Njg7Si7eiGgN1TUtHfV
+         1JfiP3yhdRFl82xBn2Vm5/emboKki/epEAr7/eXvmrazok/nBAgZyC4VAKymVW1v+uKK
+         yXSsd6yEZ8WImtkgGxdycSp4PdrrHx1olx/NUwYY0s5WbB91qkY4r0b4EMyLFoiZR0Pj
+         mzLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxt3JBBHQv9EhMye+fUmuHx1TO2p3fy4Qc0m6mgegvhtQvAH4TxaMNGzntVDQtwzhktEvb/TGr8Mm/f6Z4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmZMUhqqikgoJF6MZc8cD8Ss+c7wVxTVJl+FE0cNmedggFaFXO
+	QpRnLf0ZRmkIYJknRYdjQR4GmZJAN4ELqXOeLCl812FeYx9gt7Dc0uQImLxKTuu6eCZmIN/q1An
+	N8SdbdHI5idABANGTekrHoLGGBfuhlNanXfw4zbELoe+omMS1OCF1/Ts=
+X-Gm-Gg: AYBFou2aTEePR7vD+0LMzs3l/LLSGOLKzMhXrnrJ8XliPFinvCJMv0D1+oJHSpzjXll
+	mSeTEnh2U7KrhqSuH/Rky7JJphUyINdXJoNhvh2RHPvYYyMrG6NBaNGqvZXApMOWbMcVs6kpj64
+	6ytwgZPUDr20LWkmAZa0HpqcMR286V3tPdKXj9Dq8pBvEw6I35fAdfqwDieHBlm0cvfZBurAVD9
+	VQFBMU6028W3xW4ThAj8xKsQc/HHyJ6PBoh92FUVQ5cBOnlF2LLN7C9CMocgUY/VN+iDaPvmpbI
+	epdRrSPMB5Pt9jbVCCnzrxrsUqI8XMAVii1jr7usOrw5Ih5/GBzavgp5vMLxuBEFHLSvZG5OOM6
+	BNeeodoalh55h
+X-Received: by 2002:a17:907:1ca4:b0:c26:1649:47b4 with SMTP id
+ a640c23a62f3a-c2a15b992d7mr309203166b.42.1789739248591; Fri, 18 Sep 2026
+ 06:47:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq0dInU5aaJN_eMa@pedro-suse.lan>
+References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
+ <20260908-schedutil-boost-frequency-handling-v2-1-25312a713699@oss.qualcomm.com>
+ <CAJZ5v0jbYHcEWqqO3YSbwyeHBLkYCFn+_nQ9Ktt3yYPPcNH6LQ@mail.gmail.com>
+ <CAKfTPtBkv2yG6ne2FG5NUY9QfeY2XTYg=GKnyzoFawkweK-EYA@mail.gmail.com>
+ <CAJZ5v0h+ibqtvTyOqG+iy2vOLCXx9WwfHSoUu1URDCvzBYU_sA@mail.gmail.com>
+ <CAKfTPtATz-aToAVh4sGsTRKM+0sOoVW4AC6gjufAjrFyZg1zFA@mail.gmail.com> <CAJZ5v0i_QYa-LcrK1U1VZjZZiJ3d-9hPbMdBbaGoqMds0BAU6w@mail.gmail.com>
+In-Reply-To: <CAJZ5v0i_QYa-LcrK1U1VZjZZiJ3d-9hPbMdBbaGoqMds0BAU6w@mail.gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 18 Sep 2026 15:47:15 +0200
+X-Gm-Features: AcwNN1W01KcSqUZt1AGSU22f1iJKGB9-Hw3ulW0-SUdG6V6LxuDXDp0Zb6T8r5k
+Message-ID: <CAKfTPtB2YZDy11sXgu06v9WBORBeMQ6z5riCfajyqvC_kAfXLg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arch_topology: seed capacity_freq_ref with
+ boost-aware max freq
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Ananthu C V <ananthu.cv@oss.qualcomm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 12:31:50PM +0100, Pedro Falcato wrote:
-> On Thu, Sep 17, 2026 at 08:47:43PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Now that vma_has_anon_rmap() abstracts whether a VMA has an anonymous
-> > reverse mapping, remove references to anon_vma and instead reference the
-> > anon rmap.
+On Fri, 18 Sept 2026 at 15:34, Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
 >
-> Hmm, I guess this is where we figure out if "drop the anon rmap" or "insert the
-> anon rmap" or "iterate anon rmaps" makes sense, language wise.
-
- Insert: vma->anon_vma = <something>
-   Drop: vma->anon_vma = NULL
-Iterate: iterate over vma->anon_vma
-
-So I think reasonable-ish.
-
->
-> Wouldn't the rmap be the map itself (e.g the current cursed
-> anon-vma-anon-vma-chain structure, or in the Glorious Future your remap
-> tracking tree)?
-
-A reverse mapping is the folio -> vma mapping so a VMA can possess it or
-not.
-
-And the glorious future (TM) will have to track whether this state exists or
-not.
-
-In any case, if we change our minds on the naming, we can change it again very
-easily in the future :)
-
->
->
+> On Fri, Sep 18, 2026 at 2:36=E2=80=AFPM Vincent Guittot
+> <vincent.guittot@linaro.org> wrote:
 > >
-> > The anon_vma is an implementation detail and should be treated as such.
+> > On Fri, 18 Sept 2026 at 14:05, Rafael J. Wysocki (Intel)
+> > <rafael@kernel.org> wrote:
+> > >
+> > > On Fri, Sep 18, 2026 at 8:24=E2=80=AFAM Vincent Guittot
+> > > <vincent.guittot@linaro.org> wrote:
+> > > >
+> > > > On Thu, 17 Sept 2026 at 21:07, Rafael J. Wysocki (Intel)
+> > > > <rafael@kernel.org> wrote:
+> > > > >
+> > > > > On Tue, Sep 8, 2026 at 10:31=E2=80=AFAM Ananthu C V <ananthu.cv@o=
+ss.qualcomm.com> wrote:
+> > > > > >
+> > > > > > capacity_freq_ref, the per-CPU frequency-invariance reference u=
+sed by
+> > > > > > schedutil, is seeded from policy->cpuinfo.max_freq at policy cr=
+eation.
+> > > > > > If boost frequencies are filtered out of the frequency table be=
+cause
+> > > > > > boost isn't yet enabled at boot, max_freq only reflects the non=
+-boost
+> > > > > > ceiling, so capacity_freq_ref never learns about boost frequenc=
+ies for
+> > > > > > the policy's lifetime. Enabling boost later raises policy->max,=
+ but
+> > > > > > capacity_freq_ref stays stale, leaving schedutil unable to scal=
+e
+> > > > > > utilization or target a frequency above the non-boost maximum.
+> > > > > >
+> > > > > > Track the highest frequency in the table regardless of boost st=
+ate
+> > > > > > (max_table_freq) and seed capacity_freq_ref with max(cpuinfo.ma=
+x_freq,
+> > > > > > max_table_freq), so the invariance reference is boost-aware fro=
+m boot
+> > > > > > regardless of whether boost is currently enabled. Runtime enfor=
+cement,
+> > > > > > still handled by policy->max, is unaffected.
+> > > > > >
+> > > > > > Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> > > > > > Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> > > > > > ---
+> > > > > >  drivers/base/arch_topology.c | 3 ++-
+> > > > > >  drivers/cpufreq/freq_table.c | 6 ++++++
+> > > > > >  include/linux/cpufreq.h      | 1 +
+> > > > > >  3 files changed, 9 insertions(+), 1 deletion(-)
+> > > > > >
+> > > > > > diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_t=
+opology.c
+> > > > > > index 8c5e47c28d9a..da94f77441da 100644
+> > > > > > --- a/drivers/base/arch_topology.c
+> > > > > > +++ b/drivers/base/arch_topology.c
+> > > > > > @@ -404,7 +404,8 @@ init_cpu_capacity_callback(struct notifier_=
+block *nb,
+> > > > > >         cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->re=
+lated_cpus);
+> > > > > >
+> > > > > >         for_each_cpu(cpu, policy->related_cpus) {
+> > > > > > -               per_cpu(capacity_freq_ref, cpu) =3D policy->cpu=
+info.max_freq;
+> > > > > > +               per_cpu(capacity_freq_ref, cpu) =3D max(policy-=
+>cpuinfo.max_freq,
+> > > > > > +                                                     policy->c=
+puinfo.max_table_freq);
+> > > > >
+> > > > > So isn't capacity_freq_ref supposed to correspond to the CPU capa=
+city
+> > > > > returned by arch_scale_cpu_capacity()?
+> > > >
+> > > > capacity_freq_ref is the frequency that has been used when computin=
+g
+> > > > the capacity at boot
+> > >
+> > > I get it, and so it is what I wrote above: The frequency of the CPU
+> > > when running at the arch_scale_cpu_capacity() performance level.
+> > > Isn't it?
 > >
-> > Do not update mm/rmap.c which implements the anon_vma mechanism as it is
-> > reasonable to directly reference it there.
+> > Original it was not strictly tight to arch_scale_cpu_capacity but to a
+> > ref capacity but it ended up being arch_scale_cpu_capacity
+>
+> OK
+>
+> > >
+> > > > and it should not change at runtime wether the
+> > > > boost is enabled or not, otherwise you will have some fluctuation o=
+n
+> > > > the system capacity that will create issue with PELT and scheduler
+> > >
+> > > So the capacity should be constant and consequently, capacity_freq_re=
+f
+> > > should be constant.
+> > >
+> > > Also, if boost is not enabled when capacity_freq_ref is set and there
+> > > are frequency levels marked as "boost" in the table, it cannot be the
+> > > maximum frequency in the table because that's not what is used for
+> > > computing the capacity.
 > >
-> > No functional change intended.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > I'm not sure I follow your last point above. It's not because boost
+> > isn't enabled at boot time that we can't the highest boost OPP in the
+> > table as a ref freq to compute  arch_scale_cpu_capacity. In this case,
+> > the CPU will have a pressure on its capacity until the boost is
+> > enabled. Do I miss something ?
 >
-> Anyway, you're the native speaker here, so I'll let you decide:
+> Well, I'm not sure if my understanding is correct.
+>
+> Suppose that the cpufreq driver has a frequency table which is
+> processed by cpufreq_table_validate_and_sort(), right after the
+> driver's ->init() has returned.
+>
+> That function calls cpufreq_frequency_table_cpuinfo() for the first
+> time and policy->cpuinfo.max_freq is set.  However, if boost is not
+> enabled (that is, cpufreq_boost_enabled() returns false or
+> policy->boost_enabled is false), it only takes frequency table entries
+> without CPUFREQ_BOOST_FREQ into account, so policy->cpuinfo.max_freq
+> is one of those frequencies.
+>
+> I would think that the CPU capacity has already been set at this point
+> and now the question arises whether or not it corresponds to
+> policy->cpuinfo.max_freq because that is what is assumed by
+> init_cpu_capacity_callback() invoked subsequently (via the
+> cpufreq_policy_notifier_list chain).
 
-I'm a native speaker compromising on the name I'd actually like to have ;)
-
-is the least-worst alternative right now I think!
+init_cpu_capacity_callback() will normalize the capacity of all CPUs
+once all cpufreq drivers have been probed and it will then trigger a
+rebuild of the sched domain with these final CPUs' capacity
 
 >
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> The $subject patch seems to suggest that the answer is "no" and the
+> capacity really corresponds to the highest frequency in the table
+> which may be flagged with CPUFREQ_BOOST_FREQ.  Is that always the case
+> though and if not, then how can we tell?
+>
+> > Can the boost OPP be added later?
+>
+> Not really.  It is already there in the frequency table, but the
+> question is if that's the capacity OPP.  I guess we need to assume so?
 
-Thanks!
+okay, I was just to confirm that this can't happen
 
 >
-> Thank you for the series!
+> > We keep taking the max between freq table and cpuinfo.max_freq fo the
+> > case where the boost freq is not listed is the freq table or there
+> > isno freq table. Or there is another way to get teh boost freq in thsi
+> > later case ?
 >
-> --
-> Pedro
+> No, I think it's the only way.
+>
+> So init_cpu_capacity_callback() should find the highest frequency in
+> the table (regardless of whether or not the "boost" flag is set) and
+> set capacity_freq_ref to that one for each CPU UUIC.
 
---
-Cheers, Lorenzo
+yes
+
+>
+> That's roughly what the patch does, but it can get away without adding
+> a new field to struct cpufreq_policy.
+
+Yes, That was my point: we don't need a new field to find the highest
+frequency in the table (including Boost OPP)
+
+Thanks
+
+>
+> And the changelog needs to be rewritten to tell the true story.
