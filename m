@@ -1,49 +1,64 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9313FCB3D;
-	Fri, 18 Sep 2026 09:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5304B481DD;
+	Fri, 18 Sep 2026 09:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725064; cv=none; b=MyQS7GIzVAqaYg1sgJ/yRnrY3Tf4on60qSfnwZcIw9zfDLAewvFG0YoqKGZqrTUY+RsV7ELEkEUJb+hZhNWqc3Y2bev7b9Zw8q36SQHL1dBGITuQt8TpKS0dzM3rfbfpRBThUg3Y1p9hW1r8hHMz2FXTTEgl42LtIuxhAYgug7k=
+	t=1789725081; cv=none; b=uGuz1eQEkRlb6/xku70ty8CMjn1QQpPzDxs/pAfaWxJwmg8LT6/lQdykbo7dOxy/MKdTGfr6qLv9OUi5gEv7FF+YDXmRXaR6wZKh/V7VcH0kw1+nexmSyMG3UAfII3lc35xlKmwYhYUX8tk3Uk1Otxqu6HJnsqRpF0KKZcOB9PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725064; c=relaxed/simple;
-	bh=ByCzBbmwZf/rDEK2PLyjRpdxLQzY2WfI/6eu3xdTqV0=;
+	s=arc-20240116; t=1789725081; c=relaxed/simple;
+	bh=PdWkHkW35zc7qU8JTJwU2GtagOwiOFCR7+J7q0Xyd70=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FLNNN4e2x8SiSn7K++fX+/XV4KW7zP9DqQprOifCgZIbCAWFrqhzthZ2hnx54/foBwUqv0GnlpHLyIchmGSgZBJ9GSE0vQdpejQVcrmH0Zv8VaoLy4SXYEKRr/2BCnr2cG2Nh5tmkZMwBR2bJrF+Tz+IrQm7EQW+L07c3RyKc7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KZ7gd8Y8; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=n9gFzA8f3BpXIAKQfe37LsMLBOF3u15o4uMQd5A1HJ9duJbwBIjMXxRnK2W5uzSweqyLFyi5LumRhPpIpkK3GrTa+ftC/l2m+CzPw/o8HW0lfeOqnGSbA85fAO3cQbeRpd71R89u0b2M1KVTapFPbwLOGU22M7Q3X1uWhEEc38k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TAZ3rKoU; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KZ7gd8Y8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=noG7Xbw5qA6orJrsGAhv7ONYyvYhvezfCJLf3CU5i3g=; b=KZ7gd8Y88UOKHJhZOQ+EKpwhRJ
-	5qjc3vHidmfMQPObUKgqlTHKLEu81C4KJfG//Q4KEo1RHLBWvrb7zdnrnSqiVgiDY6dj1/zkFuSZ2
-	j+9QrpUw9a6VulXa++fkPhj1epOG+UEaNSG4e4QJTGBfzrvI6F/bj2qFBdilEBBmQtdQhZI2s631o
-	fXOFIb81BPcDgBeAPtvtiAE0YgnuzYqmSbeiW84gymnPM0dPfRcC7lm03EUVCK5+pzvkMFD/GaaW4
-	pLWuI0K1iCnsUVq4J4QsIk/NzpneAYXyIDXjN+q3lvxxtgJFzaibVoveEWB1s4nO+41abBJANbrBn
-	UaWBnfgA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7VF4-0000000GkvP-0L5O;
-	Fri, 18 Sep 2026 09:50:50 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 42EED300328; Fri, 18 Sep 2026 11:50:49 +0200 (CEST)
-Date: Fri, 18 Sep 2026 11:50:49 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Luo Gengkun <luogengkun2@huawei.com>
-Cc: mingo@redhat.com, acme@kernel.org, namhyung@kernel.org,
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
-	james.clark@linaro.org, elver@google.com, dvyukov@google.com,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf/core: Fix race between perf_event_exit_task and
- perf_pending_task
-Message-ID: <20260918095049.GL1837346@noisy.programming.kicks-ass.net>
-References: <20260416033443.1492483-1-luogengkun2@huawei.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TAZ3rKoU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725079; x=1821261079;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PdWkHkW35zc7qU8JTJwU2GtagOwiOFCR7+J7q0Xyd70=;
+  b=TAZ3rKoUO6zA8J+bJva3FTVzU46mjlnKho/3MKr/an8+QE2MeUdHIZ+b
+   Ov1DSNbxw/bpdxE0cqLnY7crgpdf32r9c9+kNq+MEIshMvzcaH0AJXh7F
+   Y5pvQxOGhkSAe5tTUyYa7wkE+Xe8j2oDO2755C3gfbtxA2jYsQHKfdAJz
+   yryKYfXGlW5I7iWfC6/t7pPu9Eu++EogHqcPU3KG1vvCWCW+iQVUuMB85
+   gqE94A9dOGZpYum3bsVrf4Lgj2gTXUDO5I2asDRaO8wOG/lp3Gpr8ei9S
+   g3EceXxzMBHT24ja1yN5yFddpM2AQJx2tTPsVW5TiKKDhDSenHxpINWsv
+   g==;
+X-CSE-ConnectionGUID: KvLppnxPQ/GDTCw7QU9ArA==
+X-CSE-MsgGUID: RLsdvOW4SimIgVo2w2QaQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90351049"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90351049"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:51:18 -0700
+X-CSE-ConnectionGUID: rUm6hvV8RuOZ6vtHz/G6fw==
+X-CSE-MsgGUID: HEKQbwOmQKCBY68UPzNvQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276289736"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:51:16 -0700
+Date: Fri, 18 Sep 2026 12:51:13 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v7 07/11] iio: dac: mcp47feb02: correct typo from a
+ comment
+Message-ID: <aq0JkYeYnWIO--1D@ashevche-desk.local>
+References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+ <20260918-mcp47feb02_refactor-v7-7-82ca794eafe2@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,42 +67,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260416033443.1492483-1-luogengkun2@huawei.com>
+In-Reply-To: <20260918-mcp47feb02_refactor-v7-7-82ca794eafe2@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Apr 16, 2026 at 03:34:43AM +0000, Luo Gengkun wrote:
-> A race condition exists between perf_event_exit_task() and perf_pending_task().
+On Fri, Sep 18, 2026 at 12:06:33PM +0300, Ariana Lazar wrote:
+> Typo corrected to 'Register' in the comment regarding defined masks for the
+> gain register.
 > 
-> During begin_new_exec(), perf_event_exit_task() may be called, and the
-> PF_EXITING flag is not set on task. so perf_sigtrap() continues to execute
-> and triggers WARN_ON_ONCE(event->ctx->task != current).
-> 
-> To fix this problem, also check if the event->ctx->task is TASK_TOMBSTONE.
-> 
-> Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
-> Signed-off-by: Luo Gengkun <luogengkun2@huawei.com>
-> ---
->  kernel/events/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index 1f5699b339ec..3422900263fa 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -7543,7 +7543,7 @@ static void perf_sigtrap(struct perf_event *event)
->  	 * Both perf_pending_task() and perf_pending_irq() can race with the
->  	 * task exiting.
->  	 */
-> -	if (current->flags & PF_EXITING)
-> +	if (current->flags & PF_EXITING || event->ctx->task == TASK_TOMBSTONE)
->  		return;
+> Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Link: https://lore.kernel.org/all/20260723231859.03f92ce6@systembl0wer/
 
-Since do_exit() also calls perf_event_exit_task() (albeit a little later
-than exit_signals()), and task_can_queue_signal() will return false when
-PF_EXITING, and we ignore the return value of
-send_sig_perf()/send_sig_info(). I don't think we need to check both.
+No Link for non-controversial / pretty much obvious suggestions.
 
-That is, I think:
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 
-	if (event->ctx->task == TASK_TOMBSTONE)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-is sufficient. Also, the comment needs updating.
+
