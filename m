@@ -1,118 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8288F54704E;
-	Fri, 18 Sep 2026 06:17:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8770B3264CE;
+	Fri, 18 Sep 2026 06:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712223; cv=none; b=lpwSH6I37jyHKQW+pQUavft8K8DRgh6CxrNkNXo4u6TRo4cqz/mHhGKsVWnyYHA5fJDlfbAjIu+yLwgRr1XPWRi4LlpdqSXQ4ZgV06pUCNSTjwfThWa1ZdQMocZy/yLLwztc9xF0JSQRyyF1YXxqgzIkLjRiizIQw89U/uCq8Ck=
+	t=1789712269; cv=none; b=mFWjYUBVRPeRMtDKnIwI5ZPcEVCl7D3Do9zzcCa/U3L3QYnwhp64mFACtx07owOLQOYlK7iR2/MsaSFuuzF2PUDk6H3DagzAlyUG6fX1BsaybjhYljg1jvUVDI1Q3eZx9Qaw5bYRVjQuuAgn3y01Z1NBG8cI+FPw2jX0JKsd9bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712223; c=relaxed/simple;
-	bh=GJu74okmXjBhqnTIOGctvx/pb2xEFT1u3IIKkCANtSA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l7NMWWvjVtOntShw8bcDnb2tyMT6gzpWfydfSIVeJxqm2yRxubJvHoAX77K00wpAQP1avRGN1kD/5FftkGQorQ/3s69e94dxeS5k/37yvtyL1Q19QVqb2xDNZXVad5sT+iw2LaxiR0vQERDc1cHZJNeiwt/oc41xc9jgUpi+FRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hC+VO2Ft; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789712269; c=relaxed/simple;
+	bh=LNIh1q/fCx/y46pBI0Sid4N/SRWMnARsEQ1jgoXlDXQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hxAjY/b8/Mhp69B+LoeZxFTeKg/LNPRmuu/AzIVLAG5zfkO3dNqRRYlddEnmjLFVMHhzde1tU8K/iaIWSil3RcFpWxXGDvHUDU7BlH5t6t6GxOHsnbGyvMrTRTfSDJ8jWTT2HoL2T+6VZE9AuZjU7sH62PMtT81/biYdvKuUwaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIymmGnM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hC+VO2Ft"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3305D1F000FF;
-	Fri, 18 Sep 2026 06:17:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIymmGnM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5304B1F000FF;
+	Fri, 18 Sep 2026 06:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789712222;
-	bh=B/13cZeUrOLEzs/U0VXbyufzLI/X+a7vJxST3/Q9H/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hC+VO2FtDKbfS2UHZn7KsHJfhAMbfycfRebcPAyoit5um1I4sEqs1B3s/d7QsmYOx
-	 /uPdeYvBgduMlrxD/q5Qx/yZmnVjrncmd9Y9Pju17LeWasqH1HIMdlKoWQt5U+07Hz
-	 itUI4J2CpMvUEEBQ/TG3dnLcJuv6Ss41jE5ltAkW2SHN1CaJfJtBo8gwaiEDocZ2u/
-	 4YSO3SLQuAartQeYdD1llGHXlMPFhoAhE1udDqkdlpPAbhR3AS4sCi+2T9sNWXk37m
-	 4u2pFM2ozWD9atAEq6/Rf2uBnfPTpaGO4ftBf4KHUAopzadDfZD5zCYKSdh+cDicgJ
-	 SHLy28DKe56aw==
-Date: Fri, 18 Sep 2026 08:16:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Maud Spierings <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, 
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-Message-ID: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+	s=k20260515; t=1789712268;
+	bh=ZQuk43Brm3omuO2DAekLSRMmNspb8q1ZaXTTwle8fh0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VIymmGnMspsP0ZCZVY4PL6IoQsRGqoVMe6G9hD5c4ysDDmi8QeeDmXQPdZK8eTdyB
+	 qgUXYXI82Snvu3l6r6Xrd3IT1Cm+FUDt2b3R2efOqoj5cvn1ULdyBhzwLSge4tTgWb
+	 dZJXHHmNdObQOFAEvE3k6+JsVfbUMPfK7NWXSTvjTJcyhjNRJ+jdAmY3ESeAw8HJOM
+	 9gdxrG0r+FrCVnE/y/dcTbbslcYQYtVRzQDU3icXkC11B5bUy2UEnZ32sY1AxsBFya
+	 oMeawWzq4mHGu7JgLPbIbAvD/hpyDXAW0Yz2eJ1+AXHlmwucCuieuZETAFHd5ZFpoD
+	 VXDSDi/WgJ8wg==
+Message-ID: <5b086e1a-8b8c-4536-8b64-e0169826ab33@kernel.org>
+Date: Fri, 18 Sep 2026 08:17:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv3] dmaengine: bestcomm: use platform machinery to get irq
+To: Rosen Penev <rosenp@gmail.com>, dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:FREESCALE SOC DRIVERS" <linuxppc-dev@lists.ozlabs.org>,
+ "moderated list:FREESCALE SOC DRIVERS" <linux-arm-kernel@lists.infradead.org>
+References: <20260918001835.154305-1-rosenp@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260918001835.154305-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
-> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
-> > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
-> > > 
-> > > This device is a child of the starfive,jh7110-hdmi-subsystem node. It
-> > > functions as both a PHY provider for the controller and as a clock
-> > > provider for the variable pixel clock (hdmi_pclk), which it generates
-> > > from its refoclk.
-> > > 
-> > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> > 
-> > While I appreciate other people looking at this, I don't think review
-> > here applies. It was a blanket tag, given to the entire series, with
-> > exception that it is from newbie, thus I want to ask: was this binding
-> > REALLY reviewed by Joshua?
-> > 
-> > Are the rest of the patches actually reviewed or just "looks good to
-> > me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> > of doing review.
-> > 
-> > 
-> I commented on v3 saying that I would test if I could. I don't just
 
-Testing has nothing to do with reviewing.
 
-> throw "Reviewed-by" on everything I look at.
+Le 18/09/2026 à 02:18, Rosen Penev a écrit :
+> platform_get_irq() avoids having to explicitly map and dispose of an irq
+> by having the platform_device machinery take care of it.
 > 
-> If anything, I've been trying to be more honest in reviews, and only
-> review ones that I actually care about[1].
-
-You gave blanket tag for entire series, so I do not get this argument.
-
+> This requires replacing the device_node with a platform_device in the
+> bcom_eng struct so that platform_get_irq() can use it.
 > 
-> If reviewing patches isn't a good way for newbies to start getting
-> familiar with the kernel code (especially a NEW driver), then I don't
-> know what is.
+> Conveniently, this also allows getting rid of of_node_get and
+> of_node_put as the platform_device machinery also handles that.
+> 
+> Adjust the goto labels in bcom_task_alloc to match what is being freed.
+> 
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>   v3: drop stale description
+>   v2: resend
+>   drivers/dma/bestcomm/bestcomm.c            | 47 ++++++++--------------
+>   include/linux/fsl/bestcomm/bestcomm_priv.h |  2 +-
+>   2 files changed, 18 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
+> index 241a91936fe8..1006030ff167 100644
+> --- a/drivers/dma/bestcomm/bestcomm.c
+> +++ b/drivers/dma/bestcomm/bestcomm.c
+> @@ -99,17 +102,12 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
+>   
+>   	return tsk;
+>   
+> -error:
+> -	if (tsk) {
+> -		if (tsk->irq)
+> -			irq_dispose_mapping(tsk->irq);
+> -		bcom_sram_free(tsk->bd);
+> -		kfree(tsk->cookie);
+> -		kfree(tsk);
+> -	}
+> -
+> +err3:
+> +	kfree(tsk->cookie);
+> +err2:
+> +	kfree(tsk);
+> +err1:
+>   	bcom_eng->tdt[tasknum].stop = 0;
+> -
 
-Writing code and receiving review is something for newbies to start
-with. If you do not know kernel code or bindings, why do you think
-your review is applicable? If I try to review design of a post-tension
-concrete bridge, I would probably learn something. Would my
-review apply? No.
+This blank line removal is unnecessary.
 
-Best regards,
-Krzysztof
-
+>   	return NULL;
+>   }
+>   EXPORT_SYMBOL_GPL(bcom_task_alloc);
