@@ -1,151 +1,176 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903BB4A263A;
-	Fri, 18 Sep 2026 13:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38223A6417
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736860; cv=none; b=lloVa9Bhxl4ku4jKH6EjK7RxtFBqfMjg8ScNGxdldKvJ/InzmRhVLzxTylo3Dy65DsPJvbA/pC+Y5YqJcP4aDd/fmgf6CvjKcw2QZS7/Smy0J2K97669jjRV7mgupTBmmcZ132ZijYNwQTJVC/DyzXk5AgBcTUQLEcHK8+4z3ac=
+	t=1789736973; cv=none; b=fsevzsDO5XtZCfg4JwASEoA9S5GDPDPLpRqn8PyGNs5e/8be48e48Vhn/FD6v4GV/tqzgZxntfiDJsYpQpl1PwHGu39XzzzPYbSDVXOBOsmiAU//C6Ev30KcxMg5HcHlraFjrY4rxDsx9CnvOa/3Nd4b5axxq+WWuAvEprUsde0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736860; c=relaxed/simple;
-	bh=yLRKkVjHFH2CAOoqG8ghcoAuUHWfmqtMg8pbmAm89bY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TTFsnfCijM9VdCftWYbeDNuQ4VPP2O91S+2q+bPpzM6WcMgAXq9vfPehSYu9Es91RlxHz9eOLQUu9nxv5GA9lepELCRlWg6jvXQKzzGqv3VzGnA3+o23n4zg/+LuM5iq9JVyf/dq7V5YtRDM97AjbzUsy8+7JtsE416XMcFfwwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=YhQgO8y9; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1789736973; c=relaxed/simple;
+	bh=y6DmwY2NNPgvI5dt5D40qWsbuLNJ4qNAgz6w9YhiC+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AN41R3cXVgAA+5HfytOtb7At2sg2lyTAiwqNUeSBPzjU9a1WrcG8wAIN+skQqU0gbARvZyRxmxVP3+X4cZQ29k0YuIvBA85wE9lgi2Oq3AArBQLlalJI0luyBYCDJlA4s3WkTBhHteN9CmiB1HqXYya44vvknaJHbhzb5zvs294=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=azWJSIph; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="YhQgO8y9"
-Message-ID: <bca0facb-8840-4691-aebc-e3063c6c3d14@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1789736850;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SUk0QaHaOHcefy3cF34cxRQ5NlHqBn6AdrcK4LTyzD0=;
-	b=YhQgO8y9BMFmml0KZlH0FT3AzNCrA9YHyuNWujznrpuMnz1ALgUCyFNCQ8kHqjn9e3LP1W
-	C5qUW5G85qOui0zY9hOqpaMHc7EvyGHSn3yeHxWUIbU8xYCU7D/G7VTfm7soeMTiaukDR6
-	qvQmbtZSe39IrGiLUQtLtTiEuaJwd+4=
-Date: Fri, 18 Sep 2026 15:07:22 +0200
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="azWJSIph"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so526294f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:09:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1789736962; x=1790341762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ALGqgWpfi/Okg/wnkXal9Ie5Tl89DL6PBwvjP4sq+Ek=;
+        b=azWJSIphmak9h/D1OAMcEOLZ17NoRoUnPB9wbYNMs3uy4PQiCEBwlNRm2rsoVsyfRS
+         peRXbdKqfyvpjiJG1H14TF6xJZQ5qqm46ioqBRmJJEKe8GMDPfNQVqy9G9LQjEu3mds0
+         /XdjWnjUSdYoJJS61IPjFQHGa5jseeNI5QOdPLyH+BXKHAHDSplNMZK2owkU1lsKWWU4
+         eTwy7iLZSEsJfjd4RNKGluV7viNXOsB6mFGQ6jYGJ9MaAUG4OpVRrpUjH96TArdbhyFQ
+         cYpxIA6RqK1CV5Ruz1SsmOOeQ9+eoNzxZ8uyWrPM+juBZSEAt41wxFy3tsGStPz6VX3e
+         NgBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789736962; x=1790341762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ALGqgWpfi/Okg/wnkXal9Ie5Tl89DL6PBwvjP4sq+Ek=;
+        b=ujsBE7vYrXDljH17hU8hkV9xpMgmrISJxlClLejyvOctvVcZAdvNOFudKKzd+0fDW2
+         hCSBgl+RiXTYHARnVoHZj19cPBSuPY29SUgyE1qK1lQA6j4VoWY4RKGx8Qy4/F2oCpAC
+         8/faehrJOk5UZps68cvS3wMgtt9AljlXfDWeHzAKMyQ9hxLEGHYtuP87F0x+az2JbniD
+         QIJ8H7vJGIgNPs/ZmMofDbGfgyZAExCmh9TnbWRcFdR6bQrXs8G/A3V82nT5iZg/h7K/
+         3IsLkmJj31JkUwAto9OlvFIZIBP4uy0KSc3XL0Alg7Dpef6VC2TU4t5ijo8f+CdX9yBe
+         rWJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEsaXN9dRwKjF4m0vjfDpZ2CKNjNv4bLKLGd3K9PAiSxyCgSITi8WWD8HjNjYNv3Rb842ZXLWRKzG3FlM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrx6wPtHj/FHo/d/6CZECgARESVEMv8yseT/U9/5ZKkdiw5Lg/
+	SsaBpKLrNW875MD2xfXyJB03z36uOIthePefctP5CAa1Chzw2Bz/yYSqz9XVUhgHn1jdcO81iH4
+	DoMWT6R0=
+X-Gm-Gg: AYBFou3Xr+MD9o9vYFASvXdQ02UsMB821UoRw9tnpAiMZEz7wIyJLy1MW5pk7BYWDBl
+	FZVOfGXUiv7cFXbh3VytJHu9wpsKdVcFqN0EWG/7uOvRPGqgiTAiYcOWKX/48UkoHWgiJVXOEy3
+	C9VwOVYmhvW0rF8tN0TDQa3AvxzI6MCs6MHFFOJEOVAnnYjS3enTqoC26hsBAXBN49pvKVvFCom
+	duFVm8xWD/2aAA38ZYuCKmTOlWAbecekkRpWoR2QyKZ58S+z3H2JrVD3NOkfNwlzDuAja6uU0AZ
+	t4KHp/i7F+pVjMPZTWNIim4rc3vwF9IWQPXsKir/oEbUFtOb3hj+lJp7ne+sGUTYyjgDEq5NVgb
+	NM/khzCl6YLH54H/Oz5kUtTYdPUzIz7iYo4okj04sEz7aIIoZ3dY+dtCSeYGZpOJeH8QkhtOHWS
+	fkecdIhqRShgvGmD5sOlaYpnBvaxFRyXzYaNUlPIVZVb7pAJw6z8ltsN9uhw+NQ0wVbG1iJUw/w
+	ThtEw==
+X-Received: by 2002:a05:6000:4021:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-4871e3941f5mr6238328f8f.28.1789736962162;
+        Fri, 18 Sep 2026 06:09:22 -0700 (PDT)
+Received: from localhost ([2001:1620:544:1:9163:2f88:bd77:993])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4871ff55663sm3862924f8f.17.2026.09.18.06.09.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 06:09:21 -0700 (PDT)
+From: Bruno Produit <bruno.produit@trailofbits.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>
+Cc: Kyle Zeng <kylebot@openai.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
+	syzbot+d729df28d933979e017a@syzkaller.appspotmail.com,
+	syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com,
+	syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com,
+	syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com,
+	syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com,
+	Bruno Produit <bruno.produit@trailofbits.com>
+Subject: [PATCH] hfs/hfsplus: serialize B-tree close against folio release
+Date: Fri, 18 Sep 2026 15:08:53 +0200
+Message-ID: <20260918130853.216497-1-bruno.produit@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 05/10] mailbox: apple: Add DockChannel FIFO controller
-To: michael.reeves077@gmail.com, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- iommu@lists.linux.dev, linux-input@vger.kernel.org,
- Yureka Lilian <yureka@cyberchaos.dev>, Julian Braha <julianbraha@gmail.com>,
- Sasha Finkelstein <k@chaosmail.tech>
-References: <20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com>
- <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
-Content-Language: en-US
-From: Yureka Lilian <yureka@cyberchaos.dev>
-In-Reply-To: <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 13:06, Michael Reeves via B4 Relay wrote:
-> From: Michael Reeves <michael.reeves077@gmail.com>
->
-> DockChannel is a hardware FIFO used by Apple coprocessors for
-> low-latency byte-stream communication with the AP.
->
-> Add a mailbox controller that preallocates RX storage, tracks IRQ
-> enable state in software, and reports TX completion from the TX-empty
-> interrupt.
->
-> Reject messages larger than the FIFO and return -EBUSY while the
-> previous message is still pending. This keeps the provider usable for
-> future small-message clients such as serial transports without a TX
-> worker.
->
-> Handle RX and TX interrupts in a thread so mailbox callbacks and locking
-> run outside hard-IRQ context.
->
-> Co-developed-by: Hector Martin <marcan@marcan.st>
-> Signed-off-by: Hector Martin <marcan@marcan.st>
-> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
-> ---
->   MAINTAINERS                               |   2 +
->   drivers/mailbox/Kconfig                   |  12 +
->   drivers/mailbox/Makefile                  |   2 +
->   drivers/mailbox/apple-dockchannel.c       | 371 ++++++++++++++++++++++++++++++
->   include/linux/mailbox/apple-dockchannel.h |  29 +++
->   5 files changed, 416 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7fe2ebb5e..e5be5934c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2677,6 +2677,7 @@ F:	drivers/input/touchscreen/apple_z2.c
->   F:	drivers/iommu/apple-dart.c
->   F:	drivers/iommu/io-pgtable-dart.c
->   F:	drivers/irqchip/irq-apple-aic.c
-> +F:	drivers/mailbox/apple-dockchannel.c
->   F:	drivers/mfd/macsmc.c
->   F:	drivers/nvme/host/apple.c
->   F:	drivers/nvmem/apple-efuses.c
-> @@ -2695,6 +2696,7 @@ F:	drivers/video/backlight/apple_dwi_bl.c
->   F:	drivers/watchdog/apple_wdt.c
->   F:	include/dt-bindings/interrupt-controller/apple-aic.h
->   F:	include/dt-bindings/pinctrl/apple.h
-> +F:	include/linux/mailbox/apple-dockchannel.h
->   F:	include/linux/mfd/macsmc.h
->   F:	include/linux/soc/apple/*
->   F:	include/uapi/drm/asahi_drm.h
-> [...]
-> diff --git a/drivers/mailbox/apple-dockchannel.c b/drivers/mailbox/apple-dockchannel.c
-> new file mode 100644
-> index 000000000..d0a66e1b7
-> --- /dev/null
-> +++ b/drivers/mailbox/apple-dockchannel.c
-> @@ -0,0 +1,371 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> +/*
-> + * Apple DockChannel mailbox controller
-> + *
-> + * Copyright The Asahi Linux Contributors
-> + *
-> + * DockChannel is a byte FIFO used by Apple co-processors. This driver exposes a
-> + * single FIFO pair as a Linux mailbox channel and moves payload bytes with PIO.
-> + * There is no DMA involved, so relaxed MMIO accessors are sufficient for the
-> + * FIFO accesses themselves.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/mailbox/apple-dockchannel.h>
-> +#include <linux/mailbox_controller.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/spinlock.h>
-> +#include <linux/unaligned.h>
-> +
-> +#define APPLE_DOCKCHANNEL_FIFO_SIZE	0x800
-> +
-> +#define IRQ_MASK			0x0
-> +#define IRQ_FLAG			0x4
-> +
-> +#define IRQ_TX				BIT(2)
-> +#define IRQ_RX				BIT(3)
+From: Kyle Zeng <kylebot@openai.com>
 
-The dockchannel interface used for dockchannel-uart / DebugUSB uses 
-different bits here, so these should probably be read from the device 
-tree if the mailbox driver is supposed to be somewhat generic.
+From: Kyle Zeng <kylebot@openai.com>
 
-> [...]
+B-tree nodes with a zero reference count remain in the node hash until
+folio reclaim or tree teardown frees them.  The folio release callbacks
+remove nodes while holding hash_lock, but hfs_btree_close() walks and
+frees the same hash without that lock.  Reclaim can therefore unhash and
+free a node after close has loaded its pointer, causing a use-after-free
+or double-free.
+
+Detach each node with hfs_bnode_unhash() while holding hash_lock before
+inspecting and freeing it.  Drop the lock before hfs_bnode_free() so a
+large tree is not freed while holding a spinlock.  Apply the same fix to
+the matching HFS+ implementation.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+d729df28d933979e017a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d729df28d933979e017a
+Reported-by: syzbot+2eac7d175baf21e6a5d5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2eac7d175baf21e6a5d5
+Reported-by: syzbot+7155b2fe09e033c91381@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7155b2fe09e033c91381
+Reported-by: syzbot+adeb387cede15eb11607@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=adeb387cede15eb11607
+Reported-by: syzbot+ae7f2423f3648100506d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ae7f2423f3648100506d
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+---
+ fs/hfs/btree.c     | 11 ++++++++---
+ fs/hfsplus/btree.c | 11 ++++++++---
+ 2 files changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
+index 41b4e8fc9..d85a1df9f 100644
+--- a/fs/hfs/btree.c
++++ b/fs/hfs/btree.c
+@@ -310,14 +310,19 @@ void hfs_btree_close(struct hfs_btree *tree)
+ 		return;
+ 
+ 	for (i = 0; i < NODE_HASH_SIZE; i++) {
+-		while ((node = tree->node_hash[i])) {
+-			tree->node_hash[i] = node->next_hash;
++		for (;;) {
++			spin_lock(&tree->hash_lock);
++			node = tree->node_hash[i];
++			if (node)
++				hfs_bnode_unhash(node);
++			spin_unlock(&tree->hash_lock);
++			if (!node)
++				break;
+ 			if (atomic_read(&node->refcnt))
+ 				pr_err("node %d:%d still has %d user(s)!\n",
+ 				       node->tree->cnid, node->this,
+ 				       atomic_read(&node->refcnt));
+ 			hfs_bnode_free(node);
+-			tree->node_hash_cnt--;
+ 		}
+ 	}
+ 	iput(tree->inode);
+diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
+index 2ea8cd565..a90c9f416 100644
+--- a/fs/hfsplus/btree.c
++++ b/fs/hfsplus/btree.c
+@@ -417,15 +417,20 @@ void hfs_btree_close(struct hfs_btree *tree)
+ 		return;
+ 
+ 	for (i = 0; i < NODE_HASH_SIZE; i++) {
+-		while ((node = tree->node_hash[i])) {
+-			tree->node_hash[i] = node->next_hash;
++		for (;;) {
++			spin_lock(&tree->hash_lock);
++			node = tree->node_hash[i];
++			if (node)
++				hfs_bnode_unhash(node);
++			spin_unlock(&tree->hash_lock);
++			if (!node)
++				break;
+ 			if (atomic_read(&node->refcnt))
+ 				pr_crit("node %d:%d "
+ 						"still has %d user(s)!\n",
+ 					node->tree->cnid, node->this,
+ 					atomic_read(&node->refcnt));
+ 			hfs_bnode_free(node);
+-			tree->node_hash_cnt--;
+ 		}
+ 	}
+ 	iput(tree->inode);
