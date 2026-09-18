@@ -1,112 +1,106 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD057471CE8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED990357D0A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712296; cv=none; b=YMPMct6oPAOjky8qlJAilxuduqlCphBAhjFUQ8rroD3H5d/I/ngFiMoOL+n9lfcQ8SD8dwFI8vg9k7faCDVwQotgvE6GJJTLEsw6AmHywiuoyNuOdcDnxFzdVrS1qClrwcCsMA3oMe6kHuo7PhlSQi7BXjzOsOqQTz9HOF1nadY=
+	t=1789712391; cv=none; b=CUikh2vtzHfoXxst3dfBMA22Grtcar5fT6P9zEz3dLIQfbmJEQOU4vGZ1Vt8g3P1XnMEoXsuRYy2SeVdLst5JXH6AWbyrTTeWQAKYx8hFIKLongbeQXgt5OsNsEVW4qzl9/D73oluAiT6deAoHl0bav5gTIK5RDr/TS01F54Nzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712296; c=relaxed/simple;
-	bh=yfmN4VgJWiM2K0qD+/ELhW7GlVZmQtDwQsE1uxCYWOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CFW1BoHyqlOadWMtfjv+8euurS4JdNQ8/th/2BnVYDX8v5lL54U0aEAk3t/kwHwNCwkKyCtyN+ybOQry4kllyw3rGrFeU1R056Ze0UBvXMyiH5x7nspUDhTkfqpnCdcOGsPOjC3wcDscD1yrDoFCrnxOe02ZlkyH7W1yVuRApy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STRGQ+B9; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789712391; c=relaxed/simple;
+	bh=uC3gSP1VWphKnsLHTSMN6q5Sugf2Ffol6uJOYV+TG04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q3LcufTUNfRZEq1c2mxZ6zlvTXwRrJHa38C+w7UG3NCHxjLzy0VE4Z6doWwW2f2hWCHdyDf19lUM+vHg3w9x4nAQmuVViRpFYOz+yq6gf4WPZIGzGuTv/t08mPQaast5z/420z8shhhr/fo1P/i7yvKMgUiJ1aEQjBaiaDes0zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ine4mz+L; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STRGQ+B9"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so369151a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:18:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789712294; x=1790317094; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
-        b=STRGQ+B9nQu77R/g5add3+Eh/f4ekXW+gi+Sep32DFDEOASu/YtP4FOFGVuOmfDPzM
-         UrSQWGI2ps6GaIpcTlHTEEJFizibbSo/Qxjchl6lysI27QXTLm5M4Kj7aUB4wNyHeDpZ
-         NdNyb5Wet3XKCUzWTV/c0exVSyFO4LvU/ngRsjHwgQzsE9bXPBxItdfIr/dytiy+XPJ9
-         NU4OkBMFjOTH1XlNuXeJ6AChPL5Nm1gxFlw6GYwmszc5Dt3X+NfDXkmTzS1yvTKIeuo0
-         fce3BJskEaEpaE2+geSc5zb1/cJCAFYRvbb2Ssn9h5Mats21TQ8LAJoY8bJQ94QFUORA
-         TKRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789712294; x=1790317094;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
-        b=kSzyE3wm8ks/clDyojmAtd4OFuPVQHNLRY2YeTz1NEo+tZYoQlpGAoHJu0fZf0ANXL
-         VOnc/c+dqOe0BHr1MyI2OdqIl4ThVGvko8t4hcBPvIwDNIa32fdx7hu3+siMnfj3Pcm0
-         l8dPrpM14cqS6G0JqmMwiryTErPZR9e43y0x3XB9mi1xLnoQBPV/zrPJKJvaRKk0F8fk
-         vCvQd/0bqOWJN7E+gYn8QriShisHP9yMifUnRzPbDAv3VTi9sDimWt6RKT3JDlBBzgnC
-         d/wLGeo27lfdEh0omx8mDK49AjnQgZaeoW7LITRsgXT6zCfWeR1HEdbF34ARg5Zbjd9e
-         lwUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJC4ZNlKFMreHuEX7BiUxNXofPR/ryzA5YRREh1HHEh3rX2w/p9OinOhIKhOibVKZTNOXIOjkncRYSsxA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mH3w9U6Hw7kSlrcZY0CHsiHTI+zDGOQu2I0JG+M7z8R3wzSuxX
-	++Jst9y5zYa2+7P0lDHhtPKIPhNLKWSfIzV8f5nGGMdZQ0hN6gEMRImz
-X-Gm-Gg: AYBFou1Wn/VlPxr6ZBu2FxqrXJ77M/3fKFVjoavAinAO1SancmEQPTWzSbMm+IVYA55
-	IRIDb3O78ASEPMXB+AYwtSjESGHRnEX2w2dIKLLqbHeNSHNYiRW0ugsSDGA/qzzIt7zG/GrdFfG
-	AH8bVcHeYPHMsYfMZWEcRmC08kJpCnfS8jNS7yDUF7W+eBo1x+u8lQTDA3ZT0uffC3gScpEwQqv
-	0Xy5kbuT7NvqaFdkmvZGumE/eLxvgxC0MPZF22uWiVTITQTazXcisR9vg6bBpmDmXl0Yh5thz1F
-	ZYyUdkDqz6gOscwwaEgmUcJPwdpEenbuziDGODrc8opTd1eIL02CFVuhATQdbYG3QQdG3zpN1TE
-	aGH6epy1XCfZ2Yi/QnSOdACP/QUeyOqg5swBb+cS5WkNP8pGnYkfqvniEccUyFvmJqg6LrM+s/g
-	LFIz2qB7WX6ce++AmfoG8sZojvRHop3uN3T7HP9LNH7819trMX80npBL3EE63DK+dq
-X-Received: by 2002:a17:90b:3909:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-39e54f35cf7mr5196439a91.15.1789712293559;
-        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a5993bbsm1441555a91.17.2026.09.17.23.18.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	James Bottomley <James.Bottomley@SteelEye.com>,
-	linux-scsi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ine4mz+L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789712389; x=1821248389;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=uC3gSP1VWphKnsLHTSMN6q5Sugf2Ffol6uJOYV+TG04=;
+  b=Ine4mz+LZdNtbUO5EnoWQZMZiZKxkoeHZmxc8fXMhxWUt3qyrUAGobTG
+   oeMtkboYgGkvsWZhvuk6RmwVTvLD0fpnjH3tKnfDHoAkqRDfMJ9jJG4kt
+   oUcxASQj2IDNtQT5Ss6vX4cvdyvE4h6IFW+aUqMBwtFoaMDzOXphyB71G
+   A2tuNXO1eFcvmiJuhLv0sXfYm4pWCZEIEOSsE36hPo0uglf4HZoXm6r4j
+   gMG3kqqXed8SOebQslVyA5RBtUxo941OcZoMH33/vX+zyMJXVAcEe23hf
+   6wB6gMOKgVgxTL4PaNu13zvbpNnCRrxtqaXzpbQKShDi5dke7dajEGO39
+   g==;
+X-CSE-ConnectionGUID: jZRtbrPISuO/MWoHwwAgiw==
+X-CSE-MsgGUID: UiSVFpDYReWKT5vF1bOf1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="698955"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="698955"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:19:48 -0700
+X-CSE-ConnectionGUID: fNty+vSPQkiFor1dgoGn9Q==
+X-CSE-MsgGUID: ni9fjiKgSSuvWZj8M+eOiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270919649"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:19:46 -0700
+Date: Fri, 18 Sep 2026 09:19:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alexey Dobriyan <adobriyan@gmail.com>
+Cc: akpm@linux-foundation.org, Dmitry Antipov <dmantipov@yandex.ru>,
 	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: initio: free SCB array on remove
-Date: Fri, 18 Sep 2026 14:18:03 +0800
-Message-ID: <20260918061803.3561680-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] kstrtox: delete saturation in case of overflow
+Message-ID: <aqzYAN30fpL7YfB_@ashevche-desk.local>
+References: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a396f2ea-8de8-4eca-a216-ff69bc40fe85@p183>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-initio_probe_one() allocates an SCB array and stores it in host->scb.
-The probe failure paths free this array, but the normal remove path
-does not perform the corresponding cleanup.
+On Thu, Sep 17, 2026 at 07:17:07PM +0300, Alexey Dobriyan wrote:
+> From 161367fd1e8b41e938274923bbb3d26de69f7a7e Mon Sep 17 00:00:00 2001
+> From: Alexey Dobriyan <adobriyan@gmail.com>
+> Date: Thu, 17 Sep 2026 18:49:18 +0300
+> Subject: [PATCH 1/1] kstrtox: delete saturation in case of overflow
 
-As a result, the SCB array remains allocated after the driver is
-removed and becomes unreachable once the SCSI host is released.
+Dunno if this is okay to have in the body. I think you need to use some korg
+tools to send mails in a better way.
 
-Free the SCB array in initio_remove_one(), matching the probe error
-path.
+> Partially revert
+> 
+> 	commit 6e30111dbb4075e3c26c230417b32bc4a1c66831
+> 	lib: fix _parse_integer_limit() to handle overflow
 
-This issue was found by manual code inspection.
+The reference to the commit is standardized:
+commit 6e30111dbb40 ("lib: fix _parse_integer_limit() to handle overflow")
 
-Fixes: 72d39fea9017 ("[SCSI] initio: Convert into a real Linux driver and update to modern style")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/scsi/initio.c | 1 +
- 1 file changed, 1 insertion(+)
+> Originally, kstrto* was written in a way to keep simple_strto*()
+> functions as is, so that they continue to return incorrect result
+> if integer overflow occurs.
+> 
+> Saturation doesn't do anything useful, it just creates second incorrect
+> value and potentially breaks simple_strto*() users.
+> 
+> Caller can decide to saturate itself anyway.
+> 
+> Move saturation to memparse() from where the idea came from.
 
-diff --git a/drivers/scsi/initio.c b/drivers/scsi/initio.c
-index 06fbe85dccfa..b373828bddf1 100644
---- a/drivers/scsi/initio.c
-+++ b/drivers/scsi/initio.c
-@@ -2934,6 +2934,7 @@ static void initio_remove_one(struct pci_dev *pdev)
- 	struct initio_host *s = (struct initio_host *)host->hostdata;
- 	scsi_remove_host(host);
- 	free_irq(pdev->irq, host);
-+	kfree(s->scb);
- 	release_region(s->addr, 256);
- 	scsi_host_put(host);
- 	pci_disable_device(pdev);
+I don't see the use of this saturation, so perhaps we indeed can live without
+it as before (note, I haven't checked any POSIX/C standards for the conversions,
+dunno if they specify that kind of behaviour).
+
+...
+
+All above assuming that test cases are passed as before.
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
