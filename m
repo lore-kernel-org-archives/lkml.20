@@ -1,80 +1,45 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB87A37F8C1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:36:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2628502D50;
+	Fri, 18 Sep 2026 15:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745773; cv=none; b=fjhJ3pTRcLgGzTXTHY+YzEa3Ul39hZnCecYXPkUEgVd+N6XtK+Y8dpqzVtDQWn4zCwZiKNZiadQx6P+B0+OIm2AM/1OA7+YKp9mIF+bwCAZnyUzsW/uQUg/FDdgO+3+adle8Y5cZGfvln5qpyq2defzcrVn/RaRVztsTzBVKUh8=
+	t=1789745779; cv=none; b=TEVGhAAz4xC2AuDfC6CEoy8/jIpvCTX7Ahzoy+lnwl2FA3cJ1cTCcfEHsSgjZP1UgtAc+64Mqw9tfzyXbZoRPT8F5YVXlPkX/n9Am89m0w22Z7nTHWBc2q1i2dJReF/xtFzK/afLFxPHDCGjIWZrMb5WdcChimMQkCfRkEzjEoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745773; c=relaxed/simple;
-	bh=4frnw4AJIHyHABYm5pg5pXRmS9EbYLGkBKG0nfplNyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vhu9JVzldIqZnIrvCscRLRDdm5HIscKsADtuQ1GdrkCNhtnxyIBDxsqCjqrktgFBpx76M1iKX9dY7u8MJpVNoF+NJKb0eJXubCesNP5EKlKA2ce0nfHJQRdtKPzJTQURWG6qyzLP8i6JsgVVtXnR9fTnxKOR4t2AY7gs/RbxO/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pHjEjspL; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789745779; c=relaxed/simple;
+	bh=wfqcenSftZsP3XmToSfu8xlfxN5AXWzQwWcOa89W3Ow=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N2lnsrOo8iN4KvAxl9R7wHC+XlFLWO/5NO5rL6gyGwJ6DWfBJRLWiSkc310g/R91+NBGAaJ9ZeYPSpO7gJALpjHDgMbvZkGPGcILRBuySc6PJjTA03YZn0HrnIcpQSVb/C7WPjnBERdBg5FJXre2OvTDUI6jerC/vj7mHFeSnZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=vqf1wVhb; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pHjEjspL"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43db0c29so6647817b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789745770; x=1790350570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H9QJBIVHpp1T8EOCutwoOsBtVXRjP2JjVf/HAZ5Y8Gs=;
-        b=pHjEjspL8J9MXJJtnYbN2InVL3K29MGi7RdhmlAI/9Jd2i3x9vIq+azdsKzS1of2ZF
-         X1sdh1bVsmetRbapyzEM6zwRBilXTQ2VVurPmJcdAEd3/ZpODLBjIKa0y5NLKZbn4z0Y
-         EjiBWHvJMNIkO7syr6Hbn3D1Z0nwO06yBheegWro481R3k7jNoazhuBn14w6cSwRDt+b
-         5ow4DQLK6YOysFl0wjo1MSVZnlbzDdj9k2QbS5oVn+8nNj+N40oGebzHuZ7ECKd5aaek
-         3yz1J0osti/JrZ8UC4eRiPFL/59oj9e51fauh/VpgxVPesIfnUaCdC56ZS4uBPQotZJD
-         a4Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745770; x=1790350570;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H9QJBIVHpp1T8EOCutwoOsBtVXRjP2JjVf/HAZ5Y8Gs=;
-        b=ToU8FQWBTCqYya3OvEaZfvWfAwrJoNMSxvSSC4RNapEIF/UY/yuOn1gkeWu9S2Wuag
-         yi5kCzOWlr8T6+XQqmsGSgB43WTcYe6FeErxe8E/8hYs8ZEABpi1l1hrorSHTNgnexTx
-         1cyRptKG02HgMjVqAqP2OJeTNGDAZ5SAuNUxyuO2i2IJuVyvhxriVl/ly3IOpPHCtz1p
-         qT3O0+urIk1fM+WKnggk8zqLtXZQX9Rp6uD2m4oAaa6ue9zaK6LqbTcGYqE6AKmdEBO4
-         wmWIujap3Rr+7eOe8InCq+JxG95/lja6H4NUhrnpnGvkjPCl2k+xRZ11fX1fJUCtdlyK
-         TVKQ==
-X-Forwarded-Encrypted: i=1; AKwUvByex7HmOfY0OWSYoySR4PQuTMCiF77XUgKAz1B5zTOXyYKeBDL+2zG5+Znjbn4OSuObpL/gwcZBdJvzD7U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrxfUuZB7ODz1u682uj5ZKpeuYzH70BWJK+BtIc0HpEB+NLZip
-	m2wS8beZ8sw0KzXSFUwBFXh/hgBERrDDdb5Pn0GTrBSfvItUgML2uApZaZ+IjzcX
-X-Gm-Gg: AYBFou1Vw2+OULXeJPly+4kW0mM08hkU2BJumDldyUUTWFSbQlwQRo4WYtPOoafKZKa
-	re7PsHwrHqpa8fzO5cmudRg42pqa8u1bRg2WEFa/yqW+ursufxMc+lTCF9KnatCIo3YZQcPgE9S
-	wZ4GicdD1rxrFmVgDMbVzV1dvrUXbqNnYPWE4lONfpKp1hRAhkyf7J/8Ei74Z4i7npR0TBwXIlV
-	VFJLzxb9KYy37K1jYuGnQfS/LiDQqqoB4q0QNfIYqJffj90LDAcVQXHOO91Y60j8Be9O84y85kl
-	KqkhY4dxS5mKFVtdEBjLB9m2EekQv/8jA8LY9LdGOJk4vj/PIQvkZSVw73sr8LuioPODjN9Dav5
-	zIsoY6I6HC9xp7NJE5iq4+vfl5iSP3djF5szh5gNf2UZ86v2Cjy2XL8N0+F/KhhmDe4Nr9MK7ye
-	DebWcyQ9f9Pew6Z4FAtmuJ1I7h3nhV6yYLbSF5LTmVSWVXwczMxInP6MBRDWj1FHzZ3AKw8ys9s
-	lOGJDVeaRW5BynvMyOFCnnk7vAc0JqX1tVvQcSXzZFmf4ftz0pdpouD7lhdLzJ6gg==
-X-Received: by 2002:a05:690c:4ac7:b0:87f:e953:f6fe with SMTP id 00721157ae682-89733c1f4damr7920667b3.27.1789745770490;
-        Fri, 18 Sep 2026 08:36:10 -0700 (PDT)
-Received: from customer.bnssarg1.isp.starlink.com ([2803:9810:8266:bb08:24a9:9eba:f922:f56a])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a46e4dd4fsm469007b3.25.2026.09.18.08.36.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:36:09 -0700 (PDT)
-Sender: Mariano Baragiola <mariano.ignacio.baragiola@gmail.com>
-From: Mariano Baragiola <mbaragiola@linux.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Anton Danilov <littlesmilingcloud@gmail.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="vqf1wVhb"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3EC044DF1E0;
+	Fri, 18 Sep 2026 17:36:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789745774; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=rUY+FDBSoq7Kv0hMv5htcO88hTjVFTNuoFNUMVHGY2E=;
+	b=vqf1wVhbOsVRDvNacNiLIN1x1rQk+E6qI+J+e21v6MQjqeDqzNNQCsEX03+2DOgei8+nLv
+	Z5lQhpDFMugVGVvn/7zBjJE42oz1t0TsSHE1ow/mgpK2U35PiNdHpSb16ucvXuj4RptzMi
+	S1AySXZK0a9h00HUBUBfJtcmEppwhQUb5a5QKq/Cl5us18ywZAVUmHMr3yg+GaSiVN4R42
+	sHzRqPNthtUb2Y7hVU1yCePrUIYm/klmSeZvSCfVGZHxFjnX8Mlynonntc08vhqSogwx/f
+	4ng3ZJTUGw7jzM7WZhLTyd/WdHdW2fYC7NDYT+z0tw3Kfq5tqQqdWRJK21UVyw==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Mariano Baragiola <mbaragiola@linux.com>
-Subject: [PATCH net] udp: resubmit encap packets for secondary mcast sockets
-Date: Fri, 18 Sep 2026 12:36:04 -0300
-Message-ID: <20260918153604.579277-1-mbaragiola@linux.com>
-X-Mailer: git-send-email 2.55.0
+	naseefkm@gmail.com,
+	robh@kernel.org,
+	tglx@kernel.org,
+	grandmaster@al2klimov.de,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v9 0/5] clocksource/timer-econet-en751221: Support irq number per timer
+Date: Fri, 18 Sep 2026 15:36:01 +0000
+Message-Id: <20260918153606.344143-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,62 +47,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Multicast delivery clones packets for listeners after the first one.
-Commit 3cb8d4b9bfeb ("udp: fix encapsulation packet resubmit in multicast
-deliver") fixed encapsulation packet resubmission for the primary
-listener by propagating positive return values from udp_queue_rcv_skb()
-to the outer IP layer. However, it left the loop over secondary matching
-sockets unchanged.
+This timer appears on both the EcoNet EN751221 (34Kc) and on the
+EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+uses a percpu interrupt while on the others it uses an individual
+IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+Add support for IRQ number for each CPU timer under the
+econet,en751627-timer compatible.
 
-When an encapsulation receive handler requests protocol resubmission for
-a clone (ret > 0), the secondary delivery loop currently calls
-consume_skb(nskb), silently dropping the packet.
+Changes since v8:
+* Actually git commit changes from v7. Guys, I sincerely apologize for the spam.
 
-Resubmit cloned IPv4 and IPv6 packets directly to the returned protocol
-via ip_protocol_deliver_rcu() and ip6_protocol_deliver_rcu(..., true),
-matching the ownership and resubmission conventions used in the
-segmented GSO paths.
+Changes since v7:
+* Use %zd for logging with ARRAY_SIZE to avoid compiler errors if
+test-compiling on 64 bit.
 
-Fixes: 3cb8d4b9bfeb ("udp: fix encapsulation packet resubmit in multicast deliver")
-Signed-off-by: Mariano Baragiola <mbaragiola@linux.com>
----
- net/ipv4/udp.c | 5 +++--
- net/ipv6/udp.c | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+Changes since v6:
+* Rebase to tip/timers/core (base-commit below)
 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index bb8cfc62cb00..d79be57854e3 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -2522,8 +2522,9 @@ static int __udp4_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
- 			__UDP_INC_STATS(net, UDP_MIB_INERRORS);
- 			continue;
- 		}
--		if (udp_queue_rcv_skb(sk, nskb) > 0)
--			consume_skb(nskb);
-+		ret = udp_queue_rcv_skb(sk, nskb);
-+		if (ret > 0)
-+			ip_protocol_deliver_rcu(net, nskb, ret);
- 	}
- 
- 	/* Also lookup *:port if we are using hash2 and haven't done so yet. */
-diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-index 93478d1ad576..ca8d0a1844d2 100644
---- a/net/ipv6/udp.c
-+++ b/net/ipv6/udp.c
-@@ -1001,8 +1001,9 @@ static int __udp6_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
- 			continue;
- 		}
- 
--		if (udpv6_queue_rcv_skb(sk, nskb) > 0)
--			consume_skb(nskb);
-+		ret = udpv6_queue_rcv_skb(sk, nskb);
-+		if (ret > 0)
-+			ip6_protocol_deliver_rcu(net, nskb, ret, true);
- 	}
- 
- 	/* Also lookup *:port if we are using hash2 and haven't done so yet. */
+Changes since v5:
+* Integrate patch fix refcount leak from:
+Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+* NULL econet_timer.membase after unmapping
+* NULL check dev->event_handler in case clockevents_config_and_register
+  failed to fully register.
+* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
+
+Changes from v4:
+* Fixed incorrect compatible in DT schema
+* Bracing in out_irq_free if statement
+* I did not move cpuhp_setup_state past the point of no return
+* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
+
+Changes from v3:
+* off-by-one in out_irq_free
+* Gracefully fail if too many address resources are provided in the DT
+* Allow fewer actual timers than num_possible_cpus, as long as they
+never start
+* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+
+v3 note:
+
+I decided to take this patchset in a slightly different direction from
+v2. There is a certain amount of initialization that once it has run,
+it cannot be reverted in case of error. The original driver init was a
+mixture of revertible and non-revertible code which made it too easy
+for code which is designed with best practices in mind to in fact
+introduce a bug. Therefore I start by making the init process more
+legible but without any business logic changes, then fix a race
+condition by keeping IRQ disabled until after cevt is setup, then
+finally add non-percpu IRQ support.
+
+* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
+
+Changes from v1:
+* Split changes over 3 refactoring patches + main patch
+* Remove driver discussion from dt commit message
+* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
+
+
+Alexander A. Klimov (1):
+  clocksource/timer-econet-en751221: fix refcount leak
+
+Caleb James DeLisle (4):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+
+ .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+ drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+ 2 files changed, 159 insertions(+), 53 deletions(-)
+
 -- 
-2.55.0
+2.39.5
+
+Alexander A. Klimov (1):
+  clocksource/timer-econet-en751221: fix refcount leak
+
+Caleb James DeLisle (4):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+
+ .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+ drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+ 2 files changed, 159 insertions(+), 53 deletions(-)
+
+-- 
+2.39.5
 
