@@ -1,149 +1,189 @@
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094673115BC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE03A49F111
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760687; cv=none; b=tRVIvpg2dKu9QqHYwPnAbEtOg4ExXmwZdOr+QZGK5v/BDpJ/fCvKd4kYZsV70aj1oicbIN01f1RTiEEhQrJ41sIVAe9YgvQXsa1GYiiNJjEgmafWY7SnJRhYBgaeiIlI1CJD4HPbCqA7jBCC2HnYw2gvcK+4pdUsfXLBNB9XuE8=
+	t=1789760708; cv=none; b=G5osk5yBVMXe4ALs25kln1ua3ViJOhG6gu1SrKenmymDsski4F/e8DbYBOX5XyAyv4F+t5vWMzrrIRbjn26y9rObMPVbXYGthTJqFiGeOTfmkjEeWLw7iVl2FIToKYVB0nXOTntq8oef0hYpoHbriB3xuJAk7liHHJikShzev5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760687; c=relaxed/simple;
-	bh=8WHA82Upm6WvCV3hKve3Bdxje7rQueBVUD94EtinsA0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lBRWbhrqNnQTS7ogqzL94pMVJBEs8+Ypd7f3tK+ufBES9MIY3U7du7Fh85k9rxNGAyjz8UEk2Wj147Vxq9FkgUcMdCX10YAV1j9cxA3b3/xdJfNU8kr9DCcBeLr37zeX8PzakKy6iflqnWktdS2BooaRhrVqzD61O1N4ftzDQWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f3.google.com with SMTP id 006d021491bc7-6b35c65f4cdso419370eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:44:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789760685; x=1790365485;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1789760708; c=relaxed/simple;
+	bh=8ZTrrIxJky21okgg3OV+LOiHHfsI6KM7FDw7JnLT294=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QdpmuUGyMBLnWCo5iRNhNC1evWUFHKLThPb9zRsEZTNpPd/d2i2w8cgzpebziJ+het/E3giTgFZEhsswv10yi7yT59cteqa3FWTymV/kzKMhMvZo9wZszGKREsb61YCUJT/sj5GL0I2549UnAOXNf6aZhGrCVmjV2C5W6sr0C6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HkdNQCCU; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HkdNQCCU"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6185so7656385ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:45:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789760706; x=1790365506; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=B58QLtxNJW2TWmNk7rDHcHqu0cb9CsdeNl4cvQJJN+8=;
-        b=cDpOcs2zNzeFA/0EOYHEjotwanRCkLkOmh7T7m10N/wmC7rk45K4Oljymr/izuTU7P
-         IRdgb5p4J/YtXO6lpsE9M2l0OFsU4mtz29BxQtuwsJhQzZfwqnrijuy2fO8viB+pvYTr
-         t2lLlPU6P+G+QA/gzrTcaJTX7KW0tAd3Z2gO/xeeTBESzUvXb449/BxwjZf9mlFz296G
-         zCCU6ztfbp2IkvKKSyhUWCtt0MdmJuLGhpgxyx0Y4PoWKbg6CmP4HbmXw4c5lu0vqbE2
-         VzOJOBRGW6nkTj6SSgR3eG4foBWGOoZ0oEATnJxgJRe6Nj3xWunCoaouvtujjjLuqovP
-         MXYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhIhTFQp2X9rCvC19ZR3RxkztkjTXXS9mZZIWkCdM7gsoZrrDoMdy3/RnIXbU5aCEFLdDCSeFESafS5Ec=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2NK9kRXXnknFGAzkKijWbjgwV4bqzD8o7UN4/+hD06GOtoqrQ
-	9/8lzNnmR39PjTX2oX38QcMW8KThVXWUC93FxsT61j67XFWPwsZG7xd2qznnLwe5eT4OTOYf5Sg
-	gTd2YxkM7AdR0v8Vv9skiNuDWadqRkAykcJScFEYtBg9hYGh+ITFtQkc+Trg=
+        bh=szCxdCB52TPTOMoJOhzrKbvc6KVcFeMOqRe/OAFYPcE=;
+        b=HkdNQCCUSzoRPufrnynAs9T6fTxmu4H2nO7mxIszLEOl9Yl4l7RKzLs8TBuG5Jdf1q
+         /UK/KOHfhtFF54ibrxFbzw39YAQolmjoJsRaNS+VXFhTappT6SwpHf0ybYh90ExHX5Gg
+         QppZmOINR6aj3WnNvkIFxHCyj7eYV18+5qsC7ZOERFEpIMSuZgofK14hrtgnh5F2xR3r
+         iF9QhUY3wrjQa6lAc+wETeQdjkM5GvIygA49Ah0VyMakgy7t6Q3S5txQ9uFygov9DaXW
+         z72AAQL6Ym/5heeIEeN6x3ijKNFuRbjV5AFjO+MEA9pvHto2VBBbDriMfqirB5lRqCnL
+         TSew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789760706; x=1790365506;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=szCxdCB52TPTOMoJOhzrKbvc6KVcFeMOqRe/OAFYPcE=;
+        b=l8Jacw5pXctMIsgko+AB624rVxC/umEdTaMzPdTxdT5QPBs+eQ2fxbuHUZhcxJnefW
+         IiaNrlCGNl53Vwrz/4dEzDmZZBCpDHdwWIR6p38BHtDvnUPHs5NhxbWPxSFUhj/My0Vh
+         Fw3h5PsAApNnHIGU6MH1KbE6O9WPDAoeP3tj8DgJ6GoOV183t+X4eHYByV0r/Y5OZ4L9
+         xh7Gl+kREv49cQYAYyyK063vTWHDeHnXaPvFRgvBzyplYfgklZ786Ef3Clpvy4+A3Ge+
+         hrtsawOxEVOjzfgxADTinDpcfVbPm/+NGWql8PjzV0RXc2L/HgueZKuMDqVI2b++TXaI
+         Mx5A==
+X-Forwarded-Encrypted: i=1; AKwUvByqkiWOsajT8U8tBV5s8okeIlxQ8pvryx4qHK2/io1fLbkidjkHaEVcmJ52ZPhnnQdw1xZN31VVnl3A+qQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzcKXu9XqjYvtFNKgOPSWK8bb6MqWhDtWfeezBi8L8msrvD9+e
+	PvGEqflnV9qffWre1OPs9wEUUYRfDtRx8IrXQZNcrw7bw1DAn9f4QkPm+6OPgA==
+X-Gm-Gg: AYBFou0V6/MwWHS2Twpk13QqrA1SrLPekQDM1p2jVtgBaPcJzUDejmsx/a6HZ3nAgZb
+	5cz/zgqRNssNKaKeHJwjYJjJgr7Io/4nRz8ESwAB37brBlBeZiBJbvm2RILPv5fts/b+S7sYKZA
+	1XImlgTJ3vR1GZ0Sav7yb0p1f2zdPWn80HLLX3jV37awwHo1rPsKG+ssz8nwoav+VUr6kS2AhcA
+	V4eMuxuQFexXuCqO0i39Bm4WDaQuDJwNUrkGef5mODmcCYyt/YohwIdSEjAyLEwLCDgdDjmfg5V
+	uPMlMV7md3DdEE8LU+LyDyQ/lb85buszE+UJDe9xR07WnWCCTwnwyEcGB09NVgV/MZZWNMfmJQe
+	cDtux0CVCAsJjJnV3BznN1ROn7FImkfKgHim4uJor5238V8mjXiVyTJihjNmVn20LnoNfN8hWu+
+	/ye8hwm3JKu2W59AD0iSvLm7l5Hn9V9VjaM8xJVSDm8GiXJifcjaiWVBU8hO1r61vQTa1MiscJr
+	aG0tsc=
+X-Received: by 2002:a17:902:fc4b:b0:2dd:ad74:ac2f with SMTP id d9443c01a7336-2ddb1ba7187mr75143905ad.24.1789760705947;
+        Fri, 18 Sep 2026 12:45:05 -0700 (PDT)
+Received: from [192.168.2.190] ([24.23.128.127])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331b0d6esm670462eec.27.2026.09.18.12.45.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 12:45:04 -0700 (PDT)
+Message-ID: <b115ece2-33a1-412e-ac25-38f339a13599@gmail.com>
+Date: Fri, 18 Sep 2026 12:45:01 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2221:b0:6b3:752a:53c9 with SMTP id
- 006d021491bc7-6ca9a63c6ffmr3350107eaf.2.1789760684868; Fri, 18 Sep 2026
- 12:44:44 -0700 (PDT)
-Date: Fri, 18 Sep 2026 12:44:44 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aad94ac.87c06881.1db2b3.0023.GAE@google.com>
-Subject: [syzbot] [kernel?] WARNING in iounmap
-From: syzbot <syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com>
-To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	linux-kernel@vger.kernel.org, luto@kernel.org, mingo@redhat.com, 
-	peterz@infradead.org, syzkaller-bugs@googlegroups.com, tglx@kernel.org, 
-	x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v12 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+To: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Barry Song <baohua@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+References: <cover.1789714023.git.zhuhui@kylinos.cn>
+ <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
+Content-Language: en-US
+From: JP Kobryn <inwardvessel@gmail.com>
+In-Reply-To: <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 9/17/26 11:58 PM, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> BPF programs can observe memory pressure on a cgroup, e.g. refault
+> stats via bpf_mem_cgroup_page_state(), but cannot act on it:
+> triggering reclaim requires writing to memory.reclaim, which BPF
+> cannot do.
+> 
+> Add bpf_proactive_reclaim(), a sleepable kfunc performing one
+> proactive reclaim pass on a memcg, like a write to memory.reclaim
+> but without retrying until the target is reached, so that when and
+> how hard to reclaim is BPF policy rather than hard-coded thresholds.
+> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> as high_work_func() does for memory.high; reclaiming more is left to
+> the program, which can call the kfunc once per bpf_wq callback and
+> stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
+> other sleepable programs may run with filesystem locks held, on
+> which the reclaim path could deadlock via filesystem shrinkers.
+> 
+> Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
+> macros to an enum so that they are emitted into BTF and usable from
+> BPF programs via vmlinux.h.
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> ---
+>   mm/bpf_memcontrol.c | 62 ++++++++++++++++++++++++++++++++++++++++++++-
+>   mm/internal.h       | 10 +++++---
+>   2 files changed, 67 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> index 716df49d7647..c5d7f29ade85 100644
+> --- a/mm/bpf_memcontrol.c
+> +++ b/mm/bpf_memcontrol.c
+> @@ -8,6 +8,8 @@
+>   #include <linux/memcontrol.h>
+>   #include <linux/bpf.h>
+>   
+> +#include "internal.h"
+> +
+>   __bpf_kfunc_start_defs();
+>   
+>   /**
+> @@ -159,6 +161,48 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>   	mem_cgroup_flush_stats(memcg);
+>   }
+>   
+> +/**
+> + * bpf_proactive_reclaim - proactively reclaim memory from a memory cgroup
+> + * @memcg: the target memory cgroup to reclaim from.
+> + * @size: the amount of memory to reclaim, in bytes, clamped to
+> + *        MEMCG_CHARGE_BATCH.
+> + * @swappiness: the reclaim swappiness, in the range [MIN_SWAPPINESS,
+> + *              SWAPPINESS_ANON_ONLY], or -1 to use the memcg's own
+> + *              swappiness.
 
-syzbot found the following issue on:
+The ANON_ONLY enumerator shouldn't be included as part of the range. I
+would change this to [MIN_SWAPPINESS, MAX_SWAPPINESS] and then specify
+that ANON_ONLY is a special mode like -1 is.
 
-HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13727a99580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=ca1ef9e2e234b8d3599b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=110f305e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=118f88c9580000
+> + *
+> + * Performs one proactive reclaim pass on @memcg, like a write to
+> + * memory.reclaim but without retrying until @size is reached. Call it
+> + * repeatedly to reclaim more than one batch.
+> + *
+> + * Only available to BPF_PROG_TYPE_SYSCALL, because other sleepable programs
+> + * may run with filesystem locks held, which the reclaim path can deadlock
+> + * on via filesystem shrinkers.
+> + *
+> + * Return: The amount of memory reclaimed, in bytes, or a negative error.
+> + */
+> +__bpf_kfunc long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> +				       unsigned long size,
+> +				       int swappiness)
+> +{
+> +	unsigned long nr_reclaimed;
+> +	unsigned long nr_pages;
+> +
+> +	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
+> +		return -EINVAL;
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-704340f1.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e02afc1c5927/vmlinux-704340f1.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/09cb4a8b3309/bzImage-704340f1.xz
+Related to the previous comment, you treat the special values as part of
+the range. It works currently, but creates a layout dependency on the
+enum. I think it would be more future-proof if you did:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ca1ef9e2e234b8d3599b@syzkaller.appspotmail.com
+if (swappiness != -1 && swappiness != SWAPPINESS_ANON_ONLY) {
+	if (swappiness < MIN_SWAPPINESS || swappiness > MAX_SWAPPINESS)
+		return -EINVAL;
+}
 
-e1000 0000:00:01.0 (unnamed net_device) (uninitialized): Unknown MAC Type
-------------[ cut here ]------------
-!is_ioremap_addr((void __force *)addr)
-WARNING: arch/x86/mm/ioremap.c:460 at iounmap+0x64/0x240 arch/x86/mm/ioremap.c:460, CPU#2: syz.0.17/5914
-Modules linked in:
-CPU: 2 UID: 0 PID: 5914 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:iounmap+0x64/0x240 arch/x86/mm/ioremap.c:460
-Code: df 48 89 ee e8 fd 3c 51 00 48 39 eb 72 16 e8 13 43 51 00 eb 28 cc cc cc 49 bc 00 00 00 00 00 00 32 00 eb 23 e8 fd 42 51 00 90 <0f> 0b 90 e8 f4 42 51 00 5b 5d 41 5c 41 5d c3 cc cc cc cc 49 bc 00
-RSP: 0018:ffffc90003ebf7d0 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff88802403cb00 RSI: ffffffff81bada13 RDI: ffff88802403cb00
-RBP: ffffc90000000000 R08: 0000000000000006 R09: 0000000000000000
-R10: ffffc90000000000 R11: 0000000000000001 R12: ffff888057315430
-R13: ffff88802322a0d0 R14: ffff88802322a03e R15: ffff888057314000
-FS:  0000555593d27500(0000) GS:ffff8880d5d59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000002dbb65fc090 CR3: 0000000036b28000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- e1000_probe+0x1400/0x2cf0 drivers/net/ethernet/intel/e1000/e1000_main.c:1230
- local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:354
- pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:416
- __pci_device_probe drivers/pci/pci-driver.c:478 [inline]
- pci_device_probe+0x25b/0x400 drivers/pci/pci-driver.c:512
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
- bind_store+0xf4/0x190 drivers/base/bus.c:267
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f534839e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc4dfb30e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f5348625fa0 RCX: 00007f534839e159
-RDX: 000000000000000d RSI: 0000200000000800 RDI: 0000000000000007
-RBP: 00007f534843503b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5348625fac R14: 00007f5348625fa0 R15: 00007f5348625fa0
- </TASK>
+The previous comments I brought up are now resolved, so assuming you'll
+make the changes above you can include:
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Reviewed-by: JP Kobryn <jp.kobryn@linux.dev>
