@@ -1,69 +1,61 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
+Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BF34CFDD;
-	Fri, 18 Sep 2026 04:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706737; cv=fail; b=uUMSi1CvErukQHJsELQh4zGemCjsCoL0fI68QyyypMDMcCsVScOMkqbYmpGg7fj8aELkPbMD9Q52wRRMerRXo+aodWAZqvKZRVNXQqWOnWS6rLT+vMG8tg/aBMAjmOjt9Ewuw5sgPceCoKW0dfMkwq5u/ZNfHS2ZhlhFB7Os2no=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706737; c=relaxed/simple;
-	bh=n9VMxM6jl9G+mAy6XqpKLpb+jw8gQH+C2SLhjVOtXpI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jODHq5dUyq02DSe77ziO1rsCuyT8CghRx6/JIElbBH/VrqwsG8O81W8YKNaG4EweDJPF5dlB2SNNw81I7QnrYeJ3dcDthvNkr77qt4SidY6XLD47CnAM4rsV8+5p8mOu4K3an5Ev2/kWEgK5D+tkUiQ6MBwNqKeff840Eln0VJc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DJ1L9I8S; arc=fail smtp.client-ip=52.101.56.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC67154707E;
+	Fri, 18 Sep 2026 04:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789707032; cv=none; b=Z6YFIYROKJ1D+68ZMG5wZCbA1b49jkPlklDHMZz6+CAk1RRNzd7vmkE7BTw3wpV1f8Jb0REEtsdAOafw79pRLGm5RQs1OdEw3Njckm2rFdOPwEdkoaJFrI5MZ9eyN/C/4P9CYxKdQC9FfSBT6AtXkdx8Yl12RgwZCZDeUjNqFaM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789707032; c=relaxed/simple;
+	bh=n2piDbYsTAYFwqdXcKxPJVurKNps3aJYTe9GNTCvdd8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AMXs/SfqBgs/EO32w5OE0f0OEbkbr7Vu0XRfn35vb+9oA00fPqytsf61UhHxqdIX9SprxG5DH/12+4yM708uKqzw9ds94t++gyfxnuLutpNmeaJG2I9AFBxRUcyR7z/LVynNHnBHRJ2zqoJnoBEYbaZmR5w/9W/a45y0mPK7mco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=DCNMqRQM; arc=none smtp.client-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DJ1L9I8S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EDjEpd9qqQyAEjtyxqtzzsv8ePtKtFuOqmQnS4D7MIOsYGsDUgj5O52Hl+872CXcofLtGwLUvEiLmkLxuVtJcldwkTHzWFnodI6xM418VW+mmx5aXMJbd6skoYkPvieGoYSGCqQNVEl8mm46cHyYAkHYsRsjaJ9TvADdoA2hQJkwOFXMN191/n/seGDeDOuGF8dQ55LGe6gyO7MYrkdAQvKHs+rewLUzwX2oY20QBr0dPF6wAPX61IYWNpIvKtjrh4Epxk8jXDjnJ/6pYRRjmjeFRGm/PwcGnUCbKn5XQvqzX1cU5bU34h1jB3Suhnu0DUDrwg/9AUSUXnfA/ov3lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
- b=pkcJTNrd9NJB+/iINDvrHiLDo2Fh27eKBwC06ChbMSXW2F1eHcHjyLJ0rGXYoin2YaHRWOg4bSdcJ6esv9iBVHH8E15ttWroYXyRK6gepgGBGTxHE898bC9H/dw7pJN8WXuKk1hap4gKM8fzhMcwGGirdbxIM46AwmOBtH/7Ar21O8CbvaCB5R9U28xqkY/z1Y+tUSCSVStb7PHNZCzfxj7qPkvwMfjHVlXbbW0SPbUXQlRpuRN6DXTUv5FH/tmLvaSTl2YkQHyjMAx/HzEfRP160TXdkQjy56dfk8I4a282XT5wSmp4JIO6jZHjYYe6e8jFINo8YMZYWUAjCCotHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
- b=DJ1L9I8S2XpC9d59SGMJHlkrjwQkWKk4Buv3aTL5yssC9r8aUaJEzZ28xF+n51+2XFCtduAHJozvNX4uh8PzV91xEngGzgfVURvSuyCfavTtijnULqUnLhvKcjZitpOPVklYGovsSBV/VQET9IwtH8hyOx7uAiNPaf4vv67Zruk=
-Received: from MW3PR06CA0029.namprd06.prod.outlook.com (2603:10b6:303:2a::34)
- by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Fri, 18 Sep
- 2026 04:45:32 +0000
-Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
- (2603:10b6:303:2a:cafe::81) by MW3PR06CA0029.outlook.office365.com
- (2603:10b6:303:2a::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 04:45:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:45:31 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 23:45:28 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: <iommu@lists.linux.dev>
-CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
-	<arunkod@amd.com>, <joro@8bytes.org>, <will@kernel.org>,
-	<robin.murphy@arm.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] iommu/amd: Fix IRTE allocation when DMA translation is off
-Date: Fri, 18 Sep 2026 04:45:15 +0000
-Message-ID: <9a0c163409807c709511c335018c9e5b504abbb4.1789705496.git.Ankit.Soni@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="DCNMqRQM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789707030; x=1821243030;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SyFwGRaqH3oiMPjnkPS47mB6Cdto9junyyZzujrDe6s=;
+  b=DCNMqRQMjkVRhhROTSIQLHYLbDPcRvcW1TTC/o61SrczHEiZ885S6b0f
+   WglGbS3TzeZ8wigyrvi/3SK/dwAF15Gc0eZX7dL22vxLldsJCRG1zwFqn
+   L9oN4j8FVBCB2ydlH42jtPxrNXhqy0kDhQF3O362WmKnFWs1FwsLSAiI3
+   RSOw3UuF2T/A5OBWgXFtCOsASB1A2vQ1X9m9NdKqyuGXzKs6nuoRJALVa
+   K1220oobKfN8Pxy0yviMDl4S2tbJ5ySlS70Zm0WlEitdn5wTwKhM/fpHb
+   j7YxY5kjfIuqz1IepdFAKC9dxRTa/k5Z7YaAfOyjA6BIiQzZQV0kBzCQi
+   Q==;
+X-CSE-ConnectionGUID: BNh80O8jRzexf/r4DoH8og==
+X-CSE-MsgGUID: VtQlHfxkTZS7CXiOdcjmww==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28762656"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:50:30 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:30209]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.1.232:2525] with esmtp (Farcaster)
+ id f7103714-67e9-45c2-bbf4-f7afe6d43e37; Fri, 18 Sep 2026 04:50:30 +0000 (UTC)
+X-Farcaster-Flow-ID: f7103714-67e9-45c2-bbf4-f7afe6d43e37
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Fri, 18 Sep 2026 04:50:29 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.24) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Fri, 18 Sep 2026 04:50:29 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <edumazet@google.com>, <ncardwell@google.com>, <davem@davemloft.net>,
+	<kuba@kernel.org>, <pabeni@redhat.com>
+CC: <kuniyu@google.com>, <horms@kernel.org>, <shuah@kernel.org>,
+	<netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Nathan Gao <zcgao@amazon.com>
+Subject: [PATCH net-next] selftests/net: packetdrill: check rcv_ssthresh vs scaling_ratio changes
+Date: Thu, 17 Sep 2026 21:50:21 -0700
+Message-ID: <20260918045021.42138-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,63 +64,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|PH7PR12MB6810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	18WAfZ5sABdU3aPZ78hysvFHyXLqhTPu2q0kB9muUR9D+U37vZn/g6WVKPquclrMzb1gYSmH2/q3eGfA/pl6p18Z1VPqCM3Jyeui7K994zCOSLk5XASid4sEjmNrlYojB0rpWQ08jLaX2Qny5q+/7pMNjwar3oh7VBAqnf7NuL9KjHABpoxGD9G0g4L7gBQxIP5BmYh8aqpGVsgEklVCdTZEhmFzSxvSMgEDSUfy8AK8+qXfKZvaW7VcZ2cDNqSB+ah9W322N5Y2kAO1pw3xKW6KljLpmgmMwY749Ioh1gAulv03lEpdc5hyGz6AF+6ZO0imE+p570neJV7lAK0Zxasu3mITzNwvrUvQ75Ur9OIqlhmzEmySGEN3dQJD4D//5NwvPN3qphZveI+O3zaNLVeIBNBz6CDf3izTePkh6+8qdh0jG10mefzBpWp5l6SElpEmwyG6bhU/9QbtL7bpZOTTjqNXm4hjy5rs1J1C7IQ1VXU/6idca+R+QdgryqlbOMuThZyDcoH358wCjROWcpZiWF5RdMgKPat/sGXQtdVoHlha0XihfttnfyH3r9a9AGhoT8XP8otXgTTks8hd7I6XbBrzEAlv9wxUwsEReGCqkmWeUHQKJqtyt7XrVndNKX44smu+Lq9szpr6vd2GLBbuyLQG3CyNOiHcRQhvEidQl6TF8OsQ8eDz7tZRzSf4n3Tw5HnKLetVmpx+9fCHHQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ThhRgmBjpERyZ1FCOnv32kKJ7bHzR3dq/jxXghBJuWxAEWic/GRKSTMjo4lVLagklepoUEjEBFbhfelFta0zCU5aYIz+ru8mfe6hn8WQs3TSd7YNIrrkMWS5RAFOWNV6e23uB8ym4UcXgKP/uQ28iCdU6469GlXZI0vBeBvvbkfwFuhNzPGHfjdfbNVEEbmnaqAHKUCvILStv/MdvZC6G/ZknJcqVSJXNegnqvAycIVo2aGNSXSDBjRLrd1X9kSbccWF92y1e2lqTDzdZoKvj3x73m8GCym7BmZeO9uQr9n2zvDxEyrEGx8SdwtCjafNZ2mnyvarsBpyw6TPCbCBditQZHFJXG0mbmuO6M2v3EJwG7bZZ7Va5D8pdLs1/LiIVcHPo0OZGr0FGtEJazImz6Ovil2saHzfbJsUBM/CVTfWbRzrxeLEWr7NBCHm/P0/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:45:31.9502
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
+X-ClientProxiedBy: EX19D036UWB003.ant.amazon.com (10.13.139.172) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On an emulated IOMMU, DMA translation can be off while interrupt remapping
-stays on. Probe path skips DMA setup as intended, but it also skips IRQ
-table size setup. Interrupt remapping then fails with "Failed to allocate
-IRTE".
+tcp_measure_rcv_mss() recomputes tp->scaling_ratio from
+skb->len/skb->truesize and updates tp->window_clamp accordingly. Commit
+f5da7c45188e ("tcp: adjust rcvq_space after updating scaling ratio")
+made that update go through tcp_set_window_clamp(), which also shrinks
+tp->rcv_ssthresh, so every scaling_ratio dip cut the advertised window
+as well. Commit 0e125ecfe20c ("tcp: do not change rcv_ssthresh in
+tcp_measure_rcv_mss()") restored the plain window_clamp update.
 
-Fall through after the PD_MODE_NONE check so the IRQ table size is still
-set.
+Add a packetdrill test for it, as suggested during the review of that
+fix. A fixed SO_RCVBUF pins sk_rcvbuf, so window_clamp can only move
+when scaling_ratio does, and the peer announces TCP_MIN_MSS so that
+icsk_ack.rcv_mss sits at its 88 byte floor. A single 89 byte segment is
+then measured, and 89 bytes of payload in a ~900 byte skb is far below
+the 50% that TCP_DEFAULT_SCALING_RATIO assumes, so scaling_ratio and
+window_clamp drop sharply. Nothing puts the socket under memory
+pressure, so rcv_ssthresh must not move at all.
 
-Fixes: 3222b6de5145 ("iommu/amd: Fix error path in amd_iommu_probe_device()")
-Cc: stable@vger.kernel.org # 6.19+
-Suggested-by: Sairaj Kodilkar <sarunkod@amd.com>
-Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+The test checks the state it depends on instead of assuming it.
+tcp_measure_rcv_mss() only measures segments of at least rcv_mss bytes,
+so rcv_mss is checked to be 88 before the segment is sent. It is checked
+to be 89 afterwards, because rcv_mss is only updated by the same code
+that recomputes scaling_ratio, so this proves the segment was measured.
+rcv_ssthresh is compared against the value it had right after the
+handshake, not against a fixed number, so the test does not depend on
+the receive buffer size or on how the architecture accounts skb memory.
+
+Verified on net-next, where it passes for ipv4, ipv6 and
+ipv4-mapped-ipv6, and on the same tree with the fix reverted, where it
+fails in all three modes with rcv_ssthresh cut from 260684 to 51200.
+
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
 ---
- drivers/iommu/amd/iommu.c | 1 -
- 1 file changed, 1 deletion(-)
+ .../tcp_rcv_ssthresh_scaling_ratio.pkt        | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_rcv_ssthresh_scaling_ratio.pkt
 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 56262f6b1f70..77ef2749206a 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -2531,7 +2531,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
- 		pr_warn_once("%s: DMA translation not supported by iommu.\n",
- 			     __func__);
- 		iommu_dev = ERR_PTR(-ENODEV);
--		goto out_err;
- 	}
- 
- 	iommu_completion_wait(iommu);
+diff --git a/tools/testing/selftests/net/packetdrill/tcp_rcv_ssthresh_scaling_ratio.pkt b/tools/testing/selftests/net/packetdrill/tcp_rcv_ssthresh_scaling_ratio.pkt
+new file mode 100644
+index 0000000000000..f99ecb8a224f7
+--- /dev/null
++++ b/tools/testing/selftests/net/packetdrill/tcp_rcv_ssthresh_scaling_ratio.pkt
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: GPL-2.0
++// tcp_measure_rcv_mss() lowers tp->window_clamp when a segment carries less
++// payload per byte of memory than the ratio it had assumed. Test that it does
++// not lower tp->rcv_ssthresh as well: rcv_ssthresh is cut back under
++// memory pressure, and it only grows back slowly, through tcp_grow_window().
++
++--mss=1000
++
++`./defaults.sh`
++
++// A fixed SO_RCVBUF keeps sk_rcvbuf from moving, so window_clamp can only
++// change when the ratio does. The MSS of 88 (TCP_MIN_MSS) is the smallest
++// segment size TCP will measure, and window scaling lets rcv_ssthresh start
++// well above 64 KB. The window the peer announces does not matter here, this
++// side never sends data.
++   +0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++   +0 setsockopt(3, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
++   +0 setsockopt(3, SOL_SOCKET, SO_RCVBUF, [262144], 4) = 0
++   +0 bind(3, ..., ...) = 0
++   +0 listen(3, 1) = 0
++
++   +0 < S 0:0(0) win 65535 <mss 88,nop,nop,sackOK,nop,wscale 7>
++   +0 > S. 0:0(0) ack 1 <...>
++  +.1 < . 1:1(0) ack 1 win 65535
++
++   +0 accept(3, ..., ...) = 4
++
++// Only segments of at least rcv_mss bytes are measured. Note it down, along
++// with the rcv_ssthresh the connection starts with.
++   +0 %{
++assert tcpi_rcv_mss == 88, tcpi_rcv_mss
++ssthresh_0 = tcpi_rcv_ssthresh
++}%
++
++// One segment, one byte above that threshold. 89 bytes of payload sit in an
++// skb of about 900 bytes, far below the 50% ratio TCP assumes by default, so
++// window_clamp drops sharply.
++   +0 < P. 1:90(89) ack 1 win 65535
++   +0 > . 1:1(0) ack 90
++
++// rcv_mss is only updated by the code that recomputes the ratio, so 89 here
++// means the segment was measured. rcv_ssthresh must have been left alone.
++   +0 %{
++assert tcpi_rcv_mss == 89, tcpi_rcv_mss
++assert tcpi_rcv_ssthresh >= ssthresh_0, (tcpi_rcv_ssthresh, ssthresh_0)
++}%
+
+base-commit: 4982d3552a3bf94de503acf93433277d08421de6
 -- 
-2.43.0
+2.50.1
 
