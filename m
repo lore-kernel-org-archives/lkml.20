@@ -1,185 +1,144 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1323B3C13
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744134; cv=none; b=Yp0UPa12VQsBFG2nYOl6RrEl3ydLPMeMBlQ5gsDo7QeFhW5Lw1ev7DJEZe2grIlSlFVH4/JXzcYazZl/cKU7ooyMkNZzbR8wSBm46VQ5Hspa/RIEVCarFx+iD19B3NPReyvnN8Olok7D/sOZzEy6vyZo+yabpsnDIK3iUc5UelU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744134; c=relaxed/simple;
-	bh=e9nFbdcPODykM6jcyFZ18+yb12ux8wSoro0rLUg3lS4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RcU8tRQoiF4H3txz5hTU0d3T/Pdd4nL2W3OJv0jKhKGpgW/Db9ZCq6f1TPokFJEXmp4y8kG2lM1IfR1xGOZQh7UPZvabPNukdvL0oloGQEP6+2pohsoXxDSsRsWtlyS65ZQL9yPETjW5YXSnQdXNpurghIR4tT2LcHWBBchZKyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kR8P7ofN; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8794FDA5A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744173; cv=pass; b=LS//fZjcNz7KUYOai8jsHzmGg7ZpZ5AsbE8Ix5+0QKbqUcXHq/SO3/s8U/pM9J3SVpLm0ZKv4qdN8/SFPNMQ8C/hdZM0T2zEtzjL2NtO5vRwd7iQuQh6hKP4bg//mlFBBww8piVhtvMCc6NWL0BWxFcEIKJBQ9UDwa0IOIgxh04=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744173; c=relaxed/simple;
+	bh=Zy64POVp3cHToa/Y34iX2wiBVKCmqoeRskHAltBrV9Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bd0BDozumCvF9CIBAjAInPCSBTlcU//j+VuOc2m3s9kO9x7V0P4v2OifT2MK4t/RJ/HuqdOmcL8xVIdKPTaHGdxNUdxcYdcqf9pObSPKLYAkENvoMPf2Viep629y7LHbTvQLo/ON/mfqVIqUgOocTT4yCiQJ3bmfUlZl6uT+9D4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vSXchQP4; arc=pass smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kR8P7ofN"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDVse71394313;
-	Fri, 18 Sep 2026 15:08:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=9FvzBA6cASGcUK6x1rx4pNH5R7ZA
-	lQZlhI5xim5ujyI=; b=kR8P7ofN/YhkWrJHOiWf6q6ZOOp/FV/1dvzRpiPJLk/P
-	FGjNWrJr9vImLao0dNmxWPiJikXOtcZaHUwpvOWnmDRuL0pGPU1dLkbYmyyiCOLp
-	MUnfrE5z6wu4UVKN9vXGD+IFw2ATw836IB6I2HJBMDbgyr//SOwtedWVPbgIhqWL
-	RePKIT6NAyrRsuXuzFl6uUw1qsa/VnZ+RSgDgesI0fGn0pRg0f6XR0n+eMW7cQp+
-	InkdEjOlWmNMAzpUrtau+4iSWhAFUz1lByFcN6LJJcoUXg7Mu4uWkvCBfEpSWWBE
-	dixUUp+r+4CExfx0nQB2uGpttPZrZn9zLrffKsMovw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf5gtsm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 15:08:21 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDNttB1684370;
-	Fri, 18 Sep 2026 15:08:21 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gs4tv8prh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 15:08:21 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IF8Hqo37093778
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 15:08:17 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 537C720043;
-	Fri, 18 Sep 2026 15:08:17 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F0E5920040;
-	Fri, 18 Sep 2026 15:08:14 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.18.35])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 15:08:14 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org
-Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
-        msuchanek@suse.de, ritesh.list@gmail.com
-Subject: [PATCH] powerpc/ftrace: Don't restore r13 during ftrace_regs_caller
-Date: Fri, 18 Sep 2026 20:38:10 +0530
-Message-ID: <20260918150811.1743769-1-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vSXchQP4"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed2so449618241.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:09:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789744168; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BjuBcUqcfvPv+t+ELPNj6FRjRo1J4bSnyDaOS/1A7clKYrjxxl1+oXUfb/8FYbJqRc
+         zB8tDjaIrHkSqPAwp1/ocWIeBetvaxTjTeCVWdkj/tSjU6SILYgYdfu8F85rSKYAlkxS
+         Iw47ilD6aKF8eaEJW0nCCVWpxDHU1/yqQGAdTwTg/D21sz9wAZUsCHwWDjaKPI7FZFBr
+         yKzQ5A0BCACDcJD8LIQk/gmfEYsrNQxZT1G3hnLirEil9fI229jf7wBnmQfoudabsc15
+         NTJyTgi4zFIqEykfC0qUAAaOm4+RaxqgK1KqDhhL6XEXgfD26AV/bg8ae6uEq8P+Ghsw
+         QM1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=m9PpjDJTI5A4O9GHsrecsFdQCMZtDm/KhMOyyrkdNv4=;
+        fh=czhvaZtBl/kpkEZ/ViGW0KZ4mzKD4EeL0dE5EUs707Y=;
+        b=lNY7W5EnfIXGJp5uQ3Th7Um9bhCVCg8s/1C6zMi6CJ9aJhQ1GJwypanXaC+kJPXmQT
+         3Ea0UHOyPV8DXB7bpQYYhq8M12SsyXW2ShhXeL5We+JLvTA935wb/k4PWpwuPsoabCBl
+         yZSgpUBE3A63+YcGBVC/Zs59TyNxxouKIriyrC8oQHwHtSeiVfdLq0kAfKfRHEC3n4th
+         YvaUn2HNZ9oSWdEcfUCzrLDF3V38iKYJcCbawdxj/qpUsuI4Gs0Y4rIRHkezN6uKPVKh
+         oGy9ekldDTNYrQ+Qi5+FOGHRQ/p6Nz+Z+mxS9YEJdJxG/BxO1vfPyrjXYIDmQ2Gv0smu
+         elrA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789744168; x=1790348968; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m9PpjDJTI5A4O9GHsrecsFdQCMZtDm/KhMOyyrkdNv4=;
+        b=vSXchQP4kSDNl1xzfV7H8dpr9ng4g/JBcRXwjGNQ5zst+1xWLMkGX1HJdharDV698B
+         mM7iKVrFaZJg4qO4ajJHvsVmADHPdFjUCRpczL0XO4vzCTrfba7vkyZ+y4aUUl88ZbUi
+         bRAjUUxc31R9glBztAvmfuW+3AyzqUcFNjkOwg845c+//f4CeNwUhyZhqrCBPKoUjuvE
+         AeznNSjiloxhU84OfHYKw2tJxWF+6Jf1SHaSl8Ra/vmq7at+FVfC2msrlCpPbICRKAdX
+         uSfzlN8cIaqH3GiEOdhaaCkyg1L6F2XG/jXvr98ZGzfHMvR5xwxNwtpU5/TxL+tJRBvR
+         +U+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789744168; x=1790348968;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m9PpjDJTI5A4O9GHsrecsFdQCMZtDm/KhMOyyrkdNv4=;
+        b=cWThvNGkQqIwoBMoa5yI7ELXt5J7O6SD9RmhkIG/zLm+pa+9e+vlw4fQqUntVMde53
+         3Lq2Erp4FNfkkXmnSX5xYODWZPX/4KZ9A1spbZfQsjXbJhPIMYYebyUvHPwrngdP+2Ms
+         KkWzVUn60cbLGUiB8nZKl4bDvMZBkDmVOANdHB0Lrjh/uQDRJq7lwEAL+nK1xoVbS4fy
+         lGMJmBqz6U5U/xPrMG+z5X3kh9r56Rk5/EU4vu7RUlRQznPv8JLINeeZTrtpKFlaghvi
+         mjjL5P3I7VDuxeC9pt2ts03K1Yo3AEhZcrAlObWB+V0h56+vOl3GzPT5TYiUwKxpOIGS
+         yWwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKO7K6Jcx+JXFLVC7D83QuXg8P33nZ9Td8amOCPuk9eJsITNX6AjpwT/h/xjyBovbsn6WihfygqN2nKEI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEfE7tPV1R+T6oyXi6mesFVxtCin80TiKOYGONUhZ0kSXQWxsD
+	s2/omRdPInMLFgub743mgwbsp5AMaU3OkhGE8Pu/E/3mU0eaPHP5EjIpemg/HQTF7tJedhz/K6g
+	TshOfW66dEsC3XRGvn3we2+M8p4OsXyjhtK5+4C9SLw==
+X-Gm-Gg: AYBFou243N7Z2Blr7ivyjqWO9J+xydnlq00XTEJp5z0zndUvSzraAFmtJtbFuW4Ro1z
+	+FXgOIFspE8VUw0DRgREqBgp6idEL5F6WxvSEBn4GJdhZD66ti6dX8UXQdvbfc89LUdlQF24bZ+
+	bQeh0gNdF5EZZgpo03jKq8dcBMIWsipbmMpQrTbRlEi+DIo628dblySIhjOD1iT0sxJlKr7w7jR
+	SmdD8/WYeAsRPqNDprWE9eK94Y7XizN77ETvh8R10uuX4RDPi6C3hHxU08C8bAF4hF9ExWAuQrC
+	QZhanBOMdt6OseKr3A+t3DAwz+XCRv0/UCM0a51WcEChePxdVZH5XN4HsXWeGwS1AKZhNVLp+0Y
+	4tsbJuavyKXiSK1BmP7P6UNVO
+X-Received: by 2002:a05:6122:d89:b0:5c9:a60b:e5af with SMTP id
+ 71dfb90a1353d-5c9b59d5fedmr1460675e0c.17.1789744168196; Fri, 18 Sep 2026
+ 08:09:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: m2gLy_VreWRdMN6iJVAqoHsHylAy2TtJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxNCBTYWx0ZWRfXxXh6hvW5QiEe
- qLFfzrAjyhKxcJYPzSqoAcNwMZRoNg51lIiriE7GQHmoMDroUkq4sWhxbG9cBC35/6STshl+3hG
- WgtNy4qYLRqVYA+Xdk3oIqMfCP4iEpg=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aad53e6 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=5793ORmOmheN9jAXARAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 9yj6e0EcyvcQnHwSMx9Fp2PkNCEWLEuS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxNCBTYWx0ZWRfX1CLx15bgIrV7
- sXLoofMWcA5+PWcwo8SZhZ4AyhLnXSGPUivahK+dXS7Z/7Unwoy74NDzeYLk04xYMkzwro1D1u6
- by93qF0hrWat/FDlyJ0Dd04CesaCKbEyZFuh+I5ncUE4iVZh85kcx62ON1uqx/EkfL86jb1nECV
- spN9HxMMeDnh5flVvgqwaoASXnE5IjMyavh4LpJixFhDFyQq+k4ML7lSNxZvfSnoHc32JES9UfC
- //Sa0QYSPHT5SBmgUBxPppRVY3CdnUoq+3c1vCa2KlxotaPwqFbEToEHbAqjm3yye1uNQ2YjDhV
- ATZQx6icKKfRYqYU9zj0HQVZk1C6hefMUMi0QvaaelatDemKPb9w8wm+3fhUPiEZlC6E567dg9m
- hy4p92/000zkdPk1f31GLGNuoPFgs8+HsPr6Lpi4lRTpi3cRp5ZMh7kb5GoPLLuYmIB4ovKjKyi
- d2q38juz1+iGKgTSJBg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180214
+References: <6108b9d8ba5e750fc3f104c7c47c765cda12ab0b.1788430197.git.geert+renesas@glider.be>
+In-Reply-To: <6108b9d8ba5e750fc3f104c7c47c765cda12ab0b.1788430197.git.geert+renesas@glider.be>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 18 Sep 2026 16:09:15 +0100
+X-Gm-Features: AcwNN1WbCgmZ6KBoleiDGX2IyJqTG4BFE69tG3w6kSQzgb-TPyozGD3DKfdtb2Y
+Message-ID: <CADrjBPosa6tyVCrEh9vsUoba9tWBbqa-kG2emcu+L1t48QmjSw@mail.gmail.com>
+Subject: Re: [PATCH v3] arm64: dts: exynos: gs101: Drop CPU masks from GICv3
+ PPI interrupts
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Michal reported a stack-protector failure and subsequent panic when
-running kernel builds. This was observed with full/lazy preemption.
-Initially it was suspected as KVM, but later turned out to be due
-to a bcc tool running in parallel.
+On Thu, 3 Sept 2026 at 11:11, Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
+>
+> Unlike older GIC variants, the GICv3 DT bindings do not support
+> specifying a CPU mask in PPI interrupt specifiers.  Drop the masks.
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v3:
+>   - All other patches in the series have been applied,
+>
+> v2:
+>   - Rebase on top of commit d0298724f901d45c ("arm64: dts: exynos: Add
+>     EL2 virtual timer interrupt") in soc/for-next.
+> ---
 
-Issue was recreated using a bcc tool. 
-For example, running below in parallel leads to crash.
-./funccount sched* -d 100 and make -j 64
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-The same crash was observed when running kprobe for schedule() function,
-while simpler function tracer for schedule() didn't cause the crash.
-This helped to narrow it down to ftrace backed kprobes area.
-
-The crash occurs as follows:
-
-ftrace_regs_caller entry on CPU A
-    |
-    +-> save r13 = CPU A PACA into pt_regs
-    |
-    +-> call kprobe_ftrace_handler()
-            |
-            +-> ftrace_test_recursion_unlock()
-                    |
-                    +-> preempt_enable
-                    +-> task can schedule and migrate to CPU B
-                    +-> task resumes with live r13 = CPU B PACA
-    |
-    +-> REST_GPRS(2, 31)
-            |
-            +-> restore saved r13 = CPU A PACA
-    |
-    |-> The task then continues running on CPU B with r13 pointing
-    |   to CPU A's PACA.
-
-The stack-protector canary is accessed through the PACA. After the task
-migrates, CPU A may run a different task and update its PACA with that
-task's canary. Restoring the saved r13 then causes the migrated task's
-saved stack canary to be compared against the canary in CPU A's PACA,
-resulting in a stack-protector failure.
-
-Similarly, current is resolved through the PACA. With a stale r13,
-preempt_count() can access the state of the task referenced by CPU A's
-PACA instead of the task running on CPU B. This results in corrupted
-preempt-count warnings and scheduling-while-atomic failures.
-
-This path for example is called when using kprobes and parallel kernel builds
-can cause preemptions during ftrace_test_recursion_unlock.
-
-Do not restore r13 from the saved register frame. If the task did not
-migrate, the live r13 already has the saved value. If it migrated, the
-live r13 contains the correct PACA pointer for the CPU on which the task
-resumed.
-
-Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI") 
-Reported-by: Michal Suchánek <msuchanek@suse.de>
-Closes: https://lore.kernel.org/all/aqKfsVArHHaIK6M9@kunlun.suse.cz/
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
-PS:
-Fixes is the initial commit that introduced this restore regs almost
-10 years ago, all commit afterwords are code refactors changing the
-code layout. Also backporting all the way maybe tricky.
-Backport can easily happen till aebd1fb45c622.
-
- arch/powerpc/kernel/trace/ftrace_entry.S | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
-index 6599fe3c6234..54c8727b48cd 100644
---- a/arch/powerpc/kernel/trace/ftrace_entry.S
-+++ b/arch/powerpc/kernel/trace/ftrace_entry.S
-@@ -220,7 +220,9 @@
- 
- 	/* Restore gprs */
- 	.if \allregs == 1
--	REST_GPRS(2, 31, r1)
-+	REST_GPRS(2, 12, r1)
-+	/* Do not restore a stale PACA pointer if the task migrated */
-+	REST_GPRS(14, 31, r1)
- 	.else
- 	REST_GPRS(3, 10, r1)
- #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
--- 
-2.52.0
-
+>  arch/arm64/boot/dts/exynos/google/gs101.dtsi | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
+> index bfceea5486f46686..9e17f36e1fbb7ce2 100644
+> --- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
+> @@ -1928,11 +1928,11 @@ apm_sram: sram@2039000 {
+>         timer {
+>                 compatible = "arm,armv8-timer";
+>                 interrupts =
+> -                  <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
+> -                  <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
+> -                  <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
+> -                  <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>,
+> -                  <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW) 0>;
+> +                  <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW 0>,
+> +                  <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW 0>,
+> +                  <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW 0>,
+> +                  <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW 0>,
+> +                  <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW 0>;
+>         };
+>  };
+>
+> --
+> 2.43.0
+>
