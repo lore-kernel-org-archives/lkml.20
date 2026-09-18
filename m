@@ -1,107 +1,172 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F0D503BDB
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED99F4D179B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746356; cv=none; b=PSoB/Ry8haeqlrWG9kf5yrQtsl7X/+j/+zfX/xN8d7jvCaUcuW3dE6TtfZ6px6KGC7RVZNPTGbASkaavWhkYJXLRn7FMAoSWKB77B9NRvPKVVNS+SkQn5uonazsCxy2ghtNuyKGvRZVKRBvlIRkAsRpyI0z0s0Tk9J+kxyUcGdA=
+	t=1789746488; cv=none; b=REZ9zrb24bLh+2ob0c6w86S5lYYHLwsEB0ymXOa2xNstWrno6DI9npzOIj81nla976QTv+3B8xbczFV7HvdLzcA+sQGb1e1V+tFCxTVUn1fzk/3LE4VIZltQGfgGd9qbV0Q2nVSUMX9QX9NXDUMbp0hOrEXy8O6sXJvs/9yPqeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746356; c=relaxed/simple;
-	bh=YBhMRCjXhrl0x9ETkgVjR+gi41jvBCooiZhKb3nRmV4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=kv0+50rS+BIZFXE1wJqtpRQi926nAdvtChnq0RPy5ojbFCaOgrt+S8YKBb8xEn6EpnJSExzhiH98c/hV4SE+36KJuxjE8eq50KbDoUW5suk1sAPtd7DeBR0w8xaE6AuFtMu0HryXrGs+ElEecyt3akl1ap4d6Y8wWzMhBw+QCYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QK+rpOZX; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+	s=arc-20240116; t=1789746488; c=relaxed/simple;
+	bh=xDLKzxGNaZyML2nW2GM99UOK4heZ9FfxtRHBvWOrxCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EGwzJhgaiDgyAV0k+Kx6tJMDSIcGynyU8qJ42Wfq+AXzvUdAJdQ/WyH27+YBxab3OnMLoTPZ6vza/P/4+jQPi6c8z5EU6HEORv0MHcYp3rW92SIyGegUlbk5VLnOY46RRkagikWRi6wA5KeHexpzrNqj8XORLdpzWQyP3exceTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=NsiDdNOK; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QK+rpOZX"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so1817295a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:45:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="NsiDdNOK"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93a135ffb08so120611685a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:48:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789746354; x=1790351154; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R++qxNNJJnPJa7wkOafzLmSyQyGcVXcxVtQxZqs7iqM=;
-        b=QK+rpOZXHn6iLNjK6l/itjf2+N4qNveYAKl6TD/uTlapuDiBkRODcihFZQaFEcOIez
-         IzMl6V9keua8y7IM+S2AE7cx8RpS/493tXGr3UAMFOyZS4R0nmuiVqCbrNJm36k+PUPa
-         2xmobsvk93CMDNOum3Dh9Av+Ml7mLpbZNs+g6750JZXDladxBINK/gBsTgMgj+i3sEck
-         QYKcnJmdvdoyaDsvAASLEV5JVK2Ib7qx6zRtNOV2yrZFFFvpCOoU/D4zrEimADcRlis1
-         DBvXUERIU8s38pFEjpChbQiTQvSdMQc6q0LisZ6zqg2BNy4A/Rblc4zVlgUhKfv6XafR
-         whnA==
+        d=gourry.net; s=google; t=1789746486; x=1790351286; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IPLmlyFNg1TvrjgHDtlZeDYufzZUYgmgWzNOrLusAF0=;
+        b=NsiDdNOK4z98e24NS79GuOAkp+jqr5nv0gtBDqdDXQGCRfdwSMY1NN9YKFVpmqiOhH
+         Wui1T/+K5hBgJ96ae+D2lWgbZFMbnKmvlJE4GoVDLdUWJbicYhYCVHXGTNwHfrZSV6Cd
+         aUOT8jfAaoDr6E+MmXP21Cx63x69sRSi2wRC4QvNAdjDLOh//n29K8oM2wWLhz1Hc5pd
+         3Z4QR7gOsA2NDA9n7m2/K74iUgMg/m6ZaVdH2Shu/SnEc3qR0t6GVwVLm0/9bspts1WV
+         UaymaK4UesET9jY76Df3UyoNaLywX0+DitkwuwKoaBxyuCRY9eybWcvLZoBxM+pKeeaB
+         Qucg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789746354; x=1790351154;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1789746486; x=1790351286;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=R++qxNNJJnPJa7wkOafzLmSyQyGcVXcxVtQxZqs7iqM=;
-        b=VAzNAz2eLOnM8Bk4IvqVuIpqAkg7+jvjwNYt8/tUwvREm0OakM2TD0ka1m4Y2H3xAP
-         bzHSsdMk0Jrfo/trZPrJyvY+0UsQJoEC/JnEF7N3pTPpSEfTfviAEl7xvGctO7gR9PzX
-         ujIjv0dmUVIbZfHrQ1xnwXbQ8qAtU4mCGcVJdGpvWbWEncVP+umhbBNlClmduuY1vZYm
-         DyOyYEaiJip/WwSQipov2nys7f8PkddsbGMulBDtAvEQ3+YiKnesa6ZgYVboyPqy9koI
-         WhtmGg8z2x0/FNILXGTQ1HsvPy1xRjw6uKD997tJg1X79flpE4FeFNYHjr0Ef7TRd3/+
-         SAaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAMqNUwZGZiDn1RsZmmV5gMEQ7nJfL3xndREf6hmJFWB5LiG1KfLjtMTdxZ0c6zsXoKHIzrnF8VrNQC9I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAnlW4Te+vfmKgD4G4R8QFqZToZ7zEleX6Z3JjqklJF6/+nuGc
-	TsnJnELjXaQ24NZBQZqF/pEFc1K6Vk9U1mjwuccZoqKcCGyDS7witu2mp01CjYR5cWD/L4rt4tP
-	7Im5hgEX4ZTw08A==
-X-Received: from pjbiw4.prod.google.com ([2002:a17:90b:4204:b0:39d:a2e8:6890])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:57e8:b0:39e:4c7f:8b19 with SMTP id 98e67ed59e1d1-39e54d458b7mr6747764a91.30.1789746353963;
- Fri, 18 Sep 2026 08:45:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 08:45:30 -0700
+        bh=IPLmlyFNg1TvrjgHDtlZeDYufzZUYgmgWzNOrLusAF0=;
+        b=2XyogZvzyTsVpf0SZXBdn5fwH/mx3ywmjMLiJJ4jcldEYWkCOCxcsC2/+NP+WkL34J
+         fdRLYKDeZ/Yb57ebHfJcJCfX8V/WL7fnD8DfLKzrbkIiKzUOppU8FDbU7wxBlc+dU7nZ
+         LWPj5x/1w0GrYtAwQmmtX/DpqZKE1fL2UyxL//ctVfvyy1z1uM5vKAP/Mk8AbaV22w8Y
+         UtrIAVnaBDa5BSTCoqv+xQXdIMNajmI5eoDeePkIj/yRklFAttp/7z8iOOtSnvrAEiA5
+         s/plLTzhCt1C6RnZrS7ykPrvFH27Eifz27BTUXESYypqaztRQdMYOK93a52CXfpvmJDk
+         O23A==
+X-Forwarded-Encrypted: i=1; AKwUvBy+KefNkSzP8DSbsN7LRGTCWPjJU02F1Oj4PYQDoBWB2jaZVJ/C/LmR7oXZhumcPwv29lZBlXTkwQ2612g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEQQ6LQsGXQsKPqRhSMVKXxoKWJCc27pbWivr49j4eDEqz5cCE
+	oAHQEZMFE8visDgNHxWCaCHwrjQiWtySIoYE34vP9rvdF9P4J09lcsrlojTeQqNGevo=
+X-Gm-Gg: AYBFou3/X0Ln9u9XCXArk5HoxrQJxpsYvNbiqRF9exQlkgjkV84Jyz4wjbd7A+hJt5r
+	lVI+6LTaAGaU9/7/oE+QUGfd3uMMqntNOlDnb39c3+W5x/BmmnBhZNwHXffjl5Zpqzm2L+xPVy+
+	hRbtNmwn+juv3N2/VCQC1rglZ9Hph848GO7bauRMdwhoIMtqy7JMyRG/+JZSTvvtQh619H6DDX/
+	NF74cEbODY2W6Qi3W14niiEYXizajwGy9zyIo7ZBbW6vhvj+bwIv+IFsdoZxWUa2vSXKAFImAaY
+	uGvD3Z0JzeIHEkrmBqTyYLR5yKxCwwtnmHMtepfBuC0lQmc4+Gcux4NwLBdgQdqT26db1z9tAHU
+	nQORgu85HBa57FEz/2NgbVokzuR4RjXJjbI8mzUCcNjjbLqiTpnf7lIk+b1ABGcA2ZAEqHx/qlx
+	rwzO8ud8Szu/6s42E08B3ygKyVEq+Mvkl27/jbURciHffWWKYe+JuG24eJB3wYz7npoKDP9ICwn
+	85ufaQnOW1Kmbo/qHAvIynuR80CKS5137i7YJHCILs/2cp+f7SCfY4=
+X-Received: by 2002:a05:620a:4710:b0:937:50b6:4a5b with SMTP id af79cd13be357-93bdc70b5b9mr439833785a.23.1789746485649;
+        Fri, 18 Sep 2026 08:48:05 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0ead31asm170247285a.25.2026.09.18.08.48.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:48:05 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:48:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+	usama.arif@linux.dev, kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de, 
+	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] sched/numa: scan read-only file mappings in
+ tiering mode
+Message-ID: <aq1ZUTgLQfLBxn80@gourry-fedora-PF4VCD3F>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-4-gourry@gourry.net>
+ <0ed3ab3a-80b4-492f-867a-0584441722a9@kernel.org>
+ <aq1Cwh9hNw4wWEUP@gourry-fedora-PF4VCD3F>
+ <c445a20c-ae83-4571-ae97-031ce7facc45@kernel.org>
+ <aq1FDhy00epXXtgd@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918154530.4129698-1-jmattson@google.com>
-Subject: [PATCH] KVM: x86: Disallow EFER.LMSLE when EferLmsleUnsupported is
- set in guest CPUID
-From: Jim Mattson <jmattson@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Nikunj A Dadhania <nikunj@amd.com>, Yosry Ahmed <yosry@kernel.org>, Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq1FDhy00epXXtgd@gremlin>
 
-Reject guest writes to EFER (and nested VMRUN with VMCB12 EFER) that set
-EFER.LMSLE when CPUID.80000008H:EBX.EferLmsleUnsupported[bit 20] is set
-in the guest's CPUID.
+On Fri, Sep 18, 2026 at 03:53:26PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Sep 18, 2026 at 03:59:40PM +0200, David Hildenbrand (Arm) wrote:
+> > On 9/18/26 15:57, Gregory Price wrote:
+> > > On Fri, Sep 18, 2026 at 02:58:36PM +0200, David Hildenbrand (Arm) wrote:
+> > >>> +/*
+> > >>> + * Read-only file-backed mappings are expected to be cache replicated between
+> > >>> + * accessor nodes, so they are not worth sampling for placement.  They can
+> > >>> + * still strand on the slow tier like anything else.
+> > >>> + */
+> 
+> This is the most specific description ever for such a general condition :)
+> 
+> > >>> +static bool vma_is_ro_file(struct vm_area_struct *vma)
+> > >>> +{
+> > >>> +	return vma->vm_file && (vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ;
+> 
+> Firstly you should use the new VMA flags API :)
+> 
 
-Commit c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by
-hardware") prevented EFER.LMSLE from being enabled in supported_efer_bits
-on hosts that set EferLmsleUnsupported, but missed checking the guest
-CPUID capability in __kvm_valid_efer(). As a result, on a host that
-supports EFER.LMSLE (e.g. Rome), a guest whose userspace VMM sets
-EferLmsleUnsupported in guest CPUID (e.g. for migration compatibility
-with Milan, Genoa, or Turin) can still set EFER.LMSLE without triggering
-a #GP.
+Please, I beg of you, let us propose clean backportable fixes to handle
+the dumpster fire before we propose setting the entire dump on fire.
 
-Fixes: c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by hardware")
-Assisted-by: LLM
-Signed-off-by: Jim Mattson <jmattson@google.com>
----
- arch/x86/kvm/msrs.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I'm not against doing all of this, but this feature is horrendously
+broken and every piece of tiering research that used it since ~6.14
+has just had its data invalidated.
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index dd3bb04878ca..6dbaf063cc8d 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- 	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
- 		return false;
- 
--	return true;
-+	if (efer & EFER_LMSLE &&
-+	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
-+		return false;
- 
-+	return true;
- }
- bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- {
--- 
-2.55.0.1082.g2b9226bbc0-goog
+> But also it seems odd to check VMA_READ_BIT. You can have it cleared but
+> mmap()'ing without PROT_READ but has no material impact on mapping since
+> write implies read for everything afaik (that can have an impact on GUP
+> though).
+> 
+> Also note that (well my series changes it hopefully landing for next cycle :)
+> MAP_PRIVATE-/dev/zero which is anon would satisfy this. But anyway :)
+> 
+> Anyway in general then I wonder if this shouldn't be vma->vm_file &&
+> !vma_test(vma, VMA_WRITE_BIT), but then it makes me wonder about whether
+> you care if somebody can mprotect() this writable?
+> 
+> In which case it'd be vma->vm_file && !vma_test(vma, VMA_MAYWRITE_BIT).
+> 
 
+Right, I made no attempt at assessing the correctness the existing vma
+checks - I just moved the existing code to a helper.
+
+I greatly dislike this pattern
+  1) Fix a bug
+  2) While we're here, fix some other subtle hard to explain thing that
+     may or may not change something but certainly is unrelated to the
+     fix and might actually regress something else unexpectedly.
+
+In a single patch.
+
+> > >>
+> > >>
+> > >> MAP_PRIVATE can easily map a read-only file with write permissions. So the
+> > >> function name is a bit misleading.
+> > >>
+> > >> This smells like a helper that should go next to other vma helpers and have
+> > >> clear semantics.
+> > >>
+> > >
+> > > No argument here.  Would like to balance improvement vs backportable
+> > > bugfix though.  I broke out the name to try to make it at least a bit
+> > > more readable.
+> >
+> > I understand, but I am not asking about much.
+> 
+> It turns out I made it probably too much, or at least too many words :P
+> Sorry.
+> 
+
+Can you at least propose a patch on top that adds the cleanup you
+suggest? Much of the VMA stuff is lost on me because I haven't had
+the time to sit down and consume the novel.
+
+~Gregory
