@@ -1,112 +1,71 @@
-Received: from queue02c.mail.zen.net.uk (queue02c.mail.zen.net.uk [212.23.3.242])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6C2547054;
-	Fri, 18 Sep 2026 07:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.23.3.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EF7547054
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714893; cv=none; b=qTVH9yZrwBkxBVJmKYv9JAhtFS2orKsf//ShP6O972fMrrxC/QM0XFnfmS8Cpl5ajdamCRYFidsk875ohrAKKoHppcmhQ7Ye16VeBze489ZIruEf6DRoP8DSo5ZfIQtQlujQ+EzwPAbAD7B2fEYG5bq1jwJ1bBtxck9x54J2EYI=
+	t=1789714927; cv=none; b=RB+nuMnvC3I7EMbEkvTyvPSHCVfQCchnUKNd9OEBtncYLSOFqnTLRwJNHw4VSnRooyusEiC7bLuGUcrC8v59btpu0hfFKF205OHuwRkO34m/mG/NUesTtxOj9fonaxpybouw7xX6bS2KMX9q9JDM8q/sWzRVSR1upiJVLdVEuvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714893; c=relaxed/simple;
-	bh=D3tXcR0yXcecukPOsQcdq2tK67La2xUkLLzl3GWTeeo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LJ8IVtOFBwYs9kQXlWUnd6OSM7vIfVc+c4NC001sQiBIcuiYv+aiS9KAAZSBMtKoxQK9AWgvYuX5mkpNgWcZehzEL8jaGMO+um96myMMvv7zVCICzkw+CElTaCGKt1gPrM1tvh49liB4onmKJKb2zDcRciDvc+hKwDe/Bbdrh/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dingwall.me.uk; spf=pass smtp.mailfrom=dingwall.me.uk; arc=none smtp.client-ip=212.23.3.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dingwall.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dingwall.me.uk
-Received: from [212.23.1.3] (helo=smarthost01b.sbp.mail.zen.net.uk)
-	by queue02c.mail.zen.net.uk with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.97)
-	(envelope-from <james@dingwall.me.uk>)
-	id 1x7SE9-0000000BaNw-3JP2;
-	Fri, 18 Sep 2026 06:37:41 +0000
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
-	by smarthost01b.sbp.mail.zen.net.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.97)
-	(envelope-from <james@dingwall.me.uk>)
-	id 1x7SE1-0000000APxL-1jF3;
-	Fri, 18 Sep 2026 06:37:33 +0000
-Received: from localhost (localhost [IPv6:::1])
-	by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id B8838F401F0;
-	Fri, 18 Sep 2026 07:37:32 +0100 (BST)
-X-Virus-Scanned: Debian amavis at dingwall.me.uk
-Received: from mail0.xen.dingwall.me.uk ([IPv6:::1])
- by localhost (mail0.xen.dingwall.me.uk [IPv6:::1]) (amavis, port 10024)
- with ESMTP id Yl6ZiyD8Q2tD; Fri, 18 Sep 2026 07:37:32 +0100 (BST)
-Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk [IPv6:2a02:8010:698e:302::c0a8:105])
-	by dingwall.me.uk (Postfix) with ESMTP id 9C0D1F401ED;
-	Fri, 18 Sep 2026 07:37:32 +0100 (BST)
-Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
-	id 8B7A5123608D; Fri, 18 Sep 2026 07:37:32 +0100 (BST)
-Date: Fri, 18 Sep 2026 07:37:32 +0100
-From: James Dingwall <james@dingwall.me.uk>
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev
-Subject: Re: BUG kernel 6.12.19 defautl_swiotlb_limit() returns wrong value
- for CONFIG_SWIOTLB_DYNAMIC=y effects atm only under XEN dom0
-Message-ID: <aqzcLJQCCmqpdxz3@dingwall.me.uk>
+	s=arc-20240116; t=1789714927; c=relaxed/simple;
+	bh=h22l0pv2pb/KjjaFRrpsnmoGoWRnymASbIZrcENzQu4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=OUx/D7p5jXlJHQFiDt6QZjzScN7xspk7Jd6mch5Qyec/PeetTIGAyQzNOUac9+BjclpMDpGnoIMht8wOdsClKXFomUphWS3IXMJ/fp3b7zY6k04wa3fDl92oBypEGfy5FJpl/qmLhc0geMJjc5F4voUUyg25hMHXYoZ/4CGGijc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b5bfffcc2dso396545b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:02:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789714925; x=1790319725;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v8ZRRviEo0WCd5AjsbtzDm8gtn6BQ/eAs9L8QSZagyY=;
+        b=FW8S9+OhJ9uhTT1w8wPAVP3OIVkgot0n9kxP3MxuGav7mmFfCg1CH36wD34CzKiQYH
+         0Z7V5TepHKyeGuEFXu2bk8gFcq3gvrZ/oKJmw156FFdPS12Qj3vWvz/AADYTbaLdWQgz
+         2Ju79HRNeqK3OjvSp1BTZhWmKEExoCp7dPxoXr81mTpGeEqUtpHNt/S9FG0xUKIS+us8
+         X1YlGZmD1oGNTzdMPzdtTKylF20PsSv6c0DaURhfatzQKivU756BfY4PnL6MRLqXMigV
+         Yaj+px1jiIfhiDi8YfvTJt8fczDbQUOWsJBCP/L49rzPQKPI3a/fwWCN++i9C0CQD6Jv
+         WkBQ==
+X-Gm-Message-State: AFuF++mdDj3DNCFoUStbdWyXBFb1MPHtkFJ2gPt6L8amr51Z56BBzhDV
+	X8ckQfMk88WdUdUIGmCTCxurqZ3RBVgf+GuE8EnElYd3Yhjpa17qdYCSAW9T9tzhZa2GRObJbey
+	wNnhJ77yFQdBAHgA9u6XM/y3dHMHggENafyh84QKnjNB+el6pDDiR8QbaABc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Originating-smarthost01b-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+X-Received: by 2002:a05:6808:13ce:b0:4b8:4703:db97 with SMTP id
+ 5614622812f47-4cb6af29710mr4554985b6e.32.1789714924994; Fri, 18 Sep 2026
+ 00:02:04 -0700 (PDT)
+Date: Fri, 18 Sep 2026 00:02:04 -0700
+In-Reply-To: <20260917203850.753752-1-shaunakkdatar@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aace1ec.87c06881.1db2b3.0020.GAE@google.com>
+Subject: Re: [syzbot] [can?] WARNING in __netif_receive_skb_core
+From: syzbot <syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, shaunakkdatar@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hello,
 
-I've been having a problem with a Dell HBA330 SCSI controller (mpt3sas)
-when booting under Xen and CONFIG_SWIOTLB_DYNAMIC=y is set.  I had a
-similar issue with a megaraid_sas card that I previously posted about:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-https://lkml.iu.edu/hypermail/linux/kernel/2407.3/08254.html
+Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
+Tested-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
 
-In that case we rebuilt the kernel with CONFIG_SWIOTLB_DYNAMIC=n.
-While investigating the current problem I came across a patch that was
-posted on the xen-devel list:
+Tested on:
 
-https://lists.xen.org/archives/html/xen-devel/2025-05/msg00991.html
+commit:         5dd1818b Merge tag 'for-next-keys-v7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13d307f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
+dashboard link: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1691fbf9580000
 
-I have applied that to the Ubuntu 7.0.0-31 kernel sources which has
-resolved the controller initialisation error I was encountering and the
-system now boots as expected.
-
-[    3.921136] mpt3sas_cm0: no suitable DMA mask for 0000:03:00.0
-[    3.921275] mpt3sas_cm0: failure at drivers/scsi/mpt3sas/mpt3sas_scsih.c:13610/_scsih_probe()!
-
-I've included the patch below, I don't have the author's real address
-for the s-o-b.  I'm able to test alternative fixes if there are any
-issues with this one.
-
-Thanks,
-James
-
-
-Signed-off-by: Andreas Greve andreas.greve@xxxxxxxxxx
-Tested-by: James Dingwall <james@dingwall.me.uk>
-
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index abcf3fa63a56..742e6cbbe852 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1654,7 +1654,16 @@ phys_addr_t default_swiotlb_base(void)
- phys_addr_t default_swiotlb_limit(void)
- {
- #ifdef CONFIG_SWIOTLB_DYNAMIC
--	return io_tlb_default_mem.phys_limit;
-+	struct io_tlb_mem *mem = &io_tlb_default_mem;
-+	phys_addr_t retval = mem->defpool.end;
-+	struct io_tlb_pool *pool;
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(pool, &mem->pools, node) {
-+		if (pool->end > retval)
-+			retval = pool->end;
-+	}
-+	rcu_read_unlock();
-+	return retval - 1;
- #else
- 	return io_tlb_default_mem.defpool.end - 1;
- #endif
+Note: testing is done by a robot and is best-effort only.
