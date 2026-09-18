@@ -1,112 +1,92 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6B14503EB
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03624519A3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789753958; cv=none; b=IcV5IIbPIq5BA9tmkh3h/RPyffFMeofVoD7FK0OspfgwmyEcdp+hQ14vJV4qjdEwnxXkAOfTDNb/BydaKNuBUqUvqCHytUyM/eazQmg3Oyk9fPOpH/63dEnlTeQTi7Ozw/xAAXhVdgzHxoLAbAlnDzOXqRWyy8Sqml9EqQvtDV8=
+	t=1789754029; cv=none; b=rs0kYkD0B1eQm/ij9EaxcTa9sfx8Xiof4ZYKAAF/hRmM7XuOxXkbFqc6vEX3Am7abYPyIVivhyD6ovADjGWOIAa8AYNoPzv17Krb3/+W97nDLd1YkAQ7Iv+ZkOW20kA/wHW8tT3/EbWn0WDfbCU3U3WOvp8Ae4Gonz1jybE8/rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789753958; c=relaxed/simple;
-	bh=FhB3MzXvMRrT8tN3nejFN13vQ0JrcsHthrfuNz+/Pqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPuLEJe3qqDuCV6BV7lojQ7VsRn4VQKAdrSi64DKK5UbBdkq1gT5LOZinAdvV6j8Su4G3HiWfQhrK7fKOTohQFz3ApUpTxxOJU0HXe0eP3KJ2Ku2JRFQwV0YkCgnc9wc1CVuXlrsGx1PxJmrTUdof/JxFkvxJhA7y1yBye8b0Nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/Bnb0Ap; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789754029; c=relaxed/simple;
+	bh=qef1qfESxx2iUjqupM6SsnRWUnav4c99ce74qBOBVbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e6m+ASXTw7Mih0BgQ4voGfKGCGFZ8leYlXBN+7p7B8pNjTFGVPRuPc9Oy9qC/8ldUhiaEp+h94IDjxpZvZKQ/QLQq/FGh0gNTqGB7TZgcOfL0VFQ8i9qUbTg37BfIwHsT4sGCIeRzS2PHI1uyN5jPjOApeCAlRttzrtv/r+Az04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0SXkDdH; arc=none smtp.client-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/Bnb0Ap"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so895581a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:52:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789753949; x=1790358749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kxgu93Rsz/WkmkOGG8BARMKb+vTZl3FHpJlkwcMBl3I=;
-        b=D/Bnb0AptX9F1ivlBh0LoAvDI/xcCRjTSP/53jUFJtiYhAqEjfaASUMKX4pInBO2Ix
-         RtRtLgw4YONzV1QHJEkuCiSLm0nhETLSx1Y3vO/Oj0gxhkcz6W3iEnHXwitxBMWmkE1s
-         c44JLb0xR5oeTnzOyE9xxagB0CPQ3sGMsyhMZVyUhTK1OVYUISRH0Jgpcrnd6q6dGMNV
-         VOpNX+281mXYB3A3KXJg6iPYW93L4oc87JZPqROPoj+EODklrEcweBYsbPKjarQPwYzC
-         94oJqWqopH8JaB5+CRW4T8VzMuWRKrC8nAOC7ypqiWYb2lXL0SvAId7RoSDz1BfLOwAY
-         exow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789753949; x=1790358749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kxgu93Rsz/WkmkOGG8BARMKb+vTZl3FHpJlkwcMBl3I=;
-        b=QMAQxn7GQkPzoNvn2pXCBHE934dXgrpxOPBj+BPOFKjRLCswjfyS1fxRyMAJbeR5rD
-         Uo9tMJI6N0d8G12rliB7GfB+EjxhpX8rmEJmh7FFRKUBgBFYTKFfxY0HSJIHsrm1iP+1
-         hVAqcbVwekECUL7PVOcO1OfmXMQpsoYwRfwVdfhy+bz1ed4SyaIL1Hdq+GS31GRoO56K
-         Qq0RNeUQUfJNmJes8NdrSGWpJ1pqgv4vxv50wcCkaIDzJMmmhO4s4/raOsd3VHc89Qyw
-         PorQlvlErbbrq7qFAUZry6BwgdWV2rTDTabrQgG78bgLB9Kuf434qwBc9O789FMx8YxP
-         5OZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZ0rOTGh5CE+cTfsgssFwGsHiRIr4krlFkENvHEhuYD2b7EwJ232EFuupZO8n4H3ONqiZ9umRkI9BXnX4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltquW7jNbgwqLM+B8elMTR3Ax2Uy8RDOT7R9p3zdRx+GfLvnNt
-	u8dYxsLVBLcrhlJ408ZwWYayo0eQHRJypL2nLLovGc6Iby9KfPFBF1fw
-X-Gm-Gg: AYBFou3cgpyp0O+odsNwjlHWS6QGSc0l/iVNu5ncSsDCX7pF4+4z/OmrWrVTX0OMYbV
-	TnIlsCjnJn31uW3Pe3pX17h5szAlMRpI4z0G7L0FGejd+9GJ2pYhUN+R2tM2ritND0NdAkyYvGw
-	0RVKgAY/QgNVumZW9bc0SxHLShsnFIWUVHdLB3q6hT/zzW6NXCiDm/GlSu7r6pt3tif0SuC/pxm
-	cyJajdOWb/lJYL9A/NlNEP2eZziIYSR1o0wBYyjI1HoX0lqjqJxwJ4Ypvxket0GZ97AQ750OkWy
-	LWgt99+SteSokmiLfgqeAJpZMwJTDKCwKgYFv50VdzEJ66gCpqtmI21q3uXLp2gl4p6Nh0D3Djw
-	5szqiCuZi3HpPDt6+ML6axDYOymYAP8tQdVC++owh/NcaWEE0aJPVpKUFbZnqTeJPyw9KTUWfeI
-	JMrQUUAtBtngxuPyC72dqIO6uMkAN81BSn0XXi3PFhnesFUk+V4kY/RXg=
-X-Received: by 2002:a17:90b:2b8e:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-39e54c59c74mr12953197a91.2.1789753949341;
-        Fri, 18 Sep 2026 10:52:29 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm528803a91.4.2026.09.18.10.52.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 10:52:28 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	James Bottomley <James.Bottomley@SteelEye.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: sni_53c710: put SCSI host on remove
-Date: Sat, 19 Sep 2026 01:52:18 +0800
-Message-ID: <20260918175218.3616645-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0SXkDdH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qef1qfESxx2iUjqupM6SsnRWUnav4c99ce74qBOBVbQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789754021; v=1; x=1790358821;
+ b=F0SXkDdHJzR7M1rAPkRuYqPQWiYg23GAyrZPDhIs6K2ZEZC+PsmTC0JIUhyybYtAXO2UYNrM
+ UV2bDvFpnIgJspy7hEMrqjcIXsjO8vP5erbnvRsQL8MN7K5cGaIl7VnJlIm1mjmwkEY9911vVZR
+ erGmh8Hgg/g9vPqDna+bS8E4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b40d4790eec116b;
+	Fri, 18 Sep 2026 17:53:41 +0000
+X-Mizu-Trace-ID: 4b40d4790eec116b
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 10:53:39 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Shuah Khan <shuah@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v12 2/2] selftests/bpf: Add memcg async reclaim
+ test
+Message-ID: <aq14epWc4EwAIEvs@linux.dev>
+References: <cover.1789714023.git.zhuhui@kylinos.cn>
+ <44f7fcfafd5f33072dd2b9abc31aa9bf5eacd9bb.1789714023.git.zhuhui@kylinos.cn>
+ <DLIK17AFECZV.3U5UY0LYU5Y5O@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLIK17AFECZV.3U5UY0LYU5Y5O@gmail.com>
 
-snirm710_probe() obtains a SCSI host through NCR_700_detect(). The
-probe failure path drops the host reference with scsi_host_put(), but
-the normal remove path does not perform the corresponding cleanup.
+On Fri, Sep 18, 2026 at 03:41:12PM +0000, Alexei Starovoitov wrote:
+> On Fri, Sep 18, 2026 at 02:58 PM Hui Zhu <hui.zhu@linux.dev> wrote:
+> > From: Hui Zhu <zhuhui@kylinos.cn>
+> >
+> > Exercise BPF-driven async proactive reclaim. A BPF program watches the
+> > refault stats of a memory-pressured cgroup and, once they grow, reclaims
+> > a second cgroup from a bpf_wq callback through bpf_proactive_reclaim().
+> > Pass/fail rests on the reclaim counters. The workload timings are a
+> > benchmark, not a criterion, so they are logged only under
+> > TEST_MEMCG_ASYNC_RECLAIM_BENCH=1, which also runs a baseline without the
+> > BPF program, recreating the cgroups in between so both runs start cold.
+> 
+> [...]
+> 
+> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> > ---
+> >  tools/testing/selftests/bpf/config            |   1 +
+> >  .../bpf/prog_tests/memcg_async_reclaim.c      | 890 ++++++++++++++++++
+> >  .../selftests/bpf/progs/memcg_async_reclaim.c | 327 +++++++
+> >  3 files changed, 1218 insertions(+)
+> 
+> 1200 lines of selftest for a 20 line kfunc ?
+> Sorry that's an overkill.
 
-As a result, the SCSI host reference remains allocated after the
-device is removed.
+Yeah I agree. Also I understand that BPF would prefer to have very fast and
+minimal selftests and selftest for a memory reclaim kfunc would not be that.
 
-Call scsi_host_put() after all users of the SCSI host have been torn
-down to release the reference acquired during probe.
-
-This issue was found by manual code inspection.
-
-Fixes: c27d85f3f3c5 ("[SCSI] SNI RM 53c710 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/scsi/sni_53c710.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/scsi/sni_53c710.c b/drivers/scsi/sni_53c710.c
-index b504a2cc5041..7c5b1929a6a7 100644
---- a/drivers/scsi/sni_53c710.c
-+++ b/drivers/scsi/sni_53c710.c
-@@ -115,6 +115,7 @@ static void snirm710_driver_remove(struct platform_device *dev)
- 	free_irq(host->irq, host);
- 	iounmap(hostdata->base);
- 	kfree(hostdata);
-+	scsi_host_put(host);
- }
- 
- static struct platform_driver snirm710_driver = {
--- 
-2.43.0
-
+We have memory.reclaim selftests in cgroup, maybe that would be a better home.
+Basically whatever we do for memory.reclaim, do the same but using this kfunc.
+If you don't mind, why not let's just take the patch 1 in bpf tree for now and
+we will cover the selftest in next release but in cgroup selftests.
