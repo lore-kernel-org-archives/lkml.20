@@ -1,56 +1,56 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F9327AC57
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF15937AA9E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737545; cv=none; b=GJ5+aNS92WA7JLt80JIeXUv7m3KaRODWJrsPDiNc5A7vDG+f0XkHt+no9oNn52DGTIIzJO7hmZJgvVBgAJm7O1xWNl/dW6fWMTizfD0LT+FC8N3GD+7lsfj69ONmHngbJL2ZhJVcy2WEjlKlNzlyTDhnJtxR1rx/mHfao7ZHt98=
+	t=1789737546; cv=none; b=d59oRuwcO2TWUqStF7Yh4WYAcOGUWhUpgN6IPLVYxz5YS3HNAA7kD/CgFpHn8hoN9bj5zk2j5Jx985appo815cXDCTpmPgc6sBOqypxPJE0HfHIuA3bEDG6pl+LWlZI0LPsVfRKx7oHgf7ExJppTSAX/baLHKtmnZqgTCh6u/8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737545; c=relaxed/simple;
-	bh=LNeh7zm2p73PrVkoXPGxxYDKl/Dawye1sRPQQGYDQUI=;
+	s=arc-20240116; t=1789737546; c=relaxed/simple;
+	bh=ncZg2VuW+AySF8gMan+UeGIC3Uxuyips31vZXC/8WFE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=We0+GZzdSE+KO9bPrQwpTHru5iCBOhla8zcnrtZp+DZLAIy2p6hnr9Iiy0spSzn2RV0xOZH1NoqTorJz1x+GARAl9kRXYpDLYSq7YXiLynWYynLKRMogO06JV1zTLO/PCFF7deIABp5tyoRHedPYYqszMVrgZ/wNdGwK+KL1hek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jkH2B9ew; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=hcKcspDl9/HOw//AVjwKZ5+VpwhU0aX8Ssmu9lfKNuS535oAy6Z7ir7TFUI1Ryd2v2yZnovkhcgJn2aSiWQqFAHCbJQ5pEzw2+8y6YV75gAmlGeVk/fCeGk5ak42PTGjpU98C2go4bEuOg9QdwzTIJ2S8xeowBirBiG1WfpInbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B/gWKm33; arc=none smtp.client-ip=209.85.221.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jkH2B9ew"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-490a767c7dcso6194185e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B/gWKm33"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-472c330e555so349300f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:19:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789737542; x=1790342342; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789737543; x=1790342343; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Lo1KsoI1XuIoEcDs+Ce0ZXJLIqJlsl+upMRklAIDXKY=;
-        b=jkH2B9ewBvDogcSCWHJKJIoq/E0sO5yeZz+l0xIIx27/rE6uQaOyZKWghRpsbjhf77
-         HuVrom5088a0ylxgjCNFdNv+7zTtwtB1/5YvmU+BnEDSk6bGjzhHZURoeoH8kJ3Q5u/P
-         82L0GBuvY/u50AYirQCMPU27pncx4BTecQDQPmPSSTV/OLp2zroVivBjNBIhTvDKD8Px
-         cm/xiBn9qU84PP7hK7cOF0rmQicexuN+FCUllPCSc3CQwO5bcr56CbRkM0XK3lWy27V8
-         PCXPTz/l7w+cOuPZDvDZSDPsF+q1wedTevEUUzxtIT+5ctD1nZJpqkrqO/slalxC5EWg
-         CXnA==
+        bh=R10EWAoqeqiwKYs38V4/eu87hmfK6YBmKaV1HjMgWDg=;
+        b=B/gWKm33uRLY8ViiqpqQuf3gOS2bqWPrpt4nqhleSfJMIhc9LdiVIL2w0IDp/6k/Lc
+         JNCb0mU7s4bdXBF1ZsECVKDFwtPUmHcrdNkcToZDR0XqPKwB+WdwdCVva541OcOlFKgp
+         wgciMsVAidAgQb4nJEtz17JpYV3RjCE/5jR0IZNDM8kb1NoXGX8YK6LxuRaQy/yrJOBl
+         khrcf4Q4rG1cdTMS5RugwSu1SKR3SnvhcFky8wxPleTqaKn1QoZc5tTbeVkNfrGxV6Li
+         Z6KQU3HjbL5ipHnlNUz3wHEwh1YeMSvBKM+O/k+v1c0Y6kX5vtTsPOnztwf6+Xxb9sxx
+         Wavg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737542; x=1790342342;
+        d=1e100.net; s=20260707; t=1789737543; x=1790342343;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Lo1KsoI1XuIoEcDs+Ce0ZXJLIqJlsl+upMRklAIDXKY=;
-        b=EtIjHf23dA86z5N9RQ85xo7kLsAq4NnnIh46d6tvG0dSq+DUp1TKT2xIQGpSwnymJ1
-         PnFmltpaWrLS9Xr1EaIN//VxPn7PEyuQcROjf+Tj41p2awOYXpveBzL6IqLAGvUu4OX9
-         W1P0qZx2RpFOLM+MiPVtISfkEw4OqW4fWMLr6yqnDZSuZriIoVi1goVY2wFrHYzqgnql
-         26PLjV3LP0di47S9N+Lgpm02gyDJ4x/hpOlRjS7mViSWHzYPR79s6446u2eVlA2LC78/
-         oUCdCaENmE9uVcJ0wqDsJSVi2nuQhcX9RQ5MJ5SpXbbEUjPXa1uO/+UmEEntptFHypX3
-         UlhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVJ0KTRShEgvnIwX1MOlLTug8XPN/60BbZp/38jd3diG8WVdofC4DXpEf6t07rECXyKSaWVh/75GfNnio=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3GQvHsCZLLA1i2yhlpL7ffD3psfolw3EmsQG7Ebt4muGOWVfL
-	6I1XtQP/qWfcqjMjDofAp0zqsnSQc8UOP8OSn/bM4mP8Bxk/hZ9ukuRrku/+5L1MUXXQlIH6wBM
-	c1aGk8/dllhJblMHPosiumw==
-X-Received: from wmbje21.prod.google.com ([2002:a05:600c:1f95:b0:49e:6e7c:4200])
+        bh=R10EWAoqeqiwKYs38V4/eu87hmfK6YBmKaV1HjMgWDg=;
+        b=XqhHd6EivgdwGehqgmw789M33C/Qen9Uq5iMOvwDKUXk75mVxVEnM+8EPHc2kacuNp
+         Go5aYJ0lpFNoCxlRkzBr08UV/1jcWDs6+y91+9N3p6BinEh6rz+mULTnpXROyRspRfJL
+         SdmanPo0uhxgZ/Z3NrUESqv9A5hLDzBa5EaYa9y6N6yW7reXLObIfMbf2iYCUmPN6NMg
+         h7cblQnvm0JyDR8KTAmHvJNfRcrHwf5Zl/yOuzWPaUH8rTXuLhZTe0XAK0xBYElDUzOF
+         /oflt35LIfawpJZXqWtsX02m86IZe4jamE20GtN5pYe3GYVT716BNTUSURTAM8JFYxxI
+         jbVg==
+X-Forwarded-Encrypted: i=1; AKwUvByTqEdRlV340ydEJsVCbMQ24cjaxNkIxV8CpHmdKMWTeeFrjq816u6PWq7obHYs8Dvar1StH9ODMmbHkrg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWEAfRIPnETyN2tK40IUuVMMFdIzrlkQzDtcb/y+1H88rcORtC
+	gbENpmY1pTZ86j0C4J1eQyX/be6sfAE+/rEzPYt6zUWGjxRgy0A+xWAFM2A6AHZtGmmzrtc56qH
+	mc3DmCNIRbmjDF5AkVp3tzA==
+X-Received: from wmsl26.prod.google.com ([2002:a05:600c:1d1a:b0:49e:6680:860c])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3550:b0:49e:7d74:7b7a with SMTP id 5b1f17b1804b1-49fc56db8f3mr33347175e9.6.1789737541522;
- Fri, 18 Sep 2026 06:19:01 -0700 (PDT)
-Date: Fri, 18 Sep 2026 14:16:53 +0100
+ 2002:a05:600c:1993:b0:49c:ffe3:2b3f with SMTP id 5b1f17b1804b1-49fc56dbc54mr34667275e9.3.1789737542981;
+ Fri, 18 Sep 2026 06:19:02 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:16:54 +0100
 In-Reply-To: <20260918131656.3710047-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918131656.3710047-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918131656.3710047-2-vdonnefort@google.com>
-Subject: [PATCH v1 1/4] PM: hibernate: Add arch specific hooks for hibernate_map/unmap_page
+Message-ID: <20260918131656.3710047-3-vdonnefort@google.com>
+Subject: [PATCH v1 2/4] arm64: hibernate: Use fixmap for hibernate_map/unmap_page
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org
 Cc: mark.rutland@arm.com, lenb@kernel.org, pavel@kernel.org, 
@@ -70,69 +70,72 @@ Cc: mark.rutland@arm.com, lenb@kernel.org, pavel@kernel.org,
 	Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-hibernate_map_page() is called from an atomic context. This is
-problematic for Arm BBML3 systems where the linear map may contain
-blocks and is allowed to split as splitting is a sleepable operation.
+The default implementation for hibernate_map_page uses the direct map.
+This creates an unnecessary limitation for BBML3 enabled systems which
+can split linear map blocks and can enable memfd_secret users regardless
+of the linear map mapping level.
 
-Add arch hook so arm64 can define its own implementation without relying
-on the direct map.
+Block splitting acquires a mutex (pgtable_split_lock) and as a
+consequence is incompatible with hibernation. We know hibernation would
+only call set_direct_map*() on a PTE-level region since it was
+previously split by memfd_secret. But let's avoid special casing
+hibernation in split_kernel_leaf_mapping().
+
+On hibernation, do not modify the direct map and instead use a fixmap,
+better suited for a transient mapping hibernation needs to copy the page
+content. It removes the need for handling atomic context in
+split_kernel_leaf_mapping() altogether.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- include/linux/suspend.h |  2 ++
- kernel/power/snapshot.c | 10 ++++++----
- 2 files changed, 8 insertions(+), 4 deletions(-)
+ arch/arm64/include/asm/fixmap.h |  3 +++
+ arch/arm64/kernel/hibernate.c   | 12 ++++++++++++
+ 2 files changed, 15 insertions(+)
 
-diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index b02876f1ae38..10fe2298d94e 100644
---- a/include/linux/suspend.h
-+++ b/include/linux/suspend.h
-@@ -401,6 +401,8 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data);
- int hibernate_resume_nonboot_cpu_disable(void);
- int arch_hibernation_header_save(void *addr, unsigned int max_size);
- int arch_hibernation_header_restore(void *addr);
-+void *hibernate_map_page(struct page *page);
-+void hibernate_unmap_page(struct page *page);
+diff --git a/arch/arm64/include/asm/fixmap.h b/arch/arm64/include/asm/fixmap.h
+index 170c3502d723..c8a65fd8584d 100644
+--- a/arch/arm64/include/asm/fixmap.h
++++ b/arch/arm64/include/asm/fixmap.h
+@@ -73,6 +73,9 @@ enum fixed_addresses {
+ 	FIX_ENTRY_TRAMP_TEXT1,
+ #define TRAMP_VALIAS		(__fix_to_virt(FIX_ENTRY_TRAMP_TEXT1))
+ #endif /* CONFIG_UNMAP_KERNEL_AT_EL0 */
++#ifdef CONFIG_HIBERNATION
++	FIX_HIBERNATE,
++#endif
+ 	__end_of_permanent_fixed_addresses,
  
- #else /* CONFIG_HIBERNATION */
- static inline void register_nosave_region(unsigned long b, unsigned long e) {}
-diff --git a/kernel/power/snapshot.c b/kernel/power/snapshot.c
-index b209712cb2c3..b41952f1de2a 100644
---- a/kernel/power/snapshot.c
-+++ b/kernel/power/snapshot.c
-@@ -85,7 +85,7 @@ static inline int hibernate_restore_unprotect_page(void *page_address) {return 0
-  * It is still worth to have a warning here if something changes and this
-  * will no longer be the case.
-  */
--static inline void hibernate_map_page(struct page *page)
-+void * __weak hibernate_map_page(struct page *page)
- {
- 	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
- 		int ret = set_direct_map_default_noflush(page);
-@@ -95,9 +95,10 @@ static inline void hibernate_map_page(struct page *page)
- 	} else {
- 		debug_pagealloc_map_pages(page, 1);
- 	}
-+	return page_address(page);
+ 	/*
+diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
+index 7bf117427777..bbd0779081fa 100644
+--- a/arch/arm64/kernel/hibernate.c
++++ b/arch/arm64/kernel/hibernate.c
+@@ -21,6 +21,7 @@
+ #include <asm/cacheflush.h>
+ #include <asm/cputype.h>
+ #include <asm/daifflags.h>
++#include <asm/fixmap.h>
+ #include <asm/irqflags.h>
+ #include <asm/kexec.h>
+ #include <asm/memory.h>
+@@ -213,6 +214,17 @@ static int create_safe_exec_page(void *src_start, size_t length,
+ 	return 0;
  }
  
--static inline void hibernate_unmap_page(struct page *page)
-+void __weak hibernate_unmap_page(struct page *page)
- {
- 	if (IS_ENABLED(CONFIG_ARCH_HAS_SET_DIRECT_MAP)) {
- 		unsigned long addr = (unsigned long)page_address(page);
-@@ -1456,8 +1457,9 @@ static bool safe_copy_page(void *dst, struct page *s_page)
- 	if (kernel_page_present(s_page)) {
- 		zeros_only = do_copy_page(dst, page_address(s_page));
- 	} else {
--		hibernate_map_page(s_page);
--		zeros_only = do_copy_page(dst, page_address(s_page));
-+		void *src = hibernate_map_page(s_page);
++void *hibernate_map_page(struct page *page)
++{
++	set_fixmap(FIX_HIBERNATE, page_to_phys(page));
++	return (void *)__fix_to_virt(FIX_HIBERNATE);
++}
 +
-+		zeros_only = do_copy_page(dst, src);
- 		hibernate_unmap_page(s_page);
- 	}
- 	return zeros_only;
++void hibernate_unmap_page(struct page *page)
++{
++	clear_fixmap(FIX_HIBERNATE);
++}
++
+ #ifdef CONFIG_ARM64_MTE
+ 
+ static DEFINE_XARRAY(mte_pages);
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
