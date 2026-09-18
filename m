@@ -1,122 +1,236 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239B251AEDE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:25:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E5651B172;
+	Fri, 18 Sep 2026 17:24:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752304; cv=none; b=TOxwkc0cLBzkU4pNVy+bSNkYFaoC/we8EKqliJvN/yezIj4ziXILWdguyFZ+CTOz7Q91D9cToASrMFnXu6JwZYCrsb897jVKWHmHX9V/vARZuL/CEpfNxsk2PniLM4VZOdwsgQFZbJyJ3Fyxq97l0r1Gn6rx/4rKBLlTgqXzR0U=
+	t=1789752304; cv=none; b=czxARAsXWzDTMNNWzISw57lz365o80yc5k7h4IfGrEzNSRzHRGjlROQwN8JalBudA0cnBULGHvofRylZIdFTTgzqHftbEFTW4Xt+5/eWV/VrGHYB0S3/erUEUSz6p8fGjww2ShgSiHdalNOTvZs0m82YHOgCE6d1GwukHSPE3y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789752304; c=relaxed/simple;
-	bh=nRfKlU0JdIMS7pIyYOtNbNNL4qpg+eZ3q8lelnV3/Dw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gwR0S+s2Wa/W/s0zxEAZA9IwFExCzUtdJXA9dIIokCiqGLT7sJVZiux01Yc+Ez8KL3VgwavjPhJmp/ae+6vyC8e28unaSCnUrLZfaAJAzHycd/48Nvs2mpe8hFlrM5L+Xr4BhjjK8Rnfy8V5UH25bSdgWNRagQwlngd1sF12gCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sPZtFI9U; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	bh=k9loHwbjbFtNefqL9fgH782oIzs3XLn/+r9Ypzw4pk8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cAaPe3P2cKOXTdbNva1NeD6h0kHOdfBAvDTtXgMiEwM22It6dG9QCNY8SMpZNeXq9hh24/jJHxCHErf6E3Y92x7P2InWLLr1oW+JHe62KxNTK73S1HgRIIGuVKyjcA8MxUY8XhgA3eBBruZHSn4r2UXtIX/c7zXHsD9GuqV7+9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Z1sevU0p; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sPZtFI9U"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39e3dad7ab3so1432250a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:25:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789752301; x=1790357101; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=72PNOxgvBxEa/OyDxE8+wmcHMjmCVv+wNt0o6l7GD3A=;
-        b=sPZtFI9UvGlBuVl0YFIBiV3HSGFDTjN4k0jifAQJLlSSLvxHJ0crOFZqrSDA2kTt8B
-         dqR5qdzoIaO7svteRzThvMEr/YUXqDMDiYbh1dIc2UICHX6FrQ8GzWd7CH/FQveFIrH9
-         CqazQnxkEQaWLIa/2Mr9n0PpqKg8XFoGFZe9YQVh6KTODbX4RhIA5p/KaUTWiVhlv+pe
-         oP/Z1TQTSl6dqFQRPvrDCAV9wy+7BS0yhXfx0r9ufMieeiYTyPB379JYf62J+E5GGqFM
-         UPKQhZgql1BVIMEo1cJcYIztN7pUP+feRFV/7lBZN86LDnvWPNqVhV0aInSGN8adBHcx
-         k93Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752301; x=1790357101;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=72PNOxgvBxEa/OyDxE8+wmcHMjmCVv+wNt0o6l7GD3A=;
-        b=wetmZ3WJBsuLJ5a/j/5wbxxs9cZ5+kjQaDp4u2Wffi4KrEqJ3LRURDe1LInudVTt+P
-         3QhmMykzqiO9nYo9nVyIFI6BK1pBZD64LUX0uSSLB8GvTUad0nBAvq3tieFdEnwZRvyJ
-         wAy9CRMhrS48pln6rW8clP+SRuZq12iHn1JpN05R33hadTPH2bgVUVZyPiNF+nTqFHCT
-         ttNPBPxMwbdG7k+VmSmfFxFDEtnTrC2mNEw8fdraRHz74OR9BlnGXxJKrnPzoE2iJB2i
-         W1wAaI9PViJEHYIDsVHhko3tJZkz+1JroTM0PnNIdAq+0cOLDMSuH72w2RhatQ3eHkZ3
-         WgQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygX4JsbAQzha/I9nQ4pL1ywJtGGNQZTzsBAN94pbUle1ULkKL0qswVnG3kwGnss+YTZk7ahl30Y52Anek=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRxRCXWxgUvgu0+J32/miCzEI0kRxhG0CswlDww8Iu9qcbIiu3
-	t0LcDQapHmouUhyl6jhlN0aL+7jylvJ4kRWRo6Ipu18CmQxBW1nJNEnrud3ru9aTDrYZc/+79AP
-	yNUtINxpE8WuJaP2CX7dfkOAzraDLVtbidw==
-X-Received: from pjue21.prod.google.com ([2002:a17:90a:e4d5:b0:39e:6e36:d13d])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:e7c9:b0:39d:f615:725e with SMTP id 98e67ed59e1d1-39e54bc3a8emr6915187a91.13.1789752300888;
- Fri, 18 Sep 2026 10:25:00 -0700 (PDT)
-Date: Fri, 18 Sep 2026 17:24:59 +0000
-In-Reply-To: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Z1sevU0p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LO
+	NQR/eTuMAe5RuWYz+f969kvAnzBf9rM/KZ984g2kg=; b=Z1sevU0pS9ofcMSHOo
+	eTXqxGrHZoCEIueEcfha+uT2t/CATKWCQouePoLXivBemA6kQ/b1yPNrNHqpZbcq
+	MkRf12Y/63affycHnTBvTMkbhvGcgGs9mkfvkEMnVDKvOal07Hm3Rnc06bTR449i
+	f3YwrSXYT/RXnaDrJPixt4Gu4=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wCHKsy6c61q2cb6BQ--.22248S2;
+	Sat, 19 Sep 2026 01:24:11 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: bpf@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Yonghong Song <yonghong.song@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH bpf 2/3] selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
+Date: Sat, 19 Sep 2026 02:24:06 +0900
+Message-ID: <20260918172407.3459188-3-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918172407.3459188-1-sh_def@163.com>
+References: <20260918172407.3459188-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
-X-Mailer: b4 0.14.3
-Message-ID: <20260918-b4-fix-aer-memleaks-v4-1-f0a2c21ed1d1@google.com>
-Subject: [PATCH v4 1/2] PCI/AER: Fix memory leak in aer_recover_queue() on
- kfifo buffer overflow
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>, linuxppc-dev@lists.ozlabs.org, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Priyank Rathod <rathodpriyank@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCHKsy6c61q2cb6BQ--.22248S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jr4kWw4UKrykuFW5Kr15Arb_yoWxGr15pF
+	ykXFyUKF15Xa4UXF4Ut3y7Zr42qF1DXF1YkrZ5Wr1Y9FWUWFyv9ryrKF4YkFyft3yDZw1I
+	vwn8Zrs8XrWDWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi5CzJUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hsRcGqtc7ueCgAA3L
 
-When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
-for aer_capability_regs (aer_regs) from ghes_estatus_pool and passes it
-to aer_recover_queue() to be enqueued into aer_recover_ring.
+Extend cgroup_mprog_opts selftests to verify that BPF_PROG_QUERY reports
+BPF_F_PREORDER in prog_attach_flags for both direct program and link
+attachments.
 
-If kfifo_in_spinlocked() fails due to a buffer overflow,
-aer_recover_queue() logged an error message but returned without freeing
-aer_regs. Because the entry was rejected and never inserted into the
-queue, aer_recover_work_func() could never dequeue or free it, leaking
-the allocated ghes_estatus_pool memory.
+Specifically, in test_preorder_prog_attach_detach() and
+test_preorder_link_attach_detach(), verify that:
+- Programs attached with BPF_F_PREORDER report
+  BPF_F_ALLOW_MULTI | BPF_F_PREORDER (0x42) in prog_attach_flags.
+- Programs attached without BPF_F_PREORDER report BPF_F_ALLOW_MULTI (0x2).
+- Transient flags such as BPF_F_AFTER or BPF_F_LINK are not present in
+  prog_attach_flags.
+- Per-program attach flags are validated by matching each attached prog_id
+  via a query helper, avoiding fragile assumptions on the internal slot
+  order of the direct query list.
 
-aer_recover_queue() returns void, so the caller ghes_handle_aer() cannot
-free the buffer itself: ownership is transferred to the AER code, which
-until now only released it on the success path.
-
-Free aer_regs via ghes_estatus_pool_region_free() when
-kfifo_in_spinlocked() fails on buffer overflow.
-
-Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
-Cc: stable@vger.kernel.org
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+Signed-off-by: Hui Su <sh_def@163.com>
 ---
- drivers/pci/pcie/aer.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../bpf/prog_tests/cgroup_mprog_opts.c        | 94 ++++++++++++++++++-
+ 1 file changed, 91 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index d8dcd238fda1..b013b853b555 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -1415,11 +1415,14 @@ void aer_recover_queue(int domain, unsigned int bus, unsigned int devfn,
- 	};
- 
- 	if (kfifo_in_spinlocked(&aer_recover_ring, &entry, 1,
--				 &aer_recover_ring_lock))
-+				 &aer_recover_ring_lock)) {
- 		schedule_work(&aer_recover_work);
--	else
-+	} else {
- 		pr_err("buffer overflow in recovery for %04x:%02x:%02x.%x\n",
- 		       domain, bus, PCI_SLOT(devfn), PCI_FUNC(devfn));
-+		ghes_estatus_pool_region_free((unsigned long)aer_regs,
-+					      sizeof(struct aer_capability_regs));
-+	}
+diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
+index bb60704a3ef9..343357d9c460 100644
+--- a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
++++ b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
+@@ -273,13 +273,31 @@ static void test_link_attach_detach(int atype)
+ 	close(cg);
  }
- EXPORT_SYMBOL_GPL(aer_recover_queue);
- #endif
-
+ 
++static int find_prog_attach_flags(const struct bpf_prog_query_opts *opts,
++				  __u32 prog_id, __u32 *flags)
++{
++	__u32 i;
++
++	for (i = 0; i < opts->count; i++) {
++		if (opts->prog_ids[i] == prog_id) {
++			*flags = opts->prog_attach_flags[i];
++			return 0;
++		}
++	}
++	return -ENOENT;
++}
++
+ static void test_preorder_prog_attach_detach(int atype)
+ {
+ 	LIBBPF_OPTS(bpf_prog_attach_opts, opta);
+ 	LIBBPF_OPTS(bpf_prog_detach_opts, optd);
+-	__u32 fd1, fd2, fd3, fd4;
++	LIBBPF_OPTS(bpf_prog_query_opts, optq);
++	__u32 fd1, fd2, fd3, fd4, id1, id2, id3, id4;
++	__u32 prog_attach_flags[10] = {0};
++	__u32 prog_ids[10] = {0};
+ 	struct cgroup_mprog *skel;
+ 	int cg, err;
++	__u32 flags;
+ 
+ 	cg = test__join_cgroup("/preorder_prog_attach_detach");
+ 	if (!ASSERT_GE(cg, 0, "join_cgroup /preorder_prog_attach_detach"))
+@@ -294,6 +312,11 @@ static void test_preorder_prog_attach_detach(int atype)
+ 	fd3 = bpf_program__fd(skel->progs.getsockopt_3);
+ 	fd4 = bpf_program__fd(skel->progs.getsockopt_4);
+ 
++	id1 = id_from_prog_fd(fd1);
++	id2 = id_from_prog_fd(fd2);
++	id3 = id_from_prog_fd(fd3);
++	id4 = id_from_prog_fd(fd4);
++
+ 	assert_mprog_count(cg, atype, 0);
+ 
+ 	LIBBPF_OPTS_RESET(opta,
+@@ -357,6 +380,34 @@ static void test_preorder_prog_attach_detach(int atype)
+ 
+ 	assert_mprog_count(cg, atype, 4);
+ 
++	optq.prog_ids = prog_ids;
++	optq.prog_attach_flags = prog_attach_flags;
++	optq.count = 10;
++	err = bpf_prog_query_opts(cg, atype, &optq);
++	if (!ASSERT_OK(err, "prog_query"))
++		goto cleanup4;
++
++	ASSERT_EQ(optq.count, 4, "count");
++	/* Direct query reports attached programs in cgroup list order.
++	 * Lookup by prog_id to verify per-program flags independently of slot index.
++	 */
++	err = find_prog_attach_flags(&optq, id1, &flags);
++	if (ASSERT_OK(err, "find id1"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id1");
++
++	err = find_prog_attach_flags(&optq, id2, &flags);
++	if (ASSERT_OK(err, "find id2"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id2");
++
++	err = find_prog_attach_flags(&optq, id3, &flags);
++	if (ASSERT_OK(err, "find id3"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id3");
++
++	err = find_prog_attach_flags(&optq, id4, &flags);
++	if (ASSERT_OK(err, "find id4"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id4");
++
++cleanup4:
+ 	err = bpf_prog_detach_opts(fd4, cg, atype, &optd);
+ 	ASSERT_OK(err, "prog_detach");
+ 	assert_mprog_count(cg, atype, 3);
+@@ -384,10 +435,14 @@ static void test_preorder_prog_attach_detach(int atype)
+ static void test_preorder_link_attach_detach(int atype)
+ {
+ 	LIBBPF_OPTS(bpf_cgroup_opts, opta);
++	LIBBPF_OPTS(bpf_prog_query_opts, optq);
+ 	struct bpf_link *link1, *link2, *link3, *link4;
+ 	struct cgroup_mprog *skel;
+-	__u32 fd2;
+-	int cg;
++	__u32 fd2, id1, id2, id3, id4;
++	__u32 prog_attach_flags[10] = {0};
++	__u32 prog_ids[10] = {0};
++	int cg, err;
++	__u32 flags;
+ 
+ 	cg = test__join_cgroup("/preorder_link_attach_detach");
+ 	if (!ASSERT_GE(cg, 0, "join_cgroup /preorder_link_attach_detach"))
+@@ -399,6 +454,11 @@ static void test_preorder_link_attach_detach(int atype)
+ 
+ 	fd2 = bpf_program__fd(skel->progs.getsockopt_2);
+ 
++	id1 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_1));
++	id2 = id_from_prog_fd(fd2);
++	id3 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_3));
++	id4 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_4));
++
+ 	assert_mprog_count(cg, atype, 0);
+ 
+ 	LIBBPF_OPTS_RESET(opta,
+@@ -460,6 +520,34 @@ static void test_preorder_link_attach_detach(int atype)
+ 
+ 	assert_mprog_count(cg, atype, 4);
+ 
++	optq.prog_ids = prog_ids;
++	optq.prog_attach_flags = prog_attach_flags;
++	optq.count = 10;
++	err = bpf_prog_query_opts(cg, atype, &optq);
++	if (!ASSERT_OK(err, "prog_query"))
++		goto cleanup4;
++
++	ASSERT_EQ(optq.count, 4, "count");
++	/* Direct query reports attached programs in cgroup list order.
++	 * Lookup by prog_id to verify per-program flags independently of slot index.
++	 */
++	err = find_prog_attach_flags(&optq, id1, &flags);
++	if (ASSERT_OK(err, "find id1"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id1");
++
++	err = find_prog_attach_flags(&optq, id2, &flags);
++	if (ASSERT_OK(err, "find id2"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id2");
++
++	err = find_prog_attach_flags(&optq, id3, &flags);
++	if (ASSERT_OK(err, "find id3"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id3");
++
++	err = find_prog_attach_flags(&optq, id4, &flags);
++	if (ASSERT_OK(err, "find id4"))
++		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id4");
++
++cleanup4:
+ 	bpf_link__destroy(link4);
+ 	assert_mprog_count(cg, atype, 3);
+ 
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.55.0
 
