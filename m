@@ -1,185 +1,88 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAA33822AB;
-	Fri, 18 Sep 2026 20:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A291E222580;
+	Fri, 18 Sep 2026 20:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763108; cv=none; b=nx0QNJ6+psv/GF91DLkTKPe591DaJS7+g5OPiRiGMf53HsnZ6KEc/31noVnOvR2kSDGbjqH+l7hVgz7CPS7iCuFjUbtn4XlZ6C5CMAUAnLdR3skkO+KMlZ88UPZNyRRRvNQsPFF27RfP2dNipRQKfd2vFD0pUQ4tnFt8nFei2rY=
+	t=1789763148; cv=none; b=QerfR3XrIJZkeYz3e65N1q+GqQp3BNXBsVZLjKKPZg/KkE8lss0fZRgWcwB/NFfUvG/T+cGoA2de547gKBhXxluLp9yjZBQNDQ/LqZbV4P0seIghhSXwHJdIKCeUWyyLypfJQKcgyU+g2uHCNwW0QWF5/ocqWZyKY46EnOFvNWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763108; c=relaxed/simple;
-	bh=3JTMDa8xyqYzHvd0uT6xgVZ1Kf288bpBCb7loSUco9A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUNBouDsY2MDEqFy7dDr/SV1nSu05Vij+3klhZ4WHfXaEJk1ouJ5l3k3qBpXv2nIJNmBA0IDwnWCOBBNcpk1r/np1CU3slWVObcLf+YAkI6SVSYJl4eLKgKrnnQRrDoYBUYVHpThKKkzNbLT2oAODKrMZ2lujzjDuPEnQZmVjdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=kLJGm/TP; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	s=arc-20240116; t=1789763148; c=relaxed/simple;
+	bh=aTkksyFCHrBAJh/IUy70zWptJPV7UEtTa7WTDM/j7C0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pPR/v3DlWxUommlQsGOj45Bpf7xz5/ULkMK4ZG5rGQnM+o46/gsaP7NmIu3OqmbaB+berLVIub25WiKN+aMAo+1WkVKqhPSor2Fxk1E1naoqUYbkkkraY+q+qaWxmoAGL8eDTrdRIKMAMD2EIx4o/qgd8G16j/WhhCCemFWbreY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoiyP1cb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="kLJGm/TP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail3; t=1789763086; x=1790022286;
-	bh=GEhcer4IUxntB2/PFfYkr4/cIYibKg0BnJl+Ie/zHbc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=kLJGm/TPPMxRtsCqNjHRxEKvo6pfKlxGzSbPDe4I/aFiyqClIYPKixTjA4hAAcNz6
-	 j+jNNB6wYKqZg1MQqQCvFsMvew8PfyAoFethOOz5OS4Wo30lYuDgNvqI/xndYzJ3Cz
-	 H4T8G0qDm1iHOQ2UnJ7IshX9Sr4zDoVmRwHIFY3//ARm2/zBHyoqDEfSIvNX+3rMk4
-	 BG0KLtFChLBlKTT6GKsYQ9DSvX9CUU6708OZRzK3TPirZNEp7o5g9WvNrkqWQVl5qI
-	 apeThmhFdQJAzZKEyZdV77X6Uu63FdwkfFmZN4O6HyoQm3nwB34sD28/kkWglbooAj
-	 rOlDFSOjM/uug==
-Date: Fri, 18 Sep 2026 20:24:42 +0000
-To: Bjorn Helgaas <helgaas@kernel.org>
-From: Angel J <iamanaws@httpd.dev>
-Cc: linux-pci@vger.kernel.org, bhelgaas@google.com, robh@kernel.org, herve.codina@bootlin.com, lizhi.hou@amd.com, andrea.porta@suse.com, florian.fainelli@broadcom.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, regressions@lists.linux.dev, linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH v3] PCI: of_property: Omit bus properties without a subordinate bus
-Message-ID: <vN9WO7kgAS9tXtyymIFn6Qxh8OzMCszLbZWEpONCFgXJgH8-TtGwjro4aXU3whbNqf0-FJwbxNBqYQc2Mbl-cWo80W-xZ8ff3QtmwZtpTQY=@httpd.dev>
-In-Reply-To: <20260918202045.GA1191948@bhelgaas>
-References: <20260918202045.GA1191948@bhelgaas>
-Feedback-ID: 163474212:user:proton
-X-Pm-Message-ID: 765e916740c698db3593238809d513bbce91b82f
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoiyP1cb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24E31F000FF;
+	Fri, 18 Sep 2026 20:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789763147;
+	bh=HLs6wnc1t/Daa6z92qDpMvkWXFtfd9WHahD5G72w6gI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LoiyP1cb0DwcWj1kowjAhqYxfAqHFWzAi5FYITmQ1nIA+8PL9tMOgdssSKVBBvBXf
+	 yp+zPjY5vp+hFZuuzgP1YW3Jndt2tCJo3AZ+aV3RzKElRU+HWfKIDw2ocCg2taryWS
+	 gxdYdbiEv8iW5vdgZ+YVeH4UWqN6Nzy147UwgXrXf7VZSVgdLLuJGosPy4XSqe2W7F
+	 8SdQgEWMcjNXVhrGcJMTgF6gIsR4euThx499EZzWZy6lgzXL5VXCwKYV5/tZbTAcLE
+	 +vjx85GyH1qgqTG34g4iWHvcPkmxDchS/Qu3E8YiU0TEt95JHPX4uRDzii0D5B58kp
+	 UcGGmVNiszLdA==
+Date: Fri, 18 Sep 2026 17:25:43 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: namhyung@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
+	jolsa@kernel.org, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, mingo@redhat.com,
+	peterz@infradead.org, tmricht@linux.ibm.com
+Subject: Re: [PATCH v3 0/3] perf srcline: Fix addr2line cache and fallback
+ bugs
+Message-ID: <aq2eR9pezbRheQgR@x2>
+References: <20260916063545.3103314-1-irogers@google.com>
+ <20260916234402.437113-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------87ebcbdce18e85b570166437990a4e3bac7a7705cfd5fe023eb4c7e1928c393f"; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916234402.437113-1-irogers@google.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------87ebcbdce18e85b570166437990a4e3bac7a7705cfd5fe023eb4c7e1928c393f
-Content-Type: multipart/mixed;boundary=---------------------a2c1a435c064bdab948fbb9ccdb71701
+On Wed, Sep 16, 2026 at 04:43:59PM -0700, Ian Rogers wrote:
+> Three fixes to source line resolution, all on the addr2line paths.
+> 
+> 1) libdw is pointed at the wrong file. dso__libdw_dwfl() opens the Dwfl
+>    with the name of the file the samples came from, but when the debug
+>    information is in a separate file, symbol loading records that as the
+>    dso's symsrc filename and the Dwfl is left referring to a file with
+>    no DWARF in it.
+> 
+> 2) The dso addr2line cache is shared between implementations. The libbfd
+>    reader caches a struct a2l_data and the command line fallback caches
+>    a struct child_process through the same pointer, so once a dso has
+>    fallen back from one to the other the cached object is read back as
+>    the wrong type.
+> 
+> 3) libbfd only reports success when the caller asked for a file name.
+>    addr2inlines() doesn't, so srcline.c treats a resolved address as a
+>    failure and tries the next implementation, which appends its own
+>    frames to the ones libbfd already appended. Every frame that isn't
+>    inlined is then reported twice. This is the default when perf is
+>    built with libbfd but without libdw:
+> 
+>      $ perf record --call-graph dwarf -- perf test -w inlineloop 1
+>      $ perf script --fields +srcline
+>      ...
+>                  56051a99503a inlineloop+0x8a (perf)
+>          inlineloop.c:47
+>                  56051a99503a inlineloop+0x8a (perf)
+>          inlineloop.c:47
+>      ...
+> 
+>    With addr2line.style set to "libbfd,addr2line" so the fallback is
+>    taken, the script output for that workload drops from 288 lines to
+>    176, and each repeated frame goes from appearing 16 times to 8.
 
------------------------a2c1a435c064bdab948fbb9ccdb71701
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+Thanks, applied to perf-tools-next, for v7.4.
 
-I didn't reply cuz I'm out for 3 weeks without access to that machine, so =
-I can't test or confirm it works as expected (even though probably does)
-
-Still, I will try to confirm as soon as I can.
-
-Thanks
-
-On Friday, September 18th, 2026 at 13:20, Bjorn Helgaas <helgaas@kernel.or=
-g> wrote:
-
-> On Fri, Sep 18, 2026 at 02:55:40PM -0500, Bjorn Helgaas wrote:
-> > Author: Angel J <iamanaws@httpd.dev>
-> >
-> > PCI: of_property: Omit bus properties without a subordinate bus
-> >
-> > A bridge (a device with a Type 1 header) may not have a secondary bus
-> > allocated (pdev->subordinate), e.g., if there are no available bus num=
-bers
-> > or the bridge secondary/subordinate bus numbers are not writable.
-> >
-> > The dynamic OF helpers of_pci_prop_bus_range() and of_pci_prop_intr_ma=
-p()
-> > dereference pdev->subordinate without checking it.  When
-> > CONFIG_PCI_DYNAMIC_OF_NODES is enabled, this can cause a NULL pointer
-> > dereference and early boot hang.
-> >
-> > Generate 'bus-range' and 'interrupt-map' properties only when a subord=
-inate
-> > bus exists.  Keep the node and its remaining properties for bridges wi=
-thout
-> > one.
-> >
-> > The problem was latent since 407d1a51921e ("PCI: Create device tree no=
-de
-> > for bridge"), but wasn't reachable until 1f340724419e ("PCI: of: Creat=
-e
-> > device tree PCI host bridge node"), which appeared in v6.15.  Before
-> > 1f340724419e, of_pci_make_dev_node() returned early because the parent=
- OF
-> > node was missing.
-> >
-> > Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-> > Signed-off-by: Angel J <iamanaws@httpd.dev>
-> > [bhelgaas: move pdev->subordinate test to callees, commit log]
-> > Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> > Cc: stable@vger.kernel.org	# v6.6+
-> > Link: https://patch.msgid.link/20260912043106.10715-1-iamanaws@httpd.d=
-ev
-> =
-
-
-> I put this on pci/for-linus, planning to be in v7.3, but I would love
-> to have testing reports to make sure it still works as the v2 does.
-> =
-
-
-> > ---
-> > Changes in v3:
-> > - Move pdev->subordinate tests to of_pci_prop_bus_range() and
-> >   of_pci_prop_intr_map()
-> >
-> > Changes in v2
-> > (https://lore.kernel.org/all/20260912043106.10715-1-iamanaws@httpd.dev=
-):
-> > - Keep the dynamic OF node and skip only bus-range and interrupt-map
-> >   when no subordinate bus exists, following review of v1.
-> > - Tested on Linux 6.18.44 with the v1 guard removed.
-> >
-> > v1
-> > (https://lore.kernel.org/all/20260911230420.26244-1-iamanaws@httpd.dev=
-)
-> >
-> > diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-> > index 75a358f73e69..1500740cc55d 100644
-> > --- a/drivers/pci/of_property.c
-> > +++ b/drivers/pci/of_property.c
-> > @@ -95,9 +95,13 @@ static int of_pci_prop_bus_range(struct pci_dev *pd=
-ev,
-> >  				 struct of_changeset *ocs,
-> >  				 struct device_node *np)
-> >  {
-> > -	u32 bus_range[] =3D { pdev->subordinate->busn_res.start,
-> > -			    pdev->subordinate->busn_res.end };
-> > +	u32 bus_range[2];
-> >
-> > +	if (!pdev->subordinate)
-> > +		return 0;
-> > +
-> > +	bus_range[0] =3D pdev->subordinate->busn_res.start;
-> > +	bus_range[1] =3D pdev->subordinate->busn_res.end;
-> >  	return of_changeset_add_prop_u32_array(ocs, np, "bus-range", bus_ran=
-ge,
-> >  					       ARRAY_SIZE(bus_range));
-> >  }
-> > @@ -220,6 +224,9 @@ static int of_pci_prop_intr_map(struct pci_dev *pd=
-ev, struct of_changeset *ocs,
-> >  	int ret;
-> >  	u8 pin;
-> >
-> > +	if (!pdev->subordinate)
-> > +		return 0;
-> > +
-> >  	pnode =3D pci_device_to_OF_node(pdev->bus->self);
-> >  	if (!pnode)
-> >  		pnode =3D pci_bus_to_OF_node(pdev->bus);
-> =
-
-
------------------------a2c1a435c064bdab948fbb9ccdb71701--
-
---------87ebcbdce18e85b570166437990a4e3bac7a7705cfd5fe023eb4c7e1928c393f
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqtnfwJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmeYy3a7JP56kUxTETMd3tLpOuXlBNvxVibWBagu
-vzZBvBYhBEAFf9htFyVnqZzmVhoBbwppzUxnAABDxwEA0gPUiKor/KXbKNIy
-feoz+puxzpDXWcjSxI/wr6ae7KEA/A99sQ32SNOG0C1LlqNRW195q+wb1mfL
-3OrjvQqkQe4F
-=DtXv
------END PGP SIGNATURE-----
-
-
---------87ebcbdce18e85b570166437990a4e3bac7a7705cfd5fe023eb4c7e1928c393f--
-
+- Arnaldo
