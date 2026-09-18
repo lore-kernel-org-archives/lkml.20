@@ -1,210 +1,506 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C694EDCAD;
-	Fri, 18 Sep 2026 13:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736981; cv=none; b=YO0FiI5G0g2I5CypooOFc3cahoqpZcyeAxkKiIkqktjY8HdC7LI6YoVyLh3KRMsVZY+fszbcU5ZHYwlR6ZYThBAZp3KyDkVCgbYMcO2x8V4wLEwYaI/1bszE9lWRSdupsRf6DS6tYF96GApe5t+hgCtSYwTiwh0cQSblVcnkO5Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736981; c=relaxed/simple;
-	bh=C/ixOUtI7uWYalxn7RDlGINC1VreSJk1dwuruTME8xI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BJ1ZVR9UCwkEMBEH6VqRK486HT32yxq3DIcA2rBVNRf5nL5B2/xAInWWa/tq6bu8GJVmvgtyB5LDcASd9BlvoVnVfs+jffoobGNybmL4KHkj5KUz9crOFnpBapzcnek6UUyttS4bCkKz/4I/f8n24/zgqf8WAiZeYxSnK0Vbmn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=xX/3VMkX; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276D04E77EF;
+	Fri, 18 Sep 2026 13:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789736986; cv=fail; b=qqoiQTSXKFAEPKhRtevm6w02VLZWE+hy3Wm5SK1fuG/61axE1VWzgB4uR9B355yGu5/uDGONVJMzbcv6eOQ6M7rjGzQ6ufuA9QBnOfgduQvedCyNMQ+yYNqTutFcDzIPaOMvOGlLIfhPo/Zd9z+lI8YIvBfxicUSy4u0vy1zf5I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789736986; c=relaxed/simple;
+	bh=l6cs9n5JsG+t3kFrW1VMpuxkGvcITHCnnZQgY9Wcaos=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kCqEfhjFtPhoTY8uhfdWYf+xMpshj/HE+0zq0firGR11BaSJLrnRgkn4EJtfxJJUz/vCe3jzv5NlY0elechy3VcE0ByPSEFNkILYqiEfCSpf4vd8VAdMfbN6ZD+0TK+5DM53g5eT4isqYyusGBPTZlAmMRLFluPB4YH3zNBo56g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Y9vJkgre; arc=fail smtp.client-ip=52.101.85.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="xX/3VMkX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789736891;
-	bh=NQe6SZgHq4C4c6OQq2uMfbITwyQfNYkJdzaj8xFvJOc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To;
-	b=xX/3VMkXeLVct2CRmn7s3IC86SMJ52tDryTAqVBBTa1I4VteOqRzwsA4VpwbEuRFC
-	 J/ft3pmxbICWOpZ6SkTVbmsbA+V1WfzUuU4C6sAx8m/zv8NBn+pCFTLVGKXjHOxilv
-	 51yu+aurAp3ctXXl4brslJRsRIfCG4vaeBNhpCVw=
-X-QQ-mid: esmtpgz10t1789736884tec6452b8
-X-QQ-Originating-IP: /kb2l/F6wfwX8gp1SErJ3II9mxlSeQDT2AtxmCa3Ox0=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 21:08:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 4423648668496576874
-Message-ID: <768D38E96246550E+b63978f5-b8e9-4d3d-883c-f36d79c5da12@linux.spacemit.com>
-Date: Fri, 18 Sep 2026 21:08:02 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Y9vJkgre"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EdQNv6X/DZStbPVKH4UbTU2vBw/3+00mRz68KryfpAYuGRG9S1g51nFw6Bl+O1dK/6PmXn8MpPKsFrD3nWsMigCUCHYuPV4AAit2BE9Jl+j7y6/dqCDpxso2/mCMuIJ1UEDsLWsfA59zDZEfrV+xMU2lMn0pVYRLwGrkNB8WtVfCZYTHIlRZP/F3LItfbkdFrkn0Y3HS0MxOsoD54Jn8SUwGHsWmx0fBl1f3YLpI6zBPwbQNWYByPWJZ56Cjz03MbVcnC9B4BFAm2wzD6BOysyGBNpTcDCr5tJI0bGcVCcxl2Ip0k8BFcvX6aIrW2MvGH+UEPeGIiyF5pJcTh29qZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r6KuzDJOd0tpDLpilxEYe7gANcKdJQd/aTNCRIv/CDc=;
+ b=Ut3eyIr4wsXHOycPFHiby/ilKrpMJUGNF3vl4p5vktbm9JaL3mI9PPBkmLLaNWJ2zKjJuCvWFLNuIiOhALBC+3uMg3MR+gA038T3891xK/JY5F3DcTjfvT5xJcoIMAIYspFrbpCKDLkkZncRrM+hJfzrI6wzDDvDHhFjB6JUpUJhfWAdjYRvsuKkBXBMX5TPSZygT5tWn7iw8woHM0vgYzpjYqWNUku7m9vlILBGYKNW3PxcA48WNbtbwsAGMufolXJGkZEqzoXnPNg53x15+wu32PPAIY2FPsjqhS1fMd/yiLEocVdt3z0//6nGIs3NDG03xU4Chjr+rcmGq3CqhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r6KuzDJOd0tpDLpilxEYe7gANcKdJQd/aTNCRIv/CDc=;
+ b=Y9vJkgreX58bV5w30v8NM6yg5MWZlENa0aW1aivvYB84C0pkbVlXRva5T97tXw62Us/oOzB0NfTMP5LL88ggzle4IpNnjocWt92q2vMdtaif3GR1eyXthIfPbqGvRywxEHL4d11K6gUzKFbkgnaCEfVBtWb0jHl1PrF7OI1rn90=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB999228.namprd12.prod.outlook.com
+ (2603:10b6:806:4db::10) by SJ0PR12MB6853.namprd12.prod.outlook.com
+ (2603:10b6:a03:47b::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
+ 2026 13:09:37 +0000
+Received: from SA1PR12MB999228.namprd12.prod.outlook.com
+ ([fe80::4dba:119e:8e7c:37b3]) by SA1PR12MB999228.namprd12.prod.outlook.com
+ ([fe80::4dba:119e:8e7c:37b3%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 13:09:37 +0000
+Message-ID: <f6fb7f1e-a296-4142-9b77-64420edabe64@amd.com>
+Date: Fri, 18 Sep 2026 23:09:29 +1000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v6 09/11] iommufd: Add the vdevice TSM request ioctl
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+ Kevin Tian <kevin.tian@intel.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ Samuel Ortiz <sameo@rivosinc.com>, Steven Price <steven.price@arm.com>,
+ Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
+References: <20260917140159.1163281-1-aneesh.kumar@kernel.org>
+ <20260917140159.1163281-10-aneesh.kumar@kernel.org>
+From: Alexey Kardashevskiy <aik@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260917140159.1163281-10-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SY8PR01CA0012.ausprd01.prod.outlook.com
+ (2603:10c6:10:29c::11) To SA1PR12MB999228.namprd12.prod.outlook.com
+ (2603:10b6:806:4db::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: dwc3: core: resume xHCI child on runtime resume
- in host mode
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-To: Troy Mitchell <troy.mitchell@linux.dev>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
-References: <20260908-resume-xhci-v1-1-aca107602e9c@linux.spacemit.com>
- <DL9ZZ8F7HTZT.1IUMD1ECSOZXL@linux.dev>
- <566DD22E9074C793+eaef8bb4-9602-4f76-8915-6e322387c7aa@linux.spacemit.com>
-Content-Language: en-US
-In-Reply-To: <566DD22E9074C793+eaef8bb4-9602-4f76-8915-6e322387c7aa@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: N3IC8um5pMyYrZwY7k9TsmuVrmQNfWebr+tcl7GFf2AAzA/WrkqSyTx3
-	ABl/IpOwNtjjsVFfRUolns4krHjF6EuY0zPEKD/gJnt5DEI1WI2PiUDNIE/B/fI5pV8AuUb
-	EaXnWLrmSBMmKGecGjrRjWQoTqFaIzZTLG5JK64CRLM9D9PJ9geUWL/9W05zGRm0lKwiXEj
-	FnfdjJrH6pN/UC/zhsPCHJwLr6mPkiqK7ZwD3RVu63A1R05ByNhG2PD+KKmMcy0hnmDbFqF
-	DH+lJw9vCQ8CwE5U9HnYd6cJbmSMNBUAjw3L0eDgBMOhRg3iaONoPuhk+HnbMphbX2gd8ts
-	gI+ev3w7y45Jm37rMNk4bQwFrZbVfgS1mx+EWCUYWFocucSXoyGyn24ssd4oDICkETq13up
-	X25JrYEUnGkgr2pOB1LwPEcO0LsOm0j8uDmGR12LuB3JFQCHa1fAeNIKBdIbdE3iSi6JORs
-	P0XI+U/H5QEbkuET/XZLO09m+98P45Ana3SpQiP+YMTo3f2J0idt+2oSzRsUgsN06wAjBla
-	QsnequfsZQy1GRm7iBhSPmt/0bI+fJmhf9IaRFHNjXn0kvrQomXb1DLkbpG5Jo2eXMJ88HV
-	rP/uA9FNmnLZg5Yip+iF4i7yonGizS0V7fhRotgN/WRmOdqg7+JA3D1Z4cG/r8Ves9kVbEh
-	DNHBtW3X/oFHqIee28qG9w9zMPc6ynHm5icJe15wM99otUYGMaXC9ah9ZRJtGcnshQN2PBU
-	fO2omI+1Z4LLy6jDsscS/xRuU6TfL4rw/6/HjuN2IzJt6s1DOFsamwtaY++tM7iReAdvh0f
-	hVGDUBoFV+4xjoPCQbxHzqEo9Neab9SBcC1MsXUnrFIqrykPn35KG6O3PipkNvLOT3gbLSP
-	r09XcLligjVDy4TyU2AMPmAm5//5Shpjb8H80HZJK1WGtvVXspcFu19+MGpk9vqCMFz1seA
-	qcKoj7an33CJnvQJJI2qo1TxE6dcQxk8M8cvBn6dpNHne6AnGZxeYVMHesH2dCheGcRR1O6
-	Jn9+DF+/yetdA5QQX4RQ8aZ4ECBWyJKOx9syN2Xyqod5qSuWfd
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB999228:EE_|SJ0PR12MB6853:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e6ad043-178a-4a7e-9e50-08df158617b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|3023799007|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZeyS4r0XTJWkvcIBLgl9XMvA+gVkdu4znI2Yzqb20sZXA7Y3EfN4LWPqqMCNuvfTYFQCcFnADJY8Jb4rZ9KCVR9B1ebKns2iG4VKfJG1boqif2pahmho+/+8uOJSOr9zVw7OzMAqvYiMLvAmw0F5t+YSjEiKQ0Zu/g/3LTWJoekLj6UNVj2Z3c7BJGeo7VLAyr471Lp9ZdnYCGtyqgtfEcOwqBu3ewhYvyut3F87zuckqPhEDKuoxvnm9BhUfFGg1Po6Gms7dFfmLeySSMgaNA/G+y+rdimrBvhMhafHCYsPyh8CIXoEc/pIY+WIv2j0pS6mA90oCS7AfnSS32RyXOnKfnJJfbpvejah4k3Gyf7Wj+505CM6yqMBeXAjnh+gZ0A0NyGjYX9xjSFsWMjjYMRyjrTf2oVXyH6prGNInI/lzYshzadMagYPSLSJmfhnNejN1cHY6gF7uYD2RzXEDhW4Ybpqg1ugkLbVwXrgQE5ewt/5pbLKUUQCaiVT4Dr4DnDLBkYbSQbyFWwEkYxRnHccNWBl56S3OBdi4JktwJDxMNmQPLVUwfyz1rGOAc9wttHrDokFHeki2Wdxoyrr6204bw97LguUiFOhG2lHeVMgyp9kIlVHYs6BJUOB8msiPJSew2fktonSTPBc6kRqmJAan2ealatYDp2ieduXd3E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB999228.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NE52RWIyZFVMUWh2azg1SkEvb25zcEpTZCtPdWF2REZqeHdDOUpRSytQZUkv?=
+ =?utf-8?B?Y1VpOTJ4d09Mck9JZjhOeDhnSDJPT2NhU2s4bjNMTFpnSm9iVmhCOWhsWldW?=
+ =?utf-8?B?b1VaSU9BZkdubGVmM1NMejRXL3ViR3VncnpKVzZhTmtvWDU5T2pyYkgyeC9G?=
+ =?utf-8?B?U29vVGhmRkNLWXdSdnpXRkRIbmorZ0xmWkszZUdrRTgyNGNZSVMreXdZSDF3?=
+ =?utf-8?B?d09CazZCdUhPaGJOd1F4K2VnUnlVTVU1bVYxSmdlTDRtZ3VYT2E2UUcvaHRU?=
+ =?utf-8?B?d0phRzNtK05tMW9RdnpjOXkvcDVTa1dYeFhZUmNkanBmSC96RGlvT0tpYllX?=
+ =?utf-8?B?MVVLYlV6MUZxRkJVMzkwNHpVMUloUzc3ODRyYVFlYzcxbnE3am15dVRIRklw?=
+ =?utf-8?B?WS8wT0ZJMjdvZ1JGYzZiUXk1WHhTcEFRMlE5MlJrZTVraWx5ai9YVDR5RzlX?=
+ =?utf-8?B?cE9HT3BvTW1XcCtsSUYwbjcybW44RXZMMVEvRUgzNmVnOW1YbzUrcFZSdkpw?=
+ =?utf-8?B?MUdFZ3E0UWdtdE1rSm9HWWpKQ1UwQ0R1c2MzRElqc3d3MFRVRUxBWHhlS1hn?=
+ =?utf-8?B?VDk4OGJCSVN1T0Z6SEpQU3ViRHhxendodk51cExwQ0ZraWhRNWtZeDJnL215?=
+ =?utf-8?B?eW9WY0JGRzFjRWFTMk43dlpCcmsyYTc3ZGdNMm83cUpoVXBweWw5WXF0VE9V?=
+ =?utf-8?B?cHMyQ2pYN0ZmeXFlLzVzWUYveUlYajAxZzQyM2lNU2c3VkhQWHVBSmFiZnhQ?=
+ =?utf-8?B?dllBZTdsL1k2M1FqQ3FvZm9wWnpvZUhyOUQ3NkVLRmlKT2NEblhvV0E4cGc2?=
+ =?utf-8?B?eHNVeE5xN2lneUo5bDl2RXJjNzNidktnekljSU1WR0M5NlJ5UU9vdk5sTC9U?=
+ =?utf-8?B?Qk5laEdiVHU4aUI3NHJ5cFE1ckVydmpNUitPeDJzdlZMTW9pRDdXMTJoZlA2?=
+ =?utf-8?B?R2FqQXR1ZzJ2WnUwbzQwMDBwc2ZDYzZ2bGxrUW9PZFB5LzV3NFNEb21SS3Y1?=
+ =?utf-8?B?MWR1RUozTTBHNVh1RkZuaDN4N0JTVW05NFFYNFAwUmdxMTB3eHF3a0RGRTR0?=
+ =?utf-8?B?b25jY3czNXlRbG1CRUVNWmhxVWYrR0ZKbUlCTk9mSUpzeGpOazdwaGxpcXZG?=
+ =?utf-8?B?QllUV0RvUDhpVGI1WHNaM0pxNHlWMEtHaVUxQ2pWNTZYM3JuRUI0ZEpyV2xY?=
+ =?utf-8?B?d2h5RmJGWDhudlJOUzREUGcyYlBUK3N4ZWNEU2lEN0lpcmtDb2tWdnhFaTEx?=
+ =?utf-8?B?RnRKMnMya0JadnRBR0JtaTlIbktmbE5nbGJSMDdmd2JhZ2loYWcycHVCUmp2?=
+ =?utf-8?B?QXUxMFEvaEFSS3BLVjM2ajIwVjVyV244WjlMcU5jNGc1WjNxRXYvTTVMUWtw?=
+ =?utf-8?B?VkpiTzdTQWMzUWJ6Y2EvSkhFSndydkwxUlVoZUhrQ3JBWWVRTDNsbWIxWE5h?=
+ =?utf-8?B?TUFXNWw3ajZ6bkV3RnRhaFdMZnJoVkp2QVpyc2FDMks1d3kyTTF0RHBJVUMx?=
+ =?utf-8?B?RVNENW1IeGVnbVVsREZMU21kNlh3NVFjRzl2NmhjUlpNbENkR3ZtcExIamND?=
+ =?utf-8?B?NkNLMk03bWlQck1KMWt3WFV3U0U5eExZL0MxYnF5ZlA0dnFhNFJOSWN1cWda?=
+ =?utf-8?B?dm9ONGtzVEFHd3QzZVdQRVNLVndQVnJIK3ZOdHY1QkhOTVlZSklIc255S1pV?=
+ =?utf-8?B?NFV6TWdxd3BhKy9aeU5RQW1vKzlTVjFtUVBSUUJRSG5iSU9Cak9BZlp1V0gv?=
+ =?utf-8?B?OUIvUTN4UVVJTmZwb095UFFobU1PQXJ6YmQ2VWt1bFl0d3FUa3lyWlIxd2FU?=
+ =?utf-8?B?Q21NOVlQbTcrdXY2V1BGdWFvSTNSM1VXbXdFY2oyUDZrSlE3MjVJb0RpWVZx?=
+ =?utf-8?B?Uk9mWG9kMVBBek5vNEowcTFiN3NCOFp4TkhNOVZpb0ZZbTJLcUlpZklKNWVq?=
+ =?utf-8?B?bERKaDVSa2NlalE2RVFjTHdZNUNiNDhWeGZMZE5CV2hpRVIxUmtQUVZTaWZv?=
+ =?utf-8?B?am1MMjhNUFlLdVhUa29HZUk2VVBlVVVMZXpxZ1hHWWo3SVBWb0VHYnVicE52?=
+ =?utf-8?B?WTEvbDVDcGJjYnZ3K284U0hXY2VaeWNXM0lIRWNsQ28rODA0T1R2VnRubENB?=
+ =?utf-8?B?YkJTNDQyRUNCS082d3FFbWk0R21CSlZKbFpGMEZGc290OEFkZUNHVXFMamh3?=
+ =?utf-8?B?QTZQckdIZS8vRHowd0ZIRGxRMVFHM1BGV2NpMnJRRlR6U2ROVW1zcGNKVU9D?=
+ =?utf-8?B?aWRXOEdYWVRnTVluVG9TMi9QTzJ0UjN5THhqT3dXcWpJSVRmZXRrNytldHQy?=
+ =?utf-8?B?cjlpLzVYeFY4VGs2RnNhOHMwSlNwSWhva1A2NE43S1JCTU9wKzZEdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e6ad043-178a-4a7e-9e50-08df158617b5
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB999228.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 13:09:37.8153
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NgcWB1vFaZ+QS6IpKxc6684QnunhE0aKpOHt9KWnBiR0YmoLy8kI2bWWmPNe4vx2ErcljOSKHOFICr81bnGxzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6853
 
-On 9/9/2026 8:28 PM, Junzhong Pan wrote:
-> On 9/8/2026 10:16 PM, Troy Mitchell wrote:
->> On Tue Sep 8, 2026 at 10:01 PM +08, Junzhong Pan wrote:
->>> USB controller runtime suspend halts the controller on disconnection.
->>> It relies on platforms with custom connection notification to start
->>> the controller again.
->>>
->>> The host branch of dwc3_runtime_resume() does nothing currently. There
->>> are two paths that can trigger a runtime resume of the dwc3 core in
->>> host mode:
->>>
->>> (a) Wake lands on the xHCI child (DT platforms, e.g. Qualcomm, i.MX8MP)
->>>     A platform wakeup IRQ fires and the glue handler calls
->>>     pm_runtime_resume(&xhci->dev). Runtime PM walks upward, resumes
->>>     the dwc3 parent first, then resumes xHCI. Both wake correctly.
->>>
->>> (b) Wake lands on the dwc3 parent (ACPI platforms)
->>>     When an ACPI Notify(ACPI_NOTIFY_DEVICE_WAKE) targets the dwc3
->>>     parent device -- for example via a Generic Event Device on a
->>>     hardware-reduced platform where dwc3 is enumerated as an ACPI
->>>     device without a glue driver -- the ACPI core turns this into
->>>     pm_request_resume(dwc3_dev). Runtime PM does not propagate resume
->>>     downward, so the xHCI child stays suspended. Root hub polling is
->>>     never re-armed, and a device plugged in while suspended is silently
->>>     dropped.
->>>
->>> This patch fills in the host branch to cover case (b) by requesting an
->>> async resume of the xHCI child so xhci_resume() can restore the port
->>> state machine and re-arm root hub polling. Glue drivers in case (a)
->>> resume xHCI directly, an extra call introduced by this change, but
->>> runtime PM can serialize those requests and skip device already active,
->>> so the extra resume call is safe. Those calls can be replaced with
->>> resume calls to dwc3 device later.
->>>
->>> Tested on SpacemiT K3 Pico-ITX, covering both wakeup paths: an ACPI
->>> boot with a GED device notifying the dwc3 node (HID 808622B7), and a
->>> DT boot with a modified dwc3-generic-plat driver exposing a wakeup IRQ
->>> similar to dwc3-qcom.c and dwc3-imx8mp.c. This is not validation on
->>> actual Qualcomm or i.MX8MP hardware, changing those drivers would still
->>> need platform-specific testing.
->>>
->>> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
->>> Assisted-by: Opencode:claude-opus-5
->>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
->>> ---
->>> Changes since RFC:
->>> - add Assisted-By tag and collect tag
->>> - refine the commit message and comments as suggested
->>>
->>> Link to RFC: https://lore.kernel.org/linux-usb/20260811090817.109350-1-panjunzhong@linux.spacemit.com/
->>> ---
->>>  drivers/usb/dwc3/core.c | 12 ++++++++++++
->>>  1 file changed, 12 insertions(+)
->>>
->>> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
->>> index fd5c2cd36c59..76883dc6184c 100644
->>> --- a/drivers/usb/dwc3/core.c
->>> +++ b/drivers/usb/dwc3/core.c
->>> @@ -2739,6 +2739,18 @@ int dwc3_runtime_resume(struct dwc3 *dwc)
->>>  		}
->>>  		break;
->>>  	case DWC3_GCTL_PRTCAP_HOST:
->>> +		/*
->>> +		 * Only the xHCI child's resume re-arms root hub polling, which
->>> +		 * is what rediscovers a device plugged in while suspended.
->>> +		 * Runtime PM doesn't resume children, so request it here.
->>> +		 * Keep it asynchronous to avoid waiting for the parent's resume
->>> +		 * callback to finish from inside it. Glue drivers may also
->>> +		 * resume xHCI directly, but runtime PM will serialize those
->>> +		 * requests and skips an already-active device.
->>> +		 */
->>> +		if (dwc->xhci)
->>> +			pm_request_resume(&dwc->xhci->dev);
->>> +		break;
->> Could we also check a parent-only resume with no USB wake event? For
->> example, reading the DWC3 debugfs lsp_dump file calls
->> pm_runtime_resume_and_get(dwc->dev). With both devices suspended, this
->> change would wake xHCI too.
->>
+
+
+On 18/9/26 00:01, Aneesh Kumar K.V (Arm) wrote:
+> A VMM needs to forward guest-originated TSM commands to the TSM
+> implementation managing an assigned device. The IOMMUFD vdevice
+> identifies that device within its vIOMMU and provides the appropriate
+> dispatch point.
 > 
-> Thanks for pointing out, I did missed those paths before, I will do some
-> investigation and testing on the two non-wakeup path:debugfs attr access
-> and the dwc3_set_mode() path then report back.
+> Add IOMMU_VDEVICE_TSM_REQ to send an opaque request to a vdevice and
+> optionally return a response. Define common operation and guest
+> architecture identifiers for CCA, SEV and TDX requests.
+
+iommufd_viommu_provider_ops already knows what architecture it is, why bother with these identifiers? Thanks,
+
 > 
-
-I looked into this on real hardware. There are two paths where the
-resume is unnecessary:
-
-(1) debugfs read: it briefly resumes xhci, then both devices go back
-to autosuspend. Harmless, though unnecessary.
-
-(2) __dwc3_set_mode() while suspended in host mode: when a DRD
-controller is suspended in host mode and user or a role-switch consumer
-calls set_mode(), dwc3 is resumed first and the xhci removal follows.
-But pm_request_resume() only queues work, and the unregister path
-calls cancel_work_sync() before freeing the device, so the request
-is either cancelled or completes beforehand. In my testing, the PM
-core simply bails out with -EINVAL on pm_request_resume(&dwc->xhci->dev),
-and the removal completes fine.
-
-I think yes there will be more extra calls here but they don't break
-things, I didn't reproduce any failure. It seems difficult to get rid
-of them since there are no good conditions to judge.
-
-If we want to avoid these more extras, maybe those platform who need
-this feature can just let glue driver (dwc3-generic-plat.c or another)
-handle the ACPI probe and the wakeup (like qcom/imx8mp) together for
-the case(a) platform mentioned before instead of reusing the current
-8080:22B7 ACPI probe path in dwc3/core.c .
-
-Thinh, do you have any thought on that?  I'm fine with either approach.
-
->> Would both devices return to autosuspend after the read and still
->> detect a subsequent plug-in? This would help cover the non-wakeup
->> case.
->>>  	default:
->>>  		/* do nothing */
->>>  		break;
->>>
->>> ---
->>> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->>> change-id: 20260908-resume-xhci-0fa34ff9b332
->>>
->>> Best regards,
->>
->>
+> The ioctl return value reports dispatch or data transfer errors, while
+> tsm_code carries the TSM-specific result.
 > 
+> Use sockptr_t for the internal request and response buffers so TSM
+> implementations are not tied to userspace pointers.
 > 
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>   drivers/iommu/iommufd/Makefile          |  2 +
+>   drivers/iommu/iommufd/iommufd_private.h |  8 ++
+>   drivers/iommu/iommufd/main.c            |  3 +
+>   drivers/iommu/iommufd/tsm.c             | 98 +++++++++++++++++++++++++
+>   drivers/iommu/iommufd/viommu.c          |  2 +
+>   include/linux/iommufd.h                 |  5 ++
+>   include/linux/tsm.h                     | 25 +++++++
+>   include/uapi/linux/iommufd.h            | 73 ++++++++++++++++++
+>   8 files changed, 216 insertions(+)
+>   create mode 100644 drivers/iommu/iommufd/tsm.c
 > 
-> 
+> diff --git a/drivers/iommu/iommufd/Makefile b/drivers/iommu/iommufd/Makefile
+> index 7ed46c286c42..105a54ff89f5 100644
+> --- a/drivers/iommu/iommufd/Makefile
+> +++ b/drivers/iommu/iommufd/Makefile
+> @@ -11,6 +11,8 @@ iommufd-y := \
+>   	viommu.o \
+>   	viommu_provider.o
+>   
+> +iommufd-$(CONFIG_TSM) += tsm.o
+> +
+>   iommufd-$(CONFIG_IOMMUFD_TEST) += selftest.o
+>   
+>   obj-$(CONFIG_IOMMUFD) += iommufd.o
+> diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+> index eae607eb5d76..0c67f2e1f137 100644
+> --- a/drivers/iommu/iommufd/iommufd_private.h
+> +++ b/drivers/iommu/iommufd/iommufd_private.h
+> @@ -721,6 +721,14 @@ void iommufd_vdevice_destroy(struct iommufd_object *obj);
+>   void iommufd_vdevice_abort(struct iommufd_object *obj);
+>   int iommufd_hw_queue_alloc_ioctl(struct iommufd_ucmd *ucmd);
+>   void iommufd_hw_queue_destroy(struct iommufd_object *obj);
+> +#ifdef CONFIG_TSM
+> +int iommufd_vdevice_tsm_req_ioctl(struct iommufd_ucmd *ucmd);
+> +#else
+> +static inline int iommufd_vdevice_tsm_req_ioctl(struct iommufd_ucmd *ucmd)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +#endif
+>   
+>   static inline struct iommufd_vdevice *
+>   iommufd_get_vdevice(struct iommufd_ctx *ictx, u32 id)
+> diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
+> index 8c6d43601afb..4a42cda0e8f8 100644
+> --- a/drivers/iommu/iommufd/main.c
+> +++ b/drivers/iommu/iommufd/main.c
+> @@ -432,6 +432,7 @@ union ucmd_buffer {
+>   	struct iommu_veventq_alloc veventq;
+>   	struct iommu_vfio_ioas vfio_ioas;
+>   	struct iommu_viommu_alloc viommu;
+> +	struct iommu_vdevice_tsm_req tsm_req;
+>   #ifdef CONFIG_IOMMUFD_TEST
+>   	struct iommu_test_cmd test;
+>   #endif
+> @@ -493,6 +494,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
+>   		 __reserved),
+>   	IOCTL_OP(IOMMU_VIOMMU_ALLOC, iommufd_viommu_alloc_ioctl,
+>   		 struct iommu_viommu_alloc, out_viommu_id),
+> +	IOCTL_OP(IOMMU_VDEVICE_TSM_REQ, iommufd_vdevice_tsm_req_ioctl,
+> +		 struct iommu_vdevice_tsm_req, tsm_code),
+>   #ifdef CONFIG_IOMMUFD_TEST
+>   	IOCTL_OP(IOMMU_TEST_CMD, iommufd_test, struct iommu_test_cmd, last),
+>   #endif
+> diff --git a/drivers/iommu/iommufd/tsm.c b/drivers/iommu/iommufd/tsm.c
+> new file mode 100644
+> index 000000000000..2fb51a86c5ec
+> --- /dev/null
+> +++ b/drivers/iommu/iommufd/tsm.c
+> @@ -0,0 +1,98 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 ARM Ltd.
+> + */
+> +
+> +#include <linux/tsm.h>
+> +#include "iommufd_private.h"
+> +
+> +static bool iommufd_vdevice_tsm_req_arch_valid(u32 tvm_arch)
+> +{
+> +	switch (tvm_arch) {
+> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_CCA:
+> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_SEV:
+> +	case IOMMU_VDEVICE_TSM_TVM_ARCH_TDX:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool iommufd_vdevice_tsm_req_op_valid(u32 op, u32 tvm_arch)
+> +{
+> +	switch (op) {
+> +	case TSM_REQ_VALIDATE_MMIO:
+> +	case TSM_REQ_SET_TDI_STATE:
+> +		return true;
+> +	case TSM_REQ_SEV_ENABLE_DMA:
+> +	case TSM_REQ_SEV_DISABLE_DMA:
+> +		return tvm_arch == IOMMU_VDEVICE_TSM_TVM_ARCH_SEV;
+> +	case TSM_REQ_READ_OBJECT:
+> +	case TSM_REQ_REGEN_OBJECT:
+> +	case TSM_REQ_OBJECT_INFO:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +/**
+> + * iommufd_vdevice_tsm_req_ioctl - Forward TSM requests
+> + * @ucmd: user command data for IOMMU_VDEVICE_TSM_REQ
+> + *
+> + * Resolve @iommu_vdevice_tsm_req::vdevice_id to a vdevice and pass the
+> + * request/response buffers to its vIOMMU provider.
+> + *
+> + * Return:
+> + *  -errno on error.
+> + *  positive residue if response/request bytes were left unconsumed.
+> + *    if response buffer is provided, residue indicates the number of bytes
+> + *    not used in response buffer
+> + *    if there is no response buffer, residue indicates the number of bytes
+> + *    not consumed in req buffer
+> + *  0 otherwise.
+> + */
+> +int iommufd_vdevice_tsm_req_ioctl(struct iommufd_ucmd *ucmd)
+> +{
+> +	int ret;
+> +	struct iommufd_vdevice *vdev;
+> +	struct iommu_vdevice_tsm_req *cmd = ucmd->cmd;
+> +	struct tsm_guest_req_info info = {
+> +		.op = cmd->op,
+> +		.tvm_arch = cmd->tvm_arch,
+> +		.req   = {
+> +			.user = u64_to_user_ptr(cmd->req_uptr),
+> +			.is_kernel = false,
+> +		},
+> +		.req_len = cmd->req_len,
+> +		.resp    =  {
+> +			.user = u64_to_user_ptr(cmd->resp_uptr),
+> +			.is_kernel = false,
+> +		},
+> +		.resp_len = cmd->resp_len,
+> +	};
+> +
+> +	if (!iommufd_vdevice_tsm_req_arch_valid(cmd->tvm_arch))
+> +		return -EINVAL;
+> +
+> +	if (!iommufd_vdevice_tsm_req_op_valid(cmd->op, cmd->tvm_arch))
+> +		return -EINVAL;
+> +
+> +	vdev = iommufd_get_vdevice(ucmd->ictx, cmd->vdevice_id);
+> +	if (IS_ERR(vdev))
+> +		return PTR_ERR(vdev);
+> +
+> +	cmd->tsm_code = 0;
+> +	if (!vdev->viommu->ops || !vdev->viommu->ops->vdevice_tsm_req)
+> +		ret = -EOPNOTSUPP;
+> +	else
+> +		ret = vdev->viommu->ops->vdevice_tsm_req(vdev, &info,
+> +							 &cmd->tsm_code);
+> +
+> +	/* Always copy the tsm_code as response */
+> +	if (iommufd_ucmd_respond(ucmd, sizeof(*cmd)))
+> +		ret = -EFAULT;
+> +
+> +	iommufd_put_object(ucmd->ictx, &vdev->obj);
+> +	return ret;
+> +}
+> diff --git a/drivers/iommu/iommufd/viommu.c b/drivers/iommu/iommufd/viommu.c
+> index 66bbd6e4571d..c462086ff5df 100644
+> --- a/drivers/iommu/iommufd/viommu.c
+> +++ b/drivers/iommu/iommufd/viommu.c
+> @@ -3,6 +3,8 @@
+>    */
+>   #include <linux/file.h>
+>   #include "iommufd_private.h"
+> +#include <linux/cleanup.h>
+> +#include <linux/tsm.h>
+>   
+>   void iommufd_viommu_destroy(struct iommufd_object *obj)
+>   {
+> diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+> index 7b906e0d6400..f16b82034be9 100644
+> --- a/include/linux/iommufd.h
+> +++ b/include/linux/iommufd.h
+> @@ -27,6 +27,7 @@ struct iommufd_viommu_ops;
+>   struct iommufd_viommu_provider;
+>   struct module;
+>   struct page;
+> +struct tsm_guest_req_info;
+>   
+>   /**
+>    * struct iommufd_viommu_provider_ops - External vIOMMU implementation
+> @@ -199,6 +200,7 @@ struct iommufd_hw_queue {
+>    *                include/uapi/linux/iommufd.h)
+>    *                If driver has a deinit function to revert what vdevice_init op
+>    *                does, it should set it to the @vdev->destroy function pointer
+> + * @vdevice_tsm_req: Forward a guest TSM request to a driver-owned vDEVICE
+>    * @get_hw_queue_size: Get the size of a driver-defined HW queue structure for a
+>    *                     given @viommu corresponding to @queue_type. Driver should
+>    *                     return 0 if HW queue aren't supported accordingly. It is
+> @@ -225,6 +227,9 @@ struct iommufd_viommu_ops {
+>   				struct iommu_user_data_array *array);
+>   	const size_t vdevice_size;
+>   	int (*vdevice_init)(struct iommufd_vdevice *vdev);
+> +	ssize_t (*vdevice_tsm_req)(struct iommufd_vdevice *vdev,
+> +				   struct tsm_guest_req_info *info,
+> +				   u64 *tsm_code);
+>   	size_t (*get_hw_queue_size)(struct iommufd_viommu *viommu,
+>   				    enum iommu_hw_queue_type queue_type);
+>   	/* AMD's HW will add hw_queue_init simply using @hw_queue->base_addr */
+> diff --git a/include/linux/tsm.h b/include/linux/tsm.h
+> index f38d6fcf9cc9..39bad60b4815 100644
+> --- a/include/linux/tsm.h
+> +++ b/include/linux/tsm.h
+> @@ -7,6 +7,8 @@
+>   #include <linux/types.h>
+>   #include <linux/uuid.h>
+>   #include <linux/device.h>
+> +#include <linux/sockptr.h>
+> +#include <uapi/linux/iommufd.h>
+>   
+>   #define TSM_REPORT_INBLOB_MAX 64
+>   #define TSM_REPORT_OUTBLOB_MAX SZ_16M
+> @@ -139,4 +141,27 @@ struct tsm_dev *find_tsm_dev(int id);
+>   struct pci_ide;
+>   int tsm_ide_stream_register(struct pci_ide *ide);
+>   void tsm_ide_stream_unregister(struct pci_ide *ide);
+> +
+> +#ifdef CONFIG_TSM
+> +/**
+> + * struct tsm_guest_req_info - parameters for a guest-initiated TSM request
+> + * @op: operation for the guest-initiated request
+> + * @tvm_arch: guest TVM architecture
+> + * @req: request data buffer filled by guest
+> + * @req_len: the size of @req filled by guest
+> + * @resp: response data buffer filled by host
+> + * @resp_len: the size of @resp buffer filled by guest
+> + */
+> +struct tsm_guest_req_info {
+> +	enum iommu_vdevice_tsm_guest_req_op op;
+> +	enum iommu_vdevice_tsm_guest_tvm_arch tvm_arch;
+> +	sockptr_t req;
+> +	size_t req_len;
+> +	sockptr_t resp;
+> +	size_t resp_len;
+> +};iommufd_viommu_provider_ops
+> +#else
+> +struct tsm_guest_req_info;
+> +#endif
+> +
+>   #endif /* __TSM_H */
+> diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+> index 0425d452d41e..43ed082a9421 100644
+> --- a/include/uapi/linux/iommufd.h
+> +++ b/include/uapi/linux/iommufd.h
+> @@ -57,6 +57,7 @@ enum {
+>   	IOMMUFD_CMD_IOAS_CHANGE_PROCESS = 0x92,
+>   	IOMMUFD_CMD_VEVENTQ_ALLOC = 0x93,
+>   	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
+> +	IOMMUFD_CMD_VDEVICE_TSM_REQ = 0x96,
+>   };
+>   
+>   /**
+> @@ -1351,4 +1352,76 @@ struct iommu_hw_queue_alloc {
+>   	__aligned_u64 length;
+>   };
+>   #define IOMMU_HW_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_HW_QUEUE_ALLOC)
+> +
+> +/**
+> + * enum iommu_vdevice_tsm_guest_tvm_arch - guest TVM architecture
+> + * @IOMMU_VDEVICE_TSM_TVM_ARCH_CCA: Arm CCA TVM
+> + * @IOMMU_VDEVICE_TSM_TVM_ARCH_SEV: AMD SEV TVM
+> + * @IOMMU_VDEVICE_TSM_TVM_ARCH_TDX: Intel TDX TVM
+> + */
+> +enum iommu_vdevice_tsm_guest_tvm_arch {
+> +	IOMMU_VDEVICE_TSM_TVM_ARCH_CCA = 1,
+> +	IOMMU_VDEVICE_TSM_TVM_ARCH_SEV,
+> +	IOMMU_VDEVICE_TSM_TVM_ARCH_TDX,
+> +};
+> +
+> +/**
+> + * enum iommu_vdevice_tsm_guest_req_op - operation for guest TSM requests
+> + * @TSM_REQ_VALIDATE_MMIO: Validate MMIO for the TDI
+> + * @TSM_REQ_SET_TDI_STATE: Set TDI state
+> + * @TSM_REQ_SEV_ENABLE_DMA: Enable SEV DMA
+> + * @TSM_REQ_SEV_DISABLE_DMA: Disable SEV DMA
+> + * @TSM_REQ_READ_OBJECT: Read a TSM object
+> + * @TSM_REQ_REGEN_OBJECT: Regenerate a TSM object
+> + * @TSM_REQ_OBJECT_INFO: Read TSM object information
+> + */
+> +enum iommu_vdevice_tsm_guest_req_op {
+> +	TSM_REQ_VALIDATE_MMIO = 1,
+> +	TSM_REQ_SET_TDI_STATE,
+> +	TSM_REQ_SEV_ENABLE_DMA,
+> +	TSM_REQ_SEV_DISABLE_DMA,
+> +	TSM_REQ_READ_OBJECT,
+> +	TSM_REQ_REGEN_OBJECT,
+> +	TSM_REQ_OBJECT_INFO,
+> +};
+> +
+> +/**
+> + * struct iommu_vdevice_tsm_req - ioctl(IOMMU_VDEVICE_TSM_REQ)
+> + * @size: sizeof(struct iommu_vdevice_tsm_req)
+> + * @vdevice_id: vDevice ID the guest request is for
+> + * @op: One of enum iommu_vdevice_tsm_guest_req_op
+> + * @tvm_arch: One of enum iommu_vdevice_tsm_guest_tvm_arch
+> + * @req_len: Size in bytes of the input payload at @req_uptr
+> + * @resp_len: Size in bytes of the output buffer at @resp_uptr
+> + * @req_uptr: Userspace pointer to the guest-provided request payload
+> + * @resp_uptr: Userspace pointer to the guest response buffer
+> + * @tsm_code: TSM-specific result code returned by the TSM implementation
+> + *
+> + * Forward a TSM request to the TSM bound vDevice. This is intended for
+> + * guest TSM/TDISP message transport where the host kernel only marshals
+> + * bytes between userspace and the TSM implementation.
+> + *
+> + * The request operation is guest initiated. The TSM backend validates
+> + * @tvm_arch against its bound TVM architecture assumptions.
+> + *
+> + * The request payload is read from @req_uptr/@req_len. If a response is
+> + * expected, userspace provides @resp_uptr/@resp_len as writable storage for
+> + * response bytes returned by the TSM path.
+> + *
+> + * The ioctl is only suitable for commands and results that the host kernel
+> + * has no use, the host is only facilitating guest to TSM communication.
+> + */
+> +struct iommu_vdevice_tsm_req {
+> +	__u32 size;
+> +	__u32 vdevice_id;
+> +	__u32 op;
+> +	__u32 tvm_arch;
+> +	__u32 req_len;
+> +	__u32 resp_len;
+> +	__aligned_u64 req_uptr;
+> +	__aligned_u64 resp_uptr;
+> +	__aligned_u64 tsm_code;
+> +};
+> +
+> +#define IOMMU_VDEVICE_TSM_REQ _IO(IOMMUFD_TYPE, IOMMUFD_CMD_VDEVICE_TSM_REQ)
+>   #endif
 
+-- 
+Alexey
 
