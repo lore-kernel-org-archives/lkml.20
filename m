@@ -1,148 +1,118 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pz2-f25.google.com (mail-pz2-f25.google.com [74.125.228.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFC81E5B70
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCAB3A5453
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718306; cv=none; b=WjNRPDYS4WY5y+mSrjZVdkjNzsaruCH3IFr2RKnh4GsrDlsKkRwAnAWM9m8sXVie9MY8JSdjDf5BKI+iwR38O4KpahqW8Ev2GgyTs3pyN+Jg5OUF867uC5GN2qJHbHl6mLpNbCoGsS886F+S6u3qjPOqPNRXbpADYJSerzl61ho=
+	t=1789718315; cv=none; b=XqTnloJrgvUrAIxdPCBZOXWpT2mQmWqZUObkTupSG9Trw6cmSOTSWILvRk6/elbH9h+Sc9J7IsDJoI6PyBOSjNPB3cqz63+EIcuQQ6os/y8Z+PCglvLyeFlx+Upl1h6b0QskJp1QwgDAzqGgAMkq2uwIqNZp5X6EgFfoJPLwo/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718306; c=relaxed/simple;
-	bh=/z2wgDgimcZIfi6KUkr3H28lBp+LYcX+PMuNB+uct+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n0/bfpUeMvD7rARsg/A6/sYGe+sKopOojfWbUbWR3VpU4CjEe4OHNW90iqLzI4LgKUHSF+uuq8N1ZeOv0lK4JKH0LNPFKbRXxxbuw2HsWYGw5hPv/MaxMtF5NIZMPjls1hDW6n0+ScZVDsvmoyOFwJmgyADcvYymXrrMTF4DGIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UuHrxIyg; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789718315; c=relaxed/simple;
+	bh=58Ov7X4cQiiV8yVtiAcfIEpAgynsoG2QRdaTFGCXiZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Aa3YezPf6LelTYkDc+Bc3mYTDBwlmhqH/mlId/U6gpIdcfatYqObg+YmjW9Qe5N1pFf2WRAg2S2xVHLGBkM69kCin0xV9Fl58Cmr6REPXWdRUorjyO9afP1Z/Cw0Igrk3cPsfopVQtCbyaH3xcO8zc53U6yTEOaCgLdUFyOLYr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1w/lVsy; arc=none smtp.client-ip=74.125.228.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UuHrxIyg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so3048515e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:58:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1w/lVsy"
+Received: by mail-pz2-f25.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso312886a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:58:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789718300; x=1790323100; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dV9H14tWbd96/qCJ/vqD0rQ8aDrl9j+AsefZpIAGXFA=;
-        b=UuHrxIyg6as0maU3zb4v6jr/oDZfB76LnL3OcjULMKJ6KhJfBcvXHV3C/ksvhZdz0E
-         MmWJrt5ZU8H4avTbBvdkRhzPHgHAttnn8CqbnxxzhCCmN2EMr6n9idBKwNyPvdd3J45M
-         uX6oQJ3nX81gQ9xSNeEUMKdlzjSMg9HIIY7HSYH3Xi/bmdVJD67+aCjagDsrWYn5BnBr
-         TJ+KUDfxVJOYKgWUNAjPCnqyy+JigD9JniR9boW5z+WwLSizYgxLSCNCnAalOizxvp/9
-         yYWa1zg6G9car3hB6FAqvsTqffjNxH04hHK/UDasNzzeoqF8i9FQoY0fb1MRC/jLEs3f
-         qMBw==
+        d=gmail.com; s=20251104; t=1789718311; x=1790323111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h7AV/9Z4iSdAqXfI+wA+QLkfqj4NMH3iyjMDb2Tzlg0=;
+        b=d1w/lVsyKIY9Kqx9HaICxKXkuHz/uDIpcXI4tDmrOHdWzdwW7//j92Rd7UMuyaDP/L
+         tcTSOA1YAxN1LTnudj82nKe6aJAGoR2vwxLn93irkxo+fNeQ84264H5lSttvo9DoBNjz
+         W+HcKcG1B+ctM4y2nW6rUTBiT2g7kHsLen2Wk36B9ln5NqpgLoNMNxENgw1vFE1tBsj4
+         rqtKSagcFO+1K6jKYr7jbxMiKiVLZNvF1OnByfCz/u2bvJFfJLPmK8gQJ8s0HM2uDvLb
+         2YJxnY1woCwHwtIv6YCelvQOxZq6NRueeBuQRK7UZlOSs4IwQaNiyBGjwfCqSlaHzX2l
+         GcaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789718300; x=1790323100;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dV9H14tWbd96/qCJ/vqD0rQ8aDrl9j+AsefZpIAGXFA=;
-        b=ISl2U/retAzEJMpYEY5q4LYQbxflbONwK1k6SEtx2X+6Rt7U8hDr1bseIWQelAIw66
-         KFEKQ1JsDnWn/vy8WTx4kO1YgwZcsO3fvTG/zkqWYF5HMAfKzcaDkxjisLlqLa8kuzEg
-         0zUn0uLhIKIKIjU1DYsAHmVCCTGi7EbHOVCDTHkaAy6yi65SH2FR2HnqyOJEIVgr7C6W
-         NgV3rjcyUo/9nqVAKHYmxsERpWk0QwcZqxz+TBOoxy838DeH56qPMT0oxu57CfWR5ra8
-         V5qBy9ym8fJwkaisttGBXCFRH9hbMurFQhvLhpClPvwym0ceSbejjKvBqzrreSvs+loj
-         glsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7bx4Gx/HZ/qYFJC3Cw595RxHOl0hFI7CF/kZ3RI0v+yMU1eVYPRs8KVXCMixplF6VrC2SyW8YNY8eaGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNtP2nopC8IM2oDy/EOlQgzMJg9NbwMfGCD4/HkXBRQLWp6tle
-	HHVUVMiBEQe8F8et7cXU5d9rLKQGFrqe4jv1Rg0cSgb+dVDo5xtg6vn8DBRVW9MiffQ=
-X-Gm-Gg: AYBFou35nCyhGDXWcY7Ps0CGzHP/cIkxv9NfnZ4drZgx1tvf4Z+9ktlmjL9/psLaZ8Q
-	Y8nOQlLTRIyPRgfGeRyHkgVXSaNFtJJdk7jV05xBR+ZB60wXRl9kFvRGOnfO7CLe81NKp7IEEaI
-	tovuuagi6a3Fh8gFpn/XU1QokGVSKH2gvKQkw6K+Kur1H/8axAGsn2FFW5X4Y1TZg4Q8Gyr/6+8
-	FdxKWudmU03tyWkpsNYaee3CsXB9EKVRbFLsHM7zgMvtBSyjJWtSsh8b7iNcLk4t0zKrxpvzf2A
-	PCKWu2W4dcBq3L+dyqsqhZmMdwyWqe0/iJnz4/1n2IHtxQVZUYOEJnrG3z4jBh/3WvpnyuY+6hD
-	xu211qad4FyoQNY0PUdpZLsWQwh3ZTIMpm8kzUD9aiQ4gLEg0VTWcd9BoUeniQHm/VrIh/Ta5z0
-	zeZOR5Q7Lg897CR+x+8odNaJW/Xev/dNRb1Gsw642vvrLcYXI9Bo2m49Wfubz60jlLapvvBqZIt
-	0YVPQKXaj0V
-X-Received: by 2002:a05:600c:8518:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49fc5741563mr18804255e9.29.1789718300499;
-        Fri, 18 Sep 2026 00:58:20 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd204d89sm160372235e9.3.2026.09.18.00.58.19
+        d=1e100.net; s=20260707; t=1789718311; x=1790323111;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h7AV/9Z4iSdAqXfI+wA+QLkfqj4NMH3iyjMDb2Tzlg0=;
+        b=2y+aYad0eHaDwXhl+qppllePtoPCG5+I6XSDZUzaejJAS661qRcqYD68eU8fZ4qKfe
+         19JtMEgXmJL+am9N+LVUiSJ8+R+gjAfLM8D76nvfx3/dW2uSMSz/tCg9kZD02D2Y0aOD
+         zVix5sGNA8/SpTyKiJErCxxgaTGjyiLd72LyPp52wDcggfClsVpkmnFYDiJTJWO2PWwP
+         56NPxT1DsfuTc73PgybwWhqWWBms9xtMlo1lMGw4SAO5Qc4YZorFHa1IVuj61yoAR040
+         URJLeU8e46IWRQwy6YKkoMZj9gkq++6DsXzQ7NYUZCtzM2KJcgU16fTjl8WGNc5oFcwZ
+         6ttw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4FORY7hljl1CKChQIXl7pj85b2mRPUL2gfYAkIKgzJtz/Lr0syM2av1iRvffZO/q0zOJbZJod6wPhtto=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBV8enI+5WigBZkPSj8/xxOpe8dvYC9+gRyx1iaG8le1V6t4Zs
+	2dk09VoA0pxlcOMQgeehuzfDrE5Dncc1gSZK1yyPNVw9Aix7SqirXR3R
+X-Gm-Gg: AYBFou0SsS5IM+EKmLsazbAsPAEsekHeXjNjacxdP+Rkhp7+bdJaltIGaoIHPKnYnyQ
+	7ghR6JiV8H6o2h2opvwtLyWwrNTkDKgpEsPJWd9sXku2rJpO931vGXn/qkTQn/EQBuIJ3ZVW1ol
+	nNVzWAWdEI9DKkwtrgTJRfoyYlBxCClHYjGUxltSQPj7P/qptqKr8tI9Q8yCzIP9Yu/ED9GMf4y
+	jPGjdKrZ/AWvaVPFx7MRHH5ZHOR6fErhU61GAPU2tg7qqOuweNk9R//Ba2hO0SloV0CFdcxExpJ
+	mzmkU1RKoZcwXOQJDGI3k1v8ADvv/FGgW4KvBdc92gN9dGOvF194jxnBYmXC64kgT4LhZepcWgC
+	GDv2yEwxfNgka+5c14zxbsFLh1oAKHFQDHrTtpCQlG7nHnQAV5Pq+tlEjkex3N3ZMReME1AOhlo
+	x4v1LlhyU8jp+y3JgoDkmssh7dLILH/xTORxTPvBLvXncdAMhyelhIX7bTxRhKVOC+wT8W9QR8p
+	wmsj6BWfvPcuFvUywSTtYgRF79M3qEQbKAGkZLLVzBJQRtE7I9q6nC4xaE52k84oZuXQy7DgjgP
+	CH40mzGFDQ==
+X-Received: by 2002:a17:90b:2243:b0:39d:f773:37b5 with SMTP id 98e67ed59e1d1-39e549c5057mr6360189a91.0.1789718310947;
+        Fri, 18 Sep 2026 00:58:30 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e36115cc8sm9018249a91.3.2026.09.18.00.58.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 00:58:19 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:58:17 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
-	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
-	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v6 0/5] mm/page_counter: move stock from mem_cgroup to
- page_counter
-Message-ID: <aqzulM8S63363Tr1@localhost.localdomain>
-References: <20260916210552.891730-1-joshua.hahnjy@gmail.com>
- <20260917175701.2343946-1-joshua.hahnjy@gmail.com>
+        Fri, 18 Sep 2026 00:58:30 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH] Bluetooth: RFCOMM: Reject short EA=0 frames in rfcomm_recv_frame()
+Date: Fri, 18 Sep 2026 07:58:28 +0000
+Message-ID: <20260918075829.2203887-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6tot43pwavmchhic"
-Content-Disposition: inline
-In-Reply-To: <20260917175701.2343946-1-joshua.hahnjy@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+While rfcomm_recv_frame() verifies that skb->len is at least
+sizeof(*hdr) + 1 (4 bytes: 3-byte header + 1-byte FCS), an RFCOMM frame
+with an extended 2-byte length field (!__test_ea(hdr->len)) has a 4-byte
+header plus a 1-byte FCS (5 bytes minimum, sizeof(*hdr) + 2).
 
---6tot43pwavmchhic
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 0/5] mm/page_counter: move stock from mem_cgroup to
- page_counter
-MIME-Version: 1.0
+When a 4-byte RFCOMM frame with EA == 0 arrives:
+1. The initial skb->len < sizeof(*hdr) + 1 check passes (4 < 4 is false).
+2. Trimming the FCS byte decrements skb->len to 3.
+3. If __check_fcs() succeeds, skb_pull(skb, 4) fails (4 > 3) and returns
+   NULL without advancing skb->data.
+4. Because the return value of skb_pull() is ignored, the un-pulled
+   3-byte struct rfcomm_hdr remains at skb->data and is either queued as
+   application payload via rfcomm_recv_data() or parsed as a multiplexer
+   control command via rfcomm_recv_mcc() on DLCI 0.
 
-Hi.
+Fix this by extending the length check in rfcomm_recv_frame() to also
+require skb->len >= sizeof(*hdr) + 2 when !__test_ea(hdr->len).
 
-On Thu, Sep 17, 2026 at 10:57:00AM -0700, Joshua Hahn <joshua.hahnjy@gmail.=
-com> wrote:
->=20
-> This is true, but this is already the behavior for vanilla memcg.
-> In this series I'm hoping to preserve all existing semantics without
-> changing behaviors, so I can fix this problem in a separate issue.
->=20
-> Specifically, in vanilla try_charge_memcg:
->=20
-> done_restock:
-> 	if (batch > nr_pages)
-> 		refill_stock(memcg, batch - nr_pages);
->=20
-> ...
-> 			current->memcg_nr_pages_over_high +=3D batch;
->=20
-> So I've just preserved the exact semantics that we used to have before.
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+ net/bluetooth/rfcomm/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Kudos to you for the conservative approach.
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index f7463f092..d91e2a6ee 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1817,7 +1817,8 @@ static struct rfcomm_session *rfcomm_recv_frame(struct rfcomm_session *s,
+ 		return s;
+ 	}
+ 
+-	if (skb->len < sizeof(*hdr) + 1) {
++	if (skb->len < sizeof(*hdr) + 1 ||
++	    (!__test_ea(hdr->len) && skb->len < sizeof(*hdr) + 2)) {
+ 		kfree_skb(skb);
+ 		return s;
+ 	}
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
->=20
-> The problem isn't that big anyways though, it's a transient inflation
-> in memcg_over_high and will be wiped on the next high handling run,
-> and there is no effect on accounting or permanent inflations.
-
-It reminds me [1] where stockage imprecision could even trigger OOM but
-it was reportedly only visible in LTP.
-
-HTH,
-Michal
-
-[1] https://lore.kernel.org/all/20250530151858.672391-1-mkoutny@suse.com/
-
---6tot43pwavmchhic
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqzvFhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AiyGQEAxBEcNkVlUsFJunbUaXyj
-fCr+UQ4r8t6S3GNeKJPgiYYA/3Gky8F7pWf3EmNRaSTu35DLuveVmYfJTnxV3o4s
-qHYK
-=tu6R
------END PGP SIGNATURE-----
-
---6tot43pwavmchhic--
