@@ -1,238 +1,105 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4377488D97
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BED49D59B;
+	Fri, 18 Sep 2026 10:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727577; cv=none; b=e1B5D4iI5t4xxK10E288HQ6tTIxBfybiBdXIfqJliRRc17XoLQvE0ZX89WkF/+kixMP+nX2NfFM9HpxwyC54HMQYY0IjbGE2n21bVgfB6QS5rz2/ZCN0RRk5kBKTDEkwwI06zCstLpJ2c3Mko5+fwD0xV1w+T0NblxE5h/V9uBc=
+	t=1789727603; cv=none; b=qv/iso1WJAVeIgTq2NZHCEKAgkw/GVxbw0UQHglSGnWV6dD4TMinhi36b4MQKHorqbyBLaBjNtaRDFbfwvNxCRexuhdj7QHSgZq9VjMWA+Em+HcnZx+VAba9ow+sGny59c42FAQ0D0gBqlMgcMQupqs4GM2avxBS7iwdhDZtgrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727577; c=relaxed/simple;
-	bh=aBbgqH7iUq0TjB4Ev/jowkIaT+djFNlSXLBGCQgd3oc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 References; b=RkHza2nmoYrldyLfhQ9ShLlDLX9DUTkKU76KdXw3vTzsqB/HpvpfpeFUEIFTyn53Cw9E5lGY774i3Wkif8BPNz1w3Xuzev6v3JF4qM2c6I5agJsxuNxodvA9qr25gPmFoXS2KayXlmYMs0WQm5FXuqWM5+5Nn4UdGew4Q0LwCpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=SPcxMw5W; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789727603; c=relaxed/simple;
+	bh=Pp8+qYV14aM+8W8YxzWRx95w9FPTwKpIBNo9Up4J1BQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JgJXDdfOX275Zi4O9QHJuiYg8A++iJwYK18wfNvL9kOv/F+Jx8w11UE2SEsQ1YTo2Go4AZHLN27or0vNObAlNjvtVXf+tN/JS7UZP/8J5Cp6N4K/kNBDWiLHCdd/zXQy5uN6Et9FfY3T2xlMO7Hqg8VdEiFlLZqSwwsLC8FzQrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UnSOAEVN; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="SPcxMw5W"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918103251epoutp0493f3dff36454b16660e1f5e3f733f473~WY75nPHCC2711827118epoutp04T
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:32:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918103251epoutp0493f3dff36454b16660e1f5e3f733f473~WY75nPHCC2711827118epoutp04T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789727571;
-	bh=G/fO5FlRuEocHNQCmGx71FcmWAbH2HBbMkGQ6JIB1n0=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=SPcxMw5Wj2fUsgclY0yoANRSZ/kKgABR9Eo7W1UEkrf0wbY5NJ3thqoAzBxXHWus8
-	 0lo6eE2UKl2INlHUG+1Tk4x2VjsK4SYn9I2Hhm1t1lIckVvSKK/DZGilqPQEZAkj3t
-	 otCuc5JQ7dLDWLP5NLyvSGo+p/Vck+W+PKO6Jo80=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260918103250epcas5p12ea5e88ac36103898712ab45eeedd8cf~WY75Fn9oV2545625456epcas5p1n;
-	Fri, 18 Sep 2026 10:32:50 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmTTs67L8z6B9m8; Fri, 18 Sep
-	2026 10:32:49 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6~WY73wwcaF2951229512epcas5p4l;
-	Fri, 18 Sep 2026 10:32:49 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260918103246epsmtip21d5c7565d73ad5927a1fd761e7fb625e~WY70toq-q0288802888epsmtip2s;
-	Fri, 18 Sep 2026 10:32:45 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
-	krzk@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	pritam.sutar@samsung.com, andre.draszik@linaro.org, kernel@lvkasz.us,
-	pengpeng@iscas.ac.cn, selvarasu.g@samsung.com,
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: [PATCH v2] phy: exynos5-usbdrd: Use dynamic phy_cfg size to prevent
- OOB access
-Date: Fri, 18 Sep 2026 16:01:47 +0530
-Message-Id: <20260918103147.2628614-1-selvarasu.g@samsung.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UnSOAEVN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Hg7QkNef5zMThE+MRw8udQqkGZAjpML9pXHh4uxv5K8=; b=UnSOAEVNKYj/W3EgeF6N+/mXS/
+	sTndR9zyc6HFJY+aOzLsorEmd/dUtVp4iaVerhqfpAZGewFUgvV8FCOelcRLyw+Ti8HHUYO0RLTTC
+	okWxf1cF972zBGB/x97EtpSA0w7JdHX4omJjiJcsyIDfSneZdPSJ/T7lUQSPauWJ829E/mo3slvh7
+	AVvOf2gGlp4/8L8VXyimdliN3zf++rvpabQJTiBop+lIfaEQ6b9qIWJcThLgfalyCyiMAgKRJzv96
+	Uh7ZkU29r22Efp9HmRKN3orQ+m4Ov1hR85gsH6hSTuXqDUKvKP5TUc/3VeAuil+j6tj42heWdIAGL
+	1wv4mqfQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x7Vtx-00000009w0D-3SuZ;
+	Fri, 18 Sep 2026 10:33:06 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 377FB30057F; Fri, 18 Sep 2026 12:33:04 +0200 (CEST)
+Date: Fri, 18 Sep 2026 12:33:04 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>, Xin Li <xin@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Paul Gofman <pgofman@codeweavers.com>,
+	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+	Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/fred: Reconstruct the #GP context for rejected
+ INT instructions
+Message-ID: <20260918103304.GK776954@noisy.programming.kicks-ass.net>
+References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
+ <20260917230907.2080792-2-matthew.schwartz@linux.dev>
+ <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6
-References: <CGME20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6@epcas5p4.samsung.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
 
-The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
-creating both UTMI and PIPE3 PHY instances regardless of the SoC
-capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
-and ExynosAutoV920) provide phy_cfg arrays containing only a single
-element.
+On Thu, Sep 17, 2026 at 05:07:45PM -0700, H. Peter Anvin wrote:
+> On 2026-09-17 16:09, Matthew Schwartz wrote:
+> > FRED event delivery does not use the IDT, so the gate DPL check that
+> > rejects a user INT n falls to software (Intel FRED specification [1],
+> > section 8.3). fred_intx() rejects the same vectors as IDT delivery, but
+> > reports a zero error code and the IP after the INT. This breaks the
+> > signal ABI. Wine uses the error code to recognize INT 0x2d, so the
+> > changed context turns a handled breakpoint into an access violation in
+> > Elden Ring.
+> > 
+> > Rewind IP using the instruction length in the augmented SS and
+> > synthesize the IDT selector error code, (vector << 3) | 2. Set RF in the
+> > saved flags, as the CPU does for a #GP fault. Section 5.2.1 defines the
+> > saved vector, instruction length and RF state. The supplied length
+> > handles prefixes without reading user memory. Limit the changes to
+> > already-rejected software interrupts, preserving the accepted INT3, INT4
+> > and enabled INT80 paths and hardware exceptions. With IA32 emulation
+> > disabled, INT 0x80 now reports the same #GP as the DPL 0 gate IDT
+> > installs there. The rewound IP also stops fixup_iopl_exception() from
+> > inspecting the byte after the INT.
+> > 
+> > Also clear the software event flag. Section 6.2.3 specifies that ERETU
+> > with this flag and TF set traps before executing any user instruction. A
+> > tracer that suppresses SIGSEGV and resumes with TF set expects the next
+> > instruction to run first, as after IRET. The sigreturn path clears the
+> > same flag for this reason in prevent_single_step_upon_eretu().
+> > 
+> > [1] Intel Flexible Return and Event Delivery (FRED) Specification,
+> > revision 9.0 (346446-009US), sections 5.2.1, 6.2.3 and 8.3.
+> > 
+> > Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
+> > Reported-by: Paul Gofman <pgofman@codeweavers.com>
+> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15745
+> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16132
+> > Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> > Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
+> 
+> Reviewed-by: H. Peter Anvin <hpa@zytor.com>
+> 
+> This really should go into -stable.
 
-On these SoCs, when the loop reaches index 1, the driver reads past the
-end of the rodata array, populating the second PHY instance with garbage
-data. Since the configuration structure contains critical function
-pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
-PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
-
-Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
-store the actual size of the phy_cfg array for each SoC. Update the
-probe loop and the xlate function to bound their access against this
-value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
-
-Assisted-by: LLM
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
-Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
-Reviewed-by: André Draszik <andre.draszik@linaro.org>
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
----
-
-Changes in V2:
-- Updated 'Assisted-by' tag to follow the proper kernel documentation
-  format.
-- Link to v1:
-  https://lore.kernel.org/all/20260831070309.158069-1-selvarasu.g@samsung.com/
----
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-index 087d552eb511..f10cf7b6e0aa 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -477,6 +477,7 @@ struct exynos5_usbdrd_phy_config {
- 
- struct exynos5_usbdrd_phy_drvdata {
- 	const struct exynos5_usbdrd_phy_config *phy_cfg;
-+	int n_phy_cfg;
- 	const struct exynos5_usbdrd_phy_tuning **phy_tunes;
- 	const struct phy_ops *phy_ops;
- 	const char * const *clk_names;
-@@ -1173,7 +1174,7 @@ static struct phy *exynos5_usbdrd_phy_xlate(struct device *dev,
- {
- 	struct exynos5_usbdrd_phy *phy_drd = dev_get_drvdata(dev);
- 
--	if (WARN_ON(args->args[0] >= EXYNOS5_DRDPHYS_NUM))
-+	if (WARN_ON(args->args[0] >= phy_drd->drv_data->n_phy_cfg))
- 		return ERR_PTR(-ENODEV);
- 
- 	return phy_drd->phys[args->args[0]].phy;
-@@ -2021,6 +2022,7 @@ static const char * const exynos5_regulator_names[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
- 	.phy_cfg		= phy_cfg_exynos2200,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos2200),
- 	.phy_ops		= &exynos2200_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS2200_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2034,6 +2036,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.pmu_offset_usbdrd1_phy	= EXYNOS5420_USBDRD1_PHY_CONTROL,
-@@ -2047,6 +2050,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2059,6 +2063,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.pmu_offset_usbdrd1_phy	= EXYNOS5433_USBHOST30_PHY_CONTROL,
-@@ -2072,6 +2077,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos5,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
- 	.phy_ops		= &exynos5_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2084,6 +2090,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos7870,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos7870),
- 	.phy_tunes		= exynos7870_tunes,
- 	.phy_ops		= &exynos7870_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
-@@ -2097,6 +2104,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos850_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos850,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
- 	.phy_ops		= &exynos850_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
- 	.clk_names		= exynos5_clk_names,
-@@ -2125,6 +2133,7 @@ static const struct exynos5_usbdrd_phy_tuning *exynos990_tunes[PTS_MAX] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynos990_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynos850,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
- 	.phy_ops		= &exynos850_usbdrd_phy_ops,
- 	.phy_tunes		= exynos990_tunes,
- 	.pmu_offset_usbdrd0_phy	= EXYNOS990_PHY_CTRL_USB20,
-@@ -2661,6 +2670,7 @@ static const struct phy_ops exynosautov920_usb31drd_combo_ssphy_ops = {
- static const
- struct exynos5_usbdrd_phy_drvdata exynosautov920_usb31drd_combo_ssphy = {
- 	.phy_cfg		= usb31drd_phy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(usb31drd_phy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usb31drd_combo_ssphy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB31,
- 	.clk_names		= exynos5_clk_names,
-@@ -2691,6 +2701,7 @@ exynos5_usbdrd_phy_config usbdrd_hsphy_cfg_exynosautov920[] = {
- static const
- struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_combo_hsphy = {
- 	.phy_cfg		= usbdrd_hsphy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(usbdrd_hsphy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usbdrd_combo_hsphy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2719,6 +2730,7 @@ static const struct exynos5_usbdrd_phy_config phy_cfg_exynosautov920[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_phy = {
- 	.phy_cfg		= phy_cfg_exynosautov920,
-+	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynosautov920),
- 	.phy_ops		= &exynosautov920_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
- 	.clk_names		= exynos5_clk_names,
-@@ -2895,6 +2907,7 @@ static const char * const gs101_regulator_names[] = {
- 
- static const struct exynos5_usbdrd_phy_drvdata gs101_usbd31rd_phy = {
- 	.phy_cfg			= phy_cfg_gs101,
-+	.n_phy_cfg			= ARRAY_SIZE(phy_cfg_gs101),
- 	.phy_tunes			= gs101_tunes,
- 	.phy_ops			= &gs101_usbdrd_phy_ops,
- 	.pmu_offset_usbdrd0_phy		= GS101_PHY_CTRL_USB20,
-@@ -3052,7 +3065,7 @@ static int exynos5_usbdrd_phy_probe(struct platform_device *pdev)
- 
- 	dev_vdbg(dev, "Creating usbdrd_phy phy\n");
- 
--	for (i = 0; i < EXYNOS5_DRDPHYS_NUM; i++) {
-+	for (i = 0; i < drv_data->n_phy_cfg; i++) {
- 		struct phy *phy = devm_phy_create(dev, NULL, drv_data->phy_ops);
- 
- 		if (IS_ERR(phy))
--- 
-2.17.1
-
+It has a Fixes tag, afaik they really good at picking those up. Let me
+go queue them in x86/urgent.
