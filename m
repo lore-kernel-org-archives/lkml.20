@@ -1,155 +1,366 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011064.outbound.protection.outlook.com [40.107.130.64])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013013.outbound.protection.outlook.com [52.101.72.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3D63DEFE2;
-	Fri, 18 Sep 2026 14:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740256; cv=fail; b=SdaweyGPaTgqtmlbRGyOl/Z6BV/lzLA4jHATmuluS15Fr+qp5VPwQ5SV99/TVgRgHUWJxevZuXHzY2zHFG3bSWNGOQJv90guTGShBiKyS6z5xd4nbv08wu3mL5PsHXmlThJJfBXBTEHhvZIHlu4dJy7B7vA4+95xQzHNrmAoB8o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740256; c=relaxed/simple;
-	bh=aXZie+btNJqICMf/pIj5QBCyQekyirIJdhepiEnPl2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=oe4stg/EcSP1RVU00+150MZDc9t12rTta+BQA+FpzphWNLFwewiWkquB4GvMvyycERjbcxCGufdpjEO2h7mbEhiV90Zn8vGOBsJIXA3mTbFUpNIoRenkR2TyTzn1SftPK2A6K+PdZAGv0Qd/HHK2ZzcBWZmhCeQLPnfTUu5qbxU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lWnJ6KQN; arc=fail smtp.client-ip=40.107.130.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61BC3264D1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.13
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789740292; cv=fail; b=s3kvxvC31YZpZ/IE/EMsnENOPLM3FkypRP2aNFpJz2TG/FmbZgkue0KThB6Ve9I39GVW0RQccBGW41HJH1f6DV453yUUGDBFQ3KazgWeNj8eyPE7y1GrW/9FWLGIv1KcWt4VHS+/xbn3PgMu2g24WvYXejcP2MhFqKL5wy3xy1k=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789740292; c=relaxed/simple;
+	bh=EYAVD+sQBIb+Qw6R2PHG2tg/PqhxCNFdxvLw5rMUp9Q=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nQRGb2sEJhO2Rf1Zkl8OE9lq2wH6qCwgivZoUZBv5FBd4Qs3pxHtgarWT7e/qsCRw8xsc4UReYkUqzlxy5FNKM94m2B148f0pbs4P63UYrV/zwqma3drVdOB2LrQ650SgPUTqrPMhG6+DdrVXQ29FTrYnp2Jr4yN4QgEc4F5Iz4=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XWdPKoFB; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XWdPKoFB; arc=fail smtp.client-ip=52.101.72.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lWnJ6KQN"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XWdPKoFB";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XWdPKoFB"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=l2JbRHHRN1BPAcVP/eXhCnU7Zw1CT/rfH05S+/8QmgNPLFCH9a3273kgSyDT1zDrYSize0vAPUUHeDdszPLJqHITD71ENym7YakGIW/BcLeWAlUhjYGu0HVsLn33tv0gZn6bNO5o27FB2wOlEbpiLp/4XjFtXu7jQxua0j6pMr/7deaC2a6oATDVokAaz289JKlzcRtCtIuDVsM+BCiQvn7qMLqpA60g+0JzwQwwUY/1Hkqyaf8lCsBPcjyQID5uT4f/InvnA/RRExO4sJ1As9L/nztr2Y9UWCsXp8T2qKVykXGdK3jDYfhWv2Tcc441etzrp9S9noTFjr3lPtTC+Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ecgBncPB496y+REBuiOtQ+oR2koDyXeh5TEqP0IBmRM=;
+ b=drpHXkRp02cA2Uk/0O2VulDxtfN8zKvvm573Mw+yJ5WT+ZI1IQfkrcz2PJMps9dO3JAA9Ca+A7kz/yNnXV4jKENQqJbDqXRTLcrlj3HcOJPC+fylDTWVWQH5G4ZQ/uxvqHpD3/SiSwmVvrW+zOMwsrWKBapHBUfBayQOnKABJ2O67yvmUyF/nkJ3jnoxmOeUpks+VT/pj2RiVvFjSdvbjAPN3clPz2woNJDAclc4HGbxWk9dir/GPedeXp5gAuPFlg1PYdNtXjOjy0wmYZCDRBZQ0MGr7iiUro7kZBZGwSwm+adPUSkawcSC41kYYI9PwLjcJq8pZB8PcxJ/17Owsw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linaro.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ecgBncPB496y+REBuiOtQ+oR2koDyXeh5TEqP0IBmRM=;
+ b=XWdPKoFBWpf++f5wPDDDKvRUSpCHkygRTqG4pv/xq/xxPGrXkS6PFAZ88tq6GjrbXY6PUamrXS8sr2Q7eTlJDqjhW3jjMXecf1Ym/lXFt4/2zieP1zXC8GtrlnB3mKlkTzJNYngVttbcx3P2boNnJq9fyp1mk6d0IBhDajNqxnY=
+Received: from AS4P251CA0010.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:5d2::12)
+ by GV1PR08MB10369.eurprd08.prod.outlook.com (2603:10a6:150:a6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Fri, 18 Sep
+ 2026 14:04:44 +0000
+Received: from DB1PEPF000509F7.eurprd02.prod.outlook.com
+ (2603:10a6:20b:5d2:cafe::4e) by AS4P251CA0010.outlook.office365.com
+ (2603:10a6:20b:5d2::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 14:04:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509F7.mail.protection.outlook.com (10.167.242.153) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Fri, 18 Sep 2026 14:04:43 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pxYv3M+iR+YEfGNNGnRRKViaoWt5+qPx4G5qw52W/ZBCaUCzLqMfljvCNMWbKk5DLeEyIztUBB1zx8GKu/9rpWLk3ULIs6KD2oe8z3Rjh7lo37deCPDXsY07nIB9XNKP6solMkFI2mH7tDduFu1Em4D3qx7lwSALWqrKWNB0ldVmZdqIqq2yQGMVqHX7qi4l3ScH8eI8q4s0E1RSAcHr5dhn/6FWeCaGEoyQntqkRKekuCgsjRQL9AUdo3YCBTLKxG2EZMORtfqqZDGpsZC52ypqqWrOQhywTTUZU3PETftTn1b8+EVNcofAIC11VpnefttVOxw6eKAdKlUrRwzs/A==
+ b=AzltvgbEqI5poEf13DNXpsn0n/cFctKS62cVA9QWUYGPvrftnuXpCeuKANG7YjuM7jGOYO7m5nbxzBMvz58tRCgjGEmc1P5Ix7aklEF02WAmyn4pRmpryRSkZmTJhIyvObbBRTFh/T9x3CRLN3fvf0wUc5QIk82Ixo5TopSpe7RkUabEM2Kku03iRd8M9nNXO5zbYBW1n762RlkTC2IrN1YqfsCFZLh1fB51u3sEnDyfOPw2l+nMrP6XErCEeD3oh3oFIhWYFp5S8M+CrnCZCQEgZlph9+7Y3q150LZjE+MhEQk15NgNQbgcWnXoolCLuOsDl49ZLbd0+kt97k9K8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sJrLQh98DJdlvZ3D/Ud+pVkA6IfLUBVYoUOUH7U6O74=;
- b=s+SNTR9GeAmNq+8IZQUg61Koqn8wO9rjGW0VEARA63hxugspA1bZWVozgdtXkSOY4n03c1FYKM5l9ktAqvFVjDMMIX1qFZcfyURwHLXtS/J6sAHjRI5w3eopIfz1ce6Q6UDDt1qcv0e26sEuOIDNxUmwC8DNpPtaYqwDJSOI6kBvAQcxMHL1X2Vx65V5QUc0P8pahneidHZjoRa2KLFyU/NvgQ71ZXmWFy/kD6YfLnYnmR+yjp8YZVx8cT8HsZFGr/9e3qb2pqMRMtJKyURyyY/G6lNMeJOUXgAzFhMiHAOYOQGAYTGSO5AieBz2OCO0Y8pbulWNCkGKbSiOZKdBYA==
+ bh=ecgBncPB496y+REBuiOtQ+oR2koDyXeh5TEqP0IBmRM=;
+ b=rI4uuq+Y4ovsWp8v4rThiKhW4Q+dOymnNNilWngwKyZdtyHi0rGmgX3X1G/5YA2GVkngth/Qyl3TJmnSITHSqZV0qxgmN7M4700KEt1RP0hN6QeLF8lTsWaMt39qWXIXzKV8oiU8YsyDSbkzgi/HYmJzgWvXm3k+TZIF+GxlQIUmgTp6tTz6W4Vfi4dxfgfl00zpbZ3j5ns6RrN/bmVIiaOs3oziUv1eGm12jdFqRZ0WhHyOXCJE1ePHdr0VR6pMJSpA7plfBsWqaY/KiJ6pDIUPPzTXso8hdf6WmevOTwC67uWU9f9lKLufViKXJAyX1h9jr8+2wKbfR60/QOQ2IA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sJrLQh98DJdlvZ3D/Ud+pVkA6IfLUBVYoUOUH7U6O74=;
- b=lWnJ6KQN7fC6NyA80gM3e4UIYUrArue8ycwGIGXY/E+ziuyFovO+mo1ZPDsgTbAHBbzygPCNGuqkrmilX/Dla0iVK6iC5wQoPG921bUhB2m293G6WgXzsDootQLwgK9DjPS5XEbU7i6Pg8T0lg1arqLlu/ZJyik8yvKic0eWn45PdLUMYZ1qyn06hyy+NAwY8OhKurvUHgeh5RokpPFv0HYWFTnlVnOfBwaS8kWU6pNp28Ani/ymtclnhpQphDhV+0o+mEkn0Kr5+hrANqX7RgZi6idOtT1kMj9jfGtEzOXkETCt/oRpKr0HSTIaJlZQ4WJ+DS01Yo/ys6kO6qk5rw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8690.eurprd04.prod.outlook.com (2603:10a6:20b:429::11) with
+ bh=ecgBncPB496y+REBuiOtQ+oR2koDyXeh5TEqP0IBmRM=;
+ b=XWdPKoFBWpf++f5wPDDDKvRUSpCHkygRTqG4pv/xq/xxPGrXkS6PFAZ88tq6GjrbXY6PUamrXS8sr2Q7eTlJDqjhW3jjMXecf1Ym/lXFt4/2zieP1zXC8GtrlnB3mKlkTzJNYngVttbcx3P2boNnJq9fyp1mk6d0IBhDajNqxnY=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAVPR08MB9674.eurprd08.prod.outlook.com (2603:10a6:102:31d::14)
+ by DU4PR08MB11008.eurprd08.prod.outlook.com (2603:10a6:10:570::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 18 Sep
  2026 14:04:10 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+Received: from PAVPR08MB9674.eurprd08.prod.outlook.com
+ ([fe80::6f25:3681:7c97:ea2e]) by PAVPR08MB9674.eurprd08.prod.outlook.com
+ ([fe80::6f25:3681:7c97:ea2e%5]) with mapi id 15.21.0451.004; Fri, 18 Sep 2026
  14:04:10 +0000
-Date: Fri, 18 Sep 2026 09:04:02 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Eugeniy.Paltsev@synopsys.com, vkoul@kernel.org, Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: dw-axi-dmac: demote apb_regs warning to debug
-Message-ID: <aq1E0lpvNOwmybRt@SMW015318>
-References: <20260918101414.4104604-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918101414.4104604-1-shoubaineng@gmail.com>
-X-ClientProxiedBy: PH7P220CA0049.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32b::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Message-ID: <32d15bef-4ecd-45eb-8d4e-1a4276eb6e15@arm.com>
+Date: Fri, 18 Sep 2026 15:04:09 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 7/9] coresight: etm4x: exclude ss_status from
+ drvdata->config
+To: Yeoreum Yun <yeoreum.yun@arm.com>, James Clark <james.clark@linaro.org>,
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+ <20260915-separate_etm_cfg_v2-v11-7-d2b258d51747@arm.com>
+Content-Language: en-US
+From: Mike Leach <mike.leach@arm.com>
+In-Reply-To: <20260915-separate_etm_cfg_v2-v11-7-d2b258d51747@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PA7P264CA0318.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:395::8) To PAVPR08MB9674.eurprd08.prod.outlook.com
+ (2603:10a6:102:31d::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8690:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4d93cc1-0f7d-4923-c918-08df158db63d
+X-MS-TrafficTypeDiagnostic:
+	PAVPR08MB9674:EE_|DU4PR08MB11008:EE_|DB1PEPF000509F7:EE_|GV1PR08MB10369:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d0c2586-70a1-41f8-2082-08df158dca19
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|4143699003|11063799006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ rKPgVQwB3PS9dkoweeL2pJpskfIjhpvQL2V9Dt/YQJ2uzWLI0XZmgu/9QwFuJYd4ZwE18jcdkWPYr+3CQCs2bu79Ha/Ct32D2COrZl7yhe6i5UxEQkRE43zcj1KUtM3xdodcOlD3vUyiV18Da1D9naqUj5YNvdK6BpsNGCwGqB9yOOpAeTzQAIg9lwX3LfqpdurWKxgbQx3CXLu5ibDFlgooE0ztY9ck/7pH0yls3t5QnzEMthw7umYkRvN1L7yHnEvym0mp6z2Ep+SBbKdLPxKXe0LryeQQFyMKOGme+Mr1xg5RysjAMsb0Zp7fUUGfCaB+0ROBP/vWaEjnbREvAT+NFoPfHw1qReB/1ooxDhHQ33X/QbF4ECA7SJslFx8RgUU9lGwPQXJzbF8gEMZ2DxZTKNLhJfd6LOKUHShNkug8P1RPZCI+mYcuSaHcdTk5I1+ZjmGEzr3KMXiJret6lSFirsj4Fh0l6F+UwBMnNIXTajujZAFa3wEccli8chd0danCJDqmi6w72JHkMnxy7bxoQAVB3a1DCljFQgGOOBVQ+11ej/xy1844JEgM+q6KrhqAIZ/kvIg6zztyOCEZwdgxeklUNAHQdLQvibhs8sxTKyJZj9s+XHqX1sBFquo8xfN5W9Rouv+ra0iQGoYVSoKsE0BLKH8UnwHQxCb10K0=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR08MB9674.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ IQ6CvBVPpFSJ2Fho5gn3FKAHb98Mrg+V8EXvcoBUpazQVtCCWOBleMrMIYE1bJaYaiYqDm+e1csAh/espqRAdXvGIUY5GwC3isSIQgQt90PBZWkaG1cN+FEdueYe2dO8f560Ummx1xX8o67uqLHvrZWwbQE6t+DvqzSTs+5w5/BOsMmcDFIjEmkAqv4bfj1VOqKagRMAUrROa64j41wV+jFP9p8n3JZZcamoLqflywF0jaQv8bIFczmZt9hArR9o2Bdk8R5VbjlWqZb5Z85prhoiv5o+zbPkQ9cEp63mHYNv6TaBXvPkfsM1Je3mTCgak546CEW8gi39152MUJ6xiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR08MB11008
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509F7.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	e46d5726-5f10-407a-d246-08df158db658
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|1800799024|376014|10067099003|11063799006|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|376014|35042699022|23010399003|7416014|14060799003|82310400026|36860700016|18002099003|56012099006|6133799003|22082099003|10067099003|11063799006|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	M5aqVDEs2o93RHYrSm02Ri76JvMkoICPCHlVj5QaEzxudG5n63ycxUFBaIwHJWuJjDBp6Vl+zxOROy9RXfSC259SNOCmlUIUDmtrFFW1ApUsbz5S60xj9KUIM9nxSyVRGgkwfMCtuL7oFtTw7mPR+t5T1PeXRmRMUGfpSKbr01pjqAdUNyM+k2HJCjXuIOW21Fz/aqfLD8AV2MUiZCkhUStZTdaoiCa8mgcbop3zqL/i5rI9mnIfWlioXglw0OccVfoyCFtv6+NLgwV+85SIPOu5BBj2Y3ZLbFCox0WskW2s9wBm4XiPLL6bYES412wyg4cx644vrDJb6/gGIgtDROcnwmJGdzvjFaxR/lngjczYgntmE/svRaC3EkytKo9Uk05lZhLAgiC7/ENV/PdKfKMC1uzY1UnVRfpC3leIqvVKresX0PwRYW0Z1a4xenAr72nhQ+2UHqpW2jVp81LyfA5qAD5l+3OTIlXmHVSa1wZablY014DwAZ87ZzdL5fMCF1b18uASE11eKn+lSQavelpfhQ0AWwnO/nPFjq13JbmZwm24+unhyal3PjdAXuHsafwrDqC1iZTOF1nZ/uUdmX7Ne4AG2h9sHngRW1AZAWqdXWepj0vwnsfcSgxChISxzNihiNs2lwuudHIEFb3lLIZe0RlVPgSUcrD1BK9YiL0=
+	j0egZeKNJXKHvN74nsPdFPhrSDCTUQSwdUnYw7IHLXu7BWr/kLeJdIsNWps2VT5cSC2PHA5E/HlKg0mXdOE7GTiITMJXfqdJmKZps35lQ55ykus5gLKY8LsJQXx9ku2IlZAkKz8bf2PUzlPGYip/QTGaWYcFc/2QfyKJ5PcM1A5xFMdq9rpw8GCXSTucHiFeChCOXdrQ5JiZ8+sxslk6W93NGtvv3z5oKi6b8FXgeWmgAU3UAXhKR6swY3NfFiDka+6VKgQVGR9Hhi8LHldWHNZWKL9HHB722NoAAi7XZh37iY5ANoiwBRqxxEZ81txwXC0RTNlngabltJCJql3b9k4aXP9muYf7EwKDpM2o19F/tjlrUbx7O9PvBUoyR9lybsv4n2BZhe/e/lWYWmrFJFZz12ueZNjwe8NUqCGlfXDpS07xS+wc4ngx4x4SRZSXFM1iJQn+11v1HMAVIIeWbylT0cAbQy88xMx/GnxnQjgEmRbb6PC0zoWjPuAHTDImd8e0hriCE3lYtcyjc7F1ZcnFuu2OWxhT4pI1F5Da8U8QZfqdWq+04ox9ytQQYiKNz1VHVM42svZ77RDZo975GRMVXkgWZAbrHig/2isLFmNP0qgsONixF4aOsz85/Yn0mAZl3YCBCCLYjEw9GaHxME0BBIhP+dHJRt0VxTfebksO1GCA0064QG2nmjGsoVYcq9DNdti5inaRC2Nj0Cg5cA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(1800799024)(376014)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(35042699022)(23010399003)(7416014)(14060799003)(82310400026)(36860700016)(18002099003)(56012099006)(6133799003)(22082099003)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wi/9TCsifL7qopdJfOsj555kbIyd7Jg2ZQqkZ8zBYDF5f9LQce5vkxD4yCSG?=
- =?us-ascii?Q?sPQCm3L8SfPFSckEeMbHCxAhQj+j0fCSvE0HdQ1CVJbZ6FoBC6Tlsr7Bk50l?=
- =?us-ascii?Q?zCX3erTRBg/I7JGjfZxQtITXzQV7XJFSSNILaAxEEiLrnYxJpVl6g8fc3MeZ?=
- =?us-ascii?Q?YgxYB3nJv/gs/wpPcXZ3hD0buTqloyEMYfjk7xfcrx2AHstUtIxN7+mGXu5L?=
- =?us-ascii?Q?iXjqYXWRblRbIju/Wsvflx17ANF/m/OTpak9Z0fI6XE4Eb1lU0DIVs6C6lAf?=
- =?us-ascii?Q?WOaoBeYsv1FbLhxuOWDrQLihN32kugqrCkL5eCmeA2oK/wSpg3l8acGn4FQ5?=
- =?us-ascii?Q?KOyh+lgRQ9uTMZPtU3k1KbjA51CNnd5SYwbeHMv8x38ezTPrEI+tYgPpoL5Y?=
- =?us-ascii?Q?4ytip6MKs40AHz5jUlH//i4qFvW79TOpSjGhKgRoILnxpC3JMTGLgT2iWVNk?=
- =?us-ascii?Q?iEa7FWPcHv/ZzW12KqtAhnPiRQrHwV4UK86xxOqrChZgLcmbMTVZmEzAHwjd?=
- =?us-ascii?Q?PdzTERaAO/dhXVk6MGISEW2JNdnfSq7GAPaFS5JhVDW6L3W2XIGrICHKK2XS?=
- =?us-ascii?Q?r+0L/HwxaTkL2UdCtZxJ5d2nQpfX4BObw59OlCN1fSur1VPkXqgdqKkv5Y9h?=
- =?us-ascii?Q?ntK1ZKZ4qlJx9Bw6ilglfT2MuoOaNM2Af8lQd+ktFB9CUSwJWTXg5OBjbVWj?=
- =?us-ascii?Q?icdv8sFy8PU+/fR+M+sykb21A2IiaEdVKiqpZ17M7o6+qIHpdQM828GJl+id?=
- =?us-ascii?Q?32JkKgfspubq1XYzHhK3gLVg18i46O/mU+1j/eiBCq5eD4n8ppJUQlHjxfix?=
- =?us-ascii?Q?Nshh1aSAeTx4eq3ngOD+hoOP5AoWPWvD2yzcb6t0T/mwy1AzENo+kIM6zHNQ?=
- =?us-ascii?Q?Gr5O+MK/69Re40RLjEgXYTI/Qn4CCt4D6CYy4qhijfSL2ONDSWneEnUPLZ9V?=
- =?us-ascii?Q?6Cv6a9gQDjS+p94sQLwuxuIipM1VFODCEcGNnTrg6MoCwLoJrUDaafk2UkPz?=
- =?us-ascii?Q?zajrpGu3SLdcWkWcZrSTlgpkUJfdtoiv4lQTnAoHQyLkwrnk2wMjUQGUczgw?=
- =?us-ascii?Q?Pe1dAMMOivxEswc0s+vVDocJFDsruBKot7qVKqwbhosDnuSRDmGuYdzzB63W?=
- =?us-ascii?Q?Wz09OfHwDExNfcDdgrBo0plL7O+UpicdME8ziXTFO2Aeqki/U3IKBAFHnUSv?=
- =?us-ascii?Q?6ednmIVVa/FRdte17iPp8Dy69U6+r5CJsN69+20JUhhwmPLbfumXet1193QE?=
- =?us-ascii?Q?b7LiVCOgbF59uwFtWSePeZVgE7fLQlTz+aejSVT648CD24ZWwM7dgBnF8yPo?=
- =?us-ascii?Q?zZ/klF3RNR302qX8rkcn16MqY4wNr2K6TguHzkk/8n+FDcGTzHJkM4hPKi3Q?=
- =?us-ascii?Q?QoB0Lfq873wS07zTA5yY4bGm8kAmnLAO7fGnMp0JUKGXUMCJ2xF/3758KGO2?=
- =?us-ascii?Q?saG/o5+No1WTXjCVUwqey8A394b79ax429d54E5P8yGpC5bmgQiJRl/7Jf0O?=
- =?us-ascii?Q?asm4XEV9xYJ6dI9qd1hNb1NkqNKUZ+prgikytcKBkLKZ7yYob3Uwd3R+hNEX?=
- =?us-ascii?Q?8U9fFnwUMueCWH3YIDZ+go/c4P6qOHxT3VbX8I+jYnRhSGYUKD+M38DouBM+?=
- =?us-ascii?Q?87ttiTJzcxIXiqTIK56xQURstx9KWQxtLRH+bo/KIkM6Qg7R1vupo4jXvdYB?=
- =?us-ascii?Q?EHDqBi7ZptcKTQJoUfcYTYTJCjKSfWO00JtUd64vlUWwueIaUiVDc+hnSmi6?=
- =?us-ascii?Q?LTwYoZve0gCzT0t8vcaUY6Vh/qq1p+WzNia42T7/gowrwWaE3aTV?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4d93cc1-0f7d-4923-c918-08df158db63d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:04:10.4991
+	dDifCCirZNkrvAxRJr3fqbPrQv+YvEUraZbxjdzWB4uWVNMbO8eNom2nj6kdOxAzwPEouImm28UevL8jWOODX9+ZDQtahF52k5++lN/FxomXNOFd8ngGtA4RlfosfWt4I7v7lL056/Ntiy03G1nCaYpKxHX7dG26f8ZwcuOtZm+Cb6FxiDIz5qzMU+aAZQ6hCDvg+q/8mUTYs8ERbzjYZgzh5h5E1xAJw4RME68MFoE1zbff2zaRGE7JKBaDpZZr0/svJTpOdFymK+mYQ1BYg4E6sPX+0gfMUSk25n+OJab74WZs4erUmQdgLbYVmBCDJvhD8Qp9M9cu/wOx8m35zW/5PhRM1qh4l4i+f2HQfys5LIQCTPTIlwapxSugOwXF7g5H/IYVNa/dk0mlfO3EQM5B1Es3jnwKqEdeyov66NwVOGnyfRZd4kvMGhO6X/Hh
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:04:43.3872
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CkS/LClH0eDWo2PQU7Vb9PIYd7MR/ad6URWQuxTZxPZW1fdutxbUGdM2az+SUPVpOmpauqbVyVaZIoCsXWZ+J9XIxOFnnCoh//7DqGq6KGVdAL7+zwgCRXc69NHYumLf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8690
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d0c2586-70a1-41f8-2082-08df158dca19
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F7.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10369
 
-On Fri, Sep 18, 2026 at 06:14:14PM +0800, Baineng Shou wrote:
-> dw_axi_dma_set_hw_channel() logs "apb_regs not initialized" at err
-> level when apb_regs is absent. However, only Intel KeemBay
-> ("intel,kmb-axi-dma") carries apb_regs; all other supported SoCs
-> (snps,axi-dma-1.01a, sophgo,cv1800b, starfive,jh7110/jh8100) operate
-> without it. For those, reaching this path during slave/cyclic prep and
-> terminate is the normal no-op case, not an error, and the err log spams
-> dmesg on every transfer.
->
-> Demote it to dev_dbg to match the identical check in
-> dw_axi_dma_set_byte_halfword().
->
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Hi,
+
+Actually replied to v10 of this patch before I spotted v11. I'll repeat 
+the comments here to keep them together.
+
+
+
+On 9/15/26 12:34, Yeoreum Yun wrote:
+> The purpose of TRCSSCSRn register is to show status of
+> the corresponding Single-shot Comparator Control and input supports.
+> That means writable field's purpose for reset or restore from idle status
+> not for configuration.
+> 
+> Therefore, exclude ss_status from drvdata->config and move it to drvdata.
+> 
+> Before this patch, clearing the PENDING and STATUS bits when enabling
+> a perf session could trigger multiple single-shot events within
+> the same session. This issue will be addressed in a future patch;
+
+The hardware is designed to have multiple single shot events - the reset 
+bit in TRCSSCCRn specifically programs this behaviour.
+
+But the basic point is correct there is no need to have the status 
+register as part of the configurable set of registers.
+
+
+
+> this patch intentionally preserves the existing behavior.
+> 
+> Reviewed-by: Leo Yan <leo.yan@arm.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 > ---
+>   drivers/hwtracing/coresight/coresight-etm4x-cfg.c   |  1 -
+>   drivers/hwtracing/coresight/coresight-etm4x-core.c  | 20 +++++++++-----------
+>   drivers/hwtracing/coresight/coresight-etm4x-sysfs.c | 10 +++++-----
+>   drivers/hwtracing/coresight/coresight-etm4x.h       |  7 ++++++-
+>   4 files changed, 20 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> index d24f533c623d0..098aabd2b922c 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-cfg.c
+> @@ -86,7 +86,6 @@ static int etm4_cfg_map_reg_offset(struct etmv4_drvdata *drvdata,
+>   		off_mask =  (offset & GENMASK(11, 5));
+>   		do {
+>   			CHECKREGIDX(TRCSSCCRn(0), ss_ctrl, idx, off_mask);
+> -			CHECKREGIDX(TRCSSCSRn(0), ss_status, idx, off_mask);
+>   			CHECKREGIDX(TRCSSPCICRn(0), ss_pe_cmp, idx, off_mask);
+>   		} while (0);
+>   	} else if ((offset >= TRCCIDCVRn(0)) && (offset <= TRCVMIDCVRn(7))) {
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> index 70a5c0b4fad1c..9de0c268ff954 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+> @@ -95,7 +95,7 @@ static bool etm4x_sspcicrn_present(struct etmv4_drvdata *drvdata, int n)
+>   	const struct etmv4_caps *caps = &drvdata->caps;
+>   
+>   	return (n < caps->nr_ss_cmp) && caps->nr_pe_cmp &&
+> -	       (drvdata->config.ss_status[n] & TRCSSCSRn_PC);
+> +	       (drvdata->ss_status[n] & TRCSSCSRn_PC);
+>   }
+>   
+>   u64 etm4x_sysreg_read(u32 offset, bool _relaxed, bool _64bit)
+> @@ -573,11 +573,11 @@ static int etm4_enable_hw(struct etmv4_drvdata *drvdata)
+>   		etm4x_relaxed_write32(csa, config->res_ctrl[i], TRCRSCTLRn(i));
+>   
+>   	for (i = 0; i < caps->nr_ss_cmp; i++) {
+> -		/* always clear status bit on restart if using single-shot */
+> +		/* always clear status and pending bits on restart if using single-shot */
+>   		if (config->ss_ctrl[i] || config->ss_pe_cmp[i])
+> -			config->ss_status[i] &= ~TRCSSCSRn_STATUS;
+> +			drvdata->ss_status[i] &= ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+>   		etm4x_relaxed_write32(csa, config->ss_ctrl[i], TRCSSCCRn(i));
+> -		etm4x_relaxed_write32(csa, config->ss_status[i], TRCSSCSRn(i));
+> +		etm4x_relaxed_write32(csa, drvdata->ss_status[i], TRCSSCSRn(i));
+>   		if (etm4x_sspcicrn_present(drvdata, i))
+>   			etm4x_relaxed_write32(csa, config->ss_pe_cmp[i], TRCSSPCICRn(i));
+>   	}
+> @@ -1081,7 +1081,7 @@ static void etm4_disable_hw(struct etmv4_drvdata *drvdata)
+>   
+>   	/* read the status of the single shot comparators */
+>   	for (i = 0; i < caps->nr_ss_cmp; i++) {
+> -		config->ss_status[i] =
+> +		drvdata->ss_status[i] =
+>   			etm4x_relaxed_read32(csa, TRCSSCSRn(i));
+>   	}
+>   
+> @@ -1162,12 +1162,9 @@ static void etm4_disable_sysfs(struct coresight_device *csdev)
+>   				 drvdata, 1);
+>   
+>   	/*
+> -	 * Userspace may read ss_status and cntr_val through sysfs after
+> +	 * Userspace may read cntr_val through sysfs after
+>   	 * the sysfs-session has been disabled.
+>   	 */
+> -	for (i = 0; i < caps->nr_ss_cmp; i++)
+> -		config->ss_status[i] = active_config->ss_status[i];
+> -
+>   	for (i = 0; i < caps->nr_cntr; i++)
+>   		config->cntr_val[i] = active_config->cntr_val[i];
+>   
+> @@ -1525,8 +1522,9 @@ static void etm4_init_arch_data(void *info)
+>   	 */
+>   	caps->nr_ss_cmp = FIELD_GET(TRCIDR4_NUMSSCC_MASK, etmidr4);
+>   	for (i = 0; i < caps->nr_ss_cmp; i++) {
+> -		drvdata->config.ss_status[i] =
+> -			etm4x_relaxed_read32(csa, TRCSSCSRn(i));
+> +		drvdata->ss_status[i] = etm4x_relaxed_read32(csa, TRCSSCSRn(i));
+> +		drvdata->ss_status[i] &= (TRCSSCSRn_PC | TRCSSCSRn_DV |
+> +					  TRCSSCSRn_DA | TRCSSCSRn_INST);
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+The unused bits in this register are RES0 - rendering this masking 
+redundant.
 
->  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> index bcefaff03b5c..d829b9af5491 100644
-> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> @@ -574,7 +574,7 @@ static void dw_axi_dma_set_hw_channel(struct axi_dma_chan *chan, bool set)
->  	unsigned long reg_value, val;
->
->  	if (!chip->apb_regs) {
-> -		dev_err(chip->dev, "apb_regs not initialized\n");
-> +		dev_dbg(chip->dev, "apb_regs not initialized\n");
->  		return;
->  	}
->
-> --
-> 2.34.1
->
+>   	}
+>   	/* NUMCIDC, bits[27:24] number of Context ID comparators for tracing */
+>   	caps->numcidc = FIELD_GET(TRCIDR4_NUMCIDC_MASK, etmidr4);
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> index f6d053f73264c..50ef2e957300f 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> @@ -1833,8 +1833,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
+>   	raw_spin_lock(&drvdata->spinlock);
+>   	idx = config->ss_idx;
+>   	config->ss_ctrl[idx] = FIELD_PREP(TRCSSCCRn_SAC_ARC_RST_MASK, val);
+> -	/* must clear bit 31 in related status register on programming */
+> -	config->ss_status[idx] &= ~TRCSSCSRn_STATUS;
+> +	/* must clear bit 31 and 30 in related status register on programming */
+> +	drvdata->ss_status[idx] &= ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+>   	raw_spin_unlock(&drvdata->spinlock);
+>   	return size;
+>   }
+> @@ -1848,7 +1848,7 @@ static ssize_t sshot_status_show(struct device *dev,
+>   	struct etmv4_config *config = &drvdata->config;
+>   
+>   	raw_spin_lock(&drvdata->spinlock);
+> -	val = config->ss_status[config->ss_idx];
+> +	val = drvdata->ss_status[config->ss_idx];
+>   	raw_spin_unlock(&drvdata->spinlock);
+>   	return scnprintf(buf, PAGE_SIZE, "%#lx\n", val);
+>   }
+> @@ -1885,8 +1885,8 @@ static ssize_t sshot_pe_ctrl_store(struct device *dev,
+>   	raw_spin_lock(&drvdata->spinlock);
+>   	idx = config->ss_idx;
+>   	config->ss_pe_cmp[idx] = FIELD_PREP(TRCSSPCICRn_PC_MASK, val);
+> -	/* must clear bit 31 in related status register on programming */
+> -	config->ss_status[idx] &= ~TRCSSCSRn_STATUS;
+> +	/* must clear bit 31 and 30 in related status register on programming */
+> +	drvdata->ss_status[idx] &= ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
+>   	raw_spin_unlock(&drvdata->spinlock);
+>   	return size;
+>   }
+> diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
+> index ffde48b6b41b2..8c1c1364b1c44 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm4x.h
+> +++ b/drivers/hwtracing/coresight/coresight-etm4x.h
+> @@ -213,6 +213,7 @@
+>   #define TRCACATRn_EXLEVEL_MASK			GENMASK(14, 8)
+>   
+>   #define TRCSSCSRn_STATUS			BIT(31)
+> +#define TRCSSCSRn_PENDING			BIT(30)
+
+Minor nit - PENDING is ETE only - worth commenting in case a reader is 
+looking at the ETMv4 spec.
+
+>   #define TRCSSCCRn_SAC_ARC_RST_MASK		GENMASK(24, 0)
+>   
+>   #define TRCSSPCICRn_PC_MASK			GENMASK(7, 0)
+> @@ -730,6 +731,9 @@ static inline u32 etm4_res_sel_pair(u8 res_sel_idx)
+>   #define ETM_DEFAULT_ADDR_COMP		0
+>   
+>   #define TRCSSCSRn_PC			BIT(3)
+> +#define TRCSSCSRn_DV			BIT(2)
+> +#define TRCSSCSRn_DA			BIT(1)
+> +#define TRCSSCSRn_INST			BIT(0)
+>   
+
+These new defs are redundant if the masking above is redundant
+
+Regards
+
+Mike
+
+>   /* PowerDown Control Register bits */
+>   #define TRCPDCR_PU			BIT(3)
+> @@ -980,7 +984,6 @@ struct etmv4_config {
+>   	u32				res_ctrl[ETM_MAX_RES_SEL]; /* TRCRSCTLRn */
+>   	u8				ss_idx;
+>   	u32				ss_ctrl[ETM_MAX_SS_CMP];
+> -	u32				ss_status[ETM_MAX_SS_CMP];
+>   	u32				ss_pe_cmp[ETM_MAX_SS_CMP];
+>   	u8				addr_idx;
+>   	u64				addr_val[ETM_MAX_SINGLE_ADDR_CMP];
+> @@ -1071,6 +1074,7 @@ struct etmv4_save_state {
+>    * @config:	structure holding sysfs mode configuration.
+>    * @save_state:	State to be preserved across power loss
+>    * @paused:	Indicates if the trace unit is paused.
+> + * @ss_status:	The status of the corresponding single-shot comparator.
+>    * @arch_features: Bitmap of arch features of etmv4 devices.
+>    */
+>   struct etmv4_drvdata {
+> @@ -1091,6 +1095,7 @@ struct etmv4_drvdata {
+>   	struct etmv4_config		active_config;
+>   	struct etmv4_config		config;
+>   	struct etmv4_save_state		*save_state;
+> +	u32				ss_status[ETM_MAX_SS_CMP];
+>   	DECLARE_BITMAP(arch_features, ETM4_IMPDEF_FEATURE_MAX);
+>   };
+>   
+> 
+
