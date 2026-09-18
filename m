@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466594B826E;
-	Fri, 18 Sep 2026 10:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7E8448BA9;
+	Fri, 18 Sep 2026 10:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726567; cv=none; b=CFeuR/kM8Kl/uEfOSfClWqsRZTZxwk2cKd2fM2i6C6+O11cVupUKQeZG5S+5TsHqAG+DFRANw2AtaBU4DzlUIwdM5C/eMRhkIZ83QEhftysQ7di6vCK4jDixWm9x8xYWcIovgKdJJq9m+KGOR0COOt3dIyTC5nNfljSkoE4IP/w=
+	t=1789726569; cv=none; b=Kfn8KfGRXg+fw3Rt26bVIWglUtKZ8rQhnxA3MwqphghMBQB9zzbKFi5fLsxJXrLUtLfjhEoL7qW3lqro98jHV0/VfrWFh0EgDtk2xIJcItHAYdVexIHEia7IZIB++37a3NsbGqobfvTdRWTQ0WFm5FYaqgZilmzIWFF8336u7oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726567; c=relaxed/simple;
-	bh=NDylQv8QY046ZvXnSTCjkuVHOOu+quqY2RDh9/Pkt/w=;
+	s=arc-20240116; t=1789726569; c=relaxed/simple;
+	bh=XghJ42bDI2d4V4KOf05L8Wi4dblQmEjqgU/sE/B7Umk=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=Nktvx1oJwInw/ZAgbqFV+HKMJlVSsRoEWo2K/2J/VTqKMPtNBiGZPo9THVMiV/O9+mfnJf4yW2j1Y5z0rKrke6prHXjpr92pMUxLwoXQ3VOxZ3faNIyK2t5xkHDfPHe6XGXpA7ExI/AHw9ZM/8w0VnXYyxlkRhJXhbS0uWj8mvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=v6Eo474b; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oK1mNwQS; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=KBlFcZ9wdFDPOesSfRs6AbewBQ45YZXTfEKShIDhHI/4f9LR6QByGpPS/77PbsYDSXn7GGo9e3Lwaq3LTpxib9L0DpjXm/+Wnb/K+n/HSvpUB2mNeNAnDh4yLtCiSSgARyuHMxR8seIm78dwtKorZw0t9LI43zPeDc2zg8FbO9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lw55I1K4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lxQIalmE; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="v6Eo474b";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oK1mNwQS"
-Date: Fri, 18 Sep 2026 10:16:01 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lw55I1K4";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lxQIalmE"
+Date: Fri, 18 Sep 2026 10:16:03 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789726563;
+	s=2020; t=1789726565;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lphX6Q2uLTMRACCxxpEsaFHYiyyXZRpcXNc0f6Ve3Zw=;
-	b=v6Eo474bE7pqlLtue4qQ4geHVbeCV4BOyEbxdWRaM4mcolsLmP7SAgDTH9bXDUqAxgLMiG
-	djfFO1QAxGCCIwmVEfERDozhFeTeDxJYaFeBqr7pY0ltGZRgzl2oJ6zjSTVi242iB2Pqsr
-	LcEDcRbZUXt3bceVOsHHvN367c6yKmJ9SOKdSxgDCoSN1DXN+NNCqf4LZ6T1iF9P3uBu9Y
-	xM5uJnjQoKvT2L1oYpuo1WTf8ro6hLCc/Oq4QCV7Cz/q+Kw+qaIf+dIcTfj6Z9COBaj0Kg
-	VESNvxkRHJD0KtzMx19UJlBUAaTZPBOVivgekdptfwHh1WuzikHuvagANNfWMw==
+	bh=Ig7yCVQSex4gxD+ROPPxaMy33Nz5kLCAa5wRfgQg6UQ=;
+	b=lw55I1K4OMDY1lNLmtquXr2A+BM+/SzJa+RTDz/SWtmx4FnqnutstuN6lnrbrRQvV3gmkL
+	k3SaB8QLNT2t1zfXwHCMZeM91xYh3dkkFmgQIAakCXxYALSM85RG+CACAyiM4SozZu1S3W
+	5LGTjAxPOqVSlKWNbx/TJtKvW6a7/mRmzPBTUuhYigrYjk6JDN4gJ7FVMEz+v9EioEpP7Z
+	Z9Oc+XVU80GkI35LK+a/yO/71q0lpzqKmairLBEZhU0O4XqA/OOdkjLda7Wdgn7ShJPAvh
+	Xf2jBqa6oUjGkpTPZbs4iMJS5SbJ39KIivoDCdQnIHaT14u9FGYgxUcM46pqxw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789726563;
+	s=2020e; t=1789726565;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lphX6Q2uLTMRACCxxpEsaFHYiyyXZRpcXNc0f6Ve3Zw=;
-	b=oK1mNwQSOJBkf8cTEeFybxUqjdhbVWSU9fXpk96G49AHEFd2Rh9LzUCjTcm8dKUlJnm+qi
-	eGxVaIds40HlPRAQ==
-From: "tip-bot2 for Puranjay Mohan" <tip-bot2@linutronix.de>
+	bh=Ig7yCVQSex4gxD+ROPPxaMy33Nz5kLCAa5wRfgQg6UQ=;
+	b=lxQIalmELjHRkoUj0pfrqyBqEtSn/fU1SCJ66VR3iFiumingeASYgTBEGi8i90wChNghlA
+	qF8kzVUl86/pBlDg==
+From: "tip-bot2 for Joe Lawrence" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Add test for rejecting changed data
-Cc: Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>,
+Subject: [tip: objtool/core] objtool: Forward toolchain variables to the klp
+ test runner
+Cc: Joe Lawrence <joe.lawrence@redhat.com>, Song Liu <song@kernel.org>,
  Josh Poimboeuf <jpoimboe@kernel.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-13-song@kernel.org>
-References: <20260916184351.2720310-13-song@kernel.org>
+In-Reply-To: <20260916184351.2720310-12-song@kernel.org>
+References: <20260916184351.2720310-12-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178972656181.1720534.6333986718788277312.tip-bot2@tip-bot2>
+Message-ID: <178972656314.1720534.6199929280592978304.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,78 +68,99 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     6a73fa640753cbf93163771c7fc70b06a165de3e
-Gitweb:        https://git.kernel.org/tip/6a73fa640753cbf93163771c7fc70b06a16=
-5de3e
-Author:        Puranjay Mohan <puranjay@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:05 -07:00
+Commit-ID:     c0c07fbcdbb1e5b8b6d9e940ab8b848530150f57
+Gitweb:        https://git.kernel.org/tip/c0c07fbcdbb1e5b8b6d9e940ab8b8485301=
+50f57
+Author:        Joe Lawrence <joe.lawrence@redhat.com>
+AuthorDate:    Wed, 16 Sep 2026 11:43:04 -07:00
 Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
 CommitterDate: Wed, 16 Sep 2026 17:13:27 -07:00
 
-objtool/klp: Add test for rejecting changed data
+objtool: Forward toolchain variables to the klp test runner
 
-Livepatching replaces functions.  Nothing can swap a variable which live
-code already refers to, so a patch which changes one has to be refused
-rather than applied with the old value left in place.
+The tests target already passes ARCH and CROSS_COMPILE into
+run-tests.sh.  lib.sh uses those to pick a default compiler and
+binutils:
 
-Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
+  CC=3D${CC:-${CROSS_COMPILE}gcc}
+  LD=3D${LD:-${CROSS_COMPILE}ld}
+  READELF=3D${READELF:-${CROSS_COMPILE}readelf}
+  OBJCOPY=3D${OBJCOPY:-${CROSS_COMPILE}objcopy}
+
+Those defaults only apply when the variables reach the shell that sources
+lib.sh.  The recipe passed OBJTOOL, ARCH and CROSS_COMPILE explicitly, but
+not CC or the binutils.  Makefile-assigned values (e.g. from LLVM=3D1) are
+not visible in the recipe environment unless forwarded:
+
+  $ LLVM=3D1 make -C tools/objtool tests
+  ...
+  # preflight
+  #   compiler  gcc (GCC) ...
+
+Pass CC, LD, READELF and OBJCOPY the same way as ARCH and CROSS_COMPILE,
+so fixtures are built and inspected with the toolchain make selected:
+
+  $ LLVM=3D1 make -C tools/objtool tests
+  ...
+  # preflight
+  #   compiler  clang version 21.1.8 ...
+
+Signed-off-by: Joe Lawrence <joe.lawrence@redhat.com>
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-13-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-12-song@kernel.org
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/tests/generic/fixtures/changed_data.c | 16 +++++++++++-
- tools/objtool/tests/generic/test-changed-data.sh    | 18 ++++++++++++-
- 2 files changed, 34 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/changed_data.c
- create mode 100755 tools/objtool/tests/generic/test-changed-data.sh
+ tools/objtool/Documentation/klp-test-design.txt | 12 +++++++++++-
+ tools/objtool/Makefile                          |  9 +++++++++
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/tools/objtool/tests/generic/fixtures/changed_data.c b/tools/objt=
-ool/tests/generic/fixtures/changed_data.c
-new file mode 100644
-index 0000000..b524618
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/changed_data.c
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Data whose value differs between the two builds. */
+diff --git a/tools/objtool/Documentation/klp-test-design.txt b/tools/objtool/=
+Documentation/klp-test-design.txt
+index 67d20bf..2082c27 100644
+--- a/tools/objtool/Documentation/klp-test-design.txt
++++ b/tools/objtool/Documentation/klp-test-design.txt
+@@ -243,7 +243,17 @@ setting a cross compiler cannot produce one the host is =
+unable to run.  ARCH
+ selects both the objtool target and the directory of tests to run.
+=20
+ clang needs telling, since it defaults to the host triple however it is
+-invoked.  The fixtures include no kernel headers, so no sysroot is needed:
++invoked.  LLVM=3D1 with CROSS_COMPILE does that for you -- the --target=3D it
++derives is forwarded to the tests -- and the fixtures include no kernel
++headers, so no sysroot is needed:
 +
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
++::
 +
-+#ifdef PATCHED
-+int klp_test_data =3D 2;
-+#else
-+int klp_test_data =3D 1;
-+#endif
++    ARCH=3Dx86_64 CROSS_COMPILE=3Dx86_64-linux-gnu- LLVM=3D1 \
++            make -C tools/objtool tests
 +
-+int target(int x)
-+{
-+	return x + klp_test_data;
-+}
-diff --git a/tools/objtool/tests/generic/test-changed-data.sh b/tools/objtool=
-/tests/generic/test-changed-data.sh
-new file mode 100755
-index 0000000..c5c7381
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-changed-data.sh
-@@ -0,0 +1,18 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Livepatching replaces functions, not data.  A changed data symbol must be
-+# rejected.
++Naming the compiler by hand works too, and is what to reach for when the
++target triple is not the one CROSS_COMPILE implies:
+=20
+ ::
+=20
+diff --git a/tools/objtool/Makefile b/tools/objtool/Makefile
+index ed5cf14..47afe1e 100644
+--- a/tools/objtool/Makefile
++++ b/tools/objtool/Makefile
+@@ -151,8 +151,17 @@ clean: $(LIBSUBCMD)-clean
+ mrproper: clean
+ 	$(call QUIET_CLEAN, objtool) $(RM) $(OBJTOOL)
+=20
++# The kernel's own Makefile sets OBJCOPY, to llvm-objcopy under LLVM and to
++# $(CROSS_COMPILE)objcopy otherwise; tools/scripts/Makefile.include names on=
+ly
++# LLVM_OBJCOPY and leaves OBJCOPY unset.  Forwarding it unset would hand the
++# tests an empty string, and they would fall back to GNU objcopy even when
++# asked for an LLVM toolchain.
++OBJCOPY ?=3D $(if $(LLVM),$(LLVM_OBJCOPY),$(CROSS_COMPILE)objcopy)
 +
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair changed_data.c
-+run_diff 255
-+
-+diff_log | grep -q 'changed data: klp_test_data' ||
-+	fail "expected rejection, got: $(diff_log | tail -1)"
-+[ -e "$workdir/out.o" ] &&
-+	fail "output object produced for a rejected input"
-+
-+pass "changed data symbol rejected"
+ tests: $(OBJTOOL)
+ 	$(Q)OBJTOOL=3D$(abspath $(OBJTOOL)) ARCH=3D$(ARCH) CROSS_COMPILE=3D$(CROSS_=
+COMPILE) \
++		CC=3D'$(CC) $(CLANG_CROSS_FLAGS)' LD=3D'$(LD)' \
++		READELF=3D'$(READELF)' OBJCOPY=3D'$(OBJCOPY)' \
+ 		KEEP=3D$(KEEP) $(srctree)/tools/objtool/tests/run-tests.sh
+=20
+ FORCE:
