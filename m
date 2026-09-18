@@ -1,209 +1,119 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056BE41A4E7;
-	Fri, 18 Sep 2026 12:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6CF4E8E07
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734457; cv=none; b=IUjMAkaqwZbAcjpkhrUh/o2dZBcwflaDhWM+glB8hwkDmARjK4HlJyyCykcmIyZ3+QZ0xWia96LuDwcH741WbT1U0jlBQ7Jk1Oz97zvN4aeelPW3hA+ypTqDUJj+WHyvqJu/yvvXRyP314skmAmr17ALK6KxzmgBldFtwRp/UtY=
+	t=1789734476; cv=none; b=kuPYgkNaVuynuCxe7L0v2rwp3yp5q0Ectq+kRsf9wKumYxdltTu49OCQBjpoqESYYg83nUILsWbaiZFMtL0O27AiyWbpJZmICLCiVkHdhGK8u1GPuTFVSzEdX+S0hK46CHhglAy/XbPx+iEACTuCz0iVUCo+iTuNuwOVMt/zDkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734457; c=relaxed/simple;
-	bh=EW7V11/lMMSW3K8uKw2nnVN9ED/jd6XZ3ulvpPDzj/M=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CvD/UiSUZ8UHbSQFH71XHmE+yerhnb8mtVfQ+R51woR+NaQhxSQ+rUnz/ay8j5x7HClaLmWB2iRhrW+kIulk/3/2GD/utJ4zlqIFq+TOtte+T8PAXTNYg1dufkfwic/MlIytyhWY/2h9jda29SMXncUcVpDMGYqIxfnp29fkYjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=t87tOstc; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789734476; c=relaxed/simple;
+	bh=rPmI3FNZkhe+GHeaM7hnQAaJHP2GLzCXFHO62JGnIJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aW5r0QFOi47JtRUi222oFZou7pHTx2FrRZ/qYzTehMLjUnt2tH16gS0h/vdD3xfylmU84rtd4vg574Dh5QsfDF/cKVK/luMAqdFNc0ZYLqjxz7SIXN5JDGOGh0RnPdNvoHiYaPw/CzaH7v8i+5Dc57mQYSu/9XYI49FsGbB4uAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KYiqXQ4A; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="t87tOstc"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Zhld7CbpOTpaqLQdi9ubdIS0fNQVsZiiVJDx/3SQYRE=;
-	b=t87tOstc+fUnGCICoS7wIWO4WJfrK/sq+GTbdp59DreLH7U8r5GAISj8LXK7mhCMuP01f9Enl
-	1B73ANwjbwLlkBhTN5vl6ErEPQg4lWu/7KeKe1AmnRbNMIRhtq2Zq5/7u8n9P11UzDA700noAWK
-	BizxLL7iWmDLbyGghbeA0do=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hmWnP6YZpzKmT6;
-	Fri, 18 Sep 2026 20:16:25 +0800 (CST)
-Received: from kwepemf200011.china.huawei.com (unknown [7.202.181.237])
-	by mail.maildlp.com (Postfix) with ESMTPS id 91B2D4057C;
-	Fri, 18 Sep 2026 20:27:29 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemf200011.china.huawei.com (7.202.181.237) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 18 Sep 2026 20:27:29 +0800
-From: Weili Qian <qianweili@huawei.com>
-To: <herbert@gondor.apana.org.au>
-CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
-	<liulongfang@huawei.com>
-Subject: [PATCH 6/7] crypto: hisilicon/hpre - extract clusters num into inline function
-Date: Fri, 18 Sep 2026 20:27:25 +0800
-Message-ID: <20260918122726.3014899-7-qianweili@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918122726.3014899-1-qianweili@huawei.com>
-References: <20260918122726.3014899-1-qianweili@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KYiqXQ4A"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so464284f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:27:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789734469; x=1790339269; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gvjMDdsg/k5nMEjyepG3LV70ieB2SKZbmKFwt4EpOis=;
+        b=KYiqXQ4A1EqCwD9JcPNF7k4Zs/0c2rp7vnnqEnV8aEPoUdzBDVDRXN7UeU4tEZ4rbb
+         7t7xcIL1LJChf4R+0NP5RN77iJTNhRRG0seXsD1RzqUEh/9StjhVcA2mmJ+kEVpvg6mL
+         TXG9YbaOBReuZBTwOkf7r5aYM/6FsGmoVtQi7BxvoGxtojk4jP0NUlMOrGzO9lx+6egI
+         y1rfx0TofXqLMF2s51YJGxcvXOGfGcxoaO33mXXgmj38UU4sI65gCJNvIB3gJvIfM9e3
+         lg2tzfJceXp3bjupqlvwlPKEy23K2smUZ1NVW6RvzQH1xBCWiLNXj77rK3Vr/7hhcLIA
+         CtwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789734469; x=1790339269;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gvjMDdsg/k5nMEjyepG3LV70ieB2SKZbmKFwt4EpOis=;
+        b=N6HQB4hNiemGckk004+gkBL4772CtjwpSEnMw0eFmun+keuRHLtFpfoTiQoU+8T/jE
+         A8RWcdmFi7QO+0qj4Jv+dhYVAAM40Jcf9g72y6/GctGBi5wJpUXuc3jaRLguiQi1SAHQ
+         2blf2CWe4VjBXb6fhvEXVs5l9uxKAk0GKHsCrFiEswMxrgdZvYZ6WcvS6rv9/BaGa3IS
+         KpZiOwP2r7Wcd3qlNAoN3X0EmM5XjUkg5UWrQeSY+ON7i2kMX5k3UUcLcqPXhJuIyTfv
+         tr9+PqJilyeV49I34COpY0HV1nmCznfVT9VpOLN2JuuCRnCWG2JTpkoJWb3VxEVBffey
+         DrFQ==
+X-Forwarded-Encrypted: i=1; AKwUvByUf7gq5GsFwnhFxnnVGK9FYHsGXKXpJf6rIm2jhgMbIW13GX56rN/IiIZ1EJxnpFXvQdENNZTCfXFwl+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8vNRHpfB68QGDJAlgKnqTD2ASZOQYyNpYBp6NLhgT684EfPjV
+	tIsPmsZgsLjcYg9FQOXnQmZIFBycaxp5zhSENX8O16HA0WM4B4aCJT/V
+X-Gm-Gg: AYBFou2bGCQf8F7KyfMLT5YWhxJmXPaErg1lCjVIMzVNInYOMxt2PQazVTuh8mQSqK2
+	cwx+4ONqVnCOtOx/izCHSFhAT5Ww/vE7bXuiYc+UHCxJmUu6XSaMOkUnXjoVB5zI4spPfiS616f
+	Uj77oUYXzWGAw9MJBDXRo2VY4QA98GqcjlKD2FA2wdVJkPXpuGlShL/4f1+W+kEy+4t6lA0ARN7
+	rlBd2n4KyTTKGU49kjCMXdvBhaS8wJKWMWdUBVU6pC0j6K18JGzXM5HnBrb8xAvs/E3iYLNwxnq
+	txc9bg/s4MBy/oRD/ujHqeFebDJtsoDcBYiKhIlBvbzpemuTrHZoXOhoK9FEANQ8Q/sbsLodZJr
+	GW8yl+ge8FyzpBMXBvcdw3Y1VQJFWyGbnO56pH4HiuC/vvCfSKe0DS8a/q8K39hogFBi0JWHfK5
+	zIfHzoEIZx3lyBEbG5oNrmHvOBK8NOdAuQIFpJfFJEYgi4qGT7Bml/kVSZ4lHOa62C6C01YadOg
+	tKhSbD46DU/EMT8H9Rk7YjFPDAJREx4YG84MTLB3qAsJuM=
+X-Received: by 2002:a05:6000:990:b0:485:ad55:208d with SMTP id ffacd0b85a97d-4871e263f69mr7176550f8f.18.1789734469024;
+        Fri, 18 Sep 2026 05:27:49 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5636sm4043259f8f.5.2026.09.18.05.27.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 05:27:48 -0700 (PDT)
+Date: Fri, 18 Sep 2026 13:27:47 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: quanyeyang <quanyeyang@proton.me>
+Cc: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>, Eric
+ Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Matthieu Baerts
+ (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat
+ Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to
+ sk->sk_err
+Message-ID: <20260918132747.6ac8beeb@pumpkin>
+In-Reply-To: <zEvCcu9s6PbTRajtbCvCik2zCOJsXozLWWvYsLfl6AV4IJLyXmS63i5nuaCmqk_5DsRajMO3IjRtFpOSpmRY55ByjpBJ8NmtwDk-kSpr9bM=@proton.me>
+References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
+	<20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
+	<20260918105142.3dc675eb@pumpkin>
+	<zEvCcu9s6PbTRajtbCvCik2zCOJsXozLWWvYsLfl6AV4IJLyXmS63i5nuaCmqk_5DsRajMO3IjRtFpOSpmRY55ByjpBJ8NmtwDk-kSpr9bM=@proton.me>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemf200011.china.huawei.com (7.202.181.237)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Seven functions in hpre_main.c open-code the same cluster number
-extraction from HPRE_CORE_INFO. Extract into hpre_get_clusters_num().
+On Fri, 18 Sep 2026 10:33:04 +0000
+quanyeyang <quanyeyang@proton.me> wrote:
 
-hpre_pre_store_cap_reg() uses a local hpre_cap[] array rather than
-qm->cap_tables.dev_cap_table[] and is therefore not converted.
+> On Friday, September 18th, 2026 at AM 2:51, David Laight <david.laight.linux@gmail.com> wrote:
+> 
+> > Don't they need annotating with data_race() ?  
+> 
+> I think READ_ONCE() is the intended marker here.
 
-Signed-off-by: Weili Qian <qianweili@huawei.com>
----
- drivers/crypto/hisilicon/hpre/hpre_main.c | 43 ++++++++---------------
- 1 file changed, 15 insertions(+), 28 deletions(-)
+If the race is with locked accesses I think you need both.
 
-diff --git a/drivers/crypto/hisilicon/hpre/hpre_main.c b/drivers/crypto/hisilicon/hpre/hpre_main.c
-index b6903fce6071..e1a567383de5 100644
---- a/drivers/crypto/hisilicon/hpre/hpre_main.c
-+++ b/drivers/crypto/hisilicon/hpre/hpre_main.c
-@@ -381,6 +381,14 @@ static const char *hpre_channel_name[HPRE_MAX_CHANNEL_NUM] = {
- 
- static const struct hisi_qm_err_ini hpre_err_ini;
- 
-+static inline u8 hpre_get_clusters_num(struct hisi_qm *qm)
-+{
-+	u32 cap = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
-+
-+	return (cap >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
-+		hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+}
-+
- bool hpre_check_alg_support(struct hisi_qm *qm, u32 alg)
- {
- 	u32 cap_val;
-@@ -557,15 +565,12 @@ static int hpre_set_cluster(struct hisi_qm *qm)
- 	struct device *dev = &qm->pdev->dev;
- 	u32 cluster_core_mask;
- 	unsigned long offset;
--	u32 hpre_core_info;
- 	u8 clusters_num;
- 	u32 val = 0;
- 	int ret, i;
- 
- 	cluster_core_mask = qm->cap_tables.dev_cap_table[HPRE_CORE_EN].cap_val;
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		offset = i * HPRE_CLSTR_ADDR_INTRVL;
- 
-@@ -659,7 +664,6 @@ static void hpre_enable_clock_gate(struct hisi_qm *qm)
- {
- 	unsigned long offset;
- 	u8 clusters_num, i;
--	u32 hpre_core_info;
- 	u32 val;
- 
- 	if (qm->ver < QM_HW_V3)
-@@ -673,9 +677,7 @@ static void hpre_enable_clock_gate(struct hisi_qm *qm)
- 	val |= HPRE_PEH_CFG_AUTO_GATE_EN;
- 	writel(val, qm->io_base + HPRE_PEH_CFG_AUTO_GATE);
- 
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		offset = (unsigned long)i * HPRE_CLSTR_ADDR_INTRVL;
- 		val = readl(qm->io_base + offset + HPRE_CLUSTER_DYN_CTL);
-@@ -692,7 +694,6 @@ static void hpre_disable_clock_gate(struct hisi_qm *qm)
- {
- 	unsigned long offset;
- 	u8 clusters_num, i;
--	u32 hpre_core_info;
- 	u32 val;
- 
- 	if (qm->ver < QM_HW_V3)
-@@ -706,9 +707,7 @@ static void hpre_disable_clock_gate(struct hisi_qm *qm)
- 	val &= ~HPRE_PEH_CFG_AUTO_GATE_EN;
- 	writel(val, qm->io_base + HPRE_PEH_CFG_AUTO_GATE);
- 
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		offset = (unsigned long)i * HPRE_CLSTR_ADDR_INTRVL;
- 		val = readl(qm->io_base + offset + HPRE_CLUSTER_DYN_CTL);
-@@ -782,14 +781,11 @@ static int hpre_set_user_domain_and_cache(struct hisi_qm *qm)
- static void hpre_cnt_regs_clear(struct hisi_qm *qm)
- {
- 	unsigned long offset;
--	u32 hpre_core_info;
- 	u8 clusters_num;
- 	int i;
- 
- 	/* clear clusterX/cluster_ctrl */
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		offset = HPRE_CLSTR_BASE + i * HPRE_CLSTR_ADDR_INTRVL;
- 		writel(0x0, qm->io_base + offset + HPRE_CLUSTER_INQURY);
-@@ -1072,13 +1068,10 @@ static int hpre_cluster_debugfs_init(struct hisi_qm *qm)
- 	char buf[HPRE_DBGFS_VAL_MAX_LEN];
- 	struct debugfs_regset32 *regset;
- 	struct dentry *tmp_d;
--	u32 hpre_core_info;
- 	u8 clusters_num;
- 	int i, ret;
- 
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		ret = snprintf(buf, HPRE_DBGFS_VAL_MAX_LEN, "cluster%d", i);
- 		if (ret >= HPRE_DBGFS_VAL_MAX_LEN)
-@@ -1308,13 +1301,10 @@ static int hpre_show_last_regs_init(struct hisi_qm *qm)
- 	int com_dfx_regs_num = ARRAY_SIZE(hpre_com_dfx_regs);
- 	struct qm_debug *debug = &qm->debug;
- 	void __iomem *io_base;
--	u32 hpre_core_info;
- 	u8 clusters_num;
- 	int i, j, idx;
- 
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	debug->last_words = kcalloc(cluster_dfx_regs_num * clusters_num +
- 			com_dfx_regs_num, sizeof(unsigned int), GFP_KERNEL);
- 	if (!debug->last_words)
-@@ -1354,7 +1344,6 @@ static void hpre_show_last_dfx_regs(struct hisi_qm *qm)
- 	struct qm_debug *debug = &qm->debug;
- 	struct pci_dev *pdev = qm->pdev;
- 	void __iomem *io_base;
--	u32 hpre_core_info;
- 	u8 clusters_num;
- 	int i, j, idx;
- 	u32 val;
-@@ -1370,9 +1359,7 @@ static void hpre_show_last_dfx_regs(struct hisi_qm *qm)
- 			  hpre_com_dfx_regs[i].name, debug->last_words[i], val);
- 	}
- 
--	hpre_core_info = qm->cap_tables.dev_cap_table[HPRE_CORE_INFO].cap_val;
--	clusters_num = (hpre_core_info >> hpre_basic_info[HPRE_CLUSTER_NUM_CAP].shift) &
--			hpre_basic_info[HPRE_CLUSTER_NUM_CAP].mask;
-+	clusters_num = hpre_get_clusters_num(qm);
- 	for (i = 0; i < clusters_num; i++) {
- 		io_base = qm->io_base + hpre_cluster_offsets[i];
- 		for (j = 0; j <  cluster_dfx_regs_num; j++) {
--- 
-2.43.0
+David
+
+> 
+> These loads are part of the I/O control flow (stop send/recv/splice),
+> not diagnostic or heuristic reads. data_race() would silence KCSAN
+> but would not restrict compiler optimizations, so the load could still
+> be torn, fused or reissued. READ_ONCE() is a single-copy atomic load
+> and pairs with the existing WRITE_ONCE()/xchg() updates of sk_err,
+> same as tcp_poll() after e13ec3da05d1.
+> 
+> sock_error() uses data_race() only on the fast-path "is it zero?"
+> check, which is then validated by xchg(). That pattern does not
+> apply to these peeks.
+> 
+> Quanye
+> 
 
