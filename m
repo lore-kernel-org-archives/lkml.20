@@ -1,79 +1,125 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949D251DB01;
-	Fri, 18 Sep 2026 20:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33647492E26;
+	Fri, 18 Sep 2026 20:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762230; cv=none; b=c2bXSvEga9QPyjCtuL9JBmpciATNIf1JTN3lrnDoXhID2NTYN3uDRrRq18SBXvhPSijq0iX144AJwVTQfMcgPkSexcqSGl/5dVAJUxz041TwQN9aBnUYd7PpX8EPGBrpNEbI3VWvxWH5MaBYXuUKflBq9BzcWpfmw1p75tymxtM=
+	t=1789762238; cv=none; b=Ca8KVgh3IUQWwf/B4sXoQTqWytml7Aa976HnkOf1D0H5Yl+QwCVS4ez2czHoFMwoEsWnFtYWlkwMoPeJ/qwyV6KueqTCgTdwkXa0SObeYBbsnPKnPWvw1yXe7ze8cUpmg9txUq5Afh+c0zxHt6YtfhUiL2gs48Ek+V8QwAIiNQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762230; c=relaxed/simple;
-	bh=nhBdWVV0BRxU1hQrgGak2Y38/8rlU5vydn81yPYx328=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z2IfN92Hr4C09kg/AQOEojy0h/Fm3OmfC9rw1K0x8tm4mxhcHZ4G7vK0z+ob5g+7SV1Bv/v0tfB64DFEiYBCWJi8QnjjkOsFS6oszJUjTx6sCzomreOcfYOAxkL2dlUnY1d2uBu8XQcnB/YUV/m1h/vVN9MH6TGCjhYfngvM6Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=HmW39Iir; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789762238; c=relaxed/simple;
+	bh=hkIw7zFGx6FzXsWIzPFaO6mhHbNUTJ1Tx5WZHrJbPVs=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=NWSRsc+Yy1hWd1FdSmYuJMn9scDfHGnBPDPXLMTu3aqegPcJBrCG4CLSmy6UDRU4hJ9/AyDnvJSRtEaNgAeG9S0dL8xMfAyejdHs7O6EON3SZPh1XJksGWTeKQHl1JTRYJre9OJBNU5WLG5xrdnMorYu28yHLmkOy9We+Ut5lbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=iaS9PGQI; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="HmW39Iir"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=/L7wMknOS2DR/OxphxVCxpmpvYnfo0hQIoILtTL7Lf4=; b=HmW39Iir7+/vVQHv9dyNqoi38W
-	WYZuZonbqD4r9T8Nh0WBS8p+ApdeZDd8ot3Mirn9qh+UBAT/7IXTyhRepWyQ1gCWOwUkaVH0vl2os
-	2o78U7JCRBL9qBOPO5f2j7D4tD7tW/N5nNwe5loX+DAM6Ji946L1IYcqxlUE/4xibeJxhtrY+bXN8
-	g3fnfaX4drfI1zXkiTnh9ZvMFgof2R/KMy+ZNunupVWs1T4SPZlNd1h3X6PuMirNITgMAhsrP3vVj
-	RKbBhQU6ccsAx/jZjAsfH5aYxZCpbOieuw0jTD1bLG5I4kh9aeBzaup36xWi6VXzj4TXdqM9TlBSy
-	VA3eTcHg==;
-Received: from [177.172.123.214] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x7euZ-0046tt-QT; Fri, 18 Sep 2026 22:10:19 +0200
-Message-ID: <28a9bbf2-da18-4982-a89f-f8e8d1e2da36@igalia.com>
-Date: Fri, 18 Sep 2026 17:10:19 -0300
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="iaS9PGQI"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D5BDA8E53;
+	Fri, 18 Sep 2026 22:10:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789762230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MbZ4PjXhvExVlTqbwqbIHq7pRdDYaSJpFUR4LtFdkNw=;
+	b=iaS9PGQIRAkL0FExUmM2zFgrEgM9ns7IHpnlChwiaJ0q1GZkZY5oYztjVbLcs0buYpq4a5
+	5lkLC7FV7CFnYbRW7hw7EZGV0qmkJWUMj0lA93pTugH4MldC3oZ7sW2P9NaN9VkMio9nsC
+	fez4dQggz5YGnzZD6qU4xNs9Op/UIwrBqbN3UysprTj0HAXlqnzET0vti5pvS0Gg/9QvPf
+	WSWOcUGp3WIXUNb3jEZPJcr3rFkyRtBPqbPV6xZdfqAlr4v/famlVV77MYpfTkLIkwhvsO
+	52rjAGN/MEA7HfC3b3qz5c0gsG1Obv3YQTnao8yTrCeB3Wkc5IRSqlwsu4fb6g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/13] arm: Use the common syscall table
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-References: <20260917-tonyk-syscall_table-v7-0-f4cd8f8e3265@igalia.com>
- <20260917-tonyk-syscall_table-v7-4-f4cd8f8e3265@igalia.com>
- <4fa47186-08b3-4b2a-bbcc-16b14a50ee21@app.fastmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <4fa47186-08b3-4b2a-bbcc-16b14a50ee21@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Fri, 18 Sep 2026 22:10:26 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Sean Anderson <sean.anderson@linux.dev>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: macb: fix dma_alloc_coherent() leak on
+ macb_alloc() error paths
+In-Reply-To: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
+References: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
+Message-ID: <f66297b8318f8217778b786d3b02b2e5@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Em 18/09/2026 03:22, Arnd Bergmann escreveu:
-> On Fri, Sep 18, 2026, at 01:46, André Almeida wrote:
->> Remove some of the duplicated code by using the common syscall number
->> table.
->>
->> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->> ---
->> Changes from v6:
->> - Added back syscalls from 403 to 423 to local table. arm32 can't use the
->> common table for those syscalls, because arm doesn't implements compat_
->> entry points for syscalls like pselect6, ppoll, etc., and OABI uses compat_
->> entry points when it's available, so this would cause a build error.
+Hi Théo
+
+On 18.9.2026 21:53, Théo Lebrun wrote:
+> Fix 3 leaks in macb_alloc() error paths:
+> - Tx buffer allocated but crossing a 4G boundary: Tx leaked.
+> - Rx buffer allocation fails: Tx leaked.
+> - Rx buffer allocated but crossing a 4G boundary: Tx & Rx leaked.
 > 
-> That's too bad, especially if this is only needed for OABI, which
-> nobody should be using any more. I had hoped we could kill off OABI
-> soonish, but that is currently blocked on the discussion about keeping
-> RiscPC alive.
+> This is because our error handling calls macb_free(bp) which in turn
+> frees the buffers stored in bp->queues[0], but nothing has been stored
+> in there. Fix by storing allocated buffers into bp->queues[0] ASAP.
 > 
->
-Right. If you don't mind, I will drop arm32 from this patch series for 
-now, while we check what will fit better here.
+> Fixes: 78d901897b3c ("net: macb: single dma_alloc_coherent() for DMA 
+> descriptors")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+> ---
+>  drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
+> b/drivers/net/ethernet/cadence/macb_main.c
+> index b8234ac4b602..8e5c034dc3a4 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -2749,14 +2749,24 @@ static int macb_alloc(struct macb *bp)
+> 
+>  	size = bp->num_queues * macb_tx_ring_size_per_queue(bp);
+>  	tx = dma_alloc_coherent(dev, size, &tx_dma, GFP_KERNEL);
+> -	if (!tx || upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
+> +	if (!tx)
+> +		goto out_err;
+> +	/* Record the buffer so that the error path frees it. */
+> +	bp->queues[0].tx_ring = tx;
+> +	bp->queues[0].tx_ring_dma = tx_dma;
+> +	if (upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
+>  		goto out_err;
+>  	netdev_dbg(bp->netdev, "Allocated %zu bytes for %u TX rings at %08lx 
+> (mapped %p)\n",
+>  		   size, bp->num_queues, (unsigned long)tx_dma, tx);
+> 
+>  	size = bp->num_queues * macb_rx_ring_size_per_queue(bp);
+>  	rx = dma_alloc_coherent(dev, size, &rx_dma, GFP_KERNEL);
+> -	if (!rx || upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
+> +	if (!rx)
+> +		goto out_err;
+> +	/* Record the buffer so that the error path frees it. */
+> +	bp->queues[0].rx_ring = rx;
+> +	bp->queues[0].rx_ring_dma = rx_dma;
+> +	if (upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
+>  		goto out_err;
+>  	netdev_dbg(bp->netdev, "Allocated %zu bytes for %u RX rings at %08lx 
+> (mapped %p)\n",
+>  		   size, bp->num_queues, (unsigned long)rx_dma, rx);
+> 
+> ---
+> base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
+> change-id: 20260918-macb-alloc-leak-ef38989605c7
+> 
+> Best regards,
+> --
+> Théo Lebrun <theo.lebrun@bootlin.com>
+
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+
+Thanks,
+Nicolai
