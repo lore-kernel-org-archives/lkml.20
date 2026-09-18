@@ -1,142 +1,224 @@
-Received: from mail-ed2-f37.google.com (mail-ed2-f37.google.com [74.125.228.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FBF4DE72D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABFA39A802
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742607; cv=none; b=RJwHDep55FVHESTx5MF6TwRmNxdPX4wb34CZMNdBBo8DVY75eJ/L+V5ku9I+UnZJhRaf8aOh8rX25HULg+RYTtGFUUUIfDT14CEYeoIBp7/6V8cqhiOCQ9VTdLzAwvbJ8l6wb27jsOJynETs7HtMJrScYgxvztnDVdD9jLVqdlY=
+	t=1789742610; cv=none; b=tLchp+BMOOYvXyf5sjZLlcFS2gjoHVg5uu6+0aXZowVoU/ssLXjEVCiSd2OlwuZtAz3sNFwQe0xFDpmTqduLDvGOSPpD/hMq4c/neskFkiCKtu4nVL9xapWIJW8gHx6pGG0/R7tiyXSbeBknw0JZ7odf6t7to5TUJrT5fx+/YRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742607; c=relaxed/simple;
-	bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=n/v/9mOY+k3vUfzCfagRmRXWx6Ytrwq8Kp69UgVhXBiTYapJLRw8tw4DgET9GpiZ6sQfWzu6W/hWfWb6xSVg31rSODalQmML36fx52A8IT6lgys2gbE1lQsWw0P3RYCMzvpG0ZUt1zSh0FXAN5A2hvAOQ+sO8++lxYeJk7Kd1p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=bhpqsMSp; arc=none smtp.client-ip=74.125.228.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789742610; c=relaxed/simple;
+	bh=qWivAt5AoOtagOLqIxO8pAOyiQ4DAkIBdYhIytKZ80w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TM/JIBwAX1heVedYl2apyIwIZhV2bh33bHlCpclcPbg9CQuYmPCVlS4tpLI1BAakFqq4Vp2toK5nOOtm1wIj+7ZkU5QG+OeAAwNtpr+DH2JXK/U4gKkM4oXsvRnR93JhWIhNwQC96UPdrBxIfJYCimiQ9HvXux1CgJU/glfnppo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lu12+JM1; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="bhpqsMSp"
-Received: by mail-ed2-f37.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so1136322a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:43:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789742603; x=1790347403; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
-        b=bhpqsMSppMXS57/rwie8aIPBboNhq43ehVhkULnvPa175uVXt/MpzOT9JFAr2kUNNe
-         DkPCRPkKsoGVnHdYl61k5IMGAeUM72QS0zEOVKdaulXWmVqJ8l7IA65JogktZnZIFhJi
-         bSzVzs3BM1lJ4W17eHfutGUJNO41Bm6NAqs+NE6AbInBEMEnKKztopefxcLk1heRFQ3M
-         lDwZhHqtzdqxUQ0xnL185CVb2U7BXVtpoSAuJseN7eyjVQ8A22A1HZi0BuuVtuBplWq/
-         vEEfRjsKnkdTDeFEHQRWfLLcbWgLKGnIRiuz6/fsdMgLq8FbG8+wjnPRXeg2VGZErN4u
-         Xtwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742603; x=1790347403;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
-        b=Bw4zCe0F4H12DqAYXJ86NUPlhBAQj4qAjhVzYTwAaxGeub5ZnbRoVc4kX4tlE7g1D0
-         tjPNl35PeuBMdDZZ2TVB7cvONFv2Fa8O3IYGtF0G0HNphrBy8LeaBJWbOz/kG97H4YCi
-         daNZLeE7UualpveYpTCcJxx6RXG/g/7WPwGIwnAUPOR6Fhn2dsdHlgdvoyaB1JATOiBO
-         VgYzKhFUwQZwV6ECX8AMCyOn4mbt5LIRUVjDMP8MtTy/1w+7oohd43C47In1s+evXrse
-         Ow51sxvbF1EZLtAfAav2kqUjOT8pzdaJP3/y+Dlpr23Dd1E19eCTj3tR1FBthxioHNhk
-         IPqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxD5qP3Ve6eADcAWcujRpPA3R4YpT50kADBTkhVGo/StiwkyChcTjeVXJ+YPXnNLPNnYnLxsnazAwpMJtA=@vger.kernel.org
-X-Gm-Message-State: AFuF++moTqObgbCe097liFtuhUrE+YGA+QD4s+8Vl7x+mSjUDd+qVNds
-	GuxNRv9bwZYiZgCYbB9ZislDNeZZcWwC2Ux6JARvvH+Sc+117IqUqPLlh0pOyXZM8oM=
-X-Gm-Gg: AYBFou1Zd84U18kWdxf3ODADkIBUx2cg9eg8VfMJ3ZunbN4yy7UA+PyF6cYU6smbIDi
-	T4tI5UY8ZDuyizziBM3UteiffG1PqMWClzcugFJ2wjuJ/tu/+aD6rYGr5ctJsTnn+x+QjmnCCVd
-	O4hBaLwmP7PpAR16b73p1v72bLJEcno3bg4EZvLLn6s6LzOuYmjDeLs1Ahh6ZarMUv7V7MemqHq
-	NIvDs6glnaMcN3pDbrpwMSfiDiRBsLRQR+mfcHb/75btJZLWA6ipI2xXszem6iahce3zZgVIfOW
-	QuKEs0FtQlMQC1kD3UNm2fuZQjpURA9AmgGf49i8p7vxw3Cj/+git4BwvYEtefUzB0PetR/vKjo
-	6mMW6Ct7LCW3ZxlBU80YEdeGWeysgvXajPXGHqxOO7GwvWBIMnCeWttiGX7izqxabCbRAjI8745
-	LSyj/v/sFYvZq4xP+gPPjbSqYYB/ZoSraxP/LG7uL0RLibU2oUj5kJxHo3OJnttLaVHFhJDSZXP
-	XvHL0nyqFLj5sw++8BvgN/AVnLxx8dOOOOpNZcUoYI=
-X-Received: by 2002:a05:6402:5111:b0:6a9:ab6a:640f with SMTP id 4fb4d7f45d1cf-6aa531c28c8mr1640375a12.37.1789742603374;
-        Fri, 18 Sep 2026 07:43:23 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59605618sm991778a12.11.2026.09.18.07.43.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:43:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lu12+JM1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789742609; x=1821278609;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=qWivAt5AoOtagOLqIxO8pAOyiQ4DAkIBdYhIytKZ80w=;
+  b=lu12+JM1esdic6N+Iu0w/00/oNewY+Hag8z3dgQ4U2gOOW5FqO/O2vun
+   MXRnc1KxNyYFUa0F9y8FHGQAxc1PuKhhdSkLq2p7uJeFZaxtAgDdueEyM
+   wm65TDGl6czS7AU9WmLnPZ5UXT/FNEaLEn8AL4WOIa8iaKw+6m4fvEGJW
+   g1zEU519hxxu1iR6PjtoUDgkNxXSfYGQeauDp7DpiheGneUGm7ajs3udn
+   l2cu6ToxfXibJs2UwupuYZOlW6r2oCHWjfBxPk6qeqR/7A4jWCRAEEMLC
+   6mIBvy8rN/p836YW6lhRzX6caG0BvtH9W3BJk+JmaK9iFBiix9XbQvTyM
+   g==;
+X-CSE-ConnectionGUID: YkDFgZUhTt+LM4hxWYrzgA==
+X-CSE-MsgGUID: Esc0+kX/QyyziYwjrVbI+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="107757524"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="107757524"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:43:28 -0700
+X-CSE-ConnectionGUID: /W++crubRcahKq1GUM5TbQ==
+X-CSE-MsgGUID: 5bCMYtaSTG6dHpyUs/ZAxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="271110803"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.117]) ([10.125.109.117])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:43:27 -0700
+Message-ID: <a135b068-e7ee-40f9-8ae7-ca5c44db2dac@intel.com>
+Date: Fri, 18 Sep 2026 07:43:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
+ requests
+To: Koichiro Den <den@valinux.co.jp>, Frank Li <Frank.li@oss.nxp.com>
+Cc: Jon Mason <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>,
+ Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
+ fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-6-den@valinux.co.jp> <aqQyEbLbABhhvFTO@SMW015318>
+ <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
+ <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
+ <aqTFAi8uo4LwzSj0@SMW015318>
+ <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:43:22 +0200
-Message-Id: <DLIISWYS60TX.BBXK30H05VRL@fairphone.com>
-Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Luca Weiss" <luca.weiss@fairphone.com>, "Konrad Dybcio"
- <konrad.dybcio@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
- <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
- <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
-In-Reply-To: <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
+Content-Transfer-Encoding: 7bit
 
-Hi Konrad,
 
-On Mon Jun 22, 2026 at 10:23 AM CEST, Luca Weiss wrote:
-> On Wed Jun 17, 2026 at 12:05 PM CEST, Konrad Dybcio wrote:
->> On 5/22/26 4:46 PM, Luca Weiss wrote:
->>> Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
->>> some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
->>> and power-domains for the LPASS RX/TX/WSA/VA macros.
->>>=20
->>> Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
->>> equivalents in its place. The qcs6490-audioreach.dtsi file can also dro=
-p
->>> deletion of power-domains properties then.
->>>=20
->>> This follows previous commits moving Chrome-specific configuration to
->>> the correct file, leaving kodiak.dtsi for Elite and
->>> qcs6490-audioreach.dtsi for AudioReach.
->>>=20
->>> No functional change intended. The clock-output-names property will now
->>> exist for both Chrome and AudioReach devices but this shouldn't have an=
-y
->>> relevant effect. And WSA macro clocks weren't added to Chrome because I
->>> don't believe this would've ever worked given it already referenced
->>> q6afecc and the nodes were originally added during AudioReach bringup.
+
+On 9/12/26 7:52 AM, Koichiro Den wrote:
+> On Fri, Sep 11, 2026 at 10:20:34PM -0500, Frank Li wrote:
+>> On Sat, Sep 12, 2026 at 03:21:08AM +0900, Koichiro Den wrote:
+>>> On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
+>>>> On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
+>>>>> On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
+>>>>>> ntb_netdev_open() can call ntb_transport_link_up() while the transport
+>>>>>> worker is completing setup on another CPU. Concurrent transport setup
+>>>>>> and a client link-up request can both read the other's flag as false and
+>>>>>> leave QP link work unqueued. The QP then stays down until another link
+>>>>>> event or client link-up request.
+>>>>>>
+>>>>>> This is the store-buffering pattern described in
+>>>>>> tools/memory-model/Documentation/recipes.txt ("Store buffering").
+>>>>>>
+>>>>>> Add a full barrier between the store and load on each side, and
+>>>>>> mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
+>>>>>>
+>>>>>> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>>>> Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
+>>>>>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+>>>>>> ---
+>>>>>> Changes in v2:
+>>>>>>   - New patch (Sashiko)
+>>>>>>
+>>>>>>  drivers/ntb/ntb_transport.c | 13 +++++++++++--
+>>>>>>  1 file changed, 11 insertions(+), 2 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+>>>>>> index 75d4a2e021f4..1332d53bcfe7 100644
+>>>>>> --- a/drivers/ntb/ntb_transport.c
+>>>>>> +++ b/drivers/ntb/ntb_transport.c
+>>>>>> @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
+>>>>>>  	/* Publish the link only after every QP has been set up. */
+>>>>>>  	smp_store_release(&nt->link_is_up, true);
+>>>>>>
+>>>>>> +	/*
+>>>>>> +	 * Prevent both sides from missing each other's flag. Pairs with
+>>>>>> +	 * the barrier in ntb_transport_link_up().
+>>>>>> +	 */
+>>>>>> +	smp_mb();
+>>>>>> +
+>>>>>>  	for (i = 0; i < nt->qp_count; i++) {
+>>>>>>  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+>>>>>>
+>>>>>> -		if (qp->client_ready)
+>>>>>> +		if (READ_ONCE(qp->client_ready))
+>>>>>
+>>>>> I think it'd better change to use atomic variable for client_ready to avoid
+>>>>> manual handle smp sync.
+>>>>
+>>>> AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
+>>>> instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
+>>>> those operations are unordered.
 >>
->> I think it's better to keep them, if only to make sure that the result
->> of dtx_diff isn't outside the expectation of a commit that claims to
->> only reshuffle data for these platforms
->
-> I documented this in the commit message for this purpose.
->
-> But I'd argue not putting (likely incorrect) wsa_macro overrides there
-> is the better thing to do. Probably somebody should've taken care of the
-> Chrome platforms when adding the wsa nodes in the first place.
-
-Is that okay, or do you want me to change this? I'm still of the opinion
-that adding a very-likely-broken WSA macro to chrome is not great.
-
-Anything else to note? R-b would be nice :)
-
-Regards
-Luca
-
->
+>> there are acquire version for atomic
 >>
->> It looks OK as-is for Elite and Audioreach platforms (for the record, I
->> checked rb3gen2 and FP5)
->
-> Thanks!
->
-> Regards
-> Luca
+>> atomic_set_release()
+>>
+>> atomic_read_acquire()
+>>
+>> My key point is use existing higher level sync APIs to avoid consider
+>> barrier problem, which need more brain cell to think it.
+>>
+>> this is just sync state, which don't impact performance.
+> 
+> I agree with the idea of changing both flags to atomic_t for cleaner code, but
+> I'm not sure if it frees us from "the smp sync" or the "barrier problem". We'd
+> still need both smp_mb()s and still have to think about *_release/*_acquire when
+> revisiting the code and maybe scratching our heads, right?
+> 
+> BTW, I once wondered whether it might be worth consolidating
+> link_work/link_cleanup into a single state machine worker per transport or QP.
+> That could simplify synchronization between setup and cleanup, which aren't
+> really performance-critical, as you say. However, that would possibly require a
+> larger rework, so for now I've put together this fix series as a small step. I
+> would be interested to hear what NTB maintainers think about the possibility of
+> such a rework.
 
+I'm fine with it if it doesn't break any existing code and reduces complexity with simpler code.
+
+DJ
+
+
+> 
+> Best regards,
+> Koichiro
+> 
+>>
+>> Frank
+>>
+>>>> So to illustrate this in litmus test like form:
+>>>>
+>>>>    # L = nt->link_is_up
+>>>>    # R = qp->client_ready
+>>>>    # Both initially false
+>>>>
+>>>>    Transport setup                  Client link-up
+>>>>    ---------------                  --------------
+>>>>     smp_store_release(&L, true);     WRITE_ONCE(R, true);
+>>>>     smp_mb(); /* added */            smp_mb(); /* added */
+>>>>     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
+>>>>
+>>>>    Both reads return false?
+>>>>     Before: allowed
+>>>>     After:  forbidden
+>>>>
+>>>> I might be misunderstanding your suggestion though. If you have something
+>>>> different in mind, please let me know.
+>>>
+>>> Just for the record, smp_store_release/smp_load_acquire depicted above, instead
+>>> of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
+>>> the QP setup, which is needed by an earlier patch:
+>>> https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
+>>>
+>>> Best regards,
+>>> Koichiro
+>>>
+>>>>
+>>>> Thanks for the review.
+>>>> Koichiro
+>>>>
+>>>>>
+>>>>> Frank
+>>>>>
+>>>>>>  			ntb_transport_schedule_qp_link(qp, 0);
+>>>>>>  	}
+>>>>>>
+>>>>>> @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
+>>>>>>  	if (!qp)
+>>>>>>  		return;
+>>>>>>
+>>>>>> -	qp->client_ready = true;
+>>>>>> +	WRITE_ONCE(qp->client_ready, true);
+>>>>>> +
+>>>>>> +	/* Pairs with the barrier in ntb_transport_link_work(). */
+>>>>>> +	smp_mb();
+>>>>>>
+>>>>>>  	ntb_transport_schedule_qp_link(qp, 0);
+>>>>>>  }
+>>>>>> --
+>>>>>> 2.51.0
+>>>>>>
 
