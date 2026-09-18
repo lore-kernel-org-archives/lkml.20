@@ -1,82 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218F83A9018;
-	Fri, 18 Sep 2026 12:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3673E0097
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734761; cv=none; b=UBA8soG8/ZLjU+ugSPnaLtuZnSu4tRoaVXqEmkjUfzqzdm08BD0i5IzQkicysepgpMkvYWPsAWf9HZMIa3tRe8QrA3ehYuFbT6gc9VjOMNdfCSQ6mP4SJAWHz6GfQZs3W7vuUX1k9fsbiqCLgu67VzYMCR01u4rcGbZG35lbIn0=
+	t=1789734820; cv=none; b=dq35ns8ghP9blfVtwbqnMPTCccPeb3V3xOY+uU612tHlPSuJlC5V+/+oJQdvmukd1zupN/rOuLjk9mHRq0IoOsOk0bCqHZ71vs5EapjvHUumPrCY4Uw3AuBG5p5l4dzl5bLltLXmG5RhNNUfIuoPBqLJxbm3HCB26gKGLj8uU3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734761; c=relaxed/simple;
-	bh=HUIJldC1s/B6sZJemVhJKLNHFeIiJ65p1mO123UEFds=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=iKlg/FFk7SXjeTA8y2Q5U9/psbAhH6cwvJEtSZWfhObJThutFEP9SWM69iq5Ej2SB9UW6H6LI0whaA2zOloiG64DJAw8youawSaKyV27W8Q7bTCS+nPcQ/KTrs4gYEaD4LygSrT6PMpXBEzGCqUIp/yhHSkgxb2Rsc5atQqwlKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gq9YnKT7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gq9YnKT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98FA91F000FF;
-	Fri, 18 Sep 2026 12:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789734757;
-	bh=TLqWruDjBIPGrL3/klNVugI9whrADCbcBIn7Tw/QjWc=;
-	h=Date:From:To:Cc:Subject;
-	b=Gq9YnKT7QcteBEKLcbYVCJH/1aBGhysFjrtp+C6NjhxrzSXz56eGQ89g8l0kgd1VG
-	 aY+xngLD386gHZEMbDfkL+w0wZU/enHAjuqdYUBAsYTingujQm8yYfSThGFceHNKD8
-	 HubNVfp+KwYfU8OZ5mWI15N8sBWoTqYDXrzxbOH8rzrHeVheC55nVmhnxV5jy25J8i
-	 rfizfSSJrZ8XJjr7t/xS+pe/wruTXTHJxNr4BqgUn3JW+UhkbXstkRFl4RXjq1Mada
-	 lAOsY5PyzEuJC1w9oIQq1FQI2L0i2fdtuLu4b9feP1TU9URWZUDgBypXYvguAE43m5
-	 bWcLlPQUvdX1Q==
-Date: Fri, 18 Sep 2026 13:32:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the amdgpu tree
-Message-ID: <aq0vYhZXtMqA41wZ@sirena.org.uk>
+	s=arc-20240116; t=1789734820; c=relaxed/simple;
+	bh=Is7wvlCDNFuTkMIQjkA29Su/3CAb75DA3JyfIB3ZuZ0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=FRF2otGEIK9iCTi+EiFH8EwroQ0hFdi2idScWdalvc1ywrVSeHYiacKHHOEJgpSlOO1mughJ+KHxH6lTqRyU3/tWdhRd5RKGwxvi7kkll40pfhex5RhMo1zSCqUH+eAig6OGLJBPPEMgOYB9Sf7mrBueCLFLIRWQB7nnqTLEgW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c1e5079d43so964838eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:33:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789734815; x=1790339615;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f+f+vVZ9rR97mcx0fgnCBsCIXu6W0ty4resqWReSqJY=;
+        b=F7F2pwVODGmoPxZG7QyUYujxQ+Ebazt2W9880nCXpRnrY8VlKDiECOF0XkGQqVS/m3
+         Ho5QIgpgYjvZ1QNXob1UF98TF5H3GZIUaEVQmyJR8lgL0EMMR7+KCVGc4n2VCBJQoqyQ
+         TWPa5GcPNiiZdMLCcAUXJqY2VRMO7S5CrVYD6kD0KUasT5KNJc07VVyVbpB5WUCEAFe0
+         KnP1Dx/gZJtL4Df1cGlukOYPfstVlBuPHq3v9oLj7k51JNNHHiWhjYAPdHi1yE1t2cvz
+         jb25kE+C1sXiZxCBSSSoHX4UUnZYGC3HyYJUCNCFpesQlmFVaDywW1DLQBefDb4nMhQi
+         21MA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVDz9EBC2yg1ujq+tOk0PO43h9rcfve3Z5WK1rLMtFySqlc9usFTakiq5njBW/zxyFoHBLpBwteIV8cv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++muL4leHvkpoeF7tEL/lY+AMa7+PxCEXOIF0v9SN5U/sF36VQEX
+	yECx6V5M//iz0Kw7sDMMXL4G28CVmuGMxXTreJDgNWSAfDaeaeQwB5Q/ngBP3MR/WnrIfj6nNFc
+	XmJOlzI+TFfDABFdRKd30E/2j4DlLKGaVcVAvt51/0McntcnuFcamNPH6At8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zGdOPVzrSrrJ7Kw1"
-Content-Disposition: inline
+X-Received: by 2002:a05:6820:a0b:b0:6c9:8460:c85d with SMTP id
+ 006d021491bc7-6ca9d44ebd6mr1825972eaf.69.1789734815312; Fri, 18 Sep 2026
+ 05:33:35 -0700 (PDT)
+Date: Fri, 18 Sep 2026 05:33:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aad2f9f.71f81b7d.278072.002a.GAE@google.com>
+Subject: [syzbot] Monthly xfs report (Sep 2026)
+From: syzbot <syzbot+list69597c5575cf360a0538@syzkaller.appspotmail.com>
+To: cem@kernel.org, linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello xfs maintainers/developers,
 
---zGdOPVzrSrrJ7Kw1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This is a 31-day syzbot report for the xfs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/xfs
 
-Hi all,
+During the period, 1 new issues were detected and 1 were fixed.
+In total, 10 issues are still open and 35 have already been fixed.
 
-After merging the amdgpu tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
+Some of the still happening issues:
 
-/tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:8=
-7:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_poo=
-l_create' [-Werror,-Wframe-larger-than]
-   87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t si=
-ze,
-      |                             =20
+Ref Crashes Repro Title
+<1> 901     Yes   possible deadlock in xfs_icwalk_ag (3)
+                  https://syzkaller.appspot.com/bug?extid=789028412a4af61a2b61
+<2> 2       No    WARNING in xfs_bmapi_convert_delalloc (3)
+                  https://syzkaller.appspot.com/bug?extid=0ce92d16209e30011ebc
+<3> 3029    Yes   INFO: task hung in sync_inodes_sb (5)
+                  https://syzkaller.appspot.com/bug?extid=30476ec1b6dc84471133
+<4> 13      No    KASAN: slab-use-after-free Read in xfs_defer_item_unpause
+                  https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
 
-I didn't investigate which commit triggered this, I have used the tree
-=66rom next-20260917 instead.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
---zGdOPVzrSrrJ7Kw1
-Content-Type: application/pgp-signature; name="signature.asc"
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
------BEGIN PGP SIGNATURE-----
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtL2EACgkQJNaLcl1U
-h9DhHwf9GrDS3NNUvQK4/UYA3dq0Yhgt9uGuefF4/WJhPZcoZNZ8cqvlmiwuU2fJ
-gAQngRGbLsSfCfQIbDnaTnGpGNHti65CT39NufepA3ZLR0F3fWUZzunUQbekUPEp
-S14DQQ+cVQM7uEW39JTvTtQM0j713mjjXU35kpJejCkVB2wQM0i9v0Ev7+ZZugKb
-Ht0JrqEqWLNQijz1BRDKRdRNgeCgUX9A7HzARK416Z3IYbxusBSHJKt7UAFQ9ChQ
-adbDA8wGtRHR6b0Lp8UQTsjF58vLuG7mic5rmpvLt2Z3d9EuyfvS6MAVmBdQ+5Cw
-I9ajibZOkBLspGJqJ/ooRTZOpI9U7Q==
-=e1cd
------END PGP SIGNATURE-----
-
---zGdOPVzrSrrJ7Kw1--
+You may send multiple commands in a single email message.
