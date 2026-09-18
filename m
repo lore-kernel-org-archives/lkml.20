@@ -1,263 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6668A41F359;
-	Fri, 18 Sep 2026 19:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8DA48F02F;
+	Fri, 18 Sep 2026 19:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758089; cv=none; b=cKbo3vVmSvZCU2Ep4axdNfJTWPPzLOpvC6KrstFWVAFp1fi+fkh2ce8TaEUmsymkdDoUM9IaV5m47rtcMQOjN30vrUHEPk7xtw3mdB/ZuSgBEEWTEEEck8BoDCJkW3dI43+gOobF+xl9s4H7DVm1SmmZnH72lj7gRqPJV+ADoQs=
+	t=1789758118; cv=none; b=O7Ok32RpMLSV1DGiC1TfU3vYOZVggMulqmkF3OfNouord4T5mcYeknhqEGmToJ9WkXcHnKDxeLyDk1Cnz85WVr9ZK4T/oNETQQLUq8w/hsTs+odR1v/p+0B1Zj0HNOiin0o52atXYhd9OzoOXg1o9btAfEBIW9XITy7sUooas4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758089; c=relaxed/simple;
-	bh=gedZkynLLjquof9jWOcvwTzq8fsUhM1aKGy+1SFqLlg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EXe53eDvDyNPTtCtNo0R9wlU1l8kIm1HdAJJ5mphAQf0p9gbuZ2G089T+PPkuDe28+Z19h5Sym7sTvF8Q8UsLlAigKOPieEEY9GN0ltM2SP+pLjpvet4Vc0O8FbxfoIr0klFHlOIo8YPCqfQ43b/SG/Ag2/1zC9LXSbsGE1ZLd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QF0fqkut; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789758118; c=relaxed/simple;
+	bh=nUoULNBiDyyS+mYiRwze/y94mkkQpmUeEKWvLU4H1t0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Obkxtu+jed8xzszgOAO/I7h+l+kwCsMGX9nzbw299YUeC823tMtDmuc4QDTRRzvME3Evw+thddnFm3oyigmMwkldKzy0UrS/S6C+2ayAtkrl5HTF56KvlxnRXCd7TD44i2SbWBWC1oxQO/cruEP7VbGKWvzntXrtvpeqrfpl0Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnIJNjME; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QF0fqkut"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C83D6C2BCB8;
-	Fri, 18 Sep 2026 19:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789758088;
-	bh=gedZkynLLjquof9jWOcvwTzq8fsUhM1aKGy+1SFqLlg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=QF0fqkuttiqoYJ46OC6BBubk26An3W4vbE/x1kpNqkgAC2G/LJlNBJ7JGjJ6kYs8o
-	 Hwr8IoieGY9xv1DKoi+JxLtQWClh13C0cU0QySXJuJP0GPI/SiIqkTulSxr86dudLf
-	 /anV10ozNV+q4+yDrBbX4m3e7efrmHDtqOE6dqvlC8PHBYNL27ua9euxwnbRrSgHH8
-	 IA9gB8qVQ3QxRO8E+nTJ33ljJl1cs9+nuWREjoSfb5G9tPj31KJBB/zO5zVYC3ngPe
-	 ux68rnu5BE9TXDUWGWEwnmSmkwQqdAqT9f8Q6cDS4WvWT0Yv2eY7DU3qHfjJULbijP
-	 Vt9y937QRaV8w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0B45C982DD;
-	Fri, 18 Sep 2026 19:01:28 +0000 (UTC)
-From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
-Date: Fri, 18 Sep 2026 15:01:29 -0400
-Subject: [PATCH net v2] macsec: initialize SecY before registering the
- netdevice
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnIJNjME"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC29D1F000FF;
+	Fri, 18 Sep 2026 19:01:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789758106;
+	bh=PZtRe8/sfu+cFB2Kt87gZj0OEGNX4bKFhx1kTn2/Qeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LnIJNjMETsBBn6uxmN4f54V2RzEIPQ4uWwa9nz3pCQue/g53wpM94+fgOvWi/07vz
+	 sgTNFsI0BVg6mzLKbK2InCg8dzWb02vEMArgWpHVQ2ySAjazMqEQFW2dJhUngl3clh
+	 UW/JSxn2GOJhFKgVjt30HY27DJ5b3jzwooaQAQzs9gcNyVwY3hcbJL1GQCWLXUFMjb
+	 czofJ+ZGCMwwNhyDVzinijUyz8oOKlo37/Ddr3qRWfxKLP/28gwoT9NMBsICuL5DGs
+	 YkIATSkdzIyJ2ACYc3/ztFsoVU8vfk4zUplxTVsZ5OdcyDXu5l9CV6beTJVpfJp6Rn
+	 oh2iULpVsspaQ==
+Date: Fri, 18 Sep 2026 14:01:45 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
+	Albert Ou <aou@eecs.berkeley.edu>, linux-riscv@lists.infradead.org,
+	Palmer Dabbelt <palmer@dabbelt.com>
+Subject: Re: [PATCH v8 05/22] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0h-pinctrl
+Message-ID: <178975810467.1420737.16588227115480467397.robh@kernel.org>
+References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+ <20260910100357.130134-6-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-fix-macsec-net-v2-1-784203ec4836@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAIiKrWoC/3WNwQ6CMBBEf4Xs2VVaRcCT/2E4bNcFmkgxLSEaw
- r+7cPc4kzdvFkgSvSS4ZQtEmX3yY9BgDxlwT6ET9E/NYHN7zWtjsPUfHIiTMAaZsG3PjgspyeU
- EOnpHUWIXPkABaLR0lARdpMD95tL6NJAPG9/7NI3xu//PZl/9u5oNGuTKEhUVSXkx904tryOPA
- zTruv4ABmU0vswAAAA=
-To: sd@queasysnail.net
-Cc: felix.walter@cloudandheat.com, edumazet@google.com, 
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, hangbin.liu@linux.dev, 
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
- horms@kernel.org, davem@davemloft.net, syzkaller-bugs@googlegroups.com, 
- syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com, 
- Haseeb Malik <haseebulhaq55@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789758088; l=6548;
- i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
- bh=Ofpz92fyDetbB9sI3s9Y5WrVdHLm9pvDMHak9KjjLSU=;
- b=vNEEA34fqIpmcmaFFh0Asy9wQ4Q84rQJOhdwEstm8Leuu2iJIw3J4W81K0RM3qV87ut3aRj7H
- 68rvFSiHG9EA0l/icu0sw+dW67WNPJfO9vARQ3W6HCchTXpzlGnYT+m
-X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
- pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
-X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
- auth_id=1026
-X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
-Reply-To: haseebulhaq55@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910100357.130134-6-changhuang.liang@starfivetech.com>
 
-From: Haseeb Malik <haseebulhaq55@gmail.com>
 
-Creating a MACsec device with MAC offload over an LRO-capable lower
-device triggers a warning in rtmsg_ifinfo_build_skb() when IPv4
-forwarding is enabled by default.
+On Thu, 10 Sep 2026 03:03:40 -0700, Changhuang Liang wrote:
+> Add pinctrl bindings for StarFive JHB100 SoC System-0 host(sys0h) pinctrl
+> controller.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../starfive,jhb100-sys0h-pinctrl.yaml        | 162 ++++++++++++++++++
+>  1 file changed, 162 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys0h-pinctrl.yaml
+> 
 
-register_netdevice() invokes inetdev_init(), which disables LRO and emits
-a NETDEV_FEAT_CHANGE notification. This reaches macsec_fill_info() before
-macsec_add_dev() initializes the SecY. key_len is still zero, so
-macsec_fill_info() returns -EMSGSIZE and trips the WARN_ON in
-rtmsg_ifinfo_build_skb(), even though the skb has enough space.
-
-Initialize the SecY and apply the new-link attributes before registration.
-Move MAC address inheritance into macsec_newlink() so the SCI can also be
-initialized before registration-time notifications report it. Move the
-per-CPU statistics and metadata destination allocation into ndo_init(),
-and release partial allocations on failure.
-
-Fixes: ccfdec908922 ("macsec: Add support for GCM-AES-256 cipher suite")
-Reported-by: syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f2f6312ad1b5a0bfe316
-Suggested-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://lists.openwall.net/linux-kernel/2026/08/19/552
-Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
----
-Changes in v2:
-- Initialize the SCI before registration, including MAC address inheritance,
-  so registration-time notifications carry the configured SCI.
-- Wrap the per-CPU statistics allocation at 80 columns.
-- Link to v1: https://lore.kernel.org/netdev/20260911-fix-macsec-net-v1-1-c82aa58ae741@gmail.com/
----
- drivers/net/macsec.c | 84 +++++++++++++++++++++++++++-------------------------
- 1 file changed, 43 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 6f9f3aceffaa..78a19b134632 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -3539,6 +3539,22 @@ static int macsec_dev_init(struct net_device *dev)
- 	if (err)
- 		return err;
- 
-+	err = -ENOMEM;
-+	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
-+	if (!macsec->stats)
-+		goto destroy_gro_cells;
-+
-+	macsec->secy.tx_sc.stats =
-+		netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
-+	if (!macsec->secy.tx_sc.stats)
-+		goto free_secy_stats;
-+
-+	macsec->secy.tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC,
-+						       GFP_KERNEL);
-+	if (!macsec->secy.tx_sc.md_dst)
-+		goto free_tx_sc_stats;
-+	macsec->secy.tx_sc.md_dst->u.macsec_info.sci = macsec->secy.sci;
-+
- 	macsec_inherit_tso_max(dev);
- 
- 	dev->hw_features = real_dev->hw_features & MACSEC_OFFLOAD_FEATURES;
-@@ -3551,8 +3567,6 @@ static int macsec_dev_init(struct net_device *dev)
- 
- 	macsec_set_head_tail_room(dev);
- 
--	if (is_zero_ether_addr(dev->dev_addr))
--		eth_hw_addr_inherit(dev, real_dev);
- 	if (is_zero_ether_addr(dev->broadcast))
- 		memcpy(dev->broadcast, real_dev->broadcast, dev->addr_len);
- 
-@@ -3560,6 +3574,14 @@ static int macsec_dev_init(struct net_device *dev)
- 	netdev_hold(real_dev, &macsec->dev_tracker, GFP_KERNEL);
- 
- 	return 0;
-+
-+free_tx_sc_stats:
-+	free_percpu(macsec->secy.tx_sc.stats);
-+free_secy_stats:
-+	free_percpu(macsec->stats);
-+destroy_gro_cells:
-+	gro_cells_destroy(&macsec->gro_cells);
-+	return err;
- }
- 
- static void macsec_dev_uninit(struct net_device *dev)
-@@ -4116,26 +4138,11 @@ static sci_t dev_to_sci(struct net_device *dev, __be16 port)
- 	return make_sci(dev->dev_addr, port);
- }
- 
--static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
-+static void macsec_init_secy(struct net_device *dev, sci_t sci, u8 icv_len)
- {
- 	struct macsec_dev *macsec = macsec_priv(dev);
- 	struct macsec_secy *secy = &macsec->secy;
- 
--	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
--	if (!macsec->stats)
--		return -ENOMEM;
--
--	secy->tx_sc.stats = netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
--	if (!secy->tx_sc.stats)
--		return -ENOMEM;
--
--	secy->tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
--	if (!secy->tx_sc.md_dst)
--		/* macsec and secy percpu stats will be freed when unregistering
--		 * net_device in macsec_free_netdev()
--		 */
--		return -ENOMEM;
--
- 	if (sci == MACSEC_UNDEF_SCI)
- 		sci = dev_to_sci(dev, MACSEC_PORT_ES);
- 
-@@ -4149,15 +4156,12 @@ static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
- 	secy->xpn = DEFAULT_XPN;
- 
- 	secy->sci = sci;
--	secy->tx_sc.md_dst->u.macsec_info.sci = sci;
- 	secy->tx_sc.active = true;
- 	secy->tx_sc.encoding_sa = DEFAULT_ENCODING_SA;
- 	secy->tx_sc.encrypt = DEFAULT_ENCRYPT;
- 	secy->tx_sc.send_sci = DEFAULT_SEND_SCI;
- 	secy->tx_sc.end_station = false;
- 	secy->tx_sc.scb = false;
--
--	return 0;
- }
- 
- static struct lock_class_key macsec_netdev_addr_lock_key;
-@@ -4220,6 +4224,24 @@ static int macsec_newlink(struct net_device *dev,
- 	if (rx_handler && rx_handler != macsec_handle_frame)
- 		return -EBUSY;
- 
-+	if (is_zero_ether_addr(dev->dev_addr))
-+		eth_hw_addr_inherit(dev, real_dev);
-+
-+	if (data && data[IFLA_MACSEC_SCI])
-+		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
-+	else if (data && data[IFLA_MACSEC_PORT])
-+		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
-+	else
-+		sci = dev_to_sci(dev, MACSEC_PORT_ES);
-+
-+	/* Registration can notify listeners before returning. */
-+	macsec_init_secy(dev, sci, icv_len);
-+	if (data) {
-+		err = macsec_changelink_common(dev, data);
-+		if (err)
-+			return err;
-+	}
-+
- 	err = register_netdevice(dev);
- 	if (err < 0)
- 		return err;
-@@ -4232,31 +4254,11 @@ static int macsec_newlink(struct net_device *dev,
- 	if (err < 0)
- 		goto unregister;
- 
--	/* need to be already registered so that ->init has run and
--	 * the MAC addr is set
--	 */
--	if (data && data[IFLA_MACSEC_SCI])
--		sci = nla_get_sci(data[IFLA_MACSEC_SCI]);
--	else if (data && data[IFLA_MACSEC_PORT])
--		sci = dev_to_sci(dev, nla_get_be16(data[IFLA_MACSEC_PORT]));
--	else
--		sci = dev_to_sci(dev, MACSEC_PORT_ES);
--
- 	if (rx_handler && sci_exists(real_dev, sci)) {
- 		err = -EBUSY;
- 		goto unlink;
- 	}
- 
--	err = macsec_add_dev(dev, sci, icv_len);
--	if (err)
--		goto unlink;
--
--	if (data) {
--		err = macsec_changelink_common(dev, data);
--		if (err)
--			goto del_dev;
--	}
--
- 	/* If h/w offloading is available, propagate to the device */
- 	if (macsec_is_offloaded(macsec)) {
- 		const struct macsec_ops *ops;
-
----
-base-commit: 78445023439506ebd83b86d40b1e428a3b309d4a
-change-id: 20260911-fix-macsec-net-ff3bc5e7ab0a
-
-Best regards,
--- 
-Haseeb Malik <haseebulhaq55@gmail.com>
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
