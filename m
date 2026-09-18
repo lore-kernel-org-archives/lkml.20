@@ -1,181 +1,135 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F314BB265
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D03848E0EB;
+	Fri, 18 Sep 2026 10:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726339; cv=none; b=WoUYEyuvjRyJ1zI2daGu+7egthovQoCxM3sKI2/fCoW3dg1iLAfw7gHYakVZvACwldF3XNIr/tRzjbmVClVfexmVEFrhIvMMy5pIUZyoAJUg/fksUmAjKbiiup50LdR3IixeRKlVhEqy3cBXsolLvAsvgf5WOO0albYXyByhv18=
+	t=1789726382; cv=none; b=OPIx+SN74gpjWeBkli4G1+ZY0hfYYVoy0We/5oQzqXPNSINcfQqnNSW0hz77sXsf9HZPkRf99Llo8FRr2iC9+yZBZKnNv7Y5crNAHIiJBhb6r2MkbhP0A1nlv5VGbff89mXqO7dhxQCWoj2dF9nbflQwt+pU2KHfsG8P6v4cm1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726339; c=relaxed/simple;
-	bh=cZ8F08Qo8I+S+7xQ2e8+nL/7StxjEGiahIa+rIq725A=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ea/3lRKRhTaYVTSlW7xMwXo+BpW7vUsqvn5xmpXvw7k6iJPXJ8TKa82AJYq8pITFgRaXT3R/m5vSShRJ/gbCgSCXYdlzUIEeSRKe1FQHW0/Hlu5ZYZd6io8WrwJpLrl2nLxdJUxBRvFnZPhZX38f0A0TP3szwUYLReGDJAdCpYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=hhxln0CN; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789726382; c=relaxed/simple;
+	bh=FmtnlxlGgBnDEFGUyMnIpvCu3NgZ3Bkijcc69vnr93s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=htMU1wifpzU6rBgIRDnsvqBu7Z/I/yoh1KBJMZQsOCF1zsGHEKF6to+mfD3l9kg3PSALawivo9PQPIrGZxPwTb0D6anaUdqEJOeZeqH4CnFCDMhSmQym74HSZbDHZr1oWHfXVxQW25OSRMteKThUSJX1AvnUZ05b0HQvWb6134A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ckQDWr/m; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="hhxln0CN"
-X-UUID: 65f98adab34911f1b1788b6acf885367-20260918
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=c+PHpPK78a10gB0bJb2+oG7YcNlo1a7Hh7HzEKPa02A=;
-	b=hhxln0CNF+9oPy4ruFPd44PpKVjG7qBBhRD4c6Bs7pJfuus9AdyHHVCPm5lIevTIDjd+J0BFyBPnolt+Y1bRBHbtnd/jVA5aVLQMuiZSF5SSSH9CkX2QdTA/AS6XqbgJnVTWYAdxONXvnFIC3Eq06zlstEMmD8DzgTFh1GkzqAA=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2617ef2f-733e-4c04-b619-f96bc07e0b9f,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:d0a5816e-d3fc-4c43-a699-2fa6a2066297,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 65f98adab34911f1b1788b6acf885367-20260918
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
-	(envelope-from <shf.chen@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 376525553; Fri, 18 Sep 2026 18:12:05 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 18 Sep 2026 18:12:03 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 18 Sep 2026 18:12:03 +0800
-From: Shao-Fu Chen <shf.chen@mediatek.com>
-To: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <op-tee@lists.trustedfirmware.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>, <tadd.kao@mediatek.com>,
-	<jarried.lin@mediatek.com>, <vince-wl.liu@mediatek.com>,
-	<justin.yeh@mediatek.com>, Shao-Fu Chen <shf.chen@mediatek.com>
-Subject: [PATCH] optee: register TEE devices only once fully initialized
-Date: Fri, 18 Sep 2026 18:10:46 +0800
-Message-ID: <20260918101113.6699-1-shf.chen@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ckQDWr/m"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IA2mpU991014;
+	Fri, 18 Sep 2026 10:12:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=0lSdrkNDltAhbRuMWme/U0ipws/Aby
+	PRu0m/UnAj43M=; b=ckQDWr/mmQBFn/GfMWulIaBryHUdih6+U+MS5EAmOUrwXV
+	OuehMDZsq+A3aMZ1knyopdYo6h2mImJ9kYWFT9oOpYxgTiOJHKygjhzFmhDkEz1/
+	+cZMzFaaluPTwUqhbZIRMWc7YJdJpPibe+M08CwnBEqcOp3VYtFejc1XyaSd5OrC
+	PWifGCbrwQR39jyZCAKBBaWfaoiwejP7QyXu0mm2pP1E+tWxHYLla81jxKgFtwec
+	z2FkEZjUJz1GMKb39WOGteSX6RJHfOpJFfERJRQmNlbCm8KWA7/MUzN7pA46vok2
+	zJYBqSwK+r8UR7xPV8Pnw9kEGRwin4DWY5/wNUJA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcveuj3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 10:12:57 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9o8oS466646;
+	Fri, 18 Sep 2026 10:12:56 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa6rf6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 10:12:56 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IACrZK47972614
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 10:12:53 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F2A892004B;
+	Fri, 18 Sep 2026 10:12:52 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9DFAE2004D;
+	Fri, 18 Sep 2026 10:12:52 +0000 (GMT)
+Received: from osiris (unknown [9.111.38.246])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 10:12:52 +0000 (GMT)
+Date: Fri, 18 Sep 2026 12:12:51 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Kees Cook <kees+treewide@kernel.org>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] s390/keyboard: Allocate key_maps and func_table with
+ ARRAY_SIZE()
+Message-ID: <20260918101251.20386B25-hca@linux.ibm.com>
+References: <20260917211239.i.576-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917211239.i.576-kees@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEzOSBTYWx0ZWRfX9912iJO1DwPs
+ S5QPPhPf6NKGkj6Rr26obFAqMu1e0DzVrsU9w7JrN4pOxLA5rXzjefrps1rEjm4zssdNSQsEy99
+ PK/p+NH82TmWDVxUCByRGLrPOggwsEA=
+X-Proofpoint-ORIG-GUID: tyyMeam7HCp8G8FvVvve__JSNZgVAHN5
+X-Proofpoint-GUID: tyyMeam7HCp8G8FvVvve__JSNZgVAHN5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEzOSBTYWx0ZWRfXzIUNZHu7dxw/
+ tBmbCDsAHJo5ghF+/wWUsTHnd3EP9Fd/8Or8Un+PWBsj1HzbVRVvWi3T/m8IStaXd92a4sfCA0W
+ FtRfkwSuBuIqICYmLxu5m2wUqVv2kXSC3UMkDDpA2eo9GkQYs4xzpnmZtirUrRYeLPUNyu6rTP8
+ I2IB4hKvspWWUuzvb0yZGcl7iAEBIh4UEgkAkhtmKS9fP+VgGlFSj1DouMsiCjUQf7yMl6hLnyN
+ U8Pki6uXp8FkN0rOLnfIZovurhzUqr6ZFD9mC4yc5bOKpEs4M50s96VrL74uQn7DPA1LMk+DzHv
+ gGdlCdgDjsBtPGuhZl0pTA621lYrnARF+R/zLDKgpU5sADdwzGtHJfM43RHjW4sQeoefVJ56MG3
+ TeipEAEMce4uCZBovtHQ4ah/3YyvIPmv+ShZqij/UQWBPrVCqo7BDLD5ENe0ofInsf8vQeI4fXG
+ +IGYAcVb571JdcJoQxQ==
+X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad0ea9 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Ez8LhxAq2v69tQbn6GgA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180139
 
-optee_probe() called tee_device_register() on both the client and the
-supplicant device before the rest of struct optee had been initialized.
+On Thu, Sep 17, 2026 at 02:12:40PM -0700, Kees Cook wrote:
+> From: Kees Cook <kees+treewide@kernel.org>
+> 
+> In preparation for converting the kmalloc family of allocators to the
+> type-aware kmalloc_obj family, we need to make sure that the returned
+> type from the allocation matches the type of the variable being
+> assigned. (The kmalloc family returns "void *", which can be implicitly
+> cast to any pointer type.)
+> 
+> These allocate as many pointers as ebc_key_maps and ebc_func_table hold,
+> but the sizes were taken from the whole arrays, which would make the
+> allocation types pointers to those arrays rather than the "u_short **"
+> and "char **" being assigned. Allocate ARRAY_SIZE-many entries instead.
+> The resulting allocation sizes are the same.
+> 
+> Build tested ARCH=s390 allmodconfig with GCC s390x-linux-gnu 16.1.0:
+> drivers/s390/char/keyboard.o
+> 
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
+> ---
+> Cc: Heiko Carstens <hca@linux.ibm.com>
+> Cc: Vasily Gorbik <gor@linux.ibm.com>
+> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+> Cc: Sven Schnelle <svens@linux.ibm.com>
+> Cc: <linux-s390@vger.kernel.org>
+> ---
+>  drivers/s390/char/keyboard.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 
-tee_device_register() calls cdev_device_add(), which does two things at
-once: it creates /dev/tee0 and /dev/teepriv0, and it links the device
-into the tee class so that class_find_device() can find it. From that
-moment on the device is reachable both from user space via tee_open()
-and from kernel space via tee_client_open_context(). The only gate in
-teedev_open() is tee_device_get(), which merely checks that
-teedev->desc is non-NULL, which was already set by tee_device_alloc().
-Therefore, there is effectively no gate at all.
-
-A context opened in that window can run against a struct optee where
-
-  - optee->call_queue.mutex is not initialized by optee_cq_init()
-  - optee->supp mutex and completions is not initialized by
-    optee_supp_init()
-  - optee->rpmb_dev_mutex is not initialized yet,
-  - the message argument cache is not initialized by
-    optee_shm_arg_cache_init()
-  - optee->ctx is still NULL
-
-Any open session or invoke during this window takes uninitialized
-mutexes and dereferences a NULL pointer.
-
-Fix it by moving both tee_device_register() calls down to the point
-where all of struct optee is set up.
-
-Signed-off-by: Shao-Fu Chen <shf.chen@mediatek.com>
----
- drivers/tee/optee/ffa_abi.c | 16 ++++++++--------
- drivers/tee/optee/smc_abi.c | 17 ++++++++---------
- 2 files changed, 16 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/tee/optee/ffa_abi.c b/drivers/tee/optee/ffa_abi.c
-index 633715b98625..d3cc7c5fc1e9 100644
---- a/drivers/tee/optee/ffa_abi.c
-+++ b/drivers/tee/optee/ffa_abi.c
-@@ -1123,14 +1123,6 @@ static int optee_ffa_probe(struct ffa_device *ffa_dev)
- 
- 	optee_set_dev_group(optee);
- 
--	rc = tee_device_register(optee->teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
--	rc = tee_device_register(optee->supp_teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
- 	rc = rhashtable_init(&optee->ffa.global_ids, &shm_rhash_params);
- 	if (rc)
- 		goto err_unreg_supp_teedev;
-@@ -1159,6 +1151,14 @@ static int optee_ffa_probe(struct ffa_device *ffa_dev)
- 	if (optee_ffa_protmem_pool_init(optee, sec_caps))
- 		pr_info("Protected memory service not available\n");
- 
-+	rc = tee_device_register(optee->teedev);
-+	if (rc)
-+		goto err_unregister_devices;
-+
-+	rc = tee_device_register(optee->supp_teedev);
-+	if (rc)
-+		goto err_unregister_devices;
-+
- 	rc = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
- 	if (rc)
- 		goto err_unregister_devices;
-diff --git a/drivers/tee/optee/smc_abi.c b/drivers/tee/optee/smc_abi.c
-index b8a2bdac3208..51624443359b 100644
---- a/drivers/tee/optee/smc_abi.c
-+++ b/drivers/tee/optee/smc_abi.c
-@@ -1849,14 +1849,6 @@ static int optee_probe(struct platform_device *pdev)
- 
- 	optee_set_dev_group(optee);
- 
--	rc = tee_device_register(optee->teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
--	rc = tee_device_register(optee->supp_teedev);
--	if (rc)
--		goto err_unreg_supp_teedev;
--
- 	optee_cq_init(&optee->call_queue, thread_count);
- 	optee_supp_init(&optee->supp);
- 	optee->smc.memremaped_shm = memremaped_shm;
-@@ -1916,6 +1908,14 @@ static int optee_probe(struct platform_device *pdev)
- 	if (optee->smc.sec_caps & OPTEE_SMC_SEC_CAP_DYNAMIC_SHM)
- 		pr_info("dynamic shared memory is enabled\n");
- 
-+	rc = tee_device_register(optee->teedev);
-+	if (rc)
-+		goto err_disable_shm_cache;
-+
-+	rc = tee_device_register(optee->supp_teedev);
-+	if (rc)
-+		goto err_disable_shm_cache;
-+
- 	rc = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
- 	if (rc)
- 		goto err_disable_shm_cache;
-@@ -1942,7 +1942,6 @@ static int optee_probe(struct platform_device *pdev)
- 	optee_shm_arg_cache_uninit(optee);
- 	optee_supp_uninit(&optee->supp);
- 	mutex_destroy(&optee->call_queue.mutex);
--err_unreg_supp_teedev:
- 	tee_device_unregister(optee->supp_teedev);
- err_unreg_teedev:
- 	tee_device_unregister(optee->teedev);
--- 
-2.45.2
-
+Applied, thanks!
