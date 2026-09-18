@@ -1,164 +1,865 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5023F4FD792;
-	Fri, 18 Sep 2026 15:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744225; cv=none; b=buSQxXVw35n1OsgfC76NO7Vb6N8BlX2/WL0KLeV+uBDW/KihOhWVSJkqxNmp/2uycPFxMg8x/lvJPXH6LjnLiogwlgQh/Id/nnd0nKNHoJvfBA8I1zEb1ahYw1+iSdBdN+1yf15PQgXTvBHFz+S59vB3PLSMfnQB9B3VFJjZobE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744225; c=relaxed/simple;
-	bh=mWu+AEMLYvGfRFR8F0TFvo8ZNVTVcCWjOGAjZXoOLBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VNk7iTkmoOZqo1yScoH0069L2mzm4uJrY/qX2bPaYWHWxHqaNc2wVoRMT7KYXN94Ubkj4uDRTMhkp8ggIIkZ/oLxJT8gTRPeEoX711Kwj/fFDjTb5B+LV1l/2wW6PcsZhSp88THUEIpQxrKsZjD0JznAvcZ6FM1+POwfDH4wRi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=2ignRxx1; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34604FC320
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744273; cv=pass; b=m7SUgWBROYsL++gUyCKLZmq+/7GRQSbgWh/acUM++C/yvPqxYrUeeX1Pm4kdDd6TGzaGGfRedwF9306VnyDVoSZUF5RzKS5Afc5fzIm7OzdwlBRrnHaEJTxK9SHjyd86ZS5K3uzNEX2rAwXXYagZzSFuh8TqsgLqwGnrHbmvOwc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744273; c=relaxed/simple;
+	bh=nAucdYe0uiXwfT0TFxaF+xrGZfzsbpsbO/VguXlbIsE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MFsmfhVfwXxtiWU4V6qf+skHDqXU0s7b+8jbkvDJOl+afwmOR1ktRg6VnF53m//O8pm0VXKn+dnIz0k7qlT+obl1Pmd/wPKEetlxUwt88Du6jZHhPBYMGn3i0NSL2kBYUvQ6SVhiCeKIdPig9w0RntQxLaOk0F4iJGIeu8bQrRI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UjGyetFf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=a6/wyKPm; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="2ignRxx1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Pigyfpo0c1aVrmJnybrJ9uNhK/AYTW+OYDc7D94U1SQ=; b=2ignRxx1sH6Iz076AyfHB7MzcK
-	2d13/LXDgr1rtdtIFrHfgaiQikVbU1kiwS9biom0VFEUQSaqR+uU4cFNCdKGeRG1ErxLTettDRWen
-	e8EWHlWP97/ehDrb7emuMCFQ8FpW08MfBAUu/XFa5KxrsMlqT/Q/RF5ininmVS/xYu6vNaZAwfYRk
-	FqOgXO4P7j09GzWSEVWaWEToBBpJt+orqof4gzOhocTZX4qtzn8tLEn1XGTbCT0B8Bz5P2JFoQUUX
-	wA9vWdyAfu7jv+fSxDI75J/ouWkT9mtDPxgfhjxpy2D5fVkgIwbsfmEsYnZEYsE3A84e32/+xvB9A
-	Zz3t77/Q==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7aEF-0000000Eq0W-3IgN;
-	Fri, 18 Sep 2026 15:10:19 +0000
-Date: Fri, 18 Sep 2026 08:10:19 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jeremy Bingham <jbingham@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	brauner@kernel.org, jkoolstra@xs4all.nl, jack@suse.cz,
-	djwong@kernel.org, viro@zeniv.linux.org.uk, hch@infradead.org
-Subject: Re: [PATCH v4 3/3] minix: finish wiring in iomap functions
-Message-ID: <aq1UW699LW2pxvHU@infradead.org>
-References: <cover.1787770110.git.jbingham@gmail.com>
- <668bd5f317e3bf8eaee0254ca79e595395b6e332.1787770110.git.jbingham@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UjGyetFf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="a6/wyKPm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789744269;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+	b=UjGyetFfqLnFIUq0hYC8r7RoMJSfHmyq5iGVKnPw56rWMuHKAncyiCzTPlxo4D1WkAUJVV
+	F0Gimwzw9hMaV5TbIe2X1kPtM4nQyruTxxF6GN0AgYAsWGjoShJXcZ8pLscHjRYdO5EKOb
+	S4CuWpi9E0FPedGNiKiv/GTA9k5jhN0=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-189-RacjPJjRMZyuMRKLQqtfFg-1; Fri, 18 Sep 2026 11:11:06 -0400
+X-MC-Unique: RacjPJjRMZyuMRKLQqtfFg-1
+X-Mimecast-MFC-AGG-ID: RacjPJjRMZyuMRKLQqtfFg_1789744266
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-892af0d1bcbso9876567b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:11:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789744266; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bt/Hu60nT8ulH1hSdcYBJryVvJ1ihipX6c2wRF9JyzJGKPsBnmtzl0S+WRoaHB3CE2
+         UPmSI154C2OqZ+NEvQG9SapSpXkpgzS+FhOvRQx9tMUIDLphWo29b4IlbdT2YjoIvEYD
+         7QK6p3kWuZ92KNISqIQZgzWz1SJ829hoEnKLl+Dus1wdVrWJxIv+Wp2WrYXSQV2syrOh
+         2PoZlhUKAAiRePww/zN//Zj32/xWx7DxiC8yIiZyPn16FbnkNeyKPbmfmU7n5U/7Z6U3
+         0IGs+06BwiXJskRwxFWhcu8TpU1ZME42FWztHxuhuFSS/6wBITCH0PQGTkIinqbIa7JM
+         t/kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        fh=z585VWJVYGL2POUCHkhNsraj2a0Sso2Cq9OXKJKubtw=;
+        b=h3A+PbeBz+lN7wsQBBDYa4NZhpf9LH0tWh9g5Nym16T3kYMM0raKIGbDzqbnNGNAqi
+         4Akzgk3baK3yv9pRvJz3g4kpKXaY2Ok5lLjYzqEq0Xo19zQYG+z0lVwYENoXAqSD+r6K
+         58kLOLIwLX/cO5y9BubyZXaA/Y9Yu472wrKkDnLgJP/3m8uEhK6XPgZGvV/pv6pVNf3W
+         3wiKo/kE2TL1Rpi+9WUDeK4r+XdmeHq7UM1+14b0NBzKBQSG68CORVWPPw1zTR8CGx5t
+         +ymaO9CwmXhjKS308LVOzxdur/S6tB0vkgnYOYLAn4E97w8W4aD2CqLXYWjHizbWnPpX
+         XILQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789744266; x=1790349066; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        b=a6/wyKPmSUo4+Im0xUhSM2EWHUdB6BXqnD2Q31ZwFKeVD1DEHrTY2475GPWTffw92o
+         wW6j9cHPDI/ZY7ZSFobkHQfb7+9OlpoqkPFoU7XondXF4LEKpcFUNS+14pa+gpt59WJr
+         B/zp+GWNwjkbzSejNYJfN/xgf3K+Hvvh/VCMENncptGArKdsHZEPc1SUgihnCIYwxGtM
+         OqpsoD/xktFcIzyMKBgiH197U/rU/F2191tXdphK5DBf6aL2VAyjmss++YolF8nLL+X3
+         tQrvmtfZHE9i5gYk5kBjYszYT9DTiPeC+GttOtQBVAuzkq6iaDKAceoBucXLW7nqHxbk
+         O4ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789744266; x=1790349066;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d9AVV/t82Ku2QvcdUIHu5ctrrQuWnhPhVKIwRE5Q2QM=;
+        b=Yg1g78g/iL8ws6bP1Y6KZL4JdOuJWWW6Dh9yS4/hmxxHyyAfyjQ6NfpU6En1f4f+eH
+         8C8p0J1gzYJ9gEPw2rLKZctRHnIPiUJrO9cgA8HkNXnLDKADGtGl6fyWt+ErQkX3rzZM
+         rhsBviGAXKbHYqiydF01kdje2ody06Wz/2B5vSLCsVNxsKeA5xNj7Sx10R2t74gaIE+a
+         9ZupUH4sjnjbc/qN2a3QDV14fhGduKX/0Yo25gV4adT/AvpBF5i8e6qItd3UTQG9Kufs
+         Y0p2xk7We0zgBnQOudirDQcCzRMGWF5Q3YyEZJRJnZAV/qDykkhTCx0YGkZuB117QnvU
+         v0og==
+X-Forwarded-Encrypted: i=1; AKwUvBz5YSo3pgZqP2drrbWgIuKGzVChQ77zU7CyZzUH86XOomV5UHZikKgkKVYZZ7CYef+LOkqM8bzVTLYfaJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHtWD9ZAiK0MsOsN2WmuV0AxppUM57LwcxWaQ3/q9stMVAcE+l
+	v5P5WXUYraZZwqUe2Ubz2VcUiChn2p7L+K01HieE09L+94c0TXyXppnSt2B0pGL5gAWORJlbyc6
+	NnR2fhLjFcIm+ZYokipMgBJ4RQCHhNdQqTJsq9NqizLamWICN8rcKigpc3aSre0DerghD5UVwJ1
+	Je+sK39o4jA7QnO2ZSyb8RcqqgFMGd0IFGaKoAargR
+X-Gm-Gg: AYBFou0OA94fh8G/eaRtkBcXr/QQuF1SlGxI7PRUxNY2DHhQSoQ+ps2H3IazG4112ZO
+	wTJMH5Xoqkli5uqFtiESVgE9I/00pCu/pJUr6LXk1QUTi0H+xyKOVWri8CgNib357rNIa78gVV3
+	etaTZ9BKxg2aLznGeDym2G+BlipqlG7GFyaZB0t98QtIR3TePPLm37nQ==
+X-Received: by 2002:a05:690c:c61b:b0:887:f24e:cb60 with SMTP id 00721157ae682-8973655013bmr7999567b3.38.1789744265262;
+        Fri, 18 Sep 2026 08:11:05 -0700 (PDT)
+X-Received: by 2002:a05:690c:c61b:b0:887:f24e:cb60 with SMTP id
+ 00721157ae682-8973655013bmr7999157b3.38.1789744264542; Fri, 18 Sep 2026
+ 08:11:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <668bd5f317e3bf8eaee0254ca79e595395b6e332.1787770110.git.jbingham@gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+References: <20260917171921.2810550-1-briandaniels@google.com> <20260917171921.2810550-2-briandaniels@google.com>
+In-Reply-To: <20260917171921.2810550-2-briandaniels@google.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Fri, 18 Sep 2026 17:10:53 +0200
+X-Gm-Features: AcwNN1WIb7JEZHof9bDPMIMVfa3Th_bdS_mHkAP_e9tJg5d3vCfewTEkcoMdWQk
+Message-ID: <CADSE00++bx4Jn_sGdME5f6qhHURH9phmV9ZNGrWwd82nPvOXrg@mail.gmail.com>
+Subject: Re: [PATCH v9 1/4] media: virtio: Add skeleton virtio-media driver
+To: Brian Daniels <briandaniels@google.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com, changyeon@google.com, 
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
+	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
+	dbassey@redhat.com, laurent.pinchart@ideasonboard.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 02:41:57PM -0700, Jeremy Bingham wrote:
-> Wire in the new iomap functionality in one pass. Per Christoph Hellwig's
-> feedback, there are no longer direct I/O operations. Without that, only
-> write_iter in minix_file_operations needs a custom function. That and
-> exporting minix_setattr for minix_symlink_inode_operations are the only
-> changes in file.c.
-
-Commit history just goes into the cover letter.  In genral you don't
-need to enumerate all low-level changes either.  Explain the high-level
-change, what motivated it, and anything that looks a bit unusual and
-unexpected for that high-level change.
-
-Note that you probably want to merge this into the previous patch
-adding the actual iomap ops instead of leaving them dangling between
-thet two patches.
-
-> +	ret = iomap_file_buffered_write(iocb, from, ops,
-> +			NULL, NULL);
-
-The two NULL still fit onto the previous line:
-
-	ret = iomap_file_buffered_write(iocb, from, ops, NULL, NULL);
-
+On Thu, Sep 17, 2026 at 7:19=E2=80=AFPM Brian Daniels <briandaniels@google.=
+com> wrote:
+>
+> From: Alexandre Courbot <gnurou@gmail.com>
+>
+> This patch adds a minimum viable virtio-media driver that binds to the
+> virtio device and registers a V4L2 device and a video device, but lacks
+> any actual functionality.
+>
+> It adds the UAPI header defining the protocol, internal driver headers,
+> Kconfig and Makefile entries, and MAINTAINERS entry. Many of the structs
+> in the protocol add reserved bits. These are present to ensure 64-bit
+> alignment. They are not intended to be used as reserved expansion for
+> the protocol in the future, so more reserved space is not required.
+>
+> The UAPI header includes videodev2.h, which itself does not currently
+> pass UAPI header validation (CONFIG_UAPI_HEADER_TEST=3Dy). I've added
+> virtio_media.h to the same test exception list.
+>
+> Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+> Assisted-by: Antigravity:gemini-3.5-flash
+> Co-developed-by: Brian Daniels <briandaniels@google.com>
+> Signed-off-by: Brian Daniels <briandaniels@google.com>
+> ---
+>  MAINTAINERS                                |   8 +
+>  drivers/media/Kconfig                      |  13 +
+>  drivers/media/Makefile                     |   2 +
+>  drivers/media/virtio/Makefile              |   7 +
+>  drivers/media/virtio/virtio_media.h        |  95 +++++++
+>  drivers/media/virtio/virtio_media_driver.c | 146 +++++++++++
+>  include/uapi/linux/virtio_media.h          | 288 +++++++++++++++++++++
+>  usr/include/Makefile                       |   1 +
+>  8 files changed, 560 insertions(+)
+>  create mode 100644 drivers/media/virtio/Makefile
+>  create mode 100644 drivers/media/virtio/virtio_media.h
+>  create mode 100644 drivers/media/virtio/virtio_media_driver.c
+>  create mode 100644 include/uapi/linux/virtio_media.h
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d..d6b1e0b30 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28886,6 +28886,7 @@ F:      Documentation/devicetree/bindings/virtio/
+>  F:     Documentation/driver-api/virtio/
+>  F:     drivers/block/virtio_blk.c
+>  F:     drivers/crypto/virtio/
+> +F:     drivers/media/virtio/
+>  F:     drivers/vdpa/
+>  F:     drivers/virtio/
+>  F:     include/linux/vdpa.h
+> @@ -28998,6 +28999,13 @@ S:     Maintained
+>  F:     drivers/iommu/virtio-iommu.c
+>  F:     include/uapi/linux/virtio_iommu.h
+>
+> +VIRTIO MEDIA DRIVER
+> +M:     Brian Daniels <briandaniels@google.com>
+> +L:     linux-media@vger.kernel.org
+> +S:     Maintained
+> +F:     drivers/media/virtio/
+> +F:     include/uapi/linux/virtio_media.h
 > +
-> +	if (ret > 0)
-> +		ret = generic_write_sync(iocb, ret);
+>  VIRTIO MEM DRIVER
+>  M:     David Hildenbrand <david@kernel.org>
+>  L:     virtualization@lists.linux.dev
+> diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
+> index 6abc9302c..ce7d088e7 100644
+> --- a/drivers/media/Kconfig
+> +++ b/drivers/media/Kconfig
+> @@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
+>
+>           Say Y when you want to be able to see such devices.
+>
+> +config MEDIA_VIRTIO
+> +       tristate "Virtio-media Driver"
+> +       depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || CPU_LITTLE_END=
+IAN)
+> +       select VIDEOBUF2_CORE
+> +       select VIDEOBUF2_MEMOPS
+> +       help
+> +         Enables the virtio-media driver.
 > +
-> +unlock:
-> +	inode_unlock(inode);
-
-For most file systems we try to have the generic_write_sync outside
-the inode lock to not do the expensive sync with the inode locked.
-generic_file_write_iter also doesn't have the inode locked, so you
-should probably sync after dropping the lock here as swell.
-
-> +int minix_setattr(struct mnt_idmap *idmap,
->  			 struct dentry *dentry, struct iattr *attr)
-
-Odd formatting again.  The typical style would be:
-
-int minix_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-		struct iattr *attr)
-
-> +static ssize_t minix_writeback_range(struct iomap_writepage_ctx *wpc,
-> +	struct folio *folio, u64 pos, unsigned int len, u64 end_pos)
-
-Two-tab indents please:
-
-static ssize_t minix_writeback_range(struct iomap_writepage_ctx *wpc,
-		struct folio *folio, u64 pos, unsigned int len, u64 end_pos)
-> +{
-> +	int error;
+> +         This driver is used to virtualize media devices such as cameras=
+ or
+> +         decoders from a host into a guest using the V4L2 protocol.
 > +
-> +	if (pos < wpc->iomap.offset ||
-> +			pos >= wpc->iomap.offset + wpc->iomap.length) {
-
-	if (pos < wpc->iomap.offset ||
-	    pos >= wpc->iomap.offset + wpc->iomap.length) {
-
-
-> +		if (INODE_VERSION(wpc->inode) == MINIX_V1)
-> +			error = V1_minix_iomap_begin(wpc->inode, pos, len, IOMAP_WRITE,
-> +				&wpc->iomap, NULL);
-> +		else
-> +			error = V2_minix_iomap_begin(wpc->inode, pos, len, IOMAP_WRITE,
-> +				&wpc->iomap, NULL);
-
-Overly long lines.  These should hopefully go away for free with the
-common iomap_ops.
-
-> -static int minix_writepages(struct address_space *mapping,
-> +/* The old minix_writepages, preserved for directory operations. */
-> +static int minix_block_writepages(struct address_space *mapping,
-
-minix_dir_writepages?
-
-If you're looking for another project, we could probably also have
-a iomap version of the directories in pagecache used by minix, ext2
-and co eventually.
-
->  static const struct address_space_operations minix_aops = {
-> -	.dirty_folio	= block_dirty_folio,
-> -	.invalidate_folio = block_invalidate_folio,
-> +	.dirty_folio	= iomap_dirty_folio,
-> +	.invalidate_folio = iomap_invalidate_folio,
->  	.read_folio = minix_read_folio,
-> +	.readahead = minix_readahead,
->  	.writepages = minix_writepages,
-> +	.migrate_folio = filemap_migrate_folio,
-> +	.is_partially_uptodate = iomap_is_partially_uptodate,
-> +	.release_folio = iomap_release_folio,
-> +	.error_remove_folio = generic_error_remove_folio,
+> +         If unsure, say N.
+> +
+>  config MEDIA_TEST_SUPPORT
+>         bool
+>         prompt "Test drivers" if MEDIA_SUPPORT_FILTER
+> diff --git a/drivers/media/Makefile b/drivers/media/Makefile
+> index 20fac24e4..357e786cc 100644
+> --- a/drivers/media/Makefile
+> +++ b/drivers/media/Makefile
+> @@ -23,6 +23,8 @@ obj-$(CONFIG_DVB_CORE) +=3D dvb-core/
+>  # There are both core and drivers at RC subtree - merge before drivers
+>  obj-y +=3D rc/
+>
+> +obj-$(CONFIG_MEDIA_VIRTIO) +=3D virtio/
+> +
+>  obj-$(CONFIG_CEC_CORE) +=3D cec/
+>
+>  #
+> diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefil=
+e
+> new file mode 100644
+> index 000000000..09d9834da
+> --- /dev/null
+> +++ b/drivers/media/virtio/Makefile
+> @@ -0,0 +1,7 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +#
+> +# Makefile for the virtio-media device driver.
+> +
+> +virtio-media-objs :=3D virtio_media_driver.o
+> +
+> +obj-$(CONFIG_MEDIA_VIRTIO) +=3D virtio-media.o
+> diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/v=
+irtio_media.h
+> new file mode 100644
+> index 000000000..7acb2b842
+> --- /dev/null
+> +++ b/drivers/media/virtio/virtio_media.h
+> @@ -0,0 +1,95 @@
+> +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
+> +
+> +/*
+> + * Virtio-media structures & functions declarations.
+> + *
+> + * Copyright (c) 2024-2026 Google LLC.
+> + */
+> +
+> +#ifndef __VIRTIO_MEDIA_H
+> +#define __VIRTIO_MEDIA_H
+> +
+> +#include <linux/virtio_config.h>
+> +#include <media/v4l2-device.h>
+> +
+> +#include "uapi/linux/virtio_media.h"
+> +
+> +#define DESC_CHAIN_MAX_LEN SG_MAX_SINGLE_ALLOC
+> +
+> +#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
+> +
+> +/**
+> + * struct virtio_media - Virtio-media device.
+> + * @v4l2_dev: v4l2_device for the media device.
+> + * @video_dev: video_device for the media device.
+> + * @virtio_dev: virtio device for the media device.
+> + * @commandq: virtio command queue.
+> + * @eventq: virtio event queue.
+> + * @eventq_work: work to run when events are received on @eventq.
+> + * @mmap_region: region into which MMAP buffers are mapped by the host.
+> + * @event_buffer: buffer for event descriptors.
+> + * @sessions: list of active sessions on the device.
+> + * @sessions_lock: protects @sessions and &struct virtio_media_session.l=
+ist.
+> + * @events_lock: prevents concurrent processing of events.
+> + * @cmd: union of the device commands ``open`` and ``munmap``. The other
+> + *       commands are handled by &struct virtio_media_session
+> + * @resp: union of responses to device commands ``open`` and ``munmap``.=
+ The
+> + *        other responses are handled by &struct virtio_media_session
+> + * @vlock: serializes access to the command queue.
+> + * @wq: waitqueue for host responses on the command queue.
+> + */
+> +struct virtio_media {
+> +       struct v4l2_device v4l2_dev;
+> +       struct video_device video_dev;
+> +
+> +       struct virtio_device *virtio_dev;
+> +       struct virtqueue *commandq;
+> +       struct virtqueue *eventq;
+> +       struct work_struct eventq_work;
+> +
+> +       struct virtio_shm_region mmap_region;
+> +
+> +       void *event_buffer;
+> +
+> +       struct list_head sessions;
+> +       struct mutex sessions_lock; /* protects sessions list */
+> +
+> +       struct mutex events_lock; /* prevents concurrent event processing=
+ */
+> +
+> +       __dma_from_device_group_begin();
+> +       union {
+> +               struct virtio_media_cmd_open open;
+> +               struct virtio_media_cmd_munmap munmap;
+> +       } cmd;
+> +
+> +       union {
+> +               struct virtio_media_resp_open open;
+> +               struct virtio_media_resp_munmap munmap;
+> +       } resp;
+> +       __dma_from_device_group_end();
+> +
+> +       struct mutex vlock; /* serializes command queue access */
+> +       wait_queue_head_t wq;
 > +};
+> +
+> +static inline struct virtio_media *
+> +to_virtio_media(struct video_device *video_dev)
+> +{
+> +       return container_of(video_dev, struct virtio_media, video_dev);
+> +}
+> +
+> +/* virtio_media_driver.c */
+> +
+> +int virtio_media_send_command(struct virtio_media *vv, struct scatterlis=
+t **sgs,
+> +                             const size_t out_sgs, const size_t in_sgs,
+> +                             size_t minimum_resp_len, size_t *resp_len);
+> +void virtio_media_process_events(struct virtio_media *vv);
+> +
+> +/* virtio_media_ioctls.c */
+> +
+> +long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
+> +                              unsigned long arg);
+> +extern const struct v4l2_ioctl_ops virtio_media_ioctl_ops;
+> +
+> +#endif // __VIRTIO_MEDIA_H
+> +
+> diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/v=
+irtio/virtio_media_driver.c
+> new file mode 100644
+> index 000000000..25f2ceaa6
+> --- /dev/null
+> +++ b/drivers/media/virtio/virtio_media_driver.c
+> @@ -0,0 +1,146 @@
+> +// SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+
+> +
+> +/*
+> + * Virtio-media driver.
+> + *
+> + * Copyright (c) 2024-2026 Google LLC.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/mutex.h>
+> +#include <linux/types.h>
+> +#include <linux/module.h>
+> +#include <linux/virtio.h>
+> +#include <linux/virtio_config.h>
+> +#include <linux/virtio_ids.h>
+> +
+> +#include <media/v4l2-dev.h>
+> +#include <media/v4l2-device.h>
+> +
+> +#include "uapi/linux/virtio_media.h"
+> +#include "virtio_media.h"
+> +
+> +static void commandq_callback(struct virtqueue *vq)
+> +{
+> +}
+> +
+> +static void eventq_callback(struct virtqueue *vq)
+> +{
+> +}
+> +
+> +static const struct v4l2_file_operations virtio_media_fops =3D {
+> +       .owner =3D THIS_MODULE,
+> +       .open =3D v4l2_fh_open,
+> +       .release =3D v4l2_fh_release,
+> +};
+> +
+> +static int virtio_media_probe(struct virtio_device *virtio_dev)
+> +{
+> +       struct device *dev =3D &virtio_dev->dev;
+> +       struct virtqueue *vqs[2];
+> +       static struct virtqueue_info vq_info[2] =3D {
+> +               {
+> +                       .name =3D "command",
+> +                       .callback =3D commandq_callback,
+> +               },
+> +               {
+> +                       .name =3D "event",
+> +                       .callback =3D eventq_callback,
+> +               },
+> +       };
+> +       struct virtio_media *vv;
+> +       struct video_device *vd;
+> +       int ret;
+> +
+> +       vv =3D devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
+> +       if (!vv)
+> +               return -ENOMEM;
+> +
+> +       INIT_LIST_HEAD(&vv->sessions);
+> +       mutex_init(&vv->sessions_lock);
+> +       mutex_init(&vv->events_lock);
+> +       mutex_init(&vv->vlock);
+> +
+> +       vv->virtio_dev =3D virtio_dev;
+> +       virtio_dev->priv =3D vv;
+> +
+> +       init_waitqueue_head(&vv->wq);
+> +
+> +       ret =3D v4l2_device_register(dev, &vv->v4l2_dev);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret =3D virtio_find_vqs(virtio_dev, 2, vqs, vq_info, NULL);
+> +       if (ret)
+> +               goto err_find_vqs;
+> +
+> +       vv->commandq =3D vqs[0];
+> +       vv->eventq =3D vqs[1];
+> +
+> +       vd =3D &vv->video_dev;
+> +       vd->v4l2_dev =3D &vv->v4l2_dev;
+> +       vd->vfl_type =3D VFL_TYPE_VIDEO;
 
-Maybe use tabs to align the initializers if you touch most of them
-anyway?
+vdev->vfl_type is overwritten below with video_register_device(), so
+this is redudant.
 
-> +	/* Depending on whether the inode being truncated is a directory or not,
-> +	 * we need to either call iomap_truncate_page or block_truncate_page.
-> +	 */
+> +       vd->fops =3D &virtio_media_fops;
+> +       vd->release =3D video_device_release_empty;
+> +       strscpy(vd->name, "virtio-media", sizeof(vd->name));
+> +
+> +       video_set_drvdata(vd, vv);
+> +
+> +       vd->device_caps =3D virtio_cread32(virtio_dev, 0);
+> +       if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MP=
+LANE))
+> +               vd->vfl_dir =3D VFL_DIR_M2M;
+> +       else if (vd->device_caps &
+> +                (V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_VIDEO_OUTPUT_MPLANE))
+> +               vd->vfl_dir =3D VFL_DIR_TX;
+> +       else
+> +               vd->vfl_dir =3D VFL_DIR_RX;
+> +
+> +       ret =3D video_register_device(vd, virtio_cread32(virtio_dev, 4), =
+0);
 
-The kernel coding style would be:
+I feel it'd be nicer to pass -1 to the third argument so that the
+'first free' device node number is assigned. With that it would
+support multiple virtio_media devices without warnings.
 
-	/*
-	 * Depending on whether the inode being truncated is a directory or not,
-	 * we need to either call iomap_truncate_page or block_truncate_page.
-	 */
+Also, the virtio_media_config struct is not defined in the series. I
+think defining it would be nice so that it can be imported and used in
+QEMU/other VMMs. And it would allow to do `virtio_cread32(virtio_dev,
+offsetof(struct virtio_media_config, device_type))` here instead of
+hardcoding the offset.
 
-> +	err = iomap_symlink_write(inode, symname, i, minix_iomap_ops_ver(inode), NULL, NULL);
 
-Overly long line.
+> +       if (ret)
+> +               goto err_register_device;
+> +
+> +       virtio_device_ready(virtio_dev);
+> +
+> +       return 0;
+> +
+> +err_register_device:
+> +       virtio_dev->config->del_vqs(virtio_dev);
+> +err_find_vqs:
+> +       v4l2_device_unregister(&vv->v4l2_dev);
+> +       return ret;
+> +}
+> +
+> +static void virtio_media_remove(struct virtio_device *virtio_dev)
+> +{
+> +       struct virtio_media *vv =3D virtio_dev->priv;
+> +
+> +       virtio_reset_device(virtio_dev);
+> +       v4l2_device_unregister(&vv->v4l2_dev);
+> +       virtio_dev->config->del_vqs(virtio_dev);
+> +       video_unregister_device(&vv->video_dev);
+
+virtio_reset_device() documents that the caller must already have
+stopped other contexts (syscalls, workqueue...) from using the
+virtqueues. Here reset and del_vqs() run while /dev/video0 is still
+registered, so an open fd can still ioctl/mmap and kick commandq.
+video_unregister_device() only happens afterwards, and sessions are
+freed in remove() even if a file might still be open.
+
+
+> +}
+> +
+> +static struct virtio_device_id id_table[] =3D {
+> +       { VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
+> +       { 0 },
+> +};
+> +
+> +static unsigned int features[] =3D {};
+> +
+> +static struct virtio_driver virtio_media_driver =3D {
+> +       .feature_table =3D features,
+> +       .feature_table_size =3D ARRAY_SIZE(features),
+> +       .driver.name =3D VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
+> +       .driver.owner =3D THIS_MODULE,
+> +       .id_table =3D id_table,
+> +       .probe =3D virtio_media_probe,
+> +       .remove =3D virtio_media_remove,
+> +};
+> +
+> +module_virtio_driver(virtio_media_driver);
+> +
+> +MODULE_DEVICE_TABLE(virtio, id_table);
+> +MODULE_DESCRIPTION("virtio media driver");
+> +MODULE_AUTHOR("Alexandre Courbot <gnurou@gmail.com>");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virti=
+o_media.h
+> new file mode 100644
+> index 000000000..ac3d75c75
+> --- /dev/null
+> +++ b/include/uapi/linux/virtio_media.h
+> @@ -0,0 +1,288 @@
+> +/* SPDX-License-Identifier: ((GPL-2.0+ WITH Linux-syscall-note) OR BSD-3=
+-Clause) */
+> +
+> +/*
+> + * Definitions of virtio-media protocol structures.
+> + *
+> + * Copyright (c) 2024-2026 Google LLC.
+> + */
+> +
+> +#ifndef _UAPI__LINUX_VIRTIO_MEDIA_H
+> +#define _UAPI__LINUX_VIRTIO_MEDIA_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/videodev2.h>
+> +
+> +/*
+> + * Virtio protocol definition.
+> + */
+> +
+> +/**
+> + * struct virtio_media_cmd_header - Header for all virtio-media commands=
+.
+> + * @cmd: one of VIRTIO_MEDIA_CMD_*.
+> + * @__reserved: must be set to zero by the driver.
+> + *
+> + * This header starts all commands from the driver to the device on the
+> + * commandq.
+> + */
+> +struct virtio_media_cmd_header {
+> +       __le32 cmd;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_header - Header for all virtio-media respons=
+es.
+> + * @status: 0 if the command was successful, or one of the standard Linu=
+x error
+> + *          codes as a positive integer.
+> + * @__reserved: must be set to zero by the device.
+> + *
+> + * This header starts all responses from the device to the driver on the
+> + * commandq.
+> + */
+> +struct virtio_media_resp_header {
+> +       __le32 status;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_OPEN - Command for creating a new session.
+> + *
+> + * This is the equivalent of calling ``open`` on a V4L2 device node. Upo=
+n
+> + * success, a session id is returned which can be used to perform other
+> + * commands on the session, notably ioctls.
+> + */
+> +#define VIRTIO_MEDIA_CMD_OPEN 1
+> +
+> +/**
+> + * struct virtio_media_cmd_open - Driver command for VIRTIO_MEDIA_CMD_OP=
+EN.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_OPEN.
+> + */
+> +struct virtio_media_cmd_open {
+> +       struct virtio_media_cmd_header hdr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_open - Device response for VIRTIO_MEDIA_CMD_=
+OPEN.
+> + * @hdr: header containing the status of the command.
+> + * @session_id: if &struct virtio_media_resp_header.status =3D=3D 0, con=
+tains the
+> + *              id of the newly created session.
+> + * @__reserved: must be set to zero by the device.
+> + */
+> +struct virtio_media_resp_open {
+> +       struct virtio_media_resp_header hdr;
+> +       __le32 session_id;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_CLOSE - Command for closing an active session.
+> + *
+> + * This is the equivalent of calling ``close`` on a previously opened V4=
+L2
+> + * session. All resources associated with this session will be freed and=
+ the
+> + * session ID shall not be used again after queueing this command.
+> + *
+> + * This command does not require a response from the device.
+> + */
+> +#define VIRTIO_MEDIA_CMD_CLOSE 2
+> +
+> +/**
+> + * struct virtio_media_cmd_close - Driver command for VIRTIO_MEDIA_CMD_C=
+LOSE.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_CLOSE.
+> + * @session_id: id of the session to close.
+> + * @__reserved: must be set to zero by the driver.
+> + */
+> +struct virtio_media_cmd_close {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_IOCTL - Driver command for executing an ioctl.
+> + *
+> + * This command asks the device to run one of the ``VIDIOC_*`` ioctls on=
+ the
+> + * active session.
+> + *
+> + * The code of the ioctl is extracted from the VIDIOC_* definitions in
+> + * ``videodev2.h``, and consists of the second argument of the ``_IO*`` =
+macro.
+> + *
+> + * Each ioctl has a payload, which is defined by the third argument of t=
+he
+> + * ``_IO*`` macro defining it. It can be writable by the driver (``_IOW`=
+`), the
+> + * device (``_IOR``), or both (``_IOWR``).
+> + *
+> + * If an ioctl is writable by the driver, it must be followed by a
+> + * driver-writable descriptor containing the payload.
+> + *
+> + * If an ioctl is writable by the device, it must be followed by a
+> + * device-writable descriptor of the size of the payload that the device=
+ will
+> + * write into.
+> + *
+> + */
+> +#define VIRTIO_MEDIA_CMD_IOCTL 3
+> +
+> +/**
+> + * struct virtio_media_cmd_ioctl - Driver command for VIRTIO_MEDIA_CMD_I=
+OCTL.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_IOCTL.
+> + * @session_id: id of the session to run the ioctl on.
+> + * @code: code of the ioctl to run.
+> + */
+> +struct virtio_media_cmd_ioctl {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 code;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_ioctl - Device response for VIRTIO_MEDIA_CMD=
+_IOCTL.
+> + * @hdr: header containing the status of the ioctl.
+> + */
+> +struct virtio_media_resp_ioctl {
+> +       struct virtio_media_resp_header hdr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_sg_entry - Description of part of a scattered gue=
+st
+> + *                                memory.
+> + * @start: start guest address of the memory segment.
+> + * @len: length of this memory segment.
+> + * @__reserved: must be set to zero by the driver.
+> + */
+> +struct virtio_media_sg_entry {
+> +       __le64 start;
+> +       __le32 len;
+> +       __le32 __reserved;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLA=
+G_RW
+> + *                             flag.
+> + */
+> +#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the dr=
+iver's
+> + *                         address space.
+> + */
+> +#define VIRTIO_MEDIA_CMD_MMAP 4
+> +
+> +/**
+> + * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MM=
+AP.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
+> + * @session_id: ID of the session we are mapping for.
+> + * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
+> + * @offset: mem_offset field of the plane to map, as returned by
+> + *          VIDIOC_QUERYBUF.
+> + */
+> +struct virtio_media_cmd_mmap {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le32 session_id;
+> +       __le32 flags;
+> +       __le32 offset;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_=
+MMAP.
+> + * @hdr: header containing the status of the command.
+> + * @driver_addr: offset into SHM region 0 of the start of the mapping.
+> + * @len: length of the mapping.
+> + */
+> +struct virtio_media_resp_mmap {
+> +       struct virtio_media_resp_header hdr;
+> +       __le64 driver_addr;
+> +       __le64 len;
+> +};
+> +
+> +/**
+> + * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
+> + *                           VIRTIO_MEDIA_CMD_MMAP.
+> + */
+> +#define VIRTIO_MEDIA_CMD_MUNMAP 5
+> +
+> +/**
+> + * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_=
+MUNMAP.
+> + * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
+> + * @driver_addr: offset into SHM region 0 at which the buffer has been
+> + *               previously mapped.
+> + */
+> +struct virtio_media_cmd_munmap {
+> +       struct virtio_media_cmd_header hdr;
+> +       __le64 driver_addr;
+> +};
+> +
+> +/**
+> + * struct virtio_media_resp_munmap - Device response for
+> + *                                   VIRTIO_MEDIA_CMD_MUNMAP.
+> + * @hdr: header containing the status of the command.
+> + */
+> +struct virtio_media_resp_munmap {
+> +       struct virtio_media_resp_header hdr;
+> +};
+> +
+> +/* The values for these events are set by the virtio-media specification=
+. */
+> +#define VIRTIO_MEDIA_EVT_ERROR 0
+> +#define VIRTIO_MEDIA_EVT_DQBUF 1
+> +#define VIRTIO_MEDIA_EVT_EVENT 2
+> +
+> +/**
+> + * struct virtio_media_event_header - Header for events on the eventq.
+> + * @event: one of VIRTIO_MEDIA_EVT_*
+> + * @session_id: ID of the session the event applies to.
+> + */
+> +struct virtio_media_event_header {
+> +       __le32 event;
+> +       __le32 session_id;
+> +};
+> +
+> +/**
+> + * struct virtio_media_event_error - Unrecoverable device-side error.
+> + * @hdr: header for the event.
+> + * @errno: error code describing the kind of error that occurred.
+> + * @__reserved: must be set to zero by the device.
+> + *
+> + * Upon receiving this event, the session mentioned in the header is con=
+sidered
+> + * corrupted and closed.
+> + */
+> +struct virtio_media_event_error {
+> +       struct virtio_media_event_header hdr;
+> +       __le32 errno;
+> +       __le32 __reserved;
+> +};
+> +
+> +/* This is set to VIDEO_MAX_PLANES defined in include/uapi/linux/videode=
+v2.h.
+> + * It is renamed here to match the constant that is defined in the virti=
+o-media
+> + * specification.
+> + */
+> +#define VIRTIO_MEDIA_MAX_PLANES VIDEO_MAX_PLANES
+> +
+> +/**
+> + * struct virtio_media_event_dqbuf - Dequeued buffer event.
+> + * @hdr: header for the event.
+> + * @buffer: &struct v4l2_buffer describing the buffer that has been dequ=
+eued.
+> + * @planes: plane information for the dequeued buffer.
+> + *
+> + * This event is used to signal that a buffer is not being used anymore =
+by the
+> + * device and is returned to the driver.
+> + */
+> +struct virtio_media_event_dqbuf {
+> +       struct virtio_media_event_header hdr;
+> +       struct v4l2_buffer buffer;
+> +       struct v4l2_plane planes[VIRTIO_MEDIA_MAX_PLANES];
+> +};
+> +
+> +/**
+> + * struct virtio_media_event_event - V4L2 event.
+> + * @hdr: header for the event.
+> + * @event: description of the event that occurred.
+> + *
+> + * This event signals that a V4L2 event has been emitted for a session.
+> + */
+> +struct virtio_media_event_event {
+> +       struct virtio_media_event_header hdr;
+> +       struct v4l2_event event;
+> +};
+> +
+> +/* Maximum size of an event. We will queue descriptors of this size on t=
+he
+> + * eventq.
+> + */
+> +#define VIRTIO_MEDIA_EVENT_MAX_SIZE sizeof(struct virtio_media_event_dqb=
+uf)
+> +
+> +#endif // _UAPI__LINUX_VIRTIO_MEDIA_H
+> diff --git a/usr/include/Makefile b/usr/include/Makefile
+> index ee69dd9d9..df106b5d9 100644
+> --- a/usr/include/Makefile
+> +++ b/usr/include/Makefile
+> @@ -37,6 +37,7 @@ no-header-test +=3D linux/usb/audio.h
+>  no-header-test +=3D linux/v4l2-mediabus.h
+>  no-header-test +=3D linux/v4l2-subdev.h
+>  no-header-test +=3D linux/videodev2.h
+> +no-header-test +=3D linux/virtio_media.h
+>  no-header-test +=3D linux/vm_sockets.h
+>  no-header-test +=3D sound/asequencer.h
+>  no-header-test +=3D sound/asoc.h
+> --
+> 2.55.0.1082.g2b9226bbc0-goog
+>
 
