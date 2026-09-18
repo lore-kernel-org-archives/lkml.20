@@ -1,137 +1,88 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EF3397942;
-	Fri, 18 Sep 2026 06:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E824446EC98;
+	Fri, 18 Sep 2026 06:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713337; cv=none; b=BxFO1o/Wm8IPlxg2b9X6g8/mevcG4VGpOEWNOhI7urXDj9ONoSIR2i/5tWZNpCYjkr0sNFKqWjFzcLD6+ARxAsaFYdLXypUSO3lQOdHp17DjI9flgxsR4uwdGRC/p0KKMyVFmI0arLwfdETptfcHNQOzGcd4DtiONFWdVPKtr8U=
+	t=1789713419; cv=none; b=UesU7z/DkNG9MpSIIMfPThLcwmg7nmYhhTwdEmChvr/o0LUjfMr6n8nxfCV9axiLR0wGgAWhf3OmdzgSgN1L+E523Nuh5kNLP1nVSCZ+2xaI/lmFdHlfLcAubJbNWSNhG+utqbJoi/YalTIX2zbQs6zOhV7/2sIRBhf0Zj72ZFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713337; c=relaxed/simple;
-	bh=PXz+AEyINuj82u7Q+9uDxzw7nkGTATvc9XdXGDT6JAw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=fOlcfsOTMCJpLOorOa9S3kpiPUOJt9JwdHQaPqpy5N+C1jKlQDDOxG6khIbyYyd+GceQhzSPOx7K7JB+aGcDocbkSavyFIPPpnGjzbcp3IK77gvoHKJhIZgv2e48mhGEasqRMir+ad7kQd7eFZORanimUosIyPLKri73MpFRGr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=PZNLjbBC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jBqsFaXf; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789713419; c=relaxed/simple;
+	bh=O1huewYL1PNuCkIhyClw7hLbhunZb5skF7+0QTpYPQY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QQornRXCrBRX6Sy7VmyP2wzQimjhLQIywShbF/RfITMCIoyA3ME6qHjoKWMz/4HZcGtZoIWwBJbq+XLNU2LeRd40+V7so8m8qq4UNxv7EvOu/Pni8PxaS0nMBkOHqbvC4l40HekqwSdOLgZJ2DgNkbmmp68BHvUoJ5ZJSzzefYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AQNRWxM8; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="PZNLjbBC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jBqsFaXf"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id D6A7B1D000AB;
-	Fri, 18 Sep 2026 02:35:33 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 02:35:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789713333;
-	 x=1789799733; bh=5lJK4CWzfgszxTPisa6n5iUQCQ94cJhqVE7BI7tdaWg=; b=
-	PZNLjbBCMu1kqgjWF6oXBRM9h80jaEps+8D/s7cSPlLAs/sBQ5lnKk8Pk0HyZPv8
-	M3zgYz1fkgSlhbPiN213VmuGAfxgvNf8y7ARP8T0aE7tDxr7BkDIpNgq1dYiWQm8
-	MwFWuSHbj8yMPwV5gxhfswCpxcMrh1JJIRbdav3X3gHgJ1CZlOWwBryTNP1ffMXu
-	b5VfbPnjKl+Heug3ijEiJa+D7nqfKgzEZl8uQjmISFVpKg6rdWK9rlki8ivux93U
-	Ldh9FLUDwmWhu+lsLs0MmD7bow696fppq6h5H1E2NgUwVwOyjYNxLTuJF2p+tWWG
-	AR7T83/40+yoilib1QTpYQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789713333; x=
-	1789799733; bh=5lJK4CWzfgszxTPisa6n5iUQCQ94cJhqVE7BI7tdaWg=; b=j
-	BqsFaXfVCyrtvbi5Y6lC4hMl68rWtblBrrKjUk78t0QYf9dWs4mSv9hZcTcdCPXl
-	jHH+TbkZKs3Si2SNTeC/g8SiJtUW7kSe6t5ft4YmiQU+B4bFdGgFWGYHBDSLlH0J
-	TOOe2G0//RDTOP9/RHFvrZTpNhscgjBl2IQoRvxe+cenEnW4LRp98ehtp/QOrM/C
-	j1DBl7IBQZxhk6M+x3HDTzV8Au9cgiDhOCW0U+ivdLZdvQ2RNhxYXbX0FxScrTDK
-	CRvigoxUSkZWcvlKkxt9GTHHnkiuZ29SQf4aukA+giKtCTukZy3ZaJ9g8Mcn0dqj
-	m+NT79Kqqmsswy6VgLdPQ==
-X-ME-Sender: <xms:sdusarw6CwLcecS-ZOF_o4k98NTg6eh0X9BPyLwzzjIiOHj9dCmYmw>
-    <xme:sdusauG9a_6eIdWK_wkUnWMe2OBfk4EL06wuReja2xNIn4HqosArcIWozES6Jt2gQ
-    lxqDL37Ii29kHtO6inQ_StZIUxH2OGt3O4JK70J7rmchYaVLM7siYWSeQ>
-X-ME-Proxy-Cause: dmFkZTEIIFgx0WbGNQ58MO77NMw9OaJpm9DbTqlfAPRrCqHLxA6h610PWouYKfQMP0MfHZ
-    FgQIsgI0u9YWNsSUq7uGJgu6iUC9SCqsw86qV7DYQofAPbgRXdmRJM6RI6byfBBg9PRit5
-    KCJGRtLDg4pN4dasBDoDu8jHTYonM59/m2QOwzjRgs+iYjbk19vxRZsy1S6HQZRvO0xGos
-    jxoESYgqiB8fdjTYVCbNlR7JenOOBTkAWFwjjPh8iem+0zFyZlwR0Csf7s14XiC1stoQDX
-    gNCN9LVvWR+UjAOcTK5bozPGVRl+y9bxAeENNDi6uGVTvRMvw3ZC5+sva1VamJd5zwGSjT
-    Bv6D6/W/6JD3jk+vLf4U+b0bfUXiH2aAMvSYESeF1fRokMs9Ao8ElVDihgD4Ybgd+Ysc1a
-    QfEzPxo+UShmBKfvBAeYL7mL/ly0k7rUuQA9NYRhRI9DrIKg5u7S2iy5Ol1QS/YB1LriAV
-    pDkdCCQ4EIydR1wE3VepBQVTilewMoIgS7Mw92fCEZxgE8S+j8/6dFAg6KAlvQ4xBgmE5Y
-    ss+JMUtuFxe7jCR5TGDyXdctY3CmEeqXDG93H4Zgq3F3bYc4m3Fs578oxChGVVLdPoFh4l
-    vcvKYV0r41EclbSW/ze6/t/6ZPXTTZRcaSgKtY6YQJyzUESYMBjjPGLYkJuQ
-X-ME-Proxy: <xmx:s9usar3XlzTwJYvA4tLyxwlgnxyImQOpIMPM2YQVPbmdaJn4SlDTVQ>
-    <xmx:s9usaqgcYcxKC4e7Gz2SlWut33Qm0lrodPnGLWw0nSG43IMgRepqgw>
-    <xmx:s9usarqT28ClioWv_VHdfJh_GXZqZGNfp8Ppqo50EzC6oE8nevl4eA>
-    <xmx:s9usatPRQDbbgtNp_owbzUY42MSfghkc0eLXZD7d7Mojgxb1VDahew>
-    <xmx:tdusah-IgVk6Nx-YSkRT3k0RKUprAHhUhFP2e8nozct_WPhDKqIOpP2z>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1605332A0084; Fri, 18 Sep 2026 02:35:29 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AQNRWxM8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1DBD34E4081C;
+	Fri, 18 Sep 2026 06:36:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C239260649;
+	Fri, 18 Sep 2026 06:36:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B918B11C7B021;
+	Fri, 18 Sep 2026 08:36:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789713414; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=b/kwg8xPzvU7ZBW6GaseA/nQW9nV0VK1cq3pTvwDMsI=;
+	b=AQNRWxM8MSps0slHhOxR5WAwPa4wIYOQiM7D/Z/E7cAcmFmQ06vOBeqH96ZAsj2QT6KAak
+	SVIa9tT/KfgEUoyBGjjgNCV0blH2+c/gYJg/GX3myRvkO/2M2UXyDV4cpMpEBqK15tB9hi
+	vhGELJV8XKPegOPsMzraCmFhnwrVaZJ2rCXqQJktbRj8h2URJsTPbE3FIlY5VzlaVtVqhh
+	L2uOHoiyES021YhiuDepdnZBuuqHZJSmX9gH7DrayLW9M0s9qhjG77e1pSZBlZOcP5NTam
+	Y8Dilcw/R/IkeukLXLMCJ7NCfMMDlNAvpNCv+9gtsW1nzklG5T/CbjX/5bSBHQ==
+Message-ID: <7023523b-fcca-401d-a876-18960a9d75fd@bootlin.com>
+Date: Fri, 18 Sep 2026 08:36:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AAZATSgDMLEZ
-Date: Fri, 18 Sep 2026 08:34:58 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <6cd76fb4-0834-457c-8188-c68a507b6a6f@app.fastmail.com>
-In-Reply-To: <20260917-tonyk-syscall_table-v7-3-f4cd8f8e3265@igalia.com>
-References: <20260917-tonyk-syscall_table-v7-0-f4cd8f8e3265@igalia.com>
- <20260917-tonyk-syscall_table-v7-3-f4cd8f8e3265@igalia.com>
-Subject: Re: [PATCH v7 03/13] scripts/syscall.tbl: Use the common table
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+To: Alastair D'Silva <alastair@d-silva.org>,
+ James Hilliard <james.hilliard1@gmail.com>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
+ <9cd900993fc385ccffcf743f629e87071be9820a.camel@d-silva.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <9cd900993fc385ccffcf743f629e87071be9820a.camel@d-silva.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 18, 2026, at 01:46, Andr=C3=A9 Almeida wrote:
-> Remove some of the duplicated code by using the common syscall number
-> table.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  arch/arm64/tools/syscall_32.tbl | 69 --------------------------------=
----------
->  scripts/Makefile.asm-headers    | 15 ++++-----
->  scripts/syscall.tbl             | 69 --------------------------------=
----------
->  3 files changed, 8 insertions(+), 145 deletions(-)
+Hi Alastair,
 
-This somewhat desyncs the two copies of the arm32 table, which
-isn't great.
 
-> diff --git a/scripts/Makefile.asm-headers b/scripts/Makefile.asm-heade=
-rs
-> index f1c3d287c14b..b09dbc8992c3 100644
-> --- a/scripts/Makefile.asm-headers
-> +++ b/scripts/Makefile.asm-headers
-> @@ -15,9 +15,10 @@ all:
->=20
->  src :=3D $(srctree)/$(subst /generated,,$(obj))
->=20
-> -syscall_abis_32  +=3D common,32
-> -syscall_abis_64  +=3D common,64
-> +syscall_abis_32  +=3D clone3,common,32
-> +syscall_abis_64  +=3D clone3,common,64
+> Confirmed working on the Mellow Fly C5 when brought in as a module and
+> backported to 6.18, tested in the Armbian environment, along with the
+> recommended PWM patch:
+> https://lore.kernel.org/all/20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.com/T/
+> 
+Thanks a lot for testing, this is great :)
 
-The clone3 variant is wrong on nios2 and openrisc, as they need the=20
-__clone3 version. These currently redirect it using a macro from
-syscall_table.c doing
+Can you add you Tested-by tag ?
 
-#define sys_clone3 __sys_clone3
+Thanks,
 
-which will continue to work here, but I don't like how this is
-inconsistent between the architectures. Let's use either
-syscall_abis_* or a macro to pick the clone3 variant on
-all architectures, but not both.
-
-        Arnd
+Maxime
