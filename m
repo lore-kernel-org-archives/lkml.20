@@ -1,38 +1,75 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B20A3CDBD3;
-	Fri, 18 Sep 2026 15:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777804AAC4D;
+	Fri, 18 Sep 2026 15:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746124; cv=none; b=PhUretX3oMrdFPCshnC7gDRX7T+eiv0V0ankNE/UvQMeoss5oTNaOfT8gSBT1oGmbRqtGITpbb4zjDs/xvofyk0SPgivPP0lk4AVUBGtxBC3Gk75aHghuqLk3aAIO8FaAbyE3eyPnah2EieqlHcHkA0UKcra8GPhAChiKpkK5fA=
+	t=1789746174; cv=none; b=kl40MF6pp2Cling/3MZRqChCsdE4BZ+g1JQi4+HpuSbVNmJ3AwIWJFewCdWjBBxlD1Ts4EIDcMPKzSEXnB2ctnk1BfEiAZyTb7RUdt7n7OdwsJ6SIaQwctgYYaRnP4wfY/q24F4eO6Jygl4hoDbHWaEIYTsjH4kygZOtnN0UFI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746124; c=relaxed/simple;
-	bh=EQunglJ6d2uWjOThs1jFL9G7GW/APxwBG0oncswVQ1s=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=t3+xecf8GnFmAc69XMVZnoaYfLqyCbAhKAHlQHWbp7PfTBvgWQylSDq6u3X1T3F05tSw3YugjbYAtQm1ebqOd9h0RNnNm83KzmEVa7X9Ph7q55iRBI0s/021iBDQRZHnSJMq0/4GmWzXc37X+Bchul0nVPMmRGwN6EBbXPQIbNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=AvDp9G4F; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789746174; c=relaxed/simple;
+	bh=X4Nal4dVzruiKWaSEYsGNCg4TNbqPVOO4N2xKunInrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Eg/JCL902vVLZ/HtdEonoo7Y3O2UlQbZ7qv0rwE5oRP+tExTEVjTeOOa6NdSO8dqzuO7WzC7q3GboKVgj4VKb8p8ezjnN4qe85LiQ9z5M9ET3I4OvJiXzy1MqEXw7mi9F6TnFnI+T6/uEYDok9tu/sGgnM4L0xEeoJvmoX5ZcWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=nG4OWRHL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fhytSGHf; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="AvDp9G4F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=vw84dLxE2GFLg805xqWaA3ak0rK2tQ1LuNCiF+Dru5E=; b=AvDp9G4Fkj/J98CK4VSs4mQylk
-	mRjNNX4uljtBEgxOJAWp9+Ci5FhxBUanBzLIK3rR51U6zf3vaczT3L+O3oCd+MX0ir/0BB/LMKLQF
-	rmS5QELKtoxonZJLIjUwwRT9JxDpAJln29/SGhQK0cQlrQc2s68o8AKJdQ627ep6x0htUgJMD+8vz
-	IfiDQzuLmDDtzv8DRqW7VVsLlXRzh1N53+VjxkDIUtsQIwwq3Aq2Jp9a/wlrgU4D2y3YADqUv+KRm
-	xssweV8Mr041fftNtNKkfwkMSkJFpXt/jWcNEci5nqqAo/U3nNAJ9uIV3CgvndPiXXoRNgWx/CnH9
-	PCi1xgjQ==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x7aiu-0000000CpT6-40DK;
-	Fri, 18 Sep 2026 09:42:01 -0600
-Message-ID: <27bf3e0a-2e29-4f96-bf87-f863649d1751@deltatee.com>
-Date: Fri, 18 Sep 2026 09:41:53 -0600
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="nG4OWRHL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fhytSGHf"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5BF981D00060;
+	Fri, 18 Sep 2026 11:42:51 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 11:42:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789746171;
+	 x=1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=
+	nG4OWRHLqJg24+nBVbPIJOFmuotLG5k5pCoJp6zlpn/YwSWpfM3vBFKv7DqiG6EL
+	NcT560VsCSKSIXPGpVA9m8RXE7Humzx5+s8K/0uHQAjFT1MWQx1XMPFXpQ5XG1RI
+	3Vw8u5/g2f7DJPLX/SzK4hACQiag/6S2mm4I5a+CyttZztDltR9L+Dg2k+5kHqZw
+	SypTqoHcFHrDr/pn2m+x8WYlMwFRLNp4xFXuPb04+tkBUPbgr29dEwSyi2/IX1kF
+	wlQDUAwRTJDzw7R5on0qaw+2pwtjgZph3g/qbfa9IvSMCqJJY4DDxsaZ1JdeA9CO
+	ZiXqBZWg0Lykkjm/EIrkwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789746171; x=
+	1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=f
+	hytSGHfzWMLX/IPCErKoTfQmVc2Z3hFsXPnBwi7p7kkjTwzfO9q7FowppzHzxe9G
+	ih14sYnbvXBuNVvR5uN/q45r74CEy/SG3i7cgAbaKcJlX5GATmP513RrGqJX7Ozf
+	oQapokY/Oys10B8QL+ooKEbPrqHyFxfch8DAsW/Mxaa+orKjbxgcI6LHuO41jqbG
+	eGy78+Sa8psM6m6TWqJ4L7vYrXZDslCp5Il3tp8RuvyQXjeaR0YMXsLt+sYCI+dx
+	L54NZHH5DIfGy3BlR8x1aMlW3U4U9UJOhwl9OA2N8bkhhkzVwEFkzlklFW6SzSHm
+	/IihcXzcN4gabA4wdXFvQ==
+X-ME-Sender: <xms:-lutatxoiA2kcTBCkET4C99jhbOQZndqoaTNBGuXC5rRJK_tE518TQ>
+    <xme:-lutapKcHaBwFOymtKtAfWfWcpFKB6lLJ5_yCrTDBKAKwi2ubjeFNmAPEQEQoUP7b
+    1Kzbwyy4j0Bbj8bqoExgjYM_LdfTug6R55QYFOVmqLWi_B8X98YxQ>
+X-ME-Received: <xmr:-lutai298sLvhXQtBz3rNxrXoo0M_dww0CzBqZHhGXHN30VI8ZtskuGGmAcuGeTOQSj_IZNiLnnrI8g5pS7tbWqKiLX-7ASe>
+X-ME-Proxy-Cause: dmFkZTFi1A0oYdbKDak8eiKur6KTMrjOFJhUId6lGXsSvv1WVZlngbMKYROlWdB9kCWkCQ
+    94gk0YY+zhCtrYaPvWhtsqFiIUF94MHT/87NGOrqR3HZq5rWoDIn0YaMeZO86FCre/B94I
+    CMFLnNJVdfd8o9/jmIytsAeYSxegKXwCmBiBdjKUq97jD2c9DbRuZe+n1i42D/bS8e/0Op
+    tkAGzZ2P+ntwLFKlXWNXUbVRyxc8qpGfaDJg7y46XgQOyOGq3fOtBOTFMzi2OqKoE9ahDl
+    yJ6ooxD4Q75YjKHqxWY5IeSA7FzGsV8RYQgQBpzrtxPty/hsAj+u90d/A6oqDjtc36aJpO
+    peWHnfWALMsBV4o7CmwvJzfdBsy4m2+ouvAKyPHv57rmhWi3GUBzZZ2zBhCB4mwjwnNkeZ
+    c436l/IZ4nzN5xT718H0vjov6+3C6yrONmlBPN5WZeDQ1+USjYAEDy+UgTnWrJyWEFs3KB
+    LXdR3hynUfFuALqA4KafN3EDSf0r8mt+UXYjlTJxGqw1BaJUJKC2dnONbewQevjzagbh0p
+    1ces62+P0o0SjnSAYVmLC8iuiMxBakh3wVNDOzCALgPsAqrvYUETgfOhpyAdneCsU/xRUC
+    U+137LyqUXCWyPY0WyI2xm0uR5ra5dO38+bHhzFClTADqmE/TBdBBU8gJU0A
+X-ME-Proxy: <xmx:-lutajfkP9YVa0P6yErEFSccpHuFjdqIThqt-P1-_P9HxNp_BQTPbg>
+    <xmx:-lutam5OXTBRo9m1zvYOVY5CxgYh2VvV6nBO9m4n9LSUNocK7pU6uw>
+    <xmx:-lutam_P9N25CIt6H_MnfgHIk4H47JxA8yI2PD8DBzfoCLymj8sCxg>
+    <xmx:-lutatItuPnOKiWaav5jkikZTPxCbGQRuBCeCHjmGyxgbfY6S-u4vg>
+    <xmx:-1utaikzqus5RhH0lKUPWksN73Jrn-_5Hg-rD33moTDJTiZaufSsgHty>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Sep 2026 11:42:47 -0400 (EDT)
+Message-ID: <a6b16511-b93a-42ca-99e9-084121793bf5@pobox.com>
+Date: Fri, 18 Sep 2026 08:42:46 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,48 +77,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-10-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260910040836.3792333-10-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151350.597953846@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 09/14] NTB: ntb_transport: Drain RX tasklets during
- link cleanup
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-
-
-On 2026-09-09 22:08, Koichiro Den wrote:
-> ntb_qp_link_cleanup() cancels QP link work but does not wait for the RX
-> tasklet. The tasklet can still be processing the ring while cleanup
-> resets the QP, and transport link cleanup can free the MW before the
-> tasklet finishes.
+On 9/17/26 8:05 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Clear active under rx_sched_lock and drain the tasklet before resetting
-> the QP. Temporarily disable QP link work so a concurrent client link-up
-> request cannot reactivate RX during cleanup, then re-enable it for the
-> existing link setup paths.
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
 > 
-> This does not drain RX DMA transfers or their completion callbacks.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
 > 
-> Fixes: 9143595a7e05 ("NTB: ntb_transport: Free MWs in ntb_transport_link_cleanup()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> thanks,
+> 
+> greg k-h
 
-Looks good.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
