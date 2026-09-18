@@ -1,138 +1,255 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EB433DEC8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFB5B3876A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740877; cv=none; b=dY5pLkdHsxylw7Q/q9D9vuPOhDgisaRdVO+cPFx5PMb5rbZv9a/09iAlHJG1thU1RfoklJcPKXobVH21CKOYbx5Uxxxptuf6QmixMU1QG73s+g6C+2ShQonvMqEjuz6mbo/4i5r6DjvzrEsZ+K9kMRrLZzKBbmaiflOTXJENeI4=
+	t=1789740930; cv=none; b=B1jYPgEi398Tb3an6w3gYvL4/1n5bzjH1hBFz7fUK/Na5Pj1GHI1WZ8rn5L0DWvyPveROTYJnNpWzvNvf6QfkPoqK564T9bO9ZC5s19QovfGq9tO97cWB6G0jQx92D/FIp3zLIUfnFhC/kPT3BNygCX/hYk3rh70Wpuqmu8a65o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740877; c=relaxed/simple;
-	bh=HQHYY5tAJcBWvJ3Ln0zxpLTMvoOoSyCh4MotZ8ordXI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=o2++cZDldbd2Tt6mOv1sYwROYBTUX5+ocfz9qipthWbP8ymmnTNX8PdmIhwTC/7I+FBdNQmCq2HF6JLFqXBU86nhSbUO4DYGZ/abL/FX1ZUsfTMU0JiPN3vrHhQCc9q2Rw/6GIb5rPLtnzqGJQKgPhj56V0fveV+YQj0O7d2lzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cQJjtYRb; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789740930; c=relaxed/simple;
+	bh=Sh6KgtQA7JqW8xAzFBw7sj89Paj3qp613tU3kW0Wuf4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eGdg6zBB+iHcezCRx/TEXww5i4HyMa2VSg+jgTncrflafzqHRk2yA7yDjUDGviNIR3FP0yMaH4EQmHl4l2t5A8354e2hYhL6R7bDDK6QA/qbsQkQIAhmiR/iy2Ok0A4rIvpxNslji9TjINE5Q+QD2FxQbw0xSJCHs1nMyaxWQyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BDDBtKw7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cQJjtYRb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789740875; x=1821276875;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=HQHYY5tAJcBWvJ3Ln0zxpLTMvoOoSyCh4MotZ8ordXI=;
-  b=cQJjtYRbaQQ3s1V9b9YjPGSiD8F+ocNxFI08uhpDoDKhgLGvXANPIn7P
-   uSicygol1BV8KmrlCUeHQisy2rBjdypeas/JjdgzN8dx/jvCx7uNkwTi3
-   Jpuph8difIKHEBf3dfCniMLSZ7fJe7woq0VYQR/QtwCAqwmLObv7hRolJ
-   TwH8xjYSqTbHLjzZdv94I/+u65rukZp9h5kfBy2anNm1HmW4wI8ysUyDP
-   DAIxL1oXmhsbcB0PTXOrkLDYIMb/8TFfJWOfOqQxpbr2XH4m6E+7UNJZq
-   8FCpSrqhkJQ3nGx2l3p0IWULX4fkCIvOr2k5MoE4X4NLrDn5fwc1Byask
-   A==;
-X-CSE-ConnectionGUID: tY/21IRVQNKVyLFH4KZ9Og==
-X-CSE-MsgGUID: SViuwn35Ri6vf7JbhXvtaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="90115283"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="90115283"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:14:35 -0700
-X-CSE-ConnectionGUID: 3rINgxueQ6+GfWZpb4EUBg==
-X-CSE-MsgGUID: GXMcpvWgReuOxq/KIbTdWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="2622332"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.216])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:14:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Timo =?utf-8?Q?Pr=C3=B6mer?= <timo.proemer04@gmail.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Timoyoungster <timo.proemer04@gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/edid: Export drm_edid_block_count()
-In-Reply-To: <20260713193237.2639-2-timo.proemer04@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260713193237.2639-1-timo.proemer04@gmail.com>
- <20260713193237.2639-2-timo.proemer04@gmail.com>
-Date: Fri, 18 Sep 2026 17:14:28 +0300
-Message-ID: <76f22a9fac1eb0dbf6ed52de66a00d0412ead885@intel.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BDDBtKw7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AEFA3168F;
+	Fri, 18 Sep 2026 07:15:24 -0700 (PDT)
+Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 78BC83F86C;
+	Fri, 18 Sep 2026 07:15:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789740928; bh=Sh6KgtQA7JqW8xAzFBw7sj89Paj3qp613tU3kW0Wuf4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BDDBtKw7cvqWJ1ClbeP3Z6jjwxU2R/V7fN8OGQMyWaJrpUeZLwaWnuGf3O0SNB+E2
+	 TdTtcXhfYggvNWbgXzsLDY9Lc63+r3imQVLjZujAnTByCC8FsXbZMWkeinabcm4Nns
+	 6+TlN7QdkiSQl3LGOfKy5eQ26q4B224XaKle+6EI=
+Message-ID: <59d1947d-d3cd-4621-9377-b206afd18bd6@arm.com>
+Date: Fri, 18 Sep 2026 16:15:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/8] firmware: smccc: lfa: Add auto_activate sysfs file
+To: Nirmoy Das <nirmoyd@nvidia.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>, Salman Nabi <salman.nabi@arm.com>,
+ Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-6-andre.przywara@arm.com>
+ <20260710140856.3323523-1-nirmoyd@nvidia.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260710140856.3323523-1-nirmoyd@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 13 Jul 2026, Timo Pr=C3=B6mer <timo.proemer04@gmail.com> wrote:
-> From: Timoyoungster <timo.proemer04@gmail.com>
->
-> Drivers currently calculating EDID size by reading the `extensions`
-> field of the raw EDID structure (e.g., `edid->extensions + 1`) will
-> calculate the wrong size if the EDID contains an HF-EEODB (HDMI Forum
-> EDID Extension Override Data Block). The base extension flag does not
-> account for these override blocks, leading to truncated EDIDs.
->
-> Remove the static declaration and export drm_edid_block_count() so
-> drivers can safely query the true block count. This allows drivers to
-> leverage the core DRM's proper handling of HF-EEODB and other edge
-> cases without having to parse the raw EDID fields themselves.
->
-> Signed-off-by: Timo Pr=C3=B6mer <timo.proemer04@gmail.com>
-> ---
->  drivers/gpu/drm/drm_edid.c | 3 ++-
->  include/drm/drm_edid.h     | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index df3c25bac..34560b33a 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -1698,12 +1698,13 @@ static int __drm_edid_block_count(const struct dr=
-m_edid *drm_edid)
->  }
->=20=20
->  /* EDID block count, limited by allocated size */
-> -static int drm_edid_block_count(const struct drm_edid *drm_edid)
-> +int drm_edid_block_count(const struct drm_edid *drm_edid)
->  {
->  	/* Limit by allocated size */
->  	return min(__drm_edid_block_count(drm_edid),
->  		   (int)drm_edid->size / EDID_LENGTH);
->  }
-> +EXPORT_SYMBOL(drm_edid_block_count);
+Hi Nirmoy,
 
-Not everything that's inside drm_edid.c is supposed to be looked
-into. It's abstracted and hidden for a reason. Please don't hack into
-this.
+On 7/10/26 16:07, Nirmoy Das wrote:
+> On Mon, 6 Jul 2026 15:44:45 +0200, Andre Przywara wrote:
+> 
+> Hi Andre,
+> 
+>> The Arm LFA spec places control over the actual activation process in
+>> the hands of the non-secure host OS. An platform initiated interrupt or
+>> notification signals the availability of an updateable firmware image,
+>> but does not necessarily need to trigger it automatically.
+>>
+>> Add a sysfs control file that guards such automatic activation. If an
+>> administrator wants to allow automatic platform initiated updates, they
+>> can activate that by echoing a "1" into the auto_activate file in the
+>> respective sysfs directory. Any incoming notification would then result
+>> in the activation triggered.
+>>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> ---
+>>   drivers/firmware/smccc/lfa_fw.c | 34 ++++++++++++++++++++++++++++++---
+>>   1 file changed, 31 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+>> index 5b7f9b07f6c8..ce4f966db475 100644
+>> --- a/drivers/firmware/smccc/lfa_fw.c
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -89,6 +89,7 @@ enum image_attr_names {
+>>   	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
+>>   	LFA_ATTR_ACTIVATE,
+>>   	LFA_ATTR_CANCEL,
+>> +	LFA_ATTR_AUTO_ACTIVATE,
+>>   	LFA_ATTR_NR_IMAGES
+>>   };
+>>   
+>> @@ -103,6 +104,7 @@ struct fw_image {
+>>   	bool may_reset_cpu;
+>>   	bool cpu_rendezvous;
+>>   	bool cpu_rendezvous_forced;
+>> +	bool auto_activate;
+>>   	struct kobj_attribute image_attrs[LFA_ATTR_NR_IMAGES];
+>>   };
+>>   
+>> @@ -550,6 +552,28 @@ static ssize_t cancel_store(struct kobject *kobj, struct kobj_attribute *attr,
+>>   	return count;
+>>   }
+>>   
+>> +static ssize_t auto_activate_store(struct kobject *kobj,
+>> +				   struct kobj_attribute *attr,
+>> +				   const char *buf, size_t count)
+>> +{
+>> +	struct fw_image *image = kobj_to_fw_image(kobj);
+>> +	int ret;
+>> +
+>> +	ret = kstrtobool(buf, &image->auto_activate);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static ssize_t auto_activate_show(struct kobject *kobj,
+>> +				  struct kobj_attribute *attr, char *buf)
+>> +{
+>> +	struct fw_image *image = kobj_to_fw_image(kobj);
+>> +
+>> +	return sysfs_emit(buf, "%d\n", image->auto_activate);
+>> +}
+>> +
+>>   static struct kobj_attribute image_attrs_group[LFA_ATTR_NR_IMAGES] = {
+>>   	[LFA_ATTR_NAME]			= __ATTR_RO(name),
+>>   	[LFA_ATTR_CURRENT_VERSION]	= __ATTR_RO(current_version),
+>> @@ -560,7 +584,8 @@ static struct kobj_attribute image_attrs_group[LFA_ATTR_NR_IMAGES] = {
+>>   	[LFA_ATTR_CPU_RENDEZVOUS]	= __ATTR_RO(cpu_rendezvous),
+>>   	[LFA_ATTR_FORCE_CPU_RENDEZVOUS]	= __ATTR_RW(force_cpu_rendezvous),
+>>   	[LFA_ATTR_ACTIVATE]		= __ATTR_WO(activate),
+>> -	[LFA_ATTR_CANCEL]		= __ATTR_WO(cancel)
+>> +	[LFA_ATTR_CANCEL]		= __ATTR_WO(cancel),
+>> +	[LFA_ATTR_AUTO_ACTIVATE]	= __ATTR_RW(auto_activate),
+>>   };
+>>   
+>>   static void init_image_default_attrs(void)
+>> @@ -631,6 +656,7 @@ static int update_fw_image_node(char *fw_uuid, int seq_id,
+>>   	image->kobj.kset = lfa_kset;
+>>   	image->image_name = image_name;
+>>   	image->cpu_rendezvous_forced = true;
+>> +	image->auto_activate = false;
+> 
+> Following up on our v2 discussion about the udev anchor after the
+> SMCCC bus rework: I got a chance to try v3 on a real machine, and
+> like the faux device in v2, the SMCCC bus device also works as the
+> udev anchor:
+> 
+>    ACTION=="bind|change", SUBSYSTEM=="arm_smccc", KERNEL=="arm-smccc-lfa-*", \
+>            RUN+="/usr/local/sbin/lfa-auto-activate"
+> 
+> Matching on "bind" instead of "add" worked better when I tried it,
+> bind fires only after probe so /sys/firmware/lfa is already
+> populated.
 
-BR,
-Jani.
+Ah, nice, thanks for staying on this!
 
->=20=20
->  /* EDID extension block count, limited by allocated size */
->  static int drm_edid_extension_block_count(const struct drm_edid *drm_edi=
-d)
-> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-> index 04f7a7f1f..4a990bf87 100644
-> --- a/include/drm/drm_edid.h
-> +++ b/include/drm/drm_edid.h
-> @@ -481,6 +481,7 @@ const struct drm_edid *drm_edid_read_switcheroo(struc=
-t drm_connector *connector,
->  int drm_edid_connector_update(struct drm_connector *connector,
->  			      const struct drm_edid *edid);
->  int drm_edid_connector_add_modes(struct drm_connector *connector);
-> +int drm_edid_block_count(const struct drm_edid *drm_edid);
->  bool drm_edid_is_digital(const struct drm_edid *drm_edid);
->  void drm_edid_get_product_id(const struct drm_edid *drm_edid,
->  			     struct drm_edid_product_id *id);
 
---=20
-Jani Nikula, Intel
+> What is still missing is a notification when the image inventory
+> changes at runtime. I tried the KOBJ_CHANGE approach from our v2
+> discussion on top of v3, emitting from the SMCCC bus device after
+> the image tree is refreshed, and it works: the same rule re-arms
+> auto_activate when the event fires. What do you think about adding
+> such a notification? I can send a patch on top once this series has
+> landed,
+
+I am not super excited about adding a global variable for the smccc bus 
+device just for this, but it's not a showstopper either. Maybe just 
+store the kobject we need?
+In any case, can you please send a patch on top of v4 I just sent, maybe 
+as a --in-reply-to to the cover letter? This would honour your 
+contribution, and keep this patch close to the source and separate.
+
+Cheers,
+Andre
+
+
+together with an example udev rule. This is what I tested:
+> 
+> --- a/drivers/firmware/smccc/lfa_fw.c
+> +++ b/drivers/firmware/smccc/lfa_fw.c
+> @@ -142,6 +142,7 @@
+>   };
+>   
+>   static struct kset *lfa_kset;
+> +static struct arm_smccc_device *lfa_sdev;
+>   static struct workqueue_struct *fw_images_update_wq;
+>   static struct work_struct fw_images_update_work;
+>   static struct attribute *image_default_attrs[LFA_ATTR_NR_IMAGES + 1];
+> @@ -229,6 +230,19 @@
+>   
+>   		delete_fw_image_node(image);
+>   	}
+> +
+> +	/*
+> +	 * Notify user space only after the firmware image tree has been
+> +	 * fully reconciled, so that consumers reading /sys/firmware/lfa/
+> +	 * see a settled inventory.
+> +	 */
+> +	if (lfa_sdev) {
+> +		int ret = kobject_uevent(&lfa_sdev->dev.kobj, KOBJ_CHANGE);
+> +
+> +		if (ret)
+> +			pr_warn("failed to send inventory change uevent: %d\n",
+> +				ret);
+> +	}
+>   }
+>   
+>   static void set_image_flags(struct fw_image *image, int seq_id,
+> @@ -925,6 +939,8 @@
+>   	}
+>   	INIT_WORK(&fw_images_update_work, remove_invalid_fw_images);
+>   
+> +	lfa_sdev = sdev;
+> +
+>   	init_image_default_attrs();
+>   	lfa_kset = kset_create_and_add("lfa", NULL, firmware_kobj);
+>   	if (!lfa_kset) {
+> @@ -966,6 +982,7 @@
+>   	flush_workqueue(fw_images_update_wq);
+>   	destroy_workqueue(fw_images_update_wq);
+>   	clean_fw_images_tree();
+> +	lfa_sdev = NULL;
+>   	kset_unregister(lfa_kset);
+>   }
+> 
+>>   	set_image_flags(image, seq_id, image_flags, reg_current_ver,
+>>   			reg_pending_ver);
+>>   	if (kobject_init_and_add(&image->kobj, &image_ktype, NULL,
+>> @@ -700,7 +726,8 @@ static int update_fw_images_tree(void)
+>>   
+>>   /*
+>>    * Go through all FW images in a loop and trigger activation
+>> - * of all activatible and pending images.
+>> + * of all activatible and pending images, but only if automatic
+>> + * activation for that image is allowed.
+>>    * We have to restart enumeration after every triggered activation,
+>>    * since the firmware images might have changed during the activation.
+>>    */
+>> @@ -719,7 +746,8 @@ static int activate_pending_image(void)
+>>   			continue; /* Invalid FW component */
+>>   
+>>   		update_fw_image_pending(image);
+>> -		if (image->activation_capable && image->activation_pending) {
+>> +		if (image->activation_capable && image->activation_pending &&
+>> +		    image->auto_activate) {
+>>   			found_pending = true;
+>>   			break;
+>>   		}
+>> -- 
+>> 2.43.0
+> 
+> Regards,
+> Nirmoy
+
