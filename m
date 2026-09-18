@@ -1,87 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D51249739B;
-	Fri, 18 Sep 2026 07:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD0428852E;
+	Fri, 18 Sep 2026 07:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715068; cv=none; b=aJrcKYM93JwrYg89MLN14SJfmTGtAqtdagl7HQdL+ELv0jDp9WLmpWsWTPrUDhAUFmRN5lhfatRXfxK9M81Pz4o+5MT/04Ydij9P3XM2OEIK5gcrsddiwlHO/FUj2pPuuNzMAclKagUdkhunzEcNISAsh/HKW+17zsRo4IAGs5g=
+	t=1789715095; cv=none; b=Id1MnvlPBmWDYimHrPRY9IwqMFf2q2j6WdrqazAHJl6Gi88qr6ilTuVqHWwJSL3oG2BTBhju0uZZhkffqklvh4a26Zs/NFUkhow0KlroQnSBQrrPdW0Lcpa17r6KD6YfhdR3+hYUWHCXSu9VxpXNbYSFiZfxYNOhON3HlW2RSQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715068; c=relaxed/simple;
-	bh=LjBulbBPS4HQ+2+ENfpTJJe7kppwctse0hq8ahYzkC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l1/PAnBDhBxN5PCTSVLL4qNBBpjGFiZngwOUewlZ5CtOn4dxeM1sQQJQgWbmnpn7RCs/7zHst63gzwywCee5GpfRLlztQWbiEm1LIRqJaXwSdmeRS+Ymq7rV+cMaeI+fBwyhZASBIH5mMOHhFRPmNrVG30o13S54gxG2hwzuJ9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/LKqi2L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789715095; c=relaxed/simple;
+	bh=hR+/QcjXLVBg/OA5uxcD0A1A2eJ0jNKsGFfieacRsdE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cgcqk8Gdrg2AXaipKBpmp6nwLHctVzh/P4VtXB1PDHnrU8NO2VS6gnTGuUi3mo5woTQ2r9Q5kvIq9HgMdHW6HKfTlNpOvP8GAcYF53o1G9nIi8KXPHb5DjDUXXTLo2Ko/yNa3T/C8c0OS8zSi6sILaSAZ7qYs5nS5rerdDmQtww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=OaNWEyyk; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/LKqi2L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFB51F000FF;
-	Fri, 18 Sep 2026 07:04:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715066;
-	bh=h7MrO5kHfs9s9gpQkpstdAXZ31bb0e2lmCQcEqPnDlQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P/LKqi2LqAKG2z2uozCnUWME8OGZ9RbIIELAHHwTXvdmqJNNhcB+P6+T4o1eQ8bff
-	 emGEtPWT0PNKHunU+e67JP0rY4/3Tgr8kyp6GDWN5FCOr2JHeXpqhM1RzrzJHkb9Ew
-	 brC89Jmwg9/AeYM1XEAol1WvLn6e+jB9Z2r8WtID8EVVzKhebhWUcARXEcnzhnt6y3
-	 r34S5YxuU4zLWiUFw7Zf3wQagohKhQK4vsCUZTFh3QOxASwCM3MANSEXJOLdQMuvVu
-	 1hUCQ3DHh2wB0WW/fnGCHvw1eL+/L2pnuOVar83DD1+R3aG+zlkAmPp42idM32aMKO
-	 /aI0Z7fDCQizQ==
-Date: Fri, 18 Sep 2026 00:04:24 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Harry Yoo <harry@kernel.org>,
-	Tim Menninger <tmenninger@everpuredata.com>, linux-mm@kvack.org,
-	Chuck Lever <cel@kernel.org>, linux-nfs@vger.kernel.org,
-	Jon Curley <jcurley@everpuredata.com>,
-	Eric Badger <ebadger@everpuredata.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [SLUB] nfs_page cmpxchg_double_fail and perf lock perturbation
- on dual-socket NFS/RDMA
-Message-ID: <aqzieNW5GmhnU_EJ@z2>
-References: <20260916232227.4098143-1-tmenninger@everpuredata.com>
- <aqvq8-6IJBDer90O@thinkstation>
- <aqvy8NqRRRmUlxjR@thinkstation>
- <20260917152959.GI4121339@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="OaNWEyyk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=TFXPRkcvIArOupySeAX0TcSgTELR2YOuovnW88kaN4E=;
+	b=OaNWEyykQ2H3a9b9taiUfs0Ct8uJtuvU2o8mfGSjo5l5wGLXXEokbkyHrUexzg
+	4lSzZe4p7bL2fG3DTUZrDQ5Xt6Pj5aku8XuiL9kWrqmw8PtojtrLJ2JrR13ez3SL
+	QCJ8LmUP/PlQnQebRWrUlQaM+wDtEQW0wBexYGNi6vVKg=
+Message-ID: <cf1a87f3-acd5-4959-bd42-b88b25f48311@126.com>
+Date: Fri, 18 Sep 2026 15:03:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917152959.GI4121339@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: ethtool: validate TX coalesce before
+ reprogramming RX
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260917131235.1360959-1-xiaolinkui@126.com>
+ <15b8cbc2-f3ca-4845-9a93-7fff6c5aede6@lunn.ch>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <15b8cbc2-f3ca-4845-9a93-7fff6c5aede6@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD33wE24qxqKV86Bg--.60104S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJw45Wr43Zw4UtFWkKFWkCrg_yoW5GrWUpr
+	Z5Ga4YkryDtr4Iqwn3Xa10qFyYq34xtFZ8Gr18tryfWrs8GF9Yqryaqr4rW3W7CrW0qrya
+	qF4Duas7uan8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBiMY2qs4jhZZwAA3B
 
-Hello,
+Hi Andrew,
 
-On Thu, Sep 17, 2026 at 05:29:59PM +0200, Peter Zijlstra wrote:
-> On Thu, Sep 17, 2026 at 03:10:47PM +0100, Harry Yoo wrote:
-> > ... now I realize we need to add PERFORMANCE EVENTS SUBSYSTEM folks 
-> > as well ;-)
-> > 
-> > Hmm, sounds like perf lock is somehow triggering slab allocations
-> > and interfering the workload.
+On 2026/9/17 23:05, Andrew Lunn wrote:
+> On Thu, Sep 17, 2026 at 09:12:35PM +0800, Linkui Xiao wrote:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> __stmmac_set_coalesce() applies the RX part of the request first and
+>> only afterwards checks the TX parameters. The RX path already calls
+>> stmmac_rx_watchdog() and stores rx_riwt[] and rx_coal_frames[], so when
+>> the TX check rejects the request the driver returns -EINVAL after having
+>> silently changed the hardware. A following ethtool -c then reports the
+>> new RX values even though the command failed.
+>>
+>> This became easy to hit once the per-queue interface was added.
+>> __stmmac_get_coalesce() reports tx-usecs and tx-frames as 0 for a queue
+>> index that is RX-only, and ethtool applies per-queue coalesce by reading
+>> the current values first and sending them straight back. The next set is
+>> therefore guaranteed to trip the test for both TX fields being zero,
+>> right after the RX watchdog has been reprogrammed.
+>>
+>> Move both TX checks in front of the RX block so a request is either
+>> applied completely or rejected without touching the device.
+>>
+>> Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>> ---
+>>   .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 ++++++++++++-------
+>>   1 file changed, 13 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+>> index 154cc0c7623d..325db062f72a 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+>> @@ -850,6 +850,19 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+>>   	else if (queue >= max_cnt)
+>>   		return -EINVAL;
+>>   
+>> +	/* Check the TX parameters before anything is applied: the RX part
+>> +	 * below already writes to the hardware, so rejecting the request
+>> +	 * afterwards would leave the device with only half of the settings
+>> +	 * the caller asked for while reporting a failure.
+>> +	 */
 > 
-> perf should not have runtime memory allocation, its build to run from
-> NMI context. It can allocate some memory on event creation and the like,
-> but once its on, there should be no more allocations happening.
+> Why such a verbose comment? Look at the rest of the code and make your
+> comments similar in verbosity.
+Thanks for the review. You're right, the comment is far more verbose
+than the surrounding code, and the rationale is already covered by the
+commit message.
 
-Right, perf lock record command will save the event info to a ring
-buffer without allocation.  It may lose some events when the buffer is
-full though.
+I'll shorten it to a single line in v2 and send it shortly.
 
 Thanks,
-Namhyung
+Linkui
+> 
+>      Andrew
+> 
+> ---
+> pw-bot: cr
+> 
 
