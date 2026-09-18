@@ -1,120 +1,154 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BB54ED19A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D224EDCCF;
+	Fri, 18 Sep 2026 12:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734341; cv=none; b=uXJAbrG8lotmyCqY5p6ftQ5IzZH+JtmuKr8mp6stOy6+y6Gg1AsyXWS/r6oEYdex3iUcLUQ+AEIA4gHJzjSkEtOnsu7JeWwKWAptf4ORWNVjTi0PwAS57/J85NphkiPvZs8skv1+MsLHscChWGwQnkgooeQOrfhr2eO2g0IpOvE=
+	t=1789734346; cv=none; b=dZExvFIMG0THy8tVrUJY7HoHAuzVqxjbxi3tH4QMFGkASpDtQqEpMPABXn9piT4zCm+BpMmSH+jVZKfPNVDjxruwstRW89DHrhFegPwYcYR3d5SdeYw3JDIFm9QxduHK+5eIwOWsALaFkpTxGgxOj01mbIIZzo1NZfblLljT/ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734341; c=relaxed/simple;
-	bh=LSoXDOkihoTe+1aeuwkzPsOIbGrXJATfUTeqR5S99lA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vEqJOk5d5IBCw6huLslenRXRAzWU6trRCWk3pIKZoVinZd3nDy2LW4C+BfN/6B1ohXWJuexPHOi75r3Bx1MHj/D/n+ZhYOwSedwl+wpvxE/S4hoZ9ynd+LgAg9pU1KHl/F5Q6+QfyHAsAdDACaauJQ0nbZx1M207/Ls5pF4i5vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AEL7xXN0; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789734346; c=relaxed/simple;
+	bh=pwoth8A68uKPG0mGoQjNPVpeIDll2HuWzMUx+qHpwkk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=BCV9LJTjUuMGOQPUPM6E0u+Qiuu+Cm22vaRIfulDfUVUv0gCDzVWHkviY6b4ER9V/IPV29w3hRZ5T+egs95xFs/A5AVwrE0vb0T6a34uesJZWk6HNGymz3sELwecglBnOxHheUS+rAaFGQ6uFWW9/lEIIsxSEEnZC+24mAzCAsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=e9Fyd26y; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AEL7xXN0"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so660654e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:25:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789734329; x=1790339129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pj32bFFZvi2cnsgj5gH1ddQyBwu2DGpSO+g4f8bX3TE=;
-        b=AEL7xXN0UwJ6VFsT/iXOdPakeB/ZVEYtVslE3nC65clMSIVOou1AHTB8zFs1EBYiK2
-         dK3ml1bdkqUuHp+WKF+1oj587l55/l7MRv0uHjlLMTrPdABBPAX9/Xk/4ex1as6G2p/I
-         LEQIW1QNxX5PBAdsIUZkghWsOxT3c5lppTj+kWa0gCD0h68QKDmDGEdHRX8rhh1PVtrD
-         XodjbwqxXfZzpugmekin5S8nuRif3wn4hZYSvN8URrxUGdowDTd8Md5NRd9KcW4mMtUJ
-         GVjpPikp++JFQmR4fIC5w+p4T1lNVwnepZTpl1ytkjhhx9pYMHlaFDhqx4TrI1+L6N4l
-         cK+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789734329; x=1790339129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pj32bFFZvi2cnsgj5gH1ddQyBwu2DGpSO+g4f8bX3TE=;
-        b=MMGcPJKkxiXWB0tBm3XGQsJNN4GmcbPJCfKfB6KQxr9WkAxn/85TuplsJOVFnMT0EP
-         oXF2o31xSAqQQOy3EOlecfayl0VNhM+5CN1b/5m4NIlaOqvcJYplub+vHRWA8lBdMF0m
-         w6a8CsvQm5HbyiSVxnqiHX1bxBXLFFoQV5yTjCLwkX5P/8uVzO1RpE3AriSwMiBZMgQv
-         EdQlO3p1A8Cuu2Td1qexsPZzbT+KEtkhEe4yHIpLeJRppXDqRwtzaLgY8aGkgwFqznZp
-         cLmcpoh6XgtKPKW3qTjDC4Ni7phOkco+q9ZhABEI3xMnHTBWLE0Ni9KMXKo55MG2IJnL
-         8IVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrEOWPmyvj1+OYx+YeV3iD/v0VEBo7ChFfwRJ1h5FUO9jUgUXrQf3I9dbMzBIb+oFuzCttUM0/++ZZJ6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2Q7z9DwErOhMROLP5AnbT+qWlSgCoPkJB2E5PWHFAogx0AQZg
-	8igSpUQ0gs9PMu2iWg6+PTRZigZmmeuEgzbib1Cf8b+HBKOIT9gX6/uU
-X-Gm-Gg: AYBFou1RtoqdmIOSBgXd77wqsUUKUKf/aNUuWiGKjyPtTkTxn+Y4K1PH/xioDw56vxp
-	J79aW/RhxkkTrDyE4ZU58BjrV9g5fZnavjX5nEbGEmceegFN6hjmH5uZtW1iYR/yTZTHKLszMEx
-	wk/rEJUEwzw1VeZBNC7tZ8/iK5QudLVq5wHLw8APMf+0a/B4jS8r82mu1+NlU87cXmqYRp1Ec4m
-	ZUHrGUeutxRi/t22FO/kkqrGn+hcy85j0HDDvfoKdp9j5jNc+U36YBkKYg9oYaa5UTrWBgJ+ECf
-	j5OpY3ovsYBN/2L4Hlc40o5na2WeAlnL89sJWy9hBrQ9AQ/dWwgDTVGj1ND3utD5Wt/pUTKjNc4
-	nMDZV1GNqdg1PTKMcMWjrDXTrFloRRo0mnC6fEOX943op4C76tKXN3K3B3Q2r+GK4nVLkfR0m33
-	Jd/xXk1PUuHB3gVgOkT+tD0T2fiRBF/pkzp20n3SJA0GWTHpsDAia1goS/kQJPyvaDyUbuiuOl4
-	kKY6zY79TLx+ckoLAXafZuhK66iVJYWt9JSnY7Sg2oKQuoX3OdpgkHGR5O1uRYldOXqkg==
-X-Received: by 2002:a05:6512:3c89:b0:5b8:bc5e:b584 with SMTP id 2adb3069b0e04-5b8c195dba5mr702953e87.60.1789734329260;
-        Fri, 18 Sep 2026 05:25:29 -0700 (PDT)
-Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c270ea53sm398549e87.12.2026.09.18.05.25.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 05:25:28 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Rupesh Majhi <zoone.rupert@gmail.com>
-Subject: [PATCH v7 10/10] iio: pressure: dps310: check the lock markings with context analysis
-Date: Fri, 18 Sep 2026 15:25:17 +0300
-Message-ID: <20260918122517.377565-11-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918122517.377565-1-zoone.rupert@gmail.com>
-References: <20260918122517.377565-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="e9Fyd26y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06695A0350;
+	Fri, 18 Sep 2026 14:25:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789734335; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=QNYlyICHDiAtyzbtSm0WmmoGzJl3BdJ+V4spo9bThFU=;
+	b=e9Fyd26yQqmSW8ysRa3AoKtnYuq3pFrXjn7p/7K2qYMpUHkXi5USPm4YZVNPkSf8VLfe+w
+	YOd+n9cN3EKDLom5BLPVHdMt5AwlWd0eYhYe1lePleDHFisV0A1BVrwAdmrH/3JarZhdb3
+	hyyeia5Ds8EItRyit+65PTkgFDsKtKC+EchfhZIwPiAk+/DwX+L9/93/Gc+dkPnOvPjG5B
+	vpe8QW/udvQ0D2yk4ImyFMVxrdooiCSkI5BAFTNEeIoRuv3Tnuftf4OaaEUXVVnUouyOXD
+	A6V2YXpwAYdHoq8nQKPEEyyFqcPNO8x0MI2mJ3UpoLEm6r/92aP1d+MMvfXSGQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 18 Sep 2026 14:25:16 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
+ <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
+ <david.laight.linux@gmail.com>
+Subject: Re: [PATCH net v4 5/7] net: stmmac: dwmac4: Use the correct bufzise
+ when the len is exactly 8K
+In-Reply-To: <20260917215339.2022523-6-maxime.chevallier@bootlin.com>
+References: <20260917215339.2022523-1-maxime.chevallier@bootlin.com>
+ <20260917215339.2022523-6-maxime.chevallier@bootlin.com>
+Message-ID: <4b3c26c482ac1d26f39b53fea072e4d1@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-__must_hold() markings added earlier in this series are only
-documentation unless the file opts in, so switch the analysis on for
-dps310.o.
+Hi Maxime
 
-Clean with clang 23.1.0 and CONFIG_WARN_CONTEXT_ANALYSIS=y. It does run:
-dropping the lock around dps310_fifo_drain() warns rather than going
-quietly.
+On 17.9.2026 23:53, Maxime Chevallier wrote:
+> DMA bufsize selection isn't made on the MTU but the actual frame 
+> length,
+> so including the L2 header. On DWMAC4, if the len is exactly 
+> BUF_SIZE_8KiB,
+> the next larger size is incorrectly selected.
+> 
+> Lets fix the comparison and while at it, rename the parameter from len
+> to mtu.
 
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
- drivers/iio/pressure/Makefile | 2 ++
- 1 file changed, 2 insertions(+)
+Isn't it "[...] from mtu to len"?
 
-diff --git a/drivers/iio/pressure/Makefile b/drivers/iio/pressure/Makefile
-index bc0d11a20acc..4b1a05f7a0bd 100644
---- a/drivers/iio/pressure/Makefile
-+++ b/drivers/iio/pressure/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O pressure drivers
- #
- 
-+CONTEXT_ANALYSIS_dps310.o := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ABP060MG) += abp060mg.o
- obj-$(CONFIG_ABP2030PA) += abp2030pa.o
--- 
-2.43.0
+> 
+> Fixes: c3efed5ad1b0 ("net: stmmac: Enable dwmac4 jumbo frame more than 
+> 8KiB").
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 4 ++--
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h         | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/ring_mode.c    | 4 ++--
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c 
+> b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> index 2994df41ec2c..c6a8f8d73501 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+> @@ -474,11 +474,11 @@ static void dwmac4_set_sarc(struct dma_desc *p, 
+> u32 sarc_type)
+>  					  sarc_type));
+>  }
+> 
+> -static int set_16kib_bfsize(int mtu)
+> +static int set_16kib_bfsize(int len)
+>  {
+>  	int ret = 0;
+> 
+> -	if (unlikely(mtu >= BUF_SIZE_8KiB))
+> +	if (unlikely(len > BUF_SIZE_8KiB))
 
+Should we drop set_16kib_bfsize() instead?
+
+After 6/7 it looks to me like the same test as the first branch of
+stmmac_set_bfsize(). The caller ends up there anyway when it returns 0
+and chain_mode_ops doesn't have it at all.
+
+>  		ret = BUF_SIZE_16KiB;
+>  	return ret;
+>  }
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h 
+> b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> index 04dafec021b4..de7aa6d28148 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+> @@ -540,7 +540,7 @@ struct stmmac_mode_ops {
+>  	bool (*is_jumbo_frm)(unsigned int len, bool enh_desc);
+>  	int (*jumbo_frm)(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+>  			 int csum);
+> -	int (*set_16kib_bfsize)(int mtu);
+> +	int (*set_16kib_bfsize)(int len);
+>  	void (*init_desc3)(struct dma_desc *p);
+>  	void (*refill_desc3)(struct stmmac_rx_queue *rx_q, struct dma_desc 
+> *p);
+>  	void (*clean_desc3)(struct stmmac_tx_queue *tx_q, struct dma_desc 
+> *p);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c 
+> b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> index f7949419eb9f..d2f0c321661d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> @@ -124,10 +124,10 @@ static void clean_desc3(struct stmmac_tx_queue 
+> *tx_q, struct dma_desc *p)
+>  		p->des3 = 0;
+>  }
+> 
+> -static int set_16kib_bfsize(int mtu)
+> +static int set_16kib_bfsize(int len)
+>  {
+>  	int ret = 0;
+> -	if (unlikely(mtu > BUF_SIZE_8KiB))
+> +	if (unlikely(len > BUF_SIZE_8KiB))
+>  		ret = BUF_SIZE_16KiB;
+>  	return ret;
+>  }
+
+regards
+Nicolai
