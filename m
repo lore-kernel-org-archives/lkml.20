@@ -1,56 +1,56 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA7C526ABD
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E5A527587
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:07:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762027; cv=none; b=XYKopg7uge4x71mZaoSdrc/cKO1IMdZ/tpRfMGgUmpPvjVrRMMI0kJE4UbkAncMalkkNiWHivFDXe1rT12SBLvUX4O5EsWskh68Z94xJ2/BbMsU7DwPGRSOVE9ppo6C/9+CZ54jILHLNRpOamooZnvtJTiGVtTAt0z891p3fAbE=
+	t=1789762025; cv=none; b=GAThhd9Q02ObdMxe5kBAuQo05P2b1SquEbiHSfu5WTPbchDwMxtuYowOD1a/suvFo+viklkQ0WDlKKrUct6IUi6yfZH3EyGSA/tKU2AEJCerPoJXyBHoNZLbcdSaD37ZxHLcKF1jZlfWIJT6UfT2opJNdFFA03ZtyYWxaTWtksk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762027; c=relaxed/simple;
-	bh=UfzWz/Vy8dC/P8FblFhguwkyXeiWSwXDoG++vSs9Azc=;
+	s=arc-20240116; t=1789762025; c=relaxed/simple;
+	bh=R4Az/uRUuF1PiT5xSJs/E4kzyzqFdBSW3WJkEp2Js04=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bTGVB7UF2fB4S2pMZJjqd8qHJwwFOgxRH7GCf+5Oe9QJgl+blGErbA/HZpZEJnb6AsqqHHoGaCUApENvvTDseQlmAkZqiM0kiMpALE7KqlPJToXPAXZdc7izv6nS+kVmLB63I88jBjEqy3WEmsKpY5g+q4CeWYWL31xSxO/jjPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YQrr/qsv; arc=none smtp.client-ip=209.85.215.200
+	 To:Cc:Content-Type; b=X/Gh9JyqLPSW61iaja9XVeZkA9TfxqRwPv1fu/xskONowTAnn132FR4ExOkb9W0dwC8Kt2+0szjFgYngDxABesm4SG55EVRXCXZRBp4s8twZN67ZhJ9CiqCWa5B5ktakDCKOZchilQaNcpOuNxOPaDIbye2bEFjjt/sJbGpshOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RzSGmqLp; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YQrr/qsv"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so1099244a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:07:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RzSGmqLp"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a43fc3527so2920077b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:07:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789762024; x=1790366824; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789762021; x=1790366821; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P9IxdwpsNG1RvdTFOh7VCNlg1Z6K9O4n/2FHxAEnlFE=;
-        b=YQrr/qsv2XanYxitvXUnijhvSAL5Ea09XnZsjg6uQEojnST7bk+MlKtZgeaYGVbrZ5
-         D1+Niqsp4bQTXL+3oXSNMvl0sgcJOYkRylwByRxhkhdS5D0ffunsFb73nxDJuksM6cOi
-         cKUrBz/GQFk4eT9PKeODML4NU4hGLIH773sWeGW0nxCG5MH2BKqOenr0BUxvdz2rObpx
-         tT30L+hB+d2VT6nQzK/zdN7kexxQ0X8J8vhuvLZFNJ5ZRb5j/EpeXZMZ+JPTCmtn7HKx
-         oGIOhLwfvxEwmwD2oUainAJRCXom7AxuXXSPL5BZu3CrVtR7Jz1mFfyoJhHh8tA+oNLQ
-         74RQ==
+        bh=9ZcqrsSF0ioZzw9gFyyhQYx/Js3WyQJlrd8b2TpGaYs=;
+        b=RzSGmqLpCtG5g6LeEX9pvglnVRXlzVQoqbaVXexeJ0VU7mhlxWnvLnEaPI70ioWj2Y
+         DTMS86vDme7ulFFMBBMb6GcHg0AU0W49Aiob5b69y5nUab7hxhBbM1i/kXNVvribigCP
+         H8rGoUJeMpCucAXzzhWjVIfgKi0/aOqjafCguw/pBxFoMR8nqAP8A3/USbeAHTpARAs9
+         JjyHmR+It1jsNPWLrDcs5TXu9X5FkR1xkhc877Rgm+xRiYop3bDm+uyyLj84wFdX5751
+         jN5YnaSg9ZCc3fp14K1bu8sFkQMCSzmYaXMOAyGJMmKzKXZc/XseQK4RI4prCw0Azarl
+         U2Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789762024; x=1790366824;
+        d=1e100.net; s=20260707; t=1789762021; x=1790366821;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P9IxdwpsNG1RvdTFOh7VCNlg1Z6K9O4n/2FHxAEnlFE=;
-        b=fnrpol5QtQ/Ayi13MbzL2SNvkdQ/1PIvNOhtAap76fFpzed0LEL7btf/gX3wvmfkwd
-         d+5uqC483Nt+Dzvp4Hk3PhuIYu5pbqlQLYRBt3Bq299p154niazPcZMrx+VpY60ozL6n
-         x6m3CgENs1PW1igsFxdAfhDhVsAm+rYdYBN88RuwxjHKgLv6Rfr1bGuWrzicd3Tb8iHV
-         N+0ZTsyTyicO0Qm8gVUkiYlz68fY1BimN2FydUHiEki/CsXVtRorXlEtY7dC8AIMD7ZS
-         5mhzh3LDE2lD2v8+UQzzMUKvh8L5dSq/8mtQs2cIxXKh/U5KufabvYqQ/r4MPFdHWfAj
-         TH5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxlw3T4aRRuuN1u8kxHJwFaP7BMRGFRqSQ4mtFF9pJuvlIfE+wQ55XdR5Ilf8kR83278ZkRgtYRtPKUHhU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljJemOco+V3YBiMYCqwEMXXkIev/lb949fv/5oe0JlJm04eHi6
-	TCt9AiaLl5eDqO4eBAYjJ+kiznptNmpeR1wEhRjHsOZ6Wm9qa+YVZaN0dM14L6XMLLWj2e8N9ie
-	pZa6HKlFulGa1Ww==
-X-Received: from pgbeh14.prod.google.com ([2002:a05:6a02:256e:b0:cc4:b44e:9200])
+        bh=9ZcqrsSF0ioZzw9gFyyhQYx/Js3WyQJlrd8b2TpGaYs=;
+        b=M0/f2I8OS6IF0lIPmVV+IUasEkbxvM+3Bb3TccRuevbHJkkFvCzgnaix1hnB3ShpcY
+         fGddCmrr0tHsZzoO93ZYhFrlD8OljFcTwxLxmzIiHnrSfeEU1w6Xi2lLBE8quRX84CsJ
+         1o2UNJ2v7UbYohZcoshlD4XMiz2ddc/y2Sq6SLRHCswMJdfDT97iq+pLQFU5NyuJIRi4
+         RMTee50bwrghQT2oEvSFt1GVD6uHbDO7TV77finL6gAVoOui9k2hQRkoirxwQlwrMo95
+         Ej6BS3N3DnSChvie0mjsy4fp2MADa1DDx6eB0fMSoifLa6w4c05N8HjOJyViIniAE7Uy
+         J1SA==
+X-Forwarded-Encrypted: i=1; AKwUvByyy56p3xzQfeN3NVJLRTFaPyLeTXGfHah1q7Or7rgOzIH3ZUuYAHntWdiwHF6MFKhm5j729PpVkLBCamY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQMK24Ux75Je8OzJ8nfRHBq/dDVGXXKgTQptgnxEtLzzfvCzah
+	Hg4j7Yx2PYzhs1hhF4JfKxCfsYBv41XOflVEn5/iKcUjms+qCL+q02B5Pn230jurPewWunAqaOg
+	K//ezyg1jEmJWWQ==
+X-Received: from pgvn14.prod.google.com ([2002:a65:63ce:0:b0:cc1:bda2:d0a3])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:6083:b0:3dd:64fa:5520 with SMTP id adf61e73a8af0-3dd8c4287dbmr7496380637.9.1789762024286;
- Fri, 18 Sep 2026 13:07:04 -0700 (PDT)
-Date: Fri, 18 Sep 2026 20:06:39 +0000
+ 2002:a05:6a21:7017:b0:3c8:e304:99d0 with SMTP id adf61e73a8af0-3dd721125e9mr11870192637.0.1789762021113;
+ Fri, 18 Sep 2026 13:07:01 -0700 (PDT)
+Date: Fri, 18 Sep 2026 20:06:35 +0000
 In-Reply-To: <20260918200640.887030-1-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918200640.887030-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918200640.887030-14-dmatlack@google.com>
-Subject: [PATCH v9 13/13] Documentation: PCI: Add documentation for Live Update
+Message-ID: <20260918200640.887030-10-dmatlack@google.com>
+Subject: [PATCH v9 09/13] PCI: liveupdate: Adopt ACS controls in incoming
+ preserved devices
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org
@@ -78,98 +79,197 @@ Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.
 	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add documentation files for the PCI subsystem's participation in Live
-Update.
+Adopt Access Control Services (ACS) controls on all incoming preserved
+devices (endpoints and upstream bridges) during a Live Update.
 
-These documentation files are generated from the kernel-doc comments in
-the PCI Live Update source code. They describe the File-Lifecycle-Bound
-(FLB) API, the device tracking API, and the specific policies applied to
-preserved devices (such as bus number inheritance and bus mastering
-preservation).
+Inheriting ACS flags avoids changing routing rules while memory
+transactions are in flight from preserved devices. This is also strictly
+necessary to ensure that IOMMU group assignments do not change during or
+after Live Update.
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
+The adopted controls are recorded by the pci_save_state() call in
+pci_bus_add_device(), which runs before drivers bind, so they are
+automatically reapplied by pci_restore_state() if the device is reset.
+If that save buffer could not be allocated there is nowhere to record
+the adopted controls, and they would be silently lost by the first
+reset. Program ACS from scratch in that case, which is a better outcome
+than leaving ACS disabled.
+
+To simplify ACS inheritance, reject preserving any devices that require
+quirks to enable ACS as those quirks would also have to take Live Update
+into account.
+
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- Documentation/PCI/index.rst           |  1 +
- Documentation/PCI/liveupdate.rst      | 35 +++++++++++++++++++++++++++
- Documentation/core-api/liveupdate.rst |  1 +
- MAINTAINERS                           |  1 +
- 4 files changed, 38 insertions(+)
- create mode 100644 Documentation/PCI/liveupdate.rst
+ drivers/pci/liveupdate.c | 78 ++++++++++++++++++++++++++++++++++++++++
+ drivers/pci/liveupdate.h |  6 ++++
+ drivers/pci/pci.c        |  5 +++
+ 3 files changed, 89 insertions(+)
 
-diff --git a/Documentation/PCI/index.rst b/Documentation/PCI/index.rst
-index 5d720d2a415e..23fb737ac969 100644
---- a/Documentation/PCI/index.rst
-+++ b/Documentation/PCI/index.rst
-@@ -20,3 +20,4 @@ PCI Bus Subsystem
-    controller/index
-    boot-interrupts
-    tph
-+   liveupdate
-diff --git a/Documentation/PCI/liveupdate.rst b/Documentation/PCI/liveupdate.rst
-new file mode 100644
-index 000000000000..96b1d7f5df3a
---- /dev/null
-+++ b/Documentation/PCI/liveupdate.rst
-@@ -0,0 +1,35 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+===========================
-+PCI Support for Live Update
-+===========================
-+
-+.. kernel-doc:: drivers/pci/liveupdate.c
-+   :doc: PCI Live Update
-+
-+Driver API
-+==========
-+
-+.. kernel-doc:: drivers/pci/liveupdate.c
-+   :export:
-+
-+Internal API
-+============
-+
-+.. kernel-doc:: drivers/pci/liveupdate.c
-+   :internal:
-+
-+Live Update ABI
-+===============
-+
-+.. kernel-doc:: include/linux/kho/abi/pci.h
-+   :doc: PCI File-Lifecycle Bound (FLB) Live Update ABI
-+
-+.. kernel-doc:: include/linux/kho/abi/pci.h
-+   :internal:
-+
-+See Also
-+========
-+
-+ * :doc:`/core-api/liveupdate`
-+ * :doc:`/core-api/kho/index`
-diff --git a/Documentation/core-api/liveupdate.rst b/Documentation/core-api/liveupdate.rst
-index b3c689e633c1..2bce2644eba2 100644
---- a/Documentation/core-api/liveupdate.rst
-+++ b/Documentation/core-api/liveupdate.rst
-@@ -74,3 +74,4 @@ See Also
+diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
+index 686887a6c8d9..0145399b3834 100644
+--- a/drivers/pci/liveupdate.c
++++ b/drivers/pci/liveupdate.c
+@@ -123,6 +123,9 @@
+  *
+  *  * The device cannot be a Virtual Function (VF).
+  *
++ *  * The device cannot require device-specific quirks to enable Access
++ *    Control Services (ACS).
++ *
+  * Driver Binding
+  * ==============
+  *
+@@ -174,6 +177,18 @@
+  * bus, since the bus numbers of the failed bridge can no longer be read from
+  * hardware and handing them to another bridge would let an unrelated device
+  * inherit the BDF of a preserved device.
++ *
++ * Handling Preserved Devices
++ * ==========================
++ *
++ * The PCI core treats preserved devices differently than non-preserved devices.
++ * This section enumerates those differences.
++ *
++ *  * The PCI core adopts all ACS controls enabled on incoming preserved devices
++ *    rather than assigning new ones. This ensures that TLPs are routed the same
++ *    way after Live Update and ensures that IOMMU groups do not change. Note
++ *    that a device will use its adopted ACS controls for the lifetime of its
++ *    struct pci_dev (i.e. even after pci_liveupdate_finish()).
+  */
  
- - :doc:`Live Update uAPI </userspace-api/liveupdate>`
- - :doc:`/core-api/kho/index`
-+- :doc:`PCI </PCI/liveupdate>`
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3eacaa98775c..5d1b58271989 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21055,6 +21055,7 @@ L:	kexec@lists.infradead.org
- L:	linux-pci@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git
-+F:	Documentation/PCI/liveupdate.rst
- F:	drivers/pci/liveupdate.c
- F:	drivers/pci/liveupdate.h
- F:	include/linux/kho/abi/pci.h
+ #define pr_fmt(fmt) "PCI: liveupdate: " fmt
+@@ -189,6 +204,7 @@
+ #include <linux/slab.h>
+ 
+ #include "liveupdate.h"
++#include "pci.h"
+ 
+ /**
+  * struct pci_liveupdate_global - Global state for PCI Live Update support
+@@ -502,6 +518,16 @@ static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
+ 		return -EINVAL;
+ 	}
+ 
++	/*
++	 * Do not preserve devices that rely on device-specific ACS equivalents
++	 * (for now) since that would complicate keeping ACS constant across
++	 * Live Update.
++	 */
++	if (pci_need_dev_specific_enable_acs(dev)) {
++		pci_warn(dev, "Refusing to preserve device that relies on ACS quirks\n");
++		return -EINVAL;
++	}
++
+ 	/*
+ 	 * Endpoint devices should not be preserved more than once.
+ 	 * Bridges are preserved once for every downstream device that
+@@ -826,6 +852,58 @@ void pci_liveupdate_finish(struct pci_dev *dev)
+ }
+ EXPORT_SYMBOL_GPL(pci_liveupdate_finish);
+ 
++/**
++ * pci_liveupdate_adopt_acs() - Adopt ACS controls
++ * @dev: The PCI device to adopt ACS controls for
++ *
++ * For devices preserved across a Live Update, leave the ACS controls
++ * established by the previous kernel alone instead of programming new ones.
++ * The adopted controls are recorded by the pci_save_state() call in
++ * pci_bus_add_device(), so they are reapplied by pci_restore_state() if the
++ * device is subsequently reset.
++ *
++ * Return: 0 on success, or -EINVAL if the device was not preserved, requires
++ * device-specific quirks, or has nowhere to record the adopted controls.
++ */
++int pci_liveupdate_adopt_acs(struct pci_dev *dev)
++{
++	/*
++	 * Check if the device was preserved over a previous Live Update (even
++	 * if it has already gone through pci_liveupdate_finish()). This ensures
++	 * that the device continues to use the ACS controls established by the
++	 * previous kernel.
++	 */
++	if (!dev->liveupdate.was_incoming)
++		return -EINVAL;
++
++	/*
++	 * The previous kernel should not have preserved any devices that
++	 * require device-specific quirks to enable ACS, but if such a device is
++	 * detected (e.g. new device-specific ACS quirk in the current kernel),
++	 * log a big warning and fall back to the normal enable ACS path.
++	 */
++	if (pci_need_dev_specific_enable_acs(dev)) {
++		pci_warn(dev, "Device-specific quirk required to enable ACS!\n");
++		WARN_ON_ONCE(true);
++		return -EINVAL;
++	}
++
++	/*
++	 * Adopting the previous kernel's controls depends on them being
++	 * captured in the ACS save buffer, so that they are reapplied if the
++	 * device is later reset. Without that buffer, e.g. because it could
++	 * not be allocated under memory pressure, the adopted controls would
++	 * be silently lost by the first reset. Program ACS from scratch
++	 * instead, which is a better outcome than leaving ACS disabled.
++	 */
++	if (dev->acs_cap && !pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS)) {
++		pci_err(dev, "No ACS save buffer, not adopting ACS controls\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ /**
+  * pci_liveupdate_is_incoming() - Check if a device is incoming-preserved
+  * @dev: The PCI device to check
+diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
+index e5d2a19d2ca2..d4721ffcecb2 100644
+--- a/drivers/pci/liveupdate.h
++++ b/drivers/pci/liveupdate.h
+@@ -15,6 +15,7 @@ void pci_liveupdate_setup_device(struct pci_dev *dev);
+ void pci_liveupdate_cleanup_device(struct pci_dev *dev);
+ bool pci_liveupdate_preserve_bus_numbers(void);
+ bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
++int pci_liveupdate_adopt_acs(struct pci_dev *dev);
+ #else
+ static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
+ {
+@@ -34,6 +35,11 @@ static inline bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus,
+ {
+ 	return false;
+ }
++
++static inline int pci_liveupdate_adopt_acs(struct pci_dev *dev)
++{
++	return -EINVAL;
++}
+ #endif
+ 
+ #endif /* DRIVERS_PCI_LIVEUPDATE_H */
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index dd25c01736b4..47d8229115b8 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -35,6 +35,8 @@
+ #include <linux/aer.h>
+ #include <linux/bitfield.h>
+ #include <linux/suspend.h>
++
++#include "liveupdate.h"
+ #include "pci.h"
+ 
+ DEFINE_MUTEX(pci_slot_mutex);
+@@ -1080,6 +1082,9 @@ void pci_enable_acs(struct pci_dev *dev)
+ 	bool enable_acs = false;
+ 	int pos;
+ 
++	if (!pci_liveupdate_adopt_acs(dev))
++		return;
++
+ 	/* If an iommu is present we start with kernel default caps */
+ 	if (pci_acs_enable) {
+ 		if (pci_dev_specific_enable_acs(dev))
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
