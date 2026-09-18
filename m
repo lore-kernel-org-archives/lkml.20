@@ -1,169 +1,152 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63F94A0157
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F2452CCEC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766678; cv=none; b=UFTsdG4CA8db/NevvyFNl7YVJSERmLeQYfjnIbF4YeFrt0pGOADQGGysSsz/qMMHsSUkWDoI+DvBshUrkIVcJbCIBTLmKoCOHLM4UsEVKOKjXqxzS/fnwJMm91ILSHL5p/VSrtj0qHcdj/t8QfBYdY5bnbe6bfHf3LPihpml0Mk=
+	t=1789766704; cv=none; b=pWJ8Igy+Pq32lf9/W+PdFu13a7Cm6q9fY6x5GGP9cL3HuJCosev4Ds0+Ed7HCvvEm3XBZOO89VmnHcZPL8fmFySJ4aoKYwWU7F8yeeZFGTto49kOjI6sbNaGTTIuaI3iksU1Lk7pl+K+nF10PC5pPj3/GVdKOiJLD46+QLU415o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766678; c=relaxed/simple;
-	bh=vysW34Y5MuVI7mh8rvcO+tz1BNsiP2Tm2MaYv/6cUS0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=O2/CE4uUYlt9tW4YrkLfnThuicGKklvDhFwfxt6j5cPJJFBeXCj4GaXp7C8T9Et1adTHGSZVdzDhrzaBcVaOWN4RUP+yLBSRMdlLz5kpyGNabPtaLdbxMKhDDcnxj9H2Uyi5XdJ3e5XV61ABKwLnJrATXC8Ur6xxaYSCJhw9RsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so497390eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:24:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789766675; x=1790371475;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u1u3CHkcCfNdtkHpr2f6Q8I6xzAzYCLm9kLKPD5T5jo=;
-        b=nXHn9tQA8ETX14LDGqdHj+XRNZ+q9dLLZ67qfdkxrukZEDaJplAnKKY4LASZt49AM6
-         yGGPhSimFZDGSsFYddWBiv7oUrB33QS2xwRW8JT+QDSbKFmENwgJlKF7lA+//BlIoMvB
-         I14aYj6MuNi/kz6G5m+pml6pXlwMJMIGzBOpP7AFzmuJ6EwGlqvFgH1lU7pbktfmhZLv
-         6OUvFCtVVqyhkPnHRBfMwDxfg2lNt8XZgzab5OhX3aoMnZTuXmq0qMP+jejRBwDwncjK
-         QLJHe9NtSn5l/heWI6XZ8qz58M3JtC7E1zfOqH0zeDqzWzV5OqKgOpJhNUYB47Kg8AVL
-         l5IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXfR5OjhgWYezroeXolNN9O57iFpBXQYREH6S+9d+n1NmDpWeB47UcTt5w825CgoLcXUum6BSl6F4Yfp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxndBZThXHCuCzvWwbJD0V0VTKc0aiT3OvBMJ1osZEIyRLUqsu
-	BuoTLvrx7DGWMF1+71t1BWrInAfX4z/6kiz0Ab0okGZGxHUqDKs7yHbp8nnlSpo/9HrLCjUJITv
-	e8GMn1caqE4UuO4wZPSRjC789zMaVYyfvFnNE/MagN2u0z6gdYnNDwexwbNs=
+	s=arc-20240116; t=1789766704; c=relaxed/simple;
+	bh=q3nVasQXzTsCnU6vlbLPvXHwu5xqhhzi1QiVA6zjKKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W8u5gTopEVeq8ySS8FUOYkUUTlk7iaMV6iN5NdRJPTRSSHS2yzay+23PMMVIpc2DT4hw7HBiaye/T+n2dKgTfNQVH0H6sJm0tfR+/XyiQUTD45r3eugnLqN2y9jZB9+Qh4tEF/TiOWl6WJd+1OYPDL2HAdDCzJuwPWSrR7bbNaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+hbnWOb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+hbnWOb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A601F000FF;
+	Fri, 18 Sep 2026 21:24:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789766702;
+	bh=ttXCrG08p/oBc6oZKbu1QRJWgL9obcgO5so+f03Mgbg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l+hbnWOb0Wn/mLkdVSBGZbP3X6KdYSrGo79rDOB9JNFiRLUAwI+a/DzK8DYGSFPNG
+	 ulCWPLQh0FKwLnHr1ZK0sSDCFuoNdA/noXajLb1kZjk3F2eiWMbZ+YWMq/Yfoz6auc
+	 n75Dd0vOKo9QkmCiXXL0LLDgzRCxC9SUnuuj/08gw0RuvHhQMm0qZI/bhM7QQDo3jQ
+	 yCTl3K/2wKX/gS1tjD85Sl/XepXxV0CnqBiIhhrAwjsxgG6rOt/bEPVjd1ouhL2ON3
+	 Pi4BafoU/thlV8jwoK0ek3izYjjW5SaHfFNZkzpEm8Hl8QVG2/MWMOO78nLVChMirG
+	 YzKs4sgV8UpJw==
+Message-ID: <06e44dc2-ae67-4c48-8833-b3ec9d2827bd@kernel.org>
+Date: Fri, 18 Sep 2026 23:24:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a284:20b0:6cd:3fdb:fa6a with SMTP id
- 006d021491bc7-6cd3fdbfe8dmr588537eaf.85.1789766675670; Fri, 18 Sep 2026
- 14:24:35 -0700 (PDT)
-Date: Fri, 18 Sep 2026 14:24:35 -0700
-In-Reply-To: <6aa3307a.6e6c5f9e.28f11f.003a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aadac13.b398a7c9.1f86be.003c.GAE@google.com>
-Subject: Re: [syzbot] [net?] WARNING: locking bug in finish_task_switch (3)
-From: syzbot <syzbot+b5ddc2aecb8d1b29c871@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	kuba@kernel.org, kuniyu@google.com, linux-kernel@vger.kernel.org, 
-	luto@kernel.org, ncardwell@google.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, peterz@infradead.org, syzkaller-bugs@googlegroups.com, 
-	tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 05/29] riscv: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-6-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-6-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
+On 9/14/26 14:27, Usama Arif wrote:
+> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+> not just in a swap PTE.
+> 
+> riscv encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
+> the PTE ones and reuse _PAGE_SWP_EXCLUSIVE.
+> 
+> Cc: Paul Walmsley <pjw@kernel.org>
+> Cc: Palmer Dabbelt <palmer@dabbelt.com>
+> Cc: Albert Ou <aou@eecs.berkeley.edu>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  arch/riscv/include/asm/pgtable.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+> index d48f90140841e..b644db16bda94 100644
+> --- a/arch/riscv/include/asm/pgtable.h
+> +++ b/arch/riscv/include/asm/pgtable.h
+> @@ -1219,6 +1219,21 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>  }
+>  
+>  #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> +{
+> +	return pte_swp_exclusive(pmd_pte(pmd));
+> +}
+> +
+> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> +{
+> +	return pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)));
+> +}
+> +
+> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> +{
+> +	return pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)));
+> +}
+> +
+>  #define __pmd_to_swp_entry(pmd) ((swp_entry_t) { pmd_val(pmd) })
+>  #define __swp_entry_to_pmd(swp) __pmd((swp).val)
+>  #endif /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15b5f8c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=b5ddc2aecb8d1b29c871
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12ab4525580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14d4e915580000
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
+-- 
+Cheers,
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b5ddc2aecb8d1b29c871@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-DEBUG_LOCKS_WARN_ON(1)
-WARNING: kernel/locking/lockdep.c:238 at hlock_class kernel/locking/lockdep.c:238 [inline], CPU#0: syz.1.28/6067
-WARNING: kernel/locking/lockdep.c:238 at check_wait_context kernel/locking/lockdep.c:4923 [inline], CPU#0: syz.1.28/6067
-WARNING: kernel/locking/lockdep.c:238 at __lock_acquire+0x5f0/0x2de0 kernel/locking/lockdep.c:5238, CPU#0: syz.1.28/6067
-Modules linked in:
-CPU: 0 UID: 0 PID: 6067 Comm: syz.1.28 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:hlock_class kernel/locking/lockdep.c:238 [inline]
-RIP: 0010:check_wait_context kernel/locking/lockdep.c:4923 [inline]
-RIP: 0010:__lock_acquire+0x5f7/0x2de0 kernel/locking/lockdep.c:5238
-Code: 83 3d bc f2 fa 18 00 75 27 90 e8 94 e8 37 03 85 c0 74 1c 83 3d ed 29 d7 0e 00 75 13 48 8d 3d e0 32 da 0e 48 c7 c6 29 f3 59 8e <67> 48 0f b9 3a 90 31 c9 0f b6 81 c4 00 00 00 84 c0 0f 84 76 ff ff
-RSP: 0000:ffffc90003a6e538 EFLAGS: 00010046
-RAX: 0000000000000001 RBX: ffff88802f13e9b8 RCX: ffff88802f13ddc0
-RDX: 0000000040000000 RSI: ffffffff8e59f329 RDI: ffffffff907d6580
-RBP: ffff88802f13e9c0 R08: ffffffff907a5c83 R09: 1ffffffff20f4b90
-R10: dffffc0000000000 R11: fffffbfff20f4b91 R12: 0000000000000004
-R13: 0000000000000000 R14: ffff88802f13ddc0 R15: 0000000000000001
-FS:  0000000000000000(0000) GS:ffff888124cd2000(0063) knlGS:00000000f67c3b40
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f71c8c10 CR3: 00000000711ba000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- finish_lock_switch kernel/sched/core.c:5254 [inline]
- finish_task_switch+0x16e/0xc60 kernel/sched/core.c:5375
- context_switch kernel/sched/core.c:5529 [inline]
- __schedule+0x17e3/0x58f0 kernel/sched/core.c:7276
- __schedule_loop kernel/sched/core.c:7353 [inline]
- schedule+0x164/0x2b0 kernel/sched/core.c:7368
- __lock_sock+0x162/0x2c0 net/core/sock.c:3238
- __lock_sock_fast+0x94/0xe0 net/core/sock.c:3900
- lock_sock_fast include/net/sock.h:1746 [inline]
- tcp_get_info+0x26d/0x2b70 net/ipv4/tcp.c:4250
- inet_sk_diag_fill+0xdb6/0x18c0 net/ipv4/inet_diag.c:330
- sk_diag_fill+0x2e6/0xd50 net/ipv4/tcp_diag.c:284
- tcp_diag_dump+0x1ba6/0x2020 net/ipv4/tcp_diag.c:538
- __inet_diag_dump net/ipv4/inet_diag.c:823 [inline]
- inet_diag_dump_compat+0x274/0x490 net/ipv4/inet_diag.c:927
- netlink_dump+0x711/0xee0 net/netlink/af_netlink.c:2331
- __netlink_dump_start+0x589/0x7b0 net/netlink/af_netlink.c:2446
- netlink_dump_start include/linux/netlink.h:341 [inline]
- inet_diag_rcv_msg_compat+0x214/0x420 net/ipv4/inet_diag.c:962
- sock_diag_rcv_msg+0x4b0/0x5f0 net/core/sock_diag.c:-1
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2556
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg+0x177/0x240 net/socket.c:2799
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf700f0ec
-Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
-RSP: 002b:00000000f67c350c EFLAGS: 00000206 ORIG_RAX: 0000000000000172
-RAX: ffffffffffffffda RBX: 0000000000000008 RCX: 0000000080000240
-RDX: 0000000004004010 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	83 3d bc f2 fa 18 00 	cmpl   $0x0,0x18faf2bc(%rip)        # 0x18faf2c3
-   7:	75 27                	jne    0x30
-   9:	90                   	nop
-   a:	e8 94 e8 37 03       	call   0x337e8a3
-   f:	85 c0                	test   %eax,%eax
-  11:	74 1c                	je     0x2f
-  13:	83 3d ed 29 d7 0e 00 	cmpl   $0x0,0xed729ed(%rip)        # 0xed72a07
-  1a:	75 13                	jne    0x2f
-  1c:	48 8d 3d e0 32 da 0e 	lea    0xeda32e0(%rip),%rdi        # 0xeda3303
-  23:	48 c7 c6 29 f3 59 8e 	mov    $0xffffffff8e59f329,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	90                   	nop
-  30:	31 c9                	xor    %ecx,%ecx
-  32:	0f b6 81 c4 00 00 00 	movzbl 0xc4(%rcx),%eax
-  39:	84 c0                	test   %al,%al
-  3b:	0f                   	.byte 0xf
-  3c:	84 76 ff             	test   %dh,-0x1(%rsi)
-  3f:	ff                   	.byte 0xff
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+David
