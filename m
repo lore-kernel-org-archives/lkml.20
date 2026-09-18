@@ -1,49 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED4149158D;
-	Fri, 18 Sep 2026 19:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2DC49158D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758160; cv=none; b=L8uB1k11+Axb5vmXKmB7R34lmHZ7+eaziPfxOoVwXUpWkD4GpzDYnIrusJEezUYPAa7FzZCDOzRy1pZj7N5bUGRVItr0t+JR8huQYvOge6y/dKRtEjQmu8G92qEf4iG/r6E++KvsxzZFmlbFbObJCjCKSzbO0+qzup1k6G/W8qg=
+	t=1789758247; cv=none; b=K87fPnQB/v4rqYPkfIG9wz+Pm/Uon2PQcXyuJx5T0gGzEJUeoIFQy24PLSGLYl9wKuZAzAOnJDAGkXRaeJwZiatjmRqxMnLkqr/LI6PZXYATUaOxcTHgQQGaH8fMYQKHRlZ4S+LsbukoDnDaFYH9HNlqjjhGuMo+2gM7i2cTkQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758160; c=relaxed/simple;
-	bh=KYC9hb/dOl6TnB/tT0d8zVwJgFKC4TTWux6/0uPShMY=;
+	s=arc-20240116; t=1789758247; c=relaxed/simple;
+	bh=UzAcr4zFNpEWR8QoTd198zq5n4ye3nqQ50yJoiCIYaY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZTDiuLjb7YTtq+8QsyGpXBGSra45yXpI2G1NfBq4JNv7Qhpur7uo6/qwWwpjStnDD8gSUxG/cpfr6TQ976bctnAF6GzgHn73W+jElTK2TJO6H/r/nztj+XuYwk5j5Nf5zGpCzGTyESLiM0x7oM45YtSkL3Z+6hY3myQ/KdgsUl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxcW86lS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nqcRzt/JEYwK1cws1e9cmQp6H4fJjjbkP3DdEp+zoClCXgqevUik/rRzp7HaQdMt1rL06vQaao8TER8lJzIFn8DhBnCkHggmPXcQXNGkc0jYVJOhohlORVe5MDyNAFE4WeWbmuNibJTCwJ18vQ9Qh2tlwbAn4Ejy/9QdGcCzLSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=PtVookg5; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxcW86lS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FAB21F000FF;
-	Fri, 18 Sep 2026 19:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789758152;
-	bh=DOEvh1ULfZUyvbXtw8svpyW+rKR5aBJAMnEeOyZ3r/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cxcW86lSs8Ef2aWhukeCN4JfW0Hv264u0jeA13gZUd8o0yI1tLbvcJDo7g8OcaE17
-	 w2eDF2xRTg4wMXp3VtW8iAUu5jB/pkOchXL0urX7tOvXSlpgp3/7jYsXEmyGd8RI08
-	 /lBvQB2wHOJChpVpS5PTUkk7M8F4JapsKlvPDb1Qjyf5gxnnBBmlKM2xD/FUfGfr3r
-	 rLiMDgHnFZXH5xSAVOYb1ETlM7bccAkX5aUj2McARvEyZ7ovV1hC2r1/r+updkF3CJ
-	 YyG349azk18PwuTDjeSdR2oC5eCX3daiECMjfRtIYjdPHKVOKjEiDSo6OLcFy0zOGi
-	 lTD2gSdBQpdjw==
-Date: Fri, 18 Sep 2026 14:02:30 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org,
-	Albert Ou <aou@eecs.berkeley.edu>, linux-gpio@vger.kernel.org,
-	linux-riscv@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Subject: Re: [PATCH v8 19/22] dt-bindings: pinctrl: Add
- starfive,jhb100-per3-pinctrl
-Message-ID: <178975815001.1423373.14150592960268083432.robh@kernel.org>
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
- <20260910100357.130134-20-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="PtVookg5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=x4+D
+	9upuaenjWjZ0/dtM41htolecou62jNr6QYJiyhE=; b=PtVookg5iQKTKvaqLg/V
+	le9n4Ya6+P6oMAJIDLz7bwQHYOWPNA+2BRkNCTXsIkSwGLgpNiBURb38I31E11/v
+	wyApEEHsdo1fn8cJKwT3btI/SLa9ITzwA+nuo3Wnpm2lp1XdBgpsiwQAenbKBIrM
+	QG8Xc6p4pZ8059h82svBVX81BzDkOzmualYyeh1bukez1x+Lj8oR+hNVvnetHebd
+	qm5aXERfgaHfZGipLKRi7Mzmpmd1dPZmUL6XhA3fWHbO3QPjSnRsKui0Phql/nit
+	S6c5I0LjoAkrm47LrwHgp2QV5H/Ux0w6/9+KzOexRguOi8dpJZQEf8n8IpxP89o9
+	WA==
+Received: (qmail 2660367 invoked from network); 18 Sep 2026 21:03:46 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 18 Sep 2026 21:03:46 +0200
+X-UD-Smtp-Session: l3s3148p1@raRWj8ZbuqC57tsJ
+Date: Fri, 18 Sep 2026 21:03:46 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Frank.Li@oss.nxp.com
+Cc: Aubin Constans <aubin.constans@microchip.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Russell King <linux@armlinux.org.uk>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Jesper Nilsson <jesper.nilsson@axis.com>,
+	Lars Persson <lars.persson@axis.com>,
+	Linus Walleij <linusw@kernel.org>, Fan Wu <fanwu01@zju.edu.cn>,
+	Rosen Penev <rosenp@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Rakuram Eswaran <rakuram.e96@gmail.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	"open list:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND..." <linux-mmc@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:INGENIC JZ47xx SoCs" <linux-mips@vger.kernel.org>,
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>,
+	"open list:OMAP HS MMC SUPPORT" <linux-omap@vger.kernel.org>,
+	"moderated list:ARM/ACTIONS SEMI ARCHITECTURE" <linux-actions@lists.infradead.org>,
+	"open list:TMIO/SDHI MMC DRIVER" <linux-renesas-soc@vger.kernel.org>,
+	"open list:ARM/ARTPEC MACHINE SUPPORT" <linux-arm-kernel@axis.com>,
+	vkoul@kernel.org
+Subject: Re: [PATCH v2 1/1] mmc: use dmaengine_get_dma_device() instead of
+ chan->device->dev
+Message-ID: <aq2LEtdAVJ58mpMr@shikoro>
+References: <20260918152349.2101305-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,19 +79,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910100357.130134-20-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260918152349.2101305-1-Frank.Li@oss.nxp.com>
 
 
-On Thu, 10 Sep 2026 03:03:54 -0700, Changhuang Liang wrote:
-> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-3(per3) pinctrl
-> controller.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../pinctrl/starfive,jhb100-per3-pinctrl.yaml | 166 ++++++++++++++++++
->  1 file changed, 166 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per3-pinctrl.yaml
-> 
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c |  8 ++++----
+>  drivers/mmc/host/sh_mmcif.c              |  8 ++++----
+>  drivers/mmc/host/usdhi6rol0.c            |  6 +++---
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+For these Renesas drivers:
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
