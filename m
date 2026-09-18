@@ -1,260 +1,115 @@
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093C44ABBC3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DF44AAC41
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720925; cv=none; b=jC0DWZ0jROz0j4ugaIGzdqAj+jUrjuBM0a1jk1og5xt5f9TVoXNBqA1BF1LRJZp+VcxQ53QzAAOVMxhdwvsbe8jliS3rFYRtOXnJGc7bX43yTmG1icMNwuum5jde0Vmnvd6XnJNvGRWgdR/vJwXC98T4j/Ypx5p5Fxbt7IwUXg4=
+	t=1789720929; cv=none; b=H+GGrwKTnEuouAG8NteAUELSUfOZ6JGB+W9q+TVUHWd2LIJ4MZUIzb8pdw3DdTRwIXuOMEQhzhUbmNPkw7R6DlZTHbiFe3ALZHIKTOlLBA+KijVeuKOgRhWA4JmgG0PdytcVAelBFjmyTIk866JYcGIAFDTWASm7gkoROGQgxco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720925; c=relaxed/simple;
-	bh=avzHIWkcSx91+p3m3AbRSjYZUyRZLCO1ounXG0xnWKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Eec89Bjs+2gNfKpvJO9DqoPdllOdgtqX2ALJYdUmlu4DttkvafsUrXKovfbr0uoOkACma+KY9ZUYkNzrIfJALhlkSpycYQSA4Qs7U6dc5GEqSvAgH3wQGcYAaiQlDOdMQaXqmDfADnV9z7/9VUFwG4QOK4JAXr7fUP+C8WUxrDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NsQ9/9L2; arc=none smtp.client-ip=91.218.175.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789720929; c=relaxed/simple;
+	bh=GE01ZJk1Dnk5jP3hnMdHMT3hWSSM0IaDfbBRWneCa4s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QMFQZ07rWct5AwkkGKkXvNBaRZ2TWflm/vOFDMZ8w9WWMD0kEDacoQx8H6ayzzl8MUcJu26+Oq6O053l5RROBosP7f2vJmpyngp0i8qNYmYT1SioTjGN+I9uA0NxlvWoQGVooinVFZUgB5H2fcVPncDYxpUUEzFGK4SARN9V9d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=JGUETni/; arc=none smtp.client-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NsQ9/9L2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=avzHIWkcSx91+p3m3AbRSjYZUyRZLCO1ounXG0xnWKU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789720918; v=1; x=1790325718;
- b=NsQ9/9L2q2X1NNyMR9mLsPphYuCBzNQV/gFqQNWe0/HavrhZpKLcTUstX4k96GXMIZu0sv98
- D1vUiHPldx0KDfG27uPOB7uVRWUgQt6Y3JXWMEB7W2l4Fn9ruuPnzzdoPfd5Q4NR9QyOyIxbVbH
- 8h7lZc7JXGNJhtrBbz5FwhaQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3f4dfc99ad647232;
-	Fri, 18 Sep 2026 08:41:58 +0000
-X-Mizu-Trace-ID: 3f4dfc99ad647232
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v8 1/3] bpf: arena: allocate the fault-in page outside the lock
-Date: Fri, 18 Sep 2026 16:40:25 +0800
-Message-ID: <20260918084123.39477-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918084123.39477-1-jiayuan.chen@linux.dev>
-References: <20260918084123.39477-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="JGUETni/"
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id 7MyQxcZfEuFzg7U8yxAg8v; Fri, 18 Sep 2026 08:40:28 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 7U8yxycGZJ4Yf7U8yxtz69; Fri, 18 Sep 2026 08:40:28 +0000
+X-Authority-Analysis: v=2.4 cv=F7FXdrhN c=1 sm=1 tr=0 ts=6aacf8fc
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=qhrrstFoYj4ExQeanoMA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=MjnUq/dY/fWPJe3QMgR+iwGz28UusEz4Z6VVJBzj2jI=; b=JGUETni/P4Wn27DeM/P4APGYSU
+	jWVbOTTzbhJeduk3s1TAW4GPoQ7MSzGs9Bemrr4XHFnaHcSm/yGIxLY3ifO3+AR81Bkq+PG7z+mBt
+	j5SFDmGWIRC3+R/Lv4SHUe0dhA923rHgSez7hIRXnPsV8ZobBSeGUyin860DbD6TrQoMWlxlHzDJs
+	18RMriKCDpHLUOPI2bsWjZd/vJ7ONtfTqJM6GFyKcfPMEjXhxG2QLO8yO1xQ3S9JSeBIZofGLdl2L
+	puM+UjVL9BoQ6RVjf69S3sCUCjqmzOKlcHKXNlAQK0imqYauEZWIZL/rCUKYxZlgH0N97ZV2ZeznL
+	dMEK2m8Q==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33456 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x7U8x-00000002hF0-237G;
+	Fri, 18 Sep 2026 02:40:27 -0600
+Message-ID: <86ef5c9f-effd-43a1-8f6f-c6118b5e8c82@w6rz.net>
+Date: Fri, 18 Sep 2026 01:40:25 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151350.597953846@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x7U8x-00000002hF0-237G
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33456
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfAOgC13kQ0F4VnDAMoCTUIoL6y0sqqtEyP0uQOMRDqtNa23nWSjvWceCK5EAFj/ojZt8CIadw+YrN7h0nvLznqqWxjsH0pEJfIXYdOhZSwvVScZq47ai
+ xEs02TYGug0W0YXANRrQ13yUfqMI4R69amavHdSgBJtLrmJ/vaDJMPcrv6Nq1CBKu3zO0FfTkvnJvCM33cRtjL8GFkQUXGu4qWc=
 
-arena_vm_fault() allocated the page while holding arena->spinlock, so it
-could only use the non-blocking allocator, which never reclaims. Once the
-memcg is at memory.max that allocation just fails, the fault turns into
-VM_FAULT_SIGSEGV, and the process gets a SIGSEGV on a perfectly valid
-arena address. Hitting memory.max is routine (e.g. page cache from
-reading a big file), so this kills innocent processes over memory that
-reclaim could have freed.
+On 9/17/26 08:05, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Rework the fault handler:
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-- Preallocate the page before taking the lock, like do_anonymous_page()
-  does, so it can sleep and reclaim, instead of turning a routine
-  memory.max into a fake segfault. The allocation uses
-  __GFP_RETRY_MAYFAIL so it never invokes the OOM killer: the page is
-  charged to the map's memcg, which need not be the faulting task's, so
-  an OOM there could kill unrelated tasks in the map's cgroup while a
-  foreign faulter could never be its victim. Like the other bpf map
-  allocators it places the page on the map's numa_node rather than
-  following the task's mempolicy; arena memory is shared, so the map's
-  node is the right placement policy.
-
-- On allocation failure fall through to the locked recheck rather than
-  failing right away: a page a concurrent allocator installed meanwhile
-  is used, otherwise the non-blocking fallback fails and we return
-  VM_FAULT_SIGBUS. Not VM_FAULT_OOM: nothing ran the OOM killer, and the
-  fault path would just retry it forever.
-
-- A lockless probe skips that preallocation when a page is already mapped
-  (e.g. allocated by the bpf program), so the common case wastes no
-  allocation. The rare race where such a page is freed before we take the
-  lock falls back to the non-blocking allocator under the lock.
-
-- Return VM_FAULT_SIGBUS for the other non-recoverable errors (lock
-  failure, range-tree and page-table failures) instead of
-  VM_FAULT_SIGSEGV; only BPF_F_SEGV_ON_FAULT, and a scratch-page hole
-  under that flag, is a real user addressing error and keeps
-  VM_FAULT_SIGSEGV.
-
-- Tidy up the error labels.
-
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
-To sashiko:
-- The non-blocking fallback under the lock still zeroes:
-  alloc_pages_nolock() forces __GFP_ZERO internally and only accepts
-  __GFP_ACCOUNT.
-- __GFP_ZERO matches the existing __bpf_alloc_page(), and no
-  arena-capable arch has D-cache aliasing, so there is no dcache concern.
----
- kernel/bpf/arena.c | 90 +++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 70 insertions(+), 20 deletions(-)
-
-diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-index 7b6847200b431..2d0efc0232afd 100644
---- a/kernel/bpf/arena.c
-+++ b/kernel/bpf/arena.c
-@@ -481,7 +481,8 @@ static vm_fault_t arena_vm_fault(struct vm_fault *vmf)
- 	struct bpf_map *map = vmf->vma->vm_file->private_data;
- 	struct bpf_arena *arena = container_of(map, struct bpf_arena, map);
- 	struct mem_cgroup *new_memcg, *old_memcg;
--	struct page *page;
-+	struct page *page, *new_page = NULL;
-+	vm_fault_t fault_ret;
- 	long kbase, kaddr;
- 	unsigned long flags;
- 	int ret;
-@@ -489,59 +490,108 @@ static vm_fault_t arena_vm_fault(struct vm_fault *vmf)
- 	kbase = bpf_arena_get_kern_vm_start(arena);
- 	kaddr = kbase + (u32)(vmf->address);
- 
--	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags))
-+	page = vmalloc_to_page((void *)kaddr);
-+	if (!page && !(arena->map.map_flags & BPF_F_SEGV_ON_FAULT)) {
-+		/*
-+		 * Preallocate outside the lock so the allocation can sleep and
-+		 * reclaim, which the non-blocking allocator under
-+		 * arena->spinlock cannot. __GFP_RETRY_MAYFAIL: reclaim, but
-+		 * never OOM-kill in the map's memcg, which need not be the
-+		 * faulting task's. On failure, fallthrough: the locked
-+		 * recheck below picks up a page a concurrent allocator may
-+		 * have installed meanwhile, and otherwise the non-blocking
-+		 * fallback fails and we return VM_FAULT_SIGBUS. Not
-+		 * VM_FAULT_OOM: nothing ran the OOM killer, and the fault path
-+		 * would just retry it forever.
-+		 */
-+		bpf_map_memcg_enter(&arena->map, &old_memcg, &new_memcg);
-+		new_page = alloc_pages_node(map->numa_node,
-+					    GFP_KERNEL | __GFP_ZERO |
-+					    __GFP_ACCOUNT | __GFP_NOWARN |
-+					    __GFP_RETRY_MAYFAIL, 0);
-+		bpf_map_memcg_exit(old_memcg, new_memcg);
-+	}
-+
-+	if (raw_res_spin_lock_irqsave(&arena->spinlock, flags)) {
- 		/*
- 		 * A failed lock means a possible deadlock was detected. Don't
- 		 * return VM_FAULT_RETRY: this handler never took mmap_lock, but
- 		 * the fault path would re-take it on retry and deadlock. Fail.
- 		 */
-+		if (new_page)
-+			free_pages_nolock(new_page, 0);
- 		return VM_FAULT_SIGBUS;
-+	}
- 
- 	page = vmalloc_to_page((void *)kaddr);
- 	if (page) {
--		if (page == arena->scratch_page)
-+		if (page == arena->scratch_page) {
- 			/* BPF triggered scratch here; don't lazy-alloc over it */
--			goto out_sigsegv;
-+			fault_ret = (arena->map.map_flags & BPF_F_SEGV_ON_FAULT) ?
-+				    VM_FAULT_SIGSEGV : VM_FAULT_SIGBUS;
-+			goto out_err_locked;
-+		}
- 		/* already have a page vmap-ed */
- 		goto out;
- 	}
- 
-+	if (arena->map.map_flags & BPF_F_SEGV_ON_FAULT) {
-+		/* User space requested to segfault when page is not allocated by bpf prog */
-+		fault_ret = VM_FAULT_SIGSEGV;
-+		goto out_err_locked;
-+	}
-+
- 	bpf_map_memcg_enter(&arena->map, &old_memcg, &new_memcg);
- 
--	if (arena->map.map_flags & BPF_F_SEGV_ON_FAULT)
--		/* User space requested to segfault when page is not allocated by bpf prog */
--		goto out_sigsegv_memcg;
-+	if (!new_page) {
-+		/*
-+		 * No page in hand: either the lockless probe saw a page (a bpf
-+		 * program page or the scratch page) so we skipped preallocation
-+		 * but a concurrent bpf_arena_free_pages() cleared it before we
-+		 * took the lock, or the sleepable preallocation failed. We need
-+		 * one now and cannot sleep here, so try the non-blocking
-+		 * allocator and give up if it fails.
-+		 */
-+		ret = bpf_map_alloc_pages(map, map->numa_node, 1, &new_page);
-+		if (ret) {
-+			fault_ret = VM_FAULT_SIGBUS;
-+			goto out_err_locked_memcg;
-+		}
-+	}
- 
- 	ret = range_tree_clear(&arena->rt, vmf->pgoff, 1);
--	if (ret)
--		goto out_sigsegv_memcg;
--
--	struct apply_range_data data = { .arena = arena, .pages = &page, .i = 0 };
--	/* Account into memcg of the process that created bpf_arena */
--	ret = bpf_map_alloc_pages(map, NUMA_NO_NODE, 1, &page);
- 	if (ret) {
--		range_tree_set(&arena->rt, vmf->pgoff, 1);
--		goto out_sigsegv_memcg;
-+		fault_ret = VM_FAULT_SIGBUS;
-+		goto out_err_locked_memcg;
- 	}
-+	struct apply_range_data data = { .arena = arena, .pages = &new_page, .i = 0 };
- 
- 	ret = apply_to_page_range(&init_mm, kaddr, PAGE_SIZE, apply_range_set_cb, &data);
- 	if (ret) {
- 		range_tree_set(&arena->rt, vmf->pgoff, 1);
--		free_pages_nolock(page, 0);
--		goto out_sigsegv_memcg;
-+		fault_ret = VM_FAULT_SIGBUS;
-+		goto out_err_locked_memcg;
- 	}
- 	flush_vmap_cache(kaddr, PAGE_SIZE);
- 	bpf_map_memcg_exit(old_memcg, new_memcg);
-+	/* new_page was consumed */
-+	page = new_page;
-+	new_page = NULL;
- out:
- 	page_ref_add(page, 1);
- 	raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
-+	if (new_page)
-+		free_pages_nolock(new_page, 0);
- 	vmf->page = page;
- 	return 0;
--out_sigsegv_memcg:
-+
-+out_err_locked_memcg:
- 	bpf_map_memcg_exit(old_memcg, new_memcg);
--out_sigsegv:
-+out_err_locked:
- 	raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
--	return VM_FAULT_SIGSEGV;
-+	if (new_page)
-+		free_pages_nolock(new_page, 0);
-+	return fault_ret;
- }
- 
- static const struct vm_operations_struct arena_vm_ops = {
--- 
-2.43.0
+Tested-by: Ron Economos <re@w6rz.net>
 
