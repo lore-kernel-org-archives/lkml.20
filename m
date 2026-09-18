@@ -1,152 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443854ABBCF;
-	Fri, 18 Sep 2026 08:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30A64A64E6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719368; cv=none; b=NRdBADxSsEJg9JPioj9TVjlLoEvXYtIw8FXU0CWqsZKyERzIp9uG3DHTXCtnOO28DzN2TuF/bYuCKTMrwKNX59zAOKgWiCDDEr0HQboAb/MPJ/phOdHSYDdGdyX0kufuXieiA1ErX+i0yIVD2GquwslWR1sk7FLuBKfyWxwvPcE=
+	t=1789719367; cv=none; b=K36iPvgsMz5zBaFQM1Q9AiWnUqToYZgpgd/kuSAs4SpnO32voAyY8G3AoBo/tuzRjRdyrK7N/ZZFHuhEHcYibILlmzt8ptxvLdPZidyHNbUxqz9KJiqs33flT44hoHVt4oUPKSOUnMe6lV91bb8OKtvNF8O3H+TilwzXGzqj0cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719368; c=relaxed/simple;
-	bh=+V3/1DOqgMaYKjleHm6xIwW/ABtuVUtXvkQ1Fc4EzVc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZTgECG5XtrkW/+d5Ce7/5wKeAKEpWwzZH6XJRs18/M2HNFAsZpP5YAooYTWFaa/5zai+GL0jlOJboMWP7jJQorbxmRWuzbw2QDUJ/LqygEO41ktpPJNENtiKdxrw2zYEUGVYoaB2fFLn5mGKlAgba1GZ7poHLNbBwCkv0Sl5V+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MRF1hfJz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789719367; c=relaxed/simple;
+	bh=KFbaMqbiLFRP87KR2IT5l978ib4/M2BclxnGHkZsbZ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KczLQ7Q8exvaIXJoYp+Jl7I83hmBDjVc6FXx8wx+xEr9UKD14gVm9M5zzT0142CHwO0HYs4i+U9z9cvLBwYtFmong4oA3ewteYC+wbhtC0q/xR34+qW92MqEJVr2+2RW9RpdBc7BirKRYWpJDRxir5lW7wqNue6JB3Y0asnRmjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KNRydRIN; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MRF1hfJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4411F000FF;
-	Fri, 18 Sep 2026 08:15:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789719360;
-	bh=+Cp3hSVo5L5ISVN/5ayEdJk1wfGN18KBr6Nt7dKeASo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MRF1hfJzDSWFuLJlj0zPUYNfcbdHVExqxdsAg3xCJyO3QhEPsa8TnbUU/7cMmdWFB
-	 b+YbxxrravLMtkK8H/Lqr2+6RtGAJoNbVsnw+M2HGy4MEHfAk2/uv9+AEVrOZiADP+
-	 3q69CrcmGPSlbOPim8lJiUWes8DHrowdUGa+xJyY=
-Date: Fri, 18 Sep 2026 09:14:03 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Adarsh Das <adarshdas950@gmail.com>
-Cc: rafael@kernel.org, dakr@kernel.org, driver-core@lists.linux.dev,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] kobject: fix uevent socket use-after-free on net
- namespace delete
-Message-ID: <2026091847-comfort-magical-5535@gregkh>
-References: <2026091732-armored-lilac-fec9@gregkh>
- <20260918060826.8434-1-adarshdas950@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KNRydRIN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789719360;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KZw+s9+hNkGrvJFNAo5F/Jik+U9iZGIw5s6mYsPaxqg=;
+	b=KNRydRINo1GmPgnsmL2/8VLwuOczNZ9sZwiVdP8eFzAyXdr0YWT1Yk4/eCNLlQdgcjeQcy
+	vlJwW9AXySTRyc99x8/VkC9tjnyiv9SwsR8IpDiWL1qSckkgMinwgK5sd19/KhWn4IdoUR
+	c31IHBrSoE9g0iEtEp1LcKOnGwQWQzM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-449-kIxNs8okMZKEfFLXOTofQA-1; Fri,
+ 18 Sep 2026 04:15:55 -0400
+X-MC-Unique: kIxNs8okMZKEfFLXOTofQA-1
+X-Mimecast-MFC-AGG-ID: kIxNs8okMZKEfFLXOTofQA_1789719354
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 649A519560B3;
+	Fri, 18 Sep 2026 08:15:54 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BA0B730001A2;
+	Fri, 18 Sep 2026 08:15:53 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: nsaenz@amazon.com,
+	vkuznets@redhat.com,
+	snambakam@linux.microsoft.com
+Subject: [PATCH v2 11/28] KVM: adjust for presence of more than one attribute
+Date: Fri, 18 Sep 2026 04:15:26 -0400
+Message-ID: <20260918081543.139871-12-pbonzini@redhat.com>
+In-Reply-To: <20260918081543.139871-1-pbonzini@redhat.com>
+References: <20260918081543.139871-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918060826.8434-1-adarshdas950@gmail.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Fri, Sep 18, 2026 at 11:38:26AM +0530, Adarsh Das wrote:
-> When a network namespace is deleted, we free its uevent socket. But
-> sometimes a device in that namespace is still being removed and tries to
-> send a uevent through that socket. The socket is already freed, so KASAN
-> reports a use-after-free.
-> 
-> This patch attempts the fix of taking a lock around both the send path
-> and the free path, and clear the pointer before freeing so nobody uses
-> it after free.
-> 
-> Reported-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-> Link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
-> Tested-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-> Tested-by: Adarsh Das <adarshdas950@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
-> ---
->  lib/kobject_uevent.c | 27 +++++++++++++++++++--------
->  1 file changed, 19 insertions(+), 8 deletions(-)
-> 
-> diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-> index ddbc4d7482d2..cb674c2c3432 100644
-> --- a/lib/kobject_uevent.c
-> +++ b/lib/kobject_uevent.c
-> @@ -13,6 +13,7 @@
->   *	Greg Kroah-Hartman	<greg@kroah.com>
->   */
->  
-> +#include <linux/cleanup.h>
->  #include <linux/spinlock.h>
->  #include <linux/string.h>
->  #include <linux/kobject.h>
-> @@ -411,9 +412,14 @@ static int kobject_uevent_net_broadcast(struct kobject *kobj,
->  						    devpath);
->  	else {
->  		const struct net *net = container_of(ns, struct net, ns);
-> -
-> -		ret = uevent_net_broadcast_tagged(net->uevent_sock->sk, env,
-> -						  action_string, devpath);
-> +		struct uevent_sock *ue_sk;
-> +
-> +		guard(mutex)(&uevent_sock_mutex);
-> +		ue_sk = net->uevent_sock;
-> +		if (ue_sk && ue_sk->sk)
-> +			ret = uevent_net_broadcast_tagged(ue_sk->sk, env,
-> +							  action_string,
-> +							  devpath);
->  	}
->  #endif
->  
-> @@ -804,14 +810,19 @@ static int uevent_net_init(struct net *net)
->  
->  static void uevent_net_exit(struct net *net)
->  {
-> -	struct uevent_sock *ue_sk = net->uevent_sock;
-> +	struct uevent_sock *ue_sk;
->  
-> -	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
-> -		mutex_lock(&uevent_sock_mutex);
-> -		list_del(&ue_sk->list);
-> -		mutex_unlock(&uevent_sock_mutex);
-> +	{
-> +		guard(mutex)(&uevent_sock_mutex);
-> +		ue_sk = net->uevent_sock;
-> +		net->uevent_sock = NULL;
-> +		if (ue_sk && sock_net(ue_sk->sk)->user_ns == &init_user_ns)
-> +			list_del(&ue_sk->list);
->  	}
->  
-> +	if (!ue_sk)
-> +		return;
-> +
->  	netlink_kernel_release(ue_sk->sk);
->  	kfree(ue_sk);
->  }
-> -- 
-> 2.55.0
-> 
+Remove or adjust code that assumed that the only valid attribute was
+KVM_MEMORY_ATTRIBUTE_PRIVATE, in preparation for the introduction of RWX
+memory attributes.
 
-Hi,
+In particular, the optimization in kvm_range_has_memory_attributes
+simply is not valid if attrs == 0 but some of the attributes are being
+ignored.  The WARNs in arch/x86/kvm/mmu/mmu.c are just a duplicate of
+checking kvm_supported_mem_attributes() during the ioctl, so drop it.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/mmu/mmu.c | 9 +--------
+ virt/kvm/kvm_main.c    | 6 ++++--
+ 2 files changed, 5 insertions(+), 10 deletions(-)
 
-You are receiving this message because of the following common error(s)
-as indicated below:
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index ba462c671f7d..77d9c62d2a07 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -8140,9 +8140,6 @@ bool kvm_arch_pre_set_memory_attributes(struct kvm *kvm,
+ 	 * Zapping SPTEs in this case ensures KVM will reassess whether or not
+ 	 * a hugepage can be used for affected ranges.
+ 	 */
+-	if (WARN_ON_ONCE(!kvm_arch_has_private_mem(kvm)))
+-		return false;
+-
+ 	if (WARN_ON_ONCE(range->end <= range->start))
+ 		return false;
+ 
+@@ -8218,11 +8215,7 @@ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ 	 * can't map memory PRIVATE.  KVM mustn't create a SHARED hugepage over
+ 	 * a range that has PRIVATE GFNs, and conversely converting a range to
+ 	 * SHARED may now allow hugepages.
+-	 */
+-	if (WARN_ON_ONCE(!kvm_arch_has_private_mem(kvm)))
+-		return false;
+-
+-	/*
++	 *
+ 	 * The sequence matters here: upper levels consume the result of lower
+ 	 * level's scanning.
+ 	 */
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 9d1836382d19..85fdd33c51ab 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2436,10 +2436,12 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 				     unsigned long mask, unsigned long attrs)
+ {
+ 	XA_STATE(xas, &kvm->mem_attr_array, start);
++	unsigned long supported_attrs;
+ 	unsigned long index;
+ 	void *entry;
+ 
+-	mask &= kvm_supported_mem_attributes(kvm);
++	supported_attrs = kvm_supported_mem_attributes(kvm);
++	mask &= supported_attrs;
+ 	if (attrs & ~mask)
+ 		return false;
+ 
+@@ -2447,7 +2449,7 @@ bool kvm_range_has_memory_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		return (kvm_get_memory_attributes(kvm, start) & mask) == attrs;
+ 
+ 	guard(rcu)();
+-	if (!attrs)
++	if (!attrs && mask == supported_attrs)
+ 		return !xas_find(&xas, end - 1);
+ 
+ 	for (index = start; index < end; index++) {
+-- 
+2.52.0
 
-- This looks like a new version of a previously submitted patch, but you
-  did not list below the --- line any changes from the previous version.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/process/submitting-patches.rst for what
-  needs to be done here to properly describe this.
 
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
