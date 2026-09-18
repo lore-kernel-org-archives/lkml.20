@@ -1,135 +1,386 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DEF38AC6A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40D431AF2D;
+	Fri, 18 Sep 2026 22:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789770078; cv=none; b=KsV/uKVxda1Ub/Z1pC4l5l4U/5pHfmVcDTylT3iOo3Eu3TSeZaQknkFvkK5Y0iKWjNBBUKv5sGnd6QjdtU9+TlItGDI4nFVMv/kbmnOUTH0PouUKOqg9vZV0dZAz+nsxYwwXeiTT/5mv+a4ac8/i3feqwPz1Voqvare5fvxkH/c=
+	t=1789770089; cv=none; b=Ja3jwpNi0CH/1rTtPexUyn0sv2zTnSF5uXqrshvbJHqEovt16ql72wi3lRnKM8xp5Vm0DShjEXNJWvPllfCxGsNElKZJT1jL+XZBYyLQgqTjgLBKuF+kswAYZ8wwZCU16GwVHdWNBmo7bNP26hNjapV1H1FCTUXr44oo8T8C/bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789770078; c=relaxed/simple;
-	bh=+FwJtlfrM0QgaoS3zhsMAFRd0dW54ltAMUamg6i/wMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=duhQehmag/l3W/ljZLXcLTHgyCa0Voi51u2HY6zOWPOB+121TsI1NDMDE5okuhA2PGXTPjoZAthLT/FBxYy0tLzjYFpG1ad+/nA7xf5hEV9NuS0VXsUw63dqlU7eKo3nxlyXFQVOIW4endmRhfnEOJGyrbUE26UwkIs2ASaJZn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UvAe87js; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=V+389A5F; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789770089; c=relaxed/simple;
+	bh=6ZJ+5HgZLIQfLXw6QmMkGKzCGyrjBuc19HGNQpdMdtQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dlrmy2o+0ivLVpXzPlGgzf98m6EzEb4igGdQi2RePN3JiFuaoisk/MNDnhsRhW4Qw/nvuQG5CJvzxNWLyOdbKeD+a9Qa4L7vYGunRuIbB2pKsrvNNqWUlzXg0U6+Nqk9iCgNAr0MHeaiARYjBbxqk4LfZSvTlBF5wCBTjAuTm0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=GdfCwoBS; arc=none smtp.client-ip=15.235.45.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UvAe87js";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="V+389A5F"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789770072;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z7dezM5jMkC2kVacafvsV0OwTH65W5JtT/fFjd8EacQ=;
-	b=UvAe87jsIJP1Ozh20NDvwE42lX0OoZ3HvOXyJSjVj+rhxDKn0eUxF7NvuOmFczbJkdwOIK
-	SAuKGpNCavrKFksFoza3ewQBMeYLjeSi8pDlDuVCid0TaDfOQWDdfGiobtB40zy3PxaieI
-	mK1sspzKfnL/2WS6Y9KIfSfN5pWvqE4=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-456-nQ8qVCODMauIx1B7petT-Q-1; Fri, 18 Sep 2026 18:21:11 -0400
-X-MC-Unique: nQ8qVCODMauIx1B7petT-Q-1
-X-Mimecast-MFC-AGG-ID: nQ8qVCODMauIx1B7petT-Q_1789770071
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e82060977so215564785a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789770071; x=1790374871; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=z7dezM5jMkC2kVacafvsV0OwTH65W5JtT/fFjd8EacQ=;
-        b=V+389A5FUoTXwXXkSzzwSQsnFjfvqR7Iy3aZ9b/YsDc0lwvFQ4LbAs3jtyfYYQwKZD
-         VJG4zw7cPQFhoa7H1Cf/NhSdZfd3J9lEIbmDhS/RrJon2nEFnqUi+qshF775woaZuzKT
-         0vlttLAkDW200B3J9fzPe0G+AuuZLsuoCIOGIZnChG/Dr1B2rZmKz8cg+gUJghzdoh4L
-         wQLh7ZbImLP3pk4KW/E9HSKAb2ccwtKLmcOR7zGoSjvfZkw7EJcVf6sk08iHIvVrKpHD
-         OcgFJR9ac5fsC6ExJuz3erJBZzRPPGXyi9dHpAdIUogWhBPHWfhISQSGNnPfjk0C0c18
-         3RzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789770071; x=1790374871;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z7dezM5jMkC2kVacafvsV0OwTH65W5JtT/fFjd8EacQ=;
-        b=fOdgDrugm6l+EVINNJzbzTEIKGxAYdtet3Yl7tDgA9xr7n5E/9c2rbIlTGoTmSUvqw
-         fejxC75uNZjHZvvP8Xu4egAeJfKhNYDj0SL/0vldEy7I7SoxRnlAe3aG5bF/hYUaWuw1
-         Jc1dbFw1XEN95Bil2w8MaoAhNEetltVms9x/OhVP7rW4jvAeAGkN5Ne07eQi401l5o6B
-         XHaSXmduhSWhhM+Azwg70+2oE1Tg2nU8klYmNT7HcwtG71zAKubCVYQNEfMkSGamQh4N
-         IAU3qKshW/UDwByiihC+AXk+ddy8US9F3ChS3ymdmATGNPhojG1MkeTzhPhN/L4EOgw8
-         VEnw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLFwAOuyp60kKjo7JZ4M18JnlrJYjGlhwvljWD3v2sPWTwSKJjvb9bHg9k3nU7DnTd71CxW2ppHKpOUvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8myD/hOMNeYa0umVm2ONvjryHv1fqySR81MYcw3GHI0K6WUjX
-	nyDR7Tr/ImzeS+7RPddaUb0SN2h8WAaVX9CIL6C1RxR9W6Ng9gR5cR4IM6hbvgr/VOKhrKtRlVc
-	6MLnKkTM5PM/maFr01avmBzNrLH6vFqelmKW9JmXToYF9dwhWBrqjkpigcPrMgbr2tQ==
-X-Gm-Gg: AYBFou2WbwOq31P35Hvx7XPndokYjjylMJgl82Ak4ZDT3Y7rCUV90kXt4jBHk61zxFf
-	t6ys/QEsPzJ/ywhYGOWFJw7ksAtUdyAZ7K6ghT/wILZn/5NaRq6sx5UdpmCI+K4r/2mLVno00yq
-	dmoeom4UKbdiodlwIxrCp3XTO1nmXbVpnPgPSCOfsLTGtzzNRA62seyPWlV/EcNMW+/8r8wj3zI
-	IveWiP6gLmeFqo47Ez6xcc7/+Po2+crDXeNDaSTNR3LWixEuPCXosEmNWrPhdE3B7oO8tQz2pN9
-	8xIgnOAu9EY8hNjWDi2rJw0dUcJmagXrqEFwvpuonmGIY2EoGv/4u+PP2xuzOkrhWBbO0Ao=
-X-Received: by 2002:a05:620a:4505:b0:93b:d7a4:9d51 with SMTP id af79cd13be357-93bdbc7bb10mr618657685a.36.1789770070964;
-        Fri, 18 Sep 2026 15:21:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:4505:b0:93b:d7a4:9d51 with SMTP id af79cd13be357-93bdbc7bb10mr618655485a.36.1789770070577;
-        Fri, 18 Sep 2026 15:21:10 -0700 (PDT)
-Received: from redhat.com ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bedb6759bsm49189185a.43.2026.09.18.15.21.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 15:21:08 -0700 (PDT)
-Date: Fri, 18 Sep 2026 18:21:06 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Slavin Liu <bolin.liu@seu.edu.cn>
-Cc: biju.das.jz@bp.renesas.com, sboyd@kernel.org, bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] clk: versaclock7: propagate all xin lookup failures
-Message-ID: <aq25UlM87_UIatKW@redhat.com>
-References: <20260911060918.94343-1-bolin.liu@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="GdfCwoBS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
+	s=mail; t=1789769900;
+	bh=6ZJ+5HgZLIQfLXw6QmMkGKzCGyrjBuc19HGNQpdMdtQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=GdfCwoBS44QwILr9MnAs9o2q4D/1V0KNEJHpConJAZmv9gnC+ZStFTWz5t1zIvBuW
+	 YKQarw+9F3Umfd4fKaaHkQ8/zOZ+aEOeXodXUmbgRoZGCp0H3hAwQE71aI0jmz3vSl
+	 PGzq4/EKtMyorVImXDE7s76v/AUbgXQlxKkxs0CspeKATHenQ5S+Bd+tVnxf/u0bA2
+	 iwUP6bpnnJ7SKnLqgeQpOV4LkTMVw4Wb2P528fNIzP+TmV+D/AzMXcysTCA0d4J6ZF
+	 bJgbWLROBppkrbocsjIoT4Tn5XZ6syZ2IFcFjjnN2Lu8kUSSPa7oab4zeiBEs9i8eG
+	 ecolzaO8suYGw==
+Received: by d2-2-bhs5.logotherapy.ca (Postfix) id A4BFA2012E;
+	Fri, 18 Sep 2026 22:18:19 +0000 (UTC)
+From: Peter Marshall <pm@petermarshall.ca>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Peter Marshall <pm@petermarshall.ca>
+Subject: [PATCH 09/11] media: i2c: st-vd55g1: Abstract sensor models, revisions, and features
+Date: Fri, 18 Sep 2026 18:17:03 -0400
+Message-ID: <20260918221705.323510-10-pm@petermarshall.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918221705.323510-1-pm@petermarshall.ca>
+References: <20260918221705.323510-1-pm@petermarshall.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911060918.94343-1-bolin.liu@seu.edu.cn>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
 
-Hi Slavin,
+Store a reference to the requested model struct in the client data
+early during probe. This lets init steps know what sensor model we're
+expecting even before it gets verified in detect().
 
-On Fri, Sep 11, 2026 at 02:09:18PM +0800, Slavin Liu wrote:
-> The xin clock is used to obtain the APLL reference rate. Handle all
-> lookup errors, not only probe deferral, before clk_get_rate() can see
-> an error pointer.
-> 
-> Detected by static analysis and reviewed with AI-assisted source auditing.
-> 
-> Fixes: 48c5e98fedd9 ("clk: Renesas versaclock7 ccf device driver")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
-> ---
->  drivers/clk/clk-versaclock7.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-versaclock7.c b/drivers/clk/clk-versaclock7.c
-> index 1340d2f512be..5f32d3fb807a 100644
-> --- a/drivers/clk/clk-versaclock7.c
-> +++ b/drivers/clk/clk-versaclock7.c
-> @@ -1117,8 +1117,8 @@ static int vc7_probe(struct i2c_client *client)
->  	vc7->chip_info = i2c_get_match_data(client);
->  
->  	vc7->pin_xin = devm_clk_get(&client->dev, "xin");
-> -	if (PTR_ERR(vc7->pin_xin) == -EPROBE_DEFER) {
-> -		return dev_err_probe(&client->dev, -EPROBE_DEFER,
-> +	if (IS_ERR(vc7->pin_xin)) {
-> +		return dev_err_probe(&client->dev, PTR_ERR(vc7->pin_xin),
->  				     "xin not specified\n");
+Reintroduce the chip revision check that was lost during a restructure
+in commit 7a1e5239ae63 ("media: i2c: vd55g1: Add support for vd55g4")
+to prevent a firmware patch mismatch. Pass a list of supported revisions
+and their required patch in the model struct. Skip check for vd55g4
+where the revisions are unknown.
 
-Could you clarify the error message as well? Perhaps 'devm_clk_get failed for
-xin' ?
+Break up the checks in detect() to report exactly which identifier
+field had an unexpected value. Bail out on the first mismatch instead of
+trying to detect what other supported chip it may represent.
 
-You can drop the PATCH RFC on the next version.
+Replace feature gating based on the color support code with a boolean
+flag.
 
-Brian
+Signed-off-by: Peter Marshall <pm@petermarshall.ca>
+---
+ drivers/media/i2c/vd55g1.c | 183 ++++++++++++++++++++++++-------------
+ 1 file changed, 120 insertions(+), 63 deletions(-)
+
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index 1776f5ec6a7d..24bc4a4dc0ac 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -29,6 +29,7 @@
+ 
+ /* Register Map */
+ #define VD55G1_REG_MODEL_ID				CCI_REG32_LE(0x0000)
++#define VD55G1_REG_REVISION				CCI_REG16_LE(0x0004)
+ #define VD55G1_REG_COLOR_VERSION			CCI_REG32_LE(0x0670)
+ #define VD55G1_REG_FWPATCH_REVISION			CCI_REG16_LE(0x0012)
+ #define VD55G1_REG_FWPATCH_START_ADDR			CCI_REG8(0x2000)
+@@ -126,8 +127,6 @@
+ #define VD55G1_FRAME_LENGTH_DEF				1860 /* 60 fps */
+ #define VD55G1_MIPI_MARGIN				900
+ #define VD55G1_CTX_OFFSET				0x50
+-#define VD55G1_FWPATCH_REVISION_MAJOR			2
+-#define VD55G1_FWPATCH_REVISION_MINOR			9
+ #define VD55G1_XCLK_FREQ_MIN				(6 * HZ_PER_MHZ)
+ #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
+ #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
+@@ -143,30 +142,6 @@ enum vd55g1_color_version {
+ 	VD55G1_COLOR_VERSION_BAYER,
+ };
+ 
+-struct vd55g1_version {
+-	char *name;
+-	enum vd55g1_model_id id;
+-	enum vd55g1_color_version color;
+-};
+-
+-static const struct vd55g1_version vd55g1_versions[] = {
+-	{
+-		.name  = "vd55g1",
+-		.id    = VD55G1_MODEL_ID_2,
+-		.color = VD55G1_COLOR_VERSION_MONO,
+-	},
+-	{
+-		.name  = "vd55g4",
+-		.id    = VD55G1_MODEL_ID_3,
+-		.color = VD55G1_COLOR_VERSION_MONO,
+-	},
+-	{
+-		.name  = "vd65g4",
+-		.id    = VD55G1_MODEL_ID_3,
+-		.color = VD55G1_COLOR_VERSION_BAYER,
+-	},
+-};
+-
+ static const u8 vd55g1_patch_array[] = {
+ 	0x44, 0x03, 0x09, 0x02, 0xe6, 0x01, 0x42, 0x00, 0xea, 0x01, 0x42, 0x00,
+ 	0xf0, 0x01, 0x42, 0x00, 0xe6, 0x01, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00,
+@@ -564,15 +539,90 @@ struct vd55g1_frame_timings {
+ 	u16 expo_max;
+ };
+ 
++#define VD55G1_REVISION_ANY 0
++
++struct vd55g1_revision {
++	u64 id;
++	bool needs_patch;
++	const struct vd55g1_firmware *builtin_fw;
++};
++
++struct vd55g1_model {
++	const char *name;
++	unsigned int id;
++	enum vd55g1_color_version color;
++	const struct vd55g1_revision *revisions;
++	u16 num_revisions;
++	bool bayer;
++};
++
++struct vd55g1_firmware {
++	size_t size;
++	const u8 *data;
++	u8 v_major;
++	u8 v_minor;
++};
++
++static const struct vd55g1_firmware vd55g1_builtin_fw = {
++	.data = vd55g1_patch_array,
++	.size = ARRAY_SIZE(vd55g1_patch_array),
++	.v_major = 2,
++	.v_minor = 9,
++};
++
++static const struct vd55g1_revision vd55g1_revisions[] = {
++	{
++		.id = 0x2020,
++		.needs_patch = true,
++		.builtin_fw = &vd55g1_builtin_fw
++	},
++};
++
++static const struct vd55g1_revision vd55g4_revisions[] = {
++	{ .id = VD55G1_REVISION_ANY, .needs_patch = false },
++};
++
++static const struct vd55g1_revision vd65g4_revisions[] = {
++	{ .id = 0x3030, .needs_patch = false },
++};
++
++static const struct vd55g1_model vd55g1_model = {
++	.name = "vd55g1",
++	.id = VD55G1_MODEL_ID_2,
++	.color = VD55G1_COLOR_VERSION_MONO,
++	.revisions = vd55g1_revisions,
++	.num_revisions = ARRAY_SIZE(vd55g1_revisions),
++	.bayer = false,
++};
++
++static const struct vd55g1_model vd55g4_model = {
++	.name  = "vd55g4",
++	.id = VD55G1_MODEL_ID_3,
++	.color = VD55G1_COLOR_VERSION_MONO,
++	.revisions = vd55g4_revisions,
++	.num_revisions = ARRAY_SIZE(vd55g4_revisions),
++	.bayer = false,
++};
++
++static const struct vd55g1_model vd65g4_model = {
++	.name = "vd65g4",
++	.id = VD55G1_MODEL_ID_3,
++	.color = VD55G1_COLOR_VERSION_BAYER,
++	.revisions = vd65g4_revisions,
++	.num_revisions = ARRAY_SIZE(vd65g4_revisions),
++	.bayer = true,
++};
++
+ struct vd55g1 {
+ 	struct device *dev;
+-	const struct vd55g1_version *version;
+ 	struct v4l2_subdev sd;
+ 	struct media_pad pad;
+ 	struct regulator_bulk_data supplies[ARRAY_SIZE(vd55g1_supply_name)];
+ 	struct gpio_desc *reset_gpio;
+ 	struct clk *xclk;
+ 	struct regmap *regmap;
++	const struct vd55g1_model *model;
++	const struct vd55g1_revision *revision;
+ 	u32 xclk_freq;
+ 	u16 oif_ctrl;
+ 	u8 gpios[VD55G1_NB_GPIOS];
+@@ -660,7 +710,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
+ 	u32 fallback_code;
+ 	unsigned int i, j;
+ 
+-	if (sensor->version->color == VD55G1_COLOR_VERSION_MONO) {
++	if (!sensor->model->bayer) {
+ 		fallback_code = vd55g1_mbus_formats_mono[0];
+ 		for (i = 0; i < ARRAY_SIZE(vd55g1_mbus_formats_mono); i++)
+ 			if (vd55g1_mbus_formats_mono[i] == code)
+@@ -1222,28 +1272,25 @@ static int vd55g1_disable_streams(struct v4l2_subdev *sd,
+ 
+ static int vd55g1_patch(struct vd55g1 *sensor)
+ {
++	const struct vd55g1_firmware *fw = sensor->revision->builtin_fw;
+ 	u64 patch;
+ 	int ret = 0;
+ 
+-	/* Version 2 needs a patch while version 3 does not */
+-	if (sensor->version->id == VD55G1_MODEL_ID_2) {
++	if (sensor->revision->needs_patch) {
+ 		vd55g1_write_array(sensor, VD55G1_REG_FWPATCH_START_ADDR,
+-				   sizeof(vd55g1_patch_array),
+-				   vd55g1_patch_array, &ret);
++				   fw->size, fw->data, &ret);
+ 		vd55g1_write(sensor, VD55G1_REG_BOOT,
+ 			     VD55G1_BOOT_PATCH_AND_BOOT, &ret);
+ 		vd55g1_poll_reg(sensor, VD55G1_REG_BOOT, 0, &ret);
++		vd55g1_read(sensor, VD55G1_REG_FWPATCH_REVISION, &patch, &ret);
+ 		if (ret) {
+ 			dev_dbg(sensor->dev, "Failed to apply patch\n");
+ 			return ret;
+ 		}
+ 
+-		vd55g1_read(sensor, VD55G1_REG_FWPATCH_REVISION, &patch, &ret);
+-		if (patch != (VD55G1_FWPATCH_REVISION_MAJOR << 8) +
+-		    VD55G1_FWPATCH_REVISION_MINOR) {
++		if (patch != (fw->v_major << 8) + fw->v_minor) {
+ 			dev_dbg(sensor->dev, "Bad patch version expected %d.%d got %d.%d\n",
+-				VD55G1_FWPATCH_REVISION_MAJOR,
+-				VD55G1_FWPATCH_REVISION_MINOR,
++				fw->v_major, fw->v_minor,
+ 				(u8)(patch >> 8), (u8)(patch & 0xff));
+ 			return -ENODEV;
+ 		}
+@@ -1299,7 +1346,7 @@ static int vd55g1_enum_mbus_code(struct v4l2_subdev *sd,
+ 	struct vd55g1 *sensor = to_vd55g1(sd);
+ 	u32 base_code;
+ 
+-	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER) {
++	if (!sensor->model->bayer) {
+ 		if (code->index >= ARRAY_SIZE(vd55g1_mbus_formats_mono))
+ 			return -EINVAL;
+ 		base_code = vd55g1_mbus_formats_mono[code->index];
+@@ -1408,7 +1455,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
++	if (!sensor->model->bayer)
+ 		code = vd55g1_mbus_formats_mono[0];
+ 	else
+ 		code = vd55g1_mbus_formats_bayer[0][0];
+@@ -1693,28 +1740,30 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 	return ret;
+ }
+ 
+-static const struct vd55g1_version *
+-vd55g1_get_version(enum vd55g1_model_id id,
+-		   enum vd55g1_color_version color)
++static int vd55g1_match_revision(struct vd55g1 *sensor, u64 rev)
+ {
+-	for (unsigned int i = 0; i < ARRAY_SIZE(vd55g1_versions); i++) {
+-		if (vd55g1_versions[i].id == id &&
+-		    vd55g1_versions[i].color == color)
+-			return &vd55g1_versions[i];
++	const struct vd55g1_revision *revision;
++
++	for (int i = 0; i < sensor->model->num_revisions; i++) {
++		revision = &sensor->model->revisions[i];
++
++		if (revision->id == rev ||
++		    revision->id == VD55G1_REVISION_ANY) {
++			sensor->revision = revision;
++			return 0;
++		}
+ 	}
+ 
+-	return NULL;
++	return -ENOENT;
+ }
+ 
+ static int vd55g1_detect(struct vd55g1 *sensor)
+ {
+-	const struct vd55g1_version *dt_version =
+-		device_get_match_data(sensor->dev);
+-	const struct vd55g1_version *version;
+-	u64 color, id;
++	u64 color, id, rev;
+ 	int ret = 0;
+ 
+ 	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
++	vd55g1_read(sensor, VD55G1_REG_REVISION, &rev, &ret);
+ 	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
+ 	if (ret) {
+ 		dev_dbg(sensor->dev,
+@@ -1722,20 +1771,26 @@ static int vd55g1_detect(struct vd55g1 *sensor)
+ 		return ret;
+ 	}
+ 
+-	version = vd55g1_get_version(id, color);
+-	if (!version) {
+-		dev_dbg(sensor->dev, "Unsupported sensor version, expected %s\n",
+-			dt_version->name);
++	if (id != sensor->model->id) {
++		dev_dbg(sensor->dev,
++			"Expected %s (0x%x), but detected mismatched sensor id 0x%x\n",
++			sensor->model->name, (u32)sensor->model->id, (u32)id);
+ 		return -ENODEV;
+ 	}
+-	if (version->id != dt_version->id ||
+-	    version->color != dt_version->color) {
+-		dev_dbg(sensor->dev, "Probed sensor version %s and device tree definition %s mismatch",
+-			version->name, dt_version->name);
++	if (color != sensor->model->color) {
++		dev_dbg(sensor->dev,
++			"Expected %s (0x%x), but detected mismatched color version 0x%x\n",
++			sensor->model->name, (u32)sensor->model->color, (u32)color);
+ 		return -ENODEV;
+ 	}
+ 
+-	sensor->version = version;
++	ret = vd55g1_match_revision(sensor, rev);
++	if (ret == -ENOENT) {
++		dev_dbg(sensor->dev,
++			"Unsupported sensor revision 0x%x, expected %s\n",
++			(u16)rev, sensor->model->name);
++		return -ENODEV;
++	}
+ 
+ 	return 0;
+ }
+@@ -2033,6 +2088,8 @@ static int vd55g1_probe(struct i2c_client *client)
+ 		return -ENOMEM;
+ 	sensor->dev = &client->dev;
+ 
++	sensor->model = device_get_match_data(dev);
++
+ 	v4l2_i2c_subdev_init(&sensor->sd, client, &vd55g1_subdev_ops);
+ 
+ 	ret = vd55g1_parse_dt(sensor);
+@@ -2118,9 +2175,9 @@ static void vd55g1_remove(struct i2c_client *client)
+ }
+ 
+ static const struct of_device_id vd55g1_dt_ids[] = {
+-	{ .compatible = "st,vd55g1", .data = (void *)&vd55g1_versions[0] },
+-	{ .compatible = "st,vd55g4", .data = (void *)&vd55g1_versions[1] },
+-	{ .compatible = "st,vd65g4", .data = (void *)&vd55g1_versions[2] },
++	{ .compatible = "st,vd55g1", .data = &vd55g1_model },
++	{ .compatible = "st,vd55g4", .data = &vd55g4_model },
++	{ .compatible = "st,vd65g4", .data = &vd65g4_model },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
+-- 
+2.55.0
 
