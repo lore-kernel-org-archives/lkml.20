@@ -1,144 +1,337 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC407140E5F;
-	Fri, 18 Sep 2026 04:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAF736492D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704552; cv=none; b=l8GJJ9M7DOaQna44BGy3HV9lz8oVzjH8jLHLoGXfLSIZTG0wx6qQ7nR69HQe9zfp7X7Sw8Qqr2/uEpRct4TWBFEiG8PriBndVzqhv+7LnNl83vDjiaTIZ6iuVSoHzgW2YZKwMBYRIwWP02Wi8tH+pnu1d9cgfNpoacAbaUKVyeo=
+	t=1789704565; cv=none; b=KWTz+ylPThU1L1tDQmj0r3RBYZ1goJ4ND6dYvT8jQOLdo/LNn8jhPnjSHHag2ZwVHwHnMNVMvttfHm7Ovj1Sm9n1s6RCv6sYBCRXx7J01AN1MRLzh78c2wMcO7C6QVFDtABwvizID3OcrCOLrYbN6yRg5TrZWsIavzRfH2VSEt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704552; c=relaxed/simple;
-	bh=8pzLUd9k5b+qBeH7Wtidx6o3EKNEy6VMXT6cnIaOPlk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=TSbbcGUDwKFhR5gS8khSBFHLQSEZpSRpzTl3wmIgBHY9nuaEXtpMByyOXwgEsF2D3ynZMMw+I8cltK3ZqzugB0sWCiUdKecHUaE3MTlXjHWKwh1kYPgMQnQXC4VQGIWxLGYhcqQDAqmKXKWJh5alRPClyySeD0zh8iuP81V5mFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hmJyp3gVdzvRj9;
-	Fri, 18 Sep 2026 12:08:50 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hmJyn02pPzvRj9;
-	Fri, 18 Sep 2026 12:08:49 +0800 (CST)
-Received: from cncheex03.Hygon.cn (unknown [172.23.18.113])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 96B55164E;
-	Fri, 18 Sep 2026 12:08:40 +0800 (CST)
-Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex03.Hygon.cn
- (172.23.18.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 18 Sep
- 2026 12:08:49 +0800
-Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
- cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
- 15.02.1544.036; Fri, 18 Sep 2026 12:08:49 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Vincent Guittot
-	<vincent.guittot@linaro.org>
-CC: "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
-	"kprateek.nayak@amd.com" <kprateek.nayak@amd.com>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "ray.huang@amd.com" <ray.huang@amd.com>,
-	"mario.limonciello@amd.com" <mario.limonciello@amd.com>, "perry.yuan@amd.com"
-	<perry.yuan@amd.com>, "zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>,
-	"zhenglifeng1@huawei.com" <zhenglifeng1@huawei.com>, "pierre.gondois@arm.com"
-	<pierre.gondois@arm.com>, "sumitg@nvidia.com" <sumitg@nvidia.com>,
-	"srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
-	"hongyan.xia@transsion.com" <hongyan.xia@transsion.com>,
-	"zhongqiu.han@oss.qualcomm.com" <zhongqiu.han@oss.qualcomm.com>, Fengyu Wang
-	<wangfengyu@hygon.cn>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
-	<huangsj@hygon.cn>, Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Subject: Re: [PATCH] cpufreq: Use a non-boost reference frequency for pressure
- calculation
-Thread-Topic: [PATCH] cpufreq: Use a non-boost reference frequency for
- pressure calculation
-Thread-Index: AQHdROA84sx4SsqcvEWfPOLMo4juUrbShuMAgACwkgA=
-Date: Fri, 18 Sep 2026 04:08:49 +0000
-Message-ID: <B5C2AA60-4A07-45B6-AF06-3C5810E19F8C@hygon.cn>
-References: <20260915065747.1671965-1-wujianyong@hygon.cn>
- <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
-In-Reply-To: <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <56198BE12078074BAC1E942D2DA0899F@Hygon.cn>
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789704565; c=relaxed/simple;
+	bh=fwntZdPeiuJTnqJDgs5mNStFO4JndV9retFpYgqqll4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=b/+ICLmyASnVi5XcSZsnbY7X9HxuPDbHDcD+/7yzAFJRI53SydGIxuTpt95+BG4Q6aAWhgMKLbD3uOIoZV+giu7003uNwEKH0AwqxixGxpX8VaV1Ber6rNART8K4Ijo0967zULg6nnDKILBz3bAWGXWIWEZqEzYBxo/yPLKaebk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Tb5PQC3n; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Tb5PQC3n"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd753a52bbso7057635ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:09:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789704563; x=1790309363; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YZqJR4y+eWh6bqSl2cVAFyOPmB6ncJ2AaOppEDk+lIg=;
+        b=Tb5PQC3ng680V/ygg3JRSpArvop49XwnoAXxQBpA/FvZ6Dr7XcES0biZyWf8Nmr2nh
+         LsibnxWeDEoVqv/wtP9drpL+VG4NB925zL8A+bc16iUEY6CQI4k0MaERrNpavw+4QDSg
+         8QjiBLHpvo1BHK54Xcu33EOxrr89RYZqly6QHNNcc2Oa8mvCfjQvl0lvVPVKuME9sAt6
+         oP1RBZPD+6ebp/pGkTRkW1LM8eBmdqEDMrRfnm+JLxIX6ISRIazSXeSb5l4ZhHMNtWvf
+         S5nsUk/TJtw0pGWIv6PYCrU+HZaHTU3DdWsror67WdiTdQuEAzGVzgs4kWuTSdhx6x7e
+         slcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789704563; x=1790309363;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YZqJR4y+eWh6bqSl2cVAFyOPmB6ncJ2AaOppEDk+lIg=;
+        b=o55DUqnTSeZkJ2wXXZFdlpmJVd8LDc8DXvcaajb28TzsedqP3BRDueiibVsMPIznEA
+         19kaftwaiCref3ZObQAd+i+gXk2IbYS/sj9b+fgofjif/e2SPhd3mvaIDHS67PPZK7YA
+         X7aGV/6D+Mb44GxyyyRmbViBNh4Q3nWUBuja0HLajutF7BnPBCAp00bgRCnXfvIqeWH3
+         WUMlM3nz5D9EGtCfWxzDnjYhZxLxeWKB793s6t5QCKbLWDuiB6UB56PC/8ZRK7CmIMu+
+         mEeLiAyjUrv+OsJNGxg/zSuAoCH+w7B+uRJayt3vKvIyqL9BlmIlnhVBG1Ni9Y2MMtl/
+         kP4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzMp9Iztp+7Cw2to+jFMj7BEYU7qJ6PU8ePlbrQIxF4bCbQjlmuaU+pkPTP7yYuSTTfgqyo7F64MH/zglg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDHIIm/GsD1uBidUypfaQvzCDN3it+o67xYhJqULrNIcMaUw1l
+	Hu0bnT56wqrMUizOrAMmpHIhzYi8ZYkxEoqFF3fBpgWbiSE2hHiEFEdxFM+B0MPgU8k2iM2kI1B
+	YbA==
+X-Received: from pldv20.prod.google.com ([2002:a17:902:ca94:b0:2dd:5048:500e])
+ (user=tweek job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:11cc:b0:2dd:7979:246
+ with SMTP id d9443c01a7336-2ddb1b78d80mr27353945ad.16.1789704562990; Thu, 17
+ Sep 2026 21:09:22 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:09:17 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918040919.3402577-1-tweek@google.com>
+Subject: [PATCH bpf-next v3 1/3] bpftool: Skip non-autoload programs when
+ generating light skeletons
+From: "=?UTF-8?q?Thi=C3=A9baud=20Weksteen?=" <tweek@google.com>
+To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>, 
+	"=?UTF-8?q?Thi=C3=A9baud=20Weksteen?=" <tweek@google.com>, KP Singh <kpsingh@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
+	Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgUmFmYWVsLA0KDQo+IA0KPiBPbiBTZXAgMTgsIDIwMjYsIGF0IDAxOjM4LCBSYWZhZWwgSi4g
-V3lzb2NraSAoSW50ZWwpIDxyYWZhZWxAa2VybmVsLm9yZz4gd3JvdGU6DQo+IE9uIFR1ZSwgU2Vw
-IDE1LCAyMDI2IGF0IDk6MDPigK9BTSBKaWFueW9uZyBXdSA8d3VqaWFueW9uZ0BoeWdvbi5jbj4g
-d3JvdGU6DQo+PiANCj4+IENvbW1pdCBkMmQ1YzEyOWQwN2UgKCJjcHVmcmVxOiBNYWtlIGNwdWZy
-ZXFfdXBkYXRlX3ByZXNzdXJlKCkgZmFsbA0KPj4gYmFjayB0byBjcHVpbmZvLm1heF9mcmVxIikg
-aW50cm9kdWNlZCBjcHVpbmZvLm1heF9mcmVxIGFzIHRoZSByZWZlcmVuY2UNCj4+IGZyZXF1ZW5j
-eSBmb3IgY3B1ZnJlcSBwcmVzc3VyZSB3aGVuIGFyY2hfc2NhbGVfZnJlcV9yZWYoKSByZXR1cm5z
-IHplcm8uDQo+PiANCj4+IEhvd2V2ZXIsIGNwdWluZm8ubWF4X2ZyZXEgbWF5IGluY2x1ZGUgYm9v
-c3QgZnJlcXVlbmNpZXMgYW5kIHRoZXJlZm9yZQ0KPj4gZG9lcyBub3QgbmVjZXNzYXJpbHkgcmVw
-cmVzZW50IHRoZSBtYXhpbXVtIHN1c3RhaW5hYmxlIGZyZXF1ZW5jeS4NCj4gDQo+IEFuZCB0aGVu
-IGl0IHJlYWxseSBtYXR0ZXJzIHdoYXQgaXMgc3VzdGFpbmFibGUgYW5kIGZvciBob3cgbG9uZy4N
-Cg0KSSB0aGluayBpdCdzIGNvbmZ1c2luZyB0byBzYXkgInN1c3RhaW5hYmxlIGZyZXEiIGluIGNw
-dWZyZXEgcGFydC4gSSBtZWFuIHRoZSBtYXhpbXVtDQpjcHUgZnJlcXVlbmN5IGJlbG93IGJvb3N0
-IGhlcmUuIEZvciBhY3BpLWNwdWZyZXEsIGl04oCZcyBQMC4gRm9yIGFtZC1wc3RhdGUsIGl04oCZ
-cw0Kbm9taW5hbCBmcmVxdWVuY3kuIEJ1dCBJIGNhbid0IGZpbmQgYSBiZXR0ZXIgd29yZC4NCg0K
-PiANCj4+IE9uIHNvbWUgc3lzdGVtcyB1c2luZyBhY3BpLWNwdWZyZXEsIGNwdWluZm8ubWF4X2Zy
-ZXEgaW5jbHVkZXMgYm9vc3Qgd2hpbGUNCj4+IHRoZSBmcmVxdWVuY3kgdGFibGUgb25seSBjb250
-YWlucyBub24tYm9vc3QgZnJlcXVlbmNpZXMuDQo+IA0KPiBJbiB3aGljaCBjYXNlIHNlbGVjdGlu
-ZyBmcmVxX3RhYmxlWzBdIG1heSBnaXZlIHRoZSBwcm9jZXNzb3IgYSBsaWNlbnNlDQo+IHRvIGdv
-IHRvIHRoZSB0dXJibyAob3IgYm9vc3QpIGZyZXF1ZW5jeSByYW5nZS4NCg0KWWVhaCwgc2VsZWN0
-aW5nIGZyZXFfdGFibGVbMF0gbWF5IGFsc28gbWVhbiBjcHUgY2FuIGdvIHRvIGJvb3N0IGZyZXF1
-ZW5jeS4gDQpCdXQgdGhlIHZhbHVlIGRvZXNuJ3QgZGVub3RlIHRoYXQuIGZyZXFfdGFibGVbMF0g
-aXMgYXNzaWduZWQgIHRvIHBvbGljeS0+bWF4IHdoaWNoDQppcyBjb21wYXJlZCB3aXRoIHBvbGlj
-eS0+Y3B1aW5mby5tYXhfZnJlcS4gVGhlIGRpZmZlcmVuY2UgYmV0d2VlbiB0aGVtIG1ha2VzDQp0
-aGUgY3B1IHByZXNzdXJlIHdoaWNoIGlzIG5vdCBpbnRlbmRlZC4NCiANCj4gDQo+PiBDb25zZXF1
-ZW50bHksIGNwdWZyZXEgcHJlc3N1cmUgcmVtYWlucyBub256ZXJvIGV2ZW4gd2l0aG91dCBhbiBh
-ZGRpdGlvbmFsDQo+PiBmcmVxdWVuY3kgbGltaXQuDQo+IA0KPiBTbyB3aGVuIGFuZCB3aGVyZSBk
-b2VzIHRoaXMgbWF0dGVyPw0KDQpJIHRlc3QgaXQgb24gYW1kLCBpbnRlbCBhbmQgaHlnb24gYm94
-LiBPbmNlIGFjcGktY3B1ZnJlcSBpcyB1c2VkLCB0aGUgdW5leHBlY3RlZA0KY3B1IHByZXNzdXJl
-IGFwcGVhcnMgd2hlbiB0aGVyZSBpcyBubyBjcHUgZnJlcXVlbmN5IGNhcHBlZCBhbmQgYm9vc3Qg
-aXMgZW5hYmxlZC4NCg0KVGhlIHdyb25nIGNwdSBwcmVzc3VyZSBhZmZlY3RzIGxvYWQgYmFsYW5j
-aW5nLiBGb3IgZXhhbXBsZSwgQ2FjaGUgYXdhcmUNCnNjaGVkdWxpbmcgd2FudHMgdG8gYWdncmVn
-YXRlIHRhc2sgaW4gYSBMTEMgdXNpbmcgNTAlIG9mIHRoZSB3aG9sZSBMTEMgY2FwYWNpdHkuDQpC
-ZWZvcmUgY29tbWl0IGQyZDVjMTI5ZDA3ZSwgZXZlcnl0aGluZyBpcyBPSy4gQnV0IHdpdGggdGhh
-dCBjb21taXQgYW5kIHVzaW5nDQphY3BpLWNwdWZyZXEgYW5kIHdpdGggYm9vc3Qgb24sIGNhY2hl
-IGF3YXJlIHNjaGVkdWxpbmcgY2Fu4oCZdCBhZ2dyZWdhdGUNCnRhc2sgdG8gb2NjdXB5IDUwJSBv
-ZiB0aGUgTExDIGJ5IGRlZmF1bHQgYXMgdGhlIGNwdSBjYXBhY2l0eSBpbiB0aGUgTExDIGlzIHJl
-ZHVjZWQuIA0KPiANCj4+IEZ1cnRoZXJtb3JlLCBkcml2ZXJzIG1heSB1cGRhdGUgY3B1aW5mby5t
-YXhfZnJlcSB3aGVuIGJvb3N0IGlzIGVuYWJsZWQNCj4+IG9yIGRpc2FibGVkLiBXaXRoIGEgZml4
-ZWQgcG9saWN5IGxpbWl0IGJlbG93IHRoZSBtYXhpbXVtIG5vbi1ib29zdA0KPj4gZnJlcXVlbmN5
-LCB0aGlzIGNoYW5nZXMgdGhlIHByZXNzdXJlIHJlZmVyZW5jZSBhbmQgaGVuY2UgdGhlIHJlcG9y
-dGVkDQo+PiBwcmVzc3VyZSwgYWx0aG91Z2ggdGhlIG5vbi1ib29zdCBmcmVxdWVuY3kgbGltaXQg
-cmVtYWlucyB1bmNoYW5nZWQuDQo+IA0KPiBJZiB0aGUgY2FwYWNpdHkgaXMgdXBkYXRlZCB0aG91
-Z2ggYWxvbmcgd2l0aCB0aGUgY3B1aW5mby5tYXhfZnJlcQ0KPiBjaGFuZ2UsIHRoZW4gdGhpcyBp
-cyBhbGwgZmluZSBiZWNhdXNlIHRoZSBwcmVzc3VyZSBpcyB0aGVuIGNvbXB1dGVkDQo+IHJlbGF0
-aXZlIHRvIHRoZSBuZXcgY2FwYWNpdHkuICBpbnRlbF9wc3RhdGUgZG9lcyB0aGF0Lg0KDQpUaGlz
-IGZvbGxvd3MgVmluY2VudC4gUmVmZXJlbmNlIFZpbmNlbnTigJlzIHdvcmRzIFsxXToNCg0KIkFz
-IGxvbmcgYXMgdGhlIHJlZmVyZW5jZSBmcmVxdWVuY3kgdXNlZCBpbiBjcHVmcmVxX3VwZGF0ZV9w
-cmVzc3VyZQ0KcmVtYWlucyBmaXhlZCB3aGV0ZXZlciBib29zdCBpcyBlbmFibGVkIG9yIG5vdCB0
-aGlzIGlzIG9rLiBXZSBkb24ndA0Kd2FudCB0aGUgcHJlc3N1cmUgdG8gY2hhbmdlIHdoZW4gYm9v
-c3QgaXMgZW5hYmxlZCBvciBkaXNhYmxlZCBvbmx5DQp3aGVuIHBvbGljeS0+bWF4IGNoYW5nZXMu
-Ig0KDQpJZiBpbnRlbF9wc3RhdGUgbGV0IHRoZSBjcHUgcHJlc3N1cmUgdmFyeSB3aXRoIHRoZSBi
-b29zdCBvbiBvciBvZmYsIHdoYXQNCmFib3V0IGFjcGktY3B1ZnJlcS4gSXTigJlzIG5vdCBlYXN5
-IHRvIGRvIHRoZSBzYW1lIHRoaW5nIHRoZXJlLiBJIHRoaW5rIGl0DQppcyBiZXR0ZXIgdG8gZ2l2
-ZSBhIHVuaWZvcm0gYmVoYXZpb3IgYWNyb3NzIGRpZmZlcmVudCBjcHVmcmVxIGRyaXZlci4NCg0K
-WzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC9DQUtmVFB0QmppOGRrcjVpeGh0WmpreXJX
-TEE2OFRGLUtITHJOWVdvZXdQV0x5dVVkNEFAbWFpbC5nbWFpbC5jb20vDQo+IA0KPj4gQWRkIG1h
-eF9zdXN0YWluYWJsZV9mcmVxIHRvIHN0cnVjdCBjcHVmcmVxX2NwdWluZm8gdG8gcHJvdmlkZSBh
-IHJlZmVyZW5jZQ0KPj4gZnJlcXVlbmN5IGV4Y2x1ZGluZyBib29zdC4gUG9wdWxhdGUgaXQgZnJv
-bSB0aGUgbm9taW5hbCBmcmVxdWVuY3kgaW4NCj4+IGFtZC1wc3RhdGUgYW5kIGNwcGNfY3B1ZnJl
-cSwgdGhlIG1heGltdW0gbm9uLXR1cmJvIGZyZXF1ZW5jeSBpbg0KPj4gaW50ZWxfcHN0YXRlLCBh
-bmQgdGhlIGhpZ2hlc3QgZnJlcXVlbmN5LXRhYmxlIGVudHJ5IGluIGFjcGktY3B1ZnJlcS4NCj4+
-IA0KPj4gVXNlIHRoaXMgdmFsdWUgd2hlbiBhcmNoX3NjYWxlX2ZyZXFfcmVmKCkgcmV0dXJucyB6
-ZXJvLiBQcmVzZXJ2ZSB0aGUNCj4+IGV4aXN0aW5nIGNwdWluZm8ubWF4X2ZyZXEgZmFsbGJhY2sg
-Zm9yIGRyaXZlcnMgdGhhdCBsZWF2ZSB0aGUgbmV3IGZpZWxkDQo+PiBhdCB6ZXJvLg0KPj4gDQo+
-PiBUZXN0ZWQgd2l0aCBhY3BpLWNwdWZyZXEsIGludGVsX3BzdGF0ZSwgYW5kIGFtZC1wc3RhdGUg
-aW4gYWN0aXZlIGFuZA0KPj4gcGFzc2l2ZSBtb2Rlcy4gV2l0aCBubyBhZGRpdGlvbmFsIGZyZXF1
-ZW5jeSBsaW1pdCwgcHJlc3N1cmUgaXMgemVyby4NCj4+IFdpdGggYSBmaXhlZCBsaW1pdCBiZWxv
-dyB0aGUgbm9uLWJvb3N0IHJlZmVyZW5jZSBmcmVxdWVuY3ksIHByZXNzdXJlDQo+PiByZW1haW5z
-IHVuY2hhbmdlZCBhY3Jvc3MgYm9vc3QgdHJhbnNpdGlvbnMuDQo+IA0KPiBXaGljaCBtYXkgbm90
-IGJlIHdoYXQgaXMgaW50ZW5kZWQuDQoNClNhbWUgYXMgYWJvdmU6IElNTywgd2l0aCBhIGZpeGVk
-IGNhcCwgdGhlIHByZXNzdXJlIHNob3VsZCBub3QgY2hhbmdlDQpqdXN0IGJlY2F1c2UgYm9vc3Qg
-aXMgdG9nZ2xlZC4NCg0KVGhhbmtzDQpKaWFueW9uZw0KDQo=
+When generating a light skeleton (bpftool gen skeleton -L),
+bpf_object__load() skips loading programs marked as non-autoload (e.g.
+SEC("?...")), so the generated loader program only records and populates
+file descriptors for autoloaded programs.
+
+Previously, bpftool emitted struct bpf_prog_desc fields, link fields,
+and attach/detach/destroy functions for all programs in the BPF object,
+causing the loader program to store subsequent program FDs into
+incorrect skeleton struct fields when non-autoload programs were
+present.
+
+Furthermore, bpf_object__load() can update a program's autoload status
+during preparation (e.g. for struct_ops programs when resolving kernel
+BTF members or adjusting autoload based on map autocreate settings).
+Move bpf_object__gen_loader() and bpf_object__load() out of gen_trace()
+into do_skeleton() before counting programs and emitting struct fields so
+that struct field declarations and attach/detach/destroy functions all
+observe the final post-load autoload state.
+
+Skip programs with !bpf_program__autoload(prog) when counting programs
+and generating progs/links struct fields as well as attach, detach, and
+destroy functions for light skeletons.
+
+Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" an=
+d "gen skeleton" command.")
+Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
+---
+v2 -> v3:
+  - Move comment from gen_trace() to do_skeleton()
+  - Add comment to do_skeleton() why the loader is called early
+v1 -> v2:
+  - Move bpf_object__gen_loader() and bpf_object__load() out of gen_trace()
+
+ .../bpf/bpftool/Documentation/bpftool-gen.rst |  4 +-
+ tools/bpf/bpftool/gen.c                       | 76 ++++++++++++-------
+ 2 files changed, 52 insertions(+), 28 deletions(-)
+
+diff --git a/tools/bpf/bpftool/Documentation/bpftool-gen.rst b/tools/bpf/bp=
+ftool/Documentation/bpftool-gen.rst
+index d0a36f442db7..1cdecf3e4fa5 100644
+--- a/tools/bpf/bpftool/Documentation/bpftool-gen.rst
++++ b/tools/bpf/bpftool/Documentation/bpftool-gen.rst
+@@ -184,7 +184,9 @@ OPTIONS
+ -L, --use-loader
+     For skeletons, generate a "light" skeleton (also known as "loader"
+     skeleton). A light skeleton contains a loader eBPF program. It does no=
+t use
+-    the majority of the libbpf infrastructure, and does not need libelf.
++    the majority of the libbpf infrastructure, and does not need libelf. B=
+PF
++    programs marked as non-autoload (e.g., via **SEC("?...")**) are skippe=
+d and
++    not included in the generated skeleton.
+=20
+ -S, --sign
+     For skeletons, generate a signed skeleton. This option must be used wi=
+th
+diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+index a50540ef6521..1e55f0e67d91 100644
+--- a/tools/bpf/bpftool/gen.c
++++ b/tools/bpf/bpftool/gen.c
+@@ -583,6 +583,9 @@ static void codegen_attach_detach(struct bpf_object *ob=
+j, const char *obj_name)
+ 	bpf_object__for_each_program(prog, obj) {
+ 		const char *tp_name;
+=20
++		if (!bpf_program__autoload(prog))
++			continue;
++
+ 		codegen("\
+ 			\n\
+ 			\n\
+@@ -629,6 +632,8 @@ static void codegen_attach_detach(struct bpf_object *ob=
+j, const char *obj_name)
+ 		", obj_name);
+=20
+ 	bpf_object__for_each_program(prog, obj) {
++		if (!bpf_program__autoload(prog))
++			continue;
+ 		codegen("\
+ 			\n\
+ 				ret =3D ret < 0 ? ret : %1$s__%2$s__attach(skel);   \n\
+@@ -646,6 +651,8 @@ static void codegen_attach_detach(struct bpf_object *ob=
+j, const char *obj_name)
+ 		", obj_name);
+=20
+ 	bpf_object__for_each_program(prog, obj) {
++		if (!bpf_program__autoload(prog))
++			continue;
+ 		codegen("\
+ 			\n\
+ 				skel_closenz(skel->links.%1$s_fd);	    \n\
+@@ -676,6 +683,8 @@ static void codegen_destroy(struct bpf_object *obj, con=
+st char *obj_name)
+ 		obj_name);
+=20
+ 	bpf_object__for_each_program(prog, obj) {
++		if (!bpf_program__autoload(prog))
++			continue;
+ 		codegen("\
+ 			\n\
+ 				skel_closenz(skel->progs.%1$s.prog_fd);	    \n\
+@@ -701,9 +710,9 @@ static void codegen_destroy(struct bpf_object *obj, con=
+st char *obj_name)
+ 		obj_name);
+ }
+=20
+-static int gen_trace(struct bpf_object *obj, const char *obj_name, const c=
+har *header_guard)
++static int gen_trace(struct bpf_object *obj, const char *obj_name, const c=
+har *header_guard,
++		     const struct gen_loader_opts *opts)
+ {
+-	DECLARE_LIBBPF_OPTS(gen_loader_opts, opts);
+ 	struct bpf_load_and_run_opts sopts =3D {};
+ 	char sig_buf[MAX_SIG_SIZE];
+ 	__u8 prog_sha[SHA256_DIGEST_LENGTH];
+@@ -712,23 +721,6 @@ static int gen_trace(struct bpf_object *obj, const cha=
+r *obj_name, const char *h
+ 	char ident[256];
+ 	int err =3D 0;
+=20
+-	if (sign_progs)
+-		opts.gen_hash =3D true;
+-
+-	err =3D bpf_object__gen_loader(obj, &opts);
+-	if (err)
+-		return err;
+-
+-	err =3D bpf_object__load(obj);
+-	if (err) {
+-		p_err("failed to load object file");
+-		goto out;
+-	}
+-
+-	/* If there was no error during load then gen_loader_opts
+-	 * are populated with the loader program.
+-	 */
+-
+ 	/* finish generating 'struct skel' */
+ 	codegen("\
+ 		\n\
+@@ -752,7 +744,7 @@ static int gen_trace(struct bpf_object *obj, const char=
+ *obj_name, const char *h
+ 				goto cleanup;				    \n\
+ 			skel->ctx.sz =3D (char *)&skel->links - (char *)skel; \n\
+ 		",
+-		obj_name, opts.data_sz);
++		obj_name, opts->data_sz);
+ 	bpf_object__for_each_map(map, obj) {
+ 		const void *mmap_data =3D NULL;
+ 		size_t mmap_size =3D 0;
+@@ -795,22 +787,22 @@ static int gen_trace(struct bpf_object *obj, const ch=
+ar *obj_name, const char *h
+ 			static const char opts_data[] __attribute__((__aligned__(8))) =3D \"\\\=
+n\
+ 		",
+ 		obj_name);
+-	print_hex(opts.data, opts.data_sz);
++	print_hex(opts->data, opts->data_sz);
+ 	codegen("\
+ 		\n\
+ 		\";							    \n\
+ 			static const char opts_insn[] __attribute__((__aligned__(8))) =3D \"\\\=
+n\
+ 		");
+-	print_hex(opts.insns, opts.insns_sz);
++	print_hex(opts->insns, opts->insns_sz);
+ 	codegen("\
+ 		\n\
+ 		\";\n");
+=20
+ 	if (sign_progs) {
+-		sopts.insns =3D opts.insns;
+-		sopts.insns_sz =3D opts.insns_sz;
+-		sopts.data =3D opts.data;
+-		sopts.data_sz =3D opts.data_sz;
++		sopts.insns =3D opts->insns;
++		sopts.insns_sz =3D opts->insns_sz;
++		sopts.data =3D opts->data;
++		sopts.data_sz =3D opts->data_sz;
+ 		sopts.excl_prog_hash =3D prog_sha;
+ 		sopts.excl_prog_hash_sz =3D sizeof(prog_sha);
+ 		sopts.signature =3D sig_buf;
+@@ -1250,6 +1242,7 @@ static int do_skeleton(int argc, char **argv)
+ 	char header_guard[MAX_OBJ_NAME_LEN + sizeof("__SKEL_H__")];
+ 	size_t map_cnt =3D 0, prog_cnt =3D 0, attach_map_cnt =3D 0, file_sz, mmap=
+_sz;
+ 	DECLARE_LIBBPF_OPTS(bpf_object_open_opts, opts);
++	DECLARE_LIBBPF_OPTS(gen_loader_opts, gen_opts);
+ 	char obj_name[MAX_OBJ_NAME_LEN] =3D "", *obj_data;
+ 	struct bpf_object *obj =3D NULL;
+ 	const char *file;
+@@ -1326,6 +1319,29 @@ static int do_skeleton(int argc, char **argv)
+ 		goto out_obj;
+ 	}
+=20
++	/* If we are generating a loader, load the object early (before
++	 * counting programs and emitting skeleton struct definitions), as
++	 * bpf_object__load() may disable (i.e., autoload=3Dfalse) some programs
++	 * if their requirements are not met.
++	 */
++	if (use_loader) {
++		if (sign_progs)
++			gen_opts.gen_hash =3D true;
++
++		err =3D bpf_object__gen_loader(obj, &gen_opts);
++		if (err)
++			goto out;
++
++		err =3D bpf_object__load(obj);
++		if (err) {
++			p_err("failed to load object file");
++			goto out;
++		}
++		/* If there was no error during load, gen_opts is populated with
++		 * the loader program.
++		 */
++	}
++
+ 	bpf_object__for_each_map(map, obj) {
+ 		if (!get_map_ident(map, ident, sizeof(ident))) {
+ 			p_err("ignoring unrecognized internal map '%s'...",
+@@ -1339,6 +1355,8 @@ static int do_skeleton(int argc, char **argv)
+ 		map_cnt++;
+ 	}
+ 	bpf_object__for_each_program(prog, obj) {
++		if (use_loader && !bpf_program__autoload(prog))
++			continue;
+ 		prog_cnt++;
+ 	}
+=20
+@@ -1402,6 +1420,8 @@ static int do_skeleton(int argc, char **argv)
+ 	if (prog_cnt) {
+ 		printf("\tstruct {\n");
+ 		bpf_object__for_each_program(prog, obj) {
++			if (use_loader && !bpf_program__autoload(prog))
++				continue;
+ 			if (use_loader)
+ 				printf("\t\tstruct bpf_prog_desc %s;\n",
+ 				       bpf_program__name(prog));
+@@ -1415,6 +1435,8 @@ static int do_skeleton(int argc, char **argv)
+ 	if (prog_cnt + attach_map_cnt) {
+ 		printf("\tstruct {\n");
+ 		bpf_object__for_each_program(prog, obj) {
++			if (use_loader && !bpf_program__autoload(prog))
++				continue;
+ 			if (use_loader)
+ 				printf("\t\tint %s_fd;\n",
+ 				       bpf_program__name(prog));
+@@ -1451,7 +1473,7 @@ static int do_skeleton(int argc, char **argv)
+ 			goto out;
+ 	}
+ 	if (use_loader) {
+-		err =3D gen_trace(obj, obj_name, header_guard);
++		err =3D gen_trace(obj, obj_name, header_guard, &gen_opts);
+ 		goto out;
+ 	}
+=20
+--=20
+2.55.0.1082.g2b9226bbc0-goog
 
