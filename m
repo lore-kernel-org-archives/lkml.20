@@ -1,801 +1,215 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F153C4B6A;
-	Fri, 18 Sep 2026 06:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792A83AA1BB;
+	Fri, 18 Sep 2026 06:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712400; cv=none; b=AnU5kY9rBp2lLk+jWyvgZ0F4KQvpb738p3M00WZRAGFtIZOkOn/Gw/41FL5PslhTo/rhKjuJgkmqzPfwl37SGixG2oM7XmTjpP/FOehT756wXG3XmCp8qbBk8iSVQ76sohbZGtXnVOfpppHdDle69cDXmldkhVIOxkGXmQpjpUQ=
+	t=1789712429; cv=none; b=Jxb5C7+/YwlQzSJntky21Firi5D26JVcQZEgIVJG7PYaDiqtIR41ZUxSuwxgOkW9JrsF9bCKldv7U9Todbk3mzpIUfL2kTSkOnKqEqAr43fM9iGUzRVN9SdNh83CCxWAs+e6uQpZezaYA5QqJ7oVgTSaz5VHBj7XGmxkEQQTaiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712400; c=relaxed/simple;
-	bh=jISvIe7ebc94KsxX0EgIODPJQAXilpScdGlpwWaOeUo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pU2sLH4BowPg9DE4W//hCZgRGjfRuYIeLGQE8TfoTK8tgfUY4XZlUZGmBJMnG6TUwbMtC6taYJJ5VDqGtWMz2Q8tzJVGfGLsa+H35NkUbpD+xhAkP2s+AQwY4clXT0AxyfWZUChBZlbX0YUoJWvQ4/I02L3m6xQu812P5C0Yrr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=qcMU3K/3; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	s=arc-20240116; t=1789712429; c=relaxed/simple;
+	bh=y7qYGOqBHTkXcv+UGyVR3fatY+b21N34bZspwFXzlI8=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=BYJZSnukFirPx+lcXPYKGtHU3m/xe1pgbCDdYzOeT2bWaH7QAgUB7NBIZwkb/+5Ae9uy8Elg+D3AheiR4fCqk6yj1FG8G8zQBp8puTfiokgcViwIXtoiulLMqUgPvmUM11Ti1rv4rCN0fZsjHKIPnwEegjRtKEwRIn3NH86ZAww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YwuI63Jz; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="qcMU3K/3"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68I6JQTN03939109, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1789712367;
-	bh=coR3Xp+8zq39BfW40whFbaW2IotIzR855JKSDr46+TM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=qcMU3K/3HeBLE/hJBFv5b26l8y6dYxoUqSVgIYiKgvGXYQDYfCjpAiPEo/xjPe1sa
-	 f7ILcJGJMvZ8OojU9PsMY4NK8WZqBKLcLSJ3iyVZTO53ZcD0CotnECBvVtYGsZyL9T
-	 9gDej+TAok59AlB2qCH9rccv+7EbaTO9mdO2ZY6QYBWiRivYWj+sWqtYMuf4Lz/4j+
-	 oOywIgx0PM72X+gNjjlkcTaY9u8hdpwKPeRbX2225nvl0rZ5ObM9Jg2NC9Oohr82yT
-	 H+wyRsbtcektODS4vk/cHVioptKG1ngSL0RefBxsU/yqBGm7wPPtNEh3YCaYZW9OtT
-	 CdrmQ96Iqz2mw==
-Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68I6JQTN03939109
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 18 Sep 2026 14:19:26 +0800
-Received: from RS-EX-MBS1.realsil.com.cn (172.29.17.101) by
- RS-EX-MBS3.realsil.com.cn (172.29.17.103) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YwuI63Jz"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=/EmTRV68EuwkaVOnj6HPetBktycK3QdXzrHOdjiyXcM=;
+	b=YwuI63Jz9js7cJjl844wtkdaA1pbgtEwRz4yxIlQropQr9MLOo2hrouTxjT1OsT2uE6For5T7
+	BK4gjYGejgTgD4VJeWyFRvjnGyvYpSVFqR0tns764NOEYTiwh9zSLCyBjg6JIR9nz/y1NsCrPPO
+	AJGilsbaSsCt9fhC0YNaSBU=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hmMdM74mZz1prLc;
+	Fri, 18 Sep 2026 14:08:55 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2E9F34056D;
+	Fri, 18 Sep 2026 14:19:57 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 18 Sep 2026 14:19:26 +0800
-Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS1.realsil.com.cn
- (172.29.17.101) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 18 Sep 2026 14:19:26 +0800
-From: javen <javen_xu@realsil.com.cn>
-To: <hkallweit1@gmail.com>, <nic_swsd@realtek.com>, <andrew+netdev@lunn.ch>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Javen Xu
-	<javen_xu@realsil.com.cn>
-Subject: [PATCH net-next v14 5/7] r8169: add support and enable rss
-Date: Fri, 18 Sep 2026 14:19:21 +0800
-Message-ID: <20260918061923.313-6-javen_xu@realsil.com.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20260918061923.313-1-javen_xu@realsil.com.cn>
-References: <20260918061923.313-1-javen_xu@realsil.com.cn>
+ 15.2.2562.45; Fri, 18 Sep 2026 14:19:55 +0800
+Subject: Re: [PATCH v2] md: Fix the null-ptr-deref of 'mddev->private' while
+ submitting IO
+To: <yukuai@fygo.io>, <song@kernel.org>, <xiao@kernel.org>,
+	<magiclinan@didiglobal.com>, <eadavis@sina.com>, <abd.masalkhi@gmail.com>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+References: <20260917024205.2331019-1-chengzhihao1@huawei.com>
+ <d896d273-ac1b-484c-9a71-cb60a85d389b@fygo.io>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <a353585b-7cf8-c26c-8f55-84354ce10bd8@huawei.com>
+Date: Fri, 18 Sep 2026 14:19:50 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <d896d273-ac1b-484c-9a71-cb60a85d389b@fygo.io>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-From: Javen Xu <javen_xu@realsil.com.cn>
+在 2026/9/18 14:06, yu kuai 写道:
+> Hi,
+> 
+> 在 2026/9/17 10:42, Zhihao Cheng 写道:
+>> Concurrent processes md_stop and IO submitting could trigger a
+>> null-ptr-deref of 'mddev->private':
+>>
+>>    BUG: kernel NULL pointer dereference, address: 0000000000000070
+>>    RIP: 0010:_wait_barrier+0x2f/0x250
+>>    Call Trace:
+>>     raid1_make_request+0x150/0xf50
+>>     md_handle_request+0x104/0x530
+>>     md_submit_bio+0x76/0x130
+>>     submit_bio+0xdd/0x250
+>>     submit_bio_wait+0x1f/0x40
+>>     __blkdev_direct_IO_simple+0x1f6/0x370
+>>     blkdev_write_iter+0x3b2/0x520
+>>     ksys_write+0x7d/0x190
+>>
+>>                 P1
+>>     fd = open(/dev/md0, O_RDWR)
+>> 	                      P2 (forked from P1, fd' <= fd)
+>>     write(fd)
+>>      submit_bio
+>>       md_handle_request
+>>        raid1_make_request
+>>         raid1_write_request
+>>                                     ioctl(fd, STOP_ARRAY)
+>> 		                   mddev_set_closing_and_sync_blockdev
+>> 				   // check passed, mddev->openers = 1,
+>> 				   // because md_open() is only called
+>> 				   // once in P1->open
+>> 				   do_md_stop
+>> 				    __md_stop
+>> 				     mddev->private = NULL
+>>
+>>          conf = mddev->private // NULL
+>>           wait_barrier(conf, sector) // null-ptr-deref !
+>>
+>> It is a common problem for raid0/1/10/5, and __md_stop could be
+>> triggered by several paths(eg. ioctl, sysfs, ->dtr). Fix it by
+>> replacing mddev_lock() with mddev_suspend_and_lock() for all
+>> __md_stop() callers. The caller dm_table_destroy() is guaranteed
+>> being invoked with device suspended, so raid_dtr() could keep
+>> using mddev_lock_nointr(). Besides, fail the submitting IO in
+>> md_handle_request() if the 'mddev->pers' becomes NULL.
+>>
+>> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+>>
+>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+>> ---
+>>    v1->v2:
+>>     1. Add 'mddev->pers != NULL' check before make_request
+>>     2. Delete dm-raid caller(->dtr) modifications
+>>     3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>>    drivers/md/md.c | 32 +++++++++++++++++++++++++++++---
+>>    1 file changed, 29 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/md/md.c b/drivers/md/md.c
+>> index 680b34a63cb3..3dfc34caa2dc 100644
+>> --- a/drivers/md/md.c
+>> +++ b/drivers/md/md.c
+>> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+>>    		if (!percpu_ref_tryget_live(&mddev->active_io))
+>>    			goto check_suspended;
+>>    	}
+>> +	if (!mddev->pers) {
+>> +		/*
+>> +		 * The __md_stop() sets 'mddev->private' to NULL during
+>> +		 * the IO submitting, check 'mddev->pers' before the IO
+>> +		 * being processed by specific driver to avoid the
+>> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+>> +		 * safe because the IO has got the 'mddev->active_io'
+>> +		 * reference, and all __md_stop() callers will wait for
+>> +		 * the reference to be zero.
+>> +		 */
+>> +		bio_io_error(bio);
+>> +		percpu_ref_put(&mddev->active_io);
+>> +		return true;
+>> +	}
+>>    	if (!mddev->pers->make_request(mddev, bio)) {
+>>    		percpu_ref_put(&mddev->active_io);
+>>    		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+>> @@ -4657,6 +4671,8 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+>>    {
+>>    	int err = 0;
+>>    	enum array_state st = match_word(buf, array_states);
+>> +	unsigned int noio_flags = 0;
+>> +	bool suspend = false;
+>>    
+>>    	/* No lock dependent actions */
+>>    	switch (st) {
+>> @@ -4666,9 +4682,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+>>    	case broken:		/* cannot be set */
+>>    	case bad_word:
+>>    		return -EINVAL;
+>> +	case inactive:
+>>    	case clear:
+>> +		suspend = true;
+>> +		fallthrough;
+>>    	case readonly:
+>> -	case inactive:
+>>    	case read_auto:
+>>    		if (!mddev->pers || !md_is_rdwr(mddev))
+>>    			break;
+>> @@ -4702,9 +4720,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+>>    		spin_unlock(&mddev->lock);
+>>    		return err ?: len;
+>>    	}
+>> -	err = mddev_lock(mddev);
+>> +	err = suspend ? mddev_suspend_and_lock(mddev) : mddev_lock(mddev);
+> 
+> Unlike ioctl path, where the checking of opener is just 1, mddev_set_closing_and_sync_blockdev() here
+> already check there is no opener, so there can't be any IO inflight.
 
-This patch adds support and enable rss for RTL8127.
-
-Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
----
-Changes in v2:
- - some changes moved from Patch 2/7
-
-Changes in v3:
- - add struct rtl8169_rss_data. Allocate it dynamically when needed.
- - define rss_key as an u32 array
- - replace some magic bit numbers in rtl8169_set_rss_hash_opt() and
-   rtl8125_set_rx_q_num()
- - use union to combine different rx descriptor, refactor struct RxDesc
- - remove dead code from rtl8169_double_check_rss_support()
-
-Changes in v4:
- - rename macro definition, e.g R8127_MAX_IRQ to R8127_MAX_NUM_IRQVEC
- - change hw_supp_indir_tbl_entries type to unsigned int
- - change init_rx_desc_type type to enum
- - remove rtl_check_rss_support(), add helper function
-   rtl_hw_support_rss()
- - remove hw_curr_isr_ver, use irq_nvecs to judge whether we should
-   enable vector interrupt mapping, use tp->num_rx_ring to judge whether
-   we should enable rss
- - remove function rtl8169_double_check_rss_support(), use
-   rtl8169_set_rx_ring_num() to set num_rx_ring according to tp->irq_nvecs
-
-Changes in v5:
- - no changes
-
-Changes in v6:
- - change rss_queue_num type from u8 to unsigned int
- - fix rx desc clear in rtl8169_rx_clear() for different desc type
- - clamping num_rx_ring with rounddown_pow_of_two()
-
-Changes in v7:
- - remove unused macro
- - change unfixed type in rtl8169_store_reta
-
-Changes in v8:
- - refill desc->addr when rx_desc reset
- - rtl8169_set_channels fixed in patch 7/7
-
-Changes in v9:
- - remove rtl8169_set_desc_dma_addr, only set desc dma addr for
-   RX_DESC_TYPE_RSS desc
-
-Changes in v10:
- - Change rss_key to u8 array and write rss_key_reg as u32 values.
-   Use get_unaligned_le32() to keep behavior consistent on big-endian
-   and little-endian
-
-Changes in v11:
- - fix compilation error by adding block in switch default case
- - fix concurrency bug on updating global dev->stats by using per-queue
-   stat
- - fix packet drop logic to properlly handle fatal errors when rss is
-   enable
- - use get_unaligned_le32() uniformly in rtl8169_store_reta()
- - fix coding style issues
- - add comment on pci_alloc_irq_vectors() call
-
-Changes in v12:
- - add support for UDP rss
-
-Changes in v13:
- - no changes
-
-Changes in v14:
- - fix an integer underflow in rtl_rx() when handling extremely small
-   RUNT packets with RXALL enabled.
- - remove redundant macro definition such as RX_RUNT_RSS/RX_CRC_RSS
----
- drivers/net/ethernet/realtek/r8169_main.c | 406 ++++++++++++++++++++--
- 1 file changed, 368 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index ec3643892fe2..ad360f145076 100644
---- a/drivers/net/ethernet/realtek/r8169_main.c
-+++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -82,6 +82,19 @@
- #define R8169_MAX_RX_QUEUES	8
- #define R8169_DEFAULT_RX_QUEUES	1
- #define R8169_MAX_TX_QUEUES	1
-+#define R8127_MAX_NUM_IRQVEC	32
-+#define R8127_MIN_NUM_IRQVEC	30
-+#define R8169_IRQ_DEFAULT	1
-+#define RTL_RSS_KEY_SIZE	40
-+#define RSS_CPU_NUM_MASK	GENMASK(18, 16)
-+#define RSS_HASH_MASK		GENMASK(10, 8)
-+#define RTL_MAX_INDIRECTION_TABLE_ENTRIES 128
-+#define RXS_RSS_UDP		BIT(27)
-+#define RXS_RSS_IPV4		BIT(28)
-+#define RXS_RSS_IPV6		BIT(29)
-+#define RXS_RSS_TCP		BIT(30)
-+#define RXS_RSS_L3_TYPE_MASK	(RXS_RSS_IPV4 | RXS_RSS_IPV6)
-+#define RXS_RSS_L4_TYPE_MASK	(RXS_RSS_TCP | RXS_RSS_UDP)
- 
- #define OCP_STD_PHY_BASE	0xa400
- 
-@@ -506,6 +519,9 @@ enum rtl_register_content {
- 	RxRUNT	= (1 << 20),
- 	RxCRC	= (1 << 19),
- 
-+	RXRUNT_RSS	= (1 << 21),
-+	RXCRC_RSS	= (1 << 20),
-+
- 	/* ChipCmdBits */
- 	StopReq		= 0x80,
- 	CmdReset	= 0x10,
-@@ -611,6 +627,20 @@ enum rtl_register_content {
- #define	ISRIMR_LINKCHG	BIT(29)
- #define	ISRIMR_TOK_Q0	BIT(8)
- #define	ISRIMR_ROK_Q0	BIT(0)
-+#define RTL_DESC_TYPE_CTRL		0xd8
-+#define RSS_KEY_REG			0x4600
-+#define RSS_INDIRECTION_TBL_REG		0x4700
-+#define RSS_CTRL_TCP_IPV4_SUPP		BIT(0)
-+#define RTL_DESC_TYPE_RSS		BIT(1)
-+#define RSS_CTRL_IPV4_SUPP		BIT(1)
-+#define RSS_CTRL_TCP_IPV6_SUPP		BIT(2)
-+#define RSS_CTRL_IPV6_SUPP		BIT(3)
-+#define RSS_CTRL_IPV6_EXT_SUPP		BIT(4)
-+#define RSS_CTRL_TCP_IPV6_EXT_SUPP	BIT(5)
-+#define RSS_CTRL_UDP_IPV4_SUPP		BIT(11)
-+#define RSS_CTRL_UDP_IPV6_SUPP		BIT(12)
-+#define	RX_RES_RSS			BIT(22)
-+#define RTL_RX_Q_NUM_MASK		GENMASK(4, 2)
- };
- 
- enum rtl_desc_bit {
-@@ -668,6 +698,11 @@ enum rtl_rx_desc_bit {
- #define RxProtoIP	(PID1 | PID0)
- #define RxProtoMask	RxProtoIP
- 
-+#define	RX_UDPT_DESC_RSS	BIT(19)
-+#define	RX_TCPT_DESC_RSS	BIT(18)
-+#define	RX_UDPF_DESC_RSS	BIT(16) /* UDP/IP checksum failed */
-+#define	RX_TCPF_DESC_RSS	BIT(15) /* TCP/IP checksum failed */
-+
- 	IPFail		= (1 << 16), /* IP checksum failed */
- 	UDPFail		= (1 << 15), /* UDP/IP checksum failed */
- 	TCPFail		= (1 << 14), /* TCP/IP checksum failed */
-@@ -689,9 +724,27 @@ struct TxDesc {
- };
- 
- struct RxDesc {
--	__le32 opts1;
--	__le32 opts2;
--	__le64 addr;
-+	union {
-+		/* RX_DESC_TYPE_DEFAULT */
-+		struct {
-+			__le32 opts1;
-+			__le32 opts2;
-+			__le64 addr;
-+		};
-+
-+		/* RX_DESC_TYPE_RSS */
-+		struct {
-+			union {
-+				__le64 rss_addr;
-+				struct {
-+					__le32 rss_info;
-+					__le32 rss_result;
-+				} rss_dword;
-+			};
-+			__le32 rss_opts2;
-+			__le32 rss_opts1;
-+		};
-+	};
- };
- 
- struct ring_info {
-@@ -763,6 +816,11 @@ enum rtl_dash_type {
- 	RTL_DASH_25_BP,
- };
- 
-+enum rx_desc_type {
-+	RX_DESC_TYPE_DEFAULT,
-+	RX_DESC_TYPE_RSS,
-+};
-+
- struct rtl8169_rx_ring {
- 	u32 cur_rx;
- 	struct RxDesc *rx_desc_array;
-@@ -786,6 +844,12 @@ enum rtl_sfp_mode {
- 	RTL_SFP_8127_ATF,
- };
- 
-+struct rtl8169_rss_data {
-+	u8 rss_key[RTL_RSS_KEY_SIZE];
-+	u8 rss_indir_tbl[RTL_MAX_INDIRECTION_TABLE_ENTRIES];
-+	unsigned int hw_supp_indir_tbl_entries;
-+};
-+
- struct rtl8169_private {
- 	void __iomem *mmio_addr;	/* memory map physical address */
- 	struct pci_dev *pci_dev;
-@@ -806,7 +870,9 @@ struct rtl8169_private {
- 	u16 tx_lpi_timer;
- 	u32 irq_mask;
- 	unsigned int hw_supp_num_rx_queues;
-+	struct rtl8169_rss_data *rss_data;
- 	unsigned int irq_nvecs;
-+	enum rx_desc_type init_rx_desc_type;
- 	struct clk *clk;
- 	int speed;
- 
-@@ -1721,6 +1787,11 @@ static enum rtl_sfp_mode rtl_get_sfp_mode(struct rtl8169_private *tp)
- 	return RTL_SFP_NONE;
- }
- 
-+static bool rtl_hw_support_rss(struct rtl8169_private *tp)
-+{
-+	return tp->mac_version == RTL_GIGA_MAC_VER_80;
-+}
-+
- static enum rtl_dash_type rtl_get_dash_type(struct rtl8169_private *tp)
- {
- 	switch (tp->mac_version) {
-@@ -2020,9 +2091,20 @@ static inline u32 rtl8169_tx_vlan_tag(struct sk_buff *skb)
- 		TxVlanTag | swab16(skb_vlan_tag_get(skb)) : 0x00;
- }
- 
--static void rtl8169_rx_vlan_tag(struct RxDesc *desc, struct sk_buff *skb)
-+static void rtl8169_rx_vlan_tag(struct rtl8169_private *tp,
-+				struct RxDesc *desc,
-+				struct sk_buff *skb)
- {
--	u32 opts2 = le32_to_cpu(desc->opts2);
-+	u32 opts2;
-+
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		opts2 = le32_to_cpu(desc->rss_opts2);
-+		break;
-+	default:
-+		opts2 = le32_to_cpu(desc->opts2);
-+		break;
-+	}
- 
- 	if (opts2 & RxVlanTag)
- 		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), swab16(opts2 & 0xffff));
-@@ -2826,17 +2908,27 @@ static void rtl_hw_reset(struct rtl8169_private *tp)
- 	rtl_loop_wait_low(tp, &rtl_chipcmd_cond, 100, 100);
- }
- 
-+static void rtl8169_init_rss(struct rtl8169_private *tp)
-+{
-+	for (int i = 0; i < tp->rss_data->hw_supp_indir_tbl_entries; i++)
-+		tp->rss_data->rss_indir_tbl[i] = ethtool_rxfh_indir_default(i, tp->num_rx_rings);
-+
-+	netdev_rss_key_fill(tp->rss_data->rss_key, RTL_RSS_KEY_SIZE);
-+}
-+
- static void rtl_setup_rx_params(struct rtl8169_private *tp)
- {
- 	tp->num_rx_rings = 1;
- 	switch (tp->mac_version) {
- 	case RTL_GIGA_MAC_VER_80:
- 		tp->hw_supp_num_rx_queues = R8169_MAX_RX_QUEUES;
-+		tp->rss_data->hw_supp_indir_tbl_entries = RTL_MAX_INDIRECTION_TABLE_ENTRIES;
- 		break;
- 	default:
- 		tp->hw_supp_num_rx_queues = R8169_DEFAULT_RX_QUEUES;
- 		break;
- 	}
-+	tp->init_rx_desc_type = RX_DESC_TYPE_DEFAULT;
- }
- 
- static void rtl_request_firmware(struct rtl8169_private *tp)
-@@ -2961,6 +3053,58 @@ static void rtl_set_rx_max_size(struct rtl8169_private *tp)
- 	RTL_W16(tp, RxMaxSize, R8169_RX_BUF_SIZE + 1);
- }
- 
-+static void rtl8169_store_rss_key(struct rtl8169_private *tp)
-+{
-+	u8 *rss_key = tp->rss_data->rss_key;
-+	const u16 rss_key_reg = RSS_KEY_REG;
-+
-+	/* Write RSS key to HW */
-+	for (int i = 0; i < RTL_RSS_KEY_SIZE; i += sizeof(u32))
-+		RTL_W32(tp, rss_key_reg + i, get_unaligned_le32(rss_key + i));
-+}
-+
-+static void rtl8169_store_reta(struct rtl8169_private *tp)
-+{
-+	u8 *indir_tbl = tp->rss_data->rss_indir_tbl;
-+	unsigned int i;
-+
-+	/* Write redirection table to HW */
-+	for (i = 0; i < tp->rss_data->hw_supp_indir_tbl_entries; i += 4) {
-+		u32 reta = get_unaligned_le32(&indir_tbl[i]);
-+
-+		RTL_W32(tp, RSS_INDIRECTION_TBL_REG + i, reta);
-+	}
-+}
-+
-+static void rtl8169_set_rss_hash_opt(struct rtl8169_private *tp)
-+{
-+	u32 rss_ctrl;
-+
-+	rss_ctrl = FIELD_PREP(RSS_CPU_NUM_MASK, ilog2(tp->num_rx_rings));
-+
-+	/* Perform hash on these packet types */
-+	rss_ctrl |= RSS_CTRL_TCP_IPV4_SUPP |
-+		    RSS_CTRL_IPV4_SUPP |
-+		    RSS_CTRL_IPV6_SUPP |
-+		    RSS_CTRL_IPV6_EXT_SUPP |
-+		    RSS_CTRL_TCP_IPV6_SUPP |
-+		    RSS_CTRL_TCP_IPV6_EXT_SUPP |
-+		    RSS_CTRL_UDP_IPV4_SUPP |
-+		    RSS_CTRL_UDP_IPV6_SUPP;
-+
-+	rss_ctrl |= FIELD_PREP(RSS_HASH_MASK,
-+			       ilog2(tp->rss_data->hw_supp_indir_tbl_entries));
-+
-+	RTL_W32(tp, RSS_CTRL_8125, rss_ctrl);
-+}
-+
-+static void rtl_set_rss_config(struct rtl8169_private *tp)
-+{
-+	rtl8169_set_rss_hash_opt(tp);
-+	rtl8169_store_reta(tp);
-+	rtl8169_store_rss_key(tp);
-+}
-+
- static void rtl_set_rx_tx_desc_registers(struct rtl8169_private *tp)
- {
- 	struct rtl8169_rx_ring *ring = &tp->rx_ring[0];
-@@ -4094,6 +4238,18 @@ DECLARE_RTL_COND(rtl_mac_ocp_e00e_cond)
- 	return r8168_mac_ocp_read(tp, 0xe00e) & BIT(13);
- }
- 
-+static void rtl8125_set_rx_q_num(struct rtl8169_private *tp)
-+{
-+	u16 rx_q_num;
-+	u16 q_ctrl;
-+
-+	rx_q_num = ilog2(tp->num_rx_rings);
-+	q_ctrl = RTL_R16(tp, Q_NUM_CTRL_8125);
-+	q_ctrl &= ~RTL_RX_Q_NUM_MASK;
-+	q_ctrl |= FIELD_PREP(RTL_RX_Q_NUM_MASK, rx_q_num);
-+	RTL_W16(tp, Q_NUM_CTRL_8125, q_ctrl);
-+}
-+
- static void rtl8169_hw_enable_vec_mapping(struct rtl8169_private *tp)
- {
- 	u8 tmp;
-@@ -4133,6 +4289,13 @@ static void rtl_hw_start_8125_common(struct rtl8169_private *tp)
- 	    tp->mac_version == RTL_GIGA_MAC_VER_80)
- 		RTL_W8(tp, 0xD8, RTL_R8(tp, 0xD8) & ~0x02);
- 
-+	/* enable rx descriptor type v4 and set queue num for rss */
-+	if (tp->num_rx_rings > 1) {
-+		rtl8125_set_rx_q_num(tp);
-+		RTL_W8(tp, RTL_DESC_TYPE_CTRL,
-+		       RTL_R8(tp, RTL_DESC_TYPE_CTRL) | RTL_DESC_TYPE_RSS);
-+	}
-+
- 	if (tp->mac_version == RTL_GIGA_MAC_VER_80)
- 		r8168_mac_ocp_modify(tp, 0xe614, 0x0f00, 0x0f00);
- 	else if (tp->mac_version == RTL_GIGA_MAC_VER_70)
-@@ -4369,6 +4532,12 @@ static void rtl_hw_start(struct  rtl8169_private *tp)
- 	rtl_hw_aspm_clkreq_enable(tp, true);
- 	rtl_set_rx_max_size(tp);
- 	rtl_set_rx_tx_desc_registers(tp);
-+	if (rtl_is_8125(tp)) {
-+		if (tp->num_rx_rings > 1)
-+			rtl_set_rss_config(tp);
-+		else
-+			RTL_W32(tp, RSS_CTRL_8125, 0x00);
-+	}
- 	rtl_lock_config_regs(tp);
- 
- 	rtl_jumbo_config(tp);
-@@ -4407,14 +4576,26 @@ static int rtl8169_change_mtu(struct net_device *dev, int new_mtu)
- 	return 0;
- }
- 
--static void rtl8169_mark_to_asic(struct RxDesc *desc)
-+static void rtl8169_mark_to_asic(struct rtl8169_private *tp, struct RxDesc *desc)
- {
--	u32 eor = le32_to_cpu(desc->opts1) & RingEnd;
-+	u32 eor;
- 
--	desc->opts2 = 0;
--	/* Force memory writes to complete before releasing descriptor */
--	dma_wmb();
--	WRITE_ONCE(desc->opts1, cpu_to_le32(DescOwn | eor | R8169_RX_BUF_SIZE));
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		eor = le32_to_cpu(desc->rss_opts1) & RingEnd;
-+		desc->rss_opts2 = cpu_to_le32(0);
-+		/* Force memory writes to complete before releasing descriptor */
-+		dma_wmb();
-+		WRITE_ONCE(desc->rss_opts1, cpu_to_le32(DescOwn | eor | R8169_RX_BUF_SIZE));
-+		break;
-+	default:
-+		eor = le32_to_cpu(desc->opts1) & RingEnd;
-+		desc->opts2 = cpu_to_le32(0);
-+		/* Force memory writes to complete before releasing descriptor */
-+		dma_wmb();
-+		WRITE_ONCE(desc->opts1, cpu_to_le32(DescOwn | eor | R8169_RX_BUF_SIZE));
-+		break;
-+	}
- }
- 
- static struct page *rtl8169_alloc_rx_data(struct rtl8169_private *tp,
-@@ -4437,9 +4618,12 @@ static struct page *rtl8169_alloc_rx_data(struct rtl8169_private *tp,
- 		return NULL;
- 	}
- 
--	desc->addr = cpu_to_le64(mapping);
- 	ring->rx_desc_phy_addr[index] = mapping;
--	rtl8169_mark_to_asic(desc);
-+	if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+		desc->rss_addr = cpu_to_le64(mapping);
-+	else
-+		desc->addr = cpu_to_le64(mapping);
-+	rtl8169_mark_to_asic(tp, desc);
- 
- 	return data;
- }
-@@ -4456,8 +4640,25 @@ static void rtl8169_rx_clear(struct rtl8169_private *tp,
- 		__free_pages(ring->rx_databuff[i], get_order(R8169_RX_BUF_SIZE));
- 		ring->rx_databuff[i] = NULL;
- 		ring->rx_desc_phy_addr[i] = 0;
--		ring->rx_desc_array[i].addr = 0;
--		ring->rx_desc_array[i].opts1 = 0;
-+		if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS) {
-+			ring->rx_desc_array[i].rss_addr = 0;
-+			ring->rx_desc_array[i].rss_opts1 = 0;
-+		} else {
-+			ring->rx_desc_array[i].addr = 0;
-+			ring->rx_desc_array[i].opts1 = 0;
-+		}
-+	}
-+}
-+
-+static void rtl8169_mark_as_last_descriptor(struct rtl8169_private *tp, struct RxDesc *desc)
-+{
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		desc->rss_opts1 |= cpu_to_le32(RingEnd);
-+		break;
-+	default:
-+		desc->opts1 |= cpu_to_le32(RingEnd);
-+		break;
- 	}
- }
- 
-@@ -4477,7 +4678,7 @@ static int rtl8169_rx_fill(struct rtl8169_private *tp, struct rtl8169_rx_ring *r
- 	}
- 
- 	/* mark as last descriptor in the ring */
--	ring->rx_desc_array[NUM_RX_DESC - 1].opts1 |= cpu_to_le32(RingEnd);
-+	rtl8169_mark_as_last_descriptor(tp, &ring->rx_desc_array[NUM_RX_DESC - 1]);
- 
- 	return 0;
- }
-@@ -4636,8 +4837,13 @@ static void rtl8169_rx_desc_reset(struct rtl8169_private *tp)
- 	for (int i = 0; i < tp->num_rx_rings; i++) {
- 		struct rtl8169_rx_ring *ring = &tp->rx_ring[i];
- 
--		for (int j = 0; j < NUM_RX_DESC; j++)
--			rtl8169_mark_to_asic(ring->rx_desc_array + j);
-+		for (int j = 0; j < NUM_RX_DESC; j++) {
-+			dma_addr_t phy_addr = ring->rx_desc_phy_addr[j];
-+
-+			if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+				ring->rx_desc_array[j].rss_addr = cpu_to_le64(phy_addr);
-+			rtl8169_mark_to_asic(tp, ring->rx_desc_array + j);
-+		}
- 	}
- }
- 
-@@ -5093,28 +5299,91 @@ static inline int rtl8169_fragmented_frame(u32 status)
- 	return (status & (FirstFrag | LastFrag)) != (FirstFrag | LastFrag);
- }
- 
--static inline void rtl8169_rx_csum(struct sk_buff *skb,
--				   u32 opts1)
-+static void rtl8169_rx_hash(struct rtl8169_private *tp,
-+			    struct RxDesc *desc,
-+			    struct sk_buff *skb)
- {
--	u32 status = opts1 & (RxProtoMask | RxCSFailMask);
-+	u32 rss_header_info;
-+	u32 hash_val;
-+
-+	if (!(tp->dev->features & NETIF_F_RXHASH))
-+		return;
-+
-+	rss_header_info = le32_to_cpu(desc->rss_dword.rss_info);
-+
-+	if (!(rss_header_info & RXS_RSS_L3_TYPE_MASK))
-+		return;
- 
--	if (status == RxProtoTCP || status == RxProtoUDP)
-+	hash_val = le32_to_cpu(desc->rss_dword.rss_result);
-+
-+	skb_set_hash(skb, hash_val,
-+		     (RXS_RSS_L4_TYPE_MASK & rss_header_info) ?
-+		     PKT_HASH_TYPE_L4 : PKT_HASH_TYPE_L3);
-+}
-+
-+static void rtl8169_rx_csum(struct rtl8169_private *tp,
-+			    struct sk_buff *skb,
-+			    u32 opts1)
-+{
-+	bool csum_ok = false;
-+
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		if (((opts1 & RX_TCPT_DESC_RSS) && !(opts1 & RX_TCPF_DESC_RSS)) ||
-+		    ((opts1 & RX_UDPT_DESC_RSS) && !(opts1 & RX_UDPF_DESC_RSS)))
-+			csum_ok = true;
-+		break;
-+	default: {
-+		u32 status = opts1 & (RxProtoMask | RxCSFailMask);
-+
-+		if (status == RxProtoTCP || status == RxProtoUDP)
-+			csum_ok = true;
-+		break;
-+	}
-+	}
-+
-+	if (csum_ok)
- 		skb->ip_summed = CHECKSUM_UNNECESSARY;
- 	else
- 		skb_checksum_none_assert(skb);
- }
- 
-+static __le32 rtl8169_rx_desc_opts1(struct rtl8169_private *tp, struct RxDesc *desc)
-+{
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		return READ_ONCE(desc->rss_opts1);
-+	default:
-+		return READ_ONCE(desc->opts1);
-+	}
-+}
-+
- static bool rtl8169_check_rx_desc_error(struct rtl8169_rx_ring *ring,
-+					struct rtl8169_private *tp,
- 					u32 status)
- {
--	if (unlikely(status & RxRES)) {
--		u64_stats_update_begin(&ring->stats.syncp);
--		if (status & (RxRWT | RxRUNT))
--			ring->stats.rx_length_errors++;
--		if (status & RxCRC)
--			ring->stats.rx_crc_errors++;
--		u64_stats_update_end(&ring->stats.syncp);
--		return true;
-+	switch (tp->init_rx_desc_type) {
-+	case RX_DESC_TYPE_RSS:
-+		if (unlikely(status & RX_RES_RSS)) {
-+			u64_stats_update_begin(&ring->stats.syncp);
-+			if (status & RXRUNT_RSS)
-+				ring->stats.rx_length_errors++;
-+			if (status & RXCRC_RSS)
-+				ring->stats.rx_crc_errors++;
-+			u64_stats_update_end(&ring->stats.syncp);
-+			return true;
-+		}
-+		break;
-+	default:
-+		if (unlikely(status & RxRES)) {
-+			u64_stats_update_begin(&ring->stats.syncp);
-+			if (status & (RxRWT | RxRUNT))
-+				ring->stats.rx_length_errors++;
-+			if (status & RxCRC)
-+				ring->stats.rx_crc_errors++;
-+			u64_stats_update_end(&ring->stats.syncp);
-+			return true;
-+		}
- 	}
- 	return false;
- }
-@@ -5134,7 +5403,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 		dma_addr_t addr;
- 		u32 status;
- 
--		status = le32_to_cpu(READ_ONCE(desc->opts1));
-+		status = le32_to_cpu(rtl8169_rx_desc_opts1(tp, desc));
- 		if (status & DescOwn)
- 			break;
- 
-@@ -5144,7 +5413,7 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 		 */
- 		dma_rmb();
- 
--		if (rtl8169_check_rx_desc_error(ring, status)) {
-+		if (rtl8169_check_rx_desc_error(ring, tp, status)) {
- 			if (net_ratelimit())
- 				netdev_warn(dev, "Rx ERROR. status = %08x\n",
- 					    status);
-@@ -5154,11 +5423,21 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 
- 			if (!(dev->features & NETIF_F_RXALL))
- 				goto release_descriptor;
--			else if (status & RxRWT || !(status & (RxRUNT | RxCRC)))
--				goto release_descriptor;
-+
-+			if (tp->init_rx_desc_type == RX_DESC_TYPE_DEFAULT) {
-+				if (status & RxRWT || !(status & (RxRUNT | RxCRC)))
-+					goto release_descriptor;
-+			} else {
-+				if (!(status & (RXRUNT_RSS | RXCRC_RSS)))
-+					goto release_descriptor;
-+			}
- 		}
- 
- 		pkt_size = status & GENMASK(13, 0);
-+
-+		if (unlikely(pkt_size < ETH_FCS_LEN))
-+			goto release_descriptor;
-+
- 		if (likely(!(dev->features & NETIF_F_RXFCS)))
- 			pkt_size -= ETH_FCS_LEN;
- 
-@@ -5191,10 +5470,12 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 		skb->len = pkt_size;
- 		dma_sync_single_for_device(d, addr, pkt_size, DMA_FROM_DEVICE);
- 
--		rtl8169_rx_csum(skb, status);
-+		if (tp->num_rx_rings > 1)
-+			rtl8169_rx_hash(tp, desc, skb);
-+		rtl8169_rx_csum(tp, skb, status);
- 		skb->protocol = eth_type_trans(skb, dev);
- 
--		rtl8169_rx_vlan_tag(desc, skb);
-+		rtl8169_rx_vlan_tag(tp, desc, skb);
- 
- 		if (skb->pkt_type == PACKET_MULTICAST) {
- 			u64_stats_update_begin(&ring->stats.syncp);
-@@ -5206,7 +5487,9 @@ static int rtl_rx(struct net_device *dev, struct rtl8169_private *tp,
- 
- 		dev_sw_netstats_rx_add(dev, pkt_size);
- release_descriptor:
--		rtl8169_mark_to_asic(desc);
-+		if (tp->init_rx_desc_type == RX_DESC_TYPE_RSS)
-+			desc->rss_addr = cpu_to_le64(ring->rx_desc_phy_addr[entry]);
-+		rtl8169_mark_to_asic(tp, desc);
- 	}
- 
- 	return count;
-@@ -5823,6 +6106,32 @@ static void rtl_set_irq_mask(struct rtl8169_private *tp)
- 	}
- }
- 
-+static int get_max_irq_nvecs(struct rtl8169_private *tp)
-+{
-+	if (tp->mac_version == RTL_GIGA_MAC_VER_80)
-+		return R8127_MAX_NUM_IRQVEC;
-+	return R8169_IRQ_DEFAULT;
-+}
-+
-+static int get_min_irq_nvecs(struct rtl8169_private *tp)
-+{
-+	if (tp->mac_version == RTL_GIGA_MAC_VER_80)
-+		return R8127_MIN_NUM_IRQVEC;
-+	return R8169_IRQ_DEFAULT;
-+}
-+
-+static void rtl8169_set_rx_ring_num(struct rtl8169_private *tp)
-+{
-+	if (tp->irq_nvecs >= get_min_irq_nvecs(tp)) {
-+		unsigned int rss_queue_num = netif_get_num_default_rss_queues();
-+
-+		tp->num_rx_rings = rounddown_pow_of_two(min(rss_queue_num,
-+							    tp->hw_supp_num_rx_queues));
-+		if (tp->num_rx_rings >= 2)
-+			tp->init_rx_desc_type = RX_DESC_TYPE_RSS;
-+	}
-+}
-+
- static int rtl_alloc_irq(struct rtl8169_private *tp)
- {
- 	struct pci_dev *pdev = tp->pci_dev;
-@@ -5843,7 +6152,11 @@ static int rtl_alloc_irq(struct rtl8169_private *tp)
- 		break;
- 	}
- 
--	nvecs = pci_alloc_irq_vectors(pdev, 1, 1, flags);
-+	nvecs = pci_alloc_irq_vectors(pdev, get_min_irq_nvecs(tp),
-+				      get_max_irq_nvecs(tp), flags);
-+
-+	if (nvecs < 0)
-+		nvecs = pci_alloc_irq_vectors(pdev, 1, 1, flags);
- 
- 	if (nvecs < 0)
- 		return nvecs;
-@@ -6517,6 +6830,13 @@ static int rtl_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	tp->dash_type = rtl_get_dash_type(tp);
- 	tp->dash_enabled = rtl_dash_is_enabled(tp);
- 
-+	if (rtl_hw_support_rss(tp)) {
-+		tp->rss_data = devm_kzalloc(&pdev->dev, sizeof(*tp->rss_data),
-+					    GFP_KERNEL);
-+		if (!tp->rss_data)
-+			return -ENOMEM;
-+	}
-+
- 	tp->cp_cmd = RTL_R16(tp, CPlusCmd) & CPCMD_MASK;
- 
- 	if (sizeof(dma_addr_t) > 4 && tp->mac_version >= RTL_GIGA_MAC_VER_18 &&
-@@ -6537,6 +6857,11 @@ static int rtl_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (rc < 0)
- 		return dev_err_probe(&pdev->dev, rc, "Can't allocate interrupt\n");
- 
-+	rtl8169_set_rx_ring_num(tp);
-+
-+	if (rtl_hw_support_rss(tp))
-+		rtl8169_init_rss(tp);
-+
- 	INIT_WORK(&tp->wk.work, rtl_task);
- 	disable_work(&tp->wk.work);
- 
-@@ -6549,6 +6874,11 @@ static int rtl_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	dev->vlan_features = NETIF_F_SG | NETIF_F_IP_CSUM | NETIF_F_TSO;
- 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
- 
-+	if (rtl_hw_support_rss(tp) && tp->num_rx_rings > 1) {
-+		dev->hw_features |= NETIF_F_RXHASH;
-+		dev->features |= NETIF_F_RXHASH;
-+	}
-+
- 	/*
- 	 * Pretend we are using VLANs; This bypasses a nasty bug where
- 	 * Interrupts stop flowing on high load on 8110SCd controllers.
--- 
-2.43.0
+Hi, yukuai
+I thought of a scene. If someone open '/dev/md0, write(buffer) 4K, and 
+close the corresponding fd. Then writeback kworker submit IO, 
+array_state_store will pass the mddev_set_closing_and_sync_blockdev() 
+check, which could lead to the similar problem.
+> 
+>>    	if (err)
+>>    		return err;
+>> +	if (suspend)
+>> +		noio_flags = memalloc_noio_save();
+>>    
+>>    	switch (st) {
+>>    	case inactive:
+>> @@ -4775,7 +4795,12 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+>>    			mddev->hold_active = 0;
+>>    		sysfs_notify_dirent_safe(mddev->sysfs_state);
+>>    	}
+>> -	mddev_unlock(mddev);
+>> +	if (suspend) {
+>> +		mddev_unlock_and_resume(mddev);
+>> +		memalloc_noio_restore(noio_flags);
+>> +	} else {
+>> +		mddev_unlock(mddev);
+>> +	}
+>>    
+>>    	if (st == readonly || st == read_auto || st == inactive ||
+>>    	    (err && st == clear))
+>> @@ -8299,6 +8324,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+>>    	case HOT_REMOVE_DISK:
+>>    	case SET_BITMAP_FILE:
+>>    	case SET_ARRAY_INFO:
+>> +	case STOP_ARRAY:
+>>    		return true;
+>>    	default:
+>>    		return false;
+> 
 
