@@ -1,197 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414A4502546;
-	Fri, 18 Sep 2026 13:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8CC4FD7A0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739194; cv=none; b=DG73qy/lfQE+wWFQzXfgrX80gkoevrX97YoOZu7O8sY1HFil7CDmmGoU1+D7cg/CVA/xfTURFRxx3GoHPkUQ0H4LO6+6HO1ja3yeaApiDHWSlofTJeAGyjD40aC4+IEV/pIdNyT8sHcYeRCnxKjNvxym6tTSYpm00sBHxdL0IDE=
+	t=1789739224; cv=none; b=U/a4KCUofKQWjBQjSaI7sKUf/oWJi1LKP9LuiNXjkrjneL2t2Jn11Ykd7Nt3XqjUioMjYK5YCwDg9wo10cqgbxlvHLUkjQSEL2jjoinnIwAMyxmm4gsMf6lx2XNHMSpHL/90ne0S9TN9EaFg1wCxmwLcEQEasUnlGe0TcFTsgto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739194; c=relaxed/simple;
-	bh=OelAxWimRFDPn5HhsdYA23bs3HO0pbyUKTsTBvGWQxY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NDgZf+B+dKj3/mw0gEzc5zwdY/otOC3CUgioQMFzysaoRg9jlPDSHG+dbIj6ITjhSXxfk/uLFpEGdOV57jKb0vH8ZML0WpUg5RywpHCVCkE2kwRqOiHTZ6gnfxME9MJ1q8DlvKIGa0a35iP5X/ZPG3gDwS7urVt0WUQCc2CETEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xt0tzOwz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789739224; c=relaxed/simple;
+	bh=p5fI5L9DX2MDhuLbEK8/QoiotSUe44g5xg1NiPDCA0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OzSgjqaScBgC9oy17dj3LM8xLLXTSecwfiDNx6Je77VZckVDz9Ok/4svw+Q+hMIR3zGJrJA/Uu4SGu9L1KJK/ZhRh4O7yT2u8QZEG1K+bkY3RJKcOvfGbcaVddNYG34nQXTJk0LxUs2gPMNucDEuEI5qHGOY2lrmAL60QskLCsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=iaEW3ZC8; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xt0tzOwz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993591F000FF;
-	Fri, 18 Sep 2026 13:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789739192;
-	bh=ymbnMK+8HyGQmBb3o9ET5vduF9wcW5sQOF2iKVjhYNw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Xt0tzOwz5qtIe7DP2AdR4q3xgGeGGZI+NCLGpZ+qOVY+gebui36VXqY2h5GGWy/lH
-	 ae/bCLuSSujJuKmgYAx3fjHElH/G9kw91Kup7sOFZKR0K34c+fqsLB+ccy2T1nqTBA
-	 SjQZK3Adbc0sOSauI+KLfBx8xLMLS6kxwYmExNMhW8uXKGmrhKPEn74xZqRLZt5IIC
-	 Kk1dvPmXafS2+fGeaZARasgwGYMZB8c6oCsABNjjrF70glhukaUdWmg1EnEj8IglhH
-	 Q4YqROK1PkoUMrUWYtznNMGi8t1Y+Dx5e2oMslqar8T/QZKkWqh3v+HRO1YtBr9E5J
-	 EfymYCC/FJvog==
-Message-ID: <7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
-Date: Fri, 18 Sep 2026 15:46:22 +0200
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="iaEW3ZC8"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067fso97808685a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:47:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789739221; x=1790344021; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pC80FFx3P+R/wVH2EKfilVtA17zP1wc/C+ZmKYlpplI=;
+        b=iaEW3ZC8sHzuz03oP8sgRmSco1WSJcJ6ctqqsP9wejGLncfWqurgGfnalmbDAHSxjh
+         pCe+5wsCWkYa5S/wWqEus6m+Q3h/FPxTMwvkNsJcH4af9XLJ6aDCsKKsaBYChi4alhH2
+         oxcvWXUCzsE1QWS7kXSXn/bYd7erhpO3jKX2+lxc14U1xC+Q0kMvXdSLvdcUnbozYsgt
+         fKaOvI10PwXyeCiH2mo0htaDV+0vSR9WI47OLeN6sMcj2NoeQxYDVRqqV9KxUcS1JhLt
+         NHkcssDb2Qz3PK5kD0/MJEm2YnfrgOQ2bhGb8FQUeQjZcu/7fvtZKpd20xWhzBFfL+Ex
+         1wJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789739221; x=1790344021;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pC80FFx3P+R/wVH2EKfilVtA17zP1wc/C+ZmKYlpplI=;
+        b=d3hU7FlWWFt8AoHC1lA/DOA7otIC3sdzpToLPq1bFRj1HcyIbX5BhtzcVV4fVn8BDP
+         TIYTedUvyn8aPIvKxhnKCoT34X5TQhhrX5xxNP4jnnGEjAYfV8C6UoPZ5PzOr/MIyBMs
+         nbLnsxiastvZ3AUfIAiV+xKfWDXIwisqXvK9mUXGcKFo/wx26oa6v3LinaFJIzQ4uQLW
+         OXWepVhF58PAKXQmjWDMv1wwRLDuZxE+pZVmZOrpHo8HQoquHYgDskp3GT9VO5X71ZWr
+         MYOcB8ufaVnVwz3jIGYRmWbIMLpybGzLMvihfgSYO1mkWQAv+bB8sBOocfU2KHZ06Jrd
+         mo2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzYoYmTWVULN24RdVvzYplLGIyBLzHsx3pc0bAztv6lA9czLqGHM64M4gksYSAKmYYKq72qEWPzpMJcZC0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n88ZTwDeHVTo8TYZuiPQ+k8JjfqkiLo7lI21MJPCnUrMYuGwWz
+	16IzTtCGdH9tfh9B1JEDf9+g8wF5Ir9mG7nHAPbA5W9qfGldDHKtHbK9D+PNQHIyRiM=
+X-Gm-Gg: AYBFou2fG2zFMYwDvUSlSj7vEnVYATdmNDbzelXxQr5mFRIZHlGLfBhOAM9FXs7gJKI
+	exEyayvCFeFnxXB14LozhKlr/cVYzR4EQBxX5HkGeHEijvAC6hX91X2Bo8fyNWBsaWEl2NGH8sb
+	X977gQNdkBBJi7+uFSIsDU7fu4U2oquhrBrE1fpLUANKvXg2SmtywKqOhtgy7NBcTRZuscuPGvh
+	pIUxQ80g4aelx4bHHKnjEwaNCfbGHzXKG3jGjX0JUCnvLGXBvcE5GyKqfJC0Wtw4dMPowNU7O3w
+	VXGu6bA64Om/++bLwhDz42qmpaOPFHARyyOiSC4zIUWhC+lwX/sMA6zt/cxTgjxnocfT5dF72ob
+	UXMZa+jCEtaHgJ8UWqKmv54GxNY0tLn3tky8YQoAJPyQZHZS4yWmMwYuHaXv+r9NnxMtVomyz4i
+	xAXcYYo8wAXzxhzuBhmaZ87nR8XAwR7/rflRtF02m+k7+kh69TKld9ayWennv14ZW7f7tdO5XCg
+	OdHGlWMeKBsWmjQv+j2aDrKCg6nTw/XXtmT/JffShImBfwaZ1dF1mg=
+X-Received: by 2002:a05:620a:1b99:b0:939:7835:8f87 with SMTP id af79cd13be357-93bdc6a6dacmr356633385a.17.1789739220927;
+        Fri, 18 Sep 2026 06:47:00 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0e9e752sm144316085a.22.2026.09.18.06.46.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:47:00 -0700 (PDT)
+Date: Fri, 18 Sep 2026 09:46:58 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] mm: support promotion-only NUMA hinting scans
+Message-ID: <aq08OIJ5mCnDVIfs@gourry-fedora-PF4VCD3F>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-2-gourry@gourry.net>
+ <9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
- gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
- Thinh.Nguyen@synopsys.com, mani@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
- dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
- eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
- thiagu.r@samsung.com
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
- <CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
- <20260916122229.2604003-3-selvarasu.g@samsung.com>
- <20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
- <fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org>
 
-On 18/09/2026 15:36, Selvarasu Ganesan wrote:
+On Fri, Sep 18, 2026 at 02:37:52PM +0200, David Hildenbrand (Arm) wrote:
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 969594074fd2..2d1b59a27629 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -3408,6 +3408,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
+> >  #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
+> >  #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
+> >  					    MM_CP_UFFD_RWP_RESOLVE)
+> > +/* Whether a MM_CP_PROT_NUMA change is for promotion only */
+> > +#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
 > 
-> On 9/18/2026 3:24 PM, Krzysztof Kozlowski wrote:
->> On Wed, Sep 16, 2026 at 05:52:28PM +0530, Selvarasu Ganesan wrote:
->>> +maintainers:
->>> +  - Krzysztof Kozlowski <krzk@kernel.org>
->>> +  - Selvarasu Ganesan <selvarasu.g@samsung.com>
->>> +
->>> +description:
->>> +  Describes the DWC3 USB controller block implemented on Samsung Exynos SoCs.
->>> +
->>> +select:
->>> +  properties:
->>> +    compatible:
->>> +      contains:
->>> +        const: samsung,snps-dwc3
->>> +  required:
->>> +    - compatible
->> This select is not needed.
->>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    items:
->>> +      - enum:
->>> +          - samsung,exynos8855-dwc3
->>> +      - const: samsung,snps-dwc3
->> And this fallback is not really accurate. Samsung does not have snps
->> device, because snps is a vendor. Anyway, generic fallbacks should go
->> away, drop, so you are left with samsung,exynos8855-dwc3 only.
+> BTW, shouldn't we just be using BIT()?
+>
+
+I originally had a 5th patch to convert it, but i dropped it while
+making multiple attempts to avoid a CP bit at all.
+
+I can add it back to the end of the series if you like.
+
+> > +		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
 > 
-> Hi Krzysztof,
+> bool promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
 > 
-> Thanks for your review comments.
-> And We apologize for our repeated below explanation, but we wanted to 
-> ensure our intentions were clear for each point to avoid any 
-> misunderstanding.
 > 
-> The original intent of the generic fallback was to support existing 
-> Exynos dwc3 bindings from a parent/child representation from 
+> and in the later patch
+> 
+> if (vma_is_ro_file(vma))
+> 	promo_only = true;
+> 
+> ?
 
-How does it support existing bindings? I don't understand. There is no
-such fallback in existing bindings.
+Yeah this is confusing, but it is correct.
 
-> (samsung,exynos-dwc3.yaml), and upcoming SoCs (Exynos 8865, 9955, and 
-> 9965) can use this flattened representation without requiring a unique 
-> compatible string for every project in the dwc3-generic-plat driver 
+1) If we're in the code at all, balancing was on at some point.
 
-I did not forbid you to use fallbacks, so I do not understand why you
-would need unique compatible for every device in the driver.
+2) If !NORMAL - then TIERING must have been set - so always true
+   (promo_only says: only PROT_NONE low-tier folios)
 
-This is already heavily documented and explained in beginners docs.
-Please read writing bindings docs and maybe also DTS101 slides. I even
-gave the talk DTS101 two months ago in your timezone...
+3) In (NORMAL | TIERING) mode.  promo_only = !NORMAL = false
+   (so in numab=3 - we PROT_NONE top-tier folios)
 
+4) But this causes socket-to-socket bouncing when (NORMAL) is set
+   so we retain the "no R/O file" filter by checking it and setting
+   the promo_only filter back it.
 
-> of_match_table. We referred to qcom,snps-dwc3 as a helpful reference for 
-> this approach.
+It is, decidedly, quite awful.
 
-When people argue with me, they use more often poor examples as
-reference, not the good ones. Interesting pattern.
-
-And why you did not take the proper example you even mentioned here -
-Documentation/devicetree/bindings/usb/samsung,exynos-dwc3.yaml - as
-reference?
-
-Anyway, existing bug is not a reason to add new bug, don't you think?
-
-
+But the problem isn't the fix - the introduction of the R/O filter broke
+TIERING first.  The problem is that these filters never took both modes
+(NORMAL, TIERING) into account in the first place.  They optimized for
+NORMAL and broke TIERING.
 
 > 
-> As seen in samsung,exynos-dwc3.yaml, our existing bindings already 
-> support multiple SoCs with diverse clock requirements within a single 
-> file. Similarly, we plan to use a single flattened Samsung binding to 
-> manage these diverse clock requirements. for different SoCs.
+> Stupid question: why can't/shouldn't change_prot_numa() query
+> sysctl_numa_balancing_mode? Why do we have to query this outside of the function
+> and forward it?
 > 
-> Regarding the migration for current and future SoCs, would you prefer,
 
-I do not understand how any of this is relevant to my review comment.
+We need to calculate it anyway for patch #4 to track when the last full
+vma scan occurred in numab=3 mode.
 
+We certainly can, but then we calculate it twice in the stack and it can
+change out from under us.  I didn't want to have to think about that
+split-state problem, so I err'd on the side of calculate-once and do the
+whole operation based on that state.
+
+I'll need to pull up some investigation notes, but I also remember there
+being a situation where checking it underneath this caused more scanning
+work - didn't want to regress anyone. This might be resolved by patch #4.
+
+> I mean, change_prot_numa() gets the vma and can query
+> sysctl_numa_balancing_mode. Why not move that into the function and avoid the
+> boolean parameter?
 > 
-> Option A: A single flattened binding file using a common fallback 
-> compatible string (instead of samsung,snps-dwc3) to minimize 
-> of_match_table entries, and if/then constraints to handle diverse clock 
-> requirements.
-> Option B: Separate binding files for each individual SoCs.
+> We do have a single change_prot_numa() caller in the tree ...
 > 
-> Could you please let us know your preferred approach? Once confirmed, we 
-> will address your other review comments based on the selected approach.
+> >  
+> >  			/*
+> >  			 * Try to scan sysctl_numa_balancing_size worth of
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 30b7c63b0e35..2f9ada1bbcfc 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -2784,7 +2784,8 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+> >  			goto unlock;
+> >  
+> >  		if (!folio_can_map_prot_numa(pmd_folio(*pmd), vma,
+> > -					     vma_is_single_threaded_private(vma)))
+> > +					     vma_is_single_threaded_private(vma),
+> > +					     cp_flags & MM_CP_PROT_NUMA_PROMO_ONLY))
+> 
+> As raised, maybe just forward cp_flags
+> 
 
-You do not have other bindings. You have one device. If you have more,
-then post more. We are not making reviews based on imaginary future things.
+Yeah fair, i'll do that and just add (or eliminate) the
+single_threaded_private argument if possible.
 
-Best regards,
-Krzysztof
+~Gregory
