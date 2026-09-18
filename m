@@ -1,73 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5689E48124F;
-	Fri, 18 Sep 2026 12:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4C140E8D7;
+	Fri, 18 Sep 2026 12:43:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789735360; cv=none; b=ln1xqCxm+0tdlOwZqvWuXpX1uVEvzrjdYoIjyDqO9GlgHTe02WWCpp1UajLrZn9JRzMnNpeazKpICkiFUNgx0f3tK8eoY5nbdZXZmEizejYPQjaKD8W42BLPJHSfwWE3eVUc/rVII5YijdDneFF+e3EOFTVTn2qn8sgXnje3SZ0=
+	t=1789735387; cv=none; b=JNEmaYZZAj/93SGveL4SL3aAclkZoJ0UTipeCs3Fw319RPowfCHDDscvuAqd8f19ecbqPp5pMzz6yAsi3pHOdFgEGP51qo+2xXkfLMIOP7I0RBTMCyZKL/sE9L/sYROHUftoFA/JYH9tKm6LEc2JRaq0+efPEbxS8Q0hojiP1TM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789735360; c=relaxed/simple;
-	bh=0uFk0CynoyO/XdCYFb3Tw+0SUFLkSrbp7zQb9omLFtY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B1zJTVig01NdlaCKFl1nYKlZ4zU0tsmnUSpWT/T7/ZO6CI/IpszLdRM278LxX3BDUbwlWfjWtCVMx3fe0yJlLrhmKwY+QyUAb6e9q/wG1BXp7fmbqtEKTVmfz2BMYB9QF/qLaEsxRnxY4TXoeNe6lmOa4Qy75/XAkQLV64x/K14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqOrIi3W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789735387; c=relaxed/simple;
+	bh=9Fd/IauTwv+I6tcxCZAWmJnRH9cM8SdbYJ9ZjQhDMG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JxMvsXuRMoKWEbZ6gTDyFSZJwPGETJCRs/GvzIfdZvkfzszq+NAVtO9aJCoEzGxGAiNR80aP8kBH6mauUoV4zeCsnDOUQLgHny4m+hdddaguoqpPabDKZ0sO/ZvHf2n+Ug1aSWcIcTdMIk8+BISxLhVKc0W4/mYGUidbxIVSryA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=CIzVClh0; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqOrIi3W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149281F000FF;
-	Fri, 18 Sep 2026 12:42:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789735350;
-	bh=GjjRWf7HDaYAWNrlA/Da3iWDgMAgsjm6IQnZ1nOhsZY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lqOrIi3WLMh84srTu50HcJcPpXsL62x/YvaKqHfmOIYfHx+EjLVJqEj0/mlRIoNE8
-	 czeQWrN4yc16TXZbyG5gHpguz3F36JhezzEPvtzXCAmN0CpLtVj8Bz7fS+EMefBLhL
-	 Jj/q5Cu5vlR+4Q2s+25DdPtyzfz7ZmOU0/SplhPPY+gYgtu16/mfC9qAPEIpDTcvIy
-	 tqW4PsQF3/RUS8xt0/DwKtIDNnD/27/gRnTvflzqwlZePYmcQY+COVcESqyn/pQ56c
-	 bpGTA9frJs+HKAzgxjQhPBmtfYjkqZimtLrQGuPJdRLx4BySTm4lpn5OUWBbG1XMMH
-	 3Y+zJLhSiaiUA==
-Date: Fri, 18 Sep 2026 14:42:27 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	wanghui33@xiaomi.com, linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org
-Subject: Re: [PATCH] tick/block: Add BLOCK_SOFTIRQ to the hotplug safe mask
-Message-ID: <aq0xs91Vs4NWBqa3@localhost.localdomain>
-References: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="CIzVClh0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=yEhZos8eYIYEnu9oeamuw66fgjpYm7R1b5iyPaCotIM=; t=1789735382; x=1790944982; 
+	b=CIzVClh0L0XK+So/X9y3As2vmU+8Aqoi2T0PEDG58uSnF1wOtkl9qdHDNxVCJimV7xyIn90ACtr
+	Qsb+PVKwa+1QphekFLP1Kd1lQ/YwbwxpbwsayiVN9Ri5U5/BWERi5JocIqIn+Gwg4OHmDw/kerByt
+	eGOmo8yJyiRy1NyNrerO4MDKRgXQR73da46VSEwaMmxccV8nrSmrlCqaS4m4JBoxm4Yyz282YRfeC
+	+YSch30d6IlaHX3yPlYPNLAqsKPRrzk2vpzCBooy6ThKLe9twCxaotvHaETrbrTjqY+oKzyAvipVR
+	nH5s1AbDwb30foVjAA3iqKCGHE8Lh1EmXI2Q==;
+Date: Fri, 18 Sep 2026 14:42:24 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+ Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] ARM: dts: ti: omap: dra7: Remove clocks from
+ crypto nodes
+Message-ID: <20260918144224.4dfb8515@kemnade.info>
+In-Reply-To: <20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com>
+References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
+	<20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904064506.671203-1-wangshuaiwei1@xiaomi.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Le Fri, Sep 04, 2026 at 02:45:06PM +0800, Wang Shuaiwei a écrit :
-> During CPU-hotplug stress testing combined with an I/O
-> workload, the following message is observed:
-> 
->   "NOHZ tick-stop error: local softirq work is pending, handler #10!!!"
-> 
-> On CPU offline, ksoftirqd is parked at CPUHP_AP_SMPBOOT_THREADS while
-> the CPU still takes interrupts. A block completion raised after that
-> point stays pending, and if the dying CPU goes idle before teardown,
-> report_idle_softirq() sees it, keeps the tick alive and prints the
-> error above.
-> 
-> Such pending block completions on the outgoing CPU are drained later by
-> blk_softirq_cpu_dead() (CPUHP_BLOCK_SOFTIRQ_DEAD), so a pending
-> BLOCK_SOFTIRQ is harmless here. Add it to SOFTIRQ_HOTPLUG_SAFE_MASK
-> like the other teardown-covered vectors.
-> 
-> Signed-off-by: Wang Shuaiwei <wangshuaiwei1@xiaomi.com>
+On Wed, 16 Sep 2026 02:29:39 +0530
+Bhargav Joshi <j.bhargav.u@gmail.com> wrote:
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+> The omap-sham, omap4-des and omap2-aes crypto drivers do not use
+> "clocks" and "clock-names" properties. Clock management is handled by
+> the ti-sysc interconnect parent wrapper. The dt-bindings for
+> ti,omap-sham and ti,omap-aes don't define these clock properties. Having
+> them in the child nodes causes dtbs_check warnings.
+> 
+> Remove the "clocks" and "clock-names" properties from the sham, des and
+> aes nodes.
+> 
+> Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 
--- 
-Frederic Weisbecker
-SUSE Labs
+I was a bit too fast here, clocks here are different from what is
+used in the ti-sysc block. So some more thought and argumenting is needed.
+
+Regards,
+Andreas
+
+> ---
+>  arch/arm/boot/dts/ti/omap/dra7-l4.dtsi | 2 --
+>  arch/arm/boot/dts/ti/omap/dra7.dtsi    | 8 --------
+>  2 files changed, 10 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+> index a595745afe59..bca035fd7e62 100644
+> --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+> @@ -2086,8 +2086,6 @@ des: des@0 {
+>  				interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
+>  				dmas = <&sdma_xbar 117>, <&sdma_xbar 116>;
+>  				dma-names = "tx", "rx";
+> -				clocks = <&l3_iclk_div>;
+> -				clock-names = "fck";
+>  			};
+>  		};
+>  
+> diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti/omap/dra7.dtsi
+> index 711ce4c31bb1..0784c6d9cbe4 100644
+> --- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
+> @@ -1012,8 +1012,6 @@ aes1: aes@0 {
+>  				interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+>  				dmas = <&edma_xbar 111 0>, <&edma_xbar 110 0>;
+>  				dma-names = "tx", "rx";
+> -				clocks = <&l3_iclk_div>;
+> -				clock-names = "fck";
+>  			};
+>  		};
+>  
+> @@ -1043,8 +1041,6 @@ aes2: aes@0 {
+>  				interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
+>  				dmas = <&edma_xbar 114 0>, <&edma_xbar 113 0>;
+>  				dma-names = "tx", "rx";
+> -				clocks = <&l3_iclk_div>;
+> -				clock-names = "fck";
+>  			};
+>  		};
+>  
+> @@ -1073,8 +1069,6 @@ sham1: sham@0 {
+>  				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
+>  				dmas = <&edma_xbar 119 0>;
+>  				dma-names = "rx";
+> -				clocks = <&l3_iclk_div>;
+> -				clock-names = "fck";
+>  			};
+>  		};
+>  
+> @@ -1103,8 +1097,6 @@ sham2: sham@0 {
+>  				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
+>  				dmas = <&edma_xbar 165 0>;
+>  				dma-names = "rx";
+> -				clocks = <&l3_iclk_div>;
+> -				clock-names = "fck";
+>  			};
+>  		};
+>  
+> 
+
