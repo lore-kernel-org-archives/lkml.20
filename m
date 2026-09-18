@@ -1,50 +1,87 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBD624A067;
-	Fri, 18 Sep 2026 18:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B1D5208CF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789757724; cv=none; b=JlJwHxf1Lj5YcI6vrqdy8Lu3gJgmrDsEZyz98Bby2+jrPoMeY0oP53OwBbd8OY/5MZbiQ5KwxtGU++A9Qr3vMZ5HLfaAL1zb3S1wcoyN4AENhW+A518KgbwzEuttdr4ZTa/UuDcQfQj9pXg8ZD4EdxubVESS7FeCcTS0ltXYMw4=
+	t=1789757948; cv=none; b=riuOvjVlIfKf9DmW8GJQvj9R4UULWwrkeDKzjAUW266UE+DNRu33a0DIlrlpMtUOBy0hLuPQkhgci9ChHbhCOtLx3ZYX6hDR5+1ADibZ1SKCmgWm8gnTR6vm2WOovwRwcxmhP9w4cY+EA6wunm0I8IhRHRy5/VQfskCdZsr0fIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789757724; c=relaxed/simple;
-	bh=TkEkOV/UTIbv9coI61MU3VKkRcZ9B9xyYVO+E3VZ1Cg=;
+	s=arc-20240116; t=1789757948; c=relaxed/simple;
+	bh=/FbHT9o2WMbM0FApAIv7rH49v02xoqlz6GhTyHqXgcE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jf9uqZj/804/8336ZmcloYUOCfixP9Xp0J8YI9fSsVK0uVmnTuk6QGtNNZ+aP4ttWmsoTDOLDTmE08h5zm1/nbUNa32lghErk9VuCavq/ZJl76B35K0lNJwHkWtZxEHZC2TbJQ96Iqj9nI4cvlaQr49bHM0bo+xdAlAi4uiGFwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=da5ZCPcq; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	 MIME-Version; b=gLzNbhOkWAhhIOqB66xXGCin+5oVw3jpXvcBFFqZBSZfyws3eAj10Ry7XCCniqkyTTXRAkVxDFiiqkmHsycDoeVtMY9qPwkZZ8qkSBDhkjEE3cg9s0KGclGj6amsDiuCVpdmmYKcYMfgAX2jHdIGEfUHneOuyVsucsppHi1dA7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCEQTexq; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="da5ZCPcq"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789757702; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=lgFp/9B42kvQa+Z8zuuYk6q+bpP6I85Dz4+oQQPkRsg=;
-	b=da5ZCPcqgIc/rqbqdv6ItIvjG9Hu6DZyKWw7nm6pgrH/S5fFgKMz2sRIB+TaZDOaEaokcRQMSYlNMIW9BSyMYy0Ka+aL2pUs1u3+cLrb2MyCte62cO/DeO+uXlu0dHaWyDSTLGlTdktZhKQ4dL+lhoeIelLHFM+UprbkIvi4mbU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07440566|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00347207-0.00176248-0.994765;FP=14173271799656615558|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jH4dkGS_1789757700;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jH4dkGS_1789757700 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 19 Sep 2026 02:55:01 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	ilane@ti.com,
-	david@ixit.cz,
-	linville@tuxdriver.com,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH net v2] nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
-Date: Sat, 19 Sep 2026 02:54:58 +0800
-Message-ID: <20260918185458.2711284-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260913101309.891633-1-liuc63@xiaopeng.com>
-References: <20260913101309.891633-1-liuc63@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCEQTexq"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so8133245e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:58:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789757936; x=1790362736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wSwV9QyihTEWzNpSev0Rq3JhnfzG5CYZv5DMfWp7kMA=;
+        b=eCEQTexqQfROhlOufNWAVnxwNg9SWm7RaAT022ZnLAOUIea0CsR14jpof91q8EsiG1
+         13FZi3S8s6rCIUNPkshvzhI67MK6tXQqpgaxMl3RDYfHjn8d/hs7vNDiGP0KM+4docgD
+         Z4JvtoMtU+pyhXrfRtY+f0vhKjLfEAR6KLnHhrniSQu5AJ4UyrGBGVOvth3kWdjndtHn
+         XlLadJVQYInIQDQ6lujzRHHkX4mG5QB0I+jlijx5qanq4RmU0SCKJ6+BxWjfG68qroPJ
+         Xiv+p0rK3b/b0dE6pfE6YhiBcoOInCY48KzI4gvemEaBQ+1aQ670QvV8iVu2r5AYqyHm
+         A+PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789757936; x=1790362736;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wSwV9QyihTEWzNpSev0Rq3JhnfzG5CYZv5DMfWp7kMA=;
+        b=etEZjjCLnlRoX2WldrCbpTlYGyfbf1+xXrB+LklTvHnO3/9Kg0UKHMaH7L52SwAS7l
+         BuZNBX736EU7zmvrpAkQmklnINKWpoAQsmgcMQeEIF1NX8uT3S5FtsIeNCUYAYxxPSnn
+         jwD6akoHdBp/ON9lTlUmMElbCLyAyu4XaIs3R+mmp4c1U1iRjY2HOgGWwKLVuEZU4+0J
+         QD+hQmjy1QK/bSSPQ6xoQma+kErSk+kMPGp5tE0+Mj+FnlX3rvi+gUGch/jRsNd19B3d
+         lm8zsDJPyb3IZmfh858Xf999Ww5laIG26/cpGjHnXAaFM3s/4+oJIpR9+ruL3rUH+3nj
+         YIFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzeeET9/WvpD9cg9C/hEaPntLX4ps2EGO2XSS0/E+NI/ENK83UVnIA8Do6l6w0fQz5cYsqr+RBczXaf/2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOEF6kI96rwEac4vCdLhDnQPXLZtwKM0j1GxgwPn3R/aX/xVJd
+	NJ1gKtUGjlj72tDRoh21o44u5TAwyD94QeyOwLiNhWdiFhAilt2ajguJ
+X-Gm-Gg: AYBFou2J41fM39yJuGO8BvgDgsYEJcD0olbDIRvthsZXkhfXEPF3kkq80ExDbaIRRXf
+	tP8+jNfsxHGVIzeTK+njrjsCnabYo/G/99Pg+VW9q5aBDvWJmp+/CNrAw5HpfQ+yhvkXJdcIAMv
+	HNhwRBGi3Puhf4IxZL1dycCIO/QvBV69FvJ/brzJdb2HVfHNNRFrtkpK3lNBzbUAbzG8MVrMxby
+	0/j03ZCSh4CG2fa+9P8ztHNcovcwO/hyCekSKyscVFDFV/OOXRYaWucgsucB7HQ14/PLsn7QB54
+	MUn+E/kKKxyApCbdQgvvElBlZoEwD2vaCrPx79eHVvN3dbwXxtDN3S+nu61NuKLS0Oi/wJuTNO6
+	7CobatL4klhR4yMCFwQJiEb+us/mzEpRMoGa8ozVvIOgkSvZ8oQFPNeAaW4tR0M0IZZ4VSqZHnc
+	LHWPkX5RtmYOz/FPjTJ7zqpaG5fAvfgAb5OFqbEy9c2VzbAp4zp1zeCqnWf66LMbwGaiUFTh3Ur
+	sEzS+TJbfiK49yWxdzuWuM1+68nQbtrP7RbjHpycmJRnFU=
+X-Received: by 2002:a05:600c:3512:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49fc56aee64mr48011805e9.12.1789757936371;
+        Fri, 18 Sep 2026 11:58:56 -0700 (PDT)
+Received: from localhost.localdomain ([176.220.123.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eab91sm14380145e9.1.2026.09.18.11.58.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 11:58:55 -0700 (PDT)
+From: Omer PALA <palaomer100@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Date: Fri, 18 Sep 2026 21:58:06 +0300
+Message-ID: <20260918185813.5070-1-palaomer100@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918174809.17502-1-palaomer100@gmail.com>
+References: <20260918174809.17502-1-palaomer100@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,110 +90,368 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
-fragment size.  When that value is zero, frag_len is always zero and
-total_len never decreases.  The loop then allocates skbs without
-bound: none of them are freed inside the loop, they accumulate on
-frags_q, and there is no cond_resched() in the loop body.  A single
-sendmsg() can therefore consume all allocatable memory, and on
-CONFIG_PREEMPT_NONE it occupies the CPU long enough to trip the
-softlockup watchdog:
+Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+xilinx-xadc.txt file.
 
-  watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
-  Workqueue: events rawsock_tx_work [nfc]
-  Call Trace:
-   nci_send_data+0x1ca/0x6b0 [nci]
-   nci_transceive+0xbb/0x170 [nci]
-   rawsock_tx_work+0xb5/0x1a0 [nfc]
-
-max_pkt_payload_len comes straight from controller-supplied fields,
-with no check for zero:
-
-  ntf.c: conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
-  rsp.c: conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
-
-Reject the zero value in the fragmentation path rather than at the
-assignment sites.  nci_queue_tx_data_frags() is the only place that
-loops over the RF data path's conn_info, and nci_send_data() takes
-the non-fragmenting branch only for skb->len <= max_pkt_payload_len,
-which for a zero limit means empty skbs alone.  Validating on
-assignment would not be sufficient either, because
-nci_rf_disc_rsp_packet() allocates ndev->rf_conn_info with
-devm_kzalloc(), so max_pkt_payload_len is already zero before any
-notification arrives.
-
-No legitimate configuration is affected: where the NCI spec does
-mandate a zero Max Data Packet Payload Size -- the NFCEE Direct RF
-Interface -- nci_rf_intf_activated_ntf_packet() takes the "goto
-listen" shortcut, bypassing the assignment entirely.
-
-Snapshot the field once with READ_ONCE() and use the snapshot for
-both the check and the min_t() bound: the rx workqueue updates the
-field without any lock held against this path, so without the
-snapshot the check could validate a value the loop no longer
-consumes.
-
-nci_hci_send_data() also loops over the same field, but on a
-different conn_info instance (ndev->hci_dev->conn_info) created by
-nci_core_conn_create_rsp_packet(); a zero or one there underflows
-the loop arithmetic and will be addressed in a separate patch.  This
-guards the path carrying the reported bug.
-
-Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-
+Signed-off-by: Omer PALA <palaomer100@gmail.com>
 ---
+ PATCH v3 Details:
+ - Fixed $schema URI: "schemas/meta-schema.yaml#" -> "meta-schemas/core.yaml#"
+ - Added "required: [xlnx,external-mux]" to each allOf/if block so the
+  none/single/dual mux conditionals only match when the property is
+  actually set, not just absent
 
-v1 claimed that nci_queue_tx_data_frags() is "the only place that
-loops" over max_pkt_payload_len.  That holds for the RF data path
-(ndev->rf_conn_info) but was overstated as a blanket claim: the
-Sashiko review of v1 pointed out that nci_hci_send_data() loops over
-the same field as well, albeit on a separate conn_info instance
-(ndev->hci_dev->conn_info) -- pre-existing and unchanged here; it
-will be fixed separately.
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 -------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 191 ++++++++++++++++++
+ 2 files changed, 191 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 
-The READ_ONCE() snapshot follows the same review: with the check and
-the loop reading the field independently, a store from the rx
-workqueue in between would let the loop spin on a value the check
-had just rejected.
----
- net/nfc/nci/data.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
-index 4253edea5..eeb5260c5 100644
---- a/net/nfc/nci/data.c
-+++ b/net/nfc/nci/data.c
-@@ -104,6 +104,7 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
- 	struct sk_buff_head frags_q;
- 	struct sk_buff *skb_frag;
- 	int frag_len;
-+	u8 max_len;
- 	int rc = 0;
- 
- 	pr_debug("conn_id 0x%x, total_len %d\n", conn_id, total_len);
-@@ -114,11 +115,18 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
- 		goto exit;
- 	}
- 
-+	/* the rx workqueue may update the field concurrently */
-+	max_len = READ_ONCE(conn_info->max_pkt_payload_len);
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078..000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+new file mode 100644
+index 000000000..ffaada52f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+@@ -0,0 +1,191 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +
-+	if (!max_len) {
-+		rc = -EPROTO;
-+		goto exit;
-+	}
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	__skb_queue_head_init(&frags_q);
- 
- 	while (total_len) {
--		frag_len =
--			min_t(int, total_len, conn_info->max_pkt_payload_len);
-+		frag_len = min_t(int, total_len, max_len);
- 
- 		skb_frag = nci_skb_alloc(ndev,
- 					 (NCI_DATA_HDR_SIZE + frag_len),
++title: Xilinx XADC device driver
++
++maintainers:
++  - Omer PALA <palaomer100@gmail.com>
++
++description: |
++  This binding document describes the bindings for the Xilinx 7 Series XADC as well
++  as the UltraScale/UltraScale+ System Monitor.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    description: Address and length of the register set for the device
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupt-parent: true
++
++  xlnx,external-mux:
++    description: Selects the external mux mode.
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description: >
++      Configures which pair of pins is used to sample data in
++      external mux mode.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,channels:
++    type: object
++    description: List of external channels that are connected to the ADC.
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    required:
++      - "#address-cells"
++      - "#size-cells"
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        properties:
++          reg:
++            description: Pair of pins the channel is connected to
++            minimum: 0
++            maximum: 16
++          xlnx,bipolar:
++            description: If set the channel is used in bipolar mode.
++            $ref: /schemas/types.yaml#/definitions/flag
++        required:
++          - reg
++        additionalProperties: false
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++allOf:
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: none
++      required:
++        - xlnx,external-mux
++    then:
++      properties:
++        xlnx,external-mux-channel: false
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: single
++      required:
++        - xlnx,external-mux
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 0
++          maximum: 16
++      required:
++        - xlnx,external-mux-channel
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: dual
++      required:
++        - xlnx,external-mux
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 1
++          maximum: 8
++      required:
++        - xlnx,external-mux-channel
++
++examples:
++  - |
++    soc {
++      #address-cells = <1>;
++      #size-cells = <1>;
++
++      xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          channel@0 {
++            reg = <0>;
++          };
++          channel@1 {
++            reg = <1>;
++          };
++          channel@8 {
++            reg = <8>;
++          };
++        };
++      };
++      xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++      adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,external-mux = "single";
++        xlnx,external-mux-channel = <0>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++    };
 -- 
-2.50.1
+2.55.0
 
