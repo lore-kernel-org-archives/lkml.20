@@ -1,230 +1,356 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7692F4C6D;
-	Fri, 18 Sep 2026 00:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789689872; cv=none; b=YSE/juEVDxJfNbA0Yes6H86m5deO4RnCnIJ7Sn8vFMu9eYiKBkJUvVJvvKewn/L2aYGLxaL25iq/g8ebgbSwD85BvHVu4JZVXaxMFwedijlCUvzZ4qIjXkZpJ3bFKfGXPxYZDYsrQXQXIPGTOrML7a8t8qxBXhxLYvqezpLVluc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789689872; c=relaxed/simple;
-	bh=1vVUpsL01Hk6U5pBubrJF++MINGQNt97WMwbDKbPEvA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g1ADMO9hRoUdY4EPSyaqZ46tyDio53mjmOfQtOV/mVA2PTU5akeqi36jJ8Onvrl+vL+EhjS/EhvYjNlrEebz8mvaT+PvaVQi2YUFxOXZkwK/xzK+Ys1XFXy2U6XB6kcfPsrTui3lJcu5EPuvUi67Hgv/a/pECGqLNYAuyruimTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6n1lSQM; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73A15E5BB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:06:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789689965; cv=pass; b=oIwJrou0V8CJYZpCQzWucWi/o7Lzk8JKAYPuTNZMkXU10V1N5S9J3BqmCmxQ2SOlICf3ubYP5AF/azaIiKm8Ke+F2vaZ/ufKcLITGXymx1FXbbZ4xtfzF/wehSxN8UjdI3ONczF6BkagBar7XKecoVScP0AGVFyj38OZa7DsCUs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789689965; c=relaxed/simple;
+	bh=SoYH9DkYZM7XMSVqIEHkYuCCPKo/3Z5FIbckZ97FnH0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uAMuERnZmTaaTtlyINpq78TnpQ2j0OGfzdFhl2qPfqp1NtMDR0yzzFWdea8E6D02JY+HdOnrZe/MJdSidqM4n1Xr+39gQ+uQ2iqxNnWSHPLbgh6f3EYqkCTlge/HdRCXmdLN0Y8gmd/tDN7OtffjZ+zBdekM+q0C+LyToIX2xVQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Rxo6D1DG; arc=pass smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6n1lSQM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DD5A6C2BCB3;
-	Fri, 18 Sep 2026 00:04:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789689871;
-	bh=1vVUpsL01Hk6U5pBubrJF++MINGQNt97WMwbDKbPEvA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=A6n1lSQMsTOCs8c5euNI53dvMoTGeAoAeRPYpBU07X+a5qGNp3O4jxMgVB1H5aasz
-	 YW3kIfBtM9PCu78Qnp1pJmK5+S3znAfSSpUtGUiUvw6A3udf2v5CWxI4z1XNFQICoV
-	 ooCbBjZ5QKbaLRR3VK9rwUKtqliJbbmNqqghA7M9ZlXok11arEtMISNkmeoCZO/Oq4
-	 gujfOvus/c8/z3hwsQb/NrGmMaBPZFSx8yBsbCFqpl0Ke9y58y27lBkJaL0xS2Ew9U
-	 wQwXmjV9dbhSLccOGMk+PFN2MBtesawt8epAlg1F1pc+erVmX8dlz/rRgcQCzP/laJ
-	 Mt5CC29qg1SKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7F29C982D2;
-	Fri, 18 Sep 2026 00:04:31 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 18 Sep 2026 02:04:22 +0200
-Subject: [PATCH RFC] wifi: ath10k: skip completion wait for pairwise key
- removal
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Rxo6D1DG"
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53113d72966so93221cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:06:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789689962; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JYH7x7EIsjT+SV39HbF7rqGrZdlCj/HIv0k8STsQfwJ0Ihtpw5l9SbjYfaqHIJQQ9o
+         PhnVZs/We9IE9+UVO86G2jYmxWJAInyNzRo0Z7n7p4RwbMT2VWWNLaPbGp82wva1mZHo
+         ZzG5Hus4lW1skQMgtkfn24lQyd9tufs5OjQ9py4Jkpnzz5Aae+/QWeuapAGqBRRyJZB4
+         EmMww9msEz7KHRwFkd+gg87RWyqwm6pjxgBv+o8dSF0awnfpbZER2U0v7fgguyF+2YkJ
+         nS829mME0nqblnnZlUEifIZyE+EM7cQVQ2bv8nMJynswyHzsbM145MKGbCmZjAi2sYpW
+         r8fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nKIZfh7L/9iy7pYAqHEsnUPc7J9L27b73sdn5xk9SqU=;
+        fh=qEC3KpLjCIS2c9/N0OywagKfIki7EZrJeINeteVIwPs=;
+        b=Ybc6KyGWIRfRaij1BCG7WqrACI2tOZpWt8nBJ2cfmVqWxCYGLWfRPvBdffevxmAGDO
+         dWfMe3Qixg1hbPC9C5TuKBLPhpKgYCEYgdnbKWhbz0X9HUwtRt8HlCq8Y6ok1w2r60O8
+         6eAHJAb1gVEceWKvctg+P/Fw2wPaQG7Uxneemh0ql8zM+4vppWhBlnwqA9A8zLdYDewX
+         ccK1DOdqTjUdOQDsKaEIJCrE5WjB+B/kwhWAxT9FtqL3atRXheOeWAVQuLtDWXv7BZVK
+         zzbiYDs9mcISMdE84DB7LLsWE8NRyOV7d4LXjStDoxS6Mp5KZer95r72UCt10KuySMMU
+         YS6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789689962; x=1790294762; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nKIZfh7L/9iy7pYAqHEsnUPc7J9L27b73sdn5xk9SqU=;
+        b=Rxo6D1DGSe4rtun8R/CYSKni4Ezku62CHIHRD7MzkrDYMGeQBvhZAikySck1oYyYTi
+         UxU1CHSeHAUfGKjsOTUudcGbq0VNq2j6G9Nfz2f7DZXIlpjD3S3ubjE+zXGAyG7jwiLu
+         kMNToftD6IvxrnE/0yStf4kNN3bRF1V5KgJ1DqsxugUcyaQAs+xFPjIQ/5v7ROlBDy2a
+         jtonSjIeEPwxWhac0sVuZbBQHbJ71N7/IMFEsJn3kYhP6J2dZovkzI1lpimFHCp6o7/g
+         MUdAvT1lMuj26umL7wtAZEMsKUf8hN3XEwwZgjNRQmoSNxstUMJhDQPOVn2dR/y5utKK
+         T3Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789689962; x=1790294762;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nKIZfh7L/9iy7pYAqHEsnUPc7J9L27b73sdn5xk9SqU=;
+        b=V5FOIIDxtvEVtDQx+zuc1VlKGB3d+bjskVVCoWKAb8Up8MsEDCuht8AvWN5sAG/dRj
+         tjumGbKa7+PXZDaKckgZ0MlL0iYmYqJqFLjOfoGf+7FR7PRpHt+W0wZDsldXnfXKUwVw
+         ErAvoWO3KNuNtgo6BAECkUSkQddzeXUDEXWlRvN0poJI5/aeRAGeOnVnn2QSowxpG6yo
+         LDjmoiCyWywH1VntYTUONqmhv51vSnoFvtG2XKPGbSITkDoCqf6V6xYtAugTiBSaW0/Y
+         jqC5cMn5/hbaip89t0ilK8uaaXbyv5C0BITZXFlsMw9jWuBe4OZguux7aH4xenWrU/f2
+         nKDA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8wvfWnB3JBgr94jOqSkM/W7RaKiU4o0fTALva9npk5rTJ5Kk8gPn3RWS2cq7aNvuT59bsXfEZ69zrx9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkuvHkf5Y1SzTjkCh8wdmg8UpV7X3lQ39gYcSd7ey0d96KpvJz
+	cg2bs4wkUT4/fZpMi8EyguaJpZLE9ZwqvJID2bzQ05f+2I6Z+6Kh/Og5TrDZ72d/utnYJLsox3X
+	lOTSnjjRVem3TmHHdcH/CH/gbXLpNKjh/O7LiWNML
+X-Gm-Gg: AYBFou1UBRrDzt0DvHfgtxBYy3SAscMJ1XRACQ+0Pf5Z4Xp7fOWVpKZphCdGz1Wrngz
+	OO4PVKR4uGgyNsGCXplw8HWwSoJ/P4NzRnEiF2k5Nd2dYw0Pz7+REs70SdQJ6m94oqN3S6ZkR9t
+	aeYs9nhBm6pPfcxQJQWpZRTG6iGUXV9pUcl1y3LeWXkepqMOOna1cwZu1wz4RvZnCFFssto6qgK
+	KSW2isA7GXeB5dk+8rzsS/eUkcCF4ekM0tTbD+7dXLLBEM0FfTCKXFUoybi2bHLWAmfekA4AH8N
+	SKw9D6gBOg8iTYYUQhNjvq4K09Y+gLOA+5eFl4sbR9ghfShi9W2CHg==
+X-Received: by 2002:a05:622a:355:b0:532:9d15:2e5a with SMTP id
+ d75a77b69052e-5329f156af3mr3916691cf.1.1789689960917; Thu, 17 Sep 2026
+ 17:06:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-ath10k-del-v1-1-53cd7a7d682b@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0Nz3cSSDEODbN2U1BzdFMs0S1Oz1FRDQzNzJaCGgqLUtMwKsGHRSkF
- uzkqxEMHi0qSs1OQSkDFKtbUAf3SBRnMAAAA=
-X-Change-ID: 20260917-ath10k-del-d9f956ee1167
-To: Jeff Johnson <jjohnson@kernel.org>, 
- James Prestwood <prestwoj@gmail.com>
-Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6103; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=FELe9NmnHc/Z1AYZfWNf8CZnzmbSuiDQc/9zq9Hq4ec=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqrIAO+KO32+sfEQMGmqCkJT59g32a8tMUC+aHU
- 3KgUSRtui2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqyADgAKCRBgAj/E00kg
- clX9D/4tO8IZM5DVpv4uC5hOfA4JXfKNbHMdfu403oIAq7wmEY3Cfa9mAN85xaiCwbYAAR4NbuL
- kP/uIMpQzOnpSTNZP66CMC0neDE+8iABDxRdCAfCO3QxqPnhdOyBZeK6NRcYMxJNeDleLDkOrpm
- hFuY/lVPaUxZTroisSTfumlQMl/zVaPktFCUNZFgMpnVsECOO/YxStj0ZxyZEJQeYZEQJ50aXcR
- NClyajPMo0+oOxmym4UsAp5O8B3jKi3rWARUe9X/SomAZMP7NiFBKtCiZ2j9FoIbb8x0Kxjkz89
- xX4HslBOF67uSKDtdWfLZuBwdReXMzfQUrzc7xRbnL4tNN/e1PIv063nDgv7UohSQ5VL9JgyP1+
- ZOHbKEqsN80keWy7CNQ7jKETFso8inwBiBfDLQBQqd3xidLRFXwDJFqtwCumtzL7qVN+FNEdzJC
- d5awthuuA/G/3+sNz3rSKhCALBfuFr9XQfLJyqXRqRRgcbmMawXPnqvRnff8nfZNy303ZTBbpPW
- lIbp+5OORDdxgrFmqaUPv3VH1Qfd/qxGls67rdNEK/HzfrOvw9CApNYpstVAZKjWPGUcKJQCm2f
- H05It/D9VsLskmrWn7wDUKeikseRXB9/d1BQ7V08uOqR3Edd80vh+xVSMZH0A92XSCAidkE7tX5
- yq6UAurYDl20cng==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-5-hao.ge@linux.dev>
+In-Reply-To: <20260915070001.113559-5-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 17 Sep 2026 17:05:49 -0700
+X-Gm-Features: AcwNN1XAOT_17fQE5yjXnFf9eEwp8M54bYI5rVj3bt4gohWMRB35SlFkGCcgPLA
+Message-ID: <CAJuCfpFQ8v8poeYNcuLd6azkR4O6wyHOv7+C=RfQGVWx4o935w@mail.gmail.com>
+Subject: Re: [PATCH v10 4/6] module: allocate codetag sections before the
+ regular module layout
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Heidelberg <david@ixit.cz>
+On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> Whether a codetag section goes to the codetag region is decided by
+> layout_sections() and asked again in move_module(). A concurrent
+> load can shut profiling down in between, and move_module() then
+> copies the section to offset 0 of its regular destination,
+> overwriting whatever is there.
+>
+> Decide and allocate in one pass, before the layout. Allocation
+> errors fail the load. On a tag area overflow profiling is already
+> disabled, so -EAGAIN makes the section fall back to regular module
+> data and the module still loads. The reservation is released and
+> module_tags.size rolled back, so a concurrent load which already
+> passed needs_section_mem() does not skip vm_module_tags_populate().
+>
+> An SHT_NOBITS codetag section is zeroed explicitly, the tag area
+> pages are not zeroed on allocation.
+>
+> When profiling was toggled off the overflow check did not run, a
+> module could load with more tags than the page flags can address,
+> and re-enabling profiling then silently corrupted /proc/allocinfo.
+> The check no longer depends on mem_alloc_profiling_enabled().
+>
+> Based on a patch by Petr Pavlu [1].
+>
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
+ion")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@su=
+se.com/ [1]
+> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-When removing a pairwise key, ath10k_send_key() sends a
-WMI_VDEV_INSTALL_KEY with WMI_CIPHER_NONE and no key data. On WCN3990
-the firmware never answers that with an HTT security indication, so
-ath10k_install_key() always sleeps for the full 3 s and then fails:
+Makes the logic much simpler. Thanks!
 
-    [  117.285854] wlan0: deauthenticating from XX:XX:XX:XX:XX:XX by local choice (Reason: 3=DEAUTH_LEAVING)
-    [  120.302934] ath10k_snoc 18800000.wifi: failed to install key for vdev 0 peer XX:XX:XX:XX:XX:XX: -110
-    [  120.302996] wlan0: failed to remove key (0, XX:XX:XX:XX:XX:XX) from hardware (-110)
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 
-The indication is missing, not late. Tracing mac80211:drv_set_key and
-the ath10k "sec ind" debug message on WCN3990 with firmware
-WLAN.HL.2.0.c8-00050-QCAHLSWMTPLZ-1.435283.1.441421.1 across a
-disconnect/reconnect shows no indication at all for the pairwise
-removal, while both installs on reconnect are acknowledged within 2 ms:
-
-    866.899253: drv_set_key: sta:AP cmd: 1 flags=0x9, keyidx=0
-    866.899270: ath10k_log_dbg: wmi tlv vdev install key
-    869.920623: ath10k_log_warn: failed to install key ... peer AP: -110
-    880.701296: drv_set_key: sta:AP cmd: 0 flags=0x8, keyidx=0
-    880.701318: ath10k_log_dbg: wmi tlv vdev install key
-    880.701584: ath10k_log_dbg: sec ind peer_id 86 unicast 1 type 6
-    880.716075: drv_set_key: sta:GROUP cmd: 0 flags=0x0, keyidx=2
-    880.716088: ath10k_log_dbg: wmi tlv vdev install key
-    880.718250: ath10k_log_dbg: sec ind peer_id 86 unicast 0 type 6
-
-Shortening the timeout would still stall every disconnect and still log
-a failure for a key the firmware has already dropped. Add a
-no_pairwise_key_del_ind hw_params flag, set it for WCN3990 only, and
-skip the wait for pairwise removal when it is set. Other firmware
-families have been observed to acknowledge the cipher-none deletion;
-skipping the wait there would leave a stale indication that completes
-the next installation's wait early, so they keep the unconditional wait.
-
-Group-key removal is left alone on all targets: ath10k_send_key()
-implements it as an installation of a random key with the original
-cipher, which the firmware does acknowledge, and ieee80211_key_replace()
-issues the following SET_KEY right after the DISABLE_KEY.
-
-Tested on WCN3990 (SDM845): the pairwise removal returns immediately and
-the reconnect installs are acknowledged as before.
-
-From previous mailing list discussion assumed it's relevant for QCA6174 HW3.0.
-
-Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/net/wireless/ath/ath10k/core.c | 2 ++
- drivers/net/wireless/ath/ath10k/hw.h   | 6 ++++++
- drivers/net/wireless/ath/ath10k/mac.c  | 5 +++++
- 3 files changed, 13 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 7c2939cbde5f0..3177fa415ea06 100644
---- a/drivers/net/wireless/ath/ath10k/core.c
-+++ b/drivers/net/wireless/ath/ath10k/core.c
-@@ -342,16 +342,17 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
- 		.fw_diag_ce_download = false,
- 		.credit_size_workaround = false,
- 		.tx_stats_over_pktlog = false,
- 		.dynamic_sar_support = false,
- 		.hw_restart_disconnect = false,
- 		.use_fw_tx_credits = true,
- 		.delay_unmap_buffer = false,
- 		.mcast_frame_registration = false,
-+		.no_pairwise_key_del_ind = true,
- 	},
- 	{
- 		.id = QCA6174_HW_3_2_VERSION,
- 		.dev_id = QCA6174_2_1_DEVICE_ID,
- 		.bus = ATH10K_BUS_PCI,
- 		.name = "qca6174 hw3.2",
- 		.patch_load_addr = QCA6174_HW_3_0_PATCH_LOAD_ADDR,
- 		.uart_pin = 6,
-@@ -741,16 +742,17 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
- 		.fw_diag_ce_download = false,
- 		.credit_size_workaround = false,
- 		.tx_stats_over_pktlog = false,
- 		.dynamic_sar_support = true,
- 		.hw_restart_disconnect = true,
- 		.use_fw_tx_credits = false,
- 		.delay_unmap_buffer = true,
- 		.mcast_frame_registration = false,
-+		.no_pairwise_key_del_ind = true,
- 	},
- };
- 
- static const char *const ath10k_core_fw_feature_str[] = {
- 	[ATH10K_FW_FEATURE_EXT_WMI_MGMT_RX] = "wmi-mgmt-rx",
- 	[ATH10K_FW_FEATURE_WMI_10X] = "wmi-10.x",
- 	[ATH10K_FW_FEATURE_HAS_WMI_MGMT_TX] = "has-wmi-mgmt-tx",
- 	[ATH10K_FW_FEATURE_NO_P2P] = "no-p2p",
-diff --git a/drivers/net/wireless/ath/ath10k/hw.h b/drivers/net/wireless/ath/ath10k/hw.h
-index cd468b24bd333..a6abab83df7df 100644
---- a/drivers/net/wireless/ath/ath10k/hw.h
-+++ b/drivers/net/wireless/ath/ath10k/hw.h
-@@ -633,16 +633,22 @@ struct ath10k_hw_params {
- 	bool hw_restart_disconnect;
- 
- 	bool use_fw_tx_credits;
- 
- 	bool delay_unmap_buffer;
- 
- 	/* The hardware support multicast frame registrations */
- 	bool mcast_frame_registration;
-+
-+	/* Firmware sends no HTT security indication for a pairwise key
-+	 * removal (WMI_CIPHER_NONE install), so waiting for one would only
-+	 * time out.
-+	 */
-+	bool no_pairwise_key_del_ind;
- };
- 
- struct htt_resp;
- struct htt_data_tx_completion_ext;
- struct htt_rx_ring_rx_desc_offsets;
- 
- /* Defines needed for Rx descriptor abstraction */
- struct ath10k_hw_ops {
-diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
-index 8e604697d6c20..653bc70a9e6af 100644
---- a/drivers/net/wireless/ath/ath10k/mac.c
-+++ b/drivers/net/wireless/ath/ath10k/mac.c
-@@ -319,16 +319,21 @@ static int ath10k_install_key(struct ath10k_vif *arvif,
- 
- 	if (arvif->nohwcrypt)
- 		return 1;
- 
- 	ret = ath10k_send_key(arvif, key, cmd, macaddr, flags);
- 	if (ret)
- 		return ret;
- 
-+	/* Group-key removal installs a replacement key and is acknowledged. */
-+	if (cmd == DISABLE_KEY && !(flags & WMI_KEY_GROUP) &&
-+	    ar->hw_params.no_pairwise_key_del_ind)
-+		return 0;
-+
- 	time_left = wait_for_completion_timeout(&ar->install_key_done, 3 * HZ);
- 	if (time_left == 0)
- 		return -ETIMEDOUT;
- 
- 	return 0;
- }
- 
- static int ath10k_install_peer_wep_keys(struct ath10k_vif *arvif,
-
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260917-ath10k-del-d9f956ee1167
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+> ---
+>  kernel/module/main.c | 101 +++++++++++++++++++++++--------------------
+>  mm/alloc_tag.c       |   9 ++--
+>  2 files changed, 60 insertions(+), 50 deletions(-)
+>
+> diff --git a/kernel/module/main.c b/kernel/module/main.c
+> index ae2678ac7840..b7ebcc40bdda 100644
+> --- a/kernel/module/main.c
+> +++ b/kernel/module/main.c
+> @@ -1723,20 +1723,6 @@ static void __layout_sections(struct module *mod, =
+struct load_info *info, bool i
+>                         if (WARN_ON_ONCE(type =3D=3D MOD_INVALID))
+>                                 continue;
+>
+> -                       /*
+> -                        * Do not allocate codetag memory as we load it i=
+nto
+> -                        * preallocated contiguous memory.
+> -                        */
+> -                       if (codetag_needs_module_section(mod, sname, s->s=
+h_size)) {
+> -                               /*
+> -                                * s->sh_entsize won't be used but popula=
+te the
+> -                                * type field to avoid confusion.
+> -                                */
+> -                               s->sh_entsize =3D ((unsigned long)(type) =
+& SH_ENTSIZE_TYPE_MASK)
+> -                                               << SH_ENTSIZE_TYPE_SHIFT;
+> -                               continue;
+> -                       }
+> -
+>                         s->sh_entsize =3D module_get_offset_and_type(mod,=
+ type, s, i);
+>                         pr_debug("\t%s\n", sname);
+>                 }
+> @@ -2795,7 +2781,6 @@ static int move_module(struct module *mod, struct l=
+oad_info *info)
+>  {
+>         int i, ret;
+>         enum mod_mem_type t =3D MOD_MEM_NUM_TYPES;
+> -       bool codetag_section_found =3D false;
+>
+>         for_each_mod_mem_type(type) {
+>                 if (!mod->mem[type].size) {
+> @@ -2815,35 +2800,13 @@ static int move_module(struct module *mod, struct=
+ load_info *info)
+>         for (i =3D 0; i < info->hdr->e_shnum; i++) {
+>                 void *dest;
+>                 Elf_Shdr *shdr =3D &info->sechdrs[i];
+> -               const char *sname;
+>
+>                 if (!(shdr->sh_flags & SHF_ALLOC)
+>                     || shdr->sh_entsize =3D=3D SH_ENTSIZE_STANDALONE)
+>                         continue;
+>
+> -               sname =3D info->secstrings + shdr->sh_name;
+> -               /*
+> -                * Load codetag sections separately as they might still b=
+e used
+> -                * after module unload.
+> -                */
+> -               if (codetag_needs_module_section(mod, sname, shdr->sh_siz=
+e)) {
+> -                       dest =3D codetag_alloc_module_section(mod, sname,=
+ shdr->sh_size,
+> -                                       arch_mod_section_prepend(mod, i),=
+ shdr->sh_addralign);
+> -                       if (WARN_ON(!dest)) {
+> -                               ret =3D -EINVAL;
+> -                               goto out_err;
+> -                       }
+> -                       if (IS_ERR(dest)) {
+> -                               ret =3D PTR_ERR(dest);
+> -                               goto out_err;
+> -                       }
+> -                       codetag_section_found =3D true;
+> -               } else {
+> -                       enum mod_mem_type type =3D shdr->sh_entsize >> SH=
+_ENTSIZE_TYPE_SHIFT;
+> -                       unsigned long offset =3D shdr->sh_entsize & SH_EN=
+TSIZE_OFFSET_MASK;
+> -
+> -                       dest =3D mod->mem[type].base + offset;
+> -               }
+> +               dest =3D mod->mem[shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHI=
+FT].base +
+> +                      (shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK);
+>
+>                 if (shdr->sh_type !=3D SHT_NOBITS) {
+>                         /*
+> @@ -2875,8 +2838,6 @@ static int move_module(struct module *mod, struct l=
+oad_info *info)
+>         module_memory_restore_rox(mod);
+>         while (t--)
+>                 module_memory_free(mod, t);
+> -       if (codetag_section_found)
+> -               codetag_free_module_sections(mod);
+>
+>         return ret;
+>  }
+> @@ -2947,6 +2908,49 @@ static bool blacklisted(const char *module_name)
+>  }
+>  core_param(module_blacklist, module_blacklist, charp, 0400);
+>
+> +/*
+> + * Allocate codetag sections separately. They are loaded into preallocat=
+ed
+> + * contiguous memory because they may still be used after the module is
+> + * unloaded.
+> + *
+> + * If the separate allocation overflows, allocate the section normally
+> + * so that the module can still be loaded.
+> + */
+> +static int allocate_codetag_sections(struct load_info *info)
+> +{
+> +       for (unsigned int i =3D 1; i < info->hdr->e_shnum; i++) {
+> +               Elf_Shdr *shdr =3D &info->sechdrs[i];
+> +               const char *sname =3D info->secstrings + shdr->sh_name;
+> +               void *dest;
+> +
+> +               if (!codetag_needs_module_section(info->mod, sname, shdr-=
+>sh_size))
+> +                       continue;
+> +
+> +               dest =3D codetag_alloc_module_section(info->mod, sname, s=
+hdr->sh_size,
+> +                               arch_mod_section_prepend(info->mod, i), s=
+hdr->sh_addralign);
+> +               if (WARN_ON(!dest)) {
+> +                       codetag_free_module_sections(info->mod);
+> +                       return -EINVAL;
+> +               }
+> +               if (dest =3D=3D ERR_PTR(-EAGAIN))
+> +                       /* Allocate the section as a regular section. */
+> +                       continue;
+> +               if (IS_ERR(dest)) {
+> +                       codetag_free_module_sections(info->mod);
+> +                       return PTR_ERR(dest);
+> +               }
+> +
+> +               if (shdr->sh_type !=3D SHT_NOBITS)
+> +                       memcpy(dest, (void *)shdr->sh_addr, shdr->sh_size=
+);
+> +               else
+> +                       memset(dest, 0, shdr->sh_size);
+> +               shdr->sh_addr =3D (unsigned long)dest;
+> +               shdr->sh_entsize =3D SH_ENTSIZE_STANDALONE;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  static struct module *layout_and_allocate(struct load_info *info, int fl=
+ags)
+>  {
+>         struct module *mod;
+> @@ -2979,18 +2983,21 @@ static struct module *layout_and_allocate(struct =
+load_info *info, int flags)
+>          */
+>         module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstri=
+ngs);
+>
+> -       /*
+> -        * Determine total sizes, and put offsets in sh_entsize.  For now
+> -        * this is done generically; there doesn't appear to be any
+> -        * special cases for the architectures.
+> -        */
+> +       /* Allow codetag sections to be allocated separately first. */
+> +       err =3D allocate_codetag_sections(info);
+> +       if (err)
+> +               return ERR_PTR(err);
+> +
+> +       /* Determine total sizes and put offsets in sh_entsize. */
+>         layout_sections(info->mod, info);
+>         layout_symtab(info->mod, info);
+>
+>         /* Allocate and move to the final place */
+>         err =3D move_module(info->mod, info);
+> -       if (err)
+> +       if (err) {
+> +               codetag_free_module_sections(info->mod);
+>                 return ERR_PTR(err);
+> +       }
+>
+>         /* Module has been copied to its final place now: return it. */
+>         mod =3D (void *)info->sechdrs[info->index.mod].sh_addr;
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 95ddf5b743d0..5836803898ad 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -958,10 +958,13 @@ static void *reserve_module_tags(struct module *mod=
+, unsigned long size,
+>                 int grow_res;
+>
+>                 module_tags.size =3D offset + size;
+> -               if (mem_alloc_profiling_enabled() && !tags_addressable())=
+ {
+> +               if (!tags_addressable()) {
+>                         shutdown_mem_profiling(true);
+> -                       pr_warn("With module %s there are too many tags t=
+o fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> -                               mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       pr_warn_once("With module %s there are too many t=
+ags to fit in %d page flag bits. Memory allocation profiling is disabled!\n=
+",
+> +                                    mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +                       release_module_tags(mod, false);
+> +                       module_tags.size =3D prev_size;
+> +                       return ERR_PTR(-EAGAIN);
+>                 }
+>
+>                 grow_res =3D vm_module_tags_populate();
+> --
+> 2.25.1
+>
