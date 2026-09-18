@@ -1,152 +1,157 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCB54848BA;
-	Fri, 18 Sep 2026 05:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB927356751;
+	Fri, 18 Sep 2026 05:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711174; cv=none; b=Oy4NYaxE+utLBMusQiz1obsKRBIknxpdbP4q1JdFuA7KNY65+LdTEARye8SnX2D7Vg19QzTU5PJKZudtLIowEHf5+xmC+jxoHkSs2admsB/JkeO2jt9/RTLsWCElZvRFD/0jQfEi5sBd8SwCf1NjD47YRn1nRoZyqZH6BEtwOFM=
+	t=1789711182; cv=none; b=E8nK8YI0ItlzKIikBwEMCIBU+RtG28cTWnlxMXEyUwc/d4TXqhZ3WrdJOryqQ20HFMeyUoNXCPm7z22229Tv2EjWO1ygT/7sPUDlvMV7r9UN3VuQzR7WJ3lATyFnvES88s2dDEbb6JYgYa8htvTMr0xzFw5FHVBcSedsnsRByPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711174; c=relaxed/simple;
-	bh=Aj2cxAKytVuUBR9S7C+f0lIC6bIonnVaZ+5ohFEAS+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SSO//4KQcRL5S5XuhsNdRLTmx2fKpSlslAI311psZPw8Vja2HUpeNkqjXXo2lrT7UMDq5pt/+vVkG/9N7P60Av62tG8nSd0zeY/SM0g1nnmTOjlTPE5vBK8XjD+TW6oNtgrle6w2dJgFjIiGbjLzIcaGurH7jMGEiOQ7A6D2GRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mJjICfUS; arc=none smtp.client-ip=148.163.158.5
+	s=arc-20240116; t=1789711182; c=relaxed/simple;
+	bh=mJTN91ugFwjKMz4I9/XHV1un1QzWKvooR+gPxPOhWZo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K88BHYwJsBxBqL2P+pAC/hmriW+B4KsKEVSuS2qgVugQZE1jzGkibJVF/AzX9Srrvsgada32Kw1lpe3TX0ZYPjGWvWf6KhV8AyuDDF84GCUBimygIY42SxixTwFY7eCasgym69ZWe+2abae7jzMFrJzzlALcire+8fymnyithDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ncb7ucBQ; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mJjICfUS"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VXop3075103;
-	Fri, 18 Sep 2026 05:59:07 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ncb7ucBQ"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VjZx043142;
+	Fri, 18 Sep 2026 05:52:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=Gu3CyY2cPSd04sTF2pYnIPNZ6GDVbmQxXpMwm3bVr
-	uA=; b=mJjICfUSyg84ZRERN7Hdkykg7wkzZ98fmrm6un6hrBC3hwDl9KSAMCEjp
-	u12r7EesUXTMJI3HCzWpWHzzUdABQOg/0nUcsyDCyVqEAEwRbe2XA3MfOiMcTYUr
-	YmLQbK5UlS3iKqoRVfq10hr8fu4RwvMsxC1FUi9t7vTjCdezKdudrYALTA6YKxWb
-	cZ4hkaKH9FjuHDLsFZrHcS2VmFcofTRGhkyBfhSbsSdWOm7mPIymG2JaOFSmsmCZ
-	3jD3RWyFMlZgk008Ab7Pa/aXRBLfIlCtHLCxEXifCZfZEOskbUnujZQ2wc7jnHWR
-	CMXeKiVQ1/EqnsT406RBeWLYfLXKA==
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=OkKG5e
+	Hj/nYQoAmDG+rhMWoq3O/eAaBCq9IsR6KTnK0=; b=Ncb7ucBQiJs7MT8jp9Hogw
+	KABJEWlOfG/dfbLL7sZXrcFtqQHDCdSSDXBhPAMUuhs5npkTH7xSnz/q0jSWnr5c
+	ZCC+Z9ZhJ2KpZ454Fn/KC2n0Cp1UhVDSe8NFhDep6X9wG98D2tZxBsJtHEJV+45S
+	EjULYJaU5L4OoJZA/qL9KCw7HIyFbmDcr8Gxlufr7nBlme16tZiYsBgiSeN/5+3e
+	Nn0Z96JqJXvZkkqBRVQed78H4ZgW5hfnssCzeXUxadsAKb1Eb+ftmmjqeYG8wl3A
+	9m5u+yGoAqzpnXlfik8qPHri7xqtulz88Ch6zS0Mn2/FCTO1TiNWTPWug9fanXnA
+	==
 Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5ee0mw-1
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx846f5r-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:59:07 +0000 (GMT)
+	Fri, 18 Sep 2026 05:52:57 +0000 (GMT)
 Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2Z4Vs918832;
-	Fri, 18 Sep 2026 05:59:06 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr7genk50-1
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2ZKuK918969;
+	Fri, 18 Sep 2026 05:52:56 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr7genjra-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:59:06 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I5x2DG47382888
+	Fri, 18 Sep 2026 05:52:56 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I5qCZX3015250
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 05:59:02 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3553C20043;
-	Fri, 18 Sep 2026 05:59:02 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1DFD020040;
-	Fri, 18 Sep 2026 05:59:00 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.43.70.22])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 05:58:59 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-Subject: [PATCH v2] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
-Date: Fri, 18 Sep 2026 11:28:47 +0530
-Message-ID: <20260918055848.28390-1-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.50.1
+	Fri, 18 Sep 2026 05:52:12 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B0A5E5804E;
+	Fri, 18 Sep 2026 05:52:55 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 876455803F;
+	Fri, 18 Sep 2026 05:52:41 +0000 (GMT)
+Received: from [9.61.58.220] (unknown [9.61.58.220])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 18 Sep 2026 05:52:41 +0000 (GMT)
+Message-ID: <1742b0d0-fbdb-433b-b2c9-b47b5cfd7666@linux.ibm.com>
+Date: Fri, 18 Sep 2026 11:22:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] blk-cgroup: move async bio punt state to blkcg
+To: Yu Kuai <yukuai@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Josef Bacik <josef@toxicpanda.com>, Tejun Heo <tj@kernel.org>,
+        Johannes Weiner <hannes@cmpxchg.org>,
+        =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>, Coly Li <colyli@fygo.io>,
+        Kent Overstreet <kent.overstreet@linux.dev>,
+        Alasdair Kergon
+ <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+        Mikulas Patocka <mpatocka@redhat.com>,
+        Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>,
+        Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+        Andreas Gruenbacher <agruenba@redhat.com>,
+        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+        Youngjun Park <youngjun.park@lge.com>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>
+Cc: Yu Kuai <yukuai@fygo.io>, Christoph Hellwig <hch@lst.de>,
+        Tao Cui <cuitao@kylinos.cn>, linux-block@vger.kernel.org,
+        cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-bcache@vger.kernel.org,
+        dm-devel@lists.linux.dev, linux-raid@vger.kernel.org,
+        gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+        linux-mm@kvack.org, llvm@lists.linux.dev
+References: <20260918041744.1526924-1-yukuai@kernel.org>
+ <20260918041744.1526924-4-yukuai@kernel.org>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20260918041744.1526924-4-yukuai@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX16NPBwFAaT+O
- UAgOzr6YBjQuhaVqDP/RwGGYM4L1MjMahMx6/dtAIaC3hYNFF0fU2scCxvlmKDWozIZHzXgLLej
- xDb7Y/WSpfcE7MGLJ8gwwQBMYF5mXR/iPAeqnXSX/K3LnXdc8MMfdu+S9mwtd68FG1LoeOp/jHQ
- PpzVKBxdRJXH1Fh1lWsQhCWQ3dfXwIlDlFpeVDba9P+JCrDex+R9UzcMH2XwGebZC0ICJOrZTx7
- LpfWqLqwL66mNS/TbWPvgEUWFbH21LICJGQKEdYKDjzm6mmldAiKdI2UtS91ACenXK1/9mGm7me
- FF/o3njIZTWu5uHKxGrhoE+eXBU0sMIOZ1CUDCWxBjg6BDiWUvUb/jRCWe98emjEnPeNvtI7uiq
- sX8J72Y+HLTkgRdupY3xJGbm11phEDVXOI9LunkDSAfM6qSAsPpmbfKDLICZrkqIPjd+A7ZrNlm
- Uiw48wbvryUS7B4E3LQ==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aacd32b cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX/teiT0wiHNSW
+ JEvRLv8jYQnWWkxliGMH7Y5gxw8A38G2pBCriGrXSm3DN6Pr3l9Oia/Cs3vbs5x2dSUFWw1cfFz
+ f6YEK9tOomOpksip3Jp/NjjN7rrYdt/gOI5v+6Y8AX7cViJK8cnyaAE3PjMik7w12aaXKvh6tPK
+ tFBlkzqye1G3IuT9fAG8wstP9g6OAj+fQK4ugA5oL55w2miRU2d/M5YZzNY15Wjk04uncsH6aDp
+ pnj11j8nfR0QxLHiscSmDcegPweYS/JObE2+bA7JB/xXyGgpQjesnbr/WvDVc+wx6dyVbrWXmva
+ TRZBv+CiIDmwlROqGoPTmI8+6j49IF5vWsKy4421LSK4L8hh5RZqcbHHtqWWNbP4U/H4xAE0VIg
+ qjhdgXfijXio3Cfv4RwZ0wphiapFt2dpjyauojKMPHivJdWmZuJs2lOfIk/cS3ryMpVrfiI0Gg9
+ /PO92Nr18Ody/I9Qj1g==
+X-Proofpoint-ORIG-GUID: IQzOuQqhULLvUviFRAhVAHKgtdnFYey7
+X-Proofpoint-GUID: ZGCkVPtmRng54Q_CssYM4zmrTg3B8e93
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX7hqucrhMwMz+
+ TMaoTQdDqBi4VtgFdBweWtZanWLjNVsk/ptq6fmVuMGXmra8Z54mRVbadv0oTv0nx+NSQH+0ts1
+ oIkWCJgjmb268QlqzkGvSbLj1oWUnos=
+X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aacd1ba cx=c_pps
  a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8
- a=VnNF1IyMAAAA:8 a=r95I5fjiukzm4VaaYucA:9 a=6M1ixcW_PCWoKiWyFx5v:22
- a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-ORIG-GUID: tt32x94vHuGk4pnxneHxbSzCeDo7yIZp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX8FYpZe9/zPPT
- mJgCkXp+DisA82Rv4eHdYk5yL7+R/nL7+wfMYADlsovjsfp8NWPxTQpqma0bxSKBkXOLaf5rF4+
- PvLrIMo6rnyP0WvKGlxD93DugmzLT54=
-X-Proofpoint-GUID: uYJ5aT56HSo-DAVALs0w8ZzyRhKxWAW8
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=N7Slw706a9Tpp8ivUyUA:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180072
+ priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180072
 
-A huge number of spurious interrupts can be seen immediately after a KVM
-on PowerNV guest boots up in XIVE mode.
+On 9/18/26 9:47 AM, Yu Kuai wrote:
+> From: Yu Kuai<yukuai@fygo.io>
+> 
+> blkcg_punt_bio_submit() currently queues punted bios on blkg->async_bios,
+> so it has to call bio_blkg() to find or create a queue-local blkg.  Bios
+> now carry and pin the blkcg css, so punted bio lifetime no longer needs to
+> be anchored by a blkg.
+> 
+> Keeping the punt state in blkg can instantiate a blkg even when no blkcg
+> policy is enabled, just to bounce submission from a shared kthread.  Move
+> async_bio_lock, async_bios and async_bio_work to struct blkcg, and queue
+> punted bios on bio_blkcg() for non-root cgroups.  Root or unassociated bios
+> are submitted directly.
+> 
+> This preserves the priority-inversion avoidance while preventing
+> blkcg_punt_bio_submit() from creating blkgs that are not needed by any
+> policy.
+> 
+> Signed-off-by: Yu Kuai<yukuai@fygo.io>
 
-$ cat /proc/interrupts  | grep SPU
-SPU:     223705     192439     273526     147623   Spurious interrupts
-
-This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-Handle pending exceptions on guest entry with MSR_EE"). The root cause
-is that once LPCR_MER bit is set, it is supposed to be reset by
-software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-not exit back to the host until the decrementer expires or there is an
-hcall, etc. This is because KVM on PowerNV guests have support for
-native XIVE, so they are not dependent on host for interrupt emulation.
-Due to this behaviour, a huge number of spurious interrupts are seen
-since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-vCPU exits to the host.
-
-Fix this behaviour by not using the LPCR_MER bit in case of KVM on
-PowerNV, as the XIVE hardware can present interrupts to the KVM guest
-vCPU directly. So the LPCR_MER functionality is not required.
-This reduces the number of spurious interrupts drastically.
-
-Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-Cc: stable@vger.kernel.org #6.8+
-Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
-v2:
-1. Handle the case where xive_interrupt_pending() is true and also the
-external exception bit is set.
-
- arch/powerpc/kvm/book3s_hv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-index dbac3573b2c8..f4d12a97311b 100644
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
- 			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
- 				kvmppc_inject_interrupt_hv(vcpu,
- 							   BOOK3S_INTERRUPT_EXTERNAL, 0);
--			else
-+			else if (!xics_on_xive())
- 				lpcr |= LPCR_MER;
- 		} else {
- 			/*
--- 
-2.55.0
-
+Looks good to me.
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
