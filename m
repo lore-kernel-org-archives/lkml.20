@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108314FDA57
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6EE94EB86B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743168; cv=none; b=aUmUrcEkZtgO/yEt75AKHkto7Gu7/ZWlRXZNZThVF2dLzFXPS6HYYNsYt7czmeJBvPKCb+wrX/FG78vUiL6D9BuyDFgosIFuixnHiCO25LYZQjtcuczx6AmBC+CZhZ0Ek7xjO/kFF0jwodg5qrGBeBJb85EOCKAUYOrkUJCAvtc=
+	t=1789743171; cv=none; b=jtWx2QmZCek+6mYQAZhe8uw9ZpaG15mDS5tHDyhLR8y0EZSFZtwLKk6r7lXmz07XR3zAHPjeGezqIIwrPrim1juBqJJCfUukSOksRMOiWlMOr/4tQGBh24isM3K/hvPBc7mKRDliN/TK6+UWC0UnIZoHvAOXk9N9IPCShuDNplA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743168; c=relaxed/simple;
-	bh=DxkhP1y8pnUFzbSPFQRgr5rW0N3SO8QE5uJHJeNB4Q8=;
+	s=arc-20240116; t=1789743171; c=relaxed/simple;
+	bh=mWRZZ6BBAjqT1qv3Efrr6MczArWxlWU63jhZWwDXQ0w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RgRgmnddSwZidaldVI0QkQhuOJsMRz2NmL7q1RkHbAPAXOEM/RXB0ljvMIpnHFWZ5YvKOmdPNkZRh9gc2rnT+nZ6dsbaU3+cJl8sCtESTlryo5en+SOJIqvJhII1nk5ltumKJKZ/GQjAJAeiz4dozIRDJVEkaxADjfaOUhLDGEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kmn6+DrC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WupjZ1yM8v+AEWGG4AAJ0r642tVz7xqgj/ydgeW/41ul8KnLKHDJgNrzMwhDeMGQ8ubsWVOI+6gu1UzB5EIBIaU736FTLlDWmWj6cIBMJ0f5oDc4Jkf6WVgtPLqSaqIr4KBH/O573V/hGiDHp5krtzPsULprV9Zd4OOi/yaSHVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRftyuq/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kmn6+DrC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03171F00898;
-	Fri, 18 Sep 2026 14:52:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRftyuq/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8F81F000FF;
+	Fri, 18 Sep 2026 14:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743163;
-	bh=xBbnBsoQOsqmQUWyzyFmTyl77XzI3l6yBgRmAehPfxk=;
+	s=k20260515; t=1789743166;
+	bh=VCnnNwKBB0XRywr/Vc3O/6cLu3sgQ2JLHYFPLu8h1J0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kmn6+DrCCo5LNkhZEzRRQp5BvAXFh/JTqdrVQI/FS4gan1XDFdtkJaaddDTpuJeLN
-	 PGGoFTWlbzBEJFf01vdcrb8xir628jU6SlZp7EVFCEGVVBoRy5X29M9oYxVM4xEH7U
-	 PWKLGopgQ0D8gMryeZgkP1InKVjXiqgqxnmgQR3uaToAFVlpXt2SUtony46upvLe6v
-	 OqC75NTl6BzWciP0WaQLleCjqsekuxUyqD8AtHZSFq6vddL7eiTHzKbItDv8DyJRSi
-	 LV63mEOZWkyjuKoyAYBKh7Fi1+2Q4nt5NYpFykuM2uffBH5Dg5qVvOSvzVTa5A98Jv
-	 6rc2vV2XaG+5g==
+	b=WRftyuq/RmmC6cW0sRd0VLBJO62mJpS2v4GqQofsAPdZ+sjjCvWVYKjzupCjiQPKq
+	 WEYXsmk8XlD+njTl+5J1ak/3mYADK6GHDIvesxTC3D2lKpLS09z5z9sXa14G7ogXuN
+	 qOLRW8ttF/vNboxZLtAuDojS3MUrwEHrAO36b5Q+eFq6clx/ly5L1T9olPK8Trx0iO
+	 VjB0QpjfoLmTQWf8cCcvcOVkBLSUN/dUMI6GElmdR0SbSijEO+FRYT5tBNaUpU2rT1
+	 wNA66bH3tduO9jo/rnDU4JoMlNXg7cEevFEsi8a1Pzd9HTjBf2gMkUzH4fShkwxePH
+	 OdJJaJm8j9m7A==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -39,9 +39,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v3 06/13] arm64: assembler: Remove endianness helper macros
-Date: Fri, 18 Sep 2026 15:52:08 +0100
-Message-ID: <20260918145217.1669-7-will@kernel.org>
+Subject: [PATCH v3 07/13] arm64: vdso32: Always build compat vDSO object as little-endian
+Date: Fri, 18 Sep 2026 15:52:09 +0100
+Message-ID: <20260918145217.1669-8-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918145217.1669-1-will@kernel.org>
 References: <20260918145217.1669-1-will@kernel.org>
@@ -53,11 +53,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The CPU_LE()/CPU_BE() helper macros are only used by head.S. Since
-big-endian support depends on BROKEN, remove the last users along with
-the macro definitions. The unused regs_to_64() assembly macro, which
-somewhat bizarrely behaves differently depend on the endianness, is also
-removed.
+Big-endian support on arm64 depends on BROKEN. In preparation for
+removing the dead code altogether, remove support for building a
+big-endian 32-bit vDSO.
 
 Acked-by: Catalin Marinas <catalin.marinas@arm.com>
 Acked-by: Arnd Bergmann <arnd@arndb.de>
@@ -65,66 +63,25 @@ Acked-by: Marc Zyngier <maz@kernel.org>
 Acked-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/include/asm/assembler.h | 31 ------------------------------
- arch/arm64/kernel/head.S           |  3 +--
- 2 files changed, 1 insertion(+), 33 deletions(-)
+ arch/arm64/kernel/vdso32/Makefile | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
-index 0b58b550e8dc..42a167a75486 100644
---- a/arch/arm64/include/asm/assembler.h
-+++ b/arch/arm64/include/asm/assembler.h
-@@ -129,37 +129,6 @@ lr	.req	x30		// link register
- 	b	\label
- 	.endm
+diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32/Makefile
+index bea3675fa668..00efdc5d2354 100644
+--- a/arch/arm64/kernel/vdso32/Makefile
++++ b/arch/arm64/kernel/vdso32/Makefile
+@@ -45,11 +45,7 @@ endif
+ # From arm Makefile
+ VDSO_CAFLAGS += $(call cc32-option,-fno-dwarf2-cfi-asm)
+ VDSO_CAFLAGS += -mabi=aapcs-linux -mfloat-abi=soft
+-ifeq ($(CONFIG_CPU_BIG_ENDIAN), y)
+-VDSO_CAFLAGS += -mbig-endian
+-else
+ VDSO_CAFLAGS += -mlittle-endian
+-endif
  
--/*
-- * Select code when configured for BE.
-- */
--#ifdef CONFIG_CPU_BIG_ENDIAN
--#define CPU_BE(code...) code
--#else
--#define CPU_BE(code...)
--#endif
--
--/*
-- * Select code when configured for LE.
-- */
--#ifdef CONFIG_CPU_BIG_ENDIAN
--#define CPU_LE(code...)
--#else
--#define CPU_LE(code...) code
--#endif
--
--/*
-- * Define a macro that constructs a 64-bit value by concatenating two
-- * 32-bit registers. Note that on big endian systems the order of the
-- * registers is swapped.
-- */
--#ifndef CONFIG_CPU_BIG_ENDIAN
--	.macro	regs_to_64, rd, lbits, hbits
--#else
--	.macro	regs_to_64, rd, hbits, lbits
--#endif
--	orr	\rd, \lbits, \hbits, lsl #32
--	.endm
--
- /*
-  * Pseudo-ops for PC-relative adr/ldr/str <reg>, <symbol> where
-  * <symbol> is within the range +/- 4 GB of the PC.
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index 87a822e5c4ca..8951ce693552 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -138,8 +138,7 @@ SYM_CODE_START_LOCAL(record_mmu_state)
- 	b.ne	0f
- 	mrs	x19, sctlr_el2
- 0:
--CPU_LE( tbnz	x19, #SCTLR_ELx_EE_SHIFT, 1f	)
--CPU_BE( tbz	x19, #SCTLR_ELx_EE_SHIFT, 1f	)
-+	tbnz	x19, #SCTLR_ELx_EE_SHIFT, 1f
- 	tst	x19, #SCTLR_ELx_C		// Z := (C == 0)
- 	and	x19, x19, #SCTLR_ELx_M		// isolate M bit
- 	csel	x19, xzr, x19, eq		// clear x19 if Z
+ # From arm vDSO Makefile
+ VDSO_CAFLAGS += -fPIC -fno-builtin -fno-stack-protector
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
