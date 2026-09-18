@@ -1,41 +1,58 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB1D51DE0F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0A951E43C;
 	Fri, 18 Sep 2026 18:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755911; cv=none; b=oE/e3wclN2Ih7LHkMohgHTrMjMmbfiEUCN02fU+jdjxRYwskDubQUhX5BvqKCIOz3Qj8Ny6CxbOOxFfyFiaivQzMM87TbeDrE7WPfOo6ixoz9VubwC7na31gexs3aiGZrvH/OVO/j+E2Y6M7CvOi2/1ARSEU6J/mtjXcrkULaIY=
+	t=1789755912; cv=none; b=X1PQa3zZzgcKMRWqi01SrMvLaaeVN0i0UgGhI/s1HJToxBdpPVzpxQrAFOWQEwMxCbY4JOTvMTf6KuAe06D2/wmK0ELzEtj68MTO3pf8GXDkOB1YwyspS8siaTnBMQcqRWlk88HmPHxTBuNOj1tjaMgGGr0IsfB4PRHOFPS05M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755911; c=relaxed/simple;
-	bh=VDhkMJnUuOdzALwBnQYd2/1PePxTf7wjQwS6ixEbijg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lAo/kLvJljXlT9s+Bhdfq8iVl+X89hVL/WJPcidGJq2JlwT7y61D+d/lcDzHoHUVbHbxOk+ANvLMY9a8Birk8SBV3/Sg19mOY0+66thz+aqhktrqexLrMS+7BluF1MeV/tkBcmyMu7oQbP8Ln13mFnJnvX8iNk7AwxcjeOrpBqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=y3BHAb1k; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789755912; c=relaxed/simple;
+	bh=FT87b94tCVsXNPjWxhKPXSymMVrlhxUOFMyLADMRmkk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mYo+JagmzP6I/w5SGNHrJ/vBLoWAeLdLS4C9sEJ28p2ReDYUQK4ti1qOJJShxXP1O26skfmFdP3iVxgPrRluk7ix8hvLj8MmmBN6YZfzt4iSd6gswI5jDFzhD3qSWmhcjjOfsgEHX9qUM1O54IzMsgVNdxv3yBN+TbMzJFfVNYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aNd6vvA2; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="y3BHAb1k"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CBFF21A0997;
-	Fri, 18 Sep 2026 18:25:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A070460649;
-	Fri, 18 Sep 2026 18:25:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DC35910328E70;
-	Fri, 18 Sep 2026 20:24:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789755903; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=Ta++TkZosJaiAmjfhJhLLNBPGPCULtPoxdA6ItNFrp4=;
-	b=y3BHAb1kF+DxJW2OiQwbDUpuF4Hp5ztJJcc9FDblYFlWB0/B5IZzuCS33/UP5Rp9MwIBMj
-	KtsbzOcl/c+2sdJgDbbCp233gWvqv3ITSNtMo4b9dZ7AUFf/tXOSdpDXE/wwGEs6/shmx1
-	qZr0KjebGyfEjlcWYwnMTTD47ssA1A6IbeAW3JQXTWkc2wbnJ3lrYZId2r7zZeo39ofWQF
-	m4mp3uLOPivBfYiNQUBQ+KaAv7qezbOGkBttwuVHLmRkmkio83q5wuR4KGOcVNAVMXqh0+
-	Hs6yBCmyJSFCgNnzCM3wamQO6rc9TBikB64r+ipz6inzvTgbuPta+Ham7PkbJA==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: [PATCH 6.1.y 0/3] netfilter: nf_conntrack_expect: use conntrack GC
- to reap expectations
-Date: Fri, 18 Sep 2026 20:24:52 +0200
-Message-Id: <20260918-cve-2026-80668-6-1-v1-0-7a8667286d67@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aNd6vvA2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789755911; x=1821291911;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=FT87b94tCVsXNPjWxhKPXSymMVrlhxUOFMyLADMRmkk=;
+  b=aNd6vvA242zGab2pGTCAxoCmoBhevdATdDwFSfqZ6nnZFzUOoqaTJxjM
+   rTg8E4aF1K8LMczyY3xxERHjl81VC8Puo66dKRob3rl91ICAwQKaV+x4A
+   oYzHUKf+7p0ZMOqCK4dDttCcWQAIiboaeJPFcXc9YdMNAngz4X2d1xrFR
+   stpGVI/Zj+J0lPyiEaTpT3rAz+Qjvv3qUIiscCUdW9GygsbCAA7a9hdxx
+   lJHXScmyoayTu3im2mmjBVfProZJIB6dMB9DxdOkkk53qAkUe3w8piVH/
+   npgASpwOR16HHLQpnicPKoP3i86weec2SvUn6JJvzB/BFHGdCB61Wp84q
+   w==;
+X-CSE-ConnectionGUID: DHZRCZztQv+Y8k/JzJaz5A==
+X-CSE-MsgGUID: u7YDAVJqSxK3GTCXSEdwRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90297737"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="90297737"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:25:10 -0700
+X-CSE-ConnectionGUID: NEMJZqpsR6GrQsNlWjUUgw==
+X-CSE-MsgGUID: //n06lcQToG2wPvDMgnw9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="268252669"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:25:08 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: hansg@kernel.org, Huang Wei <huangwei@kylinos.cn>
+Cc: mpearson-lenovo@squebb.ca, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, thisisamirv@gmail.com
+In-Reply-To: <20260918161539.2676619-1-huangwei@kylinos.cn>
+References: <20260918161539.2676619-1-huangwei@kylinos.cn>
+Subject: Re: [PATCH v2] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to
+ non-standard thermal/fan quirk tables
+Message-Id: <178975590278.29716.17309474720733695095.b4-ty@b4>
+Date: Fri, 18 Sep 2026 21:25:02 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,67 +61,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche3ZJW8hafRXjoZRRlwOYVomG8
- O4WOX6TzL9QRlJkOlcLJcyadRoL7KGi+AjjHax9MTnjxJys5ziDN7A3Ip6FLQc0bY9wdKHpqBy
- fCTf9/KMXktrWX7ruc353A+JrC9K6/gCcGMESfQAAAA==
-X-Change-ID: 20260918-cve-2026-80668-6-1-ae34dea72a3b
-To: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
- Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
- David Ahern <dsahern@kernel.org>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
- Sasha Levin <sashal@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789755899; l=1996;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=VDhkMJnUuOdzALwBnQYd2/1PePxTf7wjQwS6ixEbijg=;
- b=KdACUJ+A7foO3WeUXSgI3206CwaaBsMjN9IuNYqoqMWck4OKhe/IBC0fjW9PYnbeAokGsFz87
- mt1P/vGbClpC0ZK9//DAIHz0JU6GFWBnSeJrNrxCXy4pWBT4swn9hjS
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
 
-Backported two other patches, to make this fix apply cleanly.
+On Sat, 19 Sep 2026 00:15:39 +0800, Huang Wei wrote:
 
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
-Pablo Neira Ayuso (3):
-      netfilter: nf_conntrack_pptp: move GRE specific cleanup to GRE tracker
-      netfilter: conntrack: check NULL when retrieving ct extension
-      netfilter: nf_conntrack_expect: use conntrack GC to reap expectations
+> The Lenovo ThinkPad X9-14 Gen 1 uses a non-standard Embedded Controller
+> firmware (ECFW) whose thermal and fan registers are not located at the
+> classic addresses. On this model the thermal registers sit at 0xA8-0xAF /
+> 0xB8-0xBF and the fan registers use the non-standard offsets, instead of
+> the legacy 0x78-0x7F / 0xC0-0xC7 (thermal) and 0x2f / 0x84 (fan).
+> 
+> Because the model is not covered by the existing quirk tables, the driver
+> probes the legacy thermal addresses during init, reads back 0x00 from
+> every register, concludes the EC is "misbehaving" and disables all
+> thermal sensor access:
+> 
+> [...]
 
- include/net/netfilter/ipv4/nf_conntrack_ipv4.h     |   4 +
- include/net/netfilter/nf_conntrack_expect.h        |  16 +-
- include/net/netfilter/nf_conntrack_helper.h        |   2 +
- include/uapi/linux/netfilter/nf_conntrack_common.h |   1 +
- net/ipv4/netfilter/nf_nat_h323.c                   |  12 ++
- net/ipv4/netfilter/nf_nat_pptp.c                   |  14 +-
- net/netfilter/nf_conntrack_broadcast.c             |   3 +
- net/netfilter/nf_conntrack_core.c                  |  33 +++-
- net/netfilter/nf_conntrack_expect.c                | 174 ++++++++++-----------
- net/netfilter/nf_conntrack_ftp.c                   |   6 +
- net/netfilter/nf_conntrack_h323_main.c             |  22 ++-
- net/netfilter/nf_conntrack_helper.c                |  10 +-
- net/netfilter/nf_conntrack_netlink.c               |  22 ++-
- net/netfilter/nf_conntrack_pptp.c                  |  72 ++-------
- net/netfilter/nf_conntrack_proto_gre.c             |  71 +++++++++
- net/netfilter/nf_conntrack_sane.c                  |   3 +
- net/netfilter/nf_conntrack_seqadj.c                |  17 +-
- net/netfilter/nf_conntrack_sip.c                   |  54 +++++--
- net/netfilter/nf_nat_sip.c                         |  12 ++
- net/netfilter/nfnetlink_cthelper.c                 |   6 +
- net/netfilter/nft_ct.c                             |   3 +-
- 21 files changed, 363 insertions(+), 194 deletions(-)
----
-base-commit: 1a8763b93150b2c8f3992c27a5ce7857fee4ab0f
-change-id: 20260918-cve-2026-80668-6-1-ae34dea72a3b
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to non-standard thermal/fan quirk tables
+      commit: bb0f3a5d6b9844b70ad696b9470762028f6d86ec
+
+--
+ i.
 
