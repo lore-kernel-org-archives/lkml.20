@@ -1,342 +1,165 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE7C22576E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628E6270575
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789690344; cv=none; b=iMJcanvFkJjCuapP/IOp/r+e5itMOP1zmaXpMz9c5KfWaKAHbQZebXfx5TviRLFhGc3rrvYjq1iSKWJEgdxjMhpaXjhfNCT4rDDhj85SfoNwSCMHrsRKn+IxdYXtEOO0w4XdLTvgfe4OrZRzXpt3TWKhg5Jd6tKXHyckO/qOUvQ=
+	t=1789690359; cv=none; b=eoEIc3IzUX4Wd4FFoXC+JeA6fQTKr1ICj25O2wLWT3woBVlNcov2FOGg8pOCgGtoRLhOv55uKzChpooIroowVI6OojEhrOIBpFMer7yffn6oElosygsew34KdFCCRUb+vzXGNNxYGGF/596SjpVhbgUrW4cA4LVYKt12BgraO6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789690344; c=relaxed/simple;
-	bh=D5qZupghknuQR+vMpyE0sB6nwdn+i5Gj/gtRJz5IWpw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pE2NGhSzxeRL/r138E0rG+fE0g2rpjZR4BmiZljZ4bYoFTpx2UepGDn1dYgk3vWwuCv3EDLWad61EYd1HzH2xKlNyomkyyXPZQZds52jiAYYsIr2lxQta72e+vLD58UisYTifNO6H8Bpaq815M/uoC5dPuO6SZyFOQZdfOliNug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=ORKjGM+7; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789690359; c=relaxed/simple;
+	bh=S6WTitiZhScsse4BNwexQE4nUZiiH9qflpERhRHNTQ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U232kPMGcdMHSQ7R+gXPPIOx+Xn3MDGlGN8l7V5/bQdpkP9lBNhvR8gP9O9t0q9wI5DfADOpirSxrrZWVqE2amTPrtiGijFtcROGxtRj3/n0IhY9SOgy58dPzL12mJ/ip/2GzuDSi9ezXvAP8IO3ZwOxHbjZjwd4B7wDfANUcUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=bCq//u8V; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="ORKjGM+7"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-939f5f82829so118138685a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:12:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789690336; x=1790295136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PrpI8WWxUlqmCCZ/KlwzqkhVdxs2Qx8EkwLTiy0oOLg=;
-        b=ORKjGM+72PHVL7J+pJgzVORT2MAuseO6HMQqHBosiXE0I3I67C++wpU3pU/DFluU1O
-         UVlN094VYplG0f4xTYymDDC0Hi68S4Xv4o998tDA7cH/9DuQWaWvysbkZOZVWHPZhC3+
-         3j08I/Bef1sXw/93JdLtHcR/TnJS22g9FLSljoBAD16IK0ka7UP+bLElcBdw2ZJqwa0C
-         gbNI/BdSvbxPK7LtAQxh7Uh83nNYXOU2hESikyymn/ch0jmFLE6YYIwbCwprhMeueRaR
-         60c3Y1vlSb59WW894nCo9h0jRRH+5Hqa/dFc2xuetUT80GETxmpOEO3F6PnxLa6Ovobe
-         uGmw==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="bCq//u8V"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-939f30a2d3cso3592085a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:12:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789690336; x=1790295136;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PrpI8WWxUlqmCCZ/KlwzqkhVdxs2Qx8EkwLTiy0oOLg=;
-        b=mwchSCv+NUiUI3SFrYqyCoBHQRAio3JaRFPARyDVDg/g7CEeZVOAkd+cRBEXSSqiWa
-         2xOlxESThUy7BgKQNH66Aeui7BRWGXLAMrXzIAdsoBbiqwFEoOam03fyp3GVBbljK8G7
-         YOk5Ns4nN6yLfKwF0JMEJ3ZShnv+slYLSPZH/rbu+47SKsnut6MTdoQv0agkcZuVMf/d
-         fQg416Z144EY/1mkwufp8nNVgT163yjvsJUt+C/VCTjFEI/TTeQ5xKHdE2VldSmGkfpC
-         VWZtoXskPyrBSgrVzboIXUgn/TSzM52v3zCGf+sHyiGnWVlGWs6bkujVBmG8vUGTV/ws
-         /FuQ==
-X-Gm-Message-State: AFuF++nl0ASKk9zx0A5n7yJ0iVeeymhXwGWIwXupFcmF8olVb0DYjcyq
-	jTVajxx1UpmI7/+bNGj1REPhioCof7lfsUGwnbOfZXZzz7+d+7cdu24cRrsf3GuGPDo=
-X-Gm-Gg: AYBFou3VD8XxYqUe1BEpJPJV/rYumpWjzS15xF2E9kcKLD0vLDEyYBsUzPfLSkJofuD
-	9tDvbPMh+PGACI4519vQ8o7e2Vb4sAxK9QuUfEY13N2x4E2i722SBOoAwV+8LFrLts7U9P7QWAA
-	Y//XEeW428MES6q6qZDGGYcULgyesYL+esfGXSEH2E65Yj70GB/2r7qkktpZcE5cWHGEaGGwKv3
-	lfGcG6qO/dgPtjd0sA/9yTi2DBHq0XVhC5OwdfccmuUpzhhYzmhdBFirznvVd6RKUZKz38sptgv
-	MSPvEK3DnXG4A5gK4RRu3YURLdW6miyf+//3My+qmi5+JmtQtM/1dBqVSnu64WF7ezJGywPJ8j+
-	WJjY5HiSAL7r+gZ66z+NTh04dBfOaN5sMXzDm1WwLhwkyeZxqihqRWfeweyfk86C1OHRdmWc6XD
-	X22UqErbzBdYLHxFy93uylxiepTzqwddZ99YcIf6Ac0aXjeS/WDv2La+phx793jTNLgn3UdO5Y3
-	15UJuEh8IsEG14wZLLifTNkIYuEF8jSGbzr1FGZLObnuHWCld1Sd5CLyi/S
-X-Received: by 2002:a05:620a:19a4:b0:939:e6d9:b2c with SMTP id af79cd13be357-93bc62a9fbbmr758877685a.16.1789690335926;
-        Thu, 17 Sep 2026 17:12:15 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b81cff7cbsm583762585a.41.2026.09.17.17.12.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 17:12:15 -0700 (PDT)
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com
-Subject: [PATCH v2 2/2] mm/mempolicy: stop copying the nodemask in the interleave paths
-Date: Thu, 17 Sep 2026 20:12:03 -0400
-Message-ID: <20260918001203.3389165-3-gourry@gourry.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918001203.3389165-1-gourry@gourry.net>
-References: <20260918001203.3389165-1-gourry@gourry.net>
+        d=1e100.net; s=20260707; t=1789690350; x=1790295150;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8mYgUWzPauMPI8KvHgXl8UKMbYZ2jyU3o9Br39MOIhU=;
+        b=fEbWPN+lLudKaC5AgH5WfVmfRv8U7otQKMullu+qPQW2xO8qos384o5kVfzJQpBTgN
+         +crr7bYQvoijTMrp7DX5EVwJTpE7oj1qeDwCJtLQnoEu47DADplLVzP45nmTiI2HjBVy
+         zXtWELJFyiHj9KtasrIBrGQpx/QIfDYQjRJJhGso3wCYYfSP/Ymnyogo4xWT8VaeE6Rf
+         puIrEJsOggMki8mlJ9pf+BjOxdjke8qhrojG5ys3X9JAWmBhQ1VmT+irEqdfiir2Wgiv
+         7ChjlmvRmWu9Ev7YJb8g0fRGjYerxgzZidyl+e6QD2f8WTkDZVB3KNvyGvGIzcmp7tjd
+         flvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByiwZLPfrR4Jx/RYHYqniF96rxI55ZXhsGtuBuSHp72pHEqn7Dix74BaIamQULhDZQzmMRT3XoekDCxnxQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ko70PA1CuMvKkhx+cGtteTkxQdllmvenPSvBIGmavr2dTjYWqe
+	RmAclcFJEICOQTAbpBnx2Fn9b7XIoJhMuyuAlq04Q6HlGvfUG4fA5Syq63zuZrWhVFFe7OvQcgN
+	hH9V3Y4sSH5aTcJ4PnFppIJOlNKt2ZSCs+lfN1JbNKUcfbX26cCzMOLBXQ/qZd1Ak0ZZFq1iKC+
+	uS40D7rHcVfHB1AK+Ci8uzhRX2K9z4lsIGBtCe4gaJFW/73L2oEZRX28hm+anZD6kMdTHSupZZY
+	Y8kOr8fMylMZqMlqi3fxk6U
+X-Gm-Gg: AYBFou2K5d34NgNH3lV6C/sGUE4aCmSvlBECs4BKoR6D9py4N0aV3q/KSqBKvEOH69r
+	t7z2focYJdOiuWDE6YtQSg9TLdvNxbm83ZTvTOFLHfy2+RQFrb3H0Pyp1Ux7n5Hc/3xch+mzAID
+	8LNdqAeTdfxV6xrtGE0Ht8xYrnAJ9KG6KsfYqXS6QqWvo+pP3fJxm+mvTKYaufqr9EZqH8cvDJs
+	lBTXNSzH0mO6SpVeuz/TqXSC1tld/44K1X01pfh9pSJo/a0YYaN+ZIGGEc5EuocOBP4gATQI3Sd
+	N0tyeuHPZgsQjF9SJL6l4MLKDPr98ukz06gHx/QhU9HcFz5RH0Y3xhoRNc/QXnWomcKeuXlydeJ
+	CNMqFrEWd1qNMYktLJRJ6WDnuegXHREy3pD4CpCwf9DQVJ6JmPzrixzVHTeog9OJ7c3ATFy7e2s
+	A+CxUid5A/ho+CECySfCBTso7nxboJ637xDeHWegv9
+X-Received: by 2002:a05:620a:6012:b0:915:a953:4b9c with SMTP id af79cd13be357-93bdc698a93mr105881485a.3.1789690349508;
+        Thu, 17 Sep 2026 17:12:29 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93b7819c398sm71865985a.6.2026.09.17.17.12.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 17 Sep 2026 17:12:29 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-869553205a7so1969177b3.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:12:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789690348; x=1790295148; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8mYgUWzPauMPI8KvHgXl8UKMbYZ2jyU3o9Br39MOIhU=;
+        b=bCq//u8V6Jfq3XywAdaDamwtAxuj29ijtHOZk//3GRsSbV80nerk6lrDJU9rVThuZ3
+         wviEliEj9tJSJs2AsOFrrh2YjdGjzVpdAtseA8lwwqKFnfQTjbbNhhVWlo0lKAFHyrO+
+         ro+3WEjyIfwDmp06LQR8AdO2WNffrKPlS8UiM=
+X-Forwarded-Encrypted: i=1; AKwUvByISfofJTn6PaogTiS4kB6VLMl7/E6/o7hzNutcMPWvigLO9Fvlq3hKvUCes2w9HsweXuWy/G+Syh/13vQ=@vger.kernel.org
+X-Received: by 2002:a05:690c:386:b0:884:c89c:ae4e with SMTP id 00721157ae682-89732278bb5mr2414787b3.6.1789690348023;
+        Thu, 17 Sep 2026 17:12:28 -0700 (PDT)
+X-Received: by 2002:a05:690c:386:b0:884:c89c:ae4e with SMTP id 00721157ae682-89732278bb5mr2414727b3.6.1789690347550;
+        Thu, 17 Sep 2026 17:12:27 -0700 (PDT)
+Received: from [172.16.1.139] (107-214-104-235.lightspeed.irvnca.sbcglobal.net. [107.214.104.235])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8978bb53ef7sm902147b3.35.2026.09.17.17.12.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 17:12:26 -0700 (PDT)
+Message-ID: <fa38279f-0020-472c-93ee-7f4c1740cc81@broadcom.com>
+Date: Thu, 17 Sep 2026 17:12:25 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 0/8] net: bcmgenet: Collection of bug fixes
+To: netdev@vger.kernel.org
+Cc: Doug Berger <opendmb@gmail.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>,
+ Simon Horman <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Nicolai Buchwitz <nb@tipi-net.de>
+References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
+Content-Language: en-US
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260918000732.276506-1-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The interleave node selectors copy pol->nodes onto the stack so the mask
-cannot change while they walk it.  nodemask_t is 128 bytes at
-MAX_NUMNODES=1024, and two of the three run per folio fault.
 
-The copy only buys consistency between the node count and the walk.
-Drop the consistency and just bounds check the walk instead.
 
-The nodelist access is racy by design, but safe as long as we handle
-the scenario where a cpuset rebind causes a torn nodemask read to
-perceive the nodemask as empty (weight_total == 0).
+On 9/17/2026 5:07 PM, Florian Fainelli wrote:
+> This patch series contains a collection of bug fixes found during a
+> LLM-assisted coding session.
 
-If an empty nodelist or weight is perceived, fall back to numa_node_id(),
-which is what the functions already did when the copy came back empty
+My bad, I forgot to remove some tags while the patches were sent out, 
+will wait for feedback and repost.
 
-Otherwise, iterating the nodelist during the actual allocation loop
-is perfectly safe - a concurrent rebind may simply cause a skew in
-in the distribution of memory (or fail and fall back the same as any
-other error condition).
+> 
+> Florian Fainelli (8):
+>    net: bcmgenet: fix 64-bit RTNL stats reading in ethtool on 32-bit
+>      systems
+>    net: bcmgenet: initialize u64 stats seq counter for all queues
+>    net: bcmgenet: do not skip WoL power up on GENET V1
+>    net: bcmgenet: clean up RX NAPI on bcmgenet_init_rx_queues failure
+>    net: bcmgenet: acquire ring lock with BH disabled in
+>      bcmgenet_dump_tx_queue
+>    net: bcmgenet: validate Ethernet address in bcmgenet_set_mac_addr
+>    net: bcmgenet: zero-initialize Transmit Status Block in
+>      bcmgenet_add_tsb
+>    net: bcmgenet: mask DMA_TIMEOUT_MASK when reading DMA_RING0_TIMEOUT
+> 
+>   .../net/ethernet/broadcom/genet/bcmgenet.c    | 34 ++++++++++++-------
+>   1 file changed, 21 insertions(+), 13 deletions(-)
+> 
 
-weighted_interleave_nid() counts the nodes as we sum the weights. We use
-that node count to limit the maximum skew a single node can host.
-
-interleave_nid() walks with next_node_in() rather than next_node(), so a
-mask that shrank mid-walk wraps to a node still in the policy.
-
-alloc_pages_bulk_weighted_interleave() derives per-node counts from a
-weight total summed over the mask, so a changing mask can make them exceed
-the request.  Clamp each chunk to the space left in page_array.
-
-A cpuset cookie will not work here: two of these take VMA policies, which
-mpol_rebind_mm() rebinds under mmap_write_lock(), not mems_allowed_seq.
-
-Cost is distribution accuracy during a rebind - but the copy never
-corrected this anyway, it was just a safety mechanism to prevent div/0
-and overrunning the alloc request buffer.
-
-Remove read_once_policy_nodemask(), now unused.
-
--fstack-usage at MAX_NUMNODES=1024:
-
-  weighted_interleave_nid            184 -> 56
-  interleave_nid                     168 -> 32
-  alloc_pages_bulk_mempolicy_noprof  360 -> 136
-
-Assisted-by: LLM
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Rakie Kim <rakie.kim@sk.com>
----
- mm/mempolicy.c | 93 ++++++++++++++++++++++++++++++--------------------
- 1 file changed, 56 insertions(+), 37 deletions(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 2643915dc966..fd97fb0289bc 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2197,34 +2197,15 @@ unsigned int mempolicy_slab_node(void)
- 	}
- }
- 
--static unsigned int read_once_policy_nodemask(struct mempolicy *pol,
--					      nodemask_t *mask)
--{
--	/*
--	 * barrier stabilizes the nodemask locally so that it can be iterated
--	 * over safely without concern for changes. Allocators validate node
--	 * selection does not violate mems_allowed, so this is safe.
--	 */
--	barrier();
--	memcpy(mask, &pol->nodes, sizeof(nodemask_t));
--	barrier();
--	return nodes_weight(*mask);
--}
--
- static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
- {
- 	struct weighted_interleave_state *state;
--	nodemask_t nodemask;
--	unsigned int target, nr_nodes;
-+	unsigned int target, nnodes = 0;
- 	u8 *table = NULL;
- 	unsigned int weight_total = 0;
- 	u8 weight;
- 	int nid = 0;
- 
--	nr_nodes = read_once_policy_nodemask(pol, &nodemask);
--	if (!nr_nodes)
--		return numa_node_id();
--
- 	rcu_read_lock();
- 
- 	state = rcu_dereference(wi_state);
-@@ -2232,22 +2213,45 @@ static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
- 	if (state)
- 		table = state->iw_table;
- 
--	/* calculate the total weight */
--	for_each_node_mask(nid, nodemask)
-+	/* calculate the total weight and the node count */
-+	for_each_node_mask(nid, pol->nodes) {
- 		weight_total += table ? table[nid] : 1;
-+		nnodes++;
-+	}
-+
-+	/* the mask is empty */
-+	if (!weight_total) {
-+		rcu_read_unlock();
-+		return numa_node_id();
-+	}
- 
- 	/* Calculate the node offset based on totals */
- 	target = ilx % weight_total;
--	nid = first_node(nodemask);
--	while (target) {
-+	nid = first_node(pol->nodes);
-+
-+	/*
-+	 * The target was calculated in a separate loop, and a concurrent
-+	 * rebind can change the contents of pol->nodes as we calculate.
-+	 * Access is safe, in the worst case we suddenly perceive an empty
-+	 * nodemask and return numa_node_id() below - otherwise we may
-+	 * simply cause a skew in allocations.
-+	 *
-+	 * Clamp this loop to a single pass (nnodes) to keep the walk
-+	 * bounded by node count.
-+	 */
-+	while (target && nnodes-- && nid < MAX_NUMNODES) {
- 		/* detect system default usage */
- 		weight = table ? table[nid] : 1;
- 		if (target < weight)
- 			break;
- 		target -= weight;
--		nid = next_node_in(nid, nodemask);
-+		nid = next_node_in(nid, pol->nodes);
- 	}
- 	rcu_read_unlock();
-+
-+	/* the mask emptied under the walk */
-+	if (nid >= MAX_NUMNODES)
-+		return numa_node_id();
- 	return nid;
- }
- 
-@@ -2258,18 +2262,23 @@ static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
-  */
- static unsigned int interleave_nid(struct mempolicy *pol, pgoff_t ilx)
- {
--	nodemask_t nodemask;
- 	unsigned int target, nnodes;
- 	int i;
- 	int nid;
- 
--	nnodes = read_once_policy_nodemask(pol, &nodemask);
-+	nnodes = nodes_weight(pol->nodes);
- 	if (!nnodes)
- 		return numa_node_id();
- 	target = ilx % nnodes;
--	nid = first_node(nodemask);
--	for (i = 0; i < target; i++)
--		nid = next_node(nid, nodemask);
-+	nid = first_node(pol->nodes);
-+
-+	/* A concurrent cpuset rebind may cause us to see an empty nodemask */
-+	for (i = 0; i < target && nid < MAX_NUMNODES; i++)
-+		nid = next_node_in(nid, pol->nodes);
-+
-+	/* the mask emptied under the walk */
-+	if (nid >= MAX_NUMNODES)
-+		return numa_node_id();
- 	return nid;
- }
- 
-@@ -2665,7 +2674,6 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	u8 *table, weight;
- 	unsigned int weight_total = 0;
- 	unsigned long rem_pages = nr_pages;
--	nodemask_t nodes;
- 	int nnodes, node;
- 	int resume_node = MAX_NUMNODES - 1;
- 	u8 resume_weight = 0;
-@@ -2675,10 +2683,10 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	if (!nr_pages)
- 		return 0;
- 
--	/* read the nodes onto the stack, retry if done during rebind */
-+	/* count the nodes, retry if a rebind happened during the read */
- 	do {
- 		cpuset_mems_cookie = read_mems_allowed_begin();
--		nnodes = read_once_policy_nodemask(pol, &nodes);
-+		nnodes = nodes_weight(pol->nodes);
- 	} while (read_mems_allowed_retry(cpuset_mems_cookie));
- 
- 	/* if the nodemask has become invalid, we cannot do anything */
-@@ -2688,7 +2696,7 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	/* Continue allocating from most recent node and adjust the nr_pages */
- 	node = me->il_prev;
- 	weight = me->il_weight;
--	if (weight && node_isset(node, nodes)) {
-+	if (weight && node_isset(node, pol->nodes)) {
- 		node_pages = min(rem_pages, weight);
- 		nr_allocated = __alloc_pages_bulk(gfp, node, NULL, node_pages,
- 						  page_array);
-@@ -2712,9 +2720,13 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	table = state ? state->iw_table : NULL;
- 
- 	/* calculate total, detect system default usage */
--	for_each_node_mask(node, nodes)
-+	for_each_node_mask(node, pol->nodes)
- 		weight_total += table ? table[node] : 1;
- 
-+	/* the mask emptied since it was counted */
-+	if (!weight_total)
-+		goto out;
-+
- 	/*
- 	 * Calculate rounds/partial rounds to minimize __alloc_pages_bulk calls.
- 	 * Track which node weighted interleave should resume from.
-@@ -2724,10 +2736,14 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	 */
- 	rounds = rem_pages / weight_total;
- 	delta = rem_pages % weight_total;
--	resume_node = next_node_in(prev_node, nodes);
-+	resume_node = next_node_in(prev_node, pol->nodes);
-+	if (resume_node >= MAX_NUMNODES)
-+		goto out;
- 	resume_weight = table ? table[resume_node] : 1;
- 	for (i = 0; i < nnodes; i++) {
--		node = next_node_in(prev_node, nodes);
-+		node = next_node_in(prev_node, pol->nodes);
-+		if (node >= MAX_NUMNODES)
-+			break;
- 		weight = table ? table[node] : 1;
- 		node_pages = weight * rounds;
- 		/* If a delta exists, add this node's portion of the delta */
-@@ -2744,6 +2760,8 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 		/* node_pages can be 0 if an allocation fails and rounds == 0 */
- 		if (!node_pages)
- 			break;
-+		/* a rebind can invalidate the counts: never overrun page_array */
-+		node_pages = min(node_pages, nr_pages - total_allocated);
- 		nr_allocated = __alloc_pages_bulk(gfp, node, NULL, node_pages,
- 						  page_array);
- 		page_array += nr_allocated;
-@@ -2754,6 +2772,7 @@ static unsigned long alloc_pages_bulk_weighted_interleave(gfp_t gfp,
- 	}
- 	me->il_prev = resume_node;
- 	me->il_weight = resume_weight;
-+out:
- 	srcu_read_unlock_fast(&wi_srcu, scp);
- 	return total_allocated;
- }
 -- 
-2.55.0
+Florian
 
