@@ -1,239 +1,142 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DD151A14E;
-	Fri, 18 Sep 2026 17:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB5951AFF9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752300; cv=none; b=ffbx0DWUStPkMvxPG/JeYIppocjWB4TMQCr7dEU+y2Qdmtw530QG/jdd9uX49yjmEglrgYsRTkNZMivM0lYYCG+93okbMM8TjF5g5VnTuk0Rdw/GbpgbkdP7QedJYth/MWfyc6jQnXuMwiELjWyOr+Deb4W4eqzhfK3Ph4lBUSY=
+	t=1789752302; cv=none; b=WpRrGgWcsqvEM1kV4nSs8rkvHQwN3VrE+nX+zeKCqLUroEdERgDsKNcP7Ng/ZGc4+yd9xtpVE/csX1J9/LRvOYxvx4snEp7IPxQPk0O9zLHNRMwoofiqHv7Gz+EQRPWGojOocJd1shtpGY2O243izkxbpVLNKwUS6PBUNi+848o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752300; c=relaxed/simple;
-	bh=vUh7k6/sgzYvC1EwkqVYUJP2zwwUD/OVrEJJTTCiv6w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sgdl27HDSZ7R3biAepuY9iOeNCBUTOfm8jyd2yVlMN/664nl+ZtOLHizUfiJJtiVsPHkr385rzQPwJCy/49Qyal0n5EFTQGSdTrTgK1m/awiVdz+iWCiMCRDZBG8WPj1nVhj+1ZoToyu22v5sXEoupnPMsT7ts1vmBt6SW/lSIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CCxLPu7K; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789752302; c=relaxed/simple;
+	bh=Z+BK+VH5LxM1oigwsR2LUjN0XeNirnRXhRVS5tv0s/M=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=dQB6Iv+/i3yroZYD8wBS+3hcpONUpUuu1l42lmU7TAVgORYD9De2LyY9sHgs9nyPcNeztUzKoXBTjaxxVDuC4Ql5kW1VUF7k6FKUyPf7jcJWybYS7YFoFsIJ4f5lGa8hqV4W42kwxQMZj3yVqTTv4Hb3KqVNJpTWqiktcPD2y7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=altGrgEC; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CCxLPu7K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=w5
-	fWPWYIbg6KghdEbDIe/kAKt5hevm4hGcALmYK1xKI=; b=CCxLPu7KgvBIuMgU1t
-	2ojYib9vk5rrQGqFSA2juOyQSQvQuTnO2SZ7d99IxSa2leH/E+QFXbV6AKBY4Fz+
-	U/WHg7amkEUx9ODaHlYwWhnpqU80hebvK4g5DgB95beeWSvng9G7o35VJyuGmTpv
-	QJ0Q5Xjq7XY+zLZcBC98i9cQI=
-Received: from localhost (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgAXUUq7c61qHvN9AA--.16484S2;
-	Sat, 19 Sep 2026 01:24:12 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: bpf@vger.kernel.org,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Yonghong Song <yonghong.song@linux.dev>,
-	Quentin Monnet <qmo@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH bpf 3/3] bpftool: Add support for BPF_F_PREORDER cgroup attach flag
-Date: Sat, 19 Sep 2026 02:24:07 +0900
-Message-ID: <20260918172407.3459188-4-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918172407.3459188-1-sh_def@163.com>
-References: <20260918172407.3459188-1-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="altGrgEC"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6f80c76e6so19951205ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:25:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789752300; x=1790357100; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Md8swCj0kdnOqQQJ2clN5fwQ45QLSCsFIDbY3twlD8g=;
+        b=altGrgEC9QiS5aSp2T7mBEH6Inoa15rtj5vHAMpptrf6EzqO36TIxwDyCMdVxNgKCy
+         Sg1HZ2XblgrL59TPKKdkMeMVQ1iBnCYsg5ipBkrTO9gnvh64g6ZTbceSVdLZC6EozTHu
+         W8X2swncwpb160lrT2PrBXkiYT21s5+KZE46+Y0zdnNWKN46PV1Tb69M765VGhnnj4tq
+         RafnnkTulM7yhXoBVhTWb2XA64quMY/80tk3kUu6YWe/E3zQCoB2+0SYcGhQMKFDqvnr
+         rt97361C1wlXXwYLDhfLc4TcRHCQFTC9rcqDH3HZBILnsOA8YxJpi507uNDo8xPX+zD4
+         tP+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789752300; x=1790357100;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Md8swCj0kdnOqQQJ2clN5fwQ45QLSCsFIDbY3twlD8g=;
+        b=tobhAsMvogvvip6N5EFrnsfXO52jerIg55G/bLRTiVKIC1TNoM38BYJc9lHVSkO91t
+         F1r8pWZh50i1x5cLBgL2+6ImK7hqqmZCq0Se2OTIE8UH++0vjQ1YkxrlFufZu/GnIqvB
+         wGAcY19gOXLnYurWyFmwBFAPEkysyiiHMgajnxshVi6qRPY0/jnzo0P7UnhMUXERaNTt
+         AW11SYx/PNbV3X0lMOuhc1z6xHkEneIGqd/IAEiZCtrXnTvq/LlpUhLnnH6wKcc1NqJb
+         Dtg7hbZPyNKGSedav+3d9oLhqWjwMEyMb9UFULVBez32BeqzhisR15/U8hPpEnmmzSxC
+         hc5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByHFqFMFesjzfluZFTXFBqhh6pUxgba4GCueGnW1SA3+YcJSZApH4ZK9JXOq4BSeLPWVT/D19SWf2lVfmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7O4CDyU/lhc77j1XlL5Uqn7htOVfifBNnR7g/EFOS/SAVTUwc
+	exyziFMrpbDzsOVmALswlpisgylFDyMbbc6UUZlRKs6H1F/drOqJrgPzQB4jeOEIfXTCynU5rtq
+	gUMQVwtf1e4GdNhULhYDy+btaFT+vZXQEZg==
+X-Received: from pldv5.prod.google.com ([2002:a17:902:ca85:b0:2d9:e5f:1d26])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:17d0:b0:2dd:c053:e665 with SMTP id d9443c01a7336-2ddc053e6damr7685515ad.43.1789752299497;
+ Fri, 18 Sep 2026 10:24:59 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:24:58 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgAXUUq7c61qHvN9AA--.16484S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKr17Cr1DGry7XF1kCw47twb_yoWxWr4rpF
-	4kXFyUK3WrW3sxXa1xC390gFWFgrs7WFWUCFy5Jw1Y9FW3Gw1vkrWfKFWF9rn8XFW3Aw40
-	vrWYvr45WF1jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi5CzJUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hwScWqtc7yeHAAA3f
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAOpzrWoC/43OTQ6CMBAF4KuQrh3D9AdbV97DuCh2gEahpCVEY
+ 7i71YUJ0YXLN5n3zTxYougpsX3xYJFmn3wYcpCbgp07O7QE3uXMeMmrUpcCagmNv4GlCD31V7K
+ XBIpLi7VTpLVmuTlGyjtv9XjKufNpCvH+PjLja/rxUAutxFYKLpUBDtFOXXBj9Hc7XA5tCO2Vt ufQs5cz81X35y8zB4TGoTF1iTts3Bci/kBERkjvUJkK0QixQpZleQLOcG3FOAEAAA==
+X-Change-Id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
+X-Mailer: b4 0.14.3
+Message-ID: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
+Subject: [PATCH v4 0/2] PCI/AER: Fix ghes_estatus_pool memory leaks in error handling
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>, linuxppc-dev@lists.ozlabs.org, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Priyank Rathod <rathodpriyank@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-Commit 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
-introduced BPF_F_PREORDER to request pre-order execution across the
-cgroup hierarchy. Furthermore, attachments legitimately use combinations
-such as BPF_F_ALLOW_MULTI | BPF_F_PREORDER.
+When firmware reports PCIe Advanced Error Reporting (AER) events via ACPI
+APEI GHES (ghes_handle_aer()), it allocates a snapshot buffer from
+ghes_estatus_pool to store the aer_capability_regs registers before
+enqueuing the error record into aer_recover_ring.
 
-With BPF_PROG_QUERY reporting the per-program BPF_F_PREORDER attribute,
-bpftool's exact-match formatter falls back to "unknown(40)" when
-BPF_F_PREORDER is present alone, or "unknown(42)" when combined with
-BPF_F_ALLOW_MULTI. Additionally, do_attach() only accepts "multi" and
-"override", rejecting "preorder" with "unknown option".
+aer_recover_queue() returns void, so ghes_handle_aer() cannot release that
+buffer itself; ownership is handed to the AER code, which until now freed
+it only on the fully successful path. If the record cannot be enqueued, or
+if a dequeued record cannot be mapped to a pci_dev, the allocation is
+silently leaked. Under a sustained error storm this exhausts
+ghes_estatus_pool, which then breaks GHES hardware error reporting
+system-wide.
 
-Before:
-  $ bpftool cgroup show <cg>
-  1234  cgroup_inet_ingress  unknown(42)  test_prog
-  $ bpftool cgroup attach <cg> cgroup_inet_ingress id 5678 multi preorder
-  Error: unknown option: preorder
+This series fixes both leak paths:
 
-After:
-  $ bpftool cgroup show <cg>
-  1234  cgroup_inet_ingress  multi,preorder  test_prog
-  $ bpftool cgroup attach <cg> cgroup_inet_ingress id 5678 multi preorder
-  (attaches successfully)
+Patch 1: aer_recover_queue() when kfifo_in_spinlocked() fails because
+         aer_recover_ring (capacity 16) is full. The rejected entry is
+         freed immediately via ghes_estatus_pool_region_free().
 
-Refactor the attach flags formatter to use a bitmask formatter that outputs
-comma-separated flag names while preserving unrecognized bits as
-"unknown(...)". Also accept "preorder" in do_attach(), and update
-bpftool-cgroup.rst, usage help, and bash completion.
+Patch 2: aer_recover_work_func() when a dequeued entry cannot be mapped to
+         an active PCI device (pdev is NULL). The loop is restructured so
+         ghes_estatus_pool_region_free() runs unconditionally for every
+         dequeued item.
 
-Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
 ---
- .../bpftool/Documentation/bpftool-cgroup.rst  |  9 ++-
- tools/bpf/bpftool/bash-completion/bpftool     |  2 +-
- tools/bpf/bpftool/cgroup.c                    | 55 +++++++++++++------
- 3 files changed, 45 insertions(+), 21 deletions(-)
+Changes in v4:
+- Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as
+  well. No conflicts with the Advisory Non-Fatal Error support that landed
+  in the meantime.
+- Added missing Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption
+  when error status data has multiple sections") and Cc: stable to both
+  patches; that commit (v6.7-rc1) introduced the ghes_estatus_pool
+  allocation whose ownership these paths drop.
+- Patch 1: use braces on both arms of the if/else and fix the continuation
+  alignment (checkpatch --strict).
+- Both patches now build warning-free with W=1 and CONFIG_ACPI_APEI_PCIEAER=y
+  (earlier revisions were only build-tested with APEI disabled, which
+  compiles neither of the modified functions).
+- Explained in both commit messages why the caller cannot free the buffer,
+  and when the missing-pci_dev path is reachable.
+- Cc: Lukas Wunner, who has been active in this code.
+- Link to v3: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v3-1-e87159611933@google.com
 
-diff --git a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
-index e8185596a759..8ec2546c0b8e 100644
---- a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
-+++ b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
-@@ -45,7 +45,7 @@ CGROUP COMMANDS
- |     **cgroup_unix_recvmsg** | **cgroup_sysctl** |
- |     **cgroup_getsockopt** | **cgroup_setsockopt** |
- |     **cgroup_inet_sock_release** }
--| *ATTACH_FLAGS* := { **multi** | **override** }
-+| *ATTACH_FLAGS* := { **multi** | **override** | **preorder** }
- 
- DESCRIPTION
- ===========
-@@ -75,10 +75,13 @@ bpftool cgroup attach *CGROUP* *ATTACH_TYPE* *PROG* [*ATTACH_FLAGS*]
-     Attach program *PROG* to the cgroup *CGROUP* with attach type *ATTACH_TYPE*
-     and optional *ATTACH_FLAGS*.
- 
--    *ATTACH_FLAGS* can be one of: **override** if a sub-cgroup installs some
-+    *ATTACH_FLAGS* can include: **override** if a sub-cgroup installs some
-     bpf program, the program in this cgroup yields to sub-cgroup program;
-     **multi** if a sub-cgroup installs some bpf program, that cgroup program
--    gets run in addition to the program in this cgroup.
-+    gets run in addition to the program in this cgroup;
-+    **preorder** requests that this program executes before programs attached
-+    further down the cgroup hierarchy during evaluation. **preorder** can be
-+    combined with **multi**.
- 
-     Only one program is allowed to be attached to a cgroup with no attach flags
-     or the **override** flag. Attaching another program will release old
-diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
-index 75cbcb512eba..819757d7a360 100644
---- a/tools/bpf/bpftool/bash-completion/bpftool
-+++ b/tools/bpf/bpftool/bash-completion/bpftool
-@@ -1057,7 +1057,7 @@ _bpftool()
-                 attach|detach)
-                     local BPFTOOL_CGROUP_ATTACH_TYPES="$(bpftool feature list_builtins attach_types 2>/dev/null | \
-                         grep '^cgroup_')"
--                    local ATTACH_FLAGS='multi override'
-+                    local ATTACH_FLAGS='multi override preorder'
-                     # Check for $prev = $command first
-                     if [ $prev = $command ]; then
-                         _filedir
-diff --git a/tools/bpf/bpftool/cgroup.c b/tools/bpf/bpftool/cgroup.c
-index ce69d1e5468e..aec1281c95d8 100644
---- a/tools/bpf/bpftool/cgroup.c
-+++ b/tools/bpf/bpftool/cgroup.c
-@@ -56,7 +56,7 @@ static const int cgroup_attach_types[] = {
- };
- 
- #define HELP_SPEC_ATTACH_FLAGS						\
--	"ATTACH_FLAGS := { multi | override }"
-+	"ATTACH_FLAGS := { multi | override | preorder }"
- 
- #define HELP_SPEC_ATTACH_TYPES						\
- 	"       ATTACH_TYPE := { cgroup_inet_ingress | cgroup_inet_egress |\n" \
-@@ -269,6 +269,39 @@ static int show_effective_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
- 	return 0;
- }
- 
-+static const char *format_attach_flags(__u32 attach_flags, char *buf, size_t sz)
-+{
-+	static const struct {
-+		__u32 flag;
-+		const char *name;
-+	} flags[] = {
-+		{ BPF_F_ALLOW_MULTI, "multi" },
-+		{ BPF_F_ALLOW_OVERRIDE, "override" },
-+		{ BPF_F_PREORDER, "preorder" },
-+	};
-+	size_t len = 0;
-+	size_t i;
-+	int n;
-+
-+	buf[0] = '\0';
-+	for (i = 0; i < ARRAY_SIZE(flags); i++) {
-+		if (attach_flags & flags[i].flag) {
-+			n = snprintf(buf + len, sz - len, "%s%s",
-+				     len ? "," : "", flags[i].name);
-+			if (n < 0 || (size_t)n >= sz - len)
-+				return buf;
-+			len += n;
-+			attach_flags &= ~flags[i].flag;
-+		}
-+	}
-+
-+	if (attach_flags)
-+		snprintf(buf + len, sz - len, "%sunknown(%x)",
-+			 len ? "," : "", attach_flags);
-+
-+	return buf;
-+}
-+
- static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
- 				   int level)
- {
-@@ -276,7 +309,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
- 	__u32 prog_attach_flags[1024] = {0};
- 	const char *attach_flags_str;
- 	__u32 prog_ids[1024] = {0};
--	char buf[32];
-+	char buf[64];
- 	__u32 iter;
- 	int ret;
- 
-@@ -296,21 +329,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
- 		__u32 attach_flags;
- 
- 		attach_flags = prog_attach_flags[iter] ?: p.attach_flags;
--
--		switch (attach_flags) {
--		case BPF_F_ALLOW_MULTI:
--			attach_flags_str = "multi";
--			break;
--		case BPF_F_ALLOW_OVERRIDE:
--			attach_flags_str = "override";
--			break;
--		case 0:
--			attach_flags_str = "";
--			break;
--		default:
--			snprintf(buf, sizeof(buf), "unknown(%x)", attach_flags);
--			attach_flags_str = buf;
--		}
-+		attach_flags_str = format_attach_flags(attach_flags, buf, sizeof(buf));
- 
- 		show_bpf_prog(prog_ids[iter], type,
- 			      attach_flags_str, level);
-@@ -593,6 +612,8 @@ static int do_attach(int argc, char **argv)
- 			attach_flags |= BPF_F_ALLOW_MULTI;
- 		} else if (is_prefix(argv[i], "override")) {
- 			attach_flags |= BPF_F_ALLOW_OVERRIDE;
-+		} else if (is_prefix(argv[i], "preorder")) {
-+			attach_flags |= BPF_F_PREORDER;
- 		} else {
- 			p_err("unknown option: %s", argv[i]);
- 			goto exit_cgroup;
+Changes in v3:
+- Resent to fix threading of the series.
+- Link to v2: https://lore.kernel.org/r/20260803-b4-fix-aer-memleaks-v2-1-fd199b0171fd@google.com
+
+Changes in v2:
+- Refactored aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
+  is called unconditionally for every dequeued record.
+- Added Patch 1 to fix related memory leak in aer_recover_queue() on kfifo
+  buffer overflow.
+- Link to v1: https://lore.kernel.org/r/20260803183853.432459-2-rathodpriyank@google.com
+
+---
+Priyank Rathod (2):
+      PCI/AER: Fix memory leak in aer_recover_queue() on kfifo buffer overflow
+      PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing
+
+ drivers/pci/pcie/aer.c | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
+---
+base-commit: f259f446f5198d98e13756d2cd531812a0ad3064
+change-id: 20260803-b4-fix-aer-memleaks-524a1bd5e888
+
+Best regards,
 -- 
-2.55.0
+Priyank Rathod <rathodpriyank@google.com>
 
