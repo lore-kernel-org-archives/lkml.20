@@ -1,33 +1,33 @@
-Received: from outbound.mr.icloud.com (mr-2006b-snip4-8.eps.apple.com [57.103.70.81])
+Received: from outbound.mr.icloud.com (mr-2006k-snip4-5.eps.apple.com [57.103.70.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5834EE877
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.70.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B484EF158
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.70.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737353; cv=none; b=PWOSal8xfZP6RK1ipNcbQ8ITDG6i9Ai35iFzYTnkPTAzsXTbtQMdP9XATmjAo534TnsNGhp5rpO3GzbxqBmIy5R3oFcpcEbLiGRkwGg5hmlupZyRv5kDBqYN0CqsrFhBDAHDXXWghqXQTGAuuV7UgIvD6yyyMfE2niYlMSpXtE0=
+	t=1789737356; cv=none; b=AHTf+VAwu/EJHvMyTMK4kf5ymlMubIlEId9feiTYBb5krb8dFX3UTfcEA2Fzlpzuz9Z88x5s5l0by8iu9FK/vFQlD+sG53UjqnvGu/itis+hqqbgKeYNxGmL1yNIw8gn+ERdafe5ehO70FL45IcYqrqT2ulBsEHl9DC5CnVgO5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737353; c=relaxed/simple;
-	bh=TpfVzg/o0+flcrP5jGPn7glWbOb9l8ozS11Mhy5QZG4=;
+	s=arc-20240116; t=1789737356; c=relaxed/simple;
+	bh=p2okyfPLCnxAICiInXOWk1vNSGNW7JmaTMW9Ss2+cXw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pU5G90uGAhzCkc5aF5dFNsBEWIBXpmtGWzzlgpIbH+rKd7UgKe25NSZ0xbz/kMeRwUSj4REGDvKPJnG56YG17tYOkqax0rGYgSNEow8rm1H/e6S01KmWcJ+BYoGBm4PdfukQIRMj5FyOOLPBnqlWggwpSyhInVQY3J6xt3cut1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=n3SIX7yN; arc=none smtp.client-ip=57.103.70.81
+	 In-Reply-To:To:Cc; b=AgZciv35dMaMn04wNRscTa/ZIJpoRMlODthIL8Rtaj9DAhdR4GhWgiBkCDMPMnwMTcwbjnK/hsxQOyibbieOYugFFumwtJkxbYNEVv1vv+GSyCITfGfofPW3v3PCWpNvEAxUqVFQqg74EktL6Bg2mHU1vpAUmxAFCrwp/RZ7iFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=smzzl1Sy; arc=none smtp.client-ip=57.103.70.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="n3SIX7yN"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="smzzl1Sy"
 Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id EF95B1801878;
-	Fri, 18 Sep 2026 13:15:44 +0000 (UTC)
-X-ICL-RepId: 01a0b4a8-9f61-7b78-8aa0-6d87e68571e2
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGA10NQQpaAFIBQV9MBlh3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737350; x=1792329350; bh=2ra59WfJb1Td+zzHnAJy6s+dAtb1vmFdzxQdY4PbQxA=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=n3SIX7yNVHty7ZdX6XylCdP4qakGokQcjr0o76FWr8olNpeSP4YI+F/i10/PDlG2xhm8X2xv/xcISNKfzN2eSdDH36CHvhIyu4I4Z5pcTvhI6rHzD2VcDsHh4YEePz3WIMUCD1naIxmAcqNAnpSZm42xZl9qzAX3OryeSq1IxHstefVyblZfw07pivnmgKHGbc/vckD0PLTsxI2/T4lIZW8ciUMM9Q25iuvuj7T8tXU/3m/SvtFkDqUGiaSYpOCdLOgThLWyGYaX3Psi2uY4HfcE2Uka7OKD1ulDn/MiSat1On2LaeW02czJZMR6SGdRZI1T3DPRwS1Fp9cZbVHIAQ==
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 87C401800870;
+	Fri, 18 Sep 2026 13:15:48 +0000 (UTC)
+X-ICL-RepId: 01a0b4a8-ad48-7976-92c1-2cd601067d2b
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGAF0NQQpaAFIBQV9MBlh3AlEcVg1XQ1QEX04ZDEodUlZbE1UXRgk=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737353; x=1792329353; bh=6/XQOq37LtwyxJqEa+VJk2M/nXUic2niECbJ04vPEb8=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=smzzl1SyxTSGFgsZ2zESyuwnhfR4TWW2TmGvXn5V3zWwpy5WR+RNoXrufR9dOnmtKoB3xOY/gZIDBZCCOQywTpQLAZUvSq+LDN/Quo9T4nKSToLUw4XRr8awtJoiM7I4MJjd7JOCvuhXKdxWWiYN8XJ6w/Rf+ag13FiQC8jj57pbPthb9Z31RNmG9IibbBPc0a6ag45rX6p8rbff2fbuItF8Yki3pOXEGuhOIQzeKtlpgMeZEFg1IkliHnUAoqhLYR44C7kD1MSdqcY2gG8y+WPnne5iq6fqz8830lJLOQ1XVgH5wCns+c5Cc994ux773VmuZ3CnNailyYyMy8JtuQ==
 Received: from [127.0.0.1] (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id 6F45F1801853;
-	Fri, 18 Sep 2026 13:15:41 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id AB1EB1803F1D;
+	Fri, 18 Sep 2026 13:15:44 +0000 (UTC)
 From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Fri, 18 Sep 2026 15:15:06 +0200
-Subject: [PATCH 01/14] media: v4l2: Add P210 pixel format
+Date: Fri, 18 Sep 2026 15:15:07 +0200
+Subject: [PATCH 02/14] dt-bindings: media: add apple,avd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-avd-v1-1-49977931f455@icloud.com>
+Message-Id: <20260918-avd-v1-2-49977931f455@icloud.com>
 References: <20260918-avd-v1-0-49977931f455@icloud.com>
 In-Reply-To: <20260918-avd-v1-0-49977931f455@icloud.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -50,96 +50,161 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  Sofus Forstreuter <sofus.c@icloud.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: kzhGWJTcw42M2A7t4juD7sN9WIJU03rY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX3Fy6A4xlhU1e
- PF9/pa5E2aM9Y2TTdmRxgOwD6kJL8wM+6iqalxLUlj1JPyi/57DQOyn0XCFu4tJTk/xnME9gAK0
- HCEB1Ns2lClGHzYxIdM6H26MgwdOLzDbr5ygBj2EDSurPs0QltvBFd9sh0M+ACTynBiOOQQgk/9
- DDZ7dt98OHB9kZgBpbWpSlw8p6po/lCICk/O2sAdqkhReV1yPG+KRYi1zHPwplzLjMwNMTlHkpX
- 0MQGGqsMHG6Vj6l37GBZYA8KJVHJ+GlUkmIzjTvLRDhuR0Eu2snINJzk78w0NI/xWPkMh1ZYrPF
- MrR+F+bdEWRccJW9Jy/P9PL8n6js5yRIMqliDGKx0e655RJ1ybn4z7teHjUYww=
-X-Authority-Info-Out: v=2.4 cv=LtafC3dc c=1 sm=1 tr=0 ts=6aad3985
+X-Proofpoint-ORIG-GUID: W3r0z4ne5IPIn0SGTBMu_VtDNz50gufT
+X-Authority-Info-Out: v=2.4 cv=VaD6/Vp9 c=1 sm=1 tr=0 ts=6aad3987
  cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
  a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=dTfWxpUtucAophMp4g4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: kzhGWJTcw42M2A7t4juD7sN9WIJU03rY
-X-JNJ: AAAAAAABKZT68bqb9BXh7HQzfM6clOzkIqYw9/alC7rbs2QEZ3eMDpXlZX9rKY0yn02O/PEmO9LZ5vo4811XlxRmAqcIA4C42KdNavU5LxGc5srdz19RV7vhDJKeTaPerjJlagjMxkcIwjINDufqCKM1fHPnm/YB2yKNZWqPpsC9gCBr44SpuCOl5D+qnUt4LFZF44Gsv/oT2faWVRyN8o+dkYk/onPzTNqbmmQaK1a700rfjzvNXW9KVc2B8QoiX66o5AWLT+LHG0ps7WnB/lR7zTijYdyr52BuB3rZqSkA51HzKLkqnVkmjyrbiI0KixrXGN2B9lMkhArepnew9cNQJ66gFcD6MgUObdcJHqoUu/0hoOpP5/V+ngZRPzD9q62YgqOMyq46oG0w7GcEYk6ccA5N7u5xTFKncA1oS+xKJUwuDMlOuHBTTUsvONww5wU8IuMQbM/wERYWpwIVDJIOaaZ+7spdZEJkV2X1UyC2/vTSTjoz0fv/I4zrCMOAjnlVjjgNltSV56vOm1TFG2HnHTW77QaK8CGNjf8ct+OhvNLAjNv7OP6c7+VgZtPI6CLyMhDVeQ3HfbD0nmN97+h+/fFByB8BsB1noMN/M9jKsm9ihDtErNNwV/+Wb0KHIr9l+0OenmcjL+W7yAFYQHE5OYvmCNbU/GH5XyE8sQCLty1eXy9pnslbGylA8erUoF4Hp65lUI8RKY74ReJ/7nS8nRofNq5ThjCkDDi814xuebz+fQd12QHXsnNfJTNGI+LiP6kyz2t1p2RkyfTBaMb/Zy7tih8cXRz7OPZatACgIx9I0J8Pb5Ly4qfA9FtFVJkqXRplUExOmWZ+uVhIGJLjSznqD1UxDj8SQrSrQId2
+ a=gEfo2CItAAAA:8 a=v3ZZPjhaAAAA:8 a=8V0BG8AgQ9fJwKtalr0A:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: W3r0z4ne5IPIn0SGTBMu_VtDNz50gufT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4NyBTYWx0ZWRfX/cKuMXzpoaZW
+ /rPfeVZjakGuLMiOzOOidUpxHBpChRXgn3xRkTjf2+810il822wVXNMjpLXHts1Vc2Rpe6hV19O
+ vvNOr0qhExW22afXpuGPBOKygYRL5Y/rNJlmPSUuIOC3onrUlbn7Lk6VJmYiFpOqkjmVfiYkxWN
+ IvTY+0ys/GnGqnwzTg+JVJW7Qme1ulsC/GVFdOOKb+AifVn5pb9eq5f9xd3NSI7JKxY9x0y3Bqg
+ Ke8ugyV3YeLeFSX2dTzHnpwPxEogibf/IZYlpq6GP1kBfaowsYE5GHULwLCfRuBK8LYYbrVuuwl
+ fJLhyxsA6a8fDPni/ynUg7GSMus1BbTUbTv61+nyq9CzBtlWaxZexFISUTbAqI=
+X-JNJ: AAAAAAABprNxh1+Kh1JswuyRdL5YgfFMxBdQf4Np6sMGUExWm7kEcd6Zi54fXr8uN71/ynXGd2Tbi8Iv28uNAUncTW6p+66B0p92ML/OyTjLHj56XecCZTqvM9MfwS+i22P3hj1jjuM/EpSxl1gk8vVzNrTthv1sVUxkbEvPHB3lU2TviX+4x6omNDBzvxsHDXAD/JPUBzwGfJ1bUsfT2idK8boz/WQQ2rxzEewe/5v+rqsvK0J/M7daNBtmpXS6X3cl7YheK0QMKllKSgsvgT1SVA3HA/+iutCwcpZfljdrwzB6ozkL5vaUEd1TiS4WPl+n8XABBl5pgHDY+hLJgq3Q/RVm8EkbDDWppwGZYvpg17Tl6lgiCoQwr9W84YQr8Xa2RMjPvHmtEE6rNCQL0csxp9Z4eGADow4I6BKK1rKHDpTGd/RA7PFIlnh9hzNjJNP/Nm5sgK+cmq3rZmPYlQERcTsl7EjteHvUkSpXxaVYkS9NEkdchPa/0RiDYI+I7eCyo7qb59V8/761Rp2Ps+6vlB31NujMxIUciIGGhMQI8BAAQV0N3+zSFPp8xB6wudTXqHsWUx74jB8w26VRVnyAgUJF1axTGjqK9fhhf0jbP59rjpGUQIzaPy+jD3ZD82Mv3jVulgufVbi9Ir1dT7q8tiA2p6qVOWPhrl8cnt8OVZWnLtwSj28ISkxV2vaUKA2gv4P7RxuZdZylv8UzHHJTirTGsTKLc9jkrzdPTx0foJ7O15JyLYSwfTdnO10sm4ZMfHrP/R3+ABUteVEkVxiE7Av7m3hObCDCFIyeCYxoK15lI35vByR+kyUzq+RG6tQEKdFTlFxuCkNcgAR5M00PKnt5eI7OE8bu4orQQSg2GoY0kRzwFCVvBOhSeu0F+deIJ+XuHkeXaw==
 
-P210 is a YUV format with 10-bits per component with interleaved UV.
+Document the Apple Video Decoder. A hardware video decoder present on
+Apple hardware.
 
 Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst | 10 +++++++++-
- drivers/media/v4l2-core/v4l2-common.c                       |  1 +
- drivers/media/v4l2-core/v4l2-ioctl.c                        |  1 +
- include/uapi/linux/videodev2.h                              |  1 +
- 4 files changed, 12 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/media/apple,avd.yaml       | 112 +++++++++++++++++++++
+ MAINTAINERS                                        |   1 +
+ 2 files changed, 113 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-index 0631919bd667..8509f2415c9b 100644
---- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-@@ -138,6 +138,13 @@ All components are stored with the same number of bits per component.
-       - Cb, Cr
-       - No
-       - Linear
-+    * - V4L2_PIX_FMT_P210
-+      - 'P210'
-+      - 10
-+      - 4:2:2
-+      - Cb, Cr
-+      - Yes
-+      - Linear
-     * - V4L2_PIX_FMT_NV15
-       - 'NV15'
-       - 10
-@@ -834,8 +841,9 @@ number of lines as the luma plane.
- 
- .. _V4L2_PIX_FMT_P010:
- .. _V4L2-PIX-FMT-P010-4L4:
-+.. _V4L2-PIX-FMT-P210:
- 
--P010 and tiled P010
-+P010, tiled P010 and P210
- -------------------
- 
- P010 is like NV12 with 10 bits per component, expanded to 16 bits.
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index c825820fd481..b78fc0845a16 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -325,6 +325,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
- 		{ .format = V4L2_PIX_FMT_NV42,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_P010,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_P012,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
-+		{ .format = V4L2_PIX_FMT_P210,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 2, 4, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 
- 		{ .format = V4L2_PIX_FMT_YUV410,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 4, .vdiv = 4 },
- 		{ .format = V4L2_PIX_FMT_YVU410,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 4, .vdiv = 4 },
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 17ba1ae70735..1f2519ffeb2b 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1369,6 +1369,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_PIX_FMT_NV42:		descr = "Y/VU 4:4:4"; break;
- 	case V4L2_PIX_FMT_P010:		descr = "10-bit Y/UV 4:2:0"; break;
- 	case V4L2_PIX_FMT_P012:		descr = "12-bit Y/UV 4:2:0"; break;
-+	case V4L2_PIX_FMT_P210:		descr = "10-bit Y/UV 4:2:2"; break;
- 	case V4L2_PIX_FMT_NV12_4L4:	descr = "Y/UV 4:2:0 (4x4 Linear)"; break;
- 	case V4L2_PIX_FMT_NV12_16L16:	descr = "Y/UV 4:2:0 (16x16 Linear)"; break;
- 	case V4L2_PIX_FMT_NV12_32L32:   descr = "Y/UV 4:2:0 (32x32 Linear)"; break;
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5373dba640fa..b5949c378f2e 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -659,6 +659,7 @@ struct v4l2_pix_format {
- #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/CrCb 4:4:4  */
- #define V4L2_PIX_FMT_P010    v4l2_fourcc('P', '0', '1', '0') /* 24  Y/CbCr 4:2:0 10-bit per component */
- #define V4L2_PIX_FMT_P012    v4l2_fourcc('P', '0', '1', '2') /* 24  Y/CbCr 4:2:0 12-bit per component */
-+#define V4L2_PIX_FMT_P210    v4l2_fourcc('P', '2', '1', '0') /* 24  Y/CbCr 4:2:2 10-bit per component */
- 
- /* two non contiguous planes - one Y, one Cr + Cb interleaved  */
- #define V4L2_PIX_FMT_NV12M   v4l2_fourcc('N', 'M', '1', '2') /* 12  Y/CbCr 4:2:0  */
+diff --git a/Documentation/devicetree/bindings/media/apple,avd.yaml b/Documentation/devicetree/bindings/media/apple,avd.yaml
+new file mode 100644
+index 000000000000..34a4129d6a46
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/apple,avd.yaml
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/apple,avd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Apple Video Decoder (AVD)
++
++description: |
++  AVD is a stateless video decode IP block present on Apple devices.
++  Notably it includes an ARM Cortex-M3 and associated DMA controller.
++  AVD is capable of decoding H264, H265, VP9 and AV1 on never SoCs.
++
++  The IP does not change much, with changes being mostly the CM3 having more
++  memory and interrupts.
++
++maintainers:
++  - Sofus Forstreuter <sofus.c@icloud.com>
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - apple,t6030-avd
++              - apple,t6031-avd
++          - const: apple,t8122-avd
++      - enum:
++          - apple,t8103-avd
++          - apple,t8112-avd
++          - apple,t8122-avd
++          - apple,t6000-avd
++          - apple,t6020-avd
++
++  reg:
++    minItems: 4
++    items:
++      - description: Cortex-M3 code (unsigned)
++      - description: Cortex-M3 sram
++      - description: Mailbox
++      - description: Video decode control
++      - description: DMA control
++
++  reg-names:
++    items:
++      - const: code
++      - const: sram
++      - const: mbox
++      - const: ctrl
++
++  iommus:
++    minItems: 1
++    maxItems: 3
++    description: |
++      The block contains 3 iommus, one for decode operations, one the DMA
++      controller can use and the last for decoding drm-protected content.
++
++  power-domains:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  interrupts:
++    minItems: 2
++    items:
++      - description: mailbox 0
++      - description: mailbox 1
++      - description: mailbox 2
++      - description: mailbox 3
++      - description: flag 0
++      - description: flag 1
++      - description: DMA status
++    description: |
++      Notably there are no decode related interrupts. All decode related
++      interrupts are sent to the CM3.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - reg-names
++  - iommus
++  - power-domains
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/apple-aic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        avd: avd@289080000 {
++            compatible = "apple,t8122-avd";
++            reg = <0x2 0x89080000 0x0 0x12000>,
++                  <0x2 0x89092000 0x0 0x12000>,
++                  <0x2 0x890a4000 0x0 0x4000>,
++                  <0x2 0x89100000 0x0 0x10000>;
++            reg-names = "code", "sram", "mbox", "ctrl";
++            interrupt-parent = <&aic>;
++            interrupts = <AIC_IRQ 679 IRQ_TYPE_LEVEL_HIGH>,
++                         <AIC_IRQ 680 IRQ_TYPE_LEVEL_HIGH>;
++            power-domains = <&ps_avd_sys>;
++            resets = <&ps_avd_sys>;
++            iommus = <&avd_dart 0>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4cc4a2dc6d30..3c7c5fe3f0bc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2643,6 +2643,7 @@ F:	Documentation/devicetree/bindings/iommu/apple,dart.yaml
+ F:	Documentation/devicetree/bindings/iommu/apple,sart.yaml
+ F:	Documentation/devicetree/bindings/leds/backlight/apple,dwi-bl.yaml
+ F:	Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml
++F:	Documentation/devicetree/bindings/media/apple,avd.yaml
+ F:	Documentation/devicetree/bindings/mfd/apple,smc.yaml
+ F:	Documentation/devicetree/bindings/net/bluetooth/brcm,bcm4377-bluetooth.yaml
+ F:	Documentation/devicetree/bindings/nvme/apple,nvme-ans.yaml
 
 -- 
 2.55.0
