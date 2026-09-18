@@ -1,268 +1,143 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E30951D532
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17F151DAEF;
+	Fri, 18 Sep 2026 18:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755805; cv=none; b=TztoZk50fydLioJVWCAe3LPohuu3HjfJzK5huF9H0WOS1oiTThqG0Vnu/gSkn7Ak4edQYEpyqezZEfx9KeXnfijuzYPW5WYFh7Twtz6t8bGMbmp4J7iBkIzwzG3YhWtFTF4xkWCAm6TqgUNxwZTmATpfztLZ6jjYLR1TiYlcDZ8=
+	t=1789755812; cv=none; b=Mpku4GGRNThn7lyez+4QVZeJc9uyYT1jeblFPmdJZH30ctgsmsVXzMwVG23V+O+OPDu1KDzV8/Lge+vkcg3T5xabHkON38v2inmFaSXTxZYzKftT554i1W5AWH2KrOzkRjnT5ric4yMBbj+xJwKoZF6yY5sJYJXQTymBILC4KoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755805; c=relaxed/simple;
-	bh=xbqq04DVh17JBWLj7IT9qjTULFD4SlagBpWmL+g5Pl8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U6s2bgNyvo/ngJJGyzV1KDb3UIqdBrxKQAICzhmCcqbmJ7azTM9O6jyhJ/VfWWm/n+YhtGTjXZUmIEaS7kLOjAgu1STtYoG4WNfZcE9zVW3O3BF1HOpIlHBWxwpO0QkcF2ClNnl9QZE+Q93+dOmxs4+LqIWP3ZafIMxDMsWOKoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QmAK6/z3; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789755812; c=relaxed/simple;
+	bh=d+rGlc0pbtVK4XzoV8uWfY8OXZOU+LcdoVVlgtwJD40=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=GinjiB5OFetXQzO5EB6mL1XPCclfmA/TnHnVo8rCs6/DnI7lS1vP0EdyHeA2wBDwliteGQt5KfM5br1QOVdL9zCSrJTwShi9+ZgoYOmj0ykJ+txoNeYNio0HrZh5EseFAzNnQuZLMuyHcSRYJJHgjaDdKagx9zi4alnn2Q7DRUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LigytgLM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QmAK6/z3"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5EE20C5847A;
-	Fri, 18 Sep 2026 18:24:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7388C60649;
-	Fri, 18 Sep 2026 18:23:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9572210329076;
-	Fri, 18 Sep 2026 20:23:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789755794; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jvYN8HpLvuT2zQeLc4uffktogt+5pniMrEPXUK0/+B8=;
-	b=QmAK6/z3xTaRQwDSumCD5v/BPsrCUX8kx7Gy73ocQPn6ecg8RLpwKffnpxD9D0ShYJ/+48
-	fxUDoNTHg+PHe4Yd+wjBYTeD4Rg7iiltPwgH0VliXpj3PpIdYF3CCeoGkcCJw5P8IdOqJK
-	22gtJEO7R7d1rKJsMX1FdXqrsWsRGD1rKk2mXuLB4nDVItUwiqXuSejoKLqNpedgemQ2WQ
-	krH9AQ6ULxz6z5d++h8ZdUUeWIX1ATcdsvJNf0GvUmnoWCa/+CAS4HBx7/a6i6gK40+zsw
-	7kkvQMR3tuEBbo6354dSav+My+jfi1Rlw/By4onTuTPdpf1qJa3r327Ik2CU9A==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Fri, 18 Sep 2026 20:22:57 +0200
-Subject: [PATCH 6.12.y 1/3] netfilter: nf_conntrack_pptp: move GRE specific
- cleanup to GRE tracker
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LigytgLM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8051F0089A;
+	Fri, 18 Sep 2026 18:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789755810;
+	bh=A+EMHsiUq4MhvZlbqLzyCoCrUQotlt+rAXyNc18cwYU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=LigytgLMtFnkhfymH5Dpn9meYqBLq72Tj1S3KkX4IbFf+FEeJeueYW+xlro2G5QEv
+	 y8IODQkydHoLSe/33rxidXXYAOHLCOgavo+f78vEaB4pajPIPuvkU2Z3IMvLEZIWq+
+	 F4LzAWUihN0hLf6pAdr3rLgBsN/qYLCyMlY3HIUZPmpju/w5oxU2SbajezGx101+c/
+	 UlM9sFu9KbucetHWkIg43yY+HB1/uD5tw8njgPgUAQA71ExUN2Pg0Qgu2QecI7ZEzO
+	 PNL5lGWG5F2yI0P2xBotQnhL/5P/DSalNXYjCufioFUfyz/MpW00MBgTQ1wrnIrH0S
+	 Kl09bhYtEgoww==
+Content-Type: multipart/mixed; boundary="===============4857884969883362252=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Message-Id: <aef608763223e20b18f1aeaa837dca130fac90207177723508254a41b756ff98@mail.kernel.org>
+In-Reply-To: <20260918172407.3459188-3-sh_def@163.com>
+References: <20260918172407.3459188-3-sh_def@163.com>
+Subject: Re: [PATCH bpf 2/3] selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
+From: bot+bpf-ci@kernel.org
+To: sh_def@163.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: yonghong.song@linux.dev,qmo@kernel.org,martin.lau@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,sh_def@163.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 18 Sep 2026 18:23:29 +0000 (UTC)
+
+--===============4857884969883362252==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-cve-2026-80668-v2-v1-1-fcefceb49144@bootlin.com>
-References: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
-In-Reply-To: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
-To: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
- Jozsef Kadlecsik <kadlec@netfilter.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
- Florian Westphal <fw@strlen.de>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>, 
- Sasha Levin <sashal@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789755780; l=6834;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=5BQ8xm65ENU6OETpG/UvjP2cCOG3RWZ/x+rThU0mU2c=;
- b=rb3C5TKkCCUvDlQT+KBxG5fEVykZIv9j+Kh17zFvaLi5IXvSj9v5tRO3NGoG9rfLbowT+uVVM
- CLuozVPOx9ADZh6Zcv/PGE0yuskFvmlYZj3v0gpQGq0t4ehwVic4Ggz
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+> diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
+> index bb60704a3ef92..343357d9c460e 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
 
-[ Upstream commit fe97fd540a03034a780224f24b0b2f0e21c9c763 ]
+[ ... ]
 
-Move the GRE specific cleanup to nf_conntrack_proto_gre.c to ensure that
-the .destroy callback for the pptp helper is still reachable by existing
-conntrack entries while pptp module is being removed.
+> @@ -357,6 +380,34 @@ static void test_preorder_prog_attach_detach(int atype)
+>
+>  	assert_mprog_count(cg, atype, 4);
+>
+> +	optq.prog_ids = prog_ids;
+> +	optq.prog_attach_flags = prog_attach_flags;
+> +	optq.count = 10;
+> +	err = bpf_prog_query_opts(cg, atype, &optq);
+> +	if (!ASSERT_OK(err, "prog_query"))
+> +		goto cleanup4;
+> +
+> +	ASSERT_EQ(optq.count, 4, "count");
+> +	/* Direct query reports attached programs in cgroup list order.
+> +	 * Lookup by prog_id to verify per-program flags independently of slot index.
+> +	 */
+> +	err = find_prog_attach_flags(&optq, id1, &flags);
+> +	if (ASSERT_OK(err, "find id1"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id1");
+> +
+> +	err = find_prog_attach_flags(&optq, id2, &flags);
+> +	if (ASSERT_OK(err, "find id2"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id2");
+> +
+> +	err = find_prog_attach_flags(&optq, id3, &flags);
+> +	if (ASSERT_OK(err, "find id3"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id3");
+> +
+> +	err = find_prog_attach_flags(&optq, id4, &flags);
+> +	if (ASSERT_OK(err, "find id4"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id4");
+> +
+> +cleanup4:
+>  	err = bpf_prog_detach_opts(fd4, cg, atype, &optd);
 
-This is a preparation patch, no functional changes are intended.
+[ ... ]
 
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Stable-dep-of: 979c13114c0b ("netfilter: nf_conntrack_expect: store master_tuple in expectation")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+> @@ -460,6 +520,34 @@ static void test_preorder_link_attach_detach(int atype)
+>
+>  	assert_mprog_count(cg, atype, 4);
+>
+> +	optq.prog_ids = prog_ids;
+> +	optq.prog_attach_flags = prog_attach_flags;
+> +	optq.count = 10;
+> +	err = bpf_prog_query_opts(cg, atype, &optq);
+> +	if (!ASSERT_OK(err, "prog_query"))
+> +		goto cleanup4;
+> +
+> +	ASSERT_EQ(optq.count, 4, "count");
+> +	/* Direct query reports attached programs in cgroup list order.
+> +	 * Lookup by prog_id to verify per-program flags independently of slot index.
+> +	 */
+> +	err = find_prog_attach_flags(&optq, id1, &flags);
+> +	if (ASSERT_OK(err, "find id1"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id1");
+> +
+> +	err = find_prog_attach_flags(&optq, id2, &flags);
+> +	if (ASSERT_OK(err, "find id2"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id2");
+> +
+> +	err = find_prog_attach_flags(&optq, id3, &flags);
+> +	if (ASSERT_OK(err, "find id3"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id3");
+> +
+> +	err = find_prog_attach_flags(&optq, id4, &flags);
+> +	if (ASSERT_OK(err, "find id4"))
+> +		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id4");
+> +
+> +cleanup4:
+>  	bpf_link__destroy(link4);
+
+This isn't a bug, but since the patch already introduces a helper
+(find_prog_attach_flags), would it be worth folding this
+query-and-check block into one too, so the two preorder subtests
+share it instead of carrying identical copies?
+
+The pattern appears twice: first in test_preorder_prog_attach_detach()
+and again verbatim in test_preorder_link_attach_detach() - same query
+setup, same comment, same four id/flag expectations, together with
+duplicated locals (prog_ids[10], prog_attach_flags[10], flags, optq).
+
+
 ---
- include/net/netfilter/ipv4/nf_conntrack_ipv4.h |  4 ++
- net/netfilter/nf_conntrack_pptp.c              | 63 +-------------------------
- net/netfilter/nf_conntrack_proto_gre.c         | 61 +++++++++++++++++++++++++
- 3 files changed, 67 insertions(+), 61 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/include/net/netfilter/ipv4/nf_conntrack_ipv4.h b/include/net/netfilter/ipv4/nf_conntrack_ipv4.h
-index 2c8c2b023848..890fa73d96d8 100644
---- a/include/net/netfilter/ipv4/nf_conntrack_ipv4.h
-+++ b/include/net/netfilter/ipv4/nf_conntrack_ipv4.h
-@@ -26,4 +26,8 @@ extern const struct nf_conntrack_l4proto nf_conntrack_l4proto_udplite;
- extern const struct nf_conntrack_l4proto nf_conntrack_l4proto_gre;
- #endif
- 
-+#if IS_ENABLED(CONFIG_NF_CONNTRACK_PPTP)
-+void gre_pptp_destroy_siblings(struct nf_conn *ct);
-+#endif
-+
- #endif /*_NF_CONNTRACK_IPV4_H*/
-diff --git a/net/netfilter/nf_conntrack_pptp.c b/net/netfilter/nf_conntrack_pptp.c
-index 4c679638df06..759683d7de4f 100644
---- a/net/netfilter/nf_conntrack_pptp.c
-+++ b/net/netfilter/nf_conntrack_pptp.c
-@@ -124,65 +124,6 @@ static void pptp_expectfn(struct nf_conn *ct,
- 	}
- }
- 
--static int destroy_sibling_or_exp(struct net *net, struct nf_conn *ct,
--				  const struct nf_conntrack_tuple *t)
--{
--	const struct nf_conntrack_tuple_hash *h;
--	const struct nf_conntrack_zone *zone;
--	struct nf_conntrack_expect *exp;
--	struct nf_conn *sibling;
--
--	pr_debug("trying to timeout ct or exp for tuple ");
--	nf_ct_dump_tuple(t);
--
--	zone = nf_ct_zone(ct);
--	h = nf_conntrack_find_get(net, zone, t);
--	if (h)  {
--		sibling = nf_ct_tuplehash_to_ctrack(h);
--		pr_debug("setting timeout of conntrack %p to 0\n", sibling);
--		sibling->proto.gre.timeout	  = 0;
--		sibling->proto.gre.stream_timeout = 0;
--		nf_ct_kill(sibling);
--		nf_ct_put(sibling);
--		return 1;
--	} else {
--		exp = nf_ct_expect_find_get(net, zone, t);
--		if (exp) {
--			pr_debug("unexpect_related of expect %p\n", exp);
--			nf_ct_unexpect_related(exp);
--			nf_ct_expect_put(exp);
--			return 1;
--		}
--	}
--	return 0;
--}
--
--/* timeout GRE data connections */
--static void pptp_destroy_siblings(struct nf_conn *ct)
--{
--	struct net *net = nf_ct_net(ct);
--	const struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
--	struct nf_conntrack_tuple t;
--
--	nf_ct_gre_keymap_destroy(ct);
--
--	/* try original (pns->pac) tuple */
--	memcpy(&t, &ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple, sizeof(t));
--	t.dst.protonum = IPPROTO_GRE;
--	t.src.u.gre.key = ct_pptp_info->pns_call_id;
--	t.dst.u.gre.key = ct_pptp_info->pac_call_id;
--	if (!destroy_sibling_or_exp(net, ct, &t))
--		pr_debug("failed to timeout original pns->pac ct/exp\n");
--
--	/* try reply (pac->pns) tuple */
--	memcpy(&t, &ct->tuplehash[IP_CT_DIR_REPLY].tuple, sizeof(t));
--	t.dst.protonum = IPPROTO_GRE;
--	t.src.u.gre.key = ct_pptp_info->pac_call_id;
--	t.dst.u.gre.key = ct_pptp_info->pns_call_id;
--	if (!destroy_sibling_or_exp(net, ct, &t))
--		pr_debug("failed to timeout reply pac->pns ct/exp\n");
--}
--
- /* expect GRE connections (PNS->PAC and PAC->PNS direction) */
- static int exp_gre(struct nf_conn *ct, __be16 callid, __be16 peer_callid)
- {
-@@ -347,7 +288,7 @@ pptp_inbound_pkt(struct sk_buff *skb, unsigned int protoff,
- 		info->cstate = PPTP_CALL_NONE;
- 
- 		/* untrack this call id, unexpect GRE packets */
--		pptp_destroy_siblings(ct);
-+		gre_pptp_destroy_siblings(ct);
- 		break;
- 
- 	case PPTP_WAN_ERROR_NOTIFY:
-@@ -593,7 +534,7 @@ static struct nf_conntrack_helper pptp __read_mostly = {
- 	.tuple.src.u.tcp.port	= cpu_to_be16(PPTP_CONTROL_PORT),
- 	.tuple.dst.protonum	= IPPROTO_TCP,
- 	.help			= conntrack_pptp_help,
--	.destroy		= pptp_destroy_siblings,
-+	.destroy		= gre_pptp_destroy_siblings,
- 	.expect_policy		= &pptp_exp_policy,
- };
- 
-diff --git a/net/netfilter/nf_conntrack_proto_gre.c b/net/netfilter/nf_conntrack_proto_gre.c
-index af369e686fc5..79b63df84a10 100644
---- a/net/netfilter/nf_conntrack_proto_gre.c
-+++ b/net/netfilter/nf_conntrack_proto_gre.c
-@@ -291,6 +291,67 @@ gre_timeout_nla_policy[CTA_TIMEOUT_GRE_MAX+1] = {
- };
- #endif /* CONFIG_NF_CONNTRACK_TIMEOUT */
- 
-+#if IS_ENABLED(CONFIG_NF_CONNTRACK_PPTP)
-+static int destroy_sibling_or_exp(struct net *net, struct nf_conn *ct,
-+				  const struct nf_conntrack_tuple *t)
-+{
-+	const struct nf_conntrack_tuple_hash *h;
-+	const struct nf_conntrack_zone *zone;
-+	struct nf_conntrack_expect *exp;
-+	struct nf_conn *sibling;
-+
-+	pr_debug("trying to timeout ct or exp for tuple ");
-+	nf_ct_dump_tuple(t);
-+
-+	zone = nf_ct_zone(ct);
-+	h = nf_conntrack_find_get(net, zone, t);
-+	if (h)  {
-+		sibling = nf_ct_tuplehash_to_ctrack(h);
-+		pr_debug("setting timeout of conntrack %p to 0\n", sibling);
-+		sibling->proto.gre.timeout        = 0;
-+		sibling->proto.gre.stream_timeout = 0;
-+		nf_ct_kill(sibling);
-+		nf_ct_put(sibling);
-+		return 1;
-+	} else {
-+		exp = nf_ct_expect_find_get(net, zone, t);
-+		if (exp) {
-+			pr_debug("unexpect_related of expect %p\n", exp);
-+			nf_ct_unexpect_related(exp);
-+			nf_ct_expect_put(exp);
-+			return 1;
-+		}
-+	}
-+	return 0;
-+}
-+
-+void gre_pptp_destroy_siblings(struct nf_conn *ct)
-+{
-+	struct net *net = nf_ct_net(ct);
-+	const struct nf_ct_pptp_master *ct_pptp_info = nfct_help_data(ct);
-+	struct nf_conntrack_tuple t;
-+
-+	nf_ct_gre_keymap_destroy(ct);
-+
-+	/* try original (pns->pac) tuple */
-+	memcpy(&t, &ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple, sizeof(t));
-+	t.dst.protonum = IPPROTO_GRE;
-+	t.src.u.gre.key = ct_pptp_info->pns_call_id;
-+	t.dst.u.gre.key = ct_pptp_info->pac_call_id;
-+	if (!destroy_sibling_or_exp(net, ct, &t))
-+		pr_debug("failed to timeout original pns->pac ct/exp\n");
-+
-+	/* try reply (pac->pns) tuple */
-+	memcpy(&t, &ct->tuplehash[IP_CT_DIR_REPLY].tuple, sizeof(t));
-+	t.dst.protonum = IPPROTO_GRE;
-+	t.src.u.gre.key = ct_pptp_info->pac_call_id;
-+	t.dst.u.gre.key = ct_pptp_info->pns_call_id;
-+	if (!destroy_sibling_or_exp(net, ct, &t))
-+		pr_debug("failed to timeout reply pac->pns ct/exp\n");
-+}
-+EXPORT_SYMBOL_GPL(gre_pptp_destroy_siblings);
-+#endif
-+
- void nf_conntrack_gre_init_net(struct net *net)
- {
- 	struct nf_gre_net *net_gre = gre_pernet(net);
-
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35376083935
+--===============4857884969883362252==--
