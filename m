@@ -1,188 +1,127 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 624C53B14A7;
-	Fri, 18 Sep 2026 15:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F8250B41B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746915; cv=none; b=Q5w8OocILKJyVReb1qlYDQQkw4/fYyK4TVfjjFmxXdxnXHk3ZnfCrMo4VR15dYE2MTl1CYCMy/7OpE0ByraePy2AXkFKigY+fbNxudpH1i0i8CIZbNMekYC67f0f6n+BsA1TfcmqD8M4j1px+TqXNEMADtyHGtijxLHKMGpBvxg=
+	t=1789746963; cv=none; b=rOcTHmDlsOPJ0VVHoHEqRPXjFXljw2zEbs9syNL8V6E7SgLtW4aTlzYENDN/izjsnRULcw4k3dJ8mgskuTmvW4B5Plm4oleIRZinFAI6aCeVxH8zJYfG/jKFIZxSCVccmqouG7IWktFk0Mq65HO+KkaWa+fxbSCE7nlXo65IIs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746915; c=relaxed/simple;
-	bh=h6rfWJQHWA6AbcMjJ6geNACzDmvpZX6SlmU6TfDDjl4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AsxEafN+GKZEIxhKC31oH+4rOlqm+xnwO+iWtPmgOM/3sgtzhJygUq8IQFMbD8N12BpdNtBVV8A3KdMmya/nTNzmdRTf+ZVLUSI1E5uQgxlHM18dUuhueweBiTeqsDVcWPNTW934AwqtOpAZ7CJueKPkpF5gkaKnnnO23BOF1Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Slvyn6V4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789746963; c=relaxed/simple;
+	bh=VzBIg2DX36nG7X+/n7IlCo2fJMZUGrggpdgEwOAV7I0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=cqXk14XAvG4dEhRS858SEyjMaAYdzC24w9x87L7Qg9aLc5Zw5AbCQ5vaZG/ve88T2xfEKVVr0l0QjBtfi+cd0Nj6txmmI2IRIs09QY8z0KzNH10jrEjd/xO14pmKL+phJ0n6KRHz+DGSRHljy1JWGc+OeMlQrSYqaWcHR1DBQsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p2hMNglS; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Slvyn6V4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 00D69168F;
-	Fri, 18 Sep 2026 08:55:09 -0700 (PDT)
-Received: from [10.57.83.108] (unknown [10.57.83.108])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 93FD43F7B4;
-	Fri, 18 Sep 2026 08:55:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789746912; bh=h6rfWJQHWA6AbcMjJ6geNACzDmvpZX6SlmU6TfDDjl4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Slvyn6V4Oo34Au5DOF1kboWsJhCsaV1c3o8YhZGZ1uDZIq6kJGrq06wenZFv5EDFt
-	 rc1I3KnVukf8/IyOeNPvQrdNuKb9cmLZVVwgE+SE8jrEkLVZCoxFvYokUmGawc8WSZ
-	 yCfWVIgzMcDRelK8r6NIxI4xxV77Jr9WyJ/BldhY=
-Message-ID: <f9a7cd29-8aa3-4436-a95e-999c03aad0d7@arm.com>
-Date: Fri, 18 Sep 2026 16:55:06 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p2hMNglS"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so1234073a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:56:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789746961; x=1790351761; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iBkctlRBevMkXW3iFcvrG/AH6FpsnkeJtwK+1UWTkNM=;
+        b=p2hMNglSnFx7HTcQKFe5jAbvd0RDevERIaZMchDjV3AmlsWBJJu/N2yL0Skxy8KB26
+         ei2XPZi9h+A99UmHIPYtRc+/W5P2ADr9G0QzLFoux5P0wEqWs8aX1ww3JoREuFV8p8zl
+         yKlOp+OW3qGNf6rQK4n079oV8pV/HuuznElZxq0atQTA8o2sXmitrRzCShjRGZ+0dEhH
+         TI3odKSDrvLNrXkDvm2waaNNnrGd4H4t6jVsiaWbK9dtanC/xeWDDk79xXHImYOqWYyv
+         WpIiJV2o9bYhDFMu88uyyXuRUvplX6ZnVZmwMrTRGSpUeCnVRnGp2jDXXMuhhS3nAk1n
+         7GOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789746961; x=1790351761;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iBkctlRBevMkXW3iFcvrG/AH6FpsnkeJtwK+1UWTkNM=;
+        b=SSCDEL5+F4wIDYA3UpY99OuxHxHKg/4gV9enho5coXlrG6UhVDHsB2RLbTukb+o/rf
+         ufOSkOlSjXTBCRSvkJPIDjpiKiYqTq+Dl4u2Wk36AcIWMSZndhSapKGB6qWvFDvRYa/5
+         YjsiqyjUcZbGU1NeMr9d3iHnUNFXbgds/9vHu2QFzaLx7ge3wUOpBQ3UneLj4PdgsVrW
+         /sC2HZH4mPGP7P0QM0iec+6l8fPu5aS6hJ6IDLKU0aNsXDQO58I3fzC+9dIk8+UoQ8DR
+         KduCWsk9lJCrFbgONHTLanNtvx56u+3UTXzKaJc8DFRvihoPOHt19jxLHcpHMPjvyxjm
+         wxFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwXNHCYTjIq8E9XPunLRanUc6sTLeTe1zDHQrL9rSyeWEeT6rClMnmpx4KQEf1Xxanqfvg3E5wbPyCEJH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKqD2fmYNxsiboCaOn1nCJWnOOoowq7vpA+VB38gBMZZUZ8RZe
+	4VzAIjRAvgcc6SbO6KhzFcPKVJGyMdeYrTYbifR4yowFUDCpxDLh+Uj4PGc2WcldzIMyVAlxNRq
+	4wjXmeg==
+X-Received: from pjbpm7.prod.google.com ([2002:a17:90b:3c47:b0:39e:64b2:d2e7])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:50cc:b0:39d:e43c:5a0d
+ with SMTP id 98e67ed59e1d1-39e54ce0f4cmr7161460a91.8.1789746961199; Fri, 18
+ Sep 2026 08:56:01 -0700 (PDT)
+Date: Fri, 18 Sep 2026 08:56:00 -0700
+In-Reply-To: <20260918154530.4129698-1-jmattson@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] arm64: use hw_pte_val for HW PTE atomics
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org
-References: <20260914-pte0_arm-v1-0-bb53b663e396@arm.com>
- <20260914-pte0_arm-v1-2-bb53b663e396@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260914-pte0_arm-v1-2-bb53b663e396@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260918154530.4129698-1-jmattson@google.com>
+Message-ID: <aq1fEBajndF8qRV-@google.com>
+Subject: Re: [PATCH] KVM: x86: Disallow EFER.LMSLE when EferLmsleUnsupported
+ is set in guest CPUID
+From: Sean Christopherson <seanjc@google.com>
+To: Jim Mattson <jmattson@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Nikunj A Dadhania <nikunj@amd.com>, Yosry Ahmed <yosry@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On 14/09/2026 14:51, Muhammad Usama Anjum wrote:
-> Add hw_pte_val() to preserve an lvalue for the HW PTE bits, so atomic
-> updates can take their address. pte_val() expects a SW PTE value and
-> cannot operate directly on a distinct hw_pte_t.
+On Fri, Sep 18, 2026, Jim Mattson wrote:
+> Reject guest writes to EFER (and nested VMRUN with VMCB12 EFER) that set
+> EFER.LMSLE when CPUID.80000008H:EBX.EferLmsleUnsupported[bit 20] is set
+> in the guest's CPUID.
 > 
-> With ARCH_HAS_HW_PTE_T, use pte_val() on the wrapper's __pte member;
-> otherwise, use pte_val() directly.
+> Commit c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by
+> hardware") prevented EFER.LMSLE from being enabled in supported_efer_bits
+> on hosts that set EferLmsleUnsupported, but missed checking the guest
+> CPUID capability in __kvm_valid_efer(). As a result, on a host that
+> supports EFER.LMSLE (e.g. Rome), a guest whose userspace VMM sets
+> EferLmsleUnsupported in guest CPUID (e.g. for migration compatibility
+> with Milan, Genoa, or Turin) can still set EFER.LMSLE without triggering
+> a #GP.
 > 
-> The atomic operations and their ordering are unchanged.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Fixes: c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by hardware")
+> Assisted-by: LLM
+> Signed-off-by: Jim Mattson <jmattson@google.com>
 > ---
->  arch/arm64/include/asm/pgtable.h | 10 +++++-----
->  arch/arm64/mm/fault.c            |  6 +++---
->  include/linux/pgtable_types.h    |  4 ++++
->  3 files changed, 12 insertions(+), 8 deletions(-)
+>  arch/x86/kvm/msrs.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 652ce413be389..4768ec59de555 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -1303,7 +1303,7 @@ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
->  	do {
->  		old_pte = pte;
->  		pte = pte_mkold(pte);
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  
-> @@ -1346,7 +1346,7 @@ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
->  					       hw_pte_t *ptep,
->  					       unsigned long pgsize)
->  {
-> -	pte_t pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
-> +	pte_t pte = __pte(xchg_relaxed(&hw_pte_val(*ptep), 0));
->  
->  	switch (pgsize) {
->  	case PAGE_SIZE:
-> @@ -1422,7 +1422,7 @@ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
->  	do {
->  		old_pte = pte;
->  		pte = pte_wrprotect(pte);
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  }
-> @@ -1460,7 +1460,7 @@ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
->  		if (flags & CYDP_CLEAR_DIRTY)
->  			pte = pte_mkclean(pte);
->  
-> -		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep),
-> +		pte_val(pte) = cmpxchg_relaxed(&hw_pte_val(*ptep),
->  					       pte_val(old_pte), pte_val(pte));
->  	} while (pte_val(pte) != pte_val(old_pte));
->  }
-> @@ -1830,7 +1830,7 @@ static inline bool ptep_try_set(hw_pte_t *ptep, pte_t new_pte)
->  {
->  	pteval_t old = 0;
->  
-> -	if (!try_cmpxchg(&pte_val(*ptep), &old, pte_val(new_pte)))
-> +	if (!try_cmpxchg(&hw_pte_val(*ptep), &old, pte_val(new_pte)))
+> diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+> index dd3bb04878ca..6dbaf063cc8d 100644
+> --- a/arch/x86/kvm/msrs.c
+> +++ b/arch/x86/kvm/msrs.c
+> @@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+>  	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
 >  		return false;
 >  
->  	/*
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index b77f4be88e3ea..7d6c30f27214e 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -225,8 +225,8 @@ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
->  	/*
->  	 * Setting the flags must be done atomically to avoid racing with the
->  	 * hardware update of the access/dirty state. The PTE_RDONLY bit must
-> -	 * be set to the most permissive (lowest value) of *ptep and entry
-> -	 * (calculated as: a & b == ~(~a | ~b)).
-> +	 * be set to the most permissive (lowest value) of the current PTE and
-> +	 * entry (calculated as: a & b == ~(~a | ~b)).
-
-This seems like an unrelated and unecessary comment change?
-
->  	 */
->  	pte_val(entry) ^= PTE_RDONLY;
->  	pteval = pte_val(pte);
-> @@ -235,7 +235,7 @@ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
->  		pteval ^= PTE_RDONLY;
->  		pteval |= pte_val(entry);
->  		pteval ^= PTE_RDONLY;
-> -		pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval, pteval);
-> +		pteval = cmpxchg_relaxed(&hw_pte_val(*ptep), old_pteval, pteval);
->  	} while (pteval != old_pteval);
+> -	return true;
+> +	if (efer & EFER_LMSLE &&
+> +	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
+> +		return false;
 >  
->  	/*
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> index d6c5a7548550b..ee4eace5c3e1c 100644
-> --- a/include/linux/pgtable_types.h
-> +++ b/include/linux/pgtable_types.h
-> @@ -9,9 +9,13 @@
->  #ifdef CONFIG_ARCH_HAS_HW_PTE_T
->  typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
->  #define __pte_from_hw(pte)	((pte).__pte)
-> +
+> +	return true;
 
-nit: why the newline here (and equivalent below)?
+In case anyone else was wondering, this is NOT whitespace damage, the "movement"
+of the "return true" is due to deleting a trailing spurious newline, e.g. my
+configuration of diff yeilds:
 
-> +#define hw_pte_val(x)  pte_val((x).__pte)
-
-Wouldn't it be better to add these as part of the generic series? I know we
-prefer to add an api along with its first user, but in this case it seems odd,
-because you're effectively requiring that arm64 is the first merged arch to
-support this? You could also use the same argument to say that none of this
-should be merged until the commit where an arch turns on ARCH_HAS_HW_PTE_T.
-
-Thanks,
-Ryan
-
-
->  #else
->  #define hw_pte_t pte_t
->  #define __pte_from_hw(pte)	(pte)
-> +
-> +#define hw_pte_val(x)  pte_val(x)
->  #endif
->  
->  #endif /* !__ASSEMBLY__ */
-> 
-
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index dd3bb04878ca..6dbaf063cc8d 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ 	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
+ 		return false;
+ 
++	if (efer & EFER_LMSLE &&
++	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
++		return false;
++
+ 	return true;
+-
+ }
+ bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ {
