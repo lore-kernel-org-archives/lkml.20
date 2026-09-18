@@ -1,83 +1,92 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9211551CF4F;
-	Fri, 18 Sep 2026 18:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D36439349
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755479; cv=none; b=ruxznLG7i48+MoPtD+JXN+e3nYxY8sjMC+ZNKAsC6az+Sp1MAyQlcA69gYDioTuH8QOt1Wf6xh7F9WyOBt4dpq2WtmGlx5K5gMHolzj5AgJ44IXYjw32Lnr3Er/UvmttF1IxaYhuZ0fOpiNQ93+X30U5f2SkUCljdJUOWH+M2gE=
+	t=1789755559; cv=none; b=L7DokmaqMX5YDr7QcOKcPj9JwUqi6cU/GnWGYG/Wq2RlXdw7ylCmIEdx72VF7nzH1enzXFlVZlqEPgBCzdH2riPDOYo0pDhcFbaC6GdFj6Kw0/cY0MBToNGKI9SFuGyMko+MfyTy04YR6GoiRqMCsiVsuPipFK3HUV7XIJAfQqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755479; c=relaxed/simple;
-	bh=k4B8t17iNakHVS7H1Kyv3GlOCmhAyEfMVl/OjaXjxhY=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=Uf9TzE/Y8UeZ7GOlfEoFkbqojFqrNHl8Ncrtp826m3cYjk4l01XYcvZ3epl8e+VKh/RjJ5eJaDENrDArgviOk4Ect3ztJvETdmIyLH7YUyfEjivKRE4nrFQ5Jh0QTwmayDB0u1yBmWBTmZ0UUBIpNhkOcMe42ALogDBQ4rtxRWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=G9lUPyFu; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789755559; c=relaxed/simple;
+	bh=iHCQilQ4x8FlNnS2IkgCh0INwKZKlX5mZWBCxqEI+cs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ceay9Seb1NmdZumy2VA7bCHkmaT9MqoLATLs5XYU2o6ak3SA4U/mIa5wIGLf2KmTblVVbHH/UcYMifuxTgLnrAsrdg+4hQF8PxWB1ohHn9Dty4roIeKtC2YqBKJdh8ouK6l3K82R+ZtUxzsM9qdIxpOj5Alqvescwb/aWcyNTcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LiSjmj38; arc=none smtp.client-ip=91.218.175.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="G9lUPyFu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=tCu1Cwm4Jv+7/G0BvSmkHgBxFcR/JNpqpYrJQmXiAW0=; b=G9lUPyFufCeRkt7FZX7hALr4L9
-	WuQDvBHct4kUHIoRsG9SE+uHz62AdCkbd7gMQDmfCNGm03NOhauN7wUD7+drVVF3sOY14FCf622K5
-	rG9HWlfWJBb8PoanesYKDSXob8FZ3t9iO7KEpgS8XN0wy3rYFSqac9/Wq+9PjxhrUxebbS9W0tH2d
-	TZTvwD4EGC4earz4XqAeE/2vNYoHMgMscUHPmyldp2cYIV0auPtSqICFMpJ5LnGMK1DQKdt17n75H
-	EVz+fjX3aKdaPms0FIOrnkRwLR9ltJmLMJH2KvJfmnn/iuPf+EG90OIDLAQW2DLfNo/drpJdYGxZL
-	GtTyGKgQ==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x7d9m-0000000CrCG-1v5L;
-	Fri, 18 Sep 2026 12:17:55 -0600
-Message-ID: <8de189f4-f93d-4ab1-a1d8-150079445258@deltatee.com>
-Date: Fri, 18 Sep 2026 12:17:53 -0600
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LiSjmj38"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iHCQilQ4x8FlNnS2IkgCh0INwKZKlX5mZWBCxqEI+cs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789755554; v=1; x=1790360354;
+ b=LiSjmj3811D0sEQOkFqhqCslxtDax7X1LstUpScy0vbMDuBGjoX52NzwJM61BtguLCzlpZIO
+ BPxpEGi6Qi3facgpZxEptn53a2H32/9PBQnF10xG20NBJhNu/QhIe/8PFFUC+8JiySfgRfASJVK
+ mVQRrX4GuIeYOOgNpxkVkEQE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8db66427678445f3;
+	Fri, 18 Sep 2026 18:19:13 +0000
+X-Mizu-Trace-ID: 8db66427678445f3
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 11:19:08 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: bingfangguo@tencent.com
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Bingfang Guo <bfguo@icloud.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] memcg: move memcg private ID refcount to objcg
+Message-ID: <aq2AUmRISe3Nmfft@linux.dev>
+References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
+ <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-14-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260910040836.3792333-14-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 13/14] NTB: ntb_transport: Abort link setup on QP MW
- allocation failure
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
 
-
-
-On 2026-09-09 22:08, Koichiro Den wrote:
-> ntb_transport_setup_qp_mw() can fail while growing a QP's RX entry pool,
-> but the link worker ignores that error. The worker can consequently
-> publish a QP whose memory-window state is only partly initialized.
+On Fri, Sep 18, 2026 at 05:18:43PM +0800, Bingfang Guo via B4 Relay wrote:
+> From: Bingfang Guo <bingfangguo@tencent.com>
 > 
-> Abort on the first QP setup error and release the MWs through the
-> existing error path instead of publishing the transport link.
+> diff --git a/mm/workingset.c b/mm/workingset.c
+> index 8412f4840ae35..7e4fbc5a786d6 100644
+> --- a/mm/workingset.c
+> +++ b/mm/workingset.c
+> @@ -281,6 +281,9 @@ static bool lru_gen_test_recent(void *shadow, struct lruvec **lruvec,
+>  	unpack_shadow(shadow, &memcg_id, &pgdat, token, workingset);
+>  
+>  	memcg = mem_cgroup_from_private_id(memcg_id);
+> +	if (!memcg)
+> +		return false;
+
+You can not return here without initializing *lruvec as it might be used in the
+caller. Also mem_cgroup_lruvec() can handle null memcg and will substitute with
+root_mem_cgroup.
+
+> +
+>  	*lruvec = mem_cgroup_lruvec(memcg, pgdat);
+>  
+>  	max_seq = READ_ONCE((*lruvec)->lrugen.max_seq);
+> @@ -470,7 +473,7 @@ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+>  	 * configurations instead.
+>  	 */
+>  	eviction_memcg = mem_cgroup_from_private_id(memcgid);
+> -	if (!mem_cgroup_tryget(eviction_memcg))
+> +	if (eviction_memcg && !mem_cgroup_tryget(eviction_memcg))
+>  		eviction_memcg = NULL;
+>  	rcu_read_unlock();
+>  
 > 
-> Fixes: a754a8fcaf38 ("NTB: allocate number transport entries depending on size of ring size")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-
-Makes sense to me
-
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-
+> -- 
+> 2.43.7
+> 
+> 
