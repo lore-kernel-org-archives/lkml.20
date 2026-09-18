@@ -1,157 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B9A502559
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B656E4F4036;
+	Fri, 18 Sep 2026 14:53:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743190; cv=none; b=YaHwWhSf9P2K95qkVYuBKXr/ewveh6a2C2rHifawqBVtBkfeCbSLDWA5N6hxNYLeBS4WXKqCDPQ4FrowKGvO0x7pGVcQh/0YBPuxnvtFx37Rhk7Wn4CoswruNxTVE0Py+dnB5l/7JV9Z5F/puU6/dOUzU7BoB9+/Ln2bq/3JmPo=
+	t=1789743227; cv=none; b=Q9ymp2jSHjkOaeucsHfk/oNdgA1jjPSPujlFojU9Ssjn318xcZHYoO/NzKzBO7vdGZnE+vwD91GKaWlMwifDJjkIwRBlekIwMvt3zBWd8KcgO+LnZiVcp52895bXOuudVbpbAkB+Rgev2rJ6QOPSyFv4BizZRSlkoPDapb/qCmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743190; c=relaxed/simple;
-	bh=be/D3i8Rt3Gxt3jkMPf4MKSN6HuuCSR7lBEp2DloW7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nUlTP2Od6aG32h/LaKBj8wKFVk+JHYVf5QG1VwcnbxxIIxyT4Xnfodg7fEH9QfoC+y7dF198KexgUhFX+sZ/0AFer8XKuQhdi9ABk8r/i0Gt9b9+ZKzRi5QHcNlRhpUBXBzmnDqfN6FziOPyTmtm/2WkyYlpAERclPP6Yy8tmBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvLj/88A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789743227; c=relaxed/simple;
+	bh=bybjlaoI2qyQ6E+AH9oblBRP35IDigANGLe3DjWlxVs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eQq6GgTPeMWuzcu2dTW5czlPo9SvtyXiRmrhzgVxNz7N4a5FVNnvhFy585zjLWYRHvm+H+uS2r3xa/cb+DQNLecFxJy/1rXVHD+3f7yIx7trbOL+gESUHsJEh7Pa5qJH/vAoW0FGfJmazRBgD9X7O23pVG1WzukFZmABb+3geNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cTgwKLoH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvLj/88A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1478C1F000FF;
-	Fri, 18 Sep 2026 14:53:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cTgwKLoH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05ABD1F000FF;
+	Fri, 18 Sep 2026 14:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743185;
-	bh=4ojc02aemqoLwNxvvZsv+b8G2yi1V858/hEEaqJeGoY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WvLj/88Ac8AnU5yMp8ElZgGdcWNko+AR8s1xotTG/QtyLGZ8hdyhjlM/gI6Qax3W6
-	 QiH8qK79Q4fJPl6a9WD+2h079wY9BFb23wxcwm11+pY2JSCqmUCOSadQXY5x+6/6Kq
-	 w5Fc3/HwGp8yuvQojwzsXytalEhBmpPC3wtakK/4szdOMI5/CGmf20XXGwyO4ceD+v
-	 TYtxh44DL4nQBC1W2QsThi/EJpGRGP9T5FmNn/cfJp8b4xsnT/CFxkH/IEenf2F0YU
-	 wSMKB0JtXQpcqibfQK9MCh6tN1uvreg5AggNolcfXMkdy3HdApn4LX+JVDrWCqGXCi
-	 2+6Dw/+Aun/zw==
-From: Will Deacon <will@kernel.org>
-To: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Will Deacon <will@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Marc Zyngier <maz@kernel.org>,
-	Michael Kelley <mhklinux@outlook.com>
-Subject: [PATCH v3 13/13] drivers: Kconfig: Simplify dependencies on ARM64 && !CPU_BIG_ENDIAN
-Date: Fri, 18 Sep 2026 15:52:15 +0100
-Message-ID: <20260918145217.1669-14-will@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260918145217.1669-1-will@kernel.org>
-References: <20260918145217.1669-1-will@kernel.org>
+	s=k20260515; t=1789743218;
+	bh=fgbGaUePnEqf82RNr6SO3vFiP2VNQ0/em4gUyh5iB3k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cTgwKLoHvXGkhKsMUhuH0kcmWUEXCIIPE9q3O75YeYv7/Lm/8J28MAn7HqJGPleu9
+	 h/EgVVt8xOVskDixhpKOvvOfhCZOFDmUQzj8R8O9Bpc+GggiWliivkcn9o1/cyu10b
+	 UOeHpJE6BI3efiBk7zdzDYj000uoubLDlCAedwvTVLfsXnPBQwXSqGOHW78VTBZM8X
+	 ZdNHS8Nsq7Vu3khohSRuk/S5mDWrl0sDjeAeL1/rkj9EfPCLG4/hE2zDIPeeO9MAqo
+	 Ixm6um5RT0hZ9fsddgg9BmBZ5UNVoh7Kn+x6FN4V1zGUUSlZ8gf0ZubF/uhtVMjau2
+	 8Y+TKUuSWrU1A==
+Date: Fri, 18 Sep 2026 15:53:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+	usama.arif@linux.dev, kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de, 
+	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] sched/numa: scan read-only file mappings in
+ tiering mode
+Message-ID: <aq1FDhy00epXXtgd@gremlin>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-4-gourry@gourry.net>
+ <0ed3ab3a-80b4-492f-867a-0584441722a9@kernel.org>
+ <aq1Cwh9hNw4wWEUP@gourry-fedora-PF4VCD3F>
+ <c445a20c-ae83-4571-ae97-031ce7facc45@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c445a20c-ae83-4571-ae97-031ce7facc45@kernel.org>
 
-Now that arm64 no longer supports a big-endian kernel, simplify some
-driver Kconfig entries so that the dependency on a little-endian kernel
-no longer needs to be called out explicitly.
+On Fri, Sep 18, 2026 at 03:59:40PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/18/26 15:57, Gregory Price wrote:
+> > On Fri, Sep 18, 2026 at 02:58:36PM +0200, David Hildenbrand (Arm) wrote:
+> >>> +/*
+> >>> + * Read-only file-backed mappings are expected to be cache replicated between
+> >>> + * accessor nodes, so they are not worth sampling for placement.  They can
+> >>> + * still strand on the slow tier like anything else.
+> >>> + */
 
-Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Will Deacon <will@kernel.org>
----
- drivers/hv/Kconfig                     | 3 +--
- drivers/misc/vmw_vmci/Kconfig          | 2 +-
- drivers/net/ethernet/microsoft/Kconfig | 2 +-
- drivers/soc/tegra/Kconfig              | 5 -----
- 4 files changed, 3 insertions(+), 9 deletions(-)
+This is the most specific description ever for such a general condition :)
 
-diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
-index aa11bcefddf2..36445c2619ed 100644
---- a/drivers/hv/Kconfig
-+++ b/drivers/hv/Kconfig
-@@ -4,8 +4,7 @@ menu "Microsoft Hyper-V guest support"
- 
- config HYPERV
- 	bool "Microsoft Hyper-V core hypervisor support"
--	depends on (X86 && X86_LOCAL_APIC && HYPERVISOR_GUEST) \
--		|| (ARM64 && !CPU_BIG_ENDIAN)
-+	depends on (X86 && X86_LOCAL_APIC && HYPERVISOR_GUEST) || ARM64
- 	select PARAVIRT
- 	select X86_HV_CALLBACK_VECTOR if X86
- 	select OF_EARLY_FLATTREE if OF
-diff --git a/drivers/misc/vmw_vmci/Kconfig b/drivers/misc/vmw_vmci/Kconfig
-index b6d4d7fd686a..ca03cbfdab1e 100644
---- a/drivers/misc/vmw_vmci/Kconfig
-+++ b/drivers/misc/vmw_vmci/Kconfig
-@@ -5,7 +5,7 @@
- 
- config VMWARE_VMCI
- 	tristate "VMware VMCI Driver"
--	depends on (X86 || ARM64) && !CPU_BIG_ENDIAN && PCI
-+	depends on (X86 || ARM64) && PCI
- 	help
- 	  This is VMware's Virtual Machine Communication Interface.  It enables
- 	  high-speed communication between host and guest in a virtual
-diff --git a/drivers/net/ethernet/microsoft/Kconfig b/drivers/net/ethernet/microsoft/Kconfig
-index e9be18c92ca5..c4ad3d85875a 100644
---- a/drivers/net/ethernet/microsoft/Kconfig
-+++ b/drivers/net/ethernet/microsoft/Kconfig
-@@ -18,7 +18,7 @@ if NET_VENDOR_MICROSOFT
- config MICROSOFT_MANA
- 	tristate "Microsoft Azure Network Adapter (MANA) support"
- 	depends on PCI_MSI
--	depends on X86_64 || (ARM64 && !CPU_BIG_ENDIAN)
-+	depends on X86_64 || ARM64
- 	depends on PCI_HYPERV
- 	select AUXILIARY_BUS
- 	select DIMLIB
-diff --git a/drivers/soc/tegra/Kconfig b/drivers/soc/tegra/Kconfig
-index 8b6fdb9ad1ea..318e7b604342 100644
---- a/drivers/soc/tegra/Kconfig
-+++ b/drivers/soc/tegra/Kconfig
-@@ -102,7 +102,6 @@ config ARCH_TEGRA_210_SOC
- config ARCH_TEGRA_186_SOC
- 	bool "NVIDIA Tegra186 SoC"
- 	default ARCH_TEGRA
--	depends on !CPU_BIG_ENDIAN
- 	select PINCTRL_TEGRA186
- 	select MAILBOX
- 	select SOC_TEGRA_PMC
-@@ -117,7 +116,6 @@ config ARCH_TEGRA_186_SOC
- config ARCH_TEGRA_194_SOC
- 	bool "NVIDIA Tegra194 SoC"
- 	default ARCH_TEGRA
--	depends on !CPU_BIG_ENDIAN
- 	select MAILBOX
- 	select PINCTRL_TEGRA194
- 	select SOC_TEGRA_PMC
-@@ -127,7 +125,6 @@ config ARCH_TEGRA_194_SOC
- config ARCH_TEGRA_234_SOC
- 	bool "NVIDIA Tegra234 SoC"
- 	default ARCH_TEGRA
--	depends on !CPU_BIG_ENDIAN
- 	select MAILBOX
- 	select PINCTRL_TEGRA234
- 	select SOC_TEGRA_PMC
-@@ -137,7 +134,6 @@ config ARCH_TEGRA_234_SOC
- config ARCH_TEGRA_238_SOC
- 	bool "NVIDIA Tegra238 SoC"
- 	default ARCH_TEGRA
--	depends on !CPU_BIG_ENDIAN
- 	select MAILBOX
- 	select SOC_TEGRA_PMC
- 	help
-@@ -152,7 +148,6 @@ config ARCH_TEGRA_241_SOC
- config ARCH_TEGRA_264_SOC
- 	bool "NVIDIA Tegra264 SoC"
- 	default ARCH_TEGRA
--	depends on !CPU_BIG_ENDIAN
- 	select MAILBOX
- 	select SOC_TEGRA_PMC
- 	help
--- 
-2.55.0.1082.g2b9226bbc0-goog
+> >>> +static bool vma_is_ro_file(struct vm_area_struct *vma)
+> >>> +{
+> >>> +	return vma->vm_file && (vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ;
 
+Firstly you should use the new VMA flags API :)
+
+But also it seems odd to check VMA_READ_BIT. You can have it cleared but
+mmap()'ing without PROT_READ but has no material impact on mapping since
+write implies read for everything afaik (that can have an impact on GUP
+though).
+
+Also note that (well my series changes it hopefully landing for next cycle :)
+MAP_PRIVATE-/dev/zero which is anon would satisfy this. But anyway :)
+
+Anyway in general then I wonder if this shouldn't be vma->vm_file &&
+!vma_test(vma, VMA_WRITE_BIT), but then it makes me wonder about whether
+you care if somebody can mprotect() this writable?
+
+In which case it'd be vma->vm_file && !vma_test(vma, VMA_MAYWRITE_BIT).
+
+Even then things can be weird, as some drivers will clear VMA_MAYWRITE_BIT
+for definitely-not-normal-files, though with the intent of disabling
+writeability altogether.
+
+For read-only files, as David notes, we do something _weird_:
+
+unsigned long do_mmap(struct file *file, unsigned long addr,
+			unsigned long len, unsigned long prot,
+			unsigned long flags, vma_flags_t vma_flags,
+			unsigned long pgoff, unsigned long *populate,
+			struct list_head *uf)
+{
+	...
+	if (file) {
+		...
+		switch (flags & MAP_TYPE) {
+			...
+		case MAP_SHARED_VALIDATE:
+			...
+			if (!(file->f_mode & FMODE_WRITE))
+				vma_flags_clear(&vma_flags, VMA_MAYWRITE_BIT,
+						VMA_SHARED_BIT);
+			...
+		}
+		...
+	}
+	...
+}
+
+So they become !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT. So it's good you don't
+check VMA_SHARED_BIT :)
+
+If you map a read-only file MAP_PRIVATE as readable/writeable they will
+actually have VMA_WRITE_BIT, VMA_MAYWRITE_BIT set because the writes CoW
+instead.
+
+Anyway, I'm guessing what you want here is:
+
+- Exclude MAP_PRIVATE mappings
+- Cannot in any universe write to the damn thing
+
+Which seems like you'd want to test:
+
+In which case the test should be something like:
+
+	return vma_test(vma, VMA_MAYSHARE_BIT) &&
+		!vma_test(vma, VMA_MAYWRITE_BIT);
+
+BUT that isn't enough.
+
+Because in actual fact (sigh) some drivers clear VMA_MAYWRITE_BIT (but they
+keep VMA_SHARED_BIT) and write-sealing a memfd gives you VMA_SHARED &&
+!VMA_MAYWRITE_BIT (which is what vma_is_shared_maywrite() is for for
+instance).
+
+So if you _truly_ want to know if something has a _shared_ mapping of a
+read-only file It has to be like this:
+
+/**
+ * vma_maps_shared_readonly_file() - Is @vma a shared mapping of a read-only
+ * file?
+ * @vma: The VMA to check.
+ *
+ * Upon mapping a read-only file with MAP_SHARED[_VALIDATE] mmap() will clear
+ * VMA_SHARED_BIT and VMA_MAYWRITE_BIT.
+ *
+ * The VMA_MAYSHARE_BIT is retained to differentiate against mappings mapped
+ * with MAP_PRIVATE.
+ *
+ * Some drivers clear VMA_MAYWRITE_BIT but by convention retain VMA_SHARED_BIT.
+ * This is also true for write-sealed memfd's.
+ *
+ * Returns: true if the VMA is a shared mapping of a read-only file or false,
+ * otherwise.
+ */
+static inline bool vma_maps_shared_readonly_file(const struct vm_area_struct *vma)
+{
+	/* Shared mappings of read-only files clear VMA_SHARED_BIT. */
+	if (vma_test(vma, VMA_SHARED_BIT))
+		return false;
+
+	/* But MAP_SHARED mappings retain VMA_MAYSHARE_BIT. */
+	if (!vma_test(vma, VMA_MAYSHARE_BIT))
+		return false;
+
+	/* Shared mappings of read-only files also clear VMA_MAYWRITE_BIT. */
+	VM_WARN_ON_ONCE(vma_test(vma, VMA_MAYWRITE_BIT));
+
+	return true;
+}
+
+The assert here is because nothing else clears VMA_SHARED_BIT like this, but to
+protect from future changes that might somehow allow this could be:
+
+	return !vma_test(vma, VMA_MAYWRITE_BIT);
+
+Note that my 40 patch behemoth establishes some actual invariants on this kind
+of stuff and introduces some 'VMA checks via semantics' stuff (and eliminates
+VM_SPECIAL!) so if adding something like this I'd maybe base it on that.
+
+Obviously if what you need semantically differs from this then do that
+instead.
+
+> >>
+> >>
+> >> MAP_PRIVATE can easily map a read-only file with write permissions. So the
+> >> function name is a bit misleading.
+> >>
+> >> This smells like a helper that should go next to other vma helpers and have
+> >> clear semantics.
+> >>
+> >
+> > No argument here.  Would like to balance improvement vs backportable
+> > bugfix though.  I broke out the name to try to make it at least a bit
+> > more readable.
+>
+> I understand, but I am not asking about much.
+
+It turns out I made it probably too much, or at least too many words :P
+Sorry.
+
+>
+> Maybe Lorenzo can help us out.
+>
+> /me summons Lorenzo
+
+Reminds me that I must schlo... write a script to find call-outs in my mail
+:P
+
+^^^ see above.
+
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
