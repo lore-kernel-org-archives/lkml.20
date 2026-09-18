@@ -1,460 +1,271 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012016.outbound.protection.outlook.com [40.107.209.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47883ACF1B;
-	Fri, 18 Sep 2026 09:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724392; cv=fail; b=YDLIPQwXtpXGS9PYiE/pMibIguKXKnvpvGRWzgMoF1xp2j9yuh8XyzAtMuado6BEc0EP5G4KvD/uFDKBaliyqeCZlnPOrym1ZXfpiIgBokOPIyzRSsxWjU8g6NBqqc/LUOOedcjGhsJpc9QOpM9pvEhfF5j2EqCjEU2kmbhI7Zo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724392; c=relaxed/simple;
-	bh=95S+P36065Wwu6OuUU7c2Y7m891dQIaRcGPikNDsqn4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TYE6Ns+0AtUEPIVUaoqDLZqvB76Bmo965jY4rIMwVbHz2EYUrsChuwNU5r1vdEn/Q3Owt8U9+E6I5BqCYB5fLube50bMBukilVlYMKVEiXQ99o5mVGDGNs0N8nUUT7dcRysRSJfGdTLrDde6TWT0EdGRkzxX+SvhrlBrxxBWOGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WG0VS5fj; arc=fail smtp.client-ip=40.107.209.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E36C3F825B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789724471; cv=none; b=QNT/YhQAtAMUnxdBxd6H33/noKzP24k1tiucPuHMMU/qTYl0/iIoY8Z6OE5MXyR3LvzHCPCEV4MdaTFlIIYCchNtVsm4cc8aJUMq76G07HOGeiYXXc3UyWC8wrXFzTtfc4SEGnO7BRYWi9FiPnXsZCtPX8XTdHud8IuUkUlh3II=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789724471; c=relaxed/simple;
+	bh=lAmGPjgC9g5IQl8kDhSTdrOoqcbI4yIrTQQgcW6k2Q4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QNrMWzasDkWImlw3oCsAQubk3fzcLCqy2Peh4L5EeGp0+KOw3CqSApZUKpS+jMkNVX137VE6HQ7PCst0ysmr2/aHcxA5c5Ae8msPBdL+6CWq7svqEXubf31KpnNgTEEWcMseOimWdyXRsv2GP/IRx2BC45tx7J7NKULX+Ib3iDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxiMdXGr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WG0VS5fj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yTRwummmCyTcaoQvD5HYCa4i/d+bVZZe6jGhydz5IIXbVkvhzUfFBijHzykV5LNyW8a38UNnB5j266fiwWtGbTXtauwwZjNQHZEuLcTWYxQ8EkU3r7wCjsKlr2C/EZV+Q4Kv5RylohhRcfuzui6rn0hiojJOVTuMryi3QWVMLZjlz6nmhwxv8LOB8csFOB+JUTXTckoCCtEhjgirEyH0xFsEsNQisKMHONAHDzBFxUrY+Z9OGdZEJZ5ULwnfQbeYu1v15lmQmCU5qOo18JAFh27JQfKQZBI+zR1BzvqZanh0xenAsiCpAAJxA2xPPGZT4x/g6x91GWF+ezfn4P0sng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+bTu+vfmm/3SwrmZChS/fzS6ZxW0b9AhmGeAFp4JaKk=;
- b=wwoc5AykBTN007Sylacw9/wOJUD/d3Bg6s9zBFvhnvfwP6GWVRtUtWe9ahwTSRbsf1w5pmTb8PjF2hvmaK6UKOTfM9Z4jd9nRnOC91xUAMjw5LoHCVn1Dy3LfRz/NGMBgUyWvGVKP4+pHE7jkA5ULMaCTBk9lKNk+RQJTZn1TvLkqa8TdP25kn46Qjps2hQ2o6YWTuz+c473HE+f5nFvS28YWtJDNM6yApVSZno6tmNX8bfytl8vq2qLPuf1SvsyQpvZUairxbq81HCdJRKa+4HK51JZ1MXFB7vzCiBlvxx4AhYD5uonNXpTQ8aC+Fv+aBsH+3vFn2M6Jr3XTmLUJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bTu+vfmm/3SwrmZChS/fzS6ZxW0b9AhmGeAFp4JaKk=;
- b=WG0VS5fjhUm4rSqxeHo5zD88St6/Fq3EoDtkBpbLBpTlg2Xec8VTBKVhbkBkscMwRSIcLtNZc2b8eMGXQ4Rb7RlalvwDxNOSHSO6CEeqsPBvLspPpW7gvTtD8kCP3twHtn9RyoZxSGaNEGPFvdILc8N5x+MiX74eK84ZN3G/aStqRSoJEViMzBLFrAbrC3ensFd7Slvc6ZBX8tm7AnghQ+1A/YHiekDZX2qZaYR6GuWWtfPMs3xKLPrs7bMKVXRo4hKJfZ1nXOG2l3GLhwz9oJgGVQ48dgDIrhI5rg1/17Th3u+U088whZQ1qaWqA5RMldnD2Ai0HOGAp0GZGaYhsA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by SN7PR12MB6742.namprd12.prod.outlook.com (2603:10b6:806:26e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 09:39:46 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%7]) with mapi id 15.21.0406.014; Fri, 18 Sep 2026
- 09:39:46 +0000
-Date: Fri, 18 Sep 2026 17:39:40 +0800
-From: Richard Cheng <icheng@nvidia.com>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: dave@stgolabs.net, jic23@kernel.org, dave.jiang@intel.com, 
-	vishal.l.verma@intel.com, djbw@kernel.org, danwilliams@nvidia.com, nvdimm@lists.linux.dev, 
-	iweiny@kernel.org, ming.li@zohomail.com, kobak@nvidia.com, kaihengf@nvidia.com, 
-	kees@kernel.org, newtonl@nvidia.com, kristinc@nvidia.com, mochs@nvidia.com, 
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [ndctl PATCH RESEND] test/cxl-mbox: Regression test for huge
- CXL_MEM_SEND_COMMAND out.size
-Message-ID: <aq0GdumB0WfxNm30@MWDK4CY14F>
-References: <20260624150158.55264-1-icheng@nvidia.com>
- <aqiXdEIiMb3I9w-3@aschofie-mobl2.lan>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqiXdEIiMb3I9w-3@aschofie-mobl2.lan>
-X-ClientProxiedBy: TPYP295CA0045.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::6)
- To BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxiMdXGr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so2614025e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:41:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789724467; x=1790329267; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9lyz7KsqbgiRHXCzgXytWiqYCcnNV7OEQjlWDA7ERYo=;
+        b=BxiMdXGr1H7KWp6fnWKThbGft3uwi41etUeJKX4lMWg6RAsKAduRgwvYN6EwuDh+V3
+         pwzXDNORdiry9toi9fdEdY7zTqnrHOShdIFLPmz23YfZQlNMvFqbMDaDpbdmpHYKc4b+
+         vAd0lit5Y648eOwu/7XClGR8AddBE0NbhygjNNON2HgvkhZsjUWEydtaFOTvCOhOzIxH
+         T0TyTq9epMbwLWF9y35BQgkuEGCWFHlSkyT7271/oeJO8qz7m6NlHAYHKZGyyho95keu
+         cs6W9aJmQNWgY6IyQ8VHsFckFeXnjHka7TMMy4ntLF7/XwsENIbW4Ky4yyIMc30O0Vn4
+         EB5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789724467; x=1790329267;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9lyz7KsqbgiRHXCzgXytWiqYCcnNV7OEQjlWDA7ERYo=;
+        b=hrCTm23WLQEjl3plxp+LkDOsntsrr5X0GxTYmu/v0QSDe94d8DPd3MGhLZxOSFo1YH
+         hmY6PuZyQSwLCmXyB7h32z+7C05Um3BbyBqNo/J8dYKpiFkh3V+osHDUg2yPwgkx3Z0l
+         vbP/gru/05X8h69+p/3jBjupRAZBx9kenkuJ+CBJrlHsJnPA4dU9F5hemCOmvRNnhfyb
+         cZmGxMMDkqB1dfCTXt0bsQPhk76CsFYAQ0KFg+huzLcmIl8+zHL1qZgN/PLpJhfNDklE
+         U2Gto/rBJJEo5oGQSOhCWeksyyCQ6JYkRUGczsOqoL9bCi9/6+ydUpR6DSraPLCYvWXg
+         t58g==
+X-Forwarded-Encrypted: i=1; AKwUvBxZCYVEx1D7wRvQM0+UAcKuAMGk4KQWFSOzXlJYdsX0T2TQiZP0YrZRACVCmRUM744P1cdW9bOEAStOFcs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mn98U1ZdiLr3gTdxl+yPVoRFc0rxRihtD+TdeEBM8KFBpBxstH
+	i3cZPvM87bvXPQ7YIwSWvk8ZRirel8vW+Fn0Df5Xam9Dhs3pP7XyeRM/gLjT0Q==
+X-Gm-Gg: AYBFou1llLGGvyb4D+eSkypgBzzJ63LKh0C+TEM2qQAnKB/8iPwbY8V7TSyP+W+2IRX
+	eaIR81R1zFiIxkTLS3mWYDkcwe//iQlG1NIspBuxiQ9ENPjd1/JyPZdR9Hlv5Dzj6Gofxp8vZyN
+	5WhvfiJO98gXWZBO1xo+L1NgbA8Za1YtWTP6pIEauU8xCRNFxxUkd7boaJTvUoIMg4L0iW5OI5f
+	uQwKFvVLFaCX60tjm2wWbJif+7LhXr83N1QQn1iemGKK/xVe+2MSre04rZjA++V4kQes9aiHaF4
+	9FBoIfcg2eqfneoMn9L+A7wL27MhCrCq2WhtoHzrYGviVhCkod3CW0sC9rayTtSjOaAhDR9epys
+	UMfKpsaZUiS7uxSNO+ljh+AVL23ybnHP3aRNyDZ8RUg9nC+V3OJU5wc6wYG4cnr1imIHLNwajIJ
+	MnDyQJ2WJx3gtKrQt8Co6EKTCusSu2WubDRv6yg3aQ8KV+UgsOt7AsF82NyRWC8HzsPwfbxnMNG
+	CfqxM1PudGjSZ4ma657rzIOUfgTQ/b6vHGooRvuGg==
+X-Received: by 2002:a05:600c:a00f:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-49fc56692e0mr24091905e9.5.1789724467404;
+        Fri, 18 Sep 2026 02:41:07 -0700 (PDT)
+Received: from Abds-MacBook-Air.local ([2a02:3037:31e:59ba:b091:766d:f5d2:bc1a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd216028sm141427195e9.7.2026.09.18.02.41.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:41:05 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: yu kuai <yukuai@fygo.io>, Zhihao Cheng <chengzhihao1@huawei.com>,
+ song@kernel.org, xiao@kernel.org, magiclinan@didiglobal.com,
+ eadavis@sina.com, yu kuai <yukuai@fygo.io>
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ yangerkun@huawei.com, yi.zhang@huawei.com
+Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
+ submitting IO
+In-Reply-To: <12b0bc4c-5dfb-4936-8ecd-849137b597d8@fygo.io>
+References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+ <m233v7586k.fsf@gmail.com>
+ <249f987d-9d2d-8f5c-91dd-3af6baefe587@huawei.com>
+ <m2zexf3r84.fsf@gmail.com>
+ <856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com>
+ <m2wlsj3poi.fsf@gmail.com> <12b0bc4c-5dfb-4936-8ecd-849137b597d8@fygo.io>
+Date: Fri, 18 Sep 2026 11:41:03 +0200
+Message-ID: <m2tsnm5234.fsf@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|SN7PR12MB6742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10d54212-226e-46ef-8930-08df1568c639
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|4143699003|3023799007|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	XIkmGej0kc+F6feULZ5HstLd6y2cUulaq82fmTlzDnTvVzv7QvOxyrC23cn/HRBQNosu420lpjjqMNSjQXGsPtJv+h4h1SHXtpjvDnllRBJ6T0foR7QfnyQEsaU2qRvkfeohJ2m0oGNW2FCGTfdAyxyf3QPK6+zlLK/LM4isdEWYqAD+FrwtyQe5YAiLoAy/RoCsvLs/TiARJquWi8OeGRaNcVZhrpCo4dszWo0sPNePmbLY+duNIovTx/G2VM1lwboL1GuSGm+r7Q6q5OvEX6Y4Qk22Cn6ryIhKzWCxPYASaoXcg/+EfvQgh3tgrcBz1dYBsOAV1zf6BU70TlRrHsoI6EqNmJe+PpaoQpXB9kVJ58mCutJ2QAKowwBXf4jtr6wY27FwgC9gKrwxtHRagz7gQ6Y2gbogphQVY/ptW639NAsPKakmF/dCoaiaeneo32IgYwooNh/igN/TdOseYHmK1ktYBzW1W+puZvR8aDMMqIf+cJvq3Oz6ylLjWjc6BW0KDT0UqevadXZEvNxXdEhloZwIcrbT9D/+eMWsDQ/9fNfSkccT7bbVguflvbDB0OeMc1FNF4PQoL2tY6yHtMRiWaTaLkqj4dn9igFHzbjbNaZLMsc3j/fjNs0iLXth75KDkcZ+yv/d1rbEJxf4F30SkXeSQhtyI1tJC6azJXY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(4143699003)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ozwba1erv8mD1nxAMvVjvQePAXp0kT717pAusmy4jK1PoogQzGgnhWsS/D7F?=
- =?us-ascii?Q?JdkUwK5HgAMndG9C0f1wiuQ9ybDyrLhtxyJiMmYqvN4YUxbXoJCLJB4Nz8dL?=
- =?us-ascii?Q?USj6VBeAbc7csZ8Bx7IkxlbbMwosDcQdvpdqXjTiQPZFA0dsc2y/VwJW1KQu?=
- =?us-ascii?Q?upgIVQ3Hx87nBbmgsa2vpQY6PXZl5V4FRulBpHpYykfu8sjSu3qMGl2zOZyF?=
- =?us-ascii?Q?5NwPaHBZmwvQ6HNoCRkht2JPz9OtDwdeQrIHIMAyn7yCfV+HPMRCLITJU01Y?=
- =?us-ascii?Q?XfQUf5sNi4uSHDHhZay4h/67ILOgFvCaCykVjFBSn4hfaVYCvgi/E/so3HSZ?=
- =?us-ascii?Q?qZ/UMSwnpbIE0bRmFXiOPEedW9AJZHqcoQBfDeZplKBnhoN9iatLrm+CgVXa?=
- =?us-ascii?Q?zrBd6SdSwBNEdsXa7Qk9jbXYQ64Smcp5XATeYVYvQZfD2B3SSWD2Om2JzydT?=
- =?us-ascii?Q?wvwmD8HoZ0bUqYk03gvuaJiblxeqV2bbWqpE9QOQ0urTkLH09KDG93MTLVHd?=
- =?us-ascii?Q?pUpjCWGjFksn+/JiG29D8vV2Dty2g6jIniKto6Vrha9tL/vWrEt6mu0B7Noo?=
- =?us-ascii?Q?YqkoCyZEiJCT88NENwbD5/exClaQ9bLuyf+mFcIot2HxYsCcvlASR0BT0QdS?=
- =?us-ascii?Q?X9p8zFc1bV6ho3+q40zjZ/y0HVFszZmTkkR6mQHZs+gF3+Pe3YQFWDGH1jCK?=
- =?us-ascii?Q?sqta2p8DmiZUs97rz76H3wnZtO8WXjdLdDWNXwqQZ+r21mjYmiarrSjdae3+?=
- =?us-ascii?Q?LvUeRp1LMIRWf1qZtxW43XknNem7uBR0STXEi6Eyqc8oJ171ijefymCh2K0G?=
- =?us-ascii?Q?N4tzmxIMjm3A465z6HR7VGz/4g+TYF70LB1lRjfzzAMhdmyZ6zdcwejCeIEj?=
- =?us-ascii?Q?v5YHjqlz9CDRdxReGJvSS/1xTZ9FRuxShPZ8mRswjknzIaOpYTOYhyu0DJqX?=
- =?us-ascii?Q?u2pnabjfFPnIlHeVo2nQLbKNe0++7iLxAAk7lwzqoMXY9f3lU+PIJmVIP1kk?=
- =?us-ascii?Q?1MOmH+XCjLGLjiLQN60KfopSEyLCXI7p5ACXeNBGueSBvuAoXtKS2wwy0g67?=
- =?us-ascii?Q?mUzv2YGQEJAZ0jLVZPMxTUFpCNR445P0TD1h0EXDACTbRk5RIcS+w2Iz9g3+?=
- =?us-ascii?Q?xeJ7pGvW6wYrA1K0AS4mVaBIK9yDav+fG0sDcsknMMWfdkXpm80+O6vazKIZ?=
- =?us-ascii?Q?1aIwEpz1ZctvI0NbRs/tManj+ab+RUN7GKSbPJ44/sEDGqzJoonHNwSNX7rX?=
- =?us-ascii?Q?heK93VsGXOYvgl2YuDwAnl/ArMbZB1axKrP+nZ3YSLgYXOH/bXccSRbsEiTo?=
- =?us-ascii?Q?rtGHlDnotvosqRBTBEUZhLDo9it31Gk3gKM0Ov9d6cw3OrNJBx9Lvhd9xKKi?=
- =?us-ascii?Q?lxlhBIAH0LhUgMq6uPk+FfMRT4z5PL8MANUTlq0Ih6P4zTUA0c66GICRbqcT?=
- =?us-ascii?Q?Ocio7OgPXnFSR6rXp0+ChNHHrlUSoRf0WUy/dLmAKUvbvPxKTcdXlRXvH9HG?=
- =?us-ascii?Q?hVg3rVqo4wT+mlUpf9zoPfmmJrwG1l3ieMzBmIhyosas2uCX7yrgMry4lv+a?=
- =?us-ascii?Q?AauyXfiWROFnXGqTNpa118vCNE9g50shx5JqEPZxVHAY5vuYK2zaxe++Ge1k?=
- =?us-ascii?Q?K47rWizo8lD5gMTnee3zJOgFRi2WTMD57WvoqA7vuJpz+gvrM8rWUR/iBVxi?=
- =?us-ascii?Q?QwJYcB8eZQrSPW29xRgQe5TPeSIpPOlyf8E/+HcgOd4SAzED/2RbUJVBWSFv?=
- =?us-ascii?Q?yCHgbMYDlg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10d54212-226e-46ef-8930-08df1568c639
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 09:39:46.2263
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DWDvYvZe7cpozilv1OzsNxMLtrbBxgHM7PNJJc0RWntF3s+TmG37b7ZCXQ/qpnLYeJPtCtMTcXL9qq9yy9WOUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6742
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 05:55:16PM +0800, Alison Schofield wrote:
-> On Wed, Jun 24, 2026 at 11:01:58PM +0800, Richard Cheng wrote:
-> > Implement a regression test for unbounded kvzalloc() in the kernel's
-> > cxl_mbox_cmd_ctor(), which a CXL_MEM_SEND_COMMAND with an out.size
-> > greater than INT_MAX could drive into a size > INT_MAX kvmalloc() WARN.
-> > 
-> > libcxl's cxl_cmd_set_output_payload() rejects an out.size larger than
-> > the mailbox payload_max, so the test crafts a raw struct
-> > cxl_send_command and issues the CXL_MEM_SEND_COMMAND ioctl directly
-> > against the cxl_test mock memdev.
-> > 
-> > The test is for a kernel bug fix [1].
-> 
-> Hi Richard,
-> 
-> I appreciate the new test and sorry it got buried in the backlog. I'm
-> appending a diff that I have tested with in my pending branch. If you
-> ACK this diff, then I'll just apply with that. If you want to change
-> anything else, then send a v2.
+
+Hi Kuai,
+
+On Fri, Sep 18, 2026 at 17:30 +0800, yu kuai wrote:
+> Hi,
+>
+> =E5=9C=A8 2026/9/18 16:54, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
+>> Hi Zhihao,
+>>
+>> On Fri, Sep 18, 2026 at 16:34 +0800, Zhihao Cheng wrote:
+>>> =E5=9C=A8 2026/9/18 16:20, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
+>>>> On Fri, Sep 18, 2026 at 15:38 +0800, Zhihao Cheng wrote:
+>>>>> =E5=9C=A8 2026/9/18 15:29, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
+>>>>>> Hi Zhihao,
+>>>>>>
+>>>>>> On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
+>>>>>>> Concurrent processes md_stop and IO submitting could trigger a
+>>>>>>> null-ptr-deref of 'mddev->private':
+>>>>>>>
+>>>>>>>     BUG: kernel NULL pointer dereference, address: 0000000000000070
+>>>>>>>     RIP: 0010:_wait_barrier+0x2f/0x250
+>>>>>>>     Call Trace:
+>>>>>>>      raid1_make_request+0x150/0xf50
+>>>>>>>      md_handle_request+0x104/0x530
+>>>>>>>      md_submit_bio+0x76/0x130
+>>>>>>>      submit_bio+0xdd/0x250
+>>>>>>>      submit_bio_wait+0x1f/0x40
+>>>>>>>      __blkdev_direct_IO_simple+0x1f6/0x370
+>>>>>>>      blkdev_write_iter+0x3b2/0x520
+>>>>>>>      ksys_write+0x7d/0x190
+>>>>>>>
+>>>>>>>                  P1
+>>>>>>>      fd =3D open(/dev/md0, O_RDWR)
+>>>>>>> 	                      P2 (forked from P1, fd' <=3D fd)
+>>>>>>>      write(fd)
+>>>>>>>       submit_bio
+>>>>>>>        md_handle_request
+>>>>>>>         raid1_make_request
+>>>>>>>          raid1_write_request
+>>>>>>>                                      ioctl(fd, STOP_ARRAY)
+>>>>>>> 		                   mddev_set_closing_and_sync_blockdev
+>>>>>>> 				   // check passed, mddev->openers =3D 1,
+>>>>>>> 				   // because md_open() is only called
+>>>>>>> 				   // once in P1->open
+>>>>>>> 				   do_md_stop
+>>>>>>> 				    __md_stop
+>>>>>>> 				     mddev->private =3D NULL
+>>>>>>>
+>>>>>>>           conf =3D mddev->private // NULL
+>>>>>>>            wait_barrier(conf, sector) // null-ptr-deref !
+>>>>>>>
+>>>>>>> It is a common problem for raid0/1/10/5, and __md_stop could be tri=
+ggered
+>>>>>>> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+>>>>>>> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() call=
+ers.
+>>>>>>> The caller dm_table_destroy() is guaranteed being invoked with devi=
+ce
+>>>>>>> suspended, so raid_dtr() could keep using mddev_lock_nointr().
+>>>>>>> The caller array_state_store() is guaranteed by the check
+>>>>>>> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone=
+ open
+>>>>>>> /dev/mdx, write something and close /dev/mdx, it won't trigger the
+>>>>>>> problem, all dirty pages can be flushed before mddev->openers decre=
+ment.
+>>>>>>> Besides, fail the submitting IO in md_handle_request() if the
+>>>>>>> 'mddev->pers' becomes NULL.
+>>>>>>>
+>>>>>>> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=
+=3D222020
+>>>>>>>
+>>>>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>>>>>> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+>>>>>>> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e13=
+53f
+>>>>>>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+>>>>>>> ---
+>>>>>>>     v1->v2:
+>>>>>>>      1. Add 'mddev->pers !=3D NULL' check before make_request
+>>>>>>>      2. Delete dm-raid caller(->dtr) modifications
+>>>>>>>      3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>>>>>>>     v2->v3:
+>>>>>>>      1. Remove modifications in array_state_store()
+>>>>>>>      2. update commit msg
+>>>>>>>     drivers/md/md.c | 15 +++++++++++++++
+>>>>>>>     1 file changed, 15 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/md/md.c b/drivers/md/md.c
+>>>>>>> index 680b34a63cb3..e73338c26d53 100644
+>>>>>>> --- a/drivers/md/md.c
+>>>>>>> +++ b/drivers/md/md.c
+>>>>>>> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, st=
+ruct bio *bio)
+>>>>>>>     		if (!percpu_ref_tryget_live(&mddev->active_io))
+>>>>>>>     			goto check_suspended;
+>>>>>>>     	}
+>>>>>>> +	if (!mddev->pers) {
+>>>>>> Isn't this case already handled by md_submit_bio(). take a look in
+>>>>>> md_submit_bio()
+>>>>> Hi,Abd-Alrhman
+>>>>> I understand that 'mddev =3D=3D NULL || mddev->pers =3D=3D NULL' in
+>>>>> md_submit_bio() is a qiuck check, there still exists a small race win=
+dow:
+>>>>>         P1                     P2
+>>>>> md_submit_bio
+>>>>>     if (mddev =3D=3D NULL || mddev->pers =3D=3D NULL)
+>>>>>                            md_ioctl
+>>>>>                             mddev_suspend_and_lock
+>>>>>                             do_md_stop->__md_stop
+>>>>>                             // set mddev->pers/private as NULL
+>>>>>                             mddev_unlock_and_resume
+>>>>>     md_handle_request
+>>>>>      if (is_suspended(mddev, bio))
+>>>>>      percpu_ref_tryget_live(&mddev->active_io)
+>>>>>      mddev->pers // null-ptr-deref
+>>>> It makes sense. It would solve only the null pointer reference, but I
+>>>> see another issue. Look at the comment before calling
+>>>> mddev_set_closing_and_sync_blockdev() in md_ioctl(). it says "Need to
+>>>> flush page cache, and ensure no-one else opens and writes". The
+>>>> suspending happens after flushing the page cache, in this case,
+>>>> there might be other writes in-flight.
+>>> At present, the current implementation does not align with the expected
+>>> annotations. Yu Kai privately gave me a feasible suggestion, which is to
+>>> have md_ioctl operate on a character device(like /dev/mapper/control)
+>>> instead of an md block device. This fix patch will serve as a temporary
+>>> solution before the official implementation is merged. By the way, I
+>>> don't have much time to implment it, do you have time to deal with the
+>>> official solution?
+>> Thanks for the summary. I can take on the official implementation.
+>> Before I get started, could we align on the interface details and any
+>> other relevant considerations?
+>
+> I think the following procedures(details should be considered more):
+>
+> 1) add a new char device in mdraid to issue ioctl to array;
+> 2) update mdadm to use the new ioctl;
+> 3) a kernel message to warn the old block device ioctl is deprecated, and=
+ suggest
+> user to upgrade mdadm;
+> 4) Since the new ioctl will introduce UAPI change, we should wait for a l=
+ong time,
+> perhaps more than 1 year, before the deprecated old ioctl code in kernel =
+can be removed.
 >
 
-Hi Alison,
+Thanks, I=E2=80=99ll start working on the implementation.
 
-Thanks for taking look at this, from the first glance it looks good
-to me, but I'll spend some time to review it next week.
+>>
+>>>>>>> +		/*
+>>>>>>> +		 * The __md_stop() sets 'mddev->private' to NULL during
+>>>>>>> +		 * the IO submitting, check 'mddev->pers' before the IO
+>>>>>>> +		 * being processed by specific driver to avoid the
+>>>>>>> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+>>>>>>> +		 * safe because the IO has got the 'mddev->active_io'
+>>>>>>> +		 * reference, and all __md_stop() callers will wait for
+>>>>>>> +		 * the reference to be zero.
+>>>>>>> +		 */
+>>>>>>> +		bio_io_error(bio);
+>>>>>>> +		percpu_ref_put(&mddev->active_io);
+>>>>>>> +		return true;
+>>>>>>> +	}
+>>>>>>>     	if (!mddev->pers->make_request(mddev, bio)) {
+>>>>>>>     		percpu_ref_put(&mddev->active_io);
+>>>>>>>     		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+>>>>>>> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned in=
+t cmd)
+>>>>>>>     	case HOT_REMOVE_DISK:
+>>>>>>>     	case SET_BITMAP_FILE:
+>>>>>>>     	case SET_ARRAY_INFO:
+>>>>>>> +	case STOP_ARRAY:
+>>>>>>>     		return true;
+>>>>>>>     	default:
+>>>>>>>     		return false;
+>>>>>>> --=20
+>>>>>>> 2.52.0
+>>>>>>>
+> --=20
+> Thanks,
+> Kuai
 
-Best regards,
-Richard Cheng.
- 
-> My changes are:
-> - wire the test into the meson environment
-> - update the shell script to be like others, including using check_dmesg
->   intead of reading tainted.
-> - NO changes to your cxl-mbox.c
-> 
-> 
-> -- Alison
-> 
-> 
-> diff --git a/test/cxl-mbox.sh b/test/cxl-mbox.sh
-> index 67fecf5a3f46..1b9f95fc7836 100755
-> --- a/test/cxl-mbox.sh
-> +++ b/test/cxl-mbox.sh
-> @@ -2,33 +2,25 @@
->  # SPDX-License-Identifier: GPL-2.0
->  # Copyright (C) 2026 Nvidia Corporation. All rights reserved.
-> 
-> -. $(dirname "$0")/common
-> +. "$(dirname "$0")"/common
-> 
->  BIN="$TEST_PATH"/cxl-mbox
->  rc=77
->  # 237 is -ENODEV
->  ERR_NODEV=237
-> -# TAINT_WARN is bit 9
-> -TAINT_WARN=512
-> 
->  trap 'err $LINENO' ERR
-> 
-> -modprobe -r cxl_test 2>/dev/null
-> +modprobe -r cxl_test
->  modprobe cxl_test
-> -# cxl_test alone does not autoload the mock memdev module on this box
-> -modprobe cxl_mock_mem
-> 
->  main()
->  {
->         test -x "$BIN" || do_skip "no CXL mailbox test"
-> 
-> -       t0=$(cat /proc/sys/kernel/tainted)
-> -
->         rc=0
->         "$BIN" || rc=$?
-> 
-> -       t1=$(cat /proc/sys/kernel/tainted)
-> -
->         echo "status: $rc"
->         if [ "$rc" -eq "$ERR_NODEV" ]; then
->                 do_skip "no cxl_test memdev"
-> @@ -36,9 +28,8 @@ main()
->                 echo "fail: $LINENO" && exit 1
->         fi
-> 
-> -       if (( (t1 & TAINT_WARN) && !(t0 & TAINT_WARN) )); then
-> -               echo "fail: $LINENO kernel WARN taint (bit 9) set" && exit 1
-> -       fi
-> +       rc=1
-> +       check_dmesg "$LINENO"
-> 
->         _cxl_cleanup
->  }
-> diff --git a/test/meson.build b/test/meson.build
-> index 07c8618cbc6e..69c22c579b02 100644
-> --- a/test/meson.build
-> +++ b/test/meson.build
-> @@ -139,6 +139,11 @@ revoke_devmem = executable('revoke_devmem', testcore + [
-> 
->  mmap = executable('mmap', 'mmap.c',)
-> 
-> +cxl_mbox = executable('cxl-mbox', 'cxl-mbox.c',
-> +  dependencies : libcxl_deps,
-> +  include_directories : root_inc,
-> +)
-> +
->  create = find_program('create.sh')
->  clear = find_program('clear.sh')
->  pmem_errors = find_program('pmem-errors.sh')
-> @@ -173,6 +178,7 @@ cxl_elc = find_program('cxl-elc.sh')
->  cxl_dax_hmem = find_program('cxl-dax-hmem.sh')
->  cxl_region_replay = find_program('cxl-region-replay.sh')
->  cxl_type2 = find_program('cxl-type2.sh')
-> +cxl_mbox_sh = find_program('cxl-mbox.sh')
-> 
->  tests = [
->    [ 'libndctl',               libndctl,                  'ndctl' ],
-> @@ -211,6 +217,7 @@ tests = [
->    [ 'cxl-dax-hmem.sh',        cxl_dax_hmem,       'cxl'   ],
->    [ 'cxl-region-replay.sh',   cxl_region_replay,  'cxl'   ],
->    [ 'cxl-type2.sh',           cxl_type2,          'cxl'   ],
-> +  [ 'cxl-mbox.sh',            cxl_mbox_sh,        'cxl'   ],
->  ]
-> 
->  if get_option('destructive').enabled()
-> @@ -292,6 +299,7 @@ tests_deps = [
->    daxdev_errors,
->    dax_dev,
->    mmap,
-> +  cxl_mbox,
->  ]
-> 
->  if get_option('fwctl').enabled()
-> 
-> 
-> > 
-> > [1]: https://lore.kernel.org/all/20260624144147.53997-1-icheng@nvidia.com/
-> > Signed-off-by: Richard Cheng <icheng@nvidia.com>
-> > ---
-> >  test/cxl-mbox.c  | 129 +++++++++++++++++++++++++++++++++++++++++++++++
-> >  test/cxl-mbox.sh |  48 ++++++++++++++++++
-> >  2 files changed, 177 insertions(+)
-> >  create mode 100644 test/cxl-mbox.c
-> >  create mode 100755 test/cxl-mbox.sh
-> > 
-> > diff --git a/test/cxl-mbox.c b/test/cxl-mbox.c
-> > new file mode 100644
-> > index 0000000..d81327b
-> > --- /dev/null
-> > +++ b/test/cxl-mbox.c
-> > @@ -0,0 +1,129 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +// Copyright (C) 2026 Nvidia Corporation. All rights reserved.
-> > +#include <errno.h>
-> > +#include <fcntl.h>
-> > +#include <stdio.h>
-> > +#include <stdint.h>
-> > +#include <stddef.h>
-> > +#include <stdlib.h>
-> > +#include <syslog.h>
-> > +#include <string.h>
-> > +#include <unistd.h>
-> > +#include <sys/ioctl.h>
-> > +#include <cxl/libcxl.h>
-> > +#include <cxl/cxl_mem.h>
-> > +
-> > +static const char provider[] = "cxl_test";
-> > +
-> > +/*
-> > + * The cxl_test mock advertises a 4 KiB (SZ_4K) mailbox payload_size and
-> > + * IDENTIFY returns a full struct cxl_mbox_identify. Post-fix the kernel
-> > + * clamps the output allocation to payload_size and copies that many bytes
-> > + * back into out.payload, so the buffer must be >= payload_size. 64 KiB is
-> > + * comfortably above the mock's 4 KiB payload.
-> > + */
-> > +#define OUT_BUF_SIZE	(64 * 1024)
-> > +
-> > +/*
-> > + * Regression for the unbounded kvzalloc() in cxl_mbox_cmd_ctor() driven by a
-> > + * huge CXL_MEM_SEND_COMMAND out.size. The kernel fix CLAMPS the output
-> > + * allocation to the mailbox payload_size; it does not reject the request.
-> > + * Assert the ioctl SUCCEEDS (no -ENOMEM) -- do NOT assert -EINVAL.
-> > + */
-> > +static int test_cxl_mbox_huge_out_size(struct cxl_memdev *memdev)
-> > +{
-> > +	struct cxl_send_command c = { 0 };
-> > +	const char *devname;
-> > +	char path[256];
-> > +	void *buf;
-> > +	int fd, rc;
-> > +
-> > +	devname = cxl_memdev_get_devname(memdev);
-> > +	if (!devname)
-> > +		return -ENODEV;
-> > +
-> > +	snprintf(path, sizeof(path), "/dev/cxl/%s", devname);
-> > +
-> > +	fd = open(path, O_RDWR);
-> > +	if (fd < 0) {
-> > +		if (errno == ENOENT || errno == ENODEV)
-> > +			return -ENODEV;
-> > +		fprintf(stderr, "failed to open %s: %s\n", path,
-> > +			strerror(errno));
-> > +		return -errno;
-> > +	}
-> > +
-> > +	buf = calloc(1, OUT_BUF_SIZE);
-> > +	if (!buf) {
-> > +		rc = -ENOMEM;
-> > +		goto out;
-> > +	}
-> > +
-> > +	c.id = CXL_MEM_COMMAND_ID_IDENTIFY;
-> > +	/*
-> > +	 * 0x80000000 (2^31, > INT_MAX) is the proven reproducer that trips the
-> > +	 * size > INT_MAX kvmalloc() WARN. out.size is __s32 in this vendored
-> > +	 * UAPI; cast to avoid -Woverflow, the kernel reads the same 4 bytes
-> > +	 * (kernel UAPI declares it __u32).
-> > +	 */
-> > +	c.out.size = (typeof(c.out.size))0x80000000U;
-> > +	c.out.payload = (__u64)(uintptr_t)buf;
-> > +
-> > +	rc = ioctl(fd, CXL_MEM_SEND_COMMAND, &c);
-> > +
-> > +	/* Pass iff the kernel clamped (success), not rejected. */
-> > +	if (rc == 0 && c.retval == 0) {
-> > +		rc = 0;
-> > +		goto out;
-> > +	}
-> > +
-> > +	fprintf(stderr,
-> > +		"CXL_MEM_SEND_COMMAND huge out.size mishandled: rc=%d errno=%d retval=%u\n",
-> > +		rc, errno, c.retval);
-> > +	rc = -ENXIO;
-> > +
-> > +out:
-> > +	free(buf);
-> > +	close(fd);
-> > +	return rc;
-> > +}
-> > +
-> > +static int test_cxl_mbox(struct cxl_ctx *ctx, struct cxl_bus *bus)
-> > +{
-> > +	struct cxl_memdev *memdev;
-> > +
-> > +	cxl_memdev_foreach(ctx, memdev) {
-> > +		if (cxl_memdev_get_bus(memdev) != bus)
-> > +			continue;
-> > +		return test_cxl_mbox_huge_out_size(memdev);
-> > +	}
-> > +
-> > +	return -ENODEV;
-> > +}
-> > +
-> > +int main(int argc, char *argv[])
-> > +{
-> > +	struct cxl_ctx *ctx;
-> > +	struct cxl_bus *bus;
-> > +	int rc;
-> > +
-> > +	rc = cxl_new(&ctx);
-> > +	if (rc < 0)
-> > +		return rc;
-> > +
-> > +	cxl_set_log_priority(ctx, LOG_DEBUG);
-> > +
-> > +	bus = cxl_bus_get_by_provider(ctx, provider);
-> > +	if (!bus) {
-> > +		fprintf(stderr, "%s: unable to find bus (%s)\n",
-> > +			argv[0], provider);
-> > +		rc = -ENODEV;
-> > +		goto out;
-> > +	}
-> > +
-> > +	rc = test_cxl_mbox(ctx, bus);
-> > +
-> > +out:
-> > +	cxl_unref(ctx);
-> > +	return rc;
-> > +}
-> > diff --git a/test/cxl-mbox.sh b/test/cxl-mbox.sh
-> > new file mode 100755
-> > index 0000000..67fecf5
-> > --- /dev/null
-> > +++ b/test/cxl-mbox.sh
-> > @@ -0,0 +1,48 @@
-> > +#!/bin/bash -Ex
-> > +# SPDX-License-Identifier: GPL-2.0
-> > +# Copyright (C) 2026 Nvidia Corporation. All rights reserved.
-> > +
-> > +. $(dirname "$0")/common
-> > +
-> > +BIN="$TEST_PATH"/cxl-mbox
-> > +rc=77
-> > +# 237 is -ENODEV
-> > +ERR_NODEV=237
-> > +# TAINT_WARN is bit 9
-> > +TAINT_WARN=512
-> > +
-> > +trap 'err $LINENO' ERR
-> > +
-> > +modprobe -r cxl_test 2>/dev/null
-> > +modprobe cxl_test
-> > +# cxl_test alone does not autoload the mock memdev module on this box
-> > +modprobe cxl_mock_mem
-> > +
-> > +main()
-> > +{
-> > +	test -x "$BIN" || do_skip "no CXL mailbox test"
-> > +
-> > +	t0=$(cat /proc/sys/kernel/tainted)
-> > +
-> > +	rc=0
-> > +	"$BIN" || rc=$?
-> > +
-> > +	t1=$(cat /proc/sys/kernel/tainted)
-> > +
-> > +	echo "status: $rc"
-> > +	if [ "$rc" -eq "$ERR_NODEV" ]; then
-> > +		do_skip "no cxl_test memdev"
-> > +	elif [ "$rc" -ne 0 ]; then
-> > +		echo "fail: $LINENO" && exit 1
-> > +	fi
-> > +
-> > +	if (( (t1 & TAINT_WARN) && !(t0 & TAINT_WARN) )); then
-> > +		echo "fail: $LINENO kernel WARN taint (bit 9) set" && exit 1
-> > +	fi
-> > +
-> > +	_cxl_cleanup
-> > +}
-> > +
-> > +{
-> > +	main "$@"; exit "$?"
-> > +}
-> > 
-> > base-commit: 8ad90e54f0ff4f7291e7f21d44d769d10f24e2b6
-> > -- 
-> > 2.43.0
-> > 
+--=20
+Best Regards,
+Abd-Alrhman
