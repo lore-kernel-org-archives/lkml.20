@@ -1,65 +1,74 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013039.outbound.protection.outlook.com [40.107.162.39])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013064.outbound.protection.outlook.com [52.101.72.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945B92C11CF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E291939CD14
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741159; cv=fail; b=t8r97Mus9KI8PnQnwzm2u+5v0vG8DPLdVFet5jgN2WzbpocGB/V1sVemR6TVKPrZ96AywUMSIvnsr7h2Vm3XASUV60VgxUXb8jl80jxqVldoxVWFEuAS/xhlWzobrUa8DUmhWTpY91EMT0ubyP59EuvQMjvF84TNUnQ08OJkCjU=
+	t=1789741177; cv=fail; b=aRjTAagYVIOMSAjqX/WgFiCoxqV0QPlrfhmTfdo6XfuoPgp6rXYyXdxQZ6y0L/yXn0z3BWi9jkjN/+juFZmzgjD4TxFcWfwyGlLY3tR9rxckYXaCwLpJQD49TNg6pA8bqjDFIIe4k2TCUR46mgKWRWMqgba7rXNLxFvmdhvFJVI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741159; c=relaxed/simple;
-	bh=AR+ISsGn65SX9HDpEqUQObpexjpzzOn8C3AMxbOGNCA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=L8K4CTjWwQ4IhZws7IYLjs0oCeRGUhQ9RYRcCZpxehjsqDlMb3zlhJ1YYcMKn7ikiwgauyno+GIzn+4Rdc+nMkq1YwpBym7KuXOu8JZdqE6wPb30769rUq98ECtUyiZvAX7EtCLLDJKWjNxlqHLtyN4K9qaxobcQ4h0LBYVT72k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=FQB7Nqzg reason="signature verification failed"; arc=fail smtp.client-ip=40.107.162.39
+	s=arc-20240116; t=1789741177; c=relaxed/simple;
+	bh=ZwYiU6wEO72eQvglfObc6cAvR3MfnvDhPKjrqXrjR1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Y3FXzM2jPewTAo+XMZEf5v46AsBIPghkRG3NresiBVL8RrYg0Xiw3shm3RfQ5lVmxdN4VlxgYtjBWMAw0zG/Qrf+xZ1s0IsaPqflser5fTilsQJ0kvO8qHlgQmBbcZiZTaMCDPLcWP+CnLlWs32vo7bt7If+AO/sHEcc2X9CyT8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=IZ+jQ3j3; arc=fail smtp.client-ip=52.101.72.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="FQB7Nqzg"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="IZ+jQ3j3"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mk7ipalRNsDqU2iL2Xpp4ImXKIw/ZQeXWdrgfTrI2lAb/AytAv6K5amSYMAC3HzT7EgIQJ9+Kd7vaLTG7XvQvwCdDpUBp+gAaOlU1uj/yXRaQSaqEkyehN8MVbGTZbIqUrMV7WzQUYOnTw3pYlT6ITiyqTht9GmKtpbpCvpXkl/t88EyVtX6Jrh5d7fULuzjhAHEjAiZuhxAF6xtpeVlThnsS4RkobJWHLzydImhV5JAxrUgV/IhEX5Rdp1yD6pwS4HxnKiWmyNP1joPNXe4whwXTeWw7HkLYJGiv6c6C3A3I+kfsBAWx9U40FZ1uIIOn7zqv2rH99sXbXEXWiAV5g==
+ b=QbJ0tw3gy6PPtyB8w1ImLyRfLeH/mjElTwxIFBOBzAuxGr7isojUuxxA2TNgLJONbD2LLh/805b2wfIuyiA/jH1QE6F7sZUPMfTOwVvbd+V4q6Gt837G8toi68XwUq2kqtQRI5upmugnHgWbEznXujMu33LcAlowrRTtdyHIZtQtVszgeW0o+HS56eAjrF5ynztm9dmN2C3Ak9ren/Hjd595T0nnvhkK6nO3FhVVz9AX8dwMgZCVO7NZ0/HKA2AQVJ67Pw4hemcgJVJp9X0EAO9362vEEbfD8V1iKK4dBfvwVzLHUcYroyDeKDJ2ZurBtnVe6MSq+GS/hE625uolHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GQdKeQfUo2jB+jZTDmP/eyM3NkDU+FPfRGitoJXHf/U=;
- b=XTpXejQggpUIzq6hlnM7bSypkIEWXXOJVvkqcDMRuj44MRH3wBkt8AN8dxFaTLMOkCgHJpJfya9fC6cTqB4JipVrQRolwt23I+zUPIkkC2U73TP+EOX/zZnnlT/Dj+4b9quTp1hl8BwjWaBEtygZVe+eUs8/lb7wKUNzW8qBnK/h8SUKYUf26MIHrI2wTdgaaOH+yFB+X0fPiOrkUArh7AdbdpK7po1zvuarZymk1y/iuTprglBf4pJjFztzSA8DoqJ982jjTdboc0fVVzHk+CTUWNlebJb0RMWbIEA14ejFX55Z0VBdklu7OcGeVVrLBFeymGdpvhQRgTGKZUq3FA==
+ bh=QRu9FZb3bNhSorjKpph8ZmBdEj2a2Yjqkb3kopQMufM=;
+ b=rhauyTgCBgcO6X6+kJHt/nJo2q+HJaZ263OAD70NbCDxXPFwqH0CIC2T14+ssRw68///WFfhyy6KfVjapuvz/WlAFWCwjH7wk+VayoRm0HjRyfKfYiQb+Rhk8j0nt+rFCwO0f4E6GFTFV/8bcGSWa4ytFNTWQnN787X6dYeN9tKsS5womlfxtBEbPOADgXU6ANsXZnao85fyPw7DLZpyF+E4oS33rGwRdNLEsTVp+REOJpyfizMQdhso4NV/lhG/kr1x8VIRT3fWKny7INblywy7qP/ROn+t47YICDLEHt6JKkOGFVP7YrXDXOAKmh+4zho30cqKN7E8j1FETc5nNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GQdKeQfUo2jB+jZTDmP/eyM3NkDU+FPfRGitoJXHf/U=;
- b=FQB7Nqzg58R2iIa6v78fHc6QGRRP/jj5RI6UsmJkVezaVGdwLOFi4tHPMzHbn3OoD40WiZsU/yUA2ovD26wn0EICyrDVkw+EdjGbHsVwGmBKgXJj8mvyqhQKsyuMqk5HNuCAKXULGzgneRihVblymmUfW35nAfU29QOJuSGhNhEkCEdescAQxCF0XdJKnBDodNNTSr5R1X/jgQkcZwSHXPLCggpwspdvEoUYsEovg1eSj402/IKPKwolJ2Cs18j1bw8lXusJgReI8jgoeOc+0jC6nOhW0nptQLgKAkvdT8DRTr6fYhnpxZ6OQRKPtP9e4bWquD/mJrF1BBIxDKVaog==
+ bh=QRu9FZb3bNhSorjKpph8ZmBdEj2a2Yjqkb3kopQMufM=;
+ b=IZ+jQ3j3cOvqH1MKJsVxitulkJv39Hp4uvQGl9nT0Gh7y31ZbKzWWYDuOyIMlAIHKAEZECti6wO+6dEmizsZSgfuwVhlg9E7oVD4hnAwHX0pazKlD6o/Z7YAK3pSq70djsjW50Fu9P2Sf5aRLOsfXwowgA+ppZSgDXVIMYhNGGEJbPqVpWu+Al2JBL1tM30v9iAQz8cvoOTbbPFwN1JcQT+C3bNStbvsakH41BhO3cybJ/8+XlBtoom33u9t76mn6GJ+kpWr1pG0YnBhWQ4U3uHSy74XFC14tYitqw8gD8Y5yuBDgwQrqJ3+ZTAxoNG+8S4juv1blcMZ6kFnLX4hlA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB11994.eurprd04.prod.outlook.com (2603:10a6:20b:6fb::21) with
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by ZR6PR04MB296659.eurprd04.prod.outlook.com (2603:10a6:910:e1::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 14:19:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 14:19:14 +0000
-Date: Fri, 18 Sep 2026 10:19:06 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firmware: imx: ele: Fix build regression
-Message-ID: <aq1IWrx8R3_GzRSQ@lizhi-Precision-Tower-5810>
-References: <20260917132214.730485-2-u.kleine-koenig@baylibre.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+ 2026 14:19:33 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 14:19:33 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Dominik=20Karol=20Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Johan Hovold <johan@kernel.org>,
+	Joe Simmons-Talbott <joest@redhat.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Ma Ke <make24@iscas.ac.cn>,
+	Dan Carpenter <error27@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Akiyoshi Kurita <weibu@redadmin.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: linux-kernel@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH] gpib: use assign_bit() where applicable
+Date: Fri, 18 Sep 2026 22:16:29 +0800
+Message-ID: <20260918141702.3022906-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917132214.730485-2-u.kleine-koenig@baylibre.com>
-X-ClientProxiedBy: PH7P220CA0167.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:33b::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Content-Type: text/plain
+X-ClientProxiedBy: MA0P287CA0003.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:d9::20) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,102 +76,354 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB11994:EE_
-X-MS-Office365-Filtering-Correlation-Id: 059b9ebf-cca8-47ae-7850-08df158fd12f
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|ZR6PR04MB296659:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2a67681-d306-487c-28f9-08df158fdc21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|19092799006|23010399003|1800799024|10067099003|6133799003|11063799006|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|19092799006|1800799024|56012099006|10067099003|11063799006|921020|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Jg/UdLdHqFRi4XKQQbmp7CiNpI3/pIpy59qkPCMXcnc5/W48hDmhec6kvdJScKyIyip4PSQVQK/Gq7l9h2ooa4cTvpBoXVVKG6kUmbjpzfs23gLvzINOhscXpFWAePsPxfm/clIWk7LaNACDKmnVIfBOA1MmB+2xNi1nxWM3C557OT/E6Khzj2tiDW2xFZQWPqj7gLbcFNHDfHG6vYnf2A7pOgqvIfvlN5lQfk9J3ugjf+FhOroT3GkyT/fVdvR9BAojkMX2kF/Wbc2TiU5h2pwgEcAeZ9mJhCZDgwwg5aJH3N51YbptVloR0xVQeGhAKLuXMnkbCVW6vyKfVoPr0MZ6v2slXY/SxX40+LOfvQeMOFhoEg2gdIR0s0z+DZWZmFuVuuxtDtuuuNGe3izYQzXucfOA+03ewTk7Z7TwK+mhFJ94oa53H/lR/4qkOzCCcAmNiD7VZ6h9g9/ML8tsAsMvIWaNWRGrFfA7xHd2G6wBN7CMqV7DKimMEycFW2/haggr0o2aAnof/NrA3QxPjq6+V5GT0kNeRPyEdrtcdeyiT8YzG0U+RBw8yG8yUmKdaDJSMTBKjsrMgFkXjjeszqgTSKHh1dMf0ZszZhzOmS6Ju/LTaw9sjPrAFn/JqI8bX2wnKxUvLLbL3AIU1dcW4ak7anxp7pTMFwAsji6tbq0=
+	6ewbncsbNvcKb4aPIwGWRbFubkNedIeIaMjc4YW9IqgLeRYfE2VRdLwwwsG4igX2rIOreiUkr2NaLPglBebfhZb/wv0GXtcnHzDW6diEIzbUbKhK/Lse1UHaieW9iTuw9+7ipdXux/nWFj/mF+Br8uqRMkaEtvqprrhUfk+WsMMm2jQczwuAPhnXiqU2KNWvwvdrRJQcbGXxMSgeNpDJOOp25hMgbPOYWoKDzOTbRuJLH2XBQnXg3ccwfS0olUXBXZma2C2Wm5/8lez016zBL6EpUi5gU5+k4alUJX3sKVGC1LhAvz6992fTVqcjNPc9d64HG+AgTvnBJiMMCGnWrua50s3jO+pPg89G5BF7afavx4T/LqhO8/B6P9xQZUMvr+38WUpOT/qX4lWknXCjL0Z4uQ/8KuKjHTvTAGHkHDom8vLMud4U+g5/AoIv9XVEGqjPbdjN4X06AXoGLkYDxW1neKozBNWsDdrmCaiczahPHtgaoK+v+5/IPzh/mgOnFamAcUVNI8FqGsmowixici1E9mbCzGVrA3Q9XMGUZYPPRd32lR2sFY6A9tgzijSul/ZeGR7oIgLl+is2gX/rJaEI9IXInJi5+L7GDKE/A3pk5zSTCwCFlAb31rRSnnDvn/mtq4AjJx6MJ8CqAGatoQ5LmJUFhAimN9+m6ZepswILMDpCA2kkmsMMGSlEp9iNRneEGBQJ5DQKSGOyhnLrcg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(23010399003)(1800799024)(10067099003)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099006)(10067099003)(11063799006)(921020)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?vBGCHyoBt7GXGnA3G/D7MS8CGYBop4GmWGU7XvBqdpvLo11qy6yVyFkMJc?=
- =?iso-8859-1?Q?/yzDXVybfBdkIsNUg/nlsucyDu0dlCE/Oz/FIW/HPaMazAFPn65Ox7DEtn?=
- =?iso-8859-1?Q?0m/fB3/9vrA9H/Kwg+/8W/0IvW3v6p5zhUL4ON5TEbP+Sxqdatd7sJqMsG?=
- =?iso-8859-1?Q?XMvUFc+cRHcxcHXAv/A0fbxkvgZ1blFtA0g/s30v19A/FOWUUb7J77FIdH?=
- =?iso-8859-1?Q?Wm599iQg6yvmwBnxrUkG5clAQkS0HzGu/Ek43toGGRCrernm+S6DiQ/IP/?=
- =?iso-8859-1?Q?XnsUJBpC3dZ06ZcED8sRauwl//IHKejrimN5RdCbYQExTnvrTv6V6wzY37?=
- =?iso-8859-1?Q?A2RT6csUo8nXQw/rJx2v+J6dEc3Y7gWKzpTgAt9Dbt1CIQLTGlom+/aa19?=
- =?iso-8859-1?Q?OlyqhrTroWDt0cVEzzuhOwMFeU7KCwW9sBFdi12nsKps6pWJqL7LdIbuIz?=
- =?iso-8859-1?Q?IR3tNRkU7QyDEKK9i+S63rfX2IygXdnrBGRtZKpdv70BgeWroAUTtfLkOV?=
- =?iso-8859-1?Q?JIE3IlhULgL0OHdTLyrR8DmeZEd+GODdThth7+BY0J1NHxfwhlm9S3418u?=
- =?iso-8859-1?Q?b7tnkc0IaZez1pQh8d2RahVM1FxjsC8Xn5UkVXhe8Ynt/IjhkYmALOz/bB?=
- =?iso-8859-1?Q?rIwnLMUiHHoEHgnpw21etIFQ/dRQkIy6qqq941aiXIJ4/m7zonYPQ/h7K7?=
- =?iso-8859-1?Q?ex2JpziCKi0xHxWlo8B2K0MLJ9j2sU/4V2ZgvQbwXd3IcqUKKo5cgum/AU?=
- =?iso-8859-1?Q?WKN1Ytp0Rh+6SXJPknYHY5MJulp546WmFnjBHvjutUx91Ve8JT+cwVmJFF?=
- =?iso-8859-1?Q?H8+9XeC4dp+wPnQbyEkRmUok8RDvfek+fw59zKmGSZMO/unl22IP7Bu1/S?=
- =?iso-8859-1?Q?gYx0vXKLi0CiUkAXoTlNyYF+wAGSiqQicDNlOPNTq2ESh7JcBsBaRxA+No?=
- =?iso-8859-1?Q?YUrShHUug9j50IKnxAyjFZD3WoYUaBN4YEb6Oblz4o2+7BKmQ07oc04Zgl?=
- =?iso-8859-1?Q?Gh+sA0WxurBK4AjExgGUX5+XwAmTP1NL8wky9axLReBe1iRzYnHYx/4rHK?=
- =?iso-8859-1?Q?IQr6rMhJkKrIE2AebegybCqsS5edRZykoD6obJAli2UlsuAixBmcYd2xdh?=
- =?iso-8859-1?Q?cwJcpEMK5R6RUNJj2uG/wbEi23DFXlygCOVtARQtIFlaxkRPLk+JOVty0O?=
- =?iso-8859-1?Q?JFxph9+FeGqZ4sQ6cl/cJxpCQZU8z6LRJu/hR0BsdYpzDgZTNiseBcXDKA?=
- =?iso-8859-1?Q?8EwiFRH+353De3sceT5KmUExwGTzOW4BJDFkeTlxQHIukKz/6YFsIWmcpF?=
- =?iso-8859-1?Q?4c3u7+JeqhbT67NfktyKzthBwZkRh/wvOw7Ek9hUcAcKFE/02ceUEaSx+a?=
- =?iso-8859-1?Q?GUTQOiKQTHWYf0BzEKmoSVZoBDQXuCx/8Vs5DfmZ4erRdSSjocWFvLI3X2?=
- =?iso-8859-1?Q?5K0ze35M6jmD16TjO1FeQndlI8Jt5PM0U9ZWnAC/2Yvhkl6dJzMYyzRwjO?=
- =?iso-8859-1?Q?t1YSdC7SPPUl/RxbzZ1jMcfr/3BkRLy1n4fovGb09Y2FF9+rY33KnRNb7U?=
- =?iso-8859-1?Q?Qv3OcE6sGJPZygBl5um/vBhpyKiUxpLYglvnMFEC3DvTEYt2oxmSyAvZ43?=
- =?iso-8859-1?Q?KAcY8FwKjdgj/Pxn+IUTWxqrypCDke5ZeMei7gRW/QHu0r3QZhpN9LPahc?=
- =?iso-8859-1?Q?oUW+q/3LZcXmu36ycAJ4REiO5kQJt501cvvB3tcGECyUpHgi9JS9z45Yft?=
- =?iso-8859-1?Q?sxu3QxD7thGKf6gpDz1k+65Y1V+5yhFCZL66ibM+YfRr5EbiAo6Tyr8jUN?=
- =?iso-8859-1?Q?4TmOD1mkPGJOM8wfeZdtCWS7g2bXnsWlw6xoVF28EZIAKpE7msgN?=
+	=?us-ascii?Q?GTmHZcL7J4gh64GVET9qusI5BZbRFtyoBjW/GfRa9BcCesybGXwJ+pqb6CBj?=
+ =?us-ascii?Q?kqpjE+E6xpz6U1fxfIF48AEAkWTIs6tmhMQO1cjcrV9FNFHIrauJzKhxmqTe?=
+ =?us-ascii?Q?Bzk5yiJPnJAd8ULGymxeOuWfiZv0wZ9oVdfGmYZAhoUmMZgVqvPC1w/EivzL?=
+ =?us-ascii?Q?Gyq0SY0RYNMKyHVsFKGqrJPWukOY2RnHhz9JzZvLBujoQ2o63tzo0h5aFm5r?=
+ =?us-ascii?Q?qLJutrhCqJFYGDTFqTKwbpppvhL/FbhYZFoIMH3KTPA4ulaUkX9bS3B6KXdN?=
+ =?us-ascii?Q?hXpOaHQr08B7GpbsduLGH5Ixd6i5AajeeQDkZsp5jwcUA+t+fOHFhBcC61oy?=
+ =?us-ascii?Q?M3Zv88JZoSVwGVJL9h+kK5zP0mZwGZ7lYHlVgFf1pzaa9vx0VRSMtRpY0Rln?=
+ =?us-ascii?Q?x4gXKPCwJbZ3fwh0ZA4+OyNODIX39FLtXP3y7YSBuDCQP+IVEwsB1ha51iPU?=
+ =?us-ascii?Q?w9nQ2OhzcJmZ3I1SH82OP1360VVdjNQd3mPqhBGysPp4XlOq/0YcGTVdv489?=
+ =?us-ascii?Q?6HVtmV5I8QZCMvBcq4wHos/KC+4DtRI70eaLQpvwK3/5tlNswMabDJs4lp/b?=
+ =?us-ascii?Q?PHZL54oleLWIshDpNL65lNlykPPjRTOpic7fhXlNMyD5QiEoszRS3dqhITx2?=
+ =?us-ascii?Q?05+0MU3sF46FKHPJPcI2mxN+xT0dOjI+XIZnw7aChPo/FqXFPcps2DRKfAto?=
+ =?us-ascii?Q?Dce3FxWdnAVXqHL13vJeQYHt000AY9Nysv3spI1qw9jFAdTfxk//GJt5H5+A?=
+ =?us-ascii?Q?TwCCcUI1kA6fTMpj9c4WdNC+OCTHLz1v8xE1M1QZIMCFNc5nDOPPgfc6nwtt?=
+ =?us-ascii?Q?CmTlc4nMLBiZUens3Hvi98mTQlXamciJS2xfhTiQKWNsDRZQlFp9cy5mrytv?=
+ =?us-ascii?Q?V84eaAilOBqGc1fX3z2Hr82EXLhulfd0oP2hWZgUIdIVTBEoNkFirZXCAbvc?=
+ =?us-ascii?Q?610pJp3yi4Kq5xYjPoPuPZ5Isswq9Gr0D5Dpq1qGawjmhav90RsYiBXKd202?=
+ =?us-ascii?Q?SUyfDWLnyuIFUWMahgs+65TD+RtdmJyuPpasU9/3LvPUq2BjjoYSj6KiHvrW?=
+ =?us-ascii?Q?576irqppkwfVbLROhrmwZmJOXpFCxh29rq7UqNVDeuhdu6YHhXiN7D3X8Onn?=
+ =?us-ascii?Q?/sZE7IQzt3EfAO5pCPRHIkDE+1QAvlz9ZA7PCVlrvhrwkWeoGW0E5Vc9cSMk?=
+ =?us-ascii?Q?0JglM2e1E04Mb/seHGM1TFdFvCe8f9ra1J2GJhACWJrQlgH8OUhtMUHcRxzP?=
+ =?us-ascii?Q?GTnHFmD6KOQUDMWrKyD2IDEX52c2Fo72ApCymrWsfs297g2s/qZbK9GKH71V?=
+ =?us-ascii?Q?Q6aYbUPhXYxVOXGQKBVv1kMGzt1gU84vvXweLHr+p2INvYgJzaWi+vokSxxt?=
+ =?us-ascii?Q?/ya1bWXzFLs7TseJ5N1CL5QXcfc06L1a6uu8n1GMCQX6hTysmaeq3TxK4s79?=
+ =?us-ascii?Q?Rx0sa/dV/pR0nyvQ6CTh8du8hxvlYNzhirpbeONfvd5m7QyDFkcXxvTeMueO?=
+ =?us-ascii?Q?F+4SwY3pxRGpyf62bRz4bBtfdVV1QAW8ri5aQQrjygjF9nyeCY+aD4qgDCBJ?=
+ =?us-ascii?Q?RBLxKXH7rpyEqqEvLGbo8NoyAm+tmIIPEqgDoeJhRjB7w+lkpCns0C0DRvK9?=
+ =?us-ascii?Q?bh9AmAEPoqJVQAwoPFD0+YCz8OeP3jqvEDRTWZYz4htVfcZsvNNzxqemPzZ3?=
+ =?us-ascii?Q?P+a28d1M7a4scbutlBf8CLKYV6DCmAlg4ts+wmpKebrqCFFxknH2B014bZz5?=
+ =?us-ascii?Q?J17kst//OhBHkhr2cf0ashqr68XO+qh6aM5CBlI9FT774lBs56Rj?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 059b9ebf-cca8-47ae-7850-08df158fd12f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2a67681-d306-487c-28f9-08df158fdc21
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:19:14.5700
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:19:32.9305
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5RbtSr3W5mzaATX6daZR7AwT/psgfn7C8U6nlJ3OJEDbSaWLLYYIkgASvIw4yzLUN+KlD7+6a53+jKLyDCo7Z6Gf2tnC0Owu88SSAajeL6KIyiXO3mkz/ui91Jw1+l2G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB11994
+X-MS-Exchange-CrossTenant-UserPrincipalName: JyJ4xUQd473tcD7kV9T9wD5Y1CidkR++ZULmV7Qs3IxVyxWLgoFKUcGmatljmqkDWJ55WLEJ3Nwqg4otHNBZqnpwcWStFFQBeRtSLpRIEjbVmbMgpEEw3e3TTE/dNHZQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB296659
 
-On Thu, Sep 17, 2026 at 03:22:14PM +0200, Uwe Kleine-König wrote:
-> At least on alpha, arc, m68k, powerpc, parisc and sh the header defining
-> kzalloc isn't transitively included in the driver yielding a build
-> failure on these architectures. Fix it by including <linux/slab.h>
-> explicitly.
->
-> Fixes: 7560ad03bbf4 ("firmware: imx: adds miscdev")
-> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
-> ---
+From: Peng Fan <peng.fan@nxp.com>
 
-thanks, squash to 7560ad03bbf4
+Convert open-coded if/else with set_bit/clear_bit and their
+non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
+API.
 
-Frank
+Done with Coccinelle semantic patch and manual fixups.
 
-> Hello,
->
-> the referenced commit currently lives in next only via
-> https://git.kernel.org/pub/scm/linux/kernel/git/frank.li/linux.git for-next
-> . If that tree isn't stable, the Fixes: line might need adaption.
->
-> Best regards
-> Uwe
->
->  drivers/firmware/imx/ele_fw_api.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/firmware/imx/ele_fw_api.c b/drivers/firmware/imx/ele_fw_api.c
-> index 42cda7de66e2..a3a68234bcb1 100644
-> --- a/drivers/firmware/imx/ele_fw_api.c
-> +++ b/drivers/firmware/imx/ele_fw_api.c
-> @@ -3,6 +3,8 @@
->   * Copyright 2026 NXP
->   */
->
-> +#include <linux/slab.h>
-> +
->  #include "se_ctrl.h"
->  #include "ele_common.h"
->  #include "ele_fw_api.h"
->
-> base-commit: 7560ad03bbf40f5b89e210bee2dadb4be20efc1f
-> --
-> 2.47.3
->
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/gpib/agilent_82357a/agilent_82357a.c | 35 ++++----------------
+ drivers/gpib/eastwood/fluke_gpib.c           |  6 ++--
+ drivers/gpib/fmh_gpib/fmh_gpib.c             | 30 ++++++-----------
+ drivers/gpib/gpio/gpib_bitbang.c             | 24 ++++----------
+ drivers/gpib/nec7210/nec7210.c               | 33 +++++-------------
+ drivers/gpib/tms9914/tms9914.c               | 27 ++++-----------
+ drivers/gpib/tnt4882/tnt4882_gpib.c          |  5 +--
+ 7 files changed, 42 insertions(+), 118 deletions(-)
+
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.c b/drivers/gpib/agilent_82357a/agilent_82357a.c
+index 2468a471d175..6346d98fcfb2 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.c
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.c
+@@ -865,10 +865,7 @@ static unsigned int agilent_82357a_update_status(struct gpib_board *board,
+ 		return -ENODEV;
+ 	usb_dev = interface_to_usbdev(a_priv->bus_interface);
+ 	board->status &= ~clear_mask;
+-	if (a_priv->is_cic)
+-		set_bit(CIC_NUM, &board->status);
+-	else
+-		clear_bit(CIC_NUM, &board->status);
++	assign_bit(CIC_NUM, &board->status, a_priv->is_cic);
+ 	address_status.address = ADSR;
+ 	retval = agilent_82357a_read_registers(a_priv, &address_status, 1, 0);
+ 	if (retval) {
+@@ -877,29 +874,14 @@ static unsigned int agilent_82357a_update_status(struct gpib_board *board,
+ 		return board->status;
+ 	}
+ 	// check for remote/local
+-	if (address_status.value & HR_REM)
+-		set_bit(REM_NUM, &board->status);
+-	else
+-		clear_bit(REM_NUM, &board->status);
++	assign_bit(REM_NUM, &board->status, address_status.value & HR_REM);
+ 	// check for lockout
+-	if (address_status.value & HR_LLO)
+-		set_bit(LOK_NUM, &board->status);
+-	else
+-		clear_bit(LOK_NUM, &board->status);
++	assign_bit(LOK_NUM, &board->status, address_status.value & HR_LLO);
+ 	// check for ATN
+-	if (address_status.value & HR_ATN)
+-		set_bit(ATN_NUM, &board->status);
+-	else
+-		clear_bit(ATN_NUM, &board->status);
++	assign_bit(ATN_NUM, &board->status, address_status.value & HR_ATN);
+ 	// check for talker/listener addressed
+-	if (address_status.value & HR_TA)
+-		set_bit(TACS_NUM, &board->status);
+-	else
+-		clear_bit(TACS_NUM, &board->status);
+-	if (address_status.value & HR_LA)
+-		set_bit(LACS_NUM, &board->status);
+-	else
+-		clear_bit(LACS_NUM, &board->status);
++	assign_bit(TACS_NUM, &board->status, address_status.value & HR_TA);
++	assign_bit(LACS_NUM, &board->status, address_status.value & HR_LA);
+ 
+ 	bus_status.address = BSR;
+ 	retval = agilent_82357a_read_registers(a_priv, &bus_status, 1, 0);
+@@ -908,10 +890,7 @@ static unsigned int agilent_82357a_update_status(struct gpib_board *board,
+ 			dev_err(&usb_dev->dev, "read_registers() returned error\n");
+ 		return board->status;
+ 	}
+-	if (bus_status.value & BSR_SRQ_BIT)
+-		set_bit(SRQI_NUM, &board->status);
+-	else
+-		clear_bit(SRQI_NUM, &board->status);
++	assign_bit(SRQI_NUM, &board->status, bus_status.value & BSR_SRQ_BIT);
+ 
+ 	return board->status;
+ }
+diff --git a/drivers/gpib/eastwood/fluke_gpib.c b/drivers/gpib/eastwood/fluke_gpib.c
+index 1363f0a1f570..a868def73d5f 100644
+--- a/drivers/gpib/eastwood/fluke_gpib.c
++++ b/drivers/gpib/eastwood/fluke_gpib.c
+@@ -824,10 +824,8 @@ irqreturn_t fluke_gpib_internal_interrupt(struct gpib_board *board)
+ 		retval = IRQ_HANDLED;
+ 
+ 	if (read_byte(nec_priv, ADR0) & DATA_IN_STATUS)	{
+-		if (test_bit(RFD_HOLDOFF_BN, &nec_priv->state))
+-			set_bit(READ_READY_BN, &nec_priv->state);
+-		else
+-			clear_bit(READ_READY_BN, &nec_priv->state);
++		assign_bit(READ_READY_BN, &nec_priv->state,
++			   test_bit(RFD_HOLDOFF_BN, &nec_priv->state));
+ 	}
+ 
+ 	if (retval == IRQ_HANDLED)
+diff --git a/drivers/gpib/fmh_gpib/fmh_gpib.c b/drivers/gpib/fmh_gpib/fmh_gpib.c
+index 5e10e9353fed..640cfed84a40 100644
+--- a/drivers/gpib/fmh_gpib/fmh_gpib.c
++++ b/drivers/gpib/fmh_gpib/fmh_gpib.c
+@@ -1165,25 +1165,17 @@ irqreturn_t fmh_gpib_internal_interrupt(struct gpib_board *board)
+ 
+ 	ext_status_1 = read_byte(nec_priv, EXT_STATUS_1_REG);
+ 
+-	if (ext_status_1 & DATA_IN_STATUS_BIT)
+-		set_bit(READ_READY_BN, &nec_priv->state);
+-	else
+-		clear_bit(READ_READY_BN, &nec_priv->state);
+-
+-	if (ext_status_1 & DATA_OUT_STATUS_BIT)
+-		set_bit(WRITE_READY_BN, &nec_priv->state);
+-	else
+-		clear_bit(WRITE_READY_BN, &nec_priv->state);
+-
+-	if (ext_status_1 & COMMAND_OUT_STATUS_BIT)
+-		set_bit(COMMAND_READY_BN, &nec_priv->state);
+-	else
+-		clear_bit(COMMAND_READY_BN, &nec_priv->state);
+-
+-	if (ext_status_1 & RFD_HOLDOFF_STATUS_BIT)
+-		set_bit(RFD_HOLDOFF_BN, &nec_priv->state);
+-	else
+-		clear_bit(RFD_HOLDOFF_BN, &nec_priv->state);
++	assign_bit(READ_READY_BN, &nec_priv->state,
++		   ext_status_1 & DATA_IN_STATUS_BIT);
++
++	assign_bit(WRITE_READY_BN, &nec_priv->state,
++		   ext_status_1 & DATA_OUT_STATUS_BIT);
++
++	assign_bit(COMMAND_READY_BN, &nec_priv->state,
++		   ext_status_1 & COMMAND_OUT_STATUS_BIT);
++
++	assign_bit(RFD_HOLDOFF_BN, &nec_priv->state,
++		   ext_status_1 & RFD_HOLDOFF_STATUS_BIT);
+ 
+ 	if (ext_status_1 & END_STATUS_BIT) {
+ 		/*
+diff --git a/drivers/gpib/gpio/gpib_bitbang.c b/drivers/gpib/gpio/gpib_bitbang.c
+index 34d14b94a0b8..933bf8dd7207 100644
+--- a/drivers/gpib/gpio/gpib_bitbang.c
++++ b/drivers/gpib/gpio/gpib_bitbang.c
+@@ -949,25 +949,13 @@ static unsigned int bb_update_status(struct gpib_board *board, unsigned int clea
+ 
+ 	board->status &= ~clear_mask;
+ 
+-	if (gpiod_get_value(SRQ))	       /* SRQ asserted low */
+-		clear_bit(SRQI_NUM, &board->status);
+-	else
+-		set_bit(SRQI_NUM, &board->status);
+-	if (gpiod_get_value(_ATN))			/* ATN asserted low */
+-		clear_bit(ATN_NUM, &board->status);
+-	else
+-		set_bit(ATN_NUM, &board->status);
+-	if (priv->talker_state == talker_active ||
+-	    priv->talker_state == talker_addressed)
+-		set_bit(TACS_NUM, &board->status);
+-	else
+-		clear_bit(TACS_NUM, &board->status);
++	assign_bit(SRQI_NUM, &board->status, !gpiod_get_value(SRQ));
++	assign_bit(ATN_NUM, &board->status, !gpiod_get_value(_ATN));
++	assign_bit(TACS_NUM, &board->status,
++		   priv->talker_state == talker_active || priv->talker_state == talker_addressed);
+ 
+-	if (priv->listener_state == listener_active ||
+-	    priv->listener_state == listener_addressed)
+-		set_bit(LACS_NUM, &board->status);
+-	else
+-		clear_bit(LACS_NUM, &board->status);
++	assign_bit(LACS_NUM, &board->status,
++		   priv->listener_state == listener_active || priv->listener_state == listener_addressed);
+ 
+ 	dbg_printk(2, "0x%lx mask 0x%x\n", board->status, clear_mask);
+ 
+diff --git a/drivers/gpib/nec7210/nec7210.c b/drivers/gpib/nec7210/nec7210.c
+index f15d38dfa4cc..d9d99a2469a3 100644
+--- a/drivers/gpib/nec7210/nec7210.c
++++ b/drivers/gpib/nec7210/nec7210.c
+@@ -177,26 +177,15 @@ unsigned int nec7210_update_status_nolock(struct gpib_board *board, struct nec72
+ 		return 0;
+ 
+ 	address_status_bits = read_byte(priv, ADSR);
+-	if (address_status_bits & HR_CIC)
+-		set_bit(CIC_NUM, &board->status);
+-	else
+-		clear_bit(CIC_NUM, &board->status);
++	assign_bit(CIC_NUM, &board->status, address_status_bits & HR_CIC);
+ 	// check for talker/listener addressed
+ 	update_talker_state(priv, address_status_bits);
+-	if (priv->talker_state == talker_active || priv->talker_state == talker_addressed)
+-		set_bit(TACS_NUM, &board->status);
+-	else
+-		clear_bit(TACS_NUM, &board->status);
++	assign_bit(TACS_NUM, &board->status,
++		   priv->talker_state == talker_active || priv->talker_state == talker_addressed);
+ 	update_listener_state(priv, address_status_bits);
+-	if (priv->listener_state == listener_active ||
+-	    priv->listener_state == listener_addressed)
+-		set_bit(LACS_NUM, &board->status);
+-	else
+-		clear_bit(LACS_NUM, &board->status);
+-	if (address_status_bits & HR_NATN)
+-		clear_bit(ATN_NUM, &board->status);
+-	else
+-		set_bit(ATN_NUM, &board->status);
++	assign_bit(LACS_NUM, &board->status,
++		   priv->listener_state == listener_active || priv->listener_state == listener_addressed);
++	assign_bit(ATN_NUM, &board->status, !(address_status_bits & HR_NATN));
+ 	spoll_status = nec7210_serial_poll_status(board, priv);
+ 	if (priv->srq_pending && (spoll_status & request_service_bit) == 0) {
+ 		priv->srq_pending = 0;
+@@ -861,18 +850,12 @@ irqreturn_t nec7210_interrupt_have_status(struct gpib_board *board,
+ 
+ 	// change in lockout status
+ 	if (status2 & HR_LOKC) {
+-		if (status2 & HR_LOK)
+-			set_bit(LOK_NUM, &board->status);
+-		else
+-			clear_bit(LOK_NUM, &board->status);
++		assign_bit(LOK_NUM, &board->status, status2 & HR_LOK);
+ 	}
+ 
+ 	// change in remote status
+ 	if (status2 & HR_REMC) {
+-		if (status2 & HR_REM)
+-			set_bit(REM_NUM, &board->status);
+-		else
+-			clear_bit(REM_NUM, &board->status);
++		assign_bit(REM_NUM, &board->status, status2 & HR_REM);
+ 	}
+ 
+ 	// record reception of END
+diff --git a/drivers/gpib/tms9914/tms9914.c b/drivers/gpib/tms9914/tms9914.c
+index 1411297e6217..1e658e6f5e00 100644
+--- a/drivers/gpib/tms9914/tms9914.c
++++ b/drivers/gpib/tms9914/tms9914.c
+@@ -356,32 +356,19 @@ static unsigned int update_status_nolock(struct gpib_board *board, struct tms991
+ 	address_status = read_byte(priv, ADSR);
+ 
+ 	// check for remote/local
+-	if (address_status & HR_REM)
+-		set_bit(REM_NUM, &board->status);
+-	else
+-		clear_bit(REM_NUM, &board->status);
++	assign_bit(REM_NUM, &board->status, address_status & HR_REM);
+ 	// check for lockout
+-	if (address_status & HR_LLO)
+-		set_bit(LOK_NUM, &board->status);
+-	else
+-		clear_bit(LOK_NUM, &board->status);
++	assign_bit(LOK_NUM, &board->status, address_status & HR_LLO);
+ 	// check for ATN
+-	if (address_status & HR_ATN)
+-		set_bit(ATN_NUM, &board->status);
+-	else
+-		clear_bit(ATN_NUM, &board->status);
++	assign_bit(ATN_NUM, &board->status, address_status & HR_ATN);
+ 	// check for talker/listener addressed
+ 	update_talker_state(priv, address_status);
+-	if (priv->talker_state == talker_active || priv->talker_state == talker_addressed)
+-		set_bit(TACS_NUM, &board->status);
+-	else
+-		clear_bit(TACS_NUM, &board->status);
++	assign_bit(TACS_NUM, &board->status,
++		   priv->talker_state == talker_active || priv->talker_state == talker_addressed);
+ 
+ 	update_listener_state(priv, address_status);
+-	if (priv->listener_state == listener_active || priv->listener_state == listener_addressed)
+-		set_bit(LACS_NUM, &board->status);
+-	else
+-		clear_bit(LACS_NUM, &board->status);
++	assign_bit(LACS_NUM, &board->status,
++		   priv->listener_state == listener_active || priv->listener_state == listener_addressed);
+ 	// Check for SRQI - not reset elsewhere except in autospoll
+ 	if (board->status & SRQI) {
+ 		bsr_bits = read_byte(priv, BSR);
+diff --git a/drivers/gpib/tnt4882/tnt4882_gpib.c b/drivers/gpib/tnt4882/tnt4882_gpib.c
+index 3cd13f637ed4..f40a7977af1c 100644
+--- a/drivers/gpib/tnt4882/tnt4882_gpib.c
++++ b/drivers/gpib/tnt4882/tnt4882_gpib.c
+@@ -701,10 +701,7 @@ static unsigned int tnt4882_update_status(struct gpib_board *board, unsigned int
+ 	nec7210_update_status_nolock(board, &priv->nec7210_priv);
+ 	/* set / clear SRQ state since it is not cleared by interrupt */
+ 	line_status = tnt_readb(priv, BSR);
+-	if (line_status & BCSR_SRQ_BIT)
+-		set_bit(SRQI_NUM, &board->status);
+-	else
+-		clear_bit(SRQI_NUM, &board->status);
++	assign_bit(SRQI_NUM, &board->status, line_status & BCSR_SRQ_BIT);
+ 	spin_unlock_irqrestore(&board->spinlock, flags);
+ 	return board->status;
+ }
+-- 
+2.51.0
+
