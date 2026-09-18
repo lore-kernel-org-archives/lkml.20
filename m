@@ -1,181 +1,132 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CD03BB9FD;
-	Fri, 18 Sep 2026 15:17:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC2E3D79FB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744658; cv=none; b=PIWmkRIiFTS7XrxqAgcwbVSgxXCe3tidDJlPYrtZiFw2tqJGrMHCO2aeE5WH0oRZt884lTjLLyQrhdxvFRsifS6mxo6MDplCtj7f6GBYCeGguE6i2CVWD1Hutt/7biRH4EmdLEmCWqyc5MVItc3i3lN87cP9bjLWLCZPTIkYfFs=
+	t=1789744667; cv=none; b=rTXOwXy4tqinaLPaIeiVab23dvExcsCSq5W2lSZO5dx5FchqPly9n82u8O6DAlyBIYvSBoCTKABB0zNOPk/g1afu5lf+qwkHIkDpLQok1oyCFU9pSmAvk3V+8KJsPQk/WATciUKgp4TsvuBXptX8Yq9pPT02XVxjwXmsnVonAsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744658; c=relaxed/simple;
-	bh=RHTU6Z9bGX0jO6TWUfTSCl8SsvSd6vIgaUc6+QhJ5sg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oQHUtqiBhXIBjqh8Dr7uTGx6K2LoLpx883ln8KyBEYnUJ3eDDptV5dovssh0C/0H5xUoFNAo0AWlMUMekXwyuDBs3ZNWxkw/c1FIqMfBgbm1ZCVnSl3fgPxINVhzGRMbvd7VLSpzB1TaeyIVO7glTGriQOIOB9+6ezFYRRIKKsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=d+hEd4zl; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=02qltcYz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bPYuEaDr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wWDNGVIB; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789744667; c=relaxed/simple;
+	bh=lCzf76+NJFiZBWowe56JipIaRmY6y097OMCOguKq84Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uBPhaTTDF0r4uybiTEFEOwHO6OLf6bVwIzsQQb08x06WdQqnRwXgno7QmM26MEL1zF637T0kVdgb5egKhOc8S4wnsnRzjmtfVtEON2eQY6DrX7ST+BWwUpkJgpeDUOuWJIJDjBGc53vS5PJvqkrIBBA9ylCgNJNla8jLO0OwoGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAau96Qc; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="d+hEd4zl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="02qltcYz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bPYuEaDr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wWDNGVIB"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 652AA1F385;
-	Fri, 18 Sep 2026 15:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789744644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x1HMooKxWdTR8MMA0vDkkoexxC1R5v4vfZJE6qbf1b8=;
-	b=d+hEd4zlYJ8RMbrQQEhZpPHsdMl0V8lURdCHlaY/kR+QqzkjxniTKNS1IuaPq5hBpjxL3w
-	fOwDwhtzV6QvwDpPkO9TA2ga6+h35B1+z0INsePxlECjXP0+6GFn++va2E6ZbpLOO4LvMp
-	ci79Fbr9Ykb9/+qZ+ooXpyC8/VOKihk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789744644;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x1HMooKxWdTR8MMA0vDkkoexxC1R5v4vfZJE6qbf1b8=;
-	b=02qltcYzB0GCI4UiAO8ogU2o3WewHqd+IYqfLD3PmEYAQFc1szNUIItATZKaGUxP/5cDv2
-	W8URTbuC3CCjpSDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789744640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x1HMooKxWdTR8MMA0vDkkoexxC1R5v4vfZJE6qbf1b8=;
-	b=bPYuEaDrb1LoHyzzzAu3HxvTQsoxyQ29E7q5Ywa13Ev2LCMLHp/2rwcYc0MzF/MFGhHhLN
-	ytLIzXhNarA4Yxvp+1MEl46H2G1jDttB0ic1biGu2eWiokpUljo+I2+mj59oVa0mby8mNp
-	3sQwDdyMi4O+F+3aKGX88a8kc33GjAk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789744640;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x1HMooKxWdTR8MMA0vDkkoexxC1R5v4vfZJE6qbf1b8=;
-	b=wWDNGVIB1foDfgEMxeoWCGq96/Rh8kLe+/p5JzqKxWWw2NnUknoU8JpmYtBKhKYpauIDt6
-	UH8ypdyLdrZDszAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9BAF13991;
-	Fri, 18 Sep 2026 15:17:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oqnCIP9VrWqdMQAAD6G6ig
-	(envelope-from <hare@suse.de>); Fri, 18 Sep 2026 15:17:19 +0000
-Message-ID: <46322855-6496-482c-a63b-d0e7bd055f1b@suse.de>
-Date: Fri, 18 Sep 2026 17:17:18 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAau96Qc"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605844571so1110253a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:17:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789744663; x=1790349463; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7cqdA0O8Ahj4mmcXHJ140W7PNv8oloRpbbh1DU0ab2Y=;
+        b=MAau96Qcy437Rhkb8qb17CTu/aCU/UUHNgKUJPbxMde8RMu3sRQHlxHTf/cb99qzY/
+         O5jyEgt72sKg5WOvC1qFIwrRrZ3/wmt3HXEZ09Oht9so+sUPKzIICQ9XaogQOZbqdBL7
+         zEDreqNkdyjdcz38U2FuWBJk8V5R8InTTzk8DPBi/O8z6jd44XWhbxbp/6SgZq8Oq5vq
+         l6HrAkyumm+GZM1a54A2T/uscFhJzQZLmnG0LBKJbWKKhl6qxLorBEkg3vTZyxwaIHkd
+         +neg5o1voE/b4rmCie9MACURh8yiBzvFRLtWRFKp33u8QoCYYvDJ1EZHBxXj6YIWzcE5
+         /1LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789744663; x=1790349463;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7cqdA0O8Ahj4mmcXHJ140W7PNv8oloRpbbh1DU0ab2Y=;
+        b=Hkjmf6alwA7nBB68iO6/yfBIN49+s0WOZOn43sRW1VFTPQesfKzfgijsrjhI27iRPc
+         60VRGmTdguDvTNECaZimihn2B+Cimah8ADYS43PG5DJx1oiuMFE1sPUfMGf8CVekh/PC
+         J0GyipPa5xNS9ibMwraZkOOuCVPfuonDuXVVcidHeaUU6OPBJtLhRkXTzRCqEaLG8B7x
+         IpKWreodkU8TZ/Rr6PcltO7LsxmuBio9gv2O9NFt3Ir5rInF2AaRcs82Iq+R7N7NKt4C
+         V0WmE5dgOKbC/aJm9xEkakjM104ReB+jCKKlmA0AYWVt/0/cgrwj0xr7/TfaMet9mSV3
+         0dkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzNdCN3xlKi7JM2LYCVlPNQ+w/w/GBBe0OrhXbu2N5soH+HInqJdLiXqNrhRZUZ3w9v0Ra8nl/8CtaJmtA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5gmbO2NB9aa6IguKSBvbUyb6TD9eqv9T7xG6qvNrNrOiKMOg+
+	aepTfgchp1jvGjJMIEB1ZbEpsXKAW4MnHAsB+u+cdvj+FEUKa6QHA9eg
+X-Gm-Gg: AYBFou10d6ftsvz1M4ttpqdCSAUZNpCdDTI58mUTSvC+pNjbteVEO4EzqhCJ9W9x298
+	U9Dc1Sq1w2j9bMcyxTdrun0Lf9NhGfIn+OCZz37+OMCoyVc8cbDlgi8GrYQtXt7G4q6FRo08RxA
+	s7MabokdLXUSnRRxpdirCHaZQ6lI98RuEHbO7lckgVa4IN17Ve2awrvIqYJA5d0kDGW1rjai8O8
+	JNlfiu3Hae81ulsfAU/7zD58Otjt0U0KnquMB1NnWOnZEFqk8Ej4jEONC8oY5wiTD9i7EcmFVwD
+	E4pD1ZCBZHwh7l9tN6uUYQMNjYbcbnciqtWWvVHrPYEZErG2N+CCJU+M1HAsA7dmjT0Cgpt7okL
+	Lghde0QrsystD5yI2z0L266ESIsSw/dya0FoAi9vUut/eyYDqZ5fIjQDal0ptzxhoIzU4g35ctS
+	69X6kWj89Ts3p24X3E42GNitc+LGhplguVihpkGNF6ajgPBlCn/SiW6723yDqahx9/5pg/sTpj1
+	9qgiR/L8CfW5G6W8Rq/J6cjuxapM4bw4F5K
+X-Received: by 2002:a17:907:960d:b0:c29:d3ad:4f72 with SMTP id a640c23a62f3a-c2a157da677mr272170666b.16.1789744663392;
+        Fri, 18 Sep 2026 08:17:43 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb42643sm74893366b.26.2026.09.18.08.17.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:17:42 -0700 (PDT)
+Date: Fri, 18 Sep 2026 16:17:41 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: Andy Lutomirski <luto@amacapital.net>, Mikko Rantalainen
+ <mikko.rantalainen@peda.net>, Rich Felker <dalias@libc.org>, Matthew Wilcox
+ <willy@infradead.org>, linux-fsdevel@vger.kernel.org,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
+ brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+Message-ID: <20260918161741.1d95bd4f@pumpkin>
+In-Reply-To: <lhu5x02vhtk.fsf@oldenburg.str.redhat.com>
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+	<aqcmz5uI7PgN5CT7@casper.infradead.org>
+	<20260913235145.GY25906@brightrain.aerifal.cx>
+	<eeb50cae-87af-4a40-b9c6-f4fa9981425e@peda.net>
+	<CALCETrUgLj4Dz0s6PMofViJwausRWCvNvJphxWHUeWCCaRBtQg@mail.gmail.com>
+	<f61886ed-3026-4db7-ae22-b882264141bd@peda.net>
+	<CALCETrVnE2unnjHokG=bGLEXAeC0U8QRx_wb8fQDh-Fe5O6PBg@mail.gmail.com>
+	<lhu5x02vhtk.fsf@oldenburg.str.redhat.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet-auth: fix out-of-bounds write in
- nvmet_auth_challenge()
-To: Weiming Shi <bestswngs@gmail.com>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, co+77553a7fc66ac133@bugs.sh,
- Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-References: <20260912171009.1513289-3-bestswngs@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260912171009.1513289-3-bestswngs@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FREEMAIL_TO(0.00)[gmail.com,lst.de,grimberg.me,nvidia.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[77553a7fc66ac133];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bugs.sh:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 9/12/26 7:10 PM, Weiming Shi wrote:
-> nvmet_auth_challenge() receives its output buffer as a void pointer.
-> sizeof(*d) therefore evaluates to one with GCC and undercounts the fixed
-> challenge header by 15 bytes.  A short AUTH_RECEIVE buffer can pass the
-> check before the challenge is copied past the end of its allocation.
-> 
-> Use the typed challenge pointer when calculating the response size.
-> 
->    BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:442 drivers/nvme/target/fabrics-cmd-auth.c:569)
->    Write of size 32 by task kworker/1:1H/64
->    Workqueue: nvmet_tcp_wq nvmet_tcp_io_work
->    Call Trace:
->    nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:442 drivers/nvme/target/fabrics-cmd-auth.c:569)
->    nvmet_tcp_try_recv_pdu (drivers/nvme/target/tcp.c:1119 drivers/nvme/target/tcp.c:1243)
->    nvmet_tcp_io_work (drivers/nvme/target/tcp.c:1350 drivers/nvme/target/tcp.c:1382 drivers/nvme/target/tcp.c:1445)
->    process_one_work (kernel/workqueue.c:3322)
->    worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
->    kthread (kernel/kthread.c:436)
->    ret_from_fork (arch/x86/kernel/process.c:158)
->    ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->    The buggy address is located 16 bytes inside of
->     allocated 33-byte region [ffff888000554e80, ffff888000554ea1)
->    Kernel panic - not syncing: KASAN: panic_on_warn set ...
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-> Reported-by: co+77553a7fc66ac133@bugs.sh
-> Closes: https://lore.kernel.org/all/Ah6QavQXwvshtqyUcYD1P1R7XE0ND9fB7lbV@bugs.sh/
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->   drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 92f8a76f10..dccdb55a36 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -427,7 +427,7 @@ static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
->   	struct nvmet_ctrl *ctrl = req->sq->ctrl;
->   	int ret = 0;
->   	int hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
-> -	int data_size = sizeof(*d) + hash_len;
-> +	int data_size = sizeof(*data) + hash_len;
->   
->   	if (ctrl->dh_tfm)
->   		data_size += ctrl->dh_keysize;
+On Fri, 18 Sep 2026 14:56:39 +0200
+Florian Weimer <fweimer@redhat.com> wrote:
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+> * Andy Lutomirski:
+> 
+> > I think I mostly agree with your analysis except that I really don't
+> > like the ENOSPC.  The kernel actually has the ability to commit to
+> > having space for pending writes on an fd *without syncing*, then I
+> > think that capability should be expose to userspace.  fsync is a
+> > pretty poor alternative for code that just wants to make sure that, in
+> > the absence of a bug, crash or physical failure, the data won't be
+> > lost.  
+> 
+> It's something we might want to call from fflush.
+> 
+> As a replacement, dup3/close doesn't quite work because it releases
+> POSIX advisory locks on the original descriptor (as they are per
+> process, not per descriptor).
 
-Cheers,
+POSIX advisory locks are completely broken by design.
+They just don't work for threaded processes at all.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Thread 1	thread 2	thread 3
+open
+lock
+		open
+		close
+				open
+				lock - succeeds
+
+The same could easily happen if a single threaded process opens
+the same file multiple times.
+
+David
+
+> 
+> Thanks,
+> Florian
+> 
+> 
+
