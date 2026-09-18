@@ -1,138 +1,122 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118D43B9DA6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697561; cv=fail; b=tzUrEyPKyqYWunylXiJ8lhaCfTai9TLe4mSdLpXdKqyNFiYjgLQzPZ9dcQjWMK2B59KuwXN28k4DNMUJ3XK0oG1y4CDZbvbTTCOswIKcaMkKlNkUFyZQKjMXzR2dVsCJrGEVeIw9rk5jfJnQPnMuCcbfsbul4lZMsGKdjZEIOV0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697561; c=relaxed/simple;
-	bh=jluCXE+Y9rLXUz/X/Xd8ATvDlFCJwmFvNmrA41EyH8M=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y4S8UjuV5my+6Fvv4psleDCDvkIzC94fK5iMQFTDP+J4zT+UMQ582JaryAplk5fLDUCT2ORFlNrdiynbWIUnUs/DEuVZXFAE20bZKnASxQukPDpwfBRBT+y/2pl/FPlpTlG/sH18mkp+nScWPTqyEpNAfeR0haYST4mKph0vyBI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1I2Ptp4d; arc=fail smtp.client-ip=52.101.62.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D2C3B9DA2;
+	Fri, 18 Sep 2026 02:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789697567; cv=none; b=M8OF2/ppEx4LHBbeJLV4/OqRuHtDebgSrPRA2m4iZ1qmbjwhrKn1NBSNKO8vfgmwoNstrp3+PyyCfFFvGS70BicI6GNcDXmrud5sXwKafV/cj5P269iSPQhyVl2YNhVADZiozJjabraA7Y7Uwpu/thO/FyzO0ceXxGmxuXdFA9A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789697567; c=relaxed/simple;
+	bh=jtX7FZ7RJ06CBiGmk1kPgZKWraP9AuswhIhdfky8550=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RsEy3tHfG1Y8qCjef/WxAxNxOKtr+KCVOMrPVvw8KFr7kTjhkr6i1w4/m1qOBIrYFGxBCadiuPCednUeCwnNw/VrRXnHlrZiy6llukv7jnjirrMhZpOTojmNzCaCY+5QDD43O4tHuaITMlpcOl+4kvSZzoP3LLzK9x5InznAnOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IHVfs6Th; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1I2Ptp4d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aej3aA+yLd/YqWvIVxEh0ABRaf1BN0t7JpJjQjHQ8O/eVJWL2BBUPAxyeHcIIFvvuNsXG9L0tr+0yZoVW5JEQRzEBMQhOWL2j3BvIoREKqgYouzT5FVxl9/SZgEcVQWp5ZZUPw04iLzJd4ZnJoZVnEtIC5r9DjEmGcUAs/I/VdMyhiiGBZePaM7QvspfssH65RL5OVWjTVwxE2W/I2RdrBndUE/8JLtem7NHt3kYMBonYJn+DSOZF5wdQ3nLekweZ1Vy8iYGgN4epfoZVvSYHg9yG5F4OB7P/Tjvxpi9ELw/sUYs5/jHPttlKVzEasHAdYyREac7/lM1iZ9PiBe5Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FPZgi3EZoiK37BEgU8VWTDJ16nfVL1aGE1DlxaQkN8A=;
- b=UT695jXiX+omeYbB+DqqM5bV2Mwd1/1OzqgZqzl0kqlS+Llwth86ac89MvWOWVgeHNi3HAnqqx6wSpOvsliNmgqxKA/WSnTCCtZ7NVvtAVLIv/x0knqEaAufa6dv/Lqu1t+r8gm1Vg/Z/zU5mbwRU3615C3gV2UNyEzw6VFHMiNsFS14IAJYR/5dQDLcP42rMNAXT3GaLAreQ18ycz9w4N9iP1UEefb03ofPYIYO6bC9Cl+YcFVgcp9tidGkLwyYKru35J5cBbazBsXDr2ywa7YG673rWrtLUtPFa6qSw4NF7516P54ofu9gCXCrHSPoe8JbETw8tYplOJJLYJreXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FPZgi3EZoiK37BEgU8VWTDJ16nfVL1aGE1DlxaQkN8A=;
- b=1I2Ptp4d6oM0KcSKi/VmtuCC81jhCw2VrsgIKW7og03kjED1Wr7i+r1t3xX+aMsDuKer+M0/uxVCEONleh7asWHCG8SlwbP6D/uXcP5E14PvZO79PuEKszlI8AIsYbjC/kPZ+3bTfuUdC640qB2y4Jx9V+EPq8Ok/tWvFaW+41E=
-Received: from PH1PEPF00013314.namprd07.prod.outlook.com (2603:10b6:518:1::6)
- by SA1PR12MB7341.namprd12.prod.outlook.com (2603:10b6:806:2ba::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 02:12:17 +0000
-Received: from SJ1PEPF000023D8.namprd21.prod.outlook.com
- (2a01:111:f403:c902::13) by PH1PEPF00013314.outlook.office365.com
- (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Fri,
- 18 Sep 2026 02:12:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D8.mail.protection.outlook.com (10.167.244.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.0 via Frontend Transport; Fri, 18 Sep 2026 02:12:16 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 21:12:13 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
-	<odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
- Hoffmann" <kraxel@redhat.com>
-CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
-	<olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
-Subject: [PATCH v7 1/4] drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
-Date: Fri, 18 Sep 2026 10:11:51 +0800
-Message-ID: <20260918021154.1432154-2-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918021154.1432154-1-honghuan@amd.com>
-References: <20260918021154.1432154-1-honghuan@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IHVfs6Th"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9B29C1F000FF;
+	Fri, 18 Sep 2026 02:12:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789697565;
+	bh=d4vVwkbXz45ooOzl44gRG1JuQT888xvFhnus8MsVAGc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IHVfs6ThfgU+r2I3cM3beKDx9sEqHdgRB9fXzRTfCy8PvP47dFuIPJxWflHVVG0pU
+	 t555heaSPScodDZAPqMe5+4XIimtnefdGyegd4TA9Ot/nVyoyBchg9TjX9AasJ5CHJ
+	 yPjFqopmEzqHsOxOKw8l56mswVA55bMRJjBHq74ijeO5bzYGOn9UvcLzTx+7nFYPyW
+	 xpvwCQdQR9HeyH4hfNNpVsYWpYRykZXxf/GIxeZY68Y9vp320PEZhU+ak7FCJiHafy
+	 mritK0b/WZu9rpq09VB/CiiqWZJAvUwBWMorPZbCDlSbzCSRp+Lf+kxIkPoQJyby4O
+	 msDiRupmV63NQ==
+Date: Fri, 18 Sep 2026 05:12:41 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH v9 0/2] Move TPM-specific fields out of
+ trusted_key_options
+Message-ID: <aqyeGbZKvLxaDwju@kernel.org>
+References: <20260912062950.279104-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D8:EE_|SA1PR12MB7341:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4909c2d-9738-45df-cfaa-08df152a430d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UVC9HrT59iSTOJvcUrv8ATu6I/oIzlFb/eOHNR1rpgnzCiUtvD3ZxmiAgP0tbqGNDUMx71GU1zI4JRYZ4vSaJ1KX12+i76qudQbbCg1EBYea/CSA/tVUlWm7wyYHx3GYHq6AVt4GRVQPYWHzAIg0fa2/evo4VWuhK+J226Q4ytR+Xdo7UXZf7DWjVJbRFAAjV8yAdlCTiDDBqA47AjncytN1Pc6616xc6JquwY2LKYVNiiE7vOVpM9owSyY40vOD4Lx3sEIzD7BPWHzQuyYFNjgHUoc8k6dNoiKf73uBeHdYhbr9DbCEMRVRMsC2jKZuCdp9lRYryaI+K5Z4TdIfCKcXroJDdmOF+2tmOyMdyTJP0NzFzFy6BCPSUVU1t3YvHvoD3x7AKENPAzNirffV1krkS8ThQaDviZopSuU6MEeSi9FX9oLfmYqKfgGYLhaPwZ5xS4eRCFcOJRCP5wibKkk+C/MiYmzekcqtJaLrcL+zHbVDIENTYvea7nx6FHspgCU4VnR7SlnjLRhKWu5m+zw2FNTtS3DxE87OW70jdU5vyz3gh4pg1DDJIvfvm1tHGctkS39ZTstP5jPeTv4ijmXFkW9mBlImuVRVOZaQktDfDkCKYA46WRAW9VStbvwuPFF4svJpHydrtopR6E7F/qvPKeZELbX8ZKH7PcAshliB2jZXIL6p2TRfm405UMYfdYnp4fTruygqqJWxXxJIqg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rHB5SyVfSfFM+/259p1FX5BGEg47f4iK7u7S/6H3T/APVZ/hG8kRpXl+GPobIjaHYr+Tfsb/vroyfUeISe7/h+xaMNgBpDnLfq7hrag7gB8nBUQdJHaRmjIYzl/RHLRyhH/Frdy59OEEFyU0qeNy4pJl2CQDBqV8Hj9zi39SiDg1wGdl3SUWXeQBs6DQsCTz5qhReQFLu6DXlWGoWxjGp4wSqQuUCCYMg09Q7jSX9BxtTlasS9j5GPk+hsPVVe0o2vuiw+sdNo79d0M+KR+fEzTjJqIH/1g+1gs7k+qhzf2Y8DJDCQoReK2Czl7kDT5vuJzx9C7L8CobT1IgNfjo7NCSMTTM60wB+Oykmcv4sIk7pmwiNO+CoCgMTVt/9OUr+j+HoP36fS+4KjufIq+MZUcPPRh0efdbrBLd6rG1ooOqoprqBOXbYW8d5vfjtiku
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 02:12:16.6440
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4909c2d-9738-45df-cfaa-08df152a430d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7341
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912062950.279104-1-ssrish@linux.ibm.com>
 
-Add a new GPU capability set VIRTIO_GPU_CAPSET_ROCM to support
-ROCm compute workloads in virtualized environments.
+On Sat, Sep 12, 2026 at 11:59:48AM +0530, Srish Srinivasan wrote:
+> struct trusted_key_options contains fields that are specific to the TPM
+> trusted source, resulting in the accumulation backend-specific fields in
+> the generic options structure.
+> 
+> Move the TPM-specific fields into a new struct trusted_key_tpm and store a
+> pointer to it in the private member of struct trusted_key_options.
+> 
+> As a preparatory change, return immediately after a TPM unseal failure to
+> prevent pcrlock() from overwriting the unseal error.
+> 
+> Changelog:
+> 
+>  v9:
+>   - Resent the full patch set with consistent v9 subject prefix
+>   - Corrected patch 1/2, which was sent as v3 in v8, which caused b4 to
+>     flag the series as incomplete
+> 
+>  v8:
+>   - Rebase onto commit
+>     adc6a9f6d997 ("KEYS: trusted: Fix tpm2_load_cmd() boundary check")
+>     to resolve the merge conflicts
+>   - Include Jarkko's Reviewed-by tag
+> 
+>  v7:
+>   - Fix a memory leak in the preparatory fix
+> 
+>  v6:
+>   - Add a preparatory fix to return immediately after a TPM unseal failure
+>   - Replace explicit cleanup with __free(kfree_sensitive) in the TPM seal
+>     and unseal paths, as suggested by Jarkko
+> 
+>  v5:
+>   - Rename struct trusted_tpm_options to struct trusted_key_tpm, as
+>     suggestedby Jarkko.
+> 
+>  v4:
+>   - Rebased onto mainline after tpm-buf memory-safe allocation changes were
+>     merged
+>   - Resolved the resulting merge conflicts
+> 
+>  v3:
+>   - Exclude the preparatory clean up patch as the problem has been
+>     addressed in commit
+>     9ec4175a30eb ("KEYS: trusted: Debugging as a feature")
+> 
+>  v2:
+>   - Exclude the bug-fix patch as it has already been applied to 6.19-rc7
+>   - Rename instances of trusted_tpm_options from tpm_opts to private
+>   - Use pr_debug and KERN_DEBUG for logging debug messages (preparatory
+>     clean up patch)
+>   - Address other minor comments from Jarkko
+> 
+> Srish Srinivasan (2):
+>   keys/trusted_keys: return immediately after TPM unseal failure
+>   keys/trusted_keys: move TPM-specific fields into struct
+>     trusted_key_tpm
+> 
+>  include/keys/trusted-type.h               |  11 --
+>  include/keys/trusted_tpm.h                |  14 +++
+>  security/keys/trusted-keys/trusted_tpm1.c | 125 ++++++++++++----------
+>  security/keys/trusted-keys/trusted_tpm2.c |  50 +++++----
+>  4 files changed, 113 insertions(+), 87 deletions(-)
+> 
+> -- 
+> 2.53.0
+> 
 
-ROCm (Radeon Open Compute) is AMD's open-source software platform
-for GPU compute and HPC workloads.
+I applied v8 already. Please check from my tree whether this needs
+reapplying or not.
 
-ID 7 is already used by VIRCL in the virgl/virtio-gpu stack, so
-ROCm uses ID 8. A matching virtio-gpu specification change is in
-progress to register this assignment.
-
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- include/uapi/linux/virtio_gpu.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-index 4f530d9005..3d4dfadc9d 100644
---- a/include/uapi/linux/virtio_gpu.h
-+++ b/include/uapi/linux/virtio_gpu.h
-@@ -321,6 +321,7 @@ struct virtio_gpu_cmd_submit {
- #define VIRTIO_GPU_CAPSET_VENUS 4
- #define VIRTIO_GPU_CAPSET_CROSS_DOMAIN 5
- #define VIRTIO_GPU_CAPSET_DRM 6
-+#define VIRTIO_GPU_CAPSET_ROCM 8
- 
- /* VIRTIO_GPU_CMD_GET_CAPSET_INFO */
- struct virtio_gpu_get_capset_info {
--- 
-2.34.1
-
+BR, Jarkko
