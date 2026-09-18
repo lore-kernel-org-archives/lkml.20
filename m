@@ -1,428 +1,82 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25C3F4E322F;
-	Fri, 18 Sep 2026 11:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2436A4E325A;
+	Fri, 18 Sep 2026 11:23:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730597; cv=none; b=Ke0uj9qOQzg3+jU738XRZNPMGlp15yrQWZouYmfd+dq29bsYNlGcvTh+KXhUHvT49raLZEh0XwL2q3+1txGMfas++vyKig/EfVM3NgTjHzIjwhCBXqZlWW+a/4viC/Bg54iKtHAie2CFssUCa9ApInYMvXn2sOR8CW2EBiRONns=
+	t=1789730604; cv=none; b=fXJ+ymIRD5eqbM5P+V1sNcGjoL2r2PDxU4wRhHS48uGODHZG/Ez2ibvUeV+jxgphhmgHiNpd/II79MCRQj4Fqwakptze96ItVLFkxW4GJlZDJFpd+cFl7IYMc0Sm+0FwbwecTwFDCl03ReqeHpVqeBsCbdcRELcFP62bLuTIdC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730597; c=relaxed/simple;
-	bh=BrhrKyOWleozRhznVBk+PWrdPljvYcLD8claL1Fr3ZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Eqb8GQqxuHS0VuOxqO4zED9zWyoNM69yKj+Ye7x7dm4Uay5h9n8n+npC6N+jTIgzlIYSP8ZJHNaNEAOSo0EqctRp9uP08VfMes+yg9zVayEJ/7SJLI+6isoislr6LePE7CM4Hpwavy8cQjNRSkUZwmtUY/DP49C7DzUkETYyZ7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=k4+XqSHz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789730604; c=relaxed/simple;
+	bh=MBjXKEfWWr11hzur3gEGlv6RLUdxnjeB53fR+cF3SJk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=esuqatwtcvDUBVMeGXBO3tJRnbbpRoT0pzxrElcOrDYPPXTPXsY9MxvEVz6sP7wFlK+tpSM/aRhi6KNKpnlm0TQICwBm13fajdWlvKkBivtDP1hDF/yzETJw+HkRIPgB9GyK5LS7I+of+gk7xZRPxVytD5qzdEFNmtbOlH29mZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cViJnNIs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k4+XqSHz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A5D6E1596;
-	Fri, 18 Sep 2026 04:23:01 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9821D3F882;
-	Fri, 18 Sep 2026 04:22:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789730585; bh=BrhrKyOWleozRhznVBk+PWrdPljvYcLD8claL1Fr3ZI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=k4+XqSHzbgJWhsefqWDrZVafOC10FIw4xqWAhBwUJUY6+mrbimjmbF0QYYoTbX91k
-	 nZ5wkz0VxdpvHUgZEB4Rs1zBGI36e3Xt3ug5zT31NuI2VUAUhlooX+Ocy7UCaI/0ZR
-	 xMJnHPwvJ22jRKvMa/Zv4uF6ussASXyxmciCBr7M=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Mark Brown <broonie@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v11 2/6] tools/lib/mm: add shared file helpers
-Date: Fri, 18 Sep 2026 16:52:30 +0530
-Message-ID: <20260918112234.195857-3-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918112234.195857-1-sarthak.sharma@arm.com>
-References: <20260918112234.195857-1-sarthak.sharma@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cViJnNIs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107EA1F000FF;
+	Fri, 18 Sep 2026 11:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789730597;
+	bh=MBjXKEfWWr11hzur3gEGlv6RLUdxnjeB53fR+cF3SJk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cViJnNIsDtmYAxQ5FDKaFAygCRWgk7RXqG30Kw6B64vzeEGZXWDRksorXI1WrCoz+
+	 nXCHVMxZtdMdOc8NwUvXflcZ1/CQI80cUj4ZGKSTiDypMU50g2ZqSB0c78FoAMVp0I
+	 zlvnuThJJQBxs7WJPQdhxP4FXYFNtFGSU726cfRZHAQT9QZoCpOdpVB6sYttHx9N8V
+	 x0tDzmPUQZwJjgTyGZVXOcvasgDna4oNsYiixkrVkFkzFx0fb6VBg5wyY57VXIFhgH
+	 wvTkxHrQSGZPhrMIvYLpJTVA0HVqYjumQoWgleScibBAwQOARx0ZauFlebUQfz5cKG
+	 BFM9dSJ4Im/yQ==
+Date: Fri, 18 Sep 2026 12:23:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Karl Asseily <karl@asseily.com>
+Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M
+ codec driver
+Message-ID: <2b497c5a-7f55-4f93-a6b3-ee07645d7467@sirena.org.uk>
+References: <20260918031326.68542-1-karl@asseily.com>
+ <20260918031326.68542-4-karl@asseily.com>
+ <321e417b-55cf-4667-9c52-cbf3548561e6@sirena.org.uk>
+ <CA+gvwbrep8j5R5c2o+oMAK9NF=K7EcXFswNCfaVnmfnsBd4v9A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eGMNy7Tl9AIoiErQ"
+Content-Disposition: inline
+In-Reply-To: <CA+gvwbrep8j5R5c2o+oMAK9NF=K7EcXFswNCfaVnmfnsBd4v9A@mail.gmail.com>
+X-Cookie: Dental health is next to mental health.
 
-Move read_file(), write_file(), read_num(), write_num() and
-write_num_ignore_einval() out of tools/testing/selftests/mm/vm_util.c
-into a new shared helper under tools/lib/mm/.
 
-These helpers are used by mm selftests today and will also be needed by
-shared hugepage helpers in subsequent patches. Move them to a generic
-location so they can be reused outside selftests as well.
+--eGMNy7Tl9AIoiErQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Keep the helpers exposed to mm selftests through vm_util.h by including
-the new shared header there, and link the new helper into the
-selftests/mm build.
+On Fri, Sep 18, 2026 at 01:59:43PM +0300, Karl Asseily wrote:
 
-Update the explicit x86 protection_keys 32-bit and 64-bit build rules
-to preserve prerequisite paths, now that file_utils.c is built from
-tools/lib/mm.
+> I will hold v4 until your review is finished rather than resending
+> piecemeal.
 
-Add tools/lib/mm/ to the MEMORY MANAGEMENT - MISC entry in MAINTAINERS.
+I think that was pretty much it from the pass I did.
 
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
----
- MAINTAINERS                          |   1 +
- tools/lib/mm/file_utils.c            | 106 +++++++++++++++++++++++++++
- tools/lib/mm/file_utils.h            |  13 ++++
- tools/testing/selftests/mm/Makefile  |  11 +--
- tools/testing/selftests/mm/vm_util.c |  97 ------------------------
- tools/testing/selftests/mm/vm_util.h |   7 +-
- 6 files changed, 127 insertions(+), 108 deletions(-)
- create mode 100644 tools/lib/mm/file_utils.c
- create mode 100644 tools/lib/mm/file_utils.h
+--eGMNy7Tl9AIoiErQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e4412c3d8d45..34f30d072499 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17295,6 +17295,7 @@ F:	mm/memory-tiers.c
- F:	mm/page_idle.c
- F:	mm/pgalloc-track.h
- F:	mm/process_vm_access.c
-+F:	tools/lib/mm/
- F:	tools/testing/selftests/mm/
- 
- MEMORY MANAGEMENT - NUMA MEMBLOCKS AND NUMA EMULATION
-diff --git a/tools/lib/mm/file_utils.c b/tools/lib/mm/file_utils.c
-new file mode 100644
-index 000000000000..9b2237e9823e
---- /dev/null
-+++ b/tools/lib/mm/file_utils.c
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+
-+#include "file_utils.h"
-+
-+int read_file(const char *path, char *buf, size_t buflen)
-+{
-+	int fd, err;
-+	ssize_t numread;
-+
-+	fd = open(path, O_RDONLY);
-+	if (fd == -1)
-+		return -errno;
-+
-+	numread = read(fd, buf, buflen - 1);
-+	if (numread < 1) {
-+		err = numread ? errno : ENODATA;
-+		close(fd);
-+		return -err;
-+	}
-+
-+	buf[numread] = '\0';
-+	close(fd);
-+
-+	return 0;
-+}
-+
-+int write_file(const char *path, const char *buf, size_t buflen)
-+{
-+	int fd, saved_errno;
-+	ssize_t numwritten;
-+
-+	if (buflen < 2)
-+		return -EINVAL;
-+
-+	fd = open(path, O_WRONLY);
-+	if (fd == -1)
-+		return -errno;
-+
-+	numwritten = write(fd, buf, buflen - 1);
-+	saved_errno = errno;
-+	close(fd);
-+
-+	if (numwritten < 0)
-+		return -saved_errno;
-+
-+	if (numwritten != (ssize_t)(buflen - 1))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+int read_num(const char *path, unsigned long *num)
-+{
-+	unsigned long val;
-+	int ret;
-+	char buf[21];
-+	char *end;
-+
-+	if (!num)
-+		return -EINVAL;
-+
-+	ret = read_file(path, buf, sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	/* Reject signs and leading whitespace that are accepted by strtoul() */
-+	if (buf[0] < '0' || buf[0] > '9')
-+		return -EINVAL;
-+
-+	errno = 0;
-+	val = strtoul(buf, &end, 10);
-+	if (errno)
-+		return -errno;
-+
-+	/* Only allow a newline after the number */
-+	if (*end == '\n')
-+		end++;
-+
-+	if (*end != '\0')
-+		return -EINVAL;
-+
-+	*num = val;
-+	return 0;
-+}
-+
-+int write_num(const char *path, unsigned long num)
-+{
-+	char buf[21];
-+
-+	sprintf(buf, "%lu", num);
-+	return write_file(path, buf, strlen(buf) + 1);
-+}
-+
-+int write_num_ignore_einval(const char *path, unsigned long num)
-+{
-+	int ret;
-+
-+	ret = write_num(path, num);
-+	return ret == -EINVAL ? 0 : ret;
-+}
-diff --git a/tools/lib/mm/file_utils.h b/tools/lib/mm/file_utils.h
-new file mode 100644
-index 000000000000..50daa82c2b2b
---- /dev/null
-+++ b/tools/lib/mm/file_utils.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __MM_FILE_UTILS_H__
-+#define __MM_FILE_UTILS_H__
-+
-+#include <stddef.h>
-+
-+int read_file(const char *path, char *buf, size_t buflen);
-+int write_file(const char *path, const char *buf, size_t buflen);
-+int read_num(const char *path, unsigned long *num);
-+int write_num(const char *path, unsigned long num);
-+int write_num_ignore_einval(const char *path, unsigned long num);
-+
-+#endif
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index d3e9bd67904a..c36a9a7089bb 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -37,7 +37,8 @@ endif
- # LDLIBS.
- MAKEFLAGS += --no-builtin-rules
- 
--CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
-+CFLAGS = -Wall -O2 -I $(top_srcdir) -I $(top_srcdir)/tools/lib
-+CFLAGS += $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
- CFLAGS += -Wunreachable-code
- LDLIBS = -lrt -lpthread -lm
- 
-@@ -184,8 +185,8 @@ TEST_FILES += write_hugetlb_memory.sh
- 
- include ../lib.mk
- 
--$(TEST_GEN_PROGS): vm_util.c hugepage_settings.c
--$(TEST_GEN_FILES): vm_util.c hugepage_settings.c
-+$(TEST_GEN_PROGS): vm_util.c hugepage_settings.c $(top_srcdir)/tools/lib/mm/file_utils.c
-+$(TEST_GEN_FILES): vm_util.c hugepage_settings.c $(top_srcdir)/tools/lib/mm/file_utils.c
- 
- $(OUTPUT)/uffd-stress: uffd-common.c
- $(OUTPUT)/uffd-unit-tests: uffd-common.c
-@@ -214,7 +215,7 @@ $(BINARIES_32): CFLAGS += -m32 -mxsave
- $(BINARIES_32): LDLIBS += -lrt -ldl -lm
- $(BINARIES_32): $(OUTPUT)/%_32: %.c
- 	$(call msg,CC,,$@)
--	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(notdir $^) $(LDLIBS) -o $@
-+	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $^ $(LDLIBS) -o $@
- $(foreach t,$(VMTARGETS),$(eval $(call gen-target-rule-32,$(t))))
- endif
- 
-@@ -223,7 +224,7 @@ $(BINARIES_64): CFLAGS += -m64 -mxsave
- $(BINARIES_64): LDLIBS += -lrt -ldl
- $(BINARIES_64): $(OUTPUT)/%_64: %.c
- 	$(call msg,CC,,$@)
--	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(notdir $^) $(LDLIBS) -o $@
-+	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $^ $(LDLIBS) -o $@
- $(foreach t,$(VMTARGETS),$(eval $(call gen-target-rule-64,$(t))))
- endif
- 
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index c1b8d60e519d..4751db798c3a 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -889,103 +889,6 @@ int unpoison_memory(unsigned long pfn)
- 	return ret > 0 ? 0 : -errno;
- }
- 
--int read_file(const char *path, char *buf, size_t buflen)
--{
--	int fd, err;
--	ssize_t numread;
--
--	fd = open(path, O_RDONLY);
--	if (fd == -1)
--		return -errno;
--
--	numread = read(fd, buf, buflen - 1);
--	if (numread < 1) {
--		err = numread ? errno : ENODATA;
--		close(fd);
--		return -err;
--	}
--
--	buf[numread] = '\0';
--	close(fd);
--
--	return 0;
--}
--
--int write_file(const char *path, const char *buf, size_t buflen)
--{
--	int fd, saved_errno;
--	ssize_t numwritten;
--
--	if (buflen < 2)
--		return -EINVAL;
--
--	fd = open(path, O_WRONLY);
--	if (fd == -1)
--		return -errno;
--
--	numwritten = write(fd, buf, buflen - 1);
--	saved_errno = errno;
--	close(fd);
--
--	if (numwritten < 0)
--		return -saved_errno;
--
--	if (numwritten != (ssize_t)(buflen - 1))
--		return -EIO;
--
--	return 0;
--}
--
--int read_num(const char *path, unsigned long *num)
--{
--	unsigned long val;
--	int ret;
--	char buf[21];
--	char *end;
--
--	if (!num)
--		return -EINVAL;
--
--	ret = read_file(path, buf, sizeof(buf));
--	if (ret)
--		return ret;
--
--	/* Reject signs and leading whitespace that are accepted by strtoul() */
--	if (buf[0] < '0' || buf[0] > '9')
--		return -EINVAL;
--
--	errno = 0;
--	val = strtoul(buf, &end, 10);
--	if (errno)
--		return -errno;
--
--	/* Only allow a newline after the number */
--	if (*end == '\n')
--		end++;
--
--	if (*end != '\0')
--		return -EINVAL;
--
--	*num = val;
--	return 0;
--}
--
--int write_num(const char *path, unsigned long num)
--{
--	char buf[21];
--
--	sprintf(buf, "%lu", num);
--	return write_file(path, buf, strlen(buf) + 1);
--}
--
--int write_num_ignore_einval(const char *path, unsigned long num)
--{
--	int ret;
--
--	ret = write_num(path, num);
--	return ret == -EINVAL ? 0 : ret;
--}
--
- static unsigned long shmall, shmmax;
- 
- void __shm_limits_restore(void)
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 62f6f5b42649..fe0475f2bdf2 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -8,6 +8,7 @@
- #include <unistd.h> /* _SC_PAGESIZE */
- #include "kselftest.h"
- #include <linux/fs.h>
-+#include <mm/file_utils.h>
- 
- #define BIT_ULL(nr)                   (1ULL << (nr))
- #define PM_SOFT_DIRTY                 BIT_ULL(55)
-@@ -166,12 +167,6 @@ int unpoison_memory(unsigned long pfn);
- #define PAGEMAP_PRESENT(ent)	(((ent) & (1ull << 63)) != 0)
- #define PAGEMAP_PFN(ent)	((ent) & ((1ull << 55) - 1))
- 
--int write_file(const char *path, const char *buf, size_t buflen);
--int read_file(const char *path, char *buf, size_t buflen);
--int read_num(const char *path, unsigned long *num);
--int write_num(const char *path, unsigned long num);
--int write_num_ignore_einval(const char *path, unsigned long num);
--
- void shm_limits_prepare(unsigned long length);
- void __shm_limits_restore(void);
- 
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtHx8ACgkQJNaLcl1U
+h9BMAQgAhNjPmuRSdwaEAsNU1pHd+lrGhyCcpnfvBu3rBxdxJ4gZZ4kFH4ldpJ1b
+f4boZ2YG38DWcvGgk0tlAB94ky+NCcOgqfGvNYUa7TYyFg68dqbw13fcnul9erRx
+UGw+dX+ovdjOr3uV1jp45Nn10I5tWoRjYWgmHpVPOO1B25ceQOvoWEH2AT0Ncgh5
++ixzm0jynwH0HrdYSiL5yDFfUTiZO+2S/06JwHxj1zXRCZ0U+eSK+B72Y81ZIqv7
+ufBe/9H9Z8s87xV0fFdh9Ak/zaf0xrfRsrjCV8khLebQHzw4B/mdvbJrOBRcB3At
+qy6YhVAG+YtXZM4RmSngXm3o3SW+7Q==
+=IjHD
+-----END PGP SIGNATURE-----
+
+--eGMNy7Tl9AIoiErQ--
