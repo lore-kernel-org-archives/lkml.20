@@ -1,164 +1,238 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB0F494835;
-	Fri, 18 Sep 2026 10:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4377488D97
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727571; cv=none; b=lJo8Y7P2I9QwxfZsZKb+qp35i2MWmUqBkgHH7Rns8tLUwpmLNRUfzJS0rdbuLGnzH1BFNMg+Yjg5gIdG9KUZaCjCVfV1/wEZzS/uDTrIPM/FKwZuIue7kyWoyXdgFRQkHIds80bNkHlQGnmPUyrHu6ixkg4TlBtfgiOm7ql7ejQ=
+	t=1789727577; cv=none; b=e1B5D4iI5t4xxK10E288HQ6tTIxBfybiBdXIfqJliRRc17XoLQvE0ZX89WkF/+kixMP+nX2NfFM9HpxwyC54HMQYY0IjbGE2n21bVgfB6QS5rz2/ZCN0RRk5kBKTDEkwwI06zCstLpJ2c3Mko5+fwD0xV1w+T0NblxE5h/V9uBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727571; c=relaxed/simple;
-	bh=3r/G3nZbxIlAf90geD9CVrqAzd5pqcJmEMRNdzeR1SM=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=AhjQebU5RwhW8AFa0SKTA5HECj0lprQnJ5q3waxdUb0FrVy3ExvEOOPYo7j33Zms/yw5r/+CDAvOaGA1azEzQ7VZRBJqJNvrrocL1Z5sECPP57ZKLQ+2qdKsnoaSHnu9TKkjyZeR8ff0OGqsCI3lHSkRwBm9dAlHHOSY513iBU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=dFvURW/J; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TyBzL8Hm; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789727577; c=relaxed/simple;
+	bh=aBbgqH7iUq0TjB4Ev/jowkIaT+djFNlSXLBGCQgd3oc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=RkHza2nmoYrldyLfhQ9ShLlDLX9DUTkKU76KdXw3vTzsqB/HpvpfpeFUEIFTyn53Cw9E5lGY774i3Wkif8BPNz1w3Xuzev6v3JF4qM2c6I5agJsxuNxodvA9qr25gPmFoXS2KayXlmYMs0WQm5FXuqWM5+5Nn4UdGew4Q0LwCpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=SPcxMw5W; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="dFvURW/J";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TyBzL8Hm"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id CBA507A00F2;
-	Fri, 18 Sep 2026 06:32:45 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 06:32:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789727565;
-	 x=1789813965; bh=cJlPJ6KrwzaPtZRHGm72iMAfPMKAwd2u1wBguAbnglk=; b=
-	dFvURW/J1SQZAu0mUwTYAC8lxjZsdsK3kzB8b4zNOBTxRBKp9yCLCsbJMNSfwLjc
-	QXsV5DtzA4gAVpQWRegAHW2JOoNVnloVGZ7wFX0pm5RWgVEAkX9xlLBPjgTSzMWN
-	f4JWZ8XfWFZXqNdJBun3Y3mF6disUH0g7A86htzKdWhZLXvemCnwX36w7lbvFvD4
-	IqaGq1n2HLz6nbEaDtDgXhF1hGkIKSLyQEGBQPTYS6UPTKfVFg4AoS8GNu/2XgVA
-	ZsZ2u8dPnklpIitb5FlisouG2Rift1/SpoPyXuukCx1xj7SstAX7b68l4PVGmcP6
-	Ocz99nNdHnJkPlay3JB+3Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789727565; x=
-	1789813965; bh=cJlPJ6KrwzaPtZRHGm72iMAfPMKAwd2u1wBguAbnglk=; b=T
-	yBzL8HmNLcB4gacab2fwsDqevHG41Eea7u0dsn+T7Deg5s/eIUODwGy1FTXT3pji
-	X1EStDHwMjbFdtEwBbhGc/KI+WkL10QK59PDR0dGtkdlkpgMD3o3aUdFT13GnZFw
-	oeAJDFkpexXOuvnP9DiNVLhD7+4hH6lyLVvSGBwMo+gY2CVYFdAd4aH6uKCOJD+O
-	kSP3NPNqwRfYphnWwjxDxWvY7MLZLy59QuI/psVZrWppX1dxesJJ0yDm2/GmTKY8
-	fUSgFYl/LGSkM59xeI5ZSWv0WEGGt2Wrhzk7m4/OhUSJ0mTbpo81KC7XH8gDfuxb
-	LhTK1p55s/dRb8LwJsKJw==
-X-ME-Sender: <xms:SBOtamZCGAGaaQSZa4Lu85u4Gc0johHUqPtR1QTS66s2s_KT0aOgJQ>
-    <xme:SBOtakO9kshPefeRgkgOllQ3PmFYrPb4Bz4UQPFyTlHFEy-GfT5b8nhKh-asIOtC9
-    xrxkMwPDvpnCBClWo_qwBICS0jwoVAoO9z0So-j6LtOTtvd2PxuVlg7IA>
-X-ME-Proxy-Cause: dmFkZTF5VEATVaMYyKFJSRUSQdUBNm2t11Xfp3YCiJoB0OBrOzg5c/hUGdi4k2O0WTLDO/
-    mZZQH7joCc/ok/6bLRnUiKydUYRV0MrUpZS317vfpcDk99C5OW8krUIfr5LYaC7moreYJi
-    pqL8zXo3BeiZXDJIWaor8FXuShpbw7Z//hwAuoYM3IYkQ99NJ+7Nludjrsns5Iajr5mH4s
-    GlZGPytp6Xx54QBDrRThFQ/SpnIcX6JvukKQdEVhOaxlvsHD4ePmPTYDyLvsB/6cwD8Csz
-    BvM5xrqdztQPBwpVx2IHKkedVbDvJGaJQQsfLeX7yPlXJdjBCNRDOj0MuOK1sLZshUdUnn
-    l82RJz14zbSswblwf/TrHlD/eCT0JjwIleMqrx4Z6/oD8HlnpePPBDT2i1PCUrW+/mtGGS
-    m5rj12PzD1tIcEKdTZiwoS3yFocHPXClCxfmtN4kFZQC1+uJllgvPLrq0ZU5ESwuPbfROl
-    2YeqGL+IPXem+coSi8F05UaAqbM8wJaN6xcOGxS/8z8weVxRCMKg1fWa30yojLJWP1xBxW
-    /HDTt+VwKuBjEdCXWgdQpCNj4Mv4S8S/Ji9r+qSHBN6EVXR4yfwKRFpvNKOfUMb6zOPH3D
-    Um/j//xJdvXm4zJhztkAWQbyfGlTt8/BuINPQiBHqe9+hJHgCLCFYC5DDu/w
-X-ME-Proxy: <xmx:ShOtau-h_mrJALDN1uhg9S1I4pAiddHedX0NHYvJJt9oyC2V0l3JIA>
-    <xmx:ShOtandIZHuVs4AveSr8Ge1jJupVLYcC8esReVwlOwZ3qTH-oW9ZSg>
-    <xmx:ShOtaivkIO2fX4T9cVotsuhFI97_rlcjL7Wkc2FO_jTZPhAzZuac9g>
-    <xmx:ShOtao1fvoehWFnWlhotg4RTUf-GT2-RE4PqHNAvvmdgngvn-ibG4w>
-    <xmx:TROtavBfFsvnDRdY0B5AyM6DmDmFa3PRTYdunkjNnAeDvXaEKcbH0SzL>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0F91B32A0085; Fri, 18 Sep 2026 06:32:40 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="SPcxMw5W"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918103251epoutp0493f3dff36454b16660e1f5e3f733f473~WY75nPHCC2711827118epoutp04T
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:32:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918103251epoutp0493f3dff36454b16660e1f5e3f733f473~WY75nPHCC2711827118epoutp04T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789727571;
+	bh=G/fO5FlRuEocHNQCmGx71FcmWAbH2HBbMkGQ6JIB1n0=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=SPcxMw5Wj2fUsgclY0yoANRSZ/kKgABR9Eo7W1UEkrf0wbY5NJ3thqoAzBxXHWus8
+	 0lo6eE2UKl2INlHUG+1Tk4x2VjsK4SYn9I2Hhm1t1lIckVvSKK/DZGilqPQEZAkj3t
+	 otCuc5JQ7dLDWLP5NLyvSGo+p/Vck+W+PKO6Jo80=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260918103250epcas5p12ea5e88ac36103898712ab45eeedd8cf~WY75Fn9oV2545625456epcas5p1n;
+	Fri, 18 Sep 2026 10:32:50 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmTTs67L8z6B9m8; Fri, 18 Sep
+	2026 10:32:49 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6~WY73wwcaF2951229512epcas5p4l;
+	Fri, 18 Sep 2026 10:32:49 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260918103246epsmtip21d5c7565d73ad5927a1fd761e7fb625e~WY70toq-q0288802888epsmtip2s;
+	Fri, 18 Sep 2026 10:32:45 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
+	krzk@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	pritam.sutar@samsung.com, andre.draszik@linaro.org, kernel@lvkasz.us,
+	pengpeng@iscas.ac.cn, selvarasu.g@samsung.com,
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
+	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
+	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: [PATCH v2] phy: exynos5-usbdrd: Use dynamic phy_cfg size to prevent
+ OOB access
+Date: Fri, 18 Sep 2026 16:01:47 +0530
+Message-Id: <20260918103147.2628614-1-selvarasu.g@samsung.com>
+X-Mailer: git-send-email 2.17.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A1v-knPnKEnN
-Date: Fri, 18 Sep 2026 12:32:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Semih Baskan" <strst.gs@gmail.com>
-Cc: "Bjorn Helgaas" <helgaas@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- "Manivannan Sadhasivam" <mani@kernel.org>, "Rob Herring" <robh@kernel.org>,
- bhelgaas@google.com, "Ray Jui" <rjui@broadcom.com>,
- "Scott Branden" <sbranden@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
- =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>,
- "Florian Fainelli" <florian.fainelli@broadcom.com>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, "Rosen Penev" <rosenp@gmail.com>,
- rani.hod@gmail.com
-Message-Id: <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
-In-Reply-To: 
- <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com>
-References: <20260917183602.GA1036092@bhelgaas>
- <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
- <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com>
-Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6
+References: <CGME20260918103249epcas5p49c9b4bf6fd60c28f5f09f0b7b69828b6@epcas5p4.samsung.com>
 
-On Fri, Sep 18, 2026, at 10:29, Semih Baskan wrote:
-> On Thu, Sep 17, 2026 at 10:27:54PM +0200, Arnd Bergmann wrote:
->> Would it be help to change the probe order so the bcma driver
->> always comes before the platform driver?
->
-> Only where the DT window matches the EROM one, because that is where
-> the platform driver backs out.
+The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
+creating both UTMI and PIPE3 PHY instances regardless of the SoC
+capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
+and ExynosAutoV920) provide phy_cfg arrays containing only a single
+element.
 
-I'm probably missing one of the steps here, sorry I'm not too
-familiar with the platform.
+On these SoCs, when the loop reaches index 1, the driver reads past the
+end of the rodata array, populating the second PHY instance with garbage
+data. Since the configuration structure contains critical function
+pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
+PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
 
-If the DT window doesn't match, how does the bcma driver find
-the device node that corresponds to the EROM entry to populate
-the child nodes?
+Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
+store the actual size of the phy_cfg array for each SoC. Update the
+probe loop and the xlate function to bound their access against this
+value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
 
-> With of_platform_default_populate() moved after
-> bcma_register_devices() as a test, it boots. pcie-iproc-bcma takes the
-> first controller and enumerates the BCM4360 as before. The platform
-> driver then probes the same node and fails in
-> devm_pci_alloc_host_bridge(), which it reports as -ENOMEM:
->
->   iproc-pcie 18012000.pcie: resource collision: [mem
-> 0x08000000-0x0fffffff] conflicts with PCIe MEM space [mem
-> 0x08000000-0x0fffffff]
+Assisted-by: LLM
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Tested-by: Łukasz Lebiedziński <kernel@lvkasz.us>
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
+Reviewed-by: André Draszik <andre.draszik@linaro.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+---
 
-The driver should probably check earlier if the device is
-already bound to the bcma bus, rather than just trying to
-request the bus windows. If anything, I would have expected
-the conflict on the 18012000 address for the register
-base.
+Changes in V2:
+- Updated 'Assisted-by' tag to follow the proper kernel documentation
+  format.
+- Link to v1:
+  https://lore.kernel.org/all/20260831070309.158069-1-selvarasu.g@samsung.com/
+---
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-I see an ioremap() of bdev->addr in drivers/bcma/scan.c but
-don't see a corresponding request_resource() for it, so maybe
-an easy fix is to add this to the bcma bus scan and
-make sure that always happens before the pci driver probe?
-That way, the platform driver would just not be able to
-probe on a bcma based SoC regardless of the memory window
-settings.
+diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+index 087d552eb511..f10cf7b6e0aa 100644
+--- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
++++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
+@@ -477,6 +477,7 @@ struct exynos5_usbdrd_phy_config {
+ 
+ struct exynos5_usbdrd_phy_drvdata {
+ 	const struct exynos5_usbdrd_phy_config *phy_cfg;
++	int n_phy_cfg;
+ 	const struct exynos5_usbdrd_phy_tuning **phy_tunes;
+ 	const struct phy_ops *phy_ops;
+ 	const char * const *clk_names;
+@@ -1173,7 +1174,7 @@ static struct phy *exynos5_usbdrd_phy_xlate(struct device *dev,
+ {
+ 	struct exynos5_usbdrd_phy *phy_drd = dev_get_drvdata(dev);
+ 
+-	if (WARN_ON(args->args[0] >= EXYNOS5_DRDPHYS_NUM))
++	if (WARN_ON(args->args[0] >= phy_drd->drv_data->n_phy_cfg))
+ 		return ERR_PTR(-ENODEV);
+ 
+ 	return phy_drd->phys[args->args[0]].phy;
+@@ -2021,6 +2022,7 @@ static const char * const exynos5_regulator_names[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos2200,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos2200),
+ 	.phy_ops		= &exynos2200_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS2200_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2034,6 +2036,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.pmu_offset_usbdrd1_phy	= EXYNOS5420_USBDRD1_PHY_CONTROL,
+@@ -2047,6 +2050,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2059,6 +2063,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.pmu_offset_usbdrd1_phy	= EXYNOS5433_USBHOST30_PHY_CONTROL,
+@@ -2072,6 +2077,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos5,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos5),
+ 	.phy_ops		= &exynos5_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2084,6 +2090,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos7870,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos7870),
+ 	.phy_tunes		= exynos7870_tunes,
+ 	.phy_ops		= &exynos7870_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+@@ -2097,6 +2104,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos850_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos850,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
+ 	.phy_ops		= &exynos850_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS5_USBDRD_PHY_CONTROL,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2125,6 +2133,7 @@ static const struct exynos5_usbdrd_phy_tuning *exynos990_tunes[PTS_MAX] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynos990_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynos850,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynos850),
+ 	.phy_ops		= &exynos850_usbdrd_phy_ops,
+ 	.phy_tunes		= exynos990_tunes,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOS990_PHY_CTRL_USB20,
+@@ -2661,6 +2670,7 @@ static const struct phy_ops exynosautov920_usb31drd_combo_ssphy_ops = {
+ static const
+ struct exynos5_usbdrd_phy_drvdata exynosautov920_usb31drd_combo_ssphy = {
+ 	.phy_cfg		= usb31drd_phy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(usb31drd_phy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usb31drd_combo_ssphy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB31,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2691,6 +2701,7 @@ exynos5_usbdrd_phy_config usbdrd_hsphy_cfg_exynosautov920[] = {
+ static const
+ struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_combo_hsphy = {
+ 	.phy_cfg		= usbdrd_hsphy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(usbdrd_hsphy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usbdrd_combo_hsphy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2719,6 +2730,7 @@ static const struct exynos5_usbdrd_phy_config phy_cfg_exynosautov920[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_phy = {
+ 	.phy_cfg		= phy_cfg_exynosautov920,
++	.n_phy_cfg		= ARRAY_SIZE(phy_cfg_exynosautov920),
+ 	.phy_ops		= &exynosautov920_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy	= EXYNOSAUTOV920_PHY_CTRL_USB20,
+ 	.clk_names		= exynos5_clk_names,
+@@ -2895,6 +2907,7 @@ static const char * const gs101_regulator_names[] = {
+ 
+ static const struct exynos5_usbdrd_phy_drvdata gs101_usbd31rd_phy = {
+ 	.phy_cfg			= phy_cfg_gs101,
++	.n_phy_cfg			= ARRAY_SIZE(phy_cfg_gs101),
+ 	.phy_tunes			= gs101_tunes,
+ 	.phy_ops			= &gs101_usbdrd_phy_ops,
+ 	.pmu_offset_usbdrd0_phy		= GS101_PHY_CTRL_USB20,
+@@ -3052,7 +3065,7 @@ static int exynos5_usbdrd_phy_probe(struct platform_device *pdev)
+ 
+ 	dev_vdbg(dev, "Creating usbdrd_phy phy\n");
+ 
+-	for (i = 0; i < EXYNOS5_DRDPHYS_NUM; i++) {
++	for (i = 0; i < drv_data->n_phy_cfg; i++) {
+ 		struct phy *phy = devm_phy_create(dev, NULL, drv_data->phy_ops);
+ 
+ 		if (IS_ERR(phy))
+-- 
+2.17.1
 
-> On the second and third controllers the DT window is
-> 0x20000000/0x28000000 and the EROM one 0x40000000/0x48000000, so the
-> platform driver's request goes through and its probe carries on with
-> the DT window until the link check, which fails because nothing is
-> connected to those two on this board. That is as far as this board can
-> show.
-
-A few more questions, for my understanding:
-
-If a board has nothing connected to one of the host bridges,
-why is the pcie host bridge still marked as status="ok"?
-Do you need a driver to put it into low-power mode, or
-should this just be marked as disabled?
-
-Does the platform driver reprogram the windows to match the DT
-description, or does it rely on the boot loader to ensure they
-ranges/dma-ranges properties match the register contents?
-
-When using the bcma driver, does that update the ranges properties
-in memory to match the EROM contents?
-
-      Arnd
