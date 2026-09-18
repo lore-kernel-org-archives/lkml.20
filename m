@@ -1,255 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F104454707D;
-	Fri, 18 Sep 2026 06:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8288F54704E;
+	Fri, 18 Sep 2026 06:17:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712187; cv=none; b=GoSlph6gOmh34fww7O1IdJDkq7nes7tS57WILYqQ/sqnp2+Jrso1bqPXzizvmyhOOpnBmJm+cR5S8cWqw+te7nrwWna/05Oq7OS2Gl2cLSjWC0FsaBt0wotPIEcjtQ4bhNIcWVPHTHn8EeLbBZfuryY+3gsLkbtrdR40Ze8RMGc=
+	t=1789712223; cv=none; b=lpwSH6I37jyHKQW+pQUavft8K8DRgh6CxrNkNXo4u6TRo4cqz/mHhGKsVWnyYHA5fJDlfbAjIu+yLwgRr1XPWRi4LlpdqSXQ4ZgV06pUCNSTjwfThWa1ZdQMocZy/yLLwztc9xF0JSQRyyF1YXxqgzIkLjRiizIQw89U/uCq8Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712187; c=relaxed/simple;
-	bh=RPub0OP1suX6w5PEcQlHLjrQ7i6N3AWsKD4kaMFtd4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OU7c/p2FupQGfGl/CJtA8Rp8G1qfXe8Nj6ONbiPMPPBz2Og56DKdEl9DjRixYIyrQRv9t/8+gnSbAGgEd1plml02pmdryMciVqCGX9Ysa5msaNJNHY8rPboqnp85mfD/OnvYo7azYBBzVWx4jYxLGb8VEKebBXcWPpMkFJS4gUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGDp9MOq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789712223; c=relaxed/simple;
+	bh=GJu74okmXjBhqnTIOGctvx/pb2xEFT1u3IIKkCANtSA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l7NMWWvjVtOntShw8bcDnb2tyMT6gzpWfydfSIVeJxqm2yRxubJvHoAX77K00wpAQP1avRGN1kD/5FftkGQorQ/3s69e94dxeS5k/37yvtyL1Q19QVqb2xDNZXVad5sT+iw2LaxiR0vQERDc1cHZJNeiwt/oc41xc9jgUpi+FRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hC+VO2Ft; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGDp9MOq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CA71F000FF;
-	Fri, 18 Sep 2026 06:16:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hC+VO2Ft"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3305D1F000FF;
+	Fri, 18 Sep 2026 06:17:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789712185;
-	bh=1UJZmtL5CaegXonvGSFA3hDJm+445zpdeAtQXn0bTg0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DGDp9MOqsFg4B4mXaMYUDEqubm5sEflyzN4PeRyswj7MHIjchkbjaYKs3ql4AzhcA
-	 w0HwtVc4gjHgFLUq0c5wlDCOuvqi3kD1oD5x5w8u684B8qjtZImm+1aiKX0FO1CPpM
-	 /4kuScDfKAwD/XyMXlTHY57L1Q9h3xEf1AJwkKoVMItNTBw2HfswgYoVup66L8SOm2
-	 C1mjmXPtiIOzyh+mZ3eZn5myq2OPHSBtgqAuGw0+qKGYBBg8Cc6YKsayRcEUKViUET
-	 K/hrR+U22IaPWJmu0CIIe+s31WX0YIdZQ+s2HYjDTHoowolvOt/5OAgt9pXzHviqqj
-	 bxc/tNqOGjuGA==
-Message-ID: <0d91473e-4432-409b-bb95-9f400ae60d05@kernel.org>
-Date: Fri, 18 Sep 2026 08:16:20 +0200
+	s=k20260515; t=1789712222;
+	bh=B/13cZeUrOLEzs/U0VXbyufzLI/X+a7vJxST3/Q9H/g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hC+VO2FtDKbfS2UHZn7KsHJfhAMbfycfRebcPAyoit5um1I4sEqs1B3s/d7QsmYOx
+	 /uPdeYvBgduMlrxD/q5Qx/yZmnVjrncmd9Y9Pju17LeWasqH1HIMdlKoWQt5U+07Hz
+	 itUI4J2CpMvUEEBQ/TG3dnLcJuv6Ss41jE5ltAkW2SHN1CaJfJtBo8gwaiEDocZ2u/
+	 4YSO3SLQuAartQeYdD1llGHXlMPFhoAhE1udDqkdlpPAbhR3AS4sCi+2T9sNWXk37m
+	 4u2pFM2ozWD9atAEq6/Rf2uBnfPTpaGO4ftBf4KHUAopzadDfZD5zCYKSdh+cDicgJ
+	 SHLy28DKe56aw==
+Date: Fri, 18 Sep 2026 08:16:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joshua Peisach <jpeisach@ubuntu.com>
+Cc: Michal Wilczynski <m.wilczynski@samsung.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
+	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Maud Spierings <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, 
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+Message-ID: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] dmaengine: bestcomm: use platform machinery to get irq
-To: Rosen Penev <rosenp@gmail.com>, Frank Li <Frank.li@oss.nxp.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:FREESCALE SOC DRIVERS" <linuxppc-dev@lists.ozlabs.org>,
- "moderated list:FREESCALE SOC DRIVERS" <linux-arm-kernel@lists.infradead.org>
-References: <20260916224156.276511-1-rosenp@gmail.com>
- <aqtdmOzJSIawqKQq@SMW015318>
- <CAKxU2N-gitgedS9ZJQ7wNV9Dma9PUwM+0NMY5yfVk2PvXOYASQ@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAKxU2N-gitgedS9ZJQ7wNV9Dma9PUwM+0NMY5yfVk2PvXOYASQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
 
+On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
+> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
+> > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
+> > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+> > > 
+> > > This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+> > > functions as both a PHY provider for the controller and as a clock
+> > > provider for the variable pixel clock (hdmi_pclk), which it generates
+> > > from its refoclk.
+> > > 
+> > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> > 
+> > While I appreciate other people looking at this, I don't think review
+> > here applies. It was a blanket tag, given to the entire series, with
+> > exception that it is from newbie, thus I want to ask: was this binding
+> > REALLY reviewed by Joshua?
+> > 
+> > Are the rest of the patches actually reviewed or just "looks good to
+> > me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
+> > of doing review.
+> > 
+> > 
+> I commented on v3 saying that I would test if I could. I don't just
 
+Testing has nothing to do with reviewing.
 
-Le 18/09/2026 à 02:16, Rosen Penev a écrit :
-> On Wed, Sep 16, 2026 at 8:25 PM Frank Li <Frank.li@oss.nxp.com> wrote:
->>
->> On Wed, Sep 16, 2026 at 03:41:56PM -0700, Rosen Penev wrote:
->>> platform_get_irq() avoids having to explicitly map and dispose of an irq
->>> by having the platform_device machinery take care of it.
->>>
->>> This requires replacing the device_node with a platform_device in the
->>> bcom_eng struct so that platform_get_irq() can use it.
->>>
->>> Conveniently, this also allows getting rid of of_node_get and
->>> of_node_put as the platform_device machinery also handles that.
->>>
->>> Replace the open-coded resource lookup, request_mem_region, ioremap and
->>> the manual iounmap/release_mem_region cleanup in probe/remove with the
->>> managed devm_platform_get_and_ioremap_resource() helper. This removes the
->>
->> update commit message, no devm_platform_get_and_ioremap_resource() in patch.
->>
->>> now-unused error-unmap/release paths and simplifies the driver.
->>>
->>> Adjust the goto labels in bcom_task_alloc to match what is being freed.
->>>
->>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
->>> ---
->>>   v2: resend.
->>
->> If resend, don't pump version.
->>
->> Frank
->>>   drivers/dma/bestcomm/bestcomm.c            | 47 ++++++++--------------
->>>   include/linux/fsl/bestcomm/bestcomm_priv.h |  2 +-
->>>   2 files changed, 18 insertions(+), 31 deletions(-)
->>>
->>> diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
->>> index 241a91936fe8..1006030ff167 100644
->>> --- a/drivers/dma/bestcomm/bestcomm.c
->>> +++ b/drivers/dma/bestcomm/bestcomm.c
->>> @@ -47,6 +47,7 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->>>   {
->>>        int i, tasknum = -1;
->>>        struct bcom_task *tsk;
->>> +     int irq;
->>>
->>>        /* Don't try to do anything if bestcomm init failed */
->>>        if (!bcom_eng)
->>> @@ -67,30 +68,32 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->>>        if (tasknum < 0)
->>>                return NULL;
->>>
->>> +     irq = platform_get_irq(bcom_eng->pdev, tasknum);
->>> +     if (irq < 0)
->>> +             goto err1;
->>> +
->>>        /* Allocate our structure */
->>>        tsk = kzalloc(sizeof(struct bcom_task) + priv_size, GFP_KERNEL);
->>>        if (!tsk)
->>> -             goto error;
->>> +             goto err1;
->>>
->>>        tsk->tasknum = tasknum;
->>>        if (priv_size)
->>>                tsk->priv = (void*)tsk + sizeof(struct bcom_task);
->>>
->>>        /* Get IRQ of that task */
->>> -     tsk->irq = irq_of_parse_and_map(bcom_eng->ofnode, tsk->tasknum);
->>> -     if (!tsk->irq)
->>> -             goto error;
->>> +     tsk->irq = irq;
->>>
->>>        /* Init the BDs, if needed */
->>>        if (bd_count) {
->>>                tsk->cookie = kmalloc_array(bd_count, sizeof(void *),
->>>                                            GFP_KERNEL);
->>>                if (!tsk->cookie)
->>> -                     goto error;
->>> +                     goto err2;
->>>
->>>                tsk->bd = bcom_sram_alloc(bd_count * bd_size, 4, &tsk->bd_pa);
->>>                if (!tsk->bd)
->>> -                     goto error;
->>> +                     goto err3;
->>>                memset_io(tsk->bd, 0x00, bd_count * bd_size);
->>>
->>>                tsk->num_bd = bd_count;
->>> @@ -99,17 +102,12 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
->>>
->>>        return tsk;
->>>
->>> -error:
->>> -     if (tsk) {
->>> -             if (tsk->irq)
->>> -                     irq_dispose_mapping(tsk->irq);
->>> -             bcom_sram_free(tsk->bd);
->>> -             kfree(tsk->cookie);
->>> -             kfree(tsk);
->>> -     }
->>> -
->>> +err3:
->>> +     kfree(tsk->cookie);
->>> +err2:
->>> +     kfree(tsk);
->>> +err1:
->>>        bcom_eng->tdt[tasknum].stop = 0;
->>> -
->>
->> avoid unnecesary change.
-> There's nothing unnecessary about this. irq_dispose_mapping goes away.
-> bcom_sram_free is a mistake here. It's not reachable after
-> bcom_sram_alloc. This is much clearer to look at.
+> throw "Reviewed-by" on everything I look at.
+> 
+> If anything, I've been trying to be more honest in reviews, and only
+> review ones that I actually care about[1].
 
-The comment is about the removal of the blank line. Nothing else. I 
-confirm it is unnecessary.
+You gave blanket tag for entire series, so I do not get this argument.
 
 > 
-> Moving bcom_sram_free removal to its own commit is pointless churn.
->>
->>>        return NULL;
->>>   }
->>>   EXPORT_SYMBOL_GPL(bcom_task_alloc);
->>> @@ -125,7 +123,6 @@ bcom_task_free(struct bcom_task *tsk)
->>>        bcom_eng->tdt[tsk->tasknum].stop  = 0;
->>>
->>>        /* Free everything */
->>> -     irq_dispose_mapping(tsk->irq);
->>>        bcom_sram_free(tsk->bd);
->>>        kfree(tsk->cookie);
->>>        kfree(tsk);
->>> @@ -377,16 +374,12 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->>>        if (IS_ERR(regs))
->>>                return PTR_ERR(regs);
->>>
->>> -     /* Get the bestcomm node */
->>> -     of_node_get(op->dev.of_node);
->>> -
->>>        /* Prepare SRAM */
->>>        ofn_sram = of_find_matching_node(NULL, mpc52xx_sram_ids);
->>>        if (!ofn_sram) {
->>>                printk(KERN_ERR DRIVER_NAME ": "
->>>                        "No SRAM found in device tree\n");
->>> -             rv = -ENODEV;
->>> -             goto error_ofput;
->>> +             return -ENODEV;
->>>        }
->>>        rv = bcom_sram_init(ofn_sram, DRIVER_NAME);
->>>        of_node_put(ofn_sram);
->>> @@ -394,7 +387,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->>>        if (rv) {
->>>                printk(KERN_ERR DRIVER_NAME ": "
->>>                        "Error in SRAM init\n");
->>> -             goto error_ofput;
->>> +             return rv;
->>>        }
->>>
->>>        /* Get a clean struct */
->>> @@ -405,8 +398,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->>>        }
->>>
->>>        /* Save the node */
->>> -     bcom_eng->ofnode = op->dev.of_node;
->>> -
->>> +     bcom_eng->pdev = op;
->>>        bcom_eng->regs = regs;
->>>        bcom_eng->regs_base = res_bcom->start;
->>>
->>> @@ -426,8 +418,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
->>>        kfree(bcom_eng);
->>>        bcom_eng = NULL;
->>>        bcom_sram_cleanup();
->>> -error_ofput:
->>> -     of_node_put(op->dev.of_node);
->>>
->>>        printk(KERN_ERR "DMA: MPC52xx BestComm init failed !\n");
->>>
->>> @@ -443,9 +433,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
->>>        /* Cleanup SRAM */
->>>        bcom_sram_cleanup();
->>>
->>> -     /* Release the node */
->>> -     of_node_put(bcom_eng->ofnode);
->>> -
->>>        /* Release memory */
->>>        kfree(bcom_eng);
->>>        bcom_eng = NULL;
->>> diff --git a/include/linux/fsl/bestcomm/bestcomm_priv.h b/include/linux/fsl/bestcomm/bestcomm_priv.h
->>> index 3b52f3ffbdf8..cddde7c74cb5 100644
->>> --- a/include/linux/fsl/bestcomm/bestcomm_priv.h
->>> +++ b/include/linux/fsl/bestcomm/bestcomm_priv.h
->>> @@ -66,7 +66,7 @@ struct bcom_tdt {
->>>    * This holds all info needed globaly to handle the engine
->>>    */
->>>   struct bcom_engine {
->>> -     struct device_node              *ofnode;
->>> +     struct platform_device          *pdev;
->>>        struct mpc52xx_sdma __iomem     *regs;
->>>        phys_addr_t                      regs_base;
->>>
->>> --
->>> 2.55.0
->>>
+> If reviewing patches isn't a good way for newbies to start getting
+> familiar with the kernel code (especially a NEW driver), then I don't
+> know what is.
+
+Writing code and receiving review is something for newbies to start
+with. If you do not know kernel code or bindings, why do you think
+your review is applicable? If I try to review design of a post-tension
+concrete bridge, I would probably learn something. Would my
+review apply? No.
+
+Best regards,
+Krzysztof
 
