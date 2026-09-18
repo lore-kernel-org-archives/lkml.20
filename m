@@ -1,261 +1,136 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FDA50B41D;
-	Fri, 18 Sep 2026 15:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4D44E3EF8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745793; cv=none; b=qZ5s4QPqZt3XK2PfvZKsupJGDDxJ46DUAwuXjHQvKct5Lxas9ELsDt/Yv4DBX8hqm1Dj0W7ufxNut8czBp2QdNJq8lBEcfhy9XIolR3VLMuW1sYEJBOk/LVS+RtLACiFjotnJrWIxj7Doq9fQKo3pxqLtWD54/kAVMN4AyygwNg=
+	t=1789745807; cv=none; b=HyCgmPHQgiSdXW3crLgGJrYJ9FWV51zhL04h8JSLk+KuHdIg/pDsF5Kk9HhW+kKJGhFlrQpIaknkBVR0YBcivcf84xUXoayxGj+fJ/gceOau5IqwJ+WM57ptPBMcMoVutioUw1y6sqIwWzoJTMjEaK6YxwURwaqgY5Tqnv1IR5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745793; c=relaxed/simple;
-	bh=taGDNe4YWDW+c3AHiAuplVTuWLbeZ7es1eM7b/Y6LN4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZdPjSY5/i4sVfKSBLt88XV1Dno2znQWeuMkT3M25aIG202FoNFu7/FLiMQX0FgKBer+s+uY5uS47YZm32jQtcDHjd9Fk+JnXf+Kv08pLaJlBKgvvtwfYv3VuGYqEoEm0APm9ugHm4hGntBuTwtrihxWDNGA5kwMfOEbBO49CHkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=sxZaItgz; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789745807; c=relaxed/simple;
+	bh=tLlusUVv4qYOaeeWNFcYMsujMDmVr4vyuqgN+4B4l8U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TZZ/QAxhdnyPLIPia4L4tNcS/QC/Q5txPggcnIX8h3A8DyO2KgEhvtyBJ951Arjo3ZPgOQBYT0vN1BZMK6lNjzv+J2katOwigRj+UrxTUMhJdqDiP5qMn+Z76sGF+UX2b0SwSxmFwv5RnsGoA49hxKkVvMgQPgWTJl1550vVL8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=oeh0BRm2; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="sxZaItgz"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3ABE64E1002;
-	Fri, 18 Sep 2026 17:36:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789745789; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=uZfN8xD8XsMIRA/4gH4WfsuC1DI/C5678otyU+/S8xg=;
-	b=sxZaItgzoJgLL25Sq3KdXNdM64rJeJOwqWmHtF3oTHevc7usVi+quUed1+fBGmybmX3m/p
-	Hx+u6u4deE/9G2DXbfD0EVD2dq6tWcH6KZ+fOap5vRxWzkZnEIMfMEauSWoZ/yBkcRCMN5
-	mYR/uNaqC+OJCSPkG0Rt7DlxHbWsRK9RbINdgqf2KAu7j7s1imY1GMcD0DslulRrG9SzR1
-	vTf0Po3VyFThNf7MynT1aluElfML1rfNcCCd/gUv8ORURxXyFR+qhFV2kxbSNDw1U/v7PB
-	vj0iWMkSw5Vd4+ctrWmH+d4rbn59kLbeid78pfeVifCK9lp75ngvUVhG2ZUGtg==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org,
-	daniel.lezcano@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	naseefkm@gmail.com,
-	robh@kernel.org,
-	tglx@kernel.org,
-	grandmaster@al2klimov.de,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v9 5/5] clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
-Date: Fri, 18 Sep 2026 15:36:06 +0000
-Message-Id: <20260918153606.344143-6-cjd@cjdns.fr>
-In-Reply-To: <20260918153606.344143-1-cjd@cjdns.fr>
-References: <20260918153606.344143-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="oeh0BRm2"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a0299c787so67671785a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:36:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789745804; x=1790350604; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cl6MnsVJ2tgqjlk+JWZs6DCC+wi7QAAwiMKBJVJY4Nw=;
+        b=oeh0BRm2IzXGnxASWHOt8anQrXDJT3UjOc0nqj9RnqEeWiyhggxbEGU9JZvRpvrUI1
+         BAfD98gEvq+XG0bxdDFDjS0nZzp+42IetPnEkl7AZCdTCddlcz5jAgibwQpRmIUX0bzb
+         bV7JEKzX8fqm/CMm8xuNHCjjRhGyHlUpbuNioWjnX4cnouLAu99bIo6lSb+vsTasOnDX
+         M2CU1/YIecUn5YzqUWT7kUrQVDTVBw6xTVK1yuqRM63DUbgzjA9nXzInHuIRCA/Feu/E
+         OFMHEK1/7LA7KAiV9R+VCW3InHRsIQrrP36BLVNo16FB+E7Zdmpb8jCEMNNYkjk2vHIj
+         WP4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789745804; x=1790350604;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cl6MnsVJ2tgqjlk+JWZs6DCC+wi7QAAwiMKBJVJY4Nw=;
+        b=Q7NnNqrrF7JTGghw8hwmBRwS7Aj6OuI9oeUSyyA0anrykXCT+Oucz/fOSJq4WMtlrG
+         MEnr8KX9azHFnJiEFp7yPfyrtUzxpOtmLapVuHIN0IFIykx5vzfD+Ot+nB2eEWNSvHN9
+         sGWfp67jNyDG+WxSoI6bvVtEbDYP6LF8YcHGXlcXSZRLcn7/EbBuUFKjMGCUZ74TFkUh
+         65xo9/LkVIcQy9EttZgJu/uAJyVFugJ1QuqPR2vMpfMX3DzgyHTTLDLAC4GFMyB+u/gJ
+         d1voYuPr7G+xkGZQEL0c2VgixiqZEFNSYhSHsfTzgptwMlMgHwLayZZR5EAHJzuX3jYJ
+         ZWgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByr4nF3uT0/2V3V81rRU/4ioTL7tH9+GGCNRZ1nBWQUF41FjXG9+xLJc4ZdPykBLaUMyHU39Ol3nibLYaU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnC1ajRVT6l6DTZw3VB1TPG7fjE8CNaYb1tZvJ6SQdi9sHPkCE
+	1Vfu98aJzvDu+vIKXnTXVFVuIXE49RDNY9c0QEBX9G0xCI4kUfyhPm0XRVWIZJ5Lmb4=
+X-Gm-Gg: AYBFou1D+MxvDvM0nTaT425zZzG9bCyoVHSiiz2w1gNwwV6XxoXnSxPkqflFlBS1Uef
+	ioKqQ4EyWQGbOkXLxqbLTpxDYfjTZtHwcO37yAuZtuDpYe/vM2Or5uY0df2IfN3UHacW2yhohx2
+	1HDerwqGxk4n9Zw/cg1kIpQSNAMSiwjJyA0OD0WqvPbluFLJ0XSJm8/ezSz+lJ1fCHMxlMDPMOu
+	DjoNCuMdzIvDFQsmoyWGJh+bjDHOV34t6k5DwFG3trE+vWeDljBnOCyDzBDBSfEN+2Y0XUZGXYx
+	phTLKJwHlIAWu6ew4B1msbmoe/9Tz7rMTfutTx7oVbirnMyvoHS5HuYy/qXfF99lrt/aBses2TV
+	7IQOCGyqcpyYdnmeAcPa+ypEaTtlhcg2pF9dflDkpRtBkQFw0KeauTRUTgGJ42bRyXSycItaOXQ
+	HSkxUIl0L0xXBpnh0hu8VWGaF/2hEuZEPtTosiMKC8VfmJ11468jGz+F3HDvdv37mWGrvXlM40A
+	OEPcGuEOerukDr82WHmcz9W9zXIeNwA2PYDRuobjWfLkEH4648YB9Qv
+X-Received: by 2002:a05:620a:470b:b0:93b:d7a3:45cc with SMTP id af79cd13be357-93bdc77f152mr382061885a.53.1789745804221;
+        Fri, 18 Sep 2026 08:36:44 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0ec44fdsm163568285a.28.2026.09.18.08.36.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:36:43 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x7adm-00000001snW-2UlV;
+	Fri, 18 Sep 2026 12:36:42 -0300
+Date: Fri, 18 Sep 2026 12:36:42 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	"T.J. Mercier" <tjmercier@google.com>
+Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
+ alignment for cc-shared buffers
+Message-ID: <20260918153642.GD11599@ziepe.ca>
+References: <aq1V3oeDdvXobt8J@arm.com>
+ <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
 
-EN751627 is based on the 1004Kc which uses a different interrupt number
-for each CPU timer. Support both this and the EN751221 which uses a
-single percpu interrupt.
+On Fri, Sep 18, 2026 at 05:23:32PM +0200, Christian König wrote:
+> On 9/18/26 17:16, Catalin Marinas wrote:
+> > First, none of the DMA-BUF maintainers have been cc'ed. It might be fine
+> > for an RFC but this series got to version 6. We need their feedback.
+> 
+> Yeah, thanks for doing this.
+> > On Fri, Sep 04, 2026 at 04:04:50PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> >> The system heap can allocate buffers that are decrypted and shared with the
+> >> host. For confidential-computing guests, those shared buffers must cover
+> >> whole shared-buffer granule; otherwise a userspace mmap of the dma-buf may
+> >> expose only part of a host-managed granule and allow unintended access to
+> >> adjacent private memory.
+> >>
+> >> Require cc-shared system-heap allocations to have a size aligned to
+> >> mem_cc_shared_granule_size(), and allocate pages at least as large as the
+> >> required granule. Keep the allocation bounded by the existing heap orders,
+> >> but fall back to an exact minimum-order allocation when the required
+> >> granule is not one of the preferred heap orders.
+> 
+> Uff, I don't think we can do that.
+> 
+> That is massively platform specific behavior in a non platform
+> specific code.
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/clocksource/timer-econet-en751221.c | 122 ++++++++++++++++----
- 1 file changed, 99 insertions(+), 23 deletions(-)
+What we really need is an allocator API that does all this for the caller.
 
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index f2c4c1ee0a56..ff86a7edd31d 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -21,10 +21,12 @@
- #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
- /* 34Kc hardware has 1 block and 1004Kc has 2. */
- #define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
-+#define ECONET_NUM_IRQS			NR_CPUS
- 
- static struct {
- 	void __iomem	*membase[ECONET_NUM_BLOCKS];
--	int		irq;
-+	int		irqs[ECONET_NUM_IRQS];
-+	bool		is_percpu;
- 	u32		freq_hz;
- } econet_timer __ro_after_init;
- 
-@@ -102,6 +104,25 @@ static int cevt_init_cpu(uint cpu)
- 	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
- 	u32 reg;
- 
-+	if (!reg_ctl(cpu)) {
-+		pr_err("%s: missing address resource for CPU %d\n", cd->name,
-+		       cpu);
-+		return -EINVAL;
-+	}
-+	if (cd->irq <= 0) {
-+		pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
-+		return -EINVAL;
-+	}
-+	if (!econet_timer.is_percpu) {
-+		int ret = irq_force_affinity(cd->irq, cpumask_of(cpu));
-+
-+		if (ret) {
-+			pr_err("%s: failed to set IRQ affinity to CPU %d: %pe\n",
-+			       cd->name, cpu, ERR_PTR(ret));
-+			return ret;
-+		}
-+	}
-+
- 	pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
- 
- 	reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
-@@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
- 	clockevents_config_and_register(cd, econet_timer.freq_hz,
- 					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
- 
--	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	if (econet_timer.is_percpu)
-+		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	else
-+		enable_irq(cd->irq);
- 
- 	return 0;
- }
-@@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node *np)
- 					  CLOCK_EVT_FEAT_C3STOP |
- 					  CLOCK_EVT_FEAT_PERCPU;
- 		cd->set_next_event	= cevt_set_next_event;
--		cd->irq			= econet_timer.irq;
-+
-+		if (econet_timer.is_percpu)
-+			cd->irq = econet_timer.irqs[0];
-+		else
-+			cd->irq = econet_timer.irqs[i];
-+
- 		cd->cpumask		= cpumask_of(i);
- 		cd->name		= np->name;
- 
--		cevt_dev_init(i);
-+		/*
-+		 * Tolerate CPUs that could exist but don't.
-+		 * Fail in cevt_init_cpu when they try to start.
-+		 */
-+		if (reg_ctl(i))
-+			cevt_dev_init(i);
- 	}
- }
- 
- static int __init timer_init(struct device_node *np)
- {
--	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
-+	int num_blocks = of_address_count(np);
-+	int num_irqs = of_irq_count(np);
- 	struct clk *clk;
--	int ret;
-+	int ret, i;
-+
-+	econet_timer.is_percpu = of_device_is_compatible(np, "econet,en751221-timer");
-+
-+	if (econet_timer.is_percpu && num_irqs != 1) {
-+		pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
-+		       num_irqs);
-+		return -EINVAL;
-+	}
-+	if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
-+		pr_err("%pOFn: Too many IRQs max %zd got %d\n", np,
-+		       ARRAY_SIZE(econet_timer.irqs), num_irqs);
-+		return -EINVAL;
-+	}
-+	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
-+		pr_err("%pOFn: Too many regs: max %zd got %d\n", np,
-+		       ARRAY_SIZE(econet_timer.membase), num_blocks);
-+		return -EINVAL;
-+	}
-+	if (num_blocks == 0) {
-+		pr_err("%pOFn: At least one reg block must be provided\n", np);
-+		return -EINVAL;
-+	}
- 
- 	clk = of_clk_get(np, 0);
- 	if (IS_ERR(clk)) {
-@@ -164,7 +221,7 @@ static int __init timer_init(struct device_node *np)
- 	econet_timer.freq_hz = clk_get_rate(clk);
- 	clk_put(clk);
- 
--	for (int i = 0; i < num_blocks; i++) {
-+	for (i = 0; i < num_blocks; i++) {
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
- 			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-@@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
- 		}
- 	}
- 
--	econet_timer.irq = irq_of_parse_and_map(np, 0);
--	if (econet_timer.irq <= 0) {
--		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
--		ret = -EINVAL;
--		goto out_membase;
-+	for (i = 0; i < num_irqs; i++) {
-+		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
-+		if (econet_timer.irqs[i] <= 0) {
-+			pr_err("%pOFn: failed mapping irq %d\n", np, i);
-+			ret = -EINVAL;
-+			goto out_irq_mapping;
-+		}
- 	}
- 
--	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
--
--	ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
--				 &econet_timer_pcpu);
--
--	if (ret < 0) {
--		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
--		       econet_timer.irq, ret);
--		goto out_irq_mapping;
-+	for (i = 0; i < num_irqs; i++) {
-+		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
-+
-+		if (econet_timer.is_percpu)
-+			ret = request_percpu_irq(econet_timer.irqs[i],
-+						 cevt_interrupt, np->name,
-+						 &econet_timer_pcpu);
-+		else
-+			ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
-+					  IRQF_TIMER | IRQF_NOBALANCING,
-+					  np->name, NULL);
-+
-+		if (ret < 0) {
-+			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
-+			       i, ERR_PTR(ret));
-+			goto out_irq_free;
-+		}
- 	}
- 
- 	cevt_init(np);
-@@ -220,9 +287,17 @@ static int __init timer_init(struct device_node *np)
- 	return 0;
- 
- out_irq_free:
--	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-+	while (--i >= 0) {
-+		if (econet_timer.is_percpu)
-+			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
-+		else
-+			free_irq(econet_timer.irqs[i], NULL);
-+	}
- out_irq_mapping:
--	irq_dispose_mapping(econet_timer.irq);
-+	for (i = 0; i < num_irqs; i++) {
-+		if (econet_timer.irqs[i] > 0)
-+			irq_dispose_mapping(econet_timer.irqs[i]);
-+	}
- out_membase:
- 	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
- 		if (econet_timer.membase[i]) {
-@@ -235,3 +310,4 @@ static int __init timer_init(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
-+TIMER_OF_DECLARE(econet_timer_en751627, "econet,en751627-timer", timer_init);
--- 
-2.39.5
+It has been pointed out a few times, Aneesh maybe you need to try to
+tackle that?
 
+dmabuf heap just wants
+
+'allocate me an array of shared folios totaling XX bytes'
+
+Arch code can figure out how to do it. If some ARM configs only give
+order 4 folios or whatever then dmabuf heap doesn't care.
+
+And solve the double/triple zeroing problem.
+
+Jason
