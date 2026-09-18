@@ -1,146 +1,106 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4993D367F2F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A241A363C73
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693577; cv=none; b=W/ILL824BVF3maE12su+lJ/cWAnAMG/zO8WRvWjrMGG1Y6JGtmOxUBMhSRw8UMAcWyfkZlHUB3Yg2qd7+Pyd029JNOq5xAF6PCjVTbExVLRd9jMAc1BYMwOYmDzD0gYG2CISpVHp1MwIu+eVbCve5Od4NoN0zFhN650GhJZZcik=
+	t=1789693582; cv=none; b=Tdk7Vi0aIU/J1QVjkJA08zk9igm3loP8tUbQS6RSSxKHUwqMO89czhFmbcRi0nuGyNvKK25epYaw8kklMOT8vXYbDOlwHpqiRnfLrCeMtZk6lG0a5zGaFI1LXOlF9DvkQyItxo6zKPfCdlDUAnG6cHMaWRKwfFvNfr/wAoA8spI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693577; c=relaxed/simple;
-	bh=yBIGT8BXOLPPjlnisUuvjv8aqjnLGGAervT2GKtRzBY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u5Ryly3Ohpb9wea0RMlOwiHdKeISE0Y3iltMcySUOirc/ht9NBihqs0hoIIvnTQ6DOvGrbfpOjng2FcGESH8yoFmNGsIdJfVb+ZyQ9AgWIrfYf8fnS7pcDYtfXmQdtRzhp92/982deevRVW+dozrakWA0mF2ElnQdFubhj+Hegg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c5zgM1uQ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789693582; c=relaxed/simple;
+	bh=dYL1EmiskWTsxYzKg9ArQaRxWpmXh6w8TOfGbQe4cDk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l4PstA8i4U6EPMpWyhIPfoM35ShHNPu+omnvTVoRMvUoaH3gj1yceqs+B5x/DmA1ddpcgcS7RG1QtZ6ypiizLRoe6jRy+opNBcMIpJ74lOJ2EgSBJSlCIfEWojSUVhZePN3YF3uGuerTZtDqlIfbtL5fCdN38Hr0S8w00ANLzgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=bjZRLpT8; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c5zgM1uQ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so1490505ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:06:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789693570; x=1790298370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iFcT2DOyxQDtRKBeD9Hf0Svlfti42z1k3EuEK/szEUM=;
-        b=c5zgM1uQko+aMmYYWP6nQJUg8b/MUMPqc2xOpbsnCgyP9hKVgPdTpB4qg6IknQrAjg
-         gdu+eiGS5CFGNaRaMC8xvX2YYRv5Gr1WY4pWxRtu7/bRTIOcFcc7Qwg6TZbaVzSMuyaV
-         js8h+r8f8wzp/qZKzmjeC86hDrbywkBjSXf9RIJScGn9KUz1Z09DslR/AaVKAqGMYyhI
-         56fREe+4Ga8lKD20G4Te38V2Ak3MUVQ1hUtzrmII/M++ydxXVm3kb7UgRD2o0054Bepn
-         v4eI2kA98zk4G8CHGmPLFWfJh/Z3/OEplw8Sfuozoj/l3YO0tsNTOA33XlDLjYk68bX4
-         FSHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789693570; x=1790298370;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iFcT2DOyxQDtRKBeD9Hf0Svlfti42z1k3EuEK/szEUM=;
-        b=r81gRF3Z6IkGpAblAr9Q53bX2FX1IwjNxsDMkYz3ZYriJED3X8rLtp+2LpScoQD7pc
-         xaWfd+QOl9+r3ZRwdUDctKG0SyTDGPASoniDvkZUFub3N+HQd9sTzzziOW+NOGUgGMyM
-         ShPLgteaOgHp/2QfrRSn6g83/+PdjBGtGBo4xGOgIQZFDI/ErCGG6jEWL4x71nr/Gd/Z
-         phfMBVbt1rg09qsv4SlDX8eNGaJslpvDld5S7Z/BS+p0eWP9RMxqq8jNP1mzcFIzPb9l
-         HaIXfQcgpy/pwaQ+tO31k+eFi16Z6Kpk9F/jOOBBUQKbfcAVehV9tXOo6HJxJ6XtJMrR
-         D0Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSlVvilikZxD/uakYF7+Iv99fobXUGawiGvd4I9l/HPIgIWIdGoLJrJpPa8qMRWZDxdvz8k4x+FVkQw0U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfz8BHy2JFaC+cK/AujbVRHnMGV7dpknzGiQixJWOlPXASdDGj
-	3duKDf8xm9K2CqHAdgcGOMgQOP7DZ6PeEsy5E4UKh1+wGXIXRLHrlpQ+
-X-Gm-Gg: AYBFou1LYYv+c4Ov4YtCBf8FcrW+0eWuBq7S1WeV4aStDQZ5N+E5/KFpXyLsBBHSRWD
-	1SJwqt75F5vSrb/z1BXNTCjxaVgMBf6wRigJLqHXBUqkpnFvp1NH5ZXVkVJXARPTUIv1e+2zj8f
-	/UtQvLIhNk4BIDuk9PG76zwePa2wjOctT4lyfR18dJlP0p6/CRfjH0Tl1Ps2kXE7zdBvcILyoY5
-	x8wjCTvsaW16QCwFrco6KUJYd0muRoO6CmzQLZSBEeUl3HdOFvwHAmNevj1XJqMsjrL3dkJU+e1
-	ADe38a2yT9Bav45MNXnDynK+VEdqWQLeyt1Fggo9I+PlsO+mt//2WpzZG8ixw2K51XaX0peM/05
-	vdTaW6hloi50bprEUN2GeUPVbNCBr/x+WW70KBATCWrfIzFXgP/n1WA/zYBs4x5AUew90xEbvE5
-	Xrokb/dkBVlF648sgs0UPxi2I+5mk4blaAt2IwPRMx9gfDIhdrWEvHocseU13JuyULCC+qrmUhD
-	IZ874XI6wu2jKKrQgnKEj3rOkqjCmqM9O5foShahfrLmxnY2h9chthmKUq3gGu+
-X-Received: by 2002:a17:902:f687:b0:2db:2413:87d2 with SMTP id d9443c01a7336-2ddb1ac954dmr19438205ad.4.1789693569827;
-        Thu, 17 Sep 2026 18:06:09 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:5d30:2332:ca7b:eac1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f338a9sm33460655ad.83.2026.09.17.18.06.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 18:06:08 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com
-Cc: boyu.mt@taobao.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
-Subject: [PATCH] ext4: add bounds check for e_value_offs in ext4_read_inline_data
-Date: Fri, 18 Sep 2026 06:35:58 +0530
-Message-ID: <20260918010558.8210-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="bjZRLpT8"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 11474CFAD5;
+	Fri, 18 Sep 2026 04:06:11 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 11474CFAD5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1789693572;
+	bh=j2QKuCwDLPzNQ2LtUH7DzrW8On/NLxd9snV9r1oS8yA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=bjZRLpT83aVn24lyDRchJJGSjI2VHuD+Yvg8KbuGBpVA+AmAPDEm0qX8TQzBKZSWs
+	 0nvl+tYo3jNHAnNsz0OTuHPaA0gSyUnGQn+MyvCblkaE2ZSGXoziExgdFwivCUU6Ea
+	 whR2FsltkVqfPWoUxqixdOhouhCSexFt1aKDVmqHKRy4B5WSaZ6aFoonwotweqfb4S
+	 PWJMvcf02NV8dcva6RHdC3KrJ1Mvn/fxaRKcU3sp/XwTukVuXgdGT3Mnfg1dYIOG4W
+	 XvI0UMHka6ll7wZ3Ec34pYQmnX6x9S4UEGtMl9Vq2RvGlAZpGLp1Htlj2u9MMUcEyQ
+	 HVe3L2ZNjEQ0w==
+Message-ID: <2a0c6e71e4a9c80630d35e87e6eb516db3cd3ece.camel@rendec.net>
+Subject: Re: [PATCH v2] irqchip: st: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+From: Radu Rendec <radu@rendec.net>
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org
+Date: Thu, 17 Sep 2026 21:06:10 -0400
+In-Reply-To: <20260917013835.223139-1-triet.hoang.dev@gmail.com>
+References: <20260917013835.223139-1-triet.hoang.dev@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ext4_read_inline_data() reads the location of an inline data xattr
-value directly from entry->e_value_offs without validating it against
-the actual bounds of the inode's xattr area. A corrupted filesystem
-image can set e_value_offs to an out-of-range value, causing the
-subsequent memcpy() to read from an address far outside the inode
-buffer, including memory that has already been freed and reused for
-something else. This mirrors the check already performed in
-ext4_xattr_ibody_get(), which is missing here.
+On Thu, 2026-09-17 at 08:38 +0700, Triet Hoang wrote:
+> Convert the deprecated SIMPLE_DEV_PM_OPS to DEFINE_SIMPLE_DEV_PM_OPS
+> and pm_sleep_ptr().
+>=20
+> This allows dropping the __maybe_unused annotations from the PM callbacks=
+,
+> also reduces kernel size in case CONFIG_PM or CONFIG_PM_SLEEP is disabled=
+.
+>=20
+> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+> ---
+> v2:
+> - Address the commit message following reviewer's feedback
+>=20
+> v1: https://lore.kernel.org/all/20260821043928.123543-1-triet.hoang.dev@g=
+mail.com/
+> ---
+> =C2=A0drivers/irqchip/irq-st.c | 6 +++---
+> =C2=A01 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-st.c b/drivers/irqchip/irq-st.c
+> index de71bb350d57..fef0521831aa 100644
+> --- a/drivers/irqchip/irq-st.c
+> +++ b/drivers/irqchip/irq-st.c
+> @@ -157,7 +157,7 @@ static int st_irq_syscfg_probe(struct platform_device=
+ *pdev)
+> =C2=A0	return st_irq_syscfg_enable(pdev);
+> =C2=A0}
+> =C2=A0
+> -static int __maybe_unused st_irq_syscfg_resume(struct device *dev)
+> +static int st_irq_syscfg_resume(struct device *dev)
+> =C2=A0{
+> =C2=A0	struct st_irq_syscfg *ddata =3D dev_get_drvdata(dev);
+> =C2=A0
+> @@ -165,12 +165,12 @@ static int __maybe_unused st_irq_syscfg_resume(stru=
+ct device *dev)
+> =C2=A0				=C2=A0 ST_A9_IRQ_MASK, ddata->config);
+> =C2=A0}
+> =C2=A0
+> -static SIMPLE_DEV_PM_OPS(st_irq_syscfg_pm_ops, NULL, st_irq_syscfg_resum=
+e);
+> +static DEFINE_SIMPLE_DEV_PM_OPS(st_irq_syscfg_pm_ops, NULL, st_irq_syscf=
+g_resume);
+> =C2=A0
+> =C2=A0static struct platform_driver st_irq_syscfg_driver =3D {
+> =C2=A0	.driver =3D {
+> =C2=A0		.name =3D "st_irq_syscfg",
+> -		.pm =3D &st_irq_syscfg_pm_ops,
+> +		.pm =3D pm_sleep_ptr(&st_irq_syscfg_pm_ops),
+> =C2=A0		.of_match_table =3D st_irq_syscfg_match,
+> =C2=A0	},
+> =C2=A0	.probe =3D st_irq_syscfg_probe,
+> --
+> 2.53.0
 
-Add a bounds check on the computed source pointer against the end of
-the inode's xattr area before the memcpy, and reject the read with
--EFSCORRUPTED if it would go out of bounds.
-
-Fixes: 67cf5b09a46f ("ext4: add the basic function for inline data support")
-Reported-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=085a394c92518a04fd09
-Tested-by: syzbot+085a394c92518a04fd09@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- fs/ext4/inline.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66482..2e60ab3e0db5 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -187,6 +187,8 @@ static int ext4_read_inline_data(struct inode *inode, void *buffer,
- 	struct ext4_xattr_ibody_header *header;
- 	int cp_len = 0;
- 	struct ext4_inode *raw_inode;
-+	void *end, *p;
-+	u16 offset;
- 
- 	if (!len)
- 		return 0;
-@@ -205,13 +207,21 @@ static int ext4_read_inline_data(struct inode *inode, void *buffer,
- 		goto out;
- 
- 	header = IHDR(inode, raw_inode);
-+	end = ITAIL(inode, raw_inode);
- 	entry = (struct ext4_xattr_entry *)((void *)raw_inode +
- 					    EXT4_I(inode)->i_inline_off);
- 	len = min_t(unsigned int, len,
- 		    (unsigned int)le32_to_cpu(entry->e_value_size));
- 
--	memcpy(buffer,
--	       (void *)IFIRST(header) + le16_to_cpu(entry->e_value_offs), len);
-+	offset = le16_to_cpu(entry->e_value_offs);
-+	p = (void *)IFIRST(header) + offset;
-+
-+	if (unlikely(p + len > end)) {
-+		EXT4_ERROR_INODE(inode, "corrupt inline xattr entry");
-+		return -EFSCORRUPTED;
-+	}
-+
-+	memcpy(buffer, p, len);
- 	cp_len += len;
- 
- out:
--- 
-2.43.0
-
+Reviewed-by: Radu Rendec <radu@rendec.net>
