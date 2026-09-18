@@ -1,65 +1,64 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-lr2-f41.google.com (mail-lr2-f41.google.com [74.125.230.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60994EC647
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408854E9C17
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734339; cv=none; b=im5n6JgDxXRlZPDq++raGrdTfWoRIcI5eIN9gEJLUPRjNzPZu5WAs2gQbiBA4BfgaZw7sNXkYmwpT6GWFM0MYPMcZrKrXQFbzAetsdnq6+QyVkY3BITiJgMuMkRia74xm1aJfHYB3O9r0k2ClXKqDrWCdkVUdSqCiQ+qdb/1dCo=
+	t=1789734341; cv=none; b=R4QVi/MZ/xHkhlsRPF2XY+Nv+VZf393Mro8z8Q173ULMRXHs50j9LAnQUX5Udy5NiOIkvfqhzWtK8z/Zh1s91G7lEFwAWpl3yF5zcuD3m5Lq1tN9UL7Gf8SR4Yxj0N+DKiDUN2VRIWn5JnUV4KrYVfLCF4lC6RklrbeJXiOSjlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734339; c=relaxed/simple;
-	bh=BqD+7tSzLxTJxUspsiSX8hEETeKDZb8PtvBn/q2GlbY=;
+	s=arc-20240116; t=1789734341; c=relaxed/simple;
+	bh=laksdeSdPu2zA6kfA0TK1uIuDUMTPBAhLTpGoGGPG4U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cfAVYo8csUQKnpzSVTiU+Gu3BIR+ofPi5xwSJk/kSYx+5aX4nMr+Kw9VH0J0r9rmNqs4pE/Z85L6su5rlkuseso9jZrS5eKnr9WPCs4W6dDlVaj/WfHNcLXVM9vVZDaSn0MFTVQYStSXUDoDbFB2frQ8LMPYTUTQAQwvu7OoTr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mj8RbSpS; arc=none smtp.client-ip=74.125.229.205
+	 MIME-Version; b=tCXL/4MGJhhsWY/IhLrQkf0hojIGoFCKvsb9RLzQNRb63SshG8zQu3f6YSxLOx7zJtJC1EzJcklRGwTrTljg4MX5zifxA8+ZCAieQpah81UwfNa6qajkhGuymHsyuWWf7qCf50EAWBqzYdCF5V08dc8DsW1QMpPSaZA9QS0SSQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPlGpvja; arc=none smtp.client-ip=74.125.230.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mj8RbSpS"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c58fd069so176124e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:25:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPlGpvja"
+Received: by mail-lr2-f41.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso4811381fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:25:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789734326; x=1790339126; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Tq3h6JKJmzsaFI+i9MuIchESUOERl8g67kAMYSTdEy0=;
-        b=Mj8RbSpS+EPbFDRrYoS349ciVhy1uEgvokHxwM/ZyVBr9qamriOdFbT2taoqJOXKFy
-         dhx1DYfNINgyTMky2mi9ZQEtKtyeJu27uijc7AwyKNtoailvA5r/04/rm6z1DDsGD/vE
-         jm/JOH0aEMZGu5fLXjLWAD7+uAKWWjLavf4vhxPxj+BZtz9nzcSCd4a7VEnjylVMCHGW
-         uzXrezgnOYFyfSDVfuu9vUDifPmjtE98eDZe8/XiNMPxDfJ+N5WrQuhpaKWr5Cka+UhN
-         f8Fir1WWs8/tA8NjkkWnwaIRC6vE0d9+tO8wmOTglYOZwLrzlU85X1EyJTQODJG48+1/
-         4pyg==
+        d=gmail.com; s=20251104; t=1789734324; x=1790339124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=60p97ewNtG9tKiPuMUOcTc/j/UXlUPAQ6cFtl0QC6Hg=;
+        b=NPlGpvjach0+zo82mgGJjz/fcY+/5EzzNVOVwTBB8fDpwARaDz0V0rSKOAuum+7cz4
+         tb+4mOC0OimV0WjzIZKcbwQsL8F4xUi9yJUIJjvIfXktk6oDaIg1S0MZgx8EjSxHQN1w
+         MVSHeZgHhRMup1PEVSa2loYSaWeTaHZHnZAOW9ohAKXMnhjWwuRYG6M7H1JjjEDb5ilZ
+         vGl6PZxiN8Y6ooXMd38UUf39gJhl17SrpbSVPo5yk/DhK4UCi8ogifZgYyTnvzNuEloB
+         flRYXxoGZiqMRmI4ZGF2ujiZge3JGr3yZEQPKA1+o3IXDSdH5jJfkKpFICY6wSAlo0/o
+         IYWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789734326; x=1790339126;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tq3h6JKJmzsaFI+i9MuIchESUOERl8g67kAMYSTdEy0=;
-        b=APjFLtzWakLo+LECfvvUT2EvkBVobcBnIZMyCpPUlc8R5uPWiRZCfmbmhNDYeO/vWF
-         Dqxe/6CTma4OlGfjnBsEqDXmsEfHQItXcHQEo/H3cNvcdgVZCGHyxhv73Lt2lvxwsj2P
-         cEpbREyzwZl/FjZgpyH/+/mJla6snE3Pv/3xlvOfWMAYUXLP/w5fni1gs1S1+UJJ6B1s
-         v2fKnko5yJAWRoyR/RQo2nk1VE8hYBln6aMV14t9SjZajQwjRaqIXGip09AZolgFcnTq
-         w7rtRhIUA6A7gnT5rjYb+bnHyOMg2KfjZgWgPQL5Ydldp5w7+zBAyTLvL2HeT/zcD+ts
-         j/Gw==
-X-Forwarded-Encrypted: i=1; AKwUvByG6e/JicQ3Qs1xDrbOgxuSLxbXT0OmvKF/gYFUv0uPbX+pVQYmDNdoOPLP/v3u6E9ZRk0ry/SvAkM63yI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLf/Y5OBhFYOCjZJX50Qmv1vYP881XVyxIqQtnxW8FV7BZXYSB
-	vE7o+9kA+gyzT2yVmfYpY0UFBNAE9BlzwbrU+BKwuubOhwnVTlEB2U1p
-X-Gm-Gg: AYBFou1IY79lgxIw2VUYGAKUFgBjZozFH6lu2Zs3hDfXIbeA/kp7qT/BdkQrXpz7mtA
-	1Y6vPwIp0D5w0R1cKanh9FLeVsJtrd5Cf3SUwBLNsNu1T2u8aoQEVgdaJD+ddBEpzvk/qSX+fhq
-	KEdkIvAsjQPoDV/uNZoXeRKkDUi6Df7BLppcvP0ftDLuMXnwVNofO7xBlFeF4Vt+SaOkQ6lBFJM
-	Iq6Cp79z0fzJ85clOCbTjMfp1T+tS1q569NxEYY8FlIQa064Lllet8dvoUzQBQKz3TMlg5Xtt0N
-	hMWq7v6bfGNr0ZGykyBP0NeFB0HGw7PQdY4KmowNNEd9F59pnHXOlm9vRKunGZs/z1zWQeIhJR7
-	GwadW90TcH4LgSc4XKWxXwahZ8LWGu6B4kilHcQyK7SmEXRN0H1FP3L+d8CKBQQepUr+FAOMhJA
-	N2Vyiqjr8Iq+JM/M1R1rsesNQJBaaNdzO7d0PgREsCHe7xYaoXCfuqC5pJD+5GSFXe5VVamhJOy
-	yOgrLGcRCL+PAanjYD58i42FBt0WK4Irvb4+vJ6qVVn+HqxSv8ZcfX4zdXxyoRT44s9fw==
-X-Received: by 2002:a05:6512:110a:b0:5b8:99a5:5162 with SMTP id 2adb3069b0e04-5b8c180e6cfmr704214e87.26.1789734326022;
-        Fri, 18 Sep 2026 05:25:26 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789734324; x=1790339124;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=60p97ewNtG9tKiPuMUOcTc/j/UXlUPAQ6cFtl0QC6Hg=;
+        b=E/FxpS2miNIWZBNOzUNVYzaqSdrH6o5xXlbV86HggLGWnz1dh1y7EziWT0lsuxg+Ms
+         r4/bhqs/pNVZpaD9yHdde8/+swhcVz2qR26k1gmNNr0KvY5s1muNtyryjKsA9CGOPu4m
+         FKsbHlU/cXzagFwBUZn0i5sNGwOm9ntr+SXjB+bhJfuAaRn0s4+/+KIv9Yh0KOxFq6nS
+         G/1mFoPrLuXdMRkzDoU4k5Yg67T2x2qJchfJsn0HrjhL8SGQ/LNKA+Y0eZY1AYxw9q6+
+         1f0uxtwGGqF7enr5+/tZFgHuYaPE+74aWM55hHGrwkpOMCMm6Kz3GMISMiiSX2UOz8qh
+         PM2Q==
+X-Forwarded-Encrypted: i=1; AKwUvByyXQfLUPhFavCJOqEaDz2bfgekpkykHRo2N42LNEqs/qauBp6y8Kt3eYScKdnJl4BdH6NEZme3NrheqYQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWCp5uSTkTtZrYJCqrtaEMfp6wkBRT4HE+RGRe8G5ccL67mKVW
+	zgd1NLko8av/r2XbdE3e5Wpuhw4x9AT27JNWoWQJEvi3F+MVQr4IBfEZ
+X-Gm-Gg: AYBFou29hjaoxnVSAL9Suu57HGRfL0wwbT73P/JiQ0yfir3LF8FF5dzC7SnibEuQd27
+	aD13vzFkGcE3XFzUbM6ft8aVgrCv9HL6Xtt+2FbDfOtSlE+YxNGCXztIuDO3noyyCau8N8zbEhh
+	Cp1qYcjJE1sHXyoYv8x2as9B5T8TJuJUaL/b/41LwHGuNGAWCpnyNs2+liRoTTn3fX5YXZ16Sjr
+	I1J7gvHEpsfe766mr18XL0EDKeRlH+r9vMtpYirruwtJlpMVQfvbEnPiRup3P70VftPX7l2Pvje
+	mYHPGo+XkFPofcFHdjO2tLvKfe3umNIBMAkoW9YBYIG9D4eKy1V9O84TWiVJAylxDok8aC+2PvD
+	7DjJsePgpCmZAPJLZymJMI0Om/Oj8TfNpTIC/KCBLakrZ3imMxBs6YbGhq1cSFzVl8ORAm2+ceq
+	t2GigzWpraxQK67pk+qfrHfddt4E02WuHGC+jMuny97TdPKLMbhh1K3/gwyoXJ+ZCG4dauhDmna
+	9/vX+miHlwcZEdV0gvZMkUmJUfVdYETuHzoM3ftIibzeeFs7sUCgX8F8pmXS4goW15z4g==
+X-Received: by 2002:a05:6512:1389:b0:5b7:6489:37c7 with SMTP id 2adb3069b0e04-5b8c179d8cdmr728262e87.0.1789734324360;
+        Fri, 18 Sep 2026 05:25:24 -0700 (PDT)
 Received: from yantra.. (dsl-trebng21-58c187-236.dhcp.inet.fi. [88.193.135.236])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c270ea53sm398549e87.12.2026.09.18.05.25.25
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c270ea53sm398549e87.12.2026.09.18.05.25.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 05:25:25 -0700 (PDT)
+        Fri, 18 Sep 2026 05:25:23 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Andy Shevchenko <andy@kernel.org>,
 	Bill Wendling <morbo@google.com>,
@@ -75,9 +74,9 @@ Cc: linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Rupesh Majhi <zoone.rupert@gmail.com>
-Subject: [PATCH v7 07/10] iio: pressure: dps310: read buffered samples from the hardware FIFO
-Date: Fri, 18 Sep 2026 15:25:14 +0300
-Message-ID: <20260918122517.377565-8-zoone.rupert@gmail.com>
+Subject: [PATCH v7 05/10] iio: pressure: dps310: add triggered buffer support
+Date: Fri, 18 Sep 2026 15:25:12 +0300
+Message-ID: <20260918122517.377565-6-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260918122517.377565-1-zoone.rupert@gmail.com>
 References: <20260918122517.377565-1-zoone.rupert@gmail.com>
@@ -87,490 +86,266 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The DPS310 has a 32-entry FIFO shared by both measurements. Drain it from
-a work item and push what it held, so a buffered capture needs no
-trigger. Nothing in tree wires the interrupt pin, so the work rearms
-itself at half the time the FIFO takes to fill.
+Add a triggered buffer to capture continuously on both channels instead
+of one sysfs read at a time.
 
-Entries carry one measurement each, so a pressure entry is compensated
-with the temperature ahead of it. Pressure read before the first
-temperature of a session is held until one arrives rather than dropped,
-so the first push can wait a temperature period.
+Raw register value is not useful on its own, pressure has to go through
+the compensation polynomial and needs a temperature reading. Report raw
+in Pa with 1/1000 scale to keep full resolution in the buffer without
+changing what the existing processed attribute reports.
 
-FIFO entries are not timestamped, so postenable refuses the timestamp
-channel unless a trigger is attached.
-
-Tested on a DPS310 on a BeagleBone Black.
+Raw and processed reads return -EBUSY while buffer is on, so does any
+reconfiguration.
 
 Assisted-by: LLM
 Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
- drivers/iio/pressure/dps310.c | 371 +++++++++++++++++++++++++++++++++-
- 1 file changed, 360 insertions(+), 11 deletions(-)
+ drivers/iio/pressure/Kconfig  |   2 +
+ drivers/iio/pressure/dps310.c | 151 ++++++++++++++++++++++++++++++++--
+ 2 files changed, 148 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/iio/pressure/Kconfig b/drivers/iio/pressure/Kconfig
+index 838a8340c4c0..cef8b90b9ae7 100644
+--- a/drivers/iio/pressure/Kconfig
++++ b/drivers/iio/pressure/Kconfig
+@@ -112,6 +112,8 @@ config DPS310
+ 	tristate "Infineon DPS310 pressure and temperature sensor"
+ 	depends on I2C
+ 	select REGMAP_I2C
++	select IIO_BUFFER
++	select IIO_TRIGGERED_BUFFER
+ 	help
+ 	  Support for the Infineon DPS310 digital barometric pressure sensor.
+ 	  It can be accessed over I2C bus.
 diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index dd816d47bbec..e63ea7873e5b 100644
+index 8cefca928077..dd816d47bbec 100644
 --- a/drivers/iio/pressure/dps310.c
 +++ b/drivers/iio/pressure/dps310.c
-@@ -2,16 +2,11 @@
- // Copyright IBM Corp 2019
- /*
-  * The DPS310 is a barometric pressure and temperature sensor.
-- * Currently only reading a single temperature is supported by
-- * this driver.
-  *
-  * https://www.infineon.com/dgdl/?fileId=5546d462576f34750157750826c42242
-  *
-  * Temperature calculation:
-  *   c0 * 0.5 + c1 * T_raw / kT °C
-- *
-- * TODO:
-- *  - Optionally support the FIFO
-  */
- 
- #include <linux/cleanup.h>
-@@ -20,7 +15,10 @@
- #include <linux/math64.h>
- #include <linux/module.h>
+@@ -22,8 +22,11 @@
  #include <linux/regmap.h>
-+#include <linux/slab.h>
  #include <linux/unaligned.h>
-+#include <linux/units.h>
-+#include <linux/workqueue.h>
  
- #include <linux/iio/buffer.h>
++#include <linux/iio/buffer.h>
  #include <linux/iio/iio.h>
-@@ -59,9 +57,22 @@
- #define  DPS310_FIFO_EN		BIT(1)
- #define  DPS310_SPI_EN		BIT(0)
- #define DPS310_RESET		0x0c
-+#define  DPS310_FIFO_FLUSH	BIT(7)
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
+ #include <linux/iio/sysfs.h>
++#include <linux/iio/trigger_consumer.h>
++#include <linux/iio/triggered_buffer.h>
  
-+/* Section 4.8: 32 shared entries. Stops when full, so late drains lose data */
-+#define DPS310_FIFO_DEPTH	32
-+
-+/* Read back once the FIFO is empty */
-+#define DPS310_FIFO_EMPTY_VAL	0x800000
-+
-+/* LSB tags which measurement produced the entry */
-+#define DPS310_FIFO_TAG_PRS	BIT(0)
-+
-+#define DPS310_DRAIN_MIN_MS	20
-+#define DPS310_DRAIN_MAX_MS	(2 * MSEC_PER_SEC)
-+
- /* Make sure sleep time is <= 30ms for usleep_range */
- #define DPS310_POLL_SLEEP_US(t)		min(30000, (t) / 8)
- /* Silently handle error in rate value here */
-@@ -95,11 +106,28 @@ struct dps310_data {
- 	s32 pressure_raw;
- 	s32 temp_raw;
+ #define DPS310_DEV_NAME		"dps310"
+ 
+@@ -94,19 +97,50 @@ struct dps310_data {
  	bool timeout_recovery_failed;
-+	bool fifo_temp_valid;
-+
-+	/* Used only while the FIFO is enabled */
-+	struct iio_dev *iio;
-+	struct delayed_work fifo_work;
-+	s32 *fifo_hold;
-+	unsigned int fifo_hold_max;
-+	unsigned int fifo_held;
-+	unsigned int drain_interval_ms;
-+	s32 fifo_temp_raw;
+ };
+ 
++enum dps310_scan_index {
++	DPS310_SCAN_TEMP,
++	DPS310_SCAN_PRESSURE,
 +};
 +
-+enum dps310_fifo_entry {
-+	DPS310_FIFO_EMPTY,
-+	DPS310_FIFO_TEMP,
-+	DPS310_FIFO_PRESSURE,
- };
- 
- enum dps310_scan_index {
- 	DPS310_SCAN_TEMP,
- 	DPS310_SCAN_PRESSURE,
-+	DPS310_SCAN_TIMESTAMP,
- };
- 
  static const struct iio_chan_spec dps310_channels[] = {
-@@ -140,7 +168,7 @@ static const struct iio_chan_spec dps310_channels[] = {
- 			.endianness = IIO_CPU,
- 		},
+ 	{
+ 		.type = IIO_TEMP,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO) |
+ 			BIT(IIO_CHAN_INFO_SAMP_FREQ) |
+ 			BIT(IIO_CHAN_INFO_PROCESSED),
++		.scan_index = DPS310_SCAN_TEMP,
++		.scan_type = {
++			.sign = 's',
++			.realbits = 32,
++			.storagebits = 32,
++			.endianness = IIO_CPU,
++		},
  	},
--	IIO_CHAN_SOFT_TIMESTAMP(2),
-+	IIO_CHAN_SOFT_TIMESTAMP(DPS310_SCAN_TIMESTAMP),
+ 	{
+ 		.type = IIO_PRESSURE,
++		/*
++		 * _raw here is already compensated (section 4.9.1, which needs
++		 * a temperature too) and in Pa; _scale converts to the kPa the
++		 * ABI wants. _processed predates buffers and has to stay.
++		 *
++		 * Do not copy this into other drivers. A _raw that is not the
++		 * raw register value is only tolerable because the alternative
++		 * is losing resolution or breaking existing _processed users.
++		 */
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO) |
+ 			BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++			BIT(IIO_CHAN_INFO_RAW) |
++			BIT(IIO_CHAN_INFO_SCALE) |
+ 			BIT(IIO_CHAN_INFO_PROCESSED),
++		.scan_index = DPS310_SCAN_PRESSURE,
++		.scan_type = {
++			.sign = 's',
++			.realbits = 32,
++			.storagebits = 32,
++			.endianness = IIO_CPU,
++		},
+ 	},
++	IIO_CHAN_SOFT_TIMESTAMP(2),
  };
  
  /* To be called after checking the COEF_RDY bit in MEAS_CFG */
-@@ -936,6 +964,306 @@ static int dps310_fill_channels(struct dps310_data *data,
- 	return 0;
+@@ -586,6 +620,11 @@ static int dps310_write_raw(struct iio_dev *iio,
+ {
+ 	struct dps310_data *data = iio_priv(iio);
+ 
++	/* Reconfiguring mid-capture would change the values being captured */
++	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
++	if (IIO_DEV_ACQUIRE_FAILED(claim))
++		return -EBUSY;
++
+ 	ACQUIRE(mutex_intr, lock)(&data->lock);
+ 	if (ACQUIRE_ERR(mutex_intr, &lock))
+ 		return -EINTR;
+@@ -723,6 +762,13 @@ static int dps310_read_pressure(struct dps310_data *data, int *val, int *val2,
+ 
+ 		return IIO_VAL_INT;
+ 
++	case IIO_CHAN_INFO_RAW:
++		rc = dps310_read_pressure_value(data, val);
++		if (rc)
++			return rc;
++
++		return IIO_VAL_INT;
++
+ 	case IIO_CHAN_INFO_PROCESSED:
+ 		rc = dps310_read_pressure_value(data, val);
+ 		if (rc)
+@@ -731,6 +777,12 @@ static int dps310_read_pressure(struct dps310_data *data, int *val, int *val2,
+ 		*val2 = 1000; /* Convert Pa to KPa per IIO ABI */
+ 		return IIO_VAL_FRACTIONAL;
+ 
++	case IIO_CHAN_INFO_SCALE:
++		/* The raw value is in Pa, the ABI wants kPa */
++		*val = 1;
++		*val2 = 1000;
++		return IIO_VAL_FRACTIONAL;
++
+ 	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+ 		rc = dps310_get_pres_precision(data, val);
+ 		if (rc)
+@@ -812,12 +864,10 @@ static int dps310_read_temp(struct dps310_data *data, int *val, int *val2,
+ 	}
  }
  
-+static int dps310_fifo_hw_flush(struct dps310_data *data)
-+	__must_hold(&data->lock)
+-static int dps310_read_raw(struct iio_dev *iio,
+-			   struct iio_chan_spec const *chan,
+-			   int *val, int *val2, long mask)
++static int dps310_read_channel(struct dps310_data *data,
++			       struct iio_chan_spec const *chan,
++			       int *val, int *val2, long mask)
+ {
+-	struct dps310_data *data = iio_priv(iio);
+-
+ 	switch (chan->type) {
+ 	case IIO_PRESSURE:
+ 		return dps310_read_pressure(data, val, val2, mask);
+@@ -830,6 +880,87 @@ static int dps310_read_raw(struct iio_dev *iio,
+ 	}
+ }
+ 
++static int dps310_read_raw(struct iio_dev *iio,
++			   struct iio_chan_spec const *chan,
++			   int *val, int *val2, long mask)
 +{
-+	return regmap_write(data->regmap, DPS310_RESET, DPS310_FIFO_FLUSH);
++	struct dps310_data *data = iio_priv(iio);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++	case IIO_CHAN_INFO_PROCESSED: {
++		/* This consumes the measurement the capture path reads */
++		IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
++		if (IIO_DEV_ACQUIRE_FAILED(claim))
++			return -EBUSY;
++
++		return dps310_read_channel(data, chan, val, val2, mask);
++	}
++	default:
++		return dps310_read_channel(data, chan, val, val2, mask);
++	}
 +}
 +
-+static int dps310_fifo_set_enable(struct dps310_data *data, bool enable)
++static int dps310_fill_channels(struct dps310_data *data,
++				const unsigned long *scan_mask,
++				s32 channels[2])
 +	__must_hold(&data->lock)
 +{
-+	return regmap_assign_bits(data->regmap, DPS310_CFG_REG, DPS310_FIFO_EN,
-+				  enable);
-+}
-+
-+/*
-+ * No interrupt pin is wired in tree, so drain on a timer. Both measurements
-+ * share the entries, so they fill it together.
-+ */
-+static unsigned int dps310_fifo_interval(int prs_rate, int tmp_rate)
-+{
-+	unsigned int fill_ms;
-+
-+	fill_ms = MSEC_PER_SEC * DPS310_FIFO_DEPTH / (prs_rate + tmp_rate);
-+
-+	return clamp(fill_ms / 2, DPS310_DRAIN_MIN_MS, DPS310_DRAIN_MAX_MS);
-+}
-+
-+/* Returns which measurement the entry came from, or a negative error */
-+static int dps310_fifo_read_entry(struct dps310_data *data, s32 *value)
-+	__must_hold(&data->lock)
-+{
-+	u8 val[3];
-+	s32 raw;
-+	int rc;
-+
-+	/* Entries come out of the pressure registers whichever made them */
-+	rc = regmap_bulk_read(data->regmap, DPS310_PRS_BASE, val, sizeof(val));
-+	if (rc < 0)
-+		return rc;
-+
-+	raw = get_unaligned_be24(val);
-+	if (raw == DPS310_FIFO_EMPTY_VAL)
-+		return DPS310_FIFO_EMPTY;
-+
-+	*value = sign_extend32(raw, 23);
-+
-+	return raw & DPS310_FIFO_TAG_PRS ? DPS310_FIFO_PRESSURE :
-+					   DPS310_FIFO_TEMP;
-+}
-+
-+static int dps310_fifo_push_scan(struct dps310_data *data, s32 temp_raw,
-+				 s32 pressure_raw)
-+	__must_hold(&data->lock)
-+{
-+	struct iio_dev *iio = data->iio;
-+	s32 channels[2] = { };
 +	unsigned int i;
 +	int rc;
 +
-+	/* Direct-mode claim keeps sysfs reads off these */
-+	data->temp_raw = temp_raw;
-+	data->pressure_raw = pressure_raw;
++	/* Compensation needs a temperature, so it is sampled either way */
++	rc = dps310_read_temp_raw_locked(data);
++	if (rc)
++		return rc;
 +
 +	i = 0;
-+	if (test_bit(DPS310_SCAN_TEMP, iio->active_scan_mask)) {
++	if (test_bit(DPS310_SCAN_TEMP, scan_mask)) {
++		/* Millidegrees Celsius */
 +		rc = dps310_calculate_temp(data, &channels[i++]);
 +		if (rc)
 +			return rc;
 +	}
 +
-+	if (test_bit(DPS310_SCAN_PRESSURE, iio->active_scan_mask)) {
++	if (test_bit(DPS310_SCAN_PRESSURE, scan_mask)) {
++		rc = dps310_read_pres_raw_locked(data);
++		if (rc)
++			return rc;
++
++		/* Pascals, see the channel definition */
 +		rc = dps310_calculate_pressure(data, &channels[i++]);
 +		if (rc)
 +			return rc;
 +	}
 +
-+	iio_push_to_buffers(iio, channels);
-+
 +	return 0;
 +}
 +
-+/* Pressure seen before any temperature, kept until one turns up */
-+static void dps310_fifo_hold(struct dps310_data *data, s32 pressure_raw)
-+	__must_hold(&data->lock)
++static irqreturn_t dps310_trigger_handler(int irq, void *p)
 +{
-+	if (data->fifo_held < data->fifo_hold_max)
-+		data->fifo_hold[data->fifo_held++] = pressure_raw;
-+}
-+
-+/* Returns scans pushed */
-+static int dps310_fifo_push_held(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	unsigned int i, held = data->fifo_held;
-+	int rc = 0;
-+
-+	for (i = 0; i < held; i++) {
-+		rc = dps310_fifo_push_scan(data, data->fifo_temp_raw,
-+					   data->fifo_hold[i]);
-+		if (rc)
-+			break;
-+	}
-+
-+	/* What did not go out stays for the next drain */
-+	data->fifo_held = held - i;
-+	memmove(data->fifo_hold, &data->fifo_hold[i],
-+		data->fifo_held * sizeof(*data->fifo_hold));
-+
-+	return rc ? rc : i;
-+}
-+
-+/*
-+ * Read the batch out before compensating it, so a pressure entry pairs with
-+ * the temperature preceding it rather than the last one in the batch.
-+ *
-+ * Returns scans pushed.
-+ */
-+static int dps310_fifo_drain(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	bool pressure_enabled = test_bit(DPS310_SCAN_PRESSURE,
-+					 data->iio->active_scan_mask);
-+	u8 kind[DPS310_FIFO_DEPTH];
-+	s32 raw[DPS310_FIFO_DEPTH];
-+	unsigned int i, n = 0, pushed = 0;
-+	int rc;
-+
-+	for (i = 0; i < DPS310_FIFO_DEPTH; i++) {
-+		rc = dps310_fifo_read_entry(data, &raw[n]);
-+		if (rc < 0)
-+			return rc;
-+
-+		if (rc == DPS310_FIFO_EMPTY)
-+			break;
-+
-+		kind[n++] = rc;
-+	}
-+
-+	for (i = 0; i < n; i++) {
-+		if (kind[i] == DPS310_FIFO_TEMP) {
-+			data->fifo_temp_raw = raw[i];
-+			data->fifo_temp_valid = true;
-+
-+			if (!pressure_enabled) {
-+				rc = dps310_fifo_push_scan(data, raw[i], 0);
-+				if (rc)
-+					return rc;
-+
-+				pushed++;
-+				continue;
-+			}
-+
-+			rc = dps310_fifo_push_held(data);
-+			if (rc < 0)
-+				return rc;
-+
-+			pushed += rc;
-+			continue;
-+		}
-+
-+		if (!pressure_enabled)
-+			continue;
-+
-+		if (!data->fifo_temp_valid) {
-+			dps310_fifo_hold(data, raw[i]);
-+			continue;
-+		}
-+
-+		rc = dps310_fifo_push_scan(data, data->fifo_temp_raw, raw[i]);
-+		if (rc)
-+			return rc;
-+
-+		pushed++;
-+	}
-+
-+	return pushed;
-+}
-+
-+static void dps310_fifo_work(struct work_struct *work)
-+{
-+	struct dps310_data *data = container_of(to_delayed_work(work),
-+						struct dps310_data, fifo_work);
++	struct iio_poll_func *pf = p;
++	struct iio_dev *iio = pf->indio_dev;
++	struct dps310_data *data = iio_priv(iio);
++	struct {
++		s32 channels[2];
++		aligned_s64 timestamp;
++	} scan = { };
 +	int rc;
 +
 +	mutex_lock(&data->lock);
-+	rc = dps310_fifo_drain(data);
++	rc = dps310_fill_channels(data, iio->active_scan_mask, scan.channels);
 +	mutex_unlock(&data->lock);
++	if (rc)
++		goto err;
 +
-+	if (rc < 0)
-+		dev_dbg(&data->client->dev, "FIFO drain failed: %d\n", rc);
++	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), iio_get_time_ns(iio));
 +
-+	schedule_delayed_work(&data->fifo_work,
-+			      msecs_to_jiffies(data->drain_interval_ms));
++err:
++	iio_trigger_notify_done(iio->trig);
++
++	return IRQ_HANDLED;
 +}
 +
-+/*
-+ * First temperature is one temperature period away at most, which bounds the
-+ * pressure before it. Rates cannot change while the buffer runs.
-+ */
-+static int dps310_fifo_hold_alloc(struct dps310_data *data, int prs_rate,
-+				  int tmp_rate)
-+	__must_hold(&data->lock)
-+{
-+	data->fifo_temp_valid = false;
-+	data->fifo_held = 0;
-+
-+	if (!test_bit(DPS310_SCAN_PRESSURE, data->iio->active_scan_mask))
-+		return 0;
-+
-+	data->fifo_hold_max = prs_rate / tmp_rate + 2;
-+	data->fifo_hold = kcalloc(data->fifo_hold_max, sizeof(*data->fifo_hold),
-+				  GFP_KERNEL);
-+	if (!data->fifo_hold)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static void dps310_fifo_hold_free(struct dps310_data *data)
-+	__must_hold(&data->lock)
-+{
-+	kfree(data->fifo_hold);
-+	data->fifo_hold = NULL;
-+	data->fifo_hold_max = 0;
-+}
-+
-+static int dps310_buffer_postenable(struct iio_dev *iio)
-+{
-+	struct dps310_data *data = iio_priv(iio);
-+	int rc, prs_rate, tmp_rate;
-+
-+	/* An attached trigger drives the capture instead, FIFO stays off */
-+	if (iio_device_get_current_mode(iio) == INDIO_BUFFER_TRIGGERED)
-+		return 0;
-+
-+	/* Entries are not timestamped and the drain timer is no substitute */
-+	if (iio_scan_timestamp_enabled(iio))
-+		return -EINVAL;
-+
-+	guard(mutex)(&data->lock);
-+
-+	rc = dps310_get_pres_samp_freq(data, &prs_rate);
-+	if (rc)
-+		return rc;
-+
-+	rc = dps310_get_temp_samp_freq(data, &tmp_rate);
-+	if (rc)
-+		return rc;
-+
-+	data->drain_interval_ms = dps310_fifo_interval(prs_rate, tmp_rate);
-+
-+	rc = dps310_fifo_hold_alloc(data, prs_rate, tmp_rate);
-+	if (rc)
-+		return rc;
-+
-+	/* Drop whatever accumulated before enable */
-+	rc = dps310_fifo_hw_flush(data);
-+	if (rc)
-+		goto err_hold;
-+
-+	rc = dps310_fifo_set_enable(data, true);
-+	if (rc)
-+		goto err_hold;
-+
-+	schedule_delayed_work(&data->fifo_work,
-+			      msecs_to_jiffies(data->drain_interval_ms));
-+
-+	return 0;
-+
-+err_hold:
-+	dps310_fifo_hold_free(data);
-+
-+	return rc;
-+}
-+
-+static int dps310_buffer_predisable(struct iio_dev *iio)
-+{
-+	struct dps310_data *data = iio_priv(iio);
-+	int rc;
-+
-+	if (iio_device_get_current_mode(iio) == INDIO_BUFFER_TRIGGERED)
-+		return 0;
-+
-+	cancel_delayed_work_sync(&data->fifo_work);
-+
-+	guard(mutex)(&data->lock);
-+
-+	dps310_fifo_hold_free(data);
-+
-+	rc = dps310_fifo_set_enable(data, false);
-+	if (rc)
-+		return rc;
-+
-+	return dps310_fifo_hw_flush(data);
-+}
-+
-+static const struct iio_buffer_setup_ops dps310_buffer_setup_ops = {
-+	.postenable = dps310_buffer_postenable,
-+	.predisable = dps310_buffer_predisable,
-+};
-+
- static irqreturn_t dps310_trigger_handler(int irq, void *p)
+ static void dps310_reset(void *action_data)
  {
- 	struct iio_poll_func *pf = p;
-@@ -968,6 +1296,14 @@ static void dps310_reset(void *action_data)
- 	dps310_reset_wait(data);
- }
- 
-+/* The drain rearms itself, so stop it even if the buffer never disabled */
-+static void dps310_cancel_fifo_work(void *action_data)
-+{
-+	struct dps310_data *data = action_data;
-+
-+	cancel_delayed_work_sync(&data->fifo_work);
-+}
-+
- static const struct regmap_config dps310_regmap_config = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
-@@ -995,13 +1331,20 @@ static int dps310_probe(struct i2c_client *client)
- 
- 	data = iio_priv(iio);
- 	data->client = client;
-+	data->iio = iio;
- 	mutex_init(&data->lock);
-+	INIT_DELAYED_WORK(&data->fifo_work, dps310_fifo_work);
- 
- 	iio->name = DPS310_DEV_NAME;
- 	iio->channels = dps310_channels;
- 	iio->num_channels = ARRAY_SIZE(dps310_channels);
- 	iio->info = &dps310_info;
--	iio->modes = INDIO_DIRECT_MODE;
-+	/*
-+	 * Both modes advertised: the core picks TRIGGERED with a trigger
-+	 * attached and falls back to SOFTWARE, which the FIFO path uses.
-+	 */
-+	iio->modes = INDIO_DIRECT_MODE | INDIO_BUFFER_TRIGGERED |
-+		     INDIO_BUFFER_SOFTWARE;
- 
- 	data->regmap = devm_regmap_init_i2c(client, &dps310_regmap_config);
- 	if (IS_ERR(data->regmap))
-@@ -1017,12 +1360,18 @@ static int dps310_probe(struct i2c_client *client)
- 		return rc;
- 
- 	/*
--	 * The device measures continuously in background mode, so a capture is
--	 * just a read of the latest results. The trigger is not aligned with
--	 * the measurements, so the timestamp is taken in the handler.
-+	 * The device measures continuously in background mode, so a triggered
-+	 * capture is just a read of the latest results. The setup ops run the
-+	 * FIFO drain when no trigger is attached. The trigger is not aligned
-+	 * with the measurements, so the timestamp is taken in the handler.
- 	 */
- 	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
--					     dps310_trigger_handler, NULL);
-+					     dps310_trigger_handler,
-+					     &dps310_buffer_setup_ops);
-+	if (rc)
-+		return rc;
-+
-+	rc = devm_add_action_or_reset(dev, dps310_cancel_fifo_work, data);
+ 	struct dps310_data *data = action_data;
+@@ -885,6 +1016,16 @@ static int dps310_probe(struct i2c_client *client)
  	if (rc)
  		return rc;
  
++	/*
++	 * The device measures continuously in background mode, so a capture is
++	 * just a read of the latest results. The trigger is not aligned with
++	 * the measurements, so the timestamp is taken in the handler.
++	 */
++	rc = devm_iio_triggered_buffer_setup(dev, iio, NULL,
++					     dps310_trigger_handler, NULL);
++	if (rc)
++		return rc;
++
+ 	rc = devm_iio_device_register(dev, iio);
+ 	if (rc)
+ 		return rc;
 -- 
 2.43.0
 
