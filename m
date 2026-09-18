@@ -1,79 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFD04D7D22;
-	Fri, 18 Sep 2026 10:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F14CE693
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726866; cv=none; b=QpdC8Eb2pzO326yf2qm+24YVbmAtHdgDHJ8hjTrRmkmq/rQ5Q1Odf/K5RkhLA9bLJK9EtH/xQv11mdXALYWj5DYdcJKmlfSqBYMIT+O3J8nvFegrVudbLf/dHNBzvrWrKDOaq5coryQBuSagRL9S1IKw6ly0t24+WwNrkLp5y+U=
+	t=1789726880; cv=none; b=bS2lsuTWoKXJUxITEgdn6syeLA6z+Xu950E16diMmzCuD7ik8cUJB9dpg3nnBbT04wUO25VtaWaoyHhp0+wgYQ52BqXeTFjt+APJWW5zAWUCDlSa0ta14D9JZFpfCuAo4yAgtpF7yujo1MjW/lPSWNxgmSLhFZbrLZ6Y9p+yGAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726866; c=relaxed/simple;
-	bh=ojRb2OtGZV+lNR54MP8W9kUbXEoKZ+Rzr9bvDWAKmSI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dPJW5JRN3Q5KQAvFSuK7PuGWUnudl71pUMKwQAHKZ35AQ+Tch2FMPcYd/GSC05UkCLGZo2FnzwDnphj7cbmsiXmQKhITxIrRJhedN1NSK0AQ8/X8J3Wo51jV2XbFMp9x3WjG2jCdfXtXXfaIAc+5u7ZAJN5I41OLI9qL5gwGI3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbhnGqJb reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789726880; c=relaxed/simple;
+	bh=mG76quiYNz0AT0P7HQbuEU8wQLgXjM+PNjTABkJPj8w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=g6vK5T29Mz8CzQvooH/Jbpsmu3gGRzQlJWs5o8MgnHFDePtjs9sU2nfK84WvKX1o1MEdCaq6DxjELUyvI9G0YU8mGbb1XqpzjZM6sVkzcMm2I8agUocAjzlSfdvP1zdIQi8tvXlMgaf3SNjgYSzv40xyzbFtOcw8UfFXxZWmjWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=q5/rYOyz; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbhnGqJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482D31F00893;
-	Fri, 18 Sep 2026 10:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789726865;
-	bh=ojRb2OtGZV+lNR54MP8W9kUbXEoKZ+Rzr9bvDWAKmSI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VbhnGqJbr+ybtK3Fnwjub4nxRMAkKMpEzatb5UyqR56xMFB6wzCkyGzg4dZWPmT3+
-	 X+snAKFCSsw9hS3uDDtXyaV+a120iBx6doKN2SXy7kWsE6Ghr43NePclsslWz3X5jO
-	 umM+Y1oZRe63NELb54DdiEkz9d+zMmZueH0FDcyiLWVV9cdWUYTG7WaCOZvG2X/7g/
-	 a9oPJYB+Dy64zxGyUYebphSZ5ylo5LJpeevfZI8VBPaG8K99ZpvTAK5Kx+JWQnO/hy
-	 0N1qcxBpGbuzeUsqKEcZ7LzQMrQi37y/VFurlQHxRKvV4Yc12NiNYAuI+ZMxmxdW8s
-	 JCL5q8jJo+Sfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/17] LoongArch: kexec_file: Fix elf_headers memory
- leak in retry loop
-Reply-To: sashiko-reviews@lists.linux.dev
-To: leitao@debian.org, seanjc@google.com, kees@kernel.org, thuth@redhat.com, tglx@kernel.org, loongarch@lists.linux.dev, will@kernel.org, hbathini@linux.ibm.com, rppt@kernel.org, akpm@linux-foundation.org, chao.gao@intel.com, hpa@zytor.com, guodongtai@kylinos.cn, takahiro.akashi@linaro.org, maddy@linux.ibm.com, pratyush@kernel.org, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, zhangtianyang@loongson.cn, lizhengyu3@huawei.com, blum@kernel.org, x86@kernel.org, eric.devolder@oracle.com, catalin.marinas@arm.com, ruirui.yang@linux.dev, me@linux.beauty, adityag@linux.ibm.com, ruanjinjie@huawei.com, vishal.l.verma@intel.com, mark.rutland@arm.com, sourabhjain@linux.ibm.com, linux-kernel@vger.kernel.org, rafael@kernel.org, chenhuacai@kernel.org, pasha.tatashin@soleen.com, palmer@rivosinc.com, ritesh.list@gmail.com, kernel@xen0n.name, robh@kernel.org, dakr@kernel.org, james.morse@arm.com, mingo@redhat.com, tangyouling@kylinos.cn, mclapinski@google.com, linuxppc-dev@lists.ozlabs.org, linux-fsdevel@vger.kernel.org, jbouron@amazon.com, sshegde@linux.ibm.com, graf@amazon.com, bgwin@google.com, bp@alien8.de, linux-mm@kvack.org, chleroy@kernel.org, piliu@redhat.com, maqianga@uniontech.com, gshan@redhat.com, yeoreum.yun@arm.com, coxu@redhat.com, mpe@ellerman.id.au, dave.hansen@linux.intel.com, npiggin@gmail.com, baoquan.he@linux.dev, kas@ker
- nel.org, liukexin@kylinos.cn, ardb@kernel.org, driver-core@lists.linux.dev, linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-8-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-8-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:21:01 +0000
-Message-Id: <20260918102102.482D31F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="q5/rYOyz"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918102113epoutp042a38953ed30410237d25a6f61b8301e4~WYxwJHEUt1497814978epoutp04-
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:21:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918102113epoutp042a38953ed30410237d25a6f61b8301e4~WYxwJHEUt1497814978epoutp04-
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789726874;
+	bh=mboPEqvEACJTAtKfdZ1iQemoHuICqAXG3If2FFLFlMA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=q5/rYOyzAIRpwubUTigeHz6catvyr++oiaU0INH8BrZP7KLLV9GmF/P5lT+WyNEqy
+	 UjLYF4YCdC/VH4C7Haw4t0HWT7x0kdeA4NnZG3++Eq4dMR/OGK38YtBcwoHISHcvKG
+	 4qkctIkTlEfF4mqOP/2EOkD1nnjrUbES0DxJmT9w=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260918102113epcas5p2a37090873c7e08a5b15b0fecf005810b~WYxvgUOtV0355903559epcas5p2C;
+	Fri, 18 Sep 2026 10:21:13 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.92]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmTDS15Ysz6B9m7; Fri, 18 Sep
+	2026 10:21:12 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260918102111epcas5p202e3b90fcfd624683f76a2ee45f199d4~WYxt86RB51756317563epcas5p20;
+	Fri, 18 Sep 2026 10:21:11 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260918102109epsmtip1577c944b77491d8b4992d17593276ce2~WYxrze7hA1639116391epsmtip1_;
+	Fri, 18 Sep 2026 10:21:09 +0000 (GMT)
+Message-ID: <32029c62-faad-42e3-b1bb-e66772ca8ac0@samsung.com>
+Date: Fri, 18 Sep 2026 15:51:08 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
+ prevent OOB access
+To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+	vkoul@kernel.org, neil.armstrong@linaro.org, krzk@kernel.org,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, pritam.sutar@samsung.com,
+	kernel@lvkasz.us, linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <950335110f9d9c22a026fa5174e492c4194299a5.camel@linaro.org>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260918102111epcas5p202e3b90fcfd624683f76a2ee45f199d4
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0
+References: <CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
+	<20260831070309.158069-1-selvarasu.g@samsung.com>
+	<950335110f9d9c22a026fa5174e492c4194299a5.camel@linaro.org>
 
-> If load_other_segments() fails after image->elf_headers is assigned,
-> the memory lifecycle is safely managed by the global kimage object
-> and will be freed in arch_kimage_file_post_load_cleanup().
->=20
-> However, during a retry loop in efi_kexec_load(), a subsequent iteration
-> will allocate a new buffer and overwrite image->elf_headers. This
-> permanently leaks the stale memory from the previous iteration before
-> the global cleanup can track it.
->=20
-> Fix this by explicitly freeing the stale `image->elf_headers` buffer
-> before assigning the newly allocated headers.
->=20
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Kees Cook <kees@kernel.org>
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 9/18/2026 2:04 PM, André Draszik wrote:
+> On Mon, 2026-08-31 at 12:33 +0530, Selvarasu Ganesan wrote:
+>> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
+>> creating both UTMI and PIPE3 PHY instances regardless of the SoC
+>> capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
+>> and ExynosAutoV920) provide phy_cfg arrays containing only a single
+>> element.
+>>
+>> On these SoCs, when the loop reaches index 1, the driver reads past the
+>> end of the rodata array, populating the second PHY instance with garbage
+>> data. Since the configuration structure contains critical function
+>> pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
+>> PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
+>>
+>> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
+>> store the actual size of the phy_cfg array for each SoC. Update the
+>> probe loop and the xlate function to bound their access against this
+>> value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
+>>
+>> Assisted-by: Claude:claude-sonnet-5
+> Shouldn't this be 'Assisted-by: LLM'?
+You are correct. I will update the tag to 'Assisted-by: LLM' as per the 
+kernel documentation in the next version.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D7
+Thank you for pointing this out.
 
+Thanks,
+Selva
+>
+>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> ---
+>>   drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
+>>   1 file changed, 15 insertions(+), 2 deletions(-)
+> Other than that:
+>
+> Reviewed-by: André Draszik <andre.draszik@linaro.org>
