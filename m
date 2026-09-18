@@ -1,343 +1,269 @@
-Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726A2282F26
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:29:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691390; cv=none; b=AuyLqejTGOIRaO4joI7crDQEPGjlWpOziWLhmCpfRBZWupioN1qOFWgce1xwQcD6bEXdrt4Qb3E7ZtkPrq4337hu4aMHF2+DT4w2/9OoryyF1yPTVETTJIoLzUhYggOxl1wAWkIfZhBM+r9H7ZGgI8Q5Ae3NT00YgWQmYjrR/po=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691390; c=relaxed/simple;
-	bh=iZkcCY1qux46h/yYRscH8n6naf9L6e4Y1k0uaC4/yfs=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=LxpgV4GwNQgL1UEEYtchUL6ULve+5tlchPKakBKLPJbe7Dsf5ElL7HZf6WDtCz8kjIvR6ZUE8dLycAxCXPh3jAsa0eTInRbyS8KvZm9Rny6IONfOmVgAjrfCnqQEc62XJB8vCC8Bd6M8MFVZXjGqKpek+Lic+Cbad5BZGcJ6Hvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4840f0c24bbso117450fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:29:48 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD1132FA2E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789691486; cv=pass; b=gzWg8cbO5coLcdqY3ZqNv3AfdFsuoffwD6OZarSDLgSUIWktuk8lwBnQtCE4Krm6UxV3RUeXUegBEFZPZVtrFLxLwRGv44t2e/24rR/b3/uQo2vYtDdovy+gANuAiSvf/i2uiHbGjDd1L9B4EDWi96qZIELEpvA5YUtbvmhGxE4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789691486; c=relaxed/simple;
+	bh=62wtTovHiueYQ9NH1Smsv23tVsNU365MRTK5PZgQJ8c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t15h22lF+643l9qEg/EPY/TfV9HgelveYQONTnl3gO1YpCSGWcnmx1D8EA9OVOskEidc5/f2ubIyQONkv37OD+7luMTB79mRMyYU7nRCyPv1kkKFYjJVoY8SN5sBhnNwnYmS+m4jFDCT/2TYvsr8KBX/l7iiy98x72/sHkLvuIw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hKKEB7n+; arc=pass smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hKKEB7n+"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-498012a61f6so39405e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 17:31:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789691483; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q8dSOFC3ruM0tyXzfEz77I1rVbh5boIs6a+ju2cn8oBWpt6/3QzNmtby3oxAH/c2PW
+         P/U1/LcsC3P/o21ofC8+QC+HR8KjeynrtQ8c2kL+gvDicv7n9mzjaCgFfvdfPEhRcilH
+         5uXoJOufnikcDzE5pnj5lFOLjJD1dfRgvOSDM2gulE4fqMi+V5e27BimiWaPzQV5ggJM
+         gjAhaGGMnxDKyjKebgS0VOrk+uSzv4dKS3Ge+m7slcgIIeN8lCIYKyLXShiPMpj3c8jr
+         z8iWuFVdQkzN0dknucdWim8FxBNL+whifn0er9lJAB9ViEOGZBoAOOeTRU1ijHNAHmu8
+         5XEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
+        fh=TVJ++p4NqykmLqG4g13wG+VuSGsVKCq6Gbx04/sCZXo=;
+        b=YUn1uiRdqjJCHYu/NlPLBzRDEUwgcj6c2EcqfY1f8m10El87NJyEPD3mOXn4aN65FE
+         57qzJslP2pfLdyvh34ueAXUUGXp+urP73yt0/qn3bHZktkWi9eX0YMNR4jONIky12TGF
+         6zhcORpOvIB60yP5ypz5dSP1+fLh/vBexZg2V4DFS9s1zIfwuDlwmQAKAikBKk9isoXP
+         2UuCfPUTdb6t+s5TR1bQe0GVOv+S/IIKFZjTNyuG3ESsXA9GgY/xcoLNiOu9oD/5Iylo
+         N/XrifY+MiUz2+EvOlEYwctjErzxo2t+Y/EcQ97JRVv6JczdX4pP16B0Em/ow0Wa5cGO
+         J3Eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789691483; x=1790296283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
+        b=hKKEB7n+giNlrbNc10+CHkJmlf2Zx/vJoLmbbrM6Mu03oXxqeRYWjT76O3C3d+kpWV
+         52gJWqf11fl1x4qLtTs5aDmgNH4hdjXgXtajzVo+5OUWB190DQeVz3IhqguFKFKuCOlV
+         l3paSo0O0P0vpJITJrCxgdAgHr3+iui/MCMIZPev1N8QHbt/vO7qu80hw+h0H7S/OvnR
+         rCLX0YUWdi2cgH5k8jA66A+nyl5jyOmdldT+oSRO6sQG/KobbZ/rVmDaCyROaKP0Txrv
+         sahKa9TDTnXni6wXFnYzPqs2sYPMx7Q27ifbNhWPmiakuThvAIU3JTgRnCQuC4eKR/Ie
+         UTdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789691387; x=1790296187;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1789691483; x=1790296283;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=63iMA5C5dpzJOq5uyh8ePlxGGheh8OuECdRYwFgpXMQ=;
-        b=ogZyE8ux2mU4+5z+5JhS7y/aj+w38bCYFPjZAi48A5uNHuFFFckAKZIxQ1FSlI+XAk
-         fCdeptHFIYfqxuETp3XORXMxiRjJqGGxL3na+5l4TH03R9QsWy9rP/z6ZEU1X9RVCMwi
-         k3Ik1fdstOm6A5k5pWG5/re/69uN4DG3UNSa+QwL8BB2eoE1Vzsx9R0oYXsFmgpWddM6
-         vKm65mAv7WHlb81pGFLjTsbIUWpOv0eLzmL9c+loEBmKRWLyLDVswBMZa8g7zBy+9khD
-         DaJp68EUv1Ljq0finIvKuvDnqgjMotcTkKwY95sRmNM/DSr5alSSRpIEECCi7WhgWfFD
-         EfLw==
-X-Forwarded-Encrypted: i=1; AKwUvByQvzMcR5dK6YgiFgm3vAoHn4uFu27DR3vs/3wrToxuP4YPR2bszS86dz6k7dOd67qlscE1rkcfb8Gj+dY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k93800Yo53sb+UeXj8pDDrzJUy3TAdWMGBzZKZ3Q5rOCj75wRX
-	yZzJFns9G8lhlewR0XLBZg22I09AI3S9eRVkPwQCoi+BvXgVhsDfwCE4+GmjL5oWkD0SY8u1Yqq
-	I/JSbG28adv6pYkli/Y1ZQdk+Ftdw6Jr0Y7mEDSAJhYypODTQvO/l39FlOjk=
+        bh=aHzYQ7ZJCwWv6Ck4SmCFKGjT5hrZXZJe2/FnZIthYyw=;
+        b=Kz3Ciqs0EbEu2BU7kWPJdePzua8i2kVVyeG9zIG+CYPNlhL4JEf3Y8xsVX4+j4bsjY
+         3u/0YVVyz0zxJyB1fKZNNCxEQRbMtbj8Rq4+cG+e3ciOB24W2s/tVNcTPgHc681uUydF
+         dNiwvB3Z7lENcmR1HQEXVQdekC1sG1y5rs/g+zq1ZkSdPF2YvVPfJ/7jjsdn5EGxhhK0
+         GcHGpNqPkwA1CPHt/zqV1Kylw5gm5eK47y5VASayp0SA/JN/GbSaEs9Q1t8cy5HpqBjw
+         S63U+Mk1RSGQObX6Ld4E7hbgA6MvNAruzoOW0SBeS818SdSf8VLvEuUq7nZ+DBZ++I5+
+         ihOw==
+X-Forwarded-Encrypted: i=1; AKwUvByAPiSbJFBLBWsppFqYXAkoFhsylES9UlyXBix/seTirSZoMzDXf6oNp6LivWwJP9rTYPmq3eQPZZd3dkE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQeFVJgN9xA/YdfrffSXZiREeZWlZvsn3xFm+OmFqEXRdsHP75
+	gdsdhgGjYraH58YsgwkSPIfrHBKc2ojBX1RRa8t8cmaQY9QBqOLGP9xidnAVL2OZZP19oH8vsUr
+	y6NGzRItmVSwohA3F6utsBqWyCPRSVpv+hMR82k6b
+X-Gm-Gg: AYBFou05CB/ZYvxVKoEeBJAtJ3k4Ko40KFtJjD/5OG0jaGd6zzaouGNViA5KlSkZUUN
+	atSEPS8cBIKWx8W6qtn+cREu8vuC4dcAWCl/dHlQMlcjAukzPNoAlls7242ra2iAm6nmcWKygkW
+	A9tsRWI5XpDe0xpxZ1b2f+eE28Yk7RSoKZTdPE/bpIrwTA+8MtlO8xUMAHG+9xEVdNY/9GdjBBL
+	o/uwSXAvXsEh44SEAr5ayJQSpeZjtjA9g9BwJV8m6vcOBrAGtiPCsZj9O2wnKg3RNoWk5cCuOdY
+	2xJglDFo6nvQLiIpanXMQcANkoWaQ6Uo6HgbDyHt1s/6cTI4pPDPTxWkciPK/lFz3M0ZWz6CXpD
+	k9zNn7z6ihzI=
+X-Received: by 2002:a05:600d:6501:10b0:499:fa56:f542 with SMTP id
+ 5b1f17b1804b1-49fc4949b4fmr320535e9.8.1789691482464; Thu, 17 Sep 2026
+ 17:31:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3109:b0:6b7:46fa:1697 with SMTP id
- 006d021491bc7-6ca9bf49b9fmr773832eaf.44.1789691387231; Thu, 17 Sep 2026
- 17:29:47 -0700 (PDT)
-Date: Thu, 17 Sep 2026 17:29:47 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aac85fb.87c06881.1db2b3.001d.GAE@google.com>
-Subject: [syzbot] [netfilter?] INFO: task hung in nf_tables_valid_genid (3)
-From: syzbot <syzbot+83439cb981624bd8d068@syzkaller.appspotmail.com>
-To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
-	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
-	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
+References: <20260812231905.2956588-1-tjmercier@google.com>
+ <15342d9c-d823-427d-9ce8-04cf48c6854b@gmail.com> <CABdmKX1kM+ZRoj6R9R61kQv3dGQ=5ar8YPX=YdqtdJ1DO_-ZOQ@mail.gmail.com>
+ <CAEf4BzbWRBDF8XaV-TAwyWFyko6JuquSbEJfztE_1sRKauXBqQ@mail.gmail.com>
+In-Reply-To: <CAEf4BzbWRBDF8XaV-TAwyWFyko6JuquSbEJfztE_1sRKauXBqQ@mail.gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Thu, 17 Sep 2026 17:31:10 -0700
+X-Gm-Features: AcwNN1UaUqRlAC75yFCE-OsogF-1f8zPvdFLJSVysDHZNKz42uwuh-8kPqrvLlA
+Message-ID: <CABdmKX1MgFbADOsVTHPCAnnfOX3mQS50pLA6mWDg19UV8X+pOw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v4 0/2] bpf: htab: Reduce memory use of hash maps
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
+	emil@etsalapatis.com, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Thu, Sep 17, 2026 at 2:21=E2=80=AFPM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+>
+> On Thu, Sep 17, 2026 at 9:31=E2=80=AFAM T.J. Mercier <tjmercier@google.co=
+m> wrote:
+> >
+> > On Thu, Sep 17, 2026 at 9:10=E2=80=AFAM Mykyta Yatsenko
+> > <mykyta.yatsenko5@gmail.com> wrote:
+> > >
+> > > On 8/13/26 12:19 AM, T.J. Mercier wrote:
+> > > > Memory is expensive and scarce these days. This series reduces the
+> > > > memory use of BPF hash maps by eliminating the per-element overhead=
+s
+> > > > below. This saves up to 50% of per-element memory use for standard =
+and
+> > > > PCPU hash maps. The memory use of LRU hash maps is unaffected.
+> > > >
+> > > > Map Type & Configuration            | Old size | New size | Savings
+> > > > ------------------------------------|----------|----------|--------
+> > > > Standard (key <=3D 8 B, val <=3D 8 B)   |   64 B   |   32 B   | 50.=
+0%
+> > > > Per-CPU (prealloc) (key <=3D 8 B)     |   64 B   |   32 B   | 50.0%
+> > > > Per-CPU (non-prealloc) (key <=3D 8 B) |   64 B   |   40 B   | 37.5%
+> > > > LRU (Any key/value size)            |    -     |    -     | 00.0%
+> > > >
+> > >
+> > > T.J. are you still interested landing this? Maybe respin the series?
+> > > Alexei was away back when you sent this.
+> >
+> > Hi Mykyta, thanks for following up. Yes, I'd still like to land it. I
+> > took a break during the merge window which coincided with a vacation,
+> > where I broke my collarbone on a mountain bike jump gone wrong. Then
+> > surgery and recovery, and I'm still catching up on everything from
+>
+> oh, wow, hope you'll heal fast and well!
 
-syzbot found the following issue on:
+Thanks! The surgery already made a huge difference, so now I'm waiting
+for bone to grow and it'll be a few months before I'm back on a bike.
 
-HEAD commit:    0f23d56f17fd Merge tag 'linux_kselftest-next-7.3-rc1' of g..
-git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
-console output: https://syzkaller.appspot.com/x/log.txt?x=10289c8e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=78e810c74248bbb
-dashboard link: https://syzkaller.appspot.com/bug?extid=83439cb981624bd8d068
-compiler:       arm-linux-gnueabi-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: arm
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11be9905580000
+> > while I was out. I plan to rebase this and send it out again before I
+> > head out for pre-LPC travel next week.
+>
+> have you considered splitting lru and non-lru flavors of hashtable
+> before doing this optimization? I'm wondering if it will allow to
+> clean up some parts of it, while also making map struct itself smaller
+> for non-lru map (there is that LRU-specific piece in the union which
+> artificially blows up the size of any hash map).
+>
+> I am a bit concerned about that key offset, even if the microbenchmark
+> doesn't show much difference. What if we put hash itself before
+> per-element header, so that key/value are always at the same offset.
+> For cases where key size > 8 we'll just access hash at
+> addrof(htab_elem) - 8, while smaller key sizes will just directly
+> compare keys.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/98a89b9f34e4/non_bootable_disk-0f23d56f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/29f1f81851f8/vmlinux-0f23d56f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d12ab50ae201/zImage-0f23d56f.xz
+This is an interesting idea and I think it will work. Let me try this
+first, and then I will take a look at splitting out LRU hashtables
+aftewards.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+83439cb981624bd8d068@syzkaller.appspotmail.com
-
-INFO: task syz.1.416:5203 blocked for more than 430 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.1.416       state:D stack:0     pid:5203  tgid:5199  ppid:3693   task_flags:0x400140 flags:0x00000001
-Call trace: 
-[<81b71894>] (__schedule) from [<81b72d2c>] (__schedule_loop kernel/sched/core.c:7311 [inline])
-[<81b71894>] (__schedule) from [<81b72d2c>] (schedule+0x2c/0xec kernel/sched/core.c:7326)
- r10:ed691a94 r9:ed691a9c r8:00000002 r7:60000013 r6:852b7ebc r5:858abd40
- r4:858abd40
-[<81b72d00>] (schedule) from [<81b72e70>] (schedule_preempt_disabled+0x18/0x24 kernel/sched/core.c:7383)
- r5:858abd40 r4:852b7eb8
-[<81b72e58>] (schedule_preempt_disabled) from [<81b75fe8>] (__mutex_lock_common kernel/locking/mutex.c:726 [inline])
-[<81b72e58>] (schedule_preempt_disabled) from [<81b75fe8>] (__mutex_lock.constprop.0+0x50c/0xa48 kernel/locking/mutex.c:821)
-[<81b75adc>] (__mutex_lock.constprop.0) from [<81b765f8>] (__mutex_lock_slowpath+0x14/0x18 kernel/locking/mutex.c:1164)
- r10:81e7de58 r9:85301000 r8:0000003c r7:852b7eb8 r6:852b7e80 r5:85301000
- r4:00000000
-[<81b765e4>] (__mutex_lock_slowpath) from [<81b76638>] (mutex_lock+0x3c/0x40 kernel/locking/mutex.c:319)
-[<81b765fc>] (mutex_lock) from [<817d505c>] (nf_tables_valid_genid+0x3c/0x70 net/netfilter/nf_tables_api.c:11512)
-[<817d5020>] (nf_tables_valid_genid) from [<8179b5cc>] (nfnetlink_rcv_batch+0x138/0x9b8 net/netfilter/nfnetlink.c:421)
- r7:00000014 r6:82e3d2cc r5:ed691b68 r4:84bac240
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv_skb_batch net/netfilter/nfnetlink.c:647 [inline])
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv+0x128/0x15c net/netfilter/nfnetlink.c:665)
- r10:86239d84 r9:85301000 r8:0000003c r7:00000014 r6:85778480 r5:00000000
- r4:833d2a80
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline])
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast+0x270/0x380 net/netlink/af_netlink.c:1345)
- r8:833d2a80 r7:85e32940 r6:0000003c r5:853dc464 r4:853dc400
-[<8176bd88>] (netlink_unicast) from [<8176c2d0>] (netlink_sendmsg+0x1c8/0x444 net/netlink/af_netlink.c:1900)
- r10:00000000 r9:00000000 r8:00000000 r7:86239c00 r6:0000003c r5:833d2a80
- r4:ed691f28
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (sock_sendmsg_nosec net/socket.c:800 [inline])
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (__sock_sendmsg+0x44/0x78 net/socket.c:815)
- r10:0000c050 r9:00000000 r8:ed691dd4 r7:00000000 r6:84d12cc0 r5:ed691f28
- r4:00000000
-[<8162f780>] (__sock_sendmsg) from [<81630864>] (____sys_sendmsg+0x238/0x2c4 net/socket.c:2709)
- r7:00000000 r6:00000000 r5:84d12cc0 r4:ed691f28
-[<8163062c>] (____sys_sendmsg) from [<81630c64>] (___sys_sendmsg+0x9c/0xd0 net/socket.c:2763)
- r10:00000128 r9:20000cc0 r8:0000c050 r7:00000000 r6:84d12cc0 r5:ed691f28
- r4:00000000
-[<81630bc8>] (___sys_sendmsg) from [<81632e3c>] (__sys_sendmsg+0x8c/0xe0 net/socket.c:2795)
- r9:858abd40 r8:861daf00 r7:0000c050 r6:20000cc0 r5:861daf01 r4:00000003
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (__do_sys_sendmsg net/socket.c:2800 [inline])
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (sys_sendmsg+0x14/0x18 net/socket.c:2798)
- r8:8020029c r7:00000128 r6:003563b0 r5:00000000 r4:00000000
-[<81632e90>] (sys_sendmsg) from [<80200060>] (ret_fast_syscall+0x0/0x1c arch/arm/mm/proc-v7.S:67)
-Exception stack(0xed691fa8 to 0xed691ff0)
-1fa0:                   00000000 00000000 00000003 20000cc0 0000c050 00000000
-1fc0: 00000000 00000000 003563b0 00000128 00356378 00000000 003d0f00 76f510dc
-1fe0: 76f50e88 76f50e78 00018fa0 00130a50
-INFO: task syz.1.416:5203 is blocked on a mutex likely owned by task syz.1.416:5201.
-task:syz.1.416       state:R  running task     stack:0     pid:5201  tgid:5199  ppid:3693   task_flags:0x400140 flags:0x00000001
-Call trace: 
-[<8028f53c>] (preempt_count_sub) from [<81b73128>] (preempt_schedule_irq+0x4c/0xa8 kernel/sched/core.c:7558)
-[<81b3abac>] (call_with_stack) from [<80200bec>] (__irq_svc+0x8c/0xbc arch/arm/kernel/entry-armv.S:228)
-Exception stack(0xed48d818 to 0xed48d860)
-d800:                                                       ed48d8b4 82b857b8
-d820: 80f0c938 85a0400c 82b857b8 80f0c938 ed48d8b4 8539a700 00000000 00000001
-d840: 85094d08 ed48d88c 8493ccc0 ed48d868 80f0ca28 816ac064 80000013 ffffffff
-[<816abf4c>] (flow_block_cb_setup_simple) from [<80f0ca28>] (nsim_setup_tc+0xa0/0xdc drivers/net/netdevsim/tc.c:87)
- r9:00000001 r8:00000000 r7:ed48d8e0 r6:85fa9d80 r5:00000000 r4:8539a000
-[<80f0c988>] (nsim_setup_tc) from [<817f991c>] (nft_block_offload_cmd+0x80/0xf4 net/netfilter/nf_tables_offload.c:397)
-[<817f989c>] (nft_block_offload_cmd) from [<817f9c78>] (nft_chain_offload_cmd net/netfilter/nf_tables_offload.c:451 [inline])
-[<817f989c>] (nft_block_offload_cmd) from [<817f9c78>] (nft_flow_block_chain+0x98/0x184 net/netfilter/nf_tables_offload.c:471)
- r7:85fa9d80 r6:00000000 r5:00000000 r4:85fb5300
-[<817f9be0>] (nft_flow_block_chain) from [<817fa7bc>] (nft_flow_offload_chain net/netfilter/nf_tables_offload.c:513 [inline])
-[<817f9be0>] (nft_flow_block_chain) from [<817fa7bc>] (nft_flow_rule_offload_commit+0x1a4/0x1f4 net/netfilter/nf_tables_offload.c:592)
- r10:ed48dac0 r9:85301000 r8:85301000 r7:ed48d9b8 r6:81e7f1da r5:852b7e88
- r4:8626d880
-[<817fa618>] (nft_flow_rule_offload_commit) from [<817eb044>] (nf_tables_commit+0x20c/0x2250 net/netfilter/nf_tables_api.c:10934)
- r10:ed48dac0 r9:85301000 r8:84193100 r7:00000011 r6:833d26c0 r5:852b7ea0
- r4:852b7e84
-[<817eae38>] (nf_tables_commit) from [<8179bc68>] (nfnetlink_rcv_batch+0x7d4/0x9b8 net/netfilter/nfnetlink.c:574)
- r10:81e7de58 r9:81e7e028 r8:84193100 r7:00000011 r6:857782d8 r5:ed48db68
- r4:833d2d80
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv_skb_batch net/netfilter/nfnetlink.c:647 [inline])
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv+0x128/0x15c net/netfilter/nfnetlink.c:665)
- r10:86239d84 r9:85301000 r8:000000ac r7:00000014 r6:85778240 r5:00000000
- r4:833d26c0
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline])
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast+0x270/0x380 net/netlink/af_netlink.c:1345)
- r8:833d26c0 r7:85e32940 r6:000000ac r5:853dc464 r4:853dc400
-[<8176bd88>] (netlink_unicast) from [<8176c2d0>] (netlink_sendmsg+0x1c8/0x444 net/netlink/af_netlink.c:1900)
- r10:00000000 r9:00000000 r8:00000000 r7:86239c00 r6:000000ac r5:833d26c0
- r4:ed48df28
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (sock_sendmsg_nosec net/socket.c:800 [inline])
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (__sock_sendmsg+0x44/0x78 net/socket.c:815)
- r10:00000000 r9:00000000 r8:ed48ddd4 r7:00000000 r6:84d12cc0 r5:ed48df28
- r4:00000000
-[<8162f780>] (__sock_sendmsg) from [<81630864>] (____sys_sendmsg+0x238/0x2c4 net/socket.c:2709)
- r7:00000000 r6:00000000 r5:84d12cc0 r4:ed48df28
-[<8163062c>] (____sys_sendmsg) from [<81630c64>] (___sys_sendmsg+0x9c/0xd0 net/socket.c:2763)
- r10:00000128 r9:2000c2c0 r8:00000000 r7:00000000 r6:84d12cc0 r5:ed48df28
- r4:00000000
-[<81630bc8>] (___sys_sendmsg) from [<81632e3c>] (__sys_sendmsg+0x8c/0xe0 net/socket.c:2795)
- r9:84193100 r8:861daf00 r7:00000000 r6:2000c2c0 r5:861daf01 r4:00000003
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (__do_sys_sendmsg net/socket.c:2800 [inline])
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (sys_sendmsg+0x14/0x18 net/socket.c:2798)
- r8:8020029c r7:00000128 r6:00356310 r5:00000000 r4:00000000
-[<81632e90>] (sys_sendmsg) from [<80200060>] (ret_fast_syscall+0x0/0x1c arch/arm/mm/proc-v7.S:67)
-Exception stack(0xed48dfa8 to 0xed48dff0)
-dfa0:                   00000000 00000000 00000003 2000c2c0 00000000 00000000
-dfc0: 00000000 00000000 00356310 00000128 003562d8 00000000 00000001 76f720dc
-dfe0: 76f71e88 76f71e78 00018fa0 00130a50
-INFO: task syz.3.417:5204 blocked for more than 430 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz.3.417       state:D stack:0     pid:5204  tgid:5200  ppid:3691   task_flags:0x400140 flags:0x00000001
-Call trace: 
-[<81b71894>] (__schedule) from [<81b72d2c>] (__schedule_loop kernel/sched/core.c:7311 [inline])
-[<81b71894>] (__schedule) from [<81b72d2c>] (schedule+0x2c/0xec kernel/sched/core.c:7326)
- r10:ed695ab4 r9:ed695abc r8:00000002 r7:60000013 r6:82e3d2d0 r5:84186e40
- r4:84186e40
-[<81b72d00>] (schedule) from [<81b72e70>] (schedule_preempt_disabled+0x18/0x24 kernel/sched/core.c:7383)
- r5:84186e40 r4:82e3d2cc
-[<81b72e58>] (schedule_preempt_disabled) from [<81b75fe8>] (__mutex_lock_common kernel/locking/mutex.c:726 [inline])
-[<81b72e58>] (schedule_preempt_disabled) from [<81b75fe8>] (__mutex_lock.constprop.0+0x50c/0xa48 kernel/locking/mutex.c:821)
-[<81b75adc>] (__mutex_lock.constprop.0) from [<81b765f8>] (__mutex_lock_slowpath+0x14/0x18 kernel/locking/mutex.c:1164)
- r10:8623a984 r9:85359000 r8:0000003c r7:00000014 r6:833d7840 r5:ed695b68
- r4:833d2f00
-[<81b765e4>] (__mutex_lock_slowpath) from [<81b76638>] (mutex_lock+0x3c/0x40 kernel/locking/mutex.c:319)
-[<81b765fc>] (mutex_lock) from [<8179b570>] (nfnl_lock net/netfilter/nfnetlink.c:96 [inline])
-[<81b765fc>] (mutex_lock) from [<8179b570>] (nfnetlink_rcv_batch+0xdc/0x9b8 net/netfilter/nfnetlink.c:392)
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv_skb_batch net/netfilter/nfnetlink.c:647 [inline])
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv+0x128/0x15c net/netfilter/nfnetlink.c:665)
- r10:8623a984 r9:85359000 r8:0000003c r7:00000014 r6:83137b00 r5:00000000
- r4:833d7840
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline])
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast+0x270/0x380 net/netlink/af_netlink.c:1345)
- r8:833d7840 r7:8506b300 r6:0000003c r5:851e5c64 r4:851e5c00
-[<8176bd88>] (netlink_unicast) from [<8176c2d0>] (netlink_sendmsg+0x1c8/0x444 net/netlink/af_netlink.c:1900)
- r10:00000000 r9:00000000 r8:00000000 r7:8623a800 r6:0000003c r5:833d7840
- r4:ed695f28
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (sock_sendmsg_nosec net/socket.c:800 [inline])
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (__sock_sendmsg+0x44/0x78 net/socket.c:815)
- r10:0000c050 r9:00000000 r8:ed695dd4 r7:00000000 r6:84d12f40 r5:ed695f28
- r4:00000000
-[<8162f780>] (__sock_sendmsg) from [<81630864>] (____sys_sendmsg+0x238/0x2c4 net/socket.c:2709)
- r7:00000000 r6:00000000 r5:84d12f40 r4:ed695f28
-[<8163062c>] (____sys_sendmsg) from [<81630c64>] (___sys_sendmsg+0x9c/0xd0 net/socket.c:2763)
- r10:00000128 r9:20000cc0 r8:0000c050 r7:00000000 r6:84d12f40 r5:ed695f28
- r4:00000000
-[<81630bc8>] (___sys_sendmsg) from [<81632e3c>] (__sys_sendmsg+0x8c/0xe0 net/socket.c:2795)
- r9:84186e40 r8:861dd080 r7:0000c050 r6:20000cc0 r5:861dd081 r4:00000003
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (__do_sys_sendmsg net/socket.c:2800 [inline])
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (sys_sendmsg+0x14/0x18 net/socket.c:2798)
- r8:8020029c r7:00000128 r6:003563b0 r5:00000000 r4:00000000
-[<81632e90>] (sys_sendmsg) from [<80200060>] (ret_fast_syscall+0x0/0x1c arch/arm/mm/proc-v7.S:67)
-Exception stack(0xed695fa8 to 0xed695ff0)
-5fa0:                   00000000 00000000 00000003 20000cc0 0000c050 00000000
-5fc0: 00000000 00000000 003563b0 00000128 00356378 00000000 003d0f00 76fd10dc
-5fe0: 76fd0e88 76fd0e78 00018fa0 00130a50
-INFO: task syz.3.417:5204 is blocked on a mutex likely owned by task syz.1.416:5203.
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 29 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT 
-Hardware name: ARM-Versatile Express
-Call trace: 
-[<80201998>] (dump_backtrace) from [<80201a8c>] (show_stack+0x18/0x1c arch/arm/kernel/traps.c:257)
- r7:60000193 r6:60000193 r5:82336570 r4:00000000
-[<80201a74>] (show_stack) from [<8021ec68>] (__dump_stack lib/dump_stack.c:94 [inline])
-[<80201a74>] (show_stack) from [<8021ec68>] (dump_stack_lvl+0x5c/0x70 lib/dump_stack.c:120)
-[<8021ec0c>] (dump_stack_lvl) from [<8021ec94>] (dump_stack+0x18/0x1c lib/dump_stack.c:129)
- r7:00000000 r6:00000113 r5:00000000 r4:00000001
-[<8021ec7c>] (dump_stack) from [<81b5aefc>] (nmi_cpu_backtrace+0x150/0x170 lib/nmi_backtrace.c:122)
-[<81b5adac>] (nmi_cpu_backtrace) from [<81b5b050>] (nmi_trigger_cpumask_backtrace+0x134/0x208 lib/nmi_backtrace.c:65)
- r7:82a0b150 r6:83178000 r5:82a1c7b8 r4:ffffffff
-[<81b5af1c>] (nmi_trigger_cpumask_backtrace) from [<802300d4>] (arch_trigger_cpumask_backtrace+0x18/0x1c arch/arm/kernel/smp.c:851)
- r9:82a0b2f0 r8:00000002 r7:82a1ce80 r6:82ccce2c r5:00007ec3 r4:00000048
-[<802300bc>] (arch_trigger_cpumask_backtrace) from [<81b62b8c>] (trigger_all_cpu_backtrace include/linux/nmi.h:162 [inline])
-[<802300bc>] (arch_trigger_cpumask_backtrace) from [<81b62b8c>] (__sys_info lib/sys_info.c:157 [inline])
-[<802300bc>] (arch_trigger_cpumask_backtrace) from [<81b62b8c>] (sys_info+0x68/0xa8 lib/sys_info.c:165)
-[<81b62b24>] (sys_info) from [<80390a60>] (check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline])
-[<81b62b24>] (sys_info) from [<80390a60>] (watchdog+0x3a0/0x848 kernel/hung_task.c:561)
- r5:00007ec3 r4:0000000a
-[<803906c0>] (watchdog) from [<802827b4>] (kthread+0x11c/0x154 kernel/kthread.c:436)
- r10:00000000 r9:df819e60 r8:83114000 r7:00000000 r6:803906c0 r5:83178000
- r4:83882900
-[<80282698>] (kthread) from [<80200114>] (ret_from_fork+0x14/0x20 arch/arm/kernel/entry-common.S:137)
-Exception stack(0xdf8d5fb0 to 0xdf8d5ff8)
-5fa0:                                     00000000 00000000 00000000 00000000
-5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
- r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:80282698 r4:83882900
-Sending NMI from CPU 0 to CPUs 1:
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 5202 Comm: syz.3.417 Not tainted syzkaller #0 PREEMPT 
-Hardware name: ARM-Versatile Express
-PC is at flow_block_cb_is_busy net/core/flow_offload.c:325 [inline]
-PC is at flow_block_cb_setup_simple+0x118/0x1fc net/core/flow_offload.c:351
-LR is at nsim_setup_tc+0xa0/0xdc drivers/net/netdevsim/tc.c:87
-pc : [<816ac064>]    lr : [<80f0ca28>]    psr: 80000013
-sp : ed055868  ip : 82b428d8  fp : ed05588c
-r10: 85fb6948  r9 : 00000001  r8 : 00000000
-r7 : 85366700  r6 : ed0558b4  r5 : 80f0c938  r4 : 82b857b8
-r3 : 828d2500  r2 : 80f0c938  r1 : 82b857b8  r0 : ed0558b4
-Flags: Nzcv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
-Control: 30c5387d  Table: 86288000  DAC: 00000000
-Call trace: 
-[<816abf4c>] (flow_block_cb_setup_simple) from [<80f0ca28>] (nsim_setup_tc+0xa0/0xdc drivers/net/netdevsim/tc.c:87)
- r9:00000001 r8:00000000 r7:ed0558e0 r6:85fa9f00 r5:00000000 r4:85366000
-[<80f0c988>] (nsim_setup_tc) from [<817f991c>] (nft_block_offload_cmd+0x80/0xf4 net/netfilter/nf_tables_offload.c:397)
-[<817f989c>] (nft_block_offload_cmd) from [<817f9c78>] (nft_chain_offload_cmd net/netfilter/nf_tables_offload.c:451 [inline])
-[<817f989c>] (nft_block_offload_cmd) from [<817f9c78>] (nft_flow_block_chain+0x98/0x184 net/netfilter/nf_tables_offload.c:471)
- r7:85fa9f00 r6:00000000 r5:00000000 r4:831df0c0
-[<817f9be0>] (nft_flow_block_chain) from [<817fa7bc>] (nft_flow_offload_chain net/netfilter/nf_tables_offload.c:513 [inline])
-[<817f9be0>] (nft_flow_block_chain) from [<817fa7bc>] (nft_flow_rule_offload_commit+0x1a4/0x1f4 net/netfilter/nf_tables_offload.c:592)
- r10:ed055ac0 r9:85359000 r8:85359000 r7:ed0559b8 r6:81e7f1da r5:85fb2c08
- r4:8626d580
-[<817fa618>] (nft_flow_rule_offload_commit) from [<817eb044>] (nf_tables_commit+0x20c/0x2250 net/netfilter/nf_tables_api.c:10934)
- r10:ed055ac0 r9:85359000 r8:858a8000 r7:00000011 r6:833d3540 r5:85fb2c20
- r4:85fb2c04
-[<817eae38>] (nf_tables_commit) from [<8179bc68>] (nfnetlink_rcv_batch+0x7d4/0x9b8 net/netfilter/nfnetlink.c:574)
- r10:81e7de58 r9:81e7e028 r8:858a8000 r7:00000011 r6:85769298 r5:ed055b68
- r4:833d29c0
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv_skb_batch net/netfilter/nfnetlink.c:647 [inline])
-[<8179b494>] (nfnetlink_rcv_batch) from [<8179bf74>] (nfnetlink_rcv+0x128/0x15c net/netfilter/nfnetlink.c:665)
- r10:8623a984 r9:85359000 r8:000000ac r7:00000014 r6:85769200 r5:00000000
- r4:833d3540
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline])
-[<8179be4c>] (nfnetlink_rcv) from [<8176bff8>] (netlink_unicast+0x270/0x380 net/netlink/af_netlink.c:1345)
- r8:833d3540 r7:8506b300 r6:000000ac r5:851e5c64 r4:851e5c00
-[<8176bd88>] (netlink_unicast) from [<8176c2d0>] (netlink_sendmsg+0x1c8/0x444 net/netlink/af_netlink.c:1900)
- r10:00000000 r9:00000000 r8:00000000 r7:8623a800 r6:000000ac r5:833d3540
- r4:ed055f28
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (sock_sendmsg_nosec net/socket.c:800 [inline])
-[<8176c108>] (netlink_sendmsg) from [<8162f7c4>] (__sock_sendmsg+0x44/0x78 net/socket.c:815)
- r10:00000000 r9:00000000 r8:ed055dd4 r7:00000000 r6:84d12f40 r5:ed055f28
- r4:00000000
-[<8162f780>] (__sock_sendmsg) from [<81630864>] (____sys_sendmsg+0x238/0x2c4 net/socket.c:2709)
- r7:00000000 r6:00000000 r5:84d12f40 r4:ed055f28
-[<8163062c>] (____sys_sendmsg) from [<81630c64>] (___sys_sendmsg+0x9c/0xd0 net/socket.c:2763)
- r10:00000128 r9:2000c2c0 r8:00000000 r7:00000000 r6:84d12f40 r5:ed055f28
- r4:00000000
-[<81630bc8>] (___sys_sendmsg) from [<81632e3c>] (__sys_sendmsg+0x8c/0xe0 net/socket.c:2795)
- r9:858a8000 r8:861dd080 r7:00000000 r6:2000c2c0 r5:861dd081 r4:00000003
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (__do_sys_sendmsg net/socket.c:2800 [inline])
-[<81632db0>] (__sys_sendmsg) from [<81632ea4>] (sys_sendmsg+0x14/0x18 net/socket.c:2798)
- r8:8020029c r7:00000128 r6:00356310 r5:00000000 r4:00000000
-[<81632e90>] (sys_sendmsg) from [<80200060>] (ret_fast_syscall+0x0/0x1c arch/arm/mm/proc-v7.S:67)
-Exception stack(0xed055fa8 to 0xed055ff0)
-5fa0:                   00000000 00000000 00000003 2000c2c0 00000000 00000000
-5fc0: 00000000 00000000 00356310 00000128 003562d8 00000000 00000001 76ff20dc
-5fe0: 76ff1e88 76ff1e78 00018fa0 00130a50
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> Just some high level thoughts, haven't really coded any of that, so
+> hard to tell upfront if it's worth doing.
+>
+> >
+> >
+> > > > 1) Unused LRU / PCPU fields in standard and PCPU hash maps (patch 1=
+)
+> > > > struct htab_elem is used for all hash map types, and includes field=
+s
+> > > > that are not always used (bpf_lru_node, ptr_to_pptr). For standard
+> > > > (non-LRU, non-PCPU) hash maps the 24 bytes for the bpf_lru_node (un=
+ion)
+> > > > are entirely overhead and can be eliminated. Non-preallocated PCPU =
+maps
+> > > > only need the 8 byte ptr_to_pptr which is currently unioned with th=
+e
+> > > > unneeded 24 byte bpf_lru_node, so 16 bytes of overhead can be
+> > > > eliminated. Preallocated PCPU maps don't need ptr_to_pptr, so 24 by=
+tes
+> > > > of overhead can be saved.
+> > > >
+> > > > 2) Hash caching for small keys (patch 2)
+> > > > For hash maps with small key sizes (<=3D word size), comparing keys=
+ only
+> > > > requires a single instruction. Currently the 4 byte hash value (8 b=
+yte
+> > > > aligned and padded) is used for this, but offers no performance
+> > > > advantage in this case and can be eliminated.
+> > > >
+> > > > The implementation splits htab_elem into dedicated structures for t=
+he
+> > > > different map types (htab_elem_lru, htab_elem_pcpu, htab_elem) whic=
+h
+> > > > share a common initial sequence (struct htab_node), but contain
+> > > > additional map-type specific fields where necessary. This means the
+> > > > placement of the key for each element varies with the map type, and
+> > > > key_offset is added to bpf_htab for this purpose.
+> > > >
+> > > > While using key_offset and conditional hash checks adds new pointer
+> > > > dereferences and branching during element traversal,
+> > > > run_bench_htab_mem.sh shows no significant performance regression a=
+cross
+> > > > 10 runs on my 3995WX.
+> > > >
+> > > > Benchmark (all in kops/sec)  | Avg. Before | StDev | Avg. After | S=
+tDev
+> > > > -----------------------------|-------------|-------|------------|--=
+----
+> > > > prealloc overwrite           | 115.11      | 4.10  | 115.45     | 5=
+.24
+> > > > prealloc batch_add_batch_del | 127.14      | 4.32  | 127.06     | 2=
+.32
+> > > > prealloc add_del_on_diff_cpu | 23.22       | 0.93  | 22.91      | 1=
+.60
+> > > > normal overwrite             | 78.52       | 3.05  | 80.40      | 3=
+.25
+> > > > normal batch_add_batch_del   | 45.37       | 0.69  | 47.71      | 0=
+.66
+> > > > normal add_del_on_diff_cpu   | 12.02       | 0.73  | 12.48      | 0=
+.70
+> > > >
+> > > > ---
+> > > > Changes in v4:
+> > > > Removed inline from new functions per BPF CI (netdev/source_inline)=
+.
+> > > >
+> > > > From Mykyta Yatsenko:
+> > > > Factor out duplicate lookup_elem code into __lookup_elem_raw.
+> > > > Use offsetof instead of sizeof for key_offset assignments in
+> > > > htab_map_alloc (patch 1).
+> > > > Eliminate branching and htab_elem casting in htab_elem_hash /
+> > > > htab_elem_set_hash.
+> > > >
+> > > > Changes in v3:
+> > > > From Sashiko on torn reads/writes:
+> > > > Use a local unsigned long and READ_ONCE / WRITE_ONCE instead of mem=
+cmp /
+> > > > memcpy for atomic key comparisons for hashless elements.
+> > > >
+> > > > Changes in v2:
+> > > > Make maximum key_size for !has_hash depend on word size for atomici=
+ty
+> > > > on 32-bit.
+> > > >
+> > > > From Mykyta Yatsenko:
+> > > > Put the htab_elem* common initial sequence in its own struct (htab_=
+node)
+> > > > and reuse it across all element types that share it. Eliminate
+> > > > associated BUILD_BUG_ON additions.
+> > > > Replace both the hash and key fields with data[].
+> > > > Store has_hash in struct bpf_htab, and avoid per-element reads of i=
+t.# Please edit the description for the branch
+> > > >
+> > > > T.J. Mercier (2):
+> > > >   bpf: htab: Split htab_elem_lru and htab_elem_pcpu off of htab_ele=
+m
+> > > >   bpf: htab: Reduce elem_size by 8 bytes for small key sizes
+> > > >
+> > > >  kernel/bpf/hashtab.c                          | 418 ++++++++++++--=
+----
+> > > >  kernel/bpf/map_in_map.c                       |  13 +
+> > > >  kernel/bpf/map_in_map.h                       |   2 +
+> > > >  .../selftests/bpf/progs/map_ptr_kern.c        |   2 +-
+> > > >  4 files changed, 289 insertions(+), 146 deletions(-)
+> > > >
+> > > >
+> > > > base-commit: cfce77b63375dac81d53f2f85593c548415206b7
+> > >
