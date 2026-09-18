@@ -1,151 +1,86 @@
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F315415F39
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE74F2E62A9;
+	Fri, 18 Sep 2026 23:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774695; cv=none; b=glZu4HLjo8JXNs+mUMWJNf8BN591DA0g4rAkCohJEBGQWnFqgUMy/mSq7RQr/kUXe/IWBppqEzRXJhqRbN14QJB1VTtdzh9kAgDfXIvPlWzbsWUQwsM8nFnTg//Mls6JTnVAmwhd5XzbLAtIVwTW/xIXqrhgn4ZyPHz+qnQJtpA=
+	t=1789774751; cv=none; b=d8ON1QuD2ILUYLh7FrjcB5qlsc79E+q5ITqw64K6+x83HeGzN70Pfp7yr0w2T+T3EwIqj1ZRtfO4lco+NtvtOvkjkR66uvi3YTbJXJdvn/FOxUFX//VgJxkvA9rduWb5O2geNKsr2gENfRB6Vq+5YKKWdBsvNXZ+T5jnQFR8Rrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774695; c=relaxed/simple;
-	bh=+krH3OIS8l+72/XxaoAip/+rtgiDlS6xmuwtgaO2k60=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hl0ds5H4DMBwTidgOVqPreg7vOzTOAi84tb0skH9W96meZn0+w3a2QLJyqr2z0eDGxJWXyPr3+XVO/eoeutHMsPgV5mGiBVDss9klSjWUBQy8l/tWE3x4t5iPTf69nN0NmH48aCAin2M+3T/ZI73kJeyiqJrPQ7ZwVAd9bEaEqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=w+F+J/Fv; arc=none smtp.client-ip=91.218.175.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789774751; c=relaxed/simple;
+	bh=sBVKnxQf1Nq4s2Z0zBVbNjUBDDqg6SVX6zVK3AC7mug=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=igqyQ5y/ZZeFkVVN3Xr05vOQ0SHMRw2QfRwMu7yq9zxf65/yem8wCSUqWtnzN3sHrZEsI/GWP2QTIRIIMgthmeWaMKXUWUgHKz3ouyFwUhhh21lBSMVP4JKomMd1MUtAq4kwqiG32LbydTfTrUsZ3QsrHw2+XVPoKcAX2n4lb7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJZwv+BF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="w+F+J/Fv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+krH3OIS8l+72/XxaoAip/+rtgiDlS6xmuwtgaO2k60=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789774689; v=1; x=1790379489;
- b=w+F+J/FvqXmD1goT7vwsgUkwT8BFoAPygJtgG5UOYCfV7HAdb7ZjJc6J6ncmA4L83FIFubHR
- Gb21b7Yw1KMmRGaW1e3z3PNUeL9sW4PWdjamZ730QTiad5h/A76AIGV+Pw9cMrKkAE4YUQ77s6e
- 56/0DpzXUUKDtzR4Z/ZbL+aU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8b15bcd15894cdae;
-	Fri, 18 Sep 2026 23:38:08 +0000
-X-Mizu-Trace-ID: 8b15bcd15894cdae
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9dfc8e17-8830-470e-803a-b466df58e52b@linux.dev>
-Date: Fri, 18 Sep 2026 16:38:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJZwv+BF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DED41F000FF;
+	Fri, 18 Sep 2026 23:39:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789774750;
+	bh=Gzczy9Oh/Ctdwjy86C+yXfHBllDVWWkUhPIAU447dO8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nJZwv+BFbzCoE1zegouQhnbxI2cUDm7aLsjAusRLPTrOEv07wWyCwiQrOc8n3Thq5
+	 SqLUTStwImmtB37FjJVuFpZ3epW2hgwiBjkotEXBrm1Ie5pGHH5NSIvcF9LmJ9LbNj
+	 yNJsGvoIvzc3KNY4MuPWybXnXusR/w51+6NIQT0oAyvEW+HHR1GjOPfh+VrFWR1Kb2
+	 cvO9hIPy7OvUL9vLggPEsDhiyddaCYL+uqT+esi4pP27zNdxzmTIeDFsLo2h593xSz
+	 vNLp/ywP2+F2nX968ilS32gS3haupyRRzPw/xawEwqCaq/5+SW9Ynw4kInIhvvge4w
+	 AqH5Ch2G6DpfA==
+From: Yixun Lan <dlan@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jinmei Wei <weijinmei@linux.spacemit.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v3] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+Date: Fri, 18 Sep 2026 23:39:02 +0000
+Message-ID: <178977466389.1115729.2520600398672212403.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915-kx-i2s-dts-v3-1-cf0b90882a97@linux.spacemit.com>
+References: <20260915-kx-i2s-dts-v3-1-cf0b90882a97@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
- bpf_reg_state->id [NFC]
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bot+bpf-ci@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260910164635.459558-2-vineet.gupta@linux.dev>
- <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
- <4cddd4a4-d684-46c9-862e-5708797f399d@linux.dev>
- <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
-On 9/16/26 2:03 PM, Alexei Starovoitov wrote:
-> On Mon Sep 14, 2026 at 6:02 PM UTC, Vineet Gupta wrote:
->>
->> On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
->>>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->>>> index 66fb11b6c6a7..d974baad37ee 100644
->>>> --- a/kernel/bpf/states.c
->>>> +++ b/kernel/bpf/states.c
->>> [ ... ]
->>>
->>>> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>     * and r7.id=0 (both independent), without temp IDs both would map old_id=X
->>>>     * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
->>>>     * X->temp2, but X is already mapped to temp1, so the check fails correctly.
->>>> - *
->>>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
->>>> - * base id (flag stripped) must both map consistently. Example: old has
->>>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
->>>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
->>>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
->>>> - * with A->B. The base ID cross-check catches this.
->>>>     */
->>>>    static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>    {
->>>> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>
->>>>    	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
->>>>
->>>> -	if (!check_ids(old_id, cur_id, idmap))
->>>> -		return false;
->>>> -	if (old_id & BPF_ADD_CONST) {
->>>> -		old_id &= ~BPF_ADD_CONST;
->>>> -		cur_id &= ~BPF_ADD_CONST;
->>>> -		if (!check_ids(old_id, cur_id, idmap))
->>>> -			return false;
->>>> -	}
->>>> -	return true;
->>>> +	return check_ids(old_id, cur_id, idmap);
->>>>    }
->>> [ ... ]
->>>
->>>> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>>> index d571fbfc86a3..da6cb961a520 100644
->>>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>> [ ... ]
->>>
->>>> @@ -648,10 +648,10 @@ l_exit_%=:							\
->>>>    }
->>>>
->>>>    /*
->>>> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
->>>> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
->>>>     * linked scalars during state pruning.
->>>>     *
->>>> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
->>>> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
->>>>     * The true branch (runtime path) links R3 to R4 (unrelated base_id).
->>>>     * At the merge point, pruning must fail because the linkage topology
->>>>     * differs.
->>> Does this comment still match what the code does? The patch removes the
->>> "base_id" concept from kernel/bpf/states.c (deleted the paragraph that
->>> defined it, removed the two-level compound/base id check from
->>> check_scalar_ids), but the comment here still describes the test as
->>> verifying "base_id consistency" and refers to "unrelated base_id" on the
->>> next line.
->>>
->>> Looking at the function name and __description below:
->>>
->>>>     */
->>>>    __description("add_const base_id must be consistent for pruning")
->>>>    __failure __msg("invalid variable-offset")
->>>>    __naked void add_const_base_id_pruning(void)
->>> and later at line 695:
->>>
->>>>    	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
->>>>    	 * pruning should have failed. */
->>> Should these be updated to use current terminology, or does "base_id"
->>> still have meaning in this context? The test itself still works correctly
->>> after the patch, so this appears to be a documentation consistency
->>> question rather than a functional issue.
->> Indeed base_id as a term is gone, but just id alone might be confusing
->> as well.
->> How about link id as a replacement for base_id
-> I don't think "link id" fits either. Just use id.
+On Tue, 15 Sep 2026 11:23:16 +0800, Troy Mitchell wrote:
+> Add the six SSPA-based I2S controller nodes for the K3 SoC.
+> 
+> i2s0 and i2s2-i2s5 each have a dedicated per-controller sysclk
+> divider, so they use the published 7-clock layout (sysclk, bclk, bus,
+> func, sysclk_div, c_sysclk, c_bclk).
+> 
+> i2s1 uses 6 clocks (sysclk, bclk, bus, func, c_sysclk, c_bclk) because
+> its sysclk is driven directly by a DDN (ISCCR0) and has no separate
+> divider stage.
+> 
+> [...]
 
-OK.
+Applied, thanks!
 
-Thx,
--Vineet
+[1/1] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=c37ee906b45bc06782fa1b69f3a53bace67ace66
+
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
