@@ -1,170 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FE43B9DA7;
-	Fri, 18 Sep 2026 13:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6693AA1BF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738014; cv=none; b=K0EFx/sZ8UGF3bzGSDOYlmlt6Jc/YtnvQlqQPbZcSYs51O0t8ODQfqK53WSA2dgwgN2y1mUPwURfmzI0CBp8Tq6w4iaO0wKZI4OyJcMeqv3PFNVvLojWVjp40S7ok2+Hwlc3mLOsdEmLnu8HZnAmur4YibUhP7zZlolbBLgbncA=
+	t=1789738101; cv=none; b=jWUwtDepVm/x5ghFIbIxbPhEjfWZFKtSZf0Y7v+OCUe1PU/PFj1wpO04BMJbfIcb596SNA1QKIH3DL6zUFQLgKWMElem3yhGSyKy02rTZ6YbRvp2PZoM6AeCWZ6BqfMd+Cv/gZ/GBjLklvf4htMtnpfRkphUJiX6Qu1enCz5tUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738014; c=relaxed/simple;
-	bh=ltor45QUUjrvZZ4yEob2M1OU450E6qEFrG8dg+7GSRk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WnRpSR0SFidW7I7SqwRDLmhygBC6rWWN1cgA43i+U0rYefVEAx4RSvswqJO1UEXwWPBcwpDUw2W35GmMIAroGWgQFoCan4QopBcLXWkXrgM/wrciLHm7g+Z45hdFWNJu1o95kgtGWWfaaLizwThHaqeqQ/7NOplFjyCbwuBHB00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocU7l6dk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789738101; c=relaxed/simple;
+	bh=zIvzoRp4EqaaXbBaAXZ0LdKRD2UHE9DJZN9NC6iw0vU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=du1XHTENfF+e63aB4HOSkN66OZRGEVTz3jvqV5vVMVESx78c0J7fmivlR/ZgkiGqH/nultFZwQ4CVb+oc9jjJgk8/1lm3vQ5Ol53rASKk0/A6Y+mL5HuXgBLtveLAdba4Ni+RGaoB53iqlonBZL40VgES/7I76IvBvAAitH0qy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWuZQxw/; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocU7l6dk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A420B1F000FF;
-	Fri, 18 Sep 2026 13:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738012;
-	bh=SMba8giiDkIuFFFr64zSKGJBGhr+Dhgr5I9Qduwj8UE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ocU7l6dkDEbboKTgZR5iF+PXYdYwo4uldow5IiPOr0QUcyNGkPzJ+8jxAEiVRFBrs
-	 PBJsgBtCnNgbxK48FpYRI3Q0C28xUNkabjfJeHSyJO1S+w+fhnNTg8ER378mWMCKLk
-	 FaeZ0mcTSFVzR5sUDDSDutpAawvf7npCo+zq+TwgagGZu0l7CYoedP/gyzjMIKpXSn
-	 p8iXpkhg4QObGBhvT/65OY1eX0QowlCQeYIb76l1Aerac338hbky9DsQ75R9rt/UtF
-	 8Hgzwkkh7CATp1zUfGDln3p/uqFl0nd79+K+K+ejOWAPxGflDeiPZYPvQbwFFM1vZ2
-	 /1S/YoFMyHTMg==
-Message-ID: <232b8c59-0357-407b-9e34-78e290f76ba0@kernel.org>
-Date: Fri, 18 Sep 2026 15:26:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWuZQxw/"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so7474165e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789738098; x=1790342898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zIvzoRp4EqaaXbBaAXZ0LdKRD2UHE9DJZN9NC6iw0vU=;
+        b=KWuZQxw/I3lqzg9qw7ZjQiGz/Z24MK3auBi+URcDsAqMC1JcguPlshPYLhqPAife6l
+         nM5UEGslRvNHPw97JNPJ+qdvY7KP3lVQ+ajbCDMNS8xvX6zrxMjZ5AT3wo+t7kSrJItQ
+         AtQeAvg9oyUxiWBloXmYKbEm332Btg4CSjtlcUDpYjkb3OWMLJXkSWjAV+//rcWPV9U1
+         /S7Sx+16EAozQAWxMSwwndPfpX1iYEuIUrn6B0ZhgYLVcYidhyESJWgSEkgHXxzY+yT/
+         e7JhbG4iprer6Czh/tBACxTaiEqefU8w9b7HuKaPLKfGYw17XLrt8fKZxkXnBSGjS26b
+         2T1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789738098; x=1790342898;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zIvzoRp4EqaaXbBaAXZ0LdKRD2UHE9DJZN9NC6iw0vU=;
+        b=fcVVxEhDPj5G2h0Ky1jCbTjy6KhK0JwwI7YyI591P4cKm/++OjYNXhslclmP46kLCb
+         +gySyVxQ45pqFMqgWdArrlYoTHS/m0J8ovp7n6ioRxAOxq2qH4pC9YsBICljlS/oJM6w
+         93RNKI/ZXnyUCPX4R8aAQqDCukfh08dNtEJdYrRpowyiYqiimJOGiObA9sCcm5zXDbDi
+         qdGPMQyu8noE8nzCcS3OMw4VJb7E1hbI8M55Cc23NIeCbt45b8SKe6VKG5W0V4Kat87Q
+         /bLQcoRMdUfgdP1dbh6hcqRQRILl6AaARkf9/R4A7yyjoLTacIrKIvqYU0UM3XhE6TxT
+         4Gjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpkJXITxPGuDJeWlgPFi0e8XJLu4KEA/36uK9Qu32kEO8F20EGeY/DJr6OJbQk6tO2n1WUdrenFH+lmpY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kv0yGxIEf3Z3dhlgwxcVU/8zrqGtm/N3udtFsAQrk/gibAQYEA
+	e1TUdwFUyTU9uB2K5SG1sOnd1KASiYUEpLIjL08AvlnxWHWwJWnip9Be
+X-Gm-Gg: AYBFou0/3yghuy0o0wfdei5TnviC5P7ClTLeb8BN2dFJzKCwcS0WPJ4XUP4lXaBYzGm
+	uyvxcHGUWwlGiSO2K6t/3mMcvdGHlbSqKVHG5VK8JmmrsAz1OYFSgLuifcW9m/C4X7HoYDrN0s1
+	wHxuEVaLLRwpVaeKHbVYlf4th9Tt70iVfiFqVCfUW2jJF9zLPBkdbSTL/+1PT29rufFaiLcEJr2
+	w8v1u9JOFSbm4zyEcbnR2XR5RaLUP7CoLwcZ1tLUTk6Aa7jqAxNrvmzWnkf3/aL7MPvxPmTOVe8
+	IdWJHY8rRcqkIa9jm6QAKls9T7riQoFl/nhdaqarsTi2KKem/wN29IYzRKJ5jCNkwTCdo5tjlrq
+	yEhxQV/qdhqYm0OK1nQjrLRBbjI8wGyIZU+82jDDMzBWPvsoYZpApZ2pGsuE7RiryhaQ+aMK4U4
+	uPP5Rik2LW6cP7qzi8vBiRlSZrCHf8E5ecLTnWFbHS3+yeqpEMslz/Wt3YakUowuRK1rwqC4wu9
+	Z1JH0rO2nG0HtdABOE5isg+Iw==
+X-Received: by 2002:a05:600c:1f8f:b0:49e:8354:26fb with SMTP id 5b1f17b1804b1-49fc574c729mr35408655e9.32.1789738097326;
+        Fri, 18 Sep 2026 06:28:17 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc58a1176sm40807795e9.2.2026.09.18.06.28.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:28:16 -0700 (PDT)
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	brauner@kernel.org,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	kpsingh@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	matt@bobrowski.net,
+	memxor@gmail.com,
+	song@kernel.org,
+	sun.jian.kdev@gmail.com,
+	tasos.papagiannnis@gmail.com,
+	utilityemal77@gmail.com,
+	viro@zeniv.linux.org.uk
+Subject: Re: [PATCH bpf-next v8 1/5] mm: Add copy_remote_mm_str()
+Date: Fri, 18 Sep 2026 16:27:54 +0300
+Message-ID: <20260918132754.43435-1-tasos.papagiannnis@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <0b276f0a-39b7-46ae-b72f-6ba92f65380f@kernel.org>
+References: <0b276f0a-39b7-46ae-b72f-6ba92f65380f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/19] dt-bindings: clock: qcom: Add MSM8952 global
- clock controller
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
- <20260918-liberal-significant-crow-f1e66f@quoll>
- <29506e08-9337-487f-af2d-b75f5aa8341e@mainlining.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <29506e08-9337-487f-af2d-b75f5aa8341e@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/09/2026 15:01, Muzaffer Kadir wrote:
-> Hi Krzysztof,
-> 
-> On Fri, 18 Sep 2026 12:02:02 +0200, Krzysztof Kozlowski wrote:
->> On Wed, Sep 16, 2026 at 05:22:06PM +0300, Muzaffer Kadir wrote:
->>> Add a device tree binding to describe clocks, resets and power domains
->>> provided by the global clock controller on MSM8952 SoC.
->>>
->>> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
->>
->> Please run scripts/checkpatch.pl on the patches and fix reported
->> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
->> patches and (probably) fix more warnings. Some warnings can be ignored,
->> especially from --strict run, but the code here looks like it needs a
->> fix. Feel free to get in touch if the warning is not clear.
->>
-> 
-> Then I will ask a few things,
-> 
-> WARNING: DT binding headers should be licensed (GPL-2.0-only OR .*)
-> #88: FILE: include/dt-bindings/clock/qcom,gcc-msm8952.h:1:
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> 
-> As I said on cover, I originally based on msm8939 gcc,
+> Two tabs please. (I thought I commented on that already)
 
-I don't get this. There is no file like:
-Documentation/devicetree/bindings/clock/qcom,*msm8939*
+Sorry, I have missed some cases. It shoud be good now in v9 [1].
 
-so I have no clue what did you take as a base. If this is derivative of
-some work, it can be mentioned in the commit msg. We usually ignore
-cover letters for anything relevant to actual code.
-
-
-> would it cause license problems with file if I fix this
-> warning?
-> 
-> Some patches say "has style problems, please review."
-> Is this related to formatting of code inside patch ?
-> 
-> WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
-> #16: 
-> [1] https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/clk/qcom/clock-gcc-8952.c
-
-I do not see such line in this patch.
-
-
-Best regards,
-Krzysztof
+[1] https://lore.kernel.org/bpf/20260918131757.42802-1-tasos.papagiannnis@gmail.com/
