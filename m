@@ -1,89 +1,293 @@
-Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21B04BF932
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC044F3EBB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742999; cv=none; b=JcnP9LouWZkJcgP7iQZBOKw0+1o2NDWJrY81A6N2LGns9hPsJa31i1BNRkpyRH0Lxc/ZcS1XLbAutvQXk1KWaXWTciDAWRGSd71Xj6Kr+gJ6ZcAWO9wTzRbhIWUpm9konVKNJarfFkO2SVOY9tgMYXOTIB7I10J5UbaF/PNoeEo=
+	t=1789743013; cv=none; b=MPJm9/MEJHziIoJZwE1+RJmfEJnAqT8lVm1cww6UTTThuQ36UsXZyUMjlKeKKYmX8XVJfuXDD7BMf7PnFUvjcVCEuhZV1y9kYGpSppgn0B/NbDEfGIzeI7NOHW4tw+nyS7RjMAljtjJwbMn9HdfdWRSKInv/I8pMNmDqYTt6+nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742999; c=relaxed/simple;
-	bh=mX5Fp0cedAQ8gUI2DxAXpXEcuHO6TangyCkeMGL2wlw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rnFEHE7NsWfRV+DfkNLpkHEtuuI7HOCgoF7iUyrtyElhclD8Xs0kTCgzeByZTtSzfIuLtbvHGeYD8cpyp3C/Bzg4ye0gpW3Gg2GOeT5MFYvMRkz3Qlle3gBMJVBrOpvgqKT7Kdev6mDnaGUv6ksD0UWmyyCdDzOGxOXQ22t3N8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=muBGmk3p; arc=none smtp.client-ip=37.187.220.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789743013; c=relaxed/simple;
+	bh=yHC4KMZfT4OhoIiDiBb7tvVf2glio0Mt2yiw+oyROR0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HwfU9iIt1NYpdwQPMiD5yM4dSvg6g2RKwcDpAwCaJuVrRriFVmMQ4MyGW5nPVvkC2EpM38ibiXRXKHHQYWyWAav37MnmuxNsOAosn/A/63HhuR1np1FBD5KJ4mHl0UoWXhxhprzXix2EAVLq7K/B0DmjsM0eL5imZpJWt5vQY4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=b78r88H9; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="muBGmk3p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789742982; x=1790002182;
-	bh=dvU9mX0+VRxwNBAd7M5TgBl03Can4J/5HqzL3YIZoY0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=muBGmk3p/iBjU2gpzxsYH3G/zS2CzBJCSSzCtpzxGZWQPb23d+xSZ66bbAY27qtmZ
-	 OXAgqh1nb3OfdNqTexWJBqx9MTe+BIPzLmclr2AR8JK7Oek85o/Jx481hJQYKQP6ja
-	 uKSnTdptra9tjTyv8Ppz0Lkfl8rdaMaV25loyQVClbDFvm8NAA4pY0x2P5F90w6/37
-	 VQJymRyq5NqkqrCIYsSWw6kc8DzjQnguIjonJCmUWRxq6PM0+7sHAZlIC+UhNQb4bb
-	 5wDzRutdpoKzLqKPMeOD6MSMiYPSRK5KUpL/1p+GPLTOD4FL4Qf2MYgoDPLA4hTGZi
-	 Xz8X49MQ+8HNg==
-Date: Fri, 18 Sep 2026 14:49:36 +0000
-To: David Laight <david.laight.linux@gmail.com>
-From: quanyeyang <quanyeyang@proton.me>
-Cc: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>, Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to sk->sk_err
-Message-ID: <3Xbc2sQjLprXByAnJqDFV0YozlncqBdk3n_5MSppJHOCg5e7npnTsSnaW6pe_lWgXs1jnGm2v_orUWs7qIgMdkpHb63hjuw_9XgIpqrr184=@proton.me>
-In-Reply-To: <20260918132747.6ac8beeb@pumpkin>
-References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me> <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me> <20260918105142.3dc675eb@pumpkin> <zEvCcu9s6PbTRajtbCvCik2zCOJsXozLWWvYsLfl6AV4IJLyXmS63i5nuaCmqk_5DsRajMO3IjRtFpOSpmRY55ByjpBJ8NmtwDk-kSpr9bM=@proton.me> <20260918132747.6ac8beeb@pumpkin>
-Feedback-ID: 206494642:user:proton
-X-Pm-Message-ID: 1819dbaee6804864bc7593369e826cc1f32b5abb
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="b78r88H9"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e3so9327976d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1789743001; x=1790347801; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q8bPS+4IlAeB++9fkK/U7jkDL1GJ1oJuOJz5hfsv6cg=;
+        b=b78r88H97DF1G0qP3sv8vq2q58aKMFn6U+t5yLyoQS3cUzgR2c7/5J+MdNLfwNrjOf
+         qt/+pm8mfiDp+Yhgkqa+4Zs3xNn0t8EkJQ+Vv0s2sFsdcJ5y+E91StgZ0yB6VXKtXOi+
+         noZkC9N/mwsfxNpwLmPQByKufIxpZ0sXzrpNUc9y3VzIXXQlWPqZAQToo1rzR1bVqFKs
+         8I9grE1W3Z6mCUvSZJwMt5ckflHsGR7Lc8q7DdiveRzQt41FxpktEPFEaJJEfk6DuKRc
+         ePMWMgtTDE3hLwP5sGoS0IlQG7TSq/Dr8FXT1ypZXuatglcfDth8v+0cMoIe4i4oFhDm
+         sOmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789743001; x=1790347801;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q8bPS+4IlAeB++9fkK/U7jkDL1GJ1oJuOJz5hfsv6cg=;
+        b=PLIrYCYanFwWADuPnrGvw4dSxLEJe26PXJ1WlHaLDX6wyuXZ0J6aqf3zdsENvvrqjA
+         QkcQQWUDUD89fA4EcJXWivqWMZUyGY7j1i9pSkcrpHwvRjR+tbH+UqJlNs/B86JXhz6V
+         YZwrm+owlDwh0M5e77qF0XJ3wMIO2FcX7R2Fg8wg3mMI4W/6xQgyol/Xj3lSTfBQl92Z
+         wzQ92xtSfrkKyCMa3rLT0PgWNhC0kWBgS9wJ6+fWjYmc+o68DxU8p2r83zqok2GmgSxq
+         9cjH+b4N8flqCSLvf//txJ8AN9p3nULSxLZoiya0RlhG5t4hUZ/fHhOGygAYFkf3hkGw
+         V0bw==
+X-Forwarded-Encrypted: i=1; AKwUvByTELN2iC9uqGSZrT2wsOoFTS+zZGoUYGcJxBDSbBDvEYlW2SReIg9YjGNaFoR69/rmvmXGs5XlK5NH9AU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/IoooYKSayxDiEI/AySykd3ZBFmyQ+MMZ88GMCwStUmafff0l
+	hyaKb7K3H79T9LbI5NKxo2KFUtUD/TaAmNnzZEUMRhVboQXchEw0rd17HL67a2/CfUE=
+X-Gm-Gg: AYBFou3WH0KjK7oiWfEgYMH1i++dgNQ4zispLlBc0J48ITSFBB6WiARKfT40UPv//J5
+	qze5JgOdmhlFcfh0jf69CFhBenT1Icd4y0Dx/HVYSEDavMUCaw6phUHNNqcY87NIhwXg36ZLsBz
+	1i9kNQYtLfwtur3apdU3lSGCiQjeQPPHy8M2XOC6LMNTSucuJOLzqvO4O2TEAp/RsgVuys4/kCH
+	pasTP8xt286fOUWrrezBQRaxMmCG5+lzsEixPm1wdi8C90njjj49I42CBLvUAcW9reMXBG/WkQr
+	z1hLiEqFZ1+/dnJUHQHIcuXRUFXX0fLLkiIGemOrbYCt+Vk8zu4/ljuOZr8/kE27Q/VESK5B1GE
+	FyCQVEQCYn7dI6CtcVcFpNmaisuix8Gekq/CvqKI1tRkLiXvbjWDdQPZJ7Rxg8pGmVNAMlX5b6i
+	r1y5zXfLRrYP8WK/Wi5IkCM7fQkjXZaOloF8ZJG33H3j9hzoYgkSQy1n226jxaJw44RejHUMbji
+	ZxM8hWVAcyrsm+2wUsWL1GtHMOD5LtgC/qRA8sbsttJ2KSRn72yfPME
+X-Received: by 2002:a05:620a:a2c1:20b0:93b:e9d2:5ece with SMTP id af79cd13be357-93be9d25ee8mr69803785a.39.1789743000697;
+        Fri, 18 Sep 2026 07:50:00 -0700 (PDT)
+Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0e95a4asm151763985a.18.2026.09.18.07.49.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:49:59 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Fri, 18 Sep 2026 14:49:28 +0000
+Subject: [PATCH RFC v4 09/13] bpf, arm64: Take a Tasks Trace reader in the
+ trampoline around its call-outs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-b4-rcu-tasks-preempt-qs-v4-9-63f0e9d69661@toxicpanda.com>
+References: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com>
+In-Reply-To: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>
+Cc: Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789742980; l=7138;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=yHC4KMZfT4OhoIiDiBb7tvVf2glio0Mt2yiw+oyROR0=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QMextWmuyzGMJVeNI8yxyv6Z0gZzWAgn/7KthFAEN2WlTA4mSkVfiREApm3yp97Xx2XO4eWHESm
+ TkxgsjmQ6cwg=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On Friday, September 18th, 2026 at AM 5:27, David Laight <david.laight.linu=
-x@gmail.com> wrote:
+Same scheme as x86: have the arm64 BPF JIT open-code rcu_read_lock_trace()
+and rcu_read_unlock_trace() in the trampoline, one reader from after the
+callee-saved registers are stored to just before the original function
+is called (covering __bpf_tramp_enter() and the fentry/fmod_ret programs)
+and a second from just after it returns to just before those registers
+are restored (covering the fexit programs and __bpf_tramp_exit()), with
+the original function itself outside both and pinned by im->pcref.  The
+second reader is entered before ip_after_call and the fmod_ret cbnz
+lands past it still holding the first, so exactly one is held on every
+path; trampolines without an original call get a single reader.
 
-> If the race is with locked accesses I think you need both.
+The sequence mirrors entry-ftrace.S: current via sp_el0,
+trc_reader_nesting bumped, and for the outermost reader the SRCU-fast
+per-CPU counter incremented LL/SC and the counter pointer stashed in
+trc_reader_scp (plus the dmb when CONFIG_TASKS_TRACE_RCU_NO_MB is not
+set).  x10-x15 are scratch at every emission point.  Nothing is emitted
+on other configurations.
 
-Thanks =E2=80=94 I think I see the case you mean, and I may have been looki=
-ng
-at a different pairing.
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ arch/arm64/net/bpf_jit_comp.c | 90 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 90 insertions(+)
 
-If the stores stay unmarked because they run under a lock, and the
-reader is the lockless side, then yes: READ_ONCE() alone is not enough
-for KCSAN.  The watchpoint is still the plain locked store, so the
-report is marked vs unmarked.  data_race(READ_ONCE()) is the usual
-answer there: READ_ONCE() for the compiler, data_race() so KCSAN does
-not treat those remaining unmarked locked stores as bugs.
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index c18e005a41db..87f9d53caf2c 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -14,6 +14,7 @@
+ #include <linux/filter.h>
+ #include <linux/memory.h>
+ #include <linux/printk.h>
++#include <linux/rcupdate_trace.h>
+ #include <linux/slab.h>
+ 
+ #include <asm/asm-extable.h>
+@@ -2591,6 +2592,74 @@ static void emit_arena_arg_conv(struct jit_ctx *ctx, u8 dst, u8 src, bool nullab
+ 	emit(A64_SUB(0, dst, src, base_lo), ctx);
+ }
+ 
++/*
++ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
++ * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent macros
++ * in arch/arm64/kernel/entry-ftrace.S.  The SRCU-fast per-CPU increment is an
++ * LL/SC add on this CPU's counter; being migrated between reading the per-CPU
++ * offset and the store-exclusive only means another CPU's counter is
++ * incremented atomically instead, which SRCU sums over anyway.  Uses x10-x15,
++ * which are scratch at every emission point, and the flags.
++ */
++static void emit_trace_rcu_reader(struct jit_ctx *ctx, bool lock)
++{
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	const int nesting = offsetof(struct task_struct, trc_reader_nesting);
++	const int scp = offsetof(struct task_struct, trc_reader_scp);
++	const bool mb = !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
++	const u8 tsk = A64_R(10), n = A64_R(11), tmp = A64_R(12);
++	const u8 ctr = A64_R(13), addr = A64_R(14), val = A64_R(15);
++
++	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
++	/* LDR/STR (immediate, unsigned offset) ranges */
++	BUILD_BUG_ON((nesting & 3) || nesting >= SZ_16K || (scp & 7) || scp >= SZ_32K);
++
++	emit(A64_MRS_SP_EL0(tsk), ctx);			/* current */
++	emit(A64_LDR32I(n, tsk, nesting), ctx);
++	if (lock) {
++		emit(A64_ADD_I(0, tmp, n, 1), ctx);
++		emit(A64_STR32I(tmp, tsk, nesting), ctx);
++		/* interrupted a reader: done */
++		emit(A64_CBNZ(0, n, 12 + mb), ctx);
++		/* scp = rcu_tasks_trace_srcu_struct.srcu_ctrp; current->trc_reader_scp = scp */
++		emit_addr_mov_i64(ctr, (u64)&rcu_tasks_trace_srcu_struct.srcu_ctrp, ctx);
++		emit(A64_LDR64I(ctr, ctr, 0), ctx);
++		emit(A64_STR64I(ctr, tsk, scp), ctx);
++	} else {
++		emit(A64_SUB_I(0, n, n, 1), ctx);
++		/* still nested: just store the count */
++		emit(A64_CBNZ(0, n, 11 + mb), ctx);
++		/* outermost: pick up scp before an interrupt can see nesting == 0 */
++		emit(A64_LDR64I(ctr, tsk, scp), ctx);
++		emit(A64_STR32I(A64_ZR, tsk, nesting), ctx);
++		if (mb)
++			emit(A64_DMB_ISH, ctx);
++	}
++	/* this_cpu_inc(scp->srcu_locks / srcu_unlocks) */
++	if (cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
++		emit(A64_MRS_TPIDR_EL2(addr), ctx);
++	else
++		emit(A64_MRS_TPIDR_EL1(addr), ctx);
++	emit(A64_ADD(1, addr, addr, ctr), ctx);
++	if (!lock)
++		emit(A64_ADD_I(1, addr, addr, offsetof(struct srcu_ctr, srcu_unlocks)), ctx);
++	emit(A64_LDXR(1, val, addr), ctx);
++	emit(A64_ADD_I(1, val, val, 1), ctx);
++	emit(A64_STXR(1, val, addr, tmp), ctx);
++	emit(A64_CBNZ(0, tmp, -3), ctx);
++	if (lock) {
++		if (mb)
++			emit(A64_DMB_ISH, ctx);
++		/* 1: */
++	} else {
++		emit(A64_B(2), ctx);
++		/* 2: */
++		emit(A64_STR32I(n, tsk, nesting), ctx);
++		/* 3: */
++	}
++#endif
++}
++
+ static void save_args(struct jit_ctx *ctx, int bargs_off, int oargs_off,
+ 		      const struct btf_func_model *m, const struct arg_aux *a,
+ 		      bool for_call_origin, bool is_struct_ops, u64 arena_base)
+@@ -2854,6 +2923,16 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
+ 	emit(A64_STR64I(A64_R(19), A64_SP, regs_off), ctx);
+ 	emit(A64_STR64I(A64_R(20), A64_SP, regs_off + 8), ctx);
+ 
++	/*
++	 * Tasks RCU keeps this image alive only while we are a Tasks Trace
++	 * reader; the instructions before this point (and after the final
++	 * unlock) are covered by the irq-exit IP check.  One reader spans
++	 * __bpf_tramp_enter() and the fentry/fmod_ret progs, a second one the
++	 * fexit progs and __bpf_tramp_exit(); the original function runs
++	 * outside both, with the image pinned by im->pcref instead.
++	 */
++	emit_trace_rcu_reader(ctx, true);
++
+ 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
+ 		/* for the first pass, assume the worst case */
+ 		if (!ctx->image)
+@@ -2898,12 +2977,20 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
+ 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
+ 		/* the original func takes kernel addresses, never converted ones */
+ 		save_args(ctx, bargs_off, oargs_off, m, a, true, is_struct_ops, 0);
++		emit_trace_rcu_reader(ctx, false);
+ 		/* call original func */
+ 		emit(A64_LDR64I(A64_R(10), A64_SP, retaddr_off), ctx);
+ 		emit(A64_ADR(A64_LR, AARCH64_INSN_SIZE * 2), ctx);
+ 		emit(A64_RET(A64_R(10)), ctx);
+ 		/* store return value */
+ 		emit(A64_STR64I(A64_R(0), A64_SP, retval_off), ctx);
++		/*
++		 * Second reader.  Taken before ip_after_call so that the branch
++		 * to the epilogue patched in at teardown is inside it too; the
++		 * fmod_ret early exit lands past this still holding the first
++		 * reader, so either way exactly one is held.
++		 */
++		emit_trace_rcu_reader(ctx, true);
+ 		/* reserve a nop for bpf_tramp_image_put */
+ 		im->ip_after_call = ctx->ro_image + ctx->idx;
+ 		emit(A64_NOP, ctx);
+@@ -2945,6 +3032,9 @@ static int prepare_trampoline(struct jit_ctx *ctx, struct bpf_tramp_image *im,
+ 	if (flags & BPF_TRAMP_F_RESTORE_REGS)
+ 		restore_args(ctx, bargs_off, a->regs_for_args);
+ 
++	/* Remaining instructions are covered by the irq-exit IP check. */
++	emit_trace_rcu_reader(ctx, false);
++
+ 	/* restore callee saved register x19 and x20 */
+ 	emit(A64_LDR64I(A64_R(19), A64_SP, regs_off), ctx);
+ 	emit(A64_LDR64I(A64_R(20), A64_SP, regs_off + 8), ctx);
 
-The splat this series is trying to fix looks the other way around,
-at least as I read it.  The access KCSAN caught on the write side is
-the lockless xchg() in sock_error(), from getsockopt(SO_ERROR) /
-recvmmsg.  Those paths do not take lock_sock(), so the peek under
-lock_sock() is not actually exclusive against the consumer =E2=80=94 the tw=
-o
-sides really do run concurrently.  The peek is a plain load, so that
-is the unmarked side of the report.
+-- 
+2.55.0
 
-TCP's own stores of sk_err were already converted to WRITE_ONCE() in
-e13ec3da05d1, because tcp_poll() already peeks without the socket
-lock.  The consume path is xchg().  Adding READ_ONCE() on the peeks
-is meant to mark both sides of that race, same as tcp_poll() already
-does.  Wrapping them in data_race() would also silence any leftover
-plain stores instead of leaving KCSAN able to point at them.  These
-loads also feed send/recv/splice control flow rather than a
-diagnostic or heuristic, so READ_ONCE() seemed the closer match.
-
-If you had a specific locked store in mind that we should still treat
-as unmarked, or a reason the lock_sock() peek should stay a plain
-access, I would like to understand it.
-
-Thanks,
-Quanye
