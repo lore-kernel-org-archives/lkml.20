@@ -1,119 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E29A3822AB;
-	Fri, 18 Sep 2026 20:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96DBB311592;
+	Fri, 18 Sep 2026 20:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763366; cv=none; b=HgDZ7neCegRQ0+MxRs0KsF9qDK9pARQNUvTEOxuS7ZpV1Br+MgWu0sK2N/cyQCbbHPF7eRzsEe9PCD2BFXZ5wtVmIHobCZUh2XwITmTMMqeeUAfUvFVfC/+DXFKrH4fX2xamWs8BMmkpmJWK2XhIrW3PsMDwP34hVRHf+VDxL2I=
+	t=1789763428; cv=none; b=RQSuA1i196ICb87nVmtZ4kLdKUQOQ022ZzAOQWvr5MC7LHHShYv0M8qaZD7MuJfE19reuMw9WEgEkqKLsN+0p14BjIKkJ23bQbHhQOEMFiKg5I2foQBUmdPt8twLXjrfKWWc0+DJUcPJTYnOC7qXK9qW66itkd38ehVK/Vv3GQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763366; c=relaxed/simple;
-	bh=QSPlHzjfqGQHz5rYsLmYmjhWMFsDZLXBK8ZbBsuZT4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=RGBbUd+QezIdDdhQlF2MlJqWj4g3uDh8pw+cY4wviGx0M2qYOdiURYiSYsckmV6n0nWxx9NWVWKGo2kGhabhyBT+35KYiH/88FOsyT6nWQOQpJGCk6Fojsw4WKsEax26d0JovNxDWJUixNv0vEqOpt1g+y3GWSQnhvMHZJ6psaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPX8YLEq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPX8YLEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 720D21F000FF;
-	Fri, 18 Sep 2026 20:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789763363;
-	bh=0JsPjrcrxVszax6GzSwyEEMk274SAvTkKeqYWmVA7/8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=ZPX8YLEqSW7OEBK5foj4Z40rjGX4pZyBjaejyk2vJB9dXeIxQxrrmYHYBVZtnE6KR
-	 SR7LTNWIXgYEb4jEMSNX4QlFTbkEvqN89TN7DAz3kEOzIHYT70n2xhlYZbvW12kuky
-	 jpR1ZYVus2nSwT/Gr5G2OEWFDLD81yh8FVVGbxzZFEpQFfKponNDPUEchkc8XLKhQM
-	 vqS74uVApCxC5sYj8IzI6mcFuU1l3oTTT934CudENH5vXEga8LbrSKWr2rWuMHpj7l
-	 KTc43zBhbdE79buJqcDFA3qNPTO00WbuJKreSOFnu6FRYaYc4gLocjcwkuKCHCMyop
-	 yo1unuLtM5T5Q==
-Date: Fri, 18 Sep 2026 15:29:22 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org>
-Cc: bhelgaas@google.com, eduardo.habkost@lambdal.com,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bilbao@vt.edu
-Subject: Re: [PATCH] PCI/ASPM: Don't reconfigure ASPM entering low-power state
-Message-ID: <20260918202922.GA1192452@bhelgaas>
+	s=arc-20240116; t=1789763428; c=relaxed/simple;
+	bh=103chCZe28LS5oYjF0vKNpehsGRtul4k1ynFHTWB9bs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=lfaQxxUd/ZfdrrfRB95b54JbA+a2E9reUbqnlYk/qFtx6Sk03/rp9SkNjWjpk/vVgkJymgWFpAJcsFvB2ZAfVgpgxn8E87qdndE6RT4lKEemESROHCbxXA33b3ZabZWnGqEQ1jYHGeyzxJwGl9cOBKzj4kAIey+8wiPoyAeitLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 620EB92009C; Fri, 18 Sep 2026 22:30:23 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 5FF5792009B;
+	Fri, 18 Sep 2026 21:30:23 +0100 (BST)
+Date: Fri, 18 Sep 2026 21:30:23 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: WangYuli <wangyuli@uniontech.com>
+cc: guanwentao@uniontech.com, linux-kernel@vger.kernel.org, 
+    linux-mips@vger.kernel.org, niecheng1@uniontech.com, 
+    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, zhanjun@uniontech.com, 
+    Chen Linxuan <chenlinxuan@uniontech.com>
+Subject: Re: [PATCH v2 1/6] MIPS: dec: Only check -msym32 when need
+ compiler
+In-Reply-To: <C7DB555D3895DE54+20250422102253.137944-1-wangyuli@uniontech.com>
+Message-ID: <alpine.DEB.2.21.2609182059480.57799@angie.orcam.me.uk>
+References: <24EC7D2CA58B25F5+20250422101855.136675-1-wangyuli@uniontech.com> <C7DB555D3895DE54+20250422102253.137944-1-wangyuli@uniontech.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507214914.GA22065@bhelgaas>
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, May 07, 2026 at 04:49:14PM -0500, Bjorn Helgaas wrote:
-> On Mon, Apr 27, 2026 at 09:01:04PM -0700, Carlos Bilbao (Lambda) wrote:
-> > From: Carlos Bilbao <carlos.bilbao@kernel.org>
-> > 
-> > Reconfiguring ASPM when a device transitions to low-power state can enable
-> > L1.1/L1.2 substates on the PCIe link at a time when the device is sleeping
-> > and may be unable to exit them. ASPM should be reconfigured on D0 entry
-> > (resume), not on the way down.
-> > 
-> > pci_set_low_power_state() calls pcie_aspm_pm_state_change() after writing
-> > D3hot to PCI_PM_CTRL. pcie_aspm_pm_state_change() resets link->aspm_capable
-> > to link->aspm_support and then calls pcie_config_aspm_path(), which can
-> > enable ASPM L1.1/L1.2 substates on the PCIe link. If the device cannot
-> > recover the link from L1.2 while in D3hot, subsequent config space reads
-> > return 0xFFFF ("device inaccessible") and pci_power_up() fails with message
-> > "Unable to change power state from D3hot to D0, device inaccessible".
-> > 
-> > This was observed on NVIDIA H100 SXM5 GPUs bound to vfio-pci when Linux
-> > runtime PM suspends them to D3hot: the GPU becomes permanently inaccessible
-> > and disappears from the PCIe bus.
-> > 
-> > The call to pcie_aspm_pm_state_change() in pci_set_low_power_state() was
-> > restored by commit f93e71aea6c6 ("Revert "PCI/ASPM: Remove
-> > pcie_aspm_pm_state_change()""), which reverted
-> > commit 08d0cc5f3426 ("PCI/ASPM: Remove pcie_aspm_pm_state_change()").
-> > The revert was necessary because the
-> > removal broke suspend/resume on certain platforms that required ASPM to be
-> > reconfigured on D0 entry. However, the revert restored the call in both
-> > pci_set_full_power_state() (D0 entry) and pci_set_low_power_state()
-> > (low-power entry).
-> > 
-> > Only the D0-entry call is needed to fix the suspend/resume regression. The
-> > low-power-entry call is harmful: reconfiguring ASPM immediately after
-> > putting a device into D3hot can enable link substates that the device or
-> > platform cannot exit while the device is sleeping.
-> > 
-> > Remove the pcie_aspm_pm_state_change() call from pci_set_low_power_state().
-> > ASPM will still be reconfigured correctly when the device returns to D0 via
-> > pci_set_full_power_state().
-> > 
-> > Fixes: f93e71aea6c6 ("Revert "PCI/ASPM: Remove pcie_aspm_pm_state_change()"")
-> > Link: https://lore.kernel.org/r/20240102232550.1751655-1-helgaas@kernel.org
-> > Signed-off-by: Carlos Bilbao (Lambda) <carlos.bilbao@kernel.org>
-> 
-> Applied to pci/aspm for v7.2, thanks!
->
-> > ---
-> >  drivers/pci/pci.c | 3 ---
-> >  1 file changed, 3 deletions(-)
-> > 
-> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> > index b2ccb8e122f2..8b47887019f9 100644
-> > --- a/drivers/pci/pci.c
-> > +++ b/drivers/pci/pci.c
-> > @@ -1542,9 +1542,6 @@ static int pci_set_low_power_state(struct pci_dev *dev, pci_power_t state, bool
-> >  				     pci_power_name(dev->current_state),
-> >  				     pci_power_name(state));
-> >  
-> > -	if (dev->bus->self)
-> > -		pcie_aspm_pm_state_change(dev->bus->self, locked);
+On Tue, 22 Apr 2025, WangYuli wrote:
 
-While backporting this, Sashiko noticed that "locked" is no longer
-used and could possibly be removed from the set_low_power paths.  I
-guess ASPM needs "locked" because it holds pci_bus_sem while
-evaluating all the devices in the path to the device, but since we're
-not touching ASPM in the set_low_power path, we don't need that.
+> diff --git a/arch/mips/Makefile b/arch/mips/Makefile
+> index d9057e29bc62..1fffc6cf8b52 100644
+> --- a/arch/mips/Makefile
+> +++ b/arch/mips/Makefile
+> @@ -284,6 +284,7 @@ entry-y				= $(shell $(objtree)/arch/mips/tools/elf-entry vmlinux)
+>  cflags-y			+= -I$(srctree)/arch/mips/include/asm/mach-generic
+>  drivers-$(CONFIG_PCI)		+= arch/mips/pci/
+>  
+> +ifdef need-compiler
+>  #
+>  # Automatically detect the build format. By default we choose
+>  # the elf format according to the load address.
+> @@ -304,7 +305,8 @@ ifdef CONFIG_64BIT
+>        $(error CONFIG_CPU_DADDI_WORKAROUNDS unsupported without -msym32)
+>      endif
+>    endif
+> -endif
+> +endif # CONFIG_64BIT
+> +endif # need-compiler
 
-> >  	return 0;
-> >  }
-> >  
-> > -- 
-> > 2.50.1 (Apple Git-155)
-> > 
+ This does what is needed, however can you please follow our convention 
+here and use indentation nesting?  Please leave the comment outside (it 
+begs for a rewrite for clarity, but that's material for a separate fix).
+
+ So for now this is only:
+
+Tested-by: Maciej W. Rozycki <macro@orcam.me.uk>
+
+  Maciej
