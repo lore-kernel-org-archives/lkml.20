@@ -1,46 +1,74 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic303-21.consmr.mail.ir2.yahoo.com (sonic303-21.consmr.mail.ir2.yahoo.com [77.238.178.202])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A5F372673;
-	Fri, 18 Sep 2026 23:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD85939F162
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.238.178.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774066; cv=none; b=YKAvcpo6wMMN5994BsrPzAQp5ghtDa4CkDBi8u3pPXmMoovwsdoLlrY9Nt8qDjBCvS371cmUI7Fxt7Ucek3+RGMtgomav3UMY+bobqPhG+zz4zYKhj/b2EdWU9RVfahWZg7M6taztVFHqONFXR010VO+AEbepOccnJVrafD2ctQ=
+	t=1789774093; cv=none; b=DOA9yvjR8qO79SvKKze99+I90t8XF2H12+ZL57M0AERPjt3Vt/GOwwYtajl2kcJmUvWl4EkJ8oMVAul/RACfy+OVp2jnz/8F025rLIQkxn8EgUsrIuwODc41BvrjDTaBY/UyYVaY+6ss/oYf9UnKQbzAA8rARcXYpOXF7HxtLfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774066; c=relaxed/simple;
-	bh=nMR8tVXDHf2xR/FZgxrtztlcRHXvNk4iaGJSzaquUAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HSsCr17q/Z5z67kd0mMzX7zvBV510ea6RuF9of7Bubrm/W0EM6dm05bwoZTk2WqGTHTgOwAKWGqD7/OGKhdY/hiW7ec7NsWir4mGXghnYtCJKYrSXEWpX2reAjtxPq1zbYzRfHdoS1ryBhdmgDcbVZ8vvus/H4Ml/hK6Ec5irmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cDq7I4l0; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789774093; c=relaxed/simple;
+	bh=Dp8Ewp8lCEBTTJQoG3iqLcfTJ28wDYhXGatKITIATm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=lkJGvQ2v+OL4hk09gTbZCpPPwoREj+Y1M9FWbHWjKL5FGmY2jl5DsrO8VcapObuMnXMMUnXVS/louFYbmUvD5XoCeVVB2qlFU2S7kdvGLtxQClASQ/f2IdBB6allNwmR3bVDQ1J1NMExVuwxUAToH0H04dR2wQyimODaAN23mYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com; spf=pass smtp.mailfrom=aol.com; dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b=YiUy78Az; arc=none smtp.client-ip=77.238.178.202
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cDq7I4l0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=oXPS1HhvaytVgVbSDhC5/UFDpxPAgmRUlTySpL/plMA=; b=cDq7I4l0/0CJGQOFPzRgaDnU8+
-	07M/khQYRh1Gh3X3VpSkHOWQdkM1Sj8heSCMG5Z0PIhMqV+oFZVvJPxT4LoAx/NhU8Ys6CnxVxBaU
-	vH0cTY4V2Q18kAyRQ/dJuo2huAZlEW1Xndjlyk/xlu97TrEVXLdnI0rru71o1k/ztrKHPTkYrm5P4
-	BgwTdhHv1fweC07y+K4W56ThUqD/zPvnNOHxZKuAEo4gIfqfY5wr8lW6FYJouMh8rhDdUNtDOncON
-	nny2bdeb31CPqiyM3duld/mK6pTE/YoNkoxKNTzyiyichODy+CI9wp4dWOuoyq+u1S41hJbDDQJco
-	jalDkdiQ==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7hzW-0000000Fh98-2awY;
-	Fri, 18 Sep 2026 23:27:38 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	linux-crypto@vger.kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Subject: [PATCH v2] crypto: ccp: psp-sev.h: clean up kernel-doc warnings
-Date: Fri, 18 Sep 2026 16:27:36 -0700
-Message-ID: <20260918232736.3095763-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b="YiUy78Az"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1789774086; bh=TPphqip1H8Lk76C9dqxhUr8TuttIEGWw45CEwv5bwqQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=YiUy78AztX3hVifTGmrA+GQyfpW95ejpaXqpo41m2nXGnQYgyty/2OJ1d2FNEJf3jk5DJQnAbonIl8dBfvrhGetEt0QInNCy7htiKVpYYoM6vtIGFyFFjNXg4EvE383pbl0eWMfndgtw7Vv6HD272XKZ2Zsl9ROqths2ASlmJUCQLIxgiws9HosSM+jdvRfBowK/ZIYRjCHZci0ID1YKLEUK5p5G/LgEjQxLvx+RboYfevui6ZjAtfIv1yl5wRRrqbcFOotQhLa17o2canTdQ/+JOY+OqcCJ8XrhiNXY3XRxg+ylm9uPtpeg+qPq2WqTJ1g8RbuT3Rv/xvT34x1CCg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1789774086; bh=RBGZMtbfeVr++yp/mcPIsKWI3x6F5TTX56kPS9jo/nj=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=FWuhsV3oXGVNVfXWzTqZKtmUL3M5mRVhQ3N1Zfe+/MCsHChaTfU0zowQZeV3ZeTM6WsOOwpqHnuNPvFq4tz/K1Y3A6rqVHpyU37C31KjEeAOigG9G4iIIJYHCoE+Hof2GBNqrks/Z+JBgnJJD1/RMLxadyDTJRI5zGApHBRKFEq2ElNlM7cP49PRmAk6TKyTUHHTEbGDdVSRMHsM48/sANGOm5btnyhxf0TIM35P+jjiyOoAsFcVsrROuc0P/TZO5DkGWc3to5Qlh7RiSV2mc/4ShYRxZ4++M5B0F8SHZMhCiEv2wUBjSSJ6qAn109XN1vP4Ruaw1ue/8MFxu4Rt9w==
+X-YMail-OSG: U_8PCm0VM1lbksz5tiD7vbLGO7c6R78IRSqPvfqohCEkU4l2WBnp8AMdsAAZqjR
+ gzXhRjk7rm.5CpWS.XZUCYnjppEkOwuKiz81U_k7fNAtxHI2oY4Qry7vsnOKVwIMkwB8ytTejkIr
+ v52m49ZNfrCuhw8aaAvcXN0P5OtIAB8LYF_5ruupvp.NVvif88NHMZW7gZjq4kepDgZanfiugWmx
+ DZzu3GaM0xk.mSij0Te90cmk7lV.uFSH0YeIiFB0GtD6K86u61CcvIGg.ZMwbGQjzZ6TWXEGxztL
+ B_n9iqhJwZqVAFl9snoRYMwQwKNWBQvx55Wx2xjXlQ_cXUeIlfgo3IhHy78oCwVxp_m2vl0HNvJX
+ xmckYwI7fjtGT8L_mLMYtLZ4NdB.cXJ82jauf_kHl88VOz58LdvkHFygqvjDZLsehdKz6uVmvNfW
+ brvoiaAy1yiQd8bvV47nnfAOsP_vgXYOSj3aseuH2cNldw7XJbQROEr7BHI9r3ULclj25ZsMveZK
+ j96YHp0Y655y_gDFqmC_VuJX17CrCW8LLKzMYIvXqxVVvxrhyoeF1KYhHfatvAJd2HsGP85_ncxD
+ 9e.nEb_pSgEOIZvJO44agKc67ekgUfDBLb5UtfIBbA40pKAfHWDd4PcQhNBcFQGWKM4zBSe5XsXV
+ xk5Q4vIXzxNwfyXT6sC6kSS7GV_bWrtpW56nyq3bZhHzCcOp.0zGTcegqYyuIZsLf3BuM6IE7sdk
+ Md6Me5jakNP6qJSVhASTkj6jEw.v5RKuUGCX7zNz5UlkN82G36EQ2T30mKWNvE_Gptwc5xyRD1u0
+ 8YrfAn7TGBpByrP8wHU4aj.GtkaviyNlVE7weE0QzybKZvRyIU3fUZQ.660SkRnhaIykei3CnKNc
+ pZa5tEMvqnxHZDfFVuYx.dqHg49qha8cSyhNF27W.tunayQRE1eSDeioMd0vNWXpdPrHV.YoKAkx
+ 2hhoorCO1mICaUsYlINwAp2Qkx0IBoY8niTqQMsSHMb5yFAu_xJZPmGZEw_fHIPS9XsmGFN0GWKT
+ Tv_xACfTq34Odcnbhczn94BDp4lCAhnskTKK6zMz47V0PoGNyLtJeswQ8aNAVvHwRu9YpE9S9778
+ hPwsCSDAycT8_hdaR0OSgFLY1i1c7Q8.z3HlZye94MoUSfzKK0KA71YlgQDmzeTue5emUB5fQ7ke
+ cuUV3dG8hLchrcSFYRWut50KA6X5cafvomxevzoCHb.czf_t3PMPltQNnyzDpIspgkP8ZpN9e1jh
+ cwP.E0e5HG0StXMwG4cXorlXpf99p2Fh9ijT1qZVJ8Z1aBKSHkwPRxj8rybzGspXkcUPJe.wjrrl
+ 3EOrEM8WHTJoZkaknL7M_rEg_Df4Kv_YE_dqY_rsVXZp_zoQ..ixN_PofdH8DCotuOIv8wmVYtdN
+ QoU6uJupeGxsESJGM.CCa0puzOEdYB9qVqvEZUfQke0XJ2SbzOgGGrNKBwBotYywga5Ev1UjkKMZ
+ qMt4ex.I9t_chc_BNVBLGbSyAIRWuKLlNWcVHh9b4iLw5ha.RYRECH8Ln5U2HVtxu5m16LtsilP9
+ sxzFsZYX9bWAj4ukgacbS_X1h.DD8P.DMAg_9GwIi8OhtnyMTJGGI6jVBPRGn8sH_r3swrsKKty2
+ lD_EMRz_ujXwIaaFG_FZ.tU8SdKdVWoIQDOUpYBgn00YCbG..FyH52j_DyTLJBmgjkBETnkqnoZZ
+ M3AwK8m3f.i7BnBbbmU1ZTLMUZ63oLwGww3W.rnrak1wBfRpN_Ss.bmRei6m8KUw1NMOie7q5L7N
+ q._KWATtpo1BnUCJCI.JgZwvrzm48m.zjYSF.O6dizB3Jo.gIumu2yB4VurxjuiI6C.hanqBWtNJ
+ jW0lDnoH3LKvV6T1nwOCyjomsSbtQbf.uvlsaBJdh1uccjN8N9ecSywhR5L.n765pAqznSd1zK0S
+ hxUK71vif8hJ.fK9WpM4QOhuu16p6wPVGf7xxaPUq5gz5EY7kZb2Yk5jUK1cuyFc03q0yiKXG_kr
+ _XiLQFX__uLRBKET2kQUtc2T5g7Vi2d8afpFubJ30ndyhQfFI0lGLtgiYz9FMkBbwVx8H1RrftMn
+ 5P7EFv3z0jErEAFu4M3Hpn.W.PUtYR8bC8eOY_VkVLuf0C72i.cXoGAAkAWuIsdHOYU0bFEkL.66
+ mR6U6J.jexlpHNcqU.rGDYS7hgnP.5I6HyiAX1c4zDRBHOEnuQgJVvZStIRMySUFziTQkFyBXNXv
+ 7KIw-
+X-Sonic-MF: <eexto@aol.com>
+X-Sonic-ID: e93be70d-9399-4e16-b9a8-23a92581b73c
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic303.consmr.mail.ir2.yahoo.com with HTTP; Fri, 18 Sep 2026 23:28:06 +0000
+Received: by hermes--production-ir2-cddf86dcf-chq98 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID a80a42786880be7d5459129f48914e7e;
+          Fri, 18 Sep 2026 23:28:02 +0000 (UTC)
+From: Paolo Lazzaroni <eexto@aol.com>
+To: Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Oleksandr Havrylov <goainwo@gmail.com>,
+	Gabriel Maia <gabrielvinicius.damaia@gmail.com>,
+	Rahul Kumar Rai <learn.rahul.rai@gmail.com>,
+	Mihail Dimoski <mihaildimoski@gmail.com>,
+	=?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Paolo Lazzaroni <eexto@aol.com>
+Subject: [PATCH rtw-next] wifi: rtw88: 8821c: disable deep LPS on PCIe devices
+Date: Sat, 19 Sep 2026 01:28:01 +0200
+Message-ID: <20260918232801.119348-1-eexto@aol.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,480 +76,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+References: <20260918232801.119348-1-eexto.ref@aol.com>
 
-Clean up kernel-doc comments to prevent warnings in both
-<linux/psp-sev.h> and <uapi/linux/psp-sev.h>.
+On RTL8821CE PCIe adapters, entering 32kHz low-power clock deep sleep
+(LPS_DEEP_MODE_LCLK) causes recurrent PCIe completion timeouts,
+"firmware failed to leave lps state", "failed to send h2c command",
+and hard system freezes when transitioning out of low power states with
+PCIe ASPM enabled.
 
-include/linux/psp-sev.h: (62 lines; edited for brevity)
-Warning: include/linux/psp-sev.h:52 This comment starts with '/**', but isn't a kernel-doc comment.
- * SEV platform state
-Warning: include/linux/psp-sev.h:63 This comment starts with '/**', but isn't a kernel-doc comment.
- * SEV platform and guest management commands
-Warning: include/linux/psp-sev.h:167 struct member 'reserved' not described in 'sev_data_init'
-Warning: include/linux/psp-sev.h:187 struct member 'reserved' not described in 'sev_data_init_ex'
-Warning: include/linux/psp-sev.h:216 expecting prototype for struct sev_data_cert_import. Prototype was for struct sev_data_pek_cert_import instead
-Warning: include/linux/psp-sev.h:253 struct member 'pdh_cert_address' not described in 'sev_data_pdh_cert_export'
-Warning: include/linux/psp-sev.h:253 struct member 'pdh_cert_len' not described in 'sev_data_pdh_cert_export'
-Warning: include/linux/psp-sev.h:253 struct member 'reserved' not described in 'sev_data_pdh_cert_export'
-Warning: include/linux/psp-sev.h:253 Excess struct member 'pdh_address' description in 'sev_data_pdh_cert_export' (did you mean one of: 'pdh_cert_address', 'cert_chain_address')
-Warning: include/linux/psp-sev.h:253 Excess struct member 'pdh_len' description in 'sev_data_pdh_cert_export' (did you mean one of: 'pdh_cert_len')
-Warning: include/linux/psp-sev.h:446 expecting prototype for struct sev_data_send_update. Prototype was for struct sev_data_send_update_data instead
-Warning: include/linux/psp-sev.h:469 expecting prototype for struct sev_data_send_update. Prototype was for struct sev_data_send_update_vmsa instead
-Warning: include/linux/psp-sev.h:506 struct member 'policy' not described in 'sev_data_receive_start'
-Warning: include/linux/psp-sev.h:799 struct member 'rapl_dis' not described in 'sev_data_snp_init_ex'
-Warning: include/linux/psp-sev.h:799 struct member 'ciphertext_hiding_en' not described in 'sev_data_snp_init_ex'
-Warning: include/linux/psp-sev.h:799 struct member 'tio_en' not described in 'sev_data_snp_init_ex'
-Warning: include/linux/psp-sev.h:799 struct member 'max_snp_asid' not described in 'sev_data_snp_init_ex'
-Warning: include/linux/psp-sev.h:843 missing initial short description on line:
- * struct sev_platform_init_args
-Warning: include/linux/psp-sev.h:893 expecting prototype for struct feature_info. Prototype was for struct snp_feature_info instead
-Warning: include/linux/psp-sev.h:956 missing initial short description on line:
- * struct sev_snp_tcb_version_genoa_milan
-Warning: include/linux/psp-sev.h:973 missing initial short description on line:
- * struct sev_snp_tcb_version_turin
-Warning: include/linux/psp-sev.h:1053 function parameter 'filep' not described in 'sev_issue_cmd_external_user'
-Warning: include/linux/psp-sev.h:1053 function parameter 'id' not described in 'sev_issue_cmd_external_user'
-Warning: include/linux/psp-sev.h:1112 function parameter 'data' not described in 'sev_guest_decommission'
-Warning: include/linux/psp-sev.h:1112 function parameter 'error' not described in 'sev_guest_decommission'
-Warning: include/linux/psp-sev.h:1112 Excess function parameter 'decommission' description in 'sev_guest_decommission'
-Warning: include/linux/psp-sev.h:1112 Excess function parameter 'sev_ret' description in 'sev_guest_decommission'
+To work around this, a DMI quirk list (rtw_pci_quirks[]) was introduced
+and has grown across HP, ASUS, Dell, and Lenovo machines. However, DMI
+matching is unsustainable: minor sub-model variances (such as ASUS
+FA506II vs FA506IH) or unlisted models (such as ASUS VivoBook X515JA,
+Bmax Y14, or modern Alder Lake-N mini PCs) leave users experiencing bus
+lockups or firmware drops unless they manually turn off power saving via
+iw.
 
-include/uapi/linux/psp-sev.h:
-Warning: include/uapi/linux/psp-sev.h:18 This comment starts with '/**', but isn't a kernel-doc comment.
- * SEV platform commands
-Warning: include/uapi/linux/psp-sev.h:39 This comment starts with '/**', but isn't a kernel-doc comment.
- * SEV Firmware status code
-Warning: include/uapi/linux/psp-sev.h:125 struct member 'api_major' not described in 'sev_user_data_status'
-Warning: include/uapi/linux/psp-sev.h:125 struct member 'api_minor' not described in 'sev_user_data_status'
-Warning: include/uapi/linux/psp-sev.h:125 Excess struct member 'major' description in 'sev_user_data_status' (did you mean one of: 'api_major')
-Warning: include/uapi/linux/psp-sev.h:125 Excess struct member 'minor' description in 'sev_user_data_status' (did you mean one of: 'api_minor')
-Warning: include/uapi/linux/psp-sev.h:153 expecting prototype for struct sev_user_data_cert_import. Prototype was for struct sev_user_data_pek_cert_import instead
-Warning: include/uapi/linux/psp-sev.h:168 struct member 'pdh_cert_address' not described in 'sev_user_data_pdh_cert_export'
-Warning: include/uapi/linux/psp-sev.h:168 struct member 'pdh_cert_len' not described in 'sev_user_data_pdh_cert_export'
-Warning: include/uapi/linux/psp-sev.h:168 Excess struct member 'pdh_address' description in 'sev_user_data_pdh_cert_export' (did you mean one of: 'pdh_cert_address', 'cert_chain_address')
-Warning: include/uapi/linux/psp-sev.h:168 Excess struct member 'pdh_len' description in 'sev_user_data_pdh_cert_export' (did you mean one of: 'pdh_cert_len')
-Warning: include/uapi/linux/psp-sev.h:263 expecting prototype for struct sev_data_snp_vlek_load. Prototype was for struct sev_user_data_snp_vlek_load instead
-Warning: include/uapi/linux/psp-sev.h:273 expecting prototype for struct sev_user_data_snp_vlek_wrapped_vlek_hashstick. Prototype was for struct sev_user_data_snp_wrapped_vlek_hashstick instead
+Examination of official OEM Windows driver INF files for RTL8821CE
+(HP and ASUS netrtwlane.inf) reveals that vendor drivers explicitly
+disable deep power saving (WoWLANPSMode = 0, bLPS_PG_En = 0) and enable
+firmware PCIe recovery, while keeping standard PCIe ASPM enabled.
+Furthermore, other chips in rtw88 (RTL8723DE, RTL8812AE, RTL8821AE)
+already set lps_deep_mode_supported = 0 by default.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Conservatively disable LPS_DEEP_MODE_LCLK specifically for RTL8821C on
+PCIe interfaces in rtw_update_lps_deep_mode(). Standard 802.11 LPS
+power saving and PCIe ASPM remain functional, preventing system lockups
+and firmware failures without affecting SDIO or USB variants.
+
+Signed-off-by: Paolo Lazzaroni <eexto@aol.com>
 ---
-v2: don't use private: for reserved fields; just describe them in
-    kernel-doc (Tom)
+ drivers/net/wireless/realtek/rtw88/main.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Cc: Ashish Kalra <ashish.kalra@amd.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: linux-crypto@vger.kernel.org
-Cc: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: "David S. Miller" <davem@davemloft.net>
+diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+index 0f23498b5..5bd854223 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.c
++++ b/drivers/net/wireless/realtek/rtw88/main.c
+@@ -1360,6 +1360,14 @@ static enum rtw_lps_deep_mode rtw_update_lps_deep_mode(struct rtw_dev *rtwdev,
+ 	    !fw->feature)
+ 		return LPS_DEEP_MODE_NONE;
+ 
++	/* RTL8821CE PCIe devices fail to wake up from 32kHz LCLK deep sleep
++	 * in time for PCIe completion deadlines, leading to PCIe bus freeze
++	 * and communication timeouts.
++	 */
++	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE &&
++	    chip->id == RTW_CHIP_TYPE_8821C)
++		return LPS_DEEP_MODE_NONE;
++
+ 	if ((chip->lps_deep_mode_supported & BIT(LPS_DEEP_MODE_PG)) &&
+ 	    rtw_fw_feature_check(fw, FW_FEATURE_PG))
+ 		return LPS_DEEP_MODE_PG;
+-- 
+2.43.0
 
- include/linux/psp-sev.h      |   86 +++++++++++++++++++++++----------
- include/uapi/linux/psp-sev.h |   26 ++++-----
- 2 files changed, 73 insertions(+), 39 deletions(-)
-
---- linux-next-20260918.orig/include/linux/psp-sev.h
-+++ linux-next-20260918/include/linux/psp-sev.h
-@@ -49,7 +49,7 @@
- 
- #define SEV_FW_BLOB_MAX_SIZE	0x4000	/* 16KB */
- 
--/**
-+/*
-  * SEV platform state
-  */
- enum sev_state {
-@@ -60,7 +60,7 @@ enum sev_state {
- 	SEV_STATE_MAX
- };
- 
--/**
-+/*
-  * SEV platform and guest management commands
-  */
- enum sev_cmd {
-@@ -157,6 +157,7 @@ enum sev_cmd {
-  * struct sev_data_init - INIT command parameters
-  *
-  * @flags: processing flags
-+ * @reserved: reserved
-  * @tmr_address: system physical address used for SEV-ES
-  * @tmr_len: len of tmr_address
-  */
-@@ -174,6 +175,7 @@ struct sev_data_init {
-  * @flags: processing flags
-  * @tmr_address: system physical address used for SEV-ES
-  * @tmr_len: len of tmr_address
-+ * @reserved: reserved
-  * @nv_address: system physical address used for PSP NV storage
-  * @nv_len: len of nv_address
-  */
-@@ -201,12 +203,13 @@ struct sev_data_pek_csr {
- } __packed;
- 
- /**
-- * struct sev_data_cert_import - PEK_CERT_IMPORT command parameters
-+ * struct sev_data_pek_cert_import - PEK_CERT_IMPORT command parameters
-  *
-- * @pek_address: PEK certificate chain
-- * @pek_len: len of PEK certificate
-- * @oca_address: OCA certificate chain
-- * @oca_len: len of OCA certificate
-+ * @pek_cert_address: PEK certificate chain
-+ * @pek_cert_len: len of PEK certificate
-+ * @reserved: reserved
-+ * @oca_cert_address: OCA certificate chain
-+ * @oca_cert_len: len of OCA certificate
-  */
- struct sev_data_pek_cert_import {
- 	u64 pek_cert_address;			/* In */
-@@ -240,8 +243,9 @@ struct sev_data_get_id {
- /**
-  * struct sev_data_pdh_cert_export - PDH_CERT_EXPORT command parameters
-  *
-- * @pdh_address: PDH certificate address
-- * @pdh_len: len of PDH certificate
-+ * @pdh_cert_address: PDH certificate address
-+ * @pdh_cert_len: len of PDH certificate
-+ * @reserved: reserved
-  * @cert_chain_address: PDH certificate chain
-  * @cert_chain_len: len of PDH certificate chain
-  */
-@@ -304,6 +308,7 @@ struct sev_data_guest_status {
-  * @policy: guest launch policy
-  * @dh_cert_address: physical address of DH certificate blob
-  * @dh_cert_len: len of DH certificate blob
-+ * @reserved: reserved
-  * @session_address: physical address of session parameters
-  * @session_len: len of session parameters
-  */
-@@ -321,6 +326,7 @@ struct sev_data_launch_start {
-  * struct sev_data_launch_update_data - LAUNCH_UPDATE_DATA command parameter
-  *
-  * @handle: handle of the VM to update
-+ * @reserved: reserved
-  * @len: len of memory to be encrypted
-  * @address: physical address of memory region to encrypt
-  */
-@@ -335,6 +341,7 @@ struct sev_data_launch_update_data {
-  * struct sev_data_launch_update_vmsa - LAUNCH_UPDATE_VMSA command
-  *
-  * @handle: handle of the VM
-+ * @reserved: reserved
-  * @address: physical address of memory region to encrypt
-  * @len: len of memory region to encrypt
-  */
-@@ -349,6 +356,7 @@ struct sev_data_launch_update_vmsa {
-  * struct sev_data_launch_measure - LAUNCH_MEASURE command parameters
-  *
-  * @handle: handle of the VM to process
-+ * @reserved: reserved
-  * @address: physical address containing the measurement blob
-  * @len: len of measurement blob
-  */
-@@ -363,10 +371,13 @@ struct sev_data_launch_measure {
-  * struct sev_data_launch_secret - LAUNCH_SECRET command parameters
-  *
-  * @handle: handle of the VM to process
-+ * @reserved1: reserved
-  * @hdr_address: physical address containing the packet header
-  * @hdr_len: len of packet header
-+ * @reserved2: reserved
-  * @guest_address: system physical address of guest memory region
-  * @guest_len: len of guest_paddr
-+ * @reserved3: reserved
-  * @trans_address: physical address of transport memory buffer
-  * @trans_len: len of transport memory buffer
-  */
-@@ -399,10 +410,13 @@ struct sev_data_launch_finish {
-  * @policy: policy information for the VM
-  * @pdh_cert_address: physical address containing PDH certificate
-  * @pdh_cert_len: len of PDH certificate
-+ * @reserved1: reserved
-  * @plat_certs_address: physical address containing platform certificate
-  * @plat_certs_len: len of platform certificate
-+ * @reserved2: reserved
-  * @amd_certs_address: physical address containing AMD certificate
-  * @amd_certs_len: len of AMD certificate
-+ * @reserved3: reserved
-  * @session_address: physical address containing Session data
-  * @session_len: len of session data
-  */
-@@ -423,13 +437,16 @@ struct sev_data_send_start {
- } __packed;
- 
- /**
-- * struct sev_data_send_update - SEND_UPDATE_DATA command
-+ * struct sev_data_send_update_data - SEND_UPDATE_DATA command
-  *
-  * @handle: handle of the VM to process
-+ * @reserved1: reserved
-  * @hdr_address: physical address containing packet header
-  * @hdr_len: len of packet header
-+ * @reserved2: reserved
-  * @guest_address: physical address of guest memory region to send
-  * @guest_len: len of guest memory region to send
-+ * @reserved3: reserved
-  * @trans_address: physical address of host memory region
-  * @trans_len: len of host memory region
-  */
-@@ -447,13 +464,15 @@ struct sev_data_send_update_data {
- } __packed;
- 
- /**
-- * struct sev_data_send_update - SEND_UPDATE_VMSA command
-+ * struct sev_data_send_update_vmsa - SEND_UPDATE_VMSA command
-  *
-  * @handle: handle of the VM to process
-  * @hdr_address: physical address containing packet header
-  * @hdr_len: len of packet header
-+ * @reserved2: reserved
-  * @guest_address: physical address of guest memory region to send
-  * @guest_len: len of guest memory region to send
-+ * @reserved3: reserved
-  * @trans_address: physical address of host memory region
-  * @trans_len: len of host memory region
-  */
-@@ -491,8 +510,10 @@ struct sev_data_send_cancel {
-  * struct sev_data_receive_start - RECEIVE_START command parameters
-  *
-  * @handle: handle of the VM to perform receive operation
-+ * @policy: policy information for the VM
-  * @pdh_cert_address: system physical address containing PDH certificate blob
-  * @pdh_cert_len: len of PDH certificate blob
-+ * @reserved1: reserved
-  * @session_address: system physical address containing session blob
-  * @session_len: len of session blob
-  */
-@@ -510,10 +531,13 @@ struct sev_data_receive_start {
-  * struct sev_data_receive_update_data - RECEIVE_UPDATE_DATA command parameters
-  *
-  * @handle: handle of the VM to update
-+ * @reserved1: reserved
-  * @hdr_address: physical address containing packet header blob
-  * @hdr_len: len of packet header
-+ * @reserved2: reserved
-  * @guest_address: system physical address of guest memory region
-  * @guest_len: len of guest memory region
-+ * @reserved3: reserved
-  * @trans_address: system physical address of transport buffer
-  * @trans_len: len of transport buffer
-  */
-@@ -534,10 +558,13 @@ struct sev_data_receive_update_data {
-  * struct sev_data_receive_update_vmsa - RECEIVE_UPDATE_VMSA command parameters
-  *
-  * @handle: handle of the VM to update
-+ * @reserved1: reserved
-  * @hdr_address: physical address containing packet header blob
-  * @hdr_len: len of packet header
-+ * @reserved2: reserved
-  * @guest_address: system physical address of guest memory region
-  * @guest_len: len of guest memory region
-+ * @reserved3: reserved
-  * @trans_address: system physical address of transport buffer
-  * @trans_len: len of transport buffer
-  */
-@@ -567,6 +594,7 @@ struct sev_data_receive_finish {
-  * struct sev_data_dbg - DBG_ENCRYPT/DBG_DECRYPT command parameters
-  *
-  * @handle: handle of the VM to perform debug operation
-+ * @reserved: reserved
-  * @src_addr: source address of data to operate on
-  * @dst_addr: destination address of data to operate on
-  * @len: len of data to operate on
-@@ -583,6 +611,7 @@ struct sev_data_dbg {
-  * struct sev_data_attestation_report - SEV_ATTESTATION_REPORT command parameters
-  *
-  * @handle: handle of the VM
-+ * @reserved: reserved
-  * @mnonce: a random nonce that will be included in the report.
-  * @address: physical address where the report will be copied.
-  * @len: length of the physical buffer.
-@@ -781,9 +810,14 @@ struct sev_data_snp_guest_request {
-  *
-  * @init_rmp: indicate that the RMP should be initialized.
-  * @list_paddr_en: indicate that list_paddr is valid
-+ * @rapl_dis: whether RAPL is disabled
-+ * @ciphertext_hiding_en: whether ciphertext hiding is enabled
-+ * @tio_en: Indicates that SNP_INIT_EX initialized the RMP for SEV-TIO
-  * @rsvd: reserved
-  * @rsvd1: reserved
-  * @list_paddr: system physical address of range list
-+ * @max_snp_asid: When non-zero, enable ciphertext hiding and specify the
-+ *  maximum ASID that can be used for an SEV-SNP guest.
-  * @rsvd2: reserved
-  */
- struct sev_data_snp_init_ex {
-@@ -841,7 +875,7 @@ struct sev_data_snp_shutdown_ex {
- } __packed;
- 
- /**
-- * struct sev_platform_init_args
-+ * struct sev_platform_init_args - parameters for sev_platform_init()
-  *
-  * @error: SEV firmware error code
-  * @probe: True if this is being called as part of CCP module probe, which
-@@ -879,12 +913,12 @@ struct sev_data_snp_feature_info {
- } __packed;
- 
- /**
-- * struct feature_info - FEATURE_INFO structure
-+ * struct snp_feature_info - FEATURE_INFO structure
-  *
-  * @eax: output of SNP_FEATURE_INFO command
-  * @ebx: output of SNP_FEATURE_INFO command
-  * @ecx: output of SNP_FEATURE_INFO command
-- * #edx: output of SNP_FEATURE_INFO command
-+ * @edx: output of SNP_FEATURE_INFO command
-  */
- struct snp_feature_info {
- 	u32 eax;
-@@ -954,7 +988,7 @@ struct sev_data_snp_verify_mitigation_ds
- } __packed;
- 
- /**
-- * struct sev_snp_tcb_version_genoa_milan
-+ * struct sev_snp_tcb_version_genoa_milan - v1 SVN payload
-  *
-  * @boot_loader: SVN of PSP bootloader
-  * @tee: SVN of PSP operating system
-@@ -971,7 +1005,7 @@ struct sev_snp_tcb_version_genoa_milan {
- };
- 
- /**
-- * struct sev_snp_tcb_version_turin
-+ * struct sev_snp_tcb_version_turin - v2 SVN payload
-  *
-  * @fmc: SVN of FMC firmware
-  * @boot_loader: SVN of PSP bootloader
-@@ -1037,9 +1071,9 @@ int sev_platform_status(struct sev_user_
-  * behalf of userspace. The caller must pass a valid SEV file descriptor
-  * so that we know that it has access to SEV device.
-  *
-- * @filep - SEV device file pointer
-- * @cmd - command to issue
-- * @data - command buffer
-+ * @filep: SEV device file pointer
-+ * @id: command to issue
-+ * @data: command buffer
-  * @error: SEV command return code
-  *
-  * Returns:
-@@ -1056,8 +1090,8 @@ int sev_issue_cmd_external_user(struct f
- /**
-  * sev_guest_deactivate - perform SEV DEACTIVATE command
-  *
-- * @deactivate: sev_data_deactivate structure to be processed
-- * @sev_ret: sev command return code
-+ * @data: sev_data_deactivate structure to be processed
-+ * @error: sev command return code
-  *
-  * Returns:
-  * 0 if the sev successfully processed the command
-@@ -1071,8 +1105,8 @@ int sev_guest_deactivate(struct sev_data
- /**
-  * sev_guest_activate - perform SEV ACTIVATE command
-  *
-- * @activate: sev_data_activate structure to be processed
-- * @sev_ret: sev command return code
-+ * @data: sev_data_activate structure to be processed
-+ * @error: sev command return code
-  *
-  * Returns:
-  * 0 if the sev successfully processed the command
-@@ -1086,7 +1120,7 @@ int sev_guest_activate(struct sev_data_a
- /**
-  * sev_guest_df_flush - perform SEV DF_FLUSH command
-  *
-- * @sev_ret: sev command return code
-+ * @error: sev command return code
-  *
-  * Returns:
-  * 0 if the sev successfully processed the command
-@@ -1100,8 +1134,8 @@ int sev_guest_df_flush(int *error);
- /**
-  * sev_guest_decommission - perform SEV DECOMMISSION command
-  *
-- * @decommission: sev_data_decommission structure to be processed
-- * @sev_ret: sev command return code
-+ * @data: sev_data_decommission structure to be processed
-+ * @error: sev command return code
-  *
-  * Returns:
-  * 0 if the sev successfully processed the command
---- linux-next-20260918.orig/include/uapi/linux/psp-sev.h
-+++ linux-next-20260918/include/uapi/linux/psp-sev.h
-@@ -15,7 +15,7 @@
- 
- #include <linux/types.h>
- 
--/**
-+/*
-  * SEV platform commands
-  */
- enum {
-@@ -36,7 +36,7 @@ enum {
- 	SEV_MAX,
- };
- 
--/**
-+/*
-  * SEV Firmware status code
-  */
- typedef enum {
-@@ -109,8 +109,8 @@ typedef enum {
- /**
-  * struct sev_user_data_status - PLATFORM_STATUS command parameters
-  *
-- * @major: major API version
-- * @minor: minor API version
-+ * @api_major: major API version
-+ * @api_minor: minor API version
-  * @state: platform state
-  * @flags: platform config flags
-  * @build: firmware build id for API version
-@@ -139,12 +139,12 @@ struct sev_user_data_pek_csr {
- } __packed;
- 
- /**
-- * struct sev_user_data_cert_import - PEK_CERT_IMPORT command parameters
-+ * struct sev_user_data_pek_cert_import - PEK_CERT_IMPORT command parameters
-  *
-- * @pek_address: PEK certificate chain
-- * @pek_len: length of PEK certificate
-- * @oca_address: OCA certificate chain
-- * @oca_len: length of OCA certificate
-+ * @pek_cert_address: PEK certificate chain
-+ * @pek_cert_len: length of PEK certificate
-+ * @oca_cert_address: OCA certificate chain
-+ * @oca_cert_len: length of OCA certificate
-  */
- struct sev_user_data_pek_cert_import {
- 	__u64 pek_cert_address;			/* In */
-@@ -156,8 +156,8 @@ struct sev_user_data_pek_cert_import {
- /**
-  * struct sev_user_data_pdh_cert_export - PDH_CERT_EXPORT command parameters
-  *
-- * @pdh_address: PDH certificate address
-- * @pdh_len: length of PDH certificate
-+ * @pdh_cert_address: PDH certificate address
-+ * @pdh_cert_len: length of PDH certificate
-  * @cert_chain_address: PDH certificate chain
-  * @cert_chain_len: length of PDH certificate chain
-  */
-@@ -248,7 +248,7 @@ struct sev_user_data_snp_config {
- } __packed;
- 
- /**
-- * struct sev_data_snp_vlek_load - SNP_VLEK_LOAD structure
-+ * struct sev_user_data_snp_vlek_load - SNP_VLEK_LOAD structure
-  *
-  * @len: length of the command buffer read by the PSP
-  * @vlek_wrapped_version: version of wrapped VLEK hashstick (Must be 0h)
-@@ -264,7 +264,7 @@ struct sev_user_data_snp_vlek_load {
- } __packed;
- 
- /**
-- * struct sev_user_data_snp_vlek_wrapped_vlek_hashstick - Wrapped VLEK data
-+ * struct sev_user_data_snp_wrapped_vlek_hashstick - Wrapped VLEK data
-  *
-  * @data: Opaque data provided by AMD KDS (as described in SEV-SNP Firmware ABI
-  *        1.54, SNP_VLEK_LOAD)
