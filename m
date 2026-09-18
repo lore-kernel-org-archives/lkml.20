@@ -1,82 +1,85 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A583E365A14
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A253D332A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:13:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701221; cv=none; b=YL1ZY8zTxSFgIz/rKKLNxWeSGYJhzYWL3WBmnVq4h4EC+Zlnz+Wi6pNRWl4hlryjR6F1H/GGkXZ1x5BnMbA/LVrlgJwNv7qpeR2UusW5Wj8gAcCDjQFDTbQTa7KcL6++8fpEKbQGz3gGOM79AfNcd03qdytqN/zgXg7Plwy8cag=
+	t=1789701226; cv=none; b=LfacEobT8ko4Xe9E6E01q9d5/UJlNwBHDC8qYfDOhmO/EKR4iwaiJQGnswwtItaLOKZy4ULuLN5dygIs61gOdRSPJZH/PAr2z2xDJunG+6+Kyvv515JTcwSj2S1kaD5fhZSxJbA0J/IPxmrCfBCZ7TxHzdzPzjGZRu35d8+iD7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701221; c=relaxed/simple;
-	bh=fuiyPDZncbmrS+1tzoE+tYoQNhb9wDdhb+YHTNeEIbg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=W7iIXOCibvYvG6rCmOA1l489C8OQH5khz4mey4ukh779s+wLJpqKlEYpCM93O7hH2j5W8DuK28sGSCnCtxOtDIJ8E1k0os9FFp6rpTU2wVQ4rmTnNguJO3Dm5Ps25iQ89C7fx5sz7KcSnoVr0mkFWeOBav9Llagkr2QOsU6EDl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com; spf=pass smtp.mailfrom=asseily.com; dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b=bC2+hRuj; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
+	s=arc-20240116; t=1789701226; c=relaxed/simple;
+	bh=NjLc/8TORdZon0fRfkIxyX9z0eAz0zc3Bki0New4I28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uYoAzVA7wUNocyIjloAuouMn3oAxoBymYLU9ARR580JZ+YdDcJl/qKa/TvepabbWBk+Yr4LAukR865Vvs70T8Lmanfkgeh1LgQCwpyibOWo/EABjY9n1ouTIdVGp+IYU9CvHR6WY8oQfoaSOg5nNQ4qteujelwem3vpyK3qKIn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=heqx2FWO; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b="bC2+hRuj"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so1150505e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:13:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="heqx2FWO"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so220493a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:13:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asseily.com; s=google; t=1789701213; x=1790306013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ANatdXebkZ1BuiimhU4+FlWt1nvjUZ5NXOb6LB2ATX4=;
-        b=bC2+hRujem4bueLxqDnu1fTrJ9ggKzkCYYmibb7szaANrjpfotZ/BmCpt+mW11D3Ap
-         /QERKtD2YpHugSrBol2/DtfDlyTCK3f4BT8DcgfsCpC2nujzFRnjrCqdiB2ADcIK6jZY
-         4JPkoskg4+ZJJj+S+b5epuKuQ5V4asWkyx0/t75q0ZL7s8ce3pWiglfq9/k36ZTMhIg8
-         iLLyRYpTPfGh7eWy7/6jF15s0+mu5Zu8sb7ITTykKeRMeqPqBjImObZ/otZt2DAkr2GZ
-         UTyB5/gByAAxwQqdINMjeWIbuXjZWK6L8F9FmmuqXIgCXBq75kVaaaNSfx8ys5AXlFDc
-         9hCw==
+        d=gmail.com; s=20251104; t=1789701217; x=1790306017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CKFxldesfAj8FdEDKAwfFPd/txX/9A+5mA0y6fZJndM=;
+        b=heqx2FWOCghTSUMFUuasFLqTjgj0Sje9zetpQa8ncnWz6V2wvd65Rh7qgmgBGz1nWO
+         gUTZzX/gMOe0LGEXiwZhUTfvhxBIWaeReKmd7YPV6d8+/lH7HOmBhdUZ9txV9IF/zszv
+         JOchZmu/UKMP17vLBQ0ZtG3RUcTs6cmwCXPwA80/nVMefrkRGp+/wwthR7Zzxqkc81zN
+         DV1puxp+UAIRfvUn/jhMx1e4eVde7SQrLm2/nZqJ72nRdb7IY681wy4UK7UCNj9RzRm2
+         5YBXKKQCqjzH09ZAIRzE6o9GctHIxMYHhpMtSDqsj6fqIxMi5Fx4dd/1N2f2gyEBRZe0
+         mkvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789701213; x=1790306013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ANatdXebkZ1BuiimhU4+FlWt1nvjUZ5NXOb6LB2ATX4=;
-        b=BUw7KmNMCu0X5WU18q0gIXGd/H77JblRlIuzo4gbrBcGK05ZKIaYvnqjezqwlG9uH0
-         r90UIhdBrmqABORICJaXpn6D8j/6m2v1ygesgWW6zAEOkjPEllCKd3Pt5Pqd3cYRcp02
-         EnZOVb64J2t0lzku71FKLMXZrl7nwgzsqw3Ck2+NRQAQ7TSf/aZjeh4lR7HWufbJjdC+
-         raUMGaXl83wtrxatHLh1eYXnRDkRInSPmFU1lpFT7G0SCiHotR3UByDesM5ud1gYO5Gw
-         yIeJvLUV1l3CbBWkbo9cHBp4iEFlz3TMlXaQepHWIO1Zkoj2fatcOkNPYroihlKg3vHe
-         2ytg==
-X-Forwarded-Encrypted: i=1; AKwUvByCXcb+5KtneCX8cLemkKNyslTKPWc+c3is2yu2NgnUTgnLSCthD/CYBZntq6b0+OfwDr0nHfbVhcHRQmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLJJFvEmZsTBcuOBhStgu//+DjulkJdjbEHQNF/GxmmJWsJIu+
-	OETDrEcWng24LEXGg78YJ6MLnDFkMBKW+kn89TS9fFa40PAzqL7Fun9EfGUhZ0rDgNc=
-X-Gm-Gg: AYBFou0tDTxhhQr3+8HfwCY1ACEkL9K/jLWEf2CDQEJYfthiJSMcfR97NhkQRWCvqKD
-	k8kn2bcfP6mIFcc/tz2jMdUnX/Re9yqzq3S5eJHqKcCP0Ch6IEFDmchIn2ltcl5PQCU+s/Gfief
-	vwR6/QsjhgZSwfgLCz38aGevlQEluPeX+vC4In5Cm6F2qlj0IxUrq/+2J1bTvFxjYJ9JMPNFLS5
-	cWUz2Z4+aCTN9RIyYx8Pr17nHeMvNkZpwrPo/bwvZZPynpiaZSLlO36zZG9EvRziBaRN8Io8Rkk
-	zK8DIOPZcvWBNKCAtctpRA9g6twg+qFhH+rJ1XV89v/pf/FKCbEBU0q6Gq+rJkFjWghzMHw/Miy
-	TcVeMOSKAWvFzujeEfP1EmSx4p4VFztj0UvyJRxlYNldwTpPrlpOBkOJmp9N+XBBZY9M/XtvpTK
-	tlKuxQlwxUSDSDCWIZTXdlG9BuH463OBceMwn18r7wZetZIohLBhucCJn/21O7WfqT8KCtlhQF5
-	a/f8GnOym+Mpw==
-X-Received: by 2002:a05:600c:3f18:b0:49e:6c47:1433 with SMTP id 5b1f17b1804b1-49fc5868a9cmr9307825e9.33.1789701213006;
-        Thu, 17 Sep 2026 20:13:33 -0700 (PDT)
-Received: from Behemoth.triland.local ([178.135.16.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc79bdc35sm14533685e9.0.2026.09.17.20.13.31
+        d=1e100.net; s=20260707; t=1789701217; x=1790306017;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CKFxldesfAj8FdEDKAwfFPd/txX/9A+5mA0y6fZJndM=;
+        b=U61iROAGuZzVeKJ2oCB9qP1sYdyCtOPaDDvmNkfF7EFiFBERXvXv47C6DgAUoptarE
+         D/aJgZNfuacX0Z9s9qRsngTuW9zJcZgktvFMoiCuHSryMKLSKBO2+4ZpUfv/EwIPWfXp
+         yWn6Q+p+Hjrd7S7pNmtZH/CsX0L6dJPGXNQofNauitcnhOghGiZs1sJR6MY/gYJ7CUaa
+         3kyfgjg7HDYI011kYI1s8PI953L/tKXAxOYoO/zcEOqGelDZ9NpC07NKSJYKv6jizwQy
+         IIC/F00jw0MF/S9c5Z5flS9I/62w0Bt0aVEd2nOVeLsKiuz8hLQgLxDInfWw+Gn050PO
+         pBdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzUkY7Jo+xQXKupBhGlwY4GAZPkUlSdPzVr7v8PxurgwADTTAmvXf/DSgYdWknHDEENd3gt0RvDlgmhko=@vger.kernel.org
+X-Gm-Message-State: AFuF++lG032ZLWRfD6Y4tC8Mnox6aw3uWMZawaDGQsWs+h7F0fgH6ag8
+	8I9j1QQ/rQ2qrmkHG6w3lusoMDDIV/tiPN78mhI3Vw/3zjOP4lqlv6Ko
+X-Gm-Gg: AYBFou1CRXocO7h9MWf8GvgIyDXOJy1+5jUz6CF8Nb6fniM7TuMM7yOdAnvnB6qJGFw
+	IJqZXqgXRwqlmCS/2hiyMfUIvwdns5ztAcQco64NRJpa+cZz7UfaGyI5YONmK1k7LWbzTGCke5B
+	pWn0LGMlzqYBm4c17PW02HNNE8gWkHlm86w7mso2D8G5u5I51wRk/pFLPGo2AkXKk5MRQobcsvc
+	jTGhmMxFcIb3rUrrMlxelm2ynL3t9Xgu8nhGmCRKUeXF7M0jIDPBP4pRtNwKIJwR3kHMFhcw3PB
+	tpKQ0ieoKw6RuetpEn3jaHs5BbKRKrImkV96xphSf8blfWY7sWvoriq3lv8E57JxYdqGHfsQ8Wx
+	mS0nR2xVnWenCpmNbuQZnIQ0BX5hEb/NI38yAculu5pxHon+6WZktCxtNxUSAMVBB1wRJJzxa6e
+	H0I6rmKdn/IdIA86i2Um3BI6djJyz95wRznUUyoWxdiVXISh8KL36JEg==
+X-Received: by 2002:a17:90b:54c4:b0:39e:4c7f:7308 with SMTP id 98e67ed59e1d1-39e55071981mr2385940a91.31.1789701217262;
+        Thu, 17 Sep 2026 20:13:37 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a0e860asm827971a91.1.2026.09.17.20.13.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:13:32 -0700 (PDT)
-From: Karl Asseily <karl@asseily.com>
-To: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Asseily <karl@asseily.com>
-Subject: [PATCH v3 1/4] dt-bindings: vendor-prefixes: add ESS Technology
-Date: Fri, 18 Sep 2026 06:13:23 +0300
-Message-Id: <20260918031326.68542-2-karl@asseily.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918031326.68542-1-karl@asseily.com>
-References: <20260918031326.68542-1-karl@asseily.com>
+        Thu, 17 Sep 2026 20:13:36 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Miaoqian Lin <linmq006@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	linux-pm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
+Date: Fri, 18 Sep 2026 11:13:22 +0800
+Message-ID: <20260918031323.3376849-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,32 +88,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the vendor prefix for ESS Technology, Inc., maker of the SABRE family
-of audio DACs. The prefix follows the company's domain, esstech.com.
+imx_gpc_old_dt_init() initializes all power domains described by
+of_id_data->num_domains. Its probe failure path removes all of these
+domains, but imx_gpc_remove() only removes the PU and ARM domains.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Karl Asseily <karl@asseily.com>
+On SoCs with more than two domains, such as i.MX6SL and i.MX6SX, the
+additional DISPLAY and PCI generic power domains can remain registered
+after the GPC driver is removed.
+
+Remove all initialized power domains in reverse order. Keep releasing
+the PU clocks immediately after the PU domain has been successfully
+removed.
+
+This issue was found by manual code inspection.
+
+Fixes: 5a42d1198901 ("soc: imx: gpc: fix imx6sl gpc power domain regression")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
+ drivers/pmdomain/imx/gpc.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
-Notes:
-    v2: rename the vendor prefix to esstech, after the company domain
-
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba200296937..ff4a85f4cbd 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -559,6 +559,8 @@ patternProperties:
-     description: Seiko Epson Corp.
-   "^esp,.*":
-     description: Espressif Systems Co. Ltd.
-+  "^esstech,.*":
-+    description: ESS Technology, Inc.
-   "^est,.*":
-     description: ESTeem Wireless Modems
-   "^eswin,.*":
+diff --git a/drivers/pmdomain/imx/gpc.c b/drivers/pmdomain/imx/gpc.c
+index abca5f449a22..5766e3b40470 100644
+--- a/drivers/pmdomain/imx/gpc.c
++++ b/drivers/pmdomain/imx/gpc.c
+@@ -502,8 +502,10 @@ static int imx_gpc_probe(struct platform_device *pdev)
+ 
+ static void imx_gpc_remove(struct platform_device *pdev)
+ {
++	const struct imx_gpc_dt_data *of_id_data =
++		device_get_match_data(&pdev->dev);
+ 	struct device_node *pgc_node;
+-	int ret;
++	int i, ret;
+ 
+ 	pgc_node = of_get_child_by_name(pdev->dev.of_node, "pgc");
+ 
+@@ -519,19 +521,18 @@ static void imx_gpc_remove(struct platform_device *pdev)
+ 	if (!pgc_node) {
+ 		of_genpd_del_provider(pdev->dev.of_node);
+ 
+-		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_PU].base);
+-		if (ret) {
+-			dev_err(&pdev->dev, "Failed to remove PU power domain (%pe)\n",
+-				ERR_PTR(ret));
+-			return;
+-		}
+-		imx_pgc_put_clocks(&imx_gpc_domains[GPC_PGC_DOMAIN_PU]);
++		for (i = of_id_data->num_domains - 1; i >= 0; i--) {
++			ret = pm_genpd_remove(&imx_gpc_domains[i].base);
++			if (ret) {
++				dev_err(&pdev->dev,
++					"Failed to remove %s power domain (%pe)\n",
++					imx_gpc_domains[i].base.name,
++					ERR_PTR(ret));
++				return;
++			}
+ 
+-		ret = pm_genpd_remove(&imx_gpc_domains[GPC_PGC_DOMAIN_ARM].base);
+-		if (ret) {
+-			dev_err(&pdev->dev, "Failed to remove ARM power domain (%pe)\n",
+-				ERR_PTR(ret));
+-			return;
++			if (i == GPC_PGC_DOMAIN_PU)
++				imx_pgc_put_clocks(&imx_gpc_domains[i]);
+ 		}
+ 	}
+ 
 -- 
-2.34.1
+2.43.0
 
