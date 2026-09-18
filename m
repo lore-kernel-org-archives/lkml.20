@@ -1,56 +1,56 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FF94B488C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0774BC00B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719379; cv=none; b=Pj6BIzNcUMJJR10PXr7HQsNmCvsOasrN+TrvVATDV8oVEWOqG2RH40qamXO0kEYzN6siNNltepj59eZLqZEGyK5O0sFzs7P6mu+XYTP8KIspnF5zlN6w1cbc72A4xRhM0XDtCAVbKwAsakxm3OLNq9XN0OFaXo7katfbmsFLQts=
+	t=1789719385; cv=none; b=T2fflj2jGCsFBIx8xiKj4+fCjSI44nVw9asDOumJ+kActWOAWKd75kGaOr9CEZXGURW7zSvJoNZ3BdvguFvqXdHLQkexjiKBEJ5hYGPlhND8MDgUNbVT/5NpYQGeQjCDwSnTrE2ng71iBXlggolsCBH2Vr4ue9w72z+aUcDubX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719379; c=relaxed/simple;
-	bh=0/G/zhm/TYcWJVnrrz3Po70HAzX5NNAVsCqtzhX+LHg=;
+	s=arc-20240116; t=1789719385; c=relaxed/simple;
+	bh=zYdgoF19yrBAddmiz5U+pMMnjvnHH3FkMGSpyu7iIjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cXAmy94gldQSbTISCiYc0wrHXDDG/7gRugTSvHdH8b5k5ww+UOETcug5Ur8HVc9Yecg8KRFJjI+7aaY6t4d5CQchjzahQO1hJA3H+ox5ZhAdgTX12d/ru0AxD936etg7KYVjKwoIcdXp7BztJduCLpmqn/wc+XehozdmD++4imM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jB+CJO4G; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=sPYxo4wMFgpQAO+7SaBemJ2TK8oSLAgHSjjcAgQEM+gtIdrFAm5DMw14++famfzau9d3psrYPNaNZ5JZ+Tp6DoUevFwlDvSHiRcQZnAgA3O01yG/D7RVOvG2BGhQfPA5iH/BDcg7HBFIBobM9f3OApIGriLIm/6H+JERWCdnAaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ugl2aLdq; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jB+CJO4G"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ugl2aLdq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789719369;
+	s=mimecast20190719; t=1789719374;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GqXmK6gYxDQBh7MLxdL5kQ5+nKTLwxAUz7gyTtAit3A=;
-	b=jB+CJO4GFNFm4JJCmz4glCwWJlzBz4/5iCtCau1j/3PqCqFJNOpRUYTR4PTZdQGEU7qM6K
-	rCbwYU7gMC9MICJ3/oy+1iawmynVFTk7MXhuE2NwUNTy+y4c/dWUPCbkZ6te7uJ+2D60ov
-	d1nkcVOsXHGXX+VxqTLpIeyILrl8BcQ=
+	bh=c39yRW+h6dkqpPKLdQfPTPGhL/SUy3kZmIEvvwgjLgg=;
+	b=Ugl2aLdq97vK/8l1ipMts+HX2YGiqlnwGTzVItqmmZ0B6cls26RX/gHUZGK8CacFo2oj0H
+	L2VTPU+Uor0FtrwM4sFaQinTvNWGHHmnzaCqDyvp+aXK3B4AZ42+oseVsbo5Q5ZbrrDT7Y
+	vw5peO3x0gcbQlc49nWXgY+X7Pp3VGo=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-588-YDBJXWm-N_KlII8Unk4XLw-1; Fri,
- 18 Sep 2026 04:16:05 -0400
-X-MC-Unique: YDBJXWm-N_KlII8Unk4XLw-1
-X-Mimecast-MFC-AGG-ID: YDBJXWm-N_KlII8Unk4XLw_1789719364
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-392-0CefMwXNM0-QHQc_3Ag8KQ-1; Fri,
+ 18 Sep 2026 04:16:07 -0400
+X-MC-Unique: 0CefMwXNM0-QHQc_3Ag8KQ-1
+X-Mimecast-MFC-AGG-ID: 0CefMwXNM0-QHQc_3Ag8KQ_1789719366
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E2AEF1955D55;
-	Fri, 18 Sep 2026 08:16:03 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 66F02195398D;
+	Fri, 18 Sep 2026 08:16:06 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3A2AF300022B;
-	Fri, 18 Sep 2026 08:16:03 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BCFE030001A2;
+	Fri, 18 Sep 2026 08:16:05 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH v2 22/28] KVM: x86/mmu: Issue memory fault exit if walk failed due to memory attribute
-Date: Fri, 18 Sep 2026 04:15:37 -0400
-Message-ID: <20260918081543.139871-23-pbonzini@redhat.com>
+Subject: [PATCH v2 25/28] KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+Date: Fri, 18 Sep 2026 04:15:40 -0400
+Message-ID: <20260918081543.139871-26-pbonzini@redhat.com>
 In-Reply-To: <20260918081543.139871-1-pbonzini@redhat.com>
 References: <20260918081543.139871-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,65 +63,117 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Note that the zapping of obsolete roots needs to happen after
+mmu_lock is dropped, so introduce a separate kvm_arch callback.
+The two map neatly to the "front" and "back" halves of
+kvm_mmu_zap_all_fast().
 
-During execution, page table entries are subject to memory protection
-simply because their GPA is obtained with an EPT walk.  During emulation,
-the checks need to be done by hand and result in an -EFAULT userspace
-exit.
-
+Co-developed-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/paging_tmpl.h | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/x86/kvm/mmu/mmu.c   | 32 ++++++++++++++++++++++++++++++++
+ include/linux/kvm_host.h |  1 +
+ virt/kvm/kvm_main.c      |  7 +++++--
+ 3 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index b031123fcb36..d2836a327bc9 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -89,6 +89,7 @@ struct guest_walker {
- 	unsigned int pt_access[PT_MAX_FULL_LEVELS];
- 	unsigned int pte_access;
- 	gfn_t gfn;
-+	bool memory_attributes_fault;
- 	struct x86_exception fault;
- };
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 097095f71d60..d658cfe31cd9 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -8265,6 +8265,7 @@ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ {
+ 	unsigned long attrs = range->arg.attributes;
+ 	struct kvm_memory_slot *slot = range->slot;
++	struct kvm_mmu_page *sp;
+ 	int level;
  
-@@ -342,6 +343,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 
- 	trace_kvm_mmu_pagetable_walk(addr, access);
- retry_walk:
-+	walker->memory_attributes_fault = false;
- 	walker->level = w->cpu_role.base.level;
- 	pte           = kvm_mmu_get_guest_pgd(vcpu, w);
- 	have_ad       = PT_HAVE_ACCESSED_DIRTY(w);
-@@ -411,6 +413,12 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 		if (unlikely(kvm_is_error_hva(host_addr)))
- 			goto error;
- 
-+		if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gpa_to_gfn(real_gpa))) {
-+			walker->memory_attributes_fault = true;
-+			walker->gfn = gpa_to_gfn(real_gpa);
-+			goto error;
-+		}
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+@@ -8320,9 +8321,40 @@ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ 				hugepage_set_mixed(slot, gfn, level);
+ 		}
+ 	}
 +
- 		ptep_user = (pt_element_t __user *)((void *)host_addr + offset);
- 		if (unlikely(get_user(pte, ptep_user)))
- 			goto error;
-@@ -820,6 +828,12 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	 * The page is not mapped by the guest.  Let the guest handle it.
- 	 */
- 	if (!r) {
-+		if (walker.memory_attributes_fault) {
-+			fault->gfn = walker.gfn;
-+			kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
-+			return -EFAULT;
++	/*
++	 * There are special considerations when applying an memory protection
++	 * attibute against a GPTE page. If set read-only, access/dirty bits
++	 * within that page shouldn't be updated. If set non-accesible,
++	 * accessing a virtual address that requires traversing that GPTE page
++	 * should fault.
++	 *
++	 * On TDP enabled guests, the CPU faults on the GPTE address upon
++	 * detecting such a situation.
++	 *
++	 * On non-TDP, upon detecting this situation, and based on the fact it
++	 * should be a rare occasion, invalidate all the mmu roots.
++	 */
++	for (gfn_t gfn = range->start; gfn < range->end; gfn++) {
++		for_each_gfn_valid_sp_with_gptes(kvm, sp, gfn) {
++			__kvm_mmu_zap_all_fast_front_half(kvm);
++			return false;
 +		}
-+
- 		if (!fault->prefetch)
- 			__kvm_inject_emulated_page_fault(vcpu, &walker.fault, true);
++	}
+ 	return false;
+ }
  
++void kvm_arch_post_set_memory_attributes_unlocked(struct kvm *kvm)
++{
++	/*
++	 * This may also be called if no zap was done in
++	 * kvm_arch_post_set_memory_attributes().  It is not an issue because
++	 * __kvm_mmu_zap_all_fast_back_half() is cheap when it does not do
++	 * anything.
++	 */
++	 __kvm_mmu_zap_all_fast_back_half(kvm);
++}
++
+ void kvm_mmu_init_memslot_memory_attributes(struct kvm *kvm,
+ 					    struct kvm_memory_slot *slot)
+ {
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e9c0932f150e..33f3199a855f 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2624,6 +2624,7 @@ bool kvm_arch_pre_set_memory_attributes(struct kvm *kvm,
+ 					struct kvm_gfn_range *range);
+ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ 					 struct kvm_gfn_range *range);
++void kvm_arch_post_set_memory_attributes_unlocked(struct kvm *kvm);
+ bool kvm_mem_attributes_valid(struct kvm *kvm, unsigned long attrs);
+ u64 kvm_supported_mem_attributes(struct kvm *kvm);
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 24f46dce192e..ccbec4796e4b 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2516,7 +2516,7 @@ static bool kvm_range_memory_attributes_need_sync(struct kvm *kvm,
+ 	return kvm_range_has_any_memory_attributes(kvm, start, end, mask);
+ }
+ 
+-static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
++static __always_inline bool kvm_handle_gfn_range(struct kvm *kvm,
+ 						 struct kvm_mmu_notifier_range *range)
+ {
+ 	struct kvm_gfn_range gfn_range;
+@@ -2566,6 +2566,8 @@ static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
+ 
+ 	if (found_memslot)
+ 		KVM_MMU_UNLOCK(kvm);
++
++	return found_memslot;
+ }
+ 
+ static bool kvm_pre_set_memory_attributes(struct kvm *kvm,
+@@ -2652,7 +2654,8 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 	smp_store_release(&kvm->mem_attrs.generation,
+ 			  kvm->mem_attrs.generation + 1);
+ 
+-	kvm_handle_gfn_range(kvm, &post_set_range);
++	if (kvm_handle_gfn_range(kvm, &post_set_range))
++		kvm_arch_post_set_memory_attributes_unlocked(kvm);
+ 
+ out_unlock:
+ 	mutex_unlock(&kvm->slots_lock);
 -- 
 2.52.0
 
