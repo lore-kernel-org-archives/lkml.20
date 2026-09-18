@@ -1,637 +1,148 @@
-Received: from ironport.ite.com.tw (unknown [210.202.87.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE8C48BD3B;
-	Fri, 18 Sep 2026 10:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580D0483BF8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725808; cv=none; b=lCAYOWMllEEtGa60MiY5OrPPdW4kWeyduWE89OAlKbJHiOE1C01zbT+zmPkM13f9NTzaVLYvvGZtIo37Qmpj8h4p5tzps33/lbZJx+jt1GFqrsRGn/SWf7KlUeyRqoe2FMXAA0bJBh3SBvNNDhs45RVPL35Rb13vOTDlLr2aTJY=
+	t=1789725824; cv=none; b=UqWOzkIBDalm/x4yqxknbj+n0qtAiM1vBRmefHh0DqXKC2UEbYS9LxviqerPbE/LhLHDNhHU6hqa4F0MLZsyxMNGj6/y4Wi/X0Gfw4IgkZ2dagTyokTFKHnSCZ/n/q97EyC8bh5rx6XgqAYm8bbI2hFJb8oGN8l47cZU9cJJjm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725808; c=relaxed/simple;
-	bh=KayxDk1rLUzn8bPvpQvgGAeprp9HIdnaCKlDuxByzOc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o+HqQFUwCye54bPueLKt4inj0MDeenjc9h1idYayfyDW0Ok80/Jfi0B0g1E4hcCGsuxWLCX5bZOaQ81uCUEs7WmJCqiuUUV6nOPuJmaAjacX/sjodxfkUcUSk4HSj1uS2SwJN6tQa9GJF5lnB1xXi6i859l7kYf/ut4MO/Z5H7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=gxLSF1GO; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789725824; c=relaxed/simple;
+	bh=3p5vN/K+tl5KFJkSkDuOeo+dPwt4fh+z5N6WbPTJuNI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bmUVD9l2GyLcxkPkw0pWApFMEvggJ0Qfc5PSZYXLc9StI0tzNdeCmMMIDc2W+siuU5gygcUhHlOIhI36Ym6D6WnIKhI6Qqb5/r9xjzFIUYm6og1xXc6glpuRcw+EMNt1GI2C9OgzYlf5u+b318Y+qpjKEzWj7Z86XGs0oqcCDtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jx94ZNl6; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="gxLSF1GO"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jx94ZNl6"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so66085266b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=vMgkdt23waDtvLXExFz+I4luTtzvHc3cvsarrIUcku8=;
-  b=gxLSF1GOLn8dTvi9+8mY8mUhzPpgf5yzOp7gJkdAWmv+u04fEBGK/dWw
-   J4sVS+rPGaLc57lJ5l4Ogfys8q1xmZAPfreXfWADPx7XeMdeZQxTXGDw6
-   WG/bpaOq9MTBrahW06OQxT0xb7ZFQcSnDGNhk57j79qgsKg0GaORbCS1j
-   YUFRR24WUvMunbAVdkd4kAJ554gGJ6Re7pbYqqyGjs65DGv3Jv1Kk/SLe
-   016wnmMiunC67Zz0nNiUwgjz3DRIw2NNxz2TALqMxYwnV6n3HfR0xEVHU
-   cC+5OxhNHzhIxPbZenCkwx19dHevBLSqF3+x4+zt5cr342U/VHpDA4AlP
-   Q==;
-X-CSE-ConnectionGUID: cpaYtMyqRUyWCi5hFWRjwA==
-X-CSE-MsgGUID: Fr6Akn3+QRODci8KjIgYOg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 18:03:09 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 68IA33DD091798;
-	Fri, 18 Sep 2026 18:03:03 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 447912F07;
-	Fri, 18 Sep 2026 18:03:03 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Date: Fri, 18 Sep 2026 18:03:44 +0800
-Subject: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort alternate
- mode support
+        d=gmail.com; s=20251104; t=1789725819; x=1790330619; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:sender:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6sbMQAPQsa1PhAllTJIu6Zis/bac54ZxZcTnXaIMCgo=;
+        b=jx94ZNl6CB/Q4S2uJ60LYvw/3K3HBfGkdAC6mno8Ygg8NV7bDdEBJjL8dtWRvzpLWe
+         F6Ib6JBjVZJpkL/1C9q8aRMzXe74UQc3SZhYYfGJ63d3wxhsaAHPNsrrDLK0OE0gOwfe
+         LLSXKdzAGbEpufccQBSgXCKQGt22kbpgn1sKKdzWbmZF8ZpNK+T8YBPJA8frOAP+U5j+
+         jdLNh5ZEDOUXtpKY4N2CIqnGhtFAq+T8Utwqw9rRW0tU41/U1HBJq2Mf/HFzGKhG4BdT
+         O3wJoqnZXSGX+7wnUlYX9PiHAE9MhlhKkvxnuFnwTTN3euVxRSsGLmVXQVT8J0nWEUq/
+         kU0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789725819; x=1790330619;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6sbMQAPQsa1PhAllTJIu6Zis/bac54ZxZcTnXaIMCgo=;
+        b=d25T+GBW6X0wuQ3p7lzHBB5hN/JnTwUPOO19N6qwVEnqDasX6AEtCDqJfUY0jxxVir
+         TSFL20Bho5Q+ebaxwOK6Wr1708yizkX8vj1X/ZQddXqMpgKaV4AUo1uGwDt+ijrWkOMv
+         Lh31apinJsfE2Kiwn+hf9sOb9xWtiSS1uI4OnsbPIlpcBMsSUfKNnOIy0TqnuqVp4i1Z
+         LzgRgfZCBRl7PDxp5KZmSUCWyBmriko/WnfeTP/ptDXomcv6Bm0S4syxPzSz9YlRycsb
+         i3sZsIUir/bME05mmMZVFFsORfZgd10N7hdkR9SUzhBSxJFmAMX1L2231y7h3oOGq/38
+         6FFg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9tka6p1pmmtvi+8iUau6sL+/xz3UMkCFkBI1Niexv4W/rVHyoNk4Nlk9W9iggSi649sVhG7CzZOG0u+U=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+yEZ0r8QyoXB8joXu2TARO9a74iwuNMOeXNWu6vuppIL81rtg
+	LimJNZQtPxirQCUe+8DvyQm4lHenA3SEkE2N+t1+EMYXELdV8C/ROptB
+X-Gm-Gg: AYBFou2asUMZolh4sGjDr3/hpyKWCz0Et94lMPEz9oeE0U258QH8VNwFGL1Cs4qyGoB
+	hwR1ZzuN6UYEcxJIrJHkGY/49UDLQpXkhfnJDM9X0/Wn4HNZPLkkC2WvAwwnQVwIsf9s1cUR/wu
+	7JDkxDnh7zvfIhD8A3V7OWQDzwOJM2dsFPEWpP9no7g5HWSEk2H/VPDAjrUVFk8ok+e/O6EXXfc
+	1B3yVvfqwxU1F50krU6qmiFiQx/JwCzc2tCPS0zvkFImv7q/Ki4IsWEZcVy6TVAis2tPPmoNkDZ
+	FpBfUeRNoRZIHqHkk7Ma1vi2JtxuOKcredZlcgI9lP9xuK3JdyE/nzCp9p+23//1Y8L+80d57df
+	uv5X0eTKvCCFQthxQqjbz/JKLkPnZZFSVWthgYmihGSbwxVcDSbZoTxKATuJMDOexW6s5HtWPwj
+	kc/SgNLw+CNt2aDrGW/yWGBdFD5rhDE9XX3QaILvRw6IBasPn9bsPTcggxrOjFDDLka8JP0toJq
+	9sgtFGla57kBIyn/uDkqJxT
+X-Received: by 2002:a17:907:7b9f:b0:c29:4cb4:8582 with SMTP id a640c23a62f3a-c2a1582a81emr214270166b.47.1789725819049;
+        Fri, 18 Sep 2026 03:03:39 -0700 (PDT)
+Received: from erwin (109241130011.warszawa.vectranet.pl. [109.241.130.11])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bbc6830sm39654466b.52.2026.09.18.03.03.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 03:03:38 -0700 (PDT)
+Sender: =?UTF-8?Q?Micha=C5=82_Nazarewicz?= <mnazarewicz@gmail.com>
+From: =?utf-8?Q?Micha=C5=82?= Nazarewicz <mina86@mina86.com>
+To: zjamg <ndaugoing@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Cc: Robert Baldyga <r.baldyga@samsung.com>, Felipe Balbi <balbi@ti.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Yuchao Zhang
+ <ndaugoing@gmail.com>, stable@vger.kernel.org
+Subject: Re: [RESEND PATCH 1/1] usb: gadget: f_fs: Fix NULL pointer
+ dereference in FUNCTIONFS_ENDPOINT_DESC
+In-Reply-To: <20260918005438.81263-2-ndaugoing@gmail.com>
+References: <20260918005438.81263-1-ndaugoing@gmail.com>
+ <20260918005438.81263-2-ndaugoing@gmail.com>
+Date: Fri, 18 Sep 2026 12:03:37 +0200
+Message-ID: <ag6hspo092vj0q0uehcbkf4f@mina86.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
-References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
-In-Reply-To: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 68IA33DD091798
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add support for DisplayPort alternate mode. The driver retrieves
-the current alternate mode from the PPM, configures the Type-C mux
-and retimer accordingly, and reports HPD state and HPD IRQ events
-through the DRM auxiliary HPD bridge.
+On Fri, Sep 18 2026, zjamg wrote:
+> From: Yuchao Zhang <ndaugoing@gmail.com>
+>
+> Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descripto=
+r")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
 
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
----
- drivers/usb/typec/ucsi/Kconfig      |   8 +-
- drivers/usb/typec/ucsi/ucsi_itepd.c | 404 +++++++++++++++++++++++++++++++++++-
- 2 files changed, 400 insertions(+), 12 deletions(-)
+Acked-by: Micha=C5=82 Nazarewicz <mina86@mina86.com>
 
-diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
-index 0f10dac9b34b..c5eaf4967e4e 100644
---- a/drivers/usb/typec/ucsi/Kconfig
-+++ b/drivers/usb/typec/ucsi/Kconfig
-@@ -105,11 +105,15 @@ config UCSI_HUAWEI_GAOKUN
- 	  called ucsi_huawei_gaokun.
- 
- config UCSI_ITEPD
--	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-+	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
- 	depends on I2C
-+	depends on DRM || !DRM
-+	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
- 	help
- 	  This driver enables UCSI support on platforms that expose an
--	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
-+	  ITE IT885x or IT527x series Type-C Power Delivery controller
-+	  over an I2C interface. It also supports DisplayPort alternate
-+	  mode, including HPD notification through the DRM bridge.
- 
- 	  To compile the driver as a module, choose M here: the module
- 	  will be called ucsi_itepd.
-diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/ucsi_itepd.c
-index 50a9eae656ab..8c4e9c1bd06f 100644
---- a/drivers/usb/typec/ucsi/ucsi_itepd.c
-+++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-@@ -3,14 +3,24 @@
-  * Copyright (C) 2025-2026, ITE. All Rights Reserved
-  *
-  */
-+#include <linux/auxiliary_bus.h>
-+#include <linux/bitmap.h>
- #include <linux/bits.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
-+#include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/unaligned.h>
-+#include <linux/usb/typec_dp.h>
-+#include <linux/usb/typec_mux.h>
-+#include <linux/usb/typec_retimer.h>
-+
-+#include <drm/bridge/aux-bridge.h>
- 
- #include "ucsi.h"
- 
-@@ -29,6 +39,35 @@
- #define ITEPD_EVENT_NONE	0
- #define ITEPD_EVENT_UCSI	1
- #define ITEPD_EVENT_VDM		2
-+#define ITEPD_EVENT_OTHER	3
-+
-+#define ITEPD_CONSTAT_ORIENTATION_OFFSET	86
-+
-+#define ITEPD_CAM_CS_INDEX(_i_)			((u64)(_i_) << 24)
-+#define ITEPD_CAM_CS_LEN			10
-+#define ITEPD_CAM_CS_STATUS_OFFSET		1
-+#define ITEPD_CAM_CS_CONF_OFFSET		6
-+
-+#define ITEPD_CAM_NONE				0xff
-+
-+#define ITEPD_ATTENTION_VDO_LEN			11
-+#define ITEPD_ATTENTION_NUM_VDOS_OFFSET		2
-+#define ITEPD_ATTENTION_NUM_VDOS_MASK		GENMASK(2, 0)
-+#define ITEPD_ATTENTION_VDO_OFFSET		7
-+
-+struct itepd;
-+
-+struct itepd_port {
-+	struct itepd *itepd;
-+	unsigned int index;
-+	struct typec_mux *typec_mux;
-+	struct typec_retimer *typec_retimer;
-+	struct auxiliary_device *bridge;
-+	struct typec_mux_state state;
-+	struct typec_altmode dp_alt;
-+	unsigned long mode;
-+	bool hpd_state;
-+};
- 
- struct itepd {
- 	struct i2c_client *client;
-@@ -38,6 +77,9 @@ struct itepd {
- 	struct mutex received_lock;	/* Protects cci and msg_in */
- 	u8 msg_in[ITEPD_MSG_IN_MAX_LEN];
- 	u32 cci;
-+
-+	struct itepd_port *ports;
-+	unsigned int num_ports;
- };
- 
- static u8 ucsi_itepd_get_len(u32 cci)
-@@ -115,25 +157,26 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- {
- 	u8 msg_in[ITEPD_MSG_IN_MAX_LEN] = {};
- 	__le32 le_cci;
--	u8 event, ack;
-+	u8 raw, event, ack;
- 	u8 len = 0;
- 	int err = 0;
- 	int ret;
- 
- 	guard(mutex)(&itepd->event_lock);
- 
--	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &event, sizeof(event));
-+	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &raw, sizeof(raw));
- 	if (ret)
- 		return ret;
- 
--	event &= ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT;
--	if (!event) {
-+	if (!raw) {
- 		mutex_lock(&itepd->received_lock);
- 		*cci = itepd->cci;
- 		mutex_unlock(&itepd->received_lock);
- 		return ITEPD_EVENT_NONE;
- 	}
- 
-+	event = raw & (ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT);
-+
- 	if (event & ITEPD_ALERT_UCSI_EVENT) {
- 		err = itepd_read_reg(itepd, ITEPD_UCSI_CCI_REG, &le_cci,
- 				     sizeof(le_cci));
-@@ -148,7 +191,7 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- 		}
- 	}
- 
--	ack = event;
-+	ack = raw;
- 	ret = itepd_write_reg(itepd, ITEPD_VENDOR_WC_INT, &ack, sizeof(ack));
- 	if (ret)
- 		return ret;
-@@ -169,7 +212,8 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- 	*cci = itepd->cci;
- 	mutex_unlock(&itepd->received_lock);
- 
--	return ITEPD_EVENT_VDM;
-+	return event & ITEPD_ALERT_VDM_EVENT ? ITEPD_EVENT_VDM :
-+					       ITEPD_EVENT_OTHER;
- }
- 
- static int ucsi_itepd_read_version(struct ucsi *ucsi, u16 *version)
-@@ -220,18 +264,233 @@ static int ucsi_itepd_read_message_in(struct ucsi *ucsi, void *val, size_t val_l
- static int ucsi_itepd_async_control(struct ucsi *ucsi, u64 command)
- {
- 	struct itepd *itepd = ucsi_get_drvdata(ucsi);
--	__le64 le_cmd = cpu_to_le64(command);
-+	__le64 le_cmd;
- 
--	if (UCSI_COMMAND(command) == UCSI_PPM_RESET) {
-+	switch (UCSI_COMMAND(command)) {
-+	case UCSI_PPM_RESET:
- 		mutex_lock(&itepd->received_lock);
- 		itepd->cci = 0;
- 		mutex_unlock(&itepd->received_lock);
-+		break;
-+	case UCSI_SET_NOTIFICATION_ENABLE:
-+		command |= UCSI_ENABLE_NTFY_ATTENTION;
-+		break;
-+	default:
-+		break;
- 	}
- 
-+	le_cmd = cpu_to_le64(command);
-+
- 	return itepd_write_reg(itepd, ITEPD_UCSI_CONTROL_REG, &le_cmd,
- 			       sizeof(le_cmd));
- }
- 
-+static void itepd_port_set_state(struct itepd_port *port, unsigned long mode,
-+				 struct typec_displayport_data *dp_data)
-+{
-+	struct device *dev = &port->itepd->client->dev;
-+	struct typec_retimer_state retimer_state = {};
-+	int ret;
-+
-+	if (!dp_data && mode == port->mode)
-+		return;
-+
-+	port->dp_alt.active = !!dp_data;
-+
-+	port->state.alt = dp_data ? &port->dp_alt : NULL;
-+	port->state.mode = mode;
-+	port->state.data = dp_data;
-+
-+	retimer_state.alt = port->state.alt;
-+	retimer_state.mode = mode;
-+	retimer_state.data = dp_data;
-+
-+	ret = typec_retimer_set(port->typec_retimer, &retimer_state);
-+	if (ret)
-+		dev_err(dev, "port%u: failed to set retimer to mode %lu: %d\n",
-+			port->index, mode, ret);
-+
-+	ret = typec_mux_set(port->typec_mux, &port->state);
-+	if (ret)
-+		dev_err(dev, "port%u: failed to set mux to mode %lu: %d\n",
-+			port->index, mode, ret);
-+
-+	port->mode = mode;
-+
-+	port->state.data = NULL;
-+}
-+
-+static void itepd_port_notify_hpd(struct itepd_port *port, bool hpd_state,
-+				  bool hpd_irq)
-+{
-+	if (!port->bridge)
-+		return;
-+
-+	if (hpd_state == port->hpd_state && !hpd_irq)
-+		return;
-+
-+	port->hpd_state = hpd_state;
-+
-+	drm_aux_hpd_bridge_notify(&port->bridge->dev,
-+				  hpd_state ? connector_status_connected :
-+					      connector_status_disconnected);
-+}
-+
-+static void itepd_set_orientation(struct ucsi_connector *con)
-+{
-+	if (con->ucsi->version >= UCSI_VERSION_2_0)
-+		return;
-+
-+	if (!UCSI_CONSTAT(con, CONNECTED)) {
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_NONE);
-+		return;
-+	}
-+
-+	if (bitmap_read(con->status, ITEPD_CONSTAT_ORIENTATION_OFFSET, 1) ==
-+	    UCSI_CONSTAT_ORIENTATION_REVERSE)
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_REVERSE);
-+	else
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_NORMAL);
-+}
-+
-+static int itepd_get_dp_cam(struct itepd *itepd, struct ucsi_connector *con)
-+{
-+	struct ucsi_altmode alt[2] = {};
-+	u64 cmd;
-+	u8 cam;
-+	int ret;
-+
-+	cmd = UCSI_GET_CURRENT_CAM | UCSI_CONNECTOR_NUMBER(con->num);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, &cam, sizeof(cam));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (cam == ITEPD_CAM_NONE)
-+		return -ENODEV;
-+
-+	cmd = UCSI_GET_ALTERNATE_MODES;
-+	cmd |= UCSI_GET_ALTMODE_RECIPIENT(UCSI_RECIPIENT_CON);
-+	cmd |= UCSI_GET_ALTMODE_CONNECTOR_NUMBER(con->num);
-+	cmd |= UCSI_GET_ALTMODE_OFFSET(cam);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, alt, sizeof(alt));
-+	if (ret < 0) {
-+		dev_dbg(&itepd->client->dev, "con%d: cannot verify CAM %u: %d\n",
-+			con->num, cam, ret);
-+		return cam;
-+	}
-+
-+	if (alt[0].svid != USB_TYPEC_DP_SID)
-+		return -ENODEV;
-+
-+	return cam;
-+}
-+
-+static int itepd_get_attention_status(struct itepd *itepd,
-+				      struct ucsi_connector *con, u32 *status)
-+{
-+	u8 data[ITEPD_ATTENTION_VDO_LEN] = {};
-+	u64 cmd;
-+	int ret;
-+
-+	cmd = UCSI_GET_ATTENTION_VDO | UCSI_CONNECTOR_NUMBER(con->num);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!(data[ITEPD_ATTENTION_NUM_VDOS_OFFSET] &
-+	      ITEPD_ATTENTION_NUM_VDOS_MASK))
-+		return -ENODATA;
-+
-+	*status = get_unaligned_le32(data + ITEPD_ATTENTION_VDO_OFFSET);
-+
-+	return 0;
-+}
-+
-+static void itepd_handle_dp_altmode(struct itepd *itepd,
-+				    struct itepd_port *port,
-+				    struct ucsi_connector *con)
-+{
-+	struct typec_displayport_data dp_data = {};
-+	u8 data[ITEPD_CAM_CS_LEN] = {};
-+	unsigned long mode;
-+	u32 status;
-+	u8 pin_assign;
-+	u64 cmd;
-+	int cam;
-+	int ret;
-+
-+	cam = itepd_get_dp_cam(itepd, con);
-+	if (cam < 0) {
-+		/* Partner is in some other alternate mode, keep USB alive */
-+		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	cmd = UCSI_GET_CAM_CS | UCSI_CONNECTOR_NUMBER(con->num) |
-+	      ITEPD_CAM_CS_INDEX(cam);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-+	if (ret < 0) {
-+		dev_err(&itepd->client->dev, "con%d: GET_CAM_CS failed: %d\n",
-+			con->num, ret);
-+		return;
-+	}
-+
-+	dp_data.status = get_unaligned_le32(data + ITEPD_CAM_CS_STATUS_OFFSET);
-+	dp_data.conf = get_unaligned_le32(data + ITEPD_CAM_CS_CONF_OFFSET);
-+
-+	pin_assign = DP_CONF_GET_PIN_ASSIGN(dp_data.conf);
-+	if (pin_assign)
-+		mode = TYPEC_MODAL_STATE(get_count_order(pin_assign));
-+	else
-+		mode = TYPEC_STATE_SAFE;
-+
-+	itepd_port_set_state(port, mode, &dp_data);
-+
-+	if (!itepd_get_attention_status(itepd, con, &status))
-+		dp_data.status = status;
-+
-+	itepd_port_notify_hpd(port, !!(dp_data.status & DP_STATUS_HPD_STATE),
-+			      !!(dp_data.status & DP_STATUS_IRQ_HPD));
-+}
-+
-+static void ucsi_itepd_update_connector(struct ucsi_connector *con)
-+{
-+	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-+
-+	if (con->num < 1 || con->num > itepd->num_ports)
-+		return;
-+
-+	con->typec_cap.orientation_aware = true;
-+}
-+
-+static void ucsi_itepd_connector_status(struct ucsi_connector *con)
-+{
-+	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-+	struct itepd_port *port;
-+
-+	if (con->num < 1 || con->num > itepd->num_ports)
-+		return;
-+
-+	port = &itepd->ports[con->num - 1];
-+
-+	itepd_set_orientation(con);
-+
-+	if (!UCSI_CONSTAT(con, CONNECTED)) {
-+		itepd_port_set_state(port, TYPEC_STATE_SAFE, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	if (!UCSI_CONSTAT(con, PARTNER_FLAG_ALT_MODE)) {
-+		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	itepd_handle_dp_altmode(itepd, port, con);
-+}
-+
- static const struct ucsi_operations ucsi_itepd_ops = {
- 	.read_version		= ucsi_itepd_read_version,
- 	.read_cci		= ucsi_itepd_read_cci,
-@@ -239,6 +498,8 @@ static const struct ucsi_operations ucsi_itepd_ops = {
- 	.read_message_in	= ucsi_itepd_read_message_in,
- 	.sync_control		= ucsi_sync_control_common,
- 	.async_control		= ucsi_itepd_async_control,
-+	.update_connector	= ucsi_itepd_update_connector,
-+	.connector_status	= ucsi_itepd_connector_status,
- };
- 
- static irqreturn_t itepd_irq_process(struct itepd *itepd)
-@@ -256,6 +517,9 @@ static irqreturn_t itepd_irq_process(struct itepd *itepd)
- 	if (ret == ITEPD_EVENT_UCSI)
- 		ucsi_notify_common(itepd->ucsi, cci);
- 
-+	if (ret == ITEPD_EVENT_VDM)
-+		dev_dbg(&itepd->client->dev, "VDM event\n");
-+
- 	return IRQ_HANDLED;
- }
- 
-@@ -266,6 +530,117 @@ static irqreturn_t itepd_irq_thread_fn(int irq, void *data)
- 	return itepd_irq_process(itepd);
- }
- 
-+static void itepd_put_mux(void *data)
-+{
-+	typec_mux_put(data);
-+}
-+
-+static void itepd_put_retimer(void *data)
-+{
-+	typec_retimer_put(data);
-+}
-+
-+static int itepd_ports_init(struct itepd *itepd)
-+{
-+	struct device *dev = &itepd->client->dev;
-+	struct itepd_port *port;
-+	unsigned int count, idx = 0;
-+	u32 reg;
-+	int ret;
-+
-+	count = device_get_child_node_count(dev);
-+	if (!count)
-+		return 0;
-+
-+	itepd->ports = devm_kcalloc(dev, count, sizeof(*itepd->ports),
-+				    GFP_KERNEL);
-+	if (!itepd->ports)
-+		return -ENOMEM;
-+
-+	device_for_each_child_node_scoped(dev, fwnode) {
-+		ret = fwnode_property_read_u32(fwnode, "reg", &reg);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "%pfwP: missing reg property\n",
-+					     fwnode);
-+
-+		if (reg != idx)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "%pfwP: reg is %u, expected %u\n",
-+					     fwnode, reg, idx);
-+
-+		port = &itepd->ports[idx];
-+		port->itepd = itepd;
-+		port->index = idx;
-+		port->mode = TYPEC_STATE_SAFE;
-+		port->state.mode = TYPEC_STATE_SAFE;
-+		port->dp_alt.svid = USB_TYPEC_DP_SID;
-+		port->dp_alt.mode = USB_TYPEC_DP_MODE;
-+
-+		port->typec_mux = fwnode_typec_mux_get(fwnode);
-+		if (IS_ERR(port->typec_mux))
-+			return dev_err_probe(dev, PTR_ERR(port->typec_mux),
-+					     "port%u: failed to get mode-switch\n",
-+					     idx);
-+
-+		if (port->typec_mux) {
-+			ret = devm_add_action_or_reset(dev, itepd_put_mux,
-+						       port->typec_mux);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		port->typec_retimer = fwnode_typec_retimer_get(fwnode);
-+		if (IS_ERR(port->typec_retimer))
-+			return dev_err_probe(dev, PTR_ERR(port->typec_retimer),
-+					     "port%u: failed to get retimer-switch\n",
-+					     idx);
-+
-+		if (port->typec_retimer) {
-+			ret = devm_add_action_or_reset(dev, itepd_put_retimer,
-+						       port->typec_retimer);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		if (is_of_node(fwnode)) {
-+			struct device_node *np = to_of_node(fwnode);
-+
-+			port->bridge = devm_drm_dp_hpd_bridge_alloc(dev, np);
-+			if (IS_ERR(port->bridge))
-+				return dev_err_probe(dev, PTR_ERR(port->bridge),
-+						     "port%u: failed to allocate HPD bridge\n",
-+						     idx);
-+		}
-+
-+		idx++;
-+	}
-+
-+	itepd->num_ports = idx;
-+
-+	return 0;
-+}
-+
-+static int itepd_bridges_add(struct itepd *itepd)
-+{
-+	struct device *dev = &itepd->client->dev;
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < itepd->num_ports; i++) {
-+		if (!itepd->ports[i].bridge)
-+			continue;
-+
-+		ret = devm_drm_dp_hpd_bridge_add(dev, itepd->ports[i].bridge);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "port%u: failed to add HPD bridge\n",
-+					     i);
-+	}
-+
-+	return 0;
-+}
-+
- static int itepd_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -286,6 +661,10 @@ static int itepd_probe(struct i2c_client *client)
- 	mutex_init(&itepd->received_lock);
- 	i2c_set_clientdata(client, itepd);
- 
-+	ret = itepd_ports_init(itepd);
-+	if (ret)
-+		return ret;
-+
- 	itepd->ucsi = ucsi_create(dev, &ucsi_itepd_ops);
- 	if (IS_ERR(itepd->ucsi))
- 		return dev_err_probe(dev, PTR_ERR(itepd->ucsi),
-@@ -310,8 +689,14 @@ static int itepd_probe(struct i2c_client *client)
- 		goto out_free_irq;
- 	}
- 
-+	ret = itepd_bridges_add(itepd);
-+	if (ret)
-+		goto out_ucsi_unregister;
-+
- 	return 0;
- 
-+out_ucsi_unregister:
-+	ucsi_unregister(itepd->ucsi);
- out_free_irq:
- 	free_irq(client->irq, itepd);
- out_ucsi_destroy:
-@@ -352,6 +737,5 @@ static struct i2c_driver itepd_driver = {
- module_i2c_driver(itepd_driver);
- 
- MODULE_AUTHOR("Jeson Yang <jeson.yang@ite.com.tw>");
--MODULE_AUTHOR("Amber Kao <amber.kao@ite.com.tw>");
--MODULE_DESCRIPTION("UCSI driver for ITE IT8851 and IT8853 Type-C PD controllers");
-+MODULE_DESCRIPTION("UCSI driver for ITE IT885x/IT527x Type-C PD controllers");
- MODULE_LICENSE("GPL");
+> ---
+>  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/func=
+tion/f_fs.c
+> index 43962e05eacf..c64a268e98a4 100644
+> --- a/drivers/usb/gadget/function/f_fs.c
+> +++ b/drivers/usb/gadget/function/f_fs.c
+> @@ -1877,8 +1877,9 @@ static long ffs_epfile_ioctl(struct file *file, uns=
+igned code,
+>  		break;
+>  	case FUNCTIONFS_ENDPOINT_DESC:
+>  	{
+> +		const struct usb_endpoint_descriptor *desc;
+> +		struct usb_endpoint_descriptor desc1;
+>  		int desc_idx;
+> -		struct usb_endpoint_descriptor desc1, *desc;
+>=20=20
+>  		switch (epfile->ffs->gadget->speed) {
+>  		case USB_SPEED_SUPER:
+> @@ -1892,7 +1893,17 @@ static long ffs_epfile_ioctl(struct file *file, un=
+signed code,
+>  			desc_idx =3D 0;
+>  		}
+>=20=20
+> -		desc =3D epfile->ep->descs[desc_idx];
+> +		do {
+> +			desc =3D epfile->ep->descs[desc_idx];
+> +		} while (!desc && --desc_idx >=3D 0);
+> +
+> +		if (!desc)
+> +			desc =3D epfile->ep->ep->desc;
 
--- 
-2.53.0
+IIUC, this will never be non-NULL if all the descriptors are NULL.  Then
+again, it probably won=E2=80=99t hurt, so dosen=E2=80=99t matter one way or=
+ another.
 
+> +		if (!desc) {
+> +			ret =3D -EINVAL;
+> +			break;
+> +		}
+> +
+>  		memcpy(&desc1, desc, desc->bLength);
+>=20=20
+>  		spin_unlock_irq(&epfile->ffs->eps_lock);
+
+--=20
+Best regards
+=E3=83=9F=E3=83=8F=E3=82=A6 =E2=80=9C=F0=9D=93=B6=F0=9D=93=B2=F0=9D=93=B7=
+=F0=9D=93=AA86=E2=80=9D =E3=83=8A=E3=82=B6=E3=83=AC=E3=83=B4=E3=82=A3=E3=83=
+=84
+=C2=ABIf at first you don=E2=80=99t succeed, give up skydiving=C2=BB
