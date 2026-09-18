@@ -1,156 +1,106 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD98519E19
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8127751AFEA;
+	Fri, 18 Sep 2026 17:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752290; cv=none; b=fRoV24Yib5H3+IJPQB4NVYLGaP8J/p8Pg60zVZumEa/Vij+HcT5ky2JsWdTzcv2HFrNI2tV/KOp9hcTMX0fCqe0hfmz2hEBGTa568P/F8RLl+iDPgv4NtL+U9W7HKVQF8buxHRchniDYGmlKxRPsZReS13n75gdh7d9UeHwen78=
+	t=1789752297; cv=none; b=rWomO53zBghXHCXgm8KbTHiwlQU8RijDGP7tY17H3FgAxs64ZgwnksCPIfPROS3w6ljtTKyPWdGh5jEpaO0UB4cQOw1KpxIKO2WXlhsxEG1kzXYeJIOJ860Dg7+9b6e0igTW2wf6xzzhwJO3vMqY9cUFjqaNgpNRgidI6KkSZQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752290; c=relaxed/simple;
-	bh=e3U2RUqrflZnwIr3xZJrdz3cRiaSIqCPPArSVUFsnT0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=o2K07bF45FZLJNtvQXORkqfFKZRI/x4MGSBLBvQYivxTCTclKYuoriRX9z0BncqowypYJ5TtZ9ePI8hxoDyy/V9DqLuAAMglmFbD1c5HWjKv3ubm1mKedRJnr/sBMbg+BxEHz9eGBRTgnrxlL9DEfwV5sewyq27WLtpy8LVIva4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MEYebcBQ; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1789752297; c=relaxed/simple;
+	bh=ewm89oLwdgqoff9BKgJbHCnB264ne4OCj7LKEJTGXow=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QN5KtRSOF77AnHpEyTKh16jIpK3Bgt4F2hrrvFVWSEXLgI44oiHHtpLQUx06e/L2BVrQKqLJOul/8kIcjI/Fi7fpoGZiDTPdmjvGoj63iVS4cHSPJRrenlBsqSvbsTriF1e4E3XAOMaeQZs+YLc7xLZoCFlCDySn63pUQuvqwDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WFbIdxwr; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MEYebcBQ"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so799157a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789752289; x=1790357089; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MK8SQon571KaD8P7buh1T6LtzzA2FoPJEodcHPYT2dM=;
-        b=MEYebcBQogWSAUhKH8Ntvwvd0S84euubUfyzmNXfuOWojVcLdw8olgm3WCpLAHahLC
-         iyyAYRd/W2UlDpzoHZWJiJO9sIVkcmaVj73GkHujAMBIgF9NXIMZmvtEVjhrpfkCBUjj
-         Im0HBiWoXKVeQFu6QGRDlGTpnYGyi3NCAfc2M/vXDQtRxgKJmg/mRF1MvQZ5UwumpCiP
-         K1aGQBpZkVkSlI9g4RL5pTs657WK2z7NzaTr1Ewt4QM9N7FDBOTRWX+or+umy/4hXLuf
-         pvpUTjB3ZP24Q5wO1bbJC5EPBCtc3DIVaDJN2nF8Auoj31KVj0lubFpiop2+0x0H5HLx
-         Ydkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752289; x=1790357089;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MK8SQon571KaD8P7buh1T6LtzzA2FoPJEodcHPYT2dM=;
-        b=gTZeE7otbahVVVwKEojzxEeFblTBDiMK/ancSMjve6Ca9ik6H3QSVwUSxLbYKCAOrK
-         zeJ4U2TRPxtyVGkg1S9vE2t9Do/3odSgum7Ymf/Z7ShmVcDg3f63v98BqndxIP7IiP96
-         UsqmYNbtlQFu4XSkb7tSTDnkrcQpH/KrOA3/o5r77gGZ73YyYe3ehrUnWQ9cVgZhulFI
-         G+cv6eDAM91E6Fi4SiaP7T2KouU9o8RclzMQlDHS2HiBS+RMpcHIY+g7LFW6Dn6mD99z
-         F/8JooBvbpJowlz2//nXi9i6zq45PdtxP7twsEoHb02IFK4P3u3hRjn+iAeB+df8FEgK
-         X/vg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9ppoiiEi9HsVlAvLjovxp6G2cVIINqP6W+JJKNuEKJbvTR7Q55LWILFpNxZu/sfnDFajQxseclRwx3Kc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mb08ja4hVjx5XdXqbPca100I6wmG0eQLtv78UnqNxfjb+ioyZz
-	l85/GkumDHi5JG4/jvoOCDGv3/Ll8VERrXJ45kNdWsSK7kVwS8k30zgewbW5P2LbhPQmikKIDGm
-	T43+Ha1ABzhAubg6MafrrpX+DTenmq76HKw==
-X-Received: from pjbct5.prod.google.com ([2002:a17:90a:f585:b0:39e:574c:5672])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:384d:b0:39e:6c6a:4b67 with SMTP id 98e67ed59e1d1-39e6c6a5448mr417570a91.49.1789752288464;
- Fri, 18 Sep 2026 10:24:48 -0700 (PDT)
-Date: Fri, 18 Sep 2026 17:24:48 +0000
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WFbIdxwr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=go
+	hjN9hBMAGWK5ad3+hPjR3cuLDekbzWSmw+EIY8kR4=; b=WFbIdxwrxyV2kcECj4
+	npgwskZP4bq38X9XGixzHCBELIC2SV/bstQ47LSIR5MW3MRxzf1TErFmXAbevkEr
+	LkBnU8rle4ExctUSL9DE3mrTQQZAtEJlsCmPUW4irZb9snI9Ds8itYlOhj3quRru
+	QjIVxKVX+dF3Yw/TCQ3g7Vy4E=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3P5e3c61qq5pkBg--.59142S2;
+	Sat, 19 Sep 2026 01:24:08 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: bpf@vger.kernel.org,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Yonghong Song <yonghong.song@linux.dev>,
+	Quentin Monnet <qmo@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH bpf 0/3] bpf: expose cgroup preorder attachment state to userspace
+Date: Sat, 19 Sep 2026 02:24:04 +0900
+Message-ID: <20260918172407.3459188-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAN9zrWoC/4WNQQ6CMBBFr0Jm7Zi2kEpceQ/DotJpmYiUtEgwp
- He3cgGX7//893dIFJkSXKsdIq2cOEwF1KmCfjCTJ2RbGJRQWrS1QMcbGooYyfXhPS04knmiri+
- taxur1cNA2c6l5u3w3rvCA6clxM9xs8pf+s+4SpSoG5JC1sZaqW4+BD/SuQ8v6HLOXxh77/q7A AAA
-X-Change-Id: 20260830-fix-aer-refcount-leak-6378f84d62ba
-X-Mailer: b4 0.14.3
-Message-ID: <20260918-fix-aer-refcount-leak-v2-1-bdd1ff1c35a9@google.com>
-Subject: [PATCH v2] PCI/AER: Fix struct pci_dev reference leak in aer_process_err_devices()
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>, 
-	Stefan Roese <stefan.roese@mailbox.org>
-Cc: Keith Busch <kbusch@kernel.org>, Sinan Kaya <okaya@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Priyank Rathod <rathodpriyank@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P5e3c61qq5pkBg--.59142S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tr17AFyDJFy5Aw48tr17GFg_yoW8Cry3pF
+	Z5uFs8Wa4fG343A3say3y0qFWSkFs3Xr4UCF1rtry8Cr4Iqry8trWIkF1rZr1aqFZxtry2
+	vwsavr93Gw1jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hkRcGqtc7md1wAA3V
 
-When an AER error occurs, candidate error-source devices are added to
-e_info->dev[] by add_error_device(), which takes a reference with
-pci_dev_get().
+Commit 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
+introduced BPF_F_PREORDER to request pre-order execution across the
+cgroup hierarchy. While the kernel records BPF_F_PREORDER in pl->flags,
+__cgroup_bpf_query() currently fails to report it to user space in
+prog_attach_flags[] during direct cgroup program queries.
 
-A device can be recorded without any error status being present: the
-Requester ID fast path in is_error_source(),
+This series fixes the kernel query path, extends BPF selftests to
+verify the fix, and updates bpftool to recognize and format the
+BPF_F_PREORDER flag.
 
-	if (e_info->id == pci_dev_id(dev))
-		return true;
+Patch 1 fixes __cgroup_bpf_query() to merge (pl->flags & BPF_F_PREORDER)
+with cgroup flags when copying per-program attach flags to user space.
 
-matches purely on the ID reported by the Root Port and returns true
-without reading the device's AER status registers.
+Patch 2 extends selftests/bpf (cgroup_mprog_opts) to verify that direct
+and link queries report BPF_F_PREORDER (0x42), matching programs by
+prog_id with guarded failure paths.
 
-In aer_process_err_devices(), handle_error_source() is called only if
-aer_get_device_error_info() returns non-zero, i.e. only if an unmasked
-error status bit is actually set. It returns 0 if the device has become
-inaccessible (status and mask both read as all ones, so
-status & ~mask == 0) or if no unmasked status bit is set.
+Patch 3 adds bpftool support: a bitmask flags formatter for cgroup show,
+support for "preorder" in cgroup attach, documentation updates, and bash
+completion.
 
-Because handle_error_source() was responsible for calling pci_dev_put(),
-skipping it permanently leaks the reference taken in add_error_device().
+Testing:
+- Verified on unpatched kernel: selftest reproduces failure
+  (actual 2 != expected 66).
+- Verified on patched kernel (bpf/master): both cgroup_mprog_opts and
+  cgroup_preorder pass 100% in QEMU guest environment.
+- Verified bpftool build, format unit tests, and checkpatch
+  (0 errors, 0 warnings).
 
-Decouple reference lifetime from error handling by moving pci_dev_put()
-out of handle_error_source() and into the aer_process_err_devices() loop,
-so every recorded device is put exactly once.
+Hui Su (3):
+  bpf: Report BPF_F_PREORDER in cgroup program queries
+  selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
+  bpftool: Add support for BPF_F_PREORDER cgroup attach flag
 
-handle_error_source() is static and aer_process_err_devices() is its only
-caller, so no other path is affected.
+ kernel/bpf/cgroup.c                           | 16 ++--
+ .../bpftool/Documentation/bpftool-cgroup.rst  |  9 +-
+ tools/bpf/bpftool/bash-completion/bpftool     |  2 +-
+ tools/bpf/bpftool/cgroup.c                    | 55 +++++++----
+ .../bpf/prog_tests/cgroup_mprog_opts.c        | 94 ++++++++++++++++++-
+ 5 files changed, 144 insertions(+), 32 deletions(-)
 
-Fixes: 60271ab044a5 ("PCI/AER: Take reference on error devices")
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
----
-Changes in v2:
-- Corrected Fixes tag from 1ab4a3c80508 to 60271ab044a5 ("PCI/AER: Take
-  reference on error devices"), which added both the pci_dev_get() in
-  add_error_device() and the conditionally-reached pci_dev_put() in
-  handle_error_source(). Thanks to Lukas Wunner for catching this.
-- Removed the speculative topology list from the commit message. As Lukas
-  pointed out, error reporting is not enabled on devices without an AER
-  capability (pcie_aer_is_native() bails on !dev->aer_cap), so the
-  dev->aer_cap == 0 reasoning was wrong and is gone.
-- Explained instead why a device with no error status can be present in
-  e_info->dev[]: the Requester ID fast path in is_error_source() matches
-  on e_info->id alone, without reading any AER status register.
-- Added a Fixes tag; the imbalance dates back to v4.20. I have not added
-  Cc: stable, since you indicated the path is an unlikely corner case -
-  happy to add it if you think it is warranted.
-- Cc: Keith Busch and Sinan Kaya, author and reviewer of 60271ab044a5.
-- Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as well.
-- Link to v1: https://lore.kernel.org/r/20260830-fix-aer-refcount-leak-v1-1-64e1013add12@google.com
----
- drivers/pci/pcie/aer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index d8dcd238fda1..bc761410d56d 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -1340,7 +1340,6 @@ static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
- {
- 	cxl_rch_handle_error(dev, info);
- 	pci_aer_handle_error(dev, info);
--	pci_dev_put(dev);
- }
- 
- #ifdef CONFIG_ACPI_APEI_PCIEAER
-@@ -1518,6 +1517,7 @@ static inline void aer_process_err_devices(struct aer_err_info *e_info)
- 	for (i = 0; i < e_info->error_dev_num && e_info->dev[i]; i++) {
- 		if (aer_get_device_error_info(e_info, i))
- 			handle_error_source(e_info->dev[i], e_info);
-+		pci_dev_put(e_info->dev[i]);
- 	}
- }
- 
-
----
-base-commit: a077be4fde21ee6e751fa70eb641ef5d9bf2fc48
-change-id: 20260830-fix-aer-refcount-leak-6378f84d62ba
-
-Best regards,
 -- 
-Priyank Rathod <rathodpriyank@google.com>
+2.55.0
 
