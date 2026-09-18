@@ -1,103 +1,82 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022644AC143;
-	Fri, 18 Sep 2026 12:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40CA4BD370;
+	Fri, 18 Sep 2026 12:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734481; cv=none; b=l0hfaiWclj701Q3Km5+PJn0lyVmJPC/TKCSRP+D8E6MHOhtmiy2p1c9sPgPVrRFl1iA7fGS/FmV5GwG4/CkF0+wwTXJcjVkdcMvt5Kl1H2nq4p3f9EdgRJtj8IBE0U7As/W9L3ZkZDqOc/DTxEiNvUKDfoXdneBdEF+oMqYsStg=
+	t=1789734497; cv=none; b=CwT2CoFyxHW3XD8Mh8RRgNxUQQj/Nrf3Z0SFyU4oasEr8d1LPoYa/pBvAktVPe5KJSPUzfjtRH98lI5lDeqO2+mq/gWrtssAmezlyjJ419QmiLwwu8Y51711MtlX+GEGnxKg0udatLbiUV/GzVi6xvHlgQsaYzbhk3rgA3MBer0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734481; c=relaxed/simple;
-	bh=D4I03yeQGzjKpMCYkTB8uAyyeRUNwjiqewlK+eDXjMQ=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=pKVr85ZcTGOILSyQsQIeEAsK9v3bbXaqdsXsVzo3VqjQTWvoIFjk2xySokLhlNYh+/qGRIE8/+bOHREnCP4cmMISFJEXHvBEII7kLnCnv01nNxxO8HrgsJ/AX2a9W7IUXd68u+bcJl9kiucQpWzporhQ7IV5uE/ab9KZOOXDhfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=lRLSd3CW; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789734497; c=relaxed/simple;
+	bh=FcF/CoiAitZeJ7aRj74ekADOE+YPKZ2/KzjUjBOz7j0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HDIpuu1F7jjLcfP71YBnkG6xXAW84qgCL3rHXz4mAlKmFtrPCqav0xpD5MtiXRK/rZCjHvvC3ZdW7YirfDK52/MzFTM5z9bYnBx/x/OhnKGvuR48NW2Mjcuq114pebRlMrA6clVcq8qvNyFuSVkelx94OZjC5mxrrEnx+MfZXIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCqy2Ksy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="lRLSd3CW"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 75D0CA50C5;
-	Fri, 18 Sep 2026 14:27:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789734474; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Zx+UnW+U+8Lo3B9mBHhdyZeWG2LwXc0mc8VMD/jW+6g=;
-	b=lRLSd3CWhGDLQ+vXzCVIdV1a3BEPf07TTGGUMaNaYPPjsPTanjjtkqhMC4CfKanmZJKoce
-	gCJWNkWe16IPsmZwvkd+sFGY4vVF5Y/PqZ1U4d5a7GtBW3crzq3C9m6zxwCEhJrIk1Vg1n
-	MgBceIofv69LV9K1YIhI2hK1gntfTL8kMAxMONJ/Y/Raj6ikEXK3dAykYinQJt32zeUc72
-	qgJb0V7kspNs2n5rCBTyXnMT6BSc5tvcYhru5WpG4lXKdwsAJHO2sRCpWdG4qACpVJmHL2
-	OVkd18fA+Q/BKDyIEaO51tEVX5vsJHBSljm6u8RRuNnqsGNJpWboZ7u7qBx2nA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCqy2Ksy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864791F00898;
+	Fri, 18 Sep 2026 12:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789734495;
+	bh=7t4xYZPS5/zZ1VngL4kG1hvUave8IACXX7PMjAjWykg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WCqy2KsyM+zvVJpaZisBGtEEzqYvC9v7ViEJhlwJLp4DUW+lZkn7+Y5fFG+Fl3hzf
+	 joPmMHB3+CmpBBEup2zZxaGtud/kQ8Zi6YOlJwSUJ6zCLMK97GGfNKMLgixZXRJbIg
+	 64zdfeP6tvvgQN/A2JXcXKcL2XV0hUpfsZFRLNmcSv+/B7QrNJKZtmfyD96aWlBBZI
+	 KqcOqkP4Pm6bZI50foFQLtoipVmXK/dr3zT1tDpW/CqcQYZ6jGeLQREmQQUhE4I6fA
+	 phLLTFrOcl/GGY5yzkMcVc2FFgYz/uIiMR2410X5xcnQ6CYz4/H+QhE7YNpWyvpB3C
+	 xQ6GggrRq6zkw==
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	David Carlier <devnexen@gmail.com>
+Cc: mark.rutland@arm.com,
+	kernel-team@android.com,
+	Will Deacon <will@kernel.org>,
+	Shameer Kolothum <skolothumtho@nvidia.com>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Khushit Shah <khushit.shah@nutanix.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] arm64: errata: match the target implementation CPU's own MIDR
+Date: Fri, 18 Sep 2026 13:28:05 +0100
+Message-ID: <178973065688.2324564.11650949029036534707.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260906121421.60575-1-devnexen@gmail.com>
+References: <20260906121421.60575-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 14:27:51 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: javen <javen_xu@realsil.com.cn>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, freddy_gu@realsil.com.cn, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, daniel@makrotopia.org,
- vladimir.oltean@nxp.com
-Subject: Re: [PATCH net-next v1 1/3] net: phy: realtek: add support for
- RTL8261CE_CG
-In-Reply-To: <20260916081444.497-2-javen_xu@realsil.com.cn>
-References: <20260916081444.497-1-javen_xu@realsil.com.cn>
- <20260916081444.497-2-javen_xu@realsil.com.cn>
-Message-ID: <5f533ecb12674818c763153390619702@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 16.9.2026 10:14, javen wrote:
-> From: Javen Xu <javen_xu@realsil.com.cn>
+On Sun, 06 Sep 2026 13:14:16 +0100, David Carlier wrote:
+> __is_affected_midr_range() is handed the MIDR and REVIDR of one target
+> implementation CPU, but tests the erratum's range with is_midr_in_range(),
+> which re-scans all of target_impl_cpus[] and ignores the @midr argument.
+> The range test is thus constant across the per-CPU loop in
+> is_affected_midr_range() and only answers "is any target CPU in range".
 > 
-> Add support for RTL8261CE_CG, its phy id is 0x001cc899. RTL8261CE_CG
-> share the same sub_phy_id and firmware with RTL8261C_CG.
+> Since just the fixed_revs REVIDR check uses the iteration's own registers,
+> an out-of-range target CPU can decide whether a MIDR_FIXED() exemption
+> applies. A VM then enables a workaround whose only in-range CPU is fixed
+> silicon, e.g. erratum 2658417 on a Cortex-A510 r1p1 with REVIDR_EL1[25]
+> set.
 > 
-> Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
-> ---
->  drivers/net/phy/realtek/realtek_main.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/net/phy/realtek/realtek_main.c 
-> b/drivers/net/phy/realtek/realtek_main.c
-> index 97b0b67b9900..d0d09e8e8f5c 100644
-> --- a/drivers/net/phy/realtek/realtek_main.c
-> +++ b/drivers/net/phy/realtek/realtek_main.c
-> @@ -257,6 +257,7 @@
->  #define RTL_8251B				0x001cc862
->  #define RTL_8261C				0x001cc890
->  #define RTL_8261C_CG				0x001cc898
-> +#define RTL_8261CE_CG				0x001cc899
-> 
->  #define RTL8261C_CE_MODEL		0x00
->  #define RTL8261D_MODEL			0x81
-> @@ -3363,6 +3364,19 @@ static struct phy_driver realtek_drvs[] = {
->  		.soft_reset		= genphy_c45_pma_soft_reset,
->  		.suspend		= genphy_c45_pma_suspend,
->  		.resume			= genphy_c45_pma_resume,
-> +	}, {
-> +		PHY_ID_MATCH_EXACT(RTL_8261CE_CG),
-> +		.name			= "Realtek RTL8261CE 10Gbps PHY",
-> +		.probe			= rtl8261x_probe,
-> +		.config_init		= rtl8261x_config_init,
-> +		.get_features		= rtl8261x_get_features,
-> +		.config_aneg		= rtl8261x_config_aneg,
-> +		.read_status		= rtl8261x_read_status,
-> +		.config_intr		= rtl8261x_config_intr,
-> +		.handle_interrupt	= rtl8261x_handle_interrupt,
-> +		.soft_reset		= genphy_c45_pma_soft_reset,
-> +		.suspend		= genphy_c45_pma_suspend,
-> +		.resume			= genphy_c45_pma_resume,
->  	},
->  };
+> [...]
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Applied to arm64 (for-next/fixes), thanks!
 
-Thanks,
-Nicolai
+[1/1] arm64: errata: match the target implementation CPU's own MIDR
+      https://git.kernel.org/arm64/c/b7403afb7a5f
+
+Cheers,
+-- 
+Will
+
+https://fixes.arm64.dev
+https://next.arm64.dev
+https://will.arm64.dev
