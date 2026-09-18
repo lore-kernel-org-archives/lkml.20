@@ -1,321 +1,156 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412893A4F3B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD98519E19
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752255; cv=none; b=sBnv8xaF46yQ7GY7FgycDFYrT1YgtXAsvq8WjV0Z1/xUpD5iH20jCl24Yncz/htu5f2V6+yy7OF5GDvx/f2lk3sA2R/gqx1CAPnevgj4GdFPYW7VkeLVHxpWt4XqA/ipBNjrFQba/spounepApsRf/ND3Oq7xNxKj8t6vhWCu6s=
+	t=1789752290; cv=none; b=fRoV24Yib5H3+IJPQB4NVYLGaP8J/p8Pg60zVZumEa/Vij+HcT5ky2JsWdTzcv2HFrNI2tV/KOp9hcTMX0fCqe0hfmz2hEBGTa568P/F8RLl+iDPgv4NtL+U9W7HKVQF8buxHRchniDYGmlKxRPsZReS13n75gdh7d9UeHwen78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752255; c=relaxed/simple;
-	bh=pMGpEi39BEyUo6zCUXVX6ESUaX/7PwRrk/NnMo1pLNs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=T93IJjfFNKzs5EvVEQ0X1tMfcQh1aRus8HqWylHzVLiea86yz4MPOfpohkVFlG0VARxp2sM93L2a944hSEugoEoll1Zdyhg6GA1/SwjVepceUYSYNKvNoK9/1nPEjlLg8ip1h8PajPye2PLfOCY+kVQefRCow2IfvQm1Q8hWyWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=AVPuxZE0; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
+	s=arc-20240116; t=1789752290; c=relaxed/simple;
+	bh=e3U2RUqrflZnwIr3xZJrdz3cRiaSIqCPPArSVUFsnT0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=o2K07bF45FZLJNtvQXORkqfFKZRI/x4MGSBLBvQYivxTCTclKYuoriRX9z0BncqowypYJ5TtZ9ePI8hxoDyy/V9DqLuAAMglmFbD1c5HWjKv3ubm1mKedRJnr/sBMbg+BxEHz9eGBRTgnrxlL9DEfwV5sewyq27WLtpy8LVIva4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MEYebcBQ; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="AVPuxZE0"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7daaso1398865a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:24:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MEYebcBQ"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so799157a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:24:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=conchuod.ie; s=google; t=1789752251; x=1790357051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Dvc/pEW/BAh9vZt3yE6d0wx7vktxXFNO+yS8WEG5HPw=;
-        b=AVPuxZE0Go4ylLpuXCX1B+XCYbodO6AB3mz+9eFeOkDcI+468csgyql7g13BThueD8
-         g3UQZNaKK0Qr51amDnZEiSKy0IHplH2YO36hEl47mL+KmkEfqot5jJDMgrNIuPudpi2J
-         A1AwOjquwvtZiED3jkQDOd517Njk6ymSPK9Kk01leRj9Eoqb+dHX4oiir6l7j5b6BGuR
-         oF8jhxSxCYCRw11ZX/mKPY96euvyYj+wIWVtnORZbRaLxx7dlQKkLssOoUBVIm6sQIZ8
-         UVx69qCJX+8Blq64+jMQxh3JNBhkPu721thAGkC/mwdzeYW9nt1h0eZW9CVaFmwGnvm5
-         yH3Q==
+        d=google.com; s=20251104; t=1789752289; x=1790357089; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MK8SQon571KaD8P7buh1T6LtzzA2FoPJEodcHPYT2dM=;
+        b=MEYebcBQogWSAUhKH8Ntvwvd0S84euubUfyzmNXfuOWojVcLdw8olgm3WCpLAHahLC
+         iyyAYRd/W2UlDpzoHZWJiJO9sIVkcmaVj73GkHujAMBIgF9NXIMZmvtEVjhrpfkCBUjj
+         Im0HBiWoXKVeQFu6QGRDlGTpnYGyi3NCAfc2M/vXDQtRxgKJmg/mRF1MvQZ5UwumpCiP
+         K1aGQBpZkVkSlI9g4RL5pTs657WK2z7NzaTr1Ewt4QM9N7FDBOTRWX+or+umy/4hXLuf
+         pvpUTjB3ZP24Q5wO1bbJC5EPBCtc3DIVaDJN2nF8Auoj31KVj0lubFpiop2+0x0H5HLx
+         Ydkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752251; x=1790357051;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789752289; x=1790357089;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dvc/pEW/BAh9vZt3yE6d0wx7vktxXFNO+yS8WEG5HPw=;
-        b=yl8EwVKUTtdwwpz6tlnp2mTKU+i5bq4N03mj1tSxU0ogorszGoWDtqyOa7sH4CsraI
-         WI3HR+4AhiuQrlp0zJW4YzFqQkI748sYSd55LRD/A0Aby8/TELxdkNdqzSj/sPXOb9mW
-         b9JFQ+geLenIj4Eu++/9LRTrAsKoyJrUAcYt7KC8ztjm2gmbk5VdsTATdZuo+b3jNPua
-         zoPWmqhrA0Q1jRw/QO8qJlPwhG7aeOpQPDlNLMQjA1+5ykbTNlPpnGu4GuIFZGfnHGyU
-         /2n7W0StPM2HwNVfih/wO173rinlad63tGZGi5BrN/AOLjCAcly7sE9f4iSos/2zKM7E
-         TtqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBydiDka99cjYZFb//rfkzjuo6MWKgs9/MQ91TGRgqL3CFe4APx1hdp0obAt2aYgjRcRkJT8p2OCkDxy2nE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGr84w2asqmqBzzWSz/g0cGXyUKRorcugbWhd4n4BlmEfOXrqs
-	4PyjgBp3XnNFc8CTPltl/Tvu29iq5QMNoHmBLy2pgtH6+pR1NgToPD/Lz/TRFUX6uYU=
-X-Gm-Gg: AYBFou0g3Ol830l8Yuq0dnaDWeush1bmaA0YB1JAMzrKLAjTWBy6qWX0Jo/Im55Jnnz
-	rWLsu+BXXnCjolfLbiLv0eY9jjkVBBlxLd4rcq+JRSvVZLUAmfZi/wvsg2OUXvq2jxrwLnd+0lR
-	3LIJnMQ/TBADw2v3VEP8oOOkfLJMvxIU3CMmFJMYvzlYjvu8y2fkgLQW2becvbMo8PfpFsHVQas
-	cZ6tPNYCf4ZMd9Dw0QNNJjgopl/BgEXqi2U20tyS/TD3hnidQfzImDkaD/5xrkmCSQdWbhzESIY
-	804wwtpQtEJsRBJmIsg8YfkDsupqzqL7+zV8ugH/62jDUY5yeKj2OQvyz7Eb3nbR513xan0KA9f
-	r+3eyNQpM7MbmSoS3z3y6CWWau4rVHL9uetzJAA2oxEiIUfF78DuPImegt6Q6UjUN6yFzNzeQJi
-	RZmCPm0brVov3l9q9h08N/r5dWacHI5GNTpiDgAe2wOb7V0EIl8MxMejF17JcKwrNljVkvb66Ea
-	GDQD3l6K58gyxAINm6DBCxXv2jpJCsNLZstTMwUBFA+WfsnAGxFh2aysLQU2b0=
-X-Received: by 2002:a17:906:9f87:b0:c24:b11a:470f with SMTP id a640c23a62f3a-c2a152e3212mr337280966b.0.1789752251335;
-        Fri, 18 Sep 2026 10:24:11 -0700 (PDT)
-Received: from ehlo.thunderbird.net (ip-077-020-009-205.vkd66.pools.vodafone-ip.de. [77.20.9.205])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a358868e1sm331666b.47.2026.09.18.10.24.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 10:24:10 -0700 (PDT)
-Date: Fri, 18 Sep 2026 19:24:05 +0200
-From: Conor <mail@conchuod.ie>
-To: Guenter Roeck <linux@roeck-us.net>, Colin Huang <u8813345@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-CC: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, colin.huang2@amd.com,
- linux-doc@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v6_2/2=5D_hwmon=3A_=28pmbus/tda38740=29?=
- =?US-ASCII?Q?_Add_driver_for_Infineon_TDA38740/TDA38725?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
-References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com> <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com> <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
-Message-ID: <2646A11E-8D13-4587-8027-1370E0007F36@conchuod.ie>
+        bh=MK8SQon571KaD8P7buh1T6LtzzA2FoPJEodcHPYT2dM=;
+        b=gTZeE7otbahVVVwKEojzxEeFblTBDiMK/ancSMjve6Ca9ik6H3QSVwUSxLbYKCAOrK
+         zeJ4U2TRPxtyVGkg1S9vE2t9Do/3odSgum7Ymf/Z7ShmVcDg3f63v98BqndxIP7IiP96
+         UsqmYNbtlQFu4XSkb7tSTDnkrcQpH/KrOA3/o5r77gGZ73YyYe3ehrUnWQ9cVgZhulFI
+         G+cv6eDAM91E6Fi4SiaP7T2KouU9o8RclzMQlDHS2HiBS+RMpcHIY+g7LFW6Dn6mD99z
+         F/8JooBvbpJowlz2//nXi9i6zq45PdtxP7twsEoHb02IFK4P3u3hRjn+iAeB+df8FEgK
+         X/vg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9ppoiiEi9HsVlAvLjovxp6G2cVIINqP6W+JJKNuEKJbvTR7Q55LWILFpNxZu/sfnDFajQxseclRwx3Kc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mb08ja4hVjx5XdXqbPca100I6wmG0eQLtv78UnqNxfjb+ioyZz
+	l85/GkumDHi5JG4/jvoOCDGv3/Ll8VERrXJ45kNdWsSK7kVwS8k30zgewbW5P2LbhPQmikKIDGm
+	T43+Ha1ABzhAubg6MafrrpX+DTenmq76HKw==
+X-Received: from pjbct5.prod.google.com ([2002:a17:90a:f585:b0:39e:574c:5672])
+ (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:384d:b0:39e:6c6a:4b67 with SMTP id 98e67ed59e1d1-39e6c6a5448mr417570a91.49.1789752288464;
+ Fri, 18 Sep 2026 10:24:48 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:24:48 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAN9zrWoC/4WNQQ6CMBBFr0Jm7Zi2kEpceQ/DotJpmYiUtEgwp
+ He3cgGX7//893dIFJkSXKsdIq2cOEwF1KmCfjCTJ2RbGJRQWrS1QMcbGooYyfXhPS04knmiri+
+ taxur1cNA2c6l5u3w3rvCA6clxM9xs8pf+s+4SpSoG5JC1sZaqW4+BD/SuQ8v6HLOXxh77/q7A AAA
+X-Change-Id: 20260830-fix-aer-refcount-leak-6378f84d62ba
+X-Mailer: b4 0.14.3
+Message-ID: <20260918-fix-aer-refcount-leak-v2-1-bdd1ff1c35a9@google.com>
+Subject: [PATCH v2] PCI/AER: Fix struct pci_dev reference leak in aer_process_err_devices()
+From: Priyank Rathod <rathodpriyank@google.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>, 
+	Stefan Roese <stefan.roese@mailbox.org>
+Cc: Keith Busch <kbusch@kernel.org>, Sinan Kaya <okaya@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Priyank Rathod <rathodpriyank@google.com>
+Content-Type: text/plain; charset="utf-8"
 
+When an AER error occurs, candidate error-source devices are added to
+e_info->dev[] by add_error_device(), which takes a reference with
+pci_dev_get().
 
+A device can be recorded without any error status being present: the
+Requester ID fast path in is_error_source(),
 
-On 18 September 2026 17:02:38 GMT+02:00, Guenter Roeck <linux@roeck-us=2En=
-et> wrote:
->On 9/18/26 03:23, Colin Huang wrote:
->> Add a PMBus driver for Infineon TDA38740 and TDA38725
->> single-voltage synchronous buck regulators=2E
->>=20
->> Signed-off-by: Colin Huang <u8813345@gmail=2Ecom>
->
->For my reference (waiting for DT patch approval):
->
->Reviewed-by: Guenter Roeck <linux@roeck-us=2Enet>
+	if (e_info->id == pci_dev_id(dev))
+		return true;
 
-I'm on holiday and only have my phone, and cannot find the binding patch t=
-o reply to=2E
-I found it on lore and it looks okay=2E
+matches purely on the ID reported by the Root Port and returns true
+without reading the device's AER status registers.
 
-Cheers,
-Conor=20
+In aer_process_err_devices(), handle_error_source() is called only if
+aer_get_device_error_info() returns non-zero, i.e. only if an unmasked
+error status bit is actually set. It returns 0 if the device has become
+inaccessible (status and mask both read as all ones, so
+status & ~mask == 0) or if no unmasked status bit is set.
 
->
->> ---
->>   Documentation/hwmon/index=2Erst    |  1 +
->>   Documentation/hwmon/tda38740=2Erst | 65 +++++++++++++++++++++++++++++=
-+++++++++++
->>   drivers/hwmon/pmbus/Kconfig      |  9 ++++++
->>   drivers/hwmon/pmbus/Makefile     |  1 +
->>   drivers/hwmon/pmbus/tda38740=2Ec   | 64 +++++++++++++++++++++++++++++=
-++++++++++
->>   5 files changed, 140 insertions(+)
->>=20
->> diff --git a/Documentation/hwmon/index=2Erst b/Documentation/hwmon/inde=
-x=2Erst
->> index f07977a20271=2E=2Eaeff87b3d46d 100644
->> --- a/Documentation/hwmon/index=2Erst
->> +++ b/Documentation/hwmon/index=2Erst
->> @@ -265,6 +265,7 @@ Hardware Monitoring Kernel Drivers
->>      sy7636a-hwmon
->>      tc654
->>      tc74
->> +   tda38740
->>      thmc50
->>      tmp102
->>      tmp103
->> diff --git a/Documentation/hwmon/tda38740=2Erst b/Documentation/hwmon/t=
-da38740=2Erst
->> new file mode 100644
->> index 000000000000=2E=2E55ce12f14914
->> --- /dev/null
->> +++ b/Documentation/hwmon/tda38740=2Erst
->> @@ -0,0 +1,65 @@
->> +=2E=2E SPDX-License-Identifier: GPL-2=2E0-only
->> +
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +Kernel driver tda38740
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +Supported chips:
->> +  * Infineon TDA38740
->> +  * Infineon TDA38725
->> +
->> +    Prefix: 'tda38740'
->> +
->> +    Addresses scanned: -
->> +
->> +    Datasheet:
->> +      https://www=2Einfineon=2Ecom/row/public/documents/24/49/infineon=
--tda38740-tda38725-datasheet-en=2Epdf
->> +
->> +Author: Colin Huang <u8813345@gmail=2Ecom>
->> +
->> +Description
->> +-----------
->> +
->> +The TDA38740 and TDA38725 are single-output synchronous buck regulator=
-s with a
->> +PMBus interface=2E They expose basic voltage, current, power and tempe=
-rature
->> +telemetry through the standard PMBus hwmon interfaces=2E
->> +
->> +Sysfs entries
->> +-------------
->> +
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
->> +curr1_alarm		Input current alarm
->> +curr1_input		Measured input current
->> +curr1_label		"iin"
->> +
->> +curr2_crit		Critical maximum output current
->> +curr2_crit_alarm	Output current critical high alarm
->> +curr2_input		Measured output current
->> +curr2_label		"iout"
->> +
->> +in1_crit		Critical maximum input voltage
->> +in1_crit_alarm		Input voltage critical high alarm
->> +in1_input		Measured input voltage
->> +in1_label		"vin"
->> +
->> +in2_crit		Critical maximum output voltage
->> +in2_crit_alarm		Output voltage critical high alarm
->> +in2_input		Measured output voltage
->> +in2_label		"vout"
->> +in2_lcrit		Critical minimum output voltage
->> +in2_lcrit_alarm		Output voltage critical low alarm
->> +
->> +power1_alarm		Input power alarm
->> +power1_input		Measured input power
->> +power1_label		"pin"
->> +
->> +power2_input		Measured output power
->> +power2_label		"pout"
->> +
->> +temp1_crit		Critical high temperature
->> +temp1_crit_alarm	Chip temperature critical high alarm
->> +temp1_input		Measured temperature
->> +temp1_max		Maximum temperature
->> +temp1_max_alarm		Chip temperature high alarm
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
->> +
->> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
->> index bcfdc4ce4c10=2E=2Ee4ca80dd0574 100644
->> --- a/drivers/hwmon/pmbus/Kconfig
->> +++ b/drivers/hwmon/pmbus/Kconfig
->> @@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
->>   	  If you say yes here you get regulator support for Infineon
->>   	  TDA38640 as regulator=2E
->>   +config SENSORS_TDA38740
->> +	tristate "Infineon TDA38725/TDA38740"
->> +	help
->> +	  If you say yes here you get hardware monitoring support for Infineo=
-n
->> +	  TDA38725 and TDA38740=2E
->> +
->> +	  This driver can also be built as a module=2E If so, the module will
->> +	  be called tda38740=2E
->> +
->>   config SENSORS_TPS25990
->>   	tristate "TI TPS25990"
->>   	help
->> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefil=
-e
->> index e288fe72a437=2E=2Eeb06d47816fd 100644
->> --- a/drivers/hwmon/pmbus/Makefile
->> +++ b/drivers/hwmon/pmbus/Makefile
->> @@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+=3D stef48h28=2Eo
->>   obj-$(CONFIG_SENSORS_SQ24860)	+=3D sq24860=2Eo
->>   obj-$(CONFIG_SENSORS_STPDDC60)	+=3D stpddc60=2Eo
->>   obj-$(CONFIG_SENSORS_TDA38640)	+=3D tda38640=2Eo
->> +obj-$(CONFIG_SENSORS_TDA38740)	+=3D tda38740=2Eo
->>   obj-$(CONFIG_SENSORS_TPS25990)	+=3D tps25990=2Eo
->>   obj-$(CONFIG_SENSORS_TPS40422)	+=3D tps40422=2Eo
->>   obj-$(CONFIG_SENSORS_TPS53679)	+=3D tps53679=2Eo
->> diff --git a/drivers/hwmon/pmbus/tda38740=2Ec b/drivers/hwmon/pmbus/tda=
-38740=2Ec
->> new file mode 100644
->> index 000000000000=2E=2E067de07ba9fb
->> --- /dev/null
->> +++ b/drivers/hwmon/pmbus/tda38740=2Ec
->> @@ -0,0 +1,64 @@
->> +// SPDX-License-Identifier: GPL-2=2E0+
->> +/*
->> + * Hardware monitoring driver for Infineon TDA38725/TDA38740
->> + *
->> + * Copyright (c) 2023 9elements GmbH
->> + *
->> + */
->> +
->> +#include <linux/err=2Eh>
->> +#include <linux/i2c=2Eh>
->> +#include <linux/init=2Eh>
->> +#include <linux/kernel=2Eh>
->> +#include <linux/module=2Eh>
->> +#include "pmbus=2Eh"
->> +
->> +static struct pmbus_driver_info tda38740_info =3D {
->> +	=2Epages =3D 1,
->> +	=2Eformat[PSC_VOLTAGE_IN] =3D linear,
->> +	=2Eformat[PSC_VOLTAGE_OUT] =3D linear,
->> +	=2Eformat[PSC_CURRENT_OUT] =3D linear,
->> +	=2Eformat[PSC_CURRENT_IN] =3D linear,
->> +	=2Eformat[PSC_POWER] =3D linear,
->> +	=2Eformat[PSC_TEMPERATURE] =3D linear,
->> +	=2Efunc[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
->> +	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
->> +	    | PMBUS_HAVE_IIN
->> +	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
->> +	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
->> +	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
->> +};
->> +
->> +static int tda38740_probe(struct i2c_client *client)
->> +{
->> +	return pmbus_do_probe(client, &tda38740_info);
->> +}
->> +
->> +static const struct i2c_device_id tda38740_id[] =3D {
->> +	{ =2Ename =3D "tda38725"},
->> +	{ =2Ename =3D "tda38740"},
->> +	{}
->> +};
->> +MODULE_DEVICE_TABLE(i2c, tda38740_id);
->> +
->> +static const struct of_device_id tda38740_of_match[] =3D {
->> +	{ =2Ecompatible =3D "infineon,tda38725"},
->> +	{ =2Ecompatible =3D "infineon,tda38740"},
->> +	{}
->> +};
->> +MODULE_DEVICE_TABLE(of, tda38740_of_match);
->> +
->> +static struct i2c_driver tda38740_driver =3D {
->> +	=2Edriver =3D {
->> +		=2Ename =3D "tda38740",
->> +		=2Eof_match_table =3D tda38740_of_match,
->> +	},
->> +	=2Eprobe =3D tda38740_probe,
->> +	=2Eid_table =3D tda38740_id,
->> +};
->> +
->> +module_i2c_driver(tda38740_driver);
->> +
->> +MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
->> +MODULE_LICENSE("GPL");
->> +MODULE_IMPORT_NS("PMBUS");
->>=20
->
+Because handle_error_source() was responsible for calling pci_dev_put(),
+skipping it permanently leaks the reference taken in add_error_device().
+
+Decouple reference lifetime from error handling by moving pci_dev_put()
+out of handle_error_source() and into the aer_process_err_devices() loop,
+so every recorded device is put exactly once.
+
+handle_error_source() is static and aer_process_err_devices() is its only
+caller, so no other path is affected.
+
+Fixes: 60271ab044a5 ("PCI/AER: Take reference on error devices")
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+---
+Changes in v2:
+- Corrected Fixes tag from 1ab4a3c80508 to 60271ab044a5 ("PCI/AER: Take
+  reference on error devices"), which added both the pci_dev_get() in
+  add_error_device() and the conditionally-reached pci_dev_put() in
+  handle_error_source(). Thanks to Lukas Wunner for catching this.
+- Removed the speculative topology list from the commit message. As Lukas
+  pointed out, error reporting is not enabled on devices without an AER
+  capability (pcie_aer_is_native() bails on !dev->aer_cap), so the
+  dev->aer_cap == 0 reasoning was wrong and is gone.
+- Explained instead why a device with no error status can be present in
+  e_info->dev[]: the Requester ID fast path in is_error_source() matches
+  on e_info->id alone, without reading any AER status register.
+- Added a Fixes tag; the imbalance dates back to v4.20. I have not added
+  Cc: stable, since you indicated the path is an unlikely corner case -
+  happy to add it if you think it is warranted.
+- Cc: Keith Busch and Sinan Kaya, author and reviewer of 60271ab044a5.
+- Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as well.
+- Link to v1: https://lore.kernel.org/r/20260830-fix-aer-refcount-leak-v1-1-64e1013add12@google.com
+---
+ drivers/pci/pcie/aer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index d8dcd238fda1..bc761410d56d 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -1340,7 +1340,6 @@ static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
+ {
+ 	cxl_rch_handle_error(dev, info);
+ 	pci_aer_handle_error(dev, info);
+-	pci_dev_put(dev);
+ }
+ 
+ #ifdef CONFIG_ACPI_APEI_PCIEAER
+@@ -1518,6 +1517,7 @@ static inline void aer_process_err_devices(struct aer_err_info *e_info)
+ 	for (i = 0; i < e_info->error_dev_num && e_info->dev[i]; i++) {
+ 		if (aer_get_device_error_info(e_info, i))
+ 			handle_error_source(e_info->dev[i], e_info);
++		pci_dev_put(e_info->dev[i]);
+ 	}
+ }
+ 
+
+---
+base-commit: a077be4fde21ee6e751fa70eb641ef5d9bf2fc48
+change-id: 20260830-fix-aer-refcount-leak-6378f84d62ba
+
+Best regards,
+-- 
+Priyank Rathod <rathodpriyank@google.com>
+
