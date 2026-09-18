@@ -1,143 +1,134 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5F14B4864
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:18:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007D04B4864
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748326; cv=none; b=BgrrBg/tN7V+yjUqCnUyE/oIqgdKWv8UD3m54aAyt1di99+8h909Pv99WaWri4cGCYUuzGEzvicZAH7wY6nKeycJb15+sczH0A1HXZMhuR1TSuX3gjxQp5cm1Efu5uVMDbsydqMOOYL2URrzvHrwdhmfP6wUHBJ2dKRVuXUrZ7Y=
+	t=1789748374; cv=none; b=ECcM7K4A7q6q6Z750AUPPzGR5rR8RPhGMbQ0ikkZdzyMDrLc5O5lGz2Ybi9qXiKn4Z1aWv7YebpSfQ5eXoxHDa3LjLNgDhWrW9COm2qCNJmk6Yiidhr1amJWktgD8TkXfoaDQU/Al2jhRh2jxH2mnUNHifVSdCH7jZd4WBBzleA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748326; c=relaxed/simple;
-	bh=58wNSoF3SLPEsw/UfT8kALXhRyGhLdeLuPi/koBCjj0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o5sfX1kzVSk927AqeOYH5gakdPu9wbHMMF3ts9DucP33LjYxfk/XNQZcUrIBn29+QZEf05y9o/JUBmV8sAyzmBN2ibNo8xGVH77kEz56j47fmAScrtKDUIWIHcNUAf11YIljI5CRmu0RGV8NDXBpczVA0xnwStePb5APbiEotVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mArLETTa; arc=none smtp.client-ip=74.125.227.131
+	s=arc-20240116; t=1789748374; c=relaxed/simple;
+	bh=eHoxMD49RuFV3Eb4It0nXTbB/TWFeAo0DHVY9dkLnxo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rEVkPB0SjHrnnBq8re9AhqDXLd2ps9YM2T7QO9Mk3mhaQ4Zv/3PBNbjKpWXPt1NncRyKiKM6OeB3rQCX7YtmzEiycgBMCS6X8IosMP36ckqM1dxwKWMKuPxo6NNZxhyjwxekHti1arCMRdckzZGRVsPJdgHOdauXtz3SAmJsQBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QAdh59eA; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mArLETTa"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2d6fff25530so4456755ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:18:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QAdh59eA"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso694337a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:19:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789748324; x=1790353124; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=joaMZtZ2JkCfx/7wOkt6uB/JF0GtO4C1SVtTGC6XgyQ=;
-        b=mArLETTasDr5ORG8A4ln/RdIn6h4vCYYrTYwMzgGsM7lyi60Y+HmZaOj6TAnzXq/IK
-         ittenCGbCUA49PlKbnQrqs3z2U15gWNdgrbkZtiM2iacf4T9tj7Y5tAkqJZMFXcJrXFK
-         /2WHMtp+g2muc94KsuZMCKuM5bIqKzPLWpEF0MZMUoYdCuJzW+mHeQVrHxF7r4H/7/TD
-         4W8LzHgbEoI0h1nXI4H+k8GySGQfcR0xvYa/qd04/6Trtc7/dbtYnro+1WzofUUW1W5y
-         6tsg3hWgpAnMDA9fcPIf0pysEq/jCJlNrS3PdiY7b0/Silo+wS8CADBmzLpF2zB2XZUR
-         +8fQ==
+        d=gmail.com; s=20251104; t=1789748372; x=1790353172; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JrqHy/Ltwsv9DxVnw14hRzfEI6+yxaAfvyb1bklLGNA=;
+        b=QAdh59eAUjRsBuLu4EfBRJXnNgwc84tmmWvA11qA71PNIE0RZdY8fmxJbnc6QPR7Tj
+         wvamDcp0QUCjXiQ3Em3Lfg11DrOO8gBBMCh1EhWeI4n5NgR+lOdAxTUhC0xuAv9mFBYN
+         ZGVFHUP3Ra2+FuSDA5MqYCl96BmSbPxACu6WhdSwpRIJsdItsPjvEBbEVcFmD9s5lvDl
+         1F+LWPLrQB/Z/OepdC8K/yZ+y/wj2Qhj9kuK36OK/YigwJkbTMbTaFOwKszsVCkYR+6L
+         YumN14HqUT0XYhter0x0z3iZHtgBvLAZeF4ShaNS//rHh6yBsnTzHrUu/PAg12jHOOW2
+         wMyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748324; x=1790353124;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=joaMZtZ2JkCfx/7wOkt6uB/JF0GtO4C1SVtTGC6XgyQ=;
-        b=nmu9paNsWcjWGhCmUSy3kqXxCVfvTXAcMYKH3xlCSRxUOi+g9mB+kZoWx18yTxh0o9
-         1uEQvEDgq/Nvccio0AtAMaSfkVv7qm2nRPPldDOCHWmVZxFfjy6At+QLpn1EbHmrRYp7
-         SNx7wJ/upGyGUxBCTczBrW3GKcy+zGvxudfIaOj5ueMBKgVNsW34rbiJ3IhQJU/i64wt
-         NcQznqMV8YozHdbVMhrQ+AhXyuemeiDOrFCmws0a0D0xQa5UqfrkSWdcSBQDQ3wLTtvY
-         MQe5vFxWpn1FrzTervdETMu5BrQZqtFyFvYDoqwq/BJaXZqrLfNZ1DDZ1vdrgvcPxNfm
-         JeOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+w+SwtXpv2pSxtoWE5IJUOXuAlLF8gCUwlRP3jXiZQ6auZM887U/cpbwMwPAc1btwQoYYpB0LoqW3Vzc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbEfNe+aCbUUGv6DJgf/i5jWHy3Xk0fLYmL1LzYOsENkpMu85M
-	tyPDvPJjK0A8EdktE2EScOTrPsz7FExG9rTMOl6olu5xDjtFeclNLeEJ
-X-Gm-Gg: AYBFou1WhpLwM2HO2SCYFlMHASYynvaDMxIoMvSqt1YICf3A2F4s5t6gvl7uYM5Ci7O
-	S45d3C7F5phBBvRR4tQAj91tfOx67Ta5KRWFys1CD+sqvjhJI8P5h4FILHpCFlq1HqHP4VDAgOj
-	MBIVFKn3pt1Y9JptDQaxApMlpotraViuy7vm+eaW9Ii+82HJEBbSGXS/vnJ2w1cFoTkIDIpOQQ5
-	MK3lGu19/DzYXZkmCM0ptXjxzZ6EGDvV+tXSklB5Wz0VS+8moXeoFpIFrNL9gvaqlGzkg5DyuDA
-	/hGExKddVJKjWhGLCmi7pKdblGD0t43lSXTXbJDDc+G7Gq6sPYKj4VP+PFtm0zH1covVid4q9SP
-	S3nERY3sARDQWkDg6UwCD+kR7O3xzJ8y0Iq7wBpL8hl0aUrMUGAW7LSSS2qWB1QtYQ4d0F5t8qm
-	PP/kpUmsOMBl2teYpwY1FOYjdEY55S0yLD7zMjaG8Ph6Wmo4eestTzGKiaCIi7bipUaH8eS8SYk
-	/RMqkseDj+qN8xJSw==
-X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:2097 with SMTP id 98e67ed59e1d1-39e6c6a2359mr184187a91.56.1789748323892;
-        Fri, 18 Sep 2026 09:18:43 -0700 (PDT)
-Received: from [192.168.50.100] ([111.199.57.13])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55895112sm1814952a91.3.2026.09.18.09.18.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 09:18:43 -0700 (PDT)
-Message-ID: <90826872-1374-49e4-832d-555abf8e8369@gmail.com>
-Date: Sat, 19 Sep 2026 00:18:34 +0800
+        d=1e100.net; s=20260707; t=1789748372; x=1790353172;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JrqHy/Ltwsv9DxVnw14hRzfEI6+yxaAfvyb1bklLGNA=;
+        b=gNqayWPw+l3rMWoauh4qLAvYi2TREnBswhARsxKnnMId7IYugqQttFnYiO4+xZjEjz
+         eDVzA5mVqXsF9KnmhHAOBsyoGpZscTaDq76ubcfBg/Gy7r1q6g/fFrJCLp9IAaL7aoW7
+         is7XzyvHonbJhYvwj85iaxIrYIzwonzI1qD2MzMoWxcxghfVLwSi7SPmWmqLSvMJcTw0
+         V3XEj1fBqxMiQlD1qFvN1OY6AUiq2r33PD8mNysBGfE3qGDEzoInxkdsSWds7ZmnYxMF
+         JRPd8IreXzXM6g4YXlei7I7LAE7VIBCnLt2x9okSkbH25X5brv5lEDT1sPHEiKck7i+v
+         lOpA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlQBSRK3vZxg9g7bXyoi1MacIDg+Gc3QZMTFuzo+hKo8XYJ90hUaZts8PjdjGz0P0nPOu1EpiOiICA5mY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kC19PleC+FpxkWCkdWz28TbRI0GWq5PNRyC2yQZK/cwwPXth05
+	nDVu7vOrF8SNJPw1t/3pDG3BhOzEEZ6rHQ9+ErmJoE0eaceMzsfpWs9N
+X-Gm-Gg: AYBFou3Y6xtFSYz4OlJ4s4Lrl+Nox83Zp1t6px9VHt8716qVYFPXWBJAcPq0bZqUIkX
+	T+UHdJwfXltiD5Mujv4KV/EnZOootUJxls4pmRllvEEzcC7K7HazfvXPmIAG6uDCmrI8LlgPG7B
+	pUOuh4pyJUm/Q3VDDQRzJCosxJc0JWjPVfmA6bZUeuqFNQou7FL3LRqczvKnS+tDKmf2LVjTUG0
+	5ORnVZkVG/MT9O9qESw8Q/iiLGIYEs+tFU9fNdovBQMUNfYO+NPprGVTbMexgOyxRQ0gA0B/VKs
+	9eJBbRzqYF+W5Y53oU3YY9zSfkiQwtbNhMjbGN6mqEB4UQWj/vuN9M+CO/Wqtw0rWn1bMVvY6jt
+	Q26X/Xp3bWU7/SKIkHtg9+3NoH/zcZXXmGdraDAwnwClvbvgQpEZPJA6/uefNTfhA+MPe8gWy18
+	+d8hJUkePLj1hQ9sF1r+XatQ6+CNM+dP6YpPd2WQwT5Z2/z6Awqu2+rqGQx0S6KFXEpJ3jTytBL
+	PDE4248ldgF1eDH
+X-Received: by 2002:a17:90b:5403:b0:39e:6a7f:eeed with SMTP id 98e67ed59e1d1-39e6a7ff0b0mr1221280a91.18.1789748372302;
+        Fri, 18 Sep 2026 09:19:32 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce046d96sm4934242c88.11.2026.09.18.09.19.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:19:31 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Jacky Huang <ychuang3@nuvoton.com>
+Cc: Shan-Chun Hung <schung@nuvoton.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rtc: ma35d1: fix unchecked IRQ error and IRQ-before-rtcdev ordering
+Date: Fri, 18 Sep 2026 23:19:25 +0700
+Message-Id: <20260918161925.2639130-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 08/10] iommu/riscv: Pre-enable GADE for
- second-stage domains
-To: fangyu.yu@linux.alibaba.com
-Cc: guoren@kernel.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, kvm-riscv@lists.infradead.org,
- tomasz.jeznach@linux.dev, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, baolu.lu@linux.intel.com,
- jroedel@suse.de, zong.li@sifive.com, andrew.jones@oss.qualcomm.com,
- anup@brainfault.org, jgg@nvidia.com, jgg@ziepe.ca, kevin.tian@intel.com,
- atish.patra@linux.dev, skhawaja@google.com, vasant.hegde@amd.com,
- joerg.roedel@amd.com, gong.shuai@sanechips.com.cn
-References: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
- <20260915032828.11250-9-fangyu.yu@linux.alibaba.com>
-From: Gong Shuai <gsh517025@gmail.com>
-In-Reply-To: <20260915032828.11250-9-fangyu.yu@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fangyu,
+platform_get_irq()'s return goes straight into rtc->irq_num and then
+devm_request_irq()'s unsigned int irq parameter with no check --
+passing a negative error (like -EPROBE_DEFER) through that conversion
+turns it into a large positive number, so devm_request_irq() just
+fails with -EINVAL instead of deferring the probe.
 
-On 9/15/2026 11:28 AM, fangyu.yu@linux.alibaba.com wrote:
-> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-> 
-> Pre-enable RISCV_IOMMU_DC_TC_GADE in the device context when
-> attaching a second-stage domain, if the IOMMU supports AMO_HWAD.
-> 
-> Software pre-populates second-stage page tables with D set, so
-> enabling GADE by default does not change normal behavior. When
-> dirty tracking is enabled, iommufd clears the pre-set D bits and
-> GADE becomes necessary for hardware to update the dirty bit on
-> write access.
-> 
-> This avoids toggling GADE dynamically and keeps device context
-> setup consistent with second-stage domain attachment.
-> 
-> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-> ---
->   drivers/iommu/riscv/iommu.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-> index 16779877351b..f01fd4e2f840 100644
-> --- a/drivers/iommu/riscv/iommu.c
-> +++ b/drivers/iommu/riscv/iommu.c
-> @@ -1330,6 +1330,8 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
->   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
->   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_GSCID, domain->gscid) |
->   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_PPN, pt_info.ppn);
-> +		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
-> +			dc.tc |= RISCV_IOMMU_DC_TC_GADE;
+Separately, the IRQ is requested before rtc->rtcdev is allocated and
+registered. Since devm teardown is LIFO, unbind or a later probe
+failure frees rtcdev before the IRQ, so an alarm firing in that window
+has ma35d1_rtc_interrupt() call rtc_update_irq() on freed memory.
 
-I might be missing something, but I don't see how the GADE bit set
-here reaches the hardware IOMMU DC. In riscv_iommu_iodir_update()
-(in patch 04/10), it looks like only the V bit is taken:
+Check irq_num for a negative return, and move the IRQ request to
+after the RTC device is fully registered.
 
-	tc = READ_ONCE(dc->tc);
-	tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
-	...
-	WRITE_ONCE(dc->tc, tc);
+Fixes: dc0684adf3b6 ("rtc: Add driver for Nuvoton ma35d1 rtc controller")
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/r/20260914133532.CBFAA1F000FF@smtp.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/rtc/rtc-ma35d1.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-I saw that you mentioned you tested it on QEMU. As far as I know,
-mainline QEMU has not yet declared the AMO_HWAD capability. Could
-you clarify whether you used a modified QEMU for this test?
-
-Thanks,
-Shuai
-
->   	} else {
->   		if (!riscv_iommu_fsc_supported(iommu, pt_info.fsc_iosatp_mode))
->   			return -ENODEV;
+diff --git a/drivers/rtc/rtc-ma35d1.c b/drivers/rtc/rtc-ma35d1.c
+index cfcfc28060f6..76d59b313721 100644
+--- a/drivers/rtc/rtc-ma35d1.c
++++ b/drivers/rtc/rtc-ma35d1.c
+@@ -236,11 +236,8 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	rtc->irq_num = platform_get_irq(pdev, 0);
+-
+-	ret = devm_request_irq(&pdev->dev, rtc->irq_num, ma35d1_rtc_interrupt,
+-			       IRQF_NO_SUSPEND, "ma35d1rtc", rtc);
+-	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "Failed to request rtc irq\n");
++	if (rtc->irq_num < 0)
++		return dev_err_probe(&pdev->dev, rtc->irq_num, "failed to get rtc irq\n");
+ 
+ 	platform_set_drvdata(pdev, rtc);
+ 
+@@ -258,6 +255,11 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(&pdev->dev, ret, "Failed to register rtc device\n");
+ 
++	ret = devm_request_irq(&pdev->dev, rtc->irq_num, ma35d1_rtc_interrupt,
++			       IRQF_NO_SUSPEND, "ma35d1rtc", rtc);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to request rtc irq\n");
++
+ 	return 0;
+ }
+ 
+-- 
+2.25.1
 
