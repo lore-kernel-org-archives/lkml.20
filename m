@@ -1,63 +1,158 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99195172F8;
-	Fri, 18 Sep 2026 13:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DF8517BAC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739467; cv=none; b=ZSvgflKXe7rAAzEt0K/CL/I50IDz6Kc4kKU9NpKKeyBa+0fP6RiiWFo1jIFM8X8irqITAARfPY1KtXZoyYyjd8R8Opyoqowe8Ao9M9l9gfLQHES0gLEFdBPajVqVzrTg98OSauhuMlfWQP7bFb4Htx6nuMMy6xcIweE37CjeyAU=
+	t=1789739468; cv=none; b=mtIj37uReprFrk2CKGVjiWVJU67GwvkEHfCGgU3XMf961NmXxm20pCZcyuj6O5tCHITrxsf5Ft8BLXyX378rH59LPA9Iu51kcbecfNAkOeie1TZTlcwtRaia6ZFiO74PH7Iub7FGRluAr8SPd/woy5sL1z9J6ayRyc2+QeXpY7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739467; c=relaxed/simple;
-	bh=r9lrDimKsxCAd/GFlHyTvt7k61I3JdZNuCwiKYQlbtU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qRdVrNFAH/0vPk18cvWoNITiMPhkoDanxEXja80WhnABa2VwgfvSsXVF68+mzCLbrbEjvPZe1AfwpUlwo7fxQN5pZ/PdjTBt6VerUU61ZrhNj6Ev4I+SSjErNS6udgQb3Qmgz045TQPDOsl6xM6eJxJ1+sOWsPljERB/tgB82Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=wgAYKhB5; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1789739468; c=relaxed/simple;
+	bh=7hzxATIo0MnXoioKYCKCH1IWPYMFIk2oI8DjnUA7vII=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SySNV9MetOozq5iByHtL2/+eCRk7FQjwLTntfcUTwbdNEBEwv10BcSsJUhnrSUxwu0c4hTber73OTdsIqECP4wCJ9mZwvO7BPG6eo+PVyT8mntWm4yNE1CmtFJvfz8IoIWLlVbJcXqwuepKks3QBENNdMylFrnyvcpgWGTp1vWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iy1826s/; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="wgAYKhB5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=r9lrDimKsxCAd/GFlHyTvt7k61I3JdZNuCwiKYQlbtU=; b=wgAYKhB5ML7O4pJFyhNfm2564B
-	RJvekncDoZhCFdlhu9bHYfhzQ05bhCwI0X/7Sv0lWneEtZwzw7pxObEeMSZir1OqUa0Q1N6EcB0el
-	mbaT/8MOY9MKR518p88SO2HBywTxlmn+QwxCJvOMmIFD9+QWVJ3+zygdys/jo3+NkN5NCJBjw45Iz
-	mJ7Xw/HBYsYk2sgeuwhphM831/HYcMnZFtZShO8ZPArgPYMQPcV0HTTMnkQMJyjrIEHo5+P10+osT
-	p6MNyO3AMcByQnV6tyoU1GIdTUf7MvfuZAiBv15ODngHeBWeXy7FWy7vAasksBvqSnpdW/28fvHxS
-	tWe9/O2A==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7YzX-0000000EdKf-3TlK;
-	Fri, 18 Sep 2026 13:51:03 +0000
-Date: Fri, 18 Sep 2026 06:51:03 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>,
-	Lalit Shankar Chowdhury <lalitshankarch@gmail.com>,
-	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xfs: replace kvmalloc_array with kvzalloc_objs
-Message-ID: <aq1BxxxUe3iCyPYV@infradead.org>
-References: <20260917200835.31027-1-lalitshankarch@gmail.com>
- <aqzHPqgh-rKqHRo-@nidhogg.toxiclabs.cc>
- <aq0dnoWhkq9JZkiu@infradead.org>
- <aq0i-bfEEMpwJ_Dk@nidhogg.toxiclabs.cc>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iy1826s/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789739463;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FoatqU6bVLNtVOd6+yz8UVdwl0AGcwkRaLTPloa4Wtc=;
+	b=iy1826s/Xowe6p5GtHR9oQXDVkib+O4c/NFSh93SvKPadjBG+do0J/fDu2m7kHvQc8zCy9
+	tWyJR/nNQbgvHAqmXJD0KUf+29y2ye03VB/gll7Mu9KdlvYWLFX70n6dxdZpG0r45fqpIB
+	8ue4KCBT0iL3TyY4aTm+m7J5vOActm8=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-272-R8WXARKtOXuKgfyYgu75TA-1; Fri,
+ 18 Sep 2026 09:50:57 -0400
+X-MC-Unique: R8WXARKtOXuKgfyYgu75TA-1
+X-Mimecast-MFC-AGG-ID: R8WXARKtOXuKgfyYgu75TA_1789739456
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C416180B5E9;
+	Fri, 18 Sep 2026 13:50:56 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id F34AE756;
+	Fri, 18 Sep 2026 13:50:55 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: nsaenz@amazon.com,
+	vkuznets@redhat.com,
+	snambakam@linux.microsoft.com
+Subject: [PATCH 28/31] KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+Date: Fri, 18 Sep 2026 09:50:27 -0400
+Message-ID: <20260918135030.171564-29-pbonzini@redhat.com>
+In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
+References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq0i-bfEEMpwJ_Dk@nidhogg.toxiclabs.cc>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Fri, Sep 18, 2026 at 01:44:12PM +0200, Carlos Maiolino wrote:
-> You meant something like this? Leaving xfs_alloc_bucket_bitmap() looks
-> a bit better for me, to avoid overly long indentation.
-> I don't think there are free_bitmap_bucket though, buckets are straight
-> kvfree()'ed.
+Note that the zapping of obsolete roots needs to happen after
+mmu_lock is dropped, so introduce a separate kvm_arch callback.
+The two map neatly to the "front" and "back" halves of
+kvm_mmu_zap_all_fast().
 
-No, I mean changing bitmap_*alloc* and bitmap_Free in lib/bitmap.c.
+Co-developed-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/mmu/mmu.c   | 30 ++++++++++++++++++++++++++++++
+ include/linux/kvm_host.h |  1 +
+ virt/kvm/kvm_main.c      |  1 +
+ 3 files changed, 32 insertions(+)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 6bbecbae2f8c..242cbe65859d 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -8271,6 +8271,7 @@ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ {
+ 	unsigned long attrs = range->arg.attributes;
+ 	struct kvm_memory_slot *slot = range->slot;
++	struct kvm_mmu_page *sp;
+ 	int level;
+ 
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+@@ -8326,9 +8327,38 @@ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ 				hugepage_set_mixed(slot, gfn, level);
+ 		}
+ 	}
++
++	/*
++	 * There are special considerations when applying an memory protection
++	 * attibute against a page containing guest PTEs, because virtual
++	 * addresses that requires traversing that page need to fault.
++	 *
++	 * When using shadow paging, the PTEs that the CPU actually walks
++	 * do not have any information about attributes (unlike TDP where
++	 * the attributes become part of the TDP permission bits).  Since
++	 * this should be a rare occasion, just invalidate all the mmu roots
++	 * if shadow paging is in use and attributes do cover a guest PTE.
++	 */
++	for (gfn_t gfn = range->start; gfn < range->end; gfn++) {
++		for_each_gfn_valid_sp_with_gptes(kvm, sp, gfn) {
++			__kvm_mmu_zap_all_fast_front_half(kvm);
++			return false;
++		}
++	}
+ 	return false;
+ }
+ 
++void kvm_arch_post_set_memory_attributes_unlocked(struct kvm *kvm)
++{
++	/*
++	 * This may also be called if no zap was done in
++	 * kvm_arch_post_set_memory_attributes().  It is not an issue because
++	 * __kvm_mmu_zap_all_fast_back_half() is cheap when it does not do
++	 * anything.
++	 */
++	 __kvm_mmu_zap_all_fast_back_half(kvm);
++}
++
+ void kvm_mmu_init_memslot_memory_attributes(struct kvm *kvm,
+ 					    struct kvm_memory_slot *slot)
+ {
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e9c0932f150e..33f3199a855f 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2624,6 +2624,7 @@ bool kvm_arch_pre_set_memory_attributes(struct kvm *kvm,
+ 					struct kvm_gfn_range *range);
+ bool kvm_arch_post_set_memory_attributes(struct kvm *kvm,
+ 					 struct kvm_gfn_range *range);
++void kvm_arch_post_set_memory_attributes_unlocked(struct kvm *kvm);
+ bool kvm_mem_attributes_valid(struct kvm *kvm, unsigned long attrs);
+ u64 kvm_supported_mem_attributes(struct kvm *kvm);
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index eb4a661cd0f7..653bb85b3cdd 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2658,6 +2658,7 @@ static int kvm_vm_set_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		KVM_MMU_LOCK(kvm);
+ 		kvm_mmu_invalidate_end(kvm);
+ 		KVM_MMU_UNLOCK(kvm);
++		kvm_arch_post_set_memory_attributes_unlocked(kvm);
+ 	}
+ 
+ out_unlock:
+-- 
+2.52.0
+
 
