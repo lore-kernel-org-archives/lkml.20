@@ -1,180 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174372E22B5;
-	Fri, 18 Sep 2026 07:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C9035C68B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716578; cv=none; b=dEAlW5SDdNRD2kpPKtTZVofcQpq2V/rw3GuEYotKRQHsyrky3mA2E5X0xCb74pNfMbqkMR0iVx3n/FDhmPrZANDgObq+HUj9eeshCO9mo9a8hHcIm66JBJKUFPPk8zPKgbxj5GtuwLW56zdXO2B7iQHfX+NzGRolGJsVbPeC3CE=
+	t=1789716602; cv=none; b=nsQzTK+1CQAZij+D1XbquKpjsVf0Keck6r63LkLk4CkwAFT5pFIeBZOV9KlJv8MNHgrwLrDB9zm/M7FURWdZHIjdp8QdvBD9Wse/ZRrx40XyoxSY0kMwyXoMO3Y6Om6racDeKDOFYPSifRl0PYwfnlPgDVsgBUVwWz9WAxII7vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716578; c=relaxed/simple;
-	bh=valHL9X0ETHGb1EYK1Z2cIIXIHVeLed9hWsXQh3INFI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Y3Wt5dG9sZZs+WbrbEA7bAbvAWMuAnq16LGlszjMadTRKO8RNHOKkORp4X7VQdPpK+exrN7SIrg4aA6A2uuHGKlcxn5jx3lkfh5aW3fH1VWAMPoQYRSBxIpXy25nxT31qxl67Tvuh5E6ldVCp5IpMDnErjdIkbRJm2dYT5Od1J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNLgmBhJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789716602; c=relaxed/simple;
+	bh=RuNvguTwwr2VuOUhAB3PD3uxO9vmyNSZMReZz28odaA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Bd+lVwW5gC+oGGOEtDUQgXwsMP6rc4bR8TvWl5cZ4IkdjMRKz+Qh/YlJZwkpGQbUO8DGRC1ZEeCPsquKj6oN7gk93gaboacGD+/Svi7U5Ej/jnmRsg9RJrtQxiVWtQlq6s+jXE7oVIgmqb5OGVvknTWJmRwsyiXG62tmGfOGVuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=3/FTNKmB; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNLgmBhJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EA51F000FF;
-	Fri, 18 Sep 2026 07:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789716573;
-	bh=EB/EALPe9YnfHxvxf5+0Hr7CoVHdRA6vNL7f1QOjK2k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XNLgmBhJuHpee5/GkENr8NxVUL7zJsxLpqutuWBen1daiPYcKaTjoTr8UbiF64Nlg
-	 8/BzEmu0hwibcAwujsGsp4MxuSdz/2rM8LX0sE56OZQWemXQWfRYmShMda8CbbDLjv
-	 ZD1n2iK+MxRJcc+VhEImxZ4e78LbLbSJk2fcK3ijs3oh45GzyKaxUh5dA6JnjOmBxF
-	 UTWLMIwRGOgK0tYsmRdEqBNKU2ZF5GCvDK2GIa/S7lE8UsxMHx+STOe7AKOvF6JX+C
-	 gWYTzl5YkFjUpUnSjkYW7gwBWEtEb//9qEPDXAwG4HNDEzqu7GVLzUCTwfnkD77lVD
-	 56W6uIiQtw0fw==
-Subject: Re: [PATCH net] octeontx2-af: nix: Fix NIX LF allocation for
- representor devices
-From: netdev-bot+sashiko@kernel.org
-To: rkannoth@marvell.com
-Cc: davem@davemloft.net, gakula@marvell.com, horms@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com,
- sbhatta@marvell.com
-Date: Fri, 18 Sep 2026 07:29:32 +0000
-Message-ID: <178971657276.22033.17152200539540497538@kernel.org>
-In-Reply-To: <20260915072711.985075-1-rkannoth@marvell.com>
-References: <20260915072711.985075-1-rkannoth@marvell.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="3/FTNKmB"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso641712a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:29:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1789716596; x=1790321396; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8n3CU8yWz1Zuk0+R71ZKSDVgYHmxdTzcwMr6TT8Hzck=;
+        b=3/FTNKmBJY1YD6F8Of2+jKYodstX4L5z5+tnaYNuiLyLsNrjYFY/LwPSBeK9GNklPM
+         U1UmhQX/Lz3ynTaDbbnM79x5zg+KxjC1YLDjJA+9/NV6d3czr8syXVuBs836haqqwRst
+         +infEDXFlJ7Dt/Q1+Zhh/euvawTDHB8l4LCt3XEs1LDnlHCvCxcOIDBLNkiyXpT5+gtO
+         oP7Tw0cs9yi5jMbM5PNf+frX1dd6WqSDVuo8XBoSkj7k4uBWWX9Hq3LVKBEEPd1F36Wb
+         QGjCO2jqJiejtXaSrs5VCeLc+hSkpwDcPvrxt8/NKiOv6AvSIPduas3pUFGzZStyRXA+
+         q8yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789716596; x=1790321396;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8n3CU8yWz1Zuk0+R71ZKSDVgYHmxdTzcwMr6TT8Hzck=;
+        b=zczrYDsWyab6cxM7/Mvsb29T3ivJDqCQgl6g84KzCOpK90b6QGTUa3HL345nUK/xPw
+         P7UKS1BzgjY0g9nR8og7rYGRGB4D33OVzsNokSBVsbgtUAmHT+xLAkZk32xI1aTO3GDu
+         p7E5XJY2rfsepwb3J83J9E95QbOuWNMpMnofscGVjE6i3D97EgbrrgwRL/IMyaqVGsMh
+         qLdq4dKSuUBiBHk21gR5hqipVioxIRI6RPDVOzgCLN/KRqLU0UQ5RtDjna9hBKwBvRih
+         Z5pKmRKmexEs+ib0pcjG/VQXqJVhRn9NJNk+boxPeHibqfdeZIT5iHqlBt3Ot9iMr596
+         savQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztS77q7QRE8J3YsvAZuKsOklB2YhVfOkxtX9QHTP3Gu90dFTM2dqROslkTxkNCuAoEqr+Fe0Xw5MlMYXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyqG6++blfGaNT7eGnZd7CTuhuSSvqRWw0mPbt4CN9oj6QPZsf
+	JD4wpk4BD7N2tOoGuQyyLZARefBpkwRwDO6BjjHvU3vVu8wXFSwI57lNEdVpZjzRoiQ=
+X-Gm-Gg: AYBFou0HPyYdmUK+p25aHvaB9YP+YAOi5F9WpOaqw390SUrrCx40CYWH5blBTYUaVRM
+	s/+1EO2XRSH9z7XO0oYOUFNdIPl/TuZfm0Mcony+gLxdfqvMeUhvIaVKF91xmDknkHmNLXb1FE4
+	3AUhvfYZJQuLxbJB65E3rNq/MHWDGm9a0nu93k+D8JLbjLejRffPES/WQvlXiKg8/3VANENvvNB
+	1CELdS8ml/lO8X6Hr2qZkSlP887vp7200bRF+DoSLcFBlF8KxxdueGqe8noWnCi6rpls1rw+K2k
+	znHmniHfxfTO6G68jm5x88wad+b0P7wPCKCcySsEeDcpobmFjxO5QJIEGadNIDXdfkU2u+icgGK
+	twZfg+NYZ8SBH3fCdsQP7shAcfPB7N7E8qLFqBlI1vd2Obbi2m+OlcxhZO1s0/YwMfHLVTAm8wj
+	e7l3yz5+01vaePAjGC+129s9AsFjmwGy8WNgqoNTEMCXjJWffx5VgAeZHd3Do1ouSdFJXpFTEm+
+	u1xe3b8IKJeCuwzquZ0EZ2TdHroFi+Ngn9/wung4gNud+3gJBsf
+X-Received: by 2002:a05:6402:21d1:b0:6a9:a255:2555 with SMTP id 4fb4d7f45d1cf-6aa53102f8amr513503a12.4.1789716595790;
+        Fri, 18 Sep 2026 00:29:55 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa58d55cd3sm462048a12.2.2026.09.18.00.29.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 00:29:55 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Subject: [PATCH v3 0/3] ESWIN EPH8621 touchscreen support for Fairphone
+ (Gen. 6)
+Date: Fri, 18 Sep 2026 09:29:51 +0200
+Message-Id: <20260918-eswin-eph8621-v3-0-514eb1f622c0@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOyw6CMBAF0F8hXVvTF+Wx8j+MCyhTGRMetlg1h
+ n+3ggtD4vIm956ZF/HgEDwpkxdxENDj0McgdwkxbdWfgWITMxFMaFZwTsHfsacwtrkWnKaNbDK
+ tQdTMkLgZHVh8LN7xtGZ/qy9gpg/ybTi43uKhaa2RuvJAzdB1OJVJyPaSOiPJZ92inwb3XJ4Lf
+ Cn/+SNwymhTK5VZW4BS6cFW6MZ26GEf6UUL4lfItoKIgk2lYjmrtJT5Vpjn+Q1F/mE3LgEAAA=
+ =
+X-Change-ID: 20260911-eswin-eph8621-5d3d766e2b0c
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789716594; l=1416;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=RuNvguTwwr2VuOUhAB3PD3uxO9vmyNSZMReZz28odaA=;
+ b=IdunNnHJc7fklXxaMRn0CrbST5HSDl79y+LgAxxlU59S7clmZaT/rqyE8Qp1kenHFzbzy7YQ9
+ tRz7MsAe1WZBs3k8UknSAwzpvDcNr3XL/SHMVV0KLYwds/p2X8YJDm7
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+Add dt-bindings, driver and dts additions to support the touchscreen on
+Fairphone (Gen. 6).
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+Changes in v3:
+- driver: return IRQ_NONE on error, adjust code style
+- Link to v2: https://patch.msgid.link/20260917-eswin-eph8621-v2-0-f534080a6338@fairphone.com
 
-- [Medium] Representor TX-link inconsistency inside the AF:
-  rvu_mbox_handler_nix_lf_alloc() now reports `rsp->tx_link =…
-- [Medium] Two uncoordinated writers now program the same
-  NIX_AF_TL3_TL2X_LINKX_CFG(schq, LBK link) register for a representor's…
+Changes in v2:
+- dt-bindings: Move additionalProperties down just before the examples
+- driver: Fix some memcpy undefined behavior, and various potential
+  issues with malformed or malicious touchscreen response data
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20260911-eswin-eph8621-v1-0-db447ff9e445@fairphone.com
 
---
+---
+Luca Weiss (3):
+      dt-bindings: input: touchscreen: document ESWIN EPH8621
+      Input: Add driver for ESWIN EPH8621 touchscreen IC
+      arm64: dts: qcom: milos-fairphone-fp6: Add touchscreen
 
-octeontx2-af: nix: Fix NIX LF allocation for representor devices
+ .../bindings/input/touchscreen/eswin,eph8621.yaml  |  79 +++++
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |  29 +-
+ drivers/input/touchscreen/Kconfig                  |  12 +
+ drivers/input/touchscreen/Makefile                 |   1 +
+ drivers/input/touchscreen/eswin_eph8621.c          | 344 +++++++++++++++++++++
+ 5 files changed, 464 insertions(+), 1 deletion(-)
+---
+base-commit: c2cd463d6ee7d55a3ec0719d93c49ff99022d58f
+change-id: 20260911-eswin-eph8621-5d3d766e2b0c
 
-This patch reports the LBK TX link and configures the LBK PKIND for
-representor NIX LFs during nix_lf_alloc, and skips the MAC address copy
-into the allocation response for representors.
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> index 153eb57bad067..ed62ef336a730 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-> @@ -1713,6 +1713,9 @@ int rvu_mbox_handler_nix_lf_alloc(struct rvu *rvu,
->  	if (is_rep_dev(rvu, pcifunc)) {
->  		pfvf->tx_chan_base = RVU_SWITCH_LBK_CHAN;
->  		pfvf->tx_chan_cnt = 1;
-> +		/* Setting the TX link as that of LBK */
-> +		rsp->tx_link = hw->cgx_links;
-
-[Severity: Medium]
-Should nix_get_tx_link() also learn about representors here?
-
-The response now tells the PF driver that the representor's TX link is
-LBK link 0 (hw->cgx_links), but nix_get_tx_link() in the same file has no
-is_rep_dev() case:
-
-	if (is_lbk_vf(rvu, pcifunc)) {/* LBK links */
-		return hw->cgx_links;
-	} else if (is_pf_cgxmapped(rvu, pf)) {
-		...
-	}
-
-	/* SDP link */
-	return hw->cgx_links + hw->lbk_links;
-
-The representor is a dedicated PF, so is_lbk_vf() is false (non-zero PF
-bits) and is_pf_cgxmapped() is false, which appears to leave the SDP link
-as the return value.
-
-The sibling helpers already special-case representors, for example
-nix_get_txschq_range():
-
-	if (is_lbk_vf(rvu, pcifunc) || is_rep_dev(rvu, pcifunc)) {
-
-and rvu_mbox_handler_nix_set_hw_frs():
-
-	} else if (is_rep_dev(rvu, pcifunc)) {
-		link = hw->cgx_links + 0;
-	}
-
-That value from nix_get_tx_link() is what rvu_mbox_handler_nix_txsch_alloc()
-uses as the representor's aggregation-level schq index:
-
-		link = nix_get_tx_link(rvu, pcifunc);
-
-		if (lvl >= hw->cap.nix_tx_aggr_lvl) {
-			start = link;
-			end = link;
-
-so the representor would be handed TL1 of the SDP link, and is_valid_txschq()
-would group it with SDP functions for TL1 sharing. nix_txschq_free() then
-clears SW_XOFF and CFG_DONE on that same TL1:
-
-	nix_clear_tx_xoff(rvu, blkaddr, NIX_TXSCH_LVL_TL1,
-			  nix_get_tx_link(rvu, pcifunc));
-
-On a board that also has an SDP PF, can the representor and the SDP function
-end up overwriting each other's TL1 configuration this way, while the link
-reported to the driver for the same LF is LBK link 0?
-
-[Severity: Medium]
-With tx_link now pointing at the LBK link, does the PF driver end up
-programming the same NIX_AF_TL3_TL2X_LINKX_CFG register that the AF switch
-path programs, but with a different value?
-
-The driver side in otx2_txschq_config() writes:
-
-		if (lvl == hw->txschq_link_cfg_lvl &&
-		    !is_otx2_sdp_rep(pfvf->pdev)) {
-			req->reg[2] = NIX_AF_TL3_TL2X_LINKX_CFG(schq, hw->tx_link);
-			req->regval[2] = BIT_ULL(13) | BIT_ULL(12) | prio;
-
-that is ENA | BP_ENA | relative channel 0, and is_otx2_sdp_rep() only matches
-0xA0F7, so the 0xA0E0 representor is not excluded.
-
-The AF side programs the same registers for the same representor schqs in
-rvu_nix_tx_tl2_cfg():
-
-	cfg = enable ? (BIT_ULL(12) | RVU_SWITCH_LBK_CHAN) : 0;
-	lbk_link_start = hw->cgx_links;
-	...
-			rvu_write64(rvu, blkaddr,
-				    NIX_AF_TL3_TL2X_LINKX_CFG(schq, lbk_link_start + lbk_links), cfg);
-
-that is ENA | relative channel 63, without BP_ENA. Prior to this change the
-driver's write targeted link 0 (a CGX link), so it did not overlap the AF's
-LBK link programming.
-
-Which write lands last looks ordering dependent. If the AF devlink is already
-in switchdev mode when the representors are created,
-rvu_devlink_eswitch_mode_set() returns early:
-
-		if (rswitch->mode == mode)
-			return 0;
-
-so rvu_rep_pf_init() -> rvu_switch_enable_lbk_link() does not re-run and the
-driver's relative channel 0 plus BP_ENA remains the final state, rather than
-channel 63 that the switch path and the TX MCAM rule
-(req.index = (lbkid << 8) | RVU_SWITCH_LBK_CHAN in rvu_rep.c) expect. In the
-other order the AF write clears the driver's BP_ENA. Is one of the two writers
-meant to be the owner of this register for representors?
-
->  		goto exit;
->  	}
->  
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915072711.985075-1-rkannoth%40marvell.com
