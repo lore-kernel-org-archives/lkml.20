@@ -1,94 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EB439DBFD;
-	Fri, 18 Sep 2026 09:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB5418A55
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724824; cv=none; b=u+Xf3llNo9XTaRRlndbhwleiBe0b9xzYk9o5pv7CEx1Dhn51f/dDp0lkP/0QbxHLlO3HydIp8Txm2BtbxpINmBFukdJNzKrMl5nGcbAKh3b2zklMWZYdpDUrBXyIUaHs3xTMQ0byMU/vWcHZPHC6nzC3QNg1VB2bgqM4fYCsf8Q=
+	t=1789724828; cv=none; b=rmPeKdqzpc13/qWZdf6Iuc0G/kLbo8gf8z9v1W4VYzV0c00P6mrzsX8JEn+q9YOHMg7P293xhx4AQSYOnEcF2yuA8aE6sqD2oM3Sg/BuSO9BnKtFqgHuiYhKmN26O5Yu71ncYG8iRnSTlqBY5MZK61154rLCTDCebh8JGV4S9Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724824; c=relaxed/simple;
-	bh=CXJ4Z1EeGE8RCIyJIt2bVorzhhYCwcfJDxB2v3PHikM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F4mjTkdmeYwGRds8qgsVCU0o3xZC/nNhcTZZF59xcPmWuGE/NFEMclmm+zUAPYJBWl0KsbMVSS3y024lyEp7dqna6PycEyEy2A8+5rpPny47/T4fFurAp+JLwKULncPvv2Tqrg3jpJJd0zIUgm081g36aWtZC24YeNgwCuD6Ei4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SnbVnSme; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789724828; c=relaxed/simple;
+	bh=dBMuu4lv9KGOmKH9lQZeyokcLqGMiBSJjCoamWxFGqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CgrESCTUcfuPd/ZnpaDC/h27dTLZP3wwoXeiF0pEvK8TseAM8AQTe01k+JIzSEM/muUQk2NLXLVk3M/cfete1xHUoAf1X1eeondy8LZqo/SnsfVohVsx1oJ2p/oLUH7X7NHSOtBi5CachX47jfYt2YAxoihhQLBvuQ3X3YKHvZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ILPTnDDZ; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SnbVnSme"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789724823; x=1821260823;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CXJ4Z1EeGE8RCIyJIt2bVorzhhYCwcfJDxB2v3PHikM=;
-  b=SnbVnSme85uzGrMx6xWZ0Dr7vo+WcQoCgkDfOLhwhZT3D07xoA+Lb9+w
-   yd5zLXwOnPq8mHEIN8czShbU6gWb4LZqctYrbknINRs6Zcb/WfXH2ExF0
-   gQQPldTB75X0Je+OY10taeBwkbWdUihg9IZFvRsJAkFP63/QDgOhd4lzG
-   fXRl61dRt2z/rHZ0kd8nEs+w2dqvlb6z1ED++LUbjKp2Gto9Wh4OhkKJT
-   CKCMiv91QahR0FTLCsyYydB+8JM04ORVUggR8Cd4PHLpV+Si0guWtIzTW
-   AQ4QPvtpgdoNBWqZ3ffu9lZajSXVuDQvIIpsgYFfDFfiGbzZVq1aJ80IH
-   g==;
-X-CSE-ConnectionGUID: Q7Z7WonBSrGXPhYPpSUBAQ==
-X-CSE-MsgGUID: daIXs4i0TdWByJCVT7gRVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90350410"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90350410"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:47:02 -0700
-X-CSE-ConnectionGUID: sGWSrPtTQVqnekvLoOOTuw==
-X-CSE-MsgGUID: X0VWp/onQlK6IJlqJc3B6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271638906"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:46:59 -0700
-Date: Fri, 18 Sep 2026 12:46:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 03/11] iio: dac: mcp47feb02: use field_get() instead
- of custom dynamic macros
-Message-ID: <aq0IkbY9obvwKxRs@ashevche-desk.local>
-References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
- <20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ILPTnDDZ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso3906325e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:47:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789724825; x=1790329625; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JVl7uqBilEpabcfZZkc7pg1MsdjTOvZRzrklboh2FZc=;
+        b=ILPTnDDZKaXk4FCeQm7BWl02eb/b1DYg8Xe3TZK7uMh+FEsulu2rBhwQ3LNtdcrIvR
+         XiJfd+zV3HqC8GfJQEtkVObVew8G9VZEH5WG7qTLYmr5EhHpP9KJVEh0sKbFZrK0RnKd
+         4PPf6OsWqDHDs7bp+CRk51wD2b6SXsH5qp0F5rF2zDWug2RMxcc996+FAQ8Uzc51sfxL
+         wcH363uqQ8QR8/zgEpeb6SYU5GYI+8zobzBoY72x7sb2D0KbZMSii4V6BMwt0mq9ox9Y
+         w5bubbjhvPSw/lbYBjo+kzAxoOTbKRUHzO/Zra1+BjNJ+fn19Z/JbVqr5A8mT3H6Dt5U
+         tAYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789724825; x=1790329625;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JVl7uqBilEpabcfZZkc7pg1MsdjTOvZRzrklboh2FZc=;
+        b=QRqPfCrnVQkVeCg1rOT/LAP6ux3uyewyD6RFHJ+hi/miSk9u4z8xbLqRlEhyUJppYJ
+         0u9gUInjXxqPVIoEL7kdJwzIWjAGJkDhSfSd9kDqWE1Aw6E/aS1DoXeY6TiDCwDvZJ5I
+         na0BhY3nwOy4RbRMFBj5vpESFCJinci/dYLs1rd8IhODbgRL5JkukXkdeIsPA7SS0zsI
+         oRmvtakrJC5vrIGYlbwmWRFkM0sshaVaG19S6qYES27+TMgsvUYPw2oEegbppDQJ98Ku
+         rq2J4hYf4trB5O749xAMjRaJwkweYc6rwbbGPrfuM3BBB+b9J9bmANkyF4QVA1x9HRPF
+         K//w==
+X-Forwarded-Encrypted: i=1; AKwUvBxMddIKaryhgIa0gH7KczdnhPs+GMc9YqeY7KtGbpH6Q4fSBRZgvbJ6OBfXnmF1wEnB6T+6lT3EsFLfS5I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwtoTCX42vDWZnp58izRzCY46t1e7ASf8gCvWNq7mJ6LRRd/x6
+	fRpRIpvnZhpyD93//NjQOx12Fhs2zrRBVUG9bJkF963GjEBnNBLkmVw=
+X-Gm-Gg: AYBFou1EcICq9+4a0AEpaM17LeZVqB/KERtoP7uJE2zh7HpHAw0vjtqD3sftYrdOie6
+	bkhghyPnWDC0mq1Xyl5oR/ypbsTdvoZkHGxuZIs0vciqhpjbM7BWkVFZXiBTX52yc+u3cSYd2p1
+	z4q7fF6QusvW4mofa+qgyPZPX287Yk2lSLRI8EYdZdDz6lwhG3BmCDgDxjLGpQIrXo/WAU25eoZ
+	eFn20Uo7MB5FD86e0J6+MeUx4ocg4UzC8VijfCC1l9vbRhOwZmg0aPF3bwrYLf9Eiv/tOqU43ja
+	kfnctNmGME5WDQOdfuhB33p1WgBjAaTuliRwDD0CWBl2epvmN8+D+8XUIhmUGg9Wlg/s4/7tYeT
+	1GoMmwGtzFhJI2D+rvflKG7D4n3sK4tLWipMc42v5qX7SO+XrUImAMeVEpbIQ1SkvP/09QFslqD
+	pzcPCYDbPd4g9N51N2vQE/63bq1Rt7SgdtS8fLMaMjujZwlg2WMqHyTKwri/UgAzR+JYVyN6HFL
+	MB+oae//Ui+dxo4pv91PYPQ9r7ePhaY40r9ISNbZNCsVqYS5DI80sHxO4ccX1AbhFRlff9K/fEK
+	1owFRO8=
+X-Received: by 2002:a05:600c:4e14:b0:49f:bd3c:bc19 with SMTP id 5b1f17b1804b1-49fc572eff5mr23057365e9.20.1789724824379;
+        Fri, 18 Sep 2026 02:47:04 -0700 (PDT)
+Received: from Ubuntu-2604-resolute-amd64-base ([2a01:4f8:13b:86d::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm3054971f8f.34.2026.09.18.02.47.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:47:03 -0700 (PDT)
+From: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+c61d6962d0b7e698439e@syzkaller.appspotmail.com
+Subject: [PATCH 1/1] mm/page_alloc: enforce upper bound on min_free_kbytes sysctl write
+Date: Fri, 18 Sep 2026 11:45:51 +0200
+Message-ID: <3c1598eaff225a155cdec5e92d5c97fbfc6c00fd.1789724312.git.med08elkadiri@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 12:06:29PM +0300, Ariana Lazar wrote:
-> Replace manual bit operations which select channel corresponding bits
-> from a control register in mcp47feb02_init_ctrl_regs() with field_get()
-> macro used with masks already defined for regmap operations within the
-> driver.
+syzbot reports a kernel panic ("System is deadlocked on memory")
+after writing a large value (e.g. 3145728, 3GB) to
+/proc/sys/vm/min_free_kbytes.
 
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+calculate_min_free_kbytes() already caps the auto-tuned default at
+256MB, with a comment noting larger values don't make sense even on
+big machines. But that cap only applies to the computed default --
+min_free_kbytes_sysctl_handler() lets a user write any value, since
+it only sets extra1 = SYSCTL_ZERO, with no extra2.
 
-> Link: https://lore.kernel.org/all/20260913224339.490d89ba@jic23-hlaptop/
+An unbounded min_free_kbytes drives watermarks past what the system
+can provide, so every allocation triggers reclaim/OOM with no way to
+make progress, and out_of_memory() eventually panics.
 
-No need a Link tag for the simple suggestion. I believe there no any unobvious
-things that were discussed at that Link.
+Fix this by applying the same 256MB cap to the sysctl write path.
 
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+Tested on top of upstream master (5dd1818b15d9):
+  - Before: syzbot's reproducer reliably panics the kernel.
+  - After: writing 3145728 fails with -EINVAL, normal values
+    (e.g. 200000) still work, and the reproducer no longer panics
+    the kernel across repeated runs.
 
-Also this is not a fix, move it towards the tail of the series.
+Note: this covers the reported case (a value far above any real
+machine's RAM). It doesn't prevent a smaller value that's still a
+large fraction of a very small system's memory from causing the
+same problem via lowmem_pages in __setup_per_zone_wmarks(). Open to
+a follow-up there if maintainers think it's worth it.
 
+Reported-by: syzbot+c61d6962d0b7e698439e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c61d6962d0b7e698439e
+Signed-off-by: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+---
+ mm/page_alloc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 12fac9084c48..8cb62879bf41 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6933,6 +6933,9 @@ static int percpu_pagelist_high_fraction_sysctl_handler(const struct ctl_table *
+ 	return ret;
+ }
+ 
++/* Cap sysctl writes to the same bound calculate_min_free_kbytes() uses. */
++static const int max_user_min_free_kbytes = 262144;
++
+ static const struct ctl_table page_alloc_sysctl_table[] = {
+ 	{
+ 		.procname	= "min_free_kbytes",
+@@ -6941,6 +6944,7 @@ static const struct ctl_table page_alloc_sysctl_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= min_free_kbytes_sysctl_handler,
+ 		.extra1		= SYSCTL_ZERO,
++		.extra2		= (void *)&max_user_min_free_kbytes,
+ 	},
+ 	{
+ 		.procname	= "watermark_boost_factor",
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
