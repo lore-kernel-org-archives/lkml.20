@@ -1,103 +1,114 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7688749D594;
-	Fri, 18 Sep 2026 07:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955813CAE75;
+	Fri, 18 Sep 2026 07:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715547; cv=none; b=T7dCicBK0StFjPg367YCbdRrFGAcXMuG6a6VhlZ9JWzmPwzmhshYGyiOPNbFtkFAT0mTAQDeR5Ao92fl1stLgoJrlMSa4tnClF/aQfyK+cKD779c7ZTNTHbUrhBplKYapqnQjzvGEngJmhnZ5tTrCRskbxRPa9lOHqG/y+Fkcbs=
+	t=1789715649; cv=none; b=oLngFfnSY0xUVoRvD3b0+wDskuVixJR9ws0IJgd21/UR1Wq64gBW/6Csop/wjTL/4Ku8YuRdE9LdskuxVEED4BA3ah99E9mYF8OVsraeg9mOIHweRvFtjRl26VQ+LO7JCxtLC/hLS2zOampKQ6cnl+bmJ8tENCHr8MxgmKj5RvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715547; c=relaxed/simple;
-	bh=qbeZlVy+5SBEKTSymSb/qxfJ9QW/jVvvGlezIyaiUGc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a71w0FohgVvHAy6mGbsxlopdMrW275rENXpTlQwUHpUmpx6vPJvpABm/DH0XmvXJ6SY1BCznl9v4n4YqZd08EFIwk+wq6mg1QAuGlKCPsqBbPgdh9coCLxtFJB0elFoOY/1dXjQqdAfm1/bbZLg4D0MW8cYksAjPhGQtc8g87ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=gxOCxE8s; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789715649; c=relaxed/simple;
+	bh=ydmkQPxhqPwIQuxAl2L1p97L9blpffUYBII7HgSj8ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D+uybpcCnVjbx26t4p1HatqwwBYEC7XsPCf06YO48NiIlbvMSL+8Bzs8orntYRJ8NuG0YANPLeOkefyMM+Xy5Pj7Y33BhiKYdB+piY4dIcDN2Snfb1Mgg0eSHyU8HI4n1hcT3k5mZEKiXrfWZRaDmul7WX4WuL0P1J0ssaKTQ7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwQ9+HE4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="gxOCxE8s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=aBmuyDYC6BL0NuO22P/UKnyiVKMdfpL2R0mfPFPf/BQ=;
-	b=gxOCxE8sPuNKysXsbS8wQRqJ9f+QjQpyHrOrdCDl8Ov3ZIhrUFtKok2X5Zxagr
-	BeGM2ed0XtxHyPPWez4vSLRjhSSlfKeSJK+W1y4utwprJu87rWIRk4wopUndl/4Z
-	PCUpZ7SAtAna82fL8jlCahXOqn1RahLRZPuHlGDJFE1jQ=
-Message-ID: <6b00a649-8672-47c2-ab31-8b7d68ce1dcc@126.com>
-Date: Fri, 18 Sep 2026 15:10:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwQ9+HE4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8311F00893;
+	Fri, 18 Sep 2026 07:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789715645;
+	bh=qPja/cjHElFD0uzEegkx8fIwtmRtWZZ628xauj+vnig=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VwQ9+HE4NY0tnT9IpCZZjkrYpUgU+Q3MI0b8/kYWYNXLBz0OBgneUCZ0sypjFtJsp
+	 uk8yMrodDG/EeLJ8Cw8NNo8KiwNI51f8ZD8ksE/h0ATyzWe0rOhA2zD55Bv4UGXOqW
+	 XN8cdNsIiGEswI8idXhx9LsXVV8pMBpdua0A2GKBMdibbYRuZmFHYhRVj+1e05f18V
+	 eH2pa2QHQGVyGAQKDpc8Rp21vRQpejf9qtKhrlKELzpduu2vOfPRzZeJau0po3nnmS
+	 8o+tIVL/BCsxVeANYa0wNC3Hgxqs9ydfhcyzw7TqvV+sVHAZ3QOve+6n3SeMFjIw8i
+	 5ToAQGv9yBMiQ==
+Date: Fri, 18 Sep 2026 00:14:02 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+Cc: Tim Menninger <tmenninger@everpuredata.com>, linux-mm@kvack.org,
+	Chuck Lever <cel@kernel.org>, linux-nfs@vger.kernel.org,
+	Jon Curley <jcurley@everpuredata.com>,
+	Eric Badger <ebadger@everpuredata.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [SLUB] nfs_page cmpxchg_double_fail and perf lock perturbation
+ on dual-socket NFS/RDMA
+Message-ID: <aqzkugwB_I5X2JYx@z2>
+References: <20260916232227.4098143-1-tmenninger@everpuredata.com>
+ <aqvq8-6IJBDer90O@thinkstation>
+ <aqvy8NqRRRmUlxjR@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: stmmac: fix the invalid VID programmed by VLAN
- perfect filtering
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
-References: <20260917122245.1338365-1-xiaolinkui@126.com>
- <b521308c-34b8-40dc-831a-757a163902d6@bootlin.com>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <b521308c-34b8-40dc-831a-757a163902d6@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3H6z146xqSl3ZBQ--.23835S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFyrJF15tF45Xw45Jw1rXrb_yoW8AFyxpa
-	y3uFnakayqqr1fXFsFqF18X34jqw4fAr45KrZ8tFWUAw15C3saqFW8Ka95urW8ZF9Ygr1j
-	ywsFy343GayvqFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4Vb9UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlRb70mqs4-Z0FQAA3Y
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqvy8NqRRRmUlxjR@thinkstation>
 
-Hi Maxime,
+On Thu, Sep 17, 2026 at 03:10:47PM +0100, Harry Yoo wrote:
+> ... now I realize we need to add PERFORMANCE EVENTS SUBSYSTEM folks 
+> as well ;-)
+> 
+> Hmm, sounds like perf lock is somehow triggering slab allocations
+> and interfering the workload.
+> 
+> It could be because SLUB is merging nfs_page cache with some other
+> cache that perf uses.
+> 
+> Could you please check if it reproduces with slab_nomerge kernel
+> parameter?
+> 
+> On Thu, Sep 17, 2026 at 02:46:24PM +0100, Harry Yoo wrote:
+> > Hi Tim and Chuck, thanks for reporting this to linux-mm.
+> > Will take a look at this but let me Cc SLAB ALLOCATOR folks here first.
+> > 
+> > -- 
+> > Cheers,
+> > Harry / Hyeonggon
+> > 
+[SNIP]
+> > On Wed, Sep 16, 2026 at 11:22:27PM +0000, Tim Menninger wrote:
+> > > My questions are:
+> > > 
+> > > 1. Do the uninstrumented cmpxchg_double_fail rates above look abnormal
+> > >    for this workload/topology, or are they within the range one would
+> > >    expect from this degree of concurrency and NUMA placement?
+> > > 
+> > > 2. Is there a less invasive way you would recommend measuring the
+> > >    nfs_page list_lock/freelist contention? I would like to distinguish
+> > >    the steady-state behavior from what is observed during the perf-lock
+> > >    capture.
 
-On 2026/9/17 23:57, Maxime Chevallier wrote:
-> Hi,
-> 
-> +Ovidiu
-> 
-> On 9/17/26 14:22, Linkui Xiao wrote:
->> From: Linkui Xiao <xiaolinkui@kylinos.cn>
->>
->> for_each_set_bit() leaves its iterator equal to the bitmap size once the
->> loop terminates, so the 'vid' read after the loop in stmmac_vlan_update()
->> is always VLAN_N_VID (4096) and never the last VLAN ID that was found.
->>
->> Cores that do not support VLAN hash filtering (dma_cap.vlhash == 0) fall
->> back to the single VID perfect match filter and hand that value straight
->> to the MAC. vlan_update_hash() therefore programs MAC_VLAN_Tag with
->> VID 4096, a value that can never match an incoming 802.1Q tag, so the
->> perfect filter ends up discarding all VLAN tagged traffic. Both
->> stmmac_test_vlanfilt_perfect() and stmmac_test_dvlanfilt_perfect() walk
->> this path and fail as a result.
->>
->> Remember the VID while iterating so that the last active VLAN ID is the
->> one passed to the perfect match filter. When hash filtering is available
->> 'hash' is non-zero as soon as at least one VID is active, so
->> vlan_update_hash() keeps ignoring 'pmatch' and nothing changes there.
->>
->> Fixes: c7ab0b8088d7 ("net: stmmac: Fallback to VLAN Perfect filtering if HASH is not available")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> Thank you for proposing this fix, however this code is currently being removed :
-> 
-> https://lore.kernel.org/r/20260908164309.59282-1-ovidiu.panait.rb@renesas.com
-> 
-> So no need for this patch :)
+You can use the BPF version of perf lock to check lock contention like
+below.  (it only work with 'contention' subcommand.)  It won't create
+a data file and just shows the result.
 
-Thanks for the heads-up. I'll drop this patch then.
+  $ sudo perf lock con -ab sleep 10
 
-Ovidiu, I'll keep an eye on your series. If the fallback path
-still needs a valid VID after the removal, feel free to ping me.
+or
+
+  $ sudo perf lock con -ab -E 5 sleep 10
+
+to see top-5 locks only.
 
 Thanks,
-Linkui
-> 
-> Maxime
+Namhyung
 
