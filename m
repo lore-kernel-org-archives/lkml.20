@@ -1,103 +1,79 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4440E22538F;
-	Fri, 18 Sep 2026 10:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFD04D7D22;
+	Fri, 18 Sep 2026 10:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726861; cv=none; b=YYby3KJi91v+wRadkS4TWIUmuv88F3jA1qVBMwh/EVlgc9pq2qY6iPdPmBWRMEfPnA+CO6nhVL7LHPfCnzW3sX2GrjAniTSfkQZ0E5GLtyUfqKG3caEfR6JcbWoe+hMrdrCKk5pb31GDi6cgH15tQxQ+/GYSSibvyVkHoczN3Do=
+	t=1789726866; cv=none; b=QpdC8Eb2pzO326yf2qm+24YVbmAtHdgDHJ8hjTrRmkmq/rQ5Q1Odf/K5RkhLA9bLJK9EtH/xQv11mdXALYWj5DYdcJKmlfSqBYMIT+O3J8nvFegrVudbLf/dHNBzvrWrKDOaq5coryQBuSagRL9S1IKw6ly0t24+WwNrkLp5y+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726861; c=relaxed/simple;
-	bh=BAVjxI/sPlbNfC2L8bo/HavZU0mb4/zUP+cUEWUy5LM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d1iYnfVLz7mXkMUApQFBiXizE8KyC7sPTVQ4szLPjwcoNRtzS+ED/o6+Czy2IDkXLOu5Y5k0C1LNQodxBwE33d+nM2Ww0fOGc+1odH9z5nTABmzb0AhL0UmsQMOag6hsg9K44sy3JFAAFTHb1MXru1hQLHuTWQrlFec9l/Qoqko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=oOO60XwY; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789726866; c=relaxed/simple;
+	bh=ojRb2OtGZV+lNR54MP8W9kUbXEoKZ+Rzr9bvDWAKmSI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dPJW5JRN3Q5KQAvFSuK7PuGWUnudl71pUMKwQAHKZ35AQ+Tch2FMPcYd/GSC05UkCLGZo2FnzwDnphj7cbmsiXmQKhITxIrRJhedN1NSK0AQ8/X8J3Wo51jV2XbFMp9x3WjG2jCdfXtXXfaIAc+5u7ZAJN5I41OLI9qL5gwGI3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbhnGqJb reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="oOO60XwY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=/ZQNv34Ek5Ax6QYdQ7WcoxvzXPWjuzfsPGdEUkXflEs=; b=oOO60XwY8ERyAwZK1S5h0ToTPQ
-	OWwppHptar6tur502/2Wg9/RCn2+pTXEtbIxFfHSEZlVoELlME73jhYQbNgjqZXZLZlskIwr4BRLo
-	4KhTvT+ONt5E5DYomWH9sCloKyIcNdSH+jcmjU8hT4oxN+3cPP3FToHvfwgCedBhWkNh93FuDuebg
-	LSCa4XpTARiqYS5ebFHkY+qrfq04Jev8uQkMm22bxOdXL6rKAblbLD/pGi5gzHlrNVhf8kjDvSZ2a
-	DiR2HyXULTC0Etm/1SxcycLYuX1tHXwQnnjP8oldLyI2EF+MMok6nX92fsb8cD8KxXPWvDBGHbwPS
-	JquZVzOw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x7Vi1-006eOU-1G;
-	Fri, 18 Sep 2026 10:20:45 +0000
-Date: Fri, 18 Sep 2026 03:20:39 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com
-Subject: Re: [PATCH 3/3] mm: kmemleak: raise min_unref_scans to 3 for verbose
- auto-scan
-Message-ID: <aq0PcQ-S5i8CWqr1@gmail.com>
-References: <20260917-b4-kmemleak-doc-v1-0-84fde6d1f749@debian.org>
- <20260917-b4-kmemleak-doc-v1-3-84fde6d1f749@debian.org>
- <20260917150443.a872ea0fd692503c53b2b773@linux-foundation.org>
- <aq0ChSUFw2n6lXIQ@arm.com>
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbhnGqJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482D31F00893;
+	Fri, 18 Sep 2026 10:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789726865;
+	bh=ojRb2OtGZV+lNR54MP8W9kUbXEoKZ+Rzr9bvDWAKmSI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VbhnGqJbr+ybtK3Fnwjub4nxRMAkKMpEzatb5UyqR56xMFB6wzCkyGzg4dZWPmT3+
+	 X+snAKFCSsw9hS3uDDtXyaV+a120iBx6doKN2SXy7kWsE6Ghr43NePclsslWz3X5jO
+	 umM+Y1oZRe63NELb54DdiEkz9d+zMmZueH0FDcyiLWVV9cdWUYTG7WaCOZvG2X/7g/
+	 a9oPJYB+Dy64zxGyUYebphSZ5ylo5LJpeevfZI8VBPaG8K99ZpvTAK5Kx+JWQnO/hy
+	 0N1qcxBpGbuzeUsqKEcZ7LzQMrQi37y/VFurlQHxRKvV4Yc12NiNYAuI+ZMxmxdW8s
+	 JCL5q8jJo+Sfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/17] LoongArch: kexec_file: Fix elf_headers memory
+ leak in retry loop
+Reply-To: sashiko-reviews@lists.linux.dev
+To: leitao@debian.org, seanjc@google.com, kees@kernel.org, thuth@redhat.com, tglx@kernel.org, loongarch@lists.linux.dev, will@kernel.org, hbathini@linux.ibm.com, rppt@kernel.org, akpm@linux-foundation.org, chao.gao@intel.com, hpa@zytor.com, guodongtai@kylinos.cn, takahiro.akashi@linaro.org, maddy@linux.ibm.com, pratyush@kernel.org, "Jinjie
+ Ruan" <ruanjinjie@huawei.com>, zhangtianyang@loongson.cn, lizhengyu3@huawei.com, blum@kernel.org, x86@kernel.org, eric.devolder@oracle.com, catalin.marinas@arm.com, ruirui.yang@linux.dev, me@linux.beauty, adityag@linux.ibm.com, ruanjinjie@huawei.com, vishal.l.verma@intel.com, mark.rutland@arm.com, sourabhjain@linux.ibm.com, linux-kernel@vger.kernel.org, rafael@kernel.org, chenhuacai@kernel.org, pasha.tatashin@soleen.com, palmer@rivosinc.com, ritesh.list@gmail.com, kernel@xen0n.name, robh@kernel.org, dakr@kernel.org, james.morse@arm.com, mingo@redhat.com, tangyouling@kylinos.cn, mclapinski@google.com, linuxppc-dev@lists.ozlabs.org, linux-fsdevel@vger.kernel.org, jbouron@amazon.com, sshegde@linux.ibm.com, graf@amazon.com, bgwin@google.com, bp@alien8.de, linux-mm@kvack.org, chleroy@kernel.org, piliu@redhat.com, maqianga@uniontech.com, gshan@redhat.com, yeoreum.yun@arm.com, coxu@redhat.com, mpe@ellerman.id.au, dave.hansen@linux.intel.com, npiggin@gmail.com, baoquan.he@linux.dev, kas@ker
+ nel.org, liukexin@kylinos.cn, ardb@kernel.org, driver-core@lists.linux.dev, linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org
+Cc: kexec@lists.infradead.org
+In-Reply-To: <20260918100442.3841135-8-ruanjinjie@huawei.com>
+References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
+ <20260918100442.3841135-8-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 10:21:01 +0000
+Message-Id: <20260918102102.482D31F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq0ChSUFw2n6lXIQ@arm.com>
-X-Debian-User: leitao
 
-On Fri, Sep 18, 2026 at 10:21:09AM +0100, Catalin Marinas wrote:
-> On Thu, Sep 17, 2026 at 03:04:43PM -0700, Andrew Morton wrote:
-> > On Thu, 17 Sep 2026 06:47:37 -0700 Breno Leitao <leitao@debian.org> wrote:
-> >
-> > > CONFIG_DEBUG_KMEMLEAK_VERBOSE sends every report to the console, so a
-> > > transient false positive there is broadcast to whatever collects the
-> > > kernel log rather than sitting in the debugfs file until someone looks.
-> > > That asymmetry justifies being more conservative than the general case.
-> > >
-> > > Require one more consecutive unreferenced scan before reporting. The
-> > > only cost is that a genuine leak is reported one scan interval later
-> > > (600s by default); the value stays writable at run time through the
-> > > module parameter.
-> > >
-> > > Kernels without CONFIG_DEBUG_KMEMLEAK_VERBOSE keep reporting on the
-> > > first unreferenced scan.
-> > >
-> > > I've been running constant upstream kernel with
-> > > CONFIG_DEBUG_KMEMLEAK_VERBOSE set, and I am still seeing some rare false
-> > > positive, that goes away with min_unref_scans=3, so, making it the
-> > > default based on my heuristic.
-> >
-> > I'm guessing going from 2 to 3 reduces the false-positive reporting
-> > rate, but they're still possible.
-> >
-> > It all sounds rather rubbery.  Why do these false positives occur,
-> > anyway?  Are we papering over a fundamental problem by filtering out
-> > its user-visible effects?
->
-> The fundamental problem is that we can't do a stop-machine for the
-> kmemleak scanning. When scanning takes tens of seconds, pointers may
-> move around memory or registers on other CPUs, so kmemleak could miss
-> them. It's all probabilistic, hoping that we won't hit the same object
-> two or three times in a row, 10min apart (for lack of better ideas). We
-> have other heuristics like checksumming but they don't seem to be
-> sufficient when testing on a large scale.
+> If load_other_segments() fails after image->elf_headers is assigned,
+> the memory lifecycle is safely managed by the global kimage object
+> and will be freed in arch_kimage_file_post_load_cleanup().
+>=20
+> However, during a retry loop in efi_kexec_load(), a subsequent iteration
+> will allocate a new buffer and overwrite image->elf_headers. This
+> permanently leaks the stale memory from the previous iteration before
+> the global cleanup can track it.
+>=20
+> Fix this by explicitly freeing the stale `image->elf_headers` buffer
+> before assigning the newly allocated headers.
+>=20
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Cc: WANG Xuerui <kernel@xen0n.name>
+> Cc: Youling Tang <tangyouling@kylinos.cn>
+> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Cc: Kees Cook <kees@kernel.org>
+> Cc: stable@vger.kernel.org
+> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
+40huawei.com
+> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-In fact, in my investigation there's only a single use case where I
-actually see this false positive, which go away with this new approch.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-And I have a very solidy test setup where linux-next is deployed daily
-and run for 24 hours, until the next kernel replaces it. This is on real
-hardware with some basic workloads, so, in fact the false positive
-(given the design above) is quite low.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
+135-1-ruanjinjie@huawei.com?part=3D7
+
