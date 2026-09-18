@@ -1,139 +1,362 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E344498906;
-	Fri, 18 Sep 2026 07:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715222; cv=none; b=bhxkxG5AOXqDwh/qyHrhnUptgL+isLB4izAFvzMn0u54HiCcmtcOViWFgmKC+kpDCKsHDt0XMbGb1ExmkRLS3Y6eWI/Yucts6Zm3rKAH7aLb1mDgH5KkZ2pFMLfCRco3gLK3f03AvCdV+BIqDrMCnXVFA1dE6/rRunITJpt8Prk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715222; c=relaxed/simple;
-	bh=gjbyf3Gcbv4XlVEKdrgPMZz66DVdSELa98i5Z2lm5Tw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VtT1FMswPxP9i+SdhXjrJAizMiuEM4UqzPBdEuSBtS6OSZO8zvgbVNMY5EY9YZIQ8RfojO6h7eV2TqwHdw+nEJD8WTcCL9/o/tUujfbmRLpPCbzFcQWcD8/NzA3Hl0Mfoft3TKUD2O+K3A4JvYAClfQS1QrjuzduK3AF7xUHEXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QPezEhSF; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DAB484228
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789715236; cv=pass; b=W7CSbmGqrWvjcBD4w9WSjN1VEhclfSZzbRsOyEFUdbuvlqtFqojKbniUJSyPcUfSbmrgH7sExIUOzydhd4854tysVrnJtXFXQqUcvZcJEQmMBr2n3IgRok4yilSpOxAsbEocGvaX4FEFGH90jLNWwtt4Jiw/vnXudf+9wdnTASk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789715236; c=relaxed/simple;
+	bh=hnGmBkKP9ldG990awhuRYySkLT6FFnTZIuKmIFeC1Lc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O1Kl8zyddVMnvjHqKBGnMrLA7yPlX/FwAEjsgN4hWjyBYF8eWixBSlhtJjILlSWPnokL0CxI1JIndY04MJ/hone5oSTGqws6ZYz7j3OJIxp/RpqhMGMynlRpa3qE25rZ1+VWBSfUa+bVYtmqimvJlQqhA5qGWY6T3PprgHnJpNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=W7L/qY3i; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QPezEhSF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5821F000FF;
-	Fri, 18 Sep 2026 07:06:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715217;
-	bh=CYTKS6LtEqOXedQDCZMgSMsK8BAtRN8tnXK08Vs7mUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QPezEhSFz1oJEKdWrJysPdVqTui36u9odN7Ok89a/CQ+JbBtuDOXa15EERg8ZHwM6
-	 ZTt4ZDn1nuVULyCuBvwHgV2346nH5Q31xiBVxqTWKRcU7H6+vPVnG+MBoStEXxZlH1
-	 Xap4i3X/5T8j7QsiIHsnc7bbLDJvtAEI0m4rAYlMU5rHISYDO7bukISllG5+xtwJNz
-	 kM7l/Kjb5SAW/Fihbkforg6oxz5cfiOZ4ZYWcuKqsxjhJpAKsTlv7VRjoreQWFvDxr
-	 TGrZ/lQF71IY8+LNwMLWkMQDSnXz5F5cqxBokgTzQ5HZlmjxvRF1P5+OBsVW9rmiXP
-	 MqnIc0HIdvADA==
-Date: Fri, 18 Sep 2026 10:06:44 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Len Brown <lenb@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
-	Will Deacon <will@kernel.org>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-pm@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 1/6] set_memory: add number of pages parameter to
- set_direct_map APIs
-Message-ID: <aqzjBA_101LcKRCD@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
- <20260903-execmem-set-vm-perms-v0-2-v3-1-949b64a9f755@kernel.org>
- <d299f7c5-6c71-499a-b8cd-aa69c4c81dd1@arm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="W7L/qY3i"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-670fee39d73so435280d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:07:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789715223; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nelpE1d9XDOjQ0uK8M/NLloHz6XIVQm04AseOadpPOpeUxJZ7fJQvbuEUEvznK2x59
+         ZulY6W/kqCy/+W8BAGbuXGnVBhY48kROMdSqoWiVUpVscX3t03LBzNeHe75v4nBFB4UE
+         /ZG449pSfMGaY4dMoEaC6itKRNYf8TGAjLD/eaqK7KuPjwNXR5qHP0a5GfiMgv+tsFeM
+         IUg8ogmlmu8asLWhxb4swTibxhoAh6sbgN/CqXtxwXXVBmX5C6SNVY5ivoFHCE7rpkR7
+         pI0G7ze4TWjdGFbeuEQaHa6T32+m2E3iDbMMgc3IfDkA1BnjwUnrgkHiPNGyUFjvaiqM
+         1sIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZVTLUeibsWBPZCdD+qqGVF/fmQVK7DA4WjMhu8zs7u0=;
+        fh=E2erLwfjBrdCPzGEyzbqhGt2/dCfAW1HLlWzIgeTxWI=;
+        b=bDVgLQ3AtfIYG4GcWoH+hQo3Bx00i+KYfr14BqnmoY3A7M99cTxWFgMUsxVnIQJNJv
+         NGCg3fi6v8bHJXbc53O2dw7Vcbirxc1wNQggWuVClGprvZHBuReLjZbNH7ujh+Gkrm2x
+         Dxl811ULlE/yML6WlOvCsXefvJBAlSGhoevQJIc8pcw+6FroeNpH5T075xuNH4xz7HSK
+         JMI7KweyAhm1E6n483iRj/FUNOSpZ212Kg6qyxp2wuENJqnlmbp2yDXcry3e/x9AuDRy
+         nWdXjPlWqhPpk1xoNLfvGx8J7h0mYH8+4PliJMzk5OCj8vW/LUjuOlIhSNKJOL4M48P5
+         5reQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789715223; x=1790320023; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZVTLUeibsWBPZCdD+qqGVF/fmQVK7DA4WjMhu8zs7u0=;
+        b=W7L/qY3iVZGKZG7jNcwTW28H6Q1+7SThrqXfK7bEsxOXKyh9EWPvoQ+y0/NHrw8kbk
+         vFy7TemY41yR7OL8DHmo54QJm4MuIhzyzx0lFeqkt7wZKMoS45aCiozScCPolRZYJqk9
+         hwAAPm6vw7yGHgjLFRHqeYd0UgrZNEV4IoIVY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789715223; x=1790320023;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZVTLUeibsWBPZCdD+qqGVF/fmQVK7DA4WjMhu8zs7u0=;
+        b=OTbcncG96nTQicdNy0SL2pk7lsmZf5EAV0D7sNyTLfymzTDW82Ec9YPeeMzu0o+LFk
+         XdpnqhPd4dHsTzccVnY7NIsGUQ5XHuGd3V3VVaCZtIraREtjaAD1mePiDUqUvn7GK9oZ
+         7gj7uc9L/nk/BZNtX+We4T3Pelpm911yD5ZUoISJDvlqa9DnVzpgquTTFhTSkpNFy0E7
+         lp+oNG/E0M6x7rnzoNKd6R4BWs2s7JHV7+ZvJoi9vYl64hcafj5R6YcehmlFcC00rpHv
+         5kDszK99dG0NPehZv15h+g5YxzK/5KbsjqDitlMnH4edXorj8cAWe4RHom+oP3Bkyes3
+         cHcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxD6ytaEZq/t+oFJzXh2t2tjMSt9WCMBWtOCWCjIJqoQOIfxulp0wOi1fBx7BeR6FKVOyjlb8CDcMQIA2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kh615FA+HE2R2ODAqtCs0VCpJVIrkzS+xGSMkWwWuAMQQ1GFUg
+	Qv5XA+njGcf3wfn05pzYJfOSL2KTOMADZyWhUoKtDPW3WvQAKHAgTXkXF0xn5MpJi+xJqCGgbyp
+	fCuL2EIIorkaJB1EovfYp1TxoS6OK2INzyJ+tRCGM
+X-Gm-Gg: AYBFou3fwjPtLlUlF4ZuEoj56iPa2OFZs6l/j2t6oCUxDE5wOjKKfm6wdVrW/MZeHqO
+	UZ3GbsUsD0lWFkM9CLvA6AYB1E3tx6UtDAJdBaxfq2v2wDRDGAXWDcB4d+mjUKIx/Cx54Knoz+r
+	uiW4p1UtMyEEDLnk2nJb/xIY40Ki3VrmSJ9JzExTda0RVBXmiKqG0H9lNxDM5ouMfkgVqNi6GCi
+	itH6KwYgKf6kcGiJm3oUCLujKgEeXfsJgE8Ycv8b7B1dtkWS+ir6t/iuS/886T6QbyJo0pvc7YH
+	3/tednO3P7PLgiIoJVE2MuASpsljPkvQngp3JzHNjYdRHHTEKP1Cz4wgH5yOMkfv0VTI3IzCiae
+	nI6ep8jhIpw==
+X-Received: by 2002:a05:690e:c4d:b0:671:7b0:e5ce with SMTP id
+ 956f58d0204a3-6717fdf1073mr497902d50.75.1789715223118; Fri, 18 Sep 2026
+ 00:07:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d299f7c5-6c71-499a-b8cd-aa69c4c81dd1@arm.com>
+References: <20260916033327.3054126-1-wenst@chromium.org> <20260916033327.3054126-2-wenst@chromium.org>
+ <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de> <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
+ <f7fa4c4c-bc59-4822-94bb-6e9d68f8f0ca@suse.de>
+In-Reply-To: <f7fa4c4c-bc59-4822-94bb-6e9d68f8f0ca@suse.de>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 18 Sep 2026 15:06:51 +0800
+X-Gm-Features: AcwNN1VLg__gblp0p9qUFHinFpHutsjL-_8trTnXduaSEQp1OhTN0-X1tjhNQaU
+Message-ID: <CAGXv+5GNjKxzHuBn28PbRtbFA1yuJ7h02xDpght4add3emuKJg@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 1/5] drm: Split framebuffer pixel offset
+ calculation from drm_fb_dma_get_gem_addr()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev, 
+	imx@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 08:11:22PM +0200, Kevin Brodsky wrote:
-> On 03/09/2026 11:28, Mike Rapoport (Microsoft) wrote:
-> > When set_direct_map APIs were introduced by the commit d253ca0c3865
-> > ("x86/mm/cpa: Add set_direct_map_*() functions") the single page
-> > parameter made sense because the initial callers (vmalloc and
-> > hibernation) had sets of unsorted struct pages that required changes of
-> > their mappings in the direct map.
-> >
-> > Since there is an increasing demand for direct map manipulation and it
-> > is also desirable to be able to update larger physically contiguous
-> > mappings, for example an entire large folio, extend set_direct_map APIs
-> > to receive number of pages parameter.
-> >
-> > As there is still only a handful of callers, change the existing
-> > functions directly and update all the call sites rather than adding
-> > wrappers for single page case.
-> >
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  arch/arm64/include/asm/set_memory.h     | 4 ++--
-> >  arch/arm64/mm/pageattr.c                | 8 ++++----
-> >  arch/loongarch/include/asm/set_memory.h | 4 ++--
-> >  arch/loongarch/mm/pageattr.c            | 8 ++++----
-> >  arch/riscv/include/asm/set_memory.h     | 4 ++--
-> >  arch/riscv/mm/pageattr.c                | 8 ++++----
-> >  arch/s390/include/asm/set_memory.h      | 4 ++--
-> >  arch/s390/mm/pageattr.c                 | 8 ++++----
-> >  arch/x86/include/asm/set_memory.h       | 4 ++--
-> >  arch/x86/mm/pat/set_memory.c            | 8 ++++----
-> >  include/linux/set_memory.h              | 6 ++++--
-> >  kernel/power/snapshot.c                 | 4 ++--
-> >  mm/secretmem.c                          | 6 +++---
-> >  mm/vmalloc.c                            | 5 +++--
-> >  14 files changed, 42 insertions(+), 39 deletions(-)
-> >
-> > diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
-> > index 90f61b17275e1..b07fd4e026eac 100644
-> > --- a/arch/arm64/include/asm/set_memory.h
-> > +++ b/arch/arm64/include/asm/set_memory.h
-> > @@ -11,8 +11,8 @@ bool can_set_direct_map(void);
-> >  
-> >  int set_memory_valid(unsigned long addr, int numpages, int enable);
-> >  
-> > -int set_direct_map_invalid_noflush(struct page *page);
-> > -int set_direct_map_default_noflush(struct page *page);
-> > +int set_direct_map_invalid_noflush(struct page *page, unsigned int numpages);
-> > +int set_direct_map_default_noflush(struct page *page, unsigned int numpages);
-> 
-> I don't have a strong opinion on whether to call the argument nr or
-> numpages, but we might as well be consistent across archs :)
+On Fri, Sep 18, 2026 at 2:41=E2=80=AFPM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Hi
+>
+> Am 18.09.26 um 06:16 schrieb Chen-Yu Tsai:
+> > On Thu, Sep 17, 2026 at 11:20=E2=80=AFPM Thomas Zimmermann <tzimmermann=
+@suse.de> wrote:
+> >> Hi
+> >>
+> >> Am 16.09.26 um 05:33 schrieb Chen-Yu Tsai:
+> >>> Currently drm_fb_dma_get_gem_addr() calculates the offset into the
+> >>> framebuffer memory for the framebuffer's unclipped source coordinates=
+,
+> >>> adds that to the framebuffer's backing storage, and returns the resul=
+t.
+> >>>
+> >>> We are about to add a variant that uses the clipped source coordinate=
+s,
+> >>> so there is already some reuse of code. However, calculating the data
+> >>> offset for a given pixel is not specific to the DMA FB helpers. The
+> >>> offset is only related to the framebuffer.
+> >>>
+> >>> Split out the offset calculation into a new framebuffer helper so tha=
+t
+> >>> non-DMA users can also reuse the same code.
+> >>>
+> >>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> >>> Cc: <stable@vger.kernel.org> # dependency for next patch
+> >>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> >>> ---
+> >>> Changes since v1:
+> >>> - New patch
+> >>> ---
+> >>>    drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
+> >>>    drivers/gpu/drm/drm_framebuffer.c   | 45 +++++++++++++++++++++++++=
+++++
+> >>>    include/drm/drm_framebuffer.h       |  3 ++
+> >>>    3 files changed, 51 insertions(+), 25 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/dr=
+m_fb_dma_helper.c
+> >>> index fd71969d2fb1..ab0f37d8a5ff 100644
+> >>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> >>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> >>> @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_fra=
+mebuffer *fb,
+> >>>                                   unsigned int plane)
+> >>>    {
+> >>>        struct drm_gem_dma_object *obj;
+> >>> -     dma_addr_t dma_addr;
+> >>> -     u8 h_div =3D 1, v_div =3D 1;
+> >>> -     u32 block_w =3D drm_format_info_block_width(fb->format, plane);
+> >>> -     u32 block_h =3D drm_format_info_block_height(fb->format, plane)=
+;
+> >>> -     u32 block_size =3D fb->format->char_per_block[plane];
+> >>> -     u32 sample_x;
+> >>> -     u32 sample_y;
+> >>> -     u32 block_start_y;
+> >>> -     u32 num_hblocks;
+> >>>
+> >>>        obj =3D drm_fb_dma_get_gem_obj(fb, plane);
+> >>>        if (!obj)
+> >>>                return 0;
+> >>>
+> >>> -     dma_addr =3D obj->dma_addr + fb->offsets[plane];
+> >>> -
+> >>> -     if (plane > 0) {
+> >>> -             h_div =3D fb->format->hsub;
+> >>> -             v_div =3D fb->format->vsub;
+> >>> -     }
+> >>> -
+> >>> -     sample_x =3D (state->src_x >> 16) / h_div;
+> >>> -     sample_y =3D (state->src_y >> 16) / v_div;
+> >>> -     block_start_y =3D (sample_y / block_h) * block_h;
+> >>> -     num_hblocks =3D sample_x / block_w;
+> >>> -
+> >>> -     dma_addr +=3D fb->pitches[plane] * block_start_y;
+> >>> -     dma_addr +=3D block_size * num_hblocks;
+> >>> -
+> >>> -     return dma_addr;
+> >>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, pla=
+ne,
+> >>> +                                                             state->=
+src_x >> 16,
+> >>> +                                                             state->=
+src_y >> 16);
+> >>>    }
+> >>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+> >>>
+> >>> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_=
+framebuffer.c
+> >>> index d32aceb6ca9b..9e1231162047 100644
+> >>> --- a/drivers/gpu/drm/drm_framebuffer.c
+> >>> +++ b/drivers/gpu/drm/drm_framebuffer.c
+> >>> @@ -1208,6 +1208,51 @@ void drm_framebuffer_print_info(struct drm_pri=
+nter *p, unsigned int indent,
+> >>>        }
+> >>>    }
+> >>>
+> >>> +/**
+> >>> + * drm_framebuffer_get_block_offset() - Get offset to start of pixel=
+ block for
+> >>> + * the given framebuffer and coordinates.
+> >>> + * @fb: The framebuffer
+> >>> + * @plane: Which plane
+> >>> + * @x: x coordinate for pixel
+> >>> + * @y: y coordinate for pixel
+> >>> + *
+> >>> + * This function will usually be called from the PLANE callback func=
+tions,
+> >>> + * or from one of the helpers that calculates the framebuffer's DMA =
+address.
+> >>> + *
+> >>> + * Return: offset from start of framebuffer to start of pixel block
+> >>> + */
+> >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, uns=
+igned int plane,
+> >>> +                                  unsigned int x, unsigned int y)
+> >> Better use u64 as return type.
+> > To avoid overflow? Not sure who would use crazy large framebuffers, but
+> > doesn't hurt to play it safe.
+>
+> I'd be worried about a malicious user space that tries to access OOB.
+>
+> Apart from that, we use u64 for other framebuffer-related sizes like
+> pitch calculations or dma addresses. Using u64 here would keep that
+> consistent.
 
-Well, it's either consistent across archs or consistent within each arch :)
-Or add a churny patch that renames it everywhere to nr_pages :)
- 
-> Aside from that:
-> 
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Indeed. It seemed weird that the helper originally used u32. Maybe it
+was carried over from CMA on ARMv7, which predominantly only had
+32-bit address space data busses?
 
-Thanks!
+>
+> >
+> >>> +{
+> >>> +     u8 h_div =3D 1, v_div =3D 1;
+> >>> +     u32 block_w =3D drm_format_info_block_width(fb->format, plane);
+> >>> +     u32 block_h =3D drm_format_info_block_height(fb->format, plane)=
+;
+> >>> +     u32 block_size =3D fb->format->char_per_block[plane];
+> >>> +     u32 sample_x;
+> >>> +     u32 sample_y;
+> >>> +     u32 block_start_y;
+> >>> +     u32 num_hblocks;
+> >>> +     u32 offset;
+> >>> +
+> >>> +     offset =3D fb->offsets[plane];
+> >>> +
+> >>> +     if (plane > 0) {
+> >>> +             h_div =3D fb->format->hsub;
+> >>> +             v_div =3D fb->format->vsub;
+> >>> +     }
+> >>> +
+> >>> +     sample_x =3D x / h_div;
+> >>> +     sample_y =3D y / v_div;
+> >>> +     block_start_y =3D (sample_y / block_h) * block_h;
+> >>> +     num_hblocks =3D sample_x / block_w;
+> >>> +
+> >>> +     offset +=3D fb->pitches[plane] * block_start_y;
+> >>> +     offset +=3D block_size * num_hblocks;
+> >> User space controls the values in fb->offsets and fb->pitches.  I'm no=
+t
+> >> sure how well they have been validated already at this point. Did you
+> >> investigate this?
+> > It wouldn't be worse than before, since this changes is purely code mov=
+ement.
+> >
+> > There are minimal sanity checks done by drm_internal_framebuffer_create=
+()
+> > in framebuffer_check(), such as offset overflow or pitch size too small=
+,
+> > but that's about it. It would be up to individual drivers to perform mo=
+re
+> > checks that match their hardware limitations.
+>
+> Right, makes sense. Looking through the framebuffer validation, a
+> buffer-size check could be done in framebuffer_check().  But that's
+> another patch series.
 
--- 
-Sincerely yours,
-Mike.
+That's further covered by drm_gem_fb_init_with_funcs(), which
+drm_gem_fb_create*() goes into. I didn't check all the drivers that
+implemented their own .fb_create callback though.
+
+- rockchip uses the GEM FB helpers
+- MSM reimplements the GEM FB helpers, but does have proper size checks
+- nouveau has size checks
+- omap has size checks
+
+> >
+> > What sort of issues are you thinking about?
+>
+> Again, I'm thinking of malicious user space that crafts these values to
+> force an OOB access.
+
+I think we're covered.
+
+
+Thanks
+ChenYu
+
+> Best regards
+> Thomas
+>
+>
+> >
+> >
+> > ChenYu
+> >
+> >> Best regards
+> >> Thomas
+> >>
+> >>
+> >>> +
+> >>> +     return offset;
+> >>> +}
+> >>> +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
+> >>> +
+> >>>    #ifdef CONFIG_DEBUG_FS
+> >>>    static int drm_framebuffer_info(struct seq_file *m, void *data)
+> >>>    {
+> >>> diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_framebuf=
+fer.h
+> >>> index 38b24fc8978d..c07aea1cc59f 100644
+> >>> --- a/include/drm/drm_framebuffer.h
+> >>> +++ b/include/drm/drm_framebuffer.h
+> >>> @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuffe=
+r *fb);
+> >>>    void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
+> >>>    void drm_framebuffer_unregister_private(struct drm_framebuffer *fb=
+);
+> >>>
+> >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, uns=
+igned int plane,
+> >>> +                                  unsigned int x, unsigned int y);
+> >>> +
+> >>>    /**
+> >>>     * drm_framebuffer_get - acquire a framebuffer reference
+> >>>     * @fb: DRM framebuffer
+> >> --
+> >> --
+> >> Thomas Zimmermann
+> >> Graphics Driver Developer
+> >> SUSE Software Solutions Germany GmbH
+> >> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> >> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> >>
+> >>
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+>
+>
