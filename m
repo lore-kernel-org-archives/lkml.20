@@ -1,234 +1,133 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71003391842
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760034; cv=none; b=rsUy31rzMsZg9pZMhFR8r1dHzAMI4AHLyII5aGMkofRzCsSPBcoUot7J2burY8uvLmayQ7JR0JLdomgDxrDTESzintMSSDecQGdDdqt8t0prpkNTqUFoBuhRKJOYIrIEIjGCGZ5x2z+z8G7t5Y0uOvEC10dl9nGD0pPCXQTes98=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760034; c=relaxed/simple;
-	bh=Li638ysKCUf5jQDWfKccqgmDHX97V/WyFaRHtRDPvFA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oozUzhclgSIMNGejE+vhMwAmEM9qdHzB90MtBz4CtGqVxmQn3uKVEPjMySSaM0ilwODHRJrGVYFdtcj6IQxkv/Hd2USRK2ujYTUCr+07nYVPh9AVguxJubVcBP/f+Uq1WAF8gCqPHJxD6Pi0tHPbw7mD8GG3GicP8pEAaeCC23o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=IcI05kSl; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C2D40DB40
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789760062; cv=pass; b=QJYJfwTkmL+a0Mt+wS2ZWwH6mriShL53ip2VgzlE4nWXuRW999OUks+c8NnicmSb6aDAjJtKqtTSf5quFa3+hD/UHiUf3q7r5mzNhlpWL6BSNHX2YI0g55xT7t9Sshqa7pBPKyuakwIT2FvbqSmCME+FXK21o33pUfDtj7Vwky4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789760062; c=relaxed/simple;
+	bh=UQgain9xD/FybNBG7EdHUaTe5mXW4SmgmoWH0dHKlGk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hc6yMUIIdY4wiw6PwHwxxDMdyAi8wXVc+TOWYK+oFOOCmGZ455m/jNAFhf632Yx2kA+9XuLZtZH8jzxAUI8FTbSmKnCEo+vYJleaBMzYL5Yb/Ik92cXJ+y9gS3OUOCXRsOVGAAI6TS1UrRcVnn1z/Bvh6wf/aLlFEvH1rIseJ1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpKU3npB; arc=pass smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="IcI05kSl"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66fb93aee5eso1241564d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:33:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpKU3npB"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d298caso522911a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:34:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789760057; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CY/BRv2uHlXG4c+qIKaWnHSoVvH+rE/Py/llBq7F8Vn3y/rN+ROnzvxFstpknx/J05
+         xpbc1nmJko1oGLQruFZuLc0VdiRoFxRULrbIzfQAovCCzfhGSmxSbWUf+pTZvQMt3jF1
+         xsiBkQu2ivwUoo1cDx1CGv9ll8wKX0R3CL3C9Z30SspmnVTZu/uvg01Bkvq/mCKyywhF
+         BK5HN0ni4tgUdN+WLCXaqAwpdEzVaJan8ypvQx1QTbBmjgeCVbCDw1YC/3T1hpO/Py1J
+         xKBAV0/TVsvWVJDylLDQ7VpLh4+hZ0CB2ssQM36muO8ybLzk6s/JSfkojP4dyn0Al3EF
+         MnPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HEBRqIsSTQzd9rKLEVseklIX+CL9gWoia7ir8tJPSpA=;
+        fh=zb0HUwz+C8e7x2J/LQtmIVBS8V/3c4RlJHCQQL8YpUQ=;
+        b=Y5QRVK81d2izyJzkz5mpc1NTx855eHkcNgqbH4iHFeTaQliK/sXTL38PcnZkRnlAV+
+         efhD2SScvo0NGmNaAaWBRmU5zXPdbvL8ovMLGTf7JE23YjvFZFffLaVayEO1Vjj7Rn4z
+         DH0d7hKIAG0k+dpo/wRvTPTnHtOxB0EvZhMwtF1oTyWUJT32O2AspTZLiX3oiEA6aicK
+         KkhIyAr0yhlbt+GeA2eV9NhAxYHSZ1Fumz8o8OsY5u0jGR3mRUJD87+L1Kpm2F1YSgDl
+         sCRyl6YumRZdCNHL9+zH2+uvhy3t+ukR3bZFc9HmEupVwDx1S2Z42h1ECsM0W++YD8or
+         2V4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789760028; x=1790364828; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Li638ysKCUf5jQDWfKccqgmDHX97V/WyFaRHtRDPvFA=;
-        b=IcI05kSlVUZH67C28WdWfnYy3aclIwQEJyJs4s8cYRL60rPbvt/N+/rY/ui9Qq+YLN
-         d+khf+IZ7M/Oq5C57BrKgPPRHj0gxG1U0ZvDUQmzfN/obrmFziJ9llLMh6phhwKXbBQO
-         JTL2XrETuQwQtJyuYBmiIc/qQ02qv2gtQyRVzLmHwm1NezuNPBtnuRWmgXoJHjytqqUg
-         onUQ44maqzt5FQ/F9B1qFGeUbQuuiFueYPf3wheA8QZPDi6hmCe2qqgEmDgfJJxA1/2/
-         NwYLxx+2xdMvc7B8RW9egaivvkop47SiBnJak7jolLKfvD715KExSnp4DdMCb9Rjx9gO
-         Bgeg==
+        d=gmail.com; s=20251104; t=1789760057; x=1790364857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HEBRqIsSTQzd9rKLEVseklIX+CL9gWoia7ir8tJPSpA=;
+        b=EpKU3npBJ/2Cf7cJfIFVkRoJSazKfXZ6n1FYoqWnAnOZiYrhax7MTQ8bnn/kyHCTHP
+         QGn6iBej5weHZt6O6xFzPaeHi4YwOQG9gfVGTnS0XNc4fPHe+b+6oru0vevb/8foYCfp
+         gvyYnyCaxxGg0dVqVcLwv09yFIvi3lDWl4vtG2Q9AW/aYB24HmarJcJrcRD/6I3uDaSh
+         toG+WQZYqGkD8dQuRt0l85TzBoj/mIRXDwRA5+O0EiVZjkfyoRJRlkrNxVlveXJuTnQX
+         QDW17fVFm6DueyjPDCjMJlbx/JAwMIbeO5vA3j21j8vMZyGkOS2Q4jitU6dzX3bupUuC
+         mjqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789760028; x=1790364828;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Li638ysKCUf5jQDWfKccqgmDHX97V/WyFaRHtRDPvFA=;
-        b=scsV/P3GBP1U0dNiNnWMqgwSTpsvu6N0Gf7Gekr9EXARBDxyTHrnu+ROjtFsbO32H1
-         wjh0cKroPGSn6B8quC5uQ5wPzHjD7Ni3ILHtT5XZByOj+zF26sAcB01n5O04vEzlNsFU
-         /KwF+XZsrwXTZJO4g7sZR+ZuLqH0KvDxLfRC08zOTYAjkpB23A+gvqV27LmMm7z2dMgq
-         mSMegHCJOJDeFxF2VKXkhg/3Y7RhNhTPJXsajZAmhkLl+h/VWL5PCZ2nedYmRAYkmfWD
-         lU333T387awJFofDbHy0KmkTwwKorY25eFx4jlXS5uyuJmMVHa3U5mEvnY+OhppxyTcs
-         P7Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBgQs4CthyXbXuKACeaXD3nHHCPPvgOupIoY/xl08/ePpYpWo8nolYeO2GOGsRRFBmV6oaGy9pCPFQIdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kP2zNTlnXMzL4VGqL4JgRWMCiz8UgWvV8rEZ9wokw/RIHID4aw
-	KVIq5hvmIJliWk3YIBzMzzTZ/UiSE9+TXU34qbCKhPksPeBMFNd/B81ENzgXxCRsNgI=
-X-Gm-Gg: AYBFou1gVm6CxuuDzGr/kZmZx9SBXYpT/xUPuPDQ7JZbu8LpvHircV8De3VA2VfOVUN
-	cRC8CYQO2PJGk1o/ous2izy7MRSakFuMTTrbPnddAl3StxECb3LTk692f/NcU82T9d9aoxxBqV+
-	12inxGVQR4bfCegdjqJn7zMFV+hMcynT5d5Oe7NYhMatUzGgsENDrk5Wumw29wXTIxaIqsBtHEe
-	rJaW680sFE1+1w6zxq/6vMb9mXIdxTaNvIonQNSzFbvAgZj86hS+IaYEbxe7FxsCBekZ6lzkhlC
-	ws3jtWoWtPAzycAlcYLfhQVJWszFGrf8gEwDZGibCvRFeDSl3JVwno+vdH4FrCHEn9kfxIcdmIP
-	75FYeSaDxUJ5j29YvzLHMJBtrsr6sk7I8awFXp8yfmat8Hefj7NCMsn9XJlbiJ7367kh975gDB7
-	xIPeBiaGlcrWQLPB57pTJ29mXYzAzMiHwbFLoucn23dYfFPkXlMYgJUr2FzcvN9L0Xrc7VGCrW6
-	v/X7BJdv0T9ZWRvG9CSPW544xKrmRdtcXjqBpKICbednDIn+t0YVb7da3POA6aIEWb3wkN/1DSe
-	RWOhTAlDwqokZDtDHCefVTlr0YskXFBBm7ZjlAhF5n+++ADiFYGBdvapQIgPfEZ8
-X-Received: by 2002:a53:b118:0:b0:671:413b:7517 with SMTP id 956f58d0204a3-6717fda08b4mr986055d50.63.1789760028569;
-        Fri, 18 Sep 2026 12:33:48 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:f1ff:bb02:6c7c:6979? ([2600:1700:6476:1430:f1ff:bb02:6c7c:6979])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672990a8b6dsm378505d50.7.2026.09.18.12.33.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 12:33:47 -0700 (PDT)
-Message-ID: <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 18 Sep 2026 12:33:45 -0700
-In-Reply-To: <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
-References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
-	 <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789760057; x=1790364857;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HEBRqIsSTQzd9rKLEVseklIX+CL9gWoia7ir8tJPSpA=;
+        b=hAFrgCaH4spfUcy7xXaEA2+yvPoIn7aIRNvk/DiX4WE6cQI32z0tj4Q9ztgNlK3St4
+         rAhz5rYsgMEQOBqUDXER0yekffg9NXeRTOl5b98YnSCelof5H++3Ntdf2IOTQNWgtI3s
+         phJdY6j9cHVdVT5Y7oI/OQITWQRYCxsa83dOKxUoeDoWMS79pRHXVAikrAUprlP1YZBj
+         4BTGVXiGBXzFTc791XpaomconHNKcOuqFPB2brzFpS4iLHwyMdTzjXvfYTPcrDrXsWR9
+         WSzFFH7NBLjVmsXkpuk7dVS0RMGajhs3a8nlaPB12ZYEuXF02425M90MaqHbdoCPpuAL
+         e/qg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/AnvaBVKNd9xV3heWIGc9qsBqFv+Cy8Q5VNunSeU61NetBbVKYA/RTUaFeq1He/GFU6zZNvPbeU5PTjA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nblf0Hm6qvDZMmHglTf2E91L+/m0b6q14thFeSzLIaVOdUKrrw
+	YkgtfauV+OhtxBQzSThuI9uhNuLfwItdbfjV5qWCsjV+ZOcUWXETuL0SVjaANP8HW/39867y92N
+	E8CrNqYuf4aMCxoJ9ltCi09ai1tS7oA4=
+X-Gm-Gg: AYBFou3XTh9DPYq2LlmyJTL0m55v2+kFKcXWAZmrU6iUpHGWSVnCRA77R3c2OFxUhSx
+	iNWh/ohtMOfn9OEYj+AMcD1Tr/W1as5Hc2mpdDvm7qDla0nSoQZtpvEGPKaN2zcC6RFl1obgDIg
+	K+nluYYHtSbpJ5tWu3yS1WGBmIMM8z6oQ/hiG2Wso8Q9ryE5wfO6uPz1boiWKxL/2DxoGnAfB40
+	G3gaNpg7jBCco8vvVBV5VSSJ7SZn2kw9P5TCcWKMc4jsFxMjabgOrqlmCO6dyjwRm+gYdwtK3vY
+	ZJ156RC6OJhzE+RC/RjIhEycylVeOm73PxZPcbB6HP1MvPtC6w7mJQ==
+X-Received: by 2002:a05:6830:442b:b0:80a:3b3b:8ac6 with SMTP id
+ 46e09a7af769-80de21ccc78mr3969164a34.14.1789760056866; Fri, 18 Sep 2026
+ 12:34:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260916232310.490786-1-avagin@google.com>
+In-Reply-To: <20260916232310.490786-1-avagin@google.com>
+From: Andrei Vagin <avagin@gmail.com>
+Date: Fri, 18 Sep 2026 12:34:05 -0700
+X-Gm-Features: AcwNN1XBjtAY4JmZL80hB75m38P2dFxrS_EkCVTxa576ED4_RWNFA_zjY0lNJ3U
+Message-ID: <CANaxB-xJYd+RQ+-a7TOE4=_FkTL_PjRSHcvLRWnNubY-XTMSjw@mail.gmail.com>
+Subject: Re: [PATCH v6 0/7] x86/fpu: Restore and reinforce signal frame portability
+To: Andrei Vagin <avagin@google.com>, Borislav Petkov <bp@alien8.de>, 
+	"Chang S. Bae" <chang.seok.bae@intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, linux-kernel@vger.kernel.org, 
+	criu@lists.linux.dev, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>, "H. Peter Anvin" <hpa@zytor.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-09-19 at 00:44 +0900, Ryusuke Konishi wrote:
-> On Tue, Sep 15, 2026 at 8:14=E2=80=AFPM Aldo Ariel Panzardo wrote:
-> >=20
-> > nilfs_scan_dsync_log() trusts the block counts in each on-disk file
-> > information entry. If fi_ndatablk is greater than fi_nblocks, the
-> > data
-> > block loop can consume excessive summary entries and the later
-> > subtraction
-> > used to derive the number of node blocks underflows.
-> >=20
-> > Reject inconsistent file information entries before consuming their
-> > block
-> > information.
-> >=20
-> > Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > ---
-> > =C2=A0fs/nilfs2/recovery.c | 5 +++++
-> > =C2=A01 file changed, 5 insertions(+)
-> >=20
-> > diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-> > index 4d5a6aa521..6e4e0cf4cc 100644
-> > --- a/fs/nilfs2/recovery.c
-> > +++ b/fs/nilfs2/recovery.c
-> > @@ -322,6 +322,7 @@ static void nilfs_skip_summary_info(struct
-> > the_nilfs *nilfs,
-> > =C2=A0 *
-> > =C2=A0 * Return: 0 on success, or one of the following negative error
-> > codes on
-> > =C2=A0 * failure:
-> > + * * %-EINVAL=C2=A0 - Invalid block counts in a file information entry=
-.
-> > =C2=A0 * * %-EIO=C2=A0=C2=A0=C2=A0=C2=A0 - I/O error.
-> > =C2=A0 * * %-ENOMEM=C2=A0 - Insufficient memory available.
-> > =C2=A0 */
-> > @@ -359,6 +360,10 @@ static int nilfs_scan_dsync_log(struct
-> > the_nilfs *nilfs, sector_t start_blocknr,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ino =3D le64_to_cpu(finfo->fi_ino);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 nblocks =3D le32_to_cpu(finfo->fi_nblocks);
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ndatablk =3D le32_to_cpu(finfo->fi_ndatablk);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 if (ndatablk > nblocks) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D -EI=
-NVAL;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto out;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 nnodeblk =3D nblocks - ndatablk;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 while (ndatablk-- > 0) {
-> > --
-> > 2.43.0
->=20
-> Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
->=20
-> Hi Viacheslav,
->=20
-> Please apply this v1 patch instead of the v2 patch.
->=20
-> This function is called as part of mount operations.=C2=A0 When format
-> errors are detected during superblock reading or log scanning at
-> mount
-> time, returning -EINVAL rather than -EIO is in line with the mount
-> system call behavior, so the v1 implementation is the correct one.
+On Wed, Sep 16, 2026 at 4:27=E2=80=AFPM Andrei Vagin <avagin@google.com> wr=
+ote:
+>
+> The x86 signal frame is designed to be self-describing. The xstate_size
+> field in the software-reserved bytes indicates the actual size of the
+> xstate context and is used by the kernel to locate the FP_XSTATE_MAGIC2
+> marker during signal return.
+>
+> This design is required to provide portability of signal frames across
+> different machines. For example, a process checkpointed on a system with
+> fewer xstate features and restored on a system with more features will
+> have a signal frame on its stack that is smaller than the destination
+> host's default. By relying on the frame's internal xstate_size, the
+> kernel can correctly validate and restore such frames.
+>
+> This series restores and improves signal frame portability. The goal is
+> to allow process migration across CPUs with heterogeneous FPU
+> capabilities, as long as the process only uses features supported by
+> both systems. This version addresses the original issues by pre-faulting
+> only the required size of the xstate buffer (rather than the default
+> task size), and includes cleanups requested by Ingo Molnar.
+>
+> v6:
+>   - Clarify struct _fpstate_32 layout and reformat documentation per
+>     Borislav comments.
+>   - Add Reviewed-by tags from Chang S. Bae.
 
-I missed that. Thanks for the explanation.
+Sashiko reported no issues, all patches are green:
+https://sashiko.dev/#/patchset/20260916232310.490786-1-avagin%40google.com
 
->=20
-> Also, please replace the 'Cc: stable' tag with the following tag, as
-> with the previous patch:
->=20
-> Cc: stable+noautosel@kernel.org=C2=A0# Non-fatal bug fix; defer backport
-> until a real issue is reported
-
-Damn! I missed this request. I already pushed the commit. Are you OK
-with that? :)
-
->=20
-> I actually ran a test where a pseudo underflow of the nnodeblk
-> variable occurred, but no issues that compromise system stability
-> happened.
->=20
-> Even if nnodeblk becomes a large value, long-duration block device
-> scanning does not occur; it simply skips the position and abandons
-> roll-forward recovery midway.=C2=A0 Since the mount normally succeeds, if
-> anything, this silent failure is the issue.
->=20
-> However, this is based on the assumption that the file system image
-> was intentionally tampered with (anything goes) with root privileges,
-> including log checksums.=C2=A0 Therefore, as long as it does not break th=
-e
-> system, I do not believe it meets the stable kernel rules for
-> backporting.
->=20
-
-Applied.
+I think this series is ready to merge. Thanks to everyone involved.
 
 Thanks,
-Slava.
+Andrei
