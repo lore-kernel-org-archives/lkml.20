@@ -1,202 +1,138 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373EE3590AE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5447336167B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722016; cv=none; b=WX5FIQhg6YQZPkaYtMWMiYbkNOetjTPJviMx2sieayMOI2npyQeoU/QjI+rw2fr1IG4x4fZmNoZhcqpNS57o5PTucq84p5E/lhZM+BTqREnBQdiSOquFeCaPhKu1HlzChiGJrK8UgftjwvWATknNcT6xPVeXXjfAmoP/G+sN81M=
+	t=1789722057; cv=none; b=POceWS5jmKd/EoF9uR0vFYCXRV7VDl62uAlLS06+mlvDmDSHIsak+kL5YNC/YvzlqfQAqBH4Nd7j9UQszhFeYjIhHoCQfuP5vertD3SisDDFlccSgus5ImExIeU2GSDxhhZPB9nXquipntU3nnSSwzUXZLkvADFkZcrpOS6xFCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722016; c=relaxed/simple;
-	bh=4n1CyRHEyV5SVpfm1JQykNStsTaOrE34HywrL9qCtyk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HPB1sT69AlQVMTdeRZlqxATap8p26biPFRXE8DCcnVLIRkgQ8QK/KOjpo5H61GNgWPgm3XjzQr/oVTO4hAIBcIWcCvRRWz1oafBgMp99FyCIB9sVH0Dkvd9COfV3AGjfGam29LAJHdra957I9tXVxDhDWp7N34h1zOcF9oq+XxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Q+puGtie; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1789722057; c=relaxed/simple;
+	bh=m4ZbhDJfV7md//ofsICU2QzhHI6k8KTOEZrwq/uln6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ArXvgZuul1btxTUDjtFH1gSVE5XDMZbwQjSBLKlcBUSRJ1S4aK40uPxlbux8X6eQRyjCd1VvZZSwDtN5fTvHNN9K7fPNJslhAl0jbZ2xAb/OMSuoeBOVjy7lqWPAY2vdy2V/v7m/TbS6ozc6cgUMkXUrQF/zyf+QgeVzny5P7cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bGOUtPAy; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Q+puGtie"
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E2FFC3F1E0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1789722009;
-	bh=+mE7Rgj77Vv+ava52jP42JJRVXXS81IMNvL+VWuifv0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=Q+puGtieaBe+wreza+617F0uQnfraruPrEBOqPvMdWE9fx3xN5m9/0+zIaq3UHYAW
-	 IpjtqZAvusmiuz8nieFT8rC51lPAo8/2hDjoCaNR/DSuKrrhdT4ZuapdSEdaKUc6hV
-	 ytPvWQk13fCBwhSORTt+JHBbktcoZdQF66oNYYeGJm+B4DIcnqf1Ytt3zyXzJk3yxB
-	 RuqzqPWLJJJsk0j9mymmO8UTMO1/GNxoMCz41gBQBAEOacOmdBIJe8c0yxXRBhcxZA
-	 086paiI0xFq2SHbs+8b2M3JfhIbyTpjWGieFzl5ixxZlidic5Ic4BhNxVZW2gdK+Og
-	 fT1zCvnhvpYJ/xqJ43AAiEhvrbLiozmQMQH5fC2ybjpBoZuvldYuRCCbzpgHQslghK
-	 gR6UB5lqkp/4SPXsugbgmv57lNPdqEVkk5mxDLQr4N8k/NQxVhFhC0pxz/4Prjpfnm
-	 z3Sr0EO8wi4HrAHFl50AJhNfA003JNlHNsQOEWI6D1Alj7mVMnTd+2gmVBOSoUDlNe
-	 4tdRFaE+/05/Ery+0zSpiVUS2hNoTUrYDpITEVjI4AtOU+c3f75J61L44Pf8mMBoym
-	 UlAr8a5N2s9OAi+nNlDzY75xje/dfjpA6Z9kNlxo2bGie4AibXXFLs4C8BYTeEkxW0
-	 crCJx5JqRQAFlk3X1MWULKSg=
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so913826a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:00:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bGOUtPAy"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e25400so389676b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789722056; x=1790326856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2mNPvRwIoYtv1U+zE4RruJ91hXpp045j5mrIpQ+qMH4=;
+        b=bGOUtPAy5/q+HGtPN53C53D1sNJqfHaM38CaEKc7/l8rYTuGtv0uNTHb0x4KWG2DKE
+         kTiZKEpmZFpx47jAPGkW3Mg9LU/Pgu7lFZQ9/jLhHQKhbgRTtaQreoUPtN2hzjmcurXd
+         D98BeJkq5xwmt0LINEeMclsjZDir9eB6cB1hPp/eYcu0A+OS/ElsM9w+x5CWJ6FMM44m
+         5P02ueRlltMNf++5gJrPNCwGa98SEldZ1M+hwtk3siYWEh7pvKMbXAVe2McSrfhlAQ2Y
+         7W5Ld+NrKd2MY2nln50spZcyDs/IWWvN853dAj/N7kQBp9A7IJFiv4Ipp9e4IlocrdrY
+         J1yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722008; x=1790326808;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+mE7Rgj77Vv+ava52jP42JJRVXXS81IMNvL+VWuifv0=;
-        b=HQ77hIOTacJR+U6TRYGBoIcFo9/NI7vvrNEn839eD5P/EQJqQMK5YRcnLUPQ7eoTCG
-         OrlKiJUdUrMmeZig8GIpD9eLyyvnM9lyQlRJ9xj9eiM3zVkRv17uafjXGfh4JqMvi7mO
-         lZQh4Jst2Qf9c77wp/tsNrnkczoL3am10e/G5WSiLy9PxO+HhzYNbwfEBKnSJ5L6uvGU
-         hKDJ0+SED0iU7fMydtPpx+nCo+RzJj6MiKzdr62DgCKV78+zzWtb9uVXrqtETY6Wv402
-         UYpXpSZkCL2j8d6mRt0KwBCfIQPv6EjtWTViUovMXnXrDCW3Jik5n+cvLYp3Qk3qAsdc
-         LUpA==
-X-Forwarded-Encrypted: i=1; AKwUvBy294moIKhj/NCBhPjPBAJE9mnF/AcuPBl7Wia/bk6GoOYpb3NQzyYnlM/2LceWzWbpqYWYSZDb5qTqqEk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4SMKJyz5uuYxdIm6YlNzCpy0nUAvIWiD98Qzq9Nk/y93512Yh
-	UUmRMjS/6qHxlbkEmHz/0jyrzZOhgogOna3+ShfIcoHn9K3euJP/3T3pBu/ShU4Edm6DlTI8f75
-	q9JyDWMUcIzyq6cqE1eJ12s9hOhnEj+e5iMpJD4njMZQjKNcIhu3gn7p8KoM44pDNp0l4nA8lj/
-	9I5dNTig==
-X-Gm-Gg: AYBFou0D0TPAd3lopDGj++IkMLLfS9jowmvFoEvH9gnjn6Tgo/PqXKiy7i+gs3BjR98
-	hdS3kEdA0obtrkPF09+qZ6I7i+J10Atf+nZiGaiJXiWfF75zyRbWUDU8WcWuUhjkbA0tONkVjBw
-	4N+2N5aTkGj9xHtziUfxl/n/v6cKJ5YYI5ozmQeGJTRUqpD+SsygxfVcZnH2bOwfgQB6I3+8RxH
-	HHlAbh/5N+iWHTfsCLZLd/42/3Ho8OinPOrx3tuxIB0L3iXtjKnHLy0Iys+Bh8IeFEvYLfNVgFF
-	Xa6wKOk154aTYBvIT5nDRa6cIB6aNI1uziAL3AXd5rXYoSCuMzu1vpPIu7lKL60TftJdvWoADWA
-	Bn6iFU4P2l056XNY=
-X-Received: by 2002:a17:90b:57c5:b0:39e:3554:4d0e with SMTP id 98e67ed59e1d1-39e54c584c7mr7802655a91.1.1789722008396;
-        Fri, 18 Sep 2026 02:00:08 -0700 (PDT)
-X-Received: by 2002:a17:90b:57c5:b0:39e:3554:4d0e with SMTP id 98e67ed59e1d1-39e54c584c7mr7802548a91.1.1789722007897;
-        Fri, 18 Sep 2026 02:00:07 -0700 (PDT)
-Received: from [192.168.192.72] ([50.47.147.90])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39e5a50cd09sm2095690a91.7.2026.09.18.02.00.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:00:06 -0700 (PDT)
-Message-ID: <da2651ff-ecc8-4b7d-b9f3-99f148844ff3@canonical.com>
-Date: Fri, 18 Sep 2026 02:00:05 -0700
+        d=1e100.net; s=20260707; t=1789722056; x=1790326856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2mNPvRwIoYtv1U+zE4RruJ91hXpp045j5mrIpQ+qMH4=;
+        b=kTubrKVOuCp26vjxZNcty6uxGD9iwbTdhI/kEIkmJzsdFJq61oV7MEHiKp939dB0/q
+         HxWM+JmPmTxGgDx/LTtCRMD68k6UDj7F6bIotTbJ1ZFLa4gkLotUmd73BVCDhilaYv5W
+         5JrnNRxS6i7x+KWlatpvWBmGoZplsZxaabDwjzVFeGFOFtNJn48aU6GaFb6mpYrO8RND
+         fflGmlHG+eQYe2bNOA4mjyQL1k3nWUaTeVkSqaFEbErN6XQSQ4KG5OnOl+1gf6YkICh0
+         1W/F5pbDCLrtLl9KadwP2/2jyRurOCWKcD9TtQJBHBoOIGttih4vFbZGbDL9d+xO0tLj
+         DGcw==
+X-Forwarded-Encrypted: i=1; AKwUvBx+Bp0PDI8MuPY1X1du0CFLf8n+8jhmroAWTt71nlTgGeKXBsoQ1MCxfRlu8fmvvBZQNguinAcxNShQ1tU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbJW3emVCsiuky8fzWKAa12A9RhJ5zyzpyzYZ7wvVsEz2Sn3XY
+	3CteEZWir9mb+bd3JjGeOaxx0CIfjVkWI6/RQFS1TUlTf3ZiNTYQkh6v
+X-Gm-Gg: AYBFou2mrGghypVzrVaDrhggUJBwwqXsqk+WKrnpPz7GcnsqWEENb7eIT6YlWwxuqw1
+	E1MWaLa91FL/ERaMn40PdxmVjFmsY/AfiY4d8H13E+Qk6PETdjJ10t1lGf7W+BSwhanrrM9wqqm
+	mdQTpbEcm5FbXynZAmfacCo8Csdqyx2WkeMIUITOnQnZeYPpKFa640y2A0/msBnA429UslSskbg
+	N/z5KiM56eDn1kCUVqfQiopHMNa+o3cYTNUuHQ1IOMgs4FgDPbrbpC6g6P168dGFuK/ILUxPLp5
+	wisHOXGjFncN+6Ow3lvIBERcQU7f8bo0LgO17p4TEhpR5tNFE8EMkbvC2iXLGqfAAf+QKTHRc/r
+	bGjUVevGu8hmp2kPm7SB+ng1lQOCY3gSgVoctY9fryH8vZvVGBRelUw3BNMVay4fhuF5ZzqDdQi
+	TTHKFe9ujQ0gjsB2v4yTcLcS/DnR3o6U6pHSs3o+6I0OfY2i8OFLJmM77uW53EUxrh+mTUQhoz6
+	b4MxK77a4AbelX/JpsKkWeiwbwGayQTdK8a378VjIl4Rp3mdI2w2BFe+MgqTuYiySN8ErWRd+Ez
+	nauodw7fkGCVZGoHox3/VsdJkkJsm73wKtFmpJ+zMfF08PEbtJF9duyFoUO11Gs889qfS7FE8tZ
+	jV+fI6w==
+X-Received: by 2002:a05:6a00:3a20:b0:845:e440:d0ca with SMTP id d2e1a72fcca58-874db6f70aamr3110164b3a.8.1789722055106;
+        Fri, 18 Sep 2026 02:00:55 -0700 (PDT)
+Received: from cs-1047136853211-default.asia-southeast1-a.c.t54fbfa9bf0658dcb-tp.internal (96.177.21.34.bc.googleusercontent.com. [34.21.177.96])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dc8fa40fsm504491b3a.15.2026.09.18.02.00.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:00:54 -0700 (PDT)
+From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Christian Brauner <brauner@kernel.org>,
+	Gabriel Krisman Bertazi <krisman@suse.de>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	io-uring@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+Subject: [PATCH v4 0/3] io_uring: add fremovexattr and flistxattr support
+Date: Fri, 18 Sep 2026 09:00:07 +0000
+Message-ID: <20260918090010.1688-1-aditya.ansh182@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] apparmor: Fix label reference leak in aa_unix_file_perm()
-To: Greg KH <greg@kroah.com>
-Cc: Ryan Lee <ryan.lee@canonical.com>, Wentao Liang <vulab@iscas.ac.cn>,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, paul@paul-moore.com,
- serge@hallyn.com, stable@vger.kernel.org
-References: <20260917164136.2162858-1-vulab@iscas.ac.cn>
- <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
- <760b1f31-32f6-44c6-8a5b-991f228a327f@canonical.com>
- <2026091851-recent-ungraded-23eb@gregkh>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <2026091851-recent-ungraded-23eb@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/18/26 01:24, Greg KH wrote:
-> On Thu, Sep 17, 2026 at 01:18:20PM -0700, John Johansen wrote:
->> On 9/17/26 12:19, Ryan Lee wrote:
->>> On Thu, Sep 17, 2026 at 11:59 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
->>>>
->>>> The inner block in aa_unix_file_perm() re-declares plabel, shadowing the
->>>> outer variable that is released at the out label. The reference taken by
->>>> aa_get_label_rcu() is thus lost when the block exits, and aa_put_label()
->>>> at out is a no-op on the still NULL outer plabel, leaking one label per
->>>> permission check on a non-filesystem unix socket.
->>>>
->>>> Drop the shadowing declaration so the outer plabel is used and released.
->>>>
->>>> Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correctly updated.")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
->>>> ---
->>>>    security/apparmor/af_unix.c | 1 -
->>>>    1 file changed, 1 deletion(-)
->>>>
->>>> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
->>>> index fdb4a9f212c3..ecb40cfe7e14 100644
->>>> --- a/security/apparmor/af_unix.c
->>>> +++ b/security/apparmor/af_unix.c
->>>> @@ -758,7 +758,6 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
->>>>                              unix_fs_perm(op, request, subj_cred, label,
->>>>                                           is_unix_fs(peer_sk) ? &peer_path : NULL));
->>>>           } else if (!is_sk_fs) {
->>>> -               struct aa_label *plabel;
->>>>                   struct aa_sk_ctx *pctx = aa_sock(peer_sk);
->>>>
->>>>                   rcu_read_lock();
->>>> --
->>>> 2.34.1
->>>>
->>>>
->>>
->>> NACK: this exact patch has been proposed before, and unfortunately
->>> exposes an additional latent bug around plabel handling that results
->>> in a use-after-free if the shadowed declaration is removed without
->>> additional fixes.
->>>
->>> I can try to dig out the relevant exchange from the AppArmor mailing
->>> list later, if you'd be interested.
->>>
->> The series Ryan is referring to is in Linus's tree, so you should see the
->> fix rolling out to stable kernels as well soon.
->>
->> 6d25e7b47616c apparmor: fix refcount leak when updating the sk_ctx
->> b1aea2c196077 apparmor: fix race in unix socket mediation when peer_path is used
->> 4483efe4f2151 apparmor: fix shadowing of plabel that prevents cache from being updated
-> 
-> These are all in stable released kernels already for many weeks, so how
-> is any of this still being reported?
-> 
-> confused,
-> I don't know, my guess is either using a distro kernel, or not having updated
-to a newer stable kernel. I should not have said "stable", I should have said in
-updated kernels.
+This series completes io_uring's FD-based xattr operations by adding
+support for:
+- IORING_OP_FREMOVEXATTR
+- IORING_OP_FLISTXATTR
 
+This allows asynchronous xattr removal and listing.
+
+New test cases have been added to the liburing test suite
+(test/xattr.c) and verified to pass. A separate userspace patch
+implementing the matching prep helpers, sanitizers, and test cases
+has been updated and submitted in parallel.
+
+- Patch 1 syncs the tools/ directory's io_uring.h UAPI header to
+  align it with kernel mainline prior to introducing the new opcodes.
+- Patch 2 makes the necessary VFS-layer list/remove helpers
+  non-static and declares them in fs/internal.h.
+- Patch 3 implements the io_uring operational support (opcodes,
+  opdefs, preparation, and issue handlers) and invokes these helpers.
+
+Changes since v3:
+- Split the tools/ UAPI header sync of pre-existing mainline opcodes
+  into a separate precursor patch (Patch 1) (Suggested by Gabriel).
+- Robustify io_fremovexattr_prep by initializing kname and kvalue
+  to NULL to avoid potential garbage-pointer crashes in the
+  io_xattr_cleanup path (Reported by Gabriel).
+- Add strict validation to both fremovexattr and flistxattr to
+  zero-check and reject all unused SQE fields (Reported by Gabriel).
+- Reset ix->ctx.kname to NULL on error inside io_fremovexattr_prep.
+
+Changes since v2:
+- Revert unnecessary formatting changes to filename_listxattr in
+  Patch 1 (now Patch 2).
+
+Changes since v1:
+- Omit path-based opcodes to prioritize optimal FD-based variants.
+- Limit exported VFS helpers to only file_listxattr and
+  file_removexattr.
+- Rewrite standalone test program into a standard liburing testcase.
+
+Aditya Prakash Srivastava (3):
+  tools: sync io_uring.h UAPI header
+  fs: make file_listxattr and file_removexattr helpers non-static
+  io_uring: add fremovexattr and flistxattr support
+
+ fs/internal.h                       |   2 +
+ fs/xattr.c                          |   3 +-
+ include/uapi/linux/io_uring.h       |   2 +
+ io_uring/opdef.c                    |  18 ++
+ io_uring/xattr.c                    |  83 +++++++
+ io_uring/xattr.h                    |   6 +
+ tools/include/uapi/linux/io_uring.h | 342 ++++++++++++++++++++++++++--
+ 7 files changed, 438 insertions(+), 18 deletions(-)
+
+-- 
+2.47.3
