@@ -1,65 +1,81 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479682DF142;
-	Fri, 18 Sep 2026 01:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C0538889B;
+	Fri, 18 Sep 2026 01:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696754; cv=none; b=V1uFjw0rldtQv2eL9XT7hD3M9z9fwVLjsOolEuy3tnpzfzcvzd0E1/zEf4R3Whb/+MRMegS3cm+cY9Q6wOcxzyE+PFr1FhmKYi/XZ5R0NIn1B3GV44FxKJjatPRA0+wiugjNswAXV2vdhtJyvbiLOmu5DjT6z2MsxSuFksScdUk=
+	t=1789696764; cv=none; b=r6m9WmGG7YMloxa3jOYaqyW7puDmZH4g9/VrO7VReyF4OPhd3NYKOncF07k/bFdF4jcdvK2RotkT1SNbDHSzMEITx7q8paJ3lqSyj3TpFOFaLaWdiYqRG7VRdLbCQy+dzqS21v4lGbR6toJifagBepZrhwCs6NGM8KBgU71pfUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696754; c=relaxed/simple;
-	bh=uGwV8+GYzMKjQS0cWOxbIUzVeDpOeu6adjeGErPcBW8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gpCVdo69zUjZ7tev7+E1poeDq8flj6OmljKezxiTt9+M4PLnh0J3Fa7PIeP6Ei1JcYcIZRd+myyYKCD65CISTJ2rRsTJHnXRRz5ml8HlU9POIYCfsulvFlT/XgvGXERMCI1OXoAEPmHHarX2MHK7q1zIvBetmAEU+5XLFAi3IeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zCbGHofA; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789696764; c=relaxed/simple;
+	bh=4xyMfp3eWJOkdRB1tNqKwqNqU32rQznFUU0AnRgm1/c=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=U7AKuEmATToaludElUtbBSgQY4d7d+K2Tzvr4dCUzIoRAWAtAhbw3SFaFjU7jaoik9/eJJraCAyjsL6zGzaSl8guXFiY6X96Za58m1XiJYpJi83xx9VSvSMDB7lMsF++3eJEUQOey4jdhvKAr4WsjWLV5z3VviBez6Bj0n45QPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pLYZSBci; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zCbGHofA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=jRqUyT21EROagSJqRyUwvTzzYL2dWUH+6wFhXqmioP0=; b=zCbGHofAIpiptv8bWoX0a9Ci1y
-	0Y299WZOgc9peOdcYY9OLuZ4lMPezBMd8eYIIwvb4oG4QlRhfEo4lk870ScOXpZ9N57FNWCVRvnNX
-	YmdyteZdRQyBIcwXoT3WLjG6v4pKNL4c0M9UWlJn5CPOxLIs9Oab6/sjNdkDgK78EIXw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7NsH-005mZV-Sq; Fri, 18 Sep 2026 03:58:49 +0200
-Date: Fri, 18 Sep 2026 03:58:49 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, chester.a.unal@arinc9.com,
-	daniel@makrotopia.org, olteanv@gmail.com, gerg@kernel.org,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v2 1/2] net: dsa: mt7530: fix NULL dereference on
- unbind of MT7531 and MT7621
-Message-ID: <857a7395-4741-4d2c-abb0-b806e8f9bd78@lunn.ch>
-References: <20260918015020.2518315-1-f@lex.la>
- <20260918015020.2518315-2-f@lex.la>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pLYZSBci"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=GrILUD6fya954kCY/ApjoU68FPWsIBexNxkwtfF+YY8=;
+	b=pLYZSBci1O9ZpgAJTt5hdufb5v6aPP03tc9UDaq8KvGIicJFF/vpVlG23kAwCxTRE/RZIIfk6
+	KwsCLLlvrUYV+cKJ6oFW5kQvK91z4qCMNLEXIvyclA8KZxjsRYjIENo3Rknf07RNeRGs9ZNUaUC
+	zSfrZb1w74KviHfbUJjv2Iw=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hmFqj3GqRz1T4LL;
+	Fri, 18 Sep 2026 09:47:29 +0800 (CST)
+Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5207420333;
+	Fri, 18 Sep 2026 09:59:13 +0800 (CST)
+Received: from [10.174.178.219] (10.174.178.219) by
+ whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 18 Sep 2026 09:59:12 +0800
+Subject: Re: [PATCH RFC v4 23/25] fs: start all kthreads in nullfs
+To: Christian Brauner <brauner@kernel.org>
+CC: <linux-fsdevel@vger.kernel.org>, Linus Torvalds
+	<torvalds@linux-foundation.org>, <linux-kernel@vger.kernel.org>, Alexander
+ Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Jann Horn
+	<jannh@google.com>
+References: <20260601-work-kthread-nullfs-v4-0-77ee053060e0@kernel.org>
+ <20260601-work-kthread-nullfs-v4-23-77ee053060e0@kernel.org>
+ <15174353-3f4a-a1ca-5bd1-ea2a4c77828e@huawei.com>
+ <20260917-atemtechnik-bleichen-befassen-9a57db01baf0@brauner>
+From: Zenghui Yu <yuzenghui@huawei.com>
+Message-ID: <08c0cb4e-343c-b03a-020d-218d27c6c353@huawei.com>
+Date: Fri, 18 Sep 2026 09:59:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918015020.2518315-2-f@lex.la>
+In-Reply-To: <20260917-atemtechnik-bleichen-befassen-9a57db01baf0@brauner>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo200006.china.huawei.com (7.152.185.252)
 
-On Fri, Sep 18, 2026 at 04:50:19AM +0300, Aleksei Sviridkin wrote:
-> The core and io supplies are only requested for ID_MT7530: both the
-> devm_regulator_get() in probe and the regulator_enable() in
-> mt7530_setup() are guarded by the switch id, but mt7530_remove()
-> disables them unconditionally. On an MT7621 or an MT7531 both pointers
-> are still NULL from devm_kzalloc(), so rmmod or a sysfs unbind calls
-> regulator_disable() on NULL.
+On 2026/9/17 20:07, Christian Brauner wrote:
+> > The following lockdep splat can be triggered on mainline, which is built
+> > with arm64's defconfig plus
+> >
+> > 	CONFIG_SHRINKER_DEBUG
+> > 	CONFIG_PROVE_LOCKING
+> > 	CONFIG_FTRACE
+> >
+> > .  Reverting this patch (as pointed out by AI) makes this warn disappear.
+> 
+> This is benign and caused by holding LOCK_MOUNT_EXACT() for longer than
+> necessary. I'm adding the appended fix to vfs.fixes.
 
-Did you consider using devm_regulator_get_enable()?
+Tested-by: Zenghui Yu <yuzenghui@huawei.com>
 
-	Andrew
+Thanks!
+
+Zenghui
