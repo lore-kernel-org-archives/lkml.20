@@ -1,87 +1,77 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD1B522699
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49BA522699
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763619; cv=none; b=ca7qhXEhaolOB0pXam2l9cZtaHlZw1BxcuD078T1Nx9z0wHdHudH3/iVdDKx7x7ahp7tJ5gUn+IxEqmsuTB5dQyLiECARoyLIc3EmTMDav8HF1VjPIld34cW14vK/ay1UTrbVtK30PhsAPCjPN9bUGjhOgx7VUOuOePsLyrSb2A=
+	t=1789763636; cv=none; b=eod3i+uxlOQ9jzqRrVqb8QFtzoNLoVpYLqn6lgD/Dft21/Oou06YhKCjWt0UA4tOvwkPTud+Z/IMmLRcBcJgg0eyLiT0l45ztdsFJZ8u4gbnci07GyeFEGgeyuDAafEO0/UrCM80h16ygG2xUwUEcAQoonOORL0uDhtSF1RAGeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763619; c=relaxed/simple;
-	bh=E3IP+cti3OScJ9UQpqnN/oX+XxvZL5cqfQvjmTuoNKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FllH6T1VIGspwdLM4WSARHYvPtRKHPvWu16W2baBRui3TExO0PaoEObOzRP9PtXggrmGzJofk1/HQPncfkjGO1kWSb5oZg6SrPYk5dhCrVmz/lKl882QUe3uAUP1hjxXmqJ0ksVNDwo0VyVBiWaOqMuzCIcFRGv908g+t4mLD/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YhtcGHBp; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789763636; c=relaxed/simple;
+	bh=nyQjs6qGtq5QNA/EbyRHoqdZ70kqIUrdwHJqjIjPaf8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QtJMmwFV3qxXK+v7id1OtnF1x4XeqgaiWz+I0e32wpQE9vT1tZ/6BhvHWxITy8ADZcr37BfMtLqW0Vf6Lj34eNXB0wdUGlGD8MAT2eI/5oBT6q9k+pq58EJ5bRV9voC/2ljE3mp83lDySpC1dgooOLC6ooRilIkGhgfW8jrrxUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBx4w/Wz; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YhtcGHBp"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so8145545e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:33:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBx4w/Wz"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so806043f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789763616; x=1790368416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DI1h+bo+XJYm1WE+Jgk1ei34ZXIhzktaevPvvHT2JHc=;
-        b=YhtcGHBpZbJS7YnqAOQKklbEQYkDKzSqBt9gn6O7WxXaK+NK+d2ahpbMJbrKNvZ8wu
-         i9aCSGobQVwxmPcf5I1iG2cAkwSjvBe32AuykhY1anyoSAKGckFR8YxPm+8eLAxqrIdp
-         L1xiFeC2PSUo3GduzGrrbt31hu8HxGgMRj19ks87dTt54YFQjJ+jobTUBlIFwzqtoAec
-         qD/d9PdgMMWK4J9IwXeaFuFG7tOcna+vMaV10yBaP3B9sbjztJ+HsxpuVvmeeZdp0dq6
-         cyz1CKyL+ctCCHFM3pumBQYq25lTHMR59qAkN1Nx5oaXnHxj0OiwrAiRjqgmwJ6qs8ot
-         JQkQ==
+        d=gmail.com; s=20251104; t=1789763633; x=1790368433; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
+        b=LBx4w/WzX+sUzZKqAJBEizN7vza/Hy7kkZcV3Jd5Nmde2RojpD8AY79MHUTGQ7Kh9+
+         OSbfeFxJ/OMkuG1Tj6i3b4HoIV2m3KRWcMqm6B90hFrkBzkQgdw22EzXftpYR+7q72wl
+         5fL0brWTRjcWLzjbXujqd/lYlo4b4WVAQvwzCni/c7DuJnEkSwLFanIYjbOLVo8fHQLe
+         udTl4WUrfW9Pf62Nzrmdz0wGyFXgaeqMUh3kCOW1FQM+cqGk64QvirGrfdup9pxvxL3U
+         PoNJMLrdNVxjIFqngRRVu9vES3qjH6hCKU2RaxWf3zzr1yWYehfSv3lwaLIeu+4UDjhJ
+         zKeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789763616; x=1790368416;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DI1h+bo+XJYm1WE+Jgk1ei34ZXIhzktaevPvvHT2JHc=;
-        b=iKpBar7VnowEhHz1GbbTVla5eS8RX7MqXaGJMsj55gz3jiZEhxzM4D2/+SEwbZjVcV
-         Dz4fz7B10Rf9Ci7U7q2eO4NtSaYrAv2tVH2h5pVFQ5Je9HEXzZcmk5BkvxM0Gx4zE4XG
-         UkNI9WCQlHdQcgEm0AIxWs/6S+W51yaZYL/EWbZQNDpgILEq6i+wmvwbLn7JNCsc9qZC
-         lAXPtrWJ6hE9nIq4Lbeyf7PCxU/YIWGYZHLpAmV6XlkCRpqBOQkB+5EQnplvqQcXXgbw
-         h49WM61t8XxzblJHJhuPeEVlZ4GcFLzmEyzysYjuoO8p7M32d/XXtFL2DjAh74qhF1Oe
-         SdbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjFxthtWsg8ieE91gnZv6TSqaSWiuoOhaBPAco9xs/bdGrKyqgMQlAcf8qr52Kqwcv0+QgPcZhp0vpThU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRMVwycRcvTVeHgN2TlC2uaVHKLidXPot4urDGJW1jFbits6Fc
-	3AVXhNQ3YqLItftIi0tQGcwImnOnm7XoIdeOAW+R2KyoP3EwCJd2Yccf
-X-Gm-Gg: AYBFou1pcvZJd34cAffDpJQY3ABoGwEcrw25fmdhoka/Ke8D59gbSgnxl88ogZYI1V+
-	IHB2lSxZdaKE8Y7oKsWW/JpNxqBMDj0BDgI3UCShvZAJzMw57G8So8DFLHecH6bjD+Bs9v7Ux6g
-	LkX/J2SHOV3PfuhQDJmpawNjdVC8TmN9Eu4khJZg2GfUv+8K+Zf+X1jGEsPBuFo/5puogpwMJvG
-	Al8Ts/551R07VTLgp2ekGvYtbOXpJNmcna3F7/w+Q9NP5RjbW0vWrlJl9TmpziAidhAl7fJFKXN
-	VFIGGMtLKUPu0gJIWiCyAX5/WB03l2enCuwdANza5ZToAPrtSiEZLG+xJvkCY1SYMzCsTfizUMB
-	YUwk33GjnC2MLH3BMN0GOloLlU2eGZBCSFLEtMNkKmAojAkVcAeKWzNEQNXf1ZoQkZwfcTOlfGf
-	wN+SLqYCUx9b4YB1YSIXetc9VNcg+vGhMf7GtJ/pVO3R87D/pHakdiu635KGtEGwacEkzRr5XUJ
-	4Cu45ilNNAlq6cI4OSYYm5UXdAXlyaTxJi9RLbPkim8MJg=
-X-Received: by 2002:a05:600c:4505:b0:49e:84bf:6121 with SMTP id 5b1f17b1804b1-49fc56dac58mr53431545e9.13.1789763615644;
-        Fri, 18 Sep 2026 13:33:35 -0700 (PDT)
-Received: from localhost.localdomain ([176.220.123.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0ece6esm27579435e9.2.2026.09.18.13.33.33
+        d=1e100.net; s=20260707; t=1789763633; x=1790368433;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
+        b=JcH83fTaDB0lhMUEKZbU+GJf0oHWcZ4UnYtIcHPaFMfDB3dRT/ntSjGWEfAxneWIUM
+         9H8PCeqqfvW7bAsL5BT0HJ2g/ZY+9wn+CnpFLFeJfytY9U4X8pxNUdLvLbLMz55CSHcx
+         OQegVeACTlokJfMYUwOvFBvbHF2PywxIhWqiFuWL1GMmhBU+IY2aZnRHXNv+Dk9aNcCl
+         zGFXzjMxU2cTRxFLpi2VAh9+p5lxxUaN4zbqaKQV/0XsTObukeWyYJKxabf77eLKHE7y
+         zx7iMkbkKTQHeR0fRcHdFVwjp4GEMGOLzycxEDLuyYD5wHMkup4rIOWA+EVt4sSIaFep
+         MLOg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+5/UJaQmmXyf86Hr871doer3bAJwj7tw+5Xy6DGL4vbQPfLu88VSChgTyRBMwjetDUQM1nFEc26lu7os=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYH5CNvYx7E+PkF2WwdJU+2R1BVdRxkzgWXtPXfAn4BQkkUjM6
+	Y37XK6FHse3s1YPaDb/xTGXdjnGeaKd2e1iDVhKQ91gzbSZWp/fzef1g
+X-Gm-Gg: AYBFou1cHcvFEORSiLmF3QiFnCqUTTxkgGSASJ18OlrfvmvQ0NpgyK7LJlyA8jhlvl+
+	bZo/8tY/KggEPPrv4jCWyn16bM7JuIJqf1IDTY/6hWBHwX0zoK4bQWzUSlz9qsM2RE9W6okJ9vz
+	jgY5CHFXmX0/lLvuWNK0AP6hvZAdbpomuO4f6M+HxN/AWedvfpavkFg57tCJ8YNaCMg+koDupZU
+	ZJrjmz+hW+eAMW2lpYxfSExAWvHx9pJHcm5J+3+zYhjIur87QLT8ThY9H1elaJ6wzmbJOZzQvsF
+	wDvbNhPDU/RaZQ/cawORK2ElHV7ugyNrhEsFOOAi13lNrIjHuzqUh5QeivsEl8qEp4L/XSWGxiJ
+	vO7Lgj6YgOHMM6vkGr0FBdEoRxHS4CCylpGGXjX/rFmjUJfSFRlM+RmtzOwNmKrNsoODpx7vjd+
+	Cf1J+rn40/5pE7BfDm1w6X5WNaUIU5FGZpS0Tn1eDs+pDLUa8d2RjQ3WVykwt3IAfkNHMi1kdDG
+	ONzi5nwLg80xmuMEy7B8J6qP6Qlb44bghkZaLo6mN10nwqFyCSbSEzHYPEPKzyZ8on4
+X-Received: by 2002:a05:6000:4021:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-4871e3941f5mr9789385f8f.28.1789763632871;
+        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244608a3sm1239936f8f.8.2026.09.18.13.33.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 13:33:35 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-Date: Fri, 18 Sep 2026 23:32:50 +0300
-Message-ID: <20260918203257.6034-1-palaomer100@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918194434.9240-1-palaomer100@gmail.com>
-References: <20260918194434.9240-1-palaomer100@gmail.com>
+        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ttusb-budget: check the endpoints before using them
+Date: Fri, 18 Sep 2026 21:33:46 +0100
+Message-Id: <20260918203350.48218-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,367 +80,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
-xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
-xilinx-xadc.txt file.
+ttusb_setup_interfaces() decides on the endpoint numbers and their
+transfer types up front and never looks at what the device actually
+offered:
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
+	usb_set_interface(ttusb->dev, 1, 1);
+
+	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
+	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
+	ttusb->isoc_in_pipe = usb_rcvisocpipe(ttusb->dev, 2);
+
+Give it a descriptor where endpoint 2 is an interrupt endpoint and it
+still builds an isochronous pipe for it. ttusb_start_iso_xfer() later
+submits an URB on that pipe with URB_ISO_ASAP set, and usb_submit_urb()
+notices:
+
+  usb 1-1: BOGUS urb xfer, pipe 0 != type 1
+  usb 1-1: BOGUS urb flags, 202 --> 200
+  WARNING: drivers/usb/core/urb.c:532 at usb_submit_urb+0x863/0x1870
+   ttusb_start_feed+0x819/0xc20
+   dmx_ts_feed_start_filtering+0xf6/0x220
+   dvb_dmxdev_start_feed+0x27c/0x400
+   dvb_dmxdev_filter_start+0x1b9/0xe10
+   dvb_demux_do_ioctl+0xadd/0x13d0
+
+The URB is refused, so nothing is transferred, but the warning alone is
+enough to take down a machine running panic_on_warn, and attaching a USB
+device is not a privileged operation.
+
+So check first: usb_check_bulk_endpoints() covers the two bulk ones, and
+since there is no isochronous equivalent the altsetting is walked here
+to find the isochronous IN endpoint. Bail out with -ENODEV if either is
+missing. This has to happen after usb_set_interface(), as the endpoints
+we care about are in altsetting 1.
+
+ttusb_probe() was throwing the return value away, so it needs to start
+checking it too, otherwise none of the above makes any difference.
+
+Reported-by: syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
- Changes in v5:
-  Fix validation bypass: xlnx,external-mux-channel could be set even
-  when xlnx,external-mux was omitted entirely, due to "not: properties:"
-  being vacuously true when the key is absent. Now uses required +
-  properties with if/else.
+ .../media/usb/ttusb-budget/dvb-ttusb-budget.c | 45 ++++++++++++++++++-
+ 1 file changed, 43 insertions(+), 2 deletions(-)
 
- .../bindings/iio/adc/xilinx-xadc.txt          | 141 -------------
- .../bindings/iio/adc/xlnx,xadc.yaml           | 190 ++++++++++++++++++
- 2 files changed, 190 insertions(+), 141 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
- create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-
-diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-deleted file mode 100644
-index f42e18078..000000000
---- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-+++ /dev/null
-@@ -1,141 +0,0 @@
--Xilinx XADC device driver
--
--This binding document describes the bindings for the Xilinx 7 Series XADC as well
--as the UltraScale/UltraScale+ System Monitor.
--
--The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
--The XADC has a DRP interface for communication. Currently two different
--frontends for the DRP interface exist. One that is only available on the ZYNQ
--family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
--on all series 7 platforms and is a softmacro with a AXI interface. This binding
--document describes the bindings for both of them since the bindings are very
--similar.
--
--The Xilinx System Monitor is an ADC that is found in the UltraScale and
--UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
--communication. Xilinx provides a standard IP core that can be used to access the
--System Monitor through an AXI interface in the FPGA fabric. This IP core is
--called the Xilinx System Management Wizard. This document describes the bindings
--for this IP.
--
--Required properties:
--	- compatible: Should be one of
--		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
--		  configuration interface to interface to the XADC hardmacro.
--		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
--		  interface to the XADC hardmacro.
--		* "xlnx,system-management-wiz-1.3": When using the
--		  Xilinx System Management Wizard fabric IP core to access the
--		  UltraScale and UltraScale+ System Monitor.
--	- reg: Address and length of the register set for the device
--	- interrupts: Interrupt for the XADC control interface.
--	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
--	  when using the axi-xadc or the axi-system-management-wizard this must be
--	  the clock that provides the clock to the AXI bus interface of the core.
--
--Optional properties:
--	- xlnx,external-mux:
--		* "none": No external multiplexer is used, this is the default
--		  if the property is omitted.
--		* "single": External multiplexer mode is used with one
--		   multiplexer.
--		* "dual": External multiplexer mode is used with two
--		  multiplexers for simultaneous sampling.
--	- xlnx,external-mux-channel: Configures which pair of pins is used to
--	  sample data in external mux mode.
--	  Valid values for single external multiplexer mode are:
--		0: VP/VN
--		1: VAUXP[0]/VAUXN[0]
--		2: VAUXP[1]/VAUXN[1]
--		...
--		16: VAUXP[15]/VAUXN[15]
--	  Valid values for dual external multiplexer mode are:
--		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
--		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
--		...
--		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
--
--	  This property needs to be present if the device is configured for
--	  external multiplexer mode (either single or dual). If the device is
--	  not using external multiplexer mode the property is ignored.
--	- xnlx,channels: List of external channels that are connected to the ADC
--	  Required properties:
--		* #address-cells: Should be 1.
--		* #size-cells: Should be 0.
--
--	  The child nodes of this node represent the external channels which are
--	  connected to the ADC. If the property is no present no external
--	  channels will be assumed to be connected.
--
--	  Each child node represents one channel and has the following
--	  properties:
--		Required properties:
--			* reg: Pair of pins the channel is connected to.
--				0: VP/VN
--				1: VAUXP[0]/VAUXN[0]
--				2: VAUXP[1]/VAUXN[1]
--				...
--				16: VAUXP[15]/VAUXN[15]
--			  Note each channel number should only be used at most
--			  once.
--		Optional properties:
--			* xlnx,bipolar: If set the channel is used in bipolar
--			  mode.
--
--
--Examples:
--	xadc@f8007100 {
--		compatible = "xlnx,zynq-xadc-1.00.a";
--		reg = <0xf8007100 0x20>;
--		interrupts = <0 7 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&pcap_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--			};
--			channel@1 {
--				reg = <1>;
--			};
--			channel@8 {
--				reg = <8>;
--			};
--		};
--	};
--
--	xadc@43200000 {
--		compatible = "xlnx,axi-xadc-1.00.a";
--		reg = <0x43200000 0x1000>;
--		interrupts = <0 53 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
--
--	adc@80000000 {
--		compatible = "xlnx,system-management-wiz-1.3";
--		reg = <0x80000000 0x1000>;
--		interrupts = <0 81 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-new file mode 100644
-index 000000000..07abe755b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-@@ -0,0 +1,190 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+diff --git a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
+index 7a4d28cc3242..9d6e0dfecf56 100644
+--- a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
++++ b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
+@@ -915,7 +915,42 @@ static int ttusb_stop_feed(struct dvb_demux_feed *dvbdmxfeed)
+ 
+ static int ttusb_setup_interfaces(struct ttusb *ttusb)
+ {
+-	usb_set_interface(ttusb->dev, 1, 1);
++	static const u8 bulk_ep_addrs[] = { 0x01, 0x81, 0 };
++	struct usb_host_interface *alt;
++	struct usb_interface *intf;
++	bool have_isoc_in = false;
++	int i, ret;
 +
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++	ret = usb_set_interface(ttusb->dev, 1, 1);
++	if (ret < 0)
++		return ret;
 +
-+title: Xilinx XADC device driver
++	intf = usb_ifnum_to_if(ttusb->dev, 1);
++	if (!intf)
++		return -ENODEV;
 +
-+maintainers:
-+  - Omer PALA <palaomer100@gmail.com>
++	/*
++	 * The pipes below hardcode endpoint numbers and transfer types, so
++	 * make sure the device actually has what we are about to assume it
++	 * has. Otherwise an isochronous URB ends up aimed at, say, an
++	 * interrupt endpoint and usb_submit_urb() WARNs about it.
++	 */
++	if (!usb_check_bulk_endpoints(intf, bulk_ep_addrs))
++		return -ENODEV;
 +
-+description: |
-+  This binding document describes the bindings for the Xilinx 7 Series XADC as well
-+  as the UltraScale/UltraScale+ System Monitor.
++	/* no usb_check_isoc_endpoints() to call, so look for it by hand */
++	alt = intf->cur_altsetting;
++	for (i = 0; i < alt->desc.bNumEndpoints; i++) {
++		struct usb_endpoint_descriptor *desc = &alt->endpoint[i].desc;
 +
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,zynq-xadc-1.00.a
-+      - xlnx,axi-xadc-1.00.a
-+      - xlnx,system-management-wiz-1.3
-+
-+  reg:
-+    description: Address and length of the register set for the device
-+    maxItems: 1
-+
-+  interrupts:
-+    description: Interrupt for the XADC control interface.
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  xlnx,external-mux:
-+    description: Selects the external mux mode.
-+    enum: [none, single, dual]
-+    default: none
-+
-+  xlnx,external-mux-channel:
-+    description: >
-+      Configures which pair of pins is used to sample data in
-+      external mux mode.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,channels:
-+    type: object
-+    description: List of external channels that are connected to the ADC.
-+    properties:
-+      "#address-cells":
-+        const: 1
-+      "#size-cells":
-+        const: 0
-+    required:
-+      - "#address-cells"
-+      - "#size-cells"
-+    patternProperties:
-+      "^channel@[0-9a-f]+$":
-+        type: object
-+        properties:
-+          reg:
-+            description: Pair of pins the channel is connected to
-+            items:
-+              - minimum: 0
-+                maximum: 16
-+          xlnx,bipolar:
-+            description: If set the channel is used in bipolar mode.
-+            $ref: /schemas/types.yaml#/definitions/flag
-+        required:
-+          - reg
-+        additionalProperties: false
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+allOf:
-+  - if:
-+      required:
-+        - xlnx,external-mux
-+      properties:
-+        xlnx,external-mux:
-+          enum: [single, dual]
-+    else:
-+      properties:
-+        xlnx,external-mux-channel: false
-+
-+  - if:
-+      properties:
-+        xlnx,external-mux:
-+          const: single
-+      required:
-+        - xlnx,external-mux
-+    then:
-+      properties:
-+        xlnx,external-mux-channel:
-+          minimum: 0
-+          maximum: 16
-+      required:
-+        - xlnx,external-mux-channel
-+
-+  - if:
-+      properties:
-+        xlnx,external-mux:
-+          const: dual
-+      required:
-+        - xlnx,external-mux
-+    then:
-+      properties:
-+        xlnx,external-mux-channel:
-+          minimum: 1
-+          maximum: 8
-+      required:
-+        - xlnx,external-mux-channel
-+
-+examples:
-+  - |
-+    soc {
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+
-+      xadc@f8007100 {
-+        compatible = "xlnx,zynq-xadc-1.00.a";
-+        reg = <0xf8007100 0x20>;
-+        interrupts = <0 7 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&pcap_clk>;
-+
-+        xlnx,external-mux = "single";
-+        xlnx,external-mux-channel = <0>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          channel@0 {
-+            reg = <0>;
-+          };
-+          channel@1 {
-+            reg = <1>;
-+          };
-+          channel@8 {
-+            reg = <8>;
-+          };
-+        };
-+      };
-+      xadc@43200000 {
-+        compatible = "xlnx,axi-xadc-1.00.a";
-+        reg = <0x43200000 0x1000>;
-+        interrupts = <0 53 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,external-mux = "single";
-+        xlnx,external-mux-channel = <0>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          channel@0 {
-+            reg = <0>;
-+            xlnx,bipolar;
-+          };
-+        };
-+      };
-+      adc@80000000 {
-+        compatible = "xlnx,system-management-wiz-1.3";
-+        reg = <0x80000000 0x1000>;
-+        interrupts = <0 81 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,external-mux = "single";
-+        xlnx,external-mux-channel = <0>;
-+
-+        xlnx,channels {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+          channel@0 {
-+            reg = <0>;
-+            xlnx,bipolar;
-+          };
-+        };
-+      };
-+    };
++		if (usb_endpoint_is_isoc_in(desc) &&
++		    usb_endpoint_num(desc) == 2) {
++			have_isoc_in = true;
++			break;
++		}
++	}
++	if (!have_isoc_in)
++		return -ENODEV;
+ 
+ 	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
+ 	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
+@@ -1618,7 +1653,13 @@ static int ttusb_probe(struct usb_interface *intf, const struct usb_device_id *i
+ 
+ 	mutex_init(&ttusb->semusb);
+ 
+-	ttusb_setup_interfaces(ttusb);
++	result = ttusb_setup_interfaces(ttusb);
++	if (result < 0) {
++		dprintk("ttusb_setup_interfaces - failed\n");
++		mutex_unlock(&ttusb->semi2c);
++		kfree(ttusb);
++		return result;
++	}
+ 
+ 	result = ttusb_alloc_iso_urbs(ttusb);
+ 	if (result < 0) {
 -- 
-2.55.0
+2.34.1
 
