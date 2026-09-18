@@ -1,89 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6251FCBB;
-	Fri, 18 Sep 2026 20:34:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26306524AE4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763647; cv=none; b=MUE6JH0C2/kpseSlomPh43gwZZek3gMdfBiDnz2DdazfFU4fLD1DcUFwUPxHU4h6+LuKC7KRvQRvL7BYnUSzlKzIpILQU2Qww1RyKVEJgBLsi59pWdSub6EZtyJwv/W6sWuet8Xf8CHmuG1FtUwOkXDhfawxRwBSFA3rZ2eVrhI=
+	t=1789763717; cv=none; b=Rx9wR3tcd1IfsEjyOmSb2LYFUYx/9BEOw48u9EVqaEYBge/Mek7vG5mzLANYA240IDyHJT/B8wC17mD3MCg4yIAU+TuS3IxiuPlUHFTkvkHlAuFdpdgpvEe/ryJS5bHUpb2c1/f3bRQttdrDFmqbYH+JAY/+QLgjecbnNwjLPVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763647; c=relaxed/simple;
-	bh=cBKQONdshAJXM6/gb+YgGSbqiMy75fyyKnNMeQ/Be5U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ik5wy/sMfgPiQa7uRuOs2OsFIoMNXg3rwlSsgNyCQZtYO2BtiqoDg2GncZ8slxUg2a7OQtu/WYZKVOLtMKo46Bx7f6CJR7+XV2yhpgazeDliMDti9eoJallgC+iE4OtysYQ/zmJnKCJ4G4ZWVIjpMeGtwaaC3qJux5XrpBtzPw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZyVvVuS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789763717; c=relaxed/simple;
+	bh=HVAtzJ5U2BABuFs+55ExxjU4LDiPYSzIMYVo1pqtQxg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XZgaNsyVpYSW+n9tm5lKl6HfPtg0/PGZpWjJsivSkIHX2G6HeIv8L5IRmU2Dj43YkqUIUkd7HdMt2ow5afZBV0mCx2ss3EcSchTac90YASNq+1lpXV8K24sUr8gLfLhE+nVB8T2H2vtqaXyxS3SmlCKV4pBmDCK5A2s58JW+his=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TMzqjsaF; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZyVvVuS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11CEC1F000FF;
-	Fri, 18 Sep 2026 20:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789763646;
-	bh=EU4D9e7ez7H8tffRc2UKHpYD4iiRbdWWwGGar/naEgM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BZyVvVuSq1vV3LixrKU/8CIzcqHuFS4LroaQ3R7w1/o4SDus5cGFnOVp3z6Uu6ovv
-	 2f3IvRMGPqVZlyL1jZ9+frjB3jfsjkjXAB/bG/R26R+juiZC2+kTOKHKckXNdetdol
-	 I27e+vplcOuhmZzvnIFhpnlPZlunM5ZKGUVe4q/zeeng+CbxGIv9vujvzNfM08Kg5m
-	 FLBYHBj3SMbRh60ijCgZpwBz6tZgrb5PiysoYafdluLwVF0Ue5hoXsgbRAwCvbtwmB
-	 jxm2S7QcH8NM+1YJJ2ArsitUbS3RgCsX67sllT+2ppOJAezNvErWit8cg1PdOVUe9z
-	 KRAzH2LL1DLwg==
-Message-ID: <96294c65-171e-48e4-9938-9f321b4c5e6c@kernel.org>
-Date: Fri, 18 Sep 2026 21:34:01 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TMzqjsaF"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 979714E40885;
+	Fri, 18 Sep 2026 20:35:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4C7F960649;
+	Fri, 18 Sep 2026 20:35:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5D44210329075;
+	Fri, 18 Sep 2026 22:35:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789763708; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2VX0CCuPHCsxlaJh+H4kCzMlneu6/Jn+nKdTKO3KJ0I=;
+	b=TMzqjsaFnJPym62GSIEblG6cIU6DSlGhLeG8h36V3vbTrhQsUzJsxpPEFIfzzvuhFEET2K
+	F0IInlHWrjeE8ewildTsYWRvQ5J//slkXenENSqB3k7H3cvqxvUPvNh15rcf4DUhWD3I3l
+	tpMrQaSCn2rcA3nSwdFZcdtMh8spn2Vpzmu0G+E/9m3K0LoMdhDmInIr3kO2/pA9sTa1Ug
+	3qorn6sG9rzKh71ChXgudSNDJ4LBfuENtUP9TGiRHZNDw45JvvOC2jIWo2gH5B6bZ8Hi9Z
+	yipi0BcKf3O6K+ba3w73L7aB+4b6hUZ92GGsou2Mvc3mDoMUh8o/CoF4RrewWA==
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: [PATCH net 0/3] net: macb: fix close races (and RX refill error
+ handling)
+Date: Fri, 18 Sep 2026 22:35:03 +0200
+Message-Id: <20260918-macb-close-v1-0-05e32ce98813@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] Correctly use TX macro v9.4 for SC7280 / Kodiak
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, cros-qcom-dts-watchers@chromium.org
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260526-sc7280-tx-macro-v1-0-1aad6900fec0@fairphone.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260526-sc7280-tx-macro-v1-0-1aad6900fec0@fairphone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2Rq2GgRP/ofhwLaLrIGWtJVoC
+ P8u4NXjTN68mSFyEI5wzWYIPEkU79aAhwxM17gHK7FrBp3rIq+wVENjSJneR1aWyOoTnalsNay
+ DMXAr7112B8cJ6l8ZX/RkkzbNhnUSkw+f/XLCHf5nn1DlSmu0FRZ0qQq8kfepF3c0foB6WZYv0
+ TNfjL0AAAA=
+X-Change-ID: 20260918-macb-close-dbbd23b4b8f2
+To: Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Sean Anderson <sean.anderson@linux.dev>, 
+ Antoine Tenart <atenart@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
+The context-swapping series [0] has been ongoing for a while. The most
+interesting part is a proper hardware shutdown sequence, which is truly
+lacking in other parts of the MACB driver: at close, at suspend and in
+the HRESP error task.
 
+Instead of introducing that sequence for a new feature, apply it now to
+fix the main offender, the close path. That fixes the races listed in
+patch 3 and will allow the sequence to be reused later.
 
-On 5/26/26 4:29 PM, Luca Weiss wrote:
-> As a bit of a note where I'm coming from, I'm working on microphone
-> bringup for qcm6490-fairphone-fp5 where so far we've been using
-> qcom,sm8450-lpass-tx-macro to get the correct control names. I've tried
-> reverting to sc7280-lpass-tx-macro, updating audio-routing in dts and
-> UCM to the v9.0 names and it does seem that microphone (AMIC1) is
-> working with that, but I'm not particularly happy about leaving the
-> wrong control names everywhere, so I'm happy to try and untangle this
-> situation.
-Are you referring to the enum values that go into "TX SMIC MUX" mixer
-control?
+The first two patches are also fixes, but not related to the shutdown
+sequence: they address allocation-failure codepaths. They are sent
+alongside patch 3 because they touch the same code and would cause
+merge conflicts if applied separately.
 
-if this is the problem, i think we could use values instead of enum in
-your setup. They do endup in the same register.
+Now, let me list issues I'm aware of that we do *not* fix here, to make
+the scope explicit:
+ - HRESP task should sync with all other contexts. It frees buffers
+   under the feet of the whole driver. The hardware shutdown sequence
+   will help.
+ - Suspend callback is also racy with BH primitives. We'll be able to
+   reuse the hardware shutdown sequence.
+ - Even if we assume tasks are frozen, the phylink ops aren't and might
+   trigger between suspend and resume callbacks. Here we need to
+   (1) early return in phylink ops and (2) at resume put the HW in its
+   proper state according to phylink ops that occured.
+ - Alloc failure codepaths aren't perfect outside open. Hardware and
+   ring buffers are left in a sad state. We can probably do better.
 
-However I do acknowledge the issue.
+[0]: https://lore.kernel.org/all/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com/
 
-pl let me know your thoughts.
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+---
+Théo Lebrun (3):
+      net: macb: never give hardware a NULL RX buffer
+      net: macb: propagate RX ring refill errors
+      net: macb: quiesce IRQs and drain BH on interface close
 
-> 
-> I'm also not sure where this v9.x actually comes from, maybe I'm lacking
-> some documentation, downstream kernel only refers to Bolero v1.x and
-> v2.x so these seems to be a completely different versioning system.
-Am not sure how we ended up using lpass versions instead of codec
-version in tx, this is a redundant to codec version. I want to clean
-that up at somepoint.
+ drivers/net/ethernet/cadence/macb.h      |   7 +-
+ drivers/net/ethernet/cadence/macb_main.c | 119 ++++++++++++++++++++++++-------
+ 2 files changed, 98 insertions(+), 28 deletions(-)
+---
+base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
+change-id: 20260918-macb-close-dbbd23b4b8f2
 
---srini
-
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Best regards,
+--  
+Théo Lebrun <theo.lebrun@bootlin.com>
 
