@@ -1,56 +1,56 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C610502D7D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8772D50390F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745612; cv=none; b=ci5+flQ5rx8/YX41xclLLmiKK1XtF486xRGA5/BQ2Vaw0GN7U8mfwh0JNJtZO/csSfOdkPpOrMWn11SrWjyvigI2o0sA8vILa7xU2QAN9ZmM5Sjbt0VaWR5TK7CWFI6x+04/UWy74gUc+54fKGoyxN6HZkbsssDZr5+1E71lX1s=
+	t=1789745615; cv=none; b=F3LElOsJR4O7JbcsCfvnchYQmvhEUl4lHB4TRGkMSc2Pviev8r0tSWarTaTuPrJ99kT4m5tD8souyrutgIxpDYBrExaNgeFBMJfgKxzahguNrkzgFNmez9zyWma8IJOq60D7SO5Hzr12bFefPMdQLjkGQJJN90pwwGDFjoieHj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745612; c=relaxed/simple;
-	bh=Kk/Av/Wahs3wr855f5dR9G/6SzogvS0HbJ/6bSoiP1g=;
+	s=arc-20240116; t=1789745615; c=relaxed/simple;
+	bh=oZ/fvi1k3DBUjyI5jwjRUhQencv56NnJtg/3XEZIHys=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lDPU2tg8RAk55G+qWbwKQMDClOBIuxtWa1jzXT+TPKSAQkIof0XE/HRZKsdf3MOG5GgWrtkEHeVub9cb7yK9WlMJKaDOAckFvGWh7WoicDKE4rGJJXxLcb31EhuDemqpvInhBOOTET5Ha8KO1Ejl+VYUj/0NvRbHb6Cy7uJ2BeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MIV7uBr+; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=YWAOx5hzBRI6aOYiSJV29TxyEN3iaQTGnkxUskLtVkHZu+uqzW3gWGkhFIh0/UERuB82BQ+qMXI/47OUsL+2dhyu3ikGvggDFl6VmHl0vhvzu4nuygvGbcLTehkkXTC+hYNecZhquz4az9/vlMMkyyxCs1PvEe5/D5BqmL0BCag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n9i36t6K; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MIV7uBr+"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39af92138f9so1370900a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:33:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n9i36t6K"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39deda201bcso88437a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:33:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789745609; x=1790350409; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789745611; x=1790350411; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c64grHEqWwUtUzGGsYu1Ih95rNaNVw7BlsDsBBQp/Gk=;
-        b=MIV7uBr+mTtJaORu/r8kpHdzUd9BRkqldxLci5LktBLGOZEHGnJR92OdM6RMk1a5Em
-         5d+nSY7Jjj09XaBDH/E8jfni9Tu7CT4FYQ8Y6NAqkJbVpxbh3jwgcnyETfEklYJEyodF
-         znE3pFhD0Kk86VeozNBXlqtF3MSj5x6N1I4KC0dvtwUCfxkyRBsF/aZXDscl3Mp6Zw/o
-         xdlUpj6bMB5+P6dWOg1ncm7SVzL9R3980/pbxBASEQmFozv62K7rEBTG8nfeQKs+/kEP
-         JPnNe9zBX3YKRj35mDvi/hrCI/AQAg+c5y8ZvDweyvk02f2FqfsNFNtKIEVvY+auk6SA
-         o2uQ==
+        bh=lv14f2Ly5jvNlP8xqLAumR3AMqosSrAJIJiLUsY0qSI=;
+        b=n9i36t6KbS4CJ5stYwzw0HkXIZXHjaA0Hh6ILrDQEiEejy7c3Xqs4QtWyPFtTgvRlk
+         zhsgc/xy/hRSiedZKRgJ0wMW1xsQqXRWruHnvNcqboawv93danlDRXGjpUNEwbcDdrgX
+         u9LjewKBF5OTu3fD28sRMUkNht2k+Y0R663hIvz8WbpyrkF72t4LH+MriGEidFOe+5Yf
+         jRhm6DaSMjESHyqp1li6ZJLPKf5yPMIwAHqHXJjUwvXb9UBkXmX265GzOG/2RKJN8K9v
+         JASbdVMjdCoiC7FpR4jqFxX+l6iYxiTPqyep37wB6w23hNxyvtDui/fKeGJy++r5amaO
+         EIxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745609; x=1790350409;
+        d=1e100.net; s=20260707; t=1789745611; x=1790350411;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=c64grHEqWwUtUzGGsYu1Ih95rNaNVw7BlsDsBBQp/Gk=;
-        b=coYhMXS24bsqWxtCIgdfBTAQcucWyHOHSuSHlSG0gPNpz4Jh5wWYkC5/3ThbOkDpbr
-         LsV/WdiS2K2qYFKI85El7Tj899VmCf9u/2ix6xiOgls5NxOsFqFhRWP5h/god6aL6vlX
-         VLvMEGXbKWuhB+YnAdXxMADhY3VTVVS4iUfGy7Ow7NnCuuC1G8xQrf6d3XlUYjUmHarF
-         fMMYLTGELkSgzK1SCCvWXtN4DnJgTf7B7uaIf4bQvdMFgWC5sSjB3Ot9+N/eup6UpCy7
-         +nxGNkdKPtYxJFBmbhIHPqaB6QGwtArpE4EePAoh2aiUGDie2uPCfZgnRgcGTeCnTR76
-         FJ2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxHzh4ZOuF6jKsBiEGDYtFN7/rInewW1fUxkwd1xuQ/Qu8EBraxAOi3TZJhs/K5IJ+hcH0t4uMbSjX8ox4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJVxdK/enh6Ti+wNKfJ/zQbvs9AgCDGpnztU2BAGQyKbRpgj3C
-	XKmxZCJjakbO/JSFn9ubg51MbpTX3Tm15pneVgsT10GOm8F5QSmTKLWH9PWKOOauZv+vxgyMhm6
-	bn6vYHA==
-X-Received: from dlbvp1.prod.google.com ([2002:a05:7022:ff41:b0:144:d125:b235])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1fce:b0:39e:402e:accb
- with SMTP id 98e67ed59e1d1-39e402eaed7mr7921534a91.18.1789745609213; Fri, 18
- Sep 2026 08:33:29 -0700 (PDT)
-Date: Fri, 18 Sep 2026 08:33:15 -0700
+        bh=lv14f2Ly5jvNlP8xqLAumR3AMqosSrAJIJiLUsY0qSI=;
+        b=XxwbNzSsdrXvG5DbPxlwnGml+RR5YO7UpJP4iNQOeSm5gw1zJDNAWYDWXikFBLFhoQ
+         O/BKQwA8ZVkviRl/PPumTwRsvgFbAorQauqH4Rua/QxYqnOqPIQZuHWHfCuE18T48r6X
+         3/Kctxu63pcmkM1x/GR4zlWGtT9hx+DQk3VTKhSDqOjvJ2qJJHr7NvYq4qhZaqtXZRzS
+         wNjt2Q0hxyRuyWH/PnXJNbcAx0VCS3izY7FshGYSBjtb+tsNcww/ils2qIXXZ3+p+hpp
+         VqRgA2UroRVMAxKUNFTZ68Zi/8GNFi2u06ix2ouBdsuCQSOXSfEZtNCT02AQSnrcWXTl
+         QsWg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/SkMWPC2lSprQupJ7vS9QY1X2Cu9RXVSUHOPw0+VaQosqJurMDr0Y8VsXk9qLFa7xUkHuVVAX+8WKw0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++moCASPZSWvKrL29h0huCx6cJDitn40TUnknDP3tgi75Sw00s/K
+	ow4TTYOnOUPjACNVPckWcL/mFFbiahicloJILJ9Bdk7Qh0+FqkVhZEyDCNkXF/jivUWoNWKBMWT
+	23CuRwQ==
+X-Received: from dlbcy8.prod.google.com ([2002:a05:7022:b88:b0:143:7b76:ee9c])
+ (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d410:b0:39d:f024:c7e2
+ with SMTP id 98e67ed59e1d1-39e54cb099bmr6569591a91.4.1789745611342; Fri, 18
+ Sep 2026 08:33:31 -0700 (PDT)
+Date: Fri, 18 Sep 2026 08:33:16 -0700
 In-Reply-To: <20260918153318.758387-1-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918153318.758387-1-surenb@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918153318.758387-5-surenb@google.com>
-Subject: [PATCH v5 4/7] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
+Message-ID: <20260918153318.758387-6-surenb@google.com>
+Subject: [PATCH v5 5/7] proc/task_mmu: change proc_get_vma() to stop returning
+ gate VMA at the end
 From: Suren Baghdasaryan <surenb@google.com>
 To: akpm@linux-foundation.org
 Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org, 
@@ -71,136 +71,87 @@ Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org,
 	linux-fsdevel@vger.kernel.org, surenb@google.com
 Content-Type: text/plain; charset="UTF-8"
 
-smap_gather_stats() interprets its start parameter to mean vma->vm_start
-when it's set to 0. Eliminate this special interpretation and provide two
-separate functions for a partial and complete VMA walk.
+proc_get_vma() returning gate VMA at the end is desirable for the its
+current m_start/m_next callers, as they need to report a gate VMA at the
+end of the address space. This behavior is very specific to these callers
+and makes proc_get_vma() hard to use for other purposes.
 
-Since smap_gather_stats() operates within a single VMA, we can replace
-walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-which is simpler and also can be called while holding per-VMA lock.
+Move this usage-specific behavior into the callers themselves so that
+proc_get_vma() returns either a valid VMA, an error or a NULL when no
+more VMAs are available. This makes it more generic, simpler and usable
+in the later patches.
 
-No functional change intended.
-
-Suggested by: Lorenzo Stoakes <ljs@kernel.org>
 Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/proc/task_mmu.c | 52 +++++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 17 deletions(-)
+ fs/proc/task_mmu.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index f1ce15981253..8f2f302d4563 100644
+index 8f2f302d4563..2c90b91d271b 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -1250,20 +1250,26 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
- 	return &smaps_shmem_walk_vma_lock_ops;
- }
- 
--/*
-- * Gather mem stats from @vma with the indicated beginning
-- * address @start, and keep them in @mss.
-+/**
-+ * smap_gather_stats_range() - Gather mem stats from a portion of the @vma.
-+ * @priv: proc maps private state.
-+ * @vma: The VMA to gather stats for.
-+ * @mss: The accumulated stats.
-+ * @start: The address from which to start.
-  *
-- * Use vm_start of @vma as the beginning address if @start is 0.
-+ * This gathers stats for the portion of the VMA starting at the @start
-+ * address.
-  */
--static void smap_gather_stats(struct proc_maps_private *priv,
--			      struct vm_area_struct *vma,
--			      struct mem_size_stats *mss, unsigned long start)
-+static void smap_gather_stats_range(struct proc_maps_private *priv,
-+		struct vm_area_struct *vma,
-+		struct mem_size_stats *mss,
-+		unsigned long start)
- {
- 	const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
-+	const bool is_partial = start > vma->vm_start;
- 
- 	/* Invalid start */
--	if (start >= vma->vm_end)
-+	if (start < vma->vm_start || start >= vma->vm_end)
- 		return;
- 
- 	if (vma == get_gate_vma(priv->lock_ctx.mm))
-@@ -1282,20 +1288,31 @@ static void smap_gather_stats(struct proc_maps_private *priv,
- 		const unsigned long shmem_swapped = shmem_swap_usage(vma);
- 		const bool is_cow = vma_is_cow_mapping(vma);
- 
--		if (start || (shmem_swapped && is_cow))
-+		if (is_partial || (shmem_swapped && is_cow))
- 			ops = get_smaps_shmem_walk_ops(priv);
- 		else
- 			mss->swap += shmem_swapped;
+@@ -240,9 +240,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
+ 		 * found the extended vma with the same vm_start.
+ 		 */
+ 		*ppos = vma->vm_end;
+-	} else {
+-		*ppos = SENTINEL_VMA_GATE;
+-		vma = get_gate_vma(priv->lock_ctx.mm);
  	}
  
--	if (!start)
--		walk_page_vma(vma, ops, mss);
--	else
--		walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss);
-+	walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
+ 	return vma;
+@@ -252,6 +249,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+ {
+ 	struct proc_maps_private *priv = m->private;
+ 	struct proc_maps_locking_ctx *lock_ctx;
++	struct vm_area_struct *vma;
+ 	loff_t last_addr = *ppos;
+ 	struct mm_struct *mm;
  
- 	reacquire_rcu(priv);
+@@ -281,19 +279,39 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+ 		*ppos = last_addr = priv->last_pos;
+ 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
+ 	hold_task_mempolicy(priv);
++	/*
++	 * If seq_file had to flush its collected data right after m_next() set
++	 * position to SENTINEL_VMA_GATE, m_start() will get that sentinel and
++	 * should return gate_vma without calling proc_get_vma().
++	 */
+ 	if (last_addr == SENTINEL_VMA_GATE)
+ 		return get_gate_vma(mm);
+ 
+-	return proc_get_vma(m, ppos);
++	vma = proc_get_vma(m, ppos);
++	if (vma)
++		return vma;
++
++	/* Return gate VMA at the end */
++	*ppos = SENTINEL_VMA_GATE;
++	return get_gate_vma(mm);
  }
  
-+/**
-+ * smap_gather_stats() - Gather mem stats from the entire @vma.
-+ * @priv: proc maps private state.
-+ * @vma: The VMA to gather stats for.
-+ * @mss: The accumulated stats.
-+ *
-+ * This gathers stats for the whole of the VMA.
-+ */
-+static void smap_gather_stats(struct proc_maps_private *priv,
-+		struct vm_area_struct *vma, struct mem_size_stats *mss)
-+{
-+	smap_gather_stats_range(priv, vma, mss, vma->vm_start);
-+}
+ static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
+ {
++	struct proc_maps_private *priv = m->private;
++	struct vm_area_struct *vma;
 +
- #define SEQ_PUT_DEC(str, val) \
- 		seq_put_decimal_ull_width(m, str, (val) >> 10, 8)
+ 	if (*ppos == SENTINEL_VMA_GATE) {
+ 		*ppos = SENTINEL_VMA_END;
+ 		return NULL;
+ 	}
+-	return proc_get_vma(m, ppos);
++	vma = proc_get_vma(m, ppos);
++	if (vma)
++		return vma;
++
++	/* Return gate VMA at the end */
++	*ppos = SENTINEL_VMA_GATE;
++	return get_gate_vma(priv->lock_ctx.mm);
+ }
  
-@@ -1346,7 +1363,7 @@ static int show_smap(struct seq_file *m, void *v)
- 	struct vm_area_struct *vma = v;
- 	struct mem_size_stats mss = {};
- 
--	smap_gather_stats(priv, vma, &mss, 0);
-+	smap_gather_stats(priv, vma, &mss);
- 
- 	show_map_vma(m, vma);
- 
-@@ -1399,7 +1416,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
- 
- 	vma_start = vma->vm_start;
- 	do {
--		smap_gather_stats(priv, vma, &mss, 0);
-+		smap_gather_stats(priv, vma, &mss);
- 		last_vma_end = vma->vm_end;
- 
- 		/*
-@@ -1458,14 +1475,15 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
- 
- 			/* Case 1 and 2 above */
- 			if (vma->vm_start >= last_vma_end) {
--				smap_gather_stats(priv, vma, &mss, 0);
-+				smap_gather_stats(priv, vma, &mss);
- 				last_vma_end = vma->vm_end;
- 				continue;
- 			}
- 
- 			/* Case 4 above */
- 			if (vma->vm_end > last_vma_end) {
--				smap_gather_stats(priv, vma, &mss, last_vma_end);
-+				smap_gather_stats_range(priv, vma, &mss,
-+							last_vma_end);
- 				last_vma_end = vma->vm_end;
- 			}
- 		}
+ static void m_stop(struct seq_file *m, void *v)
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
