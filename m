@@ -1,291 +1,63 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F6C50256F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99195172F8;
+	Fri, 18 Sep 2026 13:51:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739464; cv=none; b=a83EXHOZG/Ycd43SNJNicTBbZi0s2e9Mmt3yguno0COLkkwjuoOCv7UAWeVMXfHBBgAwGPz4WZ+xhdlnm9YPPIPiaWmnbxJ5TuOR+RIo+20vfdavaIlv9/B/aSH+dooAlR4kZnC3q3UtPFLUqgsmwJUpSn6HtkPsCdczuGBJl5E=
+	t=1789739467; cv=none; b=ZSvgflKXe7rAAzEt0K/CL/I50IDz6Kc4kKU9NpKKeyBa+0fP6RiiWFo1jIFM8X8irqITAARfPY1KtXZoyYyjd8R8Opyoqowe8Ao9M9l9gfLQHES0gLEFdBPajVqVzrTg98OSauhuMlfWQP7bFb4Htx6nuMMy6xcIweE37CjeyAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739464; c=relaxed/simple;
-	bh=Q0/QcclAiT5NNQOHpascP3UIooMXtM65N0k0r0ANoVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m1eOZY9q2rBw+Z5Kj3whqbNHzoKORdKP+vcT3KcaZtD2lEeR2LEvuTZHitgTp5X/a90SlMvJQBZm7aplFnEVzb1N3qMxv7wkSnKE7pLrQnuItzMvSPxQRMGyHjaBRN7dfpvh1k+Wk/WwJVMBDalDuxpSTuUTJNaHEV9cIPDskf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NdCxJV1V; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789739467; c=relaxed/simple;
+	bh=r9lrDimKsxCAd/GFlHyTvt7k61I3JdZNuCwiKYQlbtU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qRdVrNFAH/0vPk18cvWoNITiMPhkoDanxEXja80WhnABa2VwgfvSsXVF68+mzCLbrbEjvPZe1AfwpUlwo7fxQN5pZ/PdjTBt6VerUU61ZrhNj6Ev4I+SSjErNS6udgQb3Qmgz045TQPDOsl6xM6eJxJ1+sOWsPljERB/tgB82Go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=wgAYKhB5; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NdCxJV1V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789739459;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5czUkP5P8Oz4Lo/yyaqt8V3GIdQRKkexO6909+2YcXA=;
-	b=NdCxJV1VxyERdqnVJOmtQoql0/r8ooo3Zi+/jygwptkjjhfLFgoS/JfjRYHoZ141pCLMZm
-	YcQSRFPRkJ54LUbzJLFwCbzwfXU/ewJDwRY9M6M6SXmVNiWyfgtB/qpebwoT79Issf6qBv
-	nwFE9+Ialc+O8r/q4lZ9la0nggUtySY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-53-MoNJa0qvN5qzylLc9BepKQ-1; Fri,
- 18 Sep 2026 09:50:55 -0400
-X-MC-Unique: MoNJa0qvN5qzylLc9BepKQ-1
-X-Mimecast-MFC-AGG-ID: MoNJa0qvN5qzylLc9BepKQ_1789739454
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4CAAA196C40A;
-	Fri, 18 Sep 2026 13:50:54 +0000 (UTC)
-Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8B85C756;
-	Fri, 18 Sep 2026 13:50:53 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: nsaenz@amazon.com,
-	vkuznets@redhat.com,
-	snambakam@linux.microsoft.com
-Subject: [PATCH 25/31] KVM: x86/mmu: Take memory protection attributes into account during faults
-Date: Fri, 18 Sep 2026 09:50:24 -0400
-Message-ID: <20260918135030.171564-26-pbonzini@redhat.com>
-In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
-References: <20260918135030.171564-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="wgAYKhB5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=r9lrDimKsxCAd/GFlHyTvt7k61I3JdZNuCwiKYQlbtU=; b=wgAYKhB5ML7O4pJFyhNfm2564B
+	RJvekncDoZhCFdlhu9bHYfhzQ05bhCwI0X/7Sv0lWneEtZwzw7pxObEeMSZir1OqUa0Q1N6EcB0el
+	mbaT/8MOY9MKR518p88SO2HBywTxlmn+QwxCJvOMmIFD9+QWVJ3+zygdys/jo3+NkN5NCJBjw45Iz
+	mJ7Xw/HBYsYk2sgeuwhphM831/HYcMnZFtZShO8ZPArgPYMQPcV0HTTMnkQMJyjrIEHo5+P10+osT
+	p6MNyO3AMcByQnV6tyoU1GIdTUf7MvfuZAiBv15ODngHeBWeXy7FWy7vAasksBvqSnpdW/28fvHxS
+	tWe9/O2A==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x7YzX-0000000EdKf-3TlK;
+	Fri, 18 Sep 2026 13:51:03 +0000
+Date: Fri, 18 Sep 2026 06:51:03 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	Lalit Shankar Chowdhury <lalitshankarch@gmail.com>,
+	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xfs: replace kvmalloc_array with kvzalloc_objs
+Message-ID: <aq1BxxxUe3iCyPYV@infradead.org>
+References: <20260917200835.31027-1-lalitshankarch@gmail.com>
+ <aqzHPqgh-rKqHRo-@nidhogg.toxiclabs.cc>
+ <aq0dnoWhkq9JZkiu@infradead.org>
+ <aq0i-bfEEMpwJ_Dk@nidhogg.toxiclabs.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq0i-bfEEMpwJ_Dk@nidhogg.toxiclabs.cc>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+On Fri, Sep 18, 2026 at 01:44:12PM +0200, Carlos Maiolino wrote:
+> You meant something like this? Leaving xfs_alloc_bucket_bitmap() looks
+> a bit better for me, to avoid overly long indentation.
+> I don't think there are free_bitmap_bucket though, buckets are straight
+> kvfree()'ed.
 
-Take memory protection attributes when faulting guest memory.  Prohibited
-memory accesses will cause a user-space -EFAULT exit just like private
-memory accesses.  Userspace will either enable the access or bump it to
-the guest as some kind of exception (e.g. a VTL return).
-
-Since the struct kvm_page_fault already has the access type in PFERR_*
-format, the check is done via the kvm_page_format permissions table.
-This means that it supports naturally all page table format variants,
-and it can even handle mode-based memory protection when the host
-uses MBEC/GMET.  The only thing that needs some care is to build the
-restricted ACC_* mask with the root page's own access mask as a base
-(and not ACC_ALL).  Otherwise, supervisor mode execution would be
-handled incorrectly on AMD processors with GMET.
-
-To avoid spamming the trace buffer too much, the new trace event only
-kicks in if memory protection attributes are present for the faulted gfn.
-
-Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- arch/x86/kvm/mmu/mmu.c          | 49 +++++++++++++++++++++++++++++++++
- arch/x86/kvm/mmu/mmu_internal.h | 19 +++++++++++++
- arch/x86/kvm/mmu/mmutrace.h     | 36 ++++++++++++++++++++++++
- arch/x86/kvm/mmu/paging_tmpl.h  |  2 +-
- arch/x86/kvm/mmu/spte.h         | 11 ++------
- 5 files changed, 107 insertions(+), 10 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 3c926f95f87b..6bbecbae2f8c 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4647,6 +4647,50 @@ static int kvm_mmu_faultin_pfn_gmem(struct kvm_vcpu *vcpu,
- 	return RET_PF_CONTINUE;
- }
- 
-+static inline unsigned kvm_get_gfn_protections(struct kvm_vcpu *vcpu, gfn_t gfn)
-+{
-+	struct kvm *kvm = vcpu->kvm;
-+	unsigned int access = vcpu->arch.mmu->root_role.access;
-+	unsigned long attrs = kvm_get_memory_attributes(kvm, gfn);
-+	if (!attrs)
-+		return access;
-+
-+	WARN_ON_ONCE(!kvm_mem_attributes_valid(kvm, attrs));
-+
-+	if (!kvm_mem_attributes_may_read(attrs))
-+		access &= ~ACC_READ_MASK;
-+	if (!kvm_mem_attributes_may_write(attrs))
-+		access &= ~ACC_WRITE_MASK;
-+	if (!kvm_mem_attributes_may_exec(attrs)) {
-+		access &= ~ACC_EXEC_MASK;
-+		if (shadow_xu_mask)
-+			access &= ~ACC_USER_EXEC_MASK;
-+	}
-+
-+	return access;
-+}
-+
-+static int kvm_faultin_memory_protections(struct kvm_vcpu *vcpu,
-+					  struct kvm_page_fault *fault)
-+{
-+	unsigned access;
-+
-+	/* Memory attributes don't apply to MMIO regions */
-+	if (unlikely(!fault->slot))
-+		return RET_PF_CONTINUE;
-+
-+	access = kvm_get_gfn_protections(vcpu, fault->gfn);
-+	if (access == ACC_ALL)
-+		return RET_PF_CONTINUE;
-+
-+	trace_kvm_faultin_memory_protections(vcpu, fault, access);
-+	if (__permission_fault(vcpu->arch.mmu, access, fault))
-+		return -EFAULT;
-+
-+	fault->host_access &= access;
-+	return RET_PF_CONTINUE;
-+}
-+
- static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
- 				 struct kvm_page_fault *fault)
- {
-@@ -4727,6 +4771,11 @@ static int kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
- 	if (unlikely(!slot))
- 		return kvm_handle_noslot_fault(vcpu, fault, access);
- 
-+	if (kvm_faultin_memory_protections(vcpu, fault)) {
-+		kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
-+		return -EFAULT;
-+	}
-+
- 	/*
- 	 * Retry the page fault if the gfn hit a memslot that is being deleted
- 	 * or moved.  This ensures any existing SPTEs for the old memslot will
-diff --git a/arch/x86/kvm/mmu/mmu_internal.h b/arch/x86/kvm/mmu/mmu_internal.h
-index 00215b9f309f..0bad60c5aab6 100644
---- a/arch/x86/kvm/mmu/mmu_internal.h
-+++ b/arch/x86/kvm/mmu/mmu_internal.h
-@@ -290,6 +290,25 @@ struct kvm_page_fault {
- 	bool write_fault_to_shadow_pgtable;
- };
- 
-+/*
-+ * Returns true if the access indicated by @fault is forbidden by the existing
-+ * SPTE protections.
-+ */
-+static inline bool __permission_fault(struct kvm_mmu *mmu, unsigned access,
-+				      struct kvm_page_fault *fault)
-+{
-+	unsigned pfec;
-+
-+	/*
-+	 * RSVD is handled elsewhere, and is used for SMAP in the context
-+	 * of accessing fmt.permissions[].  SPTEs never use PK or SS, as
-+	 * they are not supported for shadow paging and irrelevant for TDP.
-+	 */
-+	pfec = fault->error_code & (
-+		PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_FETCH_MASK);
-+	return (mmu->fmt.permissions[pfec >> 1] >> access) & 1;
-+}
-+
- /*
-  * Return values of handle_mmio_page_fault(), mmu.page_fault(), fast_page_fault(),
-  * and of course kvm_mmu_do_page_fault().
-diff --git a/arch/x86/kvm/mmu/mmutrace.h b/arch/x86/kvm/mmu/mmutrace.h
-index 8354d9f39777..744f111644cb 100644
---- a/arch/x86/kvm/mmu/mmutrace.h
-+++ b/arch/x86/kvm/mmu/mmutrace.h
-@@ -8,6 +8,13 @@
- #undef TRACE_SYSTEM
- #define TRACE_SYSTEM kvmmmu
- 
-+#ifdef CREATE_TRACE_POINTS
-+#define tracing_kvm_rip_read(vcpu) ({					\
-+	typeof(vcpu) __vcpu = vcpu;					\
-+	__vcpu->arch.guest_state_protected ? 0 : kvm_rip_read(__vcpu);	\
-+	})
-+#endif
-+
- #define KVM_MMU_PAGE_FIELDS		\
- 	__field(__u8, mmu_valid_gen)	\
- 	__field(__u64, gfn)		\
-@@ -447,6 +454,35 @@ TRACE_EVENT(
- 		  __entry->gfn, __entry->spte, __entry->level, __entry->errno)
- );
- 
-+TRACE_EVENT(kvm_faultin_memory_protections,
-+	TP_PROTO(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault,
-+		 unsigned access),
-+	TP_ARGS(vcpu, fault, access),
-+
-+	TP_STRUCT__entry(
-+		__field(unsigned int, vcpu_id)
-+		__field(unsigned long, guest_rip)
-+		__field(u64, fault_address)
-+		__field(bool, write)
-+		__field(bool, exec)
-+		__field(unsigned, access)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->vcpu_id = vcpu->vcpu_id;
-+		__entry->guest_rip = tracing_kvm_rip_read(vcpu);
-+		__entry->fault_address = fault->gfn;
-+		__entry->write = fault->write;
-+		__entry->exec = fault->exec;
-+		__entry->access = access;
-+	),
-+
-+	TP_printk("vcpu %d rip 0x%lx gfn 0x%016llx access %s protections 0x%x",
-+		  __entry->vcpu_id, __entry->guest_rip, __entry->fault_address,
-+		  __entry->exec ? "X" : (__entry->write ? "W" : "R"),
-+		  __entry->access)
-+);
-+
- #endif /* _TRACE_KVMMMU_H */
- 
- #undef TRACE_INCLUDE_PATH
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index e6ec14165f40..b031123fcb36 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -992,7 +992,7 @@ static int FNAME(sync_spte)(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp, int
- 
- 	sptep = &sp->spt[i];
- 	spte = *sptep;
--	host_access = ACC_ALL;
-+	host_access = kvm_get_gfn_protections(vcpu, gfn);
- 	if (!(spte & shadow_host_writable_mask))
- 		host_access &= ~ACC_WRITE_MASK;
- 	slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
-diff --git a/arch/x86/kvm/mmu/spte.h b/arch/x86/kvm/mmu/spte.h
-index 589f3954633e..14f322944671 100644
---- a/arch/x86/kvm/mmu/spte.h
-+++ b/arch/x86/kvm/mmu/spte.h
-@@ -491,7 +491,7 @@ static inline bool is_mmu_writable_spte(u64 spte)
- static inline bool spte_permission_fault(struct kvm_mmu *mmu, u64 spte,
- 					 struct kvm_page_fault *fault)
- {
--	unsigned pfec, pte_access;
-+	unsigned pte_access;
- 
- 	if (!is_shadow_present_pte(spte))
- 		return true;
-@@ -511,14 +511,7 @@ static inline bool spte_permission_fault(struct kvm_mmu *mmu, u64 spte,
- 		pte_access |= spte & shadow_xu_mask ? ACC_USER_EXEC_MASK : 0;
- 	}
- 
--	/*
--	 * RSVD is handled elsewhere, and is used for SMAP in the context
--	 * of accessing fmt.permissions[].  SPTEs never use PK or SS, as
--	 * they are not supported for shadow paging and irrelevant for TDP.
--	 */
--	pfec = fault->error_code & (
--		PFERR_WRITE_MASK | PFERR_USER_MASK | PFERR_FETCH_MASK);
--	return (mmu->fmt.permissions[pfec >> 1] >> pte_access) & 1;
-+	return __permission_fault(mmu, pte_access, fault);
- }
- 
- /*
--- 
-2.52.0
-
+No, I mean changing bitmap_*alloc* and bitmap_Free in lib/bitmap.c.
 
