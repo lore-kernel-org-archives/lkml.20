@@ -1,151 +1,91 @@
-Received: from mail-yx2-f39.google.com (mail-yx2-f39.google.com [74.125.224.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B57522F18
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3E335E956;
+	Fri, 18 Sep 2026 20:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761591; cv=none; b=dQolROJy+XxeBJJYj5f8OT4u+wjdsGFPWzcXyz1s+3NC2+0kX2NTQx7ReXrpUUleiEd8f5oGasMo/KoeR4960tVEB+WAt2ku2sE9tm69NMNVPRyWjDRxT6AoXk9DPfMA0/D1WGUxqxJ+woJPwcYkptvaQpZxWaauFw/mDa4DDQo=
+	t=1789761601; cv=none; b=gxmnZerjEWLcNSrBDAEnlRm8aikLN4LoMLtTqXF9+JVLni7x+H0xgNZuGmnHW7uzcvNkAhWon2LGYPA1btg8Z2er+9GzqP7G3Tsjf5fiE+Alv4idm8l+OaJFBIYy7My3d/ep3TT+OqQENKnWQkVZLqcBuWeTaUM8m2qS01WENOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789761591; c=relaxed/simple;
-	bh=Jv9PmI2tuRQ6a0mGkf94vkgPMQlOdZGeXzjl16O8i00=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uLEfyGeFdnm7JySBzuTXvRE63tQV9hoKtkseaWzXJQfb6Mn4hDQAKZ56ad46qlfnV1caQ4LqLr4j4cPBsMFO1PYjntWJk/s6/rbeHsS8+N7fVXi27CDobaWxjByOP0JwCgrJ6ZA8cE7ipE+eHwrbGIwqyU9TZdzZT36jdUrSc/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=ch2e604T; arc=none smtp.client-ip=74.125.224.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1789761601; c=relaxed/simple;
+	bh=ujkhGy2FSYAIasmOkN8vs+uHhKJMbQlyvbnsVAWbj1o=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=IKzrhETNZm4Id2TBQ2+vdXFmAhy8b4lD3Ijd2as9QzU+nElmDRICochwDeUUPxTomKA5Vp2OuUJhPn53cRZayk1b8NR0mMZn76nmPJAxC+iElqQ2CFixUjUxQrOLcOoW59UavlLsEKQVRmUule42wpuRs49zkr98pfHdnZKQEgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=W/ONbTcH; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="ch2e604T"
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so1070154d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:59:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1789761587; x=1790366387; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jFiXSu2V4pZ+QeomBn1c5HcWy5gtnzTo7Z55CduAixo=;
-        b=ch2e604TIxvi8hLh6mLXV0Kd6bTBiZI6iola+whhEHBQ/gRtNMLO9+O8h75SUTlcSD
-         ct4Fq4vTT/VWzsVFSc3o1K507n3fGuVDlzN1p1N7Lkdt1Oewd4iWhDCX9oexGV0yw1Uf
-         x2xfQyWszMMyEtpwNcapqacbwvHOBZrrOHwghHYVKP+FpxGbDBAq6+cwPnqMOmdXT/Wp
-         RmREmPUaX2sGnpVAZP5EJ1ONwPxNa2rNIQ/a9maVbyLwwsluXGxl9TM9z9D6C+ZEnGU5
-         8BEMTctHx5RvzLgo9Lu01MauixY+qjScYIhLTGc4EVl9uKr4tRuCeerFP6EutvGdfkxX
-         Sdmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789761587; x=1790366387;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jFiXSu2V4pZ+QeomBn1c5HcWy5gtnzTo7Z55CduAixo=;
-        b=pmYPFoaEcYU6vtjvzrADfsix92PvY6dMB7g0OlxaPNmUgLv6503ibczfnDMTSwAd15
-         SRTLvTfmI5T18pushK8vlA8leNof+sFhap0NTkbbJ7uE9FvR3kcwBemLUKgEyNUicQcy
-         MO1zcmhGU4lKwAnEtei1aUTNkaLLG43KgITsdSc1J8lIGXefYdnhKq+SxjFlEVqA9g/Y
-         rz/RtDUmkGOB+fL6ZXH9DRF8jy/AWJu+cvqY7z2b4CTXfXctfoLrzPoXoCy73lcbzSp7
-         zAHNiplaCFmx0x03yxoilfG+uUk2BpuCeKc8DbL6bk53/0siNp204DmFcdjJHx6HSjbJ
-         qpJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzm4LTwj8ILsgZujNk9El+KI2QNEQX1GaS/ShRV8AHrQ2diTFPZR0TuOUG42nkxTX/6RdQjiZRVvf7sgU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2LCqePCRqX+z584VWPTLyUuFe+J8yxjh47pbw91TY/FTqQE+t
-	ycEK0ZKK+qCRuSxL86Gg73PriWoRFzBGpg4zNOv+x0QyUTjJc1k2DViOVTY1m+g/I8WO
-X-Gm-Gg: AYBFou0UcLXftQbmamCs5wdukOJtlzb+ewmspxwE7fXR5dEEyVWj6rJv3qwhTSEDG3+
-	CroZjb50A3RulgpAqOB9Ce43PNZLkY8cE3A4N6bpBQAiSbLvIk7RfRazLAJ512JRTIdUcgC8+Ar
-	SBGURJxhi6ITLxj4QVgyRqXD6awP89ZQP9a38LTnk7EkIXbUkGrxHdhyq8UzM0xvj2BMYV+JeXs
-	LOiKtBNmJBN5KTvZOot/nQFTHDu8ldNB/+ft/BHoJiydXttPrgwq5M4O8n5u1z0X/Wnd6gPYY6q
-	lnCcIi+tghx8z6ZOfSiou3d8plrOTSm0cyDWJdfJTWLMQJtJbwGHvLFQRAfCxQ3rk02i9P1fA0l
-	H4NefWFy4Seisn7TRpdT3pUUci4xudKd52qLFt89kK4WS1mARrU66laniAz+ReytM6JT5pOWy1v
-	0lXhZAuTC3inGWqH0fIH/UUUWVfmfrYeiwURup+nlkewWYpRYzZKC1HWdDiuyuiiXjj8QclDccp
-	psxoqaoF6u/qbufb1H4wkKyvT2/ElmQZ3nqLuKZKoJZcx2o3ZBljg==
-X-Received: by 2002:a05:690e:e89:b0:671:4d46:8d5a with SMTP id 956f58d0204a3-6717fcee54emr1347891d50.41.1789761587246;
-        Fri, 18 Sep 2026 12:59:47 -0700 (PDT)
-Received: from toolbx (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672990ab5desm406523d50.8.2026.09.18.12.59.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 12:59:46 -0700 (PDT)
-Date: Fri, 18 Sep 2026 14:59:49 -0500
-From: Andrew Halaney <andrew@amutable.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
-	Benjamin Marzinski <bmarzins@redhat.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, bpf@vger.kernel.org, 
-	fsverity@lists.linux.dev, linux-doc@vger.kernel.org, 
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-Message-ID: <aq2VxlttdlTNlHo6@toolbx>
-References: <aqyiCavj3xeNqyAo@kernel.org>
- <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
- <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
- <715249.1789718726@warthog.procyon.org.uk>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="W/ONbTcH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=cmiry3JcpazZ6l/PDBYrf3Gg/OWOS79zaTVf2b02IB0=; b=W/ONbTcHvbbIcERFDBy5V9+fz8
+	ClXKlqhfI9/+PEX5UPZD/o9kNZB2xeLc6zsCCTmVEebXhBjHQB1VHAH3gZOcPOirQCS5xTtaH0f5y
+	s0JCpmFhn7hlwfUnwEhUXZMND0d06IpSnuXzm8j86ZILMwQr8gCPbjPiwyNNd/0T4UK7TSQzEcPNC
+	5aqkcHGEO3iirTALpNPzRsqeyqDK7uUa2nahHS2hhtAH2q05KmkruKKkOSr1EwNbW/d6ezacx2EXb
+	kuJwha3ZRhs0SHbPVT9LjGFOUI6TCSn71LmSJBR0L8gAurJAb3h9zxd1NU58TeZwTWpyag9nqPIUW
+	MSa9+CMQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7ekV-0000000Cs4I-1zVG;
+	Fri, 18 Sep 2026 13:59:56 -0600
+Message-ID: <1384e37c-d4d4-41d7-8d74-c4e60f52c9d7@deltatee.com>
+Date: Fri, 18 Sep 2026 13:59:54 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <715249.1789718726@warthog.procyon.org.uk>
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-4-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-4-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 04/18] PCI: Reject unreadable ACS controls in isolation
+ checks
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Fri, Sep 18, 2026 at 09:05:26AM +0100, David Howells wrote:
-> Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> 
-> > This is great for discussion but what we want for the commit message
-> > is just motivation and resolution.
-> 
-> Actually, I think it's useful that Andrew wrote up the issues in the commit
-> message - and I think it shows part of the motivation.  The 'writing a fake
-> /proc/keys line in the description' is something I hadn't considered.
 
-I'll defer to what you all want in the message here, I found it valuable
-but I trend on the side of overly verbose admittedly!
 
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> > I don't think we need all this just to say that /proc/keys in a racy
-> > query mechanism for production, which is an issue for dm-verity, given
-> > that nothing else is available.
+> pci_acs_flags_enabled() and the Intel SPT PCH quirk use ACS registers
+> without checking config-space read errors. A failed read may leave control
+> state indeterminate yet allow the device to satisfy requested isolation
+> controls.
 > 
-> I think at some point, we will need a system call to search all for all
-> accessible keys matching certain criteria by actually walking the key
-> database.  The problem there is that there may be multiple hits, so we may
-> need something like:
+> Return false when either ACS capability or control state cannot be read.
+> An unknown state cannot prove isolation.
 > 
-> 	int count = find_key(key_serial_t start_id,
-> 			     const char *type, const char *desc_prefix,
-> 			     key_serial_t *results, size_t results_size,
-> 			     unsigned int flags);
-> 
-> Allowing you to do:
-> 
-> 	key_serial_t dm_key;
-> 	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
-> 			 FIND_KEY_EXACT_DESC);
-> 
-> This wouldn't be as fast as a direct lookup since it would have to walk the
-> key tree, doing name comparisons and perm checks on each key of the type.
-> 
-> > And secondly special keys are meant for implicit keyrings so isn't
-> > that all there's to it?
-> 
-> I have no particular objection to setting aside a block of negative key IDs
-> for special keyrings that need to be accessed a lot - though I would make
-> common reg/unreg functions that take the ID to be registered and, say, set the
-> block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-To be clear are you suggesting I do that for v2 here? Happy to make the
-change and add some reuse to the registration functions, etc. I'm
-guessing its fine to change the bpf id since its still only in -next?
+Looks good to me.
 
-The only awkward bit with making that more generic is that dm-verity
-isn't __ro_after_init since its coming from a module possibly, and
-because of the module usage I also protected it with a spinlock in case
-someone's accessing it while you unload the module. Could just use one
-spinlock for the whole generic array, and drop the __ro_after_init I
-suppose.
-
-Let me know if I'm not following properly!
-
-Thanks,
-Andrew
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
