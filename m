@@ -1,68 +1,68 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AF3519913
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D309050EBF1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750061; cv=none; b=WzTJBJvGjnN+bWfGEm/4ytr09pvKz0Gr2lthycYWMWpOjLYTTjY0KxhTE1vImlHgm9R/xZdV0NYNm+/a5INKcSyt+08AJKVCOSRxqGkBZJpTjNFjKBnwsLMGb4pGYXCTrBOAaFQCvEygF4OySiwNH0lZZ7URS+K9Edn4/5uz0Js=
+	t=1789750064; cv=none; b=enCUXEcNVhNCygK38CwZ6bP93oKQd6mmRaPeLhdWtIEk4BFgfCHlifc+fXJ5ot6TLbWavX0lAjUvJZjXgx+m7rZzGfB0A8zkNBxvU42Bo5qv5Of4DeUf0KRCuMAlpTXvcn2TJEeYOf8OhBVwNOwcfq3KJG0JV0LV5cRSezVq4U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750061; c=relaxed/simple;
-	bh=T5ePlaPWKKBlTLSmPKKBLXleGmVB5tFWU+61peT575U=;
+	s=arc-20240116; t=1789750064; c=relaxed/simple;
+	bh=Y77Z1J3VIhFnhKwdKSgUSyUOgqiXcpPLGPr9pLwn6OA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dkyxfvWPv6ISdm2L+Z4UfcidKz5PpQU5pjswJgC2wGkng8BuupBE2mq4qmmEtJ0XGcI99WLo2ce0s2cfmoRwl8f3GAvBiczQmkto+252a1ku1raPUErM3/D/8P2SV0XSnXwPjECgyTXJ03zteB/KtMDdkhkr5tEIk+F3/tzglLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3113EhX; arc=none smtp.client-ip=209.85.215.172
+	 In-Reply-To:To:Cc; b=akdEGOGXhR7Cjazlgg1y+7cscj8JaSCqD1vgASudYXKGyOgW2M6VDJwzq8ztFRR3b3hykEP4QSzBvrFanYaVkUC5DdULP5x6ekI6oI9Gq2j35Yggz4f7LbL8eNqBvKna0xegwr3QXuiK3Fsi+4cPhj7oBpMgdAEkcKij9VcsY0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MshIyjQr; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3113EhX"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so807937a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:47:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MshIyjQr"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a34907so1181382b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:47:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789750059; x=1790354859; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789750062; x=1790354862; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EXzJLAY9j5odxKClr8BsLGTEU4HkCb/vEygnN5tSKcI=;
-        b=H3113EhXzcENHLK7Qv7TyU8yGMMKPmQXvZqDhUnTJHn0KwonXQN1z69NOEXqO3D/JS
-         8EqWL1fbyY+XoT2a63uSOxrWdiB7Xn6+idEuB92k3z7ZQix/iPhTOs7DLcYCNqgjwJid
-         LhvcAhRVwDPR/W3kCiGiuh0Yt8bC4EJn/Cf9oRMsmTqASn1AwgSeglKqvNdG0H5Zvkn5
-         BXkQNwbmn8Q6sDmqlAqY9c310sS3JeR4dsLIVous/PmM9EtRAO2DwpsUeY3iHiSnREax
-         k4DKnwqs47mVwXEbgzMTdXxMATTIiCZtxPCAcFczL2mhdRSN1K6fN/i7KQXbmRHt57YZ
-         v4jQ==
+        bh=KWKD/UjAbfhc4ufwKqglnF54JbL9r5nugGNbeX3aT9w=;
+        b=MshIyjQrw07/pzkm21xDAywXG29S46DOnRVJ5Mf5nARqapKBSUhpu+c0wSNQ2rNfc9
+         YkdQSOoAmdHOfqgcPXPteToNi/w/4HGw6F3MM5OqfQd52bXh5WFpzDw6gOEiddacWTum
+         hdC85KCcZMWrvEQKob/8f4kn/Ij4GC7E/hfCb9YnOfCNs7Te+jxxni06EihN/yA2Bp7u
+         stRpuLv//At90Ztq4pilqghI/7SkXpZGn8FW/Y3PUIFjiN/+iWeAv/ejcHi8cH0UysAM
+         c0Uobn5v81hOo8l447yGOw8XM4Wai0XjM3Y7Zn26/c3GG/DFc58Lie6ZUaA4Cq+3Ib74
+         I9wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750059; x=1790354859;
+        d=1e100.net; s=20260707; t=1789750062; x=1790354862;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EXzJLAY9j5odxKClr8BsLGTEU4HkCb/vEygnN5tSKcI=;
-        b=fSLF0EIV3/sPVY6NnTMJlOHbis4QehTrQ+EhGBrgqmk5nGw7kHr6WXPmpty8SaBir3
-         flnmikH9rBmtpeyrR8bwgEFDKM+oVlBt960CzhN+yPpqhyp1wiiOAmcamWkn2Y/MQQFh
-         1Nig68/kYp9o1thdm2qqXjbTT8Zgj+3flQARfWFC7Yzmh4kwDIHxK3rigi2HpTM1gYKB
-         EgmzNJ6kuKYzFd6A00p7t0trkqkqs5yuKQNTHvn3PxPhvN4GEjfcw5VxIhMEzbls1h5f
-         2LN0zAErWTGjkQZ6ZFiW+1h5MQoFMlpkCRLAadT6UDP1i+SykM+D70pkGrMRGvvNx/ww
-         Of0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxVqI8+TGJ9D15s4AYOsn4Td4EKnhjdLbTsdZGkzeg4duJL5Ji2HbJOjouBxOpnxljg9IHF/ynSli1945M=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0MPQ4PWzG4FiyRXD3WXbEmWCG+voWXGQi1lHnt//Xgw56/k1D
-	DzxaJ8CoeJLlEGFngTNR0YxLPS9FFcder5RFD8MQS/SR2pZiXteQtG8yJ/W91Q==
-X-Gm-Gg: AYBFou3ZkPH4xf2pLXI1yUl69WGFqFhpF/zHw275rGMucDrjt6htrgQw8FGr4Ii5c5E
-	eJ9R32B8a0v/i1aZFrmpeGrOI/9NQzXZrOGrQ5MwYytxb2L5zBejseCSBi35ch7yxCve53Px37U
-	W/EZ70vpGTypoGp9Hfqr+tgeQTuL2Q61csngfWc5Y7TxZ0jXtHBRjW3vmpFOKOHfZRYgojZIm43
-	RvzI1WLOqrZ3P54z1raxw0/BUp7wsLe1HvxoTx0wi0QU1hgfMHivxzrsjunaB4fD0L/tXQbvGwQ
-	rn3ahW8OB/9G5jQPuCKSl3f7/kF5sYwzFHtLqGSGABKnuckTgjg5gYXprea+atpprMrCpVzIqoF
-	KSQXj/RAfWadQ5Pw6/ncPP2ao94ZgQdIfIB0Aw96Bms18dJnVsIAWuFKnnPAPb+ww3ecGrR6ecD
-	FCoeM/nTdZTmnZ0UHBc66rptHS8Mff3G0CbCju9eNaQ3xzDrfP5Ky/QwdGXb0NgsZktYhqcz/2
-X-Received: by 2002:a05:6a00:4099:b0:842:3c77:5996 with SMTP id d2e1a72fcca58-87341085fd4mr10175647b3a.1.1789750059163;
-        Fri, 18 Sep 2026 09:47:39 -0700 (PDT)
+        bh=KWKD/UjAbfhc4ufwKqglnF54JbL9r5nugGNbeX3aT9w=;
+        b=hIj/67a9wwwdU1TeIdabHpZq+BvB0IeMjsJmJ2ZT6HdzImfRqE3CU4OMvVS/ZF9mUM
+         V72RJSgP8jGAUL1vkMPxtQ9zivRzILp2KDdIDsdU9n0e9EW4O83iJBnPe4xMfd67LvuR
+         zL6gdDwj9wERbIIFadbFgnc1o7F/YDc6hZXkhU96xKFQpAmCbS9CkNWb1ddCYu2XH24Y
+         7w8TdSqdf80MKEriLCJIVD9fX6YRHXlBz+wh4wq4HY1h2MSeqvDQd6OSFeRUrQscXJcn
+         ECfSZDn3c+U2bluk0hUDUhFfF+e5Kl7e/84+TBsil7i/RFP2LxD6GyfRiyLHbR09vCPB
+         EPow==
+X-Forwarded-Encrypted: i=1; AKwUvBzf2Axtraa/XI0K6KK4kElEO8XySndK554ty2CVT9dZVDOwBTNGzSi5Sfisopd35aeQyNu64eOSD+Mn8E4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDLQ/UMUF17EcOIlifF56C/KNChGMcbHWr+YulzVCFvlAkvSAI
+	r2zVpTN9vfcrZcxz5SIhZXUKzKDg1cn2YVANAFbRJKeOD698kQY8TiLz9CEHWg==
+X-Gm-Gg: AYBFou2iUYI/fVtjFZfrbsNFxaoaykv1g4zJNiwWyq5SW8f24q82pEL5I9ga+nBESRn
+	7+NOEXO/SoBjy7/yOpKFZxUGaFI6Fa7OQiXoS2mns1ITYHpWLf5rU+WjEaCPz33VKPrVpe7IiFu
+	yS3qyaSAcIPAHVAUlfOw/81XPW5AuH/Q3d60PpCNjSBpM9n/HGQ8FJpuTv28qfLtwcIyGirJYQb
+	yRR039keFPg5p02ieeD36yj96dhcx/HbR+n8QFbrr12uN5slwfRizC45DVF6wxaInc6WUmqvPwS
+	3wbWErz1ZB5tdYGF/edGzfDEE9Z0OCX8iWP4D/xvLe8z6KbDLcDZCjuN0MWpnZH7X3AtzRVtl7L
+	29f/eL1ED9soWgMjV0+LUnHU/5xgSVtdr3NEPWmgLqlmD6MTckCoFTmjj1O8OVs76kiIpQtvMED
+	t+zBHujiMqDR9vODOT9/gUccY4UZ8k7PXfZ8eMYoZY47tSiF2TumcnxLjUshNFX4KaFQc9oCoD
+X-Received: by 2002:a05:6a00:f87:b0:86d:7462:414a with SMTP id d2e1a72fcca58-874db8eb145mr6579181b3a.7.1789750061944;
+        Fri, 18 Sep 2026 09:47:41 -0700 (PDT)
 Received: from [127.0.1.1] ([223.122.38.120])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-877a8dfe201sm50514b3a.18.2026.09.18.09.47.36
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-877a8dfe201sm50514b3a.18.2026.09.18.09.47.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:47:37 -0700 (PDT)
+        Fri, 18 Sep 2026 09:47:41 -0700 (PDT)
 From: Nick Chan <towinchenmi@gmail.com>
-Date: Sat, 19 Sep 2026 00:47:03 +0800
-Subject: [PATCH 1/2] soc: apple: rtkit-crashlog: rename 'Crg8' section from
- regs to aarch64
+Date: Sat, 19 Sep 2026 00:47:04 +0800
+Subject: [PATCH 2/2] soc: apple: rtkit-crashlog: Add support for AArch32
+ state 'CrgA' section
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-rtkit-armv7-crashlog-v1-1-f4a671ea453c@gmail.com>
+Message-Id: <20260919-rtkit-armv7-crashlog-v1-2-f4a671ea453c@gmail.com>
 References: <20260919-rtkit-armv7-crashlog-v1-0-f4a671ea453c@gmail.com>
 In-Reply-To: <20260919-rtkit-armv7-crashlog-v1-0-f4a671ea453c@gmail.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -79,140 +79,166 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Nick Chan <towinchenmi@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4600; i=towinchenmi@gmail.com;
- h=from:subject:message-id; bh=T5ePlaPWKKBlTLSmPKKBLXleGmVB5tFWU+61peT575U=;
- b=owEBbQKS/ZANAwAKAQHKCLemxQgkAcsmYgBqrWskADcmCOtokPCqj1yGNH6q8CXYa2yckF60P
- 9FNoYp3liiJAjMEAAEKAB0WIQRLUnh4XJes95w8aIMBygi3psUIJAUCaq1rJAAKCRABygi3psUI
- JE/OD/9Fop6CLfJ+FGs1WPvP0YASFDiEJBUsmpWiWlsK1im1oxn7BYgcc2POZWxDKIp79qhz6YL
- U/CXIDQrU7agwe/cHOJRGXCBW5VgfUkxkgIfIX3DTg5UPPZ1c5uXTYE8l4HRm+/WRXLsRVS6f/Y
- 27Oog1lG/01iZtYCsrtTV3AA82LxWldSykRyuVvPdqTCZdZjR9SYS2mWU7lsAvyU1KRjFab/vaB
- qthXOQSIihlpyVv3c5b8pLOnx0boPZ1zR36FgEpYJuS5DfxuqLBFTEaCalWpjdZo+m+Y38lHM3y
- ol08sA27qnwsK3EjduTpllJjDb/YzodiMlBUsAAj2U7UYoUPff0v2G8N+BInwTs1jkTuhZtFaZi
- Fef9+cjD0m0hT+IjC4mE4zpqRZl+1aT6RS6xXZo3HMbwgdVPwIQmrcBnFpozNvwYxP+fiaPKpiF
- Bs06tSqQ/PETttfAjFgKt59qxkx2K6TlK1O0EgLibTytDnwmY+YzrPUhBRkNlr0d0iGeO5oSKlc
- eTjNHjH5B9M3lRJdE2HVwIKc6zM1mZJqvCYzl7aQDkmsIGn0phgpHiQgb2PW+7JojlzfZGxy2NV
- g6SAHeu8NWlULXW6X36e2WWTGZtBxCMHXGpHDYA8b69OzeNQlpCMPIK7NJ81RkmsgFklgUIQtiQ
- 0+TOUrIY/+70KIg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4198; i=towinchenmi@gmail.com;
+ h=from:subject:message-id; bh=Y77Z1J3VIhFnhKwdKSgUSyUOgqiXcpPLGPr9pLwn6OA=;
+ b=owEBbQKS/ZANAwAKAQHKCLemxQgkAcsmYgBqrWsk7omeMzvdcitvH2/8gz8Yi+jaRw/Tk4IgI
+ 5534I+qe7qJAjMEAAEKAB0WIQRLUnh4XJes95w8aIMBygi3psUIJAUCaq1rJAAKCRABygi3psUI
+ JEK0D/9Kfa7Epjlhe9qqYxU2jBhD/ZecorVNyE0jqtyJshS01kR+G55qbyUSKIagHwbniwuAsl+
+ odn+CsCvydbje8Oso042k1X1wlgngDBwMFL202WWl8rw9yXmnp7YqO68OYZMy4Hx7Yb3AkiaK5O
+ +q7Wl5CF/GgG8kmlg5DuC2pNCyVTi5tKESXoz6UoVhZqrUkP7nFZs63/9oxBFnYbabY0flUvXJf
+ ZoNzQX2LTk0jp44E+n2F0xVngzMZzU/J6hDh8aUUFav91BxuOTBqt9uT6Fs1tOAlSH9W6Z6IEWP
+ KOPP/oxlZWVpsq0+8wXzmbIDaCMR7axhCIm6/SE6HUhdW2hyeFWuMBfhNrBOaAXwf7L5o0yYX4l
+ wOiMLNo+StR9SlSBobAbPwkFWYi2ccI8VApQnkjoy7WDS0HmJq5VzUgltq8gBu5s27HFLePjzAx
+ 7MRr2a2z6SJmuk0PjoJNf8WkNI/W84fA9cA1gsJUsBEPOQF8sd4O0td6uKOgnULPGBXtE8XsMN/
+ ZKwV3D2AvsZoKjVvzPNlGu1Ug/p5Qkd1MWXkf0tnCRHAngZYRQ+lFeJ2w5ppMym3kAHLhHvP7zS
+ qqmqkFv15Pv0EDpROnVPfQi+lyt6Pn4KS0gHNZ5nvYZO9f4ghN7j1vgcGbObDr0FmA5403IrkwV
+ mcbuhp+SNze+7Bg==
 X-Developer-Key: i=towinchenmi@gmail.com; a=openpgp;
  fpr=4B5278785C97ACF79C3C688301CA08B7A6C50824
 
-This section contains AArch64 CPU state of the IOP when the exception
-occurred, including register information. Rename this section to be clear
-about the CPU architecture as support for crashlog section with AArch32
-CPU state will be added.
+Add support for CrgA section containing the AArch32 IOP CPU state, which
+may appear when an AArch32 RTKit IOP crashes.
 
 Signed-off-by: Nick Chan <towinchenmi@gmail.com>
 ---
- drivers/soc/apple/rtkit-crashlog.c | 43 +++++++++++++++++++-------------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/soc/apple/rtkit-crashlog.c | 96 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
 diff --git a/drivers/soc/apple/rtkit-crashlog.c b/drivers/soc/apple/rtkit-crashlog.c
-index 8319e365110b..6a8273e81e61 100644
+index 6a8273e81e61..195b7869ce58 100644
 --- a/drivers/soc/apple/rtkit-crashlog.c
 +++ b/drivers/soc/apple/rtkit-crashlog.c
-@@ -13,7 +13,7 @@
+@@ -13,6 +13,7 @@
  #define APPLE_RTKIT_CRASHLOG_VERSION FOURCC('C', 'v', 'e', 'r')
  #define APPLE_RTKIT_CRASHLOG_MBOX FOURCC('C', 'm', 'b', 'x')
  #define APPLE_RTKIT_CRASHLOG_TIME FOURCC('C', 't', 'i', 'm')
--#define APPLE_RTKIT_CRASHLOG_REGS FOURCC('C', 'r', 'g', '8')
-+#define APPLE_RTKIT_CRASHLOG_AARCH64 FOURCC('C', 'r', 'g', '8')
++#define APPLE_RTKIT_CRASHLOG_AARCH32 FOURCC('C', 'r', 'g', 'A')
+ #define APPLE_RTKIT_CRASHLOG_AARCH64 FOURCC('C', 'r', 'g', '8')
  
  /* For COMPILE_TEST on non-ARM64 architectures */
- #ifndef PSR_MODE_EL0t
-@@ -42,7 +42,7 @@ struct apple_rtkit_crashlog_mbox_entry {
- };
- static_assert(sizeof(struct apple_rtkit_crashlog_mbox_entry) == 0x18);
+@@ -25,6 +26,21 @@
+ #define PSR_MODE_MASK	0x0000000f
+ #endif
  
--struct apple_rtkit_crashlog_regs {
-+struct apple_rtkit_crashlog_aarch64 {
- 	u32 unk_0;
- 	u32 unk_4;
- 	u64 regs[31];
-@@ -58,7 +58,7 @@ struct apple_rtkit_crashlog_regs {
- 	u64 esr;
- 	u64 unk_Z;
++/*
++ * AArch32 mode definitions: APPLE_RTKIT depends on APPLE_MAILBOX, which
++ * depends on 64BIT, so there is no need to care about COMPILE_TEST on ARM.
++ */
++#define USR_MODE        0x00000010
++#define FIQ_MODE        0x00000011
++#define IRQ_MODE        0x00000012
++#define SVC_MODE        0x00000013
++#define MON_MODE        0x00000016
++#define ABT_MODE        0x00000017
++#define HYP_MODE        0x0000001a
++#define UND_MODE        0x0000001b
++#define SYSTEM_MODE     0x0000001f
++#define MODE_MASK_32    0x0000001f
++
+ struct apple_rtkit_crashlog_header {
+ 	u32 fourcc;
+ 	u32 version;
+@@ -60,6 +76,20 @@ struct apple_rtkit_crashlog_aarch64 {
  } __packed;
--static_assert(sizeof(struct apple_rtkit_crashlog_regs) == 0x350);
-+static_assert(sizeof(struct apple_rtkit_crashlog_aarch64) == 0x350);
+ static_assert(sizeof(struct apple_rtkit_crashlog_aarch64) == 0x350);
  
++struct apple_rtkit_crashlog_aarch32 {
++	u32 unk_0;
++	u32 unk_4;
++	u32 regs[16];
++	u32 psr;
++	u32 unk_x1;
++	u8 stack[0x100];
++	u32 unk_x2;
++	u32 unk_x3;
++	u32 unk_x4;
++	u32 unk_x5;
++} __packed;
++static_assert(sizeof(struct apple_rtkit_crashlog_aarch32) == 0x160);
++
  static void apple_rtkit_crashlog_dump_str(struct apple_rtkit *rtk, u8 *bfr,
  					  size_t size)
-@@ -123,21 +123,22 @@ static void apple_rtkit_crashlog_dump_mailbox(struct apple_rtkit *rtk, u8 *bfr,
+ {
+@@ -123,6 +153,68 @@ static void apple_rtkit_crashlog_dump_mailbox(struct apple_rtkit *rtk, u8 *bfr,
  	}
  }
  
--static void apple_rtkit_crashlog_dump_regs(struct apple_rtkit *rtk, u8 *bfr,
--					   size_t size)
-+static void apple_rtkit_crashlog_dump_aarch64(struct apple_rtkit *rtk, u8 *bfr,
++static void apple_rtkit_crashlog_dump_aarch32(struct apple_rtkit *rtk, u8 *bfr,
 +					      size_t size)
- {
--	struct apple_rtkit_crashlog_regs *regs;
-+	struct apple_rtkit_crashlog_aarch64 *state;
- 	const char *el;
- 	int i;
- 
--	if (size < sizeof(*regs)) {
--		dev_warn(rtk->dev, "RTKit: Regs section too small: 0x%zx", size);
++{
++	struct apple_rtkit_crashlog_aarch32 *state;
++	const char *mode;
++	int i;
++
 +	if (size < sizeof(*state)) {
-+		dev_warn(rtk->dev, "RTKit: AArch64 section too small: 0x%zx",
-+			 size);
- 		return;
- 	}
- 
--	regs = (struct apple_rtkit_crashlog_regs *)bfr;
-+	state = (struct apple_rtkit_crashlog_aarch64 *)bfr;
- 
--	switch (regs->psr & PSR_MODE_MASK) {
-+	switch (state->psr & PSR_MODE_MASK) {
- 	case PSR_MODE_EL0t:
- 		el = "EL0t";
- 		break;
-@@ -160,11 +161,11 @@ static void apple_rtkit_crashlog_dump_regs(struct apple_rtkit *rtk, u8 *bfr,
- 
- 	dev_warn(rtk->dev, "RTKit: Exception dump:");
- 	dev_warn(rtk->dev, "  == Exception taken from %s ==", el);
--	dev_warn(rtk->dev, "  PSR    = 0x%llx", regs->psr);
--	dev_warn(rtk->dev, "  PC     = 0x%llx\n", regs->pc);
--	dev_warn(rtk->dev, "  ESR    = 0x%llx\n", regs->esr);
--	dev_warn(rtk->dev, "  FAR    = 0x%llx\n", regs->far);
--	dev_warn(rtk->dev, "  SP     = 0x%llx\n", regs->sp);
-+	dev_warn(rtk->dev, "  PSR    = 0x%llx", state->psr);
-+	dev_warn(rtk->dev, "  PC     = 0x%llx\n", state->pc);
-+	dev_warn(rtk->dev, "  ESR    = 0x%llx\n", state->esr);
-+	dev_warn(rtk->dev, "  FAR    = 0x%llx\n", state->far);
-+	dev_warn(rtk->dev, "  SP     = 0x%llx\n", state->sp);
- 	dev_warn(rtk->dev, "\n");
- 
- 	for (i = 0; i < 31; i += 4) {
-@@ -172,12 +173,12 @@ static void apple_rtkit_crashlog_dump_regs(struct apple_rtkit *rtk, u8 *bfr,
- 			dev_warn(rtk->dev,
- 					 "  x%02d-x%02d = %016llx %016llx %016llx %016llx\n",
- 					 i, i + 3,
--					 regs->regs[i], regs->regs[i + 1],
--					 regs->regs[i + 2], regs->regs[i + 3]);
-+					 state->regs[i], state->regs[i + 1],
-+					 state->regs[i + 2], state->regs[i + 3]);
- 		else
- 			dev_warn(rtk->dev,
- 					 "  x%02d-x%02d = %016llx %016llx %016llx\n", i, i + 3,
--					 regs->regs[i], regs->regs[i + 1], regs->regs[i + 2]);
-+					 state->regs[i], state->regs[i + 1], state->regs[i + 2]);
- 	}
- 
- 	dev_warn(rtk->dev, "\n");
-@@ -229,9 +230,9 @@ void apple_rtkit_crashlog_dump(struct apple_rtkit *rtk, u8 *bfr, size_t size)
++		dev_warn(rtk->dev, "RTKit: AArch32 section too small: 0x%zx", size);
++		return;
++	}
++
++	state = (struct apple_rtkit_crashlog_aarch32 *)bfr;
++
++	switch (state->psr & MODE_MASK_32) {
++	case USR_MODE:
++		mode = "User";
++		break;
++	case FIQ_MODE:
++		mode = "FIQ";
++		break;
++	case IRQ_MODE:
++		mode = "IRQ";
++		break;
++	case SVC_MODE:
++		mode = "Supervisor";
++		break;
++	case MON_MODE:
++		mode = "Monitor";
++		break;
++	case ABT_MODE:
++		mode = "Abort";
++		break;
++	case HYP_MODE:
++		mode = "Hypervisor";
++		break;
++	case UND_MODE:
++		mode = "Undefined";
++		break;
++	case SYSTEM_MODE:
++		mode = "System";
++		break;
++	default:
++		mode = "Unknown";
++		break;
++	}
++
++	dev_warn(rtk->dev, "RTKit: Exception dump:");
++	dev_warn(rtk->dev, "  == Exception taken from %s mode ==", mode);
++	dev_warn(rtk->dev, "  PSR    = 0x%x", state->psr);
++	dev_warn(rtk->dev, "\n");
++
++	for (i = 0; i < 16; i += 4)
++		dev_warn(rtk->dev,
++				 "  r%02d-r%02d = %08x %08x %08x %08x\n",
++				 i, i + 3,
++				 state->regs[i], state->regs[i + 1],
++				 state->regs[i + 2], state->regs[i + 3]);
++
++	dev_warn(rtk->dev, "\n");
++}
++
+ static void apple_rtkit_crashlog_dump_aarch64(struct apple_rtkit *rtk, u8 *bfr,
+ 					      size_t size)
+ {
+@@ -230,6 +322,10 @@ void apple_rtkit_crashlog_dump(struct apple_rtkit *rtk, u8 *bfr, size_t size)
  			apple_rtkit_crashlog_dump_time(rtk, bfr + offset + 16,
  						       section_size);
  			break;
--		case APPLE_RTKIT_CRASHLOG_REGS:
--			apple_rtkit_crashlog_dump_regs(rtk, bfr + offset + 16,
--						       section_size);
-+		case APPLE_RTKIT_CRASHLOG_AARCH64:
-+			apple_rtkit_crashlog_dump_aarch64(rtk, bfr + offset + 16,
++		case APPLE_RTKIT_CRASHLOG_AARCH32:
++			apple_rtkit_crashlog_dump_aarch32(rtk, bfr + offset + 16,
 +							  section_size);
- 			break;
- 		default:
- 			dev_warn(rtk->dev,
++			break;
+ 		case APPLE_RTKIT_CRASHLOG_AARCH64:
+ 			apple_rtkit_crashlog_dump_aarch64(rtk, bfr + offset + 16,
+ 							  section_size);
 
 -- 
 2.55.0
