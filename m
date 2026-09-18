@@ -1,125 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696F23BB138;
-	Fri, 18 Sep 2026 14:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73164848AC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742174; cv=none; b=JjX6K8yOTvu7dC9rdVpkN40GXsuxO9XBTEHupboTWstb5VGoWrOW15+rkVmF45/JCy2TuxCu/FS/XWxBrhpnIBIQorPDxkyo9VWGeiwCPA6odXPdrdBHvVYh7wR+FueBdGTx6PTZhOzT7ewEVZgMP6NVgjHb2Ra98ka/d24Q8Ps=
+	t=1789742177; cv=none; b=VdYIolzjK7GsggkTRISV9IR2lKqJu5p4fRoicPlutgdI9Uc+iTHTSoY0GtSj9Pzef0CzHflWEOFvSLeGS94fmvEGhZU7lwgkG5GGRubran0UL/lkofJny2OhVpozpuGK2ucOq1uF0XGn5ZNeHZFn3RzBFS/jjEoESsyefv2JobM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742174; c=relaxed/simple;
-	bh=vYEk1Rs67C55hieXQ8EyjyO1XA6pmyMeNVRurUVcTyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bg0n5VQKWvloRYkSVs1EtVrpWF+XFPmqGNTjb0s9z9orRw6ztGwWi4LFTqriCricUhdD3uKPBKivtTRZ0pHm43BMFddk7C+b3SxXqU3ttxwJmFieKj4P/T7ExUKfCA6Hs4iBtcROSWIGx6h01ybJ36aH520xSvHOmyfgorcABp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kp6bVUAB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789742177; c=relaxed/simple;
+	bh=oHK7jTtToiFcxA/9CIKnKR3YjDf4Xd/qP/4WmuFBlso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MK5eS8SVvA7Oq8ilR4tmc/4urK17Q6pGUiHXIe8UKJN2Kq7lctoOEZoiNz7by+ZU08sVzcdRX6OHrbgPmT09ISJAz0vQM39juAmwsXNCX5jH8injJZ2h3GXjkULgPS56aEpig44daUKOSp8dCePbNJpu9c4StsGvZ4wMn0M6e/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6GZOzx+; arc=none smtp.client-ip=74.125.230.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kp6bVUAB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD181F000FF;
-	Fri, 18 Sep 2026 14:35:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789742173;
-	bh=iy+YeJOq8ncVue9kKagO67d1wHr0X1BI7jS1wlHwKFM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kp6bVUABBdit8x2HmWr4RJlsOX4CpxQbJSRoZwK/ALiD5H36OGaoVkBVHLa6pKaGu
-	 i9kDvm+VAVQ+5N+yg4SGamQO+46oTWUMUEPPwLdQRjtKVIyiuL71DqfPFAd1UFsygH
-	 WCGGxfRC8e/UQK6y/tagDorXGNS0w+oqCa/aavHFlrZ+C/St6RscsL4ptFWrQNOK2U
-	 liPEhlIAyjO0xuH5Vvu6uioXNq+N0s0yDCXSJ4NmqRk6VZVGTLCfrkCuHTDkDgm9ZM
-	 eeTwQ+wv7Tqyog1aY/KAeBtRr1DlEU6Yy72+A5ksv6Vdi+LmLwmuf4AEZnwW1t5Lca
-	 GYaLTzfGj+YnA==
-Date: Fri, 18 Sep 2026 15:35:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 10/20] kbuild: move the toolchain checks into
- init/Kconfig.toolchain
-Message-ID: <aq1MG8I1BsUUDFkx@gremlin>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-10-9ecf4163ff36@kernel.org>
- <202609171149.6454DC6@keescook>
- <20260918010729.GB1585590@ax162>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6GZOzx+"
+Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5acb204daso4725131fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:36:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789742174; x=1790346974; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=80thoqF6oWnfHU18nXpOy6DAO7B/ZBVuVLAIvy3f1Nk=;
+        b=q6GZOzx+hzy2iRbWqUtd613E/F1RSqTkZy6oNpOtQiM22AldCxh7HS9KPHKzTq1dRn
+         UPzCjtFO08wT2CY5eorcv/MRk7YDYX8yOi0qrltD/rGX31xNJacSz9UpTAraXANOUfBY
+         zG+xBKDt4H/ok9tA3pJJHHPEkHGvLuuZcMlPgkEclOUph9KLFyRIXLaB75OxKiGPkVRM
+         8FcNxB1I5WAt8C/vnCnrP2geeNujKK2WMoRIIkPOouSDvf4zIenD3BB49KIv9WREDHOn
+         7fTSe7rZSeyhnq+Scx/a/NcFr8coe9JvsoXD9HOtOD976pxEL+zCo5F9xXPaNIS1BYX8
+         G29Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789742174; x=1790346974;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=80thoqF6oWnfHU18nXpOy6DAO7B/ZBVuVLAIvy3f1Nk=;
+        b=SL/i+10f2rXqkT5k8/cHffQAH8wTp56OCMa15pb9hIs4U6Bv3pfxm4/+mD9/klYZtI
+         z/j8mDzvaH8C+ukpxBTjkfy0uFxZf4E0CQGOUIXxUtoXFKIIUayeiEKqcA3CP4oi3xrH
+         Dhlv/0qZ5n9yu4cR4TsDg7t3IaZ4+HKFeDfLtxJJkG8b7VYMqQQZHDbh54ixs/pPHVPe
+         HbyQKRNOH1ER49ZLlAXyCZVC5sL+d6JuEtkpvOF9HgYQrLc03B93rR5d6vCK+iEVp/I6
+         HKrJy+gyqis9N7dcsHl0qaHXqmY6ViZGI8BST0P7cxZtSV3VwtmN1NroDDFPcbhU9RcZ
+         qGpA==
+X-Forwarded-Encrypted: i=1; AKwUvByhwljTasJEJXvJOLKBUayipLDKxbVw+W4ExhjBaFgKvpL8qOQ0zW6MAvGdFtjVSb2LYWm50NFd5F3om28=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbgTCQ49DdQOQYTeJUsCxUVBO9/6aYpL1LKan7g9hdIM+BC3Qb
+	TVVGfFAzbW6abBO6HkNiJQnf/qmrrET9/ibiOV6Ooyu2B/xU50JLAqK9
+X-Gm-Gg: AYBFou1KkSI53TpQ3ALlLfW4D/bSwaM/qR449QPVJMayIcw6QllCo5ppPjNbEqABb1J
+	1itK5Yp9u0X+HWCFPQw++3x4SS/43blMsQYoDtgbt91j2uHPCKzYUoDLyCvX13c12+jKJ/b0QK5
+	FiEizpMun4RBSzS7IQ5kwNdGlXe42EZ/ajT4XNLq4H75vPAuITJ6mPJp8GK7BADaZTeUvHBhdyX
+	GBfsaaLJSt10MyChJ7yBToc5kxNnYXGSiF2Cs/xgC1N0PpE6zFKl2pja7YPNgDKh5+im89bL0ap
+	rUOE+wo/gD1Ezg7Nu6Lx0VvE6gS6gkLlXLASrOYiqQqxRA8992+eoJY7gY4Bl8sx2WWbgyz6uhX
+	lBe55Nm+Y0g65k8f86L2XpKsyWfkuWKQHdeAJATwGOVJERzixOC4Aqqyxb/LmzNIumZCu2fqUxK
+	iO6awpyhlr05XiLxLzyfdcYCMHLyzYKVUVo9EnFLEfe95HTfI7WPcf0wvN7qE45ahVHgr7YF/l/
+	YlRgw==
+X-Received: by 2002:a05:651c:150b:b0:3a3:749e:319b with SMTP id 38308e7fff4ca-3a5fbf55489mr5837501fa.15.1789742173556;
+        Fri, 18 Sep 2026 07:36:13 -0700 (PDT)
+Received: from linux ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5fd80eb8csm4784691fa.21.2026.09.18.07.36.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:36:13 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Kalle Valo <kvalo@codeaurora.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	Eugene Krasnikov <k.eugene.e@gmail.com>,
+	wcn36xx@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15] wifi: wcn36xx: fix heap overflow from oversized firmware HAL response
+Date: Fri, 18 Sep 2026 17:35:31 +0300
+Message-ID: <20260918143539.97842-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918010729.GB1585590@ax162>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 06:07:29PM -0700, Nathan Chancellor wrote:
-> On Thu, Sep 17, 2026 at 11:53:13AM -0700, Kees Cook wrote:
-> > On Thu, Sep 17, 2026 at 05:06:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > Move them into their own file, sourced from the top of init/Kconfig, so
-> > > that the next commit can add to them without growing init/Kconfig further.
-> > >
-> > > No functional change.
-> > >
-> > > Assisted-by: LLM
-> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > ---
-> > >  init/Kconfig           | 197 +-----------------------------------------------
-> > >  init/Kconfig.toolchain | 198 +++++++++++++++++++++++++++++++++++++++++++++++++
-> > >  2 files changed, 199 insertions(+), 196 deletions(-)
-> >
-> > Yeah, totally right to move to a separate file. I think, however, I
-> > would prefer this wasn't in init/ though. Kbuild uses scripts/ as its
-> > Makefile.$topic dumping ground, and Kconfig.include also lives there. To
-> > me, this new file should be scripts/Kconfig.toolchain instead. And
-> > arguably, this should be included by the top-level Kconfig rather than
-> > init/Kconfig...
-> >
-> > I defer to kbuild folks, though.
->
-> We talked about this previously:
->
->   https://lore.kernel.org/aqPW1FsBVYHSWl1r@gremlin/
->
-> I do feel like scripts/ is a better location given that these are really
-> things internal to Kbuild but I also see where Lorenzo is coming from
-> that scripts/ is a little weird for this to live for discoverability,
-> especially if we want people to put checks here instead of in a Makefile
-> directly. To be honest, it would be kind of nice to separate the Kbuild
-> parts of scripts into their own directory to make it clear what Kbuild
-> uses versus what users/contributors should use but that is obviously too
-> big of a project to tackle as a prerequisite for this.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Yeah it just seemed really weird/surprising to me (in the sense of
-'principle of least surprise') to put that in scripts/ and it doesn't seem
-that traditionally anything else like this lives there.
+commit 88a240d86d3d64521f9194abe185ac71cc74d0bd upstream.
 
-But if you guys feel strongly enough I can put it there.
+The firmware response dispatcher copies all synchronous HAL responses
+into the 4096-byte hal_buf without validating the response length. A
+response exceeding WCN36XX_HAL_BUF_SIZE causes a heap buffer overflow
+with firmware-controlled content.
 
-And agreed probably a 'third place' is the right way, but probably not
-right as part of this series :)
+Add a bounds check on the response length.
 
->
-> --
-> Cheers,
-> Nathan
+Fixes: 8e84c2582169 ("wcn36xx: mac80211 driver for Qualcomm WCN3660/WCN3680 hardware")
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260421135018.352774-2-tristmd@gmail.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-74341
 
---
-Cheers, Lorenzo
+ drivers/net/wireless/ath/wcn36xx/smd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/wcn36xx/smd.c b/drivers/net/wireless/ath/wcn36xx/smd.c
+index a778e3e0599e..6ab91ff8338c 100644
+--- a/drivers/net/wireless/ath/wcn36xx/smd.c
++++ b/drivers/net/wireless/ath/wcn36xx/smd.c
+@@ -3174,6 +3174,10 @@ int wcn36xx_smd_rsp_process(struct rpmsg_device *rpdev,
+ 	case WCN36XX_HAL_GTK_OFFLOAD_GETINFO_RSP:
+ 	case WCN36XX_HAL_HOST_RESUME_RSP:
+ 	case WCN36XX_HAL_UPDATE_CHANNEL_LIST_RSP:
++		if (len > WCN36XX_HAL_BUF_SIZE) {
++			wcn36xx_warn("HAL response too large: %d\n", len);
++			break;
++		}
+ 		memcpy(wcn->hal_buf, buf, len);
+ 		wcn->hal_rsp_len = len;
+ 		complete(&wcn->hal_rsp_compl);
+-- 
+2.53.0
+
