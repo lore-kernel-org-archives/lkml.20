@@ -1,171 +1,160 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6623B3E0241
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711697; cv=pass; b=HvgXhhknzyRZdukvODZ2p4YPjE+xU3xp9s6IQ+SDARKcCMD7qXA9VvYOmbaVcZeEf3brnyUiyfGAozYLvsn1PtKXS9/mr004/Tk3We4PiX3LWCe3506YSRJqE1VsRMQgyLv+rDgR14XntjK/EZ2c2jwjMel4l4GdylvwrjjdQmg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711697; c=relaxed/simple;
-	bh=MKMZZwrpQTlafoNdQxxIP3g1WVFVcoQLyH/0LebZWs4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GDjmBLzcmhWaNbrR28j5v5g4trWdlo0OFZiFRmfM1m3ZqgiCvPSphMKEJ1uvyqEpzonp1jkpmAfRcoY+vRpTV+VWi51f5+gtYXkazjhZUhM4rQt6nHkedrB90OMEOllvuVQ4hQ2ZHcFE8C5ghcvR5B8inI6koH8cA5kz+j10/bg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FVSxkPVC; arc=pass smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFAA25783C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789711748; cv=none; b=sQFXHSrPYR03YJ5rPqG5PuImhr4mHqzN5Jzb6EqEycofJyPqtwC0E8tRjQNPvle7QE+P80K4lfgbEEKbQcsaN/bIWkTqZL+M7w199nGMO50I3LkiAZkXVyiEw0behtBJXojsHDhmDos/Bn4dzDPt5rPSsA/6KLF8moWV40xeZQo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789711748; c=relaxed/simple;
+	bh=9MMcQqbCyatW417RSOpUlF7r32cLepJryAxtTXy4U5A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GdpZ2eM5jAwJ8bK6+h1mNOdAKdZlFdZmvdUCqtBh6N2P3TOiGRc+TGxmn4UT73d28Lg5cMcPWBY/8xSa9Zzgsx69fYvJLkg/ZijEtSb1+lJH9Yrg/B8j4wVUvH51rP4uxXBOTMDznjwCOMcInmsCCPI8BEj6Butnfo2Rs/2E+sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNsVGr6i; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FVSxkPVC"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5310b91044aso3389321cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:08:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789711688; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ja10J7GmWnHDIO+BOZt2fhMVxxAFqnWH0cF7Qid5rsBHvBVKX4qkDlGPmtKKaVFfof
-         uR80JUTGQoP7O1gdbfQJScG1qAqFnHP566rlJN5SpP4gixs9WdzZHeXA0za+yItI+hVE
-         K3sMj76MFeboI03lI7HIK9XiUVAGiKkGDPcgrlK5bIQtVMH9fd0ReJi8pokbXyEQ8ALM
-         hjZzGlDf5UejuflVW6DqMS1A7ne1vr+PYY2XAn2P9MuR6oEkYChoH/bIXX6JZQb1qfTR
-         l5TosmJnrIeu6Pw+WbbLP4FGbZHVC24AVsFfX3aYgACMCwhCdLevHLHfRwyuhBy2FM1A
-         KLCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MKMZZwrpQTlafoNdQxxIP3g1WVFVcoQLyH/0LebZWs4=;
-        fh=zIXcscI+HBE9p9Pfe5ELQVF/Cw/9RvkeNVtQ/yFFMPk=;
-        b=PfZHOWqAsU++enCbNnRJjE5p36yLH5Z3Iy8jLOaVoLP2naxxakqjo9VrzPPNnBaeK7
-         2/oLWYCTL8gDbo0XOhCWyYGJnoXanOs+PmSPN60aQzpEDyn4+k2F/jYxAo9+eQPgQTds
-         mt/DMsOXB4KWHJFl1PwSME7hsUiEbnUv8TTSToyynskfpRwJ/GQQbNlGCDPv10Bo7KBO
-         CnD2vxJSVjSUL8Klhg9Mct/i2xiwE6IimGSws6K0WEqhjgTuoiKPL4k/hhSladsVjFlN
-         jrrvJxQ4gzn414yNwW31EP0pTJ86BSg+MdR0FPMfA50ySybo+fXIFGOdAC1B6T3HXfrL
-         VbfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNsVGr6i"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so336241a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:09:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789711688; x=1790316488; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MKMZZwrpQTlafoNdQxxIP3g1WVFVcoQLyH/0LebZWs4=;
-        b=FVSxkPVCmhsJf5Mmy0PsJ00JtAP3yEX857v0erbsl40nKnw929sZ2PWlMFQ2Kt5V0M
-         qircgo1VGvoVbTYCWwb04lGJbNV7t15hDmnM6zRlpouyimPzsR0LDjkpJy/w7KhX6jCM
-         ovdtRYxPwFweNWDuWSHCwYqFSyeiI+FPF787+kovhDmfU1bnEUMrVE6pU9IP3SaawpYV
-         YYUilK8rZh6lA4B/i8IUXpV6HkTcW1lYGwgz1Xyvcm1yaxvFqh87EKhm3Idh2p+ZUHGf
-         vfKUlLwgeihhU1H16qhTIIwDp4wrVH4Whh9lDrBup4Yy0wpM1QwPXDAgETyhkLgtb8mn
-         WLhg==
+        d=gmail.com; s=20251104; t=1789711746; x=1790316546; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ORxTFOuB2ucPeCFRcbiCodxruveHPk2zly7F4fcoL7c=;
+        b=hNsVGr6iJ211g6Yz3v/3Zd7/ujiIO8X2ip21ScNXz4JddZbrde7ZAQZvYPCEPBqFdr
+         AiDDbQ8XmLwFhLsncw+VdihGHcaDVNFKZJcTKHCX28zkzbPZFja5f7OuhE7Mx2fUOAvF
+         PyX1OhbmHAZ+t5O6T6XLmotE0vOMPYuESg43+IrIGQek8UlF5ODfX3NVYNUhovU0AtM+
+         mvBPCcXVdCDLS3doBHU2rGBkE3IhJ8vzQhjX7HFJoWNf20G/hRLueRfiLSr313o+h1uQ
+         uLbZLW9vDYVeb+NHlZqR4FqoR2xkXg/3MUIYtq/A4qf/WS5LUDqx4VeFQbedOCT72gkl
+         vqPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789711688; x=1790316488;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MKMZZwrpQTlafoNdQxxIP3g1WVFVcoQLyH/0LebZWs4=;
-        b=FyxzFTDVQEYryIRk/OLEU8HLoU/4IEmS1t/kVYCa08OQ1HB18qP6QBLJnhEN/az1iu
-         gyEkgJlZTydRzA/5x68ZJOSAKfMxSSmuvdiXtwT5Z17lwI1dY3S8bFJhHanJCHEwm492
-         BUlhci81wfgiOU/ovpZu5zO4Wbk8dfWvyqvrZ1p4IwuXb1Mx5Xf71kwuI2NHNXItTz/s
-         EvjKVuTHL0D2D+cZotxec/Jlhm5nY81o0zKfvxBv9REfh+dhHVo5XCmGYDqZUf0NaNUx
-         0r0/VK+OlHSl+1OVU68I7orOyiP+8cNNjOJGNgdj/Oifp50BuKRpQKMSxQsDKW98TaaN
-         hUBA==
-X-Gm-Message-State: AFuF++l/RaTJoEhA78WGq08VgmKD+8Myzjd/vEnUTMZlG3PZF0Hf07a7
-	XaF0sy4GB/O1BgmR22OkQskJRXW8yKDjDFtK5Ye971VmOTa3QkTZsmIQPifiz2IozzLZjHykNjX
-	O/bDCAtyVzcQl2gnLeIU1T61gxlU68WXaU5H7/GIg
-X-Gm-Gg: AYBFou0R4WapRsMfn6SMPAUZ/dvLRizl2dbPzZzYn8Ftg8EuGIXQFVN6SHRT7V10VKe
-	qiMkjkb1ggVoGOByMWw9Smkbz3KEoU99vZhJmvMAVAOjHYM2CSOIP9O/ImKWFII5FBvc342SD8V
-	AHA0NPVpsookayNIkqlXGnttGeHY38PSwzMBtAkbygAKiG+cH5cz93nb1WmZzAYn/w2Oe6TzR2b
-	6Hc1MUFKjWlhAqAHmT9A4VopoRgnXoyIikUWnD/hdBaNl4w92OFTXg8ahk1r+J8uaQ4v6jNZc8W
-	UofmjLT7pKaWJT5mww67z1gQ/nU7qrWnXpdJNq54DukKT2h8CjYcb5FJU9kGluxAzSmSKNRqUpN
-	iHLT3JKtY1g==
-X-Received: by 2002:a05:622a:550c:b0:532:9ade:b6f1 with SMTP id
- d75a77b69052e-5329e54b280mr21737911cf.71.1789711688018; Thu, 17 Sep 2026
- 23:08:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789711746; x=1790316546;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ORxTFOuB2ucPeCFRcbiCodxruveHPk2zly7F4fcoL7c=;
+        b=SCa/NxC17ooWlttSVvM/WydVVGYJ2CB/ouYi5OWx4eMeQIk7eKzhM5AR7OIDyMifaz
+         DuDSbRoihsQhC3Et8M67SrjCgxaS/hVkIj5XUSRxVNk3sKIptLAp0K8jvhg6xP4eGo3V
+         fM320SNYvSsevZvfCtsguaNvcOKr9TmqLKQC2xiAHN7gwEp/j020R6UW1qRqMgk81XkH
+         XsvB8uraTkXweGpBOF2d9SQG2EpAzBjxEIrq4tyVBcaTTGfRr7NuEtkS3PxFL6zA/YuY
+         g93G5M4GC+sjrg/X5PGOvUa7P6jt9NlaFegysLoMA2H6cmDnWYyRfl1LBGKaYch1uh1u
+         NozQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxrOpIxoOnLMHdxmDChM1fEaeJstHqDpimgw1NYUBhoDkjY8Qdbq/gFW5iKcU0gmbo8R1wtU5JeVdQdSHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++klNyRfKz2EjOokX8ZKKr6x6WIbmcjY+gkKjs3zUNxP6BCZkBWt
+	kM0qGKaeU5GJZFmwuF2cTd9xiLCJdFyzTazpCQnK+YUE6tPjEbfM/zka
+X-Gm-Gg: AYBFou2vWMIlPXi+WxtaTwNSPdQuzBcuBoop85tSK8Kv8ev4HJYZc6vL/Vg7QSVo7VU
+	DYTzbZ2AMoKu5wXdUAkyQRRdDYXOXd8zMrg8t18kDHJV8EtJiAqUCLArLL+FV54+q4bvMAFGEsO
+	IU7vUA24hjsNHNHW4HQNYzzLFPwxBaTXi8lpax1Suj+qe+dDtIf9rrtDDoPcnFktmTZB44Q0AZ7
+	vG8axMZCGBLc9XAL9pq9cv/JHUhS93J5+fHmdSlfB6wSw8Nx19kRL6+XoqBij0SRBu+2BjLiSui
+	vDtqLxYxPnrI1kDZzRntQh1BYt5FsZIUVHKX4kDNeAj6xvjr39jc6Djb3o94RsGdIVavROA8YDU
+	bA/yvdPiyb7rhqgWW0REEabHq5DJhL0Ws0HEXymychLew7H+xLNav2ukt5CIzK6L3fvChk5PR3p
+	vB7iguyfbtvMlJGbUpxFwq6sHp/LscBsE9apnqyPDqBGN+NrOSFLG7nFOcS7FxiAElZiRXeIOG
+X-Received: by 2002:a17:90b:4d8b:b0:39b:92bb:9ef0 with SMTP id 98e67ed59e1d1-39e54e7899dmr3123205a91.20.1789711746550;
+        Thu, 17 Sep 2026 23:09:06 -0700 (PDT)
+Received: from archlinux ([2402:e280:411b:ec:aa93:b1ec:5a6b:5fce])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3abada87sm7695043a91.14.2026.09.17.23.08.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 23:09:06 -0700 (PDT)
+From: Adarsh Das <adarshdas950@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: rafael@kernel.org,
+	dakr@kernel.org,
+	driver-core@lists.linux.dev,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com,
+	Adarsh Das <adarshdas950@gmail.com>
+Subject: [PATCH v3] kobject: fix uevent socket use-after-free on net namespace delete
+Date: Fri, 18 Sep 2026 11:38:26 +0530
+Message-ID: <20260918060826.8434-1-adarshdas950@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026091732-armored-lilac-fec9@gregkh>
+References: <2026091732-armored-lilac-fec9@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917043339.2093426-1-suleiman@google.com> <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
-From: Suleiman Souhlal <suleiman@google.com>
-Date: Fri, 18 Sep 2026 15:07:56 +0900
-X-Gm-Features: AcwNN1Urrq_w9qP6LEdn6MqaKun4FrsNgNdEczr9Wfvw_yJ3oxOOq25tphZGbPY
-Message-ID: <CABCjUKBmmh4sn0A3H6RJgASgqBg-E7LEFNQGmL=xJCmtP03qUQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/12] FUTEX_PING: A stealable futex using Proxy Execution.
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	zhidao su <soolaugust@gmail.com>, John Stultz <jstultz@google.com>, 
-	Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org, Waiman Long <longman@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 5:58=E2=80=AFPM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
->
-> On Thu, Sep 17, 2026 at 04:33:24AM +0000, Suleiman Souhlal wrote:
-> > Hello,
-> >
-> > This patch series adds a new type of PI futexes, PI Next Generation,
-> > or PING (name coined by Steven Rostedt) (but other name suggestions
-> > are welcome!), that differs from classic PI futexes in that they can
-> > be stolen from the top waiter, and use Proxy Execution instead of
-> > rtmutexes internally.
-> >
-> > The reason to allow the futexes to be stolen is that with classic PI
-> > futex's strict handoff to the top waiter, new contending lockers are
-> > now forced to wait in queue, which means that any locking operation
-> > now becomes a scheduling event. With stealing, a contending locker has
-> > the chance of taking the lock without blocking. The longer wait time
-> > of blocked tasks can be mitigated by forcing the lock to be handed
-> > off to them in a way that can't be stolen, when they've been stolen
-> > from too much, to ensure they don't get starved.
-> >
-> > The use of Proxy Execution lets us also get Priority Inheritance for
-> > for fair tasks, which PI futexes don't really allow.
->
-> https://patch.msgid.link/1490204338-1856-1-git-send-email-longman%40redha=
-t.com
+When a network namespace is deleted, we free its uevent socket. But
+sometimes a device in that namespace is still being removed and tries to
+send a uevent through that socket. The socket is already freed, so KASAN
+reports a use-after-free.
 
-I was not aware of this, thanks!
-It actually seems very similar to this patchset (but much better written).
-The main functional differences that I can see from a cursory look are
-that on unlock it doesn't preserve the waiters bit, while PING does,
-and that TP futex also supports userspace rwlocks, unlike PING.
-And of course the fact that PING also uses Proxy Execution.
-So now I know that I'm not completely crazy for wanting this. :-)
+This patch attempts the fix of taking a lock around both the send path
+and the free path, and clear the pointer before freeing so nobody uses
+it after free.
 
->
-> Also, the goal is to eventually delete rt_mutex and have it be the
-> normal mutex, in which case the existing FUTEX_*_PI things will
-> automagically work.
+Reported-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+Link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
+Tested-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+Tested-by: Adarsh Das <adarshdas950@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
+---
+ lib/kobject_uevent.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-I considered using a mutex but I was under the impression that some RT
-workloads really want strict RT handling such that the highest
-priority RT task always has to take the lock before any other
-contender, which mutex doesn't currently allow. For these workloads,
-the existing rtmutex behavior of handing off the lock to the top
-waiter is desirable.
+diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
+index ddbc4d7482d2..cb674c2c3432 100644
+--- a/lib/kobject_uevent.c
++++ b/lib/kobject_uevent.c
+@@ -13,6 +13,7 @@
+  *	Greg Kroah-Hartman	<greg@kroah.com>
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/spinlock.h>
+ #include <linux/string.h>
+ #include <linux/kobject.h>
+@@ -411,9 +412,14 @@ static int kobject_uevent_net_broadcast(struct kobject *kobj,
+ 						    devpath);
+ 	else {
+ 		const struct net *net = container_of(ns, struct net, ns);
+-
+-		ret = uevent_net_broadcast_tagged(net->uevent_sock->sk, env,
+-						  action_string, devpath);
++		struct uevent_sock *ue_sk;
++
++		guard(mutex)(&uevent_sock_mutex);
++		ue_sk = net->uevent_sock;
++		if (ue_sk && ue_sk->sk)
++			ret = uevent_net_broadcast_tagged(ue_sk->sk, env,
++							  action_string,
++							  devpath);
+ 	}
+ #endif
+ 
+@@ -804,14 +810,19 @@ static int uevent_net_init(struct net *net)
+ 
+ static void uevent_net_exit(struct net *net)
+ {
+-	struct uevent_sock *ue_sk = net->uevent_sock;
++	struct uevent_sock *ue_sk;
+ 
+-	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
+-		mutex_lock(&uevent_sock_mutex);
+-		list_del(&ue_sk->list);
+-		mutex_unlock(&uevent_sock_mutex);
++	{
++		guard(mutex)(&uevent_sock_mutex);
++		ue_sk = net->uevent_sock;
++		net->uevent_sock = NULL;
++		if (ue_sk && sock_net(ue_sk->sk)->user_ns == &init_user_ns)
++			list_del(&ue_sk->list);
+ 	}
+ 
++	if (!ue_sk)
++		return;
++
+ 	netlink_kernel_release(ue_sk->sk);
+ 	kfree(ue_sk);
+ }
+-- 
+2.55.0
 
-Other workloads still have RT tasks, but are ok with slightly less
-strict handling, as long as RT tasks still get serviced reasonably
-fast (so they still want priority inheritance, but are ok with the
-occasional case where a fair task steals the lock from the RT top
-waiter).
-I suspect Android is in this later bucket, so for them using a mutex
-as it's currently implemented would be ok. But others might not be.
-On the other hand, the current rtmutex behavior would not be desirable
-for users like Android, due to the performance with fair tasks that
-Steven brings up in his reply.
-
-These different needs are why I wanted to add a new futex type.
-But maybe the different needs could be selected through a CONFIG
-option, but with the same user API (FUTEX_*_PI)?
-
-I also had some other probably not insurmountable minor issues, like
-the fact that we probably wouldn't want to get kernel lockdep warnings
-for userspace deadlocks.
-
--- Suleiman
