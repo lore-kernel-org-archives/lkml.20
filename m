@@ -1,352 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B07628FFF6;
-	Fri, 18 Sep 2026 09:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544023AE6FA;
+	Fri, 18 Sep 2026 09:13:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722805; cv=none; b=ZodcOG820Ih/6Ka1akEmhEfi89YI51WGt67MZOKKK4p6oLHZRbA2D9mk2ViAwCBVIt8tRclUx0RpDvtcXoJIefdP1jEaVD9LayMiCsBh7wA/li6x6NiczsvdfeTr+mwPAs+4D6zrlRS+VGBE/tDnk+H1H087OcAm1Dv0abmXqk4=
+	t=1789722812; cv=none; b=GmO0a0F0XhKaXjxCBkE/19i5mERiHJxx4Rb6J/2mDAzB4HLvhhbPvQizfeoShv3CNWdKJ0szLTWS+QXtmOxImdE947nLbV3Y5hG1YBYYgWoDgzwTHiRirzCFMJH0JaMZM3gWN9lU5ysRTW3khjpaEg9nTNK4OzroGsoOMuXxlOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722805; c=relaxed/simple;
-	bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Oh3O2HOcfK3dy0nAqzThCrwV0cx5XCmJybFRRgzpZ9VRMKgEZZw7nIyDMKnXodxn8my+IdO+V4isZUEOejn2VraYpVxN04AZz0dhN0Ah9JV37uQh7doAAg7tPC8DrjKf4jIHss5XSjYRB5hsrior79h6BrRSJadARD3sOhWvVPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UiUs1nAk; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789722812; c=relaxed/simple;
+	bh=roQp6ZtuJAwWznFEYsqXd9PRQS4+tptsOWj0ORTZdbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TJtJ6u7tQWeWEgPakHv2sN75HfpmMttriTL+Ryluirg0XS1ERIpAEUpgn1H7g8DH/rEaZgGd5wdDeS1cDf5wn4fIabCzwHWDv+dSOFCZO2/28VVhntyvFpf9TVe22nZ828anO16wXztg//rCePxD8CrErioZoni07vkfZhMLv+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=S6WGALYz; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UiUs1nAk"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C70D9168F;
-	Fri, 18 Sep 2026 02:13:19 -0700 (PDT)
-Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD1073F882;
-	Fri, 18 Sep 2026 02:13:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789722803; bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=UiUs1nAknVTTZqJd6p1FKPJi36Cxru2zHT5tFAh9A9BueBYDI9fjsdcdK3j20Mgy1
-	 KFlKccCWspaqDmbD6qtWVhyxoefAUxd7IBOtNM+OwvuIxsvd93D423qChlUE3nzCUN
-	 NC+X+NenfPTFz/PoNrBwihSNdNaoFsH35vtZnCCU=
-Message-ID: <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com>
-Date: Fri, 18 Sep 2026 11:13:19 +0200
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="S6WGALYz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=VM9TEEKFpNgfG6OQ1DzUhmw/h6ZpmwuxRb13EkzzIDc=; 
+	b=S6WGALYzJ5wCX0syFBKOMcjy2rwP7LrwdZdg7ilt4/f58LJ3ZwBsjOU66ZROmyaYT5mV9xuFJ8K
+	9y5VBCEwKKabg4Bo3E4tty33YfcJZnR983F3WAR1ADO6tje3eLLDHYzgsfhOST8+ChOi/IDCRZJmg
+	FGkodlfF/x3YohuFs19m2axFLB7jsVNhrC7zIF/M6+QtfKCH8wmUrxID+BoiDsjZc6UOzjO9xnufu
+	SmH0QyKTldkjJMHjs6Ulo+oliBDfHW2DT/T51bL+in8wJPRZpHtyXJ2rGZgHvYfia99gSJeOHFuzg
+	gXYimoLb6nNFsWbQfF1kgcuXzrKhCZP7ExDw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7Uer-0000000FL6R-0DWr;
+	Fri, 18 Sep 2026 17:13:26 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:13:25 +1000
+Date: Fri, 18 Sep 2026 19:13:25 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Chenghai Huang <huangchenghai2@huawei.com>
+Cc: davem@davemloft.net, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, liulongfang@huawei.com,
+	qianweili@huawei.com, wangzhou1@hisilicon.com,
+	linwenkai6@hisilicon.com
+Subject: Re: [PATCH 2/4] crypto: hisilicon/sec2 - fix scheduling while atomic
+ in aead soft fallback
+Message-ID: <aq0AtfUHUw1qOD2Y@gondor.apana.org.au>
+References: <20260911102942.387778-1-huangchenghai2@huawei.com>
+ <20260911102942.387778-3-huangchenghai2@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
- Activation (LFA)
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
- <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
- Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260706134455.132091-1-andre.przywara@arm.com>
- <20260706134455.132091-3-andre.przywara@arm.com>
- <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
-Content-Language: en-GB
-In-Reply-To: <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911102942.387778-3-huangchenghai2@huawei.com>
 
-Hi Sudeep,
-
-On 7/17/26 11:03, Sudeep Holla wrote:
-> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
->> From: Salman Nabi <salman.nabi@arm.com>
->>
->> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
->> activating firmware components without a reboot. Those components
->> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
->> usual way: via fwupd, FF-A or other secure storage methods, or via some
->> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
->> at system runtime, without requiring a reboot.
->> The specification covers the SMCCC interface to list and query available
->> components and eventually trigger the activation.
->>
->> Add a new directory under /sys/firmware to present firmware components
->> capable of live activation. Each of them is a directory under lfa/,
->> and is identified via its GUID. The activation will be triggered by echoing
->> "1" into the "activate" file:
->> ==========================================
->> /sys/firmware/lfa # ls -l . 6c*
->> .:
->> total 0
->> drwxr-xr-x    2 0 0         0 Jan 19 11:33 47d4086d-4cfe-9846-9b95-2950cbbd5a00
->> drwxr-xr-x    2 0 0         0 Jan 19 11:33 6c0762a6-12f2-4b56-92cb-ba8f633606d9
->> drwxr-xr-x    2 0 0         0 Jan 19 11:33 d6d0eea7-fcea-d54b-9782-9934f234b6e4
->>
->> 6c0762a6-12f2-4b56-92cb-ba8f633606d9:
->> total 0
->> --w-------    1 0        0             4096 Jan 19 11:33 activate
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_capable
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_pending
->> --w-------    1 0        0             4096 Jan 19 11:33 cancel
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 cpu_rendezvous
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 current_version
->> -rw-r--r--    1 0        0             4096 Jan 19 11:33 force_cpu_rendezvous
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 may_reset_cpu
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 name
->> -r--r--r--    1 0        0             4096 Jan 19 11:33 pending_version
->> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # grep . *
->> grep: activate: Permission denied
->> activation_capable:1
->> activation_pending:1
->> grep: cancel: Permission denied
->> cpu_rendezvous:1
->> current_version:0.0
->> force_cpu_rendezvous:1
->> may_reset_cpu:0
->> name:TF-RMM
->> pending_version:0.0
->> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # echo 1 > activate
->> [ 2825.797871] Arm LFA: firmware activation succeeded.
->> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 #
->> ==========================================
->>
->> [1] https://developer.arm.com/documentation/den0147/latest/
->>
->> Signed-off-by: Salman Nabi <salman.nabi@arm.com>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> ---
->>   drivers/firmware/smccc/Kconfig  |  10 +
->>   drivers/firmware/smccc/Makefile |   1 +
->>   drivers/firmware/smccc/lfa_fw.c | 725 ++++++++++++++++++++++++++++++++
->>   drivers/firmware/smccc/smccc.c  |   5 +
->>   include/linux/arm-smccc.h       |  15 +
->>   5 files changed, 756 insertions(+)
->>   create mode 100644 drivers/firmware/smccc/lfa_fw.c
->>
->> diff --git a/drivers/firmware/smccc/Kconfig b/drivers/firmware/smccc/Kconfig
->> index 15e7466179a6..7fd646d515f8 100644
->> --- a/drivers/firmware/smccc/Kconfig
->> +++ b/drivers/firmware/smccc/Kconfig
->> @@ -23,3 +23,13 @@ config ARM_SMCCC_SOC_ID
->>   	help
->>   	  Include support for the SoC bus on the ARM SMCCC firmware based
->>   	  platforms providing some sysfs information about the SoC variant.
->> +
->> +config ARM_LFA
->> +	tristate "Arm Live Firmware activation support"
->> +	depends on HAVE_ARM_SMCCC_DISCOVERY && ARM64
->> +	default y
->> +	help
->> +	  Include support for triggering a Live Firmware Activation (LFA),
->> +	  which allows to upgrade certain firmware components without a reboot.
->> +	  This is described in the Arm DEN0147 specification, and relies on
->> +	  a firmware agent running in EL3.
->> diff --git a/drivers/firmware/smccc/Makefile b/drivers/firmware/smccc/Makefile
->> index 68bbff1407b8..cddf2c460ab9 100644
->> --- a/drivers/firmware/smccc/Makefile
->> +++ b/drivers/firmware/smccc/Makefile
->> @@ -2,3 +2,4 @@
->>   #
->>   obj-$(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)	+= bus.o smccc.o kvm_guest.o
->>   obj-$(CONFIG_ARM_SMCCC_SOC_ID)	+= soc_id.o
->> +obj-$(CONFIG_ARM_LFA) += lfa_fw.o
->> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
->> new file mode 100644
->> index 000000000000..b333b1e28c0d
->> --- /dev/null
->> +++ b/drivers/firmware/smccc/lfa_fw.c
->> @@ -0,0 +1,725 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (C) 2025 Arm Limited
->> + */
->> +
->> +#include <linux/arm-smccc.h>
->> +#include <linux/arm-smccc-bus.h>
->> +#include <linux/array_size.h>
->> +#include <linux/fs.h>
->> +#include <linux/init.h>
->> +#include <linux/kobject.h>
->> +#include <linux/list.h>
->> +#include <linux/module.h>
->> +#include <linux/psci.h>
->> +#include <linux/stop_machine.h>
->> +#include <linux/string.h>
->> +#include <linux/sysfs.h>
->> +#include <linux/uuid.h>
->> +#include <linux/workqueue.h>
->> +
->> +#include <uapi/linux/psci.h>
->> +
->> +#undef pr_fmt
->> +#define pr_fmt(fmt) "Arm LFA: " fmt
->> +
->> +/* CALL_AGAIN flags (returned by SMC) */
->> +#define LFA_PRIME_CALL_AGAIN		BIT(0)
->> +#define LFA_ACTIVATE_CALL_AGAIN		BIT(0)
->> +
->> +/* LFA return values */
->> +#define LFA_SUCCESS			0
->> +#define LFA_NOT_SUPPORTED		1
->> +#define LFA_BUSY			2
->> +#define LFA_AUTH_ERROR			3
->> +#define LFA_NO_MEMORY			4
->> +#define LFA_CRITICAL_ERROR		5
->> +#define LFA_DEVICE_ERROR		6
->> +#define LFA_WRONG_STATE			7
->> +#define LFA_INVALID_PARAMETERS		8
->> +#define LFA_COMPONENT_WRONG_STATE	9
->> +#define LFA_INVALID_ADDRESS		10
->> +#define LFA_ACTIVATION_FAILED		11
->> +
->> +/*
->> + * Not error codes described by the spec, but used internally when
->> + * PRIME/ACTIVATE calls return with the CALL_AGAIN bit set.
->> + */
->> +#define LFA_TIMED_OUT			32
->> +#define LFA_CALL_AGAIN			33
->> +
+On Fri, Sep 11, 2026 at 06:29:40PM +0800, Chenghai Huang wrote:
+> From: Wenkai Lin <linwenkai6@hisilicon.com>
 > 
-> Why do you need this if it is purely internal in the driver ?
-> What is the guarantee that LFA spec doesn't use these in the future ?
-> It shouldn't be big problem, but I do expect things may get bit complicated
-> during transition to a firmware version may start using it.
-
-Yeah, I don't like it either ;-)
-I now reworked the error numbers, so i switch to Linux errno numbers 
-earlier, which means I can use -ETIMEDOUT and -EAGAIN here, and can 
-avoid inventing artifical numbers. So those definitions just go away.
->> +#define LFA_ERROR_STRING(name) \
->> +	[name] = #name
->> +
->> +static const char * const lfa_error_strings[] = {
->> +	LFA_ERROR_STRING(LFA_SUCCESS),
->> +	LFA_ERROR_STRING(LFA_NOT_SUPPORTED),
->> +	LFA_ERROR_STRING(LFA_BUSY),
->> +	LFA_ERROR_STRING(LFA_AUTH_ERROR),
->> +	LFA_ERROR_STRING(LFA_NO_MEMORY),
->> +	LFA_ERROR_STRING(LFA_CRITICAL_ERROR),
->> +	LFA_ERROR_STRING(LFA_DEVICE_ERROR),
->> +	LFA_ERROR_STRING(LFA_WRONG_STATE),
->> +	LFA_ERROR_STRING(LFA_INVALID_PARAMETERS),
->> +	LFA_ERROR_STRING(LFA_COMPONENT_WRONG_STATE),
->> +	LFA_ERROR_STRING(LFA_INVALID_ADDRESS),
->> +	LFA_ERROR_STRING(LFA_ACTIVATION_FAILED)
->> +};
->> +
->> +enum image_attr_names {
->> +	LFA_ATTR_NAME,
->> +	LFA_ATTR_CURRENT_VERSION,
->> +	LFA_ATTR_PENDING_VERSION,
->> +	LFA_ATTR_ACT_CAPABLE,
->> +	LFA_ATTR_ACT_PENDING,
->> +	LFA_ATTR_MAY_RESET_CPU,
->> +	LFA_ATTR_CPU_RENDEZVOUS,
->> +	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
->> +	LFA_ATTR_ACTIVATE,
->> +	LFA_ATTR_CANCEL,
->> +	LFA_ATTR_NR_IMAGES
->> +};
->> +
->> +struct fw_image {
->> +	struct kobject kobj;
->> +	const char *image_name;
->> +	int fw_seq_id;
->> +	u64 current_version;
->> +	u64 pending_version;
->> +	bool activation_capable;
->> +	bool activation_pending;
->> +	bool may_reset_cpu;
->> +	bool cpu_rendezvous;
->> +	bool cpu_rendezvous_forced;
->> +	struct kobj_attribute image_attrs[LFA_ATTR_NR_IMAGES];
->> +};
->> +
->> +static struct fw_image *kobj_to_fw_image(struct kobject *kobj)
->> +{
->> +	return container_of(kobj, struct fw_image, kobj);
->> +}
->> +
->> +/* A UUID split over two 64-bit registers */
->> +struct uuid_regs {
->> +	u64 uuid_lo;
->> +	u64 uuid_hi;
->> +};
->> +
->> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
->> +static const struct fw_image_uuid {
->> +	const char *name;
->> +	const char *uuid;
->> +} fw_images_uuids[] = {
->> +	{
->> +		.name = "TF-A BL31 runtime",
+> sec_aead_soft_crypto() allocates the sub-request with GFP_KERNEL, which
+> may sleep.  This is safe when called directly from sec_aead_crypto()
+> (process context), but the function is also reachable through the
+> backlog drain path.
 > 
-> This doesn't make any sense to me. Why do you want kernel to assign
-> some random name base on UUID. Userspace is well place to deal with
-> UUID and give it any fancy name it wants.
-
-Well, the whole interface is quite usable without any accompanying user 
-space tools, so just from the shell, but then identifying  firmware 
-components by their GUID becomes a major pain and leaves users 
-completely clueless.
-And while we indeed will never be able to fully catch up with all the 
-firmwares out there, especially not with vendor specific ones, there are 
-some standard firmware components that I think warrant some name.
-TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in 
-the mainline repository, and since BL31 is also an LFA agent, it's quite 
-likely we encounter this component. Even when vendors typically use 
-downstream TF-A ports, those GUIDs would stay the same.
-So yes, it's more opportunistic than complete, but I think it would help 
-to identify at least those well-known firmwares. Anything not named then 
-would use the GUID, and can indeed be resolved by (a yet-to-be-written) 
-userspace component.
-
+> When an AEAD request sits in the backlog queue and qp_send_message()
+> returns a non-EBUSY error, the backlog is drained in software while
+> the backlog spinlock is still held. The GFP_KERNEL allocation inside
+> aead_request_alloc() can then schedule out, triggering scheduling
+> while atomic.
 > 
-> [...]
+> Fix it by switching the allocation to GFP_ATOMIC so it is safe in both
+> the process-context path and the spinlock-held backlog drain path.
 > 
->> diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
->> index 4de81848fe2e..956a5af96c70 100644
->> --- a/include/linux/arm-smccc.h
->> +++ b/include/linux/arm-smccc.h
->> @@ -304,6 +304,21 @@
->>   			   ARM_SMCCC_OWNER_STANDARD,		\
->>   			   0x53)
->>   
->> +/* Live Firmware Activation (LFA) calls (defined by ARM DEN0147) */
->> +#define ARM_SMCCC_LFA_FN_BASE					\
->> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,			\
->> +			   ARM_SMCCC_SMC_64,			\
->> +			   ARM_SMCCC_OWNER_STANDARD,		\
->> +			   0x2e0)
->> +#define ARM_SMCCC_LFA_FN(n)		(ARM_SMCCC_LFA_FN_BASE + (n))
->> +#define ARM_SMCCC_LFA_GET_VERSION	ARM_SMCCC_LFA_FN(0)
->> +#define ARM_SMCCC_LFA_CHECK_FEATURE	ARM_SMCCC_LFA_FN(1)
->> +#define ARM_SMCCC_LFA_GET_INFO		ARM_SMCCC_LFA_FN(2)
->> +#define ARM_SMCCC_LFA_GET_INVENTORY	ARM_SMCCC_LFA_FN(3)
->> +#define ARM_SMCCC_LFA_PRIME		ARM_SMCCC_LFA_FN(4)
->> +#define ARM_SMCCC_LFA_ACTIVATE		ARM_SMCCC_LFA_FN(5)
->> +#define ARM_SMCCC_LFA_CANCEL		ARM_SMCCC_LFA_FN(6)
->> +
+> Fixes: 0a2a464f8631 ("crypto: hisilicon/sec - fix the aead software fallback for engine")
+> Signed-off-by: Wenkai Lin <linwenkai6@hisilicon.com>
+> Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
+> ---
+>  drivers/crypto/hisilicon/sec2/sec_crypto.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Do you expect these to be used outside of the driver(for now atleast) ?
-> If not move it into the driver.
+> diff --git a/drivers/crypto/hisilicon/sec2/sec_crypto.c b/drivers/crypto/hisilicon/sec2/sec_crypto.c
+> index 0a2f7c8b44fc..bbb6826ab256 100644
+> --- a/drivers/crypto/hisilicon/sec2/sec_crypto.c
+> +++ b/drivers/crypto/hisilicon/sec2/sec_crypto.c
+> @@ -2533,7 +2533,7 @@ static int sec_aead_soft_crypto(struct sec_ctx *ctx,
+>  	struct aead_request *subreq;
+>  	int ret;
+>  
+> -	subreq = aead_request_alloc(a_ctx->fallback_aead_tfm, GFP_KERNEL);
+> +	subreq = aead_request_alloc(a_ctx->fallback_aead_tfm, GFP_ATOMIC);
 
-OK. I was under the impression that all SMCCC services would list their 
-function IDs here, but that's probably only for those where we have 
-multiple users (like TRNG in KVM and hw_random).
-Moved them to the driver now.
+Please use SYNC_AEAD_REQUEST_ON_STACK for the fallback.
 
-Cheers,
-Andre
-
-> 
->>   /*
->>    * Return codes defined in ARM DEN 0070A
->>    * ARM DEN 0070A is now merged/consolidated into ARM DEN 0028 C
->> -- 
->> 2.43.0
->>
->>
-> 
-
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
