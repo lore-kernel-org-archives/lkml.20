@@ -1,88 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1F5038F0;
-	Fri, 18 Sep 2026 15:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901265013DD;
+	Fri, 18 Sep 2026 15:29:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745326; cv=none; b=QiQ5KJIofYDsaFfOTfb4VX7zsYu40fcdv4DuFgcXtvU1Q4cKF5NQLHJluK4MOMRt0W5eBv3OvsJslgNI3mzV8yf9LYdk0+tSrxvksDOc2WTJ7NuTy+Dr9V31HtU5ahgNVEZH9XSoii09a3kxTeAFPoTv6pJ8BbjSq9mf6C1Z0kM=
+	t=1789745349; cv=none; b=D8n4tWAcFGF8TjlpdUrXe0bF2yNGBlcTeDLQhiy3W4vntLmHVsV9z0+9joI5GluzNSQnlr2ulzX0+U9j0+XetT29xNivigu8fdaCEk6Ja3e92yic7zUu3UKba7TrtX2F+V/8zWfcAIaQinYF2eZpBYv6o8zfAxwPscU+IJiGcgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745326; c=relaxed/simple;
-	bh=wU4gETurlTl2nr2f1G/BLzuQUhvCIsjdRVd5oL4Yp2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DznWXBJ8Z7FC8dpzE7p40vYk4N4rQfxZB5c/WGE2KTjGKpXoGtOYUzGUgEE1pbVJ85lTUxgpriVEEP+0G+qb8QVRNcGrEuRsgkfaLuvw7qw1SqFgcqZaYPePoFCYR0jO01rOAwRS2QkhXJkzbT+QdpuOnWjKafQJS38U27Nltf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SOdm43TD; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789745349; c=relaxed/simple;
+	bh=i888St0tDInwTetEm0iRJx82Hh/b9cTT6BhIHnODogw=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=dBJlKemF7QG9fhGa2c8DdBQaXS7biGr+kr2RoCQA1gEvvWaxvTykmD/B23cWYrOP0JBQTs7b2cNEWMKdgatLePisMQ7y5tDweIcwyvr+LcvIWj/vtNJ0Tp3ufFIS2XM7PLDcgdvqaWuVyjJUDzuGKRnLVUOsk4UPasEIqNKTsFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=S4lAREne; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SOdm43TD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789745325; x=1821281325;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wU4gETurlTl2nr2f1G/BLzuQUhvCIsjdRVd5oL4Yp2I=;
-  b=SOdm43TDUAzTLdntSrpxLSAc2kKPkRPa6wUDD63pdWFIUhVcq4sZOm0E
-   Aubyy4jt/3n6B4rgAH5S1jn+rA5gaSGVpYGgsl3ErQaakze64cVQqxVRZ
-   U2TUv2lkiZVPDRjtQVE++fBqrGop+uIT5l4nyZF5a+RPsnCk94koUz5Ow
-   wH/PtXGmVgA9Ha1Ey09abiF5M/8zL2GvFGZLR/welkH180TVcWRH9eSzo
-   Yc+PVRXu/ayhh3ctDiyXMcVlnwFherSq/7lGuVwzvhcoEO5u/ET3Kvqxh
-   3K0fLIO4j057bxS91TAM9d4Ce5kXmRBRPEKmvzmg3aG5LCQGE0lv0rKyr
-   g==;
-X-CSE-ConnectionGUID: 53Na4OPWTBegrpUl9iCUVQ==
-X-CSE-MsgGUID: /mmRXV8oQMaUfoHodaoQ2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100856990"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100856990"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:28:44 -0700
-X-CSE-ConnectionGUID: z9VK+lRhTqe5epqTSMZrxQ==
-X-CSE-MsgGUID: B+TDvUJ5Rj6H1JHHSvpk/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="279681432"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.5])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:28:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 271F7121BAB;
-	Fri, 18 Sep 2026 18:28:38 +0300 (EEST)
-Date: Fri, 18 Sep 2026 18:28:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hermes.Wu@ite.com.tw
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Message-ID: <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
- <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
- <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="S4lAREne"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=bl2kbsLgwYbFHSYaeEVfPecu3oRu5V20KQAuzu+WuaI=; b=S4lAREneSsd6yFALVQS09/0YIh
+	dUutyJf6UcguI4+9OsaW8sa1hqBuhe4Ayg3RYy9BevyXrjStjobryF40Kg/POC3avfjUknDe7PsPk
+	GX6FQ7VzNr3t0f7RELovDBoaMGR6tfVw0Lao7xIIZr+Jsm0vSHaGYmq4oJO+PGABJx7IWMPna7RwK
+	0Rg6HfZC3dl7hL+ovHkWz8I+Nlm1493gLV0/0NeaNZQ7UN4kdDi9TARKnL4qOKKyr4273yM2qcVtq
+	dHc5eqCDGwbqUTSU1xybKtdgguUJHVTXrSjyeA2n1QWWIBmRQaFrAibBWCRckODsExKh2LDVoQm+4
+	gD9FV0OA==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7aWO-0000000CpMg-3B4n;
+	Fri, 18 Sep 2026 09:29:05 -0600
+Message-ID: <8579d08d-b4f0-4306-9720-610021caff7a@deltatee.com>
+Date: Fri, 18 Sep 2026 09:28:57 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+User-Agent: Mozilla Thunderbird
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-9-den@valinux.co.jp>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260910040836.3792333-9-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v2 08/14] NTB: ntb_transport: Stop RX tasklet scheduling
+ before freeing a queue
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Hi Hermes,
 
-On Fri, Sep 18, 2026 at 11:19:38AM +0000, Hermes.Wu@ite.com.tw wrote:
-> Dropped both aliasing assignments (sd->state_lock, hdl->lock) and let
-> the core give the subdev state and the control handler their own
-> independent locks, like most drivers do. it6625_lock stays exactly
 
-Is this AI-generated?
+On 2026-09-09 22:08, Koichiro Den wrote:
+> A caller can read qp->active before teardown clears it, then schedule
+> the RX tasklet after tasklet_kill() returns. The MSI handler does not
+> check active at all. Teardown also releases DMA channels before
+> draining the tasklet.
+> 
+> Protect active updates and the check-and-schedule sequence with
+> rx_sched_lock, including the MSI path. Clear active under the lock,
+> then drain the tasklet before releasing DMA channels or queue entries.
+> QP link work is already disabled, so it cannot reactivate RX. Use a
+> separate lock to avoid contention with RX list operations.
+> 
+> Fixes: e902133162af ("ntb: stop tasklet from spinning forever during shutdown.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Please use the control handler's lock as the state lock, too. This is what
-most modern drivers do, too.
+Looks good to me.
 
--- 
-Regards,
-
-Sakari Ailus
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
