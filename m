@@ -1,56 +1,58 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26B3308F07
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC2E2FABFB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719359; cv=none; b=YEXDTalGqzkMCfRkdqDJjsOPKyPIzefIznk0mapsytCY5cN8O/2/mqI87tw4p3ahb79t3euBg+sBdg0h40/GJCO+hLtKAsNKnXLRpUQFfn4e6pRaxWbluhmAg/U0zek8Ne4lF3YRGv/OrbfQuO/TvxhQCT3EWzlx8siBMvemdwo=
+	t=1789719360; cv=none; b=apKUsj7bVUjteatPu8sXfQPwtrHEdWqYO4ZVC3t5q/c07hiRIzgJAhRDhrPLFZ6dYayA/rJee6Uikdd4IFFrSzpZ51RH5rErf8BeSLZQoDE/ODvedQvR/VEDgnPXbCcTeHmGM5tKRASfsgjbNFh1qLwGv4jqNSNgi1C+0k7OPKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719359; c=relaxed/simple;
-	bh=zcNwGv45CExz7j/TVlzPBkHjSt0mpoZ14T1ighPkpqY=;
+	s=arc-20240116; t=1789719360; c=relaxed/simple;
+	bh=zzEHyCrP6YSfLJgk6zrPkxbRErf6W7r56cYPcCj1LHc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D2NnosGt47qCF+bHjIYo0GuLyMyK4Voy2U8tIccL3S249c6AcM3GzzTkE9OUn1eWjm7/MRvsQx7DApadApK5hk/Z3g5Xbg+Q35FkGosiXZgfG7UzLY998OxRiUR8QxjpqkLJhG9zyQK1H+akjFZTt+Bz/XIwTgFJBqXCmmhxiSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q/ILPn8Y; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=ZUDGfkY+HVjtAXWbs/pqdiXvY+olaBgPpTF9Duh78KJi6YtvPxRBS10CPIPs37jsK7v8xHZocbqNn11T5t5iO5h1vbvijChE2vF3Rx2wWECwTqMUZ5PIDpJA9qSDtgYQyMp44+mVF6r9gyjZi5Vs3EuswMsPQHotTI2XXL1AnUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O/OhazVF; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q/ILPn8Y"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O/OhazVF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789719352;
+	s=mimecast20190719; t=1789719353;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=f/mcFx7CpqXrw9dX0AsthsvY4YVJ7zqnvie71XVwgx4=;
-	b=Q/ILPn8YidCtGcqkec0yrFbNOr9gmNs3PiH5wPVbhObpPrMNxReq98ilomCSBvrV3A6ppS
-	VO67rTHyOJzrvOTSQpQ/y5KgqJ8qqM9jstmNNhZGLx/sX6Za6WrWRi0ywTGJnqPeUBBgIU
-	7SIqBLyrZh9cB2R4o1D7LHYx3b4ZkJM=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=w60wt/dkt6/s0NeTy3kqOW1+30h7wm/BdjoJ3Ym0CcI=;
+	b=O/OhazVFLkUfy4KTcrF7fKRXz0v1qGrUK3lfjZdNo5K+Lab9AC6ZHAOUp346wCzGAYS2uJ
+	Ggv2TWyz2Ezd0J1TQULhffkqLHTkQoM2Ln80vVC2i3uIWzjN8aZhKRSI42+MzyK9/c/Si9
+	aMmswpSSCz8nU199vcwowMgnjNEVXo4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-6kAO5bzdPCGg4RcQq4J4ew-1; Fri,
- 18 Sep 2026 04:15:49 -0400
-X-MC-Unique: 6kAO5bzdPCGg4RcQq4J4ew-1
-X-Mimecast-MFC-AGG-ID: 6kAO5bzdPCGg4RcQq4J4ew_1789719348
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-596-U2b55Cj7NYyeaLgOS0wqhA-1; Fri,
+ 18 Sep 2026 04:15:47 -0400
+X-MC-Unique: U2b55Cj7NYyeaLgOS0wqhA-1
+X-Mimecast-MFC-AGG-ID: U2b55Cj7NYyeaLgOS0wqhA_1789719346
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EE864195396F;
-	Fri, 18 Sep 2026 08:15:47 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 49567180AECA;
+	Fri, 18 Sep 2026 08:15:46 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4842D1800348;
-	Fri, 18 Sep 2026 08:15:47 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 771B11800348;
+	Fri, 18 Sep 2026 08:15:45 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
-	snambakam@linux.microsoft.com
-Subject: [PATCH v2 04/28] KVM: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
-Date: Fri, 18 Sep 2026 04:15:19 -0400
-Message-ID: <20260918081543.139871-5-pbonzini@redhat.com>
+	snambakam@linux.microsoft.com,
+	Anish Moorthy <amoorthy@google.com>,
+	Sean Christopherson <seanjc@google.com>
+Subject: [PATCH v2 02/28] KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to userspace
+Date: Fri, 18 Sep 2026 04:15:17 -0400
+Message-ID: <20260918081543.139871-3-pbonzini@redhat.com>
 In-Reply-To: <20260918081543.139871-1-pbonzini@redhat.com>
 References: <20260918081543.139871-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,34 +65,82 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-KVM_HC_CLOCK_PAIRING writes to a guest physical addresses.  Treat it
-as an L2 address when running nested, which is consistent with the
-Hyper-V TLB flush hypercalls for example.
+From: Anish Moorthy <amoorthy@google.com>
 
-This is technically backwards incompatible, but it should be extremely
-rare and thus we can treat it as a bugfix, I think.
+kvm_prepare_memory_fault_exit() already takes parameters describing the
+RWX-ness of the relevant access but doesn't actually do anything with
+them. Define and use the flags necessary to pass this information on to
+userspace.
 
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Link: https://lore.kernel.org/kvm/ZR4N8cwzTMDanPUY@google.com/
+Signed-off-by: Anish Moorthy <amoorthy@google.com>
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/x86.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ Documentation/virt/kvm/api.rst | 5 +++++
+ include/linux/kvm_host.h       | 9 ++++++++-
+ include/uapi/linux/kvm.h       | 3 +++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 4b3681796c75..2fbaa070f741 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -7217,6 +7217,11 @@ static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
- 	clock_pairing.flags = 0;
- 	memset(&clock_pairing.pad, 0, sizeof(clock_pairing.pad));
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index 4eb7e75a7473..37028ce019e3 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -7279,6 +7279,9 @@ spec refer, https://github.com/riscv/riscv-sbi-doc.
  
-+	paddr = kvm_translate_gpa(vcpu, &vcpu->arch.gva_walk, paddr,
-+				  PFERR_WRITE_MASK | PFERR_GUEST_FINAL_MASK, NULL, 0);
-+	if (paddr == INVALID_GPA)
-+		return -KVM_EFAULT;
+ 		/* KVM_EXIT_MEMORY_FAULT */
+ 		struct {
++  #define KVM_MEMORY_EXIT_FLAG_READ     (1ULL << 0)
++  #define KVM_MEMORY_EXIT_FLAG_WRITE    (1ULL << 1)
++  #define KVM_MEMORY_EXIT_FLAG_EXEC     (1ULL << 2)
+   #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+ 			__u64 flags;
+ 			__u64 gpa;
+@@ -7290,6 +7293,8 @@ could not be resolved by KVM.  The 'gpa' and 'size' (in bytes) describe the
+ guest physical address range [gpa, gpa + size) of the fault.  The 'flags' field
+ describes properties of the faulting access that are likely pertinent:
+ 
++ - KVM_MEMORY_EXIT_FLAG_READ/WRITE/EXEC - When set, indicates that the memory
++   fault occurred on a read/write/exec access respectively.
+  - KVM_MEMORY_EXIT_FLAG_PRIVATE - When set, indicates the memory fault occurred
+    on a private memory access.  When clear, indicates the fault occurred on a
+    shared access.
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 03bfc92864b6..ce5757e85ae3 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2546,8 +2546,15 @@ static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+ 	vcpu->run->memory_fault.gpa = gpa;
+ 	vcpu->run->memory_fault.size = size;
+ 
+-	/* RWX flags are not (yet) defined or communicated to userspace. */
+ 	vcpu->run->memory_fault.flags = 0;
 +
- 	ret = 0;
- 	if (kvm_write_guest(vcpu->kvm, paddr, &clock_pairing,
- 			    sizeof(struct kvm_clock_pairing)))
++	if (is_write)
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_WRITE;
++	else if (is_exec)
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_EXEC;
++	else
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_READ;
++
+ 	if (is_private)
+ 		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_PRIVATE;
+ }
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index ac2d77d14963..15a3090f067e 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -457,6 +457,9 @@ struct kvm_run {
+ 		} notify;
+ 		/* KVM_EXIT_MEMORY_FAULT */
+ 		struct {
++#define KVM_MEMORY_EXIT_FLAG_READ       (1ULL << 0)
++#define KVM_MEMORY_EXIT_FLAG_WRITE      (1ULL << 1)
++#define KVM_MEMORY_EXIT_FLAG_EXEC       (1ULL << 2)
+ #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+ 			__u64 flags;
+ 			__u64 gpa;
 -- 
 2.52.0
 
