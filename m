@@ -1,41 +1,41 @@
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256993AD53F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:25:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EC23876A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741553; cv=none; b=Qf2zM1QcTm6mFqMMSXiYuzWETobs1n4DJKWiPlePUcC7LgsLhr2NAC/brWLcxm9YnRSnmRR632PixdVFSgQj3VxTqJwkgD4lxNjtkbBdstH6Q1Jl8vhsYmlyzlhZ8n67elTod6yttDH323kdKEiIv/Kjj8FzrMi/kTmm9TcW0YI=
+	t=1789741558; cv=none; b=Ct+1FgF3bkHtPOohs54RFFRrYMObmjA598e3scBim/HLwDbH7bjsf1HD3L6qRH143NxX5ELG8V80l0AGzD47hFlW5+s8IzY9OARjG++IhjKyPNqZ9JiSZlIe1M4EudbB0706ihhx++NQSQy5uozkkSUNolct7VLiK2hciJ2s4ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741553; c=relaxed/simple;
-	bh=X5RcxNz2QGiWT9Zse8Ys3prPWoakI8lQ0XS1HkPc+4E=;
+	s=arc-20240116; t=1789741558; c=relaxed/simple;
+	bh=iTP33CeJKSOUaA/Zn+hMtqQTpJaAZgbgUaQmX+iMFoU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Bd4ZtwxWUyE5huBwKZEu8Udt4HC3bvFnrzsLlTppEk/OERm0Qx6U7YkQOwbopSzMdkdE5B8qVPtT9eryRjPD5Gd2NbYvO+kiwJcRhpitbt9FfVgVIKclcho5QC/7/d3r5Lo09I4wYZuG8fe7oDgQBEoSygoRe9OMpzbMFtk8vZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=QkO32hVj; arc=none smtp.client-ip=82.195.75.108
+	 In-Reply-To:To:Cc; b=o2PrQyP38neNBZJGaWo5sbHm0sXKnCEa+6t57NCKcrxs+MuKVCbd4YfgM9EVEpdzavM5TdrP4VS9xzhJhZbTTmDID1UQKU4TTyx83ma32eX3HE3paR1M8cS38uv8EUWnVjTVR0ZyQFUUnRlUK4preoufsQkcik5enkrMXRhl/6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=s2UA+mvK; arc=none smtp.client-ip=82.195.75.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="QkO32hVj"
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="s2UA+mvK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
 	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
 	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
 	From:Reply-To:Content-ID:Content-Description;
-	bh=rt8Z/CWD/C96rMtWvjjrIBWSSM8KoD63SSMFo3bWtps=; b=QkO32hVjfc+/G0/g/NXGebIVc7
-	ezbPXutfyVjTWSZCVuoskfL4x7rtcyTPEao46jt81Cn0r5gaEY8rRWlq2p+ysVCp2p0L5kuzFkJGI
-	d9B2h2Ev3CIzH/bN5fpanZ8uL7sQdewrGdX3Bi2+pv2egzKphjMPHR+SiLmYW3wwune91ojgORVAy
-	FtHYqEFgxg04fZur6vRIvOsC7AKE8m6Zs2Yy2WXknZgcsmuy10+sg0FdqNOuxDrkgqZlcsmV+2Efi
-	dNhqOrc1lNr/6vFrTFUBKAdV4kz7DcMH8wDmjMpSfaiZhbO9vZuox7lXHaX2rb7l6G5yaxfw973Pl
-	pGpi0ylA==;
+	bh=6NMW/Nho9XykeGyvUq9sJtzumS4a/caq3j8CGCoh14c=; b=s2UA+mvK+RbpxcInGx+KuYOnxX
+	+R8AhDRa5YnNcPygQQN50E/QqegF4AcIYeko+OdscXdP6v1rVLfs3RhVAtIYh95YR+4mYozCnZ61u
+	cOcGg+ZObm9oWn5f0kSPGsD0yw7VC022Exh/x36zJ2n3AKvlh1vvWp+e9DxGtAGkwKebt3BQs84mH
+	kF0oFH5S+x9KuWOGwqPHPyooMCvSMmfFoyFIJtHgj66f1AqqYLHQe01xdTJ12SbMyKtB0mFF+MVji
+	QKBeByIIWnL9zyjqEbFqPHO7bffQ0DoQXLXkf70nzcgpqI9cYL6QxEN6wEm7I922hQdkqSAIqo5Gb
+	ef9FdhiQ==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1x7ZX9-006n9A-0n;
-	Fri, 18 Sep 2026 14:25:47 +0000
+	id 1x7ZXC-006n9S-1v;
+	Fri, 18 Sep 2026 14:25:50 +0000
 From: Breno Leitao <leitao@debian.org>
-Date: Fri, 18 Sep 2026 07:25:34 -0700
-Subject: [PATCH RFC 2/3] workqueue: Add a concurrency_managed workqueue
- attribute
+Date: Fri, 18 Sep 2026 07:25:35 -0700
+Subject: [PATCH RFC 3/3] workqueue: Back every workqueue with the unbound
+ machinery
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,150 +44,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-wq_final-v1-2-5c43c08a26bc@debian.org>
+Message-Id: <20260918-wq_final-v1-3-5c43c08a26bc@debian.org>
 References: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org>
 In-Reply-To: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org>
 To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
 Cc: linux-kernel@vger.kernel.org, marco.crivellari@suse.com, 
  Breno Leitao <leitao@debian.org>, kernel-team@meta.com
 X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4395; i=leitao@debian.org;
- h=from:subject:message-id; bh=X5RcxNz2QGiWT9Zse8Ys3prPWoakI8lQ0XS1HkPc+4E=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqrUngwJLoy6f396TtUgvc3oqu7FT/cXB7Cc+rp
- Uo+UjJ+cGeJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaq1J4AAKCRA1o5Of/Hh3
- bVXrD/wMpThM6/OzJybgaam5GIPFVP2rZsRosvoUidSeko17zVp0tKPIxn/Jfu6eOf8aTnrTevE
- uiIg7XWDtSh1VQkMXVk1F1T8shbxUuBtJKs7UqNMGj5FfcyDtad0IQ4k9rGqF0eq0xJGL12YaOt
- MifTHji1PUj8QFB7iSPq6uSyyT3k6ufliT6UpPFEmqP4cwAAbljrZBMgOV6CHj6I8+Iuz0SBQ5s
- 7bR88wSQN2WPc+twLcIqnzYGjXVqbjs51im1cnoF53OFEuACJG0I7hsz1F+Rj8kq2BZLs/zK8q7
- VvTP7j9z48AkQ/yDf5F0nPCG4/4ZoARJPhaMLTrTRyRzM3OCQlO/g+VDk+CBDQqGag9UgWNxNgH
- nzgnqzY6yWfDdvHqgw8BXR+xW7ZVEHGfyt1ozzfSsfzSaOXdBPu9TbmB8BrPmMLDB+VInLg40uw
- v/ldxBeQJoP7Jo7HBUJC9b17MUYi/FJp56rIkenPi1/WvU12BnJdNdX8dnoK7ED/lamMdVLCXtV
- i39EN8S+02u7+j1dQxX6hD1Ao2k14RHuZT1zVAlDnlqeeG0YC+nD+ggmdbYS/a3zzfFLG36cW2c
- LMhdS1R+HtgJclN/wtYDzNOeh0ITSATokNNqHqlhORCjj9Ls2KBlSEyq228jO8LUo6QKESWCykm
- qwnqZW8samPdsAg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7438; i=leitao@debian.org;
+ h=from:subject:message-id; bh=iTP33CeJKSOUaA/Zn+hMtqQTpJaAZgbgUaQmX+iMFoU=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqrUngbNYbvrcs+33qNAzq0PcOOWAQFRoExrebk
+ srJHLB02u+JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaq1J4AAKCRA1o5Of/Hh3
+ bdVaD/4zMPzA/UkNQX+nrxJVMSFOYqp/gD7D58glzMD21ebpqS3MgQiPU6UzlQqaEKFjgtp6K4X
+ 8zA2lFTx+gt2Hqmz6t3GjhyKde/+j2+MW5pJE/dVZ1Z3rsN5VJ+rd3nuBhvBouMDtGMgxe94ID7
+ 5aZltYbCa+19m8/y78Nr+lvP9EwHHy+31Nq8ahXk+JGTAiKP8MABun/CkfqBJOTrPerBa9oVACe
+ vfNs5iUFf4x1Bki8wcYlzL7LEEWlckoAaHdkyE6i2ZCFIFTt691yDOAiV9WcDG6SUG5ZzTiasvH
+ U3JWR5dU6jDsln74+wK7EP4uOYGoEhqn/UtIZ3r/MNrIXcjTAIR0CkGj1qsQf7P9mjeQayw90tL
+ YyUbZJ51cMNLXMSpqc1HY67I04rdYxlIZO67b9H8uLSONzgbmtRQWSQTwARu3JUGfg/dKc3FSYe
+ W+zv/RbhM55+MjDrn9FmJRlcSyenjT3YgGCQzuzkeY0fh2yn6oG46qQKAeuflTxxFu4TOpDcoiM
+ 3Atj0TyXTpAcGCtQrGQrJmHkNQEwXozR+N5y5jHnKfrb/B4ri0CH/ivK4ng+8ab96+90IAKw2+I
+ Ih8EFGk+7boxNQBDPPGxiaFXbl04hWUjhRvePOWFch5ZQmxfQ3sV1Fev0lwS8/x4zdcvw1rA5Je
+ DbLpFbT1YKUjWyg==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-Tejun wanted to have a CM affinity (WQ_AFFN_CPU_CM), but I am proposing
-to have an attribute field, that we can set with WQ_AFFN_CPU, depending
-on whether we want to have CM or not.
+Now all workqueues will be WQ_UNBOUND, including WQ_PERCPU, and
+the attributes will define the affinity and concurrency management.
 
-Create workqueue_attrs->concurrency_managed, and use it to decide if we
-do CM. It always comes with WQ_AFFN_CPU and affn_strict, since
-alloc_wq_std_attrs() sets the three together for a WQ_PERCPU workqueue,
-which is the only thing that sets it. It sits below the divider, so
-wqattrs_clear_for_pool() clears it and it does not become part of the
-pool hash.
+It gives WQ_PERCPU a single meaning. It no longer selects per-cpu pools;
+it only asserts "this workqueue is concurrency managed and may not leave
+that backend."
 
-This is not set by sysfs (for now?!), and apply_workqueue_attrs() refuses
-attrs that carry it, so it is fixed when the workqueue is created, for
-now.
-
-So, a workqueue has 4 "attributes" with this patch:
-
-  * cpumask
-  	- which CPUs the workqueue may use at all
-  * affn_scope
-  	- cpu / smt / cache / cache_shard / numa / system
-  * affn_strict
-	- whether the pod boundary is a hard bind or a hint
-  * concurrency_managed
-  	- CM enabled or now.
+This opens up space for a lot of optimizations down the line, but I want
+to stop here to discuss if this is the right approach.
 
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- include/linux/workqueue.h | 10 ++++++++++
- kernel/workqueue.c        | 19 ++++++++++++++++---
- 2 files changed, 26 insertions(+), 3 deletions(-)
+ kernel/workqueue.c | 51 +++++++++++++++++++++++++++++----------------------
+ 1 file changed, 29 insertions(+), 22 deletions(-)
 
-diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
-index a283766a192aaf..a7fc9b0f72af2e 100644
---- a/include/linux/workqueue.h
-+++ b/include/linux/workqueue.h
-@@ -204,6 +204,16 @@ struct workqueue_attrs {
- 	 */
- 	enum wq_affn_scope affn_scope;
- 
-+	/**
-+	 * @concurrency_managed: use the concurrency managed per-cpu pools
-+	 *
-+	 * Those keep at most one worker running per CPU and account max_active
-+	 * per CPU rather than per node. Set from %WQ_PERCPU when the workqueue
-+	 * is created and fixed for its lifetime, so it always comes with
-+	 * %WQ_AFFN_CPU and @affn_strict.
-+	 */
-+	bool concurrency_managed;
-+
- 	/**
- 	 * @ordered: work items must be executed one by one in queueing order
- 	 */
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 1c4f8bdd1cd509..f86e8d0770ca22 100644
+index f86e8d0770ca22..da4d3e6cc5ee91 100644
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -5026,6 +5026,7 @@ static void copy_workqueue_attrs(struct workqueue_attrs *to,
- 	 * get_unbound_pool() explicitly clears the fields.
- 	 */
- 	to->affn_scope = from->affn_scope;
-+	to->concurrency_managed = from->concurrency_managed;
- 	to->ordered = from->ordered;
- }
- 
-@@ -5036,6 +5037,7 @@ static void copy_workqueue_attrs(struct workqueue_attrs *to,
- static void wqattrs_clear_for_pool(struct workqueue_attrs *attrs)
+@@ -1669,7 +1669,7 @@ static bool is_percpu_pool(struct worker_pool *pool)
+ static struct wq_node_nr_active *wq_node_nr_active(struct workqueue_struct *wq,
+ 						   int node)
  {
- 	attrs->affn_scope = WQ_AFFN_NR_TYPES;
-+	attrs->concurrency_managed = false;
- 	attrs->ordered = false;
- 	if (attrs->affn_strict)
- 		cpumask_copy(attrs->cpumask, cpu_possible_mask);
-@@ -5607,9 +5609,9 @@ static struct pool_workqueue *alloc_pwq(struct workqueue_struct *wq,
+-	BUG_ON(!(wq->flags & WQ_UNBOUND));
++	BUG_ON(wq->flags & WQ_PERCPU);
+ 
+ 	if (node == NUMA_NO_NODE)
+ 		node = nr_node_ids;
+@@ -2453,10 +2453,10 @@ static void __queue_work(int cpu, struct workqueue_struct *wq,
+ retry:
+ 	/* pwq which will be used unless @work is executing elsewhere */
+ 	if (req_cpu == WORK_CPU_UNBOUND) {
+-		if (wq->flags & WQ_UNBOUND)
+-			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
+-		else
++		if (wq->flags & WQ_PERCPU)
+ 			cpu = raw_smp_processor_id();
++		else
++			cpu = wq_select_unbound_cpu(raw_smp_processor_id());
+ 	}
+ 
+ 	pwq = rcu_dereference(*per_cpu_ptr(wq->cpu_pwq, cpu));
+@@ -2500,7 +2500,7 @@ static void __queue_work(int cpu, struct workqueue_struct *wq,
+ 	 * on it, so the retrying is guaranteed to make forward-progress.
+ 	 */
+ 	if (unlikely(!pwq->refcnt)) {
+-		if (wq->flags & WQ_UNBOUND) {
++		if (!(wq->flags & WQ_PERCPU)) {
+ 			raw_spin_unlock(&pool->lock);
+ 			cpu_relax();
+ 			goto retry;
+@@ -2669,7 +2669,7 @@ bool queue_work_node(int node, struct workqueue_struct *wq,
+ 	 * workqueue_select_cpu_near would need to be updated to allow for
+ 	 * some round robin type logic.
+ 	 */
+-	WARN_ON_ONCE(!(wq->flags & WQ_UNBOUND));
++	WARN_ON_ONCE(wq->flags & WQ_PERCPU);
+ 
+ 	local_irq_save(irq_flags);
+ 
+@@ -5297,7 +5297,7 @@ static void rcu_free_wq(struct rcu_head *rcu)
+ 	struct workqueue_struct *wq =
+ 		container_of(rcu, struct workqueue_struct, rcu);
+ 
+-	if (wq->flags & WQ_UNBOUND)
++	if (!(wq->flags & WQ_PERCPU))
+ 		free_node_nr_active(wq->node_nr_active);
+ 
+ 	free_flush_pnodes(wq);
+@@ -5799,7 +5799,7 @@ static void apply_wqattrs_commit(struct apply_wqattrs_ctx *ctx)
+ 		ctx->dfl_pwq = install_pwq(ctx->wq, -1, ctx->dfl_pwq);
+ 
+ 	/* update node_nr_active->max, which only unbound workqueues have */
+-	if (ctx->wq->flags & WQ_UNBOUND)
++	if (!(ctx->wq->flags & WQ_PERCPU))
+ 		wq_update_node_max_active(ctx->wq, -1);
+ 
+ 	mutex_unlock(&ctx->wq->mutex);
+@@ -5841,8 +5841,8 @@ int apply_workqueue_attrs(struct workqueue_struct *wq,
+ {
+ 	int ret;
+ 
+-	/* only unbound workqueues can change attributes */
+-	if (WARN_ON(!(wq->flags & WQ_UNBOUND)))
++	/* a percpu workqueue is pinned to the concurrency managed backend */
++	if (WARN_ON(wq->flags & WQ_PERCPU))
+ 		return -EINVAL;
+ 
+ 	/* concurrency management comes from WQ_PERCPU, it is not applied */
+@@ -5882,7 +5882,7 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
  
  	lockdep_assert_held(&wq_pool_mutex);
  
--	WARN_ON_ONCE((wq->flags & WQ_PERCPU) && cpu < 0);
-+	WARN_ON_ONCE(attrs->concurrency_managed && cpu < 0);
+-	if (!(wq->flags & WQ_UNBOUND) || wq->attrs->ordered)
++	if (wq->attrs->ordered || wq->attrs->concurrency_managed)
+ 		return;
  
--	if (cpu >= 0 && (wq->flags & WQ_PERCPU)) {
-+	if (cpu >= 0 && attrs->concurrency_managed) {
- 		pool = get_percpu_pool(wq, cpu);
- 	} else {
- 		pool = get_unbound_pool(attrs);
-@@ -5737,7 +5739,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
- 	copy_workqueue_attrs(new_attrs, attrs);
- 	wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
- 	cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
--	if (!(wq->flags & WQ_PERCPU)) {
-+	if (!new_attrs->concurrency_managed) {
- 		ctx->dfl_pwq = alloc_unbound_pwq(wq, new_attrs);
- 		if (!ctx->dfl_pwq)
- 			goto out_free;
-@@ -5843,6 +5845,10 @@ int apply_workqueue_attrs(struct workqueue_struct *wq,
- 	if (WARN_ON(!(wq->flags & WQ_UNBOUND)))
- 		return -EINVAL;
+ 	/*
+@@ -6085,7 +6085,7 @@ static void wq_adjust_max_active(struct workqueue_struct *wq)
+ 	WRITE_ONCE(wq->min_active, new_min);
+ 	WRITE_ONCE(wq->percpu_max_active, new_max);
  
-+	/* concurrency management comes from WQ_PERCPU, it is not applied */
-+	if (WARN_ON(attrs->concurrency_managed))
-+		return -EINVAL;
+-	if (wq->flags & WQ_UNBOUND)
++	if (!(wq->flags & WQ_PERCPU))
+ 		wq_update_node_max_active(wq, -1);
+ 
+ 	if (new_max == 0)
+@@ -6170,6 +6170,13 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 		flags &= ~WQ_PERCPU;
+ 	}
+ 
++	/*
++	 * Every workqueue is backed by the unbound machinery now. WQ_PERCPU no
++	 * longer picks a backend, it only says the workqueue is concurrency
++	 * managed and may not leave that backend.
++	 */
++	flags |= WQ_UNBOUND;
 +
- 	mutex_lock(&wq_pool_mutex);
- 	ret = apply_workqueue_attrs_locked(wq, attrs);
- 	mutex_unlock(&wq_pool_mutex);
-@@ -5934,6 +5940,13 @@ static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
- 	if (wq->flags & __WQ_ORDERED)
- 		attrs->ordered = true;
+ 	if (flags & WQ_BH) {
+ 		/*
+ 		 * BH workqueues always share a single execution context per CPU
+@@ -6200,7 +6207,7 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 	if (alloc_flush_pnodes(wq) < 0)
+ 		goto err_free_wq;
  
-+	/* a percpu workqueue wants a concurrency managed pwq on every CPU */
-+	if (wq->flags & WQ_PERCPU) {
-+		attrs->affn_scope = WQ_AFFN_CPU;
-+		attrs->affn_strict = true;
-+		attrs->concurrency_managed = true;
-+	}
-+
- 	return attrs;
+-	if (flags & WQ_UNBOUND) {
++	if (!(flags & WQ_PERCPU)) {
+ 		if (alloc_node_nr_active(wq->node_nr_active) < 0)
+ 			goto err_free_wq;
+ 	}
+@@ -6239,7 +6246,7 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 	 */
+ 	if (pwq_release_worker)
+ 		kthread_flush_worker(pwq_release_worker);
+-	if (wq->flags & WQ_UNBOUND)
++	if (!(wq->flags & WQ_PERCPU))
+ 		free_node_nr_active(wq->node_nr_active);
+ err_free_wq:
+ 	free_workqueue_attrs(wq->attrs);
+@@ -6488,8 +6495,7 @@ EXPORT_SYMBOL_GPL(workqueue_set_max_active);
+ void workqueue_set_min_active(struct workqueue_struct *wq, int min_active)
+ {
+ 	/* min_active is only meaningful for non-ordered unbound workqueues */
+-	if (WARN_ON((wq->flags & (WQ_BH | WQ_UNBOUND | __WQ_ORDERED)) !=
+-		    WQ_UNBOUND))
++	if (WARN_ON(wq->flags & (WQ_BH | WQ_PERCPU | __WQ_ORDERED)))
+ 		return;
+ 
+ 	mutex_lock(&wq->mutex);
+@@ -7185,7 +7191,7 @@ int workqueue_online_cpu(unsigned int cpu)
+ 	list_for_each_entry(wq, &workqueues, list) {
+ 		struct workqueue_attrs *attrs = wq->attrs;
+ 
+-		if (wq->flags & WQ_UNBOUND) {
++		if (!(wq->flags & WQ_PERCPU)) {
+ 			const struct wq_pod_type *pt = wqattrs_pod_type(attrs);
+ 			int tcpu;
+ 
+@@ -7220,7 +7226,7 @@ int workqueue_offline_cpu(unsigned int cpu)
+ 	list_for_each_entry(wq, &workqueues, list) {
+ 		struct workqueue_attrs *attrs = wq->attrs;
+ 
+-		if (wq->flags & WQ_UNBOUND) {
++		if (!(wq->flags & WQ_PERCPU)) {
+ 			const struct wq_pod_type *pt = wqattrs_pod_type(attrs);
+ 			int tcpu;
+ 
+@@ -7395,7 +7401,8 @@ static int workqueue_apply_unbound_cpumask(const cpumask_var_t unbound_cpumask)
+ 	lockdep_assert_held(&wq_pool_mutex);
+ 
+ 	list_for_each_entry(wq, &workqueues, list) {
+-		if (!(wq->flags & WQ_UNBOUND) || (wq->flags & __WQ_DESTROYING))
++		if ((wq->flags & __WQ_DESTROYING) ||
++		    wq->attrs->concurrency_managed)
+ 			continue;
+ 
+ 		ctx = apply_wqattrs_prepare(wq, wq->attrs, unbound_cpumask);
+@@ -7556,7 +7563,7 @@ static ssize_t per_cpu_show(struct device *dev, struct device_attribute *attr,
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 
+-	return scnprintf(buf, PAGE_SIZE, "%d\n", (bool)!(wq->flags & WQ_UNBOUND));
++	return scnprintf(buf, PAGE_SIZE, "%d\n", (bool)(wq->flags & WQ_PERCPU));
  }
+ static DEVICE_ATTR_RO(per_cpu);
  
+@@ -7932,7 +7939,7 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 		return ret;
+ 	}
+ 
+-	if (wq->flags & WQ_UNBOUND) {
++	if (!(wq->flags & WQ_PERCPU)) {
+ 		struct device_attribute *attr;
+ 
+ 		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
+@@ -8800,7 +8807,7 @@ void __init workqueue_init_topology(void)
+ 	list_for_each_entry(wq, &workqueues, list) {
+ 		for_each_online_cpu(cpu)
+ 			unbound_wq_update_pwq(wq, cpu);
+-		if (wq->flags & WQ_UNBOUND) {
++		if (!(wq->flags & WQ_PERCPU)) {
+ 			mutex_lock(&wq->mutex);
+ 			wq_update_node_max_active(wq, -1);
+ 			mutex_unlock(&wq->mutex);
 
 -- 
 2.53.0-Meta
