@@ -1,64 +1,64 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1BF3E315C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F48B3BD64D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700518; cv=none; b=sIbPPSYpqvLebJ+dNPDzm/4utV0auJRzZf7yi7gY63RLD1zv6BknPpgQLi3/VtzNlwULGhxVMfoIkNP5yDr5e94VsLDtGFyNlCYI8vZ8VnPpufo9WNbDy+pe0BRRGxq/2+q9AG+rYbidOW5GdK08Sg/jcvwXyOR7nJeB6OyGEg0=
+	t=1789700524; cv=none; b=Amvl6q/hAGrup4fKZOh1eUlvfDeFmYM0kdhHBE3oIZxXs3Kg0l9Y0fd2n13pJMnr84UJcZq8XO14QNwqHG8oHEDOK4Tn0wLdGIIXn+pT5VVlWHLRzl2KpRI6giqc/woEPJfG8BIn/mpAeInOlOGnivempmifNuGWBqVBTLTQIxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700518; c=relaxed/simple;
-	bh=HlGrFMsRs0IybKeXdKiG9q5NJ5arwAx2J4jsvINPDaU=;
+	s=arc-20240116; t=1789700524; c=relaxed/simple;
+	bh=2fOXWQ+D606ZEtKoesxi3yPFiMCtrfZbrG+MPby33tU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PtDvTjZP8Jwg/mQhPnqfTkbv/s/hyuEy2rmz7FRfK3K24AdKy/qnnsgKpqGRn42bocVFzyeyRISRg9tmlPCgLr/4oWzTjS6C4+VLcwqtQZ6kW5luF9aFaqO6gqNe7gsfJOHyG0bQ99B2OyBnUp5e1oEz11QBYJPuv+R5L5t1VMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DRkiIS+1; arc=none smtp.client-ip=209.85.214.178
+	 MIME-Version; b=u49WaQBg0esooieolNbxIeSF9SrPQA5NCfnw57IOaun+EblfUkN6g25+AZwGXFP3X5M+cYPhXUiLYuq5IQGl54F2MuDCGKxM7DikByG0h3Wf0mjoGMLVxaXZ0QO/3U8u4kyb1naecfdeNzt+F/NTgtJs4EuNWsX/2Xisj8Xy4d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JsKRVJnd; arc=none smtp.client-ip=74.125.228.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DRkiIS+1"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2db710396ffso11323635ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:01:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JsKRVJnd"
+Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so68853a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:02:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789700511; x=1790305311; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789700518; x=1790305318; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
-        b=DRkiIS+1AA1E2XXOJGwHEWECM9r16Zcs/SY7sOH7qpRyMQgZn9wowaUdo6Z4v2jRVB
-         8ClCAeoZX1X23Iva2i6zy00DeEXVXFz3JyCnCUShTbbjEEg8p3nBPlOMdO4KL8de0oCJ
-         vswx3kNwfUuLRhsoY8S9hYhD/BS3v02JLxdoBuklZbutVFGJtKMpIXUT8vax6VeFH7CV
-         IXW/2B8JVjXqs5RTTHTwc4O2xOa9y+sruLg9nZDW16m35EWZjvLtPJw8rkXPi/DcK2CX
-         xZcJCz8m4NV9OWgfo1Z67O55FLEc5q7jGRJIS/B6dwAmzJXWIaHEMmI3tQ74YX5T0/Kw
-         Pg+w==
+        bh=f70EL2u57AlsQGuy6taCWBcjNOQfxHMXhBaDu9pSD1s=;
+        b=JsKRVJndOYWb2b+t2ClORDriyvRVT4cWddvK9hMcag6logGlpJEFu5AKTR37yKinZo
+         WWpOa/deBeB/nqKQSM12VL8XHgRlKu8jvA4ugBKwoNKKcEPVz/MfmNGKiBnPDpSQ9R9H
+         iO7NaAYUxIJjjxl3ISTL73nENkwZY8AZF58nVBO43lxyhTgxpHeGEBM8ilv0eFZQvGA7
+         yfFGGUzFV1HYOUmzwUW4Gqb3FU99SY+r16kNto6awkiv74K29qIaFyLb728rbxaB/HDe
+         4nMEd0Zaz20tcJvEYruah+FQWNSyaHKVNtJJNkkGdHmDcdv/VGbovwCy4oXApRdZrbJk
+         AXJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789700511; x=1790305311;
+        d=1e100.net; s=20260707; t=1789700518; x=1790305318;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
-        b=loyiBYTAwsNfsKa21Q/Vv7wvl0Rf7J7HZnTYgbIBCtIm50pYF6YHrVXiaEryuBw+pC
-         vdxp2R7N8owoL2hTOsXOKWqokTbwoZHveW59zKJBoOoEo2RIcNHtVscqP70Xf8bH6MuR
-         KWvxkmO//0jqBhA20Fo2hVRA4I4guCguNuUdoPH2yaW0Co0S6LHXyg4Zdc3vzYrF/+x5
-         9F+a8euS3RgkoF6WAbRKvlEHdtmyE256/q6E519ap4CwTmc4EEc/jJUlO/AczGJigy3b
-         ZEc25vWWk07VN/RDoME0NOcpEc76ovTsThK6Y+kjsQx4t5ZWTbJrxxHz93N3wh/uytk/
-         n9ow==
-X-Forwarded-Encrypted: i=1; AKwUvByBW56nznxOrN5tKUXh+yZNywFhGDJ9YjJ0ftzAkPoYgz/HIQF4X+CbHvfJ7NM76L8TWtQ4dtKbWboS8a4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK8EqJ7EjMHOlmb/pKGK23gFs2x7zOUKMWsRpk2zID1zh0DGm7
-	Fk2g6GvJIC9kkxSeA4+8Pt4fRuu24HqubSkQ5AGG4620ZQzl3Ft5Jbg0
-X-Gm-Gg: AYBFou28UucuCVawk13fFo29MG2rWadGhApPbFJUj4iSWGjjFa3TuC6RwGE1Yd6QIOF
-	4er/DCuyoD7BqUNgUydN8QvqTVYfuZ7PrXaHkhZ10d/Rg9ep+GnQTL2chFBzohaV8vU3uOEqA5w
-	9rxhnCUDQGaWqJlxQALgv3/iFNgAgPS2FPt3pY1FBZWadaI169GNYKojUtjYT0Fztd1dHMK35ZC
-	CyUSSKhky04xfdSoL1MPzJf9DE/fOrDtHqP+JF/JdgYNEvGjF3lKpd+0LEf3QDZJKI7V0dBBsVo
-	F6xmP4c4tCKzREFCq8zfvvMGaMuNQFB4OJ90B0Npu+RGeu6OW3J+Y49NymOQJWSBUBu3PHPA7xT
-	uIank4G2/bDsyIfG4B2R7p165RJT0NLndB7IB1gAAAbB4MWlf4k/F6QWyafTn4/Xrnh1Y/IZnCL
-	8azNwIMizTExT+RLBAyB8AYsdqjVN1aXDGW1Vvm5QqL5p8rO+vmqD7kFKUKQhC8D4LKicasmDWQ
-	VdwjPuQtsbRkA+oDNqsWDSWKcKJRVvXpbX7/zpl9P1wcZa+J7+gmvN4LHIjvwK2f7uzsupO1g==
-X-Received: by 2002:a17:90b:3f0d:b0:39e:2c5c:a689 with SMTP id 98e67ed59e1d1-39e361ab7dbmr7741778a91.30.1789700511242;
-        Thu, 17 Sep 2026 20:01:51 -0700 (PDT)
+        bh=f70EL2u57AlsQGuy6taCWBcjNOQfxHMXhBaDu9pSD1s=;
+        b=S2iicdQG6gLQKraQ2vMSsUdYvU0vczQBQvM+u8hLM1xxs77PAxqH/mWxszc1gQwozn
+         Emu0LsWVH06Mpjs5f5Z3qsDpcMd3Iqpqrgv3Tluf+sWWMFZKuuO9p7p3f8/SLJ0oTyjS
+         CaLO87f9RoVUD9ALS2WCiVVomglhg4UUw1bwL+hgVzq7l0zeiSwkdWwqbZuP0Q8abKjv
+         U7hyStFgKyoqz9IjXO/HxVXI4Ob8Z7RUac5cLi4Q4+m/coUUadW6dHC0T4TODyHwydZM
+         gGqqB8BBGJNRaARDDZS+E/NGpIQTyknW76QVT2Oty1BQOt2LumkaIoEfwCreQpcbsg5G
+         7W9g==
+X-Forwarded-Encrypted: i=1; AKwUvByayXmAyqLbUgv9pVly3zo3ASL+JcIYjfhaihjmyskMNRlLNNVtUZ3APWXXlNUcd6w0x2JJK0OXIP3QNQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4v0V7JBKJquCCrqUZ6nideXS4r9NHDd1WtkF26HtcoQClCS9f
+	2pBe7gLxmEXZG3ndXRIGk8Jw5EKWWc9neIf9Hc9PCZm9ezGSKbPUt7A4
+X-Gm-Gg: AYBFou0Njm7kjMwMTl5inP17on7pGhIer/TrNH0vhJmhr5cWV3T2YXU3MbVmiirVEuv
+	a+VRQO7YatMCRgA+z+VIPOd7vxuu5QWZiJOugs2X8036E4j/qvGos6ozPoie97k7JRpvL11wSQ/
+	TAo8SRajsafWOZtsXVRsxh9LOEgck0gXAsZK5DR69e21awc22iS2b8fG4exMfkja0nxuFLc4GzA
+	0C+SmmIcZtpCjptOL1bHa3gG5zOVDALplzZt5uVcUeTekvymkybyPmqn5i4MDgQWTZcGA3hOqGD
+	2KF2+weDCHVCS8nfyHkjB4YL0Qag7Sx2rzBkOKUcQbGSNBQ5j9fEZLXiBuG5m/T5j2xsymYBYH4
+	J2/5yGSd98AsP1sxGthFHf2N5IYWALPPmshrR9a/ThotlwfMn+H0GwxytWDkGTloaL09lmGKjAr
+	8EBMSb/6UIB3I0XHK1+QGW42F6o+NTlO3pf0fREtIMNHKoW14xGz2Tk27kskEDV0BInrGxNAgTJ
+	XfXaes+Jj2uUiicRq7IYSfxSW5j5u0jAJlPr1xNzey7fWWjoI7oGzRnIL+/gRc=
+X-Received: by 2002:a17:90b:1644:b0:39e:2ea1:e2a9 with SMTP id 98e67ed59e1d1-39e54d8b0ecmr2306119a91.8.1789700518239;
+        Thu, 17 Sep 2026 20:01:58 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:01:50 -0700 (PDT)
+        Thu, 17 Sep 2026 20:01:57 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -77,9 +77,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v7 5/7] drm/verisilicon: add DCUltraLite chip identity to HWDB
-Date: Fri, 18 Sep 2026 11:01:23 +0800
-Message-ID: <20260918030125.315978-6-a0987203069@gmail.com>
+Subject: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
+Date: Fri, 18 Sep 2026 11:01:25 +0800
+Message-ID: <20260918030125.315978-8-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260918030125.315978-1-a0987203069@gmail.com>
 References: <20260918030125.315978-1-a0987203069@gmail.com>
@@ -91,38 +91,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
-model number 0x0 (sic, the model name contains no number either),
-revision 0x5560 and customer ID 0x305.  It has a similar register map
-with DC8000, only one display output and only 32x32 cursor supported.
+vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
+VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
+the primary plane on DC8200-family hardware actually leaves the
+framebuffer enable bit instead of clearing it.
 
+This bug predates this series: it was carried over unchanged from
+vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
+introduce per-variant hardware ops table" split the DC8200-specific
+implementation out into vs_dc8200.c.
+
+Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 91524d16f7785..7d630a667a3f0 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.max_cursor_size = 64,
- 		.formats = &vs_formats_no_yuv444,
- 	},
-+	{
-+		.model = 0x0,		/* DCUltraLite */
-+		.revision = 0x5560,
-+		.customer_id = 0x305,
-+
-+		.generation = VSDC_GEN_DC8000,
-+		.display_count = 1,
-+		.max_cursor_size = 32,
-+		.formats = &vs_formats_no_yuv444,
-+	},
- };
+diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+index f72da10295e1b..25b5906a1c5fc 100644
+--- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
++++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+@@ -70,8 +70,8 @@ static void vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
  
- int vs_fill_chip_identity(struct regmap *regs,
+ static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc, unsigned int output)
+ {
+-	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+-			VSDC_FB_CONFIG_EX_FB_EN);
++	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
++			  VSDC_FB_CONFIG_EX_FB_EN);
+ 
+ 	vs_dc8200_plane_commit(dc, output);
+ }
 -- 
 2.43.0
 
