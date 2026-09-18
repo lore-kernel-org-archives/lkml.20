@@ -1,46 +1,46 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012052.outbound.protection.outlook.com [52.101.53.52])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010070.outbound.protection.outlook.com [52.101.193.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462FF519E13;
-	Fri, 18 Sep 2026 16:42:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A5251AFDF;
+	Fri, 18 Sep 2026 16:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749769; cv=fail; b=ta1Ae/AWhVssLjwWYucCPk8FL8Wcaxm720XjnnLEyT/C9roGoGmboN2qMwTqpUL4hcAvgavn6rtZnKEbel8w7qdz+TBMHbqpCjcq3VXxLz1G13t4xXQW8fDVBR41AgEP4tst4W4U3JNFST3/fG1A3D9eHQzw/wvwZif6ehpTCzA=
+	t=1789749780; cv=fail; b=qBKqVRm8+4W467OoHqFCBYdVUaO5sN8VJi05491kRlhaXFrl+19c+sxUPFoogQ6w7esbR1mWq2uMi3pSyl0m75Rh4UuTvF/p5noCZvOCW1ZsJvWQu6057Bq/H3JFbhPC9dxs6Zk48u5WXK5K1In4D1O5cDvaFDFNfAP7i36yk3s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749769; c=relaxed/simple;
-	bh=a9bbHkoJbijYsc1hLVYLpa9oG3PzmH0X8LlD9zOqeZs=;
+	s=arc-20240116; t=1789749780; c=relaxed/simple;
+	bh=b979a89YSlxWiaPAM4xbD7lN0HBPD66Cy1iX6OqKKcU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G59h/nqiZ9nqaPo3M18mumX/BnZ3XQ2Otk4gMHdAevWN9KltWtKykaTVoCRmxVv5TCjj/2qcD0cL25/2odBkDlEP7vP0FTpLd4UesCp3ZvEmlg3I8TNvUvGg+/NoMP8OZvpnHg83zstwaLJAnHPf3mor+5R1A6D0UTIDTF4X1Yw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=39uYw+rN; arc=fail smtp.client-ip=52.101.53.52
+	 MIME-Version:Content-Type; b=q3jXTWZ3kyeaGG6Kjz5F2Tfm4Slc4sg3oT4FQhr/kVeI+is8+OxBbFnfBIzBC9SCktKhvEVRb7g6NI+9AMJmuEZRaE8/02uKQqKb9MwbVU25z3guj09H+mKmlAcT8/giPHKtmf41mBjyVrTecOQqsbtRbiyljU4ILMCAEmkhFsU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qjiblG4y; arc=fail smtp.client-ip=52.101.193.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="39uYw+rN"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qjiblG4y"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xJJVFmbj+b52NIDB8yX4+yoOOfFdCtjRuJrvZ3JvKxl7XDO+3c5wW2/LEGLdBbxex8ZPo2yFl8Ln1lcjcisgw96YGUkIPWziZeLofPzXVxiPZYOWrUJM4w+o3cQPtUvWZg5o2JRFBT5ykWokhh1rFnOByV3UY1ihpWJj/QJeoT+ddflkXzb9fJApngrmwfu8bnKYY28wgURjx1Ue2eGo6wtRd9igOw27RkS/6sP5Mbr2N0PlaJL2c56x7hE4+GSwXu3i9hQFGZZg1w8Qse3/Z1JtN3cg1jYepm57qGwVNypBx/DJDRaU2HtkP38kvg0FGSnzJn7jSxpwEUDbFxXANw==
+ b=xOUx01i7/AU6lgg7AIf75WKmsoLpQu6VY5ILZl0EWvoOcPlyS6dYDZykD5IRk0Gtbvuq8Cw+aFxaadvf4qrjdaOmOs/eBOwxM8MUVDLdRFTGLw/kRUnEgLunMMCTdGlGyKs5UwF95ehpDewBRCagyI6vMs/Bu38PjRyvE8PXgezRwsMtBP1PEF1xftK02pq1Cfi6k0gla/aIRyKjo/s9smOU6KEvKycyn7a81QidFk3JEfi4yepKShIWVTTn+yfQqLLnOiyqAjxo6qGi50EPTLvqD0s2RHSCM3mDkvaRnMOSwoptbwarhJkbwL0RlFU5Lsu8f8s/bWCKY26Sl+gjjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gao897XzuaUVH6SthFszXT6PSZBfUUavfCpUBsweRsU=;
- b=blXssBnZ5sqe2WcsPdxyBQLachKcGv9RgTZ2TfAMIq4hQv/OnEoSNMgPaAKX1R6B+9e4ZIq0MrMXswh7pwptHpvZATD3HJvf7MJmS+vBNBOH1fCtRmqVOty0GSiVRMmDzZT3c+CDM0dy8u9Ry51ksi5/x05Y91AaFrSXEt4sO5mGXDS7tzU0b4I4SLorRGN2dd74MoU0phGXqel53h+OL1M4coSeCY+3dcniii/3KpHR3SiOhMj4x4Rk5wk8U/4s101sSTSN9y/vKrEVcLk214/7NpqyGMhXjeJbLIxTVh4nn99mhrCFzENIKQj/Xjo/v3eFaR/84ffcAkh4SCVHtQ==
+ bh=ohUejXLfOeaI32tOXg/M+rrQmOFxbyBMoxvkIvUaDvQ=;
+ b=ikCZVduWFhgjYilSSt2I/PwzYomKEHVsF70fw29Gkf+VbO9UfxTzb6APxP7B5FtoGVE8/fFme4lBrhQl5uJudH0U8W8fh1FRbrO4jD4uNHp2m2iFm+szvXuNCrufFuHSO/TD4T9Ksq0BVHbrQPD3VsaNyHd8yb5ULa9ie7suo9SoPRvRGLoUOWZkQdeuArdjCqy/PwFbUYgJC8WyND/nqGdKi/op7j+azb0RoppRYCHnLT6KaXvbqLV93yInIVQGxXHG8U/YFlhQ4q9+WiKfzm4vrYiLsus8Z9PqQHLKkCWPnHU5p10QQLjHU+oPjUrgq82DzMSnx0GLW0kSvEKdIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gao897XzuaUVH6SthFszXT6PSZBfUUavfCpUBsweRsU=;
- b=39uYw+rNqL7sCK+8/d9izwGj0OcaV9RZDULsfwmotc0z3hadFhHSQ9LOM8dEGkjh/mGGFp7PwJjY8HCbWA3GV8oKOulW5POpQ9Wtt7rc8UjHhJQhTNZ3UMIrBB88yG1HQtpi/xQIyZxnYlMbbPzZk4Rrg/7Iy8mU9eibx5frvXM=
-Received: from SJ0PR13CA0127.namprd13.prod.outlook.com (2603:10b6:a03:2c6::12)
- by MW6PR12MB8758.namprd12.prod.outlook.com (2603:10b6:303:23d::18) with
+ bh=ohUejXLfOeaI32tOXg/M+rrQmOFxbyBMoxvkIvUaDvQ=;
+ b=qjiblG4ygNcSGB6HRFCoy9vbFEWazBna6Qa2v5fpt5g00+g4+P3DznDOis4iRsPII/eEXvIZKT66AZUG/kMVCHA+fmg2H4ep7RJnhYjOqjSMNWILYzuVHecDv0gWnY5P2d+YDjfko5rO5puPQZ3AgacrUxl3MYtQ/iLEokk8c8g=
+Received: from CPYP284CA0044.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:81::13)
+ by DS5PPF1ADAD2878.namprd12.prod.outlook.com (2603:10b6:f:fc00::646) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Fri, 18 Sep
- 2026 16:42:26 +0000
-Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::39) by SJ0PR13CA0127.outlook.office365.com
- (2603:10b6:a03:2c6::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8 via Frontend Transport; Fri, 18
- Sep 2026 16:42:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 16:42:40 +0000
+Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
+ (2603:10d6:103:81:cafe::8a) by CPYP284CA0044.outlook.office365.com
+ (2603:10d6:103:81::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 16:42:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 16:42:26 +0000
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 16:42:36 +0000
 Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 11:42:23 -0500
+ 2026 11:42:34 -0500
 From: "Pratik R. Sampat" <prsampat@amd.com>
 To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
 	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
@@ -63,9 +63,9 @@ CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
 	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
 	<shansinha@google.com>, <prsampat@amd.com>
-Subject: [Patch v2 6/7] crypto/ccp: Register with fw_uploader and always fail
-Date: Fri, 18 Sep 2026 16:41:00 +0000
-Message-ID: <7464499e7c352c1ab16c50700f9f68561f84ede5.1789749016.git.prsampat@amd.com>
+Subject: [Patch v2 7/7] crypto/ccp: Implement SNP Download Firmware EX
+Date: Fri, 18 Sep 2026 16:41:01 +0000
+Message-ID: <3463e8ce7b925d8cade35cf9d98b96bc3fc619b4.1789749016.git.prsampat@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1789749016.git.prsampat@amd.com>
 References: <cover.1789749016.git.prsampat@amd.com>
@@ -81,170 +81,413 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|MW6PR12MB8758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0383d50b-d8c1-4f92-36fd-08df15a3d26c
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|DS5PPF1ADAD2878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31084fdb-2b1e-45c1-5c5f-08df15a3d83c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|1800799024|23010399003|10067099003|3023799007|18002099003|22082099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|82310400026|1800799024|10067099003|3023799007|56012099006|5023799004|6133799003|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	8RaPEAYoOlgya967DdJVCQU9VdURcUeeoloH7HPyoebAzvZETAB0n2+DYOiqS4aa+G42QnoE2XY9kiJ+G57fFKLNGd6PDsv6c1R8ZjYCZUIr2aC/y84rpG4YIBgf1TKDfsr8tim9cE+adHrauxdC+qLgd2acLSE1LbwObKdIoHVzhvPpUnu7NcX9mSm4d6pZiuFEbH54sFqlinSliV2DRqBaM2QoEe2vpbbhZ9ePouptZOl/sAhozl/EjfTd42Iv4EnJpzmKDpbktGoN7a5Gfozv0ub0ZplnY0YLqX+gNLLXx2inx6C+Pjzbp0hx8A6mwJdrUNb5V+bCsQOmvDtpGFdptcPAAklkJLRZaHyDWl5cfVGPW9mCR2040pUxhFR093dADn9mLs5Mm26qsfgHZMBvgJGb51vLcKg6q+HXc0O2nTB1lPZuPfRWODjKLYro/02abduHt33wnWT9wtOoZOKtWEeyX9YhT6gH9wDCHNxR8u7GiqTvMhvk1dCr0wt7FFxGU4c3EnWqzezhQ3i9ONDBBq6IMJfDMzd9N1j1cdSCFmXjf8gopmvPR0MSn43lnZAxXzXg9g5yJ3mWh0ToA50oR9gA3hcNemHEMPJvqVAmnUkiuGhWWUgG+tSHeOFh7YZcRhg8hbPsa8PiVfm9dUJRpSKcIAIx9PYbzBYg+7dwvHusS3hZ/tBEkLwSHQLBXcOUGuBLkD20O2N5dPHoyQ==
+	mz2IuHw9ncYTjqQpeBOTUrTS39Mavp4nYTCwOdcWJdrzyd8uqtS/vcT0UAbPCPyWCnJrWLy37HZ17XB9oqFii0RssfcTml1TyM2uD6tkP3G+02VRzXHSFR8SJREjjpVpeWKr2GbsIBvFyFYj1PXPHjDIGzVOGmFl9V40dSZBPhuf+DZ74siOob55u9Q6HQBdgTT8m2ps+Z9lqiPdV0fcTSJHGXZGZuWRvJiHIo/PLMQidGCw8PBUPCbDckBhkQcqCtvo1r7uD0Ve6B+IFGCybb4oC9Bj4H4Mm8cF2vsyhtqnfAlpsGhnJMIX9KSk/+ytEOETykiU1RVAW7qA2hVrI8HKTIMCtdL0sLX4qduSzUs9AwSO2gmZ/XfWaG6wtnhfAtguVOlpDUBEMAsujxaAuxuZYkKuosRtM6KyBIIp8KcEy8f2r5uOuRWkZAJX/JIcEtOPLwFs3J0ICv9MUwYbAUIcUzoEuXNLTw1nf/6qvXsIzisNzClDwggtAE5o/U2k/3TgX6oB4S76RREIs6PqRPOl9Q6julgzT8JXeS0K+VSN9um6yi9Pkmry+Ao1AcMm80yWsm43lcxkc8DvHpvhh2Fsv5iyfxwnVNsYqAukgCbf8J+ReS46XiPQU8BzSlRZGls2bjlHcOx5OHC0BUHhqLqt4xtXC202/JOjRxUfuubIeTWWjPjvzsBhn0IkQu30VIrb1rfIEsdFzyBPjy56wA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(82310400026)(1800799024)(10067099003)(3023799007)(56012099006)(5023799004)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	dFl7T8BAXQz63TAtUVhrvPcl4Q2vejtG1fr1zjJIyvGKg7AnVxBj4Z0eVbAK1ZFxuMFIaKKJqDwI2JZjyVTQz2WUAF/F73+4dM1S5By7H3tnV3b5Svtnljo5N3I+VIHosCbMBZVEeWWpdsqZ+nLMzhXKCq7l2QovHqKFxYb1M4n5wBfjMPYAAu93Ni79W7lUMVc6pR4W61ofIosKiBWFGTPxfrZIMohu+H+iPrdIJHON9oscU94fte0kJj7d17Rl7ZRKCBoogHaLfn+Ry9X+r8o17NDnEQulopLWo21Hy5DDJAOdlxG4aC56sMtbFXshy2u/OoHOhzdDTQ6jsAJNlx6qD9iFvQm8cWpB+8TxGgPxvYFMBokCGI5JU2GNpIgZFpL8TI6Sj/VtkTuQfnoAsv2IzZtI6m5B3tEjtXMcKj9MudCq4O6vQhorN8pUKcow
+	Z91Axbhm9yB/5kxNLQNLSlgcInHTv9IVLfLHykT+NOoCeaZvHdUOQSobhMdR7lfsZUhXg4xEFzvfHkMKEprg6lsU1Qtkv3IwMEfR3IU+RXs5al/e6UVIisgxBgR3LuaamogJ+EYuJ3Bi8utEZYZB59R2utMtEhVPdQ92DVaKIoL/E9fHIqFeFkR2MjKWOeheJRlwscaAIOS86n1C8GabdZ1T/csm/vmt+PWY2DQU28sXt7Dfy9lz14aHFEFVep3YMt/MCWzS3sunwt4sLfSN9u0mBrTaL95RktVst5lYXplTjbGBSWCDVhp7xzOkKfUMJaVRKbEhFnpepSFVm8xyjP3WwTOb2ENmHNAj+7ie3XvsbOeKCg96GJ8ms7DnhTcyCM/p3tocRlSLyRecifNkSmAoGcKGZsSX4UCXBkcX1gCXJd5CJMYfpLpTWFA5c3EF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:42:26.3368
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:42:36.0308
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0383d50b-d8c1-4f92-36fd-08df15a3d26c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31084fdb-2b1e-45c1-5c5f-08df15a3d83c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CDD.namprd05.prod.outlook.com
+	SJ1PEPF00001CE1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8758
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF1ADAD2878
 
-In preparation for SEV-SNP DOWNLOAD_FIRMWARE_EX live firmware update
-support, add an 'sev' firmware loader that always fails with EBUSY.
+Implement SNP live firmware update using the DOWNLOAD_FIRMWARE_EX
+command.
+
+DOWNLOAD_FIRMWARE_EX requires the legacy SEV platform to be UNINIT. If
+it is WORKING then legacy guests are running and the update is refused
+as busy. If it is INIT, shut it down, release the buffers the firmware
+owns across that shutdown, run the update, and bring the platform back
+up afterwards. SNP is never taken down, so SNP guests are unaffected.
+
+To test run the following with your sbin file in FW:
+
+echo 1 > /sys/class/firmware/sev/loading
+cat <firmware.sbin> > /sys/class/firmware/sev/data
+echo 0 > /sys/class/firmware/sev/loading
+
+The COMMIT bit is left clear, so the image is only loaded provisionally
+and the admin decides when to make it permanent with ioctl(/dev/sev,
+SNP_COMMIT). To roll back, do not commit and upload the previous image
+the same way.
 
 Co-developed-by: Tycho Andersen (AMD) <tycho@kernel.org>
 Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
 Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
 ---
-v1..v2:
-Use an atomic to get sev->fwl state to ensure that isn't a race possible
-while unregistering the interfaces -  Sashiko
----
- drivers/crypto/ccp/sev-dev.c | 79 ++++++++++++++++++++++++++++++++++++
- drivers/crypto/ccp/sev-dev.h |  2 +
- 2 files changed, 81 insertions(+)
+ drivers/crypto/ccp/sev-dev.c | 268 ++++++++++++++++++++++++++++++++++-
+ drivers/crypto/ccp/sev-dev.h |   2 +
+ include/linux/psp-sev.h      |  19 +++
+ 3 files changed, 288 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index 3704f52bd08d..f3714e8f5ab1 100644
+index f3714e8f5ab1..aee708be7cab 100644
 --- a/drivers/crypto/ccp/sev-dev.c
 +++ b/drivers/crypto/ccp/sev-dev.c
-@@ -2208,6 +2208,79 @@ static int sev_update_firmware(struct device *dev)
- 	return ret;
+@@ -29,6 +29,7 @@
+ #include <linux/psp.h>
+ #include <linux/amd-iommu.h>
+ #include <linux/crash_dump.h>
++#include <linux/sizes.h>
+ 
+ #include <asm/smp.h>
+ #include <asm/cacheflush.h>
+@@ -252,6 +253,7 @@ static int sev_cmd_buffer_len(int cmd)
+ 	case SEV_CMD_SNP_PLATFORM_STATUS:	return sizeof(struct sev_data_snp_addr);
+ 	case SEV_CMD_SNP_GUEST_REQUEST:		return sizeof(struct sev_data_snp_guest_request);
+ 	case SEV_CMD_SNP_CONFIG:		return sizeof(struct sev_user_data_snp_config);
++	case SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX:	return sizeof(struct sev_data_download_firmware_ex);
+ 	case SEV_CMD_SNP_COMMIT:		return sizeof(struct sev_data_snp_commit);
+ 	case SEV_CMD_SNP_FEATURE_INFO:		return sizeof(struct sev_data_snp_feature_info);
+ 	case SEV_CMD_SNP_VLEK_LOAD:		return sizeof(struct sev_user_data_snp_vlek_load);
+@@ -2209,17 +2211,274 @@ static int sev_update_firmware(struct device *dev)
  }
  
-+#ifdef CONFIG_FW_UPLOAD
-+static enum fw_upload_err sev_fw_upload_prepare(struct fw_upload *fw_upload,
-+						const u8 *data, u32 size)
+ #ifdef CONFIG_FW_UPLOAD
++/* Largest image the firmware accepts, anything above is rejected */
++#define SEV_FW_IMAGE_MAX_SIZE	SZ_512K
++
+ static enum fw_upload_err sev_fw_upload_prepare(struct fw_upload *fw_upload,
+ 						const u8 *data, u32 size)
+ {
++	struct sev_device *sev = fw_upload->dd_handle;
++
++	if (size > SEV_FW_IMAGE_MAX_SIZE) {
++		dev_err(sev->dev, "DLFW_EX: image of %u bytes exceeds the %u byte maximum\n",
++			size, SEV_FW_IMAGE_MAX_SIZE);
++		return FW_UPLOAD_ERR_INVALID_SIZE;
++	}
++
+ 	return FW_UPLOAD_ERR_NONE;
+ }
+ 
++static int sev_download_firmware_ex(const u8 *data, u32 size, int *psp_ret)
 +{
-+	return FW_UPLOAD_ERR_NONE;
-+}
++	struct sev_data_download_firmware_ex sev_data = {0};
++	int ret, order;
++	struct page *p;
++	void *fw_blob;
 +
-+static enum fw_upload_err sev_fw_upload_write(struct fw_upload *fw_upload,
-+					      const u8 *data, u32 offset,
-+					      u32 size, u32 *written)
-+{
-+	return FW_UPLOAD_ERR_BUSY;
-+}
++	order = get_order(size);
++	p = alloc_pages(GFP_KERNEL | __GFP_ZERO, order);
++	if (!p)
++		return -ENOMEM;
 +
-+static enum fw_upload_err sev_fw_upload_poll_complete(struct fw_upload *fw_upload)
-+{
-+	return FW_UPLOAD_ERR_NONE;
-+}
++	fw_blob = page_address(p);
++	memcpy(fw_blob, data, size);
 +
-+static void sev_fw_upload_cancel(struct fw_upload *fw_upload)
-+{
-+	/* intentional no-op */
-+}
-+
-+static const struct fw_upload_ops sev_fw_upload_ops = {
-+	.prepare = sev_fw_upload_prepare,
-+	.write = sev_fw_upload_write,
-+	.poll_complete = sev_fw_upload_poll_complete,
-+	.cancel = sev_fw_upload_cancel,
-+};
-+
-+static void register_sev_fw_uploader(struct sev_device *sev)
-+{
-+	struct fw_upload *fwl;
-+
++	sev_data.len = sizeof(sev_data);
++	sev_data.fw_paddr = __psp_pa(fw_blob);
++	sev_data.fw_len = size;
 +	/*
-+	 * SNP firmware update is a platform-wide operation; only the master
-+	 * PSP issues firmware commands. Register a single global interface.
++	 * Don't commit to the new firmware immediately, perform an explicit
++	 * SNP_COMMIT after
 +	 */
-+	if (sev->psp != psp_master || sev->fwl)
++	sev_data.commit = 0;
++
++	ret = __sev_do_cmd_locked(SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX, &sev_data,
++				  psp_ret);
++
++	__free_pages(p, order);
++
++	return ret;
++}
++
++static enum fw_upload_err sev_fw_upload_handle_err(struct sev_device *sev,
++						   int rc, int psp_ret)
++{
++	enum fw_upload_err ret = FW_UPLOAD_ERR_FW_INVALID;
++
++	if (!rc)
++		return FW_UPLOAD_ERR_NONE;
++
++	switch (psp_ret) {
++	case SEV_RET_INVALID_PARAM:
++		dev_err(sev->dev, "DLFW_EX: Provided image is not well formed\n");
++		break;
++	case SEV_RET_INVALID_LEN:
++		ret = FW_UPLOAD_ERR_INVALID_SIZE;
++		dev_err(sev->dev, "DLFW_EX: Provided image has an unusable length\n");
++		break;
++	case SEV_RET_SHUTDOWN_REQUIRED:
++		dev_err(sev->dev, "DLFW_EX: Provided image cannot be live-updated, shutdown required\n");
++		break;
++	case SEV_RET_BAD_VERSION:
++		dev_err(sev->dev, "DLFW_EX: Provided image < committed version\n");
++		break;
++	case SEV_RET_INVALID_PLATFORM_STATE:
++		dev_err(sev->dev, "DLFW_EX: Platform not in UNINIT state\n");
++		break;
++	case SEV_RET_INVALID_ADDRESS:
++		dev_err(sev->dev, "DLFW_EX: Unaligned address provided\n");
++		break;
++	case SEV_RET_UNSUPPORTED:
++		dev_err(sev->dev, "DLFW_EX: feature not supported\n");
++		break;
++	case SEV_RET_INVALID_CONFIG:
++		dev_err(sev->dev, "DLFW_EX: Image rejected, unsupported configuration\n");
++		break;
++	case SEV_RET_BAD_SIGNATURE:
++		dev_err(sev->dev, "DLFW_EX: Bad firmware signature\n");
++		break;
++	case SEV_RET_UPDATE_FAILED:
++		ret = FW_UPLOAD_ERR_HW_ERROR;
++		dev_err(sev->dev, "DLFW_EX: Upgrade failed, automatically reverted\n");
++		break;
++	case SEV_RET_RESTORE_REQUIRED:
++		dev_err(sev->dev, "DLFW_EX: live upgrade failed, please roll back\n");
++		/*
++		 * Firmware requested a roll-back. Declare the PSP dead so
++		 * nothing else tries to use it, and let the next upload through
++		 * so the admin can restore the previous image.
++		 */
++		sev->fwl_rollback_required = true;
++		psp_dead = true;
++		ret = FW_UPLOAD_ERR_HW_ERROR;
++		break;
++	case SEV_RET_HWSEV_RET_UNSAFE:
++		dev_err(sev->dev, "DLFW_EX: SEV firmware no longer safe. Reboot recommended\n");
++		/*
++		 * Following a return of HARDWARE_UNSAFE, operation of the SEV
++		 * firmware is indeterminate and the recommendation is to reboot
++		 * the platform. Declare the PSP dead so the driver stops
++		 * issuing commands to it while the reboot is pending.
++		 */
++		psp_dead = true;
++		ret = FW_UPLOAD_ERR_HW_ERROR;
++		break;
++	case SEV_RET_NO_FW_CALL:
++		/* The command never reached the firmware. */
++		dev_err(sev->dev, "DLFW_EX: driver error %d\n", rc);
++		ret = FW_UPLOAD_ERR_HW_ERROR;
++		break;
++	default:
++		dev_err(sev->dev, "Unknown SEV firmware err 0x%x\n", psp_ret);
++		ret = FW_UPLOAD_ERR_HW_ERROR;
++		break;
++	}
++
++	return ret;
++}
++
++static int sev_fw_upload_shutdown_platform(struct sev_device *sev)
++{
++	int rc, error = SEV_RET_NO_FW_CALL, sev_plat_state;
++
++	lockdep_assert_held(&sev_cmd_mutex);
++
++	rc = sev_get_platform_state(&sev_plat_state, &error);
++	if (rc) {
++		dev_err(sev->dev, "SEV get platform state failed %d, error %#x\n",
++			rc, error);
++		return rc;
++	}
++
++	switch (sev_plat_state) {
++	case SEV_STATE_UNINIT:
++		return 0;
++	case SEV_STATE_WORKING:
++		/* Legacy guests are running, the update cannot proceed. */
++		return -EBUSY;
++	case SEV_STATE_INIT:
++		break;
++	default:
++		dev_err(sev->dev, "Unknown SEV firmware state %d\n", sev_plat_state);
++		return -EINVAL;
++	}
++
++	rc = __sev_platform_shutdown_locked(&error);
++	if (rc) {
++		dev_err(sev->dev, "SEV platform shutdown failed %d, error %#x\n",
++			rc, error);
++		return rc;
++	}
++
++	__sev_release_firmware_buffers(false);
++
++	sev->fwl_reinit_required = true;
++
++	return 0;
++}
++
++static void sev_fw_upload_reinit_platform(struct sev_device *sev)
++{
++	int rc, error = SEV_RET_NO_FW_CALL;
++
++	lockdep_assert_held(&sev_cmd_mutex);
++
++	if (!sev->fwl_reinit_required)
 +		return;
 +
-+	fwl = firmware_upload_register(sev->dev, "sev", &sev_fw_upload_ops,
-+				       sev);
-+	if (IS_ERR(fwl)) {
-+		dev_err(sev->dev, "SEV firmware upload registration failure: %ld\n",
-+			PTR_ERR(fwl));
++	rc = __sev_platform_init_locked(&error);
++	if (rc) {
++		dev_err(sev->dev, "SEV platform re-init failed %d, error %#x\n",
++			rc, error);
 +		return;
 +	}
 +
-+	sev->fwl = fwl;
++	sev->fwl_reinit_required = false;
 +}
 +
-+/*
-+ * The upload ops issue PSP commands, so the interface has to be gone before
-+ * the SEV firmware is shut down and the PSP interrupt handler is cleared.
-+ * devm teardown on sev->dev runs after the driver's remove callback and is
-+ * therefore too late. Both teardown paths call this, and a module removal can
-+ * run concurrently with a sysfs unbind, so claim the pointer atomically to
-+ * keep the unregister to a single caller.
-+ */
-+static void unregister_sev_fw_uploader(struct sev_device *sev)
++static enum fw_upload_err sev_fw_upload_update(struct sev_device *sev,
++					       const u8 *data, u32 size,
++					       u32 *written)
 +{
-+	struct fw_upload *fwl = xchg(&sev->fwl, NULL);
++	int rc, error = SEV_RET_NO_FW_CALL;
++	enum fw_upload_err ret;
 +
-+	if (fwl)
-+		firmware_upload_unregister(fwl);
++	guard(mutex)(&sev_cmd_mutex);
++
++	/*
++	 * A PSP declared dead only executes DOWNLOAD_FIRMWARE_EX if it was the
++	 * firmware update that killed it and asked for a rollback. Declared
++	 * dead for any other reason it will not answer until the platform is
++	 * rebooted.
++	 */
++	if (psp_dead && !sev->fwl_rollback_required) {
++		dev_err(sev->dev, "DLFW_EX: PSP is not responding\n");
++		return FW_UPLOAD_ERR_HW_ERROR;
++	}
++
++	/*
++	 * If the last firmware update returned RESTORE_REQUIRED, retry DLFW_EX.
++	 * We being in this state means that the legacy firmware has previously
++	 * been shut down, so no need to do it again.
++	 */
++	if (sev->fwl_rollback_required) {
++		psp_dead = false;
++	} else {
++		rc = sev_fw_upload_shutdown_platform(sev);
++		if (rc) {
++			return rc == -EBUSY ? FW_UPLOAD_ERR_BUSY
++					    : FW_UPLOAD_ERR_HW_ERROR;
++		}
++	}
++
++	rc = sev_download_firmware_ex(data, size, &error);
++	ret = sev_fw_upload_handle_err(sev, rc, error);
++	if (ret == FW_UPLOAD_ERR_NONE) {
++		*written = size;
++		sev->fwl_rollback_required = false;
++	}
++
++	/* A rollback retry failed. PSP now stays dead. */
++	if (sev->fwl_rollback_required)
++		psp_dead = true;
++
++	if (!sev->fwl_rollback_required && !psp_dead)
++		sev_fw_upload_reinit_platform(sev);
++
++	return ret;
 +}
-+#else	/* CONFIG_FW_UPLOAD */
-+static void register_sev_fw_uploader(struct sev_device *sev) { }
-+static void unregister_sev_fw_uploader(struct sev_device *sev) { }
-+#endif	/* CONFIG_FW_UPLOAD */
 +
- static int __sev_snp_shutdown_locked(int *error, bool panic)
+ static enum fw_upload_err sev_fw_upload_write(struct fw_upload *fw_upload,
+ 					      const u8 *data, u32 offset,
+ 					      u32 size, u32 *written)
  {
- 	struct psp_device *psp = psp_master;
-@@ -3014,6 +3087,8 @@ void sev_dev_destroy(struct psp_device *psp)
- 	if (!sev)
- 		return;
- 
-+	unregister_sev_fw_uploader(sev);
+-	return FW_UPLOAD_ERR_BUSY;
++	struct sev_device *sev = fw_upload->dd_handle;
++	u8 old_major, old_minor, old_build;
++	enum fw_upload_err ret;
 +
- 	sev_firmware_shutdown(sev);
- 
- 	if (sev->misc)
-@@ -3077,6 +3152,8 @@ void sev_pci_init(void)
- 			 api_major, api_minor, build,
- 			 sev->api_major, sev->api_minor, sev->build);
- 
-+	register_sev_fw_uploader(sev);
++	old_major = sev->api_major;
++	old_minor = sev->api_minor;
++	old_build = sev->build;
 +
- 	return;
- 
- err:
-@@ -3092,6 +3169,8 @@ void sev_pci_exit(void)
- 	if (!sev)
- 		return;
- 
-+	unregister_sev_fw_uploader(sev);
++	ret = sev_fw_upload_update(sev, data, size, written);
++	if (ret != FW_UPLOAD_ERR_NONE)
++		return ret;
 +
- 	sev_firmware_shutdown(sev);
++	if (sev_get_api_version()) {
++		dev_err(sev->dev, "SNP platform data refresh after firmware update failed\n");
++		return FW_UPLOAD_ERR_HW_ERROR;
++	}
++
++	if (sev->api_major != old_major || sev->api_minor != old_minor ||
++	    sev->build != old_build) {
++		dev_info(sev->dev, "SEV firmware updated to %d.%d build %d\n",
++			 sev->api_major, sev->api_minor, sev->build);
++	} else {
++		dev_info(sev->dev, "SEV firmware version unchanged: %d.%d build %d\n",
++			 sev->api_major, sev->api_minor, sev->build);
++	}
++
++	return ret;
  }
  
+ static enum fw_upload_err sev_fw_upload_poll_complete(struct fw_upload *fw_upload)
+@@ -2243,6 +2502,13 @@ static void register_sev_fw_uploader(struct sev_device *sev)
+ {
+ 	struct fw_upload *fwl;
+ 
++	/*
++	 * The interface only drives DOWNLOAD_FIRMWARE_EX, which is an SNP
++	 * command, so do not advertise it where SNP is unavailable.
++	 */
++	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
++		return;
++
+ 	/*
+ 	 * SNP firmware update is a platform-wide operation; only the master
+ 	 * PSP issues firmware commands. Register a single global interface.
 diff --git a/drivers/crypto/ccp/sev-dev.h b/drivers/crypto/ccp/sev-dev.h
-index d5e596606def..7ec692e2147e 100644
+index 7ec692e2147e..1e45a08c41da 100644
 --- a/drivers/crypto/ccp/sev-dev.h
 +++ b/drivers/crypto/ccp/sev-dev.h
-@@ -69,6 +69,8 @@ struct sev_device {
- 
- 	struct tsm_dev *tsmdev;
+@@ -71,6 +71,8 @@ struct sev_device {
  	struct sev_tio_status *tio_status;
-+
-+	struct fw_upload *fwl;
+ 
+ 	struct fw_upload *fwl;
++	bool fwl_rollback_required;
++	bool fwl_reinit_required;
  };
  
  int sev_dev_init(struct psp_device *psp);
+diff --git a/include/linux/psp-sev.h b/include/linux/psp-sev.h
+index 03a79786df1d..c6adbd46f05a 100644
+--- a/include/linux/psp-sev.h
++++ b/include/linux/psp-sev.h
+@@ -856,6 +856,25 @@ struct sev_platform_init_args {
+ 	unsigned int max_snp_asid;
+ };
+ 
++/**
++ * struct sev_data_download_firmware_ex - SNP_DOWNLOAD_FIRMWARE_EX structure
++ *
++ * @len: length of the command buffer read by the PSP
++ * @rsvd0: reserved
++ * @fw_paddr: system physical address of the start of the firmware blob
++ * @fw_len: length of the firmware blob
++ * @commit: whether to immediately commit the firmware update
++ * @rsvd1: reserved
++ */
++struct sev_data_download_firmware_ex {
++	u32 len;			/* In */
++	u32 rsvd0;
++	u64 fw_paddr;			/* In */
++	u32 fw_len;			/* In */
++	u32 commit:1;			/* In */
++	u32 rsvd1:31;
++} __packed;
++
+ /**
+  * struct sev_data_snp_commit - SNP_COMMIT structure
+  *
 -- 
 2.43.0
 
