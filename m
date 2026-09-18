@@ -1,55 +1,70 @@
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A9F39DBD7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0228E3DCD9C;
+	Fri, 18 Sep 2026 07:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716670; cv=none; b=EUDzt0H8pCkpc9Q8abv4/+JzvO+pMm8MWwMqD62gc4n+8IERMgfqcSyt9AlLhiIJEE+Gfi568/M0VQ+fkoCdRFELxHca2LnWgWYPZKa8UX1kEPim74BBmOn8ehTAFFRvvDCJ+Z3HfY5iT1JVewwE4i7BAXj8Tgm9kpjJRzHMfNk=
+	t=1789716712; cv=none; b=UFEt3wJQV8tIuexsUc26qVBhMhqaHnSQhGsQHfuO3NjUpXvKY+FX0s3Xp/kkEPKjJQZLddDXwwxFrQ/QK2wfk2g+gXqmg8v6vicqaa9QiO9i0wCU+PcSAhmJ5HhmdbwRSqTYVbxiuf080eKPgvNgo3DTDvhnWzQvRqfJhIFltNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716670; c=relaxed/simple;
-	bh=A0ZxUuBFvNPTWV1BVZ21PLOvGnhXlq1pS65I/1JMwuc=;
+	s=arc-20240116; t=1789716712; c=relaxed/simple;
+	bh=rSShAsO12XubLfGpze9r4T+pSVrU9sR0OtduLM9w+dU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R3Kc1KW5wA+pUd1NhRHqRiwQYFID5Zad5bQDAr+cpFkSY+vtAOfwhR/Kc/kIjABFQO6IrUmlVS21nAa0SXfvXS10sB17WUMw3RQczpze64nlMY4MkDP/EquaVTDTXR/Fa5hqRU0HkDIfPZx9R6093ymkDKu6Zp9G+bjyaqGvqVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OddnrBSp; arc=none smtp.client-ip=91.218.175.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEI5TgYv4bUbep6IPSd2EYNb0D8GKBQLXN/kry0LrDqvbkzp0j5XNEaCETTRWpza+7F/nQ2N5xF0AhSzZc0BnA4YKByDQyRL6JY1fuXTBY/CoSdRvirK/4sH+6EQU9wYOgOsggVI27BoR0DLzvlqYxeAH+qvOrwmZ5KmTUckRK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TpUZJPKu; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OddnrBSp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=A0ZxUuBFvNPTWV1BVZ21PLOvGnhXlq1pS65I/1JMwuc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789716665; v=1; x=1790321465;
- b=OddnrBSp5q03B7tRuHJLM3xcGpfDmIYvNDZbBElvCVQ5B6GjNA2XANEUoWnkmzSpEsPIAf1i
- EBKDFtsPo6yG84TuyO+z/4ncYu+iZ2bo1iANUF2aERqxsUnYWPX6Q5qLab4glXOcQfHsUQ6Ab5p
- 0LOFxLyNzVnNweqt9X1HlbEQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 33707ef04d706312;
-	Fri, 18 Sep 2026 07:31:05 +0000
-X-Mizu-Trace-ID: 33707ef04d706312
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 15:31:00 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Wandun <chenwandun1@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
-	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
-Message-ID: <aqzotDs4yDRxgcWS@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <13cfcd99-e420-478b-8ce8-06674727977d@gmail.com>
- <aqziOmx1yhy0ozkX@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TpUZJPKu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789716710; x=1821252710;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rSShAsO12XubLfGpze9r4T+pSVrU9sR0OtduLM9w+dU=;
+  b=TpUZJPKu5a9jo181Msofp43nNcY1ahIxyWpzLbnP0UzKX0knj75eYcqg
+   Gf3SIelie+cKdNAmGbFSYDzUpQvn00q5jvx6KJfAvcAF4EkmEtl98pgVZ
+   5tMpfnfmcmqTyzK3hVa/OlIM9ucHP0dwdM9vzWN1e2GZ13bb/oGJosXAf
+   hGhklVEI8JDRZo8XpKuF/GzwS2rFBdcY6OxaCE66wwFt22J9RH5g6C98z
+   b2Am7i4TzrUfxN5nqxQlZ0MagEpibttEw3vRiyHEeDTeEmeEXELJR1GxG
+   ha/8RLeKtxzY4ZJRZQIM9WR64yK8BtGNvA1X6zKkNcvt9DhiVf4O2aprm
+   w==;
+X-CSE-ConnectionGUID: nw287oPJRsWB/vjRICEDvw==
+X-CSE-MsgGUID: 5ALQNgMASDi2KkgLvZtVbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="712659"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="712659"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:31:49 -0700
+X-CSE-ConnectionGUID: qLC/C1UYRsSZmIz02DoYvw==
+X-CSE-MsgGUID: tnrRKkoxRlG/AUaUUZGwig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="268006028"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:31:45 -0700
+Date: Fri, 18 Sep 2026 10:31:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
+	Roman Vivchar <rva333@protonmail.com>,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: Re: [PATCH v2 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+Message-ID: <aqzo2vqeGEGCLFIP@ashevche-desk.local>
+References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
+ <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-2-db35882a6080@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,143 +73,304 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqziOmx1yhy0ozkX@kernel.org>
+In-Reply-To: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-2-db35882a6080@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 09/18/26 at 10:03am, Mike Rapoport wrote:
-> Hi,
+On Thu, Sep 17, 2026 at 09:19:51PM -0500, Ryan Brue wrote:
+> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
+> built around this PMIC it is the only way to read the battery: the SoC's
+> AUXADC is wired to board thermistors and the charger ICs these boards use
+> have no ADC of their own.
 > 
-> On Tue, Sep 15, 2026 at 09:01:07PM +0800, Wandun wrote:
-> > On 9/2/26 15:31, Wandun Chen wrote:
-> > > From: Wandun Chen <chenwandun@lixiang.com>
-...snip... 
-> > > ACPI systems already filter reserved memory out of the vmcore through
-> > > their existing path; only DT-based systems currently fail to filter these
-> > > regions, which is what this series addresses. The flag lives in memblock
-> > > itself rather than in a DT-only structure, so the mechanism is generic and
-                                                                     ~~~~~~~
-> > > both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
-> > > 
-> > > Since the reserved memory regions are filtered out, the vmcore is
-> > > smaller in size and faster to produce. 
-> > > 
-> > > The series is based on linux-next and is organized as follows:
-> > > 
-> > > Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
-> > >              flagname, switch riscv crash_mem to memblock, fold the
-> > >              duplicated per-arch memblock walks into the weak
-> > >              defaults, and serialize crash header preparation against
-> > >              memory hotplug.
-> > > Patches 5-9: NODUMP infrastructure: switch crash_core to
-> > >              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
-> > >              flag, add a dumpable flag to struct reserved_mem, and
-> > >              mark /reserved-memory and /memreserve/ entries with
-> > > 	     MEMBLOCK_NODUMP flag.
-> > > Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
-> > >              header.
-> > 
-> > Hi,
-> > 
-> > Gentle ping on the remaining patches of this series.
-> > Patches 1, 7, 8 and 9 have been reviewed (thanks Mike and Marek);
-> > Still looking for review on patches 2-6 and 10.
+> Add a driver exposing the battery voltage and battery temperature
+> channels. Only those two are described, so a channel ID in the device tree
+> is an index into the driver's channel array rather than the PMIC's channel
+> number, as mt6323-auxadc does. The ready bit lives in a channel's raw
+> result register, but the value comes from the chip's trimmed copy of it,
+> which is what the vendor driver reads for a measurement.
 > 
-> I'm waiting for reviews from Baoquan and Dave for crash core patches before
-> applying this series.
+> Both channels need more than that, as the vendor programs them. The
+> battery voltage is measured through ISENSE, because a board with a
+> switching charger in the power path leaves BATSNS on the charger's system
+> rail instead of on the pack. The thermistor only reads correctly with the
+> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
+> settle. Both are switched back off afterwards.
+> 
+> Reads average sixteen conversions in software; the chip's sample
+> accumulator makes no measurable difference at any setting, so it is left
+> at one sample per conversion.
 
-I will go through the crash core patches, thanks for reminding.
+...
 
->  
-> > Would appreciate a look when you have a moment, happy to rework
-> > anything based on feedback.
-> > 
-> > Best regards,
-> > Wanun
-> > 
-> > > 
-> > > In v5, Sashiko found some pre-existing issues related to reserved-memory,
-> > > and has no dependency on this series, so these issues have been addressed
-> > > in a separate series [2].
-> > > 
-> > > v5 --> v6:
-> > > 1. Serialize crash header preparation against memory hotplug to avoid
-> > >    out-of-bounds or use-after-free issues.
-> > > 
-> > > 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
-> > >    avoiding a panic from too few regions before resize is permitted.
-> > > 
-> > > 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
-> > > 
-> > > 
-> > > v4 --> v5:
-> > > 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
-> > >    (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
-> > >    DT-only struct reserved_mem.
-> > > 2. Switch the riscv vmcore elf header preparation to use memblock
-> > >    instead of the resource tree, aligning it with arm64 and loongarch,
-> > >    so riscv also can exclude reserved memory from vmcore.
-> > > 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
-> > >    loongarch open-coded the same logic, so fold it into shared
-> > >     __weak defaults in crash_core.
-> > > 4.  Drop the v4 patch that saved /memreserve/ entries into the
-> > >     reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
-> > >     directly.
-> > > 
-> > > v3 --> v4:
-> > > 1. Rebase this series on v7.2-rc1.
-> > > 2. Add two cleanup patches (patch 02/03).
-> > > 3. Simplify patch 03 to avoid checking whether initial_boot_params is
-> > >    NULL multiple times, suggested by Rob.
-> > > 
-> > > v2 --> v3:
-> > > 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
-> > > 2. Fix UAF issue when alloc_reserved_mem_array() fails.
-> > > 3. Add some prepare patches.
-> > > 
-> > > v1 --> v2:
-> > > 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
-> > >    feedback [3], v2 drop that property and exclude reserve memory
-> > >    by default.
-> > > 2. Split some prepared patches from the original patches.
-> > > 3. Address coding-style comments on patch 5 from Rob.
-> > > 
-> > > [1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
-> > > [2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
-> > > [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
-> > > 
-> > > Meijing Zhao (1):
-> > >   mm: memblock: add missing HugeTLB flag name
-> > > 
-> > > Wandun Chen (9):
-> > >   riscv: build crash_mem ranges from memblock instead of resource tree
-> > >   crash_core: fold duplicated memblock arch hooks into the weak default
-> > >   crash_core: serialize crash header preparation against hotplug
-> > >   crash_core: replace for_each_mem_range() with for_each_mem_region()
-> > >   memblock: introduce MEMBLOCK_NODUMP flag
-> > >   of: reserved_mem: add dumpable flag to opt-in vmcore
-> > >   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
-> > >   of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
-> > >   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
-> > >     header
-> > > 
-> > >  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
-> > >  arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
-> > >  arch/riscv/Kconfig                         |  2 +-
-> > >  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
-> > >  arch/x86/kernel/crash.c                    |  2 +-
-> > >  drivers/of/fdt.c                           |  2 +
-> > >  drivers/of/of_private.h                    |  2 +
-> > >  drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
-> > >  include/linux/crash_core.h                 |  2 +
-> > >  include/linux/memblock.h                   |  9 ++++
-> > >  include/linux/of_reserved_mem.h            |  1 +
-> > >  kernel/crash_core.c                        | 51 ++++++++++++++++++++--
-> > >  kernel/dma/contiguous.c                    |  1 +
-> > >  mm/memblock.c                              | 17 ++++++++
-> > >  14 files changed, 131 insertions(+), 95 deletions(-)
-> > > 
-> > 
-> > 
+The below should be part of the comment block, no commit message needs to
+be polluted with this.
+
+> A new driver was created here, instead of modifying an existing driver
+> such as mt6323-auxadc or mt6359-auxadc, for the following reasons:
 > 
-> -- 
-> Sincerely yours,
-> Mike.
+>  - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+>    register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+>    CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+> 
+>  - For mt6323-auxadc, which is the closest I could find to the mt6397
+>    (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+>    It uses CON22 for its request register, and reads the result value
+>    from the same register as the ready bit. We don't do that - the mt6397
+>    has a factory calibrated value for each channel at 0x16 higher than the
+>    raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+>    we have 1200 mV / 10 bits. We also have some per-channel preparation
+>    that we have to do before the burst, that the mt6323 doesn't have to
+>    do.
+> 
+>  - For mt6359-auxadc, it has a more generic framework for describing the
+>    AUXADC, but it assumes requests are channel-per-bit, and so we would
+>    have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+> 
+>  - We also have our own software sampling, which the vendor does too
+>    (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+>    sampling callback to do it.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> ---
+
+...here is the comment block...
+
+>  MAINTAINERS                     |   1 +
+>  drivers/iio/adc/Kconfig         |  11 ++
+>  drivers/iio/adc/Makefile        |   1 +
+
+...
+
+> +static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
+> +				   const struct iio_chan_spec *chan, int *val)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	unsigned int reg;
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(map, MT6397_AUXADC_CON1,
+> +				 MT6397_AUXADC_CON1_CHSEL,
+> +				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL,
+> +					    chan->address));
+
+Make it two a bit long lines rather than four.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* START is edge triggered: it has to be lowered before being raised. */
+> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
+> +	if (ret)
+> +		return ret;
+
+Does it need any settling timeout (in case it was set before)?
+
+> +	ret = regmap_set_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(MT6397_AUXADC_START_US);
+> +
+> +	ret = regmap_read_poll_timeout(map, MT6397_AUXADC_ADC(chan->address),
+> +				       reg, reg & MT6397_AUXADC_ADC_RDY,
+> +				       100, 100 * USEC_PER_MSEC);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(map, MT6397_AUXADC_ADC_TRIM(chan->address), &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = FIELD_GET(MT6397_AUXADC_ADC_VAL, reg);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
+
+There is nothing common between on==false and on==true cases. Make it two
+distinct functions and drop bool parameter. It's actually a recommended
+pattern.
+
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret, err;
+> +
+> +	if (on) {
+> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_set_bits(map, MT6397_CHR_CON7,
+> +				      MT6397_CHR_CON7_BATON_TDET_EN);
+> +	} else {
+> +		/*
+> +		 * Every step of the teardown is attempted even if an earlier
+> +		 * one failed, so that one failing write cannot leave the bias
+> +		 * or the input buffer powered. The first error is reported.
+> +		 */
+> +		ret = regmap_clear_bits(map, MT6397_CHR_CON7,
+> +					MT6397_CHR_CON7_BATON_TDET_EN);
+> +
+> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+> +					MT6397_AUXADC_CON0_BUF_PWD_B);
+> +		if (!ret)
+> +			ret = err;
+> +
+> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
+> +		if (!ret)
+> +			ret = err;
+
+These 'if (!ret)' bug me. What can we do if the ret == 0 and err != 0
+on the caller's level? In other words, what can caller do in such a case?
+
+> +	}
+> +
+> +	return ret;
+> +}
+
+...
+
+> +static int mt6397_auxadc_isense_disable(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret, err;
+> +
+> +	/* As above: the routing is undone even if the select write failed. */
+> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON14,
+> +				MT6397_AUXADC_CON14_CH0_NORM_SEL |
+> +				MT6397_AUXADC_CON14_CH0_LBAT_SEL);
+> +
+> +	err = regmap_clear_bits(map, MT6397_CHR_CON16,
+> +				MT6397_CHR_CON16_ADCIN_VSEN_EN |
+> +				MT6397_CHR_CON16_ADCIN_VBAT_EN);
+> +	if (!ret)
+> +		ret = err;
+> +
+> +	return ret;
+
+This can be written as
+
+	if (ret)
+		return ret;
+
+	return err;
+
+
+But the same Q as per above remains.
+
+> +}
+
+...
+
+> +static int mt6397_auxadc_read_channel(struct mt6397_auxadc *adc,
+> +				      const struct iio_chan_spec *chan,
+> +				      int *val)
+> +{
+> +	bool isense = chan->channel == MT6397_AUXADC_ISENSE;
+> +	unsigned int sum = 0;
+> +	int sample;
+> +	int ret;
+
+> +	/* Held across the whole burst: the channel select is shared state. */
+
+Unneeded comment. It's obvious that guard()() takes the whole scope.
+
+> +	guard(mutex)(&adc->lock);
+> +
+> +	/*
+> +	 * Once any part of the per-channel setup has been written, the
+> +	 * teardown has to run, so every exit below goes through it.
+> +	 */
+> +	if (isense) {
+> +		ret = mt6397_auxadc_isense_enable(adc);
+> +		if (ret)
+> +			goto out_teardown;
+
+Have you compiled this?
+
+> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
+> +	} else {
+> +		ret = mt6397_auxadc_battemp_bias(adc, true);
+> +		if (ret)
+> +			goto out_teardown;
+> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+> +	}
+> +
+> +	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
+> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
+> +		if (ret)
+> +			goto out_teardown;
+> +
+> +		sum += sample;
+> +	}
+> +
+> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
+> +
+> +out_teardown:
+> +	/* Lower START so the converter is not left armed between reads. */
+> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
+> +			  MT6397_AUXADC_CON1_START);
+> +
+> +	if (isense)
+> +		mt6397_auxadc_isense_disable(adc);
+> +	else
+> +		mt6397_auxadc_battemp_bias(adc, false);
+> +
+> +	return ret;
+> +}
+
+So, this function has to refactored. And please, compile and test the code
+*each* time you update it.
+
+...
+
+> +static int mt6397_auxadc_read_raw(struct iio_dev *indio_dev,
+> +				  const struct iio_chan_spec *chan,
+> +				  int *val, int *val2, long mask)
+> +{
+> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = mt6397_auxadc_read_channel(adc, chan, val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+
+> +		/* 1200 mV full range with 10-bit resolution. */
+> +		*val = 1200;
+> +		if (chan->channel == MT6397_AUXADC_ISENSE)
+> +			*val *= MT6397_AUXADC_ISENSE_DIVIDER;
+
+Make it if-else.
+
+> +		*val2 = 10;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
