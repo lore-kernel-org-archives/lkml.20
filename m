@@ -1,115 +1,123 @@
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF7C3E2AD7;
-	Fri, 18 Sep 2026 03:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441D33E411D;
+	Fri, 18 Sep 2026 03:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700562; cv=none; b=f2rsOIabHJG5L1CUt6ZCFhCxfHSRk05/qLZ/4ygNv0O+MNdKpZ/K9Cg9DlrmngYqK8hgTWQu8C8hEd99M4KRS331T/khtOsIyUCaZQ6SudX7SSO2ACXYF+avalQUsfFAqpwzCQrYHwxoNSD3Za0tsjLCMuxgZud7gH2KmuYC4xg=
+	t=1789700592; cv=none; b=ZaOVMdGGvZGi8uEukqRGH5gsXqvIWLaIiDU2lE5xkN12OiVnweQUft56q6fG97/AM1+Kzty7XCGQpYHUb8nT7znq3zjVnzaqey6o/k9aK7YtnnkJojR8ECnlhS2X/B5t8hdD7Wg7QA2VF0ZLkwasNiRCoC5BOqfweEH9Mvq8rvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700562; c=relaxed/simple;
-	bh=bGMM5QcTdrKYS7Zph2fOWchXxLN1RGRWWj/xp/ZsTMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YmXZrThrByvn0xw2/kc6YvJsmuq/bDKpH5ggLBOUybCobcQ+OQ6bfhI/YbbW8tFvq3EjQYT+v4UCSc/fm8fx6PF1dJMKGf+P+aRvhZ8IX9Ip9FY6Nd21PK/3u+qqY884lIgahU33MRT/B+T1ou4ltJGWpgTx5036ZCfcoVs3WwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=S8H3Yyl2; arc=none smtp.client-ip=115.124.28.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789700592; c=relaxed/simple;
+	bh=PcwnV7R3yYV0WGALdWysB3Z66/k1yaqYkRv1b4gOXWk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aDHCmwED/pnOHfwatpxphXHLAO4T9HrPSRaJAB/mc1icIdToDwPhgCmtGhkZX3nUs63XFaxWa8w/bFoHrKdtzmHkvx72nNS3vahu0Zo65oKHuJziuJ7WFIUQO1reMhvNsOP9M3HGKdkZbcy3qxpTnn1BTmw7Y1Bp5D6GhZ6GDno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeECrLPh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="S8H3Yyl2"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789700544; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=ZchKATo4SGalM4NsIgxZx/qZNcebZQH3Xqdfka7zIZo=;
-	b=S8H3Yyl2PCy23qSn1lZBsF083HJvFjVbiOsF8FgNPOpBA1JmvXQv9+E+EkHuUALjeyqhgghQi7sZOvOyYZQ1NzVzSuenOfN9NJOkAHGx9T9JQXLp9oheO2tHcS0wCyUwYQtITop+i88hIte+HX3HCM+eYF+r/Wd8aJP80Eh9fyQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.9087309|0.09921987;CH=green;DM=|AD|false|;DS=CONTINUE|ham_system_inform|0.0207302-0.00358289-0.975687;FP=14399330002124975970|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGNq8K8_1789700543;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGNq8K8_1789700543 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 11:02:23 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fang Xieyan <fangxy@xiaopeng.com>
-Subject: [PATCH] media: dvb_net: reject the pointer field at the cell boundary
-Date: Fri, 18 Sep 2026 11:02:22 +0800
-Message-ID: <20260918030222.638961-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeECrLPh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4771F000FF;
+	Fri, 18 Sep 2026 03:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789700585;
+	bh=ndcj20jBBc74kV0f9eNFleRD6GYTgS+N61/h4D9SdRY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CeECrLPhtFik9G915SWC95sQDKwa7ZNuSGpLYhbXJXHaVNf9SYoonFlU0Qd+TOo/Z
+	 XfBWC94rcLNkE2KMbQ9lXNxy25vHnsA1/LFtNOrOTxSmY9gX2FSJIFGqTVTWR/dshQ
+	 ql4BpBVX6EeCWaK0dYfVxOpaQ7RajQiR8eHnriRLixr7tdsl9s6W4Xpw6rxZ4Ah3au
+	 LPwcNpw/a47s5MufnVmRZ+NrYtYz2Z/VKQd4AC6YMMKSynOMdiIyC37y2eYEWg7wzS
+	 tTzg6D8BeV85a/2TO+2vHsMODeQzlZzCabBs9NsysBBZy0c1rwMAjXGbS57ivofpmB
+	 l6Aws1v3iaWyg==
+Subject: Re: [PATCH net-next v3 1/3] net: phy: realtek: use C45 for
+ RTL8365MB-VC internal PHY MMD access
+From: netdev-bot+sashiko@kernel.org
+To: o.rempel@pengutronix.de
+Cc: linusw@kernel.org, luizluca@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ kernel@pengutronix.de, linux-kernel@vger.kernel.org, a.fatoum@pengutronix.de,
+ alvin.sipraga@analog.com, netdev@vger.kernel.org
+Date: Fri, 18 Sep 2026 03:03:04 +0000
+Message-ID: <178970058465.22033.7422146351349952960@kernel.org>
+In-Reply-To: <20260916090102.349157-2-o.rempel@pengutronix.de>
+References: <20260916090102.349157-2-o.rempel@pengutronix.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-dvb_net_ule_ts_pusi() checks the ULE payload pointer field before
-skipping to the start of the first SNDU, but the comparison is off by
-one:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-        if (h->ts[4] > h->ts_remain) {
-                pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
-                        h->priv->ts_count, h->ts[4]);
-                ...
-        }
-        h->from_where = &h->ts[5] + h->ts[4];
-        h->ts_remain -= 1 + h->ts[4];
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-ts_remain counts the bytes left in the cell after the four byte TS
-header, so it starts at 184 and acts as an offset from &ts[4]. The
-pointer field is an offset from &ts[5], one byte further along, so it
-has to stay strictly below ts_remain. A value of exactly ts_remain
-passes the test, and then
+- [Low] The RTL8365MB-VC phy_driver entry (PHY ID 0x001cc942) is pointed
+  at genphy_read_mmd_c45()/genphy_write_mmd_c45(), which go straight to…
 
- - from_where points one byte past the end of the 188 byte cell, and
- - ts_remain -= 1 + ts[4] wraps around to 255, because ts_remain is u8.
+--
 
-The wrapped value is what turns this into more than a one byte overread.
-It defeats the ts_remain < 2 check in dvb_net_ule_new_payload(), which
-is the guard that stops the parser from reading the two byte SNDU length
-out of bounds, and every later use of ts_remain in
-dvb_net_ule_handle() works from the wrapped count.
+net: phy: realtek: use C45 for RTL8365MB-VC internal PHY MMD access
 
-Reject a pointer field of ts_remain as well. Values below it, including
-the largest one that still leaves the length field readable, behave as
-before.
+This points the RTL8365MB-VC phy_driver entry (PHY ID 0x001cc942) at
+genphy_read_mmd_c45()/genphy_write_mmd_c45() so that phylib MMD accesses
+are issued as C45 transfers to the Realtek DSA driver, which maps them
+onto the switch OCP registers.
 
-No Fixes tag. The comparison and the from_where calculation next to it
-were introduced together in 59142330aaea (2005) and have not been
-touched since.
+> diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+> index 97b0b67b9900c..b55691681df6e 100644
+> --- a/drivers/net/phy/realtek/realtek_main.c
+> +++ b/drivers/net/phy/realtek/realtek_main.c
+> @@ -3338,6 +3338,8 @@ static struct phy_driver realtek_drvs[] = {
+>  	}, {
+>  		PHY_ID_MATCH_EXACT(0x001cc942),
+>  		.name		= "RTL8365MB-VC Gigabit Ethernet",
+> +		.read_mmd	= genphy_read_mmd_c45,
+> +		.write_mmd	= genphy_write_mmd_c45,
 
-Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-The packet arrives through the demux, so a crafted MPEG2-TS stream
-carrying a ULE SNDU with a pointer field of 184 reaches this code with
-nothing else required to be well formed.
+[Severity: Low]
+This isn't a bug, but the commit message describes the DSA-side mapping in
+the present tense:
 
-Pointer fields of 182 and 183 caused a separate endless loop in this
-same block and were addressed in 29e1fa3565a7 ("dvb-core: Fix DoS bug in
-ULE decapsulation code that can be triggered by an invalid Payload
-Pointer"), which added the resync handling but left the comparison
-operator alone.
+  "the realtek DSA driver maps those MMD requests onto OCP and exposes them
+   over C45"
 
-handle_one_ule_extension() in this file got a bound of the same shape
-last February (24d87712727a), so the ULE decapsulation path has taken
-this kind of fix before.
+At this commit, rtl83xx_setup_user_mdio() in
+drivers/net/dsa/realtek/rtl83xx.c only installs the C22 accessors:
 
- drivers/media/dvb-core/dvb_net.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+	bus->read = rtl83xx_user_mdio_read;
+	bus->write = rtl83xx_user_mdio_write;
 
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc..604c767e1 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -371,7 +371,7 @@ static int dvb_net_ule_ts_pusi(struct dvb_net_ule_handle *h)
- 		/* Synchronize continuity counter. */
- 		h->priv->tscc = h->ts[3] & 0x0F;
- 		/* There is a pointer field here. */
--		if (h->ts[4] > h->ts_remain) {
-+		if (h->ts[4] >= h->ts_remain) {
- 			pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
- 				h->priv->ts_count, h->ts[4]);
- 			h->ts += TS_SZ;
+The read_c45/write_c45 callbacks and the MMD to OCP mapping arrive later in
+the series, in "net: dsa: realtek: rtl8365mb: add EEE support".
+
+genphy_read_mmd_c45()/genphy_write_mmd_c45() go straight to
+__mdiobus_c45_read()/__mdiobus_c45_write() with no C22 fallback, and those
+return -EOPNOTSUPP when bus->read_c45 is NULL:
+
+	if (bus->read_c45)
+		retval = bus->read_c45(bus, addr, devad, regnum);
+	else
+		retval = -EOPNOTSUPP;
+
+so every MMD access on these ports fails until the later patch lands.
+
+The effect at this intermediate commit looks benign: the only MMD access
+that actually runs is genphy_c45_read_eee_abilities() from
+genphy_read_abilities(), whose error is explicitly discarded:
+
+	/* This is optional functionality. If not supported, we may get an error
+	 * which should be ignored.
+	 */
+	genphy_c45_read_eee_abilities(phydev);
+
+and phy_check_link_status() only treats genphy_c45_eee_is_active() as a
+boolean (err > 0), so a failure just leaves eee_active/enable_tx_lpi false.
+
+Would it be worth wording that sentence as a forward reference to the later
+patch, so the commit does not claim an in-tree mapping that only exists
+after the following patch in the series?
+
 -- 
-2.50.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916090102.349157-1-o.rempel%40pengutronix.de
