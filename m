@@ -1,63 +1,68 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F593AFAF8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597933A963E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713175; cv=none; b=q28LrBYtgXMjCAyOhCdgqvkufD8Ey/7J+y+53c09GHS1koqCPe9iQRgcFoZo7yhIEvn1opPl+jhjPN08BRpCuwFfkJQL65gLRcdnMFNQnlae7XKtaNDUZ3mmm+jNcwxXT3+5JdY1DGhKDM3TTNfBVW53ToVj3mzpkWVtqhuwUyA=
+	t=1789713177; cv=none; b=HHocanC+OAamX8r6ShD+LxfFvWXDEK4mstxoPi0Ib+GAwoTFHEHq4xPsXpLGJK7cEDwOxIQrRfL+xNZHjiT9NNeXa9sVSjQar45WrQCfLFYqp0R+iNu7aDY0lT7XDimwTl+uM6cVBqdrKi85DB6jBfKsl7p10ZC7zHIw4/YOOMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713175; c=relaxed/simple;
-	bh=ko4A1J2/9PDrUIO13S+PhAfAn0LFIltv5Te2s35u0rs=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=YzGr1zCpezMQDto4sDNWMvrYLq+dNuRyYgrnntwHm4SqCgK77z0kEJJQrMpcpsvmpabi/Tp4c+PORa+bUsa1Ig4Y6/CMMb17NXY1CQKKlo3gK/W7C/q6habWP15deaEAgwWXgXzqWK+g/leIA2lmXcfNycVjpA/CNb8+OvpX6Ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ksJjfP/+; arc=none smtp.client-ip=209.85.215.198
+	s=arc-20240116; t=1789713177; c=relaxed/simple;
+	bh=dIPvBV5m1XYpsGMWImgGjBXKGPvtWXXZWXBA2YSCgUM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=IxSeLfPQ2MZgnVSrMLJ3k+j9pkeA0hszIAJomamV2+mjgZMDvEmGZI+spuW6Xz3mPp3YF2TJoqJPtsk+1QJhPiK3634qZEDLGKUhNMT+Yz+kYlHr0WE5sxOsQ5t6TWnM6wcBif+Ajl3FaUFQvJ/ywhWMCu7OLY0S/VGZ/lyXE1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n2xIhL/r; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ksJjfP/+"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso355836a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:32:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n2xIhL/r"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e3c10ac70so1205397a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:32:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789713173; x=1790317973; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yxZ4xoXdFPC6XaGj0naVKf75jA+3TooOKs3kjAMRfVg=;
-        b=ksJjfP/+9fwHyIhnyYFVOrOK/Yrp4eGVNDvdwxlYa+r4cnXyt29jePpl+KJbOFOmVv
-         9evQFqzh0GSFK21BbX2vZG5kz7H/Sm04vEAxTIR6eWbRxOpr0lpcEhvaQe1tKy6MGfmE
-         ttdO3e3VEylKgn6NSAjhotExQVPnrGSsXvzYJ3EHR+CUmZvgmTX1h2wNkjM5Y0JvuIjC
-         joA3s1FXTe0fk/ktgra5epTwKkxj7CW8ElXE6XDWLXxoFBHqyQGuS3ifo/MJAGEq214l
-         UsIcPhlBzLfun+H+3TL1TxqCmFfU+h3BthU0L8d3eYXGodmZAKYUMoqXLrVAiSUWaCL8
-         k5Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789713173; x=1790317973;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789713175; x=1790317975; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yxZ4xoXdFPC6XaGj0naVKf75jA+3TooOKs3kjAMRfVg=;
-        b=WbMiSgKe/hMtwhC+7gV81AGlGozDtnPrOAtXNwS3fvC2JuQjbKJWhxunmTo89IXk2E
-         eF8UpAzlRBodPGg9LdioX6jzEZFc+8bhoopE/zp3BKy12S4PBX/CJL4FJEXrUCtDAVi/
-         ouUPxAC5J/PAQM0QUhIJWIcznUMKRiTePUHT3OaiyYCOl80o3tHGGKSIyKcs9du2gD8u
-         2HZsmk54MIjFZoAO0zkLBwqxxWXGo0BaZgi8rxIOt14ESZfi/tJ+gpvysSvoAnEuMuna
-         7Jqe7tnG5lhCof5aCPbc87y06+nxaVtiu+kmfXeo3TtvFNRL10K9qnsmQwuLuEiKpV7C
-         julQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrn7q4++vL25GJ6HsWTyr/hfj+3IPUGdxvqQtXiE05VCrLT5k3sFgGpbZsdKtpsZ4YXhUaz0BulDoziRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kc8KzzG+zHyRvXx1c9P+6zNCMmsJ6vZYuC6G69q/jNv229T/lU
-	axn1a1hjuS15rDfn4+kutRze1SryfG1P7YlJ/lzX49L3yrk0INJrgtTRiLOJClyyLRbroKrNbrH
-	rWnAYW8HpAg==
-X-Received: from dlii10.prod.google.com ([2002:a05:7022:418a:b0:143:8afe:be58])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:270d:b0:39d:b1bd:b384
- with SMTP id 98e67ed59e1d1-39e54d0edbcmr3673526a91.17.1789713172701; Thu, 17
- Sep 2026 23:32:52 -0700 (PDT)
-Date: Thu, 17 Sep 2026 23:32:44 -0700
+        bh=BpesHv/rYkWgPvEqpfqRdL4BWaPoNf2A+UdcBx5dbmY=;
+        b=n2xIhL/rox3UX9O3pakSCFUorqRAkvsPefgZ5eXSG1sWMUwjjRfCBX79GU5dxM3AWO
+         27yfWyXZG8aj/yM1/eKApsbmbUQNBKHmvJzzG0g+61jefPYYr/+45mQKnPe24EVNUjyF
+         4zdrQ0lQg9iDoAww2drYeZRDXv2OHJxtXQK4laA7OxUBshvDaA4j45Bftd29k3XpkmAJ
+         nW9xnJJN1VmneR73M0QU0u2lNlHNKN1pyrH0vX75PXI3WF19EyElAsaNQnsd97LUCMXb
+         y7fsHg4cyQdKzhPr52trVx+rLVaTOGtqr05bTqs9XyM4a/ODlakrzCyXTlFpDJi2Nb2+
+         Xb0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789713175; x=1790317975;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BpesHv/rYkWgPvEqpfqRdL4BWaPoNf2A+UdcBx5dbmY=;
+        b=Ywwr3BY5op7lKrr2+HlvZdrn+N0YqoELrCRb8wcyxJRp/+ZUgrEBv+RKdPJmaiZug6
+         fvkv2DGup0bHb51hv/c42y7iLs3U7mRlTGxhFQCXAiPSVLh/39N4TNu/+RoU6ftFMPt0
+         gbU5GaUwlpzeu9GM6yGEVXmIj9VoBDCa03zTPouCltfXj973mBUY9we0S3PuL4t+P8M4
+         K5Y8EvHBrcopGkwWzJSufrnEljkQHHaxUSyJalMHuDJs7Au6usB/TIXlRcOCxS7u0QLw
+         8nQ54WwPuqjvkS2ylztDPe/vBca3zkn0TjCTj/nZGoDI+stZ57ST5wcsQt0A2n2mXtVB
+         KM/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwxbF0okc2TViY6mCSf9fdkjVHs/wt9nGRuzxfDguoxwLqfvflaDuMCaH6SYWruM3+SxurZdS0y4/LRqIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSEvRFuS3qwDd4pGBmy7p0L8FRodiDGvi9h/xYF3vNCW8EHYit
+	/0bT0KAmoH1coqB6rXz/chCafXEbddJJHntdIc5yt1cWodrpyt6NyesoGjuX5d8ybfTSWUusJbO
+	5d0kJXGf+Dg==
+X-Received: from dlan4-n2.prod.google.com ([2002:a05:7022:eb44:20b0:144:d065:6639])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:da88:b0:39e:4c81:6c97
+ with SMTP id 98e67ed59e1d1-39e54f91d31mr3537519a91.29.1789713174549; Thu, 17
+ Sep 2026 23:32:54 -0700 (PDT)
+Date: Thu, 17 Sep 2026 23:32:45 -0700
+In-Reply-To: <20260918063249.2172589-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260918063249.2172589-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918063249.2172589-1-irogers@google.com>
-Subject: [PATCH v1 0/5] perf trace: Tracepoint format error handling and leak fixes
+Message-ID: <20260918063249.2172589-2-irogers@google.com>
+Subject: [PATCH v1 1/5] perf trace-event: Report tracepoint format errors with
+ NULL and errno
 From: Ian Rogers <irogers@google.com>
 To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
@@ -66,56 +71,230 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri 
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Running 'perf trace' under address sanitizer turned up a handful of
-problems around the global tracepoint format cache.
+trace_event__tp_format() encoded failure with ERR_PTR() while
+trace_event__tp_format_id() returned a plain NULL when tep_find_event()
+found nothing, and tp_format() itself returned NULL when
+tep_parse_format() failed, as its return value was discarded. Callers
+test with IS_ERR(), which NULL does not satisfy, so those two failures
+were taken for success. In syscall__read_info() that leads straight to:
 
-trace_event__tp_format() encoded failures with ERR_PTR(), but
-trace_event__tp_format_id() returned a plain NULL when the lookup missed
-and tp_format() discarded the return value of tep_parse_format(), so two
-of the three failure modes were indistinguishable from success to a
-caller using IS_ERR(). syscall__read_info() then dereferenced the NULL.
-Patch 1 drops the error pointers and reports failures as NULL with errno
-set, which is what the callers were already testing for.
+	if (IS_ERR(sc->tp_format)) {
+		...
+		return err;
+	}
+	if (syscall__alloc_arg_fmts(sc, sc->tp_format->format.nr_fields - 1))
 
-Patch 2 stops re-reading and re-parsing a format file that has already
-been parsed. Each parse adds another tep_event to the handle and
-libtraceevent can only free the whole handle, so a repeated lookup left
-a duplicate behind for the rest of the session.
+which dereferences NULL when a format file fails to parse.
 
-Patch 3 finally does what the TODO above the global has asked for since
-the code was added, and frees the handle once the command is done.
+Mixing encoded error pointers with pointers that are compared against
+NULL is what allows that to happen, so drop ERR_PTR() here and report
+failures the way the rest of these paths already expect, by returning
+NULL with errno set. evsel__tp_format() no longer has to translate the
+error back into errno before printing it with %m, and the remaining
+callers become NULL tests.
 
-That in turn exposed two leaks that had been hidden because the handle
-kept them reachable: patch 4 frees the machine created by
-machine__new_host(), which was released with machine__exit() rather than
-machine__delete() and so leaked the allocation itself, and patch 5 frees
-the buffer procfs__read_str() hands to thread__set_comm_from_proc(),
-which is only freed when the read comes back empty.
+syscall__scnprintf_args() gains back its fallback of printing raw
+arguments: it asked for IS_ERR(sc->tp_format), but syscall__read_info()
+had already replaced the error pointer with NULL, so the branch could
+never be taken.
 
-With these, and with an unrelated libtraceevent fix I will send
-separately to linux-trace-devel, 'perf trace' exits with no leaks
-reported.
-
-Tested on x86_64. Every patch builds individually, and the series also
-builds with NO_LIBTRACEEVENT=1.
-
-Ian Rogers (5):
-  perf trace-event: Report tracepoint format errors with NULL and errno
-  perf trace-event: Reuse an already parsed tracepoint format
-  perf trace-event: Free the global trace_event when a command ends
-  perf trace: Free the host machine allocation
-  perf thread: Free the comm read from procfs
-
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
  tools/perf/builtin-kmem.c     |  3 +-
- tools/perf/builtin-sched.c    |  5 +-
- tools/perf/builtin-trace.c    | 12 ++---
- tools/perf/perf.c             |  6 +++
- tools/perf/util/evsel.c       |  5 +-
- tools/perf/util/thread.c      | 10 ++--
- tools/perf/util/trace-event.c | 90 +++++++++++++++++++++++++++--------
- tools/perf/util/trace-event.h |  1 +
- 8 files changed, 91 insertions(+), 41 deletions(-)
+ tools/perf/builtin-sched.c    |  5 ++--
+ tools/perf/builtin-trace.c    | 10 +++----
+ tools/perf/util/evsel.c       |  5 +---
+ tools/perf/util/trace-event.c | 52 ++++++++++++++++++++++++++---------
+ 5 files changed, 47 insertions(+), 28 deletions(-)
 
+diff --git a/tools/perf/builtin-kmem.c b/tools/perf/builtin-kmem.c
+index e1b2f5bc1ba8..8693c6b135ca 100644
+--- a/tools/perf/builtin-kmem.c
++++ b/tools/perf/builtin-kmem.c
+@@ -1870,8 +1870,7 @@ static bool slab_legacy_tp_is_exposed(void)
+ 	 * means the tool is running on an old kernel, we need to
+ 	 * rollback to support these legacy tracepoints.
+ 	 */
+-	return IS_ERR(trace_event__tp_format("kmem", "kmalloc_node")) ?
+-		false : true;
++	return trace_event__tp_format("kmem", "kmalloc_node");
+ }
+ 
+ static int __cmd_record(int argc, const char **argv)
+diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+index dd39a4fb6c7a..5b4092ae33ee 100644
+--- a/tools/perf/builtin-sched.c
++++ b/tools/perf/builtin-sched.c
+@@ -5182,8 +5182,7 @@ static bool schedstat_events_exposed(void)
+ 	 * Select "sched:sched_stat_wait" event to check
+ 	 * whether schedstat tracepoints are exposed.
+ 	 */
+-	return IS_ERR(trace_event__tp_format("sched", "sched_stat_wait")) ?
+-		false : true;
++	return trace_event__tp_format("sched", "sched_stat_wait");
+ }
+ 
+ static int __cmd_record(int argc, const char **argv)
+@@ -5240,7 +5239,7 @@ static int __cmd_record(int argc, const char **argv)
+ 
+ 	rec_argv[i++] = strdup("-e");
+ 	waking_event = trace_event__tp_format("sched", "sched_waking");
+-	if (!IS_ERR(waking_event))
++	if (waking_event)
+ 		rec_argv[i++] = strdup("sched:sched_waking");
+ 	else
+ 		rec_argv[i++] = strdup("sched:sched_wakeup");
+diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
+index 20fffc24507b..5bd62b61287e 100644
+--- a/tools/perf/builtin-trace.c
++++ b/tools/perf/builtin-trace.c
+@@ -2385,7 +2385,7 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
+ 	snprintf(tp_name, sizeof(tp_name), "sys_enter_%s", sc->name);
+ 	sc->tp_format = trace_event__tp_format("syscalls", tp_name);
+ 
+-	if (IS_ERR(sc->tp_format) && sc->fmt && sc->fmt->alias) {
++	if (!sc->tp_format && sc->fmt && sc->fmt->alias) {
+ 		snprintf(tp_name, sizeof(tp_name), "sys_enter_%s", sc->fmt->alias);
+ 		sc->tp_format = trace_event__tp_format("syscalls", tp_name);
+ 	}
+@@ -2394,11 +2394,9 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
+ 	 * Fails to read trace point format via sysfs node, so the trace point
+ 	 * doesn't exist.  Set the 'nonexistent' flag as true.
+ 	 */
+-	if (IS_ERR(sc->tp_format)) {
++	if (!sc->tp_format) {
+ 		sc->nonexistent = true;
+-		err = PTR_ERR(sc->tp_format);
+-		sc->tp_format = NULL;
+-		return err;
++		return -errno;
+ 	}
+ 
+ 	/*
+@@ -2681,7 +2679,7 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
+ 			printed += syscall_arg_fmt__scnprintf_val(&sc->arg_fmt[arg.idx],
+ 								  bf + printed, size - printed, &arg, val);
+ 		}
+-	} else if (IS_ERR(sc->tp_format)) {
++	} else if (!sc->tp_format) {
+ 		/*
+ 		 * If we managed to read the tracepoint /format file, then we
+ 		 * may end up not having any args, like with gettid(), so only
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index c663aafa88b2..2570ea8d5d7b 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -720,10 +720,7 @@ struct tep_event *evsel__tp_format(struct evsel *evsel)
+ 	else
+ 		tp_format = trace_event__tp_format(evsel->tp_sys, evsel->tp_name);
+ 
+-	if (IS_ERR(tp_format)) {
+-		int err = -PTR_ERR(tp_format);
+-
+-		errno = err;
++	if (!tp_format) {
+ 		pr_err("Error getting tracepoint format '%s': %m\n",
+ 			evsel__name(evsel));
+ 		return NULL;
+diff --git a/tools/perf/util/trace-event.c b/tools/perf/util/trace-event.c
+index 000c1e1d68c1..10a7652f0305 100644
+--- a/tools/perf/util/trace-event.c
++++ b/tools/perf/util/trace-event.c
+@@ -7,7 +7,6 @@
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <linux/kernel.h>
+-#include <linux/err.h>
+ #include <event-parse.h>
+ #include <api/fs/tracing_path.h>
+ #include <api/fs/fs.h>
+@@ -77,7 +76,7 @@ void trace_event__cleanup(struct trace_event *t)
+ }
+ 
+ /*
+- * Returns pointer with encoded error via <linux/err.h> interface.
++ * Returns NULL and sets errno on failure.
+  */
+ static struct tep_event*
+ tp_format(const char *sys, const char *name)
+@@ -90,38 +89,65 @@ tp_format(const char *sys, const char *name)
+ 	char *data;
+ 	int err;
+ 
+-	if (!tp_dir)
+-		return ERR_PTR(-errno);
++	if (!tp_dir) {
++		errno = ENOMEM;
++		return NULL;
++	}
+ 
+ 	scnprintf(path, PATH_MAX, "%s/%s/format", tp_dir, name);
+ 	put_events_file(tp_dir);
+ 
+ 	err = filename__read_str(path, &data, &size);
+-	if (err)
+-		return ERR_PTR(err);
++	if (err) {
++		errno = -err;
++		return NULL;
++	}
+ 
+-	tep_parse_format(pevent, &event, data, size, sys);
++	err = tep_parse_format(pevent, &event, data, size, sys);
+ 
+ 	free(data);
++
++	/*
++	 * A parse failure leaves no event behind, report it rather than
++	 * letting a NULL be mistaken for a successfully parsed format.
++	 */
++	if (err != TEP_ERRNO__SUCCESS || !event) {
++		errno = EINVAL;
++		return NULL;
++	}
++
+ 	return event;
+ }
+ 
+ /*
+- * Returns pointer with encoded error via <linux/err.h> interface.
++ * Returns NULL and sets errno on failure.
+  */
+ struct tep_event*
+ trace_event__tp_format(const char *sys, const char *name)
+ {
+-	if (!tevent_initialized && trace_event__init2())
+-		return ERR_PTR(-ENOMEM);
++	if (!tevent_initialized && trace_event__init2()) {
++		errno = ENOMEM;
++		return NULL;
++	}
+ 
+ 	return tp_format(sys, name);
+ }
+ 
++/*
++ * Returns NULL and sets errno on failure.
++ */
+ struct tep_event *trace_event__tp_format_id(int id)
+ {
+-	if (!tevent_initialized && trace_event__init2())
+-		return ERR_PTR(-ENOMEM);
++	struct tep_event *event;
+ 
+-	return tep_find_event(tevent.pevent, id);
++	if (!tevent_initialized && trace_event__init2()) {
++		errno = ENOMEM;
++		return NULL;
++	}
++
++	event = tep_find_event(tevent.pevent, id);
++	if (!event)
++		errno = ENOENT;
++
++	return event;
+ }
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
