@@ -1,85 +1,86 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315994A6CF7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0604B0E26
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719633; cv=none; b=mxQqAt0INVfARrMw4dTsRfZ1wyUZpfqaEsiusZE1etNwwKGA1wMhtEaMtVtfDvm1Vc21FhjI3jiBIw789My2g8WjbPeNWSr86Mjq9a/Cx34h8DIHS3ONTA1tJ44BHwiIT4wxJbUjxcEQnupxCdz4ZG/A7Tn3nS5MOSbTk14yz9A=
+	t=1789719636; cv=none; b=jivD5rfp3i582Hrg7w0uKhB1tBQjKjeF72vJ2oIg6qdXCaucfRDDWhO59i+e5Agx9gUW8typ06oT1YHbbEpoelT+IkUDjCgzMDbxxYcjSmd3y3VfkG5LBkeBDqTFel6s5Gy3o5sP3Hyc4D9S7Y0J8OOKdB1Y6G8g9I5uHJfhnQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719633; c=relaxed/simple;
-	bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
+	s=arc-20240116; t=1789719636; c=relaxed/simple;
+	bh=WQreecELN5CRsfsxuPNhLWDBHIqw9SnFoDssMj6GbPg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jp2bLE5hRngpSG9y4xb4sYAURgtWMW55X/hMFaoXvujHyDxR6QlgqFhfPA3wR40SmPWsYjV+5eNS7OA+gsdkFvrMWjLtn2o++fuKfprXL++Z0G0kfepupe67W1RdlGK4HJqjWQRl12u2N/0osUPQHnawsXfpNZZHCBIpTB/hMlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=GfZhkueG; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=tLiV7DI5LIF41kAnvCvPEmTD7OrF3bTnW6XKFM2Z4awCaerJMw17henf4po/GIY8gKzQF+9R2F0iOxTZE88WCggqQgRLQMWyFKk/AigCxrhDqUR5BsZbRXWFpWDdxuq5gTiDhn5iVZBG3doS2inq2Bku/SHcyJV4zrLt1lXahps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=QsPeG6S4; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="GfZhkueG"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so190943f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:20:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="QsPeG6S4"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so2059175e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:20:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789719629; x=1790324429; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1789719632; x=1790324432; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
-        b=GfZhkueG67ji7CUb0Rfltx208ZVE+73rhV67eFSK58cn0I5oYNQ4nXdy+WeM25JB9X
-         3pIItIIWfGqLRQCJulU9NCd8I/lgoAFp45CVR+5kET/WhYB8SQiuhbJWqzGL9/6TfAxn
-         JM1iSHyIILuMVYKwjDYmRqhyRNJMwhtX4zt6pF51fySAdlcx8BiPK5lxiIzvffiq/m7E
-         4ZZ4lVLBBjAEyZDWEefLquUF8rgAuZ4SPSyeTKpoPwJEJIY+jOujjfJeg9XzPXRJyzLy
-         lFjzK7YrO02G4TuvrQa8jZQaIlJRHkrrNvtUSRSCmpt+NfxU7U1K8pkWFzz42EQstIun
-         F9jQ==
+        bh=vShbw/2lgHNba8hI1FFhUDrshd08XnAEdzVSO/hXIgc=;
+        b=QsPeG6S4Twg6OmFvdbow1ntr/c4yqC5lR/MocwqHl6OQoYxkBSOmZNsRmLC+Ki6pew
+         5RtSFNQmUTMrr9Qcr+TG6JKtCpJgZRQEWADgX84T4Ys9xYfQ2D8Qe+PS7JGGe8Y63lB0
+         dz++BTCaXhdub1mqCu+Y/4RSYBzoJFVqg4tNEgwaBsblhU+oA+flEHycsUy6d9SBx/FE
+         /2/mBpoT7iy4ixkHV/koA7qsAkj6VE7FO17BFmOGXyMJ3rAKWebBqvIMyPj5XU7hymgo
+         Eppqlh9nlEpl1pCNhnXA9lAoCMpg12HYlnnuC7Y9maRszAWeP0VNo/QYHYCxkm+7VATP
+         b+ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789719629; x=1790324429;
+        d=1e100.net; s=20260707; t=1789719632; x=1790324432;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
-        b=x2wizKuSepED1v0z0VIaP7b1UcYyOaJmh/NxmNX5Ng+Qin02Bkdc3gYKHkmbc7hrZ1
-         zxd/wCboimBk8gi6LeEqcj0hOofTYKB83LI8xpiQxjoB5MehmX6WCDes7BAWK470Xpr+
-         AqRwSBYP8JqzlGUuiS3agb/tWUB57vSyc4BvXeiKcaBsRqL4HQXopVEYilqCgM6q+0uS
-         ZU72XI2/rVZma50iqbLHqOStRTlfAh6shSwcyG6wy7PpxN0q4HKTVB2dX0yu4NKW4jtt
-         2Rjf8eYv3/PsIvhsfwAmOHwiicWGG7e5uE/e6jXTtBYf0Rf1ASxTLQOy6lzoFL/oPQJI
-         1Jbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUlY3zeuaqnkj0zULkX6DHs8Ux6pXQDjb4bj3QcHCVkP7w+Pkkc41OqMe+omp1DJxvdQMCWX/kMpW/IaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4KyoFC57a5yZYh0DYxAMhqaanAOg57Z6xz9BjMf4QbC1WcOuN
-	j2WccmhdHjfIekXGKEQVsspk54YwexPMJ2kyk+xVMUsH6rgKABrG7GcfCz7r3NfVr/Y=
-X-Gm-Gg: AYBFou2IXlgHOyCAgDe25iWkK85LjrYszApsKtTVMMKe1UEs2B9JtEHif0ncRiIPEm+
-	adVd1f7jxM5mDnzhvb62DVSzgUj8k5oh+KIugKWCWFQADxQ17se4YZB8JFBopL/rgZ6g0ZakmdD
-	nKaOC7cooaxsJz2146p8jAGxulEu5ZAZHiraTj7iAPpR0rhb0orHShmmrzM155YXSWc8CAwieWv
-	8knhWwRH8wiPrAu4bQHzz4Egp/ExN/i1y1bIbj8o3cZLAuhd8H2gRfiqBtIDa8CgIiOuYuDypRt
-	JR8lFtQ3GZa6iXYWd3BUtxyjANmtuke6jgSoPkPeVFTehHkp1UGE/az0HE//2dI6eeUalXPMfd5
-	ZbmfwLuG9Dzze5KSzV3Hrc6UudHQFslnCzoymhJZ/nAixYkcG3IsrdDPQK3MlMWVcXzg8KhRbOG
-	mNedto0f/iRh+zZWVQ5VyJIDE//idc9iN1Q1gopoI5ihZhLYj42A==
-X-Received: by 2002:a05:6000:603:b0:487:41c:515b with SMTP id ffacd0b85a97d-4871e25e2a9mr2371051f8f.30.1789719629172;
-        Fri, 18 Sep 2026 01:20:29 -0700 (PDT)
+        bh=vShbw/2lgHNba8hI1FFhUDrshd08XnAEdzVSO/hXIgc=;
+        b=HLcpF8uHqjRSCmiLKDh26U74mn38wemo5zfGac+jRU4J/GR6BQjqHvvQvjx7WLEdW5
+         SlomuLIDKRh0AKGFDcmqzBCLm9EpXGTZ8pF7D1mdqvkyOfmv2445BP3gQHK4zEmrW0nD
+         zZG/3jThSkW2S7NU7XJDb8OX8Jnsd1y6jRWM+bjU3GcSd6+CEo//1EKMbjP1+H6zzNDf
+         vPHoZg33l+fBV/Qhe2y7CrzzATIs2e2ghEFABjkJDZAH0xAx7ewHr8+fne2gH0GHr5Am
+         x3NhO/nPFT144/jXoxVNMcKh4Jg67LYcIv9fr2NQTbXoW9qADYEgHjDWd01i+NIEyrzl
+         11Rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGX9x9muG4jWNS8sLhdFsMCrkoETNgCgMoPob4WMcG6MoiKDHCzUaMBNLhFNlC05FpASLmmP2pfTVmj7g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKvo07pzMKR/gsgZ1vPiaoY7rDDFkV/xORjkA4VKt4tyg8Rnjh
+	i0VdbkecZatbKaKwD+PktPZf6p8e3Z9nFzGStkoh/3oKo68FuHVVgzR0XxYmrgT82iM=
+X-Gm-Gg: AYBFou3JqghxvKcJTwVii613HLRRpcpJNerkMlVCGsl8ffN3RP8zi464XZimY5xIOBH
+	ACJEO/RK5XpeKumJ68ZHPoVdnDpepDfXVFn6WpJwcP0ZsupA3HDzG2nthcjStecikFT01umEpVi
+	lKf0fxgZjKb6XC7skgq6kpiclBo4XlIgFe95bPKhVWbyeZVkyURdd3n6WNL9xVaNE2HKLzNawue
+	BYIePuZbGaHHNZLhUK4lIWnx6eZxXuiIrfRTtC1xauOsjSqGwRbgOBttwOhHdf8jCBU+JnKgfGy
+	YTOHs92IlORb4RSzB8jSTMAklyQPM6Ze5mSldaQ7l2//DwmKJML0n0M28wTPt6+gFy2h7OGkxtg
+	sQ9vLLqvuraz7XhyGsthCYkJLswWr/+1rXHeuDgPyJvihGElxU4pzpGQXOYr1SzAX2sgf/jckMu
+	l4qBTT+5ypxuWIXpi38Z/dqJTt2fkRXwPVsHrxv6BKJtKuo6NCnA==
+X-Received: by 2002:a05:600c:4e50:b0:49c:ee20:e787 with SMTP id 5b1f17b1804b1-49fc566443emr45154215e9.1.1789719632274;
+        Fri, 18 Sep 2026 01:20:32 -0700 (PDT)
 Received: from remote-01 ([84.17.55.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff56905sm2152472f8f.20.2026.09.18.01.20.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2160c2sm143028025e9.6.2026.09.18.01.20.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:20:28 -0700 (PDT)
+        Fri, 18 Sep 2026 01:20:31 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: andrew@lunn.ch
 Cc: netdev@vger.kernel.org,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	olteanv@gmail.com,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
 	davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	gerg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH net v2 1/2] net: dsa: mt7530: fix NULL dereference on unbind of MT7531 and MT7621
-Date: Fri, 18 Sep 2026 11:20:23 +0300
-Message-ID: <20260918082024.2697569-1-f@lex.la>
+	horms@kernel.org,
+	olteanv@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	steve.glendinning@shawell.net,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v8 1/4] net: usb: lan78xx: register the PHY interrupt with the MDIO bus
+Date: Fri, 18 Sep 2026 11:20:29 +0300
+Message-ID: <20260918082029.2697643-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <857a7395-4741-4d2c-abb0-b806e8f9bd78@lunn.ch>
-References: <20260918015020.2518315-1-f@lex.la> <20260918015020.2518315-2-f@lex.la> <857a7395-4741-4d2c-abb0-b806e8f9bd78@lunn.ch>
+In-Reply-To: <df5d4af1-a86a-4820-9aeb-b1449a60f37e@lunn.ch>
+References: <20260918015029.2518425-1-f@lex.la> <20260918015029.2518425-2-f@lex.la> <df5d4af1-a86a-4820-9aeb-b1449a60f37e@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,27 +89,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Did you consider using devm_regulator_get_enable()?
+> > +	phydev->irq = dev->mdiobus->irq[phydev->mdio.addr];
+>
+> This line is redundant, given how phylib works.
 
-No. Looking at it now, it is the better shape, but not for this patch.
+It is once the table is filled before the bus is registered, and here
+it is not yet: this patch writes the table in lan78xx_phy_init(), after
+the scan, so phy_device_create() had already seeded phydev->irq from a
+table that still read PHY_POLL.
 
-Two things stop it from being a swap. The driver sets the voltages before
-it enables, 1.0 V on core and 3.3 V on io, and get_enable returns an int,
-so no handle is left for regulator_set_voltage(). On the BPI-R2, which is
-also the example in the binding, both supplies are MT6323 regulators with
-a range, vpa 0.5 to 3.65 V and vemc3v3 3.0 to 3.3 V, so those calls are
-not decoration. The other is placement: the get is in probe and the enable
-is in mt7530_setup(), which DSA calls much later and which resets the chip
-on the next lines, so get_enable would bring the rails up at a different
-point.
+The number is known before the bus exists, lan78xx_setup_irq_domain()
+runs ahead of lan78xx_mdio_init(), so v9 fills the table there, before
+of_mdiobus_register(), and drops this assignment together with the
+if/else above it. On a 7801 the PHY address is not known until the scan,
+so every entry gets the number, the way mdio-moxart does it. A
+devicetree mdio node still wins: fwnode_mdio writes both fields after
+the device is created.
 
-It is still worth doing, for a reason this patch deliberately leaves
-alone. mt7530_remove() disables the supplies before
-mt7530_remove_common() calls dsa_unregister_switch(), which still writes
-switch registers over MDIO, so on a board where those rails really drop
-the teardown is talking to a switch that is already off. A devres disable
-runs after .remove returns and would fix that too.
+> >  	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
+>
+> So maybe change this line?
 
-So I would keep this one as the NULL check with a Fixes tag, and send the
-conversion to net-next, where the voltage handling and the power-up
-ordering can be argued on their own.
+It goes too. phy_attached_print() reports the irq at connect.
