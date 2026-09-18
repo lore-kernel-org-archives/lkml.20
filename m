@@ -1,115 +1,115 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F14CE693
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E12547051;
+	Fri, 18 Sep 2026 10:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726880; cv=none; b=bS2lsuTWoKXJUxITEgdn6syeLA6z+Xu950E16diMmzCuD7ik8cUJB9dpg3nnBbT04wUO25VtaWaoyHhp0+wgYQ52BqXeTFjt+APJWW5zAWUCDlSa0ta14D9JZFpfCuAo4yAgtpF7yujo1MjW/lPSWNxgmSLhFZbrLZ6Y9p+yGAA=
+	t=1789726915; cv=none; b=KEj3QLyLqjonUm75l4G/TabpRQysVA9HxsLu0dw3k0xSKKMk4wgfsE3CMVUIy+8oRgqbgwXcAgUycCti2p1WzvwuN7M7aAlWOFv4F8rd8FeecoAQdz714UoWdRHwrrVO2bEGJ1wj4NHLGCJKuGtIYnIT1wGM/35/3ItLeXS4JPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726880; c=relaxed/simple;
-	bh=mG76quiYNz0AT0P7HQbuEU8wQLgXjM+PNjTABkJPj8w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=g6vK5T29Mz8CzQvooH/Jbpsmu3gGRzQlJWs5o8MgnHFDePtjs9sU2nfK84WvKX1o1MEdCaq6DxjELUyvI9G0YU8mGbb1XqpzjZM6sVkzcMm2I8agUocAjzlSfdvP1zdIQi8tvXlMgaf3SNjgYSzv40xyzbFtOcw8UfFXxZWmjWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=q5/rYOyz; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789726915; c=relaxed/simple;
+	bh=XNP8kthfbLHwTdl4JFk73P9gfytBYhFMYWxpyhYXdPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OzNCOmp3Bv2BET/7eKwOCbRRDU7OCUAhSshnuaEIKNytd33M1ZxdNN8YeNfb3azXj7c4b0vODtEmj58CBcTsLWbBmL6aoDiRUEDbzL7CrZDYpD8H7WAX1pfVOoRDyvl0kI76KUupPZgDktvC2caVbR4n86cLwfXJCffsEYTPTzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LjUL/liI; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="q5/rYOyz"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918102113epoutp042a38953ed30410237d25a6f61b8301e4~WYxwJHEUt1497814978epoutp04-
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:21:13 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918102113epoutp042a38953ed30410237d25a6f61b8301e4~WYxwJHEUt1497814978epoutp04-
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789726874;
-	bh=mboPEqvEACJTAtKfdZ1iQemoHuICqAXG3If2FFLFlMA=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=q5/rYOyzAIRpwubUTigeHz6catvyr++oiaU0INH8BrZP7KLLV9GmF/P5lT+WyNEqy
-	 UjLYF4YCdC/VH4C7Haw4t0HWT7x0kdeA4NnZG3++Eq4dMR/OGK38YtBcwoHISHcvKG
-	 4qkctIkTlEfF4mqOP/2EOkD1nnjrUbES0DxJmT9w=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260918102113epcas5p2a37090873c7e08a5b15b0fecf005810b~WYxvgUOtV0355903559epcas5p2C;
-	Fri, 18 Sep 2026 10:21:13 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.92]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmTDS15Ysz6B9m7; Fri, 18 Sep
-	2026 10:21:12 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260918102111epcas5p202e3b90fcfd624683f76a2ee45f199d4~WYxt86RB51756317563epcas5p20;
-	Fri, 18 Sep 2026 10:21:11 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260918102109epsmtip1577c944b77491d8b4992d17593276ce2~WYxrze7hA1639116391epsmtip1_;
-	Fri, 18 Sep 2026 10:21:09 +0000 (GMT)
-Message-ID: <32029c62-faad-42e3-b1bb-e66772ca8ac0@samsung.com>
-Date: Fri, 18 Sep 2026 15:51:08 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LjUL/liI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=KO
+	787eRv1spG9JxxKrNcMLv6v6xwRPAr4ivc5C5scZE=; b=LjUL/liI5p9IeWM9lW
+	tn54k5k4JEXLXHHx5KhKrLBZULan9L9W8dVDBFHJt9bFAY7wGbcdrnzEWEGWriBQ
+	JXX0qoKEOZgA7l48VWMPptBCUiJddo6FteHcEFFY+O3kJRNsuYFC9tiIssHDeses
+	EbkbJUW5vFqsodWjHDb7vdd6U=
+Received: from localhost (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgB3X1OOEK1qxGJPAA--.9466S2;
+	Fri, 18 Sep 2026 18:21:03 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: qmo@kernel.org
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	horms@kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH bpf v2 0/2] bpftool: Fix sparse CPU IDs
+Date: Fri, 18 Sep 2026 19:20:50 +0900
+Message-ID: <20260918102052.1247819-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
- prevent OOB access
-To: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
-	vkoul@kernel.org, neil.armstrong@linaro.org, krzk@kernel.org,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, pritam.sutar@samsung.com,
-	kernel@lvkasz.us, linux-phy@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
-	muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <950335110f9d9c22a026fa5174e492c4194299a5.camel@linaro.org>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260918102111epcas5p202e3b90fcfd624683f76a2ee45f199d4
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0
-References: <CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
-	<20260831070309.158069-1-selvarasu.g@samsung.com>
-	<950335110f9d9c22a026fa5174e492c4194299a5.camel@linaro.org>
+X-CM-TRANSID:PygvCgB3X1OOEK1qxGJPAA--.9466S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1rXw4DCr4UZryrCw1UGFg_yoW8tr4kpF
+	WfKFyYgw4kWr9a9wn3Jw4rWay5GFs7GFnrt3ZrK3y5Xry8Ar17Zr17KF18uFy3WrW3ZrWU
+	tr4v9rykWF1jyFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piUGYdUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQ8tjGqtEI+zEwAA3X
+
+bpftool currently assumes that possible CPU IDs are dense.  This is not true
+when the possible CPU mask itself is sparse, such as 0,2-3.  In that case,
+per-CPU map output labels and prog profile event-array keys can refer to the
+wrong logical CPUs.
+
+The first patch keeps dense per-CPU buffer slots separate from logical CPU
+IDs when printing map values, and propagates errors from the shared output
+path to its callers.
+
+The second patch applies the same distinction to prog profile: userspace
+keeps a compact CPU count for result buffers, while BPF event-array keys use
+the logical CPU ID and the logical ID span.
+
+Changes in v2:
+- Add explicit bpftool errors for possible-CPU mask parsing and allocation
+  failures.
+- Rename the helper result variable to reflect that successful returns are
+  CPU counts, and remove the duplicate CPU-count consistency check.
+- Use a dedicated `cpu_cnt` in `map_dump()` instead of overloading `err`.
+- Propagate BTF/output errors from `print_key_value()` through both callers.
+- Remove the unused BPF-side `num_cpu` rodata and use the userspace
+  `profile_cpu_cnt` for compact per-CPU buffers.
+- Reset all profile CPU state on cleanup paths.
+
+Testing:
+- Built the final bpftool tree successfully.
+- Booted an ARM64 QEMU guest from a DTS-built virt DTB with possible CPUs
+  0,2-3.
+- Verified plain/BTF and JSON per-CPU map output reports CPUs 0,2,3 and
+  omits CPU 1.
+- Ran `prog profile` with cycles and instructions; the profiler skeleton
+  reached perf-event setup. QEMU did not provide a usable instructions PMU
+  event, so no hardware profile counts are claimed.
+- Confirmed the final v2 tree is code-identical to the runtime-tested tree;
+  only commit metadata changed afterward.
+
+Hui Su (2):
+  bpftool: Fix CPU IDs in per-CPU map output
+  bpftool: Fix sparse CPU IDs in prog profile
+
+ tools/bpf/bpftool/common.c                | 40 ++++++++++++
+ tools/bpf/bpftool/main.h                  |  1 +
+ tools/bpf/bpftool/map.c                   | 76 ++++++++++++++++-------
+ tools/bpf/bpftool/prog.c                  | 51 ++++++++++-----
+ tools/bpf/bpftool/skeleton/profiler.bpf.c |  8 +--
+ 5 files changed, 131 insertions(+), 45 deletions(-)
 
 
-On 9/18/2026 2:04 PM, André Draszik wrote:
-> On Mon, 2026-08-31 at 12:33 +0530, Selvarasu Ganesan wrote:
->> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
->> creating both UTMI and PIPE3 PHY instances regardless of the SoC
->> capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
->> and ExynosAutoV920) provide phy_cfg arrays containing only a single
->> element.
->>
->> On these SoCs, when the loop reaches index 1, the driver reads past the
->> end of the rodata array, populating the second PHY instance with garbage
->> data. Since the configuration structure contains critical function
->> pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
->> PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
->>
->> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
->> store the actual size of the phy_cfg array for each SoC. Update the
->> probe loop and the xlate function to bound their access against this
->> value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
->>
->> Assisted-by: Claude:claude-sonnet-5
-> Shouldn't this be 'Assisted-by: LLM'?
-You are correct. I will update the tag to 'Assisted-by: LLM' as per the 
-kernel documentation in the next version.
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+-- 
+2.55.0
 
-Thank you for pointing this out.
-
-Thanks,
-Selva
->
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> ---
->>   drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
->>   1 file changed, 15 insertions(+), 2 deletions(-)
-> Other than that:
->
-> Reviewed-by: André Draszik <andre.draszik@linaro.org>
