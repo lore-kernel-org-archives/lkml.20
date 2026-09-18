@@ -1,208 +1,252 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805AA3B38B5
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76721238C1A;
+	Fri, 18 Sep 2026 04:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789707191; cv=pass; b=PA/f2m001Md3x6vmp9hPu2p8DtqzHtRubypXHwPT9XRoGylXGnUUdSTPHLBAVdJmNmPwD+fEefla7ALrPcKJvnwCx74s6uAOBthXLE53P+oeovk9qDFMvhYQrt0F2qHywsn8O+bsYOMV4w4CBOmhl+gFus9YlJiZJ6moSQRINVg=
+	t=1789707374; cv=fail; b=evt2WL2whypDrcHmtXOv6k3XHQ3J9BWkexGPMzlCrraVa+jMD64XcpIsrFdWq+Xd5rMgG1nyWDPxMN9fSpTBHkZBldhZROHA36/UT35y4C4j194Ul1nxW3wvQRp7MEix9sHKvixwHJTOchtXKrwnQMXFt1JuuTCRYV7mY+WGOeA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789707191; c=relaxed/simple;
-	bh=rnEgyIrnoWAb/6e7ikS68CV0c8AIFbE6YdzRFLpZNW4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y4VSwFD/sLyDdDQ9xbRy6/BCrAeBk4auqtY1K1QxCZGi+hu3+sDe9qzp8J1198oyPYrK8YYcij2lKjPQs+pVECzqMAr0TcfBTbfGBJP91jffabKwjgyea0pTnHRCaljrMRDWHWkZqGYjzn315hrnK5vJCnuFQ0/Hls4fDlXRwuQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akjqnORi; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789707374; c=relaxed/simple;
+	bh=yoOVjyFF8bgD/fkHDtizP2SoI7n6KPC4T2wiOrdGqTE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=KB0Bbufy/dGSJ2LEbNNx1SVnb1plkfg/BPiN3b/KkTnqtqDr07BRt5XVunzhp4AXydpVh1ootWcQAYRyWS2LcUIH6J6LgdVWl0QdsioiFQ0YAY87O1XtQ3mKz5IsNK2FuefC/NQiCmjzYWQg6Iw8tnXIexGMBtfaY+Ixn7PYy/o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=hF5Pl5wr; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=DaIy3RXD; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akjqnORi"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d440939e3so2268127b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:53:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789707188; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o9+wdKymuzp7NZM2ypIYdHkPFCkb8bIEo2iYEjkESclB5hh0YppTQde5QoNXG1Z2Qe
-         9ZG/GRwMiUYWjSzv8z50ffbRSxAasOTkk5T9nK1vNm81ixo313NypKUYtQbPWN+tyuoj
-         NFpJg50FH5Oe4dQDCg81zfKlJH3yIefBQqENuZz64TImHqKVGhyWTpFh57MKYUcedJCg
-         L0n2FOE2+w0ISy3mCuba0XlwoyNhcMEvzTuDK5e5UTplHKfOzYQ6tzZVZGhDUvrrKORc
-         DPe4TFTKK2KGev9z6qPXPGHoYyHCVWnM/sERJ7pIphRgdggBs3TfY6wb2+MIRnCF7S9Z
-         mBEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=z+CZ17DpPcTIMS3JOrKadGqKlhsKxoet5cv2gSH16lc=;
-        fh=z+sWqY5rVebQAMS0A/FrBSJAspBR0zCm2buOk/MMJRI=;
-        b=faPgP6ripk9oDKAh1frHukUCzBNKqaFi4X3y0Y8wTeamDSDTzmfeQ0IVwfBymUquQ1
-         POGE1yf5Zaq8JbTwJXDZgmbssyY9kULwVaPCLQsMXdgfrTIDKBHIpzAl1ovTL2YfOzC3
-         ySYSP7TL9qcjWVmdvwKnlDgKGLqDMbL9jP9E8TZVZVEGsCUvQ79s08vapvNOmtZoRO0P
-         DnuYtyoxx1VT6MUxURMEOrIOXkN0Wt43zJkysYmRcqPuMMj/OSubjSAZl7GNbrhmWwad
-         SrXbhQP1vYmcqTbm9/g93ryIIW4+ka0Yz2s8Bq/wKVFTePkDjWDEJUXTBIrqWh3GjJPb
-         H7rQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789707188; x=1790311988; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z+CZ17DpPcTIMS3JOrKadGqKlhsKxoet5cv2gSH16lc=;
-        b=akjqnORiVLb8forBCcs7QrY0gyIkEJQXCe3xAr5ZbcNnXSW8pqBTsATv5M5D2Mu3xm
-         MVfhibf0gLTO18i3/eoB/gcfqBAuylDRLA9lL9wqLdnv69ilnJf6iAnVdwyWe+6IXSta
-         bkZONWY3W+NAFDza7DVadSP32jq5lNgg+BZe8V6KD0vCStTZI5j9lpCIN9WLiULdu9US
-         pPvl1PHCQcMA2OWV9UaeU54FQgHgmphf6Ri/uhwjwcy1p7PA5GjeLfl8aLjslvsL0We4
-         x2jf2FkxUKV0YnUSQHZ4eaaitq4xG5dWLqbZOPkHLDPpTwE6aCZdmdCOtDP/HraGBt6Q
-         A1RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789707188; x=1790311988;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z+CZ17DpPcTIMS3JOrKadGqKlhsKxoet5cv2gSH16lc=;
-        b=D74KpEstYN3qP0PUl2LdmPwiODcHY32Rae68Y3KZZYAtBK91VvCNZoLuscjcBDlDO7
-         gQqgeGRumf88xgeHecJYo6Sut6rPBrUohGxYaHSB8kNq3M9h+wtFM9/ezNN9nraahfLY
-         rbSr5iD/8ejwa7VJGx8L5vaGF6OOGj/Yeoee229soF4DMer+uiMz9lSJIYgHtVJuqpUv
-         VcmhAHOZz1oFOOkllqRlo1HHdHL5Q+jhoAuIpyXoELiXljIuBqevpH7iVucXDZvwXld3
-         92JlXkMp2pDnwdoG8lggKxNtUhAdjbNa1Qi1wpnGqGL9APdccsiL4I1kPgYqSJuL3nrz
-         f1vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwO0CcLdN5ZiGoE59NS7RSYMW9E62vP3aNwhM12/fvBnMV+Soi3NSHcvM1yOkOfg2zOm8zjYt1pe8se/Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRdHPg+McQS4K/2y8Z68fy8E33zqWBDLQo2gr15Ju1xCkD9cnL
-	vl5/RExy9HeTRYpma2HEu0cVeFbOXUsNi8PI/vwG1sekzvnnDG+PwD4FNwbqy6ZUg3/eAPfmG3l
-	r208XKzBrzpz9pZns6rFH7zesddgo7Kc=
-X-Gm-Gg: AYBFou2IfnAMCMuT6QqU69ttb325rYObm11lOW7KryDXC173o9ME+sDD8DDc8I1cRXo
-	8VaA3Q1gOkjS2hGpo8l3M88oQ5IRxLYMKvAFYhUu/EA5rtNhx6e4nJ/qKbeHOLAtFZG0i+P2AmD
-	8s2aBqDOX7wMNOd6qfQQfigHwd+HVpOoXCnN+sD+uKM0S12K/MJKSC0lHBTOLFe2QATFh9zbMkW
-	+VHGKfbo+LAgA1BmH4JmW23gtcBoTCddKZzeetElaZMiE6BJSskaufzXYbMAe2x9ki7DbSXRWI+
-	fPYTGmWzPmPqoB4yphD03bt9q+/vwLx8BVe59/vGENEMDWQHTjeRkqdhxIwT44mUSAjXvARelp0
-	VFGd3uLB86eEGDBOZKHfObwmk9Vpt150OvsjBkZ4RT9VX
-X-Received: by 2002:a05:690e:bc3:b0:671:541e:2bc7 with SMTP id
- 956f58d0204a3-6717fd8de49mr381411d50.58.1789707188354; Thu, 17 Sep 2026
- 21:53:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="hF5Pl5wr";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="DaIy3RXD"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68I4sulG3299086;
+	Thu, 17 Sep 2026 23:55:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=awmsF0W12/f2lXLkG4ZRBvEwez36Wt0iU48mzmrH8
+	OY=; b=hF5Pl5wr/WhHvHSwuDJO+UTH6JoelHZcClFjqVsR7c3oSiQFjtXYXmBGF
+	yICNMPG4+Ozu+IwHlNzudkBBgmir/IMISTNrInjEQdIq1xSh9ulihxsRbFOQKinP
+	mMcwwGfBf/5Fh5wC/sD4BOihFQ6TcwGBElRsUEoHQCTljvxpCB0vN7Gyu1LYyXio
+	hPXGzzGuF6ckhR2Vf/Drvlpz67t7KeqrYTUVtezQfmz2qlQWGn6TwxVu1mc58Bbw
+	hXkOZ5O7yHxpzPBEcuf9BIkac8ikobriJDPHARkxCcE3ernizGHx3Y58DsgARwK7
+	+fS/nKovjcM08jqPbHRCgUNu/juzQ==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010040.outbound.protection.outlook.com [52.101.85.40])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4grx6d86e8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 23:55:36 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vtWnxsLEW8LXfIfSgw3CFTGTxX5ECx4jTXs4Se1vfiHfeNU/PzPxapRg8RS0hbNi4MAQLCGQMOLUsBa7CBZJOtE+gFju+M64cbSPsPc2Dv8idW9Cccdblxnq8jkVCu9o4UkEJ2ucYKlRHo0B8vWOaMLdwfVIiG7+Qu1ASMxezT/h+GJWDftEJ8vgjkxpS8rKJ5geI3/wWCgspZFs7yJFdLJWrHS5kmV8QvoKNtVOEDwp0hS9xpnQprmErbUJGHycrdngphB6Ay0VHO9jYt57CNpLwfEuYDvOy0SkfTtpPjTUCU2B9IKK1pS5FwYzqaBt5cY7vTJADx+j2oPZu1V8KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=awmsF0W12/f2lXLkG4ZRBvEwez36Wt0iU48mzmrH8OY=;
+ b=NlHIMPqbyuNcehgD+mJGr/IubAc67/DbvAo2D9tILXLSEnURApX53iAAUIbi7xwyT947NszR5xlKAYi8B4E93LMGJ63N7u/oDHulRwXHewKZYrTVoAJHpZwID2aaev5jG5ZNtHgOp/dzDu6k9bUC+kpjva21nD+uSzIuRQvHWn8FnD6AwI59L3yQ0PiqGaSFkQ/f9LqRXtNOyTdw+MmaDmCiNDBlxrV39BcJMeech+bkwAb4SdKyq5AR6dwatYiA/H/M9Me5lUpu736pXFvEXGr6BkkpMdoN1H4ql1PwqImUU2GQW+8NX9JWAY3WdjCJa5vntjiEf1/FbwvPlmmpPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=awmsF0W12/f2lXLkG4ZRBvEwez36Wt0iU48mzmrH8OY=;
+ b=DaIy3RXDllHBibVqfAaRdM+1rawAggSAOAk/idrGWwuMc1OcgV/0fhsPx+nBPBN84PC3Em1RlsDaCSjQvuvVGXIjJ8O3NfjL17ut3eL8qA3bOtHRIaGR3tSWWC/ZPg8dVoQHvOMXenSvm5dhBoVzZ/G6N1OOi3TTxj5pG1iEJrY=
+Received: from BN0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:408:e6::24)
+ by MW5PR10MB5806.namprd10.prod.outlook.com (2603:10b6:303:193::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.7; Fri, 18 Sep
+ 2026 04:55:32 +0000
+Received: from BN6PEPF00000074.namprd03.prod.outlook.com
+ (2603:10b6:408:e6:cafe::c) by BN0PR03CA0019.outlook.office365.com
+ (2603:10b6:408:e6::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
+ 18 Sep 2026 04:55:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN6PEPF00000074.mail.protection.outlook.com (10.167.248.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:55:31 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 23:55:12 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 23:55:12 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 17 Sep 2026 23:55:12 -0500
+Received: from [10.249.138.184] ([10.249.138.184])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I4t5O5130390;
+	Thu, 17 Sep 2026 23:55:06 -0500
+Message-ID: <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
+Date: Fri, 18 Sep 2026 10:25:04 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260815-null-fixes-v1-0-0df9dda951fb@gmail.com>
- <20260815-null-fixes-v1-1-0df9dda951fb@gmail.com> <bd730e30c96bea38d8430460ee73f073e280374c.camel@redhat.com>
-In-Reply-To: <bd730e30c96bea38d8430460ee73f073e280374c.camel@redhat.com>
-From: jim.cromie@gmail.com
-Date: Thu, 17 Sep 2026 22:52:42 -0600
-X-Gm-Features: AcwNN1WDOVB-bJ1pAJB3qllpj7DcCDRyteoOendxDaWbzrIb47hYb-rm-3IA-rQ
-Message-ID: <CAJfuBxwq83qUNd==gu+uK73guPfohN24q2-9iNamincgpt=EOQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/nouveau: Fix NULL pointer dereferences in
- GETPARAM ioctl
-To: lyude@redhat.com
-Cc: Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: Javier Martinez Canillas <javierm@redhat.com>,
+        Thomas Zimmermann
+	<tzimmermann@suse.de>,
+        LiangCheng Wang <zaq14760@gmail.com>
+CC: LiangCheng Wang <zaq14760@gmail.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+        Simona Vetter <simona@ffwll.ch>, "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+        Neil Armstrong
+	<neil.armstrong@linaro.org>,
+        Sam Ravnborg <sam@ravnborg.org>, <dri-devel@lists.freedesktop.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+ <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+ <20260917025644.1262504-1-zaq14760@gmail.com>
+ <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
+ <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
+ <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com>
+Content-Language: en-US
+From: "Thakkar, Devarsh" <devarsht@ti.com>
+In-Reply-To: <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000074:EE_|MW5PR10MB5806:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95810403-c360-4d3c-8c63-08df15411120
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|7416014|376014|10067099003|56012099006|3023799007|4143699003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	MwnPR5illyd0IxymeX/Yp0/kzXYheOMI73VlwVLNe9aLIPe0PxWjrluWgWjrBrkMJuWg1nQLLOP0gdOgFX87X6Tgd4x0uLysdRK7V2qY/b/EgCr34SZbe4C9eLInv2tezZX7CYUXLyaTS/vvKShCUkbw7pE+5m2H3VXa7p8f2U8YPbsFLPCt9I1ANh8At24HG6Nfd15Pyypn4j63YGLPmbosz/Tw/J/gYXRw8DRzyj0a5X0xqNxQrWmqlsbDS2KBf9P3Ik1lzlCaZognew9bmwk848JeE9oBJx4WEEiqXnH79lRuRkRMyrTw7KmHvOLYM2kWShS6tpVRTB1JNQw+szF0rb8JOAnpFcZ1lDdYOTePAtCjxYaGTvUfqdKAPufsk8WXK8a90QzvtB60yWhMqALjllHBMJayB/7Vu4e20ZL05onCXlan1Sz1i40tbg4+4avbMqmLrwPqTyZUZsFV+g/tzDtePK4+n2gyHZ5wUVMw6/TcsTsd+eCXMaLx+9H/GI/zQPsfkb270fOJotPZq/0gNiO8vJ4W1c14lS1hl/7tTnGOzpAzNLUeP58YdxH0aGyrV9btv7GJ+B0MBM2vMZf3uiit4o6AI104lpD+4bQzWcfag84E542e9w9su4vGK0jIyAfl3HPylbKUG55Y570rypYoGdF7V1YWcGAwTE1vQx8hdlxTRmfjoYRHOEKKJI8jThU7l3NVLwxVuhjX2w==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(7416014)(376014)(10067099003)(56012099006)(3023799007)(4143699003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f3rM2bXIF3Q5BiQe5OtPlivnD6n28mDe4P2G2K+FqUYXIxm/7PHDhN7rD7+ULg+lFEQ9a/xl6UTt/iPiICRnJO+v19LJaqhrqJDVV/nRRSp7vAy85wyHWpe+4orKiA5anNpFOmZuu8nNni+pz62Ooo9Nm7uUpe5g3TMibW1FONPqI/6az7vQhvhBueYAdB9ffZN5p8EXGXh/yWivJHDHI1q1279wDjGlMZTTCc5ROx2Cyr5Nn85bUHbarlzUiurj/LaQH/Rr3Ez6mPRe3Ug41FBdjCMilv0i4SBV/RjfyhMSzjYqa93BRlZ0X9WXA48N4b7B0kCa1l5PnsA9KrRH6dbmUymz8RN32Go+S0u6w2vA1JvbYVrEM0sQM/PyLUggOHgqW3oDqzjYTJV7Z9mooG5vFZolmid38+qXbiP0z76rASGsFtTJolD1HafGmNcn
+X-Exchange-RoutingPolicyChecked:
+	0JbfcgiMXLluYUY8wyM12FuS7nxcpoEh6t3CC4Kc0RSfZgh+Cuokxzmd4fLFTKSXInZ0eWOGx+mcQ0gT6Q67sHZmLXBnBiMGqd37ITvqfJMWarW9p/pYUz15UN6Iie87HPruAjm1H5q8Zsym2yW3aRVsgbSyPSQUop3Tyd2nbAuWmsTboLtk0bZdOGsZ+nHhNhkBRPRd6ur++esuNUl4rIrgtBctN4iyJBmCoJhh64eH6TlhpAP+GdR5+OcAERA3gkslnQ/a/hm8cOyb2NQmH+YCeXXcxayOiGB22vnFsMByN56RI+2THhZsj8tQ1LF0PqDqAB1BVljSsD8h6JXXsg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:55:31.3117
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95810403-c360-4d3c-8c63-08df15411120
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN6PEPF00000074.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5806
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA2MSBTYWx0ZWRfX3duVcIpYmUIH
+ auK+sXfoTKxAN2CimpOjFVlA+gtTdGzAoyZoaUhf922XaB3WPu3g6LlJKVpOIOyGG0WPfVLMQHf
+ 6q1FbR4/POf9q++WaVnw6COCb7z4xiw=
+X-Authority-Analysis: v=2.4 cv=Cswq4X4D c=1 sm=1 tr=0 ts=6aacc448 cx=c_pps
+ a=G4czNpscrl+lNx4D7BJ0lA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=o4p7WHDlZKQ4qsJPCBgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA2MSBTYWx0ZWRfX5dSUB6cQC8g+
+ Nek/tEVotcz9VxF+Gif8Q9TOUKgv6DDzEjgocqca/ysWK1r79BhkDDCDhtL/T4RSshbr4zdhE4h
+ +JrRu4yBtj977TLixaak83ZiOyuucfnIa+BtUX1raXPFBedxkJdiZARYt+Jt0yGffg8yurfgVfn
+ cm7FoicqjKwIkz04mQrnxcGG9hkNDZcHdFi/Wrp4sZIkaMA7I0+RVpQ8iSwzt60ALwlfnPr2/a4
+ iNixtfu5hsd/+3rRLUMuKFxJnX9Ct4s/uH2SxDrMJNCH5TcYIe4vlOu90WAH379AupSWVrHKcqf
+ GrhrdGskZnB/Hx/9445TzbnaopJLIsajw/05OM6SmHCWzKk/QeEPXZLQuEua49ROfZl9hAJX1n+
+ 1xJyR2AtAon2l1KM9ioXjyGimBcct2VbQH20ksAmKdlayXq+qHqBByE9jvIPdrgHKB9rUTT/UrK
+ kHe4H205sMgO+hUzAzw==
+X-Proofpoint-ORIG-GUID: 712OxfMTYTkypV3QPbVR6LCMDprs9t-G
+X-Proofpoint-GUID: 712OxfMTYTkypV3QPbVR6LCMDprs9t-G
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0 clxscore=1011
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180061
 
-On Thu, Sep 17, 2026 at 2:26=E2=80=AFPM <lyude@redhat.com> wrote:
->
-> On Sat, 2026-08-15 at 11:30 -0600, Jim Cromie wrote:
-> > When hardware or firmware initialization fails, the graphics engine
-> > (gr) or device functions may remain NULL. Attempting to access these
-> > during the GETPARAM ioctl (e.g., NOUVEAU_GETPARAM_GRAPH_UNITS)
-> > results
-> > in a kernel NULL pointer dereference, causing a crash when userspace
-> > (GNOME/Mesa) attempts to probe the device.
-> >
-> > Add safety checks for 'gr', 'gr->func', and 'nvkm_device->func' in
-> > the
-> > ioctl handler. Return -ENODEV to signal the missing hardware state to
-> > userspace, and use NV_ERROR_ONCE to provide diagnostic proof in the
-> > kernel log without risking a console flood.
-> >
-> > RFC:
-> >
-> > These crashes may not be repeatable, they happened while I was trying
-> > to build nouveau as a builtin module, with binary blobs in the kernel
-> > image, on a laptop with an encrypted disk.  Gemini tells me this
-> > won't
-> > work, so I punted.
->
-> "Gemini tells me this won't work, so I punted."
->
-> I'm sorry, what exactly do you mean here? And could you clarify what
-> LLMs were used for in writing this series? Code generation, analysis,
-> etc.?
+Hi Thomas, LiangCheng, Javier,
 
-Gemini CLI v0.50.0 - or earlier, at that time.
+On 9/17/2026 5:45 PM, Javier Martinez Canillas wrote:
+> Hello Thomas,
+> 
+> On Thu, Sep 17, 2026 at 1:34 PM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>>
+>> Hi
+>>
+>> Am 17.09.26 um 12:49 schrieb Javier Martinez Canillas:
+> 
+> [...]
+> 
+>>> There are a few bits that I think are similar though and could be
+>>> reused, for example the pixpaper_spi_write() helper logic is basically
+>>> the same than ssd130x_spi_write() AFAICT.
+>>>
+>>> Same for pixpaper_send_cmd() and pixpaper_send_data(), I believe that
+>>> is the same logic that we now have in ssd130x_write_cmds(). Specially
+>>> after the recent commit 3e391b0b516b ("drm/ssd130x: Add SSD135X_FAMILY
+>>> and SSD1351 support") that introduced a cmd_params_are_data flag that
+>>> allows to send the operation as command and the parameters as data.
+>>>
+>>> So the MCU interface seems to be the same, in particular for the
+>>> 4-wire SPI interface which AFAIU is what this new SSD1677 driver
+>>> supports.
+>>
+>> I cannot advice anything here, but at least I'd like to get ssd16xx out
+>> of tiny/. It would be great to have it all under solomon/. It looks like
+>> sitronix/ does a similar thing.
+>>
+> 
+> Yes, I agree. Especially since there is even some (albeit small) code
+> that could be reused.
 
-these were drive-by patches I did while testing a patchset on HW.
-The bootlogs showed a null ptr splat
-I threw the logs to gemini, it tracked down the bug.
-the null ptr b4 deref was rather obvious.
+Apologies for the delay. As to what I had looked on ssd130x family it was a
+different then the ssd16xx family which caters to e-paper, so I preferred to
+keep it separate and write only a generic ssd16xx driver.
 
-at time of writing there was also some FW churn going on,
-and it felt un-repeatable wo screwing with fwupd, which I wasnt gonna do.
-Plus the test scenario felt like it gonna fall apart.
+Yes, I plan to post ssd16xx support under solomon as suggested and that would
+handle both the pixpaper and good displays, LiangCheng had confirmed that
+pixpaper was functional with my staging series [0] albeit with few fixes [1]. I
+am reviewing those and will try to cherry pick them and include as part of my V2
 
-Since then Ive been merging it into builds for HW installs,
-I recently forgot to merge them, and one occurred immediately
+I target to post v2 by end of next week, after running thorough tests on the
+epapers I have.
 
-Sep 16 22:53:28 frodo kernel: Linux version
-7.3.0-rc3-rhx-00051-g3078971ab959 (jimc@frodo) (gcc (GCC) 16.2.1
-20260819 (Red Hat 16.2.1-2), GNU ld version 2.46.1-1.fc44) #>
-Sep 16 22:53:28 frodo kernel: Command line:
-BOOT_IMAGE=3D(hd0,gpt2)/vmlinuz-7.3.0-rc3-rhx-00051-g3078971ab959
-root=3DUUID=3D66f47421-b9ff-49ca-9257-0216463436c2 ro rootflags=3Ds>
-Sep 16 22:53:28 frodo kernel: BIOS-provided physical RAM map:
-...
-Sep 16 22:54:53 frodo kernel: BUG: kernel NULL pointer dereference,
-address: 00000000000000f0
-Sep 16 22:54:53 frodo kernel: #PF: supervisor read access in kernel mode
-Sep 16 22:54:53 frodo kernel: #PF: error_code(0x0000) - not-present page
-Sep 16 22:54:53 frodo kernel: PGD 0 P4D 0
-Sep 16 22:54:53 frodo kernel: Oops: Oops: 0000 [#3] SMP NOPTI
-Sep 16 22:54:53 frodo kernel: CPU: 2 UID: 60579 PID: 2445 Comm:
-gnome-shell Tainted: G      D
-7.3.0-rc3-rhx-00051-g3078971ab959 #10 PREEMPT(lazy)
-Sep 16 22:54:53 frodo kernel: Tainted: [D]=3DDIE
-Sep 16 22:54:53 frodo kernel: Hardware name: ASUSTeK COMPUTER INC.
-ASUS TUF Gaming A17 FA706QE_TUF706QE/FA706QE, BIOS FA706QE.311
-11/06/2025
-Sep 16 22:54:53 frodo kernel: RIP:
-0010:nouveau_abi16_ioctl_get_zcull_info+0x17/0xa0 [nouveau]
-Sep 16 22:54:53 frodo kernel: Code: 00 00 00 90 90 90 90 90 90 90 90
-90 90 90 90 90 90 90 90 f3 0f 1e fa 0f 1f 44 00 00 48 8b 47 40 48 8b
-00 48 8b 80 70 02 00 00 <80> b8>
-Sep 16 22:54:53 frodo kernel: RSP: 0018:ffffd36e025dbbb0 EFLAGS: 00010202
-Sep 16 22:54:53 frodo kernel: RAX: 0000000000000000 RBX:
-0000000000000020 RCX: 0000000000000020
-Sep 16 22:54:53 frodo kernel: RDX: ffff8c547be52600 RSI:
-ffffd36e025dbc50 RDI: ffff8c545440b800
-Sep 16 22:54:53 frodo kernel: RBP: ffff8c547be52600 R08:
-ffffd36e025dbc50 R09: ffffd36e025dbc50
-Sep 16 22:54:53 frodo kernel: R10: 0000000000000030 R11:
-ffff8c5454600098 R12: ffff8c545440b800
-Sep 16 22:54:53 frodo kernel: R13: ffffffffc31569e0 R14:
-ffffd36e025dbc50 R15: 0000000080306453
-Sep 16 22:54:53 frodo kernel: FS:  00007fa46fa77880(0000)
-GS:ffff8c576ab7a000(0000) knlGS:0000000000000000
-Sep 16 22:54:53 frodo kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 000000008005=
-0033
-Sep 16 22:54:53 frodo kernel: CR2: 00000000000000f0 CR3:
-000000011df78000 CR4: 0000000000f50ef0
-Sep 16 22:54:53 frodo kernel: PKRU: 55555554
-Sep 16 22:54:53 frodo kernel: Call Trace:
-Sep 16 22:54:53 frodo kernel:  <TASK>
-Sep 16 22:54:53 frodo kernel:  drm_ioctl_kernel+0xae/0x100
-Sep 16 22:54:53 frodo kernel:  drm_ioctl+0x2e0/0x560
-Sep 16 22:54:53 frodo kernel:  ?
-__pfx_nouveau_abi16_ioctl_get_zcull_info+0x10/0x10 [nouveau]
-Sep 16 22:54:53 frodo kernel:  nouveau_drm_ioctl+0x58/0xc0 [nouveau]
-Sep 16 22:54:53 frodo kernel:  __x64_sys_ioctl+0xb9/0x100
-Sep 16 22:54:53 frodo kernel:  ? do_syscall_64+0xfa/0x470
-Sep 16 22:54:53 frodo kernel:  do_syscall_64+0xbe/0x470
+Kindly let me know if we are aligned on this.
 
-if youd like, I can trim that part of the commit - msg
-or just edit out the noise.
+[0]: https://github.com/devarsht/linux-next/commits/ssd16xx_7_2/
+[1]:
+https://lore.kernel.org/all/20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com/
 
->
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->
+Regards
+Devarsh
+
+> 
+
