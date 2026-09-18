@@ -1,91 +1,86 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142BD4B7A34
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C14B7A35
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722696; cv=none; b=GhcOiaGLYgIn4eex5lfleQRguCwykmgnMntqtkp2/EppusPdoEAr2WMn3/VXrffAgooF6B2s/P5Oqb5vAET+wxP/ZimbPA7d8HpeXWxUcV4U16QMTPNiRXS9ZzdnyOreab74NfEALlX0hQ+Vq4H+ot1dpZgazfoi1njCe4f25fA=
+	t=1789722700; cv=none; b=ipXq89gbIv1i2nj+fkfMZdzPUQ7KSmi1g7Kb+2ffknqmW6+fPn4lSuHsBwSwKNZu33m/01fI8OWanqEKkR731ZEPstBPW0xBpPHQZ+n0eoBFm8BKN7I3EwWJJYWOkNME+ClCuVyOBZRwOph8MNYxFP/DZ2AdFHnvhxr6LDYZO4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722696; c=relaxed/simple;
-	bh=FiRsDZdzGXAipkwSasDiwYJgNjGQw/oWZmESPlkGMAY=;
+	s=arc-20240116; t=1789722700; c=relaxed/simple;
+	bh=wAiKM2GbjVAaJOG3T4th+tKZWnW5DbfM/sH35qLt13k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XvhtG5dt4cwpy6H3u6MMHLsDyPpqUI0Pjot1bchtBoDBxP8AWbiHuiUerqhsEyMFAt/zKgzSNtadaICQ5RPy28aDIZTk/528bqtlDvxSIrPsuWtpU7rnki+HL3TMU5KPjYCIfU+0HITwUS0UbW/J4z/nWbvjdHc13zezp1YiDrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T2rE5pUD; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=aUHAva5VvvUOZAeBMMhuDx8rer7HlAYJ5E8l+HuE3kiHReLJBa7gyS0u2fLJYSJSnw/TLhEasCsaoL5oWXLEf/Lvv9ZLCyn+WuAac4SPIFoevM/akmh5zDEc3y/v/ii+gD1lfgU/5MAlijblND3/wNTYAi6NgIdpbv1aTPXu3Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VpCwDl9N; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T2rE5pUD"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso7012275e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VpCwDl9N"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b93204449so167295e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:11:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789722692; x=1790327492; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789722697; x=1790327497; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Lk08SIy6DJ+jXcktdOiUfMwYrHwPBwEtrnZT5485SRQ=;
-        b=T2rE5pUDUz9gW62Q9CEtdygORMnmqJzD+vHMPUpMBghWky+98FjqdE0KI+JQxBKuwZ
-         AdzaGmZgbDdEcQWiqzLzysFYe3CmHlGVJ1/kCNXCdAR7eA4+2cxfuI9EQg+XiW1kX6oe
-         qQ0AkGX2fK3h1e997cDE4Byemv5PbRoQwb5mIo0gnZyfduvu5n0bg49w8iXtLHEyVjPa
-         9Dq8lisDk2bGiygJF/V7MG5Vv/b0jvkiEDOT+jXjVR9z4Gv2mUl2w6hujT+ZvkAPygnT
-         t5qTDbk5BW4e+QbbL66WuTJuAuKaRrSPAqM50+bTDzD/KITm5W3bXJf9kXEm543AQMTK
-         RK+w==
+        bh=yZ/vqBSgFHqCJoAqatA3IE2jvlq836FlV9wvuCTBolI=;
+        b=VpCwDl9NwhnCzL6tzt1DQO31T0MUc+u9/zaQqGPJuRlPCux2GqE9b1hLgtTRh/HLI+
+         HlsPIUMSbVxc0Nf4MkFCVWY1hZWQfDu1soDTOGG3kvdn8/4TVNn49qRpMsNxKdrBd+UE
+         0qnqu1bfvqnLYyS+sA1PRpPaNyGfoI9VcDBhwe5WIh6k8a3Oijv3IHAHYIQtaIGRAFva
+         AaEy55vwoeCHWz47WWdwL697qNdtmf1WTnkdHBviQnqRHxzCCzbo7TXrYQsjzI/BlT6D
+         3Tlk7wmRheoqqEmqsiA0Hr9GCgEswNEmJA6d5Wjp/aS9Eag7kfxRTiIYcvweOd+xtPdy
+         9lYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722692; x=1790327492;
+        d=1e100.net; s=20260707; t=1789722697; x=1790327497;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lk08SIy6DJ+jXcktdOiUfMwYrHwPBwEtrnZT5485SRQ=;
-        b=FlqoTXNAuoZQfkFIEWxiS5bTr1y7RS+2vVyPhJbjLOG6/H9oBQ0RczLUuzDm3xjOjL
-         GHd84dpx7RV5qsE9ML0IHzglcZ2EokvrCrUS6bZcRQ5H40yd5CRKLM5QSw0Ax01T8xxI
-         7YZVa2Pgv0LiLhoI8mnTDKFjAi0abhO/OA2ArvoOrftgyeiJzwkBwbAbEg7Jb8xDsD+w
-         RBWYggvWK+9vyE103y/8ThZiCffnRP+VsqwW8cvd9WAB+V0bInRAhZ5kLcFEhzf8I3EQ
-         G8bR0OCOQlcW6vvAnC2snqavJ/dkTZmOvVs44qaW8u/hgEE4sTOAAT73YxaPt5IedSRD
-         CbKA==
-X-Forwarded-Encrypted: i=1; AKwUvBwavagAWfQWggEKTm7sSwUSA+TKYngTBlkmiseito1DoSr0YnUViN38ZFSKZZsfRdANImm48K1PBTrVpqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNwR4u25idmjESr4P8IbyjUddliXIuO20Zk9P4/iRQ7HpiJ33U
-	n+UhHjwSIXCH3poB0mbcOcrj8J+B5ymXa3IqdFTJiEOpg1h8McdqV1pC
-X-Gm-Gg: AYBFou37TlEd+Cq6zSbei5aoxnq1eO3Jxxeb+31I8I3mtbwmgEOKziNGAzwdJvmN2DQ
-	p3jvIyH79lD7nEhsLiNH+0Da8MoLcpmjQi2pA9FDaY8pxUqvSIv9+fLIdJ+kq12/Eq3JTJgo+DB
-	ARmzDsx7nuZav/rgUsA9Q8spc2wJ8jXXs1QbrnyvpvjEjgtlmCrWU17b+ixswNb6LaVtd2uBU33
-	S8gxrUEdpW5mf88nwaaurMdERxPY3PaNSHLqWXGIEee5QwwM8uA6fksF/EM7dBxDZCTT5HKn7yI
-	R+cIRz+IF9y7X1QICPEqiAJutH8Q4R26wCmgTZhgma35rGZbq5l87B+AoPr8BGW/t4nuouhbTAW
-	Kw66lBAq1eULmrMnaHoK/0zXlVWqzEn12DY+qudqDkVp/x/pDV4PBT8mxSm8BmBlF9ExcPx8dwh
-	FvhqqmldUlxOCIqjeK2cLhocplMIO9rfrTGSfsiNSNkoxrWQfpQd+1xELgmo7m4SNhGamRmIsAE
-	+4gV4uL1eIb4Jq4
-X-Received: by 2002:a05:600c:3b0a:b0:49f:bd3c:bc20 with SMTP id 5b1f17b1804b1-49fc573b7a2mr19145175e9.27.1789722691708;
-        Fri, 18 Sep 2026 02:11:31 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm138774275e9.2.2026.09.18.02.11.27
+        bh=yZ/vqBSgFHqCJoAqatA3IE2jvlq836FlV9wvuCTBolI=;
+        b=Vl52rPwAE6ZYV2mayqnPwEFT5gHFJl95vwQ79hTmOrXWFhPRy3NrKp10vx/NKP5BuO
+         vD+PQQqJPE7RRx1nrP8Th2gNd6oc0DWI40gR04vC6LxOtHSYMJ6lZqMSopkiZdWLiVmQ
+         /TapBwlsl5W7Y9e+z98ghjZFg+WeNteFXAmzbASlIFAL+XP2Ek9dve6oVty6bgR7wftf
+         290kjQfz+nq0jJiGqHX1RbdoaFlY8HlCFz9bQ57ibvhq8dfzPv8cgiEGPLO6bl96eV2R
+         EQHX8fUpa+xmYteWCb8r2yTDpNHaUk6f/MjFNGsrSwU1KTRiS3rJzgU9O+jAfcRUxIwj
+         8XBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPpqacls2CuPoIs49OskoCGtPOUgXdaKcSSqRxlF4JpMwmdPgUvpLotK7SqmYDyG/iCJQkAprLyA0/yOM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfk+NN+Pg1Syhs9PNThTrCV+GInN5JcX0+HxH3ukKBOw4MpFWX
+	FW1ZWQv2SCtCGPxlXhh36e+hNpm8psAHbd30hZSyMhtQcsKbnicbwlzi
+X-Gm-Gg: AYBFou24cKdVzh+tauCcXvkimJrDDYA2p96HQSCU1ORFuC/HRX0EguWVYo96ti+nGe2
+	Czsc+89u05jOoKQRLxy0oChkiRolLy8X0vKFDuv3WksOAKKTx+PfDSggN2uoXyH8iwC2GbaHYgm
+	sq8bhqMqhaI1huuCECX/Dcz81pFfj+xbW8wowTfW3PmBDhS4jwTDU4gEvyHgiL41RpZAE3R3QdJ
+	uIrtprXiuDdFIbig8IZk/fETJcK+RoW89lMu6zXE9iYepSxHAKeBlouaTCNf64FRrvO+zXOJmLb
+	WaTGhI65mnwJ50K4C7L6STLn4vxMjuPRpeSfaqto5vgWYy+Eubi55Qri7RqF64GM48ZxToXFmSM
+	32i/l2PzgKmXMGf2fO+mNbc2+WK/aCck2rsoLdhLQ2LrjDZ2RC++aopju5kBRpIpAp0+WZyf0XH
+	zlMFlBV4lmzRtUw/2CcM/OyOiIHxJfOsEKLUOIjHK7k7pepgGksFxe7KJYGn3Ntf3Yhvk5vwd2c
+	k3HkIY7aqI+TFrK7Bi1Xw6EsZe2Jiet7QmZgX0k5pvznid3FvZYxWGB2GhmfIN+avRM0u3MZl8q
+	Dvjs
+X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fc7f2bdc8mr18281725e9.2.1789722696430;
+        Fri, 18 Sep 2026 02:11:36 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B829B006E521A2A508563A3.dsl.pool.telekom.hu. [2001:4c4e:1b82:9b00:6e52:1a2a:5085:63a3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7cfd1dasm37167425e9.9.2026.09.18.02.11.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:11:31 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
+        Fri, 18 Sep 2026 02:11:35 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk,
-	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v8 4/5] bpf: Mark linux_binprm->mm as trusted-or-null
-Date: Fri, 18 Sep 2026 12:10:57 +0300
-Message-ID: <20260918091058.297740-5-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
-References: <20260918091058.297740-1-tasos.papagiannnis@gmail.com>
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	kernel@collabora.com
+Subject: Re: [PATCH 5/5] usb: dwc3: rockchip: fix USB-C reconnect in gadget mode
+Date: Fri, 18 Sep 2026 11:10:32 +0200
+Message-ID: <20260918091032.15593-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
+References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,72 +89,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Mark linux_binprm->mm as a trusted-or-null nested pointer so BPF programs
-can pass it to kfuncs after a NULL check.
+Hi Sebastian,
 
-The field is either NULL or points to a live mm_struct whenever BPF can
-access a linux_binprm. On successful exec, exec_mmap() installs the new
-address space before begin_new_exec() clears bprm->mm. The bprm_mm_init()
-error path clears the field before mmdrop(), and free_bprm() clears it
-before mmput(), as ensured by an earlier patch in this series.
+With this patch applied, the series fails to build when dwc3 is
+host-only and USB_GADGET is either disabled, or a module while the
+glue is built in. I built it on top of v7.3-rc1 for arm64 (allnoconfig
+plus a fragment, gcc 13.3) with USB=y, USB_DWC3=y, USB_DWC3_HOST=y,
+USB_DWC3_ROCKCHIP=y and USB_GADGET unset:
 
-Update the existing LSM selftest to check bprm->mm for NULL before
-dereferencing it, as required for trusted-or-null pointers.
+  aarch64-linux-gnu-ld: drivers/usb/dwc3/dwc3-rockchip.o: in function `dwc3_rockchip_set_role':
+  dwc3-rockchip.c:(.text+0x270): undefined reference to `usb_udc_vbus_handler'
 
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Reviewed-by: Sun Jian <sun.jian.kdev@gmail.com>
-Reviewed-by: Matt Bobrowski <matt@bobrowski.net>
----
- kernel/bpf/verifier.c                   | 5 +++++
- tools/testing/selftests/bpf/progs/lsm.c | 5 ++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+With USB_DWC3=m and USB_DWC3_ROCKCHIP=m, modpost reports
+usb_udc_vbus_handler as undefined. With USB_GADGET=m and the glue
+built in, the link error is the same. With patches 1-4 only, all
+three configs build.
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 6c6b8d8520cd..3539a768b921 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -5997,6 +5997,10 @@ BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct dentry) {
- 	struct inode *d_inode;
- };
- 
-+BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct linux_binprm) {
-+	struct mm_struct *mm;
-+};
-+
- BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct socket) {
- 	struct sock *sk;
- };
-@@ -6051,6 +6055,7 @@ static bool type_is_trusted_or_null(struct bpf_verifier_env *env,
- {
- 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct socket));
- 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct dentry));
-+	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct linux_binprm));
- 	BTF_TYPE_EMIT(BTF_TYPE_SAFE_TRUSTED_OR_NULL(struct vm_area_struct));
- 
- 	return btf_nested_type_is_trusted(&env->log, reg, field_name, btf_id,
-diff --git a/tools/testing/selftests/bpf/progs/lsm.c b/tools/testing/selftests/bpf/progs/lsm.c
-index 7de173daf27b..7441d66c080c 100644
---- a/tools/testing/selftests/bpf/progs/lsm.c
-+++ b/tools/testing/selftests/bpf/progs/lsm.c
-@@ -113,6 +113,7 @@ int BPF_PROG(test_void_hook, struct linux_binprm *bprm)
- {
- 	__u32 pid = bpf_get_current_pid_tgid() >> 32;
- 	struct inner_map *inner_map;
-+	struct mm_struct *mm;
- 	char args[64];
- 	__u32 key = 0;
- 	__u64 *value;
-@@ -121,7 +122,9 @@ int BPF_PROG(test_void_hook, struct linux_binprm *bprm)
- 		bprm_count++;
- 
- 	bpf_copy_from_user(args, sizeof(args), (void *)bprm->vma->vm_mm->arg_start);
--	bpf_copy_from_user(args, sizeof(args), (void *)bprm->mm->arg_start);
-+	mm = bprm->mm;
-+	if (mm)
-+		bpf_copy_from_user(args, sizeof(args), (void *)mm->arg_start);
- 
- 	value = bpf_map_lookup_elem(&array, &key);
- 	if (value)
--- 
-2.55.0
+dwc3_rockchip_vbus_handler() checks dwc->gadget only at runtime, so
+the call to usb_udc_vbus_handler() is always compiled in. That
+function is only built with USB_GADGET (drivers/usb/gadget/udc/core.c)
+and has no stub in include/linux/usb/gadget.h, and USB_DWC3_ROCKCHIP
+does not depend on the gadget side.
 
+The same test run also shows that the two EXPORT_TRACEPOINT_SYMBOL_GPL
+lines in 4/5 fix the modpost error I reported on v14. With them
+dropped, dwc3=y/glue=m (the v14 case) and dwc3=m/glue=m, both with
+tracing, fail with the same four undefined tracepoint symbols.
+
+This was a build test only; I did not run anything on a board. An LLM
+assistant wrote the build script and helped draft this mail.
+
+Igor
