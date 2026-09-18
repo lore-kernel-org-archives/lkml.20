@@ -1,62 +1,64 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B558613959D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E4849C4AE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716035; cv=none; b=qwOsQNwqjZ6fnQ+3dtDt7MBYitpC2VlY8uXuWM0HnDJRc2jGUBrtjv+dM6tquDyAD3OLZ8stbHaX/QiwsFSIAEzLrFjKbmw1VM0pWDwlYOJPpioKoGC7NDoaqyFXjqFa4yhC1W6ltUUAvLIJQ70xvvg7fDOr//jP6tvBmRp1Kpo=
+	t=1789716043; cv=none; b=EvP1MMqHUzTdjQVEpcXR9pfqXl7YT9rVrkF41BuLzskRv6hJ3k3AaTE4MOvZ54fWGK1es+hi+T22AKlaHWhc8tNnTC8DBN6AI7gWj0khaaJF5d5P57VEU/+yddDvZOqVn6eYUvv616I48wrMIEllNDC5N+2Q1CI+jwIwALOpkbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716035; c=relaxed/simple;
-	bh=lmr05mhnnK+lOO1jE+gAQDYyz+gLXcxDKtIoIuO+PWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hr97MhCQwbd8cuc0lugtOLUl1fome2MqRoW+tsTnOi2i5wJtboVcjPR0kz2Z28+muXp3FB8aiEngNd0qjQzKZz9R374ACL1EEG2NvuWMyjnCjPXXQss0F3SLUJUin/tQ8e6C+VVWPdCvWTylZxyRkjp2ZjWqHW1lsVLDvyFu5qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=EIRkCkFW; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1789716043; c=relaxed/simple;
+	bh=yYqekLJ/G1t+rbxU0H1jBCLzz7cJv7e+IWYJeGIMiGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sE0CfK2wqeIv5ot6KuSYW5DtPUzIb0PRq2V3dcL8wRCS8YCQMgokp4LyOMB6k9AxNdvL0uw6P0qQ4VAI42Ox4mfURUNx41yd2GgvWb7Fq7Yl0dBS5LojHXk1a1cmlUJHYd4aDcJBxqKftxSK4kOOLT5MX6Li7C21xypaaSy+RII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=XMufxBHz; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="EIRkCkFW"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso311150a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:20:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="XMufxBHz"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so391754a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:20:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1789716033; x=1790320833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ey2Q/vsiZe0TmezjSQD1jn0tWr1spPz2HHVIhZhd4Uw=;
-        b=EIRkCkFWxHuTBdjpBRP55A7hXwVz6/JpdFVSCZkeT6v3PmCoTGGn5Ek049kBoepndS
-         UiTyZLC+2O6Nm5gXin5OL8fVXAmZTXzbhLGx3Kr3sVQwUzxD3M770urEvZx9ljT3oiK5
-         Q7IREapYwcQDiEKcXPHDD1b6CRNXs77wqXHeuqjSOafdYISFUdV3zGfwVmEzXiE1e2M5
-         LDdQJoxH8rcHM5+fXL/sRYOQenTe62kXXuNumemkwQnGctBzCI9bdq1nt/mgy8nKszcc
-         2w7F76drn38TaCK6RUaen3YbL2r0WNwJ23PKIwk8JlrxRbTrY0iONbHXQWdD+X9A8tkm
-         k6zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789716033; x=1790320833;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sifive.com; s=google; t=1789716040; x=1790320840; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ey2Q/vsiZe0TmezjSQD1jn0tWr1spPz2HHVIhZhd4Uw=;
-        b=PaNYcvbb9cFVyk4lEDthP99hK2CkWj8674GqoT25i8lrHrdeCtkCF2Ew5YrYimlej9
-         cscVXyWu1G01n7TqlwPPSKMvwfkUqWxTHlb6yuZXQK4e17hWadiKt1hCED9HW+j5645F
-         RW/Xi1l6hI9ViEvQAb36ThS4huMl7W7kifhbtd5kuLDSawRfE9ojPo5vWE1IyPPTPChT
-         DHbFp0syzWKJcg2AtkhcRXDRWZBkkj8gcElhbJPAADv8nMAnaAY4IqHHMwyNm7/g689+
-         AE6OjCpiPH/aWwySPXAJ3nbIVPICbFR6GgwoWWsWBBC04ez9hTgQkP/jRdqo+MUr9klk
-         P1eg==
-X-Forwarded-Encrypted: i=1; AKwUvByl09np+M60nXgo9X82RYYRVIAUyp2Px03chQLmsfvd4OTnx0eeZR4FRUaetAH/6jVaxD+EbZk7wVtmfhg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXR7uortlm2SsNnzQwou6LlWNDEmQZWDbyHRv6s9jkGT6eVLjI
-	xkX0vS18/U7H/qRfh48Aspel5bD3waXVLG2H9ftFoo8KLF5eWsix8TWq+dlemxYRRV4=
-X-Gm-Gg: AYBFou18gakwcWxlEZLlShDgAKpiCEdXqujKxt0swoe+JKaIFkhxoGZegs6i0IKJBwt
-	8Regp/XuVIBLOZ6W5OWEOQq3hdjhEnt7mZLLgRRvb4p6TkuwofnCWRhnoPBqMXRf2uVi9uycZJR
-	O/jbSv25P30RP83YllnG3TY6i4bVFlNRP6cyeouZskGlnJeERgXwSCNvI+9+r9kSLmjDvQfDBEH
-	/xNXxeeZXzJCmikALayei6ZkogvLCeSRA/5MRcM5bj+pXltXxSiIHZvj5vsou/SIQx5BIN7kvDs
-	fW5x23qUT1MDJ0Aq7WyAHNeJr3tnOwMA6rDCxZHKuz9YlIWoBqpz0/n1SgQUKX+xt2O4wyOLALq
-	JUO0rEzW7jtvxsWAzgw/xnKSx4J8bHJNkWpVihHjJmaszBPQoLH1hlp4bOd3xYn6jLzkB+vfZOe
-	F0vDXI7FJZeMnu54n40f/z9ZuUbOvOAwTM0IL2zfe9lEWHSFmZY5mEoLp7FyB8h0//m0AyoOs45
-	gPStmOzKxg=
-X-Received: by 2002:a17:90b:398c:b0:39e:35e4:d31b with SMTP id 98e67ed59e1d1-39e54ce1651mr5897094a91.5.1789716032935;
-        Fri, 18 Sep 2026 00:20:32 -0700 (PDT)
+        bh=QtF+hEd4zxaSXZ54y5RlnY99ygpvKaq026DcmobuPXU=;
+        b=XMufxBHzQYXM9PKET1RBAQ1Rc2FDwivih+fUmbjhtjp0KmnRQ/AeYK9/Pqq76R5S/w
+         HspBH7r/okHUxZcChYXLJdS1Dx+3aZCNcgmsDwAyiYHMCYLo+JT4wAU4RoR6N0A43/BL
+         RVg6Gmw+xmgYVdWD2+20q2v3etU5M+srr0a2Eeuu9aQmeIK+vxELxDGtMU/usr79DmRP
+         +fEjUKRkrAywQjwOF8Q/c1qTIiaCNsrw53yMVqncamA29yizTudKKcif1UsbkKu6JDvO
+         in+jy80Xs0vqKbluGkaNfMDEprGn1yDcvSSDalM1UEdZ1FosKHpkmMM2/ccAeaphiN9a
+         8K0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789716040; x=1790320840;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QtF+hEd4zxaSXZ54y5RlnY99ygpvKaq026DcmobuPXU=;
+        b=jJmt5nLoZDNg7cIOtgTFWRizYRkZgkSVt4PcVJQF+1k7OiMO9GUj29b4yp+RI63T1r
+         /PLwEs1AzdOEklhg61pCxXk3YcKauRzA4n75fXrbtr1rCgP4IsI62WETN5kkEuJ05d7U
+         mYGGvW6BWy0CTxjPg3oeWgf2qZfZRJkWgeEOazAyD68GB6eF5uV2Q8qA6q+9muTwAqOA
+         lffaBm2NYWAjohD9rKOdlWWWMoWP1yEVZ3XQmqCujWgR19aND6cH0vIHt18mnvUymMWs
+         sILjyWJNIwjthaXV0y4V1vG0/RRAJA8pNOpqkBH8vZyGGn1A95VRZzeu3OZcpAa4yIG4
+         1uJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSgd3dkzlyyVB2zUnFnrPyeO6+X2ZE+BMKC4YTmsMnF+Hxmm8+4DI62hc25kBqBeltvu87q36dF9r/3Ho=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1rmkkXweblDAPD5EDQ0UgUhrXkcZJA00c3NL+pqDhyZDl5Gxl
+	9s6NV4a5br9lS21HuTQA20cLfAqyfkFq6yzxIXwGqqVDdIBFA9l6cKb/UY0WLLEzeMw=
+X-Gm-Gg: AYBFou0DkkJim19yBf6+FALvk3cspjAYWFtze2liqIyGNkQnkLV+16zvHQEm0AHeVow
+	hopmRGyiacxT2vw5nH1EU+3aGRDjMRN6YEKN1uKaW4IVmMIrl+bxZxmYg/UUOyBRclf+l5amUEf
+	xeC2IuvW1fudYSGVzpKxZsCj/IWRhMrR9Mjdr5JvJp+4REfMQU3tqhqNiVSL16HRIe+TNKmsKb1
+	ACLD3oiNZQ7sMVlElJJZ5g5iyCdhJGFVAG5ukahYMjh5Cwo/CQSmDmANVNdgAUf1J79S54+cimP
+	yRlPjv+yGGhruQldh2IsxeacRo92jfxJnYl6CQg/+OJbfZ6Pq3vQLvUAmozjzEHscRDw+HdEaEK
+	fOzZM/jRBz41AxdJfvnYfER2aLdUigqM/PVuSdYKKyk3Yf5fYgKd43iVJ2RA1jrZ/Z75EreJiip
+	d6B8B1is5NTqoH/0BHdayYOFDU/mq0t7+f+wLtIGqGbcAEluBZMD3Wurb0K8iZR61ksb36iRsUK
+	6gdciszsAQ=
+X-Received: by 2002:a17:90b:17cc:b0:39e:135e:130e with SMTP id 98e67ed59e1d1-39e54af6a0emr3710326a91.3.1789716040219;
+        Fri, 18 Sep 2026 00:20:40 -0700 (PDT)
 Received: from sw04.internal.sifive.com ([4.53.31.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce03c682sm4416046c88.10.2026.09.18.00.20.30
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce03c682sm4416046c88.10.2026.09.18.00.20.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 00:20:32 -0700 (PDT)
+        Fri, 18 Sep 2026 00:20:39 -0700 (PDT)
 From: Zong Li <zong.li@sifive.com>
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -77,11 +79,16 @@ To: tomasz.jeznach@linux.dev,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org
-Cc: Zong Li <zong.li@sifive.com>
-Subject: [PATCH v12 0/2] RISC-V IOMMU HPM support
-Date: Fri, 18 Sep 2026 00:20:24 -0700
-Message-ID: <20260918072027.639239-1-zong.li@sifive.com>
+Cc: Zong Li <zong.li@sifive.com>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
+	Samuel Holland <samuel.holland@sifive.com>
+Subject: [PATCH v12 2/2] iommu/riscv: create a auxiliary device for HPM
+Date: Fri, 18 Sep 2026 00:20:26 -0700
+Message-ID: <20260918072027.639239-3-zong.li@sifive.com>
 X-Mailer: git-send-email @GIT_VERSION@
+In-Reply-To: <20260918072027.639239-1-zong.li@sifive.com>
+References: <20260918072027.639239-1-zong.li@sifive.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,116 +97,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series implements support for the RISC-V IOMMU hardware performance
-monitor.
+Create an auxiliary device for HPM when the IOMMU supports a
+hardware performance monitor.
 
-The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
-created by the parent RISC-V IOMMU driver. Therefore, the child driver
-can obtain resources and information from the parent device, such as
-the MMIO base address and IRQ number.
+Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+Reviewed-by: Guo Ren <guoren@kernel.org>
+Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
+Suggested-by: Samuel Holland <samuel.holland@sifive.com>
+Signed-off-by: Zong Li <zong.li@sifive.com>
+---
+ drivers/iommu/riscv/Kconfig |  1 +
+ drivers/iommu/riscv/iommu.c | 48 +++++++++++++++++++++++++++++++++++++
+ drivers/iommu/riscv/iommu.h |  4 ++++
+ 3 files changed, 53 insertions(+)
 
-Changed in v11:
-- Rebased onto v7.3-rc3
-- Add riscv_iommu_hpm_disaable to destroy aux dev before MSI is freed
-- Fix CPU hotplug race risks reported by sashiko-bot as follows
-- Re-validate pre_count after reading hw counter
-- Move hwc-state into atomic critical section (pmu->lock)
-
-Changed in v10:
-- Optimize hi-lo-hi by do while for hypervisor case
-- Add raw spinlock for cpu hotplug race and IRQCHIP_MOVE_DEFERRED
-- Remove irq work mechanism for IRQCHIP_MOVE_DEFERRED
-
-Changed in v9:
-- Clear PMIP in irq handler on wrong CPU for re-triggering IRQ
-- Add a lock in offline_cpu to avoid cpu hotplug race condition
-
-Changed in v8:
-- Rebased onto v7.3-rc2
-- Add irq work mechanism for IRQCHIP_MOVE_DEFERRED case
-- Filter multiple cycle event case
-
-Changed in v7:
-- Rebased onto the v7.3-rc1
-- Remove raw spinlock
-- Check CPU matching at the beginning of irq handler
-- Add PERF_HES_STOPPED check before overflow handling
-
-Changed in v6:
-- Rebased onto the latest v7.3-rc
-- Use sysfs_emit instead of cpumap_print_to_pagebuf
-- Set up on_cpu and irq affinity by cpuhp callbacks
-- Change type of on_cpu from unsigned int to int
-- Reject filter operands of cycle event in event_init
-- Check return value of counter number and  masks in probe
-- Add raw spinlock for race condition (third commit)
-
-Changed in v5:
-- Pick up suggestions from sashiko-bot as follows
-- Fix event group validation for sw event
-- Bind IRQ to aux PMU dev instead of parent IOMMU dev
-- Clear OF bit when event is NULL
-- Improve hi-lo-hi patten
-- Add back IRQF_SHARED flag due to mismatch
-- Manage cpuhp and pmu register by devre
-
-Changed in v4:
-- Rebased onto v7.3-rc
-- Use is_sampling_event() instead of accessing vairable directly
-- Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
-- Change the naming of PMU device for avoid ":" in PCIe case
-- Add suppress_bind_attrs attribute
-- Remove IRQF_SHARED flag
-- Set irq affinity to local CPU of IOMMU
-- Allocate ID by IDA for auxiliary device
-- Pick up suggestions from sashiko-bot
-
-Changed in v3:
-- Rebased onto v7.2-rc3
-- Use hi_lo_writeq/readq to access register
-- Pick comments from sashiko-bot as follows
-- Set IRQ CPU affinity
-- Remove IRQF_ONESHOT flag when request irq
-- Adjust cycle event check by checking event_id field only
-- Fix bug for group events verificaiton
-- Fix KASAN issue about casting 32-bit variable to unsigned long pointer
-- Clear IPSR pending bit before starting counter
-- Clear OF bit in event selector register in irq handler
-- Release irq by devm instead of explicit free_irq
-
-Changed in v2:
-- Rebased onto v7.2-rc1
-- Use hi-lo-hi mechanism to read counter.
-  Suggested by Guo Ren and David Laight
-
-Changed in v1:
-- Rebased onto v6.19-rc8
-- Pick all suggestions and feedbacks from v1 series
-- Add cpu hotplug implementation to avoid race enablement
-- Move PMU-related definition from header to c file
-- Change PMU driver to auxiliary device driver
-
-Changed in RFC:
-- Rebase onto v6.13-rc7
-- Clear interrupt pending before handling interrupt
-- Fix the counter value issue caused by OF bit in the cycle counter.
-- Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
-  in riscv_iommu_remove()
-
-Zong Li (2):
-  drivers/perf: riscv-iommu: add risc-v iommu pmu driver
-  iommu/riscv: create a auxiliary device for HPM
-
- drivers/iommu/riscv/Kconfig      |   1 +
- drivers/iommu/riscv/iommu-bits.h |  61 --
- drivers/iommu/riscv/iommu.c      |  48 ++
- drivers/iommu/riscv/iommu.h      |   4 +
- drivers/perf/Kconfig             |  12 +
- drivers/perf/Makefile            |   1 +
- drivers/perf/riscv_iommu_pmu.c   | 994 +++++++++++++++++++++++++++++++
- 7 files changed, 1060 insertions(+), 61 deletions(-)
- create mode 100644 drivers/perf/riscv_iommu_pmu.c
-
+diff --git a/drivers/iommu/riscv/Kconfig b/drivers/iommu/riscv/Kconfig
+index b86e5ab94183..8025bf0fb67f 100644
+--- a/drivers/iommu/riscv/Kconfig
++++ b/drivers/iommu/riscv/Kconfig
+@@ -10,6 +10,7 @@ config RISCV_IOMMU
+ 	select GENERIC_PT
+ 	select IOMMU_PT
+ 	select IOMMU_PT_RISCV64
++	select AUXILIARY_BUS
+ 	help
+ 	  Support for implementations of the RISC-V IOMMU architecture that
+ 	  complements the RISC-V MMU capabilities, providing similar address
+diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+index fe8e6d0f8a23..3c8f8adba647 100644
+--- a/drivers/iommu/riscv/iommu.c
++++ b/drivers/iommu/riscv/iommu.c
+@@ -14,6 +14,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/acpi_rimt.h>
++#include <linux/auxiliary_bus.h>
+ #include <linux/compiler.h>
+ #include <linux/crash_dump.h>
+ #include <linux/init.h>
+@@ -48,6 +49,9 @@
+ static DEFINE_IDA(riscv_iommu_pscids);
+ #define RISCV_IOMMU_MAX_PSCID		(BIT(20) - 1)
+ 
++/* IOMMU PMU auxiliary device id allocation namespace. */
++static DEFINE_IDA(riscv_iommu_pmu_ida);
++
+ /* Device resource-managed allocations */
+ struct riscv_iommu_devres {
+ 	void *addr;
+@@ -587,6 +591,46 @@ static irqreturn_t riscv_iommu_fltq_process(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++/*
++ * IOMMU Hardware performance monitor
++ */
++static void riscv_iommu_pmu_id_free(void *data)
++{
++	ida_free(&riscv_iommu_pmu_ida, (unsigned long)data);
++}
++
++static int riscv_iommu_hpm_enable(struct riscv_iommu_device *iommu)
++{
++	struct auxiliary_device *auxdev;
++	int id, ret;
++
++	id = ida_alloc(&riscv_iommu_pmu_ida, GFP_KERNEL);
++	if (id < 0)
++		return id;
++
++	ret = devm_add_action_or_reset(iommu->dev, riscv_iommu_pmu_id_free,
++				       (void *)(unsigned long)id);
++	if (ret)
++		return ret;
++
++	auxdev = auxiliary_device_create(iommu->dev, "riscv-iommu",
++					 "pmu", iommu, id);
++	if (!auxdev)
++		return -ENODEV;
++
++	iommu->pmu_dev = auxdev;
++	return 0;
++}
++
++static void riscv_iommu_hpm_disable(struct riscv_iommu_device *iommu)
++{
++	if (!iommu->pmu_dev)
++		return;
++
++	auxiliary_device_destroy(iommu->pmu_dev);
++	iommu->pmu_dev = NULL;
++}
++
+ /* Lookup and initialize device context info structure. */
+ static struct riscv_iommu_dc *riscv_iommu_get_dc(struct riscv_iommu_device *iommu,
+ 						 unsigned int devid)
+@@ -1570,6 +1614,7 @@ static int riscv_iommu_init_check(struct riscv_iommu_device *iommu)
+ 
+ void riscv_iommu_remove(struct riscv_iommu_device *iommu)
+ {
++	riscv_iommu_hpm_disable(iommu);
+ 	iommu_device_unregister(&iommu->iommu);
+ 	iommu_device_sysfs_remove(&iommu->iommu);
+ 	riscv_iommu_iodir_set_mode(iommu, RISCV_IOMMU_DDTP_IOMMU_MODE_OFF);
+@@ -1636,6 +1681,9 @@ int riscv_iommu_init(struct riscv_iommu_device *iommu)
+ 		goto err_remove_sysfs;
+ 	}
+ 
++	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_HPM)
++		riscv_iommu_hpm_enable(iommu);
++
+ 	return 0;
+ 
+ err_remove_sysfs:
+diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
+index 5676001548cc..7fcd79fa47c8 100644
+--- a/drivers/iommu/riscv/iommu.h
++++ b/drivers/iommu/riscv/iommu.h
+@@ -19,6 +19,7 @@
+ #include "iommu-bits.h"
+ 
+ struct riscv_iommu_device;
++struct auxiliary_device;
+ 
+ struct riscv_iommu_queue {
+ 	atomic_t prod;				/* unbounded producer allocation index */
+@@ -62,6 +63,9 @@ struct riscv_iommu_device {
+ 	unsigned int ddt_mode;
+ 	dma_addr_t ddt_phys;
+ 	u64 *ddt_root;
++
++	/* PMU auxiliary device; torn down explicitly before MSI teardown */
++	struct auxiliary_device *pmu_dev;
+ };
+ 
+ int riscv_iommu_init(struct riscv_iommu_device *iommu);
 -- 
 2.43.7
 
