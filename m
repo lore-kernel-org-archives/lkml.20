@@ -1,130 +1,123 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46E735C68B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:27:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE523D34B6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789770479; cv=none; b=JwHTTUAb+rOfVqhQLA+iVBOdZQud3VGti3J0XZn8JRwNPiurUiNPd9fPRkqbXRK4NedktTLfd5qIl1J43W+c4NzYfrStSyu+KXKwnPdgfvLpYHj2ZJLRoCp0Z5HU2gEP55EYNgbOWpjhgt9arB+LESeAJg02GCnepTRJibJUS8U=
+	t=1789770573; cv=none; b=D/xfGxSdzM7gVLlnpvepAIW9Jebwqu+rYJ078hbk19h8DzV5tQSS7sMLvMVJIPk8zoupsLDhfBys5q1MB4alV+YPqy0e+EkB3BqUgOFjC+l/biWT+LFaLTjT+/oauOumZvbSIcLeC1frcddawNX122wf2OMn3XTAyZ4D3yzsND4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789770479; c=relaxed/simple;
-	bh=NGIFwKB33NxQy+k068R4T5Tm6/ogvoilF+pwjImbnro=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pZD7k+cftDF9Co8sGHbTNQK6tE3Odnb37/rNBA0VbaJS4zckQLA+2LmbPQawRon6SInaB6krlUNWyqDTfQ4bFCQk2yAoxPK7W5KYC6hFoe53RpuyplXi77VOcXEDGBGcgK1GHjOE0u9UsfepTiBxS99kR2Kj5uJfHUP3dr0Rxpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KohRcIls; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UeJT1TBK; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1789770573; c=relaxed/simple;
+	bh=qJfvIkWQLChcJURKBe1+9TQo1Vq/0W077vbNcPpsImo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=mUASKKUWGYsuuoo7CgClSv7qeowys2u5WdK3NPPiurd3v8Ge5u7t+WyRY3KmvHpWzSGtLbRPql6sl2Pa58fhmoJff7/2Ze4LPzzwuM3OSjAPTdhG4o8KCyHq4dUaGPQICqWBG7jnWVHV4sHPZ5CZzmytRXYMHkbxv2rYfJq/Aks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MDB0HSA8; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=q9Wd90Ys; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KohRcIls";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UeJT1TBK"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MDB0HSA8";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="q9Wd90Ys"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789770476;
+	s=mimecast20190719; t=1789770571;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YmUqK+rq52Mp671nbFhAqy/BcNTM6h9Cl3CLl+lByKU=;
-	b=KohRcIlsj2Xw/mHhaFaC+4+1iyzZAV5REJigf2h1mlmAz+slLKoxpKQPPiU3Dz4OBibvnO
-	d4BrHvIJXzqHweKyf/+Z/gIx32Gt2V4emBOx6RryLL3upf0KzrpK4IgleXz2SwDR8thYds
-	kIBfpn0MxQ2xu+XDZ+lPSlt/9TixzXg=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=p32LQHLzzMSNCQDrCQVRbQJDsxmVl9uccGFGyZXBagg=;
+	b=MDB0HSA8Stfm3Ttqx4kS5NY3piXwYrxs6KKc+R3yViaNyR2kjT1tDVHUuEBXoZ2b4lOVX/
+	93AF8LO4NIwAMsbrISYzbSX082YJY7yX/IDhTEk72iflu8Z92qBwI76tgx2osnOQVjW5Xd
+	7c9pPEXGCYgdAokfl24bUtwEY3mkCDo=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-66-MJiXzJotOV6t4r671P_YdQ-1; Fri, 18 Sep 2026 18:27:55 -0400
-X-MC-Unique: MJiXzJotOV6t4r671P_YdQ-1
-X-Mimecast-MFC-AGG-ID: MJiXzJotOV6t4r671P_YdQ_1789770475
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-53000c06184so34615711cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:27:55 -0700 (PDT)
+ us-mta-207-hfaQMCiIPlCWYpPASM3LSA-1; Fri, 18 Sep 2026 18:29:29 -0400
+X-MC-Unique: hfaQMCiIPlCWYpPASM3LSA-1
+X-Mimecast-MFC-AGG-ID: hfaQMCiIPlCWYpPASM3LSA_1789770569
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52dcf1bb6e9so48645961cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:29:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789770475; x=1790375275; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YmUqK+rq52Mp671nbFhAqy/BcNTM6h9Cl3CLl+lByKU=;
-        b=UeJT1TBKtDviuUFICtm1oioVac1IdX3VT6qTKrTwTCsG9E5M2e3Czm38oAntgzsT+q
-         dkyOAyukQpgbpnhnl4Oz2XyWBb2mZhwKtjQSkCdHEJ5hOqNM2PYPhdCYHtKK6brQBWPl
-         3wINOAng70nK5eUiQ5rh8fuRKvFK66FkErkOOaCLQ7FqY0U+CtQ6CUTUTEyJvx/1g1uM
-         DuhWdlS3QuNVqENd5EeFaqI5Y6r/f20KYMdAHGYxhhLuygr4zX0oQ7Lc0laSMhUKNtwk
-         0tJqF/DNbctVIRpGcJU5MlcYo8GoP2cCLAHqP80lwdQt45AgUOsiRXHcUghOfZAHlw7N
-         GYcA==
+        d=redhat.com; s=google; t=1789770569; x=1790375369; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p32LQHLzzMSNCQDrCQVRbQJDsxmVl9uccGFGyZXBagg=;
+        b=q9Wd90YsCrPSKBVhyijmaFSfZAHkzSpI+1krsOFFUejQqUreZFEo43pqiCHSmELpP5
+         f41Mt2nE7DAzRKKmUb2woGdjAndq1qFE0S7jOaCPGMpzUonU2GdSJISZ6MYNxjN++cK7
+         w9OGbr0gHefj6ENmMXWj4eB6dVImN5bA3n0LjoGU34P4yXq0w1nJeimbUeFs8xlUMLRO
+         bWs1gjqYQojtuZz8+rAvjBBVrKbB8bDd5oii4hevyAppDWrk68UitZ79Fh9vguxK/FCw
+         GnAZC4i7kSlooetYGaIJAZ5nWc7CRbJ55e5NGQjZ1eeJ9CurEYvx4zKzby1XZ8Nuswuj
+         oeyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789770475; x=1790375275;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YmUqK+rq52Mp671nbFhAqy/BcNTM6h9Cl3CLl+lByKU=;
-        b=z46UKUJ4tjE3KMqYJxBAgPqTtaAMMxdMaFodji6Nv1SiZgjv0sT9NCuxogsk/CCPuW
-         Mdl0AaRNikoc0tJfWOx920df5VcXUEUA5oTq/0+TAw13dJJS4jmUZydYhlGm+rjRqpvK
-         lI4iq4ZtUm3pYTuVSy87SFR3PxGxb49UXUPEkS0nrAuyTfCeu1Uf8h3iC6yKF1u3+rOm
-         zutxfqJ5+Pj0EmmEfiEp01nqEwbX0WDNv/7N3mg0Kl9Zmw7B7uBP0VA0OINjSzIcqKQB
-         lB4WIK8uZ0m7S3EbQigg6jfYEpypXD/AwiYhdDEbqqQ9YwJAqB/KLcnuXkUGaAp4bgcT
-         WTRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuX209TB8JUSDNqFQ3+a13cf+SK9fQhVZ6QfqBNJ7HWcp6aWscc/iyhDJob5QEuVWjRyL6rrFMcxLmF7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN7gw/qpTt0N0eM7UoJtEP20TZIBTOb33XWWzJU204AsLaXVzh
-	JUN8YCs2t3GOzEG0aEHBx52DjinUhHjBPQDl0UMFB9gXma/n5BCsOaT7SC53W6IAg2q22IWHKmt
-	zZY/wAkaDbsgPvYLW4Sep8AMkxuqkDaln7sHM9WQBFgS/iBW+1rXm7SfAHNdUk1M/yQ==
-X-Gm-Gg: AYBFou3Zt5RIH8L7EZEjRasNprjUong9XMNYblmzwg0ruWx7UY6gACNVddSkMtpR1E4
-	/jtjVQaRopHPqFoV6Zoug6Xj/wL8Y8DKVmnFb04jweeW8ZP+1N9DUhJDdB/3iiF/jz62ejxRHTZ
-	Hil2rK4UNMpXMlQTbe1XKO/oMFsYPR0k2adm/m1HM7Ey/CfWbhkJkHe1SenEKkL0zshYU9Z5TD+
-	1afeG3zepkEC7nvoFUfxyCRVNCFUyfuxcbLO68XHQgPnhJbGl28UVKI/0j5axzP8dFnyno8fiL0
-	ZmSpnGgrSsuPHy3pgH34zm30JHG4lF3fNe30t5GhaKYzYZNZKVH3lAlM/fv+0HBVlD6dm7o=
-X-Received: by 2002:a05:622a:2616:b0:532:9ade:b6da with SMTP id d75a77b69052e-5329e557017mr77338871cf.67.1789770474799;
-        Fri, 18 Sep 2026 15:27:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:2616:b0:532:9ade:b6da with SMTP id d75a77b69052e-5329e557017mr77338571cf.67.1789770474435;
-        Fri, 18 Sep 2026 15:27:54 -0700 (PDT)
-Received: from redhat.com ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae750977sm7202701cf.23.2026.09.18.15.27.52
+        d=1e100.net; s=20260707; t=1789770569; x=1790375369;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p32LQHLzzMSNCQDrCQVRbQJDsxmVl9uccGFGyZXBagg=;
+        b=VKnpA89yU687KOU05yny+NMaIHhZuIJGn6GHMI29nvJoZnHe3Curbe0FaTkQEYThbL
+         M51WtxReeNsIGbUULgdnEeQYqon26eK5cp4RnFxphWrU5B0a3TGN5iIRUSEhomczxn28
+         xsfpezKpAspML/R8RuReAW1RB31gT/3V4HLRE3I9jfLq3+YMjzDp/yZtrhkjUspippFz
+         t55lCjjEcVyptpZ6xVUNkXP78Z8XdC2RmrazMaKvM2zpXueookp7qSlBfHp7bQ0m//5o
+         G8NsGc6W4pG2j5jreJzVG4+x9hhaAvgdbbL030FnJwDBWYlF4Nv08PZ1vBiydRpq9iV+
+         l4iA==
+X-Forwarded-Encrypted: i=1; AKwUvByhUy8bpV0YKeUqs8dgr2MNGTQBPHV0ToPzYGFiaUAn9FyEU5ph7cWTk35LsqhNLB1c/OZbIp5rCEVVq38=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyIt6/9WzTJi5B1vvxAu7ryKsV53a41ivDD0nYHG2U1GIhgH9U
+	ClShyHA4kkQdKZhX6hoW83sN8tx0QlsIpLJBT47QJpo72Mei4SxJ5CtnrV5KuyZOrSzdh+lnU6B
+	5TeOgK90XLVO8ZuwqaCiR8Afi7JoV77RZ+jFcUjLbhVgVEUcwZcwhD4YxsSWr42fmZQ==
+X-Gm-Gg: AYBFou3cdedZFfOHt/LEM/DsgLmkjs8GG74cZ3lUItCsy0dwDwCDYXIes7V0OEMqGhn
+	FulyrhQIg8gdDHOsPz9/ucFp4M3/+vCkh7KFwI+SOi9VCpOMp2gt7NP0Pg31Nl5E1m9kmHXIwKN
+	Z74Mei6G51VkuP7qZ65cIfHEMBsoZM9FYhcpDzoWOdXWvkUD1tSp5BtOmNIjvT2KTiEt9qWoGDI
+	epMdiSBgO3D3gq+CFg/6vSUm4MHlPW9BGB/M44Qp7VuY9rKJ+j5x2/QwQuBf9qb45UyRI6C8nxF
+	ORlSrDzIhsHwfaFIIaSN9WE1WJ9ndBAyTFnegfQEOZQ7CGnHPO5xHPjlRdP9jpfq2cB5+Tlchwy
+	5Ww==
+X-Received: by 2002:a05:622a:1115:b0:531:1e4a:8eea with SMTP id d75a77b69052e-5328d0015d9mr129233891cf.32.1789770569012;
+        Fri, 18 Sep 2026 15:29:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:1115:b0:531:1e4a:8eea with SMTP id d75a77b69052e-5328d0015d9mr129233621cf.32.1789770568655;
+        Fri, 18 Sep 2026 15:29:28 -0700 (PDT)
+Received: from [10.239.101.46] ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae758a61sm7260371cf.26.2026.09.18.15.29.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 15:27:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 18:27:52 -0400
+        Fri, 18 Sep 2026 15:29:28 -0700 (PDT)
 From: Brian Masney <bmasney@redhat.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Wentao Liang <vulab@iscas.ac.cn>, linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mturquette@baylibre.com, sboyd@kernel.org, stable@vger.kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linusw@kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mturquette@baylibre.com, sboyd@kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260915070103.1733176-1-vulab@iscas.ac.cn>
+References: <20260915070103.1733176-1-vulab@iscas.ac.cn>
 Subject: Re: [PATCH] clk: versatile: clk-icst: Fix node reference leak in
  of_syscon_icst_setup()
-Message-ID: <aq266FMPwj99yVCz@redhat.com>
-References: <20260915070103.1733176-1-vulab@iscas.ac.cn>
- <CAD++jLns9S7ba9G+wcnsfrDBjtDWbM-qzg+NeW9vHFHKcOz3NQ@mail.gmail.com>
+Message-Id: <178977052357.517928.2775331133276610419.b4-ty@b4>
+Date: Fri, 18 Sep 2026 18:28:43 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLns9S7ba9G+wcnsfrDBjtDWbM-qzg+NeW9vHFHKcOz3NQ@mail.gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
-
-On Wed, Sep 16, 2026 at 07:25:39PM +0200, Linus Walleij wrote:
-> On Tue, Sep 15, 2026 at 9:01 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
-> 
-> > of_get_parent() takes a reference on the syscon parent node. The
-> > reference is intentionally kept on the success path, but the error paths
-> > return without dropping it, leaking the node reference. Release the
-> > reference before returning on the error paths.
-> >
-> > Fixes: d430819d69a5 ("clk: versatile-icst: add device tree support")
-> > Cc: stable@vger.kernel.org
-> 
-> Stable? Really? It's no big deal.
-
-I'll pick this up but I'm going to drop the stable tag. It'll probably
-end up there anyways with the Fixes tag.
-
-Brian
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=354; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=C+KFUpRy04Zo8PlhMyOdpcWavq81OHmCgPld83aOHow=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLLW7na5kVq75sCanhIhw7Zm1+124rpM7lUH3BpVzy1c5
+ HziXGV5RykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABOx/cPwV0rousCtVRntK5yW
+ Ty8slf/jddblmuDt7MiJ7kyz/zOuk2P4X6H1c6ea39vL0XltLBNCmUP3SSqX8tmKqZbd+60afJe
+ NGQA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-> 
-> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> 
-> Yours,
-> Linus Walleij
+On Tue, 15 Sep 2026 07:01:03 +0000, Wentao Liang wrote:
+> clk: versatile: clk-icst: Fix node reference leak in of_syscon_icst_setup()
+
+Applied, thanks!
+
+[1/1] clk: versatile: clk-icst: Fix node reference leak in of_syscon_icst_setup()
+      commit: c90a50d07f0c38c62ce13a60806ab5e3b841f70f
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
 
