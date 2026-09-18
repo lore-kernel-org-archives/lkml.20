@@ -1,331 +1,352 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814F84F392A;
-	Fri, 18 Sep 2026 10:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E3D4F4CE1;
+	Fri, 18 Sep 2026 10:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726587; cv=none; b=l4Z9TBF/cXb3FMWmgHhT/eJR7X/ibnOXWThirIkjky+AdgT22OTvPdIJ9XTM083mOtCh5DlOoqHB3tfmUvNpZ/gM36sJvv6FEmkdZ/7YD74RuZzr7ETfiZ4IqoBSLgpsRWk8ODx+CJVXli1SgAxBsh7USy3QnDsmwQTpzggerpA=
+	t=1789726597; cv=none; b=TcwU/1hwYWdRk3VQ82CyfsXCF4o9g6ShITNMvve5duIkK4FgAPQbe+FFMsa7br2ahLlISI0NzsA/+91Ub3DYmKUviYXviqneZCjb6fJUfa9EQ/AWqm6ykHWyLqLaO/fOa/+/QgrDqR0yR92eWUvGbpUQBUAbfLFXk4FHe568FHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726587; c=relaxed/simple;
-	bh=IGq6oQFqaAn6nk5Gri84pb1kRs1g0OYT6XOaHj1WhDw=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=N9ZfOmjqxoBHhIhE69RErjMyMOnTEkikRUQ8SVqWxtuw8crUep+T22KYk66HEnzt3UJTt3c/GobY/qO2UZE50cltBvAejgfjceZiJRQond77DdDG9IkD4hywDVYuTQqT62/1jCwhgfh8qh8ewuPPl1chxNDazP561BgfIYOi2q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ewz8OOrX; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+eXNfz1b; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789726597; c=relaxed/simple;
+	bh=UfI4GE9njGOAOXtVn00vzUVQJZx+xPULHfgtFi6mlTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AL3xfg1+bFqUjb9g6V2pUtDqAP6R9jdd0VZ5f0Bu2J0v0fI7bl0eTkrBILbAyLwxUU/0o1cED0lhzxsMSAaehEaFq6ZB1duc2gi3wVRjLy7gFlExpawcXcBk+2e+UFSKX84SJHj9Dx0nVUKMTjrsilWnugk2mSIj/0GIUvqWpHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=ZhWuacfj; arc=none smtp.client-ip=188.68.63.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ewz8OOrX";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+eXNfz1b"
-Date: Fri, 18 Sep 2026 10:16:14 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789726576;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eF0MoYwj/v9D/pHvSsm4StCDBcxVFT1JS3963XnATqo=;
-	b=Ewz8OOrX+vvfmux4/wrlMtI1q3NOD7MeFTlzlbMet1JIdGRzc/IbtzYBeqqo+roISePZYc
-	Uf9rUq3AqQIyId9nkPk4qeG8k6xxf9vZbpZpsDZLNZICLjaSjPddH9ybxqvn8YeIABy27b
-	OPTfVmKDlxx71fbmc0LjocMnpkVrXdUJ5Fil6aDJysk7ZZtqoyuQZVOELgHUeKE8dpFCjC
-	l/39b0qNYhd974TTXo0Ns2lnFeKD+VlAoBeRABozIMMNu7BnmDWSUuBpFcPJyDhKMAYaus
-	9DO4WAQi5aeF2O1J154LYn3FNQKXnV6J8vQ6zAEbqo6b5xfv9qeTi6z/+J1BTw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789726576;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eF0MoYwj/v9D/pHvSsm4StCDBcxVFT1JS3963XnATqo=;
-	b=+eXNfz1bJZBorkhWcvtl5ukB8JE7qpk6l6GPC1cN/RQPEgLfi37MR+swMxUPs56GytJnNh
-	0y4q8qkU39xLV0Ag==
-From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: objtool/core] objtool/klp: Group the klp tests by architecture
-Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-4-song@kernel.org>
-References: <20260916184351.2720310-4-song@kernel.org>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="ZhWuacfj"
+Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hmT6y5JBBz6MpQ;
+	Fri, 18 Sep 2026 12:16:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789726586;
+	bh=UfI4GE9njGOAOXtVn00vzUVQJZx+xPULHfgtFi6mlTk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZhWuacfjDBvo/GpF56emHhvMn9nD4S9IWCNHcD6tNxCGfcmDsHYKpZQsq7aUMVhy0
+	 fBeoYFjYgZXVUBsYhq7C9VLkSgLjJTvhkGWJsx0d/0xCGQnLipLvA8DU6n4OTOjl6c
+	 wLKZE+JgaF0B8TG1ipORQmT8mMWB0qZuaIzAllHXO7UVbEOZjPTBxQgRpO6fRHZzds
+	 URaWMb1I4qh1ZArhUw23ZJ5jHix3MJQFo36XGxyEmusvB67RkLVX0zF93anVAc46l7
+	 fHyxTmlG0bpYQhJF9+Z+e3x1LDCFe8XoAt8BbZpNN6pIC6zkEMrCV0fgmGkUKxp+2Q
+	 TKKWJiQhtP55Q==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4hmT6y4XsXz4yLd;
+	Fri, 18 Sep 2026 12:16:26 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hmT6w4jfBz8sbC;
+	Fri, 18 Sep 2026 12:16:24 +0200 (CEST)
+Received: from luggage.fritz.box (unknown [IPv6:2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5AA3A5FABA;
+	Fri, 18 Sep 2026 12:16:22 +0200 (CEST)
+Authentication-Results: mxe9fb;
+	spf=pass (sender IP is 2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160) smtp.mailfrom=linux@leemhuis.info smtp.helo=luggage.fritz.box
+Received-SPF: pass (mxe9fb: connection is authenticated)
+From: Thorsten Leemhuis <linux@leemhuis.info>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Chris Lew <christopher.lew@oss.qualcomm.com>,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+	Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+	Daniel J Blueman <daniel@quora.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Vlastimil Babka <vbabka@suse.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Subject: [PATCH net] Revert "net: qrtr: Send HELLO message on endpoint
+ register"
+Date: Fri, 18 Sep 2026 12:16:21 +0200
+Message-ID: <20260918101621.2848322-1-linux@leemhuis.info>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178972657490.1720534.14028231025955785711.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178972658291.632225.12105105254153465727@mxe9fb.netcup.net>
+X-NC-CID: DMvukkc/W+eeVYGBLC7WhtEXyYVvojXqlPZbqRsO/U6VwyWUT90=
 
-The following commit has been merged into the objtool/core branch of tip:
+This reverts commit 544d85de4dc22c01badfd8cefa59829ce35c4858.
 
-Commit-ID:     141ed8d0c414a5298a2da4e06bacbec46f14614e
-Gitweb:        https://git.kernel.org/tip/141ed8d0c414a5298a2da4e06bacbec46f1=
-4614e
-Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:42:56 -07:00
-Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
-CommitterDate: Wed, 16 Sep 2026 17:13:26 -07:00
+It causes suspend and resume problems for numerous people, including
+maintainers and developers of ath wifi drivers. A fix was proposed[1],
+but did not get any traction, so go for a revert instead.
 
-objtool/klp: Group the klp tests by architecture
-
-Which architecture a test is for is expressed by where it lives: tests are
-in generic/ or in a directory named for their architecture, each carrying
-its own fixtures, and the runner executes generic/ plus the one that
-matches.  A test which cannot apply here is then not run at all, rather
-than running in order to announce that it did not.
-
-Layout does this better than a declaration would.  There is no x86_only(),
-and no lookup letting a fixtures/<arch>/ file shadow a generic one of the
-same name -- an arch-specific test simply carries its own fixtures.
-
-Compilers cannot work the same way: CI varies CC over the same tree, so a
-compiler requirement stays a declaration in the test.
-
-What a run leaves out is reported once:
-
-  # not run: 5 tests in x86/ (this run is arm64)
-
-Silence would have been cheaper and wrong.  A run covering less than the
-tree holds must not look like a run that covered all of it.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Song Liu <song@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-4-song@kernel.org
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Chris Lew <christopher.lew@oss.qualcomm.com>
+Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Cc: Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>
+Reported-by: Daniel J Blueman <daniel@quora.org>
+Link: https://lore.kernel.org/all/20260909055846.16539-1-daniel@quora.org/ [1]
+Reported-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
+Reported-by: Vlastimil Babka <vbabka@suse.com>
+Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
+Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
+Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
 ---
- tools/objtool/tests/fixtures/basic.c         | 20 +-----------
- tools/objtool/tests/generic/fixtures/basic.c | 20 +++++++++++-
- tools/objtool/tests/generic/test-basic.sh    | 17 +++++++++-
- tools/objtool/tests/lib.sh                   | 27 ++++++++++++--
- tools/objtool/tests/run-tests.sh             | 36 ++++++++++++++++---
- tools/objtool/tests/test-basic.sh            | 17 +---------
- 6 files changed, 92 insertions(+), 45 deletions(-)
- delete mode 100644 tools/objtool/tests/fixtures/basic.c
- create mode 100644 tools/objtool/tests/generic/fixtures/basic.c
- create mode 100755 tools/objtool/tests/generic/test-basic.sh
- delete mode 100755 tools/objtool/tests/test-basic.sh
 
-diff --git a/tools/objtool/tests/fixtures/basic.c b/tools/objtool/tests/fixtu=
-res/basic.c
-deleted file mode 100644
-index 811529e..0000000
---- a/tools/objtool/tests/fixtures/basic.c
-+++ /dev/null
-@@ -1,20 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/* One changed function and one unchanged function. */
+I'm not affected by this, but due to all those reporters mentioned above
+it seems it would be good to get this fixed for 7.3-rc4, as Linus' rule
+of thumb wrt to fixing regressions is "generally be 'within a week',
+preferably before the next rc". Which is why I currently plan to ask
+Linus to pull this directly. If this is a bad idea, just tell me.
+
+The patch from Daniel linked above[1] could have fixed the problem, but
+none of the developers of the culprit or the maintainers for this area
+commented on it within a week, despite some "please fix this soon" and
+"Tested-by" replies from various maintainers of other subsystems. So
+let's go for a revert instead, the original change can later easily be
+reapplied in improved form. The change reverted looks like something
+that maybe shouldn't have been merged after -rc1 anyway, but this is not
+my area of expertise, so I might be totally wrong there, as mentioned
+earlier.
+
+Ciao, Thorsten
+---
+ net/qrtr/af_qrtr.c | 66 ++--------------------------------------------
+ net/qrtr/ns.c      | 35 +++++++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 65 deletions(-)
+
+diff --git net/qrtr/af_qrtr.c net/qrtr/af_qrtr.c
+index 78347c937af76b..a30fa56e6aa31c 100644
+--- net/qrtr/af_qrtr.c
++++ net/qrtr/af_qrtr.c
+@@ -9,7 +9,6 @@
+ #include <linux/termios.h>	/* For TIOCINQ/OUTQ */
+ #include <linux/spinlock.h>
+ #include <linux/wait.h>
+-#include <linux/workqueue.h>
+ 
+ #include <net/sock.h>
+ 
+@@ -121,10 +120,8 @@ static DEFINE_XARRAY_ALLOC(qrtr_ports);
+  * @nid: node id
+  * @qrtr_tx_flow: xarray of qrtr_tx_flow, keyed by node << 32 | port
+  * @qrtr_tx_lock: lock for qrtr_tx_flow inserts
+- * @hello_sent: hello packet send successful
+  * @rx_queue: receive queue
+  * @item: list item for broadcast list
+- * @say_hello: delayed work for sending hello packet
+  */
+ struct qrtr_node {
+ 	struct mutex ep_lock;
+@@ -135,11 +132,8 @@ struct qrtr_node {
+ 	struct xarray qrtr_tx_flow;
+ 	struct mutex qrtr_tx_lock; /* for qrtr_tx_flow */
+ 
+-	bool hello_sent;
 -
--/* klp diff takes the object's module name from .modinfo */
--static const char __modinfo[]
--	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
+ 	struct sk_buff_head rx_queue;
+ 	struct list_head item;
+-	struct delayed_work say_hello;
+ };
+ 
+ /**
+@@ -193,8 +187,6 @@ static void __qrtr_node_release(struct kref *kref)
+ 	list_del(&node->item);
+ 	mutex_unlock(&qrtr_node_lock);
+ 
+-	cancel_delayed_work_sync(&node->say_hello);
 -
--int untouched(int x)
+ 	skb_queue_purge(&node->rx_queue);
+ 
+ 	/* Free tx flow counters */
+@@ -349,14 +341,6 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ 	size_t len = skb->len;
+ 	int rc, confirm_rx;
+ 
+-	mutex_lock(&node->ep_lock);
+-	if (!node->hello_sent && type != QRTR_TYPE_HELLO) {
+-		mutex_unlock(&node->ep_lock);
+-		kfree_skb(skb);
+-		return -EAGAIN;
+-	}
+-	mutex_unlock(&node->ep_lock);
+-
+ 	confirm_rx = qrtr_tx_wait(node, to->sq_node, to->sq_port, type);
+ 	if (confirm_rx < 0) {
+ 		kfree_skb(skb);
+@@ -369,7 +353,7 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ 	hdr->src_node_id = cpu_to_le32(from->sq_node);
+ 	hdr->src_port_id = cpu_to_le32(from->sq_port);
+ 	if (to->sq_port == QRTR_PORT_CTRL) {
+-		hdr->dst_node_id = cpu_to_le32(READ_ONCE(node->nid));
++		hdr->dst_node_id = cpu_to_le32(node->nid);
+ 		hdr->dst_port_id = cpu_to_le32(QRTR_PORT_CTRL);
+ 	} else {
+ 		hdr->dst_node_id = cpu_to_le32(to->sq_node);
+@@ -388,8 +372,6 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ 			rc = node->ep->xmit(node->ep, skb);
+ 		else
+ 			kfree_skb(skb);
+-		if (!rc && type == QRTR_TYPE_HELLO)
+-			node->hello_sent = true;
+ 		mutex_unlock(&node->ep_lock);
+ 	}
+ 	/* Need to ensure that a subsequent message carries the otherwise lost
+@@ -397,9 +379,6 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ 	if (rc && confirm_rx)
+ 		qrtr_tx_flow_failed(node, to->sq_node, to->sq_port);
+ 
+-	if (rc == -EAGAIN && type == QRTR_TYPE_HELLO)
+-		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
+-
+ 	return rc;
+ }
+ 
+@@ -437,7 +416,7 @@ static void qrtr_node_assign(struct qrtr_node *node, unsigned int nid)
+ 	spin_lock_irqsave(&qrtr_nodes_lock, flags);
+ 	radix_tree_insert(&qrtr_nodes, nid, node);
+ 	if (node->nid == QRTR_EP_NID_AUTO)
+-		WRITE_ONCE(node->nid, nid);
++		node->nid = nid;
+ 	spin_unlock_irqrestore(&qrtr_nodes_lock, flags);
+ }
+ 
+@@ -591,38 +570,6 @@ static struct sk_buff *qrtr_alloc_ctrl_packet(struct qrtr_ctrl_pkt **pkt,
+ 	return skb;
+ }
+ 
+-static void qrtr_hello_work(struct work_struct *work)
 -{
--	return x * 3;
+-	struct sockaddr_qrtr from = {AF_QIPCRTR, 0, QRTR_PORT_CTRL};
+-	struct sockaddr_qrtr to = {AF_QIPCRTR, 0, QRTR_PORT_CTRL};
+-	struct qrtr_ctrl_pkt *pkt;
+-	struct qrtr_node *node;
+-	struct qrtr_sock *ctrl;
+-	struct sk_buff *skb;
+-
+-	node = container_of(to_delayed_work(work), struct qrtr_node, say_hello);
+-
+-	/* NS must be bound before we can send; retry with backoff if not ready */
+-	ctrl = qrtr_port_lookup(QRTR_PORT_CTRL);
+-	if (!ctrl) {
+-		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
+-		return;
+-	}
+-
+-	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
+-	if (!skb) {
+-		qrtr_port_put(ctrl);
+-		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
+-		return;
+-	}
+-
+-	pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
+-	from.sq_node = qrtr_local_nid;
+-	to.sq_node = node->nid;
+-	qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to);
+-	qrtr_port_put(ctrl);
 -}
 -
--int changed(int x)
--{
--#ifdef PATCHED
--	return x + 2;
--#else
--	return x + 1;
--#endif
--}
-diff --git a/tools/objtool/tests/generic/fixtures/basic.c b/tools/objtool/tes=
-ts/generic/fixtures/basic.c
-new file mode 100644
-index 0000000..811529e
---- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/basic.c
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* One changed function and one unchanged function. */
-+
-+/* klp diff takes the object's module name from .modinfo */
-+static const char __modinfo[]
-+	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
-x";
-+
-+int untouched(int x)
-+{
-+	return x * 3;
-+}
-+
-+int changed(int x)
-+{
-+#ifdef PATCHED
-+	return x + 2;
-+#else
-+	return x + 1;
-+#endif
-+}
-diff --git a/tools/objtool/tests/generic/test-basic.sh b/tools/objtool/tests/=
-generic/test-basic.sh
-new file mode 100755
-index 0000000..562edfb
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-basic.sh
-@@ -0,0 +1,17 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Only functions whose code changed get cloned into the patch.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair basic.c
-+run_diff
-+
-+assert_patched     changed
-+assert_not_patched untouched
-+assert_section     ".init.klp_funcs"
-+assert_section     ".init.klp_objects"
-+
-+pass "changed function cloned, unchanged function left alone"
-diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
-index 46bdb98..fdea9b7 100644
---- a/tools/objtool/tests/lib.sh
-+++ b/tools/objtool/tests/lib.sh
-@@ -9,7 +9,10 @@
- # of regressions.
-=20
- TESTS_DIR=3D"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
--FIXTURES_DIR=3D"$TESTS_DIR/fixtures"
-+
-+# Tests live in generic/ or in an architecture directory beside it, and each
-+# carries its own fixtures.
-+FIXTURES_DIR=3D"$(cd "$(dirname "$0")/fixtures" 2>/dev/null && pwd)"
-=20
- # The kernel's convention: CROSS_COMPILE is the one knob, with per-tool
- # overrides for what it does not cover.  objtool itself is always a host bin=
-ary
-@@ -36,7 +39,7 @@ OBJTOOL=3D"${OBJTOOL:-$TESTS_DIR/../objtool}"
- #
- klp_preflight()
+ /**
+  * qrtr_endpoint_register() - register a new endpoint
+  * @ep: endpoint to register
+@@ -648,9 +595,6 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
+ 	node->nid = QRTR_EP_NID_AUTO;
+ 	node->ep = ep;
+ 
+-	node->hello_sent = false;
+-	INIT_DELAYED_WORK(&node->say_hello, qrtr_hello_work);
+-
+ 	xa_init(&node->qrtr_tx_flow);
+ 	mutex_init(&node->qrtr_tx_lock);
+ 
+@@ -661,9 +605,6 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
+ 	mutex_unlock(&qrtr_node_lock);
+ 	ep->node = node;
+ 
+-	/* Initiate HELLO handshake from the core layer */
+-	schedule_delayed_work(&node->say_hello, 0);
+-
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(qrtr_endpoint_register);
+@@ -938,9 +879,6 @@ static int qrtr_bcast_enqueue(struct qrtr_node *node, struct sk_buff *skb,
+ 
+ 	mutex_lock(&qrtr_node_lock);
+ 	list_for_each_entry(node, &qrtr_all_nodes, item) {
+-		/* Skip nodes with no assigned node ID yet. */
+-		if (READ_ONCE(node->nid) == QRTR_EP_NID_AUTO)
+-			continue;
+ 		skbn = pskb_copy(skb, GFP_KERNEL);
+ 		if (!skbn)
+ 			break;
+diff --git net/qrtr/ns.c net/qrtr/ns.c
+index bcb090ee79d494..c5e7e01db24984 100644
+--- net/qrtr/ns.c
++++ net/qrtr/ns.c
+@@ -212,7 +212,6 @@ static void lookup_notify(struct sockaddr_qrtr *to, struct qrtr_server *srv,
+ 		pr_err("failed to send lookup notification\n");
+ }
+ 
+-/* Announce the list of servers registered on the local node */
+ static int announce_servers(struct sockaddr_qrtr *sq)
  {
--	local tmp tool cc_version host cc_arch
-+	local tmp tool cc_version arch host cc_arch
-=20
- 	bail() { echo "Bail out! $*" >&2; exit 1; }
-=20
-@@ -96,8 +99,26 @@ klp_preflight()
- 	esac
- 	rm -rf "$tmp"
-=20
-+	# Normalize to the kernel's SRCARCH.
-+	case "${ARCH:-$(uname -m)}" in
-+	x86_64|i?86)	arch=3Dx86 ;;
-+	aarch64*)	arch=3Darm64 ;;
-+	*)		arch=3D"${ARCH:-$(uname -m)}" ;;
-+	esac
+ 	struct qrtr_server *srv;
+@@ -327,8 +326,38 @@ static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
+ 	return 0;
+ }
+ 
++static int say_hello(struct sockaddr_qrtr *dest)
++{
++	struct qrtr_ctrl_pkt pkt;
++	struct msghdr msg = { };
++	struct kvec iv;
++	int ret;
 +
-+	case "$(uname -m)" in
-+	x86_64|i?86)	host=3Dx86 ;;
-+	aarch64*)	host=3Darm64 ;;
-+	*)		host=3D"$(uname -m)" ;;
-+	esac
++	iv.iov_base = &pkt;
++	iv.iov_len = sizeof(pkt);
 +
-+	[ -z "$cc_arch" ] || [ "$cc_arch" =3D "$arch" ] ||
-+		bail "ARCH says $arch but '$CC' builds $cc_arch objects;" \
-+		     "the $arch tests would run against the wrong architecture"
++	memset(&pkt, 0, sizeof(pkt));
++	pkt.cmd = cpu_to_le32(QRTR_TYPE_HELLO);
 +
-+	KLP_TEST_ARCH=3D"$arch"
- 	KLP_TEST_PREFLIGHT=3Ddone
--	export OBJTOOL CC KLP_TEST_PREFLIGHT
-+	export OBJTOOL CC KLP_TEST_ARCH KLP_TEST_PREFLIGHT
-=20
- 	cc_version=3D"$($CC --version 2>/dev/null | head -1)"
- 	cat <<EOF
-diff --git a/tools/objtool/tests/run-tests.sh b/tools/objtool/tests/run-tests=
-.sh
-index f6a3e1b..48728a9 100755
---- a/tools/objtool/tests/run-tests.sh
-+++ b/tools/objtool/tests/run-tests.sh
-@@ -3,6 +3,11 @@
- #
- # Run the objtool klp tests.  Each test-*.sh prints one TAP result line.
- #
-+# Tests live in generic/ and in a directory per architecture.  A run executes
-+# generic/ plus the one matching this architecture, so a test which cannot
-+# apply here is not run rather than reporting a skip; what was left out is
-+# reported once, as a comment, so differing coverage is still visible.
-+#
- # The harness checks the environment once up front and fails the run if the
- # suite cannot execute, rather than letting every test skip and exit 0.
-=20
-@@ -10,13 +15,34 @@ set -u
-=20
- cd "$(dirname "$0")" || exit 1
-=20
--tests=3D( test-*.sh )
--[ "${tests[0]}" =3D "test-*.sh" ] && { echo "1..0 # SKIP no tests found"; ex=
-it 0; }
--
--# Sourcing the harness runs its preflight, and exports what it found so the
--# tests inherit it rather than working it out again.
-+# Sourcing the harness runs its preflight, which decides which architecture
-+# this run is for -- so the test list cannot be built before it has, and the
-+# tests inherit the answers rather than working them out again.
- . ./lib.sh
-=20
-+dirs=3D( generic )
-+[ -d "$KLP_TEST_ARCH" ] && dirs+=3D( "$KLP_TEST_ARCH" )
++	msg.msg_name = (struct sockaddr *)dest;
++	msg.msg_namelen = sizeof(*dest);
 +
-+tests=3D()
-+for d in "${dirs[@]}"; do
-+	for t in "$d"/test-*.sh; do
-+		[ -f "$t" ] && tests+=3D( "$t" )
-+	done
-+done
-+[ "${#tests[@]}" -gt 0 ] || { echo "1..0 # SKIP no tests found"; exit 0; }
++	ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
++	if (ret < 0)
++		pr_err("failed to send hello msg\n");
 +
-+# Tests for another architecture are absent from this run entirely.  Say how
-+# many, so a run which covers less than the tree holds does not look like one
-+# that covers all of it.
-+for d in */; do
-+	d=3D"${d%/}"
-+	case "$d" in generic|"$KLP_TEST_ARCH") continue ;; esac
-+	n=3D$(ls "$d"/test-*.sh 2>/dev/null | wc -l)
-+	[ "$n" -gt 0 ] || continue
-+	echo "# not run: $n test$( [ "$n" =3D 1 ] || echo s ) in $d/" \
-+	     "(this run is $KLP_TEST_ARCH)"
-+done
++	return ret;
++}
 +
- echo "1..${#tests[@]}"
-=20
- rc=3D0
-diff --git a/tools/objtool/tests/test-basic.sh b/tools/objtool/tests/test-bas=
-ic.sh
-deleted file mode 100755
-index 6b76996..0000000
---- a/tools/objtool/tests/test-basic.sh
-+++ /dev/null
-@@ -1,17 +0,0 @@
--#!/bin/bash
--# SPDX-License-Identifier: GPL-2.0
--#
--# Only functions whose code changed get cloned into the patch.
--
--. "$(dirname "$0")/lib.sh"
--
--setup
--build_pair basic.c
--run_diff
--
--assert_patched     changed
--assert_not_patched untouched
--assert_section     ".init.klp_funcs"
--assert_section     ".init.klp_objects"
--
--pass "changed function cloned, unchanged function left alone"
++/* Announce the list of servers registered on the local node */
+ static int ctrl_cmd_hello(struct sockaddr_qrtr *sq)
+ {
++	int ret;
++
++	ret = say_hello(sq);
++	if (ret < 0)
++		return ret;
++
+ 	return announce_servers(sq);
+ }
+ 
+@@ -745,6 +774,10 @@ int qrtr_ns_init(void)
+ 	qrtr_ns.bcast_sq.sq_node = QRTR_NODE_BCAST;
+ 	qrtr_ns.bcast_sq.sq_port = QRTR_PORT_CTRL;
+ 
++	ret = say_hello(&qrtr_ns.bcast_sq);
++	if (ret < 0)
++		goto err_wq;
++
+ 	/* As the qrtr ns socket owner and creator is the same module, we have
+ 	 * to decrease the qrtr module reference count to guarantee that it
+ 	 * remains zero after the ns socket is created, otherwise, executing
+
+base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+-- 
+2.55.0
+
