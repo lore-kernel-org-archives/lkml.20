@@ -1,357 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011010.outbound.protection.outlook.com [40.93.194.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71119274670;
-	Fri, 18 Sep 2026 22:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789769041; cv=none; b=qc6CriifQ3r81wNkjplnobmKqW4wV/ukR7y7OeoAX7N3yV0Nx7TXBfJFliNvRckQqU/Gn4jFyqqhO+gv94w+4oUQ2SqbKCK9fJP4nDZuGkOXcQg8BLuk+jT34tsgSiXoeGiOM4EP0syXwUGi1d9dyC7n1/r7DFldxIJKe+fBWNE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789769041; c=relaxed/simple;
-	bh=omkT13kdX6lJ5PIFh1tWLR0E4sWvbZSubkwGrLSE6bc=;
-	h=Date:Message-ID:From:To:Cc:Subject; b=e8hOcvLM3Jp7HNXEn7BetZffLDNu3jQkdZgGTdwevkYwHPXuHEznAH/Pp/U00cuKoF+KeNcZEWtL/iCFLtOZuYtPiW/fXb5Ia4FhlaAOttlyStmSYZRT++YM2Ta2RQ91YHPJiRJXk1yxfjkqir6ZYlm/1lkvmcOA8bSmRixiB3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WLKxvBNS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1108026738D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789769056; cv=fail; b=FbbaEAESAuGVNWc/sY+qXB1SlJ6X44kCFzPFZ8BvyWk3IpGJsRfK+HFiB+Ly0Dk7P/x4aRivKZIyIxJjyMbVanaAIZiDgJRgDgJEd2E7fhH+ZMgLU8FzapaRMk+dILCtGEu8pbDiJoD7cJ0Rmu2u7RmtsGKo0m55eopQ2CU+yRo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789769056; c=relaxed/simple;
+	bh=ApWW0LtupVP5GcKn2PXiEh2duEJ6kVwf1ZwhlRADZLM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SizD/18EKqZAii2WVnb3nzQVU0onAfe2sGr9nZezbxCtVBU8Yd+mv8itu9ngA7G6qDYd9ZmAMTU4ApttUn3DpwlOXCbljOdnNkttbHOoVg32KMI1TWwQ0j6UTs8SJ8lvdxLEXcL+2V0cXhkXN6AQTzUs4VrdI5BO2omQS1DkqLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Unfj6NOR; arc=fail smtp.client-ip=40.93.194.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WLKxvBNS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A981F000FF;
-	Fri, 18 Sep 2026 22:03:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789769039;
-	bh=/qB6+0ZTWnZ0zpQmQqxghyVaIC0cAclAfvvZNFdHP4A=;
-	h=Date:From:To:Cc:Subject;
-	b=WLKxvBNSkGpVZGgsG9KVMt+6fH/4/6/Lrj/ZGmw9tXPHv4zEAmbPG8uTBtOxfRlJo
-	 h13ZRdKlWSc0ElOjplmKoYUHfjYzCXJETOG8TbGWTDRPAZNEVFCtKOl/YE8Uam8nQz
-	 60VAN9Fa1RscjxpcO2+KPxYVQXkioe9W4/4PvZbeWy/sWWwISX71XdEfNwTeqaGj4u
-	 G7YLFm8hLx4tN/tHFmzFxOm0MptkEv1BKT4tDqyupZ5ynWPWacQMZfhKIH1khcD2XS
-	 fWkVi0esrfUNB5Ov7MYlkcAQEpjDspDtjamGyzEs4JJ+585zwaTBCs2kNwbLBFFzpS
-	 SIx1/dFscIYhg==
-Date: Fri, 18 Sep 2026 12:03:58 -1000
-Message-ID: <2f0eb5c762d55edba5365f1006dbb395@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 sched_ext/for-7.3-fixes] sched_ext: Pass the initial cmask
- to cid-form ops.enable()
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Unfj6NOR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CR89YdnBM0d2ajBC2yxY3RMwQxiTN+kx9Bm2m41cU//9I6tqrTTUn6yXQ0uc9O8TMMlV8Yj4WqxZNTC4I7YSzkFFvHN40kG5qf7A/1gxAeeWamCVIMDkGc8I53PLQ7CkHeFl7amI+vJO9ou1ZDdqXtEzgypdYLJ/pT4kcyHUif6DMvba9b5za8pbuHewDS5yYsXTKjkM4OS98HuLLCWizOS831vODKszMSwmThG6LC52/IeXldrRUqdVp/Aan3A0KfWonrqqOFb6btH3Y75spJvbYkN9SvbiSAFPTrBXg+XpAN6Xit/eps4aTiKgMshiHb4cOI48ZTrqcjZ/+7oBOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ApWW0LtupVP5GcKn2PXiEh2duEJ6kVwf1ZwhlRADZLM=;
+ b=IM0UPFHuromgE8kz3QSIXat0pOEWwISLoe+Tjvx0om0SvEc/Yw/dlrpoOvxNwepToIley0qVqOq+sv/MYpVwSXgY10v0kIo0Sgna35CF7xUvZI9fE29aGlt+BE9aPeInCvWC7g4BXJaJfspnBgiQxhDnAEGGVJRdnt3TeJNe1jRrAC2aIq7I4NzUnVgT+7bbJ7s3SkbLXCFIHQoZwcatWR2bGWzi+ZReeNtJUiyiLPt5i/sxxyl4QrzWgNcNbzJJm5A2mDXHbgRZxT5ot1PkR5pCk8QDbQPYy9MDfk/yS952cU9c6h/AM7LEfdTVpjB9DOg4OKJVOUrG9Y0gxbPcSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ApWW0LtupVP5GcKn2PXiEh2duEJ6kVwf1ZwhlRADZLM=;
+ b=Unfj6NORTHSdeDVl2Jwqa2Lh3Ojg1aqCdNzSJUrCUXyNbcY3VbLDsl0gb+NDDpeIRFk8H4GY1T/9A1CTkGsle7V+UZKGJDfVbiz+rXGphX99Mb0gkMqFW2L8cm7T1xFpcdqEFSuUhvR6nbz8U3V2LH/a3lFfKq9lJ4LYliWLb8LGMZHcFdnSFuzTbsCvyTJSyRPHA9dtn1Vz1onNgZKXMgdovKFGjrPurcy9VQUNc2vwLFERCHBKWYxPGqaj5hl1x4SJQBEquf1M/JONM1+/A5KmhiwXR0t8jfztMxCWuyzFkyaqpVUIZOWg7l3uYrZMrWL6mFfht2XLhN8l/dpkVQ==
+Received: from MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19)
+ by SN7PR12MB8145.namprd12.prod.outlook.com (2603:10b6:806:350::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 22:04:12 +0000
+Received: from MN6PR12MB8568.namprd12.prod.outlook.com
+ ([fe80::f13:fa29:e7b3:4d3a]) by MN6PR12MB8568.namprd12.prod.outlook.com
+ ([fe80::f13:fa29:e7b3:4d3a%5]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
+ 22:04:12 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>, "dakr@kernel.org"
+	<dakr@kernel.org>, John Hubbard <jhubbard@nvidia.com>
+CC: "lossin@kernel.org" <lossin@kernel.org>, "a.hindborg@kernel.org"
+	<a.hindborg@kernel.org>, "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi
+ Wang <zhiw@nvidia.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+	"tmgross@umich.edu" <tmgross@umich.edu>, "alex.gaynor@gmail.com"
+	<alex.gaynor@gmail.com>, "nova-gpu@lists.linux.dev"
+	<nova-gpu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "ojeda@kernel.org" <ojeda@kernel.org>,
+	"bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>, Eliot Courtney
+	<ecourtney@nvidia.com>, "airlied@gmail.com" <airlied@gmail.com>,
+	"aliceryhl@google.com" <aliceryhl@google.com>, "bhelgaas@google.com"
+	<bhelgaas@google.com>, "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple
+	<apopple@nvidia.com>
+Subject: Re: [PATCH v3 13/33] gpu: nova-core: separate the generic falcon
+ bootloader from FWSEC
+Thread-Topic: [PATCH v3 13/33] gpu: nova-core: separate the generic falcon
+ bootloader from FWSEC
+Thread-Index: AQHdRwocO8tqIbxwFEOWOfNT8nxTFbbU5S8A
+Date: Fri, 18 Sep 2026 22:04:12 +0000
+Message-ID: <97808ad4a56c5fd5977b61beafbf36d7ed65869f.camel@nvidia.com>
+References: <20260918010719.1176945-1-jhubbard@nvidia.com>
+	 <20260918010719.1176945-14-jhubbard@nvidia.com>
+In-Reply-To: <20260918010719.1176945-14-jhubbard@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.56.2-9 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN6PR12MB8568:EE_|SN7PR12MB8145:EE_
+x-ms-office365-filtering-correlation-id: 1fce7c5c-58b4-4b21-6cb0-08df15d0c580
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ 0pfFtwD0giRevmS/f0ChpqwRL9xiXz1s7R7v1NvlxbYgBdBi+rtzWOHX8DPezOVE42vPdIy8UNlc2F7y0riSI69gkBFoRbgeFcnHkkMlx+Uu3rcxLGuOjm8bAS6JJfo5GsBPgMYovynGOGDSeDsdifmKYjoxIHspm9EURPr8cammucS/Rcmmlyc9vFeC2tqRcNTmcqEqt+2sLD+bCs9wR3kIhRyg+9LKAwS+7ZgfJFgYwY9G68r1gCf3gbuIBnxDezBwS6LtS/LFTHpiuu7eefcHRcBBhvvauuLTWPIf7mP6tSSWUsOwMn3ESOh5NZ6S3bN1TW/MsvaBp56UIVSKpsWBNQ4E6CDZipyxXv5wRBo9PJEl7qEgobZWaK+jQLutNwRAfyb+Tq37VIh7B7zcnx6PR8dK/839tzbNdSROnVKo9Y93GcVU2tj7Nkp3nGldglidbHNhNuSgyL5NbpX9WG85jTa8clLEwgan4+c7vSxBC6yEGVsnPeiDmSoMQosINNKoaozi0N5WXVE99MNKdZaNHhJdl/6KuiIBc+hS+1LE2SxBVdxotP1dt8SEU/krImrCLvLXaSEaD868SkzWhiKZak+Gt4YPwEvuXrUCP04yBq6UThexcXOm0c2TtotwnC0YW1j/CrxeZKiX56mx2zaETuuV3j5464CeU8+XN5Fx70jleoAKXVYYYaTOaNn51W9gxaqGTpFlusLBIN4jBM5ZJjjmJH+UfTlpQpkip/8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN6PR12MB8568.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TWY4R1VZR3hEYlNiTUgvU2NPVFZkeG9zbi8rWmlGMlVJYmY2Ukw1QmpzbTQy?=
+ =?utf-8?B?UGhUc0VZMnNzQ0VmL2lYRVpXbDVMTFRoaVN2QllmeURhZFpyOGU1M0tlaXlS?=
+ =?utf-8?B?bHJnRHk2d1g1S0xYT1l0bUtUTW92UmxkTkFJWkFFRy9FSHhHRXJIbDlMTEw2?=
+ =?utf-8?B?czZKQ3RQaDk4SnNsa285WjkxeEJraDdMbytTdWVWdDM2eEQ4RjAxT0xNUmtN?=
+ =?utf-8?B?cGR0VFdQOUl5eDhlaWhKZzViOXB2Y3N4MTZWdVNSd01KTE9VMmRJMy9MZDRJ?=
+ =?utf-8?B?Z1J3RmhYY1BjS05sbHVDZGxZOUN0cEh0bzM2Zy9PMGpJcndyWTFHMlFMSm4r?=
+ =?utf-8?B?dHMzMlk2NlZaM21uTTZja0tNNUczWUkwbG1memUvUVZ2ZHh5VTcrOFZxWU9C?=
+ =?utf-8?B?NU8xSXBGem5BTXFPRTBhS05HSkErS2pxODRnUFhraDJqVnlKdmEyMm9vVlpF?=
+ =?utf-8?B?NXFwNnpiZjhqYlpyUHoxODc4M0k1UFd3cmNiSU12MlhjMHhFWHpwbEF5c2Ni?=
+ =?utf-8?B?TFpyNEdZbnlqVzZFWDNacWgvZXlOTE85TG1LRkNSbkJaVzcxQzU5dXREMTkx?=
+ =?utf-8?B?VnNpNWRiaUdNdXk4UU4rMHBkTDU1eTEvcTNSSmduajFlRlhSNmVSdXNXTjR0?=
+ =?utf-8?B?bWFIek1LV1NhNUp6NERoa0t0Y2JpaDU2MHNMYVZmYzBGZDlFY0pTWTNtTzdp?=
+ =?utf-8?B?ZnZtcXRTTktwMlhxZ3RJMjlXSjNmWmJvaWJRQVVXOENtMlJ3cXQ1Uzl6ZVZY?=
+ =?utf-8?B?RWErTjZHNm11MzYrYnlDcHhLQWxxNys0SGxxWFhBQUdnV1BTdHV6c1ZLaUhI?=
+ =?utf-8?B?Rk5HUG1sN0xYYlVlRWlNQ2FWT1NkQjNjTlhDMHhVQmplWlc1SHk3c3ZnUHhP?=
+ =?utf-8?B?a1dZOXFLVnFNdldlalM0VGtXN05JYW5sNEVCem82N0wvM0J6eUVVQ1Y2YllQ?=
+ =?utf-8?B?cFV4cGNoSXVWb1hQN1dvc21FaDY1akFzQXd5cWJyQUR5M0VneW9rUTFzQVFa?=
+ =?utf-8?B?U1M2Z1RwRnpPSElNdjdoM0IzaTFxNGQvMkNYQ3JkZFA1Q3JITXMvMW9uRUZB?=
+ =?utf-8?B?MHZZcFNWcmtTb0ExMVlqUDlhdnNub2ZSWksybCtVWGJnMTFhVmRqNFQ1dnhs?=
+ =?utf-8?B?M1J5Y1AxT1cxeDVRZE1LMjgwWGZkUUc3RGVIME1MUjNMUzdXSHBNS1B6Mnpx?=
+ =?utf-8?B?UERCZko1YWg4YzRLUldHT1FtVm91MEU4Yk40U0QzQ0pWNTN2THBQem5TNGVt?=
+ =?utf-8?B?aWhVNHpjQzBmTmNjZmxNQy80SXFkSjg0RURRLzlRVWJ4amMzcHpwbnhCdUdS?=
+ =?utf-8?B?Mm11S1M4Q0tvR3ZXYkQvTEVqa3N0Q05VTkpnZm5YUHpXb3pNektnejI5Unk1?=
+ =?utf-8?B?dUxld3NZaWUzTm90MkdOOC8zdElVeklaalUvMDltbmJiVjQyV2pzSDAwLy9P?=
+ =?utf-8?B?VGF2V0UvTjVqaDl4aHhtVFcrM0pMeUcyMTJSOWd4S3Y2ZWlsSVgveVdWVzhL?=
+ =?utf-8?B?UjZpbllsNDd1R3h4eU82SWI2STQyNG1QN21lOVMybzllZjl5TDh2bXZUNUJ1?=
+ =?utf-8?B?RW04SWFheGFnT0I1a0YxMVhnZjQxZnFPQkVHdDR4R0o5Z1BNSUMwT1d4ci8r?=
+ =?utf-8?B?cmQ4bzUwaHBSeEVKclozTi95M3Q3QktrdUkybHBCRCtZNGo1bHNRaVpFRnJD?=
+ =?utf-8?B?anVwRzVyUGlNRDd5clVVMnJOclQ0YStPVkRzeVFoMWw1OHl6anhnd25WemRR?=
+ =?utf-8?B?M1hIdlBJWGlldVFLMGs2bUk5SlFEeU41ZENISjRKSjg3ZS9mQk4xNjRzd0sv?=
+ =?utf-8?B?WDhrdGcydjBNd1RYSUJxOS9VWWh4MzQ5L3dLY0FmdmNrcGdRUmJvdGNubE0x?=
+ =?utf-8?B?SlVZU1B0RHpOR2IweklJNHpOZ0xMb3V0TzBCRDROc1VMc3FkeW4rak1SOWNh?=
+ =?utf-8?B?d2IvR2NUWmJMWkRJSExDNmIyQlZaMGZ5TkcvVHVTWDdRU2lRNVp5NXVQeWQw?=
+ =?utf-8?B?QndLeU1DT0NqYmNwY1g2cFdVaVFMS2JDUXVHWGNLNUlsSVRsWlRQZmhkcGw4?=
+ =?utf-8?B?UHlQRUE0OEpFZUlWTEFvYWtxK3ZzVWkzYk1tMWFMV1o5MzBManFnY3lYYUoz?=
+ =?utf-8?B?M3pLOXh5cTZ2aElrRktTb2ZXVTdMVEgwVHd4VWF1VXVxNVhQSnRFMTUyZHFk?=
+ =?utf-8?B?M2FmZVVJanYrVVZTLzdTa2dIaUlNcXVNMERwZmZqR0Y5Z09VYkpoNzg3ZUN6?=
+ =?utf-8?B?c29uS1lsVHVQc0M5UzBLR0lBVGV6cEhiMENLWm1tNDhlTnhSbEpmYzd5OWUx?=
+ =?utf-8?B?TzI5dEtxZlY3bjkvWTIraWdWbkxsVkZOT3R3MlRHRGx6a1Fwdnlpdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <24A3CD4DC4948B468DA01A7017B99008@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN6PR12MB8568.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fce7c5c-58b4-4b21-6cb0-08df15d0c580
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 22:04:12.0739
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2c6xQV2a6xfbxb19i2D6y1+u74i2mBelhVKf+pBg2HYG9lw9J3HPPrPyadqoTrOmsslKsD1G7nCACZhCIKk6zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8145
 
-The cid-form API has an obvious hole. A task's cid mask is only visible
-through ops.set_cmask(), which fires on affinity changes and class switches
-but not when a task enters a scheduler through fork, sub-sched enable or
-re-home, and there is no p->cpus_ptr equivalent to fall back on. Schedulers
-work around it by seeding the mask in ops.init_task() from p->cpus_ptr cid
-by cid, which is subtly wrong: on sub-sched enable and re-home, an affinity
-change between init_task() and enable() is delivered to the sched the task
-is still on, and nothing corrects the new sched's copy afterwards.
-
-Fix it by adding struct scx_enable_args to cid-form ops.enable() carrying
-the task's cmask, built in the per-cpu scratch under the rq lock as the task
-enters the scheduler, and calling set_cmask() with the same mask after
-enable(). A scheduler can then track affinity in set_cmask() alone, and
-scx_qmap drops its init_task() seed. set_cmask() no longer fires for a
-cid-form task before it is enabled, and the class-switch republish in
-switching_to_scx() is limited to the cpu form.
-
-This changes the cid-form ops.enable() signature, which is fine as the
-cid-form API is considered unpublished until the 7.3 release. An args struct
-rather than a bare cmask argument leaves room for more initial state without
-another signature change, and the cmask travels as a plain arena address
-because BTF can't type arena struct members yet.
-
-v2: The cmask travels as a u64 arena address, cmask_arena_addr, instead of a
-kernel-typed pointer, with the typing limitation and the planned typed alias
-documented (Sashiko review).
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- kernel/sched/ext/ext.c         |   90 +++++++++++++++++++++++++++--------------
- kernel/sched/ext/internal.h    |   56 +++++++++++++++++++++----
- tools/sched_ext/scx_qmap.bpf.c |    3 -
- 3 files changed, 108 insertions(+), 41 deletions(-)
-
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -447,37 +447,45 @@ static void switch_rq_lock(struct rq *fr
- DEFINE_STATIC_KEY_FALSE(__scx_is_cid_type);
- 
- /**
-- * scx_call_op_set_cpumask - invoke ops.set_cpumask / ops_cid.set_cmask for @task
-+ * scx_fill_cmask_scratch - Build this cpu's arena cmask from @cpumask
-+ * @sch: scx_sched whose scratch to fill
-+ * @cpumask: cpus to translate into cids
-+ *
-+ * The scratch lives in BPF-writable arena memory and its header can't be
-+ * trusted, so it is rewritten from kernel geometry rather than read. Caller
-+ * must hold an rq lock so this cpu is the sole kernel writer for as long as the
-+ * returned address is in use.
-+ */
-+static struct scx_cmask *scx_fill_cmask_scratch(struct scx_sched *sch,
-+						const struct cpumask *cpumask)
-+{
-+	struct scx_cmask *kern_va = *this_cpu_ptr(sch->set_cmask_scratch);
-+	struct scx_cmask_ref ref;
-+
-+	scx_cmask_ref_init_kern(sch, kern_va, 0, num_possible_cpus(), &ref);
-+	scx_cmask_ref_from_cpumask(&ref, cpumask);
-+	return kern_va;
-+}
-+
-+/**
-+ * scx_call_op_set_cpumask - Invoke the set_cpumask or set_cmask op for @task
-  * @sch: scx_sched being invoked
-  * @rq: rq to update as the currently-locked rq, or NULL
-  * @task: task whose affinity is changing
-  * @cpumask: new cpumask
-  *
-- * For cid-form schedulers, translate @cpumask to a cmask via the per-cpu
-- * scratch in cid.c and dispatch through the ops_cid union view. Caller
-- * must hold @rq's rq lock so this_cpu_ptr is stable across the call.
-+ * For cid-form schedulers, translate @cpumask to a cmask in the per-cpu scratch
-+ * and dispatch through the ops_cid union view. Caller must hold @rq's rq lock.
-  */
- static inline void scx_call_op_set_cpumask(struct scx_sched *sch, struct rq *rq,
- 					   struct task_struct *task,
- 					   const struct cpumask *cpumask)
- {
--	if (scx_is_cid_type()) {
--		struct scx_cmask *kern_va = *this_cpu_ptr(sch->set_cmask_scratch);
--		struct scx_cmask_ref ref;
--
--		/*
--		 * Build the per-cpu arena cmask from kernel geometry via @ref,
--		 * never reading its BPF-writable header. set_cmask()'s __arena
--		 * argument takes the kernel address and the struct_ops
--		 * trampoline rebases it into BPF's arena pointer form. The rq
--		 * lock makes this cpu the sole kernel writer.
--		 */
--		scx_cmask_ref_init_kern(sch, kern_va, 0, num_possible_cpus(), &ref);
--		scx_cmask_ref_from_cpumask(&ref, cpumask);
--		SCX_CALL_CID_OP_TASK(sch, set_cmask, rq, task, kern_va);
--	} else {
-+	if (scx_is_cid_type())
-+		SCX_CALL_CID_OP_TASK(sch, set_cmask, rq, task,
-+				     scx_fill_cmask_scratch(sch, cpumask));
-+	else
- 		SCX_CALL_OP_TASK(sch, set_cpumask, rq, task, cpumask);
--	}
- }
- 
- enum scx_dsq_iter_flags {
-@@ -3634,8 +3642,12 @@ static void set_cpus_allowed_scx(struct
- 	 *
- 	 * Fine-grained memory write control is enforced by BPF making the const
- 	 * designation pointless. Cast it away when calling the operation.
-+	 *
-+	 * The cid form receives the initial mask when the task is enabled and
-+	 * hears about changes only afterwards, see struct scx_enable_args.
- 	 */
--	if (SCX_HAS_OP(sch, set_cpumask))
-+	if (SCX_HAS_OP(sch, set_cpumask) &&
-+	    (!scx_is_cid_type() || scx_get_task_state(p) == SCX_TASK_ENABLED))
- 		scx_call_op_set_cpumask(sch, task_rq(p), p, (struct cpumask *)p->cpus_ptr);
- }
- 
-@@ -3944,11 +3956,28 @@ static void __scx_enable_task(struct scx
- 
- 	p->scx.weight = sched_weight_to_cgroup(weight);
- 
--	if (SCX_HAS_OP(sch, enable))
--		SCX_CALL_OP_TASK(sch, enable, rq, p);
-+	if (SCX_HAS_OP(sch, enable)) {
-+		if (scx_is_cid_type()) {
-+			struct scx_cmask *cmask = scx_fill_cmask_scratch(sch, p->cpus_ptr);
-+			struct scx_enable_args args = {
-+				.cmask_arena_addr = scx_kaddr_to_arena(sch, cmask),
-+			};
-+
-+			SCX_CALL_CID_OP_TASK(sch, enable, rq, p, &args);
-+		} else {
-+			SCX_CALL_OP_TASK(sch, enable, rq, p);
-+		}
-+	}
- 
- 	if (SCX_HAS_OP(sch, set_weight))
- 		SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
-+
-+	/*
-+	 * The initial mask also goes out through set_cmask() so a scheduler can
-+	 * track affinity there alone, see struct scx_enable_args.
-+	 */
-+	if (scx_is_cid_type() && SCX_HAS_OP(sch, set_cpumask))
-+		scx_call_op_set_cpumask(sch, rq, p, p->cpus_ptr);
- }
- 
- void scx_enable_task(struct scx_sched *sch, struct task_struct *p)
-@@ -4288,9 +4317,10 @@ static void switching_to_scx(struct rq *
- 
- 	/*
- 	 * set_cpus_allowed_scx() is not called while @p is associated with a
--	 * different scheduler class. Keep the BPF scheduler up-to-date.
-+	 * different scheduler class. Keep the BPF scheduler up-to-date. The cid
-+	 * form gets its mask from scx_enable_task().
- 	 */
--	if (SCX_HAS_OP(sch, set_cpumask))
-+	if (!scx_is_cid_type() && SCX_HAS_OP(sch, set_cpumask))
- 		scx_call_op_set_cpumask(sch, rq, p, (struct cpumask *)p->cpus_ptr);
- }
- 
-@@ -8374,10 +8404,11 @@ static struct bpf_struct_ops bpf_sched_e
- /*
-  * cid-form cfi stubs. Stubs whose signatures match the cpu-form (param types
-  * identical, only param names differ across structs) are reused. Some need
-- * fresh stubs, set_cmask due to an argument type difference and the sub-sched
-- * notifiers because no cpu-form stub exists to reuse.
-+ * fresh stubs, set_cmask and enable due to argument differences and the
-+ * sub-sched notifiers because no cpu-form stub exists to reuse.
-  */
- static void sched_ext_ops_cid__set_cmask(struct task_struct *p, const struct scx_cmask *cmask__arena) {}
-+static void sched_ext_ops_cid__enable(struct task_struct *p, struct scx_enable_args *args) {}
- static void sched_ext_ops__sub_caps_updated(const struct scx_cmask *cmask__arena, u64 caps) {}
- static void sched_ext_ops__sub_ecaps_updated(s32 cid, u64 before, u64 after) {}
- 
-@@ -8398,7 +8429,7 @@ static struct sched_ext_ops_cid __bpf_op
- 	.update_idle		= sched_ext_ops__update_idle,
- 	.init_task		= sched_ext_ops__init_task,
- 	.exit_task		= sched_ext_ops__exit_task,
--	.enable			= sched_ext_ops__enable,
-+	.enable			= sched_ext_ops_cid__enable,
- 	.disable		= sched_ext_ops__disable,
- #ifdef CONFIG_EXT_GROUP_SCHED
- 	.cpuctl_init		= sched_ext_ops__cgroup_init,
-@@ -10421,8 +10452,7 @@ __bpf_kfunc const void *scx_bpf_online_c
- 	if (unlikely(!online))
- 		return NULL;
- 
--	/* BPF rebases by the low 32 bits, like __arena callback args */
--	return (void *)((unsigned long)online - sch->arena_kern_base);
-+	return (void *)scx_kaddr_to_arena(sch, online);
- }
- 
- /**
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -250,6 +250,31 @@ struct scx_exit_task_args {
- 	bool cancelled;
- };
- 
-+/**
-+ * struct scx_enable_args - Argument container for cid-form ops.enable()
-+ * @cmask_arena_addr: BPF arena address of the cmask of cids the task may run on
-+ *
-+ * @cmask_arena_addr is the task's affinity as it enters the scheduler.
-+ * set_cmask() delivers the same mask after enable() and before the task is
-+ * first enqueued, then every affinity change afterwards, and is never called
-+ * before enable(). A scheduler may therefore track affinity in set_cmask()
-+ * alone.
-+ *
-+ * The kernel builds the mask in the scheduler arena from its own geometry, so
-+ * the header is valid regardless of what the scheduler last wrote there. The
-+ * memory is per-cpu scratch reused once the callback returns: copy the bits
-+ * out, don't keep the address. The set_cmask() argument follows the same rules.
-+ *
-+ * The address is a plain value rather than a typed pointer because BTF can't
-+ * mark a struct member as an arena pointer yet and a pointer member would reach
-+ * the program typed as a kernel pointer. Cast it to struct scx_cmask __arena *
-+ * before use. Once arena members can be typed, a typed alias will join this
-+ * field in an anonymous union at the same offset.
-+ */
-+struct scx_enable_args {
-+	u64	cmask_arena_addr;
-+};
-+
- /* argument container for ops.cgroup_init() */
- struct scx_cgroup_init_args {
- 	/* the weight of the cgroup [1..10000] */
-@@ -1037,6 +1062,7 @@ struct sched_ext_ops {
-  *   - dispatch         -> dispatch (cpu arg is now cid)
-  *   - update_idle      -> update_idle (cpu arg is now cid)
-  *   - set_cpumask      -> set_cmask (cmask instead of cpumask)
-+ *   - enable           -> enable (takes struct scx_enable_args)
-  *   - cpu_online       -> cid_online
-  *   - cpu_offline      -> cid_offline
-  *   - dump_cpu         -> dump_cid
-@@ -1070,7 +1096,7 @@ struct sched_ext_ops_cid {
- 			  struct scx_init_task_args *args);
- 	void (*exit_task)(struct task_struct *p,
- 			   struct scx_exit_task_args *args);
--	void (*enable)(struct task_struct *p);
-+	void (*enable)(struct task_struct *p, struct scx_enable_args *args);
- 	void (*disable)(struct task_struct *p);
- 	void (*dump)(struct scx_dump_ctx *ctx);
- 	void (*dump_cid)(struct scx_dump_ctx *ctx, s32 cid, bool idle);
-@@ -1533,7 +1559,8 @@ struct scx_sched {
- 	 * by BUILD_BUG_ON in scx_init()). The anonymous union lets the kernel
- 	 * access either view of the same storage without function-pointer
- 	 * casts: use .ops for cpu-form and shared fields, .ops_cid for the
--	 * cid-renamed callbacks (set_cmask, select_cid, cid_online, ...).
-+	 * callbacks whose cid-form signature differs (set_cmask, enable,
-+	 * select_cid, cid_online, ...).
- 	 */
- 	union {
- 		struct sched_ext_ops		ops;
-@@ -1556,9 +1583,9 @@ struct scx_sched {
- 	uintptr_t		arena_kern_base;
- 
- 	/*
--	 * Per-CPU arena cmask used by scx_call_op_set_cpumask() to hand a cmask
--	 * to ops_cid.set_cmask(). The kernel writes through the stored kern_va
--	 * and passes it to the callback's __arena argument.
-+	 * Per-CPU arena cmask the kernel fills from a task's cpumask and hands
-+	 * to ops_cid.enable() and ops_cid.set_cmask(). The stored pointers are
-+	 * the kernel addresses.
- 	 */
- 	struct scx_cmask * __percpu *set_cmask_scratch;
- 	struct scx_cmask *online_cmask;
-@@ -1669,6 +1696,19 @@ static inline void *scx_arena_to_kaddr(s
- 	return (void *)(sch->arena_kern_base + (u32)(uintptr_t)bpf_ptr);
- }
- 
-+/**
-+ * scx_kaddr_to_arena - Translate a kernel arena address to the BPF form
-+ * @sch: scheduler whose arena hosts @kaddr
-+ * @kaddr: kernel address inside @sch's arena
-+ *
-+ * __arena callback arguments need no translation. Addresses handed to BPF any
-+ * other way, such as struct fields and kfunc return values, go through this.
-+ */
-+static inline uintptr_t scx_kaddr_to_arena(struct scx_sched *sch, const void *kaddr)
-+{
-+	return (uintptr_t)kaddr - sch->arena_kern_base;
-+}
-+
- enum scx_wake_flags {
- 	/* expose select WF_* flags as enums */
- 	SCX_WAKE_FORK		= WF_FORK,
-@@ -2302,9 +2342,9 @@ do {										\
- } while (0)
- 
- /*
-- * Dispatch a task op through the cid-form ops_cid table. Only set_cmask() needs
-- * this: it takes an arena cmask address instead of a cpumask, so it cannot be
-- * invoked via its cpu-form set_cpumask() slot.
-+ * Dispatch a task op through the cid-form ops_cid table, for the ops whose
-+ * cid-form signature differs from the cpu-form slot: set_cmask() takes an arena
-+ * cmask instead of a cpumask and enable() takes scx_enable_args.
-  */
- #define SCX_CALL_CID_OP_TASK(sch, op, locked_rq, task, args...)			\
- 	__SCX_CALL_OP_TASK(sch, ops_cid, op, locked_rq, task, ##args)
---- a/tools/sched_ext/scx_qmap.bpf.c
-+++ b/tools/sched_ext/scx_qmap.bpf.c
-@@ -961,9 +961,6 @@ s32 BPF_STRUCT_OPS_SLEEPABLE(qmap_init_t
- 	taskc->highpri = false;
- 	taskc->core_sched_seq = 0;
- 	cmask_init(&taskc->cpus_allowed, 0, scx_bpf_nr_cids());
--	bpf_rcu_read_lock();
--	cmask_from_cpumask(&taskc->cpus_allowed, p->cpus_ptr);
--	bpf_rcu_read_unlock();
- 
- 	v = bpf_task_storage_get(&task_ctx_stor, p, NULL,
- 				 BPF_LOCAL_STORAGE_GET_F_CREATE);
+T24gVGh1LCAyMDI2LTA5LTE3IGF0IDE4OjA2IC0wNzAwLCBKb2huIEh1YmJhcmQgd3JvdGU6DQo+
+IA0KDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9ub3ZhLWNvcmUvZmFsY29uLnJzIGIvZHJp
+dmVycy9ncHUvbm92YS1jb3JlL2ZhbGNvbi5ycw0KPiBpbmRleCA5MDE1ZGU5NjVhNTMuLjA0ZTM1
+Y2JjYjZmMCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvbm92YS1jb3JlL2ZhbGNvbi5ycw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9ub3ZhLWNvcmUvZmFsY29uLnJzDQo+IEBAIC0zODUsNiArMzg1
+LDE0IEBAIHB1YihjcmF0ZSkgZm4gbmV3KA0KPiDCoMKgwqDCoMKgwqDCoMKgIH0pDQo+IMKgwqDC
+oMKgIH0NCj4gwqANCj4gK8KgwqDCoCAvLy8gUmV0dXJucyB0aGUgc2l6ZSBvZiB0aGlzIGZhbGNv
+bidzIElNRU0gaW4gYnl0ZXMuDQo+ICvCoMKgwqAgcHViKGNyYXRlKSBmbiBpbWVtX3NpemUoJnNl
+bGYpIC0+IHVzaXplIHsNCj4gK8KgwqDCoMKgwqDCoMKgIGxldCBibG9ja3MgPQ0KPiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoA0KPiB1c2l6ZTo6ZnJvbV9zYWZlX2Nhc3QoKnNlbGYucGZhbGNvbi5y
+ZWFkKHJlZ3M6Ok5WX1BGQUxDT05fRkFMQ09OX0hXQ0ZHKS5pbWVtX3NpemUoKSk7DQoNCldoeSBp
+cyB0aGlzIGAqc2VsZmAgaW5zdGVhZCBvZiBqdXN0IGBzZWxmYD8NCg==
