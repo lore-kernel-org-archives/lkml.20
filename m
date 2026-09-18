@@ -1,59 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53A1511191;
-	Fri, 18 Sep 2026 15:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E0F50E588
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746866; cv=none; b=kV/oHTIN217d5SBTlIfBrFdxBTfzIS4KnxueUXOOmPhBqxvWVCoXa5xc/tzlyiYIfnnapg7xkCPqu+m7gXq2yxOIH8FfD+4cLg7io/KVYT0q0IsEQR3oyR4sx0sZsiRB0F2qJgkN+6Gn4bXoGSNWPDbkHMiFnud1dK7FnY3KA+Y=
+	t=1789746878; cv=none; b=HHnfca6gXtFAG4YUph1uQLI3pVUgBU+yDUPPLTmdL2Fr3bXNAOIj1WICFyaYGjowFgWQ/5hTFdZVF1yKhnlyyANyHOoG5V+zBPr8mtBmx2s8cEEBCG8ivTUyt1AVzwWUS2KQrJ6qDhd79f4uKDewvLzMkFg1usTpgLdFKAs7G2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746866; c=relaxed/simple;
-	bh=peulqKYmVPW0msB4c0GTfd51rxsopByUZTSKNltenqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jWtGSP4VZYl5YJltdk3embprEQVLHq/YPikiN1k0al89H2aw/Kc/2pEmWaTGJqYU1lUxlMHRs6vDyINcAq3FivLZCQIotBba+MPt+PNpLdUNfGv/YB7Gqy8Kx7R9DN/QZvkzvL8SjWBY9QFyOc6sK7xXcd9Rq1HXxBXnEp6zBG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYeOJOdp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789746878; c=relaxed/simple;
+	bh=vnibq2jyCCC3IOg4Uxm2dHT0eG7ETbRhFgTe5l/Ddz4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MhsSlQdkmnIqGWCOn7G8f3JrrJBTVB1MsAnYO8PMHBFjOAHbcIBdyAHDsRWN9YQ8jETC8uLpIb9BNG21uzDFTdF94oXIUBDJ+ganU4O0kVJo2KwUK/S743kP1wfU+KQsD8KFoxvcRxpm3VqAvF/30CDBEsW5gQiT/LUEpI0cPSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJHQjUHr; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYeOJOdp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659A31F0089A;
-	Fri, 18 Sep 2026 15:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789746865;
-	bh=SMflwobboO00hd2qWckgVats2PLXIerCxVxrM8bbJnc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RYeOJOdpS3WV6iRpeYEANqSPNDvWCn2zoDWhciW3Duls22h4wBDa2aTfD+gO+ggXr
-	 7f1xeIxewj5fjdnGqWyHFAixS8sdV6RhXBkQsp4TJlmlhqlmvQiveLLhbWGLd9ekJ9
-	 ROEtpODUe8pxUJxYogqGvcbVhaZOi2CT10idJ3irNKel3hc0on0Bmvynm3KDvJo8/R
-	 hHlm+8z9CY6OMzK8a55fQEkVIdHGY1o7PiKXyfMTF7J7qaQ68QSN7sIfcWajillcTz
-	 w8qBI2vOhzLBir/BcAJ9BbCe+VNfxI+ZgNTq7Ll6EIik1zzwXqGxAq4f5/G0zc0kvL
-	 1TI1AEr9jFkUw==
-From: Sasha Levin <sashal@kernel.org>
-To: Pavel Machek <pavel@nabladev.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Date: Fri, 18 Sep 2026 11:54:08 -0400
-Message-ID: <20260918151141.2101477306-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8cc48d19-ccb9-46f0-92c9-b26916a349da@nvidia.com>
-References: <20260917151539.408551884@linuxfoundation.org> <aqxLGIyiWCdsQoyR@duo.ucw.cz> <8cc48d19-ccb9-46f0-92c9-b26916a349da@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJHQjUHr"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so592202b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:54:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789746877; x=1790351677; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gkZT5+6MT1neXTSrRW8cuNq+wdvBlgmd5gXT5DoC4rY=;
+        b=tJHQjUHr7pyNE4WRiDsGg8HFr5ZwPDVMTrBjC0Edwp3rcuNkagHNCpK/MwcQgOn+a+
+         eKs0BI1QlhyivqSA+dW2AbGMcKZbfg4TEvWt4Ky0HDJ1VroauXxYt+2N3JP3io9oJkrc
+         Kyphdstvc+ifrvBwGMVJQdnDai/FLBfznW/cd270E4yidBEDa/KZqTXk//S64Lg5ozHt
+         axLM8Gac1vJyKivFcd0iS4/V2oq0rvJZc5ncKnEm32UYzlakwZFR53rpHY24YcSy8oSX
+         iHjX+bXNTWVM9AW12qvxAB7JJiis4RAbaPak2NcF5zGHsEM/rxi2NYkglz+od+8bRbVp
+         YVew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789746877; x=1790351677;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gkZT5+6MT1neXTSrRW8cuNq+wdvBlgmd5gXT5DoC4rY=;
+        b=p1cHVSk6CdsBK04tdXywUb5gnt8OsEW/ysULkuBea/ga/rVecXIInC1xUfz2YfekAM
+         cQwpgGlc/vqTZJS5bi6ueLLpzztk8TTJkFLwN9+zaXiXpfyFJGIzxxqJrWkW2xRC+bAA
+         o6iXUZu9665JzcE1h1uvkmejGMKJQKxfXBY5GgxM7XEhj3Ji4zRq5w1flPAz8XEJtBWz
+         YT7Wzx2wgDLcttTxctegjtEMPfBuI3e8F8hF7ZJl+4JHmsvyPPr6of+ABGlklCCeTsZ2
+         JUfAhIJ9gckSDRxQ+D7ShEABv65esOYQONjVLlaRCRxxUHDCyl9wRDlC0PFQ8YhUqVQy
+         qxPg==
+X-Forwarded-Encrypted: i=1; AKwUvBztdckLK9+1LgRQViKa4TbNv3UbnJRl1bWb/mLjPC0OqcIIrTFxd0R9JQQ4zrI4AzZpzcTn69EuX7OLLN0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5SEYNbnqseGK3TbFf8GQruuoGRCk8d1cuXNiqqMe3+KJBDou7
+	AftAe9mvLZ9D8/Bf6nc2SyLe8OnJXsgWNHsI0gQ3W5Ibr6wZHQrDaaAu
+X-Gm-Gg: AYBFou1fnECTGxW9eKAsHFPSMA4tbi0EHeWwULYh19zPjxKCQGuVNgiwsAuRV1AmO3i
+	7WKjL0bjxW2rZQZHbtGfW2r7T6exVxCeIuZq2cbooN7EucZX6UEFeTuJ41AoE7AgTwLWjBN7wAM
+	/jNt8N5e7QIUpcfG1ViN7G+ApGpJ3d3gOXqC5hDxhEABnLC8z8WOwrQhNphdLUTTss6nPBKPV2/
+	Z65A5NcO63AO7+4y9u4wV5V/vYCmqxHNH9MbqivgFrPmjlV8i2rzViWA5lTUGRTgXSdEVphbp8l
+	mgPjbTeo7rD86bJlBRQrL3T+OEPcCdbeSp9bR3wEPUeDgWdOgeAFgUmfp+1iGI49y2Ih48HU4/w
+	WpVCdllr8CPKfnDiJoRi45d2b1AT3yOS8zKPc6zYU3v00WlxdEr7YCHldKlj397CzK5d+98Yk/L
+	rVwCVvwmP1HU0cIAJ8G9qVijtDy8q0R2VsnUAskmjbzOoVw2qonfi7ks2KEYC6O1CK3FjY5gJ80
+	r8I9WfwD+UdElhq
+X-Received: by 2002:a05:6a00:90a9:b0:874:705d:f64a with SMTP id d2e1a72fcca58-874decf71f5mr5476461b3a.44.1789746876763;
+        Fri, 18 Sep 2026 08:54:36 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd8dfa1csm1091058b3a.46.2026.09.18.08.54.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:54:36 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Frank Li <Frank.Li@nxp.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-rtc@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rtc: mxc_v2: fix wake IRQ leak on probe failure and remove()
+Date: Fri, 18 Sep 2026 22:54:29 +0700
+Message-Id: <20260918155429.2549137-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,20 +79,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 12:27:18PM +0100, Jon Hunter wrote:
-> FWIW, I am seeing the same build error for ARM.
+dev_pm_set_wake_irq() in probe has no matching dev_pm_clear_wake_irq()
+anywhere -- not on later probe-failure paths, not in remove(). Switch
+to devm_pm_set_wake_irq(), which registers the clear automatically on
+every exit path.
 
-Thanks for the confirmation. Dropped from the 6.12 and 6.6 queues:
+Fixes: fbc5ee9a6955 ("rtc: mxc_v2: use dev_pm_set_wake_irq() to simplify code")
+Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/r/20260914134826.EC26D1F000FF@smtp.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/rtc/rtc-mxc_v2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback in a work
-                 queue")
-
-The patch only touches drivers/net/ethernet/ti/cpsw.c, but the 'struct
-work_struct rx_mode_work' member it dereferences is added to cpsw_priv.h by a
-separate commit, c0b5dc73a38f ("net: cpsw_new: Execute ndo_set_rx_mode callback
-in a work queue"), which is not queued anywhere.  6.6 also lacks
-disable_work_sync(), so it had a second reason to fail there.
-
+diff --git a/drivers/rtc/rtc-mxc_v2.c b/drivers/rtc/rtc-mxc_v2.c
+index a07acbbcfaeb..7080aaf9ffa0 100644
+--- a/drivers/rtc/rtc-mxc_v2.c
++++ b/drivers/rtc/rtc-mxc_v2.c
+@@ -302,7 +302,7 @@ static int mxc_rtc_probe(struct platform_device *pdev)
+ 		return pdata->irq;
+ 
+ 	device_init_wakeup(&pdev->dev, true);
+-	ret = dev_pm_set_wake_irq(&pdev->dev, pdata->irq);
++	ret = devm_pm_set_wake_irq(&pdev->dev, pdata->irq);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "failed to enable irq wake\n");
+ 
 -- 
-Thanks,
-Sasha
+2.25.1
+
