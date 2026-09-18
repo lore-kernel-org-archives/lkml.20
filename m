@@ -1,88 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B45D49F123;
-	Fri, 18 Sep 2026 20:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495C54FDA72
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:15:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762543; cv=none; b=bF1UvCj78EywH4mIBullegsXf3l9v7iJqAxaWbnpD1Ez6MbNFSM3zTrUcQrWqnXjIwo+B6TJcYtJaayF8zPHnL9qpqcprT1CjO9kD3CJLjqrSO8GKBRsv/mAilBj40bnrLJ16VlwPxAdbub2Bcosp7Wl/DTCi8FpdoPrdIDuEAU=
+	t=1789762551; cv=none; b=m2wZ4RSTEyZzOe4q4ApLBypBfn3hWTccfJ/oiPGm6qS8tByZtj2WK+v2Ny2ceJhQjhf0UXk9HJTvurxRJBKo/FpUHK257Agq9nVN00SIXnOp8Fbo/6+0S/qwsD2+RiTL7omcPR7cfN92NNz+/1nuVGDiBaijpVp28xcqILZ5pfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762543; c=relaxed/simple;
-	bh=OAEsOLRukFLus0d8Tfr9V8PlCCQdG3TdiUlAGwmhXjA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=epAw9ilMFd/PqdF/aWArW2MB4SskrNVoOafxhLYz5BgiFfjYeQlClR8khjykF1w0wf6lpdMxHvkGinwDJW5PIgWL5rgU1L3z4TJFijWF90PFrvyNOoUC262ncS2gW6z/nGvvIuYtqKm9gobwUB9PoQi2y+/cF3MgmN0tcz2JDYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K//zyog2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789762551; c=relaxed/simple;
+	bh=iouTRwcP6p6sORyaAyVd4nF2CdJPsrPN00jaStu4b50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OSEWSUcOEJNTUn3al5s6pw1aW6kFy4SFMIYdASUTMynvy1fFc8XWYBFqCg5n3mSLjb17iuCeJHuoGBULY80S8h84gLTVedW0aqm9BUAUBLeKGZgIph/WwQ5XT0cWtwnUlXCWlo1m7M6nM8DUFOsC+pg4Os3KAr+CkjxxXGw218A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EKgnW5eN; arc=none smtp.client-ip=91.218.175.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K//zyog2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B171F000FF;
-	Fri, 18 Sep 2026 20:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789762542;
-	bh=OAEsOLRukFLus0d8Tfr9V8PlCCQdG3TdiUlAGwmhXjA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K//zyog2V0U5XIgFvmnnIv4886FNdZhDLQofPIKBTWXzdsJ0WqbwVY1MECT0yYu4i
-	 4ZqWxbUzkgZhfArlZn0Ohx4LFYwze/+QQeCZfTSuZe8bXffQM+TkOo1vajLxH7QWKH
-	 pCzk0jC946j9ZqV6KNZOaQ2HQrhA6m3AyVuiamOMb/3xqlTrQVp290o5zWsY95idWy
-	 G4mybv/5QF7JoFrCjTh9fQg/QiTBsGdTVOxOAnuaP9GraJEAjOSmEDR2ncBnMgtL/M
-	 +ED9/D/rGVUXvb46t+ZZKpA1vQI9jjyYFR8T2zFltuShDIyWw8pfajQO7Jxf92LGze
-	 zIJGv2d2yxv/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/13] PCI: Save and restore the ACS Control register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: linux-mm@kvack.org, "David Matlack" <dmatlack@google.com>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: "Alex Williamson" <alex@shazbot.org>, kexec@lists.infradead.org, "Jonathan
- Corbet" <corbet@lwn.net>, "Mike Rapoport" <rppt@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>, "David
- Rientjes" <rientjes@google.com>, linux-pci@vger.kernel.org, "Lukas Wunner" <lukas@wunner.de>, "Parav
- Pandit" <parav@nvidia.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Saeed
- Mahameed" <saeedm@nvidia.com>, "Samiullah Khawaja" <skhawaja@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Vipin Sharma" <vipinsh@google.com>, "Leon
- Romanovsky" <leonro@nvidia.com>, "Adithya Jayachandran" <ajayachandra@nvidia.com>, "Jason
- Gunthorpe" <jgg@nvidia.com>, "William Tu" <witu@nvidia.com>, "Josh Hilke" <jrhilke@google.com>, "Yi
- Liu" <yi.l.liu@intel.com>, "Jacob Pan" <jacob.pan@linux.microsoft.com>, "Pasha
- Tatashin" <pasha.tatashin@soleen.com>, "Pranjal Shrivastava" <praan@google.com>, "Alexander
- Graf" <graf@amazon.com>, "Chris Li" <chrisl@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>
-In-Reply-To: <20260918200640.887030-9-dmatlack@google.com>
-References: <20260918200640.887030-1-dmatlack@google.com>
- <20260918200640.887030-9-dmatlack@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 20:15:40 +0000
-Message-Id: <20260918201540.64B171F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EKgnW5eN"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iouTRwcP6p6sORyaAyVd4nF2CdJPsrPN00jaStu4b50=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789762545; v=1; x=1790367345;
+ b=EKgnW5eNwYUSMYi5mLGwEpSgf1iuBPjL2JNsjN9V8Z4AWUyhTuyHTlqbrnI3o2JQb1SpB/ga
+ voRD2QcxnU3iRxaoU298g2+1Rla74UTd64Py1s1csV2goaMYeprRBXa/r73SR9I4GwRda318+qT
+ KEbVBbKAycznOlIdshhkj4S4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 67fa36d92599c8ae;
+	Fri, 18 Sep 2026 20:15:36 +0000
+X-Mizu-Trace-ID: 67fa36d92599c8ae
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 13:15:35 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: JP Kobryn <inwardvessel@gmail.com>
+Cc: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Shuah Khan <shuah@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v12 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Message-ID: <aq2bo5Q-YUj7lkxn@linux.dev>
+References: <cover.1789714023.git.zhuhui@kylinos.cn>
+ <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
+ <b115ece2-33a1-412e-ac25-38f339a13599@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b115ece2-33a1-412e-ac25-38f339a13599@gmail.com>
 
-> Save the ACS Control register in pci_save_state() and write it back
-> in pci_restore_state(), instead of recomputing the ACS controls from
-> scratch with pci_enable_acs().
->=20
-> This makes ACS symmetric with the rest of a device's saved state. Today
-> pci_save_state() ignores ACS entirely and pci_restore_state() re-enables
-> the ACS controls from the kernel's current ACS policy. As a result, a
-> device can come out of a reset with different ACS controls than it went
-> in with, e.g. any controls programmed outside of pci_enable_acs() are
-> silently dropped.
->=20
-> pci_enable_acs() runs when a driver binds to a device
-> (pci_dma_configure()), i.e. after pci_bus_add_device() has already saved
-> the device's state. Refresh the saved ACS Control register there as
-> well, otherwise a subsequent reset would revert ACS back to the
-> configuration left behind by firmware.
->=20
-> Devices that rely on device-specific quirks to enable an ACS equivalent
-> keep that configuration outside of the ACS Control register, so keep
-> configuring ACS from scratch for them. Do the same for devices that have
-> no saved ACS state at all.
->=20
-> Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: David Matlack <dmatlack@google.com>
+On Fri, Sep 18, 2026 at 12:45:01PM -0700, JP Kobryn wrote:
+> On 9/17/26 11:58 PM, Hui Zhu wrote:
+> > From: Hui Zhu <zhuhui@kylinos.cn>
+> > 
+> > BPF programs can observe memory pressure on a cgroup, e.g. refault
+> > stats via bpf_mem_cgroup_page_state(), but cannot act on it:
+> > triggering reclaim requires writing to memory.reclaim, which BPF
+> > cannot do.
+> > 
+> > Add bpf_proactive_reclaim(), a sleepable kfunc performing one
+> > proactive reclaim pass on a memcg, like a write to memory.reclaim
+> > but without retrying until the target is reached, so that when and
+> > how hard to reclaim is BPF policy rather than hard-coded thresholds.
+> > The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> > as high_work_func() does for memory.high; reclaiming more is left to
+> > the program, which can call the kfunc once per bpf_wq callback and
+> > stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
+> > other sleepable programs may run with filesystem locks held, on
+> > which the reclaim path could deadlock via filesystem shrinkers.
+> > 
+> > Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
+> > macros to an enum so that they are emitted into BTF and usable from
+> > BPF programs via vmlinux.h.
+> > 
+> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> > Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+> > ---
+> >   mm/bpf_memcontrol.c | 62 ++++++++++++++++++++++++++++++++++++++++++++-
+> >   mm/internal.h       | 10 +++++---
+> >   2 files changed, 67 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> > index 716df49d7647..c5d7f29ade85 100644
+> > --- a/mm/bpf_memcontrol.c
+> > +++ b/mm/bpf_memcontrol.c
+> > @@ -8,6 +8,8 @@
+> >   #include <linux/memcontrol.h>
+> >   #include <linux/bpf.h>
+> > +#include "internal.h"
+> > +
+> >   __bpf_kfunc_start_defs();
+> >   /**
+> > @@ -159,6 +161,48 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+> >   	mem_cgroup_flush_stats(memcg);
+> >   }
+> > +/**
+> > + * bpf_proactive_reclaim - proactively reclaim memory from a memory cgroup
+> > + * @memcg: the target memory cgroup to reclaim from.
+> > + * @size: the amount of memory to reclaim, in bytes, clamped to
+> > + *        MEMCG_CHARGE_BATCH.
+> > + * @swappiness: the reclaim swappiness, in the range [MIN_SWAPPINESS,
+> > + *              SWAPPINESS_ANON_ONLY], or -1 to use the memcg's own
+> > + *              swappiness.
+> 
+> The ANON_ONLY enumerator shouldn't be included as part of the range. I
+> would change this to [MIN_SWAPPINESS, MAX_SWAPPINESS] and then specify
+> that ANON_ONLY is a special mode like -1 is.
+> 
+> > + *
+> > + * Performs one proactive reclaim pass on @memcg, like a write to
+> > + * memory.reclaim but without retrying until @size is reached. Call it
+> > + * repeatedly to reclaim more than one batch.
+> > + *
+> > + * Only available to BPF_PROG_TYPE_SYSCALL, because other sleepable programs
+> > + * may run with filesystem locks held, which the reclaim path can deadlock
+> > + * on via filesystem shrinkers.
+> > + *
+> > + * Return: The amount of memory reclaimed, in bytes, or a negative error.
+> > + */
+> > +__bpf_kfunc long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> > +				       unsigned long size,
+> > +				       int swappiness)
+> > +{
+> > +	unsigned long nr_reclaimed;
+> > +	unsigned long nr_pages;
+> > +
+> > +	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
+> > +		return -EINVAL;
+> 
+> Related to the previous comment, you treat the special values as part of
+> the range. It works currently, but creates a layout dependency on the
+> enum. I think it would be more future-proof if you did:
+> 
+> if (swappiness != -1 && swappiness != SWAPPINESS_ANON_ONLY) {
+> 	if (swappiness < MIN_SWAPPINESS || swappiness > MAX_SWAPPINESS)
+> 		return -EINVAL;
+> }
+> 
+> The previous comments I brought up are now resolved, so assuming you'll
+> make the changes above you can include:
+> 
+> Reviewed-by: JP Kobryn <jp.kobryn@linux.dev>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918200640.8870=
-30-1-dmatlack@google.com?part=3D8
-
+Hui, please make these changes and just send this patch in next version.
