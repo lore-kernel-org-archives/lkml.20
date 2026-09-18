@@ -1,56 +1,56 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB6150EBE9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BF150E5A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739456; cv=none; b=KikJkP/7UR5OARm3i5soPluvRNfOV8PtK2lkH2oMOqvCxbfaKAzyhO6gOViiEZWEg2pNEVM0NpMJ/lgBardks3tCWF0t+X6KfwB9xVhWNbOWyX+k687mhUug+XPVx00rmhlDlCb/6P54GNBpMjHMssQisVZ4N0xJKcPfxe7cwFg=
+	t=1789739457; cv=none; b=iKIMA2W42Qa5lYJy6XeB/652UtNHK5MNB6wxrGOGCnPfORKgp10BjTrmdqdJJY1TMRU4ZtiIj0awam/is17fuj3vlDXUYY1spyFCmqgPRkwMqvV+bNgaG6fizJhizL4BCRvdZZB5R/TH3L7/FAhFc387F6KnGSFvD96gik1zmbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739456; c=relaxed/simple;
-	bh=1iIk+ndiD8661H+1txsg6gPsuomkrgk30H1JGB4hPlA=;
+	s=arc-20240116; t=1789739457; c=relaxed/simple;
+	bh=PDbhJnSJId/nHkHj+x63VXubJEYI1c0DioQfK3uXkPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Qx/H7FDZuBT40f8sOSj+Oko+io+BVZOMN3lCURl/PUO3Xj5x+csQ7ShgkiOPMBsRdppHxnixyz1Bnb0JMaplVai/4ko9Sdtymacdo/nZsAnOKFA2G+sZ46to+FHLVumioRwHJIJccv4A0HF2sY6aDYBEr/0INBGD50ugfJOqySQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SsfhA7Jn; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version:Content-Type; b=FGsEpELp+aIHcpO1lH6CewJHmd+4uIUvuu244TRIDciYo7ONFYqlHwwtC49WJeTEJNWUuceuFuf6q4r0iyX72hnPYFz6K5x5M/ttm2dMwchQqozm5mWvfxbxp8tyGYGlBhhFDWKPNAMQnMEfCjB3mAkmV4YObcXHNGft8g3cv9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aH3n2wL6; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SsfhA7Jn"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aH3n2wL6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789739452;
+	s=mimecast20190719; t=1789739450;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tyX03AFJBHvwmVr6Mp2sfhHVpyIoXlcV2gDIczrFQfY=;
-	b=SsfhA7Jncp3hkL82recw3utoStc9OhlNsHMzg4nd1oelMXMZjwj5wjcpZljz2ald8EYpZx
-	2dcYuONxOA9wQLanYAD3tSCyHcFYhGsE53BXFlwLyUTq2NebeGUtHfhzamdaKHRbctCndy
-	PcqPGwIFM085zzK/uYPMFLTkPTcxyrA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=+VFgdxHE6+HrrZypJ8OgwWId3lIAfHbeaGvwUSKqkUU=;
+	b=aH3n2wL6P1zOaHPl2o01du7wgLH5ZnhUigNlsC+xbLPxr2ZaGN3T82FDK+6UgM1cNG9+qV
+	YRY9wXFOuT7qZhUZLvy5T3NX6ez7aabUiucUtGqcwVsk04ON4yfPnkp8bUeEMpTATVUheh
+	mdta5RY8wKzrZ9TnJr9HxDOPxz/e9Zs=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-83-57fEJuSOP7uyvm9QRrURRg-1; Fri,
- 18 Sep 2026 09:50:51 -0400
-X-MC-Unique: 57fEJuSOP7uyvm9QRrURRg-1
-X-Mimecast-MFC-AGG-ID: 57fEJuSOP7uyvm9QRrURRg_1789739450
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-662-DbsSG9W3M7e9QFi-nE7ttw-1; Fri,
+ 18 Sep 2026 09:50:47 -0400
+X-MC-Unique: DbsSG9W3M7e9QFi-nE7ttw-1
+X-Mimecast-MFC-AGG-ID: DbsSG9W3M7e9QFi-nE7ttw_1789739446
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1EA57196C40A;
-	Fri, 18 Sep 2026 13:50:50 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6686A195E937;
+	Fri, 18 Sep 2026 13:50:46 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 74B7A756;
-	Fri, 18 Sep 2026 13:50:49 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BDF09433;
+	Fri, 18 Sep 2026 13:50:45 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH 20/31] KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
-Date: Fri, 18 Sep 2026 09:50:19 -0400
-Message-ID: <20260918135030.171564-21-pbonzini@redhat.com>
+Subject: [PATCH 16/31] KVM: Take memory protections into account for memory read/write/fetch
+Date: Fri, 18 Sep 2026 09:50:15 -0400
+Message-ID: <20260918135030.171564-17-pbonzini@redhat.com>
 In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
 References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,206 +63,128 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-In many cases, retrieving kvm_memslots is followed by a check on
-the generation of the slots.  Introduce a helper function that
-either does the check alone, or compounds it with returning the
-struct kvm_memslots* to the caller.
+From: Nicolas Saenz Julienne <nsaenz@amazon.com>
 
+Take into account memory attributes when accessing guest memory through
+the kvm_{read,write,fetch}*() family of functions.
+
+All of these pass a struct kvm_memory_slot pointer to the actual
+workhorse functions, in order to share code between the VM-wide and
+vCPU-specific version of the functions (the latter of which handles the
+multi-address-space case).  For this reason they need specific changes
+and do not work even though the gfn_to_hva() path has been taught already
+about memory protection attributes.
+
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/loongarch/kvm/vcpu.c | 12 ++++--------
- arch/x86/kvm/x86.c        | 10 ++--------
- include/linux/kvm_host.h  | 13 +++++++++++++
- virt/kvm/kvm_main.c       |  8 ++++----
- virt/kvm/pfncache.c       | 10 ++++------
- 5 files changed, 27 insertions(+), 26 deletions(-)
+ virt/kvm/kvm_main.c | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
 
-diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
-index d540004d74ff..cf4f4d75374a 100644
---- a/arch/loongarch/kvm/vcpu.c
-+++ b/arch/loongarch/kvm/vcpu.c
-@@ -154,7 +154,6 @@ static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
- 	u32 version;
- 	u64 steal;
- 	gpa_t gpa;
--	struct kvm_memslots *slots;
- 	struct kvm_steal_time __user *st;
- 	struct gfn_to_hva_cache *ghc;
- 
-@@ -164,9 +163,8 @@ static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
- 		return;
- 
- 	gpa &= KVM_STEAL_PHYS_MASK;
--	slots = kvm_memslots(vcpu->kvm);
--	if (unlikely(slots->generation != ghc->generation || gpa != ghc->gpa ||
--		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
-+	if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) || gpa != ghc->gpa ||
-+		     kvm_is_error_hva(ghc->hva) || !ghc->memslot) {
- 		if (kvm_gfn_to_hva_cache_init(vcpu->kvm, ghc, gpa, sizeof(*st))) {
- 			ghc->gpa = INVALID_GPA;
- 			return;
-@@ -1794,7 +1792,6 @@ static void kvm_vcpu_set_pv_preempted(struct kvm_vcpu *vcpu)
- {
- 	gpa_t gpa;
- 	struct gfn_to_hva_cache *ghc;
--	struct kvm_memslots *slots;
- 	struct kvm_steal_time __user *st;
- 
- 	gpa = vcpu->arch.st.guest_addr;
-@@ -1811,9 +1808,8 @@ static void kvm_vcpu_set_pv_preempted(struct kvm_vcpu *vcpu)
- 
- 	gpa &= KVM_STEAL_PHYS_MASK;
- 	ghc = &vcpu->arch.st.cache;
--	slots = kvm_memslots(vcpu->kvm);
--	if (unlikely(slots->generation != ghc->generation || gpa != ghc->gpa ||
--		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
-+	if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) || gpa != ghc->gpa ||
-+		     kvm_is_error_hva(ghc->hva) || !ghc->memslot) {
- 		if (kvm_gfn_to_hva_cache_init(vcpu->kvm, ghc, gpa, sizeof(*st))) {
- 			ghc->gpa = INVALID_GPA;
- 			return;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index e07966b9ef85..7a1e80bb28f5 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2049,7 +2049,6 @@ static void record_steal_time(struct kvm_vcpu *vcpu)
- {
- 	struct gfn_to_hva_cache *ghc = &vcpu->arch.st.cache;
- 	struct kvm_steal_time __user *st;
--	struct kvm_memslots *slots;
- 	gpa_t gpa = vcpu->arch.st.msr_val & KVM_STEAL_VALID_BITS;
- 	u64 steal;
- 	u32 version;
-@@ -2065,9 +2064,7 @@ static void record_steal_time(struct kvm_vcpu *vcpu)
- 	if (WARN_ON_ONCE(current->mm != vcpu->kvm->mm))
- 		return;
- 
--	slots = kvm_memslots(vcpu->kvm);
--
--	if (unlikely(slots->generation != ghc->generation ||
-+	if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) ||
- 		     gpa != ghc->gpa ||
- 		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
- 		/* We rely on the fact that it fits in a single page. */
-@@ -2617,7 +2614,6 @@ static void kvm_steal_time_set_preempted(struct kvm_vcpu *vcpu)
- {
- 	struct gfn_to_hva_cache *ghc = &vcpu->arch.st.cache;
- 	struct kvm_steal_time __user *st;
--	struct kvm_memslots *slots;
- 	static const u8 preempted = KVM_VCPU_PREEMPTED;
- 	gpa_t gpa = vcpu->arch.st.msr_val & KVM_STEAL_VALID_BITS;
- 
-@@ -2644,9 +2640,7 @@ static void kvm_steal_time_set_preempted(struct kvm_vcpu *vcpu)
- 	if (unlikely(current->mm != vcpu->kvm->mm))
- 		return;
- 
--	slots = kvm_memslots(vcpu->kvm);
--
--	if (unlikely(slots->generation != ghc->generation ||
-+	if (unlikely(!kvm_check_gen(vcpu->kvm, ghc->generation) ||
- 		     gpa != ghc->gpa ||
- 		     kvm_is_error_hva(ghc->hva) || !ghc->memslot))
- 		return;
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 24d04322d89e..7599ab7ad7ef 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -2644,6 +2644,19 @@ static inline int kvm_mem_attributes_may_write_gfn(struct kvm *kvm, gfn_t gfn)
- 	return kvm_mem_attributes_may_write(attrs);
- }
- 
-+static inline bool kvm_memslots_check_gen(struct kvm *kvm, u64 slots_generation, struct kvm_memslots **p_slots)
-+{
-+	struct kvm_memslots *slots = *p_slots = kvm_memslots(kvm);
-+	return slots->generation == slots_generation;
-+}
-+
-+static inline bool kvm_check_gen(struct kvm *kvm, u64 slots_generation)
-+{
-+	struct kvm_memslots *slots;
-+	return kvm_memslots_check_gen(kvm, slots_generation, &slots);
-+}
-+
-+
- #ifdef CONFIG_KVM_GUEST_MEMFD
- int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
- 		     gfn_t gfn, kvm_pfn_t *pfn, struct page **page,
 diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index b8e419fb6cbf..ea4e9425a82d 100644
+index 9fdec95ccce2..acf09059a1cd 100644
 --- a/virt/kvm/kvm_main.c
 +++ b/virt/kvm/kvm_main.c
-@@ -3526,14 +3526,14 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
- 				  void *data, unsigned int offset,
- 				  unsigned long len)
+@@ -3253,11 +3253,13 @@ static int next_segment(unsigned long len, int offset)
+ }
+ 
+ /* Copy @len bytes from guest memory at '(@gfn * PAGE_SIZE) + @offset' to @data */
+-static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
+-				 void *data, int offset, int len)
++static int __kvm_read_guest_page(struct kvm *kvm, struct kvm_memory_slot *slot,
++				 gfn_t gfn, void *data, int offset, int len,
++				 unsigned long attr)
  {
--	struct kvm_memslots *slots = kvm_memslots(kvm);
-+	struct kvm_memslots *slots;
  	int r;
- 	gpa_t gpa = ghc->gpa + offset;
+ 	unsigned long addr;
++	unsigned long attrs;
  
- 	if (WARN_ON_ONCE(len + offset > ghc->len))
- 		return -EINVAL;
- 
--	if (slots->generation != ghc->generation) {
-+	if (unlikely(!kvm_memslots_check_gen(kvm, ghc->generation, &slots))) {
- 		if (__kvm_gfn_to_hva_cache_init(slots, ghc, ghc->gpa, ghc->len))
- 			return -EFAULT;
- 	}
-@@ -3564,14 +3564,14 @@ int kvm_read_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
- 				 void *data, unsigned int offset,
- 				 unsigned long len)
+ 	if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
+ 		return -EFAULT;
+@@ -3265,6 +3267,11 @@ static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
+ 	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
++
++	attrs = kvm_get_memory_attributes(kvm, gfn);
++	if (attrs & attr)
++		return -EFAULT;
++
+ 	r = __copy_from_user(data, (void __user *)addr + offset, len);
+ 	if (r)
+ 		return -EFAULT;
+@@ -3276,7 +3283,8 @@ int kvm_read_guest_page(struct kvm *kvm, gfn_t gfn, void *data, int offset,
  {
--	struct kvm_memslots *slots = kvm_memslots(kvm);
-+	struct kvm_memslots *slots;
+ 	struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
+ 
+-	return __kvm_read_guest_page(slot, gfn, data, offset, len);
++	return __kvm_read_guest_page(kvm, slot, gfn, data, offset, len,
++				     KVM_MEMORY_ATTRIBUTE_NR);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_read_guest_page);
+ 
+@@ -3285,7 +3293,8 @@ int kvm_vcpu_read_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
+ {
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+ 
+-	return __kvm_read_guest_page(slot, gfn, data, offset, len);
++	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len,
++				     KVM_MEMORY_ATTRIBUTE_NR);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_page);
+ 
+@@ -3294,7 +3303,8 @@ int kvm_vcpu_fetch_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
+ {
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+ 
+-	return __kvm_read_guest_page(slot, gfn, data, offset, len);
++	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len,
++				     KVM_MEMORY_ATTRIBUTE_NX);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_fetch_guest_page);
+ 
+@@ -3338,8 +3348,9 @@ int kvm_vcpu_read_guest(struct kvm_vcpu *vcpu, gpa_t gpa, void *data, unsigned l
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest);
+ 
+-static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
+-			           void *data, int offset, unsigned long len)
++static int __kvm_read_guest_atomic(struct kvm *kvm,
++				   struct kvm_memory_slot *slot, gfn_t gfn,
++				   void *data, int offset, unsigned long len)
+ {
  	int r;
- 	gpa_t gpa = ghc->gpa + offset;
+ 	unsigned long addr;
+@@ -3347,6 +3358,9 @@ static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
+ 	if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
+ 		return -EFAULT;
  
- 	if (WARN_ON_ONCE(len + offset > ghc->len))
- 		return -EINVAL;
++	if (!kvm_mem_attributes_may_read_gfn(kvm, gfn))
++		return -EFAULT;
++
+ 	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
+@@ -3365,7 +3379,7 @@ int kvm_vcpu_read_guest_atomic(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+ 	int offset = offset_in_page(gpa);
  
--	if (slots->generation != ghc->generation) {
-+	if (unlikely(!kvm_memslots_check_gen(kvm, ghc->generation, &slots))) {
- 		if (__kvm_gfn_to_hva_cache_init(slots, ghc, ghc->gpa, ghc->len))
- 			return -EFAULT;
- 	}
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 728d2c1b488a..e09703d249bb 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -72,8 +72,6 @@ static bool kvm_gpc_is_valid_len(gpa_t gpa, unsigned long uhva,
+-	return __kvm_read_guest_atomic(slot, gfn, data, offset, len);
++	return __kvm_read_guest_atomic(vcpu->kvm, slot, gfn, data, offset, len);
+ }
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_atomic);
  
- bool kvm_gpc_check(struct gfn_to_pfn_cache *gpc, unsigned long len)
- {
--	struct kvm_memslots *slots = kvm_memslots(gpc->kvm);
--
- 	if (!gpc->active)
- 		return false;
- 
-@@ -81,7 +79,7 @@ bool kvm_gpc_check(struct gfn_to_pfn_cache *gpc, unsigned long len)
- 	 * If the page was cached from a memslot, make sure the memslots have
- 	 * not been re-configured.
- 	 */
--	if (!kvm_is_error_gpa(gpc->gpa) && gpc->generation != slots->generation)
-+	if (!kvm_is_error_gpa(gpc->gpa) && !kvm_check_gen(gpc->kvm, gpc->generation))
- 		return false;
- 
- 	if (kvm_is_error_hva(gpc->uhva))
-@@ -290,12 +288,12 @@ static int __kvm_gpc_refresh(struct gfn_to_pfn_cache *gpc, gpa_t gpa, unsigned l
- 		if (gpc->uhva != old_uhva)
- 			hva_change = true;
- 	} else {
--		struct kvm_memslots *slots = kvm_memslots(gpc->kvm);
-+		struct kvm_memslots *slots;
- 
- 		page_offset = offset_in_page(gpa);
- 
--		if (gpc->gpa != gpa || gpc->generation != slots->generation ||
--		    kvm_is_error_hva(gpc->uhva)) {
-+		if (!kvm_memslots_check_gen(gpc->kvm, gpc->generation, &slots) ||
-+		    gpc->gpa != gpa || kvm_is_error_hva(gpc->uhva)) {
- 			gfn_t gfn = gpa_to_gfn(gpa);
- 
- 			gpc->gpa = gpa;
+@@ -3383,6 +3397,10 @@ static int __kvm_write_guest_page(struct kvm *kvm,
+ 	addr = gfn_to_hva_memslot(memslot, gfn);
+ 	if (kvm_is_error_hva(addr))
+ 		return -EFAULT;
++
++	if (!kvm_mem_attributes_may_write_gfn(kvm, gfn))
++		return -EFAULT;
++
+ 	r = __copy_to_user((void __user *)addr + offset, data, len);
+ 	if (r)
+ 		return -EFAULT;
 -- 
 2.52.0
 
