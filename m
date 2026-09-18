@@ -1,204 +1,188 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9C24F96B4;
-	Fri, 18 Sep 2026 15:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745712; cv=pass; b=kY6dQyaq7haclVyeQTjvmJQAL6aa5SuLc8MSwoUAi8aOo4TKK7njJHQ3sgywtzJP85Iv7+13XWPdva5FbO2GMkiVh9+6R3yDr6h6g364kLqMyL/PgHiPaQrn/73FeAnDetWAWWnTksgUGocDqrsYzAYfeRvRwVQNkJn/nrf1yaU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745712; c=relaxed/simple;
-	bh=/uICbTJnOJHvz94YClvo4iTFMIU7tZmrHcfspO7/LKs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=F9+pHRzMSjnU0XR4+homBuGFzSIcfRhA4Aq7dlzMHIydaiVwWit8OtbHuHHvO5bgYhIZAbux7o2ZZNvdAqPP7kQM6j7fcFRPSzpCiOjvenwogfr8aDtacW25x633dOOkWcXX/I+TkxsN605TS0eF6nGbL4mz6Li6nzn/bGPBfZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=vjs9u89Q; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21054A43F0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789745719; cv=none; b=jO9X+CzuVB0imYd1RV/seQOeXhTurFANJVQA1TFiuwOlSZElQXc+Qp33ntYLtjgTleU8fxo/jNyC6IzoKu8IXuZvpWz9iThUbdaGCJQ5eUSQ26eliEqBkaeuBQIAZK3iuHBpbkCTkYOfI+mN1+Oh4W+hlvrcqaPeYoXaxiYUzx4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789745719; c=relaxed/simple;
+	bh=ZMtc2eaIIcPrDV/2C4IMFPmHENeK/N/h7wI5x33wn7I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dSckq872rdCgUvl6oCccCPu/qGsEr/utAIPonLZAqPvwuY60/xIaTDiAe3LcrOJ0gffVVoWtx7WQe94jROscwLJyiLVLr7kDkefEY0dnEqp9OOe+c+afDabeyY/9WO+IgwSe1/WOdflfCkrtmp4lQC2bAM732d0PYuF6rhwIfqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0MCptV/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="vjs9u89Q"
-Received: from [192.168.1.195] (unknown [IPv6:2a03:1b20:1:f410::d101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hmcBW65qqz4BKFc;
-	Fri, 18 Sep 2026 18:34:59 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789745701;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=PjuTV6n3RwxbESCi1/LCiypvfS9qjgx4e8znG64rbjM=;
-	b=vjs9u89QlbezoWlPKyV9HxMB4q3sTaYjuUA8WlgYzdqarxpZDCbF/Ds5x2ijHwjvE0XmIl
-	U1uZ12hWylT0JpU6yJBX2g8SrqmUuB0RMOU/wnvayHNaX/B0EJ5JaCsgOVV0QMkhrmutaY
-	+3p/NrTNAYfim3aekoFqfTBbZkcevuC1+pTnanKSL3sFUASGO6UvCaQugpVNGmlEdTLjTG
-	R11MmhHvGrbcunY2bpZwP4Bq9Z/ebczlBQWH2mUGPgWQO4XrMzYUsq0s0HbPsgEiXhjI0O
-	r+x88VlyjWwMT2Hqb0MJc0z4Rk0B0uTCfPs/DXR3xG3qQes/Q/VigWcOP3RlJg==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789745701;
-	b=YcFc7SfKlxWB656o+dSmy4Wa796GRVI9f83Bo6+SRqytV0i1cT8AmS8+fcIuY7fUgVf9O/
-	o9U5SQ5DpWBruE65CBs9cHItH4CW81FDMSZsjd5d2HgP0raHma6ARv/sUDauZV7o9jXcrO
-	gCcV7Za2O2HTcYBghqrS96il53tCD8PfPBiL5DSwX661lE4rJNZ3JSI1jYN08GNjqwsq9A
-	3gtDffQHVJC3EEeE+GTVmY8ibKiilJcawInT9nGFjjJ+PiqS7VxoYcc3T+FAaMFAkJs+2K
-	3WFkvd2PBRHk7QoTtFYhitj/rM4WvyE5WRvNl4L6T+eDNVqaHwEmRoHZU0pmcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789745701;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=PjuTV6n3RwxbESCi1/LCiypvfS9qjgx4e8znG64rbjM=;
-	b=CkxwWfl6y3hL6ugHaDVhfTmeBjkt2uw9jkk6C1GZLXnltqOkkS9fJ55mDuCt4+kYft8Ldm
-	J2kRVpfTtJmlk8XvKf9bF7/KRmYTNYCt0VQP5S4cuY1CT7LDpUub7CecPqgosjZLuUL+4f
-	mn+jOzcnLBaCyBu2AM4BXa+nHuerKy89CBylOUMn6BxRwK+j9yOhuvORIU21XCZeXELfJ7
-	CL9DrxgufvP2oCD4/ntBghF7CEpcWnPn1ume68Dl8JtabfwEj50aeOgcwhGn2GTTGyM/G6
-	8RDLVYa2GdVfY7gkma7x4J8s00AKMW/r1oonQ6GgW7gZWGvVvN+x05F/qU1EAQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <1a654fabd259836313ca20f9d6fd0e40ceb4b760.camel@iki.fi>
-Subject: Re: [PATCH v3] Bluetooth: af_bluetooth: Fix double list_del and UAF
- in accept_q
-From: Pauli Virtanen <pav@iki.fi>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
-	linux-bluetooth@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com,
- 	syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com
-Date: Fri, 18 Sep 2026 18:34:57 +0300
-In-Reply-To: <20260918104736.958613-1-ngocthang2710.1999@gmail.com>
-References: <20260918104736.958613-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=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
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0MCptV/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38CB1F000FF;
+	Fri, 18 Sep 2026 15:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789745717;
+	bh=os+ZB0D+705FI+w63ragnyl5EpLiV81b9g1IpQiTgrM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i0MCptV/YkhLNOf1Pa0kPVwKcjspNX4GrvgozU57nBs7lz9Ycdi59VUD9PiiIzgGI
+	 D+/J9j/n30fktDBJBb9Vx1E/SOqiBWMee3doQxtUMmWp578i+3MxKRyUIFRkKO24H7
+	 4LMU67+2Bp2NLu7pvHPYFvBHkd8Yy2RPdppcOl+SVUxeO4JqZTA+8hSLp+QoCq75Jk
+	 goPNMpPzKnV2rKSzxaLUDKnGnNGR4Whz5xIsLH32zk0d9/rY9FpRb4ypeoR++/cgTs
+	 YmjqlzlwmHQokfqrQPyYIQ3LdRoNSERyP4PLIizs8WKeA7Ai6Swfr3GO0uecDLCvKX
+	 p7IWVxfVE002w==
+Date: Fri, 18 Sep 2026 16:35:15 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Hao Li <hao.li@linux.dev>
+Cc: vbabka@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
+	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/slub: refill prefilled sheaves from the barn
+Message-ID: <aq0ylDidEHa2kg4X@thinkstation>
+References: <20260918114318.124346-1-hao.li@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918114318.124346-1-hao.li@linux.dev>
 
-Hi,
+On Fri, Sep 18, 2026 at 07:41:56PM +0800, Hao Li wrote:
+> Currently, when the prefill API refills a non-full sheaf, it takes the
+> objects from partial slabs and never from the full sheaves in the barn,
+> so once the barn's full list becomes saturated, it stays saturated.
+> 
+> For objects freed via kfree_rcu(), every RCU sheaf then has to be
+> flushed to slabs because the barn's full list has no room.
+> 
+> To fix this, let the sheaf refill from the barn first, and introduce a
+> partial sheaf in the barn, which holds the leftover objects.
+> 
+> If no partial sheaf exists, take a full sheaf from the barn and return
+> it to the caller; the non-full sheaf becomes the partial sheaf, or is
+> put on the barn's empty list if it holds no objects.
+> 
+> If a partial sheaf exists and the non-full sheaf and the partial sheaf
+> together reach capacity, the one holding more objects is filled up from
+> the other and handed out instead, so no full sheaf needs to be taken
+> from the barn.
+> 
+> If a partial sheaf exists but the two together do not reach capacity,
+> take a full sheaf from the barn for the caller; the objects of the
+> non-full sheaf are absorbed into the partial sheaf, and the non-full
+> sheaf, now empty, is put on the barn's empty list.
 
-pe, 2026-09-18 kello 17:47 +0700, Nguyen Ngoc Thang kirjoitti:
-> bt_sk(sk)->parent is a raw pointer with no refcount backing it, so a
-> child sitting in the listening socket's accept_q can outlive it. When
-> the child's channel is torn down independently (e.g. hci_error_reset()
-> -> l2cap_conn_del() -> l2cap_sock_teardown_cb()), bt_accept_unlink()
-> dereferences the freed parent, corrupting its accept_q_lock and list.
+Perhaps let's explain why the slab allocator needs this partial sheaf
+handling only for prefilled sheaves path?
 
-This was resent without replying to previous comments:
+while reviewing it i was wondering "why is this just not part of
+refill_sheaf()"
 
-https://lore.kernel.org/linux-bluetooth/1baff112d1ebd255575c7e52936b13db10f=
-218b7.camel@iki.fi/
+I assume the reason is: usually we only refill empty sheaves because
+if it has at least one object, it can serve the allocation.
 
-AFAIK the issue is already fixed upstream in a different way.
+> the gain comes from two sides: every full sheaf taken out makes room on
+> the barn's full list for a future rcu sheaf, and refilling from the
+> barn is cheaper than refilling from partial slabs under list_lock.
+> 
+> note that putting the non-full sheaf on the full list instead would not
+> work: it would occupy room on the full list, so the list would stay
+> saturated and rcu_free_sheaf() would still keep flushing.
 
-> Additionally, if multiple threads concurrently tear down the child
-> socket, bt_accept_unlink() can be called multiple times. Without
-> checking if the socket is still in the list, the second thread will
-> perform a double list_del_init(), causing list_del corruption (kernel BUG=
-).
->=20
-> Fix this by:
-> 1. Taking a reference on parent in bt_accept_enqueue() and dropping it
->    only when actually unlinked in bt_accept_unlink().
-> 2. Checking !list_empty(&bt_sk(sk)->accept_q) inside the accept_q_lock
->    to prevent double unlinking.
-> 3. Moving sock_put() outside of the spinlock to avoid sleeping in an
->    atomic context.
+[..]
 
-These don't look right: eg. sock_put() was not inside spinlock even
-before.
-
-> Reported-by: syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D534002670dd34a114fdc
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->=20
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 > ---
->  net/bluetooth/af_bluetooth.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
->=20
-> diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-> index 411d66f24393..7797b1052808 100644
-> --- a/net/bluetooth/af_bluetooth.c
-> +++ b/net/bluetooth/af_bluetooth.c
-> @@ -224,6 +224,10 @@ void bt_accept_enqueue(struct sock *parent, struct s=
-ock *sk, bool bh)
->  	else
->  		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
-> =20
-> +	/* Hold a reference on parent so it cannot be freed while sk keeps
-> +	 * a raw pointer to it via bt_sk(sk)->parent.
-> +	 */
-> +	sock_hold(parent);
->  	bt_sk(sk)->parent =3D parent;
-> =20
->  	spin_lock_bh(&par->accept_q_lock);
-> @@ -257,15 +261,24 @@ EXPORT_SYMBOL(bt_accept_enqueue);
->  void bt_accept_unlink(struct sock *sk)
->  {
->  	struct sock *parent =3D bt_sk(sk)->parent;
-> +	bool unlinked =3D false;
-> =20
-> -	BT_DBG("sk %p state %d", sk, sk->sk_state);
-> +	if (!parent)
-> +		return;
-> =20
->  	spin_lock_bh(&bt_sk(parent)->accept_q_lock);
-> -	list_del_init(&bt_sk(sk)->accept_q);
-> -	sk_acceptq_removed(parent);
-> +	if (!list_empty(&bt_sk(sk)->accept_q)) {
-> +		list_del_init(&bt_sk(sk)->accept_q);
-> +		sk_acceptq_removed(parent);
-> +		unlinked =3D true;
-> +	}
->  	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
-> -	bt_sk(sk)->parent =3D NULL;
-> -	sock_put(sk);
-> +
-> +	if (unlinked) {
-> +		bt_sk(sk)->parent =3D NULL;
-> +		sock_put(parent);
-> +		sock_put(sk);
-> +	}
+>  mm/slub.c | 142 +++++++++++++++++++++++++++++++++++++++++++++++++++---
+>  1 file changed, 134 insertions(+), 8 deletions(-)
+> 
+> diff --git a/mm/slub.c b/mm/slub.c
+> index 54ec12503357..0b1de6b42b61 100644
+> --- a/mm/slub.c
+> +++ b/mm/slub.c
+> @@ -3164,6 +3165,89 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
+>  	return empty;
 >  }
->  EXPORT_SYMBOL(bt_accept_unlink);
-> =20
+>  
+> +/*
+> + * Exchange @sheaf, which holds fewer objects than requested, for a full one,
+> + * keeping the leftover objects in the barn's partial sheaf instead of
+> + * flushing them.
+> + *
+> + * Returns a full sheaf, or NULL if the barn cannot make one.
+> + * The returned sheaf might be @sheaf itself or a new one.
+> + */
+> +static struct slab_sheaf *barn_replace_partial_sheaf(struct kmem_cache *s,
+> +						     struct node_barn *barn,
+> +						     struct slab_sheaf *sheaf)
+> +{
+> +	struct slab_sheaf *full = NULL, *partial;
+> +	unsigned int to_move;
+> +	unsigned long flags;
+> +
+> +	if (!data_race(barn->nr_full) && !data_race(barn->sheaf_partial))
+> +		return NULL;
+> +
+> +	spin_lock_irqsave(&barn->lock, flags);
+> +
+> +	partial = barn->sheaf_partial;
+> +	if (partial && partial->size + sheaf->size >= s->sheaf_capacity) {
+> +		/* Fill the larger one to capacity from the smaller */
+> +		if (partial->size > sheaf->size)
+> +			swap(partial, sheaf);
 
---=20
-Pauli Virtanen
+Hmm but why switch sheaves when we don't have to?
+Sounds like we're losing cache affinity unnecessarily.
+
+I think we should try to refill from barn->sheaf_partial,
+or if that's not available, refill from a full sheaf, and then move
+the previously-full-sheaf to barn->sheaf_partial or barn->sheaf_empty.
+
+Then we'll never replace the sheaf with a new one.
+
+With that, the control flow could be simplified quite a bit.
+Something like this. (Warning: pseudocode, it won't compile)
+
+// refill a sheaf from barn.
+// return true when the sheaf becomes full
+// return false when the sheaf is not full
+
+bool refill_sheaf_from_barn(s, sheaf) {
+	struct node_barn *barn = get_barn(s);
+	struct slab_sheaf *partial;
+	unsigned int to_move;
+	unsigned long flags;
+
+	spin_lock_irqsave(&barn->lock, flags);
+
+	partial = barn->sheaf_partial;
+	barn->sheaf_partial = NULL;
+
+	if (!partial && barn->nr_full) {
+		// grab one from full list
+		partial = [...];
+	}
+
+	if (!partial)
+		// cannot refill from the barn. the caller will try
+		// refilling from n->partial list
+		goto done;
+
+	to_move = min(s->sheaf_capacity - sheaf->size, partial->size);
+	partial->size -= to_move;
+	// copy `to_move` objects from `partial` to `sheaf`
+	memcpy(...);
+	sheaf->size += to_move;
+
+	if (!partial->size)
+		// move it to empty list
+	else
+		barn->sheaf_partial = partial;
+
+done:
+	spin_unlock_irqrestore(&barn->lock, flags);
+	return (sheaf->size == s->sheaf_capacity);
+}
+
+What do you think?
+
+-- 
+Cheers,
+Harry / Hyeonggon
