@@ -1,77 +1,90 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005E44E50BA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5783914E9;
+	Fri, 18 Sep 2026 11:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731424; cv=none; b=Z6HvL/k2bLMGvjFjYlldhh2Z0Rnx1iY0H/k3RU1xxVeVMYDxD4M2QHWJHhMfWlu9SjUD6q3LOhInT9q45zsAYptmfzhp6WHlPpe6WfLPr5/FUJwgyfFON0qWxxa45fn0Jfl17BM0adss+uxLxEE4F+/mmrhyLTn5ZEb3bDH4bbo=
+	t=1789731458; cv=none; b=d7ACoa7EJuiMVuiFqKEpHG6RDCfRAik1Tlka8q9OPPgzLuHY96sZgBnOJfztXRI+XOtRVVZTS9c9dLi4ZzpPKQGh34oFDfSJD2+Px834qdZmuCq5l7QncnApEmkHxOkSTU7Uy/gO3rnVuHyu+UqLx2NL8BlpopJVzm41eivnX5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731424; c=relaxed/simple;
-	bh=FjLFcy9UkF/Nj9OGXk9eYHGkRZAuPRURKY09ueTbAiA=;
+	s=arc-20240116; t=1789731458; c=relaxed/simple;
+	bh=3kWwrnL64mx1dLXwcHsMMT0BAa2zKW4PRgmp1oM+8L4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IodDC5HwskkPci4arUtyF843m6Y0kiDCbdf6TkKqcxwm4VQ3s5lFYp7t7JTZOwHQW44ls0FrKrxrMhDJxWebbcexjhsmYAdGAjNsbJcpBVDJD5tz27DayMpvfRXfqFToM9NHAQgFs6aaCkW3229fBYepl8su4kA/LWi89CtQHzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A9/2wU8g; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Nb+myDIlnEL+3wzqxVwAZeGBgamtvm+5xPYOvlVOIoajKhTeOAdwg6REzDx9A54vQj+/cuVFQtAErxMkazIxNjdpwqfl5aZZ/VuZr3ulW3g7RC2E9gwxNlUzAa+uaLz4oFqVjqFeOFG+aKbxlyZLa9TmFys+VfCXIbiHUfGhc8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TpbMFl7a; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A9/2wU8g"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so5772865ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:37:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789731422; x=1790336222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=knn7HOFJI9QIw3xJhFEBCduwXPGFO8ZK6ZsJD7E+H7U=;
-        b=A9/2wU8gM+DaAVEkhUSXfmbk6NKwquohucX86tuhF9DbvZBtopN0qFp48l5fnT22VX
-         sHYOgQib7+5vXbiA9/vs+1RgvACXwRXWPMjLaaJT9sCf4xexwc9AhHGUdYGKvCEVjkha
-         o6FmdNkMkB6Aqw9yY32+LC3aCTRkc0dzLcjt7dK48hecsVfoZNNxsbAhOCjHUEyeuDni
-         GXo5Jd0pU1dJqG3CfyeMtCa4goP4h+/dFU0G5F/oL54Rm0IjVpDEm/cf6ektCW8AhCk5
-         8KkhdQIvXwtZm0Qkfi51ovSklQNCohz8B7IK4781vVVhDPEduuxHKp73GvoqJwwRiIoD
-         bvWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789731422; x=1790336222;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=knn7HOFJI9QIw3xJhFEBCduwXPGFO8ZK6ZsJD7E+H7U=;
-        b=gMhopu0y+DA5LTaNEd+Evo1P+VztTuZuUqr8RkjWZLG+aeLKsDoefIRlrD9rZYTmoL
-         6bq0GfhGgP5Dx9piQbaBnpMzvTjHdTTjcWZ6D1rE0UYLxCVFljzn64TmhMTbCsrex6sZ
-         mrmvDjtA7hPNGYQdO1OT8Aj1LEUmcisstM+hsFP59pI5ZT+wQS2JFOMcxnplyu+0ViPo
-         eC8E8kEwRc0sHqXCsJDkKmK4WDZxnx74UKrq5PkbuR4SUsIovOP3ANJEL/4iQ9FVwEUe
-         CyXOmYSQhFwfmLgzrU6y9osVmMyNBpTS1WFiBbXzW7KNJkXB0ZnBN7owSVohHTSLagvd
-         XKpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzibk1VJDTAzZ2FebRurFW2O2r8Zetyldr/2zxhDZ5P765zL+lWVBwW+3sovh4w9nRtSyxAj3HQojok3Ng=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYONE12unST5DSBxNtdPOWxrQkH4cXzPqrC2NUYe0YFO0btY0r
-	P0zaPKwihliR1KOY+kh6PxJZbxTYKban0Ru3m/QRnmBOl0xqOnlfXkPW
-X-Gm-Gg: AYBFou2o7cTsqs1cIiO+9WzbWJ29gc5roAjg8wAiXp/zifWFnS4kMWqj/dTsnZyJXAK
-	Qd0K/1K15FAJJdtKrvBiYYXgmkawXe00bSxtrTGbvDZJ9fN27JApLaK1Tc7iySWAmmdeRiQ83Pz
-	Bj4K9PZHbi1aYyz7TpOfTWwtlqAtKpOvXnLmUr7y5V3ZDNRxU0m7rr11f9JXWIz5UQjPzLRGDdv
-	cKgX4iFAkN/7dzXuK1U9UKjxVZ00uUVxs1gN/Ga0XJOv91oFpQ1Lnb7jWUtObT+D3BDBp8RwtuJ
-	vFqC72uh+UrX2b0Hs3IQXuuZnu6SMjbV/prvciEnRGEFEhBzVe4TZydbM5urYOX0z4+mHzGe6Ds
-	NlFdmkv8ggiI0jKfvsiGrd46e6Ogv8a6w4tYkR9Tz+i9QQQpahSML6s/0s9VwAa3gNdEuwldjPJ
-	9s1o4SAgy8/wg7vsEFsdrOyW/+ideMUsunBQrKQ1TzAriR5xlbP6AqDRyjVL5h+deBtOpmNcbuV
-	iN2zlaZxHd2
-X-Received: by 2002:a17:902:f645:b0:2d8:d4d0:792b with SMTP id d9443c01a7336-2ddb1b79d84mr49699935ad.15.1789731422080;
-        Fri, 18 Sep 2026 04:37:02 -0700 (PDT)
-Received: from 10-86-27-207.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2876839dsm4203059eec.18.2026.09.18.04.36.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:37:01 -0700 (PDT)
-From: Gokul K <gokul02k@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org
-Cc: Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] KVM: selftests: Delete the unused guest_snprintf()
-Date: Fri, 18 Sep 2026 17:06:31 +0530
-Message-ID: <20260918113631.634233-4-gokul02k@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260918113631.634233-1-gokul02k@gmail.com>
-References: <20260918113631.634233-1-gokul02k@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TpbMFl7a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789731457; x=1821267457;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=3kWwrnL64mx1dLXwcHsMMT0BAa2zKW4PRgmp1oM+8L4=;
+  b=TpbMFl7athYqFbOgZq1vAX5zTqwGJM0d4z+gB7lI32rN1bFYuGRSw8BZ
+   zZ5N4obdV8U/M2VecjGSq+NXNScPZblyAH9Du3NJ9XVmpgse4/vKVqrA8
+   48gGT2xLDkENRr/7EIPGaWau5H1LlwUIHz1eKoXT1IigT2wa79guaooUq
+   ZrbrVUy0FIWwJhyuPe/PdNAvGnrcZLIp3Fh/BQPDOKClKUNyYrkOVjUTW
+   CKC0mBPz/oEVDeFjVDM0lGJOCyI0m/h4ctSliwkJFPED98UMh5pb5AX+3
+   d0q0oTGiG5HLIEvotEnvHQxcGiMZ4ttCYntDrf1yxkdZEKL5vskb0BiLb
+   A==;
+X-CSE-ConnectionGUID: ly+nxso2SOqk39i5QOf78g==
+X-CSE-MsgGUID: NDPwkaF/S3aHfqjcMQ4zjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="89367423"
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="89367423"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:37:36 -0700
+X-CSE-ConnectionGUID: 1R6KiivqQbSH2qbKz/O6QA==
+X-CSE-MsgGUID: CLf4k4XbTtOWa//DNCduFA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="2783655"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa013.fm.intel.com with ESMTP; 18 Sep 2026 04:37:30 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 6253F9D; Fri, 18 Sep 2026 13:37:29 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Cc: Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: [PATCH v2 2/7] ASoC: sprd: Replace dma_request_slave_channel() by dma_request_chan()
+Date: Fri, 18 Sep 2026 13:34:06 +0200
+Message-ID: <20260918113727.1898998-3-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260918113727.1898998-1-andriy.shevchenko@linux.intel.com>
+References: <20260918113727.1898998-1-andriy.shevchenko@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,55 +93,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-guest_snprintf() is a varargs wrapper around guest_vsnprintf() that nothing
-calls. Its declaration in test_util.h and its definition in
-lib/guest_sprintf.c are the only two mentions anywhere under
-tools/testing/selftests.
+Replace dma_request_slave_channel() by dma_request_chan() as suggested
+since the former is deprecated. With this, propagate all possible errors
+to the caller.
 
-The rest of the family is alive: guest_vsnprintf() does the work and
-ucall_common.c calls it, so this deletes the wrapper and nothing else.
-
-No functional change intended.
-
-Signed-off-by: Gokul K <gokul02k@gmail.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- tools/testing/selftests/kvm/include/test_util.h |  1 -
- tools/testing/selftests/kvm/lib/guest_sprintf.c | 12 ------------
- 2 files changed, 13 deletions(-)
+ sound/soc/sprd/sprd-pcm-compress.c | 9 +++++----
+ sound/soc/sprd/sprd-pcm-dma.c      | 9 +++++----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-index a6a3e1657895..fbdf0e0c15d1 100644
---- a/tools/testing/selftests/kvm/include/test_util.h
-+++ b/tools/testing/selftests/kvm/include/test_util.h
-@@ -238,7 +238,6 @@ static inline u32 atoi_non_negative(const char *name, const char *num_str)
- }
+diff --git a/sound/soc/sprd/sprd-pcm-compress.c b/sound/soc/sprd/sprd-pcm-compress.c
+index e5249924b54d..f394121d417a 100644
+--- a/sound/soc/sprd/sprd-pcm-compress.c
++++ b/sound/soc/sprd/sprd-pcm-compress.c
+@@ -145,6 +145,7 @@ static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
+ 	enum dma_slave_buswidth bus_width;
+ 	int period, period_cnt, sg_num = 2;
+ 	dma_addr_t src_addr, dst_addr;
++	struct dma_chan *chan;
+ 	unsigned long flags;
+ 	int ret, j;
  
- int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args);
--__printf(3, 4) int guest_snprintf(char *buf, int n, const char *fmt, ...);
+@@ -153,12 +154,12 @@ static int sprd_platform_compr_dma_config(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 	}
  
- char *strdup_printf(const char *fmt, ...) __attribute__((format(printf, 1, 2), nonnull(1)));
+-	dma->chan = dma_request_slave_channel(dev,
+-					      dma_params->chan_name[channel]);
+-	if (!dma->chan) {
++	chan = dma_request_chan(dev, dma_params->chan_name[channel]);
++	if (IS_ERR(chan)) {
+ 		dev_err(dev, "failed to request dma channel\n");
+-		return -ENODEV;
++		return PTR_ERR(chan);
+ 	}
++	dma->chan = chan;
  
-diff --git a/tools/testing/selftests/kvm/lib/guest_sprintf.c b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-index 7a33965349a7..6caebb456f3d 100644
---- a/tools/testing/selftests/kvm/lib/guest_sprintf.c
-+++ b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-@@ -300,15 +300,3 @@ int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args)
- 	*str = '\0';
- 	return str - buf;
- }
--
--int guest_snprintf(char *buf, int n, const char *fmt, ...)
--{
--	va_list va;
--	int len;
--
--	va_start(va, fmt);
--	len = guest_vsnprintf(buf, n, fmt, va);
--	va_end(va);
--
--	return len;
--}
+ 	sgt = sg = kzalloc_objs(*sg, sg_num);
+ 	if (!sg) {
+diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
+index 2d5ffbe17e81..2a89dc7616bf 100644
+--- a/sound/soc/sprd/sprd-pcm-dma.c
++++ b/sound/soc/sprd/sprd-pcm-dma.c
+@@ -170,15 +170,16 @@ static int sprd_pcm_request_dma_channel(struct snd_soc_component *component,
+ 
+ 	for (i = 0; i < channels; i++) {
+ 		struct sprd_pcm_dma_data *data = &dma_private->data[i];
++		struct dma_chan *chan;
+ 
+-		data->chan = dma_request_slave_channel(dev,
+-						       dma_params->chan_name[i]);
+-		if (!data->chan) {
++		chan = dma_request_chan(dev, dma_params->chan_name[i]);
++		if (IS_ERR(chan)) {
+ 			dev_err(dev, "failed to request dma channel:%s\n",
+ 				dma_params->chan_name[i]);
+ 			sprd_pcm_release_dma_channel(substream);
+-			return -ENODEV;
++			return PTR_ERR(chan);
+ 		}
++		data->chan = chan;
+ 	}
+ 
+ 	return 0;
 -- 
-2.54.0
-
+2.50.1
 
