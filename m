@@ -1,201 +1,167 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010048.outbound.protection.outlook.com [52.101.69.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C64A2A52;
-	Fri, 18 Sep 2026 07:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716361; cv=fail; b=YNp8wfHjWpyPc14v82SUe9ApzPgcayp9EcpU9a9o754p6bMKNUuqW7RmZxx5qXG+sepRM185j3274riAMf+El1UibOi5IJpRE0QkUz+Nn2X/A/KV70t833JnTsbOCa4pWQpuBnwv0iVn7LOGtGlPKw+RCEjIMqXXuREgNSl3ntw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716361; c=relaxed/simple;
-	bh=GlljgvSK8rj/TN9GesX1YenrYap/P2LlYKrsFx3aMG0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uziPlXkf+TA/1++dvLU6Mkb4IuFtlZpWlHCnKh0vaoEDSyeip5fyrq3loHbjrVE+mA3JeYAQkK1NV8yRUEzwclEobAsGHs4p0toFqoUZ9rL9BKrLqDwoqS88lSb1aMnSshExp6fM9GnwKL8W6b04aFT/51E/b5FdCXWSWNdekG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=AWbWkzqW; arc=fail smtp.client-ip=52.101.69.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C2F34D4DE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789716363; cv=none; b=ELav9s1Ww3RPajDTg0/YhKV0iGI2eGDicV5MPAfFkDsE3UnRokBQuvKOZVMHiw1rog3r3erDnVSata8ta7kF9K9ZYMMNRK+JoKZFRG1KHdfYOIDOUZ9BDBJ13ScrNCijoZcgqHF4wtNNeJNVOOCxJsripMAaVMIs/EOflIeJzp4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789716363; c=relaxed/simple;
+	bh=Sbz7BcqVKJ42/8y+BPUpR0K8j+ChkS6WaFPNfZpm+dM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q7/R1FcG9DWu/fz1wuiwhgGVL0gSPRSqruim57f+eF1SCzs7QEsllZUkGZWrW/ma3Aj22MJuRT+/R1sk3q8lvYWiRGG9wO1YCBo/RhcfLS/TZwf6y785O/t5h99exyGyfkMFQ0HLv4mZ84q03kULrJdg0YatprFzCP1yOPBwwgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n1pQl3oQ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="AWbWkzqW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RacaZgFNVxzDonsJzaCY4/Ohnabv868bdMz9p907g+3lKvvyrx/aseU9onJgGcyuCC4Ukd2iat9nAEccmt87Mf6AaZs6EMT3O7NqZhiraxE5s4SaE7ZNXficdKHtOzCpvKXXKiprbcHHs6oI0ea5DR28dzaUFutdqgOj3BOhCvELcJtTKQVk1JX7FRmSqUAXxNucw6vSNpz41GBaU4/6kiV5DrVPbCwgE8j7dL/YESkXMSzVYMhlUyjcdeHNtnkmBal9whKrfdh4Upc37RjcTySDJy2m7m2P/8X1MwWlxZtxfRzph2f9whLxaWGgdGORC9Q3sxpQpBKaiFZYPFBSzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0XSrdEwNFICcjMzRn2imRUNuG3r2khLp+ZBIuMm1+dc=;
- b=aiRdcLqS/78BSkQPiOau1Fq77q97cQtXw+b9G156Pq49Q8s829glar2dwNGJSG+E6gGTZzakkND/VmvCAqj6CruIk9b9LLUN86meOOMwPuDk6vdqbFxD4hk+HHlVzUvlWqNqrnbHooxgb6vFr5Sh0vFo8AzY/bVwLWEg8fvYB8gFK5uTP8hUSlRA4kJ4qzjo/8nMeL0nbNQTwSvMhR/9UiurSVFPSm79q99wfpDla6Emjxg9FnIzOHgtSw9GiI0oA7X8dljQ2DkrK/Wq9eqwubEFxbDZrjCGuyuu9M02Q+bMNCmrDDwviKaXH90HwQgOCD3JgPwoFaeHZfWokWO6NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0XSrdEwNFICcjMzRn2imRUNuG3r2khLp+ZBIuMm1+dc=;
- b=AWbWkzqWx3K9OPOXy4yvSyoCo9HS6jhP4Tlf0LCU29C5eN3Ctd0yqR7zcpQroLXR3zq2u3v0tw6JRB2qRqWH6+Alq9RPkOjhXeiUrjzw2HT5GgjkMrRksn55z4lCrARtYkte1xkD5OGi6g5YVRFh1HeFrv70ep81WyAg4/CT0XPH62ssCWC4eWGqwNP15oGFR1breOIsUCja51YDVytiNlTCm3ROWBA5djWAz45I9/JXGSEj/pmWK29RTO7RuBtZCZwB0iIaTIl9Fv/G4i3u3kWzbom4QZ8f/in6+M69L3qUc8SWGXBsdl+nUgJ6vvgd4BlNSjMxeXTo0OoDUoZqWA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by AS8PR04MB7541.eurprd04.prod.outlook.com (2603:10a6:20b:29a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 07:25:21 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 07:25:21 +0000
-From: wei.fang@oss.nxp.com
-To: xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	richardcochran@gmail.com,
-	linusw@kernel.org,
-	linux@armlinux.org.uk
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 net-next 6/8] net: dsa: netc: enable ingress port filtering lookup by default
-Date: Fri, 18 Sep 2026 15:28:50 +0800
-Message-Id: <20260918072852.501420-7-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918072852.501420-1-wei.fang@oss.nxp.com>
-References: <20260918072852.501420-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0175.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1af::6) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1pQl3oQ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so129619f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:25:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789716336; x=1790321136; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ukkkk1BOu2H2mNX0r4yxWxK0V7RNJdbdGm1o4o23Fno=;
+        b=n1pQl3oQ6YqtBQmTiG2P37OJVdHNnMJElX6bmpj3diOooSm1MyyBpRdjWjPgi5VDuy
+         bVb1DCYjni0WBOUmF5iwEjlt3IXltlWxATPukxIvBV96afjJDDrN4ccjjSV/HYXmgQSJ
+         Ke+71S2kKAQnP6/XwVjKD4NZ7wlk4kstqJc5gcWA0NxwgBcdHxSPH8jr221Is9/kk+ru
+         +KPbs2sOnvWpBPKmiwDjQsFRaID8H9WjNYGgERFMJ2TNZb5/DOhcVobquDOUE1e6RrJM
+         S26ifMWmCWs3wMQbCU+H7x6hTpY/2C3F2IK7baT2+3kkUeQKaTPvbihPnK2UxmfUV96E
+         Hoyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789716336; x=1790321136;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ukkkk1BOu2H2mNX0r4yxWxK0V7RNJdbdGm1o4o23Fno=;
+        b=0paAKkLwEZ0RPYQGc51uftC3+rj5DknrVDvwoGIMtxoiHHcFySW6Eb9XIEJZ/Qr4EZ
+         cKdN1qkK2h03qt3Y0NdYFbbYhj7pYi/FnCMbv/Zddb9xQ+gsmhGOgWDd8f5sTjnhm6SY
+         1kUgOH9L7TWn2x/6pDADzm6nHG7CV5z4RoUUWhk//WFFn5QUHEtaBSU+2lkClm2HdKic
+         eYnkHzsuDzB5QhlDDXy43Qn1NCUr+OmDvx37AGYD98yK0shvSxJDHcEdtQtWMZ3T1SG+
+         32EYY+E7MYdKXBzw1f3J/jQoqeBe5u7oKy7GzHBY5sxMQ+iNLB3RwVV9UYlS4nfAiJmW
+         4ghA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0/wNoUSurqqo/4IRowmj0soy/qfRiD/ZhCFjmBh9JOb71j63e+sgYNaX28Ag1B8ANVvX8iO4XPsjCraY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k34HxLTVsugPduGHXVX0fzMCp87kgnuosVU3Nb5M+luQADkcnk
+	5FvS0sIIk44gkrpvFrwCkEo4qoT8AMSrhJkzNSbAX9IJelSh43p6RFNs
+X-Gm-Gg: AYBFou00FHjNjGeIbgSQjnWUUiv0vYmrkIioBalWW+4RFfxmZRVesG5uJDg5wSHf9P2
+	tYyFWKsAtMnIbekzWpVIegKC/3ud3exLXNhR2KpKdpm7tFl9uIvUpHf7Qsl+johBICOVeyVsZLE
+	YQa9zzpwScAHeRk5bQe0se1iC8nKPXnPwkIzRQOhQnwhjrkC6wmo3eWuJ2LyUoehbdHcee7xRh5
+	sU2rKMFQMlVq3XZLG9pibNgdUR5rdEHROGtvX+ILdYUqrh0P9ZnHefiBbFcyQtwnYABihJf56Cb
+	8vukPp5yHbqTTekglXQnVIqqHN2E9lHrzbkAqqG65Vx164X0GwmLE32yfn4i6b2LwrZl8C4RDPW
+	hI46LltlSZlBZk83CTyumNmeDUpX+wbTzNmkPo+GVeyMeAnQB985krGMeDoxzcr6TzUqsho3/lA
+	710z+VrsaeEf9vfiag2yJ1bqZlFGK6oUbWcAUn4yjGLv3Y5VbC9WIWQ+N38jof8fYG7+ySUXn9u
+	Jpi4gOhihrt+yA7CU28JPv5RR7ghyn05+3gLopwHPQEcZ4wKzzNAcmIdb8CgJjSpFFqvIV+MiVz
+	SmLMbirMPHCzdgLCkvzhkBc5jarcI5wUxvk7xI/6xMdFYC9NskdwsJLOUwZN/CNYEr+8VU2Gnjp
+	48EYdzRpF06Yn63mKD+l2ZWZu/PPVIMy0FPeIXCKKJM6sPWmG++VGjBHunli3sy39vUteZ8cuSW
+	/CClDa
+X-Received: by 2002:a05:600c:1d06:b0:49e:8222:3451 with SMTP id 5b1f17b1804b1-49fc5001358mr21569505e9.14.1789716335748;
+        Fri, 18 Sep 2026 00:25:35 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ca43edsm33027395e9.0.2026.09.18.00.25.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 00:25:35 -0700 (PDT)
+Date: Fri, 18 Sep 2026 09:25:33 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Johan Hovold <johan@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Peng
+ Fan <peng.fan@nxp.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Frank
+ Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ linux-clk@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] clk: imx: add missing
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <20260918092533.00004dcc@gmail.com>
+In-Reply-To: <aqwzG_24bZSSQhTS@SMW015318>
+References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
+	<aqpgUPWUGZp5Cjzt@hovoldconsulting.com>
+	<aqq_ymTi1I951uQp@SMW015318>
+	<20260917102429.00002faf@gmail.com>
+	<20260917104233.00007a85@gmail.com>
+	<aqwUky1jSMGbiXCf@SMW015318>
+	<CALoEA-zMXhy1VX1MLVCy3d9pmC0fx22sJULamLhMmBX6xHutwg@mail.gmail.com>
+	<aqwzG_24bZSSQhTS@SMW015318>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AS8PR04MB7541:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63123632-523f-416c-2731-08df1555ff86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|921020|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	4SkSpPE/IrpU9Vn7dHaTAPZHOubCUYobntvSUqOvsywL+38FxKF401swx0+MPVbZA7JV6FVF1Bp/36L+qza0rXm4TkDpKFJ3RW+mTvtamWlMHgLHBgK87UVsuBEwcdCQ/P/Bl9IROyzeyDYDp+8fkNAedjfsyCRNRyi78NeWFpfoajqIBNXcjx/kwiNCZ283UsiEOMmBuMFlIoSvnpfJA+vwIzsOCWbjXCvaHj/1c06xm7gOICZrhplv+Ri1/8NDaqwyN7+rzrObVvObk3llrjpXJBATilf8wzxjVLCrefOtO2w9Fkp8I5L37yZZT/YRFEMyzfsQ0Ky7M2fDDpFuiaOhbiUvfKPGKUmF8y7i3jI4+Wuylmdm2A9lOhJT3AeO1qObuAZWwqswMXrnyZSuK3Xilae1hmTn51eDapV7EY1q6a21LSxPkRnlQ0q5YeWmwX1hkk7XSa/Rhc220zQQPvXC83yFvtvi2Jp2UvWROf9e9W2u+OqiZ6qK/sIJDS0hgRrIJK57dvnvd5nzoF7WpoCNjFIo7ku5hC5LZp+m1O4CxEiPrhxXnr69Wdk9/y3rBeHdiStRj/vKvmUdk5xrFu9dwopETU67JM4wU9lGKWO6bbNvLdjxOguPO8hFT1G02yy3pSUewQZrCx6BRRBh/GICi64jFMYGFidt6Zf6kztKr2VY8WpVtoJJb1finx/jW/nB+v3YNEAkSe038CJM9g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kRlfW+L/MqWJYNWBE6ZcbUnbZqRiB/OibXpcqqAXdvWY4PxXmJqLPJSPOXxa?=
- =?us-ascii?Q?b78udxbIsfzq91W+n/uiQPuHozW57rDCHYP7mDZHgqH4Jt3s8vLINdP0JjQA?=
- =?us-ascii?Q?a/Is/mni5ovLdJ2cYVP6poA4bhYnKvqdbofYRluHLbrCbsn/LSHXgq+NqQ0P?=
- =?us-ascii?Q?TV3fP92oSjtkCXzH3YKTpE61n1ugr4+Dn7IFE4Xw4AAapEFU60Bm8QjC2a+Z?=
- =?us-ascii?Q?G/mNqu5JHhTxjf8tW2goLDUaBhUjJcxsN9fOtheIMjbkuQs6IeCu74l+7z2v?=
- =?us-ascii?Q?5a/miiTYccubkGwhE3Y5nW1I2DHfNtBIErcDzWVOqu6eDWCJ4g55DXh4PXAe?=
- =?us-ascii?Q?2FS8H0DhFpijpTntbzRzQ0fipaA5i7k/mqimmWQaZZEg1k5MJ8AjMrATzT53?=
- =?us-ascii?Q?IS9kXwzSO28ij57MRwjnn/lVcraPv2crOpB6o3+lyD49ErtrW45UGbMkTQdh?=
- =?us-ascii?Q?tOk23anttsQw4i4yptHC/kOKdsD63/LU/OQ1IAnqSaj5FsipLgS2FRfni0xP?=
- =?us-ascii?Q?b7n8S28ue8fn7T11G0JXYtz5pgCYJKXiPDYPbHraG5CjdyZ3S7LcWmZW7qyu?=
- =?us-ascii?Q?OAEAVsW+7ECIGcOfjKQC4GCAGpZpJxM3O87yPlF3Y5bSb1LgY/9/7hJGO5v5?=
- =?us-ascii?Q?lpBKyv+2uMBBMfxegalRU6VHlTlu0isFpyEAnok1a+SbR1vEo1E+ZTkoOP+v?=
- =?us-ascii?Q?09EekQh6ecTjaDQDTLj9I1fpkQ/KG+tEeVOg8fCuUw3NGQ8e3CtrAYjrWSGg?=
- =?us-ascii?Q?pOr9ZnhtuLiikvHTARhK+2/nm0zSC188PMPFo//wvW/5KMnxI+0/T6/R6H3y?=
- =?us-ascii?Q?BHzWeQ3Jfbxe1f/IynTfBtBWD1PjgON90LMWLRed0b2KyIe1/LsS5MUVve2I?=
- =?us-ascii?Q?n4zaqebp+M3jnoM10iWD3Lg1LO0fTTrB4/61GkTQZEefTmF+25OVDONywCLe?=
- =?us-ascii?Q?jo9xKlIt/Iq9VuTkGJOezS2AVQb8hb3H+NTbtpt57dQ5VLt/VsT6MxPCRt5r?=
- =?us-ascii?Q?cVoIUOiosxp/IoJ2I7AkF69aifxHJ36tZ7C/IGrXVtvyWOhXGsyg133mA3Mv?=
- =?us-ascii?Q?YdmLDS+21s6XjaI8PhHMG48CxtyjoxP2ApWKs6JQFN3bIDNXUDh+RHP9W9ah?=
- =?us-ascii?Q?gbAkb0FOn5BH0w9po6Du619CRDuQt0cKaTRMMIEOEW0oXbheoqh0cVXEkvSy?=
- =?us-ascii?Q?dRBQbUvj1ESKtXQDgB9IqZoh3cmWwp+PsYbxgxMpDn96o5gMNseSSGjpTSQx?=
- =?us-ascii?Q?2B4t341gtcmrHjFHTANaWUvi1TvocotDsK2Zxou9lAFH9YCXd4SLfrAXxktF?=
- =?us-ascii?Q?372lmPeytUGRV+doq0NS47quv3iJdvVfcHoyBCm6FAt23W8kOZYo9KxozU+Y?=
- =?us-ascii?Q?WpK3l+8xgXjPXsj4Y5rpTDkQOf9dlKUQ1xBSc2Ekq7aJeTBqSgbHCR7f4s0G?=
- =?us-ascii?Q?h6qOiTPcHktpIxphjHTU5vlcdPg7bxYeAN5KPPzoEBksJPJhW4oxlIf9yLXB?=
- =?us-ascii?Q?7t3r+MjUdgtTwJ25cCyTPFIoGZNuDAD4ElurJfG7YWPgMGfrgRlSFP/SeJ9P?=
- =?us-ascii?Q?cAWNsQzmjVUhrxqN2GhsxnezDcJgG0n4BSlxyLmJ/+b6X/fyKInOhO8DBF6E?=
- =?us-ascii?Q?mLkfEwYzTtpsRYay/i9f50SbJnaG6LjvGUY90ElPBO2elC0t2HV9lvFKVB6f?=
- =?us-ascii?Q?B9rgEOVVooerxac5UAcuI2P6NPWQGc5TcmmIEdbt+GCmMrrFue/ZUGYdPjL/?=
- =?us-ascii?Q?F7KHXyt1XYVQyqNRqoDuXS2dZR65smUu+y+Pe9fatyt5/tHZKVKE?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63123632-523f-416c-2731-08df1555ff86
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:25:21.5720
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0oOTmFGh/iThgXba4IlarVgSI431qPf1SRpMFh6y5QmTDF1VaoZ/aZqqagcWE13jkiJDm38kbux3SdB4qXpwiHmeHR6Rwng47DtyCg0P702Q0rJF8HPeO9kapMUl1L8Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7541
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Wei Fang <wei.fang@nxp.com>
+On Thu, 17 Sep 2026 13:36:11 -0500
+Frank Li <Frank.li@oss.nxp.com> wrote:
 
-The ingress port filtering lookup function involves performing a lookup
-against the ingress port filter table (IPFT). If the frame matches an
-entry, subsequent frame processing functions will perform corresponding
-operations based on the parameters specified in that entry. If no entry
-matches the frame, the frame is allowed in, and passed to the next frame
-processing function.
+> On Thu, Sep 17, 2026 at 07:15:29PM +0200, Joshua Crofts wrote:
+> > On Thu, 17 Sept 2026 at 18:26, Frank Li <Frank.li@oss.nxp.com> wrote:  
+> > >
+> > > On Thu, Sep 17, 2026 at 10:42:33AM +0200, Joshua Crofts wrote:  
+> > > > On Thu, 17 Sep 2026 10:24:29 +0200
+> > > > Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+> > > >  
+> > > > > On Wed, 16 Sep 2026 11:11:54 -0500
+> > > > > Frank Li <Frank.li@oss.nxp.com> wrote:
+> > > > >  
+> > > > > > On Wed, Sep 16, 2026 at 11:24:32AM +0200, Johan Hovold wrote:  
+> > > > > > > On Tue, Sep 15, 2026 at 10:33:43AM +0000, Joshua Crofts wrote:  
+> > > > > > > > Several drivers in the clk subsystem forget to call dont_use_autosuspend()
+> > > > > > > > on teardown or error, causing potential resource leaks. This series adds
+> > > > > > > > the missing calls.  
+> > > > > > >
+> > > > > > > No, as I've explained repeatedly elsewhere, it does not cause any
+> > > > > > > resource leaks. [1][2]
+> > > > > > >
+> > > > > > > The autosuspend setting leaks if you will, but that only matters in the
+> > > > > > > theoretical corner case of someone rebinding a different driver (which
+> > > > > > > will soon also taint the kernel).
+> > > > > > >
+> > > > > > > So don't exaggerate the impact, this is essentially just a cleanup,
+> > > > > > > which is fine in itself.  
+> > > > > >
+> > > > > > Is it possilbe to create/improve runtime pm API, let runtime_pm enable/disable
+> > > > > > include these pair functions.
+> > > > > >
+> > > > > > I get many similar patches since scan tools is more powerful now.  
+> > > > >
+> > > > > I suppose that could work. One would still have to scrub the kernel of legacy
+> > > > > use/dont_use_autosuspend() calls though, so it could end up being a large
+> > > > > patchset.
+> > > > >  
+> > > >
+> > > > On second thought, some drivers do tend to disable PM runtime system sleep
+> > > > etc. so it probably isn't as simple as adding the autosuspend stuff to
+> > > > enable/disable.  
+> > >
+> > > if runtime pm disable, does autosuspend still work? suppose it should be
+> > > disable also  
+> >
+> > If we add dont_use_autosuspend to disable then every time the system suspends
+> > and resumes we lose the autosuspend config, meaning it will never autosuspend
+> > again.
+> >
+> > I guess adding dont_use manually to the driver's remove() function is the only
+> > way (which according to my cocci script it's 195 drivers that should be patched)  
+> 
+> Extend with exist pm_runtime_enable() and passdown delay value. if delay
+> value is 0, actually it is no autosuspend version.
+> 
+> and merge dont_use_autosuspend() into disable function. And actually
+> I don't understand why need two varible autosuspend_delay and use_autosuspend.
+> 
+> when autosuspend_delay 0, means take action immediately.
 
-In the future, the IPFT will be used to filter PTP frames and support tc
-flower. Tracking in software whether any IPFT entry exists for a port in
-order to decide whether to enable the ingress port filtering lookup would
-increase code complexity unnecessarily. Since enabling the lookup when
-the IPFT is empty has no effect on RX frames, enable the ingress port
-filtering lookup unconditionally during driver initialization to simplify
-code logic.
+Actually, what about putting dont_use_autosuspend() in pm_runtime_reinit()?
+https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/base/power/runtime.c#L1865
 
-The only concern is that when deleting an IPFT entry fails, the hardware
-will continue filtering RX frames based on that entry. However, we have
-no choice. We cannot disable ingress port filter lookup because this
-would deactivate other IPFT entries, which is obviously not what we want.
-Moreover, deletion failures are almost impossible under normal
-circumstances, and we don't need to be bothered by this minor issue.
+driver core calls this in device_unbind_cleanup(), meaning driver core would
+just handle it.
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- drivers/net/dsa/netc/netc_main.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-index 082ed9405868..336f5a4633e9 100644
---- a/drivers/net/dsa/netc/netc_main.c
-+++ b/drivers/net/dsa/netc/netc_main.c
-@@ -554,6 +554,12 @@ static void netc_port_fixed_config(struct netc_port *np)
- 	netc_port_rmw(np, NETC_PCR, PCR_L2DOSE | PCR_L3DOSE,
- 		      PCR_L2DOSE | PCR_L3DOSE);
- 
-+	/* Enable ingress port filter table lookup, if no match is found,
-+	 * the frame is allowed and passed to the next frame processing
-+	 * function.
-+	 */
-+	netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN);
-+
- 	/* Set the quanta value of TX PAUSE frame */
- 	netc_mac_port_wr(np, NETC_PM_PAUSE_QUANTA(0), NETC_PAUSE_QUANTA);
- 
-@@ -1746,8 +1752,6 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
- 	np->uc = uc;
- 	np->mc = mc;
- 	np->ipft_hf_eid = host_flood->entry_id;
--	/* Enable ingress port filter table lookup */
--	netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN);
- 
- free_host_flood:
- 	kfree(host_flood);
-@@ -1771,7 +1775,6 @@ static int netc_port_remove_host_flood(struct netc_port *np)
- 	np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
- 	np->uc = false;
- 	np->mc = false;
--	netc_port_wr(np, NETC_PIPFCR, 0);
- 
- 	return 0;
- }
 -- 
-2.34.1
-
+Kind regards,
+Joshua Crofts
