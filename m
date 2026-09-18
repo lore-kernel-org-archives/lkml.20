@@ -1,105 +1,499 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C88E4E431A;
-	Fri, 18 Sep 2026 11:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7394CDDD2;
+	Fri, 18 Sep 2026 11:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731265; cv=none; b=CnO3UFvIdNhkGojOKLn+HfD8FDrmJcyiFIKxGhlBf/P1dborW6GpOk7uPsCIcoElAP4bY13Hc8rQfIiUZx/O6gfe3kmu3UtjOAzC2cEDI4L1muQnD2Bm9K1ec0YgjLW/eONNsCylXmeGUNYmXjs7zm1brmYj4e0YqU17qXW2Y0U=
+	t=1789731267; cv=none; b=Tbu/1Z5NTfDB1IU48HKexna5y/nbvkzPwKANnqftsFYOEV0xJ2gAwyVuULTD9nlpvLLnkf39xJWHN03x8Qwts/9WUpuG1EVXAwVbLRDCxrzu0vqzTU1BO8X9D9c4llAaye/17akrCZ15/fCLcJsTy+lYdFCw3QTlB7KmJJHFFjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731265; c=relaxed/simple;
-	bh=J3lPXImYU2UIwUOcDVZj1rGwN/DxgkRQcb3WcY1cz34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VYCylEoxNnB6MqE+yjQrpSL8PEZx5a1UxAiZIMfkRze7a6lZgWjLhyjbUFmKaQRw51kngyqRMM/7tdKTGLhnSVpEO1cub8IO9Nt6aQ1RnbAoqO4b/UxOv+f6hi4MyAyIaVxoTdBYmw5Q+LlWglpjBpDYzF5P8iq9OTGzLUqYuqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDS+6eJE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789731267; c=relaxed/simple;
+	bh=SOqSzBDZu3bMD+b/aQXawanMgHt54dZSsDp6dJanC3k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=ZcTDr+Sfk9uV8LBEZKHWP+7ShwBaNjx+WmZyHiFoYicHkcJV3IUHUK7QMsi5DciCR5KoIoSN5cYBkCVLHcuaMEWpRMvLduGs1DjRNDHY2A+7lRk74J21iRBibfR785FTuXa4wqZ1r6kERB4A4atx4iSMSvvcMJiSDUvaQJxooa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=GneA3El2; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDS+6eJE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F19E1F000FF;
-	Fri, 18 Sep 2026 11:34:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789731263;
-	bh=jV+FC+IzfkYCIGgnnqfim3+fqQvmpl2ImrFQ0AS3jTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bDS+6eJEkTut1YNljtaVKe/e2fKHUVx4B4BNBNUJwG5fLMcCz54TaTWMuwR1mkKnC
-	 duM21rcB73au+sLBUQhzAESK2ZfOcJw+Kw8ACr4QqMbfJlBRFfmt+V1qS7RBQJ7ikI
-	 7PXkAyoG3rtorPWa19XOhl9p7tqo3LdjW1C0OObYtSEC9O+7P/4EQpxmmDwopFBicB
-	 HZ+dfS420AzQamDWd9woNVnsuB4g1HJMffmf3aeEI9ZpIG7VFVQycVlPp/yYRlcdNJ
-	 W4heTEWojcXqB+KtlIcPsZLLLSHgJn1XtJMpBGpLa0p6rcpu/gYG8QKdTYh3wkK3It
-	 hCk5yCptos0hg==
-Date: Fri, 18 Sep 2026 13:34:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 1/3] dt-bindings: embedded-controller: Add ASUS Zenbook
- A16 EC
-Message-ID: <20260918-objective-okapi-from-neptune-cbcabd@quoll>
-References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
- <20260917-topic-asus_ec-v1-1-373516d347ae@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="GneA3El2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789731265; x=1821267265;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=SOqSzBDZu3bMD+b/aQXawanMgHt54dZSsDp6dJanC3k=;
+  b=GneA3El2meZrE9gjgY4H110Wo+T32lYDFPTYDO8aDS25qsN9P3u9UW1G
+   U5rXE/LMxB5eow7j6PgY8hUuUkZLFd9zDnsVCLTXd/wE5kpFCJTf7gVTx
+   d/1kUARbI12+3/LV/iEPVDjfVCFpN4CCVMJ1RoeFYNrhn9HJNiP8zO6XJ
+   LAiG3G63x11GqTnnqgyQWe7Y/3rvIbSmkLJ7EeaOVSJ86XILg9BtGkm7C
+   a2sEaw4KcXO4V01h+1K6aoiOS+0A42DdXd7g7Y+Bufau9kMPCVO+F9/d0
+   SxrZp6ZLBfBJwZGJ10WsBwf702HecF0SawY59Ufl48DNV1Xgqg3FtmRPb
+   Q==;
+X-CSE-ConnectionGUID: bZTt7TbaTeWTq0SiTYnUig==
+X-CSE-MsgGUID: m9vowb6tRNm+yAZq9LLpSQ==
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="64120988"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:34:24 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 18 Sep 2026 04:34:23 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 18 Sep 2026 04:34:20 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Fri, 18 Sep 2026 13:33:55 +0200
+Subject: [PATCH net-next v7 03/14] net: microchip: fdma: add PCIe ATU
+ support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917-topic-asus_ec-v1-1-373516d347ae@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260918-lan966x-pci-fdma-v7-3-0ecc179c8a2c@microchip.com>
+References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
+In-Reply-To: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>, Steen Hegelund
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
+ Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
+ Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
+	<mohsin.bashr@gmail.com>
+CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+X-Mailer: b4 0.14.3
 
-On Thu, Sep 17, 2026 at 12:54:56PM +0200, Konrad Dybcio wrote:
-> +description:
-> +  The Qualcomm Snapdragon X2 series-based ASUS Zenbook A16 (and similar
-> +  machines) come with a custom EC firmware, loosely based on the
-> +  Qualcomm reference ("Hamoa CRD EC") implementation, with a lot of
-> +  customization.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - asus,zenbook-a14-ux3407na-ec
-> +      - asus,zenbook-a16-ux3607oa-ec
-> +
-> +  reg:
-> +    const: 0x76
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  "#thermal-sensor-cells":
-> +    const: 1
-> +
-> +  wakeup-source: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - '#thermal-sensor-cells'
-> +  - wakeup-source
+When lan966x or lan969x operates as a PCIe endpoint, the internal FDMA
+engine cannot directly access host memory. Instead, DMA addresses must
+be translated through the PCIe Address Translation Unit (ATU). The ATU
+provides outbound windows that map internal addresses to PCIe bus
+addresses.
 
-Wakeup source should not be required. If it is, then it is completely
-implied by compatible and there is no need for DT property, right?
+The ATU outbound address space (0x10000000-0x1fffffff) is divided into
+six equally-sized regions (~42MB each). When FDMA buffers are allocated,
+a free ATU region is claimed and programmed with the DMA target address.
+The FDMA engine then uses the region's base address in its descriptors,
+and the ATU translates these to the actual DMA addresses on the PCIe bus.
 
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        embedded-controller@76 {
-> +          compatible = "asus,zenbook-a16-ux3607oa-ec";
+Add the required functions and helpers that combine the DMA allocation
+with the ATU region mapping. These are used by the lan966x PCIe FDMA
+path.
 
-Messed/mixed up indentation. Use 4 spaces.
+The ATU cannot express a limit finer than its 64KB region granularity,
+so pad the mapped allocation to that boundary; otherwise the outbound
+window would extend past the memory the host allocated for DMA.
 
-Best regards,
-Krzysztof
+This implementation will also be used by the lan969x, when PCIe FDMA is
+added for that platform in the future.
+
+Tested-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/microchip/fdma/Makefile   |   4 +
+ drivers/net/ethernet/microchip/fdma/fdma_api.c |  44 ++++++
+ drivers/net/ethernet/microchip/fdma/fdma_api.h |  14 ++
+ drivers/net/ethernet/microchip/fdma/fdma_pci.c | 208 +++++++++++++++++++++++++
+ drivers/net/ethernet/microchip/fdma/fdma_pci.h |  57 +++++++
+ 5 files changed, 327 insertions(+)
+
+diff --git a/drivers/net/ethernet/microchip/fdma/Makefile b/drivers/net/ethernet/microchip/fdma/Makefile
+index cc9a736be357..910a10b33fb9 100644
+--- a/drivers/net/ethernet/microchip/fdma/Makefile
++++ b/drivers/net/ethernet/microchip/fdma/Makefile
+@@ -5,3 +5,7 @@
+ 
+ obj-$(CONFIG_FDMA) += fdma.o
+ fdma-y += fdma_api.o
++
++ifneq ($(CONFIG_MCHP_LAN966X_PCI),)
++fdma-y += fdma_pci.o
++endif
+diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
+index e78c3590da9e..a3c9e3097c5c 100644
+--- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
++++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
+@@ -127,6 +127,50 @@ void fdma_free_phys(struct fdma *fdma)
+ }
+ EXPORT_SYMBOL_GPL(fdma_free_phys);
+ 
++#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
++/* Allocate coherent DMA memory and map it in the ATU. */
++int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
++				struct fdma_pci_atu *atu)
++{
++	struct fdma_pci_atu_region *region;
++	int err;
++
++	if (WARN_ON(fdma->atu_region))
++		return -EBUSY;
++
++	/* The ATU cannot express a limit finer than the region granularity, so
++	 * the hardware widens the programmed limit to that boundary. Pad the
++	 * allocation to match, or the outbound window would extend past the
++	 * memory we own.
++	 */
++	fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN);
++
++	err = fdma_alloc_coherent(dev, fdma);
++	if (err)
++		return err;
++
++	region = fdma_pci_atu_region_map(atu, fdma->dma, fdma->size);
++	if (IS_ERR(region)) {
++		fdma_free_coherent(dev, fdma);
++		return PTR_ERR(region);
++	}
++
++	fdma->atu_region = region;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(fdma_alloc_coherent_and_map);
++
++/* Free coherent DMA memory and unmap the memory in the ATU. */
++void fdma_free_coherent_and_unmap(struct device *dev, struct fdma *fdma)
++{
++	fdma_pci_atu_region_unmap(fdma->atu_region);
++	fdma->atu_region = NULL;
++	fdma_free_coherent(dev, fdma);
++}
++EXPORT_SYMBOL_GPL(fdma_free_coherent_and_unmap);
++#endif
++
+ /* Get the size of the FDMA memory */
+ u32 fdma_get_size(struct fdma *fdma)
+ {
+diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.h b/drivers/net/ethernet/microchip/fdma/fdma_api.h
+index dea8e3cc155a..ccc30d506e89 100644
+--- a/drivers/net/ethernet/microchip/fdma/fdma_api.h
++++ b/drivers/net/ethernet/microchip/fdma/fdma_api.h
+@@ -7,6 +7,8 @@
+ #include <linux/etherdevice.h>
+ #include <linux/types.h>
+ 
++#include "fdma_pci.h"
++
+ /* This provides a common set of functions and data structures for interacting
+  * with the Frame DMA engine on multiple Microchip switchcores.
+  *
+@@ -109,6 +111,11 @@ struct fdma {
+ 	u32 channel_id;
+ 
+ 	struct fdma_ops ops;
++
++#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
++	/* PCI ATU region for this FDMA instance. */
++	struct fdma_pci_atu_region *atu_region;
++#endif
+ };
+ 
+ /* Advance the DCB index and wrap if required. */
+@@ -233,9 +240,16 @@ int __fdma_dcb_add(struct fdma *fdma, int dcb_idx, u64 info, u64 status,
+ 
+ int fdma_alloc_coherent(struct device *dev, struct fdma *fdma);
+ int fdma_alloc_phys(struct fdma *fdma);
++#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
++int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
++				struct fdma_pci_atu *atu);
++#endif
+ 
+ void fdma_free_coherent(struct device *dev, struct fdma *fdma);
+ void fdma_free_phys(struct fdma *fdma);
++#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
++void fdma_free_coherent_and_unmap(struct device *dev, struct fdma *fdma);
++#endif
+ 
+ u32 fdma_get_size(struct fdma *fdma);
+ u32 fdma_get_size_contiguous(struct fdma *fdma);
+diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.c b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
+new file mode 100644
+index 000000000000..dd1dc46cbc9d
+--- /dev/null
++++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
+@@ -0,0 +1,208 @@
++// SPDX-License-Identifier: GPL-2.0+
++
++#include <linux/align.h>
++#include <linux/errno.h>
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/types.h>
++
++#include "fdma_pci.h"
++
++/* When the switch operates as a PCIe endpoint, the FDMA engine needs to
++ * DMA to/from host memory. The FDMA writes to addresses within the endpoint's
++ * internal Outbound (OB) address space, and the PCIe ATU translates these to
++ * DMA addresses on the PCIe bus, targeting host memory.
++ *
++ * The ATU supports up to six outbound regions. This implementation divides
++ * the OB address space into six equally sized chunks.
++ *
++ * +-------------+------------+------------+-----+------------+
++ * | Index       | Region 0   | Region 1   | ... | Region 5   |
++ * +-------------+------------+------------+-----+------------+
++ * | Base addr   | 0x10000000 | 0x12aa0000 | ... | 0x1d520000 |
++ * | Limit addr  | 0x12a9ffff | 0x1553ffff | ... | 0x1ffbffff |
++ * | Target addr | host dma   | host dma   | ... | host dma   |
++ * +-------------+------------+------------+-----+------------+
++ *
++ * Base addr is the start address of the region within the OB address space.
++ * Limit addr is each region's own upper bound. The value actually
++ * programmed is set per-mapping as base_addr + mapped size - 1, and is
++ * usually smaller than this.
++ * Target addr is the host DMA address that the base addr translates to.
++ */
++
++#define FDMA_PCI_ATU_OB_START        0x10000000
++#define FDMA_PCI_ATU_OB_END          0x1fffffff
++
++#define FDMA_PCI_ATU_ADDR            0x300000
++#define FDMA_PCI_ATU_IDX_SIZE        0x200
++#define FDMA_PCI_ATU_ENA_REG         0x4
++#define FDMA_PCI_ATU_ENA_BIT         BIT(31)
++#define FDMA_PCI_ATU_LWR_BASE_ADDR   0x8
++#define FDMA_PCI_ATU_UPP_BASE_ADDR   0xc
++#define FDMA_PCI_ATU_LIMIT_ADDR      0x10
++#define FDMA_PCI_ATU_LWR_TARGET_ADDR 0x14
++#define FDMA_PCI_ATU_UPP_TARGET_ADDR 0x18
++
++static u32 fdma_pci_atu_region_size(void)
++{
++	return round_down((FDMA_PCI_ATU_OB_END - FDMA_PCI_ATU_OB_START) /
++			  FDMA_PCI_ATU_REGION_MAX, FDMA_PCI_ATU_REGION_ALIGN);
++}
++
++static void __iomem *fdma_pci_atu_addr_get(void __iomem *addr, int offset,
++					   int idx)
++{
++	return addr + FDMA_PCI_ATU_ADDR + FDMA_PCI_ATU_IDX_SIZE * idx + offset;
++}
++
++static void fdma_pci_atu_region_enable(struct fdma_pci_atu_region *region)
++{
++	writel(FDMA_PCI_ATU_ENA_BIT,
++	       fdma_pci_atu_addr_get(region->atu->addr, FDMA_PCI_ATU_ENA_REG,
++				     region->idx));
++}
++
++static void fdma_pci_atu_region_disable(struct fdma_pci_atu_region *region)
++{
++	writel(0, fdma_pci_atu_addr_get(region->atu->addr, FDMA_PCI_ATU_ENA_REG,
++					region->idx));
++}
++
++/* Configure the address translation in the ATU. */
++static void
++fdma_pci_atu_configure_translation(struct fdma_pci_atu_region *region)
++{
++	struct fdma_pci_atu *atu = region->atu;
++	int idx = region->idx;
++
++	writel(lower_32_bits(region->base_addr),
++	       fdma_pci_atu_addr_get(atu->addr,
++				     FDMA_PCI_ATU_LWR_BASE_ADDR, idx));
++
++	writel(upper_32_bits(region->base_addr),
++	       fdma_pci_atu_addr_get(atu->addr,
++				     FDMA_PCI_ATU_UPP_BASE_ADDR, idx));
++
++	/* The OB address space lies entirely below 4GB, so the limit always
++	 * fits the lower limit register and the upper one is left alone.
++	 */
++	writel(region->limit_addr,
++	       fdma_pci_atu_addr_get(atu->addr, FDMA_PCI_ATU_LIMIT_ADDR, idx));
++
++	writel(lower_32_bits(region->target_addr),
++	       fdma_pci_atu_addr_get(atu->addr,
++				     FDMA_PCI_ATU_LWR_TARGET_ADDR, idx));
++
++	writel(upper_32_bits(region->target_addr),
++	       fdma_pci_atu_addr_get(atu->addr,
++				     FDMA_PCI_ATU_UPP_TARGET_ADDR, idx));
++}
++
++/* Find an unused ATU region. */
++static struct fdma_pci_atu_region *
++fdma_pci_atu_region_get_free(struct fdma_pci_atu *atu)
++{
++	struct fdma_pci_atu_region *regions = atu->regions;
++
++	for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
++		if (regions[i].in_use)
++			continue;
++
++		return &regions[i];
++	}
++
++	return ERR_PTR(-ENOSPC);
++}
++
++/* Unmap an ATU region, clearing its translation and disabling it. */
++void fdma_pci_atu_region_unmap(struct fdma_pci_atu_region *region)
++{
++	if (IS_ERR_OR_NULL(region))
++		return;
++
++	mutex_lock(&region->atu->lock);
++
++	region->target_addr = 0;
++	region->in_use = false;
++
++	fdma_pci_atu_region_disable(region);
++	fdma_pci_atu_configure_translation(region);
++
++	mutex_unlock(&region->atu->lock);
++}
++EXPORT_SYMBOL_GPL(fdma_pci_atu_region_unmap);
++
++/* Map a host DMA address into a free outbound region. */
++struct fdma_pci_atu_region *
++fdma_pci_atu_region_map(struct fdma_pci_atu *atu, u64 target_addr, int size)
++{
++	struct fdma_pci_atu_region *region;
++
++	if (!atu)
++		return ERR_PTR(-EINVAL);
++
++	if (size <= 0)
++		return ERR_PTR(-EINVAL);
++
++	if (size > fdma_pci_atu_region_size())
++		return ERR_PTR(-ERANGE);
++
++	/* The ATU region base is only ever aligned to FDMA_PCI_ATU_REGION_ALIGN;
++	 * require the same alignment of the host target address, since the ATU
++	 * translates addr - target_addr + base_addr and any misalignment here
++	 * would shift every translated address by the same amount.
++	 */
++	if (!IS_ALIGNED(target_addr, FDMA_PCI_ATU_REGION_ALIGN))
++		return ERR_PTR(-EINVAL);
++
++	mutex_lock(&atu->lock);
++
++	region = fdma_pci_atu_region_get_free(atu);
++	if (IS_ERR(region)) {
++		mutex_unlock(&atu->lock);
++		return region;
++	}
++
++	region->target_addr = target_addr;
++	region->limit_addr = region->base_addr + size - 1;
++	region->in_use = true;
++
++	fdma_pci_atu_configure_translation(region);
++	fdma_pci_atu_region_enable(region);
++
++	mutex_unlock(&atu->lock);
++
++	return region;
++}
++EXPORT_SYMBOL_GPL(fdma_pci_atu_region_map);
++
++/* Translate a host DMA address to the corresponding OB address. */
++u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr)
++{
++	return region->base_addr + (addr - region->target_addr);
++}
++EXPORT_SYMBOL_GPL(fdma_pci_atu_translate_addr);
++
++/* Initialize ATU, dividing the OB space into equally sized regions. */
++void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr)
++{
++	struct fdma_pci_atu_region *regions = atu->regions;
++	u32 region_size = fdma_pci_atu_region_size();
++
++	atu->addr = addr;
++	mutex_init(&atu->lock);
++
++	for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
++		regions[i].base_addr =
++			FDMA_PCI_ATU_OB_START + (i * region_size);
++		regions[i].limit_addr = 0;
++		regions[i].target_addr = 0;
++		regions[i].idx = i;
++		regions[i].atu = atu;
++		regions[i].in_use = false;
++
++		fdma_pci_atu_region_disable(&regions[i]);
++	}
++}
++EXPORT_SYMBOL_GPL(fdma_pci_atu_init);
+diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.h b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
+new file mode 100644
+index 000000000000..010bdb4d50b0
+--- /dev/null
++++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
+@@ -0,0 +1,57 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++
++#ifndef _FDMA_PCI_H_
++#define _FDMA_PCI_H_
++
++#include <linux/align.h>
++#include <linux/bits.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++
++#define FDMA_PCI_ATU_REGION_MAX 6
++
++/* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
++ * the region base and the mapped size must be aligned to this.
++ */
++#define FDMA_PCI_ATU_REGION_ALIGN BIT(16)
++
++#define FDMA_PCI_DB_ALIGN 128
++#define FDMA_PCI_DB_SIZE(mtu) ALIGN(mtu, FDMA_PCI_DB_ALIGN)
++
++struct fdma_pci_atu;
++
++struct fdma_pci_atu_region {
++	struct fdma_pci_atu *atu;
++	u64 base_addr; /* Base addr of the OB window */
++	u64 limit_addr; /* End addr of the active mapping (base_addr + size - 1) */
++	u64 target_addr; /* Host DMA address this region maps to */
++	int idx;
++	bool in_use;
++};
++
++struct fdma_pci_atu {
++	void __iomem *addr;
++	struct mutex lock; /* Protects region alloc/free and ATU register access */
++	struct fdma_pci_atu_region regions[FDMA_PCI_ATU_REGION_MAX];
++};
++
++/* Initialize ATU, dividing OB space into regions. */
++void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr);
++
++/* Unmap an ATU region, clearing its translation and disabling it. */
++void fdma_pci_atu_region_unmap(struct fdma_pci_atu_region *region);
++
++/* Map a host DMA address into a free ATU region. target_addr and size must be
++ * FDMA_PCI_ATU_REGION_ALIGN aligned; a misaligned target_addr returns -EINVAL.
++ */
++struct fdma_pci_atu_region *fdma_pci_atu_region_map(struct fdma_pci_atu *atu,
++						    u64 target_addr,
++						    int size);
++
++/* Translate a host DMA address to the OB address space. Reads the region
++ * unlocked, so the caller must quiesce DMA and the descriptor paths before
++ * unmapping the region.
++ */
++u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr);
++
++#endif
+
+-- 
+2.34.1
 
