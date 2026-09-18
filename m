@@ -1,143 +1,127 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE024E77F6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731841; cv=pass; b=RsQgY6eBVTJ66pKqqME7drRLZJSz7PjAclEEqBFyja8ZyXDpei8sQovSKSubDYapyNeiz6fImL/1neo5h/uBrQCMU3Xg8KwlDdUcg/DLx0epArlDFMDVccZskBVmA0/yzsPbDkTjYoPZ/wsfN58oSgtYtjIGEE7MnaWzdHh4qgw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731841; c=relaxed/simple;
-	bh=7YChWHA/9zL79y+NcFgTh/UhwmYRTNb0NTKwCE5ZPiA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qtpj5siN/JFwUWVhr4GY0mSzODKO5RM08azOn8Huf8xvIoq17dxsUuwt4PDVqzjTpvX/cNRmLKUYjWLVL8L8HnmpStEULfndGYy/Dt6GTqF0lnR10Z2jBDC5ltUewlVEaq9Yio4qNOe7CnbAVcKn4FdFnpAQwEsbMEElIfPq8xA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=s59GE/IM; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E671D4E535D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789731842; cv=none; b=Ws/4Vpy9llRwtu5uUOlfiz3bcr4QeDD0LsP2Ibco/7g9uRJHh+8nhr9DdJxJpd/N1Wt1GAQ31prMRqlInaLdFlhHgYl5H8pYbHBNjDvObtoKAmGK0qvR1/aCPQh7VtKBVr/JWbCW9Poius44yOKkp8kW+ulx+r2ly5khXJk/gYw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789731842; c=relaxed/simple;
+	bh=6bh17PdmX5TKrdwWeikxgoSU8keCsgvFkmcGubKaqR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mSUibQP6m6uBk/Z11d9On8AUDFcIg5NH0vMws51neZMD3oZBuVdyRHYVzAk2uyYxPGK3bbogFZgd9yTlGl4MciEZMFFq/eh+tsrd6LNaiOTYnPXn5CFTHxQ0S/bqXtY3Z1CeOaBFbPETkJQmgm+PxSBj4sdIIVMQ39OEKVAo6KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsBY1g6l; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="s59GE/IM"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f70553dso81288366b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:43:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789731837; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mdKlLdLXWGnwB+vK6B7+iM3ZX8xapXeeGHvrM02wVxsEAxyItKz1ySGgxtNYIKDTOq
-         Y3PCo10v+9j4QDSbVwXNUnRm+Mn59BiTWKrnfQ6o40QSk8XBtl8XmU08xEjzaPdgygmJ
-         WNztq/okKKzVhcZJfISGBMfv141SuLGZt28tDaL0W+extsQCAsBVKGRY9WcG8XQC7DDl
-         idAs5jUuXJ88ZGU2egcLwzRQdrT0JX58euAYq30kkHzgOouQtOTMPLxL7+28+t1TL129
-         KtHQ1gJImvALquxxJwKlWvStzlCunEQBm1N+SU0HwqMc1DsAMSZrbNXB4s56YXiTmzUe
-         Dk6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
-        fh=HIPJc/5Pi2zc9z9Qx3JQ9G/EEjK62mqBy23mwekUwyA=;
-        b=hd5Uj7tmWus1JHd1yrRuhYvRJy+zXvalyfX/NV8A45cI0LdIrTNP1kQIeP8wgJHFQV
-         FLdDg7+ElswBO7g/h5KR6HWI0kpgFRx8a4IbCf6i5fZqXrCjC6OLnn8ncunfv1m8e8vW
-         B/KxrtSF4m4bItymbJ/j8X0ugnzs980lH8jw4vLu+kR5vXtDAVhsd9YsfdDLjOB4dxwk
-         MgDv3SzebY17TtljvkkKuPbw1YGUkmQZQf8IBt6xuESqYFGiX++Lxam8ITRzxdfNJYUr
-         HDHMe9TP3iljPXsTXCLR0UN3+oApvr8hG5u9+suQ/iI5MmsLzlXBhyoCdGzWaSOUILcm
-         At5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsBY1g6l"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1347227a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:44:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1789731837; x=1790336637; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
-        b=s59GE/IMjZMml4lH3UIQsPnVnyW1/VfJi1460mzb18VOnjlX0b3Tvf3HBnOfdQa2yR
-         iKTONSyNujv65B54HMS9koiMwvsDFPh3K2OorV0YKTxFJgVH8vamlxpeKCRVjHZPI8X5
-         Ly5M9HMZlu3fuWt6hY5cw3fbiQqBHdh0HXRvJkqGDP6/QNeZGhK8v21cAuS4sfXLiP5+
-         HkDCEhsOPtjAH/zMS65kGZHXn/Fow+mYtF/GwBwcYduTG7cQRMtY0yGFpZIInuGQCGhY
-         c/JRj9PoUwFC5OW3e76C/mf6hC+exiFaLiH5k/i30pM4Ro5GWaXr9R60jL95JXGgydRj
-         j9OA==
+        d=gmail.com; s=20251104; t=1789731840; x=1790336640; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z+gIlvnIDxGsE2zs/bxvoadgXEzUPdH93sukY7i/YsA=;
+        b=EsBY1g6l3Xjf8FFo/WTWMLSwVH4b5NQyfqbqz+VncMXUUe7Q0HAN0hWU1FT35WXR3I
+         acbZZ2rmUmxlJZMwTya6DkMxD6KFLPSOMol5feNwIlE2n+SBAu9GMmL9TFj21n/vA3Sy
+         DfWLUi8nhCPxdtu3ftVQuslqupJ8HapqL7ttpAA0i5wg4yum63o/12gAgLUdhZJuQ6XK
+         Ye7IbrGVC4m61HSok0YdsOogT5jkm+nxW9/4DeKn0ubrD8dCxjkJrKDQPWchyVszKYc4
+         MwjBQD3hLkmduPs46B6WZaczfH3/FPEupf2Yi6mwNqJvEzrEl6meQMY/HfiQ6zzX5Axx
+         TLyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789731837; x=1790336637;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dA6vCQLul8Tx4ZGiErd+xrb4iMlZVj0qj1da7dMX2dc=;
-        b=0exJb2463o88AuxYYoKou7OlXSArB6+ELAMG+ZyABp0XoeQTseBok9bPUGkT//+Ze2
-         3j02sQ1zl6zwi3w+blYCO6+a5zw9uZGNl7Z7uIhBgji/KJr5BpMYy1vj4DC0nn8bHm64
-         Qg0wEcQoNqcS590ecvNdHhy5ZK+WcXoxwj09wN9CcMjCJnfirP2DYjJ1nkqJD0OC3W7B
-         blHeeyYv1xERxEhnBQ89pEp9/84m/PTumoegUAkojGcteB2m7aBrQL1f8bJWhRbQm569
-         1cPc39p31qLjRwueXsToH00NIVnPFs9nsyg1FIjmNoBJbYG6Fj5qm9joqWoD82Ta/UfV
-         rM9w==
-X-Forwarded-Encrypted: i=1; AKwUvByscCOwbFSQXV4QFtS9p0/lt3y8Y0FNahSBS6HZSXLUT+m6goLcRQVKBncja4CzdT65qLg2o02bPMCGIoo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9xvB9pqom8gEFw0vTt+UyzoxLTIh4CkFCPh6R+cGSOx6ko3HN
-	0bqtTImL2l3KozREZlp+quIBYXauylPpFZm4qrQNoyDASd52erTi798bQWzLN0JoTUQOS8FvLkV
-	tkZIZKptMFoPdKnUMYN9tq422pKu08oAPpCFMqRO4rw==
-X-Gm-Gg: AYBFou2ZrD/N2oKD6lguzS9bYcSigUB1jfcgxk4sTA7Je1YUSiiBt4ShWuPkqzUFdu0
-	1QcjqDtoXaLzm7YzDVlztCXQwwq/rjK8Dg7lDvWvgFSqDWkX5YoIgawAepzNcVQ9e7pdPl6CmbA
-	ugXzmo3fBNS7zVgHlXsCbOP1K727DHGrd3ae+xCcNqG4qiNwW2203K1b5T0E7Q9cQ1sSxF9Ru26
-	RJKuez3+4fBXjIF30qCFKoPuTiUrqdSxIPt7Eo+okGqgFAAcspMCZ5xi8LX13rq4/ir+nKprtwy
-	/3NSu4dx6vTkSSW+TzI2uZJue6pAWT4rcQ9SiOrEa8r8aKftvYoAECxEPQ==
-X-Received: by 2002:a17:906:9f96:b0:c29:dd71:7521 with SMTP id
- a640c23a62f3a-c2a159ad211mr257665166b.13.1789731837170; Fri, 18 Sep 2026
- 04:43:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789731840; x=1790336640;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z+gIlvnIDxGsE2zs/bxvoadgXEzUPdH93sukY7i/YsA=;
+        b=0izsBgjkNrgVwvBOxDxTAs50xO2QNVC5lf3pIkj79MWleeIhDq/mm/y7XN0i5hbej/
+         zfFTdC13bPs5iXiwiJ4gx3eMAvM00YAfZ2p2+/ZNaGL0c7Ga56F8uKsIDwgaVBAmnAkH
+         UDstR4C1L18Fry1geazB4thdDjf1eAN90rafb7Ac5Lv43CFlChsb6j2y7hvD2e/Nt6Oc
+         mOzFbLPuQhoUFdNtd/kHvZYJ2/6GMvd/cqGvmVfqqr+yubUJpjpS09wANtR43/NJonX0
+         v73tqfK1TO6fLoib4FI71p0sdyfGSSFyikoTiE+nTD4rIOClMspu8/mS+AgXcJyxPglU
+         kzRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQgxRKdon1bDyzt4aaqSqTauTU+r7iNLsHzPXDceTdpOCnE5sd60BX+7WdgSFHeEckY0RnstK8NXWjioY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwT6k9TGv4hm87ohoNQnSslrGLvDTxsqoLGP3+68XsdQWWX72g
+	+W7FkVjBu2KlsbZYjfOaKHw/UjX9tunCeWt0EnLGNwcNh/L5hBKoIkGe
+X-Gm-Gg: AYBFou2btpOqiiuXfKRHgtQca9hq59AFWvbWQHcvowFrGdOEQzelfgdP+GbtT49ql6f
+	TK7CSWl5QlR01eAbFiyKPgKVW9Hf7VWizEZ6IBb5xJV+zqT4/MxmH/bu9hMsgEdU/a9Ld07xbS6
+	rfAEEuxHpP4TS6q36gYO0iKjQ0Kn6L50oD4/gdHA88BwwR08R9BBrAkXXSW/I8KUWsL2NtsfKHe
+	dR1kZpsjFFJgGMJp1FQTHFT0gUTG+jtGsJ8PlChA8PLwHsp+bBA+t3H3mfnlBnGDKuTptkJkPl0
+	Ype5tpZAmVe10p+3NpYjFtrFJTGTsxEOsv8C5e7xlN8VhQ4QkuoSMP2H1DgFGmasLKcIJdaJy+H
+	WhUwHZFcyYXkwYJKfJtlJXBOb5ZwDwXiaRraR28Y/BGEYqqiHBvPSGDgXqG42QSw+8yWGzdVBOq
+	VLtM4dhL59Ej0DAD1H4C6NPJPAhE18UcNcOFS2DVIDwH3jxJ2SWYnU2RplUnGsLRiwwj8xgkzPj
+	1A/LUWnaG4=
+X-Received: by 2002:a17:90b:3b52:b0:39e:fe9:c5b8 with SMTP id 98e67ed59e1d1-39e35df66f8mr9845308a91.10.1789731839978;
+        Fri, 18 Sep 2026 04:43:59 -0700 (PDT)
+Received: from 73ebd4c7787b ([183.194.144.114])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce02b063sm3404520c88.9.2026.09.18.04.43.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:43:59 -0700 (PDT)
+From: Yuchao Zhang <ndaugoing@gmail.com>
+To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: [PATCH 0/1] xen-blkfront: unbind irq before tearing down ring and shadow requests
+Date: Fri, 18 Sep 2026 19:43:53 +0800
+Message-ID: <20260918114354.3660102-1-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917151350.597953846@linuxfoundation.org>
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Fri, 18 Sep 2026 20:43:40 +0900
-X-Gm-Features: AcwNN1V6GXuA7B8FEhCBQCqFU7EygjeCV0Wpnd9XyhRDhPC2vNktE2fyei7DI0M
-Message-ID: <CAKL4bV7ZN6mZMySE5tAwDwPEAYaXu5Bx3dQc-gieRheB8vGJXA@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Greg
+Hi Roger, Juergen, Stefano, and Jens,
 
-On Fri, Sep 18, 2026 at 12:35=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.7 release.
-> There are 733 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.7-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
+This patch addresses a race condition during device disconnect and
+ring teardown in drivers/block/xen-blkfront.c.
 
-Linux version 7.2.7-rc1 tested.
+Problem:
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+In blkif_free_ring(), the driver currently cleans up all persistent
+grants, frees indirect pages, frees the shadow request structures
+(rinfo->shadow[i].grants_used and rinfo->shadow[i].sg), and tears
+down the shared ring via xenbus_teardown_ring().  Only after all these
+deallocations does it invoke unbind_from_irqhandler().
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+Because the event channel interrupt (blkif_interrupt) remains active
+throughout this teardown procedure, a completion interrupt received
+from the backend runs blkif_interrupt() concurrently on another CPU.
+Since blkif_free_ring() tears the ring and shadow structures down
+without holding rinfo->ring_lock, this races against the cleanup loop,
+leading to use-after-free and NULL pointer dereferences when accessing
+rinfo->ring.sring, rinfo->shadow[id].grants_used, or
+rinfo->shadow[id].sg.
 
-[    0.000000] Linux version 7.2.7-rc1rv-gb4c9ab9b68c7
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Fri Sep 18 19:56:17 JST 2026
+Fix:
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Move unbind_from_irqhandler() to the beginning of blkif_free_ring().
+This immediately unbinds the event channel and synchronizes with any
+in-flight interrupt handlers via free_irq(), guaranteeing that no
+interrupts execute concurrently while ring memory, grants, and shadow
+structures are being freed.
+
+This matches the teardown ordering already used in
+drivers/net/xen-netfront.c (xennet_disconnect_backend()).
+
+Best regards,
+Yuchao Zhang
+
+Yuchao Zhang (1):
+  xen-blkfront: unbind irq before tearing down ring and shadow requests
+
+ drivers/block/xen-blkfront.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+-- 
+2.53.0
+
