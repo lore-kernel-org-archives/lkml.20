@@ -1,107 +1,140 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0495151812E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184094349BF;
+	Fri, 18 Sep 2026 18:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755357; cv=none; b=fhfu4fm9CKCaDJA4lDjSywI3Rj4a7CcVtnEBqUK2IUexmNdaYo+27pVq4jloKPLgakbGmXCjtExhRAXojkkstaFLONxBWDdmiM4J08Jz6E314/sz5g8vr8xqzB7XFr/X+9bGPotrqYj7biaVmoGVRFW/NxtFnwxbJjihuebMyHM=
+	t=1789755368; cv=none; b=t2RzQtgAgODwTe46WAz01ooRWnlbik1IqgQNE3fTkbTPWabgBtG1zi2sSqwxbkNR3PkzububIBahJYb7eUk4tKZKXvfe/pbu/ZoBNyBwBs5WxjQhcbWdVQsb6H9NthsY5oGQSbUc8r1tZ3uC/3e6J3qgy6cK6iUQGtGDoZCLzCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755357; c=relaxed/simple;
-	bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=cH2rVpXZwRBqQMgVCZUscjxvTlk5awU1TNb6TEAZqAXlSyr7gilWNFcvQlab/r8t0gISrWPER04kC8/qAFCbTZ0FNhqdl9P9I9VONH+YaNK2tzNrk53rmATxeh2CXWNwi4VJLyIYSx3AparxC5M2Wj8mNbLVLxNNJjbmotuUL78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YdcTGLxk; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1789755368; c=relaxed/simple;
+	bh=BKRNCIzv61UEQjisfXTkjoIA40eOmPYQ+44Nnat9fVk=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=Qwlp6e4tIrkdCqdTRe81u/CjJ9uxuTxUlGTgFZxkx3qrEnkkWQ2k4LYQ3KldNXllXeJCvJ+Kex9znhQC3dNeBMm/22+MqiM7e9roOHRb3gGeUWMxl+GGDnzjUiTjg0Ql6RWQJosgPyQg3fQkqXlTKUzSLt5nfIXJ7C6+eaqWBPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=ap8HtKOC; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YdcTGLxk"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso1848956a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:15:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789755355; x=1790360155; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
-        b=YdcTGLxkxlZi8gNpmY5tjK9DZdC5iSaM9lHUXPIzh3mQg0ZQFZ7eJp1IWrhzV5jkav
-         Ib7uGMOdg6zA6aNkLemrtHSCu+IKfPQCkrXa/LAk8a0MBtr7EwvHcQKWKUp0mG30c+NJ
-         TahKQ/tIx0iphsg/JJxqjWzn1G6DQRRmJmHh7RePSOQDFK9Mr8LpRBq8K5qLJaAUIXt2
-         ateDWYELUv7xbccRIac8RR7bcviBC37xneeFr6xIbswqx+9lMUer6nqbOMFVAaWDaiEJ
-         bmPIpbKJh/t2CjH59eVYKRjeC3bzpZ6X4ZR6RVWiT0tdO1Zzs3ONUOk1uHnHy3jH5Gzq
-         oJJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755355; x=1790360155;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OW/egmM7mt/va5mQ7VY7PztEIbg4lcAaL2bbHrTbTPE=;
-        b=0xKlFuPhijgw3f0M1hwjboH/PINcDDZCe7JcnB5BuUlQyY7oEgblktc07KvwfRmmmu
-         v0glfK+ulF2uYIFCpIfLHaS0Ia76M1PSoUgyLvv5zftEIrvvp0YG0k9aHyzYq+nM+p3P
-         UMcKoc8QE3GSItNq+8SJDMmt6j7O0Nf+duHjbTBQrqBunkcs0+nY9mhunE25fBO/Inmc
-         2raLoijCL05ej5/W9wiD7ymE61mObNLvUIDKcW2Zr3AQZnMUu0wLEQHgp24yKmrl8tCk
-         TofC5TkCxFMectf8JaV8cps9mzGBkifyOJqfClUq0OsImSHt6fOPgGtsDvK21Br3sTrU
-         JkAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwa3HiA6fpe0zCqaiL9AYKmnS2v711xq+ZNC3wZ5rO1Y4fUp8M5ooYj0FCMrr5xpp811uJyrErWGzX+v0o=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2tg2ngfeoyF0xTsXrcoh4ztJiJuZ20E5XYDjR+B+qKJ0qZEif
-	M2jgYVbOrI70WNFCdcyFSar/lDuetJyXH711JBdO0B7scCmE4X2XEAD8yYgSNip5LuvvBAS+bMl
-	6fjCwPpeOKFjs+bNmVBot98aJfQODga53sA==
-X-Received: from pjbiw4.prod.google.com ([2002:a17:90b:4204:b0:39d:a2e8:6890])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:d40e:b0:39e:6c6a:656f with SMTP id 98e67ed59e1d1-39e6c6a6787mr605040a91.50.1789755355148;
- Fri, 18 Sep 2026 11:15:55 -0700 (PDT)
-Date: Fri, 18 Sep 2026 18:15:54 +0000
-In-Reply-To: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="ap8HtKOC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=l0UqZc6zTcxbAk8O7Zye1NDSa2Do2uZGuk+w65hW3Us=; b=ap8HtKOCgRQ48d78pNhvpxcS7k
+	97g+Z7D8z7++2nuO4SQ2cfLfvVIS4FtL6LkPDWROwzjTgk7fVJknQ7JNcwOO0qeF5TcWOIVdGUX6f
+	U5k8DqgrJS7E1oy0MFMKLz0we5fClJWHaZJ2LCY4kkQ7qpgm7fxM025k846muBfsQfIJ5WNSz+SuP
+	KCNErPSOSFhxrVwWBjp3fCQ0Z6LcdQ7S4X/qxhfJi+Ozx2hxotLVhn9EdTMoTCKzb2KSH0s52moph
+	M9M6EcAAnBxAUeLigrxWF2O42FLuNXfHLh76cdAIhkkBOEHiN8PcHDvjsQIbZqFU6yu5E1YJjNsc2
+	O5yBLXhw==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7d80-0000000CrBQ-2t7J;
+	Fri, 18 Sep 2026 12:16:05 -0600
+Message-ID: <6a24a80b-b88d-409d-b93d-1f7e0d0c904c@deltatee.com>
+Date: Fri, 18 Sep 2026 12:16:02 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918-b4-fix-aer-memleaks-v4-0-f0a2c21ed1d1@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918181554.132414-1-rathodpriyank@google.com>
-Subject: Re: [PATCH v4 0/2] PCI/AER: Fix ghes_estatus_pool memory leaks in
- error handling
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Priyank Rathod <rathodpriyank@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-13-den@valinux.co.jp>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260910040836.3792333-13-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v2 12/14] NTB: ntb_transport: Clear QP pointers when
+ freeing an MW
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-[+cc Kuppuswamy, Jonathan, Ilpo, Dave - you have reviewed most of the
- recent aer.c changes, so adding you here]
 
-Hi all,
 
-Adding the reviewers who have been active in drivers/pci/pcie/aer.c, as
-this series has not had review feedback since v1 (3 Aug).
+On 2026-09-09 22:08, Koichiro Den wrote:
+> ntb_transport_link_cleanup() frees MW buffers but leaves rx_buff and
+> remote_rx_info pointing into them. With a QP still allocated, another
+> link-down notification or transport unbind before MW setup runs again
+> can make ntb_qp_link_down_reset() write to freed memory through
+> remote_rx_info.
+> 
+> Clear both pointers in ntb_free_mw() for all QPs using that MW,
+> including those without a client. This also covers link-setup failures.
+> 
+> How to reproduce:
+> 
+>   1. Load ntb_transport and ntb_netdev on both sides and establish the
+>      transport/QP links once. Stop traffic, but leave ntb_netdev loaded
+>      on VHOST so its QPs remain allocated throughout the test.
+> 
+>   2. On HOST, unload ntb_netdev and ntb_transport, leaving ntb_hw_epf
+>      bound:
+> 
+>      modprobe -r ntb_netdev ntb_transport
+> 
+>      Transport removal sends COMMAND_LINK_DOWN to VHOST. Wait for
+>      ntb_transport_link_cleanup_work() to return on VHOST, using a
+>      function-graph trace. The "Link Cleanup" message is printed before
+>      MW release and is not sufficient to establish completion. Do not
+>      bring the link back up before the next step.
+> 
+>   3-(A). UAF via repeated link-down notification
+> 
+>      Use ntb_tool on HOST to send another link-down request:
+> 
+>      HOST# modprobe ntb_tool
+>      HOST# echo N > "/sys/kernel/debug/ntb_tool/$ntb_host_dev/link"
+> 
+>      ==================================================================
+>      BUG: KASAN: vmalloc-out-of-bounds in ntb_qp_link_down_reset+0x2c0..
+>      ...
+>      Call trace:
+>       ...
+>       __asan_report_store4_noabort+0x1c/0x28
+>       ntb_qp_link_down_reset+0x2c0/0x2e0 [ntb_transport]
+>       ntb_qp_link_cleanup+0xc4/0x148 [ntb_transport]
+>       ntb_transport_link_cleanup+0x314/0x350 [ntb_transport]
+>       ntb_transport_link_cleanup_work+0x2c/0x50 [ntb_transport]
+>       process_one_work+0x5b8/0x12f0
+>       ...
+> 
+>   3-(B). UAF via transport removal after link-down
+> 
+>      VHOST# echo "$ntb_vhost_dev" > \
+>          /sys/bus/ntb/drivers/ntb_transport/unbind
+> 
+>      ==================================================================
+>      BUG: KASAN: vmalloc-out-of-bounds in ntb_qp_link_down_reset+0x2c0..
+>      ...
+>      Call trace:
+>       ...
+>       __asan_report_store4_noabort+0x1c/0x28
+>       ntb_qp_link_down_reset+0x2c0/0x2e0 [ntb_transport]
+>       ntb_qp_link_cleanup+0xc4/0x148 [ntb_transport]
+>       ntb_transport_link_cleanup+0x314/0x350 [ntb_transport]
+>       ntb_transport_free+0x68/0x588 [ntb_transport]
+>       ntb_remove+0x5c/0xa0 [ntb]
+> 
+> Verified that neither test triggers a KASAN report with this patch.
+> 
+> Fixes: cc79bd2738c2 ("ntb: Clean up tx tail index on link down")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Short summary: ghes_handle_aer() hands a ghes_estatus_pool allocation to
-aer_recover_queue(), which returns void, so ownership sits with the AER
-code. Two paths drop it without freeing - kfifo overflow in
-aer_recover_queue(), and a dequeued record with no matching pci_dev in
-aer_recover_work_func(). Under a sustained error storm this drains the
-pool, which then breaks GHES hardware error reporting system-wide.
+Makes sense to me:
 
-v4 adds the Fixes: e2abc47a5a1a tag and Cc: stable that earlier
-revisions were missing, and is rebased onto v7.3-rc3+ (applies cleanly
-to pci/next as well).
-
-Review feedback very welcome - happy to respin in whatever shape you
-prefer. One open design question I would specifically like an opinion
-on: patch 1 frees the buffer inside aer_recover_queue(), which bakes the
-ghes_estatus_pool ownership assumption into an exported symbol. The
-alternative is to make aer_recover_queue() return int and let
-ghes_handle_aer() free its own allocation. I went with the former
-because aer_recover_work_func() already frees unconditionally to the
-pool, but I am happy to switch if you consider the exported-API
-contract cleaner.
-
-Thanks,
-Priyank
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
