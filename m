@@ -1,201 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7E95208DF;
-	Fri, 18 Sep 2026 19:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759709; cv=none; b=hIU7Vrh93OZMgPOaskW6h69kDjUlkzkJo2jJH2EV2xSJuxK4A+ZmHxNY/Z2ct6NWtfdbBYK1fYQU670MSseVr0C5LjbZNhlors6EGNFHVGJQdTvkqcp80+boRW0TIA2DXwfFv4pr8lYqfmhreFDyosCt/3JkpZqSE/eLXvQ8H9o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759709; c=relaxed/simple;
-	bh=tw2Vyuwd4+Dh5gxZoHj/gJNqhm25qkl41kbImDVXZck=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=KJdAdDVuYXjrUwTjbIXlifHUrRpOIE5VQKqtnPyOyrfU/uSgO0rba7SqLjZ9Kh9vxfOyJD0IpFVYIF3QMaS43GnMLMirR1q6z1DWpLusQKsLfDxp0l9T2gqDeP7+Ygr3kj6V5GlUkhLLh4DLdR8Jr349kXL1bquSu59BkwZ1v48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xvf9Vbeu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503F23EEAD2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789759720; cv=pass; b=UznSOWvB3fhsJw3ctKPFviM/yEUGENH/FaWaHufL4YFPjGqphm7cx4D+VrXeNT5WsTX9Hq5/oJNRGfTPJJJg02y7kbQ7CnQQLKifryoHcHTj4DJpqqDm3NZdDS8O7CuZugvbnDrBhRHjYZ+mbMmACCKz/oJQLxFKkPIDGXysl9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789759720; c=relaxed/simple;
+	bh=Pr9EeiZTbqiSt+KIaAIIUq+kKBnWHyvE8rHU/apYAjQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gF9BS0AzgKWwOdnzphi4asdlnClyjXjJN/o5xRtcX/1yniyo6PID0/9HfI7yQYcnTI32G7RDzqR7ocLUJ0VLipff3dTc00njf49M4p89FNZGwxBw8dbaay5Ptbs8Y6OgwqFL8oMcYkRRDjp7OJN9H1GSrAXkuYKmZEbw/jd/cAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wglF7trB; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xvf9Vbeu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99BB1F00898;
-	Fri, 18 Sep 2026 19:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789759701;
-	bh=vfQpgzL0yQfcKMep+p5Od+GqI+HCHPfznhvSO3/vutY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Xvf9VbeupeHL6KGvvHdN2PaAbMhDbiWGTlBP4AwduEIqaPXlc07HWgHs/m0pG866p
-	 S9/4STpZuQc9pU890xPT/fNHiSO+Swb3mRDVGHxoH9wCZ0TchVr/uPeeT0pb8oZkpF
-	 blHs+xCc1/awYUPoyn3kRrzqWFggqRhIJF2MkELIc7gtajn9ZRknWAPwx5owHfdT/I
-	 BCrnChZyijlVFbNE32b74qXO3snhpGnTy/2/w7cm4BUuldv9NY2cwn5YCotki3ggAG
-	 lcrA9nUdwquE7nK3nh3KRfYKCJaZpilEMGQ2kYv/2LhesE2SARxF5EJQoSS3Iz6gbW
-	 nGpiVHooHfBQw==
-Date: Fri, 18 Sep 2026 14:28:19 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
-	Jon Nettleton <jon@solid-run.com>,
-	Jon Nettleton <jon.nettleton@gmail.com>,
-	Jacob Martin <jacob.martin@canonical.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
-Message-ID: <20260918192819.GA1179462@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wglF7trB"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a5f9b036f9so1464a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:28:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789759715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BY6JaSQQILrckm3G0OqKVFN2g9+VuudbHGj4m3+wL0vjyxGGReE5l7PEMMii8I9kaM
+         oshgnwBXbIq7+HJ8zUDGoEHz+DBL6vE3O4BFE74qG1Ts/MZoP94xNv2KqeSGlXk2CLEp
+         IFroc4SWsBN/7vC7E497bpYEqfFm3MqNuroFr6JuXeW6FNpNJCDzYfKxpYaWnQVZ4XwK
+         C3CMhA9dEEuWlYPrIe+ZLghaUaJRXJrM3xrrB47J7Cc2dMQ2FaGHUkGzUQHvnZY2Jukj
+         yd1pNIv6jXvTQgILg/liAtj/1GuyjVgv5bI9l9geTgjngBJBSSP7S2zjgFzrTj6SZUwQ
+         WIGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EbHldw+OkWfGVFKKWtG3hDAcOnTKU4jITXx8lACI1lI=;
+        fh=Y4DHNlLFMHxPzBOwnblzsD4+SC3h/H33kAyBtiu4W4Q=;
+        b=rdJHvIhd5lo8zo6rr+J6MmKDnWEzCiIXYYB7E/qciE4ZqXq927cRmsCVwHBxuKxB4V
+         pcU+jW22WMyjR6H+9FBePz4Q8VFiCdIT7duavRTzissZnpq+X7xxBIGofzhcs9ZhuWso
+         aksUI6Q60wg9k0e25Ify4+pNlDFST/b0be17F5VgR1u08fwOLyWwmNtGJ6Oz6KF1QYLM
+         wDoj4riCpdQ/D856dXikkCHzkZykNcJeADuLiSLGFG6mafjcVJ3/eClYEvZgq3ekOzAt
+         9Bp6VjeGqaLvxHp9MvRBPJo6v9ERTDj01X6pKwkusRt47hMFOeE4MTaiGJQV+7tku96J
+         W+xg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789759715; x=1790364515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EbHldw+OkWfGVFKKWtG3hDAcOnTKU4jITXx8lACI1lI=;
+        b=wglF7trBk9fD3R+2h31qOtvE+5N9W26pGyXZas/kZ6tV5n7qDHlHfOkHaOeW/SpYPu
+         VO2X2QmgAISHV+SiR4Kw+X/lDt2ttJ2cQTBEtQRk4E2E9nQ2RnuEBn3tTb9XzpgXVQQy
+         pGvVKbIGLyA+2YkbnqL22fehYg6tkNyITbZAVD7Mi6Ae5xHHidz2zHmkL69qTojWwLTn
+         CRyJ6AoqmzD2y6FUCVvJzMZAmxbf1OSIRu0dctl4YX5hdSX22gL20Fi1sTSVO8oAgIFY
+         Veozg7+zId8NBjZ28FOzLGmS4LoY6nPtVrrQDBRum7aK+805lghjgXp4y8yBlw/6Fh+h
+         xU+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789759715; x=1790364515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EbHldw+OkWfGVFKKWtG3hDAcOnTKU4jITXx8lACI1lI=;
+        b=el1niLelL04HxcOVpKQsM6KIT46Mt7ALiIczLiEsTNr7l1OWsVOi+U/zbEuVpQe8nu
+         2xUxiyWD3IzX//x1Is09o12y2bBbt9OQlN4tnjZNDC/iii77ynjANA19tVwAADs1xkUR
+         jynQiMTFtDuphxEECuKYBqbDtaieFAm7dDM2OZTx2iESw0E7eXloU7rLjoeHj+J8LcAE
+         +mLehZ7lycGp0uL0DJtrq2TPYvqFqPOGdWscimc8gqqtPbAv4QtaxMYXbmX4sUkWsqTA
+         t6FMYS1cwcyHRWg2sIhrxtM8z4e7k18QEXAs+wl+pfdmHGdZtDgaNbWw6+mndbJR/OWV
+         aMSw==
+X-Forwarded-Encrypted: i=1; AKwUvBzPZGloLnxP+AVN5BymJN06BIjFoiJhivOtT+lSDmLej/O0s1/qJx0RPwrF5Ae4z4tjawEnwf6sX77YUZs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyrgxwvWmO1bDtJUqdwF2Ttx3ZWx31iYYu8T//xh9wcN4BUFdI
+	+jt/6PvXGEyusBqv5ZNgkU8FDJce1NycAvJ197WZItS1hXY+eoi/sBmhB3IoBr8Q4HaH7x61BMT
+	OQM7rwRjeZsB4CCif+yqiTyj27lLUqA3LcDRLy5kLPwNx+FMaZyG+xY7ki813jQ==
+X-Gm-Gg: AYBFou1E8VCbYkixmQN1RpzQ6aFOfCJcG25Yw5KqfWIoX82LTLOUOwCacOl0Hg7Yg7Y
+	cW2+5txZ8TqSQC3Zt22IKTABGHtIDRDO9HN9XV6ppYqbBwAx+WASiHc+Z+NvoFSg8LMdDW+yj3v
+	6wcN7BPgo7oaH7p+IwinaEgJRQ3t8GWFC9ZpFR8AvwhXqr4BUzGoLwXy2BLvYzCjSBQ4zzAv1zU
+	lHEF/erj8h/ulgRqrmxBqQlRqzQvM35UaSalLHQpTZx88Y3vBRIaCineM3f8dbW7F85zY/LHUDS
+	3Ap+x0zJw4EH98k5yT/nFe25KMzKBa2CMnBp5CM2oIhWfirYXvklj7Tq32i8ZfWjH6UDI5hPZ8N
+	QjQb5wd2EqQ==
+X-Received: by 2002:a05:6402:223c:b0:6aa:1391:a4af with SMTP id
+ 4fb4d7f45d1cf-6aa684aa9afmr9099a12.3.1789759714549; Fri, 18 Sep 2026 12:28:34
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260918035633.566823-1-lizf@honeycomb.io>
+References: <20260917230323.3701743-1-mclapinski@google.com> <aq1KWUXAqQ34ybRP@wunner.de>
+In-Reply-To: <aq1KWUXAqQ34ybRP@wunner.de>
+From: =?UTF-8?B?TWljaGHFgiBDxYJhcGnFhHNraQ==?= <mclapinski@google.com>
+Date: Fri, 18 Sep 2026 12:28:21 -0700
+X-Gm-Features: AcwNN1XywJRMXvA7_I4z7yu2NHUmIFXps2ss-EHz_Q-ojRYqZb8DkY_9R4A6HQE
+Message-ID: <CAAi7L5cjsUrLbcJtBg1DXo7frjdBY0m5x5tUeR8+btU70HP7tA@mail.gmail.com>
+Subject: Re: [PATCH] PCI/DOE: Poll briefly for a response before sleeping
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 03:56:33AM +0000, Liz Fong-Jones wrote:
-> pci_do_resource_release_and_resize() releases the device BARs that
-> share a bridge window with the BAR being resized, but when the device
-> sits directly on a root bus (pdev->bus->self == NULL) it then skips
-> resource assignment entirely and returns success, leaving the BARs it
-> just released unassigned (IORESOURCE_UNSET).
-> 
-> Skipping pbus_reassign_bridge_resources() is correct in that case --
-> there is no bridge window to adjust -- but the device BARs still have
-> to be reassigned. Before the BAR release was consolidated into the PCI
-> core, this case worked for amdgpu because the driver released the BARs
-> itself and then called pci_assign_unassigned_bus_resources()
-> unconditionally after the resize, which assigns unassigned device BARs
-> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-> side BAR release before resize") removed that call, so nothing assigns
-> the released BARs anymore.
-> 
-> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-> on the root bus of its segment (there is no root port device, so
-> pdev->bus->self is NULL):
-> 
->   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
->   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
->   amdgpu 0004:01:00.0: Fatal error during GPU init
-> 
-> No error is logged because the resize path reports success; amdgpu
-> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
-> 
-> When there is no upstream bridge, call pci_bus_assign_resources() on
-> the root bus to place the BARs released above, using the same
-> alignment-sorted algorithm as normal enumeration instead of a manual
-> per-BAR loop. This also walks the rest of the hierarchy under the
-> root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
-> before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
-> release before resize") removed that call -- the core-side fix that
-> commit asked for ("such a problem should be fixed inside
-> pci_resize_resource() instead").
-> 
-> pci_bus_assign_resources() returns void, so failure is detected by
-> checking whether the released BARs are still assigned afterward; if
-> not, roll back as in the bridged case. This is stricter than the
-> bridged path -- it fails on any unplaced resource, not just required
-> ones -- since a root bus typically has one shared window, and failing
-> loudly seemed better than leaving something silently unassigned.
-> 
-> The root bus path also had a locking bug that any fix here necessarily
-> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-> matching down_read() (as does the "goto restore" taken when
-> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-> before the BAR release loop so every path through the function holds
-> it exactly once.
-> 
-> Use pci_upstream_bridge() rather than testing pdev->bus->self
-> directly. The two are usually equivalent, but pci_upstream_bridge()
-> is the canonical test -- pci_is_root_bus(), which it's built on,
-> warns that bus->self == NULL doesn't necessarily mean a root bus
-> (SR-IOV virtual buses from virtfn_add_bus() are the same).
-> 
-> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-> Cc: stable@vger.kernel.org
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-> Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Assisted-by: Claude:claude-fable-5 checkpatch
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+On Fri, Sep 18, 2026 at 7:27=E2=80=AFAM Lukas Wunner <lukas@wunner.de> wrot=
+e:
+>
+> On Fri, Sep 18, 2026 at 01:03:23AM +0200, Michal Clapinski wrote:
+> > doe_statemachine_work() waits for a response by sleeping
+> > PCI_DOE_POLL_INTERVAL (PCI_DOE_TIMEOUT / 128) between status reads,
+> > which is 7 ms at HZ=3D1000 and 4 ms at HZ=3D250. Exchanges are served f=
+rom
+> > the device's local mailbox logic and typically complete within tens of
+> > microseconds, so nearly all of that sleep is wasted. Every DOE-capable
+> > endpoint pays it once per supported feature during enumeration.
+> >
+> > Poll with usleep_range(20, 50) for the first ~2 ms before falling back
+> > to the jiffies-based wait. On an Intel Emerald Rapids system, time spen=
+t
+> > in pci_device_add() for a DOE-capable endpoint drops from 41.8 ms to
+> > 14.0 ms.
+>
+> Polling is just a poor man's replacement for interrupts.  DOE supports
+> interrupt-driven transfers but we're not taking advantage of it so far.
+>
+> Perhaps you could look into adding that?  It would seem more worthwhile
+> than optimizing polling.
 
-Applied to pci/for-linus for v7.3, thank you!
+Thanks for the quick response.
 
-> ---
-> 
-> Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
-> there, pci_do_resource_release_and_resize() still returns without
-> reassigning the released BARs when bus->self is NULL.
-> 
-> Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
-> LX2K): both a manual resize via the resource0_resize sysfs attribute
-> (shrink to 256M then back to 4G, forcing the release+reassign path
-> both directions) and amdgpu's own natural probe-time resize (with the
-> amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
-> size match, no "Fatal error during GPU init", full IP block init.
-> 
-> Changes in v6:
-> - Repost, confirmed still affects v7.3-rc3
-> - Added real-hardware test confirmation (both a manual sysfs-triggered
->   resize and amdgpu's own natural probe-time resize)
-> - Picked up Reviewed-by from Ilpo
-> - Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
-> 
->  drivers/pci/setup-bus.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index e8c94aa1d3c12..ed16ef7c26fa7 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  	struct resource *res = pci_resource_n(pdev, resno);
->  	struct pci_dev_resource *dev_res;
->  	struct pci_bus *bus = pdev->bus;
-> +	struct pci_dev *bridge = pci_upstream_bridge(pdev);
->  	struct resource *b_win, *r;
->  	LIST_HEAD(saved);
->  	unsigned int i;
-> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  	if (ret)
->  		return ret;
->  
-> +	down_read(&pci_bus_sem);
-> +
->  	pci_dev_for_each_resource(pdev, r, i) {
->  		if (i >= PCI_BRIDGE_RESOURCES)
->  			break;
-> @@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  
->  	pci_resize_resource_set_size(pdev, resno, size);
->  
-> -	if (!bus->self)
-> -		goto out;
-> +	if (bridge) {
-> +		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> +		if (ret)
-> +			goto restore;
-> +	} else {
-> +		/* No bridge window to adjust; let the core reassign the bus. */
-> +		pci_bus_assign_resources(bus);
->  
-> -	down_read(&pci_bus_sem);
-> -	ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> -	if (ret)
-> -		goto restore;
-> +		list_for_each_entry(dev_res, &saved, list) {
-> +			if (!resource_assigned(dev_res->res)) {
-> +				ret = -ENOSPC;
-> +				goto restore;
-> +			}
-> +		}
-> +	}
->  
->  out:
->  	up_read(&pci_bus_sem);
-> -- 
-> 2.53.0
-> 
+This code runs during PCI device enumeration, before a driver is bound, so
+the core doesn't really have an interrupt to work with: MSI/MSI-X vectors
+belong to the driver, and enabling them in the core would collide with its
+later pci_alloc_irq_vectors(); INTx isn't routed yet either, since dev->irq
+only becomes valid via acpi_pci_irq_enable() at pci_enable_device() time.
