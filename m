@@ -1,210 +1,201 @@
-Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
+Received: from mail-qv2-f11.google.com (mail-qv2-f11.google.com [74.125.230.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044403955E3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711594; cv=none; b=BeArv0b85Ois8zcta5WoikOKlqC9vodHd+PTTeNr+/eKhqktVsMisq4yqEiQCND7BZ3DHUon0HXl+2FYoSr4he91FaRZWJDYKdlrZZ7mQ/NPXPEAXX2ZdqdWU2j5NKthtJSc50IhVQ8x1l3LUaWrwFf4KkAgSX29o6B2lNfZZ04=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711594; c=relaxed/simple;
-	bh=cYNPLQlMsc61Ae0pd3Dqi84O95BpRIU6+9o8jeZXm04=;
-	h=From:Date:Message-Id:Mime-Version:Content-Type:In-Reply-To:To:Cc:
-	 Subject:References; b=eI9Y0t/WPYeAB7bAgTIaYSgvOvrVw/WGRuQ9e7uFgYsW1Sf3wbOU3wtNHW9gQh7kfQaNyd2MtGPZx1iSRceqgKHIgsFPeU/eALRzIS131SREOvIKM7JEQalziYHT5GA42BFqDU49f2q8ihybWEho+/YGLUkt6VK5xh2o2nLTJ0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=RM1wv/nn; arc=none smtp.client-ip=209.127.231.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9143AA1BB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.139
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789711603; cv=pass; b=bnmXjHZcY80ThNeddxJdF9x0pi9I3TatIVk5AOXpPf8Y/ezBd3ukk+WI6OMtsKl3c3Jf21GYkJcm4tTaDDFdUlDFT5W3uaC2dK7HQFcszS7cqxdLqwMbuIOcqi03QeibG8VIp/IsniNShHLSql5E1jCIQoM3bLCTr9JQXhJalo0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789711603; c=relaxed/simple;
+	bh=t1ip8CfFi9vuGKam9e+Xd7qhZK6WDwDolruZauKHlow=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GAXgh2sIbQLXFTKUURkhrWxzt2Unv4x08v3nAs9MN6PElD1CAx8w/ANwZwx34PyjM+Bm1Tz/93IGgPmRRWfMkBdqjlCspuqn/MiQjPn62a6dABp6YGRuzUAbG0aigYcxIGbSr132jDlJOoDSLI9O/BIJeQakp+zYIA9/H1wHC2M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5lP+ROO; arc=pass smtp.client-ip=74.125.230.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="RM1wv/nn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789711577;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=lqW7qZabmWxswye34J0CAFYr5tIhfPWj+VejfW6v0n0=;
- b=RM1wv/nn6ci4C12kuVCdnUokvtpsbFeCzP8jJ969yBEmeZyz/IPyxb29lCF5P6X9J1ze/C
- UHl5uDu9Nc0P+B4VWpVqB6/7R69LeOjrkF/BdwIR3QXIZPxh1PlJDz228+rsIsVxZVfF73
- 1Ue7hDe+v00PDrGcW3l17dtDF6LfU27Je6qKBDZC71MtaDegP3+HcoUm97cC5zb5LL+eTe
- t4qoRQlr7FmQ3DjqTFAaR4Hg2cB4Z91+LOeNGgSv1UOuoQDawi+XdRzU3OjHU1Q43JoR/T
- PVr6RJjC1JHal17PfAq49iZTh6jxFLAmBsRBDgoCmny7fzqpP6nqpwlJiBxpSg==
-From: "yu kuai" <yukuai@fygo.io>
-Date: Fri, 18 Sep 2026 14:06:12 +0800
-Message-Id: <d896d273-ac1b-484c-9a71-cb60a85d389b@fygo.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5lP+ROO"
+Received: by mail-qv2-f11.google.com with SMTP id 6a1803df08f44-91041f4a0dfso1278956d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:06:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789711600; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xq8Ku0FvD0gpE/i4ON1F3oLDRnhati1OvzE6dSbt2GjWFO6hVB+2y+gWL1wMF1WzG9
+         Dql91jscu49Uww7O8ALeioDpyMCPrcOk9uAiR7EZ5daZ4EQrUDod/nMjPrnD3d0K46qQ
+         DteEH4DPjRN3v6ZQB74OVtSC2taFuXEwTZNW+iFEJJZYmMnh0px+PBSlHgCxdl2s/rB+
+         4EnFbl859GDlOLpq8ZTSzL1H5gCqqOoofvt/0HiFoMSYbbWlSIObWbPtXXhj6PwkfD3J
+         CtRU4nVaOmlszNc9GLFzd8TfLu9mOYSLXbzILnWQfzLpnQVPEsdPhFO/HefzbpnXpP/B
+         33AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1x0EChI+gJyyLvy8kTr3cIO2m+3bw6/l/GTas5ZCe1E=;
+        fh=alsBxNDLA5ZFGAEa+n3kCZlRxl8NmjoNfOejKKh1HRo=;
+        b=UvYu8bWjT/ROkJLsyzWF9J4PfHt2fsUl1lRFXvIggxidyBFTxjeti3CAIMipz1jhvK
+         /Ebsa5XgaHnSB1YgTD9ZqycvOk7ISQxe1H2n7yPk0uLyIbooCd/tPZcx/wh3KABOgoAj
+         zy6FfA7ocg7QwwVCQuTROwx0jowklxi/IbXvcER3tv/0em+aYK/UQJT/9Bx9igydhyIq
+         oPsBglsC3ffgunPFRvCnwfwqr2mnBanVihE19ZdSq4Mr6rD/upTFn1jCLnCefoInAzZV
+         MNy2tHB+qIMPCsOPHj2/Gcouk7fWpU5s1mXMMbZyZHlp1yEb4IrJv6CjLcuIM24jDhQ3
+         6mCA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789711600; x=1790316400; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1x0EChI+gJyyLvy8kTr3cIO2m+3bw6/l/GTas5ZCe1E=;
+        b=F5lP+ROOFEhEkhyhejk8K4pe0S+PlHmgDh2gZe0YXum4M/3/GQPj3PRJR19kojrdd4
+         7GHoQpgciPhpW5VcZvUoFkZR41loNzgRA0t3C58Ehv6ZYZLPpnpvMaPqwa4FG9XW7A12
+         L+DP8E1/C5dJWNaviio6Bi3fq/YuOVsdG6YVAC9zFh8WrtD9WVtTg5ksjVJcM0Q7CJJX
+         vyfnT2lWDKwTd99GQfE8gCNDAv+UkAHuqvOaBcEe6lf2k/u3oGyPamJeM5ulSsmojVaS
+         YGb1BFVDPPucVE9YXsexuGl0V4ykfQY+YE+roZPykl2tIaT7CgBoYgdds7iRaJFTdDRL
+         yoUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789711600; x=1790316400;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1x0EChI+gJyyLvy8kTr3cIO2m+3bw6/l/GTas5ZCe1E=;
+        b=ecWja8T5mMLtr9HtWgjEy77dIFfEEcAs7xi6Vh95WMeIKNBz2ySdFXYPjsIKG4olgx
+         ii2tAAyrIDRyMcpG59Jt7GNMTVs6wHJ1si0wPp08uqFcSz9sOsRwZ0QI9BTEpQidGCQJ
+         vvUhdCX3680KwOcT5Z/gKEs5oUFv4xlKkQ4l4QRKgAjFKdF3LjE80BJ9bjMzeNpstYem
+         wlSlVpWGV7zU/BxcCSb6n3ppyMkJNXpsVu8NGrXSOlnaZNTpEF3zFtYguSaHZu4VFcz5
+         H+brAeL4vsuXUlS3uAc5c9A/wttweVWqCLroVGkNo8DYRzD4Ri6mR29Q6j8JRtSJopwe
+         xWyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMQRZqtvLBYWKeikuLMWieqtJBmwDT0ta6fvtTCS9VmgAXISjmcsSLGqrpJMT7E1WkwE96uof0LhofMsA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kR3QIndY3RJ5C8bIWlYoq+TErcvFIsfU44P9dyf998tUrcXe0j
+	w5znRIrMQ+Kt6I0TnyaF8S9ih2+FYQEdO0bl02GG4dUZE7eP+Sob3hua6JGNOHpo8xFbwXkgLzL
+	12UvrqbvwsOxmxHvN78X9vtskK/hFrr8=
+X-Gm-Gg: AYBFou3W09/a9NvEM1Lh3wu3NC7JowpN3NuPmHLc+exWLw4Js9sY5LV2BFjO6Hr2fXt
+	Vo028z/eMpsbr/qzy/crKgNnK24Mwp2PnL6HhgTTqhTEKnMIAkNaGv32fIcr4Hk2fK+htFgCWox
+	WyAb8BP8b3f48YeUOXm7qB1kkFmXbdzEawjk2FUMAArD+EfEzPDtH4Y57Cuwlln5flSRKhJIFSX
+	4L7YyAMS4NXtG4wlCwNqKgbKDtYaWP2rIMzTm5LC0y1o03TqHa0KQLHf0xXti/p/JzzFLKxJapB
+	CZwL0wmrxFnUhwKM2KnApqV9V7HbruZinsAKrBJW80QfQE/NQqkOyEET
+X-Received: by 2002:a0c:f80a:0:b0:912:517b:40e4 with SMTP id
+ 6a1803df08f44-91254c23e25mr17001336d6.43.1789711600506; Thu, 17 Sep 2026
+ 23:06:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <20260917024205.2331019-1-chengzhihao1@huawei.com>
-Reply-To: yukuai@fygo.io
-Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Fri, 18 Sep 2026 06:06:16 +0000
-X-Original-From: yu kuai <yukuai@fygo.io>
-To: "Zhihao Cheng" <chengzhihao1@huawei.com>, <song@kernel.org>, 
-	<xiao@kernel.org>, <magiclinan@didiglobal.com>, <eadavis@sina.com>, 
-	<abd.masalkhi@gmail.com>, "yu kuai" <yukuai@fygo.io>
-Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: Re: [PATCH v2] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
-X-Lms-Return-Path: <lba+26aacd4d9+c59cec+vger.kernel.org+yukuai@fygo.io>
-References: <20260917024205.2331019-1-chengzhihao1@huawei.com>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
+References: <CAFxp=AY2cVRQrZvB9WNnigbsobuw11NMG-cagHx0_V+ur2ToFw@mail.gmail.com>
+ <e4054f5a-e60c-4253-bccf-d05cc7c615b7@nvidia.com>
+In-Reply-To: <e4054f5a-e60c-4253-bccf-d05cc7c615b7@nvidia.com>
+From: jiabin deng <dengjiabin2023@gmail.com>
+Date: Fri, 18 Sep 2026 14:06:28 +0800
+X-Gm-Features: AcwNN1WmPi8EXlHwAu7wu1rlDke4e_ZCXtICiqlZsZn4bp_rtke-3i1SLyRML6M
+Message-ID: <CAFxp=AapgUYLUhipVjR8oM0fRDSLDX60AQf0UP8=U4M1ASqmOA@mail.gmail.com>
+Subject: Re: mlx5e:zero-prefix corruption during TCP DMA-BUF RX - help requested
+To: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, tariqt@nvidia.com, 
+	mbloch@nvidia.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Dragos,
 
-=E5=9C=A8 2026/9/17 10:42, Zhihao Cheng =E5=86=99=E9=81=93:
-> Concurrent processes md_stop and IO submitting could trigger a
-> null-ptr-deref of 'mddev->private':
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000070
->   RIP: 0010:_wait_barrier+0x2f/0x250
->   Call Trace:
->    raid1_make_request+0x150/0xf50
->    md_handle_request+0x104/0x530
->    md_submit_bio+0x76/0x130
->    submit_bio+0xdd/0x250
->    submit_bio_wait+0x1f/0x40
->    __blkdev_direct_IO_simple+0x1f6/0x370
->    blkdev_write_iter+0x3b2/0x520
->    ksys_write+0x7d/0x190
->
->                P1
->    fd =3D open(/dev/md0, O_RDWR)
-> 	                      P2 (forked from P1, fd' <=3D fd)
->    write(fd)
->     submit_bio
->      md_handle_request
->       raid1_make_request
->        raid1_write_request
->                                    ioctl(fd, STOP_ARRAY)
-> 		                   mddev_set_closing_and_sync_blockdev
-> 				   // check passed, mddev->openers =3D 1,
-> 				   // because md_open() is only called
-> 				   // once in P1->open
-> 				   do_md_stop
-> 				    __md_stop
-> 				     mddev->private =3D NULL
->
->         conf =3D mddev->private // NULL
->          wait_barrier(conf, sector) // null-ptr-deref !
->
-> It is a common problem for raid0/1/10/5, and __md_stop could be
-> triggered by several paths(eg. ioctl, sysfs, ->dtr). Fix it by
-> replacing mddev_lock() with mddev_suspend_and_lock() for all
-> __md_stop() callers. The caller dm_table_destroy() is guaranteed
-> being invoked with device suspended, so raid_dtr() could keep
-> using mddev_lock_nointr(). Besides, fail the submitting IO in
-> md_handle_request() if the 'mddev->pers' becomes NULL.
->
-> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=3D22202=
-0
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e1353f
-> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> ---
->   v1->v2:
->    1. Add 'mddev->pers !=3D NULL' check before make_request
->    2. Delete dm-raid caller(->dtr) modifications
->    3. Move memalloc_noio_restore after mddev_unlock_and_resume
->   drivers/md/md.c | 32 +++++++++++++++++++++++++++++---
->   1 file changed, 29 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..3dfc34caa2dc 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct b=
-io *bio)
->   		if (!percpu_ref_tryget_live(&mddev->active_io))
->   			goto check_suspended;
->   	}
-> +	if (!mddev->pers) {
-> +		/*
-> +		 * The __md_stop() sets 'mddev->private' to NULL during
-> +		 * the IO submitting, check 'mddev->pers' before the IO
-> +		 * being processed by specific driver to avoid the
-> +		 * null-ptr-deref of 'mddev-><member>'. The check is
-> +		 * safe because the IO has got the 'mddev->active_io'
-> +		 * reference, and all __md_stop() callers will wait for
-> +		 * the reference to be zero.
-> +		 */
-> +		bio_io_error(bio);
-> +		percpu_ref_put(&mddev->active_io);
-> +		return true;
-> +	}
->   	if (!mddev->pers->make_request(mddev, bio)) {
->   		percpu_ref_put(&mddev->active_io);
->   		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
-> @@ -4657,6 +4671,8 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->   {
->   	int err =3D 0;
->   	enum array_state st =3D match_word(buf, array_states);
-> +	unsigned int noio_flags =3D 0;
-> +	bool suspend =3D false;
->  =20
->   	/* No lock dependent actions */
->   	switch (st) {
-> @@ -4666,9 +4682,11 @@ array_state_store(struct mddev *mddev, const char =
-*buf, size_t len)
->   	case broken:		/* cannot be set */
->   	case bad_word:
->   		return -EINVAL;
-> +	case inactive:
->   	case clear:
-> +		suspend =3D true;
-> +		fallthrough;
->   	case readonly:
-> -	case inactive:
->   	case read_auto:
->   		if (!mddev->pers || !md_is_rdwr(mddev))
->   			break;
-> @@ -4702,9 +4720,11 @@ array_state_store(struct mddev *mddev, const char =
-*buf, size_t len)
->   		spin_unlock(&mddev->lock);
->   		return err ?: len;
->   	}
-> -	err =3D mddev_lock(mddev);
-> +	err =3D suspend ? mddev_suspend_and_lock(mddev) : mddev_lock(mddev);
+Thank you for pointing us to this fix.
 
-Unlike ioctl path, where the checking of opener is just 1, mddev_set_closin=
-g_and_sync_blockdev() here
-already check there is no opener, so there can't be any IO inflight.
+Our original test used Ubuntu kernel 7.0.0-30-generic, based on
+v7.0.12, and did not include that change. We have now repeated the
+test using Ubuntu's mainline build of Linux 7.2.6
+(7.2.6-070206-generic), with its in-tree mlx5_core driver.
 
->   	if (err)
->   		return err;
-> +	if (suspend)
-> +		noio_flags =3D memalloc_noio_save();
->  =20
->   	switch (st) {
->   	case inactive:
-> @@ -4775,7 +4795,12 @@ array_state_store(struct mddev *mddev, const char =
-*buf, size_t len)
->   			mddev->hold_active =3D 0;
->   		sysfs_notify_dirent_safe(mddev->sysfs_state);
->   	}
-> -	mddev_unlock(mddev);
-> +	if (suspend) {
-> +		mddev_unlock_and_resume(mddev);
-> +		memalloc_noio_restore(noio_flags);
-> +	} else {
-> +		mddev_unlock(mddev);
-> +	}
->  =20
->   	if (st =3D=3D readonly || st =3D=3D read_auto || st =3D=3D inactive ||
->   	    (err && st =3D=3D clear))
-> @@ -8299,6 +8324,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
->   	case HOT_REMOVE_DISK:
->   	case SET_BITMAP_FILE:
->   	case SET_ARRAY_INFO:
-> +	case STOP_ARRAY:
->   		return true;
->   	default:
->   		return false;
+I checked the v7.2.6 source: it contains the small-frame guard from
+commit e2466392a0b8496000e12181cb1ee1535eb0da25  In
+mlx5e_handle_rx_cqe_mpwrq_shampo(), frames with
+cqe_bcnt <=3D ETH_ZLEN + 2 * VLAN_HLEN set match =3D false and
+flush =3D true [2].
 
---=20
+The zero-filled corruption ending at the next 64-byte boundary in
+GPU memory still reproduces with this kernel.
+
+We kept the same sender and receiver data-checking logic, with
+tcp-data-split on and rx-gro-hw on. One additional environment
+change is that the NVIDIA GPU driver was updated from 595.71.05 to
+595.91.07. The NIC firmware remains 32.43.2400 (MT_0000001117).
+
+We repeated the same eight message sizes, from 32 KiB to 4 MiB,
+with 50 iterations per size:
+
+- All 400 iterations completed.
+- 105 iterations passed; 295 contained corrupted data.
+- 21,599 corrupted ranges were recorded, all zero-filled and
+  ending at the next 64-byte boundary in GPU memory.
+- For each size from 256 KiB through 4 MiB, all 50 iterations
+  contained corruption.
+- The full-message snapshots taken before and after
+  cuFlushGPUDirectRDMAWrites() were identical in all iterations.
+
+For example, in the first 32 KiB iteration, an 8-byte corrupted
+range starts at offset 2147495416 bytes from the beginning of the
+GPU buffer. This offset is 56 bytes into a 64-byte-aligned block,
+so the eight zero bytes end exactly at the next 64-byte boundary.
+
+These results come from the reproducer's runtime byte comparisons.
+
+Could you suggest the next targeted checks or additional debug
+information that would help narrow this down?
+
 Thanks,
-Kuai
+Jiabin Deng
+
+
+On Tue, Sep 15, 2026 at 8:21=E2=80=AFPM Dragos Tatulea <dtatulea@nvidia.com=
+> wrote:
+>
+> Hi Jiabin,
+>
+> On 15.09.26 03:49, jiabin deng wrote:
+> > Hello mlx5e and networking maintainers,
+> >
+> > We are investigating reproducible data corruption: with SHAMPO enabled,
+> > some TCP data is corrupted when received through mlx5e directly into
+> > CUDA-exported GPU DMA-BUF memory.
+> >
+> > The full expected number of bytes is received, but the prefixes of some
+> > payloads become zero. The corrupted ranges end exactly at the next
+> > 64-byte boundary in GPU memory.
+> >> [...]
+> >
+> > Each iteration uses a new TCP connection. Test connections do not run
+> > concurrently.
+> >
+> > Observed results:
+> >
+> > We tested eight message sizes from 32 KiB to 4 MiB, with 50 iterations
+> > per size:
+> >
+> > - 400 iterations completed.
+> > - 354 iterations contained at least one corrupted range.
+> > - 20,707 corrupted ranges were recorded.
+> > - All recorded corrupted ranges were zero-filled prefixes ending
+> >   at the next 64-byte boundary in GPU memory.
+> > - Corruption was present in both snapshots, before and after the
+> >   explicit GPUDirect write flush.
+> >
+> > A specific example:
+> >
+> > - Packet payload length: 1448 bytes.
+> > - Offset of the first payload byte from the start of the GPU buffer:
+> >   2149169912 bytes.
+> > - This byte offset modulo 64 bytes is 56 bytes.
+> > - First 8 bytes: zero.
+> > - Remaining 1440 bytes: correct.
+> >
+> This sounds a bit like the ethernet padding issue that was recently
+> fixed [1]. Did you have this patch when testing?
+>
+> >
+> > [...]
+> >
+>
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
+mmit?id=3De2466392a0b8496000e12181cb1ee1535eb0da25
+>
+> Thanks,
+> Dragos
