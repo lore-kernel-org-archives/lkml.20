@@ -1,80 +1,82 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C82B4E5338
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910EA4B44B9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733137; cv=none; b=j6u2/f+/hjq+3AJnLFMHy8OEG/3hAVwvBKNfA/EBiyHy7qPrLPw16qUgqlnCaSpLpSm4Rj4hUlZrR6TPX5+6dy23z3mVFzeAZ07FYsQ0EIZZZorWfw9WYHQNd1PiqcozphrRS6v67SwL4SNZ/G7OxMrcnriLBgKZUiTA5/rOnHA=
+	t=1789733138; cv=none; b=kYlhwSG20r6lfqmdt0auLZBzBtL4swf+oeY780tH+EyqDv39u+PaGFZnM2DIxVNX2xFmNKsnHbnSVC6UADSH/EE+rdKjzoZIxzvk6NgK0Jvl7/j7/ZbTPFojysZs0yYIITaTvRvAtiugoRt0HbESE3f+eJ3oJIs9ER0bKNfLupU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733137; c=relaxed/simple;
-	bh=Nyed4En6PwZe5yiCtAXyDUFH5d5UVwQL26E6t0jTMDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=stn7eYYTBDfjxPLh5ZCfW+AApgz899y+4KMJ/vFJjWq74BVfm3NxGLmqLDpWDpMl1XHdW01oe1IIARc4zrjzgVd6gfkV8rT5AXbOLiphE29Ci8OuwXyBFnAv3mUWy2VcTpYDH9GwuNJOIDJjRyE3Luvo8a7ymvLK5VZH+e3PtcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BUUmQwaW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CitdiXtF; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1789733138; c=relaxed/simple;
+	bh=rbUOszSa6pKBjBFNE8KJKzGBB6kocCM3MHioANGUG3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IAsDxatKXr9Ebg2WS0fTGcPLKu5nqVuqBE35Hqt0e3jZdZxc38hVRFjRFTqbSmJVJpD3OH4QhHyrlR3b4xV2g2WPwJp89eC+qtdlERL4wgO4n/E9WZDlry4OySjrXu6FzpnHGwry13s9GnxSkJE+4Vx0uCAh9JudI97sFh9n1SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XPcEpqq6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S0lcTRCQ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BUUmQwaW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CitdiXtF"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9dd2c3801915
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:34 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XPcEpqq6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S0lcTRCQ"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9eEj4522575
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=u157Y9EZ4rdCj82BSUWEmRUeIA7sKwxqgZZ
-	dX73J1mw=; b=BUUmQwaWHcxeOPQjyd8UGMBGsgiR8EwAy2DYafwKyKMrlp8KhBm
-	SsUtlRW5Kh7324DJho6rOPHMDgvhvpC5U3Q6pFy/lmt/epa2A+QbHQr91wu8m8Yi
-	nQzFGw1CJzIH4WERgyHZLNm7L50Z2r5xCOtgV+ay3xbEeSWTCy6AaG32gqcYdyF3
-	XPWpq2bcR/eSGEwjpLsRp/H2KgstILRkWRIQWCt2epCu0WbW6jKHzmzL9hvBbn2j
-	dEkqGynrgU/o0hbVhbJoimh7aJ4CPoPU4+wAQ7AHLkbfn3V1Frsep5KhkbqzsAV7
-	Vn3vvdmCEkOtr8kcm3q+F5IRJZuk/3Ero/Q==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grq2kueet-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=cI6VxWcYdbS
+	4q6nuRTLojc583CcZ2sDeX8I9vTB+9wQ=; b=XPcEpqq6twBEgiKWUqnDAa9d/KL
+	E6JaXi6/w6x+P65QAhC3by8n0Faf114Eemv0MxQFZrdAVJvrmib7e0LSLNQBeXWz
+	pe+KH/Eb0f9KIY3Hj8JZ5Wx4+/GnGhwWLnPYBpiQau1yTEAwYoCyNk1kt5gnhCD2
+	a1rf7gwPPGG1aJjwkDNWJy6rbY2YN2hwUu1yA1wW4myx4Uw2HN9iKS/ZJqP5IkH9
+	JPiSMERaVoajvkpPfucCF1HKKpwNj3dO7Yhl/eaEBzx/4lBzZYi7/JE4qaIL3gYd
+	TYy91Ow84IHDyrlrR/hMCR/5fLPEO3rFHK1k0xgkRoshJDYBSQyPJQlxGiw==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grnqebt63-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:33 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93909014c85so124049685a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:05:33 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:35 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c9a55c0cbdso171058e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:05:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789733133; x=1790337933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u157Y9EZ4rdCj82BSUWEmRUeIA7sKwxqgZZdX73J1mw=;
-        b=CitdiXtFxcVj4cUXf8kTx0dHwAJ3oStF1cdw3S/YbqTUMr6G3XeeWd8mO9O4DUSjXN
-         Nu2af1i+6idF+DbGzvOZWLadkaZx7qOspbZ5DU3HpJzKP46IYWQIsW3P/9apA5vF4PHO
-         dN0HXHewZ+vSonhyrARWnetTBw7ut3Qd5X1sogeb9x4z5EPMOIBQglEtra1o6WtwCrTU
-         blZgee+fJZefKzQAxfreaK04BP4mlZDEklueNc+XigRJ5tYQpv9JoymYegbdGGb21iQZ
-         htAPhIUT6OlU5M+clOp04l5Bvz2Nekuq7PLJWsb2HCglnfUr+0388nksOSNPd01bHY/3
-         htsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789733133; x=1790337933;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1789733134; x=1790337934; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u157Y9EZ4rdCj82BSUWEmRUeIA7sKwxqgZZdX73J1mw=;
-        b=ipT0uOj9MbLcoy6aG6GUAXeL2Nr6aL2qogSwAKBcsBSVYkNZs8fA3B6CGcQtf1tAWm
-         RuoCWOPNuVZiINNlYK9mVt8K8HgxqbBdKx6lhd87OZS1arJl8SfVCpJJt2UGt7mLQbju
-         LdUq7NIoqqNm4STHVEFD07q0E7cKtoAJmywn9Uyhy+BQSgWGOTUBeMsLXQoHJIoFq4i9
-         V+VLCngqEa6O8BDzPYkQvUKtxHtfh0KNKpMzIyUg7ag+hBcFjyvcTiwoSWxpLJv+PFNy
-         Qo8rYTYFOoB9B8K797tNDKYnBbjA17ILfvGRIrFe2KH9FC2sksfu9ttcrL0CF53st4s8
-         sTSg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0eggIJqEO/hS1zxgScRPJQ6jEHSUiYAvGpD2z+mcrBlsVVGdeWl123xVigte+qDg0x28c9xTLz0vmsek=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngjwTYhW5tJ5tujdDgXvXsyj7my2PGF6cBwJjMeiNphKkopBTS
-	3YaVLZ4rtqz8FSmoEjFp0P2o/HuHxlS1NYxSxUaQCz3ciiX5F5PIetzDb7NBtypXCqG9hw2TqVn
-	Hnokv3QG2JqGrixhomPQb31H8Xh8z3+JPnp8vibpbKV45z2EaNw42+52jcOtQnwbhCvo=
-X-Gm-Gg: AYBFou0hRgiN56W66k5uLAE/lj2jV3wlACgSf/Bvp7jrgyJQYAfE4I0ul/dnC2MpD6z
-	YPKMBey7hmqkKNCBipOTz8kBxPiVVV3h4OSBSm/GD7DFgZadzEtBN5J633bh7fLNDcG+xyLARZo
-	u5JDB0wvTLTmZIMH99ks6znVbx0miChDHW2mX88x4cV8Xaez45UOnl8Lja4eiZ/JpPqDTd2pZaJ
-	aOP00VcnjDIs6dq45nhJflV6l4pTXYFb/UBbuS8zVjGBRK4k/Y7QDlyYSFI6hoBFfMBSbGYuAHi
-	hchmUM4S6hV7Ti5SC9H8XUfqYxc7fJUdnOokx2c8ddLoLDhv1YUB4Rfc2VFqE90YB7t/u1ZmMio
-	zTnzzoZGuX+vXdQ==
-X-Received: by 2002:a05:620a:458a:b0:937:80a9:94b4 with SMTP id af79cd13be357-93bdc64f822mr298204685a.2.1789733133157;
-        Fri, 18 Sep 2026 05:05:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:458a:b0:937:80a9:94b4 with SMTP id af79cd13be357-93bdc64f822mr298196685a.2.1789733132563;
-        Fri, 18 Sep 2026 05:05:32 -0700 (PDT)
+        bh=cI6VxWcYdbS4q6nuRTLojc583CcZ2sDeX8I9vTB+9wQ=;
+        b=S0lcTRCQGbtGaVps1FDobtoo2pgydII8BB1W+9r0bCLXqB0RZwaCT2zt/E304HPDIM
+         87LkGRBAvay31DS0B9/jk8NfzfbCAtj1qk5EiAkwkkZAiYg3n6MIJMdHBU/vuj2efWoP
+         Rat0wm7z8S1I5JyaRcLAPJpgDpbaY4EZLE6yiUX9+GDKjf+2PRgFeihY97oc9ieqv3nP
+         dIojWLMMrleNC85D1zI+lKMX+C7HKsH3J7Z8TGj+vrKSzooxXN0XWunrX/xALtvytf4J
+         +VJOKkW/zLM/XmWTKqz77TLVV5GmvVtvscg6ipnSH39bI0mMhGe+vn1S3yBCa9i/3gd8
+         hyEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789733134; x=1790337934;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cI6VxWcYdbS4q6nuRTLojc583CcZ2sDeX8I9vTB+9wQ=;
+        b=hGfDgPj/JBvEiF9X25Xnipnmi2WhkHFFURlIiMZ33Qmw+6Vdjk8enkP6qy6U6WBSAT
+         bEFRe9AGBCx4M0wXA0rl/4sUtNS30b8l9Zi5tOGFZ0lj/RJ/YPl3j+tdpC9RYGYsAl6x
+         CpLGnk5QT+gvJGNCADHBvbkWNuBSQDAZrDQ6oBwfqovsjHj4ebHJ7+1Lb4txfNHjVmww
+         DBCBASTwzk9X/65w648lJQLWZbdoh8OTcf6R8tqsPDH6C43i5WZ4Ox21vtYR+MJYPfeT
+         lu53yowbhzd/Tbq9j6aWnVQwRw0Zb+rBo4yqdJ/EQ7/0d90IvTHjbKtvuUR8m5zb49Z/
+         9GEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwS450ajW7l4h+My2DL65dITjmL+CYMp7Mm1XtTySWSiHMk8/lWv2tnFY7GOWBoplJR7Z06rtt+ToH/MZo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZB0XLRLM18UGbakL0ohxJitaKLxcXeQpgUBXidG2AyzGCPWo1
+	AxhjZsMeGmAz+/BBgwmSS5Kb5CRPk91imh7RwLBk/vmbzhDw+7gWuQD4VaiH1IYAgJYI1KK6Ao/
+	1m9oOCyUtV7dpB3fZg+bw3CKGAhLsNjsPl/gjOhl1em9XhI+LK1sHgkl/fHF/BNjW9j8=
+X-Gm-Gg: AYBFou36iaYqtW3mgK8GMCSxKSr/MOd/PbAD/mBzR80OuevPX4FbTJyBSbjz5sDjuCS
+	7U7piQFvz/Cg6j64cV7XwjQ4lhfS6LD1fdl7LdECVSy0jmZc2jT3wbNa7Ux3YlRVUEgjL8jfMoC
+	l4dPJpsD1DA8mORaJDmFhioW2WACJJI6Un4yMwFUWwlJOli71h7UCH8Qn2+HVKOACkutWcI3sLn
+	k8FDemhcm0c3Q5MEde1h+/3oVy2oxLjLqRjFIR0ySaL3Q+VfSJTFM8kxbeGc1GmMlm7hU7wNIO5
+	1V/Pj+HpTYKDthwxopW9ZeHnhHuiDVQaUNmW12WieO1ZBbpCjiKnhX/4LCBB5jQse5OamSzXSWx
+	urIuF8czeQjKUhA==
+X-Received: by 2002:a05:6122:1822:b0:5c9:a60d:327a with SMTP id 71dfb90a1353d-5c9b59cc79bmr888353e0c.14.1789733134534;
+        Fri, 18 Sep 2026 05:05:34 -0700 (PDT)
+X-Received: by 2002:a05:6122:1822:b0:5c9:a60d:327a with SMTP id 71dfb90a1353d-5c9b59cc79bmr888323e0c.14.1789733134156;
+        Fri, 18 Sep 2026 05:05:34 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff3ae49sm3917584f8f.10.2026.09.18.05.05.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff3ae49sm3917584f8f.10.2026.09.18.05.05.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 05:05:31 -0700 (PDT)
+        Fri, 18 Sep 2026 05:05:33 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -90,10 +92,12 @@ Cc: Abel Vesa <abelvesa@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v2 0/3] arm64: dts: qcom: Lenovo ThinkPad T14s Gen 7 (Mahua) support
-Date: Fri, 18 Sep 2026 13:05:12 +0100
-Message-ID: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 1/3] dt-bindings: arm: qcom: add Lenovo ThinkPad T14s Gen 7 (Mahua)
+Date: Fri, 18 Sep 2026 13:05:13 +0100
+Message-ID: <20260918120515.595782-2-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260918120515.595782-1-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,86 +105,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE3MCBTYWx0ZWRfXxssqahDAvZeG
- MtLdZvkTs8rDoj7GFnJJybP09p7fJuA6O8pfUxoYPj0bDKjm8KpMiQjlBki8p1Y261We394KeEX
- wkNa96y3IXCZayxqhzUVNPTGYyv7tBd2KS0/oMeoj0henNTiZaLZS1PVRHKu5lctAFJqY2YvJcG
- JrB8fjlKHA7KbGMAI3FClEySSGyo4ug+e53yuREcxrpHW5sl5myaSrmBYeAIV8TD5iuKslifxIi
- 5QJ0WS42SUSvPLeCgt6pUvDU38Vti5DRVfjY6r+1DeYKB6WfHk+POCn+Yop0ag/olX+0FdIwJKf
- 2biUHypq2QMVBYdA3AoMJZj6HLUuO6K1Oznm3UZCYv5mdYtEIwE8UBHrnnUelrvbqj+aWSIzto0
- Uff6pyX3m/vBAqucJr54YNEo/dD/rDlriUYl3LQm0Y8j/unjzZFyWSkurqvZKiuZ+lrZD2CV2gH
- F5CG+87rmWxz6wTI7Ng==
-X-Proofpoint-GUID: NvLfdPVJsyqWJxhnYxkQgGbX44j9titt
-X-Authority-Analysis: v=2.4 cv=bcD+w+PB c=1 sm=1 tr=0 ts=6aad290d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Proofpoint-ORIG-GUID: Kv7GoHwKsR0CcOB2UKWC4ZPF1eu7AX5G
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6aad290f cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=J05Q59ynWE-0mZ9N3MUA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE3MCBTYWx0ZWRfX8llimwUiFuxc
- YScJR0Pif+Bt4dsfEYg+ujRkjORaZ7MiScpfw9C7hAC1ygGbNmO4glOGBTVxJMefe6Q+5btMXRD
- 3F7oqcM0aAcYO/kNnVOyYJxaOr90JYY=
-X-Proofpoint-ORIG-GUID: NvLfdPVJsyqWJxhnYxkQgGbX44j9titt
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=MSM6P-WPhp0LPykjVWQA:9 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-GUID: Kv7GoHwKsR0CcOB2UKWC4ZPF1eu7AX5G
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE3MCBTYWx0ZWRfX5oRhZQ8xJDVc
+ GN0SI1RMADzs8SBsqv1X+76U5epP5mkM78O0yOL3gJWedm5sSYstf5Pu9JiFk38nWYKUI/jb9Ib
+ KcWQJ+wLqpnZkd1BnZT1JTl5ifHIqACEKRSRceQHynH4W9V0egBhDmvyWLLZuGdvdp8sELxfLX9
+ jHZQgQD3DRvuwuQNY5k3w13wCLfMPwCa4VgfsGVtTHUyi2br5BXplp6c8PmAfMX6PBVEy3PkUro
+ D+Xn6rHbAQWijmCI0AFR7zuFskUKKuITV1KaTe5eLkgSydgnR/A0tP5EYowGn84ytAjM7dNAqFD
+ qz84QBiFw072aitot5GsX8ZUaLz221qTWOHE8tDEsGhafU4Vm55lFgpn1aUJf/X90WvLQPbD5oX
+ wL40meBM9LDQ2kOZgcrfisF6R7gXo94u5EKsi5Ruv0LL7UL7tEXQqNqSUbYgQb/7lnu9mS+GAZh
+ eC8Ykx3OtxJ3rcrnKTg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE3MCBTYWx0ZWRfX+uGWUA0cAFvt
+ mQ3efRBSSfHcT+kNf5Z4CSP/EeZIFUb6wCtAJTWyDHVKrCte98f8mQ8CR5sKrLY1ttibm2bYBeO
+ 6a97UZLmNASP/rF/yr29prYpab8YMIg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180170
 
-Add support for the Lenovo ThinkPad T14s Gen 7 (Mahua), a Snapdragon X2
-Elite laptop.  Patch 1 adds the board compatible under qcom,mahua and
-follows the Gen 6 T14s pattern with distinct -lcd / -oled variants.
-Patch 2 adds an edp_panels[] entry for the CSOT MNE007QB1-1 (CSW
-0x1465), the 1920x1200 IPS panel shipped on the LCD SKU.  Patch 3 is
-the T14s Gen 7 (LCD) device tree itself; it follows the Qualcomm Glymur
-reference design used by mahua-crd.
+Add lenovo,thinkpad-t14s-gen7 as a board compatible under qcom,mahua.
+The T14s Gen 7 uses the Mahua SoC (a 12-core variant of Glymur with
+cluster2 / cpu12-cpu17 fused off) rather than Glymur proper, matching
+what the platform's ACPI MADT dump reports (12 enabled + 6 disabled
+processors).
 
-Currently working on the board: internal eDP display, WSA8845 speaker
-playback and DMIC capture, DisplayPort audio on the two USB-C DP
-outputs (DP0/DP1), USB-C (host + charging on both ports), WCN7850
-Wi-Fi and Bluetooth, NVMe, HID-over-I2C touchpad / keyboard /
-TrackPoint, lid switch.  WWAN wiring is included but untested (no
-such SKU on hand).
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Changes since v1 [1]:
- - Split board compatible into lenovo,thinkpad-t14s-gen7-{lcd,oled}
-   with lenovo,thinkpad-t14s-gen7 as the base, matching the Gen 6 T14s
-   pattern; renamed the .dts to mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-   (Krzysztof)
- - Drop the on-board HDMI-A / RTD2171A bring-up; DP-side link training
-   succeeded but the bridge did not produce an HDMI signal downstream.
-   Will be re-worked and re-submitted alongside the headset audio patch
-   in a follow-up
- - Wire misc_3p3_reg_en pinctrl to the vreg_misc_3p3 regulator so the
-   PMIC GPIO pad gets its documented drive-push-pull / power-source
-   settings applied instead of relying on defaults (Sashiko AI)
- - Drop the unused wcd_default pinctrl state; T14s uses WSA8845 + DMICs
-   and has no WCD codec (Sashiko AI)
- - Sort regulator nodes alphabetically (Konrad)
- - Drop the redundant &remoteproc_soccp { status = "okay"; } override;
-   soccp is enabled by default in mahua/glymur (Konrad)
- - Rename WSA speaker labels left_spk/right_spk -> left_spkr/right_spkr
- - Include the raw EDID + decoded identifier fields in the panel-edp
-   commit message (Doug); the CSOT datasheet was not available so
-   timings remain the conservative delay_200_500_e50 preset shared
-   with the sibling MNE007QB/QS entries
- - Picked up Reviewed-by: Abel Vesa on the DTS patch
-
-[1] https://lore.kernel.org/all/20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com/
-
-Srinivas Kandagatla (3):
-  dt-bindings: arm: qcom: add Lenovo ThinkPad T14s Gen 7 (Mahua)
-  drm/panel-edp: add CSOT MNE007QB1-1 entry
-  arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7
-
- .../devicetree/bindings/arm/qcom.yaml         |    7 +
- arch/arm64/boot/dts/qcom/Makefile             |    1 +
- .../mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 1213 +++++++++++++++++
- drivers/gpu/drm/panel/panel-edp.c             |    1 +
- 4 files changed, 1222 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index cf9d940f7371..92326e0e7feb 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -188,6 +188,13 @@ properties:
+               - qcom,mahua-crd
+           - const: qcom,mahua
+ 
++      - items:
++          - enum:
++              - lenovo,thinkpad-t14s-gen7-lcd
++              - lenovo,thinkpad-t14s-gen7-oled
++          - const: lenovo,thinkpad-t14s-gen7
++          - const: qcom,mahua
++
+       - description: Sierra Wireless MangOH Green with WP8548 Module
+         items:
+           - const: swir,mangoh-green-wp8548
 -- 
 2.53.0
 
