@@ -1,118 +1,83 @@
-Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925D239A812
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68D13101C0;
+	Fri, 18 Sep 2026 07:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714816; cv=none; b=UfSJXojBq52+M6ueQpHXfTsKa+vu89AYhkCA7SsA/a/Oc5ltfFbdJ5fJ5TzYyHnfeYiFGMuj/VyrUH1JSBZUY1/yJXMWNsYnhQEH7U1lCXhVWbaSTPUIurFaW96k0N9InnR7aXuk0IpBsg3Vzl+sCYfOjiPHXHTTCBC4CI3lxZs=
+	t=1789714857; cv=none; b=d4PsbhOnR0I0hJ09l+cLM4tF6shnCeZAlh+iMM3ymnc8akrVWHjTDjHumHycnn31Iut25LhBjat7u/bMcRmNxzSpPo9PqT4+82YMGu5JC6A3eK4xTPZj+uKXzsCZIDTKfOZzrJBjVQGvYcxlQEy5YSvwzCTE1/quU9tLcTNQv7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714816; c=relaxed/simple;
-	bh=5AhHIUfW947DwN3a6RXdBqv5Jg4ND8aDfO50FS7r8Ng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BZRHfqGca06CoupsY9Pr5YZXxz6zWyyrsL7qpiZIUpVuhC/pfyZ84bk3IisVja3ar6WmcPO2Xg1849raIETQlThrLyTb8PaiyVRz7ns6Aw+JHOQ7mUxtUA174egdRImXm1suta5d5NdsX8JUah3wAJSUwASJ9VilmHbARjprvoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JiAGQ2dD; arc=none smtp.client-ip=91.218.175.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789714857; c=relaxed/simple;
+	bh=CFwJEKxFbVk2oXpA6XmCb4eB1YfIUvoG93k8Zl1da0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XDWp9w1t6TvjexH2SwRXs55mPJ/d+btEf8hPhzuh0UX7aEZTShgsyuYYltfyJT2Xq38Nfjt3AvheNNigUvX8nIQr0cH1TCgvjj/kDw+s526tdcx4Ut07AeEoRuRtWz8/9NfTopBT88O8MEuj2DSBAaQhesE7Qp2AeXb18cqoaco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddEaqhLh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JiAGQ2dD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5AhHIUfW947DwN3a6RXdBqv5Jg4ND8aDfO50FS7r8Ng=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789714804; v=1; x=1790319604;
- b=JiAGQ2dDVHRzkONP8nYitr16QOtQvBEDWuhFHjQfTvRcs2KkgKicFJl9QuJ4ZXQw4sO97DTW
- JiT6rBcE4NHZEzix7tTWyCC5BqwzoSCAlatrKXb0clJXfaItQMpYblRzUCZ2niHnoh6gJrCs4fE
- zDB82Uy8503PWrsxVTFsynjA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d10ab4f1e424aaa1;
-	Fri, 18 Sep 2026 07:00:03 +0000
-X-Mizu-Trace-ID: d10ab4f1e424aaa1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fa0bdb5c-3903-44bf-8d14-91d77e32b201@linux.dev>
-Date: Fri, 18 Sep 2026 14:59:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddEaqhLh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881A21F000FF;
+	Fri, 18 Sep 2026 07:00:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789714854;
+	bh=xoKeOk0v0E+lrs5eZG2JMMltTlaNFbdGi9KSvcSzDqE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ddEaqhLhDpDSoBo7I/HnGD6o5TYNSCCk1vbkXYkLf2/bYgvnrydMc+ZR6x61gKESK
+	 UGKv/IbSNvNPBR1vOqX+r9JgWXrjvDTCFcOrJvX6CibAfDXYyk6MiteN00P/s7B3u+
+	 4zD3d4ENXshV5oFAYsQ0wtE3JwGN5yRx90fDESoEzj0+9cqfqRYDfdP6RS+BNKREuT
+	 If8/BphX6k0RBR5SE1XpB9ELckQp2CWM3mcQAwcOTD/Cv/a+7A17/8AghwaLxNVQ0B
+	 eUvYhxRKtRV4PGfHxJCp8USPFFWEE1cSPHIbDRVKPWKtzqf+hzV40iuv2VjMTh+sI1
+	 CPFp1z3iL/qqw==
+Date: Fri, 18 Sep 2026 10:00:44 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org,
+	baoquan.he@linux.dev, pasha.tatashin@soleen.com,
+	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
+	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
+Message-ID: <aqzhnOKOq5m4klFU@kernel.org>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-7-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] selftests/mm: init page sizes early in
- pagemap_ioctl test
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org, gourry@gourry.net
-References: <20260908134117.84405-1-zenghui.yu@linux.dev>
- <20260908134405.84448-1-zenghui.yu@linux.dev>
- <b1f2a146-1a61-42bd-98c5-fc4380b6ae49@kernel.org>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <b1f2a146-1a61-42bd-98c5-fc4380b6ae49@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902073116.802752-7-chenwandun1@gmail.com>
 
-Hi David,
-
-On 9/16/26 11:30 PM, David Hildenbrand (Arm) wrote:
-> On 9/8/26 15:44, Zenghui Yu wrote:
-> > From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> >
-> > Initialize page_size and hpage_size before calling init_uffd(),
-> > hugetlb_setup_default(), etc.  That won't fix anything, but it is safer and
-> > saner to get these globals set up before doing other things.
-> >
-> > While at it, drop the page_size parameter of transact_test(), which is
-> > actually unnecessary.
-> >
-> > Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-> > Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-> > ---
-> >  tools/testing/selftests/mm/pagemap_ioctl.c | 10 +++++-----
-> >  1 file changed, 5 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-> > index 1a87b7483316..d9a4fb782ecf 100644
-> > --- a/tools/testing/selftests/mm/pagemap_ioctl.c
-> > +++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-> > @@ -1489,7 +1489,7 @@ static void *thread_proc(void *mem)
-> >  	return NULL;
-> >  }
-> >  
-> > -static void transact_test(int page_size)
-> > +static void transact_test(void)
-> >  {
-> >  	unsigned int i, count, extra_pages;
-> >  	unsigned int c;
-> > @@ -1653,6 +1653,9 @@ int main(int __attribute__((unused)) argc, char *argv[])
-> >  
-> >  	ksft_print_header();
-> >  
-> > +	page_size = getpagesize();
-> > +	hpage_size = read_pmd_pagesize();
-> > +
-> >  	if (init_uffd())
-> >  		ksft_exit_skip("Failed to initialize userfaultfd\n");
-> >  
-> > @@ -1661,9 +1664,6 @@ int main(int __attribute__((unused)) argc, char *argv[])
-> >  
-> >  	ksft_set_plan(119);
-> >  
-> > -	page_size = getpagesize();
-> > -	hpage_size = read_pmd_pagesize();
-> > -
-> We have some other code rework that part, so I expect some conflicts for whoever
-> goes in first.
+On Wed, Sep 02, 2026 at 03:31:12PM +0800, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> Why not
+> Add MEMBLOCK_NODUMP to mark regions that should be excluded from
+> kdump vmcores.
 > 
-> initialize them right when defining the variables, marking them const?
+> The flag is meant for reserved memory that carries no data useful for
+> crash analysis. Reusable reserved regions such as CMA may hold useful
+> data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
+> patches wire this up for /reserved-memory and /memreserve/ entries.
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
 
-I'm afraid I don't quite understand your suggestion.  page_size and
-hpage_size are static global variables which cannot be initialized at their
-definition.  What am I missing?
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Thanks,
-Zenghui
+> ---
+>  include/linux/memblock.h |  9 +++++++++
+>  mm/memblock.c            | 16 ++++++++++++++++
+>  2 files changed, 25 insertions(+)
+
+-- 
+Sincerely yours,
+Mike.
