@@ -1,328 +1,389 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9B935DA41;
-	Fri, 18 Sep 2026 19:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B645208BA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759590; cv=none; b=gUHto6ojeNcZBxjppS3aTzfvP1tqd79dHVHIei0toXVwOjc1DdSmRqW2w8NVPu4gFZUScbph8b9em9zfT1CkOHQy6FwgY0es/Xt9r7a3nL51sp0kzvPNU68/zolmhfnk8UYoWHLwxoyXYbWbY7qtL1EvdNV0Z1qlKZj/NHTJjXI=
+	t=1789759652; cv=none; b=tb2CRzB04gxNdJ4BXsneTOO0F2XEYHipYc/8yQWhDTUV0UfJHqRB5ZfpdLqOtN241MS/+iJ+g7rYjx+FIYs+yaNlPlvnay0MkMO+ZVLxXGg1T4RMohOpz9IK4vg3uPipzkyh43vYU38euYgDiQ8lzV5Af7J0kiRtP+mrxLvtnXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759590; c=relaxed/simple;
-	bh=DerffHky16ckkjzbuLiv2bB5lWXY+g3WEzzavx4AyNs=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=nIaFTkNB+brD54AISdXmXcWnZ/l35FfcDMbGaL6ymVn3UbA4+3SGrrE0aGZuxY+itiP4a0OMeRqIqVzRKVBLcszX8KvYOfEyRo1pg1TZffpo1rHLKFkpsRE2SikTuLi6oKhcGbBFvCcQZphX8WGtctRO3Qm60R7ksIsxkjDbAAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=tjzBGw9P; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1789759652; c=relaxed/simple;
+	bh=DAldj/Gh26pnuR/SGM3YThS496ZfVxHqxnXg+1JTpV8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F3FH8S/r+Tg5fewTt1doaF68qfeWlRmjglrN0CG4PoqVyooJSaC/PXG+Tpe+bQNKw4JQQVTBLWaVZ2mK6YQ1TZHN3/jpkZSXXAWsONaeytg22ACqzQdWnUhE8GdZNsvPPCpCVuCXeE8XJA1Dnj1hiFhrNpMaMBaWQk64s19X/u0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7IsAdvG; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="tjzBGw9P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1789759584;
-	bh=DerffHky16ckkjzbuLiv2bB5lWXY+g3WEzzavx4AyNs=;
-	h=Message-ID:Subject:From:To:Date:From;
-	b=tjzBGw9PvDxw2I8ofN0PwmvZv7fzi8Gp5QHF1G8vYq5vcEH6xafthOXxyUbCO4y1h
-	 khfY6JCYscxTIKbNJOIXxOrJ6ijcZKSNiYF38jzwlZzmA2tatv9wKeRUqnDBCfnhUR
-	 4OHTsenvtAf5ujFOVnXHdPSeAjXBdD8Q1rBoBoOs=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id D9A7A1C0413;
-	Fri, 18 Sep 2026 15:26:23 -0400 (EDT)
-Message-ID: <71da251528b9af2948fb5a4c8bcd045e65b3e42e.camel@HansenPartnership.com>
-Subject: [GIT PULL] SCSI fixes for 7.3-rc3+
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds
-	 <torvalds@linux-foundation.org>
-Cc: linux-scsi <linux-scsi@vger.kernel.org>, linux-kernel
-	 <linux-kernel@vger.kernel.org>
-Date: Fri, 18 Sep 2026 15:26:23 -0400
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7IsAdvG"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso853894f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789759646; x=1790364446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ugu90flrKaiozY12MfQtlH8FAVcr6Zl8htAnhRTuHCg=;
+        b=r7IsAdvG+XQTmob5tC2KXcM/pGWOINR2vJSda5Q6RsoZlivSyRP3DIkbYSMqDe5WmM
+         RiBExmAEqPSagbh1NUaqUFVYjXZOet5a5DHL2bxzhzONuKbi4CAel9u3roA5fHncA/Hy
+         UbAQR5SnzOufjJjlBZUnMs9pUHfMvnkVfTktdIdzjeax7XhhqIBFJs6rLEY9ZJb1FHLX
+         RqKLjbmGEJuK4z7QRIWw2jEoCllDhVG5WB/DqQ+Ud4U42JgCGQGA/sQeZ+l1miuCRuy7
+         5BNXg9ruUi2MdPE1z8YejyQkuHy0TLCPuSFHVAHABVkAZQl0tS73QCK/J4k+oseg+hzS
+         m2lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789759646; x=1790364446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ugu90flrKaiozY12MfQtlH8FAVcr6Zl8htAnhRTuHCg=;
+        b=b+6aN1BIR/oW34ZvS7DcPu6u0MFoWTiWsxwg4qWPKODshcl45YchQ82KAKvOrxfYcq
+         ZZ0NFYqYOr9lEkT0TJt3bNctCjbDFTNWCItl+E+7p8TSyCW/pK2WtnXl6GdNDGns5UCl
+         A0BTmis+Y+lx2fAewY1pQauWGlEy/iklSm3xzFR70sqO+wwhyxvNWC/U1eNZUl1WAfVq
+         2UXS01KbhhmSETnIehlW1TAiw65wfytaSGm1JkJhKm6nLXx9SqfyEzUFHkY6k3IO8Vl7
+         VIo+FVEnEY1hpUe9gSRkn4NiiO7LQYia2BR85gXO5obMJfH88d1GjiWFFyx7tOE2z3da
+         iwIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzK/T1pe5ajT9E8edWwAV2X+NBldkoiLvhAaU2y+s7jk1uhZNJNv245F+SZJi7DLmyuN8EV97d6etMvMV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCar4wdZq1ucY/H92rjay8ep6xl6RmfjaBUPIH+rwHhJfktgoJ
+	8OGtFTTAQKx5q7hghRqAatgkJ0nlmZ9JqsS/03Lm+xEIPHv5OYMP/cr8
+X-Gm-Gg: AYBFou3liBQ4lURRLVyDbDvkCP3Xv1VpV5KLzumm/hEZyx8yVwiekIvw33JXDftzB7o
+	IESgFlaIBbbfNOSaqImmYLOkNk+fMUIHc18ap+9C9GwQqg9j64tc2DYeiSjPZu8bXNQE/KCbW+I
+	ZK1asjmcLZgenzAHyNfP7jH22YCw8JYdJboG2kEI/HSYjR+HmKe764HcpfoCYfsK6HUseuKxlUv
+	HnYbFEs4w1Y531MP/W5DxRKkLmgENlCof8iCb6LslvWqNd3B/TfpjkXSILQgfk3tr2EmKmftLQn
+	ZtKkqPzx23WQ5ddsXLWauKJKyYGGPP3iL8QA6WZAaSb2Xsmhoq/knA6I7EXqB3y84O5HmbjXE2H
+	un7hhuGY12ak7vGnaPPxGFNwHaWewNzYZ4hSYq0+EGUQx3OWoIGAdShk9GKkRdcIze2GwatGAfk
+	/Yq1fyp44eMd/TNjaEByFLFSnbUfxX5N+8DyTjhpvN0qtBfDpE9m4X7Iy5sL+bSB/R2/4ESJnfX
+	7XeTDOoRVT4a/W9RE7g+9DuQiuSjBfo8JAGf3jpcDd84AjhJkODjtO8y4LbRjMnVTFCD+rtSTO6
+	3Q==
+X-Received: by 2002:a05:6000:4b14:b0:487:f18:9a3e with SMTP id ffacd0b85a97d-4871e3aa52fmr4557105f8f.43.1789759645299;
+        Fri, 18 Sep 2026 12:27:25 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724564565sm784590f8f.19.2026.09.18.12.27.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 12:27:24 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <9ceb2ab6-f532-49a2-b30b-ecdb4eb4b7b0@gmail.com>
+Date: Fri, 18 Sep 2026 20:27:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] kconfig: warn about malformed KCONFIG_PROBABILITY
+ values
+To: Dmitrii Tulnov <tulnov.dl@gmail.com>, nathan@kernel.org, nsc@kernel.org
+Cc: jacmet@uclibc.org, yann.morin.1998@free.fr, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <08755883-4332-4892-98d1-92e530bfa8bd@gmail.com>
+ <20260915151823.50-1-tulnov.dl@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260915151823.50-1-tulnov.dl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following changes since commit af8c27375733fb6a6df9fa484cda77cc3dd0cb80=
-:
+On 9/15/26 16:18, Dmitrii Tulnov wrote:
+> randconfig checks the numeric range of each probability but does not
+> validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
+> accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
+> documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
+> With 50%, both y/m probabilities silently become zero, reducing the
+> coverage of random configuration builds. Empty fields and extra fields
+> are also accepted.
+> 
+> Warn when the value does not follow the documented decimal format. For
+> malformed inputs whose parsed probabilities are in range, preserve the
+> existing interpretation unless KCONFIG_WERROR is set. In that case, exit
+> with an error before writing the configuration. Leading whitespace and
+> signs are accepted by strtol(), but also trigger the warning because they
+> are outside the documented format.
+> 
+> Keep the strtol() result as long until the range check. This rejects
+> out-of-range values that narrowing to int previously made valid, such as
+> 4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
+> 
+> Add regression tests for one warning per malformed input, preserved
+> configurations, KCONFIG_WERROR, out-of-range values, the supported
+> probability formats, and the documented empty-value default.
+> 
+> Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
+> Assisted-by: LLM
+> Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
+> ---
+> Thanks, Julian. I've replaced the parametrization with loops and removed
+> the unused pytest import. All input combinations and checks are preserved.
+> Assertion messages identify the failing input and, where applicable, the
+> seed and KCONFIG_WERROR value. Each test function now stops at its first
+> failing case.
+> 
+> Changes since v4:
+> - Replace pytest.mark.parametrize with loops and remove the unused pytest
+>   import from the probability test module, as requested by Julian.
+> - Include the probability and, where applicable, seed and WERROR value in
+>   assertion messages. Preserve all input combinations and checks.
+> 
+> Changes since v3:
+> - Move the KCONFIG_WERROR cleanup fixture to the shared conftest.py,
+>   as requested by Julian. Explicit extra_env settings still enable WERROR.
+> 
+> Changes since v2:
+> - Move the expected tristate distribution into the problem description.
+> - Simplify the initial format check to !isdigit((unsigned char)*env).
+> - Pass probability values and seeds through conf._run_conf(extra_env=...).
+>   Use monkeypatch.delenv only to remove inherited variables.
+> - Add -0, +0, bare + and - warning cases, and the +101 range-error case.
+> - Honor KCONFIG_WERROR for malformed format warnings, as discussed with
+>   Julian. Check unset, empty, 0 and 1 flag behavior.
+> - Compare 50% with 50:0:0 and -0 with 0 across 20 fixed seeds and check
+>   that each malformed input produces exactly one warning.
+> - Clarify that compatibility applies to malformed in-range inputs with
+>   KCONFIG_WERROR unset; values previously accepted by narrowing now fail.
+> 
+> Changes since v1:
+> - Warn about malformed in-range values while retaining their previous
+>   interpretation by default.
+> - Warn about leading whitespace and signs as undocumented input.
+> - Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
+>   compare it with the equivalent input 50:25:25 across 20 fixed seeds.
+> 
+> Validation on kbuild-next, x86_64, GCC 13.3.0:
+> - make testconfig with HOSTCFLAGS=-Werror: 28 passed, both normally and
+>   with KCONFIG_WERROR=1 inherited from the test runner. Explicit strict
+>   cases for empty, 0 and 1 flag values still pass.
+> - The same suite passed on the existing ASan/UBSan build at -O1, with
+>   leak detection disabled: 28 passed in each environment.
+> - The probability module now reports 7 tests instead of 117. Tracing
+>   confirms that all 178 actual conf calls match v4 in order, inputs,
+>   exit status, stdout, stderr and generated configuration.
+> - The new suite gives 4 expected failures and 24 passes on the original
+>   binary; the version before WERROR gives 1 expected failure and 27
+>   passes. Loops stop at their first failure, so these counts differ
+>   from the earlier parametrized regression results.
+> - C code, test Kconfig and shared fixtures are unchanged from v4.
+>   Earlier C compatibility and file-preservation checks were not rerun.
+> - No vmlinux build or boot test; this changes the host configuration tool.
+>   32-bit hosts and other libc implementations were not tested.
+> 
+>  scripts/kconfig/conf.c                        |  16 +-
+>  scripts/kconfig/tests/conftest.py             |   6 +
+>  .../tests/randconfig_probability/Kconfig      |  12 ++
+>  .../tests/randconfig_probability/__init__.py  | 139 ++++++++++++++++++
+>  4 files changed, 172 insertions(+), 1 deletion(-)
+>  create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
+>  create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
+> 
+> diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+> index fe8ba09b0..ca6d9d735 100644
+> --- a/scripts/kconfig/conf.c
+> +++ b/scripts/kconfig/conf.c
+> @@ -186,12 +186,23 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+>  
+>  	if (mode == def_random) {
+>  		int n, p[3];
+> +		bool warned = false;
+>  		char *env = getenv("KCONFIG_PROBABILITY");
+>  
+>  		n = 0;
+>  		while (env && *env) {
+>  			char *endp;
+> -			int tmp = strtol(env, &endp, 10);
+> +			long tmp = strtol(env, &endp, 10);
+> +
+> +			if (!isdigit((unsigned char)*env) ||
+> +			    (*endp && *endp != ':') ||
+> +			    (*endp == ':' && (!endp[1] || n == 2))) {
+> +				if (!warned) {
+> +					fprintf(stderr,
+> +						"warning: KCONFIG_PROBABILITY has malformed format\n");
+> +					warned = true;
+> +				}
+> +			}
+>  
+>  			if (tmp >= 0 && tmp <= 100) {
+>  				p[n++] = tmp;
+> @@ -227,6 +238,9 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+>  			perror("KCONFIG_PROBABILITY");
+>  			exit(1);
+>  		}
+> +
+> +		if (warned && getenv("KCONFIG_WERROR"))
+> +			exit(1);
+>  	}
+>  
+>  	menu_for_each_entry(menu) {
+> diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
+> index 66f95e4ed..2263bd2a3 100644
+> --- a/scripts/kconfig/tests/conftest.py
+> +++ b/scripts/kconfig/tests/conftest.py
+> @@ -312,6 +312,12 @@ class Conf:
+>          return self._matches('stderr', expected)
+>  
+>  
+> +@pytest.fixture(autouse=True)
+> +def clear_werror(monkeypatch):
+> +    # extra_env can set strict mode, but cannot remove an inherited flag.
+> +    monkeypatch.delenv('KCONFIG_WERROR', raising=False)
+> +
+> +
+>  @pytest.fixture(scope="module")
+>  def conf(request):
+>      """Create a Conf instance and provide it to test functions."""
+> diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
+> new file mode 100644
+> index 000000000..84f4e5fcc
+> --- /dev/null
+> +++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config MODULES
+> +	bool
+> +	default y
+> +	modules
+> +
+> +config BOOL
+> +	bool "Bool"
+> +
+> +config TRI
+> +	tristate "Tristate"
+> diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
+> new file mode 100644
+> index 000000000..5f9c90e17
+> --- /dev/null
+> +++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
+> @@ -0,0 +1,139 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
+> +
+> +
+> +def test_malformed_warns(conf):
+> +    probabilities = [
+> +        'invalid', ' ', '50%', '50 ', '0x32', '10 20', '10:20x',
+> +        '10:20:invalid', '10:20:30x',
+> +        ':50', '50:', '10::20', '10:20:', '10:20:30:', '10:20:30:40',
+> +        '-0', '+0', '+', '-', '+100:0', ' \t100:0', '0: \t100:0',
+> +    ]
+> +    for probability in probabilities:
+> +        assert conf._run_conf('--randconfig', extra_env={
+> +            'KCONFIG_PROBABILITY': probability,
+> +            'KCONFIG_SEED': '0',
+> +        }) == 0, repr(probability)
+> +        assert ('warning: KCONFIG_PROBABILITY has malformed format' in
+> +                conf.stderr), repr(probability)
+> +        assert conf.stderr.count('warning:') == 1, repr(probability)
+> +        assert conf.config is not None, repr(probability)
+> +
+> +
+> +def test_malformed_preserves_config(conf):
+> +    probabilities = [('50%', '50:0:0'), ('-0', '0')]
+> +    for seed in range(20):
+> +        for probability, equivalent in probabilities:
+> +            context = 'probability={!r}, equivalent={!r}, seed={}'.format(
+> +                probability, equivalent, seed)
+> +            assert conf._run_conf('--randconfig', extra_env={
+> +                'KCONFIG_PROBABILITY': probability,
+> +                'KCONFIG_SEED': hex(seed),
+> +            }) == 0, context
+> +            assert ('warning: KCONFIG_PROBABILITY has malformed format' in
+> +                    conf.stderr), context
+> +            assert conf.stderr.count('warning:') == 1, context
+> +            malformed = conf.config
+> +
+> +            assert conf._run_conf('--randconfig', extra_env={
+> +                'KCONFIG_PROBABILITY': equivalent,
+> +                'KCONFIG_SEED': hex(seed),
+> +            }) == 0, context
+> +            assert 'warning:' not in conf.stderr, context
+> +            assert conf.config == malformed, context
+> +
+> +
+> +def test_werror(conf):
+> +    probabilities = [
+> +        ('', 0), ('50', 0), ('50%', 1), ('-0', 1), ('10:20:30:40', 1),
+> +    ]
+> +    for probability, status in probabilities:
+> +        for werror in ['', '0', '1']:
+> +            context = 'probability={!r}, werror={!r}'.format(
+> +                probability, werror)
+> +            assert conf._run_conf('--randconfig', extra_env={
+> +                'KCONFIG_PROBABILITY': probability,
+> +                'KCONFIG_SEED': '0',
+> +                'KCONFIG_WERROR': werror,
+> +            }) == status, context
+> +            if status:
+> +                assert ('warning: KCONFIG_PROBABILITY has malformed format' in
+> +                        conf.stderr), context
+> +                assert conf.stderr.count('warning:') == 1, context
+> +            else:
+> +                assert 'warning:' not in conf.stderr, context
+> +
+> +
+> +def test_out_of_range(conf):
+> +    probabilities = [
+> +        '-1', '101', '+101', '0:101', '0:0:101', '60:41', '0:60:41',
+> +        '4294967296', '-4294967296',
+> +        '999999999999999999999999', '-999999999999999999999999',
+> +    ]
+> +    for probability in probabilities:
+> +        assert conf._run_conf('--randconfig', extra_env={
+> +            'KCONFIG_PROBABILITY': probability,
+> +            'KCONFIG_SEED': '0',
+> +        }) == 1, repr(probability)
+> +        assert 'KCONFIG_PROBABILITY:' in conf.stderr, repr(probability)
+> +
+> +
+> +def test_valid(conf):
+> +    probabilities = [
+> +        ('0', 'n', 'n'),
+> +        ('0:0', 'n', 'n'),
+> +        ('100:0', 'y', 'y'),
+> +        ('0:100', 'y', 'm'),
+> +        ('100:0:0', 'y', 'n'),
+> +        ('0:100:0', 'n', 'y'),
+> +        ('0:0:100', 'n', 'm'),
+> +        ('000:000:100', 'n', 'm'),
+> +    ]
+> +    for probability, boolean, tristate in probabilities:
+> +        assert conf._run_conf('--randconfig', extra_env={
+> +            'KCONFIG_PROBABILITY': probability,
+> +            'KCONFIG_SEED': '0',
+> +        }) == 0, repr(probability)
+> +        assert 'warning:' not in conf.stderr, repr(probability)
+> +        for symbol, value in [('BOOL', boolean), ('TRI', tristate)]:
+> +            if value == 'n':
+> +                expected = '# CONFIG_{} is not set'.format(symbol)
+> +            else:
+> +                expected = 'CONFIG_{}={}'.format(symbol, value)
+> +            assert expected in conf.config.splitlines(), repr(probability)
+> +
+> +
+> +def test_single_probability_matches_tristate_split(conf):
+> +    for seed in range(20):
+> +        context = 'seed={}'.format(seed)
+> +        assert conf._run_conf('--randconfig', extra_env={
+> +            'KCONFIG_PROBABILITY': '50',
+> +            'KCONFIG_SEED': hex(seed),
+> +        }) == 0, context
+> +        assert 'warning:' not in conf.stderr, context
+> +        single = conf.config
+> +
+> +        # 50% boolean y; 25% tristate y, 25% m, and 50% n.
+> +        assert conf._run_conf('--randconfig', extra_env={
+> +            'KCONFIG_PROBABILITY': '50:25:25',
+> +            'KCONFIG_SEED': hex(seed),
+> +        }) == 0, context
+> +        assert 'warning:' not in conf.stderr, context
+> +        assert conf.config == single, context
+> +
+> +
+> +def test_empty(conf, monkeypatch):
+> +    # extra_env overrides inherited variables, but cannot remove them.
+> +    monkeypatch.delenv('KCONFIG_PROBABILITY', raising=False)
 
-  scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame (2026-=
-09-02 12:13:15 -0400)
+It seems there's still a lingering unnecessary monkeypatch call here in
+test_empty. Otherwise, I think this patch is pretty close!
 
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-=
-fixes
-
-for you to fetch changes up to 3d676e458fe0c566f5a62753dc696b6a862fc412:
-
-  scsi: core: Validate MODE SENSE lengths in scsi_cdl_enable() (2026-09-09 =
-22:23:00 -0400)
-
-----------------------------------------------------------------
-Four driver fixes, three of which are minor and one of which (fnic)
-tries to add some logic to try to avoid MSI-X being ineffective if
-hyperthreading is disabled.  The core fix adds validation to mode sense
-buffer sizes because it is used by ATA and could, theoretically, be
-exploited by a specially crafted USB device that can simply be plugged
-in to any laptop or server.
-
-----------------------------------------------------------------
-Alberto Carboneri (1):
-      scsi: core: Validate MODE SENSE lengths in scsi_cdl_enable()
-
-Arun Easi (1):
-      scsi: fnic: Fix missed link-up when critical IRQ targets offline CPU
-
-Karl Mehltretter (2):
-      scsi: pm80xx: Fix the use_msix, use_tasklet and read_wwn parameter de=
-scriptions
-      scsi: qla2xxx: Fix the ql2xfc2target parameter description
-
-Venkat Rao Bagalkote (1):
-      scsi: ibmvfc: Add Kconfig dependency to fix link failure when NVME_FC=
-=3Dm
-
- drivers/scsi/Kconfig              |  1 +
- drivers/scsi/fnic/fnic.h          |  2 +-
- drivers/scsi/fnic/fnic_isr.c      | 13 ++++++++++---
- drivers/scsi/fnic/fnic_main.c     | 41 +++++++++++++++++++++++++++++++++++=
-+++-
- drivers/scsi/pm8001/pm8001_init.c |  6 +++---
- drivers/scsi/qla2xxx/qla_os.c     |  2 +-
- drivers/scsi/scsi.c               | 24 ++++++++++++++++++-----
- 7 files changed, 75 insertions(+), 14 deletions(-)
-
----
-
-diff --git a/drivers/scsi/Kconfig b/drivers/scsi/Kconfig
-index 4a2af0f702e1..1eec66195cf4 100644
---- a/drivers/scsi/Kconfig
-+++ b/drivers/scsi/Kconfig
-@@ -753,6 +753,7 @@ config SCSI_IBMVFC
- 	tristate "IBM Virtual FC support"
- 	depends on PPC_PSERIES && SCSI
- 	depends on SCSI_FC_ATTRS
-+	depends on NVME_FC || NVME_FC=3Dn
- 	help
- 	  This is the IBM POWER Virtual FC Client
-=20
-diff --git a/drivers/scsi/fnic/fnic.h b/drivers/scsi/fnic/fnic.h
-index c576a7f5083e..3ba1592940ca 100644
---- a/drivers/scsi/fnic/fnic.h
-+++ b/drivers/scsi/fnic/fnic.h
-@@ -31,7 +31,7 @@
-=20
- #define DRV_NAME		"fnic"
- #define DRV_DESCRIPTION		"Cisco FCoE HBA Driver"
--#define DRV_VERSION		"1.9.0.0"
-+#define DRV_VERSION		"1.9.0.1"
- #define PFX			DRV_NAME ": "
- #define DFX                     DRV_NAME "%d: "
-=20
-diff --git a/drivers/scsi/fnic/fnic_isr.c b/drivers/scsi/fnic/fnic_isr.c
-index 02856745580f..43149d8312ec 100644
---- a/drivers/scsi/fnic/fnic_isr.c
-+++ b/drivers/scsi/fnic/fnic_isr.c
-@@ -245,7 +245,14 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
- 	unsigned int m =3D ARRAY_SIZE(fnic->wq);
- 	unsigned int o =3D ARRAY_SIZE(fnic->hw_copy_wq);
- 	unsigned int min_irqs =3D n + m + 1 + 1; /*rq, raw wq, wq, err*/
--
-+	/*
-+	 * Make driver critical vectors unmanaged, or else it can get tied
-+	 * to an offline CPU. This can happen when hyper-threading is off.
-+	 */
-+	struct irq_affinity affd =3D {
-+		.pre_vectors =3D n + m + 1, /* rq, raw wq, 1 ioq */
-+		.post_vectors =3D 1, /* err */
-+	};
- 	/*
- 	 * We need n RQs, m WQs, o Copy WQs, n+m+o CQs, and n+m+o+1 INTRs
- 	 * (last INTR is used for WQ/RQ errors and notification area)
-@@ -263,8 +270,8 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
- 		int vec_count =3D 0;
- 		int vecs =3D fnic->rq_count + fnic->raw_wq_count + fnic->wq_copy_count +=
- 1;
-=20
--		vec_count =3D pci_alloc_irq_vectors(fnic->pdev, min_irqs, vecs,
--					PCI_IRQ_MSIX | PCI_IRQ_AFFINITY);
-+		vec_count =3D pci_alloc_irq_vectors_affinity(fnic->pdev, min_irqs,
-+			    vecs, PCI_IRQ_MSIX|PCI_IRQ_AFFINITY, &affd);
- 		FNIC_ISR_DBG(KERN_INFO, fnic,
- 					"allocated %d MSI-X vectors\n",
- 					vec_count);
-diff --git a/drivers/scsi/fnic/fnic_main.c b/drivers/scsi/fnic/fnic_main.c
-index 9b3025007075..f13c381a66d7 100644
---- a/drivers/scsi/fnic/fnic_main.c
-+++ b/drivers/scsi/fnic/fnic_main.c
-@@ -744,8 +744,19 @@ static int fnic_nvme_drv_init(struct fnic *fnic)
- 	return ret;
- }
-=20
-+static void fnic_mq_init_queue_map(struct fnic *fnic,
-+		struct blk_mq_queue_map *qmap)
-+{
-+	unsigned int cpu;
-+
-+	for_each_possible_cpu(cpu)
-+		qmap->mq_map[cpu] =3D 0;
-+}
-+
- void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
- {
-+	const struct cpumask *mask;
-+	unsigned int queue, cpu;
- 	struct fnic *fnic =3D *((struct fnic **) shost_priv(host));
- 	struct pci_dev *l_pdev =3D fnic->pdev;
- 	int intr_mode =3D fnic->config.intr_mode;
-@@ -766,7 +777,35 @@ void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
- 		return;
- 	}
-=20
--	blk_mq_map_hw_queues(qmap, &l_pdev->dev, FNIC_PCI_OFFSET);
-+	fnic_mq_init_queue_map(fnic, qmap);
-+
-+	/*
-+	 * Setup CPU to Queue mapping for all managed MSI-X IRQs.
-+	 * Q0 is driver critical and non-managed, hence start from Q1.
-+	 */
-+	for (queue =3D 1; queue < qmap->nr_queues; queue++) {
-+		int irq_num =3D pci_irq_vector(fnic->pdev,
-+					     queue + FNIC_PCI_OFFSET);
-+
-+		if (irq_num < 0)
-+			continue;
-+
-+		mask =3D pci_irq_get_affinity(fnic->pdev,
-+					    queue + FNIC_PCI_OFFSET);
-+		if (!mask) {
-+			shost_printk(KERN_ERR, host,
-+				"failed to get irq_affinity map for queue:%d\n", irq_num);
-+			continue;
-+		}
-+		FNIC_MAIN_DBG(KERN_INFO, fnic,
-+				"got irq_affinity map for %d:\n", irq_num);
-+		for_each_cpu(cpu, mask) {
-+			qmap->mq_map[cpu] =3D qmap->queue_offset + queue;
-+			FNIC_MAIN_DBG(KERN_INFO, fnic,
-+				      "[Q%d] cpu:%d <=3D> irq:%d\n",
-+				      queue, cpu, irq_num);
-+		}
-+	}
- }
-=20
- static int fnic_probe(struct pci_dev *pdev, const struct pci_device_id *en=
-t)
-diff --git a/drivers/scsi/pm8001/pm8001_init.c b/drivers/scsi/pm8001/pm8001=
-_init.c
-index 54b35893261a..5af81c73a8f8 100644
---- a/drivers/scsi/pm8001/pm8001_init.c
-+++ b/drivers/scsi/pm8001/pm8001_init.c
-@@ -58,15 +58,15 @@ MODULE_PARM_DESC(link_rate, "Enable link rate.\n"
-=20
- bool pm8001_use_msix =3D true;
- module_param_named(use_msix, pm8001_use_msix, bool, 0444);
--MODULE_PARM_DESC(zoned, "Use MSIX interrupts. Default: true");
-+MODULE_PARM_DESC(use_msix, "Use MSIX interrupts. Default: true");
-=20
- static bool pm8001_use_tasklet =3D true;
- module_param_named(use_tasklet, pm8001_use_tasklet, bool, 0444);
--MODULE_PARM_DESC(zoned, "Use MSIX interrupts. Default: true");
-+MODULE_PARM_DESC(use_tasklet, "Use tasklets for interrupt handling. Defaul=
-t: true");
-=20
- static bool pm8001_read_wwn =3D true;
- module_param_named(read_wwn, pm8001_read_wwn, bool, 0444);
--MODULE_PARM_DESC(zoned, "Get WWN from the controller. Default: true");
-+MODULE_PARM_DESC(read_wwn, "Get WWN from the controller. Default: true");
-=20
- uint pcs_event_log_severity =3D 0x03;
- module_param(pcs_event_log_severity, int, 0644);
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index c0efdbff5da7..3c412c7fb6fe 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -352,7 +352,7 @@ MODULE_PARM_DESC(ql2xnvme_queues,
-=20
- int ql2xfc2target =3D 1;
- module_param(ql2xfc2target, int, 0444);
--MODULE_PARM_DESC(qla2xfc2target,
-+MODULE_PARM_DESC(ql2xfc2target,
- 		  "Enables FC2 Target support. "
- 		  "0 - FC2 Target support is disabled. "
- 		  "1 - FC2 Target support is enabled (default).");
-diff --git a/drivers/scsi/scsi.c b/drivers/scsi/scsi.c
-index 76cdad063f7b..f285521d9de6 100644
---- a/drivers/scsi/scsi.c
-+++ b/drivers/scsi/scsi.c
-@@ -727,6 +727,7 @@ int scsi_cdl_enable(struct scsi_device *sdev, bool enab=
-le)
- 		struct scsi_mode_data data;
- 		struct scsi_sense_hdr sshdr;
- 		char *buf_data;
-+		size_t avail, offset;
- 		int len;
-=20
- 		ret =3D scsi_mode_sense(sdev, 0x08, 0x0a, 0xf2, buf, sizeof(buf),
-@@ -735,11 +736,24 @@ int scsi_cdl_enable(struct scsi_device *sdev, bool en=
-able)
- 			return -EINVAL;
-=20
- 		/* Enable or disable CDL using the ATA feature page */
--		len =3D min_t(size_t, sizeof(buf),
--			    data.length - data.header_length -
--			    data.block_descriptor_length);
--		buf_data =3D buf + data.header_length +
--			data.block_descriptor_length;
-+		avail =3D min_t(size_t, data.length, sizeof(buf));
-+		if (data.header_length > avail)
-+			return -EINVAL;
-+
-+		offset =3D data.header_length;
-+		avail -=3D data.header_length;
-+
-+		if (data.block_descriptor_length > avail)
-+			return -EINVAL;
-+
-+		offset +=3D data.block_descriptor_length;
-+		avail -=3D data.block_descriptor_length;
-+
-+		if (avail < 5)
-+			return -EINVAL;
-+
-+		buf_data =3D buf + offset;
-+		len =3D avail;
-=20
- 		/*
- 		 * If we want to enable CDL and CDL is already enabled on the
+- Julian Braha
