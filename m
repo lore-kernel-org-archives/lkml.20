@@ -1,285 +1,240 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CCB33B6EF;
-	Fri, 18 Sep 2026 03:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701065; cv=none; b=rjAe5Z5K3T229776UWevRxwTS9e7OFObkjvqpoHKxY6ftcgKMdKMgpDv+6bz8BKM/6rywDDFJRGqTnxQo/1K+/w1fAm7zlWRGgTsFbbODIuYKSF48evjJ/I/7ylupLBsrb4rW6KJeOZSd5KeGWss1FQEJkM27W0egVoUJnjD5U0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701065; c=relaxed/simple;
-	bh=cWsZjHPODxkzALF6XdxHZpXQzjPr502KEy+UqG1zUhk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bcGNWOLaZNj90a/HNBkt4Fz6V+RjYH1fZgT+fMPLJ2vY4wjRQroLgksNKcxYy1LjOXBsyJ4Thx1pLuowqAUpJBXNg0c3kuu6gTz3VXlq2DATPTUaLugX6qT722s++LQnhxLJB7Wz5DvINQKMApEiXh7QgL3bLcAilUQY+s4AL1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=aiYTDtqe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=grns34at; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE212DB794
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.234
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789701194; cv=pass; b=UKMVvAYtwck1K/AytGB8mmKmLqTLEgcY5MvXj8erClKtLhLYRtOnVHjt9pJBkhWv5t8OJ5VvEwpGVfCSCZDskxzH2t/bSYwDhGse09oafXUm1vxxTdvl/04p1CwhhXCjlO/K9MijETo+WvOa+6ljpzDD05HVn8tWIWH2O+SN3zM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789701194; c=relaxed/simple;
+	bh=BCHEbV2evoT33asdVOA0k+dXakILyXkOzDDcm6Xacpk=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NObJzq5Dbh7A7532EbmdHtX/aZbHorYz0t9173uyii/tSTfhRw/wqUQ1NBf/EE+POrwOhXkAsHoxh65oXl2pUgg//NJuXH8rOltYAGVRuZvk7slBBMCON66lHPffXCqZckkOH9Y8cwgVeF+GE664kOw2y4N7/ozOw6BFKOnTe2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FG/hgrZ9; arc=pass smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="aiYTDtqe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="grns34at"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 64ADCEC0281;
-	Thu, 17 Sep 2026 23:10:57 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 17 Sep 2026 23:10:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789701057;
-	 x=1789787457; bh=PT8EMO0q9WKCt7s01ka0L342K9uRX/K4DhkF511+4R4=; b=
-	aiYTDtqeOHmdTEPbIQaisU1g3qZ0+Kz0XDs3mLLx5DeqsoUMkQI0o3o4q3LkovCQ
-	WDbj+ZnCxdyUcniOfKy05WXXsrPHm2EPpRe8XbRbJdMBOBX7lVBN29gZTwVs3di2
-	Xc9DLHcg7hsZ3NxqRk+xiMrirSXpo3HKKEytJcDe+lwJX1oWvVUJYOZXQwKwsXtI
-	so8j98ZKMhU+UByJhmFxsdW/gOzxeSI/BQNjrkvVoQ6fiBxRPugmszjSRPCoZJMT
-	Plk1ZkhdwOZgGgSSRfuvq7IsLHxLjW6qfASrzOB/KLx8efHugME2vncRsZxAKnp/
-	AKberjxMlMVX7iPUNA/k7Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789701057; x=
-	1789787457; bh=PT8EMO0q9WKCt7s01ka0L342K9uRX/K4DhkF511+4R4=; b=g
-	rns34atQU47jV/ZaezxrYTM1Ez6RG2jyCA+lDT5Z9lqgDc/tId5cVrUtaMMC9ZSZ
-	ykZd2N+Bv/9ZAf3dIc/ijHSca2NfNCpu8KW1mPuuN5Z6A0pe+8/hiz9opg080n4/
-	9vBKAmq+u8l2k3aRrWEuVn+2+q48lWtn/kBpBT83uZKMTroy0HqJqkMmJ0DX12GR
-	NDkrhKW4iAzIjfbvPG11cGs9QsDtJw6Z/ODloO9i0M9BXjLkSFUmcK95I34OlbDn
-	GdP1RIrQYHgIHOqtrS//DD/LMFyOKu17rCxuxT4LPydK5IO1xkTG2vdqKTa+XTsY
-	YoIMEH2XQPG7f/vmY/0Fg==
-X-ME-Sender: <xms:wKusah2y5EObcoG4WSBjxHB3WK_kVklyeRdpJzTJhvzhWpfxUjG_Uw>
-    <xme:wKusahZUD51OIq_3NL6HAyJQfmvcc-ypQH0KFODik7gE4dyRkL_geEQPtitRWYqx0
-    4m13Z3rZQ9rUaVv3ncKfiuk-k_u_A4xvoHif_jAn57JaG3zN42C2ac0>
-X-ME-Received: <xmr:wKusapJg0KPZrW2io5YT9ZsttMUSrKyFl28vg_ht-ib-_WT-mPywigiOLtOfwA>
-X-ME-Proxy-Cause: dmFkZTEqhr5mPjO69/HD0mUZI8gNlmMEJtjZmVTne4kzAI3uiWbDIzCRlnB6uBDbhJo7Ag
-    7SwBLQ0lrqnu5z6MfAUSSCgpM2u2NexzTUE51VvbIpPGZKxxi2zjShyBayPgfYfKOlvMl5
-    Hn9seB7LX1evxHXJfrX4/ZTAXh19wUFrMDaIssLOkUVd2h5WuugKmZ4zNVmxZnR2EgWseP
-    IvmP+fQs4IpUtkC/ChOFLV3Ayz+qHxwt+dbzLxgWWE1S+zvf/m8nf2INrZuDnbI/+/i2sK
-    AgMjpkNWUDWMM9gq+HHcN7BXtVod+tgROXtpR1RHejKiFNANWPvTgeZRF1AMLAc/heTUFo
-    D3sK/0LIDydhDqjzDDFJzrqjiXNkCKr4c/qi3Y8BzKh3r7omnfGc2OflTGgKm2ftucF6UA
-    rBFormhZBpnJkxpCJJyLgr3GK6oMYtp9vRozL2mJ1OiDQkgJyQvsQScW4L5kYrwYH3wmvO
-    QGl8CwtGXptyrKGRAhNoNzFce7RFDfmAUMn9qGSNj1KZxDNjzdPCseBnqwpMVOE2WJuaIE
-    gx58ZAaHriFja2iGeg6AXID7rFZxGZlg/sMngNfnSdqUd20zew1lQQkHTB7GEu3lEx5Gt6
-    xj3k8fPke1eoFyAxaF+O88fVM7O+9TqH6MC8IH2d6lPY4eHthJFQw64ZsMwQ
-X-ME-Proxy: <xmx:wKusagFpRCif_mRO6HYpv3r2XP9BkeuAX6FNfFlFcejmz3ZCKznQ5w>
-    <xmx:wKusagsSbFRu9JT838DKLYgnS11SOPsUhj7fhYwnUGoF9XStcxaWWQ>
-    <xmx:wKusavuUKzUTjG2P7cYynHhe8M-oTXvsNOBgaqCndBWOr8KyQZWCsQ>
-    <xmx:wKusauDMD7jBoGXBwZLH7Vp5v2xByZicz46Hm63Et7VPKLVz6JCrNw>
-    <xmx:wausarhk7Gjed-GArEhSRrTQCmp-hKJ_mgeCLBtkmnMo_VfLUupQ3QJJ>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 23:10:55 -0400 (EDT)
-Date: Thu, 17 Sep 2026 21:10:52 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: liulongfang <liulongfang@huawei.com>
-Cc: <alex.williamson@redhat.com>, <jgg@nvidia.com>, <kvm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH v3 1/3] hisi_acc_vfio_pci: fix live migration enable
- conditions for PF passthrough
-Message-ID: <20260917211052.5166a8c7@shazbot.org>
-In-Reply-To: <a6c00ec0-e7f8-35db-6856-ae35cd3abfc1@huawei.com>
-References: <20260831090951.844569-1-liulongfang@huawei.com>
-	<20260831090951.844569-2-liulongfang@huawei.com>
-	<20260911113724.00d3f79a@shazbot.org>
-	<a6c00ec0-e7f8-35db-6856-ae35cd3abfc1@huawei.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FG/hgrZ9"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5329fc7b325so1557011cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:13:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789701188; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a3csphowf4oXs0yPV70p82tlAeojQKn3qinaddtDjZrYOOSvR0HOsR7DxBTKu6QPO5
+         hKuchJcZprS+LAy0F7vaJVt/1FDUppr34GXzjwqC1aPVy2qWntnG3Fd5M/s0InMlVjJK
+         hFXGxUA8uDeH9zLOD704xsYa1CGdJjM8E5hpsjEJpCXlsfa3RMkkIREDfFxplc/oTJoj
+         /GVcQrKo9SIEneW50EqcuwsuW7I9YBTJyUuk64XsZf3EqkvUZLRHHECUGgZgPwxwVbNh
+         Zw1x3y79ppcf/m1jbgkzg8i9KgxKUYn6PxupchLNlgrBJka59ft3dg5kGNbj7QvsAPXM
+         xOGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=HnKgH12rIQjJaBvAg5EGDVVRZjrGbFrjvdaF1m1X+pw=;
+        fh=V/bZyM2i4a6/6ybsMyGI+9aaAKm76cqUrpTAnAcfilc=;
+        b=NipJOJ8EDbbl+dL3bF6deVejz5FpsDvmOo6srCMOxV3oxTLXxqKsG/Nv4hNvyTAhXz
+         ja3P5vJw2yTtY0XSgoonvY8XU1ZaQks4+ivNuNCBiwtE1b1s3amDBK4wh2QnI8NNSRWV
+         weiMOAjRynvSSBDB8PmQvhdxGLWsGQvI4IW4RbDraM0V0pCc7VcIm4Dktl2yfnIH5vKn
+         0iTIHlc9kECb/kPI5AKYpepM2WCDo0A+R105aAIbU1ajcq4Uqsr88cPANngEujG5pbKC
+         QgpgS53Bx+kOoy+M+1A5M7YD8wWzA3dFXsWbiQdfW18TyG9kj9YnulhHhX6n6elowmvw
+         Cojg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789701188; x=1790305988; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HnKgH12rIQjJaBvAg5EGDVVRZjrGbFrjvdaF1m1X+pw=;
+        b=FG/hgrZ9/vnqLyD7zLpY4yeIdphof+slONsWraVGl6UDCHa384lZScgY2NCER90G33
+         K1Imm+PSkEPouy9qjKhHIfny0Sl8iv385h4nlG9Y/pup47cj+c+Oyxj65ivMkCWySc80
+         3cRPU6p0s0sh0k3eSN44mjagcwLRrFp5rmMzdrXBUh+jCkOTws0KBgUM6LvKq38ldKAL
+         c87NXrj+fKYa2VrkSOThTb35CK50mXXGmcC/EQAyy7jUKY9tcdkBlBrJoyi0G/AiP7kW
+         5AwFmNdxJhyDXPo0oUkfGURPD4Y26q+bK/YvEPnorA7dluhvSW1Bz90ayL+m8A4ZrGdc
+         TMIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789701188; x=1790305988;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HnKgH12rIQjJaBvAg5EGDVVRZjrGbFrjvdaF1m1X+pw=;
+        b=LWzLsl7IH3HxS5eFFSa7x1ootn8qVdwOTEwXvidQqOS0ed5ZtgbFZUeBgNEWMkDKVZ
+         miVzr/japrjwx//KN8MqjDkbYcd410+7v8buaf/5crnSRTd3idbCa+vSiNkfRrvM9cdy
+         cI1xRQMLex0rQaEynz17/1P8rSPT+eASRerVk3PngyDP3V2NEOQ8Q00+JUozojXQEsjc
+         +oDilvZCkhYxlJlmdgNxqbzW9/+IpIVN8zjMo/71+/dg9kRV9PYfdAsFDx7HwVeg4Jjf
+         nnO+znhI8+PzHiKKMisBe7s3ZjGizx4drW5gs/pi8NFTbW+6ZkyrImwNdNFlL5JszVwU
+         VP4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzF8TLzE4DKbPKY6F3PNrzyvZq3bbV74dEFG9/zhu+TZk1M9tUyXiRK8SteCzNrgBcQeqRtVRgLdTNZE6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++k05RXwM9a+sw7szQR5qw5kw6aAHfegIpq3dirzgc/gVcKFjL0U
+	87OrkurgMGeqESMV0qK/WfhUENRXvaInt7AtcoXq7t9Ve0aVJ6o5yBOLP8oWtp1oWN7ZPfyo+Wq
+	HxS4RB6OghjqcBfQ7Kc6cEhRLy0YjQNSBHzH9LMYI
+X-Gm-Gg: AYBFou3GXVht3H0rHuad4GYSFHguFNo4p3kiB2/FOTIe+XojvhcHufcflv288YH45la
+	icGmR89EFUAcKiYCvjzk+QRkK+espRCYsZlrX4TWUQovyImRHFqK4JPLDyVXDZGrKo6AL5IwptV
+	y2dNBj8ANxmceT956CJ4Ljo4pibU8s4bs6RpbbZpOder2QG2UKlYqG0KI4My1HqnMgozqkByd7U
+	ry2WPD89f6hmLFiLStDJG7jZ9PEaa0iv372cSxqUwOlAjXpD3w6znJsmehaLmQ6Smn4dhlu8YOq
+	x/X3DmJr6CSSF3CnBED0pclSGTfX16PZaMiVMkMuRf8jWcsqoxXPiDU9FwGESFNffdd3s9BsBzo
+	4cj2dOrBUew==
+X-Received: by 2002:a05:622a:2615:b0:531:17a1:7576 with SMTP id
+ d75a77b69052e-5329e4a3d42mr19288491cf.52.1789701187201; Thu, 17 Sep 2026
+ 20:13:07 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 20:13:06 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 20:13:06 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260916-hugetlb-subpool-always-track-used-v3-4-38aae9b5ccdd@google.com>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+ <20260916-hugetlb-subpool-always-track-used-v3-4-38aae9b5ccdd@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 20:13:06 -0700
+X-Gm-Features: AcwNN1UxtUl99q4k3Xb2wmimX9em7-sbEcOm7MskCUYsrn1OIK-ISFMFvyN52wA
+Message-ID: <CAEvNRgFgCdWBrMLZ7wxAgVwyQhrfHj_0UY4++zS4n30psgkGxQ@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] mm: hugetlb: Avoid re-allocating global
+ reservations on region add failure
+To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>, Alex Shi <alexs@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
+	jthoughton@google.com, rientjes@google.com, vannapurve@google.com
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 17 Sep 2026 14:13:31 +0800
-liulongfang <liulongfang@huawei.com> wrote:
+Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+writes:
 
-> On 2026/9/12 1:37, Alex Williamson wrote:
-> > On Mon, 31 Aug 2026 17:09:49 +0800
-> > Longfang Liu <liulongfang@huawei.com> wrote:
-> >  =20
-> >> When a PF device is bound to the live migration driver in passthrough =
-mode,
-> >> it cannot support live migration functionality, and key pointers will
-> >> remain uninitialized. Although most migration functions within the dri=
-ver
-> >> are unreachable, low-level error handling callbacks may be triggered
-> >> directly, causing a crash due to null pointer dereference.
-> >> The fix involves adding validity checks at three entry points: device
-> >> probe, error handling, and migration initialization. If the pointer is
-> >> invalid, the operation is exited or rejected directly to avoid crashes,
-> >> while redundant internal checks are removed.
-> >>
-> >> Fixes: b0eed085903e ("hisi_acc_vfio_pci: Add support for VFIO live mig=
-ration")
-> >> Signed-off-by: Longfang Liu <liulongfang@huawei.com>
-> >> ---
-> >>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 24 ++++++++++++++-----
-> >>  1 file changed, 18 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/=
-vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> >> index 86362ec424a5..e95d0ab0f11a 100644
-> >> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> >> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> >> @@ -1154,9 +1154,14 @@ static void hisi_acc_vf_pci_reset_prepare(struc=
-t pci_dev *pdev)
-> >>  {
-> >>  	struct hisi_acc_vf_core_device *hisi_acc_vdev =3D hisi_acc_drvdata(p=
-dev);
-> >>  	struct hisi_qm *qm =3D hisi_acc_vdev->pf_qm;
-> >> -	struct device *dev =3D &qm->pdev->dev;
-> >> +	struct device *dev =3D &pdev->dev;
-> >>  	u32 delay =3D 0;
-> >> =20
-> >> +	if (!qm || !qm->io_base) {
-> >> +		dev_err(dev, "PF QM not available for reset\n");
-> >> +		return;
-> >> +	}
-> >> +
-> >>  	/* All reset requests need to be queued for processing */
-> >>  	while (test_and_set_bit(QM_RESETTING, &qm->misc_ctl)) {
-> >>  		msleep(1);
-> >> @@ -1174,8 +1179,12 @@ static void hisi_acc_vf_pci_aer_reset_done(stru=
-ct pci_dev *pdev)
-> >>  	struct hisi_acc_vf_core_device *hisi_acc_vdev =3D hisi_acc_drvdata(p=
-dev);
-> >>  	struct hisi_qm *qm =3D hisi_acc_vdev->pf_qm;
-> >> =20
-> >> -	if (hisi_acc_vdev->set_reset_flag)
-> >> -		clear_bit(QM_RESETTING, &qm->misc_ctl);
-> >> +	if (hisi_acc_vdev->set_reset_flag) {
-> >> +		if (qm && qm->io_base)
-> >> +			clear_bit(QM_RESETTING, &qm->misc_ctl);
-> >> +		else
-> >> +			dev_err(&pdev->dev, "PF QM not available for reset done\n");
-> >> +	} =20
-> >=20
-> > set_reset_flag is only set by reset_prepare, which per the previous
-> > chunk can only occur if qm && qm->io_base, so this chunk is redundant.
-> > Why not just promote the mig_ops tests in both?
-> >  =20
-> >> =20
-> >>  	if (!hisi_acc_vdev->core_device.vdev.mig_ops)
-> >>  		return;
-> >> @@ -1565,6 +1574,11 @@ static int hisi_acc_vfio_pci_migrn_init_dev(str=
-uct vfio_device *core_vdev)
-> >>  	struct pci_dev *pdev =3D to_pci_dev(core_vdev->dev);
-> >>  	struct hisi_qm *pf_qm =3D hisi_acc_get_pf_qm(pdev);
-> >> =20
-> >> +	if (!pf_qm) {
-> >> +		dev_err(&pdev->dev, "PF driver not loaded, cannot enable migration\=
-n");
-> >> +		return -ENODEV;
-> >> +	} =20
-> >=20
-> > This function is only reached via hisi_acc_vfio_pci_migrn_ops, which is
-> > already validated in probe to have a pf_qm with version >=3D QM_HW_V3.
-> >  =20
-> >> +
-> >>  	hisi_acc_vdev->vf_id =3D pci_iov_vf_id(pdev) + 1;
-> >>  	hisi_acc_vdev->pf_qm =3D pf_qm;
-> >>  	hisi_acc_vdev->vf_dev =3D pdev;
-> >> @@ -1670,13 +1684,11 @@ static int hisi_acc_vfio_pci_probe(struct pci_=
-dev *pdev, const struct pci_device
-> >>  	struct hisi_acc_vf_core_device *hisi_acc_vdev;
-> >>  	const struct vfio_device_ops *ops =3D &hisi_acc_vfio_pci_ops;
-> >>  	struct hisi_qm *pf_qm;
-> >> -	int vf_id;
-> >>  	int ret;
-> >> =20
-> >>  	pf_qm =3D hisi_acc_get_pf_qm(pdev);
-> >>  	if (pf_qm && pf_qm->ver >=3D QM_HW_V3) {
-> >> -		vf_id =3D pci_iov_vf_id(pdev);
-> >> -		if (vf_id >=3D 0)
-> >> +		if (pdev->is_virtfn)
-> >>  			ops =3D &hisi_acc_vfio_pci_migrn_ops;
-> >>  		else
-> >>  			pci_warn(pdev, "migration support failed, continue with generic in=
-terface\n"); =20
-> >=20
-> > This is not reachable as a VF:
-> >=20
-> > static struct hisi_qm *hisi_acc_get_pf_qm(struct pci_dev *pdev)
-> > {
-> >         struct hisi_qm  *pf_qm;
-> >         struct pci_driver *pf_driver;
-> >=20
-> >         if (!pdev->is_virtfn)
-> >                 return NULL;
-> >=20
-> >=20
-> > pf_qm is NULL, the branch is never taken for a PF.  Also:
-> >=20
-> > int pci_iov_vf_id(struct pci_dev *dev)
-> > {
-> >         struct pci_dev *pf;
-> >=20
-> >         if (!dev->is_virtfn)
-> >                 return -EINVAL;
-> >=20
-> > So even the redundant test is already here.  What are you trying to
-> > accomplish in this chunk?  Thanks,
-> > =20
->=20
-> Thank you for the review. Regarding the first two checks in `aer_reset_do=
-ne` and `migrn_init_dev`,
-> you are correct that they are redundant; we will remove them in the next =
-revision.
->=20
-> However, the PF passthrough scenario still crashes. The calltrace we actu=
-ally tested occurs on
-> the following path:
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> When reserving huge pages for a shared mapping, reservations are first
+> requested from the subpool, and any remainder is accounted in global
+> reservations. When adding the file region entries fails later in the
+> process, the reservation attempt must be rolled back.
+>
+> Previously, this error path explicitly dropped the global reservations
+> that were just acquired before jumping to the cleanup label. The cleanup
+> label then returned the pages to the subpool. If concurrent activity in
+> the subpool allowed the subpool to absorb more reservations upon return
+> than it supplied initially, the cleanup label calculated a positive
+> difference and attempted to allocate new global reservations from scratch.
+>
+> This premature release was completely unnecessary because all requested
+> pages were already backed globally: partly by the mount guarantee and
+> partly by the global reservations just acquired. Prematurely dissolving
+> those reservations forced the cleanup path to attempt fresh buddy
+> allocations that could fail under memory pressure.
+>
+> Instead, track the number of global reservations actually accounted so
+> far. In the cleanup label, subtract the already-accounted amount from the
+> difference between requested and returned reservations. This ensures
+> that when global reservations were already acquired, the adjustment is
+> purely non-positive, dropping excess reservations without ever attempting
+> fresh allocations.
+>
 
-I didn't argue this fact, I only noted the .reset_done fix is redundant
-and suggested a better ordering.
+If there are no other issues, Andrew could you please add this for me?
 
->=20
-> hisi_acc_vfio_pci_open_device
->   =E2=86=92 vfio_pci_core_enable
->     =E2=86=92 pci_try_reset_function
->       =E2=86=92 hisi_acc_vf_pci_reset_prepare   =E2=86=90 NULL pointer de=
-reference
->=20
->=20
-> `reset_prepare` is a PCI error handler callback invoked by `pci_try_reset=
-_function` inside
-> `vfio_pci_core_enable`, which happens before the `mig_ops` check in `open=
-_device`.
-> At this point, the PF's `pf_qm` is NULL, and `reset_prepare` dereferences=
- `&qm->pdev->dev`,
-> causing an oops:
->=20
->=20
-> Unable to handle kernel NULL pointer dereference at virtual address 00000=
-00000000010
-> pc : hisi_acc_vf_pci_reset_prepare+0x34/0xc0
-> Call trace:
->  hisi_acc_vf_pci_reset_prepare
->  pci_dev_save_and_disable
->  pci_try_reset_function
->  vfio_pci_core_enable
->  hisi_acc_vfio_pci_open_device
->  vfio_df_open
->=20
->=20
-> This shows that the `vf_id`-based check in `probe` does not actually prev=
-ent the PF
-> from reaching `reset_prepare`;
-> the PF still triggers the calltrace through this path. The fix here will =
-follow your
-> suggestion: elevate the `mig_ops` check at the entry of `reset_prepare`, =
-and also
-> move the existing `mig_ops` check in `aer_reset_done` ahead of the `set_r=
-eset_flag`
-> handling.
-> The `is_virtfn` check in `probe` will be retained to maintain consistent =
-semantics with
-> other vendor drivers.
+Fixes: 0db9d74ed884 ("hugetlb: disable region_add file_region coalescing")
 
-I don't see this provides any consistency with other drivers, only the
-virtio driver has a is_virtfn test and it is the fundamental test that
-driver uses to select the migration ops.  It's not comparable to this
-use case.  Thanks,
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  mm/hugetlb.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 6589b188cf657..ee1ba9ded0ec7 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -6678,6 +6678,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	struct hugepage_subpool *spool = subpool_inode(inode);
+>  	struct resv_map *resv_map;
+>  	struct hugetlb_cgroup *h_cg = NULL;
+> +	long gbl_resv_accounted = 0;
+>  	long regions_needed = 0;
+>  	long gbl_resv_get;
+>  	long gbl_resv_put;
+> @@ -6768,6 +6769,7 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	err = hugetlb_acct_memory(h, gbl_resv_get);
+>  	if (err < 0)
+>  		goto out_put_pages;
+> +	gbl_resv_accounted = gbl_resv_get;
+>
+>  	/*
+>  	 * Account for the reservations made. Shared mappings record regions
+> @@ -6784,7 +6786,6 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  		add = region_add(resv_map, from, to, regions_needed, h, h_cg);
+>
+>  		if (unlikely(add < 0)) {
+> -			hugetlb_acct_memory(h, -gbl_resv_get);
+>  			err = add;
+>  			goto out_put_pages;
+>  		} else if (unlikely(chg > add)) {
+> @@ -6826,9 +6827,10 @@ long hugetlb_reserve_pages(struct inode *inode,
+>  	 * There may be a difference between the number of
+>  	 * reservations to consume and the number to restore now if
+>  	 * there are multiple threads interacting with the subpool -
+> -	 * restore the difference.
+> +	 * restore the difference, taking into account any global
+> +	 * reservations already acquired.
+>  	 */
+> -	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
+> +	hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put - gbl_resv_accounted);
+>
 
-Alex
+Sashiko:
+
+This is a pre-existing issue, but does this error path ignore the return
+value of a potentially positive allocation request?
+
+If hugepage_subpool_get_pages() returns gbl_resv_get > 0, and the initial
+hugetlb_acct_memory(h, gbl_resv_get) fails with -ENOMEM, the code jumps
+to out_put_pages where gbl_resv_accounted remains 0.
+
+When hugepage_subpool_put_pages(spool, chg) is called just before this
+block, concurrent thread activity freeing subpool pages could replenish
+rsv_hpages to meet min_hpages, returning gbl_resv_put < gbl_resv_get.
+
+Then hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put - 0) is called
+with a positive delta, attempting a fresh global allocation. If this
+allocation fails with -ENOMEM, the return value is ignored.
+
+Could this permanently over-credit the subpool's rsv_hpages with global
+reservations that were never actually acquired, bypassing the global
+pool check later and causing resv_huge_pages to underflow? Unprivileged
+userspace repeatedly mmap-ing and unmapping hugetlb regions under memory
+pressure might trigger this.
+
+Ackerley:
+
+Summary here is that if hugetlb_acct_memory() fails, since the return
+value is ignored, there could be unfixed global issues.
+
+Sashiko also pointed this same thing out on patch 2 and 3.
+
+This is a common pattern on cleanup paths, where the return value is
+ignored.
+
+I think the fix here would be as described in [1], to flip the
+reservation tracking to track an available page count directly, but
+that's for another patch series :)
+
+[1] https://lore.kernel.org/all/CAEvNRgGN0HSJ2iLSDD2haSKOxifa-uhkO9Hwossh0+Q_d9fzOw@mail.gmail.com/
+
+>  out_uncharge_cgroup:
+>  	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+>
+> --
+> 2.55.0.1082.g2b9226bbc0-goog
