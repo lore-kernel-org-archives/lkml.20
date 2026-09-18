@@ -1,125 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFB136AB46;
-	Fri, 18 Sep 2026 06:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6D374E73;
+	Fri, 18 Sep 2026 06:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714056; cv=none; b=jAdBTnRdJYgmq4ixt61r4YOfj4/AcmzBX4WYk/vNTZmWX7WR7HN89Rlimn7Tx0lzc8eIJM+lo1w6H6QSly0tdWSbHSCDvH61UN8aoJRCep9nrzF6Ek+BJCfU3rXvXXVsfHpQRuQG2gcFJZIHdcPVCcrPPpJeVxOw5h5A19AbhSM=
+	t=1789714061; cv=none; b=iSeUS80/F0igo/AaWlFuVK2CY+U7EbnpQhM62l0n6tAefcwqFpH6iF0IpC5b3ygGN09dIGTenv1wPXTqa4PA15ki8j+4fT0uM/a4hLwuBN4JxLBWXN5pESA9vtK2Jw2G3U4JbagcyMUaS6+JVevFQ5uIL04Ow7cAr3G8WdLg/zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714056; c=relaxed/simple;
-	bh=6YanQ4j2axnNmAVMCsCzfrwlvp0zLxWMQEBqbUI0jaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AQGv1vHq2xtjJkJTS5mZo9l2LDcf2Ij+Wwy6oY6q+8LhzzGcmTO0SXIx+Zj0qKaUXjV0He591Ud7FtHv+Jy4sHe1oOsG0zdX8UulCWasFgKVfdFJZrBV6ABvoMM4G5eAKeQIhCwakVD86Z6wFDZdoSlWXppsuf8/d44MLLAnlrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lsNithr3; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789714061; c=relaxed/simple;
+	bh=g7ivMlqpgV90jFk2m8nUKBEA2ydpFYXnDGsguWHttL8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BimwKGwgkvgU5/oot/3EDNWBrLRWZtYoK6pLYtNf3iDLDyBrmzsoRv7NZsSVEHQMUrWK/k+ugqf2pOQIr/B+6/HPZ+aTNPl/Vl1RFyfwgNqzs+DrCi5tJo21SaWGCTSwHkiaG1bi/VnKeIJCMYei5vepkAoFcwoKLNBckbWpmoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERc0YHty; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lsNithr3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789714054; x=1821250054;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6YanQ4j2axnNmAVMCsCzfrwlvp0zLxWMQEBqbUI0jaA=;
-  b=lsNithr35OB6dlco6vZuBhg4KsNMgYIAz6INaMgr6332YWGcptjTtEGT
-   NUReX/KxEBsVlbs0YRF8TkBuf4l9D84B7MZ4xZ3QgqDKUvis/LBZCeOXw
-   TYiucbOTH4vDZinOOuTAqF3kHd6CPiwkbuosBlIMGgbP2Yycglt5xc8ZM
-   nljPnASh3tve4NkSJ0Ih99tm6fKwjIlPlIcCMY972kBZP/43ONv/8nZQ8
-   31YqWRL7/gmu36r5qYNO5CPu/CcKkXQXLoPXPUbJUikAFNYBl9hoVwC/F
-   ZHd41Fn4lC2dBp89zhyiHPS6sCTinwgmkISLO2h0Hn4BAnkulpM0Bpr8v
-   Q==;
-X-CSE-ConnectionGUID: VFv72gMYRmKxkyj/mkTDHQ==
-X-CSE-MsgGUID: 3xsUD7DjROy/pywNjoaqzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90218035"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90218035"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:47:33 -0700
-X-CSE-ConnectionGUID: G7IZiRvjTG+wDabJyYvZwQ==
-X-CSE-MsgGUID: apAPhVFURX+XHpRIfNXygw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2435704"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:47:27 -0700
-Date: Fri, 18 Sep 2026 09:47:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Frank.Li@oss.nxp.com
-Cc: Eugen Hristev <ehristev@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Felix Gu <ustc.gu@gmail.com>, Stepan Ionichev <sozdayvek@gmail.com>,
-	Shuvam Pandey <shuvampandey1@gmail.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Piyush Patle <piyushpatle228@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Pei Xiao <xiaopei01@kylinos.cn>, Shi Hao <i.shihao.999@gmail.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	"open list:MICROCHIP SAMA5D2-COMPATIBLE ADC DRIVER" <linux-iio@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	imx@lists.linux.dev, vkoul@kernel.org
-Subject: Re: [PATCH 1/1] iio: use dmaengine_get_dma_device() instead of
- chan->device->dev
-Message-ID: <aqzefLjkj6VrLR1b@ashevche-desk.local>
-References: <20260917203652.1279059-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERc0YHty"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646091F000FF;
+	Fri, 18 Sep 2026 06:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789714060;
+	bh=+BGxWg2fsybWxSlrAfMoRyi3OL6sdFJawHpb1+w2R8c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ERc0YHtyC9RU8cORTswTDlpfbvAh8G62/IZ7olNQonmoUsc1v8IRiMpD+Bj06dyWq
+	 hHrZRV+LAGgkZ+GZQGKeIsdz7lczX+89k1Y1XnnCfSVNhbAuEXtkZstU7y6gxXDvLi
+	 m4si3tauBnLV85TRk0ZwCN0FRFUkmZXK1m+4nVAW7wBzrTL64RXgaP33t1SVZhAvYK
+	 hoUh45Z2XrvTr6wOAzQqjjoPcO/ojjBHGym6F3gpcUWR5wCF1MCFXKBT8y29IwZ0WK
+	 ZBOIYQb4Adsi3uV77T3EzS+mPjHENHK7URoz7cSK7U0VKmrWUWXTo4p9QnAxB3EaLR
+	 dqT6sX8UvA9sg==
+Message-ID: <f6cb2a51-b385-4203-bd33-4b789cac5616@kernel.org>
+Date: Fri, 18 Sep 2026 08:47:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917203652.1279059-1-Frank.Li@oss.nxp.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for qcom,nord-camss
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
+ <20260915-nord-v1-1-20db41a7f1ff@oss.qualcomm.com>
+ <20260917-active-strong-emu-bf8fbd@quoll>
+ <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 04:36:26PM -0400, Frank.Li@oss.nxp.com wrote:
-
-> Replace direct dma_chan::device::dev access with the proper
-> dmaengine_get_dma_device() accessor in IIO DMA consumers.
+On 17/09/2026 14:37, Wenmeng Liu wrote:
+> Hi Krzysztof,
 > 
-> chan->device->dev is not always the device used for DMA mapping.
-> Some DMA engines support per-channel IOMMU mappings, so different
-> channels may use different DMA devices.  dmaengine_get_dma_device()
-> returns the correct device for each channel.
+> On 9/17/2026 6:13 PM, Krzysztof Kozlowski wrote:
+>> On Tue, Sep 15, 2026 at 05:34:11PM +0800, Wenmeng Liu wrote:
+>>> Add bindings for the camera subsystem (CAMSS) on the Qualcomm Nord
+>>> platform.
+>>>
+>>> The Nord platform provides:
+>>> - 3 x TPG (Test Pattern Generator)
+>>> - 3 x CSID (CSI Decoder)
+>>> - 10 x CSID Lite
+>>> - 3 x VFE (Video Front End)
+>>> - 10 x VFE Lite
+>>>
+>>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>>> ---
+>>>   .../devicetree/bindings/media/qcom,nord-camss.yaml | 393 +++++++++++++++++++++
+>>>   1 file changed, 393 insertions(+)
+>>
+>> A nit, subject: drop second/last, redundant "bindings for". The
+>> "dt-bindings" prefix is already stating that these are bindings.
+>> See also:
+>> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+>>
+> ACK
 > 
-> This also prepares for making the DMA engine provider data structures
-> private. DMA consumers should not access DMA engine internals directly.
+>> ...
+>>
+>>> +        description:
+>>> +          Input port for receiving CSI data.
+>>> +
+>>> +        properties:
+>>> +          endpoint:
+>>> +            $ref: video-interfaces.yaml#
+>>> +            unevaluatedProperties: false
+>>> +
+>>> +            properties:
+>>> +              data-lanes:
+>>> +                minItems: 1
+>>> +                maxItems: 4
+>>> +
+>>> +              bus-type:
+>>> +                enum:
+>>> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+>>> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+>>> +
+>>> +            required:
+>>> +              - data-lanes
+>>> +
+>>
+>> Missing supplies, altough maybe this is related to some other ongoing
+>> work, so would be useful to see explanation in commit msg.
+> 
+> At the moment, the Nord platform only supports TPG. Perhaps I should 
+> remove this part of the change for now and reintroduce it later when 
+> CSIPHY support is available, once the EVK board is ready.
 
-...
+Hm? So you added hardware for TPG? I do not see how such hardware is
+useful at all, thus I don't think we want the bindings for it. Bring
+real hardware, since the bindings should be complete.
 
->  drivers/iio/adc/at91-sama5d2_adc.c                 |  9 ++++++---
->  drivers/iio/adc/nxp-sar-adc.c                      |  2 +-
->  drivers/iio/adc/stm32-adc.c                        | 10 ++++++----
->  drivers/iio/adc/stm32-dfsdm-adc.c                  |  4 ++--
->  drivers/iio/adc/ti_am335x_adc.c                    |  4 ++--
->  drivers/iio/buffer/industrialio-buffer-dmaengine.c |  5 +++--
-
-Strictly speaking this is two patches, one per ADC folder and the other against
-IIO core. But this one is not a big one, so up to Jonathan.
-
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
