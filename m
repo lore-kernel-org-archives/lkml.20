@@ -1,91 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477DA2CCC5
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D9634104E;
+	Fri, 18 Sep 2026 23:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774145; cv=none; b=ZYn9U/4OMyUtML4KaoxUOsoEtN5lsf+N4oHeA9eb4EYPlbODyjqW1Qa38KoF9h+0bfx0atm566tGxRuUNLz9dEaVdd6CuSt32NfXdbhuRW9Ecgh10CrGEwySYo5bf5NYp9QPV/QGC6UByPyBmPsW0NlsOSiJAZVDO99vt2rYqsY=
+	t=1789774496; cv=none; b=Gx9HFRPIvQ0SotDBDpzeFKQ6m9Tdu9Q5v59S8ZtBNtLUGV3Vdkad4Fyu5R+ftK2lmSGeJ3T6jAXZMafJihrlTMVGXcnCx8rXoqmmq0QkKhnPnLgQ6fqymJ8ER2oZW0ZLYtZftWmsRiN6zy7rMRK754Nnyo5/RHvK9QG3AL3vk3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774145; c=relaxed/simple;
-	bh=188T93z4qV5uNJh8FeTOQrPGMOwnqFGa0qLgHhQ2j6I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NNtLHYJe6/cjnwswkkXr+GNfoMhv3B9HZ4C1qbvhrQ7H1851V3lGoJNXIQ9SNAYB8jLbg2hrNots5BXasa3fofsORKtGsSUu3XEq69Hh0aqTxIVr5FqZn5c+VaRDBm7Gpex1y8W9eLBzaidOe/6/YLJj8ecgSqEieuR6WT0qtmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiSRnKvC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789774496; c=relaxed/simple;
+	bh=+CIDY4tHCBcNN6f3HQI80T/KHLCZoSJvg0NcmfaQzrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H1RNdOYxpEmxc39lxG1r7HEcNF4ZaqENDKRBELmpKqHj3y8+FaAHkdtNQZr9XHI6le5FTNSQSmQ2wesOU4IvVsAFHJSnyIszr14JTfx4A+yDPjDUOAbEz+CHdI86E+N7GhFxu1Z7IXYgoveJNd16blENFWulSWaS9e5EwnKR+T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HbQbUXVZ; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiSRnKvC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDEE1F0089C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:29:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789774143;
-	bh=188T93z4qV5uNJh8FeTOQrPGMOwnqFGa0qLgHhQ2j6I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PiSRnKvC/7TsaU1jXYZznoLG1Io9kiC/TmZcfMXDIPzau2YYvOdIyD3AGztj9PbG9
-	 ZUmNI4lfmhvhM2Xt/8BfOr0pLFu8EaU37nLqsaDIYGZG8WRhdPy8AfxMz3xtq1dK/F
-	 tw+F7NFMfaZWw6ffFUmGNtlwHpOWiULgMVWC4JNqawpm9mSwlqoxXUdJb2MZXBNeiN
-	 +gZ940xRg21AKtjOiqF36zZy7r2jy1a8bzyJPdFnoW0UzJpXvy4djmkwZHWx3ge0O4
-	 TezPFQ7L5bjod01G8qyhX0bKHHHNy9BksPm4OVkHeSMOodqOLoJTrVeg9fG6YrTx2e
-	 k0IqK6W0l2q/w==
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-912628ea724so499886d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:29:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzTkAErnfD2IgfbK5J2dtHSrPzWEN83AQ292KhgB3qTrb16uFVJ6KOLFLaHHqX0l3uVYPxzbehmm68nMd4=@vger.kernel.org
-X-Gm-Message-State: AFuF++niV4Ffc/+HbKVXpcPbiLaXQGucpbRdTgl00oMwLFzLjuDZbGmP
-	yGScTHVI7YvjldESx21EKGWib85kFyWx4pBgHWoz866WS6TXZYMjW1LfE+fjbz8bpvThNbOClV0
-	sqVS0vxzBsH3vCQQNhEMYwLY3YCDMl7Q=
-X-Received: by 2002:a05:620a:2258:10b0:93b:e578:583d with SMTP id
- af79cd13be357-93be5785985mr347910985a.21.1789774143217; Fri, 18 Sep 2026
- 16:29:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HbQbUXVZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789774494; x=1821310494;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+CIDY4tHCBcNN6f3HQI80T/KHLCZoSJvg0NcmfaQzrk=;
+  b=HbQbUXVZyYArbQBBPDWdHqt+ayc92aV5o6OpC/t4FpsknaH03IxJ9oYf
+   c1gShB+60cYgGAojx5zt5uPiO5lny4ahabNh1EK/AlxyWVs+qcqEdkjp2
+   MmekpxU9r78+zs/ce7CCxoPCQmWVwypdAymYigKfU3nvE2lrcmbccuJ7q
+   0bsGg6bizR6DgY3rz+d6V3Cu9+SaYVcOT84kvpmroTcSGVCXHwJsiAq9I
+   9edl7X6CsI01b9Rs0yZeLjQ2JW2xSwYxcv+1jDkosYYNSdMzSbJg4/P34
+   4tc47Xn4SnYuk2Z2xwh9ZKoCrSmH0/2GVVAAsmfSQ/oIDcYuo3qK/MB87
+   A==;
+X-CSE-ConnectionGUID: Qb94jtGJT6yy3R5Rg736EA==
+X-CSE-MsgGUID: Bi4KPXEMQICZWLeUthpp7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="89240465"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="89240465"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 16:34:53 -0700
+X-CSE-ConnectionGUID: 9nJ7BauOSNyLmg3WxQ3PeQ==
+X-CSE-MsgGUID: DOzcEQl8Q6CsGqwOAV14zQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="271964200"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 18 Sep 2026 16:34:51 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7i6O-00000000ASb-1mkJ;
+	Fri, 18 Sep 2026 23:34:44 +0000
+Date: Sat, 19 Sep 2026 07:34:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guo Zihao <guozh23@xiaopeng.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: Re: [PATCH] media: cobalt: bound the dv timings to the descriptor
+ buffers
+Message-ID: <202609190745.z2mFq2RW-lkp@intel.com>
+References: <20260918072526.2478529-1-guozh23@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911121341.178028-1-alex@ghiti.fr> <20260911121341.178028-3-alex@ghiti.fr>
-In-Reply-To: <20260911121341.178028-3-alex@ghiti.fr>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 19 Sep 2026 07:28:52 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xPvb+t752-7cgBD+A_rnC0RsBr5xzqLH7WxfMDyUZOgQ@mail.gmail.com>
-X-Gm-Features: AcwNN1V3GmEDwNyGC-51iWFm0sj4MaQx5oLhHhe_bGWgP4pIfVXISsARrLm7dQk
-Message-ID: <CAGsJ_4xPvb+t752-7cgBD+A_rnC0RsBr5xzqLH7WxfMDyUZOgQ@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] mm: swap: drop dropbehind swap cache folios on
- writeback completion
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kairui Song <ryncsn@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Michal Hocko <mhocko@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Wei Xu <weixugc@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Kunwu Chan <kunwu.chan@gmail.com>, 
-	Tal Zussman <tz2294@columbia.edu>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918072526.2478529-1-guozh23@xiaopeng.com>
 
-On Fri, Sep 11, 2026 at 8:16=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> wro=
-te:
->
-> A PG_dropbehind folio is dropped from its cache once writeback completes
-> rather than left for reclaim to find later; this is implemented for file
-> folios in folio_end_dropbehind(). Extend it to swap cache folios.
->
-> The drop takes the folio and swap cluster locks and may sleep, so it
-> cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
-> as the file dropbehind paths do, and drop the folio directly from
-> folio_end_writeback().
->
-> Suggested-by: Yosry Ahmed <yosry@kernel.org>
-> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-> Suggested-by: Nhat Pham <nphamcs@gmail.com>
-> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> ---
+Hi Guo,
 
-LGTM,
+kernel test robot noticed the following build errors:
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+[auto build test ERROR on linuxtv-media-pending/master]
+[also build test ERROR on media-tree/master sailus-media-tree/master linus/master v7.3-rc3 next-20260918]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Guo-Zihao/media-cobalt-bound-the-dv-timings-to-the-descriptor-buffers/20260918-152526
+base:   https://git.linuxtv.org/media-ci/media-pending.git master
+patch link:    https://lore.kernel.org/r/20260918072526.2478529-1-guozh23%40xiaopeng.com
+patch subject: [PATCH] media: cobalt: bound the dv timings to the descriptor buffers
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20260919/202609190745.z2mFq2RW-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 7252edd9aa82ef1c570ff6694ef7f4763a8a5d2f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609190745.z2mFq2RW-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609190745.z2mFq2RW-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/media/pci/cobalt/cobalt-v4l2.c:635:3: error: use of undeclared identifier 'cobalt'
+     635 |                 cobalt_info("timings %ux%u out of range\n",
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     636 |                             timings->bt.width, timings->bt.height);
+         |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/pci/cobalt/cobalt-driver.h:160:45: note: expanded from macro 'cobalt_info'
+     160 | #define cobalt_info(fmt, arg...) v4l2_info(&cobalt->v4l2_dev, fmt, ## arg)
+         |                                             ^~~~~~
+   1 error generated.
+
+
+vim +/cobalt +635 drivers/media/pci/cobalt/cobalt-v4l2.c
+
+   615	
+   616	static int cobalt_s_dv_timings(struct file *file, void *priv,
+   617					    struct v4l2_dv_timings *timings)
+   618	{
+   619		struct cobalt_stream *s = video_drvdata(file);
+   620		int err;
+   621	
+   622		if (s->input == 1) {
+   623			*timings = cea1080p60;
+   624			return 0;
+   625		}
+   626	
+   627		if (v4l2_match_dv_timings(timings, &s->timings, 0, true))
+   628			return 0;
+   629	
+   630		if (vb2_is_busy(&s->q))
+   631			return -EBUSY;
+   632	
+   633		if (timings->bt.width > COBALT_MAX_WIDTH ||
+   634		    timings->bt.height > COBALT_MAX_HEIGHT) {
+ > 635			cobalt_info("timings %ux%u out of range\n",
+   636				    timings->bt.width, timings->bt.height);
+   637			return -EINVAL;
+   638		}
+   639	
+   640		err = v4l2_subdev_call(s->sd,
+   641				pad, s_dv_timings, 0, timings);
+   642		if (!err) {
+   643			s->timings = *timings;
+   644			s->width = timings->bt.width;
+   645			s->height = timings->bt.height;
+   646			s->stride = timings->bt.width * s->bpp;
+   647		}
+   648		return err;
+   649	}
+   650	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
