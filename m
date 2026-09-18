@@ -1,144 +1,121 @@
-Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335053E40EE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F933A2E39
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724108; cv=none; b=OEd1Yi2Mbmg21DKwmUlEeCj2v+YG/K/l09yjvW8Ibdbew18Q2GV+AO1joHAAN8p3VzgqcTqqNyJF/xmD0OrrtUayKoexU1pnDVhs4s2qSDOe8VU+ffDFyuH2xodGzvaXY3wd2wKNjaxFZNa6IXbMZEyyfBotUePRyHaRGi0jTac=
+	t=1789724162; cv=none; b=dowR38zwFo0J+gwOlNPgOMB76jPA9Geq9GBg5BB7YW/Uaz3a0Aplnq5AydUD9KNPSX5LHQhfCGgd8Fx9Xbn98//PX+pPgr5TI7SyRUQOG6s579GtdHT4ZsEj9dpDV2ok4nrXeQu86ETAx4JW2utUJ2jLex47u6T2MjwVhHQBwo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724108; c=relaxed/simple;
-	bh=p/DQJd95U/7tkNehVUiamBQTKyTjZl52MTnDy+aDty8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iIIirs9LmgQWSEPZguNgllWk2F/76Km7r6f6JcnZBOHJE2CmyHz6NjATs9zxYHqHkpw+rmQhCW1++qWo5VxSMEBBj6JSnb2XecLAT2snZo465dTFB1vqa/loMkxFW2c1cNm3eNsOIyN4nzZYkgm40Ec0i7IVzCMRD+w9Gt6RaFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t7TZ60mt; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789724162; c=relaxed/simple;
+	bh=0SiqnGEHfV8QnYsdfobUysNm1KMhEbaxP7IVdhYF+nc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lodjJLm08u1/vi7E7mNVMw8Z0FhwGaJ7NU+e1G3OSkVtydpvCg6MzvqeBiWsMQQ2hP4nU7WudGsRanLU2e+WDHJNkkrrdnHTEt1pNRLIFnAJV7JCHXHlL0m7KR3lJCCM+fO6fFaW6LqocB4QkU6ILY/wEjvhSjY6WEZFwvSOMGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kUlM7AyS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t7TZ60mt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=p/DQJd95U/7tkNehVUiamBQTKyTjZl52MTnDy+aDty8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789724104; v=1; x=1790328904;
- b=t7TZ60mtyBpGmXyqF9xUBXtjYq9ZtoFwrn0HSx2Ph+U4/WywNAhaY7HkNO2bIxtCLk/QXpXx
- ePKIRBMR7usKqfagJlrKT6QvXX4vhQ9JjEXuC8fYvlcP9wnXceW7kStV9BWvI9jpomfSYnSzZ8P
- /2Era6AfCaa01vvu6sABCWxY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c0e6a754c1f50c48;
-	Fri, 18 Sep 2026 09:35:02 +0000
-X-Mizu-Trace-ID: c0e6a754c1f50c48
-X-Migadu-Flow: FLOW_OUT
-From: George Guo <dongtai.guo@linux.dev>
-To: pratyush@kernel.org
-Cc: rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	sourabhjain@linux.ibm.com,
-	graf@amazon.com,
-	changyuanl@google.com,
-	akpm@linux-foundation.org,
-	chenhuacai@kernel.org,
-	liukexin@kylinos.cn,
-	guodongtai@kylinos.cn,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes before allocation
-Date: Fri, 18 Sep 2026 17:33:16 +0800
-Message-ID: <20260918093317.12216-1-dongtai.guo@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2vxz1par7amw.fsf@kernel.org>
-References: <2vxz1par7amw.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kUlM7AyS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so3908965e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:36:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789724159; x=1790328959; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qmipB2sS5GuYStzHQ237S1oca/1nec0HMtyjA0gSIjU=;
+        b=kUlM7AyScERlny/ui07b5Q1DPcQBnVk9Rp/FUY6BqUnaXW8CpWu5I2m9iWFoQrrtxq
+         RqTjxhpMExFqAMNrE3OOrae5Sk0LDfYKLcI9afjv7TbcFpPJvGmJj6LSyyiSKk7xVxN1
+         Hbl8zsJA/8+zD7hrXPkVpRglz1rw40l5LrsyeHBq28gQ6Gw1E6oOA+eal4MFhPywYuZf
+         stsjA37QG7BJxdTrC7TNXf0vHPms5ZXmog1rNk0R3pid4NoqJXpEXJHfSpQU2XP5Rz4S
+         qcCYvq2ayRChEqKxHeBLr/7if2Bpr5zetSKvsFbX11Ncg3O8FYFIoSSM7lfCUMrYwMlR
+         NH5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789724159; x=1790328959;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qmipB2sS5GuYStzHQ237S1oca/1nec0HMtyjA0gSIjU=;
+        b=LAWjSCjjD9ney/tgthDwR803YJ+V+uTc45KT3fg/+yWTZlHCkY/AtqEQrG5/sA2M/c
+         HcFbw6XozfXTEve14eZ8doPiqcczpME+e4qH4XPf7xafzuuSJoLEs3rOQmIr5CuCs2aG
+         KBU8Kj8DZ78ZiX/1UhbHZx0aOy4kG5CsjIzIOT5hPJZa9OacwyshUfIJsowB4RF6QEPR
+         W1rnPbytLmGx3GOCJ8x8FwE9G7PkKQlZkZvImixJWJfND+mSj1sTLRMXlEBDvsGCvA42
+         mCmxDneqVmzlfdXNtPY+x5hVoi23n/Olx6RN7f5T3mjo0GnocWEcWs4M4l+2/e4dDFSe
+         pxFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKskhFtBS/6kagAlZCqwVQLCaPWglBAwm9CkCBUZKxCZI5j95uUxLh7ZIZ7nakf+VQoI3Wb2WVJPBE6Us=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLfCyGFeIDeAEiPwYhMJAmh6/zUxJfoEQPNAwn1lDwz79RHRfj
+	n2cITxP6P7/vnHbwkFd108ilX+aIUt3qYek+GHSB0TIsYg706ZKHm3Dy
+X-Gm-Gg: AYBFou1sANBVzfufHsiyf2hsTUBeYLBsKtESZo+TMoCXFFhP64bEeBrZzb303r8Qsyg
+	ZaqUT8zPdbkZ7345umJDDz1vddGg+8iN81nuQACUDXaKtq5WakINhlRXmXIiQ8Un82Az73wY2MN
+	d/jbGSiimw7J+C4hVpyim8+flvpJhpl0xcqSfV/f25A9TokEWKH3lt3rBxaYjOUUEq36+nDcOSQ
+	aGhuvhL4qMJmF58Tg4qw+lBO4QLg64t0oHSrRWpvvQ7r0VEhELQn2GGyZqog+JPdK/Lmtcf7gL3
+	YUUde53x81akcSV3nqR8Kla6Yl8i6ceD/W4Htm0SJIIcHf0zF/6fpnvwhQM4MiLjeS1h4mBSCuJ
+	p6KBci8LjWa7jbYx+pycA0Hmj8bSNhPSn1AiVaEdua8WZ97TkxEzLajhXOTMTgaqnnMqasxEJqG
+	Dk9dAoS3Hc9WXasM5U7y2ZRu6oEJDeu0S+agCAJGQG5dLt7PbbpR9Yu0lj98lSotBKlXEr8sQJp
+	wtWjDKC6MLlBcZ2btBrjJ/fIVLc41cbBPVM
+X-Received: by 2002:a05:600c:4695:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49fc55ac96emr25375345e9.0.1789724159291;
+        Fri, 18 Sep 2026 02:35:59 -0700 (PDT)
+Received: from gmail.com (deskosmtp.auranext.com. [195.134.167.217])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7ce03dcsm41256665e9.5.2026.09.18.02.35.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:35:58 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:35:56 +0200
+From: Mahe Tardy <mahe.tardy@gmail.com>
+To: kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>
+Subject: Re: net/core/bpf_ksock.c:221:18: sparse: sparse: symbol
+ 'bpf_ksock_release_dtor' was not declared. Should it be static?
+Message-ID: <aq0F_C4nRM6glHI-@gmail.com>
+References: <202609180339.0L7nLqNo-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202609180339.0L7nLqNo-lkp@intel.com>
 
-Hi Sourabh, Pratyush, 
+On Fri, Sep 18, 2026 at 01:34:41AM +0800, kernel test robot wrote:
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+> commit: 7ae4eb14c5f9d9bf0e0feabeab206151b1280512 bpf: Add ksock kfuncs
+> date:   5 weeks ago
+> config: i386-randconfig-1302-20260917 (https://download.01.org/0day-ci/archive/20260918/202609180339.0L7nLqNo-lkp@intel.com/config)
+> compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
+> sparse: v0.6.5-rc1
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180339.0L7nLqNo-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: 7ae4eb14c5f9 ("bpf: Add ksock kfuncs")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202609180339.0L7nLqNo-lkp@intel.com/
+> 
+> sparse warnings: (new ones prefixed by >>)
+> >> net/core/bpf_ksock.c:221:18: sparse: sparse: symbol 'bpf_ksock_release_dtor' was not declared. Should it be static?
 
-> But in practice, this problem is only on CONFIG_NUMA=n and I don't think
-> in practice KHO or LUO is being used in non-NUMA systems. So while I
-> think it is worth fixing, I think we should also have a test where we
-> enable CONFIG_NUMA.
+This looks like a duplicate notification of:
+https://lore.kernel.org/oe-kbuild-all/202608171256.McaD8rfl-lkp@intel.com/
 
-Confirmed. My vmtest kernel has CONFIG_NUMA unset, and your analysis
-matches the data.
+And we concluded in the other thread that this should not be fixed and
+is as intended.
 
-I reran the vmtest with Sourabh's debug prints on both configurations:
-same kernel, same QEMU command, and without my this fix patch, so the
-default percentage policy is exercised. The only difference is
-CONFIG_NUMA.
-
-Without CONFIG_NUMA:
-
-  KHO: Before low and global scratch allocations
-  KHO: low size = 330185 KB
-  KHO: global size = 322 MB
-  KHO: Per node 0 = 672 MB
-  KHO: After low and global scratch allocations
-  KHO: low size = 330185 KB
-  KHO: global size = 322 MB
-  KHO: Per node 0 = 672 MB
-  KHO: Failed to reserve nid 0 scratch buffer
-  KHO: Failed to reserve scratch area, disabling kexec handover
-
-With CONFIG_NUMA=y:
-
-  KHO: Before low and global scratch allocations
-  KHO: low size = 330197 KB
-  KHO: global size = 322 MB
-  KHO: Per node 0 = 96 MB
-  KHO: After low and global scratch allocations
-  KHO: low size = 330197 KB
-  KHO: global size = 322 MB
-  KHO: Per node 0 = 96 MB
-  KHO: After per node allocation
-  KHO: low size = 428501 KB
-  KHO: global size = 418 MB
-  KHO: Per node 0 = 288 MB
-
-In the run without CONFIG_NUMA, the reserved-kern sum the sizing sees
-is 330185 KB, which is the 98.45 MiB baseline plus the 224 MiB lowmem
-scratch area: with memblock_get_region_node() hardcoded to return 0,
-the NUMA_NO_NODE lowmem area is counted as node 0's kernel reservation.
-Node 0 therefore requests 200% of (98.45 MiB + 224 MiB), rounded up to
-32 MiB alignment: 672 MiB. That no longer fits next to the other areas
-in the 1 GiB guest, and KHO disables itself.
-
-In the run with CONFIG_NUMA=y, the real node ID excludes the
-NUMA_NO_NODE regions, so node 0 requests 96 MiB. The allocation
-succeeds and is visible in the sums printed afterwards (330197 KB ->
-428501 KB), and the KHO selftest passes end to end ("KHO: found kexec
-handover data", restore succeeds).
-
-Sourabh, this also answers your question. Your PowerPC system runs
-CONFIG_NUMA=y, so the node filter excludes the lowmem and global areas
-and your numbers stay flat. Your experiment and mine are the two halves
-of the same mechanism.
-
-> I think on NUMA systems the problem is the other way round. The
-> calculation for the global scratch also counts per-node allocations.
-
-> So I think the proper fix for scratch sizing is what this patch does
-> and then a fixup for the global scratch calculation as well.
-
-Agreed. For v2 I plan to:
-
-  - Compute all scratch sizes (lowmem, global, per-node) before any
-    scratch area is allocated, per Mike's comment. The sizes are a
-    function of the pre-allocation state, so this seals both feedback
-    directions at once.
-  - State the !CONFIG_NUMA condition in the commit message. The feedback
-    described there is not unconditional, which is what triggered the
-    question.
-  - Add the LLM attribution Mike asked for.
-  - Include the CONFIG_NUMA=y vmtest result as coverage.
-  - Look at the global scratch calculation on NUMA systems as a
-    follow-up.
-
-Thanks,
-George
+> 
+> vim +/bpf_ksock_release_dtor +221 net/core/bpf_ksock.c
+> 
+>    220	
+>  > 221	__bpf_kfunc void bpf_ksock_release_dtor(void *ks)
+>    222	{
+>    223		bpf_ksock_release(ks);
+>    224	}
+>    225	CFI_NOSEAL(bpf_ksock_release_dtor);
+>    226	
+> 
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
