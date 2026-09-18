@@ -1,143 +1,207 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD7852D2A1;
-	Fri, 18 Sep 2026 21:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C0E52D2CC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767699; cv=none; b=osBbWWhC4sboi3s+0Weib7DvY6pCPwMUz7yJ7/guh+BagDLdSes6rIdBxxPE4LKq40/ATRBUl+zq6+KHW82BCUx3lMhMjijPlyyzKKABDfnToO2wp9tYOnYuNvGaKuarIEuhVxA7Tndj6pkpTerkRFPzLqSyXfJej+b754K5bZY=
+	t=1789767701; cv=none; b=SxSh4UOGWmOAU9PUJ3cqr/X30dlgs635FFHFb0OYz+xlZj20mL64QmphhydkB/roIk33S8jdwXnuz5RXfeaG6bWxAIv6PphQGqJk6HxJK1n2mWEOI+/NA9k0ey/b+qQNt3WYJE+ZZbAJgAs/JzqIamLVMAw8Rdva7uqQGSjBl0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767699; c=relaxed/simple;
-	bh=g2pNaqSjEUVUSnZ0XDVKFKgnJiptI9oCl+wn/0Eep/A=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=LxjgOSdChC5M4JzvpWkOshlXbWR7ypGmQZpcO/kHlGV/Yph4O/jc9zuTNP6hb0B8LOPYIH3bMx58/OEI9HUS83oVwbA2dZX1TpwXQRKcqkOuGsHjoO26vVWS1AoU/s9r0Jd+El1G6/aZ5FjFPhlggWpOENEbL+HXG7DQusR6sJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=pV6FJZrV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cl/EcELO; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1789767701; c=relaxed/simple;
+	bh=lbBf/ueicwniQNfiKA9u5WPoXw5NEWhMyKqT+hBDAmo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NT1vTlHpSzVd5CjJ24FBYwcdGTdet/Qs0ZcN/ixm+Qm2+Uac1aZoQRt8gjOvGbjMiIU0a7BdoFjHIajoQSRKqtIYQD4qivN12WhGbLsDL77V2ZwRzUySoPBOerRESZgAhGoR5j3wxi/IPhyuZ5R0Noi2vr5qKpqcVpA5s+zNuFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oj2p/kVF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="pV6FJZrV";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cl/EcELO"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfout.stl.internal (Postfix) with ESMTP id 4F3A41D0006C;
-	Fri, 18 Sep 2026 17:41:36 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Fri, 18 Sep 2026 17:41:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1789767696;
-	 x=1789854096; bh=V6a8DjpXuP1JaHpHQpka+djywQAWhu24+NeFfy31YWo=; b=
-	pV6FJZrVOY2efp+YFo47R/2FjQrFjp2XX+8V0rUkh4XkPUSLMbJiPyAxjwfT88Kx
-	k+uz/lS3aKr1OA0xZTgrqaWRpjBzq/6/QgsZQ6AMkeqWveUzn86/+3EJFLPnYOjJ
-	5IPkxS92cacTKQs8W/drR015hFL0urme2TTPM2uVrAc11zIEK+Hy8WXKukSkvMPw
-	Fu2YEiqQv3kavalXt5FCYdAGFucGPas5+coOhqvvg/inpeyCR6TJkau7sj2VZDxD
-	Diyfs+cZGahDyVJDKadMfx5VHeEBWdEfOuBConpxzTxAnXXe/X8l6xiKTetxqfR/
-	lTcuIt6XIVw/RfvJevGs8Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789767696; x=
-	1789854096; bh=V6a8DjpXuP1JaHpHQpka+djywQAWhu24+NeFfy31YWo=; b=c
-	l/EcELOUH/KBYFpVMu2LxHEpIjoiX2HUiJ4dZktwVFtOC6XDmaJtq3cjw14cpGFt
-	HcsfaeuAtdjzzsIsoJWg5M3QrX1WIqDChHS+8JcvInoWBQRCvy4HxUGDGS/01604
-	54MPxYVgvb7RkdErospSYgHaGcw+MbS30u5aFjby6CoU7zw30dKHlz3Bbh82Z+Pd
-	pWUq4nWTwT1QV3v3d6pi1QwhHNuyO8ZJxLKCQuO9G/ZLSAQM9LY5uZJiCV0BDBSA
-	daBZI8ByRBVDN4m/FUc/msSs5qSjtn+h1HJHL5zrP4Ipo05MEBo/w8XDcutnRQsM
-	Ey9ohSlDlnwDAmmrwOvtw==
-X-ME-Sender: <xms:D7CtagMaO9XOtReKeQEjzTEP82pJQdlbWpgfTDIlrNv6f297yU65Vg>
-    <xme:D7CtahyZ21O5xF2nSJIXhtyDytc42l0TOvBpsK3DALKYz6per3NLIByCHUmQHrdyo
-    YWXXRDJ4MAwvLnGocubamvwjm2xrWOS3uxJHeebv_VMiPkGWKiJkuM>
-X-ME-Proxy-Cause: dmFkZTFhfILZr58CCorNsiwKh84e3A84AdOSEPLZoX2XgQYFtC08YP8NwkBYSeMFs35k9d
-    L6EuU7lDPskUk9ffe6Z/d/y+XfbmzO+stCFkrBH19yMZTpBVNp2mRMvzzDM8i80NS7BFfY
-    rSy5yQ0tVqtWsXoQ2itK2tR/NsZkoYcGqOjTdaQTD6Px2uAQzyhtkYvJ0MbFvaSZ3frzwr
-    zrywnDYMsHdh5uPsSx0F1oy/f9C9U19MdDJLvh5QMpkExOxIYUeIBViUor8Lhk6mO14+EF
-    lHqTkoJ/MuMdlugQHinAS0SaRu/eBkEii+LcvJRFwbbqyUEZHna+6nfjdSR/bDS0vzR1dv
-    ftWQZppy2V55o+naxZLf5HA03fG+Y+Nm4TKzEtXKa1QP+yXhWcmf936vWj7XCrDCjkKlwi
-    qy0MdZxa1efa25IuR400fN9boqWzX1n3IQ8WGaaV/YJ9ufiihwU2Wzw6cFwy2PZ++PDpfs
-    DYBtb837wNcHovYHQHzWg3lwS1N0MV0VXdo5aU3bSr5pQjT2aAQW0Kz+p5CBmWsYL6ip4o
-    IaUu0SpPhEYYf/QmDiQXdzMAIV6nVjfE56f5fp/UDALAWWloCZciSbgUbxpj2QQSghzMfX
-    WT0qf0jplrDvSXn9dFAmgRSlpjs5XKayvqvBs7O9zb73wEd5moZXPpumNdrQ
-X-ME-Proxy: <xmx:D7CtapwcaWiz4Jivkk7Y2n3_eK50t99u3kpKkxU30-aTfd3U4bYxNQ>
-    <xmx:D7CtaoVRrhqhgfggZsKJYEng7mCqBzfFxhVMHHhUpkgYLH8D5uVGsQ>
-    <xmx:D7CtapjxngltwRqAwefsbitwEvy1VmAVCzbnrbx9pa306m3g_LdGpA>
-    <xmx:D7CtaoCLxOLtHW4zqMBQolGm5iJC_RbI-Bah_3tRPqloKM-NL-PZhA>
-    <xmx:ELCtapDa8ij1ghPnMOBiTPL4CeWFX3IWt38GJ_JS-p9fBK1XQw5MaXU7>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 6E1742C00067; Fri, 18 Sep 2026 17:41:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oj2p/kVF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808B91F000FF;
+	Fri, 18 Sep 2026 21:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789767699;
+	bh=PeNqrRYaLm5sJCyL+8qRVNEQneIa27x2hQRJJB+Kd7I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Oj2p/kVFBTo4rNCg3ja/p7FHen560WeDm0VQ17VhhVE627tVA3a9rcWf8FwWkDiBx
+	 YZ0PVffkg7aIdn73zU4yaQPxj5enoT9s9f4KDiHEFELBjXFdNAogRv09ocbsYhFSV/
+	 9YVro2p1s0S/yIlmNWCjL3EG32QmyfClqu6EOHG0zy/Ma8sOcnq0n3PNrQpzCR0M4k
+	 GZ26ZGZ6eQW9pmGjZijM3MwMbWe30oX5T2Ziexnq5FrL0BCjcLmI9mEDqby0vI4mLN
+	 +P+SCP52qV7tqYPC3e3Ht3QOeSS1EkBBrGKTfDHHrja/Zi9IkgYK8CzuYZ6jInsIQS
+	 y7q+sxyLIn9kQ==
+Message-ID: <92d0078e-afdc-422a-b624-0a3ca9aa307c@kernel.org>
+Date: Fri, 18 Sep 2026 23:41:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AcycUTG39Ir7
-Date: Fri, 18 Sep 2026 17:41:15 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Navon John Lukose" <navonjohnlukose@gmail.com>,
- "Ike Panhc" <ikepanhc@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <3c345c9f-ca1b-4f77-9641-cb026704c6c1@app.fastmail.com>
-In-Reply-To: <20260914134216.1295740-1-navonjohnlukose@gmail.com>
-References: <20260914134216.1295740-1-navonjohnlukose@gmail.com>
-Subject: Re: [PATCH v2] platform/x86: ideapad-laptop: Add Yoga Pro 7 14IAH10 Mode key
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 06/29] s390: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-7-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-7-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026, at 9:42 AM, Navon John Lukose wrote:
-> The F9 "Mode" key emits WMI fn-key event 0x46, which the keymap does not
-> cover, so it reaches userspace as KEY_UNKNOWN and cannot be remapped from
-> there. Under Windows it opens a performance profile chooser. The Fn+Q
-> button already cycles platform_profile through
-> ideapad_check_special_buttons(), so map 0x46 to KEY_PROG4 as a
-> user-assignable key rather than cycling the profile a second way.
->
-> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+On 9/14/26 14:27, Usama Arif wrote:
+> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+> not just in a swap PTE.
+> 
+> s390 is the one architecture where a swap PMD is not a swap PTE in
+> disguise: it is an RSTE with its own layout, converted to a fake PTE swap
+> entry for the common code. Give it its own exclusive bit rather than
+> borrowing the PTE-format macro. The two happen to have the same value, but
+> that is a coincidence. Bit 52 was documented as unused; document what it
+> is now.
+> 
+> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+> Cc: Heiko Carstens <hca@linux.ibm.com>
+> Cc: Vasily Gorbik <gor@linux.ibm.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
-> v2: reword the entry comment and explain why 0x46 is not routed through
-> platform_profile_cycle() (Hans).
->
-> https://lore.kernel.org/platform-driver-x86/2eab84cb-6d2f-4ec3-9869-e2aa9c1d75da@kernel.org/
->
-> Lenovo Yoga Pro 7 14IAH10 (83KF), BIOS QGCN35WW.
->
-> Measured with dyndbg on ideapad-laptop.c and a kprobe on
-> platform_profile_cycle():
->
->   Mode key (plain F9), 2 presses:
->       WMI fn-key event: 0x46, twice
->       no platform_profile change
->
->   Fn+Q, 2 presses:
->       platform_profile_cycle() twice, called from ideapad_acpi_notify()
->       no WMI fn-key event
->
->  drivers/platform/x86/lenovo/ideapad-laptop.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c 
-> b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> index 8213524..35c13d9 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -1360,6 +1360,8 @@ static const struct key_entry ideapad_keymap[] = {
->  	{ KE_KEY,	0x45 | IDEAPAD_WMI_KEY, { KEY_PROG3 } },
->  	/* Performance toggle also Fn+Q, handled inside ideapad_wmi_notify() 
-> */
->  	{ KE_KEY,	0x3d | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
-> +	/* Mode, opens a profile chooser; the Fn+Q button cycles the profile 
-> */
-> +	{ KE_KEY,	0x46 | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
+>  arch/s390/include/asm/pgtable.h | 28 ++++++++++++++++++++++++++--
+>  1 file changed, 26 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
+> index 2d5c2ab06de98..0790a0884cfab 100644
+> --- a/arch/s390/include/asm/pgtable.h
+> +++ b/arch/s390/include/asm/pgtable.h
+> @@ -333,6 +333,7 @@ void setup_protection_map(void);
+>  /* Common bits in region and segment table entries, for swap entries */
+>  #define _RST_ENTRY_COMM		0x0010	/* Common-Region/Segment, marks swap entry */
+>  #define _RST_ENTRY_INVALID	0x0020	/* invalid region/segment table entry */
+> +#define _RST_ENTRY_SWP_EXCLUSIVE 0x0800	/* SW exclusive swap bit, see mk_swap_rste() */
+>  
+>  #define _CRST_ENTRIES	2048	/* number of region/segment table entries */
+>  #define _PAGE_ENTRIES	256	/* number of page table entries	*/
+> @@ -859,6 +860,28 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>  	return clear_pte_bit(pte, __pgprot(_PAGE_SWP_EXCLUSIVE));
+>  }
+>  
+> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> +/*
+> + * A PMD swap entry is an RSTE, not a PTE, so it needs its own exclusive bit
+> + * rather than the PTE-format _PAGE_SWP_EXCLUSIVE.  The two happen to have the
+> + * same value; see the RSTE swap layout above mk_swap_rste().
+> + */
 
-Just a note that on Thinkpad we handle the mode key also as a profile cycler so it's a shame these are different.
-I personally would have added 0x46 to the code in ideapad_wmi_notify too so either mode key or FN+Q could be used. The mode key is a much more obvious way of cycling through profiles in my opinion.
+I'm not sure the documentation here is warranted. It's all documented above
+above __SWP_OFFSET_MASK_RSTE, no? I'd just extend the documentation there and
+keep it away from these helpers that just use the bit.
 
-In theory you could maybe use KEY_PERFORMANCE there so they're 'different'. ProfileD should handle that (don't think tuneD does yet).
+The fact that they use the same bit doesn't really matter.
 
-Mark
+> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> +{
+> +	return set_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
+> +}
+> +
+> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> +{
+> +	return pmd_val(pmd) & _RST_ENTRY_SWP_EXCLUSIVE;
+> +}
+> +
+> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> +{
+> +	return clear_pmd_bit(pmd, __pgprot(_RST_ENTRY_SWP_EXCLUSIVE));
+> +}
+> +#endif
+
+I guess we could move it above the pmd_swp_soft_dirty() stuff in the same
+CONFIG_ARCH_HAS_PMD_SOFTLEAVES block.
+
+> +
+>  static inline int pte_soft_dirty(pte_t pte)
+>  {
+>  	return pte_val(pte) & _PAGE_SOFT_DIRTY;
+> @@ -1900,15 +1923,16 @@ static inline swp_entry_t __swp_entry(unsigned long type, unsigned long offset)
+>   * Bits 59 and 63 are used to indicate the swap entry. Bit 58 marks the rste
+>   * as invalid.
+>   * A swap entry is indicated by bit pattern (rste & 0x011) == 0x010
+> - * |			  offset			|Xtype |11TT|S0|
+> + * |			  offset			|Etype |11TT|S0|
+>   * |0000000000111111111122222222223333333333444444444455|555555|5566|66|
+>   * |0123456789012345678901234567890123456789012345678901|234567|8901|23|
+>   *
+>   * Bits 0-51 store the offset.
+> + * Bit 52 (E) is used to remember PG_anon_exclusive
+> + * (_RST_ENTRY_SWP_EXCLUSIVE), mirroring bit 52 of a swap pte.
+>   * Bits 53-57 store the type.
+>   * Bit 62 (S) is used for softdirty tracking.
+>   * Bits 60-61 (TT) indicate the table type: 0x01 for REGION3 and 0x00 for SEGMENT.
+> - * Bit 52 (X) is unused.
+>   */
+>  
+>  #define __SWP_OFFSET_MASK_RSTE	((1UL << 52) - 1)
+
+IIRC, __pmd_to_swp_entry() and __swp_entry_to_pmd() will lose the flag, which is
+the right thing to do.
+
+So conceptually LGTM.
+
+-- 
+Cheers,
+
+David
