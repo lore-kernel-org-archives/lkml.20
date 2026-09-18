@@ -1,165 +1,255 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66854374735
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F104454707D;
+	Fri, 18 Sep 2026 06:16:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712084; cv=none; b=ejg0JIyvm3XO6djexXgfk59IkncS2GGPOyNnmImkdnKCsQoRzcSdv8b0r3HADqSiYIKeAFhVOvJOVFMGsXsilMRWBxycF2Knv2jfu37Rme4GclPGUDsY/O542dGmS6/bJ/8ZlV2oHe6ipSxuo1cXTDoReQQr+fMBeL1t9VQNT2A=
+	t=1789712187; cv=none; b=GoSlph6gOmh34fww7O1IdJDkq7nes7tS57WILYqQ/sqnp2+Jrso1bqPXzizvmyhOOpnBmJm+cR5S8cWqw+te7nrwWna/05Oq7OS2Gl2cLSjWC0FsaBt0wotPIEcjtQ4bhNIcWVPHTHn8EeLbBZfuryY+3gsLkbtrdR40Ze8RMGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712084; c=relaxed/simple;
-	bh=kJkWUIcJmnhwP4/i9ONumAw98jqXFVolIY+uJOBZOos=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OevVOeJNWAazorrFqJdGMF65zP8VKGdeonUSXcpxkncg4t3xzs1ituqPG1ZNUhiVNfMHrCX9RAxsn014q7KMgxBzFz8KAmlY5BHdz40d/oOHJD6hfgIWE4AVAtGWIZNol7wu52QFRf3psezo3tidoJ9KKaSlQOOaBbwTKh6Ig0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRu9qUjQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789712187; c=relaxed/simple;
+	bh=RPub0OP1suX6w5PEcQlHLjrQ7i6N3AWsKD4kaMFtd4Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OU7c/p2FupQGfGl/CJtA8Rp8G1qfXe8Nj6ONbiPMPPBz2Og56DKdEl9DjRixYIyrQRv9t/8+gnSbAGgEd1plml02pmdryMciVqCGX9Ysa5msaNJNHY8rPboqnp85mfD/OnvYo7azYBBzVWx4jYxLGb8VEKebBXcWPpMkFJS4gUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGDp9MOq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRu9qUjQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9EE21F008A5
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:14:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGDp9MOq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CA71F000FF;
+	Fri, 18 Sep 2026 06:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789712083;
-	bh=mSUon0Ye+JTXHkgGPecismrQ6aWB6KUmBQxrnhvgcgA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JRu9qUjQXlRcjBdYLmYId5fUC6gNDmR6uvG9HayWY2hzLkH+HiGKuskUL/ctLgP2U
-	 Ob9+gFsoHQpIkKakYQSc0AbdsDy6276zAapXDiWaE9paVunN0VkmUUpMNDSDscA4Dw
-	 TvkGHI+97S2SioWsf3/Ey/5smgTkPfQZu5lwVDNsJ+wK04tjbiBQI+ETfTKpxJYqhm
-	 sMx5mw0Ln8+FkO+cAoi9V3yM+cMQj4udf54sUfcPw2eDg4/WPE53GkFK1qwojK1mdl
-	 O8XwhWGUjhPRf0KLJ2oE243yp5Fxp0NBITZRZQCQ4NAar+SXKaC++dyEEH2NBA+Z/g
-	 G9Cm/SO1Eid+g==
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9104e54b1abso6903236d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:14:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwVYm8D6K8XSgoa8+zMx3w6DMomau9RVuHWnkc8vUkBiBDhSqD3uwUCrdAcxNij1OUw9igG4HsPCG7e7SE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIDbSlTVwptreNux1yYUoGgdhhoWObkyPqMhWc830k13Zih0kL
-	r4iAPSarLPoZhb74gNSobIBPfWcjhFnMXtO7QdV+xcnggXN7qjBVDQ+hqeNwiaQUgWhuVMDXi1x
-	pf4C6hCIsTc9jch3mHDdItoItY7wTwTc=
-X-Received: by 2002:a05:620a:17a3:b0:939:e735:c50e with SMTP id
- af79cd13be357-93bdc6a6970mr193841685a.13.1789712082223; Thu, 17 Sep 2026
- 23:14:42 -0700 (PDT)
+	s=k20260515; t=1789712185;
+	bh=1UJZmtL5CaegXonvGSFA3hDJm+445zpdeAtQXn0bTg0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DGDp9MOqsFg4B4mXaMYUDEqubm5sEflyzN4PeRyswj7MHIjchkbjaYKs3ql4AzhcA
+	 w0HwtVc4gjHgFLUq0c5wlDCOuvqi3kD1oD5x5w8u684B8qjtZImm+1aiKX0FO1CPpM
+	 /4kuScDfKAwD/XyMXlTHY57L1Q9h3xEf1AJwkKoVMItNTBw2HfswgYoVup66L8SOm2
+	 C1mjmXPtiIOzyh+mZ3eZn5myq2OPHSBtgqAuGw0+qKGYBBg8Cc6YKsayRcEUKViUET
+	 K/hrR+U22IaPWJmu0CIIe+s31WX0YIdZQ+s2HYjDTHoowolvOt/5OAgt9pXzHviqqj
+	 bxc/tNqOGjuGA==
+Message-ID: <0d91473e-4432-409b-bb95-9f400ae60d05@kernel.org>
+Date: Fri, 18 Sep 2026 08:16:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <20260917052933.188679-4-jiangwenxiaomi@gmail.com> <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
- <CAHKocdE_zyUQT459AiTBDzQHk0jh+VpXuSMDdgHjkg-dAkgBNg@mail.gmail.com>
- <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com> <2462f67c-f7d3-4eb3-a093-6a338ef49f14@kernel.org>
-In-Reply-To: <2462f67c-f7d3-4eb3-a093-6a338ef49f14@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 18 Sep 2026 14:14:31 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zMG6v-ioi8-NhveqowPVAnsHkFCNy_c7+KHDMRW3JH-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1X6q5f1Ex-rUff9-91gcAaVXuwTbEB0wMz6EV5siIJ-q7nSpPx4G64lSm8
-Message-ID: <CAGsJ_4zMG6v-ioi8-NhveqowPVAnsHkFCNy_c7+KHDMRW3JH-Q@mail.gmail.com>
-Subject: Re: [PATCH v8 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
- for PTE-level block mappings
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org, 
-	catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com, 
-	will@kernel.org, Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, 
-	anshuman.khandual@arm.com, david@kernel.org, dev.jain@arm.com, 
-	jiangwen6@xiaomi.com, leo.yan@arm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org, 
-	ryan.roberts@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv2] dmaengine: bestcomm: use platform machinery to get irq
+To: Rosen Penev <rosenp@gmail.com>, Frank Li <Frank.li@oss.nxp.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ "open list:FREESCALE SOC DRIVERS" <linuxppc-dev@lists.ozlabs.org>,
+ "moderated list:FREESCALE SOC DRIVERS" <linux-arm-kernel@lists.infradead.org>
+References: <20260916224156.276511-1-rosenp@gmail.com>
+ <aqtdmOzJSIawqKQq@SMW015318>
+ <CAKxU2N-gitgedS9ZJQ7wNV9Dma9PUwM+0NMY5yfVk2PvXOYASQ@mail.gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <CAKxU2N-gitgedS9ZJQ7wNV9Dma9PUwM+0NMY5yfVk2PvXOYASQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 2:05=E2=80=AFPM Christophe Leroy (CS GROUP)
-<chleroy@kernel.org> wrote:
->
->
->
-> Le 17/09/2026 =C3=A0 23:44, Barry Song a =C3=A9crit :
-> > On Thu, Sep 17, 2026 at 10:41=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmai=
-l.com> wrote:
-[...]
 
-> >>>>
-> >>>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> >>>> index cdd68ed3ae1a9..349ced999f959 100644
-> >>>> --- a/include/linux/pgtable.h
-> >>>> +++ b/include/linux/pgtable.h
-> >>>> @@ -2134,6 +2134,35 @@ static inline int pmd_free_pte_page(pmd_t *pm=
-d, unsigned long addr)
-> >>>>    }
-> >>>>    #endif      /* CONFIG_HAVE_ARCH_HUGE_VMAP */
-> >>>>
-> >>>> +/*
-> >>>> + * PTE-level block mappings for vmap.
-> >>>> + *
-> >>>> + * pte_set_huge() only has to be implemented by architectures whose
-> >>>> + * arch_vmap_pte_range_map_size() can return a size other than PAGE=
-_SIZE.
-> >>>> + */
-> >>>> +#ifndef __HAVE_ARCH_PTE_SET_HUGE
-> >>>> +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
-> >>>> +                             phys_addr_t phys, pgprot_t prot,
-> >>>> +                             unsigned long size)
-> >>>> +{
-> >>>> +     WARN_ON_ONCE(1);
-> >>>
-> >>> BUILD_BUG_ON() would be better here.
-> >>>
-> >>> It should be possible because fallback arch_vmap_pte_range_map_size()
-> >>> will constant-fold PAGE_SIZE so pte_set_huge() will never be called.
-> >>>
-> >>
-> >> Agreed. These fallbacks exist only to keep the build working on
-> >> architectures with PTE-level block mappings and should never actually
-> >> be reached, so BUILD_BUG_ON() is right. I'll make that change in v9.
-> >>
-> >
-> > I am not quite sure. It won't be called at runtime because
-> > `vmap size`/`unmap size` return `PAGE_SIZE`, so the code won't
-> > reach this branch. But it will still be built.
->
-> The fallbacks are defined as:
->
-> #ifndef arch_vmap_pte_range_map_size
-> static inline unsigned long arch_vmap_pte_range_map_size(unsigned long
-> addr, unsigned long end,
->                                                          u64 pfn, unsigne=
-d int max_page_shift)
-> {
->         return PAGE_SIZE;
-> }
-> #endif
->
-> #ifndef arch_vmap_pte_range_unmap_size
-> static inline unsigned long arch_vmap_pte_range_unmap_size(unsigned long
-> addr,
->                                                            pte_t *ptep)
-> {
->         return PAGE_SIZE;
-> }
-> #endif
->
-> Therefore in:
->
->                  size =3D arch_vmap_pte_range_unmap_size(addr, pte);
->                  if (size !=3D PAGE_SIZE) {
->
-> GCC knows 'size' is const and its value is PAGE_SIZE, so it won't emit
-> the branch at all.
->
-> It is call constant folding, some explanation here:
-> https://en.wikipedia.org/wiki/Constant_folding
->
-> >
-> > So, would a `BUILD_BUG_ON()` trigger a build failure here?
->
-> It shouldn't, if it does it is a compiled bug or this is because someone
-> has redefined arch_vmap_pte_range_map_size() and not pte_set_huge()
-> which we'd better know at build time rather than at runtime.
 
-Thanks, Christophe. I was also thinking about compiler optimization. I
-was just a bit worried that we're touching the common MM code, which
-affects almost all architectures, so I'm not quite sure whether this is
-supported by all GCC versions used by those architectures.
+Le 18/09/2026 à 02:16, Rosen Penev a écrit :
+> On Wed, Sep 16, 2026 at 8:25 PM Frank Li <Frank.li@oss.nxp.com> wrote:
+>>
+>> On Wed, Sep 16, 2026 at 03:41:56PM -0700, Rosen Penev wrote:
+>>> platform_get_irq() avoids having to explicitly map and dispose of an irq
+>>> by having the platform_device machinery take care of it.
+>>>
+>>> This requires replacing the device_node with a platform_device in the
+>>> bcom_eng struct so that platform_get_irq() can use it.
+>>>
+>>> Conveniently, this also allows getting rid of of_node_get and
+>>> of_node_put as the platform_device machinery also handles that.
+>>>
+>>> Replace the open-coded resource lookup, request_mem_region, ioremap and
+>>> the manual iounmap/release_mem_region cleanup in probe/remove with the
+>>> managed devm_platform_get_and_ioremap_resource() helper. This removes the
+>>
+>> update commit message, no devm_platform_get_and_ioremap_resource() in patch.
+>>
+>>> now-unused error-unmap/release paths and simplifies the driver.
+>>>
+>>> Adjust the goto labels in bcom_task_alloc to match what is being freed.
+>>>
+>>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>>> ---
+>>>   v2: resend.
+>>
+>> If resend, don't pump version.
+>>
+>> Frank
+>>>   drivers/dma/bestcomm/bestcomm.c            | 47 ++++++++--------------
+>>>   include/linux/fsl/bestcomm/bestcomm_priv.h |  2 +-
+>>>   2 files changed, 18 insertions(+), 31 deletions(-)
+>>>
+>>> diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
+>>> index 241a91936fe8..1006030ff167 100644
+>>> --- a/drivers/dma/bestcomm/bestcomm.c
+>>> +++ b/drivers/dma/bestcomm/bestcomm.c
+>>> @@ -47,6 +47,7 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
+>>>   {
+>>>        int i, tasknum = -1;
+>>>        struct bcom_task *tsk;
+>>> +     int irq;
+>>>
+>>>        /* Don't try to do anything if bestcomm init failed */
+>>>        if (!bcom_eng)
+>>> @@ -67,30 +68,32 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
+>>>        if (tasknum < 0)
+>>>                return NULL;
+>>>
+>>> +     irq = platform_get_irq(bcom_eng->pdev, tasknum);
+>>> +     if (irq < 0)
+>>> +             goto err1;
+>>> +
+>>>        /* Allocate our structure */
+>>>        tsk = kzalloc(sizeof(struct bcom_task) + priv_size, GFP_KERNEL);
+>>>        if (!tsk)
+>>> -             goto error;
+>>> +             goto err1;
+>>>
+>>>        tsk->tasknum = tasknum;
+>>>        if (priv_size)
+>>>                tsk->priv = (void*)tsk + sizeof(struct bcom_task);
+>>>
+>>>        /* Get IRQ of that task */
+>>> -     tsk->irq = irq_of_parse_and_map(bcom_eng->ofnode, tsk->tasknum);
+>>> -     if (!tsk->irq)
+>>> -             goto error;
+>>> +     tsk->irq = irq;
+>>>
+>>>        /* Init the BDs, if needed */
+>>>        if (bd_count) {
+>>>                tsk->cookie = kmalloc_array(bd_count, sizeof(void *),
+>>>                                            GFP_KERNEL);
+>>>                if (!tsk->cookie)
+>>> -                     goto error;
+>>> +                     goto err2;
+>>>
+>>>                tsk->bd = bcom_sram_alloc(bd_count * bd_size, 4, &tsk->bd_pa);
+>>>                if (!tsk->bd)
+>>> -                     goto error;
+>>> +                     goto err3;
+>>>                memset_io(tsk->bd, 0x00, bd_count * bd_size);
+>>>
+>>>                tsk->num_bd = bd_count;
+>>> @@ -99,17 +102,12 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
+>>>
+>>>        return tsk;
+>>>
+>>> -error:
+>>> -     if (tsk) {
+>>> -             if (tsk->irq)
+>>> -                     irq_dispose_mapping(tsk->irq);
+>>> -             bcom_sram_free(tsk->bd);
+>>> -             kfree(tsk->cookie);
+>>> -             kfree(tsk);
+>>> -     }
+>>> -
+>>> +err3:
+>>> +     kfree(tsk->cookie);
+>>> +err2:
+>>> +     kfree(tsk);
+>>> +err1:
+>>>        bcom_eng->tdt[tasknum].stop = 0;
+>>> -
+>>
+>> avoid unnecesary change.
+> There's nothing unnecessary about this. irq_dispose_mapping goes away.
+> bcom_sram_free is a mistake here. It's not reachable after
+> bcom_sram_alloc. This is much clearer to look at.
 
-If it is supported by all of them, I agree that `BUILD_BUG_ON()` is a
-perfect approach.
+The comment is about the removal of the blank line. Nothing else. I 
+confirm it is unnecessary.
 
-Best Regards
-Barry
+> 
+> Moving bcom_sram_free removal to its own commit is pointless churn.
+>>
+>>>        return NULL;
+>>>   }
+>>>   EXPORT_SYMBOL_GPL(bcom_task_alloc);
+>>> @@ -125,7 +123,6 @@ bcom_task_free(struct bcom_task *tsk)
+>>>        bcom_eng->tdt[tsk->tasknum].stop  = 0;
+>>>
+>>>        /* Free everything */
+>>> -     irq_dispose_mapping(tsk->irq);
+>>>        bcom_sram_free(tsk->bd);
+>>>        kfree(tsk->cookie);
+>>>        kfree(tsk);
+>>> @@ -377,16 +374,12 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+>>>        if (IS_ERR(regs))
+>>>                return PTR_ERR(regs);
+>>>
+>>> -     /* Get the bestcomm node */
+>>> -     of_node_get(op->dev.of_node);
+>>> -
+>>>        /* Prepare SRAM */
+>>>        ofn_sram = of_find_matching_node(NULL, mpc52xx_sram_ids);
+>>>        if (!ofn_sram) {
+>>>                printk(KERN_ERR DRIVER_NAME ": "
+>>>                        "No SRAM found in device tree\n");
+>>> -             rv = -ENODEV;
+>>> -             goto error_ofput;
+>>> +             return -ENODEV;
+>>>        }
+>>>        rv = bcom_sram_init(ofn_sram, DRIVER_NAME);
+>>>        of_node_put(ofn_sram);
+>>> @@ -394,7 +387,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+>>>        if (rv) {
+>>>                printk(KERN_ERR DRIVER_NAME ": "
+>>>                        "Error in SRAM init\n");
+>>> -             goto error_ofput;
+>>> +             return rv;
+>>>        }
+>>>
+>>>        /* Get a clean struct */
+>>> @@ -405,8 +398,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+>>>        }
+>>>
+>>>        /* Save the node */
+>>> -     bcom_eng->ofnode = op->dev.of_node;
+>>> -
+>>> +     bcom_eng->pdev = op;
+>>>        bcom_eng->regs = regs;
+>>>        bcom_eng->regs_base = res_bcom->start;
+>>>
+>>> @@ -426,8 +418,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+>>>        kfree(bcom_eng);
+>>>        bcom_eng = NULL;
+>>>        bcom_sram_cleanup();
+>>> -error_ofput:
+>>> -     of_node_put(op->dev.of_node);
+>>>
+>>>        printk(KERN_ERR "DMA: MPC52xx BestComm init failed !\n");
+>>>
+>>> @@ -443,9 +433,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
+>>>        /* Cleanup SRAM */
+>>>        bcom_sram_cleanup();
+>>>
+>>> -     /* Release the node */
+>>> -     of_node_put(bcom_eng->ofnode);
+>>> -
+>>>        /* Release memory */
+>>>        kfree(bcom_eng);
+>>>        bcom_eng = NULL;
+>>> diff --git a/include/linux/fsl/bestcomm/bestcomm_priv.h b/include/linux/fsl/bestcomm/bestcomm_priv.h
+>>> index 3b52f3ffbdf8..cddde7c74cb5 100644
+>>> --- a/include/linux/fsl/bestcomm/bestcomm_priv.h
+>>> +++ b/include/linux/fsl/bestcomm/bestcomm_priv.h
+>>> @@ -66,7 +66,7 @@ struct bcom_tdt {
+>>>    * This holds all info needed globaly to handle the engine
+>>>    */
+>>>   struct bcom_engine {
+>>> -     struct device_node              *ofnode;
+>>> +     struct platform_device          *pdev;
+>>>        struct mpc52xx_sdma __iomem     *regs;
+>>>        phys_addr_t                      regs_base;
+>>>
+>>> --
+>>> 2.55.0
+>>>
+
