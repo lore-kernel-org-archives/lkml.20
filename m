@@ -1,116 +1,234 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76B54EB848;
-	Fri, 18 Sep 2026 16:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0285A50E591;
+	Fri, 18 Sep 2026 16:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789747256; cv=none; b=rnsjCAjdNGBHzFYxYF4kAOGYpM6t9Iy1UufPeQsY2Vm6SwQZN95UrGa6rzSbJGHruGwPLGM/FNLsrFUgqrCCNlgoNhSK2UGnRdtxeMWm9Gjw0NODB/hJlX0zA70ulfGjHk+ZW0YSso8VBiiFxb8sAm0JzsJqKxBHxAlbyzvTLGw=
+	t=1789747329; cv=none; b=VfzQJipZYnPzYYivwoxIid+xsFE+qBMxoygvwxr4MvGRgfBKLQvZDWgXLLfHs1YYCxzlBj504qoM1aZ1nYNybJ0PnFyOVs26DALj+gmlQeBP8ze2y/Q44alhPc8B8M+Ev+WBkixLa0ITC+jAsfK4YML7GeWwLMIz8v0n3Tj3PV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789747256; c=relaxed/simple;
-	bh=0+NmW0yuunUN7TMYhQWcFHP4iIDHmZEoU9fdYqtJ+Sw=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lm2uts3bXASN4Y2V3D3ckgfdqRJ+k6MKK0/drrRgH0MihZbK+ALILX7nXe5d6IQqgf5VzX7qy/oAWmE7T8/rmPVp/XjECzS0Jt4hRAXN3r+t2RmQFhZiyysLUNKdZL8/lIKOpxKV5qHr1at/bwMzC8p45xajX6ZkKZ2OwpsQojo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=NKJEEbCw; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789747329; c=relaxed/simple;
+	bh=NgpRlUCBb1cyNe/Rmt9/vlr0EXiWLH0BChEoZVTvsRQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=VpJMbA4nY35xipcIXRDxDELsBDymGryA96qDwX/jNBLV6CcI7MehipDJ7TZbQjlDARn74G2gpd1iOQjzP2hNFRiQhhmhOogt3LNC2Lf820jdYT5Jzvv7WkbfgtEmeFTT1foSAbXDpp20NjHAq/2CpM4Oib3/DNCm3UPXxwsHLTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=uHnnH4X1; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="NKJEEbCw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789747253; x=1821283253;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=C3tRnEYkqajiLChdahyToqWOlutIYKfUA4+9xK4HMvY=;
-  b=NKJEEbCwQKvl3AgNRkb3pwP5g04X4Y4uwtuL0G7DGnMUC/HtVYuE72O5
-   y4XOubtYwPlRVEadz+ggQgyEci9+IyUcsd2Yvao7+T/qybedKWIJFwZIo
-   3wTwmaFLefwmyCo7cJI9Jk16S/5AmtZgXH4qR75uVjklRRc9WfQM2Z1ay
-   lSCpH01TBlAVB/2vw8l1oTY2aWFnfarEOG3g/Bkxq8Ri7j9VzIrxy2EIS
-   vjMwn8nvtB0Q95XuGXDTNT/EPYZ6hzXY+VKsgyX0jENdcpb/uo6AX5rm8
-   /vMBKavlP7H4Q3auMC4tk4V9vFP3NcUf9O2o0uec5iPeu3SnZLYPgJq7H
-   A==;
-X-CSE-ConnectionGUID: 6e71Z9pCROe9xcCptqrHsg==
-X-CSE-MsgGUID: 2YjCH/zqTjS5BlqPCk/3CQ==
-X-IronPort-AV: E=Sophos;i="6.27,109,1787011200"; 
-   d="scan'208";a="28836459"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 16:00:51 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:25941]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.195:2525] with esmtp (Farcaster)
- id 7df2a9a6-f922-46a2-85d0-5f5d6f539dbe; Fri, 18 Sep 2026 16:00:51 +0000 (UTC)
-X-Farcaster-Flow-ID: 7df2a9a6-f922-46a2-85d0-5f5d6f539dbe
-Received: from EX19D001UWA002.ant.amazon.com (10.13.138.236) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Fri, 18 Sep 2026 16:00:50 +0000
-Received: from dev-dsk-absandze-1c-663c31a8.eu-west-1.amazon.com
- (172.19.91.26) by EX19D001UWA002.ant.amazon.com (10.13.138.236) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 18 Sep 2026
- 16:00:48 +0000
-From: Luka Absandze <absandze@amazon.de>
-To: <seanjc@google.com>, <pbonzini@redhat.com>
-CC: <sandipan.das@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>,
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	<hpa@zytor.com>, <dwmw2@infradead.org>, <kvm@vger.kernel.org>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Luka
- Absandze" <absandze@amazon.de>
-Subject: [PATCH] KVM: x86/pmu: Don't retry a counter whose config was rejected
-Date: Fri, 18 Sep 2026 16:00:06 +0000
-Message-ID: <20260918160006.61816-1-absandze@amazon.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="uHnnH4X1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789747327; x=1821283327;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=NgpRlUCBb1cyNe/Rmt9/vlr0EXiWLH0BChEoZVTvsRQ=;
+  b=uHnnH4X11YbNljZ3ycI4AMdRChAavj5HrUcHVEFGPfVfzvdQs/HX1jSM
+   EcxDGLCYk0ZkLV0mrvMACxgmC3hON7nkbYFCl8B2zm6F9VTY8KX4SgbWi
+   cE5/7DFLMf+TQLzb0lJDgc0mjlwwrPolmCjS6HxC+NyYHCg3S3d2Q1Qo9
+   Woqq5X7KEjaVCn+6D7UwPc9F6cQYcFSO11VhuUrkCwQuygVx97HWGdHpN
+   IaGsbDU3J8WxYPJvzbSJ8yv3FxgeikqcYk1BNY3NQntIIA7gYJvVNBr+b
+   Q1CLTPMumQ5Y76dBlnKF5eV8MJiQNPtuuLzp0y7Rk4ilbgxwtYcQptGAx
+   g==;
+X-CSE-ConnectionGUID: 6uv6AMQ+Sb+/My+66I2/fA==
+X-CSE-MsgGUID: 56yVwT2aSbmEU2fpE1JRNA==
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="73896983"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Sep 2026 09:02:06 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 18 Sep 2026 09:02:06 -0700
+Received: from [10.171.248.88] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 18 Sep 2026 09:02:03 -0700
+Message-ID: <ab5b83a9-7ac3-4a0e-bb81-491e3c509b85@microchip.com>
+Date: Fri, 18 Sep 2026 18:02:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] mmc: sdhci-of-at91: add option to keep clocks
+ enabled
+To: Robert Marko <robert.marko@sartura.hr>
+CC: <ulfh@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<adrian.hunter@intel.com>, <ehristev@kernel.org>,
+	<linux-mmc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<luka.perkov@sartura.hr>
+References: <20260907132617.1198548-1-robert.marko@sartura.hr>
+ <20260907132617.1198548-3-robert.marko@sartura.hr>
+ <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
+ <CA+HBbNFQH-hTnqBOEAau2dP1+zKNsHDBcQA9dC5ofx2U5cbFDw@mail.gmail.com>
+Content-Language: en-US, fr
+From: Aubin Constans <aubin.constans@microchip.com>
+In-Reply-To: <CA+HBbNFQH-hTnqBOEAau2dP1+zKNsHDBcQA9dC5ofx2U5cbFDw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
- EX19D001UWA002.ant.amazon.com (10.13.138.236)
 
-kvm_pmu_handle_event() re-arms the reprogram bit for every failed
-reprogram, on the assumption that the failure is transient and a later
-refresh will succeed.  That is true for contention, e.g. the -EBUSY from
-x86_reserve_hardware(), but not for a configuration the host PMU driver
-rejects outright.  A rejected config can never succeed on retry, so the
-counter is reprogrammed on every PMU refresh for as long as the guest
-leaves it enabled, and every attempt fails the same way.
+On 15/09/2026 13:31, Robert Marko wrote:
+> On Mon, Sep 14, 2026 at 3:46 PM Aubin Constans
+> <aubin.constans@microchip.com> wrote:
+>>
+>> Hi Robert,
+>>
+>> On 07/09/2026 15:25, Robert Marko wrote:
+>>> sdhci_at91_set_clks_presets() both enables the controller clocks and
+>>> programs its capabilities and preset registers. This prevents callers from
+>>> restoring the registers without changing the clock enable counts.
+>>>
+>>> Move clock enablement to callers and add a SoC data flag for controllers
+>>> that must keep their clocks enabled. Use it in the runtime PM paths while
+>>> keeping register restoration separate from clock enablement.
+>>
+>> This change has been required for the SAMA7G54 MPU already, and implemented by
+>> two complementary commits:
+>>
+>> https://github.com/linux4microchip/linux/commit/763a3c05c8f9d0feb279c6f308fa5d48d14e07d3
+>> https://github.com/linux4microchip/linux/commit/b5bbc888fb39471d46fe0a4ff28f69533c265dd0
+>>
+>> At least they have been validated by test campaigns.
+>> If that existing work seemed OK for you and the LAN969x, then I could squash
+>> these two commits and submit the result.
+> 
+> Hi Aubin,
+> Yeah, I originally used those in our tree as well before trying to
+> simplify things for upstreaming.
+> 
+> Regards,
+> Robert
+> 
 
-Skip the re-arm for -EINVAL, one of the errnos the x86 PMU drivers use
-for a config they will never accept.  Note this becomes reachable on AMD
-only with the patch linked below, which starts rejecting the Merge event
-(PMCxFFF) a guest programs as part of a Large Increment per Cycle pair;
-on Intel it is already reachable today via the INTEL_FIXED_VLBR_EVENT
-check in intel_pmu_hw_config(), where the config is likewise a function
-of fixed guest state and can never start being accepted.
+To follow up on that patch, I have just submitted the original work,
+ported to tag next-20260917:
 
-Link: https://lore.kernel.org/all/20260916123315.89042-1-absandze@amazon.de/
-Signed-off-by: Luka Absandze <absandze@amazon.de>
----
- arch/x86/kvm/pmu.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+https://lore.kernel.org/linux-mmc/20260918153414.909333-1-aubin.constans@microchip.com/
 
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index a7d60c8785cd..b9945a6256ed 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -680,8 +680,14 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
- 		 * reprogram bit, i.e. opportunistically try again on the next
- 		 * PMU refresh.  Don't make a new request as doing so can stall
- 		 * the guest if reprogramming repeatedly fails.
-+		 *
-+		 * -EINVAL means the event's config was rejected outright and
-+		 * can never succeed on retry, so don't re-arm; the guest can
-+		 * still do so itself by rewriting the event selector.
- 		 */
--		if (reprogram_counter(pmc))
-+		int r = reprogram_counter(pmc);
-+
-+		if (r && r != -EINVAL)
- 			set_bit(pmc->idx, pmu->reprogram_pmi);
- 	}
- 
--- 
-2.47.3
+Hope it will make easier to support the LAN969x, notably.
+
+Regards,
+Aubin
+
+>>>
+>>> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+>>>
+>>>    drivers/mmc/host/sdhci-of-at91.c | 39 +++++++++++++++++++-------------
+>>>    1 file changed, 23 insertions(+), 16 deletions(-)
+>>>
+>>> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
+>>> index 7c4ac65f247d..b7e2a89da348 100644
+>>> --- a/drivers/mmc/host/sdhci-of-at91.c
+>>> +++ b/drivers/mmc/host/sdhci-of-at91.c
+>>> @@ -38,6 +38,7 @@
+>>>    struct sdhci_at91_soc_data {
+>>>           const struct sdhci_pltfm_data *pdata;
+>>>           bool baseclk_is_generated_internally;
+>>> +       bool keep_clks_on;
+>>>           unsigned int divider_for_baseclk;
+>>>    };
+>>>
+>>> @@ -164,7 +165,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
+>>>    };
+>>>    MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
+>>>
+>>> -static int sdhci_at91_set_clks_presets(struct device *dev)
+>>> +static void sdhci_at91_set_clks_presets(struct device *dev)
+>>>    {
+>>>           struct sdhci_host *host = dev_get_drvdata(dev);
+>>>           struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+>>> @@ -174,7 +175,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
+>>>           unsigned int                    gck_rate, clk_base_rate;
+>>>           unsigned int                    preset_div;
+>>>
+>>> -       clk_prepare_enable(priv->hclock);
+>>>           caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
+>>>           caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
+>>>
+>>> @@ -222,11 +222,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
+>>>           preset_div = DIV_ROUND_UP(gck_rate, 50000000) - 1;
+>>>           writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
+>>>                  host->ioaddr + SDHCI_PRESET_FOR_DDR50);
+>>> -
+>>> -       clk_prepare_enable(priv->mainck);
+>>> -       clk_prepare_enable(priv->gck);
+>>> -
+>>> -       return 0;
+>>>    }
+>>>
+>>>    static int sdhci_at91_suspend(struct device *dev)
+>>> @@ -254,9 +249,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
+>>>           if (host->tuning_mode != SDHCI_TUNING_MODE_3)
+>>>                   mmc_retune_needed(host->mmc);
+>>>
+>>> -       clk_disable_unprepare(priv->gck);
+>>> -       clk_disable_unprepare(priv->hclock);
+>>> -       clk_disable_unprepare(priv->mainck);
+>>> +       if (!priv->soc_data->keep_clks_on) {
+>>> +               clk_disable_unprepare(priv->gck);
+>>> +               clk_disable_unprepare(priv->hclock);
+>>> +               clk_disable_unprepare(priv->mainck);
+>>> +       }
+>>>
+>>>           return 0;
+>>>    }
+>>> @@ -269,14 +266,23 @@ static int sdhci_at91_runtime_resume(struct device *dev)
+>>>           int ret;
+>>>
+>>>           if (priv->restore_needed) {
+>>> -               ret = sdhci_at91_set_clks_presets(dev);
+>>> -               if (ret)
+>>> -                       return ret;
+>>> +               if (!priv->soc_data->keep_clks_on)
+>>> +                       clk_prepare_enable(priv->hclock);
+>>> +
+>>> +               sdhci_at91_set_clks_presets(dev);
+>>> +
+>>> +               if (!priv->soc_data->keep_clks_on) {
+>>> +                       clk_prepare_enable(priv->mainck);
+>>> +                       clk_prepare_enable(priv->gck);
+>>> +               }
+>>>
+>>>                   priv->restore_needed = false;
+>>>                   goto out;
+>>>           }
+>>>
+>>> +       if (priv->soc_data->keep_clks_on)
+>>> +               goto out;
+>>> +
+>>>           ret = clk_prepare_enable(priv->mainck);
+>>>           if (ret) {
+>>>                   dev_err(dev, "can't enable mainck\n");
+>>> @@ -344,9 +350,10 @@ static int sdhci_at91_probe(struct platform_device *pdev)
+>>>                   return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
+>>>                                        "failed to get multclk\n");
+>>>
+>>> -       ret = sdhci_at91_set_clks_presets(&pdev->dev);
+>>> -       if (ret)
+>>> -               return ret;
+>>> +       clk_prepare_enable(priv->hclock);
+>>> +       sdhci_at91_set_clks_presets(&pdev->dev);
+>>> +       clk_prepare_enable(priv->mainck);
+>>> +       clk_prepare_enable(priv->gck);
+>>>
+>>>           priv->restore_needed = false;
+>>>
+>>> --
+>>> 2.55.0
+>>
+> 
+> 
+> --
+> Robert Marko
+> Staff Embedded Linux Engineer
+> Sartura d.d.
+> Lendavska ulica 16a
+> 10000 Zagreb, Croatia
+> Email: robert.marko@sartura.hr
+> Web: www.sartura.hr
 
