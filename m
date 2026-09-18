@@ -1,56 +1,56 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D071B5158BA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C710502576
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739461; cv=none; b=AV+uaM7zWGzWjBnetuw0CXLlqwrHx5P2OiUmnY8B7mmu2QrxJ6M/tJ4q7CvchDB0P29W29Fa3Esa6O0yOsSCGwxnErxYD00M5UGryMi05wNjJIsLuFJ9xDRY4ExvlcvTsmZCdZy12i0sVdraPrVk2JjjPrie5+wAH3XX/MLyEGk=
+	t=1789739464; cv=none; b=swRYZfJkUIuzBTc9XJWH8P0eRf03QJRVcIdwm7cnXTETfHH0bCJf+D3VuY1Px6pAnhf7mIoja8WRrjqs2KS9qCx6rvywe8MiSv/k4NhU2jSr3u8yQqxhswZQZq12HmxGMK4o2X3vvO3Xu0P+9rXouN5z3uXCASdcj5wWx7welBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739461; c=relaxed/simple;
-	bh=Q2aRdzMU8+9X0wBkCuNX2/dXfOyvTDPvL84gvOpA44k=;
+	s=arc-20240116; t=1789739464; c=relaxed/simple;
+	bh=bfRiqXgDCeNQNJnWYi30YmPa8Q/5PWYYWKP1ztp48hg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PreiQmpIM4/eABzpJ+p2KmU51AF8KvMT9Ajm8u+X5/hd6qH8BJesvZRs7cu6JmiWkD/3jyhF2N9EVhhzq/wrC6DonbYvLN2IfM0UbnykeARrlGbkpz1ivSfPh5absEekwF7/4ki7/6G9Zkf7yg85/b/6Cwq3iaK4yNQkfs4+tKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DJ468BYQ; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version:Content-Type; b=Thc9pd0bbCQewwGWZreE/3s9HTKP4K0YV7PFHq53jeGZk72XQRiPYqZPMYPIF7Ol1lQRexH0M3kvrHoPZHrfOSOXE2xbsUBslapr9Lr85bLW8TM6/wTz+o1xW72FpP/H892gzmMkNVnOPcj30a2ieLUsAKElSjhqk3B6M/2hNbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Oyg9Ghtg; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DJ468BYQ"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Oyg9Ghtg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789739457;
+	s=mimecast20190719; t=1789739460;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vL4yhml+ArqqxY7DYkJlnDKva66+68iuYvy0OyC1VdM=;
-	b=DJ468BYQEV2GTMMH9nZdvajBzyPrGkuvtXHJJSNUnDuSlagewGDPGtwmFI2WPl0yQHRc2N
-	DUw+vL4JrgSTE80pdaqiNGhB9oIoK9FccBlAp6bkZLvOTbxLFGcLl+Gk9u6Twf0JuhMw1h
-	uJ89fFqwmKRBLLhT9ULpRD4lAC/ReF8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=AY5/dZdaTQo8bLuAFkIFIxr6e0AVfLjYr8zjWTqUO90=;
+	b=Oyg9Ghtgfyhb89xjWCUd+IjXc0sWpq4+6I2zVhQo4caR0k0kkzEjgoAVVoHkUMUuKNeVfn
+	6mZt+A94VlReytuhiHqXO4k1wW1Zn5iw9SCnPycXO9h9rWQNjtOCzRSkF4WSLLbDSeF71x
+	3g/So3fjJ6x6gLcle36Au99ZHlMGqIA=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-92-wKIkIR7QPzSnj5lChFAwmg-1; Fri,
- 18 Sep 2026 09:50:56 -0400
-X-MC-Unique: wKIkIR7QPzSnj5lChFAwmg-1
-X-Mimecast-MFC-AGG-ID: wKIkIR7QPzSnj5lChFAwmg_1789739455
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-498-zc5hdPVlNByuX0eVg9kL3g-1; Fri,
+ 18 Sep 2026 09:50:54 -0400
+X-MC-Unique: zc5hdPVlNByuX0eVg9kL3g-1
+X-Mimecast-MFC-AGG-ID: zc5hdPVlNByuX0eVg9kL3g_1789739453
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1E2D5180256C;
-	Fri, 18 Sep 2026 13:50:55 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 644F51977680;
+	Fri, 18 Sep 2026 13:50:53 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5C95A433;
-	Fri, 18 Sep 2026 13:50:54 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id ADA14433;
+	Fri, 18 Sep 2026 13:50:52 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH 26/31] KVM: x86/mmu: Issue memory fault exit if walk failed due to memory attribute
-Date: Fri, 18 Sep 2026 09:50:25 -0400
-Message-ID: <20260918135030.171564-27-pbonzini@redhat.com>
+Subject: [PATCH 24/31] KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory attributes
+Date: Fri, 18 Sep 2026 09:50:23 -0400
+Message-ID: <20260918135030.171564-25-pbonzini@redhat.com>
 In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
 References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -65,72 +65,30 @@ X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
 From: Nicolas Saenz Julienne <nsaenz@amazon.com>
 
-During execution, page table entries are subject to memory protection
-simply because their GPA is obtained with an EPT walk.  During emulation,
-the checks need to be done by hand and result in an -EFAULT userspace
-exit.
-
-However, if a guest PTE is read-only, do not go all the way out to
-userspace and just stomp out the write.  This is consistent with the way
-KVM handles read-only memory slots during emulation, though admittedly
-inconsistent with everything else: NPT for example always wants nested
-page table entries for the guest page tables to be writable, and will
-fault.
+Prefetched SPTEs are always given full access.  Do not prefetch GFNs
+that have memory protections applied.
 
 Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/paging_tmpl.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/x86/kvm/mmu/mmu.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index b031123fcb36..cd055bfb1eb6 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -89,6 +89,7 @@ struct guest_walker {
- 	unsigned int pt_access[PT_MAX_FULL_LEVELS];
- 	unsigned int pte_access;
- 	gfn_t gfn;
-+	bool memory_attributes_fault;
- 	struct x86_exception fault;
- };
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 1ecb3f3fe832..3c926f95f87b 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -3187,6 +3187,11 @@ static bool kvm_mmu_prefetch_sptes(struct kvm_vcpu *vcpu, gfn_t gfn, u64 *sptep,
+ 		return false;
  
-@@ -342,6 +343,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 
- 	trace_kvm_mmu_pagetable_walk(addr, access);
- retry_walk:
-+	walker->memory_attributes_fault = false;
- 	walker->level = w->cpu_role.base.level;
- 	pte           = kvm_mmu_get_guest_pgd(vcpu, w);
- 	have_ad       = PT_HAVE_ACCESSED_DIRTY(w);
-@@ -411,6 +413,15 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 		if (unlikely(kvm_is_error_hva(host_addr)))
- 			goto error;
- 
-+		if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gpa_to_gfn(real_gpa))) {
-+			walker->memory_attributes_fault = true;
-+			walker->gfn = gpa_to_gfn(real_gpa);
-+			goto error;
+ 	for (i = 0; i < nr_pages; i++, gfn++, sptep++) {
++		if (kvm_get_memory_attributes(vcpu->kvm, gfn)) {
++			kvm_release_page_clean(pages[i]);
++			continue;
 +		}
 +
-+		if (!kvm_mem_attributes_may_write_gfn(vcpu->kvm, gpa_to_gfn(real_gpa)))
-+			walker->pte_writable[walker->level - 1] = false;
-+
- 		ptep_user = (pt_element_t __user *)((void *)host_addr + offset);
- 		if (unlikely(get_user(pte, ptep_user)))
- 			goto error;
-@@ -820,6 +831,12 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
- 	 * The page is not mapped by the guest.  Let the guest handle it.
- 	 */
- 	if (!r) {
-+		if (walker.memory_attributes_fault) {
-+			kvm_prepare_memory_fault_exit(vcpu, walker.gfn << PAGE_SHIFT,
-+						      PAGE_SIZE, false, false, false);
-+			return -EFAULT;
-+		}
-+
- 		if (!fault->prefetch)
- 			__kvm_inject_emulated_page_fault(vcpu, &walker.fault, true);
+ 		mmu_set_spte(vcpu, slot, sptep, access, gfn,
+ 			     page_to_pfn(pages[i]), NULL);
  
 -- 
 2.52.0
