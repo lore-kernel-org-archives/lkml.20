@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945E425B0B6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CC93B19D0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695982; cv=none; b=W8mAmBtcF2E+jduKQcWs3tZHFZo/2aCQbm3dxr33Be9u1n9CVbkYDevqtD5p0ExNBw7fTwB8PVdTgCkY8eiWLRc/oh3235gJ7C7tJ6RcRL9uTchmh6IQNYZEdUoqItY61sXYXJZ0xZ17WMlvcgdqJ7fVhttiw9aIyK3Hx53N2sY=
+	t=1789695993; cv=none; b=hIDZUlpFxU7sVCw/oHVY7j26YRqwMFtqtRxSH1TBR2ms66ghpqL2zSnXfcjC8kTo18j4dqK4ZhtgN4tDrzQN28eFuvQqSI6eUBDK4kObTLS1zM1pPM2irnXO45s6SbH6NoX4Rfdnh8IvaX5uaTrDJ+QVfd33RXupLrg476eox5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695982; c=relaxed/simple;
-	bh=jjjHMPkdak8lkkYB/pcSbYZxNq0AkW3cx++JKabbUsA=;
+	s=arc-20240116; t=1789695993; c=relaxed/simple;
+	bh=j0AXLY1wsN/s+ZetchPWUSvf8zNNgDUa2WCndoKm3Ng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GsWT0plXLLnyfwb+1UBNTCEthIpPJ6ldjejnz7ND0IUjFciAat43Gyikic/3mrT1oEnwP0jnfJTAy9n2b0ONVnhujKLoJ0Zg7JsQjy4JvGsswIZuyZve95AalTaD713e6Vx8NmAtUp+pCglYGzo6rubGn1JYvlIMyzGeIBYcaEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=giky4IUj; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=hETg7BCDPrnyERvkuffvACGtTTJU/U46TwX3N5tkUvWa1owYTZcQIKP25L/L66g+gArdK0zUa0oIont2s7h0rcbaUw4+0OZtUASuEXpm1uskasGbW7t8JnhsL76SZfbF4uAUfJfIJ8Sc7PGVWMgrlQA0wXIejQH/DKhD830Ye2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gTNP3TkC; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="giky4IUj"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gTNP3TkC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789695974;
+	s=mimecast20190719; t=1789695980;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aTPhd0YOiSXsclxv5AA53kAUpU9ZSjRHrVegM1KWz8s=;
-	b=giky4IUjpcx5+tJIQ+ix45hGJjZHs0drEJOmGnR+T/7qz+AThbUerL9VdEuSIoxf+P/8p7
-	5SKvsUl7FgiCEj1t5w6t0xZ08aE1GDHqFSPfd155CgARAVDgHNFYUetv6tPKSBhUjN8aFe
-	SGjRF1gBNC4skRgVmDrhINuM9WsYQLk=
+	bh=nu0VWB6WJUsLY8Seekb2z32XfHWSxsRL/xoH2InAx9g=;
+	b=gTNP3TkCNhtk5ULVoIqq4ar3AN3hnE5NdF1YLxXgu5qMmQqu5yyYwF4F+IXI9FyXQjPWWN
+	qF3mh5JujDKvPnaTISCeS34Ib5OpTH54dQ3H/74v1Xdgkif2KWoZ3W8tPP35IXcD4UArwl
+	ShFDfDS9Bm88IYzQDQBP48oQlhExbQs=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-695-XOMUUELPMGauq2xvyS_sjA-1; Thu,
- 17 Sep 2026 21:46:10 -0400
-X-MC-Unique: XOMUUELPMGauq2xvyS_sjA-1
-X-Mimecast-MFC-AGG-ID: XOMUUELPMGauq2xvyS_sjA_1789695968
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-351-ka5wWLBlPva_h9-srx9ilA-1; Thu,
+ 17 Sep 2026 21:46:16 -0400
+X-MC-Unique: ka5wWLBlPva_h9-srx9ilA-1
+X-Mimecast-MFC-AGG-ID: ka5wWLBlPva_h9-srx9ilA_1789695973
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3AB401955D52;
-	Fri, 18 Sep 2026 01:46:07 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8ED251977019;
+	Fri, 18 Sep 2026 01:46:12 +0000 (UTC)
 Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C436B18002B1;
-	Fri, 18 Sep 2026 01:46:01 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 58DA718004D2;
+	Fri, 18 Sep 2026 01:46:07 +0000 (UTC)
 From: Luiz Capitulino <luizcap@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
@@ -70,9 +70,9 @@ Cc: corbet@lwn.net,
 	yintirui@huawei.com,
 	dev.jain@arm.com,
 	usama.arif@linux.dev
-Subject: [PATCH v8 01/14] docs: tmpfs: remove implementation detail reference
-Date: Thu, 17 Sep 2026 21:45:22 -0400
-Message-ID: <0228ab0a273ead9829d372ee7c044eb8476cf2b3.1789695931.git.luizcap@redhat.com>
+Subject: [PATCH v8 02/14] mm: shmem: shmem_getattr(): set blksize to highest supported THP order
+Date: Thu, 17 Sep 2026 21:45:23 -0400
+Message-ID: <0f18a45baec44d193f8dbc760ef57c0430e04bdb.1789695931.git.luizcap@redhat.com>
 In-Reply-To: <cover.1789695931.git.luizcap@redhat.com>
 References: <cover.1789695931.git.luizcap@redhat.com>
 Precedence: bulk
@@ -84,36 +84,56 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-The tmpfs.rst doc references the has_transparent_hugepage() helper, which
-is an implementation detail in the kernel and not relevant for users
-wishing to properly configure THP support for tmpfs. Remove it.
+Today, shmem_getattr() sets stat->blksize to PMD size whenever
+shmem_huge_global_enabled() returns non-zero. While this works fine
+for the normal THP-enabled case as explained by Baolin in [1], this
+has two problems:
 
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+ 1. Theoretically, when shmem is configured for within_size, this
+    could set blksize to PMD size even though the allocation may
+    be a smaller mTHP order
+
+ 2. A future commit will allow shmem THP support to be enabled
+    even when the CPU doesn't support PMD-sized pages. We should
+    not allow blksize to be set to PMD size in this case
+
+In order to fix #1 and prepare for #2, this commit sets blksize
+to the size of the highest supported order returned by
+shmem_huge_global_enabled().
+
+  [1] https://lore.kernel.org/linux-mm/6591a74c-7ef9-4614-9ae9-cb2fbed86ebf@linux.alibaba.com/
+
+Suggested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
 ---
- Documentation/filesystems/tmpfs.rst | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ mm/shmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/filesystems/tmpfs.rst b/Documentation/filesystems/tmpfs.rst
-index d677e0428c3f..46fc986c3388 100644
---- a/Documentation/filesystems/tmpfs.rst
-+++ b/Documentation/filesystems/tmpfs.rst
-@@ -109,9 +109,8 @@ noswap  Disables swap. Remounts must respect the original settings.
- ======  ===========================================================
+diff --git a/mm/shmem.c b/mm/shmem.c
+index b572c60f2af8..776dff8a848e 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1506,6 +1506,7 @@ static int shmem_getattr(struct mnt_idmap *idmap,
+ {
+ 	struct inode *inode = path->dentry->d_inode;
+ 	struct shmem_inode_info *info = SHMEM_I(inode);
++	unsigned int orders;
  
- tmpfs also supports Transparent Huge Pages which requires a kernel
--configured with CONFIG_TRANSPARENT_HUGEPAGE and with huge supported for
--your system (has_transparent_hugepage(), which is architecture specific).
--The mount options for this are:
-+configured with CONFIG_TRANSPARENT_HUGEPAGE and with huge pages
-+supported for your system. The mount options for this are:
+ 	/* Fast-path hint; recalc under info->lock corrects any stale read. */
+ 	if (data_race(info->alloced - info->swapped != inode->i_mapping->nrpages))
+@@ -1522,8 +1523,9 @@ static int shmem_getattr(struct mnt_idmap *idmap,
+ 			STATX_ATTR_NODUMP);
+ 	generic_fillattr(idmap, request_mask, inode, stat);
  
- ================ ==============================================================
- huge=never       Do not allocate huge pages.  This is the default.
+-	if (shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0))
+-		stat->blksize = HPAGE_PMD_SIZE;
++	orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
++	if (orders)
++		stat->blksize = PAGE_SIZE << highest_order(orders);
+ 
+ 	if (request_mask & STATX_BTIME) {
+ 		stat->result_mask |= STATX_BTIME;
 -- 
 2.55.0
 
