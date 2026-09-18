@@ -1,78 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F704A32
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDD22FBDE0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718734; cv=none; b=tWpMb5RJu4dJ6szUORtf2+pUR+pA68AxWo2xqk0ywJMViu6An+scURe5xQ3F5+KKdRIkwANwmeZrYepvRmZhK9/eROld4NJ1OW6Lce+iKv9RF2PxMmMjgHq+WYk91iFFDR0K0DAkgXMyhbE5M57sWm/QadQA1HMF6d1Wmvmu114=
+	t=1789718746; cv=none; b=T2duecWmBRsyZ4lHRalxQ+VFN36jV5FR7ON+NWeIlMrEbjNvnyPocccs+XomqMw57odGIAipxu4msUC6pLwDoSgqByYtNt482ICYv89qq4KudkC7e5MfeKNVo9KnEHe+XodA0VFnma+fVoUZrGgUuMgkyBtOYKBQwuTttvSngg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718734; c=relaxed/simple;
-	bh=zeUe3eo1GoklWPIUxo4YT9pFQt1O8xr63Nmkn6q3zaI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tz/erKzpnPezu1RqNcGfCDhXvOGBRjlCzpL1YOaFn4uvggY5Lfvb291IrlWCSS2Pp3eDUMap4+/QRwfuyRvpJEaXpHXDyA+4q2FX/Uo4OBbtn+6GZtBXL/xXM8KG/US+5iV2EzAc16+KHb7Yv7XCr9JFjPSUQiPjQFz1bZVEnVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5R5nV/Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789718746; c=relaxed/simple;
+	bh=SSml5sWGhbr1aX5qXNp5m87HXKcpLyEzFeK1/Q/8sOE=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=qiE4/SvpokOaqvmpL+bif12XTXuc1JVwK885wc5dPf5WEapK6K+GrNsqTs50wr3YQ9xnsm8HNvOj2j/7cNpw2qRrEEpVCk2An5OmNtbLIyo5Ov+T3PBFjzdkfaIC5KicGVl3PReN39uJ+pnYp56OscZIb1JmIoFlZwIBpZzSj2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FDVUVsbN; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5R5nV/Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419361F000FF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789718733;
-	bh=zeUe3eo1GoklWPIUxo4YT9pFQt1O8xr63Nmkn6q3zaI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=n5R5nV/YxPjHdtd6FrR1GmX51JNtUOWhuSeGGTUVThVozJbgKfQfkmhRmMHiXjbcD
-	 xsNnHEBLnvvyI5gJ0RL0xYALExDVqm5frTypQm9zZHlTHVXdHFxLic1OXaUHeUf75k
-	 Ll7ERskMhmWtTSOUyh9gzS4plS3P8WHVbYgiOtMvTzeBMLo6LyXRVYXnTX1KuLMCEe
-	 R9GL0/GoC1RmCjOunFmFQwTntHnriS04oMZQkBigJ4dpTOGGfw5BOc29ST3jZkutTU
-	 oxffLydpFWHU0uJiH5jgZrg9wOryq0ziN+jlIIwRxRIDHM5IiE3btjjsCb8qIaLf0j
-	 J3OU8Qazgzm6g==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so455406e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:05:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwXGrMZz3uRTBpq0NjcCfi6z2GGOt7BMwo1YIDZu6X8bokpuNWj4GliMXcgbq1fPrlF2RQcPCKQBlVwytw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSPKDLp00RptUqCX7n2gNg79K6Df2XSWFWuB6vxRzA3hGatPZX
-	LSg1wE5wiYyJJOKw8zVp+K43ZOkpWUn5kGEMu0KMr6SsQVocWwez5JYu85T8sn4++XDMDfFyJYf
-	UCOrGtL26p90cinLM+fwSP/QjSWd5e1GxaBA+tTuxsw==
-X-Received: by 2002:a05:6512:2348:b0:5b0:113d:8ae5 with SMTP id
- 2adb3069b0e04-5b8c181f532mr469072e87.10.1789718731959; Fri, 18 Sep 2026
- 01:05:31 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 18 Sep 2026 03:05:30 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 18 Sep 2026 03:05:30 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <aqyPs5d72s80G6b8@QCOM-aGQu4IUr3Y>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FDVUVsbN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789718743;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ym7emDJFhy4PiOXGVpk05NT3ISXd1kAvgtskHF5RU0g=;
+	b=FDVUVsbNnu16B0TDHwz3JTvDsDQT8yxvrr6iaNKOg4hHK7MbFMlI2sJ/fxM2Mo8fzor6vy
+	ii1TSVyUU8HA5zZ+5C8YAA6i+vmsvvknaBWxfcCkH6iJ1zSQipTvfU6nDh6J+nXrY64yT3
+	bye3khKKUSkKds0GLz+RmkAyruezEMw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-546-RN0R4fb1NhK5JGQk9pctmg-1; Fri,
+ 18 Sep 2026 04:05:38 -0400
+X-MC-Unique: RN0R4fb1NhK5JGQk9pctmg-1
+X-Mimecast-MFC-AGG-ID: RN0R4fb1NhK5JGQk9pctmg_1789718736
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AA7F818512C6;
+	Fri, 18 Sep 2026 08:05:35 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1CADB1956047;
+	Fri, 18 Sep 2026 08:05:27 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <aqyiCavj3xeNqyAo@kernel.org>
+References: <aqyiCavj3xeNqyAo@kernel.org> <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com> <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, Andrew Halaney <andrew@amutable.com>,
+    Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+    Mikulas Patocka <mpatocka@redhat.com>,
+    Benjamin Marzinski <bmarzins@redhat.com>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    Eric Biggers <ebiggers@kernel.org>,
+    "Theodore Y. Ts'o" <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>,
+    Shuah Khan <skhan@linuxfoundation.org>,
+    Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
+    linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
+    linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
+    fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
+    "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
- <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com> <0d0ee38b-8ded-480d-a586-d26b3c292427@linaro.org>
- <aqyPs5d72s80G6b8@QCOM-aGQu4IUr3Y>
-Date: Fri, 18 Sep 2026 03:05:30 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MeB75OeOLeO8nqLXQJMHcny-fN-0J7QGQaSbof++TqFmg@mail.gmail.com>
-X-Gm-Features: AcwNN1VMwnU0XUPvXYqgB07GC6-_9-ydwdfjzqt_HuRis4BNTrvb-EaOoN0gg4Y
-Message-ID: <CAMRc=MeB75OeOLeO8nqLXQJMHcny-fN-0J7QGQaSbof++TqFmg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] pinctrl: qcom: spmi-gpio: make direction changes exclusive
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <715248.1789718726.1@warthog.procyon.org.uk>
+Date: Fri, 18 Sep 2026 09:05:26 +0100
+Message-ID: <715249.1789718726@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Fri, 18 Sep 2026 03:11:15 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
->>
->> Personally I would prefer patch 1 instead of this change.
->
-> As I mentioned in the cover letter, both patches are fixing real bugs
-> existing at different level. So I prefer to merge both. But it's a call
-> up to Bartosz.
->
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-I'd take both but I'm not sure if the ASIS case for shared proxy can be
-addressed without reading back the direction.
+> This is great for discussion but what we want for the commit message
+> is just motivation and resolution.
 
-Bart
+Actually, I think it's useful that Andrew wrote up the issues in the commit
+message - and I think it shows part of the motivation.  The 'writing a fake
+/proc/keys line in the description' is something I hadn't considered.
+
+> I don't think we need all this just to say that /proc/keys in a racy
+> query mechanism for production, which is an issue for dm-verity, given
+> that nothing else is available.
+
+I think at some point, we will need a system call to search all for all
+accessible keys matching certain criteria by actually walking the key
+database.  The problem there is that there may be multiple hits, so we may
+need something like:
+
+	int count = find_key(key_serial_t start_id,
+			     const char *type, const char *desc_prefix,
+			     key_serial_t *results, size_t results_size,
+			     unsigned int flags);
+
+Allowing you to do:
+
+	key_serial_t dm_key;
+	int n = find_key(0, "keyring", ".dm_verity", &dm_key, 1,
+			 FIND_KEY_EXACT_DESC);
+
+This wouldn't be as fast as a direct lookup since it would have to walk the
+key tree, doing name comparisons and perm checks on each key of the type.
+
+> And secondly special keys are meant for implicit keyrings so isn't
+> that all there's to it?
+
+I have no particular objection to setting aside a block of negative key IDs
+for special keyrings that need to be accessed a lot - though I would make
+common reg/unreg functions that take the ID to be registered and, say, set the
+block at -257..-512.  Moving the BFP keyring to -257 and DM to -258.
+
+David
+
