@@ -1,33 +1,33 @@
 Received: from outbound.mr.icloud.com (mr-2004l-snip4-11.eps.apple.com [57.103.69.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27834F5E1A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0135F4F68A0
 	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.69.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737388; cv=none; b=ImrZfiY8mt2IUrpazQ9UJ72R9Z3NJ2Sh3EBO0uEOTpTxUAuuHOKFoSOGSHJawHuQbDvB/iEoYOwPEQ8m8MwUp1ZbComEBqp8BEg0zyRy45lXzuBBa1CKRYFSuPecZdHJNp6N6BWd+rZipA3wut1IAUR1hDEBEPXfRY5wr4Imyu4=
+	t=1789737389; cv=none; b=Ot1dF6zvZt1/JledVv+5rdMMU+gBPCZ8+HBBkx74U9I58VHnX8pOa5soet8GTtMCJYTxpbtKraqrzrGQTS+lcIwVID//Oku7w1RMQecp62HDh1s8+oDt3cXntb/20Vl9hakro+3Tr9YCiwyLCOxny8tGiuBNmW+J8khPyupjFW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737388; c=relaxed/simple;
-	bh=KiCAvLe6SFbZkXk+g6sErMaE0O7fgc8QIL8vCDDFTcs=;
+	s=arc-20240116; t=1789737389; c=relaxed/simple;
+	bh=GCD9DV4GGgw4cdzVkvPEZ3AbeLuLhpLPn9mSczGXylA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LhV61Ap5Xqnp6rzMEI8MT7KMI22jDAy2J5YC8AIDkQMJQje9jb2WMn3pb8tm51t/kG/RxInwKIIb03bnj2AIjCl3aUu6pdtxDu8GOQJ+5q00SJMyXvFzncSoVS3+yXvSgF2ADV4LLBBftkdH8uKBkw8Z2bLQ5O2jcLo4qt25L9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=1TIiNKhl; arc=none smtp.client-ip=57.103.69.151
+	 In-Reply-To:To:Cc; b=FAFCQhHgxQ5OyXUrq+bXD4kKtkLqy12H9v13ewb/D1AHyU3zaYZoU4VhPtnRrqbGQcpxlq/XRa+5krCQOcAnuQAr5szkJaEjHWU6Vba5IzZyfOSDMPpAWiNoMg2TAF0uBMNvSLvLqpQ+W7J97lYTnUkd5F3hp3yQUkr6RY3WD4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=UyKuVi9e; arc=none smtp.client-ip=57.103.69.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="1TIiNKhl"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="UyKuVi9e"
 Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 80DA71801873;
-	Fri, 18 Sep 2026 13:16:18 +0000 (UTC)
-X-ICL-RepId: 01a0b4a9-225a-7d84-b2c7-a3df478fe614
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGA0EUTApUAFwLQwgeB1gCK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737383; x=1792329383; bh=JQgvUWvg8vsB9m0EmwDoUVHqmo111wUhv7GKVbU6fFE=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=1TIiNKhlexneF8l1dlFEhkHlHrgu7V01rd0Or1XJYWkMOW+5eZr0AG7ATrJdWoHWU61LpWfS6/Xu+77H+YTL5LKLuKOGfAQSJOol5kor3Cca3ClOnszsYCKA/yW0+jk9TBHih9A6UQ1YHURGBYI6gUVAA6MSwJ3LcK2OxOEf38ScdKQIZsMnixp70qV47Sl+690PGCUgLTgNdIpAhi8Zw9qe8bod4cZg2q3RZJHPekGTk5ybd997e+ViVgbwv7trw4anLllmh0axuoE9NB8BoU3I8IPQArbDRpUmFaxvvgrn7z5wDr1nwwPHnqfEo3LIXzeb2egmVZokbkl3GHlTkg==
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 50241180185B;
+	Fri, 18 Sep 2026 13:16:21 +0000 (UTC)
+X-ICL-RepId: 01a0b4a9-2d8e-7d9b-b824-aed8472b9981
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGA0IUTApUAFwLQwgeB1gCK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737383; x=1792329383; bh=Oo6D6URAaDvJzqA8a3rL3pvgHutk8Ae/Aa71TYMUavY=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=UyKuVi9eQPOZjsKxOv9GbLc4Baa32MSMXR7sjtC6m0b+ORS30uCtws+q8n9CGOpHwnRWLJ13SQIQ60EHX1LEoiJngJGrC1JbxW8DwrqwOYaPIZZnzRgsKY/TNZDbcr1CF6pbG1N/qiAIrrSa1r74PJgdbr68zu90/lbFHDKE7P1Mr+M0VfkUrUbv2DPm1QZWYT5u8DqJ1PeyKWrekxj9Cd+HXntXYBIC109AoFYIdpJZPsCFCTMw63Nca3+vUT2cOhQ8vZZWraku4eVWwVFQbmux8LZW8EcMxIOPq6UEkZKA2TjJZEJy3KdN/Au94HSxZSV3CrJGq2Rr+I5WOlujOw==
 Received: from [127.0.0.1] (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id 6EC081803F0B;
-	Fri, 18 Sep 2026 13:16:14 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id E330A1800864;
+	Fri, 18 Sep 2026 13:16:17 +0000 (UTC)
 From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Fri, 18 Sep 2026 15:15:16 +0200
-Subject: [PATCH 11/14] media: apple: avd: add h264 support
+Date: Fri, 18 Sep 2026 15:15:17 +0200
+Subject: [PATCH 12/14] media: apple: avd: add vp9 support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-avd-v1-11-49977931f455@icloud.com>
+Message-Id: <20260918-avd-v1-12-49977931f455@icloud.com>
 References: <20260918-avd-v1-0-49977931f455@icloud.com>
 In-Reply-To: <20260918-avd-v1-0-49977931f455@icloud.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -50,983 +50,97 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  Sofus Forstreuter <sofus.c@icloud.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfXyXGizCtwJEep
- WOW6EJYNK9pFlyZHP35svIq0ENnENbSAloeYJrTHBtr+yBESzrwqnKBXiGPenafGfkL4OkC/vzX
- Y8vtIaY0r0zBHAcezbhJwx6HDeiielIQsT1mJdGDsDmaCDXI47GwuV2DTBHOiMXJ+HuFl0+Zckp
- LSTYjv2lV6i8w+4Fzj1FX/nuTOOMlOeHy38aFlN2OL/SOK2Ed0vxUJ24jQWNhWGX+iRTgJxlRMS
- OrMpYFlhv/3q6TEPDeR0AI9FAW2r6qSNu734EZ3QtD8liGs1uosXmYFvNoxWEP/U4jSPF68M45C
- sKT+vvGDP1G9+FlZLUjKhNBFe4RfDUaWh9nDmSHnA/o4snii1wB2omIu3nui4o=
-X-Authority-Info-Out: v=2.4 cv=Iv0Tsb/g c=1 sm=1 tr=0 ts=6aad39a4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX7ZG5P08XdlMv
+ AoUE1Sd7b4VXc0dim6ObVlcHrs+aomjVRBl5baVhdyLCLO0ueZAnze3m9KDhwAXx8D+hnXUjwpy
+ ULLLmFR0J0IHuBU+BOvnxNOq7+krQn5wdDhuAXxbRJiPOTdyQ5apP9rboC85SX4p3Y34WGJl5EY
+ W4IyWxUcsMwolouwiPqJ7paBwof1d8JwpV5j3T/Zonq/TmQmj8Q77qvq9kj86frx4vr9AVQ1cef
+ g9pdzpgUWv5sHXr8CR2UhfXFM7LaXSxDILEiDzDAq7DnCx7Fm/OtXIm48bW3wNFGsnYPdciJEqh
+ t2WU55l9gcj4Xn6rdsGHI3LMYKK+TEZ+quOQ9guq1BqYUVDExwDHfESuCC9kL8=
+X-Authority-Info-Out: v=2.4 cv=Iv0Tsb/g c=1 sm=1 tr=0 ts=6aad39a6
  cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
  a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=7YfXLusrAAAA:8 a=s8YR1HE3AAAA:8 a=cm27Pg_UAAAA:8
- a=3kA6WVUWK8qzWw8_FPAA:9 a=QEXdDO2ut3YA:10 a=SLz71HocmBbuEhFRYD3r:22
- a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-ORIG-GUID: mVM18j2iL0ifSwVLO9mt0wrrt6sKB1Lc
-X-Proofpoint-GUID: mVM18j2iL0ifSwVLO9mt0wrrt6sKB1Lc
-X-JNJ: AAAAAAABfT7dg+Wvc3bBLlJY2u84ki1pjk+MqOGnYKjVPHPsNc/xMGfXfeweSNcMhTpHuJB8p/ehSVEijGowX6HnGFJqJC/rtifkFj9NLBlvjhz0rRPtIqmsN92PghUrp2w57o4z5dwAHTt9rlQXXCD3tsIWZJ3bKZoOCw20hKiSWbOZeFnbJ9+G6xc30LsxIQWopUqOBcKywyZvbKDqo0bqjh9o+aGmbekx3J7kD/qPitIoV/F7bnPnSKt50SsR/dUXMnVYoHu0awjAUivhgc7EQztKFgBQjUGZfpIMFGDXW00cY095kO4z1j8100ENKnDdbTKeOUjgkl4Nx2aDY2pRbxGWTvh8dNpRx7xCwD2zxcZKmHNYlpwKB+bh5X4C6M44j+YpIhN7YG4VeUZOmUGJ6jnmmVNaHauSvusspFr9CwoXpX7iyo911WNRRQAzk5U2AKMPcySMMD6rDUp8AWtR5wt9GPjNsu/L1kOxPYC2WvcH/P7zR5INRY1/lFgedDKOTzK3s5hcHlpLV/BWQEk0djSAT97HqlZOkxbiBwdr1OXgBFwRbXwoITdOPKnNTWVqAQCRBI+yqeaPLRzXSYcVs6yU1+cer3sBVcOBB7usXYvJge/1KBd9MJ3Vl3cFVXQX5591T3qGqO/x3N7p+/4/oUNkEM22yw4i4Ys3xSl0yGmD+usSIhdyKf2leeeviSPvSM2lhxEIv+DxO8F7zdnjHUkGO24sUZTw0d2X1S6L38LGQObgzfKngzepnK2FQ0/pqi6kOZeg7Cbbv1KJpNz7BsLXyqxQJ9LeffcF9ma/hB250Ih+rB1aaVlIv/KPWgVhmP8kw9XkqW0IUhXVbyev0hmyZplS0+mEEpf3Fg2AscigFcRgxgiD
+ a=v3ZZPjhaAAAA:8 a=7YfXLusrAAAA:8 a=QX4gbG5DAAAA:8 a=s8YR1HE3AAAA:8
+ a=Rqfy-2Hu8ob1gihRBwcA:9 a=QEXdDO2ut3YA:10 a=SLz71HocmBbuEhFRYD3r:22
+ a=AbAUZ8qAyYyZVLSsDulk:22 a=jGH_LyMDp9YhSvY-UuyI:22
+X-Proofpoint-ORIG-GUID: qpHvihYuoXep2Ks93pAAqStTbPmmLHqo
+X-Proofpoint-GUID: qpHvihYuoXep2Ks93pAAqStTbPmmLHqo
+X-JNJ: AAAAAAABqfvPZxyj45cAkc9dumE8uBUoLRn2xRxA2GAbGHuyzuQa9qgZNZq/vIcmJjRgkSBELy3lWx5CShVxmrRTJmkmjbeIzr/LjtVzMUoDGLae6+LAziRYMsyq5Bw3Qw77htl2wVrVbx3J+DEz/unGHq6llYtpwYo2ko5wxai+fgUYmWoZ1EnC86Dr2a61zNawkVvlT1obc0byFWr61i7LaVZOzpqbZWcbO3FCZHOt8O+NCAAP5XikiFjj0qk60QXOLac5cDbCz3ehpXlEXSs9GghFAOpRiH7vKZ49VJ0Xnpvt8CbSnsWuAAiaa8QAIyAaThLycg5NuNtbrAKJhPDb2c+MYAZYJIDW8Aii7yluWEzxSfpm9ZeQDs2Xj7DMY+v/6I1mnU+F/tU/l9JxAj7OBi4/7nfyOdFCfOAGm89ee8LaWEc4bTzKmDwjAGlaW30EvnPPLbPYNfYUACWKV5anfpCIcQvTwoBq5cbCJkNIXUY+YBQ31zO8Y111ekaVxq7E9LDLFJhbWno02B0okjnhZ1qvZw8ABpXHVLaWO2jcFEocYgH3vemCA4aOfcahwimxvahs9z3qUQAgxyJMMIg+Kd2C03UlFdQfn8pqLzfopywTLJlWerGFrVAlW/LWH85A4jMP91WJVBU/Pbvx1OImcWY+J310d8KkxlKT3wTqk549ZJohQ2JY/bKc+0NV6RM6qj58ig6mdDK79w/5WvMhg7MgPy2uIRRnRU3Z8Okg89ucGcL2E148qDnFa8yph/K3dqYBJWEXyJmJPaSXtvdGrBQYDuDfeK1OSQBqL55Dpw8w+Y44TjsgmqS8wZDR7RyOpMV4zZIC97zbZJv58YJtPnu8qRh5UZcua2L7loAjIo0riVfuN2Pan10=
 
-The fluster score is 77/135 for JVT-AVC_V1 and 42/69 for JVT-FR-EXT.
-
-While there are no unexpected test cases. FM1_FT_E, SP1_BT_A and
-sp2_bt_b still have some unsupported features that are not rejected,
-which causes the hardware to fault.
+The fluster scores is 216/305 for VP9-TEST-VECTORS and 1/6 for
+VP9-TEST-VECTORS-HIGH.
 
 Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- drivers/media/platform/apple/avd/Kconfig    |   1 +
- drivers/media/platform/apple/avd/Makefile   |   2 +-
- drivers/media/platform/apple/avd/avd-h264.c | 851 ++++++++++++++++++++++++++++
- drivers/media/platform/apple/avd/avd-v4l2.c |  72 ++-
- drivers/media/platform/apple/avd/avd.h      |   2 +
- 5 files changed, 926 insertions(+), 2 deletions(-)
+ drivers/media/platform/apple/avd/Kconfig    |    1 +
+ drivers/media/platform/apple/avd/Makefile   |    2 +-
+ drivers/media/platform/apple/avd/avd-v4l2.c |   37 +
+ drivers/media/platform/apple/avd/avd-vp9.c  | 1072 +++++++++++++++++++++++++++
+ drivers/media/platform/apple/avd/avd.h      |   10 +
+ 5 files changed, 1121 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/apple/avd/Kconfig b/drivers/media/platform/apple/avd/Kconfig
-index 3c41006f3a02..9e2e4e3fa56e 100644
+index 9e2e4e3fa56e..6d31f9285973 100644
 --- a/drivers/media/platform/apple/avd/Kconfig
 +++ b/drivers/media/platform/apple/avd/Kconfig
-@@ -9,6 +9,7 @@ config VIDEO_APPLE_AVD
- 	depends on V4L_PLATFORM_DRIVERS
+@@ -10,6 +10,7 @@ config VIDEO_APPLE_AVD
  	select V4L2_MEM2MEM_DEV
  	select VIDEOBUF2_DMA_CONTIG
-+	select V4L2_H264
+ 	select V4L2_H264
++	select V4L2_VP9
  	help
  	  Support for hardware video decoding on Apple Silicon devices using
  	  the Apple Video Decoder (AVD).
 diff --git a/drivers/media/platform/apple/avd/Makefile b/drivers/media/platform/apple/avd/Makefile
-index bcf912cfea3d..837182588e2a 100644
+index 837182588e2a..54ea67a589cd 100644
 --- a/drivers/media/platform/apple/avd/Makefile
 +++ b/drivers/media/platform/apple/avd/Makefile
 @@ -1,4 +1,4 @@
  # SPDX-License-Identifier: GPL-2.0-only
  
--apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o
-+apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o avd-h264.o
+-apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o avd-h264.o
++apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o avd-h264.o avd-vp9.o
  obj-$(CONFIG_VIDEO_APPLE_AVD) += apple-avd.o
-diff --git a/drivers/media/platform/apple/avd/avd-h264.c b/drivers/media/platform/apple/avd/avd-h264.c
-new file mode 100644
-index 000000000000..6262b2f63300
---- /dev/null
-+++ b/drivers/media/platform/apple/avd/avd-h264.c
-@@ -0,0 +1,851 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Apple Video Decoder H264 driver
-+ *
-+ * Copyright (C) 2026 The Asahi Linux Contributors
-+ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
-+ * Copyright (C) 2023 Eileen Yoon <eyn@gmx.com>
-+ *
-+ * Copyright (c) 2014 Rockchip Electronics Co., Ltd.
-+ *	Hertz Wong <hertz.wong@rock-chips.com>
-+ *	Herman Chen <herman.chen@rock-chips.com>
-+ *
-+ * Copyright (C) 2014 Google, Inc.
-+ *	Tomasz Figa <tfiga@chromium.org>
-+ */
-+
-+#include <linux/dev_printk.h>
-+
-+#include <media/v4l2-h264.h>
-+#include <media/videobuf2-dma-contig.h>
-+
-+#include "avd.h"
-+#include "avd-inst.h"
-+
-+#define H264_SCL_DIMS	(0x1000000 | ((64 / 4) << 5) | (((16 / 4) << 5) - 1))
-+
-+#define h264_FLAG_CI_PRED(v)			FIELD_PREP(BIT(19), !!(v))
-+#define H264_FLAG_ENTROPY_CODING_MODE(v)	FIELD_PREP(BIT(20), !!(v))
-+#define H264_FLAG_NOT_IDR(v)			FIELD_PREP(BIT(21), !!(v))
-+
-+#define H264_TRANSFORM_8X8_MODE(v)		FIELD_PREP(BIT(7), !!(v))
-+
-+struct avd_h264_run {
-+	struct avd_run base;
-+
-+	const struct v4l2_ctrl_h264_decode_params *decode_params;
-+	const struct v4l2_ctrl_h264_sps *sps;
-+	const struct v4l2_ctrl_h264_pps *pps;
-+	const struct v4l2_ctrl_h264_slice_params *slice_params;
-+
-+	const struct v4l2_ctrl_h264_scaling_matrix *scaling_matrix;
-+	const struct v4l2_ctrl_h264_pred_weights *pred_weights;
-+
-+	struct run_addr {
-+		dma_addr_t mv_color;
-+	} addresses;
-+
-+	s32 cur_poc;
-+	u8 num_valid;
-+};
-+
-+/* state */
-+struct avd_h264_ctx {
-+	struct avd_h264_reflists {
-+		struct v4l2_h264_reference p[V4L2_H264_REF_LIST_LEN];
-+		struct v4l2_h264_reference b0[V4L2_H264_REF_LIST_LEN];
-+		struct v4l2_h264_reference b1[V4L2_H264_REF_LIST_LEN];
-+	} reflists;
-+
-+	struct avd_buf *slices;
-+	struct avd_buf *active_slice;
-+	size_t slice_num;
-+	size_t alloc_slice_num;
-+
-+	struct avd_h264_bufs {
-+		struct avd_buf above_info;
-+		struct avd_buf lf_above_info;
-+		struct avd_buf lf_above;
-+		struct avd_buf ip_above;
-+		struct avd_buf mv_above_info;
-+	} bufs;
-+};
-+
-+/*
-+ * use first_mb_in_slice instead of fh.m2m_ctx->new_frame to detect at new
-+ * frame since many clients dont submit propper timestamps
-+ * We only support slices in raster order anyway
-+ */
-+#define is_new_frame(sl) ((sl)->first_mb_in_slice == 0)
-+
-+/* scaling matrix */
-+static const u32 default_8x8_intra[] = {
-+	0x060a0d10, 0x0a0b1012, 0x0d101217, 0x10121719, 0x1217191b, 0x17191b1d,
-+	0x191b1d1f, 0x1b1d1f21, 0x1217191b, 0x17191b1d, 0x191b1d1f, 0x1b1d1f21,
-+	0x1d1f2124, 0x1f212426, 0x21242628, 0x2426282a,
-+};
-+
-+static const u32 default_8x8_inter[] = {
-+	0x090d0f11, 0x0d0d1113, 0x0f111315, 0x11131516, 0x13151618, 0x15161819,
-+	0x1618191b, 0x18191b1c, 0x13151618, 0x15161819, 0x1618191b, 0x18191b1c,
-+	0x191b1c1e, 0x1b1c1e20, 0x1c1e2021, 0x1e202123,
-+};
-+
-+static inline u32 mv_color_size(u32 w, u32 h)
-+{
-+	return (DIV_ROUND_UP(w, 16) + 1) * (DIV_ROUND_UP(h, 16) + 1) * 64;
-+}
-+
-+/* sorry for the formatting */
-+
-+static void stream_refs(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	const struct v4l2_ctrl_h264_decode_params *decode = run->decode_params;
-+	const struct v4l2_h264_dpb_entry *dpb = decode->dpb;
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	struct avd_decoded_buffer *dst, *ref;
-+	dma_addr_t addr;
-+
-+	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
-+
-+	push(0, "");
-+	pusha(h264_ctx->bufs.mv_above_info.addr, "mv_above_info", 7);
-+	pusha(run->addresses.mv_color, "mv_color", 0);
-+
-+	push(0, "");
-+	push(0, "");
-+	push(0, "");
-+	push(0, "");
-+
-+	for (int i = 0; i < ARRAY_SIZE(decode->dpb); i++) {
-+		if (!(dpb[i].flags & V4L2_H264_DPB_ENTRY_FLAG_VALID))
-+			continue;
-+
-+		ref = avd_get_ref_buf(ctx, &dst->base.vb, dpb[i].reference_ts);
-+
-+		addr = vb2_dma_contig_plane_dma_addr(&ref->base.vb.vb2_buf, 0) +
-+		       ref->comp.start_offset;
-+
-+		push(AVD_REF_NUM(run->num_valid - 1) | AVD_REF_FLAG_CONST |
-+			     AVD_REF_FLAG_LONG(
-+				     dpb[i].flags &
-+				     V4L2_H264_DPB_ENTRY_FLAG_LONG_TERM) |
-+			     AVD_REF_DELTA_POC(run->cur_poc -
-+					       dpb[i].top_field_order_cnt),
-+		     "hdr_d0_ref_hdr");
-+
-+		push_comp(ctx, addr, ctx->comp.offsets);
-+	}
-+}
-+
-+static void stream_scaling(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	const struct v4l2_ctrl_h264_pps *pps = run->pps;
-+	const struct v4l2_ctrl_h264_scaling_matrix *scaling =
-+		run->scaling_matrix;
-+
-+	push(H264_SCL_DIMS, "hdr_4c_pic_scaling_list_dims");
-+
-+	for (int i = 0; i < 6; i++)
-+		for (int j = 0; j < 16; j += 4)
-+			push(AVD_SCALING_I3(
-+				     scaling->scaling_list_4x4[i][j + 0]) |
-+				     AVD_SCALING_I2(
-+					     scaling->scaling_list_4x4[i][j + 1]) |
-+				     AVD_SCALING_I1(
-+					     scaling->scaling_list_4x4[i][j + 2]) |
-+				     AVD_SCALING_I0(
-+					     scaling->scaling_list_4x4[i][j + 3]),
-+			     "scl_46c_pic_scaling_matrix_4x4");
-+
-+	/* Instead of 8x8 raster scan order avd expects 4 4x4 subblocks */
-+	static const u8 map[16] = {
-+		0,  8,	16, 24, /* top left */
-+		4,  12, 20, 28, /* top right */
-+		32, 40, 48, 56, /* bottom left */
-+		36, 44, 52, 60, /* bottom right */
-+	};
-+
-+	/* 7.3.2.2, only matrix 0 and 1 are used if chroma_format_idc < 3 */
-+	if (pps->flags & V4L2_H264_PPS_FLAG_TRANSFORM_8X8_MODE) {
-+		for (int i = 0; i < 2; i++)
-+			for (int j = 0; j < 16; j++)
-+				push(AVD_SCALING_I3(scaling->scaling_list_8x8
-+							    [i][map[j] + 0]) |
-+					     AVD_SCALING_I2(
-+						     scaling->scaling_list_8x8
-+							     [i][map[j] + 1]) |
-+					     AVD_SCALING_I1(
-+						     scaling->scaling_list_8x8
-+							     [i][map[j] + 2]) |
-+					     AVD_SCALING_I0(
-+						     scaling->scaling_list_8x8
-+							     [i][map[j] + 3]),
-+				     "scl_4cc_pic_scaling_matrix_8x8");
-+
-+	} else {
-+		for (int i = 0; i < ARRAY_SIZE(default_8x8_intra); i++)
-+			push(default_8x8_intra[i],
-+			     "scl_4cc_pic_scaling_matrix_8x8");
-+		for (int i = 0; i < ARRAY_SIZE(default_8x8_inter); i++)
-+			push(default_8x8_inter[i],
-+			     "scl_4cc_pic_scaling_matrix_8x8");
-+	}
-+}
-+
-+static void stream_hdr(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	const struct v4l2_ctrl_h264_decode_params *decode = run->decode_params;
-+	const struct v4l2_ctrl_h264_sps *sps = run->sps;
-+	const struct v4l2_ctrl_h264_pps *pps = run->pps;
-+	struct avd_dev *avd = ctx->dev;
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	u32 bytesperline;
-+	u32 width = (sps->pic_width_in_mbs_minus1 + 1) * 16;
-+	u32 height = (sps->pic_height_in_map_units_minus1 + 1) * 16;
-+
-+	push(AVD_OP_HDR | AVD_OP_HDR_FLAG_DECOMP(ctx->decomp) |
-+		     AVD_OP_HDR_FLAG_INTRA(
-+			     decode->flags &
-+			     V4L2_H264_DECODE_PARAM_FLAG_IDR_PIC) |
-+		     AVD_OP_HDR_CONST |
-+		     AVD_OP_HDR_FLAG_PIPE_STATE(
-+			     !(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE)),
-+	     "hdr_34_start_hdr");
-+
-+	push(AVD_HDR_CODEC_MODE(AVD_CODEC_H264), "hdr_38_mode");
-+
-+	push(AVD_HDR_HEIGHT(height - 1) | AVD_HDR_WIDTH(width - 1),
-+	     "hdr_3c_height_width");
-+
-+	push(0, "hdr_40_zero");
-+
-+	push(AVD_HDR_HEIGHT((height - 1) >> 3) |
-+		     AVD_HDR_WIDTH((width - 1) >> 3),
-+	     "hdr_28_height_width_shift3");
-+
-+	push(AVD_HDR_COMMON_CHROMA_FORMAT(sps->chroma_format_idc) |
-+		     AVD_HDR_COMMON_BIT_DEPTH_L(sps->bit_depth_luma_minus8) |
-+		     AVD_HDR_COMMON_BIT_DEPTH_C(sps->bit_depth_chroma_minus8) |
-+		     AVD_HDR_COMMON_MIN_LUMA_CBS(1) |
-+		     AVD_HDR_COMMON_LUMA_CBS(1) |
-+		     H264_TRANSFORM_8X8_MODE(
-+			     pps->flags &
-+			     V4L2_H264_PPS_FLAG_TRANSFORM_8X8_MODE) |
-+		     AVD_HDR_COMMON_FLAG0(
-+			     sps->flags &
-+			     V4L2_H264_SPS_FLAG_DIRECT_8X8_INFERENCE),
-+	     "hdr_2c_sps_param");
-+
-+	push(H264_FLAG_ENTROPY_CODING_MODE(
-+		     pps->flags & V4L2_H264_PPS_FLAG_ENTROPY_CODING_MODE) |
-+		     H264_FLAG_NOT_IDR(!(decode->flags &
-+					 V4L2_H264_DECODE_PARAM_FLAG_IDR_PIC)) |
-+		     h264_FLAG_CI_PRED(
-+			     pps->flags &
-+			     V4L2_H264_PPS_FLAG_CONSTRAINED_INTRA_PRED),
-+	     "hdr_44_flags");
-+
-+	push(AVD_HDR_H26X_QP_OFFSET_CB(pps->chroma_qp_index_offset) |
-+		     AVD_HDR_H26X_QP_OFFSET_CR(
-+			     pps->second_chroma_qp_index_offset),
-+	     "hdr_48_chroma_qp_index_offset");
-+
-+	push(AVD_HDR_FEAT_H26X | AVD_HDR_FEAT_COMMON | AVD_HDR_FEAT_H264 |
-+		     AVD_HDR_FEAT_PIPE_STATE_EN(
-+			     !(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE)),
-+	     "hdr_58_const_3a");
-+
-+	push(0, "");
-+	push(0, "");
-+
-+	if (avd->variant->revision == 3)
-+		push(0, "zero");
-+
-+	pusha(h264_ctx->bufs.above_info.addr, "hdr_9c_pps_tile_addr_lsb8", 0);
-+
-+	push(0, "");
-+	push(0, "");
-+
-+	if (avd->variant->revision == 3)
-+		push(0, "zero");
-+	else if (!(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE))
-+		pusha(ctx->pipe_state.addr, "pipe_state", 0);
-+
-+	pusha(h264_ctx->bufs.ip_above.addr, "ip_above", 1);
-+	pusha(h264_ctx->bufs.lf_above.addr, "lf_above", 2);
-+	pusha(h264_ctx->bufs.lf_above_info.addr, "lf_above_info", 3);
-+	push(0, "");
-+
-+	push_comp(ctx, run->base.comp_out, ctx->comp.offsets);
-+
-+	bytesperline = ctx->decoded_fmt.fmt.pix_mp.plane_fmt[0].bytesperline;
-+	if (avd->variant->quirks & AVD_QUIRK_LSR)
-+		bytesperline = bytesperline >> 4;
-+
-+	pusha(run->base.y_out, "hdr_210_y_addr_lsb8", 0);
-+	push(bytesperline, "hdr_218_width_align");
-+	pusha(run->base.uv_out, "hdr_214_uv_addr_lsb8", 0);
-+	push(bytesperline, "hdr_21c_width_align");
-+
-+	push(0, "cm3_mark_end_section");
-+	push(((height - 1) << 16) | (width - 1), "hdr_54_height_width");
-+
-+	if (!(decode->flags & V4L2_H264_DECODE_PARAM_FLAG_IDR_PIC))
-+		stream_refs(ctx, run);
-+
-+	if (pps->flags & V4L2_H264_PPS_FLAG_SCALING_MATRIX_PRESENT)
-+		stream_scaling(ctx, run);
-+	else
-+		push(0, "cm3_mark_end_section_scl");
-+}
-+
-+#define DEFAULT_WEIGHT_DENOM \
-+	(AVD_OP_WEIGHTS_HDR_LUMA(5) | AVD_OP_WEIGHTS_HDR_CHROMA(5))
-+
-+static void stream_weights(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	int luma_denom, chroma_denom;
-+	struct v4l2_h264_weight_factors factors;
-+	const struct v4l2_ctrl_h264_pred_weights *weights = run->pred_weights;
-+	const struct v4l2_ctrl_h264_pps *pps = run->pps;
-+	const struct v4l2_ctrl_h264_slice_params *sl = run->slice_params;
-+
-+	bool pred_weight_req = V4L2_H264_CTRL_PRED_WEIGHTS_REQUIRED(pps, sl);
-+	bool default_weights = pps->weighted_bipred_idc == 2 &&
-+			       !pred_weight_req;
-+
-+	push(AVD_OP_WEIGHTS_HDR | AVD_OP_WEIGHTS_HDR_FLAG1(default_weights) |
-+		     AVD_OP_WEIGHTS_HDR_FLAG0(pred_weight_req) |
-+		     AVD_OP_WEIGHTS_HDR_LUMA(
-+			     !default_weights ?
-+				     weights->luma_log2_weight_denom :
-+				     0) |
-+		     AVD_OP_WEIGHTS_HDR_CHROMA(
-+			     !default_weights ?
-+				     weights->chroma_log2_weight_denom :
-+				     0) |
-+		     (default_weights ? DEFAULT_WEIGHT_DENOM : 0),
-+	     "slc_76c_cmd_weights_denom");
-+
-+	if (!pred_weight_req)
-+		return;
-+
-+	luma_denom = 1 << weights->luma_log2_weight_denom;
-+	chroma_denom = 1 << weights->chroma_log2_weight_denom;
-+
-+	for (int y = 0; y < 2; y++) {
-+		if (y == 1 && sl->slice_type != V4L2_H264_SLICE_TYPE_B)
-+			break;
-+
-+		factors = weights->weight_factors[y];
-+		int to = y == 0 ? sl->num_ref_idx_l0_active_minus1 :
-+				  sl->num_ref_idx_l1_active_minus1;
-+		for (int i = 0; i < to + 1; i++) {
-+			/*
-+			 * AVD only expects offsets/weights if they are not
-+			 * the default ones, otherwise we get artifacts
-+			 */
-+			if (factors.luma_weight[i] != luma_denom ||
-+			    factors.luma_offset[i] != 0) {
-+				push(AVD_OP_WEIGHTS | AVD_OP_WEIGHTS_IDENT(1) |
-+					     AVD_OP_WEIGHTS_LIST_IDX(y) |
-+					     AVD_OP_WEIGHTS_INDEX(i) |
-+					     AVD_OP_WEIGHTS_WEIGHT(
-+						     factors.luma_weight[i]),
-+				     "slc_luma_weights");
-+				push(AVD_OP_OFFSETS |
-+					     AVD_OP_OFFSETS_OFFSET(
-+						     factors.luma_offset[i]),
-+				     "slc_luma_offsets");
-+			}
-+
-+			if (factors.chroma_weight[i][0] != chroma_denom ||
-+			    factors.chroma_offset[i][0] != 0 ||
-+			    factors.chroma_weight[i][1] != chroma_denom ||
-+			    factors.chroma_offset[i][1] != 0) {
-+				push(AVD_OP_WEIGHTS | AVD_OP_WEIGHTS_IDENT(2) |
-+					     AVD_OP_WEIGHTS_LIST_IDX(y) |
-+					     AVD_OP_WEIGHTS_INDEX(i) |
-+					     AVD_OP_WEIGHTS_WEIGHT(
-+						     factors.chroma_weight[i][0]),
-+				     "slc_chroma_weights[0]");
-+				push(AVD_OP_OFFSETS |
-+					     AVD_OP_OFFSETS_OFFSET(
-+						     factors.chroma_offset[i][0]),
-+				     "slc_chroma_offsets[0]");
-+				push(AVD_OP_WEIGHTS | AVD_OP_WEIGHTS_IDENT(3) |
-+					     AVD_OP_WEIGHTS_LIST_IDX(y) |
-+					     AVD_OP_WEIGHTS_INDEX(i) |
-+					     AVD_OP_WEIGHTS_WEIGHT(
-+						     factors.chroma_weight[i][1]),
-+				     "slc_chroma_weights[1]");
-+				push(AVD_OP_OFFSETS |
-+					     AVD_OP_OFFSETS_OFFSET(
-+						     factors.chroma_offset[i][1]),
-+				     "slc_chroma_offsets[1]");
-+			}
-+		}
-+	}
-+}
-+
-+static void stream_slice(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	const struct v4l2_ctrl_h264_decode_params *decode = run->decode_params;
-+	const struct v4l2_ctrl_h264_pps *pps = run->pps;
-+	const struct v4l2_ctrl_h264_sps *sps = run->sps;
-+	const struct v4l2_ctrl_h264_slice_params *sl = run->slice_params;
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	u32 payload_len = h264_ctx->active_slice->size;
-+	bool en_mode = (pps->flags & V4L2_H264_PPS_FLAG_ENTROPY_CODING_MODE) ==
-+		       0;
-+	const u8 *data = h264_ctx->active_slice->cpu;
-+	u32 min_off = (sl->header_bit_size + (en_mode ? 0 : 7)) / 8;
-+	u32 off = 2;
-+	u32 num_ref_idx_active, bytes_read = 2;
-+	dma_addr_t coded_in, mv_color_addr;
-+	struct avd_decoded_buffer *dst, *ref;
-+
-+	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
-+
-+	if (payload_len < min_off)
-+		return;
-+
-+	/* include emulation byte in offset to slice header */
-+	while (bytes_read < min_off) {
-+		if (data[off - 2] != 0x00 || data[off - 1] != 0x00 ||
-+		    data[off] != 0x03)
-+			bytes_read++;
-+		off++;
-+	}
-+
-+	coded_in = h264_ctx->active_slice->addr + off;
-+
-+	push(AVD_OP_CODED_DATA |
-+		     AVD_OP_CODED_DATA_BIT_OFF(
-+			     en_mode ? (sl->header_bit_size % 8) : 0) |
-+		     AVD_OP_CODED_DATA_ADDR(coded_in >> 32),
-+	     "slc_a7c_cmd_set_coded_slice");
-+	push((u32)(coded_in & 0xffffffff), "slc_a84_slice_addr_low");
-+
-+	push(payload_len - off, "slc_a88_slice_hdr_size");
-+
-+	push(AVD_OP_SL_LOC |
-+		     AVD_OP_SL_LOC_Y(sl->first_mb_in_slice /
-+				     (sps->pic_width_in_mbs_minus1 + 1)) |
-+		     AVD_OP_SL_LOC_X(sl->first_mb_in_slice %
-+				     (sps->pic_width_in_mbs_minus1 + 1)),
-+	     "cm3_cmd_exec_mb_vp");
-+
-+	push(AVD_OP_QP | AVD_OP_QP_VAL(26 + pps->pic_init_qp_minus26 +
-+				       sl->slice_qp_delta),
-+	     "slc_a70_cmd_quant_param");
-+
-+	push(AVD_OP_DBLK |
-+		     AVD_OP_DBLK_FLAG_FULL_EN(
-+			     sl->disable_deblocking_filter_idc == 0) |
-+		     AVD_OP_DBLK_FLAG_EN(sl->disable_deblocking_filter_idc !=
-+					 1) |
-+		     AVD_OP_DBLK_OFF1(sl->slice_beta_offset_div2) |
-+		     AVD_OP_DBLK_OFF0(sl->slice_alpha_c0_offset_div2),
-+	     "slc_a74_cmd_deblocking_filter");
-+
-+	if (sl->slice_type == V4L2_H264_SLICE_TYPE_P ||
-+	    sl->slice_type == V4L2_H264_SLICE_TYPE_B) {
-+		num_ref_idx_active = sl->num_ref_idx_l0_active_minus1 + 1;
-+		for (u32 i = 0; i < num_ref_idx_active; i++)
-+			push(AVD_OP_REF | AVD_OP_REF_LIST_IDX(0) |
-+				     AVD_OP_REF_LOOP_IDX(i) |
-+				     AVD_OP_REF_DBP_IDX(
-+					     sl->ref_pic_list0[i].index),
-+			     "slc_6e8_cmd_ref_list_0");
-+
-+		if (sl->slice_type == V4L2_H264_SLICE_TYPE_B) {
-+			num_ref_idx_active =
-+				sl->num_ref_idx_l1_active_minus1 + 1;
-+			for (u32 i = 0; i < num_ref_idx_active; i++)
-+				push(AVD_OP_REF | AVD_OP_REF_LIST_IDX(1) |
-+					     AVD_OP_REF_LOOP_IDX(i) |
-+					     AVD_OP_REF_DBP_IDX(
-+						     sl->ref_pic_list1[i].index),
-+				     "slc_6e8_cmd_ref_list_0");
-+		}
-+		stream_weights(ctx, run);
-+	}
-+
-+	if (sl->first_mb_in_slice == 0) {
-+		push(AVD_OP_SL_DIM_START, "cm3_cmd_set_mb_dims");
-+		push(AVD_SL_DIM_END_Y(sps->pic_height_in_map_units_minus1) |
-+			     AVD_SL_DIM_END_X(sps->pic_width_in_mbs_minus1),
-+		     "cm3_set_mb_dims");
-+	}
-+
-+	push(AVD_OP_SL_REF | AVD_OP_SL_REF_FLAG_CABAC(sl->cabac_init_idc == 1) |
-+		     AVD_OP_SL_REF_FLAG1(sl->cabac_init_idc == 2) |
-+		     AVD_OP_SL_REF_FLAG2(
-+			     !(sl->flags &
-+			       V4L2_H264_SLICE_FLAG_DIRECT_SPATIAL_MV_PRED)) |
-+		     AVD_OP_SL_REF_NUM_L0(sl->num_ref_idx_l0_active_minus1) |
-+		     AVD_OP_SL_REF_NUM_L1(sl->num_ref_idx_l1_active_minus1) |
-+		     AVD_OP_SL_REF_SLICE_P(sl->slice_type ==
-+					   V4L2_H264_SLICE_TYPE_P) |
-+		     AVD_OP_SL_REF_SLICE_I(sl->slice_type ==
-+					   V4L2_H264_SLICE_TYPE_I) |
-+		     AVD_OP_SL_REF_SLICE_B(sl->slice_type ==
-+					   V4L2_H264_SLICE_TYPE_B)
-+
-+		     ,
-+	     "slc_6e4_cmd_ref_type");
-+
-+	if (sl->slice_type == V4L2_H264_SLICE_TYPE_B) {
-+		/* bidirectional reference of previous mv */
-+		ref = avd_get_ref_buf(
-+			ctx, &dst->base.vb,
-+			decode->dpb[sl->ref_pic_list1[0].index].reference_ts);
-+
-+		mv_color_addr =
-+			vb2_dma_contig_plane_dma_addr(&ref->base.vb.vb2_buf,
-+						      0) +
-+			(ref->base.vb.vb2_buf.planes[0].length -
-+			 mv_color_size(fmt_width(ctx), fmt_height(ctx)));
-+
-+		pusha(mv_color_addr, "slc_a78_sps_tile_addr2_lsb8", 0);
-+	}
-+}
-+
-+static int avd_h264_alloc_bufs(struct avd_ctx *ctx)
-+{
-+	struct avd_dev *dev = ctx->dev;
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	int ret, w, bit_depth, mb;
-+
-+	w = fmt_width(ctx);
-+	bit_depth = (ctx->image_fmt == AVD_IMG_FMT_420_10BIT ||
-+		     ctx->image_fmt == AVD_IMG_FMT_422_10BIT) ?
-+			    10 :
-+			    8;
-+
-+	mb = DIV_ROUND_UP(w, 16);
-+
-+	ret = avd_buf_alloc(dev, &h264_ctx->bufs.above_info, mb * 20);
-+	if (ret)
-+		return ret;
-+
-+	ret = avd_buf_alloc(dev, &h264_ctx->bufs.ip_above, bit_depth * 4 * mb);
-+	if (ret)
-+		return ret;
-+
-+	ret = avd_buf_alloc(dev, &h264_ctx->bufs.lf_above,
-+			    bit_depth * 4 * 4 * mb);
-+	if (ret)
-+		return ret;
-+
-+	ret = avd_buf_alloc(dev, &h264_ctx->bufs.lf_above_info, 32 * mb);
-+	if (ret)
-+		return ret;
-+
-+	ret = avd_buf_alloc(dev, &h264_ctx->bufs.mv_above_info, 32 * mb);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int avd_h264_validate_pps(struct avd_ctx *ctx,
-+				 const struct v4l2_ctrl_h264_pps *pps)
-+{
-+	if (pps->num_slice_groups_minus1 != 0) {
-+		dev_err(ctx->dev->dev, "pps->num_slice_groups_minus1 != 0");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int avd_h264_validate_sps(struct avd_ctx *ctx,
-+				 const struct v4l2_ctrl_h264_sps *sps)
-+{
-+	if (sps->chroma_format_idc > 2)
-+		/* Only 4:0:0, 4:2:0 and 4:2:2 are supported */
-+		return -EINVAL;
-+	if (sps->bit_depth_luma_minus8 != sps->bit_depth_chroma_minus8)
-+		/* Luma and chroma bit depth mismatch */
-+		return -EINVAL;
-+	if (!(sps->flags & V4L2_H264_SPS_FLAG_FRAME_MBS_ONLY))
-+		/* no interlaced support */
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int avd_h264_start(struct avd_ctx *ctx)
-+{
-+	struct avd_h264_ctx *h264_ctx;
-+	struct v4l2_ctrl *ctrl;
-+	int ret;
-+
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl, V4L2_CID_STATELESS_H264_SPS);
-+	if (!ctrl)
-+		return -EINVAL;
-+
-+	ret = avd_h264_validate_sps(ctx, ctrl->p_new.p_h264_sps);
-+	if (ret)
-+		return ret;
-+
-+	h264_ctx = kzalloc_obj(*h264_ctx, GFP_KERNEL);
-+	if (!h264_ctx)
-+		return -ENOMEM;
-+
-+	ctx->priv = h264_ctx;
-+
-+	/* assume one slice per row */
-+	h264_ctx->alloc_slice_num =
-+		ctrl->p_new.p_h264_sps->pic_height_in_map_units_minus1 + 1;
-+	h264_ctx->slices = kzalloc_objs(*h264_ctx->slices,
-+					h264_ctx->alloc_slice_num, GFP_KERNEL);
-+	if (!h264_ctx->slices)
-+		goto err_free_ctx;
-+
-+	ret = avd_h264_alloc_bufs(ctx);
-+	if (ret)
-+		goto err_free_ctx;
-+
-+	return 0;
-+
-+err_free_ctx:
-+	kfree(h264_ctx);
-+	ctx->priv = NULL;
-+	return ret;
-+}
-+
-+static void avd_h264_stop(struct avd_ctx *ctx)
-+{
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	struct avd_dev *dev = ctx->dev;
-+	int i;
-+
-+	if (!h264_ctx)
-+		return;
-+
-+	avd_buf_free(dev, &h264_ctx->bufs.above_info);
-+	avd_buf_free(dev, &h264_ctx->bufs.lf_above_info);
-+	avd_buf_free(dev, &h264_ctx->bufs.lf_above);
-+	avd_buf_free(dev, &h264_ctx->bufs.ip_above);
-+	avd_buf_free(dev, &h264_ctx->bufs.mv_above_info);
-+
-+	for (i = 0; i < h264_ctx->slice_num; i++)
-+		avd_buf_free(dev, &h264_ctx->slices[i]);
-+	kfree(h264_ctx->slices);
-+	kfree(h264_ctx);
-+}
-+
-+static void avd_h264_run_preamble(struct avd_ctx *ctx, struct avd_h264_run *run)
-+{
-+	struct v4l2_ctrl *ctrl;
-+	u32 dst_len, mv_color_len;
-+
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
-+			      V4L2_CID_STATELESS_H264_DECODE_PARAMS);
-+	run->decode_params = ctrl ? ctrl->p_cur.p : NULL;
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl, V4L2_CID_STATELESS_H264_SPS);
-+	run->sps = ctrl ? ctrl->p_cur.p : NULL;
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl, V4L2_CID_STATELESS_H264_PPS);
-+	run->pps = ctrl ? ctrl->p_cur.p : NULL;
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
-+			      V4L2_CID_STATELESS_H264_SLICE_PARAMS);
-+	run->slice_params = ctrl ? ctrl->p_cur.p : NULL;
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
-+			      V4L2_CID_STATELESS_H264_SCALING_MATRIX);
-+	run->scaling_matrix = ctrl ? ctrl->p_cur.p : NULL;
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
-+			      V4L2_CID_STATELESS_H264_PRED_WEIGHTS);
-+	run->pred_weights = ctrl ? ctrl->p_cur.p : NULL;
-+
-+	avd_run_preamble(ctx, &run->base);
-+
-+	dst_len = run->base.bufs.dst->vb2_buf.planes[0].length;
-+
-+	mv_color_len = mv_color_size(fmt_width(ctx), fmt_height(ctx));
-+
-+	run->addresses.mv_color = run->base.y_out + (dst_len - mv_color_len);
-+}
-+
-+static int avd_h264_realloc_slices(struct avd_ctx *ctx)
-+{
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	void *tmp;
-+	size_t alloc_slice_num;
-+
-+	tmp = h264_ctx->slices;
-+	alloc_slice_num = (h264_ctx->alloc_slice_num * 3) / 2;
-+	h264_ctx->slices =
-+		kzalloc_objs(*h264_ctx->slices, alloc_slice_num, GFP_KERNEL);
-+	if (!h264_ctx->slices) {
-+		/* make deallocating a little easier */
-+		h264_ctx->slices = tmp;
-+		return -ENOMEM;
-+	}
-+
-+	h264_ctx->alloc_slice_num = alloc_slice_num;
-+	memcpy(h264_ctx->slices, tmp,
-+	       sizeof(*h264_ctx->slices) * h264_ctx->slice_num);
-+	kfree(tmp);
-+
-+	tmp = ctx->job.segments;
-+	ctx->job.segments = kzalloc_objs(*ctx->job.segments,
-+					 (alloc_slice_num + 1), GFP_KERNEL);
-+	if (!ctx->job.segments) {
-+		ctx->job.segments = tmp;
-+		return -ENOMEM;
-+	}
-+
-+	memcpy(ctx->job.segments, tmp,
-+	       sizeof(*ctx->job.segments) * (ctx->job.num + 1));
-+	kfree(tmp);
-+
-+	return 0;
-+}
-+
-+static int avd_h264_run(struct avd_ctx *ctx)
-+{
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	struct v4l2_h264_reflist_builder reflist_builder;
-+	struct avd_h264_run run;
-+	struct vb2_v4l2_buffer *src;
-+	int ret;
-+
-+	avd_h264_run_preamble(ctx, &run);
-+
-+	if (ctx->job.segments &&
-+	    h264_ctx->slice_num >= h264_ctx->alloc_slice_num) {
-+		ret = avd_h264_realloc_slices(ctx);
-+		if (ret)
-+			goto err_free_jobs;
-+	}
-+
-+	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	h264_ctx->active_slice = &h264_ctx->slices[h264_ctx->slice_num];
-+	ret = avd_buf_alloc(ctx->dev, h264_ctx->active_slice,
-+			    vb2_get_plane_payload(&src->vb2_buf, 0));
-+	if (ret)
-+		goto err_free_jobs;
-+	memcpy(h264_ctx->active_slice->cpu, vb2_plane_vaddr(&src->vb2_buf, 0),
-+	       h264_ctx->active_slice->size);
-+	h264_ctx->slice_num++;
-+
-+	/* Build the P/B{0,1} ref lists. */
-+	v4l2_h264_init_reflist_builder(&reflist_builder, run.decode_params,
-+				       run.sps, run.decode_params->dpb);
-+
-+	run.num_valid = reflist_builder.num_valid;
-+	run.cur_poc = reflist_builder.cur_pic_order_count;
-+
-+	v4l2_h264_build_p_ref_list(&reflist_builder, h264_ctx->reflists.p);
-+	v4l2_h264_build_b_ref_lists(&reflist_builder, h264_ctx->reflists.b0,
-+				    h264_ctx->reflists.b1);
-+
-+	avd_run_postamble(ctx, &run.base);
-+
-+	if (is_new_frame(run.slice_params)) {
-+		ret = avd_init_job(ctx, AVD_CODEC_H264,
-+				   h264_ctx->alloc_slice_num + 1);
-+		if (ret)
-+			return ret;
-+		stream_hdr(ctx, &run);
-+	}
-+
-+	if (!ctx->job.segments)
-+		return -EINVAL;
-+
-+	ctx->job.num++;
-+	stream_slice(ctx, &run);
-+
-+	if (run.base.bufs.src->flags & V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF) {
-+		avd_job_finish(ctx, VB2_BUF_STATE_DONE);
-+		return 0;
-+	}
-+
-+	return avd_submit_job(ctx);
-+
-+err_free_jobs:
-+	kfree(ctx->job.segments);
-+	return ret;
-+}
-+
-+static void avd_h264_done(struct avd_ctx *ctx, struct vb2_v4l2_buffer *src_buf,
-+			  struct vb2_v4l2_buffer *dst_buf,
-+			  enum vb2_buffer_state result)
-+{
-+	struct avd_dev *avd = ctx->dev;
-+	struct avd_h264_ctx *h264_ctx = ctx->priv;
-+	int i;
-+
-+	if (!(src_buf->flags & V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF)) {
-+		for (i = 0; i < h264_ctx->slice_num; i++)
-+			avd_buf_free(avd, &h264_ctx->slices[i]);
-+		h264_ctx->slice_num = 0;
-+	}
-+}
-+
-+static enum avd_image_fmt avd_h264_get_image_fmt(struct avd_ctx *ctx,
-+						 struct v4l2_ctrl *ctrl)
-+{
-+	const struct v4l2_ctrl_h264_sps *sps = ctrl->p_new.p_h264_sps;
-+
-+	if (ctrl->id != V4L2_CID_STATELESS_H264_SPS)
-+		return AVD_IMG_FMT_ANY;
-+
-+	if (sps->bit_depth_luma_minus8 == 0) {
-+		if (sps->chroma_format_idc == 2)
-+			return AVD_IMG_FMT_422_8BIT;
-+		else
-+			return AVD_IMG_FMT_420_8BIT;
-+	} else if (sps->bit_depth_luma_minus8 == 2) {
-+		if (sps->chroma_format_idc == 2)
-+			return AVD_IMG_FMT_422_10BIT;
-+		else
-+			return AVD_IMG_FMT_420_10BIT;
-+	}
-+
-+	return AVD_IMG_FMT_ANY;
-+}
-+
-+static void avd_h264_adjust_decoded_fmt(struct avd_ctx *ctx,
-+					struct v4l2_pix_format_mplane *pix_mp)
-+{
-+	pix_mp->plane_fmt[0].sizeimage +=
-+		mv_color_size(pix_mp->width, pix_mp->height);
-+}
-+
-+static int avd_h264_try_ctrl(struct avd_ctx *ctx, struct v4l2_ctrl *ctrl)
-+{
-+	if (ctrl->id == V4L2_CID_STATELESS_H264_SPS)
-+		return avd_h264_validate_sps(ctx, ctrl->p_new.p_h264_sps);
-+	if (ctrl->id == V4L2_CID_STATELESS_H264_PPS)
-+		return avd_h264_validate_pps(ctx, ctrl->p_new.p_h264_pps);
-+
-+	return 0;
-+}
-+
-+static void avd_h264_submit(struct avd_ctx *ctx)
-+{
-+	writel_relaxed(AVD_OP_EXEC |
-+			AVD_OP_EXEC_FLAG_START_REV4(
-+				ctx->dev->variant->revision == 4) |
-+			AVD_OP_EXEC_FLAG_START_REV3(
-+				ctx->dev->variant->revision == 3) |
-+			AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
-+			AVD_OP_EXEC_FIFO_MASK(ctx->dev->variant->fifo_slots),
-+		ctx->dev->ctrl + ctx->dev->variant->submit_offset);
-+}
-+
-+const struct avd_coded_fmt_ops avd_h264_fmt_ops = {
-+	.adjust_decoded_fmt = avd_h264_adjust_decoded_fmt,
-+	.start = avd_h264_start,
-+	.stop = avd_h264_stop,
-+	.done = avd_h264_done,
-+	.run = avd_h264_run,
-+	.submit = avd_h264_submit,
-+	.try_ctrl = avd_h264_try_ctrl,
-+	.get_image_fmt = avd_h264_get_image_fmt,
-+};
 diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/platform/apple/avd/avd-v4l2.c
-index 874e46d22c45..36117fd5fbff 100644
+index 36117fd5fbff..52dcb70b340c 100644
 --- a/drivers/media/platform/apple/avd/avd-v4l2.c
 +++ b/drivers/media/platform/apple/avd/avd-v4l2.c
-@@ -173,7 +173,77 @@ const struct v4l2_ctrl_ops avd_ctrl_ops = {
- 	.s_ctrl = avd_s_ctrl,
+@@ -227,6 +227,29 @@ static const struct avd_ctrls avd_h264_ctrls = {
+ 	.num_ctrls = ARRAY_SIZE(avd_h264_ctrl_descs),
  };
  
--static const struct avd_coded_fmt_desc avd_coded_fmts[] = {};
-+static const struct avd_ctrl_desc avd_h264_ctrl_descs[] = {
++static const struct avd_ctrl_desc avd_vp9_ctrl_descs[] = {
 +	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_DECODE_PARAMS,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_SPS,
++		.cfg.id = V4L2_CID_STATELESS_VP9_FRAME,
 +		.cfg.ops = &avd_ctrl_ops,
 +	},
 +	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_PPS,
-+		.cfg.ops = &avd_ctrl_ops,
++		.cfg.id = V4L2_CID_STATELESS_VP9_COMPRESSED_HDR,
 +	},
 +	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_SCALING_MATRIX,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_PRED_WEIGHTS,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_SLICE_PARAMS,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_DECODE_MODE,
-+		.cfg.min = V4L2_STATELESS_H264_DECODE_MODE_SLICE_BASED,
-+		.cfg.max = V4L2_STATELESS_H264_DECODE_MODE_SLICE_BASED,
-+		.cfg.def = V4L2_STATELESS_H264_DECODE_MODE_SLICE_BASED,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_H264_START_CODE,
-+		.cfg.min = V4L2_STATELESS_H264_START_CODE_NONE,
-+		.cfg.max = V4L2_STATELESS_H264_START_CODE_NONE,
-+		.cfg.def = V4L2_STATELESS_H264_START_CODE_NONE,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_MPEG_VIDEO_H264_PROFILE,
-+		.cfg.min = V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE,
-+		.cfg.max = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_422_INTRA,
++		.cfg.id = V4L2_CID_MPEG_VIDEO_VP9_PROFILE,
++		.cfg.min = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
++		.cfg.max = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
 +		.cfg.menu_skip_mask =
-+			BIT(V4L2_MPEG_VIDEO_H264_PROFILE_EXTENDED) |
-+			BIT(V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_444_PREDICTIVE),
-+		.cfg.def = V4L2_MPEG_VIDEO_H264_PROFILE_MAIN,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_MPEG_VIDEO_H264_LEVEL,
-+		.cfg.min = V4L2_MPEG_VIDEO_H264_LEVEL_1_0,
-+		.cfg.max = V4L2_MPEG_VIDEO_H264_LEVEL_5_1,
++			BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_1),
++		.cfg.def = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
 +	},
 +};
 +
-+static const struct avd_ctrls avd_h264_ctrls = {
-+	.ctrls = avd_h264_ctrl_descs,
-+	.num_ctrls = ARRAY_SIZE(avd_h264_ctrl_descs),
++static const struct avd_ctrls avd_vp9_ctrls = {
++	.ctrls = avd_vp9_ctrl_descs,
++	.num_ctrls = ARRAY_SIZE(avd_vp9_ctrl_descs),
 +};
 +
-+static const struct avd_coded_fmt_desc avd_coded_fmts[] = {
+ static const struct avd_coded_fmt_desc avd_coded_fmts[] = {
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
+@@ -243,6 +266,20 @@ static const struct avd_coded_fmt_desc avd_coded_fmts[] = {
+ 		.subsystem_flags = VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF,
+ 		.capability = AVD_CAPABILITY_H264,
+ 	},
 +	{
-+		.fourcc = V4L2_PIX_FMT_H264_SLICE,
++		.fourcc = V4L2_PIX_FMT_VP9_FRAME,
 +		.frmsize = {
 +			.min_width = 64,
 +			.max_width = 16384,
@@ -1035,28 +149,1126 @@ index 874e46d22c45..36117fd5fbff 100644
 +			.max_height = 16384,
 +			.step_height = 16,
 +		},
-+		.ctrls = &avd_h264_ctrls,
-+		.ops = &avd_h264_fmt_ops,
-+		.subsystem_flags = VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF,
-+		.capability = AVD_CAPABILITY_H264,
++		.ctrls = &avd_vp9_ctrls,
++		.ops = &avd_vp9_fmt_ops,
++		.capability = AVD_CAPABILITY_VP9,
 +	},
-+};
+ };
  
  static bool avd_is_capable(struct avd_ctx *ctx, unsigned int capability)
- {
+diff --git a/drivers/media/platform/apple/avd/avd-vp9.c b/drivers/media/platform/apple/avd/avd-vp9.c
+new file mode 100644
+index 000000000000..76599a1a3981
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/avd-vp9.c
+@@ -0,0 +1,1072 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Apple Video Decoder VP9 driver
++ *
++ * Copyright (C) 2026 The Asahi Linux Contributors
++ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
++ * Copyright (C) 2023 Eileen Yoon <eyn@gmx.com>
++ *
++ * Copyright (C) 2019 Collabora, Ltd.
++ *	Boris Brezillon <boris.brezillon@collabora.com>
++ * Copyright (C) 2021 Collabora, Ltd.
++ *	Andrzej Pietrasiewicz <andrzej.p@collabora.com>
++ *
++ * Copyright (C) 2016 Rockchip Electronics Co., Ltd.
++ *	Alpha Lin <Alpha.Lin@rock-chips.com>
++ */
++
++#include <linux/dev_printk.h>
++#include <linux/unaligned.h>
++
++#include <media/v4l2-vp9.h>
++#include <media/videobuf2-dma-contig.h>
++
++#include "avd.h"
++#include "avd-inst.h"
++
++#define VP9_Q_IDX(v)	FIELD_PREP(GENMASK(31, 15), v)
++#define VP9_Q_DC_Y(v)	FIELD_PREP(GENMASK(14, 10), v)
++#define VP9_Q_DC_UV(v)	FIELD_PREP(GENMASK(9, 5), v)
++#define VP9_Q_AC_UV(v)	FIELD_PREP(GENMASK(4, 0), v)
++
++#define VP9_LF_SHARPNESS(v)	FIELD_PREP(GENMASK(31, 28), v)
++#define VP9_LF_REF0(v)		FIELD_PREP(GENMASK(27, 21), v)
++#define VP9_LF_REF1(v)		FIELD_PREP(GENMASK(20, 14), v)
++#define VP9_LF_REF2(v)		FIELD_PREP(GENMASK(13, 7), v)
++#define VP9_LF_REF3(v)		FIELD_PREP(GENMASK(6, 0), v)
++
++#define VP9_LF_LV(v)	FIELD_PREP(GENMASK(31, 14), v)
++#define VP9_LF_MODE0(v)	FIELD_PREP(GENMASK(13, 7), v)
++#define VP9_LF_MODE1(v)	FIELD_PREP(GENMASK(6, 0), v)
++
++#define VP9_FEAT_LVL_ALT_Q_EN(v)	FIELD_PREP(BIT(21), !!(v))
++#define VP9_FEAT_LVL_ALT_Q(v)		FIELD_PREP(GENMASK(20, 12), v)
++#define VP9_FEAT_LVL_ALT_L_EN(v)	FIELD_PREP(BIT(11), !!(v))
++#define VP9_FEAT_LVL_ALT_L(v)		FIELD_PREP(GENMASK(10, 4), v)
++#define VP9_FEAT_LVL_REF_FRAME_EN(v)	FIELD_PREP(BIT(3), !!(v))
++#define VP9_FEAT_LVL_REF_FRAME(v)	FIELD_PREP(GENMASK(2, 1), v)
++#define VP9_FEAT_LVL_SKIP_EN(v)		FIELD_PREP(BIT(0), !!(v))
++#define VP9_FEAT_LVL_SKIP(v)
++
++#define VP9_REF_SEL_LAST(v)	FIELD_PREP(GENMASK(2, 0), v)
++#define VP9_REF_BIAS_LAST(v)	FIELD_PREP(BIT(3), !!(v))
++#define VP9_REF_SEL_GOLDEN(v)	FIELD_PREP(GENMASK(6, 4), v)
++#define VP9_REF_BIAS_GOLDEN(v)	FIELD_PREP(BIT(7), !!(v))
++#define VP9_REF_SEL_ALT(v)	FIELD_PREP(GENMASK(10, 8), v)
++#define VP9_REF_BIAS_ALT(v)	FIELD_PREP(BIT(11), !!(v))
++#define VP9_REFERENCE_MODE(v)	FIELD_PREP(GENMASK(13, 12), v)
++#define VP9_PARALLEL_DEC(v)	FIELD_PREP(BIT(14), !!(v))
++#define VP9_REFRESH_CTX(v)	FIELD_PREP(BIT(15), !!(v))
++#define VP9_INTERP_FILTER(v)	FIELD_PREP(GENMASK(18, 16), v)
++#define VP9_HIGH_PREC_MV(v)	FIELD_PREP(BIT(19), !!(v))
++#define VP9_ERR_RES(v)		FIELD_PREP(BIT(20), !!(v))
++#define VP9_HAS_REF(v)		FIELD_PREP(BIT(21), !!(v))
++#define VP9_SEG_ABS(v)		FIELD_PREP(BIT(22), !!(v))
++#define VP9_SEG_UDATA_TEMP(v)	FIELD_PREP(BIT(23), !!(v))
++#define VP9_SEG_UPDATE_MAP(v)	FIELD_PREP(BIT(24), !!(v))
++#define VP9_SEG_ENABLED(v)	FIELD_PREP(BIT(25), !!(v))
++#define VP9_SEG_RESET(v)	FIELD_PREP(BIT(26), !!(v))
++
++#define VP9_MAX_TILE_COLS	(1 << 4)
++#define VP9_REF_SCALE_SHIFT	14
++#define VP9_LAST_FRAME		1
++#define VP9_GOLDEN_FRAME	2
++#define VP9_ALTREF_FRAME	3
++
++struct avd_vp9_seg_probs {
++	u8 tree_probs[7];
++	u8 pred_probs[3];
++};
++
++struct avd_vp9_probs {
++	struct avd_vp9_seg_probs seg;
++	u8 tx8[2][1];
++	u8 tx16[2][2];
++	u8 tx32[2][3];
++	/* [4][2][2][k=6][(k == 0) ? 3 : 6][3] */
++	u8 coef[1584];
++	u8 skip[3];
++	u8 inter_mode[7][3];
++	u8 interp_filter[4][2];
++	u8 is_inter[4];
++	u8 comp_mode[5];
++	u8 single_ref[5][2];
++	u8 comp_ref[5];
++	u8 y_mode[4][9];
++	u8 uv_mode[10][9];
++	u8 partition[16][3];
++	u8 joint[3];
++	struct mv_comp {
++		u8 sign;
++		u8 classes[10];
++		u8 class0_bit;
++		u8 bits[10];
++	} mv_comp[2];
++	struct mv_fr {
++		u8 class0_fr[2][3];
++		u8 fr[3];
++	} mv_fr[2];
++	struct mv_hp {
++		u8 class0_hp;
++		u8 hp;
++	} mv_hp[2];
++};
++
++struct avd_vp9_frame_symbol_counts {
++	u32 padding;
++	u32 tx8p[2][2];
++	u32 tx16p[2][3];
++	u32 tx32p[2][4];
++	/* [4][2][2][k=6][(k == 0) ? 3 : 6] */
++	u32 eob_0[528];
++	/*
++	 * struct ref_cnt { u32 coef[3]; u32 eob_1; }
++	 * struct ref_cnt cef_counts[4][2][2][k=6][(k == 0) ? 3 : 6];
++	 */
++	u32 ref_cnt[2112];
++	u32 skip[3][2];
++	u32 mv_mode[7][4];
++	u32 filter[4][3];
++	u32 intra_inter[4][2];
++	u32 comp[5][2];
++	u32 single_ref[5][2][2];
++	u32 comp_ref[5][2];
++	u32 y_mode[4][10];
++	u32 uv_mode[10][10];
++	u32 partition[16][4];
++	u32 mv_joint[4];
++	struct mv_comp_ctn {
++		u32 sign[2];
++		u32 classes[11];
++		u32 class0[2];
++		u32 bits[10][2];
++	} mv_comp[2];
++	struct mv_fr_cnt {
++		u32 class0_fr[2][4];
++		u32 fr[4];
++	} mv_fr[2];
++	struct mv_hp_cnt {
++		u32 class0_hp[2];
++		u32 hp[2];
++	} mv_hp[2];
++};
++
++struct avd_vp9_frame_info {
++	u32 valid : 1;
++	u32 segmapid : 1;
++	u32 frame_context_idx : 2;
++	u32 reference_mode : 2;
++	u32 tx_mode : 3;
++	u32 interpolation_filter : 3;
++	u32 flags;
++	u64 timestamp;
++	struct v4l2_vp9_segmentation seg;
++	struct v4l2_vp9_loop_filter lf;
++};
++
++struct avd_vp9_run {
++	struct avd_run base;
++
++	const struct v4l2_ctrl_vp9_frame *decode_params;
++	const struct v4l2_ctrl_vp9_compressed_hdr *prob_updates;
++};
++
++struct avd_vp9_ctx {
++	struct v4l2_vp9_frame_symbol_counts cnts;
++	struct v4l2_vp9_frame_context probability_tables;
++	struct v4l2_vp9_frame_context frame_context[4];
++	struct avd_vp9_bufs {
++		struct avd_buf az_left;
++		struct avd_buf above_info;
++		struct avd_buf ip_above;
++		struct avd_buf lf_above;
++		struct avd_buf lf_left_info;
++		struct avd_buf lf_left;
++		struct avd_buf color;
++		struct avd_buf seg;
++		struct avd_buf counts;
++		struct avd_buf probs;
++	} bufs;
++	struct avd_vp9_frame_info cur;
++	struct avd_vp9_frame_info last;
++	u8 submit_num;
++};
++
++static void set_refs(struct avd_ctx *ctx, struct avd_vp9_run *run)
++{
++	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
++	struct avd_decoded_buffer *dst, *ref_buf[4];
++	dma_addr_t addr;
++	int xscale, yscale;
++
++	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
++
++	ref_buf[0] = avd_get_ref_buf(ctx, &dst->base.vb, frame->last_frame_ts);
++	ref_buf[1] =
++		avd_get_ref_buf(ctx, &dst->base.vb, frame->golden_frame_ts);
++	ref_buf[2] = avd_get_ref_buf(ctx, &dst->base.vb, frame->alt_frame_ts);
++
++	push(0, "");
++	push(0, "");
++	push(0, "");
++
++	for (int i = 0; i < V4L2_VP9_NUM_FRAME_CTX - 1; i++) {
++		addr = vb2_dma_contig_plane_dma_addr(
++			       &ref_buf[i]->base.vb.vb2_buf, 0) +
++		       ref_buf[i]->comp.start_offset;
++
++		push(AVD_REF_FLAG_CONST, "hdr_9c_ref_100");
++		push(AVD_HDR_HEIGHT(ref_buf[i]->vp9.height - 1) |
++			     AVD_HDR_WIDTH(ref_buf[i]->vp9.width - 1),
++		     "hdr_70_ref_height_width");
++
++		xscale = (ref_buf[i]->vp9.width << VP9_REF_SCALE_SHIFT) /
++			 dst->vp9.width;
++		yscale = (ref_buf[i]->vp9.height << VP9_REF_SCALE_SHIFT) /
++			 dst->vp9.height;
++		push(AVD_HDR_HEIGHT(xscale) | AVD_HDR_WIDTH(yscale),
++		     "ref_scale");
++
++		push_comp(ctx, addr, ref_buf[i]->comp.offsets);
++	}
++}
++
++static u32 make_flags1(struct avd_ctx *ctx, struct avd_vp9_run *run)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
++	struct avd_decoded_buffer *dst, *last, *golden, *alt;
++
++	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
++	last = avd_get_ref_buf(ctx, &dst->base.vb, frame->last_frame_ts);
++	golden = avd_get_ref_buf(ctx, &dst->base.vb, frame->golden_frame_ts);
++	alt = avd_get_ref_buf(ctx, &dst->base.vb, frame->alt_frame_ts);
++	u32 flags;
++
++	/*
++	 * i have only seen V4L2_VP9_SIGN_BIAS_ALT, im simply guessing the
++	 * same applies for last and golden
++	 */
++	flags = VP9_REF_SEL_LAST(VP9_LAST_FRAME);
++
++	flags |= VP9_REF_BIAS_LAST(frame->ref_frame_sign_bias &
++				   V4L2_VP9_SIGN_BIAS_LAST);
++	flags |= VP9_REF_SEL_GOLDEN(golden == last ? VP9_LAST_FRAME :
++						     VP9_GOLDEN_FRAME);
++	flags |= VP9_REF_BIAS_GOLDEN(frame->ref_frame_sign_bias &
++				     V4L2_VP9_SIGN_BIAS_GOLDEN);
++	flags |= VP9_REF_SEL_ALT(alt != golden ? VP9_ALTREF_FRAME :
++				 alt != last   ? VP9_GOLDEN_FRAME :
++						 VP9_LAST_FRAME);
++	flags |= VP9_REF_BIAS_ALT(frame->ref_frame_sign_bias &
++				  V4L2_VP9_SIGN_BIAS_ALT);
++
++	flags |= VP9_REFERENCE_MODE(frame->reference_mode);
++
++	flags |= VP9_PARALLEL_DEC(frame->flags &
++				  V4L2_VP9_FRAME_FLAG_PARALLEL_DEC_MODE);
++	flags |= VP9_REFRESH_CTX(frame->flags &
++				 V4L2_VP9_FRAME_FLAG_REFRESH_FRAME_CTX);
++	flags |= VP9_INTERP_FILTER(frame->interpolation_filter);
++	flags |= VP9_HIGH_PREC_MV(frame->flags &
++				  V4L2_VP9_FRAME_FLAG_ALLOW_HIGH_PREC_MV);
++
++	flags |=
++		VP9_ERR_RES(frame->flags & V4L2_VP9_FRAME_FLAG_ERROR_RESILIENT);
++
++	flags |= VP9_SEG_ABS(frame->seg.flags &
++			     V4L2_VP9_SEGMENTATION_FLAG_ABS_OR_DELTA_UPDATE);
++	flags |= VP9_SEG_UDATA_TEMP(
++		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_UPDATE_DATA &&
++		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_TEMPORAL_UPDATE);
++	flags |= VP9_SEG_UPDATE_MAP(frame->seg.flags &
++				    V4L2_VP9_SEGMENTATION_FLAG_UPDATE_MAP);
++	flags |= VP9_SEG_ENABLED(frame->seg.flags &
++				 V4L2_VP9_SEGMENTATION_FLAG_ENABLED);
++
++	flags |= VP9_HAS_REF(
++		!(frame->flags & V4L2_VP9_FRAME_FLAG_ERROR_RESILIENT) &&
++		!(frame->flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME) &&
++		vp9_ctx->last.valid &&
++		vp9_ctx->last.flags & V4L2_VP9_FRAME_FLAG_SHOW_FRAME &&
++		!(vp9_ctx->last.flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME));
++
++	flags |= VP9_SEG_RESET(
++		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_ENABLED &&
++		(frame->flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME ||
++		 (vp9_ctx->last.valid &&
++		  !(vp9_ctx->last.seg.flags &
++		    V4L2_VP9_SEGMENTATION_FLAG_ENABLED) &&
++		  vp9_ctx->last.flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
++					 V4L2_VP9_FRAME_FLAG_INTRA_ONLY))));
++
++	return flags;
++}
++
++static u32 seg_features(struct avd_ctx *ctx, struct avd_vp9_run *run,
++			unsigned int segid)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	const struct v4l2_vp9_segmentation *seg = &vp9_ctx->cur.seg;
++	u32 feature_val = 0;
++	int feature_id = 0;
++
++	feature_id = V4L2_VP9_SEG_LVL_ALT_Q;
++	feature_val |= VP9_FEAT_LVL_ALT_Q_EN(v4l2_vp9_seg_feat_enabled(
++		seg->feature_enabled, feature_id, segid));
++	feature_val |= VP9_FEAT_LVL_ALT_Q(seg->feature_data[segid][feature_id]);
++
++	feature_id = V4L2_VP9_SEG_LVL_ALT_L;
++	feature_val |= VP9_FEAT_LVL_ALT_L_EN(v4l2_vp9_seg_feat_enabled(
++		seg->feature_enabled, feature_id, segid));
++	feature_val |= VP9_FEAT_LVL_ALT_L(seg->feature_data[segid][feature_id]);
++
++	feature_id = V4L2_VP9_SEG_LVL_REF_FRAME;
++	feature_val |= VP9_FEAT_LVL_REF_FRAME_EN(v4l2_vp9_seg_feat_enabled(
++		seg->feature_enabled, feature_id, segid));
++	feature_val |=
++		VP9_FEAT_LVL_REF_FRAME(seg->feature_data[segid][feature_id]);
++
++	feature_id = V4L2_VP9_SEG_LVL_SKIP;
++	feature_val |= VP9_FEAT_LVL_SKIP_EN(v4l2_vp9_seg_feat_enabled(
++		seg->feature_enabled, feature_id, segid));
++
++	return feature_val;
++}
++
++static void set_header(struct avd_ctx *ctx, struct avd_vp9_run *run)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	const struct v4l2_ctrl_vp9_compressed_hdr *prob_updates =
++		run->prob_updates;
++	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
++	struct avd_dev *avd = ctx->dev;
++	u32 bytesperline;
++
++	bool intra_only = !!(frame->flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
++					     V4L2_VP9_FRAME_FLAG_INTRA_ONLY));
++
++	push(AVD_OP_HDR | AVD_OP_HDR_FLAG_DECOMP(ctx->decomp) |
++		     AVD_OP_HDR_FLAG_INTRA(intra_only) | AVD_OP_HDR_CONST |
++		     AVD_OP_HDR_FLAG_PIPE_STATE(
++			     !(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE)),
++	     "hdr_34_start_hdr");
++
++	push(AVD_HDR_CODEC_MODE(AVD_CODEC_VP9), "hdr_38_mode");
++
++	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
++		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
++	     "hdr_28_height_width_shift3");
++	push(0, "");
++	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
++		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
++	     "hdr_38_height_width_shift3");
++
++	push(AVD_HDR_COMMON_CHROMA_FORMAT(1) |
++		     AVD_HDR_COMMON_BIT_DEPTH_C(frame->bit_depth - 8) |
++		     AVD_HDR_COMMON_BIT_DEPTH_L(frame->bit_depth - 8) |
++		     AVD_HDR_COMMON_LUMA_CBS(3) |
++		     AVD_HDR_COMMON_LUMA_TBS(min(prob_updates->tx_mode, 3)) |
++		     AVD_HDR_COMMON_FLAG0(prob_updates->tx_mode &
++					  V4L2_VP9_TX_MODE_SELECT),
++	     "hdr_2c_txfm_mode");
++
++	push(make_flags1(ctx, run), "hdr_40_flags1_pt1");
++
++	for (int i = 0; i < 8; i++)
++		push(seg_features(ctx, run, i), "seg");
++
++	push(AVD_HDR_FEAT_VP9, "unk_const");
++	push(0, "");
++	push(0, "");
++
++	pusha(vp9_ctx->bufs.counts.addr, "counts", 0);
++	pusha(vp9_ctx->bufs.probs.addr, "probs", 0);
++	pusha(vp9_ctx->bufs.above_info.addr, "above_info", 0);
++	pusha(vp9_ctx->bufs.seg.addr, "seg", 1);
++	pusha(vp9_ctx->bufs.seg.addr, "seg", 2);
++	pusha(vp9_ctx->bufs.color.addr, "color", 3);
++	pusha(vp9_ctx->bufs.color.addr, "color", 4);
++
++	push(VP9_Q_IDX(frame->quant.base_q_idx) |
++		     VP9_Q_DC_Y(frame->quant.delta_q_y_dc) |
++		     VP9_Q_DC_UV(frame->quant.delta_q_uv_dc) |
++		     VP9_Q_AC_UV(frame->quant.delta_q_uv_ac),
++	     "hdr_4c_base_q_idx");
++	/* filter related flags? */
++	push(VP9_LF_SHARPNESS(frame->lf.sharpness) |
++		     (frame->lf.flags &
++				      V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED ?
++			      VP9_LF_REF0(frame->lf.ref_deltas[0]) |
++				      VP9_LF_REF1(frame->lf.ref_deltas[1]) |
++				      VP9_LF_REF2(frame->lf.ref_deltas[2]) |
++				      VP9_LF_REF3(frame->lf.ref_deltas[3]) :
++			      0),
++	     "hdr_44_flags1_pt2");
++
++	push(VP9_LF_LV(frame->lf.level) |
++		     (frame->lf.flags &
++				      V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED ?
++			      VP9_LF_MODE0(frame->lf.mode_deltas[0]) |
++				      VP9_LF_MODE1(frame->lf.mode_deltas[1]) :
++			      0),
++	     "hdr_48_loop_filter_level");
++
++	push(0, "");
++	push(0, "");
++
++	if (avd->variant->revision == 3)
++		push(0, "");
++	if (!(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE))
++		pusha(ctx->pipe_state.addr, "pipe_state", 0);
++
++	pusha(vp9_ctx->bufs.ip_above.addr, "ip_above", 0);
++	pusha(vp9_ctx->bufs.lf_above.addr, "lf_above", 0);
++	/* no lf_above_info? */
++	pusha((u64)0, "hdr_e8_sps0_tile_addr_lsb8", 0);
++	pusha(vp9_ctx->bufs.lf_left.addr, "lf_left", 0);
++	pusha(vp9_ctx->bufs.lf_left_info.addr, "lf_left_info", 0);
++	pusha(vp9_ctx->bufs.az_left.addr, "az_left", 0);
++
++	push(0, "");
++
++	push_comp(ctx, run->base.comp_out, ctx->comp.offsets);
++
++	pusha((u64)0, "packed_fmt_scratch", 0);
++
++	bytesperline = ctx->decoded_fmt.fmt.pix_mp.plane_fmt[0].bytesperline;
++	if (avd->variant->quirks & AVD_QUIRK_LSR)
++		bytesperline = bytesperline >> 4;
++
++	pusha(run->base.y_out, "hdr_168_y_addr_lsb8", 0);
++	push(bytesperline, "hdr_170_width_align");
++	pusha(run->base.uv_out, "hdr_16c_uv_addr_lsb8", 0);
++	push(bytesperline, "hdr_174_width_align");
++	push(0, "");
++	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
++		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
++	     "cm3_height_width");
++
++	if (!(intra_only))
++		set_refs(ctx, run);
++}
++
++static void set_tiles(struct avd_ctx *ctx, struct avd_vp9_run *run)
++{
++	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	struct vb2_v4l2_buffer *src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
++	const u8 *data = vb2_plane_vaddr(&src->vb2_buf, 0);
++
++	u32 offset =
++		frame->uncompressed_header_size + frame->compressed_header_size;
++	u32 size = vb2_get_plane_payload(&src->vb2_buf, 0) - offset;
++	u32 num_tile_rows = 1 << frame->tile_rows_log2;
++	u32 num_tile_cols = 1 << frame->tile_cols_log2;
++	u32 tile_size;
++
++	/* 6.2.6 Compute image size syntax */
++	u32 sb_64_cols = (((frame->frame_width_minus_1 + 8) >> 3) + 7) >> 3;
++	u32 sb_64_rows = (((frame->frame_height_minus_1 + 8) >> 3) + 7) >> 3;
++
++	for (int row = 0; row < num_tile_rows; row++)
++		for (int col = 0; col < num_tile_cols; col++) {
++			ctx->job.num++;
++			if (row == num_tile_rows - 1 &&
++			    col == num_tile_cols - 1) {
++				tile_size = size;
++			} else {
++				tile_size = get_unaligned_be32(&data[offset]);
++				/* i have crashed my computer because of this */
++				if (tile_size > size - 4)
++					return;
++				offset += 4;
++				size -= 4;
++			}
++			push(AVD_OP_CODED_DATA |
++				     AVD_OP_CODED_DATA_ADDR(
++					     run->base.coded_in >> 32),
++			     "cm3_cmd_set_slice_data");
++			push((u32)((run->base.coded_in + offset) & 0xffffffff),
++			     "til_ab4_tile_addr_low");
++			push(tile_size, "til_ab8_tile_size");
++			push(AVD_OP_SL_DIM_START |
++				     AVD_OP_SL_DIM_START_Y((row * sb_64_rows) /
++							   num_tile_rows) |
++				     AVD_OP_SL_DIM_START_X((col * sb_64_cols) /
++							   num_tile_cols),
++			     "i");
++
++			push(AVD_SL_DIM_END_COL(col) |
++				     AVD_SL_DIM_END_Y(((row + 1) * sb_64_rows) /
++							      num_tile_rows - 1) |
++				     AVD_SL_DIM_END_X(((col + 1) * sb_64_cols) /
++							      num_tile_cols - 1),
++			     "til_ac0_tile_dims");
++
++			offset += tile_size;
++			size -= tile_size;
++			vp9_ctx->submit_num++;
++		}
++}
++
++static void update_dec_buf_info(struct avd_decoded_buffer *buf,
++				const struct v4l2_ctrl_vp9_frame *dec_params)
++{
++	buf->vp9.width = dec_params->frame_width_minus_1 + 1;
++	buf->vp9.height = dec_params->frame_height_minus_1 + 1;
++	buf->vp9.bit_depth = dec_params->bit_depth;
++}
++
++static void update_ctx_cur_info(struct avd_vp9_ctx *vp9_ctx,
++				struct avd_decoded_buffer *buf,
++				const struct v4l2_ctrl_vp9_frame *dec_params)
++{
++	vp9_ctx->cur.valid = true;
++	vp9_ctx->cur.reference_mode = dec_params->reference_mode;
++	vp9_ctx->cur.interpolation_filter = dec_params->interpolation_filter;
++	vp9_ctx->cur.flags = dec_params->flags;
++	vp9_ctx->cur.timestamp = buf->base.vb.vb2_buf.timestamp;
++	vp9_ctx->cur.seg = dec_params->seg;
++	vp9_ctx->cur.lf = dec_params->lf;
++}
++
++static void update_ctx_last_info(struct avd_vp9_ctx *vp9_ctx)
++{
++	vp9_ctx->last = vp9_ctx->cur;
++}
++
++static void copy_vp9_frame_mv(struct avd_vp9_probs *avd_probs,
++			      const struct v4l2_vp9_frame_context *probs)
++{
++	memcpy(avd_probs->joint, probs->mv.joint, sizeof(avd_probs->joint));
++	for (int i = 0; i < 2; i++) {
++		avd_probs->mv_comp[i].sign = probs->mv.sign[i];
++		memcpy(avd_probs->mv_comp[i].bits, probs->mv.bits[i],
++		       sizeof(avd_probs->mv_comp[i].bits));
++		avd_probs->mv_comp[i].class0_bit = probs->mv.class0_bit[i];
++		memcpy(avd_probs->mv_comp[i].classes, probs->mv.classes[i],
++		       sizeof(avd_probs->mv_comp[i].bits));
++
++		memcpy(avd_probs->mv_fr[i].class0_fr, probs->mv.class0_fr[i],
++		       sizeof(avd_probs->mv_fr[i].class0_fr));
++		memcpy(avd_probs->mv_fr[i].fr, probs->mv.fr[i],
++		       sizeof(avd_probs->mv_fr[i].fr));
++
++		avd_probs->mv_hp[i].class0_hp = probs->mv.class0_hp[i];
++		avd_probs->mv_hp[i].hp = probs->mv.hp[i];
++	}
++}
++
++static void init_probs(struct avd_ctx *ctx, const struct avd_vp9_run *run)
++{
++	const struct v4l2_ctrl_vp9_frame *dec_params;
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	struct avd_vp9_probs *avd_probs = vp9_ctx->bufs.probs.cpu;
++	const struct v4l2_vp9_segmentation *seg;
++	const struct v4l2_vp9_frame_context *probs;
++	bool intra_only;
++	int count = 0;
++
++	dec_params = run->decode_params;
++	probs = &vp9_ctx->probability_tables;
++	seg = &dec_params->seg;
++
++	memset(avd_probs, 0, sizeof(*avd_probs));
++
++	intra_only = !!(dec_params->flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
++					     V4L2_VP9_FRAME_FLAG_INTRA_ONLY));
++
++	memcpy(avd_probs->tx8, probs->tx8, sizeof(avd_probs->tx8));
++	memcpy(avd_probs->tx16, probs->tx16, sizeof(avd_probs->tx16));
++	memcpy(avd_probs->tx32, probs->tx32, sizeof(avd_probs->tx32));
++	memcpy(avd_probs->skip, probs->skip, sizeof(avd_probs->skip));
++	memcpy(avd_probs->inter_mode, probs->inter_mode,
++	       sizeof(avd_probs->inter_mode));
++	memcpy(avd_probs->interp_filter, probs->interp_filter,
++	       sizeof(avd_probs->interp_filter));
++	memcpy(avd_probs->is_inter, probs->is_inter,
++	       sizeof(avd_probs->is_inter));
++	memcpy(avd_probs->comp_mode, probs->comp_mode,
++	       sizeof(avd_probs->comp_mode));
++	memcpy(avd_probs->single_ref, probs->single_ref,
++	       sizeof(avd_probs->single_ref));
++	memcpy(avd_probs->comp_ref, probs->comp_ref,
++	       sizeof(avd_probs->comp_ref));
++	memcpy(avd_probs->y_mode, probs->y_mode, sizeof(avd_probs->y_mode));
++
++	memcpy(avd_probs->partition,
++	       intra_only ? v4l2_vp9_kf_partition_probs : probs->partition,
++	       sizeof(avd_probs->partition));
++	memcpy(avd_probs->uv_mode,
++	       intra_only ? v4l2_vp9_kf_uv_mode_prob : probs->uv_mode,
++	       sizeof(avd_probs->uv_mode));
++
++	copy_vp9_frame_mv(avd_probs, probs);
++
++	for (int t = 0; t < 4; t++)
++		for (int i = 0; i < 2; i++)
++			for (int j = 0; j < 2; j++)
++				for (int k = 0; k < 6; k++) {
++					int max_l = (k == 0) ? 3 : 6;
++					for (int l = 0; l < max_l; l++) {
++						for (int n = 0; n < 3; n++)
++							avd_probs->coef[count++] =
++								probs->coef[t][i][j][k][l][n];
++					}
++				}
++
++	memcpy(avd_probs->seg.pred_probs, seg->pred_probs,
++	       sizeof(avd_probs->seg.pred_probs));
++	memcpy(avd_probs->seg.tree_probs, seg->tree_probs,
++	       sizeof(avd_probs->seg.tree_probs));
++}
++
++static int validate_dec_params(struct avd_ctx *ctx,
++			       const struct v4l2_ctrl_vp9_frame *dec_params)
++{
++	unsigned int aligned_width, aligned_height;
++
++	if (dec_params->bit_depth > 10)
++		/* not implemented */
++		return -EINVAL;
++
++	if (dec_params->profile == 1 || dec_params->profile > 2)
++		return -EINVAL;
++
++	if (dec_params->frame_height_minus_1 + 1 < 64 ||
++	    dec_params->frame_width_minus_1 + 1 < 64)
++		return -EINVAL;
++
++	aligned_width = round_up(dec_params->frame_width_minus_1 + 1, 64);
++	aligned_height = round_up(dec_params->frame_height_minus_1 + 1, 16);
++
++	/*
++	 * Userspace should update the capture/decoded format when the
++	 * resolution changes.
++	 */
++	if (aligned_width != ctx->decoded_fmt.fmt.pix_mp.width ||
++	    aligned_height != ctx->decoded_fmt.fmt.pix_mp.height) {
++		dev_err(ctx->dev->dev,
++			"unexpected bitstream resolution %dx%d\n",
++			aligned_width, aligned_height);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int avd_vp9_alloc_bufs(struct avd_ctx *ctx)
++{
++	struct avd_dev *avd = ctx->dev;
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	int ret, w, h, bit_depth;
++
++	w = fmt_width(ctx);
++	h = fmt_height(ctx);
++	bit_depth = (ctx->image_fmt == AVD_IMG_FMT_420_10BIT ||
++		     ctx->image_fmt == AVD_IMG_FMT_422_10BIT) ?
++			    10 :
++			    8;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.probs,
++			    sizeof(struct avd_vp9_probs));
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.counts,
++			    sizeof(struct avd_vp9_frame_symbol_counts));
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.color,
++			    DIV_ROUND_UP(w, 16) * DIV_ROUND_UP(h, 64) * 144);
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.ip_above,
++			    DIV_ROUND_UP(w, 16) * 4 * bit_depth +
++				    (VP9_MAX_TILE_COLS - 1) * 128);
++	if (ret)
++		return ret;
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_above,
++			    DIV_ROUND_UP(w, 8) * 16 * bit_depth);
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.seg, DIV_ROUND_UP(w, 8) * 24);
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_left,
++			    DIV_ROUND_UP(h, 8) * 16 * bit_depth);
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_left_info,
++			    DIV_ROUND_UP(h, 64) * 16);
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.az_left,
++			    bit_depth * 36 * DIV_ROUND_UP(h, 8) +
++				    bit_depth * 18 * DIV_ROUND_UP(h, 16));
++	if (ret)
++		return ret;
++
++	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.above_info,
++			    DIV_ROUND_UP(w, 64) * 288 +
++				    (VP9_MAX_TILE_COLS - 1) * 128);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static int avd_vp9_run_preamble(struct avd_ctx *ctx, struct avd_vp9_run *run)
++{
++	struct v4l2_ctrl *ctrl;
++	const struct v4l2_ctrl_vp9_frame *dec_params;
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	unsigned int fctx_idx;
++	int ret;
++
++	avd_run_preamble(ctx, &run->base);
++
++	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
++			      V4L2_CID_STATELESS_VP9_COMPRESSED_HDR);
++	if (WARN_ON(!ctrl))
++		return -EINVAL;
++	run->prob_updates = ctrl->p_cur.p;
++
++	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl, V4L2_CID_STATELESS_VP9_FRAME);
++	if (WARN_ON(!ctrl))
++		return -EINVAL;
++	dec_params = ctrl->p_cur.p;
++
++	ret = validate_dec_params(ctx, dec_params);
++	if (ret)
++		return ret;
++
++	run->decode_params = dec_params;
++
++	vp9_ctx->cur.tx_mode = run->prob_updates->tx_mode;
++
++	fctx_idx = v4l2_vp9_reset_frame_ctx(dec_params, vp9_ctx->frame_context);
++	vp9_ctx->cur.frame_context_idx = fctx_idx;
++
++	vp9_ctx->probability_tables = vp9_ctx->frame_context[fctx_idx];
++	v4l2_vp9_fw_update_probs(&vp9_ctx->probability_tables,
++				 run->prob_updates, dec_params);
++
++	return 0;
++}
++
++static int avd_vp9_run(struct avd_ctx *ctx)
++{
++	struct avd_vp9_run run;
++	struct avd_vp9_ctx *vp9_ctx;
++	struct avd_decoded_buffer *dst;
++	int ret;
++
++	ret = avd_vp9_run_preamble(ctx, &run);
++	if (ret) {
++		avd_run_postamble(ctx, &run.base);
++		return ret;
++	}
++
++	ret = avd_init_job(
++		ctx, AVD_CODEC_VP9,
++		(1 << run.decode_params->tile_rows_log2) *
++				(1 << run.decode_params->tile_cols_log2) +
++			1);
++	if (ret)
++		return ret;
++
++	init_probs(ctx, &run);
++
++	vp9_ctx = ctx->priv;
++	dst = vb2_to_avd_decoded_buf(&run.base.bufs.dst->vb2_buf);
++	update_dec_buf_info(dst, run.decode_params);
++	update_ctx_cur_info(vp9_ctx, dst, run.decode_params);
++
++	set_header(ctx, &run);
++	vp9_ctx->submit_num = 0;
++	set_tiles(ctx, &run);
++	avd_run_postamble(ctx, &run.base);
++
++	return avd_submit_job(ctx);
++}
++
++#define copy_tx_and_skip(p1, p2)                                    \
++	do {                                                        \
++		memcpy((p1)->tx8, (p2)->tx8, sizeof((p1)->tx8));    \
++		memcpy((p1)->tx16, (p2)->tx16, sizeof((p1)->tx16)); \
++		memcpy((p1)->tx32, (p2)->tx32, sizeof((p1)->tx32)); \
++		memcpy((p1)->skip, (p2)->skip, sizeof((p1)->skip)); \
++	} while (0)
++
++static void avd_vp9_done(struct avd_ctx *ctx, struct vb2_v4l2_buffer *src_buf,
++			 struct vb2_v4l2_buffer *dst_buf,
++			 enum vb2_buffer_state result)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	unsigned int fctx_idx;
++
++	/* v4l2-specific stuff */
++	if (result == VB2_BUF_STATE_ERROR)
++		goto out_update_last;
++
++	/*
++	 * vp9 stuff
++	 *
++	 * 6.1.2 refresh_probs()
++	 *
++	 * In the spec a complementary condition goes last in 6.1.2 refresh_probs(),
++	 * but it makes no sense to perform all the activities from the first "if"
++	 * there if we actually are not refreshing the frame context. On top of that,
++	 * because of 6.2 uncompressed_header() whenever error_resilient_mode == 1,
++	 * refresh_frame_context == 0. Consequently, if we don't jump to out_update_last
++	 * it means error_resilient_mode must be 0.
++	 */
++	if (!(vp9_ctx->cur.flags & V4L2_VP9_FRAME_FLAG_REFRESH_FRAME_CTX))
++		goto out_update_last;
++
++	fctx_idx = vp9_ctx->cur.frame_context_idx;
++
++	if (!(vp9_ctx->cur.flags & V4L2_VP9_FRAME_FLAG_PARALLEL_DEC_MODE)) {
++		/* error_resilient_mode == 0 && frame_parallel_decoding_mode == 0 */
++		struct v4l2_vp9_frame_context *probs =
++			&vp9_ctx->probability_tables;
++		bool frame_is_intra = vp9_ctx->cur.flags &
++				      (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
++				       V4L2_VP9_FRAME_FLAG_INTRA_ONLY);
++		struct tx_and_skip {
++			u8 tx8[2][1];
++			u8 tx16[2][2];
++			u8 tx32[2][3];
++			u8 skip[3];
++		} _tx_skip, *tx_skip = &_tx_skip;
++		struct v4l2_vp9_frame_symbol_counts *counts;
++
++		/* buffer the forward-updated TX and skip probs */
++		if (frame_is_intra)
++			copy_tx_and_skip(tx_skip, probs);
++
++		/* 6.1.2 refresh_probs(): load_probs() and load_probs2() */
++		*probs = vp9_ctx->frame_context[fctx_idx];
++
++		/* if FrameIsIntra then undo the effect of load_probs2() */
++		if (frame_is_intra)
++			copy_tx_and_skip(probs, tx_skip);
++
++		counts = &vp9_ctx->cnts;
++
++		v4l2_vp9_adapt_coef_probs(
++			probs, counts,
++			!vp9_ctx->last.valid ||
++				vp9_ctx->last.flags &
++					V4L2_VP9_FRAME_FLAG_KEY_FRAME,
++			frame_is_intra);
++		if (!frame_is_intra) {
++			const struct avd_vp9_frame_symbol_counts *cnts;
++			int i;
++			u32 tx16p[2][4];
++			u32 sign[2][2];
++			u32 classes[2][11];
++			u32 class0[2][2];
++			u32 bits[2][10][2];
++			u32 class0_fp[2][2][4];
++			u32 fp[2][4];
++			u32 class0_hp[2][2];
++			u32 hp[2][2];
++
++			cnts = vp9_ctx->bufs.counts.cpu;
++
++			for (i = 0; i < ARRAY_SIZE(cnts->tx16p); ++i)
++				memcpy(tx16p[i], cnts->tx16p[i],
++				       sizeof(tx16p[0]));
++
++			for (i = 0; i < 2; i++) {
++				memcpy(sign[i], cnts->mv_comp[i].sign,
++				       sizeof(sign[0]));
++				memcpy(classes[i], cnts->mv_comp[i].classes,
++				       sizeof(classes[0]));
++				memcpy(class0[i], cnts->mv_comp[i].class0,
++				       sizeof(class0[0]));
++				memcpy(bits[i], cnts->mv_comp[i].bits,
++				       sizeof(bits[0]));
++				memcpy(class0_fp[i], cnts->mv_fr[i].class0_fr,
++				       sizeof(class0_fp[0]));
++				memcpy(fp[i], cnts->mv_fr[i].fr, sizeof(fp[0]));
++				memcpy(class0_hp[i], cnts->mv_hp[i].class0_hp,
++				       sizeof(class0_hp[0]));
++				memcpy(hp[i], cnts->mv_hp[i].hp, sizeof(hp[0]));
++			}
++
++			counts->tx16p = &tx16p;
++			counts->sign = &sign;
++			counts->classes = &classes;
++			counts->class0 = &class0;
++			counts->bits = &bits;
++			counts->class0_fp = &class0_fp;
++			counts->fp = &fp;
++			counts->class0_hp = &class0_hp;
++			counts->hp = &hp;
++
++			/* load_probs2() already done */
++			v4l2_vp9_adapt_noncoef_probs(
++				&vp9_ctx->probability_tables, counts,
++				vp9_ctx->cur.reference_mode,
++				vp9_ctx->cur.interpolation_filter,
++				vp9_ctx->cur.tx_mode, vp9_ctx->cur.flags);
++		}
++	}
++
++	/* 6.1.2 refresh_probs(): save_probs(fctx_idx) */
++	vp9_ctx->frame_context[fctx_idx] = vp9_ctx->probability_tables;
++
++out_update_last:
++	update_ctx_last_info(vp9_ctx);
++}
++
++static noinline_for_stack void
++avd_init_v4l2_vp9_count_tbl(struct avd_ctx *ctx)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	struct avd_vp9_frame_symbol_counts *cnts = vp9_ctx->bufs.counts.cpu;
++	int coeff_cnts = 0, eob_cnts = 0;
++
++	vp9_ctx->cnts.intra_inter = &cnts->intra_inter;
++	vp9_ctx->cnts.y_mode = &cnts->y_mode;
++	vp9_ctx->cnts.uv_mode = &cnts->uv_mode;
++	vp9_ctx->cnts.comp = &cnts->comp;
++	vp9_ctx->cnts.comp_ref = &cnts->comp_ref;
++	vp9_ctx->cnts.single_ref = &cnts->single_ref;
++	vp9_ctx->cnts.filter = &cnts->filter;
++	vp9_ctx->cnts.mv_mode = &cnts->mv_mode;
++	vp9_ctx->cnts.mv_joint = &cnts->mv_joint;
++	/* all of the mv use a different structure, so they must all be copied */
++	vp9_ctx->cnts.tx8p = &cnts->tx8p;
++	/*
++	 * AVD also uses "u32 tx16p[2][3]" instead of "u32 tx16p[2][4]", so
++	 * they must also be copied
++	 */
++	vp9_ctx->cnts.tx32p = &cnts->tx32p;
++	vp9_ctx->cnts.partition = &cnts->partition;
++	vp9_ctx->cnts.skip = &cnts->skip;
++
++	for (int t = 0; t < 4; t++)
++		for (int i = 0; i < 2; i++)
++			for (int j = 0; j < 2; j++)
++				for (int k = 0; k < 6; k++) {
++					int max_l = (k == 0) ? 3 : 6;
++					for (int l = 0; l < max_l; l++) {
++						vp9_ctx->cnts.coeff[t][i][j][k][l] =
++							(u32 (*)[3])&cnts->ref_cnt[coeff_cnts];
++						coeff_cnts += 3;
++						vp9_ctx->cnts.eob[t][i][j][k][l][0] =
++							&cnts->eob_0[eob_cnts++];
++						vp9_ctx->cnts.eob[t][i][j][k][l][1] =
++							&cnts->ref_cnt[coeff_cnts++];
++					}
++				}
++}
++
++static int avd_vp9_start(struct avd_ctx *ctx)
++{
++	struct avd_vp9_ctx *vp9_ctx;
++	int ret;
++
++	vp9_ctx = kzalloc_obj(*vp9_ctx, GFP_KERNEL);
++	if (!vp9_ctx)
++		return -ENOMEM;
++
++	ctx->priv = vp9_ctx;
++	ret = avd_vp9_alloc_bufs(ctx);
++	if (ret)
++		goto err_free_ctx;
++
++	avd_init_v4l2_vp9_count_tbl(ctx);
++
++	return 0;
++
++err_free_ctx:
++	kfree(vp9_ctx);
++	ctx->priv = NULL;
++	return ret;
++}
++
++static void avd_vp9_stop(struct avd_ctx *ctx)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	struct avd_dev *avd = ctx->dev;
++
++	avd_buf_free(avd, &vp9_ctx->bufs.probs);
++	avd_buf_free(avd, &vp9_ctx->bufs.counts);
++	avd_buf_free(avd, &vp9_ctx->bufs.seg);
++	avd_buf_free(avd, &vp9_ctx->bufs.color);
++	avd_buf_free(avd, &vp9_ctx->bufs.ip_above);
++	avd_buf_free(avd, &vp9_ctx->bufs.lf_above);
++	avd_buf_free(avd, &vp9_ctx->bufs.above_info);
++	avd_buf_free(avd, &vp9_ctx->bufs.az_left);
++	avd_buf_free(avd, &vp9_ctx->bufs.lf_left_info);
++	avd_buf_free(avd, &vp9_ctx->bufs.lf_left);
++
++	kfree(vp9_ctx);
++}
++
++static enum avd_image_fmt avd_vp9_get_image_fmt(struct avd_ctx *ctx,
++						struct v4l2_ctrl *ctrl)
++{
++#define BIT_DEPTH(chroma)                                      \
++	(frame->bit_depth == 8 ? AVD_IMG_FMT_##chroma##_8BIT : \
++				 AVD_IMG_FMT_##chroma##_10BIT)
++	const struct v4l2_ctrl_vp9_frame *frame = ctrl->p_new.p_vp9_frame;
++
++	if (ctrl->id != V4L2_CID_STATELESS_VP9_FRAME)
++		return AVD_IMG_FMT_ANY;
++
++	/* 7.2.2 Color config semantics */
++	if (frame->flags & V4L2_VP9_FRAME_FLAG_X_SUBSAMPLING) {
++		if (frame->flags & V4L2_VP9_FRAME_FLAG_Y_SUBSAMPLING)
++			return BIT_DEPTH(420);
++		else
++			return BIT_DEPTH(422);
++	}
++
++	return AVD_IMG_FMT_ANY;
++#undef BIT_DEPTH
++}
++
++static void avd_vp9_submit(struct avd_ctx *ctx)
++{
++	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
++	struct avd_dev *avd = ctx->dev;
++	u32 submit_mask = ctx->dev->variant->revision == 3 ?
++				  AVD_OP_EXEC_REV3_VP9_MASK :
++				  0;
++
++	writel(AVD_OP_EXEC | submit_mask |
++		       AVD_OP_EXEC_FLAG_START_REV4(avd->variant->revision ==
++						   4) |
++		       AVD_OP_EXEC_FLAG_START_REV3(avd->variant->revision ==
++						   3) |
++		       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
++		       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
++	       avd->ctrl + avd->variant->submit_offset);
++	for (int i = 0; i < vp9_ctx->submit_num - 1; i++)
++		writel(AVD_OP_EXEC | submit_mask |
++			       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
++			       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
++		       avd->ctrl + avd->variant->submit_offset);
++}
++
++const struct avd_coded_fmt_ops avd_vp9_fmt_ops = {
++	.start = avd_vp9_start,
++	.stop = avd_vp9_stop,
++	.run = avd_vp9_run,
++	.done = avd_vp9_done,
++	.submit = avd_vp9_submit,
++	.get_image_fmt = avd_vp9_get_image_fmt,
++};
 diff --git a/drivers/media/platform/apple/avd/avd.h b/drivers/media/platform/apple/avd/avd.h
-index 771cf430f284..5dab6cb077fa 100644
+index 5dab6cb077fa..facf23d151c0 100644
 --- a/drivers/media/platform/apple/avd/avd.h
 +++ b/drivers/media/platform/apple/avd/avd.h
-@@ -237,6 +237,8 @@ void avd_job_finish(struct avd_ctx *ctx, enum vb2_buffer_state result);
- void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run);
+@@ -91,6 +91,12 @@ struct avd_ctrls {
+ 	unsigned int num_ctrls;
+ };
+ 
++struct avd_vp9_decoded_buffer_info {
++	unsigned short width;
++	unsigned short height;
++	unsigned int bit_depth : 4;
++};
++
+ struct avd_comp {
+ 	u32 size;
+ 	/* offset to start of compressed data */
+@@ -103,6 +109,9 @@ struct avd_decoded_buffer {
+ 	/* Must be the first field in this struct. */
+ 	struct v4l2_m2m_buffer base;
+ 	struct avd_comp comp;
++	union {
++		struct avd_vp9_decoded_buffer_info vp9;
++	};
+ };
+ 
+ static inline struct avd_decoded_buffer *
+@@ -238,6 +247,7 @@ void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run);
  void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run);
  
-+extern const struct avd_coded_fmt_ops avd_h264_fmt_ops;
-+
+ extern const struct avd_coded_fmt_ops avd_h264_fmt_ops;
++extern const struct avd_coded_fmt_ops avd_vp9_fmt_ops;
+ 
  extern const struct v4l2_ctrl_ops avd_ctrl_ops;
  extern const struct v4l2_ioctl_ops avd_ioctl_ops;
- extern const struct vb2_ops avd_queue_ops;
 
 -- 
 2.55.0
