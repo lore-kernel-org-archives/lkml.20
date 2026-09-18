@@ -1,699 +1,404 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0F6497392;
-	Fri, 18 Sep 2026 11:34:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A80A4908C8;
+	Fri, 18 Sep 2026 11:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731250; cv=none; b=fmCWY24hyJnEMbihzL/h7WySq1SOY8TC9TmyUAzuz2f3Ggwnc60Embh8ZvS/oVOZ3XIuoJ8YSuqgkTGVmrZEA3k7mhS+nm068GtqiyqRNLFasG/MnsAfW+oJUJFMIGYIPqtw88S2hROSGVYiOPTO8+h/b1E4D8VnoffxnH6nTKk=
+	t=1789731255; cv=none; b=ZunToV3szoyCpXo427gbqkFR5EJYVPcuzrxpEAQa4HZ/TKHDd3w4kZTl24hOre5q1TSdHNc10L+zTm9sAfR23m+24tGwrwph44Rc0jOg81o4WjDza/a8JtYa/NSSCBuC12W8W4vZBFadsId9J1e+W1agG79UfYt8oRf61YVAvgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731250; c=relaxed/simple;
-	bh=X2rniIQUJfZdtta3aNvqRjrGdFtRDPyyaJvLNKuzETg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WkS4bjcwiYWGwEaMgUYwSrI74s4yGGYosEoiUjnqphdlZENkLJTcnAb9t0/lwv2ybQ+s44mXGNOpchUVrzj/4HqsRVUoL5Hv9kiM9uQM7+iH7+ox60l9Ks+o68GqUhhk7PrqBKwtqCSLQrGwZPJtD4rmX3dm6Rcxn1R513mqGWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZfJNclB4; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789731255; c=relaxed/simple;
+	bh=ktQKWUEUONn8QzHquRUOFW1UVKwjYKNi63gedw9IF+Y=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=bmTSV5TWzp7LcPTZhVjUqh9dtUu8pzJ13lpBosD8qRcxeSZ7mVF5ymZZfJ70FnA1jU65CTOTBrEMkFYRQzAgEcEhr+oPVd700UKyvvAAXwwUE+gnLXDzhUlteudMyE36UE000vNhZ51rWS2J6lybU/BiwJBDtmOZXl/ihrNFL98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=MigrTJ6r; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZfJNclB4"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="MigrTJ6r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789731247; x=1821267247;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=X2rniIQUJfZdtta3aNvqRjrGdFtRDPyyaJvLNKuzETg=;
-  b=ZfJNclB4I4S7VUbinpNHpKMiH770Px/kOhu0PnjKF+HIuh91c9LWV4q4
-   S+KRzsN4NuGGQYmXqCp5MIzLVzDLTpMqHWG50eCDrIDsn8BQw7CUsgLCN
-   rf93MySpfSZtq6FjqsKQhN2GGyBnuO9UQnsbMin51LWYxvT8z0DJ5By17
-   eLAmvjLOI3DwFswegzeJM2LKhJnT2zcyTpyxaDMmsuby9BdJG0Mp7FkUp
-   hPCrN/RLpllGZ8vkVfemQTTVsH3krIg/BE9vTIUkad8UG6JIxoDgX3qD2
-   o78ML8p7TW8/vTaF2WKAtBZJLmMQn0eRIkjhx7I+wmngtzGM617PUL7hH
-   Q==;
-X-CSE-ConnectionGUID: VuRYIczSSJaHIFCocBHZqg==
-X-CSE-MsgGUID: TZsjswcZTvCJXAuSOJ0SkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="94063140"
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789731258; x=1821267258;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=ktQKWUEUONn8QzHquRUOFW1UVKwjYKNi63gedw9IF+Y=;
+  b=MigrTJ6ryNZmX0hHtTXaxcRJX48oxvOww468d+WQh+9dKV/gpy7xnGc9
+   N4Urv821YUu06iCsWnUskJ1DaVbZuJaRFalbwtyxuTStkmtn81Qo4NExP
+   dZrp0Kv99zunYL8nkehRBRGm9jF7e5wbpo6C2erIKiAE/tZ+fSICxXhH0
+   hzWEBisY0tlaX9UfbSeS11GhqQ5IK7BG6pv95RQ+arVxFLu46PFhwgDxY
+   IZEROmthrCbsksxokbVtNf/lvFAmvJOR/jV+yX4XgadeXF/S5Pv9xrxdW
+   F39sYPH4z55QissLfikDsUCxdoKleCiZ2p4ZJ9nXw/640t2yDhh4zOV+h
+   A==;
+X-CSE-ConnectionGUID: SnC8l8lCSPCDWxCWPKG+4w==
+X-CSE-MsgGUID: OaWrJB8lQQWuFsaEiL28zQ==
 X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="94063140"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:34:07 -0700
-X-CSE-ConnectionGUID: vjxjB2Z1T3a5Z3RiwxktzA==
-X-CSE-MsgGUID: R76PDIhfSJi5YtPegTVDcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="2550301"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:34:04 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 14:34:01 +0300 (EEST)
-To: Muralidhara M K <muralidhara.mk@amd.com>
-cc: Mario.Limonciello@amd.com, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    Mario Limonciello <superm1@kernel.org>
-Subject: Re: [PATCH v5 1/4] platform/x86/amd/hsmp: Add HSMP client support
- for Family 1Ah
-In-Reply-To: <20260901045134.2833282-2-muralidhara.mk@amd.com>
-Message-ID: <f700dbe0-707b-c43d-b7c2-2962662340f2@linux.intel.com>
-References: <20260901045134.2833282-1-muralidhara.mk@amd.com> <20260901045134.2833282-2-muralidhara.mk@amd.com>
+   d="scan'208";a="63804814"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Sep 2026 04:34:17 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 18 Sep 2026 04:34:11 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Fri, 18 Sep 2026 04:34:07 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Subject: [PATCH net-next v7 00/14] net: lan966x: add support for PCIe FDMA
+Date: Fri, 18 Sep 2026 13:33:52 +0200
+Message-ID: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAKAhrWoC/23QS2rEMAwG4KsMXtdFfin2rHqP0oVjy42heZCEk
+ DLk7jXpIkPrpfilT0IPttCcaWH324PNtOUlj0MpmpcbC50fPonnWGomQSIoofiXHxzizqeQeYq
+ 9505T1NZEqZJnZWyaKeX9JN/ZQCsfaF/ZR0m6vKzj/H3u2sSZ/7IS/rOb4MApGR1a10LQ7Vufw
+ zyGLk+vYexPcJMXoqWtILIgUVFAJMDSV0PUhRjQFUQVxBtMptEQbQM1RD8jtUt0QYQmCNZFG1H
+ VEPOEVH9iChLKKcI1nsBUf4IX4sBVECwIJm2jb13ERvxFjuP4Ae0r7u8XAgAA
+X-Change-ID: 20260313-lan966x-pci-fdma-94ed485d23fa
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
+	<horatiu.vultur@microchip.com>, Steen Hegelund
+	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
+ Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
+ Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
+	<mohsin.bashr@gmail.com>
+CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>
+X-Mailer: b4 0.14.3
 
-On Tue, 1 Sep 2026, Muralidhara M K wrote:
+When lan966x operates as a PCIe endpoint, the driver currently uses
+register-based I/O for frame injection and extraction. This approach is
+functional but slow, topping out at around 33 Mbps on an Intel x86 host
+with a lan966x PCIe card.
 
-> Enable the HSMP driver on the Family 1Ah client platforms, Models
-> 80h-8Fh and E0h-E3h. These parts speak the Ryzen Master SMC (RMSMC)
-> message set instead of the server HSMP messages, but describe their
-> mailbox via ACPI _CRS/_DSD the same way a server socket does, so only
-> the ACPI driver needs to probe them.
-> 
-> Add the client message set to the UAPI header and its descriptor
-> table to the driver. struct hsmp_plat_desc picks the right table and
-> driver-issued message IDs once per boot based on the ACPI-reported PM
-> profile, which tells client and server apart without pinning the
-> driver to a fixed set of family/model ranges. Document the client
-> models in amd_hsmp.rst.
-> 
-> Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->  Documentation/arch/x86/amd_hsmp.rst  |  10 +-
->  arch/x86/include/uapi/asm/amd_hsmp.h | 135 ++++++++++++++
->  drivers/platform/x86/amd/hsmp/hsmp.c | 255 ++++++++++++++++++++++++---
->  drivers/platform/x86/amd/hsmp/hsmp.h |  27 +++
->  4 files changed, 398 insertions(+), 29 deletions(-)
-> 
-> diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
-> index fa1fc240e212..b95f09945193 100644
-> --- a/Documentation/arch/x86/amd_hsmp.rst
-> +++ b/Documentation/arch/x86/amd_hsmp.rst
-> @@ -8,6 +8,13 @@ Newer Fam19h(model 0x00-0x1f, 0x30-0x3f, 0x90-0x9f, 0xa0-0xaf),
->  Fam1Ah(model 0x00-0x1f) EPYC server line of processors from AMD support
->  system management functionality via HSMP (Host System Management Port).
->  
-> +The Fam1Ah(model 0x80-0x8f, 0xe0-0xe3) client line of processors is
-> +supported as well. Those models share one mailbox and speak the Ryzen
-> +Master SMC message set instead of the server HSMP message set, so the
-> +message IDs accepted on them are the HSMP_CLIENT_* ones listed in
-> +arch/x86/include/uapi/asm/amd_hsmp.h. The character device and ioctl
-> +interface described below are the same.
-> +
->  The Host System Management Port (HSMP) is an interface to provide
->  OS-level software with access to system management functions via a
->  set of mailbox registers.
-> @@ -17,7 +24,8 @@ More details on the interface can be found in chapter
->  Eg: https://docs.amd.com/v/u/en-US/55898_B1_pub_0_50
->  
->  
-> -HSMP interface is supported on EPYC line of server CPUs and MI300A (APU).
-> +HSMP interface is supported on EPYC line of server CPUs, MI300A (APU) and
-> +the Fam1Ah client models listed above.
->  
->  
->  HSMP device
-> diff --git a/arch/x86/include/uapi/asm/amd_hsmp.h b/arch/x86/include/uapi/asm/amd_hsmp.h
-> index eda336bfd3e9..00ca7855ca00 100644
-> --- a/arch/x86/include/uapi/asm/amd_hsmp.h
-> +++ b/arch/x86/include/uapi/asm/amd_hsmp.h
-> @@ -664,4 +664,139 @@ struct hsmp_telemetry_data {
->  #define HSMP_IOCTL_GET_TELEMETRY_DATA \
->  	_IOW(HSMP_BASE_IOCTL_NR, 1, struct hsmp_telemetry_data)
->  
-> +/**
-> + * enum hsmp_client_message_ids - Ryzen Master SMC (RMSMC) message IDs
-> + * @HSMP_CLIENT_TEST: 01h. Test message. input: args[0] = xx. output:
-> + *	args[0] = xx + 1.
-> + * @HSMP_CLIENT_GET_SMU_VER: 02h. Get MP1 firmware version. output:
-> + *	args[0] = MP1 firmware version.
-> + * @HSMP_CLIENT_GET_INTERFACE_VER: 03h. Get interface version. output:
-> + *	args[0] = interface version.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE_VER: 04h. Get metrics table version.
-> + *	output: args[0] = metrics table version.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE: 05h. Get metrics table. No arguments.
-> + *	Success means firmware has written the metrics table to the DRAM
-> + *	address reported by @HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR.
-> + * @HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR: 06h. Get metrics table DRAM
-> + *	address. output: args[0] = address[31:0], args[1] = address[63:32],
-> + *	args[2] = table size in bytes.
-> + * @HSMP_CLIENT_SET_CORE_PSM_MARGIN: 07h. Set core voltage margin. input:
-> + *	args[0] = ApicId[31:16] + margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN: 08h. Set voltage margin for all
-> + *	cores. input: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_FAST_PPT_LIMIT: 09h. Set APU fast PPT limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT: 0Ah. Set VDDCR_VDD TDC. input:
-> + *	args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT: 0Bh. Set VDDCR_VDD EDC.
-> + *	input: args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_TJ_MAX: 0Ch. Set maximum junction temperature. input:
-> + *	args[0] = temperature in degrees C.
-> + * @HSMP_CLIENT_SET_FIT_LIMIT_SCALAR: 0Dh. Set failures-in-time limit
-> + *	scalar. input: args[0] = scalar (0 to 100).
-> + * @HSMP_CLIENT_ENABLE_OVERCLOCKING: 0Eh. Enable overclocking. No
-> + *	arguments.
-> + * @HSMP_CLIENT_DISABLE_OVERCLOCKING: 0Fh. Disable overclocking. No
-> + *	arguments.
-> + * @HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES: 10h. Set all-core overclock
-> + *	frequency. input: args[0] = frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE: 11h. Set per-core overclock
-> + *	frequency. input: args[0] = ApicId[31:16] + frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_OVERCLOCK_VID: 12h. Set overclock VID. input:
-> + *	args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY: 13h. Set FCLK overclock on
-> + *	the fly. input: args[0] = FCLK in MHz[15:0].
-> + * @HSMP_CLIENT_GET_CORE_PERF_ORDER: 14h. Get core performance order.
-> + *	input: args[0] = ApicId[15:0]. output: args[0] = frequency in
-> + *	MHz[15:0].
-> + * @HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT: 15h. Set SOC sustained power
-> + *	limit. input: args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_SLOW_PPT_LIMIT: 16h. Set APU slow PPT limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT: 17h. Set VDDCR_GFX EDC.
-> + *	input: args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT: 18h. Set VDDCR_SOC TDC. input:
-> + *	args[0] = limit in mA.
-> + * @HSMP_CLIENT_SET_FAST_SPM_LIMIT: 19h. Set fast SPM limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_SET_SLOW_SPM_LIMIT: 1Ah. Set slow SPM limit. input:
-> + *	args[0] = limit in mW.
-> + * @HSMP_CLIENT_GET_CORE_PSM_MARGIN: 1Bh. Get core voltage margin. input:
-> + *	args[0] = ApicId[15:0]. output: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_GET_GFX_PSM_MARGIN: 1Ch. Get graphics voltage margin.
-> + *	output: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SPARE_0X1D: 1Dh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X1E: 1Eh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X1F: 1Fh. Reserved.
-> + * @HSMP_CLIENT_SPARE_0X20: 20h. Reserved.
-> + * @HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID: 21h. Set GfxClk
-> + *	overdrive by frequency/VID. input: args[0] = frequency in
-> + *	MHz[31:16] + voltage in mV[15:0].
-> + * @HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE: 22h. Disable GfxClk overdrive.
-> + *	No arguments.
-> + * @HSMP_CLIENT_SET_GFX_PSM_MARGIN: 23h. Set graphics voltage margin.
-> + *	input: args[0] = margin in mV[15:0].
-> + * @HSMP_CLIENT_SET_CCLK_FMAX_OFFSET: 24h. Set CCLK Fmax offset. input:
-> + *	args[0] = maximum frequency in MHz[15:0].
-> + * @HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET: 25h. Set core power limit
-> + *	offset. input: args[0] = limit in mW.
-> + * @HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND: 26h. Add extra core PSM
-> + *	guardband. input: args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX: 27h. Add extra graphics PSM
-> + *	guardband. input: args[0] = voltage in mV[15:0].
-> + * @HSMP_CLIENT_SET_GFXCLK_FMAX: 28h. Set GfxClk Fmax. input: args[0] =
-> + *	maximum frequency in MHz[15:0].
-> + * @HSMP_CLIENT_MSG_ID_MAX: Number of message IDs, not a valid ID itself.
-> + *
-> + * Message IDs accepted on the Family 1Ah client platforms, Models 80h-8Fh
-> + * and E0h-E3h. These parts drive one mailbox and speak the Ryzen Master
-> + * SMC message set instead of the server HSMP message set enumerated in
-> + * &enum hsmp_message_ids. Not all platforms support all messages; consult
-> + * the supported list of messages in the HSMP chapter of the respective
-> + * family/model PPR. Unsupported messages return -ENOMSG.
-> + */
-> +enum hsmp_client_message_ids {
-> +	HSMP_CLIENT_TEST = 1,
-> +	HSMP_CLIENT_GET_SMU_VER,
-> +	HSMP_CLIENT_GET_INTERFACE_VER,
-> +	HSMP_CLIENT_GET_METRICS_TABLE_VER,
-> +	HSMP_CLIENT_GET_METRICS_TABLE,
-> +	HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR,
-> +	HSMP_CLIENT_SET_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_FAST_PPT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_TJ_MAX,
-> +	HSMP_CLIENT_SET_FIT_LIMIT_SCALAR,
-> +	HSMP_CLIENT_ENABLE_OVERCLOCKING,
-> +	HSMP_CLIENT_DISABLE_OVERCLOCKING,
-> +	HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES,
-> +	HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE,
-> +	HSMP_CLIENT_SET_OVERCLOCK_VID,
-> +	HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY,
-> +	HSMP_CLIENT_GET_CORE_PERF_ORDER,
-> +	HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT,
-> +	HSMP_CLIENT_SET_SLOW_PPT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT,
-> +	HSMP_CLIENT_SET_FAST_SPM_LIMIT,
-> +	HSMP_CLIENT_SET_SLOW_SPM_LIMIT,
-> +	HSMP_CLIENT_GET_CORE_PSM_MARGIN,
-> +	HSMP_CLIENT_GET_GFX_PSM_MARGIN,
-> +	HSMP_CLIENT_SPARE_0X1D,
-> +	HSMP_CLIENT_SPARE_0X1E,
-> +	HSMP_CLIENT_SPARE_0X1F,
-> +	HSMP_CLIENT_SPARE_0X20,
-> +	HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID,
-> +	HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE,
-> +	HSMP_CLIENT_SET_GFX_PSM_MARGIN,
-> +	HSMP_CLIENT_SET_CCLK_FMAX_OFFSET,
-> +	HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET,
-> +	HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND,
-> +	HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX,
-> +	HSMP_CLIENT_SET_GFXCLK_FMAX,
-> +	HSMP_CLIENT_MSG_ID_MAX,
-> +};
-> +
->  #endif /*_ASM_X86_AMD_HSMP_H_*/
-> diff --git a/drivers/platform/x86/amd/hsmp/hsmp.c b/drivers/platform/x86/amd/hsmp/hsmp.c
-> index 5e123a4ecea9..e8fac2d299f3 100644
-> --- a/drivers/platform/x86/amd/hsmp/hsmp.c
-> +++ b/drivers/platform/x86/amd/hsmp/hsmp.c
-> @@ -10,6 +10,8 @@
->  #include <asm/amd/hsmp.h>
->  
->  #include <linux/acpi.h>
-> +#include <linux/array_size.h>
-> +#include <linux/build_bug.h>
->  #include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-> @@ -45,8 +47,197 @@
->   */
->  #define CHECK_GET_BIT		BIT(31)
->  
-> +/* Indexed by enum hsmp_client_message_ids; see there for per-message details */
-> +static const struct hsmp_msg_desc hsmp_client_msg_desc_table[] = {
-> +	/* RESERVED */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_TEST */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_SMU_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_INTERFACE_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE_VER */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE */
-> +	{0, 0, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR */
-> +	{0, 3, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SET_CORE_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_ALL_CORE_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FAST_PPT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_VDD_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_VDD_MAX_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_TJ_MAX */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FIT_LIMIT_SCALAR */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ENABLE_OVERCLOCKING */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_DISABLE_OVERCLOCKING */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_FREQ_ALL_CORES */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_FREQ_PER_CORE */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_OVERCLOCK_VID */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FCLK_OVERCLOCK_ON_THE_FLY */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_GET_CORE_PERF_ORDER */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SET_SUSTAINED_POWER_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_SLOW_PPT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_GFX_MAX_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_VRM_SOC_CURRENT_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_FAST_SPM_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_SLOW_SPM_LIMIT */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_GET_CORE_PSM_MARGIN */
-> +	{1, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_GET_GFX_PSM_MARGIN */
-> +	{0, 1, HSMP_GET},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1D */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1E */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X1F */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SPARE_0X20 */
-> +	{0, 0, HSMP_RSVD},
-> +
-> +	/* HSMP_CLIENT_SET_GFXCLK_OVERDRIVE_BY_FREQ_VID */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_DISABLE_GFXCLK_OVERDRIVE */
-> +	{0, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_GFX_PSM_MARGIN */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_CCLK_FMAX_OFFSET */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_CORE_POWER_LIMIT_OFFSET */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_ADD_EXTRA_PSM_GUARDBAND_GFX */
-> +	{1, 0, HSMP_SET},
-> +
-> +	/* HSMP_CLIENT_SET_GFXCLK_FMAX */
-> +	{1, 0, HSMP_SET},
-> +};
-> +
-> +/* Catch a table left out of sync with its enum at build time */
-> +static_assert(ARRAY_SIZE(hsmp_msg_desc_table) == HSMP_MSG_ID_MAX);
-> +static_assert(ARRAY_SIZE(hsmp_client_msg_desc_table) == HSMP_CLIENT_MSG_ID_MAX);
-> +
-> +/* Per-platform message set: which table to use, and driver-issued msg IDs */
-> +struct hsmp_plat_desc {
-> +	const struct hsmp_msg_desc	*msg_desc;
-> +	u32				num_msgs;
-> +	u32				test_msg;
-> +	u32				proto_ver_msg;
-> +};
-> +
-> +static const struct hsmp_plat_desc hsmp_desc_server = {
-> +	.msg_desc		= hsmp_msg_desc_table,
-> +	.num_msgs		= HSMP_MSG_ID_MAX,
-> +	.test_msg		= HSMP_TEST,
-> +	.proto_ver_msg		= HSMP_GET_PROTO_VER,
-> +};
-> +
-> +/* The client drives a different mailbox with the Ryzen Master SMC message set */
-> +static const struct hsmp_plat_desc hsmp_desc_client = {
-> +	.msg_desc		= hsmp_client_msg_desc_table,
-> +	.num_msgs		= HSMP_CLIENT_MSG_ID_MAX,
-> +	.test_msg		= HSMP_CLIENT_TEST,
-> +	.proto_ver_msg		= HSMP_CLIENT_GET_INTERFACE_VER,
-> +};
-> +
->  static struct hsmp_plat_device hsmp_pdev;
->  
-> +/*
-> + * Resolved on first use and cached, since is_client_platform() always
-> + * settles on the same descriptor once booted. Concurrent first callers are
-> + * benign: every one of them computes and stores that same pointer, so
-> + * READ_ONCE()/WRITE_ONCE() only need to keep the access from being torn or
-> + * reordered by the compiler, not order it against anything else.
-> + */
-> +static const struct hsmp_plat_desc *hsmp_desc_cache;
-> +
-> +static inline const struct hsmp_plat_desc *hsmp_desc(void)
+This series adds FDMA (Frame DMA) support for the PCIe path. When
+operating as a PCIe endpoint, the internal FDMA engine on lan966x cannot
+directly access host memory, so DMA buffers are allocated as contiguous
+coherent memory and mapped through the PCIe Address Translation Unit
+(ATU). The ATU provides outbound windows that translate internal FDMA
+addresses to PCIe bus addresses, allowing the FDMA engine to read and
+write host memory. Because the ATU requires contiguous address regions,
+page_pool and normal per-page DMA mappings cannot be used. Instead,
+frames are transferred using memcpy between the ATU-mapped buffers and
+the network stack. With this, throughput increases from ~33 Mbps to
+~620 Mbps for default MTU.
 
-In C files, please drop inline from anything non-trivial and let the 
-compiler decide if it inlines or not.
+Patch 1 adds the shared drivers/net/ethernet/microchip/fdma/ directory
+to the Sparx5 SoC MAINTAINERS entry.
 
-> +{
-> +	const struct hsmp_plat_desc *desc = READ_ONCE(hsmp_desc_cache);
-> +
-> +	if (likely(desc))
+Patches 2-3 prepare the shared FDMA library: patch 2 renames the
+contiguous dataptr helpers for clarity, and patch 3 adds PCIe ATU
+region management and coherent DMA allocation with ATU mapping.
 
-Add include.
+Patches 4-7 refactor the lan966x FDMA code to support both platform
+and PCIe paths: extracting the LLP register write into a helper,
+exporting shared functions, introducing a dedicated device for DMA
+operations, and adding an ops dispatch table selected at probe time.
 
-> +		return desc;
-> +
-> +	desc = is_client_platform() ? &hsmp_desc_client : &hsmp_desc_server;
-> +	WRITE_ONCE(hsmp_desc_cache, desc);
+Patches 8-9 harden the existing FDMA path for the PCIe endpoint
+lifecycle: patch 8 clears latched FDMA error/interrupt stickies after
+the switch reset so they don't assert as soon as interrupts are
+enabled, and patch 9 adds a shutdown() callback that quiesces the
+FDMA engine on host warm reboot (on the PCIe card the FDMA survives
+host reset and would otherwise keep the shared INTx asserted into
+the next probe).
 
-Add include.
+Patch 10 adds the core PCIe FDMA implementation with RX/TX using
+contiguous ATU-mapped buffers. Patches 11 and 12 extend it with MTU
+change and XDP support respectively. XDP_PASS, XDP_TX, XDP_DROP and
+XDP_ABORTED are supported; XDP_REDIRECT is deliberately not, because
+the PCIe data path does not use page_pool.
 
-> +
-> +	return desc;
-> +}
-> +
-> +/* Returns NULL if msg_id is out of range or reserved for this platform */
-> +static inline const struct hsmp_msg_desc *get_msg_desc(u32 msg_id)
-> +{
-> +	const struct hsmp_plat_desc *desc = hsmp_desc();
-> +
-> +	if (msg_id >= desc->num_msgs)
-> +		return NULL;
-> +
-> +	if (desc->msg_desc[msg_id].type == HSMP_RSVD)
-> +		return NULL;
-> +
-> +	return &desc->msg_desc[msg_id];
-> +}
-> +
->  /*
->   * Gates the AMD HSMP data plane against socket bring-up and teardown.
->   *
-> @@ -184,30 +375,29 @@ static int __hsmp_send_message(struct hsmp_socket *sock, struct hsmp_message *ms
->  
->  static int validate_message(struct hsmp_message *msg)
->  {
-> -	/* msg_id against valid range of message IDs */
-> -	if (msg->msg_id < HSMP_TEST || msg->msg_id >= HSMP_MSG_ID_MAX)
-> -		return -ENOMSG;
-> +	const struct hsmp_msg_desc *desc;
->  
-> -	/* msg_id is a reserved message ID */
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_RSVD)
-> +	/* Unknown or reserved message ID for this platform */
-> +	desc = get_msg_desc(msg->msg_id);
-> +	if (!desc)
->  		return -ENOMSG;
->  
->  	/*
->  	 * num_args passed by user should match the num_args specified in
->  	 * message description table.
->  	 */
-> -	if (msg->num_args != hsmp_msg_desc_table[msg->msg_id].num_args)
-> +	if (msg->num_args != desc->num_args)
->  		return -EINVAL;
->  
->  	/*
->  	 * As the HSMP protocol evolves, newer platforms may define more
->  	 * response arguments for existing messages.  Use an upper-bound
->  	 * check so that older userspace callers requesting fewer response
-> -	 * words than what the current hsmp_msg_desc_table[] defines are
-> -	 * still accepted, while rejecting requests that exceed the
-> -	 * hardware capability.
-> +	 * words than what the current descriptor table defines are still
-> +	 * accepted, while rejecting requests that exceed the hardware
-> +	 * capability.
->  	 */
-> -	if (msg->response_sz > hsmp_msg_desc_table[msg->msg_id].response_sz)
-> +	if (msg->response_sz > desc->response_sz)
->  		return -EINVAL;
->  
->  	return 0;
-> @@ -316,7 +506,7 @@ int hsmp_test(u16 sock_ind, u32 value)
->  	 * Test the hsmp port by performing TEST command. The test message
->  	 * takes one argument and returns the value of that argument + 1.
->  	 */
-> -	msg.msg_id	= HSMP_TEST;
-> +	msg.msg_id	= hsmp_desc()->test_msg;
->  	msg.num_args	= 1;
->  	msg.response_sz	= 1;
->  	msg.args[0]	= value;
-> @@ -338,12 +528,12 @@ int hsmp_test(u16 sock_ind, u32 value)
->  }
->  EXPORT_SYMBOL_NS_GPL(hsmp_test, "AMD_HSMP");
->  
-> -static bool is_get_msg(struct hsmp_message *msg)
-> +static bool is_get_msg(const struct hsmp_msg_desc *desc, struct hsmp_message *msg)
->  {
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_GET)
-> +	if (desc->type == HSMP_GET)
->  		return true;
->  
-> -	if (hsmp_msg_desc_table[msg->msg_id].type == HSMP_SET_GET &&
-> +	if (desc->type == HSMP_SET_GET &&
->  	    (msg->args[0] & CHECK_GET_BIT))
+Patches 13-14 update the lan966x PCI device tree overlay to extend the
+cpu register mapping to cover the ATU register space and add the FDMA
+interrupt.
 
-Should fit to one line now?
+Patches 1-12 touch MAINTAINERS and drivers/net/ethernet/microchip/, and
+are for the netdev tree.
 
-(Heh, I was going to say this is open-coding coding is_get_msg() before 
-realizing it's the very thing :-)).
+Patches 13-14 touch drivers/misc/lan966x_pci.dtso, and are for the
+char-misc tree.
 
->  		return true;
->  
-> @@ -354,6 +544,8 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  {
->  	int __user *arguser = (int  __user *)arg;
->  	struct hsmp_message msg = { 0 };
-> +	const struct hsmp_plat_desc *plat_desc = hsmp_desc();
-> +	const struct hsmp_msg_desc *desc;
->  	int ret;
->  
->  	if (copy_struct_from_user(&msg, sizeof(msg), arguser, sizeof(struct hsmp_message)))
-> @@ -361,23 +553,25 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  
->  	/*
->  	 * Check msg_id is within the range of supported msg ids
-> -	 * i.e within the array bounds of hsmp_msg_desc_table
-> +	 * i.e within the array bounds of the platform's descriptor table
->  	 */
-> -	if (msg.msg_id < HSMP_TEST || msg.msg_id >= HSMP_MSG_ID_MAX)
-> +	if (msg.msg_id < plat_desc->test_msg || msg.msg_id >= plat_desc->num_msgs)
->  		return -ENOMSG;
->  
->  	/*
->  	 * Sanitize the user-controlled msg_id against speculative
->  	 * execution.  The bounds check above retires the out-of-range
->  	 * case with -ENOMSG, but a mispredicted branch can still let the
-> -	 * CPU speculatively use msg_id as an index into
-> -	 * hsmp_msg_desc_table[] (here and in validate_message() /
-> -	 * is_get_msg() called downstream via hsmp_send_message()), and
-> -	 * pull arbitrary kernel memory into the cache (Spectre v1,
-> -	 * CVE-2017-5753).  Clamp once into msg.msg_id so every downstream
-> -	 * dereference sees the sanitized value.
-> +	 * CPU speculatively use msg_id as an index into the message
-> +	 * descriptor table, here and again in validate_message() called
-> +	 * downstream via hsmp_send_message().
->  	 */
-> -	msg.msg_id = array_index_nospec(msg.msg_id, HSMP_MSG_ID_MAX);
-> +	msg.msg_id = array_index_nospec(msg.msg_id, plat_desc->num_msgs);
-> +
-> +	/* Rejects the reserved IDs the table describes as such */
-> +	desc = get_msg_desc(msg.msg_id);
-> +	if (!desc)
-> +		return -ENOMSG;
->  
->  	switch (fp->f_mode & (FMODE_WRITE | FMODE_READ)) {
->  	case FMODE_WRITE:
-> @@ -385,7 +579,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  		 * Device is opened in O_WRONLY mode
->  		 * Execute only set/configure commands
->  		 */
-> -		if (is_get_msg(&msg))
-> +		if (is_get_msg(desc, &msg))
->  			return -EPERM;
->  		break;
->  	case FMODE_READ:
-> @@ -393,7 +587,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  		 * Device is opened in O_RDONLY mode
->  		 * Execute only get/monitor commands
->  		 */
-> -		if (!is_get_msg(&msg))
-> +		if (!is_get_msg(desc, &msg))
->  			return -EPERM;
->  		break;
->  	case FMODE_READ | FMODE_WRITE:
-> @@ -410,7 +604,7 @@ static long hsmp_ioctl_msg(struct file *fp, unsigned long arg)
->  	if (ret)
->  		return ret;
->  
-> -	if (hsmp_msg_desc_table[msg.msg_id].response_sz > 0) {
-> +	if (desc->response_sz > 0) {
->  		/* Copy results back to user for get/monitor commands */
->  		if (copy_to_user(arguser, &msg, sizeof(struct hsmp_message)))
->  			return -EFAULT;
-> @@ -685,11 +879,16 @@ EXPORT_SYMBOL_NS_GPL(hsmp_get_tbl_dram_base, "AMD_HSMP");
->  int hsmp_cache_proto_ver(u16 sock_ind)
->  {
->  	struct hsmp_message msg = { 0 };
-> +	const struct hsmp_msg_desc *desc;
->  	int ret;
->  
-> -	msg.msg_id	= HSMP_GET_PROTO_VER;
-> +	msg.msg_id	= hsmp_desc()->proto_ver_msg;
-> +	desc = get_msg_desc(msg.msg_id);
-> +	if (WARN_ON(!desc))
-> +		return -ENOMSG;
-> +
->  	msg.sock_ind	= sock_ind;
-> -	msg.response_sz = hsmp_msg_desc_table[HSMP_GET_PROTO_VER].response_sz;
-> +	msg.response_sz	= desc->response_sz;
->  
->  	ret = hsmp_send_message_locked(&msg);
->  	if (!ret)
-> diff --git a/drivers/platform/x86/amd/hsmp/hsmp.h b/drivers/platform/x86/amd/hsmp/hsmp.h
-> index 8dbff16a87b1..890cfb664829 100644
-> --- a/drivers/platform/x86/amd/hsmp/hsmp.h
-> +++ b/drivers/platform/x86/amd/hsmp/hsmp.h
-> @@ -10,6 +10,9 @@
->  #ifndef HSMP_H
->  #define HSMP_H
->  
-> +#include <asm/amd/hsmp.h>
-> +
-> +#include <linux/acpi.h>
->  #include <linux/compiler_types.h>
->  #include <linux/device.h>
->  #include <linux/hwmon.h>
-> @@ -17,6 +20,7 @@
->  #include <linux/miscdevice.h>
->  #include <linux/mutex.h>
->  #include <linux/pci.h>
-> +#include <linux/processor.h>
->  #include <linux/rwsem.h>
->  #include <linux/semaphore.h>
->  #include <linux/sysfs.h>
-> @@ -32,6 +36,29 @@
->  
->  #define DRIVER_VERSION		"2.6"
->  
-> +/*
-> + * Family/model ranges need a driver update every generation and miss new
-> + * client parts until then. The ACPI-reported PM profile does not: it says
-> + * what kind of system this is regardless of which CPU is in it.
-> + */
-> +static inline bool is_client_platform(void)
-> +{
-> +	if (!IS_ENABLED(CONFIG_ACPI))
-> +		return false;
-> +
-> +	if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
-> +		return false;
-> +
-> +	switch (acpi_gbl_FADT.preferred_profile) {
-> +	case PM_DESKTOP:
-> +	case PM_MOBILE:
-> +	case PM_TABLET:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->  struct hsmp_mbaddr_info {
->  	u32 base_addr;
->  	u32 msg_id_off;
-> 
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Horatiu Vultur <horatiu.vultur@microchip.com>
+To: Steen Hegelund <steen.hegelund@microchip.com>
+To: UNGLinuxDriver@microchip.com
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: Herve Codina <herve.codina@bootlin.com>
+To: Arnd Bergmann <arnd@arndb.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mohsin Bashir <mohsin.bashr@gmail.com>
+Cc: Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
 
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+Changes in v7:
+
+Mostly a response to the automated review of v6. The notable change is
+that the resize-time MTU guards added in v6 are replaced by an advertised
+limit. v6 rejected an oversized MTU inside lan966x_fdma_pci_resize() with
+-ERANGE, which is late, and leaves dev->max_mtu advertising a range the
+PCIe path cannot honour. v7 derives the maximum from the same constants
+and publishes it in dev->max_mtu instead, so the core rejects the request
+up front and both -ERANGE returns become unreachable and are removed.
+Also, the shutdown() was refactored to not race with ndo's.
+
+- PCIe: cap dev->max_mtu on the PCIe path (FDMA_PCI_MAX_MTU), derived
+  from the contiguous ring having to fit one MAX_PAGE_ORDER block after
+  padding to the ATU region granularity, and from db_size having to fit
+  the 16-bit DCB DATAL field. On a 4KB-page, MAX_PAGE_ORDER=10 build that
+  is MTU 15498. Both resize-time -ERANGE checks are removed with it.
+- PCIe: factor the frame overhead into LAN966X_FDMA_OVERHEAD and use it
+  for both the cap and lan966x_fdma_get_max_frame(), so it is not
+  open-coded twice.
+- PCIe: skip the resize while the FDMA is not initialised. The rings are
+  built by lan966x_fdma_pci_init(), which runs after the netdevs are
+  registered, so an MTU change in that window would dereference NULL.
+- PCIe: comment why NAPI has to be enabled before the queues are woken in
+  the MTU reload path.
+- shutdown(): rework the quiesce ordering. Free the xtr, ana and FDMA
+  irqs first so no source can assert INTx, mask ANA_ANAINTR whether or not
+  the FDMA is in use, then disable NAPI, stop and detach the netdevs,
+  disable the FDMA channels, clear the FDMA interrupt enables and unmap
+  the ATU windows.
+- ATU: document the alignment requirement and -EINVAL at
+  fdma_pci_atu_region_map(), document at fdma_pci_atu_translate_addr()
+  that the caller must quiesce DMA and the descriptor paths before
+  unmapping a region, initialise the region bookkeeping explicitly in
+  fdma_pci_atu_init(), and fix the comment on the upper limit register.
+- Patch 3 commit message: drop the claim that the patch adds PCIe FDMA
+  support; it adds the helpers the lan966x path later uses.
+
+Reported by the v6 review and deliberately not fixed here, because the
+code is pre-existing and the fixes want a Fixes: tag:
+
+- register_netdev() and the FDMA irq request both happen before
+  ops->fdma_init(), so an MTU change or a stale interrupt can reach an
+  uninitialised FDMA. Pre-existing on the platform path; the fix is a
+  reorder of the shared probe, which I will send against net. The skip
+  above closes the MTU-change half on PCIe in the meantime.
+- lan966x_hw_offload() frees the caller's skb and reports only a bool.
+  Pre-existing, all three callers affected. Goes to net with
+  Fixes: 6476f90aefaf.
+- The platform XDP hook leaves the FCS in the window handed to the BPF
+  program, while the PCIe hook strips it. Pre-existing. Goes to net with
+  Fixes: 6a2159be7604.
+- Link to v6: https://lore.kernel.org/r/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671@microchip.com
+
+Changes in v6:
+
+The main change is a DMA bug on the PCIe path, found after enabling the
+IOMMU on the test host. The rest is hardening and cleanup.
+
+- New patch 6: use a dedicated device for DMA operations. On the PCIe
+  path lan966x->dev is the platform device created by
+  of_platform_default_populate(), which carries no iommus/dma-ranges of
+  its own, so it is not the device the IOMMU has a domain for. DMA
+  mapped against it lands outside the domain the endpoint's requester ID
+  is associated with. With the IOMMU enabled, AMD-Vi reported
+  IO_PAGE_FAULT for the endpoint and no traffic passed. All FDMA DMA now
+  targets the real PCIe endpoint device. Retested with the IOMMU in
+  translated (DMA-FQ) mode.
+- ATU: serialise region allocation/free and ATU register access with a
+  mutex.
+- ATU: program the region limit per mapping (base_addr + size - 1)
+  instead of the full region bound, and disable every region in
+  fdma_pci_atu_init().
+- ATU: return -ERANGE instead of -E2BIG when the requested size exceeds
+  the region size, and clear fdma->atu_region on unmap.
+- PCIe FDMA: check fdma_dcbs_init() and unwind the coherent allocation
+  and the ATU mapping on failure.
+- PCIe FDMA: drop the WARN_ON() on an out-of-range src_port; a malformed
+  IFH should not be able to splat the host.
+- Quiesce consistently in shutdown, deinit and the MTU reload: stop the
+  netdev queues and NAPI before disabling the FDMA channels, and share
+  one lan966x_fdma_tx_disable_netdev() helper instead of open-coding it
+  per path.
+- shutdown: also mask ANA_ANAINTR, which shares the PCIe INTx with the
+  FDMA sources.
+- MTU change: reject an MTU whose ring would not fit in a single
+  MAX_PAGE_ORDER coherent block, and reject one whose db_size would be
+  truncated by the 16-bit DCB DATAL field, rather than programming a
+  wrong buffer length.
+- Assign lan966x->ops directly in the ops dispatch patch, so that patch
+  no longer adds a helper returning a single constant; PCI detection now
+  derives from dma_dev and arrives with the PCIe implementation.
+- ATU: reject a target address that is not aligned to the 64KB ATU region
+  granularity, instead of programming a translation offset by the
+  misalignment.
+- Drop the CONFIG_MCHP_LAN966X_PCI guard around the fdma_pci.h include in
+  fdma_api.h (Jakub).
+- Use ifneq ($(CONFIG_MCHP_LAN966X_PCI),) instead of ifdef in both the fdma
+  and lan966x Makefiles; the symbol is tristate, so the condition has to
+  cover both y and m (Jakub).
+- Reprogram the FDMA LLP registers on the platform reload restore path,
+  which stopped happening when the LLP write moved into the allocation
+  functions.
+- XDP: drop the napi_synchronize() before freeing the old program on the
+  PCIe path; READ_ONCE() on port->xdp_prog plus the RCU-deferred
+  bpf_prog_put() already cover the in-flight poll.
+- XDP: note that the ETH_ZLEN floor is deliberately not enforced on XDP_TX.
+- PCIe FDMA: count tx_dropped when the DCB ring is full.
+- PCIe FDMA: guard the deinit napi_disable() on fdma_ndev, as shutdown()
+  already does; NAPI is only initialised on the first ndo_open.
+- ATU: program the region translation before enabling the region.
+- ATU: pad the mapped allocation to the 64KB outbound region granularity,
+  so the window does not extend past the coherent allocation.
+- ATU: reject mapping an fdma that already holds a region, instead of
+  overwriting the handle and leaking the old mapping. The MTU reload clears
+  the handle on the live rings first, since it keeps the old mapping alive
+  until the new rings are in place.
+- PCIe FDMA: declare the RX DCB DATAL as the space actually available to the
+  extraction engine (db_size - XDP_PACKET_HEADROOM), since the data block
+  pointer starts that far into the slot.
+- Move the XDP-unsupported guards from the XDP patch into the PCIe FDMA
+  patch, so that no intermediate commit advertises NETDEV_XDP_ACT_NDO_XMIT
+  for a PCIe instance while tx->dcbs_buf is NULL, and none lets an XDP
+  attach reach the platform page_pool reload. The final tree is unchanged.
+- shutdown: take rtnl, so it cannot interleave with the rtnl-only reload
+  paths and double-disable the NAPI, which would spin forever in
+  napi_disable().
+- Link to v5: https://lore.kernel.org/r/20260520-lan966x-pci-fdma-v5-0-ca56197ae05b@microchip.com
+
+Changes in v5:
+
+This version fixes a single AI review issue, flagged by Paolo. Other AI
+issues  for v4 has been classified as pre-existing or changes for
+follow-ups.
+
+- Fix premature napi_complete_done() in lan966x_fdma_pci_napi_poll() on
+  FDMA_ERROR and napi_alloc_skb() failure. Bailing out left DONE=1 DCBs
+  in the ring with no IRQ to drain them. Drop the frame and continue
+  the poll loop instead. Bump rx_dropped on memory-pressure drop.
+  (Paolo)
+- Link to v4: https://lore.kernel.org/r/20260508-lan966x-pci-fdma-v4-0-14e0c89d8d63@microchip.com
+
+Changes in v4:
+- Consolidate rx size checks into lan966x_fdma_pci_rx_size_fits().
+  Subtract XDP_PACKET_HEADROOM on the max size check, and add ETH_HLEN
+  on the min size check. This fixes potential OOB reads/writes.
+- On xdp_prepare_buff(), update comment to clarify that data is already
+  offset by XDP_PACKET_HEADROOM.
+- Link to v3:
+  https://lore.kernel.org/r/20260504-lan966x-pci-fdma-v3-0-a56f5740d870@microchip.com
+
+Changes in v3:
+
+Version 3 fixes a number of issues reported by sashiko - mostly
+hardening.
+
+- Fix double use of XDP_PACKET_HEADROOM.
+- Fix ERR_PTR persistence in fdma->atu_region and add missing
+  NULL/ERR_PTR guard in fdma_pci_atu_region_unmap().
+- Reject size <= 0 in fdma_pci_atu_region_map() and return
+  -ENOSPC (was -ENOMEM) when no region is free.
+- Introduce lan966x_fdma_pci_tx_size_fits() that accounts for
+  XDP_PACKET_HEADROOM; use it from both xmit paths to keep
+  bpf_xdp_adjust_tail from writing past the TX slot.
+- Validate BLOCKL in rx_check_frame() (reject < IFH+FCS or
+  > db_size) before it feeds memcpy/XDP sizes.
+- READ_ONCE(port->xdp_prog) inside lan966x_xdp_pci_run() to close
+  a TOCTOU on XDP detach that could deref NULL in
+  bpf_prog_run_xdp().
+- Strip IFH and FCS pre-XDP in rx_check_frame(). After BPF runs
+  the driver cannot tell whether the tail was modified; drop the
+  unconditional skb_pull/skb_trim in rx_get_frame().
+- Account tx_bytes/tx_packets on XDP_TX success and tx_dropped on
+  XDP_TX size reject.
+- Add dma_wmb()/dma_rmb() around DCB status writes and reads in
+  xmit, xmit_xdpf, and napi_poll.
+- Collected Tested-by: Hervé Codina.
+- Link to v2: https://lore.kernel.org/r/20260428-lan966x-pci-fdma-v2-0-d3ec66e06202@microchip.com
+
+Changes in v2:
+
+Version 2 primarily addresses issues with module unload/load, where
+traffic would stop working (Hervé), and XDP head/tail adjust that would be
+discarded (Mohsin).
+
+Apart from that, I ran through issues reported by Sashiko, and fixed a
+number of other issues.
+
+- New patch 1: add drivers/net/ethernet/microchip/fdma/ to the Sparx5
+  SoC MAINTAINERS entry.
+- New patch 7: clear latched FDMA error/interrupt stickies after the
+  switch reset so they don't fire as soon as interrupts are enabled.
+- New patch 8: shutdown() callback, quiescing FDMA on host warm reboot.
+- Replaced the depth-2 dev_is_pci(parent->parent) backend selector
+  with a parent-chain walk.
+- XDP: use xdp.data/xdp.data_end for the post-XDP frame length so that
+  bpf_xdp_adjust_head/tail are respected (Mohsin Bashir)
+- MTU change: drain in-flight xmits with netif_tx_disable() on every
+  port before reallocating rings, waking them again on completion.
+- MTU change: cap the PCIe DCB ring at 256 entries so a full-ring
+  coherent DMA allocation fits in a single MAX_PAGE_ORDER block at
+  jumbo MTU.
+- PCIe ATU: disable the region before clearing its translation on
+  unmap.
+- PCIe FDMA: hold tx_lock in napi_poll around the free-DCB check used
+  to wake stopped netdev queues.
+- PCIe FDMA: return -ENOSPC (not -1) when the DCB ring is exhausted.
+- Link to v1: https://lore.kernel.org/r/20260320-lan966x-pci-fdma-v1-0-ef54cb9b0c4b@microchip.com
+
+---
+Daniel Machon (14):
+      MAINTAINERS: add FDMA library to Sparx5 SoC entry
+      net: microchip: fdma: rename contiguous dataptr helpers
+      net: microchip: fdma: add PCIe ATU support
+      net: lan966x: add FDMA LLP register write helper
+      net: lan966x: export FDMA helpers for reuse
+      net: lan966x: use a dedicated device for DMA operations
+      net: lan966x: add FDMA ops dispatch for PCIe support
+      net: lan966x: clear FDMA interrupt stickies after switch reset
+      net: lan966x: add shutdown callback to stop the FDMA on reboot
+      net: lan966x: add PCIe FDMA support
+      net: lan966x: add PCIe FDMA MTU change support
+      net: lan966x: add PCIe FDMA XDP support
+      misc: lan966x-pci: dts: extend cpu reg to cover PCIE DBI space
+      misc: lan966x-pci: dts: add fdma interrupt to overlay
+
+ MAINTAINERS                                        |   1 +
+ drivers/misc/lan966x_pci.dtso                      |   5 +-
+ drivers/net/ethernet/microchip/fdma/Makefile       |   4 +
+ drivers/net/ethernet/microchip/fdma/fdma_api.c     |  44 ++
+ drivers/net/ethernet/microchip/fdma/fdma_api.h     |  22 +-
+ drivers/net/ethernet/microchip/fdma/fdma_pci.c     | 208 ++++++
+ drivers/net/ethernet/microchip/fdma/fdma_pci.h     |  57 ++
+ drivers/net/ethernet/microchip/lan966x/Makefile    |   4 +
+ .../net/ethernet/microchip/lan966x/lan966x_fdma.c  |  88 ++-
+ .../ethernet/microchip/lan966x/lan966x_fdma_pci.c  | 695 +++++++++++++++++++++
+ .../net/ethernet/microchip/lan966x/lan966x_main.c  | 121 +++-
+ .../net/ethernet/microchip/lan966x/lan966x_main.h  |  69 ++
+ .../net/ethernet/microchip/lan966x/lan966x_regs.h  |  25 +
+ .../net/ethernet/microchip/lan966x/lan966x_xdp.c   |   6 +
+ 14 files changed, 1287 insertions(+), 62 deletions(-)
+---
+base-commit: 548b86839f7fb819a4d6c83b71c73ec378d24275
+change-id: 20260313-lan966x-pci-fdma-94ed485d23fa
+
+Best regards,
 -- 
- i.
+Daniel Machon <daniel.machon@microchip.com>
 
