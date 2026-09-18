@@ -1,129 +1,99 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2F835C69F;
-	Fri, 18 Sep 2026 01:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF1D347BA7;
+	Fri, 18 Sep 2026 01:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693423; cv=none; b=Z4yEo2jLlc46CGr5eudoV6gW67GPag95CAwm0tFbgPCxI64R0yJ4aII46oX0oS/12VBQ51W/h+yfBTJQqFMmHQpbz7Hb5a3nIeJEu/ZyDaK3+/6TogDV5NEszSeu4dVis85+wGIU+Pgh2igjFFJwF7aPQ+epvUjOCImABd75pIk=
+	t=1789693435; cv=none; b=b20HRMlpjVpj1ZKWxJMHgnI2MZ2zrVq501kApti9v0jwM9jl8X1U+XqaWnkirI2PCXcgrNK137wv/WRnqpqG/urz46LqI4aWIempF1Hyg/5jRhtjGqj6MR7F+n25AqDHhZWvYPaZd1PwvuODTXBovD1AqAn+9IIraEsId97bfRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693423; c=relaxed/simple;
-	bh=yN5/puUu5kAn5/8diA4dXdaq6UeSbdmNGtqMTj4BKlM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H1sGqefYHvdsee88GbIhgnVw1fvaM7pxkQd34iRNYNlnYlc6rD6KICyk09rEExoOQjIzCa32ArMccdw0E+r5kFgpth+khNw1Ds/LCmkD3IuwQMKZ1R1+GrXey+UIpL2RyWESslc4GmfsnUEMuwRsEfMkgPk7/H0oZC2vCcpdU2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=x84tZeJv; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1789693435; c=relaxed/simple;
+	bh=Nkyaf8Y94zPujszAwuZIi2QbwdTBSAWXR98+hXXnwO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sdwT8XMEXG+32q9GwFEwwRxA969TVQbLTB9aGmLVCN6NDgcT/HXWnvy0ZUA8s0YrssuxDMw1/XyPhd6k7kAPggycvhRPKoTkIXXY9F64KA1DP4yq16qiwPEAkfIK774PVPU+Fj7kFAMC7fsTEB8Q578q2vbJ2VeDzvRDAsj45Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=LXhxiWH+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="x84tZeJv"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id D0074CFAD5;
-	Fri, 18 Sep 2026 04:03:27 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro D0074CFAD5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789693409;
-	bh=X57XoeYxAuPO1Rrv4CMmFF0duv/vOAGxDNYQKdW8eSM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=x84tZeJvg2/bP+YV0TWLLo2a+HMmQS0shAdbmLy7WjiyfmXp/JEbmzciziIYf0Uzx
-	 qKiWFBpjBme2qQ2fKKuuPe/0LW7Uz6NCApknqbrqASBFCyjsO7BXZXVPYaF0AuV6Wk
-	 tfOC8jN4EZcwVU7MLFuwXKhLykB0ybPmkzSL8iwviZbNofLXGEMIbDjoDKbXDFSR9K
-	 0BVQcrAnIweawx+JtNy+t5XvXak/ZEK8A/jQMvWX5QFDZiyCh6eypGY74bgX3PYlEI
-	 gCohEVwtpcTUlYtfIhAqGYzZ4QKAqj7Mg7wMPLOQa5qk7EAL+UjBkr6MRdBwD2y38g
-	 +YdPz+laH/Mmw==
-Message-ID: <9501485b133250d9041d90dbd2c6d6deb2aaf3e9.camel@rendec.net>
-Subject: Re: [PATCH] irqchip/imx-intmux: fix runtime PM teardown on remove
-From: Radu Rendec <radu@rendec.net>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Thomas Gleixner
- <tglx@kernel.org>,  Frank Li <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team	 <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Joakim Zhang	
- <qiangqing.zhang@nxp.com>, Marc Zyngier <maz@kernel.org>, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Cc: stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 21:03:25 -0400
-In-Reply-To: <20260914134211.1734163-1-lgs201920130244@gmail.com>
-References: <20260914134211.1734163-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="LXhxiWH+"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4FC9921BB;
+	Fri, 18 Sep 2026 03:02:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789693328;
+	bh=Nkyaf8Y94zPujszAwuZIi2QbwdTBSAWXR98+hXXnwO4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LXhxiWH+BmeY3PvyTMXbhxh4w61f+qJEytkkQG9jPeOl4J99LEcIqumZxRreqX7ag
+	 DWHOMQXJIQ4yXtVO3NzQaWa14M7NGkqTKcQoZCnnFEotNmuVrCkMt6va96KbUeGucE
+	 7ZM8vfGh1U+agHhfzlqEc4NtSGrn0J8gOyn5Lf7s=
+Date: Fri, 18 Sep 2026 04:03:49 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 01/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ CPG_SGD4_VIO_DP_{TX,OTHER}
+Message-ID: <20260918010349.GA145152@killaraus.ideasonboard.com>
+References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
 
-On Mon, 2026-09-14 at 21:42 +0800, Guangshuo Li wrote:
-> imx_intmux_probe() enables the IPG clock and then drops its runtime PM
-> reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
-> suspend callback disables the IPG clock. With CONFIG_PM disabled, the
-> clock remains enabled after probe.
->=20
-> imx_intmux_remove() accesses the CHANIER registers without first making
-> sure that the device is runtime active. The device may therefore be
-> runtime suspended with the IPG clock disabled when these registers are
-> accessed. In addition, the remove path only calls pm_runtime_disable()
-> and does not balance the clock enable when CONFIG_PM is disabled.
->=20
-> Resume the device and acquire a runtime PM reference before accessing
-> the registers. If resume fails, skip the register accesses but still
-> tear down the chained handlers and IRQ domains. Disable runtime PM
-> afterwards, drop the acquired reference without triggering another
-> runtime suspend, and explicitly disable the IPG clock.
->=20
-> This keeps the clock enabled while the hardware registers are accessed
-> and balances the clk_prepare_enable() performed during probe for both
-> CONFIG_PM configurations.
->=20
-> This issue was found by manual code inspection.
->=20
-> Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power =
-management")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Hi Paul,
+
+Thank you for the patch.
+
+On Thu, Sep 17, 2026 at 09:04:40PM +0900, Paul Elder wrote:
+> Add preliminary clocks for testing:
+> - CPG_SGD4_VIO_DP_TX is used by FCP
+> - CPG_SGD4_VIO_DP_OTHER is used by VSP
+> 
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 > ---
-> =C2=A0drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
-> =C2=A01 file changed, 12 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-i=
-ntmux.c
-> index 47c2681d138a..de2a8f98f625 100644
-> --- a/drivers/irqchip/irq-imx-intmux.c
-> +++ b/drivers/irqchip/irq-imx-intmux.c
-> @@ -288,12 +288,16 @@ static int imx_intmux_probe(struct platform_device =
-*pdev)
-> =C2=A0static void imx_intmux_remove(struct platform_device *pdev)
-> =C2=A0{
-> =C2=A0	struct intmux_data *data =3D platform_get_drvdata(pdev);
-> -	int i;
-> +	int i, ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> +	if (ret < 0)
-> +		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
-> =C2=A0
-> =C2=A0	for (i =3D 0; i < data->channum; i++) {
-> =C2=A0		/* disable all interrupt sources of this channel */
-> -		writel_relaxed(0, data->regs + CHANIER(i));
-> -
-> +		if (ret >=3D 0)
-> +			writel_relaxed(0, data->regs + CHANIER(i));
-> =C2=A0		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
-> =C2=A0						 NULL, NULL);
-> =C2=A0
-> @@ -301,6 +305,11 @@ static void imx_intmux_remove(struct platform_device=
- *pdev)
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	pm_runtime_disable(&pdev->dev);
-> +	if (ret >=3D 0) {
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		clk_disable_unprepare(data->ipg_clk);
-> +		pm_runtime_set_suspended(&pdev->dev);
-> +	}
-> =C2=A0}
-> =C2=A0
-> =C2=A0#ifdef CONFIG_PM
+>  include/dt-bindings/clock/renesas,r8a78000-cpg.h | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/include/dt-bindings/clock/renesas,r8a78000-cpg.h b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> index 5851a29847f961b9b4ec270f263eb3aa19e45308..8c1a01e28ddbb26c583d7c9b387400ef6626c06c 100644
+> --- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> +++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+> @@ -12,5 +12,7 @@
+>  #define R8A78000_CPG_SGASYNCD16_PERW_BUS	2
+>  #define R8A78000_CPG_S0D4_PERE_MAIN		3	// FIXME Preliminary
+>  #define R8A78000_CPG_MSOCK_PERW_BUS		4	// FIXME Preliminary
+> +#define R8A78000_CPG_SGD4_VIO_DP_TX		5	// FIXME Preliminary
+> +#define R8A78000_CPG_SGD4_VIO_DP_OTHER		6	// FIXME Preliminary
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+While those two clocks are not directly controllable, we need to ensure
+that the parents are enabled. That will require taking a closer look at
+the SCP firmware. As the X5H CPG driver in upstream is alone a barebone
+version at the moment, that doesn't have to be fixed now. This patch is
+not an immediate candidate for upstream.
+
+>  
+>  #endif /* __DT_BINDINGS_CLOCK_RENESAS_R8A78000_CPG_H__ */
+> 
+
+-- 
+Regards,
+
+Laurent Pinchart
