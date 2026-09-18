@@ -1,185 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939D3F106B;
-	Fri, 18 Sep 2026 09:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335053E40EE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724096; cv=none; b=gsl0tFio3z+RvFOyHkyq0B4IXrjZVW9k2DHRQphKMKievLVWsWgkfX+kunlShtz5kLGqnOymtwbppCJvd3MO0myTMNLywrmHWLia0vjJGYbHweSTBY6ENqegwjaFsRGvdC/OSyFNXMR7+6HEmtHlx0HWjlPktVAer+pS9YaEkzE=
+	t=1789724108; cv=none; b=OEd1Yi2Mbmg21DKwmUlEeCj2v+YG/K/l09yjvW8Ibdbew18Q2GV+AO1joHAAN8p3VzgqcTqqNyJF/xmD0OrrtUayKoexU1pnDVhs4s2qSDOe8VU+ffDFyuH2xodGzvaXY3wd2wKNjaxFZNa6IXbMZEyyfBotUePRyHaRGi0jTac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724096; c=relaxed/simple;
-	bh=d+wGjGFpPrAban2UlUUjGfJt48Dfm5A26bgOXi74jJk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
-	 References:In-Reply-To; b=J034fYRyaysS26bJatgaDLEVRF+LXiQZ0rBzMVlZv6OwxgytBm/CVdXMh6UG37+ChAuCFR5t3kPpx3POn/jpZoELBP+bE7z0H5AnRVeRnEfQ7YKZcSLMsZ1j6RNsn4RLByTZrFmKvcil2pwGKSH1ak3McTV2SJ32FhSBzf73m9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdgoCwwY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789724108; c=relaxed/simple;
+	bh=p/DQJd95U/7tkNehVUiamBQTKyTjZl52MTnDy+aDty8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iIIirs9LmgQWSEPZguNgllWk2F/76Km7r6f6JcnZBOHJE2CmyHz6NjATs9zxYHqHkpw+rmQhCW1++qWo5VxSMEBBj6JSnb2XecLAT2snZo465dTFB1vqa/loMkxFW2c1cNm3eNsOIyN4nzZYkgm40Ec0i7IVzCMRD+w9Gt6RaFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t7TZ60mt; arc=none smtp.client-ip=91.218.175.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdgoCwwY"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 675421F000FF;
-	Fri, 18 Sep 2026 09:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789724094;
-	bh=QPHM4C13uUGm9R4hEl1eSTnmriAUGxPz23GgFIjAtCc=;
-	h=Date:From:To:Subject:Cc:References:In-Reply-To;
-	b=NdgoCwwYKkR3ypH0YDmw8gy1EKRmBVG4VgG/GV/pXWOXDRoQGIarEI1mZLiMfxqP1
-	 73oOjm39Pu8r5EngSjEkB+I6ZX8hDi8Y7/wLycxfxuem5tan0OnNWx36l3xCJhpwQt
-	 pdYereCG6Svcnhjgdf9Eolzha5fSk96gJc/MSj8Nj6AASc+GV0fduCjFVRcvPMoudm
-	 QjjF0EMHuoeUHVnNvAwOkejn1p406zXPenCgzKLtNtaYlzTCA6V+rLim5kYqAsIDvW
-	 M59n0S4jjiURMgf1UG/ZFNRsZ17K2Zgw2OKBx/E0gatBTdvUSdk8y+igRwXz+yd3kE
-	 C9QE6NrttOAOQ==
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t7TZ60mt"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=p/DQJd95U/7tkNehVUiamBQTKyTjZl52MTnDy+aDty8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789724104; v=1; x=1790328904;
+ b=t7TZ60mtyBpGmXyqF9xUBXtjYq9ZtoFwrn0HSx2Ph+U4/WywNAhaY7HkNO2bIxtCLk/QXpXx
+ ePKIRBMR7usKqfagJlrKT6QvXX4vhQ9JjEXuC8fYvlcP9wnXceW7kStV9BWvI9jpomfSYnSzZ8P
+ /2Era6AfCaa01vvu6sABCWxY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c0e6a754c1f50c48;
+	Fri, 18 Sep 2026 09:35:02 +0000
+X-Mizu-Trace-ID: c0e6a754c1f50c48
+X-Migadu-Flow: FLOW_OUT
+From: George Guo <dongtai.guo@linux.dev>
+To: pratyush@kernel.org
+Cc: rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	sourabhjain@linux.ibm.com,
+	graf@amazon.com,
+	changyuanl@google.com,
+	akpm@linux-foundation.org,
+	chenhuacai@kernel.org,
+	liukexin@kylinos.cn,
+	guodongtai@kylinos.cn,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] liveupdate: kho: calculate per-node scratch sizes before allocation
+Date: Fri, 18 Sep 2026 17:33:16 +0800
+Message-ID: <20260918093317.12216-1-dongtai.guo@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2vxz1par7amw.fsf@kernel.org>
+References: <2vxz1par7amw.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 18 Sep 2026 11:34:51 +0200
-Message-Id: <DLIC8P2V43E6.34ICV316K7HUK@kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: <sashiko-reviews@lists.linux.dev>, "Itai Handler"
- <itai.handler@gmail.com>, <pratyush@kernel.org>
-Subject: Re: [PATCH v3] mtd: spi-nor: take the flash lock around
- spi_nor_restore()
-Cc: <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>,
- <linux-mtd@lists.infradead.org>, <takahiro.kuwano@infineon.com>,
- <richard@nod.at>, <stable@vger.kernel.org>, <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.20.0
-References: <20260915113811.2429311-1-itai.handler@gmail.com>
- <20260915115206.CCEE41F000FF@smtp.kernel.org>
-In-Reply-To: <20260915115206.CCEE41F000FF@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi Sourabh, Pratyush, 
 
-On Tue Sep 15, 2026 at 1:52 PM CEST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] mtd: spi-nor: skipped flash restore on fatal signal breaks boot
-> - [High] mtd: spi-nor: shutdown hang due to ongoing erase operation
+> But in practice, this problem is only on CONFIG_NUMA=n and I don't think
+> in practice KHO or LUO is being used in non-NUMA systems. So while I
+> think it is worth fixing, I think we should also have a test where we
+> enable CONFIG_NUMA.
 
-Does Sashiko have some valid points here?=20
+Confirmed. My vmtest kernel has CONFIG_NUMA unset, and your analysis
+matches the data.
 
--michael
+I reran the vmtest with Sourabh's debug prints on both configurations:
+same kernel, same QEMU command, and without my this fix patch, so the
+default percentage policy is exercised. The only difference is
+CONFIG_NUMA.
 
-> --
->
-> commit c0578fac7581b63c39bfd99ac3a6f934256685d3
-> Author: Itai Handler <itai.handler@gmail.com>
->
-> mtd: spi-nor: take the flash lock around spi_nor_restore()
->
-> This commit changes spi_nor_shutdown() and spi_nor_remove() to acquire
-> nor->lock around spi_nor_restore(). It aims to prevent operations like
-> reads from overlapping with the restore, which could leave the chip in
-> 3-byte addressing mode.
->
->> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
->> index ccf4396cdcd04..c891197ffa5b3 100644
->> --- a/drivers/mtd/spi-nor/core.c
->> +++ b/drivers/mtd/spi-nor/core.c
->> @@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
->>  				   data ? data->nr_parts : 0);
->>  }
->> =20
->> +/*
->> + * Restore between operations, not during one. Removal and shutdown bot=
-h run
->> + * with MTD users still attached: a busy flash silently ignores the com=
-mands
->> + * spi_nor_restore() sends, and a restore landing inside a read changes=
- the
->> + * chip's address width under the transfer.
->> + */
->> +static void spi_nor_restore_locked(struct spi_nor *nor)
->> +{
->> +	if (spi_nor_prep_and_lock(nor))
->> +		return;
->
-> [Severity: High]
-> Does this code silently skip the flash restore if a fatal signal breaks t=
-he
-> lock acquisition?=20
->
-> For example, if a privileged user runs rmmod while an erase or read opera=
-tion
-> is actively holding the RWW lock, and the rmmod process receives SIGKILL,
-> spi_nor_prep_and_lock() (via wait_event_killable()) will return -ERESTART=
-SYS:
->
-> drivers/mtd/spi-nor/core.c:spi_nor_prep_and_lock() {
->     ...
->     if (!spi_nor_use_parallel_locking(nor))
->         mutex_lock(&nor->lock);
->     else
->         ret =3D wait_event_killable(nor->rww.wait,
->                                   spi_nor_rww_start_exclusive(nor));
->
->     return ret;
-> }
->
-> Bypassing the hardware teardown path here leaves the flash in 4-byte addr=
-essing
-> mode. This might cause the bootloader to fail to read the kernel on the n=
-ext
-> reboot, soft-bricking the device until a power cycle.
->
->> +
->> +	spi_nor_restore(nor);
->> +	spi_nor_unlock_and_unprep(nor);
->> +}
->> +
->
-> [ ... ]
->
->> @@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spime=
-m)
->>  {
->>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
->> =20
->> -	spi_nor_restore(nor);
->> +	spi_nor_restore_locked(nor);
->
-> [Severity: High]
-> Could this hang the system indefinitely during shutdown if an erase opera=
-tion
-> is ongoing?
->
-> Erase operations (like spi_nor_erase_multi_sectors) hold nor->lock
-> continuously for their entire duration, looping over spi_nor_wait_till_re=
-ady()
-> with cond_resched(). A large chip erase can take several minutes.
->
-> Because device_shutdown() iterates devices synchronously without a timeou=
-t,
-> this synchronous wait for nor->lock could hang the reboot process until t=
-he
-> erase finishes, forcing the user to hard-reset the machine.
+Without CONFIG_NUMA:
 
-Also I'm not sure, what would be the actual expected behavior here.
-Cancel the erase? Wait until the erase is completed? Pratyush,
-Miquel, do you have any thoughts on that?
+  KHO: Before low and global scratch allocations
+  KHO: low size = 330185 KB
+  KHO: global size = 322 MB
+  KHO: Per node 0 = 672 MB
+  KHO: After low and global scratch allocations
+  KHO: low size = 330185 KB
+  KHO: global size = 322 MB
+  KHO: Per node 0 = 672 MB
+  KHO: Failed to reserve nid 0 scratch buffer
+  KHO: Failed to reserve scratch area, disabling kexec handover
 
--michael
+With CONFIG_NUMA=y:
 
->
->>  }
->> =20
->>  /*
+  KHO: Before low and global scratch allocations
+  KHO: low size = 330197 KB
+  KHO: global size = 322 MB
+  KHO: Per node 0 = 96 MB
+  KHO: After low and global scratch allocations
+  KHO: low size = 330197 KB
+  KHO: global size = 322 MB
+  KHO: Per node 0 = 96 MB
+  KHO: After per node allocation
+  KHO: low size = 428501 KB
+  KHO: global size = 418 MB
+  KHO: Per node 0 = 288 MB
 
+In the run without CONFIG_NUMA, the reserved-kern sum the sizing sees
+is 330185 KB, which is the 98.45 MiB baseline plus the 224 MiB lowmem
+scratch area: with memblock_get_region_node() hardcoded to return 0,
+the NUMA_NO_NODE lowmem area is counted as node 0's kernel reservation.
+Node 0 therefore requests 200% of (98.45 MiB + 224 MiB), rounded up to
+32 MiB alignment: 672 MiB. That no longer fits next to the other areas
+in the 1 GiB guest, and KHO disables itself.
 
---375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883
-Content-Type: application/pgp-signature; name="signature.asc"
+In the run with CONFIG_NUMA=y, the real node ID excludes the
+NUMA_NO_NODE regions, so node 0 requests 96 MiB. The allocation
+succeeds and is visible in the sums printed afterwards (330197 KB ->
+428501 KB), and the KHO selftest passes end to end ("KHO: found kexec
+handover data", restore succeeds).
 
------BEGIN PGP SIGNATURE-----
+Sourabh, this also answers your question. Your PowerPC system runs
+CONFIG_NUMA=y, so the node filter excludes the lowmem and global areas
+and your numbers stay flat. Your experiment and mine are the two halves
+of the same mechanism.
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaq0FuxIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/gw/QF/QsmvZhq/GNNoZGx0bFxmGzPhiNCF/Y7w
-NTO8T+aTZC/rVBA8f1tL2oEj+ItKRhIDAYDNbzuEV3wIexW+YcU6CLomaBd9NXbE
-ZlrX8iC8hHjxSWSH/4DENWbECuKJ03Ec4yU=
-=uqCV
------END PGP SIGNATURE-----
+> I think on NUMA systems the problem is the other way round. The
+> calculation for the global scratch also counts per-node allocations.
 
---375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883--
+> So I think the proper fix for scratch sizing is what this patch does
+> and then a fixup for the global scratch calculation as well.
+
+Agreed. For v2 I plan to:
+
+  - Compute all scratch sizes (lowmem, global, per-node) before any
+    scratch area is allocated, per Mike's comment. The sizes are a
+    function of the pre-allocation state, so this seals both feedback
+    directions at once.
+  - State the !CONFIG_NUMA condition in the commit message. The feedback
+    described there is not unconditional, which is what triggered the
+    question.
+  - Add the LLM attribution Mike asked for.
+  - Include the CONFIG_NUMA=y vmtest result as coverage.
+  - Look at the global scratch calculation on NUMA systems as a
+    follow-up.
+
+Thanks,
+George
