@@ -1,188 +1,182 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from va-2-47.ptr.blmpb.com (va-2-47.ptr.blmpb.com [209.127.231.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F092054704A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713026; cv=pass; b=hM3gtOUxfONNV+3twxm+BG7a/h039g3MlnsLy4CqFM8Qh7ghB+4cLsygTjlFxpLmRGItYZcY0i0EFQXSnA8XiuUH4pRZfdIMR5gUVBfa4BLxOZ+ecuIv4kUJ4kiUBdkduZxnGh+mKCYgDNyapZOLJOulRBVe0V43QV2ucJFqe6Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713026; c=relaxed/simple;
-	bh=KTQVfji2f/OGosmpxpqpiilh2dejGoY55VBH2mBIO80=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=soYpmaJ3/NpputHLRsYYj4h5Aa6bAJ+VUMMkSNMeCsDawk3KRXCFgKOvQFlRkcAuRyHLnzjbjBVh4KYwkbDdvmIb1OF9/5pyNzhfoXQQ9EQDmyMPPW23/arD7Eqh2qbzq7BFgm2e64eHgAmJbcFubGXSXwHfDchpX/1RT7Y0mSM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f/07Uhvx; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283B13B9950
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789713044; cv=none; b=i1iPxOPtD9VOpSU5c8Cs98nXcGupJMUpYFq+BNrUIIYonAta64Mo2tpSwkxQzE6ugYV0surg95PZ9XdaNDqkPLf9cyHLZcKDuPYPlC28oimJX4r2WOJfQA+G6n/68cflPUNRU54dyzSmFSzQBvoOh9RsYL+hFIIOCBWgZef1tic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789713044; c=relaxed/simple;
+	bh=9bK7s9Q61gh0ennZPV7Mzwx3gXArYbvqbX5LbaOwhGM=;
+	h=To:Cc:In-Reply-To:Date:Mime-Version:Subject:Message-Id:
+	 Content-Type:From:References; b=m4+44m6DuLwYD2vIC5B38Jw275B2Ut6CoQQiHh2QKV1+HxIMg8qVIufDFBe6YqWbbaD4ThOAqXTK3YsMlLfjeI+Xig//FKl0G85wNSmkYL6uFFIsvi8ypi33hpLVydy0DLwtb3gI69J4rh/y/ylJ+7HYqhnhWl7uKvdyZcMaOto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=PljXSkhS; arc=none smtp.client-ip=209.127.231.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f/07Uhvx"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb769ca02so4571881cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:30:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789713024; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OXOCKpU1kyA9A1zv71EJKFuAaUolw5Kl6brd98bdn39ewQGyuVw0jqY0UqoWg8DLnY
-         VCnVMZ2GebaLa0LRsF7FxZah8x7FfGjmOb/0DCiE+TYNaJr0OYSM+nZDx6EXPYjYg0xF
-         D2WeP3bL5lg0lmPsNkWy5pc/r8Pu6LwZcBDjL1cvTpjoar1eNmQ2P3j2BEAIpzNZWrJj
-         qt71xEinNA32fSj4R7ccQdfiWW+DkRUYYEUaptlUp6h1cMgocFK8cZ0WTS7mN3bNwMUq
-         MsQqLmPxalDJoqZ60r5YAmUNambGb2scF+GHeYFuVf87foMrivSspcksPO2W/nKbAm6r
-         kiTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QydxB03YQjqGjKAOBqEMtxXZkjxNasuwCBd0v5rRF4A=;
-        fh=G1W8uFr6ExBjVN9mmX1nxPpBBMMH/SnGsiw3NprlzLk=;
-        b=IfPeojSPDt/wl3jfQPix5UZHOnWl60wFT3z7GJsKqIVjM+FhE2y3SRAigq4DAFj9uy
-         eVUJUpanV74FzngoNPrTRHlck5LFdGQvb7q+OtQIKX1TB9R8v591XgaBDPLqf6T1thKg
-         SoOqp/T6ehaxkX9XMVvHZOj1pszPQRTErbqFcaCsFc2NqDbl2UEItB3H3Q7n+vy4USj5
-         l5I4c+1lYtNfrq853DG7AzVzPoOT5Nhw31j10abAxOvdE5A1F9ZU4FgNBsceE10hi2xa
-         tbRiGXSpuGxZ5K796AOx/w/Qh/2VpXp9GENGUwWYrP9HVq3he5eosU9rC4sDLFySe4xh
-         X49w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789713024; x=1790317824; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QydxB03YQjqGjKAOBqEMtxXZkjxNasuwCBd0v5rRF4A=;
-        b=f/07UhvxMgMHRzv6/6Qc/RAkdJzWqYnS7gNjJ2lMIXCd722NQJhsRurlMnpU4OxKgA
-         PGqySc1jiUwz+IuS1o7rrSKFmqOObwc3JOs+Svr9ugWEpElA6BjvC8j0NN9g9EqY97PJ
-         cTGDIZzd98W8sd3hSogftcNjf/eTIiRfacauuSo0VgoeZ+fUZPZnmpnJvKn+zMf5ZYpE
-         taVJSsxLMp5f2er9BM3QTupXozwvwB2rlmrRuHvG651cp7nhWTlA5CNE9v9vcnjTh5ni
-         AmsBJ1C8YyEOi1HxViDdhUw78VbJJUOZ8ARC9qBT3eOYyigk3HeXoc8M7tCe57cMCCP9
-         GG+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789713024; x=1790317824;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QydxB03YQjqGjKAOBqEMtxXZkjxNasuwCBd0v5rRF4A=;
-        b=BPz618uADB5OTC34ftyrWEFpi+DHOGFeqwzD0+bmmfJM+OofoXaUhOClVpo3Ri0uk6
-         ddin6AKgMqibEjU6noX+tlDly3uhk0iPhlB2r88ld61m/K7SQLsi6wRXpqqX9zt4qGSi
-         m/tPimU96srRkoTyrfpR7uYZoDDttDCTxOQARxw9VTjC9AyxIeYGkHzNrmKk4Q2lWY/s
-         8RoeMIP3W30ktFpxG6XesHuwl7SLpWtFtEnV7ZUvBf1QXo1ToWf8eWRmcfrjBqeSCyVJ
-         ixh0NKNu88XQNB8kjFXMhhSxCklLU7xzt5MyRS8PTvRqguNHYLT46bDlaBjOoE4B+Wzx
-         ti+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwcuPShkqS6t1YLo7hkjRNopxYnbMPd5DSo/rAlVScdu3uspznMSh3xseSaXMrJJ8ihpyPsJbP6ekrU2U0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh5BA9pCbemC8pYQVxloqDC8A4xKRIZPgRE/cFKe5fKAVwAadq
-	27iBkZ4Jjt+TOl1JI/FZjceYg5eYnVTAvvt1amGvJ8CCel0NlYfKVIb8rBpQO6BocLn06hgd8+M
-	AmPwKvadGmKzS+J/Jse5fOv0XAGudhyUpCm/dA5Fq
-X-Gm-Gg: AYBFou0BlyP5ik3UlHn6l7vYBAqHcup6mcMAnqFuFaJAmIyEsibqDQB4EVc9wCcqBS1
-	uZgnRWhAp3yd32BJd6uAiIAvVvlt5XewcT02X5h1hUHJ7sbnKsH2XmJqEpnYswM99wIZAEgZEdF
-	xd8KYdFj8dBOk3Qoq0ufhX8JwopPaFdkKfR3xvq+U0nHEiSt43qGRRgKK6eQH8XeWTolYIcxCx9
-	ZdfDtExT0ZKVZkumCROlB09OWCXg74epgk6D+7dWF1imHZnYOQHx4Ecb141cgmjzz5VN5r5HwHQ
-	OFOCEbJGUFz0oiM4iLSF9uwKSkkOSfXMbCg0Jz9EA7uPoX2a2gXoi/x5laXonTJe/J66ItkQY/B
-	MQRzmDSSMGA==
-X-Received: by 2002:ac8:6f05:0:b0:532:9adc:63b5 with SMTP id
- d75a77b69052e-5329e526895mr27152201cf.70.1789713022923; Thu, 17 Sep 2026
- 23:30:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="PljXSkhS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789713030;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=9bK7s9Q61gh0ennZPV7Mzwx3gXArYbvqbX5LbaOwhGM=;
+ b=PljXSkhSfub+VnaeqJRvQLL4UCWcO7ji+0e/Wum7M0dNHd9VPefvoWBtQmimRMYcShsHkg
+ HLHSeqGtUb1zZfE2v+nN00cGrB2LwsxWYHxU1DbPRWlIeRPN/i0gUSLEaUbb2DnYRBqdUj
+ SKSnNEJKDH7thcIauiVvMwAcN0DbcZ1Qis36veVdMUQWOfHJBM+KZqOYajiHwShotBqoev
+ 5AUCg8sZeXywID8nrTWskRvWGx6KZiWyAmySq55h6uQ3frSa8PhW2fPhjT961G7ADOszFR
+ KQVwXRwSBdhfM9au/ieErsEyYGiLxtzUBRx6dJOzIHL8B16T9lk+4G88TH2GZg==
+To: "Zhihao Cheng" <chengzhihao1@huawei.com>, <song@kernel.org>, 
+	<xiao@kernel.org>, <magiclinan@didiglobal.com>, <eadavis@sina.com>, 
+	<abd.masalkhi@gmail.com>, "yu kuai" <yukuai@fygo.io>
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Content-Transfer-Encoding: base64
+In-Reply-To: <a353585b-7cf8-c26c-8f55-84354ce10bd8@huawei.com>
+Reply-To: yukuai@fygo.io
+Date: Fri, 18 Sep 2026 14:30:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260917043339.2093426-1-suleiman@google.com> <20260917085805.GD2009045@noisy.programming.kicks-ass.net>
- <CANDhNCp0fufkpOSRQz15YQNDKkR=1-CC9QAsXujikz-DY05EoQ@mail.gmail.com> <20260917145124.43eb2102@fedora>
-In-Reply-To: <20260917145124.43eb2102@fedora>
-From: Suleiman Souhlal <suleiman@google.com>
-Date: Fri, 18 Sep 2026 15:30:11 +0900
-X-Gm-Features: AcwNN1WGdJTTm6Zj2BbHQwKxrBaOmNmoykDjNNwiv9DLkaaNRpE-AHBuL9B8xX0
-Message-ID: <CABCjUKDg1UHooKa3ju5o9oM3oFY7mhruXSbTH3sMFt5gdWAo=Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/12] FUTEX_PING: A stealable futex using Proxy Execution.
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: John Stultz <jstultz@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, 
-	Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>, zhidao su <soolaugust@gmail.com>, 
-	Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Original-From: yu kuai <yukuai@fygo.io>
+Subject: Re: [PATCH v2] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
+Message-Id: <92fd9c95-23db-4bb3-a489-eccc51189bb4@fygo.io>
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
+Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Fri, 18 Sep 2026 06:30:29 +0000
+From: "yu kuai" <yukuai@fygo.io>
+References: <20260917024205.2331019-1-chengzhihao1@huawei.com> <d896d273-ac1b-484c-9a71-cb60a85d389b@fygo.io> <a353585b-7cf8-c26c-8f55-84354ce10bd8@huawei.com>
+X-Lms-Return-Path: <lba+26aacda85+c4a2a8+vger.kernel.org+yukuai@fygo.io>
 
-On Fri, Sep 18, 2026 at 3:51=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Thu, 17 Sep 2026 10:53:47 -0700
-> John Stultz <jstultz@google.com> wrote:
->
-> > Indeed, moving rt_mutexes to proxy is a goal.  Though the performance
-> > concerns from FUTEX_*_PI have to do with the semantics it (and
-> > rt_mutex) promises: strict RT prio order handoff - esentially FIFO for
-> > SCHED_NORMAL.  Not so much the mechanism it uses for boosting.
->
-> I started working on this while still at Google on the
-> ChromeOS/Android-on-chrome team. The biggest issue we found with
-> FUTEX_PI was that it forced all users of it to be fair. Even
-> SCHED_OTHER which did not even benefit from the PI code. The result, it
-> killed performance, and nobody wanted to use it.
->
-> What I recommended was to have a new futex to allow SCHED_OTHER tasks
-> to be unfair (just like rt_mutex is in PREEMPT_RT), and also to allow
-> more to be done in user space and not require every contention to go
-> into the kernel.
->
-> We had a test (Suleiman, can you share that test) which emulated the
-> code in Chrome and by switching to FUTEX_PI the performance dropped by
-> a large percentage (I don't recall the actual numbers but I posted them
-> internally at Google). By switching SCHED_OTHER to be non fair (that
-> is, when the lock was released, if the next waiting task was
-> SCHED_OTHER, and the new SCHED_OTHER task coming in could steal the
-> lock), and the performance almost went back to what normal FUTEX had (I
-> was assuming that going into the kernel on all contention was the cause
-> of not getting closer to normal FUTEX). That alone was a big
-> improvement over FUTEX_PI.
-
-Your test is here: https://rostedt.org/private/lock-test.c
-Your PING implementation is here:
-https://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace.git/log=
-/?h=3Dping/test
-
->
-> There was talk about changing FUTEX_PI to allow SCHED_OTHER to be
-> unfair and to steal, but that would change the semantics of it and
-> there may be some application that requires FUTEX_PI to be fair for all
-> tasks, even SCHED_OTHER. This is when we decided that we need a new
-> FUTEX_PI (new generation, which I coined FUTEX_PING, but kinda of a
-> joke so feel free to change), so that we could change the semantics
-> without breaking backward compatibility of applications requiring the
-> current behavior of FUTEX_PI.
->
-> But FUTEX_PI requires all contention to be handled in the kernel, where
-> as we can get even more performance if we could change it to allow the
-> SCHED_OTHER case (which can steal the lock) to be handled in user space.
->
-> I haven't looked at Suleiman's code yet (I'm currently traveling and
-> don't have time until after Oct 10th). But I would expect this new
-> futex to keep RT tasks being fair. Otherwise no RT task will use it.
-
-Currently, my implementation allows a fair task to steal from an RT
-blocking task.
-However, I think that we could easily change it.
-
-I suspect that for our use case, we are ok with fair tasks
-occasionally stealing from RT tasks.
-
->
-> In summary, the motivation of this patch was that we had a few RT tasks
-> suffering from priority inversion from hundreds of SCHED_OTHER tasks
-> over a shared mutex. The problem was, if we switched it to FUTEX_PI,
-> the few RT tasks would perform correctly, but the slowdown from the
-> hundreds of SCHED_OTHER tasks made it a show stopper. The goal was to
-> have a futex that allowed nice PI with RT tasks, but still allowed
-> SCHED_OTHER being unfair and stealing from each other.
-
-I agree with everything you've said, but I should also add that we
-would also like PI behavior between fair tasks, not just when RT tasks
-are present, because priority inversions can still occur between fair
-tasks. For example when using sched group shares.
-The existing rtmutex based PI futexes can't address those, as far as I can =
-tell.
-This is why I opted for a whole new implementation rather than your
-initial prototype that still used rtmutexes.
-
--- Suleiman
+SGksDQoNCuWcqCAyMDI2LzkvMTggMTQ6MTksIFpoaWhhbyBDaGVuZyDlhpnpgZM6DQo+IOWcqCAy
+MDI2LzkvMTggMTQ6MDYsIHl1IGt1YWkg5YaZ6YGTOg0KPj4gSGksDQo+Pg0KPj4g5ZyoIDIwMjYv
+OS8xNyAxMDo0MiwgWmhpaGFvIENoZW5nIOWGmemBkzoNCj4+PiBDb25jdXJyZW50IHByb2Nlc3Nl
+cyBtZF9zdG9wIGFuZCBJTyBzdWJtaXR0aW5nIGNvdWxkIHRyaWdnZXIgYQ0KPj4+IG51bGwtcHRy
+LWRlcmVmIG9mICdtZGRldi0+cHJpdmF0ZSc6DQo+Pj4NCj4+PiDCoMKgIEJVRzoga2VybmVsIE5V
+TEwgcG9pbnRlciBkZXJlZmVyZW5jZSwgYWRkcmVzczogMDAwMDAwMDAwMDAwMDA3MA0KPj4+IMKg
+wqAgUklQOiAwMDEwOl93YWl0X2JhcnJpZXIrMHgyZi8weDI1MA0KPj4+IMKgwqAgQ2FsbCBUcmFj
+ZToNCj4+PiDCoMKgwqAgcmFpZDFfbWFrZV9yZXF1ZXN0KzB4MTUwLzB4ZjUwDQo+Pj4gwqDCoMKg
+IG1kX2hhbmRsZV9yZXF1ZXN0KzB4MTA0LzB4NTMwDQo+Pj4gwqDCoMKgIG1kX3N1Ym1pdF9iaW8r
+MHg3Ni8weDEzMA0KPj4+IMKgwqDCoCBzdWJtaXRfYmlvKzB4ZGQvMHgyNTANCj4+PiDCoMKgwqAg
+c3VibWl0X2Jpb193YWl0KzB4MWYvMHg0MA0KPj4+IMKgwqDCoCBfX2Jsa2Rldl9kaXJlY3RfSU9f
+c2ltcGxlKzB4MWY2LzB4MzcwDQo+Pj4gwqDCoMKgIGJsa2Rldl93cml0ZV9pdGVyKzB4M2IyLzB4
+NTIwDQo+Pj4gwqDCoMKgIGtzeXNfd3JpdGUrMHg3ZC8weDE5MA0KPj4+DQo+Pj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIFAxDQo+Pj4gwqDCoMKgIGZkID0gb3BlbigvZGV2L21kMCwg
+T19SRFdSKQ0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIFAyIChmb3JrZWQgZnJvbSBQMSwgZmQnIDw9IGZkKQ0KPj4+IMKgwqDCoCB3cml0ZShm
+ZCkNCj4+PiDCoMKgwqDCoCBzdWJtaXRfYmlvDQo+Pj4gwqDCoMKgwqDCoCBtZF9oYW5kbGVfcmVx
+dWVzdA0KPj4+IMKgwqDCoMKgwqDCoCByYWlkMV9tYWtlX3JlcXVlc3QNCj4+PiDCoMKgwqDCoMKg
+wqDCoCByYWlkMV93cml0ZV9yZXF1ZXN0DQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpb2N0bChmZCwgU1RP
+UF9BUlJBWSkNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIG1kZGV2X3NldF9jbG9zaW5nX2FuZF9zeW5jX2Jsb2NrZGV2DQo+Pj4gwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIGNoZWNrIHBhc3NlZCwgbWRkZXYtPm9w
+ZW5lcnMgPSAxLA0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvLyBi
+ZWNhdXNlIG1kX29wZW4oKSBpcyBvbmx5IGNhbGxlZA0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAvLyBvbmNlIGluIFAxLT5vcGVuDQo+Pj4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRvX21kX3N0b3ANCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBfX21kX3N0b3ANCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIG1kZGV2LT5wcml2YXRlID0gTlVMTA0KPj4+DQo+Pj4gwqDCoMKg
+wqDCoMKgwqDCoCBjb25mID0gbWRkZXYtPnByaXZhdGUgLy8gTlVMTA0KPj4+IMKgwqDCoMKgwqDC
+oMKgwqDCoCB3YWl0X2JhcnJpZXIoY29uZiwgc2VjdG9yKSAvLyBudWxsLXB0ci1kZXJlZiAhDQo+
+Pj4NCj4+PiBJdCBpcyBhIGNvbW1vbiBwcm9ibGVtIGZvciByYWlkMC8xLzEwLzUsIGFuZCBfX21k
+X3N0b3AgY291bGQgYmUNCj4+PiB0cmlnZ2VyZWQgYnkgc2V2ZXJhbCBwYXRocyhlZy4gaW9jdGws
+IHN5c2ZzLCAtPmR0cikuIEZpeCBpdCBieQ0KPj4+IHJlcGxhY2luZyBtZGRldl9sb2NrKCkgd2l0
+aCBtZGRldl9zdXNwZW5kX2FuZF9sb2NrKCkgZm9yIGFsbA0KPj4+IF9fbWRfc3RvcCgpIGNhbGxl
+cnMuIFRoZSBjYWxsZXIgZG1fdGFibGVfZGVzdHJveSgpIGlzIGd1YXJhbnRlZWQNCj4+PiBiZWlu
+ZyBpbnZva2VkIHdpdGggZGV2aWNlIHN1c3BlbmRlZCwgc28gcmFpZF9kdHIoKSBjb3VsZCBrZWVw
+DQo+Pj4gdXNpbmcgbWRkZXZfbG9ja19ub2ludHIoKS4gQmVzaWRlcywgZmFpbCB0aGUgc3VibWl0
+dGluZyBJTyBpbg0KPj4+IG1kX2hhbmRsZV9yZXF1ZXN0KCkgaWYgdGhlICdtZGRldi0+cGVycycg
+YmVjb21lcyBOVUxMLg0KPj4+DQo+Pj4gRmV0Y2ggYSByZXByb2R1Y2VyIGluIA0KPj4+IGh0dHBz
+Oi8vYnVnemlsbGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MjIyMDIwDQo+Pj4NCj4+PiBG
+aXhlczogMWRhMTc3ZTRjM2Y0ICgiTGludXgtMi42LjEyLXJjMiIpDQo+Pj4gUmVwb3J0ZWQtYnk6
+IHN5emJvdCszZmU4OTJlYTVmYzI5MmUxMzUzZkBzeXprYWxsZXIuYXBwc3BvdG1haWwuY29tDQo+
+Pj4gQ2xvc2VzOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9M2ZlODky
+ZWE1ZmMyOTJlMTM1M2YNCj4+PiBTaWduZWQtb2ZmLWJ5OiBaaGloYW8gQ2hlbmcgPGNoZW5nemhp
+aGFvMUBodWF3ZWkuY29tPg0KPj4+IC0tLQ0KPj4+IMKgwqAgdjEtPnYyOg0KPj4+IMKgwqDCoCAx
+LiBBZGQgJ21kZGV2LT5wZXJzICE9IE5VTEwnIGNoZWNrIGJlZm9yZSBtYWtlX3JlcXVlc3QNCj4+
+PiDCoMKgwqAgMi4gRGVsZXRlIGRtLXJhaWQgY2FsbGVyKC0+ZHRyKSBtb2RpZmljYXRpb25zDQo+
+Pj4gwqDCoMKgIDMuIE1vdmUgbWVtYWxsb2Nfbm9pb19yZXN0b3JlIGFmdGVyIG1kZGV2X3VubG9j
+a19hbmRfcmVzdW1lDQo+Pj4gwqDCoCBkcml2ZXJzL21kL21kLmMgfCAzMiArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKy0tLQ0KPj4+IMKgwqAgMSBmaWxlIGNoYW5nZWQsIDI5IGluc2VydGlv
+bnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9t
+ZC5jIGIvZHJpdmVycy9tZC9tZC5jDQo+Pj4gaW5kZXggNjgwYjM0YTYzY2IzLi4zZGZjMzRjYWEy
+ZGMgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9tZC9tZC5jDQo+Pj4gKysrIGIvZHJpdmVycy9t
+ZC9tZC5jDQo+Pj4gQEAgLTQxNCw2ICs0MTQsMjAgQEAgYm9vbCBtZF9oYW5kbGVfcmVxdWVzdChz
+dHJ1Y3QgbWRkZXYgKm1kZGV2LCANCj4+PiBzdHJ1Y3QgYmlvICpiaW8pDQo+Pj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgaWYgKCFwZXJjcHVfcmVmX3RyeWdldF9saXZlKCZtZGRldi0+YWN0aXZlX2lv
+KSkNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gY2hlY2tfc3VzcGVuZGVk
+Ow0KPj4+IMKgwqDCoMKgwqDCoCB9DQo+Pj4gK8KgwqDCoCBpZiAoIW1kZGV2LT5wZXJzKSB7DQo+
+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgKiBUaGUgX19tZF9z
+dG9wKCkgc2V0cyAnbWRkZXYtPnByaXZhdGUnIHRvIE5VTEwgZHVyaW5nDQo+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqAgKiB0aGUgSU8gc3VibWl0dGluZywgY2hlY2sgJ21kZGV2LT5wZXJzJyBiZWZvcmUg
+dGhlIElPDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgKiBiZWluZyBwcm9jZXNzZWQgYnkgc3BlY2lm
+aWMgZHJpdmVyIHRvIGF2b2lkIHRoZQ0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgICogbnVsbC1wdHIt
+ZGVyZWYgb2YgJ21kZGV2LT48bWVtYmVyPicuIFRoZSBjaGVjayBpcw0KPj4+ICvCoMKgwqDCoMKg
+wqDCoMKgICogc2FmZSBiZWNhdXNlIHRoZSBJTyBoYXMgZ290IHRoZSAnbWRkZXYtPmFjdGl2ZV9p
+bycNCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqIHJlZmVyZW5jZSwgYW5kIGFsbCBfX21kX3N0b3Ao
+KSBjYWxsZXJzIHdpbGwgd2FpdCBmb3INCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqIHRoZSByZWZl
+cmVuY2UgdG8gYmUgemVyby4NCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqLw0KPj4+ICvCoMKgwqDC
+oMKgwqDCoCBiaW9faW9fZXJyb3IoYmlvKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgcGVyY3B1X3Jl
+Zl9wdXQoJm1kZGV2LT5hY3RpdmVfaW8pOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gdHJ1
+ZTsNCj4+PiArwqDCoMKgIH0NCj4+PiDCoMKgwqDCoMKgwqAgaWYgKCFtZGRldi0+cGVycy0+bWFr
+ZV9yZXF1ZXN0KG1kZGV2LCBiaW8pKSB7DQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGVyY3B1
+X3JlZl9wdXQoJm1kZGV2LT5hY3RpdmVfaW8pOw0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
+IChtZGRldl9pc19kbShtZGRldikgJiYgbWRkZXYtPnBlcnMtPnByZXBhcmVfc3VzcGVuZCkNCj4+
+PiBAQCAtNDY1Nyw2ICs0NjcxLDggQEAgYXJyYXlfc3RhdGVfc3RvcmUoc3RydWN0IG1kZGV2ICpt
+ZGRldiwgY29uc3QgDQo+Pj4gY2hhciAqYnVmLCBzaXplX3QgbGVuKQ0KPj4+IMKgwqAgew0KPj4+
+IMKgwqDCoMKgwqDCoCBpbnQgZXJyID0gMDsNCj4+PiDCoMKgwqDCoMKgwqAgZW51bSBhcnJheV9z
+dGF0ZSBzdCA9IG1hdGNoX3dvcmQoYnVmLCBhcnJheV9zdGF0ZXMpOw0KPj4+ICvCoMKgwqAgdW5z
+aWduZWQgaW50IG5vaW9fZmxhZ3MgPSAwOw0KPj4+ICvCoMKgwqAgYm9vbCBzdXNwZW5kID0gZmFs
+c2U7DQo+Pj4gwqDCoCDCoMKgwqDCoMKgwqAgLyogTm8gbG9jayBkZXBlbmRlbnQgYWN0aW9ucyAq
+Lw0KPj4+IMKgwqDCoMKgwqDCoCBzd2l0Y2ggKHN0KSB7DQo+Pj4gQEAgLTQ2NjYsOSArNDY4Miwx
+MSBAQCBhcnJheV9zdGF0ZV9zdG9yZShzdHJ1Y3QgbWRkZXYgKm1kZGV2LCBjb25zdCANCj4+PiBj
+aGFyICpidWYsIHNpemVfdCBsZW4pDQo+Pj4gwqDCoMKgwqDCoMKgIGNhc2UgYnJva2VuOsKgwqDC
+oMKgwqDCoMKgIC8qIGNhbm5vdCBiZSBzZXQgKi8NCj4+PiDCoMKgwqDCoMKgwqAgY2FzZSBiYWRf
+d29yZDoNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsNCj4+PiArwqDC
+oMKgIGNhc2UgaW5hY3RpdmU6DQo+Pj4gwqDCoMKgwqDCoMKgIGNhc2UgY2xlYXI6DQo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIHN1c3BlbmQgPSB0cnVlOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBmYWxsdGhy
+b3VnaDsNCj4+PiDCoMKgwqDCoMKgwqAgY2FzZSByZWFkb25seToNCj4+PiAtwqDCoMKgIGNhc2Ug
+aW5hY3RpdmU6DQo+Pj4gwqDCoMKgwqDCoMKgIGNhc2UgcmVhZF9hdXRvOg0KPj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGlmICghbWRkZXYtPnBlcnMgfHwgIW1kX2lzX3Jkd3IobWRkZXYpKQ0KPj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7DQo+Pj4gQEAgLTQ3MDIsOSArNDcy
+MCwxMSBAQCBhcnJheV9zdGF0ZV9zdG9yZShzdHJ1Y3QgbWRkZXYgKm1kZGV2LCBjb25zdCANCj4+
+PiBjaGFyICpidWYsIHNpemVfdCBsZW4pDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Bpbl91
+bmxvY2soJm1kZGV2LT5sb2NrKTsNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZXJy
+ID86IGxlbjsNCj4+PiDCoMKgwqDCoMKgwqAgfQ0KPj4+IC3CoMKgwqAgZXJyID0gbWRkZXZfbG9j
+ayhtZGRldik7DQo+Pj4gK8KgwqDCoCBlcnIgPSBzdXNwZW5kID8gbWRkZXZfc3VzcGVuZF9hbmRf
+bG9jayhtZGRldikgOiBtZGRldl9sb2NrKG1kZGV2KTsNCj4+DQo+PiBVbmxpa2UgaW9jdGwgcGF0
+aCwgd2hlcmUgdGhlIGNoZWNraW5nIG9mIG9wZW5lciBpcyBqdXN0IDEsIA0KPj4gbWRkZXZfc2V0
+X2Nsb3NpbmdfYW5kX3N5bmNfYmxvY2tkZXYoKSBoZXJlDQo+PiBhbHJlYWR5IGNoZWNrIHRoZXJl
+IGlzIG5vIG9wZW5lciwgc28gdGhlcmUgY2FuJ3QgYmUgYW55IElPIGluZmxpZ2h0Lg0KPg0KPiBI
+aSwgeXVrdWFpDQo+IEkgdGhvdWdodCBvZiBhIHNjZW5lLiBJZiBzb21lb25lIG9wZW4gJy9kZXYv
+bWQwLCB3cml0ZShidWZmZXIpIDRLLCBhbmQgDQo+IGNsb3NlIHRoZSBjb3JyZXNwb25kaW5nIGZk
+LiBUaGVuIHdyaXRlYmFjayBrd29ya2VyIHN1Ym1pdCBJTywgDQo+IGFycmF5X3N0YXRlX3N0b3Jl
+IHdpbGwgcGFzcyB0aGUgbWRkZXZfc2V0X2Nsb3NpbmdfYW5kX3N5bmNfYmxvY2tkZXYoKSANCj4g
+Y2hlY2ssIHdoaWNoIGNvdWxkIGxlYWQgdG8gdGhlIHNpbWlsYXIgcHJvYmxlbS4NClRoaXMgc2hv
+dWxkIG5vdCBoYXBwZW4sIHRoYXQgbGFzdCBvbmUgdG8gY2xvc2UgL2Rldi9tZDAgd2lsbCB3YWl0
+IGZvciANCmZ1bGwgZGlzayBmbHVzaCB0byBiZSBkb25lLg0KPj4NCj4+PiDCoMKgwqDCoMKgwqAg
+aWYgKGVycikNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZXJyOw0KPj4+ICvCoMKg
+wqAgaWYgKHN1c3BlbmQpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIG5vaW9fZmxhZ3MgPSBtZW1hbGxv
+Y19ub2lvX3NhdmUoKTsNCj4+PiDCoMKgIMKgwqDCoMKgwqDCoCBzd2l0Y2ggKHN0KSB7DQo+Pj4g
+wqDCoMKgwqDCoMKgIGNhc2UgaW5hY3RpdmU6DQo+Pj4gQEAgLTQ3NzUsNyArNDc5NSwxMiBAQCBh
+cnJheV9zdGF0ZV9zdG9yZShzdHJ1Y3QgbWRkZXYgKm1kZGV2LCBjb25zdCANCj4+PiBjaGFyICpi
+dWYsIHNpemVfdCBsZW4pDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtZGRldi0+
+aG9sZF9hY3RpdmUgPSAwOw0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN5c2ZzX25vdGlmeV9k
+aXJlbnRfc2FmZShtZGRldi0+c3lzZnNfc3RhdGUpOw0KPj4+IMKgwqDCoMKgwqDCoCB9DQo+Pj4g
+LcKgwqDCoCBtZGRldl91bmxvY2sobWRkZXYpOw0KPj4+ICvCoMKgwqAgaWYgKHN1c3BlbmQpIHsN
+Cj4+PiArwqDCoMKgwqDCoMKgwqAgbWRkZXZfdW5sb2NrX2FuZF9yZXN1bWUobWRkZXYpOw0KPj4+
+ICvCoMKgwqDCoMKgwqDCoCBtZW1hbGxvY19ub2lvX3Jlc3RvcmUobm9pb19mbGFncyk7DQo+Pj4g
+K8KgwqDCoCB9IGVsc2Ugew0KPj4+ICvCoMKgwqDCoMKgwqDCoCBtZGRldl91bmxvY2sobWRkZXYp
+Ow0KPj4+ICvCoMKgwqAgfQ0KPj4+IMKgwqAgwqDCoMKgwqDCoMKgIGlmIChzdCA9PSByZWFkb25s
+eSB8fCBzdCA9PSByZWFkX2F1dG8gfHwgc3QgPT0gaW5hY3RpdmUgfHwNCj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAoZXJyICYmIHN0ID09IGNsZWFyKSkNCj4+PiBAQCAtODI5OSw2ICs4MzI0LDcg
+QEAgc3RhdGljIGJvb2wgbWRfaW9jdGxfbmVlZF9zdXNwZW5kKHVuc2lnbmVkIGludCANCj4+PiBj
+bWQpDQo+Pj4gwqDCoMKgwqDCoMKgIGNhc2UgSE9UX1JFTU9WRV9ESVNLOg0KPj4+IMKgwqDCoMKg
+wqDCoCBjYXNlIFNFVF9CSVRNQVBfRklMRToNCj4+PiDCoMKgwqDCoMKgwqAgY2FzZSBTRVRfQVJS
+QVlfSU5GTzoNCj4+PiArwqDCoMKgIGNhc2UgU1RPUF9BUlJBWToNCj4+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gdHJ1ZTsNCj4+PiDCoMKgwqDCoMKgwqAgZGVmYXVsdDoNCj4+PiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7DQo+Pg0KPg0KLS0gDQpUaGFua3MsDQpLdWFp
