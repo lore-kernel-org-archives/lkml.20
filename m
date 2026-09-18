@@ -1,301 +1,166 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CFB4DB540;
-	Fri, 18 Sep 2026 10:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215C94DEC24
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726924; cv=none; b=PB6HEvjZzlEp2e8w1hk1dlGuPgQEJfYpG4oD/VVAmayg75GI9HXZZHU+9R42asrfQ93wGrZ8fgkc/EEaA5cc5b0N8MFYnHA62RFq411yzGWQezsv9AKojqXcYFl/Sv9QycZqwvVuY7f1VJKC+A2/G8nEvcj0UiPeuDqi7kqUSeA=
+	t=1789726932; cv=none; b=gwyu/6uanJhhFGrXvDC2qhJV0Cxw/Gzh97zB/hxyAgVRuDIuYVr0lo3HJuMl7Y0p5bmJy2+LQqAV2yFz0dRu+TYbpXmw8t4yfMO9nOHNg6vXexcAQQyyZ8miAxyWQlS+K5tCyGecEO0F712MJxPL75+Vk5pIU/3o59GNqfSfSsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726924; c=relaxed/simple;
-	bh=IpmTmJPbWCCXzMxRFjlr3hZ39oPe1qTH63DD57wZHbs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ioX9G7W7W4gduSa1AxnsRdGNaf0oA998kX7kMa36KSo2tijGsI+8ZSXnKGRaFKAovkoR3Cks8vAVaVh9VWNanhZ3YYCtVNUndL0J6A4iO0fVEZzniKXksKuqXzRBwR9LZ75G0QiUzn8VR/Tw1KxEmR8lBuhTDNjMWW+RVX2C6Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FUo00DHF; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789726932; c=relaxed/simple;
+	bh=5wK9/6OJBIorpDnueUEKkoBn8G72ZnSkm2xTJcs0Wqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ze4OlpY5CNk9LSmQtx5CCqiPKB+gztmGQMwlf09NeqgwSJsgp0wwT026lHOJaKlU/sKx+KP+EM5rtEHajSN4k+QlCT6nSn1SdkX7MS1Bd73ctP2k8swRWpue7YoWGdnmwYjV/lXS6YYhtle+JMZz8ZotqxLXRKD6903W9b2pRSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LVtQf1BY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CUWfUDrc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FUo00DHF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=sM
-	d6B8rglyGSl5JeaOK6WajqLgMQS2WNO6Tr+IYzHCg=; b=FUo00DHFsWV1nOZAJf
-	EH6Qm5WrLGnH0JWoeGOzFEEJZIDzd2AEUFpJFAQO+q0+/4Hwa4bHW+X/+fKhXb9K
-	oXtjdlcNgbaejGD4+Lawe1Su6gHxAUMusxb+nxogwi4IiE42CeGGZy58m3rnbnn0
-	eUF7luVMpWH6v1CqWDHl3C4Ts=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3BxCTEK1qCxUrBg--.58514S2;
-	Fri, 18 Sep 2026 18:21:08 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: qmo@kernel.org
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	horms@kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH bpf v2 2/2] bpftool: Fix sparse CPU IDs in prog profile
-Date: Fri, 18 Sep 2026 19:20:52 +0900
-Message-ID: <20260918102052.1247819-3-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918102052.1247819-1-sh_def@163.com>
-References: <20260918102052.1247819-1-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LVtQf1BY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CUWfUDrc"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9ddxD3801914
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:22:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=+Cj2ynXc5ThSbdNKXTGycnEgAYTIBHDEBAw
+	0L79FsWM=; b=LVtQf1BY1sML0ruTZ1cs+zjOZRkvNdtFNHgqbg7n3JbZB7B8242
+	NSBefiFVPjYXEjhkcq6UXa2emm0q7IYsq2vvafzp61AH7Yxsf/7bfRxYfkIe+jhM
+	LXLGELTSz+JZ8J+LeEVNASgC9+3DdnsK0x6zd6WXr0ElVAyFtH+p5Fy4BWnxUK2e
+	+4K3TzoD17xGcCKlTubabRejH9e8RqAIAuNw4cSTKX+erz/F+s/qzMKqCuYgJm/6
+	c3HSScTbWci/RGGfzTUEt580584nfDF56n4D1hgrGC/srHzPJqJXfFLn6j9FCA3J
+	vDsaWoMbmN61KgcYPhqo20QFjP1YyQdIANA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grq2ku2qd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:22:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a1b824e84so109552885a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:22:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789726926; x=1790331726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+Cj2ynXc5ThSbdNKXTGycnEgAYTIBHDEBAw0L79FsWM=;
+        b=CUWfUDrck30EKsvtC+irYIdOBIrmr9Sb2q8ATqlv3JUx+d/vYxnQZBDb2L7GSeA0I7
+         p2ULSnPxQ2aKvikLK5NAeEAUMPk4CXe3MU9KZBM7JhPP5VWWJB5Et7YIbH1qLpDhj2gH
+         BqQGP5kJ16KnXARYWyvscbBaLShGuUZmbe1q9DYYyWKETZid3JHyL/W8h8SRnb7eBAoJ
+         Lxwq3sDKMsalLqipOXr0ROfGT3aVUhFJLszj3NkOn6IQgC2ag1y38Ea4bfSoHdkn40yC
+         TioD+V4vFLU/SEIPVF9HB//asBP/UGwLK9R8UP0kwuiCqmoQG7jmb9ltYW8NP78ukCU6
+         XHPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789726926; x=1790331726;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+Cj2ynXc5ThSbdNKXTGycnEgAYTIBHDEBAw0L79FsWM=;
+        b=VqiHlhsoFKAslaLZ9kduMl1V99Jroqmj8n9Sx7pLfoVmCMIUmi9t945/gCExZPLNgV
+         zthMVKrU8w8mtM3VWNxFMPRzrH3FsASAHLYjp8ZRHhE7qS8PZHwO8s2HdGx0MTQdXGsT
+         o4ZR/QzAMH2gB7XJHsf/r7T1oPBu5tc6HC+umfE3lTpHBhu7t2ma0X6O8adrUqRJ98Ih
+         bRHL/E1oHRC20TRnrvtMNg72IUkTlBVQvloyEPB9ViqXX3Zzc66kkyZHMq4QfV6UeD7X
+         fcslky8HkIt07lcrE5AmaS9ksz5nYpVQ44qqM3R5vIpEZ2M/z98YdSQdGrRh4RUkU9V2
+         MVnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybGBJgunWSr3kbqQropPsLwmRZK2JQBNPaFMFh59ukdLJp+z60cQjOXoHVE+P27waHtbsl+uhFlnbUUBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+kZL/RQKr50TfVFbyAww3WA4MHpIDRG+kxBom2sx96P535cNa
+	omLddruhPGwpCj7gzC3bdjTuumKZ/wqn7RadF8QG+vCmJBwxk7y0x70FnoYqqmsXLBFi4wPUTI/
+	xFGo/+xCGRo/lXPW4NI0scMFy/yYi29blPYzlNiL/r7pR3DRz0zFkiYhEOTMfxCsmM+Q=
+X-Gm-Gg: AYBFou00CsbKu3+ehCjLlZDx3HEp4kwSxecgCN6eVDPW1QQuPqgwG8wdTHlCIMrh0lu
+	d7Y0QGhzQsr3bOFXhoAXpni8zk5oTvxIqj0fvFzNFx4F2FFry3Ira3s9xtH1p3ZydZyE4ISEzXk
+	wwecOHAmoov7WkAm7Gio42YlWnWAUS3VV4yE/NyV00bQdxohmK5l0crMPf3onJgYzFRg6eQoUmr
+	MN+B6yQUa81hGvfzGPNCHKSRSLs0oF/ptrrdahEw/tEOIVFB/uMaV/qpWxfMK1/6badsO4uHcDO
+	b7dBAU81bCcuNkwDwPogTLSAHMTAKnNpeRFuwh+NacefRLT/GwA5HMgAiULs12gUKxvKFM+lGmv
+	+DOOxONZu/YFC5Tw=
+X-Received: by 2002:a05:620a:288e:b0:93b:d7b5:8a30 with SMTP id af79cd13be357-93bdca7aa0cmr263498985a.86.1789726926164;
+        Fri, 18 Sep 2026 03:22:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:288e:b0:93b:d7b5:8a30 with SMTP id af79cd13be357-93bdca7aa0cmr263495585a.86.1789726925737;
+        Fri, 18 Sep 2026 03:22:05 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008fe3csm2984300f8f.37.2026.09.18.03.22.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 03:22:04 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: LiangCheng Wang <zaq14760@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] drm/tiny: pixpaper: Unify spi_device_id table style
+Date: Fri, 18 Sep 2026 12:21:58 +0200
+Message-ID: <20260918102157.78605-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1013; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=5wK9/6OJBIorpDnueUEKkoBn8G72ZnSkm2xTJcs0Wqo=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqrRDFroFllx9nUyQxX3qbYXLD1BsyXrAOQ5E4V
+ WK1jlGaEkGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaq0QxQAKCRDBN2bmhouD
+ 1x5GD/0ZU+BiUSbL0EhDGqJ8k69/D+Ju7GVNEnl5IUCXFqBB51Gr4ZiQLvQdKVIKhpmLO+IG9c/
+ q/1XOtQde8duCNISvMPjUVNLHLXh/SJnDsNUIaI0BivK1H6lN4cvzHmrB5l9mwXFqb04n7mztfB
+ DTN8P9NJ0koYKNjAG8lqpwQELzu7xTjfb+Rpiw4kOtSbaoPTn8uV0UrIssMBZHMvVUBYa/IcsPk
+ bIGkntJ66EFych7kWP4Q0i3XyZNjl6mJDCRtjt/qv6YVKFE1rO0y6lZifV4fx8Qv68GZ/in6aNp
+ EKYLvDf6wxyaav7GUugZKuz0EKcnn9zr0qsncNCA75jCBc+k5RRnHR3arnnnt6qed2Nd8poImus
+ j5gh0dIDP3L1QBhuprHTnZdfKAEkfvF2f2QW8CLWHxI98V3GuxaedLTiRyRx8qKq3btuuuHCnrs
+ 3LKk8uguhtaQN4B4NcqaI9YWYo659FSUZb//9lfI7Wf2bXTNg329tor4wzYuUOrR1QzdOSS1NKd
+ pf2WCqgU1XWqgmyvcnGdDq4+z5x4WeLyf+iSPf96gBZQmMQV5kGtP2+5EBZoIkjs0WUvsRNYeD/
+ hkj/dYBbERArkQSYLnrHQiWGxQ0NpHa+LAZsVaR+kKnQ4X+NQS2MS7hhJh1U82YIvCAtWt7yTOb gzU6ZDEYxH6o/qQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3BxCTEK1qCxUrBg--.58514S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKw48Zw1xWw18ZF4UXrW7twb_yoW3Zryfpa
-	n5GF9xKF1kJF9rKw15Ca1DGF43GryxXr4kZ34vg3yrZFWUXr97JF48WFWrKF1FgrWkZFy7
-	J3WjkrWxAFWUXFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi5l1kUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hQvjmqtEJT8LQAA3N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MiBTYWx0ZWRfX/SVuPZCkWYQg
+ OGi0a6pkgELhCDz02khg1wNGs0B9blT65azhbj51ckw9li9AdGdH5yNm1c1tYSxY3tliWxTBetv
+ 3yBs6fY5/6ar5gOwHYtVsijiXkwWdwjrD5/K4XVOCn96O3+qJMqEBwLNqnEMESdqzMKkJ23+X24
+ +KS3xSgXdsuK8G7ioeRXYihQWOvcjfmDREmgCv/TxFrRQF0+2hzedgi02rYiwmhsORTzoKsuDGw
+ udSv+moye1cuaLYAHZ1wBdjMt0GAuCpvjVaJbqqjnnU70KgW0JucjuI2o934oNRRQGUxjMmiVS9
+ uuQe5OHYsxMyYb6GoGqJ6f8K8mtnEM9J8ziiANNULlt9jV0iltQDAxTz7XjRdH9lmuWxS7jxIoS
+ xXEZFu3ud2yEeMDU+QI1lxLSUFB7nav5fNrBli7NTbiSwd4LMvR49cnPkK8lQ4LFzs3mRbiVnu4
+ qo55ulJtoyBWcUZaAdg==
+X-Proofpoint-GUID: gYcl7LTBPDVLDTAiBWdY8FJ1wPUkAJAw
+X-Authority-Analysis: v=2.4 cv=bcD+w+PB c=1 sm=1 tr=0 ts=6aad10d1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=vWZT_hTR9kbyvn0ntK4A:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MiBTYWx0ZWRfX07jgfP586uux
+ n+TgRz92UEk+BLNGs2eO/5oWKTaKneZrtpuL8IqKgufvsI3JcJ5QmldeuUjDloKB2MEsXSNsrXw
+ kTCXScD5VA1/XdxOjBHFIr2JAjRK2hI=
+X-Proofpoint-ORIG-GUID: gYcl7LTBPDVLDTAiBWdY8FJ1wPUkAJAw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180142
 
-bpftool prog profile currently treats the number of possible CPUs as
-both the logical CPU ID range and the stride of the perf event array.
-That misses valid logical CPUs when the possible CPU mask is sparse, such
-as 0,2-3, and can use incorrect PERF_EVENT_ARRAY keys.
+Common style of all xxx_device_id tables is one device entry per line,
+to make reading and grepping easier.  Unify the style with the rest of
+the Linux kernel, while also adding recently encouraged named
+initializer.
 
-Keep the compact possible CPU count for per-CPU result buffers, while
-using the actual logical CPU IDs for perf events and the maximum logical
-CPU ID plus one as the metric stride in the PERF_EVENT_ARRAY. Keep the
-userspace perf file descriptor index separate from the BPF map key. Do
-not advance profile_perf_event_cnt for CPUs that return ENODEV, since it
-tracks opened userspace perf file descriptors rather than event-array
-slots.
-
-Tested:
-- Built tools/bpf/bpftool successfully on the host.
-- Booted an arm64 QEMU guest with a patched virt device tree reporting
-  possible=0,2-3, present=0,2-3, and online=0,2-3.
-- Ran both pre-fix and fixed bpftool with cycles and instructions against
-  a BTF-enabled fentry target. The pre-fix binary faulted in
-  perf_event_alloc(), while the fixed binary reached perf-event setup and
-  reported failure to create the instructions event on CPU 0. QEMU did
-  not provide a usable hardware PMU runtime result, so no profile counts
-  are claimed.
-
-Fixes: 47c09d6a9f67 ("bpftool: Introduce "prog profile" command")
-Link: https://lore.kernel.org/bpf/20260813160858.1042834-3-sh_def@163.com/
-Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- tools/bpf/bpftool/prog.c                  | 51 +++++++++++++++--------
- tools/bpf/bpftool/skeleton/profiler.bpf.c |  8 ++--
- 2 files changed, 38 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/tiny/pixpaper.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/tools/bpf/bpftool/prog.c b/tools/bpf/bpftool/prog.c
-index a9f730d407a9..bb969ffce453 100644
---- a/tools/bpf/bpftool/prog.c
-+++ b/tools/bpf/bpftool/prog.c
-@@ -2148,6 +2148,7 @@ struct profile_metric {
- };
- 
- static __u64 profile_total_count;
-+static int profile_cpu_cnt;
- 
- #define MAX_NUM_PROFILE_METRICS 4
- 
-@@ -2184,7 +2185,7 @@ static int profile_parse_metrics(int argc, char **argv)
- 
- static void profile_read_values(struct profiler_bpf *obj)
- {
--	__u32 m, cpu, num_cpu = obj->rodata->num_cpu;
-+	__u32 m, cpu, num_cpu = profile_cpu_cnt;
- 	int reading_map_fd, count_map_fd;
- 	__u64 counts[num_cpu];
- 	__u32 key = 0;
-@@ -2349,6 +2350,8 @@ static int profile_tgt_fd = -1;
- static char *profile_tgt_name;
- static int *profile_perf_events;
- static int profile_perf_event_cnt;
-+static int *profile_cpu_ids;
-+static int profile_cpu_id_span;
- 
- static void profile_close_perf_events(struct profiler_bpf *obj)
- {
-@@ -2358,10 +2361,11 @@ static void profile_close_perf_events(struct profiler_bpf *obj)
- 		close(profile_perf_events[i]);
- 
- 	free(profile_perf_events);
-+	profile_perf_events = NULL;
- 	profile_perf_event_cnt = 0;
+diff --git a/drivers/gpu/drm/tiny/pixpaper.c b/drivers/gpu/drm/tiny/pixpaper.c
+index b69e7c30607e..ce77c92c8524 100644
+--- a/drivers/gpu/drm/tiny/pixpaper.c
++++ b/drivers/gpu/drm/tiny/pixpaper.c
+@@ -1140,7 +1140,10 @@ static void pixpaper_remove(struct spi_device *spi)
+ 	drm_atomic_helper_shutdown(&panel->drm);
  }
  
--static int profile_open_perf_event(int mid, int cpu, int map_fd)
-+static int profile_open_perf_event(int mid, int cpu, int map_key, int map_fd)
- {
- 	int pmu_fd;
+-static const struct spi_device_id pixpaper_ids[] = { { "pixpaper", 0 }, {} };
++static const struct spi_device_id pixpaper_ids[] = {
++	{ .name = "pixpaper" },
++	{ }
++};
+ MODULE_DEVICE_TABLE(spi, pixpaper_ids);
  
-@@ -2371,15 +2375,12 @@ static int profile_open_perf_event(int mid, int cpu, int map_fd)
- 		if (errno == ENODEV) {
- 			p_info("cpu %d may be offline, skip %s profiling.",
- 				cpu, metrics[mid].name);
--			profile_perf_event_cnt++;
- 			return 0;
- 		}
- 		return -1;
- 	}
- 
--	if (bpf_map_update_elem(map_fd,
--				&profile_perf_event_cnt,
--				&pmu_fd, BPF_ANY) ||
-+	if (bpf_map_update_elem(map_fd, &map_key, &pmu_fd, BPF_ANY) ||
- 	    ioctl(pmu_fd, PERF_EVENT_IOC_ENABLE, 0)) {
- 		close(pmu_fd);
- 		return -1;
-@@ -2391,11 +2392,11 @@ static int profile_open_perf_event(int mid, int cpu, int map_fd)
- 
- static int profile_open_perf_events(struct profiler_bpf *obj)
- {
--	unsigned int cpu, m;
-+	unsigned int cpu, m, metric_idx = 0;
- 	int map_fd;
- 
- 	profile_perf_events = calloc(
--		obj->rodata->num_cpu * obj->rodata->num_metric, sizeof(int));
-+		profile_cpu_cnt * obj->rodata->num_metric, sizeof(int));
- 	if (!profile_perf_events) {
- 		p_err("failed to allocate memory for perf_event array: %s",
- 		      strerror(errno));
-@@ -2410,13 +2411,17 @@ static int profile_open_perf_events(struct profiler_bpf *obj)
- 	for (m = 0; m < ARRAY_SIZE(metrics); m++) {
- 		if (!metrics[m].selected)
- 			continue;
--		for (cpu = 0; cpu < obj->rodata->num_cpu; cpu++) {
--			if (profile_open_perf_event(m, cpu, map_fd)) {
--				p_err("failed to create event %s on cpu %u",
--				      metrics[m].name, cpu);
-+		for (cpu = 0; cpu < (unsigned int)profile_cpu_cnt; cpu++) {
-+			int cpu_id = profile_cpu_ids[cpu];
-+			int map_key = cpu_id + metric_idx * profile_cpu_id_span;
-+
-+			if (profile_open_perf_event(m, cpu_id, map_key, map_fd)) {
-+				p_err("failed to create event %s on cpu %d",
-+				      metrics[m].name, cpu_id);
- 				return -1;
- 			}
- 		}
-+		metric_idx++;
- 	}
- 	return 0;
- }
-@@ -2430,6 +2435,10 @@ static void profile_print_and_cleanup(void)
- 
- 	close(profile_tgt_fd);
- 	free(profile_tgt_name);
-+	free(profile_cpu_ids);
-+	profile_cpu_ids = NULL;
-+	profile_cpu_cnt = 0;
-+	profile_cpu_id_span = 0;
- }
- 
- static void int_exit(int signo)
-@@ -2440,7 +2449,8 @@ static void int_exit(int signo)
- 
- static int do_profile(int argc, char **argv)
- {
--	int num_metric, num_cpu, err = -1;
-+	int num_metric, err = -1;
-+	int *cpu_ids = NULL;
- 	struct bpf_program *prog;
- 	unsigned long duration;
- 	char *endptr;
-@@ -2471,11 +2481,13 @@ static int do_profile(int argc, char **argv)
- 	if (num_metric <= 0)
- 		goto out;
- 
--	num_cpu = libbpf_num_possible_cpus();
--	if (num_cpu <= 0) {
-+	profile_cpu_cnt = get_possible_cpu_ids(&cpu_ids);
-+	if (profile_cpu_cnt <= 0) {
- 		p_err("failed to identify number of CPUs");
- 		goto out;
- 	}
-+	profile_cpu_ids = cpu_ids;
-+	profile_cpu_id_span = cpu_ids[profile_cpu_cnt - 1] + 1;
- 
- 	profile_obj = profiler_bpf__open();
- 	if (!profile_obj) {
-@@ -2483,11 +2495,12 @@ static int do_profile(int argc, char **argv)
- 		goto out;
- 	}
- 
--	profile_obj->rodata->num_cpu = num_cpu;
- 	profile_obj->rodata->num_metric = num_metric;
-+	profile_obj->rodata->cpu_id_span = profile_cpu_id_span;
- 
- 	/* adjust map sizes */
--	bpf_map__set_max_entries(profile_obj->maps.events, num_metric * num_cpu);
-+	bpf_map__set_max_entries(profile_obj->maps.events,
-+				 num_metric * profile_cpu_id_span);
- 	bpf_map__set_max_entries(profile_obj->maps.fentry_readings, num_metric);
- 	bpf_map__set_max_entries(profile_obj->maps.accum_readings, num_metric);
- 	bpf_map__set_max_entries(profile_obj->maps.counts, 1);
-@@ -2534,6 +2547,10 @@ static int do_profile(int argc, char **argv)
- 		profiler_bpf__destroy(profile_obj);
- 	close(profile_tgt_fd);
- 	free(profile_tgt_name);
-+	free(profile_cpu_ids);
-+	profile_cpu_ids = NULL;
-+	profile_cpu_cnt = 0;
-+	profile_cpu_id_span = 0;
- 	return err;
- }
- 
-diff --git a/tools/bpf/bpftool/skeleton/profiler.bpf.c b/tools/bpf/bpftool/skeleton/profiler.bpf.c
-index f48c783cb9f7..2504c3a65bb9 100644
---- a/tools/bpf/bpftool/skeleton/profiler.bpf.c
-+++ b/tools/bpf/bpftool/skeleton/profiler.bpf.c
-@@ -10,7 +10,7 @@ struct bpf_perf_event_value___local {
- 	__u64 running;
- } __attribute__((preserve_access_index));
- 
--/* map of perf event fds, num_cpu * num_metric entries */
-+/* map of perf event fds, cpu_id_span * num_metric entries */
- struct {
- 	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
- 	__uint(key_size, sizeof(u32));
-@@ -38,8 +38,8 @@ struct {
- 	__uint(value_size, sizeof(u64));
- } counts SEC(".maps");
- 
--const volatile __u32 num_cpu = 1;
- const volatile __u32 num_metric = 1;
-+const volatile __u32 cpu_id_span = 1;
- #define MAX_NUM_METRICS 4
- 
- SEC("fentry/XXX")
-@@ -67,7 +67,7 @@ int BPF_PROG(fentry_XXX)
- 		if (err)
- 			return 0;
- 		*(ptrs[i]) = reading;
--		key += num_cpu;
-+		key += cpu_id_span;
- 	}
- 
- 	return 0;
-@@ -107,7 +107,7 @@ int BPF_PROG(fexit_XXX)
- 
- 	/* read all events before updating the maps, to reduce error */
- 	for (i = 0; i < num_metric && i < MAX_NUM_METRICS; i++) {
--		err = bpf_perf_event_read_value(&events, cpu + i * num_cpu,
-+		err = bpf_perf_event_read_value(&events, cpu + i * cpu_id_span,
- 						(void *)(readings + i),
- 						sizeof(*readings));
- 		if (err)
+ static const struct of_device_id pixpaper_dt_ids[] = {
 -- 
-2.55.0
+2.53.0
 
