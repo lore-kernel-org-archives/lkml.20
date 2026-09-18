@@ -1,169 +1,120 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB315502D58
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFB4F4EB859;
+	Fri, 18 Sep 2026 16:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748487; cv=none; b=o1zbMpxyx5wv/wydV7R3Ai1IvWE74E6K12iG5lyUHe8+aUjytDRPYWrF9pc/asRiYRFWl9XTElWUp/moA03xq+aGu+HvghLc8ZR6Yc4u3tmTJGRQ8D0ifiwUVc8gC3fVM20bQptKqU2s/MOkSObzXgMevjH9pb4kpPjgmR0kpP4=
+	t=1789748505; cv=none; b=Zr2btw2ZTPpbIbNUAuEPQgbNJYR167DCK/bTh849Rtbilat5oO9sd5a/qXD8LVgVbpk1TxRVElfmAinBgcbaYdyZvtUyi4rYwR5V+qL+VD7NGZC8EHj96hirtOcGvN5mDE7e/RDavts7zytyDa99CyTab/J3wiTUZCfHxQ8GcFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748487; c=relaxed/simple;
-	bh=HEzZbfNwt6Hc/tQFq5+afAE0t9wEZ1eV4F9U3h+fX/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nj12V4+db2RI260VxXhKEKcvfigDUoLXWQ7LI1EplEUwWq9PjlQ0N2JQfClYVPtIvVf+13Pm5pYSbPJdAs60Tf3jM1zG3rCgaLwl0UD4uJuObGMPk3iOM60i/P1hbhFP/iX7tOZDu1IXULjKCwred9UPll27b71LU6ZdPTsy1Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pCFLSdM5; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789748505; c=relaxed/simple;
+	bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gNpkuJFJvgvp6ujZT7frT06BbTGpDTwlUcWZnllBt57HvD1/GrkHu0iqTQTREZS+EyGr2GXprKQqY/xoQpzkoMhgfirJkeTzxUffx4OqzPi+mZQRzQFHAdc+0uycOwc1D5/4AHVoU16U81OhDKPl/XTl0OfMO4005iC7UDLyNU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fJwZQlJs; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pCFLSdM5"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so576011a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:21:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789748480; x=1790353280; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0g3Ed4ErIO9z7L24xx8Ie2fCNFVJDG4I4OqnxOodgec=;
-        b=pCFLSdM5/qX3ahCBfdcTqH+4MpM0DOmI0td9jv6pYaiueWeKw+uNCGUSeE4WHGY+s4
-         75A7ZJPRK362jEcMJHplMxMh18C2s8Tw6MHP+pABrDKQ6oBBKEi9/C9ThEpeu9viFYJU
-         YCnb5tarRjEob0C+PN99DPXLiFsINkXMWvtP02dyI/FU5cXJ+4PzRpmWd9R3ganKGGEq
-         8EyW38gO8n6VC2onp1jBxBgTLzx3+1b4ObfO4PpQHIQthH8Vww4X7rziyjJVp7fcJF/8
-         lzi02aojy6Q3D6Klp0dJGL1iL/MyYG68axkc+jvQ6I3zkw37doL/RLy4WkXAvjTtWwBp
-         I7aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748480; x=1790353280;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0g3Ed4ErIO9z7L24xx8Ie2fCNFVJDG4I4OqnxOodgec=;
-        b=hemx41N+CwAMAuusotUdj48tkKa/OKKewwtRWzGdLUSGwcVXO/qwJfMNRO2ylchi8p
-         zPxn/EyQaLko/gq7PLDPUCnbQwmiiUBjiF5vDmEQFDK9kDZsH/ASo4E/H3pBsNgZcDTW
-         dm/guXPhFEonCxOjmyHhUl04sCybuiUx9zs0PWUCaLXEfySWXC0WyPGxdq01ZlrlgcZI
-         S9RJxrn0gkV4zC1ah/1bm0dKBn69vLUMnbe79VqgPQFe6ZLr5B4GG4usnkJwtQaxuJNX
-         h0fw2MUnaHw+Fk+DbFkGxEi8GmSyhqAMZaKcihu89G5GkBn7/hs+Y7dBeKu4J2i5XLBw
-         2v6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxbM/gXxqWxZvaudMZKTD/VAIQyk+1ab39doo0zS8CxxmV5sknBU7EeEEzNSpZ5qUy+lEGS88abxSB4l8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5QJlY/u1ucdRRlv5o3pKBXoVxOEDlkCG2hPviK0i1B7NLsBqL
-	/l0aqwxdtTtRtkiYK/sFR/BYBcE9MB0oJythzJbyf1UKWozXJIiFGqAP
-X-Gm-Gg: AYBFou1p0to0v72sNFNks5X1nKt3j9vdUfABUM0Z/TMhCFT/k3vd3poIF7B6ABBhBAG
-	RM1NeB+Dxa3DI4RCKoHXzhd2TTy0PY3A3Rexg5h4MF6XKcjitO83tzwcZvV0LTGclZYqEEpAa7D
-	YtCyknEsPwSJw6DaWb5CSuahuuf9TVl7l9LIxwE1kJZ4uRumcnCtEufHGulJoOgeVVDPQ7GL/G6
-	BPFJQt9zCaBDNwBuax3/lpdOunAICnNIfZQO3caWdNgcwfZ7VmTVPiEbCMqw3ulMzWJ4mkhG6p/
-	suCm0vUU5Dy0rb63+3cuXmgn6HCM6sq87fDHbZsM91hUFGTLmRcRACd6Lsiu1UnG5o4fg+2IVTH
-	cP7tWav7LEZmUH+ZCGr07NKlmWVKoYd6pGLpCRff7L0p5O5OoVTAhDrQPy/AdkoizUvcZewItao
-	OFwGa54APZIT2Qnk12O6dVxainBnIGu7ShCrP+NHoGVCIz59oHfm3JM9+2hgWVMNG7OHP/d9qUC
-	J79wH3Qu+5Q
-X-Received: by 2002:a17:90b:5348:b0:39e:6c6a:209a with SMTP id 98e67ed59e1d1-39e6c6a230amr247930a91.59.1789748479985;
-        Fri, 18 Sep 2026 09:21:19 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c32f17d77sm71229eec.3.2026.09.18.09.21.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:21:19 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] hwmon fixes for v7.3-rc4
-Date: Fri, 18 Sep 2026 09:21:15 -0700
-Message-ID: <20260918162118.18615-1-linux@roeck-us.net>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fJwZQlJs"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B4C3168F;
+	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
+Received: from [100.72.146.165] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 128D83F86C;
+	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789748499; bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fJwZQlJsnMiSfZIlOizxrilzkBZz7exxuPyeBUE+ppFFDfzYKFNi6vcVdg+lyNtDa
+	 KmdZYJm5DOOZgCpSlpQZrgeFfKD+1C4gfdJFiZiSRhVNwLNf0ci9EguPOdEhr3PaSb
+	 nbk7+IZRhRJYbwXBiBuQS9kJ/054i+iRniIaE4AE=
+Message-ID: <efa6f286-ea5d-4a94-9fb8-65ece584532c@arm.com>
+Date: Fri, 18 Sep 2026 18:21:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
+ <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-3-andre.przywara@arm.com>
+ <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+ <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com> <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+Hi Mark,
 
-Please pull hwmon fixes for Linux v7.3-rc4 from signed tag:
+On 9/18/26 16:28, Mark Rutland wrote:
+> On Fri, Sep 18, 2026 at 11:13:19AM +0200, Andre Przywara wrote:
+>> On 7/17/26 11:03, Sudeep Holla wrote:
+>>> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
+> 
+>>>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+>>>> +static const struct fw_image_uuid {
+>>>> +	const char *name;
+>>>> +	const char *uuid;
+>>>> +} fw_images_uuids[] = {
+>>>> +	{
+>>>> +		.name = "TF-A BL31 runtime",
+>>>
+>>> This doesn't make any sense to me. Why do you want kernel to assign
+>>> some random name base on UUID. Userspace is well place to deal with
+>>> UUID and give it any fancy name it wants.
+>>
+>> Well, the whole interface is quite usable without any accompanying user
+>> space tools, so just from the shell, but then identifying  firmware
+>> components by their GUID becomes a major pain and leaves users completely
+>> clueless.
+>> And while we indeed will never be able to fully catch up with all the
+>> firmwares out there, especially not with vendor specific ones, there are
+>> some standard firmware components that I think warrant some name.
+>> TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in the
+>> mainline repository, and since BL31 is also an LFA agent, it's quite likely
+>> we encounter this component. Even when vendors typically use downstream TF-A
+>> ports, those GUIDs would stay the same.
+>> So yes, it's more opportunistic than complete, but I think it would help to
+>> identify at least those well-known firmwares. Anything not named then would
+>> use the GUID, and can indeed be resolved by (a yet-to-be-written) userspace
+>> component.
+> 
+> Sudeep is right; this is not a good idea.
+> 
+> Remove the table and just expose the UUID of the image. Users can map
+> that to a string in userspace if they need/want, and that'll work
+> regardless of the vintage of kernel they're using.
+> 
+> I appreciate it might seem helpful to expose a name where we know it,
+> but overall it creates more problems, including (but not limited to)
+> compatibility issues, needless busywork to add entries (and arguments
+> about what is approriate to add), political issues when some project
+> naming changes, etc.
 
-    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-for-v7.3-rc4
+Fair enough, and honestly I was expecting something like this. I just 
+wanted to offer some compensation for the spec forcing me to put GUIDs 
+on you.
+By now I can remember that the TF-RMM GUID starts with "6c", I guess 
+that needs to suffice now ;-)
 
-Thanks,
-Guenter
-------
+Cheers,
+Andre
 
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+> I am not going to Ack this with the name present, and I suspect neither
+> will Sudeep.
+> 
+> Mark.
 
-  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/hwmon-for-v7.3-rc4
-
-for you to fetch changes up to 92b68492eae701e5b0e9d142ffe229921af7b1fa:
-
-  hwmon: (hp-wmi-sensors) Improve raw WMI string handling (2026-09-16 17:08:19 -0700)
-
-----------------------------------------------------------------
-hwmon fixes for v7.3-rc4
-
-* cgbc-hwmon: Add missing sensors, and fix current sensors ID lookup
-
-* gpioufan: Return IRQ_HANDLED from the shared alarm IRQ handler to fix
-  possible interrupt storm
-
-* hp-wmi-sensors: Improve raw WMI string handling, and fix UaF in show
-  function
-
-* k10temp: Fix model id range of Zen5 Turin to stop reporting temperature
-  data for non-existing CCDs
-
-* pmbus
-
-  - core: Increase number of phases to fix UaF problems
-
-  - tps53679: Fix TPS53676 phase page decoding, and select page 0
-    for single-page applications
-
-* pwm-fan: Stop RPM timer before freeing tach data to fix UaF problem
-
-* w83793: Release probe data through kref to fix UaF problem
-
-* w83791d: Remove fan/pwm 4-5 sysfs group on remove to fix UaF problem
-
-----------------------------------------------------------------
-Cong Nguyen (1):
-      hwmon: (gpio-fan) return IRQ_HANDLED from the shared alarm IRQ handler
-
-Guangshuo Li (2):
-      hwmon: (w83791d) remove fan/pwm 4-5 sysfs group on remove
-      hwmon: (w83793) release probe data through kref
-
-James Seo (1):
-      hwmon: (hp-wmi-sensors) Improve raw WMI string handling
-
-Muhammad Bilal (1):
-      hwmon: (hp-wmi-sensors) Fix use-after-free in fungible_show()
-
-Nuno Sá (1):
-      hwmon: (pmbus/core) increase number of phases and add new mask
-
-Rong Zhang (1):
-      hwmon: (k10temp) Fix model id range of Zen5 Turin
-
-Sanman Pradhan (2):
-      hwmon: (pmbus/tps53679) Fix TPS53676 phase page decoding
-      hwmon: (pmbus/tps53679) Select page 0 for single-page TPS53676
-
-Thomas Richard (congatec GmbH) (2):
-      hwmon: (cgbc-hwmon) Fix current sensors ID lookup
-      hwmon: (cgbc-hwmon) Add missing sensors
-
-Yibo Tan (1):
-      hwmon: (pwm-fan) Stop RPM timer before freeing tach data
-
- Documentation/hwmon/cgbc-hwmon.rst |  42 +++++++-----
- drivers/hwmon/cgbc-hwmon.c         | 129 +++++++++++++++++++++++--------------
- drivers/hwmon/gpio-fan.c           |   4 +-
- drivers/hwmon/hp-wmi-sensors.c     |  32 ++++++---
- drivers/hwmon/k10temp.c            |   2 +-
- drivers/hwmon/pmbus/pmbus.h        |   3 +-
- drivers/hwmon/pmbus/tps53679.c     |  11 +++-
- drivers/hwmon/pwm-fan.c            |  13 +++-
- drivers/hwmon/w83791d.c            |   1 +
- drivers/hwmon/w83793.c             |   4 +-
- 10 files changed, 161 insertions(+), 80 deletions(-)
