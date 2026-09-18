@@ -1,265 +1,322 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91D838DC56
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2443191D6;
+	Fri, 18 Sep 2026 09:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722916; cv=none; b=MDMhnETSZUYq9lf7dFyoz/W2XbYPJydmaeGc2FL/xmwichSZDQJG8FKc9CfltSw/Q+8YNV8jji9DRdCN2/IOvxCOdada1RGfnSna7L5dMsyNT9Tzg2s59Ck8Aybc2bJDZmSqoeqUpCTL+vJ9uLNX7ANCcpiwDmSSe4rjUaXKyAo=
+	t=1789722943; cv=none; b=TZmp/B7a7umVvOpXoMDZY5GranjH5n1Y0G/v1DPzZTi17cGbuQkJqO6pZKYTHy3e8FDNpkQsKt5IyujcpulkAn4Zya8u6vEXGON8tju1Vvbt24i4O5OFU2fe0CUl52SSMea1OCayKs46JDr9jmwLqLyRp9SALodxVe0khvBIX+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722916; c=relaxed/simple;
-	bh=+MboOVSEobXqJz6TQMVlFxGzcxCRJenA8pUb+DqcaFg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tutP9dHYPcV46GvHNpA7U9Jxt4wnGRsa1+BAe1JOp/S+KKAKFhscmrw5dHSdBYAbwQmIL2rwRXZiT7zu04Np/umT9RHEf4NyH8cr8Gq+b9ixbItIXlU/frNkiPHk8q3pkoxOF3Qvm+Wdnirl4P6q/zh8K75VDsKkW1vYW1Ul/bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ap3JfkEK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ECzGfLxV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789722943; c=relaxed/simple;
+	bh=A1h4kC1T7dfRaWVqhU0+2qj29ASuahdCobD58dIuLEo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dbROTdOa06kqG5aCGQaBpypyoNSnjXw2BDoFMrClrVgkfDfmIMQg0oYBU00dgR4smXeeHcAi3A4LWYDHSDFnE80t9W2FoCtLheg6kFOxneg9AJyk5OO719KBd1yBiYga2MssN/1jDuFkf1RPU20XHE0JPbmT9G5J2vUD/f4InlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=om1JOGOO; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ap3JfkEK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ECzGfLxV"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I5xt833423147
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:15:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KDT0ugqoECRFmTPbHuBTsR7qxE0OvJsq8TFAdRff2lo=; b=Ap3JfkEKsAPJITVP
-	lCDoOLN+d3tqkAhynWnFYrdCsTmwEGhNk72QbIGmGdA4fumUu1tlyphNvbUYiY3i
-	spAY7RMJjqZeFPdwDdiTHq/CVedcNNDEZ1vhu85JTq8/tYa3sUpBx4bYNpTE2FnD
-	gZWViNLm74V7bBHuBo6j8ft2jw5onqYWWlqicrG5+O/pjxFniJGgCZXVamrCh2yk
-	hLfbyT3e4iPnfHQJl+PBooTU8lb0Rjmstcq/TtJdXbebOo+X9MUY3l6iKrw1D+tJ
-	NFm9/U7u1Qzz/dBCvoFLSZAJp+L5rsNuTImFFuBiZ05hNMMd5iYzDyp50OO0mpXN
-	IpSJLA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grrjdtd4u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:15:13 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d9057fab9eso9337675ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:15:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789722913; x=1790327713; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KDT0ugqoECRFmTPbHuBTsR7qxE0OvJsq8TFAdRff2lo=;
-        b=ECzGfLxVyJmoy+GVRWbmiv4cKjRryL4qC+5VNzAQt+bAENtzqx1mt/KbozAItoDVSw
-         aw4VVTvNmbgmus1EjuzdCud8d+5K9nwlHYIOqGkMZzVafnohghjVGBVoypmOFSE8BHFi
-         ZBe9rpcfdRgWUnzIDkjrgdBuSXuO17cB0f12SA8XKN0qleZfOvpfc825ogKSOieF2Jb6
-         riFtJqFrulDHsnwD5PxKnez32NVCw3YKBKAd/Nr0cknAVvb3ZPXCD9zw5Urc0PaWBTEU
-         TBfgaAdc0yD3kxRqIJSIF1d2Jcb+XGKAb5mNxTlefu+QqBds1JNW72tSYefb53lDKmlh
-         xszA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722913; x=1790327713;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KDT0ugqoECRFmTPbHuBTsR7qxE0OvJsq8TFAdRff2lo=;
-        b=IZXM6Iht6JkiZCD+EgurWHgt8u6D06rtWiYgp5M9gpsXL3cE9d/VZ80hG6k2j8Bc/T
-         E0Zh1LQNIlKVnuejI9TiJLvOEOKr0dfBoNpCq/x/uTl4A0I8kM6OmFm2rUf6VevE3CsL
-         iGssg4XTr2BPc8jFMYgEYY2/BX+zx9KlXr4w2H8Q5cF7J5IxtbEqPzOyO4QR8sAAxEta
-         /K3+bM2swdGVzZPzLDav1vgO2tO3KYHalLJwn43pwyBHZfD9deam5pkqo+JL/qKVJVjq
-         Ub8Ku93eY40nc6QUeGnn8/NvltIBFUpCfWaG99rVd768v406BS1v8bFUm3U1khVLuc7/
-         iTvg==
-X-Gm-Message-State: AFuF++k8RxBXOJdqOIjcVtcnGKX7gWHQ3FtuvydiBIQo48cfJrLo/UIs
-	/13DwGEtZZGIkGF/vJqM394DnVy1Ekba1+FDWQMnwVZmwNrRa5cOS9qZbMjVxnJLJ7vSSs6L1lu
-	oEBnJ3yJ9uWDH1BDoFRg056OgSgnGQ4eaBcS2VXYpBzVzh/XKN431JzSRwXX5n6+AH7s=
-X-Gm-Gg: AYBFou3KFWvOa3RIiZoRizu063SdcX2+lQxVnzzk/yCsWqoOocqjxS7cqROzImIb3ob
-	8lsFEoFjUIDHLuBagbv36qjUzAR8O9cJRy1GFMEK1g/ieZm+ng2Mcgc4M8ZaaO43tZ5RNN9UpJU
-	yjwb8ux2mZODe7OWrWMnWCGT629+k3HI3v0XBPiwdrgDIwzVrPpAPhcL3q5cF3CNMvUcXbqOxnF
-	Y+Dg7av26oZQ1rpMHrNW9F8H+lFukM0gp4g1VPOFkrWnvc05ZqPKdozDJV1RcG5++20588oE3oB
-	sBvDL2sbEpqG7I/1ZmlQjKZJgY7ZUmHG6VgGpTYNLIMd/3T55dA9lHO9MxGHUmyDbNujEQOk8Xu
-	ewAJbVtVOUR1q47nALjtgD7mDKPRSc7vul/Nc/i3WcY+T0n4pqJM4Kibcq295EwRV87dcwlU=
-X-Received: by 2002:a17:903:2343:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2ddb1ab4ee9mr41636155ad.1.1789722912852;
-        Fri, 18 Sep 2026 02:15:12 -0700 (PDT)
-X-Received: by 2002:a17:903:2343:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2ddb1ab4ee9mr41635405ad.1.1789722912341;
-        Fri, 18 Sep 2026 02:15:12 -0700 (PDT)
-Received: from [10.133.33.171] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb7525b2asm4784555ad.19.2026.09.18.02.15.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:15:11 -0700 (PDT)
-Message-ID: <05c00750-7fc2-49d4-9336-7beb33fd9380@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 17:15:07 +0800
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="om1JOGOO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=e0iblB/xd0bKyqJQCHwHSoDSJbGjYAfM5ex62TtVuKY=; b=om1JOGOOEPD+kovLlVVZHQuV01
+	btKeH0+/69t8mp1Wp6G6QUkRJNalDE+0r6X1VifWHI5jV2elmWBpVmAXQCfnQ3fiIu1vA09kb7Ew2
+	OzCDDT2cbeqouJMQDdsT/sRhET3GAgoLCiyj7pD14qpjKyLl08UPL6xUPeAQwFcS+6CKSoOwWxTxz
+	IUQXSClSbvVZDCbQkzvxs31cZvCmGTI8SrJVY9qKufThtAmz1GjDKReBA+CG9YqEnSN7goKKkonGe
+	Zuc3tvjr40jSnLruxqqcPmHHPpSml4CHu1sy04G3WJgNq76HlUhkOsQm6YBbwrAZ+m25aKyMnSkqj
+	XZSbbKbg==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x7Ugq-003rMZ-BS; Fri, 18 Sep 2026 11:15:28 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,  Chen Linxuan <me@black-desk.cn>,
+  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  fuse-devel@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,  Matt
+ Harvey <mharvey@jumptrading.com>,  kernel-dev@igalia.com
+Subject: Re: [RFC PATCH v4 1/8] Documentation: fuse: add document on caches
+ being used by FUSE
+In-Reply-To: <CAOQ4uxipJkiiy8pURxRFdKYbruBM8wQxArd8uAiv2Dh=tPwNhA@mail.gmail.com>
+References: <20260916155629.32421-1-luis@igalia.com>
+	<20260916155629.32421-2-luis@igalia.com>
+	<CAOQ4uxipJkiiy8pURxRFdKYbruBM8wQxArd8uAiv2Dh=tPwNhA@mail.gmail.com>
+Date: Fri, 18 Sep 2026 10:16:26 +0100
+Message-ID: <87o6du6hsl.fsf@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] cpufreq: fix schedutil not returning to non-boost
- freq when boost is disabled
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-pm@vger.kernel.org, zhongqiu.han@oss.qualcomm.com,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
- <20260908-schedutil-boost-frequency-handling-v2-2-25312a713699@oss.qualcomm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260908-schedutil-boost-frequency-handling-v2-2-25312a713699@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEyNyBTYWx0ZWRfX1lxNk7uBTqhY
- lObsnEUNSbVSnPVn2bnileR7fi9ikqknbbPSekMJGrRr6HUriDLYgkd45KYFumV+ySjdfudSArm
- iG7yp/hVRPP/vkHZH4x23siw/zMrUPcSi5v9H9qB+lsv24Hv4yGwCAoY6BihS6oGF8MN83J8Lj1
- mZazmwcj0/+wCv5xQ4ziYnXmbZdgg4nDVZI55ZBRpMOTLINt9aRj1caWoUjPzmRZbp7jHhpwtT8
- kEvrpks2X70w5VRiq0sj9/zjQKX1tUJ3ffZH63ISaH1IG0t4DBjrWZPi/bHUMRAKlhG9v6mwfim
- lbQJS/MWIXghjaGUPo0y9db7WmIckQXSotOH+MTHxrdpvO0481RdE4+y3zL8QDHUJ130XahYsHK
- P1UpDPH2DxwueOy0EzxJ3pZATTocahCiRFFS90lxOqes/E0nMyxpDSW6fHF6YiIH3vrkjLHKom7
- GJK3A4sVBFidAUtcBrw==
-X-Proofpoint-ORIG-GUID: sS47daTdOU7fdW_HY_aT4WSIHXeRD_Th
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEyNyBTYWx0ZWRfX2s8yMEiZ8o3m
- k+I9d3FM2sVS7H56gZqJb1jU9SVrnLQlcY8tUZS/rRfMjbpUTz+k03p15inIicmX1gNUnHIK9zL
- TLzkUzqB+VUzqh6QK6jh9PIS9GZz3HE=
-X-Authority-Analysis: v=2.4 cv=J9Q/fwnS c=1 sm=1 tr=0 ts=6aad0121 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yaB9tev9RX6Wa8ZHx44A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: sS47daTdOU7fdW_HY_aT4WSIHXeRD_Th
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 clxscore=1015 suspectscore=0
- phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180127
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ananthu,
+On Thu, Sep 17 2026, Amir Goldstein wrote:
 
-On 9/8/2026 4:30 PM, Ananthu C V wrote:
-> Commit 538b0188da46 ("cpufreq: ACPI: Set cpuinfo.max_freq directly if
-> max boost is known") introduced a guard for cpuinfo max updates to only
-> increase, to preserve driver-set values above the freq table maximum,
-> causing cpuinfo max to be stuck at boost frequency even when boost is
-> disabled.
-> 
-> Unconditionally track the highest non-boost frequency (max_base_freq)
-> in the freq table. When a freq table is available, use max_table_freq/
-> max_base_freq instead of cpuinfo->max_freq to control boost values, so
-> the value can decrease again when boost is disabled.
+> On Wed, Sep 16, 2026 at 5:55=E2=80=AFPM Luis Henriques <luis@igalia.com> =
+wrote:
+>>
+>> This new file aims at documenting the caches that are used by FUSE.  At
+>> the moment only symlink, attributes, ACLs and readdir caches are describ=
+ed.
+>>
+>> Signed-off-by: Luis Henriques <luis@igalia.com>
+>> ---
+>>  .../filesystems/fuse/fuse-caches.rst          | 148 ++++++++++++++++++
+>>  Documentation/filesystems/fuse/index.rst      |   1 +
+>>  2 files changed, 149 insertions(+)
+>>  create mode 100644 Documentation/filesystems/fuse/fuse-caches.rst
+>>
+>> diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentat=
+ion/filesystems/fuse/fuse-caches.rst
+>> new file mode 100644
+>> index 000000000000..b133066429b1
+>> --- /dev/null
+>> +++ b/Documentation/filesystems/fuse/fuse-caches.rst
+>> @@ -0,0 +1,148 @@
+>> +.. SPDX-License-Identifier: GPL-2.0
+>> +
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +FUSE Caches
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +Introduction
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +This document summarises the different types of caches used in FUSE. Fo=
+r each
+>> +cache type, it documents the rules to insert data into it. It also docu=
+ments the
+>> +rules for validating and invalidating data in the cache.
+>> +
+>> +symlink caching
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +Whenever there's a link resolution request for a FUSE filesystem, the V=
+FS will
+>> +call into ``fuse_get_link()``, the ``->get_link()`` inode operation. Th=
+is
+>> +function will then send a ``FUSE_READLINK`` request to the user-space F=
+USE
+>> +server.
+>> +
+>> +The server can ask the kernel to cache all link resolutions by setting =
+the
+>> +``FUSE_CACHE_SYMLINKS`` flag during the ``FUSE_INIT`` negotiation. If t=
+his flag
+>> +is set, when the VFS calls into the ``->get_link()`` operation, FUSE wi=
+ll
+>> +immediately call ``__page_get_link()``. The first time this is done for=
+ a
+>> +specific inode, it will result in sending the ``FUSE_READLINK`` request=
+ to
+>> +user-space. But the result returned from this request will then be adde=
+d into
+>> +the page-cache. The next time this link needs to be resolved, it will u=
+se the
+>> +link resolution already cached, and will only fallback to user-space if=
+ the
+>> +folio isn't up-to-date.
+>> +
+>> +Attributes caching
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +Inode attributes may be obtained from user-space by different FUSE oper=
+ations.
+>> +For example, ``FUSE_LOOKUP``, ``FUSE_GETATTR``, and also several other
+>> +operations that create file system objects (e.g. ``FUSE_MKDIR``). These
+>> +attributes obtained from user-space are cached by the kernel. They have,
+>> +however, a timeout associated and once it expires, they are invalidated=
+. The
+>> +next time the attributes are needed, a request (``FUSE_GETATTR``) will =
+be sent
+>> +to the FUSE server.
+>> +
+>> +The ``FUSE_GETATTR`` request can be sent to user-space in three differe=
+nt
+>> +scenarios:
+>> +
+>> +#. if the attributes for the inode aren't yet available in the kernel;
+>> +#. if they are not valid any more (timed-out, or have been invalidated)=
+, or
+>> +#. if there is an explicit request for forcing the request to be sent (=
+for
+>> +   example, by using the ``AT_STATX_FORCE_SYNC`` flag in ``statx``).
+>> +
+>> +Regarding the attributes invalidation, they may happen in several occas=
+ions. For
+>> +example, upon a user-space request for invalidation, through
+>> +``FUSE_NOTIFY_INVAL_INODE``, ``FUSE_NOTIFY_INVAL_ENTRY``, or
+>> +``FUSE_NOTIFY_DELETE`` requests.
+>> +
+>> +FUSE uses fine-grained invalidation masks rather than invalidating all
+>> +attributes at once. The principle is that each operation only invalidat=
+es the
+>> +specific attributes that the operation could have changed on the server=
+. The
+>> +masks used are:
+>> +
+>> +- ``STATX_ATIME`` - after reads and readlink, since the server may upda=
+te access
+>> +  time
+>> +- ``STATX_CTIME`` - after xattr changes (including ACL set/remove) and =
+rename
+>> +- ``STATX_BLOCKS`` - after a successful flush with writeback cache, sin=
+ce the
+>> +  server's block count may differ from the local one
+>> +- ``FUSE_STATX_MODIFY`` (``STATX_MTIME | STATX_CTIME | STATX_BLOCKS``) =
+- after
+>> +  writeback completion (without writeback cache), since the server may =
+have
+>> +  updated modification metadata
+>> +- ``FUSE_STATX_MODSIZE`` (``FUSE_STATX_MODIFY | STATX_SIZE``) - after w=
+rites,
+>> +  truncate-on-open, and fallocate, since the server's size and modifica=
+tion
+>> +  metadata may have changed
+>> +- ``FUSE_STATX_MODDIR`` (``FUSE_STATX_MODSIZE | STATX_NLINK``) - after =
+directory
+>> +  modifications (create, unlink, mkdir, rmdir, rename), since the serve=
+r may
+>> +  have updated the directory's size, timestamps, and link count
+>> +- ``STATX_BASIC_STATS`` - as a full invalidation, used for server-initi=
+ated
+>> +  invalidation (FUSE\ :sub:`NOTIFY`\ \_INVAL\ :sub:`INODE`), interrupted
+>
+> What is this odd subscript format and why? Please remove it.
 
-This issue does not appear to be limited to schedutil, so the subject
-seems too restrictive.
+Oops!  I use pandoc to convert the text into rst, and looks like it's
+misbehaving here.  I'll investigate what went wrong and fix this.  (And
+next time I'll re-read the doc in rst.)
 
-> 
-> Fixes: 538b0188da46 ("cpufreq: ACPI: Set cpuinfo.max_freq directly if max boost is known")
+Thanks a lot for your feedback, I'll incorporate the suggestions below
+into v5.
 
-I already commented on the Fixes: tag in v1.
-https://lore.kernel.org/all/3a20b69e-b072-4723-925f-514d8162e259@oss.qualcomm.com/#t
+Cheers,
+--=20
+Lu=C3=ADs
 
-IMO it should be: 6e39ba4e5a82 ("cpufreq: Add boost_freq_req QoS
-request")
+>> +  setattr, and interrupted link
+>> +
+>> +The full set of invalidation points can be found by searching for
+>> +``fuse_invalidate_attr_mask()`` in the FUSE source.
+>> +
+>> +ACL caching
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +FUSE has allowed the usage of POSIX Access Control Lists (ACLs) for a l=
+ong time,
+>> +as they can be set and accessed simply as extended attributes. However,=
+ it was
+>> +only with the introduction of the ``FUSE_POSIX_ACL`` flag that ACLs sta=
+rted to
+>> +be fully supported. Without this flag being set during the ``FUSE_INIT``
+>> +negotiation, ACLs can still be set, but the VFS won't use them for perf=
+orming
+>> +permission checks - that would be the user-space server's responsibilit=
+y.
+>> +
+>> +Also, without setting ``FUSE_POSIX_ACL``, ACLs will not be cached by th=
+e kernel.
+>
+> This Also, feels out of place and unneeded for the document flow.
+>
+>> +In this case, new inodes ``i_acl`` and ``i_default_acl`` fields will be=
+ set to
+>> +``ACL_DONT_CACHE``.
+>> +
+>> +On the other hand, if the ``FUSE_POSIX_ACL`` flag is set then, when an =
+inode ACL
+>
+> This OTOH, feels out of place and unneeded for the document flow.
+>
+>> +is accessed, VFS will first check if it's already cached. If it is not,=
+ FUSE
+>> +``->get_acl()`` operation (``fuse_get_acl()``) is called, which will ev=
+entually
+>> +send a user-space request. Future accesses to this inode ACL will use t=
+he cached
+>> +data.
+>> +
+>> +Setting an ACL in an inode will also result in sending a request to the=
+ FUSE
+>> +server for setting it. But this operation won't immediately cache the A=
+CL -- it
+>> +will only be cached after it is accessed again and requested from user-=
+space.
+>> +
+>> +On the other hand, ACLs will be removed from the cache in the following
+>
+> This OTOH, feels out of place and unneeded for the document flow.
+> Which text is it referring to? Anyway, text seems better and clear withou=
+t it.
+>
+>> +situations:
+>> +
+>> +- When setting an ACL in an inode (and the ``FUSE_POSIX_ACL`` flag is s=
+et),
+>> +  previously cached ACLs for this inode will be invalidated.
+>> +- When invalidating an inode through the ``FUSE_NOTIFY_INVAL_INODE`` op=
+eration.
+>> +- After setting an inode attribute (i.e. operation ``FUSE_SETATTR`` is =
+sent to
+>> +  user-space), the user-space server may have also updated the ACLs. Th=
+us, any
+>> +  cached ACLs for this inode are also invalidated.
+>> +- Whenever attributes are refreshed from the server. For example, when =
+while
+>
+> stray while - please remove
+>
+>> +  revalidating a dentry (``->d_revalidate()``), or when updating a dent=
+ry during
+>> +  while processing a ``FUSE_READDIRPLUS``.
+>
+> stray while - please remove
+>
+>> +- In general, when there is the need to send a ``FUSE_STATX`` or
+>> +  ``FUSE_GETATTR`` to user-space (e.g. when attributes expired).
+>> +
+>> +readdir caching
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +When opening a directory a ``FUSE_OPENDIR`` will be sent to the FUSE se=
+rver, and
+>> +server will be responsible for setting the open flags related with cach=
+ing,
+>> +namely ``FOPEN_KEEP_CACHE`` and ``FOPEN_CACHE_DIR``.
+>> +
+>> +If neither flags are set by the user-space FUSE server, then every ``re=
+addir``
+>> +will result in a ``FUSE_READDIR`` (or ``FUSE_READDIRPLUS``) request bei=
+ng sent.
+>> +If ``FOPEN_CACHE_DIR`` is set by the server, then the result of a ``rea=
+ddir``
+>> +will be cached by the kernel and reused for the current open.
+>
+> I understand what you mean but it sounds confusing.
+>
+>> +``FOPEN_KEEP_CACHE`` is about keeping the cache on **this** open, not o=
+n some
+>> +**next** open.
+>
+> Suggest:
+>
+> FOPEN_CACHE_DIR determines if readdir results of this open will be cached=
+ and if
+> readdir cache will be used to return readdir results during the current o=
+pen.
+> If FOPEN_KEEP_CACHE is set, any readdir cache from previous opens is pres=
+erved
+> when the directory is opened. Otherwise, the old readdir cache is
+> invalidated on open.
+>
+> If you accept this phrasing and fix the style nits above, feel free to add
+>
+> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+>
+> Thanks,
+> Amir.
 
-Could you please comment on this?
-
-> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> ---
->   drivers/cpufreq/cpufreq.c    | 14 +++++++++++++-
->   drivers/cpufreq/freq_table.c |  5 +++++
->   include/linux/cpufreq.h      |  1 +
->   3 files changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 0d0df986fa3d..a13e72711597 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -574,6 +574,7 @@ static ssize_t show_local_boost(struct cpufreq_policy *policy, char *buf)
->   
->   static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
->   {
-> +	unsigned int max_freq;
->   	int ret;
->   
->   	if (policy->boost_enabled == enable)
-> @@ -587,7 +588,18 @@ static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
->   		return ret;
->   	}
->   
-> -	ret = freq_qos_update_request(&policy->boost_freq_req, policy->cpuinfo.max_freq);
-> +	if (policy->freq_table) {
-
-acpi-cpufreq has a freq table but never sets CPUFREQ_BOOST_FREQ, so
-max_table_freq == max_base_freq == _PSS P0 here, and the real boost
-ceiling kept in cpuinfo.max_freq is lost. It seems that the condition
-needs to be "does the freq table list boost frequencies" rather than "is
-there a freq table" — e.g. recorded during the table scan, the same way
-boost_supported is derived from the flags in
-cpufreq_table_validate_and_sort(). And then:
-
-if (policy->cpuinfo.boost_in_table) {
-     xxx;
-}
-
-> +		max_freq = enable ? policy->cpuinfo.max_table_freq :
-> +				    policy->cpuinfo.max_base_freq;
-> +
-> +		if (!max_freq)
-> +			/* when the freq table contains only boost frequencies */
-> +			max_freq = policy->cpuinfo.max_table_freq;
-> +	} else {
-> +		max_freq = policy->cpuinfo.max_freq;
-> +	}
-> +
-> +	ret = freq_qos_update_request(&policy->boost_freq_req, max_freq);
->   	if (ret < 0) {
->   		policy->boost_enabled = !policy->boost_enabled;
->   		cpufreq_driver->set_boost(policy, policy->boost_enabled);
-> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
-> index 4984142dc08a..7e183e16162d 100644
-> --- a/drivers/cpufreq/freq_table.c
-> +++ b/drivers/cpufreq/freq_table.c
-> @@ -34,6 +34,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
->   	unsigned int min_freq = ~0;
->   	unsigned int max_freq = 0;
->   	unsigned int max_table_freq = 0;
-> +	unsigned int max_base_freq = 0;
->   	unsigned int freq, i;
->   
->   	cpufreq_for_each_valid_entry_idx(pos, table, i) {
-> @@ -42,6 +43,9 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
->   		if (freq > max_table_freq)
->   			max_table_freq = freq;
->   
-> +		if (!(pos->flags & CPUFREQ_BOOST_FREQ) && freq > max_base_freq)
-> +			max_base_freq = freq;
-> +
->   		if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
->   		    && (pos->flags & CPUFREQ_BOOST_FREQ))
->   			continue;
-> @@ -62,6 +66,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
->   		policy->cpuinfo.max_freq = max_freq;
->   
->   	policy->cpuinfo.max_table_freq = max_table_freq;
-> +	policy->cpuinfo.max_base_freq = max_base_freq;
->   
->   	if (min_freq == ~0)
->   		return -EINVAL;
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index 3f3b1380251a..419c71ccff7c 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -46,6 +46,7 @@ struct cpufreq_cpuinfo {
->   	unsigned int		max_freq;
->   	unsigned int		min_freq;
->   	unsigned int		max_table_freq; /* Highest valid frequency in the table */
-> +	unsigned int		max_base_freq; /* Highest non-boost frequency in the table */
->   
->   	/* in 10^(-9) s = nanoseconds */
->   	unsigned int		transition_latency;
-> 
-
-
--- 
-Thx and BRs,
-Zhongqiu Han
