@@ -1,147 +1,89 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F158137A845
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5642418A29;
+	Fri, 18 Sep 2026 09:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725107; cv=none; b=QR0sviMyeK0HaQHsbFxGK7LoLdYmR3G/B2RoUEW7f/UduqB/fcBR5N9El143FhQUymytnl4fx3kpxR9DQczrToNowVHhNRcwQx0jWoyufqA4+iYS5MzPevvpf+LchWQHQ2ZFtUs4HWs0SZvhN6UIZ/iOIHSelKDubXYBJDa5FV4=
+	t=1789725181; cv=none; b=ViTZyZoOEtYKIzNnCbBX37JVkbCZSHc9hAUJfhhlMytF0l8GC/BWSeNSXGdcake7K7sZYRaQ+DJUz8CTbqEQY2XUap8xV75OJmct85R36Mpvx8yAPKto2v2BEUxfgp1nRrio4sZqc8MtLRy0VXxRN2MJz18k7IQ8AWlsxLiqVYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725107; c=relaxed/simple;
-	bh=evzl+Hpp+IV7r6sq9RYlAQhlhstCAiZc+kjLirAEVUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MTiHBb4YdNsmDNLqhquuD/AF7zMO7grziWP9h5usAsQReajVAYHQa66Ng49PMkZtGHNWh8pfjx8BlNLZrX9xtIvGFG8Y8oDD70zfG+s3e7+HxSuUScwWTsuFcfO3x7tXc9ToTFrfo9O3qNX8yADOTnvOOHBbTOOO3ROT2G2gD80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LcFU0Iae; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789725181; c=relaxed/simple;
+	bh=rwq4Ul/REmuMGoa5ZUeyF4tn5EsdqaXf0ExdF6sYWaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gjpF9g+PCC/8o5/WgUT05T7Y1xydm44so+f3N0JYUmw3nXc+r0AAzBc0NS06qBkmGMeIF6oUVPhiMSYRXFn+wIpR507dZriIW3FogsRNZvs0emQUyeKnoXfZWui+fnukgjhiYvRp6zNG0S4diDvNCy6qkgi4d/58aj2hevXwPP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YKb6AUl4; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LcFU0Iae"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so2993895e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:51:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789725104; x=1790329904; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ISL90nqpfEm1wYjlP2uZ/EAEmky5Z6krLJs1OIlmB5U=;
-        b=LcFU0IaeQKk/Uwy9VYasBD54Z7EMSupJUx7b0akDHOXOujRiX6/MZNt+4QCdVn7cBi
-         mA9Z+udG27unmzr71W85MSKHeKMIGgIn3wQxH5mtKQqm6W35+vyk7wZ5FzroOIl4nwad
-         ru5HN7Mkxf47EuM62LqoledUk1ULBTtMEIhvm4B54+LsKsfg0fuOVPAEwkysV3o0npFR
-         0HOu23LhsEoV9Am6tHYvayMo0CJ2bYFGVZJKgTPw3IbBRFnF93ALcqGr4n2+UnNNvyIe
-         EB/6rwxXEgjpmDhGTgxVCMSr4mgcvzQjoPfv4nWq5DE93PjaQB5/65IOeGyuzfR0WWoJ
-         +9Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789725104; x=1790329904;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ISL90nqpfEm1wYjlP2uZ/EAEmky5Z6krLJs1OIlmB5U=;
-        b=tD6YBZLFD5Yffkfqhqz7n/7UsqzNqJZ1vAm4htJXL+bqlWWqzNZeWe4GAcODHVeRbc
-         J8G6Unw3/KJPtWF6I3plOZ5hMZN7HkxDm+g38mZORi0hziY0m1DYfeOAVb8oBaZElmjg
-         M2omRtQwv66nBlQDZFDU6DUCpS/xeRy2YVHZnQzFUky95JiwVVfZQpsS1H5yUZj/Pdbc
-         o3TbEF2CMFcYIjpLl50CzAzDryCQ5XnukzQeDt3mznrP9P425Raehqo7N8yP0lVyhg10
-         yBLEWgC6pFkQ0lGYuWeST/hJzCRetep1yaQfNhTFHoL7b6I8RlApd/A+KRe/yC02eXQv
-         ekwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzkb70Tj1+0KfTZXS9VZq0eR95GM4DSJOBwJZeyemwROYDDt5xHQDzJjYs5k1+uVnRCe31Lm78M+60lUGg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndWwQjkY09ek6Nr11cN0rgspTIugaKghXzaqGeVXTcNzcburP0
-	b5JF8qZWjgU5D/4E8+Op1Ew/92AWPPjmMDSZxIlPQXvmv/uabfG3Y9ho
-X-Gm-Gg: AYBFou1tDAs3Q9DJKv3+xu8K/4B7byem0U4KC4UQ5JYnBFTTuDXEGomQcjVs1zZ2iuT
-	luQ25fWJ1MygdIf0oNFetbnjzV6Xi7d5NENQ7myWEcH5GiTkCA/5RzaP7qJEOZKQ2jBslSvMY3q
-	vygw4FiklvaJheEAmY2sepmOJR4wtj0h7Vy+09oQbUwqWMkBEeN/f9Ujt6hcmrGnEBd72U9RvOA
-	wCUgobN9tL5NyfcyvZ1Dm5nvR9y6jvDyo+tVTa03V0PIxLHwNHFHg/JazCVuPxXw1mupjaT/yrY
-	3wg+FFMME9ckbVlt7WK/G8gdIFoyBXdU2PsVeQqBCnlcnz7dZr4B47ZmotRiJ2vVU65s/7Y5et8
-	qH6R0by7p2k+SHu14b2bujs+a6TzYt4BIqyK1dhLVGunlMBhfi/c9P+2AYQRlX26iuI4MR7OCiC
-	1SFdJbSVoLg/UyOa5YDuipWYyItJBZkHIij92NJxFIIsfqQcsRP3I3YSe6B2KWSnzJM9FJYILUT
-	57lEZua//TJ/NIjwbUAOGiAz85CgKiXAAKT
-X-Received: by 2002:a05:600c:83cd:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49fc56f7a11mr20119345e9.14.1789725104138;
-        Fri, 18 Sep 2026 02:51:44 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d468b3sm40811125e9.13.2026.09.18.02.51.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:51:43 -0700 (PDT)
-Date: Fri, 18 Sep 2026 10:51:42 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Cc: quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>, Neal Cardwell
- <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S.
- Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Matthieu
- Baerts (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat
- Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to
- sk->sk_err
-Message-ID: <20260918105142.3dc675eb@pumpkin>
-In-Reply-To: <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
-References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me>
-	<20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YKb6AUl4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725179; x=1821261179;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rwq4Ul/REmuMGoa5ZUeyF4tn5EsdqaXf0ExdF6sYWaU=;
+  b=YKb6AUl4FEtx6jtakS5uCgM3ObAVi4NUa+VgLA+FKhpiHws2UC/TSvuv
+   ke5GB5S5znx2DxxDQyLcEJDMw3Seybs1gy2pkKHZXg3GyH1a9wrYVgs3G
+   rmvv7dqH8XdeQMCqO3+XO0Mg1GC6X47jFYF3VkQkOxRGTJpEypGdyXNru
+   vRrFzSJBo5lqLuVEkD/ySU5ICw9AbG0wXcPZOR+Mv54M1asNpiXHtdwjs
+   /m5X6jAhaTPXDubUkna8DfYWZdYFiiVLI2i8MMqSXqT+MtTpo38tKP0yR
+   5W4PrtR90aCrZlvlLsVHkXHNs3oEPVpVVMcaqRbbBEPHHtUzjgcILxN3F
+   A==;
+X-CSE-ConnectionGUID: n8QkvvSNRHa4YiA3rP5CMg==
+X-CSE-MsgGUID: U9JVOHifTHO7wX2KnXrhAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90351320"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90351320"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:52:58 -0700
+X-CSE-ConnectionGUID: u48c0T0hQIG38KRtmRdXjA==
+X-CSE-MsgGUID: ym6KSDOuTsOTxxXmnIGV2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276290347"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:52:55 -0700
+Date: Fri, 18 Sep 2026 12:52:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v7 00/11] Refactor Microchip MCP47FEB02 I2C driver in
+ separate modules to add support for MCP48FEB02 SPI driver
+Message-ID: <aq0J9Vs1_rUAlcoA@ashevche-desk.local>
+References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 17 Sep 2026 06:41:22 -0700
-Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org> wrote:
+On Fri, Sep 18, 2026 at 12:06:26PM +0300, Ariana Lazar wrote:
+> Refactor I2C driver implementation into separate modules in order to add
+> support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
+> implementation. The I2C and SPI devices have the same memory map and
+> supported functionalities.
 
-> From: Quanye Yang <quanyeyang@proton.me>
-> 
-> BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
-> 
-> read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
->  instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
->  sock_error include/net/sock.h:2565 [inline]
->  do_recvmmsg+0x50c/0x580 net/socket.c:3049
->  __sys_recvmmsg net/socket.c:3144 [inline]
->  __do_sys_recvmmsg net/socket.c:3167 [inline]
->  __se_sys_recvmmsg net/socket.c:3160 [inline]
->  __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
->  x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
->  tcp_recv_should_stop include/net/tcp.h:3086 [inline]
->  mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
->  inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
->  sock_recvmsg_nosec net/socket.c:1151 [inline]
->  sock_recvmsg+0x11a/0x140 net/socket.c:1173
->  ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
->  ___sys_recvmsg+0x116/0x160 net/socket.c:2975
->  __sys_recvmsg net/socket.c:3008 [inline]
->  __do_sys_recvmsg net/socket.c:3014 [inline]
->  __se_sys_recvmsg net/socket.c:3011 [inline]
->  __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
->  x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> value changed: 0x0000006b -> 0x00000000
-> 
-> Reported by Kernel Concurrency Sanitizer on:
-> CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
-> Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-> 
-> do_recvmmsg() and getsockopt(SO_ERROR) call sock_error() without the
-> socket lock. sock_error() clears sk_err with xchg(), which races with
-> unmarked loads of the same field.
-> 
-> KCSAN reported the unmarked peek in tcp_recv_should_stop(). The same
-> lockless writer races with the other plain sk_err reads on the TCP
-> send, recv and splice paths.
-> 
-> Annotate those peeks with READ_ONCE(). No extra ordering is needed:
-> the value is only used to decide whether I/O should stop. This does
-> not consume sk_err; the check-then-sock_error() TOCTOU on the no-data
-> paths is a separate issue. MPTCP peeks are handled in the next patch.
+Jonathan, can you pick up the fixes from the series, please?
+It will reduce a burden a lot (yeah, I know that it might mess with
+Sashiko, but wouldn't simple delay fix this, I mean to give Sashiko
+a time it needs and then update the branch?).
 
-Don't they need annotating with data_race() ?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-David
+
