@@ -1,153 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A159230EF9A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52883AA4E2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719299; cv=none; b=rckAFR9URDJWWZB8HbEa3Y+9eIYRUJCIf09yTua2mBuZVYxgeqAflzKXtWNMgGWFVYbm9KnBPrImI+a/Xxuh7wV/QbTxtegZlMwRzDOI7+/BzxW2/n99PLXSx9vecjwZMu3er4ROnMXCBQwnT3/cFNWQnIiSWBRjSoY6gInAeMY=
+	t=1789719352; cv=none; b=n2SsBRyrBkV9zCuQFBlbAsB94rYXpe8rtGLZYA3HAD3+G12RWsauvtfA7lzMaaEppWF3RhM6A05rheVhvhqv4DbPory5hDBMC4QZhK4g6zpbyc/e7PldusACuFdGTorW59CBFdYeFtMlPt5HKrpnLtppS0ZxUwkGWMeDXLrI1WI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719299; c=relaxed/simple;
-	bh=Ngr8AagYwaxW71vhvgn5Mb92qZ17mxaOQs4+i2uYYc0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=BzodVMKMMZDl1J6BRPjdBCQdaPXLhCe97HhjUCVxp5RaPK+vcrZRYrVAl+Vh6joHMkdaDPkGpoJk+kA8q118BuPqIUz5Zsu+2tou7TfFZQ3lvpWD44AGsgojXttGC71wcLlgRX1T/whB9jPIsbWfRgd7/JzR3N9EDS8WxbUSCgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZaSsy0p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789719352; c=relaxed/simple;
+	bh=5Aq73BWOFN4B/ivUfKmVZdwIvugxUNtoVw1D5AjNt1w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J8lDF5CGOGIPWtsEFz9EvwnUM436a1VE3Am22/lRAD6Qb+CMb1/wVQOdVZi2nRLVsgOI8xxJt3GrYyp0LIQjiAeOPX+Dnero5ylPDioCsH/0M6fAP+t5sGBHdD+UEhRlCF2Q5QqpqQ3uP5B46T5J08JCNgGj2ESiNEo5/dMjK1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CUfN8dST; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZaSsy0p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43621F000FF;
-	Fri, 18 Sep 2026 08:14:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789719298;
-	bh=zF70PE6QQJD2s8u0qvOoLDL0ITeIbLKxMYBe7iHMpIE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=gZaSsy0pUYgOW1sr+6F/yDW6T6FAfl+U+li+4D4fnGsDnXLPgHqvI+10PpdmxHtVP
-	 zyV5FQzX2UqPD3zDkIXUrAQd5DdiQH+yJNZ/T3eq8l91Yf8GMsH9I8yFnJjqvLXZ4c
-	 KOwj5gyEww0Yo2nCYccsHP570Pxn6mk0EvnKIKLuNkK1uu/KO5pWOxDTWFjDCvSL6b
-	 06U4HDR0pE2eGCYj8DoSCKLH6+W5WtKzioa/hsj/unvPHRAs95qStpLyd7kHVO8mWL
-	 sVj5WF+jpsVbjaT4trxqVs5coIp9CZuYC223iHYw3vzb4tPR/kwCWCGwR0s0OCHSgd
-	 8rZMeofLNEoVg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 40EAE1980066;
-	Fri, 18 Sep 2026 04:14:56 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 04:14:56 -0400
-X-ME-Sender: <xms:_vKsauJk1xCAj7C1qSQs5iNgXPga62rFaS1whR-SExVC9bZIiSfDCA>
-    <xme:_vKsag_UP4hwnAmRj2nQtht4UzbzJhnGKZNwg0n5ehpjJdb11px4gV1PEtKO-4ccp
-    7GScAHQoTWK5chpO5GzLFXP5JNham2LCQUTGAN5CaBA92ghSTPiXJyQ>
-X-ME-Proxy-Cause: dmFkZTEbNZpuY3utY9XXGgHM73jjpwxhStZuuOzGjcJkZsLSYcfmqzPU2EChhi73DlKOmO
-    WUGFfqXpHgWWdlIxftXDbrLA24qVehaCedUvlYekIeoUktXvSC1RYX9TpuWj8oRdClAJN5
-    QBb7moSn8tk2VXOW25aVAPW7usXlyciXzLTE13hCrbHdvfwP9S8ICeHD/1USI6mFGwMp3Q
-    1G1HTfP31ZEQM5GAWvF89JEBLP9qz+KCfNC1U2DgpbSIyYwRG+YT0xn2SGGoecJzJdz+f0
-    JSpX08g00Pc2KsItzgd1LPvq7LzcbFU5mw9xFshB5TvyOe/vM0+WX36mTC9bz8seHtKXkB
-    IvcYlFbBlqXtL/qbBKZx6zO7ScbKNxS5EfO+o7nkdMJ0Oxnkn487PwXF+gUl2a6afA5yki
-    XjjWwfAfQPoD7C3mpvmNbTbUcycPZt3H7cob7Q9P5HgFoFvEsdYzy/3oI8tLIfEn/JaGQ3
-    e8UzH6bsftDkGFDgws0Rvy8/SjAd8+gqg8pUJOKIsVPiZhabuCfRVivu52OXTuSFGeB8Gy
-    Gv4ycro/NzBREK2pvrQJjeUCuRkeFXKgrM77ouuBwf74b9apBmh1R0KMQIXcWOnGtquKMu
-    SCAy2l+T0Dn6pjbpmNKvX343z2tB93x9YifzWojhISL5ZtVI2oCHDJxydi2w
-X-ME-Proxy: <xmx:APOsamwZ6EeCxlXMNmsdfFGsn-lHBkVod5UMUU9nmKQk8ekHA56oiw>
-    <xmx:APOsagHpWRVS3SCknLK9hES_gvNws8PdFGmjFB875jOLwdH_okf__w>
-    <xmx:APOsaixRzDbygvDRwJoe-2IsjAUQ6YVHQAdVF1jqlXtFuuwAMQCViQ>
-    <xmx:APOsaptlEjEabJn3fhPdklh9VT5Q06lYUKpdIdM1s_mj9lHIFRNQTg>
-    <xmx:APOsan2Y7QjOtTbv4aDi9q4GRHJQYGQxeYLo-R4DHVbLIHViJJsoQ6HW>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id DC859F80080; Fri, 18 Sep 2026 04:14:54 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CUfN8dST"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789719349;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Gf+lzvxbi1Zh3wBsxJVsPtZtBcbza/YT/ul3GdaSIiA=;
+	b=CUfN8dSTpsxQkE1y3ax/tA6G6nIwn+xZEJEyFI+PqoCRolHpwHhdALhzxXC4KL6xeUF2Fm
+	c1JnHOBTbSmXd27S2pQATcykOP3Zkx3ZhVz2eD4J8mrFtvF7kAq9Kq5MOBxTSpnrXlXatl
+	TNpUGACu1qvEgMS9P+D4p2O5FltyV6g=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-10-lL60C4iIPNalfAqfaHqYKQ-1; Fri,
+ 18 Sep 2026 04:15:45 -0400
+X-MC-Unique: lL60C4iIPNalfAqfaHqYKQ-1
+X-Mimecast-MFC-AGG-ID: lL60C4iIPNalfAqfaHqYKQ_1789719344
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 975921805A2B;
+	Fri, 18 Sep 2026 08:15:44 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D3F4D1800370;
+	Fri, 18 Sep 2026 08:15:43 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: nsaenz@amazon.com,
+	vkuznets@redhat.com,
+	snambakam@linux.microsoft.com
+Subject: [PATCH v2 00/28] KVM: x86: Introduce memory protection attributes
+Date: Fri, 18 Sep 2026 04:15:15 -0400
+Message-ID: <20260918081543.139871-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 18 Sep 2026 10:14:34 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- "Tom Lendacky" <thomas.lendacky@amd.com>
-Message-Id: <90950a0f-5954-447c-bea1-0ae225e0ba73@app.fastmail.com>
-In-Reply-To: <b0927c73-9171-40e2-9d1a-3dcb2da1c839@amd.com>
-References: <cover.1789345277.git.huibo.wang@amd.com>
- <d0b15a9b5f6e2199ff48bb77e9396044fa96dfb2.1789345277.git.huibo.wang@amd.com>
- <8e4b05a5-61e7-4015-ab72-1e55156e1772@app.fastmail.com>
- <3f4e75ed-9a4b-448c-adb4-5e2e8bae8b11@amd.com>
- <e624a245-e699-40d5-9948-aa77da5c44e1@app.fastmail.com>
- <b0927c73-9171-40e2-9d1a-3dcb2da1c839@amd.com>
-Subject: Re: [PATCH v2 6/8] x86/sev: Register the guest with the SVSM APIC protocol
 Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
+This series introduces a mechanism to let userspace block read,
+write or execute access to individual GFNs via KVM's memory
+attribute mechanism, and have them reported via KVM_EXIT_MEMORY_FAULT.
+It is mostly the work of Nicolas Saenz Julienne, with my working
+consisting in reorganization, code cleanup, and using the recently
+revamped MMU code (ACC_* masks and kvm_page_format).
 
+KVM needs to check the attributes anytime KVM takes GPAs as input for any
+action initiated by the guest; if the memory attributes are incompatible
+with such action, it should be stopped.  This means that there are quite
+a lot of cases to handle.  While some families of functions can be
+handled in one step, there are simply many places that do memory access.
 
-On Wed, 16 Sep 2026, at 20:45, Melody Wang wrote:
-> Hi Ard,
->
-> On 9/15/26 12:44 AM, Ard Biesheuvel wrote:
->> So please add it to the EFI stub, and code it against the boot services
->> (efi_err() for error messages, efi_exit() when aborting and returning to
->> the firmware, etc). Implementing this in a hybrid manner seems entirely
->> unnecessary.
->
-> I moved sev_prepare() into the EFI stub, and I wrote a wrapper for 
-> registering Alternate Injection in the EFI stub but kept the code in 
-> compressed, otherwise I have to export early_is_sevsnp_guest(), 
-> boot_svsm_caa_pa, and svsm_call_msr_protocol() so that it builds.
->
+Along the way, the patches fix some issues in the memory attributes code,
+that surfaced due to having more than one attribute.
 
-early_is_sevsnp_guest() needs to be exported anyway, as I am doing in [0]
+Paolo
 
-> How about this below:
->
-> This is in the stub:
->
-> static bool sev_prepare(void)
-> {
->          u64 unsupported;
->
->          unsupported = snp_get_unsupported_features(sev_get_status());
->          if (unsupported) {
->                  efi_err("Unsupported SEV-SNP features detected: 0x%llx\n",
->                          unsupported);
->                  return true;
->          }
->
->          register_alternate_injection();
->
->          return false;
-> }
->
-> and the stub calls this function:
->
-> +void register_alternate_injection(void)
-> +{
-> +       if (early_is_sevsnp_guest() && snp_vmpl) {
-> +               struct svsm_call call = {};
-> +               int ret;
-> +
-> +               if (!(sev_get_status() & MSR_AMD64_SNP_ALTERNATE_INJ))
-> +                       return;
-> +
-> +               call.caa = (struct svsm_ca *)boot_svsm_caa_pa;
-> +               call.rax = SVSM_APIC_CALL(SVSM_APIC_CONFIG_EMULATION);
-> +               call.rcx = SVSM_AI_REGISTER;
-> +
-> +               ret = svsm_call_msr_protocol(&call);
-> +               if (ret)
-> +                       sev_es_terminate(SEV_TERM_SET_LINUX, 
-> GHCB_TERM_ALT_INJ_FAIL);
-> +       }
-> +}
->
-> which is kept in sev.c to avoid cross-dependencies.
->
+v1->v2:
+- fixed sashiko reports
+- fixed and cleanup up test
+- hypercall fault exit KVM_CAP not Hyper-V specific anymore
+- completed/rewritten Hyper-V hypercall handling
+- added KVM_HC_CLOCK_PAIRING handling
+- use NX attribute for emulation
+- properly split front/back halves of kvm_zap_all_fast
 
-Yes, that seems fine. The important thing is that the SEV support
-code that is shared between the EFI stub, the legacy decompressor
-and the kernel proper has no dependencies on the underlying
-execution context, e.g., EFI boot services or decompressor APIs.
+Anish Moorthy (1):
+  KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to
+    userspace
 
-> I can send it as patches too if it is easier to review this way.
->
+Nicolas Saenz Julienne (13):
+  KVM: selftests: Take into account mixed memory fault flags
+  KVM: x86/mmu: Init memslot hugepage information for non-private_mem
+    VMs too
+  KVM: Introduce NR/NW/NX memory attributes
+  KVM: Include memory protections in result of gfn->hva conversion
+  KVM: Take memory protections into account for memory read/write/fetch
+  KVM: Encapsulate memattrs array into anonymous struct
+  KVM: Introduce a generation number for memory attributes
+  KVM: Take memory protections into account for accesses with cached
+    gfn->hva
+  KVM: pfncache: Fail to refresh if it contains memory protections
+  KVM: x86/mmu: Take memory protection attributes into account during
+    faults
+  KVM: x86/mmu: Issue memory fault exit if walk failed due to memory
+    attribute
+  KVM: x86/mmu: Do not update accessed/dirty if guest PTE is read-only
+  KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory
+    attributes
 
-Naturally.
+Paolo Bonzini (14):
+  KVM: selftests: Test address translation for Hyper-V direct L2
+    hypercalls
+  KVM: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
+  KVM: x86: Introduce memory fault on invalid hypercalls reads/writes
+  KVM: selftests: test hypercall memory fault exits
+  KVM: x86/mmu: intersect writability from __kvm_faultin_pfn with
+    fault->map_writable
+  KVM: x86/mmu: Extend map_writable to a full ACC_* mask
+  KVM: pass kvm == NULL case to kvm_arch_has_private_mem
+  KVM: adjust for presence of more than one attribute
+  KVM: Introduce kvm_fetch_guest_page() and use it for x86
+  KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
+  KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+  KVM: x86: selftests: Introduce memory protection attributes test
+  KVM: x86: selftests: Introduce memory attributes PTE test
+  KVM: x86: selftests: Introduce memory attributes side-channel tests
 
-[0] https://lore.kernel.org/all/20260914183745.37538-5-ardb@kernel.org/
+ Documentation/virt/kvm/api.rst                |  38 +-
+ arch/x86/include/asm/kvm_host.h               |   4 +-
+ arch/x86/kvm/Kconfig                          |   4 +-
+ arch/x86/kvm/hyperv.c                         | 157 ++++--
+ arch/x86/kvm/mmu/mmu.c                        | 169 +++++--
+ arch/x86/kvm/mmu/mmu_internal.h               |  21 +-
+ arch/x86/kvm/mmu/mmutrace.h                   |  36 ++
+ arch/x86/kvm/mmu/paging_tmpl.h                |  25 +-
+ arch/x86/kvm/mmu/spte.c                       |  12 +-
+ arch/x86/kvm/mmu/spte.h                       |  13 +-
+ arch/x86/kvm/mmu/tdp_mmu.c                    |   2 +-
+ arch/x86/kvm/x86.c                            |  57 ++-
+ include/linux/kvm_host.h                      | 128 ++++-
+ include/linux/kvm_types.h                     |   6 +-
+ include/trace/events/kvm.h                    |  14 +-
+ include/uapi/linux/kvm.h                      |   7 +
+ tools/include/uapi/linux/kvm.h                |   3 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   2 +
+ .../testing/selftests/kvm/include/kvm_util.h  |  32 +-
+ .../selftests/kvm/include/x86/processor.h     |   1 +
+ .../testing/selftests/kvm/lib/x86/processor.c |   5 +
+ .../testing/selftests/kvm/memory_attributes.c | 453 ++++++++++++++++++
+ tools/testing/selftests/kvm/x86/hcall_fault.c | 236 +++++++++
+ .../testing/selftests/kvm/x86/hyperv_evmcs.c  |  17 +-
+ .../selftests/kvm/x86/hyperv_svm_test.c       |  15 +-
+ .../selftests/kvm/x86/memory_attributes.c     | 415 ++++++++++++++++
+ .../kvm/x86/private_mem_kvm_exits_test.c      |   6 +-
+ virt/kvm/kvm_main.c                           | 252 ++++++++--
+ virt/kvm/pfncache.c                           |  30 +-
+ 29 files changed, 1973 insertions(+), 187 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/memory_attributes.c
+ create mode 100644 tools/testing/selftests/kvm/x86/hcall_fault.c
+ create mode 100644 tools/testing/selftests/kvm/x86/memory_attributes.c
+
+-- 
+2.52.0
+
