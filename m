@@ -1,72 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D9F49BD86;
-	Fri, 18 Sep 2026 21:16:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E9B49BD86
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766200; cv=none; b=Tn307OKpF6EhpP4+3Pm10hTMRKAMRBwMB9MClrp9pLxiO7MxZRPu06K8ssdhx1lPwTa22ZbYRLq3QRlRNfc7NzgvCG1OFDEhNVFYbS2tDCyCn41OnjtpXMUvNk/2Ptwp/o+xqADR5/qQ4ypWzF6IUKrlVUrTWQnW2fymLrf4Ito=
+	t=1789766310; cv=none; b=n0C5IN5VU+KJZKCSkOxZrmgUvFStmb+FMC713DWrraEskfHCx5K94YkXpIGjrhqbhf112SjR6LiwFlUEvGGvZnK3Z1lMYiNS1FK04K6FYkcI2BnLT6L9D7FiZBbCAs1lPuIcBEpGQQyLQJ7RASYONN317y3Tb+r7RBdV890fKrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766200; c=relaxed/simple;
-	bh=degIIcbCRvjwsRmFmL2dGhhNgkxJlq4ndAiAVJW1M+s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gCe3zruxTj+TfaWyVadNGReIfMSqavZFiOYyp5JIUoG2ZAwETx2cy/jyUmzfLCbV3bHycXeD3yazIcda7hz9f8tPoBi3cqzhYwcbGS6cB1Fd6WHh8yL/UV0W6J07aw9T6pozTIxfNph6n2vSl58J3WnmKtdrV54WkDlmXbsLAWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXjVL5f3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789766310; c=relaxed/simple;
+	bh=vWS+KYhmEfrdSr2qNK59jhlMuT07qDRH1bJmlsfGXUc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YULm5AXVRAMU/+rAZrSKOkDxEDyh/FD/crJRBYzV7Lo4jp1BlGxYSb/L+lqyXwze/HdE3Tg1qATARtuGXX09ZMVNKAl3YuvfgVIiLdbI5Aej8R4AXmikxM5F82+FtBlsNBVYViJOkGmDOWp+4mUEUYpjpXYDNUq7BPfYo5XlVlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLe9EhHC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXjVL5f3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2EC81F000FF;
-	Fri, 18 Sep 2026 21:16:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLe9EhHC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E701F000FF;
+	Fri, 18 Sep 2026 21:18:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789766197;
-	bh=nn28jhrlaAY2fftMjfIRkJUBt2vqeMHKyGKIhLBBzq4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jXjVL5f3ZhrNlZUVNcFA4h0974qhsoXaDUcTIl1pVShMxIsHLcE6SP2A3/+6GAMqZ
-	 2f7G45hqSMl2gAbBrCgFTVebZziV036my5T7ObtWDhymbH0/mAdNbFhUl7Ovt6Rjj6
-	 3i6KqG4LFyamPsbyV4sBLu3s+i2vGa+3xj1YMvJECLIZb8Zh1fuesdb+uGpbaBgrS5
-	 rCCf89PKAl1xv06rrbd2fHuIyQoWOWWjI//0wk2tRpa8zntD61jImjvKDTjQmCDPiC
-	 D3Aokbli6oWUN8l5m+jEKHaTzjoMd7ghQpBgV2Eeo8PbgqVXSDy2IrSnou5YVRhwLZ
-	 5wY+8/g/saVOA==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Kees Cook <kees+treewide@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-In-Reply-To: <20260917211423.i.786-kees@kernel.org>
-References: <20260917211423.i.786-kees@kernel.org>
-Subject: Re: [PATCH] nvmem: core: Add const to pattrs allocation type
-Message-Id: <178976619658.821969.9520455607016938775.b4-ty@kernel.org>
-Date: Fri, 18 Sep 2026 22:16:36 +0100
+	s=k20260515; t=1789766309;
+	bh=6uV71i9dxmN5La2QHPB3LFaEp9NirZveEU2dy4qv0nc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oLe9EhHCMalkQExDUURMOq31tWgH4Qpwd1QfK5RvLXBZUgHhJKledONWFp0LSeYl8
+	 Gwnj0arvPPj6AEpcgvnXY2Kid454NQUl2tsF8B1bpPhTeITUFLW4e2+mRyJfAqPWWM
+	 CoLGKuCLlKbY4cQUL22MXsg3iNRCtY5Pz9GH6s0S7ZTAhdwX1jTO1uhBiaOGm3zUtu
+	 tAjgHoNw4zXw2pP1yV14jEsI2Nj25+EkIlQzTljQUjT8M9FlG5WUbvnmV8X4yJd+jk
+	 UhTgKRrRmx2WIpwFfA1C1oVK1eagi/pgJg35z4gH2gdzJUP9QTRNzTNYcVturylDhH
+	 5AiFxXqkD2JZg==
+Message-ID: <a4205a11-f0c4-49cc-8bdb-b294dc342dc6@kernel.org>
+Date: Fri, 18 Sep 2026 23:18:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 03/29] loongarch: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com, Huacai Chen <chenhuacai@kernel.org>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-4-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-4-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
 
-
-On Thu, 17 Sep 2026 14:14:24 -0700, Kees Cook wrote:
-> In preparation for making the devm_kmalloc family of allocators type
-> aware, we need to make sure that the returned type from the allocation
-> matches the type of the variable being assigned. (Before, the allocator
-> would always return "void *", which can be implicitly cast to any
-> pointer type.)
+On 9/14/26 14:27, Usama Arif wrote:
+> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+> not just in a swap PTE.
 > 
-> The assigned type is "const struct bin_attribute **", but the converted
-> allocation type would be "struct bin_attribute **", which is the same
-> type without the const qualifier. As there is no general way to safely
-> add const qualifiers, take the size from the assignment target instead.
-> No change in allocation size results.
+> A LoongArch swap PMD is the swap PTE value plus _PAGE_HUGE, and
+> _PAGE_SWP_EXCLUSIVE sits outside both the type and the offset field, so the
+> PMD helpers can use the same bit.
 > 
-> [...]
+> Cc: Huacai Chen <chenhuacai@kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-Applied, thanks!
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-[1/1] nvmem: core: Add const to pattrs allocation type
-      commit: 07242f2fa13247d558352d481a05a97793f9ab1d
-
-Best regards,
 -- 
-Srinivas Kandagatla <srini@kernel.org>
+Cheers,
 
+David
