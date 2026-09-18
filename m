@@ -1,114 +1,227 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789102AE68;
-	Fri, 18 Sep 2026 02:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C1C3B6BF2;
+	Fri, 18 Sep 2026 02:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697671; cv=none; b=RYm296ma8TQ8S7RYDeRVw6RvrrW+xGxtSXrJJQ0y0lnVIDHQ1syKYTjOxwmcjqRmW+rimCM0kj4rcjgOrA0QGTCs8SMvhYffEZctELsE3CVUC08buznZwN2xeKxz6mn13KmYdJZM4i6CS9VFysTeM+GWy7FY6MDngQYyKJqdyEc=
+	t=1789697676; cv=none; b=skk6xRMo1tiHjUIbgHzZ5jUVYAmu+vBvgGYa2kJU9kyQku3SkzsnnPpJq8JtdvLJImR/x1lBECyQpWACJEUCsk9v5tLRtkUr40c7gl/HSBTGayuVoCLo9Dj3wANZv48qH56XCf5S+pufY5IG1nrCblPYS8a/zdbn7JQY3UE1NoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697671; c=relaxed/simple;
-	bh=niN93rAd+GMr85+QGZ7HayTJiVAapuHOcG9jLiCvBuA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=N4Cztv+N53C/gKVdehc0PDiijxZnK8TV3CP8ExThh+qQnpJT6eDYcCKGYq4XKqTA1rpj7GC7ftwwQ6iZHcwI+5ohGLvm16TopaA/oZrg/eTBHnbxM0krYwiAvMKU1cRyHIZOr6oVDnOMmx92oOjiQJBFH/beCIcz8zFMHdX9W/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=QUJli5F8; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789697676; c=relaxed/simple;
+	bh=XG5tXNhmHVkSr+ObLlr7vqBx3G4FZGH3QBqATB45sHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UIgPyMPwLDzinwjDQ27bI0UiKddaryoE1QxnaTp4+v1G+ebUOvtd68kkKHdyiZy2B8nwgHmGSogkIFa02LmACRjapyysqcF28hrw38WcZrcPN5B2N4Qn0jAvAJ6ulV2XvUCh1QrIdkD+30tkE+RMHVtE9jGuWOncoO7m1rrGhM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aF8+G0iY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="QUJli5F8"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68I2EKP303823523, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789697661; bh=wvZANvGzmh9F5bllY/qp4dg9XRDXCdSUnWOB0mdXQPE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=QUJli5F8+E90TkQfh1rifC3z4+CVhFAS6PqkResb9WjFf0hdc2CEkkkz970hB8FDN
-	 UW0O/ZH9XwAeUBwgsVFgmgMZ9bBXfuxNL7iO81Sw6de6rSEjV+RK76WFb3vVGPHtE5
-	 bWO+vcfxuFkmoCGK1FGKv/UAX+6ixAftUu8JmgVmKovsFd4HfI1rOAnOI6p0/KIsrv
-	 12bjAaBSeGvTQ6NiDhJ1Yxs65vvPnGHWLb5ofLJENtY5nWQDt3MXOmu0G02Zrf0Df6
-	 z0wYUCqc5nU7nyFxvnvbZnRf1F+iLDzS7riRGEXM3ekp1JS/qKn6Ml/cfWmH0iJsXr
-	 9u9y8HQDz0Qcg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68I2EKP303823523
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 18 Sep 2026 10:14:20 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 18 Sep 2026 10:14:20 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 18 Sep 2026 10:14:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Fri, 18 Sep 2026 10:14:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: kernel test robot <lkp@intel.com>, Johnson Tsai <wenjie.tsai@realtek.com>
-CC: "oe-kbuild-all@lists.linux.dev" <oe-kbuild-all@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: ld.lld: error: undefined symbol:
- led_classdev_multicolor_unregister
-Thread-Topic: ld.lld: error: undefined symbol:
- led_classdev_multicolor_unregister
-Thread-Index: AQHdRuta99v06zoV9UyIQIR254skCLbTmEzA
-Date: Fri, 18 Sep 2026 02:14:19 +0000
-Message-ID: <98a3ae2c705b4465b98c64c4b661ff43@realtek.com>
-References: <202609172315.ZYoKvKBS-lkp@intel.com>
-In-Reply-To: <202609172315.ZYoKvKBS-lkp@intel.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aF8+G0iY"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D194E1F000FF;
+	Fri, 18 Sep 2026 02:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789697673;
+	bh=Cs4e9fGmvBmMllPzVQFlcqSoCGiEMLUQj/MHmC0cLds=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aF8+G0iYE1ckBIWsf9fbtQCAiHhUzHqUdb1iDPgypKgaRejp31ul41xmGnMkJIBRJ
+	 YdCWLb1w/DMoG7Rf74oQua0tT5N0V+/eRbkeB49c/9eyLMmkUE/aE15mR0gchRDY5S
+	 YU653jB7/MsrbMheQ1Eoc3lEOIB1ThWUx3qGFQ5qCMbx2eLj0DSkC3qxTRPdnxIVxO
+	 NeYP3TOtHpwo+bF8CXayKjkt00qu376iD3QAFVIvqmmbTKwZGUuAwZ7n4x7M8Wm2Xs
+	 XVWs6yID193KgpN3CvfwLDWzOW+fXz2kTcNASNjoa78ZNbfn/+YEYzzXoA3WtAwJx4
+	 cc10ZHizk6/AQ==
+Date: Fri, 18 Sep 2026 05:14:29 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] keys: finalize persistent keyring timeout after link
+ attempt
+Message-ID: <aqyehcvl9fM6LuVw@kernel.org>
+References: <20260912095440.79864-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912095440.79864-1-kmehltretter@gmail.com>
 
-kernel test robot <lkp@intel.com> wrote:
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.gi=
-t master
-> head:   b5a051f6b840d48f159166ef073d3021989bfb50
-> commit: 721d90c8509aee195c3714b70c4cff612fbb3a1c wifi: rtw89: add multico=
-lor LED support for RTL8852CU
-> valve board
-> date:   8 weeks ago
-> config: hexagon-randconfig-r072-20260915
-> (https://download.01.org/0day-ci/archive/20260917/202609172315.ZYoKvKBS-l=
-kp@intel.com/config)
-> compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project
-> 6009708b4367171ccdbf4b5905cb6a803753fe18)
-> smatch: v0.5.0-9187-g5189e3fb
-> reproduce (this is a W=3D1 build):
-> (https://download.01.org/0day-ci/archive/20260917/202609172315.ZYoKvKBS-l=
-kp@intel.com/reproduce)
->=20
-> If you fix the issue in a separate patch/commit (i.e. not just a new vers=
-ion of
-> the same patch/commit), kindly add following tags
-> | Fixes: 721d90c8509a ("wifi: rtw89: add multicolor LED support for RTL88=
-52CU valve board")
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202609172315.ZYoKvKBS-lkp=
-@intel.com/
->=20
-> All errors (new ones prefixed by >>):
->=20
-> >> ld.lld: error: undefined symbol: led_classdev_multicolor_register_ext
+On Sat, Sep 12, 2026 at 11:54:40AM +0200, Karl Mehltretter wrote:
+> When no keyring exists for the requested UID, KEYCTL_GET_PERSISTENT
+> creates and registers one before linking it to the requested destination.
+> The configured timeout is set only after the destination link succeeds.
+> 
+> A destination restricted with KEYCTL_RESTRICT_KEYRING makes that link fail
+> with -EPERM. With persistent_keyring_expiry set to 60 seconds, /proc/keys
+> still reports the registered keyring's expiry as "perm".
+> The failed call therefore leaves a quota-exempt keyring in the namespace's
+> hidden register, where it may remain until namespace teardown.
+> 
+> Rename the write-locked helper to key_get_or_create_persistent() and return
+> the key reference through a result parameter. Return 0 when it creates a
+> keyring and 1 when the retry finds an existing one. Return a negative error
+> on failure. Another caller may create the keyring between the initial
+> read-locked lookup and the retry under the write lock.
+> 
+> Set the timeout after permission checking and linking. Do this on success,
+> or on failure if the call allocated the keyring. This leaves a new keyring
+> collectible after failure without starting its timeout while linking is
+> still in progress.
+> 
+> Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Changes in v4:
+> - tweak comment (Jarkko)
+> 
+> v3: https://lore.kernel.org/r/20260901191743.39210-1-kmehltretter@gmail.com/
+> 
+> Changes in v3:
+> - Return the persistent key reference through a result parameter (Jarkko).
+> - Keep lookup-or-create atomic inside the helper and use 0 for creation, 1
+>   for an existing keyring, and negative values only for errors.
+> 
+> v2: https://lore.kernel.org/r/20260901164323.35785-1-kmehltretter@gmail.com/
+> 
+> Changes in v2:
+> - Rewrite the commit message around the restricted-destination reproducer
+>   and trim the explanation (Jarkko).
+> - Track whether the persistent keyring was newly allocated and finalize its
+>   timeout after the permission and link checks. This preserves an existing
+>   keyring's timeout on failure and avoids expiry during linking.
+> 
+> Testing below was performed for v3; v4 changes only the comment.
+> 
+> Tested with QEMU 10.2.1 TCG on i386 and x86_64. With
+> persistent_keyring_expiry set to 60 seconds, KEYCTL_GET_PERSISTENT returned
+> -EPERM and /proc/keys reported "perm" before the fix and "1m" after it on
+> both architectures.
+> 
+> Also tested on x86_64 with persistent_keyring_expiry set to 1 second and
+> gc_delay set to 0. Successful calls reused the same serial, a newly created
+> keyring from a failed call expired, and a failed call using an existing
+> keyring left its timeout unchanged. A test-only two-second delay before
+> timeout finalization did not allow the keyring to be collected before link.
+> 
+> Two concurrent callers returned the same serial. A test-only 100 ms delay
+> after the read-locked miss forced both callers into the write-locked retry
+> and confirmed that the second caller took the 1 (existing) return path.
+> 
+>  security/keys/persistent.c | 55 ++++++++++++++++++++++----------------
+>  1 file changed, 32 insertions(+), 23 deletions(-)
+> 
+> diff --git a/security/keys/persistent.c b/security/keys/persistent.c
+> index 97af230aa4b22..bdab995393261 100644
+> --- a/security/keys/persistent.c
+> +++ b/security/keys/persistent.c
+> @@ -33,25 +33,31 @@ static int key_create_persistent_register(struct user_namespace *ns)
+>  }
+>  
+>  /*
+> - * Create the persistent keyring for the specified user.
+> + * Get or create the persistent keyring for the specified user.
+>   *
+>   * Called with the namespace's sem locked for writing.
+> + *
+> + * Returns a boolean indicating whether the keyring already existed,
+> + * or a negative error. On success, *persistent_ref holds a reference
+> + * to the keyring.
+>   */
+> -static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+> -				       struct keyring_index_key *index_key)
+> +static int key_get_or_create_persistent(struct user_namespace *ns, kuid_t uid,
+> +					struct keyring_index_key *index_key,
+> +					key_ref_t *persistent_ref)
+>  {
+>  	struct key *persistent;
+> -	key_ref_t reg_ref, persistent_ref;
+> +	key_ref_t reg_ref;
+>  
+>  	if (!ns->persistent_keyring_register) {
+> -		long err = key_create_persistent_register(ns);
+> +		int err = key_create_persistent_register(ns);
+> +
+>  		if (err < 0)
+> -			return ERR_PTR(err);
+> +			return err;
+>  	} else {
+>  		reg_ref = make_key_ref(ns->persistent_keyring_register, true);
+> -		persistent_ref = find_key_to_update(reg_ref, index_key);
+> -		if (persistent_ref)
+> -			return persistent_ref;
+> +		*persistent_ref = find_key_to_update(reg_ref, index_key);
+> +		if (*persistent_ref)
+> +			return 1;
+>  	}
+>  
+>  	persistent = keyring_alloc(index_key->description,
+> @@ -61,9 +67,10 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
+>  				   KEY_ALLOC_NOT_IN_QUOTA, NULL,
+>  				   ns->persistent_keyring_register);
+>  	if (IS_ERR(persistent))
+> -		return ERR_CAST(persistent);
+> +		return PTR_ERR(persistent);
+>  
+> -	return make_key_ref(persistent, true);
+> +	*persistent_ref = make_key_ref(persistent, true);
+> +	return 0;
+>  }
+>  
+>  /*
+> @@ -78,6 +85,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+>  	key_ref_t reg_ref, persistent_ref;
+>  	char buf[32];
+>  	long ret;
+> +	bool created = false;
+>  
+>  	/* Look in the register if it exists */
+>  	memset(&index_key, 0, sizeof(index_key));
+> @@ -100,23 +108,24 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+>  	 * also need to create the register.
+>  	 */
+>  	down_write(&ns->keyring_sem);
+> -	persistent_ref = key_create_persistent(ns, uid, &index_key);
+> +	ret = key_get_or_create_persistent(ns, uid, &index_key,
+> +					   &persistent_ref);
+>  	up_write(&ns->keyring_sem);
+> -	if (!IS_ERR(persistent_ref))
+> -		goto found;
+> -
+> -	return PTR_ERR(persistent_ref);
+> +	if (ret < 0)
+> +		return ret;
+> +	created = ret == 0;
+>  
+>  found:
+> +	persistent = key_ref_to_ptr(persistent_ref);
+>  	ret = key_task_permission(persistent_ref, current_cred(), KEY_NEED_LINK);
+> -	if (ret == 0) {
+> -		persistent = key_ref_to_ptr(persistent_ref);
+> +	if (ret == 0)
+>  		ret = key_link(key_ref_to_ptr(dest_ref), persistent);
+> -		if (ret == 0) {
+> -			key_set_timeout(persistent, persistent_keyring_expiry);
+> -			ret = persistent->serial;
+> -		}
+> -	}
+> +
+> +	if (ret == 0 || created)
+> +		key_set_timeout(persistent, persistent_keyring_expiry);
+> +
+> +	if (ret == 0)
+> +		ret = persistent->serial;
+>  
+>  	key_ref_put(persistent_ref);
+>  	return ret;
+> 
+> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> -- 
+> 2.53.0
 
-Thanks for the report. This is because multicolor is kernel module
+LGTM. Thank you.
 
-  CONFIG_LEDS_CLASS_MULTICOLOR=3Dm
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-but rtw89 is built-in
-
-  CONFIG_RTW89=3Dy
-  CONFIG_RTW89_LEDS_MC=3Dy
-
-Correct the dependency in Kconfig to avoid this case. [1]
-
-[1] https://lore.kernel.org/linux-wireless/20260918021113.25481-1-pkshih@re=
-altek.com/T/#u
-
-
+BR, Jarkko
