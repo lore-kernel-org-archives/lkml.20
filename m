@@ -1,64 +1,65 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C113051D511
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8841151EE02
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755437; cv=none; b=WN3KZKV/knTFkjiBhHK5eM412zVKbr9b1cTr+mqSuYos/QSP+RhPMoxvA0RVtW9g75ZUUlEglJTsD+1olLI/YPG+ykdP/PFpi21+itij61zkmoajavvkd1sD/4mTIZwSfrvoJPkSFQQZ6cuzmQjw0Ati9bNa8en+BpHuWW80s+o=
+	t=1789755439; cv=none; b=imhLsDjHWKHTrjzIbcC3BndLwnkm4wc/Oft+6FtPFGLuBX5IQafs3AE+2hlcJkzQhOOusGtTjKLOUIAY1qEx7BBEf0yoyPrLJ0Xpm2UYwgDQ6EOZR813t7bma6qMXcPkKqbfoLInAhT6EFwCGSVhuyuPn5rjTHELRLfM1hDpfHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755437; c=relaxed/simple;
-	bh=FZt6CXZo2bmv8xm8GIXDwWDNfGUWLjZWl34Anyu+s40=;
+	s=arc-20240116; t=1789755439; c=relaxed/simple;
+	bh=kJlZAJC5w8Y6rxPPy96a2gpbq9yTsgzYHypSB80iKmo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M2bcc2U8OUGUpNAubJ6VdQXxquRcU1wH+4pJx1ampmEds8U2hHvJcidw/yZ3m05L6t4Oetaka1Ir6dgjo6TjuWRhhsO0+fcnpefKX8qiZNZfblRcr0Kf8cuxnNMld+oSXPSemkEFuhDHbBpnyEz5VrFiLQloghVeQTW3HZlzwCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=PQtCEkDg; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=u8TUoo+dPmDmEoqomQIjrDqSOQG/MrtJE1PQ+oV+92RGHOuS0rrL5pKNriYeciWaCEX2Bjssz0R1Rve8O4DStSeqBeeuqslQqqeDVE+IGz68CmEvEWg1F8gc2bN7fyf/24NGTz2II4ZePs21isJpJEiuIFQ6j7U8igYRYQTwo0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=OtuOdH9c; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="PQtCEkDg"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so1099600a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="OtuOdH9c"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so926354a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789755435; x=1790360235; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1789755437; x=1790360237; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UBOnOOrLTxtHRzBhBZsycN4YkbFFBvPMpRlDpWA+7GA=;
-        b=PQtCEkDgjfk2NO1FMS7NogrPN3u/VleK/fOrhpSwsb8rDH5pw84VqPZ0iWmHpn1opG
-         7el7HnMO7ZHBPIf8VjJgsABIiDjVgNF0EfkbFoxnoshfIrHpwB3Fyyb14vbhm4i3owBI
-         5TGy5TvSIPK0uAJXb/cqbY48TRpwf7lRwMqMmvZ2LY1iCWBMHV6zZwBacznzXhOHsLHK
-         qm2lXVrWlHsCuAbKBSZjcMzBt5XmEXwY8fIAgqzFAGdq5Qhe+Z6Vb7laV3b0A6JYjyJL
-         ooSqbYSiOUWmwFw9q8SJ5h9es/N6eatLtR5FrMQ+B1IxDtEuh4XfWg+kokYJD/wZflKX
-         rOHg==
+        bh=AW01tuh8hRVQtK4qarvblwO+ofGvSgZdhu/67l8Xj60=;
+        b=OtuOdH9c4rWDpDQiilL1JUY/4XrxXbfDzZriUB5e4GFzC9NclgSaZVh98d+brcAWw4
+         KWeuo6d/LL0blCw+MEX8+WssWc3+ubvhAaJTNkSxTEDG8/TLfGr420ALXLBQ99pUbuP7
+         NdbZJ6dXAuGdkjtAjuNEa3ys1UMZ9kRNinctXFarjsQZYN7zTBhn9SW1DzkoO+AeewWD
+         3BSuWoJ12aDTeBf0p5JTFOcoMk9TZEnuicIqi5IISegxxMOHlUX5JDqbBJ4f0ywg74es
+         4eF1U7qKlgK+X28h7qBNBDbc0tN+hGltLIgvdc4A0FS21UGIQkpSMzCz834xaeffal+S
+         pe/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755435; x=1790360235;
+        d=1e100.net; s=20260707; t=1789755437; x=1790360237;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UBOnOOrLTxtHRzBhBZsycN4YkbFFBvPMpRlDpWA+7GA=;
-        b=dhbR/SwVgVEw+AwVUz28dXuSe+QDpM8B2iAf4h8YcVKqJEBTL+mUDP8BaQpeUz5SpF
-         ALustbxIKfzb5E/9/yAUQ5XnS0bfWjvSeEzdJ61KIPTrvMfRxKtaIDRXJWGmczq0u08f
-         SWYyjJTsqg4PkFrDLNFe4phd2OVZkDXdcJHJ7Hk6CRik9yad7PveLBSI326w9zwn+JEf
-         VJH12N5qR6e7Ta6kJ1J+vQsAY/c7d/XIQXFIs5KXFHcp0Rxv65dG/T+u/P3I/NtCBma/
-         rQoGqittz40cX4M3uY4aIHR9ZK9QWQh51fKWeCr2F9SPboXOvFpupGtfqAY4ddxdqkdp
-         2TGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTGXEUc3n/64kWYI9h0gQXFLLOEvQpZ80YEmWe3fS/A9EWNp9O5otUZoEGflxt/FQA6exO6IfEy80e7YQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxEhsJUYDnPMApxfG8qnfXG8AAqZ1T8/616OyACNkOzBmXHeFn
-	i/TlyjI1dU/CDl4GD8gphsCh8WCYVHhfL0oZMRQWtRv6gYEwTJBDnWxjIJFzju3YuOk=
-X-Gm-Gg: AYBFou2T+6UPXjRJTZP0xXzMLLrJOapBlh2Q873IeA+RuFw4k3KgNpQGFA76jABtnx5
-	aYOuI5ch/NOegHVP2Ln/dcOT4Okyoo/6XesT+bCfm70vOAN71SQjku1fG6RVHIwEJf6LGIzXGVY
-	DIPK2bg10uiM+k4BVxUIqPKzwSZEX4F+XZopcpS9ghk37TM7epfcpHZ6GmApMpgG3ESBiNmDYAv
-	cqrzuMPTn/QA1YBKL2W8jIqC8uSUtcU+PjyV9VwoQ10LoA692jzi1birif7iBYXhKm0hUg7/zjY
-	n6eKv0QGRFHS5a2EQntEZNlzuMuxCjs/u9mORd6t7k91Z0A9UOmQ6dxOxE8xB/Qwl4faZzXgqbx
-	DpxvQzk9pSBygmm7O7vmoKcdG7WWYGucMGUSLyRYPHaemeU6GeDS/JTQ0ocnHvTt2r+1qYEh4J6
-	viM6duSvJNEea9iDY98Y4MGBDIlukuZ5KuFs5TPr3dwjEVMOnSqdFnrE71PxIi6lkIHgBRDo5Wt
-	22bolOIadwXEoXER+Fjew==
-X-Received: by 2002:a17:90b:2686:b0:39e:6c69:9b9c with SMTP id 98e67ed59e1d1-39e6c69b2bemr656537a91.65.1789755434694;
-        Fri, 18 Sep 2026 11:17:14 -0700 (PDT)
+        bh=AW01tuh8hRVQtK4qarvblwO+ofGvSgZdhu/67l8Xj60=;
+        b=KPbQA9njHabEXg6iMsbdsxiEJ2hwxsfxZTaEs040YirMy8H8OZAUkTHClVW2jOMuVi
+         lEBOd2oGwu7WGegTMzCMTa3ziiXQjpGXGp0tfKNYutPDHSd6uY2Ju7EpPcDSyu8Vba0o
+         iwGMVQshYFPgqwGT2YYRoPonP3+L4yycs4e31A0bI3r5Qs2RIttaf/prwzVOnPWpG6oU
+         mVXtV+ZrvAL6fRzgQRXzCPLrTIvQchAs3eKlT6wYUrB8zkIuqIcq89rZD+AAAQniB37a
+         dm5yiHT8QrUVVSyd7O+ty0EVMj5kbdT9ipp5Pg/zNWy0/KsZNp5G/yWE3mKd1HTwjHOI
+         e8CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4rk+RSsOMtmmTlVnaMHkz/ylTsT/Fnqj1HN2eVeN8P0ZUbI5+/kgc2tyMy5XC+wFai2zd2IqmHLp52jA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqMBzCqpWBk2ZoEHjUPzNi1Uj/9QXwfc7lerlkvuWDyBC9Jak2
+	JDvYhSvrYHRVLOGjr57qF1eK0F3VrPeHB1lQ13DCWIeYypDjxSh4Gh0kaM3Nq2o8qCsI3LIgvOY
+	fbRT0
+X-Gm-Gg: AYBFou0QM37mJS7sfS5BdUCLO0uE3RgNNTaK5Q/Gn5ajJHU08Enik5OgttofC3WMN8i
+	oVSqc1tw3WvYPdkXzxnylStPRdM2ML24xfog34QcLOCu0CtzwlUF4nfTmfwNBgmZF4QtAJr+13n
+	h0QW7mpstJ1KGlaoNDRlSO85InjK1sqNT42nGz9z+FPsOSFHryucet/I+aRd4sjbS+fCYqmim6H
+	TOG94P9tkYwpLu6yrjJAQHJ0oSV/QhNsGqInoa7YMs6cZ0LacyXokMUR98BRlKonTwNpW6aUbfO
+	stWa19oXzdPx1xvckmj3ece2+fNmxcHSCRq3hjhHRa3jpqji2wmmjr28dJD9w6xH04eV8rEVyFn
+	JmDa2cTzIh/HkRffmUL8qQKAz2ROwg8a7YBjPCOscw9pN8cwGLsgR7r9hCnaqqicwALuQMIfd3a
+	kZUl7o361WOrl8K/LJYlW3/EVFnWM8u/9YMePh/cpEGmR9ifAZzi+os4o7hL5sxkdBgABGQgOo3
+	kNU+Fg1KdCSpPt5ZsHs0A==
+X-Received: by 2002:a17:90b:4ac7:b0:39e:6c6a:4b6a with SMTP id 98e67ed59e1d1-39e6c6a5812mr574016a91.52.1789755436728;
+        Fri, 18 Sep 2026 11:17:16 -0700 (PDT)
 Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.13
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:17:14 -0700 (PDT)
+        Fri, 18 Sep 2026 11:17:16 -0700 (PDT)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -74,9 +75,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Mohamed Khalfella <mkhalfella@purestorage.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 14/18] nvme-fc: Use CCR to recover controller that hits an error
-Date: Fri, 18 Sep 2026 11:14:14 -0700
-Message-ID: <20260918181614.3947933-15-mkhalfella@purestorage.com>
+Subject: [PATCH 16/18] nvmet: Add support for CQT to nvme target
+Date: Fri, 18 Sep 2026 11:14:16 -0700
+Message-ID: <20260918181614.3947933-17-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918181614.3947933-1-mkhalfella@purestorage.com>
 References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
@@ -88,112 +89,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An alive nvme controller that hits an error now will move to FENCING
-state instead of RESETTING state. ctrl->fencing_work attempts CCR to
-terminate inflight IOs. Regardless of the success or failure of CCR
-operation the controller is transitioned to RESETTING state to continue
-error recovery process.
+TP4129 KATO Corrections and Clarifications defined CQT (Command Quiesce
+Time) which is used along with KATO (Keep Alive Timeout) to set an upper
+time limit for attempting Cross-Controller Recovery. CQT is added as a
+subsystem attribute that defaults to 0 to maintain the current behavior.
 
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 ---
- drivers/nvme/host/fc.c | 42 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ drivers/nvme/target/admin-cmd.c |  1 +
+ drivers/nvme/target/configfs.c  | 36 +++++++++++++++++++++++++++++++++
+ drivers/nvme/target/core.c      |  3 +++
+ drivers/nvme/target/nvmet.h     |  2 ++
+ include/linux/nvme.h            |  5 ++++-
+ 5 files changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-index 5a530aa37641..42671cca439f 100644
---- a/drivers/nvme/host/fc.c
-+++ b/drivers/nvme/host/fc.c
-@@ -166,6 +166,7 @@ struct nvme_fc_ctrl {
- 	struct blk_mq_tag_set	admin_tag_set;
- 	struct blk_mq_tag_set	tag_set;
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index a60b2f271e98..c0cd233048eb 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -739,6 +739,7 @@ static void nvmet_execute_identify_ctrl(struct nvmet_req *req)
+ 	id->cntlid = cpu_to_le16(ctrl->cntlid);
+ 	id->ver = cpu_to_le32(ctrl->subsys->ver);
+ 	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
++		id->cqt = cpu_to_le16(ctrl->cqt);
+ 		id->ciu = ctrl->ciu;
+ 		id->cirn = cpu_to_le64(ctrl->cirn);
+ 		id->ccrl = NVMF_CCR_LIMIT;
+diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+index 6286e38436dd..88a59ac1e93a 100644
+--- a/drivers/nvme/target/configfs.c
++++ b/drivers/nvme/target/configfs.c
+@@ -1663,6 +1663,41 @@ static ssize_t nvmet_subsys_attr_pi_enable_store(struct config_item *item,
+ CONFIGFS_ATTR(nvmet_subsys_, attr_pi_enable);
+ #endif
  
-+	struct work_struct	fencing_work;
- 	struct work_struct	ioerr_work;
- 	struct delayed_work	connect_work;
- 
-@@ -990,6 +991,7 @@ static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
- static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
- 
- static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl);
-+static void nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl);
- 
- static void
- __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
-@@ -1870,6 +1872,30 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
- 	}
- }
- 
-+static void nvme_fc_fencing_work(struct work_struct *work)
++static ssize_t nvmet_subsys_attr_cqt_show(struct config_item *item,
++					  char *page)
 +{
-+	struct nvme_fc_ctrl *fc_ctrl =
-+			container_of(work, struct nvme_fc_ctrl, fencing_work);
-+	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
-+	unsigned long rem;
-+
-+	/*
-+	 * Tear the association down now so the LLDD can finish unregistering
-+	 * the remoteport/localport while the fencing this controller.
-+	 */
-+	nvme_stop_keep_alive(ctrl);
-+	cancel_work_sync(&ctrl->async_event_work);
-+	nvme_fc_delete_association(fc_ctrl);
-+
-+	rem = nvme_fence_ctrl(ctrl);
-+	if (rem)
-+		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
-+
-+	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
-+	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-+		queue_work(nvme_reset_wq, &fc_ctrl->ioerr_work);
++	return snprintf(page, PAGE_SIZE, "%u\n", to_subsys(item)->cqt);
 +}
 +
- static void
- nvme_fc_ctrl_ioerr_work(struct work_struct *work)
++static ssize_t nvmet_subsys_attr_cqt_store(struct config_item *item,
++					   const char *page, size_t cnt)
++{
++	struct nvmet_subsys *subsys = to_subsys(item);
++	struct nvmet_ctrl *ctrl;
++	u16 cqt;
++
++	if (nvmet_is_disc_subsys(subsys))
++		return -EINVAL;
++
++	if (sscanf(page, "%hu\n", &cqt) != 1)
++		return -EINVAL;
++
++	down_write(&nvmet_config_sem);
++	mutex_lock(&subsys->lock);
++	if (subsys->cqt == cqt)
++		goto out;
++
++	subsys->cqt = cqt;
++	/* Force reconnect */
++	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
++		ctrl->ops->delete_ctrl(ctrl);
++out:
++	mutex_unlock(&subsys->lock);
++	up_write(&nvmet_config_sem);
++	return cnt;
++}
++CONFIGFS_ATTR(nvmet_subsys_, attr_cqt);
++
+ static ssize_t nvmet_subsys_attr_qid_max_show(struct config_item *item,
+ 					      char *page)
  {
-@@ -1950,6 +1976,14 @@ nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
- 		return;
+@@ -1703,6 +1738,7 @@ static struct configfs_attribute *nvmet_subsys_attrs[] = {
+ 	&nvmet_subsys_attr_attr_vendor_id,
+ 	&nvmet_subsys_attr_attr_subsys_vendor_id,
+ 	&nvmet_subsys_attr_attr_model,
++	&nvmet_subsys_attr_attr_cqt,
+ 	&nvmet_subsys_attr_attr_qid_max,
+ 	&nvmet_subsys_attr_attr_ieee_oui,
+ 	&nvmet_subsys_attr_attr_firmware,
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 69491e8e52ba..a93cf7e3a704 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1753,6 +1753,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 	ctrl->cntlid = ret;
+ 
+ 	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
++		ctrl->cqt = subsys->cqt;
+ 		ctrl->ciu = get_random_u8() ? : 1;
+ 		ctrl->cirn = get_random_u64();
  	}
+@@ -1980,10 +1981,12 @@ struct nvmet_subsys *nvmet_subsys_alloc(const char *subsysnqn,
  
-+	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_FENCING)) {
-+		dev_warn(ctrl->ctrl.device,
-+			 "NVME-FC{%d}: starting controller fencing %s\n",
-+			 ctrl->cnum, errmsg);
-+		queue_work(nvme_wq, &ctrl->fencing_work);
-+		return;
-+	}
-+
- 	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
- 		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
- 			 ctrl->cnum, errmsg);
-@@ -2463,6 +2497,12 @@ nvme_fc_ctrl_get(struct nvme_fc_ctrl *ctrl)
- 	return kref_get_unless_zero(&ctrl->ref);
- }
+ 	switch (type) {
+ 	case NVME_NQN_NVME:
++		subsys->cqt = NVMF_CQT_MS;
+ 		subsys->max_qid = NVMET_NR_QUEUES;
+ 		break;
+ 	case NVME_NQN_DISC:
+ 	case NVME_NQN_CURR:
++		subsys->cqt = 0;
+ 		subsys->max_qid = 0;
+ 		break;
+ 	default:
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index 88fa11aa0587..ddf88c772938 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -270,6 +270,7 @@ struct nvmet_ctrl {
+ 	uuid_t			hostid;
+ 	u16			cntlid;
+ 	u16			max_qid;
++	u16			cqt;
+ 	u8			ciu;
+ 	u32			kato;
+ 	u64			cirn;
+@@ -347,6 +348,7 @@ struct nvmet_subsys {
+ #ifdef CONFIG_NVME_TARGET_DEBUGFS
+ 	struct dentry		*debugfs_dir;
+ #endif
++	u16			cqt;
+ 	u16			max_qid;
  
-+static void
-+nvme_fc_stop_ctrl(struct nvme_ctrl *nctrl)
-+{
-+	flush_work(&to_fc_ctrl(nctrl)->fencing_work);
-+}
-+
- /*
-  * All accesses from nvme core layer done - can now free the
-  * controller. Called after last nvme_put_ctrl() call
-@@ -3428,6 +3468,7 @@ static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
- 	.submit_async_event	= nvme_fc_submit_async_event,
- 	.delete_ctrl		= nvme_fc_delete_ctrl,
- 	.get_address		= nvmf_get_address,
-+	.stop_ctrl		= nvme_fc_stop_ctrl,
- 	.get_virt_boundary	= nvmf_get_virt_boundary,
- };
+ 	u64			ver;
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index 3757d11ffea3..0b69ed53f347 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -21,6 +21,7 @@
+ #define NVMF_TRADDR_SIZE	256
+ #define NVMF_TSAS_SIZE		256
  
-@@ -3547,6 +3588,7 @@ nvme_fc_alloc_ctrl(struct device *dev, struct nvmf_ctrl_options *opts,
++#define NVMF_CQT_MS		0
+ #define NVMF_CCR_LIMIT		4
+ #define NVMF_CCR_PER_PAGE	511
  
- 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_fc_reset_ctrl_work);
- 	INIT_DELAYED_WORK(&ctrl->connect_work, nvme_fc_connect_ctrl_work);
-+	INIT_WORK(&ctrl->fencing_work, nvme_fc_fencing_work);
- 	INIT_WORK(&ctrl->ioerr_work, nvme_fc_ctrl_ioerr_work);
- 	spin_lock_init(&ctrl->lock);
- 
+@@ -368,7 +369,9 @@ struct nvme_id_ctrl {
+ 	__u8			anacap;
+ 	__le32			anagrpmax;
+ 	__le32			nanagrpid;
+-	__u8			rsvd352[160];
++	__u8			rsvd352[34];
++	__le16			cqt;
++	__u8			rsvd388[124];
+ 	__u8			sqes;
+ 	__u8			cqes;
+ 	__le16			maxcmd;
 -- 
 2.55.0
 
