@@ -1,225 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715C33BFAEB;
-	Fri, 18 Sep 2026 02:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789698585; cv=none; b=VS6oDG5emjTTizhcSowoU7yTTLss1lm6CYqqU+KaFVzGQs4TeeUJNm+V1ckvpLZAhMsHpSvWYwH0AR52W/qMrslsdl/EoxOTCKuOpSGbMah1aIjuB13xMsvau8zBdzyfNhmwoeZuWZFYM4SdFCkBnsvpEU1fuiOE//H+5dv3OEw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789698585; c=relaxed/simple;
-	bh=zr6RZjqy8zkfck/Pdh/SCIhM1e3d18vR1boWvALaMiA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ALesK0gG8O1NK9BtxfC4gme2ctV6XKet6bbZz17U53CPwfHelV3jowQoLgNLimNDyuccrNghTJ12y8yIwBMxj60AsJLU3D2Y6Q/bcEPWEp2pRzSOwzeswMZ4f8vi83Npdafyy5dfbKeFFcQ3BlltX8LQ66uoKPZzcca9JdZoxeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ITubRvvc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A739399D10;
+	Fri, 18 Sep 2026 02:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789698641; cv=fail; b=QPdVD9GeJy8JUFWxlvZTrFcDyi8DeRvQcdu72UbsebeyaRlDL/sKtP0GLIYbNtMJvp3q/qMO3NBQREtFxQ0+Q4GdwbhzHSfPg73Sh+gu4TkNEzcL1mHhn//ZEbQ1sP/kFCtbZa2FK96d8UtRkcTDgBjfV6C+Wmr/FzjoCc8Bcbc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789698641; c=relaxed/simple;
+	bh=giw15jFZv3MEgLhVN6AZdLvRxoZLprv/yyWR4YGpxV0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=R6h+HF/nvmH02YEug3b1+QaCEFHE8CXTuWUP7YxYGhmX3L07mN93BKCHE9gELdvF2/vjLLzpQ3vd4uj3JQx1emSZ26D7LuS9oRMtI+5gb1UKPczW5Eb10E8Vy2/uh0sDmIIYfW2VQq1fbdlLPTPDZqHIIcsA+5Kp74WqAQD+uvE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=koBOHx7W; arc=fail smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ITubRvvc"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A94C41F000FF;
-	Fri, 18 Sep 2026 02:29:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789698573;
-	bh=g9YcUG3szeoayvwUqM/cv8sctvahn3Ihcoi9jbjGOnk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ITubRvvc3F/vvkNNV3easTtv4kW2t5sTGcQTrFimYGHRTwrI36hleEBj04p+G4rD+
-	 NamNYIZiDAoFX0JrbXdOJ6jo1MW4JQvtJnZely7Mw/DeVKHz4e/H85J6KnkgRoEc5I
-	 cLgsJVPAcMhvkwd6xKrLPl8G7InF+UXtNbbg8ngK7txU/xCUsC+I9gO05MwuE3doN2
-	 /gdrMcCm4IwXBvGjSc4UnL+t92rx9lkE502wmrjLTerz13U0wjK5mG4QN8XgBagAGv
-	 EMbNmlXejAvA43Xb6vzKXOfltB7g1Z9/tWbDe2iu9Z8WZCKSMHvXSmuAd1wqPLTC/4
-	 Z4KrVoDpwIZWQ==
-Date: Fri, 18 Sep 2026 05:29:29 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, bpf@vger.kernel.org,
-	fsverity@lists.linux.dev, linux-doc@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: Re: [PATCH 1/3] keys: add KEY_SPEC_DM_VERITY_KEYRING
-Message-ID: <aqyiCavj3xeNqyAo@kernel.org>
-References: <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
- <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="koBOHx7W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789698638; x=1821234638;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=giw15jFZv3MEgLhVN6AZdLvRxoZLprv/yyWR4YGpxV0=;
+  b=koBOHx7WuQgutlv3F0S0jj24jp1P3KADU1ky1dh6XoOTFhljPU5kSiD6
+   eoB370zNmshvDUgEE2DRpcmM5NA9W3+xaAdFCF9zGJbPDHq9xejHJIFpr
+   f+4H/ozRtd0dNu0Y4BezdpqfnEMa7JDygOL72mO5FujEgC4RGwFcNo/Mu
+   1UZMVGs3kGtcZ0zB8DQ+DsHgLhqL3RW/N3HSHIhWN2Bak0EWSnvAeTyhV
+   HO5e/TYTM2cuMnu0fOchXePVXmvLPDLLZcfXN8YUnVwhw6lFzASstj5p2
+   jgx6IR3cCCNi7V0znmHDjMPslSTdGOE9ffvHEfMIzPBBOUxoJBCO7mOnT
+   Q==;
+X-CSE-ConnectionGUID: Q/bZ41E5TvuRKy/8dggzjg==
+X-CSE-MsgGUID: Vxknr1gTTi+Fvv6t/vQryw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90040925"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90040925"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 19:30:33 -0700
+X-CSE-ConnectionGUID: jPAOAD3oRXOSP/fmipaweQ==
+X-CSE-MsgGUID: GXVSXe2OSjqkExZ4yhR+5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2354058"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 19:30:33 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 19:30:32 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 19:30:32 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.8) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 19:30:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pQrrDgPK0VIijwocqw5X2fNywzglBQL1gv2oDGPyk6Q04fm8MEfUcsaDKEmfwegshVzbFtDAw1bZVQ0UX0rmG5ZUbrYyKUmEZhLPQnRQT81jOCn+Ve2phlGm+oICUGz7EZzzAxA77lwEN6Zx/m495pdeR4XoHxVgIUS+8rkeNJronzLQcD5a0crCEin+XIzcf3Q1d81fbfVl472qHilSX/wczFR0pgWwQ7OvB6sYR7TyXxVmExz8A3Qc9q9uNliGatXOBsAJxoBoOlSf0e92QW8pX2Fxj6zUM2M/rv6t+pWyu2gTQOp4TTSnMmLIpI7fSDlql0ao7U3wLPQz1Mp84g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cksQpBehesMncaQLVo3ma7/trTPEQp0fk2JYuSqlsMI=;
+ b=B12zwX/7S3vY5VzL58P2SfYH/zq3Nd3kMDyO0NKFhERbl3E7rlplg9Zss+pe+Iom94QXr+oZJFNObjLPbs6Rmwn4SuWSVGhGo4lxOFWBjJsf457y4P8BysePhevQdk92HqZUo26jnNYHv7noPJjXy3PK+1csXVG5dpMj77t2oGjzsJijcBq2b5j9tXwIkYzUuXfNmfpiBsIYkDKJkw1OIJvO9wkgBS8wBeS8YX7G21pX9ISg/49/A/NpVL26/dRWjZkUHwHuR7BnKi38qJnaNyfe8aGWLm8dHX9E5xkRb3FvGPBcn+5RIeKCOJgs/67/EQcb2M30FMQajyMbImxeIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
+ by LV2PR11MB813179.namprd11.prod.outlook.com (2603:10b6:408:416::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 02:30:30 +0000
+Received: from CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
+ ([fe80::d051:d948:c209:9225%4]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 02:30:30 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Lu Baolu <baolu.lu@linux.intel.com>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>
+CC: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, Dave Hansen
+	<dave.hansen@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, "Edgecombe,
+ Rick P" <rick.p.edgecombe@intel.com>, "yilun.xu@linux.intel.com"
+	<yilun.xu@linux.intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Gao, Chao"
+	<chao.gao@intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 0/5] iommu/vt-d: Introduce trusted DMA initialization
+ support
+Thread-Topic: [PATCH 0/5] iommu/vt-d: Introduce trusted DMA initialization
+ support
+Thread-Index: AQHdROd8qU6nrZ50F0Cb3pQGzMlJWbbToMag
+Date: Fri, 18 Sep 2026 02:30:30 +0000
+Message-ID: <CO1PR11MB48351B13F0143DE043EF15378C872@CO1PR11MB4835.namprd11.prod.outlook.com>
+References: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
+In-Reply-To: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|LV2PR11MB813179:EE_
+x-ms-office365-filtering-correlation-id: ccb2213f-fa5e-4ff3-7986-08df152ccec4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|10067099003|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: OJvRaNBd5NhAg4UtqhHSiCDcu2+1VRNkyP38GXgDzpVqTWdqtVLt1Y73FIJxg+0vtRu8WoINkHU6s+321FqQHN0e6Pm3Qm84GI5J0/Q2NrzdJiFB/yWO9ISKkhBPVcFG56cNjwKwEcEYtqhc3MqyO8c5vcVOw2iraPnmH5NFV00NTZX8tD3Udcr2IPZWqfS0XbJZ6qLf0BW0ECmp10VcjNx4KGdyGrv7FsULHfrOO+tLIySD/LCHUQJbBGGKNnHxbpC+rzji3P+G4bqVTKKJeEkaAY5nJrxXwD7hEcNEufhZbToEDFnf1L0O1kYRUXbdHEX8nAp2/4jdM8DfrU22DxhlQpybzsRGjSF6zFyB91P3MNKasNOW02QEdtAf8jDg4/xqb6UKECVcLBemUp0NgkqG91R8P/xEwljBVDp4txZNjXc5ag/Yuf39myR05EuyzhMdt2cBhawKsBfR8GuHLOTdAUeoSYYkaEeiOrkRlqZNKgdpmt4zNzbCUOpJti4q9JsDtsc+sYZsX1RUTF4PFL8aEdEFam1gYPn41X1o5ImY7ki6y+VhclpoguZvHjGje/U4+WmbzZZ4FEwVXRxnoKKQ70NMZBs+/F5vgN01Y/LpSgJJtXCptJpFL3ud4MhLAwNQIoSAqJgpPXEgSzv7krM1LXFwKpocn5BPO0wUMo88/P+jXMjCU5uC93YsOXtI5xLxaUXU7rsnQdf0dVX/T4MlJW1plV4tCUk384lM0LU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0PN+av4WcKUgigx3Cp5yNYLUW9SkQm5UsIbZscZ6sTzchn3IqjdZXOT3LBhc?=
+ =?us-ascii?Q?IFSe+OLYxdqdD9TzQMhf1yAT/EsFRXq7YTHx3Usk1ykR6m2vMB6G+yeJCrVf?=
+ =?us-ascii?Q?8pLcHnQfSQshKWFAlMFH3BXSpa6w45A1zZtDZUYicpeQWYtTUUpuGqpCfQ7A?=
+ =?us-ascii?Q?3/XlUq7yf0DH7CM1/aK09CDML6dGMo/jO1BBjr0WWCq9QmROh8iZeVCMllch?=
+ =?us-ascii?Q?Jmv+UouEN4v5Q4FsYSeX5xuknlWRpvTZbnVMMO0+nKVXKmMCm1/Qox9uBVYj?=
+ =?us-ascii?Q?OyFP2Pv9MPHfKB9xdjkdePeFRr5WuuAGaSDMOUUsTbJniDq0eM3ki92ChN0+?=
+ =?us-ascii?Q?HBljVfJ2iw3DFKQoXc1Zg0DYuDqCaSPzrPy5/VpC3ABjV3P61/TPpOU0252f?=
+ =?us-ascii?Q?sw7/ED7pp9cKWp8W5p6CF+W31O2gssF64T0Xq/FV1uT2vZ+mV6Zd59nvP/1B?=
+ =?us-ascii?Q?qXeUu8OTinIEWkXysbFtOnAnHssQc8XVPNc6hoQ1kJwlrIDsAVS0w2tm+5xo?=
+ =?us-ascii?Q?gt3SKjDJou5HuUY4UUjL6CFJ1v1SY8r4FciKJ3PHD9eG3JIyEeTtAYrDxNUN?=
+ =?us-ascii?Q?tJ5/NMGQ+R19S0VfHyTfO4TgJETR5CSS3yiLE5Eam+DYSVM+qGklfsbAulcR?=
+ =?us-ascii?Q?8ZKdo1WIc+i+Cr0t4OIkCGOCFGqCAt3r3JTVc+4zQtxaJ5qYLL2WB/WlIiA6?=
+ =?us-ascii?Q?xNIsSZHynfkYR5oxpqFQCbfVjVTOPYwgarBlv4zPmxJqP2nDtsB03YS5hV7w?=
+ =?us-ascii?Q?OYA0R+NWOwlmTjQJSIyjcfI5gGgxnRCyS4+1c4VyVnnGxboB1iElDURqwGUe?=
+ =?us-ascii?Q?ke4dpI8eWnkZ5NX46QDzH6u39ZcsXRE/KU//HP6eLosGFQRIlfPtc6ktX5qw?=
+ =?us-ascii?Q?0jyPGHMdhJgurhotm/LLiwiZP/zruRA/LlkPpm7wsK27kPP5tpZYELI3m/Vq?=
+ =?us-ascii?Q?PuhznqBd3cjR9kT6H+1QWewcy5mtFTB5lwdnkWwLC2+sUlxoX5Q+HYcqa8m+?=
+ =?us-ascii?Q?PuvN2royF0iJWbdiQDaHKObxtjqbCJiAygJhJwWlhnsGjnH8vLXy7sOK7pUT?=
+ =?us-ascii?Q?bBhXScphydnncyH2ohODyGcB21Yglnt3MLAD5WO7e+w/IMherjHkQbsmGzXh?=
+ =?us-ascii?Q?Gf33UQaIzYwPTqsHpbURNg49t/rYzl42jxBiuMEldkXurgugmHaBN1qsCxoZ?=
+ =?us-ascii?Q?8X/uM/MQS24DZy//pWjWeYWUNGwGqiFg/Ji3n1MGv92u/yUFW0zp8xSyB0J0?=
+ =?us-ascii?Q?CLDOT1OTwHfOcnevGR1/AOcvyQRYIADDDEjDlY5k+G/huGHDPZoaTaysqJCj?=
+ =?us-ascii?Q?a+ogYLXB7JiZHiXKlOmvO8b7Uq00Ol6DvCS6/CEQWACFfR4P9B8NGSwY5Ega?=
+ =?us-ascii?Q?zDt77f1cfm1v5YX1O6To7bkb7W+c6S+4Iwx0Iet1eBDKN6rolQCQYh5Tsqpf?=
+ =?us-ascii?Q?mkgwWauRGzM4RA99tGsdJneRX/9qlKCtdZIgoAkmfp8zZFrddPxO6XG09MZ5?=
+ =?us-ascii?Q?EC96YTNE9ieBEnRPhyfONjFjKWi5SLnAZo+k66TRze5EybfzBJGvh18phlx1?=
+ =?us-ascii?Q?EuznBH4uwGYwukjqexPpzZoULF3KvnqIiXnmgWD2n6uISeW+vjuk+Oyirvpk?=
+ =?us-ascii?Q?0pYGMu59eURaeAMg7JYX1nNMUikwj4CwOFBxeGaUfkBUO3LjGaPaq4Of3dCp?=
+ =?us-ascii?Q?ugaSoM6W5Sqoeje9Nns/9+HpgXAwQs8KUZ/vS+LgVpIAncRqhvLcK0nFDaBc?=
+ =?us-ascii?Q?GemZCSbNTg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-ajhalaney-dmverity-key-identifier-v1-1-01922dc1366a@amutable.com>
+X-Exchange-RoutingPolicyChecked: NZe1H8noXcPoSSgoBo8F9A5uqlsol7XmM88wRx+un6kwGq6opOc5+MLDUA7311zoC7ZuwDo4Q8gnasvVQSRHzn3Oa8dKVty+s4w9j7HZ4rC39g3ifBfxVxM81tKJjAtBtCdyrN5i8WFX0wtMiIm3a9wh6l+o6bUeZRL/mlmWNM8jH1YNdYQGYf8vVUs8Fkg+pKHmcOuqwC6PQ3l7JbD+CU6itISGzz410Ovr7BmgJaDqcgfH/ou4QrDL2icMu/i4bH+GnXI5hzNGvti7HKPtnCRgzNQwlusVbJUXE5PLdoe5KB0Nu04ERNSejzRakuZ3TrDHCqf6eBVijVoY6Xmf6w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccb2213f-fa5e-4ff3-7986-08df152ccec4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 02:30:30.1252
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jLhb9OrbOMA76H6kzsv1URNvXOzW0WGst95UcuBGGQ1dC1kVSQlCqiSxNBEsnweTP4fjvY7PJT7+FCxa0sbyNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB813179
+X-OriginatorOrg: intel.com
 
-On Mon, Sep 14, 2026 at 11:41:42AM -0500, Andrew Halaney wrote:
-> The .dm-verity keyring is not linked into any process keyring, so
-> request_key() and KEYCTL_SEARCH cannot find it. Userspace has to scrape
-> /proc/keys for the serial to use.
-> 
-> That's not great, one could put in a bogus description containing
-> a newline to confuse userspace further. For example, thanks to AI
-> models, which I run as root but you could show off as any old user:
-> 
->     # DESC=$'.dm-verity: 1\n0badf00d I--Q---     1 perm 082f0000     0     0 keyring   .dm-verity'
->     # k=$(echo -n "1234567" | keyctl padd user "$DESC" @s)
->     # keyctl setperm "$k" 0x3f010001
-> 
->     # cat /proc/keys | grep dm-verity
->     10402023 I------     2 perm 082f0000     0     0 keyring   .dm-verity: empty
->     12e0bee6 I--Q---     1 perm 3f010001     0     0 user      .dm-verity: 1
->     0badf00d I--Q---     1 perm 082f0000     0     0 keyring   .dm-verity: 7
-> 
-> 0x0badf00d is not a keyring, it is the text inside our user's key
-> description. Telling the two apart needs a KEYCTL_DESCRIBE per row
-> which is annoying to do. i.e.:
-> 
->     # keyctl rdescribe 0x10402023
->     keyring;0;0;082f0000;.dm-verity
->     # keyctl rdescribe 0x0badf00d
->     keyctl_describe: Required key not available
-> 
-> Let's just give it a well known identifier, i.e.:
-> 
->     # keyctl rdescribe -10
->     keyring;0;0;082f0000;.dm-verity
-> 
-> This is exactly what
-> commit 264d8fd2794f ("bpf, keys: Add a bpf keyring for program signature validation")
-> did, and was the inspiration for this commit minus the spinlock bits
-> required due to dm-verity being a module.
+> From: Lu Baolu <baolu.lu@linux.intel.com>
+> Sent: Tuesday, September 15, 2026 3:42 PM
+>=20
+> Hi,
+>=20
+> This series adds Intel VT-d trusted extension support to the host Intel
+> IOMMU driver as groundwork for TEE I/O trusted DMA (e.g. TDX Connect).
+>=20
+> The trusted extension introduces a parallel, extension-specific path for
+> trusted DMA assets used by confidential device assignment. Existing VT-d
+> functionality remains unchanged for regular host DMA paths.
+>=20
+> From the TDX Connect architecture perspective, VT-d is enhanced with:
+>=20
+>   1) Trusted DMA translation root table
+>      - A second root-table address register, restricted to SEAM SAI.
+>      - Programmed by the TDX module with the root of TDX-managed DMA
+>        translation tables for TD-assigned devices.
+>=20
+>   2) Trusted invalidation queue
+>      - A second invalidation-queue address register plus dedicated
+>        head/tail registers, also restricted to SEAM SAI.
+>=20
+>   3) IOTLB / DID isolation
+>      - When TDX Connect is enabled, VT-d restricts VMM DID usage and
+>        reserves the DID MSB namespace bit for TDX-module use.
+>=20
+> This posting focuses on VT-d-side enablement only: it enables those
+> extension-defined resources and control points while preserving existing
+> host VT-d behavior for non-trusted flows. Higher-layer integration
+> (TDX guest/device flows) will be posted separately.
+>=20
 
-This is great for discussion but what we want for the commit message
-is just motivation and resolution.
+Jason had a comment on this from another thread [1]:
 
-I don't think we need all this just to say that /proc/keys in a racy
-query mechanism for production, which is an issue for dm-verity, given
-that nothing else is available.
+"
+Okay, so I saw the driver posting for basic iommu support, can we try
+to rework that to be split out like Aneesh is doing so everything
+about TDX calls lives in tsm and intel iommu only provides a small API
+surface to exchange whatever details are needed to bootstrap TDX
+module?
+"
 
-And secondly special keys are meant for implicit keyrings so isn't
-that all there's to it?
-
-
-> 
-> Suggested-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> Signed-off-by: Andrew Halaney <andrew@amutable.com>
-> ---
->  drivers/md/dm-verity-verify-sig.c |  3 +++
->  include/linux/key.h               |  1 +
->  include/uapi/linux/keyctl.h       |  1 +
->  security/keys/process_keys.c      | 33 +++++++++++++++++++++++++++++++++
->  4 files changed, 38 insertions(+)
-> 
-> diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
-> index b2b55c41e2cb..da509dcdd7e5 100644
-> --- a/drivers/md/dm-verity-verify-sig.c
-> +++ b/drivers/md/dm-verity-verify-sig.c
-> @@ -189,11 +189,14 @@ int __init dm_verity_verify_sig_init(void)
->  	    keyring_restrict(make_key_ref(dm_verity_keyring, true), NULL, NULL))
->  		panic("dm-verity can't seal keyring\n");
->  
-> +	key_register_dm_verity_keyring(dm_verity_keyring);
-> +
->  	return 0;
->  }
->  
->  void dm_verity_verify_sig_exit(void)
->  {
-> +	key_register_dm_verity_keyring(NULL);
->  	key_revoke(dm_verity_keyring);
->  	key_put(dm_verity_keyring);
->  }
-> diff --git a/include/linux/key.h b/include/linux/key.h
-> index bd10fe45819d..ae8d3314fd93 100644
-> --- a/include/linux/key.h
-> +++ b/include/linux/key.h
-> @@ -441,6 +441,7 @@ extern int keyring_restrict(key_ref_t keyring, const char *type,
->  			    const char *restriction);
->  
->  extern void key_register_bpf_keyring(struct key *keyring);
-> +extern void key_register_dm_verity_keyring(struct key *keyring);
->  
->  extern struct key *key_lookup(key_serial_t id);
->  
-> diff --git a/include/uapi/linux/keyctl.h b/include/uapi/linux/keyctl.h
-> index fa85b9760391..75923941f1b3 100644
-> --- a/include/uapi/linux/keyctl.h
-> +++ b/include/uapi/linux/keyctl.h
-> @@ -25,6 +25,7 @@
->  #define KEY_SPEC_REQKEY_AUTH_KEY	-7	/* - key ID for assumed request_key auth key */
->  #define KEY_SPEC_REQUESTOR_KEYRING	-8	/* - key ID for request_key() dest keyring */
->  #define KEY_SPEC_BPF_KEYRING		-9	/* - key ID for the BPF-specific keyring */
-> +#define KEY_SPEC_DM_VERITY_KEYRING	-10	/* - key ID for the .dm-verity keyring */
->  
->  /* request-key default keyrings */
->  #define KEY_REQKEY_DEFL_NO_CHANGE		-1
-> diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
-> index 44358388e395..dba3df41638b 100644
-> --- a/security/keys/process_keys.c
-> +++ b/security/keys/process_keys.c
-> @@ -25,6 +25,10 @@ static DEFINE_MUTEX(key_session_mutex);
->  /* BPF keyring reachable through KEY_SPEC_BPF_KEYRING */
->  static struct key *bpf_keyring __ro_after_init;
->  
-> +/* dm-verity keyring reachable through KEY_SPEC_DM_VERITY_KEYRING */
-> +static struct key *dm_verity_keyring;
-> +static DEFINE_SPINLOCK(dm_verity_keyring_lock);
-> +
->  /* The root user's tracking struct */
->  struct key_user root_key_user = {
->  	.usage		= REFCOUNT_INIT(3),
-> @@ -607,6 +611,24 @@ void key_register_bpf_keyring(struct key *keyring)
->  	bpf_keyring = keyring;
->  }
->  
-> +/**
-> + * key_register_dm_verity_keyring - Publish the keyring for KEY_SPEC_DM_VERITY_KEYRING
-> + * @keyring: The keyring to publish, or NULL to withdraw it
-> + *
-> + * Make @keyring reachable by userspace through the KEY_SPEC_DM_VERITY_KEYRING
-> + * special key ID, so that provisioning it does not require scraping its
-> + * serial out of /proc/keys first. dm-verity can be unloaded as a module
-> + * and the keyring deregistered, as such serialize access with
-> + * dm_verity_keyring_lock.
-> + */
-> +void key_register_dm_verity_keyring(struct key *keyring)
-> +{
-> +	spin_lock(&dm_verity_keyring_lock);
-> +	dm_verity_keyring = keyring;
-> +	spin_unlock(&dm_verity_keyring_lock);
-> +}
-> +EXPORT_SYMBOL_GPL(key_register_dm_verity_keyring);
-> +
->  /*
->   * Look up a key ID given us by userspace with a given permissions mask to get
->   * the key it refers to.
-> @@ -766,6 +788,17 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
->  		key_ref = make_key_ref(key, 0);
->  		break;
->  
-> +	case KEY_SPEC_DM_VERITY_KEYRING:
-> +		spin_lock(&dm_verity_keyring_lock);
-> +		key = dm_verity_keyring;
-> +		if (key)
-> +			__key_get(key);
-> +		spin_unlock(&dm_verity_keyring_lock);
-> +		if (!key)
-> +			goto error;
-> +		key_ref = make_key_ref(key, 0);
-> +		break;
-> +
->  	default:
->  		key_ref = ERR_PTR(-EINVAL);
->  		if (id < 1)
-> 
-> -- 
-> 2.55.0
-> 
-
-BR, Jarkko
+[1] https://lore.kernel.org/all/20260916123954.GC3196566@ziepe.ca/
