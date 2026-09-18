@@ -1,69 +1,69 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mail-qv2-f21.google.com (mail-qv2-f21.google.com [74.125.230.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF5B4F5E14
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02784F96BD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743009; cv=none; b=dYsDuZPY6K/SC3i4RVxP7Ib8S0mMKBLKo4iY7ve+vTLfU2U5VG2fHsNjf3IDMl9vJYfiPPm4gUnguQ+xGuEpdQwib/2arUiiCA0bxHnKGp4fcE92SpiKw0UlRkmYX0/zuhlPoU9jPS2k3wOChghLD4IOqZ4hITOvKzBvu16LADk=
+	t=1789743012; cv=none; b=QIwRggA5Qu90K1ej0fJGSk6HlSqRAohddNwQlgL8aefmTZq0t6Oxty18+TNLvaGAFM+KS8FlQZrbtqwUvKDrX8ZsCkMz7BkdOsM39kP3t98uKws+rjkUeqfLUZP8ioyH2VJ1M4b+yQrEokUJ265YBaTFnhBGVhq8Ff3TCVUoQmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743009; c=relaxed/simple;
-	bh=JGl/QtTBddM7nyy/qfbMR7PzifAXs0WCS5aHiUuitqA=;
+	s=arc-20240116; t=1789743012; c=relaxed/simple;
+	bh=O8YdW4YSHUYyF3GwEQN16WzJM7UkZZFfh8RzVwv7xJM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DN2Pop3zIOCzOE5RAOGoK/Z0ctu9ObzTE/wAKgsGqioL2Xx6nBcc6hWdqIXXELjLR2TtO586bbGvwngIMcZ+A5yljReFhGZRTEvusfmblpxiTY/cXHqhQtwYNRwTud6ShO+rB3pTs7hD/OvizcpPYdtIIHOfbbSD9Z25qv9sCq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=aoXnmoLB; arc=none smtp.client-ip=209.85.160.172
+	 In-Reply-To:To:Cc; b=QLmtk28SvSz3Pc+zZfQwHMu+F8b2stkPkQQVlQmcpdSDkOhYF0oI33HuR8CD4WTdHVP/wgSpv7XvF6QY6m9mB4BL5UeivImTrziJeTVzz+v3KJ3e4/7ULC1usRL9P6H4wLB9siKbbxWnrT22Cujl0Of7Yz0jLsCT2Ys3MCGFrX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=FMenZX4f; arc=none smtp.client-ip=74.125.230.149
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="aoXnmoLB"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5306abbdccbso9057901cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:49:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="FMenZX4f"
+Received: by mail-qv2-f21.google.com with SMTP id 6a1803df08f44-90cdfbd148aso7068906d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:50:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789742997; x=1790347797; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1789743005; x=1790347805; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tx2UYwtxbz9ZqVNvSp5mlXDS3jyz+Ej3sfBe8tuEQZo=;
-        b=aoXnmoLBCWcHlcLHBDXw0sTh7OrPW6c4NDfCGR0aVzQWqKHg6tr0UlNBbwhCWqq4GV
-         CgSoOKxX2bNbFrXXUnbQ3Y2mR35hLEz9GkGfAdJDSBaSHbV31IO2cn2WBPquHo+ryCai
-         7CVfvxWuJIlCTiYTJuMN9hmaEPJf6fHcrzwFaPBKy1Hk+UWBmA9X3QptjZIfsg1LUk2w
-         3zr2VL6XMmfEtOmu21puuyEJ5pmLSOThqJlfnGPuZJJ9XLq0mel1cVkYO+7ke3blrsUg
-         K29Po0IrucGy1jK2S97qzNmGRcMwj7oxbY9bCFlWe0aSU7GTzyxGV8nr1xrjpewl9m4e
-         rHxw==
+        bh=MkP56mJgKixcgLXoBxrfzz0NyJo14L+hjKFrNfKE/2k=;
+        b=FMenZX4fA7IYYaGVRJ74JORgL+Hbw07S5YoZW625s6FlgiimPPEplqFaCu1De7ETu4
+         I56W5/QhtPJLAVld/nTmIBJ790mBWOk4n7LzyWhs6fxs4yoGOGz8+bA413+8tWlDifNi
+         eGaqh5ZQLGJv6ATyMyx69py90tY3ihIdArxWnxgWnx20AoCpfJOmLXHZ6jPiqjewxtkl
+         4hHaFlHfDqpjuhO/JTWOc9DzQIA5MDDBdiuvZ4pA2o70a/HyAJCwStZ7YEx1/81uitv+
+         nayrgUTXY2IEJbJmPVoTWY8y9BjR4RcTR4F4zbD1VBRDOG+k+5ZFEiAh9VvJzwwtR+xc
+         41bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742997; x=1790347797;
+        d=1e100.net; s=20260707; t=1789743005; x=1790347805;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Tx2UYwtxbz9ZqVNvSp5mlXDS3jyz+Ej3sfBe8tuEQZo=;
-        b=CNZglN5TwyIO5XG1XklVfM0fbCTnpJv5KnerRi7xjfOa+vukdGl8VHGPCUqOSMTFDz
-         qz86vwb72m4clenLRj14wcu1EHApIMvtVa/SWlzh6rwIp3ApfUcCS6k4oRtXKQiDlMK4
-         /Y5lM89OJN3tuo4sjMX9bvBWRfFpk+5TCx0DZ8JmNcKnIP/wwcLMrpm3LQOVxhKp+OvH
-         5rzLWKzCd76LGNQQcxFSeoyJ97zdQnlwlTVFTna+pT4Es+xMNgNJoi9MB8Ky7gv4RRVX
-         Dxd0MTgWJsMQk2ZT26ALBFgAsTO7u48JCahOoBTnKirFQH6HojSkcI5xqVxHRYykTSB6
-         TADQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyhPn0EMZ/0LLqQpLwXTxuQZfWnzsMSK0/BtyW4u0sAn/U2jxi6PIlkjkjknVISS5DZ3x/Z81XdbIVnLk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzyByfQhzsKC8B79P1p5ATyzffJerMitg1/BpfEIuRJuq9Q36A
-	DrkYXeLHe8M0eel4F2hkk/ALKDCOgSMqbFOvsixQ6+Y8kAjSRfxGvAjv1JaEKhJUzpg=
-X-Gm-Gg: AYBFou0RahZfFXCH1mEvM68KzioL9dkxvaaIR0x2TCCCdPm6AU+zaPtQg0vTXK3W74M
-	f92n7eSgXbiV9Je7f1dYH4HNdyCXIOldWpzdzQAfujTiRJjRCUAFu5jZevHLwGP8/PNy3J0Su0h
-	Kt7YEIigdjiM9aT25Hr8QoMJtJWjDxGqrgdRMvqXgaW6yHVlE14CTH1QKFVvtpguZ0flNaj78DU
-	qQQUk/NynOWHk5BCvwKF5tQt+UwCl/GRnha1gxPloYAjd+nJ2d80BHCq++LIKlskHZCbf6zE6Yc
-	fqJywQqSAluY4MndKPgjIo2bezDZREXNQqX3iwC+2RN0a6+NqwEsZ0RiPx7tZcVOPAcw47PWAUx
-	CDdfRffib8VTy1SZZRzCFUnm89e+wuqP53H3x4AySB1OZfg2YN60QUn4fg9IeYtcorHA1pVHN/8
-	O8rOp51ssoPGwREiZsXbIzTZgtttgyxqsR+zmLCH2eWhE11MnQ/cnR72tAToit4RybeF05MhADW
-	8ExV4+L9YheAygOUcZ79HQllyAlVWOjGn6IAWVA5FrfByV5DM760uo+
-X-Received: by 2002:ac8:5f4f:0:b0:531:e51:12f9 with SMTP id d75a77b69052e-5328cfc0a9fmr106591791cf.24.1789742997160;
-        Fri, 18 Sep 2026 07:49:57 -0700 (PDT)
+        bh=MkP56mJgKixcgLXoBxrfzz0NyJo14L+hjKFrNfKE/2k=;
+        b=GlWi1pL/u7rae0tA2aZ5U68o9EYuVAka/NOyB+Bava/nKLDugWdBpcVIZmLs/OVDgP
+         RlpzJ9rrBSWXtfEE2Xj8LyleFwXN4la6XQ5QHrwt+RhqAwYrnMTHcyolTjzgwN1gXg16
+         vJ/3GHLHPLD/Sd6s2i5DI8+Eo3SSQrG2/+tvz9DVZqc8ma+633FTqe8Q0xDLXuhlyAJs
+         ZeIwA1MoRFyb9v67TSnOi8j1WI5o9x0lVdQ+07H8rIMr0SdxTBF/0yc/U4PQMKSxx51I
+         14PYSbPMJNEsCPmO7/r/+4jgcLsPFfnJGoLaJT3Qt4E8WzEoD7YtQpO90JSEIP/iMNbF
+         UKBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuuYcXgRPEHoS5bt9grJdA+qpJ1LPAHuDdQoAuN7uVXA68GUIcQcGig/FNxAUuFB1z80kmx8eYh/NgEqg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBU2f4IsdanzkF0GDLV2/FAduUGljxHIAfSrI/RoK1Hycnrlfg
+	WhKs7WGgq8ZWBMjnlWFL3xuDNdTLeFGasmF2miDPYcC5vrADLcfVOk/ls3KdcaZ4gx0=
+X-Gm-Gg: AYBFou3f4/FHK/S8G+1cxlDlRDCwv76dDSY/2JaaNon5Cyqn8kDjeSv20v2T2mCKGK+
+	FYEus/sb2qHkhUe0vfk6IkVu8K8SbvOlx3eXPNlkLIU5QtkUYANMUoHPgcOw6MR2TxaWSPeH3lM
+	VffuiHhdFZUiAB4ptrc7s+sYGJ5KT5VhTO71xLhpx4WptKcvle/f6fmvbyQJrEBdyo93i53fbTs
+	PveuZov3aB6atzhjXeBC0Sd5qOjGRzdO/g7u4znr756CM2Eh0a/bmNb81ZqjdnK7fWSkL/96SPO
+	aNeuCTuX9wYzh7p2dlFqiYrUi7z4QshUHrMP6Ddfo6k28Q7rS8RTV1zqK4wewB94Rza9QmzuAWY
+	w/5SSG7ftB3eunbUtoFF4NQQVyDJcdoPmnnrZmUtxaB50heCfQPn4sECo8dkp2UO+umFXpqYuey
+	S/1dEky3qVHkIo1Shgwwjv/xsYJFpMN2+HXLvpduFvf3jBViLFqtP4LRCxHy9qLQM9JISgPL4rU
+	K6hEqJ8hQ86AmV5rY7W+ycbSRtrSsiZtcSuvO7yWT65NUODW5rQNryx
+X-Received: by 2002:a05:6214:1307:b0:910:4a86:5969 with SMTP id 6a1803df08f44-91254bd5293mr46077526d6.23.1789743004909;
+        Fri, 18 Sep 2026 07:50:04 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ac48df0fsm2560241cf.6.2026.09.18.07.49.56
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91258056195sm14090716d6.29.2026.09.18.07.50.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:49:56 -0700 (PDT)
+        Fri, 18 Sep 2026 07:50:04 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 18 Sep 2026 14:49:26 +0000
-Subject: [PATCH RFC v4 07/13] bpf, x86: Take a Tasks Trace reader in the
- trampoline around its call-outs
+Date: Fri, 18 Sep 2026 14:49:30 +0000
+Subject: [PATCH RFC v4 11/13] rcutorture: Make Tasks RCU readers Tasks
+ Trace readers where required
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-b4-rcu-tasks-preempt-qs-v4-7-63f0e9d69661@toxicpanda.com>
+Message-Id: <20260918-b4-rcu-tasks-preempt-qs-v4-11-63f0e9d69661@toxicpanda.com>
 References: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com>
 In-Reply-To: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -117,209 +117,59 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789742980; l=8086;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789742980; l=1716;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=JGl/QtTBddM7nyy/qfbMR7PzifAXs0WCS5aHiUuitqA=;
+ bh=O8YdW4YSHUYyF3GwEQN16WzJM7UkZZFfh8RzVwv7xJM=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QIEBfe7NVaGlqFqLQwZKbFw8BpHmlfuvIjJBnOTYn9qtDCjTJL+2uxQrDvhCu7CSaCn6ZdAis0V
- Bpsr/bJffvAk=
+ QCK2SKWNSvb8uUIHABRfNQrEJPCWCZeIZnAqX/3f5X/BpUmomCy4y1MVWrdYzX/ihyvEJhShdIA
+ kincQ831+1ws=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-On HAVE_RCU_TRAMPOLINE_READERS kernels Tasks RCU keeps a BPF trampoline
-image allocated only while a task using it is a Tasks Trace RCU reader
-or is executing text that rcu_tasks_trampoline_text() recognises.  The
-image itself is such text, but the C glue and the programs it calls are
-not, and only sleepable programs take rcu_read_lock_trace() today.
+rcutorture's "tasks" flavor has empty readlock/readunlock hooks because
+a classic Tasks RCU reader is simply code that does not block.  Under
+CONFIG_TASKS_RCU_TRAMPOLINE_READERS a preemption outside trampoline text
+is also a quiescent state, and the thing real readers (trampolines) do
+to stay protected across their call-outs is take rcu_read_lock_trace(),
+so have the torture readers do the same there.  Otherwise a preempted
+torture reader would rightly be treated as quiescent and the test would
+report false-positive too-short grace periods.
 
-Have the x86-64 JIT open-code rcu_read_lock_trace() and
-rcu_read_unlock_trace() in the trampoline, as ftrace_64.S does for
-ftrace_caller: one reader from just after the frame is set up to just
-before the original function is called, covering __bpf_tramp_enter()
-and the fentry and fmod_ret programs, and a second one from just after
-the original function returns to just before the final register
-restore, covering the fexit programs and __bpf_tramp_exit().  The
-original function itself runs outside both, since it may run for a long
-time and the image is pinned by im->pcref across it.  Trampolines that
-do not call the original function get a single reader around all their
-programs.  The second reader is entered before ip_after_call, so the
-ip_after_call -> ip_epilogue jump that bpf_tramp_image_put() patches in
-is inside it, and the fmod_ret early-exit branch lands after that point
-still holding the first reader, so exactly one is held on every path.
-
-The sequence uses r10 and r11, which are scratch at each emission point,
-and references current_task and rcu_tasks_trace_srcu_struct by absolute
-sign-extended address, the form the JIT already relies on for
-this_cpu_off.  Sleepable programs' own rcu_read_lock_trace() simply
-nests.  Nothing is emitted on other configurations.
-
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- arch/x86/net/bpf_jit_comp.c | 113 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 113 insertions(+)
+ kernel/rcu/rcutorture.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-index 2853e87797a7..c991f7ceacdf 100644
---- a/arch/x86/net/bpf_jit_comp.c
-+++ b/arch/x86/net/bpf_jit_comp.c
-@@ -14,6 +14,7 @@
- #include <linux/memory.h>
- #include <linux/sort.h>
- #include <linux/execmem.h>
-+#include <linux/rcupdate_trace.h>
- #include <asm/extable.h>
- #include <asm/ftrace.h>
- #include <asm/set_memory.h>
-@@ -722,6 +723,97 @@ static void emit_indirect_jump(u8 **pprog, int bpf_reg, u8 *ip)
- 	*pprog = prog;
- }
+diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+index 794937e13e7c..ab870ef09af0 100644
+--- a/kernel/rcu/rcutorture.c
++++ b/kernel/rcu/rcutorture.c
+@@ -1142,13 +1142,23 @@ static struct rcu_torture_ops trivial_preempt_ops = {
+  * Definitions for RCU-tasks torture testing.
+  */
  
 +/*
-+ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
-+ * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent
-+ * macros in arch/x86/kernel/ftrace_64.S.  The image is not relocated, so
-+ * current_task and rcu_tasks_trace_srcu_struct are referenced by absolute
-+ * (sign-extended 32-bit) address, the form the JIT already relies on for
-+ * this_cpu_off.  Uses r10 and r11, which are scratch at every emission
-+ * point, and clobbers flags.
-+ *
-+ * lock:                                  unlock:
-+ *   mov  r11, gs:[current_task]            mov  r11, gs:[current_task]
-+ *   mov  r10d, [r11+nesting]               mov  r10d, [r11+nesting]
-+ *   inc  dword ptr [r11+nesting]           sub  r10d, 1
-+ *   test r10d, r10d                        jnz  2f
-+ *   jnz  1f                                mov  r10, [r11+scp]
-+ *   mov  r10, [&srcu.srcu_ctrp]            mov  dword ptr [r11+nesting], 0
-+ *   inc  qword ptr gs:[r10+locks]          (smp_mb)
-+ *   mov  [r11+scp], r10                    inc  qword ptr gs:[r10+unlocks]
-+ *   (smp_mb)                               jmp  3f
-+ * 1:                                     2: mov [r11+nesting], r10d
-+ *                                        3:
++ * A classic Tasks RCU reader is any stretch of kernel code that does not
++ * voluntarily block.  With CONFIG_TASKS_RCU_TRAMPOLINE_READERS a preemption
++ * outside trampoline text also ends it, and what a trampoline does to stay
++ * protected across its call-out is take a Tasks Trace reader, so model that.
 + */
-+static void emit_trace_rcu_reader(u8 **pprog, bool lock)
-+{
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+	const u32 nesting = offsetof(struct task_struct, trc_reader_nesting);
-+	const u32 scp = offsetof(struct task_struct, trc_reader_scp);
-+	const bool mb = !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
-+	u8 *prog = *pprog;
-+
-+	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
-+	BUILD_BUG_ON(offsetof(struct srcu_ctr, srcu_locks) != 0);
-+	BUILD_BUG_ON(offsetof(struct srcu_ctr, srcu_unlocks) != 8);
-+
-+	/* mov r11, gs:[abs32 current_task] */
-+	EMIT2(0x65, 0x4C);
-+	EMIT3(0x8B, 0x1C, 0x25);
-+	EMIT((u32)(unsigned long)&current_task, 4);
-+	/* mov r10d, dword ptr [r11 + nesting] */
-+	EMIT3(0x45, 0x8B, 0x93);
-+	EMIT(nesting, 4);
-+
-+	if (lock) {
-+		/* inc dword ptr [r11 + nesting] */
-+		EMIT3(0x41, 0xFF, 0x83);
-+		EMIT(nesting, 4);
-+		/* test r10d, r10d */
-+		EMIT3(0x45, 0x85, 0xD2);
-+		/* jnz 1f */
-+		EMIT2(X86_JNE, 8 + 4 + 7 + (mb ? 6 : 0));
-+		/* mov r10, qword ptr [abs32 &rcu_tasks_trace_srcu_struct.srcu_ctrp] */
-+		EMIT4(0x4C, 0x8B, 0x14, 0x25);
-+		EMIT((u32)(unsigned long)&rcu_tasks_trace_srcu_struct.srcu_ctrp, 4);
-+		/* inc qword ptr gs:[r10] */
-+		EMIT4(0x65, 0x49, 0xFF, 0x02);
-+		/* mov qword ptr [r11 + scp], r10 */
-+		EMIT3(0x4D, 0x89, 0x93);
-+		EMIT(scp, 4);
-+		/* smp_mb(): lock add dword ptr [rsp - 4], 0 */
-+		if (mb)
-+			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-+		/* 1: */
-+	} else {
-+		/* sub r10d, 1 */
-+		EMIT4(0x41, 0x83, 0xEA, 0x01);
-+		/* jnz 2f */
-+		EMIT2(X86_JNE, 7 + 11 + (mb ? 6 : 0) + 5 + 2);
-+		/* mov r10, qword ptr [r11 + scp] */
-+		EMIT3(0x4D, 0x8B, 0x93);
-+		EMIT(scp, 4);
-+		/* mov dword ptr [r11 + nesting], 0 */
-+		EMIT3(0x41, 0xC7, 0x83);
-+		EMIT(nesting, 4);
-+		EMIT(0, 4);
-+		if (mb)
-+			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-+		/* inc qword ptr gs:[r10 + 8] */
-+		EMIT4(0x65, 0x49, 0xFF, 0x42);
-+		EMIT1(0x08);
-+		/* jmp 3f */
-+		EMIT2(0xEB, 7);
-+		/* 2: mov dword ptr [r11 + nesting], r10d */
-+		EMIT3(0x45, 0x89, 0x93);
-+		EMIT(nesting, 4);
-+		/* 3: */
-+	}
-+
-+	*pprog = prog;
-+#endif
-+}
-+
- static void emit_return(u8 **pprog, u8 *ip)
+ static int tasks_torture_read_lock(void)
  {
- 	u8 *prog = *pprog;
-@@ -3610,6 +3702,16 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	/* mov QWORD PTR [rbp - rbx_off], rbx */
- 	emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_6, -rbx_off);
++	if (IS_ENABLED(CONFIG_TASKS_RCU_TRAMPOLINE_READERS))
++		rcu_read_lock_trace();
+ 	return 0;
+ }
  
-+	/*
-+	 * Tasks RCU keeps this image alive only while we are a Tasks Trace
-+	 * reader; the instructions before this point (and after the final
-+	 * unlock) are covered by the irq-exit IP check.  One reader spans
-+	 * __bpf_tramp_enter() and the fentry/fmod_ret progs, a second one
-+	 * the fexit progs and __bpf_tramp_exit(); the original function runs
-+	 * outside both, with the image pinned by im->pcref instead.
-+	 */
-+	emit_trace_rcu_reader(&prog, true);
-+
- 	func_meta = nr_regs;
- 	/* Store number of argument registers of the traced function */
- 	emit_store_stack_imm64(&prog, BPF_REG_0, -func_meta_off, func_meta);
-@@ -3660,6 +3762,7 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	}
+ static void tasks_torture_read_unlock(int idx)
+ {
++	if (IS_ENABLED(CONFIG_TASKS_RCU_TRAMPOLINE_READERS))
++		rcu_read_unlock_trace();
+ }
  
- 	if (flags & BPF_TRAMP_F_CALL_ORIG) {
-+		emit_trace_rcu_reader(&prog, false);
- 		restore_regs(m, &prog, regs_off);
- 		save_args(m, &prog, arg_stack_off, true, flags, 0);
- 
-@@ -3682,6 +3785,13 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 		}
- 		/* remember return value in a stack for bpf prog to access */
- 		emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_0, -8);
-+		/*
-+		 * Second reader.  Taken before ip_after_call so that the
-+		 * ip_after_call -> ip_epilogue jump patched in at teardown is
-+		 * inside it too; the fmod_ret early exit jumps past this still
-+		 * holding the first reader, so either way exactly one is held.
-+		 */
-+		emit_trace_rcu_reader(&prog, true);
- 		im->ip_after_call = image + (prog - (u8 *)rw_image);
- 		emit_nops(&prog, X86_PATCH_SIZE);
- 	}
-@@ -3737,6 +3847,9 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 		LOAD_TRAMP_TAIL_CALL_CNT_PTR(stack_size);
- 	}
- 
-+	/* Remaining instructions are covered by the irq-exit IP check. */
-+	emit_trace_rcu_reader(&prog, false);
-+
- 	/* restore return value of orig_call or fentry prog back into RAX */
- 	if (save_ret)
- 		emit_ldx(&prog, BPF_DW, BPF_REG_0, BPF_REG_FP, -8);
+ static void rcu_tasks_torture_deferred_free(struct rcu_torture *p)
 
 -- 
 2.55.0
