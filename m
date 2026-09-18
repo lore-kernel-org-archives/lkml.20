@@ -1,123 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA2722F388;
-	Fri, 18 Sep 2026 12:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420BC481FCA;
+	Fri, 18 Sep 2026 12:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736014; cv=none; b=cMxWjEBB0EUpeM0PgDTTt5A+D8Y0Ekbc8P6xl2GiGaR/ZwVV1jAz9yGIbymISxDXcR/Exm0zRBJ3FJNyyIT4Vw2yTr3YsQYyptvm0icp8gkHM8Qpa5GocCHk4SIMy0+VP78z9Yn2nKpwXTdQSq7e7nY4Nt2pJle4o2eM94w9eL8=
+	t=1789736018; cv=none; b=QdrdFwfyllR1oFnhZVolmZuJmL0ptNopuWxpPg914Iu108NH0lDbYTJZLZRu2UhbYTik1O+L4u037aWEYveWTPH6UGTGZD6Cxx1OeCCZ8Jw32nf/Ob2LuxeHg7XRrNnre0537F+ey6JjJUrNU19WVrUraQ/83W0quR6phbx3QWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736014; c=relaxed/simple;
-	bh=risxQsuL9nkqij81NcHDlswXGlnLKNCpTz0RmPokCBI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lMZ3S2CMLm4p35LABNC0UAu/GrI3ablSNZMsLmSHthuxH2yfNwz/zn6XIXA+qFnwcr1njX57EgHQ0BHUBZdeEvr55yB/Q1ojL2d8wtTmDUj+oyQQQVH54RWV5/govP+kKq+fPuDHp4FXkPF++R7iFN/mJZ4Kp11Ny68A1PkgG24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CuplAGqV; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CuplAGqV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE3A1F000FF;
-	Fri, 18 Sep 2026 12:53:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789736013;
-	bh=AhbCvqkLOCxtGzOowJm4ZGkHasZqPYRgd2nxTv+Iq1c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CuplAGqVtJZdmud8CyZGNsl/qs2GWmdR6czxDZ2jw0vwGg/ayErIbymm+Ry13KAGo
-	 suIRlrFmSSVNQeqx2BA1psr5xa6dWq6tksDkglD0i5/iGbQbZHLrQOvqLYK9S/lsGq
-	 d9N9Lx84bgL9Vt3Hi1NeWyot0F/mXX1NjyALsHvud7ls2nGbgbn9K086rBHa1E3QUz
-	 xGbn0i6EvsZPan0Sta2UfkhAL70x+h6mPv/24+mQ38z+w8HznjIB/Xt/4OZsU01on5
-	 e5E8GuePKMouhslFmufgVyKMyN1SdL85j56/5ZSM6ULl/J9cTte8sy8ZvPNqymOSTi
-	 bz5HAbXOQwIog==
-Date: Fri, 18 Sep 2026 14:53:31 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
-	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Richard Acayan <mailingradian@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
-Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media
- orientation definitions
-Message-ID: <aq00O6B6a97-U1zq@orome>
-References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
- <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+	s=arc-20240116; t=1789736018; c=relaxed/simple;
+	bh=XzJjoVhnb/s7cdDvuM4wM0NdbOkb23/JUb5yHGelLtw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AFi4K3fw46C7u3nVhOIFyj81Onnh8UcSYxsY0wQV7Ll328Urv0Rm4FCy+X24sIhpf2d7FOgN1ZpfZa/AkdCfZ0dTYPUE4Nkfm4YkhIq+bX+4wsCs9rvh/wesZOdYmEoVLcM9WXwN0dO+O7gnGdcc+xqkYazHmZVF8tHbm/1liH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 35E1F200591;
+	Fri, 18 Sep 2026 14:45:12 +0200 (CEST)
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <jre@pengutronix.de>)
+	id 1x7Xxo-001Zaf-0M;
+	Fri, 18 Sep 2026 14:45:12 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Fri, 18 Sep 2026 14:44:55 +0200
+Subject: [PATCH v3 1/8] spi: spidev_test: include tools/include
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ubntogsuc7im7b3l"
-Content-Disposition: inline
-In-Reply-To: <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-spi-sun4i-spidev_test-v3-1-d3ca218d9f76@pengutronix.de>
+References: <20260918-spi-sun4i-spidev_test-v3-0-d3ca218d9f76@pengutronix.de>
+In-Reply-To: <20260918-spi-sun4i-spidev_test-v3-0-d3ca218d9f76@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1720; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=XzJjoVhnb/s7cdDvuM4wM0NdbOkb23/JUb5yHGelLtw=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshaaxSieMOjTeFWXgfH3QN/z8/8eV7n9eo9mvYxF0IsZ
+ LRcwo/Jd5SyMIhxMciKKbLEqskpCBn7XzertIuFmcPKBDKEgYtTACYyrY+R4Vta4PyHgp+vcv9t
+ XutbIpn/bYduXuLH3fZVN51UDffHuDD8s23K26CRVv2mc8GFo3alLnlSkoH7Gc/sWJic3MKnZH6
+ XGwA=
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
+Add tools/include to include paths to allow using macro helpers.
 
---ubntogsuc7im7b3l
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media
- orientation definitions
-MIME-Version: 1.0
+Use ARRAY_SIZE() from tools/include/linux/kernel.h instead of
+maintaining a copy.
 
-On Fri, Sep 18, 2026 at 11:44:14AM +0100, Kieran Bingham wrote:
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
->=20
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the qualcomm device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-> ---
->  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
->  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
->  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
->  3 files changed, 6 insertions(+), 3 deletions(-)
+Remove the obsolete comment with cross-compile instructions from the
+header since spidev_test is integrated with the tools buildsystem since
+commit f325b73dc4db ("spi: tools: move to tools buildsystem").
 
-With or without the extra hunk:
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ tools/spi/Makefile      | 2 +-
+ tools/spi/spidev_test.c | 5 +----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+diff --git a/tools/spi/Makefile b/tools/spi/Makefile
+index 7fccd245a535..8cf21ff8cd03 100644
+--- a/tools/spi/Makefile
++++ b/tools/spi/Makefile
+@@ -12,7 +12,7 @@ endif
+ # (this improves performance and avoids hard-to-debug behaviour);
+ MAKEFLAGS += -r
+ 
+-CFLAGS += -O2 -Wall -g -D_GNU_SOURCE -I$(OUTPUT)include
++CFLAGS += -O2 -Wall -g -D_GNU_SOURCE -I$(OUTPUT)include -I$(srctree)/tools/include
+ 
+ ALL_TARGETS := spidev_test spidev_fdx
+ ALL_PROGRAMS := $(patsubst %,$(OUTPUT)%,$(ALL_TARGETS))
+diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
+index f2135d619a0b..bd5ee7a6ac82 100644
+--- a/tools/spi/spidev_test.c
++++ b/tools/spi/spidev_test.c
+@@ -4,8 +4,6 @@
+  *
+  * Copyright (c) 2007  MontaVista Software, Inc.
+  * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
+- *
+- * Cross-compile with cross-gcc -I/path/to/cross-kernel/include
+  */
+ 
+ #include <stdint.h>
+@@ -22,8 +20,7 @@
+ #include <sys/stat.h>
+ #include <linux/types.h>
+ #include <linux/spi/spidev.h>
+-
+-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
++#include <linux/kernel.h>
+ 
+ static void pabort(const char *s)
+ {
 
---ubntogsuc7im7b3l
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.56.0.rc0.108.gf0ef1b96a0
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtNEoACgkQ3SOs138+
-s6GLNA//fHK7Y+AcCJBPVlFMVGbPQEPy6hKVsG38sPnye/va/IBn/nm0LH7cp9t/
-ba0iH5ljhyqOnElNahajerFyiCYFTF4Ec8ZUMb9rmM8aHeBNzNRxIGZjUhh58HOi
-MPftYh+LbMdliAuPfCEaa5ncdmF2K/DbD4MQmYq0J+YULJoQ8dC7IuXBBd8E3gdE
-KrfpxbVQVDSr3Sc8e9D8UFnA4Wt1GyE6UKthfdH3o8H5/CTRkBonBAz55bkEYIlK
-KrKP3g0f8490YgANlSTDWvEz1DIz2oXhmMnoQRQy5M8zAubwj3GeIy1NeiM9liGp
-bGUmtparCp1u9Cn9hrTA2AlXztOhWyGuPyVX5LMJH8cHX/Nuv4eKB3gBfapTr3bG
-jcKZQggT/itoT8CYm9YEynf/7+yxi8GZjA760Ok9b1Ffqc2gzbGjb/0rm1312wM3
-m402Ewgs7caQZMTfLkN+m4okE9lXyrspzRtEqEdhg2tI/Dw19vMPclLnH649xlBi
-+IlEQf1iE8GN8/rKps49s8IQg5H01w8YnZLl+/E3/ZdZUu/wvBQLka05RkAEARq1
-RkiwqQFUSd0meo+yni1Knh4nwCB4JPSHVNRs0IOCg5lv1hK16zh/NbeWySRW+hQK
-kzdyL4SbmI18Gj82ytYE7DgqdfogX3H+zmf8gSTdgqeT3xLOoIY=
-=czZS
------END PGP SIGNATURE-----
-
---ubntogsuc7im7b3l--
