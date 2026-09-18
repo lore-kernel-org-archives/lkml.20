@@ -1,142 +1,144 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838F40F72D;
-	Fri, 18 Sep 2026 10:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729179; cv=none; b=qOl2Y/O8o9LSH34F6A/doj5TN2JP+qoNe8rvHvqcmHuMoKSPfLdN0FutG6AUxFjBFwG5X3iGAXFzcPtBhX6VJ2lx5+GqFdc3NolDtdkZRuxVPylDXx7CO2h2f1AiKHLUQjIlNHrH6xCxJmywZirEpC2pLDXk7WxVgVMCoZX5TCY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729179; c=relaxed/simple;
-	bh=vXJghl3KuVg5da0+h8PVYuMxaAhPRp2LtVKVy8H6J0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iCGiZxPEE/8xG2NKSHpvk5wq4dFYmPm/JoOEg+cEJS6VZT7ogdBZtWD5RtQ/zCtSMTwE6zRq/dl7orWFENKUoS8/kle6kx5fCvdbLO5PcxbRuvwLXQnb53an1Uxt173wkgwpAQNdK3X2eeAaHTUWinjlbC56cGh+e84Csn4CSYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Rdc5k3UJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44ABD4D795B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789729198; cv=pass; b=Lm5qGp/IsOQvhLm5RyfdD7yymH3KSeLgYT5Jzf0rbvKCV6BZHKMP1P+uQ/FoB2xYOV6gLZ+8uZPf62hqGB0+XYvKkl3TIwi2mMtS8PKEXbM8bwbx7FBNmmwn/TcoKh9UFpD7yG3LeaXJ1J2Sn32hdJw0EkrK+4usy1223XX2t0M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789729198; c=relaxed/simple;
+	bh=alnnkH7WGWsawf5VvQl+bx2GHauHyQlXLyt5VyewApc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JhaU3Ac3UZmbGAyEKJvTh0r5WR0G1pQfTd0s/iGDdwWDBQlk8+S4bxD9TMetrHKkMW42wqXhxaA+T9GUTR7TPGEwFfk7zphxBFtpzAZO/Haw3yjajC6m1Y3QgkatnTGASzq0DBFlyyaVwBvdgzI4cQ2jviiJ36ZkrF8EnJapoPw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com; spf=pass smtp.mailfrom=asseily.com; dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b=Qvsbxy37; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=asseily.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asseily.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Rdc5k3UJ"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IA2mmK990986;
-	Fri, 18 Sep 2026 10:59:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=tyclNKZd0pmegIgZMm4HZ9Jsc0OMjR
-	iTPkuftcZ9UTI=; b=Rdc5k3UJfFI4O1agD8XWuycd5wdaW9mii3qq9Jj8FM3FQW
-	OzVI/BhS8dYixNsIe1hFxbYHilBObPLM8m7GYXrQR29ZPQVKEsiojPSzrpDwHB/Q
-	cQd8iUYqrbsncTi0hryI4QOodevy6/BJdpyCi6rFXBJUoVKcLYZCJH/lqwRqQIBJ
-	a/qBnVWo8V0olbLVmqhZCGLA+RNHp+Q4wjm38KSV2SGxdsC9/AouF9mtaPp7XGIi
-	ySN3ewZnONSGqclO4CdmqfKleys+DErrti3AopyHUxhdzYf90nHsF0S0A2Kt3Une
-	9drQddkOv3u4uVEIGB8T9JETBHMrYOLNPpiVS7VA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvf0sx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 10:59:28 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9o4oU466604;
-	Fri, 18 Sep 2026 10:59:28 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa6vqq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 10:59:28 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IAxOOl51839440
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 10:59:24 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 40D0F2004B;
-	Fri, 18 Sep 2026 10:59:24 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D190B20040;
-	Fri, 18 Sep 2026 10:59:23 +0000 (GMT)
-Received: from osiris (unknown [9.111.38.246])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 18 Sep 2026 10:59:23 +0000 (GMT)
-Date: Fri, 18 Sep 2026 12:59:22 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Mete Durlu <meted@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Juergen Christ <jchrist@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-Subject: Re: [PATCH v2 00/12] s390: More this_cpu_*() changes
-Message-ID: <20260918105922.20386E38-hca@linux.ibm.com>
-References: <20260918084842.2333237-1-hca@linux.ibm.com>
- <aq0S_fKqcZ5WoLUU@J2N7QTR9R3>
+	dkim=pass (2048-bit key) header.d=asseily.com header.i=@asseily.com header.b="Qvsbxy37"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d440939e3so4098707b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:59:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789729195; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mHLC36GWtQnqlfroKwX1h95COk/o369iZMWaGIy8YVwMjhfu/aLb/PNPTmuL20D0mt
+         kMAIXR19c3W9++dWdGM9bVme2P4/bRzF0Q4yGFwC7nfpefQns2Jmc4VVHRiHYUvyGRGp
+         bohgR0ZA4Z8UUmaJUl5Sw5dBsgDRuZo//SxUn3O8uHmOPX/Tkew/WjrVtsMeevBAo6Xl
+         pvfA0ucFHtnDuiA40FVHLHSy4o+Lor8eyL6iC7xEvGSuw38xyNzb1W8Nv5ReI3KqXS/W
+         DH1Q0fldO6Ln8kONMWN197iyFGujfHfzURvXUZ6IoCSGV16gDEnwr6ptvj3ZyM4TNLJU
+         HauA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4osDPipEl90WA23ocY12H8xUxvylL6hv1TVnP5ao8T8=;
+        fh=AWy97+azq1zz7jjMf2Fyfocxg7W+4AN558uLEaIjD/s=;
+        b=C9D30SQkF4XZvqCfoMBOibAGd6Ce9O8IadrZoNdUcw/ikXhbMK9Zi/DZUVWDpfuO3a
+         A/iBR/eQD4hXtfrVtxyxLj0I8g4jly5jIO3yQ5Qbvvlbw/VuNffZ18sHnCTbBponxHUX
+         8TR98lKUti5hbyMqF0iOvUpMrNS27XZ1eN+fEvVfXJ1xpgMwp/p154A8FDxCgzkN+fzI
+         9Qw83MNHW2CJcda2rJhPDdJnullXwLvSbqHAlDiu/8WV8hTyXtMLKyb3chGZH3TuT6xB
+         Pr/q3h0We+rJzTRXe4awoolpX9E+vZgQibl1UlnTClhIX6NlZ655a9WL3goIRC9NtYBZ
+         lwcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asseily.com; s=google; t=1789729195; x=1790333995; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4osDPipEl90WA23ocY12H8xUxvylL6hv1TVnP5ao8T8=;
+        b=Qvsbxy37H//xJ31u4JoC+be2ELkT9Z6JgjPObo7Z0QsgAau1q7aG1DoVjXD/w2c1et
+         o5Zbb5Ho1xS9+tgRi2AN7Tv/N0WbyWcHyTgTnl1fDO5VdenHaWs7BvmINjQbVsfWXl6d
+         /zQB/VheRW2o1FJ9YONo25kyuWI4JX2leHzge6L/ofZtgavGKd62pwhS6v2Jh37am7Sq
+         zUNLDxYJ9YpbCID+CC+g1lGGZgPu8A6HpLnkpoGnqw5nJehJfkF6YXjNE6Zzxu+ZqE8X
+         274kw/ICBAwzw9hjGG4XWS8GYN6PAE6iKAyI3I677ttC1C3V3dqQEnjru40l2jZu7ZEV
+         gYxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789729195; x=1790333995;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4osDPipEl90WA23ocY12H8xUxvylL6hv1TVnP5ao8T8=;
+        b=fiiMkMLUxIDp53euXeKTN6n28r/xgrRhQqQNHdB2n08YIbNb6q3cPVvj+V8+yp0orb
+         dPDxzYAQiGL/326M3cb75eajmUotZw6Fl97EWU/nxfd8Pdjk7tdcCE+cjwVzr2IPNPKn
+         h51QRSKYbb04UK3uzJage7ePMOJlwFiq8l3f6yTYh6EYYHV2ajoCBZrVrUFINOg25Pkw
+         Un40hwOfjaiME0R0/XsqljzKCUbjP/IMQlAsiJTssd840H8Cl9xtjLdoDzFVkujInkJh
+         m/LcTZnccmU1qmh91u0VW2lh4+wFpYd/XiPlnnfnoZcsWgrtOZmLkSvfL2f2nuV3vgLz
+         wSSA==
+X-Forwarded-Encrypted: i=1; AKwUvByD2DfxmK/UaYfaNUam3ucBlcPhTuRCwdPzERp6xcfUSMTjSeFV+6YaGaAQxWTXbPY5KAw1+T4RlpkyGuc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6LXELGOsMF7KKvZQzLbygc+72A1ibuIi1MmA7YFPv0dFRPbUL
+	49CExDpbIp7JanmBLxKdBfBW4t6ucFD/e/m82e8zS1F/cc7XBEvsZvLGRIOdPcENGGbt+jMxEb8
+	foiY85uyEJI1hrbnJ7VieOqjvU6e9MjuiCztUZh5efw==
+X-Gm-Gg: AYBFou2NuQA5ORfGLMtu6VnYQFG4pAoe/YS6a48w0AcBAHDgvyUN0EIMLzgwzajJexy
+	Liyf9tyJtwfb4fZV2a26X8uQIYzeYAHG2e0LsV4fSgUXvxo+5p+tXD/x4YrgPFUmhOse6XbPXew
+	QT8dq6d6a5riWp0Bz8IdmRTkuAZqKYK1tWuQ6V0W2E63VoLPJn1/6mwoX2+tFKYcfGo6V/jISSp
+	IiuS2bdYlSu1J4MIKfth3yfll4ENTwer6t0Ytm11/R6Tl97CfOpZSJhl7W0R4zw1n9gbjeLVgAO
+	YdVDAtdXy9NxQlXClZPAS0bDPRsAFRp00l7sucXRaBzaQYyZIMf5xvHTCD+3SkFE/UyxjNQHM9m
+	tJ/tuvlEL/KsNzA==
+X-Received: by 2002:a05:690c:e0ce:20b0:873:5bb2:6c19 with SMTP id
+ 00721157ae682-89736b3f7a7mr4725497b3.67.1789729194857; Fri, 18 Sep 2026
+ 03:59:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq0S_fKqcZ5WoLUU@J2N7QTR9R3>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0NyBTYWx0ZWRfX7B5OxZ3x9grj
- 0reL+0oZaWIzANSqO3AxCEqTbB8NtmxFPe/eA61DHulbQwdH3iGPG3YKddDx6H2PHxvzL2AX5Ki
- JpAqEXF45Z05uRNzKyncj/8WGCzKyrY=
-X-Proofpoint-ORIG-GUID: OVHJ8lGc11HoTIm5nWy3oZqy2o6LaFMJ
-X-Proofpoint-GUID: OVHJ8lGc11HoTIm5nWy3oZqy2o6LaFMJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0NyBTYWx0ZWRfX4/JkX9fA36Kq
- KKhuGdUP2A3pS9uItHxu196AzTaeYxyfdcmKks30f9GGFKTjhBbVHs9VbVR8SrkXh2+DhBFXntA
- 9z5YxBstrTR2XIjeP6dXb8X2oJokqjEyYDbieNyyd6BQs+eM9Vu4ANeiSmZA8nxPZ1KFNJ5cfFZ
- VxCuOpyJmgxaQPwNSWU/XILTLeQqs/TlY0IR6JlWbGnWxKoSlqyQ3pI9wV7d24U+LHiZjY2j2t4
- C2gcEit52S1ycq3LFKKPn7P93v2a26A1uGnntJNVQj1/FhG+uPNz6pbCLlhsMUpP4YNGsX/ehI+
- J+BH6Xlc0jJ5Z4Mbl2RBeHdnXn/kLXtDzqcYdINkGznNTt3Lk+KqLtHHjSrpwXKU1x8IST4s/UZ
- JfugLiS2ifks5yEHpl9LiP2O+AkONBzeIy78/PzXGTmnQVa0Fqwpor1LIjwtKiOgOEG06RKHB6m
- jAU+QVgsGCrG4zWrtGQ==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad1990 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=6EpOferOdSSFD47BJMEA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180147
+References: <20260918031326.68542-1-karl@asseily.com> <20260918031326.68542-4-karl@asseily.com>
+ <321e417b-55cf-4667-9c52-cbf3548561e6@sirena.org.uk>
+In-Reply-To: <321e417b-55cf-4667-9c52-cbf3548561e6@sirena.org.uk>
+From: Karl Asseily <karl@asseily.com>
+Date: Fri, 18 Sep 2026 13:59:43 +0300
+X-Gm-Features: AcwNN1VW_L9A_m2ilmQ9K0WM9ssAzHQHLSHz7CCRbfwgDzOxl-iZROlyG5jgDeI
+Message-ID: <CA+gvwbrep8j5R5c2o+oMAK9NF=K7EcXFswNCfaVnmfnsBd4v9A@mail.gmail.com>
+Subject: Re: [PATCH v3 3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M
+ codec driver
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026 at 11:31:25AM +0100, Mark Rutland wrote:
-> > v2:
-> > - Yet another brown paper bug: Re-add CPU migration check to last
-> >   patch. Unconditionally recalculating and updating the percpu variable
-> >   address and percpu offset register can corrupt previous context
-> >   register state in several cases (not only the single case reported by
-> >   Sashiko).
-> 
-> Do all of those case boil down to:
-> 
-> * During exception entry from context A to context B, a nested exception
->   is taken from context B to context C before percpu_entry() is called,
->   and the nested exception handler updates B's live regs using A's
->   percpu register indices.
-> 
-> * During exception return from context B to context A, a nested
->   exception is taken from context B to context C after percpu_entry() is
-                                                         ^^^^^^^^^^^^
-That should have been percpu_exit(), I guess.
+> > +out:
+> > + regmap_update_bits(priv->regmap, ES9039_PROG_RAM_CTRL,
+> > +   ES9039_PROG_COEFF_WE, 0);
+> > + kfree(buf);
+> > + if (ret)
+> > + return ret;
+>
+> How does this work with suspend and resume if the device is powered down
+> in suspend?  It looks like this is doing some windowing stuff and needs
+> a specific write sequence.
 
->   called, and the nested exception handler updates B's live regs using
->   A's percpu register indices.
-> 
-> ... or was there another case that you spotted (e.g. some case where
-> percpu_{entry,exit}() aren't called)?
+You are right, and it is broken as posted.
 
-Yes, all scenarios boil down to exactly the above.
+The coefficient RAM is write-only: PROG_COEFF_OUT is documented as a
+readback register but returns the last coefficient written rather than the
+addressed one, as the commit message describes.  So regmap cannot cache it
+and nothing else in the system holds a copy.  On a board that keeps the
+part powered through suspend nothing is lost, but where the supplies go
+away the RAM comes back undefined while regcache_sync() restores the
+filter selection from the cache - so selecting the programmable filter
+would point the interpolator at whatever the RAM powered up holding.
 
-> On arm64, I think we avoid those two cases by virtue of not taking
-> nested (architectural) exceptions during those windows, and by not
-> applying fixups for SDEI events (SW NMIs that can be taken during those
-> windows).
-> 
-> If there's another case to consider, it'd be handy to know.
+For v4 the driver keeps a shadow of the last upload in its private struct,
+the upload loop is split into a helper, and resume calls that helper again
+after regcache_sync() for any stage that was ever written.  Stages never
+uploaded keep the part's own defaults.
 
-I'm not aware of more cases.
+You are right about the sequence too.  It is address, data, raise
+PROG_COEFF_WE, lower it, once per coefficient - a per-coefficient strobe
+rather than a gate held open across the upload.  Splitting the helper out
+exposed a second problem I had missed: both FIR controls drive the same
+address, data and strobe registers and nothing serialised them, so two
+concurrent uploads could interleave into each other's RAM.  The mutex that
+orders an upload against resume closes that as well.
+
+For completeness: an automated review on this thread raised the same
+suspend question a few hours before your mail, so the fix above was
+already written and building by the time it arrived.
+
+I will hold v4 until your review is finished rather than resending
+piecemeal.
+
+Thanks,
+Karl
