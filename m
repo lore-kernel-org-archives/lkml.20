@@ -1,82 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23A33BBA1D;
-	Fri, 18 Sep 2026 17:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752837; cv=none; b=dh5cXLORav1eyFI9gybxaEhfU9gzyvWz4w+0XXZ8XUpWTNrEKz1SyuKrbquPjtv5g87v9N4oZkS5vJo8bPnBNVynr1iZtn/ZVCA0Vnw7AIHxxV33hallp6BWHP7AGb13SzLPli/nzy5oLROWjqjwQGzMUqZeuAwehDFrXhpKFgo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752837; c=relaxed/simple;
-	bh=EUR2ay/SbxhbSJ0HqiTFUw47TzdfexHnjBrabD1F80A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=nFDREa41OpdoMjTyGd+4E1jbyRF1krt1n9+Oswp2ooTwu/U3zKLC7U1VCelu/QzAqQRCD4O5u9S2Wb1WRqrKK/jIgIZl3JoeLRO8KFjXWKHkuBsiaNiBSTOsWNe3L8t/y50u6vEgtZ7t9UuvMvHVGChK7VfQRNO4CZm3fETCqqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYNJ4qw6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12BC50B429;
+	Fri, 18 Sep 2026 17:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789752841; cv=pass; b=DDpGMYbLOAFBYrTHUIv0NFloAifdlzp7kfcsJEk9mx++LvquhSWpoiAYnIoi7jm2sQCea7g+MmdCcmCNHmdAOUdvYdI3HPxKlKFc2/eupVnzc/V9sdbtX+1JGeaNLb1yk0Q8epy/GNN61Adyhh310Q3ZxHpkYxAUDPfTJCsMrZs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789752841; c=relaxed/simple;
+	bh=8tTAq7PRpppAiq9MepwRR/uRrA5oR+wi/G59SzwmcOg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nRXWo5V9EuRQCemJUFmX2pYn2rjDdkEcy0iDekUDGegI8WuYhv7QEzBmKnLx4XqEY5noLdgD7WZ5s0qSN2JNE5kaP0KXRxKACIujatxw65sEJtPzYH1otADEWA4G0G4V+tAgmhKyOBwddc6oz03mvD09M2YZB8tf90DeXM1swWo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=Ytf7sL9B; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=mUOzr/Ox; arc=pass smtp.client-ip=85.215.255.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYNJ4qw6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F62A1F000FF;
-	Fri, 18 Sep 2026 17:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789752834;
-	bh=jPqCA0PRvRC0+/zfORLzf4AIAvw/MERjhvtEVcQRMNs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=bYNJ4qw6qHAdpuueqh/HVTAucQAhHjkArtxIZVmLiUVvCjAL1zXrgWsfVvMTiumIM
-	 Ceq+OY4XnA8TCqr6Ing2MCnWyWAq+K/BtfpdjuCiI01oVcBgB2ZftuCLUdB3Fq+ckO
-	 haSd093YIN6Y97cTHGbflZLSWMroARlkerJGQdTXHpqzoFWfzQyHRsTZRQ2rQkxiWG
-	 0CIUr2/EgR41Q4tu/3mI59k6/BR7+ehvCetT8Jk0rCmhG3YUNzOqzVykLCTglBPULZ
-	 eKx4OyanSbT61vhhzeA2Bk2HZGvnEzvl5nlyaN/S/KTgOFrvXNyXJ3k+4XX4854B+W
-	 TlZ56kckXvdhw==
-Date: Fri, 18 Sep 2026 12:33:53 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Feng Tang <feng.tang@linux.alibaba.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Stephen Bates <sbates@raithlin.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/P2PDMA: Add Alibaba T-HEAD Yitian 710 to whitelist
-Message-ID: <20260918173353.GA1167671@bhelgaas>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="Ytf7sL9B";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="mUOzr/Ox"
+ARC-Seal: i=1; a=rsa-sha256; t=1789752829; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=UQnKet5JPe0MfvPZ97021x9NBtUsKYgAGsap/vxAgLFfU53gOhXlPeU7bEbkErB7w+
+    axr8MvyxO4y5usYeehB/w+q5wDU9puSrQURZq7hR3wT/3FzqgLwFfWbpPa54JRW/sMpf
+    D0C2drVk7pQ176w1nNXYv/32n7Qh6cz2HXGKvnmNDZFxjG4dbXfEuPmftuek+oAYs12v
+    3871tJlSdW6tjxww7ktk1IrTzUKev3YCZWSRdU7wu0xy5C4uoy1jFvosjYTq/14ywsL4
+    c+FRRqhjcQ3pUecmkVPuso8WNlyVsjuNnzFX4PPkvvEryTIXc3Ra2gv5jGe4lDDnfRHw
+    mm8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789752829;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
+    b=WywTT95Ppo4/phRPT3x4yFP59YFXzM/JURAWMOfi1hdyDuGRcEPdtBL7j9aCUiKAof
+    5m59V7BmUpjNHkFq162NAnSJl1ee3+RNk9/Q10fZQbu4ryQCLzwt4weGF84x8Z04p+Hw
+    NDGO8Gio7EaDpsOeiTVwysPMlgSS9kDwYKbMhKvcPdtsON2BbJQDVbc0+QUoXQ7vlw2w
+    GqNgTX0XWZqv79PbymiIjwpvuAnopsp6QV05zo85MJb6DaIAGLEP34PJ8LlUESI0nG88
+    m1TVzPhq2dFDL9FRUvfxYD6n5uiC0BFLEiYQ2yXnYCJyC0mv7G3bBQQpvZrAX7K0Y9aC
+    kCkw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789752829;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
+    b=Ytf7sL9BV7V6ipwZY/oigCk8tXYAFb7LtzD2Q9EP1YILjBC+HaIRr7u6VXA+sM4mLD
+    i1MhFeuXgtrDGAw0UJWVuCuAFD98BALTIN6FsdpG4oEpzqO0S5iMOqJnmaWg/DxgWplt
+    TCZyeL0vypWinSMTSLGDJquI7cNoe/kHbzgNzJvCBYBT/OhJ4JuQo/EAvXzgnM279fYJ
+    aNes8p1Y2dRUKErcTQUpBtF09zy+VzoIjMrCc/wlVS9MCK56a2vClZIPT0TIe3H9grd3
+    n0TFDnyRPUCCNmwn0uAni//sDyfrnZMPsZ2+5yt6J6UHrk5WYbzpGEDdbUd/uQLAfRHG
+    PlFA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789752829;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=7XCBtEtkyelPTljLc+XgN49+abBN2ROpCTczSEx9sJQ=;
+    b=mUOzr/Oxy4HoCSZNKczpOI+X7UIE8Ikw5UOXHXz6q8jOB3xSKpNyd2Y4soKXd/A+2K
+    1gngOrEKvrvQSu7nowAA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tStBLZ9Neyb6Xno1pYqM="
+Received: from [10.91.122.125]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id K171b728IHXmkvw
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 18 Sep 2026 19:33:48 +0200 (CEST)
+Message-ID: <490282e1-a6dd-40ee-8be7-0a311b2b0141@hartkopp.net>
+Date: Fri, 18 Sep 2026 19:33:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918082412.15967-1-feng.tang@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] can: dev: fix missing skb header initialization in
+ init_can_skb
+To: Shaunak Datar <shaunakkdatar@gmail.com>, mkl@pengutronix.de,
+ mailhol@kernel.org
+Cc: pabeni@redhat.com, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
+References: <20260918151606.765490-1-shaunakkdatar@gmail.com>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <20260918151606.765490-1-shaunakkdatar@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 04:24:12PM +0800, Feng Tang wrote:
-> Alibaba T-HEAD Yitian 710 surports PCI peer-to-peer transactions. Add it
-> to the P2P whitelist.
-> 
-> 2 NVME cards with CMB (Command  Memory Buffer) have run p2pmem-test [1]
-> fine, under same root complex and different root complexes.
-> 
-> [1]. https://github.com/sbates130272/p2pmem-test
-> 
-> Signed-off-by: Feng Tang <feng.tang@linux.alibaba.com>
+Hallo Shaunak,
 
-Applied to pci/p2pdma for v7.4, thank you!
+many thanks for your patch. But there's already a fix awaiting upstream:
 
+https://lore.kernel.org/linux-can/20260917123716.63116-1-ndaugoing@gmail.com/
+
+Best regards,
+Oliver
+
+On 18.09.26 17:16, Shaunak Datar wrote:
+> __alloc_skb() sets skb->mac_header to (typeof(skb->mac_header))~0U via
+> __finalize_skb_around(). skb_reset_mac_len() checks if the value has been
+> updated via the skb_mac_header_was_set() and fires
+> DEBUG_NET_WARN_ON_ONCE(1) if not.
+> 
+> init_can_skb() previously included three header reset calls:
+> 
+> - skb_reset_mac_header(skb)
+> - skb_reset_network_header(skb)
+> - skb_reset_transport_header(skb)
+> 
+> Commit 9f10374bb024 ("can: remove private CAN skb headroom
+> infrastructure") dropped these calls which leads to the skb->mac_header
+> retaining the original value.
+> 
+> Restore the three missing calls in the init_can_skb().
+> 
+> Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
+> Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
+> Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
 > ---
->  drivers/pci/p2pdma.c | 2 ++
->  1 file changed, 2 insertions(+)
+>   drivers/net/can/dev/skb.c | 3 +++
+>   1 file changed, 3 insertions(+)
 > 
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index c8c414af7078..beb1fe20c9de 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -576,6 +576,8 @@ static const struct pci_p2pdma_whitelist_entry {
->  	{PCI_VENDOR_ID_ZHAOXIN, 0x1006, REQ_SAME_HOST_BRIDGE},
->  	{PCI_VENDOR_ID_ZHAOXIN, 0x1007, REQ_SAME_HOST_BRIDGE},
->  	{PCI_VENDOR_ID_ZHAOXIN, 0x1008, 0},
-> +	/* Alibaba T-HEAD Yitian 710 CPU */
-> +	{PCI_VENDOR_ID_ALIBABA, 0x8000, 0},
->  	{}
->  };
->  
-> 
-> base-commit: 2ce4ced05cd7b16f3d3430eac021d6184752175f
-> -- 
-> 2.43.5
-> 
+> diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+> index 95fcdc1026f8..9cbddc1edd41 100644
+> --- a/drivers/net/can/dev/skb.c
+> +++ b/drivers/net/can/dev/skb.c
+> @@ -210,6 +210,9 @@ static void init_can_skb(struct sk_buff *skb)
+>   {
+>   	skb->pkt_type = PACKET_BROADCAST;
+>   	skb->ip_summed = CHECKSUM_UNNECESSARY;
+> +	skb_reset_mac_header(skb);
+> +	skb_reset_network_header(skb);
+> +	skb_reset_transport_header(skb);
+>   }
+>   
+>   struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
+
