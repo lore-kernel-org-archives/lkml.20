@@ -1,215 +1,384 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C274B4867;
-	Fri, 18 Sep 2026 10:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726581; cv=fail; b=TMjClUqrcq3bt/eAD/IpGgsslcRQ6LJr9KUvi7lYvtkvILXqHvrQX2mDLd+YBGx21e/KsRp/dofp6Su2SAgWkRHqDNW40B0JriaF7xNNTKqdML2A4lVt3sTc1Gy20WqQeec4WZ/mWaRRtLQL4tiAi9vvT4TB5NHPnFmW512cTY0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726581; c=relaxed/simple;
-	bh=SealblUbtfXdonyoH02j3hSkNyQzeg5hgqjqS1SjbMw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YAj8w8E9mm15JRPqnJa0QSIAZx8ELLQqhGJ9TqKaTolWkz3/08mPRZBZjpgjqYjl24PD/rzVFTv+66/gMoqL/ah3Ys59hT6CvUBtdL3HY1R81eQNXcjrmah/9tHILfmiRFzd4a6TjkhbIZ8OfmLxfbe7TtxiNMyPhrhNqz9f+Wo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=oAj3759S; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=n6QLuL24; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FE04F30EA;
+	Fri, 18 Sep 2026 10:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789726585; cv=none; b=ZVlPQCrJ9uJUG/KpR65vsDiseG9oVXt3tIHhG8ap3BJM7iyVtDIKjNfgkLq6dcmRk8ASpzojGCwjcdWSjSfbjqf/fuR264T0l7TzF5miFKIoDE/rUwyKJuy3FMImb4FGBy5zJ+9saAVKRNa99ZRoH+TzBki3Bk2J1rsrzfc++sI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789726585; c=relaxed/simple;
+	bh=X0gKUd77Viq2sfBqqCnmuD+/aCgbEoyeZiYLM86UNbk=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=HGvq2I2m0pL0n9vZcgmqJ0/s0abOIkTIwNbeHX3G9I1gtGG9Oj2ky8aEIUB7m9Cue1nI3BncyUMik6b+IJo5oGrsi5Ex3rDggUDcYT+u79M22ePlG4hgVVSyrfCKIaYNpBNhDqVfhhVwJNYOZFtjBfb+w8yWcRCRiudFoRQaWmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=X+m7jkga; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EoYkMb+K; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="oAj3759S";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="n6QLuL24"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9eIEc3768370;
-	Fri, 18 Sep 2026 05:16:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=Yg5UmHlnAcTf8OpeYl36NrfU0/0zJGZnnkWIBVqFA
-	2k=; b=oAj3759Sgs/S5QjrIi88eb0GEKEnUuQAvtzuBKeSnOGu1RyUcqbhz32g2
-	u6REjYRq0SKld+vD+GPfdqiPjET51CC7KUnwXV71pJSNC4Yy6bpeWVQ0dZtN4Vze
-	hs5AU7a9Xk9D5yITrDDMoc4p6+VEHANBwZiRCT6jYSvV7W2DuLoXEnleDsuuXFxc
-	i0EARzu/kOQVYfF9ydL7GngN/y5+ZotOJH8YZIu+AgLdcoSi45VIk64z9a4vilzM
-	m61hqAhNsIoRis5xi44FWLOSt3X5GtZ1aR+TxdS5UAfwQ7mWDxbduQMmLnvLAohh
-	tBabtGD50vylCcQO0OW8+b679zj6w==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013064.outbound.protection.outlook.com [40.93.196.64])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gs16cgrfp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:16:07 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FcpKAh7qqM8189De2hxTbtBMZYF24xfHWe3oEQCRA5wF/d1IO1ZWfJMSvjluAXuFEibXvRnHbhUWxtrnH4qoqhv5swTyRfeqCThDwQRClCCO3dK7HajkCigVBW84wCRuqZfInELiY2zE3RKynYN5LuTwBiqfAd2KltsCttM65AWJJJ0uIYmWSOxGwpY5ug/+CM5FTMzC0fhvLbF1Lq2qdzGo9rwtXw9OlVYZWArivnyezUndaPRujEhqZecNHKodFd2PX4aQLwko+UyXoOTdRaBcbjqoxxYc8nmL1Wmu5QjQhGBFT9D08RNJxx7x9OjEfFi/YyMyN2rvYA+UHIGsrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yg5UmHlnAcTf8OpeYl36NrfU0/0zJGZnnkWIBVqFA2k=;
- b=Vu6Rae+xZV53kbB97+HyRQyhJJBObPVKZhv4Zz/3IGHBLM1Fy2xrF/qShla4zHCU6IITiubUETe2POUlYbu8ajrMs1MzzrZpMHCS6ZbtAjP1IciUcdbMyEuQMSWaIwtZ01cJfzCJpYhREFrsHsDgTJoEzphPx5IJS/DifoKiyjiK8Yi8g1jQiWX/4AoC+czLJRs5TER4+UKcMMvf+Q6aztEKEa7BMKlgmUSCgMovF7HONOPNCHggvQcB1royJ5YYKm2l7tGqIk7SIY30ZO0nlaP6NB9KtYs9BOytJJCA7KfLuZUSU4f9ruSW6SAY/6y9f+aE4S2D26YVPv5LvrdlVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yg5UmHlnAcTf8OpeYl36NrfU0/0zJGZnnkWIBVqFA2k=;
- b=n6QLuL24itzvu5n4QWfkoLo/lEK/aZPN+CCWXwoxxXkeGrkoaG5usjPvUDnDVxHJ/7vO5Sk8160Zjtn+rq9YSUND1Uw8cNlu0ZyXXNm9LupjAF7eFMsDDIzw4EVDLDHjqCElF2we0Pycap6opRq//4jVRkBsUMSWlMGJ36DOZq0=
-Received: from BN9PR03CA0106.namprd03.prod.outlook.com (2603:10b6:408:fd::21)
- by BLAPR10MB5186.namprd10.prod.outlook.com (2603:10b6:208:321::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Fri, 18 Sep
- 2026 10:16:04 +0000
-Received: from BN1PEPF00018074.namprd04.prod.outlook.com
- (2603:10b6:408:fd:cafe::a3) by BN9PR03CA0106.outlook.office365.com
- (2603:10b6:408:fd::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Fri,
- 18 Sep 2026 10:16:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN1PEPF00018074.mail.protection.outlook.com (10.167.245.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 10:16:04 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 05:15:36 -0500
-Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 05:15:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 18 Sep 2026 05:15:36 -0500
-Received: from [10.24.53.205] (pratham-workstation-pc.dhcp.ti.com [10.24.53.205])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68IAFXnv590032;
-	Fri, 18 Sep 2026 05:15:34 -0500
-Message-ID: <dbcca43b-969d-4b43-9216-5790fc82d06c@ti.com>
-Date: Fri, 18 Sep 2026 15:45:33 +0530
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="X+m7jkga";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EoYkMb+K"
+Date: Fri, 18 Sep 2026 10:16:11 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789726573;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uiPuY36N+XvakEM/lh5m/9PKxKA/CwAly/Gw+0XvWSk=;
+	b=X+m7jkgaxAo+sDnBnPlR/eryf/9sej/CCyuqIcPcCsOeZjXbCYC+FqSV7viXI+x+vlS7BX
+	TuENtbHYqM+Z5PpbooE8NNKeJ2LKhHhJT9z450bPCzUfiSdzh8VJDcd9sdnq/eHpnra7U5
+	xCOPOo+8EOIfIXa7LrF2Och+ueQ/53c+ZEvXXvzeuK+bx5GRmAaTwiAxamFeipMVNZ9w5M
+	TIqG2oGWWk4RhXCoRUX7VYXZZtANOjpriOOAoT6jNGiq8GEpe9LlFxVZS5Rl/DEhHq8PSa
+	RQVG0chzXCe0atMc7txMYR+Vz44fssK5qnBSGOc5JjEMSvDVoNfteWRx0JLaRA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789726573;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uiPuY36N+XvakEM/lh5m/9PKxKA/CwAly/Gw+0XvWSk=;
+	b=EoYkMb+Ku09MhmYLGlgakKbZvyVjmNnnAoXCH8O+TxOVCkRem5nJ1RN77uN/qboRVbHVnd
+	LodQm9dsoUUkKeCw==
+From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: objtool/core] objtool/klp: Build klp test fixtures through the harness
+Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-6-song@kernel.org>
+References: <20260916184351.2720310-6-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/15] crypto: ti - Fix spinlock inconsistency in
- DTHEv2
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: "David S. Miller" <davem@davemloft.net>,
-        Sebin Francis
-	<sebin.francis@ti.com>,
-        Manorit Chawdhry <m-chawdhry@ti.com>,
-        Vishal Mahaveer
-	<vishalm@ti.com>, Praneeth Bajjuri <praneeth@ti.com>,
-        <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260910175619.2122149-1-t-pratham@ti.com>
- <20260910175619.2122149-3-t-pratham@ti.com>
- <aqz_rKnEDvtobXXB@gondor.apana.org.au>
-Content-Language: en-US
-From: T Pratham <t-pratham@ti.com>
-In-Reply-To: <aqz_rKnEDvtobXXB@gondor.apana.org.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018074:EE_|BLAPR10MB5186:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42ab1861-fc0a-4f7e-1760-08df156dd91e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|6133799003|56012099006|4143699003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	T7NjD/d1hHlAaMTmRZKysoh81JJFgw+8Y4qq+TjjHVtDLknhiQHuftpYbzlhS5WBngbo+rnqo1jYDKLEQiF9stQVZojS57TYwWCfjspDkVMpmtCR31t55UJFHXXTZ0KSg2LeHPSX/4cmCCZgWOO9OsciZ/WdEXbJLeu0rLBcgi3rbv6Zj8qKUKyCEMm3cCRw8jwHwX4s57h6qxTPi3PQNl3AFGoOf1cVHPOGd0+1Y8B/A4P1Sddc0WylCxv4XiHRZ8n9p8Y+2A4ZMT/L4uw6WUFqUspXXt1bDqaRS61Ve4ddW0E/XctjmpvF2U9RJK0iDdzUv6DLvx2qgUVIk4OV0vmzd21++Ig7l+qkDD0RfNhkJQFr3Et1IVo8EGwiYpdKPPceH5L/Qdo2LV4lGIUvnR9Sk7bg6jVY5DGOasGDPsvkZpwsjuShLchWqE/1p4WT6gp1ZITfonLHqJVqhZS7FGHXtfPT/0Ea00ll+utZMhdejFOpMupR/fjUSFJdP/sDnQza9kh4KDUqLMttb6pk6ECkCyAgw6VknmY1ohWQdZMb0qo2Fera2/yQiRhAppr87IsZJVDEy4Kmk/mfUq/WbT8PwbSRMKf6Q9dHveV5gNjuJ01QO034YXGY23XJNlu3e8gXXXfXKuGofghXca4Ung==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XFP1PGUhZKAiKUYkMjpjClx1sX1WSTxUCdvQQgW8s4eU83ovCLH6bWS0xfD3YCZTEj5vZwQoFHT5e33zzjQVe8ABqD8NY4welD8QfvYnVVO3l7vYQyo3zydv0JKNoqBgU8LyAiv/fFwWPRMSJfAcQkD1gHNc1YWeQIAxADOJzI0n6d3r0mGYOmF5FaR+0q3FrRNbsSCbL1XUxWSBB+pilvOmW9GfbMy4RpDSrvkABsjr38Yv+YhKk2n6A31c3veGhSMYk4bTo4gtY6U4ERdNPyGEJ52UXQtXAgWIspstlxx0ymgLb7l6X3pKhqPFpZC6QdABdyZUXeaBiU18Fh86a15Y8S7awERQRNjZEnFxhhYIgMq5RJNeFDceW/Yic9qX5rfaaQed3vczKo0T1m2jIc5R9Yy2Dk5qT23B5lEC5Wrf1w1fLku8n/X7FyJRCpjC
-X-Exchange-RoutingPolicyChecked:
-	4d1X/BGud9Cve9Njk7MNhvslDmRoxp0VhHtvydEXa+2NQL1dHaS4kAFEuadPreuYysllkQB7beuj6+IDlMQV3GNtR5VTTMuFBdLg6sWEmfAJi3wKnpstKSBJOYfaljw5lt1Y7KAGk78QNEU+7A6F1wrXUUQMSk4SsjSjvw6mZsDIcVeEiE482svgtnALzgQg1NtqQP87jl2cNtrie1XkJW1OSMbmNfZOm+yHF83c6GGHoMK7z7eoJDZ+hxpB8XwIRsAltMmmT51w5mfmE+WsyEIQ9RXYYVbqv/2/vSJAMFTNlDyDU2a5krkpxA8sInPn/qiNRrsDo8glsgJGihD4Eg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:16:04.6966
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42ab1861-fc0a-4f7e-1760-08df156dd91e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018074.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5186
-X-Proofpoint-GUID: 3bNE4MLoLKYkOh0yguylfTp6MOBNYZm8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MyBTYWx0ZWRfX3nTR4rfnb1Kh
- cxCqtdaYoUkCkun2pUygs4nTkc6rCuTYa2FKXUDclEy4BA6lL0h0uaPr8iHDi08k4/i92XUBZTZ
- vM8sk5DCeSin+HlSQD30WBbiuNPkYCM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MyBTYWx0ZWRfX9XykgAkAVvyp
- 42UYiPuXKuAqWO35x1RjvWbNgwOc/ZlqsGmay4BiCcL1d/DL2TRolz6mYlSZ8auJG7j9uPSmzuy
- ZfuwFxx3BoH/oNLJYbTgZvB731+rRqmHGuAUxBzL9m8OePKyd/9fgvAtwxsZfwUqW0j0oYTe0Tl
- 29d3KsWinEQLJ5ncIOE+xp0etqf+MaGZnVBq6HRgXDxAw0+IOOyHwot+8Irl/AGHCqiw25+kxmk
- fRisB5oAbtdmzqG926GLgnDRK1SNsWVIIWvYhTPUMZBf3VUcvUHcNbvCReqmVnVxOEsjZO/H3UA
- keUBrUiIg1lShgjf8FV2/XDnRWQ8L/vNveIiNLJb0FCqijqKsC36ZF50vP8rwJMq/iM8kEB3rHt
- HYa//XMvirll0TcBUFXl6/eMSWHjw8aPLcKSCXqzU7mZrpdy97SJ9ZYjB4XCcanCnDVlLrCYTUm
- RQhWi3+Ke/B5Et0uhTg==
-X-Authority-Analysis: v=2.4 cv=cKh1IVeN c=1 sm=1 tr=0 ts=6aad0f67 cx=c_pps
- a=Kac4Oh/pgoirBk7HbaAweA==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=c92rfblmAAAA:8
- a=sozttTNsAAAA:8 a=kWnY9tpl4_gDTZ5EVKEA:9 a=QEXdDO2ut3YA:10
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: 3bNE4MLoLKYkOh0yguylfTp6MOBNYZm8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 spamscore=0 adultscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180143
+Message-ID: <178972657178.1720534.6482007347198494201.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/18/26 14:39, Herbert Xu wrote:
-> On Thu, Sep 10, 2026 at 11:26:06PM +0530, T Pratham wrote:
->> Probe and remove functions use spin_(un)lock for acquiring the
->> dthe_dev_list.lock. But dthe_get_dev uses the bh variant. Change
->> spin_(un)lock_bh to spin_(un)lock to avoid potential deadlock when a
->> softIRQ process tries to acquire the already held lock.
->>
->> Fixes: 52f641bc63a46 ("crypto: ti - Add driver for DTHE V2 AES Engine (ECB, CBC)")
->> Signed-off-by: T Pratham <t-pratham@ti.com>
->> ---
->>  drivers/crypto/ti/dthev2-common.c | 4 ++--
->>  1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/crypto/ti/dthev2-common.c b/drivers/crypto/ti/dthev2-common.c
->> index cc02449382673..4c6b72ba104ec 100644
->> --- a/drivers/crypto/ti/dthev2-common.c
->> +++ b/drivers/crypto/ti/dthev2-common.c
->> @@ -39,11 +39,11 @@ struct dthe_data *dthe_get_dev(struct dthe_tfm_ctx *ctx)
->>  	if (ctx->dev_data)
->>  		return ctx->dev_data;
->>  
->> -	spin_lock_bh(&dthe_dev_list.lock);
->> +	spin_lock(&dthe_dev_list.lock);
-> 
-> This makes no sense.  The only time you can use a plain spin lock
-> is if all callers are from the same context, e.g., all with BH off
-> or all with BH on.
-> 
-> Because this function is called from the Crypto API, which allows
-> mixed BH context, you cannot safely use spin_lock.
-> 
-> In fact Sashiko reported this issue too:
-> 
-> https://sashiko.dev/#/patchset/20260910175619.2122149-1-t-pratham%40ti.com
-> 
-> Cheers,
+The following commit has been merged into the objtool/core branch of tip:
 
-Reading it carefully, looks like I messed up reading the Sashiko comment
-the first time I read it on another patch. It makes much more sense now,
-to not downgrade _bh to regular spinlock. Will fix and send.
+Commit-ID:     18289c2240be1f7122a7e696c05475c09b64f904
+Gitweb:        https://git.kernel.org/tip/18289c2240be1f7122a7e696c05475c09b6=
+4f904
+Author:        Song Liu <song@kernel.org>
+AuthorDate:    Wed, 16 Sep 2026 11:42:58 -07:00
+Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
+CommitterDate: Wed, 16 Sep 2026 17:13:26 -07:00
 
--- 
-Regards
-T Pratham <t-pratham@ti.com>
+objtool/klp: Build klp test fixtures through the harness
+
+Compiling a fixture is the one thing every test does, and it has more
+invariants than it looks.
+
+  - The flags describe the kernel a fixture stands in for, and each is
+    written down with its reason.  That substitution is the whole mechanism
+    by which these tests cover configurations without building a kernel --
+    objtool reads no .config, so a configuration reaches it only as
+    compiler flags and the bytes they produce -- and a flag with no stated
+    motive is indistinguishable from a mistake.
+
+  - -c is not one of them.  Producing an object rather than a program is
+    the helper's contract, not something a test may reconsider, so it lives
+    at the compile and an override cannot drop it.
+
+  - A fixture which will not compile is a failure, not a skip.  It is far
+    more often a mistake in the fixture than a compiler which cannot
+    express the construct, and the two are indistinguishable once reported
+    as a skip.
+
+  - A newly produced object has no checksums in it, so producing one
+    invalidates the record that checksumming has already been done.  Left
+    to itself that invariant ends up in each test which rebuilds.
+
+build_one handles a single object for the tests which need more than two or
+different names; build_pair and build_module_pair are expressed in terms of
+it, so none of the above can be lost by going around them.
+
+run_checksum comes out of run_diff for the same reason: a test which wants
+checksums without a diff should not have to run one.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Song Liu <song@kernel.org>
+Link: https://patch.msgid.link/20260916184351.2720310-6-song@kernel.org
+Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+---
+ tools/objtool/tests/lib.sh | 205 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 186 insertions(+), 19 deletions(-)
+
+diff --git a/tools/objtool/tests/lib.sh b/tools/objtool/tests/lib.sh
+index 1531caa..a4513ae 100644
+--- a/tools/objtool/tests/lib.sh
++++ b/tools/objtool/tests/lib.sh
+@@ -131,13 +131,35 @@ EOF
+=20
+ [ -n "${KLP_TEST_PREFLIGHT:-}" ] || klp_preflight
+=20
+-# klp-build compiles the kernel this way; klp diff needs per-symbol sections=
+ to
+-# extract individual functions.
+-FIXTURE_CFLAGS=3D"-c -O2 -ffunction-sections -fdata-sections -fno-asynchrono=
+us-unwind-tables"
++# What every fixture is built with.  These describe the kernel a fixture sta=
+nds
++# in for; -c is build_one's contract rather than a property of that kernel, =
+so
++# it lives at the compile where an override cannot drop it.
++#
++#   -O2					the kernel's default
++#   -ffunction-sections -fdata-sections	klp-build passes these itself, throu=
+gh
++#					KCFLAGS, whatever the configuration
++#   -fno-asynchronous-unwind-tables	arch/x86/Makefile sets this always, so
++#					kernel objects carry no .eh_frame
++#   -fno-common				the kernel's Makefile sets it, so an
++#					uninitialised global there lands in
++#					.bss rather than being SHN_COMMON,
++#					which has no section and so no
++#					checksum
++#
++# A test overrides it; see tools/objtool/Documentation/klp-write-tests.txt.
++FIXTURE_CFLAGS=3D"-O2 -ffunction-sections -fdata-sections -fno-common \
++		-fno-asynchronous-unwind-tables"
+=20
+ test_name=3D"$(basename "$0" .sh)"
+ workdir=3D
+=20
++# The pair run_diff() and the checksum helpers work on.  build_pair() names
++# them again and make_vmlinux_pair() repoints orig_obj at the image it links,
++# but a test which builds its objects itself with build_one() sets neither, =
+so
++# the default belongs here.
++orig_obj=3Dorig.o
++patched_obj=3Dpatched.o
++
+ pass() { echo "ok - $test_name${1:+: $1}"; exit 0; }
+ fail() { echo "not ok - $test_name: $1"; exit 1; }
+=20
+@@ -217,17 +239,78 @@ clang_only()
+ 	declared_skip "clang only${1:+: $1}"
+ }
+=20
++# build_one <fixture.c> <output object> [cflags...]
++build_one()
++{
++	local fixture out
++	fixture=3D"$FIXTURES_DIR/$1"
++	out=3D"$workdir/$2"
++	shift 2
++
++	[ -f "$fixture" ] || fail "missing fixture $fixture"
++
++	# run_checksum only runs once per workdir.  A fresh object has no
++	# checksums in it, so anything built now needs that to happen again.
++	rm -f "$workdir/.checksummed"
++
++	$CC -c $FIXTURE_CFLAGS "$@" -o "$out" "$fixture" 2>"$workdir/cc.log" ||
++		fail "$(basename "$fixture") does not build: $(tail -1 "$workdir/cc.log")"
++}
++
+ # build_pair <fixture.c> [cflags...]
+ build_pair()
+ {
+-	local fixture=3D"$FIXTURES_DIR/$1"; shift
++	local fixture=3D"$1"; shift
+=20
+-	[ -f "$fixture" ] || fail "missing fixture $fixture"
++	# Name what this builds.  A test may run several segments, and
++	# make_vmlinux_pair() repoints orig_obj at the image it links, so
++	# without this the next run_diff() would still be reading that.
++	orig_obj=3Dorig.o
++	patched_obj=3Dpatched.o
++
++	build_one "$fixture" orig.o "$@"
++	build_one "$fixture" patched.o "$@" -DPATCHED
++}
+=20
+-	$CC $FIXTURE_CFLAGS "$@" -o "$workdir/orig.o" "$fixture" 2>"$workdir/cc.log=
+" ||
+-		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
+-	$CC $FIXTURE_CFLAGS "$@" -DPATCHED -o "$workdir/patched.o" "$fixture" 2>"$w=
+orkdir/cc.log" ||
+-		probe_skip "fixture does not build here: $(tail -1 "$workdir/cc.log")"
++# run_objtool_check <objtool arguments...>
++#
++# Run objtool's ordinary check pass over the pair, as the kernel build does.
++#
++# Some of what klp diff consumes is produced by this pass rather than by the
++# compiler: .static_call_sites, .mcount_loc, .ibt_endbr_seal, ORC.
++#
++# Only module objects see it before klp-build -- with CONFIG_KLP_BUILD the
++# per-object pass is deferred, so built-in objects reach klp diff exactly as
++# the compiler left them.
++run_objtool_check()
++{
++	local obj
++
++	# This rewrites both objects, so checksums taken before it describe
++	# something that no longer exists.  As in build_one(), drop the marker
++	# so run_checksum() takes them again.
++	rm -f "$workdir/.checksummed"
++
++	for obj in "$orig_obj" "$patched_obj"; do
++		"$OBJTOOL" "$@" "$workdir/$obj" ||
++			fail "objtool $* failed on $obj"
++	done
++}
++
++run_checksum()
++{
++	# Checksums live in the objects, and a test may ask for them more than
++	# once -- diffing the same pair again with a different Module.symvers,
++	# say.  objtool does the right thing when asked twice, leaving the
++	# object alone, but it says so, and that warning would be most of what
++	# a passing run prints.  Remember instead, and keep quiet.
++	[ -e "$workdir/.checksummed" ] && return 0
++
++	"$OBJTOOL" klp checksum "$workdir/$orig_obj" ||
++		fail "klp checksum $orig_obj failed"
++	"$OBJTOOL" klp checksum "$workdir/$patched_obj" ||
++		fail "klp checksum $patched_obj failed"
++	touch "$workdir/.checksummed"
+ }
+=20
+ # run_diff [expected exit status]
+@@ -235,18 +318,10 @@ run_diff()
+ {
+ 	local expect=3D"${1:-0}" rc=3D0
+=20
+-	# Checksums live in the objects, so only generate them once even when a
+-	# test diffs the same pair again with a different Module.symvers.
+-	if [ ! -e "$workdir/.checksummed" ]; then
+-		"$OBJTOOL" klp checksum "$workdir/orig.o" ||
+-			fail "klp checksum orig.o failed"
+-		"$OBJTOOL" klp checksum "$workdir/patched.o" ||
+-			fail "klp checksum patched.o failed"
+-		touch "$workdir/.checksummed"
+-	fi
++	run_checksum
+=20
+ 	# klp diff looks for Module.symvers relative to the working directory.
+-	( cd "$workdir" && "$OBJTOOL" klp diff orig.o patched.o out.o ) \
++	( cd "$workdir" && "$OBJTOOL" klp diff "$orig_obj" "$patched_obj" out.o ) \
+ 		> "$workdir/diff.log" 2>&1 || rc=3D$?
+=20
+ 	[ "$rc" =3D "$expect" ] ||
+@@ -267,10 +342,102 @@ partial_link()
+ {
+ 	local out=3D"$1"; shift
+=20
++	rm -f "$workdir/.checksummed"
++
+ 	$CC -r -nostdlib -o "$out" "$@" 2>/dev/null ||
+ 		$CC -r -nostdlib -fuse-ld=3Dlld -o "$out" "$@" 2>/dev/null
+ }
+=20
++# link_vmlinux <output> <object...>
++#
++# Link objects into an executable, the way the kernel's final link produces
++# vmlinux from vmlinux.o.  Entry point 0 and no libc: nothing runs it, it on=
+ly
++# has to be a linked image with resolved addresses.
++#
++# The sub-sections have to come out in name order rather than object order,
++# the way the kernel's linker script gathers .text.unlikely and .data.. apart
++# from the rest.  That reordering is the entire reason .klp.symid exists: a
++# link which preserves order cannot tell a correct sympos from one that mere=
+ly
++# counted, and the caller checks the two orders really did diverge.
++#
++# A linker script rather than --sort-section=3Dname, because lld accepts that
++# option and ignores it -- so on a host where only lld can link the target, =
+the
++# test would quietly stop testing the thing it is named for.
++#
++# Three attempts because a cross run has neither $LD nor the compiler's defa=
+ult
++# linker able to touch the target: on an arm64 host linking x86 objects, only
++# lld will do it.
++link_vmlinux()
++{
++	local out=3D"$1" lds=3D"$workdir/sort.lds"; shift
++
++	echo 'SECTIONS { .data : { *(SORT_BY_NAME(.data.*)) } }' > "$lds"
++
++	$LD -e 0 -T "$lds" -o "$out" "$@" 2>/dev/null ||
++		$CC -nostdlib -Wl,-e,0 -Wl,-T,"$lds" \
++			-o "$out" "$@" 2>/dev/null ||
++		$CC -nostdlib -fuse-ld=3Dlld -Wl,-e,0 -Wl,-T,"$lds" \
++			-o "$out" "$@" 2>/dev/null
++}
++
++# make_vmlinux_pair <orig object...> -- <patched object...>
++#
++# Build the vmlinux.o / vmlinux pair klp diff needs to resolve sympos the way
++# it does for built-in code, and point the diff at it.
++#
++# For a module, sympos is a count in symbol table order, which klp diff can =
+do
++# from the object alone.  vmlinux is different: the final link reorders
++# sub-sections, so the position comes from the linked image, bridged by
++# .klp.symid.  klp diff only looks for that when the object it was handed is
++# called vmlinux.o and a vmlinux sits beside it -- so both the name and the
++# linked image matter.
++make_vmlinux_pair()
++{
++	local orig=3D() patched=3D() seen=3D arg
++
++	for arg in "$@"; do
++		if [ "$arg" =3D -- ]; then seen=3Dy; continue; fi
++		if [ -n "$seen" ]; then patched+=3D( "$arg" ); else orig+=3D( "$arg" ); fi
++	done
++
++	# Both sides have to have been named.  Without this, forgetting the --
++	# leaves one list empty, the link of nothing fails, and the test skips
++	# saying the toolchain cannot link -- which is a test bug wearing the
++	# costume of an environment one.
++	[ "${#orig[@]}" -gt 0 ] && [ "${#patched[@]}" -gt 0 ] ||
++		fail "make_vmlinux_pair needs objects either side of --"
++
++	partial_link "$workdir/vmlinux.o" "${orig[@]}" ||
++		probe_skip "partial link unavailable"
++	partial_link "$workdir/patched.o" "${patched[@]}" ||
++		probe_skip "partial link unavailable"
++
++	"$OBJTOOL" --klp-symids --link "$workdir/vmlinux.o" ||
++		fail "objtool --klp-symids failed"
++
++	link_vmlinux "$workdir/vmlinux" "$workdir/vmlinux.o" ||
++		probe_skip "cannot link a vmlinux here"
++
++	orig_obj=3Dvmlinux.o
++}
++
++# build_module_pair <fixture.c> <module name> [cflags...]
++#
++# Build the pair as objects belonging to a module rather than to vmlinux.  k=
+lp
++# diff reads the object's module name from .modinfo, and that decides which
++# object a relocation is attributed to and whether a reference counts as
++# cross-module, so a good deal of the code has a module path the vmlinux
++# fixtures never reach.
++#
++# The fixture defines its .modinfo name from MODNAME.  Passing that through
++# -D needs two levels of quoting, which is easy to get wrong at the call sit=
+e.
++build_module_pair()
++{
++	local fixture=3D"$1" modname=3D"$2"; shift 2
++
++	build_pair "$fixture" -DMODNAME=3D"\"$modname\"" "$@"
++}
++
+ # find_thinlto_toolchain
+ #
+ # Set $THIN_LD to an lld from the same LLVM release as $CC (or THIN_CC).  A
