@@ -1,146 +1,146 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488714A64EE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C061F4ABBA4;
+	Fri, 18 Sep 2026 11:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730338; cv=none; b=P0DVh87wtDzLM7kAQF6Hzi6fa1Gm9kMTlMOzV+XAsVGKSxtYYxyF3VFBFGld1ok9gr1oP6CkbUd8VoegN/YotVRw0oadqKyxe526rZpxkVKpNW2cYPqa2ToCzt5Gusb/lsmQVG6xPuEaO3dgsElghO3w19xvGwB+Z04XJLt5dE4=
+	t=1789730388; cv=none; b=I2Ajnb8uTvIDshdWqYdXlTLKqwvQDsVY2RzW/5UuT40wG7wj42JmAJ4xfESnTTPzqBEx+3zqy6TRovxlaqVmSdlF/nVC7M7MeWUX5cV+O2b7sBm9ApS7/PPUNgEIc/z80zVJckCmeHKd/GcR93z887gKDIajBxa2tnSC80xv+x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730338; c=relaxed/simple;
-	bh=Z7v4qnq8aw0x5iEmhBG1pSTK1bzA6es6jG4hCbsdcO8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AbgeWUG2LV5aoz777s2sUthcQsj+GYoHCSU8SRk9WF+sFhgqvqyXFBzr4TD3cLMVOWXouqhtXQx9WL6Dh1QmZtMDFachPOrt87SzQQv7047GV5u8VfKOUwIuSZ1c+o8vvrEIBiki8eTaClggH1sXJihUhDqT3tEZ9z4o4G+BtaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jt4xRAbb; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789730388; c=relaxed/simple;
+	bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=E0yQVYlgYe47jrq3vWhoGcXB8fRubrSTxmNYmDYMI0Puo+cTA+LyW9kLZMHMXAB1RIh6iVKUDgebsNGjtSOzO2xFuv2LmhfLpR86Wl2ckZOSfMazzsbWITaHtQO2sSRO16Xyrd5SvfeqD+YgNU+tiAUdkaVdY/E2gHd0zGEAM2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=InXx+GTY; arc=none smtp.client-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jt4xRAbb"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2ddaa08c890so5252045ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:18:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="InXx+GTY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789730336; x=1790335136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YmpCaksYD9t+NIH9u4y2WiH2f+2khrN9+kqRKuQHjsw=;
-        b=Jt4xRAbbctTppsAM2zeCCehJYAGtEYYThv5H2h+0003MoCcIt4p1RinisTH1oyBMR4
-         /0wtjqVra+G830fZOCHXG0X2cQvWWjZGHlv6BvqNJlS5t0IIDtjGePnmagMRqWQUEoKV
-         8uXtqZnYbaKTTHAKwJoeswjtiKocqnE6NuOLo+9b93+Zw0EsE8pxM6m7j72zom27cqyP
-         CVLGteegCGn7B9Y6BbRvkrTnon6+t4jmZDaifLL5gh1WU3w/GBwFg3GOh9R453uuNw1m
-         UnoS/j93wYC+PP09AdayzVrcA6H0O8u2W2g5t79xWAMuFxRcc90FKp4xwXZnglVSdOLS
-         KCHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789730336; x=1790335136;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YmpCaksYD9t+NIH9u4y2WiH2f+2khrN9+kqRKuQHjsw=;
-        b=F98tGE0i9PJQ49OFP3pteLJNzn5JTFWAqSvmnWNvZR0/58saoA6zoSB3RpSPFBV55S
-         t/CP1IctGUPJRZ49qj4hgxob6fCZTmxJCNLiIQnc/+zw8igc+CDoUdl0KpVWGi9Z2/2C
-         RDWq+DYNddW0xwrxjmHvwNxufbaTRn1pvOKFf04FJTkZ8qJLUmbSoUu3YI2FKdGAmK0Y
-         8RadoRow9tPDRJwZT+naEnG27WTjSFuEBU15evZhWOg1rDSlz1a5yeTQGtBUZbhENZhD
-         cKLucJ4n6BhO38pvhiD4eOd3Chx0xa3azmKj4ykhpFqO7t1TL+WjiyKdOlW7joDCfJbN
-         E6Wg==
-X-Forwarded-Encrypted: i=1; AKwUvByf2rRM5fUNfdRoeUwS+uIGqK1gE+L3+6XT4RaE7DJ7ol1OPEyulUuXTW2lP9dgt+1YZVq71FrwPt0CM+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++ks3yF6ceUdOJS14i86kruTZIu2xpasD4ozQ3LnWvd2P/nVepxE
-	JqZRKrewztIW9P+xRacZyOcC3NEpBSuBWg1vVzsPqXOaKwVkApFLenvn
-X-Gm-Gg: AYBFou3He1vF8zkxKinrv8TEAsykdG27mNmBXG9lXS6agUoO+nrlaTpgWj1Vlo2mgjP
-	l96o51HWWwuXgqo1Z9jDPldXPLESQ0hXpE8P7XYjETcvL8ai29waFK27DU9ekJnzMnlvXy/qD95
-	xzTh0xFvi45NHUgzggYH1NHsbBREBYnecYtr9Iyln/qg8IY15ypPvW0v/k1qweUt36LjJZwsn8y
-	J+6cQ0Rf1AVT5pLMiUFJ7b6PxVY+2spDM358+ZOWtnxxCPJfvZUg7Gzf81BIzxMl0our5EDGeDP
-	S7xjKmD/AbIq7iKvrw3Hy9+lir0ckL0L/5PbHWOWB1N6vctD/LBdXgokMLZy527mGrm/1mvVazL
-	GErPkZWCsyoKjk18Ehtq/sIT2eBqXqr61Cq+4VYqGSjrVeCdYxLSb23XVT/DQOgva3hWqToMAqz
-	WCezF8w0xjdCXgCUDtDpGn3g9ClEZ0QirOPmp9JX3aCAJIQaEhTHvdO0i8J41ZYi/VGUTKIeVrM
-	10+AI+CTZDqvMRF7F3tiLI=
-X-Received: by 2002:a17:902:e803:b0:2d6:fd55:3a9d with SMTP id d9443c01a7336-2ddb1b7a160mr42116225ad.3.1789730336227;
-        Fri, 18 Sep 2026 04:18:56 -0700 (PDT)
-Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb75c1f25sm5984955ad.68.2026.09.18.04.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:18:55 -0700 (PDT)
-From: MarkLee131 <kaixuanli0131@gmail.com>
-X-Google-Original-From: MarkLee131 <kaixuan.li@ntu.edu.sg>
-To: linux-ext4@vger.kernel.org
-Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
-	Andreas Dilger <adilger@dilger.ca>,
-	"Theodore Ts'o" <tytso@mit.edu>,
-	Jan Kara <jack@suse.cz>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ext4: don't read past the UAPI struct in GROUP_ADD
-Date: Fri, 18 Sep 2026 19:17:42 +0800
-Message-Id: <20260918111742.827428-1-kaixuan.li@ntu.edu.sg>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
-References: <20260917151441.413135-1-kaixuan.li@ntu.edu.sg>
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
+  b=InXx+GTY9nsgvs42wv6aX58nAcZZEkLgFkd6250pLLbAKYRScR0LQuJD
+   Qi0IGBXCBgAgI9cQ7sSLixfdfRDy9g1N9Kye5ZsYzlHeXHo0Q0HM7prXx
+   KbCRIqlPqmocbTabmjmYf5t7IyPIjsUCdpK3jqYLRLGM/u1s+VHik49+J
+   zIEisF3KUdvAODZphx3qKjSNEkKwoNoj4CpAqI+vZ4zgPSVYWg/dCcBTM
+   eZLpby5SQDlihqkVuPSeCQbfoHp7YieuUulxfaeO5cYn/wvkfNN/1wjYl
+   enmFKJexW5pu3W+LRPiNxHJTYXG6UqUrlMa4KTs2CbJEhgLb5YFKAfw+6
+   g==;
+X-CSE-ConnectionGUID: D8BMDDYOSRuQOUtw2FV3iA==
+X-CSE-MsgGUID: HpQARTkrSrOAP3D999ER6A==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 19:19:42 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 68IBJdSM030931;
+	Fri, 18 Sep 2026 19:19:39 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 18 Sep 2026 19:19:38 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Fri, 18 Sep 2026 19:19:38 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <sakari.ailus@linux.intel.com>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Topic: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Index: AQHdR1f0JNOGacAb70SRmiTIS7Nox7bUME/g
+Date: Fri, 18 Sep 2026 11:19:38 +0000
+Message-ID: <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
+ <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+In-Reply-To: <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: A6A5CD832C23351B08FBA5097B3C255EFD05E60C73A7A85E8E4B88BA57082D192002:8
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MAIL:mse.ite.com.tw 68IBJdSM030931
 
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-
-EXT4_IOC_GROUP_ADD casts the user pointer to struct ext4_new_group_input,
-its UAPI type, but sizes the copy by struct ext4_new_group_data, the
-internal type:
-
-	struct ext4_new_group_data input;
-
-	if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
-			sizeof(input)))
-
-The UAPI struct is 40 bytes, the internal one 48.  A caller that follows
-the UAPI and allocates 40 bytes gets 8 bytes read past its object, and the
-ioctl returns EFAULT when those bytes are unmapped.  The two structs have
-differed in size for as long as I can see back -- v6.12.9, v7.2.4 and
-current master all have 40 against 48 -- so the copy has been over-reading
-the UAPI object throughout.
-
-The first 40 bytes of the two structs have identical layout, so copying
-that much fills every field the UAPI defines.  Zero the rest:
-free_clusters_count is overwritten by verify_group_input() anyway, and
-mdata_blocks is read only by ext4_resize_fs(), which builds its own
-group_data array.
-
-Reproducible on v6.12.9 and v7.2.4 by placing a 40-byte struct at the end
-of a mapped page whose successor is unmapped: the ioctl returns EFAULT.
-
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
----
-v2: done the way you suggested -- one struct on the stack, one copy, and a
-memset of the tail, rather than v1's second struct and six field
-assignments.  The only change from your sketch is the cast in the memset
-address: &input is a struct ext4_new_group_data *, so &input +
-sizeof(*uinput) would advance by 40 * 48 bytes.
-
-Built fs/ext4/ioctl.o warning-free with W=1 on x86_64 (clang 21), and
-checkpatch-clean.  The EFAULT reproducer behaves as before on v6.12.9 and
-v7.2.4; the fix itself was not runtime-tested.
-
- fs/ext4/ioctl.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -1674,12 +1674,15 @@
- 	}
- 
- 	case EXT4_IOC_GROUP_ADD: {
-+		struct ext4_new_group_input __user *uinput = (void __user *)arg;
- 		struct ext4_new_group_data input;
- 
--		if (copy_from_user(&input, (struct ext4_new_group_input __user *)arg,
--				sizeof(input)))
-+		if (copy_from_user(&input, uinput, sizeof(*uinput)))
- 			return -EFAULT;
- 
-+		memset((char *)&input + sizeof(*uinput), 0,
-+		       sizeof(input) - sizeof(*uinput));
-+
- 		return ext4_ioctl_group_add(filp, &input);
- 	}
- 
+SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuIA0KDQo+IEkgZG9uJ3QgdGhp
+bmsgYWxsIHRoZSBhYm92ZSBpcyByZWxldmFudCBpbiB0aGUgY29tbWl0IG1lc3NhZ2UuDQoNCkFn
+cmVlZCwgdHJpbW1lZC4NCg0KPiBUaGlzIHBhcmFncmFwaCBjb3VsZCBnbyB0byB0aGUgY292ZXIg
+bGV0dGVyLg0KDQpBZ3JlZWQsIG1vdmVkIHRoZSBsb2NrLWF1ZGl0LXRyYWNlIHBhcmFncmFwaCB0
+aGVyZS4NCg0KPiArCS8qDQo+ICsJICogUHJvdGVjdHMgY29uY3VycmVudCBhY2Nlc3MgdG8gdGhl
+IGNoaXAncyByZWdpc3RlcnMgYW5kIHN0YXRlLg0KPiArCSAqIEFsc28gc2hhcmVkIGFzIHNkLnN0
+YXRlX2xvY2sgYW5kIGhkbC5sb2NrIChzZWUNCj4gWy4uLl0NCj4NCj4gVGhpcyBkb2Vzbid0IGhv
+bGQgYW55bW9yZSwgZG9lcyBpdD8gVHlwaWNhbGx5IGRyaXZlcnMgZG8gd2l0aG91dCBzdWNoDQo+
+IGxvY2tzIGFzIHRoZSBzdWJkZXYgc3RhdGUgbG9jayBpcyB1c2VkIGluc3RlYWQgLS0gYXNzaWdu
+aW5nIHlvdXIgb3duIGxvY2sNCj4gYWxzbyBoYXMgdGhlIGVmZmVjdCB0aGUgc2FtZSBsb2NrIGlz
+IHVzZWQgZm9yIHRyeSBzdGF0ZXMsIHRvby4NCg0KWW91J3JlIHJpZ2h0LCBhbmQgb24gcmVmbGVj
+dGlvbiBzaGFyaW5nIGl0IHdhcyB0aGUgd3JvbmcgY2FsbCwgbm90IGp1c3QNCmFuIHVuZGVyLWV4
+cGxhaW5lZCBvbmUuIGl0NjYyNV9sb2NrIGlzIGFuIE1DVS9yZWdpc3RlciBsb2NrOiB0aGUNCmNo
+aXAncyBpbnRlcm5hbCBNQ1UgZmlybXdhcmUgcHJvY2Vzc2VzIG9uZSByZWdpc3Rlci1kcml2ZW4g
+Y29tbWFuZCBhdA0KYSB0aW1lLCBhbmQgc29tZSBjb21tYW5kcyBhcmUgbXVsdGktc3RlcCBJMkMg
+dHJhbnNhY3Rpb25zICh3cml0ZSBhDQpjb25maWcgcmVnaXN0ZXIsIHRoZW4gcG9sbCBSRUdfSE9T
+VF9DVFJMX0lOVC9CX0NPTkZJR19VUERBVEUgdmlhDQppdDY2MjVfd2FpdF9mb3Jfc3RhdHVzKCkp
+IHRoYXQgbXVzdCBub3QgYmUgaW50ZXJsZWF2ZWQgd2l0aCBhbm90aGVyDQpzdWNoIGNvbW1hbmQu
+IFRoYXQncyBhIHJlYWwsIHNlcGFyYXRlIGNvbnN0cmFpbnQsIGJ1dCBpdCBpc24ndCBhDQpyZWFz
+b24gdG8gYWxzbyBtYWtlIGl0IHRoZSBzdWJkZXYgc3RhdGUgbG9jayBvciB0aGUgY29udHJvbCBo
+YW5kbGVyJ3MNCmxvY2sgLS0gbmVpdGhlciB0aGUgcGFkIGZvcm1hdCBub3IgdGhlIGNvbnRyb2wg
+aGFuZGxlciBpcyBjaGlwIHN0YXRlLg0KDQpEcm9wcGVkIGJvdGggYWxpYXNpbmcgYXNzaWdubWVu
+dHMgKHNkLT5zdGF0ZV9sb2NrLCBoZGwtPmxvY2spIGFuZCBsZXQNCnRoZSBjb3JlIGdpdmUgdGhl
+IHN1YmRldiBzdGF0ZSBhbmQgdGhlIGNvbnRyb2wgaGFuZGxlciB0aGVpciBvd24NCmluZGVwZW5k
+ZW50IGxvY2tzLCBsaWtlIG1vc3QgZHJpdmVycyBkby4gaXQ2NjI1X2xvY2sgc3RheXMgZXhhY3Rs
+eQ0Kd2hhdCBpdCBhbHdheXMgd2FzOiBhIHByaXZhdGUgbXV0ZXggdGFrZW4gZXhwbGljaXRseSBh
+cm91bmQgTUNVLw0KcmVnaXN0ZXIgYWNjZXNzLiBUaGF0IGRpZCBtZWFuIHJlLWF1ZGl0aW5nIGV2
+ZXJ5IGNhbGxlciB0aGF0IHVzZWQgdG8NCnJlYWNoIHRoZSBhY3RpdmUgcGFkIGZvcm1hdCB1bmRl
+ciB0aGUgaW1wbGljaXQNCnN0YXRlX2xvY2sgPT0gaXQ2NjI1X2xvY2sgYXNzdW1wdGlvbiAtLSBp
+dDY2MjVfaW5pdGlhbF9zZXR1cCgpLA0KaXQ2NjI1X2NsZWFyX3RpbWluZ3MoKSwgaXQ2NjI1X2xv
+Z19zdGF0dXMoKSwgYW5kDQppdDY2MjVfdXBkYXRlX3RpbWluZ3NfaWZfY2hhbmdlZCgpIG5vdyB0
+YWtlIHRoZSBhY3RpdmUgc3RhdGUncyBsb2NrDQpleHBsaWNpdGx5ICh0aGUgbGFzdCB0d28gYXJl
+bid0IGNvcmUtbG9ja2VkIHRvIGJlZ2luIHdpdGg6DQpWSURJT0NfTE9HX1NUQVRVUyBhbmQgVklE
+SU9DX1NVQkRFVl9TX0RWX1RJTUlOR1MgYXJlbid0IGluDQpzdWJkZXZfaW9jdGxfZ2V0X3N0YXRl
+KCkncyBzd2l0Y2ggaW4gdjRsMi1zdWJkZXYuYyksIG5lc3RpbmcNCml0NjYyNV9sb2NrIGluc2lk
+ZSB3aGVyZSB0aGV5IGFsc28gdG91Y2ggaXQ2NjI1LT50aW1pbmdzLiBUaGUgcnVsZQ0KZ29pbmcg
+Zm9yd2FyZDogYSBzdWJkZXYgc3RhdGUgbG9jaywgd2hlbiBoZWxkLCBpcyBhbHdheXMgdGhlIG91
+dGVyDQpsb2NrOyBpdDY2MjVfbG9jayBuZXN0cyBpbnNpZGUgaXQsIG5ldmVyIHRoZSByZXZlcnNl
+Lg0KDQo+IENvdWxkIHlvdSByZXdvcmsgdGhlIGNvZGUgdG8ga2VlcCB0aGlzIGZvciBhY3RpdmUg
+YW5kIHRyeSBwYXRocz8NCg0KQWdyZWVkLiBNb3ZlZCB0aGUgQUNUSVZFLW9ubHkgaGFyZHdhcmUg
+cHJvZ3JhbW1pbmcgaW50byBpdHMgb3duIGd1YXJkZWQNCmJsb2NrIGFuZCBsZXQgYm90aCBUUlkg
+YW5kIEFDVElWRSBmYWxsIHRocm91Z2ggdG8gb25lIHNoYXJlZCBjb21taXQgdGFpbA0KaW5zdGVh
+ZCBvZiBkdXBsaWNhdGluZyBpdC4NCg0KPiBUaGVyZSBhcmUgYSBmZXcgbGluZXMgbG9uZ2VyIHRo
+YW4gODA7IHBsZWFzZSBzcGxpdCB1bmxlc3MgdGhlcmUncyBhDQo+IHRhbmdpYmxlIHJlYXNvbiB0
+byBkbyBvdGhlcndpc2UuDQoNCkFncmVlZC4gSG9pc3RlZCB0aGUgcmVwZWF0ZWQgaXQ2NjI1X2Zv
+cm1hdHNbaWR4XS5jc2lfZm9ybWF0IGxvb2t1cCBpbnRvDQphIGxvY2FsIHZhcmlhYmxlLCB3aGlj
+aCBnZXRzIHRoZSBpdDY2MjVfc2V0X21pcGlfY29uZmlnX2xvY2tlZCgpIGNhbGwNCihhbmQgdGhl
+IG5laWdoYm9yaW5nIGNvbW1lbnQpIHVuZGVyIDgwIGNvbHVtbnMgd2l0aG91dCBhbiBhd2t3YXJk
+IHdyYXAuDQoNCj4gKwlpZiAoYWN0aXZlKSB7DQo+ICsJCSpmbXQgPSAqdjRsMl9zdWJkZXZfc3Rh
+dGVfZ2V0X2Zvcm1hdChhY3RpdmUsIDApOw0KPiArCQlyZXR1cm4gMDsNCj4gKwl9DQo+DQo+IFRo
+aXMgZnVuY3Rpb24gc2hvdWxkIHdvcmsgdGhlIHNhbWUgd2F5IGluZGVwZW5kZW50bHkgb2Ygd2hl
+dGhlciB0aGUNCj4gc3RhdGUgaXMgYWN0aXZlIG9yIG5vdC4NCg0KQWdyZWVkLiBJIHdhcyBzcGVj
+aWFsLWNhc2luZyBvbiB3aGV0aGVyIHNkLT5hY3RpdmVfc3RhdGUgZXhpc3RlZCB5ZXQsIHRvDQpz
+ZWVkIGEgbmV3IFRSWSBzdGF0ZSBmcm9tIHRoZSBjdXJyZW50IGFjdGl2ZSBmb3JtYXQgaW5zdGVh
+ZCBvZiByZXZlcnRpbmcNCnRvIGJvb3QgZGVmYXVsdHMuIFJld29ya2VkIGl0IHRvIGFsd2F5cyBz
+ZXQgdGhlIHNhbWUgZGVmYXVsdHMgcmVnYXJkbGVzcw0Kb2Ygd2hpY2ggc3RhdGUgaXQncyBpbml0
+aWFsaXppbmcgLS0gaXQ2NjI1LT50aW1pbmdzIGFuZCB0aGUgZGVmYXVsdA0KZm9ybWF0IGluZGV4
+IC0tIGZvbGxvd2luZyB0aGUgc2FtZSB1bmNvbmRpdGlvbmFsLWRlZmF1bHRzIHBhdHRlcm4NCmht
+MTI0Nl9pbml0X3N0YXRlKCkgdXNlcyBmb3IgdGhlIHNhbWUgYWN0aXZlL1RSWSBkaXN0aW5jdGlv
+bi4gVGhlDQpjb3JlIGFscmVhZHkgaG9sZHMgd2hpY2hldmVyIHN0YXRlIGluaXRfc3RhdGUoKSBp
+cyBpbml0aWFsaXppbmcgYmVmb3JlDQpjYWxsaW5nIGluLCBzbyByZWFkaW5nIGl0NjYyNS0+dGlt
+aW5ncyB1bmRlciBhIG5lc3RlZCBpdDY2MjVfbG9jayAoc2VlDQp0aGUgbG9ja2luZyByZXBseSBh
+Ym92ZSkgaXMgc2FmZSB0aGVyZSB0b287IGEgVFJZIHN0YXRlIG9wZW5lZCBhZnRlcg0Kc2lnbmFs
+IGRldGVjdGlvbiBzdGlsbCByZWZsZWN0cyB0aGUgbGl2ZSBkZXRlY3RlZCB3aWR0aC9oZWlnaHQv
+ZmllbGQsDQphbmQgdGhlIGNvZGUgYWx3YXlzIHN0YXJ0cyBmcm9tIHRoZSBkZWZhdWx0IGZvcm1h
+dCBpbmRleCwgc2FtZSBhcw0KaXQ2NjI1X2luaXRfZGF0YSgpIHNlZWRzIGl0IGF0IHByb2JlLg0K
+DQo+IFRoaXMgY29tbWVudCBpcyBoYXJkbHkgdXNlZnVsOyB0aGUgc2FtZSBhcHBsaWVzIHRvIHBy
+ZXR0eSBtdWNoIGFsbA0KPiBkcml2ZXJzIHVzaW5nIHN1Yi1kZXZpY2Ugc3RhdGUgYW5kIFY0TDIg
+Y29udHJvbHMuDQoNCkFncmVlZCwgZHJvcHBlZCBpdC4NCg0KS2luZCByZWdhcmRzLA0KDQpIZXJt
+ZXMNCg==
