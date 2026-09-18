@@ -1,93 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4533264FD;
-	Fri, 18 Sep 2026 23:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3DD547067;
+	Fri, 18 Sep 2026 23:01:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789772471; cv=none; b=qA25HnyKEtpYu5XVKogAjr0+u+S2SAhR4dK1h00VWDFKl2N1KAXCEDnSqJPqh3Kl1mtguTVR89CKc/j+qpRTgKzq6h4h2r5FHAa9s5w+ETPhx3sbektxp4TJ5JIwozzE4dujvxdaclfpkTOpyQeqxDG33CNZ2eCkqxNGqKbgHmc=
+	t=1789772496; cv=none; b=hrWMtZq6uTT5dn5/mMUnXGiP9q6ZHhtyv31wzfTcerUOs+b7P+V2++q1NiuVJXCxobewQdSP8Eh4kQBsntHq5bEkl1fiPWA1K+VeM1Of5/NvCE0KRaLkoYe8hG9rSX5a7D1L4/SzSFkN9I03w9apjhNJ/IJD83L9h+Kt9SXi6Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789772471; c=relaxed/simple;
-	bh=V7pBa/KMrAJDHm4lTEygfzTTl+/XTHvWYHKI7oYDBQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aF4kd/jb9483NtVLDuoRhFcwtx6q2YlpJq9Nhyf/ZYrvsUf4CHmuueRl0OLm7KcGSLE7WN3zvEfPTjnQeQmIvzfJivk8/wwmaKWyRhu+7C2cK7HY2vqgcCYdjjk3Z2CIvg44aWBrlVswkpf2bwzfknmriI+7vOUo0akWrhsBNPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flOQ3ytx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789772496; c=relaxed/simple;
+	bh=1JuTJe1i5GSzwNn1qFvpzDplKuEHKy7MCcVj+FbkMzo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IYWku04GpbYvAejAMOp6m/N3ebaNziYrHqimmK9ReQyyU3nwIqD+TfIPLgRWf/ZN/C1Pbke7Wxp0Oh2ovzAqcURJfRsbqjvJnYyzUG7d7lLcdOI0EqxYFmQbrezQ9BEZsZz7HutBh2WFUAzJ0F9ckXsX0z4gTfTS1VKY2Pbihjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebhZMu+Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flOQ3ytx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5DF1F000FF;
-	Fri, 18 Sep 2026 23:01:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebhZMu+Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A60A1F000FF;
+	Fri, 18 Sep 2026 23:01:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789772469;
-	bh=SN+cGtUcaDOXnci0UtnpePkFtN0EYV845cfIYt8n+7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=flOQ3ytxsAwXtDjXhE3lWkmvTLpnoqeZnMIlinf02PTdQ/+E+iC2gVenIoyWSuxsE
-	 FTrW7YLcU0pbEkpirrU3rBgWvqjWKqK6xJDqrOyE2jm6AQ3wKwUcp8xMt4fdUcX4s9
-	 dFp2juVIjMsWyfL59WOGGaxe7ncOAAiyz9htdiLLJHq8zg14+sWu9xUJp/25J/crGC
-	 bEMi+7ix4GhbCw7iS/nhy0HDIrhIMZIyg9QDiK51Ith0JsQxRw5oIv3khqUKIaukB8
-	 VrDey+9KvV+4hsLEOPVB5etPhj/tGIarpF/D3Jz/i4tONxYP0GSOW6yy/UVZQ3DyL1
-	 /9r9IfDXxIWEQ==
-Date: Fri, 18 Sep 2026 23:01:07 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-Message-ID: <20260918230107-GKC297024@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
- <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
- <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
+	s=k20260515; t=1789772494;
+	bh=M0kVljirnYbQOsD/zF21Z2skWwTKIiDNuYm5iyhPMD8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ebhZMu+QKW2Y1XXcd0HuStS3L2YKhk/MQROhZVztlNzZh+d+BFD7ytMuPA6aLDgMH
+	 WTsgmbcZS7lL/tXhbikH7r/FLwlSS22qelSGmvF5akosTdDUT8FkKLdKCT8GfaXq8O
+	 5Cx6IlPl9EWae5JPziUd3hXZE0L55MN02Jr4sbXd3gvmwKZWMlOE7L+m9B+bSbJjdu
+	 TbUxIJ6pDKfTc3GDkbeyBw0kHhteKOJNDg0Ui5xkZEbcOC48qyJ8ftN4a8o1hFlx8S
+	 6UVxYzDconY2Phmhm+nc02mHt9MWyfAGmS9x/HoxFQbynjuvcHxfowdufTDj97Xr6P
+	 OjMfKWfg1G9YA==
+Date: Fri, 18 Sep 2026 16:01:33 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Dong Yibo <dong100@mucse.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, vadim.fedorenko@linux.dev, u.kleine-koenig@baylibre.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, yaojun@mucse.com
+Subject: Re: [PATCH net-next v12 1/5] net: rnpgbe: Add interrupt handling
+Message-ID: <20260918160133.28a59fa5@kernel.org>
+In-Reply-To: <37173FE7EA2160B1+20260914013201.2262568-1-dong100@mucse.com>
+References: <64BE41C2D2C0836A+20260914013019.2262317-1-dong100@mucse.com>
+	<37173FE7EA2160B1+20260914013201.2262568-1-dong100@mucse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Icenowy, 
+On Mon, 14 Sep 2026 09:32:01 +0800 Dong Yibo wrote:
+> +enum mucse_state_t {
+> +	__MUCSE_DOWN,
+> +};
 
-On 17:00 Fri 18 Sep     , Icenowy Zheng wrote:
-> 在 2026-09-18五的 02:40 +0000，Yixun Lan写道：
-> >   SpacemiT's PMU (Power Management Unit) consist of several power
-> > domains
-> > which can be managed independently, depending on different
-> > application
-> > scenario, each domain can be powered on/off for saving power.
-> > 
-> >   The driver is implemented based on Linux Generic PM Domain
-> > framework.
-> > From a hardware perspective, either of two distinct power-on
-> > sequences
-> > are supported, in software mode (SW mode), the driver is responsible
-> > for
-> > controlling the states of bits such as sleep1, sleep2, isolation and
-> > pwr_state, while in hardware mode (HW mode), the PMU hardware will
-> > complete
-> > the sequence automatically without requiring software intervention.
-> 
-> I think there also exists solutions for K3 that uses RPMI power
-> domains, and let their ESOS firmware to access the hardware.
-> 
-Yes, I'm aware of that
-
-> What's the relationship of this implementation with the ESOS
-> implementation? Should the ESOS part be disabled to use this
-> implementation?
-> 
-I should say, it's a mutually exclusive solution, so yes, the ESOS part
-should be disabled in order to use this version
-
-The motivation of this patch is trying to support drm/display driver's
-PM requirement, while avoid going with vendor's complicated RPMI solution
-which isn't mainline ready
-
--- 
-Yixun Lan (dlan)
+Please avoid adding such bits, as AI points out it is racy.
+You should be able to order the code correctly and disable
+NAPI, no need for racy checks.
