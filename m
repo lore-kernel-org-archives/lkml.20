@@ -1,89 +1,80 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85805172DE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B20B5172CD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738852; cv=none; b=jBD86voG9U8i3qqMq9uSaoyqYJUQ9KF90x69p01h6sIh9LvvvipwWRUkdckUZzUTnX/eQbwVYMUw0LArkiQN9pBsY4YBM7/8co0oGKCG0FGQMe/uZGV7JJjAszCBlink5rgPTJgDeXrXhp4prw2KY6WbWrTcddOH18xch8UGHDI=
+	t=1789738858; cv=none; b=A+Ap6f1GtnD0ausFNrQl15Ijz4DWDPww2U0iN8zhepqorDOTe8NpUrGOQT74ilZFLtx6FGlTWJl3dfpIYNI0eZkq54hLY+Qr6mKAJ3pZiIRVVJzzsvpOpGckS0kJTBgxtzCtagL+bdh06lc211WcX5A/g5P0gRryjh6SZvfs2vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738852; c=relaxed/simple;
-	bh=irQHW0C4GyDEHDwrxx67A3iFMFX666gydmDN+38lJvc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RzHB25/3u2JURyui1p+KoQdo0ja2Ua4jz9mWctj26uWuK4qXLm9ooTK1/sd/B9tl6pP7AScOlUlTKvmaSlJh3lm0T0PfzY3eQtH+d+ze4Qa1fyPYl0OJxxEk4nY5G93uFp6XZETsufNXjjuIwOmV0LrxsekZAN3biIwPPAjzF50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jar6CboQ; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789738858; c=relaxed/simple;
+	bh=qhyuo27wL8dOZ4t7i/6sns1OCJ7PshGao21UmCh/3iA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a7XYU4IwBNzGusXJlhJvJc47/xNHw7n4UmcpIjyvBTxA/U35McsZzcfsfE7uyXtTHjFXJR8ctJfnNx2rwHvzF4YH8G2BI/uiT5c4xMmgw2zQTCMa7eQqhFTAG54Dr+7spWYdMlbRfeNqawJf1XCgOkhWNbdfNIXgXKlGHIXRfr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3VQqOnq; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jar6CboQ"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so743883a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3VQqOnq"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so398772f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789738850; x=1790343650; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=84KmttxwxJZo38Fsi4kV8h//UiHGZgZirQkHOuGC9Ho=;
-        b=jar6CboQzXpkHfcMO37J0dtKTMakL/wbIWhqLOo0iah53Xzp6OrBT1bdcUiB1IakC+
-         QLIn4CECdOrnTlhkm3l2ocnw9yrqh2eAZlGUPSK+JJELCAHIbh+n0RHuDU+vHUU+ILlN
-         5Tsvew/LbYpLfZIpZDD38cYFoUx1ps4NbC/hpf8bN2yIQybZROm7PoVgUIs8T805D0SG
-         VKeBw9zZZruDyq5Zi9Vhr5v5B6yPMA/rBFzuDWVuJIUV3uwD6vZf+iOPxgJ3uKEh5GRI
-         apVbDbLdZYtsipI6zC/NL+XOeVrFLuYUProEneSHhOx/8BQkSkhhpFVELw/5e3TcGp06
-         YcMQ==
+        d=gmail.com; s=20251104; t=1789738852; x=1790343652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A7hk4kSUlQH1wBSNdgK7hn061of3Ek8pFYZgMv0vOlo=;
+        b=n3VQqOnqX+Aje+gLo3NPBgQcGs1lOzw+0JBQug3/tV4zoXV5Z48cvgOAKFelh+Apw/
+         GjtHg/s+zbXYilCh70oh3sNYMiMDb13RgtRMGr4O2LYupEd4LBI6gsLlsKMFosnHxwNF
+         UoPpl5XiNixwJJMgbHDpffPPf8KurIeq+MZfe8bOccfDo6EjCU4Kq2rZTzWc++H/JFEo
+         Nm4hIQL9LLi9Qqf+idWA/DvT6lqQFTBG3lFaUsm7Fm583cYkzV5HvQColeZgoSWYQp3i
+         QCDe/SiGQ5425OdLuxVbcwAa99uC6d4FshAShUkW2cth83tHU82IieIDwahaLThDhVjx
+         Rixg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738850; x=1790343650;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=84KmttxwxJZo38Fsi4kV8h//UiHGZgZirQkHOuGC9Ho=;
-        b=o7JmC6t+vVEbHrfrzVvBB3OcSCKFwN78LVCJKsES5RdHVTzU9KZN1+K5taXxz11hli
-         aGYkh6Csc+AWOlCGCMyRmupglXWkDQ/lA2aUklHk9FX55FyRJKh899VZIHZ/znrTc/p5
-         7ZaRXLQ0z+mAtqWkHBSq2ngkftvcdtymo3L++MSvivApPmNWNNrCu/8vrjx29wRccwbS
-         ZBBUsl9eANy1dXUDBIAGTSbNp7wLxHJFjP0nTMBVBmVr/Yj9OStucinsL40Py1esrORS
-         XqIiVJE359pGhTnaS66yxLM40+a08fBHcXlQHwUQIC0zlvO4bz7ncl3/5NGu3cKkmenG
-         RGxw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9yLI2ZmWHvmrXaOe0xtv1ubTc5Zy1glKX972p1xddklY/OojTdO9s8CsglOYxRIOPNNZgp7hsYI93BPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5KVgN2pJtyAFkV0IrhcRXNZtT1FhjMVXuHzMTmfc9xeSnqKyY
-	IvfzFnqnBjYg2bauhyiNzcHqIoeB4of+yVcHutCbQrO6mSnNfpzdbSd+
-X-Gm-Gg: AYBFou16CMCUa3ahc8uGKzYmShA0joPVgvAgyS/VNe2dBK0rCxopSq2zXazjNH+NLxj
-	hFebBu0W+FoihgijyLI5rqonBNdye8NEUoG9chuFpvkvrh1R1tKBJkrHEqLOICvO2GBMHhp7mWn
-	yjh69BTadBcIQe+LqkUMQxBxZNmEK6GdjorrU+nGtoruuwP5aQW2JJtfondGxGysyp8N7sZZE3M
-	/47iVlNap/9/R/AlqbXRLYlUgk36HzbHdeV1hnolQT9ODZ47zAYKrtqTe5kGUV1Iq/0s/SBeS6i
-	U3BZpgGSE6MdTgrZPcCSBuQFEUy7tFnhYZCsAgJzK5iJfnlnGtrwKOozOcCD28P8GgZBDtaCtBI
-	MuCfnbWI3YhBymL6KsTLXbTujm8yYDk0bF7jkvZXKvYD3jFomtPdX50Xo0Z5tCoSRzCR4UbPu2A
-	O1AU5IJrOxeO8arujXgFAcqlI6s24snx2PF/poA0aX6KRCdem8LcKNifOfhMLDQSm5HBOVWZAcH
-	2RVbkPdNhGOGvZpjjxtkjvVFWGxUD+6K809kuAfUYRgLnMot8c2sBoL8KBZyftjRspP3xFDga99
-	KNpZvYhP5TmtXTuh5nk3p21n
-X-Received: by 2002:a17:90b:17c1:b0:398:e86b:ce14 with SMTP id 98e67ed59e1d1-39e54e3f526mr5588018a91.20.1789738849715;
-        Fri, 18 Sep 2026 06:40:49 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13253792a91.9.2026.09.18.06.40.45
+        d=1e100.net; s=20260707; t=1789738852; x=1790343652;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A7hk4kSUlQH1wBSNdgK7hn061of3Ek8pFYZgMv0vOlo=;
+        b=m563u5FODj0Ahs92QDwtl7tO0gcSLIkXa8aSHL6fPU5SIYSUCCNcnTaZg+LcS+npVL
+         wf52/WP9ykVI44k4iYSc9PXvCNlPrI8jiv57ri4OAq/eNo/FvzfgZqEeyvufYTpWKuoG
+         ZJGRO4bpi2hVZxmOWRaCheIHVJm3Ii4TtHc+4lp0crDQYPCu0DnPs7ctdpw9uX/6+ycO
+         +9DmBkH68dibb54WX0kadJbTt7PEw15iPPnTpkm438n3hsYzQdp6++2P2TtGKWq4rxnI
+         ctJ7m2KTMb8qAiy+nRIRRJijpdFD2CinwqIeIs6VUDY3yyVztlVPSImnxaSOF8YieXwC
+         ko0w==
+X-Forwarded-Encrypted: i=1; AKwUvBxfoQKmzm2f8P2GT/yoKUSCCiDWMUb2rZjW9sNuCt5c0wCEOPjfyec+Pq4KXSR717lZg7yd8N1tFiFv61E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mylKgLNaKLr/69j/x9q+8Uj/6b8mQqmJVVXCXlrJPK7OvMBm1L
+	QjtehNquYv/rqotSE/5sODss0G9x1sVeaHakgWy16n9rwLiXLakkvq1D
+X-Gm-Gg: AYBFou0odB8H0dQLyGVohu/OwAD9pDkS7lXqCIB2kLmlCLKA5KcxlVbPY40qAu0chCk
+	L9OK3WA6gX3sXSHCyuBlO82dpEzvOGVHuL6Qh6FNGaB1lduqP3QC6OwOEK+GNUozZvIrtv9F/BW
+	ML2dJ/oRdmsnz+tpy5GNB9wf+4D/+axL4AW4BGr/tArfb+lwRKkcIh6dS8iMRjWlkDFGlI0RT2n
+	QoUF9KO6qYEhU+JuP9R8zVnlSoI7sY5cco5oqs0xwCM0I4iNWU04P6SgLufikLVxFFx6HHrCgJU
+	C815PyDmIudMTFKgXcOz1HG4ajXSvSg+Vp2JupUGwSH2jUqCdP01KbbP3NdlnQFSP21xS+uCYSz
+	8P1T4vU3aE8efmO0cYPB67TKUzRtaedmNpLy3R1pkNr2bUX6b2BLq/Sg4BYg8noq6Ju7kgH5H5q
+	PV5j8UhB67CZjuHTa7lOdPlffPU+Ri/KEmhtGcUy7wuy5eLUKKUnQr7vFjVqAZ/3EgNWeZ7wcIM
+	fF3S3GHbjOaVH35/ZGTZWXQ25Ajx9h7HAO3edvnwUB4gPaG85a1N1VJS+njULeIkhL9dw4Px0sJ
+	QfF+YPvqC5UspZATfkPJXa2Zj3FglkSOGDmu3H+flVIWNC/aAw==
+X-Received: by 2002:a05:600c:474c:b0:49e:817a:ca7 with SMTP id 5b1f17b1804b1-49fc56c3c34mr35521715e9.8.1789738852113;
+        Fri, 18 Sep 2026 06:40:52 -0700 (PDT)
+Received: from localhost.localdomain (p54a14b85.dip0.t-ipconnect.de. [84.161.75.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd225898sm168149865e9.9.2026.09.18.06.40.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:40:49 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	cassiogabrielcontato@gmail.com,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
+        Fri, 18 Sep 2026 06:40:51 -0700 (PDT)
+From: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Bernard Ladenthin <bernard.ladenthin@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 14/15] ASoC: mediatek: mt8192: Propagate errors in I2S DAI DAPM event handlers
-Date: Fri, 18 Sep 2026 20:39:10 +0700
-Message-ID: <20260918133912.133799-15-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918133912.133799-1-phucduc.bui@gmail.com>
-References: <20260918133912.133799-1-phucduc.bui@gmail.com>
+	security@kernel.org,
+	jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	alexander.potapenko@gmail.com
+Subject: [PATCH] net/sched: fix potential stack infoleak in em_text_dump()
+Date: Fri, 18 Sep 2026 15:39:37 +0200
+Message-ID: <20260918133953.12494-1-bernard.ladenthin@gmail.com>
+X-Mailer: git-send-email 2.49.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,96 +83,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+em_text_dump() allocates struct tcf_em_text on the stack without zeroing
+it.  strscpy() writes the algorithm name and a NUL terminator into
+conf.algo[], leaving the remaining bytes uninitialised.  nla_put_nohdr()
+then copies the full struct to the netlink response.
 
-Currently, DAPM event handlers in mt8192-dai-i2s.c ignore return values
-from mt8192_afe_gpio_request(), mt8192_apll1_enable(),
-mt8192_apll2_enable(), and mt8192_mck_enable(). If GPIO configuration or
-clock setup fails during DAPM events, the error is silently ignored.
+KMSAN on Linux 7.2-rc6 reports two kernel-infoleak splats from this path,
+one triggered via "tc filter show" and one via a raw RTM_GETTFILTER dump:
 
-Fix this by checking and propagating error codes properly in all I2S DAI
-DAPM event handlers.
+  BUG: KMSAN: kernel-infoleak in _copy_to_iter+0x1c9/0x2620
+    nla_put_nohdr+0x83/0x130
+    em_text_dump+0x291/0x550
+  Local variable conf created at: em_text_dump+0x5d/0x550
+  Bytes 168-179 of 199 are uninitialized
 
-Fixes: 2c37b4ed730b ("ASoC: mediatek: mt8192: support i2s in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+I am not certain whether this constitutes a real security problem in
+practice: the test was conducted in a controlled KMSAN environment and
+the leaked stack bytes may or may not carry sensitive data on actual
+production kernels.  I am reporting it because KMSAN flagged it as a
+kernel-infoleak and the fix is straightforward.  I can provide a
+userspace reproducer on request.
+
+The original code used strncpy() which zero-pads to the destination size.
+Commit b04202d6065c ("net/sched: replace strncpy with strscpy") replaced
+it with strscpy(), which does not pad, creating this condition.
+Zero-initialising the struct closes it.
+
+Fixes: b04202d6065c ("net/sched: replace strncpy with strscpy")
+Link: https://lore.kernel.org/netdev/20250327143733.187438-1-richard120310@gmail.com/
+Assisted-by: Claude:claude-sonnet-4-6 [KMSAN]
+Signed-off-by: Bernard Ladenthin <bernard.ladenthin@gmail.com>
 ---
- sound/soc/mediatek/mt8192/mt8192-dai-i2s.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ net/sched/em_text.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-index 1632fc94776d..5608b534af0d 100644
---- a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
-@@ -586,6 +586,7 @@ static int mtk_i2s_en_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
- 	struct mtk_afe_i2s_priv *i2s_priv;
-+	int ret;
- 
- 	i2s_priv = get_i2s_priv_by_name(afe, w->name);
- 
-@@ -599,16 +600,17 @@ static int mtk_i2s_en_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		mt8192_afe_gpio_request(afe->dev, true, i2s_priv->id, 0);
-+		ret = mt8192_afe_gpio_request(afe->dev, true, i2s_priv->id, 0);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
--		mt8192_afe_gpio_request(afe->dev, false, i2s_priv->id, 0);
-+		ret = mt8192_afe_gpio_request(afe->dev, false, i2s_priv->id, 0);
- 		break;
- 	default:
-+		ret = 0;
- 		break;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int mtk_apll_event(struct snd_soc_dapm_widget *w,
-@@ -617,6 +619,7 @@ static int mtk_apll_event(struct snd_soc_dapm_widget *w,
+diff --git a/net/sched/em_text.c b/net/sched/em_text.c
+index 343f1aebeec2..4132f8c3c5fc 100644
+--- a/net/sched/em_text.c
++++ b/net/sched/em_text.c
+@@ -113,7 +113,7 @@ static void em_text_destroy(struct tcf_ematch *m)
+ static int em_text_dump(struct sk_buff *skb, struct tcf_ematch *m)
  {
- 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
-+	int ret;
+ 	struct text_match *tm = EM_TEXT_PRIV(m);
+-	struct tcf_em_text conf;
++	struct tcf_em_text conf = {};
  
- 	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x\n",
- 		__func__, w->name, event);
-@@ -624,9 +627,11 @@ static int mtk_apll_event(struct snd_soc_dapm_widget *w,
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
- 		if (snd_soc_dapm_widget_name_cmp(w, APLL1_W_NAME) == 0)
--			mt8192_apll1_enable(afe);
-+			ret = mt8192_apll1_enable(afe);
- 		else
--			mt8192_apll2_enable(afe);
-+			ret = mt8192_apll2_enable(afe);
-+		if (ret)
-+			return ret;
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		if (snd_soc_dapm_widget_name_cmp(w, APLL1_W_NAME) == 0)
-@@ -704,6 +709,7 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
- 	struct mtk_afe_i2s_priv *i2s_priv;
-+	int ret;
- 
- 	dev_dbg(cmpnt->dev, "%s(), name %s, event 0x%x\n",
- 		__func__, w->name, event);
-@@ -716,7 +722,9 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		mt8192_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
-+		ret = mt8192_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
-+		if (ret)
-+			return ret;
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		i2s_priv->mclk_rate = 0;
+ 	strscpy(conf.algo, tm->config->ops->name);
+ 	conf.from_offset = tm->from_offset;
 -- 
-2.43.0
+2.49.0.windows.1
 
