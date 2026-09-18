@@ -1,127 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB2A4E73AE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4E44E73AE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733294; cv=none; b=P5cMBzl7G1d/YnEFLY+oRDxhVE3J4U3j9girQAmAocT9pxNI+AtV0loBfjMZY6bAd5+4C3ySieZVd8OpPOROv+9graWSvK7oAdiN9dOpfEiep2OcE/X4AtNQLQYsYX+4+oG7a4WWVmAyE+6R7PtlLaQnJ7yijZdfXwlioq+mNxY=
+	t=1789733305; cv=none; b=ZtQLJoHkLdtfHO+CkuS3KCUjVBlM0eEPolPxPblJk6PmnzrsIIot1kKGm4V3Ej1CzMQbZAptTpSeBh1jjRwdTUA8nj+oYl9Ugbln5hA6rg68iaBB7Gak1/GTMa1R+a1BNEGu+n4gTTnwcUhRcI2t05r9yCZ2RvUU4UMEOLu28SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733294; c=relaxed/simple;
-	bh=jGFMeo8rnH0rgaRoJN0fqLAuq9c1lBVan3MVZcoXHJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lx2UbTTuJhvy5habetMOoz6SMNiMCmW6yLbHmP3fEOP8QK7wPsbNIQTKhaypB4JgM6qksrL90ZVlYyLYH5Au9Y3F7OqDaMJl8o/Wb6y4DSDq0PKmO28IPbNH6VKM7iceTwRWOssPcCRoEsJKcuALj3/UzIAvVD77C4MrOR5B2gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3OzrdxL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789733305; c=relaxed/simple;
+	bh=e6Sc8d6TCv1Hiij+M19oHz2OIgibmXC/82dg97Yi2uY=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=nGoj3NiQtuR1SYGx47nZyGDr2FYPfH7DrKnbNKxuHX+nDl0MR0vFTczG16Le5UDGsF38I0UIagpJUkisyYjhMQT5EMDDbWo+D43uO6Nc6egcWEuKT/DfeVtbEDn4PNXuOOv7RMx6hyBIc1bK1yVAU7hfZ0VC3Yv9MmiRgi4gAjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W+p2LRty; arc=none smtp.client-ip=91.218.175.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3OzrdxL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF8E1F00893;
-	Fri, 18 Sep 2026 12:08:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733291;
-	bh=52El7aWxFiopJa3NshFClg/dLUmWjy1t/tfttnRy2lo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l3OzrdxLcLWZ8lUoTlvOT/korfellc7RPercYMr9NTGabFtNNeU2uizjLgu5WL7ZP
-	 scHI/Ju+/asmlcggxnkASrANz2afakDvLpXqf/RyCrcvt8INMirMdy/PODulQCjAbq
-	 nhTKnELBNoxR0Ft+LVwiBy0CtHPc9wndfionsh5h7YecNAWxzzE25/moUdNFJ8xRS+
-	 KQEMBIShpLtQLyV3bfdd9SCMUUWK8Nq8GvVyz/Y2YN98QXQ+U4I9wVumDDnRPsPN5Y
-	 CrZGII9/DAxo0pyn9pLqH53V/akLajS5nRcl6QEqsodQcl/ZN7pfFD6pEpVGt4IOsN
-	 +t1eA/W0f8Khg==
-Date: Fri, 18 Sep 2026 14:08:07 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: anna-maria@linutronix.de, linux-kernel@vger.kernel.org,
-	mingo@kernel.org, tglx@kernel.org, hannes@cmpxchg.org,
-	shakeel.butt@linux.dev, riel@surriel.com
-Subject: Re: [PATCH] tick/nohz: Avoid unused timekeeping_max_deferment() calls
-Message-ID: <aq0pp8VCIyc3t-k_@localhost.localdomain>
-References: <20260917163929.1271332-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W+p2LRty"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e6Sc8d6TCv1Hiij+M19oHz2OIgibmXC/82dg97Yi2uY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789733301; v=1; x=1790338101;
+ b=W+p2LRtyH0cD8luUar7ncxicH5z3+LEiL2RytsSSbPlZaL1AnSkNyXVEjUzCMVOMWrPV1IIo
+ LNbNuMwZ/qDI5ZYoztb1ecqpYe/9mg/4YXOIrgJrkqTiPyp6Q8B7A+njv0eQ3KDHcMt2I/rzITp
+ 03etA0c0yf68ljwq0WJZ4SlU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id ac9122ca51626832;
+	Fri, 18 Sep 2026 12:08:21 +0000
+X-Mizu-Trace-ID: ac9122ca51626832
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260917163929.1271332-1-usama.arif@linux.dev>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 1/4] memcg: keep swap charging under RCU protection
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-1-5bbf3220d88f@tencent.com>
+Date: Fri, 18 Sep 2026 20:07:59 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Bingfang Guo <bfguo@icloud.com>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CEA43253-5A6F-46EF-A7CF-645D5EC95E05@linux.dev>
+References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
+ <20260918-bingfangguo-memcgid-rework-v1-1-5bbf3220d88f@tencent.com>
+To: bingfangguo@tencent.com
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-Le Thu, Sep 17, 2026 at 09:39:29AM -0700, Usama Arif a écrit :
-> tick_nohz_next_event() limits a CPU's sleep interval to the maximum
-> deferment supported by the current clocksource when that CPU owns the
-> do_timer() duty. If the duty is unassigned, the limit also applies when
-> the CPU's TS_FLAG_DO_TIMER_LAST flag is set.
-> 
-> After the early timer checks, the function currently reads the maximum
-> deferment unconditionally. It then replaces the result with KTIME_MAX
-> unless one of the two conditions above applies.
-> 
-> timekeeping_max_deferment() performs a seqcount-protected read of the
-> shared timekeeper and follows its clocksource pointer. Check the do_timer
-> state first and avoid this work when the result would be discarded. This
-> leaves the resulting expiry unchanged and reduces accesses to timekeeper
-> data that is modified regularly.
-> 
-> On x86-64 this removes 18-20 dynamically executed instructions, including
-> the call, from the common non-owner path when the seqcount does not retry.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  kernel/time/tick-sched.c | 23 +++++++++++++++--------
->  1 file changed, 15 insertions(+), 8 deletions(-)
-> 
-> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-> index c8f2c4a503b08..e7c7c28311156 100644
-> --- a/kernel/time/tick-sched.c
-> +++ b/kernel/time/tick-sched.c
-> @@ -872,18 +872,25 @@ static ktime_t tick_nohz_next_event(struct tick_sched *ts, int cpu)
->  	 * If this CPU is the one which had the do_timer() duty last, we limit
->  	 * the sleep time to the timekeeping 'max_deferment' value.
->  	 * Otherwise we can sleep as long as we want.
-> +	 *
-> +	 * Only read the max deferment in the former case: it is a seqcount
-> +	 * read of the globally shared timekeeper, and on a large machine
-> +	 * almost every caller is not the do_timer() CPU and would throw the
-> +	 * value away.
 
-I don't think that needs a comment.
 
->  	 */
-> -	delta = timekeeping_max_deferment();
->  	tick_cpu = READ_ONCE(tick_do_timer_cpu);
->  	if (tick_cpu != cpu &&
-> -	    (tick_cpu != TICK_DO_TIMER_NONE || !tick_sched_flag_test(ts, TS_FLAG_DO_TIMER_LAST)))
-> -		delta = KTIME_MAX;
-> -
-> -	/* Calculate the next expiry time */
-> -	if (delta < (KTIME_MAX - basemono))
-> -		expires = basemono + delta;
-> -	else
-> +	    (tick_cpu != TICK_DO_TIMER_NONE || !tick_sched_flag_test(ts, TS_FLAG_DO_TIMER_LAST))) {
->  		expires = KTIME_MAX;
-> +	} else {
-> +		delta = timekeeping_max_deferment();
-> +
-> +		/* Calculate the next expiry time */
-> +		if (delta < (KTIME_MAX - basemono))
-> +			expires = basemono + delta;
-> +		else
-> +			expires = KTIME_MAX;
-> +	}
+> On Sep 18, 2026, at 17:18, Bingfang Guo via B4 Relay =
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>=20
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>=20
+> This is a preparatory work for unbinding memcgid from memcg. No
+> functional change.
+>=20
+> The swap charging path currently drops its RCU read lock after =
+acquiring
+> a private ID reference. This is safe because the ID reference pins the
+> memcg's CSS.
+>=20
+> Moving private ID references to objcgs will remove that lifetime
+> guarantee. Keep the RCU read lock held while accessing the memcg for
+> counter charging, statistics and failure handling. (This matches what
+> __memcg1_swapout() already does.).
+>=20
+> Save the private ID before dropping the RCU read lock, and use the =
+saved
+> value when recording the swap entry. The swap cluster locking remains
+> outside the RCU read-side critical section.
+>=20
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
 
-If anything, it also makes the code more readable. You can even remove the delta
-variable because even in its former use in the function, it's an unecessary
-middle step.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
 Thanks.
 
->  
->  	ts->timer_expires = min_t(u64, expires, next_tick);
->  
-> -- 
-> 2.53.0-Meta
-> 
-
--- 
-Frederic Weisbecker
-SUSE Labs
