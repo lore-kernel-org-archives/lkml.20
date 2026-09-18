@@ -1,156 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9D551D533;
-	Fri, 18 Sep 2026 19:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A4493636;
+	Fri, 18 Sep 2026 19:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759494; cv=none; b=eSgsVWKmXvI8WrjWL3b7hfYw+5bR94VLmKXe22PZrSjfX072wQq1sXBX7zEiUZQ2nirwZn/MUjts8Ls2mkSJcfsTS2fe3QBLjMdsxIlsydyc3jdA+CZa6zKGlloWiIMFpk+8zNoelAYlQDEUNSM941bOfFgIrBXPbWD3T6Bzdfg=
+	t=1789759590; cv=none; b=SVSCyOEqiCN6w5J0GMts7LQ6buGw5XBLBk7AV6s5BgPqeyC4Ozyd0XNqY17V+eyNeNukiNm0PCfqqHz1Ku/63WG6NsvJlfjiodPYf1BNTEhPN5/6RelI6nsGlLboDbC7/KoCujHN5Pl4bWSGlwK7yyZPAoBixnd8ZeZV9L2MLvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759494; c=relaxed/simple;
-	bh=Zd0QGn6EczAAvO+K5gHWq2fXZsgdRYOjqY5dwru86M8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bWJVq0SxfdGwycXs5Z8/qtpzE/GDlP9qepGMzy0xm0T1EbRIQxgTvrrlDzVnHWR5TU5mResJbBDiphDmLUX2hmY/h2q6KXeuDitofL6vEdbfNt/ZwcikWy0qpoZ5txR4BvyNqnAf3FnXA+vfmA5vDdZDwf0nsQ3L4peFUbfkNUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CHDAEFAY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789759590; c=relaxed/simple;
+	bh=zWaAR20x/Onb6LS/Yur8W5iuAsPCi9+2D/GoXxzIlsM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MAJq9kNB+jx3hMhl9RdmeoYXQwpx9PuPFY0o9TfNU9pZQgj/dV+28gePZGyrOfItgq10vCer/9LtNX5e6TU3wUKKO0b+Jc0UnDrVqvfEkc5yeqOHumSWypCQcQ8IsGEYeujvI7S2XE9RcJLUIssUJYDmOiE41WzfwtEGWnOVCZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gb3wCR9p; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CHDAEFAY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714661F000FF;
-	Fri, 18 Sep 2026 19:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789759489;
-	bh=gy1Wl0a02dtKqoPAdsnYPm6lkMH+/UnovXEG/AvYxwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CHDAEFAYp99cG7ALHJHxabBHBvYu4ZolmiftDgQyss+yGWBLqV6LMkFJYjcXxQzJu
-	 MOZ8u7D0fBuJpAaAZB8myh0eXutu1FOIHkKj3typrQKAe1acMIwHU47CTNmHq67Q+1
-	 gW+ij/xXY4rICSZ9pYarlfCD0dugav+2Rq9O4EeDvWT0zbOXQt8wM4StWno1dcs8Rg
-	 yVsRcV7Ezj1zRAZe7Io36sir3IWZtMcOOcLoTOBIUltZbo/psJU9fdcowX90YiFmQk
-	 gQExKNijGvWdFM8oWzfHTPKlRfVjw3FHrIMT9VfLCAiKkiUBkC8BYd8nfCWau8g75j
-	 LjOCQffvcSW4Q==
-Date: Fri, 18 Sep 2026 14:24:47 -0500
-From: Rob Herring <robh@kernel.org>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
-Message-ID: <20260918192447.GB1465432-robh@kernel.org>
-References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
- <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
- <aqLaLmz7n31P6igy@SMW015318>
- <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
- <aqLif2zrrsbYd5sM@SMW015318>
- <aqLk5UAv-j39Jxd3@francesco-nb>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gb3wCR9p"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 21F715340271;
+	Fri, 18 Sep 2026 21:26:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789759578;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=HYotaPpjiGAt2FfzQU3Vj1LHo2/cGdO6Bfxfc5NuV5g=;
+	b=gb3wCR9pa4IwW/qJPzSm5a452In2YduuGuxIUdZydtR4V+F2rDSysBuTm7YVF95tjmi9/W
+	fObBW77gTE0d0nvsDIu3eKZsk+efarK3gl6EBTOLDE54ACb3uRQSjUS1pxVB2xliR3LAq7
+	xCKCFzGUFhvwrSzaA22flIgsmfzF4VA=
+Message-ID: <76e9ad4b-7430-41d3-9d31-9f513beedcb5@ixit.cz>
+Date: Fri, 18 Sep 2026 21:26:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqLk5UAv-j39Jxd3@francesco-nb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] Input: rmi4 - Move sensor initialization into own
+ function for F12
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260731-synaptics-rmi4-fnsplit-v1-1-8175cec2ded1@ixit.cz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260731-synaptics-rmi4-fnsplit-v1-1-8175cec2ded1@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
-> On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
-> > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
-> > > Hi Frank,
-> > >
-> > > Thanks for reviewing this so quickly.
-> > >
-> > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
-> > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
-> > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > >
-> > > > > Toradex boards route the sideband signals of their 24-pin camera
-> > > > > connectors to different GPIO controllers. Camera overlays which name
-> > > > > those controllers directly must therefore be duplicated for each host
-> > > > > board.
-> > > > >
-> > > > > Describe reset, power-down, detection and power-control as
-> > > > > connector-local GPIO functions. This lets an accessory overlay remain
-> > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-> > > > > remain described separately because the GPIO nexus does not abstract
-> > > > > them.
-> > > > >
-> > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > ---
-> > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
-> > > > >  1 file changed, 86 insertions(+)
-> > > > >
-> > > > > diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> > > > > new file mode 100644
-> > > > > index 000000000000..06e6836e1aa6
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> > > > > @@ -0,0 +1,86 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> > > > > +
-> > > > > +title: Toradex camera connector GPIO nexus
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> > > > > +
-> > > > > +description: |
-> > > > > +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
-> > > > > +  clock, power, and sideband GPIO signals. This binding describes the sideband
-> > > > > +  signals as a GPIO nexus. The other connector resources remain described by
-> > > > > +  the surrounding board device tree.
-> > > > > +
-> > > > > +  The nexus exposes connector-local GPIO function numbers to camera overlays
-> > > > > +  and maps the functions wired by a carrier board to their GPIO controllers.
-> > > > > +  GPIO specifiers contain a function number followed by standard GPIO flags.
-> > > > > +  A board may omit functions which it does not wire.
-> > > > > +
-> > > > > +  The function numbers are:
-> > > > > +    - 0: Camera reset, connector pin 11
-> > > > > +    - 1: Camera power-down, connector pin 22
-> > > > > +    - 2: Camera identification, connector pin 23
-> > > > > +    - 3: Camera power control, connector pin 24
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: toradex,camera-connector
-> > > >
-> > > > Name is too generally, suggest use board name, we got similar comments at
-> > > >
-> > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
-> > >
-> > > I saw that and it made me reconsider this name.
-> > >
-> > > However, I believe that in our case it is specific enough. It is really
-> > > the same on all our carrier boards, and Toradex specific. It's also only
-> > > for cameras, which is more defined than just "io". Curious to see if
-> > > others agree or if we should come up with a name for this.
-> > 
-> > If some days later, you update hardware connector to 30pin from 24pins.
+On 31/07/2026 20:40, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> That connector is there since years, not days.
+> Makes rmi_f12_probe function a bit cleaner and more structured.
 > 
-> We have multiple cameras, designed to mate with it.
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   drivers/input/rmi4/rmi_f12.c | 58 ++++++++++++++++++++++++++------------------
+>   1 file changed, 35 insertions(+), 23 deletions(-)
 > 
-> If tomorrow we will define a new camera connector (that is absolutely
-> possible), the new connector will get its name, maybe
-> toradex,camera-connector-v2, or toradex,camera-connector-22pin or
-> whatever that connector would be named, not just in the DT, but also as
-> a product and on the actual HW.
+Can you please let me know if there is something I should improve or this patch 
+is just NACK?
 
-I for one hate 'v2' naming.
-
-I agree the name seems a bit generic, but if you really can't come up 
-with something better, then fine. The next connector name just has to be 
-something different.
-
-Rob
+Thank you
+David
