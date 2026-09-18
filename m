@@ -1,127 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB76B270575;
-	Fri, 18 Sep 2026 20:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E28524B1D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762847; cv=none; b=Zm40dlGiv0hOgrTXwCb6SIb7KzlF45OOdvTQb9019J0eXLj4OG+gNAKZwSuZDlx4z0maN4ypOAqIAbmgLEZuPDQ/TauTxuwPZHVsETdOVrOHFYFAG9GMIB5QPAA7O5473TZXhAHtHLOkjtP0f0w03FIph8TedPiDb9ozs/uS0fE=
+	t=1789762850; cv=none; b=rY3ht4QQzdAlk3lmGKk42gVMDN7LQAgcKsuUMqDngFksa3P34d87BvDgZzOpiGZzdXUNOUAykwIaXX5tCkCTkmM+gP8vZZOlMfjUcJMIob1bks8qoneAHgGhKOxVAryeK2UIHriDf5s3xOnO9nO9tgDXJrEq8qp3sDslx8d2JiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762847; c=relaxed/simple;
-	bh=v7IOWiZ5X1R3z667a0UCKu5bS9TBMhf8cT7gK2ZiDFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=ZZULSkbDakJsQhGVjSQUE0BR9KE8p4LI/y3LLKjj8IltztlTGTKlhv7Za5JO7BRFKfoiafEXzkhIzx7sfxS3HQCes5MTrN5i6ZNsFMh39VGtuxdDZcp4rbxv+abNn1Jhq/ryvB41QB9Urg06n/5QvAio5Nn89Mm/TmXciiOPqeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aOZlUWvp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789762850; c=relaxed/simple;
+	bh=nu8qU1YZwp97dnkL+bX+96A8g+p6R7Z6RfF1S27tVbI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=NTkt0tVSq5pNGTDBtP2n1GKDYPrqFHqDEA2sT9sXDk3VevOw7VRqYXhNCBZqtCCQhvMGzlug6S7yCc3FmUXWpZPi0MVt8dK1R/XjZsDvmc/bUgrfkwWqKzzotQhiTXd1zj9wEqJWhCvhHRwbwkia1XJuTYjzavlvj0FOnR4o+2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GDtvkj0c; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aOZlUWvp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A78D1F00898;
-	Fri, 18 Sep 2026 20:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789762846;
-	bh=+w+LmFde3QSDgJjdbJWf9nleP0cv8bs2EyjMJ0hR8K0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=aOZlUWvpNuspycyfQxpxTyeeC3V/5ze4FP7MDP1T/pBrox69uWYEyJOgvjMP6n1LK
-	 aHnk0xAEHUW7D00DB0icDv+QwPaicDYsx2r1h0136kIg+vwHcALAn7DgbEyKgWMXwO
-	 eD+2roIVIhyi4eI44zjc8CWOesoLI0X86pn14b3g3jZjwI8xm8bzI6t+yuXvfu5d8W
-	 mJaEfUWChArlTI9YIcYzki/WHNmZ73CL1gXwDXcLm3LcHq/n27H+D4AGXEGS2EilWq
-	 CRg8E04AvHm0q32leecRh1Jh652yV7GEzaigRv8hQpbezUPZMx/EGc0Ygf8RWbNUWV
-	 eHhcknpyyFNSA==
-Date: Fri, 18 Sep 2026 15:20:45 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Angel J <iamanaws@httpd.dev>
-Cc: linux-pci@vger.kernel.org, bhelgaas@google.com, robh@kernel.org,
-	herve.codina@bootlin.com, lizhi.hou@amd.com, andrea.porta@suse.com,
-	florian.fainelli@broadcom.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
-	linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH v3] PCI: of_property: Omit bus properties without a
- subordinate bus
-Message-ID: <20260918202045.GA1191948@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GDtvkj0c"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d8facae850so23885ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:20:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789762848; x=1790367648; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PKHYiIXSy/sUkOC1RnRyCN5D48PNPtcysE7SZpaqPCg=;
+        b=GDtvkj0ctido5RDXvBBl6jYZ1YS3JEwQ5Qm3tRX11VHF9QSF7XXSUT/+NyFrAGZ4zf
+         TzkRHqTQ94l+0PuBPKcJ23LVdoR2ujrxi4WRZOj/jcdRSffyzAxG5MA79fmMyHGQFV16
+         Nb+5SN4VKFWyILzKFzvg/oXcU1r5LhP9lp8KKOdZfOA/c5G7+9BZrrtKgqGKGMAg/TDC
+         QPxiO5+usNxVRLEo2c9Ger6ResXtjGkoXsBCFvVwXBBw2m6483+5n2We7bVOgp+qWwYv
+         W1bC0xtC+mZ7ZNi4SiRr1vgVPxK45lhf7F7462lDm4FIe8cyG1ghEn6UYUDHqe2Tq2wL
+         gjNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789762848; x=1790367648;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PKHYiIXSy/sUkOC1RnRyCN5D48PNPtcysE7SZpaqPCg=;
+        b=FlTkwTVy1E8CAgIajJY5woqWntJ66968RmRGWs2ekLGGpLR+4lKl9zfrl0MUiju69n
+         42IFMVvuq7SIdshsD3QuCJoDUKOthO/eyDL9IMhggnhuiDht44GIAiv/43s43ODSkB9t
+         lxM/T3Yrx8zA53kI+tb+WA9jgwU+LMSLAxsbnzN7m0oqWljbUw9jT+kGbZ4aZg3KOe9X
+         9oEl9bBvgbOGn8QO3g25zu4l1E8yB/0uZZXfrBEje5wcPRP9LTm1EjTjDoTnPwjwRZfu
+         yhCHFm1nm+6Zbsxf0+0cdFiYffjbXTMAz6/Cf7DWludqnOiJ/Nxm4072MTkv0VE8iBNf
+         I/pA==
+X-Forwarded-Encrypted: i=1; AKwUvByFXAnf2ucMXuU5nFAh5wxNmfjZe4kshas5/lzR/NDLbyYhaFP6O+X5OWhaK/2GoOls8hmbWoi8zeq3W8Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++ln+eBSpGRl16hUmqLsAvGC+2I8JQeFU4V3qzhVDhzvcTJaZvhJ
+	wgFfvF1B0DB0dMeR22saeaR7CYgFd0TFb4PpEVBpvZ8mBWvj/bgWe2U/74NoliVv2g==
+X-Gm-Gg: AYBFou23lUELpcHQKrW/pRCi+Qif3Acx2ziAM9bRxH+HhRIEi0CUirzioVNAijcnREO
+	kwJqMCf6RwVDlQSNF77lQKeVUGWjYgfoHgSYccRsJjbE/UwtgAtRXonD9EWO38rajGllugLBtN/
+	e5aTWSIQAJYn9A3wWG0B5paqdl3s12qoOjW+O1GayUCQKcSKzpCqOxbvnacZlTKS8u0hSDLTXNw
+	LvCjGAi7vG/m1OjI9yWsp2k3MtuOhFxy9KfN6LqZXtotGYar/GBM0HSZVIBiDmgpBkjbp4Y1K3T
+	4Vj2Lt10SPGFaIT0gNXL9soKwh5Rr7d99ps4hDGYcHVp4rJ3wutydE7X7jXO46vPeKw8HF+gxAD
+	cpsbhk12yBtyTr8EF0d/7oziPHdn5pk5/e3iBkrVMbWysLRYKHqpdzy7sHXrp9hEwCpgiInPfAx
+	tjXzD4AIIzd3rspDPDkS6L+O7jYscfreNC2UQAuW7VjgrgKb1zaQgnO+GWP5EXKPvTgHE2ntJMa
+	l1+8AiCZYt0ixVeiRNhCh+qIAq437FVmi1duUoa9mop5A35HOGLKugOQbPlv/6G3AzXdTWkismA
+	oYexQtM5CBI38zY7H5wioq4+hSSiEbpKlxOFj30KLV9QYNCXVNPR1Aj+VSuYNEXM6ujNQOo32+q
+	7KjPnsg0=
+X-Received: by 2002:a17:902:f610:b0:2d5:c090:3810 with SMTP id d9443c01a7336-2ddc165e533mr2194815ad.2.1789762847953;
+        Fri, 18 Sep 2026 13:20:47 -0700 (PDT)
+Received: from [2a00:79e0:2eb4:9:9a8c:9370:b2fc:a09a] ([2a00:79e0:2eb4:9:9a8c:9370:b2fc:a09a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm947935a91.0.2026.09.18.13.20.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 13:20:46 -0700 (PDT)
+Date: Fri, 18 Sep 2026 13:20:45 -0700 (PDT)
+From: David Rientjes <rientjes@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+    Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>, 
+    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org, 
+    linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [patch v3] mm: test_vmstat: add synthetic benchmark for vm
+ stats
+In-Reply-To: <20260911223728.dfceedb4135e0b758df0ddd6@linux-foundation.org>
+Message-ID: <1e628c9c-47de-1552-7a04-11a1c6c46e60@google.com>
+References: <014ef68b-6312-bcdc-f432-34c31476fe77@google.com> <20260911223728.dfceedb4135e0b758df0ddd6@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918195540.GA1187209@bhelgaas>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Sep 18, 2026 at 02:55:40PM -0500, Bjorn Helgaas wrote:
-> Author: Angel J <iamanaws@httpd.dev>
-> 
-> PCI: of_property: Omit bus properties without a subordinate bus
-> 
-> A bridge (a device with a Type 1 header) may not have a secondary bus
-> allocated (pdev->subordinate), e.g., if there are no available bus numbers
-> or the bridge secondary/subordinate bus numbers are not writable.
-> 
-> The dynamic OF helpers of_pci_prop_bus_range() and of_pci_prop_intr_map()
-> dereference pdev->subordinate without checking it.  When
-> CONFIG_PCI_DYNAMIC_OF_NODES is enabled, this can cause a NULL pointer
-> dereference and early boot hang.
-> 
-> Generate 'bus-range' and 'interrupt-map' properties only when a subordinate
-> bus exists.  Keep the node and its remaining properties for bridges without
-> one.
-> 
-> The problem was latent since 407d1a51921e ("PCI: Create device tree node
-> for bridge"), but wasn't reachable until 1f340724419e ("PCI: of: Create
-> device tree PCI host bridge node"), which appeared in v6.15.  Before
-> 1f340724419e, of_pci_make_dev_node() returned early because the parent OF
-> node was missing.
-> 
-> Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-> Signed-off-by: Angel J <iamanaws@httpd.dev>
-> [bhelgaas: move pdev->subordinate test to callees, commit log]
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: stable@vger.kernel.org	# v6.6+
-> Link: https://patch.msgid.link/20260912043106.10715-1-iamanaws@httpd.dev
+On Fri, 11 Sep 2026, Andrew Morton wrote:
 
-I put this on pci/for-linus, planning to be in v7.3, but I would love
-to have testing reports to make sure it still works as the v2 does.
+> > Add a synthetic benchmark that can be used to measure performance of VM
+> > statistics.  This is used to analyze any improvements or regressions in
+> > functions that are frequently used in hot code paths.
+> > 
+> > The test is run by KUnit or doing modprobe vmstat_kunit directly.
+> 
+> Can you please quote some typical kernel output in the changelog?  That
+> will help others to review the proposed change.
+> 
 
-> ---
-> Changes in v3:
-> - Move pdev->subordinate tests to of_pci_prop_bus_range() and
->   of_pci_prop_intr_map()
+Ack, will include the output in v4.
+
+> Sashiko made what appear to be some good points:
+> 	https://sashiko.dev/#/patchset/014ef68b-6312-bcdc-f432-34c31476fe77@google.com
 > 
-> Changes in v2
-> (https://lore.kernel.org/all/20260912043106.10715-1-iamanaws@httpd.dev):
-> - Keep the dynamic OF node and skip only bus-range and interrupt-map
->   when no subordinate bus exists, following review of v1.
-> - Tested on Linux 6.18.44 with the v1 guard removed.
-> 
-> v1
-> (https://lore.kernel.org/all/20260911230420.26244-1-iamanaws@httpd.dev)
-> 
-> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-> index 75a358f73e69..1500740cc55d 100644
-> --- a/drivers/pci/of_property.c
-> +++ b/drivers/pci/of_property.c
-> @@ -95,9 +95,13 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
->  				 struct of_changeset *ocs,
->  				 struct device_node *np)
->  {
-> -	u32 bus_range[] = { pdev->subordinate->busn_res.start,
-> -			    pdev->subordinate->busn_res.end };
-> +	u32 bus_range[2];
->  
-> +	if (!pdev->subordinate)
-> +		return 0;
-> +
-> +	bus_range[0] = pdev->subordinate->busn_res.start;
-> +	bus_range[1] = pdev->subordinate->busn_res.end;
->  	return of_changeset_add_prop_u32_array(ocs, np, "bus-range", bus_range,
->  					       ARRAY_SIZE(bus_range));
->  }
-> @@ -220,6 +224,9 @@ static int of_pci_prop_intr_map(struct pci_dev *pdev, struct of_changeset *ocs,
->  	int ret;
->  	u8 pin;
->  
-> +	if (!pdev->subordinate)
-> +		return 0;
-> +
->  	pnode = pci_device_to_OF_node(pdev->bus->self);
->  	if (!pnode)
->  		pnode = pci_bus_to_OF_node(pdev->bus);
+
+Got it, I'll use NR_MLOCK instead of SLABS_SCANNED since it's display only 
+and won't have any side effects at runtime.
+
+Instead of switching the type of the "rem" variable as suggested, we can 
+just remove it entirely.
