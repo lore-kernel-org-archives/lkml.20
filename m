@@ -1,217 +1,153 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CC742885A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764835; cv=pass; b=gdYkntXOic/QQabTj7OXXFj0tt71XKeCr5qXZQVf/REshHXXgcSq3Q5A5rKraJGcch7BUgt9IGxQenbBdjrDgW3N1ifTEfAaGVzddYgpOMufqvBUKFl5czOxQiyVSKBPxJeQbwh9DE+otTXf9EkIgYPgf1V5rNVA9bgJhlQ8We4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07D93CF209
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789764835; cv=none; b=FAgEtS+nlx1E34VK4s4DlJInE2WsDKtjcsIeddrfSAoXfCTlNiFI0+fqtl9LuBGs2UMDfbH3bLkPif4+01g0hyY+HTGvIoZ+SUuO81+DZlEvWxRDzvlsvuLd+eR5an8sWvy3dNW0QS4HsJ9kUXomiCjylb0O8zkTmcim2pFVp5c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789764835; c=relaxed/simple;
-	bh=luig+1o1M/fsF9vaNIsARo6CqC/xBHmV9/YvD0slYb0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u4X1P6atVBNCvgwLq23YclEyvW9Xgl3Xcc98UKCoXcYlwBUDeSPt8zC1WwyWtTGOe3ZNZGpdRokIANqyrc0rLnvLVu3KnxHQdxrPkRlN0AO+VisGa/XLFJJMN3XxMxTsn1SlKjIfZEwwqSSw5BwDNyPTDLlvnmPaNhngiWj5plA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PXDO4rBQ; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=Qqhh0Cu8gO4U0oF10cUD2923SVElRu0xgwRbO2RJhZE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qbDcL1LaH+lLvGEtSYuQ1vr1voLqvTdx1BSFTZKNmc4vlVgn4gD1xMISX1W64EYU1LJOo5wMjI+2CJAPJuYuD/V1etvlepKtUcyAM7IHUN6eFjRG3oPHQhFE1h5L9kmQFFvMboe+QmNg8rRfCMA7hFQwPiStFuJG6HjgCN80Ni0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kn6cunyI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PXDO4rBQ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so135994f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:53:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789764832; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YZMnnK7mNPZzdEnBN5Mp7qmt0DaGyAhRXNEcdbvw07zeFGuedAHcE1fmqbXxs7QoEf
-         Jy9xDJPkc+lFZl2XiVeVyKGYQDUANeSXUkVc+kqOZEHR0uCn/X6wxorvahph47Q/lVZh
-         n0Zncc9LoI/3vO963cE26UCry0NuwJUbfSXzBF5/u03gUb6nLiWtc/pgVv3TMJRnVYyA
-         oMYczq8pC+tO4oZUxtv6ZuG2dkMrJR9dP8pizRXWEcCssbKwP4PqbG3pE6wJXgv31BPi
-         mFd3cHhk6zlD5/u0tMtbAjg60E4C0t4kPN9uMMxyJtCUB+fxLigoAaAnaWcR7PVtxTZ3
-         EOiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
-        fh=pGXFNvCr9Rnlw8g4MvNk/8+hcGJ9g7VU/NWqAojJ+W4=;
-        b=e+1P8hbI0hD2aBYNX9A1l8+07WouGZqV6GtX6ncvnoBZTXxHiwYE9/JgGPChwKTBYk
-         aWe26vv1xQGp9ftzF4eb4+Cr2a5gkunecwPCeSXAgZFi/gg/72XZ7Kb5G01TBP0tNXw4
-         Q6Efn/81N8OVaPZxKbCR4yl2NvDFmYIz5X/6fiQgR3Yhdx3yzJlTWDlBP6kUO6EZVZI+
-         HBzlVx4zfcDJWqW7m39qsV9RhI3W6OFSCRiGNVNW+pElwkKte27dInSoNtd+y+htoCeV
-         n8LBrR4/Tv881kGwQn/yk8TmctW8OQKW95mdPDYSlMGUvUf/ucD5sxk6CeovKRH3SS6I
-         oMmA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789764832; x=1790369632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
-        b=PXDO4rBQJMr9cbk6hImuvWv/9Bq/nxAly5i0+QGRDqJMYpeAwlAvdZeggOh7lkoorw
-         WLOzWcA74qaGedulevhxtCesVFQfQsITl6cHP+Y+9ZVu8I/R5qz+xAOmHAXWnV0MRuEg
-         cyxHUmrI74CbWUoewOJvs0bA4sK9nAgpBy7kEkk1AVqGBlFYuDh8RXMDeiWD980J7j3R
-         4bp7Xt1gVl/0kbnOEDa581zVADfg77W9vSgSRvWRPujqnNiDIYMQfCq/MAVdgH8YL0mX
-         GBB5VMsW+YSCpjXdRLL0y+HFbVXaXBtxV6AC+tpU5XvyZM235b/x92GLifwxc9W8JYUW
-         Iy0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789764832; x=1790369632;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
-        b=gW4h9moG9ORRgWkcZHnWeg+UNNNnQbkzQ1xV3ZzubU0WJgMJ6aouu9+ujyZ1JsdtAn
-         wR8aOO2w+YpAZ+5xm6T55pLhdy7smqzx53qC0lVLNGTktbiIZFYzswEOgUnBYvagQbaz
-         +5OPp3iLFA9PhYR2jnIwPcEvY6NQRM0Ee2ePFOs5XVVuWDFTt+L8nmId/S/skBC73uM6
-         f9jlb/kDEeyerx2P/D1qEMYF2yaRSIoDGYc9kw79dk3fPt4PWJrND3erypekIDmV2JK5
-         n8wN2QW2WcfvZFe/63PPAn34PVzjEVc6izWG0ikJrWWwntaTNFdSbW0qmSsKsuhwNYQZ
-         ET8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxor+jdBquMEuX2xld2WYg3S39i9+yYL4wTN+oWf+va3b8yt+HvIApphVdlINEBub9m0gvhatYqhl6OKQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++myq8HF3NginFpaRuFxNU3QBXT++k3y33ZBQ/+2sFGAcyPaa5cg
-	JHfTUR3vWnAFhj5O6Lz12RMxgHrtJAtART/16/bfOcLLz/9MkY3bisXy96TtkVhBM4QErX30wZt
-	DyiFq9KKCoumhnQjmvLlH+2LcWN5tUm/PUM6U
-X-Gm-Gg: AYBFou0t+kpUy/zLoatsmDEPVeJhjQ8bDoT7pib5N+xrIQrBTN6KBElKHjF15e7U1MX
-	BoRmwjX3f+hg/bIfZvgNGV89PPEM2xhG0IwfNwsDxv7yeTYNZP8HywDRq1cDn2JnNCBAWDrmavP
-	YbaLvGxr6o1pSUJoORfJeh4P1/m/w/GB5W3onsAfgd80hI3bK228M3Dg+4kspXfCq0lCKl/UgMX
-	UIvkpS86jHzGGslsqgZiqrAntK5MvXdW6dbWTFIL2LLlHW6XxAzPu+m8a5jOKUbt+s5uXVsJYDB
-	q6Pn1RKAJL9lvObjw6iwYuICEEaMFGcsxBuMGd4FzHC2F97Tys+9OLMmuCafXlqR76aLSDbDhRH
-	mY8/GUWinLHitfYx0/jK7S98=
-X-Received: by 2002:a17:907:d02:b0:c25:3ccf:bd9c with SMTP id
- a640c23a62f3a-c2a1a8e09e8mr331776566b.2.1789764477295; Fri, 18 Sep 2026
- 13:47:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kn6cunyI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BD21F000FF;
+	Fri, 18 Sep 2026 20:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789764834;
+	bh=xubuskVOjl35A2T8LbXWyaJic0HJ1gjUagG1E7uyg5k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Kn6cunyIes7b/fgeRfTD/r8Fz5Dt/p48ZFG59t5T2b5RHLeaNgCTrqw7SoEvlPOI5
+	 OvuHjFp9mBWp2eSxzlYCzHbBrSV8vl/DXuPzPJZsbYv0Xuqx3JThxg5gE7p21r47NM
+	 re8B0ycP+LBJEhifDZxmaPWvMaTdbkP9L8TH7qLJTIaTctBBzxc/RuD/7RF6jFkHb8
+	 KWnVoWNdO0FqVgOZmWwuAtlvnO4A/sZK0V15/LeRJeHFJOPaq8+/KJ7WwXC3Fux/3b
+	 Sy/yzfOLjEbN8O91kS4uuktMUrONkl0khiUu0A6+wRjAt+8vW3dCgUQdRS96CC41GY
+	 RUB7RSuRPKQLg==
+Message-ID: <475ff6df-c8ef-4681-be83-2fbd7a68c417@kernel.org>
+Date: Fri, 18 Sep 2026 22:53:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
- <20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com> <20260918144224.4dfb8515@kemnade.info>
-In-Reply-To: <20260918144224.4dfb8515@kemnade.info>
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sat, 19 Sep 2026 02:17:44 +0530
-X-Gm-Features: AcwNN1WKvA-fdN2xNZdCXGZd1cxpuLrv71RZ7MqA3wlpHyScvRfY20wc8pzPN-Q
-Message-ID: <CAOWyW_5GU__FE25POrjKH=CmOHaeBRJPw4xS2cdodePm3LydhA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] ARM: dts: ti: omap: dra7: Remove clocks from
- crypto nodes
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-crypto@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 10/17] mm/huge_memory: move the racy refcount check
+ into unmap_folio()
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
+ <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
+ Kairui Song <ryncsn@gmail.com>
+References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+ <20260915-swap-thp-cleanup-v5-10-39878b37dfb0@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260915-swap-thp-cleanup-v5-10-39878b37dfb0@tencent.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 6:12=E2=80=AFPM Andreas Kemnade <andreas@kemnade.in=
-fo> wrote:
->
-> On Wed, 16 Sep 2026 02:29:39 +0530
-> Bhargav Joshi <j.bhargav.u@gmail.com> wrote:
->
-> > The omap-sham, omap4-des and omap2-aes crypto drivers do not use
-> > "clocks" and "clock-names" properties. Clock management is handled by
-> > the ti-sysc interconnect parent wrapper. The dt-bindings for
-> > ti,omap-sham and ti,omap-aes don't define these clock properties. Havin=
-g
-> > them in the child nodes causes dtbs_check warnings.
-> >
-> > Remove the "clocks" and "clock-names" properties from the sham, des and
-> > aes nodes.
-> >
-> > Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-> > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
->
-> I was a bit too fast here, clocks here are different from what is
-> used in the ti-sysc block. So some more thought and argumenting is needed=
-.
-Clocking is handled by ti-sysc parent block, furthermore other dtsi
-such as omap5,
-omap4, am4372 which uses the same hardware doesn't define any clock in
-the child node.
-parent block defines a clock with clock-name: fck
-clocks =3D <&l4sec_clkctrl DRA7_L4SEC_AES2_CLKCTRL 0>;
-clock-names =3D "fck";
-and child main part as
-clocks =3D <&l3_iclk_div>;
-clock-names =3D "fck";
-If child node needs this separate clock  in child node then binding
-for aes and sham needs
-to be updated to allow clocks and clock-names leaving des binding as it is.
+On 9/14/26 19:14, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
+> 
+> The check only exists to avoid the expensive PMD-splitting unmap of a
+> folio that cannot be split anyway.  Move it from __folio_split() into
 
-Best Regards,
-Bhargav
->
-> Regards,
-> Andreas
->
-> > ---
-> >  arch/arm/boot/dts/ti/omap/dra7-l4.dtsi | 2 --
-> >  arch/arm/boot/dts/ti/omap/dra7.dtsi    | 8 --------
-> >  2 files changed, 10 deletions(-)
-> >
-> > diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts=
-/ti/omap/dra7-l4.dtsi
-> > index a595745afe59..bca035fd7e62 100644
-> > --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> > +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> > @@ -2086,8 +2086,6 @@ des: des@0 {
-> >                               interrupts =3D <GIC_SPI 77 IRQ_TYPE_LEVEL=
-_HIGH>;
-> >                               dmas =3D <&sdma_xbar 117>, <&sdma_xbar 11=
-6>;
-> >                               dma-names =3D "tx", "rx";
-> > -                             clocks =3D <&l3_iclk_div>;
-> > -                             clock-names =3D "fck";
-> >                       };
-> >               };
-> >
-> > diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti=
-/omap/dra7.dtsi
-> > index 711ce4c31bb1..0784c6d9cbe4 100644
-> > --- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
-> > +++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
-> > @@ -1012,8 +1012,6 @@ aes1: aes@0 {
-> >                               interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL=
-_HIGH>;
-> >                               dmas =3D <&edma_xbar 111 0>, <&edma_xbar =
-110 0>;
-> >                               dma-names =3D "tx", "rx";
-> > -                             clocks =3D <&l3_iclk_div>;
-> > -                             clock-names =3D "fck";
-> >                       };
-> >               };
-> >
-> > @@ -1043,8 +1041,6 @@ aes2: aes@0 {
-> >                               interrupts =3D <GIC_SPI 59 IRQ_TYPE_LEVEL=
-_HIGH>;
-> >                               dmas =3D <&edma_xbar 114 0>, <&edma_xbar =
-113 0>;
-> >                               dma-names =3D "tx", "rx";
-> > -                             clocks =3D <&l3_iclk_div>;
-> > -                             clock-names =3D "fck";
-> >                       };
-> >               };
-> >
-> > @@ -1073,8 +1069,6 @@ sham1: sham@0 {
-> >                               interrupts =3D <GIC_SPI 46 IRQ_TYPE_LEVEL=
-_HIGH>;
-> >                               dmas =3D <&edma_xbar 119 0>;
-> >                               dma-names =3D "rx";
-> > -                             clocks =3D <&l3_iclk_div>;
-> > -                             clock-names =3D "fck";
-> >                       };
-> >               };
-> >
-> > @@ -1103,8 +1097,6 @@ sham2: sham@0 {
-> >                               interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVE=
-L_HIGH>;
-> >                               dmas =3D <&edma_xbar 165 0>;
-> >                               dma-names =3D "rx";
-> > -                             clocks =3D <&l3_iclk_div>;
-> > -                             clock-names =3D "fck";
-> >                       };
-> >               };
-> >
-> >
->
+and folio_split_unmapped()
+
+> unmap_folio(), right before the PMD split, so both the anon and file
+> split helpers get the early check without repeating it.
+> 
+> unmap_folio() now returns -EAGAIN if the check fails and the split
+> helpers propagate the error.  folio_split_unmapped() drops its own
+> copy of the check: it works on already unmapped folios and the
+> definitive folio_ref_freeze() in __folio_freeze_split_anon() still
+> catches unexpected references.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  mm/huge_memory.c | 29 +++++++++++++----------------
+>  1 file changed, 13 insertions(+), 16 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 77bf68c9b9af..859aefda7356 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3539,13 +3539,17 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
+>  		split_huge_pmd_if_needed(next, end);
+>  }
+>  
+> -static void unmap_folio(struct folio *folio)
+> +static int unmap_folio(struct folio *folio)
+
+The semantics are special: a return value of 0 does not mean that unmapping
+succeeded. It might have still failed, but remap_anon_folio() must be called
+afterwards (for anon folios). Might be worth a quick comment.
+
+In general, LGTM.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
