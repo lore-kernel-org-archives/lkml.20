@@ -1,144 +1,231 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f21.google.com (mail-qv2-f21.google.com [74.125.230.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72033BB119;
-	Fri, 18 Sep 2026 03:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2F33C0610
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.149
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700685; cv=fail; b=c8nrGNCNXbJuSyRj1WgxRJP4wmJDs446pN0YZpcVE5c346SgKSiLcio01q9OdJL7nEMN7bFbn4YPc8ExVzGdxu5014OTqn0n6hFGOZsrF5atUR+YORatdyrUebnJQ0f7EHPuV1lKn4jnzBv25qz5wXWWcWb+jqvNHm0CHlRl2X8=
+	t=1789700746; cv=pass; b=hG5olbS6zakDeG59UQsbin1ImHeq9aLXTDS+4wOyKVeUTYX0FQLZgFmcr1g2gITh2QBk6vtWVvPoHCmzB5h/6qDy4G5XngKS2RhTT+fUurZg+1p5+JmtUxzAjVdArePWQ3rKztawO43ZHqHcVYR0U0QHjD1go0CjNBNTiqJJWZ8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700685; c=relaxed/simple;
-	bh=ccgmjEs08SOXIr+bea4G/uvb3TEz08zW7L2O8KgevP8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FiIUUTVwpyxHnxIP5tM19QcZp6ojSi9VvhyPvc5Q7HDx1+UIZv0VBPpMwnHBBvB4lzv3lLSmTBha3saPEmgx2HB6isvnMoNaIzxpEwhFbYHfAH57yZvh18pwu2treRXeSZh6jUiq8B+tBRbjeDGU3In9wnItwAWRYdw6l1t0ZVQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YyE4j+8MZczTLAWL58fZzoeFU3CDIrkZP5kwkwoS1fpqpc2XZSPA+xSyOqf066+uehtJ6PoiU88JTYb1KEJYD79iYomD8ljaIC+UoKNPl1HLwwUJSpsVmt3uWjGZZ8qS11SAC/y/+/wp5cKPH376YCfuseO+B/9TMHG0rpYK3uhTE44Myy5BEekqUAU3Q26WEKr66LNA9TOW+RbvPXTOJwQl+bqpMX8hjvytr+eYBq9ema5WtjVaSqPACNfDPj/SFCG2QwJFO6Yx73/ctpMRFW/AJQpcROn7hx08q0NrYUcC44PpOtFdqWdBU7daeX5HFEXShUY2Gn3uDYshpx56rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ccgmjEs08SOXIr+bea4G/uvb3TEz08zW7L2O8KgevP8=;
- b=cf18iPShzkm7vc6boL4hN9o154oRxxgnflxOGJNcYxWcId9bjMLpoYNAiqfeCPB8vG2u6lvk5zBq0xNo7AZkWEQm1UJCXiUddWOGi232JWMvXy4In6GaPRQHTgOmSYY50c9Ou6P0tw1o4hC2+PW6+0pGcDAJFj8M8XCr12GyyYAOFjOi8xaWATZEilyNTyEKFTOMjS2G7IQqRznMEVKyjA9Vskxv/pn6i3pOFXi8UYe/+Gs4tHoyrs9BDsULM39W6hMGeJ6ldVB2yJHjllF9CMx7WSN8g3WTT6h75ntfjTvDI48ikvYgoEIyBD5v4mM2eZIkZFMHT+X0OkGnUsWrGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1330.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 02:33:04 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0428.008; Fri, 18 Sep 2026 02:33:04 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: "Winiarska, Iwona" <iwona.winiarska@intel.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "linux@roeck-us.net"
-	<linux@roeck-us.net>
-CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
- Rapids (GNR)
-Thread-Topic: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
- Rapids (GNR)
-Thread-Index: AQHdO6kWobiqEWs+306uaml9udyWb7bTVIYAgABgNtA=
-Date: Fri, 18 Sep 2026 02:33:04 +0000
-Message-ID:
- <ZQ4PR01MB120289848AF944E07783BDF4F2872@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
-	 <20260903133408.110847-6-changhuang.liang@starfivetech.com>
- <cbb35e1947dba7d06896a9c66f35f8736a481215.camel@intel.com>
-In-Reply-To: <cbb35e1947dba7d06896a9c66f35f8736a481215.camel@intel.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1330:EE_
-x-ms-office365-filtering-correlation-id: fc260361-471a-49e0-bb10-08df152d2a93
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|6133799003|22082099003|18002099003|4143699003|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- jxr/wVcGGgs/Elj3t1Pv7JAc9a7oTrY32WMUTb2j5VGUgEKyX/YnFsozHWc82Fhp9kzFBD8vELqGJ60I1tY+XT8gRTdBcamn7qXvQnZbVY1WCNXkAm7elJbcZaTEuKZ9B7drnPA/NUI0u53EGbevuMlr5Rj7VvTSnF0cJt+1W4sCDwxsmDc+7VV2o0Vac1ErYWFIZtPQsT6J9cSA02Yx4QC6jUrRY9wyFJdx+AbIAQF0q2GfGqCHlaC9WWaABoB9eD23f7dwPqVJEvBmLbkXpwLV2Ndl45H6GWJc529fDmgcZDPpMjr3GrdSbYc4jgKhgN6KrP6hrdx1UBhJF2eBog/BI2NcpwW3g+rGmHtrW9jsTkdHC3u6kjH/0HWQ/w5rEFH3tE7uH4llUIn3AFgFdRDGEK5vjIbQ0YSHjKzXSDXVffGWFgZD8ZNFBlim/yvIkc1Ntv57j8lx1m2cPTqJeko06Uas4AhOcyNbxxRlHR+Kbqw3BYRjXWkXgeliSJd1wJlydzBOKl2Y9HZS0XBqTfB1Sv++BOcK9bN58uwSVVOn5OpfZZOBK+fc/AlSwTeN
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Z2tPTThhQzlzMHhtRjI4K2FmVGZDaW53MG1xdDRzL1RNaVQ5OUxRaDJqZys1?=
- =?utf-8?B?SFErTGRDcWs4bGorUldFa2l1S3JrQ1lBOGRJdEc0ZFRxaDZuQTdzOE1PVkVK?=
- =?utf-8?B?MFBTU3hiQ09TWTZYUjViYjI3TzlzdThkUTlkbmJxd3lrN2VScmg1WGd2bE56?=
- =?utf-8?B?RHNyUnJWSVduMDNEaThyTFgyMkRwcUFoUXJoS2xTZVFWaVZiV3JNTkN0UWlh?=
- =?utf-8?B?TVJ3TjdmaG5UU1RlOU9FSi8vOGhDd2xJNU5BUGJRUTZONzQ4QnZmNkpGT1k4?=
- =?utf-8?B?YW9uaFpLbFBYQUh4dWhtOFhCeThwRndtTjdTSjNDaysyT0FnNGdMV29iMjVx?=
- =?utf-8?B?MGtYbkR5N1hVamRYSERtaENISlRNVzRVT3BqZUlxZU1hSGZ1K3BiWFFlUy8v?=
- =?utf-8?B?REsyQ1NFQjNrcHIvRGFUcUtBZUF0NWVNSzlrMjYrYVBZbjRkWGVkd1FHSkQ4?=
- =?utf-8?B?SzBWU3kwTmVTZEtHT28vYWh5WDUyQjMwbXFZckV5MWI5dlVnK0srdEhvLzFE?=
- =?utf-8?B?Sks1VHJlanN4YStiVVFXRG9kRlUwaXZ2a0FzVkNjU3p6cXZFWUNmakllTzZG?=
- =?utf-8?B?U3JPZjkzdkg4WG9TQnVXUE13VWZ0WHhScUxoTDcrZmFiNUVMYTNEK0tMczU5?=
- =?utf-8?B?TDJqcThJVlhqNzY3V1JDTnpMeC9TcmEzMEVpdkNEVzZHM21BVjR3K2wxSFdZ?=
- =?utf-8?B?NDg2QXNIL2VLQjByWVlrVVBFdWdjaThXVjBnMGFiaUdMNEtKWittaTBiL2lL?=
- =?utf-8?B?SjFDaGRUY242WlREREFiWEd0cVRMRXNUUmlQNVN2azk5R1RLT3BybDUyTjky?=
- =?utf-8?B?ejRqWjNNYndIZnBKOFJhQjVqeEpucVJjYkNqU2dzTTUvQ0NMeFdiQWRDOUdy?=
- =?utf-8?B?N2YxWlBWOFNuRVgzMFZoUVFLcnd0bTNvSjd0K2JrR2h5VWNtSVBTWmlELzY0?=
- =?utf-8?B?OHB0Wmh6TkpEZGpjZmlGcWRSNHlwY1V5NDY0bVh0V3c5OXJJOTU0enRRT0RE?=
- =?utf-8?B?MVBNWlk4RE1vMDRSaURrYTFHRDliZ1cxVHZVOWVNNjJUejF2R0dMUVdYVk1S?=
- =?utf-8?B?WlFibkl4M2dFK0IxelJ0N0VLTFRsOXNpa3V2T0szVncvcjIwQWNLdk45UlBk?=
- =?utf-8?B?TVVyMWNQVnJZMXd2YmlYOG45MTRTSmdZTEZnZUliZXF1VG9kMjRQcGRXRXpM?=
- =?utf-8?B?TVNZMkRIMkd4dk5EOU5Eeko5TUsralRCMExqWHE4UFlGdSs3YlN5NW1qYTBF?=
- =?utf-8?B?QWQ5ZXJJeWp4dEtlaGNOUmpmS1hPMFY5eE1PQ2JMZUdYdks3bDBWVlJ2bERU?=
- =?utf-8?B?cFgyYk90d1F6NTBYRmxxV3RvWkR3M3RmYkhCaGFmUnVuVC81NmdQdFpBM3hq?=
- =?utf-8?B?Smxnenh2QU9ET0FrOVhtSWFNWTBTM1pLUDhibE1IY1AweGd2S1l3UlRocmNL?=
- =?utf-8?B?bHFYODBjWFBFZG10SmdvWHY5dHA0NXRIQnN3NHNJaXBLK3RLYUhsbjZsSitJ?=
- =?utf-8?B?bm9nSDd2RytUWm9JT05JVHBoS0RQL1RzbzY5YWlxcHYrZmpad2JjVm52M2Fu?=
- =?utf-8?B?RVVqKzJLNzVIWHdSckZKSlBSNmJ5TU1nYUVTSE1OdUpXenFCSW03dElvNHQw?=
- =?utf-8?B?YkV0dElxa1d3ZkxobWZZWVdSd3NBTWx6RVdqWmVpZFFUUVdTaWdxWHRIL0J4?=
- =?utf-8?B?QjF3TGxKLzNXbkNxSXJhQ0pBZTQ5KzFxelRpVkFnc1NFTmhmMVJIeWh3MkMz?=
- =?utf-8?B?ZkZOY2w2MC9GQnJnZlVSOUt5bm96NHI1cDJPdWl4d3hsMlBrci9MK0NQVFFN?=
- =?utf-8?B?RFZVajF4dHZDZ3laQmw5bzhQcnBrbG1ESXQ5ZkZTWExtNUhJNEpZQlZpZU50?=
- =?utf-8?B?bVlvRG05TG4wYWV2UUJDKzJYdjIvUUF0QUhWL3R5MFRCcTJpRWpEZ3lIczlo?=
- =?utf-8?B?Z21wMWMwZTV2azNSb09OQVZYdjN6bTRWM21vTldyR0xSalhDdDJDYzRHYkNU?=
- =?utf-8?B?WGhjZHEyQlJwNzFLVkNZbnJBc0l5MGxOUTJkZm1xb1RqaEMxLzZDR3pZZkZV?=
- =?utf-8?B?NTg5dEo2d0RyOEpQczI5TkdYd3dvRExFU2lEY0FieXFzdExoZzBubGlwT2J2?=
- =?utf-8?B?OTIraVhFakdGdzNMK1AvbnhDV3BON0FrSkg0OHlCcWZZMVliaTB3c3c3dTdB?=
- =?utf-8?B?bDZObVp6ZkxtdWkzVGNiOVo0UG5hSHZuL0JQUkNnejNndEJSdTFLZjRGMkFV?=
- =?utf-8?B?enhmaWR6RzBxbFh1MVhoL2owMDA0STFrYmhqNE94UjBQOXQreWt5QytMTHZ4?=
- =?utf-8?B?dytDZit5QjIvcFhWWWR4OEdCSE85Y1FLR0Q1aGJhRHNLTHU4d3NOazFxY0lx?=
- =?utf-8?Q?HJqIf6SqKwyAq7Zc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789700746; c=relaxed/simple;
+	bh=N38wJ84hpW+KR88805c12LeXPbAQBzP4kHjDaLJHCnw=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C9RuzjynLugBQKZLET856u3O+paT4dGOYYiC00N8X7OPnoWECJXRj2v6kAp2Vq7IvKdGHvycZ8ux/8xGfhDM4zXJvnBoD8Bc/VSBeDJ1u0cThFqQ5AbGH2L3LJ0NGqsc58Y1aGKu3x4jRfRjDOJGc7OYRvlJYipAPSJzelZ5/v8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=dYJn5rFx; arc=pass smtp.client-ip=74.125.230.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="dYJn5rFx"
+Received: by mail-qv2-f21.google.com with SMTP id 6a1803df08f44-90cdfbd148aso2926186d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:05:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789700735; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HT8fx+s94g1YNiQ8vqfgz46XMVBiWAIO4QjxqQPR9GNIIOsadRExW7cNxKZ0Rkw0+3
+         cVbkU4A44pKivT47gKk2FOVe7NV+KAcob3BipmqkKBDgnDsahcUrPg4wW7o9omet+1PX
+         TUWxkstPnGq+JGagPRjhFl364hpIg+oydxFDvupIyke/BpG8H4Qz3T+/YH3au2Ccwujl
+         xUneS+w4S7mJ0H0OEEKfAQCR0//Brx8pwoIcSvG++GMP6YHVilR7g0mJ8U0d2RKsseJQ
+         bjW9mlna9i2er/vk1KCaB3jHdmAhy1p3uFyXmRihhoFBz3i6V23GCYuMOOd/ejmE+SSb
+         fNJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=8oNy2HuXVWsVzCazMXbHxpcJNwqU+Nw1U6v/odAHiSA=;
+        fh=cMH3E73SUOagVGMCu+Uw/4dyBP5pBg46rBCPNSSTk3s=;
+        b=EtBYpoI29g8QAbuUFdmvK4AgDZSuSyUJruwZ/d304mYsQ0sQjOR7O+Vx7wG+uNISF/
+         5AFWicRz3SbKkMrlzGzgNDA938FO4dIbl5pXGv58I2dIB8UKSBkiR+z8HGuSCpeseNvx
+         jiZT8Jhpldb2CLK6II2DGQjMw4F4NUlIswh7OtB46pe5VSVeipWBGv4zs1lc5DU9eAQj
+         E3jaIlUMKw0SvQFl3XLQhW436O5JttbFx/jhAShYT42AeNM4UxvQUldbVS63NkGNnvPj
+         jfl9QlpO0i+YVuBBhtNKo3rZx421qm10mQydceC0rUl76Oqyynr9ywQqwRm1tBUO0Apf
+         a42g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789700735; x=1790305535; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8oNy2HuXVWsVzCazMXbHxpcJNwqU+Nw1U6v/odAHiSA=;
+        b=dYJn5rFxL/nlsS6bvM77FMjg18LOAXizST+v2p1FPWXGiScLFlKEKcaJbeyRI1dBU9
+         wMx16vrIrHLveQuPMG6SVkdjos7tCHK0F6uusewU0XRKna9KbVFPEYIKCrPcwhINl7Dt
+         ZpWnxLQ2FphWD7GSpCBF1ul/rF4/MLYQc7IR4JPZrwFBuk6obkkzGmOvKnd8a0HbXj7h
+         wGS+fsSw13enR5fKoLlPVFaTry+5H90FS3jjaK7y2bAgV4HWW3+do5eEyITaxkUZ0pir
+         Fe9qxWgNQ7SfMIh3YHn0Zipb+wn7hYGWSVaH1zDTkq1Id+M6aRAg3amXA5pWoYrYAisT
+         Gvqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789700735; x=1790305535;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8oNy2HuXVWsVzCazMXbHxpcJNwqU+Nw1U6v/odAHiSA=;
+        b=Dtc58NLdgOby3zfhGvZQVqKhSYQs0Sp9+MuoO68zEDyojnodThmsIfcZbbEl4GRoRn
+         BbVke+2lfxI6YcfKZDbJli1cgsY+z1K/WEzLBhToS+1v7oc5fyDAZAse9a8VENIyiUFT
+         eCXYp0avCHd7wqH/lyHfCzH9PnKNzU0xbXrTN+Ei4eadYsmUyCQ1AyLypNWon9hsk1Rd
+         E+qYZbPe3WCDpTvYAa6GSf/df3Vt0r4xwtaMCkQYOKPYCSpKPDfmUOJ/10bm0Sb6RPjN
+         wBC2XSP1EOQAjlBiQqPMaYYJOz6BVZhm6ZdW909mlSFvzbNRomv4wFFH27Ik8q9rQqU9
+         XdtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwfhBMowiX8XMRw6QWlJG8gEg/HPKrZplYJr0F2Lh7MnoJrawPurzqd9gjRLWv5kl3VRsxq4qDPus9DZlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtJ0guxcl9lOXvFb/aZ3dejPtFpgab0r3gxjQHpH8JLsVeDpQO
+	1jekEzAa1JV2+V2UeYfOtoMP9TVv44XaSDQcOKAK9dvA3aQNM4wJh5DtZmrs67Iup2k9VLHjcEJ
+	xvRt3Aqtf1RT8ZGZmqEhaOlPhKQ/yPsS9oKGVaH8U
+X-Gm-Gg: AYBFou0YfBzZB1Glg2D8czQxpP8iEocgOcAyiIN7FJ1S9Aoa0NrwuEwU2v2KXd3KRiG
+	n77/MdUWK9DdgzgoQltFzDyetaGhq2+deVvZOaSjcei1EAUigD333Bz6jlUnQTO989JF7ZbE4SF
+	xir91Zhw0PeGVE7u/QoEWcYQFb62u7TDYnkjvOiQHXJpce7JlzCXm78m7KZp5mexrquRQj0DrY+
+	e9VFttICwALmksl0okDHt1kR3cYVT/qbanZJ6nVwI2altQ0RARg4ocemX27m3flOlHZE3IcV1jK
+	z4+L+MH3sylRzP3cE4scifR2c1Zymcv5nUaT06mCw7xd6r8GDDTM7vU628gbrWE3xcaoKf6MqBn
+	eGcmp/xto0w==
+X-Received: by 2002:a05:6214:570f:b0:912:517b:911 with SMTP id
+ 6a1803df08f44-91254cd050emr18449906d6.48.1789700734463; Thu, 17 Sep 2026
+ 20:05:34 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 20:05:33 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 17 Sep 2026 20:05:33 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
+ <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc260361-471a-49e0-bb10-08df152d2a93
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 02:33:04.1233
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TLJqd5v/ynQyj5GXFNxqg29ls4reZPKySAE9/pg86eqvQUxFT417J8vqPBu8xl2X004Dj+EKDFvBPs2SgC6APhNSxxAZ0DFwG+n3nk/lmG/TwFz4jMP75ge9ALuj1XR8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1330
+Date: Thu, 17 Sep 2026 20:05:33 -0700
+X-Gm-Features: AcwNN1VMr0mS5JSTeCSWpRPDQdqCHdO4zh_QkNZo0USni7iz5fls9MH4L-TCxPM
+Message-ID: <CAEvNRgExZM4ixMfrF_FMw2CTn6JqRX8s=cy0_-x5ypLxvQQuMQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>, Alex Shi <alexs@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
+	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+	Yanteng Si <si.yanteng@linux.dev>, Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
+	jthoughton@google.com, rientjes@google.com, vannapurve@google.com, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-SGksIEl3b25hDQoNCj4gT24gVGh1LCAyMDI2LTA5LTAzIGF0IDA2OjM0IC0wNzAwLCBDaGFuZ2h1
-YW5nIExpYW5nIHdyb3RlOg0KPiA+IEFkZCBHcmFuaXRlIFJhcGlkcyAoR05SKSBDUFUgc3VwcG9y
-dCB0byB0aGUgUEVDSSBjcHV0ZW1wIGRyaXZlci4gVGhlDQo+ID4gR05SIHBsYXRmb3JtIGRvZXMg
-bm90IHN1cHBvcnQgdGhlIGNvcmUgbWFzayBzY2FuIHZpYSBQQ0kgbG9jYWwgcmVhZCwNCj4gPiBz
-byBoYW5kbGUgdGhpcyBjYXNlIGV4cGxpY2l0bHkgYnkgcmV0dXJuaW5nIC1FUEVSTSBhbmQgc2tp
-cHBpbmcgdGhlDQo+ID4gY29yZSBtYXNrIGluaXRpYWxpemF0aW9uLg0KPiA+DQo+ID4gRGVmaW5l
-IG5ldyBjcHVfaW5mbyBzdHJ1Y3R1cmUgZm9yIEdOUiB3aXRoIG1pbmltdW0gUEVDSSByZXZpc2lv
-biAweDQwDQo+ID4gYW5kDQo+IA0KPiBQRUNJIHJldmlzaW9uIGZvciBHTlIgaXMgNC4yLg0KDQpX
-aWxsIGZpeC4NCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0KDQoNCg==
+Andrew Morton <akpm@linux-foundation.org> writes:
+
+> On Wed, 16 Sep 2026 16:39:00 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+>> HugeTLB subpools currently only track used pages (used_hpages) when a
+>> maximum size limit (max_hpages) is configured on the mount.
+>>
+>> ...
+>>
+>> This series addresses three problem areas resulting from untracked usage
+>> and asymmetric error handling:
+>
+> These are rather serious-sounding problems.
+>
+> I'm seeing Fixes: for 10-year-old patches, for one last year and one
+> this year.  The fourth patch doesn't identify what to fix.
+>
+> So if downstream people (-stable maintainers, others) follow our
+> recommendations, some kernels will get two of these patches, other
+> kernel versions will get three and some lucky kernels might get all
+> four.  Are you confident that the patches can be split apart in this
+> fashion and still produce a good result?  After all, we're sending
+> downstream some patch combinations which we didn't test.
+>
+> Also, can you speculate about why these things took so long to
+> discover?
+>
+
+I wouldn't have noticed these if Sashiko didn't point out these
+pre-existing issues while I was trying to refactor alloc_hugetlb_folio()
+in the earlier patch series.
+
+Here are my guesses:
+
+> 1. False restoration and premature subpool freeing (Patch 1):
+>     + Global reservations (resv_huge_pages) are not decremented when
+>       reservations are released, depleting available huge pages host-wide.
+
+This requires min_size to be requested and NOT max_size, and it needs
+an awkward partial truncation of the file.
+
+>     + On unmount, subpool_is_free() checks (rsv_hpages == min_hpages).
+>       Because of the false reservation restoration, this evaluates to true,
+>       freeing the subpool while folios are still active in the page cache
+>       and causing a use-after-free when they are later released.
+>       (See Patch 1 for a detailed step-by-step trace.)
+
+Unmounting masks the issue, because when the subpool is freed,
+spool->rsv_hpages gets returned to the global hstate, restoring the
+global state. The use-after-free doesn't actually happen unless a folio
+outlives the subpool (not common), since free_huge_folio() is the one
+that uses after the subpool is freed.
+
+> 2. Reservation rollback races and underflow (Patches 2 & 4):
+>     + On hugetlb_acct_memory() failure in hugetlb_reserve_pages(), the
+>       error path manually calculates rollbacks using local variables.
+>       This is race-prone when concurrent threads interact with the
+>       subpool, risking reservation leaks or counter underflows.
+
+I didn't reproduce the race here that could mess up global state, and
+races probably hid this. I guess the messing up could go both ways so
+perhaps on a machine with heavy load, future races offset the old error?
+
+>     + On region_add() failure, prematurely releasing global reservations
+>       forces error cleanup to attempt fresh allocations that can fail
+>       under memory pressure.
+
+I didn't write a reproducer for this one, but it's an edge case (memory
+pressure causing huge page allocations to fail) of an edge case (OOM on
+trying to allocate an entry for the resv_map). It might occur together
+if the host is completely out of memory, but I think in that case people
+worry more about the system OOM than fixing a HugeTLB bug.
+
+> 3. Subpool usage leak on allocation failure (Patch 3):
+>     + In alloc_hugetlb_folio(), when folio allocation fails and
+>       gbl_chg == 1, the cleanup path skips hugepage_subpool_put_pages(),
+>       permanently leaking used_hpages.
+
+This is a failure path, which probably isn't executed that often. The
+reproducer created a very small mount and was specially written to
+trigger this edge case.
+
+Overall, I was also second guessing myself: perhaps it was never the
+intent to manage reservations by tracking used_hpages throughout, but in
+09a95e29cb30 ("mm/hugetlb: optimize minimum size (min_size) accounting")
+Mike noted that min size accounting "does not take into account used
+pages within the filesystem", and the patch added a check for
+used_hpages. Based on that, and the _original_ code documentation below:
+
+	long used_hpages;	/* Used count against maximum, includes */
+				/* both allocated and reserved pages. */
+
+I think the original intent was for used_hpages to track both allocated
+and reserved pages, and patch 1 restores the original intent, and also
+simplifies the logic in many places.
+
+> Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
+> trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
+> region_add file_region coalescing").
+>
+
+Your trillion-dollar sidekick got the right patch but the wrong hash :)
+
+Fixes: 0db9d74ed884 ("hugetlb: disable region_add file_region coalescing")
+
+I'll also reply to the last patch with the above. If there are no
+further revisions required, could you please add the above tag in for
+me?
+
+> Our other little friend is talking to us:
+> 	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
+>
+> I'd like to queue this up promptly because it fixes things.  But let's
+> seek additional review input and argue with Sashiko before taking that
+> step.
+
+I'll copy Sashiko's comments onto this patch series in replies. :)
