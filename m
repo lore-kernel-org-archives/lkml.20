@@ -1,493 +1,186 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010070.outbound.protection.outlook.com [52.101.193.70])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A5251AFDF;
-	Fri, 18 Sep 2026 16:42:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749780; cv=fail; b=qBKqVRm8+4W467OoHqFCBYdVUaO5sN8VJi05491kRlhaXFrl+19c+sxUPFoogQ6w7esbR1mWq2uMi3pSyl0m75Rh4UuTvF/p5noCZvOCW1ZsJvWQu6057Bq/H3JFbhPC9dxs6Zk48u5WXK5K1In4D1O5cDvaFDFNfAP7i36yk3s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749780; c=relaxed/simple;
-	bh=b979a89YSlxWiaPAM4xbD7lN0HBPD66Cy1iX6OqKKcU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q3jXTWZ3kyeaGG6Kjz5F2Tfm4Slc4sg3oT4FQhr/kVeI+is8+OxBbFnfBIzBC9SCktKhvEVRb7g6NI+9AMJmuEZRaE8/02uKQqKb9MwbVU25z3guj09H+mKmlAcT8/giPHKtmf41mBjyVrTecOQqsbtRbiyljU4ILMCAEmkhFsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=qjiblG4y; arc=fail smtp.client-ip=52.101.193.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8813D5187F8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789749808; cv=none; b=Yhg4GFKhr2P7/F6tpGt5QyZZeYFtwAPQgEdPU753SVrzcpv04eMQopRZ47mcsp8K25vIX7dm0o0btcdCeW/whEp9sUn0XxxFJUH5ByG4c0e9iFqntyFvUpjCAuEpvS1+uDsLGCXmW2qwQsMkvYpB9VyLZ+aSQ6GVMnXlmQ+b30s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789749808; c=relaxed/simple;
+	bh=H6fsZYId41KQpeu0ypkHNClFv6JIG/e+9fOK7DhdSvA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m5lpaHD6yNCMIEHButFe2ZKBgR22g2a7qLy/mI+FovNp0vmxMfK1bEHscyJEqCTbst9oVsbK7Gpvhrojj8DyXOpYo8polhBbkO+PfIRtq8/8bMxQWK+4Oqy0Vvq1/yWW9isLxOA+vQhpwWtOILb+AwMjTIYem7JCVCDQ5UrsZhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gCqrl8Wn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hfOfIV6H; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="qjiblG4y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xOUx01i7/AU6lgg7AIf75WKmsoLpQu6VY5ILZl0EWvoOcPlyS6dYDZykD5IRk0Gtbvuq8Cw+aFxaadvf4qrjdaOmOs/eBOwxM8MUVDLdRFTGLw/kRUnEgLunMMCTdGlGyKs5UwF95ehpDewBRCagyI6vMs/Bu38PjRyvE8PXgezRwsMtBP1PEF1xftK02pq1Cfi6k0gla/aIRyKjo/s9smOU6KEvKycyn7a81QidFk3JEfi4yepKShIWVTTn+yfQqLLnOiyqAjxo6qGi50EPTLvqD0s2RHSCM3mDkvaRnMOSwoptbwarhJkbwL0RlFU5Lsu8f8s/bWCKY26Sl+gjjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ohUejXLfOeaI32tOXg/M+rrQmOFxbyBMoxvkIvUaDvQ=;
- b=ikCZVduWFhgjYilSSt2I/PwzYomKEHVsF70fw29Gkf+VbO9UfxTzb6APxP7B5FtoGVE8/fFme4lBrhQl5uJudH0U8W8fh1FRbrO4jD4uNHp2m2iFm+szvXuNCrufFuHSO/TD4T9Ksq0BVHbrQPD3VsaNyHd8yb5ULa9ie7suo9SoPRvRGLoUOWZkQdeuArdjCqy/PwFbUYgJC8WyND/nqGdKi/op7j+azb0RoppRYCHnLT6KaXvbqLV93yInIVQGxXHG8U/YFlhQ4q9+WiKfzm4vrYiLsus8Z9PqQHLKkCWPnHU5p10QQLjHU+oPjUrgq82DzMSnx0GLW0kSvEKdIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ohUejXLfOeaI32tOXg/M+rrQmOFxbyBMoxvkIvUaDvQ=;
- b=qjiblG4ygNcSGB6HRFCoy9vbFEWazBna6Qa2v5fpt5g00+g4+P3DznDOis4iRsPII/eEXvIZKT66AZUG/kMVCHA+fmg2H4ep7RJnhYjOqjSMNWILYzuVHecDv0gWnY5P2d+YDjfko5rO5puPQZ3AgacrUxl3MYtQ/iLEokk8c8g=
-Received: from CPYP284CA0044.BRAP284.PROD.OUTLOOK.COM (2603:10d6:103:81::13)
- by DS5PPF1ADAD2878.namprd12.prod.outlook.com (2603:10b6:f:fc00::646) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 16:42:40 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10d6:103:81:cafe::8a) by CPYP284CA0044.outlook.office365.com
- (2603:10d6:103:81::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 16:42:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 16:42:36 +0000
-Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 11:42:34 -0500
-From: "Pratik R. Sampat" <prsampat@amd.com>
-To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
-	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
-CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
-	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
-	<shansinha@google.com>, <prsampat@amd.com>
-Subject: [Patch v2 7/7] crypto/ccp: Implement SNP Download Firmware EX
-Date: Fri, 18 Sep 2026 16:41:01 +0000
-Message-ID: <3463e8ce7b925d8cade35cf9d98b96bc3fc619b4.1789749016.git.prsampat@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1789749016.git.prsampat@amd.com>
-References: <cover.1789749016.git.prsampat@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gCqrl8Wn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hfOfIV6H"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IF0XN61234167
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:43:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=oA6mPBcLFH3SC1iZeQ71t0
+	LSRYXqkDAN0OfRuXOGK2M=; b=gCqrl8WnlWeTApwrn8UvaGb2scDlmek50jvOtQ
+	tmtkcUFRMu5DV8wOPb5CGREe0CLNtkth7AKAjkBONAkeLuOZMbYtb/W8XZ33smgT
+	su/Jed6i0W1UvEBhCrkzbF5cTInqpQips5iVodenwkeyt6modgqavZj47/OR87so
+	0l15fF434lPYtHdv7r5Oa8WF0KmvSznQUNpMjgVUTWQpaUPldlWRUp9qHOoozrxd
+	R4Q87NPOE2J4ywB5GxYqoaRyNQhNWNEA+Ae0KGcs3ufqgnSTvqOPPqPQrRaFOO7T
+	ToI6qqfKY8i1SpsNbc6fF8Bo80BB2toz3ocftzIhclJ0C/Xg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs7jk8f97-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:43:26 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd188e16a2so11702745ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:43:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789749805; x=1790354605; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oA6mPBcLFH3SC1iZeQ71t0LSRYXqkDAN0OfRuXOGK2M=;
+        b=hfOfIV6HmpRKitsL0ojpERc0+AZffrWiG7lP56BKrHeKviG6iV/Jb81qlKQK5R/Y3Z
+         TTLlR8aR/Cigz/unw+Cq8rthvgztconpXD5dqvyLtoM8QV00Jud2pLjMpFrNITM2BWUk
+         jdvlluCUeX3SbSb0YAjMMz+FlsqilgELxpllfOzUMh5PW8nfFEz2QLYmc11JleZUh9BQ
+         uP/C4koT+ZBQMY3DeeNMAr60iq3RyTQNGltYvMWWmEawlJjrtrHTsARgRKoaMfV8Y14C
+         37oUYECdr/+ygdmf4To7AzVHcuC0RuXVTzPTe7lxmA8BuTwWUaDckWj+ORQJ1oiwKX3b
+         IzTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789749805; x=1790354605;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oA6mPBcLFH3SC1iZeQ71t0LSRYXqkDAN0OfRuXOGK2M=;
+        b=l4qZtPuzaCbeZxbCH9xFuNwzvrfv4A3P8gsB2cCSET+oRybbr9IIqs6qWfloMSVWNw
+         hlwgXrAx96Jf38cv7Iq/4YgsqmEZwqyUalWJHnhoGyhc1Zs4lcnx9jpT4DXMuzPPwedD
+         72F3YjCIOtTCV4Pr0EVizLmjDZEK+OwEuI0B+g1OpIpuRan4Mw+oLP2WibzTSiWIECcQ
+         siDs/7PcpSbVLZ0dPhBqWvifoM5PY0muxcoDIsgXf+nVWT72KMuvQkREW35KwTO3iULo
+         H8V/zstKPPV8EZFpFItwFNV0ipHDnUduoMCcssgdYZwHHLcBB7YbnvmtaVpfG6cbqtdR
+         CHrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1PH/MSf6K5mXaQQqPuE7iMQuk2cZHBhGUpWYM0bo869r9jyf8/20r16wWehmBjS4/MgMu5Fu5avaIVEA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1I+QbT88hDi5cUf5fRCBa/QeOcMRqp1E/0NNHEIPpEgj8DSaS
+	IlajNV9h/+mMsW45EOjSOu3PZxGbIIFk+fQuH3wpBad+dJL0YOJY04AL+9IlWravPpRJNpVANFV
+	KBmAlYvlqyY4AxIo+0rIJPiCJhM5No9XVyYMysMb1ca45AmV7JIrWXC5jZYHGRBhoBjU=
+X-Gm-Gg: AYBFou0ZiOEX73BBAkbGuDcNDGNQDaamwygFqStZ0nEtYSx+5X+JkkZhMXSuwIS8KoI
+	6YrDZTEoXxt6VJhxACt0Jhs6PtjFfa7W7LeCliVKmc6b8J8DhAWb3U4aa+g6dzX9yvFdlsQFqum
+	w/fq/nUZfSwGFpvVqhQOdNLe0wYZt8gJXxS3Er1J8V7wKGQSiPjE5MtLbM1TLXT3KaA4mxDgoAU
+	xrMAvVXsjLR+JL5G7z/X1yyBrR+XDhZ3Fhr3KsTX1ynjta9ulCJlUfY7hl/0+vONIpspZdVDPnj
+	R06YXrtcuY1OMaZb140Ynfn8QtUqCZbo6BY4NHq2ojIoYAsuY+x/Cc26olBHV+IPKaW1LowzZrS
+	PGxixR6XRGF29GsF0Jg==
+X-Received: by 2002:a17:903:2f06:b0:2dd:8e7d:90f7 with SMTP id d9443c01a7336-2ddb1adb4a8mr71307815ad.9.1789749805263;
+        Fri, 18 Sep 2026 09:43:25 -0700 (PDT)
+X-Received: by 2002:a17:903:2f06:b0:2dd:8e7d:90f7 with SMTP id d9443c01a7336-2ddb1adb4a8mr71307305ad.9.1789749804649;
+        Fri, 18 Sep 2026 09:43:24 -0700 (PDT)
+Received: from [10.213.109.130] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb754e390sm11161895ad.32.2026.09.18.09.43.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:43:24 -0700 (PDT)
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: [PATCH 0/6] mfd: qcom-pm8008: Add support for PM8010 over I2C
+Date: Fri, 18 Sep 2026 22:12:44 +0530
+Message-Id: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|DS5PPF1ADAD2878:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31084fdb-2b1e-45c1-5c5f-08df15a3d83c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|82310400026|1800799024|10067099003|3023799007|56012099006|5023799004|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mz2IuHw9ncYTjqQpeBOTUrTS39Mavp4nYTCwOdcWJdrzyd8uqtS/vcT0UAbPCPyWCnJrWLy37HZ17XB9oqFii0RssfcTml1TyM2uD6tkP3G+02VRzXHSFR8SJREjjpVpeWKr2GbsIBvFyFYj1PXPHjDIGzVOGmFl9V40dSZBPhuf+DZ74siOob55u9Q6HQBdgTT8m2ps+Z9lqiPdV0fcTSJHGXZGZuWRvJiHIo/PLMQidGCw8PBUPCbDckBhkQcqCtvo1r7uD0Ve6B+IFGCybb4oC9Bj4H4Mm8cF2vsyhtqnfAlpsGhnJMIX9KSk/+ytEOETykiU1RVAW7qA2hVrI8HKTIMCtdL0sLX4qduSzUs9AwSO2gmZ/XfWaG6wtnhfAtguVOlpDUBEMAsujxaAuxuZYkKuosRtM6KyBIIp8KcEy8f2r5uOuRWkZAJX/JIcEtOPLwFs3J0ICv9MUwYbAUIcUzoEuXNLTw1nf/6qvXsIzisNzClDwggtAE5o/U2k/3TgX6oB4S76RREIs6PqRPOl9Q6julgzT8JXeS0K+VSN9um6yi9Pkmry+Ao1AcMm80yWsm43lcxkc8DvHpvhh2Fsv5iyfxwnVNsYqAukgCbf8J+ReS46XiPQU8BzSlRZGls2bjlHcOx5OHC0BUHhqLqt4xtXC202/JOjRxUfuubIeTWWjPjvzsBhn0IkQu30VIrb1rfIEsdFzyBPjy56wA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(82310400026)(1800799024)(10067099003)(3023799007)(56012099006)(5023799004)(6133799003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Z91Axbhm9yB/5kxNLQNLSlgcInHTv9IVLfLHykT+NOoCeaZvHdUOQSobhMdR7lfsZUhXg4xEFzvfHkMKEprg6lsU1Qtkv3IwMEfR3IU+RXs5al/e6UVIisgxBgR3LuaamogJ+EYuJ3Bi8utEZYZB59R2utMtEhVPdQ92DVaKIoL/E9fHIqFeFkR2MjKWOeheJRlwscaAIOS86n1C8GabdZ1T/csm/vmt+PWY2DQU28sXt7Dfy9lz14aHFEFVep3YMt/MCWzS3sunwt4sLfSN9u0mBrTaL95RktVst5lYXplTjbGBSWCDVhp7xzOkKfUMJaVRKbEhFnpepSFVm8xyjP3WwTOb2ENmHNAj+7ie3XvsbOeKCg96GJ8ms7DnhTcyCM/p3tocRlSLyRecifNkSmAoGcKGZsSX4UCXBkcX1gCXJd5CJMYfpLpTWFA5c3EF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:42:36.0308
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31084fdb-2b1e-45c1-5c5f-08df15a3d83c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF1ADAD2878
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAARqrWoC/yXMTQqDMBBA4avIrBuYTNT+XEWKaBzbKVRDRosg3
+ r1Rl9/ivRWUo7DCI1sh8k9UxiHBXjLw72Z4sZEuGQipxLstTPje0GIt5GudQxjjZByWlJN1V/I
+ OUhgi97Ic0+p5Wuf2w37aT7BtfwIjf8h2AAAA
+X-Change-ID: 20260915-pm8010_i2c_support-3062421372c3
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, mfd@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789749799; l=1613;
+ i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
+ bh=H6fsZYId41KQpeu0ypkHNClFv6JIG/e+9fOK7DhdSvA=;
+ b=qKnWaYqEKCCysF3ieQyz7rqHneuV3s7N/zgJRNtZUrOVX0OAm8QMt2iZoZ+5DeMvSI7wQMd1v
+ E2dbxY4M1tNAbrWRqW5vVuSIwCccSh59OHswK9t38hVxp2mrO9bCJpc
+X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
+ pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
+X-Proofpoint-ORIG-GUID: KZ6F5IHe1WcA5RsKgMJVH807dvGnI1cD
+X-Proofpoint-GUID: KZ6F5IHe1WcA5RsKgMJVH807dvGnI1cD
+X-Authority-Analysis: v=2.4 cv=FeSiV5+6 c=1 sm=1 tr=0 ts=6aad6a2e cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=tWdyBv_7HfDShhJaVkwA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIzOCBTYWx0ZWRfX/R40LVn5QTmz
+ PQ2Ff2L5A3lrz8E7FHluDJ30C5sZcw7kkU5e8mj2SnMqKyJnayPSX6MGWGvcBHdkZSKwaS/6hpS
+ faDtRuCMtGYq7xYZN2unRtYvj89x9NYoWXDizfTYvDg9L5nS61F2mGoSDnLkAeUBOHOoqRFbl33
+ nognS5CE3QOs5MkIFhmhp7mb2Pd+4OSAceB+nEuSmcpwZQHIy44Gb5O1ZG/Yy+T12br/2C7vVGZ
+ 8pzJjlgqtVaAfBS4BIrQvs8472MIDR/SPnnQUyLb1VUq6W0n8NTlODhaTMQkX/gbX3idK3TQL4/
+ 8SC9QN0GyVEVtq8zLAPbTKE4T8tEk0kRP/HRCFWZF70cXYjPPYPGTpBhiIQnSZhO1uRUf+xz0nt
+ yBChvaJzwpf1Cxxpg8/shFvy6QSrEClTTNemBhwj4WXAiB31mcgfSGVqwlRQZgseeIeJ3NAA9FH
+ 0MKIgXUv0Xm5KTEu80g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIzOCBTYWx0ZWRfX/C2vbSkr9Dqj
+ zez3kPtJO+dJjXVsnkZO3akQ1orvZzTr0SOkU6OGFlkDlBWJqUvH1MMIrsk1+ffiKPvFnwRVm4W
+ a77NCpzop3bO6m1b09eVJbC4bN2OQ4s=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 impostorscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 malwarescore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180238
 
-Implement SNP live firmware update using the DOWNLOAD_FIRMWARE_EX
-command.
+PM8010 is the next generation PMIC following PM8008 and has similar
+functionality, providing 7 LDOs that power camera sensors and associated
+hardware, with some differences from PM8008 LDOs. The series also adds
+support for skipping interrupt configurations which is needed to support
+SoCs where the PMIC's interrupt pin is grounded, such as Glymur.
 
-DOWNLOAD_FIRMWARE_EX requires the legacy SEV platform to be UNINIT. If
-it is WORKING then legacy guests are running and the update is refused
-as busy. If it is INIT, shut it down, release the buffers the firmware
-owns across that shutdown, run the update, and bring the platform back
-up afterwards. SNP is never taken down, so SNP guests are unaffected.
+Patch 1 adds the new compatible string for PM8010 over I2C
 
-To test run the following with your sbin file in FW:
+Patch 2 adds PM8010 LDO support
 
-echo 1 > /sys/class/firmware/sev/loading
-cat <firmware.sbin> > /sys/class/firmware/sev/data
-echo 0 > /sys/class/firmware/sev/loading
+Patch 3 adds mode voting support for PM8010, which is not supported on PM8008
 
-The COMMIT bit is left clear, so the image is only loaded provisionally
-and the admin decides when to make it permanent with ioctl(/dev/sev,
-SNP_COMMIT). To roll back, do not commit and upload the previous image
-the same way.
+Patch 4 adds PM8010 support in the MFD driver
 
-Co-developed-by: Tycho Andersen (AMD) <tycho@kernel.org>
-Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
-Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+Patch 5 updates documentation to make interrupt configuration optional
+
+Patch 6 updates the MFD driver to tolerate a missing interrupt
+
+Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 ---
- drivers/crypto/ccp/sev-dev.c | 268 ++++++++++++++++++++++++++++++++++-
- drivers/crypto/ccp/sev-dev.h |   2 +
- include/linux/psp-sev.h      |  19 +++
- 3 files changed, 288 insertions(+), 1 deletion(-)
+Dhruvin Rajpura (1):
+      regulator: qcom-pm8008: Add PM8010 mode support
 
-diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index f3714e8f5ab1..aee708be7cab 100644
---- a/drivers/crypto/ccp/sev-dev.c
-+++ b/drivers/crypto/ccp/sev-dev.c
-@@ -29,6 +29,7 @@
- #include <linux/psp.h>
- #include <linux/amd-iommu.h>
- #include <linux/crash_dump.h>
-+#include <linux/sizes.h>
- 
- #include <asm/smp.h>
- #include <asm/cacheflush.h>
-@@ -252,6 +253,7 @@ static int sev_cmd_buffer_len(int cmd)
- 	case SEV_CMD_SNP_PLATFORM_STATUS:	return sizeof(struct sev_data_snp_addr);
- 	case SEV_CMD_SNP_GUEST_REQUEST:		return sizeof(struct sev_data_snp_guest_request);
- 	case SEV_CMD_SNP_CONFIG:		return sizeof(struct sev_user_data_snp_config);
-+	case SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX:	return sizeof(struct sev_data_download_firmware_ex);
- 	case SEV_CMD_SNP_COMMIT:		return sizeof(struct sev_data_snp_commit);
- 	case SEV_CMD_SNP_FEATURE_INFO:		return sizeof(struct sev_data_snp_feature_info);
- 	case SEV_CMD_SNP_VLEK_LOAD:		return sizeof(struct sev_user_data_snp_vlek_load);
-@@ -2209,17 +2211,274 @@ static int sev_update_firmware(struct device *dev)
- }
- 
- #ifdef CONFIG_FW_UPLOAD
-+/* Largest image the firmware accepts, anything above is rejected */
-+#define SEV_FW_IMAGE_MAX_SIZE	SZ_512K
-+
- static enum fw_upload_err sev_fw_upload_prepare(struct fw_upload *fw_upload,
- 						const u8 *data, u32 size)
- {
-+	struct sev_device *sev = fw_upload->dd_handle;
-+
-+	if (size > SEV_FW_IMAGE_MAX_SIZE) {
-+		dev_err(sev->dev, "DLFW_EX: image of %u bytes exceeds the %u byte maximum\n",
-+			size, SEV_FW_IMAGE_MAX_SIZE);
-+		return FW_UPLOAD_ERR_INVALID_SIZE;
-+	}
-+
- 	return FW_UPLOAD_ERR_NONE;
- }
- 
-+static int sev_download_firmware_ex(const u8 *data, u32 size, int *psp_ret)
-+{
-+	struct sev_data_download_firmware_ex sev_data = {0};
-+	int ret, order;
-+	struct page *p;
-+	void *fw_blob;
-+
-+	order = get_order(size);
-+	p = alloc_pages(GFP_KERNEL | __GFP_ZERO, order);
-+	if (!p)
-+		return -ENOMEM;
-+
-+	fw_blob = page_address(p);
-+	memcpy(fw_blob, data, size);
-+
-+	sev_data.len = sizeof(sev_data);
-+	sev_data.fw_paddr = __psp_pa(fw_blob);
-+	sev_data.fw_len = size;
-+	/*
-+	 * Don't commit to the new firmware immediately, perform an explicit
-+	 * SNP_COMMIT after
-+	 */
-+	sev_data.commit = 0;
-+
-+	ret = __sev_do_cmd_locked(SEV_CMD_SNP_DOWNLOAD_FIRMWARE_EX, &sev_data,
-+				  psp_ret);
-+
-+	__free_pages(p, order);
-+
-+	return ret;
-+}
-+
-+static enum fw_upload_err sev_fw_upload_handle_err(struct sev_device *sev,
-+						   int rc, int psp_ret)
-+{
-+	enum fw_upload_err ret = FW_UPLOAD_ERR_FW_INVALID;
-+
-+	if (!rc)
-+		return FW_UPLOAD_ERR_NONE;
-+
-+	switch (psp_ret) {
-+	case SEV_RET_INVALID_PARAM:
-+		dev_err(sev->dev, "DLFW_EX: Provided image is not well formed\n");
-+		break;
-+	case SEV_RET_INVALID_LEN:
-+		ret = FW_UPLOAD_ERR_INVALID_SIZE;
-+		dev_err(sev->dev, "DLFW_EX: Provided image has an unusable length\n");
-+		break;
-+	case SEV_RET_SHUTDOWN_REQUIRED:
-+		dev_err(sev->dev, "DLFW_EX: Provided image cannot be live-updated, shutdown required\n");
-+		break;
-+	case SEV_RET_BAD_VERSION:
-+		dev_err(sev->dev, "DLFW_EX: Provided image < committed version\n");
-+		break;
-+	case SEV_RET_INVALID_PLATFORM_STATE:
-+		dev_err(sev->dev, "DLFW_EX: Platform not in UNINIT state\n");
-+		break;
-+	case SEV_RET_INVALID_ADDRESS:
-+		dev_err(sev->dev, "DLFW_EX: Unaligned address provided\n");
-+		break;
-+	case SEV_RET_UNSUPPORTED:
-+		dev_err(sev->dev, "DLFW_EX: feature not supported\n");
-+		break;
-+	case SEV_RET_INVALID_CONFIG:
-+		dev_err(sev->dev, "DLFW_EX: Image rejected, unsupported configuration\n");
-+		break;
-+	case SEV_RET_BAD_SIGNATURE:
-+		dev_err(sev->dev, "DLFW_EX: Bad firmware signature\n");
-+		break;
-+	case SEV_RET_UPDATE_FAILED:
-+		ret = FW_UPLOAD_ERR_HW_ERROR;
-+		dev_err(sev->dev, "DLFW_EX: Upgrade failed, automatically reverted\n");
-+		break;
-+	case SEV_RET_RESTORE_REQUIRED:
-+		dev_err(sev->dev, "DLFW_EX: live upgrade failed, please roll back\n");
-+		/*
-+		 * Firmware requested a roll-back. Declare the PSP dead so
-+		 * nothing else tries to use it, and let the next upload through
-+		 * so the admin can restore the previous image.
-+		 */
-+		sev->fwl_rollback_required = true;
-+		psp_dead = true;
-+		ret = FW_UPLOAD_ERR_HW_ERROR;
-+		break;
-+	case SEV_RET_HWSEV_RET_UNSAFE:
-+		dev_err(sev->dev, "DLFW_EX: SEV firmware no longer safe. Reboot recommended\n");
-+		/*
-+		 * Following a return of HARDWARE_UNSAFE, operation of the SEV
-+		 * firmware is indeterminate and the recommendation is to reboot
-+		 * the platform. Declare the PSP dead so the driver stops
-+		 * issuing commands to it while the reboot is pending.
-+		 */
-+		psp_dead = true;
-+		ret = FW_UPLOAD_ERR_HW_ERROR;
-+		break;
-+	case SEV_RET_NO_FW_CALL:
-+		/* The command never reached the firmware. */
-+		dev_err(sev->dev, "DLFW_EX: driver error %d\n", rc);
-+		ret = FW_UPLOAD_ERR_HW_ERROR;
-+		break;
-+	default:
-+		dev_err(sev->dev, "Unknown SEV firmware err 0x%x\n", psp_ret);
-+		ret = FW_UPLOAD_ERR_HW_ERROR;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int sev_fw_upload_shutdown_platform(struct sev_device *sev)
-+{
-+	int rc, error = SEV_RET_NO_FW_CALL, sev_plat_state;
-+
-+	lockdep_assert_held(&sev_cmd_mutex);
-+
-+	rc = sev_get_platform_state(&sev_plat_state, &error);
-+	if (rc) {
-+		dev_err(sev->dev, "SEV get platform state failed %d, error %#x\n",
-+			rc, error);
-+		return rc;
-+	}
-+
-+	switch (sev_plat_state) {
-+	case SEV_STATE_UNINIT:
-+		return 0;
-+	case SEV_STATE_WORKING:
-+		/* Legacy guests are running, the update cannot proceed. */
-+		return -EBUSY;
-+	case SEV_STATE_INIT:
-+		break;
-+	default:
-+		dev_err(sev->dev, "Unknown SEV firmware state %d\n", sev_plat_state);
-+		return -EINVAL;
-+	}
-+
-+	rc = __sev_platform_shutdown_locked(&error);
-+	if (rc) {
-+		dev_err(sev->dev, "SEV platform shutdown failed %d, error %#x\n",
-+			rc, error);
-+		return rc;
-+	}
-+
-+	__sev_release_firmware_buffers(false);
-+
-+	sev->fwl_reinit_required = true;
-+
-+	return 0;
-+}
-+
-+static void sev_fw_upload_reinit_platform(struct sev_device *sev)
-+{
-+	int rc, error = SEV_RET_NO_FW_CALL;
-+
-+	lockdep_assert_held(&sev_cmd_mutex);
-+
-+	if (!sev->fwl_reinit_required)
-+		return;
-+
-+	rc = __sev_platform_init_locked(&error);
-+	if (rc) {
-+		dev_err(sev->dev, "SEV platform re-init failed %d, error %#x\n",
-+			rc, error);
-+		return;
-+	}
-+
-+	sev->fwl_reinit_required = false;
-+}
-+
-+static enum fw_upload_err sev_fw_upload_update(struct sev_device *sev,
-+					       const u8 *data, u32 size,
-+					       u32 *written)
-+{
-+	int rc, error = SEV_RET_NO_FW_CALL;
-+	enum fw_upload_err ret;
-+
-+	guard(mutex)(&sev_cmd_mutex);
-+
-+	/*
-+	 * A PSP declared dead only executes DOWNLOAD_FIRMWARE_EX if it was the
-+	 * firmware update that killed it and asked for a rollback. Declared
-+	 * dead for any other reason it will not answer until the platform is
-+	 * rebooted.
-+	 */
-+	if (psp_dead && !sev->fwl_rollback_required) {
-+		dev_err(sev->dev, "DLFW_EX: PSP is not responding\n");
-+		return FW_UPLOAD_ERR_HW_ERROR;
-+	}
-+
-+	/*
-+	 * If the last firmware update returned RESTORE_REQUIRED, retry DLFW_EX.
-+	 * We being in this state means that the legacy firmware has previously
-+	 * been shut down, so no need to do it again.
-+	 */
-+	if (sev->fwl_rollback_required) {
-+		psp_dead = false;
-+	} else {
-+		rc = sev_fw_upload_shutdown_platform(sev);
-+		if (rc) {
-+			return rc == -EBUSY ? FW_UPLOAD_ERR_BUSY
-+					    : FW_UPLOAD_ERR_HW_ERROR;
-+		}
-+	}
-+
-+	rc = sev_download_firmware_ex(data, size, &error);
-+	ret = sev_fw_upload_handle_err(sev, rc, error);
-+	if (ret == FW_UPLOAD_ERR_NONE) {
-+		*written = size;
-+		sev->fwl_rollback_required = false;
-+	}
-+
-+	/* A rollback retry failed. PSP now stays dead. */
-+	if (sev->fwl_rollback_required)
-+		psp_dead = true;
-+
-+	if (!sev->fwl_rollback_required && !psp_dead)
-+		sev_fw_upload_reinit_platform(sev);
-+
-+	return ret;
-+}
-+
- static enum fw_upload_err sev_fw_upload_write(struct fw_upload *fw_upload,
- 					      const u8 *data, u32 offset,
- 					      u32 size, u32 *written)
- {
--	return FW_UPLOAD_ERR_BUSY;
-+	struct sev_device *sev = fw_upload->dd_handle;
-+	u8 old_major, old_minor, old_build;
-+	enum fw_upload_err ret;
-+
-+	old_major = sev->api_major;
-+	old_minor = sev->api_minor;
-+	old_build = sev->build;
-+
-+	ret = sev_fw_upload_update(sev, data, size, written);
-+	if (ret != FW_UPLOAD_ERR_NONE)
-+		return ret;
-+
-+	if (sev_get_api_version()) {
-+		dev_err(sev->dev, "SNP platform data refresh after firmware update failed\n");
-+		return FW_UPLOAD_ERR_HW_ERROR;
-+	}
-+
-+	if (sev->api_major != old_major || sev->api_minor != old_minor ||
-+	    sev->build != old_build) {
-+		dev_info(sev->dev, "SEV firmware updated to %d.%d build %d\n",
-+			 sev->api_major, sev->api_minor, sev->build);
-+	} else {
-+		dev_info(sev->dev, "SEV firmware version unchanged: %d.%d build %d\n",
-+			 sev->api_major, sev->api_minor, sev->build);
-+	}
-+
-+	return ret;
- }
- 
- static enum fw_upload_err sev_fw_upload_poll_complete(struct fw_upload *fw_upload)
-@@ -2243,6 +2502,13 @@ static void register_sev_fw_uploader(struct sev_device *sev)
- {
- 	struct fw_upload *fwl;
- 
-+	/*
-+	 * The interface only drives DOWNLOAD_FIRMWARE_EX, which is an SNP
-+	 * command, so do not advertise it where SNP is unavailable.
-+	 */
-+	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-+		return;
-+
- 	/*
- 	 * SNP firmware update is a platform-wide operation; only the master
- 	 * PSP issues firmware commands. Register a single global interface.
-diff --git a/drivers/crypto/ccp/sev-dev.h b/drivers/crypto/ccp/sev-dev.h
-index 7ec692e2147e..1e45a08c41da 100644
---- a/drivers/crypto/ccp/sev-dev.h
-+++ b/drivers/crypto/ccp/sev-dev.h
-@@ -71,6 +71,8 @@ struct sev_device {
- 	struct sev_tio_status *tio_status;
- 
- 	struct fw_upload *fwl;
-+	bool fwl_rollback_required;
-+	bool fwl_reinit_required;
- };
- 
- int sev_dev_init(struct psp_device *psp);
-diff --git a/include/linux/psp-sev.h b/include/linux/psp-sev.h
-index 03a79786df1d..c6adbd46f05a 100644
---- a/include/linux/psp-sev.h
-+++ b/include/linux/psp-sev.h
-@@ -856,6 +856,25 @@ struct sev_platform_init_args {
- 	unsigned int max_snp_asid;
- };
- 
-+/**
-+ * struct sev_data_download_firmware_ex - SNP_DOWNLOAD_FIRMWARE_EX structure
-+ *
-+ * @len: length of the command buffer read by the PSP
-+ * @rsvd0: reserved
-+ * @fw_paddr: system physical address of the start of the firmware blob
-+ * @fw_len: length of the firmware blob
-+ * @commit: whether to immediately commit the firmware update
-+ * @rsvd1: reserved
-+ */
-+struct sev_data_download_firmware_ex {
-+	u32 len;			/* In */
-+	u32 rsvd0;
-+	u64 fw_paddr;			/* In */
-+	u32 fw_len;			/* In */
-+	u32 commit:1;			/* In */
-+	u32 rsvd1:31;
-+} __packed;
-+
- /**
-  * struct sev_data_snp_commit - SNP_COMMIT structure
-  *
--- 
-2.43.0
+Konrad Dybcio (5):
+      dt-bindings: mfd: pm8008: Add qcom,pm8010-i2c compatible
+      regulator: pm8008: Add PM8010 support
+      mfd: qcom-pm8008: Add PM8010 support
+      dt-bindings: mfd: pm8008: Make interrupts optional
+      mfd: qcom-pm8008: Tolerate missing interrupt
+
+ .../devicetree/bindings/mfd/qcom,pm8008.yaml       |  10 +-
+ drivers/mfd/qcom-pm8008.c                          | 108 +++++++++---
+ drivers/regulator/qcom-pm8008-regulator.c          | 184 ++++++++++++++++++---
+ 3 files changed, 250 insertions(+), 52 deletions(-)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260915-pm8010_i2c_support-3062421372c3
+
+Best regards,
+--  
+Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
