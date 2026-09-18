@@ -1,33 +1,36 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E13734FF62
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A924F3914FF;
+	Fri, 18 Sep 2026 01:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695305; cv=none; b=O/2ZXHJDNz7HmVd6pUJS2NLhODvvNnnrIYPj/+oafmm0uRkx5mmTIqAChno51pi2CGmkkztBdNXoa/QVV3YK4Pf3DhbWBFR50WzE0ptz3EA1OPVnIvCqW+HFOjvjhs+V2nb0hIEyDuCTxF0OHbU84RDCvb77+0KuUb8B8pz3r6E=
+	t=1789695306; cv=none; b=FoNE9jRUgnHuiiHlr4C9O4LgHEhCEdLTjA9AEL5ALPDm06twKr/xFortZbS5Wy2SXAAP+Oip5Vpy3iaT3zli5G1obGFmzEqW8gWi2qpPJ4SQ/SOfn+QDuBXaPEgaPbcRUp7BZm+3VY5iM5pAco1DfN2XOGz7dQEWkVNev4aB2Nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695305; c=relaxed/simple;
-	bh=M2ZinG0v5IlQpPy62KPAgLbDB1o3IJFDY9jQXBEHmNs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iMesBnnqR7W7OlcezZwdX+T1KRnulcK/zvTL3p/XcRyNrcNJ+WjqxMgekM5+QwdOQAgxx2vMbS5gv8xKNgXj197J35+T5MJjT2AuAZohA3fur7jQIjjbWV3u2Ae/fek60C8qwUpejC2hSo8cQxjpihZ1gvKlTW0Izav2VrKbhOw=
+	s=arc-20240116; t=1789695306; c=relaxed/simple;
+	bh=pEmjUgm8VkDI4oKc4FwXEMO5xPjzaOIfJAfv+aQvM18=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uozxFExi+dLQyO6+lAavIxY6hvHnySK7FrsJ59Vcul8OCXRmZY1SsRLM33BwVlQRxrIcrD1/hklAR6PBq+JpZmhPWtg5utOfPrdQao8+i3UOjwvN4jlBATLEJx56tO5X1AC3LDjoZLGM6dACzQAukGAmXc+5RqlEeGbEHEml33c=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
 Received: from fric.. (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACneu43laxqbPxECA--.11692S2;
-	Fri, 18 Sep 2026 09:34:47 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowACnfvIrlaxqB_xECA--.11695S2;
+	Fri, 18 Sep 2026 09:34:35 +0800 (CST)
 From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: Petr Pavlu <petr.pavlu@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Shyam Saini <shyamsaini@linux.microsoft.com>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+To: Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	dri-devel@lists.freedesktop.org
+Cc: Huan Yang <link@vivo.com>,
+	Robert Mader <robert.mader@collabora.com>,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
 	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH] params: serialize lookup_or_create_module_kobject()
-Date: Fri, 18 Sep 2026 01:34:45 +0000
-Message-Id: <20260918013445.1849655-1-xujiakai24@mails.ucas.ac.cn>
+Subject: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in init_udmabuf()
+Date: Fri, 18 Sep 2026 01:34:34 +0000
+Message-Id: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -36,165 +39,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACneu43laxqbPxECA--.11692S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr1xWryrXFW3Xr45ZrW3GFg_yoW7Kr1kpr
-	WYqrZIk3y8XFs7Can7A3WkXa4fJa4vvrW7WFZakw1avF1Yyr1vvF17KrySyF1UCryvyayI
-	gF1UArZ0krWUAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:qwCowACnfvIrlaxqB_xECA--.11695S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gw1kKr48GFW7uryxCrWktFb_yoW7Xrykpr
+	4aqr4UCr40qF1DA3WUJFn8Jw1UAa1DAFW7W3y7Gr1kZF1UCw1UZFn7Gry8JryDGw1UZay7
+	tF1DAw40qr1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
 	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
 	4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
 	64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F
 	4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
-	5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU1nmRUUUUUU==
+	5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw2
+	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
+	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
+	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1-txDUUUUU==
 X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-lookup_or_create_module_kobject() first looks up the module kobject with
-kset_find_obj() and, if not found, creates a new one with
-kobject_init_and_add().  The function is called at runtime from
-module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
-module_kobject creation"), which means two concurrent driver
-registrations for the same built-in module name can both miss the
-lookup and race to create the same kobject.
+init_udmabuf() allocates two pointer arrays with one entry per page of
+the created buffer.  Since commit 1c0844c6184e ("udmabuf: change folios
+array from kmalloc to kvmalloc") these arrays are allocated with
+kvmalloc(), which warns and fails when the requested size exceeds
+INT_MAX bytes.
 
-The loser of the race gets -EEXIST from kobject_init_and_add() and its
-kobject is removed from module_kset by kobject_add_internal() before
-the failure is reported.  The error path then calls kobject_put(),
-which invokes module_kobj_release(), but that only completes
-->kobj_completion and never frees the dynamically allocated
-module_kobject, leaking it (96 bytes) along with the object having been
-detached from the kset.
+With the default size limit of 64 MB the largest possible request was
+far below that threshold, but commit 44e9eb5a7621 ("dma-buf/udmabuf:
+Disable the size limit by default") raised the limit to INT_MAX MB.
+With 4K pages, creating a buffer of more than INT_MAX / 8 pages (about
+1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
+WARN_ON_ONCE(), which is trivially triggerable from unprivileged users
+through the UDMABUF_CREATE ioctls:
 
-This is triggerable by unprivileged users, e.g. by concurrently issuing
-the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
-"raw_gadget" driver on the gadget bus:
+  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
+  Call Trace:
+   udmabuf_create
+   udmabuf_ioctl_create_list
 
-  sysfs: cannot create duplicate filename '/module/raw_gadget'
-  ...
-  Adding module 'raw_gadget' to sysfs failed (-17), the system may be
-  unstable.
-  ...
-  unreferenced object 0xffff8880188dacc0 (size 96):
-    backtrace:
-      lookup_or_create_module_kobject+0x47/0x100
-      module_add_driver+0x73/0x1b0
-      bus_add_driver+0x1d9/0x340
-      driver_register+0xde/0x170
+Fix it by rejecting buffers whose page count exceeds what the pointer
+arrays can address before calling init_udmabuf(), returning -EINVAL.
 
-Fix it by serializing the lookup and the creation with a mutex, so that
-the second caller finds the kobject created by the first one instead of
-racing with it.
-
-Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
-Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
+Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to kvmalloc")
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
 Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 ---
- kernel/params.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ drivers/dma-buf/udmabuf.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/kernel/params.c b/kernel/params.c
-index 8b25133fed242..78f00d3f6a165 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -20,6 +20,11 @@
- /* Protects all built-in parameters, modules use their own param_lock */
- static DEFINE_MUTEX(param_lock);
- 
-+/* Serializes module kobject lookup and creation in
-+ * lookup_or_create_module_kobject()
-+ */
-+static DEFINE_MUTEX(mod_kobject_mutex);
-+
- /* Use the module's mutex, or if built-in use the built-in mutex */
- #ifdef CONFIG_MODULES
- #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
-@@ -754,13 +759,24 @@ lookup_or_create_module_kobject(const char *name)
- 	struct kobject *kobj;
- 	int err;
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00462423..25984e75d7ff3 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice *device,
+ 	if (!pgcnt)
+ 		goto err_noinit;
  
 +	/*
-+	 * The lookup and the creation must be done atomically, otherwise
-+	 * concurrent callers may race to create the same kobject, and the
-+	 * loser of the race gets -EEXIST from kobject_init_and_add().
++	 * init_udmabuf() allocates two arrays of pointers, one entry per
++	 * page, with kvmalloc(), which cannot handle sizes larger than
++	 * INT_MAX bytes.
 +	 */
-+	mutex_lock(&mod_kobject_mutex);
++	if (pgcnt > INT_MAX / sizeof(struct page *))
++		goto err_noinit;
 +
- 	kobj = kset_find_obj(module_kset, name);
--	if (kobj)
--		return to_module_kobject(kobj);
-+	if (kobj) {
-+		mk = to_module_kobject(kobj);
-+		goto out;
-+	}
- 
- 	mk = kzalloc_obj(struct module_kobject);
--	if (!mk)
--		return NULL;
-+	if (!mk) {
-+		mk = NULL;
-+		goto out;
-+	}
- 
- 	mk->mod = THIS_MODULE;
- 	mk->kobj.kset = module_kset;
-@@ -771,12 +787,15 @@ lookup_or_create_module_kobject(const char *name)
- 		kobject_put(&mk->kobj);
- 		pr_crit("Adding module '%s' to sysfs failed (%d), the system may be unstable.\n",
- 			name, err);
--		return NULL;
-+		mk = NULL;
-+		goto out;
- 	}
- 
- 	/* So that we hold reference in both cases. */
- 	kobject_get(&mk->kobj);
- 
-+out:
-+	mutex_unlock(&mod_kobject_mutex);
- 	return mk;
- }
- 
+ 	ret = init_udmabuf(ubuf, pgcnt);
+ 	if (ret)
+ 		goto err;
 -- 
 2.34.1
 
 
 -- 
 Below is the crash report:
-BUG: memory leak
-unreferenced object 0xffff8880188dacc0 (size 96):
-  comm "syz.3.569", pid 12998, jiffies 4294992047
-  hex dump (first 32 bytes):
-    12 4e fe 86 ff ff ff ff c8 ac 8d 18 80 88 ff ff  .N..............
-    c8 ac 8d 18 80 88 ff ff 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 8dccd85e):
-    kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4696 [inline]
-    slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4996 [inline]
-    __kmalloc_cache_noprof+0x1bf/0x420 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:5559
-    _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:991 [inline]
-    _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:1312 [inline]
-    lookup_or_create_module_kobject+0x47/0x100 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/kernel/params.c:761
-    module_add_driver+0x73/0x1b0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/module.c:46
-    bus_add_driver+0x1d9/0x340 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/bus.c:767
-    driver_register+0xde/0x170 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/driver.c:174
-    usb_gadget_register_driver_owner+0x50/0x140 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/udc/core.c:1752
-    raw_ioctl_run home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:596 [inline]
-    raw_ioctl+0xa26/0x1830 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:1307
-    vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
-    __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
-    __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
-    do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-
-<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
-
+------------[ cut here ]------------
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
+Modules linked in:
+CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
+Tainted: [W]=WARN, [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
+Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
+RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
+RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
+RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
+RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
+R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
+R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
+FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+PKRU: 80000000
+Call Trace:
+ <TASK>
+ init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
+ udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
+ udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
+ udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
+ vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
+ __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
+ do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x590d6d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
+RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
+RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
+R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
+ </TASK>
+---[ end trace 0000000000000000 ]---
 ---
 
