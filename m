@@ -1,48 +1,65 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C47342E436;
-	Fri, 18 Sep 2026 09:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E1D429827;
+	Fri, 18 Sep 2026 09:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725282; cv=none; b=U04hixs+hfMmXEJ3diSs+UxCcxHHl1UgYbaQ+OnBvSd1tm39BCXYnB3f3iC0WeYZquR2BCSqzpDObOljmUDPBF/WtoNP4T2JRF2OWCJhLY0qSORDLHpOkytNoDimxdVNIrHQn7coa6tIt+zA7R7vgBEAy1VFtdmrX8NBza3XnDE=
+	t=1789725312; cv=none; b=P1MYbZRldi8oAkjUr1NEV3T9pueEEeC91L/xV+mPXg/fE31f+mkjv1bu2FZTXx8EnjGFjt1OM/slGiktm/axGISwMzbMG0or9bX96uNqJ6d5pFweNfjmMpZZsU/jffp+rfsDJL0m5WWihCnw16q0boM3Zv+iq21VBh084ttJSSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725282; c=relaxed/simple;
-	bh=QfYWwLAkImiI333+tIG+q13/b6GKvBLxca7zFYXjRbA=;
+	s=arc-20240116; t=1789725312; c=relaxed/simple;
+	bh=NyQpiwWFyBhwzO36dTkZElIhO2mMg9RXIWq+AFltKwE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b6wtaHSweZNuAxv/8sAE/4Lmvo4ng7ix+aqQBMjenQ9m0zhgwV2PivtkwQwqSW53PZGgMbtNqUwIjAccUKDTNQXs6SGU6RZ2Wp3z0rh2+Qp1ckoCoZro74asvieI4p5RykzkhaFf9UsNRYXR6OaMqg3TAsJPNqjy2Otf4XUS/cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=UYfHUl43; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=nVELL5Q+Y4MaO2oUOU+OBICRpVLAkyeYBw0ETAD14/VeCl/ol+vuenso10Ge62VPEq00BfivLi3myMzLFOxEa/caLpU3nuo7a9C86eY1GY1SWVO24VNQC4bqWyaIGvpKu9yq/kw9umvD1okMSF9MRI7jeTngHWlLMS+tsHTdCj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bg4ca9W1; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="UYfHUl43"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=Iz2d2e8t0wkEWqjMMjv5AWLmaohR4cR1kKJ341FT4sA=; 
-	b=UYfHUl43RguOC2naDWh4jO8Tc/f+RdMOGDIz0BbvKRLTaS9XfLcfyeZENnBq9zPCKBDlw+uNIGX
-	wVfComfvl7y0c8uOa+2phzUBvbwJvMiupQb41ZJeheJ0rLNSE7tbH0Zuu4zzCZH949hdHZGh/vQZY
-	OPY02F25RPOD5WSrdUTO3hynbBu3eYUZGkUntlbBBO8ph+No5fXliiTpHQiANdOvzp5GC1IW4rYYD
-	lzzAU6ZFhosYxekk/v1lRmoRLlydFOEBgKw3SK4jrQiFS05BunVRaoiiz0pj2ebxncjzwtskwzt8/
-	Y1ufqRHcbz7jH5iRvsvi40TQ0IVDzAn0mWxQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7VIb-0000000FM1c-0Jx0;
-	Fri, 18 Sep 2026 17:54:30 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:54:29 +1000
-Date: Fri, 18 Sep 2026 19:54:29 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thorsten Blum <blum@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Michal Simek <michal.simek@amd.com>, Harsh Jain <h.jain@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>, linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: xilinx - clear AES key buffer before freeing it
-Message-ID: <aq0KVeDLBP11Eaw_@gondor.apana.org.au>
-References: <20260908191607.405177-2-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bg4ca9W1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725310; x=1821261310;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NyQpiwWFyBhwzO36dTkZElIhO2mMg9RXIWq+AFltKwE=;
+  b=bg4ca9W14oAXsio+BXENBUiihsJFBucizIGVDRv9vOIG1MQhwqFBtIZp
+   9W9gxIOOIINoBkR/rEeTkP4inC8xAYDBLCxEVHPzlL1Hli4RdC1CLL/Yz
+   yc73MmohxmcZVAetvz9f2TWiMyJwbCMKEHLN7710ltEMGDHFTo7mmesGn
+   0NtwNCr/T7EdJCpdXoewyxreLNgXNWup5CNqhjvX+1lhq7tuRHAuoSXVO
+   NUYLbcUxgijegOto3BWbC6DFAqP138Vj1VKE+b1aPlF7MltoAIzlcWgWT
+   q2ie5V9oL7KFVmN05EQNtQACEzrFk+WKgeB/QlcY/OeBpqiSj4X+KuQC8
+   g==;
+X-CSE-ConnectionGUID: okJ5gb8YSRCKP+D4uv63Uw==
+X-CSE-MsgGUID: rfmcq6tOTuyDeeFgMJ6wGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90351635"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90351635"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:55:10 -0700
+X-CSE-ConnectionGUID: s4GtVz8QTBCARtRdvAk8kA==
+X-CSE-MsgGUID: pJsxa6ctR0qQn+qdpaqkBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2513558"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa012.fm.intel.com with ESMTP; 18 Sep 2026 02:55:08 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 8232199; Fri, 18 Sep 2026 11:55:06 +0200 (CEST)
+Date: Fri, 18 Sep 2026 11:55:06 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/3] usb: typec: mux: ps883x: support TYPEC_DP_STATE_F
+Message-ID: <aq0KeqvmjpMdmfiO@black.igk.intel.com>
+References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
+ <20260916-ps883x-disable-usb4-v3-1-8f19386456d0@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,22 +68,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908191607.405177-2-blum@kernel.org>
+In-Reply-To: <20260916-ps883x-disable-usb4-v3-1-8f19386456d0@oldschoolsolutions.biz>
 
-On Tue, Sep 08, 2026 at 09:16:06PM +0200, Thorsten Blum wrote:
-> In xilinx_aes_aead_exit(), the AES key buffer is freed without being
-> cleared, which allows key material to remain in memory. Use
-> kfree_sensitive() to clear the buffer before freeing it.
+On Wed, Sep 16, 2026 at 09:36:32PM +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 > 
-> Fixes: c315cb0005be ("crypto: xilinx - Change coherent DMA to streaming DMA API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/crypto/xilinx/zynqmp-aes-gcm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Several docks, including the Lenovo 40B0 and SSK SC220, still send the
+> legacy TYPEC_DP_STATE_F mode request (deprecated since DisplayPort Alt
+> Mode spec version 1.0b).
+> 
+> Group it with TYPEC_DP_STATE_D.
+> 
+> Assisted-by: Grok(xAI):4.6
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Patch applied.  Thanks.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+
+> ---
+>  drivers/usb/typec/mux/ps883x.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
+> index 64e0a61b776a1..a5696aef054ee 100644
+> --- a/drivers/usb/typec/mux/ps883x.c
+> +++ b/drivers/usb/typec/mux/ps883x.c
+> @@ -207,6 +207,7 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
+>  
+>  			switch (state->mode)  {
+>  			case TYPEC_DP_STATE_D:
+> +			case TYPEC_DP_STATE_F:
+>  				cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
+>  				fallthrough;
+>  			case TYPEC_DP_STATE_C:
+> 
+> -- 
+> 2.53.0
+> 
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+heikki
