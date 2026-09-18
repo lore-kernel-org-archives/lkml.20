@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA8E51589B;
-	Fri, 18 Sep 2026 16:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB7E515988;
+	Fri, 18 Sep 2026 16:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748899; cv=none; b=SmE7sP0crqLp3tDBkqtP1s4bMd3Mi5QltRZeiadQ2JPC+6gylhdctLihiK4z4E2+e+7QQ74cLH1U8kzzdXEc1cvRgC3yjchYF2a64r2ZLPuIt07F/Ij1o0NHsf6BSID1shzZE2J0w65mInnEOzYL+1ikdRAkBWb8KoZxf5pXSqA=
+	t=1789748898; cv=none; b=m9rBierl1pXGwI3HffRwwpJ+A1870K02t/k43KNt0VSETPpSlYQapumQaqS1REs1+ZBba/0A8c8YxAZXPT3XRZ8sGdMJLFbSELDAZS2LOuYjcXFwYhxGSNYv5VVQnZ/ysr476sY/egCWt2oyO80rqP1gY3yFskeNyV8OZcPpqKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748899; c=relaxed/simple;
-	bh=dANEiTIv6WX9Ahf5Kk+KOtXwhtRjgal+FWoz9aBW1fc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jT/frbDIzvEaUfpQwsKb3f8oQrf6JCjYVlf5fN2SX3U2tUaWU0zvzJmzIBcMtdf3Z0fNDjq/M0m6SDhZYj75ggdpl+K1uUOkQHN8d9CSeKWuhNvmyz0gwGaRDku29HZxaT95EjKPl9TagE3IXAfXXczLgr39VxVqEzoS9zrdXH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fonPAfuv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789748898; c=relaxed/simple;
+	bh=6Z8qKohBjG+nYdXMxSIz7GwXcSnl7h3FDD5QcnwlKuY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BZ+b62RjjpKMjLfIYdu5C7CDMQFQ/71cvjFZ5sFXFC46AtOq3B7PIv2/vw47VoUenH9WfjOjos80Ocagsd1vgiPFHY3N/W+GZ7WoDylM6peYB7VpSVI9PSKCYacNZU28wvmfMIqd1rImRkOhc+5YWxktKo/JKKOyxZoXhn5FdlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UB+YS1Us; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fonPAfuv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DAF86C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UB+YS1Us"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BCFC9C2BCF5;
 	Fri, 18 Sep 2026 16:28:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789748897;
-	bh=dANEiTIv6WX9Ahf5Kk+KOtXwhtRjgal+FWoz9aBW1fc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=fonPAfuvAgIi4VeFMRXeaKlB6BMFGa7mzclKgKceCK03Ab2WzHNlbVzqYzpaYFZSi
-	 oahdUs5zEdCToOwOsOQQRTWm+9zkMvIxJVkAOQniw6Hsm0BYYbsRJw+jI1P+EGq/js
-	 fGsSTdqiy72mVrCP+2LFJepCidL/6KjhR/Bx7ozMuNw/R66HwSrWusJcseJl9Pnu4Z
-	 zOd/BLOFxnFaKGjbu8QDLiz7hKWGmL7iKoDVVqVWXP1ETncPfwbzh7QtsGNcYPdbYO
-	 0SNwMKBQ7d/Su58gZA/AR8cPNRNp3/XYXSNrtJxbaecR4lUWn2rhCw02a+3MIjSsL0
-	 TxfUrxzAhmRkg==
+	bh=6Z8qKohBjG+nYdXMxSIz7GwXcSnl7h3FDD5QcnwlKuY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=UB+YS1UsxCALsNwNH0jSBd7fW29V3RBvgybAQ4h/xGNdUH/X3IfqjYN8WdmgjfUB3
+	 A//A3CjxLTkRhlJA5ehoK03Lii1bxtQend0rG8TZ16NIEvS5JoRZkaQFsZWNbp18A/
+	 7CKgtAFNV9FjigLPhMQnQr6UxSr68hIbLTgUhVX27qM4AEjcFSW2oTLG6PKXhBXyTP
+	 JyHcm6IOKNzCKAEH7kO6H8xzm6C+jNRqRj8qXEarbrhIhghjCrZiloEq0phxz2yRD1
+	 pHtBIAa8t1f59BWhVVUSxWxh7EHNDVgHodvfTapYuVHhfF0hjKQaKDUzCbLFzX5y0Q
+	 Ly2l/SGGIUbBw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA4E3C982DA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98C0CC982D7;
 	Fri, 18 Sep 2026 16:28:17 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Fri, 18 Sep 2026 18:28:14 +0200
-Subject: [PATCH 2/4] net: qrtr: Assign unique node id for MHI endpoints
+Subject: [PATCH 0/4] net: qrtr: Add support for using identical MHI
+ endpoint devices
+Date: Fri, 18 Sep 2026 18:28:12 +0200
+Message-Id: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,10 +40,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-qrtr-multi-ep-v1-2-8a06caa368d3@oss.qualcomm.com>
-References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
-In-Reply-To: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJxmrWoC/yXMQQ6CQAxG4auQrm3CTECFqxgXUH61BhA7AyEh3
+ N1Rl9/ivY0CTBGozjYyLBr0NSa4Q0byaMY7WLtk8rk/5pU789ui8TD3URkTiz+Jb6UsAEepmQw
+ 3XX+/y/XvMLdPSPxOaN8/x3mQHnEAAAA=
+X-Change-ID: 20260918-qrtr-multi-ep-c27c2bc54ee1
 To: Manivannan Sadhasivam <mani@kernel.org>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -58,16 +60,16 @@ Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
  Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2620;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2798;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=uOYu1U8wIC2RDVexAi1abQkUbN13SL1t/kCkWYPYdoU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqrWaeF6Y6uwvyLe36Rr5ay4I2MYWQOIJL3dVs1
- jNepmU7vnOJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaq1mngAKCRBVnxHm/pHO
- 9V4QB/9kPI0g4gGHMb3I5Vi2hxhCo0kEQntSmTve/Ue2kyHg9KUVLEW0zCa8hVLz6PnxAVHjAVA
- ylXCIxMiSZ1zKUtacpBbNWVX/s9aOZ4ssYRRpL1mestEhvCm7DeyUj2J8BaHtmoUOg/+4MiVgIx
- rtW29lzRhqyQ/KjmlziBLmWQCeO4qiHisKkHMfv8slVhRLBF17FYKFeBcXs1QnpMkzwM+0hDFKh
- ng90uQj02fm/GCTwNSgv5ajUHuZ5wzD+PJpivaSQrx/vtdIzZ/bo6lqEQi8k7rx8+l6bxSXFz4X
- jh/fhii/LHuvp7URaJdAmNt4Na3pqqrg+XH77+DLNk2iv2PX
+ bh=6Z8qKohBjG+nYdXMxSIz7GwXcSnl7h3FDD5QcnwlKuY=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqrWad4ZoZAEk0cQeZgtJ6b+1eEpkYMcmutGWLA
+ bVHEQdUHwSJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaq1mnQAKCRBVnxHm/pHO
+ 9ajuB/9glk15Vu0tJD0QCmDRJJUz3pwSef4SYXyEyq4KwQWyU8SLii0UBPrZAO8Qc0i91NTNI6o
+ U43q/76VuAhZFJW60hvtqrjwOgMelpnds+dpqZER0h26ie9F9MKmgRJLfNhW7Mp8JYMzYSsMBE7
+ zSydfaCl33EE+Paw/sQMO1ktG35sGcQSi6pIvTaWBL4pLDRfG2oQHqPkwIrNGXZZ3xNB82jh6aX
+ 9xv42TRFy9qRwDQ0/7M/1BpSV4WZ32GfSxzXFKAZoH4BITmySewHu92P1NeI0dsRitKiXZlk016
+ Z+Fbq1Hr4crb5FBljkXN4jfcjzVhgEmR4VWmIWBenBt0UcZP
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -75,90 +77,69 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Hi,
 
-Now that the QRTR driver allows using the unique node id for each device,
-which is different from the node id received from the remote node, compute
-a unique node id using a new API, qrtr_host_node_id().
+This series reworks the QRTR driver to add support for using identical MHI
+endpoint devices at the same time. Currently, QRTR driver has a limitation on
+using more than one identical MHI endpoint devices like QCS6490 or any Qcom
+Endpoint device making use of QRTR at the same time. Because of the fact that
+these devices will have the identical QRTR node id, they cannot be used at the
+same time, on the same host machine.
 
-This API takes the 'index' parameter and adds it to QRTR_NODE_HOST_BASE,
-whose value is outside of the node id range used by the remote nodes (0 to
-0xffff).
+This limitation is a blocker for running upstream kernel on devices like Qcom
+based routers as they often have multiple identical WLAN Endpoint devices
+connected to the Router SoC.
 
-Finally, call the new API from MHI endpoint driver by passing the MHI
-controller index as the parameter. The MHI controller index is unique for
-each controller, thereby for each MHI endpoint device.
+This series supersedes the following 2 series from Juha:
+https://lore.kernel.org/all/20260915054207.2513877-1-juha-matti.tilli@iki.fi
+https://lore.kernel.org/all/20260915074135.2567411-1-juha-matti.tilli@iki.fi
+
+Compared to the series from Juha, this series simplifies the multi-endpoint
+support by computing a unique node id for each MHI endpoint and uses it for the
+internal QRTR book keeping. This ensures that even if the MHI endpoint devices
+have same node ids, the host QRTR will always use a unique node id for each one
+of them.
+
+More details can be found in the individual patches.
+
+Testing
+=======
+
+Juha tested this series on multi ath11k setup by backporting this series to
+6.6.156 kernel. I'd appreciate a formal tested-by tag from Juha and other folks
+CCed to this series.
+
+Merge Strategy
+==============
+
+Since both QRTR and ath drivers are falling under the networking tree, the whole
+series can be merged through netdev tree.
 
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- MAINTAINERS        |  1 +
- include/net/qrtr.h | 21 +++++++++++++++++++++
- net/qrtr/mhi.c     |  4 +++-
- 3 files changed, 25 insertions(+), 1 deletion(-)
+Manivannan Sadhasivam (4):
+      net: qrtr: Allow the host QRTR to assign a unique node id
+      net: qrtr: Assign unique node id for MHI endpoints
+      wifi: ath11k: Connect to the QMI server belonging to the device owned by this driver
+      wifi: ath12k: Connect to the QMI server belonging to the device owned by this driver
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..bc1af0cd8a8b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22504,6 +22504,7 @@ QUALCOMM IPC ROUTER (QRTR) DRIVER
- M:	Manivannan Sadhasivam <mani@kernel.org>
- L:	linux-arm-msm@vger.kernel.org
- S:	Maintained
-+F:	include/net/qrtr.h
- F:	include/trace/events/qrtr.h
- F:	include/uapi/linux/qrtr.h
- F:	net/qrtr/
-diff --git a/include/net/qrtr.h b/include/net/qrtr.h
-new file mode 100644
-index 000000000000..745d51b4a6ba
---- /dev/null
-+++ b/include/net/qrtr.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+#ifndef _NET_QRTR_H
-+#define _NET_QRTR_H
-+
-+#include <linux/types.h>
-+
-+/* The offset is chosen carefully to not collide with the node ids allocated by
-+ * the remote nodes. All the remote nodes use node ids in range 0 to 0xffff.
-+ */
-+#define QRTR_NODE_HOST_BASE 0x10000u
-+
-+/* Compute host node id from a per-device index. The index must be unique
-+ * among the host assigned endpoints and smaller than QRTR_NODE_HOST_BASE.
-+ */
-+static inline unsigned int qrtr_host_node_id(unsigned int index)
-+{
-+	return QRTR_NODE_HOST_BASE + index;
-+}
-+
-+#endif /* _NET_QRTR_H */
-diff --git a/net/qrtr/mhi.c b/net/qrtr/mhi.c
-index 3990da1a65dc..c920ab61f848 100644
---- a/net/qrtr/mhi.c
-+++ b/net/qrtr/mhi.c
-@@ -6,6 +6,7 @@
- #include <linux/mhi.h>
- #include <linux/module.h>
- #include <linux/skbuff.h>
-+#include <net/qrtr.h>
- #include <net/sock.h>
- 
- #include "qrtr.h"
-@@ -127,7 +128,8 @@ static int qcom_mhi_qrtr_probe(struct mhi_device *mhi_dev,
- 	if (rc)
- 		return rc;
- 
--	rc = qrtr_endpoint_register(&qdev->ep, QRTR_EP_NID_AUTO);
-+	rc = qrtr_endpoint_register(&qdev->ep,
-+				    qrtr_host_node_id(mhi_dev->mhi_cntrl->index));
- 	if (rc)
- 		goto err_unprepare;
- 
+ MAINTAINERS                           |  1 +
+ drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
+ drivers/net/wireless/ath/ath11k/pci.c |  9 ++++++
+ drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++
+ drivers/net/wireless/ath/ath12k/hif.h |  9 ++++++
+ drivers/net/wireless/ath/ath12k/pci.c |  9 ++++++
+ drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++
+ include/net/qrtr.h                    | 21 ++++++++++++
+ net/qrtr/af_qrtr.c                    | 61 +++++++++++++++++++++++++++++++----
+ net/qrtr/mhi.c                        |  4 ++-
+ 10 files changed, 136 insertions(+), 8 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260918-qrtr-multi-ep-c27c2bc54ee1
 
--- 
-2.43.0
+Best regards,
+--  
+மணிவண்ணன் சதாசிவம்
 
 
