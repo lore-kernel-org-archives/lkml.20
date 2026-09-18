@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206C03AF66E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765AF3905E0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696021; cv=none; b=neogO/CbMjw1fTAPy7+/DVnGOa1MggLX2aIV0Ytmf5RhOypZYm4UXM7F4FxFxdMldkNqVtJM2a6naVovcL0I/M40j0+g0WJcFguAdbekOGbRUSqPDmZRx0zMUYrdlP22sHIZFFGYwsstbKt7ukD/aiECWBNFcF9WM4nweKuJU2o=
+	t=1789696028; cv=none; b=hlESbPSLeoQmScj9H36LggHJhWxzHPosIIZXl7NzmVL8CXfGNt8Hte5TsbqepRrN3fTdKXG33rKziT9h3knKOvDBGYQVdK6QUKQpr10t+FbZcz5+wnzV1L7ozFYV39fg1ouN5K7p3KjrbCr/PAuKsJqku5pmT1RWFS2f101vMP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696021; c=relaxed/simple;
-	bh=5R31p9BSkoodWsD0qFM6VP1GZs0ic74wnfEkgjrpbio=;
+	s=arc-20240116; t=1789696028; c=relaxed/simple;
+	bh=cG7huj9TDwRQunHViZnWICqhigwv6Nb0Her5yfGDYOg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TIfWFQeu7OXbnG6TsRYhAXFS/LdytPVrfhssghKMugKP+XK7z8QvG8MPhOPzToWoW0MmfEV0BLpL3FIWCR5NJOHUn+P9b0wDr7KjgvgaIT2vndE0QqhMrvSCFQDCNV1UVqgwnNb4cwEmwGHdGf43/LLTbicMVR6a80rW9HI7OzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P+G9NNtp; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=aX2cMkHA8/0R9OjmAmxXYgW3/ctzHMVukj2W6Q/xdAkKCfIT3KjZi6/5PNpQPSxfzdtphIGnCCG5G48Elgfiy0COEdYec4p9bopgBEGKRQN2GM/Nxejf7K+3ognNduNx3n1s7bdRdMdeu/AiIiQuEqgC88HJslYDHO2UwDP4/k4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SbVAKnGF; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P+G9NNtp"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SbVAKnGF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789696003;
+	s=mimecast20190719; t=1789696013;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Sn1phcmIUsqYDE7FBADv0MCd5ZBigkQob+Tfo5WLJXU=;
-	b=P+G9NNtpAaMLMaNiUDnrBeANCMlICW4sFtqVq72fSlK4zqyRB5ivvtMGlHy0F9v0+e34O2
-	+kjoytg8ocQ8tWi+ye5gFVrY4NJJXTabLrIa2uM9dZKp6XaZupRDqQFRnp+sZ5O3jj+prj
-	ViECUB6rWvD95vTVxawUX+ri48R3UD8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+	bh=rsETOCxsnGoxp5I/fBy/awngfGJ8vwYAl7i19XvMBac=;
+	b=SbVAKnGFmlnsA0JqY4Mkm8WBl0dfPMZjNQpE9M0rlfRui63f+6pMLaUBuC6L6CocvBDQzY
+	ZH9fY8HlzDVv/MEziLW8NJMs32+SI/XFjjT7XZvUhh8SQiUdMiBJy97BW7xOBk36CCHRYF
+	KI9p7RKATmfvopHNDZEjWIFGOY8hros=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-614-pdNvms8EOEm0xi0nlB4bTw-1; Thu,
- 17 Sep 2026 21:46:37 -0400
-X-MC-Unique: pdNvms8EOEm0xi0nlB4bTw-1
-X-Mimecast-MFC-AGG-ID: pdNvms8EOEm0xi0nlB4bTw_1789695994
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-81-7Wjpv7WeOSKWc1MHEwt8QA-1; Thu,
+ 17 Sep 2026 21:46:49 -0400
+X-MC-Unique: 7Wjpv7WeOSKWc1MHEwt8QA-1
+X-Mimecast-MFC-AGG-ID: 7Wjpv7WeOSKWc1MHEwt8QA_1789696006
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1B0501800148;
-	Fri, 18 Sep 2026 01:46:34 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9B658187A5F6;
+	Fri, 18 Sep 2026 01:46:46 +0000 (UTC)
 Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A633B18002B1;
-	Fri, 18 Sep 2026 01:46:30 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF113180034C;
+	Fri, 18 Sep 2026 01:46:42 +0000 (UTC)
 From: Luiz Capitulino <luizcap@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
@@ -70,9 +70,9 @@ Cc: corbet@lwn.net,
 	yintirui@huawei.com,
 	dev.jain@arm.com,
 	usama.arif@linux.dev
-Subject: [PATCH v8 07/14] mm: shmem: allow THP support determination at folio allocation time
-Date: Thu, 17 Sep 2026 21:45:28 -0400
-Message-ID: <f74ada750d1910f8ea7e55955eb0c330747b93d4.1789695931.git.luizcap@redhat.com>
+Subject: [PATCH v8 10/14] mips: move has_transparent_hugepage() out of THP guard
+Date: Thu, 17 Sep 2026 21:45:31 -0400
+Message-ID: <13b8b68cde4d6cccd6eb9b73cfe083145bd1f014.1789695931.git.luizcap@redhat.com>
 In-Reply-To: <cover.1789695931.git.luizcap@redhat.com>
 References: <cover.1789695931.git.luizcap@redhat.com>
 Precedence: bulk
@@ -84,74 +84,113 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-In order to enable THP support in shmem today, besides the user
-configuration required, the CPU must support PMD-sized pages. This
-is the case because of the following has_transparent_hugepage()
-usage:
+A future commit will introduce a kernel API to allow for checking if the
+CPU supports PMD-sized pages. This API will be based on the
+has_transparent_hugepage() implementation but will be orthogonal to THP
+and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
 
-- shmem_parse_one() and shmem_parse_huge(): Check if THP is built-in and
-  if the CPU supports PMD-sized pages
+This commit moves has_transparent_hugepage() definition to
+arch/mips/mm/pgtable.c under CONFIG_CPU_SUPPORTS_HUGEPAGES guard in
+order to ensure that it's only used in CPUs that support the register
+operations performed.
 
-- shmem_init(): Since the CONFIG_TRANSPARENT_HUGEPAGE guard is outside
-  the code block calling has_transparent_hugepage(), the
-  has_transparent_hugepage() call is exclusively checking if the CPU
-  supports PMD-sized pages
-
-While it's necessary to check if CONFIG_TRANSPARENT_HUGEPAGE is enabled
-in all cases, shmem can determine THP size support at folio allocation
-time. Therefore, drop the has_transparent_hugepage() usage listed above
-while keeping the CONFIG_TRANSPARENT_HUGEPAGE checks.
-
-Additionally, we need to check if PMD size order is supported in
-shmem_getattr(). Use pgtable_has_pmd_leaves() for that.
-
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
 ---
- mm/shmem.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ arch/mips/include/asm/pgtable.h |  6 +++---
+ arch/mips/mm/pgtable.c          | 25 +++++++++++++++++++++++++
+ arch/mips/mm/tlb-r4k.c          | 22 ----------------------
+ 3 files changed, 28 insertions(+), 25 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 776dff8a848e..930657d05375 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -690,7 +690,7 @@ static int shmem_parse_huge(const char *str)
- 	else
- 		return -EINVAL;
+diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
+index fa7b935f947c..b038da872ec6 100644
+--- a/arch/mips/include/asm/pgtable.h
++++ b/arch/mips/include/asm/pgtable.h
+@@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
+ /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
+ #define pmdp_establish generic_pmdp_establish
  
--	if (!has_transparent_hugepage() &&
-+	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
- 	    huge != SHMEM_HUGE_NEVER && huge != SHMEM_HUGE_DENY)
- 		return -EINVAL;
+-#define has_transparent_hugepage has_transparent_hugepage
+-extern int has_transparent_hugepage(void);
+-
+ static inline int pmd_trans_huge(pmd_t pmd)
+ {
+ 	return !!(pmd_val(pmd) & _PAGE_HUGE);
+@@ -743,6 +740,9 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
  
-@@ -1524,6 +1524,8 @@ static int shmem_getattr(struct mnt_idmap *idmap,
- 	generic_fillattr(idmap, request_mask, inode, stat);
+ #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
  
- 	orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
-+	if (!pgtable_has_pmd_leaves())
-+		orders &= ~BIT(PMD_ORDER);
- 	if (orders)
- 		stat->blksize = PAGE_SIZE << highest_order(orders);
- 
-@@ -4814,8 +4816,7 @@ static int shmem_parse_one(struct fs_context *fc, struct fs_parameter *param)
- 	case Opt_huge:
- 		ctx->huge = result.uint_32;
- 		if (ctx->huge != SHMEM_HUGE_NEVER &&
--		    !(IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
--		      has_transparent_hugepage()))
-+		    !IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
- 			goto unsupported_parameter;
- 		ctx->seen |= SHMEM_SEEN_HUGE;
- 		break;
-@@ -5620,7 +5621,7 @@ void __init shmem_init(void)
++#define has_transparent_hugepage has_transparent_hugepage
++extern int has_transparent_hugepage(void);
++
+ #ifdef _PAGE_HUGE
+ #define pmd_leaf(pmd)	((pmd_val(pmd) & _PAGE_HUGE) != 0)
+ #define pud_leaf(pud)	((pud_val(pud) & _PAGE_HUGE) != 0)
+diff --git a/arch/mips/mm/pgtable.c b/arch/mips/mm/pgtable.c
+index 10835414819f..4515fa42f0b3 100644
+--- a/arch/mips/mm/pgtable.c
++++ b/arch/mips/mm/pgtable.c
+@@ -23,3 +23,28 @@ pgd_t *pgd_alloc(struct mm_struct *mm)
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(pgd_alloc);
++
++#ifdef CONFIG_CPU_SUPPORTS_HUGEPAGES
++int has_transparent_hugepage(void)
++{
++	static unsigned int mask = -1;
++
++	if (mask == -1) {	/* first call comes during __init */
++		unsigned long flags;
++
++		local_irq_save(flags);
++		write_c0_pagemask(PM_HUGE_MASK);
++		back_to_back_c0_hazard();
++		mask = read_c0_pagemask();
++		write_c0_pagemask(PM_DEFAULT_MASK);
++		local_irq_restore(flags);
++	}
++	return mask == PM_HUGE_MASK;
++}
++#else
++int has_transparent_hugepage(void)
++{
++	return 0;
++}
++#endif
++EXPORT_SYMBOL(has_transparent_hugepage);
+diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
+index 24fe85fa169d..625f1c0dd71e 100644
+--- a/arch/mips/mm/tlb-r4k.c
++++ b/arch/mips/mm/tlb-r4k.c
+@@ -432,28 +432,6 @@ void add_wired_entry(unsigned long entrylo0, unsigned long entrylo1,
  #endif
+ }
  
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
--	if (has_transparent_hugepage() && shmem_huge > SHMEM_HUGE_DENY)
-+	if (shmem_huge > SHMEM_HUGE_DENY)
- 		SHMEM_SB(shm_mnt->mnt_sb)->huge = shmem_huge;
- 	else
- 		shmem_huge = SHMEM_HUGE_NEVER; /* just in case it was patched */
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-
+-int has_transparent_hugepage(void)
+-{
+-	static unsigned int mask = -1;
+-
+-	if (mask == -1) {	/* first call comes during __init */
+-		unsigned long flags;
+-
+-		local_irq_save(flags);
+-		write_c0_pagemask(PM_HUGE_MASK);
+-		back_to_back_c0_hazard();
+-		mask = read_c0_pagemask();
+-		write_c0_pagemask(PM_DEFAULT_MASK);
+-		local_irq_restore(flags);
+-	}
+-	return mask == PM_HUGE_MASK;
+-}
+-EXPORT_SYMBOL(has_transparent_hugepage);
+-
+-#endif /* CONFIG_TRANSPARENT_HUGEPAGE  */
+-
+ /*
+  * Used for loading TLB entries before trap_init() has started, when we
+  * don't actually want to add a wired entry which remains throughout the
 -- 
 2.55.0
 
