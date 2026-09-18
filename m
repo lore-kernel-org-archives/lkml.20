@@ -1,128 +1,195 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372C052CCEF
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766449; cv=none; b=dsn+6SNnC9qSFsbYZKYs/n8JfYBPeXK86rpM5n57AdroVqiTGeEoQZQBe3AwKHF4RjCIyTiAsuZWXDLN1ZQu2A4Mloj28bDdZeJJVmFptVBi4tEjA8LHvTWAh1fVgAMAJ2MY/ogM09sBLH0K2ERx07EFYo0fILG0N+N9xgW5LKI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766449; c=relaxed/simple;
-	bh=cLaFuMsX/J0zSn55GeVISf0SU6o/PJijEaT3vRfGDQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gEUg+afQ527oBYQJfNlHnCIwrbyFK/ul04t76ZqkQqc3rsMMMAPW/89MLDpVQNeH51Zh10zLz2Gdg3166uBWRdDCRWH6zRMyR3l4mIj4GQ6rAr3ppyUX7M8ltI1pvmAevOo48n+z8eo+v1ej+NrFaGWfIbFpB68CJq1aOo25+1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com; spf=pass smtp.mailfrom=arista.com; dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b=bApyeyVC; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A01152E046;
+	Fri, 18 Sep 2026 21:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789766456; cv=pass; b=kXs8taFi1I3IY9oU9pTwuAPnyHD/LxHBW+EqmOyOR8Tbh7u5gXlXPbWUxybE/EQvnZNQrZeZdgkiHZV/HPiJMv9NOytWh/HzaEeRVx8ThSdnHk3g/OuOSbnF6vSPtMCCMF9/JXt8S/isZUcJxyLFQg+O5UaoB/+cIl9JoV2S968=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789766456; c=relaxed/simple;
+	bh=YOSjn37aLTWZke9iLmPvLBAxRSqkA1gloFnVqhWQZqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hcjzl64eU49EH6ZQK2hu+0nz08WB3g2Uh2aBtmD7yV/+QHbilqqThhgd8p/caRX3WmQaKX8onrHD5KK5fsKYVOB63+86rqNydt2nXn8Uh72lS5oO4Uien+Dy3/fChKM+4cWQ7WJ8slRQ6w7yYj1XsGrEDGe4jJ6jqAve4jP3x5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=HmIQKc6O; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.b="bApyeyVC"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso884053a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1789766446; x=1790371246; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlvPZmkodSWKlZLq43ZSJsHfXL/FkAr8wO/PLm1mStM=;
-        b=bApyeyVCR/bJJ3v0JIVee1948Dkvt6h6SvtgD/XWfsBcRjn9Z8Lj6rd/1xMCCd3RKy
-         +BtZ8T5KUJNhudMipDO3XWyZCYoH04/W7OglRIX1B+X2a1PPfe2fmq3z8CqDLuhWHDMR
-         8EUJc0gC6jed2a31rN/SJyCmxzyAQ8SofJEMxdmMIn9VLI+/4nwb97GkblziZcVqiC6F
-         1Kb1OuYgp5BMC8XyuNV9jrhCESnChb4uMrMJa1qS6vxfLAvIWkJoFvhjhMeoNMhKTwo/
-         Y84bG3x/k/ppBSv/bleNG1pgoeueMfOldkFjVZszFAvKmwUPI3lcOAZuUuw+AA9A/sd/
-         pu8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789766446; x=1790371246;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DlvPZmkodSWKlZLq43ZSJsHfXL/FkAr8wO/PLm1mStM=;
-        b=CQyk9V9/UBVR8aSpHNTn7KPGKPv6wIoNBlipLNLTI3eXL6Seb2QlOosAO9eTSMYttp
-         2twXqup6byiOLKgyE+Kur5JzxZjQOquVSK+yAxqmyXDnVvZaa8iGuAueRMQpMBxEJh1m
-         ba1NqfPNhNuUhbGb9lntv0C00+rua03nXeF9ctqHn2Rj+h3Fwbq3CJYsv06NOv0MGsvA
-         uswaiwLgpBKBUg7fRzinSurhmkH7S7is03F3urF0+dPXOTfPsUVNW7niNJ4gVQ1y+ZeO
-         L+/mxRWtv+xPhuLoXVR+m/GcaQB56wSIyVNaWOXcHSTEjjEcf/JkABeZM2ICgJc2Qocy
-         201g==
-X-Forwarded-Encrypted: i=1; AKwUvBz/o4/s6H6rMbq+GU2XbEC4PG3tCvHgn0i9S5IEnR5g71GL//6PMk0Gcut+hwROCXUaZ6amYCY7HDn70yE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0V67+RLWyUgBSWe7Rv1/Zcw3i3IMAgoBPmO5A2qfD3BX8omaz
-	M7LcymWog42bS9nvFVQUDXJAp6CWE8l3b8CYLwefHBoirv+Sq9HZr7Ztewxhb3vkuw==
-X-Gm-Gg: AYBFou3uE2Ygy1meF7Vt8ZB37vcFbPxL6fsKYrfaFsBZss5wXzBoMIk7olIoIUj4lH9
-	na7BM9vOJrNoyQwY7iFhqlMMCRrAQ8Bc5zN5GNhYdr8lAVR1uPiSYuembgc03XdF5NCp7aqUFor
-	xa5INN94cWZesL+ovkVS+Rv3fcZpRl7r8+6mZgKqDXfXBtljjjH7oPLHsOeKritzQa6SoKVdBdZ
-	ILD8LaQyNz47Qqtj0bEvlxzpFEShP2jaj+7VIpWnIo8oa0vpRYgjyzZmp13TR/5dCKaego4/FTu
-	Xy3sWS2A+MpXZVpKGHFvAjD/jssl5qGdj7cqh2UBlyC71EbWUrEDTbpGREDHQth6yxlxifiOL/A
-	OCe4XGuUZnKbYp1O6UdEzkmKeEANY9gb8C9i6NJPKeLt6QwD1hkyxOmXV0FoLbXC2168fiMg0vF
-	jr5br4HTSR9xt4bxk4K4CUfoZJO2g/AqRu91VOrFbD/KS55Q5a8jp65G9Hy8jIUtQSBx2MSxE0I
-	0jhbxlvdLQCKBwDK8ON/yPevaNCUFgLCAGmepFDwjYLIK2f6ddi
-X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39e54bd0941mr7847088a91.15.1789766446231;
-        Fri, 18 Sep 2026 14:20:46 -0700 (PDT)
-Received: from yurypm-new-58lzp.sjc.aristanetworks.com ([74.123.28.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55e71a4sm1004948c88.13.2026.09.18.14.20.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 14:20:45 -0700 (PDT)
-From: Yury Murashka <yurypm@arista.com>
-To: bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yury Murashka <yurypm@arista.com>
-Subject: [PATCH] PCI: pciehp: Add PLX quirk for missing Command Completed events
-Date: Fri, 18 Sep 2026 21:19:26 +0000
-Message-ID: <20260918211926.1480-1-yurypm@arista.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="HmIQKc6O"
+ARC-Seal: i=1; a=rsa-sha256; t=1789766443; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aK8T1LCJElHchFVo//zNjR2sWeqf0MSwb6MNa6AWx6JaIOpmkHAmxrqfJtlDx3QH3gGz11+7fyJKCbwuO0yMzKzI/Z61PbN0fp4Igsde2Rj4//D3a+TdAyZngezj2r7hf5ecUn2855CUbhJowlZEs+uhcsMQJCvfBk7UmB4/lzE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789766443; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=H+P7YnXPfz9ptQy86PJm7ONmSOKBYxrU4NYx2d3q4yI=; 
+	b=Ufe2BD5RNyzuwkIIEXSkOL+AcMqsYp04pJu4bS+9s6Xpmr2Ny+voJYdU3lZwh/HQrrDjQBosN5GP+egVzOzjnRrmaNf1ZVOS40n0mHRLZ8nvpgiL2vEY5cAJrpk4angEf5xbORIzlh29EsosS8od7etZKVdPvU88mlONSvfwnp4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789766443;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=H+P7YnXPfz9ptQy86PJm7ONmSOKBYxrU4NYx2d3q4yI=;
+	b=HmIQKc6Oei1tc7AfFr/dCrlZ1rqSVfx/+qfYh4en9RZB7AlszKpFSbRQuvZ8vk6m
+	9tN17nymSlAtcBjiywF3PGGDQylNDIpm6WpqGX9XiYR5LVpPaYCLN1eFK7awiWo6bDd
+	aj2S5Fxlz4SS5/+lok8V80o2Ns3RVJSFRse9FDYE=
+Received: by smtp.zohomail.com with SMTPS id 1789766441920465.471558146431;
+	Fri, 18 Sep 2026 14:20:41 -0700 (PDT)
+Message-ID: <7a419924-01ea-4de7-b662-18b0ca62082a@collabora.com>
+Date: Fri, 18 Sep 2026 23:20:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: dts: rockchip: add vicap node to rk3576
+To: Amin Gattout <amin.gattout@gmail.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260915-vicap-rk3576-v1-0-d3f5eb58a0b5@gmail.com>
+ <20260915-vicap-rk3576-v1-3-d3f5eb58a0b5@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260915-vicap-rk3576-v1-3-d3f5eb58a0b5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-All PLX PEX 8600- and 8700-series data books say the Command Completed bit
-is set only after the Hot Plug Controller completes a command that changes
-the Attention Indicator Control, Power Indicator Control, Power Controller
-Control, or Electromechanical Interlock Control fields.  It is not set
-after writes that only change the Presence Detect Changed Enable or Command
-Completed Interrupt Enable bits.
+Hi Amin,
 
-Consequently, pciehp waits for Command Completed after changing these
-notification Enable bits and logs a timeout.
+Thanks for the patch, LGTM!
 
-This behavior exactly matches the conditions described when
-quirk_cmd_compl() was first added: both controllers report completion only
-when the same four Control fields change and fail to report completion for
-notification Enable-only writes.
+On 9/15/26 14:27, Amin Gattout wrote:
+> Add the device tree node for the Video Capture (VICAP) unit of the
+> RK3576 and its IOMMU, and connect the VICAP to the two MIPI CSI-2
+> receivers that are usable with the MIPI D-PHYs in full mode.
+> 
+> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 
-Add only the PLX PEX 8600- and 8700-series switches on which this fix was
-tested to quirk_cmd_compl().  This makes pciehp mark Enable-only writes
-complete immediately while continuing to wait for commands that change
-Control fields.
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-Signed-off-by: Yury Murashka <yurypm@arista.com>
----
- drivers/pci/hotplug/pciehp_hpc.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Best regards,
+Michael
 
-diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
-index 4c62140a3..5450aa6c7 100644
---- a/drivers/pci/hotplug/pciehp_hpc.c
-+++ b/drivers/pci/hotplug/pciehp_hpc.c
-@@ -1122,3 +1122,17 @@ DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_QCOM, 0x0401,
- 			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
- DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_HXT, 0x0401,
- 			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8717,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8725,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8749,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8604,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8608,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8609,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_PLX, 0x8614,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_cmd_compl);
-
-base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
--- 
-2.51.0
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi | 83 ++++++++++++++++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> index cbf8b70cc15a..0c46accf5657 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1323,6 +1323,81 @@ vdec_mmu: iommu@27b00800 {
+>  			rockchip,disable-mmu-reset;
+>  			#iommu-cells = <0>;
+>  		};
+> +		vicap: video-capture@27c10000 {
+> +			compatible = "rockchip,rk3576-vicap";
+> +			reg = <0x0 0x27c10000 0x0 0x800>;
+> +			interrupts = <GIC_SPI 318 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru ACLK_VICAP>, <&cru HCLK_VICAP>,
+> +				 <&cru DCLK_VICAP>,
+> +				 <&cru CLK_VICAP_I0CLK>, <&cru CLK_VICAP_I1CLK>,
+> +				 <&cru CLK_VICAP_I2CLK>, <&cru CLK_VICAP_I3CLK>,
+> +				 <&cru CLK_VICAP_I4CLK>;
+> +			clock-names = "aclk", "hclk", "dclk",
+> +				      "iclk", "iclk1", "iclk2", "iclk3", "iclk4";
+> +			iommus = <&vicap_mmu>;
+> +			power-domains = <&power RK3576_PD_VI>;
+> +			resets = <&cru SRST_A_VICAP>, <&cru SRST_H_VICAP>,
+> +				 <&cru SRST_D_VICAP>,
+> +				 <&cru SRST_VICAP_I0CLK>, <&cru SRST_VICAP_I1CLK>,
+> +				 <&cru SRST_VICAP_I2CLK>, <&cru SRST_VICAP_I3CLK>,
+> +				 <&cru SRST_VICAP_I4CLK>;
+> +			reset-names = "arst", "hrst", "drst",
+> +				      "irst0", "irst1", "irst2", "irst3", "irst4";
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				vicap_dvp: port@0 {
+> +					reg = <0x0>;
+> +				};
+> +
+> +				vicap_mipi0: port@1 {
+> +					reg = <0x1>;
+> +				};
+> +
+> +				vicap_mipi1: port@2 {
+> +					reg = <0x2>;
+> +
+> +					vicap_mipi1_input: endpoint {
+> +						remote-endpoint = <&csi1_output>;
+> +					};
+> +				};
+> +
+> +				vicap_mipi2: port@3 {
+> +					reg = <0x3>;
+> +				};
+> +
+> +				vicap_mipi3: port@4 {
+> +					reg = <0x4>;
+> +
+> +					vicap_mipi3_input: endpoint {
+> +						remote-endpoint = <&csi3_output>;
+> +					};
+> +				};
+> +
+> +				vicap_mipi4: port@5 {
+> +					reg = <0x5>;
+> +				};
+> +
+> +				vicap_toisp0: port@10 {
+> +					reg = <0x10>;
+> +				};
+> +			};
+> +		};
+> +
+> +		vicap_mmu: iommu@27c10800 {
+> +			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
+> +			reg = <0x0 0x27c10800 0x0 0x100>;
+> +			interrupts = <GIC_SPI 319 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cru ACLK_VICAP>, <&cru HCLK_VICAP>;
+> +			clock-names = "aclk", "iface";
+> +			power-domains = <&power RK3576_PD_VI>;
+> +			rockchip,disable-mmu-reset;
+> +			#iommu-cells = <0>;
+> +			status = "disabled";
+> +		};
+>  
+>  		csi1: csi@27c90000 {
+>  			compatible = "rockchip,rk3576-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+> @@ -1346,6 +1421,10 @@ csi1_in: port@0 {
+>  
+>  				csi1_out: port@1 {
+>  					reg = <1>;
+> +
+> +					csi1_output: endpoint {
+> +						remote-endpoint = <&vicap_mipi1_input>;
+> +					};
+>  				};
+>  			};
+>  		};
+> @@ -1372,6 +1451,10 @@ csi3_in: port@0 {
+>  
+>  				csi3_out: port@1 {
+>  					reg = <1>;
+> +
+> +					csi3_output: endpoint {
+> +						remote-endpoint = <&vicap_mipi3_input>;
+> +					};
+>  				};
+>  			};
+>  		};
+> 
 
