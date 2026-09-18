@@ -1,74 +1,35 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EA141686D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C84741A571;
+	Fri, 18 Sep 2026 23:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774820; cv=none; b=bu6TvmQLzhfzMIgEtI9uItRXVbKXdAIMMDxf11Hmhk6Ua15q3VvOe2c2iSMgIAZFXv49QQj6qDY5CaHy8juECH/oyV7LWoUv3yX2eFKprP62tChOumCTyENusVUuQmpxcxc0pg3UObhI0krGK0fy9/HUxuo2+42/bfs65jJPLuY=
+	t=1789774873; cv=none; b=ce0D7tEomqtg5A7YCEbdGPv1VnvDIFjKVbxZuVAVXxono4QabmGBV5WpScDL8cyUmq7xpufGhcpuT2IW4zFC79sXMYMlK+5BHOUP74bR58FxhjgR7sChgEM3IuH18KuMk3Pu6+eDkDq2HjaQ6JAuPpfDn0fT0VntZIXSy4DU58I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774820; c=relaxed/simple;
-	bh=bYAj3zJU4/bhOKYqpiP9deo18jfkgkWwofMdpY9Zt9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=evNJGLtTVLYk5lEmQ64dMUym3ZAAnPrLVrSPMWFVKEtXuw10acTCtTnI1Ya3lU6a74KUetvsOgIAxq1EfxmNQu0PA0hNVRZICh0qFNaMNEmRvLUFkYs+C0C1KXIv4mmkBrTIdO3R1w4qJKmmUMHFgmaK80b/jIG50BhXmI4abto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=dtY+0Lnl; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789774873; c=relaxed/simple;
+	bh=lFYIUBuU/nTNgYx/kpR+u3mxkxgZf4kpEbiw3xLJs58=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=lOEDVoFhpKp9eDWlVgVymFY24BHe7zb33UEOBa2iLynO9QUxRssjZsM4N/rhR4QlqCsBHK47t7q9WewnT3gjTkTDlPOFvEg7QErIHyHQ9+A8T81CoBw/2X9ELZyFWeQ5GjCJuKHn0PMhtRboDhBOGjnCuXS+f0guAUUgR8EHN1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7k/o+rT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="dtY+0Lnl"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1285673a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:40:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789774817; x=1790379617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
-        b=dtY+0Lnl6GgHFEkuuJrdft4BBznq3MKJy44Cm7Hl+IviF0h07VX/v1ih2pbvFlJ3d8
-         ZyAozFZXh94MxZKFhCfgoIS/Nx4Q/tPTXzDCpE/b6miWBc38Psfu4eECpfvI1yiaOEPJ
-         2JMPYmxb2zCEoseV8lr+bDJAKfL7tr8xsC8/BVx7wXyIN9qByuvPJBVqLWbJxG0PsLGo
-         O8q+IfjnSHY4TI36J1CnHZb2apZwytONBP8vLqdoLiQXzggCpnTuYoyERC1Se/nubD07
-         ptEitp4Y/r7BnUyDW/TozI5dgKLbBSlycACTfPb5bVt7Frg3Wpb30sJHKj7su/DM+Gy6
-         Iqcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789774817; x=1790379617;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
-        b=1pG2cJaIgaqK7YM+lJ2I6x8EqFbKzsMHdF4NabOfajz2En3Lf9tdQiX+a6COniXlEU
-         OG5lqI2teTRIM4x1aakM8IXlE9wc1M80Wjib+JiGgB5ILSmJqvAraryQIdc5PwO+EI2H
-         zZJ5qs4+pzIXprzOrKVQcGSPd61aIKfSJHk6E+FSS8Ciy7Z1O965InHKV27gsm54kzVn
-         u5rjdgaPd/HUJE2KQz0cu1AUJM6/5LL8LWWjy8l3q7dLzmdIb5H2ZGWR39e676MM5FFZ
-         8c42A7ok1E/HJk4EE7EsPoQ96jzmpUYJhfAjXHLD0ibxVWZf/OAvd08JIvzY/AonVVrb
-         +2MA==
-X-Gm-Message-State: AFuF++kVuIJqbuX81z+PPVqqGVaAHdwc8NpG6dZ2oZ9XKU8DjKeThJ03
-	t55XQsXE1+7LgcNMtTdg3Icfh3tTonNH9Bvpg1KVlfbi+5Gx0KE51dYOoLjWKet7IS66EudVXym
-	d1bYtnA==
-X-Gm-Gg: AYBFou0cDnqO/uJcT0O5hD3Jn00X2yT/N6qzxliz29aJDeCbdXxLGJD010+rCgITrcs
-	4CVAr7jsxqcMHhvcYFg7Bnw4lmKmUcEiNIA9uyS5bAdfkMjTUDt5N0jOPoqAjFCUXX1a2kRxfg3
-	U2RCrZMHwBqXSsqfUw3WJ2jXiAXKXKiAhbQxBH9BvGJxDL9EOUFMQavHxSWsFtxQ7yvN+4blDj+
-	ZR4fOb47tJKeH60WD5u0QU2LT3qaqwvetBtugIRQxxLxl8AsA84XvBIKzTH0CNJ8MU81/koR2zy
-	hgwuu58YmUwnTZKPCrBe1z/HvzW/GMr1QGowcAHwvkFcPDhdCp8MRQ+3zvA0LZu0whs3K+Cc+XO
-	QVS2dhsOVrMV6a6so1GJrkXaFqCQcgGZWFMVo2pp5n6sBN+raZ7TaoK4ff3fqzmBDfBdKXhiIQ6
-	9FgC+PFpBgw6LMs+xSr+YRwqDoqe28Lg3BZ/g1VVVS3TSPPfAwmoS6UqciqZJhlT+d5YbiUn38d
-	HvOuivC+T+zrbnukph9l8hYuLo+FvqNRxbcsw==
-X-Received: by 2002:a17:90a:e7cd:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-39e54d5ca0emr7917972a91.26.1789774816934;
-        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55cef9bsm1609458c88.10.2026.09.18.16.40.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	co+be8fa7ea6f77fdce@bugs.sh,
-	stable@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] ALSA: line6: reject oversized playback packets
-Date: Fri, 18 Sep 2026 16:40:14 -0700
-Message-ID: <20260918234014.1318325-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7k/o+rT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E034F1F000FF;
+	Fri, 18 Sep 2026 23:41:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789774871;
+	bh=TnctOyKpE5/oxuc1Ps0Qta/8S+5cl5VX9qneGpJ3tbE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=F7k/o+rTci9VtOCyHiSrJ8ncqP7Tt6VIXI4/nBh3Ix71Ew5PdfyBVQ9qA7Cm6ggos
+	 QvXHmkLPIp0wdGWhROXISfE4DImRZj4Du5YmXi72wr7hrT990/bY4wlaQFbsx1+agm
+	 /ICIC078xN9xoktJ/BcXtM1cJjCBSIwKGV1DOcWthR2CKNb4kuKVXCdPaWp99TzPWm
+	 NlR9H9yEvJ2pQkbp5bpEmeWPsFntZYgpsZ6aBTzTP3WylPRTTV1BWrhr/7Dtyp+woz
+	 MrDnSXjgEYuNQ0ZJa1rZoIO98P7VUj8QhGKTnagd2QJNGsBCfoR2XyAPGDZMB1klGk
+	 LAd1f3Nr9vM7w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198C23811977;
+	Fri, 18 Sep 2026 23:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,80 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net/sched: act_ct: don't WARN on benign
+ flow_offload_alloc() failure
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178977480490.1188948.5274904800302804627.git-patchwork-notify@kernel.org>
+Date: Fri, 18 Sep 2026 23:40:04 +0000
+References: <20260915150816.36487-1-ngocthang2710.1999@gmail.com>
+In-Reply-To: <20260915150816.36487-1-ngocthang2710.1999@gmail.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: netdev@vger.kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, paulb@mellanox.com, linux-kernel@vger.kernel.org,
+ syzbot+6cc37aba98dac721c415@syzkaller.appspotmail.com
 
-Each playback URB is handed a slice of out.buffer that is exactly
-LINE6_ISO_PACKETS * max_packet_size_out bytes, sized from the OUT
-endpoint, but the number of bytes written into that slice is never
-compared against it.
+Hello:
 
-submit_audio_out_urb() takes the frame count from prev_fsize, which
-audio_in_callback() derived from the *IN* endpoint's received packet
-length, and rescales it with the playback frame size; when prev_fsize is
-still zero it synthesizes a length from the sample rate instead.  On a
-device declaring a large IN wMaxPacketSize and a small OUT
-wMaxPacketSize, the resulting memcpy(), or the memset() when the
-playback stream is idle, runs past its slice and, as the reproducer
-below shows, beyond the allocation.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-usb_submit_urb() is not a backstop.  max_packet_size_out comes from
-usb_maxpacket(), which returns only the low 11 bits of wMaxPacketSize,
-while USB core validates a high-speed isochronous length against that
-base scaled by usb_endpoint_maxp_mult().  A length of up to three times
-the allocated slice is therefore accepted, and even a rejected URB is
-only rejected after the write.
+On Tue, 15 Sep 2026 22:08:16 +0700 you wrote:
+> flow_offload_alloc() returns NULL when the conntrack entry is dying
+> (e.g. raced with a conntrack flush) or when the GFP_ATOMIC allocation
+> fails; both are expected under load and neither is a kernel bug. This
+> path runs from softirq on every committed packet, so with
+> panic_on_warn=1 an unprivileged user can panic the box just by racing
+> a conntrack flush against a `tc ... action ct commit` classifier.
+> 
+> [...]
 
-Reject a packet that does not fit the slice the driver allocated for it.
-Clamping it instead would silently shorten the capture-derived rate
-feedback and desynchronize the two streams.
+Here is the summary with links:
+  - [net] net/sched: act_ct: don't WARN on benign flow_offload_alloc() failure
+    https://git.kernel.org/netdev/net/c/47abe7a5c4eb
 
-  BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/playback.c:229)
-  Write of size 1024 at addr ffff888100bbd400 by task kworker/1:2/5002
-  Workqueue: events line6_startup_work
-  Call Trace:
-   __asan_memcpy (mm/kasan/shadow.c:106)
-   submit_audio_out_urb (sound/usb/line6/playback.c:229)
-   line6_submit_audio_out_all_urbs (sound/usb/line6/playback.c:291)
-   line6_stream_start (sound/usb/line6/pcm.c:194)
-   line6_pcm_acquire (sound/usb/line6/pcm.c:337)
-   line6_startup_work (sound/usb/line6/driver.c:728)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-
-  The buggy address belongs to the object at ffff888100bbd400
-   which belongs to the cache kmalloc-256 of size 256
-  The buggy address is located 0 bytes inside of
-   allocated 256-byte region [ffff888100bbd400, ffff888100bbd500)
-
-Cc: stable@vger.kernel.org
-Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurations")
-Reported-by: <co+be8fa7ea6f77fdce@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- sound/usb/line6/playback.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
-index 7ebaf125f969..aa6ddf8746a0 100644
---- a/sound/usb/line6/playback.c
-+++ b/sound/usb/line6/playback.c
-@@ -182,6 +182,13 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 
- 		fsize *= bytes_per_frame;
- 
-+		if (fsize > line6pcm->max_packet_size_out) {
-+			dev_err(line6pcm->line6->ifcdev,
-+				"playback packet too large: %d > %d\n",
-+				fsize, line6pcm->max_packet_size_out);
-+			return -EMSGSIZE;
-+		}
-+
- 		fout->offset = urb_size;
- 		fout->length = fsize;
- 		urb_size += fsize;
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
