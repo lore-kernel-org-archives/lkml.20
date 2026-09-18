@@ -1,84 +1,123 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0477148CD55;
-	Fri, 18 Sep 2026 08:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0C83DDDDA;
+	Fri, 18 Sep 2026 08:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721711; cv=none; b=J84nj1sV343rXMF65UEwRWNaTvkIBuyZiCAZ6OggFkiPeMGRHW9y0odDUCJupTzgzXji3fYkmAW+4Mm0KwGNXkRHxwaKLH5V9P42rZXTR9oHMul0C9bQnb5pb2aL/sbN5KsMHEpN6dNIt2B8yECKkI6MBxkcLzk4uD+jUtkRP7s=
+	t=1789721799; cv=none; b=MnTtHhQQR1xEK0g4HH5gMETmBqb10DAAYQUQC4gf0kE93CkeSfjEJca3BKFcpj4qvp/W4bZ9st0D6U53bQtLcx6w7k+qYRUcoT5FUwoapxP+l+YFSFXCs3aVPXt4kqrm8jiN3oeWE5VrATF3nDOl3nxBzXCty887ojkeukWzQ3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721711; c=relaxed/simple;
-	bh=1DqkGGWtxVO4fBhFc4dVGbne2HBuB4a+8tindyfsV4I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cgai/kg6Na1OLvz/Vi1vohUnja1BPeuH7tCOKQ37u92doyvoHPivi916po1lhGkVudn0l7RHEluWmz5i8QLlNAj6r3QF45xcpMP15oeFxUtOJxfD5PRrXcPiV8Olhy9cyXznCXlNU83ZXwExq8PT6gy3KxdQ3tDcEWl952vcPjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Kv4KgHQl; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Kv4KgHQl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=wk8nHi1+NwmKfpvcYn7tzR5HA+W4QGvJwyefOT68wII=; 
-	b=Kv4KgHQltkVEtjJVeQaNwgRtEO5M2pwHEr/wYqfvLGxznDvvR2pxUZ2i5Rwq7SEGR0iiKRZDrFQ
-	rXOANJLW5TrbwnpuNsFpbJ+pLayh8RC2t/h/8W+6fuxQ8HbAC9yZ7eB5RYYat9lTkAdUQ8UBnWDbo
-	iJ2GYImYq8eFpBU8tQxcVirQZhrRyhmNGKgUYQZsy1HdGT9IqKRuxudqyd6PGPnLptmo467u7C5CO
-	XWtVntPwXB1HoRR+SUv/cNbe27pqhi92cJGBR/m3eXbvnMOMNqKiRk1hTcloKRH8Fasptsz059dP3
-	V/IsQ+lAldoWv0e9dePcIRoPjStaXdILCoWQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7UN5-0000000FKht-3piT;
-	Fri, 18 Sep 2026 16:55:05 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 18:55:03 +1000
-Date: Fri, 18 Sep 2026 18:55:03 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] crypto: eip93: fix IRQ teardown ordering in remove path
-Message-ID: <aqz8Z1qQob43ISM5@gondor.apana.org.au>
-References: <20260909211218.15388-1-rosenp@gmail.com>
+	s=arc-20240116; t=1789721799; c=relaxed/simple;
+	bh=SahbJPI13NcaMddeZB5l4j/Hma7utggxzTou9ZuCX94=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pRBFlsIdomnshls7l9ZWvg2et/3nUI5zqZ7gimbaLp6c67zRSJ7YGzSslnY5KpmD+6/rTbce1O9Eh2u1Pl785GkMlQDrDX36I/5qMvnr6T3yGcQy54Jniw4TY/lyNg7k/crLD9NEjO/a067dPkk4nGm+dy0AdKiNf5puye4JBlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437021|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0051405-0.000603857-0.994256;FP=13826454449977765883|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jGgS5Q7_1789721788;
+Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jGgS5Q7_1789721788 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 16:56:28 +0800
+From: Tina Zhang <zhang_wei@open-hieco.net>
+To: Sean Christopherson <seanjc@google.com>,
+	Jim Mattson <jmattson@google.com>,
+	kvm@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	zhouyanjing@hygon.cn,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 4/8] KVM: nSVM: Propagate hardware DecodeAssist bytes to VMCB12
+Date: Fri, 18 Sep 2026 16:56:14 +0800
+Message-ID: <2ad6f220b531cb59cd3e8065c472c2a3fd27987a.1789721173.git.zhang_wei@open-hieco.net>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1789721173.git.zhang_wei@open-hieco.net>
+References: <cover.1789721173.git.zhang_wei@open-hieco.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909211218.15388-1-rosenp@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 02:12:18PM -0700, Rosen Penev wrote:
-> Switch from devm_request_threaded_irq() to request_threaded_irq() so
-> that free_irq() can be called at the correct position in the remove
-> path.  Move the IRQ registration after tasklet_init() in probe to
-> ensure the tasklet is ready before the handler can fire.
-> 
-> Reorder eip93_cleanup() to:
->   1. disable device interrupts (HW)
->   2. free_irq() - synchronizes and removes the handler
->   3. tasklet_kill() - safe, no new IRQs can arrive
-> 
-> The previous order (tasklet_kill before interrupt disable) could race:
-> an IRQ arriving after tasklet_kill() would schedule the already-killed
-> tasklet.  With devm_request_threaded_irq(), free_irq() ran after the
-> remove callback returned, leaving the handler registered while device
-> state was being torn down.
-> 
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  .../crypto/inside-secure/eip93/eip93-main.c   | 27 ++++++++++++-------
->  1 file changed, 18 insertions(+), 9 deletions(-)
+DecodeAssists provides instruction bytes for nested page faults and
+intercepted page faults caused by data accesses.  When the feature is
+exposed to L1, copy fresh hardware-provided instruction bytes from VMCB02
+to VMCB12 for these exits.
 
-Please check
+Leave the VMCB12 instruction-byte state untouched when DecodeAssists is
+not exposed.  Otherwise, invalidate the state for instruction-fetch page
+faults, unrelated exits, and exits without fresh hardware bytes.
 
-https://sashiko.dev/#/patchset/20260909211218.15388-1-rosenp%40gmail.com
+Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Reviewed-by: Jim Mattson <jmattson@google.com>
+---
+ arch/x86/kvm/svm/nested.c | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-Thanks,
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 378467288716..d99706e1b9c0 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -40,6 +40,20 @@ static void nested_svm_invalidate_insn_bytes(struct vmcb *vmcb)
+ 	vmcb->control.insn_len = 0;
+ }
+ 
++static void nested_svm_copy_insn_bytes(struct vmcb *to,
++				       const struct vmcb *from)
++{
++	u8 insn_len = from->control.insn_len;
++
++	if (WARN_ON_ONCE(insn_len > sizeof(from->control.insn_bytes))) {
++		nested_svm_invalidate_insn_bytes(to);
++		return;
++	}
++
++	memcpy(to->control.insn_bytes, from->control.insn_bytes, insn_len);
++	to->control.insn_len = insn_len;
++}
++
+ static bool nested_svm_vmexit_supports_insn_bytes(const struct vmcb *vmcb)
+ {
+ 	u64 exit_code = vmcb->control.exit_code;
+@@ -64,6 +78,27 @@ static void nested_svm_invalidate_vmcb02_insn_bytes(struct vcpu_svm *svm)
+ 	svm->nested.vmcb02_insn_bytes_valid = false;
+ }
+ 
++static void nested_svm_update_vmcb12_insn_bytes(struct kvm_vcpu *vcpu,
++						struct vmcb *vmcb12,
++						const struct vmcb *vmcb02)
++{
++	struct vcpu_svm *svm = to_svm(vcpu);
++
++	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS))
++		goto out;
++
++	if (!nested_svm_vmexit_supports_insn_bytes(vmcb02) ||
++	    !svm->nested.vmcb02_insn_bytes_valid) {
++		nested_svm_invalidate_insn_bytes(vmcb12);
++		goto out;
++	}
++
++	nested_svm_copy_insn_bytes(vmcb12, vmcb02);
++
++out:
++	svm->nested.vmcb02_insn_bytes_valid = false;
++}
++
+ static void nested_svm_inject_npf_exit(struct kvm_vcpu *vcpu,
+ 				       struct x86_exception *fault,
+ 				       bool from_hardware)
+@@ -1335,6 +1370,8 @@ static int nested_svm_vmexit_update_vmcb12(struct kvm_vcpu *vcpu)
+ 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_NRIPS))
+ 		vmcb12->control.next_rip  = vmcb02->control.next_rip;
+ 
++	nested_svm_update_vmcb12_insn_bytes(vcpu, vmcb12, vmcb02);
++
+ 	if (nested_vmcb12_has_lbrv(vcpu))
+ 		svm_copy_lbrs(&vmcb12->save, &vmcb02->save);
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.7
+
