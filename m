@@ -1,150 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D8651AFDF;
-	Fri, 18 Sep 2026 17:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FB851C041;
+	Fri, 18 Sep 2026 17:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751258; cv=none; b=Aa/g7j9vFsZjavre69encmjK1/Lqs/8zccHHsg7iwIGMmzq/9RsSfJa4iCW50lAPicK/T6DDEbhF0q3lXtcAz5WrSqNb08FwHwhP3DVpJpBISlsvQ1bc0SGhU2hDl81oJ1gFlUzy1UNmAuwpOf9SoeBPxR1BUhLiYii//3YipMc=
+	t=1789751263; cv=none; b=Z+YDAVxA8dzd4qrD+Fsoq4FLoCmvNe1U1L2rBciX64QAYMihzXFVmgom76rsfsJJWdUDjTuQJ7RdplVLOSnEXOAg+lHRh4bxRpnLdTSY6TmDeIGgKtrNG2yxbwNZxZlGn+zDRddkzFEfpCvhCPt3ffUkacHflDDeSy7AQJ1q18Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789751258; c=relaxed/simple;
-	bh=9KqTeLpmpAt/SYWbyJGONbejx8uvk0rw6an2fqvZBiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=EmqB3SWxtrgvX94PCrQY+oRObY3AOuN//Cjce9uMML4xoqEielntPm2PA4Xdl7nkancfOXnjyaW6VtCXoaR/DKJJaWQM256qpNEBUpzQeyLpEZ3Fgw8MEqDWMMYen1WgLVqTt3ou7ai0G7ttnm50k2yEYoO0KQQtb7+VawLAkWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fT2SqrcG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789751263; c=relaxed/simple;
+	bh=iz05zPGyXWHPp86T+SM6MxX8QkJ7/9AK+9QDpl1Ry0M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LjJH9BiNmFhlLeFYqOHUy0Sli8G0DmrQ7it8QXKkwamCIGjBeK1LrAvcWEtOS4jdRIbMjEu411sMvlX+Cr9Z6J2SUGJT4HWsDUzCD6Gn9cKrAZb1HgyZV2LsRLTWsjXmZaldX4OUU6Pb6IiJkP/rjLZ0oTpHtjkv+LjGyduZZxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=c3meTlHH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fT2SqrcG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953BC1F00899;
-	Fri, 18 Sep 2026 17:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789751256;
-	bh=P31W4icnBaQHEkDlX+eUtB5tLta/gaMyYNRj3JwR7ZM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=fT2SqrcGO0qrSy9HtSfOYyd2Ep5s7+jVKap9ZfTRyaBm80BcHBaBlyKOo8yQPXsyz
-	 aIsAH8AxmvKvWi0RrF2sWBvsqB5RkZndUkM6VvG4iCf114LnEheEMBpBW9U4HNx1yX
-	 /Gi9aBTMirhoOPGSk+An1y7ap0Q7uwgytcTT/uUxouQIf+jbtuXTYt9LKYJ1eQAX/X
-	 MlURb6vXpviwx1kpZfm8NdbceXt3X/5Bf70tEQbpwDXLbQSekL6BsCE8DKY4B5UzpU
-	 2KHpja1FhXJuNBOfj65nBvbnNat+qdc8FJuCIDyio1JVSJef91+6F48FEkF/2SvUS7
-	 LWgkGQH8pjIZw==
-Date: Fri, 18 Sep 2026 12:07:35 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Nikola Prica <nikprica@amd.com>, bhelgaas@google.com,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, jerry.jiang@amd.com, haijun.chang@amd.com,
-	andy.zhang@amd.com, jim.chow@broadcom.com,
-	matthew.mcclure@broadcom.com, gbayer@linux.ibm.com,
-	Nikola Prica <nikola.prica@amd.com>
-Subject: Re: [PATCH v3] PCI: Accept AtomicOps already enabled by the
- hypervisor
-Message-ID: <20260918170735.GA1162623@bhelgaas>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="c3meTlHH"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e327:a298:3a5b:4b08])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 204CA4E46;
+	Fri, 18 Sep 2026 19:05:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789751157;
+	bh=iz05zPGyXWHPp86T+SM6MxX8QkJ7/9AK+9QDpl1Ry0M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=c3meTlHHZfc28QoJjzJKlYZ2gPyEWifo3GHdDG5sQGE5LxCFkxsoOsxdPWtWM3Mry
+	 yIhWlP65QvGxqDqvAjofAXwEuKN4lIxiZgzcfSZBw8eZFFjiEizVFH7TItWEFD+DDE
+	 oqyOWa9GXdo9Un5Z7Rg422YeLt4VpJAMklyk09WA=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Sat, 19 Sep 2026 02:07:01 +0900
+Subject: [PATCH v2 04/11] arm64: renesas: r8a78000: Add FCPV[BI] nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20021a25-3800-4eb1-9dcd-a2c9fd8eedbc@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-4-dbe9236bfd22@ideasonboard.com>
+References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
+In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-On Fri, Sep 18, 2026 at 02:07:46PM +0200, Christian König wrote:
-> On 9/18/26 11:28, Nikola Prica wrote:
-> > From: Nikola Prica <nikola.prica@amd.com>
-> > 
-> > pci_enable_atomic_ops_to_root() currently fails when no Root Port is
-> > visible. That is common in passthrough guests (ESXi, Hyper-V): the
-> > endpoint is assigned to the VM, but the guest topology has no Root
-> > Port above it.
-> > 
-> > In those setups the hypervisor may already have enabled AtomicOp
-> > Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
-> > treat AtomicOps as already enabled and return success instead of
-> > failing the Root Port walk.
-> > 
-> > Fixes: 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port supports them")
-> > Reviewed-by: Christian König <christian.koenig@amd.com>
-> > Reviewed-by: Gerd Bayer <gbayer@linux.ibm.com>
-> > Tested-by: Gerd Bayer <gbayer@linux.ibm.com>
-> > Signed-off-by: Nikola Prica <nikola.prica@amd.com>
-> 
-> CC: stable@vger.kernel.org # 7.1+
-> 
-> Bjorn do you want to pick that up? Alternative I can push it through
-> drm-misc-fixes.
-> 
-> Initially I thought that this is a new feature, but it turned out to
-> be an regression and we need to get it fixed ASAP.
+Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
 
-Let me just talk through this to make sure I understand it:
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+---
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi | 72 +++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-Prior to 1ae8c4ce1570, pci_enable_atomic_ops_to_root() enabled
-PCI_EXP_DEVCTL2_ATOMIC_REQ unless a switch port didn't support
-AtomicOp routing, a switch upstream port blocked AtomicOp egress, or a
-Root Port didn't support the requested sizes.
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+index 9a07753b221541ed49a975e0c95f2f5d1fdc6ac2..2f8886f8b6545026397fd83969882f8c62afa9d3 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+@@ -1000,6 +1000,78 @@ mdlc_aon: system-controller@c1338000 {
+ 			bootph-all;
+ 		};
+ 
++		fcpvi0: fcp@c5030000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5030000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x107>;
++			resets = <&mdlc_vio 0x107>;
++		};
++
++		fcpvi1: fcp@c5031000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5031000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x108>;
++			resets = <&mdlc_vio 0x108>;
++		};
++
++		fcpvi2: fcp@c5032000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5032000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x109>;
++			resets = <&mdlc_vio 0x109>;
++		};
++
++		fcpvi3: fcp@c5033000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5033000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x10a>;
++			resets = <&mdlc_vio 0x10a>;
++		};
++
++		fcpvb0: fcp@c5038000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5038000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x102>;
++			resets = <&mdlc_vio 0x102>;
++		};
++
++		fcpvb1: fcp@c5039000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc5039000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x103>;
++			resets = <&mdlc_vio 0x103>;
++		};
++
++		fcpvb2: fcp@c503a000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc503a000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x104>;
++			resets = <&mdlc_vio 0x104>;
++		};
++
++		fcpvb3: fcp@c503b000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc503b000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x105>;
++			resets = <&mdlc_vio 0x105>;
++		};
++
++		fcpvb4: fcp@c503c000 {
++			compatible = "renesas,fcpv";
++			reg = <0 0xc503c000 0 0x1000>;
++			clocks = <&cpg R8A78000_CPG_SGD4_VIO_DP_TX>;
++			power-domains = <&mdlc_vio 0x07 0x106>;
++			resets = <&mdlc_vio 0x106>;
++		};
++
+ 		mdlc_cmnn: system-controller@ca410000 {
+ 			compatible = "renesas,r8a78000-mdlc";
+ 			reg = <0 0xca410000 0 0x1000>;
 
-1ae8c4ce1570 added the requirement that the Root Port be visible,
-which fixed an s390 case where pci_enable_atomic_ops_to_root() enabled
-AtomicOps when the Root Port did not support them but was not visible
-to the kernel.
+-- 
+2.47.3
 
-IIUC the regression is on systems where the Root Port is not visible
-but *does* support AtomicOps.  Prior to 1ae8c4ce1570, we would have
-enabled AtomicOps in the endpoint and returned success.  After
-1ae8c4ce1570, we return -EINVAL because we can't see the Root Port to
-verify its support, so the driver thinks it can't use AtomicOps.
-
-This patch fixes the regression by assuming that if we can't see the
-Root Port but the endpoint already has AtomicOps enabled, the
-hypervisor or host kernel that *can* see the Root Port has already
-verified its AtomicOps support, so all we have to do is return success
-so the driver can use them.
-
-I'm happy to merge this for v7.3, and I think we should add something
-like this to the commit log to make it clear that it's a regression
-worthy of a post-merge window fix:
-
-  After 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port
-  supports them"), pci_enable_atomic_ops_to_root() always fails if the
-  Root Port is not visible.  On systems where the Root Port is not
-  visible but *does* support AtomicOps, this is a regression: prior to
-  1ae8c4ce1570, it enabled AtomicOps in the endpoint and returned
-  success.
-
-Is there any problem report for the regression?  I don't see anything
-at https://linux-regtracking.leemhuis.info/regzbot/mainline/, so my
-guess is no.
-
-> > ---
-> > v3: Add Fixes tag
-> > v2: Be more strict and only apply logic in headless device case.
-> > ---
-> >  drivers/pci/pci.c | 12 +++++++++++-
-> >  1 file changed, 11 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> > index b2879a6be5f8..62729ade496f 100644
-> > --- a/drivers/pci/pci.c
-> > +++ b/drivers/pci/pci.c
-> > @@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
-> >  	}
-> >  
-> >  	root = pcie_find_root_port(dev);
-> > -	if (!root)
-> > +	if (!root) {
-> > +		/*
-> > +		 * A hypervisor may expose a headless topology with no
-> > +		 * visible root port.  If it has already set AtomicOp
-> > +		 * Requester Enable, there is nothing more to do.
-> > +		 */
-> > +		pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
-> > +		if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
-> > +			return 0;
-> > +
-> >  		return -EINVAL;
-> > +	}
-> >  
-> >  	pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
-> >  	if ((cap & cap_mask) != cap_mask)
-> 
