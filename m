@@ -1,80 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B504EDCC3;
-	Fri, 18 Sep 2026 10:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0EF4F93D1;
+	Fri, 18 Sep 2026 10:17:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726631; cv=none; b=R0A2lN07F0kTzPh9EzOjFCZLTQ0x47EBA9Juqb3iBInz+XvNkYiApq6GAEMVYsnt4YppRfYnKeuWjskSFiz96YgYgiF8jUACJR5ctR7XFTNoGHjMqwiRYbFq8WnvJuK7YhbCanzOfE5W5tOvG68Eh0uHrLmO0yrLT+I2iM0HiEY=
+	t=1789726637; cv=none; b=nTTtNK5tgKR5Kwl1LKDdCvjxv9dOdWxKLbhDo6M2vKHw2731hQzjp6pn1a5BdiqCWWs7GFGrdVSw84lsfiTOSFWkV81Qwin035Zdsgw+9jNzMioUB+LruV9nx9YpEYDXJWCtNEFVZEiv9TdZGmpDwTRqBtQN1P2fIwWOOYwA3fE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726631; c=relaxed/simple;
-	bh=ifyrwe6h27+ZjrRKqNws8Hoy5jINQJxAWqPe8NSyJco=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p1A2cCYQCU9jN3hVJFsjs2FXVAUXStIFn2QPLSsg+D1yzo3m3QJpjaNt3YeWXWE+hOFBGYP7/b1nOE6rinQLaVMedY8/vwH3rMDsCxxqI6WjpKxARdELf6L0bul48thNffYayviDsEHhoBIe78sDcgy5X4f4k7p0DclSia+yp9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BMj01Alh reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789726637; c=relaxed/simple;
+	bh=7WGjA4gJlSHK3qsr85o73VSVw/EquT/+tIEId/vHYKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X4Lc/H77jub/nh5CnGKVYNdQZjdaLwsard/f5pHQy8l6+21E7B4hCL1ZODoOiIZAy+04a5mi2uqsue3nuNNUakBDz2eErbcR3Cc1IESvmOdpOMVOqjoVJQ1NLGhUqYJiCHgooYdaurPQsLDnQuJuBn9IB2ImmQyCvmJDbW+47Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNXukOiO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BMj01Alh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667AE1F00899;
-	Fri, 18 Sep 2026 10:16:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNXukOiO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68EF31F000FF;
+	Fri, 18 Sep 2026 10:17:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789726617;
-	bh=ifyrwe6h27+ZjrRKqNws8Hoy5jINQJxAWqPe8NSyJco=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BMj01AlhbDDpoLoXxwn9PPhookstPQzvNzHcu3cfhmO/Vm1xskm1uSEn1VcRtOM63
-	 v4FbuEGxl6N6K4hGy9mp3VPfdcYEi9Lt7ZAbiZrOOZJ0H76sH7Yfj41EFFY4kifUUJ
-	 U1nyr9h3Wc6OFP7bzybInQVTbPMdB7n385RxAbDMpf0E0z2qmIOuSmMJLA0mzCgRn0
-	 REbqAaRoOj6TTCGDA3UVM3ORDYou5nsQBAirRmO25yhfVyCRZefWSTyLWDBVZMDXh7
-	 ivKDTJnqkoWlyNwdABc2086K40l/8qfUK9FEg1TIu4WwHLNY/RUoSJ/8Qc7TZFokWg
-	 jmShFPclYOnug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 06/17] LoongArch: kexec_file: Fix CMA page leaks in
- segment placement retry loops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: maqianga@uniontech.com, mpe@ellerman.id.au, akpm@linux-foundation.org, catalin.marinas@arm.com, dave.hansen@linux.intel.com, graf@amazon.com, vishal.l.verma@intel.com, me@linux.beauty, mclapinski@google.com, hpa@zytor.com, sshegde@linux.ibm.com, yeoreum.yun@arm.com, pratyush@kernel.org, eric.devolder@oracle.com, gshan@redhat.com, bgwin@google.com, guodongtai@kylinos.cn, ruirui.yang@linux.dev, ruanjinjie@huawei.com, kernel@xen0n.name, piliu@redhat.com, driver-core@lists.linux.dev, linux-arm-kernel@lists.infradead.org, mark.rutland@arm.com, lizhengyu3@huawei.com, james.morse@arm.com, chenhuacai@kernel.org, sourabhjain@linux.ibm.com, adityag@linux.ibm.com, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, robh@kernel.org, npiggin@gmail.com, dakr@kernel.org, ritesh.list@gmail.com, takahiro.akashi@linaro.org, thuth@redhat.com, linux-mm@kvack.org, liukexin@kylinos.cn, palmer@rivosinc.com, rppt@kernel.org, x86@kernel.org, coxu@redhat.com, loongarch@lists.linux.dev, bp@alien8.
- de, ardb@kernel.org, zhangtianyang@loongson.cn, chleroy@kernel.org, chao.gao@intel.com, linuxppc-dev@lists.ozlabs.org, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, maddy@linux.ibm.com, blum@kernel.org, seanjc@google.com, gregkh@linuxfoundation.org, baoquan.he@linux.dev, pasha.tatashin@soleen.com, rafael@kernel.org, tglx@kernel.org, kas@kernel.org, hbathini@linux.ibm.com, tangyouling@kylinos.cn, jbouron@amazon.com, kees@kernel.org, will@kernel.org, leitao@debian.org, mingo@redhat.com
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-7-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-7-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:16:54 +0000
-Message-Id: <20260918101654.667AE1F00899@smtp.kernel.org>
+	s=k20260515; t=1789726630;
+	bh=sjD7gXYT9sEFgIeGRllW0SYD6Scu3JJ7NhNsn25KgeM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MNXukOiOm3AOxM//9KfJdpEvdWp/wq592XQxYRB/aoFtqzftWn6hJdXRzeYnCD6BS
+	 fBTKJmzKkNtBaCwpiXDzYLprD35nN66YWtSPIjhQkILjnnoIZpMFooegwvwiR+U5iY
+	 szyMkA7UAZbBzFI+t9WoAbOhe8JrjUhN2SVeZ70Q9FDKZEGbLOret22win++Hz58f9
+	 rbpoem0/n/lktLi36DLiUwm/eGiSVqhVpmr9Sj0a0sl7s12/wmoGBF8tFQD0/MrFzk
+	 dTKnXRxn/WoWnmnUdLuHgGZsKNvitoALfiBfJr5iuK640r26039ObEVu/u0n6dQChj
+	 kyFPSfPVP8P3A==
+Date: Fri, 18 Sep 2026 12:17:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
+	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/tiny: Add RAiO RA8875 display controller driver
+Message-ID: <20260918-agile-cormorant-of-admiration-82ae7c@quoll>
+References: <20260916175942.3186804-1-azuddinadam@gmail.com>
+ <20260916180410.3188922-1-azuddinadam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916180410.3188922-1-azuddinadam@gmail.com>
 
-> During kexec image placement retry loops, any midway failure causes
-> the loader to truncate `image->nr_segments` back to its initial state
-> to purge the failed segments.
->=20
-> However, this truncation introduces a memory leak. The CMA pages
-> allocated via kexec_add_buffer() during the failed attempt are tracked
-> in the `image->segment_cma` array. Because the subsequent cleanup paths
-> only iterate up to the truncated `nr_segments` boundary, these allocated
-> CMA pages outside the new boundary are permanently leaked.
->=20
-> Fix this by explicitly releasing the associated CMA buffers in
-> the failure paths before `image->nr_segments` is reduced.
->=20
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Kees Cook <kees@kernel.org>
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+On Thu, Sep 17, 2026 at 02:04:10AM +0800, Adam Azuddin wrote:
+> +static const struct drm_connector_helper_funcs ra8875_connector_helper_funcs = {
+> +	.get_modes = ra8875_connector_get_modes
+> +};
+> +
+> +static const struct of_device_id ra8875_of_match[] = {
+> +	{ .compatible = "raio,ra8875" },
+> +	{},
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Drop ,. Missing space. Please look at other files how this is written,
+because it was a cleanup some time ago.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D6
+> +};
+> +
+
+No blank line.
+
+> +MODULE_DEVICE_TABLE(of, ra8875_of_match);
+
+All ID tables are placed together, just before 'struct xxx_driver'.
+
+> +
+> +static int ra8875_write_reg(struct ra8875_device *ra8875, u8 reg, u8 val)
+> +{
+> +	int ret;
+> +	u8 cmd[2] = { 0x80, reg };
+> +	u8 data[2] = { 0x00, val };
+> +
+
+...
+
+> +
+> +static void ra8875_display_off(struct ra8875_device *ra8875)
+> +{
+> +	drm_atomic_helper_shutdown(&ra8875->drm); /* calls pipe_disable above */
+> +}
+> +
+> +static const u32 ra8875_pipe_formats[] = {
+> +	DRM_FORMAT_RGB565,
+> +};
+> +
+> +static const struct drm_simple_display_pipe_funcs ra8875_pipe_funcs = {
+> +	.enable = ra8875_pipe_enable,
+> +	.disable = ra8875_pipe_disable,
+> +	.update = ra8875_pipe_update,
+> +	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
+> +};
+> +
+> +static const struct spi_device_id ra8875_id[] = { { "ra8875", 0 }, {} };
+
+This is completely misformatted table. Please open other files.
+git grep 'struct spi_device_id'
+
+> +
+> +MODULE_DEVICE_TABLE(spi, ra8875_id);
+
+Best regards,
+Krzysztof
 
