@@ -1,91 +1,73 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DC37268A;
-	Fri, 18 Sep 2026 15:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5A24FD299;
+	Fri, 18 Sep 2026 15:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745849; cv=none; b=JMTSZEh8HdnvspeIqRMEpQeplPUufQDZ24kXzkXafLSuVQxTRpckZqfEcJAVF40Bd4geu38O/T+I7uuYTIGr3Ad9y7QiDd6N0UZPQzdgYHd16FzGEaAOuL9DZzFCNpM6ODoD4V6Zj0WGap9nhAJ8mvSzaKw80WNPUP94JVwa4oQ=
+	t=1789745855; cv=none; b=O6z7uT5wSBFgo1D8+80Gdng5HSvWr9LCHFXliCWYJx2OMV7IhWSV45u/fChO7epZmXOxylxrXYvG6BnlPkrIrbpe0c//1t7TqvUln3GNLuqnuVCv1dgizdvRCdTVHoKIMC1ywC5NFHiDtPXT35RZzOrSwf5QqRnJVZx2suscyPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745849; c=relaxed/simple;
-	bh=XZDHDtWiJlTMoxLH+NUZgvGpy3/sAaZSLZ6HqTugnKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YP7jHVvdqMc2DWXaX4Awr3JjNIh4YLP2R8XUv6+9UZhZtXj79UhK258ePkrnmMwaRhGSFSKbBH6V7Fop0YBvWBjtpy23wg8bujTpFAjp/R5hNYK8/OunTkSRgvXVXIP85eiSA5BJas9fzfdWxu26brZTj6gOKEBjHGp1gQa2huw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id CDC8C475D1;
-	Fri, 18 Sep 2026 17:28:41 +0200 (CEST)
-From: Gabriel Goller <g.goller@proxmox.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Roopa Prabhu <roopa@cumulusnetworks.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] ipv4: fib: treat an unbuildable encapsulation as a nexthop mismatch
-Date: Fri, 18 Sep 2026 17:28:33 +0200
-Message-ID: <20260918152836.1173368-1-g.goller@proxmox.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1789745855; c=relaxed/simple;
+	bh=wEvaTWXDvnJgQGalW3gY+IGZ+93Bir6HwzV0vX03rzQ=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=qPeali55N48bS30vToej2ip9A/p7dSzzyqqGQ3nXyy8aHzDnZigjE6JV8SYoyrrfdPm6Z0iZGbCMt6rQkzBjSQ1s8lx9KX7tiIghdZxPSws7DCW6/Y1AfqvTdbFzYZNhUAzp711jhLw5ezVLsayawNm1LUxETu8nBFd1lbnSAog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=pP9bWmdV; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="pP9bWmdV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=wEvaTWXDvnJgQGalW3gY+IGZ+93Bir6HwzV0vX03rzQ=; b=pP9bWmdVwu6S/Cv5qkol0IOUV7
+	edF/1/n+x+87rzJZEbG7jq6JphNjfmT4qBTYfL+8d7/SW987wNIIfA1pzsgjsxNoJUWFAnicWlb6a
+	hkwIv912wpBGXlARWqiWasUrBnd45bnXkmOo+3d6ejiGmy0y3kGN1O64Bm08JS8w16c9sQfBJ/ML2
+	v3QV+EwEZ1XumxWDOx0CiGobr7RznFD95g2dQv3FxW02aHVWshoUcyqiS/ocIm+pBQJ2Z01EO50ou
+	GDWgoh+nQnwE10eXL4o/QqpTecMF6YZyCfAF7HJkRpmqxqwn04ewTinqpPyAc6rU391nF65SVkBmo
+	RP4k2fDQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7aeb-0000000CpQb-00EV;
+	Fri, 18 Sep 2026 09:37:33 -0600
+Message-ID: <94da5a00-c0b9-4cd3-b516-facadbee5097@deltatee.com>
+Date: Fri, 18 Sep 2026 09:37:26 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1789745321210
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.li@nxp.com>, Kelvin Cao <kelvin.cao@microchip.com>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Dave Jiang <dave.jiang@intel.com>, George Ge <george.ge@microchip.com>,
+ Jaeyoung Chung <jjy600901@snu.ac.kr>
+References: <20260902062153.31048-1-logang@deltatee.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260902062153.31048-1-logang@deltatee.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, Frank.li@nxp.com, kelvin.cao@microchip.com, linux@weissschuh.net, dave.jiang@intel.com, george.ge@microchip.com, jjy600901@snu.ac.kr
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 00/10] dmaengine: miscellaneous fixes for ioat,
+ switchtec_dma and plx_dma
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-fib_encap_match() builds the requested lwtunnel state and compares it
-against the nexthop of a candidate route. When lwtunnel_build_state()
-failed it left result at 0, which is interpreted as "the nexthop
-matches", so fib_nh_match() continues to compare only oif and gateway.
 
-So if there comes along a RTM_DELROUTE which carries an encapsulation
-the kernel rejects, it could delete a different route with a different
-encapsulation.
 
-Fixes: 571e722676fe ("ipv4: support for fib route lwtunnel encap attributes")
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
----
- net/ipv4/fib_semantics.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-index 50e96f86ca59..951e48ae87da 100644
---- a/net/ipv4/fib_semantics.c
-+++ b/net/ipv4/fib_semantics.c
-@@ -911,17 +911,17 @@ static int fib_encap_match(struct net *net, u16 encap_type,
- 			   struct netlink_ext_ack *extack)
- {
- 	struct lwtunnel_state *lwtstate;
--	int ret, result = 0;
-+	int result;
- 
- 	if (encap_type == LWTUNNEL_ENCAP_NONE)
- 		return 0;
- 
--	ret = lwtunnel_build_state(net, encap_type, encap, AF_INET,
--				   cfg, &lwtstate, extack);
--	if (!ret) {
--		result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
--		lwtstate_free(lwtstate);
--	}
-+	if (lwtunnel_build_state(net, encap_type, encap, AF_INET, cfg,
-+				 &lwtstate, extack))
-+		return 1;
-+
-+	result = lwtunnel_cmp_encap(lwtstate, nh->fib_nh_lws);
-+	lwtstate_free(lwtstate);
- 
- 	return result;
- }
--- 
-2.47.3
+Any update on when this might be merged? I thought it was ready to go
+and I'd really like to see it in this cycle.
 
+Thanks,
+
+Logan
 
