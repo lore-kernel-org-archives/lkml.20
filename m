@@ -1,122 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217B4547051;
-	Fri, 18 Sep 2026 10:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66B23D9522
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727821; cv=none; b=CR+U/GiChs9HAmbzaZRj4VEy2BSzXsphZ+80gQEuUVq3aLsfkxm5va+ht2dV973i7izSvTWDKnQxDBOmBgDJnG46fYNMsdY7iVj63GXzgBJVBwYhXwCSVe5K8Yb2HLyNgNE8Br0iS2WLpu+7nIXkb/Lr7VjFjcovLcd/RzIi2no=
+	t=1789727848; cv=none; b=o8LKTwqQ1q3R2Z+WSfhXyb8YeSw2J06PiLnV+6Uy1er918ouSX1fUN13L237ddNNtWaO9oSfgW9aJKCcp1gBhfqccAjDLsh9BYeJD92k0kJfAk/lv9YApCkdCljBF+3+AOHQ7/QAdziFP7BkAk0UT7l0sAsWbf32EV1XjyMh820=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727821; c=relaxed/simple;
-	bh=5RyNVO5DR5qB1QeVmYuSCtPN+hmp+JhvY6FFQsgUgvM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s7/VP/QrZe7F9Qog6HZ8kqPZCEqli50wh+bxx63K6m+LY9UXBhoRItCNRU7snOyv2rKI6++zM21grXfYXF64F7Vb5bhARyS3jisO9Lhc4Rw8s6PFtQehT2r25guf37Uc86JDab0S+9ogfuaQIkwtYrX0kplDZJvWcqKI15MkZzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q42qAzt7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789727848; c=relaxed/simple;
+	bh=/0Izr/ImD+usADyY0NZMdwIDKPvMFyLMW7fMx+8kP2g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VtAH0cSSSti8X4VKAWnpRwXq/q+T/YAm9SynxqK286JMcpkiFnp8mWZ+zmLk+zwRLVjEgBKPmygj6bCaRGhXMwD9dIbsOdTclRZD8zlpVttw2JaN6EiLNjFZagh7kcXRny5R+9xLw621xrKDJF1YveX2bev0zoDB/OokV4y4dWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=paJGso43; arc=none smtp.client-ip=91.218.175.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q42qAzt7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC341F000FF;
-	Fri, 18 Sep 2026 10:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789727819;
-	bh=Lw9zS0Z5XTShZWdFIGichHAPl+WNOp2mTX9Vx2b9uGM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q42qAzt7wO+OFo6NAoDwEE1MDA4cRI3i/Jy/Qfuq0/wpgUimD8W/1lqVrecho7Kou
-	 WabJVL20LNw0REudcaOdeeb+T4PExYxgh/OrdVdLoMnod1bxNeVKjrL//TlXvOHr0x
-	 uQHhG+p4fnpTaLGkuKPKt0lF/tSHSWpnsQUDz0yCQ6i6NLviOmP5AwbmF7hifJoymO
-	 a/dj9wKcgweN0UsrgQ7dl0KBXGcJZvkPwCfEnGRPKB6PFdnVB0tUKh1QamLTWNKEsV
-	 B4ughp0yGBPUNdq905IDJDtq0MYVx2RWuc4ruH3JiWRRurjm5VB3sZIQTW+1rluU58
-	 6VzR/lgTAk56Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/17] arm64: crash: Add crash hotplug support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: tglx@kernel.org, ritesh.list@gmail.com, mark.rutland@arm.com, chao.gao@intel.com, kas@kernel.org, linuxppc-dev@lists.ozlabs.org, yeoreum.yun@arm.com, x86@kernel.org, baoquan.he@linux.dev, hbathini@linux.ibm.com, sourabhjain@linux.ibm.com, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, jbouron@amazon.com, dave.hansen@linux.intel.com, rafael@kernel.org, coxu@redhat.com, akpm@linux-foundation.org, gshan@redhat.com, vishal.l.verma@intel.com, ruirui.yang@linux.dev, seanjc@google.com, bgwin@google.com, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, chenhuacai@kernel.org, pasha.tatashin@soleen.com, kees@kernel.org, me@linux.beauty, npiggin@gmail.com, maddy@linux.ibm.com, ruanjinjie@huawei.com, thuth@redhat.com, graf@amazon.com, palmer@rivosinc.com, chleroy@kernel.org, guodongtai@kylinos.cn, zhangtianyang@loongson.cn, eric.devolder@oracle.com, catalin.marinas@arm.com, leitao@debian.org, driver-core@lists.linux.dev, piliu@redhat.com, kernel@xen0n.name, dakr@kernel.org, pratyush@kernel.org, sshegde@linux.ibm.com, tangyouling@kylinos.cn, adityag@linux.ibm.com, rppt@kernel.org, mclapinski@google.com, takahiro.akashi@linaro.org, linux-arm-kernel@lists.infradead.org, will@kernel.org, ardb@kernel.org, gregkh@linuxfoundation.org, lizhengyu3@huawei.com, linux-mm@kvack.org, james.morse@arm.com, linux-fsdevel@vger.kernel.org, mpe@ellerman.id.au, mingo@redhat.com, bp@alien8.de, blum@kernel.org, robh@kernel.org, hpa@zytor.com, liukexin@kylinos.cn, maqianga@uniontech.com
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-18-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-18-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:36:56 +0000
-Message-Id: <20260918103657.0CC341F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="paJGso43"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/0Izr/ImD+usADyY0NZMdwIDKPvMFyLMW7fMx+8kP2g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789727843; v=1; x=1790332643;
+ b=paJGso43CpqUGYUK2pBn36KCvy7DFlCKH/vZlcLJ73GlFixEUrMfrrT5LSyxNDXyDRdcKorE
+ OB7SdqgRYuOjMYb5yZO5HwHreBOQAdpYPFL+ONpeWSDNUqseh5EF1Bc/xNjv0Re5iH7iEVDJiCa
+ mMis1xehzRSuceKnlhyBvnqk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 10767ddc7fddd317;
+	Fri, 18 Sep 2026 10:37:13 +0000
+X-Mizu-Trace-ID: 10767ddc7fddd317
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ad25b99c-d9f6-4e52-819b-81e08eb2a131@linux.dev>
+Date: Fri, 18 Sep 2026 11:37:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/14] mm: thp: always enable mTHP support
+To: Luiz Capitulino <luizcap@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, david@kernel.org, baolin.wang@linux.alibaba.com,
+ ziy@nvidia.com, lance.yang@linux.dev
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com
+References: <cover.1789695931.git.luizcap@redhat.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <cover.1789695931.git.luizcap@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] kexec: arch_crash_get_elfcorehdr_size() exports undersized buffer =
-when MEMORY_HOTPLUG is disabled
---
 
-commit fd293f9cfd1a12554d9352f4ad58fc9f85721fa3
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
-arm64: crash: Add crash hotplug support
 
-This commit introduces kernel mechanisms to update only the elfcorehdr
-on memory hotplug events for arm64. It adds ARCH_SUPPORTS_CRASH_HOTPLUG=20
-and implements arch-specific functions to handle memory hotplug, avoiding
-full kdump image reloads from userspace.
+On 18/09/2026 02:45, Luiz Capitulino wrote:
+> Introduction
+> ============
+> 
+> Today, if an architecture implements has_transparent_hugepage() and the CPU
+> lacks support for PMD-sized pages, the THP code disables all THP, including
+> mTHP.
 
-Link: https://lore.kernel.org/all/20240529133446.28446-1-Jonathan.Cameron@h=
-uawei.com/
 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef9440..96de2660b1cbb 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -1720,6 +1720,9 @@ config ARCH_DEFAULT_CRASH_DUMP
->  config ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
->  	def_bool CRASH_RESERVE
-> =20
-> +config ARCH_SUPPORTS_CRASH_HOTPLUG
-> +	def_bool y
-> +
+Hi Luiz,
 
-[Severity: High]
-Does unconditionally enabling ARCH_SUPPORTS_CRASH_HOTPLUG here expose an
-undersized buffer to userspace when CONFIG_MEMORY_HOTPLUG is disabled?
+Sorry for asking this so late in the series, but which CPUs lack support for
+PMD sized pages?
 
-Since CONFIG_HOTPLUG_CPU natively selects CONFIG_CRASH_HOTPLUG on
-architectures that support it, having this default to 'y' allows
-CRASH_HOTPLUG to be active even without MEMORY_HOTPLUG. This leads to the
-size calculation issue below.
+Is this series mainly for PowerPC?
 
-[ ... ]
-> diff --git a/arch/arm64/kernel/crash.c b/arch/arm64/kernel/crash.c
-> new file mode 100644
-> index 0000000000000..08dc9b952498e
-> --- /dev/null
-> +++ b/arch/arm64/kernel/crash.c
-[ ... ]
-> +unsigned int arch_crash_get_elfcorehdr_size(void)
-> +{
-> +	unsigned long phdr_cnt;
-> +
-> +	/* A program header for possible CPUs, vmcoreinfo and kernel_map */
-> +	phdr_cnt =3D 2 + num_possible_cpus();
-> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
-> +		phdr_cnt +=3D CONFIG_CRASH_MAX_MEMORY_RANGES;
-> +
+Thanks,
+Usama
 
-[Severity: High]
-Is this calculation missing the static memory ranges when
-CONFIG_MEMORY_HOTPLUG is disabled?
+> 
+> This happens because the has_transparent_hugepage() helper is overloaded:
+> its name implies it checks whether THP is enabled, but on some architectures
+> it actually checks whether the CPU supports PMD-sized pages. In addition,
+> the THP and shmem code have a big switch on has_transparent_hugepage().
+> 
+> This series solves this by decoupling THP availability checking from
+> querying CPU support for PMD-sized pages. THP availability can be checked
+> with IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE). For querying PMD-sized page
+> support, this series introduces a new helper called pgtable_has_pmd_leaves(),
+> which is independent of THP, has well defined semantics and can be used
+> in fast paths.
+> 
+> Core THP code and shmem can use pgtable_has_pmd_leaves() to determine
+> PMD-sized THP support at page fault time (or folio allocation time for
+> shmem), leaving THP and shmem always enabled for other THP sizes. For
+> architectures and CPUs that do support PMD-sized pages there's no
+> intended change in behavior.
+> 
+> We also convert each user of has_transparent_hugepage(), and the related
+> helper thp_disabled_by_hw(), to IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)
+> and/or pgtable_has_pmd_leaves() according to the call site's check semantics.
+> On s390, powerpc, mips and x86 the arch has_transparent_hugepage()
+> implementation is moved out of the CONFIG_TRANSPARENT_HUGEPAGE guard and
+> renamed to arch_has_pmd_leaves().
+> 
+> Thanks to David Hildenbrand for suggesting this improvement and for
+> providing initial guidance (all bugs and misconceptions are mine).
+> 
+> This applies to mm-new 93f615a22169 ("mm/swap, PM: hibernate: atomically
+> replace hibernation pin").
+> 
+> Reporting availability of PMD-sized pages to user-space
+> =======================================================
+> 
+> Before this series, not having PMD pages available would shut down THP support
+> meaning that /sys/kernel/mm/transparent_hugepage would not be available.
+> After this series, /sys/kernel/mm/transparent_hugepage and hpage_pmd_size are
+> always available but hugepages-<PMD-size>kB is only available if PMD-sized
+> pages are supported.
+> 
+> To me this seems logical, as hugepages-<size>kB is only available if <size>
+> is supported. If this is correct, then MM kselftests that depend on PMD-sized
+> pages will need to be updated to check for it as they fail with this series
+> applied when PMD-sized pages are not available.
+> 
+> The alternative is changing hpage_pmd_size: either don't create the file
+> when PMD-sized pages are not available or set hpage_pmd_size=0. My concern
+> is that this could be considered an ABI breakage as this file was never
+> reported to be optional or report a zero value.
+> 
+> Testing
+> =======
+> 
+> - Ran MM kselftests on x86_64 and s390
+> - Tested all mTHP sizes allocation on x86_64 (with and without PMD-sized
+>   pages available)
+> - Tested shmem with within_size w/ mTHP on x86_64 (with and without
+>   PMD-sized pages available)
+> - Performed defconfig build on x86_64, s390, arm64, powerpc, and mips
+> 
+> NOTES:
+>   * I'm forcing arch_has_pmd_leaves() off on x86 to simulate not having
+>     PMD-sized pages available
+> 
+>   * Running the MM kselftests when PMD pages are not available causes some
+>     tests that depend on PMD-sized THP pages to fail as noted earlier
+> 
+> Changelog
+> =========
+> 
+> v8
+> --
+> - Fixed build breakage on MIPS (Lance)
+> - Rebased on top of mm-new (fixed conflicts in include/linux/pgtable.h and
+>   mm/shmem.c - dropped a Reviewed-by as a result)
+> 
+> v7
+> --
+> - Applied on top of latest mm-new
+> - Improved various changelogs including cover-letter
+> - Changed arch_has_pmd_leaves() default implementation to use IS_ENABLED()
+>   instead of IS_BUILTIN()
+> 
+> v6
+> --
+> - Rebased on top of mm-unstable (required a minor conflict resolution)
+> - Added more Reviewed-by and Acked-by tags
+> 
+> v5
+> --
+> - Moved init_arch_has_pmd_leaves() to mm_core_init() (David)
+> - Renamed init_arch_has_pmd_leaves() to pgtable_leaf_support_init() (Lance)
+> - Added new patch changing shmem_getattr() to set blksize according to
+>   highest supported THP order (Baolin)
+> - Added new patches to move has_transparent_hugepage() out of
+>   CONFIG_TRANSPARENT_HUGEPAGE guards
+> - shmem_allowable_huge_orders(): rename variable and only disable
+>   PMD_ORDER (David)
+> - Added <linux/jmp_label.h> to include/linux/pgtable.h
+> - Added new tags and removed Reviewed-by from changed patches
+> 
+> v4
+> --
+> - Used static key for pgtable_has_pmd_leaves() API (Lance)
+> - Moved shmem pgtable_has_pmd_leaves() check to
+>   shmem_allowable_huge_orders() (Baolin)
+> - Default pgtable_has_pmd_leaves() implementation to
+>   IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE) (Zi)
+> - Dropped patch “mm: thp: x86: cleanup PSE feature bit usage” (Dave)
+> 
+> v3
+> --
+> - Rebased on top of latest Linus tree
+> - Removed i915 patch as driver dropped has_transparent_hugepage() usage
+> - Moved init_arch_has_pmd_leaves() call in start_kernel() to avoid conflict
+>   with early_param handlers clearing CPU feature flags
+> - Fixed build error with CONFIG_MMU=n (kernel test robot)
+> - Fixed huge_anon_orders_inherit default setting when !pgtable_has_pmd_leaves() (Baolin)
+> - Small commit changelog improvements
+> 
+> v2
+> --
+> - Added support for always enabling mTHPs for shmem (Baolin)
+> - Improved commits changelog & added reviewed-by
+> 
+> v1
+> --
+> - Call init_arch_has_pmd_leaves() from start_kernel()
+> - Keep pgtable_has_pmd_leaves() calls tied to CONFIG_TRANSPARENT_HUGEPAGE (David)
+> - Clear PUD_ORDER when clearing PMD_ORDER (David)
+> - Small changelog improvements (David)
+> - Rebased on top of latest mm-new
+> 
+> Luiz Capitulino (14):
+>   docs: tmpfs: remove implementation detail reference
+>   mm: shmem: shmem_getattr(): set blksize to highest supported THP order
+>   mm: introduce pgtable_has_pmd_leaves()
+>   drivers: dax: use pgtable_has_pmd_leaves()
+>   drivers: nvdimm: use pgtable_has_pmd_leaves()
+>   mm: debug_vm_pgtable: use pgtable_has_pmd_leaves()
+>   mm: shmem: allow THP support determination at folio allocation time
+>   s390: move has_transparent_hugepage() out of THP guard
+>   powerpc: move has_transparent_hugepage() out of THP guard
+>   mips: move has_transparent_hugepage() out of THP guard
+>   x86: move has_transparent_hugepage() out of THP guard
+>   treewide: introduce arch_has_pmd_leaves()
+>   mm: replace thp_disabled_by_hw() with pgtable_has_pmd_leaves()
+>   mm: thp: always enable mTHP support
+> 
+>  Documentation/filesystems/tmpfs.rst           |  5 ++--
+>  arch/mips/include/asm/pgtable.h               |  6 ++--
+>  arch/mips/mm/pgtable.c                        | 25 ++++++++++++++++
+>  arch/mips/mm/tlb-r4k.c                        | 22 --------------
+>  arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
+>  arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
+>  arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 ++++++------
+>  arch/powerpc/include/asm/book3s/64/radix.h    | 14 ++++-----
+>  arch/powerpc/mm/book3s64/hash_pgtable.c       |  8 ++---
+>  arch/s390/include/asm/pgtable.h               |  6 ++--
+>  arch/x86/include/asm/pgtable.h                | 12 ++++----
+>  drivers/dax/dax-private.h                     |  2 +-
+>  drivers/nvdimm/pfn_devs.c                     |  6 ++--
+>  include/linux/huge_mm.h                       |  7 -----
+>  include/linux/pgtable.h                       | 21 ++++++++++++--
+>  mm/debug_vm_pgtable.c                         | 20 ++++++-------
+>  mm/huge_memory.c                              | 27 ++++++++++++-----
+>  mm/memory.c                                   | 11 ++++++-
+>  mm/mm_init.c                                  |  1 +
+>  mm/shmem.c                                    | 29 ++++++++++++-------
+>  20 files changed, 144 insertions(+), 100 deletions(-)
+> 
 
-If compiled with CONFIG_HOTPLUG_CPU=3Dy (which natively selects
-CONFIG_CRASH_HOTPLUG) and CONFIG_MEMORY_HOTPLUG=3Dn, phdr_cnt is computed as
-exactly 2 + num_possible_cpus(). This does not account for the mandatory
-memblock ranges from arch_get_system_nr_ranges().=20
-
-Unlike x86 or powerpc which might survive this due to heavily padded
-CONFIG_NR_CPUS_DEFAULT values, arm64's precise num_possible_cpus() leaves
-zero headroom. As a result, the exported maximum elfcorehdr size is strictly
-smaller than the required size to hold static memory ranges, and any attempt
-to arm kdump (kexec -p) will fail because kexec-tools cannot load the crash
-kernel into the undersized segment.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D17
