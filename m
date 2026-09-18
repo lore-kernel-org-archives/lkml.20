@@ -1,196 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9766126738D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F5552BE3E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765353; cv=none; b=d0Zoe8cHhXtmMGKxNr+HXiJvwkAQn0B82JO5u8GEPjmqWhLENZj+AerfDoShPIeMOr3DaHUuWS4TFtndTDCYg8HzmCuPd69212v8uw2FQGdSrXNo+7U8CkYblaMsHTjCQ7DjuMLzwXEBRp8tYlRUE8yNV1MTAb6MgPbGzEHG8AY=
+	t=1789765358; cv=none; b=cR8pCq3XDIDNYKVfgFcyBhDBAdCBF5xqCHgrlEdDOkBQAY/HBXI/oDObVzxbxLfh4TJrBFS7sZt/LGo6K6RwqjQhLHJtEuuvyGt9AK8qI43KrjTWJLeZ3bqNgGBmJZw6e65A0qB442VehwunusLHPiIvAfHXZFwrCv5J+bq/CbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765353; c=relaxed/simple;
-	bh=e8PaDl/CXFftkc9ZYUaqWXOwuO7aqaHmFlBjacti+z4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GOHhkTsL3ZwknhgfdC8mRDNkS+oP1QpwpXOamdMgPX/63wo9rUi46rp5XPLPCuRQy/VS/crVZD4XX67sRMgVL0rcHn3tKeH5dOd2SiJSFwBmCMC5b9E87xP7v00seqbQqSD7L366Kh6XzcCYsoBAAEViLv6c+ADMyZIBhLhNMiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/mV7mHb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789765358; c=relaxed/simple;
+	bh=khvWqygseB7fpC76dgUJOaNtCER/GOHR4LnPt6eYkbw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Q/bKhAdfHGLpWka2krbELHxjjqtJQ2UyZ5Mqozb6GOWEirBeYmJJoGsX19nQGyjWZCb12Ut9ctkefSeFiJS2NkxCwWEfWC7QtoEnQIHmR7DIoGz72PBX928zqPtMYIs24Vc0HIFjhOjke9Y+bsInX/bj1BHEYt+ae7szyVFc9+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Or7e4B3r; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/mV7mHb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE211F00898;
-	Fri, 18 Sep 2026 21:02:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789765352;
-	bh=rT6GbagmOOTUela/pJbPVBxH2Xo3VSFNdj9hyDoNywA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I/mV7mHbfio5LCWlsIrA3VXWdNmX6zkN0T5K014oTYvj006zO3GzpLIXJ7CbJUA28
-	 YGQnYDEWeWsUNUDHGbYrpCHFqAOL6K9WO8od9M6vdofBGKlshgK9Fyk9U87ypOH3hX
-	 X1PJSRSsNWyftbusBP2eW9ZHRVfMSZCO2eAMvrcSQ5Y+Kp1dRmiHoV2op5NtccWp8D
-	 +2CyLiRi3SvZAgfYuGpTJaqj3FDviQpRSqZxVVd6poBv7C3ZbfQJ9B8KwseeoujDiA
-	 YnIiBhGed0ZjBazkYq/WEj6yWtsmKuinUwyeYpipgKNdciWrKR+fIodNVmm4rjpLOU
-	 5qLs9TMSsCYkg==
-Message-ID: <4015259a-cc44-4bfd-b9c4-39ae96d48057@kernel.org>
-Date: Fri, 18 Sep 2026 23:02:22 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Or7e4B3r"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d81cso1275555ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:02:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789765356; x=1790370156; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SyEeb8Fr9emmHGcnOcMAo5PWMFsb+SWAIx+uH54QAkE=;
+        b=Or7e4B3rgTGC2PJTVavYfeXYS2xnDUUu3+TUQOgdl46aB0i8tmklIGX+k1VhuPZEcW
+         lpsSueYhj54Tyh8RSoM+0FNPjNjvA/IXnDBckfe+G0RaNMz2o5zQmHBR0YNo0srDBCYa
+         ls9x1CGMEbYVKKg7dlwDheSchWRT2rVi3Iz7N5Gzv9h1YfS0vg7ZHB9biAieqWxDb19l
+         o6NfYUBW7hXhSwGSNFIrhPCZluhRYd98mIxofJ0qzqljq26pHNCXlQWMuEmsKqu/Qlh2
+         RQQBMzoiy64u7tdVtPV/UENLrUw1JthHBqS+LBMcGESWx9oLM/ZJxb1zplCTqMWzYgOP
+         bjhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789765356; x=1790370156;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SyEeb8Fr9emmHGcnOcMAo5PWMFsb+SWAIx+uH54QAkE=;
+        b=2rSEotxkDBVsw+uPjsEvWyQWPNox9+KjEWNACA3RTRyrPmmTrYvcuQwnN22n3MVK27
+         MmYS2qdqo+7z9nX3/MlznahYTXaYUSMZ4rsyYX9PNnIWRSeZhmZ3WKbnULdxW3Ib+ky5
+         u4GX3FkC1+m5MXmPjtARL9wcyxw9/02B1APg3lil6aoF3uxJqQntSoNnNHUHBHPCrGBS
+         HUxlbW18gzwroVyTQcNa4+eP5FT1KdTzeo7zXIh10fJ/Vj5B0yAKkk3/X+6E2GLdW8e0
+         wlpZ5I7UVb4e1NVtIUmrZ9050HOEhU5JrlI3k5zBrIjYEEs6kpOF/vQI2ZqWCKogtKkO
+         oyzw==
+X-Gm-Message-State: AFuF++mGRX1EWRTppkV4N5lkijX2y2ey+wxEjm7FZbXLqUdh9zjZ0P8V
+	KPhiXskgWeE0qwbEA9BbEW8nVHt0Zv6yKoB//3qC70wOVbhOizMpqTIq
+X-Gm-Gg: AYBFou1cN2suneLvekTzyAKf+EofCCu2ZEigtpt5MReeYmjwAC8GnNoAAiE70Zvn2vA
+	6j+OoTebXG+8yEsB2PuIhCoaYCnol0OwgrQiugeVDzYVqK1UneTq0qRRtXEjgut0ovx1X6QtltL
+	2+vyvQJUyye9QQcZQpqxYBHuRvjo/r2nIjj+cg/PYdZTicOtnbHtwfhOPAbPKY88d4c12naMReE
+	Rd2MOuPv8xVLTpJZ7CxBSCkWFRTfsJcVamcq692Z/NT1BndQVxpLKjC16NHdQNFW8OyLeguBJqN
+	5qtasDNlM1v4AvvKsRd9s3U1lS2uk0O1dqcNMvcxlbWoxIUgJ8F4kAXYRlUT1hgBJ8w1z2kMkmc
+	1RlWfoqs849sWF1N8qmD1vKQ/xCYvfwPZwd8rh5IHEeGQjHvbmXpmxBKU0cEKqAUbBFvdu+YTnJ
+	6f/5y12e0L/KCsMzpcc3cwmv84Q/TqANkWHTMMV9xZ4f2z7ibz9KTEGW2utPIlfOlHisySeNLmP
+	klI03ci
+X-Received: by 2002:a17:90b:4acc:b0:39d:f130:ba54 with SMTP id 98e67ed59e1d1-39e549c111fmr6837005a91.0.1789765355954;
+        Fri, 18 Sep 2026 14:02:35 -0700 (PDT)
+Received: from [10.198.60.252] ([2409:40c2:5404:cbbd:a461:609f:eccf:23f])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55ab3a3sm1396904c88.5.2026.09.18.14.02.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 14:02:35 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sat, 19 Sep 2026 02:31:24 +0530
+Subject: [PATCH v3 3/4] regulator: dt-bindings: Reference Tegra regulator
+ coupling schema
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/17] mm/huge_memory: move anon_vma handling into the
- anon split helper
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
- <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
- Kairui Song <ryncsn@gmail.com>
-References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
- <20260915-swap-thp-cleanup-v5-12-39878b37dfb0@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260915-swap-thp-cleanup-v5-12-39878b37dfb0@tencent.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-ti-tps6586x-v3-3-63dd240f4684@gmail.com>
+References: <20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com>
+In-Reply-To: <20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@avionic-design.de>, 
+ Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
+ Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789765290; l=3311;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=khvWqygseB7fpC76dgUJOaNtCER/GOHR4LnPt6eYkbw=;
+ b=Vq0Gccle4lp1aryeTtZiKIETU7HnviwUPyZ5s/r/ULkM3lkxhmNg6Q8Vtgw3WXgae4i/a9tn4
+ HSSVF2sS11XC5xTQnXE+/mBx/bMvpoV8S/ruSvxGOGyutaNiLWg0G1P
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On 9/14/26 19:14, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> Only anon split needs the anon_vma, and it only needs it to unmap and
-> remap.  Move the folio_get_anon_vma()/anon_vma_lock_write() pair out of
-> __folio_split() into the anon helper next to the folio_mapped()
-> check that already gates unmap_folio().
-> 
-> This makes the anon_vma conditional on folio_mapped(), which is a
-> behaviour change but should be fine.  folio_get_anon_vma() returns
-> NULL whenever !folio_mapped(), so an anon folio with
-> folio_mapcount() == 0 used to get -EBUSY from split_huge_page() and is
-> now split instead.  A realistic case is a THP that has been fully
-> swapped out and is still in the swap cache: swap PTEs do not contribute
-> mapcount, so it is !folio_mapped() but still alive.
-> 
-> That should be safe and right to have because:
-> 
-> - folio_ref_freeze() below still rejects a folio that picked up any
->   reference, a mapping or a GUP pin, in the meantime.
-> 
-> - A parallel split is excluded by the folio lock.  The anon_vma
->   write lock was added to serialize split in commit 062f1af2170a
->   ("mm: thp: acquire the anon_vma rwsem for write during split"), when
->   split_huge_page() did not hold the folio lock throughout. commit
->   e9b61f19858a ("thp: reintroduce split_huge_page()") later made the
->   folio lock a caller requirement and added the folio_ref_freeze()
->   scheme, so that has been covered ever since.
-> 
-> - Unmapped path is already exercised by folio_split_unmapped(),
->   and the swap cache split already runs well for a partially
->   swapped-out mapped THP.
-> 
-> - A !folio_mapped() folio cannot become mapped meanwhile: mapping it
->   requires the folio lock.
-> 
-> For mapped folios the anon_vma write lock is now released before
-> __folio_split() unlocks the after-split sub-folios, where previously it
-> was held across that loop; that window is harmless as the sub-folios
-> stay folio-locked and referenced until it.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  mm/huge_memory.c | 58 ++++++++++++++++++++++++++++++--------------------------
->  1 file changed, 31 insertions(+), 27 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 8fc1dd5b8354..a4c2e38f4a6d 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -4029,16 +4029,38 @@ static int __folio_freeze_split_anon(struct folio *folio,
->  	struct swap_cluster_info *ci = NULL;
->  	int old_order = folio_order(folio);
->  	struct folio *new_folio, *next;
-> +	struct anon_vma *anon_vma = NULL;
->  	enum ttu_flags ttu_flags = 0;
->  	struct lruvec *lruvec;
-> -	bool need_remap = false;
->  	int ret = 0;
->  
-> +	/*
-> +	 * Unmap/remap needs the anon_vma, so we first take a reference on
-> +	 * it to prevent it from disappearing, and lock it for write here,
-> +	 * letting unmap_folio() walk the rmap with TTU_RMAP_LOCKED.
-> +	 *
-> +	 * folio_mapped() is not stable here, but it can only change in
-> +	 * one direction while the folio is locked. The mapcount can drop
-> +	 * to zero at any time, zap_pte_range() takes no folio lock. It
-> +	 * cannot go up: swapin, migration and uffd move all lock the folio
-> +	 * before mapping it, and fork only copies PTEs that already exist.
-> +	 *
-> +	 * So if we see the folio mapped, the worst case is an empty rmap
-> +	 * walk. If we see it unmapped, it stays unmapped and needs neither
-> +	 * the reference nor the lock. Anything else needs a reference
-> +	 * first and folio_ref_freeze() below catches it.
-> +	 *
-> +	 * Note a swapped-out THP counts as unmapped here as swap PTEs do
-> +	 * not contribute mapcount, and they are splittable.
+Several PMICs used on Tegra boards TPS65910, TPS62360, and MAX77620 use
+Tegra-specific regulator coupling properties. Update their dt bindings
+to reference the shared nvidia,tegra-regulators-coupling.yaml schema.
 
-Helpful, thanks. I'd rewrite the last part to
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ Documentation/devicetree/bindings/mfd/ti,tps65910.yaml       | 12 +++++++++---
+ .../bindings/regulator/maxim,max77620-regulator.yaml         |  5 ++++-
+ Documentation/devicetree/bindings/regulator/ti,tps62360.yaml |  1 +
+ 3 files changed, 14 insertions(+), 4 deletions(-)
 
-"Note that entirely swapped-out THPs are unmapped but can be split."
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+diff --git a/Documentation/devicetree/bindings/mfd/ti,tps65910.yaml b/Documentation/devicetree/bindings/mfd/ti,tps65910.yaml
+index caff9dc0b2bb..798d27099401 100644
+--- a/Documentation/devicetree/bindings/mfd/ti,tps65910.yaml
++++ b/Documentation/devicetree/bindings/mfd/ti,tps65910.yaml
+@@ -99,7 +99,9 @@ properties:
+     patternProperties:
+       "^(vrtc|vio|vpll|vdac|vmmc|vbb|vddctrl)$":
+         type: object
+-        $ref: /schemas/regulator/regulator.yaml#
++        allOf:
++          - $ref: /schemas/regulator/regulator.yaml#
++          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
+         properties:
+           ti,regulator-ext-sleep-control:
+             description: |
+@@ -112,7 +114,9 @@ properties:
+ 
+       "^(vdd[1-3]|vaux([1-2]|33)|vdig[1-2])$":
+         type: object
+-        $ref: /schemas/regulator/regulator.yaml#
++        allOf:
++          - $ref: /schemas/regulator/regulator.yaml#
++          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
+         properties:
+           ti,regulator-ext-sleep-control:
+             description: |
+@@ -125,7 +129,9 @@ properties:
+ 
+       "^ldo[1-8]$":
+         type: object
+-        $ref: /schemas/regulator/regulator.yaml#
++        allOf:
++          - $ref: /schemas/regulator/regulator.yaml#
++          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
+         properties:
+           ti,regulator-ext-sleep-control:
+             description: |
+diff --git a/Documentation/devicetree/bindings/regulator/maxim,max77620-regulator.yaml b/Documentation/devicetree/bindings/regulator/maxim,max77620-regulator.yaml
+index 7118c34961ba..67fbe7d6dc1c 100644
+--- a/Documentation/devicetree/bindings/regulator/maxim,max77620-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/maxim,max77620-regulator.yaml
+@@ -22,7 +22,10 @@ patternProperties:
+ 
+   "^(sd[0-3]|ldo[0-8])$":
+     type: object
+-    $ref: /schemas/regulator/regulator.yaml#
++    allOf:
++      - $ref: /schemas/regulator/regulator.yaml#
++      - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
++
+     unevaluatedProperties: false
+ 
+     properties:
+diff --git a/Documentation/devicetree/bindings/regulator/ti,tps62360.yaml b/Documentation/devicetree/bindings/regulator/ti,tps62360.yaml
+index 90c39275c150..6768fc6ea0d3 100644
+--- a/Documentation/devicetree/bindings/regulator/ti,tps62360.yaml
++++ b/Documentation/devicetree/bindings/regulator/ti,tps62360.yaml
+@@ -20,6 +20,7 @@ description: |
+ 
+ allOf:
+   - $ref: regulator.yaml#
++  - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
+ 
+ properties:
+   compatible:
 
 -- 
-Cheers,
+2.55.0
 
-David
