@@ -1,257 +1,219 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010001.outbound.protection.outlook.com [52.101.193.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DB1223323
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD923B3C1B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693760; cv=fail; b=OFEM4F2Q2Bj/uOhwW0gJm1GXOsNfYgvAFvvCWlr5lYkgJEFK0AHknOk6+LK0NzQAchoTsIEOxOfcUNDqEVfG9pwk4/b5LHMsG5EZzEG2+ntdpFaEDpxLUDU/72C5/5yNQwOl/DMdFkNMLhw7PrCBlfJ+rqvCfURl+J1zWm6fq9Q=
+	t=1789693761; cv=pass; b=FPnZS53BCxkzUj0AK8e4wzip0S64hjvIlyi8x42BDzuA7Z3rb3bpjw+a8Zc8h7qP4WPHAcwW0dwb/R9IKwxTiaRd449mWPfdAw82B5UPIsJYFaq8t09q8axqs1kpUAI5CUHEhpm2tG2sX9y5jo9DBSbC7zpqRx9LOJiv1eQ3TK4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693760; c=relaxed/simple;
-	bh=e9o1I/8njlndb2PNsI1O1PACBa4d43i/X+KYT/326GM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iopbpSCo4d5lXgD2G+Czb8yd1b0mwaf6j0Tt2x5GfrbIQ8jDScoMPiHHCWzZWZyHB+DPbW2sOYe/U1U/bqnEfHsAH6e/Rk1jr3Mf49lgapn9d4npM1bU4rTjOtEdqwccb0zFa/PkyY+ZaIjk3ipTmUeKBZokLHuDCk1cxMxpNw0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NPX1OpVp; arc=fail smtp.client-ip=52.101.193.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789693761; c=relaxed/simple;
+	bh=VQGIa5OfAJMQ4r3GsmpmN36ZDjm6tlTvjyCikjUyEUA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VCZVa8aQju6m2YhunYbxDPxwNDjPeOK00EYFUCheSfjzRsIHSwyovdC/6NO6xfKRY4v7EJtAxcfFDUkt40eeC/yYeL7kmcYjK0fho1SuVuMM0LR2Ib92ARcA8PQaVfT3eIqt5PxKdxbS3gfNZGsZ3c5aR+ophKtuVpZsgSj/bLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t6Ow9wej; arc=pass smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NPX1OpVp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=McVWg1ajdqKthZgPHBUYq8/f+HX+X7C7cvH7zcVclXSUV6jsSGF6doD8fnU4O2Bfhr+7VpHsAfpLM74Sc86dgDBXSE9sudsX9JOctzFY8t5R7n1pikLPUEKDRjI6hpMIS2QmNX/DMhkrsMqb+vOEwmivpqE2d4M650RNlwxPzp28qJmlSlxVCWgExqa0PAY8+SaUNORxyRz7cL1fDdxCrFyGpV51U1P5TtFY2cBAhorfUQdmKgF+qVlyX3iBd/2YhuB42CLm7iua3s1be3B/sz/Gb+HxxhvCz0UoHry4TzjUYWLB9J9LwQiVEQtXN8qjiWL/0UJQCH5MQOFMVwmAIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PQmaIyeH5MIzbEtOjsdg9zI0uu9zec2dIPtQkUGsBdA=;
- b=bhFIp/B9OVcQv76sCxB/ZMBDPIyJnOE0BRFmzdrmtFix6aNLEX2ObvJ7ANkIWw8jIPo5GQGIhW7kLsn8jRwpkOitvCZ6/pE0DmS+/9QUmtDMuyd0Yq9s/f0Cx6fFn+XuxlrgfLOhM/NxRXDwhQT2iNoRtVkNB8HGlW21dHti8WlzcJ/9WBwmvmYG/bx20hiGHVY1injwGjZ+dEv9zBjZwUoIqwHhxWlXpUOH/rwR4D1hXc+/qM1cMsAgd04D+EwwFqduuTTvpbPw4bm1xcybPjS8W//Z+8pCbu0FIMS8KeYXccy3rJ8ClDSUl+hpQRypyhxp1dm2kGBGcZ6folqeqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PQmaIyeH5MIzbEtOjsdg9zI0uu9zec2dIPtQkUGsBdA=;
- b=NPX1OpVpbDYo8Ejsv6QnkAWfzBCjwqsEtZpxUFc6BEIjli+pGQqLEuVtIJ6RTcwwWsZXDrvTRl9eFJgwYV77q0dN5KI2fUyo+pZlUsO56DW5AAxFGOIoZ8mYnqujcl6aEIA3XmyYW2iGXmN+HyXPI/1+MzddxAhb1vHbPH78SgmYz8pkJPTwMh5dJV6EKjB3BmXl3JdSRl5rUQ4d6O/LxiHHGiZhFAynouC5whS5Cp1UgFJPHDufrgnge9/FsDsplHrQNidb2y0weonQ7McTZhSK5mpVaBlEHZ+N7zTxMOTkwDaZotA0qUsHOYF4hqaLg3uEjrVkpeth7/shj3w6Zg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 01:09:11 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 01:09:10 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	nova-gpu@lists.linux.dev,
-	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH v3 31/33] gpu: nova-core: gsp: split the reply match out of the RPC receive path
-Date: Thu, 17 Sep 2026 18:07:17 -0700
-Message-ID: <20260918010719.1176945-32-jhubbard@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918010719.1176945-1-jhubbard@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY5PR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::39) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t6Ow9wej"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-530e8c6fb80so89031cf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:09:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789693754; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S1unWe/I6GaCl1l8K4U4SCU8uybZ68F2n2KsCYP7gPOBsVTWGLLZp9GEH8H967qkAY
+         ZUwraJplwGd8Bi6UnlIjKmGs87dN7qi+KpybUDUCSfWs7TvNxi1Ygwz2xVxrgdSPlX42
+         Z+h0kUXBIgEoQHbd37BGPavtxtZqbXwdHEu5zH5ij+95QSq2RnsZGQ++fPsBoX8owWSo
+         5cfTQAjzh4tYcUKcDF+ZEOXf4wrdNtMaob+2ftr4ChZUSS/uIcfWm1JwXuG0csk82PHJ
+         8uaPkZiSXDQJJ1UKo2xQSr2j+Y4CvaeyX6AFDMKzHku7OOwSL9yr+ELTfAlN6A5dsnMQ
+         XmnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9OH+vRLumsrAn2s1eXS41G1CuSBMFEgYn9wTdjASFyo=;
+        fh=702Kg3HGx27ajpkRZMIpiuNKpFgrJT9kwOSvlpkkOaw=;
+        b=S4oimYWjnkafUNk1QhnRJNSzrKK8DfS43zULIzfEm/TSYkjrcrUM8KoAOEpGZ/gB42
+         oj8K5Zu8twi2YJp5TLgZ0fmEhC1OTPEpI59jDS1xCQ+6OniPwDtEBhZUdy4kcqkbxiSD
+         tGywsVYOFGqiOr8coahCBv9Uu/o4HBg12ON4bL8E0Rzk/qZDNkLrO+GuDkQASAH4jECY
+         zkS+Trlh2fDD7jE6Q5GOjizN+nkwXKwIR3FS4NC9755/2ce/v3q9xb0lJq79qP+IFQl2
+         a51XQDIRWfofFWAgFq1xD9yer5U3HoWIuw06C/CBJpHsoEH/YXUvD6XDKX1RZLOj4Feg
+         ZLDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789693754; x=1790298554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9OH+vRLumsrAn2s1eXS41G1CuSBMFEgYn9wTdjASFyo=;
+        b=t6Ow9wejpsaNY3SU4XpVe+Zw0+ZiIQ09b6+mUxgxsFQx3nC86ClPH4yLjBFJjB8fhR
+         5W7gdoCXu+FHW6Lnx7fV/RIUtxwuOTC41T5A3CDR1vecCUfwiyFs807NLZdOGp8pNawr
+         JoGzjyOgp2/8sgXPlX0l6PcdzHNA8nYsJyQWlstqJpoLlXjhzQHhCEWup31W47pzOkQt
+         5y044f19rSQyXhl3Jgtprq5I9D5vhqhe831v7pd5d3jq1UwCis8gK7WSWG2iUBJEQInD
+         teur1dAy00Mx8L4HVGxWhlaMwhqQg9j+Ye0Ksfz0Qp9hQqOHdS1McpiQBWFIAfKv6dY+
+         TRdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789693754; x=1790298554;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9OH+vRLumsrAn2s1eXS41G1CuSBMFEgYn9wTdjASFyo=;
+        b=F0uT7U/chd9DwPgZtsB8l0RyTuG2TfzkWr/vKyQq2rw54wMfyH5ixdY5rykLukOqPy
+         yL9laQ9JqbzYa554y8PWhufKK7nU/K9QtEhv4lLUl18JHCPhmlI2OKd41KPtCTHQCyK4
+         OzKYVoaUBaOzX9RKFn32D6cvdIVJDLPGEkOqjtgJF0Br6xgloQrzfkm1wUBgWEWdRvgS
+         XrgzCcrjS8TkD8oD1ycqU1rKfZ/ExHvQR6U/dtoQeh4tkZXnq+JQQBK/RmGQX9pyZ5D7
+         lRS358WVxlX0pdfh5G8coLslcA1Ahu3PAMMCmN3fTG48q1Bai9ZRBK1mw3jKEhZfGt5g
+         ZyRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9TQS1pptQKgxg6fTZq5DipfA5VToi5HNyYjDnfkf5NTZiBrC9lS90OuI7vJB9KduyM24Uxzsh1ypL2CM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdukXCeQQm2o+JZ7u7bUl7pOlF+20fc9p/EhDmMCabDJhKUESi
+	WAPX+sEK1ANh2QjtzPZv3Oyjuohk68mFva+wk4DBwqA2e1WRAe17IlTSy294rBdz3eKGnjJM11m
+	BlhVGfXCzLUR1e0COP9jcfKQcCCkCapoGBQYWL487
+X-Gm-Gg: AYBFou2jFFvZs8JMXvi1g8H7iAQVrOtEiPZKRzhQGnYtlEJZ4QGUumbfUr5msXQ4++8
+	/KZHFqnV80SfHVbyieg18dkdR2GKx6FTxFyywNdTiLW87ImxZxq92wRIq+5ixXhsQSFffMq5OYx
+	bncopDJjgER5XOPXBJP4OJZKxxJEHCjD/szIwe+zfNg44RaGCDwH7hL+U8GQUci/wTzlRRwfxEz
+	oGINspLilf7DXTm4ZbKd9XGvgVjBwl3zelmdckwVmL3GNqbx72JLx3Ri8aEHJ6vhvgqiSwoX6yL
+	lF9rxkmjspL/qd1/eEkePzwB+x0qAKMMr+6rk55TCDxlHg6kN4d4/g==
+X-Received: by 2002:a05:622a:2d0:b0:51c:ca9:3d17 with SMTP id
+ d75a77b69052e-5329d7a87a3mr7686831cf.12.1789693753565; Thu, 17 Sep 2026
+ 18:09:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f92e9b5-59de-41cb-98b0-08df152149dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	DZO0MkjhXb+ltMSfbboXw/N16Jf4XHN7k+W9T3SqvZdjxVZZdJZ4iDhanB5XBKUh0R8bKm0eatkyyylBbSzrX94yWleK5m7P6WHblihr6VsSadqyRyw2iRfTq76tBS8w/XPCDnL41kDAY2md0SjriO5foTksbzzMHQV7cBDCNo5Fc5Up3cKcIPUdCpwKKpK5384PmXShAdYzt6QweFhX8acQKRfNkzNbf0i8aCHaQ80yvCMxEXkyL4EL28eQ/1fGJ75iqNv+nrv9/pX+9nkFcZ1mrbmrkAoQlkZcD+UxUJbZeNlMcoE6FDObt8sVlxEQi7CXg9jO5U42C2ualhYy5ladtmQ2DpjjYjG8GiV9bnyYbH7lvBxhc18YF/pfUikTHgK5+X5Fe0CeNkB6ncirqNwJvihXSKkfDPsMfPJlPgyDpZbibobTuhk0D7PPIlJUQmfD29mI0FUqBpsMkGOnxOkaXi8bevupykF5910KAnVzIApKyuYKnqWc612/Z/aQ7jq0Uvf2mC8x0PlCcdoa3/o6LRZcDeYPVYYKf4GmshPEgPXC5mxhntj1T1Sn64S3OQ2Rag6t/fu3okrNghOg3DEAYu5V4L05TnwGV36lzsjSfMSyDae7AHTBeaAPThw+d14okmCno8egQ77QQ6dSKl1BhnbXFItQTf3hgONcMOw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rQkiCkG/ZpJS+HyV0rD+miBIllBIP5rCnUjWDy6NsWcr/p+N+sFDd/vHq+aW?=
- =?us-ascii?Q?Y/Jby2j6a9vQ5mIxjwuY56UWJyd9U3c4pi6EEtZYrpWGo6xAeLHiSvO5uK6e?=
- =?us-ascii?Q?ycEub4/U6wKBqraC56k/kzD7z00LTmm0YykTBjWskMwOkVO6aVloZtOIahiX?=
- =?us-ascii?Q?ExlxJMACeTxac26W9cvXDpX/ac9wYru4D2nosQ9k165C0VcR/nzkjYqtyDg8?=
- =?us-ascii?Q?kZoFFg97hTxzsnDHrTSVrENzKqsXgGxrXfNd26u/hgMJfR+4THs/N/A0UWeL?=
- =?us-ascii?Q?m4Yuua6L0nJ0Z7lYRxR9d8l6CB4nVoKYIgBxdBJEUCarav4eGtBigKz0PLEP?=
- =?us-ascii?Q?RKLvBTnhMV9QKLTXULJ1Ngt4R4MS3d6OLZiRUVzcfJpGY342Q00ycGfj0LDT?=
- =?us-ascii?Q?Eq+bU8tsXxStt1feWL2l+NiD/Ug3cd7rl7QXF16wbopjv3V+U9UM2mjOMrBo?=
- =?us-ascii?Q?khXc9Y/SqsK2QqO9WaZk6uJn9oRle7dLTHHd9/03UTipHi4iyfJMSzpVMVMv?=
- =?us-ascii?Q?ntWGsHxqs2b/5vvUbVQIn/Qaj4CtChCpSVRj32zIldXMXD/d/dixOKleqjg0?=
- =?us-ascii?Q?L8B+EqSKSccvzhS1lEHlaOs9XD7jSpOJ2Y6EdM1rAgsDpNB5ICKe9TykO7kl?=
- =?us-ascii?Q?3EOwnw/CJKoUoWc8reErXooD1Yz2vKKW+s0tZgRi++bMKvdPdwNTT+ewq6vF?=
- =?us-ascii?Q?4EUKEx5b2qKsigrzx9OYcT6FvcEscQvknyrApx9GLRH43938OGtnFtNAoG8w?=
- =?us-ascii?Q?bdAg+Js5cU4BrL/OuPpFHvZVSaha13PXgNBi+NoroN7S7gUxUidiU/SW+BNQ?=
- =?us-ascii?Q?MTbEsszY4zx8ogS+wFlDi1bdjS/Z4xLyR7dToEyB6D1lWn5kPhNpydTH3g6X?=
- =?us-ascii?Q?kEiSWorcr308phKJ5vnYoExGJql+bStGUsEvUAtKp8spGWDUa3NZsgrhvoMI?=
- =?us-ascii?Q?pcPGoatjuAt4I7ClKOpDrn6C/5tu5ccsxG1g4TEZ639o3r5k3owMmjVib59v?=
- =?us-ascii?Q?jlSCxC++4jrK3V0tQ0F6zNEv/UlHXi2l3Ws/3aFNbthEwbx7eZ/P/eD0ljQV?=
- =?us-ascii?Q?eARe49do8BTAXTdSMC9MaIkYs6xpPAxr00Hw9/nqmbLTxf/q9Bj2IqPvPHyL?=
- =?us-ascii?Q?TBjwf8wXKJQyZpodEvDEBAt60o+G2/fciKSyydZmrm5OpGkx//WPMM0EKEc4?=
- =?us-ascii?Q?YClqAGU2reqxp1UqsrJg4NNNBjuSvuWrDtmrKyYy05U187nE7fmOYOmL9TtI?=
- =?us-ascii?Q?hDS6WYl9GdXsZCQd2TxdDm8wJqqcZduxufluZFxSKlzigILwAbY0dr980/pg?=
- =?us-ascii?Q?kxUq7InUpOsx/7Cbd3DblOMwltiRsWtSNoIdJB4WiPF4MRIhoChRwlwYaYTi?=
- =?us-ascii?Q?LRBOv6VQj6A21+ml8vd4zUcrC31rYTZmJXGf6A6OGkLiW+ACEsxhUZ20yXRf?=
- =?us-ascii?Q?5nQdc6mKcnLylgAnw+By2l7D+DOJo/Ye6AqiLrzmy7yG29kSq26RXyQHR0P+?=
- =?us-ascii?Q?nGKMQrjRG8qBsARdkPPNXCJk8iiJ0ifugZFPbYNLgTNTCSKCE/ovRLMMlMAn?=
- =?us-ascii?Q?O4qiotNxx7AY/kHCUV+bcQtprR0ApFFkJ7r8hUb1XuhcCTMTFwhTc1UusvMo?=
- =?us-ascii?Q?tt6O+r8sZ1owVJu4HVpC8PTdz6gdgOBWcUTIF9IrODXNWkENBv+4sd177Xgr?=
- =?us-ascii?Q?IDfcCvAycp12d8tU1/RmP6VkiAcD6uW/PQ/YHU3Ke4+3fL5F7q3aeXGocSBu?=
- =?us-ascii?Q?mqS2PtYEuA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f92e9b5-59de-41cb-98b0-08df152149dd
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 01:08:02.8785
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rl0M5kvsoqS4xx+inUgIJnl1NJ0xjqhT1PSe9F3rYBI86/5gY8ASJqoD+zYRwj5E24aha46yjEuVP4mynHR3EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
+References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-7-hao.ge@linux.dev>
+In-Reply-To: <20260915070001.113559-7-hao.ge@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Thu, 17 Sep 2026 18:09:02 -0700
+X-Gm-Features: AcwNN1WpdwzfsuEi7atSbmPcBeuY9CTLz0TyEvuZKGkV5swWnf0AU7r2YB5LThc
+Message-ID: <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
+Subject: Re: [PATCH v10 6/6] alloc_tag: Defer /proc/allocinfo removal to a workqueue
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-GSP-RM posts RPC and GMC messages on one queue, so a receive path has
-to decode each element by its kind before it can match an RPC reply.
+On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> shutdown_mem_profiling() calls remove_proc_entry() from
+> reserve_module_tags(), which runs under mod_lock held for write.
+> remove_proc_entry() waits for readers, and a reader takes mod_lock for
+> read in allocinfo_start():
+>
+>   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
+>   ----------------                   ----------------------------
+>   reserve_module_tags()
+>     down_write(&mod_lock)  [held]
+>                                      use_pde()            [in_use++]
+>                                      allocinfo_start()
+>                                        down_read(&mod_lock)  <- blocks
+>     shutdown_mem_profiling()
+>       remove_proc_entry()
+>         wait for in_use =3D=3D 0         <- blocks
+>
+> Move remove_proc_entry() to a workqueue.
+>
+> The file creation is moved to the end of alloc_tag_init() as well.
+> If alloc_tag_init() fails with alloc_tag_cttype still NULL or an
+> error pointer, a concurrent reader of the leftover file would
+> dereference it in allocinfo_start() and panic.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
+ion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> ---
+>  mm/alloc_tag.c | 26 +++++++++++++++++---------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 1ca0409b492b..cfa0fc84b68f 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/seq_file.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/vmalloc.h>
+> +#include <linux/workqueue.h>
+>  #include <linux/kmemleak.h>
+>  #include <uapi/linux/alloc_tag.h>
+>
+> @@ -591,6 +592,13 @@ void pgalloc_tag_swap(struct folio *new, struct foli=
+o *old)
+>         put_page_tag_ref(handle_new);
+>  }
+>
+> +static void remove_allocinfo_file(struct work_struct *work)
+> +{
+> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+> +}
+> +
+> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
+> +
+>  static void shutdown_mem_profiling(bool remove_file)
+>  {
+>         if (mem_alloc_profiling_enabled())
+> @@ -600,7 +608,7 @@ static void shutdown_mem_profiling(bool remove_file)
+>                 return;
+>
+>         if (remove_file)
+> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+> +               schedule_work(&remove_allocinfo_work);
+>         mem_profiling_support =3D false;
+>  }
+>
+> @@ -1358,16 +1366,10 @@ static int __init alloc_tag_init(void)
+>                 return 0;
+>         }
+>
+> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc=
+_ops)) {
+> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME)=
+;
+> -               shutdown_mem_profiling(false);
+> -               return -ENOMEM;
+> -       }
+> -
+>         res =3D alloc_mod_tags_mem();
+>         if (res) {
+>                 pr_err("Failed to reserve address space for module tags, =
+errno =3D %d\n", res);
+> -               shutdown_mem_profiling(true);
+> +               shutdown_mem_profiling(false);
+>                 return res;
+>         }
+>
+> @@ -1375,10 +1377,16 @@ static int __init alloc_tag_init(void)
+>         if (IS_ERR(alloc_tag_cttype)) {
+>                 pr_err("Allocation tags registration failed, errno =3D %p=
+e\n", alloc_tag_cttype);
+>                 free_mod_tags_mem();
+> -               shutdown_mem_profiling(true);
+> +               shutdown_mem_profiling(false);
+>                 return PTR_ERR(alloc_tag_cttype);
+>         }
+>
+> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc=
+_ops)) {
+> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME)=
+;
+> +               shutdown_mem_profiling(false);
 
-The RPC receive path matched the reply inline, in the function that
-also waited for the element and advanced the read pointer past it. A
-dispatch on the element kind in that function would have nested the
-whole match one level deeper.
+You need free_mod_tags_mem() here.
 
-Move the match into a helper of its own, which decodes the awaited
-reply or logs the message. The receive path keeps the wait and the
-read pointer advance.
-
-The following patch adds the dispatch.
-
-No functional changes.
-
-Assisted-by: LLM
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
----
- drivers/gpu/nova-core/gsp/cmdq.rs | 58 ++++++++++++++++++++++---------
- 1 file changed, 41 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index fc26c7d8aac0..2258c4f2cfd1 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -915,12 +915,8 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
- 
-     /// Receives a message from the GSP.
-     ///
--    /// A message whose function code is `M::FUNCTION` is decoded and returned. Any other message
--    /// is logged as an event.
--    ///
--    /// With `expected_seq` set, the message must carry that RPC sequence number too. A message
--    /// with the expected function code and a different sequence is a stale reply to a command
--    /// that already timed out, so it is logged and dropped rather than classified as an event.
-+    /// [`Self::match_rpc_reply`] decodes the message as the awaited reply of type `M`, or logs it.
-+    /// `expected_seq` narrows the match.
-     ///
-     /// The read pointer advances past the message in every case, including a decode failure.
-     ///
-@@ -942,13 +938,48 @@ fn receive_msg<M: MessageFromGsp>(
-         Error: From<M::InitError>,
-     {
-         let message = self.wait_for_msg(timeout)?;
-+
-+        // An early return here would leave the read pointer on this message.
-+        let result = self.match_rpc_reply::<M>(&message, expected_seq);
-+
-+        // Advance the read pointer past this message.
-+        self.gsp_mem.advance_cpu_read_ptr(u32::try_from(
-+            message.header.length().div_ceil(GSP_PAGE_SIZE),
-+        )?);
-+
-+        result
-+    }
-+
-+    /// Decodes `message` as the awaited reply of type `M`, or logs it.
-+    ///
-+    /// A message whose function code is `M::FUNCTION` is decoded and returned. Any other message
-+    /// is logged as an event.
-+    ///
-+    /// With `expected_seq` set, the message must carry that RPC sequence number too. A message
-+    /// with the expected function code and a different sequence is a stale reply to a command
-+    /// that already timed out, so it is logged as stale rather than as an event.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EIO` if the matched message is too short for `M::Message`.
-+    /// - `ENOMSG` if the message is not the awaited reply.
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-+    fn match_rpc_reply<M: MessageFromGsp>(
-+        &self,
-+        message: &GspMessage<'_>,
-+        expected_seq: Option<u32>,
-+    ) -> Result<M>
-+    where
-+        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-+        Error: From<M::InitError>,
-+    {
-         let function = message.header.function();
-         let seq = message.header.sequence();
-         let func_matches = matches!(function, Ok(f) if f == M::FUNCTION);
-         let matched = func_matches && expected_seq.is_none_or(|expected| seq == expected);
- 
--        // An early return here would leave the read pointer on this message.
--        let result = if matched {
-+        if matched {
-             match M::Message::from_bytes_prefix(message.contents.0) {
-                 Some((cmd, contents_1)) => {
-                     let mut sbuffer = SBufferIter::new_reader([contents_1, message.contents.1]);
-@@ -984,20 +1015,13 @@ fn receive_msg<M: MessageFromGsp>(
-             }
- 
-             Err(ENOMSG)
--        };
--
--        // Advance the read pointer past this message.
--        self.gsp_mem.advance_cpu_read_ptr(u32::try_from(
--            message.header.length().div_ceil(GSP_PAGE_SIZE),
--        )?);
--
--        result
-+        }
-     }
- 
-     /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-     ///
-     /// Any other message that arrives first is logged as an event and does not extend the
--    /// deadline. `expected_seq` narrows the match as [`Self::receive_msg`] describes.
-+    /// deadline. `expected_seq` narrows the match as [`Self::match_rpc_reply`] describes.
-     ///
-     /// # Errors
-     ///
--- 
-2.55.0
-
+> +               return -ENOMEM;
+> +       }
+> +
+>         return 0;
+>  }
+>  module_init(alloc_tag_init);
+> --
+> 2.25.1
+>
