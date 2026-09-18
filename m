@@ -1,74 +1,89 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589254F93DD
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D9551121B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738813; cv=none; b=qySbTYK+rszqpiFqrW2RjqM8fkfkLhGIkBi8lwTlqUaraErtJUEG4SztsgTrkVNaXNCFpSIZAkCs/wazCJwt4eNKjFJdk4vrpsPbXMlgKDMz64hyMu/YlE2Ktw65c/UpmJeDEf8QW8w+fZLEKOhAyGQLsAp7i0UiEJM86x5C8Io=
+	t=1789738818; cv=none; b=Fl85V3TIN5DPtCJ4ZuEvXTfOT2aHidWTUyaBmx4SbxIFYgYL49B+iYm2mABwyMQU24vDMqX+IZozSTdotxsOtBmJ8V724uV494zQS7DwoOPpQ0v/uQ2Cs/iSIxtlZWm0iTb1pGTyvcAu82PGhZgwmFPmHBrYlon6b8omQ3UasBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738813; c=relaxed/simple;
-	bh=MkCaoljCfwO0UHai9egYkzKnMmf51ff6r89Fagqvxxo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLro2anuPxsZtUDzlbcY+c+tKEUR/RqI7ts/74sEEdmihFabh/DVmLZQbUw7yLcdtTvcYvWFmrP9XtOFJm/2jR1yypzKGl9ZzYhYEhtbbIG2T6nhH59/FwmQEgFCe543mc8zRlVtKKLEyCFAAOegHFraT+3dgFHPsyo/fAEGOrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JoVMkcRu; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789738818; c=relaxed/simple;
+	bh=zF3/ckz404Yi/c/ZZWGulZd1TWbyZZLDncJjcMPvwY0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p3KBP8TrJyCYAcdMQRLMQrFVf94ZC9/yLO4s6va24aX68lQsjdcbCU3+fr9tLqe9HBN6f06LpFTJ0njEnht4I6om/B0PJRg0cYTXiRSRJVq3gO7mt5wthUIPaKB20D31/ZknOpK5N35hK7l9ITqW1HTSSBVYiB6tJzNM4UVnC3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q6FokFMi; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JoVMkcRu"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91a931f66so4773505ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q6FokFMi"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so742867a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:40:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789738812; x=1790343612; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mkji8nuCM5AKChpvLLQvTuvYia3k12Q8J0swVpD2+e4=;
-        b=JoVMkcRurWjCXGDGbjQ93FchHt2HGpFrsGrUYpg4dX61asw9Ax3uGpBzwgdVhYM6wd
-         xnhbaB93wkh0h14GexW0qFqei9I9c1xJwXOLaj1F/hcB8X0HaeSHwmBTgUqB6DC+HQ2t
-         wa105KExZ3ChYDvdEk+BKefbKZt53wr8soGqjI7WJfb2XNoz9VifpnwlCLmCvDMy8ia6
-         B9vkbJ6ptq9LkukoctWJAZ7C2/CbsAnzo+Xj744qRgJdCkXTWS9ow1GJz3fZrTys+lwn
-         CS+zOoAfmPkA2Y6zLdicKwN6pVN5uMAqFseTW8ufI5rhGuwgC1VRjuA2Iv0XyS+iIofA
-         TRbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738812; x=1790343612;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789738816; x=1790343616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mkji8nuCM5AKChpvLLQvTuvYia3k12Q8J0swVpD2+e4=;
-        b=CDpYlb+FP2a5lCVwTUE/7/Ks5UJNW9JKTN4t5oOOrFAG05LTQVV1BkbGSW6SsOeL6O
-         Cb6ZWoWkdJ0LnF5L5QWSXwn/YO9Uy0RmyPmAwGMqujkiPJcdhNAmJ7uqt7sZ/buFTKCU
-         n9Ybb81gdzjJKBuRyV2eNmcvU3hOtYFDMPHI4bBBqu5fzHFwEXMSgEHuUtiH97qEam+k
-         eRJShzQ8yIaIihMwozdg5q2Af4AqArIj0ci9Amuk6Rzufd2+MUSP8OWVpOGLMNmn6O52
-         7TCfjyrKoI0J9yGVaUnxIoAJLhz6jwNFnGsosuFEjcQD4GvQqy7dX6habziYgd18XINR
-         WNOw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkqonOwQ5IrXySmO6tGyE1+zdI/bbq7hoX0SrbYrsQ/j7EOjqYBmzhVbOh32phAnHHy0orTF4Z7LdiT7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3n8H+9Rt5eMMQwd8uOt093nT+d6VRjOg6g5Tu9IMUZkyTP6PU
-	l22sL6Sfw7EBmQ4O4G2zaXYE9FO/PAyS57wWVmSSJsmIN9ZzdByOTBsd
-X-Gm-Gg: AYBFou3sP0BWd1rSi3mVLPPGubP8/CYsEdGqurwE0VtgsB6ZYZeVDnpLlfv8N0/o+VC
-	98mo1FCfT3HtzGm8Z08lxA54wVgKtUrqf54Z9Su9eIE3ZDfxHi1ZYeBn27QlmrXhgJ+RM0H2cLy
-	l1TMAX+fnE4i4kLTZh+c/ohWfXea23bsSsFUS6hMWXBCEL2m8kRV7Jbl46Hp0CZ3m5ApE9qV3l+
-	bHR2O/D2ktznXt+qCXwkqlWdmL8MFYfF+Vq8sFYzxYjmOZrWcIZxyddIspDla6oVtvnvsQQ/y7r
-	o/ZOHnp1KVaLfB1ZNfQPCWw2ty0Q2mtKS16qsHaEtE4a5DpU2JuBK7bwoXAfdo7sR4WuF7KUv+S
-	4ZvkL/9SA8rZOdJpF7QKHTak7NNadz1gM8WUsYnOChG/hAp7EB0lrH93tBNPh+4Jwn8w/v4crBc
-	zpy0NjBnzUij58TvVeU3grqVo/gW2gajEwqkS2Av/IXiLIaCZd6nACEkZyaNZRQ6YNvs11IQj2w
-	eGY2neYA2NgIeK8o2EZwSi47MwYX1HqFWC83aT/WbJuqGFzaFzxCSwdfv0=
-X-Received: by 2002:a17:903:2f06:b0:2dd:8e7d:90f7 with SMTP id d9443c01a7336-2ddb1adb4a8mr62664555ad.9.1789738811267;
-        Fri, 18 Sep 2026 06:40:11 -0700 (PDT)
-Received: from codespaces-2362ac.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net ([23.97.62.118])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb7524dc0sm8031585ad.14.2026.09.18.06.40.08
+        bh=cT4KjTlEVnVWRGXoeui+h6lXwGfVb9+9GPpMaARw3xA=;
+        b=Q6FokFMi5kZALJfEGr3D9lUieZG+RlywhU0gHtTbrKAzMwCqKC8sXQrol/KR8xqzax
+         GdWLUKP+USeZIsITUG4/nXNcUcRmgulAnm0n5LyRZ2+yInRDykKR19oEEsh0FkLYr40V
+         v6Rq80AH9v3vKh+/tk1DIckWI642jTxRYCQZAxv0Jk8VE++oBLPXlC/99110jyGUAZAW
+         6h1b0SQbuqGBMch+FSPnB37HSenOb1ciBcQYHWnfsMy+S0CGRRnAuJEEVNRKkBVDllv7
+         WxFKO6QPhyQK0m69Nv84Dy26WxaeyKV37hosMVTUqCD0gGPSnRSC/H/Bn3RmgeCsTh2h
+         oK9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789738816; x=1790343616;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cT4KjTlEVnVWRGXoeui+h6lXwGfVb9+9GPpMaARw3xA=;
+        b=KT9CEjSEF/kFidsunAZ4IDIvIlbqwBByx8sUEh09jusUSLZWafGvhf7yHdsBl2HWlb
+         hUrRYqtVqShtMNlZKRgp8iLiKHCFXX7gA+9axqSK28ZRu72nJY6/m3bAbBIMOJOfT5tY
+         cvzTJzQ/4KbFFCwcOkngrOVtf96qN3IRycMeaNlZHm+LwgH+hfWnDAEFi1YzJmW+GmKo
+         kbii08RaD/FPq2IE/1Dv/TV1ProKoAgWZGjX8sSjP0W9BpoO9F2nt+xeG4/w1fhcH+PY
+         VdLa6VZ6yCFSIfAzNGiFZb16AtlGTEjAb+man0+IA8Fy+T7UGbvs3zprjlY+/BsjKcCP
+         hn5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzguy1/0BngeX18rB0qQlx6/xWLXy8y7+Bc1I6GPR5oaNwobYaa/CYdVKJ+qXD6qTjSentjXuwMKPltmuk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mF9wifwr9WwT+M5MaKLhu0H6zIymbGuRmc+qmC3ooslW2ZHDfr
+	3oGdBZ50pxVtG0ch6E6dSYIPftoelcqJlcLMP+WKzLZ0XGk8ggddFcY1
+X-Gm-Gg: AYBFou2OlU8MSdtqRuNmArUJTB6W0NKXYQx8G9i/sWSs3mqVMWX/T/GQZKMDKvRSz7e
+	lQXspOIkcgigM+u/63D6QKrKJEKJVOcP63Grd3EzvNQAukE/bvAEXVcdK/5szJJG2Ekr0JRCt1n
+	sX3qizbopqb3lLpYIj9JgAmXp9lluS5NRXljJ29CrpAuA28UXd9CX2ZhHtPvR1mGVTsetxyo+Y7
+	qvT3K+K/rd0UarfpFfDek3chi6rRayP3uAUiv8NiV6YGlecmBtUttRfeKFQu2aor18IQ0D/JyU2
+	RUQHr3OakdJdbSuPCA5DJvTp6T51Q9HKpcLfc/ZXgDFUXUDfzh582PwQdiQfCXLoVwEbz4EvHAe
+	8bacTBXO8S/IEP1xE+AM6IHvyYHHqQHjdIgVkVgpbcON1uZmxiar8B+I+dXlnJ/pblnQBivUyQA
+	RXOZekd8CteP/x3CvhUQc2EleHVDNEbx9qM2skxOvsh/Yo3+yQ/VW7s80r/ajnoqXdbb24i8RDu
+	0jKz2zmJz9sSm9tusYlUj4gKfkhU0tMFJF4YurK1hGsS4Yb6q/x1Pml0ZC62y1HPm6WXJ4dZNAV
+	GPEvprZNmX6Ntg==
+X-Received: by 2002:a17:90a:e7c3:b0:39e:261:4e12 with SMTP id 98e67ed59e1d1-39e54eb2281mr5551712a91.23.1789738815772;
+        Fri, 18 Sep 2026 06:40:15 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13253792a91.9.2026.09.18.06.40.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:40:10 -0700 (PDT)
-From: Seongjae Jeong <jsjlee1020@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
+        Fri, 18 Sep 2026 06:40:15 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Seongjae Jeong <jsjlee1020@gmail.com>,
-	syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com
-Subject: [PATCH] f2fs: reject device aliasing without a multi-device configuration
-Date: Fri, 18 Sep 2026 13:39:22 +0000
-Message-ID: <20260918133922.8163-1-jsjlee1020@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 07/15] ASoC: mediatek: mt8192: Propagate errors in mt8192_afe_gpio_request()
+Date: Fri, 18 Sep 2026 20:39:03 +0700
+Message-ID: <20260918133912.133799-8-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918133912.133799-1-phucduc.bui@gmail.com>
+References: <20260918133912.133799-1-phucduc.bui@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,43 +92,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A malformed F2FS image can enable F2FS_FEATURE_DEVICE_ALIAS without
-providing a multi-device configuration. For a regular single-device
-filesystem, f2fs_scan_devices() returns without allocating sbi->devs.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-In this state, f2fs_dev_is_alloc_blocked() passes the device alias
-feature check and dereferences FDEV(0), resulting in a NULL pointer
-dereference during segment allocation.
+Currently, mt8192_afe_gpio_request() ignores the return values from
+mt8192_afe_gpio_select() and other helper functions. If configuring
+a GPIO state fails, the function still returns 0, hiding the failure
+from callers.
 
-Device aliasing requires at least one secondary device. Reject
-superblocks that enable device aliasing without entries for both the
-main and secondary devices in sanity_check_raw_super().
+Fix this by capturing and returning the error codes properly.
 
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Reported-by: syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ae5b8eb92ed40411ce16
-Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+Fixes: 125ab5d588b0 ("ASoC: mediatek: mt8192: add platform driver")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- fs/f2fs/super.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/mediatek/mt8192/mt8192-afe-gpio.c | 74 +++++++++++----------
+ 1 file changed, 40 insertions(+), 34 deletions(-)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 6a2f09c61dcd..f980f67cd199 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -4153,6 +4153,12 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
- 		return -EFSCORRUPTED;
+diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-gpio.c b/sound/soc/mediatek/mt8192/mt8192-afe-gpio.c
+index b993ca2dbd7c..ed6dfdf2589b 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-afe-gpio.c
++++ b/sound/soc/mediatek/mt8192/mt8192-afe-gpio.c
+@@ -208,98 +208,104 @@ static int mt8192_afe_gpio_adda_ch34_ul(struct device *dev, bool enable)
+ int mt8192_afe_gpio_request(struct device *dev, bool enable,
+ 			    int dai, int uplink)
+ {
++	int ret;
++
+ 	guard(mutex)(&gpio_request_mutex);
+ 	switch (dai) {
+ 	case MT8192_DAI_ADDA:
+ 		if (uplink)
+-			mt8192_afe_gpio_adda_ul(dev, enable);
++			ret = mt8192_afe_gpio_adda_ul(dev, enable);
+ 		else
+-			mt8192_afe_gpio_adda_dl(dev, enable);
++			ret = mt8192_afe_gpio_adda_dl(dev, enable);
+ 		break;
+ 	case MT8192_DAI_ADDA_CH34:
+ 		if (uplink)
+-			mt8192_afe_gpio_adda_ch34_ul(dev, enable);
++			ret = mt8192_afe_gpio_adda_ch34_ul(dev, enable);
+ 		else
+-			mt8192_afe_gpio_adda_ch34_dl(dev, enable);
++			ret = mt8192_afe_gpio_adda_ch34_dl(dev, enable);
+ 		break;
+ 	case MT8192_DAI_I2S_0:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S0_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S0_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S0_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S0_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_1:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S1_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S1_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S1_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S1_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_2:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S2_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S2_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S2_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S2_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_3:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S3_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S3_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S3_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S3_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_5:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S5_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S5_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S5_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S5_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_6:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S6_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S6_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S6_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S6_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_7:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S7_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S7_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S7_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S7_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_8:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S8_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S8_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S8_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S8_OFF);
+ 		break;
+ 	case MT8192_DAI_I2S_9:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S9_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S9_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S9_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_I2S9_OFF);
+ 		break;
+ 	case MT8192_DAI_TDM:
+ 		if (enable)
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_TDM_ON);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_TDM_ON);
+ 		else
+-			mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_TDM_OFF);
++			ret = mt8192_afe_gpio_select(dev, MT8192_AFE_GPIO_TDM_OFF);
+ 		break;
+ 	case MT8192_DAI_VOW:
+ 		if (enable) {
+-			mt8192_afe_gpio_select(dev,
+-					       MT8192_AFE_GPIO_VOW_CLK_ON);
+-			mt8192_afe_gpio_select(dev,
+-					       MT8192_AFE_GPIO_VOW_DAT_ON);
++			ret = mt8192_afe_gpio_select(dev,
++						     MT8192_AFE_GPIO_VOW_CLK_ON);
++			if (ret)
++				break;
++			ret = mt8192_afe_gpio_select(dev,
++						     MT8192_AFE_GPIO_VOW_DAT_ON);
+ 		} else {
+-			mt8192_afe_gpio_select(dev,
+-					       MT8192_AFE_GPIO_VOW_CLK_OFF);
+-			mt8192_afe_gpio_select(dev,
+-					       MT8192_AFE_GPIO_VOW_DAT_OFF);
++			ret = mt8192_afe_gpio_select(dev,
++						     MT8192_AFE_GPIO_VOW_CLK_OFF);
++			if (ret)
++				break;
++			ret = mt8192_afe_gpio_select(dev,
++						     MT8192_AFE_GPIO_VOW_DAT_OFF);
+ 		}
+ 		break;
+ 	default:
+ 		dev_warn(dev, "%s(), invalid dai %d\n", __func__, dai);
+-		return -EINVAL;
++		ret = -EINVAL;
  	}
  
-+	if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_DEVICE_ALIAS) &&
-+	    (!RDEV(0).path[0] || !RDEV(1).path[0])) {
-+		f2fs_info(sbi, "Device aliasing requires a multi-device configuration");
-+		return -EFSCORRUPTED;
-+	}
-+
- 	if (RDEV(0).path[0]) {
- 		block_t dev_seg_count = le32_to_cpu(RDEV(0).total_segments);
- 		int i = 1;
+-	return 0;
++	return ret;
+ }
+ EXPORT_SYMBOL(mt8192_afe_gpio_request);
 -- 
-2.53.0
+2.43.0
 
